@@ -37,6 +37,8 @@ interface Config {
     readonly USDA_DATA_DIR: string;
     readonly USDA_DATASET_VERSION: string | null;
     readonly USDA_SOURCE_RELEASE_DATE: string | null;
+    /** Optional path to meal analysis rotating tips JSON; default backend/data/meal_analysis_tips.json */
+    readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -162,6 +164,7 @@ const config: Config = {
     USDA_DATA_DIR: getEnvVar('USDA_DATA_DIR', join(process.cwd(), 'data', 'usda')),
     USDA_DATASET_VERSION: getEnvVarOptional('USDA_DATASET_VERSION'),
     USDA_SOURCE_RELEASE_DATE: getEnvVarOptional('USDA_SOURCE_RELEASE_DATE'),
+    MEAL_ANALYSIS_TIPS_PATH: getEnvVarOptional('MEAL_ANALYSIS_TIPS_PATH'),
 } as const;
 
 // Validate critical settings in production

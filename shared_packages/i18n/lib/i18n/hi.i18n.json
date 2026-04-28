@@ -3,40 +3,40 @@
   "flag": "🇮🇳",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "आपने बहुत अधिक अनुरोध किए हैं। कृपया कुछ क्षण के लिए प्रतीक्षा करें और फिर पुनः प्रयास करें।",
-    "networkError": "नेटवर्क त्रुटि। कृपया अपने इंटरनेट कनेक्शन की जाँच करें।",
-    "unknownError": "कुछ गलत हो गया है। कृपया बाद में पुनः प्रयास करें।",
-    "loadingProfileData": "प्रोफ़ाइल डेटा लोड करने में त्रुटि",
-    "somethingWentWrong": "कुछ गलत हुआ।",
-    "retry": "फिर से प्रयास करें"
+    "rateLimitExceeded": "आपने बहुत अधिक अनुरोध किए हैं। कृपया दोबारा प्रयास करने से पहले कुछ क्षण प्रतीक्षा करें।",
+    "networkError": "नेटवर्क त्रुटि। कृपया अपना इंटरनेट कनेक्शन जांचें।",
+    "unknownError": "कुछ गलत हो गया। कृपया बाद में पुन: प्रयास करें।",
+    "loadingProfileData": "प्रोफाइल डेटा लोड करने में त्रुटि",
+    "somethingWentWrong": "कुछ गलत हो गया।",
+    "retry": "पुनः प्रयास करें"
   },
   "onboarding": {
     "welcome": "{appLabel} में आपका स्वागत है",
-    "subtitle": "AI द्वारा समर्थित आपका व्यक्तिगत पोषण साथी",
+    "subtitle": "AI द्वारा संचालित आपका व्यक्तिगत पोषण साथी",
     "getStarted": "शुरू करें",
     "features": {
       "foodRecognition": {
-        "title": "स्मार्ट खाद्य पहचान",
-        "description": "एक फोटो लें और AI को अपने भोजन की पहचान करने दें"
+        "title": "स्मार्ट फूड रिकॉग्निशन",
+        "description": "फोटो लें और AI को आपका भोजन पहचानने दें"
       },
       "aiAnalysis": {
         "title": "AI विश्लेषण",
-        "description": "अपने विवरणों से तुरंत पोषण तथ्यों को प्राप्त करें"
+        "description": "अपनी विवरणों से तुरंत पोषण तथ्य पाएं"
       },
       "healthIntegration": {
-        "title": "स्वास्थ्य एकीकरण",
-        "description": "बेहतर अंतर्दृष्टियों के लिए Health Connect से जोड़ें"
+        "title": "हेल्थ इंटीग्रेशन",
+        "description": "बेहतर इनसाइट्स के लिए Health Connect से कनेक्ट करें"
       }
     },
     "gender": {
       "title": "आपका लिंग क्या है?",
-      "description": "लिंग हमें आपके बुनियादी चयापचय दर (BMR) की सटीक गणना करने में मदद करता है।",
+      "description": "लिंग हमें आपकी आधारभूत मेटाबोलिक दर (BMR) सटीक रूप से गणना करने में मदद करता है।",
       "next": "आगे"
     },
     "height": {
-      "title": "आपकी ऊँचाई क्या है?",
-      "description": "आपकी ऊँचाई हमें आपके BMI और ऊर्जा की जरूरतों की सटीक गणना करने में मदद करती है।",
-      "metric": "मीट्रिक",
+      "title": "आपकी ऊंचाई कितनी है?",
+      "description": "आपकी ऊंचाई हमें आपका BMI और ऊर्जा आवश्यकताएं सटीक रूप से गणना करने में मदद करती है।",
+      "metric": "मेट्रिक",
       "imperial": "इम्पीरियल",
       "next": "आगे"
     },
@@ -44,97 +44,97 @@
       "currentTitle": "आपका वर्तमान वजन क्या है?",
       "currentDescription": "आपका वर्तमान वजन आपके दैनिक लक्ष्यों को व्यक्तिगत बनाने के लिए आवश्यक है।",
       "targetTitle": "आपका लक्ष्य वजन क्या है?",
-      "targetDescription": "एक लक्ष्य वजन निर्धारित करने से हमें आपकी दीर्घकालिक योजना तय करने में मदद मिलती है।",
-      "metric": "मीट्रिक",
+      "targetDescription": "लक्ष्य वजन तय करने से हमें आपका दीर्घकालिक प्लान निर्धारित करने में मदद मिलती है।",
+      "metric": "मेट्रिक",
       "imperial": "इम्पीरियल",
       "next": "आगे"
     },
     "age": {
-      "title": "आपकी जन्मतिथि कब है?",
-      "description": "आपकी उम्र हमें आपके कैलोरी की जरूरतों की सटीक गणना करने में मदद करती है।",
+      "title": "आपका जन्मदिन कब है?",
+      "description": "आपकी उम्र हमें आपकी कैलोरी आवश्यकताओं की सटीक गणना करने में मदद करती है।",
       "next": "आगे"
     },
     "bmiScale": {
-      "underweight": "कम वजन",
+      "underweight": "कम",
       "healthy": "स्वस्थ",
-      "overweight": "अधिक वजन",
+      "overweight": "अधिक",
       "obese": "मोटापा",
       "categories": {
-        "underweight": "अल्पवज़न",
+        "underweight": "कम वजन",
         "healthyWeight": "स्वस्थ वजन",
         "overweight": "अधिक वजन",
         "obese": "मोटापा"
       },
       "messages": {
-        "underweight": "हम आपको पोषक-घने भोजन के साथ संतुलित वजन पाने के लिए एक स्वस्थ योजना बनाने में मदद कर सकते हैं।",
-        "healthy": "बढ़िया काम! आप स्वस्थ सीमा में हैं। हम आपकी जीवन शक्ति और ऊर्जा स्तर बनाए रखने में मदद करेंगे।",
-        "overweight": "{appLabel} आपके सफर को सरल बनाएगा, AI-संचालित ट्रैकिंग के साथ ताकि आप आराम से अपने लक्ष्य को हासिल कर सकें।",
-        "obese": "हम आपके स्वास्थ्य लक्ष्यों के लिए व्यक्तिगत मार्गदर्शन और स्थायी रणनीतियों के साथ समर्थन करने के लिए यहां हैं।"
+        "underweight": "हम पोषक तत्वों से भरपूर भोजन के साथ संतुलित वजन तक पहुंचने के लिए एक स्वस्थ योजना बनाने में आपकी मदद कर सकते हैं।",
+        "healthy": "बहुत बढ़िया! आप स्वस्थ श्रेणी में हैं। हम आपकी ऊर्जा और स्फूर्ति बनाए रखने में मदद करेंगे।",
+        "overweight": "{appLabel} AI-संचालित ट्रैकिंग के साथ आपकी यात्रा को सरल बनाएगा, ताकि आप आराम से अपने लक्ष्य तक पहुंचें।",
+        "obese": "हम आपके स्वास्थ्य लक्ष्यों के लिए व्यक्तिगत मार्गदर्शन और टिकाऊ रणनीतियों के साथ आपका साथ देने के लिए यहाँ हैं।"
       }
     },
     "weightGoal": {
       "title": "आपका लक्ष्य क्या है?",
-      "description": "उस लक्ष्य का चयन करें जो सबसे अच्छी तरह से यह वर्णन करता है कि आप क्या हासिल करना चाहते हैं"
+      "description": "वह लक्ष्य चुनें जो आपकी इच्छा को सबसे अच्छी तरह दर्शाता है"
     },
     "activityLevel": {
       "title": "आप कितने सक्रिय हैं?",
-      "description": "यह हमें आपकी दैनिक कैलोरी की जरूरतों की अधिक सही गणना करने में मदद करता है"
+      "description": "यह हमें आपकी दैनिक कैलोरी आवश्यकताओं की अधिक सटीक गणना करने में मदद करता है"
     },
     "healthConnect": {
       "title": "Health Connect से कनेक्ट करें",
-      "description": "बेहतर अंतर्दृष्टियों और स्वचालित कैलोरी ट्रैकिंग के लिए अपने स्वास्थ्य डेटा को सिंक करें",
+      "description": "बेहतर इनसाइट्स और स्वचालित कैलोरी ट्रैकिंग के लिए अपना स्वास्थ्य डेटा सिंक करें",
       "automaticTracking": {
         "title": "स्वचालित कैलोरी ट्रैकिंग",
-        "description": "अपने फिटनेस ऐप से जलाई गई कैलोरी को ट्रैक करें"
+        "description": "अपने फिटनेस ऐप्स से जली कैलोरी ट्रैक करें"
       },
       "progressInsights": {
-        "title": "प्रगति अंतर्दृष्टियाँ",
-        "description": "अपने स्वास्थ्य के रुझानों पर विस्तृत अंतर्दृष्टि प्राप्त करें"
+        "title": "प्रगति इनसाइट्स",
+        "description": "अपने स्वास्थ्य रुझानों पर विस्तृत इनसाइट्स पाएं"
       },
       "seamlessIntegration": {
-        "title": "संपूर्ण एकीकरण",
-        "description": "अपने पसंदीदा स्वास्थ्य ऐप्स से डेटा सिंक करें"
+        "title": "सीमलेस इंटीग्रेशन",
+        "description": "अपने पसंदीदा हेल्थ ऐप्स से डेटा सिंक करें"
       },
-      "connected": "Health Connect जुड़ा हुआ है",
-      "notConnected": "Health Connect जुड़ा नहीं है",
-      "setup": "Health Connect सेट करें",
-      "skipForNow": "अभी छोड़ें",
-      "statusConnected": "Health Connect जुड़ गया है।",
-      "statusSuccess": "Health Connect सफलतापूर्वक जुड़ गया है!",
-      "statusPermissionDenied": "अनुमति अस्वीकृत। कृपया अपने फोन की सेटिंग्स से {appLabel} के लिए Health Connect अनुमतियाँ सक्षम करें।",
-      "statusError": "Health Connect सेट करने में त्रुटि: {error}"
+      "connected": "Health Connect कनेक्टेड",
+      "notConnected": "Health Connect कनेक्टेड नहीं",
+      "setup": "Health Connect सेटअप करें",
+      "skipForNow": "फिलहाल छोड़ें",
+      "statusConnected": "Health Connect कनेक्टेड है।",
+      "statusSuccess": "Health Connect सफलतापूर्वक कनेक्ट हो गया!",
+      "statusPermissionDenied": "अनुमति अस्वीकृत। कृपया {appLabel} के लिए अपने फ़ोन सेटिंग्स में Health Connect अनुमतियां सक्षम करें।",
+      "statusError": "Health Connect सेटअप करते समय त्रुटि: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "आप अकेले नहीं हैं",
-        "genericMessage": "अध्ययन दर्शाते हैं कि लगातार ट्रैकिंग दीर्घकालिक सफलता का सबसे महत्वपूर्ण संकेतक है।",
-        "personalizedMessage": "{goal} चाहने वाले {age} वर्षीय {gender} के लिए लगातार ट्रैकिंग सफलता का सबसे महत्वपूर्ण संकेतक है।",
-        "closingMessage": "{appLabel} इसे मैन्युअल रूप से करने से 10 गुना आसान बना देता है।",
-        "getStartedTitle": "शुरू करने के लिए तैयार हैं?",
-        "tipPhoto": "तत्काल विश्लेषण के लिए अपने भोजन की फोटो लें",
-        "tipConsistency": "अर्थपूर्ण प्रगति देखने के लिए लगातार लॉग करें",
-        "tipProgress": "प्रेरित रहने के लिए रोज़ाना अपनी प्रगति को ट्रैक करें",
-        "button": "चलें",
+        "genericMessage": "अनुसंधान दिखाता है कि निरंतर ट्रैकिंग दीर्घकालिक सफलता का नंबर 1 संकेतक है।",
+        "personalizedMessage": "एक {age} वर्षीय {gender} जो {goal} का लक्ष्य रखता/रखती है, उसके लिए निरंतर ट्रैकिंग सफलता का नंबर 1 संकेतक है।",
+        "closingMessage": "{appLabel} इसे मैन्युअली करने की तुलना में 10 गुना आसान बना देता है।",
+        "getStartedTitle": "शुरू करने के लिए तैयार?",
+        "tipPhoto": "तुरंत विश्लेषण के लिए अपने भोजन की फोटो लें",
+        "tipConsistency": "अर्थपूर्ण प्रगति देखने के लिए नियमित रूप से लॉग करें",
+        "tipProgress": "प्रेरित रहने के लिए रोज़ अपनी प्रगति ट्रैक करें",
+        "button": "चलिए शुरू करें",
         "defaultGender": "व्यक्ति",
-        "defaultGoal": "आपका अधिक स्वस्थ रूप"
+        "defaultGoal": "और स्वस्थ आप"
       },
       "healthProfile": {
-        "title": "आपकी स्वास्थ्य प्रोफ़ाइल",
-        "bmiDescription": "आपकी मेट्रिक्स के आधार पर, आपका BMI {bmi} है।",
-        "finalizeDescription": "आपके अनुभव को अनुकूलित करने के लिए अपनी प्रोफ़ाइल को अंतिम रूप दें।",
+        "title": "आपकी स्वास्थ्य प्रोफाइल",
+        "bmiDescription": "आपके मेट्रिक्स के आधार पर, आपका BMI {bmi} है।",
+        "finalizeDescription": "आइए आपका प्रोफाइल फाइनल करें ताकि हम आपका अनुभव कस्टमाइज़ कर सकें।",
         "goalGain": "बढ़ाना",
-        "goalLose": "कम करना",
-        "goalReach": "अपने लक्ष्य तक पहुंचने के लिए, आपको {diff} {unit} {direction} चाहिए।",
-        "goalReached": "आप अपने लक्ष्य वजन पर हैं! हम इसे बनाए रखने में मदद करेंगे।",
-        "button": "चलें"
+        "goalLose": "घटाना",
+        "goalReach": "लक्ष्य तक पहुँचने के लिए, आपको {direction} {diff} {unit} करना होगा।",
+        "goalReached": "आप अपने लक्ष्य वजन पर हैं! हम इसे बनाए रखने में आपकी मदद करेंगे।",
+        "button": "चलिए शुरू करें"
       },
       "goalLifestyle": {
         "title": "शानदार शुरुआत!",
-        "description": "आपने {goalText} की ओर पहला कदम बढ़ाया है। चूंकि आप {activityText} हैं, {appLabel} आपके लक्ष्यों को आपके जीवनशैली के अनुसार समायोजित करेगा।",
+        "description": "आपने {goalText} की ओर पहला कदम उठाया है। चूंकि आप {activityText} हैं, {appLabel} आपके लक्ष्यों को आपकी जीवनशैली के अनुरूप समायोजित करेगा।",
         "personalizedTargets": "व्यक्तिगत कैलोरी लक्ष्य",
         "aiMealDetection": "AI-संचालित भोजन पहचान",
-        "macroBreakdowns": "विस्तृत मैक्रो-न्यूट्रिएंट विवरण",
-        "button": "चलें",
+        "macroBreakdowns": "विस्तृत मैक्रो-पोषक विभाजन",
+        "button": "चलिए शुरू करें",
         "defaultGoal": "आपके लक्ष्य",
         "defaultActivity": "सक्रिय"
       }
@@ -147,41 +147,41 @@
   "home": {
     "aiSummary": {
       "title": "आपका AI सारांश",
-      "logMore": "अगले कुछ दिनों में और भोजन दर्ज करें ताकि आपको व्यक्तिगत AI अंतर्दृष्टियाँ मिल सकें।",
+      "logMore": "अपने व्यक्तिगत AI इनसाइट्स पाने के लिए अगले कुछ दिनों में और भोजन लॉग करें।",
       "loading": "आपका सारांश लोड हो रहा है...",
-      "mealCount": "आपने {count} भोजन दर्ज किए",
+      "mealCount": "{count} भोजन लॉग किए गए",
       "macroBalanceScore": "संतुलन स्कोर {score}",
       "topFoods": "शीर्ष खाद्य पदार्थ",
-      "trendUp": "कैलोरीज़ बढ़ रही हैं",
-      "trendDown": "कैलोरीज़ घट रही हैं",
-      "trendSteady": "कैलोरीज़ स्थिर हैं",
+      "trendUp": "कैलोरी बढ़ रही हैं",
+      "trendDown": "कैलोरी घट रही हैं",
+      "trendSteady": "कैलोरी स्थिर हैं",
       "generatedAt": "अद्यतन {time}"
     },
     "dailyGoal": {
       "title": "अपना दैनिक लक्ष्य सेट करें",
       "titleSet": "आपका दैनिक लक्ष्य",
-      "description": "क्या आप अपनी स्वास्थ्य यात्रा शुरू करने के लिए तैयार हैं? अपनी प्रगति शुरू करने के लिए नीचे अपना दैनिक कैलोरी लक्ष्य सेट करें।",
-      "descriptionSet": "आपका दिशा-निर्देशक सेट हो गया है! यह आपका दैनिक कैलोरी लक्ष्य है जो आपको मार्गदर्शन करेगा।",
+      "description": "क्या आप अपनी वेलनेस यात्रा शुरू करने के लिए तैयार हैं? अपनी प्रगति शुरू करने के लिए नीचे अपना दैनिक कैलोरी लक्ष्य सेट करें।",
+      "descriptionSet": "आपका कंपास सेट हो गया है! यह आपका मार्गदर्शन करने के लिए दैनिक कैलोरी लक्ष्य है।",
       "yourGoal": "आपका लक्ष्य",
       "goal": "लक्ष्य",
       "dailyCalories": "दैनिक कैलोरी (kcal)",
-      "setGoal": "लक्ष्य सेट करें",
-      "intake": "इंटेक",
-      "burned": "जलाई गई",
-      "weightImpact": "वजन प्रभाव",
+      "setGoal": "लक्ष्य निर्धारित करें",
+      "intake": "सेवन",
+      "burned": "जली",
+      "weightImpact": "वजन पर प्रभाव",
       "estLoss": "अनुमानित कमी",
-      "estGain": "अनुमानित बढ़त",
+      "estGain": "अनुमानित बढ़ोतरी",
       "kcal": "kcal"
     },
     "dailySummary": {
       "title": "दैनिक सारांश",
       "calories": "कैलोरी",
-      "carbs": "कार्बोहाइड्रेट",
+      "carbs": "कार्ब्स",
       "protein": "प्रोटीन",
       "fat": "वसा",
       "fiber": "फाइबर",
       "grams": "ग्राम",
-      "chartAccessibilityLabel": "मैक्रो पोषक तत्व चार्ट"
+      "chartAccessibilityLabel": "मैक्रो चार्ट"
     },
     "intakeProgress": {
       "title": "आज का मैक्रो विभाजन",
@@ -190,96 +190,137 @@
     },
     "intakeHistory": {
       "title": "7-दिन का मैक्रो इतिहास",
-      "trendTitle": "आज का रुझान",
-      "peakHour": "शिखर: {hour}:00",
-      "noHistoryYet": "कोई इतिहास नहीं है",
-      "startLogging": "अपने भोजन को लॉग करना शुरू करें ताकि आप यहां अपने 7-दिन के मैक्रो रुझान देख सकें।"
+      "trendTitle": "आज की प्रवृत्ति",
+      "peakHour": "उच्चतम: {hour}:00",
+      "noHistoryYet": "अभी तक कोई इतिहास नहीं",
+      "startLogging": "यहां अपनी 7-दिन की मैक्रो प्रवृत्तियां देखने के लिए\nभोजन लॉग करना शुरू करें"
     },
     "mealLog": {
       "title": "लॉग किए गए भोजन",
-      "emptyMessage": "यहां अपने पिछले भोजन की तस्वीर लें।",
-      "noMealsToday": "आज के लिए कोई भोजन रिकॉर्ड नहीं है",
+      "emptyMessage": "यहां लॉग करने के लिए अपने पिछले भोजन की तस्वीर लें।",
+      "noMealsToday": "आज के लिए कोई भोजन रिकॉर्ड नहीं",
       "seeAllMeals": "सभी भोजन देखें"
     },
     "mealDescription": {
-      "title": "AI के साथ त्वरित जोड़",
-      "description": "अपने भोजन का वर्णन करें, और AI को विवरण संभालने दें।",
-      "hint": "जैसे, नाश्ते में मैंने बड़े बाउल में ओटमील और एक केले के टुकड़े के साथ एक स्कूप प्रोटीन लिया...",
+      "title": "AI से त्वरित जोड़",
+      "description": "अपने भोजन का वर्णन करें, और बाकी काम AI पर छोड़ दें।",
+      "hint": "उदा. नाश्ते में मैंने केले के स्लाइस और व्हे की एक स्कूप के साथ ओटमील का बड़ा कटोरा लिया ...",
       "analyzeMeal": "भोजन का विश्लेषण करें"
     },
     "favoriteMeals": {
       "title": "पसंदीदा भोजन",
-      "description": "अपने पसंदीदा भोजन में से एक को जल्दी से जोड़ें।",
+      "description": "अपने पसंदीदा भोजन में से किसी एक को जल्दी से जोड़ें।",
       "noFavorites": "अभी तक कोई पसंदीदा भोजन नहीं।",
-      "addFavoriteHint": "एक भोजन पर स्टार पर क्लिक करें ताकि उसे पसंदीदा के रूप में चिह्नित किया जा सके।",
+      "addFavoriteHint": "किसी भोजन पर स्टार क्लिक करके उसे पसंदीदा चिह्नित करें।",
       "seeAll": "सभी देखें",
       "add": "जोड़ें"
     },
     "mealSnap": {
-      "title": "फोटो लें और अपने भोजन को ट्रैक करें",
-      "description": "AI विश्लेषण के लिए अपने भोजन की एक तस्वीर लेने के लिए अपने कैमरे का उपयोग करें।",
+      "title": "तस्वीर लें और अपना भोजन ट्रैक करें",
+      "description": "AI विश्लेषण के लिए अपने भोजन की फोटो लें।",
       "openCamera": "कैमरा खोलें",
-      "gallery": "गैलरी"
+      "gallery": "गैलरी",
+      "compressingPhoto": "फोटो अनुकूलित की जा रही है…",
+      "uploadingPhoto": "फोटो अपलोड हो रही है…"
     },
     "connectHealth": {
       "title": "Health Connect से सिंक करें",
-      "description": "अपने पोषण डेटा को Health Connect के साथ सिंक करें",
-      "install": "स्थापित करें",
+      "description": "अपना पोषण डेटा Health Connect से सिंक करें",
+      "install": "इंस्टॉल करें",
       "connect": "कनेक्ट करें"
     }
   },
   "history": {
-    "noMeals": "कोई भोजन रिकॉर्ड नहीं है",
-    "emptyMessage": "यहां अपने पिछले भोजन की तस्वीर लें।",
+    "noMeals": "कोई भोजन रिकॉर्ड नहीं",
+    "emptyMessage": "यहां लॉग करने के लिए अपने पिछले भोजन की तस्वीर लें।",
     "today": "आज",
     "yesterday": "कल"
   },
   "meal": {
-    "ohNo": "हे भगवान!",
+    "ohNo": "अरे नहीं!",
     "delete": "हटाएं",
     "editMeal": "भोजन संपादित करें",
     "addMeal": "भोजन जोड़ें",
     "saveMeal": "भोजन सहेजें",
     "save": "सहेजें",
     "mealName": "भोजन का नाम",
-    "mealNameHint": "उदा., अंडे की भुर्ज़ा और टोस्ट",
+    "mealNameHint": "उदा., टोस्ट के साथ स्क्रैम्बल्ड अंडे",
     "mealQuantity": "भोजन की मात्रा",
-    "mealQuantityHint": "जैसे, 1 बाउल, 2 स्लाइस",
+    "mealQuantityHint": "उदा., 1 कटोरी, 2 स्लाइस",
     "timeOfMeal": "भोजन का समय",
-    "timeOfMealHint": "चुनें जब आपने भोजन किया",
-    "mealType": "भोजन का प्रकार",
+    "timeOfMealHint": "वह समय चुनें जब आपने भोजन किया था",
+    "mealType": "भोजन प्रकार",
     "nutrition": {
       "calories": "कैलोरी",
-      "carbs": "कार्बोहाइड्रेट (ग्राम)",
-      "protein": "प्रोटीन (ग्राम)",
-      "fat": "वसा (ग्राम)",
-      "fiber": "फाइबर (ग्राम)"
+      "carbs": "कार्ब्स (g)",
+      "protein": "प्रोटीन (g)",
+      "fat": "वसा (g)",
+      "fiber": "फाइबर (g)"
     },
     "deleteConfirmation": {
       "title": "भोजन हटाएं",
-      "message": "क्या आप वास्तव में इस भोजन प्रविष्टि को हटाना चाहते हैं?",
+      "message": "क्या आप वाकई इस भोजन प्रविष्टि को हटाना चाहते हैं?",
       "cancel": "रद्द करें",
       "delete": "हटाएं"
     },
-    "addedToLog": "भोजन को आपके लॉग में जोड़ा गया!",
-    "couldNotAdd": "भोजन जोड़ने में असफल: {error}",
+    "addedToLog": "भोजन आपके लॉग में जोड़ा गया!",
+    "couldNotAdd": "भोजन जोड़ नहीं सके: {error}",
     "savedSuccessfully": "भोजन सफलतापूर्वक जोड़ा गया!",
     "updatedSuccessfully": "भोजन सफलतापूर्वक अपडेट किया गया!",
-    "errorSaving": "भोजन सहेजने में त्रुटि: {error}",
-    "removedFromFavorites": "पसंदीदा से हटा दिया गया!",
+    "errorSaving": "भोजन सहेजते समय त्रुटि: {error}",
+    "removedFromFavorites": "पसंदीदा से हटाया गया!",
     "savedAsFavorite": "भोजन को पसंदीदा के रूप में सहेजा गया!",
-    "unfavorite": "पसंदीदा से हटाएँ",
-    "couldNotUpdateFavorite": "पसंदीदा को अपडेट करने में असफल: {error}",
-    "feedbackThanks": "आपकी प्रतिक्रिया के लिए धन्यवाद!",
-    "reanalysisUpdated": "आपकी प्रतिक्रिया के आधार पर इस भोजन का विश्लेषण अपडेट कर दिया गया है।",
-    "failedToProcess": "प्रक्रिया में विफल: {error}",
-    "failedToProcessImage": "चित्र को संसाधित करने में विफल: {error}",
-    "errorCompressingImage": "छवि संकुचन में त्रुटि: {error}",
-    "failedToSave": "डाटा सहेजने में विफल। कृपया फिर से प्रयास करें।",
+    "unfavorite": "पसंदीदा हटाएं",
+    "couldNotUpdateFavorite": "पसंदीदा अपडेट नहीं कर सके: {error}",
+    "feedbackThanks": "प्रतिक्रिया के लिए धन्यवाद!",
+    "reanalysisUpdated": "आपकी प्रतिक्रिया के आधार पर भोजन विश्लेषण अपडेट किया गया।",
+    "failedToProcess": "प्रोसेस करने में विफल: {error}",
+    "failedToProcessImage": "छवि प्रोसेस करने में विफल: {error}",
+    "errorCompressingImage": "छवि संपीड़ित करते समय त्रुटि: {error}",
+    "failedToSave": "डेटा सहेजने में विफल। कृपया पुन: प्रयास करें।",
     "skip": "छोड़ें",
     "variation": {
-      "question": "{total} में से प्रश्न {current}",
-      "noVariationsAvailable": "कोई विकल्प उपलब्ध नहीं है"
+      "question": "प्रश्न {total} में से {current}",
+      "noVariationsAvailable": "कोई वैरिएशन उपलब्ध नहीं"
+    },
+    "analysis": {
+      "title": "AI भोजन विश्लेषण",
+      "reassurance": "यह आमतौर पर कुछ सेकंड लेता है।",
+      "stepStarted": "शुरू किया जा रहा है…",
+      "stepDecomposition": "आपके भोजन को समझा जा रहा है…",
+      "stepIngredients": "सामग्री को पोषण डेटा से मिलाया जा रहा है…",
+      "stepUncertainty": "विश्वास स्तर जांचा जा रहा है…",
+      "stepMealTypeQuestion": "लगभग हो गया…",
+      "stepResult": "आपका परिणाम अंतिम रूप दिया जा रहा है…",
+      "stepError": "कुछ गलत हो गया",
+      "stepDefault": "आपके भोजन का विश्लेषण किया जा रहा है…",
+      "progressUnderstand": "समझें",
+      "progressMatch": "मिलान",
+      "progressCheck": "जांच",
+      "progressFinish": "समाप्त",
+      "ingredientsLine": "{count} सामग्री पहचानी गई",
+      "ingredientsPending": "सामग्री स्कैन की जा रही हैं…",
+      "mealPreviewDescription": "\"{text}\"",
+      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
+      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
+      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
+      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
+      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
+      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+    },
+    "feedback": {
+      "title": "What looks wrong?",
+      "subtitle": "Help us improve the analysis by selecting one or more issues.",
+      "tellUsMore": "Tell us more",
+      "describeIncorrect": "Describe what was incorrect",
+      "submit": "Submit",
+      "issueFoodIdentification": "Food identification",
+      "issuePortionSize": "Portion size",
+      "issueCalorieDistribution": "Calorie distribution",
+      "issueMacrosWrong": "Macros are wrong",
+      "issueMissingItems": "Missing items",
+      "issueExtraItems": "Extra items",
+      "issueOther": "Other"
     }
   },
   "favorites": {
@@ -287,77 +328,77 @@
     "empty": "अभी तक कोई पसंदीदा भोजन नहीं।",
     "searchPlaceholder": "पसंदीदा भोजन खोजें",
     "searchEmptyTitle": "आपकी खोज से कोई पसंदीदा नहीं मिला",
-    "searchEmptySubtitle": "किसी अलग भोजन के नाम, मात्रा, या भोजन के प्रकार को आज़माएँ।",
-    "sortLabel": "पसंदीदा छाँटें",
+    "searchEmptySubtitle": "कोई अलग भोजन नाम, मात्रा, या भोजन प्रकार आज़माएं।",
+    "sortLabel": "पसंदीदा क्रमबद्ध करें",
     "undo": "पूर्ववत करें",
-    "removed": "{name} को पसंदीदा सूची से हटा दिया गया",
+    "removed": "{name} को पसंदीदा से हटाया गया",
     "sortOptions": {
-      "recent": "हालिया",
+      "recent": "हाल के",
       "calories": "कैलोरी",
-      "alphabetical": "अक्षरानुक्रम"
+      "alphabetical": "A-Z"
     }
   },
   "profile": {
-    "title": "प्रोफ़ाइल",
-    "noProfileData": "कोई प्रोफ़ाइल डेटा नहीं मिला",
-    "yourProfile": "आपकी प्रोफ़ाइल",
-    "viewAndManage": "अपने स्वास्थ्य की जानकारी देखें और प्रबंधित करें",
+    "title": "प्रोफाइल",
+    "noProfileData": "कोई प्रोफाइल डेटा नहीं मिला",
+    "yourProfile": "आपकी प्रोफाइल",
+    "viewAndManage": "अपनी स्वास्थ्य जानकारी देखें और प्रबंधित करें",
     "sections": {
-      "profile": "प्रोफ़ाइल",
-      "basicInformation": "बुनियादी जानकारी",
-      "goalsAndActivity": "लक्ष्य और सक्रियता",
-      "calculatedValues": "गणना की गई मान"
+      "profile": "प्रोफाइल",
+      "basicInformation": "मूल जानकारी",
+      "goalsAndActivity": "लक्ष्य और गतिविधि",
+      "calculatedValues": "गणना किए गए मान"
     },
     "gender": "लिंग",
-    "height": "ऊँचाई",
+    "height": "ऊंचाई",
     "weight": "वजन",
-    "age": "उम्र",
+    "age": "आयु",
     "weightGoal": "वजन लक्ष्य",
     "targetWeight": "लक्ष्य वजन",
     "activityLevel": "गतिविधि स्तर",
-    "healthMetrics": "स्वास्थ्य मैट्रिक्स",
+    "healthMetrics": "स्वास्थ्य मीट्रिक्स",
     "notSet": "सेट नहीं",
-    "years": "साल",
-    "updatedSuccessfully": "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई!",
+    "years": "वर्ष",
+    "updatedSuccessfully": "प्रोफाइल सफलतापूर्वक अपडेट की गई!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "दैनिक लक्ष्य",
-      "calPerDay": "कैलोरी / दिन",
+      "calPerDay": "cal/day",
       "notAvailable": "उपलब्ध नहीं"
     }
   },
   "healthScore": {
-    "title": "स्वास्थ्य स्कोर",
+    "title": "हेल्थ स्कोर",
     "whyThisScore": "यह स्कोर क्यों?",
-    "note": "यह स्कोर पहचाने गए सामग्री और पोषण घनत्व पर आधारित AI अनुमान है। हमेशा आहार सलाह के लिए एक पेशेवर से संपर्क करें।",
+    "note": "यह स्कोर पहचानी गई सामग्रियों और पोषण घनत्व के आधार पर AI अनुमान है। आहार संबंधी सलाह के लिए हमेशा किसी पेशेवर से परामर्श लें।",
     "unhealthy": "अस्वस्थ",
     "healthy": "स्वस्थ",
     "neutral": "तटस्थ"
   },
   "editProfile": {
-    "title": "प्रोफ़ाइल संपादित करें",
+    "title": "प्रोफाइल संपादित करें",
     "sections": {
       "personalInformation": "व्यक्तिगत जानकारी",
       "physicalMeasurements": "शारीरिक माप",
-      "goalsAndActivity": "लक्ष्य और सक्रियता"
+      "goalsAndActivity": "लक्ष्य और गतिविधि"
     },
     "gender": "लिंग",
     "dateOfBirth": "जन्मतिथि",
-    "height": "ऊँचाई",
+    "height": "ऊंचाई",
     "weight": "वजन",
     "weightGoal": "वजन लक्ष्य",
     "activityLevel": "गतिविधि स्तर",
-    "metric": "मीट्रिक",
+    "metric": "मेट्रिक",
     "imperial": "इम्पीरियल",
     "unitCm": "सेमी",
     "unitFt": "फुट",
     "unitKg": "किग्रा",
     "unitLbs": "पाउंड",
-    "metricCm": "मीट्रिक (सेमी)",
+    "metricCm": "मेट्रिक (सेमी)",
     "imperialFtIn": "इम्पीरियल (फुट/इंच)",
-    "metricKg": "मीट्रिक (किलो)",
-    "imperialLbs": "इम्पीरियल (पाउंड)",
+    "metricKg": "मेट्रिक (किग्रा)",
+    "imperialLbs": "इम्पीरियल (lbs)",
     "genders": {
       "male": "पुरुष",
       "female": "महिला",
@@ -365,170 +406,170 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "वजन कम करना",
-        "description": "वजन घटाने के लिए कैलोरी कमी बनाएं"
+        "name": "वजन घटाएं",
+        "description": "कैलोरी डेफिसिट बनाकर वजन घटाएं"
       },
       "maintainWeight": {
         "name": "वजन बनाए रखें",
-        "description": "अपने वर्तमान वजन को बनाए रखें"
+        "description": "अपना वर्तमान वजन बनाए रखें"
       },
       "gainWeight": {
-        "name": "वजन बढ़ाना",
-        "description": "वजन बढ़ाने के लिए कैलोरी अधिशेष बनाएं"
+        "name": "वजन बढ़ाएं",
+        "description": "कैलोरी सरप्लस बनाकर वजन बढ़ाएं"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "कम सक्रिय",
-        "description": "थोड़ा बहुत भी व्यायाम नहीं"
+        "name": "बैठक-आधारित",
+        "description": "बहुत कम या कोई व्यायाम नहीं"
       },
       "lightlyActive": {
-        "name": "हल्का सक्रिय",
+        "name": "हल्के सक्रिय",
         "description": "हल्का व्यायाम 1-3 दिन/सप्ताह"
       },
       "moderatelyActive": {
-        "name": "मध्यम सक्रिय",
+        "name": "मध्यम रूप से सक्रिय",
         "description": "मध्यम व्यायाम 3-5 दिन/सप्ताह"
       },
       "veryActive": {
         "name": "बहुत सक्रिय",
-        "description": "कठोर व्यायाम 6-7 दिन/सप्ताह"
+        "description": "कठिन व्यायाम 6-7 दिन/सप्ताह"
       },
       "extremelyActive": {
-        "name": "अत्यधिक सक्रिय",
-        "description": "बहुत कठिन व्यायाम, शारीरिक नौकरी"
+        "name": "बेहद सक्रिय",
+        "description": "बहुत कठिन व्यायाम, शारीरिक कार्य"
       }
     }
   },
   "settings": {
     "title": "सेटिंग्स",
     "sections": {
-      "profile": "प्रोफ़ाइल",
+      "profile": "प्रोफाइल",
       "localization": "स्थानीयकरण",
-      "notifications": "सूचनाएँ",
+      "notifications": "सूचनाएं",
       "healthConnect": "Health Connect",
-      "supportAndLegal": "समर्थन और कानूनी",
+      "supportAndLegal": "सपोर्ट और कानूनी",
       "about": "हमारे बारे में",
       "dangerZone": "खतरे का क्षेत्र",
       "developer": "डेवलपर"
     },
     "editProfile": {
-      "title": "प्रोफ़ाइल संपादित करें",
+      "title": "प्रोफाइल संपादित करें",
       "subtitle": "अपनी व्यक्तिगत जानकारी अपडेट करें"
     },
     "language": {
       "title": "भाषा",
       "subtitle": "अपनी पसंदीदा भाषा चुनें",
-      "searchHint": "भाषाएँ खोजें...",
+      "searchHint": "भाषाएं खोजें...",
       "noResults": "कोई परिणाम नहीं मिला"
     },
     "heightUnit": {
-      "title": "ऊँचाई इकाई"
+      "title": "ऊंचाई इकाई"
     },
     "weightUnit": {
-      "title": "वजन यूनिट"
+      "title": "वजन इकाई"
     },
     "mealReminders": {
-      "title": "भोजन अनुस्मारक",
-      "subtitle": "समय पर सूचनाओं के साथ ट्रैक पर रहें"
+      "title": "भोजन रिमाइंडर",
+      "subtitle": "समय पर अलर्ट के साथ ट्रैक पर रहें"
     },
     "theme": {
       "title": "थीम",
-      "light": "हल्का",
-      "dark": "गहरा",
+      "light": "लाइट",
+      "dark": "डार्क",
       "system": "सिस्टम"
     },
     "sendFeedback": {
-      "title": "प्रतिक्रिया भेजें",
-      "subtitle": "{appLabel} में सुधार करने में मदद करें",
+      "title": "फीडबैक भेजें",
+      "subtitle": "{appLabel} को बेहतर बनाने में हमारी मदद करें",
       "emailSubject": "{appLabel} ऐप फीडबैक",
       "emailBodyPrefix": "कृपया नीचे अपनी प्रतिक्रिया दें:",
-      "appVersion": "ऐप संस्करण",
+      "appVersion": "ऐप वर्ज़न",
       "device": "डिवाइस",
-      "osVersion": "ओएस संस्करण",
+      "osVersion": "OS वर्ज़न",
       "uid": "UID"
     },
     "exportMealHistory": {
-      "title": "भोजन इतिहास निर्यात करें",
-      "subtitle": "लॉग किए गए भोजन का CSV साझा करें",
-      "shareText": "Calorify: आपका भोजन इतिहास निर्यात",
-      "failed": "भोजन इतिहास निर्यात नहीं हो सका: {error}"
+      "title": "भोजन इतिहास एक्सपोर्ट करें",
+      "subtitle": "अपने लॉग किए गए भोजन का CSV साझा करें",
+      "shareText": "आपका Calorify भोजन इतिहास निर्यात",
+      "failed": "भोजन इतिहास एक्सपोर्ट नहीं कर सके: {error}"
     },
     "clearAllData": {
-      "title": "सारे डेटा मिटाएं",
-      "subtitle": "आपकी सारी जानकारी को स्थायी रूप से हटा दें",
-      "confirmationTitle": "सारा डेटा मिटाएं?",
-      "confirmationMessage": "यह क्रिया पूर्ववत नहीं की जा सकती। आपके सभी लॉग किए गए भोजन, पसंदीदा और प्रोफ़ाइल सेटिंग्स स्थायी रूप से हटा दी जाएंगी।",
+      "title": "सारा डेटा साफ़ करें",
+      "subtitle": "अपनी सारी जानकारी अपरिवर्तनीय रूप से हटा दें",
+      "confirmationTitle": "सारा डेटा साफ़ करें?",
+      "confirmationMessage": "इस क्रिया को पूर्ववत नहीं किया जा सकता। आपके सभी लॉग किए गए भोजन, पसंदीदा, और प्रोफाइल सेटिंग्स स्थायी रूप से हटा दी जाएंगी।",
       "cancel": "रद्द करें",
-      "clearEverything": "सब कुछ मिटाएं"
+      "clearEverything": "सब कुछ साफ़ करें"
     },
     "debugOptions": {
-      "title": "डिबग विकल्प"
+      "title": "डीबग विकल्प"
     },
-    "developerModeEnabled": "डेवलपर मोड सक्षम किया गया है!",
+    "developerModeEnabled": "डेवलपर मोड सक्षम!",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "अनुमतियों को देखें और प्रबंधित करें",
+      "subtitle": "अनुमतियां देखें और प्रबंधित करें",
       "unavailable": {
-        "title": "Health Connect उपलब्ध नहीं है",
-        "description": "Health Connect इस डिवाइस पर उपलब्ध नहीं है। कृपया Play Store से Health Connect इंस्टॉल करें (Android 9+) या Android 14+ पर अपडेट करें।"
+        "title": "Health Connect उपलब्ध नहीं",
+        "description": "इस डिवाइस पर Health Connect उपलब्ध नहीं है। कृपया प्ले स्टोर (Android 9+) से Health Connect इंस्टॉल करें या Android 14+ पर अपडेट करें।"
       },
       "permissions": {
-        "title": "अनुमतियाँ",
-        "description": "Health Connect एकीकरण प्रदान करने के लिए निम्नलिखित अनुमतियों की आवश्यकता है:",
-        "granted": "अनुमत",
-        "notGranted": "अनुमत नहीं",
+        "title": "अनुमतियां",
+        "description": "Health Connect इंटीग्रेशन प्रदान करने के लिए निम्नलिखित अनुमतियों का अनुरोध किया जाता है:",
+        "granted": "अनुमति दी गई",
+        "notGranted": "अनुमति नहीं दी गई",
         "caloriesBurned": {
-          "title": "कुल कैलोरी बर्न पढ़ें",
-          "description": "ऐप को Health Connect से आपकी कुल कैलोरी बर्न पढ़ने की अनुमति देता है।",
-          "usage": "यह अनुमति आपको ऐप में आपके दैनिक कैलोरी बर्न को प्रदर्शित करने के लिए उपयोग की जाती है, जिससे आप दिनभर अपनी कुल ऊर्जा व्यय को समझ सकें।"
+          "title": "कुल जली कैलोरी पढ़ें",
+          "description": "ऐप को Health Connect से आपकी कुल जली कैलोरी पढ़ने की अनुमति देता है।",
+          "usage": "यह अनुमति ऐप में आपकी दैनिक कैलोरी बर्न दिखाने के लिए उपयोग की जाती है, जिससे आप पूरे दिन की ऊर्जा खपत समझ सकें।"
         },
         "nutritionRead": {
           "title": "पोषण डेटा पढ़ें",
           "description": "ऐप को Health Connect से पोषण डेटा पढ़ने की अनुमति देता है।",
-          "usage": "यह अनुमति ऐप को Health Connect से जुड़े अन्य ऐप्स द्वारा लॉग किए गए पोषण जानकारी को पढ़ने की अनुमति देती है, जिससे आपके पोषण का व्यापक दृश्य प्रदान किया जा सके।"
+          "usage": "यह अनुमति अन्य ऐप्स द्वारा Health Connect में लॉग किए गए पोषण डेटा को पढ़ने देती है, ताकि आपके पोषण का समग्र दृश्य मिल सके।"
         },
         "nutritionWrite": {
           "title": "पोषण डेटा लिखें",
           "description": "ऐप को Health Connect में पोषण डेटा लिखने की अनुमति देता है।",
-          "usage": "यह अनुमति ऐप को आपके लॉग किए गए भोजन को Health Connect के साथ समन्वयित करने की अनुमति देती है, जिससे आपका पोषण डेटा आप द्वारा उपयोग किए जाने वाले अन्य स्वास्थ्य और फिटनेस ऐप्स के लिए उपलब्ध होता है।"
+          "usage": "यह अनुमति आपके लॉग किए गए भोजन को Health Connect के साथ सिंक करने देती है, ताकि अन्य स्वास्थ्य और फिटनेस ऐप्स में आपका पोषण डेटा उपलब्ध रहे।"
         }
       },
-      "managePermissions": "अनुमतियाँ प्रबंधित करें",
+      "managePermissions": "अनुमतियां प्रबंधित करें",
       "openSettings": "Health Connect सेटिंग्स खोलें",
-      "requestPermissions": "अनुमतियाँ मांगें",
-      "permissionRequestCancelledOrFailed": "अनुमति अनुरोध रद्द हो गया या विफल रहा। कृपया फिर से प्रयास करें या Health Connect सेटिंग्स में मैन्युअली अनुमतियाँ दें।",
-      "permissionRequestFailed": "अनुमतियाँ मांगने में असमर्थ। कृपया फिर से प्रयास करें या Health Connect सेटिंग्स में मैन्युअली अनुमतियाँ दें।",
-      "requestingPermissions": "अनुमतियाँ माँगी जा रही हैं..."
+      "requestPermissions": "अनुमतियां अनुरोध करें",
+      "permissionRequestCancelledOrFailed": "अनुमति अनुरोध रद्द या विफल हो गया। कृपया पुन: प्रयास करें या Health Connect सेटिंग्स में मैन्युअल रूप से अनुमतियां दें।",
+      "permissionRequestFailed": "अनुमतियों का अनुरोध करने में असमर्थ। कृपया पुन: प्रयास करें या Health Connect सेटिंग्स में मैन्युअल रूप से अनुमतियां दें।",
+      "requestingPermissions": "अनुमतियों का अनुरोध किया जा रहा है..."
     },
     "about": {
       "title": "हमारे बारे में",
-      "tagline": "तेज़, मुफ्त, और गोपनीयता-प्रथम कैलोरी जागरूकता",
+      "tagline": "तेज़, मुफ़्त, और गोपनीयता-प्रथम कैलोरी जागरूकता",
       "ourStory": {
         "title": "हमारी कहानी",
-        "content": "{appLabel} का जन्म एक साधारण निराशा से हुआ: अधिकांश कैलोरी ट्रैकिंग ऐप या तो अत्यधिक जटिल हैं, निरंतर मैनुअल इनपुट की मांग करते हैं, उच्च सदस्यता शुल्क लेते हैं, या गोपनीयता से समझौता करते हैं।\n\nएक स्वतंत्र डेवलपर के रूप में, मैंने कुछ सरल और निष्पक्ष बनाने की इच्छा की — एक ऐसा ऐप जो एआई का उपयोग करके प्रयास को कम करता है, उपयोग में तेज और मुफ्त रहता है, और आपके स्वास्थ्य डेटा का सम्मान करता है।\n\n{appLabel} वह ऐप है जिसकी मुझे अपेक्षा थी: कोई खाते नहीं, कोई ट्रैकिंग नहीं, कोई विज्ञापन नहीं — बस स्पष्ट, व्यावहारिक अंतर्दृष्टियाँ और आपके स्वास्थ्य लक्ष्य।"
+        "content": "{appLabel} एक सरल निराशा से पैदा हुआ: ज्यादातर कैलोरी ट्रैकिंग ऐप्स या तो बहुत जटिल हैं, लगातार मैन्युअल इनपुट मांगते हैं, भारी सब्सक्रिप्शन फ़ीस लेते हैं, या गोपनीयता से समझौता करते हैं।\n\nएक सोलो डेवलपर के रूप में, मैंने कुछ सरल और न्यायसंगत बनाना चाहा — ऐसा ऐप जो AI का उपयोग करके मेहनत कम करे, तेज़ और मुफ़्त रहे, और आपके स्वास्थ्य डेटा का सम्मान करे।\n\n{appLabel} वह ऐप है जिसकी मुझे तलाश थी: न अकाउंट, न ट्रैकिंग, न विज्ञापन — बस साफ़, व्यावहारिक इनसाइट्स और आपके स्वास्थ्य लक्ष्य।"
       },
       "privacy": {
         "title": "आपकी गोपनीयता महत्वपूर्ण है",
-        "description": "गोपनीयता कोई उप-चिंता नहीं है — यह एक डिज़ाइन सिद्धांत है। इसका अर्थ प्रथा में यह है:",
-        "noAccounts": "कोई खाता आवश्यक नहीं\nतुरंत ऐप का उपयोग करें। कोई साइन-अप नहीं, कोई पहचान नहीं।",
-        "noTracking": "कोई व्यवहार ट्रैकिंग नहीं\n{appLabel} आपकी गतिविधियों की निगरानी नहीं करता, उपयोग प्रोफाइल नहीं बनाता, या आपको ऐप्स या वेबसाइटों में ट्रैक नहीं करता।",
-        "noAds": "डिजाइन द्वारा विज्ञापन-मुक्त\n{appLabel} बिना विज्ञापनों या डेटा-आधारित मुद्रीकरण के काम करने के लिए बनाया गया है।",
-        "noDataSelling": "कोई डेटा बिक्री नहीं\nआपका स्वास्थ्य डेटा कभी भी बेचा या तीसरे पक्ष के साथ साझा नहीं किया जाता।",
-        "localStorage": "स्थानीय-प्रथम भंडारण\nआपका डेटा आपके डिवाइस पर रहता है।",
+        "description": "गोपनीयता बाद में जोड़ी जाने वाली चीज़ नहीं — यह एक डिज़ाइन सिद्धांत है। व्यवहार में इसका मतलब है:",
+        "noAccounts": "कोई अकाउंट नहीं चाहिए\nऐप तुरंत उपयोग करें। न साइन-अप, न पहचान।",
+        "noTracking": "कोई व्यवहार ट्रैकिंग नहीं\n{appLabel} आपकी गतिविधि की निगरानी नहीं करता, उपयोग प्रोफाइल नहीं बनाता, या आपको ऐप्स/वेबसाइट्स पर ट्रैक नहीं करता।",
+        "noAds": "विज्ञापन-मुक्त डिज़ाइन\n{appLabel} विज्ञापनों या डेटा-चालित कमाई के बिना काम करने के लिए बनाया गया है।",
+        "noDataSelling": "कोई डेटा बेचना नहीं\nआपका स्वास्थ्य डेटा कभी तीसरे पक्ष को बेचा या साझा नहीं किया जाता।",
+        "localStorage": "लोकल-प्रथम स्टोरेज\nआपका डेटा आपके डिवाइस पर ही रहता है।",
         "privacyPolicy": "गोपनीयता नीति"
       },
       "developer": {
-        "title": "एक स्वतंत्र डेवलपर द्वारा बनाया गया",
-        "description": "{appLabel} एक अकेले स्वतंत्र डेवलपर द्वारा बनाया और बनाए रखा गया है, जो शांत, गोपनीयता-आदर स्वास्थ्य सॉफ़्टवेयर बनाने पर ध्यान केंद्रित करता है।\n\nफीडबैक व्यक्तिगत रूप से पढ़ा जाता है और ऐप की दिशा को आकार देने में मदद करता है।",
+        "title": "एक सोलो डेवलपर द्वारा बनाया गया",
+        "description": "{appLabel} एक सिंगल सोलो डेवलपर द्वारा बनाया और मेंटेन किया जाता है, जो शांत, गोपनीयता-सम्मानित हेल्थ सॉफ्टवेयर बनाने पर केंद्रित है।\n\nफीडबैक व्यक्तिगत रूप से पढ़ा जाता है और ऐप की दिशा तय करने में मदद करता है।",
         "website": "वेबसाइट",
         "email": "ईमेल"
       },
       "feedback": {
-        "title": "क्या आपको {appLabel} पसंद आ रहा है?",
-        "description": "आपका फीडबैक {appLabel} को हर किसी के लिए बेहतर बनाने में मदद करता है।",
+        "title": "{appLabel} पसंद आ रहा है?",
+        "description": "आपका फीडबैक {appLabel} को सभी के लिए बेहतर बनाने में मदद करता है।",
         "rateApp": "प्ले स्टोर पर रेट करें",
-        "sendFeedback": "प्रतिक्रिया भेजें"
+        "sendFeedback": "फीडबैक भेजें"
       }
     },
     "appInfo": {
@@ -537,119 +578,119 @@
     }
   },
   "reminders": {
-    "title": "अनुस्मारक के साथ ट्रैक पर रहें",
-    "description": "अपने भोजन लॉग करने और पोषण लक्ष्यों पर लगातार बने रहने के लिए हल्के-फुल्के रिमाइंडर पाएं",
-    "notificationsEnabled": "सूचनाएँ सक्षम हैं",
-    "notificationsDisabled": "सूचनाएँ असक्षम हैं",
-    "enabledSubtitle": "आपको भोजन अनुस्मारक प्राप्त होंगे",
-    "disabledSubtitle": "भोजन अनुस्मारक पाने के लिए सूचनाएं सक्रिय करें",
-    "mealReminders": "भोजन अनुस्मारक",
+    "title": "रिमाइंडर के साथ ट्रैक पर रहें",
+    "description": "अपने भोजन को लॉग करने और पोषण लक्ष्यों के साथ निरंतर बने रहने के लिए कोमल रिमाइंडर प्राप्त करें",
+    "notificationsEnabled": "सूचनाएं सक्षम",
+    "notificationsDisabled": "सूचनाएं अक्षम",
+    "enabledSubtitle": "आपको भोजन रिमाइंडर मिलेंगे",
+    "disabledSubtitle": "भोजन रिमाइंडर पाने के लिए सूचनाएं सक्षम करें",
+    "mealReminders": "भोजन रिमाइंडर",
     "breakfast": "नाश्ता",
     "lunch": "दोपहर का भोजन",
-    "dinner": "रात्रि भोजन",
-    "snack": "हल्का नाश्ता",
+    "dinner": "रात का खाना",
+    "snack": "स्नैक",
     "unknown": "अज्ञात",
     "change": "बदलें",
-    "enableNotifications": "सूचनाएँ सक्षम करें",
-    "skipForNow": "अभी छोड़ें",
-    "saveChanges": "परिवर्तनों को सहेजें",
-    "enabledSuccessfully": "सूचनाएँ सफलतापूर्वक सक्षम की गईं!",
+    "enableNotifications": "सूचनाएं सक्षम करें",
+    "skipForNow": "फिलहाल छोड़ें",
+    "saveChanges": "परिवर्तन सहेजें",
+    "enabledSuccessfully": "सूचनाएं सफलतापूर्वक सक्षम की गईं!",
     "permissionDenied": "सूचना अनुमति अस्वीकृत",
-    "errorEnabling": "सूचनाओं को सक्षम करने में त्रुटि: {error}",
-    "errorCompletingSetup": "सेटअप पूरा करने में त्रुटि: {error}"
+    "errorEnabling": "सूचनाएं सक्षम करते समय त्रुटि: {error}",
+    "errorCompletingSetup": "सेटअप पूरा करते समय त्रुटि: {error}"
   },
   "notifications": {
     "breakfast": {
       "title": "नाश्ते का समय! 🍳",
-      "body": "अपने नाश्ते को लॉग करना न भूलें"
+      "body": "अपना नाश्ता लॉग करना न भूलें"
     },
     "lunch": {
-      "title": "दोपहर का भोजन! 🥗",
-      "body": "अपने दोपहर के भोजन को लॉग करने का समय"
+      "title": "लंच का समय! 🥗",
+      "body": "अपना लंच लॉग करने का समय"
     },
     "dinner": {
-      "title": "रात्रि भोजन का समय! 🍽️",
-      "body": "अपने रात्रि भोजन को लॉग करना न भूलें"
+      "title": "डिनर का समय! 🍽️",
+      "body": "अपना डिनर लॉग करना न भूलें"
     },
     "snack": {
-      "title": "नाश्ते का समय! 🍎",
-      "body": "एक स्वस्थ नाश्ते का समय"
+      "title": "स्नैक टाइम! 🍎",
+      "body": "एक हेल्दी स्नैक का समय"
     },
     "test": {
-      "title": "परीक्षण सूचना"
+      "title": "परीक्षण अधिसूचना"
     }
   },
   "login": {
-    "title": "लॉगिन करें",
-    "signInWithGoogle": "Google के साथ साइन इन करें",
-    "signInFailed": "Google Sign-In असफल हुआ या रद्द कर दिया गया।"
+    "title": "लॉगिन",
+    "signInWithGoogle": "Google से साइन इन करें",
+    "signInFailed": "Google साइन-इन विफल रहा या रद्द कर दिया गया।"
   },
   "disclaimer": {
     "pleaseNote": "कृपया ध्यान दें",
     "snap": {
-      "description": "{appLabel} अनुमानित पोषण संबंधी जानकारी प्रदान करता है। सटीकता आपके इनपुट और खाद्य प्रकारों पर निर्भर करती है। इसे एक मार्गदर्शक के रूप में उपयोग करें, न कि एक निश्चित स्रोत के रूप में। व्यक्तिगत आहार सलाह के लिए पेशेवर से परामर्श करें।",
+      "description": "{appLabel} अनुमानित पोषण जानकारी प्रदान करता है। सटीकता आपके इनपुट और भोजन के बदलावों पर निर्भर करती है। इसे मार्गदर्शन के रूप में उपयोग करें, अंतिम स्रोत के रूप में नहीं। व्यक्तिगत आहार सलाह के लिए किसी पेशेवर से परामर्श लें।",
       "portionSize": {
-        "title": "भाग का आकार",
-        "description": "अनुमानों की सटीकता आपके हिस्से के आकार के सही आकलन पर बहुत अधिक निर्भर करती है।"
+        "title": "पोर्टियन साइज़",
+        "description": "अनुमानों की सटीकता आपके द्वारा निर्धारित पोर्टियन साइज़ की शुद्धता पर काफी निर्भर करती है।"
       },
       "preparationMethods": {
-        "title": "पकाने के तरीके",
-        "description": "खाने के पकाने के तरीके पोषण संबंधी सामग्री को महत्वपूर्ण रूप से बदल सकते हैं। {appLabel} के अनुमान हमेशा इन भिन्नताओं पर विचार नहीं कर सकते।"
+        "title": "तैयारी के तरीके",
+        "description": "कुकिंग तरीके भोजन के पोषण को काफी बदल सकते हैं। {appLabel} के अनुमान हमेशा इन भिन्नताओं का हिसाब नहीं कर पाते।"
       },
       "ingredients": {
         "title": "सामग्री",
-        "description": "जटिल व्यंजन जिनमें कई छिपी हुई सामग्री होती हैं उनमें कम सटीकता के अनुमान हो सकते हैं।"
+        "description": "कई छिपी सामग्रियों वाले जटिल व्यंजन कम सटीक अनुमानों का कारण बन सकते हैं।"
       },
       "databaseLimitations": {
-        "title": "डेटाबेस सीमाएँ",
-        "description": "{appLabel} का खाद्य डेटाबेस विस्तृत है लेकिन इसमें प्रत्येक खाद्य पदार्थ या भिन्नता शामिल नहीं हो सकती।"
+        "title": "डेटाबेस सीमाएं",
+        "description": "{appLabel} का फूड डेटाबेस व्यापक है, लेकिन इसमें हर एक भोजन आइटम या वैरिएशन शामिल होना जरूरी नहीं।"
       }
     },
     "weightEstimate": {
       "title": "वजन अनुमान के बारे में",
-      "description": "अनुमानित वजन परिवर्तन कैलोरी-इन बनाम कैलोरी-आउट के सरल मॉडल पर आधारित एक सैद्धांतिक अनुमान है। इसका उद्देश्य केवल प्रेरक मार्गदर्शन प्रदान करना है, न कि आपके वास्तविक वजन की भविष्यवाणी करना।",
+      "description": "प्रोजेक्टेड वजन परिवर्तन एक सैद्धांतिक अनुमान है जो सरल कैलोरी-इन बनाम कैलोरी-आउट मॉडल पर आधारित है। यह केवल प्रेरक मार्गदर्शन के लिए है, आपके वास्तविक वजन की भविष्यवाणी के रूप में नहीं।",
       "calorieAccuracy": {
         "title": "कैलोरी सटीकता",
-        "description": "यह अनुमान केवल आपकी ट्रैक की गई कैलोरी सेवन और व्यय के रूप में सटीक है। गलत लॉगिंग का परिणाम गलत प्रक्षेपण में होगा।"
+        "description": "यह अनुमान आपके द्वारा ट्रैक किए गए कैलोरी सेवन और खर्च की सटीकता जितना ही सटीक है। गलत लॉगिंग गलत प्रोजेक्शन देगी।"
       },
       "biologicalFactors": {
-        "title": "जीवविज्ञान संबंधी कारक",
-        "description": "वास्तविक वजन घटाने/बढ़ाने पर चयापचय, हार्मोन, नींद, तनाव, जलयोजन और अन्य व्यक्तिगत कारकों का प्रभाव होता है, जिसे {appLabel} माप नहीं सकता।"
+        "title": "जैविक कारक",
+        "description": "वास्तविक वजन घटाव/बढ़ाव मेटाबोलिज्म, हार्मोन, नींद, तनाव, हाइड्रेशन, और अन्य व्यक्तिगत कारकों से प्रभावित होता है जिसे {appLabel} माप नहीं सकता।"
       },
       "waterWeight": {
-        "title": "जल का वजन और उतार-चढ़ाव",
-        "description": "सामान्य दैनिक वजन जल संरक्षण, पाचन और समय के कारण महत्वपूर्ण रूप से बदल सकता है। अनुमान इन दैनिक परिवर्तनों को ध्यान में नहीं रखता।"
+        "title": "जल वजन और उतार-चढ़ाव",
+        "description": "सामान्य दैनिक वजन जल प्रतिधारण, पाचन, और समय के कारण काफी उतार-चढ़ाव कर सकता है। यह अनुमान इन दैनिक परिवर्तनों का हिसाब नहीं रखता।"
       },
       "professionalGuidance": {
         "title": "पेशेवर मार्गदर्शन",
-        "description": "इस अनुमान का उपयोग चिकित्सा निर्णय लेने के लिए न करें। हमेशा व्यक्तिगत वजन प्रबंधन सलाह के लिए एक स्वास्थ्य देखभाल पेशेवर या पंजीकृत आहार विशेषज्ञ से परामर्श करें।"
+        "description": "कृपया किसी चिकित्सीय निर्णय के लिए इस अनुमान का उपयोग न करें। व्यक्तिगत वजन प्रबंधन सलाह के लिए हमेशा किसी स्वास्थ्य पेशेवर या पंजीकृत डायटीशियन से परामर्श लें।"
       }
     },
     "healthMetrics": {
-      "description": "ये मीट्रिक आपके शरीर की ऊर्जा की जरूरतों को समझने में मदद करते हैं और आपके पोषण लक्ष्यों का मार्गदर्शन करते हैं।",
+      "description": "ये मीट्रिक आपको आपके शरीर की ऊर्जा आवश्यकताओं को समझने और आपके पोषण लक्ष्यों का मार्गदर्शन करने में मदद करते हैं।",
       "bmr": {
-        "title": "बीएमआर",
-        "description": "आधार चयापचय दर (बीएमआर) वह संख्या है, जो आपके शरीर आराम करते समय बुनियादी फंक्शंस जैसे कि श्वसन और संचार को बनाए रखने के लिए जलती है। बीएमआर आपकी आयु, लिंग, ऊँचाई और वजन पर निर्भर करता है। एक उच्च बीएमआर का मतलब है कि आपका शरीर स्वाभाविक रूप से आराम करते समय अधिक कैलोरी जलाता है, अक्सर अधिक मांसपेशी द्रव्यमान, युवा आयु, या पुरुष होने के कारण। एक निम्न बीएमआर आमतौर पर कम मांसपेशी द्रव्यमान, अधिक आयु, या महिला होने का संकेत देता है।"
+        "title": "BMR",
+        "description": "बेसल मेटाबोलिक रेट (BMR) वह कैलोरी होती है जो आपका शरीर आराम की अवस्था में, सांस लेने और रक्त संचार जैसे बुनियादी कार्यों को बनाए रखने के लिए जलाता है। BMR आपकी उम्र, लिंग, ऊंचाई और वजन पर निर्भर करता है। उच्च BMR का मतलब है कि आपका शरीर स्वाभाविक रूप से अधिक कैलोरी जलाता है, जो अक्सर अधिक मांसपेशियों, कम उम्र, या पुरुष होने के कारण होता है। कम BMR आमतौर पर कम मांसपेशियों, अधिक उम्र, या महिला होने को दर्शाता है।"
       },
       "tdee": {
-        "title": "टीडीईई",
-        "description": "कुल दैनिक ऊर्जा व्यय (टीडीईई) वह कुल कैलोरी है जो आप प्रति दिन जलाते हैं, जिसमें आपकी बीएमआर और शारीरिक गतिविधि और दैनिक गति से प्राप्त कैलोरी शामिल हैं। टीडीईई आपकी बीएमआर और गतिविधि स्तर पर निर्भर करता है। एक उच्च टीडीईई का मतलब है कि आप कुल मिलाकर अधिक कैलोरी जलाते हैं, आमतौर पर अधिक सक्रिय होने या उच्च बीएमआर होने के कारण। एक निम्न टीडीईई कम दैनिक गतिविधि या निम्न बीएमआर का संकेत देता है।"
+        "title": "TDEE",
+        "description": "टोटल डेली एनर्जी एक्सपेंडिचर (TDEE) वह कुल कैलोरी है जो आप एक दिन में जलाते हैं, जिसमें आपका BMR तथा शारीरिक गतिविधि और दैनिक मूवमेंट से जली कैलोरी शामिल हैं। TDEE आपके BMR और गतिविधि स्तर पर निर्भर करता है। उच्च TDEE का मतलब आप कुल मिलाकर अधिक कैलोरी जलाते हैं, आमतौर पर अधिक सक्रिय होने या उच्च BMR के कारण। कम TDEE कम दैनिक गतिविधि या कम BMR का संकेत देता है।"
       },
       "dailyGoal": {
         "title": "दैनिक लक्ष्य",
-        "description": "दैनिक लक्ष्य आपके टीडीईई और वजन लक्ष्य के आधार पर आपकी अनुशंसित दैनिक कैलोरी की मात्रा है। वजन घटाने के लिए, आप अपने टीडीईई से कम कैलोरी का सेवन करते हैं। वजन बनाए रखने के लिए, आप अपने टीडीईई के बराबर खाते हैं। वजन बढ़ाने के लिए, आप अपने टीडीईई से अधिक कैलोरी का सेवन करते हैं। यह आपको एक स्वस्थ गति से आपके इच्छित वजन परिवर्तन को प्राप्त करने में मदद करता है।"
+        "description": "दैनिक लक्ष्य आपका अनुशंसित दैनिक कैलोरी सेवन है जो आपके TDEE और वजन लक्ष्य पर आधारित है। वजन घटाने के लिए, आप TDEE से कम कैलोरी लेते हैं। वजन बनाए रखने के लिए, आप TDEE के बराबर लेते हैं। वजन बढ़ाने के लिए, आप TDEE से अधिक लेते हैं। यह आपको स्वस्थ गति से अपने वांछित वजन परिवर्तन को प्राप्त करने में मदद करता है।"
       }
     },
     "calorieExpenditure": {
-      "title": "कैलोरी खर्च का अनुमान",
-      "description": "जब Health Connect डेटा उपलब्ध नहीं होता है, तो हम आज जलायी गई कैलोरी का अनुमान आपके बेसल मेटाबोलिक रेट (BMR) और कुल दैनिक ऊर्जा व्यय (TDEE) के आधार पर लगाते हैं और इसे दिन के बीत चुके हिस्से के अनुसार समायोजित करते हैं।",
+      "title": "कैलोरी खर्च अनुमान",
+      "description": "जब Health Connect डेटा उपलब्ध नहीं होता, तो हम आज की जली कैलोरी का अनुमान आपके बेसल मेटाबोलिक रेट (BMR) और गतिविधि स्तर (TDEE) के आधार पर, बीते हुए दिन के हिस्से के अनुसार स्केल करके लगाते हैं।",
       "howCalculated": {
-        "title": "अनुमान कैसे निकाला जाता है",
-        "description": "हम आपकी प्रोफ़ाइल के आधार पर TDEE (कुल दैनिक ऊर्जा व्यय) निकालते हैं और उसे दिन के बीत चुके भाग (घंटे + मिनट) / 24 से गुणा करके अब तक जली हुई कैलोरी का अनुमान लगाते हैं।"
+        "title": "अनुमान कैसे लगाया जाता है",
+        "description": "हम आपके प्रोफाइल के आधार पर TDEE की गणना करते हैं और इसे अब तक बीते दिन के अंश (घंटे + मिनट) / 24 से गुणा करते हैं ताकि अभी तक जली कैलोरी का अनुमान लगाया जा सके।"
       },
       "professionalGuidance": {
         "title": "पेशेवर मार्गदर्शन",
-        "description": "इस अनुमान का उपयोग चिकित्सीय निर्णय लेने के लिए न करें। व्यक्तिगत वजन प्रबंधन सलाह के लिए हमेशा किसी स्वास्थ्य पेशेवर या पंजीकृत आहार विशेषज्ञ से परामर्श करें।"
+        "description": "कृपया किसी चिकित्सीय निर्णय के लिए इस अनुमान का उपयोग न करें। व्यक्तिगत वजन प्रबंधन सलाह के लिए हमेशा किसी स्वास्थ्य पेशेवर या पंजीकृत डायटीशियन से परामर्श लें।"
       }
     }
   },
@@ -658,24 +699,24 @@
     "continue": "जारी रखें"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "क्या आपको {appLabel} पसंद आ रहा है?",
-    "yes": "हाँ, मुझे यह पसंद आ रहा है",
+    "enjoyingQuestion": "{appLabel} पसंद आ रहा है?",
+    "yes": "हाँ, मुझे पसंद आ रहा है",
     "no": "ज़्यादा नहीं",
-    "rateStepHeading": "Play Store पर रेटिंग दें",
-    "emailStepHeading": "ईमेल के जरिए प्रतिक्रिया भेजें",
-    "soloDevMessage": "एक त्वरित रेटिंग दूसरों को {appLabel} खोजने में मदद करती है और विकास को आगे बढ़ाने में सहायक होती है। क्या आप कृपया एक पल निकालकर रेटिंग छोड़ेंगे?",
-    "shareFeedbackViaEmail": "आपकी प्रतिक्रिया आने वाले बदलावों को आकार देती है — हम हर संदेश पढ़ते हैं। क्या आप अपने विचार ईमेल के जरिए साझा करना चाहेंगे?",
-    "rateCta": "Play Store पर रेटिंग दें",
+    "rateStepHeading": "प्ले स्टोर पर रेट करें",
+    "emailStepHeading": "ईमेल से फीडबैक भेजें",
+    "soloDevMessage": "एक त्वरित रेटिंग दूसरों को {appLabel} खोजने में मदद करती है और विकास जारी रखती है। क्या आप एक क्षण निकालकर रेटिंग देंगे?",
+    "shareFeedbackViaEmail": "आपकी प्रतिक्रिया अगला कदम तय करती है — हम हर संदेश पढ़ते हैं। क्या आप ईमेल से अपने विचार साझा करना चाहेंगे?",
+    "rateCta": "प्ले स्टोर पर रेट करें",
     "maybeLater": "शायद बाद में",
-    "sendFeedback": "प्रतिक्रिया भेजें",
+    "sendFeedback": "फीडबैक भेजें",
     "noThanks": "नहीं, धन्यवाद",
-    "aboutUsDescription": "छोटी टीम द्वारा ध्यानपूर्वक तैयार किया गया। हम आपकी गोपनीयता, सरलता, और आपको बेहतर खाने की आदतें विकसित करने में मदद करने के लिए समर्पित हैं।",
-    "aboutUsMentionBeforeLink": "जानना चाहेंगे कि {appLabel} के पीछे कौन है? देखें ",
+    "aboutUsDescription": "एक छोटी टीम द्वारा देखभाल के साथ बनाया गया। हम गोपनीयता, सादगी, और बेहतर खान-पान की आदतें बनाने में आपकी मदद पर केंद्रित हैं।",
+    "aboutUsMentionBeforeLink": "जानना चाहते हैं कि {appLabel} के पीछे कौन है? देखें ",
     "aboutUsLinkLabel": "हमारे बारे में",
-    "thankYouMessage": "धन्यवाद! हम फिर कभी पूछेंगे।"
+    "thankYouMessage": "धन्यवाद! हम आपसे फिर किसी और समय पूछेंगे।"
   },
   "health": {
-    "syncFailed": "Health Connect से सिंक नहीं हो पाया",
-    "mealSynced": "भोजन Health Connect के साथ सिंक किया गया"
+    "syncFailed": "Health Connect के साथ सिंक नहीं हो सका",
+    "mealSynced": "भोजन Health Connect के साथ सिंक हो गया"
   }
 }

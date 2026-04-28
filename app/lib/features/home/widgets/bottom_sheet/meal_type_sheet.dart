@@ -1,16 +1,15 @@
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/core/models/meal_analysis_v2.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/shared_widgets/app_outlined_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
-import 'package:models/models.dart';
 
 Future<MealType?> showV2MealTypeSheet({
   required BuildContext context,
-  required V2MealTypeQuestion question,
+  required PipelineMealTypeQuestionData question,
 }) {
   return showModalBottomSheet<MealType>(
     context: context,
@@ -25,7 +24,7 @@ Future<MealType?> showV2MealTypeSheet({
 class _V2MealTypeSheet extends StatefulWidget {
   const _V2MealTypeSheet({required this.question});
 
-  final V2MealTypeQuestion question;
+  final PipelineMealTypeQuestionData question;
 
   @override
   State<_V2MealTypeSheet> createState() => _V2MealTypeSheetState();
@@ -33,11 +32,22 @@ class _V2MealTypeSheet extends StatefulWidget {
 
 class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
   MealType? _selectedMealType;
+  late final List<MealType> _optionMealTypes;
 
   @override
   void initState() {
     super.initState();
-    _selectedMealType = widget.question.inferredMealType;
+    _optionMealTypes = widget.question.options
+        .where((t) => t != MealType.UNKNOWN)
+        .toList();
+
+    if (widget.question.hasInferredMealType() &&
+        widget.question.inferredMealType != MealType.UNKNOWN) {
+      _selectedMealType = widget.question.inferredMealType;
+    } else {
+      _selectedMealType =
+          _optionMealTypes.isNotEmpty ? _optionMealTypes.first : null;
+    }
   }
 
   @override
@@ -69,7 +79,7 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: widget.question.options.map((mealType) {
+            children: _optionMealTypes.map((mealType) {
               return ChoiceChip(
                 label: Text(mealType.displayName),
                 selected: _selectedMealType == mealType,

@@ -3,223 +3,225 @@
   "flag": "🇻🇳",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Bạn đã thực hiện quá nhiều yêu cầu. Vui lòng chờ một lát rồi thử lại.",
-    "networkError": "Lỗi mạng. Vui lòng kiểm tra kết nối Internet của bạn.",
-    "unknownError": "Đã xảy ra lỗi. Vui lòng thử lại sau.",
-    "loadingProfileData": "Lỗi khi tải dữ liệu hồ sơ",
-    "somethingWentWrong": "Đã xảy ra lỗi.",
+    "rateLimitExceeded": "Bạn đã gửi quá nhiều yêu cầu. Vui lòng đợi một lát trước khi thử lại.",
+    "networkError": "Lỗi mạng. Vui lòng kiểm tra kết nối internet của bạn.",
+    "unknownError": "Đã xảy ra sự cố. Vui lòng thử lại sau.",
+    "loadingProfileData": "Lỗi tải dữ liệu hồ sơ",
+    "somethingWentWrong": "Đã xảy ra sự cố.",
     "retry": "Thử lại"
   },
   "onboarding": {
-    "welcome": "Chào mừng bạn đến với {appLabel}",
-    "subtitle": "Người bạn đồng hành dinh dưỡng cá nhân của bạn được hỗ trợ bởi AI",
+    "welcome": "Chào mừng đến với {appLabel}",
+    "subtitle": "Người bạn đồng hành dinh dưỡng cá nhân được hỗ trợ bởi AI",
     "getStarted": "Bắt đầu",
     "features": {
       "foodRecognition": {
-        "title": "Nhận diện thực phẩm thông minh",
-        "description": "Chụp một bức ảnh và để AI xác định bữa ăn của bạn"
+        "title": "Nhận diện món ăn thông minh",
+        "description": "Chụp ảnh và để AI nhận diện bữa ăn của bạn"
       },
       "aiAnalysis": {
-        "title": "Phân tích AI",
-        "description": "Nhận thông tin dinh dưỡng ngay lập tức từ mô tả của bạn"
+        "title": "Phân tích bằng AI",
+        "description": "Nhận thông tin dinh dưỡng tức thì từ mô tả của bạn"
       },
       "healthIntegration": {
-        "title": "Tích hợp sức khỏe",
-      "description": "Kết nối với Health Connect để nhận thông tin chuyên sâu hơn"
+        "title": "Tích hợp Health",
+        "description": "Kết nối với Health Connect để có góc nhìn tốt hơn"
       }
     },
     "gender": {
       "title": "Giới tính của bạn là gì?",
-      "description": "Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR) của bạn.",
-      "next": "Tiếp theo"
+      "description": "Giới tính giúp chúng tôi tính toán chính xác tỷ lệ trao đổi chất cơ bản (BMR).",
+      "next": "Tiếp"
     },
     "height": {
-      "title": "Bạn cao bao nhiêu?",
-      "description": "Chiều cao của bạn giúp chúng tôi tính toán chỉ số BMI và nhu cầu năng lượng một cách chính xác.",
+      "title": "Chiều cao của bạn?",
+      "description": "Chiều cao giúp chúng tôi tính BMI và nhu cầu năng lượng chính xác.",
       "metric": "Hệ mét",
       "imperial": "Hệ Anh",
-      "next": "Tiếp theo"
+      "next": "Tiếp"
     },
     "weight": {
-      "currentTitle": "Cân nặng hiện tại của bạn là bao nhiêu?",
-      "currentDescription": "Cân nặng hiện tại rất quan trọng để cá nhân hóa các mục tiêu hàng ngày của bạn.",
-      "targetTitle": "Cân nặng mục tiêu của bạn là bao nhiêu?",
-      "targetDescription": "Đặt mục tiêu cân nặng giúp chúng tôi xác định kế hoạch dài hạn của bạn.",
+      "currentTitle": "Cân nặng hiện tại của bạn?",
+      "currentDescription": "Cân nặng hiện tại rất quan trọng để cá nhân hóa mục tiêu hằng ngày.",
+      "targetTitle": "Cân nặng mục tiêu của bạn?",
+      "targetDescription": "Đặt mục tiêu cân nặng giúp chúng tôi xây dựng kế hoạch dài hạn.",
       "metric": "Hệ mét",
       "imperial": "Hệ Anh",
-      "next": "Tiếp theo"
+      "next": "Tiếp"
     },
     "age": {
-      "title": "Ngày sinh của bạn là khi nào?",
-      "description": "Tuổi của bạn giúp chúng tôi tính toán nhu cầu calo một cách chính xác.",
-      "next": "Tiếp theo"
+      "title": "Ngày sinh của bạn?",
+      "description": "Tuổi tác giúp chúng tôi tính toán nhu cầu calo chính xác.",
+      "next": "Tiếp"
     },
     "bmiScale": {
-      "underweight": "Thiếu cân",
+      "underweight": "Thiếu",
       "healthy": "Khỏe mạnh",
-      "overweight": "Thừa cân",
+      "overweight": "Thừa",
       "obese": "Béo phì",
       "categories": {
-        "underweight": "Gầy",
+        "underweight": "Thiếu cân",
         "healthyWeight": "Cân nặng khỏe mạnh",
         "overweight": "Thừa cân",
         "obese": "Béo phì"
       },
       "messages": {
-        "underweight": "Chúng tôi có thể giúp bạn xây dựng một kế hoạch lành mạnh để đạt cân nặng cân bằng bằng những bữa ăn giàu dinh dưỡng.",
-        "healthy": "Tuyệt vời! Bạn đang ở mức độ khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và mức năng lượng.",
-        "overweight": "{appLabel} sẽ đơn giản hóa hành trình của bạn với việc theo dõi bằng AI để giúp bạn đạt được mục tiêu của mình một cách thoải mái.",
-        "obese": "Chúng tôi ở đây để hỗ trợ bạn với hướng dẫn cá nhân hóa và các chiến lược bền vững cho các mục tiêu sức khỏe của bạn."
+        "underweight": "Chúng tôi có thể giúp bạn xây dựng kế hoạch lành mạnh để đạt cân nặng cân bằng với các bữa giàu dinh dưỡng.",
+        "healthy": "Tuyệt vời! Bạn đang trong phạm vi khỏe mạnh. Chúng tôi sẽ giúp bạn duy trì sức sống và năng lượng.",
+        "overweight": "{appLabel} sẽ đơn giản hóa hành trình của bạn với theo dõi bằng AI để giúp bạn đạt mục tiêu một cách thoải mái.",
+        "obese": "Chúng tôi ở đây để hỗ trợ bạn bằng hướng dẫn cá nhân hóa và chiến lược bền vững cho mục tiêu sức khỏe."
       }
     },
     "weightGoal": {
       "title": "Mục tiêu của bạn là gì?",
-      "description": "Chọn mục tiêu mà bạn muốn đạt được nhất"
+      "description": "Chọn mục tiêu phù hợp nhất với điều bạn muốn đạt được"
     },
     "activityLevel": {
-      "title": "Bạn hoạt động như thế nào?",
-      "description": "Điều này giúp chúng tôi tính toán nhu cầu calo hàng ngày của bạn một cách chính xác hơn"
+      "title": "Mức độ hoạt động của bạn?",
+      "description": "Điều này giúp chúng tôi tính nhu cầu calo hằng ngày chính xác hơn"
     },
     "healthConnect": {
       "title": "Kết nối với Health Connect",
-      "description": "Đồng bộ dữ liệu sức khỏe của bạn để có cái nhìn sâu sắc hơn và theo dõi calo tự động",
+      "description": "Đồng bộ dữ liệu sức khỏe để có góc nhìn tốt hơn và tự động theo dõi calo",
       "automaticTracking": {
         "title": "Theo dõi calo tự động",
-        "description": "Theo dõi calo đã đốt cháy từ các ứng dụng thể dục của bạn"
+        "description": "Theo dõi calo tiêu hao từ ứng dụng thể dục của bạn"
       },
       "progressInsights": {
-        "title": "Thông tin tiến độ",
-        "description": "Nhận thông tin chi tiết về xu hướng sức khỏe của bạn"
+        "title": "Thông tin tiến trình",
+        "description": "Nhận góc nhìn chi tiết về xu hướng sức khỏe"
       },
       "seamlessIntegration": {
         "title": "Tích hợp liền mạch",
-        "description": "Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn"
+        "description": "Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích"
       },
       "connected": "Đã kết nối Health Connect",
       "notConnected": "Chưa kết nối Health Connect",
-      "setup": "Cài đặt Health Connect",
-      "skipForNow": "Bỏ qua tạm thời",
+      "setup": "Thiết lập Health Connect",
+      "skipForNow": "Bỏ qua lúc này",
       "statusConnected": "Health Connect đã được kết nối.",
-      "statusSuccess": "Health Connect đã được kết nối thành công!",
-      "statusPermissionDenied": "Quyền truy cập đã bị từ chối. Vui lòng bật quyền truy cập Health Connect từ cài đặt điện thoại của bạn để sử dụng {appLabel}.",
-      "statusError": "Lỗi cài đặt Health Connect: {error}"
+      "statusSuccess": "Đã kết nối Health Connect thành công!",
+      "statusPermissionDenied": "Bị từ chối quyền. Vui lòng bật quyền Health Connect từ cài đặt điện thoại cho {appLabel}.",
+      "statusError": "Lỗi thiết lập Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Bạn không đơn độc",
-        "genericMessage": "Nghiên cứu cho thấy việc theo dõi đều đặn là yếu tố dự báo quan trọng nhất cho thành công lâu dài.",
-        "personalizedMessage": "Với một {gender} {age} tuổi muốn {goal}, theo dõi đều đặn là yếu tố dự báo quan trọng nhất cho thành công.",
-        "closingMessage": "{appLabel} giúp bạn dễ dàng hơn gấp 10 lần so với việc thực hiện thủ công.",
-        "getStartedTitle": "Sẵn sàng để bắt đầu chưa?",
-        "tipPhoto": "Chụp ảnh bữa ăn của bạn để phân tích ngay lập tức",
-        "tipConsistency": "Ghi chép thường xuyên để thấy được tiến bộ rõ rệt",
-        "tipProgress": "Theo dõi tiến trình hàng ngày để giữ động lực",
-        "button": "Bắt đầu",
-        "defaultGender": "người",
-        "defaultGoal": "khỏe mạnh hơn"
+        "genericMessage": "Nghiên cứu cho thấy theo dõi đều đặn là yếu tố dự báo số 1 cho thành công dài hạn.",
+        "personalizedMessage": "Với một {gender} {age} tuổi đang muốn {goal}, theo dõi đều đặn là yếu tố dự báo số 1 cho thành công.",
+        "closingMessage": "{appLabel} giúp việc này dễ hơn gấp 10 lần so với làm thủ công.",
+        "getStartedTitle": "Sẵn sàng bắt đầu?",
+        "tipPhoto": "Chụp ảnh bữa ăn để phân tích tức thì",
+        "tipConsistency": "Ghi chép đều đặn để thấy tiến bộ có ý nghĩa",
+        "tipProgress": "Theo dõi tiến trình hằng ngày để duy trì động lực",
+        "button": "Bắt đầu thôi",
+        "defaultGender": "cá nhân",
+        "defaultGoal": "một bạn khỏe mạnh hơn"
       },
       "healthProfile": {
         "title": "Hồ sơ sức khỏe của bạn",
-        "bmiDescription": "Dựa trên các chỉ số của bạn, chỉ số BMI của bạn là {bmi}.",
-        "finalizeDescription": "Hãy hoàn thiện hồ sơ của bạn để tùy chỉnh trải nghiệm của bạn.",
+        "bmiDescription": "Dựa trên chỉ số của bạn, BMI là {bmi}.",
+        "finalizeDescription": "Hãy hoàn tất hồ sơ để tùy chỉnh trải nghiệm của bạn.",
         "goalGain": "tăng",
         "goalLose": "giảm",
-        "goalReach": "Để đạt được mục tiêu của bạn, bạn sẽ {direction} {diff} {unit}.",
-        "goalReached": "Bạn đã đạt được trọng lượng mong muốn! Chúng tôi sẽ giúp bạn duy trì nó.",
-        "button": "Bắt đầu"
+        "goalReach": "Để đạt mục tiêu, bạn sẽ cần {direction} {diff} {unit}.",
+        "goalReached": "Bạn đang ở cân nặng mục tiêu! Chúng tôi sẽ giúp bạn duy trì nó.",
+        "button": "Bắt đầu thôi"
       },
       "goalLifestyle": {
         "title": "Khởi đầu tuyệt vời!",
         "description": "Bạn đã thực hiện bước đầu tiên hướng tới {goalText}. Vì bạn {activityText}, {appLabel} sẽ điều chỉnh mục tiêu để phù hợp với lối sống của bạn.",
         "personalizedTargets": "Mục tiêu calo cá nhân hóa",
-        "aiMealDetection": "Nhận diện bữa ăn được hỗ trợ bởi AI",
-        "macroBreakdowns": "Chi tiết về phân bổ chất dinh dưỡng",
-        "button": "Bắt đầu",
-        "defaultGoal": "các mục tiêu của bạn",
+        "aiMealDetection": "Nhận diện bữa ăn bằng AI",
+        "macroBreakdowns": "Phân tích chi tiết chất đa lượng",
+        "button": "Bắt đầu thôi",
+        "defaultGoal": "mục tiêu của bạn",
         "defaultActivity": "năng động"
       }
     }
   },
   "tabs": {
-    "dashboard": "Bảng điều khiển",
+    "dashboard": "Tổng quan",
     "history": "Lịch sử"
   },
   "home": {
     "aiSummary": {
-      "title": "Tóm tắt AI của bạn",
-      "logMore": "Ghi lại thêm bữa ăn trong vài ngày tới để nhận được những phân tích cá nhân hóa từ AI.",
+      "title": "Tóm tắt bởi AI",
+      "logMore": "Ghi thêm bữa ăn trong vài ngày tới để nhận góc nhìn cá nhân hóa từ AI.",
       "loading": "Đang tải tóm tắt của bạn...",
-      "mealCount": "{count} bữa đã ghi",
+      "mealCount": "{count} bữa ăn đã ghi",
       "macroBalanceScore": "Điểm cân bằng {score}",
       "topFoods": "Thực phẩm hàng đầu",
-      "trendUp": "Lượng calo đang tăng",
-      "trendDown": "Lượng calo đang giảm",
-      "trendSteady": "Lượng calo ổn định",
+      "trendUp": "Calo có xu hướng tăng",
+      "trendDown": "Calo có xu hướng giảm",
+      "trendSteady": "Calo đang ổn định",
       "generatedAt": "Cập nhật {time}"
     },
     "dailyGoal": {
-      "title": "Đặt mục tiêu hàng ngày của bạn",
-      "titleSet": "Mục tiêu hàng ngày của bạn",
-      "description": "Sẵn sàng để bắt đầu hành trình sức khỏe? Đặt mục tiêu calo hàng ngày của bạn bên dưới để khởi đầu tiến trình.",
-      "descriptionSet": "Mục tiêu dẫn đường của bạn đã được đặt! Đây là mục tiêu calo hàng ngày để định hướng cho bạn.",
+      "title": "Đặt mục tiêu hằng ngày",
+      "titleSet": "Mục tiêu hằng ngày của bạn",
+      "description": "Sẵn sàng cho hành trình khỏe mạnh? Hãy đặt mục tiêu calo hằng ngày bên dưới để khởi động tiến trình.",
+      "descriptionSet": "La bàn đã sẵn sàng! Đây là mục tiêu calo hằng ngày để dẫn đường cho bạn.",
       "yourGoal": "Mục tiêu của bạn",
       "goal": "Mục tiêu",
-      "dailyCalories": "Calo hàng ngày (kcal)",
+      "dailyCalories": "Calo mỗi ngày (kcal)",
       "setGoal": "Đặt mục tiêu",
-      "intake": "Tiêu thụ",
-      "burned": "Đã đốt cháy",
-      "weightImpact": "Tác động đến trọng lượng",
-      "estLoss": "Dự kiến giảm",
-      "estGain": "Dự kiến tăng",
+      "intake": "Nạp vào",
+      "burned": "Tiêu hao",
+      "weightImpact": "Ảnh hưởng cân nặng",
+      "estLoss": "Ước tính giảm",
+      "estGain": "Ước tính tăng",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Tóm tắt hàng ngày",
+      "title": "Tóm tắt hằng ngày",
       "calories": "Calo",
-      "carbs": "Carbohydrate",
+      "carbs": "Carb",
       "protein": "Protein",
       "fat": "Chất béo",
       "fiber": "Chất xơ",
       "grams": "gam",
-      "chartAccessibilityLabel": "Biểu đồ các chất dinh dưỡng chính"
+      "chartAccessibilityLabel": "Biểu đồ các chất đa lượng"
     },
     "intakeProgress": {
-      "title": "Phân bổ macro hôm nay",
+      "title": "Tỷ lệ chất đa lượng hôm nay",
       "target": "Mục tiêu",
       "current": "Hiện tại"
     },
     "intakeHistory": {
-      "title": "Lịch sử macro 7 ngày",
+      "title": "Lịch sử chất đa lượng 7 ngày",
       "trendTitle": "Xu hướng hôm nay",
-      "peakHour": "Giờ cao điểm: {hour}:00",
-      "noHistoryYet": "Chưa có lịch sử nào",
-      "startLogging": "Bắt đầu ghi bữa ăn để xem xu hướng macro\n7 ngày của bạn tại đây"
+      "peakHour": "Đỉnh: {hour}:00",
+      "noHistoryYet": "Chưa có lịch sử",
+      "startLogging": "Bắt đầu ghi bữa ăn để xem\nxu hướng vĩ mô 7 ngày tại đây"
     },
     "mealLog": {
       "title": "Bữa ăn đã ghi",
-      "emptyMessage": "Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.",
-      "noMealsToday": "Chưa ghi nhận bữa ăn nào cho hôm nay",
+      "emptyMessage": "Chụp ảnh bữa ăn gần nhất của bạn để ghi tại đây.",
+      "noMealsToday": "Hôm nay chưa có bữa ăn nào",
       "seeAllMeals": "Xem tất cả bữa ăn"
     },
     "mealDescription": {
       "title": "Thêm nhanh với AI",
-      "description": "Mô tả bữa ăn của bạn, và hãy để AI xử lý các chi tiết.",
-      "hint": "ví dụ: Vào bữa sáng tôi đã ăn một bát lớn yến mạch với một quả chuối thái lát và một muỗng whey ...",
+      "description": "Mô tả bữa ăn của bạn, và để AI lo phần còn lại.",
+      "hint": "vd. Bữa sáng mình ăn một bát yến mạch lớn với một quả chuối thái lát và một muỗng whey ...",
       "analyzeMeal": "Phân tích bữa ăn"
     },
     "favoriteMeals": {
       "title": "Bữa ăn yêu thích",
-      "description": "Thêm nhanh một trong những bữa ăn yêu thích của bạn.",
-      "noFavorites": "Chưa có bữa ăn yêu thích nào.",
-      "addFavoriteHint": "Nhấn vào ngôi sao trên một bữa ăn để đánh dấu nó là yêu thích.",
+      "description": "Thêm nhanh một trong các bữa yêu thích của bạn.",
+      "noFavorites": "Chưa có bữa ăn yêu thích.",
+      "addFavoriteHint": "Nhấn vào ngôi sao trên bữa ăn để đánh dấu là yêu thích.",
       "seeAll": "Xem tất cả",
       "add": "Thêm"
     },
     "mealSnap": {
-      "title": "Chụp & Theo dõi Bữa ăn của bạn",
-      "description": "Sử dụng camera của bạn để chụp ảnh thực phẩm cho phân tích AI.",
-      "openCamera": "Mở Camera",
-      "gallery": "Thư viện"
+      "title": "Chụp & theo dõi bữa ăn",
+      "description": "Dùng máy ảnh để chụp món ăn của bạn cho AI phân tích.",
+      "openCamera": "Mở máy ảnh",
+      "gallery": "Thư viện",
+      "compressingPhoto": "Đang tối ưu ảnh…",
+      "uploadingPhoto": "Đang tải ảnh lên…"
     },
     "connectHealth": {
       "title": "Đồng bộ với Health Connect",
@@ -229,8 +231,8 @@
     }
   },
   "history": {
-    "noMeals": "Chưa ghi nhận bữa ăn nào",
-    "emptyMessage": "Chụp ảnh bữa ăn cuối cùng của bạn để ghi chú ở đây.",
+    "noMeals": "Chưa có bữa ăn nào",
+    "emptyMessage": "Chụp ảnh bữa ăn gần nhất của bạn để ghi tại đây.",
     "today": "Hôm nay",
     "yesterday": "Hôm qua"
   },
@@ -242,55 +244,94 @@
     "saveMeal": "Lưu bữa ăn",
     "save": "Lưu",
     "mealName": "Tên bữa ăn",
-    "mealNameHint": "ví dụ: Trứng bác với bánh mì nướng",
-    "mealQuantity": "Số lượng bữa ăn",
-    "mealQuantityHint": "vd: 1 bát, 2 lát",
-    "timeOfMeal": "Thời gian bữa ăn",
-    "timeOfMealHint": "Chọn thời gian bạn đã ăn bữa ăn",
+    "mealNameHint": "vd., Trứng bác với bánh mì nướng",
+    "mealQuantity": "Số lượng bữa",
+    "mealQuantityHint": "vd., 1 bát, 2 lát",
+    "timeOfMeal": "Thời gian ăn",
+    "timeOfMealHint": "Chọn thời điểm bạn ăn bữa này",
     "mealType": "Loại bữa ăn",
     "nutrition": {
       "calories": "Calo",
-      "carbs": "Carbohydrate (g)",
+      "carbs": "Carb (g)",
       "protein": "Protein (g)",
       "fat": "Chất béo (g)",
       "fiber": "Chất xơ (g)"
     },
     "deleteConfirmation": {
       "title": "Xóa bữa ăn",
-      "message": "Bạn có chắc chắn muốn xóa mục bữa ăn này không?",
+      "message": "Bạn có chắc muốn xóa mục bữa ăn này?",
       "cancel": "Hủy",
       "delete": "Xóa"
     },
-    "addedToLog": "Bữa ăn đã được thêm vào nhật ký của bạn!",
+    "addedToLog": "Đã thêm bữa ăn vào nhật ký!",
     "couldNotAdd": "Không thể thêm bữa ăn: {error}",
-    "savedSuccessfully": "Bữa ăn đã được thêm thành công!",
-    "updatedSuccessfully": "Bữa ăn đã được cập nhật thành công!",
+    "savedSuccessfully": "Thêm bữa ăn thành công!",
+    "updatedSuccessfully": "Cập nhật bữa ăn thành công!",
     "errorSaving": "Lỗi khi lưu bữa ăn: {error}",
     "removedFromFavorites": "Đã xóa khỏi yêu thích!",
-    "savedAsFavorite": "Bữa ăn đã được lưu làm yêu thích!",
+    "savedAsFavorite": "Đã lưu bữa ăn vào mục yêu thích!",
     "unfavorite": "Bỏ yêu thích",
     "couldNotUpdateFavorite": "Không thể cập nhật yêu thích: {error}",
-    "feedbackThanks": "Cảm ơn bạn đã phản hồi!",
+    "feedbackThanks": "Cảm ơn phản hồi!",
     "reanalysisUpdated": "Đã cập nhật phân tích bữa ăn dựa trên phản hồi của bạn.",
-    "failedToProcess": "Không thể xử lý: {error}",
-    "failedToProcessImage": "Không thể xử lý hình ảnh: {error}",
-    "errorCompressingImage": "Lỗi nén hình ảnh: {error}",
+    "failedToProcess": "Xử lý thất bại: {error}",
+    "failedToProcessImage": "Xử lý ảnh thất bại: {error}",
+    "errorCompressingImage": "Lỗi nén ảnh: {error}",
     "failedToSave": "Không thể lưu dữ liệu. Vui lòng thử lại.",
     "skip": "Bỏ qua",
     "variation": {
-      "question": "Câu hỏi {current} trong tổng số {total}",
+      "question": "Câu hỏi {current} trên {total}",
       "noVariationsAvailable": "Không có biến thể nào"
+    },
+    "analysis": {
+      "title": "Phân tích bữa ăn bằng AI",
+      "reassurance": "Thường chỉ mất vài giây.",
+      "stepStarted": "Bắt đầu…",
+      "stepDecomposition": "Đang hiểu bữa ăn của bạn…",
+      "stepIngredients": "Đang khớp nguyên liệu với dữ liệu dinh dưỡng…",
+      "stepUncertainty": "Đang kiểm tra độ tin cậy…",
+      "stepMealTypeQuestion": "Sắp xong…",
+      "stepResult": "Hoàn tất kết quả…",
+      "stepError": "Đã xảy ra sự cố",
+      "stepDefault": "Đang phân tích bữa ăn…",
+      "progressUnderstand": "Hiểu",
+      "progressMatch": "Khớp",
+      "progressCheck": "Kiểm tra",
+      "progressFinish": "Hoàn tất",
+      "ingredientsLine": "Đã phát hiện {count} thành phần",
+      "ingredientsPending": "Đang quét thành phần…",
+      "mealPreviewDescription": "\"{text}\"",
+      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
+      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
+      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
+      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
+      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
+      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+    },
+    "feedback": {
+      "title": "What looks wrong?",
+      "subtitle": "Help us improve the analysis by selecting one or more issues.",
+      "tellUsMore": "Tell us more",
+      "describeIncorrect": "Describe what was incorrect",
+      "submit": "Submit",
+      "issueFoodIdentification": "Food identification",
+      "issuePortionSize": "Portion size",
+      "issueCalorieDistribution": "Calorie distribution",
+      "issueMacrosWrong": "Macros are wrong",
+      "issueMissingItems": "Missing items",
+      "issueExtraItems": "Extra items",
+      "issueOther": "Other"
     }
   },
   "favorites": {
     "title": "Yêu thích",
-    "empty": "Chưa có bữa ăn yêu thích nào.",
+    "empty": "Chưa có bữa ăn yêu thích.",
     "searchPlaceholder": "Tìm bữa ăn yêu thích",
-    "searchEmptyTitle": "Không có mục yêu thích nào phù hợp với tìm kiếm của bạn",
-    "searchEmptySubtitle": "Thử tên bữa khác, số lượng hoặc loại bữa.",
+    "searchEmptyTitle": "Không có mục yêu thích phù hợp",
+    "searchEmptySubtitle": "Hãy thử tên bữa ăn, số lượng hoặc loại bữa khác.",
     "sortLabel": "Sắp xếp mục yêu thích",
     "undo": "Hoàn tác",
-    "removed": "Đã xóa {name} khỏi danh sách yêu thích",
+    "removed": "Đã xóa {name} khỏi mục yêu thích",
     "sortOptions": {
       "recent": "Gần đây",
       "calories": "Calo",
@@ -299,14 +340,14 @@
   },
   "profile": {
     "title": "Hồ sơ",
-    "noProfileData": "Chưa tìm thấy dữ liệu hồ sơ",
+    "noProfileData": "Không tìm thấy dữ liệu hồ sơ",
     "yourProfile": "Hồ sơ của bạn",
     "viewAndManage": "Xem và quản lý thông tin sức khỏe của bạn",
     "sections": {
       "profile": "HỒ SƠ",
       "basicInformation": "THÔNG TIN CƠ BẢN",
       "goalsAndActivity": "MỤC TIÊU & HOẠT ĐỘNG",
-      "calculatedValues": "CÁC GIÁ TRỊ TÍNH TOÁN"
+      "calculatedValues": "GIÁ TRỊ TÍNH TOÁN"
     },
     "gender": "Giới tính",
     "height": "Chiều cao",
@@ -315,31 +356,31 @@
     "weightGoal": "Mục tiêu cân nặng",
     "targetWeight": "Cân nặng mục tiêu",
     "activityLevel": "Mức độ hoạt động",
-    "healthMetrics": "Các chỉ số sức khỏe",
+    "healthMetrics": "Chỉ số sức khỏe",
     "notSet": "Chưa đặt",
-    "years": "năm",
-    "updatedSuccessfully": "Hồ sơ đã được cập nhật thành công!",
+    "years": "tuổi",
+    "updatedSuccessfully": "Cập nhật hồ sơ thành công!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Mục tiêu hàng ngày",
+      "dailyGoal": "Mục tiêu hằng ngày",
       "calPerDay": "cal/ngày",
-      "notAvailable": "Không có sẵn"
+      "notAvailable": "Không khả dụng"
     }
   },
   "healthScore": {
     "title": "Điểm sức khỏe",
-    "whyThisScore": "Tại sao điểm này?",
-    "note": "Điểm này là ước lượng của AI dựa trên các thành phần và hàm lượng dinh dưỡng đã xác định. Luôn tham khảo ý kiến của chuyên gia cho lời khuyên về chế độ ăn uống.",
-    "unhealthy": "Không khỏe mạnh",
-    "healthy": "Khỏe mạnh",
-    "neutral": "Trung lập"
+    "whyThisScore": "Vì sao điểm này?",
+    "note": "Điểm số này là ước tính của AI dựa trên thành phần và mật độ dinh dưỡng được nhận diện. Luôn tham khảo chuyên gia cho tư vấn dinh dưỡng.",
+    "unhealthy": "Không lành mạnh",
+    "healthy": "Lành mạnh",
+    "neutral": "Trung tính"
   },
   "editProfile": {
     "title": "Chỉnh sửa hồ sơ",
     "sections": {
       "personalInformation": "THÔNG TIN CÁ NHÂN",
-      "physicalMeasurements": "THÔNG SỐ VẬT LÝ",
+      "physicalMeasurements": "SỐ ĐO CƠ THỂ",
       "goalsAndActivity": "MỤC TIÊU & HOẠT ĐỘNG"
     },
     "gender": "Giới tính",
@@ -348,16 +389,16 @@
     "weight": "Cân nặng",
     "weightGoal": "Mục tiêu cân nặng",
     "activityLevel": "Mức độ hoạt động",
-      "metric": "Hệ mét",
-      "imperial": "Hệ Anh",
+    "metric": "Hệ mét",
+    "imperial": "Hệ Anh",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-      "metricCm": "Hệ mét (cm)",
-      "imperialFtIn": "Hệ Anh (ft/in)",
-      "metricKg": "Hệ mét (kg)",
-      "imperialLbs": "Hệ Anh (lbs)",
+    "metricCm": "Hệ mét (cm)",
+    "imperialFtIn": "Hệ Anh (ft/in)",
+    "metricKg": "Hệ mét (kg)",
+    "imperialLbs": "Hệ Anh (lbs)",
     "genders": {
       "male": "Nam",
       "female": "Nữ",
@@ -366,37 +407,37 @@
     "weightGoals": {
       "loseWeight": {
         "name": "Giảm cân",
-        "description": "Tạo mức thâm hụt calo để giảm cân"
+        "description": "Tạo thâm hụt calo để giảm cân"
       },
       "maintainWeight": {
-        "name": "Giữ cân",
-        "description": "Duy trì cân nặng hiện tại của bạn"
+        "name": "Duy trì cân nặng",
+        "description": "Duy trì cân nặng hiện tại"
       },
       "gainWeight": {
         "name": "Tăng cân",
-        "description": "Tạo mức dư calo để tăng cân"
+        "description": "Tạo thặng dư calo để tăng cân"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Ít hoạt động",
-        "description": "Ít hoặc không tập thể dục"
+        "name": "Ít vận động",
+        "description": "Ít hoặc không tập luyện"
       },
       "lightlyActive": {
         "name": "Hoạt động nhẹ",
-        "description": "Tập thể dục nhẹ 1-3 ngày/tuần"
+        "description": "Tập nhẹ 1-3 ngày/tuần"
       },
       "moderatelyActive": {
-        "name": "Hoạt động vừa phải",
-        "description": "Tập thể dục vừa phải 3-5 ngày/tuần"
+        "name": "Hoạt động vừa",
+        "description": "Tập vừa 3-5 ngày/tuần"
       },
       "veryActive": {
         "name": "Rất năng động",
-        "description": "Tập thể dục mạnh mẽ 6-7 ngày/tuần"
+        "description": "Tập nặng 6-7 ngày/tuần"
       },
       "extremelyActive": {
         "name": "Cực kỳ năng động",
-        "description": "Tập thể dục rất nặng, công việc thể chất"
+        "description": "Tập rất nặng, công việc tay chân"
       }
     }
   },
@@ -404,7 +445,7 @@
     "title": "Cài đặt",
     "sections": {
       "profile": "HỒ SƠ",
-      "localization": "ĐỊA PHƯƠNG HÓA",
+      "localization": "BẢN ĐỊA HÓA",
       "notifications": "THÔNG BÁO",
       "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
@@ -418,8 +459,8 @@
     },
     "language": {
       "title": "Ngôn ngữ",
-      "subtitle": "Chọn ngôn ngữ bạn ưa thích",
-      "searchHint": "Tìm kiếm ngôn ngữ...",
+      "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
+      "searchHint": "Tìm ngôn ngữ...",
       "noResults": "Không tìm thấy kết quả"
     },
     "heightUnit": {
@@ -430,10 +471,10 @@
     },
     "mealReminders": {
       "title": "Nhắc nhở bữa ăn",
-      "subtitle": "Giúp bạn theo dõi đúng thời gian với những thông báo kịp thời"
+      "subtitle": "Giữ đúng lộ trình với các thông báo kịp thời"
     },
     "theme": {
-      "title": "Chủ đề",
+      "title": "Giao diện",
       "light": "Sáng",
       "dark": "Tối",
       "system": "Hệ thống"
@@ -441,94 +482,94 @@
     "sendFeedback": {
       "title": "Gửi phản hồi",
       "subtitle": "Giúp chúng tôi cải thiện {appLabel}",
-      "emailSubject": "Phản hồi về ứng dụng {appLabel}",
+      "emailSubject": "Phản hồi ứng dụng {appLabel}",
       "emailBodyPrefix": "Vui lòng cung cấp phản hồi của bạn bên dưới:",
       "appVersion": "Phiên bản ứng dụng",
       "device": "Thiết bị",
-      "osVersion": "Phiên bản hệ điều hành",
+      "osVersion": "Phiên bản HĐH",
       "uid": "UID"
     },
     "exportMealHistory": {
       "title": "Xuất lịch sử bữa ăn",
-      "subtitle": "Chia sẻ một tệp CSV chứa các bữa bạn đã ghi",
-      "shareText": "Tệp xuất lịch sử bữa ăn của bạn từ Calorify",
+      "subtitle": "Chia sẻ tệp CSV các bữa ăn đã ghi",
+      "shareText": "Bản xuất lịch sử bữa ăn Calorify của bạn",
       "failed": "Không thể xuất lịch sử bữa ăn: {error}"
     },
     "clearAllData": {
-      "title": "Xóa tất cả dữ liệu",
+      "title": "Xóa toàn bộ dữ liệu",
       "subtitle": "Xóa vĩnh viễn tất cả thông tin của bạn",
-      "confirmationTitle": "Có chắc chắn xóa tất cả dữ liệu?",
-      "confirmationMessage": "Hành động này không thể hoàn tác. Tất cả các bữa ăn bạn đã ghi, yêu thích và cài đặt hồ sơ sẽ bị xóa vĩnh viễn.",
+      "confirmationTitle": "Xóa toàn bộ dữ liệu?",
+      "confirmationMessage": "Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.",
       "cancel": "Hủy",
       "clearEverything": "Xóa tất cả"
     },
     "debugOptions": {
       "title": "Tùy chọn gỡ lỗi"
     },
-    "developerModeEnabled": "Chế độ nhà phát triển đã được bật!",
+    "developerModeEnabled": "Đã bật chế độ nhà phát triển!",
     "healthConnect": {
       "title": "Health Connect",
       "subtitle": "Xem và quản lý quyền",
       "unavailable": {
         "title": "Health Connect không khả dụng",
-        "description": "Health Connect không khả dụng trên thiết bị này. Vui lòng cài đặt Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+."
+        "description": "Health Connect không có trên thiết bị này. Vui lòng cài đặt Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+."
       },
       "permissions": {
         "title": "Quyền",
-        "description": "Các quyền sau đây được yêu cầu để cung cấp tích hợp Health Connect:",
+        "description": "Các quyền sau được yêu cầu để cung cấp tích hợp Health Connect:",
         "granted": "Đã cấp",
         "notGranted": "Chưa cấp",
         "caloriesBurned": {
-          "title": "Đọc tổng số calo đã đốt",
-          "description": "Cho phép ứng dụng đọc tổng số calo bạn đã đốt từ Health Connect.",
-          "usage": "Quyền này được sử dụng để hiển thị lượng calo bạn đốt hàng ngày trong ứng dụng, giúp bạn hiểu rõ hơn về tổng lượng năng lượng tiêu thụ trong suốt cả ngày."
+          "title": "Đọc tổng calo tiêu hao",
+          "description": "Cho phép ứng dụng đọc tổng lượng calo bạn tiêu hao từ Health Connect.",
+          "usage": "Quyền này dùng để hiển thị calo tiêu hao hằng ngày trong ứng dụng, giúp bạn hiểu tổng năng lượng tiêu hao trong ngày."
         },
         "nutritionRead": {
           "title": "Đọc dữ liệu dinh dưỡng",
           "description": "Cho phép ứng dụng đọc dữ liệu dinh dưỡng từ Health Connect.",
-          "usage": "Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi lại bởi các ứng dụng khác kết nối với Health Connect, cung cấp cái nhìn toàn diện về dinh dưỡng của bạn."
+          "usage": "Quyền này cho phép ứng dụng đọc thông tin dinh dưỡng có thể đã được ghi bởi các ứng dụng khác kết nối với Health Connect, mang lại góc nhìn toàn diện về dinh dưỡng của bạn."
         },
         "nutritionWrite": {
           "title": "Ghi dữ liệu dinh dưỡng",
           "description": "Cho phép ứng dụng ghi dữ liệu dinh dưỡng vào Health Connect.",
-          "usage": "Quyền này cho phép ứng dụng đồng bộ hóa các bữa ăn bạn đã ghi với Health Connect, làm cho dữ liệu dinh dưỡng của bạn có sẵn cho các ứng dụng sức khỏe và thể dục khác mà bạn sử dụng."
+          "usage": "Quyền này cho phép ứng dụng đồng bộ bữa ăn bạn đã ghi lên Health Connect, giúp dữ liệu dinh dưỡng sẵn có cho các ứng dụng sức khỏe và thể dục khác bạn dùng."
         }
       },
       "managePermissions": "Quản lý quyền",
       "openSettings": "Mở cài đặt Health Connect",
-      "requestPermissions": "Yêu cầu quyền truy cập",
+      "requestPermissions": "Yêu cầu quyền",
       "permissionRequestCancelledOrFailed": "Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
       "permissionRequestFailed": "Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
-      "requestingPermissions": "Đang yêu cầu quyền..."
+      "requestingPermissions": "Đang yêu cầu..."
     },
     "about": {
       "title": "Giới thiệu",
-      "tagline": "Nhận thức về calo nhanh chóng, miễn phí và bảo mật",
+      "tagline": "Nhận biết calo nhanh, miễn phí và ưu tiên quyền riêng tư",
       "ourStory": {
         "title": "Câu chuyện của chúng tôi",
-        "content": "{appLabel} ra đời từ một nỗi bức xúc đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, yêu cầu nhập liệu thủ công liên tục, thu phí đăng ký cao hoặc xâm phạm quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng một thứ đơn giản và công bằng hơn — một ứng dụng dùng AI để giảm bớt công sức, vẫn nhanh và miễn phí, đồng thời tôn trọng dữ liệu sức khỏe của bạn.\n\n{appLabel} là ứng dụng mà tôi ước đã tồn tại: không tài khoản, không theo dõi, không quảng cáo — chỉ có thông tin rõ ràng, thiết thực và các mục tiêu sức khỏe của bạn."
+        "content": "{appLabel} ra đời từ một nỗi bực mình đơn giản: hầu hết các ứng dụng theo dõi calo đều quá phức tạp, đòi hỏi nhập liệu thủ công liên tục, thu phí đăng ký cao, hoặc làm ảnh hưởng đến quyền riêng tư.\n\nLà một nhà phát triển độc lập, tôi muốn xây dựng thứ gì đó đơn giản và công bằng hơn — một ứng dụng dùng AI để giảm nỗ lực, luôn nhanh và miễn phí, và tôn trọng dữ liệu sức khỏe của bạn.\n\n{appLabel} là ứng dụng mà tôi mong có: không tài khoản, không theo dõi hành vi, không quảng cáo — chỉ là thông tin rõ ràng, thiết thực và các mục tiêu sức khỏe của bạn."
       },
       "privacy": {
-        "title": "Quyền riêng tư của bạn rất quan trọng",
-        "description": "Quyền riêng tư không phải là điều nghĩ đến sau — đó là một nguyên tắc thiết kế. Trong thực tế, điều này có nghĩa là:",
-        "noAccounts": "Không yêu cầu tài khoản\nSử dụng ứng dụng ngay lập tức. Không cần đăng ký, không cần danh tính.",
-        "noTracking": "Không theo dõi hành vi\n{appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, hoặc theo dõi bạn qua các ứng dụng hoặc trang web.",
-        "noAds": "Thiết kế không có quảng cáo\n{appLabel} được xây dựng để hoạt động mà không có quảng cáo hoặc kiếm tiền dựa trên dữ liệu.",
-        "noDataSelling": "Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ cho bên thứ ba.",
-        "localStorage": "Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn sẽ ở lại trên thiết bị của bạn.",
-        "privacyPolicy": "Chính sách bảo mật"
+        "title": "Quyền riêng tư của bạn là quan trọng",
+        "description": "Quyền riêng tư không phải là suy nghĩ sau cùng — đó là nguyên tắc thiết kế. Điều này có nghĩa là:",
+        "noAccounts": "Không cần tài khoản\nDùng ứng dụng ngay. Không đăng ký, không danh tính.",
+        "noTracking": "Không theo dõi hành vi\n{appLabel} không giám sát hoạt động của bạn, không xây dựng hồ sơ sử dụng, và không theo dõi bạn trên các ứng dụng hay website.",
+        "noAds": "Không quảng cáo theo thiết kế\n{appLabel} được xây dựng để hoạt động mà không cần quảng cáo hay kiếm tiền dựa trên dữ liệu.",
+        "noDataSelling": "Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ được bán hay chia sẻ với bên thứ ba.",
+        "localStorage": "Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị.",
+        "privacyPolicy": "Chính sách quyền riêng tư"
       },
       "developer": {
         "title": "Được xây dựng bởi một nhà phát triển độc lập",
-        "description": "{appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập, tập trung vào việc tạo ra phần mềm sức khỏe nhẹ nhàng và tôn trọng quyền riêng tư.\n\nMỗi phản hồi đều được đọc trực tiếp và giúp định hình hướng đi của ứng dụng.",
-        "website": "Trang web",
+        "description": "{appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập, tập trung vào việc tạo ra phần mềm sức khỏe êm dịu và tôn trọng quyền riêng tư.\n\nPhản hồi được đọc trực tiếp và góp phần định hướng ứng dụng.",
+        "website": "Website",
         "email": "Email"
       },
       "feedback": {
         "title": "Bạn có thích {appLabel} không?",
-        "description": "Phản hồi của bạn giúp cải thiện {appLabel} cho mọi người.",
+        "description": "Phản hồi của bạn giúp {appLabel} tốt hơn cho mọi người.",
         "rateApp": "Đánh giá trên Play Store",
-        "sendFeedback": "Gửi Phản hồi"
+        "sendFeedback": "Gửi phản hồi"
       }
     },
     "appInfo": {
@@ -537,119 +578,119 @@
     }
   },
   "reminders": {
-    "title": "Giữ đúng tiến trình với nhắc nhở",
-    "description": "Nhận những nhắc nhở nhẹ nhàng để ghi lại bữa ăn và duy trì tính nhất quán với các mục tiêu dinh dưỡng của bạn",
-    "notificationsEnabled": "Thông báo đã được bật",
-    "notificationsDisabled": "Thông báo đã bị tắt",
+    "title": "Giữ đúng lộ trình với nhắc nhở",
+    "description": "Nhận nhắc nhở nhẹ nhàng để ghi bữa ăn và duy trì đều đặn với mục tiêu dinh dưỡng",
+    "notificationsEnabled": "Đã bật thông báo",
+    "notificationsDisabled": "Đã tắt thông báo",
     "enabledSubtitle": "Bạn sẽ nhận được nhắc nhở bữa ăn",
     "disabledSubtitle": "Bật thông báo để nhận nhắc nhở bữa ăn",
     "mealReminders": "Nhắc nhở bữa ăn",
     "breakfast": "Bữa sáng",
     "lunch": "Bữa trưa",
     "dinner": "Bữa tối",
-    "snack": "Bữa ăn nhẹ",
+    "snack": "Bữa phụ",
     "unknown": "Không xác định",
     "change": "Thay đổi",
     "enableNotifications": "Bật thông báo",
-    "skipForNow": "Bỏ qua tạm thời",
+    "skipForNow": "Bỏ qua lúc này",
     "saveChanges": "Lưu thay đổi",
-    "enabledSuccessfully": "Thông báo đã được bật thành công!",
-    "permissionDenied": "Quyền thông báo đã bị từ chối",
+    "enabledSuccessfully": "Đã bật thông báo thành công!",
+    "permissionDenied": "Quyền thông báo bị từ chối",
     "errorEnabling": "Lỗi khi bật thông báo: {error}",
-    "errorCompletingSetup": "Lỗi khi hoàn tất cài đặt: {error}"
+    "errorCompletingSetup": "Lỗi khi hoàn tất thiết lập: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Giờ ăn sáng! 🍳",
+      "title": "Đến giờ bữa sáng! 🍳",
       "body": "Đừng quên ghi lại bữa sáng của bạn"
     },
     "lunch": {
-      "title": "Giờ ăn trưa! 🥗",
-      "body": "Đến lúc ghi lại bữa trưa của bạn"
+      "title": "Đến giờ bữa trưa! 🥗",
+      "body": "Đã đến lúc ghi lại bữa trưa"
     },
     "dinner": {
-      "title": "Giờ ăn tối! 🍽️",
+      "title": "Đến giờ bữa tối! 🍽️",
       "body": "Đừng quên ghi lại bữa tối của bạn"
     },
     "snack": {
-      "title": "Giờ ăn nhẹ! 🍎",
-      "body": "Đến lúc cho một món ăn nhẹ lành mạnh"
+      "title": "Đến giờ bữa phụ! 🍎",
+      "body": "Đã đến lúc cho một bữa phụ lành mạnh"
     },
     "test": {
-      "title": "Thông báo thử nghiệm"
+      "title": "Thông báo kiểm thử"
     }
   },
   "login": {
     "title": "Đăng nhập",
-    "signInWithGoogle": "Đăng nhập bằng Google",
-    "signInFailed": "Đăng nhập bằng Google thất bại hoặc đã bị hủy."
+    "signInWithGoogle": "Đăng nhập với Google",
+    "signInFailed": "Đăng nhập Google thất bại hoặc đã bị hủy."
   },
   "disclaimer": {
-    "pleaseNote": "Xin lưu ý",
+    "pleaseNote": "Lưu ý",
     "snap": {
-      "description": "{appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn nhập và các biến thể thực phẩm. Sử dụng như một hướng dẫn, không phải là nguồn thông tin chính xác. Hãy tham khảo ý kiến chuyên gia để được tư vấn dinh dưỡng cá nhân.",
+      "description": "{appLabel} cung cấp thông tin dinh dưỡng ước tính. Độ chính xác phụ thuộc vào dữ liệu bạn cung cấp và sự khác biệt của thực phẩm. Hãy dùng như tài liệu tham khảo, không phải nguồn xác định. Tham khảo chuyên gia cho tư vấn dinh dưỡng cá nhân.",
       "portionSize": {
-        "title": "Kích thước phần",
-        "description": "Độ chính xác của các ước tính phụ thuộc rất nhiều vào việc bạn đánh giá đúng kích thước phần."
+        "title": "Khẩu phần",
+        "description": "Độ chính xác của ước tính phụ thuộc nhiều vào việc bạn ước lượng đúng kích thước khẩu phần."
       },
       "preparationMethods": {
-        "title": "Phương pháp chế biến",
-        "description": "Phương pháp chế biến có thể thay đổi đáng kể thành phần dinh dưỡng của thực phẩm. Các ước tính của {appLabel} không phải lúc nào cũng tính đến những thay đổi này."
+        "title": "Cách chế biến",
+        "description": "Phương pháp nấu nướng có thể làm thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của {appLabel} có thể không luôn tính hết các thay đổi này."
       },
       "ingredients": {
-        "title": "Nguyên liệu",
-        "description": "Những món ăn phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác."
+        "title": "Thành phần",
+        "description": "Các món phức tạp với nhiều thành phần ẩn có thể dẫn đến ước tính kém chính xác hơn."
       },
       "databaseLimitations": {
         "title": "Giới hạn cơ sở dữ liệu",
-        "description": "Cơ sở dữ liệu thực phẩm của {appLabel} rất phong phú nhưng có thể không bao gồm mọi loại thực phẩm hoặc biến thể."
+        "description": "Cơ sở dữ liệu thực phẩm của {appLabel} rất lớn nhưng có thể không bao phủ mọi món hoặc biến thể."
       }
     },
     "weightEstimate": {
       "title": "Về ước tính cân nặng",
-      "description": "Sự thay đổi trọng lượng dự kiến là một ước tính lý thuyết dựa trên mô hình calo vào so với calo ra. Nó chỉ được dùng để hướng dẫn động lực, không phải dự đoán trọng lượng thực tế của bạn.",
+      "description": "Mức thay đổi cân nặng dự báo là ước tính lý thuyết dựa trên mô hình calo nạp vào vs. calo tiêu hao. Chỉ nhằm mục đích tạo động lực, không phải dự đoán cân nặng thực tế của bạn.",
       "calorieAccuracy": {
         "title": "Độ chính xác calo",
-        "description": "Ước tính này chỉ chính xác khi lượng calo nạp vào và tiêu hao được ghi lại chính xác. Việc ghi chép không chính xác sẽ dẫn đến ước tính không chính xác."
+        "description": "Ước tính này chỉ chính xác khi lượng calo bạn nạp và tiêu hao được theo dõi chính xác. Ghi chép không chuẩn sẽ cho ra dự báo không chính xác."
       },
       "biologicalFactors": {
-        "title": "Các yếu tố sinh học",
-        "description": "Sự thay đổi cân nặng thực tế bị ảnh hưởng bởi quá trình trao đổi chất, hormone, giấc ngủ, căng thẳng, lượng nước trong cơ thể và các yếu tố cá nhân khác mà {appLabel} không thể đo được."
+        "title": "Yếu tố sinh học",
+        "description": "Giảm/tăng cân thực tế chịu ảnh hưởng bởi trao đổi chất, hormone, giấc ngủ, căng thẳng, nước, và các yếu tố cá nhân khác mà {appLabel} không thể đo lường."
       },
       "waterWeight": {
-        "title": "Trọng lượng nước & Biến động",
-        "description": "Trọng lượng hàng ngày bình thường có thể biến động đáng kể do giữ nước, tiêu hóa và thời gian. Ước tính không tính đến những thay đổi hàng ngày này."
-      },
-      "professionalGuidance": {
-        "title": "Hướng dẫn chuyên nghiệp",
-        "description": "Đừng sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ hoặc chuyên gia dinh dưỡng được chứng nhận cho lời khuyên quản lý trọng lượng cá nhân hóa."
-      }
-    },
-    "healthMetrics": {
-      "description": "Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và hướng dẫn các mục tiêu dinh dưỡng của bạn.",
-      "bmr": {
-        "title": "Tỷ lệ chuyển hóa cơ bản (BMR)",
-        "description": "Tỷ lệ chuyển hóa cơ bản (BMR) là số calo mà cơ thể bạn đốt cháy khi nghỉ ngơi để duy trì các chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào độ tuổi, giới tính, chiều cao và cân nặng của bạn. Một BMR cao có nghĩa là cơ thể bạn tự nhiên đốt cháy nhiều calo hơn khi nghỉ ngơi, thường do lượng cơ bắp nhiều hơn, độ tuổi trẻ hơn hoặc là nam giới. Một BMR thấp hơn thường chỉ ra ít khối lượng cơ bắp hơn, độ tuổi lớn hơn, hoặc là nữ giới."
-      },
-      "tdee": {
-        "title": "TDEE",
-        "description": "Chi tiêu năng lượng hàng ngày tổng cộng (TDEE) là tổng số calo mà bạn đốt cháy mỗi ngày, bao gồm BMR của bạn cộng với calo từ hoạt động thể chất và di chuyển hàng ngày. TDEE phụ thuộc vào BMR và mức độ hoạt động của bạn. Một TDEE cao có nghĩa là bạn đốt cháy nhiều calo hơn tổng thể, thường là do hoạt động nhiều hơn hoặc có BMR cao hơn. Một TDEE thấp hơn cho thấy hoạt động hàng ngày ít hơn hoặc BMR thấp hơn."
-      },
-      "dailyGoal": {
-        "title": "Mục tiêu hàng ngày",
-        "description": "Mục tiêu hàng ngày là lượng calo mà bạn được khuyên nên tiêu thụ hàng ngày dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn tiêu thụ ít calo hơn TDEE của mình. Để duy trì cân nặng, bạn cần khớp với TDEE của mình. Để tăng cân, bạn tiêu thụ nhiều calo hơn TDEE của mình. Điều này giúp bạn đạt được thay đổi cân nặng mong muốn một cách lành mạnh."
-      }
-    },
-    "calorieExpenditure": {
-      "title": "Ước tính calo tiêu hao",
-      "description": "Khi dữ liệu từ Health Connect không có sẵn, chúng tôi ước tính số calo bạn đã tiêu hao trong ngày dựa trên tỷ lệ trao đổi chất cơ bản (BMR) và mức độ hoạt động của bạn (TDEE), rồi điều chỉnh theo phần ngày đã trôi qua.",
-      "howCalculated": {
-        "title": "Cách tính ước tính",
-        "description": "Chúng tôi tính TDEE của bạn (dựa trên hồ sơ cá nhân) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính số calo đã tiêu hao cho đến hiện tại."
+        "title": "Nước & dao động cân",
+        "description": "Cân nặng hằng ngày có thể dao động đáng kể do giữ nước, tiêu hóa và thời điểm cân. Ước tính không tính đến các dao động này."
       },
       "professionalGuidance": {
         "title": "Hướng dẫn chuyên môn",
-        "description": "Không sử dụng ước tính này để đưa ra quyết định y tế. Luôn tham khảo ý kiến bác sĩ, chuyên gia chăm sóc sức khỏe hoặc chuyên gia dinh dưỡng được đăng ký để nhận lời khuyên cá nhân hóa về quản lý cân nặng."
+        "description": "Không dùng ước tính này để đưa ra quyết định y khoa. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng cho tư vấn cá nhân."
+      }
+    },
+    "healthMetrics": {
+      "description": "Các chỉ số này giúp bạn hiểu nhu cầu năng lượng của cơ thể và định hướng mục tiêu dinh dưỡng.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Tốc độ trao đổi chất cơ bản (BMR) là lượng calo cơ thể bạn đốt khi nghỉ ngơi để duy trì chức năng cơ bản như hô hấp và tuần hoàn. BMR phụ thuộc vào tuổi, giới tính, chiều cao và cân nặng. BMR cao nghĩa là cơ thể tự đốt nhiều calo hơn khi nghỉ, thường do nhiều khối cơ, trẻ tuổi, hoặc nam giới. BMR thấp thường cho thấy ít cơ hơn, lớn tuổi hơn, hoặc nữ giới."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Tổng năng lượng tiêu hao hằng ngày (TDEE) là tổng calo bạn đốt mỗi ngày, gồm BMR cộng calo từ vận động và hoạt động thường nhật. TDEE phụ thuộc vào BMR và mức độ hoạt động. TDEE cao nghĩa là bạn đốt nhiều calo hơn tổng thể, thường do hoạt động nhiều hoặc BMR cao. TDEE thấp cho thấy hoạt động hằng ngày ít hơn hoặc BMR thấp."
+      },
+      "dailyGoal": {
+        "title": "Mục tiêu hằng ngày",
+        "description": "Mục tiêu hằng ngày là lượng calo khuyến nghị dựa trên TDEE và mục tiêu cân nặng của bạn. Để giảm cân, bạn nạp ít calo hơn TDEE. Để duy trì, bạn khớp TDEE. Để tăng cân, bạn nạp nhiều hơn TDEE. Điều này giúp bạn đạt thay đổi cân nặng theo nhịp độ lành mạnh."
+      }
+    },
+    "calorieExpenditure": {
+      "title": "Ước tính năng lượng tiêu hao",
+      "description": "Khi không có dữ liệu Health Connect, chúng tôi ước tính calo tiêu hao hôm nay bằng BMR và mức độ hoạt động (TDEE) của bạn, được tỷ lệ theo phần thời gian trong ngày đã trôi qua.",
+      "howCalculated": {
+        "title": "Cách tính ước tính",
+        "description": "Chúng tôi tính TDEE (dựa trên hồ sơ của bạn) và nhân với tỷ lệ thời gian đã qua trong ngày (giờ + phút) / 24 để ước tính calo đã tiêu hao đến hiện tại."
+      },
+      "professionalGuidance": {
+        "title": "Hướng dẫn chuyên môn",
+        "description": "Không dùng ước tính này để đưa ra quyết định y khoa. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng cho tư vấn cá nhân."
       }
     }
   },
@@ -659,23 +700,23 @@
   },
   "feedbackRating": {
     "enjoyingQuestion": "Bạn có thích {appLabel} không?",
-    "yes": "Có, tôi thích nó",
-    "no": "Không lắm",
+    "yes": "Có, tôi đang rất thích",
+    "no": "Không hẳn",
     "rateStepHeading": "Đánh giá trên Play Store",
     "emailStepHeading": "Gửi phản hồi qua email",
-    "soloDevMessage": "Một đánh giá nhanh sẽ giúp người khác tìm thấy {appLabel} và giúp quá trình phát triển tiếp tục. Bạn có thể dành chút thời gian để để lại một đánh giá không?",
-    "shareFeedbackViaEmail": "Phản hồi của bạn góp phần định hình những cải tiến tiếp theo — chúng tôi đọc từng phản hồi. Bạn có muốn chia sẻ suy nghĩ qua email không?",
-    "rateCta": "Đánh giá trên Cửa hàng Play",
+    "soloDevMessage": "Một đánh giá nhanh giúp người khác tìm thấy {appLabel} và tiếp thêm động lực phát triển. Bạn có thể dành chút thời gian để đánh giá không?",
+    "shareFeedbackViaEmail": "Phản hồi của bạn định hình những gì tiếp theo — chúng tôi đọc mọi tin nhắn. Bạn có muốn chia sẻ suy nghĩ qua email không?",
+    "rateCta": "Đánh giá trên Play Store",
     "maybeLater": "Để sau",
     "sendFeedback": "Gửi phản hồi",
     "noThanks": "Không, cảm ơn",
-    "aboutUsDescription": "Được tạo nên với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, tính đơn giản và hỗ trợ bạn xây dựng thói quen ăn uống lành mạnh hơn.",
-    "aboutUsMentionBeforeLink": "Bạn tò mò ai đứng sau {appLabel}? Xem ",
-    "aboutUsLinkLabel": "Về chúng tôi",
-    "thankYouMessage": "Cảm ơn! Chúng tôi sẽ hỏi lại bạn vào dịp khác."
+    "aboutUsDescription": "Được làm với sự chăm chút bởi một nhóm nhỏ. Chúng tôi tập trung vào quyền riêng tư, sự đơn giản, và giúp bạn xây dựng thói quen ăn uống tốt hơn.",
+    "aboutUsMentionBeforeLink": "Tò mò ai đứng sau {appLabel}? Xem ",
+    "aboutUsLinkLabel": "Giới thiệu về chúng tôi",
+    "thankYouMessage": "Cảm ơn! Chúng tôi sẽ hỏi lại vào lúc khác."
   },
   "health": {
     "syncFailed": "Không thể đồng bộ với Health Connect",
-    "mealSynced": "Bữa ăn đã được đồng bộ với Health Connect"
+    "mealSynced": "Đã đồng bộ bữa ăn với Health Connect"
   }
 }

@@ -3,55 +3,55 @@
   "flag": "🇩🇰",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Du har foretaget for mange forespørgsler. Vent venligst et øjeblik, og prøv igen.",
-    "networkError": "Netværksfejl. Tjek venligst din internetforbindelse.",
-    "unknownError": "Noget gik galt. Prøv venligst igen senere.",
+    "rateLimitExceeded": "Du har foretaget for mange forespørgsler. Vent et øjeblik, før du prøver igen.",
+    "networkError": "Netværksfejl. Tjek din internetforbindelse.",
+    "unknownError": "Noget gik galt. Prøv igen senere.",
     "loadingProfileData": "Fejl ved indlæsning af profildata",
     "somethingWentWrong": "Noget gik galt.",
     "retry": "Prøv igen"
   },
   "onboarding": {
     "welcome": "Velkommen til {appLabel}",
-    "subtitle": "Din personlige ernæringsassistent drevet af AI",
+    "subtitle": "Din personlige ernæringsmakker drevet af AI",
     "getStarted": "Kom i gang",
     "features": {
       "foodRecognition": {
-        "title": "Intelligent Madgenkendelse",
-        "description": "Tag et billede og lad AI identificere dit måltid"
+        "title": "Smart madgenkendelse",
+        "description": "Tag et foto, og lad AI identificere dit måltid"
       },
       "aiAnalysis": {
-        "title": "AI Analyse",
-        "description": "Få øjeblikkelig ernæringsinformation fra dine beskrivelser"
+        "title": "AI-analyse",
+        "description": "Få øjeblikkelige næringsfakta fra dine beskrivelser"
       },
       "healthIntegration": {
         "title": "Sundhedsintegration",
-        "description": "Forbind med Health Connect for bedre indsigt"
+        "description": "Forbind med Health Connect for bedre indsigter"
       }
     },
     "gender": {
       "title": "Hvad er dit køn?",
-      "description": "Køn hjælper os med nøjagtigt at beregne din basale stofskiftehastighed (BMR).",
+      "description": "Køn hjælper os med præcist at beregne din basale forbrænding (BMR).",
       "next": "Næste"
     },
     "height": {
       "title": "Hvor høj er du?",
-      "description": "Din højde hjælper os med nøjagtigt at beregne din BMI og energibehov.",
+      "description": "Din højde hjælper os med at beregne dit BMI og dine energibehov nøjagtigt.",
       "metric": "Metrisk",
       "imperial": "Imperial",
       "next": "Næste"
     },
     "weight": {
       "currentTitle": "Hvad er din nuværende vægt?",
-      "currentDescription": "Din nuværende vægt er essentiel for at tilpasse dine daglige mål.",
+      "currentDescription": "Din nuværende vægt er vigtig for at personliggøre dine daglige mål.",
       "targetTitle": "Hvad er din målvægt?",
-      "targetDescription": "At sætte et mål for vægten hjælper os med at bestemme din langsigtede plan.",
+      "targetDescription": "At sætte en målvægt hjælper os med at lægge en langsigtet plan.",
       "metric": "Metrisk",
       "imperial": "Imperial",
       "next": "Næste"
     },
     "age": {
       "title": "Hvornår har du fødselsdag?",
-      "description": "Din alder hjælper os med nøjagtigt at beregne dit kaloriebehov.",
+      "description": "Din alder hjælper os med præcist at beregne dit kaloriebudget.",
       "next": "Næste"
     },
     "bmiScale": {
@@ -60,81 +60,81 @@
       "overweight": "Overvægt",
       "obese": "Fedme",
       "categories": {
-        "underweight": "Undervægtig",
+        "underweight": "Undervægt",
         "healthyWeight": "Sund vægt",
-        "overweight": "Overvægtig",
+        "overweight": "Overvægt",
         "obese": "Fedme"
       },
       "messages": {
-        "underweight": "Vi kan hjælpe dig med at opbygge en sund plan for at nå en balanceret vægt med næringsrige måltider.",
-        "healthy": "Godt klaret! Du er inden for en sund rækkevidde. Vi hjælper dig med at opretholde din vitalitet og energiniveau.",
-        "overweight": "{appLabel} vil forenkle din rejse med AI-drevet tracking for at hjælpe dig med at nå dit mål komfortabelt.",
-        "obese": "Vi er her for at støtte dig med personlig vejledning og bæredygtige strategier for dine sundhedsmål."
+        "underweight": "Vi kan hjælpe dig med en sund plan for at nå en balanceret vægt med næringstætte måltider.",
+        "healthy": "Godt gået! Du er i et sundt område. Vi hjælper dig med at bevare vitalitet og energiniveau.",
+        "overweight": "{appLabel} gør rejsen nemmere med AI-drevet sporing, så du når dit mål mere komfortabelt.",
+        "obese": "Vi er her for at støtte dig med personlig vejledning og bæredygtige strategier til dine sundhedsmål."
       }
     },
     "weightGoal": {
       "title": "Hvad er dit mål?",
-      "description": "Vælg det mål, der bedst beskriver, hvad du ønsker at opnå"
+      "description": "Vælg det mål, der bedst beskriver, hvad du vil opnå"
     },
     "activityLevel": {
       "title": "Hvor aktiv er du?",
-      "description": "Dette hjælper os med mere nøjagtigt at beregne dit daglige kaloriebehov"
+      "description": "Det hjælper os med at beregne dine daglige kaloriebehov mere præcist"
     },
     "healthConnect": {
       "title": "Forbind med Health Connect",
-      "description": "Synkroniser din sundhedsdata for bedre indsigt og automatisk kalorieregistrering",
+      "description": "Synkronisér dine sundhedsdata for bedre indsigter og automatisk kaloriesporing",
       "automaticTracking": {
-        "title": "Automatisk Kalorieregistrering",
-        "description": "Registrer forbrændte kalorier fra dine fitnessapps"
+        "title": "Automatisk kaloriesporing",
+        "description": "Spor forbrændte kalorier fra dine fitness-apps"
       },
       "progressInsights": {
-        "title": "Fremskridtsindsigt",
-        "description": "Få detaljeret indsigt i dine sundhedstendenser"
+        "title": "Fremskridtsindsigter",
+        "description": "Få detaljerede indsigter i dine sundhedstendenser"
       },
       "seamlessIntegration": {
-        "title": "Problemfri Integration",
-        "description": "Synkroniser data fra dine yndlings sundhedsapps"
+        "title": "Sømløs integration",
+        "description": "Synkronisér data fra dine yndlings-sundhedsapps"
       },
-      "connected": "Health Connect Forbundet",
-      "notConnected": "Health Connect Ikke Forbundet",
+      "connected": "Health Connect tilsluttet",
+      "notConnected": "Health Connect ikke tilsluttet",
       "setup": "Opsæt Health Connect",
       "skipForNow": "Spring over for nu",
       "statusConnected": "Health Connect er forbundet.",
-      "statusSuccess": "Health Connect er blevet forbundet med succes!",
-      "statusPermissionDenied": "Adgang nægtet. Aktiver venligst Health Connect-tilladelser fra din telefons indstillinger for {appLabel}.",
-      "statusError": "Fejl under opsætning af Health Connect: {error}"
+      "statusSuccess": "Health Connect er forbundet med succes!",
+      "statusPermissionDenied": "Tilladelse afvist. Aktivér Health Connect-tilladelser i telefonens indstillinger for {appLabel}.",
+      "statusError": "Fejl ved opsætning af Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Du er ikke alene",
-        "genericMessage": "Forskning viser, at konsekvent sporing er den vigtigste indikator for langsigtet succes.",
-        "personalizedMessage": "For en {age}-årig {gender}, der ønsker at {goal}, er konsekvent sporing den vigtigste indikator for succes.",
-        "closingMessage": "{appLabel} gør det 10 gange lettere end at gøre det manuelt.",
+        "genericMessage": "Forskning viser, at konsekvent registrering er den vigtigste indikator for langsigtet succes.",
+        "personalizedMessage": "For en {age}-årig {gender}, der ønsker at {goal}, er konsekvent registrering den vigtigste indikator for succes.",
+        "closingMessage": "{appLabel} gør det 10x lettere end manuelt.",
         "getStartedTitle": "Klar til at komme i gang?",
-        "tipPhoto": "Tag et billede af dine måltider for øjeblikkelig analyse",
-        "tipConsistency": "Log konsekvent for at se meningsfuld fremgang",
-        "tipProgress": "Hold øje med dine fremskridt dagligt for at forblive motiveret",
-        "button": "Lad os gå",
-        "defaultGender": "individ",
-        "defaultGoal": "en sundere dig"
+        "tipPhoto": "Tag et foto af dine måltider for øjeblikkelig analyse",
+        "tipConsistency": "Registrer konsekvent for at se meningsfulde fremskridt",
+        "tipProgress": "Følg dine fremskridt dagligt for at bevare motivationen",
+        "button": "Lad os gå i gang",
+        "defaultGender": "person",
+        "defaultGoal": "en sundere udgave af dig"
       },
       "healthProfile": {
-        "title": "Din Sundhedsprofil",
-        "bmiDescription": "Baseret på dine målinger, er din BMI {bmi}.",
+        "title": "Din sundhedsprofil",
+        "bmiDescription": "Baseret på dine mål er dit BMI {bmi}.",
         "finalizeDescription": "Lad os færdiggøre din profil for at tilpasse din oplevelse.",
         "goalGain": "tage på",
-        "goalLose": "tabe",
-        "goalReach": "For at nå dit mål, skal du {direction} {diff} {unit}.",
-        "goalReached": "Du er på din målvægt! Vi hjælper dig med at opretholde den.",
-        "button": "Lad os gå"
+        "goalLose": "tabe dig",
+        "goalReach": "For at nå dit mål skal du {direction} {diff} {unit}.",
+        "goalReached": "Du er ved din målvægt! Vi hjælper dig med at vedligeholde den.",
+        "button": "Lad os gå i gang"
       },
       "goalLifestyle": {
-        "title": "Fremragende Start!",
-        "description": "Du har taget det første skridt mod {goalText}. Da du er {activityText}, vil {appLabel} justere dine mål til at matche din livsstil.",
+        "title": "Fremragende start!",
+        "description": "Du har taget det første skridt mod {goalText}. Da du er {activityText}, vil {appLabel} justere dine mål, så de passer til din livsstil.",
         "personalizedTargets": "Personlige kaloriemål",
-        "aiMealDetection": "AI-drevet måltidsdetektion",
-        "macroBreakdowns": "Detaljerede makronæringsopgørelser",
-        "button": "Lad os gå",
+        "aiMealDetection": "AI-drevet måltidsgenkendelse",
+        "macroBreakdowns": "Detaljerede makronæringsstof-fordelinger",
+        "button": "Lad os gå i gang",
         "defaultGoal": "dine mål",
         "defaultActivity": "aktiv"
       }
@@ -146,118 +146,120 @@
   },
   "home": {
     "aiSummary": {
-      "title": "Din AI-opsummering",
-      "logMore": "Registrer flere måltider i løbet af de næste par dage for at få dine personlige AI-indsigter.",
-      "loading": "Indlæser din opsummering...",
+      "title": "Din AI-oversigt",
+      "logMore": "Registrér flere måltider de kommende dage for at få dine personlige AI-indsigter.",
+      "loading": "Indlæser din oversigt...",
       "mealCount": "{count} måltider registreret",
-      "macroBalanceScore": "Balance-score {score}",
-      "topFoods": "Topfødevarer",
-      "trendUp": "Kalorieindtag stiger",
-      "trendDown": "Kalorieindtag falder",
-      "trendSteady": "Kalorieindtag er stabilt",
+      "macroBalanceScore": "Balancescore {score}",
+      "topFoods": "Topmadvarer",
+      "trendUp": "Kalorier i stigende tendens",
+      "trendDown": "Kalorier i faldende tendens",
+      "trendSteady": "Kalorier er stabile",
       "generatedAt": "Opdateret {time}"
     },
     "dailyGoal": {
-      "title": "Sæt Dit Daglige Mål",
-      "titleSet": "Dit Daglige Mål",
-      "description": "Klar til at påbegynde din wellnessrejse? Sæt dit daglige kalorie mål nedenfor for at kickstarte din fremgang.",
-      "descriptionSet": "Dit kompas er indstillet! Dette er dit daglige kaloriemål for at vejlede dig.",
-      "yourGoal": "Dit Mål",
+      "title": "Sæt dit daglige mål",
+      "titleSet": "Dit daglige mål",
+      "description": "Klar til at starte din wellness-rejse? Sæt dit daglige kaloriemål nedenfor for at kickstarte dine fremskridt.",
+      "descriptionSet": "Din kompasretning er sat! Dette er dit daglige kaloriemål, der guider dig.",
+      "yourGoal": "Dit mål",
       "goal": "Mål",
       "dailyCalories": "Daglige kalorier (kcal)",
-      "setGoal": "Sæt Mål",
-      "intake": "Indtagelse",
+      "setGoal": "Sæt mål",
+      "intake": "Indtag",
       "burned": "Forbrændt",
       "weightImpact": "Vægtpåvirkning",
-      "estLoss": "Est. tab af",
-      "estGain": "Est. vægtøgning på",
+      "estLoss": "Ansl. tab på",
+      "estGain": "Ansl. stigning på",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Daglig Oversigt",
+      "title": "Daglig oversigt",
       "calories": "Kalorier",
       "carbs": "Kulhydrater",
       "protein": "Protein",
       "fat": "Fedt",
-      "fiber": "Kostfibre",
+      "fiber": "Fibre",
       "grams": "gram",
-      "chartAccessibilityLabel": "Diagram over makronæringsstoffer"
+      "chartAccessibilityLabel": "Makrodiagram"
     },
     "intakeProgress": {
-      "title": "Dagens Makrofordeling",
+      "title": "Dagens makro-fordeling",
       "target": "Mål",
       "current": "Nuværende"
     },
     "intakeHistory": {
-      "title": "7-Dages Makrohistorik",
+      "title": "7-dages makrohistorik",
       "trendTitle": "Dagens tendens",
       "peakHour": "Top: {hour}:00",
-      "noHistoryYet": "Ingen historie endnu",
-      "startLogging": "Begynd at logge måltider for at se dine\n7-dages makrotrends her"
+      "noHistoryYet": "Ingen historik endnu",
+      "startLogging": "Begynd at registrere måltider for at se dine\n7-dages makrotendenser her"
     },
     "mealLog": {
-      "title": "Loggede Måltider",
-      "emptyMessage": "Tag et billede af dit sidste måltid for at logge her.",
-      "noMealsToday": "Ingen måltider registreret for i dag",
+      "title": "Registrerede måltider",
+      "emptyMessage": "Tag et billede af dit seneste måltid for at logge det her.",
+      "noMealsToday": "Ingen måltider registreret i dag",
       "seeAllMeals": "Se alle måltider"
     },
     "mealDescription": {
-      "title": "Hurtig Tilføjelse med AI",
-      "description": "Beskriv dit måltid, og lad AI håndtere detaljerne.",
-      "hint": "f.eks. Til morgenmad havde jeg en stor skål havregryn med en skivet banan og en ske valle ...",
+      "title": "Hurtig tilføj med AI",
+      "description": "Beskriv dit måltid, og lad AI klare detaljerne.",
+      "hint": "f.eks. Til morgenmad fik jeg en stor skål havregryn med en skåret banan og en scoop valle ...",
       "analyzeMeal": "Analyser måltid"
     },
     "favoriteMeals": {
       "title": "Favoritmåltider",
       "description": "Tilføj hurtigt et af dine favoritmåltider.",
       "noFavorites": "Ingen favoritmåltider endnu.",
-      "addFavoriteHint": "Klik på stjernen på et måltid for at markere det som favorit.",
+      "addFavoriteHint": "Tryk på stjernen på et måltid for at markere det som favorit.",
       "seeAll": "Se alle",
       "add": "Tilføj"
     },
     "mealSnap": {
-      "title": "Tag et billede og registrér dit måltid",
-      "description": "Brug dit kamera til at tage et billede af din mad til AI-analyse.",
-      "openCamera": "Åbn Kamera",
-      "gallery": "Galleri"
+      "title": "Tag et billede og spor dit måltid",
+      "description": "Brug kameraet til at tage et billede af din mad til AI-analyse.",
+      "openCamera": "Åbn kamera",
+      "gallery": "Galleri",
+      "compressingPhoto": "Optimerer foto…",
+      "uploadingPhoto": "Uploader foto…"
     },
     "connectHealth": {
-      "title": "Synkroniser med Health Connect",
-      "description": "Synkroniser dine ernæringsdata med Health Connect",
+      "title": "Synk med Health Connect",
+      "description": "Synkronisér dine ernæringsdata med Health Connect",
       "install": "Installer",
       "connect": "Forbind"
     }
   },
   "history": {
     "noMeals": "Ingen måltider registreret",
-    "emptyMessage": "Tag et billede af dit sidste måltid for at logge her.",
+    "emptyMessage": "Tag et billede af dit seneste måltid for at logge det her.",
     "today": "I dag",
     "yesterday": "I går"
   },
   "meal": {
     "ohNo": "Åh nej!",
     "delete": "Slet",
-    "editMeal": "Rediger Måltid",
-    "addMeal": "Tilføj Måltid",
-    "saveMeal": "Gem Måltid",
+    "editMeal": "Rediger måltid",
+    "addMeal": "Tilføj måltid",
+    "saveMeal": "Gem måltid",
     "save": "Gem",
-    "mealName": "Måltid Navn",
-    "mealNameHint": "f.eks. Røræg med toast",
-    "mealQuantity": "Måltid Mængde",
+    "mealName": "Måltidsnavn",
+    "mealNameHint": "f.eks. røræg med toast",
+    "mealQuantity": "Måltidsmængde",
     "mealQuantityHint": "f.eks. 1 skål, 2 skiver",
-    "timeOfMeal": "Tidspunkt for Måltid",
-    "timeOfMealHint": "Vælg det tidspunkt, hvor du spiste dit måltid",
+    "timeOfMeal": "Tidspunkt for måltid",
+    "timeOfMealHint": "Vælg tidspunktet, hvor du spiste",
     "mealType": "Måltidstype",
     "nutrition": {
       "calories": "Kalorier",
       "carbs": "Kulhydrater (g)",
       "protein": "Protein (g)",
       "fat": "Fedt (g)",
-      "fiber": "Kostfibre (g)"
+      "fiber": "Fibre (g)"
     },
     "deleteConfirmation": {
-      "title": "Slet Måltid",
-      "message": "Er du sikker på, at du vil slette denne måltidsindtastning?",
+      "title": "Slet måltid",
+      "message": "Er du sikker på, at du vil slette denne måltidsregistrering?",
       "cancel": "Annuller",
       "delete": "Slet"
     },
@@ -265,13 +267,13 @@
     "couldNotAdd": "Kunne ikke tilføje måltid: {error}",
     "savedSuccessfully": "Måltid tilføjet!",
     "updatedSuccessfully": "Måltid opdateret!",
-    "errorSaving": "Kunne ikke gemme måltidet: {error}",
+    "errorSaving": "Fejl ved lagring af måltid: {error}",
     "removedFromFavorites": "Fjernet fra favoritter!",
     "savedAsFavorite": "Måltid gemt som favorit!",
-    "unfavorite": "Fjern fra favoritter",
+    "unfavorite": "Fjern favorit",
     "couldNotUpdateFavorite": "Kunne ikke opdatere favorit: {error}",
     "feedbackThanks": "Tak for din feedback!",
-    "reanalysisUpdated": "Måltidsanalysen er opdateret på baggrund af din feedback.",
+    "reanalysisUpdated": "Opdaterede måltidsanalysen baseret på din feedback.",
     "failedToProcess": "Kunne ikke behandle: {error}",
     "failedToProcessImage": "Kunne ikke behandle billede: {error}",
     "errorCompressingImage": "Fejl ved komprimering af billede: {error}",
@@ -280,6 +282,45 @@
     "variation": {
       "question": "Spørgsmål {current} af {total}",
       "noVariationsAvailable": "Ingen variationer tilgængelige"
+    },
+    "analysis": {
+      "title": "AI-måltidsanalyse",
+      "reassurance": "Dette tager normalt få sekunder.",
+      "stepStarted": "Går i gang…",
+      "stepDecomposition": "Forstår dit måltid…",
+      "stepIngredients": "Matcher ingredienser med næringsdata…",
+      "stepUncertainty": "Tjekker sikkerhed…",
+      "stepMealTypeQuestion": "Næsten færdig…",
+      "stepResult": "Færdiggør dit resultat…",
+      "stepError": "Noget gik galt",
+      "stepDefault": "Analyserer dit måltid…",
+      "progressUnderstand": "Forstå",
+      "progressMatch": "Match",
+      "progressCheck": "Tjek",
+      "progressFinish": "Færdig",
+      "ingredientsLine": "{count} ingredienser registreret",
+      "ingredientsPending": "Scanner ingredienser…",
+      "mealPreviewDescription": "\"{text}\"",
+      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
+      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
+      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
+      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
+      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
+      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+    },
+    "feedback": {
+      "title": "What looks wrong?",
+      "subtitle": "Help us improve the analysis by selecting one or more issues.",
+      "tellUsMore": "Tell us more",
+      "describeIncorrect": "Describe what was incorrect",
+      "submit": "Submit",
+      "issueFoodIdentification": "Food identification",
+      "issuePortionSize": "Portion size",
+      "issueCalorieDistribution": "Calorie distribution",
+      "issueMacrosWrong": "Macros are wrong",
+      "issueMissingItems": "Missing items",
+      "issueExtraItems": "Extra items",
+      "issueOther": "Other"
     }
   },
   "favorites": {
@@ -287,10 +328,10 @@
     "empty": "Ingen favoritmåltider endnu.",
     "searchPlaceholder": "Søg i favoritmåltider",
     "searchEmptyTitle": "Ingen favoritter matcher din søgning",
-    "searchEmptySubtitle": "Prøv et andet måltidsnavn, en anden mængde eller en anden måltidstype.",
+    "searchEmptySubtitle": "Prøv et andet måltidsnavn, mængde eller måltidstype.",
     "sortLabel": "Sorter favoritter",
     "undo": "Fortryd",
-    "removed": "Fjernet {name} fra favoritterne",
+    "removed": "Fjernede {name} fra favoritter",
     "sortOptions": {
       "recent": "Seneste",
       "calories": "Kalorier",
@@ -300,11 +341,11 @@
   "profile": {
     "title": "Profil",
     "noProfileData": "Ingen profildata fundet",
-    "yourProfile": "Din Profil",
-    "viewAndManage": "Se og administrer dine sundhedsoplysninger",
+    "yourProfile": "Din profil",
+    "viewAndManage": "Se og administrer dine helbredsoplysninger",
     "sections": {
       "profile": "PROFIL",
-      "basicInformation": "GRUNDLÆGGENDE OPLYSNINGER",
+      "basicInformation": "BASISOPLYSNINGER",
       "goalsAndActivity": "MÅL & AKTIVITET",
       "calculatedValues": "BEREGNEDE VÆRDIER"
     },
@@ -315,31 +356,31 @@
     "weightGoal": "Vægtmål",
     "targetWeight": "Målvægt",
     "activityLevel": "Aktivitetsniveau",
-    "healthMetrics": "Sundhedsmetrikker",
-    "notSet": "Ikke indstillet",
+    "healthMetrics": "Sundhedsmål",
+    "notSet": "Ikke angivet",
     "years": "år",
-    "updatedSuccessfully": "Profil opdateret med succes!",
+    "updatedSuccessfully": "Profil opdateret!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Dagligt Mål",
-      "calPerDay": "kal/dag",
+      "dailyGoal": "Dagligt mål",
+      "calPerDay": "kcal/dag",
       "notAvailable": "N/A"
     }
   },
   "healthScore": {
     "title": "Sundhedsscore",
     "whyThisScore": "Hvorfor denne score?",
-    "note": "Denne score er et AI estimat baseret på de identificerede ingredienser og næringsmæssig tæthed. Konsulter altid en professionel for diætvejledning.",
+    "note": "Denne score er et AI-skøn baseret på identificerede ingredienser og næringstæthed. Rådfør dig altid med en professionel for kostvejledning.",
     "unhealthy": "Usund",
     "healthy": "Sund",
     "neutral": "Neutral"
   },
   "editProfile": {
-    "title": "Rediger Profil",
+    "title": "Rediger profil",
     "sections": {
       "personalInformation": "PERSONLIGE OPLYSNINGER",
-      "physicalMeasurements": "FYSISKE MÅLINGER",
+      "physicalMeasurements": "FYSISKE MÅL",
       "goalsAndActivity": "MÅL & AKTIVITET"
     },
     "gender": "Køn",
@@ -365,37 +406,37 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Tabe Vægt",
-        "description": "Skab et kalorieunderskud for at tabe vægt"
+        "name": "Tabe sig",
+        "description": "Skab kalorieunderskud for vægttab"
       },
       "maintainWeight": {
-        "name": "Opretholde Vægt",
-        "description": "Oprethold din nuværende vægt"
+        "name": "Vedligeholde vægt",
+        "description": "Bevar din nuværende vægt"
       },
       "gainWeight": {
-        "name": "Tage På Vægt",
-        "description": "Skab et kalorieoverskud for at tage på vægt"
+        "name": "Tage på i vægt",
+        "description": "Skab kalorieoverskud for at tage på"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Stillesiddende",
-        "description": "Lidt til ingen motion"
+        "name": "Stillestående",
+        "description": "Lidt eller ingen motion"
       },
       "lightlyActive": {
-        "name": "Let Aktiv",
+        "name": "Let aktiv",
         "description": "Let motion 1-3 dage/uge"
       },
       "moderatelyActive": {
-        "name": "Moderat Aktiv",
+        "name": "Moderat aktiv",
         "description": "Moderat motion 3-5 dage/uge"
       },
       "veryActive": {
-        "name": "Meget Aktiv",
+        "name": "Meget aktiv",
         "description": "Hård motion 6-7 dage/uge"
       },
       "extremelyActive": {
-        "name": "Ekstremt Aktiv",
+        "name": "Ekstremt aktiv",
         "description": "Meget hård motion, fysisk arbejde"
       }
     }
@@ -405,16 +446,16 @@
     "sections": {
       "profile": "PROFIL",
       "localization": "LOKALISERING",
-      "notifications": "NOTIFIKATIONER",
+      "notifications": "MEDDELELSER",
       "healthConnect": "HEALTH CONNECT",
-      "supportAndLegal": "SUPPORT & JURIDISK",
+      "supportAndLegal": "SUPPORT & JURA",
       "about": "OM",
       "dangerZone": "FAREZONE",
       "developer": "UDVIKLER"
     },
     "editProfile": {
-      "title": "Rediger Profil",
-      "subtitle": "Opdater dine personlige oplysninger"
+      "title": "Rediger profil",
+      "subtitle": "Opdatér dine personlige oplysninger"
     },
     "language": {
       "title": "Sprog",
@@ -423,111 +464,111 @@
       "noResults": "Ingen resultater fundet"
     },
     "heightUnit": {
-      "title": "Højde Enhed"
+      "title": "Højdeenhed"
     },
     "weightUnit": {
-      "title": "Vægt Enhed"
+      "title": "Vægtenhed"
     },
     "mealReminders": {
       "title": "Måltidspåmindelser",
-      "subtitle": "Hold dig på sporet med rettidige alarmer"
+      "subtitle": "Hold kursen med rettidige påmindelser"
     },
     "theme": {
       "title": "Tema",
-      "light": "Lys",
-      "dark": "Mørk",
+      "light": "Lyst",
+      "dark": "Mørkt",
       "system": "System"
     },
     "sendFeedback": {
       "title": "Send feedback",
       "subtitle": "Hjælp os med at forbedre {appLabel}",
       "emailSubject": "{appLabel} app-feedback",
-      "emailBodyPrefix": "Venligst giv din feedback nedenfor:",
-      "appVersion": "App-version",
+      "emailBodyPrefix": "Angiv venligst din feedback nedenfor:",
+      "appVersion": "Appversion",
       "device": "Enhed",
       "osVersion": "OS-version",
       "uid": "UID"
     },
     "exportMealHistory": {
       "title": "Eksporter måltidshistorik",
-      "subtitle": "Del en CSV med dine registrerede måltider",
+      "subtitle": "Del en CSV-fil med dine registrerede måltider",
       "shareText": "Din Calorify-eksport af måltidshistorik",
       "failed": "Kunne ikke eksportere måltidshistorik: {error}"
     },
     "clearAllData": {
-      "title": "Slet Al Data",
-      "subtitle": "Slet alle dine oplysninger uigenkaldeligt",
-      "confirmationTitle": "Slet Al Data?",
-      "confirmationMessage": "Denne handling kan ikke fortrydes. Alle dine loggede måltider, favoritter og profilindstillinger vil blive permanent slettet.",
+      "title": "Ryd alle data",
+      "subtitle": "Slet alle dine oplysninger uden mulighed for gendannelse",
+      "confirmationTitle": "Ryd alle data?",
+      "confirmationMessage": "Denne handling kan ikke fortrydes. Alle dine registrerede måltider, favoritter og profilindstillinger bliver slettet permanent.",
       "cancel": "Annuller",
-      "clearEverything": "Slet Alt"
+      "clearEverything": "Ryd alt"
     },
     "debugOptions": {
-      "title": "Debug Indstillinger"
+      "title": "Fejlfindingsindstillinger"
     },
     "developerModeEnabled": "Udviklertilstand aktiveret!",
     "healthConnect": {
       "title": "Health Connect",
       "subtitle": "Se og administrer tilladelser",
       "unavailable": {
-        "title": "Health Connect utilgængelig",
-        "description": "Health Connect er ikke tilgængelig på denne enhed. Installer venligst Health Connect fra Play Store (Android 9+) eller opdater til Android 14+."
+        "title": "Health Connect ikke tilgængelig",
+        "description": "Health Connect er ikke tilgængelig på denne enhed. Installer Health Connect fra Play Butik (Android 9+) eller opdatér til Android 14+."
       },
       "permissions": {
         "title": "Tilladelser",
-        "description": "Følgende tilladelser anmodes om for at give integration med Health Connect:",
-        "granted": "Givet",
-        "notGranted": "Ikke Givet",
+        "description": "Følgende tilladelser anmodes om for at give Health Connect-integration:",
+        "granted": "Tilladt",
+        "notGranted": "Ikke tilladt",
         "caloriesBurned": {
-          "title": "Læs Totale Forbrændte Kalorier",
-          "description": "Giver appen mulighed for at læse dine totale forbrændte kalorier fra Health Connect.",
-          "usage": "Denne tilladelse bruges til at vise dit daglige kalorieforbrug i appen, så du bedre kan forstå dit samlede energiforbrug i løbet af dagen."
+          "title": "Læs samlede forbrændte kalorier",
+          "description": "Giver appen adgang til at læse dine samlede forbrændte kalorier fra Health Connect.",
+          "usage": "Denne tilladelse bruges til at vise dit daglige kalorieforbrug i appen, så du forstår din samlede energiudgift i løbet af dagen."
         },
         "nutritionRead": {
-          "title": "Læs Ernæringsdata",
-          "description": "Giver appen mulighed for at læse ernæringsdata fra Health Connect.",
-          "usage": "Denne tilladelse gør det muligt for appen at læse ernæringsoplysninger, der kan være blevet logget af andre apps, der er tilsluttet Health Connect, og giver dig et samlet overblik over din ernæring."
+          "title": "Læs ernæringsdata",
+          "description": "Giver appen adgang til at læse ernæringsdata fra Health Connect.",
+          "usage": "Denne tilladelse gør det muligt for appen at læse ernæringsoplysninger, som kan være registreret af andre apps forbundet til Health Connect, for at give et samlet overblik over din ernæring."
         },
         "nutritionWrite": {
-          "title": "Skriv Ernæringsdata",
-          "description": "Giver appen mulighed for at skrive ernæringsdata til Health Connect.",
-          "usage": "Denne tilladelse gør det muligt for appen at synkronisere dine loggede måltider til Health Connect, så dine ernæringsdata bliver tilgængelige for andre sundheds- og fitnessapps, du bruger."
+          "title": "Skriv ernæringsdata",
+          "description": "Giver appen adgang til at skrive ernæringsdata til Health Connect.",
+          "usage": "Denne tilladelse gør det muligt at synkronisere dine registrerede måltider til Health Connect, så dine ernæringsdata er tilgængelige i andre sundheds- og fitnessapps, du bruger."
         }
       },
-      "managePermissions": "Administrer Tilladelser",
+      "managePermissions": "Administrer tilladelser",
       "openSettings": "Åbn Health Connect-indstillinger",
       "requestPermissions": "Anmod om tilladelser",
-      "permissionRequestCancelledOrFailed": "Anmodningen om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
-      "permissionRequestFailed": "Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillinger.",
+      "permissionRequestCancelledOrFailed": "Anmodning om tilladelser blev annulleret eller mislykkedes. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.",
+      "permissionRequestFailed": "Kunne ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.",
       "requestingPermissions": "Anmoder..."
     },
     "about": {
       "title": "Om",
-      "tagline": "Hurtig, gratis og privatlivsorienteret kaloriebevidsthed",
+      "tagline": "Hurtig, gratis og med privatlivet først i fokus for kaloriebevidsthed",
       "ourStory": {
-        "title": "Vores Historie",
-        "content": "{appLabel} opstod af en simpel frustration: De fleste apps til kalorietracking er enten alt for komplicerede, kræver konstant manuel indtastning, tager høje abonnementsgebyrer eller går på kompromis med privatlivet.\n\nSom uafhængig udvikler ønskede jeg at bygge noget enklere og mere retfærdigt — en app, der bruger AI til at reducere indsatsen, forbliver hurtig og gratis at bruge og behandler dine sundhedsdata med respekt.\n\n{appLabel} er den app, jeg ville ønske fandtes: ingen konti, ingen sporing, ingen annoncer — kun klare, praktiske indsigter og dine sundhedsmål."
+        "title": "Vores historie",
+        "content": "{appLabel} blev skabt ud fra en enkel frustration: De fleste kalorietæller-apps er enten alt for komplicerede, kræver konstant manuel indtastning, koster dyre abonnementer eller går på kompromis med privatlivet.\n\nSom solo-udvikler ville jeg bygge noget enklere og mere fair — en app, der bruger AI til at mindske indsatsen, forbliver hurtig og gratis at bruge, og som behandler dine sundhedsdata med respekt.\n\n{appLabel} er den app, jeg selv manglede: ingen konti, ingen sporing, ingen reklamer — bare klare, praktiske indsigter og fokus på dine sundhedsmål."
       },
       "privacy": {
-        "title": "Dit Privatliv Tæller",
-        "description": "Privatliv er ikke en eftertanke — det er et designprincip. Her er hvad det betyder i praksis:",
-        "noAccounts": "Ingen konti kræves\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.",
-        "noTracking": "Ingen adfærdssporing\n{appLabel} overvåger ikke din aktivitet, opbygger brugsprofiler eller sporer dig på tværs af apps eller hjemmesider.",
-        "noAds": "Annoncefri fra grunden\n{appLabel} er bygget til at fungere uden annoncer eller datadrevet monetisering.",
-        "noDataSelling": "Intet datasalg\nDine sundhedsdata sælges aldrig eller deles med tredjeparter.",
-        "localStorage": "Lokalt først lagring\nDine data forbliver på din enhed.",
+        "title": "Dit privatliv betyder noget",
+        "description": "Privatliv er ikke en eftertanke — det er et designprincip. Det betyder i praksis:",
+        "noAccounts": "Ingen konti påkrævet\nBrug appen med det samme. Ingen tilmelding, ingen identiteter.",
+        "noTracking": "Ingen adfærdssporing\n{appLabel} overvåger ikke din aktivitet, opbygger ikke brugsprofiler og sporer dig ikke på tværs af apps eller websites.",
+        "noAds": "Reklamefri som udgangspunkt\n{appLabel} er bygget til at fungere uden reklamer eller datadrevet indtjening.",
+        "noDataSelling": "Intet salg af data\nDine sundhedsdata bliver aldrig solgt eller delt med tredjeparter.",
+        "localStorage": "Lokalførst-lagring\nDine data forbliver på din enhed.",
         "privacyPolicy": "Privatlivspolitik"
       },
       "developer": {
-        "title": "Bygget af en Uafhængig Udvikler",
-        "description": "{appLabel} er bygget og vedligeholdt af en enkelt uafhængig udvikler, der fokuserer på at skabe rolig, privatlivsrespekterende sundhedssoftware.\n\nFeedback læses personligt og hjælper med at forme retningen for appen.",
+        "title": "Bygget af en solo-udvikler",
+        "description": "{appLabel} er bygget og vedligeholdt af en enkelt udvikler med fokus på rolig, privatlivsrespekterende sundhedssoftware.\n\nFeedback læses personligt og er med til at forme appens retning.",
         "website": "Hjemmeside",
-        "email": "E-mail"
+        "email": "Email"
       },
       "feedback": {
         "title": "Nyder du {appLabel}?",
-        "description": "Din feedback hjælper med at forbedre {appLabel} for alle.",
-        "rateApp": "Bedøm på Play Store",
+        "description": "Din feedback hjælper med at gøre {appLabel} bedre for alle.",
+        "rateApp": "Bedøm i Play Butik",
         "sendFeedback": "Send feedback"
       }
     },
@@ -537,119 +578,119 @@
     }
   },
   "reminders": {
-    "title": "Hold dig på sporet med påmindelser",
-    "description": "Få blide påmindelser om at logge dine måltider og forblive konsekvent med dine ernæringsmål",
-    "notificationsEnabled": "Notifikationer Aktiveret",
-    "notificationsDisabled": "Notifikationer Deaktiveret",
+    "title": "Hold kursen med påmindelser",
+    "description": "Få blide påmindelser om at registrere dine måltider og være konsekvent med dine ernæringsmål",
+    "notificationsEnabled": "Meddelelser aktiveret",
+    "notificationsDisabled": "Meddelelser deaktiveret",
     "enabledSubtitle": "Du vil modtage måltidspåmindelser",
-    "disabledSubtitle": "Aktivér notifikationer for at få måltidspåmindelser",
+    "disabledSubtitle": "Aktivér meddelelser for at få måltidspåmindelser",
     "mealReminders": "Måltidspåmindelser",
     "breakfast": "Morgenmad",
     "lunch": "Frokost",
     "dinner": "Aftensmad",
-    "snack": "Mellemmåltid",
+    "snack": "Snack",
     "unknown": "Ukendt",
-    "change": "Ændre",
-    "enableNotifications": "Aktivér Notifikationer",
+    "change": "Ændr",
+    "enableNotifications": "Aktivér meddelelser",
     "skipForNow": "Spring over for nu",
-    "saveChanges": "Gem Ændringer",
-    "enabledSuccessfully": "Notifikationer aktiveret med succes!",
-    "permissionDenied": "Notifikationstilladelse nægtet",
-    "errorEnabling": "Fejl ved aktivering af notifikationer: {error}",
+    "saveChanges": "Gem ændringer",
+    "enabledSuccessfully": "Meddelelser blev aktiveret!",
+    "permissionDenied": "Tilladelse til meddelelser blev afvist",
+    "errorEnabling": "Fejl ved aktivering af meddelelser: {error}",
     "errorCompletingSetup": "Fejl ved færdiggørelse af opsætning: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Morgenmadstid! 🍳",
-      "body": "Glem ikke at logge din morgenmad"
+      "title": "Tid til morgenmad! 🍳",
+      "body": "Glem ikke at registrere din morgenmad"
     },
     "lunch": {
-      "title": "Frokosttid! 🥗",
-      "body": "Tid til at logge din frokost"
+      "title": "Tid til frokost! 🥗",
+      "body": "Tid til at registrere din frokost"
     },
     "dinner": {
-      "title": "Aftensmadstid! 🍽️",
-      "body": "Glem ikke at logge din aftensmad"
+      "title": "Tid til aftensmad! 🍽️",
+      "body": "Glem ikke at registrere din aftensmad"
     },
     "snack": {
-      "title": "Snacktid! 🍎",
+      "title": "Tid til en snack! 🍎",
       "body": "Tid til en sund snack"
     },
     "test": {
-      "title": "Testnotifikation"
+      "title": "Testmeddelelse"
     }
   },
   "login": {
-    "title": "Log Ind",
+    "title": "Log ind",
     "signInWithGoogle": "Log ind med Google",
-    "signInFailed": "Google Login fejlede eller blev annulleret."
+    "signInFailed": "Google-login mislykkedes eller blev annulleret."
   },
   "disclaimer": {
     "pleaseNote": "Bemærk venligst",
     "snap": {
-      "description": "{appLabel} giver estimerede ernæringsoplysninger. Nøjagtigheden afhænger af dine indtastninger og variationer i maden. Brug det som vejledning, ikke som en endelig kilde. Kontakt en fagperson for personlig kostvejledning.",
+      "description": "{appLabel} giver estimerede næringsoplysninger. Nøjagtigheden afhænger af dine input og variationer i maden. Brug det som vejledning, ikke som en endelig kilde. Rådfør dig med en professionel for personlig kostvejledning.",
       "portionSize": {
         "title": "Portionsstørrelse",
         "description": "Nøjagtigheden af estimaterne afhænger i høj grad af din korrekte vurdering af portionsstørrelsen."
       },
       "preparationMethods": {
         "title": "Tilberedningsmetoder",
-        "description": "Tilberedningsmetoder kan betydeligt ændre den ernæringsmæssige værdi af mad. {appLabel}'s estimater medregner ikke altid disse variationer."
+        "description": "Tilberedning kan ændre fødevarers næringsindhold markant. {appLabel}s estimater tager ikke altid højde for disse variationer."
       },
       "ingredients": {
         "title": "Ingredienser",
-        "description": "Komplekse retter med mange skjulte ingredienser kan føre til mindre præcise estimeringer."
+        "description": "Komplekse retter med mange skjulte ingredienser kan føre til mindre præcise estimater."
       },
       "databaseLimitations": {
-        "title": "Database Begrænsninger",
-        "description": "{appLabel}'s fødevaredatabase er omfattende, men den inkluderer muligvis ikke hver enkelt fødevare eller variation."
+        "title": "Databasebegrænsninger",
+        "description": "{appLabel}s fødevaredatabase er omfattende, men indeholder muligvis ikke alle fødevarer eller variationer."
       }
     },
     "weightEstimate": {
-      "title": "Om Vægtestimering",
-      "description": "Den forventede vægtændring er et teoretisk estimat baseret på den simple kalorie-inde vs. kalorie-ude model. Det er beregnet til motivationsvejledning, ikke som en forudsigelse af din faktiske vægt.",
+      "title": "Om vægtestimatet",
+      "description": "Det projicerede vægtskifte er et teoretisk estimat baseret på en simpel ind-ud-kaloriemodel. Det er kun tiltænkt som motivation, ikke som en forudsigelse af din faktiske vægt.",
       "calorieAccuracy": {
-        "title": "Kalorie Nøjagtighed",
-        "description": "Dette estimat er kun så præcist som dit registrerede kalorieindtag og kalorieforbrug. Unøjagtig registrering vil føre til en unøjagtig fremskrivning."
+        "title": "Kalorienøjagtighed",
+        "description": "Dette estimat er kun så nøjagtigt som dit registrerede kalorieindtag og -forbrug. Unøjagtig registrering giver et unøjagtigt estimat."
       },
       "biologicalFactors": {
-        "title": "Biologiske Faktorer",
-        "description": "Egentlig vægttab/-øgning påvirkes af stofskifte, hormoner, søvn, stress, hydrering og andre individuelle faktorer, som {appLabel} ikke kan måle."
+        "title": "Biologiske faktorer",
+        "description": "Faktisk vægttab/-øgning påvirkes af stofskifte, hormoner, søvn, stress, hydrering og andre individuelle faktorer, som {appLabel} ikke kan måle."
       },
       "waterWeight": {
-        "title": "Vandvægt & Fluktuationer",
-        "description": "Normal daglig vægt kan fluktuere betydeligt på grund af vandretention, fordøjelse og timing. Estimatet tager ikke højde for disse daglige ændringer."
-      },
-      "professionalGuidance": {
-        "title": "Professionel Vejledning",
-        "description": "Brug ikke dette estimat til at træffe medicinske beslutninger. Konsulter altid en sundhedsfaglig professionel eller registreret diætist for personlig vægtstyring."
-      }
-    },
-    "healthMetrics": {
-      "description": "Disse målinger hjælper dig med at forstå din krops energibehov og vejlede dine ernæringsmål.",
-      "bmr": {
-        "title": "BMR",
-        "description": "Basal Metabolisk Rate (BMR) er det antal kalorier, din krop forbrænder i hvile for at opretholde grundlæggende funktioner som vejrtrækning og cirkulation. BMR afhænger af din alder, køn, højde og vægt. En højere BMR betyder, at din krop naturligt forbrænder flere kalorier i hvile, ofte på grund af mere muskelmasse, yngre alder eller mandligt køn. En lavere BMR indikerer typisk mindre muskelmasse, ældre alder eller kvindeligt køn."
-      },
-      "tdee": {
-        "title": "TDEE",
-        "description": "Total Daglig Energiforbrug (TDEE) er det samlede antal kalorier, du forbrænder pr. dag, inklusive din BMR plus kalorier fra fysisk aktivitet og daglig bevægelse. TDEE afhænger af din BMR og aktivitetsniveau. En højere TDEE betyder, at du forbrænder flere kalorier samlet, ofte fordi du er mere aktiv eller har en højere BMR. En lavere TDEE antyder mindre daglig aktivitet eller en lavere BMR."
-      },
-      "dailyGoal": {
-        "title": "Dagligt Mål",
-        "description": "Dagligt Mål er dit anbefalede daglige kalorieindtag baseret på din TDEE og vægtmål. For vægttab indtager du færre kalorier end din TDEE. For vægtvedligeholdelse matcher du din TDEE. For vægtøgning indtager du flere kalorier end din TDEE. Dette hjælper dig med at opnå din ønskede vægtændring i et sundt tempo."
-      }
-    },
-    "calorieExpenditure": {
-      "title": "Anslået kalorieforbrug",
-      "description": "Når Health Connect-data ikke er tilgængelige, estimerer vi, hvor mange kalorier du har forbrændt i dag ved at bruge din basale stofskiftehastighed (BMR) og dit samlede daglige energiforbrug (TDEE), tilpasset den del af dagen, der er passeret.",
-      "howCalculated": {
-        "title": "Sådan beregnes estimatet",
-        "description": "Vi beregner dit TDEE (baseret på din profil) og ganger det med den andel af dagen, der er gået (timer + minutter) / 24 for at anslå, hvor mange kalorier der er forbrændt indtil nu."
+        "title": "Vandvægt og udsving",
+        "description": "Din daglige vægt kan svinge betydeligt pga. væskeretention, fordøjelse og timing. Estimatet tager ikke højde for disse daglige variationer."
       },
       "professionalGuidance": {
         "title": "Professionel vejledning",
-        "description": "Brug ikke dette estimat til at træffe medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller en autoriseret diætist for personlig rådgivning om vægtstyring."
+        "description": "Brug ikke dette estimat til medicinske beslutninger. Rådfør dig altid med en sundhedsprofessionel eller klinisk diætist for personlig rådgivning."
+      }
+    },
+    "healthMetrics": {
+      "description": "Disse målinger hjælper dig med at forstå kroppens energibehov og guider dine ernæringsmål.",
+      "bmr": {
+        "title": "BMR",
+        "description": "Basal Metabolic Rate (BMR) er antallet af kalorier, din krop forbrænder i hvile for at opretholde basale funktioner som vejrtrækning og blodcirkulation. BMR afhænger af din alder, dit køn, din højde og din vægt. En højere BMR betyder, at din krop naturligt forbrænder flere kalorier i hvile, ofte pga. mere muskelmasse, yngre alder eller mandligt køn. En lavere BMR indikerer typisk mindre muskelmasse, højere alder eller kvindeligt køn."
+      },
+      "tdee": {
+        "title": "TDEE",
+        "description": "Total Daily Energy Expenditure (TDEE) er de samlede kalorier, du forbrænder pr. dag, inklusive din BMR plus kalorier fra fysisk aktivitet og daglig bevægelse. TDEE afhænger af din BMR og dit aktivitetsniveau. En højere TDEE betyder, at du forbrænder flere kalorier samlet set, typisk ved at være mere aktiv eller have en højere BMR. En lavere TDEE antyder mindre daglig aktivitet eller en lavere BMR."
+      },
+      "dailyGoal": {
+        "title": "Dagligt mål",
+        "description": "Dit daglige mål er dit anbefalede daglige kalorieindtag baseret på din TDEE og dit vægtmål. For vægttab spiser du færre kalorier end din TDEE. For vedligeholdelse matcher du din TDEE. For vægtøgning spiser du flere kalorier end din TDEE. Det hjælper dig med at nå din ønskede vægtændring i et sundt tempo."
+      }
+    },
+    "calorieExpenditure": {
+      "title": "Estimat af kalorieforbrug",
+      "description": "Når Health Connect-data ikke er tilgængelige, estimerer vi dagens forbrændte kalorier ved at bruge din basale forbrænding (BMR) og aktivitetsniveau (TDEE), skaleret efter den del af dagen, der er gået.",
+      "howCalculated": {
+        "title": "Sådan beregnes estimatet",
+        "description": "Vi beregner din TDEE (baseret på din profil) og ganger den med andelen af dagen, der er gået (timer + minutter) / 24 for at estimere kalorier forbrændt indtil nu."
+      },
+      "professionalGuidance": {
+        "title": "Professionel vejledning",
+        "description": "Brug ikke dette estimat til medicinske beslutninger. Rådfør dig altid med en sundhedsprofessionel eller klinisk diætist for personlig rådgivning."
       }
     }
   },
@@ -659,23 +700,23 @@
   },
   "feedbackRating": {
     "enjoyingQuestion": "Nyder du {appLabel}?",
-    "yes": "Ja, jeg nyder den",
+    "yes": "Ja, jeg kan lide den",
     "no": "Ikke rigtigt",
-    "rateStepHeading": "Bedøm os i Play Store",
-    "emailStepHeading": "Giv feedback via e-mail",
-    "soloDevMessage": "En hurtig vurdering hjælper andre med at finde {appLabel} og holder udviklingen i gang. Vil du tage et øjeblik til at give en vurdering?",
-    "shareFeedbackViaEmail": "Din feedback former, hvad der kommer fremover — vi læser hver besked. Vil du gerne dele dine tanker via e-mail?",
-    "rateCta": "Bedøm i Play Store",
+    "rateStepHeading": "Bedøm i Play Butik",
+    "emailStepHeading": "Send feedback via email",
+    "soloDevMessage": "En hurtig bedømmelse hjælper andre med at finde {appLabel} og holder udviklingen i gang. Vil du tage et øjeblik til at give en bedømmelse?",
+    "shareFeedbackViaEmail": "Din feedback former, hvad der kommer næste — vi læser hver besked. Vil du dele dine tanker via email?",
+    "rateCta": "Bedøm i Play Butik",
     "maybeLater": "Måske senere",
-    "sendFeedback": "Send os feedback",
+    "sendFeedback": "Send feedback",
     "noThanks": "Nej tak",
-    "aboutUsDescription": "Skabt med omhu af et lille team. Vi er fokuserede på dit privatliv, enkelhed og på at hjælpe dig med at opbygge sundere spisevaner.",
-    "aboutUsMentionBeforeLink": "Nysgerrig efter, hvem der står bag {appLabel}? Se ",
+    "aboutUsDescription": "Lavet med omhu af et lille team. Vi fokuserer på privatliv, enkelhed og at hjælpe dig med at opbygge bedre spisevaner.",
+    "aboutUsMentionBeforeLink": "Nysgerrig på, hvem der står bag {appLabel}? Se ",
     "aboutUsLinkLabel": "Om os",
-    "thankYouMessage": "Tak! Vi spørger igen på et andet tidspunkt."
+    "thankYouMessage": "Tak! Vi spørger igen en anden gang."
   },
   "health": {
-    "syncFailed": "Kunne ikke synkronisere med Health Connect",
+    "syncFailed": "Kunne ikke synkronisere til Health Connect",
     "mealSynced": "Måltid synkroniseret med Health Connect"
   }
 }

@@ -82,7 +82,7 @@ class ErrorView extends StatelessWidget {
 
   /// Prefer translated copy where the variant maps cleanly to an existing
   /// string; otherwise fall back to the message embedded in the error (which
-  /// comes from the server `detail` field when available).
+  /// comes from the server JSON `message` field when available).
   String _messageFor(AppError error) {
     return switch (error) {
       NetworkError() => t.errors.networkError,

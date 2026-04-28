@@ -15,6 +15,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_shee
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_variation_sheet.dart';
 import 'package:calorify/features/debug/database_inspector_screen.dart';
+import 'package:calorify/features/debug/meal_analysis_observability_screen.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_easter_egg_test_screen.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
@@ -92,6 +93,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
+    final mealObsOptions = _buildMealAnalysisObservabilityOptions(context);
     final profileApiOptions = _buildProfileApiOptions(context);
     final feedbackOptions = _buildFeedbackOptions(context);
     final dataResetOptions = _buildDataResetOptions(context);
@@ -144,6 +146,11 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
             if (foodApiOptions != null) ...[
               _buildSectionTitle(context, 'Food API Tests'),
               foodApiOptions,
+              const SizedBox(height: 24),
+            ],
+            if (mealObsOptions != null) ...[
+              _buildSectionTitle(context, 'Meal analysis metrics'),
+              mealObsOptions,
               const SizedBox(height: 24),
             ],
             if (profileApiOptions != null) ...[
@@ -691,6 +698,28 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     }
     if (filtered.isEmpty) return null;
     return Card(child: Column(children: filtered));
+  }
+
+  Widget? _buildMealAnalysisObservabilityOptions(BuildContext context) {
+    const section = 'Meal analysis metrics';
+    const title = 'Meal analysis observability';
+    const subtitle = 'Prometheus metrics and Firebase timing reference';
+    if (!_matchesQuery(section, title, subtitle)) return null;
+    return Card(
+      child: ListTile(
+        leading: const Icon(LucideIcons.chartBar),
+        title: const Text(title),
+        subtitle: const Text(subtitle),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => const MealAnalysisObservabilityScreen(),
+              settings: const RouteSettings(name: 'mealAnalysisObservability'),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   Widget? _buildProfileApiOptions(BuildContext context) {

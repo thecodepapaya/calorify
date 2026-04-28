@@ -1,5 +1,4 @@
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -37,7 +36,7 @@ final dailyCalorieGoalProvider = StreamProvider.autoDispose<int?>((ref) {
   return ref.watch(databaseInterfaceProvider).watchDailyCalorieGoal();
 });
 
-final aiSummaryProvider = FutureProvider.autoDispose<AiSummaryResult?>((ref) {
+final aiSummaryProvider = FutureProvider.autoDispose<AiMealSummaryResponse?>((ref) {
   return ref.watch(foodRepositoryProvider).getAiSummary();
 });
 

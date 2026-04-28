@@ -67,12 +67,12 @@ class _TranslationsErrorsTl implements TranslationsErrorsEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Nagpadala ka ng masyadong maraming kahilingan. Pakihintay muna nang sandali bago subukang muli.';
-	@override String get networkError => 'May problema sa network. Pakisuri ang iyong koneksyon sa internet.';
-	@override String get unknownError => 'Nagkaroon ng problema. Pakisubukang muli mamaya.';
-	@override String get loadingProfileData => 'Error sa pag-load ng datos ng profile';
+	@override String get rateLimitExceeded => 'Sobra ang dami ng kahilingan. Maghintay sandali bago muling subukan.';
+	@override String get networkError => 'Error sa network. Pakisuri ang iyong koneksyon sa internet.';
+	@override String get unknownError => 'May nangyaring mali. Pakisubukang muli mamaya.';
+	@override String get loadingProfileData => 'Error sa pag-load ng data ng profile';
 	@override String get somethingWentWrong => 'May nangyaring mali.';
-	@override String get retry => 'Subukan muli';
+	@override String get retry => 'Subukang muli';
 }
 
 // Path: onboarding
@@ -83,8 +83,8 @@ class _TranslationsOnboardingTl implements TranslationsOnboardingEn {
 
 	// Translations
 	@override String welcome({required Object appLabel}) => 'Maligayang pagdating sa ${appLabel}';
-	@override String get subtitle => 'Ang iyong personal na kasamahan sa nutrisyon na pinapagana ng AI';
-	@override String get getStarted => 'Magsimula';
+	@override String get subtitle => 'Ang iyong personal na katuwang sa nutrisyon na pinalakas ng AI';
+	@override String get getStarted => 'Simulan';
 	@override late final _TranslationsOnboardingFeaturesTl features = _TranslationsOnboardingFeaturesTl._(_root);
 	@override late final _TranslationsOnboardingGenderTl gender = _TranslationsOnboardingGenderTl._(_root);
 	@override late final _TranslationsOnboardingHeightTl height = _TranslationsOnboardingHeightTl._(_root);
@@ -134,8 +134,8 @@ class _TranslationsHistoryTl implements TranslationsHistoryEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'Walang nakahiwalay na pagkain';
-	@override String get emptyMessage => 'Kumuha ng litrato ng iyong huling pagkain upang i-log dito.';
+	@override String get noMeals => 'Walang naitalang pagkain';
+	@override String get emptyMessage => 'Kuhanin ng larawan ang huli mong kinain para ma-log dito.';
 	@override String get today => 'Ngayon';
 	@override String get yesterday => 'Kahapon';
 }
@@ -147,38 +147,40 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get ohNo => 'Oh hindi!';
-	@override String get delete => 'Tanggalin';
+	@override String get ohNo => 'Naku!';
+	@override String get delete => 'Burahin';
 	@override String get editMeal => 'I-edit ang Pagkain';
 	@override String get addMeal => 'Magdagdag ng Pagkain';
 	@override String get saveMeal => 'I-save ang Pagkain';
 	@override String get save => 'I-save';
 	@override String get mealName => 'Pangalan ng Pagkain';
-	@override String get mealNameHint => 'Hal., Hinalong itlog na may tinapay';
+	@override String get mealNameHint => 'hal., Scrambled Eggs na may tostang tinapay';
 	@override String get mealQuantity => 'Dami ng Pagkain';
 	@override String get mealQuantityHint => 'hal., 1 mangkok, 2 hiwa';
 	@override String get timeOfMeal => 'Oras ng Pagkain';
-	@override String get timeOfMealHint => 'Pumili ng oras kung kailan mo kinain ang iyong pagkain';
+	@override String get timeOfMealHint => 'Piliin ang oras na kinain mo ang iyong pagkain';
 	@override String get mealType => 'Uri ng Pagkain';
 	@override late final _TranslationsMealNutritionTl nutrition = _TranslationsMealNutritionTl._(_root);
 	@override late final _TranslationsMealDeleteConfirmationTl deleteConfirmation = _TranslationsMealDeleteConfirmationTl._(_root);
-	@override String get addedToLog => 'Idinagdag ang pagkain sa iyong log!';
-	@override String couldNotAdd({required Object error}) => 'Hindi maidaragdag ang pagkain: ${error}';
-	@override String get savedSuccessfully => 'Matagumpay na naidagdag ang pagkain!';
+	@override String get addedToLog => 'Naidagdag ang pagkain sa iyong log!';
+	@override String couldNotAdd({required Object error}) => 'Hindi maidagdag ang pagkain: ${error}';
+	@override String get savedSuccessfully => 'Matagumpay na nadagdag ang pagkain!';
 	@override String get updatedSuccessfully => 'Matagumpay na na-update ang pagkain!';
-	@override String errorSaving({required Object error}) => 'Nabigong i-save ang pagkain: ${error}';
-	@override String get removedFromFavorites => 'Tinanggal mula sa mga paborito!';
-	@override String get savedAsFavorite => 'Naitabi ang pagkain bilang paborito!';
-	@override String get unfavorite => 'Alisin mula sa mga paborito';
+	@override String errorSaving({required Object error}) => 'Error sa pag-save ng pagkain: ${error}';
+	@override String get removedFromFavorites => 'Inalis sa paborito!';
+	@override String get savedAsFavorite => 'Na-save ang pagkain bilang paborito!';
+	@override String get unfavorite => 'Alisin sa paborito';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Hindi ma-update ang paborito: ${error}';
-	@override String get feedbackThanks => 'Salamat sa iyong puna!';
-	@override String get reanalysisUpdated => 'Na-update ang pagsusuri ng pagkain batay sa iyong puna.';
-	@override String failedToProcess({required Object error}) => 'Nabigo sa pagproseso: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'Nabigo sa pagproseso ng larawan: ${error}';
+	@override String get feedbackThanks => 'Salamat sa feedback!';
+	@override String get reanalysisUpdated => 'Na-update ang pagsusuri ng pagkain batay sa iyong feedback.';
+	@override String failedToProcess({required Object error}) => 'Hindi naproseso: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'Hindi naproseso ang larawan: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Error sa pag-compress ng larawan: ${error}';
-	@override String get failedToSave => 'Nabigo sa pag-save ng datos. Pakisubok muli.';
+	@override String get failedToSave => 'Hindi na-save ang data. Pakisubukang muli.';
 	@override String get skip => 'Laktawan';
 	@override late final _TranslationsMealVariationTl variation = _TranslationsMealVariationTl._(_root);
+	@override late final _TranslationsMealAnalysisTl analysis = _TranslationsMealAnalysisTl._(_root);
+	@override late final _TranslationsMealFeedbackTl feedback = _TranslationsMealFeedbackTl._(_root);
 }
 
 // Path: favorites
@@ -188,14 +190,14 @@ class _TranslationsFavoritesTl implements TranslationsFavoritesEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mga Paborito';
-	@override String get empty => 'Walang paboritong pagkain sa ngayon.';
+	@override String get title => 'Paborito';
+	@override String get empty => 'Wala pang paboritong pagkain.';
 	@override String get searchPlaceholder => 'Maghanap ng paboritong pagkain';
-	@override String get searchEmptyTitle => 'Walang paborito ang tumutugma sa iyong paghahanap';
+	@override String get searchEmptyTitle => 'Walang paborito na tumutugma sa iyong paghahanap';
 	@override String get searchEmptySubtitle => 'Subukan ang ibang pangalan ng pagkain, dami, o uri ng pagkain.';
-	@override String get sortLabel => 'Iayos ang mga paborito';
-	@override String get undo => 'Bawiin';
-	@override String removed({required Object name}) => 'Tinanggal ang ${name} mula sa mga paborito';
+	@override String get sortLabel => 'Ayusin ang paborito';
+	@override String get undo => 'I-undo';
+	@override String removed({required Object name}) => 'Inalis ang ${name} mula sa paborito';
 	@override late final _TranslationsFavoritesSortOptionsTl sortOptions = _TranslationsFavoritesSortOptionsTl._(_root);
 }
 
@@ -207,9 +209,9 @@ class _TranslationsProfileTl implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => 'Profile';
-	@override String get noProfileData => 'Walang natagpuang datos ng profile';
-	@override String get yourProfile => 'Ang Iyong Profile';
-	@override String get viewAndManage => 'Tingnan at pamahalaan ang iyong impormasyon sa kalusugan';
+	@override String get noProfileData => 'Walang nakita na data ng profile';
+	@override String get yourProfile => 'Iyong Profile';
+	@override String get viewAndManage => 'Tingnan at pamahalaan ang iyong impormasyong pangkalusugan';
 	@override late final _TranslationsProfileSectionsTl sections = _TranslationsProfileSectionsTl._(_root);
 	@override String get gender => 'Kasarian';
 	@override String get height => 'Taas';
@@ -218,7 +220,7 @@ class _TranslationsProfileTl implements TranslationsProfileEn {
 	@override String get weightGoal => 'Layunin sa Timbang';
 	@override String get targetWeight => 'Target na Timbang';
 	@override String get activityLevel => 'Antas ng Aktibidad';
-	@override String get healthMetrics => 'Metrics ng Kalusugan';
+	@override String get healthMetrics => 'Mga Sukatang Pangkalusugan';
 	@override String get notSet => 'Hindi nakatakda';
 	@override String get years => 'taon';
 	@override String get updatedSuccessfully => 'Matagumpay na na-update ang profile!';
@@ -232,12 +234,12 @@ class _TranslationsHealthScoreTl implements TranslationsHealthScoreEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Iskor ng Kalusugan';
-	@override String get whyThisScore => 'Bakit ang iskor na ito?';
-	@override String get note => 'Ang iskor na ito ay isang pagtatantya mula sa AI batay sa nakilalang sangkap at nutritional density. Palaging kumonsulta sa isang propesyonal para sa payo sa pagkain.';
+	@override String get title => 'Health Score';
+	@override String get whyThisScore => 'Bakit ganito ang iskor?';
+	@override String get note => 'Ang iskor na ito ay pagtatantya ng AI batay sa mga natukoy na sangkap at densidad ng nutrisyon. Laging kumunsulta sa propesyonal para sa payong pandiyeta.';
 	@override String get unhealthy => 'Hindi Malusog';
 	@override String get healthy => 'Malusog';
-	@override String get neutral => 'Neutral';
+	@override String get neutral => 'Neyutral';
 }
 
 // Path: editProfile
@@ -250,20 +252,20 @@ class _TranslationsEditProfileTl implements TranslationsEditProfileEn {
 	@override String get title => 'I-edit ang Profile';
 	@override late final _TranslationsEditProfileSectionsTl sections = _TranslationsEditProfileSectionsTl._(_root);
 	@override String get gender => 'Kasarian';
-	@override String get dateOfBirth => 'Petsa ng Kaarawan';
+	@override String get dateOfBirth => 'Petsa ng Kapanganakan';
 	@override String get height => 'Taas';
 	@override String get weight => 'Timbang';
 	@override String get weightGoal => 'Layunin sa Timbang';
 	@override String get activityLevel => 'Antas ng Aktibidad';
-	@override String get metric => 'Sistemang metrikal';
+	@override String get metric => 'Metriko';
 	@override String get imperial => 'Imperyal';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
 	@override String get unitLbs => 'lbs';
-	@override String get metricCm => 'Sistemang metrikal (cm)';
+	@override String get metricCm => 'Metriko (cm)';
 	@override String get imperialFtIn => 'Imperyal (ft/in)';
-	@override String get metricKg => 'Sistemang metrikal (kg)';
+	@override String get metricKg => 'Metriko (kg)';
 	@override String get imperialLbs => 'Imperyal (lbs)';
 	@override late final _TranslationsEditProfileGendersTl genders = _TranslationsEditProfileGendersTl._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsTl weightGoals = _TranslationsEditProfileWeightGoalsTl._(_root);
@@ -289,7 +291,7 @@ class _TranslationsSettingsTl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryTl exportMealHistory = _TranslationsSettingsExportMealHistoryTl._(_root);
 	@override late final _TranslationsSettingsClearAllDataTl clearAllData = _TranslationsSettingsClearAllDataTl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTl debugOptions = _TranslationsSettingsDebugOptionsTl._(_root);
-	@override String get developerModeEnabled => 'Naka-enable ang developer mode!';
+	@override String get developerModeEnabled => 'Na-enable ang developer mode!';
 	@override late final _TranslationsSettingsHealthConnectTl healthConnect = _TranslationsSettingsHealthConnectTl._(_root);
 	@override late final _TranslationsSettingsAboutTl about = _TranslationsSettingsAboutTl._(_root);
 	@override late final _TranslationsSettingsAppInfoTl appInfo = _TranslationsSettingsAppInfoTl._(_root);
@@ -302,26 +304,26 @@ class _TranslationsRemindersTl implements TranslationsRemindersEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Panatilihin ang landas na may mga paalala';
-	@override String get description => 'Kumuha ng banayad na mga paalala upang i-log ang iyong mga pagkain at manatiling consistent sa iyong mga layunin sa nutrisyon';
-	@override String get notificationsEnabled => 'Naka-enable ang mga Notifikasyon';
-	@override String get notificationsDisabled => 'Naka-disable ang mga Notifikasyon';
+	@override String get title => 'Manatiling nasa tamang landas gamit ang mga paalala';
+	@override String get description => 'Kumuha ng banayad na paalala para mag-log ng iyong mga pagkain at manatiling tuloy-tuloy sa iyong mga layunin sa nutrisyon';
+	@override String get notificationsEnabled => 'Na-enable ang mga Notipikasyon';
+	@override String get notificationsDisabled => 'Na-disable ang mga Notipikasyon';
 	@override String get enabledSubtitle => 'Makakatanggap ka ng mga paalala sa pagkain';
-	@override String get disabledSubtitle => 'I-enable ang mga notifikasyon upang makakuha ng mga paalala sa pagkain';
+	@override String get disabledSubtitle => 'I-enable ang notipikasyon upang makatanggap ng mga paalala sa pagkain';
 	@override String get mealReminders => 'Mga Paalala sa Pagkain';
 	@override String get breakfast => 'Almusal';
 	@override String get lunch => 'Tanghalian';
 	@override String get dinner => 'Hapunan';
-	@override String get snack => 'Merienda';
+	@override String get snack => 'Meryenda';
 	@override String get unknown => 'Hindi alam';
-	@override String get change => 'Palitan';
-	@override String get enableNotifications => 'I-enable ang mga Notifikasyon';
-	@override String get skipForNow => 'Laktawan ito sa ngayon';
+	@override String get change => 'Baguhin';
+	@override String get enableNotifications => 'I-enable ang Notipikasyon';
+	@override String get skipForNow => 'Laktawan muna';
 	@override String get saveChanges => 'I-save ang mga Pagbabago';
-	@override String get enabledSuccessfully => 'Matagumpay na na-enable ang mga notifikasyon!';
-	@override String get permissionDenied => 'Tinanggihan ang pahintulot sa notifikasyon';
-	@override String errorEnabling({required Object error}) => 'Error sa pag-enable ng mga notifikasyon: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Error sa pagkumpleto ng setup: ${error}';
+	@override String get enabledSuccessfully => 'Matagumpay na na-enable ang mga notipikasyon!';
+	@override String get permissionDenied => 'Tinanggihan ang pahintulot sa notipikasyon';
+	@override String errorEnabling({required Object error}) => 'Error sa pag-enable ng notipikasyon: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'Error sa pagsasagawa ng setup: ${error}';
 }
 
 // Path: notifications
@@ -347,7 +349,7 @@ class _TranslationsLoginTl implements TranslationsLoginEn {
 	// Translations
 	@override String get title => 'Mag-login';
 	@override String get signInWithGoogle => 'Mag-sign in gamit ang Google';
-	@override String get signInFailed => 'Nabigo ang Google Sign-In o nakansela.';
+	@override String get signInFailed => 'Nabigo o nakansela ang Google Sign-In.';
 }
 
 // Path: disclaimer
@@ -357,7 +359,7 @@ class _TranslationsDisclaimerTl implements TranslationsDisclaimerEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Pakitandaan';
+	@override String get pleaseNote => 'Paalala';
 	@override late final _TranslationsDisclaimerSnapTl snap = _TranslationsDisclaimerSnapTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTl weightEstimate = _TranslationsDisclaimerWeightEstimateTl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTl healthMetrics = _TranslationsDisclaimerHealthMetricsTl._(_root);
@@ -382,21 +384,21 @@ class _TranslationsFeedbackRatingTl implements TranslationsFeedbackRatingEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Nasisiyahan ka ba sa ${appLabel}?';
-	@override String get yes => 'Oo, nasisiyahan ako';
-	@override String get no => 'Hindi talaga';
-	@override String get rateStepHeading => 'Magbigay ng rating sa Play Store';
-	@override String get emailStepHeading => 'Magpadala ng feedback sa pamamagitan ng email';
-	@override String soloDevMessage({required Object appLabel}) => 'Ang isang mabilis na rating ay makakatulong sa iba na mahanap ang ${appLabel} at suportahan ang patuloy na pag-unlad nito. Maaari ka bang maglaan ng sandali upang mag-iwan ng isa?';
-	@override String get shareFeedbackViaEmail => 'Hinuhubog ng iyong feedback kung ano ang susunod — binabasa namin ang bawat mensahe. Nais mo bang ibahagi ang iyong mga saloobin sa pamamagitan ng email?';
-	@override String get rateCta => 'Mag-rate sa Play Store';
-	@override String get maybeLater => 'Mamaya na lang';
-	@override String get sendFeedback => 'Magpadala ng puna';
-	@override String get noThanks => 'Hindi, salamat';
-	@override String get aboutUsDescription => 'Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Nae-enjoy mo ba ang ${appLabel}?';
+	@override String get yes => 'Oo, nae-enjoy ko';
+	@override String get no => 'Hindi masyado';
+	@override String get rateStepHeading => 'I-rate sa Play Store';
+	@override String get emailStepHeading => 'Magpadala ng feedback sa email';
+	@override String soloDevMessage({required Object appLabel}) => 'Ang mabilis na rating ay nakakatulong sa iba na mahanap ang ${appLabel} at nagpapatuloy ng development. Maaari ka bang mag-iwan ng rating?';
+	@override String get shareFeedbackViaEmail => 'Hinuhubog ng iyong feedback ang susunod — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa email?';
+	@override String get rateCta => 'I-rate sa Play Store';
+	@override String get maybeLater => 'Siguro sa susunod';
+	@override String get sendFeedback => 'Magpadala ng feedback';
+	@override String get noThanks => 'Huwag na, salamat';
+	@override String get aboutUsDescription => 'Ginawa nang may malasakit ng isang maliit na team. Nakatuon kami sa privacy, simple, at pagtulong na mabuo ang mas mabuting gawi sa pagkain.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Interesado kung sino ang nasa likod ng ${appLabel}? Tingnan ang ';
 	@override String get aboutUsLinkLabel => 'Tungkol sa amin';
-	@override String get thankYouMessage => 'Salamat! Tatanungin ka namin ulit sa susunod.';
+	@override String get thankYouMessage => 'Salamat! Tatanungin ka ulit sa ibang pagkakataon.';
 }
 
 // Path: health
@@ -406,8 +408,8 @@ class _TranslationsHealthTl implements TranslationsHealthEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Hindi ma-synchronize sa Health Connect';
-	@override String get mealSynced => 'Naka-synchronize ang pagkain sa Health Connect';
+	@override String get syncFailed => 'Hindi maisi-sync sa Health Connect';
+	@override String get mealSynced => 'Na-sync ang pagkain sa Health Connect';
 }
 
 // Path: onboarding.features
@@ -430,7 +432,7 @@ class _TranslationsOnboardingGenderTl implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'Ano ang iyong kasarian?';
-	@override String get description => 'Ang kasarian ay tumutulong sa atin na tumpak na kalkulahin ang iyong basal metabolic rate (BMR).';
+	@override String get description => 'Tumutulong ang kasarian upang eksaktong makalkula ang iyong basal metabolic rate (BMR).';
 	@override String get next => 'Susunod';
 }
 
@@ -441,9 +443,9 @@ class _TranslationsOnboardingHeightTl implements TranslationsOnboardingHeightEn 
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Gaano kataas ka?';
-	@override String get description => 'Ang iyong taas ay tumutulong sa atin na tumpak na kalkulahin ang iyong BMI at pangangailangan sa enerhiya.';
-	@override String get metric => 'Sistemang metrikal';
+	@override String get title => 'Gaano ka katangkad?';
+	@override String get description => 'Tinutulungan kami ng iyong taas na kalkulahin ang iyong BMI at pangangailangan sa enerhiya nang mas eksakto.';
+	@override String get metric => 'Metriko';
 	@override String get imperial => 'Imperyal';
 	@override String get next => 'Susunod';
 }
@@ -455,11 +457,11 @@ class _TranslationsOnboardingWeightTl implements TranslationsOnboardingWeightEn 
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'Ano ang iyong kasalukuyang timbang?';
-	@override String get currentDescription => 'Ang iyong kasalukuyang timbang ay mahalaga para sa pagpapasadya ng iyong mga pang-araw-araw na layunin.';
-	@override String get targetTitle => 'Ano ang iyong target na timbang?';
-	@override String get targetDescription => 'Ang pagtatakda ng layunin na timbang ay tumutulong sa atin na tukuyin ang iyong pangmatagalang plano.';
-	@override String get metric => 'Sistemang metrikal';
+	@override String get currentTitle => 'Ano ang kasalukuyan mong timbang?';
+	@override String get currentDescription => 'Mahalaga ang kasalukuyan mong timbang para ma-personalize ang iyong mga pang-araw-araw na layunin.';
+	@override String get targetTitle => 'Ano ang target mong timbang?';
+	@override String get targetDescription => 'Ang pagtatakda ng target na timbang ay tutulong sa amin na tukuyin ang iyong pangmatagalang plano.';
+	@override String get metric => 'Metriko';
 	@override String get imperial => 'Imperyal';
 	@override String get next => 'Susunod';
 }
@@ -472,7 +474,7 @@ class _TranslationsOnboardingAgeTl implements TranslationsOnboardingAgeEn {
 
 	// Translations
 	@override String get title => 'Kailan ang iyong kaarawan?';
-	@override String get description => 'Ang iyong edad ay tumutulong upang tumpak na kalkulahin ang iyong pangangailangan sa calorie.';
+	@override String get description => 'Tumutulong ang iyong edad upang eksaktong makalkula ang iyong pangangailangan sa calories.';
 	@override String get next => 'Susunod';
 }
 
@@ -486,7 +488,7 @@ class _TranslationsOnboardingBmiScaleTl implements TranslationsOnboardingBmiScal
 	@override String get underweight => 'Kulang';
 	@override String get healthy => 'Malusog';
 	@override String get overweight => 'Sobra';
-	@override String get obese => 'Obesity';
+	@override String get obese => 'Obeso';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTl categories = _TranslationsOnboardingBmiScaleCategoriesTl._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTl messages = _TranslationsOnboardingBmiScaleMessagesTl._(_root);
 }
@@ -499,7 +501,7 @@ class _TranslationsOnboardingWeightGoalTl implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Ano ang iyong layunin?';
-	@override String get description => 'Pumili ng layunin na pinaka-naglalarawan kung ano ang nais mong makamit';
+	@override String get description => 'Piliin ang layuning pinakamalapit sa gusto mong makamit';
 }
 
 // Path: onboarding.activityLevel
@@ -510,7 +512,7 @@ class _TranslationsOnboardingActivityLevelTl implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Gaano ka kaaktibo?';
-	@override String get description => 'Ito ay tumutulong sa atin na tumpak na kalkulahin ang iyong pang-araw-araw na pangangailangan sa calorie';
+	@override String get description => 'Tinutulungan kami nito na mas eksaktong makalkula ang iyong pang-araw-araw na pangangailangan sa calories';
 }
 
 // Path: onboarding.healthConnect
@@ -520,19 +522,19 @@ class _TranslationsOnboardingHealthConnectTl implements TranslationsOnboardingHe
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ikonekta sa Health Connect';
-	@override String get description => 'I-synchronize ang iyong datos sa kalusugan para sa mas magandang pananaw at awtomatikong pagsubaybay ng calorie';
+	@override String get title => 'Kumonekta sa Health Connect';
+	@override String get description => 'I-sync ang iyong health data para sa mas mahusay na insight at awtomatikong pag-track ng calories';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingTl automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingTl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsTl progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsTl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationTl seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationTl._(_root);
 	@override String get connected => 'Nakakonekta ang Health Connect';
 	@override String get notConnected => 'Hindi nakakonekta ang Health Connect';
-	@override String get setup => 'I-set up ang Health Connect';
-	@override String get skipForNow => 'Laktawan ito sa ngayon';
+	@override String get setup => 'I-setup ang Health Connect';
+	@override String get skipForNow => 'Laktawan muna';
 	@override String get statusConnected => 'Nakakonekta ang Health Connect.';
 	@override String get statusSuccess => 'Matagumpay na nakakonekta ang Health Connect!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Tinanggihan ang pahintulot. Pakisuyong paganahin ang mga pahintulot ng Health Connect mula sa iyong mga setting ng telepono para sa ${appLabel}.';
-	@override String statusError({required Object error}) => 'Error sa pag-set up ng Health Connect: ${error}';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Tinanggihan ang pahintulot. Paki-enable ang mga pahintulot ng Health Connect mula sa mga setting ng iyong telepono para sa ${appLabel}.';
+	@override String statusError({required Object error}) => 'Error sa pag-setup ng Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -554,16 +556,16 @@ class _TranslationsHomeAiSummaryTl implements TranslationsHomeAiSummaryEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Buod ng iyong AI';
-	@override String get logMore => 'Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.';
-	@override String get loading => 'Ikinakarga ang iyong buod...';
-	@override String mealCount({required Object count}) => '${count} na naitalang pagkain';
-	@override String macroBalanceScore({required Object score}) => 'Iskor ng balanse ${score}';
-	@override String get topFoods => 'Nangungunang mga pagkain';
-	@override String get trendUp => 'Tumataas ang bilang ng calories';
-	@override String get trendDown => 'Bumababa ang bilang ng calories';
-	@override String get trendSteady => 'Nanatiling matatag ang bilang ng calories';
-	@override String generatedAt({required Object time}) => 'Huling na-update ${time}';
+	@override String get title => 'Iyong AI Summary';
+	@override String get logMore => 'Mag-log pa ng mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong AI insights.';
+	@override String get loading => 'Lina-load ang iyong buod...';
+	@override String mealCount({required Object count}) => '${count} meal(s) na na-log';
+	@override String macroBalanceScore({required Object score}) => 'Balance score ${score}';
+	@override String get topFoods => 'Nangungunang pagkain';
+	@override String get trendUp => 'Tumaas ang trend ng calories';
+	@override String get trendDown => 'Bumababa ang trend ng calories';
+	@override String get trendSteady => 'Steady ang calories';
+	@override String generatedAt({required Object time}) => 'Na-update ${time}';
 }
 
 // Path: home.dailyGoal
@@ -574,18 +576,18 @@ class _TranslationsHomeDailyGoalTl implements TranslationsHomeDailyGoalEn {
 
 	// Translations
 	@override String get title => 'Itakda ang Iyong Pang-araw-araw na Layunin';
-	@override String get titleSet => 'Ang Iyong Pang-araw-araw na Layunin';
-	@override String get description => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.';
-	@override String get descriptionSet => 'Nakaset na ang iyong kompas! Ito ang iyong pang-araw-araw na target na calorie upang gabayan ka.';
-	@override String get yourGoal => 'Ang Iyong Layunin';
+	@override String get titleSet => 'Iyong Pang-araw-araw na Layunin';
+	@override String get description => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target ng calorie sa ibaba para simulan ang progreso.';
+	@override String get descriptionSet => 'Nakatakda na ang iyong kompas! Ito ang pang-araw-araw mong target ng calorie na gagabay sa iyo.';
+	@override String get yourGoal => 'Iyong Layunin';
 	@override String get goal => 'Layunin';
 	@override String get dailyCalories => 'Pang-araw-araw na calories (kcal)';
 	@override String get setGoal => 'Itakda ang Layunin';
-	@override String get intake => 'Konsumisyon';
+	@override String get intake => 'Intake';
 	@override String get burned => 'Nasunog';
 	@override String get weightImpact => 'Epekto sa Timbang';
-	@override String get estLoss => 'Tinatayang pagkawala ng';
-	@override String get estGain => 'Tinatayang pagdagdag ng';
+	@override String get estLoss => 'Tinatayang bawas na';
+	@override String get estGain => 'Tinatayang dagdag na';
 	@override String get kcal => 'kcal';
 }
 
@@ -598,12 +600,12 @@ class _TranslationsHomeDailySummaryTl implements TranslationsHomeDailySummaryEn 
 	// Translations
 	@override String get title => 'Pang-araw-araw na Buod';
 	@override String get calories => 'Calories';
-	@override String get carbs => 'Carbohydrates';
-	@override String get protein => 'Protina';
-	@override String get fat => 'Taba';
+	@override String get carbs => 'Carbs';
+	@override String get protein => 'Protein';
+	@override String get fat => 'Fat';
 	@override String get fiber => 'Fiber';
 	@override String get grams => 'gramo';
-	@override String get chartAccessibilityLabel => 'Tsart ng mga makronutriente';
+	@override String get chartAccessibilityLabel => 'Macros chart';
 }
 
 // Path: home.intakeProgress
@@ -613,7 +615,7 @@ class _TranslationsHomeIntakeProgressTl implements TranslationsHomeIntakeProgres
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Paghahati ng Macro Ngayong Araw';
+	@override String get title => 'Hati ng Macro Ngayon';
 	@override String get target => 'Target';
 	@override String get current => 'Kasalukuyan';
 }
@@ -625,11 +627,11 @@ class _TranslationsHomeIntakeHistoryTl implements TranslationsHomeIntakeHistoryE
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-Araw na Kasaysayan ng Macro';
-	@override String get trendTitle => 'Uso Ngayong Araw';
+	@override String get title => '7-Araw na Macro History';
+	@override String get trendTitle => 'Trend Ngayon';
 	@override String peakHour({required Object hour}) => 'Pinakamataas: ${hour}:00';
 	@override String get noHistoryYet => 'Wala pang kasaysayan';
-	@override String get startLogging => 'Simulan ang pag-log ng mga pagkain upang makita ang iyong\n7-araw na trend sa macro dito';
+	@override String get startLogging => 'Magsimulang mag-log ng pagkain upang makita ang iyong\n7-araw na macro trends dito';
 }
 
 // Path: home.mealLog
@@ -639,10 +641,10 @@ class _TranslationsHomeMealLogTl implements TranslationsHomeMealLogEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Naka-log na mga Pagkain';
-	@override String get emptyMessage => 'Kumuha ng litrato ng iyong huling pagkain upang i-log dito.';
-	@override String get noMealsToday => 'Walang nakahiwalay na pagkain para sa araw na ito';
-	@override String get seeAllMeals => 'Tingnan ang lahat ng pagkain';
+	@override String get title => 'Mga Na-log na Pagkain';
+	@override String get emptyMessage => 'Kuhanin ng larawan ang huli mong kinain para ma-log dito.';
+	@override String get noMealsToday => 'Walang naitalang pagkain ngayong araw';
+	@override String get seeAllMeals => 'Tingnan lahat ng pagkain';
 }
 
 // Path: home.mealDescription
@@ -652,9 +654,9 @@ class _TranslationsHomeMealDescriptionTl implements TranslationsHomeMealDescript
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mabilis na Idagdag gamit ang AI';
-	@override String get description => 'Ilalarawan ang iyong pagkain, at hayaang ayusin ng AI ang mga detalye.';
-	@override String get hint => 'hal. Para sa almusal, kumain ako ng malaking mangkok ng oat na may hiwa ng saging at isang scoop ng whey ...';
+	@override String get title => 'Mabilis na Add gamit ang AI';
+	@override String get description => 'Ilarawan ang iyong pagkain, at hayaan ang AI ang bahala sa detalye.';
+	@override String get hint => 'hal. Sa almusal, kumain ako ng malaking mangkok ng oatmeal na may hiniwang saging at isang scoop ng whey ...';
 	@override String get analyzeMeal => 'Suriin ang pagkain';
 }
 
@@ -667,9 +669,9 @@ class _TranslationsHomeFavoriteMealsTl implements TranslationsHomeFavoriteMealsE
 	// Translations
 	@override String get title => 'Paboritong Pagkain';
 	@override String get description => 'Mabilis na idagdag ang isa sa iyong mga paboritong pagkain.';
-	@override String get noFavorites => 'Walang paboritong pagkain sa ngayon.';
-	@override String get addFavoriteHint => 'I-click ang bituin sa isang pagkain upang markahan ito bilang paborito.';
-	@override String get seeAll => 'Tingnan ang lahat';
+	@override String get noFavorites => 'Wala pang paboritong pagkain.';
+	@override String get addFavoriteHint => 'I-click ang bituin sa isang pagkain para markahan bilang paborito.';
+	@override String get seeAll => 'Tingnan lahat';
 	@override String get add => 'Idagdag';
 }
 
@@ -680,10 +682,12 @@ class _TranslationsHomeMealSnapTl implements TranslationsHomeMealSnapEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kumuha ng Litrato at Subaybayan ang Iyong Pagkain';
-	@override String get description => 'Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.';
-	@override String get openCamera => 'Buksan ang Kamera';
-	@override String get gallery => 'Galeriya';
+	@override String get title => 'Kuhanan at I-track ang Iyong Pagkain';
+	@override String get description => 'Gamitin ang iyong camera para kunan ng larawan ang iyong pagkain para sa AI analysis.';
+	@override String get openCamera => 'Buksan ang Camera';
+	@override String get gallery => 'Gallery';
+	@override String get compressingPhoto => 'Ina-optimize ang larawan…';
+	@override String get uploadingPhoto => 'Ina-upload ang larawan…';
 }
 
 // Path: home.connectHealth
@@ -693,8 +697,8 @@ class _TranslationsHomeConnectHealthTl implements TranslationsHomeConnectHealthE
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'I-synchronize sa Health Connect';
-	@override String get description => 'I-synchronize ang iyong nutrition data sa Health Connect';
+	@override String get title => 'I-sync sa Health Connect';
+	@override String get description => 'I-sync ang iyong nutrition data sa Health Connect';
 	@override String get install => 'I-install';
 	@override String get connect => 'Ikonekta';
 }
@@ -708,8 +712,8 @@ class _TranslationsMealNutritionTl implements TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Calories';
 	@override String get carbs => 'Carbs (g)';
-	@override String get protein => 'Protina (g)';
-	@override String get fat => 'Taba (g)';
+	@override String get protein => 'Protein (g)';
+	@override String get fat => 'Fat (g)';
 	@override String get fiber => 'Fiber (g)';
 }
 
@@ -720,10 +724,10 @@ class _TranslationsMealDeleteConfirmationTl implements TranslationsMealDeleteCon
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tanggalin ang Pagkain';
-	@override String get message => 'Sigurado ka bang nais mong tanggalin ang entry na ito ng pagkain?';
+	@override String get title => 'Burahin ang Pagkain';
+	@override String get message => 'Sigurado ka bang gusto mong burahin ang entry ng pagkain na ito?';
 	@override String get cancel => 'Kanselahin';
-	@override String get delete => 'Tanggalin';
+	@override String get delete => 'Burahin';
 }
 
 // Path: meal.variation
@@ -733,8 +737,61 @@ class _TranslationsMealVariationTl implements TranslationsMealVariationEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Tanong ${current} sa ${total}';
-	@override String get noVariationsAvailable => 'Walang ibang pagpipilian';
+	@override String question({required Object current, required Object total}) => 'Tanong ${current} ng ${total}';
+	@override String get noVariationsAvailable => 'Walang available na mga variation';
+}
+
+// Path: meal.analysis
+class _TranslationsMealAnalysisTl implements TranslationsMealAnalysisEn {
+	_TranslationsMealAnalysisTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'AI na pagsusuri ng pagkain';
+	@override String get reassurance => 'Karaniwan ay ilang segundo lang ito.';
+	@override String get stepStarted => 'Nagsisimula…';
+	@override String get stepDecomposition => 'Inuunawa ang iyong pagkain…';
+	@override String get stepIngredients => 'Ibinabagay ang mga sangkap sa datos ng nutrisyon…';
+	@override String get stepUncertainty => 'Sinusuri ang kumpiyansa…';
+	@override String get stepMealTypeQuestion => 'Malapit na…';
+	@override String get stepResult => 'Tinatapos ang resulta…';
+	@override String get stepError => 'May nagkaproblema';
+	@override String get stepDefault => 'Sinusuri ang iyong pagkain…';
+	@override String get progressUnderstand => 'Unawain';
+	@override String get progressMatch => 'Itugma';
+	@override String get progressCheck => 'Suriin';
+	@override String get progressFinish => 'Tapos';
+	@override String ingredientsLine({required Object count}) => '${count} sangkap na natukoy';
+	@override String get ingredientsPending => 'Sinusuri ang mga sangkap…';
+	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
+	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
+	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
+	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
+	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
+	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+}
+
+// Path: meal.feedback
+class _TranslationsMealFeedbackTl implements TranslationsMealFeedbackEn {
+	_TranslationsMealFeedbackTl._(this._root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'What looks wrong?';
+	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
+	@override String get tellUsMore => 'Tell us more';
+	@override String get describeIncorrect => 'Describe what was incorrect';
+	@override String get submit => 'Submit';
+	@override String get issueFoodIdentification => 'Food identification';
+	@override String get issuePortionSize => 'Portion size';
+	@override String get issueCalorieDistribution => 'Calorie distribution';
+	@override String get issueMacrosWrong => 'Macros are wrong';
+	@override String get issueMissingItems => 'Missing items';
+	@override String get issueExtraItems => 'Extra items';
+	@override String get issueOther => 'Other';
 }
 
 // Path: favorites.sortOptions
@@ -745,7 +802,7 @@ class _TranslationsFavoritesSortOptionsTl implements TranslationsFavoritesSortOp
 
 	// Translations
 	@override String get recent => 'Pinakabago';
-	@override String get calories => 'Kaloriya';
+	@override String get calories => 'Calories';
 	@override String get alphabetical => 'A-Z';
 }
 
@@ -757,9 +814,9 @@ class _TranslationsProfileSectionsTl implements TranslationsProfileSectionsEn {
 
 	// Translations
 	@override String get profile => 'PROFILE';
-	@override String get basicInformation => 'BATAYANG IMPORMASYON';
-	@override String get goalsAndActivity => 'LAYUNIN AT AKTIBIDAD';
-	@override String get calculatedValues => 'NAKALKULANG MGA HALAGA';
+	@override String get basicInformation => 'PANGUNAHING IMPORMASYON';
+	@override String get goalsAndActivity => 'MGA LAYUNIN AT AKTIBIDAD';
+	@override String get calculatedValues => 'MGA KINALKULANG HALAGA';
 }
 
 // Path: profile.calculatedValues
@@ -785,7 +842,7 @@ class _TranslationsEditProfileSectionsTl implements TranslationsEditProfileSecti
 	// Translations
 	@override String get personalInformation => 'PERSONAL NA IMPORMASYON';
 	@override String get physicalMeasurements => 'PISIKAL NA SUKAT';
-	@override String get goalsAndActivity => 'LAYUNIN AT AKTIBIDAD';
+	@override String get goalsAndActivity => 'MGA LAYUNIN AT AKTIBIDAD';
 }
 
 // Path: editProfile.genders
@@ -835,11 +892,11 @@ class _TranslationsSettingsSectionsTl implements TranslationsSettingsSectionsEn 
 	// Translations
 	@override String get profile => 'PROFILE';
 	@override String get localization => 'LOKALISASYON';
-	@override String get notifications => 'NOTIFIKASYON';
+	@override String get notifications => 'NOTIPIKASYON';
 	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SUPORTA AT LEGAL';
 	@override String get about => 'TUNGKOL';
-	@override String get dangerZone => 'MAPANGANIB NA ZONA';
+	@override String get dangerZone => 'DELIKADONG BAHAGI';
 	@override String get developer => 'DEVELOPER';
 }
 
@@ -862,7 +919,7 @@ class _TranslationsSettingsLanguageTl implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => 'Wika';
-	@override String get subtitle => 'Pumili ng iyong gustong wika';
+	@override String get subtitle => 'Piliin ang iyong gustong wika';
 	@override String get searchHint => 'Maghanap ng mga wika...';
 	@override String get noResults => 'Walang nahanap na resulta';
 }
@@ -895,7 +952,7 @@ class _TranslationsSettingsMealRemindersTl implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'Mga Paalala sa Pagkain';
-	@override String get subtitle => 'Panatilihin ang landas na may tamang mga alerto';
+	@override String get subtitle => 'Manatiling nasa tamang landas gamit ang napapanahong alerto';
 }
 
 // Path: settings.theme
@@ -906,7 +963,7 @@ class _TranslationsSettingsThemeTl implements TranslationsSettingsThemeEn {
 
 	// Translations
 	@override String get title => 'Tema';
-	@override String get light => 'Maliwanag';
+	@override String get light => 'Liwanag';
 	@override String get dark => 'Madilim';
 	@override String get system => 'Sistema';
 }
@@ -918,12 +975,12 @@ class _TranslationsSettingsSendFeedbackTl implements TranslationsSettingsSendFee
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Magbigay ng Feedback';
-	@override String subtitle({required Object appLabel}) => 'Tumulong sa aming pagbutihin ang ${appLabel}';
-	@override String emailSubject({required Object appLabel}) => '${appLabel} Feedback ng App';
-	@override String get emailBodyPrefix => 'Pakisuyong ibigay ang iyong feedback sa ibaba:';
+	@override String get title => 'Magpadala ng Feedback';
+	@override String subtitle({required Object appLabel}) => 'Tulungan kaming pagandahin ang ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'Feedback para sa ${appLabel}';
+	@override String get emailBodyPrefix => 'Pakibigay ang iyong feedback sa ibaba:';
 	@override String get appVersion => 'Bersyon ng App';
-	@override String get device => 'Kagamitan';
+	@override String get device => 'Device';
 	@override String get osVersion => 'Bersyon ng OS';
 	@override String get uid => 'UID';
 }
@@ -936,8 +993,8 @@ class _TranslationsSettingsExportMealHistoryTl implements TranslationsSettingsEx
 
 	// Translations
 	@override String get title => 'I-export ang Kasaysayan ng Pagkain';
-	@override String get subtitle => 'Ibahagi ang CSV ng iyong mga naitalang pagkain';
-	@override String get shareText => 'Export ng iyong kasaysayan ng pagkain mula sa Calorify';
+	@override String get subtitle => 'Ibahagi ang CSV ng iyong mga na-log na pagkain';
+	@override String get shareText => 'Iyong eksport ng kasaysayan ng pagkain sa Calorify';
 	@override String failed({required Object error}) => 'Hindi ma-export ang kasaysayan ng pagkain: ${error}';
 }
 
@@ -948,12 +1005,12 @@ class _TranslationsSettingsClearAllDataTl implements TranslationsSettingsClearAl
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'I-clear ang Lahat ng Datos';
-	@override String get subtitle => 'Irerepormang tanggalin ang lahat ng iyong impormasyon';
-	@override String get confirmationTitle => 'I-clear ang Lahat ng Datos?';
-	@override String get confirmationMessage => 'Ang pagkilos na ito ay hindi na maibabalik. Ang lahat ng iyong na-log na pagkain, mga paborito, at mga setting ng profile ay permanenteng matatanggal.';
+	@override String get title => 'Burahin Lahat ng Data';
+	@override String get subtitle => 'Hindi na mababawi ang pagbura ng lahat ng iyong impormasyon';
+	@override String get confirmationTitle => 'Burahin Lahat ng Data?';
+	@override String get confirmationMessage => 'Hindi na ito mababawi. Lahat ng iyong na-log na pagkain, paborito, at mga setting ng profile ay permanenteng mabubura.';
 	@override String get cancel => 'Kanselahin';
-	@override String get clearEverything => 'I-clear ang Lahat';
+	@override String get clearEverything => 'Burahin Lahat';
 }
 
 // Path: settings.debugOptions
@@ -973,16 +1030,16 @@ class _TranslationsSettingsHealthConnectTl implements TranslationsSettingsHealth
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Koneksyon sa Kalusugan';
+	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Tingnan at pamahalaan ang mga pahintulot';
 	@override late final _TranslationsSettingsHealthConnectUnavailableTl unavailable = _TranslationsSettingsHealthConnectUnavailableTl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsTl permissions = _TranslationsSettingsHealthConnectPermissionsTl._(_root);
 	@override String get managePermissions => 'Pamahalaan ang mga Pahintulot';
 	@override String get openSettings => 'Buksan ang Mga Setting ng Health Connect';
-	@override String get requestPermissions => 'Humiling ng Mga Pahintulot';
-	@override String get permissionRequestCancelledOrFailed => 'Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.';
-	@override String get permissionRequestFailed => 'Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.';
-	@override String get requestingPermissions => 'Requesting...';
+	@override String get requestPermissions => 'Humiling ng mga Pahintulot';
+	@override String get permissionRequestCancelledOrFailed => 'Kinansela o nabigo ang kahilingan ng pahintulot. Pakisubukang muli o magbigay ng pahintulot nang mano-mano sa mga setting ng Health Connect.';
+	@override String get permissionRequestFailed => 'Hindi makahiling ng mga pahintulot. Pakisubukang muli o magbigay ng pahintulot nang mano-mano sa mga setting ng Health Connect.';
+	@override String get requestingPermissions => 'Humihiling...';
 }
 
 // Path: settings.about
@@ -993,7 +1050,7 @@ class _TranslationsSettingsAboutTl implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'Tungkol';
-	@override String get tagline => 'Mabilis, libre, at priyoridad ang privacy sa kamalayan sa calorie';
+	@override String get tagline => 'Mabilis, libre, at inuuna ang privacy para sa kamalayang kaloriya';
 	@override late final _TranslationsSettingsAboutOurStoryTl ourStory = _TranslationsSettingsAboutOurStoryTl._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyTl privacy = _TranslationsSettingsAboutPrivacyTl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTl developer = _TranslationsSettingsAboutDeveloperTl._(_root);
@@ -1030,7 +1087,7 @@ class _TranslationsNotificationsLunchTl implements TranslationsNotificationsLunc
 
 	// Translations
 	@override String get title => 'Oras ng Tanghalian! 🥗';
-	@override String get body => 'Panahon na para i-log ang iyong tanghalian';
+	@override String get body => 'Panahon nang i-log ang iyong tanghalian';
 }
 
 // Path: notifications.dinner
@@ -1051,8 +1108,8 @@ class _TranslationsNotificationsSnackTl implements TranslationsNotificationsSnac
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Oras ng Merienda! 🍎';
-	@override String get body => 'Panahon na para sa isang malusog na merienda';
+	@override String get title => 'Oras ng Meryenda! 🍎';
+	@override String get body => 'Panahon para sa masustansyang meryenda';
 }
 
 // Path: notifications.test
@@ -1062,7 +1119,7 @@ class _TranslationsNotificationsTestTl implements TranslationsNotificationsTestE
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Test Notification';
+	@override String get title => 'Pagsubok na Notipikasyon';
 }
 
 // Path: disclaimer.snap
@@ -1072,7 +1129,7 @@ class _TranslationsDisclaimerSnapTl implements TranslationsDisclaimerSnapEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} ay nagbibigay ng tinatayang impormasyon sa nutrisyon. Ang katumpakan ay depende sa iyong input at mga pagkakaiba sa pagkain. Gamitin ito bilang gabay, hindi isang tiyak na mapagkukunan. Kumonsulta sa isang propesyonal para sa personalized na payo sa nutrisyon.';
+	@override String description({required Object appLabel}) => 'Nagbibigay ang ${appLabel} ng tinatayang impormasyong pangnutrisyon. Nakasalalay ang accuracy sa iyong input at sa pagkakaiba-iba ng pagkain. Gamitin bilang gabay, hindi bilang tiyak na sanggunian. Kumunsulta sa propesyonal para sa personalisadong payong pandiyeta.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeTl portionSize = _TranslationsDisclaimerSnapPortionSizeTl._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsTl preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsTl._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsTl ingredients = _TranslationsDisclaimerSnapIngredientsTl._(_root);
@@ -1086,8 +1143,8 @@ class _TranslationsDisclaimerWeightEstimateTl implements TranslationsDisclaimerW
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tungkol sa Tinatayang Timbang';
-	@override String get description => 'Ang nakatakdang pagbabago ng timbang ay isang teoretikal na pagtatantya batay sa simpleng calorie-in kumpara sa calorie-out na modelo. Ito ay inilaan lamang para sa motivational na gabay, hindi bilang isang prediksyon ng iyong aktwal na timbang.';
+	@override String get title => 'Tungkol sa Pagtatantya ng Timbang';
+	@override String get description => 'Ang inaasahang pagbabago ng timbang ay teoretikal na pagtatantya batay sa simpleng modelo ng calorie-in vs. calorie-out. Ito ay para sa motibasyong gabay lamang, hindi bilang hula ng aktuwal mong timbang.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyTl calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTl biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTl waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTl._(_root);
@@ -1101,7 +1158,7 @@ class _TranslationsDisclaimerHealthMetricsTl implements TranslationsDisclaimerHe
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Ang mga sukat na ito ay tumutulong sa iyo na maunawaan ang mga pangangailangan ng enerhiya ng iyong katawan at itinuturo ang iyong mga layunin sa nutrisyon.';
+	@override String get description => 'Tinutulungan ka ng mga sukatan na ito na maunawaan ang pangangailangan ng iyong katawan sa enerhiya at gagabay sa iyong mga layunin sa nutrisyon.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrTl bmr = _TranslationsDisclaimerHealthMetricsBmrTl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeTl tdee = _TranslationsDisclaimerHealthMetricsTdeeTl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTl._(_root);
@@ -1114,8 +1171,8 @@ class _TranslationsDisclaimerCalorieExpenditureTl implements TranslationsDisclai
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tantiyang pagkasunog ng kaloriya';
-	@override String get description => 'Kapag hindi magagamit ang data mula sa Health Connect, tinatantiya namin kung ilang kaloriya ang nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), at inaangkop ito sa bahagi ng araw na lumipas.';
+	@override String get title => 'Pagtatantya ng Calorie Expenditure';
+	@override String get description => 'Kapag walang available na data mula sa Health Connect, tinatantya namin ang calories na nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), na sinasabay sa bahaging lumipas ng araw.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTl._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl._(_root);
 }
@@ -1127,8 +1184,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionTl implements TranslationsOn
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Matalinong Pagkilala sa Pagkain';
-	@override String get description => 'Kumuha ng litrato at hayaang kilalanin ng AI ang iyong pagkain';
+	@override String get title => 'Matalinong Pagkilala ng Pagkain';
+	@override String get description => 'Kumuha ng larawan at hayaang tukuyin ng AI ang iyong pagkain';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1138,8 +1195,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisTl implements TranslationsOnboard
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Pagsusuri ng AI';
-	@override String get description => 'Kumuha ng instant na impormasyon sa nutrisyon mula sa iyong mga paglalarawan';
+	@override String get title => 'AI Analysis';
+	@override String get description => 'Kumuha ng agarang datos ng nutrisyon mula sa iyong paglalarawan';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1149,8 +1206,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationTl implements Translations
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Integrasyon sa Kalusugan';
-	@override String get description => 'Ikonekta sa Health Connect para sa mas magandang pananaw';
+	@override String get title => 'Pagsasama sa Health';
+	@override String get description => 'Ikonekta ang Health Connect para sa mas mahusay na insight';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1161,9 +1218,9 @@ class _TranslationsOnboardingBmiScaleCategoriesTl implements TranslationsOnboard
 
 	// Translations
 	@override String get underweight => 'Kulang sa timbang';
-	@override String get healthyWeight => 'Malusog na timbang';
+	@override String get healthyWeight => 'Tamang timbang';
 	@override String get overweight => 'Sobra sa timbang';
-	@override String get obese => 'Obesity';
+	@override String get obese => 'Obeso';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1173,10 +1230,10 @@ class _TranslationsOnboardingBmiScaleMessagesTl implements TranslationsOnboardin
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Matutulungan ka naming bumuo ng isang malusog na plano upang maabot ang balanseng timbang gamit ang masustansyang pagkain.';
-	@override String get healthy => 'Magaling! Nasa malusog na saklaw ka. Tutulungan ka naming mapanatili ang iyong sigla at antas ng enerhiya.';
-	@override String overweight({required Object appLabel}) => '${appLabel} ay nagpapadali sa iyong paglalakbay gamit ang AI-powered tracking upang makatulong na maabot ang iyong target nang kumportable.';
-	@override String get obese => 'Nandito kami upang suportahan ka sa pamamagitan ng personalized na gabay at mga sustainable na estratehiya para sa iyong mga layunin sa kalusugan.';
+	@override String get underweight => 'Matutulungan ka naming bumuo ng malusog na plano upang maabot ang balanseng timbang gamit ang pagkaing masustansya.';
+	@override String get healthy => 'Galing! Nasa malusog na saklaw ka. Tutulungan ka naming mapanatili ang sigla at antas ng enerhiya mo.';
+	@override String overweight({required Object appLabel}) => 'Papadaliin ng ${appLabel} ang iyong paglalakbay gamit ang AI-powered na tracking upang komportableng maabot ang iyong target.';
+	@override String get obese => 'Narito kami upang suportahan ka gamit ang personalisadong gabay at napapanatiling estratehiya para sa iyong mga layuning pangkalusugan.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1186,8 +1243,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingTl implements Transla
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Awtomatik na Pagsubaybay ng Calorie';
-	@override String get description => 'Subaybayan ang calories na nasunog mula sa iyong fitness apps';
+	@override String get title => 'Awtomatikong Pag-track ng Calories';
+	@override String get description => 'I-track ang calories na nasunog mula sa iyong mga fitness app';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1197,8 +1254,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsTl implements Translat
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mga Pagsusuri sa Pag-unlad';
-	@override String get description => 'Kumuha ng detalyadong pananaw sa mga trend ng iyong kalusugan';
+	@override String get title => 'Mga Insight sa Progreso';
+	@override String get description => 'Kumuha ng detalyadong insight sa iyong mga trend sa kalusugan';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1208,8 +1265,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTl implements Trans
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Walang putol na Integrasyon';
-	@override String get description => 'I-synchronize ang datos mula sa iyong mga paboritong health apps';
+	@override String get title => 'Walang Abalang Pagsasama';
+	@override String get description => 'I-sync ang data mula sa paborito mong health apps';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1220,14 +1277,14 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTl implements Translati
 
 	// Translations
 	@override String get title => 'Hindi Ka Nag-iisa';
-	@override String get genericMessage => 'Ipinapakita ng mga pag-aaral na ang tuloy-tuloy na pagsubaybay ang #1 predictor ng pangmatagalang tagumpay.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Para sa isang ${age} taong gulang na ${gender} na nagnanais na ${goal}, ang tuloy-tuloy na pagsubaybay ang #1 predictor ng tagumpay.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} ay nagpapadali ng 10x kumpara sa paggawa nito nang manual.';
-	@override String get getStartedTitle => 'Handa ka na bang magsimula?';
-	@override String get tipPhoto => 'Kumuha ng litrato ng iyong mga pagkain para sa instant na pagsusuri';
-	@override String get tipConsistency => 'Mag-log nang tuloy-tuloy upang makita ang makabuluhang pag-unlad';
-	@override String get tipProgress => 'Subaybayan ang iyong pag-unlad araw-araw upang manatiling motivated';
-	@override String get button => 'Sige na';
+	@override String get genericMessage => 'Ipinapakita ng pananaliksik na ang tuloy-tuloy na pag-log ang #1 na tagapagpahiwatig ng pangmatagalang tagumpay.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Para sa isang ${age} taong gulang na ${gender} na nais na ${goal}, ang tuloy-tuloy na pag-log ang #1 na tagapagpahiwatig ng tagumpay.';
+	@override String closingMessage({required Object appLabel}) => 'Ginagawang 10x na mas madali ng ${appLabel} kumpara sa mano-manong paraan.';
+	@override String get getStartedTitle => 'Handa nang magsimula?';
+	@override String get tipPhoto => 'Kunan ng larawan ang iyong mga pagkain para sa instant na pagsusuri';
+	@override String get tipConsistency => 'Mag-log nang tuloy-tuloy upang makakita ng makahulugang progreso';
+	@override String get tipProgress => 'Subaybayan ang iyong progreso araw-araw upang manatiling motivated';
+	@override String get button => 'Tara, Simulan';
 	@override String get defaultGender => 'indibidwal';
 	@override String get defaultGoal => 'mas malusog na ikaw';
 }
@@ -1239,14 +1296,14 @@ class _TranslationsOnboardingReinforcementHealthProfileTl implements Translation
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ang Iyong Profile sa Kalusugan';
-	@override String bmiDescription({required Object bmi}) => 'Batay sa iyong mga sukat, ang iyong BMI ay ${bmi}.';
-	@override String get finalizeDescription => 'Taposin na natin ang iyong profile upang i-customize ang iyong karanasan.';
+	@override String get title => 'Iyong Health Profile';
+	@override String bmiDescription({required Object bmi}) => 'Batay sa iyong mga sukatan, ang iyong BMI ay ${bmi}.';
+	@override String get finalizeDescription => 'Tapusin natin ang iyong profile upang ma-customize ang iyong karanasan.';
 	@override String get goalGain => 'magdagdag';
-	@override String get goalLose => 'mabawasan';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Upang maabot ang iyong layunin, kailangan mong ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'Nasa iyong target na timbang ka na! Tutulungan ka naming mapanatili ito.';
-	@override String get button => 'Sige na';
+	@override String get goalLose => 'magbawas';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Upang maabot ang iyong layunin, kailangan mong ${direction} ng ${diff} ${unit}.';
+	@override String get goalReached => 'Nasa target mong timbang ka na! Tutulungan ka naming mapanatili ito.';
+	@override String get button => 'Tara, Simulan';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1257,11 +1314,11 @@ class _TranslationsOnboardingReinforcementGoalLifestyleTl implements Translation
 
 	// Translations
 	@override String get title => 'Napakagandang Simula!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Nagawa mo na ang unang hakbang patungo sa ${goalText}. Dahil ikaw ay ${activityText}, iaangkop ng ${appLabel} ang iyong mga target upang umangkop sa iyong pamumuhay.';
-	@override String get personalizedTargets => 'Personalized na mga calorie target';
-	@override String get aiMealDetection => 'Pagkilala sa pagkain na pinapagana ng AI';
-	@override String get macroBreakdowns => 'Detalyadong breakdown ng macro-nutrients';
-	@override String get button => 'Sige na';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Ginawa mo na ang unang hakbang patungo sa ${goalText}. Dahil ikaw ay ${activityText}, iaangkop ng ${appLabel} ang iyong mga target upang tumugma sa iyong pamumuhay.';
+	@override String get personalizedTargets => 'Personalised na calorie targets';
+	@override String get aiMealDetection => 'AI-powered na pagtukoy ng pagkain';
+	@override String get macroBreakdowns => 'Detalyadong paghahati ng macro-nutrients';
+	@override String get button => 'Tara, Simulan';
 	@override String get defaultGoal => 'iyong mga layunin';
 	@override String get defaultActivity => 'aktibo';
 }
@@ -1273,8 +1330,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightTl implements TranslationsEdi
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Bawasan ang Timbang';
-	@override String get description => 'Lumikha ng calorie deficit upang mawalan ng timbang';
+	@override String get name => 'Magbawas ng Timbang';
+	@override String get description => 'Lumikha ng calorie deficit para magbawas ng timbang';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1285,7 +1342,7 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightTl implements Translation
 
 	// Translations
 	@override String get name => 'Panatilihin ang Timbang';
-	@override String get description => 'Panatilihin ang iyong kasalukuyang timbang';
+	@override String get description => 'Panatilihin ang kasalukuyang timbang';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1295,8 +1352,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightTl implements TranslationsEdi
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Dagdagan ang Timbang';
-	@override String get description => 'Lumikha ng calorie surplus upang dagdagan ang timbang';
+	@override String get name => 'Magdagdag ng Timbang';
+	@override String get description => 'Lumikha ng calorie surplus para magdagdag ng timbang';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1306,8 +1363,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryTl implements TranslationsE
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Hindi aktibo';
-	@override String get description => 'Kaunting ehersisyo';
+	@override String get name => 'Sedentary';
+	@override String get description => 'Maliit o walang ehersisyo';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1317,8 +1374,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveTl implements Translati
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Bahagyang Aktibo';
-	@override String get description => 'Bahagyang ehersisyo 1-3 araw/linggo';
+	@override String get name => 'Lightly Active';
+	@override String get description => 'Magaan na ehersisyo 1-3 araw/buwan';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1328,8 +1385,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveTl implements Transl
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Katamtamang Aktibo';
-	@override String get description => 'Katamtamang ehersisyo 3-5 araw/linggo';
+	@override String get name => 'Moderately Active';
+	@override String get description => 'Katamtamang ehersisyo 3-5 araw/buwan';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1339,8 +1396,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveTl implements Translations
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Napaka Aktibo';
-	@override String get description => 'Mabigat na ehersisyo 6-7 araw/linggo';
+	@override String get name => 'Very Active';
+	@override String get description => 'Mabigat na ehersisyo 6-7 araw/buwan';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1350,8 +1407,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTl implements Transla
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Sobrang Aktibo';
-	@override String get description => 'Sobrang mabigat na ehersisyo, pisikal na trabaho';
+	@override String get name => 'Extremely Active';
+	@override String get description => 'Napakabigat na ehersisyo, pisikal na trabaho';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1361,8 +1418,8 @@ class _TranslationsSettingsHealthConnectUnavailableTl implements TranslationsSet
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hindi Magagamit ang Koneksyon sa Kalusugan';
-	@override String get description => 'Ang Koneksyon sa Kalusugan ay hindi magagamit sa aparatong ito. Nangangailangan ito ng Android 14 o mas mataas.';
+	@override String get title => 'Hindi Available ang Health Connect';
+	@override String get description => 'Hindi available ang Health Connect sa device na ito. Mangyaring i-install ang Health Connect mula sa Play Store (Android 9+) o mag-update sa Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1373,9 +1430,9 @@ class _TranslationsSettingsHealthConnectPermissionsTl implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Mga Pahintulot';
-	@override String get description => 'Ang mga sumusunod na pahintulot ay hiniling upang maibigay ang integrasyon ng Koneksyon sa Kalusugan:';
-	@override String get granted => 'Ipinagkaloob';
-	@override String get notGranted => 'Hindi Ipinagkaloob';
+	@override String get description => 'Ang mga sumusunod na pahintulot ay hinihiling upang maibigay ang integrasyon ng Health Connect:';
+	@override String get granted => 'Nabigyan';
+	@override String get notGranted => 'Hindi Nabigyan';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadTl nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadTl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteTl nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteTl._(_root);
@@ -1388,8 +1445,8 @@ class _TranslationsSettingsAboutOurStoryTl implements TranslationsSettingsAboutO
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ang Aming Kwento';
-	@override String content({required Object appLabel}) => '${appLabel} ay isinilang mula sa isang simpleng pagkabigo: karamihan sa mga app na nagtatala ng calorie ay sobrang kumplikado, humihingi ng patuloy na manu-manong input, mataas ang bayad sa subscription, o nagkakasala sa privacy.\n\nBilang isang solo developer, nais kong bumuo ng isang bagay na mas simple at patas — isang app na gumagamit ng AI upang mabawasan ang pagsisikap, mananatiling mabilis at libre ang paggamit, at ginagalang ang iyong mga datos sa kalusugan.\n\n${appLabel} ang app na sana ay nag-exist: walang mga account, walang pagsubaybay, walang mga anunsyo — malinaw, praktikal na mga pananaw lamang at ang iyong mga layunin sa kalusugan.';
+	@override String get title => 'Ang Aming Kuwento';
+	@override String content({required Object appLabel}) => 'Ang ${appLabel} ay isinilang mula sa simpleng pagkadismaya: karamihan sa calorie tracking apps ay sobrang komplikado, nangangailangan ng paulit-ulit na mano-manong pag-input, may mahal na subscription, o isinusuko ang privacy.\n\nBilang isang solo developer, gusto kong gumawa ng mas simple at mas patas — isang app na gumagamit ng AI para bawasan ang abala, nananatiling mabilis at libre, at nirerespeto ang iyong health data.\n\nAng ${appLabel} ang app na sana\'y umiiral na: walang account, walang tracking, walang ads — malinaw, praktikal na insight at nakatuon sa iyong layuning pangkalusugan.';
 }
 
 // Path: settings.about.privacy
@@ -1400,12 +1457,12 @@ class _TranslationsSettingsAboutPrivacyTl implements TranslationsSettingsAboutPr
 
 	// Translations
 	@override String get title => 'Mahalaga ang Iyong Privacy';
-	@override String get description => 'Ang privacy ay hindi isang second thought — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktis:';
-	@override String get noAccounts => 'Walang kinakailangang account\nGamitin agad ang app. Walang pag-sign up, walang pagkakakilanlan.';
-	@override String noTracking({required Object appLabel}) => 'Walang pagsubaybay sa gawi\n${appLabel} ay hindi nagmamanman ng iyong aktibidad, hindi bumubuo ng usage profiles, o nagsusubaybay sa iyo sa mga app o website.';
-	@override String noAds({required Object appLabel}) => 'Walang ads sa disenyo\n${appLabel} ay nakabuo upang gumana nang walang ads o data-driven monetization.';
-	@override String get noDataSelling => 'Walang pagbebenta ng datos\nHindi kailanman ibinebenta o ibinabahagi ang iyong datos sa kalusugan sa mga third parties.';
-	@override String get localStorage => 'Local-first storage\nAng iyong datos ay nananatili sa iyong device.';
+	@override String get description => 'Hindi afterthought ang privacy — isa itong prinsipyo sa disenyo. Ganito ang ibig sabihin nito sa praktika:';
+	@override String get noAccounts => 'Walang kailangang account\nGamitin ang app kaagad. Walang sign-up, walang pagkakakilanlan.';
+	@override String noTracking({required Object appLabel}) => 'Walang behavioral tracking\nHindi mino-monitor ng ${appLabel} ang iyong aktibidad, gumagawa ng usage profile, o sinusundan ka sa iba pang app o website.';
+	@override String noAds({required Object appLabel}) => 'Walang ads sa disenyo\nGawa ang ${appLabel} para gumana nang walang ads o monetization na nakabatay sa data.';
+	@override String get noDataSelling => 'Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi sa mga third party ang iyong health data.';
+	@override String get localStorage => 'Local-first na storage\nNananatili sa iyong device ang iyong data.';
 	@override String get privacyPolicy => 'Patakaran sa Privacy';
 }
 
@@ -1416,8 +1473,8 @@ class _TranslationsSettingsAboutDeveloperTl implements TranslationsSettingsAbout
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Nilikha ng Isang Solo Developer';
-	@override String description({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at privacy-respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.';
+	@override String get title => 'Gawa ng Isang Solo Developer';
+	@override String description({required Object appLabel}) => 'Ang ${appLabel} ay binuo at pinananatili ng isang solo developer na nakatuon sa paglikha ng payapa at nirerespeto ang privacy na health software.\n\nPersonal na binabasa ang feedback at nakakatulong ito sa direksiyon ng app.';
 	@override String get website => 'Website';
 	@override String get email => 'Email';
 }
@@ -1429,8 +1486,8 @@ class _TranslationsSettingsAboutFeedbackTl implements TranslationsSettingsAboutF
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => 'Nasiyahan ka ba sa ${appLabel}?';
-	@override String description({required Object appLabel}) => 'Ang iyong feedback ay tumutulong sa pagpapabuti ng ${appLabel} para sa lahat.';
+	@override String title({required Object appLabel}) => 'Nae-enjoy mo ba ang ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Tinutulungan ng iyong feedback na pagandahin ang ${appLabel} para sa lahat.';
 	@override String get rateApp => 'I-rate sa Play Store';
 	@override String get sendFeedback => 'Magpadala ng Feedback';
 }
@@ -1442,8 +1499,8 @@ class _TranslationsDisclaimerSnapPortionSizeTl implements TranslationsDisclaimer
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sukat ng Bahagi';
-	@override String get description => 'Ang katumpakan ng mga pagtatantya ay labis na nakasalalay sa iyong tamang pagtasa ng sukat ng bahagi.';
+	@override String get title => 'Laki ng Porsyon';
+	@override String get description => 'Malaki ang nakaasa ang katumpakan ng mga pagtatantya sa tama mong pagtataya ng laki ng porsyon.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1453,8 +1510,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsTl implements TranslationsDis
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mga Paraan ng Paghahanda';
-	@override String description({required Object appLabel}) => 'Ang mga paraan ng pagluluto ay maaaring makabuluhang baguhin ang nilalaman ng nutrisyon ng pagkain. Ang mga pagtatantya ng ${appLabel} ay maaaring hindi palaging isinasaalang-alang ang mga pagkakaibang ito.';
+	@override String get title => 'Paraan ng Pagluluto';
+	@override String description({required Object appLabel}) => 'Malaki ang nagbabago sa nilalamang nutrisyon ang paraan ng pagluluto. Maaaring hindi laging maisaalang-alang ng ${appLabel} ang mga pagkakaibang ito.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1465,7 +1522,7 @@ class _TranslationsDisclaimerSnapIngredientsTl implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Mga Sangkap';
-	@override String get description => 'Ang mga kumplikadong ulam na may maraming nakatagong sangkap ay maaaring humantong sa mas kaunting tumpak na pagtatantya.';
+	@override String get description => 'Ang maseselang putahe na may maraming nakatagong sangkap ay maaaring magresulta sa hindi gaanong eksaktong pagtatantya.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1475,8 +1532,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsTl implements TranslationsDi
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mga Limitasyon sa Database';
-	@override String description({required Object appLabel}) => 'Ang database ng pagkain ng ${appLabel} ay malawak ngunit maaaring hindi kasama ang bawat isa o pagkakaiba ng item ng pagkain.';
+	@override String get title => 'Mga Limitasyon ng Database';
+	@override String description({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito masaklaw ang lahat ng pagkain o bawat baryasyon.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1486,8 +1543,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyTl implements Translat
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Katumpakan ng Calorie';
-	@override String get description => 'Ang pagtatantyang ito ay kasing tumpak lamang ng iyong na-log na calorie na pagkain at paggasta. Ang hindi tamang pag-log ay magreresulta sa hindi tumpak na pagtataya.';
+	@override String get title => 'Katumpakan ng Calories';
+	@override String get description => 'Kasing-tumpak lamang ng iyong na-track na calorie intake at expenditure ang pagtatantyang ito. Ang hindi eksaktong pag-log ay magreresulta sa hindi eksaktong projection.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1497,8 +1554,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsTl implements Transl
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mga Biological na Salik';
-	@override String description({required Object appLabel}) => 'Ang aktwal na pagbaba/pagtaas ng timbang ay naapektuhan ng metabolismo, hormones, tulog, stress, hydration, at iba pang indibidwal na salik na hindi kayang sukatin ng ${appLabel}.';
+	@override String get title => 'Mga Salik na Pisiyolohikal';
+	@override String description({required Object appLabel}) => 'Ang aktuwal na pagbabawas/pagdami ng timbang ay naiimpluwensyahan ng metabolismo, hormones, tulog, stress, hydration, at iba pang indibidwal na salik na hindi masukat ng ${appLabel}.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1508,8 +1565,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightTl implements Translations
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Timbang ng Tubig at Pagbago';
-	@override String get description => 'Ang normal na pang-araw-araw na timbang ay maaaring magbago ng makabuluhang dahil sa pag-ipon ng tubig, pagtunaw, at oras. Ang pagtatantya ay hindi isinasaalang-alang ang mga pang-araw-araw na pagbabagong ito.';
+	@override String get title => 'Timbang ng Tubig at Pagbabago-bago';
+	@override String get description => 'Karaniwan ang araw-araw na pagbabago ng timbang dahil sa water retention, pagda-digest, at timing. Hindi isinasaalang-alang ng pagtatantya ang mga pagbabagong ito.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1519,8 +1576,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTl implements Tra
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Propesyonal na Patnubay';
-	@override String get description => 'Huwag gamitin ang pagtatantyang ito upang gumawa ng mga medikal na desisyon. Palaging kumonsulta sa isang propesyonal sa kalusugan o nakarehistrong dietitian para sa personalized na payo sa pamamahala ng timbang.';
+	@override String get title => 'Gabay ng Propesyonal';
+	@override String get description => 'Huwag gamitin ang pagtatantyang ito para gumawa ng desisyong medikal. Laging kumunsulta sa healthcare professional o rehistradong dietitian para sa personalisadong payo sa pamamahala ng timbang.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1531,7 +1588,7 @@ class _TranslationsDisclaimerHealthMetricsBmrTl implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng mga calorie na sinusunog ng iyong katawan kapag nagpapahinga upang mapanatili ang mga pangunahing function tulad ng paghinga at sirkulasyon. Ang BMR ay nakadepende sa iyong edad, kasarian, taas, at timbang. Ang mas mataas na BMR ay nangangahulugang ang iyong katawan ay natural na nagsusunog ng mas maraming calorie habang nagpapahinga, na kadalasang dulot ng mas maraming mass ng kalamnan, mas batang edad, o pagiging lalaki. Ang mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting mass ng kalamnan, mas matandang edad, o pagiging babae.';
+	@override String get description => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng calories na sinusunog ng iyong katawan sa pamamahinga upang mapanatili ang pangunahing mga tungkulin tulad ng paghinga at sirkulasyon. Nakasalalay ang BMR sa iyong edad, kasarian, taas, at timbang. Mas mataas na BMR ay nangangahulugang mas natural na nagsusunog ng calories ang katawan sa pamamahinga, kadalasang dahil sa mas maraming muscle mass, mas batang edad, o pagiging lalaki. Mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting muscle mass, mas matandang edad, o pagiging babae.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1542,7 +1599,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeTl implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.';
+	@override String get description => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calories na sinusunog mo bawat araw, kabilang ang iyong BMR kasama ang calories mula sa pisikal na aktibidad at araw-araw na paggalaw. Nakasalalay ang TDEE sa iyong BMR at antas ng aktibidad. Mas mataas na TDEE ay nangangahulugang mas maraming calories ang nasusunog nang kabuuan, karaniwang dahil sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Mas mababang TDEE ay nagpapahiwatig ng mas kaunting araw-araw na aktibidad o mas mababang BMR.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1552,8 +1609,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTl implements TranslationsDis
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Arawang Layunin';
-	@override String get description => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.';
+	@override String get title => 'Pang-araw-araw na Layunin';
+	@override String get description => 'Ang Pang-araw-araw na Layunin ay ang inirerekomendang pang-araw-araw na calorie intake batay sa iyong TDEE at layunin sa timbang. Para sa pagbawas ng timbang, mas kaunting calories kaysa sa iyong TDEE ang kinokonsumo. Para sa pagpapanatili, itinatapat mo ang iyong TDEE. Para sa pagdagdag ng timbang, mas maraming calories ang kinokonsumo kaysa sa iyong TDEE. Nakakatulong itong maabot ang ninanais mong pagbabago sa timbang sa malusog na bilis.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1563,8 +1620,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTl implements Transl
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Paano kinakalkula ang pagtatantya';
-	@override String get description => 'Kinakalkula namin ang iyong TDEE (batay sa iyong profile) at pinararami ito ng proporsyon ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang kaloriya na nasunog hanggang ngayon.';
+	@override String get title => 'Paano Kinakalkula ang Tantiya';
+	@override String get description => 'Kinukuwenta namin ang iyong TDEE (batay sa iyong profile) at minumultiply ito sa fraction ng lumipas na bahagi ng araw (oras + minuto) / 24 para tantyahin ang calories na nasunog sa ngayon.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1574,8 +1631,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTl implements
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Propesyonal na Patnubay';
-	@override String get description => 'Huwag gamitin ang pagtatantyang ito bilang batayan para sa mga medikal na desisyon. Laging kumonsulta sa isang propesyonal sa pangangalagang pangkalusugan o rehistradong dietitian para sa personal na payo tungkol sa pamamahala ng timbang.';
+	@override String get title => 'Gabay ng Propesyonal';
+	@override String get description => 'Huwag gamitin ang tantiya na ito para gumawa ng desisyong medikal. Laging kumunsulta sa healthcare professional o rehistradong dietitian para sa personalisadong payo.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1585,9 +1642,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTl implements T
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Basahin ang Kabuuang Nasunog na Calories';
-	@override String get description => 'Pinapayagan ang app na basahin ang iyong kabuuang nasunog na calories mula sa Health Connect.';
-	@override String get usage => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nasunog na calories sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.';
+	@override String get title => 'Basahin ang Kabuuang Calories na Nasunog';
+	@override String get description => 'Pinapayagan ang app na basahin ang kabuuang calories na nasunog mula sa Health Connect.';
+	@override String get usage => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong pang-araw-araw na calorie burn sa app, na tumutulong maunawaan ang iyong kabuuang enerhiyang nagugugol sa maghapon.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1598,8 +1655,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadTl implements Tr
 
 	// Translations
 	@override String get title => 'Basahin ang Data ng Nutrisyon';
-	@override String get description => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Koneksyon sa Kalusugan.';
-	@override String get usage => 'Pinapayagan ng pahintulot na ito ang app na basahin ang impormasyon ng nutrisyon na maaaring naitala ng ibang mga app na nakakonekta sa Koneksyon sa Kalusugan, nagbibigay ng komprehensibong pananaw sa iyong nutrisyon.';
+	@override String get description => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Health Connect.';
+	@override String get usage => 'Pinapahintulutan ng pahintulot na ito ang app na basahin ang impormasyong pangnutrisyon na maaaring nai-log ng iba pang app na nakakabit sa Health Connect, para sa mas kumpletong pananaw sa iyong nutrisyon.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1609,9 +1666,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTl implements T
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sumulat ng Data ng Nutrisyon';
-	@override String get description => 'Pinapayagan ang app na sumulat ng data ng nutrisyon sa Koneksyon sa Kalusugan.';
-	@override String get usage => 'Pinapayagan ng pahintulot na ito ang app na i-sync ang iyong mga naitalang pagkain sa Koneksyon sa Kalusugan, na ginagawang magagamit ang iyong data ng nutrisyon sa iba pang mga app sa kalusugan at fitness na ginagamit mo.';
+	@override String get title => 'Isulat ang Data ng Nutrisyon';
+	@override String get description => 'Pinapayagan ang app na magsulat ng data ng nutrisyon sa Health Connect.';
+	@override String get usage => 'Ginagamit ang pahintulot na ito upang i-sync ang iyong mga na-log na pagkain sa Health Connect, para maging available ang iyong datos sa nutrisyon sa iba mo pang health at fitness app.';
 }
 
 /// The flat map containing all translations for locale <tl>.
@@ -1625,225 +1682,262 @@ extension on TranslationsTl {
 			'language' => 'Tagalog',
 			'flag' => '🇵🇭',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Nagpadala ka ng masyadong maraming kahilingan. Pakihintay muna nang sandali bago subukang muli.',
-			'errors.networkError' => 'May problema sa network. Pakisuri ang iyong koneksyon sa internet.',
-			'errors.unknownError' => 'Nagkaroon ng problema. Pakisubukang muli mamaya.',
-			'errors.loadingProfileData' => 'Error sa pag-load ng datos ng profile',
+			'errors.rateLimitExceeded' => 'Sobra ang dami ng kahilingan. Maghintay sandali bago muling subukan.',
+			'errors.networkError' => 'Error sa network. Pakisuri ang iyong koneksyon sa internet.',
+			'errors.unknownError' => 'May nangyaring mali. Pakisubukang muli mamaya.',
+			'errors.loadingProfileData' => 'Error sa pag-load ng data ng profile',
 			'errors.somethingWentWrong' => 'May nangyaring mali.',
-			'errors.retry' => 'Subukan muli',
+			'errors.retry' => 'Subukang muli',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Maligayang pagdating sa ${appLabel}',
-			'onboarding.subtitle' => 'Ang iyong personal na kasamahan sa nutrisyon na pinapagana ng AI',
-			'onboarding.getStarted' => 'Magsimula',
-			'onboarding.features.foodRecognition.title' => 'Matalinong Pagkilala sa Pagkain',
-			'onboarding.features.foodRecognition.description' => 'Kumuha ng litrato at hayaang kilalanin ng AI ang iyong pagkain',
-			'onboarding.features.aiAnalysis.title' => 'Pagsusuri ng AI',
-			'onboarding.features.aiAnalysis.description' => 'Kumuha ng instant na impormasyon sa nutrisyon mula sa iyong mga paglalarawan',
-			'onboarding.features.healthIntegration.title' => 'Integrasyon sa Kalusugan',
-			'onboarding.features.healthIntegration.description' => 'Ikonekta sa Health Connect para sa mas magandang pananaw',
+			'onboarding.subtitle' => 'Ang iyong personal na katuwang sa nutrisyon na pinalakas ng AI',
+			'onboarding.getStarted' => 'Simulan',
+			'onboarding.features.foodRecognition.title' => 'Matalinong Pagkilala ng Pagkain',
+			'onboarding.features.foodRecognition.description' => 'Kumuha ng larawan at hayaang tukuyin ng AI ang iyong pagkain',
+			'onboarding.features.aiAnalysis.title' => 'AI Analysis',
+			'onboarding.features.aiAnalysis.description' => 'Kumuha ng agarang datos ng nutrisyon mula sa iyong paglalarawan',
+			'onboarding.features.healthIntegration.title' => 'Pagsasama sa Health',
+			'onboarding.features.healthIntegration.description' => 'Ikonekta ang Health Connect para sa mas mahusay na insight',
 			'onboarding.gender.title' => 'Ano ang iyong kasarian?',
-			'onboarding.gender.description' => 'Ang kasarian ay tumutulong sa atin na tumpak na kalkulahin ang iyong basal metabolic rate (BMR).',
+			'onboarding.gender.description' => 'Tumutulong ang kasarian upang eksaktong makalkula ang iyong basal metabolic rate (BMR).',
 			'onboarding.gender.next' => 'Susunod',
-			'onboarding.height.title' => 'Gaano kataas ka?',
-			'onboarding.height.description' => 'Ang iyong taas ay tumutulong sa atin na tumpak na kalkulahin ang iyong BMI at pangangailangan sa enerhiya.',
-			'onboarding.height.metric' => 'Sistemang metrikal',
+			'onboarding.height.title' => 'Gaano ka katangkad?',
+			'onboarding.height.description' => 'Tinutulungan kami ng iyong taas na kalkulahin ang iyong BMI at pangangailangan sa enerhiya nang mas eksakto.',
+			'onboarding.height.metric' => 'Metriko',
 			'onboarding.height.imperial' => 'Imperyal',
 			'onboarding.height.next' => 'Susunod',
-			'onboarding.weight.currentTitle' => 'Ano ang iyong kasalukuyang timbang?',
-			'onboarding.weight.currentDescription' => 'Ang iyong kasalukuyang timbang ay mahalaga para sa pagpapasadya ng iyong mga pang-araw-araw na layunin.',
-			'onboarding.weight.targetTitle' => 'Ano ang iyong target na timbang?',
-			'onboarding.weight.targetDescription' => 'Ang pagtatakda ng layunin na timbang ay tumutulong sa atin na tukuyin ang iyong pangmatagalang plano.',
-			'onboarding.weight.metric' => 'Sistemang metrikal',
+			'onboarding.weight.currentTitle' => 'Ano ang kasalukuyan mong timbang?',
+			'onboarding.weight.currentDescription' => 'Mahalaga ang kasalukuyan mong timbang para ma-personalize ang iyong mga pang-araw-araw na layunin.',
+			'onboarding.weight.targetTitle' => 'Ano ang target mong timbang?',
+			'onboarding.weight.targetDescription' => 'Ang pagtatakda ng target na timbang ay tutulong sa amin na tukuyin ang iyong pangmatagalang plano.',
+			'onboarding.weight.metric' => 'Metriko',
 			'onboarding.weight.imperial' => 'Imperyal',
 			'onboarding.weight.next' => 'Susunod',
 			'onboarding.age.title' => 'Kailan ang iyong kaarawan?',
-			'onboarding.age.description' => 'Ang iyong edad ay tumutulong upang tumpak na kalkulahin ang iyong pangangailangan sa calorie.',
+			'onboarding.age.description' => 'Tumutulong ang iyong edad upang eksaktong makalkula ang iyong pangangailangan sa calories.',
 			'onboarding.age.next' => 'Susunod',
 			'onboarding.bmiScale.underweight' => 'Kulang',
 			'onboarding.bmiScale.healthy' => 'Malusog',
 			'onboarding.bmiScale.overweight' => 'Sobra',
-			'onboarding.bmiScale.obese' => 'Obesity',
+			'onboarding.bmiScale.obese' => 'Obeso',
 			'onboarding.bmiScale.categories.underweight' => 'Kulang sa timbang',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Malusog na timbang',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Tamang timbang',
 			'onboarding.bmiScale.categories.overweight' => 'Sobra sa timbang',
-			'onboarding.bmiScale.categories.obese' => 'Obesity',
-			'onboarding.bmiScale.messages.underweight' => 'Matutulungan ka naming bumuo ng isang malusog na plano upang maabot ang balanseng timbang gamit ang masustansyang pagkain.',
-			'onboarding.bmiScale.messages.healthy' => 'Magaling! Nasa malusog na saklaw ka. Tutulungan ka naming mapanatili ang iyong sigla at antas ng enerhiya.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} ay nagpapadali sa iyong paglalakbay gamit ang AI-powered tracking upang makatulong na maabot ang iyong target nang kumportable.',
-			'onboarding.bmiScale.messages.obese' => 'Nandito kami upang suportahan ka sa pamamagitan ng personalized na gabay at mga sustainable na estratehiya para sa iyong mga layunin sa kalusugan.',
+			'onboarding.bmiScale.categories.obese' => 'Obeso',
+			'onboarding.bmiScale.messages.underweight' => 'Matutulungan ka naming bumuo ng malusog na plano upang maabot ang balanseng timbang gamit ang pagkaing masustansya.',
+			'onboarding.bmiScale.messages.healthy' => 'Galing! Nasa malusog na saklaw ka. Tutulungan ka naming mapanatili ang sigla at antas ng enerhiya mo.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => 'Papadaliin ng ${appLabel} ang iyong paglalakbay gamit ang AI-powered na tracking upang komportableng maabot ang iyong target.',
+			'onboarding.bmiScale.messages.obese' => 'Narito kami upang suportahan ka gamit ang personalisadong gabay at napapanatiling estratehiya para sa iyong mga layuning pangkalusugan.',
 			'onboarding.weightGoal.title' => 'Ano ang iyong layunin?',
-			'onboarding.weightGoal.description' => 'Pumili ng layunin na pinaka-naglalarawan kung ano ang nais mong makamit',
+			'onboarding.weightGoal.description' => 'Piliin ang layuning pinakamalapit sa gusto mong makamit',
 			'onboarding.activityLevel.title' => 'Gaano ka kaaktibo?',
-			'onboarding.activityLevel.description' => 'Ito ay tumutulong sa atin na tumpak na kalkulahin ang iyong pang-araw-araw na pangangailangan sa calorie',
-			'onboarding.healthConnect.title' => 'Ikonekta sa Health Connect',
-			'onboarding.healthConnect.description' => 'I-synchronize ang iyong datos sa kalusugan para sa mas magandang pananaw at awtomatikong pagsubaybay ng calorie',
-			'onboarding.healthConnect.automaticTracking.title' => 'Awtomatik na Pagsubaybay ng Calorie',
-			'onboarding.healthConnect.automaticTracking.description' => 'Subaybayan ang calories na nasunog mula sa iyong fitness apps',
-			'onboarding.healthConnect.progressInsights.title' => 'Mga Pagsusuri sa Pag-unlad',
-			'onboarding.healthConnect.progressInsights.description' => 'Kumuha ng detalyadong pananaw sa mga trend ng iyong kalusugan',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'Walang putol na Integrasyon',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'I-synchronize ang datos mula sa iyong mga paboritong health apps',
+			'onboarding.activityLevel.description' => 'Tinutulungan kami nito na mas eksaktong makalkula ang iyong pang-araw-araw na pangangailangan sa calories',
+			'onboarding.healthConnect.title' => 'Kumonekta sa Health Connect',
+			'onboarding.healthConnect.description' => 'I-sync ang iyong health data para sa mas mahusay na insight at awtomatikong pag-track ng calories',
+			'onboarding.healthConnect.automaticTracking.title' => 'Awtomatikong Pag-track ng Calories',
+			'onboarding.healthConnect.automaticTracking.description' => 'I-track ang calories na nasunog mula sa iyong mga fitness app',
+			'onboarding.healthConnect.progressInsights.title' => 'Mga Insight sa Progreso',
+			'onboarding.healthConnect.progressInsights.description' => 'Kumuha ng detalyadong insight sa iyong mga trend sa kalusugan',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'Walang Abalang Pagsasama',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'I-sync ang data mula sa paborito mong health apps',
 			'onboarding.healthConnect.connected' => 'Nakakonekta ang Health Connect',
 			'onboarding.healthConnect.notConnected' => 'Hindi nakakonekta ang Health Connect',
-			'onboarding.healthConnect.setup' => 'I-set up ang Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Laktawan ito sa ngayon',
+			'onboarding.healthConnect.setup' => 'I-setup ang Health Connect',
+			'onboarding.healthConnect.skipForNow' => 'Laktawan muna',
 			'onboarding.healthConnect.statusConnected' => 'Nakakonekta ang Health Connect.',
 			'onboarding.healthConnect.statusSuccess' => 'Matagumpay na nakakonekta ang Health Connect!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Tinanggihan ang pahintulot. Pakisuyong paganahin ang mga pahintulot ng Health Connect mula sa iyong mga setting ng telepono para sa ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Error sa pag-set up ng Health Connect: ${error}',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Tinanggihan ang pahintulot. Paki-enable ang mga pahintulot ng Health Connect mula sa mga setting ng iyong telepono para sa ${appLabel}.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Error sa pag-setup ng Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Hindi Ka Nag-iisa',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Ipinapakita ng mga pag-aaral na ang tuloy-tuloy na pagsubaybay ang #1 predictor ng pangmatagalang tagumpay.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Para sa isang ${age} taong gulang na ${gender} na nagnanais na ${goal}, ang tuloy-tuloy na pagsubaybay ang #1 predictor ng tagumpay.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} ay nagpapadali ng 10x kumpara sa paggawa nito nang manual.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Handa ka na bang magsimula?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Kumuha ng litrato ng iyong mga pagkain para sa instant na pagsusuri',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Mag-log nang tuloy-tuloy upang makita ang makabuluhang pag-unlad',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Subaybayan ang iyong pag-unlad araw-araw upang manatiling motivated',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Sige na',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Ipinapakita ng pananaliksik na ang tuloy-tuloy na pag-log ang #1 na tagapagpahiwatig ng pangmatagalang tagumpay.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Para sa isang ${age} taong gulang na ${gender} na nais na ${goal}, ang tuloy-tuloy na pag-log ang #1 na tagapagpahiwatig ng tagumpay.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => 'Ginagawang 10x na mas madali ng ${appLabel} kumpara sa mano-manong paraan.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Handa nang magsimula?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Kunan ng larawan ang iyong mga pagkain para sa instant na pagsusuri',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Mag-log nang tuloy-tuloy upang makakita ng makahulugang progreso',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Subaybayan ang iyong progreso araw-araw upang manatiling motivated',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Tara, Simulan',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'indibidwal',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'mas malusog na ikaw',
-			'onboarding.reinforcement.healthProfile.title' => 'Ang Iyong Profile sa Kalusugan',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Batay sa iyong mga sukat, ang iyong BMI ay ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Taposin na natin ang iyong profile upang i-customize ang iyong karanasan.',
+			'onboarding.reinforcement.healthProfile.title' => 'Iyong Health Profile',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Batay sa iyong mga sukatan, ang iyong BMI ay ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Tapusin natin ang iyong profile upang ma-customize ang iyong karanasan.',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'magdagdag',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'mabawasan',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Upang maabot ang iyong layunin, kailangan mong ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Nasa iyong target na timbang ka na! Tutulungan ka naming mapanatili ito.',
-			'onboarding.reinforcement.healthProfile.button' => 'Sige na',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'magbawas',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Upang maabot ang iyong layunin, kailangan mong ${direction} ng ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Nasa target mong timbang ka na! Tutulungan ka naming mapanatili ito.',
+			'onboarding.reinforcement.healthProfile.button' => 'Tara, Simulan',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Napakagandang Simula!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Nagawa mo na ang unang hakbang patungo sa ${goalText}. Dahil ikaw ay ${activityText}, iaangkop ng ${appLabel} ang iyong mga target upang umangkop sa iyong pamumuhay.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalized na mga calorie target',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Pagkilala sa pagkain na pinapagana ng AI',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detalyadong breakdown ng macro-nutrients',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Sige na',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Ginawa mo na ang unang hakbang patungo sa ${goalText}. Dahil ikaw ay ${activityText}, iaangkop ng ${appLabel} ang iyong mga target upang tumugma sa iyong pamumuhay.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalised na calorie targets',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-powered na pagtukoy ng pagkain',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detalyadong paghahati ng macro-nutrients',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Tara, Simulan',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'iyong mga layunin',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktibo',
 			'tabs.dashboard' => 'Dashboard',
 			'tabs.history' => 'Kasaysayan',
-			'home.aiSummary.title' => 'Buod ng iyong AI',
-			'home.aiSummary.logMore' => 'Itala pa ang mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong mga pananaw mula sa AI.',
-			'home.aiSummary.loading' => 'Ikinakarga ang iyong buod...',
-			'home.aiSummary.mealCount' => ({required Object count}) => '${count} na naitalang pagkain',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Iskor ng balanse ${score}',
-			'home.aiSummary.topFoods' => 'Nangungunang mga pagkain',
-			'home.aiSummary.trendUp' => 'Tumataas ang bilang ng calories',
-			'home.aiSummary.trendDown' => 'Bumababa ang bilang ng calories',
-			'home.aiSummary.trendSteady' => 'Nanatiling matatag ang bilang ng calories',
-			'home.aiSummary.generatedAt' => ({required Object time}) => 'Huling na-update ${time}',
+			'home.aiSummary.title' => 'Iyong AI Summary',
+			'home.aiSummary.logMore' => 'Mag-log pa ng mga pagkain sa mga susunod na araw para makuha ang iyong personalisadong AI insights.',
+			'home.aiSummary.loading' => 'Lina-load ang iyong buod...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} meal(s) na na-log',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Balance score ${score}',
+			'home.aiSummary.topFoods' => 'Nangungunang pagkain',
+			'home.aiSummary.trendUp' => 'Tumaas ang trend ng calories',
+			'home.aiSummary.trendDown' => 'Bumababa ang trend ng calories',
+			'home.aiSummary.trendSteady' => 'Steady ang calories',
+			'home.aiSummary.generatedAt' => ({required Object time}) => 'Na-update ${time}',
 			'home.dailyGoal.title' => 'Itakda ang Iyong Pang-araw-araw na Layunin',
-			'home.dailyGoal.titleSet' => 'Ang Iyong Pang-araw-araw na Layunin',
-			'home.dailyGoal.description' => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target na calorie sa ibaba upang simulan ang iyong progreso.',
-			'home.dailyGoal.descriptionSet' => 'Nakaset na ang iyong kompas! Ito ang iyong pang-araw-araw na target na calorie upang gabayan ka.',
-			'home.dailyGoal.yourGoal' => 'Ang Iyong Layunin',
+			'home.dailyGoal.titleSet' => 'Iyong Pang-araw-araw na Layunin',
+			'home.dailyGoal.description' => 'Handa ka na bang simulan ang iyong wellness journey? Itakda ang iyong pang-araw-araw na target ng calorie sa ibaba para simulan ang progreso.',
+			'home.dailyGoal.descriptionSet' => 'Nakatakda na ang iyong kompas! Ito ang pang-araw-araw mong target ng calorie na gagabay sa iyo.',
+			'home.dailyGoal.yourGoal' => 'Iyong Layunin',
 			'home.dailyGoal.goal' => 'Layunin',
 			'home.dailyGoal.dailyCalories' => 'Pang-araw-araw na calories (kcal)',
 			'home.dailyGoal.setGoal' => 'Itakda ang Layunin',
-			'home.dailyGoal.intake' => 'Konsumisyon',
+			'home.dailyGoal.intake' => 'Intake',
 			'home.dailyGoal.burned' => 'Nasunog',
 			'home.dailyGoal.weightImpact' => 'Epekto sa Timbang',
-			'home.dailyGoal.estLoss' => 'Tinatayang pagkawala ng',
-			'home.dailyGoal.estGain' => 'Tinatayang pagdagdag ng',
+			'home.dailyGoal.estLoss' => 'Tinatayang bawas na',
+			'home.dailyGoal.estGain' => 'Tinatayang dagdag na',
 			'home.dailyGoal.kcal' => 'kcal',
 			'home.dailySummary.title' => 'Pang-araw-araw na Buod',
 			'home.dailySummary.calories' => 'Calories',
-			'home.dailySummary.carbs' => 'Carbohydrates',
-			'home.dailySummary.protein' => 'Protina',
-			'home.dailySummary.fat' => 'Taba',
+			'home.dailySummary.carbs' => 'Carbs',
+			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.fat' => 'Fat',
 			'home.dailySummary.fiber' => 'Fiber',
 			'home.dailySummary.grams' => 'gramo',
-			'home.dailySummary.chartAccessibilityLabel' => 'Tsart ng mga makronutriente',
-			'home.intakeProgress.title' => 'Paghahati ng Macro Ngayong Araw',
+			'home.dailySummary.chartAccessibilityLabel' => 'Macros chart',
+			'home.intakeProgress.title' => 'Hati ng Macro Ngayon',
 			'home.intakeProgress.target' => 'Target',
 			'home.intakeProgress.current' => 'Kasalukuyan',
-			'home.intakeHistory.title' => '7-Araw na Kasaysayan ng Macro',
-			'home.intakeHistory.trendTitle' => 'Uso Ngayong Araw',
+			'home.intakeHistory.title' => '7-Araw na Macro History',
+			'home.intakeHistory.trendTitle' => 'Trend Ngayon',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Pinakamataas: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Wala pang kasaysayan',
-			'home.intakeHistory.startLogging' => 'Simulan ang pag-log ng mga pagkain upang makita ang iyong\n7-araw na trend sa macro dito',
-			'home.mealLog.title' => 'Naka-log na mga Pagkain',
-			'home.mealLog.emptyMessage' => 'Kumuha ng litrato ng iyong huling pagkain upang i-log dito.',
-			'home.mealLog.noMealsToday' => 'Walang nakahiwalay na pagkain para sa araw na ito',
-			'home.mealLog.seeAllMeals' => 'Tingnan ang lahat ng pagkain',
-			'home.mealDescription.title' => 'Mabilis na Idagdag gamit ang AI',
-			'home.mealDescription.description' => 'Ilalarawan ang iyong pagkain, at hayaang ayusin ng AI ang mga detalye.',
-			'home.mealDescription.hint' => 'hal. Para sa almusal, kumain ako ng malaking mangkok ng oat na may hiwa ng saging at isang scoop ng whey ...',
+			'home.intakeHistory.startLogging' => 'Magsimulang mag-log ng pagkain upang makita ang iyong\n7-araw na macro trends dito',
+			'home.mealLog.title' => 'Mga Na-log na Pagkain',
+			'home.mealLog.emptyMessage' => 'Kuhanin ng larawan ang huli mong kinain para ma-log dito.',
+			'home.mealLog.noMealsToday' => 'Walang naitalang pagkain ngayong araw',
+			'home.mealLog.seeAllMeals' => 'Tingnan lahat ng pagkain',
+			'home.mealDescription.title' => 'Mabilis na Add gamit ang AI',
+			'home.mealDescription.description' => 'Ilarawan ang iyong pagkain, at hayaan ang AI ang bahala sa detalye.',
+			'home.mealDescription.hint' => 'hal. Sa almusal, kumain ako ng malaking mangkok ng oatmeal na may hiniwang saging at isang scoop ng whey ...',
 			'home.mealDescription.analyzeMeal' => 'Suriin ang pagkain',
 			'home.favoriteMeals.title' => 'Paboritong Pagkain',
 			'home.favoriteMeals.description' => 'Mabilis na idagdag ang isa sa iyong mga paboritong pagkain.',
-			'home.favoriteMeals.noFavorites' => 'Walang paboritong pagkain sa ngayon.',
-			'home.favoriteMeals.addFavoriteHint' => 'I-click ang bituin sa isang pagkain upang markahan ito bilang paborito.',
-			'home.favoriteMeals.seeAll' => 'Tingnan ang lahat',
+			'home.favoriteMeals.noFavorites' => 'Wala pang paboritong pagkain.',
+			'home.favoriteMeals.addFavoriteHint' => 'I-click ang bituin sa isang pagkain para markahan bilang paborito.',
+			'home.favoriteMeals.seeAll' => 'Tingnan lahat',
 			'home.favoriteMeals.add' => 'Idagdag',
-			'home.mealSnap.title' => 'Kumuha ng Litrato at Subaybayan ang Iyong Pagkain',
-			'home.mealSnap.description' => 'Gamitin ang iyong kamera upang kumuha ng litrato ng iyong pagkain para sa pagsusuri ng AI.',
-			'home.mealSnap.openCamera' => 'Buksan ang Kamera',
-			'home.mealSnap.gallery' => 'Galeriya',
-			'home.connectHealth.title' => 'I-synchronize sa Health Connect',
-			'home.connectHealth.description' => 'I-synchronize ang iyong nutrition data sa Health Connect',
+			'home.mealSnap.title' => 'Kuhanan at I-track ang Iyong Pagkain',
+			'home.mealSnap.description' => 'Gamitin ang iyong camera para kunan ng larawan ang iyong pagkain para sa AI analysis.',
+			'home.mealSnap.openCamera' => 'Buksan ang Camera',
+			'home.mealSnap.gallery' => 'Gallery',
+			'home.mealSnap.compressingPhoto' => 'Ina-optimize ang larawan…',
+			'home.mealSnap.uploadingPhoto' => 'Ina-upload ang larawan…',
+			'home.connectHealth.title' => 'I-sync sa Health Connect',
+			'home.connectHealth.description' => 'I-sync ang iyong nutrition data sa Health Connect',
 			'home.connectHealth.install' => 'I-install',
 			'home.connectHealth.connect' => 'Ikonekta',
-			'history.noMeals' => 'Walang nakahiwalay na pagkain',
-			'history.emptyMessage' => 'Kumuha ng litrato ng iyong huling pagkain upang i-log dito.',
+			'history.noMeals' => 'Walang naitalang pagkain',
+			'history.emptyMessage' => 'Kuhanin ng larawan ang huli mong kinain para ma-log dito.',
 			'history.today' => 'Ngayon',
 			'history.yesterday' => 'Kahapon',
-			'meal.ohNo' => 'Oh hindi!',
-			'meal.delete' => 'Tanggalin',
+			'meal.ohNo' => 'Naku!',
+			'meal.delete' => 'Burahin',
 			'meal.editMeal' => 'I-edit ang Pagkain',
 			'meal.addMeal' => 'Magdagdag ng Pagkain',
 			'meal.saveMeal' => 'I-save ang Pagkain',
 			'meal.save' => 'I-save',
 			'meal.mealName' => 'Pangalan ng Pagkain',
-			'meal.mealNameHint' => 'Hal., Hinalong itlog na may tinapay',
+			'meal.mealNameHint' => 'hal., Scrambled Eggs na may tostang tinapay',
 			'meal.mealQuantity' => 'Dami ng Pagkain',
 			'meal.mealQuantityHint' => 'hal., 1 mangkok, 2 hiwa',
 			'meal.timeOfMeal' => 'Oras ng Pagkain',
-			'meal.timeOfMealHint' => 'Pumili ng oras kung kailan mo kinain ang iyong pagkain',
+			'meal.timeOfMealHint' => 'Piliin ang oras na kinain mo ang iyong pagkain',
 			'meal.mealType' => 'Uri ng Pagkain',
 			'meal.nutrition.calories' => 'Calories',
 			'meal.nutrition.carbs' => 'Carbs (g)',
-			'meal.nutrition.protein' => 'Protina (g)',
-			'meal.nutrition.fat' => 'Taba (g)',
+			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.fat' => 'Fat (g)',
 			'meal.nutrition.fiber' => 'Fiber (g)',
-			'meal.deleteConfirmation.title' => 'Tanggalin ang Pagkain',
-			'meal.deleteConfirmation.message' => 'Sigurado ka bang nais mong tanggalin ang entry na ito ng pagkain?',
+			'meal.deleteConfirmation.title' => 'Burahin ang Pagkain',
+			'meal.deleteConfirmation.message' => 'Sigurado ka bang gusto mong burahin ang entry ng pagkain na ito?',
 			'meal.deleteConfirmation.cancel' => 'Kanselahin',
-			'meal.deleteConfirmation.delete' => 'Tanggalin',
-			'meal.addedToLog' => 'Idinagdag ang pagkain sa iyong log!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Hindi maidaragdag ang pagkain: ${error}',
-			'meal.savedSuccessfully' => 'Matagumpay na naidagdag ang pagkain!',
+			'meal.deleteConfirmation.delete' => 'Burahin',
+			'meal.addedToLog' => 'Naidagdag ang pagkain sa iyong log!',
+			'meal.couldNotAdd' => ({required Object error}) => 'Hindi maidagdag ang pagkain: ${error}',
+			'meal.savedSuccessfully' => 'Matagumpay na nadagdag ang pagkain!',
 			'meal.updatedSuccessfully' => 'Matagumpay na na-update ang pagkain!',
-			'meal.errorSaving' => ({required Object error}) => 'Nabigong i-save ang pagkain: ${error}',
-			'meal.removedFromFavorites' => 'Tinanggal mula sa mga paborito!',
-			'meal.savedAsFavorite' => 'Naitabi ang pagkain bilang paborito!',
-			'meal.unfavorite' => 'Alisin mula sa mga paborito',
+			'meal.errorSaving' => ({required Object error}) => 'Error sa pag-save ng pagkain: ${error}',
+			'meal.removedFromFavorites' => 'Inalis sa paborito!',
+			'meal.savedAsFavorite' => 'Na-save ang pagkain bilang paborito!',
+			'meal.unfavorite' => 'Alisin sa paborito',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Hindi ma-update ang paborito: ${error}',
-			'meal.feedbackThanks' => 'Salamat sa iyong puna!',
-			'meal.reanalysisUpdated' => 'Na-update ang pagsusuri ng pagkain batay sa iyong puna.',
-			'meal.failedToProcess' => ({required Object error}) => 'Nabigo sa pagproseso: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'Nabigo sa pagproseso ng larawan: ${error}',
+			'meal.feedbackThanks' => 'Salamat sa feedback!',
+			'meal.reanalysisUpdated' => 'Na-update ang pagsusuri ng pagkain batay sa iyong feedback.',
+			'meal.failedToProcess' => ({required Object error}) => 'Hindi naproseso: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'Hindi naproseso ang larawan: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error sa pag-compress ng larawan: ${error}',
-			'meal.failedToSave' => 'Nabigo sa pag-save ng datos. Pakisubok muli.',
+			'meal.failedToSave' => 'Hindi na-save ang data. Pakisubukang muli.',
 			'meal.skip' => 'Laktawan',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Tanong ${current} sa ${total}',
-			'meal.variation.noVariationsAvailable' => 'Walang ibang pagpipilian',
-			'favorites.title' => 'Mga Paborito',
-			'favorites.empty' => 'Walang paboritong pagkain sa ngayon.',
+			'meal.variation.question' => ({required Object current, required Object total}) => 'Tanong ${current} ng ${total}',
+			'meal.variation.noVariationsAvailable' => 'Walang available na mga variation',
+			'meal.analysis.title' => 'AI na pagsusuri ng pagkain',
+			'meal.analysis.reassurance' => 'Karaniwan ay ilang segundo lang ito.',
+			'meal.analysis.stepStarted' => 'Nagsisimula…',
+			'meal.analysis.stepDecomposition' => 'Inuunawa ang iyong pagkain…',
+			'meal.analysis.stepIngredients' => 'Ibinabagay ang mga sangkap sa datos ng nutrisyon…',
+			'meal.analysis.stepUncertainty' => 'Sinusuri ang kumpiyansa…',
+			'meal.analysis.stepMealTypeQuestion' => 'Malapit na…',
+			'meal.analysis.stepResult' => 'Tinatapos ang resulta…',
+			'meal.analysis.stepError' => 'May nagkaproblema',
+			'meal.analysis.stepDefault' => 'Sinusuri ang iyong pagkain…',
+			'meal.analysis.progressUnderstand' => 'Unawain',
+			'meal.analysis.progressMatch' => 'Itugma',
+			'meal.analysis.progressCheck' => 'Suriin',
+			'meal.analysis.progressFinish' => 'Tapos',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} sangkap na natukoy',
+			'meal.analysis.ingredientsPending' => 'Sinusuri ang mga sangkap…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
+			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
+			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
+			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
+			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
+			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.feedback.title' => 'What looks wrong?',
+			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
+			'meal.feedback.tellUsMore' => 'Tell us more',
+			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
+			'meal.feedback.submit' => 'Submit',
+			'meal.feedback.issueFoodIdentification' => 'Food identification',
+			'meal.feedback.issuePortionSize' => 'Portion size',
+			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
+			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
+			'meal.feedback.issueMissingItems' => 'Missing items',
+			'meal.feedback.issueExtraItems' => 'Extra items',
+			'meal.feedback.issueOther' => 'Other',
+			'favorites.title' => 'Paborito',
+			'favorites.empty' => 'Wala pang paboritong pagkain.',
 			'favorites.searchPlaceholder' => 'Maghanap ng paboritong pagkain',
-			'favorites.searchEmptyTitle' => 'Walang paborito ang tumutugma sa iyong paghahanap',
+			'favorites.searchEmptyTitle' => 'Walang paborito na tumutugma sa iyong paghahanap',
 			'favorites.searchEmptySubtitle' => 'Subukan ang ibang pangalan ng pagkain, dami, o uri ng pagkain.',
-			'favorites.sortLabel' => 'Iayos ang mga paborito',
-			'favorites.undo' => 'Bawiin',
-			'favorites.removed' => ({required Object name}) => 'Tinanggal ang ${name} mula sa mga paborito',
+			'favorites.sortLabel' => 'Ayusin ang paborito',
+			'favorites.undo' => 'I-undo',
+			'favorites.removed' => ({required Object name}) => 'Inalis ang ${name} mula sa paborito',
 			'favorites.sortOptions.recent' => 'Pinakabago',
-			'favorites.sortOptions.calories' => 'Kaloriya',
+			'favorites.sortOptions.calories' => 'Calories',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profile',
-			'profile.noProfileData' => 'Walang natagpuang datos ng profile',
-			'profile.yourProfile' => 'Ang Iyong Profile',
-			'profile.viewAndManage' => 'Tingnan at pamahalaan ang iyong impormasyon sa kalusugan',
+			'profile.noProfileData' => 'Walang nakita na data ng profile',
+			'profile.yourProfile' => 'Iyong Profile',
+			'profile.viewAndManage' => 'Tingnan at pamahalaan ang iyong impormasyong pangkalusugan',
 			'profile.sections.profile' => 'PROFILE',
-			'profile.sections.basicInformation' => 'BATAYANG IMPORMASYON',
-			'profile.sections.goalsAndActivity' => 'LAYUNIN AT AKTIBIDAD',
-			'profile.sections.calculatedValues' => 'NAKALKULANG MGA HALAGA',
+			'profile.sections.basicInformation' => 'PANGUNAHING IMPORMASYON',
+			'profile.sections.goalsAndActivity' => 'MGA LAYUNIN AT AKTIBIDAD',
+			'profile.sections.calculatedValues' => 'MGA KINALKULANG HALAGA',
 			'profile.gender' => 'Kasarian',
 			'profile.height' => 'Taas',
 			'profile.weight' => 'Timbang',
@@ -1851,7 +1945,7 @@ extension on TranslationsTl {
 			'profile.weightGoal' => 'Layunin sa Timbang',
 			'profile.targetWeight' => 'Target na Timbang',
 			'profile.activityLevel' => 'Antas ng Aktibidad',
-			'profile.healthMetrics' => 'Metrics ng Kalusugan',
+			'profile.healthMetrics' => 'Mga Sukatang Pangkalusugan',
 			'profile.notSet' => 'Hindi nakatakda',
 			'profile.years' => 'taon',
 			'profile.updatedSuccessfully' => 'Matagumpay na na-update ang profile!',
@@ -1860,223 +1954,223 @@ extension on TranslationsTl {
 			'profile.calculatedValues.dailyGoal' => 'Pang-araw-araw na Layunin',
 			'profile.calculatedValues.calPerDay' => 'cal/araw',
 			'profile.calculatedValues.notAvailable' => 'N/A',
-			'healthScore.title' => 'Iskor ng Kalusugan',
-			'healthScore.whyThisScore' => 'Bakit ang iskor na ito?',
-			'healthScore.note' => 'Ang iskor na ito ay isang pagtatantya mula sa AI batay sa nakilalang sangkap at nutritional density. Palaging kumonsulta sa isang propesyonal para sa payo sa pagkain.',
+			'healthScore.title' => 'Health Score',
+			'healthScore.whyThisScore' => 'Bakit ganito ang iskor?',
+			'healthScore.note' => 'Ang iskor na ito ay pagtatantya ng AI batay sa mga natukoy na sangkap at densidad ng nutrisyon. Laging kumunsulta sa propesyonal para sa payong pandiyeta.',
 			'healthScore.unhealthy' => 'Hindi Malusog',
 			'healthScore.healthy' => 'Malusog',
-			'healthScore.neutral' => 'Neutral',
+			'healthScore.neutral' => 'Neyutral',
 			'editProfile.title' => 'I-edit ang Profile',
 			'editProfile.sections.personalInformation' => 'PERSONAL NA IMPORMASYON',
 			'editProfile.sections.physicalMeasurements' => 'PISIKAL NA SUKAT',
-			'editProfile.sections.goalsAndActivity' => 'LAYUNIN AT AKTIBIDAD',
+			'editProfile.sections.goalsAndActivity' => 'MGA LAYUNIN AT AKTIBIDAD',
 			'editProfile.gender' => 'Kasarian',
-			'editProfile.dateOfBirth' => 'Petsa ng Kaarawan',
+			'editProfile.dateOfBirth' => 'Petsa ng Kapanganakan',
 			'editProfile.height' => 'Taas',
 			'editProfile.weight' => 'Timbang',
 			'editProfile.weightGoal' => 'Layunin sa Timbang',
 			'editProfile.activityLevel' => 'Antas ng Aktibidad',
-			'editProfile.metric' => 'Sistemang metrikal',
+			'editProfile.metric' => 'Metriko',
 			'editProfile.imperial' => 'Imperyal',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
 			'editProfile.unitLbs' => 'lbs',
-			'editProfile.metricCm' => 'Sistemang metrikal (cm)',
+			'editProfile.metricCm' => 'Metriko (cm)',
 			'editProfile.imperialFtIn' => 'Imperyal (ft/in)',
-			'editProfile.metricKg' => 'Sistemang metrikal (kg)',
+			'editProfile.metricKg' => 'Metriko (kg)',
 			'editProfile.imperialLbs' => 'Imperyal (lbs)',
 			'editProfile.genders.male' => 'Lalaki',
 			'editProfile.genders.female' => 'Babae',
 			'editProfile.genders.other' => 'Iba pa',
-			'editProfile.weightGoals.loseWeight.name' => 'Bawasan ang Timbang',
-			'editProfile.weightGoals.loseWeight.description' => 'Lumikha ng calorie deficit upang mawalan ng timbang',
+			'editProfile.weightGoals.loseWeight.name' => 'Magbawas ng Timbang',
+			'editProfile.weightGoals.loseWeight.description' => 'Lumikha ng calorie deficit para magbawas ng timbang',
 			'editProfile.weightGoals.maintainWeight.name' => 'Panatilihin ang Timbang',
-			'editProfile.weightGoals.maintainWeight.description' => 'Panatilihin ang iyong kasalukuyang timbang',
-			'editProfile.weightGoals.gainWeight.name' => 'Dagdagan ang Timbang',
-			'editProfile.weightGoals.gainWeight.description' => 'Lumikha ng calorie surplus upang dagdagan ang timbang',
-			'editProfile.activityLevels.sedentary.name' => 'Hindi aktibo',
-			'editProfile.activityLevels.sedentary.description' => 'Kaunting ehersisyo',
-			'editProfile.activityLevels.lightlyActive.name' => 'Bahagyang Aktibo',
-			'editProfile.activityLevels.lightlyActive.description' => 'Bahagyang ehersisyo 1-3 araw/linggo',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Katamtamang Aktibo',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Katamtamang ehersisyo 3-5 araw/linggo',
-			'editProfile.activityLevels.veryActive.name' => 'Napaka Aktibo',
-			'editProfile.activityLevels.veryActive.description' => 'Mabigat na ehersisyo 6-7 araw/linggo',
-			'editProfile.activityLevels.extremelyActive.name' => 'Sobrang Aktibo',
-			'editProfile.activityLevels.extremelyActive.description' => 'Sobrang mabigat na ehersisyo, pisikal na trabaho',
+			'editProfile.weightGoals.maintainWeight.description' => 'Panatilihin ang kasalukuyang timbang',
+			'editProfile.weightGoals.gainWeight.name' => 'Magdagdag ng Timbang',
+			'editProfile.weightGoals.gainWeight.description' => 'Lumikha ng calorie surplus para magdagdag ng timbang',
+			'editProfile.activityLevels.sedentary.name' => 'Sedentary',
+			'editProfile.activityLevels.sedentary.description' => 'Maliit o walang ehersisyo',
+			'editProfile.activityLevels.lightlyActive.name' => 'Lightly Active',
+			'editProfile.activityLevels.lightlyActive.description' => 'Magaan na ehersisyo 1-3 araw/buwan',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Moderately Active',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Katamtamang ehersisyo 3-5 araw/buwan',
+			'editProfile.activityLevels.veryActive.name' => 'Very Active',
+			'editProfile.activityLevels.veryActive.description' => 'Mabigat na ehersisyo 6-7 araw/buwan',
+			'editProfile.activityLevels.extremelyActive.name' => 'Extremely Active',
+			'editProfile.activityLevels.extremelyActive.description' => 'Napakabigat na ehersisyo, pisikal na trabaho',
 			'settings.title' => 'Mga Setting',
 			'settings.sections.profile' => 'PROFILE',
 			'settings.sections.localization' => 'LOKALISASYON',
-			'settings.sections.notifications' => 'NOTIFIKASYON',
+			'settings.sections.notifications' => 'NOTIPIKASYON',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPORTA AT LEGAL',
 			'settings.sections.about' => 'TUNGKOL',
-			'settings.sections.dangerZone' => 'MAPANGANIB NA ZONA',
+			'settings.sections.dangerZone' => 'DELIKADONG BAHAGI',
 			'settings.sections.developer' => 'DEVELOPER',
 			'settings.editProfile.title' => 'I-edit ang Profile',
 			'settings.editProfile.subtitle' => 'I-update ang iyong personal na impormasyon',
 			'settings.language.title' => 'Wika',
-			'settings.language.subtitle' => 'Pumili ng iyong gustong wika',
+			'settings.language.subtitle' => 'Piliin ang iyong gustong wika',
 			'settings.language.searchHint' => 'Maghanap ng mga wika...',
 			'settings.language.noResults' => 'Walang nahanap na resulta',
 			'settings.heightUnit.title' => 'Yunit ng Taas',
 			'settings.weightUnit.title' => 'Yunit ng Timbang',
 			'settings.mealReminders.title' => 'Mga Paalala sa Pagkain',
-			'settings.mealReminders.subtitle' => 'Panatilihin ang landas na may tamang mga alerto',
+			'settings.mealReminders.subtitle' => 'Manatiling nasa tamang landas gamit ang napapanahong alerto',
 			'settings.theme.title' => 'Tema',
-			'settings.theme.light' => 'Maliwanag',
+			'settings.theme.light' => 'Liwanag',
 			'settings.theme.dark' => 'Madilim',
 			'settings.theme.system' => 'Sistema',
-			'settings.sendFeedback.title' => 'Magbigay ng Feedback',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Tumulong sa aming pagbutihin ang ${appLabel}',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Feedback ng App',
-			'settings.sendFeedback.emailBodyPrefix' => 'Pakisuyong ibigay ang iyong feedback sa ibaba:',
+			'settings.sendFeedback.title' => 'Magpadala ng Feedback',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Tulungan kaming pagandahin ang ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Feedback para sa ${appLabel}',
+			'settings.sendFeedback.emailBodyPrefix' => 'Pakibigay ang iyong feedback sa ibaba:',
 			'settings.sendFeedback.appVersion' => 'Bersyon ng App',
-			'settings.sendFeedback.device' => 'Kagamitan',
+			'settings.sendFeedback.device' => 'Device',
 			'settings.sendFeedback.osVersion' => 'Bersyon ng OS',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.exportMealHistory.title' => 'I-export ang Kasaysayan ng Pagkain',
-			'settings.exportMealHistory.subtitle' => 'Ibahagi ang CSV ng iyong mga naitalang pagkain',
-			'settings.exportMealHistory.shareText' => 'Export ng iyong kasaysayan ng pagkain mula sa Calorify',
+			'settings.exportMealHistory.subtitle' => 'Ibahagi ang CSV ng iyong mga na-log na pagkain',
+			'settings.exportMealHistory.shareText' => 'Iyong eksport ng kasaysayan ng pagkain sa Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Hindi ma-export ang kasaysayan ng pagkain: ${error}',
-			'settings.clearAllData.title' => 'I-clear ang Lahat ng Datos',
-			'settings.clearAllData.subtitle' => 'Irerepormang tanggalin ang lahat ng iyong impormasyon',
-			'settings.clearAllData.confirmationTitle' => 'I-clear ang Lahat ng Datos?',
-			'settings.clearAllData.confirmationMessage' => 'Ang pagkilos na ito ay hindi na maibabalik. Ang lahat ng iyong na-log na pagkain, mga paborito, at mga setting ng profile ay permanenteng matatanggal.',
+			'settings.clearAllData.title' => 'Burahin Lahat ng Data',
+			'settings.clearAllData.subtitle' => 'Hindi na mababawi ang pagbura ng lahat ng iyong impormasyon',
+			'settings.clearAllData.confirmationTitle' => 'Burahin Lahat ng Data?',
+			'settings.clearAllData.confirmationMessage' => 'Hindi na ito mababawi. Lahat ng iyong na-log na pagkain, paborito, at mga setting ng profile ay permanenteng mabubura.',
 			'settings.clearAllData.cancel' => 'Kanselahin',
-			'settings.clearAllData.clearEverything' => 'I-clear ang Lahat',
+			'settings.clearAllData.clearEverything' => 'Burahin Lahat',
 			'settings.debugOptions.title' => 'Mga Opsyon sa Debug',
-			'settings.developerModeEnabled' => 'Naka-enable ang developer mode!',
-			'settings.healthConnect.title' => 'Koneksyon sa Kalusugan',
+			'settings.developerModeEnabled' => 'Na-enable ang developer mode!',
+			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Tingnan at pamahalaan ang mga pahintulot',
-			'settings.healthConnect.unavailable.title' => 'Hindi Magagamit ang Koneksyon sa Kalusugan',
-			'settings.healthConnect.unavailable.description' => 'Ang Koneksyon sa Kalusugan ay hindi magagamit sa aparatong ito. Nangangailangan ito ng Android 14 o mas mataas.',
+			'settings.healthConnect.unavailable.title' => 'Hindi Available ang Health Connect',
+			'settings.healthConnect.unavailable.description' => 'Hindi available ang Health Connect sa device na ito. Mangyaring i-install ang Health Connect mula sa Play Store (Android 9+) o mag-update sa Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Mga Pahintulot',
-			'settings.healthConnect.permissions.description' => 'Ang mga sumusunod na pahintulot ay hiniling upang maibigay ang integrasyon ng Koneksyon sa Kalusugan:',
-			'settings.healthConnect.permissions.granted' => 'Ipinagkaloob',
-			'settings.healthConnect.permissions.notGranted' => 'Hindi Ipinagkaloob',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Basahin ang Kabuuang Nasunog na Calories',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Pinapayagan ang app na basahin ang iyong kabuuang nasunog na calories mula sa Health Connect.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong araw-araw na nasunog na calories sa app, na tumutulong sa iyo na maunawaan ang iyong kabuuang pagkonsumo ng enerhiya sa buong araw.',
+			'settings.healthConnect.permissions.description' => 'Ang mga sumusunod na pahintulot ay hinihiling upang maibigay ang integrasyon ng Health Connect:',
+			'settings.healthConnect.permissions.granted' => 'Nabigyan',
+			'settings.healthConnect.permissions.notGranted' => 'Hindi Nabigyan',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Basahin ang Kabuuang Calories na Nasunog',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Pinapayagan ang app na basahin ang kabuuang calories na nasunog mula sa Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Ginagamit ang pahintulot na ito upang ipakita ang iyong pang-araw-araw na calorie burn sa app, na tumutulong maunawaan ang iyong kabuuang enerhiyang nagugugol sa maghapon.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Basahin ang Data ng Nutrisyon',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Koneksyon sa Kalusugan.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Pinapayagan ng pahintulot na ito ang app na basahin ang impormasyon ng nutrisyon na maaaring naitala ng ibang mga app na nakakonekta sa Koneksyon sa Kalusugan, nagbibigay ng komprehensibong pananaw sa iyong nutrisyon.',
-			'settings.healthConnect.permissions.nutritionWrite.title' => 'Sumulat ng Data ng Nutrisyon',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Pinapayagan ang app na sumulat ng data ng nutrisyon sa Koneksyon sa Kalusugan.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Pinapayagan ng pahintulot na ito ang app na i-sync ang iyong mga naitalang pagkain sa Koneksyon sa Kalusugan, na ginagawang magagamit ang iyong data ng nutrisyon sa iba pang mga app sa kalusugan at fitness na ginagamit mo.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Pinapayagan ang app na basahin ang data ng nutrisyon mula sa Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Pinapahintulutan ng pahintulot na ito ang app na basahin ang impormasyong pangnutrisyon na maaaring nai-log ng iba pang app na nakakabit sa Health Connect, para sa mas kumpletong pananaw sa iyong nutrisyon.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Isulat ang Data ng Nutrisyon',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Pinapayagan ang app na magsulat ng data ng nutrisyon sa Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Ginagamit ang pahintulot na ito upang i-sync ang iyong mga na-log na pagkain sa Health Connect, para maging available ang iyong datos sa nutrisyon sa iba mo pang health at fitness app.',
 			'settings.healthConnect.managePermissions' => 'Pamahalaan ang mga Pahintulot',
 			'settings.healthConnect.openSettings' => 'Buksan ang Mga Setting ng Health Connect',
-			'settings.healthConnect.requestPermissions' => 'Humiling ng Mga Pahintulot',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Ang hinihinging pahintulot ay nakansela o nabigo. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.',
-			'settings.healthConnect.permissionRequestFailed' => 'Hindi makapaghiling ng mga pahintulot. Pakisubukang muli o bigyan ng pahintulot nang manu-mano sa mga setting ng Health Connect.',
-			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.healthConnect.requestPermissions' => 'Humiling ng mga Pahintulot',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Kinansela o nabigo ang kahilingan ng pahintulot. Pakisubukang muli o magbigay ng pahintulot nang mano-mano sa mga setting ng Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Hindi makahiling ng mga pahintulot. Pakisubukang muli o magbigay ng pahintulot nang mano-mano sa mga setting ng Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Humihiling...',
 			'settings.about.title' => 'Tungkol',
-			'settings.about.tagline' => 'Mabilis, libre, at priyoridad ang privacy sa kamalayan sa calorie',
-			'settings.about.ourStory.title' => 'Ang Aming Kwento',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} ay isinilang mula sa isang simpleng pagkabigo: karamihan sa mga app na nagtatala ng calorie ay sobrang kumplikado, humihingi ng patuloy na manu-manong input, mataas ang bayad sa subscription, o nagkakasala sa privacy.\n\nBilang isang solo developer, nais kong bumuo ng isang bagay na mas simple at patas — isang app na gumagamit ng AI upang mabawasan ang pagsisikap, mananatiling mabilis at libre ang paggamit, at ginagalang ang iyong mga datos sa kalusugan.\n\n${appLabel} ang app na sana ay nag-exist: walang mga account, walang pagsubaybay, walang mga anunsyo — malinaw, praktikal na mga pananaw lamang at ang iyong mga layunin sa kalusugan.',
+			'settings.about.tagline' => 'Mabilis, libre, at inuuna ang privacy para sa kamalayang kaloriya',
+			'settings.about.ourStory.title' => 'Ang Aming Kuwento',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => 'Ang ${appLabel} ay isinilang mula sa simpleng pagkadismaya: karamihan sa calorie tracking apps ay sobrang komplikado, nangangailangan ng paulit-ulit na mano-manong pag-input, may mahal na subscription, o isinusuko ang privacy.\n\nBilang isang solo developer, gusto kong gumawa ng mas simple at mas patas — isang app na gumagamit ng AI para bawasan ang abala, nananatiling mabilis at libre, at nirerespeto ang iyong health data.\n\nAng ${appLabel} ang app na sana\'y umiiral na: walang account, walang tracking, walang ads — malinaw, praktikal na insight at nakatuon sa iyong layuning pangkalusugan.',
 			'settings.about.privacy.title' => 'Mahalaga ang Iyong Privacy',
-			'settings.about.privacy.description' => 'Ang privacy ay hindi isang second thought — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktis:',
-			'settings.about.privacy.noAccounts' => 'Walang kinakailangang account\nGamitin agad ang app. Walang pag-sign up, walang pagkakakilanlan.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Walang pagsubaybay sa gawi\n${appLabel} ay hindi nagmamanman ng iyong aktibidad, hindi bumubuo ng usage profiles, o nagsusubaybay sa iyo sa mga app o website.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Walang ads sa disenyo\n${appLabel} ay nakabuo upang gumana nang walang ads o data-driven monetization.',
-			'settings.about.privacy.noDataSelling' => 'Walang pagbebenta ng datos\nHindi kailanman ibinebenta o ibinabahagi ang iyong datos sa kalusugan sa mga third parties.',
-			'settings.about.privacy.localStorage' => 'Local-first storage\nAng iyong datos ay nananatili sa iyong device.',
+			'settings.about.privacy.description' => 'Hindi afterthought ang privacy — isa itong prinsipyo sa disenyo. Ganito ang ibig sabihin nito sa praktika:',
+			'settings.about.privacy.noAccounts' => 'Walang kailangang account\nGamitin ang app kaagad. Walang sign-up, walang pagkakakilanlan.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Walang behavioral tracking\nHindi mino-monitor ng ${appLabel} ang iyong aktibidad, gumagawa ng usage profile, o sinusundan ka sa iba pang app o website.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Walang ads sa disenyo\nGawa ang ${appLabel} para gumana nang walang ads o monetization na nakabatay sa data.',
+			'settings.about.privacy.noDataSelling' => 'Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi sa mga third party ang iyong health data.',
+			'settings.about.privacy.localStorage' => 'Local-first na storage\nNananatili sa iyong device ang iyong data.',
 			'settings.about.privacy.privacyPolicy' => 'Patakaran sa Privacy',
-			'settings.about.developer.title' => 'Nilikha ng Isang Solo Developer',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang tanging solo developer na nakatutok sa paglikha ng kalmado at privacy-respecting na software para sa kalusugan.\n\nAng feedback ay personal na binabasa at tumutulong sa paghubog ng direksyon ng app.',
+			'settings.about.developer.title' => 'Gawa ng Isang Solo Developer',
+			'settings.about.developer.description' => ({required Object appLabel}) => 'Ang ${appLabel} ay binuo at pinananatili ng isang solo developer na nakatuon sa paglikha ng payapa at nirerespeto ang privacy na health software.\n\nPersonal na binabasa ang feedback at nakakatulong ito sa direksiyon ng app.',
 			'settings.about.developer.website' => 'Website',
 			'settings.about.developer.email' => 'Email',
-			'settings.about.feedback.title' => ({required Object appLabel}) => 'Nasiyahan ka ba sa ${appLabel}?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ang iyong feedback ay tumutulong sa pagpapabuti ng ${appLabel} para sa lahat.',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Nae-enjoy mo ba ang ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Tinutulungan ng iyong feedback na pagandahin ang ${appLabel} para sa lahat.',
 			'settings.about.feedback.rateApp' => 'I-rate sa Play Store',
 			'settings.about.feedback.sendFeedback' => 'Magpadala ng Feedback',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
-			'reminders.title' => 'Panatilihin ang landas na may mga paalala',
-			'reminders.description' => 'Kumuha ng banayad na mga paalala upang i-log ang iyong mga pagkain at manatiling consistent sa iyong mga layunin sa nutrisyon',
-			'reminders.notificationsEnabled' => 'Naka-enable ang mga Notifikasyon',
-			'reminders.notificationsDisabled' => 'Naka-disable ang mga Notifikasyon',
+			'reminders.title' => 'Manatiling nasa tamang landas gamit ang mga paalala',
+			'reminders.description' => 'Kumuha ng banayad na paalala para mag-log ng iyong mga pagkain at manatiling tuloy-tuloy sa iyong mga layunin sa nutrisyon',
+			'reminders.notificationsEnabled' => 'Na-enable ang mga Notipikasyon',
+			'reminders.notificationsDisabled' => 'Na-disable ang mga Notipikasyon',
 			'reminders.enabledSubtitle' => 'Makakatanggap ka ng mga paalala sa pagkain',
-			'reminders.disabledSubtitle' => 'I-enable ang mga notifikasyon upang makakuha ng mga paalala sa pagkain',
+			'reminders.disabledSubtitle' => 'I-enable ang notipikasyon upang makatanggap ng mga paalala sa pagkain',
 			'reminders.mealReminders' => 'Mga Paalala sa Pagkain',
 			'reminders.breakfast' => 'Almusal',
 			'reminders.lunch' => 'Tanghalian',
 			'reminders.dinner' => 'Hapunan',
-			'reminders.snack' => 'Merienda',
+			'reminders.snack' => 'Meryenda',
 			'reminders.unknown' => 'Hindi alam',
-			'reminders.change' => 'Palitan',
-			'reminders.enableNotifications' => 'I-enable ang mga Notifikasyon',
-			'reminders.skipForNow' => 'Laktawan ito sa ngayon',
+			'reminders.change' => 'Baguhin',
+			'reminders.enableNotifications' => 'I-enable ang Notipikasyon',
+			'reminders.skipForNow' => 'Laktawan muna',
 			'reminders.saveChanges' => 'I-save ang mga Pagbabago',
-			'reminders.enabledSuccessfully' => 'Matagumpay na na-enable ang mga notifikasyon!',
-			'reminders.permissionDenied' => 'Tinanggihan ang pahintulot sa notifikasyon',
-			'reminders.errorEnabling' => ({required Object error}) => 'Error sa pag-enable ng mga notifikasyon: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error sa pagkumpleto ng setup: ${error}',
+			'reminders.enabledSuccessfully' => 'Matagumpay na na-enable ang mga notipikasyon!',
+			'reminders.permissionDenied' => 'Tinanggihan ang pahintulot sa notipikasyon',
+			'reminders.errorEnabling' => ({required Object error}) => 'Error sa pag-enable ng notipikasyon: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error sa pagsasagawa ng setup: ${error}',
 			'notifications.breakfast.title' => 'Oras ng Almusal! 🍳',
 			'notifications.breakfast.body' => 'Huwag kalimutang i-log ang iyong almusal',
 			'notifications.lunch.title' => 'Oras ng Tanghalian! 🥗',
-			'notifications.lunch.body' => 'Panahon na para i-log ang iyong tanghalian',
+			'notifications.lunch.body' => 'Panahon nang i-log ang iyong tanghalian',
 			'notifications.dinner.title' => 'Oras ng Hapunan! 🍽️',
 			'notifications.dinner.body' => 'Huwag kalimutang i-log ang iyong hapunan',
-			'notifications.snack.title' => 'Oras ng Merienda! 🍎',
-			'notifications.snack.body' => 'Panahon na para sa isang malusog na merienda',
-			'notifications.test.title' => 'Test Notification',
+			'notifications.snack.title' => 'Oras ng Meryenda! 🍎',
+			'notifications.snack.body' => 'Panahon para sa masustansyang meryenda',
+			'notifications.test.title' => 'Pagsubok na Notipikasyon',
 			'login.title' => 'Mag-login',
 			'login.signInWithGoogle' => 'Mag-sign in gamit ang Google',
-			'login.signInFailed' => 'Nabigo ang Google Sign-In o nakansela.',
-			'disclaimer.pleaseNote' => 'Pakitandaan',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} ay nagbibigay ng tinatayang impormasyon sa nutrisyon. Ang katumpakan ay depende sa iyong input at mga pagkakaiba sa pagkain. Gamitin ito bilang gabay, hindi isang tiyak na mapagkukunan. Kumonsulta sa isang propesyonal para sa personalized na payo sa nutrisyon.',
-			'disclaimer.snap.portionSize.title' => 'Sukat ng Bahagi',
-			'disclaimer.snap.portionSize.description' => 'Ang katumpakan ng mga pagtatantya ay labis na nakasalalay sa iyong tamang pagtasa ng sukat ng bahagi.',
-			'disclaimer.snap.preparationMethods.title' => 'Mga Paraan ng Paghahanda',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Ang mga paraan ng pagluluto ay maaaring makabuluhang baguhin ang nilalaman ng nutrisyon ng pagkain. Ang mga pagtatantya ng ${appLabel} ay maaaring hindi palaging isinasaalang-alang ang mga pagkakaibang ito.',
+			'login.signInFailed' => 'Nabigo o nakansela ang Google Sign-In.',
+			'disclaimer.pleaseNote' => 'Paalala',
+			'disclaimer.snap.description' => ({required Object appLabel}) => 'Nagbibigay ang ${appLabel} ng tinatayang impormasyong pangnutrisyon. Nakasalalay ang accuracy sa iyong input at sa pagkakaiba-iba ng pagkain. Gamitin bilang gabay, hindi bilang tiyak na sanggunian. Kumunsulta sa propesyonal para sa personalisadong payong pandiyeta.',
+			'disclaimer.snap.portionSize.title' => 'Laki ng Porsyon',
+			'disclaimer.snap.portionSize.description' => 'Malaki ang nakaasa ang katumpakan ng mga pagtatantya sa tama mong pagtataya ng laki ng porsyon.',
+			'disclaimer.snap.preparationMethods.title' => 'Paraan ng Pagluluto',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Malaki ang nagbabago sa nilalamang nutrisyon ang paraan ng pagluluto. Maaaring hindi laging maisaalang-alang ng ${appLabel} ang mga pagkakaibang ito.',
 			'disclaimer.snap.ingredients.title' => 'Mga Sangkap',
-			'disclaimer.snap.ingredients.description' => 'Ang mga kumplikadong ulam na may maraming nakatagong sangkap ay maaaring humantong sa mas kaunting tumpak na pagtatantya.',
-			'disclaimer.snap.databaseLimitations.title' => 'Mga Limitasyon sa Database',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Ang database ng pagkain ng ${appLabel} ay malawak ngunit maaaring hindi kasama ang bawat isa o pagkakaiba ng item ng pagkain.',
-			'disclaimer.weightEstimate.title' => 'Tungkol sa Tinatayang Timbang',
-			'disclaimer.weightEstimate.description' => 'Ang nakatakdang pagbabago ng timbang ay isang teoretikal na pagtatantya batay sa simpleng calorie-in kumpara sa calorie-out na modelo. Ito ay inilaan lamang para sa motivational na gabay, hindi bilang isang prediksyon ng iyong aktwal na timbang.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Katumpakan ng Calorie',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ang pagtatantyang ito ay kasing tumpak lamang ng iyong na-log na calorie na pagkain at paggasta. Ang hindi tamang pag-log ay magreresulta sa hindi tumpak na pagtataya.',
-			'disclaimer.weightEstimate.biologicalFactors.title' => 'Mga Biological na Salik',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Ang aktwal na pagbaba/pagtaas ng timbang ay naapektuhan ng metabolismo, hormones, tulog, stress, hydration, at iba pang indibidwal na salik na hindi kayang sukatin ng ${appLabel}.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Timbang ng Tubig at Pagbago',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Ang normal na pang-araw-araw na timbang ay maaaring magbago ng makabuluhang dahil sa pag-ipon ng tubig, pagtunaw, at oras. Ang pagtatantya ay hindi isinasaalang-alang ang mga pang-araw-araw na pagbabagong ito.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Propesyonal na Patnubay',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Huwag gamitin ang pagtatantyang ito upang gumawa ng mga medikal na desisyon. Palaging kumonsulta sa isang propesyonal sa kalusugan o nakarehistrong dietitian para sa personalized na payo sa pamamahala ng timbang.',
-			'disclaimer.healthMetrics.description' => 'Ang mga sukat na ito ay tumutulong sa iyo na maunawaan ang mga pangangailangan ng enerhiya ng iyong katawan at itinuturo ang iyong mga layunin sa nutrisyon.',
+			'disclaimer.snap.ingredients.description' => 'Ang maseselang putahe na may maraming nakatagong sangkap ay maaaring magresulta sa hindi gaanong eksaktong pagtatantya.',
+			'disclaimer.snap.databaseLimitations.title' => 'Mga Limitasyon ng Database',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito masaklaw ang lahat ng pagkain o bawat baryasyon.',
+			'disclaimer.weightEstimate.title' => 'Tungkol sa Pagtatantya ng Timbang',
+			'disclaimer.weightEstimate.description' => 'Ang inaasahang pagbabago ng timbang ay teoretikal na pagtatantya batay sa simpleng modelo ng calorie-in vs. calorie-out. Ito ay para sa motibasyong gabay lamang, hindi bilang hula ng aktuwal mong timbang.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Katumpakan ng Calories',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Kasing-tumpak lamang ng iyong na-track na calorie intake at expenditure ang pagtatantyang ito. Ang hindi eksaktong pag-log ay magreresulta sa hindi eksaktong projection.',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'Mga Salik na Pisiyolohikal',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Ang aktuwal na pagbabawas/pagdami ng timbang ay naiimpluwensyahan ng metabolismo, hormones, tulog, stress, hydration, at iba pang indibidwal na salik na hindi masukat ng ${appLabel}.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Timbang ng Tubig at Pagbabago-bago',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Karaniwan ang araw-araw na pagbabago ng timbang dahil sa water retention, pagda-digest, at timing. Hindi isinasaalang-alang ng pagtatantya ang mga pagbabagong ito.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'Gabay ng Propesyonal',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Huwag gamitin ang pagtatantyang ito para gumawa ng desisyong medikal. Laging kumunsulta sa healthcare professional o rehistradong dietitian para sa personalisadong payo sa pamamahala ng timbang.',
+			'disclaimer.healthMetrics.description' => 'Tinutulungan ka ng mga sukatan na ito na maunawaan ang pangangailangan ng iyong katawan sa enerhiya at gagabay sa iyong mga layunin sa nutrisyon.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng mga calorie na sinusunog ng iyong katawan kapag nagpapahinga upang mapanatili ang mga pangunahing function tulad ng paghinga at sirkulasyon. Ang BMR ay nakadepende sa iyong edad, kasarian, taas, at timbang. Ang mas mataas na BMR ay nangangahulugang ang iyong katawan ay natural na nagsusunog ng mas maraming calorie habang nagpapahinga, na kadalasang dulot ng mas maraming mass ng kalamnan, mas batang edad, o pagiging lalaki. Ang mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting mass ng kalamnan, mas matandang edad, o pagiging babae.',
+			'disclaimer.healthMetrics.bmr.description' => 'Ang Basal Metabolic Rate (BMR) ay ang bilang ng calories na sinusunog ng iyong katawan sa pamamahinga upang mapanatili ang pangunahing mga tungkulin tulad ng paghinga at sirkulasyon. Nakasalalay ang BMR sa iyong edad, kasarian, taas, at timbang. Mas mataas na BMR ay nangangahulugang mas natural na nagsusunog ng calories ang katawan sa pamamahinga, kadalasang dahil sa mas maraming muscle mass, mas batang edad, o pagiging lalaki. Mas mababang BMR ay karaniwang nagpapahiwatig ng mas kaunting muscle mass, mas matandang edad, o pagiging babae.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calorie na sinusunog mo sa isang araw, kabilang ang iyong BMR at mga calorie mula sa pisikal na aktibidad at pang-araw-araw na paggalaw. Ang TDEE ay nakadepende sa iyong BMR at antas ng aktibidad. Ang mas mataas na TDEE ay nangangahulugang mas maraming calorie ang iyong sinusunog sa kabuuan, karaniwang mula sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Ang mas mababang TDEE ay nagpapahiwatig ng mas kaunting aktibidad sa araw-araw o mas mababang BMR.',
-			'disclaimer.healthMetrics.dailyGoal.title' => 'Arawang Layunin',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Arawang Layunin ay ang inirekomendang pang-araw-araw na calorie na kinakailangan batay sa iyong TDEE at layunin sa timbang. Para sa pagbaba ng timbang, kumakain ka ng mas kaunting calorie kaysa sa iyong TDEE. Para sa pagpapanatili ng timbang, katumbas mo ang iyong TDEE. Para sa pagtaas ng timbang, kumakain ka ng mas maraming calorie kaysa sa iyong TDEE. Tinutulungan ka nitong makamit ang iyong nais na pagbabago ng timbang sa isang malusog na takbo.',
-			'disclaimer.calorieExpenditure.title' => 'Tantiyang pagkasunog ng kaloriya',
-			'disclaimer.calorieExpenditure.description' => 'Kapag hindi magagamit ang data mula sa Health Connect, tinatantiya namin kung ilang kaloriya ang nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), at inaangkop ito sa bahagi ng araw na lumipas.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'Paano kinakalkula ang pagtatantya',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kinakalkula namin ang iyong TDEE (batay sa iyong profile) at pinararami ito ng proporsyon ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang kaloriya na nasunog hanggang ngayon.',
-			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Propesyonal na Patnubay',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Huwag gamitin ang pagtatantyang ito bilang batayan para sa mga medikal na desisyon. Laging kumonsulta sa isang propesyonal sa pangangalagang pangkalusugan o rehistradong dietitian para sa personal na payo tungkol sa pamamahala ng timbang.',
+			'disclaimer.healthMetrics.tdee.description' => 'Ang Total Daily Energy Expenditure (TDEE) ay ang kabuuang calories na sinusunog mo bawat araw, kabilang ang iyong BMR kasama ang calories mula sa pisikal na aktibidad at araw-araw na paggalaw. Nakasalalay ang TDEE sa iyong BMR at antas ng aktibidad. Mas mataas na TDEE ay nangangahulugang mas maraming calories ang nasusunog nang kabuuan, karaniwang dahil sa pagiging mas aktibo o pagkakaroon ng mas mataas na BMR. Mas mababang TDEE ay nagpapahiwatig ng mas kaunting araw-araw na aktibidad o mas mababang BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Pang-araw-araw na Layunin',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Ang Pang-araw-araw na Layunin ay ang inirerekomendang pang-araw-araw na calorie intake batay sa iyong TDEE at layunin sa timbang. Para sa pagbawas ng timbang, mas kaunting calories kaysa sa iyong TDEE ang kinokonsumo. Para sa pagpapanatili, itinatapat mo ang iyong TDEE. Para sa pagdagdag ng timbang, mas maraming calories ang kinokonsumo kaysa sa iyong TDEE. Nakakatulong itong maabot ang ninanais mong pagbabago sa timbang sa malusog na bilis.',
+			'disclaimer.calorieExpenditure.title' => 'Pagtatantya ng Calorie Expenditure',
+			'disclaimer.calorieExpenditure.description' => 'Kapag walang available na data mula sa Health Connect, tinatantya namin ang calories na nasunog ngayong araw gamit ang iyong Basal Metabolic Rate (BMR) at antas ng aktibidad (TDEE), na sinasabay sa bahaging lumipas ng araw.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Paano Kinakalkula ang Tantiya',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kinukuwenta namin ang iyong TDEE (batay sa iyong profile) at minumultiply ito sa fraction ng lumipas na bahagi ng araw (oras + minuto) / 24 para tantyahin ang calories na nasunog sa ngayon.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Gabay ng Propesyonal',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Huwag gamitin ang tantiya na ito para gumawa ng desisyong medikal. Laging kumunsulta sa healthcare professional o rehistradong dietitian para sa personalisadong payo.',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nasisiyahan ka ba sa ${appLabel}?',
-			'feedbackRating.yes' => 'Oo, nasisiyahan ako',
-			'feedbackRating.no' => 'Hindi talaga',
-			'feedbackRating.rateStepHeading' => 'Magbigay ng rating sa Play Store',
-			'feedbackRating.emailStepHeading' => 'Magpadala ng feedback sa pamamagitan ng email',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Ang isang mabilis na rating ay makakatulong sa iba na mahanap ang ${appLabel} at suportahan ang patuloy na pag-unlad nito. Maaari ka bang maglaan ng sandali upang mag-iwan ng isa?',
-			'feedbackRating.shareFeedbackViaEmail' => 'Hinuhubog ng iyong feedback kung ano ang susunod — binabasa namin ang bawat mensahe. Nais mo bang ibahagi ang iyong mga saloobin sa pamamagitan ng email?',
-			'feedbackRating.rateCta' => 'Mag-rate sa Play Store',
-			'feedbackRating.maybeLater' => 'Mamaya na lang',
-			'feedbackRating.sendFeedback' => 'Magpadala ng puna',
-			'feedbackRating.noThanks' => 'Hindi, salamat',
-			'feedbackRating.aboutUsDescription' => 'Ginawa nang may malasakit ng isang maliit na koponan. Nakatuon kami sa pagkapribado, sa pagiging simple, at sa pagtulong sa iyo na bumuo ng mas malusog na gawi sa pagkain.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Nais mong malaman kung sino ang nasa likod ng ${appLabel}? Tingnan ',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nae-enjoy mo ba ang ${appLabel}?',
+			'feedbackRating.yes' => 'Oo, nae-enjoy ko',
+			'feedbackRating.no' => 'Hindi masyado',
+			'feedbackRating.rateStepHeading' => 'I-rate sa Play Store',
+			'feedbackRating.emailStepHeading' => 'Magpadala ng feedback sa email',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Ang mabilis na rating ay nakakatulong sa iba na mahanap ang ${appLabel} at nagpapatuloy ng development. Maaari ka bang mag-iwan ng rating?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Hinuhubog ng iyong feedback ang susunod — binabasa namin ang bawat mensahe. Gusto mo bang ibahagi ang iyong saloobin sa email?',
+			'feedbackRating.rateCta' => 'I-rate sa Play Store',
+			'feedbackRating.maybeLater' => 'Siguro sa susunod',
+			'feedbackRating.sendFeedback' => 'Magpadala ng feedback',
+			'feedbackRating.noThanks' => 'Huwag na, salamat',
+			'feedbackRating.aboutUsDescription' => 'Ginawa nang may malasakit ng isang maliit na team. Nakatuon kami sa privacy, simple, at pagtulong na mabuo ang mas mabuting gawi sa pagkain.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Interesado kung sino ang nasa likod ng ${appLabel}? Tingnan ang ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tungkol sa amin',
-			'feedbackRating.thankYouMessage' => 'Salamat! Tatanungin ka namin ulit sa susunod.',
-			'health.syncFailed' => 'Hindi ma-synchronize sa Health Connect',
-			'health.mealSynced' => 'Naka-synchronize ang pagkain sa Health Connect',
+			'feedbackRating.thankYouMessage' => 'Salamat! Tatanungin ka ulit sa ibang pagkakataon.',
+			'health.syncFailed' => 'Hindi maisi-sync sa Health Connect',
+			'health.mealSynced' => 'Na-sync ang pagkain sa Health Connect',
 			_ => null,
 		};
 	}

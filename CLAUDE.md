@@ -105,6 +105,7 @@ Six Dart packages shared between `app/` and `watch_app/`: `specs`, `models`, `se
 
 ## Key Conventions
 
+- **HTTP JSON + protos**: Prefer `.proto` messages as the contract for JSON request/response bodies on both backend and Flutter; run `./scripts/generate_protos.sh` after edits. See [.claude/skills/http-api-protobuf/SKILL.md](.claude/skills/http-api-protobuf/SKILL.md) for exceptions (stream frames, multipart files, CSV/binary) and client/server path alignment.
 - **API versioning**: V2 is current. V1 endpoints are kept for backward compatibility.
 - **Code generation**: After modifying Drift schema, Auto Route, or JSON-serializable models, re-run `build_runner`.
 - **Internationalization**: Edit `.arb` files; Slang generates the Dart translation code. Units auto-convert metric/imperial by locale.

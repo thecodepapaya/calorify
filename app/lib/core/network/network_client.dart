@@ -10,8 +10,10 @@ import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:i18n/i18n.dart';
 import 'package:measure_dio/measure_dio.dart';
+import 'package:models/models.dart' show ApiResult;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:protobuf/protobuf.dart';
+import 'package:services/services.dart' show showFlushbar;
 
 class NetworkClient {
   NetworkClient._(this._dio);
@@ -105,19 +107,23 @@ class NetworkClient {
         options.uri.port == apiBaseUri.port;
   }
 
-  Future<RespT>
-  apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
+  /// Proto JSON over HTTP: GET when [request] is null, otherwise POST with [request].
+  ///
+  /// For GET-only calls, pick any [ReqT] extending [GeneratedMessage]; it is unused when
+  /// [request] is null (e.g. `<ApiResult, AiMealSummaryResponse>`).
+  Future<RespT> apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
     String endpoint,
     RespT Function() parseResponse, {
-    required ReqT request,
+    ReqT? request,
     bool processError = true,
   }) async {
     try {
-      final response = await _dio.post<Map<String, dynamic>>(
-        endpoint,
-        data: request.toProto3Json(),
-      );
-
+      final response = request == null
+          ? await _dio.get<Map<String, dynamic>>(endpoint)
+          : await _dio.post<Map<String, dynamic>>(
+              endpoint,
+              data: request.toProto3Json(),
+            );
       return parseResponse()..mergeFromProto3Json(response.data!);
     } on DioException catch (exception) {
       if (processError) {
@@ -128,21 +134,42 @@ class NetworkClient {
   }
 
   void _handleError(DioException exception, String endpoint) {
-    // Error handling can be extended with error reporting if needed
+    final message = _apiResultMessageFromResponse(exception.response?.data);
+    if (message != null) {
+      showFlushbar(message);
+    }
+  }
+
+  /// Parses a [calorify.ApiResult] error body via proto3 JSON when present.
+  String? _apiResultMessageFromResponse(Object? data) {
+    if (data is! Map) return null;
+    final map = Map<String, dynamic>.from(data);
+    try {
+      final api = ApiResult.create()..mergeFromProto3Json(map);
+      if (!api.hasOk() || api.ok != false) return null;
+      if (!api.hasMessage()) return null;
+      final trimmed = api.message.trim();
+      return trimmed.isEmpty ? null : trimmed;
+    } on Exception {
+      return null;
+    }
   }
 
   Future<Stream<T>> streamPost<T>(
     String endpoint,
     T Function(Map<String, dynamic>) parseEvent, {
     required Object data,
+    Duration? receiveTimeout,
   }) async {
     try {
+      final payload = data is GeneratedMessage ? data.toProto3Json() : data;
       final response = await _dio.post<ResponseBody>(
         endpoint,
-        data: data,
+        data: payload,
         options: Options(
           responseType: ResponseType.stream,
           headers: {'Accept': 'application/x-ndjson'},
+          receiveTimeout: receiveTimeout ?? const Duration(minutes: 1),
         ),
       );
 

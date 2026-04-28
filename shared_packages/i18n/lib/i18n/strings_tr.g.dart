@@ -70,9 +70,9 @@ class _TranslationsErrorsTr implements TranslationsErrorsEn {
 	@override String get rateLimitExceeded => 'Çok fazla istek yaptınız. Lütfen tekrar denemeden önce biraz bekleyin.';
 	@override String get networkError => 'Ağ hatası. Lütfen internet bağlantınızı kontrol edin.';
 	@override String get unknownError => 'Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.';
-	@override String get loadingProfileData => 'Profil verileri yüklenirken hata';
+	@override String get loadingProfileData => 'Profil verileri yüklenirken hata oluştu';
 	@override String get somethingWentWrong => 'Bir şeyler ters gitti.';
-	@override String get retry => 'Tekrar dene';
+	@override String get retry => 'Yeniden dene';
 }
 
 // Path: onboarding
@@ -82,9 +82,9 @@ class _TranslationsOnboardingTr implements TranslationsOnboardingEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String welcome({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz';
-	@override String get subtitle => 'AI ile güçlendirilmiş kişisel beslenme danışmanınız';
-	@override String get getStarted => 'Başlayın';
+	@override String welcome({required Object appLabel}) => '${appLabel}\'e hoş geldiniz';
+	@override String get subtitle => 'Yapay zekâ ile güçlendirilmiş kişisel beslenme yardımcınız';
+	@override String get getStarted => 'Başlayalım';
 	@override late final _TranslationsOnboardingFeaturesTr features = _TranslationsOnboardingFeaturesTr._(_root);
 	@override late final _TranslationsOnboardingGenderTr gender = _TranslationsOnboardingGenderTr._(_root);
 	@override late final _TranslationsOnboardingHeightTr height = _TranslationsOnboardingHeightTr._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsTr implements TranslationsTabsEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Gösterge Tablosu';
+	@override String get dashboard => 'Pano';
 	@override String get history => 'Geçmiş';
 }
 
@@ -134,8 +134,8 @@ class _TranslationsHistoryTr implements TranslationsHistoryEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'Yemek kaydı yok';
-	@override String get emptyMessage => 'Son yemeğinizin fotoğrafını çekin ve burada kaydedin.';
+	@override String get noMeals => 'Kayıtlı öğün yok';
+	@override String get emptyMessage => 'Buraya kaydetmek için son öğününüzün fotoğrafını çekin.';
 	@override String get today => 'Bugün';
 	@override String get yesterday => 'Dün';
 }
@@ -149,36 +149,38 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	// Translations
 	@override String get ohNo => 'Ah hayır!';
 	@override String get delete => 'Sil';
-	@override String get editMeal => 'Yemeği Düzenle';
-	@override String get addMeal => 'Yemek Ekle';
-	@override String get saveMeal => 'Yemeği Kaydet';
+	@override String get editMeal => 'Öğünü Düzenle';
+	@override String get addMeal => 'Öğün Ekle';
+	@override String get saveMeal => 'Öğünü Kaydet';
 	@override String get save => 'Kaydet';
-	@override String get mealName => 'Yemek Adı';
-	@override String get mealNameHint => 'örn. Çırpılmış yumurta ve tost';
-	@override String get mealQuantity => 'Yemek Miktarı';
-	@override String get mealQuantityHint => 'Örneğin, 1 kase, 2 dilim';
-	@override String get timeOfMeal => 'Yemeğin Zamanı';
-	@override String get timeOfMealHint => 'Yemeğinizi yediğiniz zamanı seçin';
-	@override String get mealType => 'Yemek Türü';
+	@override String get mealName => 'Öğün Adı';
+	@override String get mealNameHint => 'örn., Çırpılmış yumurta ve tost';
+	@override String get mealQuantity => 'Öğün Miktarı';
+	@override String get mealQuantityHint => 'örn., 1 kase, 2 dilim';
+	@override String get timeOfMeal => 'Öğün Zamanı';
+	@override String get timeOfMealHint => 'Öğünü yediğiniz zamanı seçin';
+	@override String get mealType => 'Öğün Türü';
 	@override late final _TranslationsMealNutritionTr nutrition = _TranslationsMealNutritionTr._(_root);
 	@override late final _TranslationsMealDeleteConfirmationTr deleteConfirmation = _TranslationsMealDeleteConfirmationTr._(_root);
-	@override String get addedToLog => 'Yemek kaydınıza eklendi!';
-	@override String couldNotAdd({required Object error}) => 'Yemek eklenemedi: ${error}';
+	@override String get addedToLog => 'Öğün günlüğünüze eklendi!';
+	@override String couldNotAdd({required Object error}) => 'Öğün eklenemedi: ${error}';
 	@override String get savedSuccessfully => 'Öğün başarıyla eklendi!';
 	@override String get updatedSuccessfully => 'Öğün başarıyla güncellendi!';
-	@override String errorSaving({required Object error}) => 'Öğün kaydedilirken hata oluştu: ${error}';
-	@override String get removedFromFavorites => 'Favorilerden çıkarıldı!';
-	@override String get savedAsFavorite => 'Yemek favori olarak kaydedildi!';
-	@override String get unfavorite => 'Favorilerden Kaldır';
+	@override String errorSaving({required Object error}) => 'Öğün kaydedilirken hata: ${error}';
+	@override String get removedFromFavorites => 'Favorilerden kaldırıldı!';
+	@override String get savedAsFavorite => 'Öğün favorilere kaydedildi!';
+	@override String get unfavorite => 'Favoriden çıkar';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Favori güncellenemedi: ${error}';
 	@override String get feedbackThanks => 'Geri bildiriminiz için teşekkürler!';
-	@override String get reanalysisUpdated => 'Geri bildiriminiz doğrultusunda öğün analizini güncelledik.';
-	@override String failedToProcess({required Object error}) => 'İşlem gerçekleştirilemedi: ${error}';
+	@override String get reanalysisUpdated => 'Geri bildiriminize göre öğün analizi güncellendi.';
+	@override String failedToProcess({required Object error}) => 'İşlenemedi: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Görüntü işlenemedi: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'Görüntü sıkıştırırken hata: ${error}';
-	@override String get failedToSave => 'Veri kaydedilemedi. Lütfen tekrar deneyin.';
+	@override String errorCompressingImage({required Object error}) => 'Görüntü sıkıştırılırken hata: ${error}';
+	@override String get failedToSave => 'Veriler kaydedilemedi. Lütfen tekrar deneyin.';
 	@override String get skip => 'Atla';
 	@override late final _TranslationsMealVariationTr variation = _TranslationsMealVariationTr._(_root);
+	@override late final _TranslationsMealAnalysisTr analysis = _TranslationsMealAnalysisTr._(_root);
+	@override late final _TranslationsMealFeedbackTr feedback = _TranslationsMealFeedbackTr._(_root);
 }
 
 // Path: favorites
@@ -189,10 +191,10 @@ class _TranslationsFavoritesTr implements TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => 'Favoriler';
-	@override String get empty => 'Henüz favori yemek yok.';
-	@override String get searchPlaceholder => 'Favori yemekleri ara';
-	@override String get searchEmptyTitle => 'Aramanıza uyan favori bulunamadı';
-	@override String get searchEmptySubtitle => 'Farklı bir yemek adı, porsiyon veya öğün türü deneyin.';
+	@override String get empty => 'Henüz favori öğün yok.';
+	@override String get searchPlaceholder => 'Favori öğünlerde ara';
+	@override String get searchEmptyTitle => 'Aramanızla eşleşen favori yok';
+	@override String get searchEmptySubtitle => 'Farklı bir öğün adı, miktarı veya türü deneyin.';
 	@override String get sortLabel => 'Favorileri sırala';
 	@override String get undo => 'Geri al';
 	@override String removed({required Object name}) => '${name} favorilerden kaldırıldı';
@@ -216,11 +218,11 @@ class _TranslationsProfileTr implements TranslationsProfileEn {
 	@override String get weight => 'Kilo';
 	@override String get age => 'Yaş';
 	@override String get weightGoal => 'Kilo Hedefi';
-	@override String get targetWeight => 'Hedef Ağırlık';
-	@override String get activityLevel => 'Aktivite Seviyesi';
-	@override String get healthMetrics => 'Sağlık Metrikleri';
+	@override String get targetWeight => 'Hedef Kilo';
+	@override String get activityLevel => 'Aktivite Düzeyi';
+	@override String get healthMetrics => 'Sağlık Ölçümleri';
 	@override String get notSet => 'Ayarlanmadı';
-	@override String get years => 'yıl';
+	@override String get years => 'yaş';
 	@override String get updatedSuccessfully => 'Profil başarıyla güncellendi!';
 	@override late final _TranslationsProfileCalculatedValuesTr calculatedValues = _TranslationsProfileCalculatedValuesTr._(_root);
 }
@@ -233,11 +235,11 @@ class _TranslationsHealthScoreTr implements TranslationsHealthScoreEn {
 
 	// Translations
 	@override String get title => 'Sağlık Skoru';
-	@override String get whyThisScore => 'Bu puan neden?';
-	@override String get note => 'Bu puan, tanımlanan bileşenler ve beslenme yoğunluğuna dayanan bir AI tahminidir. Her zaman bir profesyonelle diyet tavsiyesi için danışın.';
+	@override String get whyThisScore => 'Bu skor neden?';
+	@override String get note => 'Bu skor, tespit edilen içerikler ve besin yoğunluğuna dayalı YZ tahminidir. Diyetle ilgili öneriler için her zaman bir uzmana danışın.';
 	@override String get unhealthy => 'Sağlıksız';
 	@override String get healthy => 'Sağlıklı';
-	@override String get neutral => 'Tarafsız';
+	@override String get neutral => 'Nötr';
 }
 
 // Path: editProfile
@@ -254,17 +256,17 @@ class _TranslationsEditProfileTr implements TranslationsEditProfileEn {
 	@override String get height => 'Boy';
 	@override String get weight => 'Kilo';
 	@override String get weightGoal => 'Kilo Hedefi';
-	@override String get activityLevel => 'Aktivite Seviyesi';
-	@override String get metric => 'Metrekes';
-	@override String get imperial => 'İngilizce';
+	@override String get activityLevel => 'Aktivite Düzeyi';
+	@override String get metric => 'Metrik';
+	@override String get imperial => 'İngiliz';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
 	@override String get unitLbs => 'lbs';
-	@override String get metricCm => 'Metrekes (cm)';
-	@override String get imperialFtIn => 'İngilizce (ft/in)';
-	@override String get metricKg => 'Metrekes (kg)';
-	@override String get imperialLbs => 'İngilizce (lbs)';
+	@override String get metricCm => 'Metrik (cm)';
+	@override String get imperialFtIn => 'İngiliz (ft/in)';
+	@override String get metricKg => 'Metrik (kg)';
+	@override String get imperialLbs => 'İngiliz (lbs)';
 	@override late final _TranslationsEditProfileGendersTr genders = _TranslationsEditProfileGendersTr._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsTr weightGoals = _TranslationsEditProfileWeightGoalsTr._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsTr activityLevels = _TranslationsEditProfileActivityLevelsTr._(_root);
@@ -289,7 +291,7 @@ class _TranslationsSettingsTr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryTr exportMealHistory = _TranslationsSettingsExportMealHistoryTr._(_root);
 	@override late final _TranslationsSettingsClearAllDataTr clearAllData = _TranslationsSettingsClearAllDataTr._(_root);
 	@override late final _TranslationsSettingsDebugOptionsTr debugOptions = _TranslationsSettingsDebugOptionsTr._(_root);
-	@override String get developerModeEnabled => 'Geliştirici modu etkinleştirildi!';
+	@override String get developerModeEnabled => 'Geliştirici modu etkin!';
 	@override late final _TranslationsSettingsHealthConnectTr healthConnect = _TranslationsSettingsHealthConnectTr._(_root);
 	@override late final _TranslationsSettingsAboutTr about = _TranslationsSettingsAboutTr._(_root);
 	@override late final _TranslationsSettingsAppInfoTr appInfo = _TranslationsSettingsAppInfoTr._(_root);
@@ -302,26 +304,26 @@ class _TranslationsRemindersTr implements TranslationsRemindersEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hatırlatıcılarla doğru yolda kalın';
-	@override String get description => 'Yemeklerinizi kaydetmek ve beslenme hedeflerinize sadık kalmak için nazik hatırlatmalar alın';
-	@override String get notificationsEnabled => 'Bildirimler Etkinleştirildi';
+	@override String get title => 'Hatırlatıcılarla rotada kalın';
+	@override String get description => 'Öğünlerinizi kaydetmeniz ve beslenme hedeflerinizle tutarlı olmanız için nazik hatırlatmalar alın';
+	@override String get notificationsEnabled => 'Bildirimler Etkin';
 	@override String get notificationsDisabled => 'Bildirimler Devre Dışı';
-	@override String get enabledSubtitle => 'Yemek hatırlatmalarını alacaksınız';
-	@override String get disabledSubtitle => 'Yemek hatırlatmaları almak için bildirimleri etkinleştirin';
-	@override String get mealReminders => 'Yemek Hatırlatmaları';
+	@override String get enabledSubtitle => 'Öğün hatırlatıcıları alacaksınız';
+	@override String get disabledSubtitle => 'Öğün hatırlatıcıları için bildirimleri etkinleştirin';
+	@override String get mealReminders => 'Öğün Hatırlatıcıları';
 	@override String get breakfast => 'Kahvaltı';
-	@override String get lunch => 'Öğle';
-	@override String get dinner => 'Akşam';
+	@override String get lunch => 'Öğle yemeği';
+	@override String get dinner => 'Akşam yemeği';
 	@override String get snack => 'Atıştırmalık';
 	@override String get unknown => 'Bilinmiyor';
 	@override String get change => 'Değiştir';
 	@override String get enableNotifications => 'Bildirimleri Etkinleştir';
-	@override String get skipForNow => 'Şu an için atla';
+	@override String get skipForNow => 'Şimdilik atla';
 	@override String get saveChanges => 'Değişiklikleri Kaydet';
 	@override String get enabledSuccessfully => 'Bildirimler başarıyla etkinleştirildi!';
 	@override String get permissionDenied => 'Bildirim izni reddedildi';
-	@override String errorEnabling({required Object error}) => 'Bildirimleri etkinleştirirken hata: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Kurulum tamamlanırken hata: ${error}';
+	@override String errorEnabling({required Object error}) => 'Bildirimler etkinleştirilirken hata: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'Kurulum tamamlarken hata: ${error}';
 }
 
 // Path: notifications
@@ -345,9 +347,9 @@ class _TranslationsLoginTr implements TranslationsLoginEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Giriş Yap';
+	@override String get title => 'Giriş';
 	@override String get signInWithGoogle => 'Google ile giriş yap';
-	@override String get signInFailed => 'Google Girişi başarısız oldu veya iptal edildi.';
+	@override String get signInFailed => 'Google ile giriş başarısız oldu veya iptal edildi.';
 }
 
 // Path: disclaimer
@@ -357,7 +359,7 @@ class _TranslationsDisclaimerTr implements TranslationsDisclaimerEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Lütfen Dikkate Alın';
+	@override String get pleaseNote => 'Lütfen Dikkat';
 	@override late final _TranslationsDisclaimerSnapTr snap = _TranslationsDisclaimerSnapTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateTr weightEstimate = _TranslationsDisclaimerWeightEstimateTr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTr healthMetrics = _TranslationsDisclaimerHealthMetricsTr._(_root);
@@ -372,7 +374,7 @@ class _TranslationsCommonTr implements TranslationsCommonEn {
 
 	// Translations
 	@override String get close => 'Kapat';
-	@override String get kContinue => 'Devam Et';
+	@override String get kContinue => 'Devam et';
 }
 
 // Path: feedbackRating
@@ -382,19 +384,19 @@ class _TranslationsFeedbackRatingTr implements TranslationsFeedbackRatingEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?';
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel}\'i beğeniyor musunuz?';
 	@override String get yes => 'Evet, beğeniyorum';
 	@override String get no => 'Pek değil';
-	@override String get rateStepHeading => 'Play Store\'da puan verin';
-	@override String get emailStepHeading => 'Geri bildirimi e-postayla gönderin';
-	@override String soloDevMessage({required Object appLabel}) => 'Kısa bir değerlendirme, diğer kullanıcıların ${appLabel}\'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?';
-	@override String get shareFeedbackViaEmail => 'Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?';
-	@override String get rateCta => 'Play Store\'da puan ver';
+	@override String get rateStepHeading => 'Play Store\'da oy ver';
+	@override String get emailStepHeading => 'E-postayla geri bildirim gönder';
+	@override String soloDevMessage({required Object appLabel}) => 'Kısa bir puanlama başkalarının ${appLabel}\'i bulmasına yardımcı olur ve geliştirmeyi sürdürür. Bir dakikanızı ayırıp oy verir misiniz?';
+	@override String get shareFeedbackViaEmail => 'Gelecek adımları geri bildiriminiz şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-postayla paylaşmak ister misiniz?';
+	@override String get rateCta => 'Play Store\'da oy ver';
 	@override String get maybeLater => 'Belki sonra';
 	@override String get sendFeedback => 'Geri bildirim gönder';
 	@override String get noThanks => 'Hayır, teşekkürler';
-	@override String get aboutUsDescription => 'Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ';
+	@override String get aboutUsDescription => 'Küçük bir ekibin özenle geliştirdiği. Odağımız gizlilik, sadelik ve daha iyi beslenme alışkanlıkları edinmenize yardımcı olmak.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel}\'in arkasında kim var merak ediyor musunuz? Şuna bakın ';
 	@override String get aboutUsLinkLabel => 'Hakkımızda';
 	@override String get thankYouMessage => 'Teşekkürler! Başka bir zaman tekrar soracağız.';
 }
@@ -407,7 +409,7 @@ class _TranslationsHealthTr implements TranslationsHealthEn {
 
 	// Translations
 	@override String get syncFailed => 'Health Connect ile senkronize edilemedi';
-	@override String get mealSynced => 'Yemek Health Connect ile senkronize edildi';
+	@override String get mealSynced => 'Öğün Health Connect ile senkronize edildi';
 }
 
 // Path: onboarding.features
@@ -430,7 +432,7 @@ class _TranslationsOnboardingGenderTr implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'Cinsiyetiniz nedir?';
-	@override String get description => 'Cinsiyet, bazal metabolizma hızınızı (BMR) doğru bir şekilde hesaplamamıza yardımcı olur.';
+	@override String get description => 'Cinsiyet, bazal metabolizma hızınızı (BMR) doğru hesaplamamıza yardımcı olur.';
 	@override String get next => 'İleri';
 }
 
@@ -441,10 +443,10 @@ class _TranslationsOnboardingHeightTr implements TranslationsOnboardingHeightEn 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Boyunuz ne kadar?';
-	@override String get description => 'Boyunuz, BMI ve enerji ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.';
+	@override String get title => 'Boyunuz kaç?';
+	@override String get description => 'Boyunuz, BKİ\'nizi ve enerji ihtiyacınızı doğru hesaplamamıza yardımcı olur.';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'İngiliz birimi';
+	@override String get imperial => 'İngiliz';
 	@override String get next => 'İleri';
 }
 
@@ -455,12 +457,12 @@ class _TranslationsOnboardingWeightTr implements TranslationsOnboardingWeightEn 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'Mevcut kilonuz nedir?';
-	@override String get currentDescription => 'Mevcut kilonuz günlük hedeflerinizi kişiselleştirmek için önemlidir.';
-	@override String get targetTitle => 'Hedef kilonuz nedir?';
-	@override String get targetDescription => 'Bir hedef kiloyu belirlemek, uzun vadeli planınızı belirlememize yardımcı olur.';
-	@override String get metric => 'Metrekes';
-	@override String get imperial => 'İngilizce';
+	@override String get currentTitle => 'Mevcut kilonuz kaç?';
+	@override String get currentDescription => 'Mevcut kilonuz, günlük hedeflerinizi kişiselleştirmek için önemlidir.';
+	@override String get targetTitle => 'Hedef kilonuz kaç?';
+	@override String get targetDescription => 'Bir hedef kilo belirlemek, uzun vadeli planınızı oluşturmamıza yardımcı olur.';
+	@override String get metric => 'Metrik';
+	@override String get imperial => 'İngiliz';
 	@override String get next => 'İleri';
 }
 
@@ -472,7 +474,7 @@ class _TranslationsOnboardingAgeTr implements TranslationsOnboardingAgeEn {
 
 	// Translations
 	@override String get title => 'Doğum gününüz ne zaman?';
-	@override String get description => 'Yaşınız, kalori ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.';
+	@override String get description => 'Yaşınız, kalori ihtiyacınızı doğru hesaplamamızda yardımcı olur.';
 	@override String get next => 'İleri';
 }
 
@@ -485,7 +487,7 @@ class _TranslationsOnboardingBmiScaleTr implements TranslationsOnboardingBmiScal
 	// Translations
 	@override String get underweight => 'Zayıf';
 	@override String get healthy => 'Sağlıklı';
-	@override String get overweight => 'Kilolu';
+	@override String get overweight => 'Fazla';
 	@override String get obese => 'Obez';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTr categories = _TranslationsOnboardingBmiScaleCategoriesTr._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTr messages = _TranslationsOnboardingBmiScaleMessagesTr._(_root);
@@ -499,7 +501,7 @@ class _TranslationsOnboardingWeightGoalTr implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Hedefiniz nedir?';
-	@override String get description => 'Başarmak istediğinizi en iyi tanımlayan hedefi seçin';
+	@override String get description => 'Ulaşmak istediğinizi en iyi tanımlayan hedefi seçin';
 }
 
 // Path: onboarding.activityLevel
@@ -510,7 +512,7 @@ class _TranslationsOnboardingActivityLevelTr implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Ne kadar aktifsiniz?';
-	@override String get description => 'Bu, günlük kalori ihtiyaçlarınızı daha doğru bir şekilde hesaplamamıza yardımcı olur';
+	@override String get description => 'Bu, günlük kalori ihtiyacınızı daha doğru hesaplamamıza yardımcı olur';
 }
 
 // Path: onboarding.healthConnect
@@ -520,18 +522,18 @@ class _TranslationsOnboardingHealthConnectTr implements TranslationsOnboardingHe
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Connect ile Bağlan';
-	@override String get description => 'Daha iyi içgörüler ve otomatik kalori takibi için sağlık verilerinizi senkronize edin';
+	@override String get title => 'Health Connect\'e bağlanın';
+	@override String get description => 'Daha iyi içgörü ve otomatik kalori takibi için sağlık verilerinizi eşzamanlayın';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingTr automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingTr._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsTr progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsTr._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationTr seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationTr._(_root);
-	@override String get connected => 'Health Connect Bağlandı';
+	@override String get connected => 'Health Connect Bağlı';
 	@override String get notConnected => 'Health Connect Bağlı Değil';
-	@override String get setup => 'Health Connect Kurulumu';
-	@override String get skipForNow => 'Şu an için atla';
+	@override String get setup => 'Health Connect\'i Ayarla';
+	@override String get skipForNow => 'Şimdilik atla';
 	@override String get statusConnected => 'Health Connect bağlı.';
 	@override String get statusSuccess => 'Health Connect başarıyla bağlandı!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için telefon ayarlarınızdan Sağlık Bağlantısı izinlerini etkinleştirin.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'İzin reddedildi. Lütfen telefon ayarlarından ${appLabel} için Health Connect izinlerini etkinleştirin.';
 	@override String statusError({required Object error}) => 'Health Connect kurulurken hata: ${error}';
 }
 
@@ -554,15 +556,15 @@ class _TranslationsHomeAiSummaryTr implements TranslationsHomeAiSummaryEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Yapay Zeka Özetiniz';
-	@override String get logMore => 'Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.';
+	@override String get title => 'YZ Özetiniz';
+	@override String get logMore => 'Kişiselleştirilmiş YZ içgörülerinizi almak için önümüzdeki birkaç gün daha fazla öğün kaydedin.';
 	@override String get loading => 'Özetiniz yükleniyor...';
 	@override String mealCount({required Object count}) => '${count} öğün kaydedildi';
-	@override String macroBalanceScore({required Object score}) => 'Makro denge puanı ${score}';
-	@override String get topFoods => 'En sık tüketilen yiyecekler';
+	@override String macroBalanceScore({required Object score}) => 'Denge puanı ${score}';
+	@override String get topFoods => 'En çok tüketilenler';
 	@override String get trendUp => 'Kaloriler yükseliyor';
 	@override String get trendDown => 'Kaloriler düşüyor';
-	@override String get trendSteady => 'Kaloriler dengede';
+	@override String get trendSteady => 'Kaloriler sabit kalıyor';
 	@override String generatedAt({required Object time}) => 'Güncellendi ${time}';
 }
 
@@ -575,17 +577,17 @@ class _TranslationsHomeDailyGoalTr implements TranslationsHomeDailyGoalEn {
 	// Translations
 	@override String get title => 'Günlük Hedefinizi Belirleyin';
 	@override String get titleSet => 'Günlük Hedefiniz';
-	@override String get description => 'Sağlık yolculuğunuza başlamaya hazır mısınız? Aşağıda günlük kalori hedefinizi belirleyin ve ilerlemenize başlayın.';
-	@override String get descriptionSet => 'Pusulanız ayarlandı! Bu günlük kalori hedefiniz, size rehberlik edecek.';
+	@override String get description => 'İyilik hâli yolculuğunuza hazır mısınız? İlerlemenizi başlatmak için aşağıdan günlük kalori hedefinizi belirleyin.';
+	@override String get descriptionSet => 'Pusulanız ayarlandı! Bu, size yol gösterecek günlük kalori hedefiniz.';
 	@override String get yourGoal => 'Hedefiniz';
 	@override String get goal => 'Hedef';
 	@override String get dailyCalories => 'Günlük kalori (kcal)';
 	@override String get setGoal => 'Hedef Belirle';
-	@override String get intake => 'Alım';
+	@override String get intake => 'Alınan';
 	@override String get burned => 'Yakılan';
 	@override String get weightImpact => 'Kilo Etkisi';
-	@override String get estLoss => 'Tahmini kayıp';
-	@override String get estGain => 'Tahmini kazanım';
+	@override String get estLoss => 'Tahm. kayıp';
+	@override String get estGain => 'Tahm. artış';
 	@override String get kcal => 'kcal';
 }
 
@@ -596,14 +598,14 @@ class _TranslationsHomeDailySummaryTr implements TranslationsHomeDailySummaryEn 
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Günlük Özeti';
-	@override String get calories => 'Kaloriler';
-	@override String get carbs => 'Karbonhidratlar';
+	@override String get title => 'Günlük Özet';
+	@override String get calories => 'Kalori';
+	@override String get carbs => 'Karbonhidrat';
 	@override String get protein => 'Protein';
 	@override String get fat => 'Yağ';
 	@override String get fiber => 'Lif';
 	@override String get grams => 'gram';
-	@override String get chartAccessibilityLabel => 'Makro besinler grafiği';
+	@override String get chartAccessibilityLabel => 'Makrolar grafiği';
 }
 
 // Path: home.intakeProgress
@@ -626,10 +628,10 @@ class _TranslationsHomeIntakeHistoryTr implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => '7 Günlük Makro Geçmişi';
-	@override String get trendTitle => 'Bugünün Eğilimi';
+	@override String get trendTitle => 'Bugünün Trendi';
 	@override String peakHour({required Object hour}) => 'Zirve: ${hour}:00';
 	@override String get noHistoryYet => 'Henüz geçmiş yok';
-	@override String get startLogging => 'Yemekleri kaydetmeye başlayın ve burada\n7 günlük makro eğilimlerinizi görün';
+	@override String get startLogging => '7 günlük makro trendlerinizi görmek için\nöğün kaydetmeye başlayın';
 }
 
 // Path: home.mealLog
@@ -639,10 +641,10 @@ class _TranslationsHomeMealLogTr implements TranslationsHomeMealLogEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kaydedilen Yemekler';
-	@override String get emptyMessage => 'Son yemeğinizin fotoğrafını çekin ve burada kaydedin.';
-	@override String get noMealsToday => 'Bugün kaydedilmiş yemek yok';
-	@override String get seeAllMeals => 'Tüm yemekleri gör';
+	@override String get title => 'Kaydedilen Öğünler';
+	@override String get emptyMessage => 'Buraya kaydetmek için son öğününüzün fotoğrafını çekin.';
+	@override String get noMealsToday => 'Bugün kayıtlı öğün yok';
+	@override String get seeAllMeals => 'Tüm öğünleri gör';
 }
 
 // Path: home.mealDescription
@@ -652,10 +654,10 @@ class _TranslationsHomeMealDescriptionTr implements TranslationsHomeMealDescript
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'AI ile Hızlı Ekle';
-	@override String get description => 'Yemeğinizi tanımlayın, AI detaylarla ilgilensin.';
-	@override String get hint => 'Örneğin, kahvaltıda bir koca kase yulaf ezmesi, dilimlenmiş muz ve bir ölçek whey protein yedim ...';
-	@override String get analyzeMeal => 'Yemeği analiz et';
+	@override String get title => 'YZ ile Hızlı Ekle';
+	@override String get description => 'Öğününüzü tarif edin, detayları YZ halletsin.';
+	@override String get hint => 'örn. Kahvaltıda büyük bir kase yulaf ezmesi, bir dilimlenmiş muz ve bir ölçek whey aldım ...';
+	@override String get analyzeMeal => 'Öğünü analiz et';
 }
 
 // Path: home.favoriteMeals
@@ -665,11 +667,11 @@ class _TranslationsHomeFavoriteMealsTr implements TranslationsHomeFavoriteMealsE
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Favori Yemekler';
-	@override String get description => 'Favori yemeklerinizden birini hızlıca ekleyin.';
-	@override String get noFavorites => 'Henüz favori yemek yok.';
-	@override String get addFavoriteHint => 'Favori olarak işaretlemek için bir yemeğin üzerine yıldızı tıklayın.';
-	@override String get seeAll => 'Hepsini Gör';
+	@override String get title => 'Favori Öğünler';
+	@override String get description => 'Favori öğünlerinizden birini hızla ekleyin.';
+	@override String get noFavorites => 'Henüz favori öğün yok.';
+	@override String get addFavoriteHint => 'Bir öğünü favori işaretlemek için yıldız simgesine dokunun.';
+	@override String get seeAll => 'Tümünü gör';
 	@override String get add => 'Ekle';
 }
 
@@ -680,10 +682,12 @@ class _TranslationsHomeMealSnapTr implements TranslationsHomeMealSnapEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Yemeğinizi Yakala ve Takip Et';
-	@override String get description => 'AI analizi için yiyeceklerinizin fotoğrafını çekmek üzere kameranızı kullanın.';
+	@override String get title => 'Çek ve Öğününü Takip Et';
+	@override String get description => 'YZ analizi için yemeğinizin fotoğrafını çekmek üzere kameranızı kullanın.';
 	@override String get openCamera => 'Kamerayı Aç';
 	@override String get gallery => 'Galeri';
+	@override String get compressingPhoto => 'Fotoğraf optimize ediliyor…';
+	@override String get uploadingPhoto => 'Fotoğraf yükleniyor…';
 }
 
 // Path: home.connectHealth
@@ -693,9 +697,9 @@ class _TranslationsHomeConnectHealthTr implements TranslationsHomeConnectHealthE
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Connect ile Senkronize Ol';
-	@override String get description => 'Beslenme verilerinizi Health Connect ile senkronize edin';
-	@override String get install => 'Kur';
+	@override String get title => 'Health Connect ile Senkronize Et';
+	@override String get description => 'Beslenme verilerinizi Health Connect ile eşzamanlayın';
+	@override String get install => 'Yükle';
 	@override String get connect => 'Bağlan';
 }
 
@@ -706,8 +710,8 @@ class _TranslationsMealNutritionTr implements TranslationsMealNutritionEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get calories => 'Kaloriler';
-	@override String get carbs => 'Karbonhidratlar (g)';
+	@override String get calories => 'Kalori';
+	@override String get carbs => 'Karbonhidrat (g)';
 	@override String get protein => 'Protein (g)';
 	@override String get fat => 'Yağ (g)';
 	@override String get fiber => 'Lif (g)';
@@ -720,8 +724,8 @@ class _TranslationsMealDeleteConfirmationTr implements TranslationsMealDeleteCon
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Yemeği Sil';
-	@override String get message => 'Bu yemek kaydını silmek istediğinize emin misiniz?';
+	@override String get title => 'Öğünü Sil';
+	@override String get message => 'Bu öğün kaydını silmek istediğinizden emin misiniz?';
 	@override String get cancel => 'İptal';
 	@override String get delete => 'Sil';
 }
@@ -733,8 +737,61 @@ class _TranslationsMealVariationTr implements TranslationsMealVariationEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String question({required Object current, required Object total}) => 'Soru ${current} / ${total}';
-	@override String get noVariationsAvailable => 'Hiç varyasyon bulunamadı';
+	@override String question({required Object total, required Object current}) => '${total} sorudan ${current}';
+	@override String get noVariationsAvailable => 'Varyasyon yok';
+}
+
+// Path: meal.analysis
+class _TranslationsMealAnalysisTr implements TranslationsMealAnalysisEn {
+	_TranslationsMealAnalysisTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'YZ öğün analizi';
+	@override String get reassurance => 'Bu genellikle birkaç saniye sürer.';
+	@override String get stepStarted => 'Başlanıyor…';
+	@override String get stepDecomposition => 'Öğününüz anlaşılıyor…';
+	@override String get stepIngredients => 'İçerikler besin verileriyle eşleştiriliyor…';
+	@override String get stepUncertainty => 'Güven kontrol ediliyor…';
+	@override String get stepMealTypeQuestion => 'Neredeyse bitti…';
+	@override String get stepResult => 'Sonuç tamamlanıyor…';
+	@override String get stepError => 'Bir şeyler ters gitti';
+	@override String get stepDefault => 'Öğününüz analiz ediliyor…';
+	@override String get progressUnderstand => 'Anla';
+	@override String get progressMatch => 'Eşle';
+	@override String get progressCheck => 'Kontrol';
+	@override String get progressFinish => 'Bitir';
+	@override String ingredientsLine({required Object count}) => '${count} içerik tespit edildi';
+	@override String get ingredientsPending => 'İçerikler taranıyor…';
+	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
+	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
+	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
+	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
+	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
+	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+}
+
+// Path: meal.feedback
+class _TranslationsMealFeedbackTr implements TranslationsMealFeedbackEn {
+	_TranslationsMealFeedbackTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'What looks wrong?';
+	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
+	@override String get tellUsMore => 'Tell us more';
+	@override String get describeIncorrect => 'Describe what was incorrect';
+	@override String get submit => 'Submit';
+	@override String get issueFoodIdentification => 'Food identification';
+	@override String get issuePortionSize => 'Portion size';
+	@override String get issueCalorieDistribution => 'Calorie distribution';
+	@override String get issueMacrosWrong => 'Macros are wrong';
+	@override String get issueMissingItems => 'Missing items';
+	@override String get issueExtraItems => 'Extra items';
+	@override String get issueOther => 'Other';
 }
 
 // Path: favorites.sortOptions
@@ -744,7 +801,7 @@ class _TranslationsFavoritesSortOptionsTr implements TranslationsFavoritesSortOp
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get recent => 'Son eklenenler';
+	@override String get recent => 'En yeni';
 	@override String get calories => 'Kalori';
 	@override String get alphabetical => 'A-Z';
 }
@@ -758,7 +815,7 @@ class _TranslationsProfileSectionsTr implements TranslationsProfileSectionsEn {
 	// Translations
 	@override String get profile => 'PROFİL';
 	@override String get basicInformation => 'TEMEL BİLGİLER';
-	@override String get goalsAndActivity => 'HEDEFLER VE FAALİYETLER';
+	@override String get goalsAndActivity => 'HEDEFLER VE AKTİVİTE';
 	@override String get calculatedValues => 'HESAPLANAN DEĞERLER';
 }
 
@@ -772,8 +829,8 @@ class _TranslationsProfileCalculatedValuesTr implements TranslationsProfileCalcu
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'Günlük Hedef';
-	@override String get calPerDay => 'kal/gün';
-	@override String get notAvailable => 'YOK';
+	@override String get calPerDay => 'kcal/gün';
+	@override String get notAvailable => 'Yok';
 }
 
 // Path: editProfile.sections
@@ -785,7 +842,7 @@ class _TranslationsEditProfileSectionsTr implements TranslationsEditProfileSecti
 	// Translations
 	@override String get personalInformation => 'KİŞİSEL BİLGİLER';
 	@override String get physicalMeasurements => 'FİZİKSEL ÖLÇÜMLER';
-	@override String get goalsAndActivity => 'HEDEFLER VE FAALİYETLER';
+	@override String get goalsAndActivity => 'HEDEFLER VE AKTİVİTE';
 }
 
 // Path: editProfile.genders
@@ -836,8 +893,8 @@ class _TranslationsSettingsSectionsTr implements TranslationsSettingsSectionsEn 
 	@override String get profile => 'PROFİL';
 	@override String get localization => 'YERELLEŞTİRME';
 	@override String get notifications => 'BİLDİRİMLER';
-	@override String get healthConnect => 'SAĞLIK BAĞLANTISI';
-	@override String get supportAndLegal => 'DESTEK & YASAL';
+	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get supportAndLegal => 'DESTEK VE YASAL';
 	@override String get about => 'HAKKINDA';
 	@override String get dangerZone => 'TEHLİKE BÖLGESİ';
 	@override String get developer => 'GELİŞTİRİCİ';
@@ -863,7 +920,7 @@ class _TranslationsSettingsLanguageTr implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Dil';
 	@override String get subtitle => 'Tercih ettiğiniz dili seçin';
-	@override String get searchHint => 'Dilleri ara...';
+	@override String get searchHint => 'Dillerde ara...';
 	@override String get noResults => 'Sonuç bulunamadı';
 }
 
@@ -894,8 +951,8 @@ class _TranslationsSettingsMealRemindersTr implements TranslationsSettingsMealRe
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Yemek Hatırlatıcıları';
-	@override String get subtitle => 'Zamanında uyarılarla doğru yolda kalın';
+	@override String get title => 'Öğün Hatırlatıcıları';
+	@override String get subtitle => 'Zamanında uyarılarla rotada kalın';
 }
 
 // Path: settings.theme
@@ -919,12 +976,12 @@ class _TranslationsSettingsSendFeedbackTr implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Geri Bildirim Gönder';
-	@override String subtitle({required Object appLabel}) => '${appLabel}\'yi geliştirmemize yardımcı olun';
-	@override String emailSubject({required Object appLabel}) => '${appLabel} Uygulaması Geri Bildirimi';
-	@override String get emailBodyPrefix => 'Lütfen geri bildiriminizi aşağıda belirtin:';
-	@override String get appVersion => 'Uygulama Versiyonu';
+	@override String subtitle({required Object appLabel}) => '${appLabel}\'i geliştirmemize yardımcı olun';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Uygulama Geri Bildirimi';
+	@override String get emailBodyPrefix => 'Lütfen geri bildiriminizi aşağıya yazın:';
+	@override String get appVersion => 'Uygulama Sürümü';
 	@override String get device => 'Cihaz';
-	@override String get osVersion => 'İşletim Sistemi Versiyonu';
+	@override String get osVersion => 'OS Sürümü';
 	@override String get uid => 'UID';
 }
 
@@ -936,8 +993,8 @@ class _TranslationsSettingsExportMealHistoryTr implements TranslationsSettingsEx
 
 	// Translations
 	@override String get title => 'Öğün Geçmişini Dışa Aktar';
-	@override String get subtitle => 'Kaydettiğiniz öğünlerin CSV dosyasını paylaşın';
-	@override String get shareText => 'Calorify öğün geçmişi dışa aktarımı';
+	@override String get subtitle => 'Kaydettiğiniz öğünlerin CSV\'sini paylaşın';
+	@override String get shareText => 'Calorify öğün geçmişi dışa aktarımınız';
 	@override String failed({required Object error}) => 'Öğün geçmişi dışa aktarılamadı: ${error}';
 }
 
@@ -949,11 +1006,11 @@ class _TranslationsSettingsClearAllDataTr implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'Tüm Verileri Temizle';
-	@override String get subtitle => 'Tüm bilgilerinizi geri döndürülemez bir şekilde silin';
-	@override String get confirmationTitle => 'Tüm Verileri Temizle?';
-	@override String get confirmationMessage => 'Bu işlem geri alınamaz. Tüm kaydedilmiş yemekleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecektir.';
+	@override String get subtitle => 'Tüm bilgilerinizi geri döndürülemez şekilde silin';
+	@override String get confirmationTitle => 'Tüm Veriler Silinsin mi?';
+	@override String get confirmationMessage => 'Bu işlem geri alınamaz. Kaydedilen tüm öğünleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecek.';
 	@override String get cancel => 'İptal';
-	@override String get clearEverything => 'Her Şeyi Temizle';
+	@override String get clearEverything => 'Her Şeyi Sil';
 }
 
 // Path: settings.debugOptions
@@ -973,16 +1030,16 @@ class _TranslationsSettingsHealthConnectTr implements TranslationsSettingsHealth
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sağlık Bağlantısı';
+	@override String get title => 'Health Connect';
 	@override String get subtitle => 'İzinleri görüntüleyin ve yönetin';
 	@override late final _TranslationsSettingsHealthConnectUnavailableTr unavailable = _TranslationsSettingsHealthConnectUnavailableTr._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsTr permissions = _TranslationsSettingsHealthConnectPermissionsTr._(_root);
 	@override String get managePermissions => 'İzinleri Yönet';
-	@override String get openSettings => 'Sağlık Bağlantısı Ayarlarını Aç';
-	@override String get requestPermissions => 'İzinleri Talep Et';
-	@override String get permissionRequestCancelledOrFailed => 'İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.';
-	@override String get permissionRequestFailed => 'İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.';
-	@override String get requestingPermissions => 'Requesting...';
+	@override String get openSettings => 'Health Connect Ayarlarını Aç';
+	@override String get requestPermissions => 'İzin İste';
+	@override String get permissionRequestCancelledOrFailed => 'İzin isteği iptal edildi veya başarısız oldu. Lütfen tekrar deneyin ya da Health Connect ayarlarından el ile izin verin.';
+	@override String get permissionRequestFailed => 'İzinler istenemedi. Lütfen tekrar deneyin ya da Health Connect ayarlarından el ile izin verin.';
+	@override String get requestingPermissions => 'İsteniyor...';
 }
 
 // Path: settings.about
@@ -993,7 +1050,7 @@ class _TranslationsSettingsAboutTr implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'Hakkında';
-	@override String get tagline => 'Hızlı, ücretsiz ve gizlilik odaklı kalori farkındalığı';
+	@override String get tagline => 'Hızlı, ücretsiz ve mahremiyet odaklı kalori farkındalığı';
 	@override late final _TranslationsSettingsAboutOurStoryTr ourStory = _TranslationsSettingsAboutOurStoryTr._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyTr privacy = _TranslationsSettingsAboutPrivacyTr._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTr developer = _TranslationsSettingsAboutDeveloperTr._(_root);
@@ -1007,7 +1064,7 @@ class _TranslationsSettingsAppInfoTr implements TranslationsSettingsAppInfoEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify Sürüm ${version}';
 	@override String build({required Object buildNumber}) => 'Yapı ${buildNumber}';
 }
 
@@ -1029,7 +1086,7 @@ class _TranslationsNotificationsLunchTr implements TranslationsNotificationsLunc
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Öğle Zamanı! 🥗';
+	@override String get title => 'Öğle Yemeği Zamanı! 🥗';
 	@override String get body => 'Öğle yemeğinizi kaydetme zamanı';
 }
 
@@ -1052,7 +1109,7 @@ class _TranslationsNotificationsSnackTr implements TranslationsNotificationsSnac
 
 	// Translations
 	@override String get title => 'Atıştırmalık Zamanı! 🍎';
-	@override String get body => 'Sağlıklı bir atıştırmalık zamanı';
+	@override String get body => 'Sağlıklı bir atıştırma zamanı';
 }
 
 // Path: notifications.test
@@ -1072,7 +1129,7 @@ class _TranslationsDisclaimerSnapTr implements TranslationsDisclaimerSnapEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel}, tahmini besin bilgileri sağlar. Doğruluk, girdiğiniz bilgilere ve gıda çeşitliliklerine bağlıdır. Rehber olarak kullanın, kesin bir kaynak olarak değil. Kişisel diyet tavsiyesi için bir uzmana danışın.';
+	@override String description({required Object appLabel}) => '${appLabel}, tahmini besin bilgileri sunar. Doğruluk, girdilerinize ve yiyecek farklılıklarına bağlıdır. Kesin bir kaynak değil, yol gösterici olarak kullanın. Kişiselleştirilmiş diyet tavsiyesi için bir uzmana danışın.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeTr portionSize = _TranslationsDisclaimerSnapPortionSizeTr._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsTr preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsTr._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsTr ingredients = _TranslationsDisclaimerSnapIngredientsTr._(_root);
@@ -1087,7 +1144,7 @@ class _TranslationsDisclaimerWeightEstimateTr implements TranslationsDisclaimerW
 
 	// Translations
 	@override String get title => 'Kilo Tahmini Hakkında';
-	@override String get description => 'Proje edilen kilo değişikliği, basit kalori-giriş vs. kalori-çıkış modeline dayanan bir teorik tahmindir. Bu sadece motivasyonel rehberlik içindir, gerçek kilonuzu tahmin etmek için değil.';
+	@override String get description => 'Öngörülen kilo değişimi, basit kalori-alımı vs. kalori-yakımı modeline dayanan teorik bir tahmindir. Gerçek kilonuzun bir öngörüsü değil, yalnızca motivasyon amaçlıdır.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyTr calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTr._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTr._(_root);
@@ -1101,7 +1158,7 @@ class _TranslationsDisclaimerHealthMetricsTr implements TranslationsDisclaimerHe
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinizi yönlendirmenize yardımcı olur.';
+	@override String get description => 'Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinize rehberlik etmenize yardımcı olur.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrTr bmr = _TranslationsDisclaimerHealthMetricsBmrTr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeTr tdee = _TranslationsDisclaimerHealthMetricsTdeeTr._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalTr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalTr._(_root);
@@ -1114,8 +1171,8 @@ class _TranslationsDisclaimerCalorieExpenditureTr implements TranslationsDisclai
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kalori harcaması tahmini';
-	@override String get description => 'Health Connect verileri kullanılamadığında, bugünkü yakılan kaloriyi Bazal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanarak, günün geçen bölümüne göre ölçekleyerek tahmin ederiz.';
+	@override String get title => 'Kalori Harcaması Tahmini';
+	@override String get description => 'Health Connect verileri kullanılamadığında, bugün yakılan kalorileri, Bazal Metabolizma Hızınız (BMR) ve aktivite düzeyiniz (TDEE) kullanılarak, geçen gün kısmına göre ölçekleyerek tahmin ederiz.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr._(_root);
 }
@@ -1127,8 +1184,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionTr implements TranslationsOn
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Akıllı Gıda Tanıma';
-	@override String get description => 'Bir fotoğraf çekin ve AI\'nın yemeğinizi tanımasına izin verin';
+	@override String get title => 'Yapay Zekâ ile Yemek Tanıma';
+	@override String get description => 'Bir fotoğraf çekin, yemeğinizi yapay zekâ tanısın';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1138,8 +1195,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisTr implements TranslationsOnboard
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'AI Analizi';
-	@override String get description => 'Tanımlarınızdan anlık beslenme bilgileri alın';
+	@override String get title => 'Yapay Zekâ Analizi';
+	@override String get description => 'Açıklamalarınızdan anında besin değerleri alın';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1150,7 +1207,7 @@ class _TranslationsOnboardingFeaturesHealthIntegrationTr implements Translations
 
 	// Translations
 	@override String get title => 'Sağlık Entegrasyonu';
-	@override String get description => 'Daha iyi içgörüler için Health Connect ile bağlanın';
+	@override String get description => 'Daha iyi içgörüler için Health Connect\'e bağlanın';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1161,8 +1218,8 @@ class _TranslationsOnboardingBmiScaleCategoriesTr implements TranslationsOnboard
 
 	// Translations
 	@override String get underweight => 'Zayıf';
-	@override String get healthyWeight => 'Sağlıklı ağırlık';
-	@override String get overweight => 'Kilolu';
+	@override String get healthyWeight => 'Sağlıklı kilo';
+	@override String get overweight => 'Fazla kilolu';
 	@override String get obese => 'Obez';
 }
 
@@ -1173,10 +1230,10 @@ class _TranslationsOnboardingBmiScaleMessagesTr implements TranslationsOnboardin
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Dengeli bir kiloya ulaşmak için sağlıklı besinlerle bir plan oluşturmanıza yardımcı olabiliriz.';
-	@override String get healthy => 'Harika bir iş çıkardınız! Sağlıklı bir aralıktasınız. Enerjinizi ve canlılığınızı korumanıza yardımcı olacağız.';
-	@override String overweight({required Object appLabel}) => '${appLabel}, AI destekli takibiyle hedefinize ulaşmanızı kolaylaştıracak.';
-	@override String get obese => 'Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle destek olmak için buradayız.';
+	@override String get underweight => 'Besin değeri yüksek öğünlerle dengeli bir kiloya ulaşmanız için sağlıklı bir plan oluşturmaya yardımcı olabiliriz.';
+	@override String get healthy => 'Harika! Sağlıklı aralıktasınız. Canlılığınızı ve enerji seviyelerinizi korumanıza yardımcı olacağız.';
+	@override String overweight({required Object appLabel}) => '${appLabel}, hedefinize rahatça ulaşmanız için YZ destekli takiple yolculuğunuzu kolaylaştıracak.';
+	@override String get obese => 'Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle yanınızdayız.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1187,7 +1244,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingTr implements Transla
 
 	// Translations
 	@override String get title => 'Otomatik Kalori Takibi';
-	@override String get description => 'Fitness uygulamalarınızdan yaktığınız kalorileri takip edin';
+	@override String get description => 'Fitness uygulamalarınızdan yakılan kalorileri takip edin';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1198,7 +1255,7 @@ class _TranslationsOnboardingHealthConnectProgressInsightsTr implements Translat
 
 	// Translations
 	@override String get title => 'İlerleme İçgörüleri';
-	@override String get description => 'Sağlık eğilimleriniz hakkında detaylı içgörüler alın';
+	@override String get description => 'Sağlık trendleriniz hakkında ayrıntılı içgörüler edinin';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1209,7 +1266,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTr implements Trans
 
 	// Translations
 	@override String get title => 'Sorunsuz Entegrasyon';
-	@override String get description => 'En sevdiğiniz sağlık uygulamalarından verileri senkronize edin';
+	@override String get description => 'Favori sağlık uygulamalarınızdan verileri senkronize edin';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1220,16 +1277,16 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTr implements Translati
 
 	// Translations
 	@override String get title => 'Yalnız Değilsiniz';
-	@override String get genericMessage => 'Araştırmalar, sürekli takibin uzun vadeli başarının en önemli belirleyicisi olduğunu gösteriyor.';
-	@override String personalizedMessage({required Object goal, required Object gender, required Object age}) => '${goal} hedefini ulaşmak isteyen ${gender} bir ${age} yaşındaki biri için, sürekli takip başarı için en önemli belirleyicidir.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel}, bunu manuel olarak yapmaktan 10 kat daha kolay hale getiriyor.';
-	@override String get getStartedTitle => 'Başlamaya hazır mısın?';
-	@override String get tipPhoto => 'Anında analiz için yemeklerinin fotoğrafını çek';
-	@override String get tipConsistency => 'Anlamlı ilerleme görmek için düzenli kaydet';
-	@override String get tipProgress => 'Motivasyonunu korumak için ilerlemeni her gün takip et';
-	@override String get button => 'Hadi Gidelim';
+	@override String get genericMessage => 'Araştırmalar, düzenli takibin uzun vadeli başarının 1 numaralı göstergesi olduğunu gösteriyor.';
+	@override String personalizedMessage({required Object age, required Object goal, required Object gender}) => '${age} yaşında, ${goal} hedefleyen bir ${gender} için düzenli takip başarının en güçlü göstergesidir.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel}, bunu elle yapmaya kıyasla 10 kat kolaylaştırır.';
+	@override String get getStartedTitle => 'Başlamaya hazır mısınız?';
+	@override String get tipPhoto => 'Anında analiz için öğünlerinizin fotoğrafını çekin';
+	@override String get tipConsistency => 'Anlamlı ilerleme görmek için düzenli olarak kayıt tutun';
+	@override String get tipProgress => 'Motivasyonu korumak için ilerlemenizi her gün takip edin';
+	@override String get button => 'Hadi başlayalım';
 	@override String get defaultGender => 'birey';
-	@override String get defaultGoal => 'daha sağlıklı bir siz';
+	@override String get defaultGoal => 'daha sağlıklı bir sen';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1240,13 +1297,13 @@ class _TranslationsOnboardingReinforcementHealthProfileTr implements Translation
 
 	// Translations
 	@override String get title => 'Sağlık Profiliniz';
-	@override String bmiDescription({required Object bmi}) => 'Ölçümlerinize dayalı olarak, BMI\'niz ${bmi}.';
-	@override String get finalizeDescription => 'Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.';
-	@override String get goalGain => 'kazan';
-	@override String get goalLose => 'kaybet';
-	@override String goalReach({required Object diff, required Object unit, required Object direction}) => 'Hedefinize ulaşmak için ${diff} ${unit} ${direction} yapmalısın.';
+	@override String bmiDescription({required Object bmi}) => 'Ölçümlerinize göre BKİ\'niz ${bmi}.';
+	@override String get finalizeDescription => 'Deneyiminizi kişiselleştirmek için profilinizi tamamlayalım.';
+	@override String get goalGain => 'alacaksınız';
+	@override String get goalLose => 'vereceksiniz';
+	@override String goalReach({required Object diff, required Object unit, required Object direction}) => 'Hedefinize ulaşmak için ${diff} ${unit} ${direction}.';
 	@override String get goalReached => 'Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.';
-	@override String get button => 'Hadi Gidelim';
+	@override String get button => 'Hadi başlayalım';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1256,13 +1313,13 @@ class _TranslationsOnboardingReinforcementGoalLifestyleTr implements Translation
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mükemmel Bir Başlangıç!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText} yönünde ilk adımı attınız. ${activityText} olduğunuz için, ${appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.';
+	@override String get title => 'Harika Başlangıç!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText} yolunda ilk adımı attınız. ${activityText} olduğunuz için, ${appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.';
 	@override String get personalizedTargets => 'Kişiselleştirilmiş kalori hedefleri';
-	@override String get aiMealDetection => 'AI destekli yemek tespiti';
-	@override String get macroBreakdowns => 'Detaylı makro besin dağılımları';
-	@override String get button => 'Hadi Gidelim';
-	@override String get defaultGoal => 'hedeflerin';
+	@override String get aiMealDetection => 'YZ destekli öğün algılama';
+	@override String get macroBreakdowns => 'Ayrıntılı makro besin dökümleri';
+	@override String get button => 'Hadi başlayalım';
+	@override String get defaultGoal => 'hedefleriniz';
 	@override String get defaultActivity => 'aktif';
 }
 
@@ -1273,8 +1330,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightTr implements TranslationsEdi
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Kilo Kaybet';
-	@override String get description => 'Kilo kaybetmek için kalori açığı oluşturun';
+	@override String get name => 'Kilo Ver';
+	@override String get description => 'Kilo vermek için kalori açığı oluştur';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1284,7 +1341,7 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightTr implements Translation
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Kilo Koruma';
+	@override String get name => 'Kiloyu Koru';
 	@override String get description => 'Mevcut kilonuzu koruyun';
 }
 
@@ -1295,8 +1352,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightTr implements TranslationsEdi
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Kilo Kazan';
-	@override String get description => 'Kilo almak için kalori fazlası oluşturun';
+	@override String get name => 'Kilo Al';
+	@override String get description => 'Kilo almak için kalori fazlası oluştur';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1307,7 +1364,7 @@ class _TranslationsEditProfileActivityLevelsSedentaryTr implements TranslationsE
 
 	// Translations
 	@override String get name => 'Hareketsiz';
-	@override String get description => 'Az veya hiç egzersiz yok';
+	@override String get description => 'Az ya da hiç egzersiz yok';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1318,7 +1375,7 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveTr implements Translati
 
 	// Translations
 	@override String get name => 'Hafif Aktif';
-	@override String get description => 'Haftada 1-3 gün hafif egzersiz';
+	@override String get description => 'Hafif egzersiz 1-3 gün/hafta';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1328,8 +1385,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveTr implements Transl
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Orta Derecede Aktif';
-	@override String get description => 'Haftada 3-5 gün orta düzeyde egzersiz';
+	@override String get name => 'Orta Derece Aktif';
+	@override String get description => 'Orta şiddette egzersiz 3-5 gün/hafta';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1340,7 +1397,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveTr implements Translations
 
 	// Translations
 	@override String get name => 'Çok Aktif';
-	@override String get description => 'Haftada 6-7 gün yoğun egzersiz';
+	@override String get description => 'Zorlayıcı egzersiz 6-7 gün/hafta';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1351,7 +1408,7 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTr implements Transla
 
 	// Translations
 	@override String get name => 'Aşırı Aktif';
-	@override String get description => 'Çok zor bir egzersiz, fiziksel iş';
+	@override String get description => 'Çok zorlayıcı egzersiz, fiziksel iş';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1361,8 +1418,8 @@ class _TranslationsSettingsHealthConnectUnavailableTr implements TranslationsSet
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Sağlık Bağlantısı Kullanılamıyor';
-	@override String get description => 'Sağlık Bağlantısı bu cihazda kullanılamıyor. Android 14 veya sonrası gerekmektedir.';
+	@override String get title => 'Health Connect Kullanılamıyor';
+	@override String get description => 'Health Connect bu cihazda mevcut değil. Lütfen Play Store\'dan Health Connect\'i yükleyin (Android 9+) veya Android 14+ sürümüne güncelleyin.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1373,7 +1430,7 @@ class _TranslationsSettingsHealthConnectPermissionsTr implements TranslationsSet
 
 	// Translations
 	@override String get title => 'İzinler';
-	@override String get description => 'Sağlık Bağlantısı entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:';
+	@override String get description => 'Health Connect entegrasyonu sağlamak için aşağıdaki izinler istenir:';
 	@override String get granted => 'Verildi';
 	@override String get notGranted => 'Verilmedi';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr._(_root);
@@ -1388,8 +1445,8 @@ class _TranslationsSettingsAboutOurStoryTr implements TranslationsSettingsAboutO
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hikayemiz';
-	@override String content({required Object appLabel}) => '${appLabel}, basit bir hayal kırıklığından doğdu: çoğu kalori takip uygulaması ya aşırı karmaşık, sürekli manuel giriş gerektiriyor, yüksek abonelik ücretleri talep ediyor ya da gizliliği ihlal ediyor.\n\nBir bağımsız geliştirici olarak, daha basit ve adil bir şey inşa etmek istedim - çabayı azaltan, hızlı ve ücretsiz kalmayı sağlayan ve sağlık verilerinize saygı gösteren bir uygulama.\n\n${appLabel}, var olmasını istediğim uygulama: hesap yok, izleme yok, reklam yok - sadece net, pratik bilgiler ve sağlık hedefleriniz.';
+	@override String get title => 'Hikâyemiz';
+	@override String content({required Object appLabel}) => '${appLabel}, basit bir hayal kırıklığından doğdu: Çoğu kalori takip uygulaması ya gereğinden karmaşık, sürekli manuel giriş istiyor, yüksek abonelik ücretleri talep ediyor ya da gizlilikten ödün veriyor.\n\nTek geliştirici olarak daha basit ve daha adil bir şey inşa etmek istedim — emeği azaltmak için yapay zekâ kullanan, hızlı ve ücretsiz kalan ve sağlık verilerinize saygı duyan bir uygulama.\n\n${appLabel}, keşke var olsaydı dediğim uygulama: hesap yok, izleme yok, reklam yok — yalnızca net, pratik içgörüler ve sağlık hedefleriniz.';
 }
 
 // Path: settings.about.privacy
@@ -1400,12 +1457,12 @@ class _TranslationsSettingsAboutPrivacyTr implements TranslationsSettingsAboutPr
 
 	// Translations
 	@override String get title => 'Gizliliğiniz Önemli';
-	@override String get description => 'Gizlilik, sonradan düşünülmüş bir konu değil - bir tasarım ilkesidir. Pratikte bunun ne anlama geldiği:';
+	@override String get description => 'Gizlilik bir sonradan düşünce değil — bir tasarım ilkesidir. Pratikte bu şu anlama gelir:';
 	@override String get noAccounts => 'Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.';
-	@override String noTracking({required Object appLabel}) => 'Davranışsal izleme yok\n${appLabel}, etkinliğinizi izlemiyor, kullanım profilleri oluşturmuyor ya da sizi diğer uygulamalarda veya web sitelerinde takip etmiyor.';
-	@override String noAds({required Object appLabel}) => 'Reklamsız tasarım\n${appLabel}, reklam veya veri odaklı para kazanma olmadan çalışacak şekilde tasarlanmıştır.';
-	@override String get noDataSelling => 'Veri satışı yok\nSağlık verileriniz asla satılmıyor veya üçüncü taraflarla paylaşılmıyor.';
-	@override String get localStorage => 'Yerel depolama\nVerileriniz cihazınızda kalır.';
+	@override String noTracking({required Object appLabel}) => 'Davranış takibi yok\n${appLabel} etkinliğinizi izlemez, kullanım profilleri oluşturmaz ve sizi uygulamalar veya web siteleri arasında takip etmez.';
+	@override String noAds({required Object appLabel}) => 'Tasarımı gereği reklamsız\n${appLabel}, reklama veya veriye dayalı para kazanma modellerine ihtiyaç duymadan çalışacak şekilde tasarlandı.';
+	@override String get noDataSelling => 'Veri satışı yok\nSağlık verileriniz üçüncü taraflarla asla satılmaz veya paylaşılmaz.';
+	@override String get localStorage => 'Öncelik yerel depolama\nVerileriniz cihazınızda kalır.';
 	@override String get privacyPolicy => 'Gizlilik Politikası';
 }
 
@@ -1416,9 +1473,9 @@ class _TranslationsSettingsAboutDeveloperTr implements TranslationsSettingsAbout
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bir Bağımsız Geliştirici Tarafından İnovasyon';
-	@override String description({required Object appLabel}) => '${appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından inşa ve bakım yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunmakta ve uygulamanın yönünü şekillendirmeye yardımcı olmaktadır.';
-	@override String get website => 'Web Sitesi';
+	@override String get title => 'Tek Bir Geliştirici Tarafından Yapıldı';
+	@override String description({required Object appLabel}) => '${appLabel}, sade ve gizliliğe saygılı sağlık yazılımları geliştirmeye odaklanan tek bir geliştirici tarafından inşa edilip sürdürülüyor.\n\nGeri bildirimler bizzat okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.';
+	@override String get website => 'Web sitesi';
 	@override String get email => 'E-posta';
 }
 
@@ -1429,9 +1486,9 @@ class _TranslationsSettingsAboutFeedbackTr implements TranslationsSettingsAboutF
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => '${appLabel}\'dan memnun musunuz?';
-	@override String description({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'ı herkes için daha iyi hale getirmeye yardımcı oluyor.';
-	@override String get rateApp => 'Play Store\'da Derecelendir';
+	@override String title({required Object appLabel}) => '${appLabel}\'i beğendiniz mi?';
+	@override String description({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'i herkes için daha iyi hâle getirir.';
+	@override String get rateApp => 'Play Store\'da oy ver';
 	@override String get sendFeedback => 'Geri Bildirim Gönder';
 }
 
@@ -1443,7 +1500,7 @@ class _TranslationsDisclaimerSnapPortionSizeTr implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Porsiyon Boyutu';
-	@override String get description => 'Tahminlerin doğruluğu, porsiyon boyutunun doğru bir şekilde değerlendirilmesine dayanmaktadır.';
+	@override String get description => 'Tahminlerin doğruluğu, porsiyon boyutunu doğru değerlendirmenize büyük ölçüde bağlıdır.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1454,7 +1511,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsTr implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Hazırlama Yöntemleri';
-	@override String description({required Object appLabel}) => 'Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde etkileyebilir. ${appLabel}\'nin tahminleri bu çeşitlilikleri her zaman hesaba katmayabilir.';
+	@override String description({required Object appLabel}) => 'Pişirme yöntemleri yiyeceklerin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel}\'in tahminleri bu farklılıkları her zaman hesaba katmayabilir.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1464,8 +1521,8 @@ class _TranslationsDisclaimerSnapIngredientsTr implements TranslationsDisclaimer
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bileşenler';
-	@override String get description => 'Çok sayıda gizli bileşeni olan karmaşık yemekler, daha az doğru tahminlere yol açabilir.';
+	@override String get title => 'İçerikler';
+	@override String get description => 'Birçok gizli içeriği olan karmaşık yemekler daha az doğru tahminlere yol açabilir.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1476,7 +1533,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsTr implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Veritabanı Sınırlamaları';
-	@override String description({required Object appLabel}) => '${appLabel}\'nin gıda veritabanı geniştir ancak her bir gıda maddesini veya varyasyonunu içermeyebilir.';
+	@override String description({required Object appLabel}) => '${appLabel}\'in yiyecek veritabanı kapsamlıdır ancak her yiyecek öğesini veya varyasyonunu içermeyebilir.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1487,7 +1544,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyTr implements Translat
 
 	// Translations
 	@override String get title => 'Kalori Doğruluğu';
-	@override String get description => 'Bu tahmin, yalnızca takip edilen kalori alımınız ve harcamanıza ne kadar doğru olduğuna bağlıdır. Hatalı kayıt, hatalı bir projeksiyona neden olacaktır.';
+	@override String get description => 'Bu tahmin, takip ettiğiniz kalori alımı ve harcaması kadar doğrudur. Hatalı kayıtlar hatalı projeksiyona yol açar.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1498,7 +1555,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsTr implements Transl
 
 	// Translations
 	@override String get title => 'Biyolojik Faktörler';
-	@override String description({required Object appLabel}) => 'Gerçek kilo kaybı/almayı etkileyen metabolizma, hormonlar, uyku, stres, hidrasyon ve diğer bireysel faktörler, ${appLabel} tarafından ölçülemez.';
+	@override String description({required Object appLabel}) => 'Gerçek kilo kaybı/alımı; metabolizma, hormonlar, uyku, stres, hidrasyon ve ${appLabel}\'in ölçemediği diğer bireysel faktörlerden etkilenir.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1508,8 +1565,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightTr implements Translations
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Su Ağırlığı ve Dalgalanmalar';
-	@override String get description => 'Normal günlük ağırlık, su tutma, sindirim ve zamanlama nedeniyle önemli ölçüde dalgalanabilir. Tahmin, bu günlük değişiklikleri dikkate almaz.';
+	@override String get title => 'Su Ağırlığı ve Oynaklıklar';
+	@override String get description => 'Normal günlük kilo; su tutma, sindirim ve zamana bağlı olarak önemli ölçüde dalgalanabilir. Bu tahmin bu günlük değişimleri hesaba katmaz.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1519,8 +1576,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTr implements Tra
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Profesyonel Rehberlik';
-	@override String get description => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyeleri için her zaman bir sağlık uzmanı veya kayıtlı diyetisyen ile danışın.';
+	@override String get title => 'Uzman Rehberliği';
+	@override String get description => 'Tıbbi kararlar almak için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için daima bir sağlık uzmanına veya diyetisyene danışın.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1531,7 +1588,7 @@ class _TranslationsDisclaimerHealthMetricsBmrTr implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Bazal Metabolizma Hızı (BMR), vücudunuzun temel işlevleri sürdürebilmek için dinlenme halinde yaktığı kalori sayısıdır; bu işlevler arasında nefes alma ve dolaşım yer alır. BMR, yaşınıza, cinsiyetinize, boyunuza ve kilonuza bağlıdır. Daha yüksek bir BMR, vücudunuzun genellikle dinlenme halinde daha fazla kalori yaktığı anlamına gelir; bu genellikle daha fazla kas kütlesi, daha genç bir yaş veya erkek olma durumuna bağlıdır. Daha düşük bir BMR genellikle daha az kas kütlesi, daha ileri yaş veya kadın olmanın göstergesidir.';
+	@override String get description => 'Bazal Metabolizma Hızı (BMR), vücudunuzun dinlenme hâlindeyken solunum ve dolaşım gibi temel işlevleri sürdürmek için yaktığı kalori miktarıdır. BMR; yaş, cinsiyet, boy ve kilonuza bağlıdır. Daha yüksek BMR, genellikle daha fazla kas kütlesi, daha genç yaş veya erkek olmak nedeniyle vücudun dinlenme hâlinde doğal olarak daha fazla kalori yaktığı anlamına gelir. Daha düşük BMR ise tipik olarak daha az kas kütlesi, daha ileri yaş veya kadın olmakla ilişkilidir.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1542,7 +1599,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeTr implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Toplam Günlük Enerji Harcaması (TDEE), gün boyunca yaktığınız toplam kalori miktarını ifade eder; bu, BMR’iniz ve fiziksel aktivite ile günlük hareketten kaynaklanan kalorileri içerir. TDEE, BMR’iniz ve aktivite seviyenizle bağlantılıdır. Daha yüksek bir TDEE, genellikle daha aktif olmaktan veya daha yüksek bir BMR\'e sahip olmaktan dolayı, toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE, günlük aktivitenizin daha az olduğunu veya daha düşük bir BMR\'e sahip olduğunuzu gösterir.';
+	@override String get description => 'Toplam Günlük Enerji Harcaması (TDEE), BMR\'niz artı fiziksel aktivite ve günlük hareketten kaynaklanan kaloriler dahil olmak üzere, günde yaktığınız toplam kaloridir. TDEE, BMR\'nize ve aktivite düzeyinize bağlıdır. Daha yüksek TDEE, genellikle daha aktif olduğunuz veya daha yüksek bir BMR\'ye sahip olduğunuz için toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük TDEE ise daha az günlük aktiviteye veya daha düşük BMR\'ye işaret eder.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1553,7 +1610,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTr implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Günlük Hedef';
-	@override String get description => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.';
+	@override String get description => 'Günlük Hedef, TDEE\'nize ve kilo hedefinize göre önerilen günlük kalori alımıdır. Kilo kaybı için TDEE\'nizden daha az kalori alırsınız. Kiloyu korumak için TDEE\'nizi karşılarsınız. Kilo almak için TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz kilo değişimine sağlıklı bir hızda ulaşmanıza yardımcı olur.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1563,8 +1620,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTr implements Transl
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tahmin nasıl hesaplanır';
-	@override String get description => 'Profilinize göre TDEE\'nizi hesaplar ve günün geçen kısmının kesri (saatler + dakikalar) / 24 ile çarparak şu ana kadar yakılan kaloriyi tahmin ederiz.';
+	@override String get title => 'Tahmin Nasıl Hesaplanır';
+	@override String get description => 'Profilinize göre TDEE\'nizi hesaplar ve şu ana kadar geçen gün fraksiyonu ile çarparız: (saat + dakika) / 24; böylece şimdiye kadar yakılan kaloriyi tahmin ederiz.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1574,8 +1631,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTr implements
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Profesyonel Rehberlik';
-	@override String get description => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiye özel kilo yönetimi önerileri için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın.';
+	@override String get title => 'Uzman Rehberliği';
+	@override String get description => 'Tıbbi kararlar almak için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için daima bir sağlık uzmanına veya diyetisyene danışın.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1585,9 +1642,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTr implements T
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Toplam Yakılan Kalorileri Oku';
-	@override String get description => 'Uygulamaya, Sağlık Bağlantısından toplam yakılan kalorilerinizi okuma izni verir.';
-	@override String get usage => 'Bu izin, uygulamada günlük kalori yakımınızı görüntülemek için kullanılır ve gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olur.';
+	@override String get title => 'Toplam Yakılan Kaloriyi Oku';
+	@override String get description => 'Uygulamanın Health Connect\'ten toplam yakılan kalorilerinizi okumasına izin verir.';
+	@override String get usage => 'Bu izin, gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olmak için uygulamada günlük kalori yakımınızı göstermek amacıyla kullanılır.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1597,9 +1654,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadTr implements Tr
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Besin Verilerini Oku';
-	@override String get description => 'Uygulamaya, Sağlık Bağlantısından besin verilerini okuma izni verir.';
-	@override String get usage => 'Bu izin, diğer uygulamalar tarafından Sağlık Bağlantısına kaydedilen besin bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar.';
+	@override String get title => 'Beslenme Verilerini Oku';
+	@override String get description => 'Uygulamanın Health Connect\'ten beslenme verilerini okumasına izin verir.';
+	@override String get usage => 'Bu izin, Health Connect\'e bağlı diğer uygulamalar tarafından kaydedilmiş olabilecek beslenme bilgilerini uygulamanın okumasını sağlar ve beslenmenize kapsamlı bir bakış sunar.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1609,9 +1666,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTr implements T
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Besin Verilerini Yaz';
-	@override String get description => 'Uygulamaya, Sağlık Bağlantısına besin verilerini yazma izni verir.';
-	@override String get usage => 'Bu izin, kaydedilen öğünlerinizi Sağlık Bağlantısına senkronize etmenizi sağlar ve besin verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir.';
+	@override String get title => 'Beslenme Verileri Yaz';
+	@override String get description => 'Uygulamanın Health Connect\'e beslenme verileri yazmasına izin verir.';
+	@override String get usage => 'Bu izin, kaydettiğiniz öğünlerin Health Connect ile senkronize edilmesini sağlar ve beslenme verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarına sunar.';
 }
 
 /// The flat map containing all translations for locale <tr>.
@@ -1628,212 +1685,249 @@ extension on TranslationsTr {
 			'errors.rateLimitExceeded' => 'Çok fazla istek yaptınız. Lütfen tekrar denemeden önce biraz bekleyin.',
 			'errors.networkError' => 'Ağ hatası. Lütfen internet bağlantınızı kontrol edin.',
 			'errors.unknownError' => 'Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.',
-			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata',
+			'errors.loadingProfileData' => 'Profil verileri yüklenirken hata oluştu',
 			'errors.somethingWentWrong' => 'Bir şeyler ters gitti.',
-			'errors.retry' => 'Tekrar dene',
-			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}\'ye hoş geldiniz',
-			'onboarding.subtitle' => 'AI ile güçlendirilmiş kişisel beslenme danışmanınız',
-			'onboarding.getStarted' => 'Başlayın',
-			'onboarding.features.foodRecognition.title' => 'Akıllı Gıda Tanıma',
-			'onboarding.features.foodRecognition.description' => 'Bir fotoğraf çekin ve AI\'nın yemeğinizi tanımasına izin verin',
-			'onboarding.features.aiAnalysis.title' => 'AI Analizi',
-			'onboarding.features.aiAnalysis.description' => 'Tanımlarınızdan anlık beslenme bilgileri alın',
+			'errors.retry' => 'Yeniden dene',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel}\'e hoş geldiniz',
+			'onboarding.subtitle' => 'Yapay zekâ ile güçlendirilmiş kişisel beslenme yardımcınız',
+			'onboarding.getStarted' => 'Başlayalım',
+			'onboarding.features.foodRecognition.title' => 'Yapay Zekâ ile Yemek Tanıma',
+			'onboarding.features.foodRecognition.description' => 'Bir fotoğraf çekin, yemeğinizi yapay zekâ tanısın',
+			'onboarding.features.aiAnalysis.title' => 'Yapay Zekâ Analizi',
+			'onboarding.features.aiAnalysis.description' => 'Açıklamalarınızdan anında besin değerleri alın',
 			'onboarding.features.healthIntegration.title' => 'Sağlık Entegrasyonu',
-			'onboarding.features.healthIntegration.description' => 'Daha iyi içgörüler için Health Connect ile bağlanın',
+			'onboarding.features.healthIntegration.description' => 'Daha iyi içgörüler için Health Connect\'e bağlanın',
 			'onboarding.gender.title' => 'Cinsiyetiniz nedir?',
-			'onboarding.gender.description' => 'Cinsiyet, bazal metabolizma hızınızı (BMR) doğru bir şekilde hesaplamamıza yardımcı olur.',
+			'onboarding.gender.description' => 'Cinsiyet, bazal metabolizma hızınızı (BMR) doğru hesaplamamıza yardımcı olur.',
 			'onboarding.gender.next' => 'İleri',
-			'onboarding.height.title' => 'Boyunuz ne kadar?',
-			'onboarding.height.description' => 'Boyunuz, BMI ve enerji ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.',
+			'onboarding.height.title' => 'Boyunuz kaç?',
+			'onboarding.height.description' => 'Boyunuz, BKİ\'nizi ve enerji ihtiyacınızı doğru hesaplamamıza yardımcı olur.',
 			'onboarding.height.metric' => 'Metrik',
-			'onboarding.height.imperial' => 'İngiliz birimi',
+			'onboarding.height.imperial' => 'İngiliz',
 			'onboarding.height.next' => 'İleri',
-			'onboarding.weight.currentTitle' => 'Mevcut kilonuz nedir?',
-			'onboarding.weight.currentDescription' => 'Mevcut kilonuz günlük hedeflerinizi kişiselleştirmek için önemlidir.',
-			'onboarding.weight.targetTitle' => 'Hedef kilonuz nedir?',
-			'onboarding.weight.targetDescription' => 'Bir hedef kiloyu belirlemek, uzun vadeli planınızı belirlememize yardımcı olur.',
-			'onboarding.weight.metric' => 'Metrekes',
-			'onboarding.weight.imperial' => 'İngilizce',
+			'onboarding.weight.currentTitle' => 'Mevcut kilonuz kaç?',
+			'onboarding.weight.currentDescription' => 'Mevcut kilonuz, günlük hedeflerinizi kişiselleştirmek için önemlidir.',
+			'onboarding.weight.targetTitle' => 'Hedef kilonuz kaç?',
+			'onboarding.weight.targetDescription' => 'Bir hedef kilo belirlemek, uzun vadeli planınızı oluşturmamıza yardımcı olur.',
+			'onboarding.weight.metric' => 'Metrik',
+			'onboarding.weight.imperial' => 'İngiliz',
 			'onboarding.weight.next' => 'İleri',
 			'onboarding.age.title' => 'Doğum gününüz ne zaman?',
-			'onboarding.age.description' => 'Yaşınız, kalori ihtiyaçlarınızı doğru bir şekilde hesaplamamıza yardımcı olur.',
+			'onboarding.age.description' => 'Yaşınız, kalori ihtiyacınızı doğru hesaplamamızda yardımcı olur.',
 			'onboarding.age.next' => 'İleri',
 			'onboarding.bmiScale.underweight' => 'Zayıf',
 			'onboarding.bmiScale.healthy' => 'Sağlıklı',
-			'onboarding.bmiScale.overweight' => 'Kilolu',
+			'onboarding.bmiScale.overweight' => 'Fazla',
 			'onboarding.bmiScale.obese' => 'Obez',
 			'onboarding.bmiScale.categories.underweight' => 'Zayıf',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Sağlıklı ağırlık',
-			'onboarding.bmiScale.categories.overweight' => 'Kilolu',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Sağlıklı kilo',
+			'onboarding.bmiScale.categories.overweight' => 'Fazla kilolu',
 			'onboarding.bmiScale.categories.obese' => 'Obez',
-			'onboarding.bmiScale.messages.underweight' => 'Dengeli bir kiloya ulaşmak için sağlıklı besinlerle bir plan oluşturmanıza yardımcı olabiliriz.',
-			'onboarding.bmiScale.messages.healthy' => 'Harika bir iş çıkardınız! Sağlıklı bir aralıktasınız. Enerjinizi ve canlılığınızı korumanıza yardımcı olacağız.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel}, AI destekli takibiyle hedefinize ulaşmanızı kolaylaştıracak.',
-			'onboarding.bmiScale.messages.obese' => 'Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle destek olmak için buradayız.',
+			'onboarding.bmiScale.messages.underweight' => 'Besin değeri yüksek öğünlerle dengeli bir kiloya ulaşmanız için sağlıklı bir plan oluşturmaya yardımcı olabiliriz.',
+			'onboarding.bmiScale.messages.healthy' => 'Harika! Sağlıklı aralıktasınız. Canlılığınızı ve enerji seviyelerinizi korumanıza yardımcı olacağız.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel}, hedefinize rahatça ulaşmanız için YZ destekli takiple yolculuğunuzu kolaylaştıracak.',
+			'onboarding.bmiScale.messages.obese' => 'Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle yanınızdayız.',
 			'onboarding.weightGoal.title' => 'Hedefiniz nedir?',
-			'onboarding.weightGoal.description' => 'Başarmak istediğinizi en iyi tanımlayan hedefi seçin',
+			'onboarding.weightGoal.description' => 'Ulaşmak istediğinizi en iyi tanımlayan hedefi seçin',
 			'onboarding.activityLevel.title' => 'Ne kadar aktifsiniz?',
-			'onboarding.activityLevel.description' => 'Bu, günlük kalori ihtiyaçlarınızı daha doğru bir şekilde hesaplamamıza yardımcı olur',
-			'onboarding.healthConnect.title' => 'Health Connect ile Bağlan',
-			'onboarding.healthConnect.description' => 'Daha iyi içgörüler ve otomatik kalori takibi için sağlık verilerinizi senkronize edin',
+			'onboarding.activityLevel.description' => 'Bu, günlük kalori ihtiyacınızı daha doğru hesaplamamıza yardımcı olur',
+			'onboarding.healthConnect.title' => 'Health Connect\'e bağlanın',
+			'onboarding.healthConnect.description' => 'Daha iyi içgörü ve otomatik kalori takibi için sağlık verilerinizi eşzamanlayın',
 			'onboarding.healthConnect.automaticTracking.title' => 'Otomatik Kalori Takibi',
-			'onboarding.healthConnect.automaticTracking.description' => 'Fitness uygulamalarınızdan yaktığınız kalorileri takip edin',
+			'onboarding.healthConnect.automaticTracking.description' => 'Fitness uygulamalarınızdan yakılan kalorileri takip edin',
 			'onboarding.healthConnect.progressInsights.title' => 'İlerleme İçgörüleri',
-			'onboarding.healthConnect.progressInsights.description' => 'Sağlık eğilimleriniz hakkında detaylı içgörüler alın',
+			'onboarding.healthConnect.progressInsights.description' => 'Sağlık trendleriniz hakkında ayrıntılı içgörüler edinin',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Sorunsuz Entegrasyon',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'En sevdiğiniz sağlık uygulamalarından verileri senkronize edin',
-			'onboarding.healthConnect.connected' => 'Health Connect Bağlandı',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Favori sağlık uygulamalarınızdan verileri senkronize edin',
+			'onboarding.healthConnect.connected' => 'Health Connect Bağlı',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Bağlı Değil',
-			'onboarding.healthConnect.setup' => 'Health Connect Kurulumu',
-			'onboarding.healthConnect.skipForNow' => 'Şu an için atla',
+			'onboarding.healthConnect.setup' => 'Health Connect\'i Ayarla',
+			'onboarding.healthConnect.skipForNow' => 'Şimdilik atla',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect bağlı.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect başarıyla bağlandı!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için telefon ayarlarınızdan Sağlık Bağlantısı izinlerini etkinleştirin.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'İzin reddedildi. Lütfen telefon ayarlarından ${appLabel} için Health Connect izinlerini etkinleştirin.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect kurulurken hata: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Yalnız Değilsiniz',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Araştırmalar, sürekli takibin uzun vadeli başarının en önemli belirleyicisi olduğunu gösteriyor.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object goal, required Object gender, required Object age}) => '${goal} hedefini ulaşmak isteyen ${gender} bir ${age} yaşındaki biri için, sürekli takip başarı için en önemli belirleyicidir.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}, bunu manuel olarak yapmaktan 10 kat daha kolay hale getiriyor.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Başlamaya hazır mısın?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Anında analiz için yemeklerinin fotoğrafını çek',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Anlamlı ilerleme görmek için düzenli kaydet',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Motivasyonunu korumak için ilerlemeni her gün takip et',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Hadi Gidelim',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Araştırmalar, düzenli takibin uzun vadeli başarının 1 numaralı göstergesi olduğunu gösteriyor.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object goal, required Object gender}) => '${age} yaşında, ${goal} hedefleyen bir ${gender} için düzenli takip başarının en güçlü göstergesidir.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel}, bunu elle yapmaya kıyasla 10 kat kolaylaştırır.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Başlamaya hazır mısınız?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Anında analiz için öğünlerinizin fotoğrafını çekin',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Anlamlı ilerleme görmek için düzenli olarak kayıt tutun',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Motivasyonu korumak için ilerlemenizi her gün takip edin',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Hadi başlayalım',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'birey',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'daha sağlıklı bir siz',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'daha sağlıklı bir sen',
 			'onboarding.reinforcement.healthProfile.title' => 'Sağlık Profiliniz',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Ölçümlerinize dayalı olarak, BMI\'niz ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Deneyiminizi kişiselleştirmek için profilinizi sonlandıralım.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'kazan',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'kaybet',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object diff, required Object unit, required Object direction}) => 'Hedefinize ulaşmak için ${diff} ${unit} ${direction} yapmalısın.',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Ölçümlerinize göre BKİ\'niz ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Deneyiminizi kişiselleştirmek için profilinizi tamamlayalım.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'alacaksınız',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'vereceksiniz',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object diff, required Object unit, required Object direction}) => 'Hedefinize ulaşmak için ${diff} ${unit} ${direction}.',
 			'onboarding.reinforcement.healthProfile.goalReached' => 'Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.',
-			'onboarding.reinforcement.healthProfile.button' => 'Hadi Gidelim',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Mükemmel Bir Başlangıç!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText} yönünde ilk adımı attınız. ${activityText} olduğunuz için, ${appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.',
+			'onboarding.reinforcement.healthProfile.button' => 'Hadi başlayalım',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Harika Başlangıç!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '${goalText} yolunda ilk adımı attınız. ${activityText} olduğunuz için, ${appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Kişiselleştirilmiş kalori hedefleri',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI destekli yemek tespiti',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detaylı makro besin dağılımları',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Hadi Gidelim',
-			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'hedeflerin',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'YZ destekli öğün algılama',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Ayrıntılı makro besin dökümleri',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Hadi başlayalım',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'hedefleriniz',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktif',
-			'tabs.dashboard' => 'Gösterge Tablosu',
+			'tabs.dashboard' => 'Pano',
 			'tabs.history' => 'Geçmiş',
-			'home.aiSummary.title' => 'Yapay Zeka Özetiniz',
-			'home.aiSummary.logMore' => 'Kişiselleştirilmiş yapay zeka içgörülerinizi almak için önümüzdeki birkaç gün içinde daha fazla öğün kaydedin.',
+			'home.aiSummary.title' => 'YZ Özetiniz',
+			'home.aiSummary.logMore' => 'Kişiselleştirilmiş YZ içgörülerinizi almak için önümüzdeki birkaç gün daha fazla öğün kaydedin.',
 			'home.aiSummary.loading' => 'Özetiniz yükleniyor...',
 			'home.aiSummary.mealCount' => ({required Object count}) => '${count} öğün kaydedildi',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Makro denge puanı ${score}',
-			'home.aiSummary.topFoods' => 'En sık tüketilen yiyecekler',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Denge puanı ${score}',
+			'home.aiSummary.topFoods' => 'En çok tüketilenler',
 			'home.aiSummary.trendUp' => 'Kaloriler yükseliyor',
 			'home.aiSummary.trendDown' => 'Kaloriler düşüyor',
-			'home.aiSummary.trendSteady' => 'Kaloriler dengede',
+			'home.aiSummary.trendSteady' => 'Kaloriler sabit kalıyor',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Güncellendi ${time}',
 			'home.dailyGoal.title' => 'Günlük Hedefinizi Belirleyin',
 			'home.dailyGoal.titleSet' => 'Günlük Hedefiniz',
-			'home.dailyGoal.description' => 'Sağlık yolculuğunuza başlamaya hazır mısınız? Aşağıda günlük kalori hedefinizi belirleyin ve ilerlemenize başlayın.',
-			'home.dailyGoal.descriptionSet' => 'Pusulanız ayarlandı! Bu günlük kalori hedefiniz, size rehberlik edecek.',
+			'home.dailyGoal.description' => 'İyilik hâli yolculuğunuza hazır mısınız? İlerlemenizi başlatmak için aşağıdan günlük kalori hedefinizi belirleyin.',
+			'home.dailyGoal.descriptionSet' => 'Pusulanız ayarlandı! Bu, size yol gösterecek günlük kalori hedefiniz.',
 			'home.dailyGoal.yourGoal' => 'Hedefiniz',
 			'home.dailyGoal.goal' => 'Hedef',
 			'home.dailyGoal.dailyCalories' => 'Günlük kalori (kcal)',
 			'home.dailyGoal.setGoal' => 'Hedef Belirle',
-			'home.dailyGoal.intake' => 'Alım',
+			'home.dailyGoal.intake' => 'Alınan',
 			'home.dailyGoal.burned' => 'Yakılan',
 			'home.dailyGoal.weightImpact' => 'Kilo Etkisi',
-			'home.dailyGoal.estLoss' => 'Tahmini kayıp',
-			'home.dailyGoal.estGain' => 'Tahmini kazanım',
+			'home.dailyGoal.estLoss' => 'Tahm. kayıp',
+			'home.dailyGoal.estGain' => 'Tahm. artış',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'Günlük Özeti',
-			'home.dailySummary.calories' => 'Kaloriler',
-			'home.dailySummary.carbs' => 'Karbonhidratlar',
+			'home.dailySummary.title' => 'Günlük Özet',
+			'home.dailySummary.calories' => 'Kalori',
+			'home.dailySummary.carbs' => 'Karbonhidrat',
 			'home.dailySummary.protein' => 'Protein',
 			'home.dailySummary.fat' => 'Yağ',
 			'home.dailySummary.fiber' => 'Lif',
 			'home.dailySummary.grams' => 'gram',
-			'home.dailySummary.chartAccessibilityLabel' => 'Makro besinler grafiği',
+			'home.dailySummary.chartAccessibilityLabel' => 'Makrolar grafiği',
 			'home.intakeProgress.title' => 'Bugünün Makro Dağılımı',
 			'home.intakeProgress.target' => 'Hedef',
 			'home.intakeProgress.current' => 'Mevcut',
 			'home.intakeHistory.title' => '7 Günlük Makro Geçmişi',
-			'home.intakeHistory.trendTitle' => 'Bugünün Eğilimi',
+			'home.intakeHistory.trendTitle' => 'Bugünün Trendi',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Zirve: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Henüz geçmiş yok',
-			'home.intakeHistory.startLogging' => 'Yemekleri kaydetmeye başlayın ve burada\n7 günlük makro eğilimlerinizi görün',
-			'home.mealLog.title' => 'Kaydedilen Yemekler',
-			'home.mealLog.emptyMessage' => 'Son yemeğinizin fotoğrafını çekin ve burada kaydedin.',
-			'home.mealLog.noMealsToday' => 'Bugün kaydedilmiş yemek yok',
-			'home.mealLog.seeAllMeals' => 'Tüm yemekleri gör',
-			'home.mealDescription.title' => 'AI ile Hızlı Ekle',
-			'home.mealDescription.description' => 'Yemeğinizi tanımlayın, AI detaylarla ilgilensin.',
-			'home.mealDescription.hint' => 'Örneğin, kahvaltıda bir koca kase yulaf ezmesi, dilimlenmiş muz ve bir ölçek whey protein yedim ...',
-			'home.mealDescription.analyzeMeal' => 'Yemeği analiz et',
-			'home.favoriteMeals.title' => 'Favori Yemekler',
-			'home.favoriteMeals.description' => 'Favori yemeklerinizden birini hızlıca ekleyin.',
-			'home.favoriteMeals.noFavorites' => 'Henüz favori yemek yok.',
-			'home.favoriteMeals.addFavoriteHint' => 'Favori olarak işaretlemek için bir yemeğin üzerine yıldızı tıklayın.',
-			'home.favoriteMeals.seeAll' => 'Hepsini Gör',
+			'home.intakeHistory.startLogging' => '7 günlük makro trendlerinizi görmek için\nöğün kaydetmeye başlayın',
+			'home.mealLog.title' => 'Kaydedilen Öğünler',
+			'home.mealLog.emptyMessage' => 'Buraya kaydetmek için son öğününüzün fotoğrafını çekin.',
+			'home.mealLog.noMealsToday' => 'Bugün kayıtlı öğün yok',
+			'home.mealLog.seeAllMeals' => 'Tüm öğünleri gör',
+			'home.mealDescription.title' => 'YZ ile Hızlı Ekle',
+			'home.mealDescription.description' => 'Öğününüzü tarif edin, detayları YZ halletsin.',
+			'home.mealDescription.hint' => 'örn. Kahvaltıda büyük bir kase yulaf ezmesi, bir dilimlenmiş muz ve bir ölçek whey aldım ...',
+			'home.mealDescription.analyzeMeal' => 'Öğünü analiz et',
+			'home.favoriteMeals.title' => 'Favori Öğünler',
+			'home.favoriteMeals.description' => 'Favori öğünlerinizden birini hızla ekleyin.',
+			'home.favoriteMeals.noFavorites' => 'Henüz favori öğün yok.',
+			'home.favoriteMeals.addFavoriteHint' => 'Bir öğünü favori işaretlemek için yıldız simgesine dokunun.',
+			'home.favoriteMeals.seeAll' => 'Tümünü gör',
 			'home.favoriteMeals.add' => 'Ekle',
-			'home.mealSnap.title' => 'Yemeğinizi Yakala ve Takip Et',
-			'home.mealSnap.description' => 'AI analizi için yiyeceklerinizin fotoğrafını çekmek üzere kameranızı kullanın.',
+			'home.mealSnap.title' => 'Çek ve Öğününü Takip Et',
+			'home.mealSnap.description' => 'YZ analizi için yemeğinizin fotoğrafını çekmek üzere kameranızı kullanın.',
 			'home.mealSnap.openCamera' => 'Kamerayı Aç',
 			'home.mealSnap.gallery' => 'Galeri',
-			'home.connectHealth.title' => 'Health Connect ile Senkronize Ol',
-			'home.connectHealth.description' => 'Beslenme verilerinizi Health Connect ile senkronize edin',
-			'home.connectHealth.install' => 'Kur',
+			'home.mealSnap.compressingPhoto' => 'Fotoğraf optimize ediliyor…',
+			'home.mealSnap.uploadingPhoto' => 'Fotoğraf yükleniyor…',
+			'home.connectHealth.title' => 'Health Connect ile Senkronize Et',
+			'home.connectHealth.description' => 'Beslenme verilerinizi Health Connect ile eşzamanlayın',
+			'home.connectHealth.install' => 'Yükle',
 			'home.connectHealth.connect' => 'Bağlan',
-			'history.noMeals' => 'Yemek kaydı yok',
-			'history.emptyMessage' => 'Son yemeğinizin fotoğrafını çekin ve burada kaydedin.',
+			'history.noMeals' => 'Kayıtlı öğün yok',
+			'history.emptyMessage' => 'Buraya kaydetmek için son öğününüzün fotoğrafını çekin.',
 			'history.today' => 'Bugün',
 			'history.yesterday' => 'Dün',
 			'meal.ohNo' => 'Ah hayır!',
 			'meal.delete' => 'Sil',
-			'meal.editMeal' => 'Yemeği Düzenle',
-			'meal.addMeal' => 'Yemek Ekle',
-			'meal.saveMeal' => 'Yemeği Kaydet',
+			'meal.editMeal' => 'Öğünü Düzenle',
+			'meal.addMeal' => 'Öğün Ekle',
+			'meal.saveMeal' => 'Öğünü Kaydet',
 			'meal.save' => 'Kaydet',
-			'meal.mealName' => 'Yemek Adı',
-			'meal.mealNameHint' => 'örn. Çırpılmış yumurta ve tost',
-			'meal.mealQuantity' => 'Yemek Miktarı',
-			'meal.mealQuantityHint' => 'Örneğin, 1 kase, 2 dilim',
-			'meal.timeOfMeal' => 'Yemeğin Zamanı',
-			'meal.timeOfMealHint' => 'Yemeğinizi yediğiniz zamanı seçin',
-			'meal.mealType' => 'Yemek Türü',
-			'meal.nutrition.calories' => 'Kaloriler',
-			'meal.nutrition.carbs' => 'Karbonhidratlar (g)',
+			'meal.mealName' => 'Öğün Adı',
+			'meal.mealNameHint' => 'örn., Çırpılmış yumurta ve tost',
+			'meal.mealQuantity' => 'Öğün Miktarı',
+			'meal.mealQuantityHint' => 'örn., 1 kase, 2 dilim',
+			'meal.timeOfMeal' => 'Öğün Zamanı',
+			'meal.timeOfMealHint' => 'Öğünü yediğiniz zamanı seçin',
+			'meal.mealType' => 'Öğün Türü',
+			'meal.nutrition.calories' => 'Kalori',
+			'meal.nutrition.carbs' => 'Karbonhidrat (g)',
 			'meal.nutrition.protein' => 'Protein (g)',
 			'meal.nutrition.fat' => 'Yağ (g)',
 			'meal.nutrition.fiber' => 'Lif (g)',
-			'meal.deleteConfirmation.title' => 'Yemeği Sil',
-			'meal.deleteConfirmation.message' => 'Bu yemek kaydını silmek istediğinize emin misiniz?',
+			'meal.deleteConfirmation.title' => 'Öğünü Sil',
+			'meal.deleteConfirmation.message' => 'Bu öğün kaydını silmek istediğinizden emin misiniz?',
 			'meal.deleteConfirmation.cancel' => 'İptal',
 			'meal.deleteConfirmation.delete' => 'Sil',
-			'meal.addedToLog' => 'Yemek kaydınıza eklendi!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Yemek eklenemedi: ${error}',
+			'meal.addedToLog' => 'Öğün günlüğünüze eklendi!',
+			'meal.couldNotAdd' => ({required Object error}) => 'Öğün eklenemedi: ${error}',
 			'meal.savedSuccessfully' => 'Öğün başarıyla eklendi!',
 			'meal.updatedSuccessfully' => 'Öğün başarıyla güncellendi!',
-			'meal.errorSaving' => ({required Object error}) => 'Öğün kaydedilirken hata oluştu: ${error}',
-			'meal.removedFromFavorites' => 'Favorilerden çıkarıldı!',
-			'meal.savedAsFavorite' => 'Yemek favori olarak kaydedildi!',
-			'meal.unfavorite' => 'Favorilerden Kaldır',
+			'meal.errorSaving' => ({required Object error}) => 'Öğün kaydedilirken hata: ${error}',
+			'meal.removedFromFavorites' => 'Favorilerden kaldırıldı!',
+			'meal.savedAsFavorite' => 'Öğün favorilere kaydedildi!',
+			'meal.unfavorite' => 'Favoriden çıkar',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Favori güncellenemedi: ${error}',
 			'meal.feedbackThanks' => 'Geri bildiriminiz için teşekkürler!',
-			'meal.reanalysisUpdated' => 'Geri bildiriminiz doğrultusunda öğün analizini güncelledik.',
-			'meal.failedToProcess' => ({required Object error}) => 'İşlem gerçekleştirilemedi: ${error}',
+			'meal.reanalysisUpdated' => 'Geri bildiriminize göre öğün analizi güncellendi.',
+			'meal.failedToProcess' => ({required Object error}) => 'İşlenemedi: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Görüntü işlenemedi: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'Görüntü sıkıştırırken hata: ${error}',
-			'meal.failedToSave' => 'Veri kaydedilemedi. Lütfen tekrar deneyin.',
+			'meal.errorCompressingImage' => ({required Object error}) => 'Görüntü sıkıştırılırken hata: ${error}',
+			'meal.failedToSave' => 'Veriler kaydedilemedi. Lütfen tekrar deneyin.',
 			'meal.skip' => 'Atla',
-			'meal.variation.question' => ({required Object current, required Object total}) => 'Soru ${current} / ${total}',
-			'meal.variation.noVariationsAvailable' => 'Hiç varyasyon bulunamadı',
+			'meal.variation.question' => ({required Object total, required Object current}) => '${total} sorudan ${current}',
+			'meal.variation.noVariationsAvailable' => 'Varyasyon yok',
+			'meal.analysis.title' => 'YZ öğün analizi',
+			'meal.analysis.reassurance' => 'Bu genellikle birkaç saniye sürer.',
+			'meal.analysis.stepStarted' => 'Başlanıyor…',
+			'meal.analysis.stepDecomposition' => 'Öğününüz anlaşılıyor…',
+			'meal.analysis.stepIngredients' => 'İçerikler besin verileriyle eşleştiriliyor…',
+			'meal.analysis.stepUncertainty' => 'Güven kontrol ediliyor…',
+			'meal.analysis.stepMealTypeQuestion' => 'Neredeyse bitti…',
+			'meal.analysis.stepResult' => 'Sonuç tamamlanıyor…',
+			'meal.analysis.stepError' => 'Bir şeyler ters gitti',
+			'meal.analysis.stepDefault' => 'Öğününüz analiz ediliyor…',
+			'meal.analysis.progressUnderstand' => 'Anla',
+			'meal.analysis.progressMatch' => 'Eşle',
+			'meal.analysis.progressCheck' => 'Kontrol',
+			'meal.analysis.progressFinish' => 'Bitir',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} içerik tespit edildi',
+			'meal.analysis.ingredientsPending' => 'İçerikler taranıyor…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
+			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
+			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
+			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
+			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
+			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.feedback.title' => 'What looks wrong?',
+			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
+			'meal.feedback.tellUsMore' => 'Tell us more',
+			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
+			'meal.feedback.submit' => 'Submit',
+			'meal.feedback.issueFoodIdentification' => 'Food identification',
+			'meal.feedback.issuePortionSize' => 'Portion size',
+			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
+			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
+			'meal.feedback.issueMissingItems' => 'Missing items',
+			'meal.feedback.issueExtraItems' => 'Extra items',
+			'meal.feedback.issueOther' => 'Other',
 			'favorites.title' => 'Favoriler',
-			'favorites.empty' => 'Henüz favori yemek yok.',
-			'favorites.searchPlaceholder' => 'Favori yemekleri ara',
-			'favorites.searchEmptyTitle' => 'Aramanıza uyan favori bulunamadı',
-			'favorites.searchEmptySubtitle' => 'Farklı bir yemek adı, porsiyon veya öğün türü deneyin.',
+			'favorites.empty' => 'Henüz favori öğün yok.',
+			'favorites.searchPlaceholder' => 'Favori öğünlerde ara',
+			'favorites.searchEmptyTitle' => 'Aramanızla eşleşen favori yok',
+			'favorites.searchEmptySubtitle' => 'Farklı bir öğün adı, miktarı veya türü deneyin.',
 			'favorites.sortLabel' => 'Favorileri sırala',
 			'favorites.undo' => 'Geri al',
 			'favorites.removed' => ({required Object name}) => '${name} favorilerden kaldırıldı',
-			'favorites.sortOptions.recent' => 'Son eklenenler',
+			'favorites.sortOptions.recent' => 'En yeni',
 			'favorites.sortOptions.calories' => 'Kalori',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profil',
@@ -1842,75 +1936,75 @@ extension on TranslationsTr {
 			'profile.viewAndManage' => 'Sağlık bilgilerinizi görüntüleyin ve yönetin',
 			'profile.sections.profile' => 'PROFİL',
 			'profile.sections.basicInformation' => 'TEMEL BİLGİLER',
-			'profile.sections.goalsAndActivity' => 'HEDEFLER VE FAALİYETLER',
+			'profile.sections.goalsAndActivity' => 'HEDEFLER VE AKTİVİTE',
 			'profile.sections.calculatedValues' => 'HESAPLANAN DEĞERLER',
 			'profile.gender' => 'Cinsiyet',
 			'profile.height' => 'Boy',
 			'profile.weight' => 'Kilo',
 			'profile.age' => 'Yaş',
 			'profile.weightGoal' => 'Kilo Hedefi',
-			'profile.targetWeight' => 'Hedef Ağırlık',
-			'profile.activityLevel' => 'Aktivite Seviyesi',
-			'profile.healthMetrics' => 'Sağlık Metrikleri',
+			'profile.targetWeight' => 'Hedef Kilo',
+			'profile.activityLevel' => 'Aktivite Düzeyi',
+			'profile.healthMetrics' => 'Sağlık Ölçümleri',
 			'profile.notSet' => 'Ayarlanmadı',
-			'profile.years' => 'yıl',
+			'profile.years' => 'yaş',
 			'profile.updatedSuccessfully' => 'Profil başarıyla güncellendi!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'Günlük Hedef',
-			'profile.calculatedValues.calPerDay' => 'kal/gün',
-			'profile.calculatedValues.notAvailable' => 'YOK',
+			'profile.calculatedValues.calPerDay' => 'kcal/gün',
+			'profile.calculatedValues.notAvailable' => 'Yok',
 			'healthScore.title' => 'Sağlık Skoru',
-			'healthScore.whyThisScore' => 'Bu puan neden?',
-			'healthScore.note' => 'Bu puan, tanımlanan bileşenler ve beslenme yoğunluğuna dayanan bir AI tahminidir. Her zaman bir profesyonelle diyet tavsiyesi için danışın.',
+			'healthScore.whyThisScore' => 'Bu skor neden?',
+			'healthScore.note' => 'Bu skor, tespit edilen içerikler ve besin yoğunluğuna dayalı YZ tahminidir. Diyetle ilgili öneriler için her zaman bir uzmana danışın.',
 			'healthScore.unhealthy' => 'Sağlıksız',
 			'healthScore.healthy' => 'Sağlıklı',
-			'healthScore.neutral' => 'Tarafsız',
+			'healthScore.neutral' => 'Nötr',
 			'editProfile.title' => 'Profili Düzenle',
 			'editProfile.sections.personalInformation' => 'KİŞİSEL BİLGİLER',
 			'editProfile.sections.physicalMeasurements' => 'FİZİKSEL ÖLÇÜMLER',
-			'editProfile.sections.goalsAndActivity' => 'HEDEFLER VE FAALİYETLER',
+			'editProfile.sections.goalsAndActivity' => 'HEDEFLER VE AKTİVİTE',
 			'editProfile.gender' => 'Cinsiyet',
 			'editProfile.dateOfBirth' => 'Doğum Tarihi',
 			'editProfile.height' => 'Boy',
 			'editProfile.weight' => 'Kilo',
 			'editProfile.weightGoal' => 'Kilo Hedefi',
-			'editProfile.activityLevel' => 'Aktivite Seviyesi',
-			'editProfile.metric' => 'Metrekes',
-			'editProfile.imperial' => 'İngilizce',
+			'editProfile.activityLevel' => 'Aktivite Düzeyi',
+			'editProfile.metric' => 'Metrik',
+			'editProfile.imperial' => 'İngiliz',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
 			'editProfile.unitLbs' => 'lbs',
-			'editProfile.metricCm' => 'Metrekes (cm)',
-			'editProfile.imperialFtIn' => 'İngilizce (ft/in)',
-			'editProfile.metricKg' => 'Metrekes (kg)',
-			'editProfile.imperialLbs' => 'İngilizce (lbs)',
+			'editProfile.metricCm' => 'Metrik (cm)',
+			'editProfile.imperialFtIn' => 'İngiliz (ft/in)',
+			'editProfile.metricKg' => 'Metrik (kg)',
+			'editProfile.imperialLbs' => 'İngiliz (lbs)',
 			'editProfile.genders.male' => 'Erkek',
 			'editProfile.genders.female' => 'Kadın',
 			'editProfile.genders.other' => 'Diğer',
-			'editProfile.weightGoals.loseWeight.name' => 'Kilo Kaybet',
-			'editProfile.weightGoals.loseWeight.description' => 'Kilo kaybetmek için kalori açığı oluşturun',
-			'editProfile.weightGoals.maintainWeight.name' => 'Kilo Koruma',
+			'editProfile.weightGoals.loseWeight.name' => 'Kilo Ver',
+			'editProfile.weightGoals.loseWeight.description' => 'Kilo vermek için kalori açığı oluştur',
+			'editProfile.weightGoals.maintainWeight.name' => 'Kiloyu Koru',
 			'editProfile.weightGoals.maintainWeight.description' => 'Mevcut kilonuzu koruyun',
-			'editProfile.weightGoals.gainWeight.name' => 'Kilo Kazan',
-			'editProfile.weightGoals.gainWeight.description' => 'Kilo almak için kalori fazlası oluşturun',
+			'editProfile.weightGoals.gainWeight.name' => 'Kilo Al',
+			'editProfile.weightGoals.gainWeight.description' => 'Kilo almak için kalori fazlası oluştur',
 			'editProfile.activityLevels.sedentary.name' => 'Hareketsiz',
-			'editProfile.activityLevels.sedentary.description' => 'Az veya hiç egzersiz yok',
+			'editProfile.activityLevels.sedentary.description' => 'Az ya da hiç egzersiz yok',
 			'editProfile.activityLevels.lightlyActive.name' => 'Hafif Aktif',
-			'editProfile.activityLevels.lightlyActive.description' => 'Haftada 1-3 gün hafif egzersiz',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Orta Derecede Aktif',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Haftada 3-5 gün orta düzeyde egzersiz',
+			'editProfile.activityLevels.lightlyActive.description' => 'Hafif egzersiz 1-3 gün/hafta',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Orta Derece Aktif',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Orta şiddette egzersiz 3-5 gün/hafta',
 			'editProfile.activityLevels.veryActive.name' => 'Çok Aktif',
-			'editProfile.activityLevels.veryActive.description' => 'Haftada 6-7 gün yoğun egzersiz',
+			'editProfile.activityLevels.veryActive.description' => 'Zorlayıcı egzersiz 6-7 gün/hafta',
 			'editProfile.activityLevels.extremelyActive.name' => 'Aşırı Aktif',
-			'editProfile.activityLevels.extremelyActive.description' => 'Çok zor bir egzersiz, fiziksel iş',
+			'editProfile.activityLevels.extremelyActive.description' => 'Çok zorlayıcı egzersiz, fiziksel iş',
 			'settings.title' => 'Ayarlar',
 			'settings.sections.profile' => 'PROFİL',
 			'settings.sections.localization' => 'YERELLEŞTİRME',
 			'settings.sections.notifications' => 'BİLDİRİMLER',
-			'settings.sections.healthConnect' => 'SAĞLIK BAĞLANTISI',
-			'settings.sections.supportAndLegal' => 'DESTEK & YASAL',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.supportAndLegal' => 'DESTEK VE YASAL',
 			'settings.sections.about' => 'HAKKINDA',
 			'settings.sections.dangerZone' => 'TEHLİKE BÖLGESİ',
 			'settings.sections.developer' => 'GELİŞTİRİCİ',
@@ -1918,165 +2012,165 @@ extension on TranslationsTr {
 			'settings.editProfile.subtitle' => 'Kişisel bilgilerinizi güncelleyin',
 			'settings.language.title' => 'Dil',
 			'settings.language.subtitle' => 'Tercih ettiğiniz dili seçin',
-			'settings.language.searchHint' => 'Dilleri ara...',
+			'settings.language.searchHint' => 'Dillerde ara...',
 			'settings.language.noResults' => 'Sonuç bulunamadı',
 			'settings.heightUnit.title' => 'Boy Birimi',
 			'settings.weightUnit.title' => 'Kilo Birimi',
-			'settings.mealReminders.title' => 'Yemek Hatırlatıcıları',
-			'settings.mealReminders.subtitle' => 'Zamanında uyarılarla doğru yolda kalın',
+			'settings.mealReminders.title' => 'Öğün Hatırlatıcıları',
+			'settings.mealReminders.subtitle' => 'Zamanında uyarılarla rotada kalın',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Açık',
 			'settings.theme.dark' => 'Koyu',
 			'settings.theme.system' => 'Sistem',
 			'settings.sendFeedback.title' => 'Geri Bildirim Gönder',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel}\'yi geliştirmemize yardımcı olun',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Uygulaması Geri Bildirimi',
-			'settings.sendFeedback.emailBodyPrefix' => 'Lütfen geri bildiriminizi aşağıda belirtin:',
-			'settings.sendFeedback.appVersion' => 'Uygulama Versiyonu',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel}\'i geliştirmemize yardımcı olun',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Uygulama Geri Bildirimi',
+			'settings.sendFeedback.emailBodyPrefix' => 'Lütfen geri bildiriminizi aşağıya yazın:',
+			'settings.sendFeedback.appVersion' => 'Uygulama Sürümü',
 			'settings.sendFeedback.device' => 'Cihaz',
-			'settings.sendFeedback.osVersion' => 'İşletim Sistemi Versiyonu',
+			'settings.sendFeedback.osVersion' => 'OS Sürümü',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.exportMealHistory.title' => 'Öğün Geçmişini Dışa Aktar',
-			'settings.exportMealHistory.subtitle' => 'Kaydettiğiniz öğünlerin CSV dosyasını paylaşın',
-			'settings.exportMealHistory.shareText' => 'Calorify öğün geçmişi dışa aktarımı',
+			'settings.exportMealHistory.subtitle' => 'Kaydettiğiniz öğünlerin CSV\'sini paylaşın',
+			'settings.exportMealHistory.shareText' => 'Calorify öğün geçmişi dışa aktarımınız',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Öğün geçmişi dışa aktarılamadı: ${error}',
 			'settings.clearAllData.title' => 'Tüm Verileri Temizle',
-			'settings.clearAllData.subtitle' => 'Tüm bilgilerinizi geri döndürülemez bir şekilde silin',
-			'settings.clearAllData.confirmationTitle' => 'Tüm Verileri Temizle?',
-			'settings.clearAllData.confirmationMessage' => 'Bu işlem geri alınamaz. Tüm kaydedilmiş yemekleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecektir.',
+			'settings.clearAllData.subtitle' => 'Tüm bilgilerinizi geri döndürülemez şekilde silin',
+			'settings.clearAllData.confirmationTitle' => 'Tüm Veriler Silinsin mi?',
+			'settings.clearAllData.confirmationMessage' => 'Bu işlem geri alınamaz. Kaydedilen tüm öğünleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecek.',
 			'settings.clearAllData.cancel' => 'İptal',
-			'settings.clearAllData.clearEverything' => 'Her Şeyi Temizle',
+			'settings.clearAllData.clearEverything' => 'Her Şeyi Sil',
 			'settings.debugOptions.title' => 'Hata Ayıklama Seçenekleri',
-			'settings.developerModeEnabled' => 'Geliştirici modu etkinleştirildi!',
-			'settings.healthConnect.title' => 'Sağlık Bağlantısı',
+			'settings.developerModeEnabled' => 'Geliştirici modu etkin!',
+			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'İzinleri görüntüleyin ve yönetin',
-			'settings.healthConnect.unavailable.title' => 'Sağlık Bağlantısı Kullanılamıyor',
-			'settings.healthConnect.unavailable.description' => 'Sağlık Bağlantısı bu cihazda kullanılamıyor. Android 14 veya sonrası gerekmektedir.',
+			'settings.healthConnect.unavailable.title' => 'Health Connect Kullanılamıyor',
+			'settings.healthConnect.unavailable.description' => 'Health Connect bu cihazda mevcut değil. Lütfen Play Store\'dan Health Connect\'i yükleyin (Android 9+) veya Android 14+ sürümüne güncelleyin.',
 			'settings.healthConnect.permissions.title' => 'İzinler',
-			'settings.healthConnect.permissions.description' => 'Sağlık Bağlantısı entegrasyonunu sağlamak için aşağıdaki izinler istenmektedir:',
+			'settings.healthConnect.permissions.description' => 'Health Connect entegrasyonu sağlamak için aşağıdaki izinler istenir:',
 			'settings.healthConnect.permissions.granted' => 'Verildi',
 			'settings.healthConnect.permissions.notGranted' => 'Verilmedi',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Toplam Yakılan Kalorileri Oku',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Uygulamaya, Sağlık Bağlantısından toplam yakılan kalorilerinizi okuma izni verir.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Bu izin, uygulamada günlük kalori yakımınızı görüntülemek için kullanılır ve gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olur.',
-			'settings.healthConnect.permissions.nutritionRead.title' => 'Besin Verilerini Oku',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Uygulamaya, Sağlık Bağlantısından besin verilerini okuma izni verir.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Bu izin, diğer uygulamalar tarafından Sağlık Bağlantısına kaydedilen besin bilgilerini okumanızı sağlar ve beslenmenize dair kapsamlı bir görünüm sunar.',
-			'settings.healthConnect.permissions.nutritionWrite.title' => 'Besin Verilerini Yaz',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Uygulamaya, Sağlık Bağlantısına besin verilerini yazma izni verir.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Bu izin, kaydedilen öğünlerinizi Sağlık Bağlantısına senkronize etmenizi sağlar ve besin verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarında erişilebilir hale getirir.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Toplam Yakılan Kaloriyi Oku',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Uygulamanın Health Connect\'ten toplam yakılan kalorilerinizi okumasına izin verir.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Bu izin, gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olmak için uygulamada günlük kalori yakımınızı göstermek amacıyla kullanılır.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Beslenme Verilerini Oku',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Uygulamanın Health Connect\'ten beslenme verilerini okumasına izin verir.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Bu izin, Health Connect\'e bağlı diğer uygulamalar tarafından kaydedilmiş olabilecek beslenme bilgilerini uygulamanın okumasını sağlar ve beslenmenize kapsamlı bir bakış sunar.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Beslenme Verileri Yaz',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Uygulamanın Health Connect\'e beslenme verileri yazmasına izin verir.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Bu izin, kaydettiğiniz öğünlerin Health Connect ile senkronize edilmesini sağlar ve beslenme verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarına sunar.',
 			'settings.healthConnect.managePermissions' => 'İzinleri Yönet',
-			'settings.healthConnect.openSettings' => 'Sağlık Bağlantısı Ayarlarını Aç',
-			'settings.healthConnect.requestPermissions' => 'İzinleri Talep Et',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'İzin talebi iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.',
-			'settings.healthConnect.permissionRequestFailed' => 'İzinleri talep edemiyorum. Lütfen tekrar deneyin veya izinleri Manuel olarak Sağlık Bağlantısı ayarlarında verin.',
-			'settings.healthConnect.requestingPermissions' => 'Requesting...',
+			'settings.healthConnect.openSettings' => 'Health Connect Ayarlarını Aç',
+			'settings.healthConnect.requestPermissions' => 'İzin İste',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'İzin isteği iptal edildi veya başarısız oldu. Lütfen tekrar deneyin ya da Health Connect ayarlarından el ile izin verin.',
+			'settings.healthConnect.permissionRequestFailed' => 'İzinler istenemedi. Lütfen tekrar deneyin ya da Health Connect ayarlarından el ile izin verin.',
+			'settings.healthConnect.requestingPermissions' => 'İsteniyor...',
 			'settings.about.title' => 'Hakkında',
-			'settings.about.tagline' => 'Hızlı, ücretsiz ve gizlilik odaklı kalori farkındalığı',
-			'settings.about.ourStory.title' => 'Hikayemiz',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel}, basit bir hayal kırıklığından doğdu: çoğu kalori takip uygulaması ya aşırı karmaşık, sürekli manuel giriş gerektiriyor, yüksek abonelik ücretleri talep ediyor ya da gizliliği ihlal ediyor.\n\nBir bağımsız geliştirici olarak, daha basit ve adil bir şey inşa etmek istedim - çabayı azaltan, hızlı ve ücretsiz kalmayı sağlayan ve sağlık verilerinize saygı gösteren bir uygulama.\n\n${appLabel}, var olmasını istediğim uygulama: hesap yok, izleme yok, reklam yok - sadece net, pratik bilgiler ve sağlık hedefleriniz.',
+			'settings.about.tagline' => 'Hızlı, ücretsiz ve mahremiyet odaklı kalori farkındalığı',
+			'settings.about.ourStory.title' => 'Hikâyemiz',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel}, basit bir hayal kırıklığından doğdu: Çoğu kalori takip uygulaması ya gereğinden karmaşık, sürekli manuel giriş istiyor, yüksek abonelik ücretleri talep ediyor ya da gizlilikten ödün veriyor.\n\nTek geliştirici olarak daha basit ve daha adil bir şey inşa etmek istedim — emeği azaltmak için yapay zekâ kullanan, hızlı ve ücretsiz kalan ve sağlık verilerinize saygı duyan bir uygulama.\n\n${appLabel}, keşke var olsaydı dediğim uygulama: hesap yok, izleme yok, reklam yok — yalnızca net, pratik içgörüler ve sağlık hedefleriniz.',
 			'settings.about.privacy.title' => 'Gizliliğiniz Önemli',
-			'settings.about.privacy.description' => 'Gizlilik, sonradan düşünülmüş bir konu değil - bir tasarım ilkesidir. Pratikte bunun ne anlama geldiği:',
+			'settings.about.privacy.description' => 'Gizlilik bir sonradan düşünce değil — bir tasarım ilkesidir. Pratikte bu şu anlama gelir:',
 			'settings.about.privacy.noAccounts' => 'Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Davranışsal izleme yok\n${appLabel}, etkinliğinizi izlemiyor, kullanım profilleri oluşturmuyor ya da sizi diğer uygulamalarda veya web sitelerinde takip etmiyor.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Reklamsız tasarım\n${appLabel}, reklam veya veri odaklı para kazanma olmadan çalışacak şekilde tasarlanmıştır.',
-			'settings.about.privacy.noDataSelling' => 'Veri satışı yok\nSağlık verileriniz asla satılmıyor veya üçüncü taraflarla paylaşılmıyor.',
-			'settings.about.privacy.localStorage' => 'Yerel depolama\nVerileriniz cihazınızda kalır.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Davranış takibi yok\n${appLabel} etkinliğinizi izlemez, kullanım profilleri oluşturmaz ve sizi uygulamalar veya web siteleri arasında takip etmez.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Tasarımı gereği reklamsız\n${appLabel}, reklama veya veriye dayalı para kazanma modellerine ihtiyaç duymadan çalışacak şekilde tasarlandı.',
+			'settings.about.privacy.noDataSelling' => 'Veri satışı yok\nSağlık verileriniz üçüncü taraflarla asla satılmaz veya paylaşılmaz.',
+			'settings.about.privacy.localStorage' => 'Öncelik yerel depolama\nVerileriniz cihazınızda kalır.',
 			'settings.about.privacy.privacyPolicy' => 'Gizlilik Politikası',
-			'settings.about.developer.title' => 'Bir Bağımsız Geliştirici Tarafından İnovasyon',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}, sakin ve gizliliğe saygılı sağlık yazılımları oluşturma hedefiyle tek bir bağımsız geliştirici tarafından inşa ve bakım yapılmaktadır.\n\nGeri bildirimler kişisel olarak okunmakta ve uygulamanın yönünü şekillendirmeye yardımcı olmaktadır.',
-			'settings.about.developer.website' => 'Web Sitesi',
+			'settings.about.developer.title' => 'Tek Bir Geliştirici Tarafından Yapıldı',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}, sade ve gizliliğe saygılı sağlık yazılımları geliştirmeye odaklanan tek bir geliştirici tarafından inşa edilip sürdürülüyor.\n\nGeri bildirimler bizzat okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.',
+			'settings.about.developer.website' => 'Web sitesi',
 			'settings.about.developer.email' => 'E-posta',
-			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel}\'dan memnun musunuz?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'ı herkes için daha iyi hale getirmeye yardımcı oluyor.',
-			'settings.about.feedback.rateApp' => 'Play Store\'da Derecelendir',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel}\'i beğendiniz mi?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Geri bildiriminiz, ${appLabel}\'i herkes için daha iyi hâle getirir.',
+			'settings.about.feedback.rateApp' => 'Play Store\'da oy ver',
 			'settings.about.feedback.sendFeedback' => 'Geri Bildirim Gönder',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify Sürüm ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Yapı ${buildNumber}',
-			'reminders.title' => 'Hatırlatıcılarla doğru yolda kalın',
-			'reminders.description' => 'Yemeklerinizi kaydetmek ve beslenme hedeflerinize sadık kalmak için nazik hatırlatmalar alın',
-			'reminders.notificationsEnabled' => 'Bildirimler Etkinleştirildi',
+			'reminders.title' => 'Hatırlatıcılarla rotada kalın',
+			'reminders.description' => 'Öğünlerinizi kaydetmeniz ve beslenme hedeflerinizle tutarlı olmanız için nazik hatırlatmalar alın',
+			'reminders.notificationsEnabled' => 'Bildirimler Etkin',
 			'reminders.notificationsDisabled' => 'Bildirimler Devre Dışı',
-			'reminders.enabledSubtitle' => 'Yemek hatırlatmalarını alacaksınız',
-			'reminders.disabledSubtitle' => 'Yemek hatırlatmaları almak için bildirimleri etkinleştirin',
-			'reminders.mealReminders' => 'Yemek Hatırlatmaları',
+			'reminders.enabledSubtitle' => 'Öğün hatırlatıcıları alacaksınız',
+			'reminders.disabledSubtitle' => 'Öğün hatırlatıcıları için bildirimleri etkinleştirin',
+			'reminders.mealReminders' => 'Öğün Hatırlatıcıları',
 			'reminders.breakfast' => 'Kahvaltı',
-			'reminders.lunch' => 'Öğle',
-			'reminders.dinner' => 'Akşam',
+			'reminders.lunch' => 'Öğle yemeği',
+			'reminders.dinner' => 'Akşam yemeği',
 			'reminders.snack' => 'Atıştırmalık',
 			'reminders.unknown' => 'Bilinmiyor',
 			'reminders.change' => 'Değiştir',
 			'reminders.enableNotifications' => 'Bildirimleri Etkinleştir',
-			'reminders.skipForNow' => 'Şu an için atla',
+			'reminders.skipForNow' => 'Şimdilik atla',
 			'reminders.saveChanges' => 'Değişiklikleri Kaydet',
 			'reminders.enabledSuccessfully' => 'Bildirimler başarıyla etkinleştirildi!',
 			'reminders.permissionDenied' => 'Bildirim izni reddedildi',
-			'reminders.errorEnabling' => ({required Object error}) => 'Bildirimleri etkinleştirirken hata: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kurulum tamamlanırken hata: ${error}',
+			'reminders.errorEnabling' => ({required Object error}) => 'Bildirimler etkinleştirilirken hata: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kurulum tamamlarken hata: ${error}',
 			'notifications.breakfast.title' => 'Kahvaltı Zamanı! 🍳',
 			'notifications.breakfast.body' => 'Kahvaltınızı kaydetmeyi unutmayın',
-			'notifications.lunch.title' => 'Öğle Zamanı! 🥗',
+			'notifications.lunch.title' => 'Öğle Yemeği Zamanı! 🥗',
 			'notifications.lunch.body' => 'Öğle yemeğinizi kaydetme zamanı',
 			'notifications.dinner.title' => 'Akşam Yemeği Zamanı! 🍽️',
 			'notifications.dinner.body' => 'Akşam yemeğinizi kaydetmeyi unutmayın',
 			'notifications.snack.title' => 'Atıştırmalık Zamanı! 🍎',
-			'notifications.snack.body' => 'Sağlıklı bir atıştırmalık zamanı',
+			'notifications.snack.body' => 'Sağlıklı bir atıştırma zamanı',
 			'notifications.test.title' => 'Test Bildirimi',
-			'login.title' => 'Giriş Yap',
+			'login.title' => 'Giriş',
 			'login.signInWithGoogle' => 'Google ile giriş yap',
-			'login.signInFailed' => 'Google Girişi başarısız oldu veya iptal edildi.',
-			'disclaimer.pleaseNote' => 'Lütfen Dikkate Alın',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel}, tahmini besin bilgileri sağlar. Doğruluk, girdiğiniz bilgilere ve gıda çeşitliliklerine bağlıdır. Rehber olarak kullanın, kesin bir kaynak olarak değil. Kişisel diyet tavsiyesi için bir uzmana danışın.',
+			'login.signInFailed' => 'Google ile giriş başarısız oldu veya iptal edildi.',
+			'disclaimer.pleaseNote' => 'Lütfen Dikkat',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel}, tahmini besin bilgileri sunar. Doğruluk, girdilerinize ve yiyecek farklılıklarına bağlıdır. Kesin bir kaynak değil, yol gösterici olarak kullanın. Kişiselleştirilmiş diyet tavsiyesi için bir uzmana danışın.',
 			'disclaimer.snap.portionSize.title' => 'Porsiyon Boyutu',
-			'disclaimer.snap.portionSize.description' => 'Tahminlerin doğruluğu, porsiyon boyutunun doğru bir şekilde değerlendirilmesine dayanmaktadır.',
+			'disclaimer.snap.portionSize.description' => 'Tahminlerin doğruluğu, porsiyon boyutunu doğru değerlendirmenize büyük ölçüde bağlıdır.',
 			'disclaimer.snap.preparationMethods.title' => 'Hazırlama Yöntemleri',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri, gıdaların besin içeriğini önemli ölçüde etkileyebilir. ${appLabel}\'nin tahminleri bu çeşitlilikleri her zaman hesaba katmayabilir.',
-			'disclaimer.snap.ingredients.title' => 'Bileşenler',
-			'disclaimer.snap.ingredients.description' => 'Çok sayıda gizli bileşeni olan karmaşık yemekler, daha az doğru tahminlere yol açabilir.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri yiyeceklerin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel}\'in tahminleri bu farklılıkları her zaman hesaba katmayabilir.',
+			'disclaimer.snap.ingredients.title' => 'İçerikler',
+			'disclaimer.snap.ingredients.description' => 'Birçok gizli içeriği olan karmaşık yemekler daha az doğru tahminlere yol açabilir.',
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'nin gıda veritabanı geniştir ancak her bir gıda maddesini veya varyasyonunu içermeyebilir.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'in yiyecek veritabanı kapsamlıdır ancak her yiyecek öğesini veya varyasyonunu içermeyebilir.',
 			'disclaimer.weightEstimate.title' => 'Kilo Tahmini Hakkında',
-			'disclaimer.weightEstimate.description' => 'Proje edilen kilo değişikliği, basit kalori-giriş vs. kalori-çıkış modeline dayanan bir teorik tahmindir. Bu sadece motivasyonel rehberlik içindir, gerçek kilonuzu tahmin etmek için değil.',
+			'disclaimer.weightEstimate.description' => 'Öngörülen kilo değişimi, basit kalori-alımı vs. kalori-yakımı modeline dayanan teorik bir tahmindir. Gerçek kilonuzun bir öngörüsü değil, yalnızca motivasyon amaçlıdır.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalori Doğruluğu',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Bu tahmin, yalnızca takip edilen kalori alımınız ve harcamanıza ne kadar doğru olduğuna bağlıdır. Hatalı kayıt, hatalı bir projeksiyona neden olacaktır.',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Bu tahmin, takip ettiğiniz kalori alımı ve harcaması kadar doğrudur. Hatalı kayıtlar hatalı projeksiyona yol açar.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biyolojik Faktörler',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Gerçek kilo kaybı/almayı etkileyen metabolizma, hormonlar, uyku, stres, hidrasyon ve diğer bireysel faktörler, ${appLabel} tarafından ölçülemez.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Su Ağırlığı ve Dalgalanmalar',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Normal günlük ağırlık, su tutma, sindirim ve zamanlama nedeniyle önemli ölçüde dalgalanabilir. Tahmin, bu günlük değişiklikleri dikkate almaz.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Profesyonel Rehberlik',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyeleri için her zaman bir sağlık uzmanı veya kayıtlı diyetisyen ile danışın.',
-			'disclaimer.healthMetrics.description' => 'Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinizi yönlendirmenize yardımcı olur.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Gerçek kilo kaybı/alımı; metabolizma, hormonlar, uyku, stres, hidrasyon ve ${appLabel}\'in ölçemediği diğer bireysel faktörlerden etkilenir.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Su Ağırlığı ve Oynaklıklar',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Normal günlük kilo; su tutma, sindirim ve zamana bağlı olarak önemli ölçüde dalgalanabilir. Bu tahmin bu günlük değişimleri hesaba katmaz.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'Uzman Rehberliği',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Tıbbi kararlar almak için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için daima bir sağlık uzmanına veya diyetisyene danışın.',
+			'disclaimer.healthMetrics.description' => 'Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinize rehberlik etmenize yardımcı olur.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Bazal Metabolizma Hızı (BMR), vücudunuzun temel işlevleri sürdürebilmek için dinlenme halinde yaktığı kalori sayısıdır; bu işlevler arasında nefes alma ve dolaşım yer alır. BMR, yaşınıza, cinsiyetinize, boyunuza ve kilonuza bağlıdır. Daha yüksek bir BMR, vücudunuzun genellikle dinlenme halinde daha fazla kalori yaktığı anlamına gelir; bu genellikle daha fazla kas kütlesi, daha genç bir yaş veya erkek olma durumuna bağlıdır. Daha düşük bir BMR genellikle daha az kas kütlesi, daha ileri yaş veya kadın olmanın göstergesidir.',
+			'disclaimer.healthMetrics.bmr.description' => 'Bazal Metabolizma Hızı (BMR), vücudunuzun dinlenme hâlindeyken solunum ve dolaşım gibi temel işlevleri sürdürmek için yaktığı kalori miktarıdır. BMR; yaş, cinsiyet, boy ve kilonuza bağlıdır. Daha yüksek BMR, genellikle daha fazla kas kütlesi, daha genç yaş veya erkek olmak nedeniyle vücudun dinlenme hâlinde doğal olarak daha fazla kalori yaktığı anlamına gelir. Daha düşük BMR ise tipik olarak daha az kas kütlesi, daha ileri yaş veya kadın olmakla ilişkilidir.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Toplam Günlük Enerji Harcaması (TDEE), gün boyunca yaktığınız toplam kalori miktarını ifade eder; bu, BMR’iniz ve fiziksel aktivite ile günlük hareketten kaynaklanan kalorileri içerir. TDEE, BMR’iniz ve aktivite seviyenizle bağlantılıdır. Daha yüksek bir TDEE, genellikle daha aktif olmaktan veya daha yüksek bir BMR\'e sahip olmaktan dolayı, toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE, günlük aktivitenizin daha az olduğunu veya daha düşük bir BMR\'e sahip olduğunuzu gösterir.',
+			'disclaimer.healthMetrics.tdee.description' => 'Toplam Günlük Enerji Harcaması (TDEE), BMR\'niz artı fiziksel aktivite ve günlük hareketten kaynaklanan kaloriler dahil olmak üzere, günde yaktığınız toplam kaloridir. TDEE, BMR\'nize ve aktivite düzeyinize bağlıdır. Daha yüksek TDEE, genellikle daha aktif olduğunuz veya daha yüksek bir BMR\'ye sahip olduğunuz için toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük TDEE ise daha az günlük aktiviteye veya daha düşük BMR\'ye işaret eder.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Günlük Hedef',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Günlük Hedef, TDEE\'nize ve ağırlık hedefinize dayalı olarak önerilen günlük kalori alımınızdır. Kilo kaybı için, TDEE\'nizden daha az kalori alırsınız. Kilo koruma için, TDEE\'nizle eşleşirsiniz. Kilo almak için, TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz ağırlık değişimini sağlıklı bir hızda gerçekleştirmenize yardımcı olur.',
-			'disclaimer.calorieExpenditure.title' => 'Kalori harcaması tahmini',
-			'disclaimer.calorieExpenditure.description' => 'Health Connect verileri kullanılamadığında, bugünkü yakılan kaloriyi Bazal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanarak, günün geçen bölümüne göre ölçekleyerek tahmin ederiz.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'Tahmin nasıl hesaplanır',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Profilinize göre TDEE\'nizi hesaplar ve günün geçen kısmının kesri (saatler + dakikalar) / 24 ile çarparak şu ana kadar yakılan kaloriyi tahmin ederiz.',
-			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Profesyonel Rehberlik',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Bu tahmini tıbbi kararlar almak için kullanmayın. Kişiye özel kilo yönetimi önerileri için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın.',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Günlük Hedef, TDEE\'nize ve kilo hedefinize göre önerilen günlük kalori alımıdır. Kilo kaybı için TDEE\'nizden daha az kalori alırsınız. Kiloyu korumak için TDEE\'nizi karşılarsınız. Kilo almak için TDEE\'nizden daha fazla kalori alırsınız. Bu, istediğiniz kilo değişimine sağlıklı bir hızda ulaşmanıza yardımcı olur.',
+			'disclaimer.calorieExpenditure.title' => 'Kalori Harcaması Tahmini',
+			'disclaimer.calorieExpenditure.description' => 'Health Connect verileri kullanılamadığında, bugün yakılan kalorileri, Bazal Metabolizma Hızınız (BMR) ve aktivite düzeyiniz (TDEE) kullanılarak, geçen gün kısmına göre ölçekleyerek tahmin ederiz.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Tahmin Nasıl Hesaplanır',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Profilinize göre TDEE\'nizi hesaplar ve şu ana kadar geçen gün fraksiyonu ile çarparız: (saat + dakika) / 24; böylece şimdiye kadar yakılan kaloriyi tahmin ederiz.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Uzman Rehberliği',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Tıbbi kararlar almak için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için daima bir sağlık uzmanına veya diyetisyene danışın.',
 			'common.close' => 'Kapat',
-			'common.kContinue' => 'Devam Et',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?',
+			'common.kContinue' => 'Devam et',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}\'i beğeniyor musunuz?',
 			'feedbackRating.yes' => 'Evet, beğeniyorum',
 			'feedbackRating.no' => 'Pek değil',
-			'feedbackRating.rateStepHeading' => 'Play Store\'da puan verin',
-			'feedbackRating.emailStepHeading' => 'Geri bildirimi e-postayla gönderin',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Kısa bir değerlendirme, diğer kullanıcıların ${appLabel}\'ı keşfetmesine yardımcı olur ve geliştirmeye devam etmemizi sağlar. Birkaç dakikanızı ayırıp değerlendirme bırakır mısınız?',
-			'feedbackRating.shareFeedbackViaEmail' => 'Geri bildiriminiz geleceği şekillendirir — her mesajı dikkatle okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?',
-			'feedbackRating.rateCta' => 'Play Store\'da puan ver',
+			'feedbackRating.rateStepHeading' => 'Play Store\'da oy ver',
+			'feedbackRating.emailStepHeading' => 'E-postayla geri bildirim gönder',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Kısa bir puanlama başkalarının ${appLabel}\'i bulmasına yardımcı olur ve geliştirmeyi sürdürür. Bir dakikanızı ayırıp oy verir misiniz?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Gelecek adımları geri bildiriminiz şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-postayla paylaşmak ister misiniz?',
+			'feedbackRating.rateCta' => 'Play Store\'da oy ver',
 			'feedbackRating.maybeLater' => 'Belki sonra',
 			'feedbackRating.sendFeedback' => 'Geri bildirim gönder',
 			'feedbackRating.noThanks' => 'Hayır, teşekkürler',
-			'feedbackRating.aboutUsDescription' => 'Küçük bir ekip tarafından özenle hazırlandı. Gizliliğe, sadeliğe ve daha sağlıklı beslenme alışkanlıkları edinmenize yardımcı olmaya odaklanıyoruz.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}\'ın arkasında kim olduğunu merak ediyor musunuz? ',
+			'feedbackRating.aboutUsDescription' => 'Küçük bir ekibin özenle geliştirdiği. Odağımız gizlilik, sadelik ve daha iyi beslenme alışkanlıkları edinmenize yardımcı olmak.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel}\'in arkasında kim var merak ediyor musunuz? Şuna bakın ',
 			'feedbackRating.aboutUsLinkLabel' => 'Hakkımızda',
 			'feedbackRating.thankYouMessage' => 'Teşekkürler! Başka bir zaman tekrar soracağız.',
 			'health.syncFailed' => 'Health Connect ile senkronize edilemedi',
-			'health.mealSynced' => 'Yemek Health Connect ile senkronize edildi',
+			'health.mealSynced' => 'Öğün Health Connect ile senkronize edildi',
 			_ => null,
 		};
 	}

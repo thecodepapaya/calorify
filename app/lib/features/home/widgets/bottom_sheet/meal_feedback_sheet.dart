@@ -1,23 +1,24 @@
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/shared_widgets/app_outlined_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
+import 'package:models/models.dart';
 
-class V2MealFeedbackInput {
-  const V2MealFeedbackInput({
+class MealFeedbackInput {
+  const MealFeedbackInput({
     required this.issues,
     this.otherText,
   });
 
-  final List<V2MealFeedbackIssue> issues;
+  final List<MealReanalyzeFeedbackIssue> issues;
   final String? otherText;
 }
 
-Future<V2MealFeedbackInput?> showV2MealFeedbackSheet(BuildContext context) {
-  return showModalBottomSheet<V2MealFeedbackInput>(
+Future<MealFeedbackInput?> showV2MealFeedbackSheet(BuildContext context) {
+  return showModalBottomSheet<MealFeedbackInput>(
     context: context,
     isDismissible: true,
     isScrollControlled: true,
@@ -35,11 +36,20 @@ class _V2MealFeedbackSheet extends StatefulWidget {
 }
 
 class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
-  final Set<V2MealFeedbackIssue> _selectedIssues = <V2MealFeedbackIssue>{};
+  static final List<MealReanalyzeFeedbackIssue> _issueChoices =
+      MealReanalyzeFeedbackIssue.values
+          .where(
+            (e) =>
+                e != MealReanalyzeFeedbackIssue.ISSUE_UNSPECIFIED,
+          )
+          .toList();
+
+  final Set<MealReanalyzeFeedbackIssue> _selectedIssues =
+      <MealReanalyzeFeedbackIssue>{};
   final TextEditingController _otherController = TextEditingController();
 
   bool get _showOtherField =>
-      _selectedIssues.contains(V2MealFeedbackIssue.other);
+      _selectedIssues.contains(MealReanalyzeFeedbackIssue.OTHER);
 
   bool get _canSubmit {
     if (_selectedIssues.isEmpty) {
@@ -62,6 +72,8 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
+    final t = context.t;
+    final f = t.meal.feedback;
 
     return BaseBottomSheet(
       child: Column(
@@ -69,7 +81,7 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'What looks wrong?',
+            f.title,
             style: textTheme.titleLarge?.copyWith(
               color: colorScheme.onSurface,
               fontWeight: FontWeight.w600,
@@ -77,7 +89,7 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Help us improve the analysis by selecting one or more issues.',
+            f.subtitle,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurface.withValues(alpha: 0.7),
             ),
@@ -87,10 +99,10 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
             spacing: 8,
             runSpacing: 8,
             children:
-                V2MealFeedbackIssue.values.map((issue) {
+                _issueChoices.map((issue) {
                   final isSelected = _selectedIssues.contains(issue);
                   return FilterChip(
-                    label: Text(issue.label),
+                    label: Text(_feedbackIssueLabel(t, issue)),
                     selected: isSelected,
                     onSelected: (_) {
                       setState(() {
@@ -111,9 +123,9 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
               minLines: 3,
               maxLines: 4,
               onChanged: (_) => setState(() {}),
-              decoration: const InputDecoration(
-                labelText: 'Tell us more',
-                hintText: 'Describe what was incorrect',
+              decoration: InputDecoration(
+                labelText: f.tellUsMore,
+                hintText: f.describeIncorrect,
               ),
             ),
           ],
@@ -123,7 +135,7 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
               Expanded(
                 child: AppOutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  text: 'Cancel',
+                  text: t.meal.deleteConfirmation.cancel,
                 ),
               ),
               const SizedBox(width: 12),
@@ -134,7 +146,7 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
                       _canSubmit
                           ? () {
                             Navigator.of(context).pop(
-                              V2MealFeedbackInput(
+                              MealFeedbackInput(
                                 issues: _selectedIssues.toList(),
                                 otherText:
                                     _showOtherField
@@ -144,7 +156,7 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
                             );
                           }
                           : null,
-                  text: 'Submit',
+                  text: f.submit,
                 ),
               ),
             ],
@@ -153,4 +165,19 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
       ),
     );
   }
+}
+
+String _feedbackIssueLabel(Translations t, MealReanalyzeFeedbackIssue issue) {
+  final f = t.meal.feedback;
+  return switch (issue) {
+    MealReanalyzeFeedbackIssue.FOOD_IDENTIFICATION => f.issueFoodIdentification,
+    MealReanalyzeFeedbackIssue.PORTION_SIZE => f.issuePortionSize,
+    MealReanalyzeFeedbackIssue.CALORIE_DISTRIBUTION =>
+      f.issueCalorieDistribution,
+    MealReanalyzeFeedbackIssue.MACROS_WRONG => f.issueMacrosWrong,
+    MealReanalyzeFeedbackIssue.MISSING_ITEMS => f.issueMissingItems,
+    MealReanalyzeFeedbackIssue.EXTRA_ITEMS => f.issueExtraItems,
+    MealReanalyzeFeedbackIssue.OTHER => f.issueOther,
+    _ => '',
+  };
 }

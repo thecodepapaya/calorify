@@ -92,7 +92,7 @@ test('POST /profile creates new profile when none exists', async () => {
   });
   assert.equal(response.statusCode, 200);
   const body = response.json();
-  assert.equal(body.success, true);
+  assert.equal(body.ok, true);
   assert.ok(body.message.includes('created'));
   await app.close();
 });
@@ -152,7 +152,7 @@ test('POST /profile updates existing profile when one exists', async () => {
   });
   assert.equal(response.statusCode, 200);
   const body = response.json();
-  assert.equal(body.success, true);
+  assert.equal(body.ok, true);
   assert.ok(body.message.includes('updated'));
   await app.close();
 });
@@ -253,15 +253,16 @@ test('POST /profile accepts all valid activityLevel values', async () => {
   await app.close();
 });
 
-test('POST /profile converts dateOfBirth unix timestamp to Date', async () => {
+test('POST /profile converts dateOfBirth ISO string to Date', async () => {
   resetQuery({ rows: [] });
   const app = await buildTestApp();
-  const dob = 631152000000; // 1990-01-01
+  const dobIso = '1990-01-01T00:00:00.000Z';
+  const expectedMs = new Date(dobIso).getTime();
   await app.inject({
     method: 'POST',
     url: PROFILE_URL,
     headers: AUTH_HEADERS,
-    payload: { dateOfBirth: dob },
+    payload: { dateOfBirth: dobIso },
   });
   const insertCall = mockQuery.mock.calls.find(
     (c) => (c.arguments[0] as string).includes('INSERT INTO user_profile')
@@ -269,7 +270,7 @@ test('POST /profile converts dateOfBirth unix timestamp to Date', async () => {
   const params = insertCall!.arguments[1] as unknown[];
   // dateOfBirth is param[5] (userId, height, weight, targetWeight, gender, dateOfBirth)
   assert.ok(params[5] instanceof Date);
-  assert.equal((params[5] as Date).getTime(), dob);
+  assert.equal((params[5] as Date).getTime(), expectedMs);
   await app.close();
 });
 
@@ -303,6 +304,6 @@ test('POST /profile returns 500 when database query throws', async () => {
   });
   assert.equal(response.statusCode, 500);
   const body = response.json();
-  assert.ok(body.detail.includes('DB connection refused'));
+  assert.ok(body.message.includes('DB connection refused'));
   await app.close();
 });

@@ -1,17 +1,17 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/models/meal_analysis_v2.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/shared_widgets/app_outlined_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models.dart';
 
-Future<List<V2MealClarificationAnswer>?> showV2MealClarificationSheet({
+Future<List<MealClarificationAnswer>?> showV2MealClarificationSheet({
   required BuildContext context,
-  required List<V2MealClarification> clarifications,
+  required List<PipelineClarification> clarifications,
 }) {
-  return showModalBottomSheet<List<V2MealClarificationAnswer>>(
+  return showModalBottomSheet<List<MealClarificationAnswer>>(
     context: context,
     isDismissible: true,
     showDragHandle: true,
@@ -29,7 +29,7 @@ class _V2MealClarificationSheet extends StatefulWidget {
     required this.clarifications,
   });
 
-  final List<V2MealClarification> clarifications;
+  final List<PipelineClarification> clarifications;
 
   @override
   State<_V2MealClarificationSheet> createState() =>
@@ -143,10 +143,10 @@ class _V2MealClarificationSheetState extends State<_V2MealClarificationSheet> {
     );
   }
 
-  List<V2MealClarificationAnswer> get _answers {
+  List<MealClarificationAnswer> get _answers {
     return List.generate(
       widget.clarifications.length,
-      (index) => V2MealClarificationAnswer(
+      (index) => MealClarificationAnswer(
         ingredientName: widget.clarifications[index].ingredientName,
         selectedOptionIndex:
             _selectedOptions[index] ??

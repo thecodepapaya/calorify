@@ -1,6 +1,8 @@
 library;
 
 export 'src/legacy_json.dart';
+export 'src/meal_analysis_pipeline_event.dart';
+export 'src/meal_analysis_pipeline_session_context_ext.dart';
 export 'src/proto_extensions.dart';
 export 'src/protos/app/meal.pb.dart';
 export 'src/protos/app/meal.pbenum.dart';
@@ -8,6 +10,12 @@ export 'src/protos/app/sync.pb.dart';
 export 'src/protos/app/sync.pbenum.dart';
 export 'src/protos/calorify/common.pb.dart';
 export 'src/protos/calorify/common.pbenum.dart';
+export 'src/protos/calorify/ai_meal_summary_trend.pb.dart';
+export 'src/protos/calorify/ai_meal_summary_trend.pbenum.dart';
+export 'src/protos/calorify/http_api.pb.dart';
+export 'src/protos/calorify/http_api.pbenum.dart';
+export 'src/protos/calorify/meal_analysis_pipeline.pb.dart';
+export 'src/protos/calorify/meal_analysis_pipeline.pbenum.dart';
 export 'src/protos/calorify/meal_detection.pb.dart';
 export 'src/protos/calorify/meal_detection.pbenum.dart';
 export 'src/protos/meal/meal.pb.dart';

@@ -3,17 +3,23 @@ import { createErrorResponse } from '../../utils/errors.js';
 import { query } from '../../services/database.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { parseBody, z } from '../../utils/validation.js';
+import type { ApiResult } from '../../protos/calorify/http_api.js';
+import { getApiResultSchema, getErrorResponseSchema } from '../../utils/schema-generator.js';
 
 // Zod schema adds bounds checks that Fastify's JSON schema isn't expressing:
 // - heights 30–300cm (or equivalent), weights 1–1000kg, calorie goal 500–20000.
-// - DOB: any valid positive Unix timestamp (milliseconds).
+// - DOB: ISO 8601 string (same as user.UserProfile / sync).
 // All fields optional because this endpoint is a partial-update PATCH-like POST.
 const userProfileBodySchema = z.object({
   height: z.number().finite().positive().max(400).optional(),
   weight: z.number().finite().positive().max(1000).optional(),
   targetWeight: z.number().finite().positive().max(1000).optional(),
   gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
-  dateOfBirth: z.number().int().positive().optional(),
+  dateOfBirth: z
+    .string()
+    .min(1)
+    .refine((s) => !Number.isNaN(Date.parse(s)), 'must be a valid ISO 8601 date')
+    .optional(),
   weightGoal: z.enum(['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT']).optional(),
   activityLevel: z
     .enum(['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'])
@@ -63,9 +69,9 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
               // Example (for docs only): 'MALE',
             },
             dateOfBirth: {
-              type: 'number',
-              description: 'Date of birth as Unix timestamp in milliseconds',
-              // Example (for docs only): 631152000000,
+              type: 'string',
+              format: 'date-time',
+              description: 'Date of birth as ISO 8601 (e.g. 1990-01-01T00:00:00.000Z)',
             },
             weightGoal: {
               type: 'string',
@@ -100,36 +106,20 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
         },
         response: {
           200: {
-            description: 'Profile saved successfully',
-            type: 'object',
-            properties: {
-              success: { type: 'boolean' /* Example (for docs only): true */ },
-              message: {
-                type: 'string',
-                // Example (for docs only): 'User profile created successfully',
-              },
-            },
+            description: 'Profile saved successfully (calorify.ApiResult)',
+            ...getApiResultSchema(),
           },
           400: {
             description: 'Bad request - invalid data',
-            type: 'object',
-            properties: {
-              detail: { type: 'string' },
-            },
+            ...getErrorResponseSchema(),
           },
           401: {
             description: 'Unauthorized - invalid or missing authentication token',
-            type: 'object',
-            properties: {
-              detail: { type: 'string' },
-            },
+            ...getErrorResponseSchema(),
           },
           500: {
             description: 'Internal server error',
-            type: 'object',
-            properties: {
-              detail: { type: 'string' },
-            },
+            ...getErrorResponseSchema(),
           },
         },
       } as any,
@@ -193,10 +183,11 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
             ]
           );
 
-          reply.send({
-            success: true,
+          const updated: ApiResult = {
+            ok: true,
             message: 'User profile updated successfully',
-          });
+          };
+          reply.send(updated);
         } else {
           // Create new profile
           await query(
@@ -224,10 +215,11 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
             ]
           );
 
-          reply.send({
-            success: true,
+          const created: ApiResult = {
+            ok: true,
             message: 'User profile created successfully',
-          });
+          };
+          reply.send(created);
         }
       } catch (error) {
         reply.status(500).send(

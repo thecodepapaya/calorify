@@ -1,4 +1,3 @@
-import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:models/models.dart';
 
 class AiSummaryCard extends ConsumerWidget {
   const AiSummaryCard({super.key});
@@ -63,7 +63,7 @@ class _SummaryCardScaffold extends StatelessWidget {
 class _SummaryCardContent extends StatelessWidget {
   const _SummaryCardContent({required this.summary});
 
-  final AiSummaryResult summary;
+  final AiMealSummaryResponse summary;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,9 @@ class _SummaryCardContent extends StatelessWidget {
         TranslationProvider.of(context).locale.flutterLocale.toLanguageTag();
     final generatedAt = DateFormat.MMMd(
       localeTag,
-    ).add_jm().format(summary.generatedAt);
+    ).add_jm().format(DateTime.parse(summary.generatedAt));
+
+    final trend = summary.trend;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,8 +96,8 @@ class _SummaryCardContent extends StatelessWidget {
               ),
             ),
             _MetricChip(
-              icon: _trendIcon(summary.trend),
-              label: _trendLabel(summary.trend),
+              icon: trend.displayIcon,
+              label: trend.displayLabel(t),
             ),
           ],
         ),
@@ -136,21 +138,35 @@ class _SummaryCardContent extends StatelessWidget {
       ],
     );
   }
+}
 
-  String _trendLabel(AiSummaryTrend trend) {
-    return switch (trend) {
-      AiSummaryTrend.up => t.home.aiSummary.trendUp,
-      AiSummaryTrend.down => t.home.aiSummary.trendDown,
-      AiSummaryTrend.steady => t.home.aiSummary.trendSteady,
-    };
+extension on AiMealSummaryTrend {
+  IconData get displayIcon {
+    switch (this) {
+      case AiMealSummaryTrend.UP:
+        return LucideIcons.trendingUp;
+      case AiMealSummaryTrend.DOWN:
+        return LucideIcons.trendingDown;
+      case AiMealSummaryTrend.STEADY:
+      case AiMealSummaryTrend.UNSPECIFIED:
+        return LucideIcons.minus;
+      default:
+        return LucideIcons.minus;
+    }
   }
 
-  IconData _trendIcon(AiSummaryTrend trend) {
-    return switch (trend) {
-      AiSummaryTrend.up => LucideIcons.trendingUp,
-      AiSummaryTrend.down => LucideIcons.trendingDown,
-      AiSummaryTrend.steady => LucideIcons.minus,
-    };
+  String displayLabel(Translations translations) {
+    switch (this) {
+      case AiMealSummaryTrend.UP:
+        return translations.home.aiSummary.trendUp;
+      case AiMealSummaryTrend.DOWN:
+        return translations.home.aiSummary.trendDown;
+      case AiMealSummaryTrend.STEADY:
+      case AiMealSummaryTrend.UNSPECIFIED:
+        return translations.home.aiSummary.trendSteady;
+      default:
+        return translations.home.aiSummary.trendSteady;
+    }
   }
 }
 

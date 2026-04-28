@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/models/meal_analysis_v2.dart';
+import 'package:models/models.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 
 enum MealDetailsSheetPurpose {
@@ -39,7 +38,7 @@ Future<void> showMealTip({
   MealDetectionResult? mealDetectionResult,
   LoggedMeal? loggedMeal,
   Uint8List? imageBytes,
-  V2MealAnalysisContext? v2Analysis,
+  MealAnalysisPipelineSessionContext? pipelineContext,
   bool previewOnly = false,
 }) {
   final parentContext = context;
@@ -57,7 +56,7 @@ Future<void> showMealTip({
           mealDetectionResult: mealDetectionResult,
           loggedMeal: loggedMeal,
           imageBytes: imageBytes,
-          v2Analysis: v2Analysis,
+          pipelineContext: pipelineContext,
           previewOnly: previewOnly,
         ),
   );
@@ -70,7 +69,7 @@ class _MealTip extends StatefulWidget {
     this.mealDetectionResult,
     this.loggedMeal,
     this.imageBytes,
-    this.v2Analysis,
+    this.pipelineContext,
     this.previewOnly = false,
   }) : assert(mealDetectionResult != null || loggedMeal != null);
 
@@ -79,7 +78,7 @@ class _MealTip extends StatefulWidget {
   final MealDetectionResult? mealDetectionResult;
   final LoggedMeal? loggedMeal;
   final Uint8List? imageBytes;
-  final V2MealAnalysisContext? v2Analysis;
+  final MealAnalysisPipelineSessionContext? pipelineContext;
   final bool previewOnly;
 
   @override
@@ -88,7 +87,7 @@ class _MealTip extends StatefulWidget {
 
 class _MealTipState extends State<_MealTip> {
   MealDetectionResult? _mealDetectionResult;
-  V2MealAnalysisContext? _v2Analysis;
+  MealAnalysisPipelineSessionContext? _pipelineContext;
   bool _isFeedbackSubmitting = false;
   bool? _feedbackValue;
 
@@ -102,10 +101,10 @@ class _MealTipState extends State<_MealTip> {
 
   bool get _canShowFeedback =>
       widget.purpose == MealDetailsSheetPurpose.mealAddition &&
-      _v2Analysis != null &&
+      _pipelineContext != null &&
       _mealDetectionResult != null &&
       widget.loggedMeal == null &&
-      !_v2Analysis!.isRevised;
+      !_pipelineContext!.isRevised;
 
   bool get _isLoggedMealFlow => widget.loggedMeal != null;
   bool get _showFavoriteHeaderAction =>
@@ -121,7 +120,7 @@ class _MealTipState extends State<_MealTip> {
   void initState() {
     super.initState();
     _mealDetectionResult = widget.mealDetectionResult;
-    _v2Analysis = widget.v2Analysis;
+    _pipelineContext = widget.pipelineContext;
     if (_canShowFeedback) {
       Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackShown);
     }
@@ -384,7 +383,7 @@ class _MealTipState extends State<_MealTip> {
                     context,
                     _mealDetectionResult!.meal,
                     parentContext: widget.parentContext,
-                    analysisId: _v2Analysis?.result.analysisId,
+                    analysisId: _pipelineContext?.result.analysisId,
                   );
                   if (!context.mounted) return;
                   Navigator.of(context).pop();
@@ -490,7 +489,7 @@ class _MealTipState extends State<_MealTip> {
   }
 
   Future<void> _submitPositiveFeedback() async {
-    final analysisId = _v2Analysis?.result.analysisId;
+    final analysisId = _pipelineContext?.result.analysisId;
     if (analysisId == null || analysisId.isEmpty) return;
 
     setState(() {
@@ -520,7 +519,7 @@ class _MealTipState extends State<_MealTip> {
   }
 
   Future<void> _submitNegativeFeedback() async {
-    final analysisId = _v2Analysis?.result.analysisId;
+    final analysisId = _pipelineContext?.result.analysisId;
     if (analysisId == null || analysisId.isEmpty) return;
 
     Analytics.instance.logEvent(AnalyticsEvent.mealFeedbackThumbsDownOpened);
@@ -544,8 +543,8 @@ class _MealTipState extends State<_MealTip> {
                   otherText: feedbackInput.otherText,
                 ),
         imageBytes: widget.imageBytes,
-        imageUrl: _v2Analysis?.imageUrl,
-        textDescription: _v2Analysis?.textDescription,
+        imageUrl: _pipelineContext?.imageUrl,
+        textDescription: _pipelineContext?.textDescription,
       );
 
       if (!mounted) return;
@@ -558,10 +557,10 @@ class _MealTipState extends State<_MealTip> {
       );
       Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisSucceeded);
 
-      final updatedContext = nextContext.copyWith(isRevised: true);
+        final updatedContext = nextContext.copyWithPipelineSession(isRevised: true);
 
       setState(() {
-        _v2Analysis = updatedContext;
+        _pipelineContext = updatedContext;
         _mealDetectionResult = updatedContext.toMealDetectionResult();
         _feedbackValue = null;
       });

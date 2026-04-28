@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:calorify/core/models/ai_summary_result.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -95,7 +94,7 @@ void main() {
       final last7DaysMealsController =
           StreamController<List<LoggedMeal>>.broadcast();
       final dailyGoalController = StreamController<int?>.broadcast();
-      final aiSummaryCompleter = Completer<AiSummaryResult?>();
+      final aiSummaryCompleter = Completer<AiMealSummaryResponse?>();
 
       addTearDown(() async {
         await todaysMealsController.close();
