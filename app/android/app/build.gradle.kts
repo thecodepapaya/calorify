@@ -44,6 +44,11 @@ android {
     flavorDimensions.add("flavor")
 
     productFlavors {
+        create("dev") {
+            dimension = "flavor"
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-dev"
+        }
         create("staging") {
             dimension = "flavor"
             applicationIdSuffix = ".staging"
