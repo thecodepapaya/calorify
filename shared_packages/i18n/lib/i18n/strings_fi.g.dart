@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackFi implements TranslationsMealFeedbackEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Mikä näyttää väärältä?';
+	@override String get subtitle => 'Auta meitä parantamaan analyysiä valitsemalla yksi tai useampi ongelma.';
+	@override String get tellUsMore => 'Kerro lisää';
+	@override String get describeIncorrect => 'Kuvaile, mikä oli väärin';
+	@override String get submit => 'Lähetä';
+	@override String get issueFoodIdentification => 'Ruoan tunnistus';
+	@override String get issuePortionSize => 'Annoksen koko';
+	@override String get issueCalorieDistribution => 'Kalorijakauma';
+	@override String get issueMacrosWrong => 'Makrot ovat väärin';
+	@override String get issueMissingItems => 'Puuttuvat kohteet';
+	@override String get issueExtraItems => 'Ylimääräiset kohteet';
+	@override String get issueOther => 'Muu';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsFi {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Mikä näyttää väärältä?',
+			'meal.feedback.subtitle' => 'Auta meitä parantamaan analyysiä valitsemalla yksi tai useampi ongelma.',
+			'meal.feedback.tellUsMore' => 'Kerro lisää',
+			'meal.feedback.describeIncorrect' => 'Kuvaile, mikä oli väärin',
+			'meal.feedback.submit' => 'Lähetä',
+			'meal.feedback.issueFoodIdentification' => 'Ruoan tunnistus',
+			'meal.feedback.issuePortionSize' => 'Annoksen koko',
+			'meal.feedback.issueCalorieDistribution' => 'Kalorijakauma',
+			'meal.feedback.issueMacrosWrong' => 'Makrot ovat väärin',
+			'meal.feedback.issueMissingItems' => 'Puuttuvat kohteet',
+			'meal.feedback.issueExtraItems' => 'Ylimääräiset kohteet',
+			'meal.feedback.issueOther' => 'Muu',
 			'favorites.title' => 'Suosikit',
 			'favorites.empty' => 'Ei vielä suosikkiaterioita.',
 			'favorites.searchPlaceholder' => 'Hae suosikkiaterioita',

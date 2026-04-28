@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackNl implements TranslationsMealFeedbackEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Wat lijkt er fout?';
+	@override String get subtitle => 'Help ons de analyse te verbeteren door een of meer problemen te selecteren.';
+	@override String get tellUsMore => 'Vertel ons meer';
+	@override String get describeIncorrect => 'Beschrijf wat er onjuist was';
+	@override String get submit => 'Verzenden';
+	@override String get issueFoodIdentification => 'Voedselherkenning';
+	@override String get issuePortionSize => 'Portiegrootte';
+	@override String get issueCalorieDistribution => 'Calorieverdeling';
+	@override String get issueMacrosWrong => 'Macro\'s kloppen niet';
+	@override String get issueMissingItems => 'Ontbrekende items';
+	@override String get issueExtraItems => 'Te veel items';
+	@override String get issueOther => 'Anders';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsNl {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Wat lijkt er fout?',
+			'meal.feedback.subtitle' => 'Help ons de analyse te verbeteren door een of meer problemen te selecteren.',
+			'meal.feedback.tellUsMore' => 'Vertel ons meer',
+			'meal.feedback.describeIncorrect' => 'Beschrijf wat er onjuist was',
+			'meal.feedback.submit' => 'Verzenden',
+			'meal.feedback.issueFoodIdentification' => 'Voedselherkenning',
+			'meal.feedback.issuePortionSize' => 'Portiegrootte',
+			'meal.feedback.issueCalorieDistribution' => 'Calorieverdeling',
+			'meal.feedback.issueMacrosWrong' => 'Macro\'s kloppen niet',
+			'meal.feedback.issueMissingItems' => 'Ontbrekende items',
+			'meal.feedback.issueExtraItems' => 'Te veel items',
+			'meal.feedback.issueOther' => 'Anders',
 			'favorites.title' => 'Favorieten',
 			'favorites.empty' => 'Nog geen favoriete maaltijden.',
 			'favorites.searchPlaceholder' => 'Favoriete maaltijden zoeken',

@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackCs implements TranslationsMealFeedbackEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Co vypadá špatně?';
+	@override String get subtitle => 'Pomozte nám zlepšit analýzu výběrem jednoho nebo více problémů.';
+	@override String get tellUsMore => 'Řekněte nám víc';
+	@override String get describeIncorrect => 'Popište, co bylo nesprávné';
+	@override String get submit => 'Odeslat';
+	@override String get issueFoodIdentification => 'Identifikace jídla';
+	@override String get issuePortionSize => 'Velikost porce';
+	@override String get issueCalorieDistribution => 'Rozložení kalorií';
+	@override String get issueMacrosWrong => 'Makra jsou špatně';
+	@override String get issueMissingItems => 'Chybějící položky';
+	@override String get issueExtraItems => 'Položky navíc';
+	@override String get issueOther => 'Jiné';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsCs {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Co vypadá špatně?',
+			'meal.feedback.subtitle' => 'Pomozte nám zlepšit analýzu výběrem jednoho nebo více problémů.',
+			'meal.feedback.tellUsMore' => 'Řekněte nám víc',
+			'meal.feedback.describeIncorrect' => 'Popište, co bylo nesprávné',
+			'meal.feedback.submit' => 'Odeslat',
+			'meal.feedback.issueFoodIdentification' => 'Identifikace jídla',
+			'meal.feedback.issuePortionSize' => 'Velikost porce',
+			'meal.feedback.issueCalorieDistribution' => 'Rozložení kalorií',
+			'meal.feedback.issueMacrosWrong' => 'Makra jsou špatně',
+			'meal.feedback.issueMissingItems' => 'Chybějící položky',
+			'meal.feedback.issueExtraItems' => 'Položky navíc',
+			'meal.feedback.issueOther' => 'Jiné',
 			'favorites.title' => 'Oblíbené',
 			'favorites.empty' => 'Zatím žádná oblíbená jídla.',
 			'favorites.searchPlaceholder' => 'Hledat v oblíbených jídlech',

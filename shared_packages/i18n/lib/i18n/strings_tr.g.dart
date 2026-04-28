@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackTr implements TranslationsMealFeedbackEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Ne yanlış görünüyor?';
+	@override String get subtitle => 'Bir veya daha fazla sorun seçerek analizi iyileştirmemize yardımcı olun.';
+	@override String get tellUsMore => 'Daha fazla anlatın';
+	@override String get describeIncorrect => 'Neyin yanlış olduğunu açıklayın';
+	@override String get submit => 'Gönder';
+	@override String get issueFoodIdentification => 'Yemek tanıma';
+	@override String get issuePortionSize => 'Porsiyon boyutu';
+	@override String get issueCalorieDistribution => 'Kalori dağılımı';
+	@override String get issueMacrosWrong => 'Makrolar yanlış';
+	@override String get issueMissingItems => 'Eksik öğeler';
+	@override String get issueExtraItems => 'Fazladan öğeler';
+	@override String get issueOther => 'Diğer';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsTr {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Ne yanlış görünüyor?',
+			'meal.feedback.subtitle' => 'Bir veya daha fazla sorun seçerek analizi iyileştirmemize yardımcı olun.',
+			'meal.feedback.tellUsMore' => 'Daha fazla anlatın',
+			'meal.feedback.describeIncorrect' => 'Neyin yanlış olduğunu açıklayın',
+			'meal.feedback.submit' => 'Gönder',
+			'meal.feedback.issueFoodIdentification' => 'Yemek tanıma',
+			'meal.feedback.issuePortionSize' => 'Porsiyon boyutu',
+			'meal.feedback.issueCalorieDistribution' => 'Kalori dağılımı',
+			'meal.feedback.issueMacrosWrong' => 'Makrolar yanlış',
+			'meal.feedback.issueMissingItems' => 'Eksik öğeler',
+			'meal.feedback.issueExtraItems' => 'Fazladan öğeler',
+			'meal.feedback.issueOther' => 'Diğer',
 			'favorites.title' => 'Favoriler',
 			'favorites.empty' => 'Henüz favori öğün yok.',
 			'favorites.searchPlaceholder' => 'Favori öğünlerde ara',

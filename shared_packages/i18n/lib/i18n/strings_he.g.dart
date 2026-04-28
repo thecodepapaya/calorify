@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackHe implements TranslationsMealFeedbackEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'מה נראה לא נכון?';
+	@override String get subtitle => 'עזרו לנו לשפר את הניתוח על ידי בחירת בעיה אחת או יותר.';
+	@override String get tellUsMore => 'ספרו לנו עוד';
+	@override String get describeIncorrect => 'תארו מה לא היה נכון';
+	@override String get submit => 'שלח';
+	@override String get issueFoodIdentification => 'זיהוי המזון';
+	@override String get issuePortionSize => 'גודל המנה';
+	@override String get issueCalorieDistribution => 'התפלגות קלוריות';
+	@override String get issueMacrosWrong => 'מאקרו שגויים';
+	@override String get issueMissingItems => 'פריטים חסרים';
+	@override String get issueExtraItems => 'פריטים מיותרים';
+	@override String get issueOther => 'אחר';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsHe {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'מה נראה לא נכון?',
+			'meal.feedback.subtitle' => 'עזרו לנו לשפר את הניתוח על ידי בחירת בעיה אחת או יותר.',
+			'meal.feedback.tellUsMore' => 'ספרו לנו עוד',
+			'meal.feedback.describeIncorrect' => 'תארו מה לא היה נכון',
+			'meal.feedback.submit' => 'שלח',
+			'meal.feedback.issueFoodIdentification' => 'זיהוי המזון',
+			'meal.feedback.issuePortionSize' => 'גודל המנה',
+			'meal.feedback.issueCalorieDistribution' => 'התפלגות קלוריות',
+			'meal.feedback.issueMacrosWrong' => 'מאקרו שגויים',
+			'meal.feedback.issueMissingItems' => 'פריטים חסרים',
+			'meal.feedback.issueExtraItems' => 'פריטים מיותרים',
+			'meal.feedback.issueOther' => 'אחר',
 			'favorites.title' => 'מועדפים',
 			'favorites.empty' => 'עדיין אין ארוחות מועדפות.',
 			'favorites.searchPlaceholder' => 'חפש/י ארוחות מועדפות',

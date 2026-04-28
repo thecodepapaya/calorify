@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackEl implements TranslationsMealFeedbackEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Τι φαίνεται λάθος;';
+	@override String get subtitle => 'Βοήθησέ μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα προβλήματα.';
+	@override String get tellUsMore => 'Πες μας περισσότερα';
+	@override String get describeIncorrect => 'Περιέγραψε τι ήταν λάθος';
+	@override String get submit => 'Υποβολή';
+	@override String get issueFoodIdentification => 'Αναγνώριση φαγητού';
+	@override String get issuePortionSize => 'Μέγεθος μερίδας';
+	@override String get issueCalorieDistribution => 'Κατανομή θερμίδων';
+	@override String get issueMacrosWrong => 'Λάθος μακροθρεπτικά';
+	@override String get issueMissingItems => 'Στοιχεία που λείπουν';
+	@override String get issueExtraItems => 'Επιπλέον στοιχεία';
+	@override String get issueOther => 'Άλλο';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsEl {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Τι φαίνεται λάθος;',
+			'meal.feedback.subtitle' => 'Βοήθησέ μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα προβλήματα.',
+			'meal.feedback.tellUsMore' => 'Πες μας περισσότερα',
+			'meal.feedback.describeIncorrect' => 'Περιέγραψε τι ήταν λάθος',
+			'meal.feedback.submit' => 'Υποβολή',
+			'meal.feedback.issueFoodIdentification' => 'Αναγνώριση φαγητού',
+			'meal.feedback.issuePortionSize' => 'Μέγεθος μερίδας',
+			'meal.feedback.issueCalorieDistribution' => 'Κατανομή θερμίδων',
+			'meal.feedback.issueMacrosWrong' => 'Λάθος μακροθρεπτικά',
+			'meal.feedback.issueMissingItems' => 'Στοιχεία που λείπουν',
+			'meal.feedback.issueExtraItems' => 'Επιπλέον στοιχεία',
+			'meal.feedback.issueOther' => 'Άλλο',
 			'favorites.title' => 'Αγαπημένα',
 			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα ακόμη.',
 			'favorites.searchPlaceholder' => 'Αναζήτηση αγαπημένων γευμάτων',

@@ -309,18 +309,18 @@
       "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
     },
     "feedback": {
-      "title": "What looks wrong?",
-      "subtitle": "Help us improve the analysis by selecting one or more issues.",
-      "tellUsMore": "Tell us more",
-      "describeIncorrect": "Describe what was incorrect",
-      "submit": "Submit",
-      "issueFoodIdentification": "Food identification",
-      "issuePortionSize": "Portion size",
-      "issueCalorieDistribution": "Calorie distribution",
-      "issueMacrosWrong": "Macros are wrong",
-      "issueMissingItems": "Missing items",
-      "issueExtraItems": "Extra items",
-      "issueOther": "Other"
+      "title": "Was sieht falsch aus?",
+      "subtitle": "Hilf uns, die Analyse zu verbessern, indem du ein oder mehrere Probleme auswählst.",
+      "tellUsMore": "Mehr erzählen",
+      "describeIncorrect": "Beschreibe, was falsch war",
+      "submit": "Senden",
+      "issueFoodIdentification": "Lebensmittel­erkennung",
+      "issuePortionSize": "Portionsgröße",
+      "issueCalorieDistribution": "Kalorienverteilung",
+      "issueMacrosWrong": "Makros sind falsch",
+      "issueMissingItems": "Fehlende Elemente",
+      "issueExtraItems": "Zusätzliche Elemente",
+      "issueOther": "Sonstiges"
     }
   },
   "favorites": {

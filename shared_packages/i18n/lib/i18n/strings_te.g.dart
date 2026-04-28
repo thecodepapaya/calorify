@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackTe implements TranslationsMealFeedbackEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'ఏది తప్పుగా కనిపిస్తోంది?';
+	@override String get subtitle => 'ఒకటి లేదా అంతకంటే ఎక్కువ సమస్యలను ఎంచుకోవడం ద్వారా విశ్లేషణను మెరుగుపరచడంలో మాకు సహాయం చేయండి.';
+	@override String get tellUsMore => 'మరింత చెప్పండి';
+	@override String get describeIncorrect => 'ఏది తప్పుగా ఉందో వివరించండి';
+	@override String get submit => 'సమర్పించండి';
+	@override String get issueFoodIdentification => 'ఆహార గుర్తింపు';
+	@override String get issuePortionSize => 'సేవింగ్ పరిమాణం';
+	@override String get issueCalorieDistribution => 'క్యాలరీ పంపిణీ';
+	@override String get issueMacrosWrong => 'మాక్రోలు తప్పు';
+	@override String get issueMissingItems => 'లేని అంశాలు';
+	@override String get issueExtraItems => 'అదనపు అంశాలు';
+	@override String get issueOther => 'ఇతరం';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsTe {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'ఏది తప్పుగా కనిపిస్తోంది?',
+			'meal.feedback.subtitle' => 'ఒకటి లేదా అంతకంటే ఎక్కువ సమస్యలను ఎంచుకోవడం ద్వారా విశ్లేషణను మెరుగుపరచడంలో మాకు సహాయం చేయండి.',
+			'meal.feedback.tellUsMore' => 'మరింత చెప్పండి',
+			'meal.feedback.describeIncorrect' => 'ఏది తప్పుగా ఉందో వివరించండి',
+			'meal.feedback.submit' => 'సమర్పించండి',
+			'meal.feedback.issueFoodIdentification' => 'ఆహార గుర్తింపు',
+			'meal.feedback.issuePortionSize' => 'సేవింగ్ పరిమాణం',
+			'meal.feedback.issueCalorieDistribution' => 'క్యాలరీ పంపిణీ',
+			'meal.feedback.issueMacrosWrong' => 'మాక్రోలు తప్పు',
+			'meal.feedback.issueMissingItems' => 'లేని అంశాలు',
+			'meal.feedback.issueExtraItems' => 'అదనపు అంశాలు',
+			'meal.feedback.issueOther' => 'ఇతరం',
 			'favorites.title' => 'ఇష్టాలు',
 			'favorites.empty' => 'ఇంకా ఇష్టమైన భోజనాలు లేవు.',
 			'favorites.searchPlaceholder' => 'ఇష్టమైన భోజనాలను వెతకండి',

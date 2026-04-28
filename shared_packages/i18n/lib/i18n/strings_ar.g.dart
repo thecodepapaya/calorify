@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackAr implements TranslationsMealFeedbackEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'ما الذي يبدو خاطئًا؟';
+	@override String get subtitle => 'ساعدنا في تحسين التحليل عن طريق تحديد مشكلة واحدة أو أكثر.';
+	@override String get tellUsMore => 'أخبرنا المزيد';
+	@override String get describeIncorrect => 'اوصف ما كان غير صحيح';
+	@override String get submit => 'إرسال';
+	@override String get issueFoodIdentification => 'التعرف على الطعام';
+	@override String get issuePortionSize => 'حجم الحصة';
+	@override String get issueCalorieDistribution => 'توزيع السعرات الحرارية';
+	@override String get issueMacrosWrong => 'الماكرو غير صحيحة';
+	@override String get issueMissingItems => 'عناصر مفقودة';
+	@override String get issueExtraItems => 'عناصر إضافية';
+	@override String get issueOther => 'أخرى';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsAr {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'ما الذي يبدو خاطئًا؟',
+			'meal.feedback.subtitle' => 'ساعدنا في تحسين التحليل عن طريق تحديد مشكلة واحدة أو أكثر.',
+			'meal.feedback.tellUsMore' => 'أخبرنا المزيد',
+			'meal.feedback.describeIncorrect' => 'اوصف ما كان غير صحيح',
+			'meal.feedback.submit' => 'إرسال',
+			'meal.feedback.issueFoodIdentification' => 'التعرف على الطعام',
+			'meal.feedback.issuePortionSize' => 'حجم الحصة',
+			'meal.feedback.issueCalorieDistribution' => 'توزيع السعرات الحرارية',
+			'meal.feedback.issueMacrosWrong' => 'الماكرو غير صحيحة',
+			'meal.feedback.issueMissingItems' => 'عناصر مفقودة',
+			'meal.feedback.issueExtraItems' => 'عناصر إضافية',
+			'meal.feedback.issueOther' => 'أخرى',
 			'favorites.title' => 'المفضلة',
 			'favorites.empty' => 'لا توجد وجبات مفضلة بعد.',
 			'favorites.searchPlaceholder' => 'ابحث في الوجبات المفضلة',

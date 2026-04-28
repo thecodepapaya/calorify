@@ -309,18 +309,18 @@
       "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
     },
     "feedback": {
-      "title": "What looks wrong?",
-      "subtitle": "Help us improve the analysis by selecting one or more issues.",
-      "tellUsMore": "Tell us more",
-      "describeIncorrect": "Describe what was incorrect",
-      "submit": "Submit",
-      "issueFoodIdentification": "Food identification",
-      "issuePortionSize": "Portion size",
-      "issueCalorieDistribution": "Calorie distribution",
-      "issueMacrosWrong": "Macros are wrong",
-      "issueMissingItems": "Missing items",
-      "issueExtraItems": "Extra items",
-      "issueOther": "Other"
+      "title": "Hva ser feil ut?",
+      "subtitle": "Hjelp oss å forbedre analysen ved å velge ett eller flere problemer.",
+      "tellUsMore": "Fortell oss mer",
+      "describeIncorrect": "Beskriv hva som var feil",
+      "submit": "Send inn",
+      "issueFoodIdentification": "Matidentifikasjon",
+      "issuePortionSize": "Porsjonsstørrelse",
+      "issueCalorieDistribution": "Kalorifordeling",
+      "issueMacrosWrong": "Makroer er feil",
+      "issueMissingItems": "Manglende elementer",
+      "issueExtraItems": "Ekstra elementer",
+      "issueOther": "Annet"
     }
   },
   "favorites": {

@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackTh implements TranslationsMealFeedbackEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'อะไรดูไม่ถูกต้อง?';
+	@override String get subtitle => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกหนึ่งหรือหลายปัญหา';
+	@override String get tellUsMore => 'บอกเราเพิ่มเติม';
+	@override String get describeIncorrect => 'อธิบายสิ่งที่ไม่ถูกต้อง';
+	@override String get submit => 'ส่ง';
+	@override String get issueFoodIdentification => 'การระบุอาหาร';
+	@override String get issuePortionSize => 'ขนาดหนึ่งหน่วยบริโภค';
+	@override String get issueCalorieDistribution => 'การกระจายแคลอรี';
+	@override String get issueMacrosWrong => 'มาโครไม่ถูกต้อง';
+	@override String get issueMissingItems => 'รายการที่ขาดหายไป';
+	@override String get issueExtraItems => 'รายการเพิ่มเติม';
+	@override String get issueOther => 'อื่น ๆ';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsTh {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'อะไรดูไม่ถูกต้อง?',
+			'meal.feedback.subtitle' => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกหนึ่งหรือหลายปัญหา',
+			'meal.feedback.tellUsMore' => 'บอกเราเพิ่มเติม',
+			'meal.feedback.describeIncorrect' => 'อธิบายสิ่งที่ไม่ถูกต้อง',
+			'meal.feedback.submit' => 'ส่ง',
+			'meal.feedback.issueFoodIdentification' => 'การระบุอาหาร',
+			'meal.feedback.issuePortionSize' => 'ขนาดหนึ่งหน่วยบริโภค',
+			'meal.feedback.issueCalorieDistribution' => 'การกระจายแคลอรี',
+			'meal.feedback.issueMacrosWrong' => 'มาโครไม่ถูกต้อง',
+			'meal.feedback.issueMissingItems' => 'รายการที่ขาดหายไป',
+			'meal.feedback.issueExtraItems' => 'รายการเพิ่มเติม',
+			'meal.feedback.issueOther' => 'อื่น ๆ',
 			'favorites.title' => 'รายการโปรด',
 			'favorites.empty' => 'ยังไม่มีมื้อโปรด',
 			'favorites.searchPlaceholder' => 'ค้นหามื้อโปรด',

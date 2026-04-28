@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackUk implements TranslationsMealFeedbackEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'Що виглядає неправильно?';
+	@override String get subtitle => 'Допоможіть нам покращити аналіз, обравши одну або кілька проблем.';
+	@override String get tellUsMore => 'Розкажіть більше';
+	@override String get describeIncorrect => 'Опишіть, що було неправильно';
+	@override String get submit => 'Надіслати';
+	@override String get issueFoodIdentification => 'Розпізнавання їжі';
+	@override String get issuePortionSize => 'Розмір порції';
+	@override String get issueCalorieDistribution => 'Розподіл калорій';
+	@override String get issueMacrosWrong => 'Макроелементи неправильні';
+	@override String get issueMissingItems => 'Відсутні елементи';
+	@override String get issueExtraItems => 'Зайві елементи';
+	@override String get issueOther => 'Інше';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsUk {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'Що виглядає неправильно?',
+			'meal.feedback.subtitle' => 'Допоможіть нам покращити аналіз, обравши одну або кілька проблем.',
+			'meal.feedback.tellUsMore' => 'Розкажіть більше',
+			'meal.feedback.describeIncorrect' => 'Опишіть, що було неправильно',
+			'meal.feedback.submit' => 'Надіслати',
+			'meal.feedback.issueFoodIdentification' => 'Розпізнавання їжі',
+			'meal.feedback.issuePortionSize' => 'Розмір порції',
+			'meal.feedback.issueCalorieDistribution' => 'Розподіл калорій',
+			'meal.feedback.issueMacrosWrong' => 'Макроелементи неправильні',
+			'meal.feedback.issueMissingItems' => 'Відсутні елементи',
+			'meal.feedback.issueExtraItems' => 'Зайві елементи',
+			'meal.feedback.issueOther' => 'Інше',
 			'favorites.title' => 'Обране',
 			'favorites.empty' => 'Поки що немає обраних страв.',
 			'favorites.searchPlaceholder' => 'Пошук в обраному',

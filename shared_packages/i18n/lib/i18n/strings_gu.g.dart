@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackGu implements TranslationsMealFeedbackEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'શું ખોટું લાગે છે?';
+	@override String get subtitle => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણ સુધારવામાં અમારી મદદ કરો.';
+	@override String get tellUsMore => 'વધુ જણાવો';
+	@override String get describeIncorrect => 'શું ખોટું હતું તેનું વર્ણન કરો';
+	@override String get submit => 'સબમિટ કરો';
+	@override String get issueFoodIdentification => 'ખોરાકની ઓળખ';
+	@override String get issuePortionSize => 'પીરસવાનું માપ';
+	@override String get issueCalorieDistribution => 'કેલરી વિતરણ';
+	@override String get issueMacrosWrong => 'મેક્રો ખોટા છે';
+	@override String get issueMissingItems => 'ગુમ થયેલ વસ્તુઓ';
+	@override String get issueExtraItems => 'વધારાની વસ્તુઓ';
+	@override String get issueOther => 'અન્ય';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsGu {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'શું ખોટું લાગે છે?',
+			'meal.feedback.subtitle' => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણ સુધારવામાં અમારી મદદ કરો.',
+			'meal.feedback.tellUsMore' => 'વધુ જણાવો',
+			'meal.feedback.describeIncorrect' => 'શું ખોટું હતું તેનું વર્ણન કરો',
+			'meal.feedback.submit' => 'સબમિટ કરો',
+			'meal.feedback.issueFoodIdentification' => 'ખોરાકની ઓળખ',
+			'meal.feedback.issuePortionSize' => 'પીરસવાનું માપ',
+			'meal.feedback.issueCalorieDistribution' => 'કેલરી વિતરણ',
+			'meal.feedback.issueMacrosWrong' => 'મેક્રો ખોટા છે',
+			'meal.feedback.issueMissingItems' => 'ગુમ થયેલ વસ્તુઓ',
+			'meal.feedback.issueExtraItems' => 'વધારાની વસ્તુઓ',
+			'meal.feedback.issueOther' => 'અન્ય',
 			'favorites.title' => 'પસંદીદા',
 			'favorites.empty' => 'હજુ સુધી કોઈ પસંદીદા ભોજન નથી.',
 			'favorites.searchPlaceholder' => 'પસંદીદા ભોજન શોધો',

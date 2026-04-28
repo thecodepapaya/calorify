@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackZhCn implements TranslationsMealFeedbackEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => '哪里不对?';
+	@override String get subtitle => '选择一个或多个问题,帮助我们改进分析。';
+	@override String get tellUsMore => '告诉我们更多';
+	@override String get describeIncorrect => '描述哪里不正确';
+	@override String get submit => '提交';
+	@override String get issueFoodIdentification => '食物识别';
+	@override String get issuePortionSize => '份量大小';
+	@override String get issueCalorieDistribution => '卡路里分布';
+	@override String get issueMacrosWrong => '宏量营养素错误';
+	@override String get issueMissingItems => '缺少项目';
+	@override String get issueExtraItems => '多余项目';
+	@override String get issueOther => '其他';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsZhCn {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => '哪里不对?',
+			'meal.feedback.subtitle' => '选择一个或多个问题,帮助我们改进分析。',
+			'meal.feedback.tellUsMore' => '告诉我们更多',
+			'meal.feedback.describeIncorrect' => '描述哪里不正确',
+			'meal.feedback.submit' => '提交',
+			'meal.feedback.issueFoodIdentification' => '食物识别',
+			'meal.feedback.issuePortionSize' => '份量大小',
+			'meal.feedback.issueCalorieDistribution' => '卡路里分布',
+			'meal.feedback.issueMacrosWrong' => '宏量营养素错误',
+			'meal.feedback.issueMissingItems' => '缺少项目',
+			'meal.feedback.issueExtraItems' => '多余项目',
+			'meal.feedback.issueOther' => '其他',
 			'favorites.title' => '常用',
 			'favorites.empty' => '还没有常用餐食。',
 			'favorites.searchPlaceholder' => '搜索常用餐食',

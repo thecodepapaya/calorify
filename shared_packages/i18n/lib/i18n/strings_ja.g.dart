@@ -780,18 +780,18 @@ class _TranslationsMealFeedbackJa implements TranslationsMealFeedbackEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'What looks wrong?';
-	@override String get subtitle => 'Help us improve the analysis by selecting one or more issues.';
-	@override String get tellUsMore => 'Tell us more';
-	@override String get describeIncorrect => 'Describe what was incorrect';
-	@override String get submit => 'Submit';
-	@override String get issueFoodIdentification => 'Food identification';
-	@override String get issuePortionSize => 'Portion size';
-	@override String get issueCalorieDistribution => 'Calorie distribution';
-	@override String get issueMacrosWrong => 'Macros are wrong';
-	@override String get issueMissingItems => 'Missing items';
-	@override String get issueExtraItems => 'Extra items';
-	@override String get issueOther => 'Other';
+	@override String get title => 'どこが間違っていますか？';
+	@override String get subtitle => '1 つ以上の問題を選択して、分析の改善にご協力ください。';
+	@override String get tellUsMore => '詳しく教えてください';
+	@override String get describeIncorrect => '何が間違っていたか教えてください';
+	@override String get submit => '送信';
+	@override String get issueFoodIdentification => '食品の識別';
+	@override String get issuePortionSize => '1 食分の量';
+	@override String get issueCalorieDistribution => 'カロリー配分';
+	@override String get issueMacrosWrong => 'マクロが正しくない';
+	@override String get issueMissingItems => '不足している項目';
+	@override String get issueExtraItems => '余分な項目';
+	@override String get issueOther => 'その他';
 }
 
 // Path: favorites.sortOptions
@@ -1907,18 +1907,18 @@ extension on TranslationsJa {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'What looks wrong?',
-			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
-			'meal.feedback.tellUsMore' => 'Tell us more',
-			'meal.feedback.describeIncorrect' => 'Describe what was incorrect',
-			'meal.feedback.submit' => 'Submit',
-			'meal.feedback.issueFoodIdentification' => 'Food identification',
-			'meal.feedback.issuePortionSize' => 'Portion size',
-			'meal.feedback.issueCalorieDistribution' => 'Calorie distribution',
-			'meal.feedback.issueMacrosWrong' => 'Macros are wrong',
-			'meal.feedback.issueMissingItems' => 'Missing items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
-			'meal.feedback.issueOther' => 'Other',
+			'meal.feedback.title' => 'どこが間違っていますか？',
+			'meal.feedback.subtitle' => '1 つ以上の問題を選択して、分析の改善にご協力ください。',
+			'meal.feedback.tellUsMore' => '詳しく教えてください',
+			'meal.feedback.describeIncorrect' => '何が間違っていたか教えてください',
+			'meal.feedback.submit' => '送信',
+			'meal.feedback.issueFoodIdentification' => '食品の識別',
+			'meal.feedback.issuePortionSize' => '1 食分の量',
+			'meal.feedback.issueCalorieDistribution' => 'カロリー配分',
+			'meal.feedback.issueMacrosWrong' => 'マクロが正しくない',
+			'meal.feedback.issueMissingItems' => '不足している項目',
+			'meal.feedback.issueExtraItems' => '余分な項目',
+			'meal.feedback.issueOther' => 'その他',
 			'favorites.title' => 'お気に入り',
 			'favorites.empty' => 'お気に入りの食事はまだありません。',
 			'favorites.searchPlaceholder' => 'お気に入りを検索',
