@@ -15,6 +15,7 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../meal/meal.pbenum.dart' as $0;
+import 'meal_analysis_pipeline.pbenum.dart';
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -257,20 +258,35 @@ class PipelineMealHealth extends $pb.GeneratedMessage {
 
 class PipelineDecomposedIngredient extends $pb.GeneratedMessage {
   factory PipelineDecomposedIngredient({
+    $core.String? rowId,
     $core.String? rawName,
     $core.String? canonicalHint,
     $core.double? gramsEstimated,
     $core.double? minGrams,
     $core.double? maxGrams,
     $core.String? notes,
+    PortionKind? portionKind,
+    $core.double? count,
+    $core.double? perUnitGrams,
+    $core.double? perUnitMinGrams,
+    $core.double? perUnitMaxGrams,
+    $core.bool? sizeSpecifiedByUser,
   }) {
     final result = create();
+    if (rowId != null) result.rowId = rowId;
     if (rawName != null) result.rawName = rawName;
     if (canonicalHint != null) result.canonicalHint = canonicalHint;
     if (gramsEstimated != null) result.gramsEstimated = gramsEstimated;
     if (minGrams != null) result.minGrams = minGrams;
     if (maxGrams != null) result.maxGrams = maxGrams;
     if (notes != null) result.notes = notes;
+    if (portionKind != null) result.portionKind = portionKind;
+    if (count != null) result.count = count;
+    if (perUnitGrams != null) result.perUnitGrams = perUnitGrams;
+    if (perUnitMinGrams != null) result.perUnitMinGrams = perUnitMinGrams;
+    if (perUnitMaxGrams != null) result.perUnitMaxGrams = perUnitMaxGrams;
+    if (sizeSpecifiedByUser != null)
+      result.sizeSpecifiedByUser = sizeSpecifiedByUser;
     return result;
   }
 
@@ -287,12 +303,20 @@ class PipelineDecomposedIngredient extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'PipelineDecomposedIngredient',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'rawName')
-    ..aOS(2, _omitFieldNames ? '' : 'canonicalHint')
-    ..aD(3, _omitFieldNames ? '' : 'gramsEstimated')
-    ..aD(4, _omitFieldNames ? '' : 'minGrams')
-    ..aD(5, _omitFieldNames ? '' : 'maxGrams')
-    ..aOS(6, _omitFieldNames ? '' : 'notes')
+    ..aOS(1, _omitFieldNames ? '' : 'rowId')
+    ..aOS(2, _omitFieldNames ? '' : 'rawName')
+    ..aOS(3, _omitFieldNames ? '' : 'canonicalHint')
+    ..aD(4, _omitFieldNames ? '' : 'gramsEstimated')
+    ..aD(5, _omitFieldNames ? '' : 'minGrams')
+    ..aD(6, _omitFieldNames ? '' : 'maxGrams')
+    ..aOS(7, _omitFieldNames ? '' : 'notes')
+    ..aE<PortionKind>(8, _omitFieldNames ? '' : 'portionKind',
+        enumValues: PortionKind.values)
+    ..aD(9, _omitFieldNames ? '' : 'count')
+    ..aD(10, _omitFieldNames ? '' : 'perUnitGrams')
+    ..aD(11, _omitFieldNames ? '' : 'perUnitMinGrams')
+    ..aD(12, _omitFieldNames ? '' : 'perUnitMaxGrams')
+    ..aOB(13, _omitFieldNames ? '' : 'sizeSpecifiedByUser')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -318,76 +342,149 @@ class PipelineDecomposedIngredient extends $pb.GeneratedMessage {
   static PipelineDecomposedIngredient? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get rawName => $_getSZ(0);
+  $core.String get rowId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set rawName($core.String value) => $_setString(0, value);
+  set rowId($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasRawName() => $_has(0);
+  $core.bool hasRowId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRawName() => $_clearField(1);
+  void clearRowId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get canonicalHint => $_getSZ(1);
+  $core.String get rawName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set canonicalHint($core.String value) => $_setString(1, value);
+  set rawName($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasCanonicalHint() => $_has(1);
+  $core.bool hasRawName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCanonicalHint() => $_clearField(2);
+  void clearRawName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.double get gramsEstimated => $_getN(2);
+  $core.String get canonicalHint => $_getSZ(2);
   @$pb.TagNumber(3)
-  set gramsEstimated($core.double value) => $_setDouble(2, value);
+  set canonicalHint($core.String value) => $_setString(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasGramsEstimated() => $_has(2);
+  $core.bool hasCanonicalHint() => $_has(2);
   @$pb.TagNumber(3)
-  void clearGramsEstimated() => $_clearField(3);
+  void clearCanonicalHint() => $_clearField(3);
 
+  /// Total grams used downstream for macro math. Server enforces:
+  ///   if portion_kind == COUNT: grams_estimated = count * per_unit_grams
   @$pb.TagNumber(4)
-  $core.double get minGrams => $_getN(3);
+  $core.double get gramsEstimated => $_getN(3);
   @$pb.TagNumber(4)
-  set minGrams($core.double value) => $_setDouble(3, value);
+  set gramsEstimated($core.double value) => $_setDouble(3, value);
   @$pb.TagNumber(4)
-  $core.bool hasMinGrams() => $_has(3);
+  $core.bool hasGramsEstimated() => $_has(3);
   @$pb.TagNumber(4)
-  void clearMinGrams() => $_clearField(4);
+  void clearGramsEstimated() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $core.double get maxGrams => $_getN(4);
+  $core.double get minGrams => $_getN(4);
   @$pb.TagNumber(5)
-  set maxGrams($core.double value) => $_setDouble(4, value);
+  set minGrams($core.double value) => $_setDouble(4, value);
   @$pb.TagNumber(5)
-  $core.bool hasMaxGrams() => $_has(4);
+  $core.bool hasMinGrams() => $_has(4);
   @$pb.TagNumber(5)
-  void clearMaxGrams() => $_clearField(5);
+  void clearMinGrams() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get notes => $_getSZ(5);
+  $core.double get maxGrams => $_getN(5);
   @$pb.TagNumber(6)
-  set notes($core.String value) => $_setString(5, value);
+  set maxGrams($core.double value) => $_setDouble(5, value);
   @$pb.TagNumber(6)
-  $core.bool hasNotes() => $_has(5);
+  $core.bool hasMaxGrams() => $_has(5);
   @$pb.TagNumber(6)
-  void clearNotes() => $_clearField(6);
+  void clearMaxGrams() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get notes => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set notes($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasNotes() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearNotes() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  PortionKind get portionKind => $_getN(7);
+  @$pb.TagNumber(8)
+  set portionKind(PortionKind value) => $_setField(8, value);
+  @$pb.TagNumber(8)
+  $core.bool hasPortionKind() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearPortionKind() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.double get count => $_getN(8);
+  @$pb.TagNumber(9)
+  set count($core.double value) => $_setDouble(8, value);
+  @$pb.TagNumber(9)
+  $core.bool hasCount() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearCount() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.double get perUnitGrams => $_getN(9);
+  @$pb.TagNumber(10)
+  set perUnitGrams($core.double value) => $_setDouble(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasPerUnitGrams() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearPerUnitGrams() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.double get perUnitMinGrams => $_getN(10);
+  @$pb.TagNumber(11)
+  set perUnitMinGrams($core.double value) => $_setDouble(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasPerUnitMinGrams() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearPerUnitMinGrams() => $_clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.double get perUnitMaxGrams => $_getN(11);
+  @$pb.TagNumber(12)
+  set perUnitMaxGrams($core.double value) => $_setDouble(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasPerUnitMaxGrams() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearPerUnitMaxGrams() => $_clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.bool get sizeSpecifiedByUser => $_getBF(12);
+  @$pb.TagNumber(13)
+  set sizeSpecifiedByUser($core.bool value) => $_setBool(12, value);
+  @$pb.TagNumber(13)
+  $core.bool hasSizeSpecifiedByUser() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearSizeSpecifiedByUser() => $_clearField(13);
 }
 
 class PipelineResolvedIngredient extends $pb.GeneratedMessage {
   factory PipelineResolvedIngredient({
+    $core.String? rowId,
     $core.String? rawName,
     $core.String? canonicalName,
     $core.String? matchType,
     $core.double? grams,
     PipelineMacros? macros,
     $core.String? source,
+    PortionKind? portionKind,
+    $core.double? count,
+    $core.double? perUnitGrams,
   }) {
     final result = create();
+    if (rowId != null) result.rowId = rowId;
     if (rawName != null) result.rawName = rawName;
     if (canonicalName != null) result.canonicalName = canonicalName;
     if (matchType != null) result.matchType = matchType;
     if (grams != null) result.grams = grams;
     if (macros != null) result.macros = macros;
     if (source != null) result.source = source;
+    if (portionKind != null) result.portionKind = portionKind;
+    if (count != null) result.count = count;
+    if (perUnitGrams != null) result.perUnitGrams = perUnitGrams;
     return result;
   }
 
@@ -404,13 +501,18 @@ class PipelineResolvedIngredient extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'PipelineResolvedIngredient',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'rawName')
-    ..aOS(2, _omitFieldNames ? '' : 'canonicalName')
-    ..aOS(3, _omitFieldNames ? '' : 'matchType')
-    ..aD(4, _omitFieldNames ? '' : 'grams')
-    ..aOM<PipelineMacros>(5, _omitFieldNames ? '' : 'macros',
+    ..aOS(1, _omitFieldNames ? '' : 'rowId')
+    ..aOS(2, _omitFieldNames ? '' : 'rawName')
+    ..aOS(3, _omitFieldNames ? '' : 'canonicalName')
+    ..aOS(4, _omitFieldNames ? '' : 'matchType')
+    ..aD(5, _omitFieldNames ? '' : 'grams')
+    ..aOM<PipelineMacros>(6, _omitFieldNames ? '' : 'macros',
         subBuilder: PipelineMacros.create)
-    ..aOS(6, _omitFieldNames ? '' : 'source')
+    ..aOS(7, _omitFieldNames ? '' : 'source')
+    ..aE<PortionKind>(8, _omitFieldNames ? '' : 'portionKind',
+        enumValues: PortionKind.values)
+    ..aD(9, _omitFieldNames ? '' : 'count')
+    ..aD(10, _omitFieldNames ? '' : 'perUnitGrams')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -435,70 +537,110 @@ class PipelineResolvedIngredient extends $pb.GeneratedMessage {
   static PipelineResolvedIngredient? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get rawName => $_getSZ(0);
+  $core.String get rowId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set rawName($core.String value) => $_setString(0, value);
+  set rowId($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasRawName() => $_has(0);
+  $core.bool hasRowId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearRawName() => $_clearField(1);
+  void clearRowId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get canonicalName => $_getSZ(1);
+  $core.String get rawName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set canonicalName($core.String value) => $_setString(1, value);
+  set rawName($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasCanonicalName() => $_has(1);
+  $core.bool hasRawName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearCanonicalName() => $_clearField(2);
+  void clearRawName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get matchType => $_getSZ(2);
+  $core.String get canonicalName => $_getSZ(2);
   @$pb.TagNumber(3)
-  set matchType($core.String value) => $_setString(2, value);
+  set canonicalName($core.String value) => $_setString(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasMatchType() => $_has(2);
+  $core.bool hasCanonicalName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearMatchType() => $_clearField(3);
+  void clearCanonicalName() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.double get grams => $_getN(3);
+  $core.String get matchType => $_getSZ(3);
   @$pb.TagNumber(4)
-  set grams($core.double value) => $_setDouble(3, value);
+  set matchType($core.String value) => $_setString(3, value);
   @$pb.TagNumber(4)
-  $core.bool hasGrams() => $_has(3);
+  $core.bool hasMatchType() => $_has(3);
   @$pb.TagNumber(4)
-  void clearGrams() => $_clearField(4);
+  void clearMatchType() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  PipelineMacros get macros => $_getN(4);
+  $core.double get grams => $_getN(4);
   @$pb.TagNumber(5)
-  set macros(PipelineMacros value) => $_setField(5, value);
+  set grams($core.double value) => $_setDouble(4, value);
   @$pb.TagNumber(5)
-  $core.bool hasMacros() => $_has(4);
+  $core.bool hasGrams() => $_has(4);
   @$pb.TagNumber(5)
-  void clearMacros() => $_clearField(5);
-  @$pb.TagNumber(5)
-  PipelineMacros ensureMacros() => $_ensure(4);
+  void clearGrams() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get source => $_getSZ(5);
+  PipelineMacros get macros => $_getN(5);
   @$pb.TagNumber(6)
-  set source($core.String value) => $_setString(5, value);
+  set macros(PipelineMacros value) => $_setField(6, value);
   @$pb.TagNumber(6)
-  $core.bool hasSource() => $_has(5);
+  $core.bool hasMacros() => $_has(5);
   @$pb.TagNumber(6)
-  void clearSource() => $_clearField(6);
+  void clearMacros() => $_clearField(6);
+  @$pb.TagNumber(6)
+  PipelineMacros ensureMacros() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.String get source => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set source($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasSource() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearSource() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  PortionKind get portionKind => $_getN(7);
+  @$pb.TagNumber(8)
+  set portionKind(PortionKind value) => $_setField(8, value);
+  @$pb.TagNumber(8)
+  $core.bool hasPortionKind() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearPortionKind() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $core.double get count => $_getN(8);
+  @$pb.TagNumber(9)
+  set count($core.double value) => $_setDouble(8, value);
+  @$pb.TagNumber(9)
+  $core.bool hasCount() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearCount() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.double get perUnitGrams => $_getN(9);
+  @$pb.TagNumber(10)
+  set perUnitGrams($core.double value) => $_setDouble(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasPerUnitGrams() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearPerUnitGrams() => $_clearField(10);
 }
 
 class PipelineClarificationOption extends $pb.GeneratedMessage {
   factory PipelineClarificationOption({
+    $core.String? optionId,
     $core.String? label,
+    $core.String? detail,
     $core.double? grams,
     $core.int? calorieDelta,
   }) {
     final result = create();
+    if (optionId != null) result.optionId = optionId;
     if (label != null) result.label = label;
+    if (detail != null) result.detail = detail;
     if (grams != null) result.grams = grams;
     if (calorieDelta != null) result.calorieDelta = calorieDelta;
     return result;
@@ -517,9 +659,11 @@ class PipelineClarificationOption extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'PipelineClarificationOption',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'label')
-    ..aD(2, _omitFieldNames ? '' : 'grams')
-    ..aI(3, _omitFieldNames ? '' : 'calorieDelta')
+    ..aOS(1, _omitFieldNames ? '' : 'optionId')
+    ..aOS(2, _omitFieldNames ? '' : 'label')
+    ..aOS(3, _omitFieldNames ? '' : 'detail')
+    ..aD(4, _omitFieldNames ? '' : 'grams')
+    ..aI(5, _omitFieldNames ? '' : 'calorieDelta')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -545,46 +689,69 @@ class PipelineClarificationOption extends $pb.GeneratedMessage {
   static PipelineClarificationOption? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get label => $_getSZ(0);
+  $core.String get optionId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set label($core.String value) => $_setString(0, value);
+  set optionId($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasLabel() => $_has(0);
+  $core.bool hasOptionId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearLabel() => $_clearField(1);
+  void clearOptionId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.double get grams => $_getN(1);
+  $core.String get label => $_getSZ(1);
   @$pb.TagNumber(2)
-  set grams($core.double value) => $_setDouble(1, value);
+  set label($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasGrams() => $_has(1);
+  $core.bool hasLabel() => $_has(1);
   @$pb.TagNumber(2)
-  void clearGrams() => $_clearField(2);
+  void clearLabel() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.int get calorieDelta => $_getIZ(2);
+  $core.String get detail => $_getSZ(2);
   @$pb.TagNumber(3)
-  set calorieDelta($core.int value) => $_setSignedInt32(2, value);
+  set detail($core.String value) => $_setString(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasCalorieDelta() => $_has(2);
+  $core.bool hasDetail() => $_has(2);
   @$pb.TagNumber(3)
-  void clearCalorieDelta() => $_clearField(3);
+  void clearDetail() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.double get grams => $_getN(3);
+  @$pb.TagNumber(4)
+  set grams($core.double value) => $_setDouble(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasGrams() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearGrams() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get calorieDelta => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set calorieDelta($core.int value) => $_setSignedInt32(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasCalorieDelta() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCalorieDelta() => $_clearField(5);
 }
 
 class PipelineClarification extends $pb.GeneratedMessage {
   factory PipelineClarification({
+    $core.String? clarificationId,
+    $core.String? rowId,
     $core.String? ingredientName,
+    PortionKind? portionKind,
     $core.String? question,
     $core.Iterable<PipelineClarificationOption>? options,
-    $core.int? defaultOptionIndex,
+    $core.String? defaultOptionId,
   }) {
     final result = create();
+    if (clarificationId != null) result.clarificationId = clarificationId;
+    if (rowId != null) result.rowId = rowId;
     if (ingredientName != null) result.ingredientName = ingredientName;
+    if (portionKind != null) result.portionKind = portionKind;
     if (question != null) result.question = question;
     if (options != null) result.options.addAll(options);
-    if (defaultOptionIndex != null)
-      result.defaultOptionIndex = defaultOptionIndex;
+    if (defaultOptionId != null) result.defaultOptionId = defaultOptionId;
     return result;
   }
 
@@ -601,11 +768,15 @@ class PipelineClarification extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'PipelineClarification',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'ingredientName')
-    ..aOS(2, _omitFieldNames ? '' : 'question')
-    ..pPM<PipelineClarificationOption>(3, _omitFieldNames ? '' : 'options',
+    ..aOS(1, _omitFieldNames ? '' : 'clarificationId')
+    ..aOS(2, _omitFieldNames ? '' : 'rowId')
+    ..aOS(3, _omitFieldNames ? '' : 'ingredientName')
+    ..aE<PortionKind>(4, _omitFieldNames ? '' : 'portionKind',
+        enumValues: PortionKind.values)
+    ..aOS(5, _omitFieldNames ? '' : 'question')
+    ..pPM<PipelineClarificationOption>(6, _omitFieldNames ? '' : 'options',
         subBuilder: PipelineClarificationOption.create)
-    ..aI(4, _omitFieldNames ? '' : 'defaultOptionIndex')
+    ..aOS(7, _omitFieldNames ? '' : 'defaultOptionId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -629,34 +800,61 @@ class PipelineClarification extends $pb.GeneratedMessage {
   static PipelineClarification? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get ingredientName => $_getSZ(0);
+  $core.String get clarificationId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set ingredientName($core.String value) => $_setString(0, value);
+  set clarificationId($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasIngredientName() => $_has(0);
+  $core.bool hasClarificationId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearIngredientName() => $_clearField(1);
+  void clearClarificationId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get question => $_getSZ(1);
+  $core.String get rowId => $_getSZ(1);
   @$pb.TagNumber(2)
-  set question($core.String value) => $_setString(1, value);
+  set rowId($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasQuestion() => $_has(1);
+  $core.bool hasRowId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearQuestion() => $_clearField(2);
+  void clearRowId() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $pb.PbList<PipelineClarificationOption> get options => $_getList(2);
+  $core.String get ingredientName => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set ingredientName($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasIngredientName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearIngredientName() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get defaultOptionIndex => $_getIZ(3);
+  PortionKind get portionKind => $_getN(3);
   @$pb.TagNumber(4)
-  set defaultOptionIndex($core.int value) => $_setSignedInt32(3, value);
+  set portionKind(PortionKind value) => $_setField(4, value);
   @$pb.TagNumber(4)
-  $core.bool hasDefaultOptionIndex() => $_has(3);
+  $core.bool hasPortionKind() => $_has(3);
   @$pb.TagNumber(4)
-  void clearDefaultOptionIndex() => $_clearField(4);
+  void clearPortionKind() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get question => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set question($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasQuestion() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearQuestion() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $pb.PbList<PipelineClarificationOption> get options => $_getList(5);
+
+  @$pb.TagNumber(7)
+  $core.String get defaultOptionId => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set defaultOptionId($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasDefaultOptionId() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearDefaultOptionId() => $_clearField(7);
 }
 
 class PipelineStartedData extends $pb.GeneratedMessage {
@@ -827,10 +1025,12 @@ class PipelineDecompositionData extends $pb.GeneratedMessage {
 class PipelineIngredientsData extends $pb.GeneratedMessage {
   factory PipelineIngredientsData({
     $core.String? analysisId,
+    $core.String? mealName,
     $core.Iterable<PipelineResolvedIngredient>? ingredients,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
+    if (mealName != null) result.mealName = mealName;
     if (ingredients != null) result.ingredients.addAll(ingredients);
     return result;
   }
@@ -849,7 +1049,8 @@ class PipelineIngredientsData extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
-    ..pPM<PipelineResolvedIngredient>(2, _omitFieldNames ? '' : 'ingredients',
+    ..aOS(2, _omitFieldNames ? '' : 'mealName')
+    ..pPM<PipelineResolvedIngredient>(3, _omitFieldNames ? '' : 'ingredients',
         subBuilder: PipelineResolvedIngredient.create)
     ..hasRequiredFields = false;
 
@@ -883,12 +1084,22 @@ class PipelineIngredientsData extends $pb.GeneratedMessage {
   void clearAnalysisId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $pb.PbList<PipelineResolvedIngredient> get ingredients => $_getList(1);
+  $core.String get mealName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set mealName($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasMealName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMealName() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $pb.PbList<PipelineResolvedIngredient> get ingredients => $_getList(2);
 }
 
 class PipelineUncertaintyData extends $pb.GeneratedMessage {
   factory PipelineUncertaintyData({
     $core.String? analysisId,
+    $core.String? mealName,
     $core.double? variancePercent,
     $core.bool? needsClarification,
     PipelineCalorieBand? calorieBand,
@@ -896,6 +1107,7 @@ class PipelineUncertaintyData extends $pb.GeneratedMessage {
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
+    if (mealName != null) result.mealName = mealName;
     if (variancePercent != null) result.variancePercent = variancePercent;
     if (needsClarification != null)
       result.needsClarification = needsClarification;
@@ -918,11 +1130,12 @@ class PipelineUncertaintyData extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
-    ..aD(2, _omitFieldNames ? '' : 'variancePercent')
-    ..aOB(3, _omitFieldNames ? '' : 'needsClarification')
-    ..aOM<PipelineCalorieBand>(4, _omitFieldNames ? '' : 'calorieBand',
+    ..aOS(2, _omitFieldNames ? '' : 'mealName')
+    ..aD(3, _omitFieldNames ? '' : 'variancePercent')
+    ..aOB(4, _omitFieldNames ? '' : 'needsClarification')
+    ..aOM<PipelineCalorieBand>(5, _omitFieldNames ? '' : 'calorieBand',
         subBuilder: PipelineCalorieBand.create)
-    ..pPM<PipelineClarification>(5, _omitFieldNames ? '' : 'clarifications',
+    ..pPM<PipelineClarification>(6, _omitFieldNames ? '' : 'clarifications',
         subBuilder: PipelineClarification.create)
     ..hasRequiredFields = false;
 
@@ -956,47 +1169,58 @@ class PipelineUncertaintyData extends $pb.GeneratedMessage {
   void clearAnalysisId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.double get variancePercent => $_getN(1);
+  $core.String get mealName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set variancePercent($core.double value) => $_setDouble(1, value);
+  set mealName($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasVariancePercent() => $_has(1);
+  $core.bool hasMealName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearVariancePercent() => $_clearField(2);
+  void clearMealName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.bool get needsClarification => $_getBF(2);
+  $core.double get variancePercent => $_getN(2);
   @$pb.TagNumber(3)
-  set needsClarification($core.bool value) => $_setBool(2, value);
+  set variancePercent($core.double value) => $_setDouble(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasNeedsClarification() => $_has(2);
+  $core.bool hasVariancePercent() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNeedsClarification() => $_clearField(3);
+  void clearVariancePercent() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  PipelineCalorieBand get calorieBand => $_getN(3);
+  $core.bool get needsClarification => $_getBF(3);
   @$pb.TagNumber(4)
-  set calorieBand(PipelineCalorieBand value) => $_setField(4, value);
+  set needsClarification($core.bool value) => $_setBool(3, value);
   @$pb.TagNumber(4)
-  $core.bool hasCalorieBand() => $_has(3);
+  $core.bool hasNeedsClarification() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCalorieBand() => $_clearField(4);
-  @$pb.TagNumber(4)
-  PipelineCalorieBand ensureCalorieBand() => $_ensure(3);
+  void clearNeedsClarification() => $_clearField(4);
 
   @$pb.TagNumber(5)
-  $pb.PbList<PipelineClarification> get clarifications => $_getList(4);
+  PipelineCalorieBand get calorieBand => $_getN(4);
+  @$pb.TagNumber(5)
+  set calorieBand(PipelineCalorieBand value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasCalorieBand() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearCalorieBand() => $_clearField(5);
+  @$pb.TagNumber(5)
+  PipelineCalorieBand ensureCalorieBand() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  $pb.PbList<PipelineClarification> get clarifications => $_getList(5);
 }
 
 class PipelineMealTypeQuestionData extends $pb.GeneratedMessage {
   factory PipelineMealTypeQuestionData({
     $core.String? analysisId,
+    $core.String? mealName,
     $core.String? question,
     $core.Iterable<$0.MealType>? options,
     $0.MealType? inferredMealType,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
+    if (mealName != null) result.mealName = mealName;
     if (question != null) result.question = question;
     if (options != null) result.options.addAll(options);
     if (inferredMealType != null) result.inferredMealType = inferredMealType;
@@ -1017,12 +1241,13 @@ class PipelineMealTypeQuestionData extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
-    ..aOS(2, _omitFieldNames ? '' : 'question')
-    ..pc<$0.MealType>(3, _omitFieldNames ? '' : 'options', $pb.PbFieldType.KE,
+    ..aOS(2, _omitFieldNames ? '' : 'mealName')
+    ..aOS(3, _omitFieldNames ? '' : 'question')
+    ..pc<$0.MealType>(4, _omitFieldNames ? '' : 'options', $pb.PbFieldType.KE,
         valueOf: $0.MealType.valueOf,
         enumValues: $0.MealType.values,
         defaultEnumValue: $0.MealType.UNKNOWN)
-    ..aE<$0.MealType>(4, _omitFieldNames ? '' : 'inferredMealType',
+    ..aE<$0.MealType>(5, _omitFieldNames ? '' : 'inferredMealType',
         enumValues: $0.MealType.values)
     ..hasRequiredFields = false;
 
@@ -1058,25 +1283,34 @@ class PipelineMealTypeQuestionData extends $pb.GeneratedMessage {
   void clearAnalysisId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get question => $_getSZ(1);
+  $core.String get mealName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set question($core.String value) => $_setString(1, value);
+  set mealName($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasQuestion() => $_has(1);
+  $core.bool hasMealName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearQuestion() => $_clearField(2);
+  void clearMealName() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $pb.PbList<$0.MealType> get options => $_getList(2);
+  $core.String get question => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set question($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasQuestion() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearQuestion() => $_clearField(3);
 
   @$pb.TagNumber(4)
-  $0.MealType get inferredMealType => $_getN(3);
-  @$pb.TagNumber(4)
-  set inferredMealType($0.MealType value) => $_setField(4, value);
-  @$pb.TagNumber(4)
-  $core.bool hasInferredMealType() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearInferredMealType() => $_clearField(4);
+  $pb.PbList<$0.MealType> get options => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $0.MealType get inferredMealType => $_getN(4);
+  @$pb.TagNumber(5)
+  set inferredMealType($0.MealType value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasInferredMealType() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearInferredMealType() => $_clearField(5);
 }
 
 class PipelineResultData extends $pb.GeneratedMessage {

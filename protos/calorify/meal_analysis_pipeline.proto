@@ -16,6 +16,13 @@ enum PipelineStep {
   ERROR = 7;
 }
 
+enum PortionKind {
+  PORTION_KIND_UNSPECIFIED = 0;
+  COUNT = 1;          // discrete units: roti, slice, egg, piece
+  BULK = 2;           // spoon/cup/bowl foods: rice, dal, sabzi, sauces
+  PINCH = 3;          // trace amounts: salt, spices, garnishes
+  COUNT_QUESTION = 4; // synthetic; clarification asks "how many?"
+}
 
 
 message PipelineCalorieBand {
@@ -37,34 +44,55 @@ message PipelineMealHealth {
 }
 
 message PipelineDecomposedIngredient {
-  string raw_name = 1;
-  string canonical_hint = 2;
-  double grams_estimated = 3;
-  double min_grams = 4;
-  double max_grams = 5;
-  string notes = 6;
+  string row_id = 1;          // stable id per row; survives clarify replays
+  string raw_name = 2;
+  string canonical_hint = 3;
+
+  // Total grams used downstream for macro math. Server enforces:
+  //   if portion_kind == COUNT: grams_estimated = count * per_unit_grams
+  double grams_estimated = 4;
+  double min_grams = 5;
+  double max_grams = 6;
+
+  string notes = 7;
+
+  PortionKind portion_kind = 8;
+  optional double count = 9;            // fractional ok; null if not extracted
+  optional double per_unit_grams = 10;
+  optional double per_unit_min_grams = 11;
+  optional double per_unit_max_grams = 12;
+  bool size_specified_by_user = 13;
 }
 
 message PipelineResolvedIngredient {
-  string raw_name = 1;
-  string canonical_name = 2;
-  string match_type = 3;
-  double grams = 4;
-  PipelineMacros macros = 5;
-  string source = 6;
+  string row_id = 1;
+  string raw_name = 2;
+  string canonical_name = 3;
+  string match_type = 4;
+  double grams = 5;
+  PipelineMacros macros = 6;
+  string source = 7;
+  PortionKind portion_kind = 8;
+  optional double count = 9;
+  optional double per_unit_grams = 10;
 }
 
 message PipelineClarificationOption {
-  string label = 1;
-  double grams = 2;
-  int32 calorie_delta = 3;
+  string option_id = 1;       // stable; matcher key
+  string label = 2;           // user-facing copy, no grams
+  optional string detail = 3; // optional fine print, e.g. "≈ 35g each"
+  double grams = 4;           // total grams this option resolves to (count baked in)
+  int32 calorie_delta = 5;
 }
 
 message PipelineClarification {
-  string ingredient_name = 1;
-  string question = 2;
-  repeated PipelineClarificationOption options = 3;
-  int32 default_option_index = 4;
+  string clarification_id = 1; // stable; matcher key
+  string row_id = 2;           // links to PipelineDecomposedIngredient.row_id
+  string ingredient_name = 3;  // display only
+  PortionKind portion_kind = 4; // drives icon / copy variant
+  string question = 5;
+  repeated PipelineClarificationOption options = 6;
+  string default_option_id = 7;
 }
 
 message PipelineStartedData {
@@ -82,22 +110,25 @@ message PipelineDecompositionData {
 
 message PipelineIngredientsData {
   string analysis_id = 1;
-  repeated PipelineResolvedIngredient ingredients = 2;
+  string meal_name = 2; // propagated from decomposition for cold-replay headers
+  repeated PipelineResolvedIngredient ingredients = 3;
 }
 
 message PipelineUncertaintyData {
   string analysis_id = 1;
-  double variance_percent = 2;
-  bool needs_clarification = 3;
-  PipelineCalorieBand calorie_band = 4;
-  repeated PipelineClarification clarifications = 5;
+  string meal_name = 2;
+  double variance_percent = 3;
+  bool needs_clarification = 4;
+  PipelineCalorieBand calorie_band = 5;
+  repeated PipelineClarification clarifications = 6;
 }
 
 message PipelineMealTypeQuestionData {
   string analysis_id = 1;
-  string question = 2;
-  repeated meal.MealType options = 3;
-  meal.MealType inferred_meal_type = 4;
+  string meal_name = 2;
+  string question = 3;
+  repeated meal.MealType options = 4;
+  meal.MealType inferred_meal_type = 5;
 }
 
 message PipelineResultData {

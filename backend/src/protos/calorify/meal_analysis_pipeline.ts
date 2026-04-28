@@ -35,6 +35,30 @@ export namespace PipelineStep {
   export type UNRECOGNIZED = typeof PipelineStep.UNRECOGNIZED;
 }
 
+export const PortionKind = {
+  PORTION_KIND_UNSPECIFIED: "PORTION_KIND_UNSPECIFIED",
+  /** COUNT - discrete units: roti, slice, egg, piece */
+  COUNT: "COUNT",
+  /** BULK - spoon/cup/bowl foods: rice, dal, sabzi, sauces */
+  BULK: "BULK",
+  /** PINCH - trace amounts: salt, spices, garnishes */
+  PINCH: "PINCH",
+  /** COUNT_QUESTION - synthetic; clarification asks "how many?" */
+  COUNT_QUESTION: "COUNT_QUESTION",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type PortionKind = typeof PortionKind[keyof typeof PortionKind];
+
+export namespace PortionKind {
+  export type PORTION_KIND_UNSPECIFIED = typeof PortionKind.PORTION_KIND_UNSPECIFIED;
+  export type COUNT = typeof PortionKind.COUNT;
+  export type BULK = typeof PortionKind.BULK;
+  export type PINCH = typeof PortionKind.PINCH;
+  export type COUNT_QUESTION = typeof PortionKind.COUNT_QUESTION;
+  export type UNRECOGNIZED = typeof PortionKind.UNRECOGNIZED;
+}
+
 export interface PipelineCalorieBand {
   min: number;
   max: number;
@@ -54,34 +78,66 @@ export interface PipelineMealHealth {
 }
 
 export interface PipelineDecomposedIngredient {
+  /** stable id per row; survives clarify replays */
+  rowId: string;
   rawName: string;
   canonicalHint: string;
+  /**
+   * Total grams used downstream for macro math. Server enforces:
+   *   if portion_kind == COUNT: grams_estimated = count * per_unit_grams
+   */
   gramsEstimated: number;
   minGrams: number;
   maxGrams: number;
   notes: string;
+  portionKind: PortionKind;
+  /** fractional ok; null if not extracted */
+  count?: number | undefined;
+  perUnitGrams?: number | undefined;
+  perUnitMinGrams?: number | undefined;
+  perUnitMaxGrams?: number | undefined;
+  sizeSpecifiedByUser: boolean;
 }
 
 export interface PipelineResolvedIngredient {
+  rowId: string;
   rawName: string;
   canonicalName: string;
   matchType: string;
   grams: number;
   macros?: PipelineMacros | undefined;
   source: string;
+  portionKind: PortionKind;
+  count?: number | undefined;
+  perUnitGrams?: number | undefined;
 }
 
 export interface PipelineClarificationOption {
+  /** stable; matcher key */
+  optionId: string;
+  /** user-facing copy, no grams */
   label: string;
+  /** optional fine print, e.g. "≈ 35g each" */
+  detail?:
+    | string
+    | undefined;
+  /** total grams this option resolves to (count baked in) */
   grams: number;
   calorieDelta: number;
 }
 
 export interface PipelineClarification {
+  /** stable; matcher key */
+  clarificationId: string;
+  /** links to PipelineDecomposedIngredient.row_id */
+  rowId: string;
+  /** display only */
   ingredientName: string;
+  /** drives icon / copy variant */
+  portionKind: PortionKind;
   question: string;
   options: PipelineClarificationOption[];
-  defaultOptionIndex: number;
+  defaultOptionId: string;
 }
 
 export interface PipelineStartedData {
@@ -99,11 +155,14 @@ export interface PipelineDecompositionData {
 
 export interface PipelineIngredientsData {
   analysisId: string;
+  /** propagated from decomposition for cold-replay headers */
+  mealName: string;
   ingredients: PipelineResolvedIngredient[];
 }
 
 export interface PipelineUncertaintyData {
   analysisId: string;
+  mealName: string;
   variancePercent: number;
   needsClarification: boolean;
   calorieBand?: PipelineCalorieBand | undefined;
@@ -112,6 +171,7 @@ export interface PipelineUncertaintyData {
 
 export interface PipelineMealTypeQuestionData {
   analysisId: string;
+  mealName: string;
   question: string;
   options: MealType[];
   inferredMealType: MealType;

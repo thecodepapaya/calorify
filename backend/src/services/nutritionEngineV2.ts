@@ -18,16 +18,36 @@ import {
   type MealTypeSource,
   upsertMealAnalysisSession,
 } from './mealAnalysisStore.js';
-import { mealAnalysisTraceStepSeconds } from './metrics.js';
-import { MealClarificationAnswer } from '../protos/calorify/http_api.js';
+import {
+  mealAnalysisTraceStepSeconds,
+  mealAnalysisClarificationSkipsTotal,
+  mealAnalysisDecompositionIssuesTotal,
+} from './metrics.js';
+import type { MealClarificationAnswer } from '../protos/calorify/http_api.js';
+import { PortionKind } from '../protos/calorify/meal_analysis_pipeline.js';
+import {
+  lookupTemplate,
+  synthesizeFallbackTemplate,
+  type PortionTemplate,
+} from './portionTemplates.js';
+
+type PortionKindValue = 'COUNT' | 'BULK' | 'PINCH' | 'COUNT_QUESTION';
 
 interface LLMIngredient {
+  row_id?: string;
+  rowId?: string;
   raw_name: string;
   canonical_hint: string;
   grams_estimated: number;
   min_grams: number;
   max_grams: number;
   notes: string;
+  portion_kind?: PortionKindValue;
+  count?: number | null;
+  per_unit_grams?: number | null;
+  per_unit_min_grams?: number | null;
+  per_unit_max_grams?: number | null;
+  size_specified_by_user?: boolean;
 }
 
 interface LLMDecomposition {
@@ -36,6 +56,34 @@ interface LLMDecomposition {
   confidence: number;
   inferred_meal_type: MealTypeValue;
   meal_type_confident: boolean;
+}
+
+/**
+ * Decomposition after wire-layer normalization: row IDs assigned, count×per_unit math
+ * enforced as the single source of truth for grams totals, sanity clamps applied.
+ */
+interface NormalizedIngredient {
+  rowId: string;
+  rawName: string;
+  canonicalHint: string;
+  gramsEstimated: number;
+  minGrams: number;
+  maxGrams: number;
+  notes: string;
+  portionKind: PortionKindValue;
+  count: number | null;
+  perUnitGrams: number | null;
+  perUnitMinGrams: number | null;
+  perUnitMaxGrams: number | null;
+  sizeSpecifiedByUser: boolean;
+}
+
+interface NormalizedDecomposition {
+  mealName: string;
+  ingredients: NormalizedIngredient[];
+  confidence: number;
+  inferredMealType: MealTypeValue;
+  mealTypeConfident: boolean;
 }
 
 interface CanonicalMatch {
@@ -54,7 +102,9 @@ export interface Macros {
 }
 
 interface ResolvedIngredient {
+  rowId: string;
   rawName: string;
+  canonicalHint: string;
   match: CanonicalMatch;
   grams: number;
   minGrams: number;
@@ -63,6 +113,12 @@ interface ResolvedIngredient {
   minMacros: Macros;
   maxMacros: Macros;
   source: 'db' | 'llm_fallback';
+  portionKind: PortionKindValue;
+  count: number | null;
+  perUnitGrams: number | null;
+  perUnitMinGrams: number | null;
+  perUnitMaxGrams: number | null;
+  sizeSpecifiedByUser: boolean;
 }
 
 interface LLMFallbackEntry {
@@ -120,34 +176,50 @@ export type MealTypeValue = (typeof MEAL_TYPES)[number] | 'UNKNOWN';
 export type HealthScoreValue = 'HEALTHY' | 'NEUTRAL' | 'UNHEALTHY';
 
 export interface PipelineDecomposedIngredient {
+  rowId: string;
   rawName: string;
   canonicalHint: string;
   gramsEstimated: number;
   minGrams: number;
   maxGrams: number;
   notes: string;
+  portionKind: PortionKindValue;
+  count?: number;
+  perUnitGrams?: number;
+  perUnitMinGrams?: number;
+  perUnitMaxGrams?: number;
+  sizeSpecifiedByUser: boolean;
 }
 
 export interface PipelineResolvedIngredient {
+  rowId: string;
   rawName: string;
   canonicalName: string;
   matchType: string;
   grams: number;
   macros: Macros;
   source: 'db' | 'llm_fallback';
+  portionKind: PortionKindValue;
+  count?: number;
+  perUnitGrams?: number;
 }
 
 export interface ClarificationOptionDTO {
+  option_id: string;
   label: string;
+  detail?: string;
   grams: number;
   calorie_delta: number;
 }
 
 export interface ClarificationDTO {
+  clarification_id: string;
+  row_id: string;
   ingredient_name: string;
+  portion_kind: PortionKindValue;
   question: string;
   options: ClarificationOptionDTO[];
-  default_option_index: number;
+  default_option_id: string;
 }
 
 export interface MealTypeQuestionDTO {
@@ -171,16 +243,21 @@ interface PresentationResult {
 }
 
 export interface PipelineClarificationOptionWire {
+  optionId: string;
   label: string;
+  detail?: string;
   grams: number;
   calorieDelta: number;
 }
 
 export interface PipelineClarificationWire {
+  clarificationId: string;
+  rowId: string;
   ingredientName: string;
+  portionKind: PortionKindValue;
   question: string;
   options: PipelineClarificationOptionWire[];
-  defaultOptionIndex: number;
+  defaultOptionId: string;
 }
 
 export interface PipelineEventBase {
@@ -204,12 +281,13 @@ export type PipelineEvent =
     }
   | {
       step: 'INGREDIENTS';
-      data: PipelineEventBase & { ingredients: PipelineResolvedIngredient[] };
+      data: PipelineEventBase & { mealName: string; ingredients: PipelineResolvedIngredient[] };
     }
   | {
       step: 'UNCERTAINTY';
       data: PipelineEventBase & {
         variancePercent: number;
+        mealName: string;
         needsClarification: boolean;
         calorieBand: { min: number; max: number };
         clarifications: PipelineClarificationWire[];
@@ -218,6 +296,7 @@ export type PipelineEvent =
   | {
       step: 'MEAL_TYPE_QUESTION';
       data: PipelineEventBase & {
+        mealName: string;
         question: string;
         options: MealTypeValue[];
         inferredMealType?: MealTypeValue;
@@ -273,12 +352,12 @@ interface PipelineRunContext {
   trace?: AnalysisTrace;
 }
 
-const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram estimates.
+const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram and portion estimates.
 
 RULES:
 1. NEVER generate calorie or macro nutritional values. You ONLY estimate grams.
 2. Decompose composite dishes into atomic ingredients.
-3. For each ingredient provide: raw_name, canonical_hint, grams_estimated, min_grams, max_grams, notes.
+3. For each ingredient provide: raw_name, canonical_hint, grams_estimated, min_grams, max_grams, notes, portion_kind, count, per_unit_grams, per_unit_min_grams, per_unit_max_grams, size_specified_by_user.
 4. Prefer cooked weights for cooked dishes.
 5. Include ALL ingredients — oils, butter, ghee, salt, spices.
 6. confidence: 0-1 reflecting how confident you are overall.
@@ -286,6 +365,10 @@ RULES:
    - Use UNKNOWN when the description/image does not clearly imply a single meal context.
    - Strong signals: explicit keywords ("breakfast", "lunch", "dinner"), classic dishes with fixed meal context (pancakes/cereal → BREAKFAST; ramen/curry-rice → LUNCH/DINNER), tiny portions/sweets → SNACK.
 8. meal_type_confident: true ONLY when the meal_name or visible context strongly implies a single meal type. When in doubt, set false so the user is asked.
+9. Set portion_kind to COUNT for foods that come in discrete units (roti, chapati, bread slice, egg, idli, dosa, samosa, banana, piece). Set BULK for spoon/cup/bowl foods (rice, dal, sabzi, curry, sauces, milk, oil). Set PINCH for trace amounts (salt, spices, garnishes).
+10. For COUNT, emit count when the user's words imply it. Fractional counts are allowed (0.5 = half). Also emit per_unit_grams, per_unit_min_grams, and per_unit_max_grams. The server will recompute total grams as count × per_unit.
+11. If the user states the size of a unit ("4 large rotis"), set size_specified_by_user=true and collapse per_unit_min_grams/per_unit_grams/per_unit_max_grams to that one size.
+12. If the user mentions different sizes within the same food ("2 small + 2 large rotis"), emit separate ingredient rows instead of averaging.
 
 Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 3g oil/ghee; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g`;
 
@@ -304,8 +387,30 @@ const DECOMPOSITION_SCHEMA = {
           min_grams: { type: 'number' as const },
           max_grams: { type: 'number' as const },
           notes: { type: 'string' as const },
+          portion_kind: {
+            type: 'string' as const,
+            enum: ['COUNT', 'BULK', 'PINCH'],
+          },
+          count: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
+          per_unit_grams: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
+          per_unit_min_grams: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
+          per_unit_max_grams: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
+          size_specified_by_user: { type: 'boolean' as const },
         },
-        required: ['raw_name', 'canonical_hint', 'grams_estimated', 'min_grams', 'max_grams', 'notes'] as const,
+        required: [
+          'raw_name',
+          'canonical_hint',
+          'grams_estimated',
+          'min_grams',
+          'max_grams',
+          'notes',
+          'portion_kind',
+          'count',
+          'per_unit_grams',
+          'per_unit_min_grams',
+          'per_unit_max_grams',
+          'size_specified_by_user',
+        ] as const,
         additionalProperties: false,
       },
     },
@@ -433,6 +538,171 @@ function sumMacros(items: Macros[]): Macros {
   return total;
 }
 
+function asPortionKind(value: unknown): PortionKindValue {
+  if (value === PortionKind.COUNT) return 'COUNT';
+  if (value === PortionKind.PINCH) return 'PINCH';
+  if (value === PortionKind.COUNT_QUESTION) return 'COUNT_QUESTION';
+  return 'BULK';
+}
+
+function toWirePortionKind(value: PortionKindValue): PortionKind {
+  switch (value) {
+    case 'COUNT':
+      return PortionKind.COUNT;
+    case 'PINCH':
+      return PortionKind.PINCH;
+    case 'COUNT_QUESTION':
+      return PortionKind.COUNT_QUESTION;
+    case 'BULK':
+      return PortionKind.BULK;
+  }
+}
+
+function finiteNumber(value: unknown, fallback: number): number {
+  const next = Number(value);
+  return Number.isFinite(next) ? next : fallback;
+}
+
+function finiteOptionalNumber(value: unknown): number | null {
+  if (value == null) return null;
+  const next = Number(value);
+  return Number.isFinite(next) ? next : null;
+}
+
+function cleanMealName(value: string): string {
+  return value.trim();
+}
+
+function roundGram(value: number): number {
+  return +value.toFixed(1);
+}
+
+function orderedBand(min: number, mid: number, max: number): { min: number; mid: number; max: number } {
+  const values = [min, mid, max].map((v) => Math.max(0, roundGram(v))).sort((a, b) => a - b);
+  return { min: values[0]!, mid: values[1]!, max: values[2]! };
+}
+
+function normalizeDecomposition(
+  decomposition: LLMDecomposition,
+  logger?: AnalysisLogger,
+  analysisId?: string
+): NormalizedDecomposition {
+  const ingredients = decomposition.ingredients.map((ingredient) => {
+    const rawName = String(ingredient.raw_name ?? '').trim();
+    const canonicalHint = String(ingredient.canonical_hint ?? rawName).trim();
+    const gramsEstimated = finiteNumber(ingredient.grams_estimated, 0);
+    const minGrams = finiteNumber(ingredient.min_grams, gramsEstimated);
+    const maxGrams = finiteNumber(ingredient.max_grams, gramsEstimated);
+    const notes = String(ingredient.notes ?? '');
+    const rowId = String(ingredient.rowId ?? ingredient.row_id ?? randomUUID());
+    const portionKind = asPortionKind(ingredient.portion_kind);
+    const count = finiteOptionalNumber(ingredient.count);
+    const sizeSpecifiedByUser = Boolean(ingredient.size_specified_by_user);
+
+    if (portionKind === 'COUNT' && count != null && count > 0) {
+      const perUnitGrams = finiteOptionalNumber(ingredient.per_unit_grams) ?? gramsEstimated / count;
+      const collapsedPerUnitMin = sizeSpecifiedByUser
+        ? perUnitGrams
+        : finiteOptionalNumber(ingredient.per_unit_min_grams) ?? minGrams / count;
+      const collapsedPerUnitMax = sizeSpecifiedByUser
+        ? perUnitGrams
+        : finiteOptionalNumber(ingredient.per_unit_max_grams) ?? maxGrams / count;
+      const perUnitBand = orderedBand(collapsedPerUnitMin, perUnitGrams, collapsedPerUnitMax);
+      const totalMax = count * perUnitBand.max;
+
+      if (count > 20 || totalMax > 2000) {
+        mealAnalysisDecompositionIssuesTotal.labels({ issue: 'implausible_count' }).inc();
+        logAnalysis(logger, 'warn', 'decomposition_implausible_count', {
+          analysisId,
+          rowId,
+          rawName,
+          count,
+          perUnitMaxGrams: perUnitBand.max,
+          totalMax,
+        });
+        const bulkBand = orderedBand(minGrams, gramsEstimated, Math.min(maxGrams, 2000));
+        return {
+          rowId,
+          rawName,
+          canonicalHint,
+          gramsEstimated: bulkBand.mid,
+          minGrams: bulkBand.min,
+          maxGrams: bulkBand.max,
+          notes,
+          portionKind: 'BULK' as PortionKindValue,
+          count: null,
+          perUnitGrams: null,
+          perUnitMinGrams: null,
+          perUnitMaxGrams: null,
+          sizeSpecifiedByUser: false,
+        };
+      }
+
+      return {
+        rowId,
+        rawName,
+        canonicalHint,
+        gramsEstimated: roundGram(count * perUnitBand.mid),
+        minGrams: roundGram(count * perUnitBand.min),
+        maxGrams: roundGram(count * perUnitBand.max),
+        notes,
+        portionKind,
+        count,
+        perUnitGrams: perUnitBand.mid,
+        perUnitMinGrams: perUnitBand.min,
+        perUnitMaxGrams: perUnitBand.max,
+        sizeSpecifiedByUser,
+      };
+    }
+
+    const band = orderedBand(minGrams, gramsEstimated, maxGrams);
+    return {
+      rowId,
+      rawName,
+      canonicalHint,
+      gramsEstimated: band.mid,
+      minGrams: band.min,
+      maxGrams: band.max,
+      notes,
+      portionKind,
+      count: null,
+      perUnitGrams: finiteOptionalNumber(ingredient.per_unit_grams),
+      perUnitMinGrams: finiteOptionalNumber(ingredient.per_unit_min_grams),
+      perUnitMaxGrams: finiteOptionalNumber(ingredient.per_unit_max_grams),
+      sizeSpecifiedByUser,
+    };
+  });
+
+  return {
+    mealName: cleanMealName(decomposition.meal_name ?? ''),
+    ingredients,
+    confidence: finiteNumber(decomposition.confidence, 0),
+    inferredMealType: decomposition.inferred_meal_type ?? 'UNKNOWN',
+    mealTypeConfident: Boolean(decomposition.meal_type_confident),
+  };
+}
+
+function maybeLogDroppedCounts(
+  input: string,
+  decomposition: NormalizedDecomposition,
+  logger?: AnalysisLogger,
+  analysisId?: string
+): void {
+  if (!/\b\d+(?:\.\d+)?\b/.test(input)) return;
+  const normalizedInput = normalize(input);
+  const countMissing = decomposition.ingredients.some((ingredient) => {
+    if (ingredient.portionKind !== 'COUNT' || ingredient.count != null) return false;
+    const foodToken = normalize(ingredient.rawName).split(' ')[0];
+    return foodToken.length > 0 && normalizedInput.includes(foodToken);
+  });
+  if (!countMissing) return;
+  mealAnalysisDecompositionIssuesTotal.labels({ issue: 'count_dropped' }).inc();
+  logAnalysis(logger, 'warn', 'decomposition_count_dropped', {
+    analysisId,
+    source: 'text',
+  });
+}
+
 function analyzeUncertainty(resolved: ResolvedIngredient[]): UncertaintyReport {
   const minTotal = sumMacros(resolved.map((r) => r.minMacros));
   const maxTotal = sumMacros(resolved.map((r) => r.maxMacros));
@@ -447,33 +717,102 @@ function analyzeUncertainty(resolved: ResolvedIngredient[]): UncertaintyReport {
   };
 }
 
+function buildCountQuestion(ingredient: ResolvedIngredient): ClarificationDTO {
+  const perUnitGrams = ingredient.perUnitGrams ?? (ingredient.grams || 35);
+  const optionCounts = [
+    { optionId: '1', label: '1', count: 1 },
+    { optionId: '2', label: '2', count: 2 },
+    { optionId: '3', label: '3', count: 3 },
+    { optionId: '4', label: '4', count: 4 },
+    { optionId: '5', label: '5', count: 5 },
+    { optionId: '6plus', label: '6 or more', count: 7 },
+  ];
+  return {
+    clarification_id: `clr_${ingredient.rowId}_count`,
+    row_id: ingredient.rowId,
+    ingredient_name: ingredient.rawName,
+    portion_kind: 'COUNT_QUESTION',
+    question: `How many ${ingredient.rawName}?`,
+    options: optionCounts.map((option) => {
+      const grams = roundGram(option.count * perUnitGrams);
+      return {
+        option_id: option.optionId,
+        label: option.label,
+        grams,
+        calorie_delta: scaleMacros(ingredient.macros, ingredient.grams, grams).calories - ingredient.macros.calories,
+      };
+    }),
+    default_option_id: '2',
+  };
+}
+
+function buildSizeQuestion(ingredient: ResolvedIngredient, template: PortionTemplate): ClarificationDTO {
+  const count = ingredient.portionKind === 'COUNT' ? ingredient.count ?? 1 : 1;
+  const countLabel = Number.isInteger(count) ? String(count) : String(count);
+  const question =
+    ingredient.portionKind === 'COUNT'
+      ? `How big were each of your ${countLabel} ${ingredient.rawName}?`
+      : `How much ${ingredient.rawName}?`;
+
+  return {
+    clarification_id: `clr_${ingredient.rowId}`,
+    row_id: ingredient.rowId,
+    ingredient_name: ingredient.rawName,
+    portion_kind: ingredient.portionKind,
+    question,
+    options: template.options.map((option) => {
+      const grams = roundGram((ingredient.portionKind === 'COUNT' ? count : 1) * option.perUnitGrams);
+      return {
+        option_id: option.optionId,
+        label: option.label,
+        detail:
+          ingredient.portionKind === 'COUNT'
+            ? `~ ${Math.round(option.perUnitGrams)}g each`
+            : undefined,
+        grams,
+        calorie_delta: scaleMacros(ingredient.macros, ingredient.grams, grams).calories - ingredient.macros.calories,
+      };
+    }),
+    default_option_id: template.defaultOptionId,
+  };
+}
+
 function generateClarifications(resolved: ResolvedIngredient[]): ClarificationDTO[] {
   const clarifications: ClarificationDTO[] = [];
+  const mealCalories = sumMacros(resolved.map((r) => r.macros)).calories;
+  const calorieThreshold = Math.max(50, mealCalories * 0.05);
   for (const ingredient of resolved) {
+    if (ingredient.portionKind === 'PINCH') {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'pinch' }).inc();
+      continue;
+    }
+    if (ingredient.sizeSpecifiedByUser) {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'size_specified' }).inc();
+      continue;
+    }
     const calorieSpread = ingredient.maxMacros.calories - ingredient.minMacros.calories;
-    if (calorieSpread < 50) continue;
-    clarifications.push({
-      ingredient_name: ingredient.rawName,
-      question: `How much ${ingredient.rawName}?`,
-      options: [
-        {
-          label: `Small (~${ingredient.minGrams}g)`,
-          grams: ingredient.minGrams,
-          calorie_delta: ingredient.minMacros.calories - ingredient.macros.calories,
-        },
-        {
-          label: `Medium (~${ingredient.grams}g)`,
-          grams: ingredient.grams,
-          calorie_delta: 0,
-        },
-        {
-          label: `Large (~${ingredient.maxGrams}g)`,
-          grams: ingredient.maxGrams,
-          calorie_delta: ingredient.maxMacros.calories - ingredient.macros.calories,
-        },
-      ],
-      default_option_index: 1,
-    });
+    if (calorieSpread < calorieThreshold) {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'sub_threshold' }).inc();
+      continue;
+    }
+    if (ingredient.portionKind === 'COUNT' && ingredient.count == null) {
+      clarifications.push(buildCountQuestion(ingredient));
+      continue;
+    }
+
+    const staticTemplate = lookupTemplate(ingredient.canonicalHint, ingredient.rawName);
+    const template =
+      staticTemplate ??
+      synthesizeFallbackTemplate(
+        toWirePortionKind(ingredient.portionKind),
+        ingredient.portionKind === 'COUNT' ? ingredient.perUnitGrams ?? ingredient.grams : ingredient.grams,
+        ingredient.portionKind === 'COUNT' ? ingredient.perUnitMinGrams ?? ingredient.minGrams : ingredient.minGrams,
+        ingredient.portionKind === 'COUNT' ? ingredient.perUnitMaxGrams ?? ingredient.maxGrams : ingredient.maxGrams
+      );
+    if (!staticTemplate) {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'no_template_fallback_used' }).inc();
+    }
+    clarifications.push(buildSizeQuestion(ingredient, template));
   }
   return clarifications;
 }
@@ -486,36 +825,52 @@ function varianceToCalorieConfidence(variancePercent: number): string {
 
 function clarificationsToWire(clarifications: ClarificationDTO[]): PipelineClarificationWire[] {
   return clarifications.map((c) => ({
+    clarificationId: c.clarification_id,
+    rowId: c.row_id,
     ingredientName: c.ingredient_name,
+    portionKind: c.portion_kind,
     question: c.question,
     options: c.options.map((o) => ({
+      optionId: o.option_id,
       label: o.label,
+      detail: o.detail,
       grams: o.grams,
       calorieDelta: o.calorie_delta,
     })),
-    defaultOptionIndex: c.default_option_index,
+    defaultOptionId: c.default_option_id,
   }));
 }
 
-function toDecompositionWire(decomposition: LLMDecomposition): PipelineDecomposedIngredient[] {
+function toDecompositionWire(decomposition: NormalizedDecomposition): PipelineDecomposedIngredient[] {
   return decomposition.ingredients.map((ingredient) => ({
-    rawName: ingredient.raw_name,
-    canonicalHint: ingredient.canonical_hint,
-    gramsEstimated: ingredient.grams_estimated,
-    minGrams: ingredient.min_grams,
-    maxGrams: ingredient.max_grams,
+    rowId: ingredient.rowId,
+    rawName: ingredient.rawName,
+    canonicalHint: ingredient.canonicalHint,
+    gramsEstimated: ingredient.gramsEstimated,
+    minGrams: ingredient.minGrams,
+    maxGrams: ingredient.maxGrams,
     notes: ingredient.notes,
+    portionKind: ingredient.portionKind,
+    count: ingredient.count ?? undefined,
+    perUnitGrams: ingredient.perUnitGrams ?? undefined,
+    perUnitMinGrams: ingredient.perUnitMinGrams ?? undefined,
+    perUnitMaxGrams: ingredient.perUnitMaxGrams ?? undefined,
+    sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
   }));
 }
 
 function toResolvedIngredientWire(resolved: ResolvedIngredient[]): PipelineResolvedIngredient[] {
   return resolved.map((ingredient) => ({
+    rowId: ingredient.rowId,
     rawName: ingredient.rawName,
     canonicalName: ingredient.match.canonicalName,
     matchType: ingredient.match.matchType,
     grams: ingredient.grams,
     macros: ingredient.macros,
     source: ingredient.source,
+    portionKind: ingredient.portionKind,
+    count: ingredient.count ?? undefined,
+    perUnitGrams: ingredient.perUnitGrams ?? undefined,
   }));
 }
 
@@ -748,13 +1103,13 @@ async function estimateMacrosViaLLM(client: OpenAI, names: string[]): Promise<Ma
 
 async function resolveIngredients(
   client: OpenAI,
-  decomposition: LLMDecomposition,
+  decomposition: NormalizedDecomposition,
   logger?: AnalysisLogger,
   analysisId?: string,
   trace?: AnalysisTrace
 ): Promise<ResolvedIngredient[]> {
   const resolved: ResolvedIngredient[] = [];
-  const unmatched: { index: number; ingredient: LLMIngredient }[] = [];
+  const unmatched: { index: number; ingredient: NormalizedIngredient }[] = [];
 
   // USDA lookups are independent — run them in parallel to collapse per-ingredient latency.
   const usdaMatches = await Promise.all(
@@ -765,10 +1120,10 @@ async function resolveIngredients(
         'canonicalize_with_usda',
         {
           analysisId,
-          ingredient: ingredient.raw_name,
-          canonicalHint: ingredient.canonical_hint,
+          ingredient: ingredient.rawName,
+          canonicalHint: ingredient.canonicalHint,
         },
-        () => canonicalizeWithUsda(ingredient.canonical_hint)
+        () => canonicalizeWithUsda(ingredient.canonicalHint)
       )
     )
   );
@@ -785,35 +1140,43 @@ async function resolveIngredients(
         }
       : {
           foodId: '',
-          canonicalName: ingredient.canonical_hint,
+          canonicalName: ingredient.canonicalHint,
           score: 0,
           matchType: 'unmatched',
         };
     const macros = usdaMatch.row
-      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.grams_estimated)
+      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.gramsEstimated)
       : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
     const minMacros = usdaMatch.row
-      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.min_grams)
+      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.minGrams)
       : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
     const maxMacros = usdaMatch.row
-      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.max_grams)
+      ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.maxGrams)
       : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
     if (match.matchType === 'unmatched') unmatched.push({ index: resolved.length, ingredient });
     resolved.push({
-      rawName: ingredient.raw_name,
+      rowId: ingredient.rowId,
+      rawName: ingredient.rawName,
+      canonicalHint: ingredient.canonicalHint,
       match,
-      grams: ingredient.grams_estimated,
-      minGrams: ingredient.min_grams,
-      maxGrams: ingredient.max_grams,
+      grams: ingredient.gramsEstimated,
+      minGrams: ingredient.minGrams,
+      maxGrams: ingredient.maxGrams,
       macros,
       minMacros,
       maxMacros,
       source: match.matchType === 'unmatched' ? 'llm_fallback' : 'db',
+      portionKind: ingredient.portionKind,
+      count: ingredient.count,
+      perUnitGrams: ingredient.perUnitGrams,
+      perUnitMinGrams: ingredient.perUnitMinGrams,
+      perUnitMaxGrams: ingredient.perUnitMaxGrams,
+      sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
     });
   }
 
   if (unmatched.length > 0) {
-    const unmatchedHints = unmatched.map((item) => item.ingredient.canonical_hint);
+    const unmatchedHints = unmatched.map((item) => item.ingredient.canonicalHint);
     try {
       const fallbackMap = await traceAsync(
         trace,
@@ -828,12 +1191,12 @@ async function resolveIngredients(
         () => estimateMacrosViaLLM(client, unmatchedHints)
       );
       for (const { index, ingredient } of unmatched) {
-        const entry = fallbackMap.get(normalize(ingredient.canonical_hint));
+        const entry = fallbackMap.get(normalize(ingredient.canonicalHint));
         if (!entry) continue;
         const current = resolved[index];
-        current.macros = calcMacrosFromPer100g(entry, ingredient.grams_estimated);
-        current.minMacros = calcMacrosFromPer100g(entry, ingredient.min_grams);
-        current.maxMacros = calcMacrosFromPer100g(entry, ingredient.max_grams);
+        current.macros = calcMacrosFromPer100g(entry, ingredient.gramsEstimated);
+        current.minMacros = calcMacrosFromPer100g(entry, ingredient.minGrams);
+        current.maxMacros = calcMacrosFromPer100g(entry, ingredient.maxGrams);
         current.match = { ...current.match, matchType: 'llm_fallback' };
         current.source = 'llm_fallback';
       }
@@ -868,29 +1231,79 @@ function recalculateIngredient(ingredient: ResolvedIngredient, nextGrams: number
   };
 }
 
+function recalculateIngredientBand(
+  ingredient: ResolvedIngredient,
+  nextGrams: number,
+  nextMinGrams: number,
+  nextMaxGrams: number
+): ResolvedIngredient {
+  return {
+    ...ingredient,
+    grams: nextGrams,
+    minGrams: nextMinGrams,
+    maxGrams: nextMaxGrams,
+    macros: scaleMacros(ingredient.macros, ingredient.grams, nextGrams),
+    minMacros: scaleMacros(ingredient.macros, ingredient.grams, nextMinGrams),
+    maxMacros: scaleMacros(ingredient.macros, ingredient.grams, nextMaxGrams),
+  };
+}
+
+function selectedCountFromOption(option: ClarificationOptionDTO, ingredient: ResolvedIngredient): number | null {
+  if (option.option_id === '6plus') return 7;
+  const parsed = Number(option.option_id);
+  if (Number.isFinite(parsed) && parsed > 0) return parsed;
+  const perUnit = ingredient.perUnitGrams ?? 0;
+  if (perUnit > 0) return option.grams / perUnit;
+  return null;
+}
+
 function applyClarificationAnswers(
   resolved: ResolvedIngredient[],
   clarifications: ClarificationDTO[],
   answers: MealClarificationAnswer[]
 ): ResolvedIngredient[] {
-  const clarificationMap = new Map(
-    clarifications.map((clarification) => [normalize(clarification.ingredient_name), clarification])
-  );
-  const answerMap = new Map(
-    answers.map((answer) => [normalize(answer.ingredientName), answer.selectedOptionIndex])
-  );
+  const clarificationMap = new Map(clarifications.map((clarification) => [clarification.clarification_id, clarification]));
+  const ingredientMap = new Map(resolved.map((ingredient) => [ingredient.rowId, ingredient]));
 
-  return resolved.map((ingredient) => {
-    const clarification = clarificationMap.get(normalize(ingredient.rawName));
-    const selectedOptionIndex = answerMap.get(normalize(ingredient.rawName));
-    if (!clarification || selectedOptionIndex == null) return ingredient;
+  for (const answer of answers) {
+    const clarification = clarificationMap.get(answer.clarificationId);
+    if (!clarification) continue;
     const option =
-      clarification.options[selectedOptionIndex] ??
-      clarification.options[clarification.default_option_index] ??
+      clarification.options.find((candidate) => candidate.option_id === answer.selectedOptionId) ??
+      clarification.options.find((candidate) => candidate.option_id === clarification.default_option_id) ??
       clarification.options[0];
-    if (!option) return ingredient;
-    return recalculateIngredient(ingredient, option.grams);
-  });
+    if (!option) continue;
+
+    const ingredient = ingredientMap.get(clarification.row_id);
+    if (!ingredient) continue;
+
+    if (clarification.portion_kind === 'COUNT_QUESTION') {
+      const count = selectedCountFromOption(option, ingredient);
+      if (count == null) continue;
+      const perUnitGrams = ingredient.perUnitGrams ?? roundGram(option.grams / count);
+      const perUnitMinGrams = ingredient.perUnitMinGrams ?? perUnitGrams;
+      const perUnitMaxGrams = ingredient.perUnitMaxGrams ?? perUnitGrams;
+      const next = recalculateIngredientBand(
+        ingredient,
+        roundGram(count * perUnitGrams),
+        roundGram(count * perUnitMinGrams),
+        roundGram(count * perUnitMaxGrams)
+      );
+      ingredientMap.set(ingredient.rowId, {
+        ...next,
+        portionKind: 'COUNT',
+        count,
+        perUnitGrams,
+        perUnitMinGrams,
+        perUnitMaxGrams,
+      });
+      continue;
+    }
+
+    ingredientMap.set(ingredient.rowId, recalculateIngredient(ingredient, option.grams));
+  }
+
+  return resolved.map((ingredient) => ingredientMap.get(ingredient.rowId) ?? ingredient);
 }
 
 async function enrichPresentationFromText(
@@ -898,11 +1311,15 @@ async function enrichPresentationFromText(
   context: PipelineRunContext,
   resolved: ResolvedIngredient[],
   totalMacros: Macros,
-  correctionContext: string
+  correctionContext: string,
+  mealNameHint: string
 ): Promise<PresentationResult> {
   const textDescription = String(context.requestPayload.textDescription ?? '');
   const userPrompt = [
     `Original meal description: ${textDescription}`,
+    mealNameHint
+      ? `Canonical meal name hint: Use "${mealNameHint}" as the meal name unless the original evidence clearly supports a better, more specific title.`
+      : '',
     correctionContext,
     `Total macros: ${totalMacros.calories} kcal, ${totalMacros.protein}g protein, ${totalMacros.carbs}g carbs, ${totalMacros.fat}g fat, ${totalMacros.fiber}g fiber`,
     `Ingredients:\n${formatIngredientSummary(resolved)}`,
@@ -938,10 +1355,14 @@ async function enrichPresentationFromImage(
   context: PipelineRunContext,
   resolved: ResolvedIngredient[],
   totalMacros: Macros,
-  correctionContext: string
+  correctionContext: string,
+  mealNameHint: string
 ): Promise<PresentationResult> {
   const imageUrl = String(context.requestPayload.imageUrl ?? '');
   const prompt = [
+    mealNameHint
+      ? `Canonical meal name hint: Use "${mealNameHint}" as the meal name unless the image clearly supports a better, more specific title.`
+      : '',
     correctionContext,
     `Total macros: ${totalMacros.calories} kcal, ${totalMacros.protein}g protein, ${totalMacros.carbs}g carbs, ${totalMacros.fat}g fat, ${totalMacros.fiber}g fiber`,
     `Ingredients:\n${formatIngredientSummary(resolved)}`,
@@ -982,7 +1403,8 @@ async function enrichPresentation(
   client: OpenAI,
   context: PipelineRunContext,
   resolved: ResolvedIngredient[],
-  totalMacros: Macros
+  totalMacros: Macros,
+  mealNameHint: string
 ): Promise<PresentationResult> {
   // Invariant: meal type is always resolved by runPipelineFromDecomposition
   // (user pick → decomposition inference → text heuristic) before this is called.
@@ -994,8 +1416,8 @@ async function enrichPresentation(
 
   const enriched =
     context.source === 'image'
-      ? await enrichPresentationFromImage(client, context, resolved, totalMacros, correctionContext)
-      : await enrichPresentationFromText(client, context, resolved, totalMacros, correctionContext);
+      ? await enrichPresentationFromImage(client, context, resolved, totalMacros, correctionContext, mealNameHint)
+      : await enrichPresentationFromText(client, context, resolved, totalMacros, correctionContext, mealNameHint);
 
   return {
     ...enriched,
@@ -1045,18 +1467,27 @@ async function* runPipelineFromDecomposition(
   const startedAt = Date.now();
   const logger = context.logger;
   const trace = context.trace;
+  const normalizedDecomposition = normalizeDecomposition(decomposition, logger, context.analysisId);
+  if (context.source === 'text') {
+    maybeLogDroppedCounts(
+      String(context.requestPayload.textDescription ?? ''),
+      normalizedDecomposition,
+      logger,
+      context.analysisId
+    );
+  }
 
   const decompositionEvent: PipelineEvent = {
     step: 'DECOMPOSITION',
     data: {
       analysisId: context.analysisId,
-      mealName: decomposition.meal_name,
-      confidence: decomposition.confidence,
-      ingredients: toDecompositionWire(decomposition),
+      mealName: normalizedDecomposition.mealName,
+      confidence: normalizedDecomposition.confidence,
+      ingredients: toDecompositionWire(normalizedDecomposition),
       // Persisted so /clarify and /meal-type can reuse the decomposition-time
       // meal-type inference without re-running the presentation LLM.
-      inferredMealType: decomposition.inferred_meal_type,
-      mealTypeConfident: decomposition.meal_type_confident,
+      inferredMealType: normalizedDecomposition.inferredMealType,
+      mealTypeConfident: normalizedDecomposition.mealTypeConfident,
     },
   };
   if (emitDecomposition) yield decompositionEvent;
@@ -1074,8 +1505,8 @@ async function* runPipelineFromDecomposition(
   logAnalysis(logger, 'info', 'decomposition_complete', {
     analysisId: context.analysisId,
     source: context.source,
-    ingredientCount: decomposition.ingredients.length,
-    confidence: decomposition.confidence,
+    ingredientCount: normalizedDecomposition.ingredients.length,
+    confidence: normalizedDecomposition.confidence,
     durationMs: Date.now() - startedAt,
   });
 
@@ -1084,8 +1515,8 @@ async function* runPipelineFromDecomposition(
     trace,
     'pipeline',
     'resolve_ingredients',
-    { analysisId: context.analysisId, source: context.source, ingredientCount: decomposition.ingredients.length },
-    () => resolveIngredients(client, decomposition, logger, context.analysisId, trace)
+    { analysisId: context.analysisId, source: context.source, ingredientCount: normalizedDecomposition.ingredients.length },
+    () => resolveIngredients(client, normalizedDecomposition, logger, context.analysisId, trace)
   );
   await persistDecompositionPromise;
   let sourceSummary = summarizeResolvedSources(resolved);
@@ -1093,6 +1524,7 @@ async function* runPipelineFromDecomposition(
     step: 'INGREDIENTS',
     data: {
       analysisId: context.analysisId,
+      mealName: normalizedDecomposition.mealName,
       ingredients: toResolvedIngredientWire(resolved),
     },
   };
@@ -1129,7 +1561,7 @@ async function* runPipelineFromDecomposition(
     resolved = applyClarificationAnswers(resolved, clarifications, clarificationAnswers);
     sourceSummary = summarizeResolvedSources(resolved);
     uncertainty = analyzeUncertainty(resolved);
-    clarifications = [];
+    clarifications = uncertainty.needsClarification ? generateClarifications(resolved) : [];
     if (persistClarificationAnswers) {
       await traceAsync(
         trace,
@@ -1145,6 +1577,7 @@ async function* runPipelineFromDecomposition(
     step: 'UNCERTAINTY',
     data: {
       analysisId: context.analysisId,
+      mealName: normalizedDecomposition.mealName,
       variancePercent: uncertainty.variancePercent,
       needsClarification: clarifications.length > 0,
       calorieBand: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
@@ -1159,7 +1592,11 @@ async function* runPipelineFromDecomposition(
     () =>
       persistSessionSnapshot(context, {
         decompositionData: decompositionEvent.data,
-        ingredientsData: { analysisId: context.analysisId, ingredients: toResolvedIngredientWire(resolved) },
+        ingredientsData: {
+          analysisId: context.analysisId,
+          mealName: normalizedDecomposition.mealName,
+          ingredients: toResolvedIngredientWire(resolved),
+        },
         uncertaintyData: uncertaintyEvent.data,
         clarificationAnswers,
       })
@@ -1174,7 +1611,7 @@ async function* runPipelineFromDecomposition(
     variancePercent: uncertainty.variancePercent,
   });
 
-  if (clarifications.length > 0 && (!clarificationAnswers || clarificationAnswers.length === 0)) {
+  if (clarifications.length > 0) {
     logAnalysis(logger, 'info', 'clarification_requested', {
       analysisId: context.analysisId,
       source: context.source,
@@ -1190,8 +1627,8 @@ async function* runPipelineFromDecomposition(
   // If none applies, we emit meal_type_question here so presentation runs exactly once across
   // the whole clarify/meal-type flow (instead of twice: pre-question and post-question).
   const decompositionInferredMealType =
-    decomposition.meal_type_confident && decomposition.inferred_meal_type !== 'UNKNOWN'
-      ? decomposition.inferred_meal_type
+    normalizedDecomposition.mealTypeConfident && normalizedDecomposition.inferredMealType !== 'UNKNOWN'
+      ? normalizedDecomposition.inferredMealType
       : undefined;
   const textHeuristicMealType =
     context.source === 'text'
@@ -1205,10 +1642,11 @@ async function* runPipelineFromDecomposition(
       step: 'MEAL_TYPE_QUESTION',
       data: {
         analysisId: context.analysisId,
+        mealName: normalizedDecomposition.mealName,
         question: 'Which meal is this?',
         options: [...MEAL_TYPES],
         inferredMealType:
-          decomposition.inferred_meal_type !== 'UNKNOWN' ? decomposition.inferred_meal_type : undefined,
+          normalizedDecomposition.inferredMealType !== 'UNKNOWN' ? normalizedDecomposition.inferredMealType : undefined,
       },
     };
     await traceAsync(
@@ -1219,7 +1657,11 @@ async function* runPipelineFromDecomposition(
       () =>
         persistSessionSnapshot(context, {
           decompositionData: decompositionEvent.data,
-          ingredientsData: { analysisId: context.analysisId, ingredients: toResolvedIngredientWire(resolved) },
+          ingredientsData: {
+            analysisId: context.analysisId,
+            mealName: normalizedDecomposition.mealName,
+            ingredients: toResolvedIngredientWire(resolved),
+          },
           uncertaintyData: uncertaintyEvent.data,
           mealTypeQuestionData: mealTypeQuestionEvent.data,
           clarificationAnswers,
@@ -1231,7 +1673,7 @@ async function* runPipelineFromDecomposition(
       source: context.source,
       totalDurationMs: Date.now() - startedAt,
       inferredMealType:
-        decomposition.inferred_meal_type !== 'UNKNOWN' ? decomposition.inferred_meal_type : undefined,
+        normalizedDecomposition.inferredMealType !== 'UNKNOWN' ? normalizedDecomposition.inferredMealType : undefined,
       sourceSummary,
     });
     return;
@@ -1256,7 +1698,7 @@ async function* runPipelineFromDecomposition(
       model: OPENAI_MEAL_ANALYSIS_MODEL,
       ingredientCount: resolved.length,
     },
-    () => enrichPresentation(client, presentationContext, resolved, totalMacros)
+    () => enrichPresentation(client, presentationContext, resolved, totalMacros, normalizedDecomposition.mealName)
   );
 
   const finalMealType: MealTypeValue = preResolvedMealType;
@@ -1301,7 +1743,11 @@ async function* runPipelineFromDecomposition(
     () =>
       persistSessionSnapshot(context, {
         decompositionData: decompositionEvent.data,
-        ingredientsData: { analysisId: context.analysisId, ingredients: toResolvedIngredientWire(resolved) },
+        ingredientsData: {
+          analysisId: context.analysisId,
+          mealName: normalizedDecomposition.mealName,
+          ingredients: toResolvedIngredientWire(resolved),
+        },
         uncertaintyData: uncertaintyEvent.data,
         resultData: resultEvent.data,
         clarificationAnswers,
@@ -1334,12 +1780,19 @@ function sessionToDecomposition(session: Awaited<ReturnType<typeof getMealAnalys
   const ingredients = ingredientsRaw.map((item) => {
     const ing = item as Record<string, unknown>;
     return {
+      row_id: typeof ing.rowId === 'string' ? ing.rowId : typeof ing.row_id === 'string' ? ing.row_id : undefined,
       raw_name: String(ing.rawName ?? ing.raw_name ?? ''),
       canonical_hint: String(ing.canonicalHint ?? ing.canonical_hint ?? ''),
       grams_estimated: Number(ing.gramsEstimated ?? ing.grams_estimated ?? 0),
       min_grams: Number(ing.minGrams ?? ing.min_grams ?? 0),
       max_grams: Number(ing.maxGrams ?? ing.max_grams ?? 0),
       notes: String(ing.notes ?? ''),
+      portion_kind: asPortionKind(ing.portionKind ?? ing.portion_kind),
+      count: finiteOptionalNumber(ing.count),
+      per_unit_grams: finiteOptionalNumber(ing.perUnitGrams ?? ing.per_unit_grams),
+      per_unit_min_grams: finiteOptionalNumber(ing.perUnitMinGrams ?? ing.per_unit_min_grams),
+      per_unit_max_grams: finiteOptionalNumber(ing.perUnitMaxGrams ?? ing.per_unit_max_grams),
+      size_specified_by_user: Boolean(ing.sizeSpecifiedByUser ?? ing.size_specified_by_user ?? false),
     };
   });
 

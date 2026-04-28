@@ -128,15 +128,21 @@ type V2Event =
       step: 'UNCERTAINTY';
       data: {
         analysisId: string;
+        mealName: string;
         variancePercent: number;
         needsClarification: boolean;
         calorieBand: { min: number; max: number };
         clarifications: Array<{
+          clarificationId: string;
+          rowId: string;
           ingredientName: string;
+          portionKind: string;
           question: string;
-          defaultOptionIndex: number;
+          defaultOptionId: string;
           options: Array<{
+            optionId: string;
             label: string;
+            detail?: string;
             grams: number;
             calorieDelta: number;
           }>;
@@ -147,6 +153,7 @@ type V2Event =
       step: 'MEAL_TYPE_QUESTION';
       data: {
         analysisId: string;
+        mealName: string;
         question: string;
         options: string[];
         inferredMealType?: string;
@@ -517,9 +524,11 @@ function printEvent(
         console.log(`${tag} ${B('UNCERTAINTY')}  variance=${Y(vStr)}  band=${band}  ${Y('→ clarification needed')}`);
         for (const clarification of event.data.clarifications) {
           console.log(`\n  ${B('?')} ${clarification.question}`);
+          const defaultIndex = clarification.options.findIndex((opt) => opt.optionId === clarification.defaultOptionId);
           const rows = clarification.options.map((opt, idx) => {
-            const isDefault = idx === clarification.defaultOptionIndex;
-            const label = isDefault ? `${opt.label} [default]` : opt.label;
+            const isDefault = idx === defaultIndex;
+            const labelText = opt.detail ? `${opt.label} (${opt.detail})` : opt.label;
+            const label = isDefault ? `${labelText} [default]` : labelText;
             const delta = opt.calorieDelta === 0 ? '±0' : opt.calorieDelta > 0 ? `+${opt.calorieDelta}` : String(opt.calorieDelta);
             return [`${idx + 1}`, label, `${opt.grams}g`, `${delta} kcal`];
           });
@@ -714,20 +723,26 @@ async function postStream(
 
 async function promptForClarifications(
   clarifications: Extract<StreamOutcome, { kind: 'clarification' }>['clarifications']
-): Promise<Array<{ ingredientName: string; selectedOptionIndex: number }>> {
+): Promise<Array<{ clarificationId: string; selectedOptionId: string }>> {
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {
-    const answers: Array<{ ingredientName: string; selectedOptionIndex: number }> = [];
+    const answers: Array<{ clarificationId: string; selectedOptionId: string }> = [];
     for (const clarification of clarifications) {
       const raw = await rl.question(`\nSelect option for "${clarification.ingredientName}" (1–${clarification.options.length}): `);
       const numeric = Number.parseInt(raw.trim(), 10);
+      const defaultIndex = Math.max(
+        0,
+        clarification.options.findIndex((option) => option.optionId === clarification.defaultOptionId)
+      );
       const selected =
         Number.isFinite(numeric) && numeric >= 1 && numeric <= clarification.options.length
           ? numeric - 1
-          : clarification.defaultOptionIndex;
+          : defaultIndex;
+      const option = clarification.options[selected] ?? clarification.options[defaultIndex] ?? clarification.options[0];
+      if (!option) continue;
       answers.push({
-        ingredientName: clarification.ingredientName,
-        selectedOptionIndex: selected,
+        clarificationId: clarification.clarificationId,
+        selectedOptionId: option.optionId,
       });
     }
     return answers;

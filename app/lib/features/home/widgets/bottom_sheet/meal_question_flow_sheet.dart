@@ -47,8 +47,9 @@ Future<List<MealClarificationAnswer>?> showMealQuestionFlowFromPipeline({
     isScrollControlled: true,
     routeSettings: const RouteSettings(name: RouteNames.mealQuestionFlowSheet),
     builder:
-        (_) =>
-            MealQuestionFlowSheet._fromPipeline(pipelineClarifications: clarifications),
+        (_) => MealQuestionFlowSheet._fromPipeline(
+          pipelineClarifications: clarifications,
+        ),
   );
 }
 
@@ -63,12 +64,11 @@ class MealQuestionFlowSheet extends StatefulWidget {
        _source = _MealQuestionFlowSource.detection;
 
   // ignore: prefer_const_constructors_in_immutables
-  MealQuestionFlowSheet._fromPipeline({
-    required this.pipelineClarifications,
-  }) : detectionResponse = null,
-       imageBytes = null,
-       isDebugPreview = false,
-       _source = _MealQuestionFlowSource.pipeline;
+  MealQuestionFlowSheet._fromPipeline({required this.pipelineClarifications})
+    : detectionResponse = null,
+      imageBytes = null,
+      isDebugPreview = false,
+      _source = _MealQuestionFlowSource.pipeline;
 
   final MealDetectionResponse? detectionResponse;
   final List<PipelineClarification>? pipelineClarifications;
@@ -126,8 +126,10 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
                 .map(
                   (v) => MealQuestionFlowUiStep(
                     question: v.question,
-                    optionLabels:
-                        v.options.map((o) => o.option).toList(growable: false),
+                    optionLabels: v.options
+                        .map((o) => o.option)
+                        .toList(growable: false),
+                    optionDetails: const <String?>[],
                   ),
                 )
                 .toList(growable: false)
@@ -135,8 +137,12 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
                 .map(
                   (c) => MealQuestionFlowUiStep(
                     question: c.question,
-                    optionLabels:
-                        c.options.map((o) => o.label).toList(growable: false),
+                    optionLabels: c.options
+                        .map((o) => o.label)
+                        .toList(growable: false),
+                    optionDetails: c.options
+                        .map((o) => o.hasDetail() ? o.detail : null)
+                        .toList(growable: false),
                   ),
                 )
                 .toList(growable: false);
@@ -165,15 +171,22 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
 
   List<MealClarificationAnswer> get _pipelineAnswers {
     assert(!widget._isDetection);
-    return List.generate(
-      widget._pipelineSteps.length,
-      (index) => MealClarificationAnswer(
-        ingredientName: widget._pipelineSteps[index].ingredientName,
-        selectedOptionIndex:
-            _selectedOptions[index] ??
-            widget._pipelineSteps[index].defaultOptionIndex,
-      ),
-    );
+    return List.generate(widget._pipelineSteps.length, (index) {
+      final step = widget._pipelineSteps[index];
+      final defaultIndex = step.options.indexWhere(
+        (option) => option.optionId == step.defaultOptionId,
+      );
+      final selectedIndex =
+          _selectedOptions[index] ?? (defaultIndex >= 0 ? defaultIndex : 0);
+      final selectedOption =
+          selectedIndex >= 0 && selectedIndex < step.options.length
+              ? step.options[selectedIndex]
+              : step.options.first;
+      return MealClarificationAnswer(
+        clarificationId: step.clarificationId,
+        selectedOptionId: selectedOption.optionId,
+      );
+    });
   }
 
   void _onDetectionOptionSelected(int optionIndex) {
@@ -219,7 +232,8 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
     });
     Analytics.instance.logEvent(AnalyticsEvent.mealQuestionFlowSkip);
 
-    final isLast = _currentQuestionIndex == widget._detectionVariations.length - 1;
+    final isLast =
+        _currentQuestionIndex == widget._detectionVariations.length - 1;
     if (isLast) {
       _onDetectionComplete();
       return;
@@ -233,8 +247,7 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
     });
     Analytics.instance.logEvent(AnalyticsEvent.mealQuestionFlowSkip);
 
-    final isLast =
-        _currentQuestionIndex == widget._pipelineSteps.length - 1;
+    final isLast = _currentQuestionIndex == widget._pipelineSteps.length - 1;
     if (isLast) {
       _flowCompletedSuccessfully = true;
       Navigator.of(context).pop(_pipelineAnswers);
@@ -296,8 +309,7 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
   void _pipelinePrimaryPressed() {
     if (!_selectedOptions.containsKey(_currentQuestionIndex)) return;
 
-    final isLast =
-        _currentQuestionIndex == widget._pipelineSteps.length - 1;
+    final isLast = _currentQuestionIndex == widget._pipelineSteps.length - 1;
     if (isLast) {
       _flowCompletedSuccessfully = true;
       Navigator.of(context).pop(_pipelineAnswers);
@@ -333,8 +345,7 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
     if (widget._isDetection) {
       onBack = _currentQuestionIndex > 0 ? _detectionBack : null;
     } else {
-      onBack =
-          _currentQuestionIndex > 0 ? _pipelineBack : null;
+      onBack = _currentQuestionIndex > 0 ? _pipelineBack : null;
     }
 
     final Widget trailing =
@@ -368,6 +379,7 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
             const SizedBox(height: mealQuestionFlowHeadingToOptionsGap),
             MealQuestionOptionsWrap(
               optionLabels: step.optionLabels,
+              optionDetails: step.optionDetails,
               selectedOptionIndex: _selectedOptions[_currentQuestionIndex],
               onOptionSelected:
                   widget._isDetection
@@ -379,7 +391,9 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
               PrimaryButton(
                 analyticsEvent: AnalyticsEvent.mealQuestionFlowContinue,
                 onPressed:
-                    !hasPipelinePrimarySelection ? null : _pipelinePrimaryPressed,
+                    !hasPipelinePrimarySelection
+                        ? null
+                        : _pipelinePrimaryPressed,
                 text:
                     isLastPipelineStep
                         ? t.meal.questionFlow.continueLabel
@@ -397,8 +411,10 @@ class MealQuestionFlowUiStep {
   const MealQuestionFlowUiStep({
     required this.question,
     required this.optionLabels,
+    required this.optionDetails,
   });
 
   final String question;
   final List<String> optionLabels;
+  final List<String?> optionDetails;
 }

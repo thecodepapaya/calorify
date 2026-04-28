@@ -48,13 +48,15 @@ await mock.module('./foodAnalysisSystemPrompt.js', {
   },
 });
 
+const mockConfig = {
+  OPENAI_API_KEY: 'test-key' as string | null,
+  DATABASE_URL: 'postgres://mock',
+  DEBUG: false,
+  ENVIRONMENT: 'development',
+};
+
 await mock.module('../config.js', {
-  defaultExport: {
-    OPENAI_API_KEY: 'test-key',
-    DATABASE_URL: 'postgres://mock',
-    DEBUG: false,
-    ENVIRONMENT: 'development',
-  },
+  defaultExport: mockConfig,
 });
 
 // Mock OpenAI to return controlled responses
@@ -138,6 +140,40 @@ async function collectEvents(gen: AsyncGenerator<any>): Promise<any[]> {
     events.push(event);
   }
   return events;
+}
+
+function mockDecompositionWithFallback(decomposition: Record<string, unknown>, kcalPer100g = 300): void {
+  mockChatCreate.mock.mockImplementation(async (opts: any) => {
+    const schemaName = opts?.response_format?.json_schema?.name;
+    if (schemaName === 'macro_fallback') {
+      const ingredients = (decomposition.ingredients as Array<Record<string, unknown>>).map((ingredient) => ({
+        name: ingredient.canonical_hint,
+        kcal_per_100g: kcalPer100g,
+        protein_per_100g: 10,
+        carbs_per_100g: 40,
+        fat_per_100g: 5,
+        fiber_per_100g: 3,
+      }));
+      return { choices: [{ message: { content: JSON.stringify({ ingredients }) } }] };
+    }
+    if (schemaName === 'meal_presentation') {
+      return {
+        choices: [{
+          message: {
+            content: JSON.stringify({
+              meal_name: decomposition.meal_name,
+              quantity: '1 serving',
+              meal_type: 'LUNCH',
+              meal_type_confident: true,
+              tip: 'Balanced meal',
+              health: null,
+            }),
+          },
+        }],
+      };
+    }
+    return { choices: [{ message: { content: JSON.stringify(decomposition) } }] };
+  });
 }
 
 test('analyzeTextMeal emits started then decomposition', async () => {
@@ -245,18 +281,16 @@ test('analyzeTextMeal uses provided analysisId option', async () => {
 });
 
 test('analyzeTextMeal emits error event when OPENAI_API_KEY is missing', async () => {
-  await mock.module('../config.js', {
-    defaultExport: { OPENAI_API_KEY: null, DATABASE_URL: 'postgres://mock' },
-  });
-  const { analyzeTextMeal: analyzeNoKey } = await import('./nutritionEngineV2.js');
-  const events = await collectEvents(analyzeNoKey('rice'));
-  const err = events.find((e) => e.step === 'ERROR');
-  assert.ok(err !== undefined);
-  assert.ok(err.data.message.includes('OPENAI_API_KEY'));
-  // Restore
-  await mock.module('../config.js', {
-    defaultExport: { OPENAI_API_KEY: 'test-key', DATABASE_URL: 'postgres://mock' },
-  });
+  const previous = mockConfig.OPENAI_API_KEY;
+  mockConfig.OPENAI_API_KEY = null;
+  try {
+    const events = await collectEvents(analyzeTextMeal('rice'));
+    const err = events.find((e) => e.step === 'ERROR');
+    assert.ok(err !== undefined);
+    assert.ok(err.data.message.includes('OPENAI_API_KEY'));
+  } finally {
+    mockConfig.OPENAI_API_KEY = previous;
+  }
 });
 
 test('analyzeTextMeal emits error event when LLM throws', async () => {
@@ -299,6 +333,320 @@ test('analyzeTextMeal emits clarification event when variance is high', async ()
     const result = events.find((e) => e.step === 'RESULT');
     assert.equal(result, undefined);
   }
+});
+
+test('portion-aware COUNT clarification bakes count into option grams', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Roti',
+    ingredients: [{
+      raw_name: 'roti',
+      canonical_hint: 'roti',
+      grams_estimated: 999, // ignored by normalization for COUNT
+      min_grams: 1,
+      max_grams: 2,
+      notes: '4 rotis',
+      portion_kind: 'COUNT',
+      count: 4,
+      per_unit_grams: 35,
+      per_unit_min_grams: 25,
+      per_unit_max_grams: 45,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('4 roti'));
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
+  assert.equal(decomp.data.ingredients[0].gramsEstimated, 140);
+  assert.equal(decomp.data.ingredients[0].minGrams, 100);
+  assert.equal(decomp.data.ingredients[0].maxGrams, 180);
+
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  const clarification = unc.data.clarifications[0];
+  assert.equal(clarification.clarificationId, `clr_${decomp.data.ingredients[0].rowId}`);
+  assert.equal(clarification.rowId, decomp.data.ingredients[0].rowId);
+  assert.equal(clarification.portionKind, 'COUNT');
+  assert.equal(clarification.defaultOptionId, 'regular');
+  assert.deepEqual(
+    clarification.options.map((option: any) => [option.optionId, option.grams]),
+    [['thin', 100], ['regular', 140], ['thick', 180]]
+  );
+  assert.ok(clarification.options.every((option: any) => !/\b\d+\s*g\b/i.test(option.label)));
+});
+
+test('portion-aware COUNT row with user-specified size skips clarification', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Large Rotis',
+    ingredients: [{
+      raw_name: 'roti',
+      canonical_hint: 'roti',
+      grams_estimated: 180,
+      min_grams: 180,
+      max_grams: 180,
+      notes: '4 large rotis',
+      portion_kind: 'COUNT',
+      count: 4,
+      per_unit_grams: 45,
+      per_unit_min_grams: 45,
+      per_unit_max_grams: 45,
+      size_specified_by_user: true,
+    }],
+    confidence: 0.95,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('4 large rotis'));
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  assert.equal(unc.data.needsClarification, false);
+  assert.deepEqual(unc.data.clarifications, []);
+});
+
+test('portion-aware COUNT row without count emits count question first', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Rotis',
+    ingredients: [{
+      raw_name: 'roti',
+      canonical_hint: 'roti',
+      grams_estimated: 105,
+      min_grams: 35,
+      max_grams: 210,
+      notes: 'some rotis',
+      portion_kind: 'COUNT',
+      count: null,
+      per_unit_grams: 35,
+      per_unit_min_grams: 25,
+      per_unit_max_grams: 45,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.7,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('rotis'));
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  const clarification = unc.data.clarifications[0];
+  assert.equal(clarification.portionKind, 'COUNT_QUESTION');
+  assert.equal(clarification.defaultOptionId, '2');
+  assert.deepEqual(
+    clarification.options.map((option: any) => [option.optionId, option.label, option.grams]),
+    [['1', '1', 35], ['2', '2', 70], ['3', '3', 105], ['4', '4', 140], ['5', '5', 175], ['6plus', '6 or more', 245]]
+  );
+});
+
+test('portion-aware: mixed sizes are emitted as two separate ingredient rows', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Mixed rotis',
+    ingredients: [
+      {
+        raw_name: 'roti',
+        canonical_hint: 'roti',
+        grams_estimated: 50, min_grams: 50, max_grams: 50,
+        notes: '2 small rotis',
+        portion_kind: 'COUNT',
+        count: 2, per_unit_grams: 25, per_unit_min_grams: 25, per_unit_max_grams: 25,
+        size_specified_by_user: true,
+      },
+      {
+        raw_name: 'roti',
+        canonical_hint: 'roti',
+        grams_estimated: 90, min_grams: 90, max_grams: 90,
+        notes: '2 large rotis',
+        portion_kind: 'COUNT',
+        count: 2, per_unit_grams: 45, per_unit_min_grams: 45, per_unit_max_grams: 45,
+        size_specified_by_user: true,
+      },
+    ],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('2 small and 2 large rotis'));
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
+  assert.equal(decomp.data.ingredients.length, 2);
+  // Each row gets its own stable rowId — required for downstream ID-based matching.
+  assert.notEqual(
+    decomp.data.ingredients[0].rowId,
+    decomp.data.ingredients[1].rowId
+  );
+  assert.equal(decomp.data.ingredients[0].gramsEstimated, 50);
+  assert.equal(decomp.data.ingredients[1].gramsEstimated, 90);
+  // Both rows are size-specified so no clarifications emitted.
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  assert.equal(unc.data.needsClarification, false);
+});
+
+test('portion-aware: fractional COUNT preserved through normalization', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Half a roti',
+    ingredients: [{
+      raw_name: 'roti',
+      canonical_hint: 'roti',
+      grams_estimated: 17, min_grams: 12, max_grams: 22,
+      notes: 'half a roti',
+      portion_kind: 'COUNT',
+      count: 0.5,
+      per_unit_grams: 35, per_unit_min_grams: 25, per_unit_max_grams: 45,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.7,
+    inferred_meal_type: 'SNACK',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('half a roti'));
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
+  // count×per_unit invariant (roundGram is fixed(1)): 0.5×35=17.5, 0.5×25=12.5, 0.5×45=22.5.
+  assert.equal(decomp.data.ingredients[0].count, 0.5);
+  assert.equal(decomp.data.ingredients[0].gramsEstimated, 17.5);
+  assert.equal(decomp.data.ingredients[0].minGrams, 12.5);
+  assert.equal(decomp.data.ingredients[0].maxGrams, 22.5);
+});
+
+test('portion-aware: implausible count (count=40) clamps and falls back to BULK row', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Suspicious meal',
+    ingredients: [{
+      raw_name: 'roti',
+      canonical_hint: 'roti',
+      grams_estimated: 1500, min_grams: 1000, max_grams: 2200,
+      notes: 'forty rotis (likely hallucination)',
+      portion_kind: 'COUNT',
+      count: 40,
+      per_unit_grams: 35, per_unit_min_grams: 25, per_unit_max_grams: 55,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.4,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('forty rotis'));
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
+  const ingredient = decomp.data.ingredients[0];
+  // Sanity clamp collapses to BULK with no count and capped max.
+  assert.equal(ingredient.portionKind, 'BULK');
+  assert.equal(ingredient.count, undefined);
+  assert.ok(ingredient.maxGrams <= 2000);
+  assert.equal(ingredient.sizeSpecifiedByUser, false);
+});
+
+test('portion-aware: clarification labels never contain raw gram strings', async () => {
+  // Smoke-test the gram-free invariant across all clarification types in one fixture.
+  mockDecompositionWithFallback({
+    meal_name: 'Mixed meal',
+    ingredients: [
+      {
+        raw_name: 'roti', canonical_hint: 'roti',
+        grams_estimated: 999, min_grams: 1, max_grams: 2, notes: '',
+        portion_kind: 'COUNT', count: 4,
+        per_unit_grams: 35, per_unit_min_grams: 25, per_unit_max_grams: 45,
+        size_specified_by_user: false,
+      },
+      {
+        raw_name: 'rice', canonical_hint: 'rice cooked',
+        grams_estimated: 200, min_grams: 100, max_grams: 320, notes: '',
+        portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: false,
+      },
+      {
+        raw_name: 'unknown stuff', canonical_hint: 'unknown stuff',
+        grams_estimated: 100, min_grams: 50, max_grams: 200, notes: '',
+        portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: false,
+      },
+    ],
+    confidence: 0.8,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('rotis and rice and a side'));
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  const labels = unc.data.clarifications.flatMap((c: any) => c.options.map((o: any) => o.label));
+  for (const label of labels) {
+    assert.ok(
+      !/\b\d+\s*g\b/i.test(label),
+      `option label "${label}" should not contain a raw gram string`
+    );
+  }
+});
+
+test('portion-aware: presentation receives decomposition meal_name as canonical hint', async () => {
+  // The presentation prompt must be told to prefer the decomposition's meal_name
+  // unless the original evidence supports a more specific title.
+  mockChatCreate.mock.mockImplementation(async (opts: any) => {
+    const schemaName = opts?.response_format?.json_schema?.name;
+    if (schemaName === 'meal_decomposition') {
+      return {
+        choices: [{
+          message: {
+            content: JSON.stringify({
+              meal_name: 'Paneer sabzi with roti',
+              ingredients: [{
+                raw_name: 'paneer', canonical_hint: 'paneer',
+                grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+              }],
+              confidence: 0.85,
+              inferred_meal_type: 'LUNCH',
+              meal_type_confident: true,
+            }),
+          },
+        }],
+      };
+    }
+    if (schemaName === 'meal_presentation') {
+      const userMessage: string = String(opts?.messages?.[1]?.content ?? '');
+      // Surface the prompt in the presentation response so we can assert on it.
+      return {
+        choices: [{
+          message: {
+            content: JSON.stringify({
+              meal_name: userMessage.includes('Paneer sabzi with roti')
+                ? 'Paneer sabzi with roti'
+                : 'Mismatched',
+              quantity: '1 plate',
+              meal_type: 'LUNCH',
+              meal_type_confident: true,
+              tip: 'Add a salad.',
+              health: null,
+            }),
+          },
+        }],
+      };
+    }
+    return { choices: [{ message: { content: '{}' } }] };
+  });
+
+  const events = await collectEvents(
+    analyzeTextMeal('paneer sabzi with roti', { selectedMealType: 'LUNCH' })
+  );
+  const result = events.find((e) => e.step === 'RESULT');
+  assert.equal(result.data.mealName, 'Paneer sabzi with roti');
+});
+
+test('portion-aware: whitespace-only meal_name normalized to empty for safe fallback', async () => {
+  mockDecompositionWithFallback({
+    meal_name: '   ',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice',
+      grams_estimated: 200, min_grams: 180, max_grams: 220, notes: '',
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('rice'));
+  const decomp = events.find((e) => e.step === 'DECOMPOSITION');
+  // Wire layer trims so the client sees an empty string (header falls back to static title).
+  assert.equal(decomp.data.mealName, '');
 });
 
 // ---------------------------------------------------------------------------
@@ -380,7 +728,7 @@ test('analyzeImageMeal uses image source in session record', async () => {
 test('continueMealAnalysis emits error when session not found', async () => {
   mockGetSession.mock.mockImplementation(async () => undefined);
   const events = await collectEvents(
-    continueMealAnalysis('nonexistent-id', [{ ingredientName: 'rice', selectedOptionIndex: 1 }])
+    continueMealAnalysis('nonexistent-id', [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }])
   );
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
@@ -397,7 +745,7 @@ test('continueMealAnalysis emits error when session has no decomposition data', 
   }));
 
   const events = await collectEvents(
-    continueMealAnalysis('sess-1', [{ ingredientName: 'dal', selectedOptionIndex: 0 }])
+    continueMealAnalysis('sess-1', [{ clarificationId: 'clr-dal', selectedOptionId: 'small' }])
   );
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
@@ -448,12 +796,126 @@ test('continueMealAnalysis resumes pipeline with stored decomposition', async ()
   }));
 
   const events = await collectEvents(
-    continueMealAnalysis('sess-resume', [{ ingredientName: 'rice', selectedOptionIndex: 1 }])
+    continueMealAnalysis('sess-resume', [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }])
   );
 
   // Should emit at least ingredients event
   const ingr = events.find((e) => e.step === 'INGREDIENTS');
   assert.ok(ingr !== undefined);
+});
+
+test('continueMealAnalysis matches duplicate raw names by clarification id and row id', async () => {
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'sess-oil',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'oil and oil' },
+    decompositionData: {
+      analysisId: 'sess-oil',
+      mealName: 'Oil Test',
+      confidence: 0.9,
+      ingredients: [
+        {
+          rowId: 'oil-a',
+          rawName: 'oil',
+          canonicalHint: 'oil',
+          gramsEstimated: 14,
+          minGrams: 5,
+          maxGrams: 28,
+          notes: '',
+          portionKind: 'BULK',
+          sizeSpecifiedByUser: false,
+        },
+        {
+          rowId: 'oil-b',
+          rawName: 'oil',
+          canonicalHint: 'oil',
+          gramsEstimated: 14,
+          minGrams: 5,
+          maxGrams: 28,
+          notes: '',
+          portionKind: 'BULK',
+          sizeSpecifiedByUser: false,
+        },
+      ],
+      inferredMealType: 'LUNCH',
+      mealTypeConfident: true,
+    },
+    selectedMealType: 'LUNCH',
+    selectedMealTypeSource: 'user',
+    countryCode: undefined,
+  }));
+  mockDecompositionWithFallback({
+    meal_name: 'Oil Test',
+    ingredients: [
+      { canonical_hint: 'oil' },
+      { canonical_hint: 'oil' },
+    ],
+  }, 900);
+
+  const events = await collectEvents(
+    continueMealAnalysis('sess-oil', [
+      { clarificationId: 'clr_oil-a', selectedOptionId: 'small' },
+      { clarificationId: 'clr_oil-b', selectedOptionId: 'heavy' },
+    ])
+  );
+
+  const result = events.find((e) => e.step === 'RESULT');
+  assert.ok(result !== undefined);
+  assert.deepEqual(result.data.ingredients.map((ingredient: any) => ingredient.grams), [5, 28]);
+});
+
+test('continueMealAnalysis emits size clarification after count answer when uncertainty remains', async () => {
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'sess-roti-count',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rotis' },
+    decompositionData: {
+      analysisId: 'sess-roti-count',
+      mealName: 'Rotis',
+      confidence: 0.8,
+      ingredients: [
+        {
+          rowId: 'roti-row',
+          rawName: 'roti',
+          canonicalHint: 'roti',
+          gramsEstimated: 105,
+          minGrams: 35,
+          maxGrams: 210,
+          notes: '',
+          portionKind: 'COUNT',
+          count: null,
+          perUnitGrams: 35,
+          perUnitMinGrams: 25,
+          perUnitMaxGrams: 45,
+          sizeSpecifiedByUser: false,
+        },
+      ],
+      inferredMealType: 'LUNCH',
+      mealTypeConfident: true,
+    },
+    selectedMealType: 'LUNCH',
+    selectedMealTypeSource: 'user',
+    countryCode: undefined,
+  }));
+  mockDecompositionWithFallback({
+    meal_name: 'Rotis',
+    ingredients: [{ canonical_hint: 'roti' }],
+  }, 300);
+
+  const events = await collectEvents(
+    continueMealAnalysis('sess-roti-count', [{ clarificationId: 'clr_roti-row_count', selectedOptionId: '4' }])
+  );
+
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  const clarification = unc.data.clarifications[0];
+  assert.equal(clarification.clarificationId, 'clr_roti-row');
+  assert.equal(clarification.portionKind, 'COUNT');
+  assert.deepEqual(
+    clarification.options.map((option: any) => [option.optionId, option.grams]),
+    [['thin', 100], ['regular', 140], ['thick', 180]]
+  );
 });
 
 // ---------------------------------------------------------------------------

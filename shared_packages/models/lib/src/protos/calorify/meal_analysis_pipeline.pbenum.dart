@@ -51,5 +51,33 @@ class PipelineStep extends $pb.ProtobufEnum {
   const PipelineStep._(super.value, super.name);
 }
 
+class PortionKind extends $pb.ProtobufEnum {
+  static const PortionKind PORTION_KIND_UNSPECIFIED =
+      PortionKind._(0, _omitEnumNames ? '' : 'PORTION_KIND_UNSPECIFIED');
+  static const PortionKind COUNT =
+      PortionKind._(1, _omitEnumNames ? '' : 'COUNT');
+  static const PortionKind BULK =
+      PortionKind._(2, _omitEnumNames ? '' : 'BULK');
+  static const PortionKind PINCH =
+      PortionKind._(3, _omitEnumNames ? '' : 'PINCH');
+  static const PortionKind COUNT_QUESTION =
+      PortionKind._(4, _omitEnumNames ? '' : 'COUNT_QUESTION');
+
+  static const $core.List<PortionKind> values = <PortionKind>[
+    PORTION_KIND_UNSPECIFIED,
+    COUNT,
+    BULK,
+    PINCH,
+    COUNT_QUESTION,
+  ];
+
+  static final $core.List<PortionKind?> _byValue =
+      $pb.ProtobufEnum.$_initByValueList(values, 4);
+  static PortionKind? valueOf($core.int value) =>
+      value < 0 || value >= _byValue.length ? null : _byValue[value];
+
+  const PortionKind._(super.value, super.name);
+}
+
 const $core.bool _omitEnumNames =
     $core.bool.fromEnvironment('protobuf.omit_enum_names');

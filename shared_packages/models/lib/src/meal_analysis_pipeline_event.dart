@@ -34,10 +34,7 @@ class MealAnalysisPipelineEvent {
     switch (step) {
       case PipelineStep.STARTED:
         final m = PipelineStartedData()..mergeFromProto3Json(data);
-        return MealAnalysisPipelineEvent(
-          step: step,
-          analysisId: m.analysisId,
-        );
+        return MealAnalysisPipelineEvent(step: step, analysisId: m.analysisId);
       case PipelineStep.DECOMPOSITION:
         final m = PipelineDecompositionData()..mergeFromProto3Json(data);
         return MealAnalysisPipelineEvent(
@@ -101,6 +98,15 @@ class MealAnalysisPipelineEvent {
   String? get mealName {
     if (decomposition != null && decomposition!.hasMealName()) {
       return decomposition!.mealName;
+    }
+    if (ingredientsStep != null && ingredientsStep!.hasMealName()) {
+      return ingredientsStep!.mealName;
+    }
+    if (uncertainty != null && uncertainty!.hasMealName()) {
+      return uncertainty!.mealName;
+    }
+    if (mealTypeQuestion != null && mealTypeQuestion!.hasMealName()) {
+      return mealTypeQuestion!.mealName;
     }
     if (result != null && result!.hasMealName()) {
       return result!.mealName;
