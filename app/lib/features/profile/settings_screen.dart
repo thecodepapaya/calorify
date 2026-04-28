@@ -264,7 +264,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ]),
           if (_showDebugOptions ||
               kDebugMode ||
-              EnvConfig.instance.isStaging) ...[
+              EnvConfig.instance.usesStagingIdentity) ...[
             const SizedBox(height: 16),
             _buildCardSection(t.settings.sections.developer, [
               ListTile(
