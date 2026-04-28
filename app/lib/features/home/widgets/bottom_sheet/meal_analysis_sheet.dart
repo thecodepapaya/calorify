@@ -12,6 +12,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_type_sheet.dart
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
@@ -164,7 +165,6 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     with SingleTickerProviderStateMixin {
   StreamSubscription<MealAnalysisPipelineEvent>? _subscription;
   MealAnalysisPipelineEvent? _lastEvent;
-  bool _isLoading = true;
 
   late final AnimationController _shimmerController;
   late final Stopwatch _flowStopwatch;
@@ -195,7 +195,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     _flowStopwatch = Stopwatch()..start();
     _shimmerController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: const Duration(milliseconds: 1800),
     )..repeat();
     _scheduleTipCycle();
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadRemoteTips());
@@ -205,7 +205,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
   void _scheduleTipCycle() {
     _tipCycleTimer?.cancel();
     final count = _tips.isEmpty ? 1 : _tips.length;
-    _tipCycleTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+    _tipCycleTimer = Timer.periodic(const Duration(seconds: 6), (_) {
       if (!mounted) return;
       setState(() => _tipIndex = (_tipIndex + 1) % count);
     });
@@ -325,6 +325,25 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     return _tips[index % _tips.length];
   }
 
+  bool _shouldRebuildForDisplay(
+    MealAnalysisPipelineEvent? previous,
+    MealAnalysisPipelineEvent next,
+  ) {
+    if (previous == null) return true;
+    final pName = (previous.mealName ?? previous.result?.mealName ?? '').trim();
+    final nName = (next.mealName ?? next.result?.mealName ?? '').trim();
+    return previous.step != next.step ||
+        pName != nName ||
+        _ingredientCount(previous) != _ingredientCount(next);
+  }
+
+  void _runAfterFrame(VoidCallback fn) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      fn();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -345,222 +364,240 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
       t.meal.analysis.progressCheck,
       t.meal.analysis.progressFinish,
     ];
+    final phaseLabel = progressLabels[doneDots.clamp(0, 3)];
 
     return BaseBottomSheet(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(AppIcons.wandSparkles, color: colorScheme.primary),
-              const SizedBox(width: 8),
-              Text(
-                t.meal.analysis.title,
-                style: textTheme.titleLarge?.copyWith(
-                  color: colorScheme.onSurface,
-                  fontWeight: FontWeight.w600,
+              Icon(
+                AppIcons.wandSparkles,
+                size: 22,
+                color: colorScheme.primary,
+              ),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  t.meal.analysis.title,
+                  textAlign: TextAlign.center,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: -0.2,
+                  ),
                 ),
               ),
             ],
           ),
           if (widget.imageBytes != null && widget.imageBytes!.isNotEmpty) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: 18),
             ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(14),
               child: Image.memory(
                 widget.imageBytes!,
-                height: 120,
+                height: 128,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                gaplessPlayback: true,
               ),
             ),
           ] else if (widget.textDescription != null &&
               widget.textDescription!.trim().isNotEmpty) ...[
-            const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                t.meal.analysis.mealPreviewDescription(
-                  text: _shortText(widget.textDescription!.trim(), 120),
+            const SizedBox(height: 18),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.45),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: colorScheme.outlineVariant.withValues(alpha: 0.35),
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurface.withValues(alpha: 0.75),
-                  fontStyle: FontStyle.italic,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+                child: Text(
+                  t.meal.analysis.mealPreviewDescription(
+                    text: _shortText(widget.textDescription!.trim(), 120),
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurface.withValues(alpha: 0.82),
+                    height: 1.35,
+                  ),
                 ),
               ),
             ),
           ],
-          const SizedBox(height: 20),
-          if (progressVal == null)
-            LinearProgressIndicator(
-              borderRadius: BorderRadius.circular(4),
-              color: colorScheme.primary,
-              backgroundColor: colorScheme.surfaceContainerHighest,
-            )
-          else
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: progressVal,
-                color: colorScheme.primary,
-                backgroundColor: colorScheme.surfaceContainerHighest,
-              ),
+          const SizedBox(height: 22),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(999),
+            child: progressVal == null
+                ? LinearProgressIndicator(
+                    minHeight: 6,
+                    color: colorScheme.primary,
+                    backgroundColor:
+                        colorScheme.surfaceContainerHighest.withValues(alpha: 0.9),
+                  )
+                : LinearProgressIndicator(
+                    value: progressVal,
+                    minHeight: 6,
+                    color: colorScheme.primary,
+                    backgroundColor:
+                        colorScheme.surfaceContainerHighest.withValues(alpha: 0.9),
+                  ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            phaseLabel,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: textTheme.labelLarge?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.w500,
             ),
-          const SizedBox(height: 8),
-          Row(
-            children: List.generate(4, (i) {
-              final active = i <= doneDots;
-              return Expanded(
-                child: Column(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 250),
-                      height: 8,
-                      width: 8,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color:
-                            active
-                                ? colorScheme.primary
-                                : colorScheme.outline.withValues(alpha: 0.35),
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      progressLabels[i],
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.labelSmall?.copyWith(
-                        color:
-                            active
-                                ? colorScheme.onSurface
-                                : colorScheme.onSurface.withValues(alpha: 0.45),
-                        fontWeight: active ? FontWeight.w600 : FontWeight.w400,
-                      ),
-                    ),
-                  ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            t.meal.analysis.reassurance,
+            textAlign: TextAlign.center,
+            style: textTheme.labelSmall?.copyWith(
+              color: colorScheme.onSurface.withValues(alpha: 0.42),
+              height: 1.25,
+            ),
+          ),
+          const SizedBox(height: 22),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 280),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 0.04),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
                 ),
               );
-            }),
-          ),
-          const SizedBox(height: 20),
-          if (_isLoading) ...[
-            SizedBox(
-              width: 28,
-              height: 28,
-              child: CircularProgressIndicator(
-                strokeWidth: 3,
-                color: colorScheme.primary,
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            transitionBuilder:
-                (child, animation) =>
-                    FadeTransition(opacity: animation, child: child),
+            },
             child: Text(
               statusText,
               key: ValueKey<String>(statusText),
               textAlign: TextAlign.center,
-              style: textTheme.titleMedium?.copyWith(
+              style: textTheme.titleLarge?.copyWith(
                 color: colorScheme.onSurface,
+                fontWeight: FontWeight.w500,
+                height: 1.2,
+                letterSpacing: -0.3,
               ),
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            t.meal.analysis.reassurance,
-            textAlign: TextAlign.center,
-            style: textTheme.bodySmall?.copyWith(
-              color: colorScheme.onSurface.withValues(alpha: 0.55),
-            ),
-          ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 14),
           AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
-            transitionBuilder:
-                (child, animation) =>
-                    FadeTransition(opacity: animation, child: child),
+            duration: const Duration(milliseconds: 360),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) =>
+                FadeTransition(opacity: animation, child: child),
             child: Text(
               _rotatingTip(_tipIndex),
               key: ValueKey<int>(_tipIndex),
               textAlign: TextAlign.center,
               style: textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurface.withValues(alpha: 0.5),
-                height: 1.35,
+                color: colorScheme.onSurface.withValues(alpha: 0.48),
+                height: 1.4,
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
-            transitionBuilder:
-                (child, animation) =>
-                    FadeTransition(opacity: animation, child: child),
-            child:
-                hasMealName
-                    ? Text(
-                      mealName,
-                      key: ValueKey<String>(mealName),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyLarge?.copyWith(
-                        color: colorScheme.onSurface.withValues(alpha: 0.85),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    )
-                    : SizedBox(
-                      key: const ValueKey('shimmer-name'),
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [_shimmerBox(width: 200, height: 18)],
-                      ),
-                    ),
-          ),
-          const SizedBox(height: 8),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
-            transitionBuilder:
-                (child, animation) =>
-                    FadeTransition(opacity: animation, child: child),
-            child:
-                ingredientCount > 0
-                    ? Text(
-                      t.meal.analysis.ingredientsLine(count: ingredientCount),
-                      key: ValueKey<int>(ingredientCount),
-                      textAlign: TextAlign.center,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurface.withValues(alpha: 0.6),
-                      ),
-                    )
-                    : SizedBox(
-                      key: const ValueKey('shimmer-ingredients'),
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            t.meal.analysis.ingredientsPending,
+          const SizedBox(height: 22),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: colorScheme.outlineVariant.withValues(alpha: 0.28),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 360),
+                    switchInCurve: Curves.easeOut,
+                    switchOutCurve: Curves.easeIn,
+                    transitionBuilder: (child, animation) =>
+                        FadeTransition(opacity: animation, child: child),
+                    child: hasMealName
+                        ? Text(
+                            mealName,
+                            key: ValueKey<String>(mealName),
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: textTheme.titleSmall?.copyWith(
+                              color: colorScheme.onSurface.withValues(alpha: 0.92),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        : Column(
+                            key: const ValueKey<String>('shimmer-name-block'),
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              _shimmerBox(width: 200, height: 16),
+                              const SizedBox(height: 6),
+                              _shimmerBox(width: 140, height: 12),
+                            ],
+                          ),
+                  ),
+                  const SizedBox(height: 10),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 360),
+                    switchInCurve: Curves.easeOut,
+                    switchOutCurve: Curves.easeIn,
+                    transitionBuilder: (child, animation) =>
+                        FadeTransition(opacity: animation, child: child),
+                    child: ingredientCount > 0
+                        ? Text(
+                            t.meal.analysis.ingredientsLine(count: ingredientCount),
+                            key: ValueKey<int>(ingredientCount),
+                            textAlign: TextAlign.center,
                             style: textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurface.withValues(alpha: 0.45),
+                              color: colorScheme.onSurfaceVariant,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Padding(
+                            key: const ValueKey<String>('ing-pending'),
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Column(
+                              children: [
+                                Text(
+                                  t.meal.analysis.ingredientsPending,
+                                  textAlign: TextAlign.center,
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurface
+                                        .withValues(alpha: 0.48),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                _shimmerBox(width: 120, height: 12),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 6),
-                          _shimmerBox(width: 140, height: 13),
-                        ],
-                      ),
-                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-          const SizedBox(height: 8),
         ],
       ),
     );
@@ -579,39 +616,44 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
       _subscription = stream.listen(
         (event) {
           if (!mounted) return;
-          setState(() {
-            _lastEvent = event;
-          });
 
           if (event.step == PipelineStep.ERROR) {
             Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
-            showFlushbar(
-              event.errorMessage ?? t.meal.analysis.stepError,
-              context: context,
-            );
-            Navigator.of(context).pop();
+            _runAfterFrame(() {
+              showFlushbar(
+                event.errorMessage ?? t.meal.analysis.stepError,
+                context: context,
+              );
+              if (context.mounted) Navigator.of(context).pop();
+            });
             return;
           }
 
           if (event.uncertainty != null &&
               event.uncertainty!.needsClarification &&
               event.uncertainty!.clarifications.isNotEmpty) {
-            Navigator.of(context).pop(
-              _MealAnalysisFlowOutcome(
-                analysisId: event.analysisId,
-                clarifications: event.uncertainty!.clarifications,
-              ),
-            );
+            _runAfterFrame(() {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(
+                _MealAnalysisFlowOutcome(
+                  analysisId: event.analysisId,
+                  clarifications: event.uncertainty!.clarifications,
+                ),
+              );
+            });
             return;
           }
 
           if (event.mealTypeQuestion != null) {
-            Navigator.of(context).pop(
-              _MealAnalysisFlowOutcome(
-                analysisId: event.analysisId,
-                mealTypeQuestion: event.mealTypeQuestion,
-              ),
-            );
+            _runAfterFrame(() {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(
+                _MealAnalysisFlowOutcome(
+                  analysisId: event.analysisId,
+                  mealTypeQuestion: event.mealTypeQuestion,
+                ),
+              );
+            });
             return;
           }
 
@@ -626,37 +668,47 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
                         : 'text',
               },
             );
-            Navigator.of(context).pop(
-              _MealAnalysisFlowOutcome(
-                resultContext: MealAnalysisPipelineSessionContext(
-                  result: event.result!,
-                  imageBytes: widget.imageBytes,
-                  imageUrl: widget.imageUrl,
-                  textDescription: widget.textDescription,
+            _runAfterFrame(() {
+              if (!context.mounted) return;
+              Navigator.of(context).pop(
+                _MealAnalysisFlowOutcome(
+                  resultContext: MealAnalysisPipelineSessionContext(
+                    result: event.result!,
+                    imageBytes: widget.imageBytes,
+                    imageUrl: widget.imageUrl,
+                    textDescription: widget.textDescription,
+                  ),
                 ),
-              ),
-            );
+              );
+            });
+            return;
           }
-        },
-        onDone: () {
-          if (!mounted) return;
-          setState(() => _isLoading = false);
+
+          if (_shouldRebuildForDisplay(_lastEvent, event)) {
+            setState(() => _lastEvent = event);
+          } else {
+            _lastEvent = event;
+          }
         },
         onError: (Object error) {
           if (!mounted) return;
           Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
-          showFlushbar(
-            error is Exception ? '$error' : t.meal.analysis.stepError,
-            context: context,
-          );
-          Navigator.of(context).pop();
+          _runAfterFrame(() {
+            showFlushbar(
+              error is Exception ? '$error' : t.meal.analysis.stepError,
+              context: context,
+            );
+            if (context.mounted) Navigator.of(context).pop();
+          });
         },
       );
     } on Exception catch (error) {
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
-      showFlushbar('$error', context: context);
-      Navigator.of(context).pop();
+      _runAfterFrame(() {
+        showFlushbar('$error', context: context);
+        if (context.mounted) Navigator.of(context).pop();
+      });
     }
   }
 }
