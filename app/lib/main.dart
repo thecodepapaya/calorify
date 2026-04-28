@@ -19,9 +19,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   EnvConfig.instance.init();
-  DataSourceConfig.configureForEnvironment(
-    isProduction: EnvConfig.instance.isProd,
-  );
+  DataSourceConfig.configureForEnvironment(flavor: EnvConfig.instance.flavor);
   DatabaseService.initialize();
 
   SystemChrome.setSystemUIOverlayStyle(

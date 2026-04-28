@@ -2,64 +2,69 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run Staging",
+            "name": "Run dev (mock db)",
             "request": "launch",
             "type": "dart",
-            "program": "app/lib/main.dart",
+            "cwd": "${workspaceFolder}/app",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        {
+            "name": "Run dev",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "${workspaceFolder}/app",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=USE_REAL_DATABASE=true"
+            ]
+        },
+        {
+            "name": "Run staging",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "${workspaceFolder}/app",
+            "program": "lib/main.dart",
             "args": [
                 "--flavor",
                 "staging"
             ]
         },
         {
-            "name": "Run Staging (Localhost)",
-            "request": "launch",
-            "type": "dart",
-            "program": "app/lib/main.dart",
-            "args": [
-                "--flavor",
-                "staging",
-                "--dart-define=USE_LOCAL_BACKEND=true"
-            ]
-        },
-        {
-            "name": "Run Staging Profile",
+            "name": "Run staging profile",
             "request": "launch",
             "flutterMode": "profile",
             "type": "dart",
-            "program": "app/lib/main.dart",
+            "cwd": "${workspaceFolder}/app",
+            "program": "lib/main.dart",
             "args": [
                 "--flavor",
                 "staging"
             ]
         },
         {
-            "name": "Run Staging Release",
-            "request": "launch",
-            "flutterMode": "release",
-            "type": "dart",
-            "program": "app/lib/main.dart",
-            "args": [
-                "--flavor",
-                "staging"
-            ]
-        },
-        {
-            "name": "Run Prod",
+            "name": "Run prod",
             "request": "launch",
             "type": "dart",
-            "program": "app/lib/main.dart",
+            "cwd": "${workspaceFolder}/app",
+            "program": "lib/main.dart",
             "args": [
                 "--flavor",
                 "prod"
             ]
         },
         {
-            "name": "Run Prod Profile",
+            "name": "Run prod profile",
             "request": "launch",
             "flutterMode": "profile",
             "type": "dart",
-            "program": "app/lib/main.dart",
+            "cwd": "${workspaceFolder}/app",
+            "program": "lib/main.dart",
             "args": [
                 "--flavor",
                 "prod"

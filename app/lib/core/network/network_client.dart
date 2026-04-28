@@ -75,7 +75,7 @@ class NetworkClient {
     dio.interceptors.add(FirebasePerformanceInterceptor());
     dio.interceptors.add(MsrInterceptor());
 
-    if (kDebugMode || EnvConfig.instance.isStaging) {
+    if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
       dio.interceptors.add(
         PrettyDioLogger(
           requestHeader: true,
@@ -186,7 +186,7 @@ class NetworkClient {
           .transform(const LineSplitter())
           .where((line) => line.trim().isNotEmpty)
           .map((line) {
-            if (kDebugMode || EnvConfig.instance.isStaging) {
+            if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
               debugPrint('[stream:$endpoint] $line');
             }
             return line;
