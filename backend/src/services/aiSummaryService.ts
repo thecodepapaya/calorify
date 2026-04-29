@@ -241,6 +241,9 @@ export async function pollAndProcessBatch(
     const meta = userData[result.custom_id];
     if (!meta) {
       errorCount++;
+      console.error(
+        `[aiSummaryService] Batch result custom_id not in stored user_data: ${String(result.custom_id)}`
+      );
       continue;
     }
 
@@ -261,6 +264,9 @@ export async function pollAndProcessBatch(
 
     if (!summary) {
       errorCount++;
+      console.error(
+        `[aiSummaryService] Batch result missing or empty "summary" for user ${meta.userId} after parsing model output`
+      );
       continue;
     }
 
