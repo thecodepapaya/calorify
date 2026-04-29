@@ -83,78 +83,32 @@ Backend OpenAI model names are declared once in [src/openaiModels.ts](/Users/ash
 - `OPENAI_MEAL_ANALYSIS_MODEL = gpt-4.1-nano`
 - `OPENAI_AI_SUMMARY_MODEL = gpt-5-mini`
 
-## Streamed V2 Analysis CLI
+## V2 Decomposition CLI
 
-Use the CLI when you want to debug `/api/v2/food/analyze-text` or `/api/v2/food/analyze-image` without the app. It hits the real streamed backend endpoints, prints each streamed event, shows USDA vs AI fallback per ingredient, and emits a request ID you can use to correlate backend logs.
+Use the CLI when you want to inspect prompt effectiveness for text meal decomposition. It reuses the V2 meal-analysis module, runs only the first LLM decomposition call, then checks how many returned canonical hints resolve in the USDA database. It does not run macro fallback, uncertainty, clarification, or presentation.
 
 Common commands:
 
 ```bash
-# Local dev server started with `npm run dev`
-npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "2 rotis with dal"
+# Single text input
+npm run analysis:v2:cli -- --text "2 rotis with paneer sabzi"
 
-# Docker staging backend exposed on host port 8001
-npm run analysis:v2:cli -- --base-url http://localhost:8001 --text "poha with peanuts"
+# Positional text also works
+npm run analysis:v2:cli -- "2 rotis with paneer sabzi"
 
-# Analyze an already-hosted image URL through the streamed V2 route
-npm run analysis:v2:cli -- --base-url http://localhost:8000 --image-url "https://example.com/meal.jpg"
+# Run a batch from CSV. Uses a text, input, or description column if present;
+# otherwise it uses the first column.
+npm run analysis:v2:cli -- --csv ./meal-inputs.csv
 
-# Upload a local image file to the existing bucket, then analyze it through V2
-npm run analysis:v2:cli -- --base-url http://localhost:8000 --image-file ./meal.jpg
-
-# Stop after the first streamed pass instead of answering clarification / meal-type prompts
-npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "1 banana" --no-interactive
-
-# Print raw NDJSON too
-npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "dal rice" --raw
-
-# Query Loki after the run using the generated request ID
-npm run analysis:v2:cli -- --base-url http://localhost:8000 --text "dal rice" --check-loki
+# JSON output for an LLM judge or external eval runner
+npm run analysis:v2:cli -- --csv ./meal-inputs.csv --json
 ```
-
-Useful flags:
-
-- `--base-url http://localhost:8000` for `npm run dev`
-- `--base-url http://localhost:8001` for the Docker staging service
-- `--no-interactive` to stop when clarification or meal-type selection is needed
-- `--raw` to print the raw streamed NDJSON lines
-- `--check-loki` to query Loki for the correlated request logs after the run
-- `--request-id <id>` to override the generated request/correlation ID
 
 The CLI output includes:
 
-- streamed step timings as observed by the client
-- ingredient source summaries: `USDA/db` vs `AI fallback`
-- a `requestId` for log correlation
-
-The backend logs for the same request now include a structured `traceSummary` with:
-
-- `llmCallCount`
-- `usdaLookupCount`
-- `dbWriteCount`
-- per-step timings under `traceSummary.steps[]`
-
-To inspect console logs for a specific CLI run:
-
-```bash
-# Docker staging backend
-docker compose logs --since 5m backend-staging | rg 'meal-cli-|meal_analysis_v2'
-
-# Narrow to a specific request ID printed by the CLI
-docker compose logs --since 5m backend-staging | rg 'meal-cli-123|meal_analysis_v2'
-```
-
-To inspect Loki/Grafana:
-
-```bash
-# Start shared logging services if they are not already up
-docker compose up -d loki grafana promtail
-```
-
-- Grafana dashboard: `http://localhost:3000`
-- Loki API: `http://localhost:3100`
-- In Grafana Explore, query with the request ID printed by the CLI, for example:
-  - `{app="calorify-backend"} |= "meal-cli-123"`
+- meal name, confidence, inferred meal type, and decomposition rows from the first LLM call
+- raw name, canonical hint, grams, portion metadata, and USDA match status for each ingredient
+- total USDA hit count and hit rate for the input or CSV batch
 
 ## API Endpoints
 
