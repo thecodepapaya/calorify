@@ -344,6 +344,46 @@ export interface AnalysisRequestOptions {
   trace?: AnalysisTrace;
 }
 
+export interface DecompositionPreviewIngredient {
+  rowId: string;
+  rawName: string;
+  canonicalHint: string;
+  gramsEstimated: number;
+  minGrams: number;
+  maxGrams: number;
+  notes: string;
+  portionKind: PortionKindValue;
+  count: number | null;
+  perUnitGrams: number | null;
+  perUnitMinGrams: number | null;
+  perUnitMaxGrams: number | null;
+  sizeSpecifiedByUser: boolean;
+  usda: {
+    hit: boolean;
+    matchType: 'exact' | 'alias' | 'fuzzy' | 'unmatched';
+    score: number;
+    fdcId?: string;
+    canonicalName?: string;
+    dataType?: string | null;
+  };
+}
+
+export interface DecompositionPreview {
+  analysisId: string;
+  mealName: string;
+  confidence: number;
+  inferredMealType: MealTypeValue;
+  mealTypeConfident: boolean;
+  ingredients: DecompositionPreviewIngredient[];
+  usdaSummary: {
+    total: number;
+    hitCount: number;
+    missCount: number;
+    hitRate: number;
+    matchTypes: Record<string, number>;
+  };
+}
+
 interface PipelineRunContext {
   analysisId: string;
   source: 'text' | 'image';
@@ -1099,6 +1139,64 @@ async function decomposeFromText(
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
   return JSON.parse(raw) as LLMDecomposition;
+}
+
+export async function analyzeTextMealDecompositionPreview(
+  input: string,
+  options: Pick<AnalysisRequestOptions, 'analysisId' | 'feedbackIssues' | 'otherText' | 'logger'> = {}
+): Promise<DecompositionPreview> {
+  const analysisId = options.analysisId ?? randomUUID();
+  const client = getOpenAiClient();
+  const decomposition = await decomposeFromText(
+    client,
+    input,
+    buildCorrectionContext(options.feedbackIssues, options.otherText)
+  );
+  const normalized = normalizeDecomposition(decomposition, options.logger, analysisId);
+  const usdaMatches = await Promise.all(
+    normalized.ingredients.map((ingredient) => canonicalizeWithUsda(ingredient.canonicalHint))
+  );
+  const matchTypes: Record<string, number> = {};
+  let hitCount = 0;
+
+  const ingredients = normalized.ingredients.map((ingredient, index) => {
+    const match = usdaMatches[index]!;
+    matchTypes[match.matchType] = (matchTypes[match.matchType] ?? 0) + 1;
+    if (match.row) hitCount += 1;
+
+    return {
+      ...ingredient,
+      usda: {
+        hit: match.row != null,
+        matchType: match.matchType,
+        score: match.score,
+        ...(match.row
+          ? {
+              fdcId: String(match.row.fdc_id),
+              canonicalName: match.row.description,
+              dataType: match.row.data_type,
+            }
+          : {}),
+      },
+    };
+  });
+
+  const total = ingredients.length;
+  return {
+    analysisId,
+    mealName: normalized.mealName,
+    confidence: normalized.confidence,
+    inferredMealType: normalized.inferredMealType,
+    mealTypeConfident: normalized.mealTypeConfident,
+    ingredients,
+    usdaSummary: {
+      total,
+      hitCount,
+      missCount: total - hitCount,
+      hitRate: total > 0 ? +(hitCount / total).toFixed(3) : 0,
+      matchTypes,
+    },
+  };
 }
 
 async function decomposeFromImage(
