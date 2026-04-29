@@ -309,8 +309,8 @@ export async function updateBatchStatus(
 ): Promise<void> {
   await query(
     `UPDATE ai_summary_batches
-        SET status       = $2,
-            completed_at = CASE WHEN $2 IN ('completed','failed','cancelled','expired') THEN NOW() ELSE NULL END,
+        SET status       = $2::text,
+            completed_at = CASE WHEN $2::text IN ('completed','failed','cancelled','expired') THEN NOW() ELSE NULL END,
             error        = $3
       WHERE openai_batch_id = $1`,
     [openAiBatchId, status, error ?? null]
