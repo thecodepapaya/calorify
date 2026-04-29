@@ -322,13 +322,21 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
   }
 
   void _updateIngredientAccumulator(MealAnalysisPipelineEvent event) {
+    // Resolved-frame ingredients (INGREDIENTS, RESULT) always take precedence and
+    // always refresh — clarification answers can refine totals or add/remove rows,
+    // and the RESULT frame can carry a refined list. Freezing on the first
+    // resolved frame would hide those updates.
     final resolvedNames = _resolvedIngredientNames(event);
-    if (_ingredientStage != _IngredientStage.resolved &&
-        resolvedNames.isNotEmpty) {
+    if (resolvedNames.isNotEmpty) {
       _ingredientStage = _IngredientStage.resolved;
       _ingredientNames = resolvedNames;
       return;
     }
+
+    // Decomposition labels are placeholders shown only until the first resolved
+    // frame arrives. Once we've seen resolved data, ignore later decomposition
+    // frames (they shouldn't appear for V2, but guard anyway).
+    if (_ingredientStage == _IngredientStage.resolved) return;
 
     final decompositionNames = _decompositionIngredientNames(event);
     if (_ingredientStage == _IngredientStage.none &&

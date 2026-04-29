@@ -535,6 +535,65 @@ test('portion-aware: implausible count (count=40) clamps and falls back to BULK 
   assert.equal(ingredient.sizeSpecifiedByUser, false);
 });
 
+test('portion-aware: locale plumbs into size + count question text and option labels', async () => {
+  // Decompose two ingredients: one with a known template (rotis) and one without
+  // (so we exercise both static-template and fallback-template label paths).
+  mockDecompositionWithFallback({
+    meal_name: 'Roti with side',
+    ingredients: [
+      {
+        raw_name: 'roti', canonical_hint: 'roti',
+        grams_estimated: 999, min_grams: 1, max_grams: 2, notes: '',
+        portion_kind: 'COUNT', count: 4,
+        per_unit_grams: 35, per_unit_min_grams: 25, per_unit_max_grams: 45,
+        size_specified_by_user: false,
+      },
+      {
+        raw_name: 'unknown side dish', canonical_hint: 'unknown side dish',
+        grams_estimated: 100, min_grams: 50, max_grams: 200, notes: '',
+        portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: false,
+      },
+    ],
+    confidence: 0.85,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+
+  const events = await collectEvents(analyzeTextMeal('4 rotis and a side', { locale: 'hi' }));
+  const unc = events.find((e) => e.step === 'UNCERTAINTY');
+  const rotiClarification = unc.data.clarifications.find(
+    (c: any) => c.ingredientName === 'roti'
+  );
+  // Hindi size question for COUNT bakes the count into the question text.
+  assert.ok(
+    rotiClarification.question.includes('4'),
+    `expected count "4" in Hindi roti question, got: ${rotiClarification.question}`
+  );
+  assert.ok(
+    /[ऀ-ॿ]/.test(rotiClarification.question),
+    `expected Devanagari script in Hindi question, got: ${rotiClarification.question}`
+  );
+  // Detail text honors the Hindi suffix.
+  assert.ok(
+    rotiClarification.options.every((o: any) => /प्रति/.test(o.detail ?? '')),
+    'expected Hindi "प्रति" suffix in option detail'
+  );
+
+  const fallbackClarification = unc.data.clarifications.find(
+    (c: any) => c.ingredientName === 'unknown side dish'
+  );
+  // Fallback option labels resolve to localized "smaller / typical / larger".
+  // Hindi dictionary not yet populated for fallback labels, so we expect English
+  // defaults here — that's intentional fallthrough behavior to keep coverage
+  // graceful when a locale doesn't have full translations.
+  assert.deepEqual(
+    fallbackClarification.options.map((o: any) => o.optionId),
+    ['smaller', 'typical', 'larger']
+  );
+});
+
 test('portion-aware: clarification labels never contain raw gram strings', async () => {
   // Smoke-test the gram-free invariant across all clarification types in one fixture.
   mockDecompositionWithFallback({
