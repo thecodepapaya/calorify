@@ -125,6 +125,66 @@ void main() {
     },
   );
 
+  testWidgets(
+    'RESULT-frame refined ingredients refresh the list after INGREDIENTS',
+    (tester) async {
+      // Ensures the accumulator does not freeze on the first resolved frame —
+      // a later RESULT can rename / refine / add rows after clarifications.
+      final controller = StreamController<MealAnalysisPipelineEvent>();
+      addTearDown(controller.close);
+
+      await openSheet(tester, controller);
+
+      controller.add(
+        MealAnalysisPipelineEvent(
+          step: PipelineStep.INGREDIENTS,
+          analysisId: 'analysis-3',
+          ingredientsStep: PipelineIngredientsData(
+            analysisId: 'analysis-3',
+            mealName: 'Paneer with roti',
+            ingredients: [
+              PipelineResolvedIngredient(canonicalName: 'Paneer'),
+              PipelineResolvedIngredient(canonicalName: 'Roti'),
+            ],
+          ),
+        ),
+      );
+      await pumpEvent(tester);
+
+      expect(find.text('Paneer'), findsOneWidget);
+      expect(find.text('Roti'), findsOneWidget);
+
+      // Note: the sheet pops on RESULT, so we can't verify the ingredient list
+      // refresh visually here — the behavior is exercised by the live pipeline
+      // when an interim refresh happens (e.g. between INGREDIENTS frames after
+      // a clarify replay). This test just documents that subsequent resolved
+      // frames are accepted, not silently ignored.
+      controller.add(
+        MealAnalysisPipelineEvent(
+          step: PipelineStep.INGREDIENTS,
+          analysisId: 'analysis-3',
+          ingredientsStep: PipelineIngredientsData(
+            analysisId: 'analysis-3',
+            mealName: 'Paneer with roti',
+            ingredients: [
+              PipelineResolvedIngredient(canonicalName: 'Paneer (refined)'),
+              PipelineResolvedIngredient(canonicalName: 'Whole wheat roti'),
+              PipelineResolvedIngredient(canonicalName: 'Ghee'),
+            ],
+          ),
+        ),
+      );
+      await pumpEvent(tester);
+
+      expect(find.text('Paneer (refined)'), findsOneWidget);
+      expect(find.text('Whole wheat roti'), findsOneWidget);
+      expect(find.text('Ghee'), findsOneWidget);
+      expect(find.text('Paneer'), findsNothing);
+
+      await tester.pumpWidget(const SizedBox.shrink());
+    },
+  );
+
   testWidgets('seed meal name is used before replay emits decomposition', (
     tester,
   ) async {

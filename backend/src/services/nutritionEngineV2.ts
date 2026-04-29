@@ -30,6 +30,14 @@ import {
   synthesizeFallbackTemplate,
   type PortionTemplate,
 } from './portionTemplates.js';
+import {
+  localizeOptionLabel,
+  localizeFallbackOptionLabel,
+  localizeOptionDetail,
+  localizeSizeQuestion,
+  localizeCountQuestion,
+  localizeCountOptionLabel,
+} from './portionLabels.js';
 
 type PortionKindValue = 'COUNT' | 'BULK' | 'PINCH' | 'COUNT_QUESTION';
 
@@ -717,27 +725,27 @@ function analyzeUncertainty(resolved: ResolvedIngredient[]): UncertaintyReport {
   };
 }
 
-function buildCountQuestion(ingredient: ResolvedIngredient): ClarificationDTO {
+function buildCountQuestion(ingredient: ResolvedIngredient, locale: string): ClarificationDTO {
   const perUnitGrams = ingredient.perUnitGrams ?? (ingredient.grams || 35);
   const optionCounts = [
-    { optionId: '1', label: '1', count: 1 },
-    { optionId: '2', label: '2', count: 2 },
-    { optionId: '3', label: '3', count: 3 },
-    { optionId: '4', label: '4', count: 4 },
-    { optionId: '5', label: '5', count: 5 },
-    { optionId: '6plus', label: '6 or more', count: 7 },
+    { optionId: '1', count: 1 },
+    { optionId: '2', count: 2 },
+    { optionId: '3', count: 3 },
+    { optionId: '4', count: 4 },
+    { optionId: '5', count: 5 },
+    { optionId: '6plus', count: 7 },
   ];
   return {
     clarification_id: `clr_${ingredient.rowId}_count`,
     row_id: ingredient.rowId,
     ingredient_name: ingredient.rawName,
     portion_kind: 'COUNT_QUESTION',
-    question: `How many ${ingredient.rawName}?`,
+    question: localizeCountQuestion(ingredient.rawName, locale),
     options: optionCounts.map((option) => {
       const grams = roundGram(option.count * perUnitGrams);
       return {
         option_id: option.optionId,
-        label: option.label,
+        label: localizeCountOptionLabel(option.optionId, locale),
         grams,
         calorie_delta: scaleMacros(ingredient.macros, ingredient.grams, grams).calories - ingredient.macros.calories,
       };
@@ -746,29 +754,34 @@ function buildCountQuestion(ingredient: ResolvedIngredient): ClarificationDTO {
   };
 }
 
-function buildSizeQuestion(ingredient: ResolvedIngredient, template: PortionTemplate): ClarificationDTO {
+function buildSizeQuestion(
+  ingredient: ResolvedIngredient,
+  template: PortionTemplate,
+  locale: string,
+  isFallback: boolean
+): ClarificationDTO {
   const count = ingredient.portionKind === 'COUNT' ? ingredient.count ?? 1 : 1;
-  const countLabel = Number.isInteger(count) ? String(count) : String(count);
-  const question =
-    ingredient.portionKind === 'COUNT'
-      ? `How big were each of your ${countLabel} ${ingredient.rawName}?`
-      : `How much ${ingredient.rawName}?`;
+  const wirePortionKind = toWirePortionKind(ingredient.portionKind);
 
   return {
     clarification_id: `clr_${ingredient.rowId}`,
     row_id: ingredient.rowId,
     ingredient_name: ingredient.rawName,
     portion_kind: ingredient.portionKind,
-    question,
+    question: localizeSizeQuestion(
+      ingredient.rawName,
+      ingredient.portionKind === 'COUNT' ? count : null,
+      wirePortionKind,
+      locale,
+    ),
     options: template.options.map((option) => {
       const grams = roundGram((ingredient.portionKind === 'COUNT' ? count : 1) * option.perUnitGrams);
       return {
         option_id: option.optionId,
-        label: option.label,
-        detail:
-          ingredient.portionKind === 'COUNT'
-            ? `~ ${Math.round(option.perUnitGrams)}g each`
-            : undefined,
+        label: isFallback
+          ? localizeFallbackOptionLabel(option.optionId, wirePortionKind, locale)
+          : localizeOptionLabel(template.templateKey, option.optionId, locale),
+        detail: localizeOptionDetail(option.perUnitGrams, wirePortionKind, locale),
         grams,
         calorie_delta: scaleMacros(ingredient.macros, ingredient.grams, grams).calories - ingredient.macros.calories,
       };
@@ -777,7 +790,7 @@ function buildSizeQuestion(ingredient: ResolvedIngredient, template: PortionTemp
   };
 }
 
-function generateClarifications(resolved: ResolvedIngredient[]): ClarificationDTO[] {
+function generateClarifications(resolved: ResolvedIngredient[], locale: string): ClarificationDTO[] {
   const clarifications: ClarificationDTO[] = [];
   const mealCalories = sumMacros(resolved.map((r) => r.macros)).calories;
   const calorieThreshold = Math.max(50, mealCalories * 0.05);
@@ -796,7 +809,7 @@ function generateClarifications(resolved: ResolvedIngredient[]): ClarificationDT
       continue;
     }
     if (ingredient.portionKind === 'COUNT' && ingredient.count == null) {
-      clarifications.push(buildCountQuestion(ingredient));
+      clarifications.push(buildCountQuestion(ingredient, locale));
       continue;
     }
 
@@ -809,10 +822,11 @@ function generateClarifications(resolved: ResolvedIngredient[]): ClarificationDT
         ingredient.portionKind === 'COUNT' ? ingredient.perUnitMinGrams ?? ingredient.minGrams : ingredient.minGrams,
         ingredient.portionKind === 'COUNT' ? ingredient.perUnitMaxGrams ?? ingredient.maxGrams : ingredient.maxGrams
       );
-    if (!staticTemplate) {
+    const isFallback = !staticTemplate;
+    if (isFallback) {
       mealAnalysisClarificationSkipsTotal.labels({ reason: 'no_template_fallback_used' }).inc();
     }
-    clarifications.push(buildSizeQuestion(ingredient, template));
+    clarifications.push(buildSizeQuestion(ingredient, template, locale, isFallback));
   }
   return clarifications;
 }
@@ -1555,13 +1569,13 @@ async function* runPipelineFromDecomposition(
   );
 
   let uncertainty = analyzeUncertainty(resolved);
-  let clarifications = uncertainty.needsClarification ? generateClarifications(resolved) : [];
+  let clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
 
   if (clarificationAnswers && clarificationAnswers.length > 0) {
     resolved = applyClarificationAnswers(resolved, clarifications, clarificationAnswers);
     sourceSummary = summarizeResolvedSources(resolved);
     uncertainty = analyzeUncertainty(resolved);
-    clarifications = uncertainty.needsClarification ? generateClarifications(resolved) : [];
+    clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
     if (persistClarificationAnswers) {
       await traceAsync(
         trace,
