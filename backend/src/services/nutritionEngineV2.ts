@@ -364,7 +364,7 @@ const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY 
 
 RULES:
 1. NEVER generate calorie or macro nutritional values. You ONLY estimate grams.
-2. Decompose composite dishes into atomic ingredients.
+2. Decompose composite dishes into atomic ingredients, but preserve the user's named dish context in raw_name or notes.
 3. For each ingredient provide: raw_name, canonical_hint, grams_estimated, min_grams, max_grams, notes, portion_kind, count, per_unit_grams, per_unit_min_grams, per_unit_max_grams, size_specified_by_user.
 4. Prefer cooked weights for cooked dishes.
 5. Include ALL ingredients — oils, butter, ghee, salt, spices.
@@ -377,8 +377,22 @@ RULES:
 10. For COUNT, emit count when the user's words imply it. Fractional counts are allowed (0.5 = half). Also emit per_unit_grams, per_unit_min_grams, and per_unit_max_grams. The server will recompute total grams as count × per_unit.
 11. If the user states the size of a unit ("4 large rotis"), set size_specified_by_user=true and collapse per_unit_min_grams/per_unit_grams/per_unit_max_grams to that one size.
 12. If the user mentions different sizes within the same food ("2 small + 2 large rotis"), emit separate ingredient rows instead of averaging.
+13. canonical_hint MUST be a simple food database lookup term for the atomic ingredient only. Use terms like "wheat flour whole", "ghee", "butter", "oil vegetable", "paneer", "onion", "tomato", "salt", "curry powder", "cumin seeds", "turmeric powder", "garam masala". NEVER use slugs, paths, underscores, categories, or role labels such as "rotis/raw_ingredient", "oil_or_ghee_for_roti", "vegetable_curry", or "salt_and_spices".
+14. For named Indian dishes, do not split a bound dish phrase into a main food plus a generic duplicate dish. "paneer sabzi" is one dish context; do NOT emit both "paneer" and a separate generic "sabzi/vegetable curry" row. Instead emit the likely ingredients under that dish context, such as "paneer sabzi (paneer)", "paneer sabzi (onion)", "paneer sabzi (tomato)", "paneer sabzi (oil/ghee)", and "paneer sabzi (spices)".
+15. For roti/chapati, preserve the user's count exactly on the wheat-flour row. Add separate small rows for salt and oil/ghee/butter when appropriate; do not replace roti with synthetic raw-ingredient labels.
 
-Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 3g oil/ghee; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g`;
+Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 0-3g oil/ghee/butter + a pinch of salt; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g.
+
+Example for text "2 rotis with paneer sabzi in lunch": meal_name "Roti with paneer sabzi", inferred_meal_type LUNCH. Ingredients should look like:
+- raw_name "roti (whole wheat flour)", canonical_hint "wheat flour whole", portion_kind COUNT, count 2, per_unit_grams about 30.
+- raw_name "roti (ghee/oil)", canonical_hint "ghee" or "oil vegetable", portion_kind BULK, grams about 0-6 total depending on clues.
+- raw_name "roti (salt)", canonical_hint "salt", portion_kind PINCH, grams about 1.
+- raw_name "paneer sabzi (paneer)", canonical_hint "paneer", portion_kind BULK, grams about 60-90 for a normal serving.
+- raw_name "paneer sabzi (onion)", canonical_hint "onion", portion_kind BULK.
+- raw_name "paneer sabzi (tomato)", canonical_hint "tomato", portion_kind BULK.
+- raw_name "paneer sabzi (oil/ghee)", canonical_hint "oil vegetable" or "ghee", portion_kind BULK.
+- raw_name "paneer sabzi (spices)", canonical_hint "curry powder" or "garam masala", portion_kind PINCH.
+Do not create an extra "sabzi" or "vegetable curry" row on top of those ingredients.`;
 
 const DECOMPOSITION_SCHEMA = {
   type: 'object' as const,

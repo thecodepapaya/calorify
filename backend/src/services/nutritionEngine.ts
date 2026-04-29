@@ -284,13 +284,18 @@ const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY 
 
 RULES:
 1. NEVER generate calorie or macro nutritional values. You ONLY estimate grams.
-2. Decompose composite dishes into atomic ingredients.
+2. Decompose composite dishes into atomic ingredients, but preserve the user's named dish context in raw_name or notes.
 3. For each ingredient provide: raw_name, canonical_hint, grams_estimated, min_grams, max_grams, notes.
 4. Prefer cooked weights for cooked dishes.
 5. Include ALL ingredients — oils, butter, ghee, salt, spices.
 6. confidence: 0-1 reflecting how confident you are overall.
+7. canonical_hint MUST be a simple food database lookup term for the atomic ingredient only. Use terms like "wheat flour whole", "ghee", "butter", "oil vegetable", "paneer", "onion", "tomato", "salt", "curry powder", "cumin seeds", "turmeric powder", "garam masala". NEVER use slugs, paths, underscores, categories, or role labels such as "rotis/raw_ingredient", "oil_or_ghee_for_roti", "vegetable_curry", or "salt_and_spices".
+8. For named Indian dishes, do not split a bound dish phrase into a main food plus a generic duplicate dish. "paneer sabzi" is one dish context; do NOT emit both "paneer" and a separate generic "sabzi/vegetable curry" row. Instead emit the likely ingredients under that dish context, such as "paneer sabzi (paneer)", "paneer sabzi (onion)", "paneer sabzi (tomato)", "paneer sabzi (oil/ghee)", and "paneer sabzi (spices)".
+9. For roti/chapati, preserve the user's count exactly in the grams estimate for wheat flour. Add separate small rows for salt and oil/ghee/butter when appropriate; do not replace roti with synthetic raw-ingredient labels.
 
-Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 3g oil/ghee; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g`;
+Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 0-3g oil/ghee/butter + a pinch of salt; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g.
+
+Example for text "2 rotis with paneer sabzi in lunch": meal_name "Roti with paneer sabzi". Ingredients should include "roti (whole wheat flour)" with canonical_hint "wheat flour whole" around 60g total, "roti (ghee/oil)" with canonical_hint "ghee" or "oil vegetable", "roti (salt)" with canonical_hint "salt", plus "paneer sabzi (paneer)" with canonical_hint "paneer", "paneer sabzi (onion)" with canonical_hint "onion", "paneer sabzi (tomato)" with canonical_hint "tomato", "paneer sabzi (oil/ghee)" with canonical_hint "oil vegetable" or "ghee", and "paneer sabzi (spices)" with canonical_hint "curry powder" or "garam masala". Do not create an extra "sabzi" or "vegetable curry" row on top of those ingredients.`;
 
 const DECOMPOSITION_SCHEMA = {
   type: 'object' as const,
