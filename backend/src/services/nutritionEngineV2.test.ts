@@ -924,6 +924,173 @@ test('continueMealAnalysis matches duplicate raw names by clarification id and r
   assert.deepEqual(result.data.ingredients.map((ingredient: any) => ingredient.grams), [5, 28]);
 });
 
+test('continueMealAnalysis: round-2 size answer merges with round-1 count from session and reaches RESULT', async () => {
+  // Regression for the multi-round bug: round 1 answers a COUNT_QUESTION and
+  // the count answer is persisted to session.clarification_answers. Round 2
+  // submits only the size answer. Without merging, decomposition would re-run
+  // with count=null and the user would be asked the count question AGAIN.
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'sess-roti-round2',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rotis' },
+    decompositionData: {
+      analysisId: 'sess-roti-round2',
+      mealName: 'Rotis',
+      confidence: 0.8,
+      ingredients: [
+        {
+          rowId: 'roti-row',
+          rawName: 'roti',
+          canonicalHint: 'roti',
+          gramsEstimated: 105,
+          minGrams: 35,
+          maxGrams: 210,
+          notes: '',
+          portionKind: 'COUNT',
+          count: null,
+          perUnitGrams: 35,
+          perUnitMinGrams: 25,
+          perUnitMaxGrams: 45,
+          sizeSpecifiedByUser: false,
+        },
+      ],
+      inferredMealType: 'LUNCH',
+      mealTypeConfident: true,
+    },
+    selectedMealType: 'LUNCH',
+    selectedMealTypeSource: 'user',
+    countryCode: undefined,
+    // Round-1 count answer persisted from the prior /clarify call.
+    clarificationAnswers: [{ clarificationId: 'clr_roti-row_count', selectedOptionId: '4' }],
+  }));
+  mockDecompositionWithFallback({
+    meal_name: 'Rotis',
+    ingredients: [{ canonical_hint: 'roti' }],
+  }, 300);
+
+  // Round 2 only carries the size answer.
+  const events = await collectEvents(
+    continueMealAnalysis('sess-roti-round2', [{ clarificationId: 'clr_roti-row', selectedOptionId: 'thick' }])
+  );
+
+  // Pipeline must reach RESULT — proves both answers were applied via the
+  // merge + iterative-apply path.
+  const result = events.find((e) => e.step === 'RESULT');
+  assert.ok(result !== undefined, 'expected RESULT event');
+  // Ingredient resolved to 4 × 45g = 180g (count from session × per-unit "thick" from request).
+  assert.equal(result.data.ingredients[0].grams, 180);
+  assert.equal(result.data.ingredients[0].count, 4);
+});
+
+test('continueMealAnalysis: bundling count+size answers in one call resolves both via iterative apply', async () => {
+  // If a client ever bundles both answers in a single request (e.g. a fast
+  // user picking through both screens), the iterative apply loop must walk
+  // count → regen → size in the same call.
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'sess-bundled',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rotis' },
+    decompositionData: {
+      analysisId: 'sess-bundled',
+      mealName: 'Rotis',
+      confidence: 0.8,
+      ingredients: [
+        {
+          rowId: 'roti-row',
+          rawName: 'roti',
+          canonicalHint: 'roti',
+          gramsEstimated: 105,
+          minGrams: 35,
+          maxGrams: 210,
+          notes: '',
+          portionKind: 'COUNT',
+          count: null,
+          perUnitGrams: 35,
+          perUnitMinGrams: 25,
+          perUnitMaxGrams: 45,
+          sizeSpecifiedByUser: false,
+        },
+      ],
+      inferredMealType: 'LUNCH',
+      mealTypeConfident: true,
+    },
+    selectedMealType: 'LUNCH',
+    selectedMealTypeSource: 'user',
+    countryCode: undefined,
+    clarificationAnswers: undefined,
+  }));
+  mockDecompositionWithFallback({
+    meal_name: 'Rotis',
+    ingredients: [{ canonical_hint: 'roti' }],
+  }, 300);
+
+  const events = await collectEvents(
+    continueMealAnalysis('sess-bundled', [
+      { clarificationId: 'clr_roti-row_count', selectedOptionId: '3' },
+      { clarificationId: 'clr_roti-row', selectedOptionId: 'regular' },
+    ])
+  );
+
+  const result = events.find((e) => e.step === 'RESULT');
+  assert.ok(result !== undefined, 'expected RESULT after bundled apply');
+  assert.equal(result.data.ingredients[0].grams, 105); // 3 × 35
+  assert.equal(result.data.ingredients[0].count, 3);
+});
+
+test('continueMealAnalysis: stale clarificationId is logged and ignored, does not block remaining valid answers', async () => {
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'sess-stale',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'roti' },
+    decompositionData: {
+      analysisId: 'sess-stale',
+      mealName: 'Rotis',
+      confidence: 0.8,
+      ingredients: [
+        {
+          rowId: 'roti-row',
+          rawName: 'roti',
+          canonicalHint: 'roti',
+          gramsEstimated: 140,
+          minGrams: 100,
+          maxGrams: 180,
+          notes: '',
+          portionKind: 'COUNT',
+          count: 4,
+          perUnitGrams: 35,
+          perUnitMinGrams: 25,
+          perUnitMaxGrams: 45,
+          sizeSpecifiedByUser: false,
+        },
+      ],
+      inferredMealType: 'LUNCH',
+      mealTypeConfident: true,
+    },
+    selectedMealType: 'LUNCH',
+    selectedMealTypeSource: 'user',
+    countryCode: undefined,
+    clarificationAnswers: undefined,
+  }));
+  mockDecompositionWithFallback({
+    meal_name: 'Rotis',
+    ingredients: [{ canonical_hint: 'roti' }],
+  }, 300);
+
+  const events = await collectEvents(
+    continueMealAnalysis('sess-stale', [
+      { clarificationId: 'clr_does_not_exist', selectedOptionId: 'thick' },
+      { clarificationId: 'clr_roti-row', selectedOptionId: 'thick' },
+    ])
+  );
+
+  const result = events.find((e) => e.step === 'RESULT');
+  assert.ok(result !== undefined, 'expected RESULT despite stale id');
+  assert.equal(result.data.ingredients[0].grams, 180); // 4 × 45
+});
+
 test('continueMealAnalysis emits size clarification after count answer when uncertainty remains', async () => {
   mockGetSession.mock.mockImplementation(async () => ({
     analysisId: 'sess-roti-count',

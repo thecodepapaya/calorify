@@ -791,23 +791,17 @@ function buildSizeQuestion(
 }
 
 function generateClarifications(resolved: ResolvedIngredient[], locale: string): ClarificationDTO[] {
+  // Pure: produces clarifications without side effects. Metric recording lives
+  // in `recordClarificationOutcomes` so it runs once per analysis (the apply
+  // loop calls this function repeatedly and would inflate counters otherwise).
   const clarifications: ClarificationDTO[] = [];
   const mealCalories = sumMacros(resolved.map((r) => r.macros)).calories;
   const calorieThreshold = Math.max(50, mealCalories * 0.05);
   for (const ingredient of resolved) {
-    if (ingredient.portionKind === 'PINCH') {
-      mealAnalysisClarificationSkipsTotal.labels({ reason: 'pinch' }).inc();
-      continue;
-    }
-    if (ingredient.sizeSpecifiedByUser) {
-      mealAnalysisClarificationSkipsTotal.labels({ reason: 'size_specified' }).inc();
-      continue;
-    }
+    if (ingredient.portionKind === 'PINCH') continue;
+    if (ingredient.sizeSpecifiedByUser) continue;
     const calorieSpread = ingredient.maxMacros.calories - ingredient.minMacros.calories;
-    if (calorieSpread < calorieThreshold) {
-      mealAnalysisClarificationSkipsTotal.labels({ reason: 'sub_threshold' }).inc();
-      continue;
-    }
+    if (calorieSpread < calorieThreshold) continue;
     if (ingredient.portionKind === 'COUNT' && ingredient.count == null) {
       clarifications.push(buildCountQuestion(ingredient, locale));
       continue;
@@ -822,13 +816,50 @@ function generateClarifications(resolved: ResolvedIngredient[], locale: string):
         ingredient.portionKind === 'COUNT' ? ingredient.perUnitMinGrams ?? ingredient.minGrams : ingredient.minGrams,
         ingredient.portionKind === 'COUNT' ? ingredient.perUnitMaxGrams ?? ingredient.maxGrams : ingredient.maxGrams
       );
-    const isFallback = !staticTemplate;
-    if (isFallback) {
-      mealAnalysisClarificationSkipsTotal.labels({ reason: 'no_template_fallback_used' }).inc();
-    }
-    clarifications.push(buildSizeQuestion(ingredient, template, locale, isFallback));
+    clarifications.push(buildSizeQuestion(ingredient, template, locale, !staticTemplate));
   }
   return clarifications;
+}
+
+/**
+ * Counts each ingredient's outcome from the FINAL resolved state — exactly
+ * once per analysis. Must be called after the apply loop has terminated,
+ * not during it, so iterative regen does not double-count.
+ *
+ * `wasClarified` is the set of ingredients that ever appeared in any
+ * generated clarification during the run (even if they were later collapsed
+ * by an answer). Tracking this here distinguishes "calorie spread collapsed
+ * because we asked the user" from "calorie spread was always below threshold".
+ */
+function recordClarificationOutcomes(
+  resolved: ResolvedIngredient[],
+  pendingClarifications: ClarificationDTO[],
+  wasClarifiedRowIds: Set<string>
+): void {
+  const mealCalories = sumMacros(resolved.map((r) => r.macros)).calories;
+  const calorieThreshold = Math.max(50, mealCalories * 0.05);
+  const pendingRowIds = new Set(pendingClarifications.map((c) => c.row_id));
+  for (const ingredient of resolved) {
+    if (ingredient.portionKind === 'PINCH') {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'pinch' }).inc();
+      continue;
+    }
+    if (ingredient.sizeSpecifiedByUser) {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'size_specified' }).inc();
+      continue;
+    }
+    if (wasClarifiedRowIds.has(ingredient.rowId) || pendingRowIds.has(ingredient.rowId)) {
+      const hadTemplate = lookupTemplate(ingredient.canonicalHint, ingredient.rawName) != null;
+      mealAnalysisClarificationSkipsTotal
+        .labels({ reason: hadTemplate ? 'clarified_with_template' : 'no_template_fallback_used' })
+        .inc();
+      continue;
+    }
+    const calorieSpread = ingredient.maxMacros.calories - ingredient.minMacros.calories;
+    if (calorieSpread < calorieThreshold) {
+      mealAnalysisClarificationSkipsTotal.labels({ reason: 'sub_threshold' }).inc();
+    }
+  }
 }
 
 function varianceToCalorieConfidence(variancePercent: number): string {
@@ -1271,6 +1302,26 @@ function selectedCountFromOption(option: ClarificationOptionDTO, ingredient: Res
   return null;
 }
 
+/**
+ * Merge two answer lists by clarification_id, with newer entries winning.
+ * Used by `continueMealAnalysis` to combine the session's persisted answers
+ * (e.g. from a prior count-question round) with the answers in the current
+ * `/clarify` request, so the cumulative state survives multi-round flows.
+ */
+function mergeClarificationAnswers(
+  prior: MealClarificationAnswer[],
+  next: MealClarificationAnswer[]
+): MealClarificationAnswer[] {
+  const byId = new Map<string, MealClarificationAnswer>();
+  for (const answer of prior) {
+    if (answer.clarificationId) byId.set(answer.clarificationId, answer);
+  }
+  for (const answer of next) {
+    if (answer.clarificationId) byId.set(answer.clarificationId, answer);
+  }
+  return Array.from(byId.values());
+}
+
 function applyClarificationAnswers(
   resolved: ResolvedIngredient[],
   clarifications: ClarificationDTO[],
@@ -1570,22 +1621,69 @@ async function* runPipelineFromDecomposition(
 
   let uncertainty = analyzeUncertainty(resolved);
   let clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
+  // Tracks every row that ever produced a clarification across iterations of
+  // the apply loop, so post-pipeline metrics distinguish "asked the user" from
+  // "below threshold from the start".
+  const wasClarifiedRowIds = new Set<string>();
+  for (const c of clarifications) wasClarifiedRowIds.add(c.row_id);
 
   if (clarificationAnswers && clarificationAnswers.length > 0) {
-    resolved = applyClarificationAnswers(resolved, clarifications, clarificationAnswers);
-    sourceSummary = summarizeResolvedSources(resolved);
-    uncertainty = analyzeUncertainty(resolved);
-    clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
-    if (persistClarificationAnswers) {
+    // Iteratively apply answers: a COUNT_QUESTION answer transitions the row to
+    // `count != null`, which then unlocks the size question on the next regen.
+    // If the caller bundled both count and size answers in one request, both
+    // get applied in successive iterations of this loop. The loop terminates
+    // when no answer matches the current clarifications (either because all
+    // answers have been applied or because the remaining clarifications are
+    // ones the user hasn't answered yet).
+    const remainingAnswers = new Map(
+      clarificationAnswers.map((answer) => [answer.clarificationId, answer])
+    );
+    const matchedAnswerIds = new Set<string>();
+    const MAX_APPLY_ITERATIONS = 4; // count → size → (future) any nested. Hard cap to prevent runaway.
+    for (let i = 0; i < MAX_APPLY_ITERATIONS; i += 1) {
+      const matched: MealClarificationAnswer[] = [];
+      for (const clarification of clarifications) {
+        const answer = remainingAnswers.get(clarification.clarification_id);
+        if (answer) matched.push(answer);
+      }
+      if (matched.length === 0) break;
+      resolved = applyClarificationAnswers(resolved, clarifications, matched);
+      for (const answer of matched) {
+        remainingAnswers.delete(answer.clarificationId);
+        matchedAnswerIds.add(answer.clarificationId);
+      }
+      sourceSummary = summarizeResolvedSources(resolved);
+      uncertainty = analyzeUncertainty(resolved);
+      clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
+      for (const c of clarifications) wasClarifiedRowIds.add(c.row_id);
+    }
+
+    if (remainingAnswers.size > 0) {
+      // Answers that didn't match any clarification — likely a stale clarification_id
+      // from a client that was looking at an older version of the session. Logged so
+      // we can quantify if/when it happens, but doesn't fail the pipeline.
+      logAnalysis(logger, 'warn', 'clarification_answer_unmatched', {
+        analysisId: context.analysisId,
+        unmatchedCount: remainingAnswers.size,
+        unmatchedIds: Array.from(remainingAnswers.keys()),
+      });
+    }
+
+    if (persistClarificationAnswers && matchedAnswerIds.size > 0) {
       await traceAsync(
         trace,
         'db',
         'record_meal_analysis_clarification',
-        { analysisId: context.analysisId, answerCount: clarificationAnswers.length },
+        { analysisId: context.analysisId, answerCount: matchedAnswerIds.size },
         () => recordMealAnalysisClarification(context.analysisId, clarificationAnswers)
       );
     }
   }
+
+  // Record skip-reason counters once per analysis using the final state. Done
+  // here rather than inside generateClarifications because the apply loop may
+  // call generateClarifications multiple times.
+  recordClarificationOutcomes(resolved, clarifications, wasClarifiedRowIds);
 
   const uncertaintyEvent: PipelineEvent = {
     step: 'UNCERTAINTY',
@@ -1983,8 +2081,16 @@ export async function* continueMealAnalysis(
       trace,
     };
 
+    // Merge prior persisted answers with incoming ones. Required for the
+    // multi-round count → size flow: round 1 answers a COUNT_QUESTION, the
+    // server emits a follow-up size question, and round 2 only carries the
+    // size answer. Without merging, round 2 would re-run with count=null
+    // and loop the user back to the count question.
+    const priorAnswers = (session.clarificationAnswers as MealClarificationAnswer[] | undefined) ?? [];
+    const mergedAnswers = mergeClarificationAnswers(priorAnswers, answers);
+
     const client = getOpenAiClient();
-    yield* runPipelineFromDecomposition(client, decomposition, context, answers, false);
+    yield* runPipelineFromDecomposition(client, decomposition, context, mergedAnswers, false);
   } catch (error) {
     logAnalysis(options.logger, 'error', 'clarification_resume_failed', {
       analysisId,
