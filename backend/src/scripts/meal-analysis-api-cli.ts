@@ -19,6 +19,7 @@ import {
   analyzeTextMealDecompositionPreview,
   type DecompositionPreview,
 } from '../services/nutritionEngineV2.js';
+import { closeDatabase, initializeDatabase } from '../services/database.js';
 
 dotenv.config({ path: join(process.cwd(), 'staging.env') });
 dotenv.config({ override: true });
@@ -204,20 +205,25 @@ async function main(): Promise<void> {
     return;
   }
 
-  const results: Array<{ input: string; decomposition: DecompositionPreview }> = [];
-  for (const input of inputs) {
-    const decomposition = await analyzeTextMealDecompositionPreview(input);
-    results.push({ input, decomposition });
-    if (!args.json) printHuman(input, decomposition);
-  }
+  initializeDatabase();
+  try {
+    const results: Array<{ input: string; decomposition: DecompositionPreview }> = [];
+    for (const input of inputs) {
+      const decomposition = await analyzeTextMealDecompositionPreview(input);
+      results.push({ input, decomposition });
+      if (!args.json) printHuman(input, decomposition);
+    }
 
-  if (args.json) {
-    console.log(JSON.stringify({ results }, null, 2));
-  } else if (results.length > 1) {
-    const total = results.reduce((sum, result) => sum + result.decomposition.usdaSummary.total, 0);
-    const hits = results.reduce((sum, result) => sum + result.decomposition.usdaSummary.hitCount, 0);
-    const hitRate = total > 0 ? hits / total : 0;
-    console.log(`\n${Y('Overall USDA hits:')} ${hits}/${total} (${formatPercent(hitRate)})`);
+    if (args.json) {
+      console.log(JSON.stringify({ results }, null, 2));
+    } else if (results.length > 1) {
+      const total = results.reduce((sum, result) => sum + result.decomposition.usdaSummary.total, 0);
+      const hits = results.reduce((sum, result) => sum + result.decomposition.usdaSummary.hitCount, 0);
+      const hitRate = total > 0 ? hits / total : 0;
+      console.log(`\n${Y('Overall USDA hits:')} ${hits}/${total} (${formatPercent(hitRate)})`);
+    }
+  } finally {
+    await closeDatabase();
   }
 }
 
