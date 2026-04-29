@@ -22,12 +22,16 @@ export interface UsdaMatch {
 const MATCH_THRESHOLD = 0.4;
 
 const ALIASES: Record<string, string> = {
-  roti: 'wheat flour whole',
-  chapati: 'wheat flour whole',
-  phulka: 'wheat flour whole',
-  atta: 'wheat flour whole',
-  naan: 'wheat flour refined',
-  maida: 'wheat flour refined',
+  // Indian flatbreads → correct USDA term 'whole wheat flour' (not 'wheat flour whole')
+  roti: 'whole wheat flour',
+  chapati: 'whole wheat flour',
+  phulka: 'whole wheat flour',
+  atta: 'whole wheat flour',
+  naan: 'naan',
+  maida: 'wheat flour',
+  // Reverse aliases for LLM-generated wrong terms (prompt used to say "wheat flour whole" / "oil vegetable")
+  'wheat flour whole': 'whole wheat flour',
+  'oil vegetable': 'vegetable oil',
   aloo: 'potato boiled',
   potato: 'potato boiled',
   bhindi: 'okra cooked',
@@ -67,9 +71,9 @@ const ALIASES: Record<string, string> = {
   chole: 'chickpeas cooked',
   chickpeas: 'chickpeas cooked',
   makhan: 'butter',
-  tel: 'oil vegetable',
-  'cooking oil': 'oil vegetable',
-  'vegetable oil': 'oil vegetable',
+  tel: 'vegetable oil',
+  'cooking oil': 'vegetable oil',
+  'vegetable oil': 'vegetable oil',
   'olive oil': 'oil olive',
   'coconut oil': 'oil coconut',
   'mustard oil': 'oil mustard',
