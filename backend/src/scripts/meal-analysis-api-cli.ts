@@ -50,7 +50,10 @@ const Y = (s: string) => `${c.yellow}${s}${c.reset}`;
 const R = (s: string) => `${c.red}${s}${c.reset}`;
 const C = (s: string) => `${c.cyan}${s}${c.reset}`;
 
-const DEFAULT_BASE_URL = `http://localhost:${process.env.PORT ?? '8000'}`;
+const DEFAULT_BASE_URL =
+  process.env.BASE_URL ??
+  process.env.BACKEND_URL ??
+  `http://localhost:${process.env.PORT ?? '8000'}`;
 
 const DEFAULT_LOKI_URL = 'http://localhost:3100';
 
@@ -279,7 +282,7 @@ function usage(): string {
     '  positional text also works: meal-analysis-api-cli.ts "2 rotis with dal"',
     '',
     'Options:',
-    `  --base-url <url>        Backend base URL (default: ${DEFAULT_BASE_URL})`,
+    `  --base-url <url>        Backend base URL (default: $BASE_URL / $BACKEND_URL / localhost:$PORT)`,
     '  --locale <code>         Accept-Language header (default: en)',
     '  --country <code>        Optional X-Country-Code style context for display only',
     '  --auth-token <token>    Optional Bearer token',
