@@ -424,14 +424,14 @@ RULES:
 Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 0-3g ghee/oil + a pinch of salt; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g; 1 cup noodles cooked ≈ 160g; 1 tbsp soy sauce ≈ 15g; 1 medium tortilla ≈ 30g.
 
 Example — "2 rotis with paneer sabzi" → meal_name "Roti with paneer sabzi", inferred_meal_type UNKNOWN:
-- raw_name "roti (whole wheat flour)", canonical_hint "whole wheat flour", portion_kind COUNT, count 2, per_unit_grams 30.
-- raw_name "roti (ghee)", canonical_hint "ghee", portion_kind BULK, grams 3.
-- raw_name "roti (salt)", canonical_hint "salt", portion_kind PINCH, grams 1.
-- raw_name "paneer sabzi (paneer)", canonical_hint "paneer", portion_kind BULK, grams 80.
-- raw_name "paneer sabzi (onion)", canonical_hint "onion", portion_kind BULK, grams 40.
-- raw_name "paneer sabzi (tomato)", canonical_hint "tomato", portion_kind BULK, grams 50.
-- raw_name "paneer sabzi (oil)", canonical_hint "vegetable oil", portion_kind BULK, grams 10.
-- raw_name "paneer sabzi (spices)", canonical_hint "curry powder", portion_kind PINCH, grams 2.`;
+- raw_name "roti (whole wheat flour)", canonical_hint "whole wheat flour", portion_kind COUNT, count 2, per_unit_grams 30, grams_estimated 60, min_grams 50, max_grams 70.
+- raw_name "roti (ghee)", canonical_hint "ghee", portion_kind BULK, grams_estimated 3, min_grams 0, max_grams 6.
+- raw_name "roti (salt)", canonical_hint "salt", portion_kind PINCH, grams_estimated 1, min_grams 0, max_grams 2.
+- raw_name "paneer sabzi (paneer)", canonical_hint "paneer", portion_kind BULK, grams_estimated 80, min_grams 60, max_grams 100.
+- raw_name "paneer sabzi (onion)", canonical_hint "onion", portion_kind BULK, grams_estimated 40, min_grams 30, max_grams 60.
+- raw_name "paneer sabzi (tomato)", canonical_hint "tomato", portion_kind BULK, grams_estimated 50, min_grams 30, max_grams 70.
+- raw_name "paneer sabzi (oil)", canonical_hint "vegetable oil", portion_kind BULK, grams_estimated 10, min_grams 5, max_grams 15.
+- raw_name "paneer sabzi (spices)", canonical_hint "curry powder", portion_kind PINCH, grams_estimated 2, min_grams 1, max_grams 3.`;
 
 const DECOMPOSITION_SCHEMA = {
   type: 'object' as const,
