@@ -70,7 +70,6 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - `npm run type-check` - Type check without building
 - `npm test` - Run backend unit tests
 - `npm run analysis:v2:cli -- --text "2 rotis with dal"` - Exercise the streamed V2 food-analysis API from the terminal
-- `npm run analysis:v2:eval -- --base-url http://localhost:8000` - Run prompt-quality evals against the streamed V2 API
 - `npm run validate-schemas` - Validate OpenAPI schemas match proto definitions
 - `npm run usda:import` - Bootstrap local Postgres `usda_foods` from USDA CSV files
 - `npm run usda:refresh` - Run a versioned USDA refresh into Postgres
@@ -134,29 +133,6 @@ The backend logs for the same request now include a structured `traceSummary` wi
 - `usdaLookupCount`
 - `dbWriteCount`
 - per-step timings under `traceSummary.steps[]`
-
-## Streamed V2 Analysis Evals
-
-Use the eval runner when changing meal-analysis prompts or USDA matching behavior. It calls the real `/api/v2/food/analyze-text` endpoint and checks behavioral contracts rather than exact LLM output.
-
-```bash
-# Run all built-in eval cases against local dev
-npm run analysis:v2:eval -- --base-url http://localhost:8000
-
-# Run one case against staging
-npm run analysis:v2:eval -- --base-url https://staging-api-calorify.thecodepapaya.dev --case roti-paneer-sabzi
-
-# Print machine-readable output
-npm run analysis:v2:eval -- --base-url http://localhost:8000 --json
-```
-
-Current evals check for:
-
-- synthetic canonical hints such as `/`, `_`, `raw_ingredient`, `for_roti`, and `vegetable_curry`
-- named dish context preservation, especially `paneer sabzi`
-- explicit count preservation for roti-style foods
-- USDA/DB resolution ratio for common meals
-- broad calorie plausibility bands
 
 To inspect console logs for a specific CLI run:
 
