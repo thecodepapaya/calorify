@@ -10,6 +10,24 @@ export function normalizeUsdaTerm(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
 }
 
+const QUALIFIER_WORDS = new Set([
+  'whole', 'fresh', 'dried', 'raw', 'cooked', 'fried', 'boiled', 'grilled',
+  'roasted', 'baked', 'steamed', 'chopped', 'minced', 'sliced', 'crushed',
+  'ground', 'large', 'small', 'medium', 'light', 'soft', 'hard', 'plain',
+  'sweet', 'salted', 'unsalted', 'organic', 'natural', 'pure', 'extra',
+]);
+
+const TRAILING_ROLE_WORDS = new Set(['meat', 'paste', 'powder']);
+
+export function stripQualifiers(term: string): string {
+  const tokens = normalizeUsdaTerm(term).split(' ').filter(Boolean);
+  if (tokens.length <= 1) return tokens.join(' ');
+  while (tokens.length > 1 && QUALIFIER_WORDS.has(tokens[0])) tokens.shift();
+  while (tokens.length > 1 && QUALIFIER_WORDS.has(tokens[tokens.length - 1])) tokens.pop();
+  while (tokens.length > 1 && TRAILING_ROLE_WORDS.has(tokens[tokens.length - 1])) tokens.pop();
+  return tokens.join(' ');
+}
+
 export function calcMacrosFromUsdaRow(row: UsdaMacroRow, grams: number): {
   calories: number;
   protein: number;
