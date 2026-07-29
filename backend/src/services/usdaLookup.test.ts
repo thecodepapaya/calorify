@@ -254,6 +254,32 @@ test('canonicalizeWithUsda maps common plain-curd hints to plain yogurt', async 
   assert.equal(result.row?.normalized_name, 'yogurt plain');
 });
 
+test('canonicalizeWithUsda maps cooked chickpeas to the authoritative cooked row', async () => {
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt');
+    return { rows: [{ ...LENTILS_ROW, description: 'Chickpeas, mature seeds, cooked, boiled, without salt' }] };
+  });
+  const result = await canonicalizeWithUsda('chickpeas cooked boiled without salt');
+  assert.equal(result.matchType, 'alias');
+});
+
+test('canonicalizeWithUsda maps prepared idli and sambar to reference-food rows', async () => {
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'idli');
+    return { rows: [{ ...RICE_ROW, description: 'Idli', normalized_name: 'idli' }] };
+  });
+  const idli = await canonicalizeWithUsda('steamed idli');
+  assert.equal(idli.matchType, 'alias');
+
+  resetQuery();
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'sambar vegetable stew');
+    return { rows: [{ ...LENTILS_ROW, description: 'Sambar, vegetable stew', normalized_name: 'sambar vegetable stew' }] };
+  });
+  const sambar = await canonicalizeWithUsda('sambar cooked');
+  assert.equal(sambar.matchType, 'alias');
+});
+
 // ---------------------------------------------------------------------------
 // canonicalizeWithUsda — fuzzy match
 // ---------------------------------------------------------------------------
@@ -305,6 +331,23 @@ test('canonicalizeWithUsda does not choose dry lentils for a cooked query', asyn
   const result = await canonicalizeWithUsda('lentils cooked');
   assert.ok(result.matchType === 'exact' || result.matchType === 'fuzzy');
   assert.equal(result.row?.fdc_id, 'cooked-lentils');
+});
+
+test('canonicalizeWithUsda rejects preparation-only fuzzy matches for a different food', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) => ({
+    rows: sql.includes('GREATEST(similarity') ? [{
+      ...RICE_ROW,
+      fdc_id: 'steamed-pork',
+      description: 'Steamed pork, cooked',
+      normalized_name: 'steamed pork',
+      sim: 0.8,
+    }] : [],
+  }));
+
+  const result = await canonicalizeWithUsda('steamed unfamiliar-idli');
+  assert.equal(result.matchType, 'unmatched');
+  assert.equal(result.row, null);
 });
 
 // ---------------------------------------------------------------------------

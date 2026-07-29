@@ -73,7 +73,13 @@ const ALIASES: Record<string, string> = {
   rajma: 'kidney beans cooked',
   'kidney beans': 'kidney beans cooked',
   chole: 'chickpeas cooked',
-  chickpeas: 'chickpeas cooked',
+  chickpeas: 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt',
+  'chickpeas cooked': 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt',
+  'chickpeas cooked boiled without salt': 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt',
+  'idli': 'idli',
+  'steamed idli': 'idli',
+  'sambar': 'sambar vegetable stew',
+  'sambar cooked': 'sambar vegetable stew',
   makhan: 'butter',
   tel: 'vegetable oil',
   'oil vegetable': 'vegetable oil',
@@ -200,9 +206,35 @@ function fuzzyScore(a: string, b: string): number {
   return (overlap / aWords.size) * 0.8 + (overlap / bWords.size) * 0.2;
 }
 
+// Preparation and database-description words are useful for choosing between
+// two rows for the same food, but they must never establish food identity. For
+// example, "steamed idli" and "steamed pork" share a preparation state while
+// referring to entirely different foods.
+const IDENTITY_STOP_WORDS = new Set([
+  'cooked', 'boiled', 'steamed', 'prepared', 'fried', 'roasted', 'raw', 'dry',
+  'dried', 'uncooked', 'with', 'without', 'salt', 'water', 'made', 'food',
+]);
+
+function identityTokens(value: string): Set<string> {
+  return new Set(
+    normalizeUsdaTerm(value)
+      .split(' ')
+      .filter((token) => token.length > 1 && !IDENTITY_STOP_WORDS.has(token))
+  );
+}
+
+function sharesFoodIdentity(term: string, candidateText: string): boolean {
+  const requested = identityTokens(term);
+  const candidate = identityTokens(candidateText);
+  if (requested.size === 0 || candidate.size === 0) return false;
+  for (const token of requested) if (candidate.has(token)) return true;
+  return false;
+}
+
 function scoreCandidate(term: string, candidate: TrgmCandidate): number {
   const normalizedTerm = normalizeUsdaTerm(term);
   const candidateText = normalizeUsdaTerm(`${candidate.normalized_name} ${candidate.description}`);
+  if (!sharesFoodIdentity(normalizedTerm, candidateText)) return 0;
   let score = Math.max(
     Number(candidate.sim ?? 0),
     fuzzyScore(normalizedTerm, candidate.normalized_name),

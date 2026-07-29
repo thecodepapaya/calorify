@@ -420,6 +420,7 @@ RULES:
 11. If the user states the size of a unit ("4 large rotis"), set size_specified_by_user=true and collapse per_unit_min_grams/per_unit_grams/per_unit_max_grams to that one size.
 12. If the user mentions different sizes within the same food ("2 small + 2 large rotis"), emit separate ingredient rows instead of averaging.
 13. canonical_hint MUST be a simple, single English food-database lookup term for one atomic ingredient, regardless of the input language. Preserve preparation state whenever it changes nutrition: use "lentils mature seeds cooked boiled without salt" for cooked dal, "rice white cooked" for cooked rice, and explicit "raw" or "dry" terms when the user means uncooked food. NEVER use slugs, paths, underscores, role labels, or compound alternatives with "or", "and", commas, or parentheses. When a dish admits multiple proteins, pick the single most traditional one. One lookup term per row.
+14. Preserve defining components of named dishes. Masala dosa includes its potato filling; idli-sambar includes both idli and sambar. Do not silently reduce a named dish to only its wrapper, base, or garnish.
 14. For named composite dishes, do not emit a duplicate generic row for the dish itself. "paneer sabzi" is one dish context; emit its likely atomic ingredients under that context rather than adding a separate "sabzi" or "vegetable curry" row.
 15. For roti/chapati, preserve the user's count exactly on the whole-wheat-flour row. Add separate small rows for salt and oil/ghee/butter when appropriate; do not replace roti with synthetic raw-ingredient labels.
 
@@ -653,6 +654,10 @@ const PREPARATION_STATES = ['cooked', 'boiled', 'steamed', 'fried', 'roasted', '
 function refineCanonicalHint(rawName: string, hint: string, notes: string): string {
   const normalizedHint = normalize(hint);
   const context = normalize(`${rawName} ${notes}`);
+
+  if (/\b(?:bread|toast)\b/.test(context) && /\bwhole wheat flour\b/.test(normalizedHint)) {
+    return 'bread whole wheat';
+  }
 
   if (/\b(?:dal|daal)\b/.test(context) && /^(?:dal|daal|lentil|lentils|pulse|pulses)$/.test(normalizedHint)) {
     return COOKED_DAL_USDA_HINT;

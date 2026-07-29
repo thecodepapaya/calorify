@@ -234,6 +234,33 @@ test('cooked dal keeps a cooked USDA lookup hint when the model returns generic 
   );
 });
 
+test('whole-wheat toast is normalized as bread when the model suggests flour', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Toast',
+    ingredients: [{
+      raw_name: 'whole wheat toast',
+      canonical_hint: 'whole wheat flour',
+      grams_estimated: 30,
+      min_grams: 30,
+      max_grams: 30,
+      notes: 'one slice',
+      portion_kind: 'COUNT',
+      count: 1,
+      per_unit_grams: 30,
+      per_unit_min_grams: 30,
+      per_unit_max_grams: 30,
+      size_specified_by_user: true,
+    }],
+    confidence: 0.95,
+    inferred_meal_type: 'BREAKFAST',
+    meal_type_confident: true,
+  }, 247);
+
+  const events = await collectEvents(analyzeTextMeal('one slice of whole wheat toast'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.equal(decomposition?.data.ingredients[0]?.canonicalHint, 'bread whole wheat');
+});
+
 test('analyzeTextMeal emits started then decomposition', async () => {
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{
