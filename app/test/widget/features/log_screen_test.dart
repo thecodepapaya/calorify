@@ -3,6 +3,10 @@ import 'package:mocktail/mocktail.dart';
 import 'package:calorify/features/log/log_screen.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/services/auth_service.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
+import 'package:google_sign_in_mocks/google_sign_in_mocks.dart';
+import 'package:i18n/i18n.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
@@ -16,6 +20,12 @@ void main() {
   });
 
   setUp(() {
+    AuthService.setMockInstance(
+      AuthService.test(
+        auth: MockFirebaseAuth(),
+        googleSignIn: MockGoogleSignIn(),
+      ),
+    );
     mockDatabaseInterface = MockDatabaseInterface();
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
@@ -28,9 +38,9 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(LogScreen), findsOneWidget);
-      expect(find.textContaining('Quick Add'), findsWidgets); // From DescribeMeal
-      expect(find.textContaining('Favorite Meals'), findsWidgets); // From FavoriteMeals
-      expect(find.textContaining('Snap'), findsWidgets); // From MealSnap
+      expect(find.text(t.meal.addMeal), findsOneWidget);
+      expect(find.text(t.home.favoriteMeals.title), findsOneWidget);
+      expect(find.text(t.home.mealSnap.openCamera), findsWidgets);
     });
   });
 }

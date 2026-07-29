@@ -35,15 +35,18 @@ void main() {
       expect(authService.currentUser!.email, 'test@example.com');
     });
 
-    test('authStateChanges emits correct events', () async {
-      final states = await authService.authStateChanges.take(1).toList();
-      expect(states.first!.uid, 'test_uid');
+    test('authStateChanges emits the signed-out transition', () async {
+      final signedOut = authService.authStateChanges.firstWhere(
+        (user) => user == null,
+      );
+      await authService.signOut();
+      expect(await signedOut, isNull);
     });
 
     test('signOut calls both Firebase and Google sign out', () async {
       await authService.signOut();
       expect(authService.currentUser, isNull);
-      // verify google sign out was called (GoogleSignInMocks doesn't easily show this, 
+      // verify google sign out was called (GoogleSignInMocks doesn't easily show this,
       // but we can check the internal state if needed or just assume success if no error)
     });
   });

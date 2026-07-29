@@ -221,10 +221,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Paneer Bowl'), findsOneWidget);
-      expect(
-        find.textContaining('${t.home.dailySummary.calories} 420'),
-        findsOneWidget,
-      );
+      expect(find.text('420'), findsOneWidget);
+      expect(find.byIcon(LucideIcons.flame), findsOneWidget);
       expect(find.byIcon(LucideIcons.arrowUpDown), findsOneWidget);
     });
   });
