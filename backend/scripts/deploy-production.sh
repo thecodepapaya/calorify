@@ -17,15 +17,28 @@ if [[ ! -f firebase-adminsdk.json ]]; then
   exit 1
 fi
 
-docker compose --profile production config --quiet
+if docker info >/dev/null 2>&1; then
+  docker_command=(docker)
+elif sudo -n docker info >/dev/null 2>&1; then
+  docker_command=(sudo -n docker)
+else
+  echo "Docker is unavailable; grant this deployment user direct Docker access or passwordless sudo for Docker" >&2
+  exit 1
+fi
+
+run_docker() {
+  "${docker_command[@]}" "$@"
+}
+
+run_docker compose --profile production config --quiet
 
 rollback_available=false
-if docker image inspect calorify-backend-prod:latest >/dev/null 2>&1; then
-  docker tag calorify-backend-prod:latest calorify-backend-prod:rollback
+if run_docker image inspect calorify-backend-prod:latest >/dev/null 2>&1; then
+  run_docker tag calorify-backend-prod:latest calorify-backend-prod:rollback
   rollback_available=true
 fi
 
-if docker compose --profile production up \
+if run_docker compose --profile production up \
   -d --build --no-deps --wait --wait-timeout 120 backend-prod; then
   echo "Calorify production backend deployed successfully"
   exit 0
@@ -34,8 +47,8 @@ fi
 echo "Deployment failed health checks" >&2
 if [[ "$rollback_available" == true ]]; then
   echo "Restoring the previous backend image" >&2
-  docker tag calorify-backend-prod:rollback calorify-backend-prod:latest
-  docker compose --profile production up \
+  run_docker tag calorify-backend-prod:rollback calorify-backend-prod:latest
+  run_docker compose --profile production up \
     -d --no-deps --force-recreate --wait --wait-timeout 120 backend-prod
 fi
 exit 1
