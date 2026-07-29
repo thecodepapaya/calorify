@@ -8,13 +8,13 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy package files
-COPY package.json ./
+# Copy the lockfile before source so dependency installation is deterministic
+# and remains cacheable when application code changes.
+COPY package.json package-lock.json ./
 
 # Install all dependencies (including dev dependencies for build)
 # Use --include=dev to ensure devDependencies are installed even if NODE_ENV is set
-# npm install works with or without package-lock.json
-RUN npm install --include=dev
+RUN npm ci --include=dev
 
 # Copy project files
 COPY . .
