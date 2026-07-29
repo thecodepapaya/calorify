@@ -1,4 +1,4 @@
-import OpenAI, { toFile } from 'openai';
+import OpenAI, { toFile } from './openaiClient.js';
 import config from '../config.js';
 import { OPENAI_AI_SUMMARY_MODEL } from '../openaiModels.js';
 import { query } from './database.js';

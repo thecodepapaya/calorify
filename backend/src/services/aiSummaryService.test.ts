@@ -23,7 +23,7 @@ const mockFilesContent = mock.fn(async () => ({
   text: async () => '',
 }));
 
-await mock.module('openai', {
+await mock.module('./openaiClient.js', {
   defaultExport: class MockOpenAI {
     files = { create: mockFilesCreate, content: mockFilesContent };
     batches = { create: mockBatchesCreate, retrieve: mockBatchesRetrieve };
