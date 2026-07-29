@@ -16,6 +16,8 @@ interface NutrientRow {
   unit_name: string;
 }
 
+type MacroColumn = keyof MacroBundle;
+
 interface FoodNutrientRow {
   fdc_id: string;
   nutrient_id: string;
@@ -62,21 +64,22 @@ async function parseCsv<T>(path: string): Promise<T[]> {
   });
 }
 
+export function macroColumnForNutrient(row: NutrientRow): MacroColumn | undefined {
+  const unit = row.unit_name.trim().toLowerCase();
+  if (row.name === 'Energy') return unit === 'kcal' ? 'kcal_per_100g' : undefined;
+  if (row.name === 'Protein') return 'protein_per_100g';
+  if (row.name === 'Total lipid (fat)') return 'fat_per_100g';
+  if (row.name === 'Carbohydrate, by difference') return 'carbs_per_100g';
+  if (row.name === 'Fiber, total dietary') return 'fiber_per_100g';
+  return undefined;
+}
+
 async function loadNutrientIds(nutrientCsv: string): Promise<Record<string, string>> {
   const rows = await parseCsv<NutrientRow>(nutrientCsv);
-  const wanted = new Map<string, string>([
-    ['Energy', 'kcal_per_100g'],
-    ['Protein', 'protein_per_100g'],
-    ['Total lipid (fat)', 'fat_per_100g'],
-    ['Carbohydrate, by difference', 'carbs_per_100g'],
-    ['Fiber, total dietary', 'fiber_per_100g'],
-  ]);
-
   const map: Record<string, string> = {};
   for (const row of rows) {
-    const key = wanted.get(row.name);
+    const key = macroColumnForNutrient(row);
     if (!key) continue;
-    if (row.unit_name && row.unit_name.toLowerCase() === 'kcal' && row.name !== 'Energy') continue;
     map[row.id] = key;
   }
   return map;

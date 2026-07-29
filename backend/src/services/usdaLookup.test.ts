@@ -90,6 +90,28 @@ test('findUsdaExact uses LIMIT 1', async () => {
   assert.ok(sql.includes('LIMIT 1'));
 });
 
+test('findUsdaExact deterministically prioritizes reference foods and non-zero energy', async () => {
+  resetQuery({ rows: [] });
+  await findUsdaExact('banana');
+  const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
+  assert.ok(sql.includes("WHEN 'survey_fndds_food' THEN 0"));
+  assert.ok(sql.includes('CASE WHEN kcal_per_100g > 0 THEN 0 ELSE 1 END'));
+  assert.ok(sql.includes('fdc_id'));
+});
+
+test('findUsdaExact repairs legacy kilojoule energy values at the read boundary', async () => {
+  resetQuery({
+    rows: [{
+      ...RICE_ROW,
+      data_type: 'sr_legacy_food',
+      kcal_per_100g: 544,
+    }],
+  });
+  const result = await findUsdaExact('rice white cooked');
+  assert.ok(result);
+  assert.ok(Math.abs(result.kcal_per_100g - 130) < 1);
+});
+
 // ---------------------------------------------------------------------------
 // findUsdaCandidates
 // ---------------------------------------------------------------------------
@@ -210,6 +232,26 @@ test('canonicalizeWithUsda resolves "rice" alias', async () => {
   mockQuery.mock.mockImplementationOnce(async () => ({ rows: [RICE_ROW] }));
   const result = await canonicalizeWithUsda('rice');
   assert.equal(result.matchType, 'alias');
+});
+
+test('canonicalizeWithUsda resolves generic bananas to raw fruit instead of a branded product', async () => {
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'bananas raw');
+    return { rows: [{ ...RICE_ROW, description: 'Bananas, raw', normalized_name: 'bananas raw' }] };
+  });
+  const result = await canonicalizeWithUsda('banana');
+  assert.equal(result.matchType, 'alias');
+  assert.equal(result.row?.normalized_name, 'bananas raw');
+});
+
+test('canonicalizeWithUsda maps common plain-curd hints to plain yogurt', async () => {
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'yogurt plain');
+    return { rows: [{ ...RICE_ROW, description: 'Yogurt, plain', normalized_name: 'yogurt plain' }] };
+  });
+  const result = await canonicalizeWithUsda('milk curd plain');
+  assert.equal(result.matchType, 'alias');
+  assert.equal(result.row?.normalized_name, 'yogurt plain');
 });
 
 // ---------------------------------------------------------------------------

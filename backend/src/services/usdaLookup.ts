@@ -102,8 +102,10 @@ const ALIASES: Record<string, string> = {
   oats: 'oats',
   pasta: 'pasta cooked',
   avocado: 'avocado',
-  banana: 'banana',
-  apple: 'apple',
+  banana: 'bananas raw',
+  bananas: 'bananas raw',
+  apple: 'apple raw',
+  apples: 'apple raw',
   mango: 'mango',
   garlic: 'garlic',
   ginger: 'ginger',
@@ -158,6 +160,9 @@ const ALIASES: Record<string, string> = {
   scallions: 'onion raw',
   labneh: 'yogurt plain',
   'strained yogurt': 'yogurt plain',
+  'plain curd': 'yogurt plain',
+  'curd plain': 'yogurt plain',
+  'milk curd plain': 'yogurt plain',
 };
 
 function resolveAlias(normalizedHint: string): string | undefined {
@@ -166,6 +171,20 @@ function resolveAlias(normalizedHint: string): string | undefined {
   const explicitlyPrepared = /\b(?:cooked|prepared|boiled|water)\b/.test(normalizedHint);
   if (mentionsOats && explicitlyDry && !explicitlyPrepared) return 'oats';
   return ALIASES[normalizedHint];
+}
+
+/**
+ * A previous importer accepted both USDA kcal and kilojoule Energy rows. Repair
+ * legacy reference rows at the read boundary when the stored value is clearly
+ * ~4.184x the energy implied by their macronutrients.
+ */
+function normalizeEnergyUnit<T extends UsdaFoodRow>(row: T): T {
+  if (!['sr_legacy_food', 'foundation_food'].includes(row.data_type ?? '')) return row;
+  const macroEnergy = 4 * row.protein_per_100g + 4 * row.carbs_per_100g + 9 * row.fat_per_100g;
+  if (macroEnergy <= 10) return row;
+  const ratio = row.kcal_per_100g / macroEnergy;
+  if (ratio < 3.5 || ratio > 4.8) return row;
+  return { ...row, kcal_per_100g: row.kcal_per_100g / 4.184 };
 }
 
 function fuzzyScore(a: string, b: string): number {
@@ -221,12 +240,22 @@ function bestCandidate(term: string, candidates: TrgmCandidate[]): { row: UsdaFo
 export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow | null> {
   const result = await query<UsdaFoodRow>(
     `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g
-       FROM usda_foods
+      FROM usda_foods
       WHERE normalized_name = $1
+      ORDER BY
+        CASE data_type
+          WHEN 'survey_fndds_food' THEN 0
+          WHEN 'sr_legacy_food' THEN 1
+          WHEN 'foundation_food' THEN 2
+          WHEN 'branded_food' THEN 3
+          ELSE 4
+        END,
+        CASE WHEN kcal_per_100g > 0 THEN 0 ELSE 1 END,
+        fdc_id
       LIMIT 1`,
     [normalizedName]
   );
-  return result.rows[0] ?? null;
+  return result.rows[0] ? normalizeEnergyUnit(result.rows[0]) : null;
 }
 
 export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT): Promise<TrgmCandidate[]> {
@@ -241,7 +270,7 @@ export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT):
       LIMIT $2`,
     [normalizedTerm, limit]
   );
-  return result.rows;
+  return result.rows.map(normalizeEnergyUnit);
 }
 
 async function lookupTerm(term: string): Promise<{ row: UsdaFoodRow; score: number } | null> {
