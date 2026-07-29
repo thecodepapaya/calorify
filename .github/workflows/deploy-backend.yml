@@ -42,18 +42,21 @@ jobs:
           SSH_PORT: ${{ secrets.CALORIFY_SSH_PORT }}
           SSH_USER: ${{ secrets.CALORIFY_SSH_USER }}
           SSH_PRIVATE_KEY: ${{ secrets.CALORIFY_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.CALORIFY_SSH_KNOWN_HOSTS }}
           DEPLOY_PATH: ${{ secrets.CALORIFY_DEPLOY_PATH }}
         run: |
           set -euo pipefail
           : "${SSH_HOST:?Missing CALORIFY_SSH_HOST}"
           : "${SSH_USER:?Missing CALORIFY_SSH_USER}"
           : "${SSH_PRIVATE_KEY:?Missing CALORIFY_SSH_PRIVATE_KEY}"
+          : "${SSH_KNOWN_HOSTS:?Missing CALORIFY_SSH_KNOWN_HOSTS}"
           : "${DEPLOY_PATH:?Missing CALORIFY_DEPLOY_PATH}"
           SSH_PORT="${SSH_PORT:-22}"
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/calorify_deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/calorify_deploy_key
-          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
           ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
             "$SSH_USER@$SSH_HOST" \
             "cd '$DEPLOY_PATH' && git fetch origin main && git switch main && git pull --ff-only origin main && ./backend/scripts/deploy-production.sh"
