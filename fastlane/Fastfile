@@ -13,6 +13,20 @@ platform :android do
     sh("./scripts/generate_release_notes.sh")
   end
 
+  desc "Validate that the dedicated Wear OS track is enabled"
+  lane :validate_watch_track do
+    track = form_factor_track(
+      prefix: "wear",
+      track: ENV.fetch("PLAY_TRACK", "production")
+    )
+
+    google_play_track_version_codes(
+      package_name: package_name,
+      track: track,
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"]
+    )
+  end
+
   desc "Deploy a new version to the Google Play"
   lane :release do
     track = ENV.fetch("PLAY_TRACK", "production")

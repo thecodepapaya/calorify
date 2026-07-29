@@ -81,6 +81,11 @@ jobs:
           set -euo pipefail
           : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
 
+      - name: Validate dedicated Wear OS Play track
+        run: bundle exec fastlane android validate_watch_track
+        env:
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
