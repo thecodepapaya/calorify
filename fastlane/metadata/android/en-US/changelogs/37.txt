@@ -1,0 +1,7 @@
+What's New:
+• More accurate, reliable calorie estimates with better quantity handling
+• Faster meal analysis and clearer confidence guidance
+• A polished Wear OS experience with smoother voice input and phone sync
+• Stability, accessibility, and visual improvements throughout the app
+
+Thanks for using Calorify! 🥗
