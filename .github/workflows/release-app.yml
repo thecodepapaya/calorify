@@ -2,12 +2,55 @@ name: Flutter App Release
 
 on:
   workflow_dispatch:
+    inputs:
+      track:
+        description: Google Play track
+        required: true
+        default: production
+        type: choice
+        options: [internal, beta, production]
+      release_status:
+        description: Google Play release status
+        required: true
+        default: completed
+        type: choice
+        options: [draft, completed]
+
+concurrency:
+  group: calorify-phone-store-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
-  release-android-app:
+  verify-app:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.0"
+          channel: stable
+          cache: true
+      - name: Install dependencies
+        working-directory: app
+        run: flutter pub get
+      - name: Analyze
+        working-directory: app
+        run: flutter analyze
+      - name: Test
+        working-directory: app
+        run: flutter test test/unit test/widget --concurrency=1
+
+  release-android-app:
+    needs: verify-app
+    runs-on: ubuntu-latest
+    environment: production
     env:
       SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+      PLAY_TRACK: ${{ inputs.track }}
+      PLAY_RELEASE_STATUS: ${{ inputs.release_status }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,9 +85,26 @@ jobs:
             ${{ runner.os }}-android-sdk-build-cache-
 
       - name: Decode Android signing files
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          ANDROID_KEY_PROPERTIES_B64: ${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > app/android/app/upload-keystore.jks
-          echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > app/android/key.properties
+          set -euo pipefail
+          : "${ANDROID_KEYSTORE_B64:?Missing ANDROID_KEYSTORE_B64}"
+          : "${ANDROID_KEY_PROPERTIES_B64:?Missing ANDROID_KEY_PROPERTIES_B64}"
+          printf '%s' "$ANDROID_KEYSTORE_B64" | base64 --decode > app/android/app/upload-keystore.jks
+          printf '%s' "$ANDROID_KEY_PROPERTIES_B64" | base64 --decode > app/android/key.properties
+
+      - name: Validate release credentials
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          ORACLE_BUCKET_UPLOAD_URL: ${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+        run: |
+          set -euo pipefail
+          : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
+          : "${ORACLE_BUCKET_UPLOAD_URL:?Missing ORACLE_BUCKET_UPLOAD_URL}"
+          : "${SHOREBIRD_TOKEN:?Missing SHOREBIRD_TOKEN}"
 
       - name: Set up Java
         uses: actions/setup-java@v4

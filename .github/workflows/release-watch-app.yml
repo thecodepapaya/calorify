@@ -2,10 +2,34 @@ name: Flutter Watch App Release
 
 on:
   workflow_dispatch:
+    inputs:
+      track:
+        description: Google Play track
+        required: true
+        default: production
+        type: choice
+        options: [internal, beta, production]
+      release_status:
+        description: Google Play release status
+        required: true
+        default: completed
+        type: choice
+        options: [draft, completed]
+
+concurrency:
+  group: calorify-watch-store-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   release-android-watch-app:
     runs-on: ubuntu-latest
+    environment: production
+    env:
+      PLAY_TRACK: ${{ inputs.track }}
+      PLAY_RELEASE_STATUS: ${{ inputs.release_status }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,9 +64,22 @@ jobs:
             ${{ runner.os }}-android-sdk-build-cache-
 
       - name: Decode Android signing files
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          ANDROID_KEY_PROPERTIES_B64: ${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 --decode > watch_app/android/app/upload-keystore.jks
-          echo "${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}" | base64 --decode > watch_app/android/key.properties
+          set -euo pipefail
+          : "${ANDROID_KEYSTORE_B64:?Missing ANDROID_KEYSTORE_B64}"
+          : "${ANDROID_KEY_PROPERTIES_B64:?Missing ANDROID_KEY_PROPERTIES_B64}"
+          printf '%s' "$ANDROID_KEYSTORE_B64" | base64 --decode > watch_app/android/app/upload-keystore.jks
+          printf '%s' "$ANDROID_KEY_PROPERTIES_B64" | base64 --decode > watch_app/android/key.properties
+
+      - name: Validate release credentials
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -60,6 +97,14 @@ jobs:
       - name: Install dependencies
         working-directory: watch_app
         run: flutter pub get
+
+      - name: Analyze
+        working-directory: watch_app
+        run: flutter analyze
+
+      - name: Test
+        working-directory: watch_app
+        run: flutter test
 
       - name: Build Android AppBundle (Watch App)
         working-directory: watch_app

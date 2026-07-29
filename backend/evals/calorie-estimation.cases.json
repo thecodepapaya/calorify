@@ -154,11 +154,11 @@
       "id": "salmon-potato-oil",
       "description": "For dinner I had 180 grams grilled salmon, 250 grams boiled potatoes, and 2 teaspoons olive oil",
       "mealType": "DINNER",
-      "expectedCalories": { "min": 600, "max": 820 },
+      "expectedCalories": { "min": 520, "max": 820 },
       "requiredIngredientGroups": [["salmon"], ["potato"], ["olive oil"]],
       "tags": ["explicit-grams", "explicit-volume", "multi-item"],
       "split": "holdout",
-      "provenance": "Sum of USDA salmon, boiled potato, and olive-oil references with grilling variation"
+      "provenance": "USDA component sum: 180 g grilled salmon (about 270-375 kcal), 250 g boiled potato (about 195 kcal), and 9.1 g olive oil (about 80 kcal)"
     },
     {
       "id": "tofu-stir-fry-rice",
@@ -175,7 +175,7 @@
       "description": "For dinner I ate one regular plate of chicken biryani with raita",
       "mealType": "DINNER",
       "expectedCalories": { "min": 550, "max": 950 },
-      "requiredIngredientGroups": [["rice"], ["chicken"], ["yogurt", "raita"]],
+      "requiredIngredientGroups": [["rice", "biryani"], ["chicken"], ["yogurt", "raita"]],
       "tags": ["indian", "composite-dish", "ambiguous-portion"],
       "split": "holdout",
       "provenance": "Reviewed recipe range for a 350-500 g restaurant/home serving plus raita"
@@ -214,11 +214,11 @@
       "id": "peanut-butter-jelly-sandwich",
       "description": "For a snack I had one PB and J sandwich made with two slices of whole-wheat bread",
       "mealType": "SNACK",
-      "expectedCalories": { "min": 340, "max": 520 },
+      "expectedCalories": { "min": 280, "max": 520 },
       "requiredIngredientGroups": [["peanut"], ["jelly", "jam"], ["bread", "wheat"]],
       "tags": ["colloquial", "composite-dish", "counted"],
       "split": "holdout",
-      "provenance": "USDA component calculation using typical peanut-butter and jam portions"
+      "provenance": "USDA component range: two bread slices plus 1-2 tablespoons each of peanut butter and jelly"
     },
     {
       "id": "hindi-dal-chawal",

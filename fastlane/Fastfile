@@ -10,7 +10,8 @@ platform :android do
   lane :release do    
     # Upload Main App to Production
     upload_to_play_store(
-      track: "production",
+      track: ENV.fetch("PLAY_TRACK", "production"),
+      release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
       aab: "app/build/app/outputs/bundle/prodRelease/app-prod-release.aab",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
       package_name: "dev.thecodepapaya.calorify",
@@ -22,7 +23,8 @@ platform :android do
   desc "Deploy watch app bundle to Google Play"
   lane :release_watch do
     upload_to_play_store(
-      track: "production",
+      track: ENV.fetch("PLAY_TRACK", "production"),
+      release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
       aab: "watch_app/build/app/outputs/bundle/release/app-release.aab",
       json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
       package_name: "dev.thecodepapaya.calorify",

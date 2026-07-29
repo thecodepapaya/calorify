@@ -685,6 +685,14 @@ const PREPARATION_STATES = ['cooked', 'boiled', 'steamed', 'fried', 'roasted', '
 function refineCanonicalHint(rawName: string, hint: string, notes: string): string {
   const normalizedHint = normalize(hint);
   const context = normalize(`${rawName} ${notes}`);
+  const normalizedRawName = normalize(rawName);
+
+  // A dry/raw qualifier attached directly to the weighed food is stronger
+  // than a later cooking instruction. Nutrition must describe the measured
+  // state (for example 100 g dry oats cooked with water, not 100 g oatmeal).
+  if (/\b(?:oat|oats)\b/.test(context) && /\b(?:dry|raw|uncooked)\b/.test(normalizedRawName)) {
+    return 'oats';
+  }
 
   if (/\b(?:bread|toast)\b/.test(context) && /\bwhole wheat flour\b/.test(normalizedHint)) {
     return 'bread whole wheat';

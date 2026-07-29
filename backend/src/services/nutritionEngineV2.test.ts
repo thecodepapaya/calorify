@@ -276,6 +276,26 @@ test('cooked dal keeps a cooked USDA lookup hint when the model returns generic 
   );
 });
 
+test('explicitly dry oats retain dry nutrition despite a later cooking instruction', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Oats',
+    ingredients: [{
+      raw_name: 'rolled oats (dry)', canonical_hint: 'rolled oats cooked',
+      grams_estimated: 100, min_grams: 100, max_grams: 100,
+      notes: 'Dry rolled oats cooked with water', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.95,
+    inferred_meal_type: 'BREAKFAST',
+    meal_type_confident: true,
+  }, 375);
+
+  const events = await collectEvents(analyzeTextMeal('100 grams dry oats cooked with water'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.equal(decomposition?.data.ingredients[0]?.canonicalHint, 'oats');
+});
+
 test('whole-wheat toast is normalized as bread when the model suggests flour', async () => {
   mockDecompositionWithFallback({
     meal_name: 'Toast',
