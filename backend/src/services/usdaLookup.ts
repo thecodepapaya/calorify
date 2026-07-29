@@ -1,5 +1,5 @@
 import { query } from './database.js';
-import { normalizeUsdaTerm } from './usdaLookupUtils.js';
+import { normalizeUsdaTerm, stripQualifiers } from './usdaLookupUtils.js';
 
 export interface UsdaFoodRow {
   fdc_id: string;
@@ -19,15 +19,23 @@ export interface UsdaMatch {
   score: number;
 }
 
-const MATCH_THRESHOLD = 0.4;
+interface TrgmCandidate extends UsdaFoodRow {
+  sim?: number;
+}
 
+const MATCH_THRESHOLD = 0.45;
+const CANDIDATE_LIMIT = 20;
+
+// Aliases remain intentionally focused on semantic translations and preparation state.
+// pg_trgm handles harmless wording/order differences; aliases handle terms where a lexical
+// match alone cannot know the correct food or whether its nutritional state is cooked/dry.
 const ALIASES: Record<string, string> = {
-  roti: 'wheat flour whole',
-  chapati: 'wheat flour whole',
-  phulka: 'wheat flour whole',
-  atta: 'wheat flour whole',
-  naan: 'wheat flour refined',
-  maida: 'wheat flour refined',
+  roti: 'whole wheat flour',
+  chapati: 'whole wheat flour',
+  phulka: 'whole wheat flour',
+  atta: 'whole wheat flour',
+  naan: 'naan',
+  maida: 'wheat flour',
   aloo: 'potato boiled',
   potato: 'potato boiled',
   bhindi: 'okra cooked',
@@ -67,9 +75,10 @@ const ALIASES: Record<string, string> = {
   chole: 'chickpeas cooked',
   chickpeas: 'chickpeas cooked',
   makhan: 'butter',
-  tel: 'oil vegetable',
-  'cooking oil': 'oil vegetable',
-  'vegetable oil': 'oil vegetable',
+  tel: 'vegetable oil',
+  'oil vegetable': 'vegetable oil',
+  'cooking oil': 'vegetable oil',
+  'vegetable oil': 'vegetable oil',
   'olive oil': 'oil olive',
   'coconut oil': 'oil coconut',
   'mustard oil': 'oil mustard',
@@ -87,6 +96,7 @@ const ALIASES: Record<string, string> = {
   eggs: 'egg whole cooked',
   salmon: 'salmon cooked',
   lamb: 'lamb cooked',
+  'lamb meat': 'lamb cooked',
   shrimp: 'shrimp cooked',
   tofu: 'tofu firm',
   oats: 'oats',
@@ -112,6 +122,7 @@ const ALIASES: Record<string, string> = {
   'peanut butter': 'peanut butter',
   bread: 'bread white',
   'white bread': 'bread white',
+  'bread slice': 'bread white',
   'whole wheat bread': 'bread whole wheat',
   milk: 'milk whole',
   'whole milk': 'milk whole',
@@ -121,13 +132,35 @@ const ALIASES: Record<string, string> = {
   cream: 'heavy cream',
   coconut: 'coconut fresh',
   'coconut milk': 'coconut milk',
+  'bell pepper': 'peppers',
+  'red bell pepper': 'peppers',
+  'green bell pepper': 'peppers',
+  'sweet pepper': 'peppers',
+  'chilli flakes': 'crushed red pepper',
+  'chili flakes': 'crushed red pepper',
+  'red pepper flakes': 'crushed red pepper',
+  'fish cake': 'fish cakes',
+  'black pudding': 'blood sausage',
+  anchovy: 'anchovies',
+  'anchovy fish paste': 'anchovies',
+  noodles: 'noodles cooked',
+  'yellow noodles': 'egg noodles',
+  maize: 'corn',
+  'corn maize': 'corn',
+  'cornmeal bread': 'cornmeal',
+  grits: 'corn grits',
+  'red chili paste': 'gochujang',
+  hogao: 'sofrito',
+  'hogao colombian sauce': 'sofrito',
+  'green onion': 'onion raw',
+  'spring onion': 'onion raw',
+  scallion: 'onion raw',
+  scallions: 'onion raw',
+  labneh: 'yogurt plain',
+  'strained yogurt': 'yogurt plain',
 };
 
 function resolveAlias(normalizedHint: string): string | undefined {
-  // USDA contains a reliable generic "oats" row for the dry grain. LLMs commonly
-  // produce variants such as "rolled oats raw"; fuzzy matching those phrases can
-  // otherwise select a branded oat bar or prepared oatmeal with radically different
-  // water/fat content.
   const mentionsOats = /\b(?:oat|oats)\b/.test(normalizedHint);
   const explicitlyDry = /\b(?:dry|raw|uncooked|rolled)\b/.test(normalizedHint);
   const explicitlyPrepared = /\b(?:cooked|prepared|boiled|water)\b/.test(normalizedHint);
@@ -140,28 +173,24 @@ function fuzzyScore(a: string, b: string): number {
   const bNorm = normalizeUsdaTerm(b);
   if (aNorm === bNorm) return 1;
   if (bNorm.includes(aNorm)) return 0.9;
-  const aWords = new Set(aNorm.split(' '));
-  const bWords = new Set(bNorm.split(' '));
-  let overlap = 0;
-  for (const word of aWords) {
-    if (bWords.has(word)) overlap++;
-  }
+  const aWords = new Set(aNorm.split(' ').filter(Boolean));
+  const bWords = new Set(bNorm.split(' ').filter(Boolean));
   if (aWords.size === 0 || bWords.size === 0) return 0;
-  const queryCoverage = overlap / aWords.size;
-  const candidatePrecision = overlap / bWords.size;
-  return queryCoverage * 0.8 + candidatePrecision * 0.2;
+  let overlap = 0;
+  for (const word of aWords) if (bWords.has(word)) overlap += 1;
+  return (overlap / aWords.size) * 0.8 + (overlap / bWords.size) * 0.2;
 }
 
-function scoreCandidate(term: string, candidate: UsdaFoodRow): number {
+function scoreCandidate(term: string, candidate: TrgmCandidate): number {
   const normalizedTerm = normalizeUsdaTerm(term);
   const candidateText = normalizeUsdaTerm(`${candidate.normalized_name} ${candidate.description}`);
   let score = Math.max(
+    Number(candidate.sim ?? 0),
     fuzzyScore(normalizedTerm, candidate.normalized_name),
     fuzzyScore(normalizedTerm, candidate.description)
   );
-
-  const cookedRequested = /\b(?:cooked|boiled|steamed)\b/.test(normalizedTerm);
-  const cookedCandidate = /\b(?:cooked|boiled|steamed)\b/.test(candidateText);
+  const cookedRequested = /\b(?:cooked|boiled|steamed|prepared)\b/.test(normalizedTerm);
+  const cookedCandidate = /\b(?:cooked|boiled|steamed|prepared|made with water)\b/.test(candidateText);
   const rawOrDryRequested = /\b(?:raw|dry|dried|uncooked)\b/.test(normalizedTerm);
   const rawOrDryCandidate = /\b(?:raw|dry|dried|uncooked)\b/.test(candidateText);
   if (cookedRequested) {
@@ -173,14 +202,20 @@ function scoreCandidate(term: string, candidate: UsdaFoodRow): number {
     if (rawOrDryCandidate) score += 0.15;
     if (cookedCandidate) score -= 0.35;
   }
-
   return Math.max(0, Math.min(1, score));
 }
 
-function getTokenCandidates(value: string): string[] {
-  const tokens = normalizeUsdaTerm(value).split(' ').filter(Boolean);
-  tokens.sort((a, b) => b.length - a.length);
-  return tokens.slice(0, 4);
+function bestCandidate(term: string, candidates: TrgmCandidate[]): { row: UsdaFoodRow; score: number } | null {
+  let best: UsdaFoodRow | null = null;
+  let bestScore = 0;
+  for (const candidate of candidates) {
+    const score = scoreCandidate(term, candidate);
+    if (score > bestScore) {
+      best = candidate;
+      bestScore = score;
+    }
+  }
+  return best && bestScore >= MATCH_THRESHOLD ? { row: best, score: bestScore } : null;
 }
 
 export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow | null> {
@@ -194,58 +229,48 @@ export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow
   return result.rows[0] ?? null;
 }
 
-export async function findUsdaCandidates(term: string): Promise<UsdaFoodRow[]> {
-  const tokens = getTokenCandidates(term);
-  if (tokens.length === 0) return [];
-  const likeParams = tokens.map((token) => `%${token}%`);
-  const conditions = tokens
-    .map((_, index) => `(normalized_name ILIKE $${index + 1} OR description ILIKE $${index + 1})`)
-    .join(' OR ');
-  const result = await query<UsdaFoodRow>(
-    `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g
+export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT): Promise<TrgmCandidate[]> {
+  const normalizedTerm = normalizeUsdaTerm(term);
+  if (!normalizedTerm) return [];
+  const result = await query<TrgmCandidate>(
+    `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g,
+            GREATEST(similarity(normalized_name, $1), similarity(description, $1)) AS sim
        FROM usda_foods
-      WHERE ${conditions}
-      LIMIT 50`,
-    likeParams
+      WHERE normalized_name % $1 OR description % $1
+      ORDER BY sim DESC
+      LIMIT $2`,
+    [normalizedTerm, limit]
   );
   return result.rows;
+}
+
+async function lookupTerm(term: string): Promise<{ row: UsdaFoodRow; score: number } | null> {
+  const exact = await findUsdaExact(term);
+  if (exact) return { row: exact, score: 1 };
+  return bestCandidate(term, await findUsdaCandidates(term));
 }
 
 export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
   const normalizedHint = normalizeUsdaTerm(hint);
   const alias = resolveAlias(normalizedHint);
-
   if (alias) {
-    const aliasNorm = normalizeUsdaTerm(alias);
-    const aliasExact = await findUsdaExact(aliasNorm);
-    if (aliasExact) return { row: aliasExact, matchType: 'alias', score: 1 };
-
-    const candidates = await findUsdaCandidates(aliasNorm);
-    let best: UsdaFoodRow | null = null;
-    let bestScore = 0;
-    for (const candidate of candidates) {
-      const score = scoreCandidate(aliasNorm, candidate);
-      if (score > bestScore) {
-        best = candidate;
-        bestScore = score;
-      }
-    }
-    if (best && bestScore >= MATCH_THRESHOLD) return { row: best, matchType: 'alias', score: bestScore };
+    const match = await lookupTerm(normalizeUsdaTerm(alias));
+    if (match) return { row: match.row, matchType: 'alias', score: match.score };
   }
 
   const exact = await findUsdaExact(normalizedHint);
   if (exact) return { row: exact, matchType: 'exact', score: 1 };
 
-  const candidates = await findUsdaCandidates(normalizedHint);
-  let best: UsdaFoodRow | null = null;
-  let bestScore = 0;
-  for (const candidate of candidates) {
-    const score = scoreCandidate(normalizedHint, candidate);
-    if (score > bestScore) {
-      best = candidate;
-      bestScore = score;
-    }
+  const stripped = stripQualifiers(normalizedHint);
+  if (stripped && stripped !== normalizedHint) {
+    const strippedExact = await findUsdaExact(stripped);
+    if (strippedExact) return { row: strippedExact, matchType: 'exact', score: 1 };
   }
-  if (best && bestScore >= MATCH_THRESHOLD) return { row: best, matchType: 'fuzzy', score: bestScore };
+
+  const candidates = await findUsdaCandidates(stripped || normalizedHint);
+  // Score against the original hint so preparation-state bonuses/penalties survive
+  // harmless qualifier stripping and can override a lexically closer wrong-state row.
+  const best = bestCandidate(normalizedHint, candidates);
+  if (best) return { row: best.row, matchType: 'fuzzy', score: best.score };
   return { row: null, matchType: 'unmatched', score: 0 };
 }

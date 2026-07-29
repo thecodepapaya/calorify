@@ -108,27 +108,28 @@ test('findUsdaCandidates returns rows from DB', async () => {
   assert.equal(result.length, 2);
 });
 
-test('findUsdaCandidates builds ILIKE conditions from tokens', async () => {
+test('findUsdaCandidates uses indexed trigram similarity for normalized names and descriptions', async () => {
   resetQuery({ rows: [] });
   await findUsdaCandidates('brown rice');
   const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.ok(sql.includes('ILIKE'));
-  assert.ok((params as string[]).some((p) => p.includes('%rice%') || p.includes('%brown%')));
+  assert.ok(sql.includes('similarity(normalized_name, $1)'));
+  assert.ok(sql.includes('normalized_name % $1 OR description % $1'));
+  assert.equal(params[0], 'brown rice');
 });
 
-test('findUsdaCandidates uses LIMIT 50', async () => {
+test('findUsdaCandidates sends the default bounded candidate limit to PostgreSQL', async () => {
   resetQuery({ rows: [] });
   await findUsdaCandidates('chicken');
-  const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
-  assert.ok(sql.includes('LIMIT 50'));
+  const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.ok(sql.includes('LIMIT $2'));
+  assert.equal(params[1], 20);
 });
 
-test('findUsdaCandidates uses only the top 4 longest tokens', async () => {
+test('findUsdaCandidates honors a smaller caller-provided candidate limit', async () => {
   resetQuery({ rows: [] });
-  // 5 tokens — only top 4 by length should be used
-  await findUsdaCandidates('whole wheat bread loaf sliced');
+  await findUsdaCandidates('whole wheat bread loaf sliced', 5);
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.ok((params as string[]).length <= 4);
+  assert.equal(params[1], 5);
 });
 
 // ---------------------------------------------------------------------------

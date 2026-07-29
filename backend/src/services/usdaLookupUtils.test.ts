@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { calcMacrosFromUsdaRow, normalizeUsdaTerm, type UsdaMacroRow } from './usdaLookupUtils.js';
+import { calcMacrosFromUsdaRow, normalizeUsdaTerm, stripQualifiers, type UsdaMacroRow } from './usdaLookupUtils.js';
 
 // ---------------------------------------------------------------------------
 // normalizeUsdaTerm
@@ -57,6 +57,17 @@ test('normalizeUsdaTerm handles forward slash as special character (stripped)', 
 
 test('normalizeUsdaTerm handles apostrophes (stripped)', () => {
   assert.equal(normalizeUsdaTerm("McDonald's Fries"), 'mcdonalds fries');
+});
+
+test('stripQualifiers removes harmless size and presentation words at term boundaries', () => {
+  assert.equal(stripQualifiers('large chopped apple'), 'apple');
+});
+
+test('stripQualifiers preserves preparation and composition words that change nutrition', () => {
+  assert.equal(stripQualifiers('lentils cooked'), 'lentils cooked');
+  assert.equal(stripQualifiers('oats dry'), 'oats dry');
+  assert.equal(stripQualifiers('whole wheat flour'), 'whole wheat flour');
+  assert.equal(stripQualifiers('peanuts salted'), 'peanuts salted');
 });
 
 // ---------------------------------------------------------------------------
