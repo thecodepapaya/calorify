@@ -1,6 +1,12 @@
 # Local OpenAI key for scripts (see scripts/resolve_openai_api_key.py)
 scripts/.openai_api_key
 
+# Backend runtime secrets (use backend/env.example as the template)
+backend/.env
+backend/production.env
+backend/staging.env
+backend/firebase-adminsdk.json
+
 # Miscellaneous
 *.class
 *.log

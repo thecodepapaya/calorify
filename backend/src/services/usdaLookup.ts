@@ -53,9 +53,9 @@ const ALIASES: Record<string, string> = {
   rice: 'rice white cooked',
   'white rice': 'rice white cooked',
   'brown rice': 'rice brown cooked',
-  dal: 'lentils cooked',
-  'toor dal': 'lentils cooked',
-  'arhar dal': 'lentils cooked',
+  dal: 'lentils mature seeds cooked boiled without salt',
+  'toor dal': 'lentils mature seeds cooked boiled without salt',
+  'arhar dal': 'lentils mature seeds cooked boiled without salt',
   'moong dal': 'mung beans cooked',
   moong: 'mung beans cooked',
   'chana dal': 'chickpeas cooked',
@@ -127,15 +127,37 @@ function fuzzyScore(a: string, b: string): number {
   const aNorm = normalizeUsdaTerm(a);
   const bNorm = normalizeUsdaTerm(b);
   if (aNorm === bNorm) return 1;
-  if (bNorm.includes(aNorm) || aNorm.includes(bNorm)) return 0.9;
+  if (bNorm.includes(aNorm)) return 0.9;
   const aWords = new Set(aNorm.split(' '));
   const bWords = new Set(bNorm.split(' '));
   let overlap = 0;
   for (const word of aWords) {
     if (bWords.has(word)) overlap++;
   }
-  const union = new Set([...aWords, ...bWords]).size;
-  return union > 0 ? overlap / union : 0;
+  if (aWords.size === 0 || bWords.size === 0) return 0;
+  const queryCoverage = overlap / aWords.size;
+  const candidatePrecision = overlap / bWords.size;
+  return queryCoverage * 0.8 + candidatePrecision * 0.2;
+}
+
+function scoreCandidate(term: string, candidate: UsdaFoodRow): number {
+  const normalizedTerm = normalizeUsdaTerm(term);
+  const candidateText = normalizeUsdaTerm(`${candidate.normalized_name} ${candidate.description}`);
+  let score = Math.max(
+    fuzzyScore(normalizedTerm, candidate.normalized_name),
+    fuzzyScore(normalizedTerm, candidate.description)
+  );
+
+  const cookedRequested = /\b(?:cooked|boiled|steamed)\b/.test(normalizedTerm);
+  const cookedCandidate = /\b(?:cooked|boiled|steamed)\b/.test(candidateText);
+  const rawOrDryCandidate = /\b(?:raw|dry|dried|uncooked)\b/.test(candidateText);
+  if (cookedRequested) {
+    if (cookedCandidate) score += 0.15;
+    else score -= 0.2;
+    if (rawOrDryCandidate) score -= 0.35;
+  }
+
+  return Math.max(0, Math.min(1, score));
 }
 
 function getTokenCandidates(value: string): string[] {
@@ -185,10 +207,7 @@ export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
     let best: UsdaFoodRow | null = null;
     let bestScore = 0;
     for (const candidate of candidates) {
-      const score = Math.max(
-        fuzzyScore(aliasNorm, candidate.normalized_name),
-        fuzzyScore(aliasNorm, candidate.description)
-      );
+      const score = scoreCandidate(aliasNorm, candidate);
       if (score > bestScore) {
         best = candidate;
         bestScore = score;
@@ -204,10 +223,7 @@ export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
   let best: UsdaFoodRow | null = null;
   let bestScore = 0;
   for (const candidate of candidates) {
-    const score = Math.max(
-      fuzzyScore(normalizedHint, candidate.normalized_name),
-      fuzzyScore(normalizedHint, candidate.description)
-    );
+    const score = scoreCandidate(normalizedHint, candidate);
     if (score > bestScore) {
       best = candidate;
       bestScore = score;
@@ -216,4 +232,3 @@ export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
   if (best && bestScore >= MATCH_THRESHOLD) return { row: best, matchType: 'fuzzy', score: bestScore };
   return { row: null, matchType: 'unmatched', score: 0 };
 }
-

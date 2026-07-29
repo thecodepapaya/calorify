@@ -213,6 +213,32 @@ test('canonicalizeWithUsda returns fuzzy match when no exact but candidates foun
   assert.ok(result.row !== null);
 });
 
+test('canonicalizeWithUsda does not choose dry lentils for a cooked query', async () => {
+  const dryLentils = {
+    ...LENTILS_ROW,
+    fdc_id: 'dry-lentils',
+    description: 'Lentils, mature seeds, raw',
+    normalized_name: 'lentils mature seeds raw',
+    kcal_per_100g: 352,
+  };
+  const cookedLentils = {
+    ...LENTILS_ROW,
+    fdc_id: 'cooked-lentils',
+    description: 'Lentils, mature seeds, cooked, boiled, without salt',
+    normalized_name: 'lentils mature seeds cooked boiled without salt',
+    kcal_per_100g: 116,
+  };
+  mockQuery.mock.resetCalls();
+  let queryNumber = 0;
+  mockQuery.mock.mockImplementation(async () => ({
+    rows: queryNumber++ === 0 ? [] : [dryLentils, cookedLentils],
+  }));
+
+  const result = await canonicalizeWithUsda('lentils cooked');
+  assert.ok(result.matchType === 'exact' || result.matchType === 'fuzzy');
+  assert.equal(result.row?.fdc_id, 'cooked-lentils');
+});
+
 // ---------------------------------------------------------------------------
 // canonicalizeWithUsda — unmatched
 // ---------------------------------------------------------------------------

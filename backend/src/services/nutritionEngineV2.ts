@@ -419,7 +419,7 @@ RULES:
 10. For COUNT, emit count when the user's words imply it. Fractional counts are allowed (0.5 = half). Also emit per_unit_grams, per_unit_min_grams, and per_unit_max_grams. The server will recompute total grams as count × per_unit.
 11. If the user states the size of a unit ("4 large rotis"), set size_specified_by_user=true and collapse per_unit_min_grams/per_unit_grams/per_unit_max_grams to that one size.
 12. If the user mentions different sizes within the same food ("2 small + 2 large rotis"), emit separate ingredient rows instead of averaging.
-13. canonical_hint MUST be a simple food database lookup term for the atomic ingredient only. Use terms like "wheat flour whole", "ghee", "butter", "oil vegetable", "paneer", "onion", "tomato", "salt", "curry powder", "cumin seeds", "turmeric powder", "garam masala". NEVER use slugs, paths, underscores, categories, or role labels such as "rotis/raw_ingredient", "oil_or_ghee_for_roti", "vegetable_curry", or "salt_and_spices".
+13. canonical_hint MUST be a simple food database lookup term for the atomic ingredient only. Preserve preparation state whenever it changes nutrition: use "lentils mature seeds cooked boiled without salt" for cooked dal, "rice white cooked" for cooked rice, and explicit "raw" or "dry" terms when the user means uncooked food. Use terms like "wheat flour whole", "ghee", "butter", "oil vegetable", "paneer", "onion", "tomato", "salt", "curry powder", "cumin seeds", "turmeric powder", "garam masala". NEVER use slugs, paths, underscores, categories, or role labels such as "rotis/raw_ingredient", "oil_or_ghee_for_roti", "vegetable_curry", or "salt_and_spices".
 14. For named Indian dishes, do not split a bound dish phrase into a main food plus a generic duplicate dish. "paneer sabzi" is one dish context; do NOT emit both "paneer" and a separate generic "sabzi/vegetable curry" row. Instead emit the likely ingredients under that dish context, such as "paneer sabzi (paneer)", "paneer sabzi (onion)", "paneer sabzi (tomato)", "paneer sabzi (oil/ghee)", and "paneer sabzi (spices)".
 15. For roti/chapati, preserve the user's count exactly on the wheat-flour row. Add separate small rows for salt and oil/ghee/butter when appropriate; do not replace roti with synthetic raw-ingredient labels.
 
@@ -489,7 +489,9 @@ const DECOMPOSITION_SCHEMA = {
   additionalProperties: false,
 };
 
-const FALLBACK_SYSTEM_PROMPT = `You are a nutritional database. For each ingredient provided, return its macronutrient values per 100 grams. Use values consistent with USDA FoodData Central where possible.`;
+const FALLBACK_SYSTEM_PROMPT = `You are a nutritional database. For each ingredient provided, return its macronutrient values per 100 grams. Use values consistent with USDA FoodData Central where possible.
+
+Preparation state is mandatory: never return dry/raw values for an ingredient labeled cooked or boiled. In particular, cooked dal/lentils are roughly 110-130 kcal per 100g, not the 330-370 kcal typical of dry lentils.`;
 
 const FALLBACK_SCHEMA = {
   type: 'object' as const,
@@ -646,6 +648,22 @@ function orderedBand(min: number, mid: number, max: number): { min: number; mid:
   return { min: values[0]!, mid: values[1]!, max: values[2]! };
 }
 
+const COOKED_DAL_USDA_HINT = 'lentils mature seeds cooked boiled without salt';
+const PREPARATION_STATES = ['cooked', 'boiled', 'steamed', 'fried', 'roasted', 'raw', 'dry'] as const;
+
+function refineCanonicalHint(rawName: string, hint: string, notes: string): string {
+  const normalizedHint = normalize(hint);
+  const context = normalize(`${rawName} ${notes}`);
+
+  if (/\b(?:dal|daal)\b/.test(context) && /^(?:dal|daal|lentil|lentils|pulse|pulses)$/.test(normalizedHint)) {
+    return COOKED_DAL_USDA_HINT;
+  }
+
+  const preparation = PREPARATION_STATES.find((state) => new RegExp(`\\b${state}\\b`).test(context));
+  const hintHasPreparation = PREPARATION_STATES.some((state) => new RegExp(`\\b${state}\\b`).test(normalizedHint));
+  return preparation && !hintHasPreparation ? `${hint} ${preparation}`.trim() : hint;
+}
+
 function normalizeDecomposition(
   decomposition: LLMDecomposition,
   logger?: AnalysisLogger,
@@ -653,11 +671,15 @@ function normalizeDecomposition(
 ): NormalizedDecomposition {
   const ingredients = decomposition.ingredients.map((ingredient) => {
     const rawName = String(ingredient.raw_name ?? '').trim();
-    const canonicalHint = String(ingredient.canonical_hint ?? rawName).trim();
+    const notes = String(ingredient.notes ?? '');
+    const canonicalHint = refineCanonicalHint(
+      rawName,
+      String(ingredient.canonical_hint ?? rawName).trim(),
+      notes
+    );
     const gramsEstimated = finiteNumber(ingredient.grams_estimated, 0);
     const minGrams = finiteNumber(ingredient.min_grams, gramsEstimated);
     const maxGrams = finiteNumber(ingredient.max_grams, gramsEstimated);
-    const notes = String(ingredient.notes ?? '');
     const rowId = String(ingredient.rowId ?? ingredient.row_id ?? randomUUID());
     const portionKind = asPortionKind(ingredient.portion_kind);
     const count = finiteOptionalNumber(ingredient.count);

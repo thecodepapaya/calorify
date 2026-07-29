@@ -204,6 +204,36 @@ function mockDecompositionWithFallback(decomposition: Record<string, unknown>, k
   });
 }
 
+test('cooked dal keeps a cooked USDA lookup hint when the model returns generic lentils', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Dal',
+    ingredients: [{
+      raw_name: 'cooked dal with tadka',
+      canonical_hint: 'lentils',
+      grams_estimated: 210,
+      min_grams: 210,
+      max_grams: 210,
+      notes: '1 cup cooked',
+      portion_kind: 'BULK',
+      count: null,
+      per_unit_grams: 210,
+      per_unit_min_grams: 210,
+      per_unit_max_grams: 210,
+      size_specified_by_user: true,
+    }],
+    confidence: 0.95,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  }, 116);
+
+  const events = await collectEvents(analyzeTextMeal('1 cup cooked dal'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.equal(
+    decomposition?.data.ingredients[0]?.canonicalHint,
+    'lentils mature seeds cooked boiled without salt'
+  );
+});
+
 test('analyzeTextMeal emits started then decomposition', async () => {
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{
