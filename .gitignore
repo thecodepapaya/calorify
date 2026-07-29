@@ -56,3 +56,4 @@ migrate_working_dir/
 # Golden test generated images
 app/test/golden/goldens/
 app/test/golden/failures/
+.release-artifacts/
