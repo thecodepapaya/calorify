@@ -687,6 +687,19 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string): stri
   const context = normalize(`${rawName} ${notes}`);
   const normalizedRawName = normalize(rawName);
 
+  // Preserve the food identity stated by the user/model's display name when a
+  // generated lookup hint drifts to a different food or an ambiguous generic
+  // database row. Preparation can vary, but banana must not become a dried or
+  // sweetened generic "BANANA" row and chickpea must not become split pea.
+  if (/\bbananas?\b/.test(normalizedRawName) &&
+      !/\b(?:dried|chips?|flour|bread|pudding)\b/.test(context)) {
+    return 'bananas raw';
+  }
+  if (/\b(?:chickpeas?|garbanzo)\b/.test(normalizedRawName) &&
+      /\b(?:cooked|boiled)\b/.test(context)) {
+    return 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt';
+  }
+
   // A dry/raw qualifier attached directly to the weighed food is stronger
   // than a later cooking instruction. Nutrition must describe the measured
   // state (for example 100 g dry oats cooked with water, not 100 g oatmeal).

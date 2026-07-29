@@ -24,7 +24,7 @@ const DISH_TEMPLATES: DishTemplate[] = [
     id: 'masala_dosa',
     dishPattern: /\bmasala dosa\b/i,
     requiredComponents: [{
-      presentPattern: /\b(?:potato|aloo)\b/i,
+      presentPattern: /\b(?:potato(?:es)?|aloo)\b/i,
       component: {
         rawName: 'masala dosa potato filling',
         canonicalHint: 'potato boiled',

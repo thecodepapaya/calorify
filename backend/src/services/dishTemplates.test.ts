@@ -15,6 +15,13 @@ test('named dish template does not duplicate an existing component', () => {
   );
 });
 
+test('named dish template recognizes plural potatoes in a filling', () => {
+  assert.deepEqual(
+    missingDishTemplateComponents('one masala dosa', 'dosa batter masala filling potatoes spices'),
+    []
+  );
+});
+
 test('unrecognized dishes are left entirely to decomposition', () => {
   assert.deepEqual(missingDishTemplateComponents('one vegetable wrap', 'tortilla vegetables'), []);
 });
