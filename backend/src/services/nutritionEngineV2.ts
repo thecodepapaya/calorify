@@ -711,10 +711,11 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string): stri
     return 'bread whole wheat';
   }
 
-  if (/\bmasala dosa\b/.test(context) && /\b(?:dosa|batter|tortilla)\b/.test(normalizedHint)) {
-    return 'dosa with filling';
-  }
-  if (/\bdosa\b/.test(context) && /\b(?:dosa|batter|tortilla)\b/.test(normalizedHint)) {
+  // Represent dosa batter and its filling as separate atomic rows. This keeps
+  // lookup stable when the LLM calls the batter rice; the bounded template
+  // adds a filling only when decomposition omitted it.
+  if (/\bdosa\b/.test(normalizedRawName) &&
+      /\b(?:dosa|batter|rice|urad|lentil|tortilla)\b/.test(normalizedHint)) {
     return 'dosa plain';
   }
 
@@ -822,6 +823,31 @@ function normalizeDecomposition(
       sizeSpecifiedByUser,
     };
   });
+
+  // A plain roti description does not imply a tablespoon of oil. Bound an
+  // LLM-inferred cooking-fat row to the documented 0-3 g per roti unless the
+  // user explicitly states a fat; explicit quantity anchors below remain
+  // authoritative and are never capped.
+  const normalizedSource = normalize(sourceText);
+  if (/\b(?:roti|rotis|chapati|chapatis)\b/.test(normalizedSource) &&
+      !/\b(?:oil|ghee|butter)\b/.test(normalizedSource)) {
+    const rotiCount = ingredients.reduce((total, ingredient) => {
+      const identity = normalize(`${ingredient.rawName} ${ingredient.canonicalHint} ${ingredient.notes}`);
+      if (ingredient.portionKind !== 'COUNT' ||
+          !/\b(?:roti|chapati|whole wheat flour)\b/.test(identity)) return total;
+      return total + (ingredient.count ?? 0);
+    }, 0);
+    const inferredFatCap = rotiCount * 3;
+    if (inferredFatCap > 0) {
+      for (const ingredient of ingredients) {
+        const identity = normalize(`${ingredient.rawName} ${ingredient.canonicalHint}`);
+        if (!/\b(?:oil|ghee|butter)\b/.test(identity)) continue;
+        ingredient.gramsEstimated = Math.min(ingredient.gramsEstimated, inferredFatCap);
+        ingredient.minGrams = Math.min(ingredient.minGrams, inferredFatCap);
+        ingredient.maxGrams = Math.min(ingredient.maxGrams, inferredFatCap);
+      }
+    }
+  }
 
   const assignedRows = new Set<string>();
   for (const anchor of extractExplicitQuantityAnchors(sourceText)) {

@@ -379,8 +379,35 @@ test('explicit masala dosa receives its defining potato filling when the model o
   const events = await collectEvents(analyzeTextMeal('one medium masala dosa'));
   const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
   const ingredients = decomposition?.data.ingredients ?? [];
-  assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'dosa with filling'));
+  assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'dosa plain'));
   assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'potato boiled'));
+});
+
+test('plain rotis cap inferred cooking fat to three grams per roti', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Rotis',
+    ingredients: [{
+      raw_name: 'whole wheat flour for rotis', canonical_hint: 'whole wheat flour',
+      grams_estimated: 60, min_grams: 60, max_grams: 60,
+      notes: 'two rotis', portion_kind: 'COUNT', count: 2,
+      per_unit_grams: 30, per_unit_min_grams: 30, per_unit_max_grams: 30,
+      size_specified_by_user: true,
+    }, {
+      raw_name: 'cooking oil', canonical_hint: 'vegetable oil',
+      grams_estimated: 14, min_grams: 10, max_grams: 18,
+      notes: 'inferred', portion_kind: 'BULK', count: null,
+      per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.9, inferred_meal_type: 'LUNCH', meal_type_confident: true,
+  }, 884);
+
+  const events = await collectEvents(analyzeTextMeal('2 medium whole-wheat rotis'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  const oil = decomposition?.data.ingredients.find((ingredient: any) =>
+    ingredient.canonicalHint === 'vegetable oil');
+  assert.equal(oil?.gramsEstimated, 6);
+  assert.equal(oil?.maxGrams, 6);
 });
 
 test('small inferred cooking-fat bands are not inflated to tablespoon defaults', async () => {
