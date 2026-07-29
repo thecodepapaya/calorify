@@ -12,6 +12,8 @@ export type CalorieEvalCase = {
   requiredIngredientGroups?: string[][];
   forbiddenIngredientTerms?: string[];
   tags?: string[];
+  split?: 'development' | 'holdout';
+  provenance?: string;
 };
 
 export type CalorieEvalDataset = {
@@ -53,6 +55,7 @@ export type CalorieEvalCaseResult = {
   error?: string;
   tags: string[];
   ingredients: EvaluatedIngredient[];
+  runNumber?: number;
 };
 
 export type CalorieEvalSummary = {
@@ -66,6 +69,15 @@ export type CalorieEvalSummary = {
   p95LatencyMs: number;
   thresholdsPassed: boolean;
   thresholdFailures: string[];
+};
+
+export type CalorieEvalStabilitySummary = {
+  caseCount: number;
+  stablePassCount: number;
+  stablePassRate: number;
+  unstableCaseIds: string[];
+  meanCalorieSpreadPercent: number;
+  maxCalorieSpreadPercent: number;
 };
 
 function normalize(value: string): string {
@@ -136,6 +148,46 @@ function percentile95(values: number[]): number {
   if (values.length === 0) return 0;
   const sorted = [...values].sort((a, b) => a - b);
   return sorted[Math.ceil(sorted.length * 0.95) - 1] ?? 0;
+}
+
+export function summarizeCalorieStability(
+  results: CalorieEvalCaseResult[]
+): CalorieEvalStabilitySummary {
+  const grouped = new Map<string, CalorieEvalCaseResult[]>();
+  for (const result of results) {
+    const group = grouped.get(result.id) ?? [];
+    group.push(result);
+    grouped.set(result.id, group);
+  }
+
+  const unstableCaseIds: string[] = [];
+  const spreads: number[] = [];
+  let stablePassCount = 0;
+  for (const [id, group] of grouped) {
+    if (group.every((result) => result.passed)) stablePassCount += 1;
+    else unstableCaseIds.push(id);
+    const calories = group
+      .map((result) => result.calories)
+      .filter((value): value is number => value !== undefined);
+    if (calories.length < 2) {
+      spreads.push(0);
+      continue;
+    }
+    const mean = calories.reduce((sum, value) => sum + value, 0) / calories.length;
+    spreads.push(mean > 0 ? (Math.max(...calories) - Math.min(...calories)) / mean : 0);
+  }
+
+  const caseCount = grouped.size;
+  return {
+    caseCount,
+    stablePassCount,
+    stablePassRate: caseCount === 0 ? 0 : stablePassCount / caseCount,
+    unstableCaseIds: unstableCaseIds.sort(),
+    meanCalorieSpreadPercent: spreads.length === 0
+      ? 0
+      : spreads.reduce((sum, value) => sum + value, 0) / spreads.length,
+    maxCalorieSpreadPercent: spreads.length === 0 ? 0 : Math.max(...spreads),
+  };
 }
 
 export function summarizeCalorieEval(

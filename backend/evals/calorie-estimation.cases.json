@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "description": "Text-meal calorie regression set. Ranges include ordinary recipe and portion variation; this is an engineering eval, not clinical ground truth.",
+  "version": 2,
+  "description": "Stratified text-meal calorie regression set. Development cases cover known regressions; holdout cases broaden cuisines, units, and composites. Ranges include ordinary recipe variation and are engineering references, not clinical ground truth.",
   "thresholds": {
     "minCompletionRate": 0.95,
     "minPassRate": 0.8,
@@ -14,7 +14,8 @@
       "expectedCalories": { "min": 430, "max": 620 },
       "requiredIngredientGroups": [["wheat", "roti"], ["lentil", "dal"], ["yogurt", "curd"], ["cooked", "boiled"]],
       "forbiddenIngredientTerms": ["dry lentil", "uncooked lentil"],
-      "tags": ["indian", "multi-item", "cooked-state", "production-regression"]
+      "tags": ["indian", "multi-item", "cooked-state", "production-regression"],
+      "provenance": "Calculated from USDA whole-wheat flour, cooked lentils, ghee, and plain yogurt references"
     },
     {
       "id": "indian-idli-sambar",
@@ -22,7 +23,8 @@
       "mealType": "BREAKFAST",
       "expectedCalories": { "min": 250, "max": 460 },
       "requiredIngredientGroups": [["idli"], ["sambar"], ["coconut", "chutney"]],
-      "tags": ["indian", "multi-item", "counted"]
+      "tags": ["indian", "multi-item", "counted"],
+      "provenance": "USDA/FNDDS idli and sambar references plus ordinary coconut-chutney variation"
     },
     {
       "id": "indian-masala-dosa",
@@ -30,7 +32,8 @@
       "mealType": "BREAKFAST",
       "expectedCalories": { "min": 400, "max": 680 },
       "requiredIngredientGroups": [["dosa"], ["potato", "masala"], ["sambar"]],
-      "tags": ["indian", "composite-dish"]
+      "tags": ["indian", "composite-dish"],
+      "provenance": "USDA/FNDDS filled dosa and sambar references plus ordinary chutney variation"
     },
     {
       "id": "indian-rice-rajma",
@@ -39,7 +42,8 @@
       "expectedCalories": { "min": 430, "max": 680 },
       "requiredIngredientGroups": [["rice"], ["kidney", "rajma"], ["cooked", "boiled"]],
       "forbiddenIngredientTerms": ["dry kidney", "uncooked kidney"],
-      "tags": ["indian", "cooked-state"]
+      "tags": ["indian", "cooked-state"],
+      "provenance": "Calculated from USDA cooked white rice and cooked kidney-bean curry components"
     },
     {
       "id": "chicken-rice-vegetables",
@@ -47,7 +51,8 @@
       "mealType": "DINNER",
       "expectedCalories": { "min": 500, "max": 720 },
       "requiredIngredientGroups": [["chicken breast"], ["rice"], ["vegetable"]],
-      "tags": ["western", "high-protein", "explicit-grams"]
+      "tags": ["western", "high-protein", "explicit-grams"],
+      "provenance": "Calculated from USDA grilled chicken breast, cooked rice, and steamed vegetable references"
     },
     {
       "id": "oatmeal-banana-peanut-butter",
@@ -55,7 +60,8 @@
       "mealType": "BREAKFAST",
       "expectedCalories": { "min": 430, "max": 610 },
       "requiredIngredientGroups": [["oat"], ["milk"], ["banana"], ["peanut"]],
-      "tags": ["breakfast", "explicit-grams", "multi-item"]
+      "tags": ["breakfast", "explicit-grams", "multi-item"],
+      "provenance": "Calculated from USDA dry oats, whole milk, banana, and peanut-butter references"
     },
     {
       "id": "eggs-and-toast",
@@ -63,7 +69,8 @@
       "mealType": "BREAKFAST",
       "expectedCalories": { "min": 320, "max": 500 },
       "requiredIngredientGroups": [["egg"], ["oil"], ["wheat", "toast"]],
-      "tags": ["breakfast", "counted", "cooking-fat"]
+      "tags": ["breakfast", "counted", "cooking-fat"],
+      "provenance": "Calculated from USDA fried egg, vegetable oil, and whole-wheat bread references"
     },
     {
       "id": "single-apple",
@@ -71,7 +78,8 @@
       "mealType": "SNACK",
       "expectedCalories": { "min": 70, "max": 130 },
       "requiredIngredientGroups": [["apple"]],
-      "tags": ["single-item", "counted", "low-calorie"]
+      "tags": ["single-item", "counted", "low-calorie"],
+      "provenance": "USDA medium raw apple serving reference"
     },
     {
       "id": "two-bananas",
@@ -79,7 +87,8 @@
       "mealType": "SNACK",
       "expectedCalories": { "min": 180, "max": 260 },
       "requiredIngredientGroups": [["banana"]],
-      "tags": ["single-item", "counted", "portion-scaling"]
+      "tags": ["single-item", "counted", "portion-scaling"],
+      "provenance": "USDA medium raw banana serving reference multiplied by two"
     },
     {
       "id": "pepperoni-pizza-slice",
@@ -87,7 +96,8 @@
       "mealType": "LUNCH",
       "expectedCalories": { "min": 260, "max": 460 },
       "requiredIngredientGroups": [["pizza"], ["pepperoni"]],
-      "tags": ["composite-dish", "counted"]
+      "tags": ["composite-dish", "counted"],
+      "provenance": "USDA/FNDDS large pepperoni-pizza slice reference range"
     },
     {
       "id": "cooked-chickpea-salad",
@@ -96,7 +106,8 @@
       "expectedCalories": { "min": 390, "max": 560 },
       "requiredIngredientGroups": [["chickpea", "garbanzo"], ["tomato"], ["cucumber"], ["olive oil"], ["cooked", "boiled"]],
       "forbiddenIngredientTerms": ["dry chickpea", "uncooked chickpea"],
-      "tags": ["cooked-state", "explicit-grams", "vegetarian"]
+      "tags": ["cooked-state", "explicit-grams", "vegetarian"],
+      "provenance": "Calculated from USDA cooked chickpeas, raw vegetables, and olive oil references"
     },
     {
       "id": "dry-oats-100g",
@@ -104,7 +115,130 @@
       "mealType": "BREAKFAST",
       "expectedCalories": { "min": 360, "max": 410 },
       "requiredIngredientGroups": [["oat"]],
-      "tags": ["dry-state", "explicit-grams", "portion-scaling"]
+      "tags": ["dry-state", "explicit-grams", "portion-scaling"],
+      "provenance": "USDA dry rolled-oats reference, 100 g"
+    },
+    {
+      "id": "explicit-cooked-rice-150g",
+      "description": "For lunch I ate exactly 150 grams of cooked white rice",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 180, "max": 220 },
+      "requiredIngredientGroups": [["rice"], ["cooked"]],
+      "forbiddenIngredientTerms": ["dry rice", "uncooked rice"],
+      "tags": ["explicit-grams", "cooked-state", "single-item"],
+      "split": "holdout",
+      "provenance": "USDA cooked white rice reference, 150 g"
+    },
+    {
+      "id": "explicit-dry-lentils-100g",
+      "description": "I measured 100 grams of dry uncooked lentils before cooking them in water",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 330, "max": 380 },
+      "requiredIngredientGroups": [["lentil"], ["dry", "raw", "uncooked"]],
+      "forbiddenIngredientTerms": ["lentils cooked boiled"],
+      "tags": ["explicit-grams", "dry-state", "single-item"],
+      "split": "holdout",
+      "provenance": "USDA dry mature lentil reference, 100 g"
+    },
+    {
+      "id": "explicit-olive-oil-tablespoon",
+      "description": "I added exactly 1 tablespoon of olive oil to my salad",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 115, "max": 130 },
+      "requiredIngredientGroups": [["olive oil"]],
+      "tags": ["explicit-volume", "cooking-fat", "single-item"],
+      "split": "holdout",
+      "provenance": "USDA olive oil reference using 13.5-14 g per tablespoon"
+    },
+    {
+      "id": "salmon-potato-oil",
+      "description": "For dinner I had 180 grams grilled salmon, 250 grams boiled potatoes, and 2 teaspoons olive oil",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 600, "max": 820 },
+      "requiredIngredientGroups": [["salmon"], ["potato"], ["olive oil"]],
+      "tags": ["explicit-grams", "explicit-volume", "multi-item"],
+      "split": "holdout",
+      "provenance": "Sum of USDA salmon, boiled potato, and olive-oil references with grilling variation"
+    },
+    {
+      "id": "tofu-stir-fry-rice",
+      "description": "For dinner I ate a bowl with 150 grams firm tofu, one cup cooked rice, mixed stir-fried vegetables, and one tablespoon oil",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 520, "max": 820 },
+      "requiredIngredientGroups": [["tofu"], ["rice"], ["vegetable"], ["oil"]],
+      "tags": ["east-asian", "composite-dish", "explicit-grams"],
+      "split": "holdout",
+      "provenance": "Calculated from USDA component references with ordinary vegetable and sauce variation"
+    },
+    {
+      "id": "chicken-biryani-plate",
+      "description": "For dinner I ate one regular plate of chicken biryani with raita",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 550, "max": 950 },
+      "requiredIngredientGroups": [["rice"], ["chicken"], ["yogurt", "raita"]],
+      "tags": ["indian", "composite-dish", "ambiguous-portion"],
+      "split": "holdout",
+      "provenance": "Reviewed recipe range for a 350-500 g restaurant/home serving plus raita"
+    },
+    {
+      "id": "hummus-pita",
+      "description": "For lunch I had half a cup of hummus with one medium whole-wheat pita",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 380, "max": 620 },
+      "requiredIngredientGroups": [["hummus", "chickpea"], ["pita"]],
+      "tags": ["middle-eastern", "composite-dish", "volume-unit"],
+      "split": "holdout",
+      "provenance": "USDA hummus and whole-wheat pita serving references"
+    },
+    {
+      "id": "pad-thai-chicken",
+      "description": "For dinner I ate one restaurant plate of chicken pad thai with peanuts",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 650, "max": 1100 },
+      "requiredIngredientGroups": [["noodle", "pad thai"], ["chicken"], ["peanut"]],
+      "tags": ["thai", "composite-dish", "restaurant"],
+      "split": "holdout",
+      "provenance": "Reviewed restaurant recipe range including noodles, sauce, egg, oil, chicken, and peanuts"
+    },
+    {
+      "id": "spaghetti-bolognese",
+      "description": "For dinner I ate 2 cups of spaghetti bolognese with grated parmesan",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 650, "max": 1050 },
+      "requiredIngredientGroups": [["pasta", "spaghetti"], ["beef", "meat"], ["tomato"], ["parmesan", "cheese"]],
+      "tags": ["italian", "composite-dish", "volume-unit"],
+      "split": "holdout",
+      "provenance": "Calculated recipe range for pasta, meat-tomato sauce, oil, and parmesan"
+    },
+    {
+      "id": "peanut-butter-jelly-sandwich",
+      "description": "For a snack I had one PB and J sandwich made with two slices of whole-wheat bread",
+      "mealType": "SNACK",
+      "expectedCalories": { "min": 340, "max": 520 },
+      "requiredIngredientGroups": [["peanut"], ["jelly", "jam"], ["bread", "wheat"]],
+      "tags": ["colloquial", "composite-dish", "counted"],
+      "split": "holdout",
+      "provenance": "USDA component calculation using typical peanut-butter and jam portions"
+    },
+    {
+      "id": "hindi-dal-chawal",
+      "description": "Maine lunch mein ek katori dal aur ek katori chawal khaya",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 350, "max": 620 },
+      "requiredIngredientGroups": [["lentil", "dal"], ["rice", "chawal"]],
+      "tags": ["hindi", "indian", "multilingual", "colloquial-portion"],
+      "split": "holdout",
+      "provenance": "Calculated range for one 150-220 g bowl each of cooked dal and rice"
+    },
+    {
+      "id": "spanish-chicken-tacos",
+      "description": "Para la cena comí dos tacos de pollo con tortilla de maíz, cebolla, salsa y aguacate",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 380, "max": 720 },
+      "requiredIngredientGroups": [["chicken", "pollo"], ["tortilla", "taco"], ["avocado", "aguacate"]],
+      "tags": ["spanish", "mexican", "multilingual", "counted"],
+      "split": "holdout",
+      "provenance": "Calculated component range for two ordinary chicken tacos"
     }
   ]
 }

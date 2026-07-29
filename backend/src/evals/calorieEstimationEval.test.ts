@@ -4,6 +4,7 @@ import {
   calculateRangeError,
   evaluateCalorieCase,
   summarizeCalorieEval,
+  summarizeCalorieStability,
   type CalorieEvalCase,
 } from './calorieEstimationEval.js';
 
@@ -75,4 +76,26 @@ test('summarizeCalorieEval enforces completion, pass-rate, and range-error thres
   assert.equal(summary.thresholdsPassed, false);
   assert.equal(summary.thresholdFailures.length, 3);
   assert.equal(summary.p95LatencyMs, 3000);
+});
+
+test('summarizeCalorieStability exposes stochastic calorie spread and unstable cases', () => {
+  const pass = evaluateCalorieCase(evalCase, {
+    calories: 230,
+    ingredients: [{ canonicalName: 'lentils cooked boiled' }],
+    latencyMs: 1000,
+  });
+  const fail = evaluateCalorieCase(evalCase, {
+    calories: 330,
+    ingredients: [{ canonicalName: 'lentils cooked boiled' }],
+    latencyMs: 1000,
+  });
+  const stability = summarizeCalorieStability([
+    { ...pass, runNumber: 1 },
+    { ...fail, runNumber: 2 },
+  ]);
+
+  assert.equal(stability.caseCount, 1);
+  assert.equal(stability.stablePassRate, 0);
+  assert.deepEqual(stability.unstableCaseIds, ['cooked-dal']);
+  assert.equal(stability.meanCalorieSpreadPercent, 100 / 280);
 });

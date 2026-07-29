@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import {
   evaluateCalorieCase,
   summarizeCalorieEval,
+  summarizeCalorieStability,
   type CalorieEvalCase,
   type CalorieEvalCaseResult,
   type CalorieEvalDataset,
@@ -17,6 +18,8 @@ type Args = {
   json: boolean;
   noFail: boolean;
   timeoutMs: number;
+  repeats: number;
+  split: 'development' | 'holdout' | 'all';
 };
 
 type PipelineEvent = {
@@ -45,6 +48,8 @@ function parseArgs(argv: string[]): Args {
     json: false,
     noFail: false,
     timeoutMs: 90_000,
+    repeats: parsePositiveInteger(process.env.CALORIE_EVAL_REPEATS ?? '1', 'CALORIE_EVAL_REPEATS'),
+    split: 'development',
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -61,6 +66,12 @@ function parseArgs(argv: string[]): Args {
       index += 1;
     } else if (arg === '--timeout-ms' && next) {
       args.timeoutMs = parsePositiveInteger(next, '--timeout-ms');
+      index += 1;
+    } else if (arg === '--repeats' && next) {
+      args.repeats = parsePositiveInteger(next, '--repeats');
+      index += 1;
+    } else if (arg === '--split' && next && ['development', 'holdout', 'all'].includes(next)) {
+      args.split = next as Args['split'];
       index += 1;
     } else if (arg === '--json') {
       args.json = true;
@@ -79,6 +90,8 @@ Options:
   --dataset <path>    Dataset JSON (default: ${DEFAULT_DATASET})
   --case <ids>        Comma-separated case IDs
   --timeout-ms <ms>   Per-request timeout (default: 90000)
+  --repeats <count>   Runs per case for stability measurement (default: 1)
+  --split <name>      development, holdout, or all (default: development)
   --json              Print machine-readable output
   --no-fail           Report threshold failures without a non-zero exit code`);
       process.exit(0);
@@ -101,6 +114,7 @@ async function readDataset(path: string): Promise<CalorieEvalDataset> {
     if (evalCase.expectedCalories.min < 0 || evalCase.expectedCalories.max < evalCase.expectedCalories.min) {
       throw new Error(`Invalid calorie range for ${evalCase.id}`);
     }
+    if (!evalCase.provenance?.trim()) throw new Error(`Missing provenance for ${evalCase.id}`);
     ids.add(evalCase.id);
   }
   return parsed;
@@ -221,7 +235,11 @@ function formatPercent(value: number): string {
   return `${(value * 100).toFixed(1)}%`;
 }
 
-function printHuman(results: CalorieEvalCaseResult[], summary: ReturnType<typeof summarizeCalorieEval>): void {
+function printHuman(
+  results: CalorieEvalCaseResult[],
+  summary: ReturnType<typeof summarizeCalorieEval>,
+  stability: ReturnType<typeof summarizeCalorieStability>
+): void {
   for (const result of results) {
     const status = result.passed ? 'PASS' : 'FAIL';
     const calories = result.calories === undefined ? 'no result' : `${result.calories} kcal`;
@@ -232,13 +250,21 @@ function printHuman(results: CalorieEvalCaseResult[], summary: ReturnType<typeof
       ...result.forbiddenIngredientMatches.map((term) => `forbidden ${term}`),
       result.error ?? '',
     ].filter(Boolean).join('; ');
-    console.log(`${status.padEnd(4)} ${result.id.padEnd(34)} ${calories.padEnd(13)} expected ${expected.padEnd(9)} ${result.latencyMs}ms${details ? `  ${details}` : ''}`);
+    const run = result.runNumber == null ? '' : ` #${result.runNumber}`;
+    console.log(`${status.padEnd(4)} ${(result.id + run).padEnd(34)} ${calories.padEnd(13)} expected ${expected.padEnd(9)} ${result.latencyMs}ms${details ? `  ${details}` : ''}`);
   }
   console.log(`\nCompletion ${summary.completed}/${summary.total} (${formatPercent(summary.completionRate)})`);
   console.log(`Passed     ${summary.passed}/${summary.total} (${formatPercent(summary.passRate)})`);
   console.log(`Mean range error ${formatPercent(summary.meanRangeError)}`);
   console.log(`Mean absolute error to range midpoint ${summary.meanAbsoluteErrorToMidpoint.toFixed(1)} kcal`);
   console.log(`P95 latency ${summary.p95LatencyMs}ms`);
+  if (results.some((result) => result.runNumber != null)) {
+    console.log(`Stable case pass rate ${formatPercent(stability.stablePassRate)}`);
+    console.log(`Mean/max calorie spread ${formatPercent(stability.meanCalorieSpreadPercent)} / ${formatPercent(stability.maxCalorieSpreadPercent)}`);
+    if (stability.unstableCaseIds.length > 0) {
+      console.log(`Unstable cases: ${stability.unstableCaseIds.join(', ')}`);
+    }
+  }
   if (summary.thresholdsPassed) console.log('Thresholds PASS');
   else console.log(`Thresholds FAIL: ${summary.thresholdFailures.join('; ')}`);
 }
@@ -246,8 +272,11 @@ function printHuman(results: CalorieEvalCaseResult[], summary: ReturnType<typeof
 async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
   const dataset = await readDataset(args.datasetPath);
-  const cases = args.caseIds.size === 0
+  const splitCases = args.split === 'all'
     ? dataset.cases
+    : dataset.cases.filter((evalCase) => (evalCase.split ?? 'development') === args.split);
+  const cases = args.caseIds.size === 0
+    ? splitCases
     : dataset.cases.filter((evalCase) => args.caseIds.has(evalCase.id));
   const unknownIds = [...args.caseIds].filter((id) => !dataset.cases.some((evalCase) => evalCase.id === id));
   if (unknownIds.length > 0) throw new Error(`Unknown case IDs: ${unknownIds.join(', ')}`);
@@ -255,12 +284,18 @@ async function main(): Promise<void> {
 
   const results: CalorieEvalCaseResult[] = [];
   for (const evalCase of cases) {
-    const observation = await runPipeline(evalCase, args);
-    results.push(evaluateCalorieCase(evalCase, observation));
+    for (let runNumber = 1; runNumber <= args.repeats; runNumber += 1) {
+      const observation = await runPipeline(evalCase, args);
+      results.push({
+        ...evaluateCalorieCase(evalCase, observation),
+        ...(args.repeats > 1 ? { runNumber } : {}),
+      });
+    }
   }
   const summary = summarizeCalorieEval(results, dataset.thresholds);
-  if (args.json) console.log(JSON.stringify({ datasetVersion: dataset.version, baseUrl: args.baseUrl, summary, results }, null, 2));
-  else printHuman(results, summary);
+  const stability = summarizeCalorieStability(results);
+  if (args.json) console.log(JSON.stringify({ datasetVersion: dataset.version, baseUrl: args.baseUrl, split: args.split, repeats: args.repeats, summary, stability, results }, null, 2));
+  else printHuman(results, summary, stability);
   if (!summary.thresholdsPassed && !args.noFail) process.exitCode = 1;
 }
 

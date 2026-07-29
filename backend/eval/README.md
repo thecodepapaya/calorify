@@ -20,3 +20,20 @@ The durable findings were:
 - Exact-name matches must be deterministic and prefer trustworthy reference data over misleading generic branded rows.
 
 The old per-version reports were merged here because their large per-prompt tables described superseded implementation states. For current behavior, rely on automated tests, `analysis:v2:cli`, and `eval:calories`.
+
+## End-to-end calorie suite
+
+The versioned dataset in `backend/evals/calorie-estimation.cases.json` is split into development regressions and broader holdout cases. Every expected range includes provenance.
+
+```bash
+# Fast development check (one run per case)
+npm run eval:calories
+
+# Stability check before a release
+npm run eval:calories -- --split all --repeats 3
+
+# Machine-readable diagnostics, including per-ingredient grams and calories
+npm run eval:calories -- --split holdout --repeats 3 --json
+```
+
+The repeated runner reports stable case pass rate and calorie spread across runs. Live-provider evals are intentionally not ordinary pull-request tests; deterministic matching, quantity, and arithmetic behavior belongs in unit tests, while the full suite runs manually or on a scheduled protected environment.
