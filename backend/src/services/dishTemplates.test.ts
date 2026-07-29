@@ -31,5 +31,9 @@ test('named pizza template bounds oversized components without fixing every ingr
     dishTemplateGramBounds('one large slice of pepperoni pizza', 'pizza crust'),
     { presentPattern: /\b(?:crust|dough)\b/i, minGrams: 80, maxGrams: 110 }
   );
+  assert.deepEqual(
+    dishTemplateGramBounds('one large slice of pepperoni pizza', 'pepperoni pizza slice'),
+    { presentPattern: /\bpepperoni pizza(?: slice)?\b/i, minGrams: 140, maxGrams: 180 }
+  );
   assert.equal(dishTemplateGramBounds('one vegetable wrap', 'cheese'), undefined);
 });

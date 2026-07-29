@@ -51,6 +51,7 @@ const DISH_TEMPLATES: DishTemplate[] = [
       },
     }],
     componentBounds: [
+      { presentPattern: /\bpepperoni pizza(?: slice)?\b/i, minGrams: 140, maxGrams: 180 },
       { presentPattern: /\b(?:crust|dough)\b/i, minGrams: 80, maxGrams: 110 },
       { presentPattern: /\b(?:cheese|mozzarella)\b/i, minGrams: 15, maxGrams: 45 },
       { presentPattern: /\bpepperoni\b/i, minGrams: 10, maxGrams: 30 },
