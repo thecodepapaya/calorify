@@ -12,7 +12,7 @@ await mock.module('./database.js', {
   namedExports: { query: mockQuery },
 });
 
-const { findUsdaExact, findUsdaCandidates, canonicalizeWithUsda } = await import('./usdaLookup.js');
+const { findUsdaExact, findUsdaCandidates, canonicalizeWithUsda, clearUsdaLookupCache } = await import('./usdaLookup.js');
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -55,6 +55,7 @@ const OATS_ROW = {
 };
 
 function resetQuery(returnValue: { rows: unknown[] } = { rows: [] }) {
+  clearUsdaLookupCache();
   mockQuery.mock.resetCalls();
   mockQuery.mock.mockImplementation(async () => returnValue);
 }
@@ -386,6 +387,51 @@ test('canonicalizeWithUsda rejects preparation-only fuzzy matches for a differen
   assert.equal(result.row, null);
 });
 
+test('canonicalizeWithUsda prefers a plain reference food over a processed form', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) => ({
+    rows: sql.includes('GREATEST(similarity') ? [
+      {
+        ...RICE_ROW,
+        fdc_id: 'cucumber-dip',
+        description: 'Cucumber dip',
+        normalized_name: 'cucumber dip',
+        kcal_per_100g: 83,
+        sim: 0.92,
+      },
+      {
+        ...RICE_ROW,
+        fdc_id: 'cucumber-raw',
+        description: 'Cucumber, raw',
+        normalized_name: 'cucumber raw',
+        kcal_per_100g: 16,
+        protein_per_100g: 0.7,
+        carbs_per_100g: 3.6,
+        fat_per_100g: 0.1,
+        fiber_per_100g: 0.5,
+        sim: 0.72,
+      },
+    ] : [],
+  }));
+
+  const result = await canonicalizeWithUsda('fresh cucumber vegetable');
+  assert.equal(result.row?.fdc_id, 'cucumber-raw');
+});
+
+test('canonicalizeWithUsda rejects a low-confidence tie instead of choosing arbitrarily', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) => ({
+    rows: sql.includes('GREATEST(similarity') ? [
+      { ...RICE_ROW, fdc_id: 'a', description: 'Mystery red bean', normalized_name: 'mystery red bean', sim: 0.48 },
+      { ...RICE_ROW, fdc_id: 'b', description: 'Mystery green pea', normalized_name: 'mystery green pea', sim: 0.47 },
+    ] : [],
+  }));
+
+  const result = await canonicalizeWithUsda('mystery legume');
+  assert.equal(result.matchType, 'unmatched');
+  assert.equal(result.confidenceMargin, 0);
+});
+
 // ---------------------------------------------------------------------------
 // canonicalizeWithUsda — unmatched
 // ---------------------------------------------------------------------------
@@ -454,4 +500,13 @@ test('canonicalizeWithUsda normalizes hint before lookup', async () => {
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   // The normalized form should be passed
   assert.equal(params[0], 'brownrice cooked');
+});
+
+test('canonicalizeWithUsda reuses bounded in-process lookup results', async () => {
+  resetQuery({ rows: [RICE_ROW] });
+  const first = await canonicalizeWithUsda('cacheable rice dish');
+  const callsAfterFirst = mockQuery.mock.calls.length;
+  const second = await canonicalizeWithUsda('cacheable rice dish');
+  assert.deepEqual(second, first);
+  assert.equal(mockQuery.mock.calls.length, callsAfterFirst);
 });

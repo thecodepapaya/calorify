@@ -3,6 +3,8 @@ import { createReadStream } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'csv-parse';
 import { getClient, query } from './database.js';
+import { assessUsdaNutritionQuality } from './usdaLookupUtils.js';
+import { clearUsdaLookupCache } from './usdaLookup.js';
 
 interface FoodRow {
   fdc_id: string;
@@ -171,9 +173,10 @@ async function upsertFoods(
         fat_per_100g: 0,
         fiber_per_100g: 0,
       };
-      const base = idx * 9;
+      const quality = assessUsdaNutritionQuality(macro);
+      const base = idx * 11;
       placeholders.push(
-        `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${base + 5}, $${base + 6}, $${base + 7}, $${base + 8}, $${base + 9})`
+        `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${base + 5}, $${base + 6}, $${base + 7}, $${base + 8}, $${base + 9}, $${base + 10}, $${base + 11})`
       );
       values.push(
         fdcId,
@@ -184,7 +187,9 @@ async function upsertFoods(
         macro.protein_per_100g,
         macro.carbs_per_100g,
         macro.fat_per_100g,
-        macro.fiber_per_100g
+        macro.fiber_per_100g,
+        quality.score,
+        quality.flags
       );
     });
 
@@ -198,7 +203,9 @@ async function upsertFoods(
         protein_per_100g,
         carbs_per_100g,
         fat_per_100g,
-        fiber_per_100g
+        fiber_per_100g,
+        quality_score,
+        quality_flags
       ) VALUES ${placeholders.join(',')}
       ON CONFLICT (fdc_id) DO UPDATE SET
         description = EXCLUDED.description,
@@ -209,6 +216,8 @@ async function upsertFoods(
         carbs_per_100g = EXCLUDED.carbs_per_100g,
         fat_per_100g = EXCLUDED.fat_per_100g,
         fiber_per_100g = EXCLUDED.fiber_per_100g,
+        quality_score = EXCLUDED.quality_score,
+        quality_flags = EXCLUDED.quality_flags,
         updated_at = CURRENT_TIMESTAMP`,
       values
     );
@@ -288,6 +297,7 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
       ]);
     }
     await client.query('COMMIT');
+    clearUsdaLookupCache();
     return { imported: true, rowCount, checksum };
   } catch (error) {
     await client.query('ROLLBACK');

@@ -12,7 +12,8 @@ import {
   type MealAnalysisLlmClient,
 } from './mealAnalysisLlm.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
-import { calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
+import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
+import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
   getMealAnalysisSession,
   recordMealAnalysisClarification,
@@ -138,6 +139,11 @@ interface LLMFallbackEntry {
   carbs_per_100g: number;
   fat_per_100g: number;
   fiber_per_100g: number;
+}
+
+export function isPlausibleFallbackEntry(entry: LLMFallbackEntry): boolean {
+  if (entry.kcal_per_100g > 950) return false;
+  return assessUsdaNutritionQuality(entry).score >= 0.55;
 }
 
 interface AnalysisLogger {
@@ -323,6 +329,7 @@ export type PipelineEvent =
         health: { healthScore: HealthScoreValue; healthScoreReason: string } | null;
         macros: Macros;
         calorieConfidence: string;
+        confidenceReasons: string[];
         calorieBand: { min: number; max: number };
         ingredients: PipelineResolvedIngredient[];
       };
@@ -771,6 +778,35 @@ function normalizeDecomposition(
     };
   });
 
+  const assignedRows = new Set<string>();
+  for (const anchor of extractExplicitQuantityAnchors(sourceText)) {
+    const anchorTokens = normalizedIdentityTokens(anchor.foodText);
+    let best: (typeof ingredients)[number] | undefined;
+    let bestOverlap = 0;
+    for (const ingredient of ingredients) {
+      if (assignedRows.has(ingredient.rowId)) continue;
+      const ingredientTokens = normalizedIdentityTokens(`${ingredient.rawName} ${ingredient.canonicalHint}`);
+      let overlap = 0;
+      for (const token of anchorTokens) if (ingredientTokens.has(token)) overlap += 1;
+      if (overlap > bestOverlap) {
+        best = ingredient;
+        bestOverlap = overlap;
+      }
+    }
+    if (!best || bestOverlap === 0) continue;
+    best.gramsEstimated = anchor.grams;
+    best.minGrams = anchor.grams;
+    best.maxGrams = anchor.grams;
+    best.sizeSpecifiedByUser = true;
+    if (best.portionKind === 'COUNT' && best.count != null && best.count > 0) {
+      const perUnit = roundGram(anchor.grams / best.count);
+      best.perUnitGrams = perUnit;
+      best.perUnitMinGrams = perUnit;
+      best.perUnitMaxGrams = perUnit;
+    }
+    assignedRows.add(best.rowId);
+  }
+
   const normalizedSource = normalize(sourceText);
   const ingredientCorpus = ingredients
     .map((ingredient) => normalize(`${ingredient.rawName} ${ingredient.canonicalHint}`))
@@ -800,6 +836,18 @@ function normalizeDecomposition(
     inferredMealType: decomposition.inferred_meal_type ?? 'UNKNOWN',
     mealTypeConfident: Boolean(decomposition.meal_type_confident),
   };
+}
+
+const IDENTITY_TOKEN_STOP_WORDS = new Set([
+  'a', 'an', 'and', 'cooked', 'fresh', 'grilled', 'of', 'raw', 'the', 'with',
+]);
+
+function normalizedIdentityTokens(value: string): Set<string> {
+  const normalized = normalize(value)
+    .split(' ')
+    .map((token) => token.endsWith('ies') ? `${token.slice(0, -3)}y` : token.replace(/s$/, ''))
+    .filter((token) => token.length > 1 && !IDENTITY_TOKEN_STOP_WORDS.has(token));
+  return new Set(normalized);
 }
 
 function maybeLogDroppedCounts(
@@ -1317,9 +1365,12 @@ async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string
   if (!raw) throw new Error('Empty LLM fallback response');
   const parsed = JSON.parse(raw) as { ingredients: LLMFallbackEntry[] };
   const result = new Map<string, LLMFallbackEntry>();
-  for (const entry of parsed.ingredients) result.set(normalize(entry.name), entry);
+  for (const entry of parsed.ingredients) {
+    if (isPlausibleFallbackEntry(entry)) result.set(normalize(entry.name), entry);
+  }
   for (let i = 0; i < names.length && i < parsed.ingredients.length; i++) {
-    result.set(normalize(names[i]), parsed.ingredients[i]);
+    const entry = parsed.ingredients[i]!;
+    if (isPlausibleFallbackEntry(entry)) result.set(normalize(names[i]), entry);
   }
   return result;
 }
@@ -2025,7 +2076,20 @@ async function* runPipelineFromDecomposition(
           }
         : null,
       macros: totalMacros,
-      calorieConfidence: varianceToCalorieConfidence(uncertainty.variancePercent),
+      calorieConfidence: resolved.some((ingredient) =>
+        ingredient.source === 'llm_fallback' && ingredient.macros.calories === 0
+      )
+        ? 'LOW'
+        : varianceToCalorieConfidence(uncertainty.variancePercent),
+      confidenceReasons: [
+        ...(resolved.some((ingredient) => ingredient.source === 'llm_fallback')
+          ? ['llm_nutrition_fallback']
+          : []),
+        ...(resolved.some((ingredient) =>
+          ingredient.source === 'llm_fallback' && ingredient.macros.calories === 0
+        ) ? ['unresolved_nutrition'] : []),
+        ...(uncertainty.variancePercent > 0.15 ? ['portion_uncertainty'] : []),
+      ],
       calorieBand: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
       ingredients: toResolvedIngredientWire(resolved),
     },

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { calcMacrosFromUsdaRow, normalizeUsdaTerm, stripQualifiers, type UsdaMacroRow } from './usdaLookupUtils.js';
+import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow, normalizeUsdaTerm, stripQualifiers, type UsdaMacroRow } from './usdaLookupUtils.js';
 
 // ---------------------------------------------------------------------------
 // normalizeUsdaTerm
@@ -68,6 +68,32 @@ test('stripQualifiers preserves preparation and composition words that change nu
   assert.equal(stripQualifiers('oats dry'), 'oats dry');
   assert.equal(stripQualifiers('whole wheat flour'), 'whole wheat flour');
   assert.equal(stripQualifiers('peanuts salted'), 'peanuts salted');
+});
+
+test('assessUsdaNutritionQuality accepts internally consistent nutrition', () => {
+  const quality = assessUsdaNutritionQuality({
+    kcal_per_100g: 164,
+    protein_per_100g: 8.9,
+    carbs_per_100g: 27.4,
+    fat_per_100g: 2.6,
+    fiber_per_100g: 7.6,
+  });
+  assert.equal(quality.score, 1);
+  assert.deepEqual(quality.flags, []);
+});
+
+test('assessUsdaNutritionQuality flags unusable and inconsistent rows', () => {
+  const quality = assessUsdaNutritionQuality({
+    kcal_per_100g: 0,
+    protein_per_100g: 60,
+    carbs_per_100g: 60,
+    fat_per_100g: 10,
+    fiber_per_100g: 70,
+  });
+  assert.ok(quality.score < 0.2);
+  assert.ok(quality.flags.includes('zero_energy'));
+  assert.ok(quality.flags.includes('impossible_macro_mass'));
+  assert.ok(quality.flags.includes('fiber_exceeds_carbs'));
 });
 
 // ---------------------------------------------------------------------------

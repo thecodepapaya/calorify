@@ -1,5 +1,5 @@
 import { query } from './database.js';
-import { normalizeUsdaTerm, stripQualifiers } from './usdaLookupUtils.js';
+import { assessUsdaNutritionQuality, normalizeUsdaTerm, stripQualifiers } from './usdaLookupUtils.js';
 
 export interface UsdaFoodRow {
   fdc_id: string;
@@ -17,6 +17,7 @@ export interface UsdaMatch {
   row: UsdaFoodRow | null;
   matchType: 'exact' | 'alias' | 'fuzzy' | 'unmatched';
   score: number;
+  confidenceMargin: number;
 }
 
 interface TrgmCandidate extends UsdaFoodRow {
@@ -25,6 +26,10 @@ interface TrgmCandidate extends UsdaFoodRow {
 
 const MATCH_THRESHOLD = 0.45;
 const CANDIDATE_LIMIT = 20;
+const AMBIGUITY_MARGIN = 0.04;
+const LOOKUP_CACHE_LIMIT = 500;
+const LOOKUP_CACHE_TTL_MS = 10 * 60 * 1000;
+const lookupCache = new Map<string, { expiresAt: number; value: Promise<UsdaMatch> }>();
 
 // Aliases remain intentionally focused on semantic translations and preparation state.
 // pg_trgm handles harmless wording/order differences; aliases handle terms where a lexical
@@ -214,6 +219,39 @@ function fuzzyScore(a: string, b: string): number {
   return (overlap / aWords.size) * 0.8 + (overlap / bWords.size) * 0.2;
 }
 
+const PREPARED_FORM_WORDS = new Set([
+  'candy', 'cereal', 'dessert', 'dip', 'dressing', 'drink', 'flour', 'juice',
+  'mix', 'pie', 'powder', 'sauce', 'snack', 'soup', 'spread', 'syrup',
+]);
+
+/**
+ * A bounded quality adjustment derived from the row itself. This catches
+ * entire classes of bad data (empty nutrients, impossible totals, energy that
+ * disagrees with macros, and overly processed candidates) without knowing a
+ * list of individual food names.
+ */
+function candidateQualityAdjustment(term: string, candidate: TrgmCandidate): number {
+  let adjustment = 0;
+  const source = candidate.data_type ?? '';
+  if (['survey_fndds_food', 'sr_legacy_food', 'foundation_food'].includes(source)) adjustment += 0.04;
+  else if (source === 'branded_food') adjustment -= 0.12;
+  else adjustment -= 0.08;
+
+  const nutritionQuality = assessUsdaNutritionQuality(candidate);
+  adjustment -= (1 - nutritionQuality.score) * 0.45;
+  if (nutritionQuality.score >= 0.95) adjustment += 0.03;
+
+  const requestedTokens = identityTokens(term);
+  const candidateTokens = identityTokens(`${candidate.normalized_name} ${candidate.description}`);
+  for (const form of PREPARED_FORM_WORDS) {
+    if (candidateTokens.has(form) && !requestedTokens.has(form)) {
+      adjustment -= 0.3;
+      break;
+    }
+  }
+  return Math.max(-0.5, Math.min(0.08, adjustment));
+}
+
 // Preparation and database-description words are useful for choosing between
 // two rows for the same food, but they must never establish food identity. For
 // example, "steamed idli" and "steamed pork" share a preparation state while
@@ -261,20 +299,31 @@ function scoreCandidate(term: string, candidate: TrgmCandidate): number {
     if (rawOrDryCandidate) score += 0.15;
     if (cookedCandidate) score -= 0.35;
   }
+  score += candidateQualityAdjustment(normalizedTerm, candidate);
   return Math.max(0, Math.min(1, score));
 }
 
-function bestCandidate(term: string, candidates: TrgmCandidate[]): { row: UsdaFoodRow; score: number } | null {
+function bestCandidate(
+  term: string,
+  candidates: TrgmCandidate[]
+): { row: UsdaFoodRow; score: number; confidenceMargin: number } | null {
   let best: UsdaFoodRow | null = null;
   let bestScore = 0;
+  let secondBestScore = 0;
   for (const candidate of candidates) {
     const score = scoreCandidate(term, candidate);
     if (score > bestScore) {
+      secondBestScore = bestScore;
       best = candidate;
       bestScore = score;
+    } else if (score > secondBestScore) {
+      secondBestScore = score;
     }
   }
-  return best && bestScore >= MATCH_THRESHOLD ? { row: best, score: bestScore } : null;
+  const confidenceMargin = bestScore - secondBestScore;
+  if (!best || bestScore < MATCH_THRESHOLD) return null;
+  if (bestScore < 0.75 && confidenceMargin < AMBIGUITY_MARGIN) return null;
+  return { row: best, score: bestScore, confidenceMargin };
 }
 
 export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow | null> {
@@ -313,33 +362,64 @@ export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT):
   return result.rows.map(normalizeEnergyUnit);
 }
 
-async function lookupTerm(term: string): Promise<{ row: UsdaFoodRow; score: number } | null> {
+async function lookupTerm(
+  term: string
+): Promise<{ row: UsdaFoodRow; score: number; confidenceMargin: number } | null> {
   const exact = await findUsdaExact(term);
-  if (exact) return { row: exact, score: 1 };
+  if (exact) return { row: exact, score: 1, confidenceMargin: 1 };
   return bestCandidate(term, await findUsdaCandidates(term));
 }
 
-export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
+async function canonicalizeUncached(hint: string): Promise<UsdaMatch> {
   const normalizedHint = normalizeUsdaTerm(hint);
   const alias = resolveAlias(normalizedHint);
   if (alias) {
     const match = await lookupTerm(normalizeUsdaTerm(alias));
-    if (match) return { row: match.row, matchType: 'alias', score: match.score };
+    if (match) return { row: match.row, matchType: 'alias', score: match.score, confidenceMargin: match.confidenceMargin };
   }
 
   const exact = await findUsdaExact(normalizedHint);
-  if (exact) return { row: exact, matchType: 'exact', score: 1 };
+  if (exact) return { row: exact, matchType: 'exact', score: 1, confidenceMargin: 1 };
 
   const stripped = stripQualifiers(normalizedHint);
   if (stripped && stripped !== normalizedHint) {
     const strippedExact = await findUsdaExact(stripped);
-    if (strippedExact) return { row: strippedExact, matchType: 'exact', score: 1 };
+    if (strippedExact) return { row: strippedExact, matchType: 'exact', score: 1, confidenceMargin: 1 };
   }
 
   const candidates = await findUsdaCandidates(stripped || normalizedHint);
   // Score against the original hint so preparation-state bonuses/penalties survive
   // harmless qualifier stripping and can override a lexically closer wrong-state row.
   const best = bestCandidate(normalizedHint, candidates);
-  if (best) return { row: best.row, matchType: 'fuzzy', score: best.score };
-  return { row: null, matchType: 'unmatched', score: 0 };
+  if (best) return { row: best.row, matchType: 'fuzzy', score: best.score, confidenceMargin: best.confidenceMargin };
+  return { row: null, matchType: 'unmatched', score: 0, confidenceMargin: 0 };
+}
+
+export function clearUsdaLookupCache(): void {
+  lookupCache.clear();
+}
+
+export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
+  const key = normalizeUsdaTerm(hint);
+  const now = Date.now();
+  const cached = lookupCache.get(key);
+  if (cached && cached.expiresAt > now) {
+    // Refresh recency for bounded LRU eviction.
+    lookupCache.delete(key);
+    lookupCache.set(key, cached);
+    return cached.value;
+  }
+  if (cached) lookupCache.delete(key);
+
+  const value = canonicalizeUncached(hint).catch((error) => {
+    lookupCache.delete(key);
+    throw error;
+  });
+  lookupCache.set(key, { expiresAt: now + LOOKUP_CACHE_TTL_MS, value });
+  while (lookupCache.size > LOOKUP_CACHE_LIMIT) {
+    const oldest = lookupCache.keys().next().value as string | undefined;
+    if (oldest == null) break;
+    lookupCache.delete(oldest);
+  }
+  return value;
 }

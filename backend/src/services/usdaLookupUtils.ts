@@ -6,6 +6,54 @@ export interface UsdaMacroRow {
   fiber_per_100g: number;
 }
 
+export type UsdaQualityAssessment = {
+  score: number;
+  flags: string[];
+};
+
+/** Import/read-time nutrition integrity checks, independent of food names. */
+export function assessUsdaNutritionQuality(row: UsdaMacroRow): UsdaQualityAssessment {
+  const values = [
+    row.kcal_per_100g,
+    row.protein_per_100g,
+    row.carbs_per_100g,
+    row.fat_per_100g,
+    row.fiber_per_100g,
+  ];
+  if (values.some((value) => !Number.isFinite(value) || value < 0)) {
+    return { score: 0, flags: ['invalid_value'] };
+  }
+
+  const flags: string[] = [];
+  let score = 1;
+  if (row.kcal_per_100g <= 0) {
+    flags.push('zero_energy');
+    score -= 0.8;
+  }
+  const macroMass = row.protein_per_100g + row.carbs_per_100g + row.fat_per_100g;
+  if (macroMass > 105) {
+    flags.push('impossible_macro_mass');
+    score -= 0.45;
+  }
+  if (row.fiber_per_100g > row.carbs_per_100g + 2) {
+    flags.push('fiber_exceeds_carbs');
+    score -= 0.3;
+  }
+  const atwaterEnergy =
+    4 * row.protein_per_100g + 4 * row.carbs_per_100g + 9 * row.fat_per_100g;
+  if (atwaterEnergy > 10) {
+    const ratio = row.kcal_per_100g / atwaterEnergy;
+    if (ratio < 0.55 || ratio > 1.65) {
+      flags.push('energy_macro_mismatch');
+      score -= 0.4;
+    }
+  } else if (row.kcal_per_100g > 50) {
+    flags.push('energy_without_macros');
+    score -= 0.25;
+  }
+  return { score: Math.max(0, Math.min(1, score)), flags };
+}
+
 export function normalizeUsdaTerm(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
 }

@@ -18,6 +18,10 @@ await mock.module('./usdaLookup.js', {
 
 await mock.module('./usdaLookupUtils.js', {
   namedExports: {
+    assessUsdaNutritionQuality: (row: any) => ({
+      score: row.kcal_per_100g > 0 && row.kcal_per_100g <= 950 ? 1 : 0,
+      flags: [],
+    }),
     calcMacrosFromUsdaRow: mock.fn((_row: unknown, grams: number) => ({
       calories: Math.round(grams * 1.5),
       protein: +(grams * 0.1).toFixed(1),
@@ -133,6 +137,7 @@ const {
   reanalyzeMeal,
   FEEDBACK_ISSUES,
   MEAL_TYPES,
+  isPlausibleFallbackEntry,
 } = await import('./nutritionEngineV2.js');
 
 // ---------------------------------------------------------------------------
@@ -156,6 +161,17 @@ test('MEAL_TYPES contains exactly 4 types', () => {
   assert.ok(MEAL_TYPES.includes('DINNER'));
   assert.ok(MEAL_TYPES.includes('SNACK'));
   assert.equal(MEAL_TYPES.length, 4);
+});
+
+test('LLM nutrition fallback validation rejects impossible calorie density', () => {
+  assert.equal(isPlausibleFallbackEntry({
+    name: 'invalid food',
+    kcal_per_100g: 1200,
+    protein_per_100g: 10,
+    carbs_per_100g: 10,
+    fat_per_100g: 10,
+    fiber_per_100g: 1,
+  }), false);
 });
 
 // ---------------------------------------------------------------------------
@@ -302,6 +318,48 @@ test('small inferred cooking-fat bands are not inflated to tablespoon defaults',
     uncertainty?.data.clarifications[0].options.map((option: any) => option.grams),
     [1, 3, 6]
   );
+});
+
+test('explicit gram quantities override conflicting model estimates', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Salmon',
+    ingredients: [{
+      raw_name: 'grilled salmon', canonical_hint: 'salmon cooked',
+      grams_estimated: 90, min_grams: 70, max_grams: 120, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: false,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'DINNER',
+    meal_type_confident: true,
+  }, 208);
+
+  const events = await collectEvents(analyzeTextMeal('I ate exactly 150 grams grilled salmon'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.equal(decomposition?.data.ingredients[0]?.gramsEstimated, 150);
+  assert.equal(decomposition?.data.ingredients[0]?.minGrams, 150);
+  assert.equal(decomposition?.data.ingredients[0]?.maxGrams, 150);
+  assert.equal(decomposition?.data.ingredients[0]?.sizeSpecifiedByUser, true);
+});
+
+test('explicit cooking-oil volume uses the deterministic density conversion', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Oil',
+    ingredients: [{
+      raw_name: 'olive oil', canonical_hint: 'olive oil',
+      grams_estimated: 14, min_grams: 5, max_grams: 28, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: false,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  }, 884);
+
+  const events = await collectEvents(analyzeTextMeal('I added exactly 1 teaspoon olive oil'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.equal(decomposition?.data.ingredients[0]?.gramsEstimated, 4.5);
+  assert.equal(decomposition?.data.ingredients[0]?.sizeSpecifiedByUser, true);
 });
 
 test('analyzeTextMeal emits started then decomposition', async () => {
