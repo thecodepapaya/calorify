@@ -682,7 +682,7 @@ function orderedBand(min: number, mid: number, max: number): { min: number; mid:
 const COOKED_DAL_USDA_HINT = 'lentils mature seeds cooked boiled without salt';
 const PREPARATION_STATES = ['cooked', 'boiled', 'steamed', 'fried', 'roasted', 'raw', 'dry'] as const;
 
-function refineCanonicalHint(rawName: string, hint: string, notes: string): string {
+function refineCanonicalHint(rawName: string, hint: string, notes: string, sourceText: string): string {
   const normalizedHint = normalize(hint);
   const context = normalize(`${rawName} ${notes}`);
   const normalizedRawName = normalize(rawName);
@@ -703,7 +703,10 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string): stri
   // A dry/raw qualifier attached directly to the weighed food is stronger
   // than a later cooking instruction. Nutrition must describe the measured
   // state (for example 100 g dry oats cooked with water, not 100 g oatmeal).
-  if (/\b(?:oat|oats)\b/.test(context) && /\b(?:dry|raw|uncooked)\b/.test(normalizedRawName)) {
+  const normalizedSource = normalize(sourceText);
+  if (/\b(?:oat|oats)\b/.test(normalizedRawName) &&
+      (/\b(?:dry|raw|uncooked)\b/.test(normalizedRawName) ||
+       /\b(?:dry|raw|uncooked)\b.{0,24}\b(?:oat|oats)\b|\b(?:oat|oats)\b.{0,24}\b(?:dry|raw|uncooked)\b/.test(normalizedSource))) {
     return 'oats';
   }
 
@@ -728,6 +731,51 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string): stri
   return preparation && !hintHasPreparation ? `${hint} ${preparation}`.trim() : hint;
 }
 
+function explicitTemplateGrams(
+  sourceText: string,
+  rawName: string,
+  canonicalHint: string,
+  notes: string,
+  template: PortionTemplate
+): number | undefined {
+  const optionForSize = (size: string): number | undefined => {
+    const preferredIds = size === 'small'
+      ? ['small', 'thin', template.defaultOptionId]
+      : size === 'medium'
+        ? ['medium', 'regular', template.defaultOptionId]
+        : size === 'large'
+          ? ['large', 'thick', template.defaultOptionId]
+          : ['regular', template.defaultOptionId];
+    for (const optionId of preferredIds) {
+      const option = template.options.find((candidate) => candidate.optionId === optionId);
+      if (option) return option.perUnitGrams;
+    }
+    return undefined;
+  };
+  const noteSize = normalize(notes).match(/\b(small|medium|regular|large)\b/)?.[1];
+  if (noteSize) return optionForSize(noteSize);
+
+  const sourceTokens = normalize(sourceText).split(' ').filter(Boolean);
+  const identityTokens = new Set(
+    normalize(`${rawName} ${canonicalHint}`)
+      .split(' ')
+      .filter((token) => token.length > 2)
+      .map((token) => token.replace(/s$/, ''))
+  );
+  const sizeTokens = new Set(['small', 'medium', 'regular', 'large']);
+  for (let index = 0; index < sourceTokens.length; index += 1) {
+    const size = sourceTokens[index]!;
+    if (!sizeTokens.has(size)) continue;
+    const nearbyIdentity = sourceTokens
+      .slice(index + 1, index + 5)
+      .map((token) => token.replace(/s$/, ''))
+      .some((token) => identityTokens.has(token));
+    if (!nearbyIdentity) continue;
+    return optionForSize(size);
+  }
+  return undefined;
+}
+
 function normalizeDecomposition(
   decomposition: LLMDecomposition,
   logger?: AnalysisLogger,
@@ -740,7 +788,8 @@ function normalizeDecomposition(
     const canonicalHint = refineCanonicalHint(
       rawName,
       String(ingredient.canonical_hint ?? rawName).trim(),
-      notes
+      notes,
+      sourceText
     );
     const gramsEstimated = finiteNumber(ingredient.grams_estimated, 0);
     const minGrams = finiteNumber(ingredient.min_grams, gramsEstimated);
@@ -751,7 +800,12 @@ function normalizeDecomposition(
     const sizeSpecifiedByUser = Boolean(ingredient.size_specified_by_user);
 
     if (portionKind === 'COUNT' && count != null && count > 0) {
-      const perUnitGrams = finiteOptionalNumber(ingredient.per_unit_grams) ?? gramsEstimated / count;
+      const portionTemplate = lookupTemplate(canonicalHint, rawName);
+      const explicitPerUnitGrams = sizeSpecifiedByUser && portionTemplate
+        ? explicitTemplateGrams(sourceText, rawName, canonicalHint, notes, portionTemplate)
+        : undefined;
+      const perUnitGrams = explicitPerUnitGrams ??
+        finiteOptionalNumber(ingredient.per_unit_grams) ?? gramsEstimated / count;
       const collapsedPerUnitMin = sizeSpecifiedByUser
         ? perUnitGrams
         : finiteOptionalNumber(ingredient.per_unit_min_grams) ?? minGrams / count;

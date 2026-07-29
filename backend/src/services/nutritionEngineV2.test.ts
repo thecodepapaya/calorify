@@ -280,7 +280,7 @@ test('explicitly dry oats retain dry nutrition despite a later cooking instructi
   mockDecompositionWithFallback({
     meal_name: 'Oats',
     ingredients: [{
-      raw_name: 'rolled oats (dry)', canonical_hint: 'rolled oats cooked',
+      raw_name: 'rolled oats', canonical_hint: 'rolled oats cooked',
       grams_estimated: 100, min_grams: 100, max_grams: 100,
       notes: 'Dry rolled oats cooked with water', portion_kind: 'BULK',
       count: null, per_unit_grams: null, per_unit_min_grams: null,
@@ -367,9 +367,9 @@ test('explicit masala dosa receives its defining potato filling when the model o
     meal_name: 'Masala Dosa',
     ingredients: [{
       raw_name: 'masala dosa batter', canonical_hint: 'rice and urad dal batter',
-      grams_estimated: 120, min_grams: 100, max_grams: 140, notes: '',
-      portion_kind: 'COUNT', count: 1, per_unit_grams: 120,
-      per_unit_min_grams: 100, per_unit_max_grams: 140, size_specified_by_user: false,
+      grams_estimated: 200, min_grams: 180, max_grams: 220, notes: '',
+      portion_kind: 'COUNT', count: 1, per_unit_grams: 200,
+      per_unit_min_grams: 180, per_unit_max_grams: 220, size_specified_by_user: true,
     }],
     confidence: 0.9,
     inferred_meal_type: 'BREAKFAST',
@@ -381,6 +381,7 @@ test('explicit masala dosa receives its defining potato filling when the model o
   const ingredients = decomposition?.data.ingredients ?? [];
   assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'dosa plain'));
   assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'potato boiled'));
+  assert.equal(ingredients[0]?.gramsEstimated, 120);
 });
 
 test('plain rotis cap inferred cooking fat to three grams per roti', async () => {
