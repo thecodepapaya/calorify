@@ -14,6 +14,7 @@ type DishTemplate = {
     presentPattern: RegExp;
     component: DishTemplateComponent;
   }>;
+  componentBounds?: Array<{ presentPattern: RegExp; maxGrams: number }>;
 };
 
 // Templates are intentionally few and structural. They describe defining
@@ -35,6 +36,17 @@ const DISH_TEMPLATES: DishTemplate[] = [
       },
     }],
   },
+  {
+    id: 'pepperoni_pizza_slice',
+    dishPattern: /\b(?:slice of )?pepperoni pizza\b/i,
+    requiredComponents: [],
+    componentBounds: [
+      { presentPattern: /\b(?:crust|dough)\b/i, maxGrams: 110 },
+      { presentPattern: /\b(?:cheese|mozzarella)\b/i, maxGrams: 45 },
+      { presentPattern: /\bpepperoni\b/i, maxGrams: 30 },
+      { presentPattern: /\b(?:pizza|tomato) sauce\b/i, maxGrams: 30 },
+    ],
+  },
 ];
 
 export function missingDishTemplateComponents(
@@ -49,4 +61,17 @@ export function missingDishTemplateComponents(
     }
   }
   return additions;
+}
+
+export function dishTemplateGramCap(
+  sourceText: string,
+  ingredientCorpus: string
+): number | undefined {
+  for (const template of DISH_TEMPLATES) {
+    if (!template.dishPattern.test(sourceText)) continue;
+    for (const bound of template.componentBounds ?? []) {
+      if (bound.presentPattern.test(ingredientCorpus)) return bound.maxGrams;
+    }
+  }
+  return undefined;
 }

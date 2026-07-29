@@ -13,7 +13,7 @@ import {
 } from './mealAnalysisLlm.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
 import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
-import { missingDishTemplateComponents } from './dishTemplates.js';
+import { dishTemplateGramCap, missingDishTemplateComponents } from './dishTemplates.js';
 import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
   getMealAnalysisSession,
@@ -714,6 +714,12 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string, sourc
     return 'bread whole wheat';
   }
 
+  // Named composite sides have reviewed database rows. Keep their identity
+  // instead of allowing a decomposition hint to turn the entire serving into
+  // one dense constituent (for example sambar -> lentils or chutney -> coconut).
+  if (/\bsambar\b/.test(normalizedRawName)) return 'sambar vegetable stew';
+  if (/\bcoconut chutney\b/.test(normalizedRawName)) return 'coconut chutney';
+
   // Represent dosa batter and its filling as separate atomic rows. This keeps
   // lookup stable when the LLM calls the batter rice; the bounded template
   // adds a filling only when decomposition omitted it.
@@ -946,6 +952,17 @@ function normalizeDecomposition(
       perUnitMaxGrams: null,
       sizeSpecifiedByUser: false,
     });
+  }
+
+  for (const ingredient of ingredients) {
+    const cap = dishTemplateGramCap(
+      sourceText,
+      normalize(`${ingredient.rawName} ${ingredient.canonicalHint}`)
+    );
+    if (cap == null) continue;
+    ingredient.gramsEstimated = Math.min(ingredient.gramsEstimated, cap);
+    ingredient.minGrams = Math.min(ingredient.minGrams, cap);
+    ingredient.maxGrams = Math.min(ingredient.maxGrams, cap);
   }
 
   return {

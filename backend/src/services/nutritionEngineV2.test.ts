@@ -384,6 +384,31 @@ test('explicit masala dosa receives its defining potato filling when the model o
   assert.equal(ingredients[0]?.gramsEstimated, 120);
 });
 
+test('named composite sides retain their reviewed composite lookup identity', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Dosa sides',
+    ingredients: [{
+      raw_name: 'sambar (lentils and vegetables)', canonical_hint: 'lentils cooked',
+      grams_estimated: 210, min_grams: 210, max_grams: 210, notes: 'one cup',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+    }, {
+      raw_name: 'coconut chutney', canonical_hint: 'coconut fresh',
+      grams_estimated: 30, min_grams: 30, max_grams: 30, notes: 'two tablespoons',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.9, inferred_meal_type: 'BREAKFAST', meal_type_confident: true,
+  }, 100);
+
+  const events = await collectEvents(analyzeTextMeal('one cup sambar and coconut chutney'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.deepEqual(
+    decomposition?.data.ingredients.map((ingredient: any) => ingredient.canonicalHint),
+    ['sambar vegetable stew', 'coconut chutney']
+  );
+});
+
 test('plain rotis cap inferred cooking fat to three grams per roti', async () => {
   mockDecompositionWithFallback({
     meal_name: 'Rotis',
