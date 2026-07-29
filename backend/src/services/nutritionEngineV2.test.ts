@@ -138,7 +138,10 @@ const {
   FEEDBACK_ISSUES,
   MEAL_TYPES,
   isPlausibleFallbackEntry,
+  clearFallbackNutritionCache,
 } = await import('./nutritionEngineV2.js');
+
+test.beforeEach(() => clearFallbackNutritionCache());
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -172,6 +175,29 @@ test('LLM nutrition fallback validation rejects impossible calorie density', () 
     fat_per_100g: 10,
     fiber_per_100g: 1,
   }), false);
+});
+
+test('reviewed LLM fallback nutrition is reused across analyses', async () => {
+  mockChatCreate.mock.resetCalls();
+  mockDecompositionWithFallback({
+    meal_name: 'Regional dish',
+    ingredients: [{
+      raw_name: 'regional dish', canonical_hint: 'unique regional dish',
+      grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.8,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  }, 240);
+
+  await collectEvents(analyzeTextMeal('unique regional dish'));
+  await collectEvents(analyzeTextMeal('unique regional dish'));
+  const fallbackCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'macro_fallback'
+  );
+  assert.equal(fallbackCalls.length, 1);
 });
 
 // ---------------------------------------------------------------------------

@@ -94,7 +94,7 @@ const ALIASES: Record<string, string> = {
   'oil vegetable': 'vegetable oil',
   'cooking oil': 'vegetable oil',
   'vegetable oil': 'vegetable oil',
-  'olive oil': 'oil olive',
+  'olive oil': 'oil olive salad or cooking',
   'coconut oil': 'oil coconut',
   'mustard oil': 'oil mustard',
   namak: 'salt',
@@ -259,6 +259,8 @@ function candidateQualityAdjustment(term: string, candidate: TrgmCandidate): num
 const IDENTITY_STOP_WORDS = new Set([
   'cooked', 'boiled', 'steamed', 'prepared', 'fried', 'roasted', 'raw', 'dry',
   'dried', 'uncooked', 'with', 'without', 'salt', 'water', 'made', 'food',
+  'ingredient', 'vegetable', 'fresh', 'chopped', 'minced', 'sliced', 'large',
+  'small', 'medium', 'organic', 'natural', 'pure', 'extra',
 ]);
 
 function identityTokens(value: string): Set<string> {
@@ -273,8 +275,10 @@ function sharesFoodIdentity(term: string, candidateText: string): boolean {
   const requested = identityTokens(term);
   const candidate = identityTokens(candidateText);
   if (requested.size === 0 || candidate.size === 0) return false;
-  for (const token of requested) if (candidate.has(token)) return true;
-  return false;
+  let overlap = 0;
+  for (const token of requested) if (candidate.has(token)) overlap += 1;
+  if (requested.size <= 2) return overlap === requested.size;
+  return overlap / requested.size >= 0.5;
 }
 
 function scoreCandidate(term: string, candidate: TrgmCandidate): number {
@@ -344,7 +348,9 @@ export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow
       LIMIT 1`,
     [normalizedName]
   );
-  return result.rows[0] ? normalizeEnergyUnit(result.rows[0]) : null;
+  if (!result.rows[0]) return null;
+  const row = normalizeEnergyUnit(result.rows[0]);
+  return assessUsdaNutritionQuality(row).score >= 0.55 ? row : null;
 }
 
 export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT): Promise<TrgmCandidate[]> {

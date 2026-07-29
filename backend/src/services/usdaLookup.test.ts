@@ -307,6 +307,35 @@ test('canonicalizeWithUsda maps fried egg variants to the explicit fried-egg row
   assert.equal(result.matchType, 'alias');
 });
 
+test('canonicalizeWithUsda skips a nutrient-empty exact row and continues searching', async () => {
+  clearUsdaLookupCache();
+  mockQuery.mock.resetCalls();
+  let call = 0;
+  mockQuery.mock.mockImplementation(async () => {
+    call += 1;
+    if (call === 1) return { rows: [{ ...LENTILS_ROW, kcal_per_100g: 0 }] };
+    return { rows: [{ ...LENTILS_ROW, normalized_name: 'lentils mature seeds raw', sim: 0.8 }] };
+  });
+  const result = await canonicalizeWithUsda('lentils dry');
+  assert.equal(result.matchType, 'fuzzy');
+  assert.equal(result.row?.kcal_per_100g, 116);
+});
+
+test('canonicalizeWithUsda rejects candidates missing a distinctive identity token', async () => {
+  clearUsdaLookupCache();
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) => ({
+    rows: sql.includes('GREATEST(similarity') ? [{
+      ...RICE_ROW,
+      description: 'Pho, chicken, cooked',
+      normalized_name: 'pho chicken cooked',
+      sim: 0.75,
+    }] : [],
+  }));
+  const result = await canonicalizeWithUsda('chicken biryani');
+  assert.equal(result.matchType, 'unmatched');
+});
+
 test('canonicalizeWithUsda maps masala dosa to the filled-dosa reference row', async () => {
   resetQuery();
   mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {

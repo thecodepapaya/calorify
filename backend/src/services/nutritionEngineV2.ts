@@ -13,6 +13,7 @@ import {
 } from './mealAnalysisLlm.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
 import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
+import { missingDishTemplateComponents } from './dishTemplates.js';
 import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
   getMealAnalysisSession,
@@ -139,6 +140,29 @@ interface LLMFallbackEntry {
   carbs_per_100g: number;
   fat_per_100g: number;
   fiber_per_100g: number;
+}
+
+const FALLBACK_NUTRITION_CACHE_LIMIT = 500;
+const FALLBACK_NUTRITION_CACHE_VERSION = 'v1';
+const fallbackNutritionCache = new Map<string, LLMFallbackEntry>();
+
+function fallbackCacheKey(name: string): string {
+  return `${FALLBACK_NUTRITION_CACHE_VERSION}:${normalize(name)}`;
+}
+
+function cacheFallbackEntry(name: string, entry: LLMFallbackEntry): void {
+  const key = fallbackCacheKey(name);
+  fallbackNutritionCache.delete(key);
+  fallbackNutritionCache.set(key, entry);
+  while (fallbackNutritionCache.size > FALLBACK_NUTRITION_CACHE_LIMIT) {
+    const oldest = fallbackNutritionCache.keys().next().value as string | undefined;
+    if (oldest == null) break;
+    fallbackNutritionCache.delete(oldest);
+  }
+}
+
+export function clearFallbackNutritionCache(): void {
+  fallbackNutritionCache.clear();
 }
 
 export function isPlausibleFallbackEntry(entry: LLMFallbackEntry): boolean {
@@ -807,19 +831,13 @@ function normalizeDecomposition(
     assignedRows.add(best.rowId);
   }
 
-  const normalizedSource = normalize(sourceText);
   const ingredientCorpus = ingredients
     .map((ingredient) => normalize(`${ingredient.rawName} ${ingredient.canonicalHint}`))
     .join(' ');
-  if (/\bmasala dosa\b/.test(normalizedSource) && !/\b(?:potato|aloo)\b/.test(ingredientCorpus)) {
+  for (const component of missingDishTemplateComponents(sourceText, ingredientCorpus)) {
     ingredients.push({
       rowId: randomUUID(),
-      rawName: 'masala dosa potato filling',
-      canonicalHint: 'potato boiled',
-      gramsEstimated: 60,
-      minGrams: 40,
-      maxGrams: 80,
-      notes: 'Defining filling inferred from explicitly named masala dosa',
+      ...component,
       portionKind: 'BULK',
       count: null,
       perUnitGrams: null,
@@ -1348,7 +1366,16 @@ async function decomposeFromImage(
 
 async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string[]): Promise<Map<string, LLMFallbackEntry>> {
   if (names.length === 0) return new Map();
-  const prompt = names.map((name, index) => `${index + 1}. ${name}`).join('\n');
+  const result = new Map<string, LLMFallbackEntry>();
+  const missingNames: string[] = [];
+  for (const name of names) {
+    const cached = fallbackNutritionCache.get(fallbackCacheKey(name));
+    if (cached) result.set(normalize(name), cached);
+    else missingNames.push(name);
+  }
+  if (missingNames.length === 0) return result;
+
+  const prompt = missingNames.map((name, index) => `${index + 1}. ${name}`).join('\n');
   const response = await client.chat.completions.create({
     model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
@@ -1364,13 +1391,18 @@ async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM fallback response');
   const parsed = JSON.parse(raw) as { ingredients: LLMFallbackEntry[] };
-  const result = new Map<string, LLMFallbackEntry>();
   for (const entry of parsed.ingredients) {
-    if (isPlausibleFallbackEntry(entry)) result.set(normalize(entry.name), entry);
+    if (isPlausibleFallbackEntry(entry)) {
+      result.set(normalize(entry.name), entry);
+      cacheFallbackEntry(entry.name, entry);
+    }
   }
-  for (let i = 0; i < names.length && i < parsed.ingredients.length; i++) {
+  for (let i = 0; i < missingNames.length && i < parsed.ingredients.length; i++) {
     const entry = parsed.ingredients[i]!;
-    if (isPlausibleFallbackEntry(entry)) result.set(normalize(names[i]), entry);
+    if (isPlausibleFallbackEntry(entry)) {
+      result.set(normalize(missingNames[i]!), entry);
+      cacheFallbackEntry(missingNames[i]!, entry);
+    }
   }
   return result;
 }
