@@ -2,13 +2,12 @@
 class ImageConfig {
   ImageConfig._();
 
-  /// Oracle Object Storage pre-authenticated link for uploading
-  /// calorify-upload-auth-bucket-link
-  static const String oracleBucketUploadUrl =
-      'https://objectstorage.ap-mumbai-1.oraclecloud.com/p/oOdWDrhqvtFsQ4CLSt3kRn9nACEuk9wfqQBygsb3mVtxYkRmagTHS23ZDTzAE3LM/n/bmm3s6m8sdi5/b/calorify-images/o/';
-
-  /// Backup upload link for when the above expires:
-  /// https://bmm3s6m8sdi5.objectstorage.ap-mumbai-1.oci.customer-oci.com/p/oOdWDrhqvtFsQ4CLSt3kRn9nACEuk9wfqQBygsb3mVtxYkRmagTHS23ZDTzAE3LM/n/bmm3s6m8sdi5/b/calorify-images/o/
+  /// Oracle Object Storage pre-authenticated upload URL supplied at build time.
+  /// This removes the credential from source control, but client-side bearer URLs
+  /// are still extractable from a built app and should be narrowly scoped/rotated.
+  static const String oracleBucketUploadUrl = String.fromEnvironment(
+    'ORACLE_BUCKET_UPLOAD_URL',
+  );
 
   /// Allowed image file extensions
   static const List<String> allowedImageExtensions = [

@@ -34,7 +34,7 @@ I18N_PKG_DIR=""
 I18N_DIR="lib/i18n"
 LOG_FILE=""
 FULL_TRANSLATION=false
-API_KEY="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"
+API_KEY=""
 MAX_PARALLEL_JOBS=5  # Maximum parallel translation jobs (adjust to avoid rate limiting)
 
 # Translation tracking
@@ -56,6 +56,7 @@ setup_environment() {
     # Store original directory and change to git root
     store_original_dir
     GIT_ROOT=$(change_to_git_root)
+    API_KEY=$(python3 "$SCRIPT_DIR/resolve_openai_api_key.py" "$GIT_ROOT") || exit 1
     
     # Change to shared i18n package directory
     I18N_PKG_DIR="$GIT_ROOT/shared_packages/i18n"

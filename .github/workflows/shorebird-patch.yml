@@ -60,5 +60,5 @@ jobs:
         with:
           platform: android
           release-version: latest
-          args: --flavor=prod
+          args: --flavor=prod --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
           working-directory: app

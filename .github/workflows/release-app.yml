@@ -61,7 +61,7 @@ jobs:
         uses: shorebirdtech/shorebird-release@v1
         with:
           platform: android
-          args: --flavor=prod
+          args: --flavor=prod --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
           working-directory: app
           flutter-version: "3.41.0"
 

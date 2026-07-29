@@ -1,77 +1,26 @@
-# Shared Packages
+# Shared Flutter packages
 
-This directory contains shared packages used by both the main Calorify app and the watch companion app.
+Reusable code shared by the phone and Wear OS applications:
 
-## Package Structure
+- `specs` — design tokens, themes, color schemes, and layout constants.
+- `models` — protobuf-backed domain models.
+- `i18n` — source locale JSON and generated translations.
+- `services` — cross-app integrations and helpers.
+- `utils` — dates, strings, image configuration, and common utilities.
+- `widgets` — presentation components suitable for both applications.
 
-### specs
-Shared design specifications (combines colors and styles).
-- Color schemes (light and dark)
-- Color scheme interface
-- Icon colors for macro nutrients
-- Global styles (radius, margins, padding)
-- App themes (light and dark)
+Packages are referenced with local paths from each app's `pubspec.yaml`.
 
-### models
-Shared data models.
-- Meal, MealType, HealthScore
-- UserProfile, Gender, WeightGoal, ActivityLevel
-- MealDetectionResult
-- ScaleConstants
+Regenerate translations through the repository script so locale files stay consistent:
 
-### utils
-Shared utility functions.
-- Date formatting extensions
-- String utilities
-
-### i18n
-Shared internationalization.
-- Translation JSON files
-- Generated translation classes (via slang)
-
-### services
-Shared services.
-- Shared utility integrations such as flushbars, email feedback, image compression, review prompts, and version info
-
-## Usage
-
-### In Main App
-
-Add to `pubspec.yaml`:
-```yaml
-dependencies:
-  specs:
-    path: ../shared_packages/specs
-  models:
-    path: ../shared_packages/models
-  utils:
-    path: ../shared_packages/utils
-  i18n:
-    path: ../shared_packages/i18n
-  services:
-    path: ../shared_packages/services
-```
-
-### In Watch App
-
-Same as above - both apps use the same shared packages.
-
-## Building
-
-### Generate Code
-
-For i18n (in `i18n`):
 ```bash
-cd shared_packages/i18n
-dart run slang
+./scripts/generate_translations.sh
 ```
 
-For models (in `models`):
+Regenerate protobuf models after changing `protos/`:
+
 ```bash
-cd shared_packages/models
-flutter pub run build_runner build
+./scripts/generate_protos.sh
 ```
 
-## Migration Notes
-
-The main app should gradually migrate to use these shared packages instead of the local implementations. This ensures consistency between the main app and watch app.
+Avoid putting phone-sized layout assumptions in shared widgets. Shared visual primitives should accept constraints that let the watch app provide watch-specific composition.

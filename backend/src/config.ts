@@ -163,18 +163,12 @@ const config: Config = {
     OPENROUTER_FREE_MODEL: getEnvVar('OPENROUTER_FREE_MODEL', 'openrouter/free'),
     OPENROUTER_HTTP_REFERER: getEnvVarOptional('OPENROUTER_HTTP_REFERER'),
     GEMINI_API_KEY: getEnvVarOptional('GEMINI_API_KEY'),
-    // Oracle Object Storage pre-authenticated link for downloading
-    // calorify-download-auth-bucket-link
-    // Backup download link for when the above expires:
-    // https://bmm3s6m8sdi5.objectstorage.ap-mumbai-1.oci.customer-oci.com/p/oOGxU2_EYPNWy2udsdJ9tzpbqdbRHQ5DmnpdoSEHfI1N6Q448dlg2tVUc_cxbELS/n/bmm3s6m8sdi5/b/calorify-images/o/
-    ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar(
-        'ORACLE_BUCKET_DOWNLOAD_URL',
-        'https://objectstorage.ap-mumbai-1.oraclecloud.com/p/oOGxU2_EYPNWy2udsdJ9tzpbqdbRHQ5DmnpdoSEHfI1N6Q448dlg2tVUc_cxbELS/n/bmm3s6m8sdi5/b/calorify-images/o/'
-    ),
+    // Pre-authenticated URLs are bearer credentials and must only come from env.
+    ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar('ORACLE_BUCKET_DOWNLOAD_URL', ''),
     LOKI_URL: getEnvVarOptional('LOKI_URL'),
     LOG_REQUEST_RESPONSE_BODIES: getEnvVarBoolean(
         'LOG_REQUEST_RESPONSE_BODIES',
-        true
+        false
     ),
     MAX_BODY_LOG_BYTES: getEnvVarNumber('MAX_BODY_LOG_BYTES', 8192),
     TRUST_PROXY: getEnvVarBoolean('TRUST_PROXY', false),
@@ -200,6 +194,9 @@ if (config.ENVIRONMENT === 'production') {
     }
     if (config.FIREBASE_SERVICE_ACCOUNT_PATH === null) {
         throw new Error('FIREBASE_SERVICE_ACCOUNT_PATH must be set in production');
+    }
+    if (!config.ORACLE_BUCKET_DOWNLOAD_URL) {
+        throw new Error('ORACLE_BUCKET_DOWNLOAD_URL must be set in production');
     }
 }
 

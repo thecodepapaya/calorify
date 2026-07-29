@@ -100,9 +100,9 @@
             ],
             "cwd": "${workspaceFolder}/backend",
             "env": {
-                "ENVIRONMENT": "development",
-                "DATABASE_URL": "postgresql://calorify:calorify_pwd_staging@localhost:5433/calorify_staging"
+                "ENVIRONMENT": "development"
             },
+            "envFile": "${workspaceFolder}/backend/.env",
             "preLaunchTask": "start-db-staging",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",

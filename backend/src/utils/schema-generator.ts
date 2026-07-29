@@ -15,7 +15,7 @@
  * 3. Run validation: npm run validate-schemas
  * 4. Update routes to use new schemas (if needed)
  * 
- * See SCHEMA_SYNC.md for detailed instructions.
+ * See backend/README.md#contracts for the regeneration workflow.
  */
 
 /**

@@ -26,7 +26,7 @@ const textDetectionBodySchema = z.object({
   textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
 });
 // IMPORTANT: Use schema generator functions to keep documentation in sync with proto definitions
-// See: src/utils/schema-generator.ts and SCHEMA_SYNC.md
+// See src/utils/schema-generator.ts and the contracts section of backend/README.md.
 import {
   getAiMealSummaryResponseSchema,
   getMealAnalysisTipsResponseSchema,

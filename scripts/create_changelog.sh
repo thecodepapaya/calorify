@@ -21,8 +21,7 @@ if ! check_command python3 || ! check_command curl; then
     exit 1
 fi
 
-# Hardcoded OpenAI API Key (same as generate_translations.sh)
-API_KEY="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"
+API_KEY=$(python3 "$SCRIPT_DIR/resolve_openai_api_key.py" "$GIT_ROOT") || exit 1
 
 # Supported locales for Play Store (using functions instead of associative array for compatibility)
 get_locale_name() {
