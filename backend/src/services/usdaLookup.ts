@@ -50,10 +50,11 @@ const ALIASES: Record<string, string> = {
   carrot: 'carrot raw',
   matar: 'green peas cooked',
   peas: 'green peas cooked',
-  tamatar: 'tomato raw',
-  tomato: 'tomato raw',
-  pyaaz: 'onion raw',
-  onion: 'onion raw',
+  tamatar: 'tomatoes red ripe raw year round average',
+  tomato: 'tomatoes red ripe raw year round average',
+  pyaaz: 'onions raw',
+  onion: 'onions raw',
+  cucumber: 'cucumber raw',
   dahi: 'yogurt plain',
   curd: 'yogurt plain',
   yogurt: 'yogurt plain',
@@ -80,6 +81,9 @@ const ALIASES: Record<string, string> = {
   'steamed idli': 'idli',
   'sambar': 'sambar vegetable stew',
   'sambar cooked': 'sambar vegetable stew',
+  dosa: 'dosa plain',
+  'plain dosa': 'dosa plain',
+  'masala dosa': 'dosa with filling',
   makhan: 'butter',
   tel: 'vegetable oil',
   'oil vegetable': 'vegetable oil',
@@ -176,6 +180,10 @@ function resolveAlias(normalizedHint: string): string | undefined {
   const explicitlyDry = /\b(?:dry|raw|uncooked|rolled)\b/.test(normalizedHint);
   const explicitlyPrepared = /\b(?:cooked|prepared|boiled|water)\b/.test(normalizedHint);
   if (mentionsOats && explicitlyDry && !explicitlyPrepared) return 'oats';
+  if (/\beggs?\b/.test(normalizedHint)) {
+    if (/\bfried\b/.test(normalizedHint)) return 'egg whole cooked fried';
+    return 'egg whole cooked ns as to cooking method';
+  }
   return ALIASES[normalizedHint];
 }
 

@@ -659,6 +659,13 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string): stri
     return 'bread whole wheat';
   }
 
+  if (/\bmasala dosa\b/.test(context) && /\b(?:dosa|batter|tortilla)\b/.test(normalizedHint)) {
+    return 'dosa with filling';
+  }
+  if (/\bdosa\b/.test(context) && /\b(?:dosa|batter|tortilla)\b/.test(normalizedHint)) {
+    return 'dosa plain';
+  }
+
   if (/\b(?:dal|daal)\b/.test(context) && /^(?:dal|daal|lentil|lentils|pulse|pulses)$/.test(normalizedHint)) {
     return COOKED_DAL_USDA_HINT;
   }
@@ -671,7 +678,8 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string): stri
 function normalizeDecomposition(
   decomposition: LLMDecomposition,
   logger?: AnalysisLogger,
-  analysisId?: string
+  analysisId?: string,
+  sourceText: string = ''
 ): NormalizedDecomposition {
   const ingredients = decomposition.ingredients.map((ingredient) => {
     const rawName = String(ingredient.raw_name ?? '').trim();
@@ -762,6 +770,28 @@ function normalizeDecomposition(
       sizeSpecifiedByUser,
     };
   });
+
+  const normalizedSource = normalize(sourceText);
+  const ingredientCorpus = ingredients
+    .map((ingredient) => normalize(`${ingredient.rawName} ${ingredient.canonicalHint}`))
+    .join(' ');
+  if (/\bmasala dosa\b/.test(normalizedSource) && !/\b(?:potato|aloo)\b/.test(ingredientCorpus)) {
+    ingredients.push({
+      rowId: randomUUID(),
+      rawName: 'masala dosa potato filling',
+      canonicalHint: 'potato boiled',
+      gramsEstimated: 60,
+      minGrams: 40,
+      maxGrams: 80,
+      notes: 'Defining filling inferred from explicitly named masala dosa',
+      portionKind: 'BULK',
+      count: null,
+      perUnitGrams: null,
+      perUnitMinGrams: null,
+      perUnitMaxGrams: null,
+      sizeSpecifiedByUser: false,
+    });
+  }
 
   return {
     mealName: cleanMealName(decomposition.meal_name ?? ''),
@@ -889,7 +919,17 @@ function generateClarifications(resolved: ResolvedIngredient[], locale: string):
       continue;
     }
 
-    const staticTemplate = lookupTemplate(ingredient.canonicalHint, ingredient.rawName);
+    const candidateTemplate = lookupTemplate(ingredient.canonicalHint, ingredient.rawName);
+    const candidateDefault = candidateTemplate?.options.find(
+      (option) => option.optionId === candidateTemplate.defaultOptionId
+    );
+    // Curated templates describe ordinary serving sizes. An inferred trace
+    // amount (notably cooking oil/ghee) must retain its decomposition-time gram
+    // band instead of being inflated to a full tablespoon by the default.
+    const staticTemplate = candidateDefault &&
+      candidateDefault.perUnitGrams <= Math.max(ingredient.maxGrams * 1.5, 2)
+      ? candidateTemplate
+      : undefined;
     const template =
       staticTemplate ??
       synthesizeFallbackTemplate(
@@ -1178,7 +1218,7 @@ export async function analyzeTextMealDecompositionPreview(
     input,
     buildCorrectionContext(options.feedbackIssues, options.otherText)
   );
-  const normalized = normalizeDecomposition(decomposition, options.logger, analysisId);
+  const normalized = normalizeDecomposition(decomposition, options.logger, analysisId, input);
   const usdaMatches = await Promise.all(
     normalized.ingredients.map((ingredient) => canonicalizeWithUsda(ingredient.canonicalHint))
   );
@@ -1670,7 +1710,12 @@ async function* runPipelineFromDecomposition(
   const startedAt = Date.now();
   const logger = context.logger;
   const trace = context.trace;
-  const normalizedDecomposition = normalizeDecomposition(decomposition, logger, context.analysisId);
+  const normalizedDecomposition = normalizeDecomposition(
+    decomposition,
+    logger,
+    context.analysisId,
+    context.source === 'text' ? String(context.requestPayload.textDescription ?? '') : ''
+  );
   if (context.source === 'text') {
     maybeLogDroppedCounts(
       String(context.requestPayload.textDescription ?? ''),

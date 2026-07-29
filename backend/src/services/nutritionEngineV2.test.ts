@@ -261,6 +261,49 @@ test('whole-wheat toast is normalized as bread when the model suggests flour', a
   assert.equal(decomposition?.data.ingredients[0]?.canonicalHint, 'bread whole wheat');
 });
 
+test('explicit masala dosa receives its defining potato filling when the model omits it', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Masala Dosa',
+    ingredients: [{
+      raw_name: 'masala dosa batter', canonical_hint: 'rice and urad dal batter',
+      grams_estimated: 120, min_grams: 100, max_grams: 140, notes: '',
+      portion_kind: 'COUNT', count: 1, per_unit_grams: 120,
+      per_unit_min_grams: 100, per_unit_max_grams: 140, size_specified_by_user: false,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'BREAKFAST',
+    meal_type_confident: true,
+  }, 150);
+
+  const events = await collectEvents(analyzeTextMeal('one medium masala dosa'));
+  const decomposition = events.find((event) => event.step === 'DECOMPOSITION');
+  const ingredients = decomposition?.data.ingredients ?? [];
+  assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'dosa with filling'));
+  assert.ok(ingredients.some((ingredient: any) => ingredient.canonicalHint === 'potato boiled'));
+});
+
+test('small inferred cooking-fat bands are not inflated to tablespoon defaults', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Roti',
+    ingredients: [{
+      raw_name: 'roti ghee', canonical_hint: 'ghee',
+      grams_estimated: 3, min_grams: 0, max_grams: 6, notes: 'inferred cooking fat',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: false,
+    }],
+    confidence: 0.8,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  }, 900);
+
+  const events = await collectEvents(analyzeTextMeal('one roti'));
+  const uncertainty = events.find((event) => event.step === 'UNCERTAINTY');
+  assert.deepEqual(
+    uncertainty?.data.clarifications[0].options.map((option: any) => option.grams),
+    [1, 3, 6]
+  );
+});
+
 test('analyzeTextMeal emits started then decomposition', async () => {
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{

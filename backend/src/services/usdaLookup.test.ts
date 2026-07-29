@@ -280,6 +280,42 @@ test('canonicalizeWithUsda maps prepared idli and sambar to reference-food rows'
   assert.equal(sambar.matchType, 'alias');
 });
 
+test('canonicalizeWithUsda maps raw salad vegetables to explicit raw reference rows', async () => {
+  for (const [hint, target] of [
+    ['tomato', 'tomatoes red ripe raw year round average'],
+    ['onion', 'onions raw'],
+    ['cucumber', 'cucumber raw'],
+  ] as const) {
+    resetQuery();
+    mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+      assert.equal(params?.[0], target);
+      return { rows: [{ ...RICE_ROW, description: target, normalized_name: target }] };
+    });
+    const result = await canonicalizeWithUsda(hint);
+    assert.equal(result.matchType, 'alias');
+  }
+});
+
+test('canonicalizeWithUsda maps fried egg variants to the explicit fried-egg row', async () => {
+  resetQuery();
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'egg whole cooked fried');
+    return { rows: [{ ...RICE_ROW, description: 'Egg, whole, cooked, fried', normalized_name: 'egg whole cooked fried' }] };
+  });
+  const result = await canonicalizeWithUsda('egg large fried');
+  assert.equal(result.matchType, 'alias');
+});
+
+test('canonicalizeWithUsda maps masala dosa to the filled-dosa reference row', async () => {
+  resetQuery();
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'dosa with filling');
+    return { rows: [{ ...RICE_ROW, description: 'Dosa, with filling', normalized_name: 'dosa with filling' }] };
+  });
+  const result = await canonicalizeWithUsda('masala dosa');
+  assert.equal(result.matchType, 'alias');
+});
+
 // ---------------------------------------------------------------------------
 // canonicalizeWithUsda — fuzzy match
 // ---------------------------------------------------------------------------

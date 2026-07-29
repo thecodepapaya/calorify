@@ -24,6 +24,8 @@ export type CalorieEvalDataset = {
 export type EvaluatedIngredient = {
   rawName?: string;
   canonicalName?: string;
+  grams?: number;
+  macros?: { calories?: number };
 };
 
 export type CalorieEvalObservation = {
@@ -50,6 +52,7 @@ export type CalorieEvalCaseResult = {
   terminalStep?: string;
   error?: string;
   tags: string[];
+  ingredients: EvaluatedIngredient[];
 };
 
 export type CalorieEvalSummary = {
@@ -121,6 +124,7 @@ export function evaluateCalorieCase(
     terminalStep: observation.terminalStep,
     error: observation.error,
     tags: evalCase.tags ?? [],
+    ingredients: observation.ingredients ?? [],
   };
 }
 
