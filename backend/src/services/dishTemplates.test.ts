@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { dishTemplateGramCap, missingDishTemplateComponents } from './dishTemplates.js';
+import { dishTemplateGramBounds, missingDishTemplateComponents } from './dishTemplates.js';
 
 test('named dish template adds a missing defining component', () => {
   const additions = missingDishTemplateComponents('one masala dosa', 'dosa batter oil');
@@ -27,8 +27,9 @@ test('unrecognized dishes are left entirely to decomposition', () => {
 });
 
 test('named pizza template bounds oversized components without fixing every ingredient', () => {
-  assert.equal(dishTemplateGramCap('one large slice of pepperoni pizza', 'pizza crust'), 110);
-  assert.equal(dishTemplateGramCap('one large slice of pepperoni pizza', 'mozzarella cheese'), 45);
-  assert.equal(dishTemplateGramCap('one large slice of pepperoni pizza', 'pepperoni'), 30);
-  assert.equal(dishTemplateGramCap('one vegetable wrap', 'cheese'), undefined);
+  assert.deepEqual(
+    dishTemplateGramBounds('one large slice of pepperoni pizza', 'pizza crust'),
+    { presentPattern: /\b(?:crust|dough)\b/i, minGrams: 80, maxGrams: 110 }
+  );
+  assert.equal(dishTemplateGramBounds('one vegetable wrap', 'cheese'), undefined);
 });

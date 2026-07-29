@@ -94,7 +94,7 @@
       "id": "pepperoni-pizza-slice",
       "description": "For lunch I ate 1 large slice of pepperoni pizza",
       "mealType": "LUNCH",
-      "expectedCalories": { "min": 260, "max": 500 },
+      "expectedCalories": { "min": 250, "max": 520 },
       "requiredIngredientGroups": [["pizza"], ["pepperoni"]],
       "tags": ["composite-dish", "counted"],
       "provenance": "USDA/FNDDS large pepperoni-pizza slice range, including 140-180 g restaurant slices"

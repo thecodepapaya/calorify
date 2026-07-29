@@ -14,7 +14,7 @@ type DishTemplate = {
     presentPattern: RegExp;
     component: DishTemplateComponent;
   }>;
-  componentBounds?: Array<{ presentPattern: RegExp; maxGrams: number }>;
+  componentBounds?: Array<{ presentPattern: RegExp; minGrams: number; maxGrams: number }>;
 };
 
 // Templates are intentionally few and structural. They describe defining
@@ -39,12 +39,22 @@ const DISH_TEMPLATES: DishTemplate[] = [
   {
     id: 'pepperoni_pizza_slice',
     dishPattern: /\b(?:slice of )?pepperoni pizza\b/i,
-    requiredComponents: [],
+    requiredComponents: [{
+      presentPattern: /\b(?:crust|dough|pizza slice)\b/i,
+      component: {
+        rawName: 'pepperoni pizza crust',
+        canonicalHint: 'pizza crust',
+        gramsEstimated: 100,
+        minGrams: 80,
+        maxGrams: 110,
+        notes: 'Defining base inferred from explicitly named pizza slice',
+      },
+    }],
     componentBounds: [
-      { presentPattern: /\b(?:crust|dough)\b/i, maxGrams: 110 },
-      { presentPattern: /\b(?:cheese|mozzarella)\b/i, maxGrams: 45 },
-      { presentPattern: /\bpepperoni\b/i, maxGrams: 30 },
-      { presentPattern: /\b(?:pizza|tomato) sauce\b/i, maxGrams: 30 },
+      { presentPattern: /\b(?:crust|dough)\b/i, minGrams: 80, maxGrams: 110 },
+      { presentPattern: /\b(?:cheese|mozzarella)\b/i, minGrams: 15, maxGrams: 45 },
+      { presentPattern: /\bpepperoni\b/i, minGrams: 10, maxGrams: 30 },
+      { presentPattern: /\b(?:pizza|tomato) sauce\b/i, minGrams: 10, maxGrams: 30 },
     ],
   },
 ];
@@ -63,14 +73,14 @@ export function missingDishTemplateComponents(
   return additions;
 }
 
-export function dishTemplateGramCap(
+export function dishTemplateGramBounds(
   sourceText: string,
   ingredientCorpus: string
-): number | undefined {
+): { minGrams: number; maxGrams: number } | undefined {
   for (const template of DISH_TEMPLATES) {
     if (!template.dishPattern.test(sourceText)) continue;
     for (const bound of template.componentBounds ?? []) {
-      if (bound.presentPattern.test(ingredientCorpus)) return bound.maxGrams;
+      if (bound.presentPattern.test(ingredientCorpus)) return bound;
     }
   }
   return undefined;

@@ -13,7 +13,7 @@ import {
 } from './mealAnalysisLlm.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
 import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
-import { dishTemplateGramCap, missingDishTemplateComponents } from './dishTemplates.js';
+import { dishTemplateGramBounds, missingDishTemplateComponents } from './dishTemplates.js';
 import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
   getMealAnalysisSession,
@@ -713,6 +713,9 @@ function refineCanonicalHint(rawName: string, hint: string, notes: string, sourc
   if (/\b(?:bread|toast)\b/.test(context) && /\bwhole wheat flour\b/.test(normalizedHint)) {
     return 'bread whole wheat';
   }
+  if (/\bpizza (?:crust|dough)\b|\b(?:crust|dough) for pizza\b/.test(normalizedRawName)) {
+    return 'pizza crust';
+  }
 
   // Named composite sides have reviewed database rows. Keep their identity
   // instead of allowing a decomposition hint to turn the entire serving into
@@ -955,14 +958,14 @@ function normalizeDecomposition(
   }
 
   for (const ingredient of ingredients) {
-    const cap = dishTemplateGramCap(
+    const bounds = dishTemplateGramBounds(
       sourceText,
       normalize(`${ingredient.rawName} ${ingredient.canonicalHint}`)
     );
-    if (cap == null) continue;
-    ingredient.gramsEstimated = Math.min(ingredient.gramsEstimated, cap);
-    ingredient.minGrams = Math.min(ingredient.minGrams, cap);
-    ingredient.maxGrams = Math.min(ingredient.maxGrams, cap);
+    if (bounds == null) continue;
+    ingredient.gramsEstimated = Math.max(bounds.minGrams, Math.min(ingredient.gramsEstimated, bounds.maxGrams));
+    ingredient.minGrams = Math.max(bounds.minGrams, Math.min(ingredient.minGrams, bounds.maxGrams));
+    ingredient.maxGrams = Math.max(bounds.minGrams, Math.min(ingredient.maxGrams, bounds.maxGrams));
   }
 
   return {
