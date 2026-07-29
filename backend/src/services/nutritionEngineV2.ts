@@ -4,11 +4,13 @@
  * image analysis, and feedback-driven reanalysis.
  */
 
-import OpenAI from 'openai';
 import { randomUUID } from 'node:crypto';
-import config from '../config.js';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
+import {
+  createMealAnalysisLlmClient,
+  type MealAnalysisLlmClient,
+} from './mealAnalysisLlm.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
 import { calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
@@ -1103,10 +1105,8 @@ function buildErrorEvent(analysisId: string, message: string): PipelineEvent {
   return { step: 'ERROR', data: { analysisId, message } };
 }
 
-function getOpenAiClient(): OpenAI {
-  const apiKey = config.OPENAI_API_KEY;
-  if (!apiKey) throw new Error('OPENAI_API_KEY is not set');
-  return new OpenAI({ apiKey });
+function getMealAnalysisClient(): MealAnalysisLlmClient {
+  return createMealAnalysisLlmClient();
 }
 
 function formatIngredientSummary(resolved: ResolvedIngredient[]): string {
@@ -1119,7 +1119,7 @@ function formatIngredientSummary(resolved: ResolvedIngredient[]): string {
 }
 
 async function decomposeFromText(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   input: string,
   correctionContext?: string
 ): Promise<LLMDecomposition> {
@@ -1146,7 +1146,7 @@ export async function analyzeTextMealDecompositionPreview(
   options: Pick<AnalysisRequestOptions, 'analysisId' | 'feedbackIssues' | 'otherText' | 'logger'> = {}
 ): Promise<DecompositionPreview> {
   const analysisId = options.analysisId ?? randomUUID();
-  const client = getOpenAiClient();
+  const client = getMealAnalysisClient();
   const decomposition = await decomposeFromText(
     client,
     input,
@@ -1200,7 +1200,7 @@ export async function analyzeTextMealDecompositionPreview(
 }
 
 async function decomposeFromImage(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   imageUrl: string,
   correctionContext?: string
 ): Promise<LLMDecomposition> {
@@ -1232,7 +1232,7 @@ async function decomposeFromImage(
   return JSON.parse(raw) as LLMDecomposition;
 }
 
-async function estimateMacrosViaLLM(client: OpenAI, names: string[]): Promise<Map<string, LLMFallbackEntry>> {
+async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string[]): Promise<Map<string, LLMFallbackEntry>> {
   if (names.length === 0) return new Map();
   const prompt = names.map((name, index) => `${index + 1}. ${name}`).join('\n');
   const response = await client.chat.completions.create({
@@ -1259,7 +1259,7 @@ async function estimateMacrosViaLLM(client: OpenAI, names: string[]): Promise<Ma
 }
 
 async function resolveIngredients(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   decomposition: NormalizedDecomposition,
   logger?: AnalysisLogger,
   analysisId?: string,
@@ -1484,7 +1484,7 @@ function applyClarificationAnswers(
 }
 
 async function enrichPresentationFromText(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   context: PipelineRunContext,
   resolved: ResolvedIngredient[],
   totalMacros: Macros,
@@ -1528,7 +1528,7 @@ async function enrichPresentationFromText(
 }
 
 async function enrichPresentationFromImage(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   context: PipelineRunContext,
   resolved: ResolvedIngredient[],
   totalMacros: Macros,
@@ -1577,7 +1577,7 @@ async function enrichPresentationFromImage(
 }
 
 async function enrichPresentation(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   context: PipelineRunContext,
   resolved: ResolvedIngredient[],
   totalMacros: Macros,
@@ -1634,7 +1634,7 @@ async function persistSessionSnapshot(
 }
 
 async function* runPipelineFromDecomposition(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   decomposition: LLMDecomposition,
   context: PipelineRunContext,
   clarificationAnswers?: MealClarificationAnswer[],
@@ -2061,7 +2061,7 @@ export async function* analyzeTextMeal(
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
     yield { step: 'STARTED', data: { analysisId } };
-    const client = getOpenAiClient();
+    const client = getMealAnalysisClient();
     const decomposition = await traceAsync(
       trace,
       'llm',
@@ -2128,7 +2128,7 @@ export async function* analyzeImageMeal(
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
     yield { step: 'STARTED', data: { analysisId } };
-    const client = getOpenAiClient();
+    const client = getMealAnalysisClient();
     const decomposition = await traceAsync(
       trace,
       'llm',
@@ -2201,7 +2201,7 @@ export async function* continueMealAnalysis(
     const priorAnswers = (session.clarificationAnswers as MealClarificationAnswer[] | undefined) ?? [];
     const mergedAnswers = mergeClarificationAnswers(priorAnswers, answers);
 
-    const client = getOpenAiClient();
+    const client = getMealAnalysisClient();
     yield* runPipelineFromDecomposition(client, decomposition, context, mergedAnswers, false);
   } catch (error) {
     logAnalysis(options.logger, 'error', 'clarification_resume_failed', {
@@ -2249,7 +2249,7 @@ export async function* continueMealAnalysisWithMealType(
       trace,
     };
 
-    const client = getOpenAiClient();
+    const client = getMealAnalysisClient();
     yield* runPipelineFromDecomposition(
       client,
       decomposition,

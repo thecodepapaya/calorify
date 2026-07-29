@@ -23,6 +23,11 @@ interface Config {
     readonly PORT: number;
     readonly EXTERNAL_PORT: number; // Port exposed to host (for Docker port mapping)
     readonly OPENAI_API_KEY: string | null;
+    readonly OPENROUTER_API_KEY: string | null;
+    readonly OPENROUTER_BASE_URL: string;
+    readonly OPENROUTER_MEAL_MODEL: string;
+    readonly OPENROUTER_FREE_MODEL: string;
+    readonly OPENROUTER_HTTP_REFERER: string | null;
     readonly GEMINI_API_KEY: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
     readonly LOKI_URL: string | null;
@@ -144,6 +149,19 @@ const config: Config = {
     PORT: port,
     EXTERNAL_PORT: getEnvVarNumber('EXTERNAL_PORT', port), // Defaults to PORT if not set
     OPENAI_API_KEY: getEnvVarOptional('OPENAI_API_KEY'),
+    OPENROUTER_API_KEY: getEnvVarOptional('OPENROUTER_API_KEY'),
+    OPENROUTER_BASE_URL: getEnvVar(
+        'OPENROUTER_BASE_URL',
+        'https://openrouter.ai/api/v1'
+    ),
+    OPENROUTER_MEAL_MODEL: getEnvVar(
+        'OPENROUTER_MEAL_MODEL',
+        'openai/gpt-4.1-nano'
+    ),
+    // OpenRouter selects a currently available free model that supports the
+    // request's capabilities (vision / structured output where required).
+    OPENROUTER_FREE_MODEL: getEnvVar('OPENROUTER_FREE_MODEL', 'openrouter/free'),
+    OPENROUTER_HTTP_REFERER: getEnvVarOptional('OPENROUTER_HTTP_REFERER'),
     GEMINI_API_KEY: getEnvVarOptional('GEMINI_API_KEY'),
     // Oracle Object Storage pre-authenticated link for downloading
     // calorify-download-auth-bucket-link

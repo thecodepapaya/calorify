@@ -25,7 +25,7 @@ todos:
     status: completed
   - id: backend-tests
     content: "nutritionEngineV2.test.ts: count×size math, mixed-size split, missing count → count question, size_specified → no clarification, option.grams = count×per_unit invariant, gram-string regex blocked in labels, duplicate raw_name disambiguation"
-    status: in_progress
+    status: completed
   - id: flutter-header-title
     content: "meal_analysis_sheet: header swaps to mealName when present (AnimatedSwitcher, trim-checked); drop duplicate mealTitle from _emergingPreviewContent; remove hasMealName from inner KeyedSubtree key"
     status: completed
@@ -34,7 +34,7 @@ todos:
     status: completed
   - id: flutter-clarification-flow
     content: "meal_question_flow_sheet: send clarification_id + selected_option_id; render question copy with count; support COUNT_QUESTION step before size question in the same sheet"
-    status: pending
+    status: completed
   - id: flutter-replay-seed
     content: "post-clarify replay reuses last seen mealName as seed for the new sheet (clarify path returns no DECOMPOSITION event)"
     status: completed

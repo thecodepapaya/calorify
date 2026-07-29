@@ -23,7 +23,7 @@ await mock.module('node-cron', {
   defaultExport: { schedule: mockCronSchedule },
 });
 
-const BASE_CONFIG = {
+const mockConfig = {
   USDA_AUTO_REFRESH_ENABLED: true,
   USDA_REFRESH_CRON: '0 3 1 * *',
   USDA_DATA_DIR: '/tmp/usda',
@@ -32,7 +32,7 @@ const BASE_CONFIG = {
   DATABASE_URL: 'postgres://mock',
 };
 
-await mock.module('../config.js', { defaultExport: BASE_CONFIG });
+await mock.module('../config.js', { defaultExport: mockConfig });
 
 const { startUsdaRefreshCron } = await import('./usdaRefreshCron.js');
 
@@ -79,19 +79,15 @@ test('cron callback invokes runUsdaImport with correct args', async () => {
 
 test('cron callback uses config.USDA_DATASET_VERSION when set', async () => {
   resetAll();
-  await mock.module('../config.js', {
-    defaultExport: { ...BASE_CONFIG, USDA_DATASET_VERSION: 'FoodData_Central_SR_Legacy_2018' },
-  });
-
-  const { startUsdaRefreshCron: startWithVersion } = await import('./usdaRefreshCron.js');
-  startWithVersion();
+  mockConfig.USDA_DATASET_VERSION = 'FoodData_Central_SR_Legacy_2018';
+  startUsdaRefreshCron();
   const [, cb] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
   await cb();
 
   const args = mockRunUsdaImport.mock.calls[0]!.arguments[0] as any;
   assert.equal(args.datasetVersion, 'FoodData_Central_SR_Legacy_2018');
 
-  await mock.module('../config.js', { defaultExport: BASE_CONFIG });
+  mockConfig.USDA_DATASET_VERSION = null;
 });
 
 test('cron callback generates scheduled- prefixed datasetVersion when config is null', async () => {
@@ -108,19 +104,15 @@ test('cron callback generates scheduled- prefixed datasetVersion when config is 
 
 test('cron callback passes sourceReleaseDate when config has it', async () => {
   resetAll();
-  await mock.module('../config.js', {
-    defaultExport: { ...BASE_CONFIG, USDA_SOURCE_RELEASE_DATE: '2024-04-01' },
-  });
-
-  const { startUsdaRefreshCron: startWithDate } = await import('./usdaRefreshCron.js');
-  startWithDate();
+  mockConfig.USDA_SOURCE_RELEASE_DATE = '2024-04-01';
+  startUsdaRefreshCron();
   const [, cb] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
   await cb();
 
   const args = mockRunUsdaImport.mock.calls[0]!.arguments[0] as any;
   assert.equal(args.sourceReleaseDate, '2024-04-01');
 
-  await mock.module('../config.js', { defaultExport: BASE_CONFIG });
+  mockConfig.USDA_SOURCE_RELEASE_DATE = null;
 });
 
 test('cron callback does not throw when runUsdaImport throws', async () => {
@@ -156,17 +148,12 @@ test('cron logs skipped result when import is skipped', async () => {
 
 test('startUsdaRefreshCron does not schedule when USDA_AUTO_REFRESH_ENABLED is false', async () => {
   resetAll();
-  await mock.module('../config.js', {
-    defaultExport: { ...BASE_CONFIG, USDA_AUTO_REFRESH_ENABLED: false },
-  });
-
-  const { startUsdaRefreshCron: startDisabled } = await import('./usdaRefreshCron.js');
-  startDisabled();
+  mockConfig.USDA_AUTO_REFRESH_ENABLED = false;
+  startUsdaRefreshCron();
 
   assert.equal(mockCronSchedule.mock.calls.length, 0);
 
-  // Restore
-  await mock.module('../config.js', { defaultExport: BASE_CONFIG });
+  mockConfig.USDA_AUTO_REFRESH_ENABLED = true;
 });
 
 // ---------------------------------------------------------------------------
@@ -175,15 +162,11 @@ test('startUsdaRefreshCron does not schedule when USDA_AUTO_REFRESH_ENABLED is f
 
 test('startUsdaRefreshCron uses custom USDA_REFRESH_CRON expression', async () => {
   resetAll();
-  await mock.module('../config.js', {
-    defaultExport: { ...BASE_CONFIG, USDA_REFRESH_CRON: '0 2 * * 1' },
-  });
-
-  const { startUsdaRefreshCron: startCustom } = await import('./usdaRefreshCron.js');
-  startCustom();
+  mockConfig.USDA_REFRESH_CRON = '0 2 * * 1';
+  startUsdaRefreshCron();
 
   const [expr] = mockCronSchedule.mock.calls[0]!.arguments as [string];
   assert.equal(expr, '0 2 * * 1');
 
-  await mock.module('../config.js', { defaultExport: BASE_CONFIG });
+  mockConfig.USDA_REFRESH_CRON = '0 3 1 * *';
 });

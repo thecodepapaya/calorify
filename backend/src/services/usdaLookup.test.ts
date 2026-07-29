@@ -192,9 +192,8 @@ test('canonicalizeWithUsda resolves "rice" alias', async () => {
 
 test('canonicalizeWithUsda returns fuzzy match when no exact but candidates found', async () => {
   // No alias, no exact → candidates with decent score
-  mockQuery.mock
-    .mockImplementationOnce(async () => ({ rows: [] }))  // exact lookup
-    .mockImplementationOnce(async () => ({               // candidates
+  mockQuery.mock.mockImplementationOnce(async () => ({ rows: [] })); // exact lookup
+  mockQuery.mock.mockImplementationOnce(async () => ({               // candidates
       rows: [{
         fdc_id: '999',
         description: 'Brown Rice, cooked',
@@ -220,9 +219,8 @@ test('canonicalizeWithUsda returns fuzzy match when no exact but candidates foun
 
 test('canonicalizeWithUsda returns unmatched when nothing found', async () => {
   // No alias for this, no exact, no good candidates
-  mockQuery.mock
-    .mockImplementationOnce(async () => ({ rows: [] }))  // exact lookup
-    .mockImplementationOnce(async () => ({ rows: [] })); // candidates
+  mockQuery.mock.mockImplementationOnce(async () => ({ rows: [] })); // exact lookup
+  mockQuery.mock.mockImplementationOnce(async () => ({ rows: [] })); // candidates
 
   const result = await canonicalizeWithUsda('xyzzy unknown food 999');
   assert.equal(result.matchType, 'unmatched');
@@ -231,9 +229,8 @@ test('canonicalizeWithUsda returns unmatched when nothing found', async () => {
 });
 
 test('canonicalizeWithUsda returns unmatched when candidates score below threshold', async () => {
-  mockQuery.mock
-    .mockImplementationOnce(async () => ({ rows: [] }))
-    .mockImplementationOnce(async () => ({
+  mockQuery.mock.mockImplementationOnce(async () => ({ rows: [] }));
+  mockQuery.mock.mockImplementationOnce(async () => ({
       rows: [{
         fdc_id: '888',
         description: 'Totally unrelated food item',

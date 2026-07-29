@@ -10,6 +10,7 @@ import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.ConcurrentHashMap
+import java.util.UUID
 
 class WearOsChannelHandler(
     private val context: android.content.Context,
@@ -129,11 +130,12 @@ class WearOsChannelHandler(
                 return@withContext mapOf("success" to false, "error" to "No connected phone")
             }
 
-            val jsonData = JSONObject(data).toString()
+            val requestId = UUID.randomUUID().toString()
+            val jsonData = JSONObject(data).put("_requestId", requestId).toString()
             val payload = jsonData.toByteArray(StandardCharsets.UTF_8)
             val responsePath = "/calorify_phone$path"
             val responseDeferred = CompletableDeferred<Map<String, Any>?>()
-            pendingResponses[responsePath] = responseDeferred
+            pendingResponses[requestId] = responseDeferred
             
             // Use MessageClient for request-response pattern
             val messagePath = "/calorify_watch$path"
@@ -158,7 +160,7 @@ class WearOsChannelHandler(
                 Log.e(TAG, "Failed to send message", e)
                 return@withContext mapOf("success" to false, "error" to (e.message ?: "Unknown error"))
             } finally {
-                pendingResponses.remove(responsePath)
+                pendingResponses.remove(requestId)
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error sending message", e)
@@ -192,7 +194,8 @@ class WearOsChannelHandler(
                 try {
                     val data = String(messageEvent.data, StandardCharsets.UTF_8)
                     val jsonObject = JSONObject(data)
-                    val payloadMap = jsonObjectToMap(jsonObject)
+                    val payloadMap = jsonObjectToMap(jsonObject).toMutableMap()
+                    val requestId = payloadMap.remove("_requestId") as? String
 
                     // Include the logical path so the Flutter side can display it
                     val logicalPath = messageEvent.path.removePrefix("/calorify_phone")
@@ -200,7 +203,9 @@ class WearOsChannelHandler(
                     message.putAll(payloadMap)
 
                     Log.d(TAG, "Received message from phone: path=$logicalPath, data=$payloadMap")
-                    pendingResponses.remove(messageEvent.path)?.complete(payloadMap)
+                    if (requestId != null) {
+                        pendingResponses.remove(requestId)?.complete(payloadMap)
+                    }
                     eventSink?.success(message)
                 } catch (e: Exception) {
                     Log.e(TAG, "Error parsing message", e)

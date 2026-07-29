@@ -6,13 +6,15 @@ import 'package:calorify_watch/core/services/watch_auth_session.dart';
 import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 
 enum SyncState { idle, syncing, synced, error, disconnected }
 
 enum SyncRequestResult { synced, queued, failed }
 
 enum _PendingOperationProcessResult { applied, retryLater, drop }
+
+String watchMealOperationId(LoggedMeal meal) =>
+    'watch:${meal.clientId}:${meal.createdAt}';
 
 /// Service to sync data between watch and main app using Wear OS Data Layer.
 class SyncService {
@@ -25,6 +27,8 @@ class SyncService {
   final ValueNotifier<SyncState> syncState = ValueNotifier(SyncState.idle);
 
   bool _isInitialized = false;
+  bool _channelReady = false;
+  bool _isFlushingPending = false;
   StreamSubscription<Map<String, dynamic>>? _messageSubscription;
   Timer? _pendingSyncTimer;
 
@@ -44,15 +48,17 @@ class SyncService {
       await WatchAuthSession.instance.initialize();
       await _restorePersistedCache();
 
-      final success = await WearOsChannel.initialize();
-      if (!success) {
-        syncState.value = SyncState.disconnected;
-        return;
-      }
-
+      // The local cache and retry loop must remain active even when the phone
+      // is unavailable during startup.
       _isInitialized = true;
       _startListening();
       _startPendingSyncPolling();
+
+      _channelReady = await WearOsChannel.initialize();
+      if (!_channelReady) {
+        syncState.value = SyncState.disconnected;
+        return;
+      }
 
       final connected = await WearOsChannel.isPhoneConnected();
       if (!connected) {
@@ -170,11 +176,8 @@ class SyncService {
     syncState.value = SyncState.syncing;
 
     try {
-      final loggedMeal = LoggedMeal(
-        meal: meal,
-        createdAt: dateTimeToIso8601String(DateTime.now()),
-      );
-      final requestData = mealInfoToLegacyJson(loggedMeal);
+      final requestData = mealInfoToLegacyJson(optimisticMeal);
+      requestData['watch_operation_id'] = watchMealOperationId(optimisticMeal);
       if (favoriteMealId != null) {
         requestData['favorite_meal_id'] = favoriteMealId;
       }
@@ -190,7 +193,7 @@ class SyncService {
         return SyncRequestResult.synced;
       }
 
-      if (response == null) {
+      if (_shouldRetryResponse(response)) {
         await _database.queueMealLog(
           optimisticMeal,
           favoriteMealId: favoriteMealId,
@@ -250,7 +253,7 @@ class SyncService {
         return SyncRequestResult.synced;
       }
 
-      if (response == null) {
+      if (_shouldRetryResponse(response)) {
         await _database.queueMealDelete(mealId);
         syncState.value = SyncState.disconnected;
         return SyncRequestResult.queued;
@@ -397,6 +400,13 @@ class SyncService {
   }
 
   Future<bool> _ensurePhoneConnected() async {
+    if (!_channelReady) {
+      _channelReady = await WearOsChannel.initialize();
+    }
+    if (!_channelReady) {
+      syncState.value = SyncState.disconnected;
+      return false;
+    }
     final connected = await isPhoneConnected();
     if (connected) {
       unawaited(WatchAuthSession.instance.refreshFromPhone());
@@ -460,36 +470,44 @@ class SyncService {
   }
 
   Future<bool> _flushPendingOperations() async {
-    if (!await isPhoneConnected()) {
-      return false;
+    if (_isFlushingPending) {
+      return true;
     }
-
-    final operations = await _database.getPendingOperations();
-    if (operations.isEmpty) {
-      _restoreCachedSyncState();
-      return false;
-    }
-
-    syncState.value = SyncState.syncing;
-
-    for (final operation in operations) {
-      final result = await _performPendingOperation(operation);
-      switch (result) {
-        case _PendingOperationProcessResult.applied:
-          await _database.deletePendingOperation(operation.id);
-          break;
-        case _PendingOperationProcessResult.drop:
-          await _dropPendingOperation(operation);
-          break;
-        case _PendingOperationProcessResult.retryLater:
-          syncState.value = SyncState.disconnected;
-          return false;
+    _isFlushingPending = true;
+    try {
+      if (!await _ensurePhoneConnected()) {
+        return false;
       }
-    }
 
-    _markSynced();
-    await _refreshDashboardData(flushPendingFirst: false);
-    return true;
+      final operations = await _database.getPendingOperations();
+      if (operations.isEmpty) {
+        _restoreCachedSyncState();
+        return false;
+      }
+
+      syncState.value = SyncState.syncing;
+
+      for (final operation in operations) {
+        final result = await _performPendingOperation(operation);
+        switch (result) {
+          case _PendingOperationProcessResult.applied:
+            await _database.deletePendingOperation(operation.id);
+            break;
+          case _PendingOperationProcessResult.drop:
+            await _dropPendingOperation(operation);
+            break;
+          case _PendingOperationProcessResult.retryLater:
+            syncState.value = SyncState.disconnected;
+            return false;
+        }
+      }
+
+      _markSynced();
+      await _refreshDashboardData(flushPendingFirst: false);
+      return true;
+    } finally {
+      _isFlushingPending = false;
+    }
   }
 
   Future<_PendingOperationProcessResult> _performPendingOperation(
@@ -508,6 +526,7 @@ class SyncService {
           }
 
           final requestData = mealInfoToLegacyJson(meal);
+          requestData['watch_operation_id'] = watchMealOperationId(meal);
           if (operation.favoriteMealId != null) {
             requestData['favorite_meal_id'] = operation.favoriteMealId;
           }
@@ -543,19 +562,31 @@ class SyncService {
     Map<String, dynamic>? response, {
     required PendingWatchOperation operation,
   }) {
-    if (response == null) {
+    if (_shouldRetryResponse(response)) {
       return _PendingOperationProcessResult.retryLater;
     }
+    final resolvedResponse = response!;
 
-    if (response['success'] == true) {
+    if (resolvedResponse['success'] == true) {
       return _PendingOperationProcessResult.applied;
     }
 
     _debugLog(
       'Dropping queued ${operation.type.name} for meal ${operation.mealId} '
-      'after server rejection: ${response['error'] ?? response}',
+      'after server rejection: '
+      '${resolvedResponse['error'] ?? resolvedResponse}',
     );
     return _PendingOperationProcessResult.drop;
+  }
+
+  bool _shouldRetryResponse(Map<String, dynamic>? response) {
+    if (response == null) return true;
+    final error = response['error']?.toString().toLowerCase() ?? '';
+    return error.contains('timed out') ||
+        error.contains('timeout') ||
+        error.contains('no connected') ||
+        error.contains('unavailable') ||
+        error.contains('network');
   }
 
   Future<void> _dropPendingOperation(PendingWatchOperation operation) async {
@@ -584,6 +615,7 @@ class SyncService {
     _pendingSyncTimer?.cancel();
     _pendingSyncTimer = null;
     _isInitialized = false;
+    _channelReady = false;
     syncState.dispose();
     unawaited(_database.close());
   }

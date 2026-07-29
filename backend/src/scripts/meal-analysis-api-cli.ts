@@ -178,7 +178,12 @@ function printHuman(input: string, preview: DecompositionPreview): void {
     hint: Math.max(14, ...rows.map((row) => row.hint.length)),
     grams: Math.max(5, ...rows.map((row) => row.grams.length)),
     portion: Math.max(7, ...rows.map((row) => row.portion.length)),
-    usda: Math.max(10, ...rows.map((row) => row.usda.replace(/\x1b\[[0-9;]*m/g, '').length)),
+    usda: Math.max(
+      10,
+      ...rows.map((row) =>
+        row.usda.replace(new RegExp(`${String.fromCharCode(27)}\\[[0-9;]*m`, 'g'), '').length
+      )
+    ),
   };
 
   console.log(

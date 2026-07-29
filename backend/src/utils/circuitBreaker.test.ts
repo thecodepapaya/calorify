@@ -172,7 +172,7 @@ describe('CircuitBreaker', () => {
   });
 
   it('uses the injectable clock in the open error message', async () => {
-    let fakeNow = 0;
+    const fakeNow = 0;
     const breaker = new CircuitBreaker({
       name: 'test',
       failureThreshold: 1,

@@ -28,11 +28,6 @@ export function startUsdaRefreshCron(): void {
     console.log('[usdaRefreshCron] disabled');
     return;
   }
-  cron.schedule(config.USDA_REFRESH_CRON, () => {
-    runUsdaRefreshJob().catch((error) => {
-      console.error('[usdaRefreshCron] unhandled job error:', error);
-    });
-  });
+  cron.schedule(config.USDA_REFRESH_CRON, async () => runUsdaRefreshJob());
   console.log(`[usdaRefreshCron] scheduled with expression "${config.USDA_REFRESH_CRON}"`);
 }
-

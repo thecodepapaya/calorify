@@ -49,10 +49,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       setState(() => _loggingClientId = null);
       return;
     }
-    final result = await SyncService.instance.sendMeal(
-      fav.loggedMeal.meal,
-      favoriteMealId: fav.hasClientId() ? fav.clientId : null,
-    );
+    SyncRequestResult result;
+    try {
+      result = await SyncService.instance.sendMeal(
+        fav.loggedMeal.meal,
+        favoriteMealId: fav.hasClientId() ? fav.clientId : null,
+      );
+    } catch (_) {
+      result = SyncRequestResult.failed;
+    }
 
     if (!mounted) return;
     setState(() => _loggingClientId = null);
@@ -79,7 +84,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       unawaited(HapticFeedback.mediumImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Failed to log meal. Is your phone nearby?'),
+          content: Text('Could not save the meal. Please try again.'),
           duration: Duration(seconds: 2),
         ),
       );

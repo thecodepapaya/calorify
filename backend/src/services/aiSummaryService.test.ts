@@ -28,6 +28,9 @@ await mock.module('openai', {
     files = { create: mockFilesCreate, content: mockFilesContent };
     batches = { create: mockBatchesCreate, retrieve: mockBatchesRetrieve };
   },
+  namedExports: {
+    toFile: async (value: unknown) => value,
+  },
 });
 
 const {

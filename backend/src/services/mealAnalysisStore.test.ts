@@ -22,9 +22,8 @@ await mock.module('./database.js', {
   namedExports: { query: mockQuery, withTransaction: mockWithTransaction },
 });
 
-await mock.module('../config.js', {
-  defaultExport: { DATABASE_URL: 'postgres://mock' },
-});
+const mockConfig = { DATABASE_URL: 'postgres://mock' as string | null };
+await mock.module('../config.js', { defaultExport: mockConfig });
 
 const {
   upsertMealAnalysisSession,
@@ -127,13 +126,12 @@ test('upsertMealAnalysisSession serializes requestPayload as JSON string', async
 });
 
 test('upsertMealAnalysisSession throws when DATABASE_URL is null', async () => {
-  await mock.module('../config.js', { defaultExport: { DATABASE_URL: null } });
-  const { upsertMealAnalysisSession: upsertNoDB } = await import('./mealAnalysisStore.js');
+  mockConfig.DATABASE_URL = null;
   await assert.rejects(
-    () => upsertNoDB({ analysisId: 'x', source: 'text', locale: 'en', requestPayload: {} }),
+    () => upsertMealAnalysisSession({ analysisId: 'x', source: 'text', locale: 'en', requestPayload: {} }),
     /DATABASE_URL is required/
   );
-  await mock.module('../config.js', { defaultExport: { DATABASE_URL: 'postgres://mock' } });
+  mockConfig.DATABASE_URL = 'postgres://mock';
 });
 
 // ---------------------------------------------------------------------------

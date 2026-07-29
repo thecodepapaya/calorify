@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import type OpenAI from 'openai';
 import type {
   MealDetectionResult,
   MealDetectionResponse,
@@ -19,7 +19,11 @@ import config from '../config.js';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import { CircuitBreaker } from '../utils/circuitBreaker.js';
-import { instrumentAiCall, recordCircuitBreakerState } from './metrics.js';
+import { recordCircuitBreakerState } from './metrics.js';
+import {
+  createMealAnalysisLlmClient,
+  type MealAnalysisLlmClient,
+} from './mealAnalysisLlm.js';
 
 interface OpenAIVariationOption {
   option: string;
@@ -211,7 +215,7 @@ const MEAL_DETECTION_RESPONSE_FORMAT = {
 };
 
 class OpenAIFoodAnalysisService {
-  private client: OpenAI;
+  private client: MealAnalysisLlmClient;
   // Circuit breaker: after 5 consecutive failures, fail fast for 30s instead of piling
   // up slow requests against an unhealthy upstream. Any success resets the counter.
   private breaker = new CircuitBreaker({
@@ -222,13 +226,7 @@ class OpenAIFoodAnalysisService {
   });
 
   constructor() {
-    const apiKey = config.OPENAI_API_KEY;
-    if (!apiKey) {
-      throw new Error('OPENAI_API_KEY environment variable is not set');
-    }
-    // 30s per-request timeout and 2 retries on network/5xx errors.
-    // Protects the backend from hanging indefinitely on slow OpenAI responses.
-    this.client = new OpenAI({ apiKey, timeout: 30_000, maxRetries: 2 });
+    this.client = createMealAnalysisLlmClient();
   }
 
   private shouldDebugLog(): boolean {
@@ -248,14 +246,12 @@ class OpenAIFoodAnalysisService {
     messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
   ): Promise<OpenAIResponse> {
     const response = await this.breaker.execute(() =>
-      instrumentAiCall('openai', () =>
-        this.client.chat.completions.create({
-          model: OPENAI_MEAL_ANALYSIS_MODEL,
-          messages,
-          response_format: MEAL_DETECTION_RESPONSE_FORMAT,
-          max_completion_tokens: 800,
-        })
-      )
+      this.client.chat.completions.create({
+        model: OPENAI_MEAL_ANALYSIS_MODEL,
+        messages,
+        response_format: MEAL_DETECTION_RESPONSE_FORMAT,
+        max_completion_tokens: 800,
+      })
     );
 
     const content = response.choices[0]?.message?.content;

@@ -31,7 +31,12 @@ class _MealResultScreenState extends State<MealResultScreen> {
     setState(() => _logging = true);
     unawaited(HapticFeedback.mediumImpact());
 
-    final result = await SyncService.instance.sendMeal(_meal);
+    SyncRequestResult result;
+    try {
+      result = await SyncService.instance.sendMeal(_meal);
+    } catch (_) {
+      result = SyncRequestResult.failed;
+    }
 
     if (!mounted) return;
     if (result == SyncRequestResult.synced ||
@@ -63,7 +68,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
       unawaited(HapticFeedback.mediumImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Failed to log meal. Is your phone nearby?'),
+          content: Text('Could not save the meal. Please try again.'),
           duration: Duration(seconds: 3),
         ),
       );
@@ -227,7 +232,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
                   label: 'Log Another',
                   onTap: () {
                     unawaited(HapticFeedback.lightImpact());
-                    context.router.popAndPush(const LogMealRoute());
+                    context.router.pop();
                   },
                 ),
                 const SizedBox(height: 4),

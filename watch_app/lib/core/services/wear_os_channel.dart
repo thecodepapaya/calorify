@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 
@@ -13,12 +15,17 @@ class WearOsChannel {
     required Map<String, dynamic> data,
   }) async {
     try {
-      final result = await _channel.invokeMethod<Map<Object?, Object?>>(
-        'sendMessage',
-        {'path': path, 'data': data},
-      );
+      final result = await _channel
+          .invokeMethod<Map<Object?, Object?>>('sendMessage', {
+            'path': path,
+            'data': data,
+          })
+          .timeout(const Duration(seconds: 7));
       if (result == null) return null;
       return Map<String, dynamic>.from(result);
+    } on TimeoutException {
+      debugPrint('Message to phone timed out: $path');
+      return null;
     } on PlatformException catch (e) {
       debugPrint('Failed to send message: ${e.message}');
       return null;
@@ -47,9 +54,11 @@ class WearOsChannel {
   /// Check if phone app is connected
   static Future<bool> isPhoneConnected() async {
     try {
-      final result = await _channel.invokeMethod<bool>('isPhoneConnected');
+      final result = await _channel
+          .invokeMethod<bool>('isPhoneConnected')
+          .timeout(const Duration(seconds: 3));
       return result ?? false;
-    } on PlatformException {
+    } on Object {
       return false;
     }
   }
@@ -58,11 +67,15 @@ class WearOsChannel {
   static Future<bool> initialize() async {
     try {
       // Add timeout to prevent hanging
-      final result = await _channel.invokeMethod<bool>('initialize')
-          .timeout(const Duration(seconds: 5), onTimeout: () {
-        debugPrint('Wear OS channel initialization timed out');
-        return false;
-      });
+      final result = await _channel
+          .invokeMethod<bool>('initialize')
+          .timeout(
+            const Duration(seconds: 5),
+            onTimeout: () {
+              debugPrint('Wear OS channel initialization timed out');
+              return false;
+            },
+          );
       return result ?? false;
     } on PlatformException catch (e) {
       debugPrint('Failed to initialize Wear OS channel: ${e.message}');

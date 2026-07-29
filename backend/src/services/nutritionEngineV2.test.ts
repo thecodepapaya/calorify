@@ -91,9 +91,37 @@ const mockChatCreate = mock.fn(async () => ({
   ],
 }));
 
+async function createSchemaCompleteMockResponse(options: any): Promise<any> {
+  const response: any = await mockChatCreate(options);
+  if (options?.response_format?.json_schema?.name !== 'meal_decomposition') {
+    return response;
+  }
+  const content = response?.choices?.[0]?.message?.content;
+  if (typeof content !== 'string') return response;
+  const parsed = JSON.parse(content);
+  parsed.inferred_meal_type ??= 'UNKNOWN';
+  parsed.meal_type_confident ??= false;
+  parsed.ingredients = (parsed.ingredients ?? []).map((ingredient: any) => ({
+    ...ingredient,
+    portion_kind: ingredient.portion_kind ?? 'BULK',
+    count: ingredient.count ?? null,
+    per_unit_grams: ingredient.per_unit_grams ?? null,
+    per_unit_min_grams: ingredient.per_unit_min_grams ?? null,
+    per_unit_max_grams: ingredient.per_unit_max_grams ?? null,
+    size_specified_by_user: ingredient.size_specified_by_user ?? false,
+  }));
+  return {
+    ...response,
+    choices: [{
+      ...response.choices[0],
+      message: { ...response.choices[0].message, content: JSON.stringify(parsed) },
+    }],
+  };
+}
+
 await mock.module('openai', {
   defaultExport: class MockOpenAI {
-    chat = { completions: { create: mockChatCreate } };
+    chat = { completions: { create: createSchemaCompleteMockResponse } };
   },
 });
 

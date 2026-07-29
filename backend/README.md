@@ -76,7 +76,15 @@ A high-performance Node.js/Fastify backend API server for AI-powered food analys
 - `npm run usda:bootstrap` - Download hardcoded USDA ZIP, extract required CSVs, and import in one step
   - Optional: set `USDA_ZIP_PATH` to use an already-downloaded ZIP file instead of downloading
 
-## OpenAI Models
+## Meal-analysis model routing
+
+Meal analysis uses this failover order:
+
+1. `OPENROUTER_MEAL_MODEL` through OpenRouter (default `openai/gpt-4.1-nano`)
+2. `OPENROUTER_FREE_MODEL` through OpenRouter (default `openrouter/free`, which selects a compatible free model)
+3. Direct OpenAI `gpt-4.1-nano`
+
+Each structured response is parsed and checked against its requested JSON schema before it is accepted. Invalid JSON/schema responses fail over just like network, quota, and rate-limit errors. USDA grounding and deterministic portion/macro calculations remain downstream of the LLM.
 
 Backend OpenAI model names are declared once in [src/openaiModels.ts](/Users/ashutosh/Projects/calorify/backend/src/openaiModels.ts:1).
 
@@ -186,6 +194,20 @@ docker-compose --profile production down
 docker-compose down
 ```
 
+### Automatic production deployment
+
+`.github/workflows/deploy-backend.yml` verifies the backend on every relevant push to `main`, then connects to the VM, fast-forwards its checkout, and runs `backend/scripts/deploy-production.sh`. The deployment waits for the container health check and restores the previous image if the replacement is unhealthy.
+
+Configure these GitHub production-environment secrets:
+
+- `CALORIFY_SSH_HOST`
+- `CALORIFY_SSH_PORT` (optional; defaults to `22`)
+- `CALORIFY_SSH_USER`
+- `CALORIFY_SSH_PRIVATE_KEY`
+- `CALORIFY_DEPLOY_PATH` (absolute path to the VM checkout)
+
+The VM's `backend/production.env` must contain a non-empty `OPENROUTER_API_KEY`; it is deliberately not stored in GitHub or this repository.
+
 **Note**: Logging infrastructure (loki, grafana, promtail) has no profiles and is shared between environments. It will automatically start when you start a profile (due to dependencies), but bringing down a profile won't stop it. This ensures logging continues even if one environment is stopped.
 
 ### Monitoring
@@ -209,7 +231,10 @@ curl http://localhost:8001/  # Staging
 - `SECRET_KEY` - Application secret key
 - `FIREBASE_SERVICE_ACCOUNT_PATH` - Path to Firebase service account JSON
 - `GOOGLE_API_KEY` - Google Gemini API key (for legacy Gemini service, optional)
-- `OPENAI_API_KEY` - OpenAI API key (required, default for all AI work)
+- `OPENROUTER_API_KEY` - OpenRouter API key (primary meal analysis provider)
+- `OPENROUTER_MEAL_MODEL` - Primary OpenRouter model (optional)
+- `OPENROUTER_FREE_MODEL` - Free OpenRouter fallback (optional; defaults to `openrouter/free`)
+- `OPENAI_API_KEY` - Direct OpenAI fallback for meal analysis and required for AI summary batches
 - `DATABASE_URL` - PostgreSQL connection string
 - `ENVIRONMENT` - `development`, `staging`, or `production`
 - `PORT` - Server port (default: 8000)

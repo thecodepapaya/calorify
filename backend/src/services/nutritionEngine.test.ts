@@ -104,7 +104,7 @@ test('analyzeMeal yields single error event when decompose throws', async () => 
   const events = await collectEvents(analyzeMeal('some food'));
   assert.equal(events.length, 1);
   assert.equal(events[0].step, 'error');
-  assert.equal(events[0].data.message, 'Network failure');
+  assert.ok(events[0].data.message.includes('Network failure'));
 
   resetToDefault();
 });

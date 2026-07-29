@@ -7,13 +7,6 @@ import Fastify from 'fastify';
 // Mock pipeline functions and store before importing routes
 // ---------------------------------------------------------------------------
 
-// Helpers to produce pipeline event streams
-function makeTextStream(events: any[]): AsyncGenerator<any> {
-  return (async function* () {
-    for (const e of events) yield e;
-  })();
-}
-
 const mockAnalyzeTextMeal = mock.fn(function* () {
   yield { step: 'STARTED', data: { analysisId: 'mock-id' } };
   yield { step: 'DECOMPOSITION', data: { analysisId: 'mock-id', mealName: 'Test', confidence: 0.9, ingredients: [], inferredMealType: 'UNKNOWN', mealTypeConfident: false } };

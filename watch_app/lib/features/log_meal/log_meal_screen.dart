@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:widgets/widgets.dart';
 
@@ -24,8 +25,11 @@ class _LogMealScreenState extends State<LogMealScreen>
   final _speech = stt.SpeechToText();
   bool _isListening = false;
   bool _isProcessing = false;
+  bool _isFinishing = false;
+  bool _speechReady = false;
   String _transcript = '';
   String? _error;
+  String? _localeId;
 
   // Waveform
   Timer? _waveTimer;
@@ -36,6 +40,7 @@ class _LogMealScreenState extends State<LogMealScreen>
   // Auto-stop countdown
   static const _listenTimeout = 15;
   Timer? _countdownTimer;
+  Timer? _finalizeTimer;
   int _secondsLeft = _listenTimeout;
 
   @override
@@ -49,12 +54,22 @@ class _LogMealScreenState extends State<LogMealScreen>
     _speech.cancel();
     _waveTimer?.cancel();
     _countdownTimer?.cancel();
+    _finalizeTimer?.cancel();
     _levelsNotifier.dispose();
     super.dispose();
   }
 
   Future<void> _initSpeech() async {
-    final ok = await _speech.initialize();
+    final ok = await _speech.initialize(
+      onStatus: _onSpeechStatus,
+      onError: _onSpeechError,
+      finalTimeout: const Duration(milliseconds: 750),
+    );
+    if (ok) {
+      final locale = await _speech.systemLocale();
+      _speechReady = true;
+      _localeId = locale?.localeId;
+    }
     if (!ok && mounted) {
       setState(() => _error = 'Speech recognition unavailable on this device.');
       unawaited(HapticFeedback.heavyImpact());
@@ -62,11 +77,15 @@ class _LogMealScreenState extends State<LogMealScreen>
   }
 
   Future<void> _toggleRecording() async {
-    _isListening ? await _stopListening() : await _startListening();
+    _isListening ? await _finishListening() : await _startListening();
   }
 
   Future<void> _startListening() async {
-    if (!await _speech.initialize()) {
+    if (_isProcessing || _isFinishing) return;
+    if (!_speechReady) {
+      await _initSpeech();
+    }
+    if (!_speechReady || !mounted) {
       setState(() => _error = 'Speech recognition unavailable.');
       unawaited(HapticFeedback.heavyImpact());
       return;
@@ -85,7 +104,7 @@ class _LogMealScreenState extends State<LogMealScreen>
     _startWaveform();
 
     try {
-      await _speech.listen(
+      final started = await _speech.listen(
         onResult: (r) {
           if (!mounted) return;
           final transcript = r.recognizedWords;
@@ -101,9 +120,12 @@ class _LogMealScreenState extends State<LogMealScreen>
           setState(() {
             _transcript = transcript;
           });
+          if (r.finalResult && transcript.trim().isNotEmpty) {
+            _scheduleFinish(const Duration(milliseconds: 250));
+          }
         },
         listenFor: const Duration(seconds: _listenTimeout),
-        pauseFor: const Duration(seconds: 4),
+        pauseFor: const Duration(seconds: 3),
         listenOptions: stt.SpeechListenOptions(
           listenMode: stt.ListenMode.dictation,
           cancelOnError: false,
@@ -111,8 +133,11 @@ class _LogMealScreenState extends State<LogMealScreen>
           enableHapticFeedback: true,
           partialResults: true,
         ),
-        localeId: 'en_US',
+        localeId: _localeId,
       );
+      if (!started && mounted) {
+        _showListeningError('Microphone is busy. Tap to try again.');
+      }
     } catch (e) {
       if (!mounted) return;
       _stopWaveform();
@@ -125,6 +150,44 @@ class _LogMealScreenState extends State<LogMealScreen>
     }
   }
 
+  void _onSpeechStatus(String status) {
+    if (!mounted || !_isListening || _isFinishing) return;
+    if (status == stt.SpeechToText.doneStatus ||
+        status == stt.SpeechToText.notListeningStatus) {
+      // Android can report "done" just before its final transcript callback.
+      _scheduleFinish(const Duration(milliseconds: 500));
+    }
+  }
+
+  void _onSpeechError(SpeechRecognitionError error) {
+    if (!mounted || _isFinishing) return;
+    final message = switch (error.errorMsg) {
+      'error_permission' => 'Allow microphone access to log meals by voice.',
+      'error_network' || 'error_network_timeout' =>
+        'Voice recognition needs a connection. Tap to retry.',
+      'error_audio' => 'The microphone is unavailable. Tap to retry.',
+      _ => 'I didn\'t catch that. Tap the mic and try again.',
+    };
+    _showListeningError(message);
+  }
+
+  void _showListeningError(String message) {
+    _finalizeTimer?.cancel();
+    _countdownTimer?.cancel();
+    _stopWaveform();
+    if (!mounted) return;
+    setState(() {
+      _isListening = false;
+      _error = message;
+    });
+    unawaited(HapticFeedback.mediumImpact());
+  }
+
+  void _scheduleFinish(Duration delay) {
+    _finalizeTimer?.cancel();
+    _finalizeTimer = Timer(delay, () => unawaited(_finishListening()));
+  }
+
   void _startCountdown() {
     _countdownTimer?.cancel();
     _countdownTimer = Timer.periodic(const Duration(seconds: 1), (t) {
@@ -135,7 +198,7 @@ class _LogMealScreenState extends State<LogMealScreen>
       setState(() => _secondsLeft--);
       if (_secondsLeft <= 0) {
         t.cancel();
-        if (_isListening) _stopListening();
+        if (_isListening) unawaited(_finishListening());
       }
     });
   }
@@ -168,21 +231,31 @@ class _LogMealScreenState extends State<LogMealScreen>
     _levelsNotifier.value = List<double>.filled(5, 0.0);
   }
 
-  Future<void> _stopListening() async {
+  Future<void> _finishListening() async {
+    if (_isFinishing || _isProcessing) return;
+    _isFinishing = true;
+    _finalizeTimer?.cancel();
     _countdownTimer?.cancel();
     _stopWaveform();
     try {
       await _speech.stop();
     } catch (_) {}
-    if (!mounted) return;
-    setState(() => _isListening = false);
+    if (!mounted) {
+      _isFinishing = false;
+      return;
+    }
+    final description = _transcript.trim();
+    setState(() {
+      _isListening = false;
+      _isFinishing = false;
+    });
 
-    if (_transcript.isEmpty) {
+    if (description.isEmpty) {
       setState(() => _error = 'No speech detected. Tap the mic to try again.');
       unawaited(HapticFeedback.mediumImpact());
     } else {
       setState(() => _isProcessing = true);
-      await _processMeal(_transcript);
+      await _processMeal(description);
     }
   }
 
@@ -244,7 +317,7 @@ class _LogMealScreenState extends State<LogMealScreen>
                       const AppLoader(size: 36),
                       const SizedBox(height: 14),
                       Text(
-                        'Identifying meal…',
+                        'Checking your meal…',
                         style: theme.textTheme.bodySmall?.copyWith(
                           fontSize: 11,
                           color: colorScheme.onSurfaceVariant,
@@ -259,7 +332,7 @@ class _LogMealScreenState extends State<LogMealScreen>
                   transcript: _transcript,
                   levelsListenable: _levelsNotifier,
                   secondsLeft: _secondsLeft,
-                  onStop: _stopListening,
+                  onStop: _finishListening,
                 )
                 : _IdleView(error: _error, onTap: _toggleRecording),
       ),
@@ -440,12 +513,22 @@ class _IdleView extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            error == null ? 'Tap to record' : '',
+            error == null ? 'Tap, then describe your meal' : 'Tap to retry',
             style: theme.textTheme.labelSmall?.copyWith(
               color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
               fontSize: 10,
             ),
           ),
+          if (error == null) ...[
+            const SizedBox(height: 5),
+            Text(
+              '“2 rotis with dal”',
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.45),
+                fontSize: 8,
+              ),
+            ),
+          ],
           if (error != null) ...[
             const SizedBox(height: 10),
             Padding(

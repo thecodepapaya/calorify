@@ -3,12 +3,14 @@
  * Extracted from the CLI prototype for use by the V2 API.
  */
 
-import OpenAI from 'openai';
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import config from '../config.js';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
+import {
+  createMealAnalysisLlmClient,
+  type MealAnalysisLlmClient,
+} from './mealAnalysisLlm.js';
 
 // ---------------------------------------------------------------------------
 // Types (internal pipeline)
@@ -486,7 +488,7 @@ function varianceToCalorieConfidence(variancePercent: number): string {
 // ---------------------------------------------------------------------------
 // LLM calls
 // ---------------------------------------------------------------------------
-async function decompose(client: OpenAI, input: string): Promise<LLMDecomposition> {
+async function decompose(client: MealAnalysisLlmClient, input: string): Promise<LLMDecomposition> {
   const response = await client.chat.completions.create({
     model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
@@ -505,7 +507,7 @@ async function decompose(client: OpenAI, input: string): Promise<LLMDecompositio
 }
 
 async function estimateMacrosViaLLM(
-  client: OpenAI,
+  client: MealAnalysisLlmClient,
   names: string[],
 ): Promise<Map<string, LLMFallbackEntry>> {
   if (names.length === 0) return new Map();
@@ -537,12 +539,16 @@ async function estimateMacrosViaLLM(
 // Async generator: stream pipeline events
 // ---------------------------------------------------------------------------
 export async function* analyzeMeal(input: string): AsyncGenerator<PipelineEvent> {
-  const apiKey = config.OPENAI_API_KEY;
-  if (!apiKey) {
-    yield { step: 'error', data: { message: 'OPENAI_API_KEY is not set' } };
+  let client: MealAnalysisLlmClient;
+  try {
+    client = createMealAnalysisLlmClient();
+  } catch (error) {
+    yield {
+      step: 'error',
+      data: { message: error instanceof Error ? error.message : 'LLM configuration is missing' },
+    };
     return;
   }
-  const client = new OpenAI({ apiKey });
 
   let decomposition: LLMDecomposition;
   try {

@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mock } from 'node:test';
 import Fastify from 'fastify';
-import { healthRoutes } from './health.js';
 
 // ---------------------------------------------------------------------------
 // Mock config
@@ -14,6 +13,8 @@ await mock.module('../config.js', {
     APP_NAME: 'CalorifyTest',
   },
 });
+
+const { healthRoutes } = await import('./health.js');
 
 // ---------------------------------------------------------------------------
 // Build test app

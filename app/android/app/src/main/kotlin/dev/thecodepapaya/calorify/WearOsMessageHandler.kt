@@ -115,7 +115,8 @@ class WearOsMessageHandler(
                 if (messageEvent.path.startsWith("/calorify_watch/")) {
                     val path = messageEvent.path.removePrefix("/calorify_watch")
                     val dataString = String(messageEvent.data, StandardCharsets.UTF_8)
-                    val data = JSONObject(dataString).toMap()
+                    val data = JSONObject(dataString).toMap().toMutableMap()
+                    val requestId = data.remove("_requestId") as? String
                     
                     Log.d(TAG, "Received message from watch: $path, data: $data")
                     
@@ -124,7 +125,12 @@ class WearOsMessageHandler(
                     
                     // Send response back to watch if needed
                     if (response != null) {
-                        sendResponseToWatch(messageEvent.sourceNodeId, path, response)
+                        sendResponseToWatch(
+                            messageEvent.sourceNodeId,
+                            path,
+                            response,
+                            requestId
+                        )
                     }
                 } else {
                     Log.d(TAG, "Ignoring message with path: ${messageEvent.path}")
@@ -173,10 +179,19 @@ class WearOsMessageHandler(
         }
     }
 
-    private suspend fun sendResponseToWatch(nodeId: String, path: String, response: Map<String, Any>) {
+    private suspend fun sendResponseToWatch(
+        nodeId: String,
+        path: String,
+        response: Map<String, Any>,
+        requestId: String?
+    ) {
         try {
             val responsePath = "/calorify_phone$path"
-            val responseData = JSONObject(response).toString().toByteArray(StandardCharsets.UTF_8)
+            val responseJson = JSONObject(response)
+            if (requestId != null) {
+                responseJson.put("_requestId", requestId)
+            }
+            val responseData = responseJson.toString().toByteArray(StandardCharsets.UTF_8)
             
             wearableMessageClient?.sendMessage(
                 nodeId,

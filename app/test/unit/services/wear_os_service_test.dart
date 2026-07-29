@@ -67,18 +67,23 @@ void main() {
         ),
         health: MealHealth(healthScore: HealthScore.HEALTHY),
       );
-      final payload = mealInfoToLegacyJson(
-        LoggedMeal(
-          clientId: 12,
-          meal: meal,
-          createdAt: dateTimeToIso8601String(DateTime.utc(2026, 4, 22, 8, 0)),
-        ),
-      )..['favorite_meal_id'] = 7;
+      final payload =
+          mealInfoToLegacyJson(
+              LoggedMeal(
+                clientId: 12,
+                meal: meal,
+                createdAt: dateTimeToIso8601String(
+                  DateTime.utc(2026, 4, 22, 8, 0),
+                ),
+              ),
+            )
+            ..['favorite_meal_id'] = 7
+            ..['watch_operation_id'] = 'watch:-1:2026-04-22T08:00:00.000Z';
 
       when(
         () => mockDatabaseInterface.logMeal(
           any(),
-          analysisId: any(named: 'analysisId'),
+          analysisId: 'watch:-1:2026-04-22T08:00:00.000Z',
         ),
       ).thenAnswer((_) async {});
       when(

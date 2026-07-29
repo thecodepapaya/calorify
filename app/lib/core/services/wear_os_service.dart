@@ -102,7 +102,15 @@ class WearOsService {
   Future<Map<String, dynamic>> _handleMealLog(Map<String, dynamic> data) async {
     try {
       final meal = mealInfoFromLegacyJson(data);
-      await DatabaseService.databaseInterface.logMeal(meal.meal);
+      final operationId = data['watch_operation_id'];
+      final analysisId =
+          operationId is String && operationId.startsWith('watch:')
+              ? operationId
+              : null;
+      await DatabaseService.databaseInterface.logMeal(
+        meal.meal,
+        analysisId: analysisId,
+      );
       final favoriteMealId = data['favorite_meal_id'];
       if (favoriteMealId is int && favoriteMealId > 0) {
         await DatabaseService.databaseInterface.updateFavoriteLastUsedAt(

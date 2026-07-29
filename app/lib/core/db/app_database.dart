@@ -247,6 +247,14 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
+    if (analysisId != null && analysisId.startsWith('watch:')) {
+      final existing =
+          await (select(mealInfoTable)
+                ..where((table) => table.analysisId.equals(analysisId))
+                ..limit(1))
+              .getSingleOrNull();
+      if (existing != null) return;
+    }
     await into(mealInfoTable).insert(
       mealInfo.toCompanion(timestamp: DateTime.now(), analysisId: analysisId),
     );
