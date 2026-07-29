@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
+import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -148,6 +149,15 @@ class _MealResultScreenState extends State<MealResultScreen> {
                 ),
               ],
               const SizedBox(height: 12),
+              Text(
+                'Estimated energy',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontSize: 8,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 3),
               // Calorie display
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -184,33 +194,33 @@ class _MealResultScreenState extends State<MealResultScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _MacroPill(
+                  WatchMacroMetric(
                     icon: LucideIcons.dumbbell,
                     color: colorScheme.proteinIconColor,
                     value: macros.protein,
-                    label: 'P',
+                    label: 'Protein',
                   ),
                   const SizedBox(width: 8),
-                  _MacroPill(
+                  WatchMacroMetric(
                     icon: LucideIcons.wheat,
                     color: colorScheme.carbsIconColor,
                     value: macros.carbs,
-                    label: 'C',
+                    label: 'Carbs',
                   ),
                   const SizedBox(width: 8),
-                  _MacroPill(
+                  WatchMacroMetric(
                     icon: LucideIcons.droplet,
                     color: colorScheme.fatIconColor,
                     value: macros.fat,
-                    label: 'F',
+                    label: 'Fat',
                   ),
                   if (macros.fiber > 0) ...[
                     const SizedBox(width: 8),
-                    _MacroPill(
+                    WatchMacroMetric(
                       icon: LucideIcons.leaf,
                       color: colorScheme.fiberIconColor,
                       value: macros.fiber,
-                      label: 'Fi',
+                      label: 'Fiber',
                     ),
                   ],
                 ],
@@ -218,19 +228,20 @@ class _MealResultScreenState extends State<MealResultScreen> {
               const SizedBox(height: 16),
               // Log button
               if (!_logged) ...[
-                _PrimaryBtn(
+                WatchPillButton(
                   label: _logging ? 'Logging…' : 'Log Meal',
-                  icon: _logging ? null : LucideIcons.plus,
-                  loading: _logging,
-                  onTap: _logMeal,
-                  color: colorScheme.primary,
-                  textColor: colorScheme.onPrimary,
+                  icon: LucideIcons.plus,
+                  busy: _logging,
+                  onPressed: _logMeal,
+                  primary: true,
+                  tint: colorScheme.primary,
                 ),
                 const SizedBox(height: 8),
                 // Log Another
-                _SecondaryBtn(
+                WatchPillButton(
                   label: 'Log Another',
-                  onTap: () {
+                  icon: LucideIcons.rotateCcw,
+                  onPressed: () {
                     unawaited(HapticFeedback.lightImpact());
                     context.router.pop();
                   },
@@ -244,7 +255,7 @@ class _MealResultScreenState extends State<MealResultScreen> {
                   },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
-                    minimumSize: const Size(44, 32),
+                    minimumSize: const Size(88, 44),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
@@ -277,140 +288,3 @@ class _MealResultScreenState extends State<MealResultScreen> {
 }
 
 // ── shared small widgets ──────────────────────────────────────────────────────
-
-class _MacroPill extends StatelessWidget {
-  const _MacroPill({
-    required this.icon,
-    required this.color,
-    required this.value,
-    required this.label,
-  });
-  final IconData icon;
-  final Color color;
-  final int value;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 11, color: color),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-            fontSize: 8,
-          ),
-        ),
-        Text(
-          '${value}g',
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: color,
-            fontWeight: FontWeight.bold,
-            fontSize: 10,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _PrimaryBtn extends StatelessWidget {
-  const _PrimaryBtn({
-    required this.label,
-    required this.onTap,
-    required this.color,
-    required this.textColor,
-    this.icon,
-    this.loading = false,
-  });
-  final String label;
-  final VoidCallback onTap;
-  final Color color;
-  final Color textColor;
-  final IconData? icon;
-  final bool loading;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return GestureDetector(
-      onTap: loading ? null : onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.3),
-              blurRadius: 8,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (loading)
-              SizedBox(
-                width: 12,
-                height: 12,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: textColor,
-                ),
-              )
-            else if (icon != null)
-              Icon(icon, size: 14, color: textColor),
-            if (icon != null || loading) const SizedBox(width: 6),
-            Text(
-              label,
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: textColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 11,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SecondaryBtn extends StatelessWidget {
-  const _SecondaryBtn({required this.label, required this.onTap});
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: colorScheme.outline.withValues(alpha: 0.5),
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Text(
-          label,
-          style: theme.textTheme.labelMedium?.copyWith(
-            color: colorScheme.onSurface,
-            fontWeight: FontWeight.w500,
-            fontSize: 10,
-          ),
-        ),
-      ),
-    );
-  }
-}

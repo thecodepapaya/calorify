@@ -132,14 +132,28 @@ class _CarouselItemState extends State<_CarouselItem> {
     WidgetsBinding.instance.addPostFrameCallback((_) => _measureOnce());
   }
 
+  @override
+  void didUpdateWidget(_CarouselItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.child != widget.child) {
+      _itemTop = null;
+      WidgetsBinding.instance.addPostFrameCallback((_) => _measureOnce());
+    }
+  }
+
   void _measureOnce() {
     if (_itemTop != null) return;
     final box = _key.currentContext?.findRenderObject() as RenderBox?;
     if (box == null || !box.hasSize) return;
     final viewport = RenderAbstractViewport.maybeOf(box);
     if (viewport != null) {
-      _itemTop = viewport.getOffsetToReveal(box, 0.0).offset;
-      _itemHeight = box.size.height;
+      final top = viewport.getOffsetToReveal(box, 0.0).offset;
+      final height = box.size.height;
+      if (!mounted) return;
+      setState(() {
+        _itemTop = top;
+        _itemHeight = height;
+      });
     }
   }
 

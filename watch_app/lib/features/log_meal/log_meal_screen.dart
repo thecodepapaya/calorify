@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/repositories/food_repository.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
+import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -310,23 +311,7 @@ class _LogMealScreenState extends State<LogMealScreen>
       body: SafeArea(
         child:
             _isProcessing
-                ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const AppLoader(size: 36),
-                      const SizedBox(height: 14),
-                      Text(
-                        'Checking your meal…',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          fontSize: 11,
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                )
+                ? const _ProcessingView()
                 : _isListening
                 ? _ListeningView(
                   transcript: _transcript,
@@ -335,6 +320,73 @@ class _LogMealScreenState extends State<LogMealScreen>
                   onStop: _finishListening,
                 )
                 : _IdleView(error: _error, onTap: _toggleRecording),
+      ),
+    );
+  }
+}
+
+class _ProcessingView extends StatefulWidget {
+  const _ProcessingView();
+
+  @override
+  State<_ProcessingView> createState() => _ProcessingViewState();
+}
+
+class _ProcessingViewState extends State<_ProcessingView>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2600),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedBuilder(
+            animation: _controller,
+            builder:
+                (_, _) => MacroIconCycleLoader(
+                  progress: _controller.value,
+                  haloBaseColor: colors.primary,
+                  iconSize: 32,
+                  haloDiameter: 64,
+                ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Checking your meal…',
+            style: theme.textTheme.titleSmall?.copyWith(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: colors.onSurface,
+            ),
+          ),
+          const SizedBox(height: 3),
+          Text(
+            'Estimating portions and nutrition',
+            style: theme.textTheme.labelSmall?.copyWith(
+              fontSize: 8,
+              color: colors.onSurfaceVariant,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -361,6 +413,15 @@ class _ListeningView extends StatelessWidget {
 
     return Column(
       children: [
+        const SizedBox(height: 5),
+        Text(
+          'Listening',
+          style: theme.textTheme.labelMedium?.copyWith(
+            color: colorScheme.onSurface,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         // Waveform + timer
         ValueListenableBuilder<List<double>>(
           valueListenable: levelsListenable,
@@ -403,33 +464,36 @@ class _ListeningView extends StatelessWidget {
         ),
         // Transcript
         Expanded(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child:
-                transcript.isEmpty
-                    ? Center(
-                      child: Text(
-                        'Listening…',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurfaceVariant.withValues(
-                            alpha: 0.55,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            child: WatchSurface(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              borderColor: colorScheme.primary.withValues(alpha: 0.16),
+              child:
+                  transcript.isEmpty
+                      ? Center(
+                        child: Text(
+                          'Listening…',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontSize: 12,
+                            color: colorScheme.onSurfaceVariant.withValues(
+                              alpha: 0.55,
+                            ),
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                    : SingleChildScrollView(
-                      child: Text(
-                        transcript,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
+                      )
+                      : SingleChildScrollView(
+                        child: Text(
+                          transcript,
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontSize: 12,
+                            color: colorScheme.onSurface,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
-                    ),
+            ),
           ),
         ),
         // Stop button
@@ -441,8 +505,8 @@ class _ListeningView extends StatelessWidget {
             child: GestureDetector(
               onTap: onStop,
               child: Container(
-                width: 44,
-                height: 44,
+                width: 52,
+                height: 52,
                 decoration: BoxDecoration(
                   color: colorScheme.error,
                   shape: BoxShape.circle,
@@ -484,48 +548,71 @@ class _IdleView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text(
+            'Voice meal log',
+            style: theme.textTheme.titleSmall?.copyWith(
+              color: colorScheme.onSurface,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 10),
           Semantics(
             label: 'Tap to start recording',
             button: true,
             child: GestureDetector(
               onTap: onTap,
               child: Container(
-                width: 56,
-                height: 56,
+                width: 76,
+                height: 76,
                 decoration: BoxDecoration(
-                  color: colorScheme.primary,
+                  color: colorScheme.primary.withValues(alpha: 0.12),
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: colorScheme.primary.withValues(alpha: 0.3),
-                      blurRadius: 14,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
                 ),
-                child: Icon(
-                  LucideIcons.mic,
-                  size: 26,
-                  color: colorScheme.onPrimary,
+                child: Center(
+                  child: Container(
+                    width: 58,
+                    height: 58,
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: colorScheme.primary.withValues(alpha: 0.3),
+                          blurRadius: 12,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      LucideIcons.mic,
+                      size: 25,
+                      color: colorScheme.onPrimary,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 9),
           Text(
             error == null ? 'Tap, then describe your meal' : 'Tap to retry',
             style: theme.textTheme.labelSmall?.copyWith(
               color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
               fontSize: 10,
+              fontWeight: FontWeight.w600,
             ),
           ),
           if (error == null) ...[
-            const SizedBox(height: 5),
-            Text(
-              '“2 rotis with dal”',
-              style: theme.textTheme.labelSmall?.copyWith(
-                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.45),
-                fontSize: 8,
+            const SizedBox(height: 7),
+            WatchSurface(
+              padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
+              child: Text(
+                'Try “2 rotis with dal”',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontSize: 8,
+                ),
               ),
             ),
           ],

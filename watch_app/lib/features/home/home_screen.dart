@@ -5,6 +5,7 @@ import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
+import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -110,28 +111,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                      // Calorie Summary
+                      // Primary glance card: the most important daily metric.
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: CalorieSummaryCard(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: WatchCalorieProgressCard(
                           totalCalories: totalCalories,
                           goal: goal ?? 2000,
                         ),
                       ),
-                      // Macro Chart
+                      // Compact macro glance; detailed charts stay on phone.
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
-                        child: MacroChart(meals: meals),
-                      ),
-                      // Trend Chart
-                      if (meals.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 14),
-                          child: CalorieTrendChart(meals: meals),
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: WatchMacroSummary(
+                          protein: meals.fold<int>(
+                            0,
+                            (sum, meal) => sum + meal.meal.macros.protein,
+                          ),
+                          carbs: meals.fold<int>(
+                            0,
+                            (sum, meal) => sum + meal.meal.macros.carbs,
+                          ),
+                          fat: meals.fold<int>(
+                            0,
+                            (sum, meal) => sum + meal.meal.macros.fat,
+                          ),
                         ),
+                      ),
                       // Action buttons
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
+                        padding: const EdgeInsets.only(bottom: 12),
                         child: _ActionButtons(),
                       ),
                       // Today's meals
@@ -215,60 +223,79 @@ class _SyncStatusHeader extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ValueListenableBuilder<SyncState>(
-            valueListenable: SyncService.instance.syncState,
-            builder: (context, state, _) {
-              return ValueListenableBuilder<DateTime?>(
-                valueListenable: SyncService.instance.lastSyncTime,
-                builder: (context, lastSync, _) {
-                  return Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _stateIcon(context, state, colorScheme),
-                        const SizedBox(width: 4),
-                        Flexible(
-                          child: Text(
-                            _stateLabel(state, lastSync),
-                            style: theme.textTheme.labelSmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant.withValues(
-                                alpha: 0.6,
-                              ),
-                              fontSize: 8,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
+      child: Semantics(
+        label: 'Sync with phone',
+        button: true,
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(18),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: () {
+              unawaited(HapticFeedback.lightImpact());
+              onRefresh();
             },
-          ),
-          if (kDebugMode)
-            GestureDetector(
-              onTap: () {
-                unawaited(HapticFeedback.lightImpact());
-                context.router.push(const DebugRoute());
-              },
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.5),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.bug,
-                  size: 12,
-                  color: colorScheme.tertiary,
-                ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 40),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ValueListenableBuilder<SyncState>(
+                    valueListenable: SyncService.instance.syncState,
+                    builder: (context, state, _) {
+                      return ValueListenableBuilder<DateTime?>(
+                        valueListenable: SyncService.instance.lastSyncTime,
+                        builder: (context, lastSync, _) {
+                          return Expanded(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _stateIcon(context, state, colorScheme),
+                                const SizedBox(width: 4),
+                                Flexible(
+                                  child: Text(
+                                    _stateLabel(state, lastSync),
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      color: colorScheme.onSurfaceVariant
+                                          .withValues(alpha: 0.6),
+                                      fontSize: 8,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  if (kDebugMode)
+                    GestureDetector(
+                      onTap: () {
+                        unawaited(HapticFeedback.lightImpact());
+                        context.router.push(const DebugRoute());
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: colorScheme.tertiaryContainer.withValues(
+                            alpha: 0.5,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          LucideIcons.bug,
+                          size: 12,
+                          color: colorScheme.tertiary,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
-        ],
+          ),
+        ),
       ),
     );
   }
@@ -347,120 +374,35 @@ class _ActionButtons extends StatelessWidget {
 
     return Column(
       children: [
+        WatchPillButton(
+          label: 'Log a meal',
+          icon: LucideIcons.mic,
+          primary: true,
+          onPressed: () => context.router.push(const LogMealRoute()),
+        ),
+        const SizedBox(height: 8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _ActionBtn(
-              icon: LucideIcons.mic,
-              label: 'Log',
-              color: colorScheme.primary,
-              iconColor: colorScheme.onPrimary,
-              onTap: () => context.router.push(const LogMealRoute()),
+            Expanded(
+              child: WatchPillButton(
+                icon: LucideIcons.history,
+                label: 'History',
+                tint: colorScheme.primary,
+                onPressed: () => context.router.push(const HistoryRoute()),
+              ),
             ),
-            const SizedBox(width: 16),
-            _ActionBtn(
-              icon: LucideIcons.history,
-              label: 'History',
-              color: colorScheme.secondary,
-              iconColor: colorScheme.onSecondary,
-              onTap: () => context.router.push(const HistoryRoute()),
-            ),
-            const SizedBox(width: 16),
-            _ActionBtn(
-              icon: LucideIcons.star,
-              label: 'Favorites',
-              color: colorScheme.tertiary,
-              iconColor: colorScheme.onTertiary,
-              onTap: () => context.router.push(const FavoritesRoute()),
+            const SizedBox(width: 8),
+            Expanded(
+              child: WatchPillButton(
+                icon: LucideIcons.star,
+                label: 'Favorites',
+                tint: colorScheme.tertiary,
+                onPressed: () => context.router.push(const FavoritesRoute()),
+              ),
             ),
           ],
         ),
       ],
-    );
-  }
-}
-
-class _ActionBtn extends StatefulWidget {
-  const _ActionBtn({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.iconColor,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color color;
-  final Color iconColor;
-  final VoidCallback onTap;
-
-  @override
-  State<_ActionBtn> createState() => _ActionBtnState();
-}
-
-class _ActionBtnState extends State<_ActionBtn> {
-  bool _pressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Semantics(
-      label: '${widget.label} button',
-      button: true,
-      child: GestureDetector(
-        onTapDown: (_) {
-          setState(() => _pressed = true);
-          unawaited(HapticFeedback.lightImpact());
-        },
-        onTapUp: (_) {
-          setState(() => _pressed = false);
-          unawaited(HapticFeedback.mediumImpact());
-          widget.onTap();
-        },
-        onTapCancel: () => setState(() => _pressed = false),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 120),
-              width: 46,
-              height: 46,
-              decoration: BoxDecoration(
-                color:
-                    _pressed
-                        ? widget.color.withValues(alpha: 0.7)
-                        : widget.color,
-                shape: BoxShape.circle,
-                boxShadow:
-                    _pressed
-                        ? []
-                        : [
-                          BoxShadow(
-                            color: widget.color.withValues(alpha: 0.25),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-              ),
-              child: AnimatedScale(
-                scale: _pressed ? 0.92 : 1.0,
-                duration: const Duration(milliseconds: 100),
-                child: Icon(widget.icon, size: 20, color: widget.iconColor),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              widget.label,
-              style: theme.textTheme.labelSmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                fontSize: 8,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

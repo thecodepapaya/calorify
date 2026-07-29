@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
+import 'package:calorify_watch/widgets/watch_ui.dart';
 
 class MealListItem extends StatefulWidget {
   const MealListItem({
@@ -60,62 +61,65 @@ class _MealListItemState extends State<MealListItem>
     unawaited(HapticFeedback.mediumImpact());
     showDialog<bool>(
       context: context,
-      builder: (_) => AlertDialog(
-        backgroundColor: colorScheme.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(LucideIcons.trash2, size: 28, color: colorScheme.error),
-            const SizedBox(height: 10),
-            Text(
-              'Delete meal?',
-              style: theme.textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 13,
-              ),
-              textAlign: TextAlign.center,
+      builder:
+          (_) => AlertDialog(
+            backgroundColor: colorScheme.surface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-            const SizedBox(height: 4),
-            Text(
-              widget.meal.meal.name,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                fontSize: 10,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(LucideIcons.trash2, size: 28, color: colorScheme.error),
+                const SizedBox(height: 10),
+                Text(
+                  'Delete meal?',
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  widget.meal.meal.name,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: 10,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(
-              'Cancel',
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(
+                  'Cancel',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
-            ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                  unawaited(HapticFeedback.heavyImpact());
+                  widget.onDelete?.call();
+                },
+                child: Text(
+                  'Delete',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: colorScheme.error,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true);
-              unawaited(HapticFeedback.heavyImpact());
-              widget.onDelete?.call();
-            },
-            child: Text(
-              'Delete',
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: colorScheme.error,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -128,7 +132,8 @@ class _MealListItemState extends State<MealListItem>
     final timestamp = _formatTime(widget.meal.dateTime);
 
     return Semantics(
-      label: '${meal.name}, $calories calories, logged at $timestamp.'
+      label:
+          '${meal.name}, $calories calories, logged at $timestamp.'
           '${widget.onDelete != null ? ' Long press to delete.' : ''}',
       child: FadeTransition(
         opacity: _fadeAnimation,
@@ -139,14 +144,15 @@ class _MealListItemState extends State<MealListItem>
           },
           onTapUp: (_) => setState(() => _isPressed = false),
           onTapCancel: () => setState(() => _isPressed = false),
-          onLongPress: widget.onDelete != null
-              ? () => _showDeleteConfirm(context)
-              : null,
+          onLongPress:
+              widget.onDelete != null
+                  ? () => _showDeleteConfirm(context)
+                  : null,
           child: AnimatedScale(
             scale: _isPressed ? 0.97 : 1.0,
             duration: const Duration(milliseconds: 120),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
+            child: WatchSurface(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -154,7 +160,9 @@ class _MealListItemState extends State<MealListItem>
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+                      color: colorScheme.primaryContainer.withValues(
+                        alpha: 0.3,
+                      ),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Icon(
@@ -188,8 +196,9 @@ class _MealListItemState extends State<MealListItem>
                             Icon(
                               LucideIcons.clock,
                               size: 9,
-                              color: colorScheme.onSurfaceVariant
-                                  .withValues(alpha: 0.6),
+                              color: colorScheme.onSurfaceVariant.withValues(
+                                alpha: 0.6,
+                              ),
                             ),
                             const SizedBox(width: 2),
                             Text(
@@ -204,19 +213,19 @@ class _MealListItemState extends State<MealListItem>
                         const SizedBox(height: 5),
                         Row(
                           children: [
-                            _Macro(
+                            WatchMacroBadge(
                               icon: LucideIcons.dumbbell,
                               value: meal.macros.protein,
                               color: colorScheme.proteinIconColor,
                             ),
                             const SizedBox(width: 6),
-                            _Macro(
+                            WatchMacroBadge(
                               icon: LucideIcons.wheat,
                               value: meal.macros.carbs,
                               color: colorScheme.carbsIconColor,
                             ),
                             const SizedBox(width: 6),
-                            _Macro(
+                            WatchMacroBadge(
                               icon: LucideIcons.droplet,
                               value: meal.macros.fat,
                               color: colorScheme.fatIconColor,
@@ -248,8 +257,9 @@ class _MealListItemState extends State<MealListItem>
                       Text(
                         'kcal',
                         style: theme.textTheme.labelSmall?.copyWith(
-                          color: colorScheme.calorieIconColor
-                              .withValues(alpha: 0.7),
+                          color: colorScheme.calorieIconColor.withValues(
+                            alpha: 0.7,
+                          ),
                           fontSize: 7,
                         ),
                       ),
@@ -261,45 +271,6 @@ class _MealListItemState extends State<MealListItem>
           ),
         ),
       ),
-    );
-  }
-}
-
-class _Macro extends StatelessWidget {
-  const _Macro({
-    required this.icon,
-    required this.value,
-    required this.color,
-  });
-
-  final IconData icon;
-  final int value;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 9, color: color.withValues(alpha: 0.8)),
-        const SizedBox(width: 2),
-        Text(
-          '$value',
-          style: theme.textTheme.labelSmall?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: color,
-            fontSize: 9,
-          ),
-        ),
-        Text(
-          'g',
-          style: theme.textTheme.labelSmall?.copyWith(
-            color: color.withValues(alpha: 0.7),
-            fontSize: 7,
-          ),
-        ),
-      ],
     );
   }
 }
