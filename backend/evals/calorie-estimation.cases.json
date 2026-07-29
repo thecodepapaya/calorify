@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "description": "Text-meal calorie regression set. Ranges include ordinary recipe and portion variation; this is an engineering eval, not clinical ground truth.",
+  "thresholds": {
+    "minCompletionRate": 0.95,
+    "minPassRate": 0.8,
+    "maxMeanRangeError": 0.08
+  },
+  "cases": [
+    {
+      "id": "indian-roti-dal-curd",
+      "description": "For lunch I ate 2 medium whole-wheat rotis, 1 cup cooked dal tadka, and 100 grams plain curd",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 430, "max": 620 },
+      "requiredIngredientGroups": [["wheat", "roti"], ["lentil", "dal"], ["yogurt", "curd"], ["cooked", "boiled"]],
+      "forbiddenIngredientTerms": ["dry lentil", "uncooked lentil"],
+      "tags": ["indian", "multi-item", "cooked-state", "production-regression"]
+    },
+    {
+      "id": "indian-idli-sambar",
+      "description": "For breakfast I had 2 medium steamed idlis with 1 cup sambar and 1 tablespoon coconut chutney",
+      "mealType": "BREAKFAST",
+      "expectedCalories": { "min": 250, "max": 460 },
+      "requiredIngredientGroups": [["idli"], ["sambar"], ["coconut", "chutney"]],
+      "tags": ["indian", "multi-item", "counted"]
+    },
+    {
+      "id": "indian-masala-dosa",
+      "description": "For breakfast I ate 1 medium masala dosa with 1 cup sambar and 2 tablespoons coconut chutney",
+      "mealType": "BREAKFAST",
+      "expectedCalories": { "min": 400, "max": 680 },
+      "requiredIngredientGroups": [["dosa"], ["potato", "masala"], ["sambar"]],
+      "tags": ["indian", "composite-dish"]
+    },
+    {
+      "id": "indian-rice-rajma",
+      "description": "For lunch I ate 1 cup cooked white rice and 1 cup cooked rajma curry",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 430, "max": 680 },
+      "requiredIngredientGroups": [["rice"], ["kidney", "rajma"], ["cooked", "boiled"]],
+      "forbiddenIngredientTerms": ["dry kidney", "uncooked kidney"],
+      "tags": ["indian", "cooked-state"]
+    },
+    {
+      "id": "chicken-rice-vegetables",
+      "description": "For dinner I ate 150 grams grilled skinless chicken breast, 1 cup cooked white rice, and 1 cup steamed mixed vegetables",
+      "mealType": "DINNER",
+      "expectedCalories": { "min": 500, "max": 720 },
+      "requiredIngredientGroups": [["chicken breast"], ["rice"], ["vegetable"]],
+      "tags": ["western", "high-protein", "explicit-grams"]
+    },
+    {
+      "id": "oatmeal-banana-peanut-butter",
+      "description": "For breakfast I had oatmeal made with 40 grams dry rolled oats, 200 ml whole milk, 1 medium banana, and 1 tablespoon peanut butter",
+      "mealType": "BREAKFAST",
+      "expectedCalories": { "min": 430, "max": 610 },
+      "requiredIngredientGroups": [["oat"], ["milk"], ["banana"], ["peanut"]],
+      "tags": ["breakfast", "explicit-grams", "multi-item"]
+    },
+    {
+      "id": "eggs-and-toast",
+      "description": "For breakfast I ate 2 large fried eggs cooked in 1 teaspoon oil and 2 slices whole-wheat toast",
+      "mealType": "BREAKFAST",
+      "expectedCalories": { "min": 320, "max": 500 },
+      "requiredIngredientGroups": [["egg"], ["oil"], ["wheat", "toast"]],
+      "tags": ["breakfast", "counted", "cooking-fat"]
+    },
+    {
+      "id": "single-apple",
+      "description": "For a snack I ate 1 medium apple",
+      "mealType": "SNACK",
+      "expectedCalories": { "min": 70, "max": 130 },
+      "requiredIngredientGroups": [["apple"]],
+      "tags": ["single-item", "counted", "low-calorie"]
+    },
+    {
+      "id": "two-bananas",
+      "description": "For a snack I ate 2 medium bananas",
+      "mealType": "SNACK",
+      "expectedCalories": { "min": 180, "max": 260 },
+      "requiredIngredientGroups": [["banana"]],
+      "tags": ["single-item", "counted", "portion-scaling"]
+    },
+    {
+      "id": "pepperoni-pizza-slice",
+      "description": "For lunch I ate 1 large slice of pepperoni pizza",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 260, "max": 460 },
+      "requiredIngredientGroups": [["pizza"], ["pepperoni"]],
+      "tags": ["composite-dish", "counted"]
+    },
+    {
+      "id": "cooked-chickpea-salad",
+      "description": "For lunch I ate a salad with 200 grams cooked chickpeas, tomato, cucumber, onion, and 1 teaspoon olive oil",
+      "mealType": "LUNCH",
+      "expectedCalories": { "min": 390, "max": 560 },
+      "requiredIngredientGroups": [["chickpea", "garbanzo"], ["tomato"], ["cucumber"], ["olive oil"], ["cooked", "boiled"]],
+      "forbiddenIngredientTerms": ["dry chickpea", "uncooked chickpea"],
+      "tags": ["cooked-state", "explicit-grams", "vegetarian"]
+    },
+    {
+      "id": "dry-oats-100g",
+      "description": "For breakfast I ate exactly 100 grams dry rolled oats cooked only with water",
+      "mealType": "BREAKFAST",
+      "expectedCalories": { "min": 360, "max": 410 },
+      "requiredIngredientGroups": [["oat"]],
+      "tags": ["dry-state", "explicit-grams", "portion-scaling"]
+    }
+  ]
+}

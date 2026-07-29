@@ -89,7 +89,7 @@ const ALIASES: Record<string, string> = {
   lamb: 'lamb cooked',
   shrimp: 'shrimp cooked',
   tofu: 'tofu firm',
-  oats: 'oats rolled dry',
+  oats: 'oats',
   pasta: 'pasta cooked',
   avocado: 'avocado',
   banana: 'banana',
@@ -123,6 +123,18 @@ const ALIASES: Record<string, string> = {
   'coconut milk': 'coconut milk',
 };
 
+function resolveAlias(normalizedHint: string): string | undefined {
+  // USDA contains a reliable generic "oats" row for the dry grain. LLMs commonly
+  // produce variants such as "rolled oats raw"; fuzzy matching those phrases can
+  // otherwise select a branded oat bar or prepared oatmeal with radically different
+  // water/fat content.
+  const mentionsOats = /\b(?:oat|oats)\b/.test(normalizedHint);
+  const explicitlyDry = /\b(?:dry|raw|uncooked|rolled)\b/.test(normalizedHint);
+  const explicitlyPrepared = /\b(?:cooked|prepared|boiled|water)\b/.test(normalizedHint);
+  if (mentionsOats && explicitlyDry && !explicitlyPrepared) return 'oats';
+  return ALIASES[normalizedHint];
+}
+
 function fuzzyScore(a: string, b: string): number {
   const aNorm = normalizeUsdaTerm(a);
   const bNorm = normalizeUsdaTerm(b);
@@ -150,11 +162,16 @@ function scoreCandidate(term: string, candidate: UsdaFoodRow): number {
 
   const cookedRequested = /\b(?:cooked|boiled|steamed)\b/.test(normalizedTerm);
   const cookedCandidate = /\b(?:cooked|boiled|steamed)\b/.test(candidateText);
+  const rawOrDryRequested = /\b(?:raw|dry|dried|uncooked)\b/.test(normalizedTerm);
   const rawOrDryCandidate = /\b(?:raw|dry|dried|uncooked)\b/.test(candidateText);
   if (cookedRequested) {
     if (cookedCandidate) score += 0.15;
     else score -= 0.2;
     if (rawOrDryCandidate) score -= 0.35;
+  }
+  if (rawOrDryRequested) {
+    if (rawOrDryCandidate) score += 0.15;
+    if (cookedCandidate) score -= 0.35;
   }
 
   return Math.max(0, Math.min(1, score));
@@ -196,7 +213,7 @@ export async function findUsdaCandidates(term: string): Promise<UsdaFoodRow[]> {
 
 export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
   const normalizedHint = normalizeUsdaTerm(hint);
-  const alias = ALIASES[normalizedHint];
+  const alias = resolveAlias(normalizedHint);
 
   if (alias) {
     const aliasNorm = normalizeUsdaTerm(alias);

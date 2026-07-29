@@ -42,6 +42,18 @@ const LENTILS_ROW = {
   fiber_per_100g: 7.9,
 };
 
+const OATS_ROW = {
+  fdc_id: '333',
+  description: 'OATS',
+  data_type: 'Branded',
+  normalized_name: 'oats',
+  kcal_per_100g: 375,
+  protein_per_100g: 12.5,
+  carbs_per_100g: 67.5,
+  fat_per_100g: 7.5,
+  fiber_per_100g: 10,
+};
+
 function resetQuery(returnValue: { rows: unknown[] } = { rows: [] }) {
   mockQuery.mock.resetCalls();
   mockQuery.mock.mockImplementation(async () => returnValue);
@@ -142,6 +154,19 @@ test('canonicalizeWithUsda resolves known alias "dal" to lentils', async () => {
   const result = await canonicalizeWithUsda('dal');
   assert.equal(result.matchType, 'alias');
   assert.deepEqual(result.row, LENTILS_ROW);
+});
+
+test('canonicalizeWithUsda resolves dry rolled-oat variants to the plain dry oats row', async () => {
+  resetQuery();
+  mockQuery.mock.mockImplementationOnce(async (_sql: string, params?: unknown[]) => {
+    assert.equal(params?.[0], 'oats');
+    return { rows: [OATS_ROW] };
+  });
+  const result = await canonicalizeWithUsda('rolled oats raw');
+  assert.equal(result.matchType, 'alias');
+  assert.equal(result.row?.normalized_name, 'oats');
+  assert.equal(result.row?.kcal_per_100g, 375);
+  assert.equal(mockQuery.mock.calls.length, 1);
 });
 
 test('canonicalizeWithUsda resolves "roti" alias', async () => {

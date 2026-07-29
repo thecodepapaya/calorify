@@ -118,6 +118,23 @@ The CLI output includes:
 - raw name, canonical hint, grams, portion metadata, and USDA match status for each ingredient
 - total USDA hit count and hit rate for the input or CSV batch
 
+## Calorie Estimation Evals
+
+The calorie eval runs complete V2 text-analysis flows against a local, staging, or production API. It checks accepted calorie ranges, completion, latency, ingredient coverage, and preparation-state regressions such as cooked lentils resolving as dry lentils. If the API requests clarification, the runner selects the engine's default portion and continues with the case's declared meal type.
+
+```bash
+# Local backend (default http://127.0.0.1:8000)
+npm run eval:calories
+
+# Staging and machine-readable output
+npm run eval:calories -- --base-url https://staging-api-calorify.thecodepapaya.dev --json
+
+# Focused regression cases
+npm run eval:calories -- --case indian-roti-dal-curd,dry-oats-100g
+```
+
+Cases and suite thresholds live in `evals/calorie-estimation.cases.json`. The command exits non-zero when completion, pass-rate, or mean range-error thresholds fail. Use `--no-fail` only for exploratory model comparisons. The ranges are engineering regression tolerances and should be reviewed with a dietitian before being treated as clinical ground truth.
+
 ## API Endpoints
 
 ### Health Check

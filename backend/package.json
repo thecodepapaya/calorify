@@ -12,6 +12,7 @@
         "lint": "eslint src --ext .ts",
         "type-check": "tsc --noEmit",
         "analysis:v2:cli": "tsx src/scripts/meal-analysis-api-cli.ts",
+        "eval:calories": "tsx src/scripts/calorie-estimation-eval.ts",
         "push-banner": "tsx src/scripts/push-banner.ts",
         "ai-summary:run": "tsx src/scripts/ai-summary-run.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
