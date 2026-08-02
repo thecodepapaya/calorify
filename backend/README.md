@@ -41,6 +41,7 @@ npm start
 
 npm run calories:estimate -- --text "2 rotis with dal" --meal-type LUNCH
 npm run calories:eval -- --base-url http://127.0.0.1:8000
+npm run user:inspect -- --user-id FIREBASE_UID
 npm run usda:bootstrap
 npm run usda:refresh
 ```
@@ -48,6 +49,8 @@ npm run usda:refresh
 `calories:estimate` runs the exact in-process V2 backend flow and reports decomposition, USDA grounding, automatic clarification choices, calorie confidence, structured logs, internal timing, and every actual OpenRouter/OpenAI model attempt. Add `--json` for machine-readable output or `--no-auto-continue` to inspect an interactive stopping point.
 
 `calories:eval` exercises the deployed HTTP streaming flow, follows controlled clarification choices, and checks calorie ranges, semantic ingredient coverage, completion, stability, and latency. Add `--verbose` for per-case pipeline paths or `--output report.json` to retain a complete artifact. Dataset cases, thresholds, and detailed usage live in `evals/`.
+
+`user:inspect` is a read-only, user-scoped diagnostic report. It shows the profile and locale, the same three-day stats returned with the AI summary, the exact next CSV input used by the summary job, stored summary history, matching batch statuses/errors, recent meal-analysis results, logged values, and feedback. Add `--json` for decomposition, uncertainty, clarification, and complete result objects, or `--limit 25` to expand each history section. The tool deliberately excludes tokens, uploaded-image URLs, and raw request payloads.
 
 ## Model routing
 
@@ -93,6 +96,7 @@ Required GitHub deployment secrets are listed in `.github/workflows/deploy-backe
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run calories:estimate -- --text "..."` — one-meal execution trace, including provider failover.
 - `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
+- `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
 - `loki/README.md` — local Loki/Grafana setup.
 
 ## Contracts

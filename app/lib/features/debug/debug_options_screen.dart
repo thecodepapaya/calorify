@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
+import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
@@ -16,6 +17,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_question_flow_s
 import 'package:calorify/features/debug/database_inspector_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_observability_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_sheet_debug_previews.dart';
+import 'package:calorify/features/debug/widgets/debug_user_id_field.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_easter_egg_test_screen.dart';
@@ -91,6 +93,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
   @override
   Widget build(BuildContext context) {
     final notificationOptions = _buildNotificationOptions(context);
+    final userIdentityOptions = _buildUserIdentityOptions(context);
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
@@ -130,6 +133,11 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
                 onChanged: (value) => setState(() => _searchQuery = value),
               ),
             ),
+            if (userIdentityOptions != null) ...[
+              _buildSectionTitle(context, 'User identity'),
+              userIdentityOptions,
+              const SizedBox(height: 24),
+            ],
             if (notificationOptions != null) ...[
               _buildSectionTitle(context, 'Notifications'),
               notificationOptions,
@@ -196,6 +204,22 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
               const SizedBox(height: 24),
             ],
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget? _buildUserIdentityOptions(BuildContext context) {
+    const section = 'User identity';
+    const title = 'User ID';
+    final userId = AuthService.instance.currentUser?.uid;
+    if (!_matchesQuery(section, title, userId)) return null;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: DebugUserIdField(
+          userId: userId,
+          onCopied: () => _showSnackbar('User ID copied'),
         ),
       ),
     );

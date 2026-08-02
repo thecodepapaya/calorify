@@ -15,6 +15,7 @@
         "calories:eval": "tsx src/scripts/calorie-estimation-eval.ts",
         "push-banner": "tsx src/scripts/push-banner.ts",
         "ai-summary:run": "tsx src/scripts/ai-summary-run.ts",
+        "user:inspect": "tsx src/scripts/user-inspect.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
         "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",
         "docker:up:staging": "docker compose --profile staging up -d --build",
