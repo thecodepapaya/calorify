@@ -296,6 +296,43 @@ test('explicitly dry oats retain dry nutrition despite a later cooking instructi
   assert.equal(decomposition?.data.ingredients[0]?.canonicalHint, 'oats');
 });
 
+test('plain cooking water is always nutrient-neutral without a database or LLM lookup', async () => {
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockDecompositionWithFallback({
+    meal_name: 'Oats',
+    ingredients: [
+      {
+        raw_name: 'rolled oats', canonical_hint: 'oats',
+        grams_estimated: 100, min_grams: 100, max_grams: 100,
+        notes: 'dry weight', portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: true,
+      },
+      {
+        raw_name: 'water', canonical_hint: 'water',
+        grams_estimated: 230, min_grams: 200, max_grams: 260,
+        notes: 'cooking water', portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: false,
+      },
+    ],
+    confidence: 0.95,
+    inferred_meal_type: 'BREAKFAST',
+    meal_type_confident: true,
+  }, 375);
+
+  const events = await collectEvents(analyzeTextMeal('100 grams dry oats cooked only with water'));
+  const ingredients = events.find((event) => event.step === 'INGREDIENTS')?.data.ingredients;
+  const water = ingredients?.find((ingredient: any) => ingredient.rawName === 'water');
+  assert.deepEqual(water?.macros, { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 });
+  assert.equal(water?.source, 'deterministic');
+  assert.equal(water?.matchType, 'deterministic');
+  assert.equal(
+    mockCanonicalizeWithUsda.mock.calls.some((call) => call.arguments[0] === 'water'),
+    false
+  );
+});
+
 test('plain banana identity is grounded to raw fruit instead of an ambiguous database row', async () => {
   mockDecompositionWithFallback({
     meal_name: 'Bananas',

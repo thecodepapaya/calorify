@@ -79,7 +79,8 @@ Calorie regression cases are in `backend/evals/`:
 
 ```bash
 cd backend
-npm run eval:calories -- --base-url http://127.0.0.1:8000
+npm run calories:estimate -- --text "2 rotis with dal" --meal-type LUNCH
+npm run calories:eval -- --base-url http://127.0.0.1:8000
 ```
 
 ## Configuration and secrets

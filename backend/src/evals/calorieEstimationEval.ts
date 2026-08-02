@@ -31,8 +31,14 @@ export type EvaluatedIngredient = {
 };
 
 export type CalorieEvalObservation = {
+  analysisId?: string;
   calories?: number;
   ingredients?: EvaluatedIngredient[];
+  calorieConfidence?: string;
+  confidenceReasons?: string[];
+  calorieBand?: { min: number; max: number };
+  eventSteps?: string[];
+  continuationDecisions?: string[];
   latencyMs: number;
   terminalStep?: string;
   error?: string;
@@ -55,6 +61,12 @@ export type CalorieEvalCaseResult = {
   error?: string;
   tags: string[];
   ingredients: EvaluatedIngredient[];
+  analysisId?: string;
+  calorieConfidence?: string;
+  confidenceReasons: string[];
+  calorieBand?: { min: number; max: number };
+  eventSteps: string[];
+  continuationDecisions: string[];
   runNumber?: number;
 };
 
@@ -137,6 +149,12 @@ export function evaluateCalorieCase(
     error: observation.error,
     tags: evalCase.tags ?? [],
     ingredients: observation.ingredients ?? [],
+    analysisId: observation.analysisId,
+    calorieConfidence: observation.calorieConfidence,
+    confidenceReasons: observation.confidenceReasons ?? [],
+    calorieBand: observation.calorieBand,
+    eventSteps: observation.eventSteps ?? [],
+    continuationDecisions: observation.continuationDecisions ?? [],
   };
 }
 

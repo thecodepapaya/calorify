@@ -38,6 +38,7 @@ await mock.module('openai', {
 });
 
 const { createMealAnalysisLlmClient } = await import('./mealAnalysisLlm.js');
+type MealAnalysisLlmAttempt = import('./mealAnalysisLlm.js').MealAnalysisLlmAttempt;
 
 const validResponse = {
   id: 'completion-test',
@@ -72,6 +73,43 @@ test('uses OpenRouter free router when the primary model fails', async () => {
   };
   await createMealAnalysisLlmClient().chat.completions.create(request);
   assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-4.1-nano', 'openrouter/free']);
+});
+
+test('reports every provider attempt with its operation and outcome', async () => {
+  reset();
+  implementation = async (_provider, model) => {
+    if (model === 'openai/gpt-4.1-nano') throw new Error('quota exhausted');
+    return validResponse;
+  };
+  const attempts: MealAnalysisLlmAttempt[] = [];
+  await createMealAnalysisLlmClient({ onAttempt: (attempt) => attempts.push(attempt) })
+    .chat.completions.create(request, { operation: 'decompose_text' });
+  assert.deepEqual(
+    attempts.map(({ operation, provider, model, outcome, error }) => ({
+      operation,
+      provider,
+      model,
+      outcome,
+      error,
+    })),
+    [
+      {
+        operation: 'decompose_text',
+        provider: 'openrouter',
+        model: 'openai/gpt-4.1-nano',
+        outcome: 'error',
+        error: 'quota exhausted',
+      },
+      {
+        operation: 'decompose_text',
+        provider: 'openrouter',
+        model: 'openrouter/free',
+        outcome: 'success',
+        error: undefined,
+      },
+    ]
+  );
+  assert.ok(attempts.every((attempt) => attempt.durationMs >= 0));
 });
 
 test('falls back to direct OpenAI when both OpenRouter attempts fail', async () => {

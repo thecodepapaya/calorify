@@ -9,9 +9,26 @@ type CompletionResponse = OpenAI.Chat.Completions.ChatCompletion;
 export interface MealAnalysisLlmClient {
   chat: {
     completions: {
-      create(request: CompletionRequest): Promise<CompletionResponse>;
+      create(request: CompletionRequest, context?: MealAnalysisLlmCallContext): Promise<CompletionResponse>;
     };
   };
+}
+
+export interface MealAnalysisLlmCallContext {
+  operation?: string;
+}
+
+export interface MealAnalysisLlmAttempt {
+  operation?: string;
+  provider: 'openrouter' | 'openai';
+  model: string;
+  outcome: 'success' | 'error';
+  durationMs: number;
+  error?: string;
+}
+
+export interface MealAnalysisLlmClientOptions {
+  onAttempt?: (attempt: MealAnalysisLlmAttempt) => void;
 }
 
 type ProviderAttempt = {
@@ -113,7 +130,9 @@ function describeError(error: unknown): string {
  * over, not only transport/rate-limit errors handled by OpenRouter itself:
  * configured OpenRouter model -> OpenRouter free router -> direct OpenAI.
  */
-export function createMealAnalysisLlmClient(): MealAnalysisLlmClient {
+export function createMealAnalysisLlmClient(
+  options: MealAnalysisLlmClientOptions = {}
+): MealAnalysisLlmClient {
   const attempts: ProviderAttempt[] = [];
 
   if (config.OPENROUTER_API_KEY) {
@@ -153,9 +172,13 @@ export function createMealAnalysisLlmClient(): MealAnalysisLlmClient {
   return {
     chat: {
       completions: {
-        async create(request: CompletionRequest): Promise<CompletionResponse> {
+        async create(
+          request: CompletionRequest,
+          context: MealAnalysisLlmCallContext = {}
+        ): Promise<CompletionResponse> {
           const errors: string[] = [];
           for (const attempt of attempts) {
+            const startedAt = Date.now();
             try {
               const response = await instrumentAiCall(attempt.provider, () =>
                 attempt.client.chat.completions.create({
@@ -165,13 +188,30 @@ export function createMealAnalysisLlmClient(): MealAnalysisLlmClient {
                 })
               );
               validateStructuredContent(response, request);
+              options.onAttempt?.({
+                operation: context.operation,
+                provider: attempt.provider,
+                model: attempt.model,
+                outcome: 'success',
+                durationMs: Date.now() - startedAt,
+              });
               return response;
             } catch (error) {
-              errors.push(`${attempt.provider}/${attempt.model}: ${describeError(error)}`);
+              const message = describeError(error);
+              errors.push(`${attempt.provider}/${attempt.model}: ${message}`);
+              options.onAttempt?.({
+                operation: context.operation,
+                provider: attempt.provider,
+                model: attempt.model,
+                outcome: 'error',
+                durationMs: Date.now() - startedAt,
+                error: message,
+              });
               console.warn('[meal-analysis-llm] provider attempt failed', {
                 provider: attempt.provider,
                 model: attempt.model,
-                error: describeError(error),
+                operation: context.operation,
+                error: message,
               });
             }
           }

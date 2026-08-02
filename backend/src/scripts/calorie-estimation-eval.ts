@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import {
   evaluateCalorieCase,
@@ -17,6 +17,8 @@ type Args = {
   caseIds: Set<string>;
   json: boolean;
   noFail: boolean;
+  verbose: boolean;
+  outputPath?: string;
   timeoutMs: number;
   repeats: number;
   split: 'development' | 'holdout' | 'all';
@@ -30,6 +32,9 @@ type PipelineEvent = {
 type ResultData = {
   macros?: { calories?: number };
   ingredients?: EvaluatedIngredient[];
+  calorieConfidence?: string;
+  confidenceReasons?: string[];
+  calorieBand?: { min: number; max: number };
 };
 
 const DEFAULT_DATASET = 'evals/calorie-estimation.cases.json';
@@ -47,6 +52,7 @@ function parseArgs(argv: string[]): Args {
     caseIds: new Set(),
     json: false,
     noFail: false,
+    verbose: false,
     timeoutMs: 90_000,
     repeats: parsePositiveInteger(process.env.CALORIE_EVAL_REPEATS ?? '1', 'CALORIE_EVAL_REPEATS'),
     split: 'development',
@@ -75,15 +81,20 @@ function parseArgs(argv: string[]): Args {
       index += 1;
     } else if (arg === '--json') {
       args.json = true;
+    } else if (arg === '--verbose') {
+      args.verbose = true;
+    } else if (arg === '--output' && next) {
+      args.outputPath = next;
+      index += 1;
     } else if (arg === '--no-fail') {
       args.noFail = true;
     } else if (arg === '--help' || arg === '-h') {
       console.log(`Calorie estimation API eval
 
 Usage:
-  npm run eval:calories
-  npm run eval:calories -- --base-url https://staging-api.example.com
-  npm run eval:calories -- --case indian-roti-dal-curd,dry-oats-100g --json
+  npm run calories:eval
+  npm run calories:eval -- --base-url https://staging-api.example.com
+  npm run calories:eval -- --case indian-roti-dal-curd,dry-oats-100g --verbose
 
 Options:
   --base-url <url>    API origin (default: CALORIE_EVAL_BASE_URL or http://127.0.0.1:8000)
@@ -93,6 +104,8 @@ Options:
   --repeats <count>   Runs per case for stability measurement (default: 1)
   --split <name>      development, holdout, or all (default: development)
   --json              Print machine-readable output
+  --output <path>     Also write the complete JSON report to a file
+  --verbose           Show event paths, confidence, decisions, and ingredients
   --no-fail           Report threshold failures without a non-zero exit code`);
       process.exit(0);
     } else {
@@ -160,6 +173,9 @@ function analysisIdFrom(events: PipelineEvent[]): string | undefined {
 async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<CalorieEvalObservation> {
   const startedAt = Date.now();
   let events: PipelineEvent[] = [];
+  const eventSteps: string[] = [];
+  const continuationDecisions: string[] = [];
+  let analysisId: string | undefined;
   try {
     events = await postEvents(
       args.baseUrl,
@@ -167,13 +183,15 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
       { textDescription: evalCase.description },
       args.timeoutMs
     );
+    eventSteps.push(...events.map((event) => event.step));
+    analysisId = analysisIdFrom(events);
 
     // Explicit eval inputs should normally finish directly. If the engine still asks a
     // question, accept its default portion and the dataset's declared meal type so the
     // evaluation measures calorie grounding rather than UI interaction.
     for (let continuation = 0; continuation < 3; continuation += 1) {
       const terminal = lastEvent(events);
-      const analysisId = analysisIdFrom(events);
+      analysisId = analysisId ?? analysisIdFrom(events);
       if (!terminal || !analysisId || terminal.step === 'RESULT' || terminal.step === 'ERROR') break;
 
       if (terminal.step === 'UNCERTAINTY' && terminal.data?.needsClarification === true) {
@@ -185,22 +203,26 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
           selectedOptionId: clarification.defaultOptionId,
         }));
         if (answers.length === 0) break;
+        continuationDecisions.push(`accepted ${answers.length} default clarification answer(s)`);
         events = await postEvents(
           args.baseUrl,
           '/api/v2/food/clarify',
           { analysisId, answers },
           args.timeoutMs
         );
+        eventSteps.push(...events.map((event) => event.step));
         continue;
       }
 
       if (terminal.step === 'MEAL_TYPE_QUESTION') {
+        continuationDecisions.push(`selected dataset meal type ${evalCase.mealType}`);
         events = await postEvents(
           args.baseUrl,
           '/api/v2/food/meal-type',
           { analysisId, mealType: evalCase.mealType },
           args.timeoutMs
         );
+        eventSteps.push(...events.map((event) => event.step));
         continue;
       }
       break;
@@ -211,8 +233,14 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
     const data = result?.data as ResultData | undefined;
     const calories = data?.macros?.calories;
     return {
+      analysisId,
       calories: typeof calories === 'number' ? calories : undefined,
       ingredients: data?.ingredients,
+      calorieConfidence: data?.calorieConfidence,
+      confidenceReasons: data?.confidenceReasons,
+      calorieBand: data?.calorieBand,
+      eventSteps,
+      continuationDecisions,
       latencyMs: Date.now() - startedAt,
       terminalStep: terminal?.step,
       error:
@@ -224,6 +252,9 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
     };
   } catch (error) {
     return {
+      analysisId,
+      eventSteps,
+      continuationDecisions,
       latencyMs: Date.now() - startedAt,
       terminalStep: lastEvent(events)?.step,
       error: error instanceof Error ? error.message : String(error),
@@ -238,7 +269,8 @@ function formatPercent(value: number): string {
 function printHuman(
   results: CalorieEvalCaseResult[],
   summary: ReturnType<typeof summarizeCalorieEval>,
-  stability: ReturnType<typeof summarizeCalorieStability>
+  stability: ReturnType<typeof summarizeCalorieStability>,
+  verbose: boolean
 ): void {
   for (const result of results) {
     const status = result.passed ? 'PASS' : 'FAIL';
@@ -252,6 +284,14 @@ function printHuman(
     ].filter(Boolean).join('; ');
     const run = result.runNumber == null ? '' : ` #${result.runNumber}`;
     console.log(`${status.padEnd(4)} ${(result.id + run).padEnd(34)} ${calories.padEnd(13)} expected ${expected.padEnd(9)} ${result.latencyMs}ms${details ? `  ${details}` : ''}`);
+    if (verbose) {
+      console.log(`     events: ${result.eventSteps.join(' -> ') || 'none'}`);
+      console.log(`     analysis: ${result.analysisId ?? 'unknown'}; confidence: ${result.calorieConfidence ?? 'unknown'}; band: ${result.calorieBand ? `${result.calorieBand.min}-${result.calorieBand.max}` : 'unknown'}; reasons: ${result.confidenceReasons.join(', ') || 'none'}`);
+      for (const decision of result.continuationDecisions) console.log(`     decision: ${decision}`);
+      for (const ingredient of result.ingredients) {
+        console.log(`     ingredient: ${ingredient.rawName ?? ingredient.canonicalName ?? 'unknown'} | ${ingredient.grams ?? '?'}g | ${ingredient.macros?.calories ?? '?'} kcal | ${ingredient.canonicalName ?? 'unresolved'}`);
+      }
+    }
   }
   console.log(`\nCompletion ${summary.completed}/${summary.total} (${formatPercent(summary.completionRate)})`);
   console.log(`Passed     ${summary.passed}/${summary.total} (${formatPercent(summary.passRate)})`);
@@ -294,8 +334,14 @@ async function main(): Promise<void> {
   }
   const summary = summarizeCalorieEval(results, dataset.thresholds);
   const stability = summarizeCalorieStability(results);
-  if (args.json) console.log(JSON.stringify({ datasetVersion: dataset.version, baseUrl: args.baseUrl, split: args.split, repeats: args.repeats, summary, stability, results }, null, 2));
-  else printHuman(results, summary, stability);
+  const report = { datasetVersion: dataset.version, baseUrl: args.baseUrl, split: args.split, repeats: args.repeats, summary, stability, results };
+  if (args.outputPath) {
+    const outputPath = resolve(process.cwd(), args.outputPath);
+    await writeFile(outputPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+    if (!args.json) console.log(`Report written to ${outputPath}`);
+  }
+  if (args.json) console.log(JSON.stringify(report, null, 2));
+  else printHuman(results, summary, stability, args.verbose);
   if (!summary.thresholdsPassed && !args.noFail) process.exitCode = 1;
 }
 

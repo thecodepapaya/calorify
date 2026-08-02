@@ -10,6 +10,7 @@ import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import {
   createMealAnalysisLlmClient,
   type MealAnalysisLlmClient,
+  type MealAnalysisLlmAttempt,
 } from './mealAnalysisLlm.js';
 import { canonicalizeWithUsda } from './usdaLookup.js';
 import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
@@ -102,7 +103,7 @@ interface CanonicalMatch {
   foodId: string;
   canonicalName: string;
   score: number;
-  matchType: 'exact' | 'alias' | 'fuzzy' | 'llm_fallback' | 'unmatched';
+  matchType: 'exact' | 'alias' | 'fuzzy' | 'deterministic' | 'llm_fallback' | 'unmatched';
 }
 
 export interface Macros {
@@ -124,7 +125,7 @@ interface ResolvedIngredient {
   macros: Macros;
   minMacros: Macros;
   maxMacros: Macros;
-  source: 'db' | 'llm_fallback';
+  source: 'db' | 'deterministic' | 'llm_fallback';
   portionKind: PortionKindValue;
   count: number | null;
   perUnitGrams: number | null;
@@ -170,24 +171,25 @@ export function isPlausibleFallbackEntry(entry: LLMFallbackEntry): boolean {
   return assessUsdaNutritionQuality(entry).score >= 0.55;
 }
 
-interface AnalysisLogger {
+export interface AnalysisLogger {
   info: (obj: Record<string, unknown>, msg?: string) => void;
   warn: (obj: Record<string, unknown>, msg?: string) => void;
   error: (obj: Record<string, unknown>, msg?: string) => void;
 }
 
-type TraceStepCategory = 'llm' | 'usda' | 'pipeline' | 'db';
+export type TraceStepCategory = 'llm' | 'usda' | 'pipeline' | 'db';
 
-interface TraceStep {
+export interface TraceStep {
   category: TraceStepCategory;
   name: string;
   durationMs: number;
   meta?: Record<string, unknown>;
 }
 
-interface AnalysisTrace {
+export interface AnalysisTrace {
   startedAt: number;
   steps: TraceStep[];
+  llmAttempts: MealAnalysisLlmAttempt[];
   llmCallCount: number;
   usdaLookupCount: number;
   dbWriteCount: number;
@@ -238,7 +240,7 @@ export interface PipelineResolvedIngredient {
   matchType: string;
   grams: number;
   macros: Macros;
-  source: 'db' | 'llm_fallback';
+  source: 'db' | 'deterministic' | 'llm_fallback';
   portionKind: PortionKindValue;
   count?: number;
   perUnitGrams?: number;
@@ -375,46 +377,6 @@ export interface AnalysisRequestOptions {
   selectedMealTypeSource?: MealTypeSource;
   logger?: AnalysisLogger;
   trace?: AnalysisTrace;
-}
-
-export interface DecompositionPreviewIngredient {
-  rowId: string;
-  rawName: string;
-  canonicalHint: string;
-  gramsEstimated: number;
-  minGrams: number;
-  maxGrams: number;
-  notes: string;
-  portionKind: PortionKindValue;
-  count: number | null;
-  perUnitGrams: number | null;
-  perUnitMinGrams: number | null;
-  perUnitMaxGrams: number | null;
-  sizeSpecifiedByUser: boolean;
-  usda: {
-    hit: boolean;
-    matchType: 'exact' | 'alias' | 'fuzzy' | 'unmatched';
-    score: number;
-    fdcId?: string;
-    canonicalName?: string;
-    dataType?: string | null;
-  };
-}
-
-export interface DecompositionPreview {
-  analysisId: string;
-  mealName: string;
-  confidence: number;
-  inferredMealType: MealTypeValue;
-  mealTypeConfident: boolean;
-  ingredients: DecompositionPreviewIngredient[];
-  usdaSummary: {
-    total: number;
-    hitCount: number;
-    missCount: number;
-    hitRate: number;
-    matchTypes: Record<string, number>;
-  };
 }
 
 interface PipelineRunContext {
@@ -1245,24 +1207,28 @@ function logAnalysis(
   );
 }
 
-function createAnalysisTrace(): AnalysisTrace {
+export function createAnalysisTrace(): AnalysisTrace {
   return {
     startedAt: Date.now(),
     steps: [],
+    llmAttempts: [],
     llmCallCount: 0,
     usdaLookupCount: 0,
     dbWriteCount: 0,
   };
 }
 
-function traceSummary(trace: AnalysisTrace | undefined): Record<string, unknown> | undefined {
+export function summarizeAnalysisTrace(trace: AnalysisTrace | undefined): Record<string, unknown> | undefined {
   if (!trace) return undefined;
   return {
     totalDurationMs: Date.now() - trace.startedAt,
     llmCallCount: trace.llmCallCount,
+    llmAttemptCount: trace.llmAttempts.length,
+    llmFailedAttemptCount: trace.llmAttempts.filter((attempt) => attempt.outcome === 'error').length,
     usdaLookupCount: trace.usdaLookupCount,
     dbWriteCount: trace.dbWriteCount,
     steps: trace.steps,
+    llmAttempts: trace.llmAttempts,
   };
 }
 
@@ -1310,6 +1276,7 @@ async function traceAsync<T>(
 function summarizeResolvedSources(resolved: ResolvedIngredient[]): {
   total: number;
   dbCount: number;
+  deterministicCount: number;
   llmFallbackCount: number;
   unmatchedCount: number;
   matchTypes: Record<string, number>;
@@ -1317,6 +1284,7 @@ function summarizeResolvedSources(resolved: ResolvedIngredient[]): {
   const summary = {
     total: resolved.length,
     dbCount: 0,
+    deterministicCount: 0,
     llmFallbackCount: 0,
     unmatchedCount: 0,
     matchTypes: {} as Record<string, number>,
@@ -1324,6 +1292,7 @@ function summarizeResolvedSources(resolved: ResolvedIngredient[]): {
 
   for (const ingredient of resolved) {
     if (ingredient.source === 'db') summary.dbCount += 1;
+    if (ingredient.source === 'deterministic') summary.deterministicCount += 1;
     if (ingredient.source === 'llm_fallback') summary.llmFallbackCount += 1;
     if (ingredient.match.matchType === 'unmatched') summary.unmatchedCount += 1;
     summary.matchTypes[ingredient.match.matchType] =
@@ -1358,8 +1327,10 @@ function buildErrorEvent(analysisId: string, message: string): PipelineEvent {
   return { step: 'ERROR', data: { analysisId, message } };
 }
 
-function getMealAnalysisClient(): MealAnalysisLlmClient {
-  return createMealAnalysisLlmClient();
+function getMealAnalysisClient(trace?: AnalysisTrace): MealAnalysisLlmClient {
+  return createMealAnalysisLlmClient({
+    onAttempt: (attempt) => trace?.llmAttempts.push(attempt),
+  });
 }
 
 function formatIngredientSummary(resolved: ResolvedIngredient[]): string {
@@ -1388,68 +1359,10 @@ async function decomposeFromText(
       json_schema: { name: 'meal_decomposition', schema: DECOMPOSITION_SCHEMA, strict: true },
     },
     max_completion_tokens: 1200,
-  });
+  }, { operation: 'decompose_text' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
   return JSON.parse(raw) as LLMDecomposition;
-}
-
-export async function analyzeTextMealDecompositionPreview(
-  input: string,
-  options: Pick<AnalysisRequestOptions, 'analysisId' | 'feedbackIssues' | 'otherText' | 'logger'> = {}
-): Promise<DecompositionPreview> {
-  const analysisId = options.analysisId ?? randomUUID();
-  const client = getMealAnalysisClient();
-  const decomposition = await decomposeFromText(
-    client,
-    input,
-    buildCorrectionContext(options.feedbackIssues, options.otherText)
-  );
-  const normalized = normalizeDecomposition(decomposition, options.logger, analysisId, input);
-  const usdaMatches = await Promise.all(
-    normalized.ingredients.map((ingredient) => canonicalizeWithUsda(ingredient.canonicalHint))
-  );
-  const matchTypes: Record<string, number> = {};
-  let hitCount = 0;
-
-  const ingredients = normalized.ingredients.map((ingredient, index) => {
-    const match = usdaMatches[index]!;
-    matchTypes[match.matchType] = (matchTypes[match.matchType] ?? 0) + 1;
-    if (match.row) hitCount += 1;
-
-    return {
-      ...ingredient,
-      usda: {
-        hit: match.row != null,
-        matchType: match.matchType,
-        score: match.score,
-        ...(match.row
-          ? {
-              fdcId: String(match.row.fdc_id),
-              canonicalName: match.row.description,
-              dataType: match.row.data_type,
-            }
-          : {}),
-      },
-    };
-  });
-
-  const total = ingredients.length;
-  return {
-    analysisId,
-    mealName: normalized.mealName,
-    confidence: normalized.confidence,
-    inferredMealType: normalized.inferredMealType,
-    mealTypeConfident: normalized.mealTypeConfident,
-    ingredients,
-    usdaSummary: {
-      total,
-      hitCount,
-      missCount: total - hitCount,
-      hitRate: total > 0 ? +(hitCount / total).toFixed(3) : 0,
-      matchTypes,
-    },
-  };
 }
 
 async function decomposeFromImage(
@@ -1479,7 +1392,7 @@ async function decomposeFromImage(
       json_schema: { name: 'meal_decomposition', schema: DECOMPOSITION_SCHEMA, strict: true },
     },
     max_completion_tokens: 1200,
-  });
+  }, { operation: 'decompose_image' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
   return JSON.parse(raw) as LLMDecomposition;
@@ -1508,7 +1421,7 @@ async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string
       json_schema: { name: 'macro_fallback', schema: FALLBACK_SCHEMA, strict: true },
     },
     max_completion_tokens: 800,
-  });
+  }, { operation: 'estimate_macros_fallback' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM fallback response');
   const parsed = JSON.parse(raw) as { ingredients: LLMFallbackEntry[] };
@@ -1538,10 +1451,20 @@ async function resolveIngredients(
   const resolved: ResolvedIngredient[] = [];
   const unmatched: { index: number; ingredient: NormalizedIngredient }[] = [];
 
+  // Water contributes no calories or macros. Treat this as a physical invariant
+  // instead of trusting whichever generic/branded "water" row happens to rank
+  // first in a USDA dataset release.
+  const isPlainWater = (ingredient: NormalizedIngredient): boolean =>
+    [ingredient.rawName, ingredient.canonicalHint].some((value) =>
+      /^(?:plain |tap |drinking )?water$/.test(normalize(value))
+    );
+
   // USDA lookups are independent — run them in parallel to collapse per-ingredient latency.
   const usdaMatches = await Promise.all(
     decomposition.ingredients.map((ingredient) =>
-      traceAsync(
+      isPlainWater(ingredient)
+        ? Promise.resolve({ row: null, matchType: 'unmatched' as const, score: 0, confidenceMargin: 1 })
+        : traceAsync(
         trace,
         'usda',
         'canonicalize_with_usda',
@@ -1558,7 +1481,15 @@ async function resolveIngredients(
   for (let i = 0; i < decomposition.ingredients.length; i++) {
     const ingredient = decomposition.ingredients[i]!;
     const usdaMatch = usdaMatches[i]!;
-    const match: CanonicalMatch = usdaMatch.row
+    const deterministicWater = isPlainWater(ingredient);
+    const match: CanonicalMatch = deterministicWater
+      ? {
+          foodId: 'deterministic:water',
+          canonicalName: 'Water',
+          score: 1,
+          matchType: 'deterministic',
+        }
+      : usdaMatch.row
       ? {
           foodId: String(usdaMatch.row.fdc_id),
           canonicalName: usdaMatch.row.description,
@@ -1571,13 +1502,19 @@ async function resolveIngredients(
           score: 0,
           matchType: 'unmatched',
         };
-    const macros = usdaMatch.row
+    const macros = deterministicWater
+      ? { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 }
+      : usdaMatch.row
       ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.gramsEstimated)
       : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
-    const minMacros = usdaMatch.row
+    const minMacros = deterministicWater
+      ? { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 }
+      : usdaMatch.row
       ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.minGrams)
       : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
-    const maxMacros = usdaMatch.row
+    const maxMacros = deterministicWater
+      ? { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 }
+      : usdaMatch.row
       ? calcMacrosFromUsdaRow(usdaMatch.row, ingredient.maxGrams)
       : { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
     if (match.matchType === 'unmatched') unmatched.push({ index: resolved.length, ingredient });
@@ -1592,7 +1529,11 @@ async function resolveIngredients(
       macros,
       minMacros,
       maxMacros,
-      source: match.matchType === 'unmatched' ? 'llm_fallback' : 'db',
+      source: deterministicWater
+        ? 'deterministic'
+        : match.matchType === 'unmatched'
+          ? 'llm_fallback'
+          : 'db',
       portionKind: ingredient.portionKind,
       count: ingredient.count,
       perUnitGrams: ingredient.perUnitGrams,
@@ -1791,7 +1732,7 @@ async function enrichPresentationFromText(
       json_schema: { name: 'meal_presentation', schema: PRESENTATION_SCHEMA, strict: true },
     },
     max_completion_tokens: 800,
-  });
+  }, { operation: 'enrich_presentation' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty presentation response');
   return JSON.parse(raw) as PresentationResult;
@@ -1840,7 +1781,7 @@ async function enrichPresentationFromImage(
       json_schema: { name: 'meal_presentation', schema: PRESENTATION_SCHEMA, strict: true },
     },
     max_completion_tokens: 800,
-  });
+  }, { operation: 'enrich_presentation' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty presentation response');
   return JSON.parse(raw) as PresentationResult;
@@ -2275,7 +2216,7 @@ async function* runPipelineFromDecomposition(
     mealTypeSource,
     calories: totalMacros.calories,
     sourceSummary,
-    traceSummary: traceSummary(trace),
+    traceSummary: summarizeAnalysisTrace(trace),
   });
 }
 
@@ -2349,7 +2290,7 @@ export async function* analyzeTextMeal(
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
     yield { step: 'STARTED', data: { analysisId } };
-    const client = getMealAnalysisClient();
+    const client = getMealAnalysisClient(trace);
     const decomposition = await traceAsync(
       trace,
       'llm',
@@ -2372,7 +2313,7 @@ export async function* analyzeTextMeal(
       analysisId,
       source: 'text',
       message: error instanceof Error ? error.message : 'Analysis failed',
-      traceSummary: traceSummary(trace),
+      traceSummary: summarizeAnalysisTrace(trace),
     });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Analysis failed');
   }
@@ -2416,7 +2357,7 @@ export async function* analyzeImageMeal(
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
     yield { step: 'STARTED', data: { analysisId } };
-    const client = getMealAnalysisClient();
+    const client = getMealAnalysisClient(trace);
     const decomposition = await traceAsync(
       trace,
       'llm',
@@ -2439,7 +2380,7 @@ export async function* analyzeImageMeal(
       analysisId,
       source: 'image',
       message: error instanceof Error ? error.message : 'Image analysis failed',
-      traceSummary: traceSummary(trace),
+      traceSummary: summarizeAnalysisTrace(trace),
     });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Image analysis failed');
   }
@@ -2489,13 +2430,13 @@ export async function* continueMealAnalysis(
     const priorAnswers = (session.clarificationAnswers as MealClarificationAnswer[] | undefined) ?? [];
     const mergedAnswers = mergeClarificationAnswers(priorAnswers, answers);
 
-    const client = getMealAnalysisClient();
+    const client = getMealAnalysisClient(trace);
     yield* runPipelineFromDecomposition(client, decomposition, context, mergedAnswers, false);
   } catch (error) {
     logAnalysis(options.logger, 'error', 'clarification_resume_failed', {
       analysisId,
       message: error instanceof Error ? error.message : 'Clarification failed',
-      traceSummary: traceSummary(trace),
+      traceSummary: summarizeAnalysisTrace(trace),
     });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Clarification failed');
   }
@@ -2537,7 +2478,7 @@ export async function* continueMealAnalysisWithMealType(
       trace,
     };
 
-    const client = getMealAnalysisClient();
+    const client = getMealAnalysisClient(trace);
     yield* runPipelineFromDecomposition(
       client,
       decomposition,
@@ -2551,7 +2492,7 @@ export async function* continueMealAnalysisWithMealType(
       analysisId,
       selectedMealType,
       message: error instanceof Error ? error.message : 'Meal type continuation failed',
-      traceSummary: traceSummary(trace),
+      traceSummary: summarizeAnalysisTrace(trace),
     });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Meal type continuation failed');
   }
@@ -2618,7 +2559,7 @@ export async function* reanalyzeMeal(
     logAnalysis(requestOptions.logger, 'error', 'reanalyze_failed', {
       analysisId,
       message: error instanceof Error ? error.message : 'Reanalysis failed',
-      traceSummary: traceSummary(trace),
+      traceSummary: summarizeAnalysisTrace(trace),
     });
     yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Reanalysis failed');
   }
