@@ -4,8 +4,7 @@ platform :android do
   package_name = "dev.thecodepapaya.calorify"
 
   private_lane :form_factor_track do |options|
-    base_track = options[:track] == "internal" ? "qa" : options[:track]
-    "#{options[:prefix]}:#{base_track}"
+    "#{options[:prefix]}:#{options[:track]}"
   end
 
   desc "Draft and translate Google Play release notes"
@@ -68,7 +67,7 @@ platform :android do
     ).map(&:to_i)
 
     unless source_version_codes.include?(expected_version_code)
-      candidate_tracks = ["wear:qa", "wear:beta", "wear:production", "qa", "beta", "production"]
+      candidate_tracks = ["wear:internal", "wear:beta", "wear:production", "internal", "beta", "production"]
       matching_tracks = candidate_tracks.reject { |track| track == source_track }.filter_map do |track|
         version_codes = google_play_track_version_codes(
           track: track,
