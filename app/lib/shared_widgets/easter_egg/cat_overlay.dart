@@ -19,6 +19,7 @@ class CatOverlay extends StatefulWidget {
 class CatOverlayState extends State<CatOverlay> {
   final GlobalKey<OverlayState> _overlayKey = GlobalKey<OverlayState>();
   static final _random = math.Random();
+  OverlayEntry? _activeCatEntry;
 
   OverlayState? get _overlay => _overlayKey.currentState;
 
@@ -28,13 +29,16 @@ class CatOverlayState extends State<CatOverlay> {
     Edge? edgeHint,
     CatAnimationOverrides? overrides,
   }) {
+    // Avoid stacking cats on rapid/repeated taps. Overlapping entries made
+    // both their spacing and their motion look broken.
+    if (_activeCatEntry != null) return;
+
     // Resolve edge: use hint or pick random via [Edge.auto].
     final edge = edgeHint ?? Edge.auto;
 
     final forEdge = edge.eligibleAnimations;
-    final pool = forEdge
-        .where((a) => eligibleCatsForAnimation(a).isNotEmpty)
-        .toList();
+    final pool =
+        forEdge.where((a) => eligibleCatsForAnimation(a).isNotEmpty).toList();
     if (pool.isEmpty) {
       debugPrint('🐱 No animations eligible for edge: $edge');
       return;
@@ -50,27 +54,34 @@ class CatOverlayState extends State<CatOverlay> {
       debugPrint('🐱 No cat supports animation: $animationType');
       return;
     }
-    final chosenCat = preferredCat != null &&
-            catSupportsAnimation(preferredCat, animationType)
-        ? preferredCat
-        : eligible[_random.nextInt(eligible.length)];
+    final chosenCat =
+        preferredCat != null &&
+                catSupportsAnimation(preferredCat, animationType)
+            ? preferredCat
+            : eligible[_random.nextInt(eligible.length)];
 
-    final positionOptions = [-1.0, 0.0, 1.0];
-    final hBias = positionOptions[_random.nextInt(positionOptions.length)];
-    final vBias = positionOptions[_random.nextInt(positionOptions.length)];
-    final resolvedOverrides = overrides ??
-        CatAnimationOverrides(
-          horizontalBias: hBias,
-          sideHint: edge is LeftEdge || edge is RightEdge ? edge : null,
-          peekEdge: edge,
-          peekOffset: edge is TopEdge || edge is BottomEdge ? hBias : vBias,
-        );
+    // Continuous placement avoids the visibly repetitive left/center/right
+    // grid while retaining a comfortable margin from corners and system UI.
+    final hBias = _random.nextDouble() * 1.6 - 0.8;
+    final vBias = _random.nextDouble() * 1.6 - 0.8;
+    final resolvedOverrides = CatAnimationOverrides(
+      horizontalBias: overrides?.horizontalBias ?? hBias,
+      sideHint:
+          overrides?.sideHint ??
+          (edge is LeftEdge || edge is RightEdge ? edge : null),
+      peekEdge: overrides?.peekEdge ?? edge,
+      peekOffset:
+          overrides?.peekOffset ??
+          (edge is TopEdge || edge is BottomEdge ? hBias : vBias),
+    );
 
     OverlayEntry? entryRef;
     entryRef = OverlayEntry(
       builder: (ctx) {
         void removeEntry() {
-          entryRef?.remove();
+          final entry = entryRef;
+          if (entry?.mounted ?? false) entry?.remove();
+          if (identical(_activeCatEntry, entry)) _activeCatEntry = null;
         }
 
         final size = MediaQuery.sizeOf(ctx);
@@ -90,7 +101,10 @@ class CatOverlayState extends State<CatOverlay> {
       },
     );
 
-    _overlay?.insert(entryRef);
+    final overlay = _overlay;
+    if (overlay == null) return;
+    _activeCatEntry = entryRef;
+    overlay.insert(entryRef);
   }
 
   @override

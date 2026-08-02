@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:calorify/shared_widgets/easter_egg/cat_animation_layout.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 
 /// Clamp curve parameter to [0, 1] to avoid floating-point assertion in Curves.
@@ -33,7 +34,6 @@ class CatAnimationWidget extends StatelessWidget {
           onComplete: onComplete,
           peekEdge: o?.peekEdge ?? Edge.bottom,
           peekOffset: (o?.peekOffset ?? 0.0).clamp(-1.0, 1.0),
-          horizontalBias: o?.horizontalBias ?? 0,
         );
       case CatAnimationType.jumpAtYou:
         return _JumpAtYouAnimation(
@@ -49,7 +49,6 @@ class CatAnimationWidget extends StatelessWidget {
           onComplete: onComplete,
           peekEdge: o?.sideHint ?? o?.peekEdge ?? Edge.left,
           peekOffset: (o?.peekOffset ?? 0.0).clamp(-1.0, 1.0),
-          horizontalBias: o?.horizontalBias ?? 0,
         );
       case CatAnimationType.topPeek:
         return _PeekAnimation(
@@ -58,7 +57,6 @@ class CatAnimationWidget extends StatelessWidget {
           onComplete: onComplete,
           peekEdge: Edge.top,
           peekOffset: (o?.peekOffset ?? 0.0).clamp(-1.0, 1.0),
-          horizontalBias: o?.horizontalBias ?? 0,
         );
       case CatAnimationType.doublePeek:
         return _DoublePeekAnimation(
@@ -112,33 +110,44 @@ class _CatPeekEasterEggState extends State<CatPeekEasterEgg> {
   }
 }
 
-Widget _positionedCat(double left, double top, Widget cat) {
+Widget _positionedCat(Offset position, Widget cat) {
   return Stack(
     fit: StackFit.expand,
-    children: [Positioned(left: left, top: top, child: cat)],
+    clipBehavior: Clip.none,
+    children: [Positioned(left: position.dx, top: position.dy, child: cat)],
   );
 }
 
 class _CatImage extends StatelessWidget {
-  const _CatImage(this.cat, {this.rotationDegrees = 0});
+  const _CatImage(this.cat, {required this.extent, this.rotationDegrees = 0});
 
   final Cat cat;
+  final double extent;
   final double rotationDegrees;
 
   @override
   Widget build(BuildContext context) {
-    const size = CatEasterEggConfig.catWidth;
+    final bounds = cat.visibleBounds;
+    final sourceScale =
+        extent *
+        CatEasterEggConfig.visibleScaleWithinExtent /
+        bounds.longestSide;
+    final sourceExtent = CatEasterEggConfig.sourceAssetExtent * sourceScale;
+    final visibleWidth = bounds.width * sourceScale;
+    final visibleHeight = bounds.height * sourceScale;
+    final imageLeft = (extent - visibleWidth) / 2 - bounds.left * sourceScale;
+    final imageTop = extent - visibleHeight - bounds.top * sourceScale;
     final img = Image.asset(
       cat.path,
-      width: size,
-      height: size,
+      width: sourceExtent,
+      height: sourceExtent,
       fit: BoxFit.contain,
       errorBuilder: (context, error, stackTrace) {
         debugPrint('❌ Failed to load cat image: ${cat.path}');
         debugPrint('Error: $error');
         return Container(
-          width: size,
-          height: size,
+          width: sourceExtent,
+          height: sourceExtent,
           decoration: BoxDecoration(
             color: Colors.grey[300],
             borderRadius: BorderRadius.circular(8),
@@ -148,14 +157,27 @@ class _CatImage extends StatelessWidget {
       },
     );
 
-    final content =
-        rotationDegrees == 0
-            ? img
-            : Transform.rotate(
-              angle: rotationDegrees * (math.pi / 180.0),
-              child: img,
-            );
-    return SizedBox(width: size, height: size, child: content);
+    final normalized = SizedBox(
+      width: extent,
+      height: extent,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Positioned(
+            left: imageLeft,
+            top: imageTop,
+            width: sourceExtent,
+            height: sourceExtent,
+            child: img,
+          ),
+        ],
+      ),
+    );
+    if (rotationDegrees == 0) return normalized;
+    return Transform.rotate(
+      angle: rotationDegrees * (math.pi / 180.0),
+      child: normalized,
+    );
   }
 }
 
@@ -166,7 +188,6 @@ class _PeekAnimation extends StatefulWidget {
     required this.onComplete,
     required this.peekEdge,
     required this.peekOffset,
-    required this.horizontalBias,
   });
 
   final Cat cat;
@@ -174,7 +195,6 @@ class _PeekAnimation extends StatefulWidget {
   final VoidCallback onComplete;
   final Edge peekEdge;
   final double peekOffset;
-  final double horizontalBias;
 
   @override
   State<_PeekAnimation> createState() => _PeekAnimationState();
@@ -209,70 +229,40 @@ class _PeekAnimationState extends State<_PeekAnimation>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final w = constraints.maxWidth;
-        final h = constraints.maxHeight;
-        const size = CatEasterEggConfig.catWidth;
-        const pad = CatEasterEggConfig.edgePadding;
-
-        final rangeX = (w - size) / 2;
-        final rangeY = (h - size) / 2;
-        final centerX = (w - size) / 2;
-        final centerY = (h - size) / 2;
-        final offset = widget.peekOffset;
-
-        double startX, startY, endX, endY, rotationDegrees;
-
-        switch (widget.peekEdge) {
-          case BottomEdge():
-            startX = centerX + offset * rangeX;
-            startY = h;
-            endX = startX;
-            endY = h - size - pad;
-            rotationDegrees = 0;
-            break;
-          case TopEdge():
-            startX = centerX + offset * rangeX;
-            startY = -size - pad;
-            endX = startX;
-            endY = 0;
-            rotationDegrees = 180;
-            break;
-          case LeftEdge():
-            startX = -size - 50;
-            startY = centerY + offset * rangeY;
-            endX = 0;
-            endY = startY;
-            rotationDegrees = 90;
-            break;
-          case RightEdge():
-            startX = w + 50;
-            startY = centerY + offset * rangeY;
-            endX = w - size;
-            endY = startY;
-            rotationDegrees = -90;
-            break;
-        }
+        final viewport = Size(constraints.maxWidth, constraints.maxHeight);
+        final extent = CatAnimationLayout.catExtent(viewport);
+        final layout = CatAnimationLayout.peek(
+          viewport: viewport,
+          edge: widget.peekEdge,
+          catExtent: extent,
+          axisBias: widget.peekOffset,
+          peekYOffset: widget.peek.peekYOffset,
+          safeInsets: MediaQuery.paddingOf(context),
+        );
 
         return AnimatedBuilder(
           animation: _controller,
           builder: (context, _) {
             final t = _clampT(_controller.value);
             double phase;
-            if (t < 0.3) {
-              phase = t / 0.3;
-            } else if (t < 0.7) {
+            if (t < 0.28) {
+              phase = Curves.easeOutCubic.transform(_clampT(t / 0.28));
+            } else if (t < 0.72) {
               phase = 1.0;
             } else {
-              phase = 1.0 - (t - 0.7) / 0.3;
+              phase =
+                  1.0 -
+                  Curves.easeInCubic.transform(_clampT((t - 0.72) / 0.28));
             }
-            final p = _clampT(phase);
-            final curve = Curves.easeInOut.transform(p);
-            final x = startX + (endX - startX) * curve;
-            final y = startY + (endY - startY) * curve;
+            final position =
+                Offset.lerp(layout.hidden, layout.revealed, _clampT(phase))!;
             return _positionedCat(
-              x,
-              y,
-              _CatImage(widget.cat, rotationDegrees: rotationDegrees),
+              position,
+              _CatImage(
+                widget.cat,
+                extent: extent,
+                rotationDegrees: layout.rotationDegrees,
+              ),
             );
           },
         );
@@ -303,14 +293,10 @@ class _JumpAtYouAnimation extends StatefulWidget {
 class _JumpAtYouAnimationState extends State<_JumpAtYouAnimation>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final double _randomX;
 
   @override
   void initState() {
     super.initState();
-    final random = math.Random();
-    _randomX = (random.nextDouble() - 0.5) * widget.jump.horizontalBias;
-
     _controller = AnimationController(
       duration: widget.jump.leapDuration,
       vsync: this,
@@ -333,28 +319,34 @@ class _JumpAtYouAnimationState extends State<_JumpAtYouAnimation>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width = constraints.maxWidth;
-        final bias = widget.horizontalBias * width * 0.35;
-        final baseY =
-            constraints.maxHeight -
-            CatEasterEggConfig.catWidth -
-            CatEasterEggConfig.edgePadding +
-            10;
-        final jumpHeight = widget.jump.leapHeight * 0.4;
+        final viewport = Size(constraints.maxWidth, constraints.maxHeight);
+        final extent = CatAnimationLayout.catExtent(viewport);
+        final safeInsets = MediaQuery.paddingOf(context);
+        final left = CatAnimationLayout.axisPosition(
+          viewportExtent: viewport.width,
+          catExtent: extent,
+          bias: widget.horizontalBias,
+          leadingInset: safeInsets.left,
+          trailingInset: safeInsets.right,
+        );
+        final hiddenY = viewport.height + 2;
+        final jumpDistance =
+            safeInsets.bottom + extent * 0.86 + widget.jump.leapHeight * 0.35;
 
         return AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
-            final t = Curves.easeOut.transform(_clampT(_controller.value));
+            final t = Curves.easeInOutSine.transform(
+              _clampT(_controller.value),
+            );
             final arc = math.sin(t * math.pi);
-            final dy = baseY - arc * jumpHeight;
-            final scale = 1.0 + 0.55 * t;
-            final rotation = 0.08 * math.sin(t * math.pi);
+            final dy = hiddenY - arc * jumpDistance;
+            final scale = 0.9 + 0.32 * arc;
+            final rotation = 0.08 * math.sin(t * math.pi * 2);
 
-            final catWidget = _CatImage(widget.cat, rotationDegrees: 0);
+            final catWidget = _CatImage(widget.cat, extent: extent);
             return _positionedCat(
-              _randomX + bias,
-              dy,
+              Offset(left, dy),
               Transform.rotate(
                 angle: rotation,
                 child: Transform.scale(
@@ -391,14 +383,10 @@ class _DoublePeekAnimation extends StatefulWidget {
 class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final double _randomX;
 
   @override
   void initState() {
     super.initState();
-    final random = math.Random();
-    _randomX = (random.nextDouble() - 0.5) * widget.doublePeek.horizontalBias;
-
     _controller = AnimationController(
       duration: widget.doublePeek.peekDuration * 1.3,
       vsync: this,
@@ -421,15 +409,27 @@ class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final height = constraints.maxHeight;
-        final width = constraints.maxWidth;
-        final bias = widget.horizontalBias * width * 0.35;
-        final bottomY =
-            height -
-            CatEasterEggConfig.catWidth -
-            CatEasterEggConfig.edgePadding;
-        final belowY = bottomY + 60;
-        final peekY = bottomY + widget.doublePeek.peekYOffset;
+        final viewport = Size(constraints.maxWidth, constraints.maxHeight);
+        final extent = CatAnimationLayout.catExtent(viewport);
+        final safeInsets = MediaQuery.paddingOf(context);
+        final firstLayout = CatAnimationLayout.peek(
+          viewport: viewport,
+          edge: Edge.bottom,
+          catExtent: extent,
+          axisBias: widget.horizontalBias,
+          peekYOffset: widget.doublePeek.peekYOffset,
+          safeInsets: safeInsets,
+        );
+        final secondLayout = CatAnimationLayout.peek(
+          viewport: viewport,
+          edge: Edge.bottom,
+          catExtent: extent,
+          axisBias: -widget.horizontalBias * 0.55,
+          peekYOffset: widget.doublePeek.peekYOffset,
+          safeInsets: safeInsets,
+        );
+        final belowY = firstLayout.hidden.dy;
+        final peekY = firstLayout.revealed.dy;
 
         return AnimatedBuilder(
           animation: _controller,
@@ -460,10 +460,11 @@ class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
                   (belowY - peekY) *
                       Curves.easeIn.transform(_clampT((t - 0.85) / 0.15));
             }
+            final x =
+                t < 0.5 ? firstLayout.revealed.dx : secondLayout.revealed.dx;
             return _positionedCat(
-              _randomX + bias,
-              y,
-              _CatImage(widget.cat, rotationDegrees: 0),
+              Offset(x, y),
+              _CatImage(widget.cat, extent: extent),
             );
           },
         );

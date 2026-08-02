@@ -2,26 +2,75 @@ import 'dart:math' as math;
 
 /// Cat asset paths. Kept as a separate enum for asset definition.
 enum CatAsset {
-  acrobatFlip('assets/images/cat_acrobat_flip.webp'),
-  blepCurious('assets/images/cat_blep_curious.webp'),
-  calicoWave('assets/images/cat_calico_wave.webp'),
-  fallingSiamese('assets/images/cat_falling_siamese.webp'),
-  foilHat('assets/images/cat_foil_hat.webp'),
-  leapingStretch('assets/images/cat_leaping_stretch.webp'),
-  leapingTabby('assets/images/cat_leaping_tabby.webp'),
-  partyHat('assets/images/cat_party_hat.webp'),
-  peekyTongue('assets/images/cat_peeky_tongue.webp'),
-  pickle('assets/images/cat_pickle.webp'),
-  pilotGoggles('assets/images/cat_pilot_goggles.webp'),
-  siamesePounce('assets/images/cat_siamese_pounce.webp'),
-  singerMic('assets/images/cat_singer_mic.webp'),
-  surpriseBoo('assets/images/cat_surprise_boo.webp'),
-  surprisedTabby('assets/images/cat_surprised_tabby.webp'),
-  wavingVoid('assets/images/cat_waving_void.webp'),
-  wednesdayWave('assets/images/cat_wednesday_wave.webp');
+  acrobatFlip(
+    'assets/images/cat_acrobat_flip.webp',
+    CatVisualBounds(70, 93, 430, 392),
+  ),
+  blepCurious(
+    'assets/images/cat_blep_curious.webp',
+    CatVisualBounds(38, 49, 438, 462),
+  ),
+  calicoWave(
+    'assets/images/cat_calico_wave.webp',
+    CatVisualBounds(100, 50, 410, 454),
+  ),
+  fallingSiamese(
+    'assets/images/cat_falling_siamese.webp',
+    CatVisualBounds(70, 92, 430, 392),
+  ),
+  foilHat(
+    'assets/images/cat_foil_hat.webp',
+    CatVisualBounds(72, 113, 317, 475),
+  ),
+  leapingStretch(
+    'assets/images/cat_leaping_stretch.webp',
+    CatVisualBounds(41, 59, 465, 414),
+  ),
+  leapingTabby(
+    'assets/images/cat_leaping_tabby.webp',
+    CatVisualBounds(78, 28, 420, 471),
+  ),
+  partyHat(
+    'assets/images/cat_party_hat.webp',
+    CatVisualBounds(134, 69, 368, 459),
+  ),
+  peekyTongue(
+    'assets/images/cat_peeky_tongue.webp',
+    CatVisualBounds(41, 43, 431, 462),
+  ),
+  pickle('assets/images/cat_pickle.webp', CatVisualBounds(0, 19, 490, 491)),
+  pilotGoggles(
+    'assets/images/cat_pilot_goggles.webp',
+    CatVisualBounds(89, 96, 374, 357),
+  ),
+  siamesePounce(
+    'assets/images/cat_siamese_pounce.webp',
+    CatVisualBounds(121, 38, 403, 474),
+  ),
+  singerMic(
+    'assets/images/cat_singer_mic.webp',
+    CatVisualBounds(69, 79, 464, 424),
+  ),
+  surpriseBoo(
+    'assets/images/cat_surprise_boo.webp',
+    CatVisualBounds(112, 96, 390, 398),
+  ),
+  surprisedTabby(
+    'assets/images/cat_surprised_tabby.webp',
+    CatVisualBounds(131, 13, 387, 496),
+  ),
+  wavingVoid(
+    'assets/images/cat_waving_void.webp',
+    CatVisualBounds(100, 51, 410, 454),
+  ),
+  wednesdayWave(
+    'assets/images/cat_wednesday_wave.webp',
+    CatVisualBounds(76, 61, 424, 435),
+  );
 
-  const CatAsset(this.path);
+  const CatAsset(this.path, this.visibleBounds);
   final String path;
+  final CatVisualBounds visibleBounds;
   Cat toCat() {
     return switch (this) {
       CatAsset.acrobatFlip => AcrobatFlipCat(),
@@ -46,14 +95,7 @@ enum CatAsset {
 }
 
 /// Animation types used by the cat easter egg (for switch / overlay).
-enum CatAnimationType {
-  peek,
-  jumpAtYou,
-  sidePeek,
-  topPeek,
-  doublePeek,
- 
-}
+enum CatAnimationType { peek, jumpAtYou, sidePeek, topPeek, doublePeek }
 
 /// Edge hints for where cats can appear from. Each edge declares which
 /// [CatAnimationType]s are eligible (like cats implementing animation interfaces).
@@ -109,8 +151,30 @@ final class RightEdge extends Edge {
 
 /// Shared constants for cat easter egg layout.
 abstract interface class CatEasterEggConfig {
-  static const double catWidth = 150;
+  static const double sourceAssetExtent = 500;
+  static const double visibleScaleWithinExtent = 0.88;
   static const double edgePadding = 16;
+
+  static double catExtentFor(double shortestSide) =>
+      (shortestSide * 0.34).clamp(120.0, 152.0);
+}
+
+/// Measured non-transparent bounds in a square 500×500 source asset.
+///
+/// The assets intentionally keep generous transparent canvases. Rendering
+/// against these bounds gives every cat a consistent visible size and anchor
+/// without modifying the original artwork.
+class CatVisualBounds {
+  const CatVisualBounds(this.left, this.top, this.right, this.bottom);
+
+  final double left;
+  final double top;
+  final double right;
+  final double bottom;
+
+  double get width => right - left;
+  double get height => bottom - top;
+  double get longestSide => math.max(width, height);
 }
 
 // --- Animation interfaces (one per animation kind). Each defines getters
@@ -152,6 +216,7 @@ sealed class Cat {
   final CatAsset _asset;
 
   String get path => _asset.path;
+  CatVisualBounds get visibleBounds => _asset.visibleBounds;
 
   /// Build the [Cat] for the given asset. Iterate over [CatAsset.values] and call this to get all cats.
   static Cat fromAsset(CatAsset asset) {
@@ -168,7 +233,6 @@ final class AcrobatFlipCat extends Cat {
   AcrobatFlipCat() : super(CatAsset.acrobatFlip);
 
   double get horizontalBias => 120;
- 
 }
 
 final class BlepCuriousCat extends Cat
@@ -192,7 +256,6 @@ final class CalicoWaveCat extends Cat implements PeekAnimation {
   double get peekYOffset => -40;
   @override
   double get horizontalBias => 80;
- 
 }
 
 final class FallingSiameseCat extends Cat implements JumpAtYouAnimation {
@@ -298,7 +361,6 @@ final class SiamesePounceCat extends Cat
   Duration get leapDuration => const Duration(milliseconds: 1600);
   @override
   double get leapHeight => 80;
- 
 }
 
 final class SingerMicCat extends Cat implements PeekAnimation {
@@ -310,7 +372,6 @@ final class SingerMicCat extends Cat implements PeekAnimation {
   double get peekYOffset => -40;
   @override
   double get horizontalBias => 80;
- 
 }
 
 final class SurpriseBooCat extends Cat
@@ -338,7 +399,6 @@ final class SurprisedTabbyCat extends Cat implements PeekAnimation {
   double get peekYOffset => -40;
   @override
   double get horizontalBias => 60;
- 
 }
 
 final class WavingVoidCat extends Cat implements PeekAnimation {
@@ -385,7 +445,7 @@ List<Cat> eligibleCatsForAnimation(CatAnimationType type) {
     case CatAnimationType.sidePeek:
     case CatAnimationType.topPeek:
       return allCats.whereType<PeekAnimation>().cast<Cat>().toList();
- 
+
     case CatAnimationType.jumpAtYou:
       return allCats.whereType<JumpAtYouAnimation>().cast<Cat>().toList();
     case CatAnimationType.doublePeek:
