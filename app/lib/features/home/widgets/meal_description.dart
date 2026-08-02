@@ -46,11 +46,15 @@ class _DescribeMealState extends State<DescribeMeal> {
                 children: [
                   Icon(LucideIcons.wandSparkles, color: colorScheme.primary),
                   SizedBox(width: 8),
-                  Text(
-                    t.home.mealDescription.title,
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
+                  Expanded(
+                    child: Text(
+                      t.home.mealDescription.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ],
@@ -74,6 +78,7 @@ class _DescribeMealState extends State<DescribeMeal> {
               ),
               SizedBox(height: 10),
               MealAnalysisTipLine(
+                loadRemote: false,
                 textAlign: TextAlign.start,
                 textStyle: textTheme.bodySmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
@@ -101,6 +106,12 @@ class _DescribeMealState extends State<DescribeMeal> {
   }
 
   Future<void> _onProcessMealDescription() async {
+    final description = _textController.text.trim();
+    if (description.isEmpty) {
+      showFlushbar(t.home.mealDescription.description, context: context);
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -113,10 +124,8 @@ class _DescribeMealState extends State<DescribeMeal> {
       await showV2MealAnalysisFlow(
         context: context,
         startAnalysis:
-            () => repository.analyzeTextV2(
-              textDescription: _textController.text.trim(),
-            ),
-        textDescription: _textController.text.trim(),
+            () => repository.analyzeTextV2(textDescription: description),
+        textDescription: description,
       );
     } on Exception catch (e) {
       Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
@@ -131,6 +140,7 @@ class _DescribeMealState extends State<DescribeMeal> {
   }
 
   void _reset() {
+    if (!mounted) return;
     setState(() {
       _isLoading = false;
       _textController.text = '';

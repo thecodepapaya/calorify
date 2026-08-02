@@ -17,7 +17,7 @@ void main() {
       for (final locale in goldenTestLocales) {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
-            const EditMealScreen(),
+            EditMealScreen(initialDateTime: DateTime(2023, 10, 27, 12, 30)),
             wrapper: goldenWrapper(locale: locale),
             surfaceSize: device.size,
           );
@@ -43,9 +43,7 @@ void main() {
             fat: 20,
             fiber: 5,
           ),
-          health: MealHealth(
-            healthScore: HealthScore.NEUTRAL,
-          ),
+          health: MealHealth(healthScore: HealthScore.NEUTRAL),
         ),
         createdAt: dateTimeToIso8601String(DateTime(2023, 10, 27, 19, 30)),
       );

@@ -46,6 +46,7 @@ class _ReminderNotificationsScreenState
   Future<void> _checkNotificationStatus() async {
     final enabled =
         await NotificationService.instance.areNotificationsEnabled();
+    if (!mounted) return;
     setState(() {
       _notificationsEnabled = enabled;
     });
@@ -378,7 +379,7 @@ class _ReminderNotificationsScreenState
         );
       }
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 

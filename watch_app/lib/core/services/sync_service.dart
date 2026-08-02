@@ -27,6 +27,7 @@ class SyncService {
   final ValueNotifier<SyncState> syncState = ValueNotifier(SyncState.idle);
 
   bool _isInitialized = false;
+  Future<void>? _initialization;
   bool _channelReady = false;
   bool _isFlushingPending = false;
   StreamSubscription<Map<String, dynamic>>? _messageSubscription;
@@ -37,12 +38,18 @@ class SyncService {
   ValueListenable<int?> get calorieGoal => _cache.calorieGoal;
   ValueListenable<List<FavoriteMeal>> get favoriteMeals => _cache.favoriteMeals;
 
-  Future<void> initialize() async {
+  Future<void> initialize() {
     if (_isInitialized) {
       _restoreCachedSyncState();
-      return;
+      return Future.value();
     }
 
+    return _initialization ??= _initialize().whenComplete(() {
+      _initialization = null;
+    });
+  }
+
+  Future<void> _initialize() async {
     try {
       await Future.delayed(const Duration(milliseconds: 100));
       await WatchAuthSession.instance.initialize();
@@ -615,6 +622,7 @@ class SyncService {
     _pendingSyncTimer?.cancel();
     _pendingSyncTimer = null;
     _isInitialized = false;
+    _initialization = null;
     _channelReady = false;
     syncState.dispose();
     unawaited(_database.close());

@@ -9,6 +9,7 @@ import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 
 class WeightGoalScreen extends StatefulWidget {
   final VoidCallback onContinue;
@@ -22,6 +23,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
   WeightGoal? _selectedGoal;
   bool _isLoading = true;
   UserProfile? _userProfile;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -31,6 +33,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
 
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
+    if (!mounted) return;
     setState(() {
       _userProfile = data ?? UserProfile();
       _selectedGoal =
@@ -84,7 +87,10 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
             child: PrimaryButton(
               analyticsEvent: AnalyticsEvent.onboardingSetWeightGoal,
               onPressed:
-                  _selectedGoal != null ? () => _continue(_userProfile!) : null,
+                  _selectedGoal != null && !_isSaving
+                      ? () => _continue(_userProfile!)
+                      : null,
+              isLoading: _isSaving,
               text: t.common.kContinue,
               trailingIcon: LucideIcons.arrowRight,
             ),
@@ -113,14 +119,20 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
     );
   }
 
-  void _continue(UserProfile profile) {
-    if (_selectedGoal != null) {
+  Future<void> _continue(UserProfile profile) async {
+    if (_selectedGoal != null && !_isSaving) {
+      setState(() => _isSaving = true);
       final updatedProfile = profile.deepCopy();
-      if (_selectedGoal != null) {
-        updatedProfile.weightGoal = _selectedGoal!;
+      updatedProfile.weightGoal = _selectedGoal!;
+      try {
+        await OnboardingService.instance.saveProfileData(updatedProfile);
+        if (!mounted) return;
+        widget.onContinue();
+      } catch (_) {
+        if (mounted) showFlushbar(t.meal.failedToSave, context: context);
+      } finally {
+        if (mounted) setState(() => _isSaving = false);
       }
-      OnboardingService.instance.saveProfileData(updatedProfile);
-      widget.onContinue();
     }
   }
 }

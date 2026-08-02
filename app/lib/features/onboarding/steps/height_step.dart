@@ -7,6 +7,7 @@ import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/height_scale_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 
 class HeightStepScreen extends StatefulWidget {
   final VoidCallback onContinue;
@@ -20,6 +21,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
   double _height = 170;
   UnitSystem _unitSystem = UnitSystem.METRIC;
   bool _unitSystemInitialized = false;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -41,6 +43,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
 
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
+    if (!mounted) return;
     if (profile != null) {
       setState(() {
         _unitSystem = profile.heightUnit.normalized;
@@ -48,11 +51,6 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
         if (profile.hasHeight()) _height = profile.height;
       });
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -149,7 +147,8 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
           ),
           const SizedBox(height: 32),
           AppFilledButton(
-            onPressed: _saveAndContinue,
+            onPressed: _isSaving ? null : _saveAndContinue,
+            isLoading: _isSaving,
             text: t.onboarding.height.next,
           ),
         ],
@@ -186,13 +185,22 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
   }
 
   Future<void> _saveAndContinue() async {
-    final profile =
-        await OnboardingService.instance.getProfileData() ?? UserProfile();
-    final updatedProfile = profile.deepCopy();
-    updatedProfile.height = _height;
-    updatedProfile.heightUnit = _unitSystem;
-    await OnboardingService.instance.saveProfileData(updatedProfile);
-    Analytics.instance.logEvent(AnalyticsEvent.onboardingSetHeight);
-    widget.onContinue();
+    if (_isSaving) return;
+    setState(() => _isSaving = true);
+    try {
+      final profile =
+          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final updatedProfile = profile.deepCopy();
+      updatedProfile.height = _height;
+      updatedProfile.heightUnit = _unitSystem;
+      await OnboardingService.instance.saveProfileData(updatedProfile);
+      if (!mounted) return;
+      Analytics.instance.logEvent(AnalyticsEvent.onboardingSetHeight);
+      widget.onContinue();
+    } catch (_) {
+      if (mounted) showFlushbar(t.meal.failedToSave, context: context);
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 }

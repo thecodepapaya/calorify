@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -20,7 +22,8 @@ class HealthConnectPermissionsScreen extends StatefulWidget {
 }
 
 class _HealthConnectPermissionsScreenState
-    extends State<HealthConnectPermissionsScreen> {
+    extends State<HealthConnectPermissionsScreen>
+    with WidgetsBindingObserver {
   bool _isLoading = true;
   bool _isHealthConnectAvailable = false;
   bool _isRequestingPermissions = false;
@@ -29,7 +32,21 @@ class _HealthConnectPermissionsScreenState
   @override
   void initState() {
     super.initState();
-    _checkPermissions();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_checkPermissions());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(_checkPermissions());
+    }
   }
 
   Future<void> _checkPermissions() async {
@@ -70,6 +87,7 @@ class _HealthConnectPermissionsScreenState
       };
     }
 
+    if (!mounted) return;
     setState(() {
       _isHealthConnectAvailable = isAvailable;
       _permissionStatus = permissionStatus;
@@ -112,6 +130,7 @@ class _HealthConnectPermissionsScreenState
 
       // Always refresh permissions after request, regardless of success
       await _checkPermissions();
+      if (!mounted) return;
 
       // Track permission result
       if (success && _areAllPermissionsGranted()) {
@@ -144,7 +163,7 @@ class _HealthConnectPermissionsScreenState
         );
       }
       // Still refresh permissions in case something changed
-      await _checkPermissions();
+      if (mounted) await _checkPermissions();
     } finally {
       if (mounted) {
         setState(() {

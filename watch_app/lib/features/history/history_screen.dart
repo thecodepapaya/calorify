@@ -33,6 +33,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
     setState(() => _error = null);
     try {
       await SyncService.instance.refreshDashboard(forceRefresh: force);
+      final state = SyncService.instance.syncState.value;
+      if (mounted &&
+          SyncService.instance.todaysMeals.value.isEmpty &&
+          SyncService.instance.lastSyncTime.value == null &&
+          (state == SyncState.error || state == SyncState.disconnected)) {
+        setState(
+          () => _error = 'Open Calorify on your phone, then tap refresh.',
+        );
+      }
     } catch (_) {
       if (mounted) setState(() => _error = 'Could not load meals');
     }

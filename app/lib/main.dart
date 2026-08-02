@@ -29,10 +29,14 @@ Future<void> main() async {
     ),
   );
 
+  const measureApiKey = String.fromEnvironment('MEASURE_API_KEY');
+  if (measureApiKey.isEmpty) {
+    _runApp();
+    return;
+  }
+
   await Measure.instance.init(
-    () => runApp(
-      TranslationProvider(child: const ProviderScope(child: CalorifyApp())),
-    ),
+    _runApp,
     config: const MeasureConfig(
       traceSamplingRate: 1,
       samplingRateForErrorFreeSessions: 1,
@@ -46,9 +50,12 @@ Future<void> main() async {
       maxDiskUsageInMb: 30,
     ),
     clientInfo: ClientInfo(
-      apiKey:
-          'msrsh_edcc9ccd38bac9f3cb882b33e474d700925e0d2f88ec6d8b3cc70260c57bbd7d_78c62cda',
+      apiKey: measureApiKey,
       apiUrl: 'https://ingest.measure.sh',
     ),
   );
+}
+
+void _runApp() {
+  runApp(TranslationProvider(child: const ProviderScope(child: CalorifyApp())));
 }

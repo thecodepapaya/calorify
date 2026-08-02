@@ -17,6 +17,7 @@ class ShimmerScope extends StatefulWidget {
 class _ShimmerScopeState extends State<ShimmerScope>
     with SingleTickerProviderStateMixin {
   late final AnimationController controller;
+  int _activePlaceholders = 0;
 
   /// Constant-speed sweep (controller uses linear tick); reads smoother than easeInOut.
   Animation<double> get shimmer => controller;
@@ -27,7 +28,22 @@ class _ShimmerScopeState extends State<ShimmerScope>
     controller = AnimationController(
       duration: const Duration(milliseconds: 1600),
       vsync: this,
-    )..repeat();
+    );
+  }
+
+  void attachPlaceholder() {
+    _activePlaceholders++;
+    if (_activePlaceholders == 1) controller.repeat();
+  }
+
+  void detachPlaceholder() {
+    assert(_activePlaceholders > 0);
+    _activePlaceholders--;
+    if (_activePlaceholders == 0) {
+      controller
+        ..stop()
+        ..value = 0;
+    }
   }
 
   @override
@@ -40,7 +56,7 @@ class _ShimmerScopeState extends State<ShimmerScope>
   Widget build(BuildContext context) => widget.child;
 }
 
-class ShimmerBox extends StatelessWidget {
+class ShimmerBox extends StatefulWidget {
   const ShimmerBox({
     super.key,
     required this.width,
@@ -53,15 +69,38 @@ class ShimmerBox extends StatelessWidget {
   final double borderRadius;
 
   @override
+  State<ShimmerBox> createState() => _ShimmerBoxState();
+}
+
+class _ShimmerBoxState extends State<ShimmerBox> {
+  _ShimmerScopeState? _scope;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final nextScope = context.findAncestorStateOfType<_ShimmerScopeState>();
+    if (identical(nextScope, _scope)) return;
+    _scope?.detachPlaceholder();
+    _scope = nextScope;
+    _scope?.attachPlaceholder();
+  }
+
+  @override
+  void dispose() {
+    _scope?.detachPlaceholder();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final shimmer = ShimmerScope.maybeOf(context);
+    final shimmer = _scope?.shimmer;
     if (shimmer == null) {
       return Container(
-        width: width,
-        height: height,
+        width: widget.width,
+        height: widget.height,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
       );
     }
@@ -78,8 +117,8 @@ class ShimmerBox extends StatelessWidget {
         final phase = shimmer.value * 2 * math.pi - math.pi / 2;
         final center = (math.sin(phase) + 1) / 2;
         return Container(
-          width: width,
-          height: height,
+          width: widget.width,
+          height: widget.height,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
@@ -93,7 +132,7 @@ class ShimmerBox extends StatelessWidget {
                 (center + 0.5).clamp(0.0, 1.0),
               ],
             ),
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
         );
       },

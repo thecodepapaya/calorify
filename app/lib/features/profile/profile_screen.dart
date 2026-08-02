@@ -29,9 +29,7 @@ class ProfileScreen extends ConsumerWidget {
     return profileAsync.when(
       loading: () => const Scaffold(body: Center(child: AppLoader())),
       error:
-          (error, _) => Scaffold(
-            body: Center(child: ErrorView(error: error)),
-          ),
+          (error, _) => Scaffold(body: Center(child: ErrorView(error: error))),
       data: (userProfile) {
         if (userProfile == null) {
           return Scaffold(
@@ -74,7 +72,8 @@ class ProfileScreen extends ConsumerWidget {
                 _buildPersonalDetailsTile(context, userProfile),
                 _buildHeightTile(context, userProfile),
                 _buildWeightTile(context, userProfile),
-                if (userProfile.age != null) _buildAgeTile(context, userProfile),
+                if (userProfile.age != null)
+                  _buildAgeTile(context, userProfile),
               ]),
               const SizedBox(height: 16),
               _buildCardSection(context, t.profile.sections.goalsAndActivity, [
@@ -154,7 +153,10 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildPersonalDetailsTile(BuildContext context, UserProfile userProfile) {
+  Widget _buildPersonalDetailsTile(
+    BuildContext context,
+    UserProfile userProfile,
+  ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final gender =
@@ -259,7 +261,10 @@ class ProfileScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final goalAsync = ref.watch(savedDailyCalorieGoalProvider);
-    final goal = goalAsync.maybeWhen(data: (value) => value ?? 0, orElse: () => 0);
+    final goal = goalAsync.maybeWhen(
+      data: (value) => value ?? 0,
+      orElse: () => 0,
+    );
     final goalText =
         goal > 0
             ? '$goal ${t.profile.calculatedValues.calPerDay}'
@@ -441,6 +446,7 @@ class ProfileScreen extends ConsumerWidget {
     UserProfile userProfile,
   ) async {
     await context.router.push(EditProfileRoute(userProfile: userProfile));
+    if (!context.mounted) return;
     ref.invalidate(userProfileProvider);
     ref.invalidate(savedDailyCalorieGoalProvider);
   }

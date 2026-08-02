@@ -113,19 +113,21 @@ class NetworkClient {
   ///
   /// For GET-only calls, pick any [ReqT] extending [GeneratedMessage]; it is unused when
   /// [request] is null (e.g. `<ApiResult, AiMealSummaryResponse>`).
-  Future<RespT> apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
+  Future<RespT>
+  apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
     String endpoint,
     RespT Function() parseResponse, {
     ReqT? request,
     bool processError = true,
   }) async {
     try {
-      final response = request == null
-          ? await _dio.get<Map<String, dynamic>>(endpoint)
-          : await _dio.post<Map<String, dynamic>>(
-              endpoint,
-              data: request.toProto3Json(),
-            );
+      final response =
+          request == null
+              ? await _dio.get<Map<String, dynamic>>(endpoint)
+              : await _dio.post<Map<String, dynamic>>(
+                endpoint,
+                data: request.toProto3Json(),
+              );
       return parseResponse()..mergeFromProto3Json(response.data!);
     } on DioException catch (exception) {
       if (processError) {

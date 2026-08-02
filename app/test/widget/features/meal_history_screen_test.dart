@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -48,6 +50,9 @@ void main() {
   setUp(() {
     mockDatabaseInterface = MockDatabaseInterface();
     DatabaseService.setMockInterface(mockDatabaseInterface);
+    when(
+      () => mockDatabaseInterface.watchAllMealsForLast7Days(),
+    ).thenAnswer((_) => const Stream<List<LoggedMeal>>.empty());
   });
 
   group('MealHistoryScreen Widget', () {
@@ -82,6 +87,38 @@ void main() {
 
       expect(find.text('Apple'), findsOneWidget);
       expect(find.text('95'), findsWidgets); // Calorie value
+    });
+
+    testWidgets('refreshes when the meal table changes', (
+      WidgetTester tester,
+    ) async {
+      final changes = StreamController<List<LoggedMeal>>.broadcast();
+      addTearDown(changes.close);
+      var meals = [_buildLoggedMeal(clientId: 1, name: 'Apple', calories: 95)];
+
+      when(
+        () => mockDatabaseInterface.watchAllMealsForLast7Days(),
+      ).thenAnswer((_) => changes.stream);
+      when(
+        () => mockDatabaseInterface.paginatedMealsHistory(
+          offset: any(named: 'offset'),
+        ),
+      ).thenAnswer((_) async => meals);
+
+      await tester.pumpWidget(wrapWithProviders(const MealHistoryScreen()));
+      await tester.pumpAndSettle();
+      expect(find.text('Apple'), findsOneWidget);
+
+      changes.add(meals);
+      await tester.pumpAndSettle();
+      meals = [
+        _buildLoggedMeal(clientId: 2, name: 'Banana', calories: 105),
+        ...meals,
+      ];
+      changes.add(meals);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Banana'), findsOneWidget);
     });
 
     testWidgets('loads more meals when scrolled near the bottom', (

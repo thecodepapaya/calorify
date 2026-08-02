@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/history_providers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/features/home/widgets/ai_summary_card.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
@@ -20,10 +23,50 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with WidgetsBindingObserver {
   int _healthConnectRefreshTrigger = 0;
+  DateTime _dashboardDay = _dateOnly(DateTime.now());
 
-  void _onHealthConnectSetupComplete() {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _refreshDateSensitiveData();
+      unawaited(_refreshHealthConnectStatus());
+    }
+  }
+
+  static DateTime _dateOnly(DateTime value) =>
+      DateTime(value.year, value.month, value.day);
+
+  void _refreshDateSensitiveData() {
+    final today = _dateOnly(DateTime.now());
+    if (today == _dashboardDay) return;
+    _dashboardDay = today;
+    ref.invalidate(todaysMealsProvider);
+    ref.invalidate(last7DaysMealsProvider);
+    ref.invalidate(mealHistoryProvider);
+    ref.invalidate(aiSummaryProvider);
+    ref.invalidate(caloriesBurnedProvider);
+  }
+
+  Future<void> _refreshHealthConnectStatus() async {
+    final healthService = ref.read(healthServiceProvider);
+    await healthService.refreshAuthorizationStatus();
+    if (!mounted) return;
+
     setState(() {
       _healthConnectRefreshTrigger++;
     });
@@ -47,7 +90,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   !isHealthConnectAuthorized) ...[
                 const SizedBox(height: 10),
                 HealthConnectPromptCard(
-                  onSetupComplete: _onHealthConnectSetupComplete,
+                  healthService: healthService,
+                  onSetupComplete: _refreshHealthConnectStatus,
                 ),
               ],
               const SizedBox(height: 10),

@@ -23,10 +23,15 @@ void main() {
     );
     mockAuth = MockFirebaseAuth(mockUser: mockUser, signedIn: true);
     mockGoogleSignIn = MockGoogleSignIn();
-    
-    authService = AuthService.test(auth: mockAuth, googleSignIn: mockGoogleSignIn);
+
+    authService = AuthService.test(
+      auth: mockAuth,
+      googleSignIn: mockGoogleSignIn,
+    );
     AuthService.setMockInstance(authService);
   });
+
+  tearDown(() => authService.dispose());
 
   group('AuthService', () {
     test('currentUser returns mocked user when signed in', () {
@@ -48,6 +53,15 @@ void main() {
       expect(authService.currentUser, isNull);
       // verify google sign out was called (GoogleSignInMocks doesn't easily show this,
       // but we can check the internal state if needed or just assume success if no error)
+    });
+
+    test('signInWithGoogle authenticates with Firebase', () async {
+      await mockAuth.signOut();
+
+      final credential = await authService.signInWithGoogle();
+
+      expect(credential, isNotNull);
+      expect(authService.currentUser, isNotNull);
     });
   });
 }

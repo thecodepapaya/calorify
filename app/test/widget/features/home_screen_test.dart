@@ -4,12 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
+import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:health/health.dart';
 import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
+import 'package:flutter/widgets.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
@@ -32,6 +34,9 @@ void main() {
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(true);
+    when(
+      () => mockHealthService.refreshAuthorizationStatus(),
+    ).thenAnswer((_) async => mockHealthService.isAuthorized);
     when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer(
       (_) async => CaloriesResult(calories: 500.0, usedFallback: false),
     );
@@ -84,6 +89,63 @@ void main() {
       await tester.pump();
 
       expect(find.textContaining('Connect'), findsWidgets);
+    });
+
+    testWidgets('hides Health Connect prompt after permissions change', (
+      WidgetTester tester,
+    ) async {
+      final mockHealthService = HealthService.instance;
+      var isAuthorized = false;
+      when(
+        () => mockHealthService.isAuthorized,
+      ).thenAnswer((_) => isAuthorized);
+      when(() => mockHealthService.refreshAuthorizationStatus()).thenAnswer((
+        _,
+      ) async {
+        isAuthorized = true;
+        return true;
+      });
+
+      await tester.pumpWidget(
+        wrapWithProviders(
+          const HomeScreen(),
+          overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byType(HealthConnectPromptCard), findsOneWidget);
+
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(find.byType(HealthConnectPromptCard), findsNothing);
+    });
+
+    testWidgets('prevents duplicate Health Connect permission requests', (
+      WidgetTester tester,
+    ) async {
+      final mockHealthService = HealthService.instance;
+      final authorization = Completer<bool>();
+      when(
+        () => mockHealthService.requestAuthorization(),
+      ).thenAnswer((_) => authorization.future);
+
+      await tester.pumpWidget(
+        wrapWithProviders(
+          HealthConnectPromptCard(healthService: mockHealthService),
+        ),
+      );
+
+      await tester.tap(find.text('Connect'));
+      await tester.pump();
+      await tester.tap(find.text('Connect'));
+      await tester.pump();
+
+      verify(() => mockHealthService.requestAuthorization()).called(1);
+      authorization.complete(true);
+      await tester.pump();
     });
 
     testWidgets('shows skeleton cards while dashboard data is loading', (

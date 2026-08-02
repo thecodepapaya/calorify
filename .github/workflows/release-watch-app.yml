@@ -6,7 +6,7 @@ on:
       track:
         description: Google Play track
         required: true
-        default: production
+        default: internal
         type: choice
         options: [internal, beta, production]
       release_status:

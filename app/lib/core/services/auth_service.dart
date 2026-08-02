@@ -29,6 +29,8 @@ class AuthService {
 
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  late final Future<void> _googleSignInInitialization =
+      _googleSignIn.initialize();
 
   // Cached auth token for synchronous access
   String? _authToken;
@@ -83,8 +85,23 @@ class AuthService {
   }
 
   Future<UserCredential?> signInWithGoogle() async {
-    //
-    return null;
+    try {
+      await _googleSignInInitialization;
+      final googleUser = await _googleSignIn.authenticate();
+      final idToken = googleUser.authentication.idToken;
+      if (idToken == null || idToken.isEmpty) {
+        log('Google sign-in completed without an ID token.');
+        return null;
+      }
+
+      final credential = GoogleAuthProvider.credential(idToken: idToken);
+      final result = await _firebaseAuth.signInWithCredential(credential);
+      await resolveAuthToken();
+      return result;
+    } catch (e, st) {
+      log('Google sign-in failed:', error: e, stackTrace: st);
+      return null;
+    }
   }
 
   Future<void> signOut() async {
@@ -95,5 +112,11 @@ class AuthService {
     } catch (e) {
       log('Error signing out: $e');
     }
+  }
+
+  @visibleForTesting
+  Future<void> dispose() async {
+    await _authStateSubscription?.cancel();
+    _authStateSubscription = null;
   }
 }

@@ -53,6 +53,9 @@ void main() {
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(false);
+    when(
+      () => mockHealthService.refreshAuthorizationStatus(),
+    ).thenAnswer((_) async => false);
   });
 
   group('Onboarding Golden Tests', () {

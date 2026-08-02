@@ -19,7 +19,8 @@ class FavoritesScreen extends StatefulWidget {
   State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class _FavoritesScreenState extends State<FavoritesScreen>
+    with WidgetsBindingObserver {
   bool _loaded = false;
   String? _error;
   int? _loggingClientId;
@@ -27,13 +28,36 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     unawaited(_load());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && _loaded) {
+      unawaited(_load(force: true));
+    }
   }
 
   Future<void> _load({bool force = false}) async {
     setState(() => _error = null);
     try {
       await SyncService.instance.requestFavoriteMeals(forceRefresh: force);
+      final state = SyncService.instance.syncState.value;
+      if (mounted &&
+          SyncService.instance.favoriteMeals.value.isEmpty &&
+          SyncService.instance.lastSyncTime.value == null &&
+          (state == SyncState.error || state == SyncState.disconnected)) {
+        setState(
+          () => _error = 'Open Calorify on your phone, then tap refresh.',
+        );
+      }
     } catch (_) {
       if (mounted) setState(() => _error = 'Could not load favorites');
     }

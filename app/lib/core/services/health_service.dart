@@ -85,23 +85,51 @@ class HealthService {
     return true;
   }
 
-  // Define the health data types you want to access
+  // Permissions required by the production Health Connect integration. Keep
+  // this list aligned with AndroidManifest.xml and the permissions screen.
+  // Debug-only helpers for steps, weight, and height must not make the app's
+  // connection state permanently false when those permissions are undeclared.
   static const List<HealthDataType> _types = [
     HealthDataType.TOTAL_CALORIES_BURNED,
     HealthDataType.NUTRITION,
-    HealthDataType.STEPS,
-    HealthDataType.WEIGHT,
-    HealthDataType.HEIGHT,
   ];
 
-  // Define permissions for each type
   static const List<HealthDataAccess> _permissions = [
     HealthDataAccess.READ,
     HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ,
-    HealthDataAccess.READ_WRITE,
-    HealthDataAccess.READ_WRITE,
   ];
+
+  /// Re-reads SDK and permission state after the user returns from Health
+  /// Connect or system settings.
+  Future<bool> refreshAuthorizationStatus() async {
+    if (!_isInitialized) {
+      await init();
+      return _isAuthorized;
+    }
+
+    try {
+      status =
+          await _health.getHealthConnectSdkStatus() ??
+          HealthConnectSdkStatus.sdkUnavailable;
+      if (status != HealthConnectSdkStatus.sdkAvailable) {
+        _isAuthorized = false;
+        return false;
+      }
+
+      _isAuthorized =
+          await _health.hasPermissions(_types, permissions: _permissions) ??
+          false;
+      return _isAuthorized;
+    } catch (e, st) {
+      log(
+        'Error refreshing Health Connect authorization:',
+        error: e,
+        stackTrace: st,
+      );
+      _isAuthorized = false;
+      return false;
+    }
+  }
 
   Future<bool> get isHealthConnectAvailable async {
     if (!_ensureInitialized()) {
@@ -178,9 +206,13 @@ class HealthService {
       );
       return [];
     }
-    final bool authorized = await requestAuthorization();
+    // Data reads must never launch a permission prompt. Apart from being
+    // disruptive, requestAuthorization can block when access was already
+    // granted and may fail because an unrelated permission was declined.
+    // Permission prompts belong to explicit setup actions in the UI.
+    final authorized = await hasPermission(type, HealthDataAccess.READ);
     if (!authorized) {
-      log('Not authorized to fetch health data.');
+      log('Not authorized to read health data for $type.');
       return [];
     }
 

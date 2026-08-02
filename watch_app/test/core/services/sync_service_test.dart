@@ -1,4 +1,5 @@
 import 'package:calorify_watch/core/services/sync_service.dart';
+import 'package:calorify_watch/core/services/watch_auth_session.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
 
@@ -13,5 +14,34 @@ void main() {
     expect(watchMealOperationId(meal), 'watch:-4:2026-07-29T10:15:30.000Z');
     final restoredMeal = LoggedMeal.fromBuffer(meal.writeToBuffer());
     expect(watchMealOperationId(meal), watchMealOperationId(restoredMeal));
+  });
+
+  test('fresh watch auth does not make a second phone round-trip', () {
+    final freshSession = WatchAuthSnapshot(
+      userId: 'user',
+      authToken: 'token',
+      syncedAt: DateTime.now(),
+      isAnonymous: false,
+    );
+
+    expect(
+      shouldRefreshWatchAuthSession(freshSession, refreshIfNeeded: true),
+      isFalse,
+    );
+  });
+
+  test('missing or stale watch auth is refreshed when requested', () {
+    final staleSession = WatchAuthSnapshot(
+      userId: 'user',
+      authToken: 'token',
+      syncedAt: DateTime.now().subtract(const Duration(hours: 2)),
+      isAnonymous: false,
+    );
+
+    expect(shouldRefreshWatchAuthSession(null, refreshIfNeeded: true), isTrue);
+    expect(
+      shouldRefreshWatchAuthSession(staleSession, refreshIfNeeded: true),
+      isTrue,
+    );
   });
 }

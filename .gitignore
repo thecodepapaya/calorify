@@ -54,6 +54,5 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 
 # Golden test generated images
-app/test/golden/goldens/
 app/test/golden/failures/
 .release-artifacts/

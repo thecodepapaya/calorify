@@ -23,6 +23,7 @@ class WearOsChannelHandler(
     
     private var wearableDataClient: DataClient? = null
     private var wearableMessageClient: MessageClient? = null
+    private var isInitialized = false
     private var eventSink: EventChannel.EventSink? = null
     private val pendingResponses = ConcurrentHashMap<String, CompletableDeferred<Map<String, Any>?>>()
     
@@ -39,11 +40,7 @@ class WearOsChannelHandler(
                 "initialize" -> {
                     coroutineScope.launch {
                         try {
-                            // Ensure we're on the main thread for initialization
-                            withContext(Dispatchers.Main) {
-                                initializeWearOs()
-                            }
-                            result.success(true)
+                            result.success(initializeWearOs())
                         } catch (e: Exception) {
                             Log.e(TAG, "Initialization failed", e)
                             result.error("INIT_ERROR", e.message ?: "Unknown error", null)
@@ -88,7 +85,8 @@ class WearOsChannelHandler(
         })
     }
 
-    private suspend fun initializeWearOs() = withContext(Dispatchers.Main) {
+    private suspend fun initializeWearOs(): Boolean = withContext(Dispatchers.Main) {
+        if (isInitialized) return@withContext true
         try {
             Log.d(TAG, "Initializing Wear OS...")
             wearableDataClient = Wearable.getDataClient(context)
@@ -97,14 +95,17 @@ class WearOsChannelHandler(
             Log.d(TAG, "Registering message listener...")
             // Register message listener - await the task
             wearableMessageClient?.addListener(this@WearOsChannelHandler)?.await()
+            isInitialized = wearableMessageClient != null
             
             Log.d(TAG, "Wear OS initialized successfully")
             
             // Log connected nodes for debugging
             checkConnectedNodes()
+            return@withContext isInitialized
         } catch (e: Exception) {
             Log.e(TAG, "Failed to initialize Wear OS", e)
-            // Don't throw - allow app to continue without watch connection
+            isInitialized = false
+            return@withContext false
         }
     }
     
@@ -129,6 +130,8 @@ class WearOsChannelHandler(
                 Log.w(TAG, "No connected nodes found - cannot send message")
                 return@withContext mapOf("success" to false, "error" to "No connected phone")
             }
+            val messageClient = wearableMessageClient
+                ?: return@withContext mapOf("success" to false, "error" to "Wear OS channel unavailable")
 
             val requestId = UUID.randomUUID().toString()
             val jsonData = JSONObject(data).put("_requestId", requestId).toString()
@@ -142,11 +145,11 @@ class WearOsChannelHandler(
             try {
                 val targetNode = nodes.first()
                 Log.d(TAG, "Sending message to node: ${targetNode.displayName} (${targetNode.id})")
-                wearableMessageClient?.sendMessage(
+                messageClient.sendMessage(
                     targetNode.id,
                     messagePath,
                     payload
-                )?.await()
+                ).await()
                 
                 Log.d(TAG, "Message sent successfully to phone: $messagePath")
 
@@ -261,6 +264,7 @@ class WearOsChannelHandler(
         coroutineScope.launch {
             try {
                 wearableMessageClient?.removeListener(this@WearOsChannelHandler)?.await()
+                isInitialized = false
                 eventSink = null
                 Log.d(TAG, "WearOsChannelHandler disposed")
             } catch (e: Exception) {

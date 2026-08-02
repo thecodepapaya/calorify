@@ -7,6 +7,7 @@ import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/weight_scale_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 
 class WeightStepScreen extends StatefulWidget {
   final VoidCallback onContinue;
@@ -24,6 +25,7 @@ class WeightStepScreen extends StatefulWidget {
 class _WeightStepScreenState extends State<WeightStepScreen> {
   double _weight = 70;
   UnitSystem _unitSystem = UnitSystem.METRIC;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -33,6 +35,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
 
   Future<void> _loadData() async {
     final profile = await OnboardingService.instance.getProfileData();
+    if (!mounted) return;
     if (profile != null) {
       setState(() {
         _unitSystem = profile.weightUnit.normalized;
@@ -56,11 +59,6 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
         }
       });
     }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -168,7 +166,8 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
             ),
           const SizedBox(height: 32),
           AppFilledButton(
-            onPressed: _saveAndContinue,
+            onPressed: _isSaving ? null : _saveAndContinue,
+            isLoading: _isSaving,
             text: t.onboarding.weight.next,
           ),
         ],
@@ -205,21 +204,30 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
   }
 
   Future<void> _saveAndContinue() async {
-    final profile =
-        await OnboardingService.instance.getProfileData() ?? UserProfile();
-    final updatedProfile = profile.deepCopy();
-    if (widget.isTargetWeight) {
-      updatedProfile.targetWeight = _weight;
-    } else {
-      updatedProfile.weight = _weight;
+    if (_isSaving) return;
+    setState(() => _isSaving = true);
+    try {
+      final profile =
+          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final updatedProfile = profile.deepCopy();
+      if (widget.isTargetWeight) {
+        updatedProfile.targetWeight = _weight;
+      } else {
+        updatedProfile.weight = _weight;
+      }
+      updatedProfile.weightUnit = _unitSystem;
+      await OnboardingService.instance.saveProfileData(updatedProfile);
+      if (!mounted) return;
+      Analytics.instance.logEvent(
+        widget.isTargetWeight
+            ? AnalyticsEvent.onboardingSetTargetWeight
+            : AnalyticsEvent.onboardingSetWeight,
+      );
+      widget.onContinue();
+    } catch (_) {
+      if (mounted) showFlushbar(t.meal.failedToSave, context: context);
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
-    updatedProfile.weightUnit = _unitSystem;
-    await OnboardingService.instance.saveProfileData(updatedProfile);
-    Analytics.instance.logEvent(
-      widget.isTargetWeight
-          ? AnalyticsEvent.onboardingSetTargetWeight
-          : AnalyticsEvent.onboardingSetWeight,
-    );
-    widget.onContinue();
   }
 }

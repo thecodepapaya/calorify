@@ -60,6 +60,12 @@ class WatchAuthSnapshot {
   }
 }
 
+@visibleForTesting
+bool shouldRefreshWatchAuthSession(
+  WatchAuthSnapshot? session, {
+  required bool refreshIfNeeded,
+}) => refreshIfNeeded && (session == null || session.isStale);
+
 class WatchAuthSession {
   WatchAuthSession._();
 
@@ -76,7 +82,10 @@ class WatchAuthSession {
 
   Future<WatchAuthSnapshot?> getSession({bool refreshIfNeeded = false}) async {
     await initialize();
-    if (refreshIfNeeded || _session?.isStale == true) {
+    if (shouldRefreshWatchAuthSession(
+      _session,
+      refreshIfNeeded: refreshIfNeeded,
+    )) {
       final refreshed = await refreshFromPhone();
       if (refreshed != null) {
         return refreshed;

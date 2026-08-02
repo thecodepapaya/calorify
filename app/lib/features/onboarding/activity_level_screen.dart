@@ -9,6 +9,7 @@ import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 
 class ActivityLevelScreen extends StatefulWidget {
   final VoidCallback onContinue;
@@ -22,6 +23,7 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
   ActivityLevel? _selectedLevel;
   bool _isLoading = true;
   UserProfile? _userProfile;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -31,6 +33,7 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
 
   Future<void> _loadProfileData() async {
     final data = await OnboardingService.instance.getProfileData();
+    if (!mounted) return;
     setState(() {
       _userProfile = data ?? UserProfile();
       _selectedLevel =
@@ -84,9 +87,10 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
             child: PrimaryButton(
               analyticsEvent: AnalyticsEvent.onboardingSetActivityLevel,
               onPressed:
-                  _selectedLevel != null
+                  _selectedLevel != null && !_isSaving
                       ? () => _continue(_userProfile!)
                       : null,
+              isLoading: _isSaving,
               text: t.common.kContinue,
               trailingIcon: LucideIcons.arrowRight,
             ),
@@ -116,13 +120,19 @@ class _ActivityLevelScreenState extends State<ActivityLevelScreen> {
   }
 
   void _continue(UserProfile profile) async {
-    if (_selectedLevel != null) {
+    if (_selectedLevel != null && !_isSaving) {
+      setState(() => _isSaving = true);
       final updatedProfile = profile.deepCopy();
-      if (_selectedLevel != null) {
-        updatedProfile.activityLevel = _selectedLevel!;
+      updatedProfile.activityLevel = _selectedLevel!;
+      try {
+        await OnboardingService.instance.saveProfileData(updatedProfile);
+        if (!mounted) return;
+        widget.onContinue();
+      } catch (_) {
+        if (mounted) showFlushbar(t.meal.failedToSave, context: context);
+      } finally {
+        if (mounted) setState(() => _isSaving = false);
       }
-      await OnboardingService.instance.saveProfileData(updatedProfile);
-      widget.onContinue();
     }
   }
 }

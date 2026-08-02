@@ -14,6 +14,7 @@ import 'package:calorify/core/db/tables/sync_queue.dart';
 import 'package:models/models.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -31,6 +32,9 @@ part 'app_database.g.dart';
 )
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   AppDatabase() : super(_openConnection());
+
+  @visibleForTesting
+  AppDatabase.forTesting(super.executor);
 
   @override
   int get schemaVersion => 17;
@@ -219,13 +223,24 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     final startOfToday = DateTime(now.year, now.month, now.day);
     final endOfToday = startOfToday.add(const Duration(days: 1));
 
-    return (select(mealInfoTable)..where(
-      (tbl) =>
-          tbl.timestamp.isBiggerOrEqualValue(startOfToday) &
-          tbl.timestamp.isSmallerThanValue(endOfToday),
-    )).watch().map(
-      (rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList(),
-    );
+    return (select(mealInfoTable)
+          ..where(
+            (tbl) =>
+                tbl.timestamp.isBiggerOrEqualValue(startOfToday) &
+                tbl.timestamp.isSmallerThanValue(endOfToday),
+          )
+          ..orderBy([
+            (tbl) => OrderingTerm(
+              expression: tbl.timestamp,
+              mode: OrderingMode.desc,
+            ),
+            (tbl) => OrderingTerm(
+              expression: tbl.id,
+              mode: OrderingMode.desc,
+            ),
+          ]))
+        .watch()
+        .map((rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList());
   }
 
   @override
@@ -247,7 +262,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
-    if (analysisId != null && analysisId.startsWith('watch:')) {
+    // V2 analysis IDs and watch operation IDs are idempotency keys. A retry or
+    // rapid double tap must not create duplicate meals.
+    if (analysisId != null && analysisId.isNotEmpty) {
       final existing =
           await (select(mealInfoTable)
                 ..where((table) => table.analysisId.equals(analysisId))
@@ -343,6 +360,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ..orderBy([
             (t) =>
                 OrderingTerm(expression: t.timestamp, mode: OrderingMode.desc),
+            (t) => OrderingTerm(expression: t.id, mode: OrderingMode.desc),
           ])
           ..limit(mealsPerPage, offset: offset))
         .get()

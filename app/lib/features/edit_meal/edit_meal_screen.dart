@@ -43,6 +43,7 @@ class EditMealScreen extends ConsumerStatefulWidget {
   final LoggedMeal? loggedMeal;
   final Uint8List? imageBytes;
   final bool saveAsFavorite;
+  final DateTime? initialDateTime;
 
   const EditMealScreen({
     super.key,
@@ -50,6 +51,7 @@ class EditMealScreen extends ConsumerStatefulWidget {
     this.loggedMeal,
     this.imageBytes,
     this.saveAsFavorite = false,
+    this.initialDateTime,
   });
 
   @override
@@ -95,9 +97,10 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
     } else if (widget.meal != null) {
       // Editing a meal (legacy support)
       final meal = widget.meal!;
+      final initialDateTime = widget.initialDateTime ?? DateTime.now();
       _nameController = TextEditingController(text: meal.name);
-      _selectedDate = DateTime.now();
-      _selectedTime = TimeOfDay.now();
+      _selectedDate = initialDateTime;
+      _selectedTime = TimeOfDay.fromDateTime(initialDateTime);
       _calories = meal.macros.calories;
       _carbs = meal.macros.carbs.round();
       _protein = meal.macros.protein.round();
@@ -107,9 +110,10 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       _mealQuantityController = TextEditingController(text: meal.quantity);
     } else {
       // Creating a new meal
+      final initialDateTime = widget.initialDateTime ?? DateTime.now();
       _nameController = TextEditingController();
-      _selectedDate = DateTime.now();
-      _selectedTime = TimeOfDay.now();
+      _selectedDate = initialDateTime;
+      _selectedTime = TimeOfDay.fromDateTime(initialDateTime);
       _calories = 0;
       _carbs = 0;
       _protein = 0;
@@ -192,7 +196,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2100),
                   );
-                  if (date != null) {
+                  if (mounted && date != null) {
                     setState(() {
                       _selectedDate = date;
                       _dateController.text = MaterialLocalizations.of(
@@ -216,7 +220,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
                     context: context,
                     initialTime: _selectedTime,
                   );
-                  if (time != null) {
+                  if (mounted && time != null) {
                     setState(() {
                       _selectedTime = time;
                       _timeController.text = time.format(context);

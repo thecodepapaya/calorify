@@ -19,6 +19,7 @@ class GenderStepScreen extends StatefulWidget {
 
 class _GenderStepScreenState extends State<GenderStepScreen> {
   Gender? _selectedGender;
+  bool _isSaving = false;
 
   @override
   void initState() {
@@ -68,7 +69,9 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
           ),
           const Spacer(),
           AppFilledButton(
-            onPressed: _selectedGender != null ? _saveAndContinue : null,
+            onPressed:
+                _selectedGender != null && !_isSaving ? _saveAndContinue : null,
+            isLoading: _isSaving,
             text: t.onboarding.gender.next,
           ),
         ],
@@ -147,6 +150,8 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
   }
 
   Future<void> _saveAndContinue() async {
+    if (_isSaving) return;
+    setState(() => _isSaving = true);
     try {
       final profile =
           await OnboardingService.instance.getProfileData() ?? UserProfile();
@@ -155,12 +160,15 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
         updatedProfile.gender = _selectedGender!;
       }
       await OnboardingService.instance.saveProfileData(updatedProfile);
+      if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetGender);
       widget.onContinue();
     } catch (e) {
       if (mounted) {
         showFlushbar(t.meal.failedToSave, context: context);
       }
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
   }
 }

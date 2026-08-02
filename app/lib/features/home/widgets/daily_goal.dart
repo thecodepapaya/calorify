@@ -37,9 +37,11 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
     } catch (e) {
       debugPrint('Error saving daily goal: $e');
     } finally {
-      setState(() {
-        _isEditing = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isEditing = false;
+        });
+      }
     }
   }
 
@@ -81,13 +83,17 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
                     color: colorScheme.primary,
                   ),
                   SizedBox(width: 8),
-                  Text(
-                    isTargetSet
-                        ? t.home.dailyGoal.titleSet
-                        : t.home.dailyGoal.title,
-                    style: textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onSurface,
+                  Expanded(
+                    child: Text(
+                      isTargetSet
+                          ? t.home.dailyGoal.titleSet
+                          : t.home.dailyGoal.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface,
+                      ),
                     ),
                   ),
                 ],

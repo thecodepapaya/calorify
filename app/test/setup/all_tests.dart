@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:calorify/core/services/app_initialization.dart';
+import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -47,6 +48,9 @@ void setupAllTests() {
   // Register mocks for singletons
   Analytics.setMockInstance(MockAnalytics());
   HealthService.setMockInstance(MockHealthService());
+  final mockAuth = MockAuthService();
+  when(() => mockAuth.resolveAuthToken()).thenAnswer((_) async => null);
+  AuthService.setMockInstance(mockAuth);
 
   final mockNotifications = MockNotificationService();
   when(
@@ -74,6 +78,8 @@ void setupAllTests() {
 class MockAnalytics extends Mock implements Analytics {}
 
 class MockHealthService extends Mock implements HealthService {}
+
+class MockAuthService extends Mock implements AuthService {}
 
 class MockNotificationService extends Mock implements NotificationService {}
 

@@ -417,7 +417,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       trailing: const Icon(LucideIcons.chevronRight, size: 18),
       onTap: () async {
         await LanguagePickerSheet.show(context);
-        setState(() {});
+        if (mounted) setState(() {});
       },
     );
   }

@@ -122,7 +122,11 @@ class _MealSnapState extends State<MealSnap> {
     );
   }
 
-  Widget _buildImagePreview(BuildContext context, ColorScheme colorScheme, TextTheme textTheme) {
+  Widget _buildImagePreview(
+    BuildContext context,
+    ColorScheme colorScheme,
+    TextTheme textTheme,
+  ) {
     final status =
         _isUploadingImage
             ? t.home.mealSnap.uploadingPhoto
@@ -277,7 +281,8 @@ class _MealSnapState extends State<MealSnap> {
         if (!mounted) return;
         await showV2MealAnalysisFlow(
           context: context,
-          startAnalysis: () => repository.analyzeImageFromUrlV2(imageUrl: uploadUrl),
+          startAnalysis:
+              () => repository.analyzeImageFromUrlV2(imageUrl: uploadUrl),
           imageBytes: compressedImageByte,
           imageUrl: uploadUrl,
         );
@@ -311,6 +316,7 @@ class _MealSnapState extends State<MealSnap> {
   }
 
   void _reset() {
+    if (!mounted) return;
     setState(() {
       _isLoading = false;
       _isUploadingImage = false;

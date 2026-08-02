@@ -1,0 +1,5 @@
+Health Connect now updates immediately after permissions are granted.
+Improved meal history refresh, duplicate-log protection, and date rollover handling.
+More reliable Google sign-in, onboarding saves, and meal logging feedback.
+Polished long-text layouts and reduced unnecessary background animations.
+Improved Wear OS voice input, sync retries, cached history, and connection guidance.

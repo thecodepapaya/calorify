@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
@@ -17,7 +19,8 @@ class HealthConnectScreen extends StatefulWidget {
   State<HealthConnectScreen> createState() => _HealthConnectScreenState();
 }
 
-class _HealthConnectScreenState extends State<HealthConnectScreen> {
+class _HealthConnectScreenState extends State<HealthConnectScreen>
+    with WidgetsBindingObserver {
   bool _isLoading = false;
   bool _healthConnectEnabled = false;
   String _statusMessage = '';
@@ -25,12 +28,28 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
   @override
   void initState() {
     super.initState();
-    _checkHealthConnectStatus();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_checkHealthConnectStatus());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(_checkHealthConnectStatus());
+    }
   }
 
   Future<void> _checkHealthConnectStatus() async {
-    setState(() => _isLoading = true);
-    final isAuthorized = HealthService.instance.isAuthorized;
+    if (mounted) setState(() => _isLoading = true);
+    final isAuthorized =
+        await HealthService.instance.refreshAuthorizationStatus();
+    if (!mounted) return;
     setState(() {
       _healthConnectEnabled = isAuthorized;
       _isLoading = false;
@@ -259,6 +278,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
 
     try {
       final success = await HealthService.instance.requestAuthorization();
+      if (!mounted) return;
 
       // Track permission result
       if (success) {
@@ -285,6 +305,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         _navigateToReminderNotifications();
       }
     } catch (e) {
+      if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.healthConnectPermissionDenied);
       setState(() {
         _healthConnectEnabled = false;
@@ -293,7 +314,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen> {
         );
       });
     } finally {
-      setState(() => _isLoading = false);
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 

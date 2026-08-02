@@ -6,7 +6,7 @@ on:
       track:
         description: Google Play track
         required: true
-        default: production
+        default: internal
         type: choice
         options: [internal, beta, production]
       release_status:
@@ -42,6 +42,9 @@ jobs:
       - name: Test
         working-directory: app
         run: flutter test test/unit test/widget --concurrency=1
+      - name: Visual regression tests
+        working-directory: app
+        run: flutter test test/golden --concurrency=1
 
   release-android-app:
     needs: verify-app
@@ -99,11 +102,13 @@ jobs:
         env:
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           ORACLE_BUCKET_UPLOAD_URL: ${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+          MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
         run: |
           set -euo pipefail
           : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
           : "${ORACLE_BUCKET_UPLOAD_URL:?Missing ORACLE_BUCKET_UPLOAD_URL}"
+          : "${MEASURE_API_KEY:?Missing MEASURE_API_KEY}"
           : "${SHOREBIRD_TOKEN:?Missing SHOREBIRD_TOKEN}"
 
       - name: Set up Java
@@ -119,9 +124,11 @@ jobs:
 
       - name: Build Android AppBundle (Main App) with Shorebird
         uses: shorebirdtech/shorebird-release@v1
+        env:
+          MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
         with:
           platform: android
-          args: --flavor=prod --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+          args: --flavor=prod --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }} --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
           working-directory: app
           flutter-version: "3.41.0"
 

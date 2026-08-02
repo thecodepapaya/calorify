@@ -46,6 +46,14 @@ class MealHistoryNotifier extends AsyncNotifier<MealHistoryState> {
   @override
   Future<MealHistoryState> build() async {
     final database = ref.watch(databaseInterfaceProvider);
+    // The paginated history query is a snapshot. Listen to the existing meal
+    // table stream so logs and deletes refresh that snapshot, including
+    // changes arriving from the watch while this tab remains mounted.
+    ref.listen(last7DaysMealsProvider, (previous, next) {
+      if (previous?.hasValue == true && next.hasValue) {
+        ref.invalidateSelf();
+      }
+    });
     final meals = await _fetchMeals(database: database, offset: 0);
     return MealHistoryState(
       meals: meals,

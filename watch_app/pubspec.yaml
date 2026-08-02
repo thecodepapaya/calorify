@@ -1,6 +1,6 @@
 name: calorify_watch
 description: Calorify companion watch app
-version: 1.2.11+39
+version: 1.2.12+41
 publish_to: 'none'
 
 environment:

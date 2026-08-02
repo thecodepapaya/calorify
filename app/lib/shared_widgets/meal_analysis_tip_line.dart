@@ -1,5 +1,3 @@
-import 'dart:math' show Random;
-
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +24,7 @@ List<String> _bundledMealAnalysisTips() {
 String _fallbackBundledMealAnalysisTip() {
   final bundled = _bundledMealAnalysisTips();
   if (bundled.isEmpty) return t.meal.analysis.stepDefault.trim();
-  return bundled[Random().nextInt(bundled.length)];
+  return bundled.first;
 }
 
 /// Loads **one** meal-analysis tip via [FoodRepository.getMealAnalysisTips] (`count=1`),
@@ -40,6 +38,7 @@ class MealAnalysisTipLine extends ConsumerStatefulWidget {
     this.textAlign = TextAlign.start,
     this.maxLines = 3,
     this.textStyle,
+    this.loadRemote = true,
   });
 
   final TextAlign textAlign;
@@ -47,6 +46,12 @@ class MealAnalysisTipLine extends ConsumerStatefulWidget {
 
   /// Defaults to `bodySmall` with [ColorScheme.onSurfaceVariant] at line height **1.35**.
   final TextStyle? textStyle;
+
+  /// Whether to replace the bundled tip with a remotely managed tip.
+  ///
+  /// Input forms should normally keep this false so opening them never waits
+  /// on an unrelated network request. Analysis progress screens can opt in.
+  final bool loadRemote;
 
   @override
   ConsumerState<MealAnalysisTipLine> createState() =>
@@ -60,7 +65,12 @@ class _MealAnalysisTipLineState extends ConsumerState<MealAnalysisTipLine> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _loadTip());
+    if (widget.loadRemote) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _loadTip());
+    } else {
+      _resolvedTip = _fallbackBundledMealAnalysisTip();
+      _loading = false;
+    }
   }
 
   Future<void> _loadTip() async {
@@ -76,7 +86,9 @@ class _MealAnalysisTipLineState extends ConsumerState<MealAnalysisTipLine> {
         remote.map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
     setState(() {
       _resolvedTip =
-          trimmed.isNotEmpty ? trimmed.first : _fallbackBundledMealAnalysisTip();
+          trimmed.isNotEmpty
+              ? trimmed.first
+              : _fallbackBundledMealAnalysisTip();
       _loading = false;
     });
   }

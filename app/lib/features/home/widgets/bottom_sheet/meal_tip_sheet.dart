@@ -87,6 +87,7 @@ class _MealTip extends StatefulWidget {
 class _MealTipState extends State<_MealTip> {
   MealDetectionResult? _mealDetectionResult;
   MealAnalysisPipelineSessionContext? _pipelineContext;
+  bool _isSaving = false;
   bool _isFeedbackSubmitting = false;
   bool? _feedbackValue;
 
@@ -370,21 +371,34 @@ class _MealTipState extends State<_MealTip> {
               )
               : PrimaryButton(
                 analyticsEvent: AnalyticsEvent.mealSave,
-                onPressed: () async {
-                  await logMeal(
-                    context,
-                    _mealDetectionResult!.meal,
-                    parentContext: widget.parentContext,
-                    analysisId: _pipelineContext?.result.analysisId,
-                  );
-                  if (!context.mounted) return;
-                  Navigator.of(context).pop();
-                },
+                onPressed: _isSaving ? null : _saveDetectedMeal,
+                isLoading: _isSaving,
                 text: t.meal.saveMeal,
                 leadingIcon: LucideIcons.save,
               ))
           : _buildLoggedMealActions(context),
     ];
+  }
+
+  Future<void> _saveDetectedMeal() async {
+    final detectedMeal = _mealDetectionResult;
+    if (_isSaving || detectedMeal == null) return;
+    setState(() => _isSaving = true);
+
+    try {
+      await logMeal(
+        context,
+        detectedMeal.meal,
+        parentContext: widget.parentContext,
+        analysisId: _pipelineContext?.result.analysisId,
+      );
+      if (!mounted) return;
+      Navigator.of(context).pop();
+    } catch (error) {
+      if (!mounted) return;
+      showFlushbar('$error', context: context);
+      setState(() => _isSaving = false);
+    }
   }
 
   Widget _buildLoggedMealActions(BuildContext context) {
@@ -546,7 +560,9 @@ class _MealTipState extends State<_MealTip> {
       );
       Analytics.instance.logEvent(AnalyticsEvent.mealReanalysisSucceeded);
 
-        final updatedContext = nextContext.copyWithPipelineSession(isRevised: true);
+      final updatedContext = nextContext.copyWithPipelineSession(
+        isRevised: true,
+      );
 
       setState(() {
         _pipelineContext = updatedContext;

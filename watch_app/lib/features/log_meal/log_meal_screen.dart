@@ -28,6 +28,7 @@ class _LogMealScreenState extends State<LogMealScreen>
   bool _isProcessing = false;
   bool _isFinishing = false;
   bool _speechReady = false;
+  Future<bool>? _speechInitialization;
   String _transcript = '';
   String? _error;
   String? _localeId;
@@ -61,19 +62,34 @@ class _LogMealScreenState extends State<LogMealScreen>
   }
 
   Future<void> _initSpeech() async {
-    final ok = await _speech.initialize(
-      onStatus: _onSpeechStatus,
-      onError: _onSpeechError,
-      finalTimeout: const Duration(milliseconds: 750),
-    );
-    if (ok) {
-      final locale = await _speech.systemLocale();
-      _speechReady = true;
-      _localeId = locale?.localeId;
+    if (_speechReady) return;
+    final pending = _speechInitialization ??= _initializeSpeech();
+    final ok = await pending;
+    if (identical(_speechInitialization, pending)) {
+      _speechInitialization = null;
     }
     if (!ok && mounted) {
       setState(() => _error = 'Speech recognition unavailable on this device.');
       unawaited(HapticFeedback.heavyImpact());
+    }
+  }
+
+  Future<bool> _initializeSpeech() async {
+    try {
+      final ok = await _speech.initialize(
+        onStatus: _onSpeechStatus,
+        onError: _onSpeechError,
+        finalTimeout: const Duration(milliseconds: 750),
+      );
+      if (!ok) return false;
+
+      final locale = await _speech.systemLocale();
+      _speechReady = true;
+      _localeId = locale?.localeId;
+      return true;
+    } catch (error) {
+      if (kDebugMode) debugPrint('Speech initialization failed: $error');
+      return false;
     }
   }
 
@@ -86,7 +102,8 @@ class _LogMealScreenState extends State<LogMealScreen>
     if (!_speechReady) {
       await _initSpeech();
     }
-    if (!_speechReady || !mounted) {
+    if (!mounted) return;
+    if (!_speechReady) {
       setState(() => _error = 'Speech recognition unavailable.');
       unawaited(HapticFeedback.heavyImpact());
       return;

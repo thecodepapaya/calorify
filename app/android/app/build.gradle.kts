@@ -18,6 +18,10 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+val measureApiKey = providers.gradleProperty("MEASURE_API_KEY")
+    .orElse(providers.environmentVariable("MEASURE_API_KEY"))
+    .orElse("")
+
 android {
     namespace = "dev.thecodepapaya.calorify"
     compileSdk = flutter.compileSdkVersion
@@ -39,6 +43,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["measureApiKey"] = measureApiKey.get()
     }
 
     flavorDimensions.add("flavor")

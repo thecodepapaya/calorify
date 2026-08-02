@@ -2,12 +2,12 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/shared_widgets/app_filled_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:models/models.dart';
 import 'package:utils/utils.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 
 class AgeStepScreen extends StatefulWidget {
   final VoidCallback onContinue;
@@ -18,6 +18,7 @@ class AgeStepScreen extends StatefulWidget {
 }
 
 class _AgeStepScreenState extends State<AgeStepScreen> {
+  bool _isSaving = false;
   DateTime _dateOfBirth = DateTime(
     DateTime.now().year - 25,
     DateTime.now().month,
@@ -44,6 +45,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final locale = TranslationProvider.of(context).locale.flutterLocale;
 
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -89,9 +91,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                       ],
                     ),
                     child: Text(
-                      DateFormat.yMMMMd(
-                        TranslationProvider.of(context).locale.flutterLocale.toString(),
-                      ).format(_dateOfBirth),
+                      DateFormat.yMMMMd(locale.toString()).format(_dateOfBirth),
                       style: theme.textTheme.headlineSmall?.copyWith(
                         color: colorScheme.primary,
                         fontWeight: FontWeight.bold,
@@ -106,42 +106,13 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
                     color: colorScheme.onSurfaceVariant,
                   ),
                 ),
-                const SizedBox(height: 48),
-                SizedBox(
-                  height: 200,
-                  child: CupertinoTheme(
-                    data: CupertinoThemeData(
-                      brightness: theme.brightness,
-                      primaryColor: colorScheme.primary,
-                      textTheme: CupertinoTextThemeData(
-                        textStyle: TextStyle(
-                          color: colorScheme.onSurface,
-                          fontSize: 20,
-                        ),
-                        dateTimePickerTextStyle: TextStyle(
-                          color: colorScheme.onSurface,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    child: CupertinoDatePicker(
-                      mode: CupertinoDatePickerMode.date,
-                      initialDateTime: _dateOfBirth,
-                      maximumDate: DateTime.now(),
-                      minimumYear: 1900,
-                      maximumYear: DateTime.now().year,
-                      onDateTimeChanged: (DateTime newDate) {
-                        setState(() => _dateOfBirth = newDate);
-                      },
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
           const Spacer(),
           AppFilledButton(
-            onPressed: _saveAndContinue,
+            onPressed: _isSaving ? null : _saveAndContinue,
+            isLoading: _isSaving,
             text: t.onboarding.age.next,
           ),
         ],
@@ -166,18 +137,27 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
-    if (picked != null && picked != _dateOfBirth) {
+    if (mounted && picked != null && picked != _dateOfBirth) {
       setState(() => _dateOfBirth = picked);
     }
   }
 
   Future<void> _saveAndContinue() async {
-    final profile =
-        await OnboardingService.instance.getProfileData() ?? UserProfile();
-    final updatedProfile = profile.deepCopy();
-    updatedProfile.dateOfBirth = dateTimeToIso8601String(_dateOfBirth);
-    await OnboardingService.instance.saveProfileData(updatedProfile);
-    Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);
-    widget.onContinue();
+    if (_isSaving) return;
+    setState(() => _isSaving = true);
+    try {
+      final profile =
+          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final updatedProfile = profile.deepCopy();
+      updatedProfile.dateOfBirth = dateTimeToIso8601String(_dateOfBirth);
+      await OnboardingService.instance.saveProfileData(updatedProfile);
+      if (!mounted) return;
+      Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);
+      widget.onContinue();
+    } catch (_) {
+      if (mounted) showFlushbar(t.meal.failedToSave, context: context);
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 }

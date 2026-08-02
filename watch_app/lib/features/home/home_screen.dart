@@ -22,14 +22,28 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool _initialLoadDone = false;
   String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _initialLoad();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(_initialLoad());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && _initialLoadDone) {
+      unawaited(SyncService.instance.refreshDashboard(forceRefresh: true));
+    }
   }
 
   Future<void> _initialLoad() async {

@@ -8,39 +8,58 @@ import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class HealthConnectPromptCard extends StatelessWidget {
-  const HealthConnectPromptCard({super.key, this.onSetupComplete});
+class HealthConnectPromptCard extends StatefulWidget {
+  const HealthConnectPromptCard({
+    required this.healthService,
+    super.key,
+    this.onSetupComplete,
+  });
 
-  final VoidCallback? onSetupComplete;
+  final HealthService healthService;
+  final Future<void> Function()? onSetupComplete;
+
+  @override
+  State<HealthConnectPromptCard> createState() =>
+      _HealthConnectPromptCardState();
+}
+
+class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
+  bool _isWorking = false;
 
   Future<void> _onConnectPressed(
     BuildContext context,
     bool isInstallRequired,
   ) async {
-    if (isInstallRequired) {
-      await HealthService.instance.installHealthConnect();
-    } else {
-      try {
-        final success =
-            await HealthService.instance.requestAuthorization();
-        if (!context.mounted) return;
-        if (!success) {
+    if (_isWorking) return;
+    setState(() => _isWorking = true);
+
+    try {
+      if (isInstallRequired) {
+        await widget.healthService.installHealthConnect();
+      } else {
+        try {
+          final success = await widget.healthService.requestAuthorization();
+          if (!context.mounted) return;
+          if (!success) {
+            showFlushbar(
+              t.settings.healthConnect.permissionRequestCancelledOrFailed,
+              duration: const Duration(seconds: 5),
+              context: context,
+            );
+          }
+        } catch (_) {
+          if (!context.mounted) return;
           showFlushbar(
-            t.settings.healthConnect.permissionRequestCancelledOrFailed,
+            t.settings.healthConnect.permissionRequestFailed,
             duration: const Duration(seconds: 5),
             context: context,
           );
         }
-      } catch (_) {
-        if (!context.mounted) return;
-        showFlushbar(
-          t.settings.healthConnect.permissionRequestFailed,
-          duration: const Duration(seconds: 5),
-          context: context,
-        );
       }
+      await widget.onSetupComplete?.call();
+    } finally {
+      if (mounted) setState(() => _isWorking = false);
     }
-    onSetupComplete?.call();
   }
 
   @override
@@ -50,7 +69,7 @@ class HealthConnectPromptCard extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     final isInstallRequired =
-        HealthService.instance.status ==
+        widget.healthService.status ==
         HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
 
     return Container(
@@ -87,8 +106,15 @@ class HealthConnectPromptCard extends StatelessWidget {
           SizedBox(width: 8),
           PrimaryButton(
             analyticsEvent: AnalyticsEvent.connectHealth,
-            onPressed: () => _onConnectPressed(context, isInstallRequired),
-            text: isInstallRequired ? t.home.connectHealth.install : t.home.connectHealth.connect,
+            onPressed:
+                _isWorking
+                    ? null
+                    : () => _onConnectPressed(context, isInstallRequired),
+            isLoading: _isWorking,
+            text:
+                isInstallRequired
+                    ? t.home.connectHealth.install
+                    : t.home.connectHealth.connect,
             minimumSize: Size(40, 40),
           ),
         ],

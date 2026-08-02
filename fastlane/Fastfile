@@ -15,7 +15,7 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :release do
-    track = ENV.fetch("PLAY_TRACK", "production")
+    track = ENV.fetch("PLAY_TRACK", "internal")
 
     upload_to_play_store(
       track: track,
@@ -31,7 +31,7 @@ platform :android do
   lane :release_watch do
     track = form_factor_track(
       prefix: "wear",
-      track: ENV.fetch("PLAY_TRACK", "production")
+      track: ENV.fetch("PLAY_TRACK", "internal")
     )
 
     upload_to_play_store(
