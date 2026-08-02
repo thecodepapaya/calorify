@@ -1,0 +1,1 @@
+Improved meal logging, Health Connect status, reminders, and phone/watch synchronization reliability.
