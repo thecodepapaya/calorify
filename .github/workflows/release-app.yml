@@ -62,6 +62,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Free disk space for Shorebird Android build
+        run: |
+          set -euo pipefail
+          # GitHub's Ubuntu image includes several multi-GB toolchains this
+          # Android-only job never uses. Shorebird keeps both Flutter and
+          # release artifacts during bundling, so reclaim the space up front.
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          docker system prune --all --force
+          df -h /
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
