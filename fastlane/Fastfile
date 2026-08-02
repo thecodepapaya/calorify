@@ -8,7 +8,8 @@ platform :android do
   end
 
   private_lane :pubspec_version_code do |options|
-    path = options.fetch(:path)
+    repository_root = File.expand_path("..", __dir__)
+    path = File.expand_path(options.fetch(:path), repository_root)
     match = File.read(path).match(/^version:\s*\d+\.\d+\.\d+\+(\d+)\s*$/)
     UI.user_error!("Could not read an Android version code from #{path}") unless match
 

@@ -134,7 +134,7 @@ jobs:
       - name: Validate Google Play version code
         run: bundle exec fastlane android validate_version_code
         env:
-          PLAY_PUBSPEC_PATH: app/pubspec.yaml
+          PLAY_PUBSPEC_PATH: ${{ github.workspace }}/app/pubspec.yaml
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
 
       - name: Set up Java
