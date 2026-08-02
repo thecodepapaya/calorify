@@ -325,7 +325,8 @@
       "issueMissingItems": "Hiányzó elemek",
       "issueExtraItems": "Többlet elemek",
       "issueOther": "Egyéb"
-    }
+    },
+    "nameRequired": "Mentés előtt add meg az étkezés nevét."
   },
   "favorites": {
     "title": "Kedvencek",

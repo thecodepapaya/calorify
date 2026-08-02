@@ -42,6 +42,8 @@ class SyncService {
   Future<void>? _initialization;
   bool _channelReady = false;
   bool _isFlushingPending = false;
+  final Set<int> _activeOptimisticMealIds = <int>{};
+  final Set<int> _activeDeletedMealIds = <int>{};
   StreamSubscription<Map<String, dynamic>>? _messageSubscription;
   Timer? _pendingSyncTimer;
 
@@ -182,6 +184,7 @@ class SyncService {
     await _ensureInitialized();
 
     final optimisticMeal = _cache.addOptimisticMeal(meal);
+    _activeOptimisticMealIds.add(optimisticMeal.clientId);
     await _database.upsertMeal(optimisticMeal);
 
     if (!await _ensurePhoneConnected()) {
@@ -189,6 +192,7 @@ class SyncService {
         optimisticMeal,
         favoriteMealId: favoriteMealId,
       );
+      _activeOptimisticMealIds.remove(optimisticMeal.clientId);
       return SyncRequestResult.queued;
     }
 
@@ -208,7 +212,8 @@ class SyncService {
 
       if (response != null && response['success'] == true) {
         _markSynced();
-        unawaited(_refreshDashboardData());
+        _activeOptimisticMealIds.remove(optimisticMeal.clientId);
+        await _refreshDashboardData();
         return SyncRequestResult.synced;
       }
 
@@ -217,6 +222,7 @@ class SyncService {
           optimisticMeal,
           favoriteMealId: favoriteMealId,
         );
+        _activeOptimisticMealIds.remove(optimisticMeal.clientId);
         syncState.value = SyncState.disconnected;
         return SyncRequestResult.queued;
       }
@@ -226,10 +232,12 @@ class SyncService {
         optimisticMeal,
         favoriteMealId: favoriteMealId,
       );
+      _activeOptimisticMealIds.remove(optimisticMeal.clientId);
       syncState.value = SyncState.disconnected;
       return SyncRequestResult.queued;
     }
 
+    _activeOptimisticMealIds.remove(optimisticMeal.clientId);
     _cache.removeMealById(optimisticMeal.clientId);
     await _database.deleteCachedMeal(optimisticMeal.clientId);
     syncState.value = SyncState.error;
@@ -247,15 +255,18 @@ class SyncService {
     if (removedMeal == null) {
       return SyncRequestResult.failed;
     }
+    _activeDeletedMealIds.add(mealId);
     await _database.deleteCachedMeal(mealId);
 
     if (mealId < 0) {
       await _database.cancelQueuedMealLog(mealId);
+      _activeDeletedMealIds.remove(mealId);
       return SyncRequestResult.queued;
     }
 
     if (!await _ensurePhoneConnected()) {
       await _database.queueMealDelete(mealId);
+      _activeDeletedMealIds.remove(mealId);
       return SyncRequestResult.queued;
     }
 
@@ -269,21 +280,26 @@ class SyncService {
 
       if (response != null && response['success'] == true) {
         _markSynced();
+        await _refreshDashboardData();
+        _activeDeletedMealIds.remove(mealId);
         return SyncRequestResult.synced;
       }
 
       if (shouldRetryWatchResponse(response)) {
         await _database.queueMealDelete(mealId);
+        _activeDeletedMealIds.remove(mealId);
         syncState.value = SyncState.disconnected;
         return SyncRequestResult.queued;
       }
     } catch (error) {
       _debugLog('Failed to delete meal: $error');
       await _database.queueMealDelete(mealId);
+      _activeDeletedMealIds.remove(mealId);
       syncState.value = SyncState.disconnected;
       return SyncRequestResult.queued;
     }
 
+    _activeDeletedMealIds.remove(mealId);
     _cache.restoreMeal(removedMeal);
     await _database.upsertMeal(removedMeal);
     syncState.value = SyncState.error;
@@ -317,9 +333,28 @@ class SyncService {
         _fetchCalorieGoalFromPhone(),
       ]);
 
+      final pendingOperations = await _database.getPendingOperations();
+      final protectedOptimisticIds = <int>{..._activeOptimisticMealIds};
+      final suppressedMealIds = <int>{..._activeDeletedMealIds};
+      for (final operation in pendingOperations) {
+        switch (operation.type) {
+          case PendingWatchOperationType.logMeal:
+            protectedOptimisticIds.add(operation.mealId);
+            break;
+          case PendingWatchOperationType.deleteMeal:
+            suppressedMealIds.add(operation.mealId);
+            break;
+        }
+      }
+
       final syncedAt = DateTime.now();
       _cache.updateDashboard(
-        meals: results[0] as List<LoggedMeal>,
+        meals: mergeWatchDashboardMeals(
+          remoteMeals: results[0] as List<LoggedMeal>,
+          localMeals: _cache.todaysMeals.value,
+          protectedOptimisticIds: protectedOptimisticIds,
+          suppressedMealIds: suppressedMealIds,
+        ),
         goal: results[1] as int?,
         syncedAt: syncedAt,
       );

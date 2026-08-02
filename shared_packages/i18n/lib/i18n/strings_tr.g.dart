@@ -181,6 +181,7 @@ class _TranslationsMealTr implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowTr questionFlow = _TranslationsMealQuestionFlowTr._(_root);
 	@override late final _TranslationsMealAnalysisTr analysis = _TranslationsMealAnalysisTr._(_root);
 	@override late final _TranslationsMealFeedbackTr feedback = _TranslationsMealFeedbackTr._(_root);
+	@override String get nameRequired => 'Kaydetmeden önce bir öğün adı girin.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsTr {
 			'meal.feedback.issueMissingItems' => 'Eksik öğeler',
 			'meal.feedback.issueExtraItems' => 'Ekstra öğeler',
 			'meal.feedback.issueOther' => 'Diğer',
+			'meal.nameRequired' => 'Kaydetmeden önce bir öğün adı girin.',
 			'favorites.title' => 'Favoriler',
 			'favorites.empty' => 'Henüz favori öğün yok.',
 			'favorites.searchPlaceholder' => 'Favori öğünlerde ara',

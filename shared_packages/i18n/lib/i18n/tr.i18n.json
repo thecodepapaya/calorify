@@ -325,7 +325,8 @@
       "issueMissingItems": "Eksik öğeler",
       "issueExtraItems": "Ekstra öğeler",
       "issueOther": "Diğer"
-    }
+    },
+    "nameRequired": "Kaydetmeden önce bir öğün adı girin."
   },
   "favorites": {
     "title": "Favoriler",

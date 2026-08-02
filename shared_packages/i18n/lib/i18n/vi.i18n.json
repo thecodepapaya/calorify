@@ -325,7 +325,8 @@
       "issueMissingItems": "Thiếu mục",
       "issueExtraItems": "Thừa mục",
       "issueOther": "Khác"
-    }
+    },
+    "nameRequired": "Nhập tên bữa ăn trước khi lưu."
   },
   "favorites": {
     "title": "Yêu thích",

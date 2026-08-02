@@ -76,8 +76,8 @@ test('POST /profile returns 401 with invalid token', async () => {
 // POST /api/v1/user/profile — profile creation
 // ---------------------------------------------------------------------------
 
-test('POST /profile creates new profile when none exists', async () => {
-  resetQuery({ rows: [] }); // no existing profile
+test('POST /profile saves a new profile', async () => {
+  resetQuery({ rows: [] });
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'POST',
@@ -93,7 +93,7 @@ test('POST /profile creates new profile when none exists', async () => {
   assert.equal(response.statusCode, 200);
   const body = response.json();
   assert.equal(body.ok, true);
-  assert.ok(body.message.includes('created'));
+  assert.ok(body.message.includes('saved'));
   await app.close();
 });
 
@@ -132,17 +132,11 @@ test('POST /profile passes userId as first param in INSERT', async () => {
 });
 
 // ---------------------------------------------------------------------------
-// POST /api/v1/user/profile — profile update
+// POST /api/v1/user/profile — atomic profile update
 // ---------------------------------------------------------------------------
 
-test('POST /profile updates existing profile when one exists', async () => {
-  // First query (SELECT) returns existing profile
-  mockQuery.mock.mockImplementation(async (sql: string) => {
-    if (sql.includes('SELECT id FROM user_profile')) {
-      return { rows: [{ id: 'existing-uuid' }] };
-    }
-    return { rows: [] };
-  });
+test('POST /profile uses one atomic upsert query', async () => {
+  resetQuery({ rows: [] });
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'POST',
@@ -153,17 +147,15 @@ test('POST /profile updates existing profile when one exists', async () => {
   assert.equal(response.statusCode, 200);
   const body = response.json();
   assert.equal(body.ok, true);
-  assert.ok(body.message.includes('updated'));
+  assert.ok(body.message.includes('saved'));
+  assert.equal(mockQuery.mock.callCount(), 1);
+  const sql = mockQuery.mock.calls[0].arguments[0] as string;
+  assert.ok(sql.includes('ON CONFLICT (user_id) DO UPDATE'));
   await app.close();
 });
 
-test('POST /profile UPDATE uses COALESCE to preserve existing fields', async () => {
-  mockQuery.mock.mockImplementation(async (sql: string) => {
-    if (sql.includes('SELECT id FROM user_profile')) {
-      return { rows: [{ id: 'existing-uuid' }] };
-    }
-    return { rows: [] };
-  });
+test('POST /profile upsert uses COALESCE to preserve existing fields', async () => {
+  resetQuery({ rows: [] });
   const app = await buildTestApp();
   await app.inject({
     method: 'POST',
@@ -171,21 +163,16 @@ test('POST /profile UPDATE uses COALESCE to preserve existing fields', async () 
     headers: AUTH_HEADERS,
     payload: { weight: 72 },
   });
-  const updateCall = mockQuery.mock.calls.find(
-    (c) => (c.arguments[0] as string).includes('UPDATE user_profile')
+  const upsertCall = mockQuery.mock.calls.find(
+    (c) => (c.arguments[0] as string).includes('INSERT INTO user_profile')
   );
-  assert.ok(updateCall !== undefined);
-  assert.ok((updateCall.arguments[0] as string).includes('COALESCE'));
+  assert.ok(upsertCall !== undefined);
+  assert.ok((upsertCall.arguments[0] as string).includes('COALESCE'));
   await app.close();
 });
 
-test('POST /profile UPDATE passes null for omitted fields', async () => {
-  mockQuery.mock.mockImplementation(async (sql: string) => {
-    if (sql.includes('SELECT id FROM user_profile')) {
-      return { rows: [{ id: 'existing-uuid' }] };
-    }
-    return { rows: [] };
-  });
+test('POST /profile upsert passes null for omitted fields', async () => {
+  resetQuery({ rows: [] });
   const app = await buildTestApp();
   await app.inject({
     method: 'POST',
@@ -193,12 +180,12 @@ test('POST /profile UPDATE passes null for omitted fields', async () => {
     headers: AUTH_HEADERS,
     payload: { weight: 72 }, // only weight, rest should be null
   });
-  const updateCall = mockQuery.mock.calls.find(
-    (c) => (c.arguments[0] as string).includes('UPDATE user_profile')
+  const upsertCall = mockQuery.mock.calls.find(
+    (c) => (c.arguments[0] as string).includes('INSERT INTO user_profile')
   );
-  const params = updateCall!.arguments[1] as unknown[];
-  // height is $1, should be null because not provided
-  assert.equal(params[0], null);
+  const params = upsertCall!.arguments[1] as unknown[];
+  // height is $2; $1 is the authenticated user ID.
+  assert.equal(params[1], null);
   await app.close();
 });
 
@@ -284,6 +271,34 @@ test('POST /profile accepts empty body (all fields optional)', async () => {
     payload: {},
   });
   assert.equal(response.statusCode, 200);
+  await app.close();
+});
+
+test('POST /profile rejects implausibly low calorie goals', async () => {
+  resetQuery({ rows: [] });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: PROFILE_URL,
+    headers: AUTH_HEADERS,
+    payload: { dailyCalorieGoal: 100 },
+  });
+  assert.equal(response.statusCode, 400);
+  assert.equal(mockQuery.mock.callCount(), 0);
+  await app.close();
+});
+
+test('POST /profile rejects future dates of birth', async () => {
+  resetQuery({ rows: [] });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: PROFILE_URL,
+    headers: AUTH_HEADERS,
+    payload: { dateOfBirth: '2999-01-01T00:00:00.000Z' },
+  });
+  assert.equal(response.statusCode, 400);
+  assert.equal(mockQuery.mock.callCount(), 0);
   await app.close();
 });
 

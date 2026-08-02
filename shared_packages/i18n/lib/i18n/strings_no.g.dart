@@ -181,6 +181,7 @@ class _TranslationsMealNo implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowNo questionFlow = _TranslationsMealQuestionFlowNo._(_root);
 	@override late final _TranslationsMealAnalysisNo analysis = _TranslationsMealAnalysisNo._(_root);
 	@override late final _TranslationsMealFeedbackNo feedback = _TranslationsMealFeedbackNo._(_root);
+	@override String get nameRequired => 'Oppgi et måltidsnavn før du lagrer.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsNo {
 			'meal.feedback.issueMissingItems' => 'Mangler elementer',
 			'meal.feedback.issueExtraItems' => 'Ekstra elementer',
 			'meal.feedback.issueOther' => 'Annet',
+			'meal.nameRequired' => 'Oppgi et måltidsnavn før du lagrer.',
 			'favorites.title' => 'Favoritter',
 			'favorites.empty' => 'Ingen favorittmåltider ennå.',
 			'favorites.searchPlaceholder' => 'Søk i favorittmåltider',

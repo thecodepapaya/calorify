@@ -325,7 +325,8 @@
       "issueMissingItems": "غائب اشیاء",
       "issueExtraItems": "اضافی اشیاء",
       "issueOther": "دوسرا"
-    }
+    },
+    "nameRequired": "محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔"
   },
   "favorites": {
     "title": "پسندیدہ",

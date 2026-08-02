@@ -35,6 +35,7 @@ const mockReanalyzeMeal = mock.fn(function* () {
 
 const mockRecordMealAnalysisFeedback = mock.fn(async () => {});
 const mockConfirmMealAnalysisLogged = mock.fn(async () => {});
+const mockIsMealAnalysisSessionOwnedByUser = mock.fn(async () => true);
 
 await mock.module('../../services/nutritionEngineV2.js', {
   namedExports: {
@@ -51,6 +52,7 @@ await mock.module('../../services/nutritionEngineV2.js', {
 await mock.module('../../services/mealAnalysisStore.js', {
   namedExports: {
     confirmMealAnalysisLogged: mockConfirmMealAnalysisLogged,
+    isMealAnalysisSessionOwnedByUser: mockIsMealAnalysisSessionOwnedByUser,
     recordMealAnalysisFeedback: mockRecordMealAnalysisFeedback,
   },
 });
@@ -420,6 +422,24 @@ test('POST /feedback calls recordMealAnalysisFeedback with UP signal', async () 
   const args = mockRecordMealAnalysisFeedback.mock.calls[0]!.arguments[0];
   assert.equal(args.analysisId, 'fb-test-id');
   assert.equal(args.signal, 'UP');
+  await app.close();
+});
+
+test('POST /feedback hides an analysis owned by another user', async () => {
+  mockIsMealAnalysisSessionOwnedByUser.mock.mockImplementationOnce(
+    async () => false
+  );
+  mockRecordMealAnalysisFeedback.mock.resetCalls();
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/feedback',
+    payload: { analysisId: 'someone-elses-analysis', signal: 'UP' },
+  });
+
+  assert.equal(response.statusCode, 404);
+  assert.equal(response.json().message, 'Analysis session not found');
+  assert.equal(mockRecordMealAnalysisFeedback.mock.calls.length, 0);
   await app.close();
 });
 

@@ -6,6 +6,7 @@ import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
+import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/utilities/app_version.dart';
@@ -613,6 +614,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             TextButton(
               onPressed: () async {
                 await ref.read(profileActionsProvider).clearAllData();
+                await NotificationService.instance.clearMealReminders();
                 if (!context.mounted) return;
                 Navigator.pop(context);
                 await context.router.pushAndPopUntil(

@@ -181,6 +181,7 @@ class _TranslationsMealSv implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowSv questionFlow = _TranslationsMealQuestionFlowSv._(_root);
 	@override late final _TranslationsMealAnalysisSv analysis = _TranslationsMealAnalysisSv._(_root);
 	@override late final _TranslationsMealFeedbackSv feedback = _TranslationsMealFeedbackSv._(_root);
+	@override String get nameRequired => 'Ange ett namn för måltiden innan du sparar.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsSv {
 			'meal.feedback.issueMissingItems' => 'Saknade artiklar',
 			'meal.feedback.issueExtraItems' => 'Extra artiklar',
 			'meal.feedback.issueOther' => 'Annat',
+			'meal.nameRequired' => 'Ange ett namn för måltiden innan du sparar.',
 			'favorites.title' => 'Favoriter',
 			'favorites.empty' => 'Inga favoritmåltider ännu.',
 			'favorites.searchPlaceholder' => 'Sök favoriträtter',

@@ -181,6 +181,7 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowTe questionFlow = _TranslationsMealQuestionFlowTe._(_root);
 	@override late final _TranslationsMealAnalysisTe analysis = _TranslationsMealAnalysisTe._(_root);
 	@override late final _TranslationsMealFeedbackTe feedback = _TranslationsMealFeedbackTe._(_root);
+	@override String get nameRequired => 'సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsTe {
 			'meal.feedback.issueMissingItems' => 'తప్పిపోయిన అంశాలు',
 			'meal.feedback.issueExtraItems' => 'అదనపు అంశాలు',
 			'meal.feedback.issueOther' => 'ఇతర',
+			'meal.nameRequired' => 'సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి.',
 			'favorites.title' => 'ఇష్టమైనవి',
 			'favorites.empty' => 'ఇంకా ఇష్టమైన భోజనాలు లేవు.',
 			'favorites.searchPlaceholder' => 'ఇష్టమైన భోజనాలను శోధించండి',

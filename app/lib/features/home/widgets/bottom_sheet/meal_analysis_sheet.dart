@@ -18,7 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
 
-Future<void> showV2MealAnalysisFlow({
+Future<bool> showV2MealAnalysisFlow({
   required BuildContext context,
   required Future<Stream<MealAnalysisPipelineEvent>> Function() startAnalysis,
   Uint8List? imageBytes,
@@ -33,7 +33,7 @@ Future<void> showV2MealAnalysisFlow({
     textDescription: textDescription,
   );
 
-  if (finalContext == null || !context.mounted) return;
+  if (finalContext == null || !context.mounted) return false;
 
   await showMealTip(
     context: context,
@@ -45,6 +45,7 @@ Future<void> showV2MealAnalysisFlow({
     mealDetectionResult: finalContext.toMealDetectionResult(),
     pipelineContext: finalContext,
   );
+  return true;
 }
 
 Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({

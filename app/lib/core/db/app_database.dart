@@ -234,10 +234,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
               expression: tbl.timestamp,
               mode: OrderingMode.desc,
             ),
-            (tbl) => OrderingTerm(
-              expression: tbl.id,
-              mode: OrderingMode.desc,
-            ),
+            (tbl) => OrderingTerm(expression: tbl.id, mode: OrderingMode.desc),
           ]))
         .watch()
         .map((rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList());
@@ -335,7 +332,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
 
   @override
   Future<void> addToFavorites(LoggedMeal mealInfo) {
-    return into(favoriteMealTable).insert(mealInfo.toFavoriteCompanion());
+    return into(
+      favoriteMealTable,
+    ).insertOnConflictUpdate(mealInfo.toFavoriteCompanion());
   }
 
   @override

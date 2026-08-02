@@ -250,6 +250,7 @@
       "save": "Save",
       "mealName": "Meal Name",
       "mealNameHint": "e.g., Scrambled Eggs with toast",
+      "nameRequired": "Enter a meal name before saving.",
       "mealQuantity": "Meal Quantity",
       "mealQuantityHint": "e.g., 1 bowl, 2 slices",
       "timeOfMeal": "Time of Meal",

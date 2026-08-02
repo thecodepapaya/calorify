@@ -325,7 +325,8 @@
       "issueMissingItems": "Ontbrekende items",
       "issueExtraItems": "Extra items",
       "issueOther": "Anders"
-    }
+    },
+    "nameRequired": "Voer een naam voor je maaltijd in voordat je deze opslaat."
   },
   "favorites": {
     "title": "Favorieten",

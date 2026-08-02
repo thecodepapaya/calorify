@@ -466,7 +466,12 @@ class _MealTipState extends State<_MealTip> {
     final navigator = Navigator.of(context);
     final parentContext = navigator.context;
     navigator.pop();
-    showEditMealSheet(parentContext, meal: meal, loggedMeal: widget.loggedMeal);
+    showEditMealSheet(
+      parentContext,
+      meal: meal,
+      loggedMeal: widget.loggedMeal,
+      saveAsFavorite: _showFavoritesActions,
+    );
   }
 
   Future<void> _removeFromFavorites() async {

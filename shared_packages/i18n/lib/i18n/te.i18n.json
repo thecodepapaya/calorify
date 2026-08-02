@@ -325,7 +325,8 @@
       "issueMissingItems": "తప్పిపోయిన అంశాలు",
       "issueExtraItems": "అదనపు అంశాలు",
       "issueOther": "ఇతర"
-    }
+    },
+    "nameRequired": "సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి."
   },
   "favorites": {
     "title": "ఇష్టమైనవి",

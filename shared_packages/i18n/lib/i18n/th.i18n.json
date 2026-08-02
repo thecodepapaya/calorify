@@ -325,7 +325,8 @@
       "issueMissingItems": "ขาดรายการ",
       "issueExtraItems": "มีรายการเกิน",
       "issueOther": "อื่นๆ"
-    }
+    },
+    "nameRequired": "กรุณาใส่ชื่อมื้ออาหารก่อนบันทึก."
   },
   "favorites": {
     "title": "รายการโปรด",

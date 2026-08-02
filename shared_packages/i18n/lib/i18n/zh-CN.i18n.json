@@ -325,7 +325,8 @@
       "issueMissingItems": "遗漏项",
       "issueExtraItems": "多余项",
       "issueOther": "其他"
-    }
+    },
+    "nameRequired": "请在保存前输入餐名。"
   },
   "favorites": {
     "title": "收藏",

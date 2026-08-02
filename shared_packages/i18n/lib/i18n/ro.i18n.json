@@ -325,7 +325,8 @@
       "issueMissingItems": "Lipsesc elemente",
       "issueExtraItems": "Elemente în plus",
       "issueOther": "Altceva"
-    }
+    },
+    "nameRequired": "Introduceți un nume pentru masă înainte de a salva."
   },
   "favorites": {
     "title": "Favorite",

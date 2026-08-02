@@ -2,6 +2,7 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/services/meal_reminder_settings_store.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
@@ -40,17 +41,41 @@ class _ReminderNotificationsScreenState
   @override
   void initState() {
     super.initState();
-    _checkNotificationStatus();
+    _loadInitialState();
   }
 
-  Future<void> _checkNotificationStatus() async {
+  Future<void> _loadInitialState() async {
+    if (widget.isEditing && mounted) setState(() => _isLoading = true);
     final enabled =
         await NotificationService.instance.areNotificationsEnabled();
+    MealReminderSettings? settings;
+    if (widget.isEditing) {
+      try {
+        settings =
+            await NotificationService.instance.loadMealReminderSettings();
+      } on Object {
+        settings = null;
+      }
+    }
     if (!mounted) return;
     setState(() {
       _notificationsEnabled = enabled;
+      if (settings != null) {
+        _breakfastEnabled = settings.breakfastEnabled;
+        _lunchEnabled = settings.lunchEnabled;
+        _dinnerEnabled = settings.dinnerEnabled;
+        _snackEnabled = settings.snackEnabled;
+        _breakfastTime = _timeFromMinutes(settings.breakfastMinutes);
+        _lunchTime = _timeFromMinutes(settings.lunchMinutes);
+        _dinnerTime = _timeFromMinutes(settings.dinnerMinutes);
+        _snackTime = _timeFromMinutes(settings.snackMinutes);
+      }
+      _isLoading = false;
     });
   }
+
+  TimeOfDay _timeFromMinutes(int minutes) =>
+      TimeOfDay(hour: minutes ~/ 60, minute: minutes % 60);
 
   @override
   Widget build(BuildContext context) {

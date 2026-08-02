@@ -42,6 +42,22 @@ void main() {
     expect(cache.todaysMeals.value.single, same(meal));
     expect(cache.hasFreshData, isFalse);
   });
+
+  test('late phone refresh preserves queued logs and queued deletes', () {
+    final queuedLog = _meal(-4, DateTime.utc(2026, 8, 2, 12));
+    final deletedMeal = _meal(12, DateTime.utc(2026, 8, 2, 11));
+    final remoteMeal = _meal(20, DateTime.utc(2026, 8, 2, 10));
+
+    final merged = mergeWatchDashboardMeals(
+      remoteMeals: [deletedMeal, remoteMeal],
+      localMeals: [queuedLog],
+      protectedOptimisticIds: {-4},
+      suppressedMealIds: {12},
+    );
+
+    expect(merged.map((meal) => meal.clientId), containsAll(<int>[-4, 20]));
+    expect(merged.map((meal) => meal.clientId), isNot(contains(12)));
+  });
 }
 
 LoggedMeal _meal(int id, DateTime createdAt) => LoggedMeal(

@@ -181,6 +181,7 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowGu questionFlow = _TranslationsMealQuestionFlowGu._(_root);
 	@override late final _TranslationsMealAnalysisGu analysis = _TranslationsMealAnalysisGu._(_root);
 	@override late final _TranslationsMealFeedbackGu feedback = _TranslationsMealFeedbackGu._(_root);
+	@override String get nameRequired => 'સાચવતા પહેલા ભોજનનું નામ દાખલ કરો.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsGu {
 			'meal.feedback.issueMissingItems' => 'ગુમ થયેલ વસ્તુઓ',
 			'meal.feedback.issueExtraItems' => 'વધારાની વસ્તુઓ',
 			'meal.feedback.issueOther' => 'અન્ય',
+			'meal.nameRequired' => 'સાચવતા પહેલા ભોજનનું નામ દાખલ કરો.',
 			'favorites.title' => 'મનપસંદ',
 			'favorites.empty' => 'હજુ સુધી કોઈ મનપસંદ ભોજન નથી.',
 			'favorites.searchPlaceholder' => 'મનપસંદ ભોજન શોધો',

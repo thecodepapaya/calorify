@@ -2402,6 +2402,10 @@ export async function* continueMealAnalysis(
       yield buildErrorEvent(analysisId, 'Analysis session not found');
       return;
     }
+    if (options.userId && session.userId !== options.userId) {
+      yield buildErrorEvent(analysisId, 'Analysis session not found');
+      return;
+    }
     const decomposition = sessionToDecomposition(session);
     if (!decomposition) {
       yield buildErrorEvent(analysisId, 'Analysis session is missing decomposition data');
@@ -2455,6 +2459,10 @@ export async function* continueMealAnalysisWithMealType(
     });
     const session = await getMealAnalysisSession(analysisId);
     if (!session) {
+      yield buildErrorEvent(analysisId, 'Analysis session not found');
+      return;
+    }
+    if (options.userId && session.userId !== options.userId) {
       yield buildErrorEvent(analysisId, 'Analysis session not found');
       return;
     }
@@ -2515,6 +2523,10 @@ export async function* reanalyzeMeal(
     });
     const session = await getMealAnalysisSession(analysisId);
     if (!session) {
+      yield buildErrorEvent(analysisId, 'Analysis session not found');
+      return;
+    }
+    if (userId && session.userId !== userId) {
       yield buildErrorEvent(analysisId, 'Analysis session not found');
       return;
     }

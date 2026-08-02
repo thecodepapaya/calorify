@@ -181,6 +181,7 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowZhCn questionFlow = _TranslationsMealQuestionFlowZhCn._(_root);
 	@override late final _TranslationsMealAnalysisZhCn analysis = _TranslationsMealAnalysisZhCn._(_root);
 	@override late final _TranslationsMealFeedbackZhCn feedback = _TranslationsMealFeedbackZhCn._(_root);
+	@override String get nameRequired => '请在保存前输入餐名。';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsZhCn {
 			'meal.feedback.issueMissingItems' => '遗漏项',
 			'meal.feedback.issueExtraItems' => '多余项',
 			'meal.feedback.issueOther' => '其他',
+			'meal.nameRequired' => '请在保存前输入餐名。',
 			'favorites.title' => '收藏',
 			'favorites.empty' => '还没有收藏的餐食。',
 			'favorites.searchPlaceholder' => '搜索收藏的餐食',

@@ -181,6 +181,7 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowEl questionFlow = _TranslationsMealQuestionFlowEl._(_root);
 	@override late final _TranslationsMealAnalysisEl analysis = _TranslationsMealAnalysisEl._(_root);
 	@override late final _TranslationsMealFeedbackEl feedback = _TranslationsMealFeedbackEl._(_root);
+	@override String get nameRequired => 'Εισαγάγετε ένα όνομα γεύματος πριν την αποθήκευση.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsEl {
 			'meal.feedback.issueMissingItems' => 'Λείπουν είδη',
 			'meal.feedback.issueExtraItems' => 'Περιττά είδη',
 			'meal.feedback.issueOther' => 'Άλλο',
+			'meal.nameRequired' => 'Εισαγάγετε ένα όνομα γεύματος πριν την αποθήκευση.',
 			'favorites.title' => 'Αγαπημένα',
 			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα γεύματα.',
 			'favorites.searchPlaceholder' => 'Αναζήτηση αγαπημένων γευμάτων',

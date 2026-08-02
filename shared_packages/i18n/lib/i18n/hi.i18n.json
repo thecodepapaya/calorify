@@ -325,7 +325,8 @@
       "issueMissingItems": "गायब आइटम",
       "issueExtraItems": "अतिरिक्त आइटम",
       "issueOther": "अन्य"
-    }
+    },
+    "nameRequired": "सहेजने से पहले भोजन का नाम दर्ज करें।"
   },
   "favorites": {
     "title": "पसंदीदा",

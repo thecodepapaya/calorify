@@ -325,7 +325,8 @@
       "issueMissingItems": "عناصر مفقودة",
       "issueExtraItems": "عناصر إضافية",
       "issueOther": "أخرى"
-    }
+    },
+    "nameRequired": "يرجى إدخال اسم الوجبة قبل الحفظ."
   },
   "favorites": {
     "title": "المفضلات",

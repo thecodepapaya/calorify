@@ -325,7 +325,8 @@
       "issueMissingItems": "অনুপস্থিত আইটেম",
       "issueExtraItems": "অতিরিক্ত আইটেম",
       "issueOther": "অন্যান্য"
-    }
+    },
+    "nameRequired": "সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।"
   },
   "favorites": {
     "title": "প্রিয়",

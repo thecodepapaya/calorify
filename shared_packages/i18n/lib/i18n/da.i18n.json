@@ -325,7 +325,8 @@
       "issueMissingItems": "Mangler varer",
       "issueExtraItems": "Ekstra varer",
       "issueOther": "Andet"
-    }
+    },
+    "nameRequired": "Indtast et navn på måltidet, før du gemmer."
   },
   "favorites": {
     "title": "Favoritter",

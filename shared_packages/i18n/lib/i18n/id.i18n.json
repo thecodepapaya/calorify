@@ -325,7 +325,8 @@
       "issueMissingItems": "Item hilang",
       "issueExtraItems": "Item ekstra",
       "issueOther": "Lainnya"
-    }
+    },
+    "nameRequired": "Masukkan nama makanan sebelum menyimpan."
   },
   "favorites": {
     "title": "Favorit",

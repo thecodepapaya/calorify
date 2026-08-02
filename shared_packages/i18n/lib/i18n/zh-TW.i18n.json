@@ -325,7 +325,8 @@
       "issueMissingItems": "遺漏項目",
       "issueExtraItems": "多出項目",
       "issueOther": "其他"
-    }
+    },
+    "nameRequired": "請在儲存前輸入餐點名稱。"
   },
   "favorites": {
     "title": "我的最愛",

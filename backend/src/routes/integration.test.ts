@@ -98,6 +98,7 @@ await mock.module('../services/mealAnalysisStore.js', {
     recordMealAnalysisMealType: mock.fn(async () => {}),
     recordMealAnalysisFeedback: mock.fn(async () => {}),
     confirmMealAnalysisLogged: mock.fn(async () => {}),
+    isMealAnalysisSessionOwnedByUser: mock.fn(async () => true),
   },
 });
 
@@ -256,7 +257,10 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/analyze-text',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
       payload: JSON.stringify({}),
     });
     assert.equal(res.statusCode, 400);
@@ -266,7 +270,10 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/clarify',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
       payload: JSON.stringify({}),
     });
     assert.equal(res.statusCode, 400);
@@ -276,7 +283,10 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/feedback',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
       payload: JSON.stringify({}),
     });
     assert.equal(res.statusCode, 400);
@@ -286,7 +296,10 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/meal-type',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
       payload: JSON.stringify({}),
     });
     assert.equal(res.statusCode, 400);
@@ -296,7 +309,10 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/reanalyze',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
       payload: JSON.stringify({}),
     });
     assert.equal(res.statusCode, 400);
@@ -306,10 +322,22 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/confirm-log',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
       payload: JSON.stringify({}),
     });
     assert.equal(res.statusCode, 400);
+  });
+
+  it('POST /api/v2/food/analyze-text without auth returns 401', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/v2/food/analyze-text',
+      payload: { textDescription: 'dal rice' },
+    });
+    assert.equal(res.statusCode, 401);
   });
 });
 

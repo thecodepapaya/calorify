@@ -181,6 +181,7 @@ class _TranslationsMealId implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowId questionFlow = _TranslationsMealQuestionFlowId._(_root);
 	@override late final _TranslationsMealAnalysisId analysis = _TranslationsMealAnalysisId._(_root);
 	@override late final _TranslationsMealFeedbackId feedback = _TranslationsMealFeedbackId._(_root);
+	@override String get nameRequired => 'Masukkan nama makanan sebelum menyimpan.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsId {
 			'meal.feedback.issueMissingItems' => 'Item hilang',
 			'meal.feedback.issueExtraItems' => 'Item ekstra',
 			'meal.feedback.issueOther' => 'Lainnya',
+			'meal.nameRequired' => 'Masukkan nama makanan sebelum menyimpan.',
 			'favorites.title' => 'Favorit',
 			'favorites.empty' => 'Belum ada makanan favorit.',
 			'favorites.searchPlaceholder' => 'Cari makanan favorit',

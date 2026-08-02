@@ -2,6 +2,36 @@ import 'package:models/models.dart';
 import 'package:utils/utils.dart';
 import 'package:flutter/foundation.dart';
 
+/// Combines a phone snapshot with local operations that have not been
+/// acknowledged yet. A late background refresh must not make a just-recorded
+/// meal disappear or resurrect a meal that the user just deleted.
+List<LoggedMeal> mergeWatchDashboardMeals({
+  required List<LoggedMeal> remoteMeals,
+  required List<LoggedMeal> localMeals,
+  required Set<int> protectedOptimisticIds,
+  required Set<int> suppressedMealIds,
+}) {
+  final merged =
+      remoteMeals.where((meal) {
+        return !meal.hasClientId() ||
+            !suppressedMealIds.contains(meal.clientId);
+      }).toList();
+  final remoteIds =
+      merged
+          .where((meal) => meal.hasClientId())
+          .map((meal) => meal.clientId)
+          .toSet();
+
+  merged.addAll(
+    localMeals.where((meal) {
+      return meal.hasClientId() &&
+          protectedOptimisticIds.contains(meal.clientId) &&
+          !remoteIds.contains(meal.clientId);
+    }),
+  );
+  return merged;
+}
+
 class DataCache {
   DataCache._();
 

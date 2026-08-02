@@ -181,6 +181,7 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowJa questionFlow = _TranslationsMealQuestionFlowJa._(_root);
 	@override late final _TranslationsMealAnalysisJa analysis = _TranslationsMealAnalysisJa._(_root);
 	@override late final _TranslationsMealFeedbackJa feedback = _TranslationsMealFeedbackJa._(_root);
+	@override String get nameRequired => '保存する前に食事名を入力してください。';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsJa {
 			'meal.feedback.issueMissingItems' => '欠けている項目',
 			'meal.feedback.issueExtraItems' => '余分な項目',
 			'meal.feedback.issueOther' => 'その他',
+			'meal.nameRequired' => '保存する前に食事名を入力してください。',
 			'favorites.title' => 'お気に入り',
 			'favorites.empty' => 'お気に入りはまだありません。',
 			'favorites.searchPlaceholder' => 'お気に入りの食事を検索',

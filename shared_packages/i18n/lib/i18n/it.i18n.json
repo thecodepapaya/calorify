@@ -325,7 +325,8 @@
       "issueMissingItems": "Elementi mancanti",
       "issueExtraItems": "Elementi in eccesso",
       "issueOther": "Altro"
-    }
+    },
+    "nameRequired": "Inserisci un nome per il pasto prima di salvare."
   },
   "favorites": {
     "title": "Preferiti",

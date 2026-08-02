@@ -325,7 +325,8 @@
       "issueMissingItems": "Éléments manquants",
       "issueExtraItems": "Éléments en trop",
       "issueOther": "Autre"
-    }
+    },
+    "nameRequired": "Donnez un nom au repas avant de l'enregistrer."
   },
   "favorites": {
     "title": "Favoris",

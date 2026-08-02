@@ -325,7 +325,8 @@
       "issueMissingItems": "Fehlende Zutaten",
       "issueExtraItems": "Zusätzliche Zutaten",
       "issueOther": "Andere"
-    }
+    },
+    "nameRequired": "Gib einen Namen für die Mahlzeit ein, bevor du sie speicherst."
   },
   "favorites": {
     "title": "Favoriten",

@@ -1155,6 +1155,24 @@ test('continueMealAnalysis emits error when session not found', async () => {
   assert.ok(err.data.message.includes('session not found'));
 });
 
+test('continueMealAnalysis does not expose another user\'s session', async () => {
+  mockGetSession.mock.mockImplementationOnce(async () => ({
+    analysisId: 'private-session',
+    userId: 'owner-user',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'dal' },
+    decompositionData: { mealName: 'Dal', confidence: 1, ingredients: [] },
+  }));
+
+  const events = await collectEvents(
+    continueMealAnalysis('private-session', [], { userId: 'other-user' })
+  );
+  assert.equal(events.length, 1);
+  assert.equal(events[0]?.step, 'ERROR');
+  assert.equal(events[0]?.data.message, 'Analysis session not found');
+});
+
 test('continueMealAnalysis emits error when session has no decomposition data', async () => {
   mockGetSession.mock.mockImplementation(async () => ({
     analysisId: 'sess-1',

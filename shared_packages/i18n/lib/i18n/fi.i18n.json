@@ -325,7 +325,8 @@
       "issueMissingItems": "Puuttuvat ainesosat",
       "issueExtraItems": "Liian monta ainesosaa",
       "issueOther": "Muu"
-    }
+    },
+    "nameRequired": "Anna aterialle nimi ennen tallentamista."
   },
   "favorites": {
     "title": "Suosikit",

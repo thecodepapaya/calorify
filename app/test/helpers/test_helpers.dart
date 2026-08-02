@@ -7,6 +7,7 @@ import 'package:i18n/i18n.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:services/services.dart' show FlashyFlushbarProvider;
 
 class MockStackRouter extends Mock implements StackRouter {}
 
@@ -28,6 +29,7 @@ Widget wrapWithProviders(
   List<Override> overrides = const [],
   dynamic router,
   RouteData? routeData,
+  bool withFlushbar = false,
 }) {
   final mockRouter = router ?? MockStackRouter();
   final mockRouteData = routeData ?? MockRouteData();
@@ -52,9 +54,17 @@ Widget wrapWithProviders(
     );
   }
 
+  final flushbarBuilder = withFlushbar ? FlashyFlushbarProvider.init() : null;
   final widget = ProviderScope(
     overrides: overrides,
-    child: MaterialApp(home: Scaffold(body: content)),
+    child: MaterialApp(
+      builder:
+          flushbarBuilder == null
+              ? null
+              : (context, child) =>
+                  flushbarBuilder(context, child ?? const SizedBox.shrink()),
+      home: Scaffold(body: content),
+    ),
   );
 
   return TranslationProvider(child: widget);

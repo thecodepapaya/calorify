@@ -55,9 +55,6 @@ class WatchSpeechService {
           // The watch uses its own microphone. Avoid requesting the unrelated
           // Android Bluetooth permission during voice setup.
           stt.SpeechToText.androidNoBluetooth,
-          // Some Wear OS builds do not advertise a default recognizer and need
-          // the installed RecognitionService to be selected explicitly.
-          stt.SpeechToText.androidIntentLookup,
         ],
       );
       if (!ready) return false;
@@ -103,9 +100,9 @@ class WatchSpeechService {
     _errorCallback = onError;
     _soundLevelCallback = onSoundLevel;
 
-    // SpeechToText.listen intentionally has no useful return value. Awaiting
-    // it only means the platform accepted the invocation; listening state is
-    // delivered through the status callback and `isListening`.
+    // `SpeechToText.listen` discards the platform's boolean return value. Check
+    // its state after the call so a recognizer that rejects startup does not
+    // leave the watch showing a recording UI that never captured audio.
     await _speech.listen(
       onResult: _handleResult,
       onSoundLevelChange: _handleSoundLevel,
@@ -118,7 +115,7 @@ class WatchSpeechService {
         partialResults: true,
       ),
     );
-    return true;
+    return _speech.isListening;
   }
 
   Future<void> stop(Object owner) async {

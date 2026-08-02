@@ -325,7 +325,8 @@
       "issueMissingItems": "欠けている項目",
       "issueExtraItems": "余分な項目",
       "issueOther": "その他"
-    }
+    },
+    "nameRequired": "保存する前に食事名を入力してください。"
   },
   "favorites": {
     "title": "お気に入り",

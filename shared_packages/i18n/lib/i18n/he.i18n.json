@@ -325,7 +325,8 @@
       "issueMissingItems": "פריטים חסרים",
       "issueExtraItems": "פריטים מיותרים",
       "issueOther": "אחר"
-    }
+    },
+    "nameRequired": "הזן שם ארוחה לפני השמירה."
   },
   "favorites": {
     "title": "מועדפים",

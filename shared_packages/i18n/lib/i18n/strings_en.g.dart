@@ -213,6 +213,9 @@ class TranslationsMealEn {
 	/// en: 'e.g., Scrambled Eggs with toast'
 	String get mealNameHint => 'e.g., Scrambled Eggs with toast';
 
+	/// en: 'Enter a meal name before saving.'
+	String get nameRequired => 'Enter a meal name before saving.';
+
 	/// en: 'Meal Quantity'
 	String get mealQuantity => 'Meal Quantity';
 
@@ -2872,6 +2875,7 @@ extension on Translations {
 			'meal.save' => 'Save',
 			'meal.mealName' => 'Meal Name',
 			'meal.mealNameHint' => 'e.g., Scrambled Eggs with toast',
+			'meal.nameRequired' => 'Enter a meal name before saving.',
 			'meal.mealQuantity' => 'Meal Quantity',
 			'meal.mealQuantityHint' => 'e.g., 1 bowl, 2 slices',
 			'meal.timeOfMeal' => 'Time of Meal',

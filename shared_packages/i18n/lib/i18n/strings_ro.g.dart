@@ -181,6 +181,7 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowRo questionFlow = _TranslationsMealQuestionFlowRo._(_root);
 	@override late final _TranslationsMealAnalysisRo analysis = _TranslationsMealAnalysisRo._(_root);
 	@override late final _TranslationsMealFeedbackRo feedback = _TranslationsMealFeedbackRo._(_root);
+	@override String get nameRequired => 'Introduceți un nume pentru masă înainte de a salva.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsRo {
 			'meal.feedback.issueMissingItems' => 'Lipsesc elemente',
 			'meal.feedback.issueExtraItems' => 'Elemente în plus',
 			'meal.feedback.issueOther' => 'Altceva',
+			'meal.nameRequired' => 'Introduceți un nume pentru masă înainte de a salva.',
 			'favorites.title' => 'Favorite',
 			'favorites.empty' => 'Nu există mese favorite încă.',
 			'favorites.searchPlaceholder' => 'Caută mese favorite',

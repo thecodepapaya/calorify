@@ -325,7 +325,8 @@
       "issueMissingItems": "Mangler elementer",
       "issueExtraItems": "Ekstra elementer",
       "issueOther": "Annet"
-    }
+    },
+    "nameRequired": "Oppgi et måltidsnavn før du lagrer."
   },
   "favorites": {
     "title": "Favoritter",

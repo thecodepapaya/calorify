@@ -181,6 +181,7 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowAr questionFlow = _TranslationsMealQuestionFlowAr._(_root);
 	@override late final _TranslationsMealAnalysisAr analysis = _TranslationsMealAnalysisAr._(_root);
 	@override late final _TranslationsMealFeedbackAr feedback = _TranslationsMealFeedbackAr._(_root);
+	@override String get nameRequired => 'يرجى إدخال اسم الوجبة قبل الحفظ.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsAr {
 			'meal.feedback.issueMissingItems' => 'عناصر مفقودة',
 			'meal.feedback.issueExtraItems' => 'عناصر إضافية',
 			'meal.feedback.issueOther' => 'أخرى',
+			'meal.nameRequired' => 'يرجى إدخال اسم الوجبة قبل الحفظ.',
 			'favorites.title' => 'المفضلات',
 			'favorites.empty' => 'لا توجد وجبات مفضلة بعد.',
 			'favorites.searchPlaceholder' => 'ابحث في الوجبات المفضلة',

@@ -325,7 +325,8 @@
       "issueMissingItems": "ગુમ થયેલ વસ્તુઓ",
       "issueExtraItems": "વધારાની વસ્તુઓ",
       "issueOther": "અન્ય"
-    }
+    },
+    "nameRequired": "સાચવતા પહેલા ભોજનનું નામ દાખલ કરો."
   },
   "favorites": {
     "title": "મનપસંદ",

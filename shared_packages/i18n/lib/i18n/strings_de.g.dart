@@ -181,6 +181,7 @@ class _TranslationsMealDe implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowDe questionFlow = _TranslationsMealQuestionFlowDe._(_root);
 	@override late final _TranslationsMealAnalysisDe analysis = _TranslationsMealAnalysisDe._(_root);
 	@override late final _TranslationsMealFeedbackDe feedback = _TranslationsMealFeedbackDe._(_root);
+	@override String get nameRequired => 'Gib einen Namen für die Mahlzeit ein, bevor du sie speicherst.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsDe {
 			'meal.feedback.issueMissingItems' => 'Fehlende Zutaten',
 			'meal.feedback.issueExtraItems' => 'Zusätzliche Zutaten',
 			'meal.feedback.issueOther' => 'Andere',
+			'meal.nameRequired' => 'Gib einen Namen für die Mahlzeit ein, bevor du sie speicherst.',
 			'favorites.title' => 'Favoriten',
 			'favorites.empty' => 'Noch keine Lieblingsmahlzeiten.',
 			'favorites.searchPlaceholder' => 'Favorisierte Mahlzeiten durchsuchen',

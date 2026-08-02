@@ -181,6 +181,7 @@ class _TranslationsMealZhTw implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowZhTw questionFlow = _TranslationsMealQuestionFlowZhTw._(_root);
 	@override late final _TranslationsMealAnalysisZhTw analysis = _TranslationsMealAnalysisZhTw._(_root);
 	@override late final _TranslationsMealFeedbackZhTw feedback = _TranslationsMealFeedbackZhTw._(_root);
+	@override String get nameRequired => '請在儲存前輸入餐點名稱。';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsZhTw {
 			'meal.feedback.issueMissingItems' => '遺漏項目',
 			'meal.feedback.issueExtraItems' => '多出項目',
 			'meal.feedback.issueOther' => '其他',
+			'meal.nameRequired' => '請在儲存前輸入餐點名稱。',
 			'favorites.title' => '我的最愛',
 			'favorites.empty' => '目前沒有最愛餐點。',
 			'favorites.searchPlaceholder' => '搜尋最愛餐點',

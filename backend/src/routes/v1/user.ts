@@ -6,8 +6,7 @@ import { parseBody, z } from '../../utils/validation.js';
 import type { ApiResult } from '../../protos/calorify/http_api.js';
 import { getApiResultSchema, getErrorResponseSchema } from '../../utils/schema-generator.js';
 
-// Zod schema adds bounds checks that Fastify's JSON schema isn't expressing:
-// - heights 30–300cm (or equivalent), weights 1–1000kg, calorie goal 500–20000.
+// Zod schema adds bounds checks that Fastify's JSON schema isn't expressing.
 // - DOB: ISO 8601 string (same as user.UserProfile / sync).
 // All fields optional because this endpoint is a partial-update PATCH-like POST.
 const userProfileBodySchema = z.object({
@@ -17,8 +16,8 @@ const userProfileBodySchema = z.object({
   gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
   dateOfBirth: z
     .string()
-    .min(1)
-    .refine((s) => !Number.isNaN(Date.parse(s)), 'must be a valid ISO 8601 date')
+    .datetime({ offset: true })
+    .refine((value) => Date.parse(value) <= Date.now(), 'must not be in the future')
     .optional(),
   weightGoal: z.enum(['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT']).optional(),
   activityLevel: z
@@ -26,7 +25,7 @@ const userProfileBodySchema = z.object({
     .optional(),
   heightUnit: z.enum(['METRIC', 'IMPERIAL']).optional(),
   weightUnit: z.enum(['METRIC', 'IMPERIAL']).optional(),
-  dailyCalorieGoal: z.number().finite().positive().max(20_000).optional(),
+  dailyCalorieGoal: z.number().finite().min(500).max(20_000).optional(),
 });
 type UserProfileBody = z.infer<typeof userProfileBodySchema>;
 
@@ -143,84 +142,55 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
           dailyCalorieGoal,
         } = parsed;
 
-        // Check if profile already exists
-        const existingProfile = await query<{ id: string }>(
-          'SELECT id FROM user_profile WHERE user_id = $1',
-          [userId]
-        );
-
         const now = new Date();
 
-        if (existingProfile.rows.length > 0) {
-          // Update existing profile
-          await query(
-            `UPDATE user_profile SET
-              height = COALESCE($1, height),
-              weight = COALESCE($2, weight),
-              target_weight = COALESCE($3, target_weight),
-              gender = COALESCE($4, gender),
-              date_of_birth = COALESCE($5, date_of_birth),
-              weight_goal = COALESCE($6, weight_goal),
-              activity_level = COALESCE($7, activity_level),
-              height_unit = COALESCE($8, height_unit),
-              weight_unit = COALESCE($9, weight_unit),
-              daily_calorie_goal = COALESCE($10, daily_calorie_goal),
-              updated_at = $11
-            WHERE user_id = $12`,
-            [
-              height ?? null,
-              weight ?? null,
-              targetWeight ?? null,
-              gender ?? null,
-              dateOfBirth ? new Date(dateOfBirth) : null,
-              weightGoal ?? null,
-              activityLevel ?? null,
-              heightUnit ?? null,
-              weightUnit ?? null,
-              dailyCalorieGoal ?? null,
-              now,
-              userId,
-            ]
-          );
+        // A single upsert avoids a SELECT/INSERT race when startup and profile
+        // editing save concurrently for a newly-created anonymous user.
+        await query(
+          `INSERT INTO user_profile (
+            id, user_id, height, weight, target_weight, gender, date_of_birth,
+            weight_goal, activity_level, height_unit, weight_unit, daily_calorie_goal,
+            created_at, updated_at
+          ) VALUES (
+            gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
+          )
+          ON CONFLICT (user_id) DO UPDATE SET
+            height = COALESCE(EXCLUDED.height, user_profile.height),
+            weight = COALESCE(EXCLUDED.weight, user_profile.weight),
+            target_weight = COALESCE(EXCLUDED.target_weight, user_profile.target_weight),
+            gender = COALESCE(EXCLUDED.gender, user_profile.gender),
+            date_of_birth = COALESCE(EXCLUDED.date_of_birth, user_profile.date_of_birth),
+            weight_goal = COALESCE(EXCLUDED.weight_goal, user_profile.weight_goal),
+            activity_level = COALESCE(EXCLUDED.activity_level, user_profile.activity_level),
+            height_unit = COALESCE(EXCLUDED.height_unit, user_profile.height_unit),
+            weight_unit = COALESCE(EXCLUDED.weight_unit, user_profile.weight_unit),
+            daily_calorie_goal = COALESCE(
+              EXCLUDED.daily_calorie_goal,
+              user_profile.daily_calorie_goal
+            ),
+            updated_at = EXCLUDED.updated_at`,
+          [
+            userId,
+            height ?? null,
+            weight ?? null,
+            targetWeight ?? null,
+            gender ?? null,
+            dateOfBirth ? new Date(dateOfBirth) : null,
+            weightGoal ?? null,
+            activityLevel ?? null,
+            heightUnit ?? null,
+            weightUnit ?? null,
+            dailyCalorieGoal ?? null,
+            now,
+            now,
+          ]
+        );
 
-          const updated: ApiResult = {
-            ok: true,
-            message: 'User profile updated successfully',
-          };
-          reply.send(updated);
-        } else {
-          // Create new profile
-          await query(
-            `INSERT INTO user_profile (
-              id, user_id, height, weight, target_weight, gender, date_of_birth,
-              weight_goal, activity_level, height_unit, weight_unit, daily_calorie_goal,
-              created_at, updated_at
-            ) VALUES (
-              gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
-            )`,
-            [
-              userId,
-              height ?? null,
-              weight ?? null,
-              targetWeight ?? null,
-              gender ?? null,
-              dateOfBirth ? new Date(dateOfBirth) : null,
-              weightGoal ?? null,
-              activityLevel ?? null,
-              heightUnit ?? null,
-              weightUnit ?? null,
-              dailyCalorieGoal ?? null,
-              now,
-              now,
-            ]
-          );
-
-          const created: ApiResult = {
-            ok: true,
-            message: 'User profile created successfully',
-          };
-          reply.send(created);
-        }
+        const result: ApiResult = {
+          ok: true,
+          message: 'User profile saved successfully',
+        };
+        reply.send(result);
       } catch (error) {
         reply.status(500).send(
           createErrorResponse(

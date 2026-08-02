@@ -181,6 +181,7 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowNl questionFlow = _TranslationsMealQuestionFlowNl._(_root);
 	@override late final _TranslationsMealAnalysisNl analysis = _TranslationsMealAnalysisNl._(_root);
 	@override late final _TranslationsMealFeedbackNl feedback = _TranslationsMealFeedbackNl._(_root);
+	@override String get nameRequired => 'Voer een naam voor je maaltijd in voordat je deze opslaat.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsNl {
 			'meal.feedback.issueMissingItems' => 'Ontbrekende items',
 			'meal.feedback.issueExtraItems' => 'Extra items',
 			'meal.feedback.issueOther' => 'Anders',
+			'meal.nameRequired' => 'Voer een naam voor je maaltijd in voordat je deze opslaat.',
 			'favorites.title' => 'Favorieten',
 			'favorites.empty' => 'Nog geen favoriete maaltijden.',
 			'favorites.searchPlaceholder' => 'Zoek favoriete maaltijden',

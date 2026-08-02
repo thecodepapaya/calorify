@@ -181,6 +181,7 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowFi questionFlow = _TranslationsMealQuestionFlowFi._(_root);
 	@override late final _TranslationsMealAnalysisFi analysis = _TranslationsMealAnalysisFi._(_root);
 	@override late final _TranslationsMealFeedbackFi feedback = _TranslationsMealFeedbackFi._(_root);
+	@override String get nameRequired => 'Anna aterialle nimi ennen tallentamista.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsFi {
 			'meal.feedback.issueMissingItems' => 'Puuttuvat ainesosat',
 			'meal.feedback.issueExtraItems' => 'Liian monta ainesosaa',
 			'meal.feedback.issueOther' => 'Muu',
+			'meal.nameRequired' => 'Anna aterialle nimi ennen tallentamista.',
 			'favorites.title' => 'Suosikit',
 			'favorites.empty' => 'Ei suosikkia vielä.',
 			'favorites.searchPlaceholder' => 'Hae suosikkiaterioita',

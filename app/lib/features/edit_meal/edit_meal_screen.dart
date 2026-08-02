@@ -72,6 +72,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
   late MealType _mealType;
   late TextEditingController _mealQuantityController;
   int? _clientId;
+  bool _isSaving = false;
 
   bool get isEditing => widget.meal != null || widget.loggedMeal != null;
 
@@ -154,7 +155,16 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
         isEditing ? t.meal.editMeal : t.meal.addMeal,
         style: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
       ),
-      headerAction: TextButton(onPressed: _saveMeal, child: Text(t.meal.save)),
+      headerAction: TextButton(
+        onPressed: _isSaving ? null : _saveMeal,
+        child:
+            _isSaving
+                ? const SizedBox.square(
+                  dimension: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+                : Text(t.meal.save),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,6 +414,13 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
   }
 
   Future<void> _saveMeal() async {
+    if (_isSaving) return;
+    if (_nameController.text.trim().isEmpty) {
+      showFlushbar(t.meal.nameRequired, context: context);
+      return;
+    }
+    setState(() => _isSaving = true);
+
     final newTimestamp = DateTime(
       _selectedDate.year,
       _selectedDate.month,
@@ -421,7 +438,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
     final mealInfo = LoggedMeal(
       clientId: finalClientId,
       meal: Meal(
-        name: _nameController.text,
+        name: _nameController.text.trim(),
         quantity: _mealQuantityController.text,
         type: _mealType,
         macros: MealMacro(
@@ -441,9 +458,10 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
 
     try {
       final database = ref.read(databaseInterfaceProvider);
-      await database.upsertMeal(mealInfo);
       if (widget.saveAsFavorite) {
         await database.addToFavorites(mealInfo);
+      } else {
+        await database.upsertMeal(mealInfo);
       }
 
       if (!mounted) return;
@@ -460,6 +478,8 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       log('Error saving meal:', error: e, stackTrace: st);
       if (!mounted) return;
       showFlushbar(t.meal.errorSaving(error: e), context: context);
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
   }
 

@@ -325,7 +325,8 @@
       "issueMissingItems": "Saknade artiklar",
       "issueExtraItems": "Extra artiklar",
       "issueOther": "Annat"
-    }
+    },
+    "nameRequired": "Ange ett namn för måltiden innan du sparar."
   },
   "favorites": {
     "title": "Favoriter",

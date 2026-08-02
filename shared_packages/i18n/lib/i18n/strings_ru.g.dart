@@ -181,6 +181,7 @@ class _TranslationsMealRu implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowRu questionFlow = _TranslationsMealQuestionFlowRu._(_root);
 	@override late final _TranslationsMealAnalysisRu analysis = _TranslationsMealAnalysisRu._(_root);
 	@override late final _TranslationsMealFeedbackRu feedback = _TranslationsMealFeedbackRu._(_root);
+	@override String get nameRequired => 'Введите название приёма пищи перед сохранением.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsRu {
 			'meal.feedback.issueMissingItems' => 'Отсутствующие позиции',
 			'meal.feedback.issueExtraItems' => 'Лишние позиции',
 			'meal.feedback.issueOther' => 'Другое',
+			'meal.nameRequired' => 'Введите название приёма пищи перед сохранением.',
 			'favorites.title' => 'Избранное',
 			'favorites.empty' => 'Пока нет избранных блюд.',
 			'favorites.searchPlaceholder' => 'Поиск в избранном',

@@ -181,6 +181,7 @@ class _TranslationsMealHi implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowHi questionFlow = _TranslationsMealQuestionFlowHi._(_root);
 	@override late final _TranslationsMealAnalysisHi analysis = _TranslationsMealAnalysisHi._(_root);
 	@override late final _TranslationsMealFeedbackHi feedback = _TranslationsMealFeedbackHi._(_root);
+	@override String get nameRequired => 'सहेजने से पहले भोजन का नाम दर्ज करें।';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsHi {
 			'meal.feedback.issueMissingItems' => 'गायब आइटम',
 			'meal.feedback.issueExtraItems' => 'अतिरिक्त आइटम',
 			'meal.feedback.issueOther' => 'अन्य',
+			'meal.nameRequired' => 'सहेजने से पहले भोजन का नाम दर्ज करें।',
 			'favorites.title' => 'पसंदीदा',
 			'favorites.empty' => 'अभी कोई पसंदीदा भोजन नहीं।',
 			'favorites.searchPlaceholder' => 'पसंदीदा भोजन खोजें',

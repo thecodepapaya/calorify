@@ -325,7 +325,8 @@
       "issueMissingItems": "Faltan elementos",
       "issueExtraItems": "Elementos extra",
       "issueOther": "Otro"
-    }
+    },
+    "nameRequired": "Introduce un nombre para la comida antes de guardar."
   },
   "favorites": {
     "title": "Favoritos",

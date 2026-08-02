@@ -181,6 +181,23 @@ export async function getMealAnalysisSession(
   };
 }
 
+export async function isMealAnalysisSessionOwnedByUser(
+  analysisId: string,
+  userId: string
+): Promise<boolean> {
+  assertDatabaseConfigured();
+
+  const { rows } = await query<{ owned: boolean }>(
+    `SELECT TRUE AS owned
+       FROM meal_analysis_session
+      WHERE analysis_id = $1
+        AND user_id = $2
+      LIMIT 1`,
+    [analysisId, userId]
+  );
+  return rows.length > 0;
+}
+
 export async function recordMealAnalysisClarification(
   analysisId: string,
   answers: unknown

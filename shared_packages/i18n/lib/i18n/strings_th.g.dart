@@ -181,6 +181,7 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowTh questionFlow = _TranslationsMealQuestionFlowTh._(_root);
 	@override late final _TranslationsMealAnalysisTh analysis = _TranslationsMealAnalysisTh._(_root);
 	@override late final _TranslationsMealFeedbackTh feedback = _TranslationsMealFeedbackTh._(_root);
+	@override String get nameRequired => 'กรุณาใส่ชื่อมื้ออาหารก่อนบันทึก.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsTh {
 			'meal.feedback.issueMissingItems' => 'ขาดรายการ',
 			'meal.feedback.issueExtraItems' => 'มีรายการเกิน',
 			'meal.feedback.issueOther' => 'อื่นๆ',
+			'meal.nameRequired' => 'กรุณาใส่ชื่อมื้ออาหารก่อนบันทึก.',
 			'favorites.title' => 'รายการโปรด',
 			'favorites.empty' => 'ยังไม่มีมื้อโปรด',
 			'favorites.searchPlaceholder' => 'ค้นหามื้อโปรด',

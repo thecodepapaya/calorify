@@ -181,6 +181,7 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowHu questionFlow = _TranslationsMealQuestionFlowHu._(_root);
 	@override late final _TranslationsMealAnalysisHu analysis = _TranslationsMealAnalysisHu._(_root);
 	@override late final _TranslationsMealFeedbackHu feedback = _TranslationsMealFeedbackHu._(_root);
+	@override String get nameRequired => 'Mentés előtt add meg az étkezés nevét.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsHu {
 			'meal.feedback.issueMissingItems' => 'Hiányzó elemek',
 			'meal.feedback.issueExtraItems' => 'Többlet elemek',
 			'meal.feedback.issueOther' => 'Egyéb',
+			'meal.nameRequired' => 'Mentés előtt add meg az étkezés nevét.',
 			'favorites.title' => 'Kedvencek',
 			'favorites.empty' => 'Még nincs kedvenc étel.',
 			'favorites.searchPlaceholder' => 'Keresés a kedvencek között',

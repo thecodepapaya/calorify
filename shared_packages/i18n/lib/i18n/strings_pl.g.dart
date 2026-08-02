@@ -181,6 +181,7 @@ class _TranslationsMealPl implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowPl questionFlow = _TranslationsMealQuestionFlowPl._(_root);
 	@override late final _TranslationsMealAnalysisPl analysis = _TranslationsMealAnalysisPl._(_root);
 	@override late final _TranslationsMealFeedbackPl feedback = _TranslationsMealFeedbackPl._(_root);
+	@override String get nameRequired => 'Podaj nazwę posiłku przed zapisaniem.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsPl {
 			'meal.feedback.issueMissingItems' => 'Brakujące elementy',
 			'meal.feedback.issueExtraItems' => 'Dodatkowe elementy',
 			'meal.feedback.issueOther' => 'Inne',
+			'meal.nameRequired' => 'Podaj nazwę posiłku przed zapisaniem.',
 			'favorites.title' => 'Ulubione',
 			'favorites.empty' => 'Brak ulubionych posiłków.',
 			'favorites.searchPlaceholder' => 'Szukaj ulubionych posiłków',

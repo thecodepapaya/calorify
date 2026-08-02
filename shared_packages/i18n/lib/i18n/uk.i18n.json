@@ -325,7 +325,8 @@
       "issueMissingItems": "Відсутні інгредієнти",
       "issueExtraItems": "Зайві інгредієнти",
       "issueOther": "Інше"
-    }
+    },
+    "nameRequired": "Введіть назву страви перед збереженням."
   },
   "favorites": {
     "title": "Улюблене",

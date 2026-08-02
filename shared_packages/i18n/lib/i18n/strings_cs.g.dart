@@ -181,6 +181,7 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowCs questionFlow = _TranslationsMealQuestionFlowCs._(_root);
 	@override late final _TranslationsMealAnalysisCs analysis = _TranslationsMealAnalysisCs._(_root);
 	@override late final _TranslationsMealFeedbackCs feedback = _TranslationsMealFeedbackCs._(_root);
+	@override String get nameRequired => 'Zadejte název jídla před uložením.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsCs {
 			'meal.feedback.issueMissingItems' => 'Chybějící položky',
 			'meal.feedback.issueExtraItems' => 'Nadbytečné položky',
 			'meal.feedback.issueOther' => 'Jiné',
+			'meal.nameRequired' => 'Zadejte název jídla před uložením.',
 			'favorites.title' => 'Oblíbené',
 			'favorites.empty' => 'Zatím žádná oblíbená jídla.',
 			'favorites.searchPlaceholder' => 'Hledat oblíbená jídla',

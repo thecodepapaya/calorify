@@ -181,6 +181,7 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowBn questionFlow = _TranslationsMealQuestionFlowBn._(_root);
 	@override late final _TranslationsMealAnalysisBn analysis = _TranslationsMealAnalysisBn._(_root);
 	@override late final _TranslationsMealFeedbackBn feedback = _TranslationsMealFeedbackBn._(_root);
+	@override String get nameRequired => 'সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsBn {
 			'meal.feedback.issueMissingItems' => 'অনুপস্থিত আইটেম',
 			'meal.feedback.issueExtraItems' => 'অতিরিক্ত আইটেম',
 			'meal.feedback.issueOther' => 'অন্যান্য',
+			'meal.nameRequired' => 'সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।',
 			'favorites.title' => 'প্রিয়',
 			'favorites.empty' => 'এখনও কোনো প্রিয় খাবার নেই।',
 			'favorites.searchPlaceholder' => 'প্রিয় খাবার অনুসন্ধান করুন',

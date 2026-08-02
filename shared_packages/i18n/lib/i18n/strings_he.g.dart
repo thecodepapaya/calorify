@@ -181,6 +181,7 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowHe questionFlow = _TranslationsMealQuestionFlowHe._(_root);
 	@override late final _TranslationsMealAnalysisHe analysis = _TranslationsMealAnalysisHe._(_root);
 	@override late final _TranslationsMealFeedbackHe feedback = _TranslationsMealFeedbackHe._(_root);
+	@override String get nameRequired => 'הזן שם ארוחה לפני השמירה.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsHe {
 			'meal.feedback.issueMissingItems' => 'פריטים חסרים',
 			'meal.feedback.issueExtraItems' => 'פריטים מיותרים',
 			'meal.feedback.issueOther' => 'אחר',
+			'meal.nameRequired' => 'הזן שם ארוחה לפני השמירה.',
 			'favorites.title' => 'מועדפים',
 			'favorites.empty' => 'עדיין אין ארוחות מועדפות.',
 			'favorites.searchPlaceholder' => 'חפש ארוחות מועדפות',

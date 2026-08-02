@@ -63,7 +63,9 @@ class _DescribeMealState extends State<DescribeMeal> {
               TextFormField(
                 controller: _textController,
                 enabled: !_isLoading,
+                maxLength: 2000,
                 decoration: InputDecoration(
+                  counterText: '',
                   border: OutlineInputBorder(
                     borderRadius: globalRadius,
                     borderSide: BorderSide(color: colorScheme.outline),
@@ -116,12 +118,13 @@ class _DescribeMealState extends State<DescribeMeal> {
       _isLoading = true;
     });
 
+    var analysisCompleted = false;
     try {
       final repository = ProviderScope.containerOf(
         context,
         listen: false,
       ).read(foodRepositoryProvider);
-      await showV2MealAnalysisFlow(
+      analysisCompleted = await showV2MealAnalysisFlow(
         context: context,
         startAnalysis:
             () => repository.analyzeTextV2(textDescription: description),
@@ -133,17 +136,17 @@ class _DescribeMealState extends State<DescribeMeal> {
       showFlushbar(t.meal.failedToProcess(error: e), context: context);
       return;
     } finally {
-      _reset();
+      _reset(clearDescription: analysisCompleted);
     }
 
     if (!mounted) return;
   }
 
-  void _reset() {
+  void _reset({required bool clearDescription}) {
     if (!mounted) return;
     setState(() {
       _isLoading = false;
-      _textController.text = '';
+      if (clearDescription) _textController.clear();
     });
   }
 

@@ -181,6 +181,7 @@ class _TranslationsMealTl implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowTl questionFlow = _TranslationsMealQuestionFlowTl._(_root);
 	@override late final _TranslationsMealAnalysisTl analysis = _TranslationsMealAnalysisTl._(_root);
 	@override late final _TranslationsMealFeedbackTl feedback = _TranslationsMealFeedbackTl._(_root);
+	@override String get nameRequired => 'Ilagay ang pangalan ng pagkain bago i-save.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsTl {
 			'meal.feedback.issueMissingItems' => 'Nawawalang items',
 			'meal.feedback.issueExtraItems' => 'Sobrang items',
 			'meal.feedback.issueOther' => 'Iba pa',
+			'meal.nameRequired' => 'Ilagay ang pangalan ng pagkain bago i-save.',
 			'favorites.title' => 'Mga Paborito',
 			'favorites.empty' => 'Wala pang paboritong pagkain.',
 			'favorites.searchPlaceholder' => 'Maghanap ng paboritong pagkain',

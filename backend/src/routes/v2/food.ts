@@ -1,8 +1,9 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import config from '../../config.js';
-import { getOptionalUserId } from '../../middleware/auth.js';
+import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
   confirmMealAnalysisLogged,
+  isMealAnalysisSessionOwnedByUser,
   recordMealAnalysisFeedback,
   type MealLogConfirmationRecord,
 } from '../../services/mealAnalysisStore.js';
@@ -62,28 +63,32 @@ const clarifyAnswerItemSchema = z.preprocess((raw) => {
 }));
 
 const clarifyBodySchema = z.object({
-  analysisId: nonEmptyString,
+  analysisId: nonEmptyString.max(128),
   answers: z
     .array(clarifyAnswerItemSchema)
-    .min(1, 'must contain at least one answer'),
+    .min(1, 'must contain at least one answer')
+    .max(20, 'must contain at most 20 answers'),
 });
 type ClarifyBody = z.infer<typeof clarifyBodySchema>;
 
 const feedbackBodySchema = z.object({
-  analysisId: nonEmptyString,
+  analysisId: nonEmptyString.max(128),
   signal: z.enum([MealAnalysisFeedbackSignal.UP, MealAnalysisFeedbackSignal.DOWN]),
 });
 type FeedbackBody = z.infer<typeof feedbackBodySchema>;
 
 const mealTypeBodySchema = z.object({
-  analysisId: nonEmptyString,
+  analysisId: nonEmptyString.max(128),
   mealType: z.enum(MEAL_TYPES),
 });
 type MealTypeBody = z.infer<typeof mealTypeBodySchema>;
 
 const reanalyzeBodySchema = z.object({
-  analysisId: nonEmptyString,
-  issues: z.array(z.enum(FEEDBACK_ISSUES)).min(1, 'must contain at least one issue'),
+  analysisId: nonEmptyString.max(128),
+  issues: z
+    .array(z.enum(FEEDBACK_ISSUES))
+    .min(1, 'must contain at least one issue')
+    .max(FEEDBACK_ISSUES.length),
   otherText: z.string().trim().max(2000).optional(),
 });
 type ReanalyzeBody = z.infer<typeof reanalyzeBodySchema>;
@@ -104,8 +109,11 @@ const confirmLogMealSchema = z.object({
 });
 
 const confirmLogBodySchema = z.object({
-  analysisId: nonEmptyString,
-  loggedAt: nonEmptyString,
+  analysisId: nonEmptyString.max(128),
+  loggedAt: nonEmptyString.refine(
+    (value) => Number.isFinite(Date.parse(value)),
+    'must be a valid ISO-8601 timestamp'
+  ),
   meal: confirmLogMealSchema,
 });
 type ConfirmLogBody = z.infer<typeof confirmLogBodySchema>;
@@ -124,6 +132,16 @@ function confirmLogBodyToStoreRecord(body: ConfirmLogBody): MealLogConfirmationR
     mealType: m.type,
     quantity: m.quantity,
   };
+}
+
+async function requireOwnedAnalysis(
+  analysisId: string,
+  userId: string,
+  reply: FastifyReply
+): Promise<boolean> {
+  if (await isMealAnalysisSessionOwnedByUser(analysisId, userId)) return true;
+  reply.status(404).send(createErrorResponse('Analysis session not found'));
+  return false;
 }
 
 // Preserve the public Fastify route typing (used by <{Body: ...}> generics below).
@@ -233,6 +251,11 @@ async function streamEvents(
 }
 
 export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
+  // Every V2 flow creates or mutates user-attributed analysis state. Requiring
+  // Firebase auth here also makes rate limiting user-aware and prevents one
+  // caller from continuing or confirming another caller's analysis.
+  fastify.addHook('preHandler', authenticateUser);
+
   fastify.post<{ Body: AnalyzeTextBody }>(
     '/analyze-text',
     {
@@ -263,7 +286,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       const parsed = parseBody(analyzeTextBodySchema, request.body, reply);
       if (!parsed) return;
 
-      const userId = await getOptionalUserId(request);
+      const userId = getCurrentUserId(request);
       await streamEvents(
         reply,
         request.headers.accept,
@@ -315,7 +338,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         return;
       }
 
-      const userId = await getOptionalUserId(request);
+      const userId = getCurrentUserId(request);
       await streamEvents(
         reply,
         request.headers.accept,
@@ -353,6 +376,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     async (request: FastifyRequest<{ Body: ClarifyBody }>, reply: FastifyReply) => {
       const parsed = parseBody(clarifyBodySchema, request.body, reply);
       if (!parsed) return;
+      const userId = getCurrentUserId(request);
+      if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
 
       await streamEvents(
         reply,
@@ -361,6 +386,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           parsed.analysisId,
           parsed.answers as MealClarificationAnswer[],
           {
+            userId,
             logger: request.log,
           }
         )
@@ -397,7 +423,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       const parsed = parseBody(feedbackBodySchema, request.body, reply);
       if (!parsed) return;
 
-      const userId = await getOptionalUserId(request);
+      const userId = getCurrentUserId(request);
+      if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
       await recordMealAnalysisFeedback({
         analysisId: parsed.analysisId,
         userId,
@@ -431,11 +458,14 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     async (request: FastifyRequest<{ Body: MealTypeBody }>, reply: FastifyReply) => {
       const parsed = parseBody(mealTypeBodySchema, request.body, reply);
       if (!parsed) return;
+      const userId = getCurrentUserId(request);
+      if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
 
       await streamEvents(
         reply,
         request.headers.accept,
         continueMealAnalysisWithMealType(parsed.analysisId, parsed.mealType, {
+          userId,
           logger: request.log,
         })
       );
@@ -469,7 +499,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       const parsed = parseBody(reanalyzeBodySchema, request.body, reply);
       if (!parsed) return;
 
-      const userId = await getOptionalUserId(request);
+      const userId = getCurrentUserId(request);
+      if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
       await recordMealAnalysisFeedback({
         analysisId: parsed.analysisId,
         userId,
@@ -537,6 +568,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     async (request: FastifyRequest<{ Body: ConfirmLogBody }>, reply: FastifyReply) => {
       const parsed = parseBody(confirmLogBodySchema, request.body, reply);
       if (!parsed) return;
+      const userId = getCurrentUserId(request);
+      if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
 
       await confirmMealAnalysisLogged(confirmLogBodyToStoreRecord(parsed));
       const ok: ApiResult = { ok: true, message: '' };

@@ -181,6 +181,7 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowUr questionFlow = _TranslationsMealQuestionFlowUr._(_root);
 	@override late final _TranslationsMealAnalysisUr analysis = _TranslationsMealAnalysisUr._(_root);
 	@override late final _TranslationsMealFeedbackUr feedback = _TranslationsMealFeedbackUr._(_root);
+	@override String get nameRequired => 'محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsUr {
 			'meal.feedback.issueMissingItems' => 'غائب اشیاء',
 			'meal.feedback.issueExtraItems' => 'اضافی اشیاء',
 			'meal.feedback.issueOther' => 'دوسرا',
+			'meal.nameRequired' => 'محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔',
 			'favorites.title' => 'پسندیدہ',
 			'favorites.empty' => 'ابھی کوئی پسندیدہ کھانا نہیں ہے۔',
 			'favorites.searchPlaceholder' => 'پسندیدہ کھانے تلاش کریں',

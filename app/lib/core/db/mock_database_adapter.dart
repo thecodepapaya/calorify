@@ -145,7 +145,16 @@ class MockDatabaseAdapter implements DatabaseInterface {
           favorite.loggedMeal.clientId == mealInfo.clientId,
     );
 
-    if (!alreadyFavorite) {
+    if (alreadyFavorite) {
+      final index = _favorites.indexWhere(
+        (favorite) =>
+            favorite.hasLoggedMeal() &&
+            favorite.loggedMeal.hasClientId() &&
+            favorite.loggedMeal.clientId == mealInfo.clientId,
+      );
+      final existing = _favorites[index];
+      _favorites[index] = existing.deepCopy()..loggedMeal = mealInfo;
+    } else {
       final now = DateTime.now();
       _favorites.add(
         FavoriteMeal(

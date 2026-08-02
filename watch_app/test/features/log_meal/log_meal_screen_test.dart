@@ -11,6 +11,7 @@ class _FakeSpeechPlatform extends SpeechToTextPlatform {
   bool permissionGranted = true;
   bool localeLookupHangs = false;
   bool listening = false;
+  bool listenSucceeds = true;
   int listenCalls = 0;
 
   @override
@@ -31,6 +32,7 @@ class _FakeSpeechPlatform extends SpeechToTextPlatform {
     SpeechListenOptions? options,
   }) async {
     listenCalls++;
+    if (!listenSucceeds) return false;
     listening = true;
     onStatus?.call(SpeechToText.listeningStatus);
     return true;
@@ -127,5 +129,26 @@ void main() {
     expect(fakePlatform.listenCalls, 1);
     expect(find.text('Listening'), findsOneWidget);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('a recognizer startup rejection returns to a retryable state', (
+    tester,
+  ) async {
+    fakePlatform.listenSucceeds = false;
+    await pumpVoiceScreen(tester);
+
+    await tester.tap(find.byKey(const Key('watch_voice_record_button')));
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(fakePlatform.listenCalls, 1);
+    expect(find.text('Listening'), findsNothing);
+    expect(find.textContaining('Voice input is unavailable'), findsOneWidget);
+
+    fakePlatform.listenSucceeds = true;
+    await tester.tap(find.byKey(const Key('watch_voice_record_button')));
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(fakePlatform.listenCalls, 2);
+    expect(find.text('Listening'), findsOneWidget);
   });
 }

@@ -28,6 +28,7 @@ await mock.module('../config.js', { defaultExport: mockConfig });
 const {
   upsertMealAnalysisSession,
   getMealAnalysisSession,
+  isMealAnalysisSessionOwnedByUser,
   recordMealAnalysisClarification,
   recordMealAnalysisMealType,
   recordMealAnalysisFeedback,
@@ -220,6 +221,24 @@ test('getMealAnalysisSession uses LIMIT 1', async () => {
   await getMealAnalysisSession('any-id');
   const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
   assert.ok(sql.includes('LIMIT 1'));
+});
+
+test('isMealAnalysisSessionOwnedByUser scopes the lookup to analysis and user', async () => {
+  resetQuery({ rows: [{ owned: true }] });
+  assert.equal(
+    await isMealAnalysisSessionOwnedByUser('analysis-1', 'user-1'),
+    true
+  );
+  const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.ok(sql.includes('analysis_id = $1'));
+  assert.ok(sql.includes('user_id = $2'));
+  assert.deepEqual(params, ['analysis-1', 'user-1']);
+
+  resetQuery({ rows: [] });
+  assert.equal(
+    await isMealAnalysisSessionOwnedByUser('analysis-1', 'user-2'),
+    false
+  );
 });
 
 // ---------------------------------------------------------------------------

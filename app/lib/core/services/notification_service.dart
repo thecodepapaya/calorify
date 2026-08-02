@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:calorify/core/services/meal_reminder_settings_store.dart';
 import 'package:i18n/i18n.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_timezone/flutter_timezone.dart';
 
 /// Background message handler (must be top-level for Firebase Messaging).
 @pragma('vm:entry-point')
@@ -18,9 +20,12 @@ class NotificationService {
   NotificationService._({
     FlutterLocalNotificationsPlugin? localNotifications,
     FirebaseMessaging? firebaseMessaging,
+    MealReminderSettingsStore? reminderSettingsStore,
   }) : _localNotifications =
            localNotifications ?? FlutterLocalNotificationsPlugin(),
-       _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance;
+       _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
+       _reminderSettingsStore =
+           reminderSettingsStore ?? FileMealReminderSettingsStore();
 
   static NotificationService _instance = NotificationService._();
   static NotificationService get instance => _instance;
@@ -34,13 +39,16 @@ class NotificationService {
   factory NotificationService.test({
     FlutterLocalNotificationsPlugin? localNotifications,
     FirebaseMessaging? firebaseMessaging,
+    MealReminderSettingsStore? reminderSettingsStore,
   }) => NotificationService._(
     localNotifications: localNotifications,
     firebaseMessaging: firebaseMessaging,
+    reminderSettingsStore: reminderSettingsStore,
   );
 
   final FlutterLocalNotificationsPlugin _localNotifications;
   final FirebaseMessaging _firebaseMessaging;
+  final MealReminderSettingsStore _reminderSettingsStore;
 
   bool _isInitialized = false;
   bool _isFirebaseMessagingInitialized = false;
@@ -57,6 +65,14 @@ class NotificationService {
 
     // Initialize time zones
     tz.initializeTimeZones();
+    try {
+      final localTimezone = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(localTimezone.identifier));
+    } on Object catch (error) {
+      // UTC is still a valid fallback. Do not prevent notifications from
+      // initializing on devices that return an unknown vendor timezone.
+      debugPrint('Could not resolve the device timezone: $error');
+    }
 
     // Initialize local notifications
     await _initializeLocalNotifications();
@@ -340,6 +356,33 @@ class NotificationService {
         channel: remindersChannel,
       );
     }
+
+    await _reminderSettingsStore.save(
+      MealReminderSettings(
+        breakfastEnabled: breakfastEnabled,
+        lunchEnabled: lunchEnabled,
+        dinnerEnabled: dinnerEnabled,
+        snackEnabled: snackEnabled,
+        breakfastMinutes: breakfastTime.hour * 60 + breakfastTime.minute,
+        lunchMinutes: lunchTime.hour * 60 + lunchTime.minute,
+        dinnerMinutes: dinnerTime.hour * 60 + dinnerTime.minute,
+        snackMinutes: snackTime.hour * 60 + snackTime.minute,
+      ),
+    );
+  }
+
+  Future<MealReminderSettings> loadMealReminderSettings() async =>
+      await _reminderSettingsStore.load() ?? MealReminderSettings.defaults;
+
+  Future<void> clearMealReminders() async {
+    try {
+      await cancelAllNotifications();
+    } on Object catch (error) {
+      // Clearing local profile data must not become stuck because the OS
+      // notification service is temporarily unavailable.
+      debugPrint('Could not cancel notifications while clearing data: $error');
+    }
+    await _reminderSettingsStore.clear();
   }
 
   /// Show general notification (Android only)

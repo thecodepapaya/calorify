@@ -181,6 +181,7 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowUk questionFlow = _TranslationsMealQuestionFlowUk._(_root);
 	@override late final _TranslationsMealAnalysisUk analysis = _TranslationsMealAnalysisUk._(_root);
 	@override late final _TranslationsMealFeedbackUk feedback = _TranslationsMealFeedbackUk._(_root);
+	@override String get nameRequired => 'Введіть назву страви перед збереженням.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsUk {
 			'meal.feedback.issueMissingItems' => 'Відсутні інгредієнти',
 			'meal.feedback.issueExtraItems' => 'Зайві інгредієнти',
 			'meal.feedback.issueOther' => 'Інше',
+			'meal.nameRequired' => 'Введіть назву страви перед збереженням.',
 			'favorites.title' => 'Улюблене',
 			'favorites.empty' => 'Улюблені страви відсутні.',
 			'favorites.searchPlaceholder' => 'Пошук улюблених страв',

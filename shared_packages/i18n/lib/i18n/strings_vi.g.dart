@@ -181,6 +181,7 @@ class _TranslationsMealVi implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowVi questionFlow = _TranslationsMealQuestionFlowVi._(_root);
 	@override late final _TranslationsMealAnalysisVi analysis = _TranslationsMealAnalysisVi._(_root);
 	@override late final _TranslationsMealFeedbackVi feedback = _TranslationsMealFeedbackVi._(_root);
+	@override String get nameRequired => 'Nhập tên bữa ăn trước khi lưu.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsVi {
 			'meal.feedback.issueMissingItems' => 'Thiếu mục',
 			'meal.feedback.issueExtraItems' => 'Thừa mục',
 			'meal.feedback.issueOther' => 'Khác',
+			'meal.nameRequired' => 'Nhập tên bữa ăn trước khi lưu.',
 			'favorites.title' => 'Yêu thích',
 			'favorites.empty' => 'Chưa có bữa ăn yêu thích.',
 			'favorites.searchPlaceholder' => 'Tìm bữa ăn yêu thích',

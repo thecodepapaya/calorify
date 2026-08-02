@@ -325,7 +325,8 @@
       "issueMissingItems": "Chybějící položky",
       "issueExtraItems": "Nadbytečné položky",
       "issueOther": "Jiné"
-    }
+    },
+    "nameRequired": "Zadejte název jídla před uložením."
   },
   "favorites": {
     "title": "Oblíbené",

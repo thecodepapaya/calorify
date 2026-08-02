@@ -181,6 +181,7 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override late final _TranslationsMealQuestionFlowKo questionFlow = _TranslationsMealQuestionFlowKo._(_root);
 	@override late final _TranslationsMealAnalysisKo analysis = _TranslationsMealAnalysisKo._(_root);
 	@override late final _TranslationsMealFeedbackKo feedback = _TranslationsMealFeedbackKo._(_root);
+	@override String get nameRequired => '저장하기 전에 식사 이름을 입력하세요.';
 }
 
 // Path: favorites
@@ -1927,6 +1928,7 @@ extension on TranslationsKo {
 			'meal.feedback.issueMissingItems' => '누락된 항목',
 			'meal.feedback.issueExtraItems' => '불필요한 항목',
 			'meal.feedback.issueOther' => '기타',
+			'meal.nameRequired' => '저장하기 전에 식사 이름을 입력하세요.',
 			'favorites.title' => '즐겨찾기',
 			'favorites.empty' => '아직 즐겨찾기 식사가 없습니다.',
 			'favorites.searchPlaceholder' => '즐겨찾기 식사 검색',
