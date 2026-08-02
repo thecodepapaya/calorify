@@ -7,17 +7,17 @@ import '../setup/all_tests.dart';
 void main() {
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   group('EditReminderScreen Golden Tests', () {
     testGoldens('Initial view', (WidgetTester tester) async {
       for (final locale in goldenTestLocales) {
-        final builder = DeviceBuilder()
-          ..addScenario(
-            name: 'Edit Reminder',
-            widget: const EditReminderScreen(),
-          );
+        final builder =
+            DeviceBuilder()..addScenario(
+              name: 'Edit Reminder',
+              widget: const EditReminderScreen(),
+            );
 
         await tester.pumpDeviceBuilder(
           builder,

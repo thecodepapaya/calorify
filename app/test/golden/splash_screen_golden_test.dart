@@ -12,7 +12,7 @@ void main() {
 
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   setUp(() {

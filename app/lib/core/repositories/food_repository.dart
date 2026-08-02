@@ -18,6 +18,11 @@ class V2ImageAnalysisHandle {
 }
 
 class FoodRepository {
+  FoodRepository({NetworkClient? networkClient})
+    : _networkClient = networkClient ?? NetworkClient.instance;
+
+  final NetworkClient _networkClient;
+
   Future<MealDetectionResponse> analyzeImage({required File imageFile}) async {
     final formData = FormData.fromMap({
       'file': await MultipartFile.fromFile(
@@ -26,12 +31,11 @@ class FoodRepository {
       ),
     });
 
-    final response = await NetworkClient.instance.client
-        .post<Map<String, dynamic>>(
-          '/api/v1/food/analyze-image',
-          data: formData,
-          options: Options(contentType: 'multipart/form-data'),
-        );
+    final response = await _networkClient.client.post<Map<String, dynamic>>(
+      '/api/v1/food/analyze-image',
+      data: formData,
+      options: Options(contentType: 'multipart/form-data'),
+    );
 
     return MealDetectionResponse()..mergeFromProto3Json(response.data!);
   }
@@ -41,7 +45,7 @@ class FoodRepository {
 
     // Send the full authenticated upload URL
     final request = ImageMealDetectionRequest(imageUrl: uploadUrl);
-    return NetworkClient.instance
+    return _networkClient
         .apiCall<ImageMealDetectionRequest, MealDetectionResponse>(
           '/api/v1/food/detect-image',
           MealDetectionResponse.new,
@@ -51,7 +55,7 @@ class FoodRepository {
 
   Future<MealDetectionResponse> detectText({required String textDescription}) {
     final request = TextMealDetectionRequest(textDescription: textDescription);
-    return NetworkClient.instance
+    return _networkClient
         .apiCall<TextMealDetectionRequest, MealDetectionResponse>(
           '/api/v1/food/detect-text',
           MealDetectionResponse.new,
@@ -62,7 +66,7 @@ class FoodRepository {
   Future<Stream<MealAnalysisPipelineEvent>> analyzeTextV2({
     required String textDescription,
   }) {
-    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/analyze-text',
       MealAnalysisPipelineEvent.fromJson,
       data: TextMealDetectionRequest(textDescription: textDescription),
@@ -76,7 +80,7 @@ class FoodRepository {
   Future<Stream<MealAnalysisPipelineEvent>> analyzeImageFromUrlV2({
     required String imageUrl,
   }) {
-    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/analyze-image',
       MealAnalysisPipelineEvent.fromJson,
       data: ImageMealDetectionRequest(imageUrl: imageUrl),
@@ -95,7 +99,7 @@ class FoodRepository {
     required String analysisId,
     required List<MealClarificationAnswer> answers,
   }) {
-    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/clarify',
       MealAnalysisPipelineEvent.fromJson,
       data: MealAnalysisClarifyRequest(
@@ -109,7 +113,7 @@ class FoodRepository {
     required String analysisId,
     required MealType mealType,
   }) {
-    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/meal-type',
       MealAnalysisPipelineEvent.fromJson,
       data: MealAnalysisMealTypeRequest(
@@ -120,15 +124,14 @@ class FoodRepository {
   }
 
   Future<void> submitPositiveFeedbackV2({required String analysisId}) async {
-    await NetworkClient.instance
-        .apiCall<MealAnalysisFeedbackRequest, ApiResult>(
-          '/api/v2/food/feedback',
-          ApiResult.new,
-          request: MealAnalysisFeedbackRequest(
-            analysisId: analysisId,
-            signal: MealAnalysisFeedbackSignal.UP,
-          ),
-        );
+    await _networkClient.apiCall<MealAnalysisFeedbackRequest, ApiResult>(
+      '/api/v2/food/feedback',
+      ApiResult.new,
+      request: MealAnalysisFeedbackRequest(
+        analysisId: analysisId,
+        signal: MealAnalysisFeedbackSignal.UP,
+      ),
+    );
   }
 
   Future<void> confirmMealLogV2({
@@ -136,16 +139,15 @@ class FoodRepository {
     required Meal meal,
     required DateTime loggedAt,
   }) async {
-    await NetworkClient.instance
-        .apiCall<MealAnalysisConfirmLogRequest, ApiResult>(
-          '/api/v2/food/confirm-log',
-          ApiResult.new,
-          request: MealAnalysisConfirmLogRequest(
-            analysisId: analysisId,
-            loggedAt: loggedAt.toUtc().toIso8601String(),
-            meal: meal,
-          ),
-        );
+    await _networkClient.apiCall<MealAnalysisConfirmLogRequest, ApiResult>(
+      '/api/v2/food/confirm-log',
+      ApiResult.new,
+      request: MealAnalysisConfirmLogRequest(
+        analysisId: analysisId,
+        loggedAt: loggedAt.toUtc().toIso8601String(),
+        meal: meal,
+      ),
+    );
   }
 
   Future<Stream<MealAnalysisPipelineEvent>> reanalyzeV2({
@@ -153,7 +155,7 @@ class FoodRepository {
     required List<MealReanalyzeFeedbackIssue> issues,
     String? otherText,
   }) {
-    return NetworkClient.instance.streamPost<MealAnalysisPipelineEvent>(
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/reanalyze',
       MealAnalysisPipelineEvent.fromJson,
       data: MealAnalysisReanalyzeRequest(
@@ -187,7 +189,7 @@ class FoodRepository {
     final contentType = ImageConfig.getMimeType(fileExtension);
     final fileBytes = await imageFile.readAsBytes();
 
-    await NetworkClient.instance.client.put(
+    await _networkClient.client.put(
       uploadUrl,
       data: fileBytes,
       options: Options(headers: {'Content-Type': contentType}),
@@ -197,7 +199,7 @@ class FoodRepository {
   }
 
   Future<AiMealSummaryResponse?> getAiSummary() async {
-    final proto = await NetworkClient.instance
+    final proto = await _networkClient
         .apiCall<ApiResult, AiMealSummaryResponse>(
           '/api/v1/food/ai-summary',
           AiMealSummaryResponse.new,
@@ -219,7 +221,7 @@ class FoodRepository {
           count != null
               ? '/api/v1/food/meal-analysis-tips?count=$count'
               : '/api/v1/food/meal-analysis-tips';
-      final proto = await NetworkClient.instance
+      final proto = await _networkClient
           .apiCall<ApiResult, MealAnalysisTipsResponse>(
             endpoint,
             MealAnalysisTipsResponse.new,
@@ -235,7 +237,7 @@ class FoodRepository {
   }
 
   Future<String> exportMealHistoryCsv() async {
-    final response = await NetworkClient.instance.client.get<String>(
+    final response = await _networkClient.client.get<String>(
       '/api/v1/food/export',
       options: Options(responseType: ResponseType.plain),
     );

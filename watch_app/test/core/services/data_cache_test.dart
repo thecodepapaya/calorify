@@ -1,0 +1,51 @@
+import 'package:calorify_watch/core/services/data_cache.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:models/models.dart';
+
+void main() {
+  test('restores newest-first order and continues temporary IDs safely', () {
+    final cache = DataCache.instance;
+    final older = _meal(-4, DateTime.utc(2026, 7, 29, 8));
+    final newer = _meal(-8, DateTime.utc(2026, 7, 29, 9));
+    cache.restoreSnapshot(
+      meals: [older, newer],
+      favorites: const [],
+      goal: 2000,
+      syncedAt: DateTime.now(),
+    );
+
+    expect(cache.todaysMeals.value.map((meal) => meal.clientId), [-8, -4]);
+    expect(cache.calorieGoal.value, 2000);
+    expect(cache.hasFreshData, isTrue);
+
+    final optimistic = cache.addOptimisticMeal(Meal(name: 'New meal'));
+    expect(optimistic.clientId, -9);
+    expect(cache.todaysMeals.value.first.clientId, -9);
+  });
+
+  test('remove and restore preserve the exact logged meal', () {
+    final cache = DataCache.instance;
+    final meal = _meal(12, DateTime.utc(2026, 7, 29, 8));
+    cache.restoreSnapshot(
+      meals: [meal],
+      favorites: const [],
+      goal: null,
+      syncedAt: null,
+    );
+
+    expect(cache.removeMealById(99), isNull);
+    final removed = cache.removeMealById(12);
+    expect(removed, same(meal));
+    expect(cache.todaysMeals.value, isEmpty);
+
+    cache.restoreMeal(removed!);
+    expect(cache.todaysMeals.value.single, same(meal));
+    expect(cache.hasFreshData, isFalse);
+  });
+}
+
+LoggedMeal _meal(int id, DateTime createdAt) => LoggedMeal(
+  clientId: id,
+  createdAt: createdAt.toIso8601String(),
+  meal: Meal(name: 'Meal $id'),
+);

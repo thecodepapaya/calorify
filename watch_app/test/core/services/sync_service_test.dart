@@ -16,6 +16,21 @@ void main() {
     expect(watchMealOperationId(meal), watchMealOperationId(restoredMeal));
   });
 
+  test('transient phone failures stay queued for retry', () {
+    expect(shouldRetryWatchResponse(null), isTrue);
+    expect(shouldRetryWatchResponse({'error': 'Network unavailable'}), isTrue);
+    expect(shouldRetryWatchResponse({'error': 'Request timed out'}), isTrue);
+    expect(shouldRetryWatchResponse({'error': 'No connected phone'}), isTrue);
+  });
+
+  test('successful and permanent server responses are not retried', () {
+    expect(shouldRetryWatchResponse({'success': true}), isFalse);
+    expect(
+      shouldRetryWatchResponse({'success': false, 'error': 'Invalid meal'}),
+      isFalse,
+    );
+  });
+
   test('fresh watch auth does not make a second phone round-trip', () {
     final freshSession = WatchAuthSnapshot(
       userId: 'user',

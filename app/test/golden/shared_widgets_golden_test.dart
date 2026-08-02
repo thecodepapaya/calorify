@@ -11,7 +11,7 @@ import '../setup/all_tests.dart';
 void main() {
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   group('Shared Widgets Golden Tests', () {

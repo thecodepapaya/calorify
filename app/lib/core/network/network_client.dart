@@ -18,6 +18,9 @@ import 'package:services/services.dart' show showFlushbar;
 class NetworkClient {
   NetworkClient._(this._dio);
 
+  @visibleForTesting
+  NetworkClient.forTesting(Dio dio) : _dio = dio;
+
   final Dio _dio;
 
   static final NetworkClient instance = NetworkClient._(_buildDio());

@@ -7,7 +7,7 @@ import '../setup/all_tests.dart';
 void main() {
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   group('DebugOptionsScreen Golden Tests', () {

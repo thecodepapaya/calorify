@@ -16,6 +16,18 @@ enum _PendingOperationProcessResult { applied, retryLater, drop }
 String watchMealOperationId(LoggedMeal meal) =>
     'watch:${meal.clientId}:${meal.createdAt}';
 
+/// Whether a phone response represents a transient failure that should remain
+/// in the durable watch queue.
+bool shouldRetryWatchResponse(Map<String, dynamic>? response) {
+  if (response == null) return true;
+  final error = response['error']?.toString().toLowerCase() ?? '';
+  return error.contains('timed out') ||
+      error.contains('timeout') ||
+      error.contains('no connected') ||
+      error.contains('unavailable') ||
+      error.contains('network');
+}
+
 /// Service to sync data between watch and main app using Wear OS Data Layer.
 class SyncService {
   SyncService._();
@@ -200,7 +212,7 @@ class SyncService {
         return SyncRequestResult.synced;
       }
 
-      if (_shouldRetryResponse(response)) {
+      if (shouldRetryWatchResponse(response)) {
         await _database.queueMealLog(
           optimisticMeal,
           favoriteMealId: favoriteMealId,
@@ -260,7 +272,7 @@ class SyncService {
         return SyncRequestResult.synced;
       }
 
-      if (_shouldRetryResponse(response)) {
+      if (shouldRetryWatchResponse(response)) {
         await _database.queueMealDelete(mealId);
         syncState.value = SyncState.disconnected;
         return SyncRequestResult.queued;
@@ -569,7 +581,7 @@ class SyncService {
     Map<String, dynamic>? response, {
     required PendingWatchOperation operation,
   }) {
-    if (_shouldRetryResponse(response)) {
+    if (shouldRetryWatchResponse(response)) {
       return _PendingOperationProcessResult.retryLater;
     }
     final resolvedResponse = response!;
@@ -584,16 +596,6 @@ class SyncService {
       '${resolvedResponse['error'] ?? resolvedResponse}',
     );
     return _PendingOperationProcessResult.drop;
-  }
-
-  bool _shouldRetryResponse(Map<String, dynamic>? response) {
-    if (response == null) return true;
-    final error = response['error']?.toString().toLowerCase() ?? '';
-    return error.contains('timed out') ||
-        error.contains('timeout') ||
-        error.contains('no connected') ||
-        error.contains('unavailable') ||
-        error.contains('network');
   }
 
   Future<void> _dropPendingOperation(PendingWatchOperation operation) async {

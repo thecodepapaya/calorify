@@ -6,6 +6,8 @@
  * LLM provider/model attempts without printing credentials.
  */
 
+import { pathToFileURL } from 'node:url';
+
 import config from '../config.js';
 import { closeDatabase, healthCheck, initializeDatabase } from '../services/database.js';
 import {
@@ -21,7 +23,7 @@ import {
   type PipelineEvent,
 } from '../services/nutritionEngineV2.js';
 
-type Args = {
+export type CalorieEstimationCliArgs = {
   text?: string;
   imageUrl?: string;
   locale: string;
@@ -59,8 +61,8 @@ function valueAfter(argv: string[], index: number, flag: string): string {
   return value;
 }
 
-function parseArgs(argv: string[]): Args {
-  const args: Args = {
+export function parseCalorieEstimationCliArgs(argv: string[]): CalorieEstimationCliArgs {
+  const args: CalorieEstimationCliArgs = {
     locale: 'en',
     autoContinue: true,
     json: false,
@@ -128,7 +130,7 @@ If meal type is still unknown, the inferred type is used, otherwise LUNCH is
 selected and recorded in the decisions section. Pass --meal-type for controlled tests.`);
 }
 
-function redactedImageUrl(value: string): string {
+export function redactedImageUrl(value: string): string {
   try {
     const url = new URL(value);
     return `${url.origin}${url.pathname}`;
@@ -167,7 +169,7 @@ function analysisIdFrom(events: PipelineEvent[]): string | undefined {
   return events.find((event) => event.data.analysisId)?.data.analysisId;
 }
 
-function mealTypeForQuestion(event: Extract<PipelineEvent, { step: 'MEAL_TYPE_QUESTION' }>): MealTypeValue {
+export function mealTypeForQuestion(event: Extract<PipelineEvent, { step: 'MEAL_TYPE_QUESTION' }>): MealTypeValue {
   if (event.data.inferredMealType && event.data.inferredMealType !== 'UNKNOWN') {
     return event.data.inferredMealType;
   }
@@ -180,7 +182,7 @@ function terminalResult(timeline: TimedEvent[]): Extract<PipelineEvent, { step: 
     | undefined;
 }
 
-function printHuman(report: Record<string, unknown>): void {
+export function printHuman(report: Record<string, unknown>): void {
   const input = report.input as { kind: string; value: string };
   const result = report.result as Extract<PipelineEvent, { step: 'RESULT' }>['data'] | undefined;
   const timeline = report.timeline as TimedEvent[];
@@ -264,8 +266,8 @@ function printHuman(report: Record<string, unknown>): void {
   );
 }
 
-async function main(): Promise<void> {
-  const args = parseArgs(process.argv.slice(2));
+export async function runCalorieEstimationCli(argv = process.argv.slice(2)): Promise<void> {
+  const args = parseCalorieEstimationCliArgs(argv);
   if (args.help) {
     printHelp();
     return;
@@ -402,7 +404,10 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
-});
+const isMainModule = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMainModule) {
+  runCalorieEstimationCli().catch((error) => {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  });
+}

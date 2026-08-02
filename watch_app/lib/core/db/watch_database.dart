@@ -60,6 +60,9 @@ class PendingWatchOperation {
 class WatchDatabase extends _$WatchDatabase {
   WatchDatabase() : super(_openConnection());
 
+  @visibleForTesting
+  WatchDatabase.forTesting(super.e);
+
   static const int _metadataRowId = 1;
 
   @override

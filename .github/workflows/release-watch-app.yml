@@ -107,7 +107,10 @@ jobs:
 
       - name: Test
         working-directory: watch_app
-        run: flutter test
+        run: flutter test --coverage --concurrency=1
+
+      - name: Enforce coverage baseline
+        run: python3 scripts/check_lcov_coverage.py watch_app/coverage/lcov.info --minimum 25
 
       - name: Build Android AppBundle (Watch App)
         working-directory: watch_app

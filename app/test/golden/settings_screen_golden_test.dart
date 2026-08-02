@@ -16,7 +16,7 @@ void main() {
 
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
 
     PackageInfo.setMockInitialValues(
       appName: 'Calorify',
@@ -26,11 +26,13 @@ void main() {
       buildSignature: 'buildSignature',
     );
     // Avoid calling Shorebird in tests (unavailable in test environment).
-    getAppVersionInfoTestOverride = Future.value(const AppVersionInfo(
-      version: '1.0.0',
-      buildNumber: '1',
-      patchNumber: null,
-    ));
+    getAppVersionInfoTestOverride = Future.value(
+      const AppVersionInfo(
+        version: '1.0.0',
+        buildNumber: '1',
+        patchNumber: null,
+      ),
+    );
   });
 
   setUp(() {

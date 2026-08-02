@@ -8,7 +8,7 @@ import '../setup/all_tests.dart';
 void main() {
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   group('Onboarding Widgets Golden Tests', () {
@@ -16,20 +16,11 @@ void main() {
       final widget = Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const OnboardingProgressBar(
-            currentStep: 1,
-            totalSteps: 10,
-          ),
+          const OnboardingProgressBar(currentStep: 1, totalSteps: 10),
           const SizedBox(height: 16),
-          const OnboardingProgressBar(
-            currentStep: 5,
-            totalSteps: 10,
-          ),
+          const OnboardingProgressBar(currentStep: 5, totalSteps: 10),
           const SizedBox(height: 16),
-          const OnboardingProgressBar(
-            currentStep: 10,
-            totalSteps: 10,
-          ),
+          const OnboardingProgressBar(currentStep: 10, totalSteps: 10),
         ],
       );
 

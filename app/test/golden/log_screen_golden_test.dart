@@ -14,13 +14,15 @@ void main() {
 
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   setUp(() {
     mockDatabaseInterface = MockDatabaseInterface();
     DatabaseService.setMockInterface(mockDatabaseInterface);
-    when(() => mockDatabaseInterface.watchLastUsedFavoriteMeals()).thenAnswer((_) => Stream.value([]));
+    when(
+      () => mockDatabaseInterface.watchLastUsedFavoriteMeals(),
+    ).thenAnswer((_) => Stream.value([]));
   });
 
   group('LogScreen Golden Tests', () {

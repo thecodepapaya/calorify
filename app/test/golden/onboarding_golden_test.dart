@@ -32,7 +32,7 @@ void main() {
 
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
     registerFallbackValue(AnalyticsEvent.onboardingStart);
   });
 

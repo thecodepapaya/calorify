@@ -1,0 +1,61 @@
+name: Test Flutter apps
+
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "watch_app/**"
+      - "shared_packages/**"
+      - "scripts/audit_translations.py"
+      - "scripts/check_lcov_coverage.py"
+      - ".github/workflows/test-apps.yml"
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "watch_app/**"
+      - "shared_packages/**"
+      - "scripts/audit_translations.py"
+      - "scripts/check_lcov_coverage.py"
+      - ".github/workflows/test-apps.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  phone:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.0"
+          channel: stable
+          cache: true
+      - run: python3 scripts/audit_translations.py --fail-on-source-copies
+      - run: flutter pub get
+        working-directory: app
+      - run: flutter analyze
+        working-directory: app
+      - run: flutter test --coverage test/unit test/widget --concurrency=1
+        working-directory: app
+      - run: python3 scripts/check_lcov_coverage.py app/coverage/lcov.info --minimum 25
+
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.0"
+          channel: stable
+          cache: true
+      - run: python3 scripts/audit_translations.py --fail-on-source-copies
+      - run: flutter pub get
+        working-directory: watch_app
+      - run: flutter analyze
+        working-directory: watch_app
+      - run: flutter test --coverage --concurrency=1
+        working-directory: watch_app
+      - run: python3 scripts/check_lcov_coverage.py watch_app/coverage/lcov.info --minimum 25

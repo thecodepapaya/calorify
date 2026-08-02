@@ -21,7 +21,7 @@ void main() {
 
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   setUp(() {
@@ -44,9 +44,9 @@ void main() {
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(true);
-    when(
-      () => mockHealthService.getTotalCaloriesBurned(),
-    ).thenAnswer((_) async => CaloriesResult(calories: 500.0, usedFallback: false));
+    when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer(
+      (_) async => CaloriesResult(calories: 500.0, usedFallback: false),
+    );
   });
 
   group('Home Widgets Golden Tests', () {

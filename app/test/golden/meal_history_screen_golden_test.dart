@@ -16,7 +16,7 @@ void main() {
 
   setUpAll(() async {
     setupAllTests();
-    await loadAppFonts();
+    await loadGoldenFonts();
   });
 
   setUp(() {
@@ -62,9 +62,7 @@ void main() {
               fat: 15,
               fiber: 5,
             ),
-            health: MealHealth(
-              healthScore: HealthScore.HEALTHY,
-            ),
+            health: MealHealth(healthScore: HealthScore.HEALTHY),
           ),
           createdAt: dateTimeToIso8601String(DateTime.now()),
         ),
