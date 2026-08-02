@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class EditProfileScreen extends ConsumerStatefulWidget {
@@ -208,82 +209,85 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       ),
       body: Form(
         key: _formKey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: _horizontalPadding,
-            vertical: _verticalPadding,
+        child: ResponsiveContent(
+          maxWidth: 760,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: _horizontalPadding,
+              vertical: _verticalPadding,
+            ),
+            children: [
+              // Personal Information Section
+              _buildCardSection(t.editProfile.sections.personalInformation, [
+                _buildGenderTile(),
+                _buildDateOfBirthTile(),
+              ]),
+              const SizedBox(height: _sectionSpacing),
+
+              // Physical Measurements Section
+              _buildCardSection(t.editProfile.sections.physicalMeasurements, [
+                _buildHeightTile(),
+                _buildWeightTile(),
+              ]),
+              const SizedBox(height: _sectionSpacing),
+
+              // Goals & Activity Section
+              _buildCardSection(t.editProfile.sections.goalsAndActivity, [
+                _buildDailyCalorieGoalTile(),
+                const Divider(height: _dividerHeight),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: _cardContentHorizontalPadding,
+                    vertical: _cardContentVerticalPadding,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t.editProfile.weightGoal,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: _itemSpacing),
+                      ...weightGoalValues.map((goal) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: _itemSpacing),
+                          child: _buildGoalCard(context, goal),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+                const Divider(height: _dividerHeight),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: _cardContentHorizontalPadding,
+                    vertical: _cardContentVerticalPadding,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t.editProfile.activityLevel,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: _itemSpacing),
+                      ...activityLevelValues.map((level) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: _itemSpacing),
+                          child: _buildActivityCard(context, level),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+              ]),
+              const SizedBox(height: _extraLargeSpacing),
+            ],
           ),
-          children: [
-            // Personal Information Section
-            _buildCardSection(t.editProfile.sections.personalInformation, [
-              _buildGenderTile(),
-              _buildDateOfBirthTile(),
-            ]),
-            const SizedBox(height: _sectionSpacing),
-
-            // Physical Measurements Section
-            _buildCardSection(t.editProfile.sections.physicalMeasurements, [
-              _buildHeightTile(),
-              _buildWeightTile(),
-            ]),
-            const SizedBox(height: _sectionSpacing),
-
-            // Goals & Activity Section
-            _buildCardSection(t.editProfile.sections.goalsAndActivity, [
-              _buildDailyCalorieGoalTile(),
-              const Divider(height: _dividerHeight),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: _cardContentHorizontalPadding,
-                  vertical: _cardContentVerticalPadding,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      t.editProfile.weightGoal,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: _itemSpacing),
-                    ...weightGoalValues.map((goal) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: _itemSpacing),
-                        child: _buildGoalCard(context, goal),
-                      );
-                    }),
-                  ],
-                ),
-              ),
-              const Divider(height: _dividerHeight),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: _cardContentHorizontalPadding,
-                  vertical: _cardContentVerticalPadding,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      t.editProfile.activityLevel,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: _itemSpacing),
-                    ...activityLevelValues.map((level) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: _itemSpacing),
-                        child: _buildActivityCard(context, level),
-                      );
-                    }),
-                  ],
-                ),
-              ),
-            ]),
-            const SizedBox(height: _extraLargeSpacing),
-          ],
         ),
       ),
     );
@@ -705,9 +709,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           decoration: InputDecoration(
             hintText: '0',
             suffixText: t.home.dailyGoal.kcal,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,
               vertical: 8,

@@ -11,6 +11,7 @@ import 'package:i18n/i18n.dart';
 import 'package:measure_flutter/measure_flutter.dart';
 import 'package:calorify/shared_widgets/app_banner_shell.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 final _appRouter = AppRouter();
 
@@ -32,15 +33,18 @@ class CalorifyApp extends ConsumerWidget {
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       builder:
-          (context, child) => CatOverlay(
-            child: Builder(
-              builder: (ctx) {
-                final stacked =
-                    AppBannerShell(child: child ?? const SizedBox.shrink());
-                return flushbarBuilder != null
-                    ? flushbarBuilder(ctx, stacked)
-                    : stacked;
-              },
+          (context, child) => FoldAwareAppViewport(
+            child: CatOverlay(
+              child: Builder(
+                builder: (ctx) {
+                  final stacked = AppBannerShell(
+                    child: child ?? const SizedBox.shrink(),
+                  );
+                  return flushbarBuilder != null
+                      ? flushbarBuilder(ctx, stacked)
+                      : stacked;
+                },
+              ),
             ),
           ),
       routerConfig: _appRouter.config(

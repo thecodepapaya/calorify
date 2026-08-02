@@ -11,6 +11,7 @@ import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/easter_egg/grass.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,236 +65,241 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         backgroundColor: colorScheme.surface,
         elevation: 0,
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        children: [
-          _buildCardSection(t.settings.sections.profile, [
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.user,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.editProfile.title,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(t.settings.editProfile.subtitle),
-              trailing: const Icon(LucideIcons.chevronRight, size: 18),
-              onTap:
-                  userProfile != null
-                      ? () async {
-                        await context.router.push(
-                          EditProfileRoute(userProfile: userProfile),
-                        );
-                        ref.invalidate(userProfileProvider);
-                        ref.invalidate(savedDailyCalorieGoalProvider);
-                      }
-                      : null,
-            ),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.settings.sections.localization, [
-            _buildLanguageTile(),
-            _buildThemeTile(),
-            _buildHeightUnitTile(userProfile),
-            _buildWeightUnitTile(userProfile),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.settings.sections.notifications, [
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.bell,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.mealReminders.title,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(t.settings.mealReminders.subtitle),
-              trailing: const Icon(LucideIcons.chevronRight, size: 18),
-              onTap: () => context.router.push(const EditReminderRoute()),
-            ),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.settings.sections.healthConnect, [
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.activity,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.healthConnect.title,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(t.settings.healthConnect.subtitle),
-              trailing: const Icon(LucideIcons.chevronRight, size: 18),
-              onTap:
-                  () => context.router.push(
-                    const HealthConnectPermissionsRoute(),
-                  ),
-            ),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.settings.sections.supportAndLegal, [
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.mail,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.sendFeedback.title,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(
-                t.settings.sendFeedback.subtitle(
-                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                ),
-              ),
-              onTap: _sendFeedbackEmail,
-            ),
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.download,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.exportMealHistory.title,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(t.settings.exportMealHistory.subtitle),
-              trailing:
-                  _isExporting
-                      ? const SizedBox(
-                        height: 18,
-                        width: 18,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      )
-                      : const Icon(LucideIcons.chevronRight, size: 18),
-              onTap: _isExporting ? null : _exportMealHistory,
-            ),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.settings.sections.about, [
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.info,
-                  color: colorScheme.primary,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.about.title,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text(t.settings.about.ourStory.title),
-              trailing: const Icon(LucideIcons.chevronRight, size: 18),
-              onTap: () => context.router.push(const AboutRoute()),
-            ),
-          ]),
-          const SizedBox(height: 16),
-          _buildCardSection(t.settings.sections.dangerZone, [
-            ListTile(
-              leading: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: colorScheme.errorContainer.withValues(alpha: 0.2),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  LucideIcons.trash2,
-                  color: colorScheme.error,
-                  size: 20,
-                ),
-              ),
-              title: Text(
-                t.settings.clearAllData.title,
-                style: TextStyle(
-                  color: colorScheme.error,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              subtitle: Text(t.settings.clearAllData.subtitle),
-              onTap: _showClearDataConfirmation,
-            ),
-          ]),
-          if (_showDebugOptions ||
-              kDebugMode ||
-              EnvConfig.instance.usesStagingIdentity) ...[
-            const SizedBox(height: 16),
-            _buildCardSection(t.settings.sections.developer, [
+      body: ResponsiveContent(
+        maxWidth: 760,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          children: [
+            _buildCardSection(t.settings.sections.profile, [
               ListTile(
                 leading: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
+                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    LucideIcons.bug,
-                    color: colorScheme.tertiary,
+                    LucideIcons.user,
+                    color: colorScheme.primary,
                     size: 20,
                   ),
                 ),
                 title: Text(
-                  t.settings.debugOptions.title,
+                  t.settings.editProfile.title,
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
+                subtitle: Text(t.settings.editProfile.subtitle),
                 trailing: const Icon(LucideIcons.chevronRight, size: 18),
-                onTap: () => context.router.push(const DebugOptionsRoute()),
+                onTap:
+                    userProfile != null
+                        ? () async {
+                          await context.router.push(
+                            EditProfileRoute(userProfile: userProfile),
+                          );
+                          ref.invalidate(userProfileProvider);
+                          ref.invalidate(savedDailyCalorieGoalProvider);
+                        }
+                        : null,
               ),
             ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.localization, [
+              _buildLanguageTile(),
+              _buildThemeTile(),
+              _buildHeightUnitTile(userProfile),
+              _buildWeightUnitTile(userProfile),
+            ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.notifications, [
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LucideIcons.bell,
+                    color: colorScheme.primary,
+                    size: 20,
+                  ),
+                ),
+                title: Text(
+                  t.settings.mealReminders.title,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(t.settings.mealReminders.subtitle),
+                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                onTap: () => context.router.push(const EditReminderRoute()),
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.healthConnect, [
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LucideIcons.activity,
+                    color: colorScheme.primary,
+                    size: 20,
+                  ),
+                ),
+                title: Text(
+                  t.settings.healthConnect.title,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(t.settings.healthConnect.subtitle),
+                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                onTap:
+                    () => context.router.push(
+                      const HealthConnectPermissionsRoute(),
+                    ),
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.supportAndLegal, [
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LucideIcons.mail,
+                    color: colorScheme.primary,
+                    size: 20,
+                  ),
+                ),
+                title: Text(
+                  t.settings.sendFeedback.title,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(
+                  t.settings.sendFeedback.subtitle(
+                    appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                  ),
+                ),
+                onTap: _sendFeedbackEmail,
+              ),
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LucideIcons.download,
+                    color: colorScheme.primary,
+                    size: 20,
+                  ),
+                ),
+                title: Text(
+                  t.settings.exportMealHistory.title,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(t.settings.exportMealHistory.subtitle),
+                trailing:
+                    _isExporting
+                        ? const SizedBox(
+                          height: 18,
+                          width: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                        : const Icon(LucideIcons.chevronRight, size: 18),
+                onTap: _isExporting ? null : _exportMealHistory,
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.about, [
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LucideIcons.info,
+                    color: colorScheme.primary,
+                    size: 20,
+                  ),
+                ),
+                title: Text(
+                  t.settings.about.title,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(t.settings.about.ourStory.title),
+                trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                onTap: () => context.router.push(const AboutRoute()),
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.dangerZone, [
+              ListTile(
+                leading: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.errorContainer.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    LucideIcons.trash2,
+                    color: colorScheme.error,
+                    size: 20,
+                  ),
+                ),
+                title: Text(
+                  t.settings.clearAllData.title,
+                  style: TextStyle(
+                    color: colorScheme.error,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                subtitle: Text(t.settings.clearAllData.subtitle),
+                onTap: _showClearDataConfirmation,
+              ),
+            ]),
+            if (_showDebugOptions ||
+                kDebugMode ||
+                EnvConfig.instance.usesStagingIdentity) ...[
+              const SizedBox(height: 16),
+              _buildCardSection(t.settings.sections.developer, [
+                ListTile(
+                  leading: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: colorScheme.tertiaryContainer.withValues(
+                        alpha: 0.4,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      LucideIcons.bug,
+                      color: colorScheme.tertiary,
+                      size: 20,
+                    ),
+                  ),
+                  title: Text(
+                    t.settings.debugOptions.title,
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  trailing: const Icon(LucideIcons.chevronRight, size: 18),
+                  onTap: () => context.router.push(const DebugOptionsRoute()),
+                ),
+              ]),
+            ],
+            const SizedBox(height: 48),
+            _buildAppInfo(),
+            const SizedBox(height: 24),
+            const Grass(height: 120),
           ],
-          const SizedBox(height: 48),
-          _buildAppInfo(),
-          const SizedBox(height: 24),
-          const Grass(height: 120),
-        ],
+        ),
       ),
     );
   }

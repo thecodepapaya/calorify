@@ -3,6 +3,7 @@ import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/utilities/app_version.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -26,102 +27,105 @@ class AboutScreen extends StatelessWidget {
         backgroundColor: colorScheme.surface,
         elevation: 0,
       ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        children: [
-          const SizedBox(height: 16),
-          // Tagline
-          Center(
-            child: Text(
-              t.settings.about.tagline,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+      body: ResponsiveContent(
+        maxWidth: 760,
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          children: [
+            const SizedBox(height: 16),
+            // Tagline
+            Center(
+              child: Text(
+                t.settings.about.tagline,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(height: 24),
-          // Story Section
-          _buildSection(
-            context,
-            title: t.settings.about.ourStory.title,
-            icon: LucideIcons.bookOpen,
-            children: [
-              Text(
-                t.settings.about.ourStory.content(
-                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+            const SizedBox(height: 24),
+            // Story Section
+            _buildSection(
+              context,
+              title: t.settings.about.ourStory.title,
+              icon: LucideIcons.bookOpen,
+              children: [
+                Text(
+                  t.settings.about.ourStory.content(
+                    appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                  ),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    height: 1.6,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // Privacy Section
-          _buildSection(
-            context,
-            title: t.settings.about.privacy.title,
-            icon: LucideIcons.shield,
-            children: [
-              Text(
-                t.settings.about.privacy.description,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-              const SizedBox(height: 16),
-              _buildPrivacyList(context),
-              const SizedBox(height: 16),
-              _buildPrivacyPolicyLink(context),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // Developer Section
-          _buildSection(
-            context,
-            title: t.settings.about.developer.title,
-            icon: LucideIcons.code,
-            children: [
-              Text(
-                t.settings.about.developer.description(
-                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                ),
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                  color: colorScheme.onSurface,
-                ),
-              ),
-              const SizedBox(height: 16),
-              _buildDeveloperLinks(context),
-            ],
-          ),
-          const SizedBox(height: 16),
-          // Feedback Section
-          _buildSection(
-            context,
-            title: t.settings.about.feedback.title(
-              appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+              ],
             ),
-            icon: LucideIcons.star,
-            children: [
-              Text(
-                t.settings.about.feedback.description(
-                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+            const SizedBox(height: 16),
+            // Privacy Section
+            _buildSection(
+              context,
+              title: t.settings.about.privacy.title,
+              icon: LucideIcons.shield,
+              children: [
+                Text(
+                  t.settings.about.privacy.description,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    height: 1.6,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  height: 1.6,
-                  color: colorScheme.onSurface,
+                const SizedBox(height: 16),
+                _buildPrivacyList(context),
+                const SizedBox(height: 16),
+                _buildPrivacyPolicyLink(context),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Developer Section
+            _buildSection(
+              context,
+              title: t.settings.about.developer.title,
+              icon: LucideIcons.code,
+              children: [
+                Text(
+                  t.settings.about.developer.description(
+                    appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                  ),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    height: 1.6,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
+                const SizedBox(height: 16),
+                _buildDeveloperLinks(context),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Feedback Section
+            _buildSection(
+              context,
+              title: t.settings.about.feedback.title(
+                appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
               ),
-              const SizedBox(height: 16),
-              _buildFeedbackActions(context),
-            ],
-          ),
-          const SizedBox(height: 24),
-        ],
+              icon: LucideIcons.star,
+              children: [
+                Text(
+                  t.settings.about.feedback.description(
+                    appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+                  ),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    height: 1.6,
+                    color: colorScheme.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                _buildFeedbackActions(context),
+              ],
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }
@@ -309,13 +313,13 @@ class AboutScreen extends StatelessWidget {
           title: t.settings.about.developer.email,
           subtitle: AppConstants.supportEmail,
           onTap: () async {
-                final versionInfo = await getAppVersionInfo();
-                await sendFeedbackEmail(
-                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                  emailAddress: AppConstants.supportEmail,
-                  version: versionInfo.uiVersionWithBuild,
-                );
-              },
+            final versionInfo = await getAppVersionInfo();
+            await sendFeedbackEmail(
+              appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
+              emailAddress: AppConstants.supportEmail,
+              version: versionInfo.uiVersionWithBuild,
+            );
+          },
         ),
       ],
     );
@@ -387,9 +391,8 @@ class AboutScreen extends StatelessWidget {
           icon: LucideIcons.star,
           title: t.settings.about.feedback.rateApp,
           onTap:
-              () => requestPlayStoreReview(
-                packageName: AppConstants.packageName,
-              ),
+              () =>
+                  requestPlayStoreReview(packageName: AppConstants.packageName),
         ),
         const SizedBox(height: 12),
         _buildActionButton(
@@ -423,8 +426,7 @@ class AboutScreen extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         minimumSize: Size(double.infinity, appButtonMinHeight),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         side: BorderSide(
           color: colorScheme.outlineVariant.withValues(alpha: 0.5),
         ),

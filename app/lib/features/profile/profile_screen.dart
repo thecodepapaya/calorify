@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class ProfileScreen extends ConsumerWidget {
@@ -61,33 +62,46 @@ class ProfileScreen extends ConsumerWidget {
               ),
             ],
           ),
-          body: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            children: [
-              _buildCardSection(context, t.profile.sections.profile, [
-                _buildProfileHeader(context),
-              ]),
-              const SizedBox(height: 16),
-              _buildCardSection(context, t.profile.sections.basicInformation, [
-                _buildPersonalDetailsTile(context, userProfile),
-                _buildHeightTile(context, userProfile),
-                _buildWeightTile(context, userProfile),
-                if (userProfile.age != null)
-                  _buildAgeTile(context, userProfile),
-              ]),
-              const SizedBox(height: 16),
-              _buildCardSection(context, t.profile.sections.goalsAndActivity, [
-                _buildDailyGoalTile(context, ref),
-                _buildWeightGoalTile(context, userProfile),
-                _buildTargetWeightTile(context, userProfile),
-                _buildActivityLevelTile(context, userProfile),
-              ]),
-              const SizedBox(height: 16),
-              _buildCardSection(context, t.profile.sections.calculatedValues, [
-                _buildCalculatedValuesTile(context, userProfile),
-              ]),
-              const SizedBox(height: 32),
-            ],
+          body: ResponsiveContent(
+            maxWidth: 760,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              children: [
+                _buildCardSection(context, t.profile.sections.profile, [
+                  _buildProfileHeader(context),
+                ]),
+                const SizedBox(height: 16),
+                _buildCardSection(
+                  context,
+                  t.profile.sections.basicInformation,
+                  [
+                    _buildPersonalDetailsTile(context, userProfile),
+                    _buildHeightTile(context, userProfile),
+                    _buildWeightTile(context, userProfile),
+                    if (userProfile.age != null)
+                      _buildAgeTile(context, userProfile),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _buildCardSection(
+                  context,
+                  t.profile.sections.goalsAndActivity,
+                  [
+                    _buildDailyGoalTile(context, ref),
+                    _buildWeightGoalTile(context, userProfile),
+                    _buildTargetWeightTile(context, userProfile),
+                    _buildActivityLevelTile(context, userProfile),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _buildCardSection(
+                  context,
+                  t.profile.sections.calculatedValues,
+                  [_buildCalculatedValuesTile(context, userProfile)],
+                ),
+                const SizedBox(height: 32),
+              ],
+            ),
           ),
         );
       },

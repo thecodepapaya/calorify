@@ -7,6 +7,7 @@ import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/app_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class MainScreen extends StatelessWidget {
@@ -21,11 +22,31 @@ class MainScreen extends StatelessWidget {
               FadeTransition(opacity: animation, child: child),
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return Scaffold(
-          extendBody: true,
-          appBar: CommonAppBar(),
-          body: child,
-          bottomNavigationBar: _FloatingDock(tabsRouter: tabsRouter),
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final useRail = constraints.maxWidth >= AppBreakpoints.expanded;
+            return Scaffold(
+              extendBody: !useRail,
+              appBar: CommonAppBar(),
+              body:
+                  useRail
+                      ? Row(
+                        children: [
+                          _TabletNavigationRail(
+                            tabsRouter: tabsRouter,
+                            extended:
+                                constraints.maxWidth >=
+                                AppBreakpoints.extraExpanded,
+                          ),
+                          const VerticalDivider(width: 1),
+                          Expanded(child: child),
+                        ],
+                      )
+                      : child,
+              bottomNavigationBar:
+                  useRail ? null : _FloatingDock(tabsRouter: tabsRouter),
+            );
+          },
         );
       },
     );
@@ -43,59 +64,116 @@ class _FloatingDock extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-        height: 72,
-        decoration: BoxDecoration(
-          color: colorScheme.surface.withValues(alpha: 0.9),
-          borderRadius: BorderRadius.circular(36),
-          boxShadow: [
-            BoxShadow(
-              color: colorScheme.shadow.withValues(alpha: 0.1),
-              blurRadius: 20,
-              offset: const Offset(0, 8),
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        heightFactor: 1,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 560),
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+            height: 72,
+            decoration: BoxDecoration(
+              color: colorScheme.surface.withValues(alpha: 0.9),
+              borderRadius: BorderRadius.circular(36),
+              boxShadow: [
+                BoxShadow(
+                  color: colorScheme.shadow.withValues(alpha: 0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+              border: Border.all(
+                color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+              ),
             ),
-          ],
-          border: Border.all(
-            color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _DockItem(
-                icon: LucideIcons.layoutDashboard,
-                label: t.tabs.dashboard,
-                isSelected: tabsRouter.activeIndex == MainTab.home.index,
-                onTap: () {
-                  Analytics.instance.logEvent(AnalyticsEvent.viewDashboard);
-                  tabsRouter.setActiveIndex(MainTab.home.index);
-                },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _DockItem(
+                    icon: LucideIcons.layoutDashboard,
+                    label: t.tabs.dashboard,
+                    isSelected: tabsRouter.activeIndex == MainTab.home.index,
+                    onTap: () => _selectMainTab(tabsRouter, MainTab.home),
+                  ),
+                  _CenterDockItem(
+                    isSelected: tabsRouter.activeIndex == MainTab.logMeal.index,
+                    onTap: () => _selectMainTab(tabsRouter, MainTab.logMeal),
+                  ),
+                  _DockItem(
+                    icon: LucideIcons.history,
+                    label: t.tabs.history,
+                    isSelected:
+                        tabsRouter.activeIndex == MainTab.mealHistory.index,
+                    onTap:
+                        () => _selectMainTab(tabsRouter, MainTab.mealHistory),
+                  ),
+                ],
               ),
-              _CenterDockItem(
-                isSelected: tabsRouter.activeIndex == MainTab.logMeal.index,
-                onTap: () {
-                  Analytics.instance.logEvent(AnalyticsEvent.viewLog);
-                  tabsRouter.setActiveIndex(MainTab.logMeal.index);
-                },
-              ),
-              _DockItem(
-                icon: LucideIcons.history,
-                label: t.tabs.history,
-                isSelected: tabsRouter.activeIndex == MainTab.mealHistory.index,
-                onTap: () {
-                  Analytics.instance.logEvent(AnalyticsEvent.viewHistory);
-                  tabsRouter.setActiveIndex(MainTab.mealHistory.index);
-                },
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+class _TabletNavigationRail extends StatelessWidget {
+  const _TabletNavigationRail({
+    required this.tabsRouter,
+    required this.extended,
+  });
+
+  final TabsRouter tabsRouter;
+  final bool extended;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      right: false,
+      child: NavigationRail(
+        key: const Key('tablet_navigation_rail'),
+        extended: extended,
+        minExtendedWidth: 220,
+        labelType:
+            extended
+                ? NavigationRailLabelType.none
+                : NavigationRailLabelType.all,
+        selectedIndex: tabsRouter.activeIndex,
+        onDestinationSelected: (index) {
+          _selectMainTab(tabsRouter, MainTab.values[index]);
+        },
+        destinations: [
+          NavigationRailDestination(
+            icon: const Icon(LucideIcons.layoutDashboard),
+            selectedIcon: const Icon(LucideIcons.layoutDashboard),
+            label: Text(t.tabs.dashboard),
+          ),
+          NavigationRailDestination(
+            icon: const Icon(LucideIcons.plus),
+            selectedIcon: const Icon(LucideIcons.circlePlus),
+            label: Text(t.meal.addMeal),
+          ),
+          NavigationRailDestination(
+            icon: const Icon(LucideIcons.history),
+            selectedIcon: const Icon(LucideIcons.history),
+            label: Text(t.tabs.history),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void _selectMainTab(TabsRouter tabsRouter, MainTab tab) {
+  final event = switch (tab) {
+    MainTab.home => AnalyticsEvent.viewDashboard,
+    MainTab.logMeal => AnalyticsEvent.viewLog,
+    MainTab.mealHistory => AnalyticsEvent.viewHistory,
+  };
+  Analytics.instance.logEvent(event);
+  tabsRouter.setActiveIndex(tab.index);
 }
 
 class _DockItem extends StatelessWidget {

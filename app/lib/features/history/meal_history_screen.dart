@@ -16,6 +16,7 @@ import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class MealHistoryScreen extends ConsumerStatefulWidget {
@@ -55,56 +56,59 @@ class _MealHistoryScreenState extends ConsumerState<MealHistoryScreen> {
     final historyAsync = ref.watch(mealHistoryProvider);
 
     return Scaffold(
-      body: Padding(
-        padding: globalMargin,
-        child: historyAsync.when(
-          loading: () => const Center(child: AppLoader()),
-          error:
-              (error, _) => ErrorView(
-                error: error,
-                onRetry: () => ref.invalidate(mealHistoryProvider),
-              ),
-          data: (historyState) {
-            final historyItems = _historyItemsFor(historyState.meals);
+      body: ResponsiveContent(
+        maxWidth: 840,
+        child: Padding(
+          padding: globalMargin,
+          child: historyAsync.when(
+            loading: () => const Center(child: AppLoader()),
+            error:
+                (error, _) => ErrorView(
+                  error: error,
+                  onRetry: () => ref.invalidate(mealHistoryProvider),
+                ),
+            data: (historyState) {
+              final historyItems = _historyItemsFor(historyState.meals);
 
-            if (historyItems.isEmpty && historyState.allMealsLoaded) {
-              return Center(child: _emptyView);
-            }
+              if (historyItems.isEmpty && historyState.allMealsLoaded) {
+                return Center(child: _emptyView);
+              }
 
-            return ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.only(bottom: 120),
-              itemCount:
-                  historyItems.length + (historyState.allMealsLoaded ? 0 : 1),
-              itemBuilder: (context, index) {
-                if (index == historyItems.length &&
-                    !historyState.allMealsLoaded) {
-                  return _PaginationStatus(
-                    isLoadingMore: historyState.isLoadingMore,
-                    error: historyState.loadMoreError,
-                    onRetry:
-                        () => unawaited(
-                          ref
-                              .read(mealHistoryProvider.notifier)
-                              .loadMore(force: true),
-                        ),
-                  );
-                }
-                if (index >= historyItems.length) {
-                  return const SizedBox.shrink();
-                }
+              return ListView.builder(
+                controller: _scrollController,
+                padding: const EdgeInsets.only(bottom: 120),
+                itemCount:
+                    historyItems.length + (historyState.allMealsLoaded ? 0 : 1),
+                itemBuilder: (context, index) {
+                  if (index == historyItems.length &&
+                      !historyState.allMealsLoaded) {
+                    return _PaginationStatus(
+                      isLoadingMore: historyState.isLoadingMore,
+                      error: historyState.loadMoreError,
+                      onRetry:
+                          () => unawaited(
+                            ref
+                                .read(mealHistoryProvider.notifier)
+                                .loadMore(force: true),
+                          ),
+                    );
+                  }
+                  if (index >= historyItems.length) {
+                    return const SizedBox.shrink();
+                  }
 
-                return switch (historyItems[index]) {
-                  _DayDividerItem(:final date, :final totalCalories) =>
-                    _DateDivider(date: date, totalCalories: totalCalories),
-                  _MealRowItem(:final meal) => MealLogCard(
-                    loggedMeal: meal,
-                    showTimestamp: false,
-                  ),
-                };
-              },
-            );
-          },
+                  return switch (historyItems[index]) {
+                    _DayDividerItem(:final date, :final totalCalories) =>
+                      _DateDivider(date: date, totalCalories: totalCalories),
+                    _MealRowItem(:final meal) => MealLogCard(
+                      loggedMeal: meal,
+                      showTimestamp: false,
+                    ),
+                  };
+                },
+              );
+            },
+          ),
         ),
       ),
     );

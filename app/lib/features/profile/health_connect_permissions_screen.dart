@@ -7,6 +7,7 @@ import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:health/health.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
@@ -186,10 +187,13 @@ class _HealthConnectPermissionsScreenState
         backgroundColor: colorScheme.surface,
         elevation: 0,
       ),
-      body:
-          _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : _buildContent(context, theme, colorScheme),
+      body: ResponsiveContent(
+        maxWidth: 760,
+        child:
+            _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _buildContent(context, theme, colorScheme),
+      ),
     );
   }
 

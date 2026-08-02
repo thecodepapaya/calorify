@@ -1,4 +1,5 @@
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 
 class BaseBottomSheet extends StatelessWidget {
@@ -20,18 +21,21 @@ class BaseBottomSheet extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Container(
+    final mediaQuery = MediaQuery.of(context);
+
+    final sheet = Container(
+      key: const Key('responsive_bottom_sheet'),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: globalRadius,
       ),
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
+          padding: EdgeInsets.only(bottom: mediaQuery.viewInsets.bottom),
           child: SingleChildScrollView(
-            padding: padding ?? globalSheetPadding.add(const EdgeInsets.only(bottom: 20)),
+            padding:
+                padding ??
+                globalSheetPadding.add(const EdgeInsets.only(bottom: 20)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -66,6 +70,19 @@ class BaseBottomSheet extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+
+    if (mediaQuery.size.width < AppBreakpoints.compact) return sheet;
+
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 720,
+          maxHeight: mediaQuery.size.height * 0.92,
+        ),
+        child: sheet,
       ),
     );
   }

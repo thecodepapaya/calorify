@@ -18,10 +18,13 @@ class AppBarTitle extends StatelessWidget {
       children: [
         AnimatedLeaf(size: 36),
         SizedBox(width: 6),
-        Text(
-          t.appLabel(env: EnvConfig.instance.envSuffix),
-          style: textTheme.displaySmall?.copyWith(color: colorScheme.primary),
-          overflow: TextOverflow.ellipsis,
+        Expanded(
+          child: Text(
+            t.appLabel(env: EnvConfig.instance.envSuffix),
+            maxLines: 1,
+            style: textTheme.displaySmall?.copyWith(color: colorScheme.primary),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );

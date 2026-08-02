@@ -14,6 +14,7 @@ import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class FavoritesScreen extends ConsumerStatefulWidget {
@@ -59,63 +60,67 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
           const SizedBox(width: 8),
         ],
       ),
-      body: Padding(
-        padding: globalMargin,
-        child: favoritesAsync.when(
-          loading: () => const AppLoader(),
-          error:
-              (error, _) => ErrorView(
-                error: error,
-                onRetry: () => ref.invalidate(favoriteMealsProvider),
-              ),
-          data: (favorites) {
-            if (favorites.isEmpty) {
-              return _EmptyFavoritesState(message: t.favorites.empty);
-            }
+      body: ResponsiveContent(
+        maxWidth: 840,
+        child: Padding(
+          padding: globalMargin,
+          child: favoritesAsync.when(
+            loading: () => const AppLoader(),
+            error:
+                (error, _) => ErrorView(
+                  error: error,
+                  onRetry: () => ref.invalidate(favoriteMealsProvider),
+                ),
+            data: (favorites) {
+              if (favorites.isEmpty) {
+                return _EmptyFavoritesState(message: t.favorites.empty);
+              }
 
-            return Column(
-              children: [
-                _FavoritesToolbar(
-                  controller: _searchController,
-                  query: _query,
-                  sortOption: _sortOption,
-                  onChanged: (value) => setState(() => _query = value.trim()),
-                  onClear: () {
-                    _searchController.clear();
-                    setState(() => _query = '');
-                  },
-                  onSortChanged: (value) {
-                    setState(() => _sortOption = value);
-                  },
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child:
-                      visibleFavorites.isEmpty
-                          ? const _EmptySearchState()
-                          : ListView.separated(
-                            itemCount: visibleFavorites.length,
-                            separatorBuilder: (_, _) => const SizedBox.shrink(),
-                            itemBuilder: (context, index) {
-                              final favorite = visibleFavorites[index];
-                              return Dismissible(
-                                key: ValueKey(
-                                  'favorite-${favorite.loggedMeal.clientId}',
-                                ),
-                                direction: DismissDirection.endToStart,
-                                background: const _DeleteFavoriteBackground(),
-                                onDismissed:
-                                    (_) => _removeFavorite(ref, favorite),
-                                child: _FavoriteMealCard(
-                                  favoriteMeal: favorite,
-                                ),
-                              );
-                            },
-                          ),
-                ),
-              ],
-            );
-          },
+              return Column(
+                children: [
+                  _FavoritesToolbar(
+                    controller: _searchController,
+                    query: _query,
+                    sortOption: _sortOption,
+                    onChanged: (value) => setState(() => _query = value.trim()),
+                    onClear: () {
+                      _searchController.clear();
+                      setState(() => _query = '');
+                    },
+                    onSortChanged: (value) {
+                      setState(() => _sortOption = value);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child:
+                        visibleFavorites.isEmpty
+                            ? const _EmptySearchState()
+                            : ListView.separated(
+                              itemCount: visibleFavorites.length,
+                              separatorBuilder:
+                                  (_, _) => const SizedBox.shrink(),
+                              itemBuilder: (context, index) {
+                                final favorite = visibleFavorites[index];
+                                return Dismissible(
+                                  key: ValueKey(
+                                    'favorite-${favorite.loggedMeal.clientId}',
+                                  ),
+                                  direction: DismissDirection.endToStart,
+                                  background: const _DeleteFavoriteBackground(),
+                                  onDismissed:
+                                      (_) => _removeFavorite(ref, favorite),
+                                  child: _FavoriteMealCard(
+                                    favoriteMeal: favorite,
+                                  ),
+                                );
+                              },
+                            ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
