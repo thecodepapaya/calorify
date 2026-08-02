@@ -1,10 +1,8 @@
 package dev.thecodepapaya.calorify
 
-import android.os.Bundle
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : FlutterActivity() {
     private val job = SupervisorJob()
@@ -13,21 +11,18 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        // Delay initialization to ensure Flutter engine is fully ready
-        coroutineScope.launch {
-            try {
-                // Small delay to ensure Flutter engine is ready
-                delay(100)
-                wearOsHandler = WearOsChannelHandler(this@MainActivity, flutterEngine, coroutineScope)
-            } catch (e: Exception) {
-                android.util.Log.e("MainActivity", "Failed to initialize Wear OS handler", e)
-            }
+        // The binary messenger is ready during configureFlutterEngine. Register
+        // synchronously so early Dart calls cannot race a delayed channel setup.
+        try {
+            wearOsHandler = WearOsChannelHandler(this, flutterEngine, coroutineScope)
+        } catch (e: Exception) {
+            android.util.Log.e("MainActivity", "Failed to initialize Wear OS handler", e)
         }
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         wearOsHandler?.dispose()
         job.cancel()
+        super.onDestroy()
     }
 }
