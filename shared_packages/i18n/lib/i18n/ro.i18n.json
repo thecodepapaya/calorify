@@ -3,56 +3,56 @@
   "flag": "🇷🇴",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Ai trimis prea multe cereri. Te rugăm să aștepți puțin înainte de a încerca din nou.",
+    "rateLimitExceeded": "Ai făcut prea multe solicitări. Așteaptă puțin înainte de a încerca din nou.",
     "networkError": "Eroare de rețea. Verifică conexiunea la internet.",
-    "unknownError": "A apărut o problemă. Te rugăm să încerci mai târziu.",
-    "loadingProfileData": "Eroare la încărcarea datelor de profil",
-    "somethingWentWrong": "Ceva n-a mers bine.",
+    "unknownError": "Ceva nu a mers bine. Te rugăm încearcă din nou mai târziu.",
+    "loadingProfileData": "Eroare la încărcarea datelor profilului",
+    "somethingWentWrong": "Ceva nu a mers bine.",
     "retry": "Reîncearcă"
   },
   "onboarding": {
-    "welcome": "Bun venit în {appLabel}",
-    "subtitle": "Partenerul tău personal de nutriție, alimentat de AI",
+    "welcome": "Bine ai venit la {appLabel}",
+    "subtitle": "Companionul tău personal pentru nutriție alimentat de AI",
     "getStarted": "Începe",
     "features": {
       "foodRecognition": {
-        "title": "Recunoaștere inteligentă a mâncării",
-        "description": "Fă o poză și lasă AI-ul să-ți identifice masa"
+        "title": "Recunoaștere inteligentă a alimentelor",
+        "description": "Fă o fotografie și lasă AI să identifice masa ta"
       },
       "aiAnalysis": {
-        "title": "Analiză cu AI",
-        "description": "Obține instant informații nutriționale din descrierile tale"
+        "title": "Analiză AI",
+        "description": "Primește informații nutriționale instant din descrierile tale"
       },
       "healthIntegration": {
         "title": "Integrare Health Connect",
-        "description": "Conectează-te la Health Connect pentru perspective mai bune"
+        "description": "Conectează-te la Health Connect pentru informații mai bune"
       }
     },
     "gender": {
       "title": "Care este genul tău?",
       "description": "Genul ne ajută să calculăm corect rata metabolică bazală (BMR).",
-      "next": "Înainte"
+      "next": "Următorul"
     },
     "height": {
-      "title": "Cât de înalt(ă) ești?",
-      "description": "Înălțimea ne ajută să calculăm corect IMC-ul și necesarul energetic.",
+      "title": "Cât de înalt ești?",
+      "description": "Înălțimea te ajută să calculăm BMI și nevoile energetice cu acuratețe.",
       "metric": "Metric",
       "imperial": "Imperial",
-      "next": "Înainte"
+      "next": "Următorul"
     },
     "weight": {
       "currentTitle": "Care este greutatea ta actuală?",
       "currentDescription": "Greutatea actuală este esențială pentru personalizarea obiectivelor zilnice.",
       "targetTitle": "Care este greutatea ta țintă?",
-      "targetDescription": "Stabilirea unei greutăți țintă ne ajută să definim planul pe termen lung.",
+      "targetDescription": "Stabilirea unei greutăți țintă ne ajută să determinăm planul pe termen lung.",
       "metric": "Metric",
       "imperial": "Imperial",
-      "next": "Înainte"
+      "next": "Următorul"
     },
     "age": {
-      "title": "Când este ziua ta de naștere?",
-      "description": "Vârsta ne ajută să calculăm corect necesarul tău caloric.",
-      "next": "Înainte"
+      "title": "Când e ziua ta de naștere?",
+      "description": "Vârsta te ajută să calculăm cu acuratețe necesarul tău caloric.",
+      "next": "Următorul"
     },
     "bmiScale": {
       "underweight": "Sub",
@@ -60,16 +60,16 @@
       "overweight": "Peste",
       "obese": "Obez",
       "categories": {
-        "underweight": "Subponderal",
+        "underweight": "Sub greutate",
         "healthyWeight": "Greutate sănătoasă",
         "overweight": "Supraponderal",
         "obese": "Obez"
       },
       "messages": {
-        "underweight": "Te putem ajuta să creezi un plan sănătos pentru a ajunge la o greutate echilibrată, cu mese bogate în nutrienți.",
-        "healthy": "Bravo! Ești într-un interval sănătos. Te vom ajuta să-ți menții vitalitatea și nivelul de energie.",
-        "overweight": "{appLabel} îți simplifică parcursul cu monitorizare bazată pe AI, ca să ajungi confortabil la ținta ta.",
-        "obese": "Suntem aici să te susținem cu îndrumări personalizate și strategii sustenabile pentru obiectivele tale de sănătate."
+        "underweight": "Te putem ajuta să construiești un plan sănătos pentru a ajunge la o greutate echilibrată, cu mese bogate în nutrienți.",
+        "healthy": "Felicitări! Te încadrezi într-un interval sănătos. Te vom ajuta să-ți menții vitalitatea și nivelul de energie.",
+        "overweight": "{appLabel} îți va simplifica parcursul cu urmărire asistată de AI pentru a te ajuta să-ți atingi ținta confortabil.",
+        "obese": "Suntem aici să te susținem cu recomandări personalizate și strategii sustenabile pentru obiectivele tale de sănătate."
       }
     },
     "weightGoal": {
@@ -77,100 +77,100 @@
       "description": "Alege obiectivul care descrie cel mai bine ce vrei să obții"
     },
     "activityLevel": {
-      "title": "Cât de activ(ă) ești?",
-      "description": "Acest lucru ne ajută să îți calculăm mai precis necesarul caloric zilnic"
+      "title": "Cât de activ ești?",
+      "description": "Acest lucru ne ajută să calculăm mai precis necesarul tău caloric zilnic"
     },
     "healthConnect": {
       "title": "Conectează-te la Health Connect",
-      "description": "Sincronizează-ți datele de sănătate pentru perspective mai bune și urmărire automată a caloriilor",
+      "description": "Sincronizează datele tale de sănătate pentru informații mai bune și urmărire automată a caloriilor",
       "automaticTracking": {
         "title": "Urmărire automată a caloriilor",
         "description": "Urmărește caloriile arse din aplicațiile tale de fitness"
       },
       "progressInsights": {
-        "title": "Perspective asupra progresului",
-        "description": "Obține analize detaliate ale tendințelor de sănătate"
+        "title": "Informații despre progres",
+        "description": "Obține informații detaliate despre tendințele tale de sănătate"
       },
       "seamlessIntegration": {
-        "title": "Integrare fără întreruperi",
+        "title": "Integrare fără efort",
         "description": "Sincronizează date din aplicațiile tale preferate de sănătate"
       },
-      "connected": "Health Connect este conectat",
-      "notConnected": "Health Connect nu este conectat",
+      "connected": "Health Connect conectat",
+      "notConnected": "Health Connect neconectat",
       "setup": "Configurează Health Connect",
-      "skipForNow": "Sari peste deocamdată",
+      "skipForNow": "Sari pentru moment",
       "statusConnected": "Health Connect este conectat.",
       "statusSuccess": "Health Connect a fost conectat cu succes!",
-      "statusPermissionDenied": "Permisiune refuzată. Te rugăm să activezi permisiunile Health Connect din setările telefonului pentru {appLabel}.",
+      "statusPermissionDenied": "Permisiune refuzată. Activează permisiunile Health Connect din setările telefonului pentru {appLabel}.",
       "statusError": "Eroare la configurarea Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "Nu ești singur(ă)",
-        "genericMessage": "Studiile arată că monitorizarea consecventă este factorul nr. 1 pentru succesul pe termen lung.",
-        "personalizedMessage": "Pentru o persoană de {age} ani, de gen {gender}, care își propune să {goal}, monitorizarea consecventă este predictorul nr. 1 al succesului.",
-        "closingMessage": "{appLabel} face totul de 10 ori mai ușor decât manual.",
-        "getStartedTitle": "Gata să începem?",
-        "tipPhoto": "Fotografiază-ți mesele pentru analiză instant",
-        "tipConsistency": "Înregistrează consecvent pentru a vedea progres real",
-        "tipProgress": "Urmărește-ți progresul zilnic ca să rămâi motivat(ă)",
+        "title": "Nu ești singur",
+        "genericMessage": "Cercetările arată că urmărirea consecventă este principalul predictor al succesului pe termen lung.",
+        "personalizedMessage": "Pentru o persoană de {age} ani ({gender}) care dorește să {goal}, urmărirea constantă este principalul predictor al succesului.",
+        "closingMessage": "{appLabel} face procesul de 10x mai ușor decât manual.",
+        "getStartedTitle": "Gata să începi?",
+        "tipPhoto": "Fotografiază mesele pentru analiză instantanee",
+        "tipConsistency": "Înregistrează constant pentru a vedea progrese semnificative",
+        "tipProgress": "Urmărește-ți progresul zilnic pentru a rămâne motivat",
         "button": "Hai să începem",
         "defaultGender": "persoană",
-        "defaultGoal": "o versiune mai sănătoasă a ta"
+        "defaultGoal": "tu mai sănătos"
       },
       "healthProfile": {
         "title": "Profilul tău de sănătate",
-        "bmiDescription": "Pe baza măsurătorilor tale, IMC-ul tău este {bmi}.",
-        "finalizeDescription": "Hai să finalizăm profilul, ca să-ți personalizăm experiența.",
-        "goalGain": "câștiga",
+        "bmiDescription": "Pe baza metricilor tale, BMI este {bmi}.",
+        "finalizeDescription": "Să finalizăm profilul tău pentru a-ți personaliza experiența.",
+        "goalGain": "câștigă",
         "goalLose": "pierde",
         "goalReach": "Pentru a-ți atinge obiectivul, vei {direction} {diff} {unit}.",
-        "goalReached": "Ești la greutatea țintă! Te vom ajuta să o menții.",
+        "goalReached": "Ai atins greutatea țintă! Te vom ajuta să o menții.",
         "button": "Hai să începem"
       },
       "goalLifestyle": {
         "title": "Un început excelent!",
         "description": "Ai făcut primul pas către {goalText}. Deoarece ești {activityText}, {appLabel} îți va ajusta țintele pentru a se potrivi stilului tău de viață.",
         "personalizedTargets": "Ținte calorice personalizate",
-        "aiMealDetection": "Detecție a meselor bazată pe AI",
+        "aiMealDetection": "Detectare mese asistată de AI",
         "macroBreakdowns": "Defalcări detaliate ale macronutrienților",
         "button": "Hai să începem",
         "defaultGoal": "obiectivele tale",
-        "defaultActivity": "activ(ă)"
+        "defaultActivity": "activ"
       }
     }
   },
   "tabs": {
-    "dashboard": "Tablou de bord",
+    "dashboard": "Tabloul de bord",
     "history": "Istoric"
   },
   "home": {
     "aiSummary": {
-      "title": "Rezumatul tău cu AI",
+      "title": "Rezumat AI",
       "logMore": "Înregistrează mai multe mese în următoarele zile pentru a primi perspective AI personalizate.",
-      "loading": "Se încarcă rezumatul tău...",
+      "loading": "Se încarcă rezumatul...",
       "mealCount": "{count} mese înregistrate",
-      "macroBalanceScore": "Scor de echilibru {score}",
-      "topFoods": "Alimente de top",
-      "trendUp": "Caloriile sunt în creștere",
-      "trendDown": "Caloriile sunt în scădere",
-      "trendSteady": "Caloriile rămân stabile",
+      "macroBalanceScore": "Scor echilibru {score}",
+      "topFoods": "Alimente principale",
+      "trendUp": "Calorii în creștere",
+      "trendDown": "Calorii în scădere",
+      "trendSteady": "Calorii stabile",
       "generatedAt": "Actualizat {time}"
     },
     "dailyGoal": {
-      "title": "Stabilește-ți obiectivul zilnic",
+      "title": "Setează-ți obiectivul zilnic",
       "titleSet": "Obiectivul tău zilnic",
-      "description": "Gata de drum? Stabilește mai jos ținta ta zilnică de calorii pentru a-ți porni progresul.",
-      "descriptionSet": "Busola e setată! Aceasta este ținta ta zilnică de calorii care te ghidează.",
+      "description": "Gata să pornești călătoria spre bine? Setează-ți ținta calorică zilnică mai jos pentru a-ți începe progresul.",
+      "descriptionSet": "Compasul tău este setat! Aceasta este ținta ta calorică zilnică pentru orientare.",
       "yourGoal": "Obiectivul tău",
       "goal": "Obiectiv",
       "dailyCalories": "Calorii zilnice (kcal)",
-      "setGoal": "Stabilește obiectivul",
-      "intake": "Aport",
+      "setGoal": "Setează obiectiv",
+      "intake": "Consum",
       "burned": "Arse",
       "weightImpact": "Impact asupra greutății",
-      "estLoss": "Pierdere estimată",
-      "estGain": "Creștere estimată",
+      "estLoss": "Estim. pierdere de",
+      "estGain": "Estim. câștig de",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -179,163 +179,163 @@
       "carbs": "Carbohidrați",
       "protein": "Proteine",
       "fat": "Grăsimi",
-      "fiber": "Fibre",
+      "fiber": "Fibră",
       "grams": "grame",
-      "chartAccessibilityLabel": "Diagrama macronutrienților"
+      "chartAccessibilityLabel": "Graficul macronutrienților"
     },
     "intakeProgress": {
-      "title": "Repartizarea macronutrienților de azi",
+      "title": "Distribuția macro de azi",
       "target": "Țintă",
-      "current": "Actual"
+      "current": "Curent"
     },
     "intakeHistory": {
       "title": "Istoric macro pe 7 zile",
       "trendTitle": "Tendința de azi",
       "peakHour": "Vârf: {hour}:00",
-      "noHistoryYet": "Încă nu există istoric",
-      "startLogging": "Începe să înregistrezi mese ca să vezi aici\ntendințele macro pe 7 zile"
+      "noHistoryYet": "Încă nu există istoricul",
+      "startLogging": "Începe să înregistrezi mese pentru a vedea\n7-day macro trends here"
     },
     "mealLog": {
       "title": "Mese înregistrate",
       "emptyMessage": "Fă o poză ultimei tale mese pentru a o înregistra aici.",
-      "noMealsToday": "Nicio masă înregistrată astăzi",
+      "noMealsToday": "Nicio masă înregistrată pentru azi",
       "seeAllMeals": "Vezi toate mesele"
     },
     "mealDescription": {
       "title": "Adăugare rapidă cu AI",
-      "description": "Descrie-ți masa, iar AI se ocupă de detalii.",
-      "hint": "ex.: La micul dejun am avut un bol mare de ovăz cu o banană feliată și o cupă de zer ...",
+      "description": "Descrie-ți masa și lasă AI să se ocupe de detalii.",
+      "hint": "ex. la micul dejun am avut un bol mare de fulgi de ovăz cu o banană feliată și o cupă de whey ...",
       "analyzeMeal": "Analizează masa"
     },
     "favoriteMeals": {
       "title": "Mese favorite",
       "description": "Adaugă rapid una dintre mesele tale preferate.",
-      "noFavorites": "Încă nu ai mese favorite.",
-      "addFavoriteHint": "Apasă steaua la o masă pentru a o marca drept favorită.",
-      "seeAll": "Vezi tot",
+      "noFavorites": "Nu există mese favorite încă.",
+      "addFavoriteHint": "Apasă steaua pe o masă pentru a o marca ca favorit.",
+      "seeAll": "Vezi toate",
       "add": "Adaugă"
     },
     "mealSnap": {
-      "title": "Fotografiază și urmărește-ți masa",
-      "description": "Folosește camera pentru a fotografia mâncarea, pentru analiză AI.",
+      "title": "Fă o poză & urmărește masa",
+      "description": "Folosește camera pentru a face o poză alimentelor pentru analiza AI.",
       "openCamera": "Deschide camera",
       "gallery": "Galerie",
-      "compressingPhoto": "Optimizăm fotografia…",
-      "uploadingPhoto": "Se încarcă fotografia…"
+      "compressingPhoto": "Optimizare fotografie…",
+      "uploadingPhoto": "Încărcare fotografie…"
     },
     "connectHealth": {
       "title": "Sincronizează cu Health Connect",
-      "description": "Sincronizează-ți datele de nutriție cu Health Connect",
+      "description": "Sincronizează datele tale nutriționale cu Health Connect",
       "install": "Instalează",
-      "connect": "Conectează"
+      "connect": "Conectează-te"
     }
   },
   "history": {
     "noMeals": "Nicio masă înregistrată",
     "emptyMessage": "Fă o poză ultimei tale mese pentru a o înregistra aici.",
-    "today": "Astăzi",
+    "today": "Azi",
     "yesterday": "Ieri"
   },
   "meal": {
-    "ohNo": "Of, nu!",
+    "ohNo": "O, nu!",
     "delete": "Șterge",
     "editMeal": "Editează masa",
     "addMeal": "Adaugă masă",
     "saveMeal": "Salvează masa",
     "save": "Salvează",
     "mealName": "Numele mesei",
-    "mealNameHint": "ex.: Ouă jumări cu pâine prăjită",
-    "mealQuantity": "Cantitatea mesei",
+    "mealNameHint": "ex.: Ouă amestecate cu pâine prăjită",
+    "mealQuantity": "Cantitate masă",
     "mealQuantityHint": "ex.: 1 bol, 2 felii",
     "timeOfMeal": "Ora mesei",
-    "timeOfMealHint": "Alege ora la care ai luat masa",
+    "timeOfMealHint": "Selectează ora la care ai mâncat",
     "mealType": "Tipul mesei",
     "nutrition": {
       "calories": "Calorii",
       "carbs": "Carbohidrați (g)",
       "protein": "Proteine (g)",
       "fat": "Grăsimi (g)",
-      "fiber": "Fibre (g)"
+      "fiber": "Fibră (g)"
     },
     "deleteConfirmation": {
-      "title": "Ștergi masa",
-      "message": "Ești sigur(ă) că vrei să ștergi această înregistrare a mesei?",
+      "title": "Șterge masa",
+      "message": "Ești sigur că vrei să ștergi această înregistrare a mesei?",
       "cancel": "Anulează",
       "delete": "Șterge"
     },
-    "addedToLog": "Masa a fost adăugată în jurnalul tău!",
+    "addedToLog": "Masa a fost adăugată în jurnal!",
     "couldNotAdd": "Nu s-a putut adăuga masa: {error}",
     "savedSuccessfully": "Masa a fost adăugată cu succes!",
     "updatedSuccessfully": "Masa a fost actualizată cu succes!",
     "errorSaving": "Eroare la salvarea mesei: {error}",
     "removedFromFavorites": "Eliminat din favorite!",
-    "savedAsFavorite": "Masa a fost salvată la favorite!",
+    "savedAsFavorite": "Masa salvată ca favorit!",
     "unfavorite": "Elimină din favorite",
-    "couldNotUpdateFavorite": "Nu s-a putut actualiza favoritele: {error}",
+    "couldNotUpdateFavorite": "Nu s-a putut actualiza favorit: {error}",
     "feedbackThanks": "Mulțumim pentru feedback!",
-    "reanalysisUpdated": "Am actualizat analiza mesei pe baza feedbackului tău.",
-    "failedToProcess": "Nu s-a putut procesa: {error}",
-    "failedToProcessImage": "Nu s-a putut procesa imaginea: {error}",
+    "reanalysisUpdated": "Analiza mesei a fost actualizată pe baza feedback-ului tău.",
+    "failedToProcess": "Procesare eșuată: {error}",
+    "failedToProcessImage": "Procesare imagine eșuată: {error}",
     "errorCompressingImage": "Eroare la comprimarea imaginii: {error}",
-    "failedToSave": "Nu s-au putut salva datele. Te rugăm să încerci din nou.",
-    "skip": "Sari peste",
+    "failedToSave": "Salvarea datelor a eșuat. Te rugăm încearcă din nou.",
+    "skip": "Sari",
     "questionFlow": {
-      "progress": "Întrebarea {current} din {total}",
+      "progress": "Întrebare {current} din {total}",
       "noQuestionsAvailable": "Nu există întrebări disponibile",
-      "next": "Următor",
+      "next": "Următorul",
       "continueLabel": "Continuă"
     },
     "analysis": {
-      "title": "Analiza mesei cu AI",
-      "stepStarted": "Pornim…",
+      "title": "Se analizează masa ta",
+      "stepStarted": "Începem…",
       "stepDecomposition": "Înțelegem masa…",
-      "stepIngredients": "Potrivim ingredientele cu baza de date nutrițională…",
+      "stepIngredients": "Potrivim ingredientele cu date nutriționale…",
       "stepUncertainty": "Verificăm încrederea…",
-      "stepMealTypeQuestion": "Aproape am terminat…",
+      "stepMealTypeQuestion": "Mai aproape…",
       "stepResult": "Finalizăm rezultatul…",
-      "stepError": "Ceva n-a mers bine",
-      "stepDefault": "Analizăm masa…",
-      "progressUnderstand": "Înțelegere",
-      "progressMatch": "Potrivire",
-      "progressCheck": "Verificare",
+      "stepError": "Ceva nu a mers bine",
+      "stepDefault": "Se analizează masa ta…",
+      "progressUnderstand": "Înțelegerea mesei",
+      "progressMatch": "Căutarea informațiilor nutriționale pentru ingrediente",
+      "progressCheck": "Verificarea porțiilor și a încrederii",
       "progressMealType": "Alegerea tipului de masă",
-      "progressFinish": "Finalizare",
-      "detectedIngredientHeading": "Ingrediente detectate",
+      "progressFinish": "Calcularea caloriilor și a macronutrienților",
+      "detectedIngredientHeading": "Ingredientele pe care le observăm",
       "ingredientsOverflow": "{count} în plus",
       "ingredientsLine": "{count} ingrediente detectate",
-      "ingredientsPending": "Scanăm ingredientele…",
+      "ingredientsPending": "Scanare ingrediente…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "Sfat: Consistența bate perfecțiunea—înregistrările regulate dezvăluie tiparele care contează.",
+      "offlineTip1": "Sfat: Pentru fotografii, lumina naturală și o vedere de sus ajută la acuratețea porțiilor.",
+      "offlineTip2": "Sfat: Menționează băuturile, sosurile și uleiul de gătit—ele adaugă calorii pe care oamenii le uită des.",
+      "offlineTip3": "Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.",
+      "offlineTip4": "Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.",
+      "offlineTip5": "Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt)."
     },
     "feedback": {
       "title": "Ce pare greșit?",
       "subtitle": "Ajută-ne să îmbunătățim analiza selectând una sau mai multe probleme.",
-      "tellUsMore": "Spune-ne mai multe",
+      "tellUsMore": "Spune-ne mai mult",
       "describeIncorrect": "Descrie ce a fost incorect",
       "submit": "Trimite",
-      "issueFoodIdentification": "Identificarea alimentului",
+      "issueFoodIdentification": "Identificare aliment",
       "issuePortionSize": "Mărimea porției",
       "issueCalorieDistribution": "Distribuția caloriilor",
       "issueMacrosWrong": "Macronutrienții sunt greșiți",
-      "issueMissingItems": "Elemente lipsă",
+      "issueMissingItems": "Lipsesc elemente",
       "issueExtraItems": "Elemente în plus",
       "issueOther": "Altceva"
     }
   },
   "favorites": {
     "title": "Favorite",
-    "empty": "Încă nu ai mese favorite.",
+    "empty": "Nu există mese favorite încă.",
     "searchPlaceholder": "Caută mese favorite",
-    "searchEmptyTitle": "Nicio favorită nu se potrivește căutării",
+    "searchEmptyTitle": "Niciun favorit nu se potrivește căutării",
     "searchEmptySubtitle": "Încearcă un alt nume de masă, cantitate sau tip de masă.",
     "sortLabel": "Sortează favoritele",
     "undo": "Anulează",
-    "removed": "{name} a fost eliminat(ă) din favorite",
+    "removed": "Am eliminat {name} din favorite",
     "sortOptions": {
       "recent": "Recente",
       "calories": "Calorii",
@@ -344,7 +344,7 @@
   },
   "profile": {
     "title": "Profil",
-    "noProfileData": "Nu au fost găsite date de profil",
+    "noProfileData": "Nu s-au găsit date de profil",
     "yourProfile": "Profilul tău",
     "viewAndManage": "Vizualizează și gestionează informațiile tale de sănătate",
     "sections": {
@@ -357,11 +357,11 @@
     "height": "Înălțime",
     "weight": "Greutate",
     "age": "Vârstă",
-    "weightGoal": "Obiectiv de greutate",
+    "weightGoal": "Obiectiv greutate",
     "targetWeight": "Greutate țintă",
     "activityLevel": "Nivel de activitate",
-    "healthMetrics": "Indicatori de sănătate",
-    "notSet": "Nesetat",
+    "healthMetrics": "Metrici de sănătate",
+    "notSet": "Nedefinit",
     "years": "ani",
     "updatedSuccessfully": "Profil actualizat cu succes!",
     "calculatedValues": {
@@ -375,7 +375,7 @@
   "healthScore": {
     "title": "Scor de sănătate",
     "whyThisScore": "De ce acest scor?",
-    "note": "Acest scor este o estimare AI bazată pe ingredientele identificate și densitatea nutrițională. Cere întotdeauna sfatul unui profesionist pentru recomandări dietetice.",
+    "note": "Acest scor este o estimare AI bazată pe ingredientele identificate și densitatea nutrițională. Consultă întotdeauna un profesionist pentru sfaturi dietetice.",
     "unhealthy": "Nesănătos",
     "healthy": "Sănătos",
     "neutral": "Neutru"
@@ -391,7 +391,7 @@
     "dateOfBirth": "Data nașterii",
     "height": "Înălțime",
     "weight": "Greutate",
-    "weightGoal": "Obiectiv de greutate",
+    "weightGoal": "Obiectiv greutate",
     "activityLevel": "Nivel de activitate",
     "metric": "Metric",
     "imperial": "Imperial",
@@ -404,22 +404,22 @@
     "metricKg": "Metric (kg)",
     "imperialLbs": "Imperial (lbs)",
     "genders": {
-      "male": "Masculin",
-      "female": "Feminin",
-      "other": "Alt"
+      "male": "Bărbat",
+      "female": "Femeie",
+      "other": "Altul"
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Pierdere în greutate",
-        "description": "Creează un deficit caloric pentru a slăbi"
+        "name": "Slăbește",
+        "description": "Creează un deficit caloric pentru a pierde în greutate"
       },
       "maintainWeight": {
-        "name": "Menținere greutate",
-        "description": "Menține-ți greutatea actuală"
+        "name": "Menține greutatea",
+        "description": "Menține greutatea actuală"
       },
       "gainWeight": {
-        "name": "Creștere în greutate",
-        "description": "Creează un surplus caloric pentru a te îngrășa"
+        "name": "Crește în greutate",
+        "description": "Creează un surplus caloric pentru a crește în greutate"
       }
     },
     "activityLevels": {
@@ -429,19 +429,19 @@
       },
       "lightlyActive": {
         "name": "Ușor activ",
-        "description": "Exerciții ușoare 1-3 zile/săptămână"
+        "description": "Exercițiu ușor 1-3 zile/săptămână"
       },
       "moderatelyActive": {
         "name": "Moderat activ",
-        "description": "Exerciții moderate 3-5 zile/săptămână"
+        "description": "Exercițiu moderat 3-5 zile/săptămână"
       },
       "veryActive": {
         "name": "Foarte activ",
-        "description": "Exerciții intense 6-7 zile/săptămână"
+        "description": "Exercițiu intens 6-7 zile/săptămână"
       },
       "extremelyActive": {
         "name": "Extrem de activ",
-        "description": "Exerciții foarte intense, muncă fizică"
+        "description": "Exercițiu foarte intens, muncă fizică"
       }
     }
   },
@@ -454,7 +454,7 @@
       "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SUPORT & LEGAL",
       "about": "DESPRE",
-      "dangerZone": "ZONA DE RISC",
+      "dangerZone": "ZONĂ DE PERICOL",
       "developer": "DEZVOLTATOR"
     },
     "editProfile": {
@@ -468,106 +468,106 @@
       "noResults": "Nu s-au găsit rezultate"
     },
     "heightUnit": {
-      "title": "Unitate pentru înălțime"
+      "title": "Unitate înălțime"
     },
     "weightUnit": {
-      "title": "Unitate pentru greutate"
+      "title": "Unitate greutate"
     },
     "mealReminders": {
-      "title": "Mementouri pentru mese",
+      "title": "Mementouri mese",
       "subtitle": "Rămâi pe drumul cel bun cu alerte la timp"
     },
     "theme": {
       "title": "Temă",
-      "light": "Luminos",
+      "light": "Lumină",
       "dark": "Întunecat",
       "system": "Sistem"
     },
     "sendFeedback": {
       "title": "Trimite feedback",
       "subtitle": "Ajută-ne să îmbunătățim {appLabel}",
-      "emailSubject": "Feedback pentru aplicația {appLabel}",
-      "emailBodyPrefix": "Te rugăm să ne oferi feedback mai jos:",
-      "appVersion": "Versiunea aplicației",
+      "emailSubject": "Feedback pentru {appLabel}",
+      "emailBodyPrefix": "Te rugăm oferă feedback-ul tău mai jos:",
+      "appVersion": "Versiune aplicație",
       "device": "Dispozitiv",
-      "osVersion": "Versiunea OS",
+      "osVersion": "Versiune OS",
       "uid": "UID"
     },
     "exportMealHistory": {
       "title": "Exportă istoricul meselor",
-      "subtitle": "Distribuie un CSV cu mesele tale înregistrate",
-      "shareText": "Exportul istoricului tău de mese din Calorify",
+      "subtitle": "Partajează un CSV cu mesele înregistrate",
+      "shareText": "Exportul istoricului meselor Calorify",
       "failed": "Nu s-a putut exporta istoricul meselor: {error}"
     },
     "clearAllData": {
       "title": "Șterge toate datele",
-      "subtitle": "Șterge ireversibil toate informațiile tale",
+      "subtitle": "Șterge irevocabil toate informațiile tale",
       "confirmationTitle": "Ștergi toate datele?",
-      "confirmationMessage": "Această acțiune nu poate fi anulată. Toate mesele înregistrate, favoritele și setările de profil vor fi șterse definitiv.",
+      "confirmationMessage": "Această acțiune nu poate fi anulată. Toate mesele înregistrate, favoritele și setările profilului vor fi șterse definitiv.",
       "cancel": "Anulează",
-      "clearEverything": "Șterge tot"
+      "clearEverything": "Șterge totul"
     },
     "debugOptions": {
-      "title": "Opțiuni de depanare"
+      "title": "Opțiuni debug"
     },
-    "developerModeEnabled": "Modul pentru dezvoltatori activat!",
+    "developerModeEnabled": "Mod dezvoltator activat!",
     "healthConnect": {
       "title": "Health Connect",
       "subtitle": "Vizualizează și gestionează permisiunile",
       "unavailable": {
         "title": "Health Connect indisponibil",
-        "description": "Health Connect nu este disponibil pe acest dispozitiv. Te rugăm să instalezi Health Connect din Play Store (Android 9+) sau să actualizezi la Android 14+."
+        "description": "Health Connect nu este disponibil pe acest dispozitiv. Te rugăm instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+."
       },
       "permissions": {
         "title": "Permisiuni",
-        "description": "Următoarele permisiuni sunt necesare pentru a oferi integrarea cu Health Connect:",
-        "granted": "Acordată",
-        "notGranted": "Neacordată",
+        "description": "Următoarele permisiuni sunt solicitate pentru integrarea cu Health Connect:",
+        "granted": "Acordat",
+        "notGranted": "Neacordat",
         "caloriesBurned": {
-          "title": "Citire a caloriilor totale arse",
-          "description": "Permite aplicației să citească din Health Connect caloriile tale totale arse.",
-          "usage": "Această permisiune este folosită pentru a afișa în aplicație caloriile arse zilnic, ajutându-te să înțelegi cheltuiala energetică totală pe parcursul zilei."
+          "title": "Citește caloriile totale arse",
+          "description": "Permite aplicației să citească caloriile tale totale arse din Health Connect.",
+          "usage": "Această permisiune este folosită pentru a afișa arderea zilnică de calorii în aplicație, ajutându-te să înțelegi cheltuiala totală de energie pe parcursul zilei."
         },
         "nutritionRead": {
-          "title": "Citire a datelor de nutriție",
-          "description": "Permite aplicației să citească date de nutriție din Health Connect.",
-          "usage": "Această permisiune permite aplicației să citească informații nutriționale înregistrate de alte aplicații conectate la Health Connect, oferind o vedere de ansamblu a nutriției tale."
+          "title": "Citește date nutriționale",
+          "description": "Permite aplicației să citească date nutriționale din Health Connect.",
+          "usage": "Această permisiune permite aplicației să citească informații nutriționale înregistrate de alte aplicații conectate la Health Connect, oferind o vedere completă a nutriției tale."
         },
         "nutritionWrite": {
-          "title": "Scriere a datelor de nutriție",
-          "description": "Permite aplicației să scrie date de nutriție în Health Connect.",
-          "usage": "Această permisiune permite aplicației să sincronizeze mesele înregistrate în Health Connect, astfel încât datele tale nutriționale să fie disponibile și în alte aplicații de sănătate și fitness pe care le folosești."
+          "title": "Scrie date nutriționale",
+          "description": "Permite aplicației să scrie date nutriționale în Health Connect.",
+          "usage": "Această permisiune permite aplicației să sincronizeze mesele înregistrate în Health Connect, făcând datele tale nutriționale disponibile pentru alte aplicații de sănătate și fitness pe care le folosești."
         }
       },
-      "managePermissions": "Gestionează permisiunile",
+      "managePermissions": "Gestionare permisiuni",
       "openSettings": "Deschide setările Health Connect",
       "requestPermissions": "Solicită permisiuni",
-      "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Te rugăm să încerci din nou sau să acorzi permisiunile manual în setările Health Connect.",
-      "permissionRequestFailed": "Nu s-au putut solicita permisiunile. Te rugăm să încerci din nou sau să acorzi permisiunile manual în setările Health Connect.",
+      "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Te rugăm încearcă din nou sau acordă permisiunile manual în setările Health Connect.",
+      "permissionRequestFailed": "Imposibil de solicitat permisiuni. Te rugăm încearcă din nou sau acordă permisiunile manual în setările Health Connect.",
       "requestingPermissions": "Se solicită..."
     },
     "about": {
       "title": "Despre",
-      "tagline": "Conștientizare a caloriilor: rapidă, gratuită și orientată spre confidențialitate",
+      "tagline": "Conștientizare calorică rapidă, gratuită și cu confidențialitate pe primul loc",
       "ourStory": {
         "title": "Povestea noastră",
-        "content": "{appLabel} s-a născut dintr-o frustrare simplă: majoritatea aplicațiilor de urmărire a caloriilor sunt fie prea complicate, cer introducere manuală constantă, au abonamente scumpe sau fac compromisuri privind confidențialitatea.\n\nCa dezvoltator independent, am vrut să creez ceva mai simplu și mai corect — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și îți tratează datele de sănătate cu respect.\n\n{appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar perspective clare, practice și obiectivele tale de sănătate."
+        "content": "{appLabel} a luat naștere dintr-o frustrare simplă: majoritatea aplicațiilor de urmărire a caloriilor sunt fie prea complicate, solicită introduceri manuale constante, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să creez ceva mai simplu și mai corect — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și tratează datele tale de sănătate cu respect.\n\n{appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate."
       },
       "privacy": {
         "title": "Confidențialitatea ta contează",
-        "description": "Confidențialitatea nu este un gând de după — este un principiu de proiectare. Iată ce înseamnă în practică:",
+        "description": "Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:",
         "noAccounts": "Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.",
-        "noTracking": "Fără urmărire comportamentală\n{appLabel} nu îți monitorizează activitatea, nu creează profile de utilizare și nu te urmărește între aplicații sau site-uri.",
-        "noAds": "Fără reclame, prin design\n{appLabel} este construită să funcționeze fără reclame sau monetizare bazată pe date.",
-        "noDataSelling": "Fără vânzare de date\nDatele tale de sănătate nu sunt vândute sau partajate cu terți.",
-        "localStorage": "Stocare locală în primul rând\nDatele tale rămân pe dispozitiv.",
+        "noTracking": "Fără urmărire comportamentală\n{appLabel} nu îți monitorizează activitatea, nu creează profile de utilizare și nu te urmărește în aplicații sau site-uri.",
+        "noAds": "Fără reclame prin design\n{appLabel} este construit pentru a funcționa fără reclame sau monetizare bazată pe date.",
+        "noDataSelling": "Fără vânzare de date\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite terților.",
+        "localStorage": "Stocare locală prioritară\nDatele tale rămân pe dispozitivul tău.",
         "privacyPolicy": "Politica de confidențialitate"
       },
       "developer": {
-        "title": "Dezvoltată de un singur dezvoltator",
-        "description": "{appLabel} este creată și întreținută de un singur dezvoltator, concentrat pe software de sănătate liniștit și care respectă confidențialitatea.\n\nFeedback-ul este citit personal și ajută la direcția aplicației.",
-        "website": "Website",
-        "email": "Email"
+        "title": "Creat de un dezvoltator solo",
+        "description": "{appLabel} este creat și întreținut de un singur dezvoltator concentrat pe crearea de software de sănătate calm și respectuos cu confidențialitatea.\n\nFeedback-ul este citit personal și ajută la direcționarea aplicației.",
+        "website": "Site web",
+        "email": "E-mail"
       },
       "feedback": {
         "title": "Îți place {appLabel}?",
@@ -583,12 +583,12 @@
   },
   "reminders": {
     "title": "Rămâi pe drumul cel bun cu mementouri",
-    "description": "Primește mementouri blânde pentru a-ți înregistra mesele și a rămâne consecvent(ă) cu obiectivele tale nutriționale",
+    "description": "Primește mementouri blânde pentru a-ți înregistra mesele și a rămâne consecvent cu obiectivele nutriționale",
     "notificationsEnabled": "Notificări activate",
     "notificationsDisabled": "Notificări dezactivate",
     "enabledSubtitle": "Vei primi mementouri pentru mese",
     "disabledSubtitle": "Activează notificările pentru a primi mementouri pentru mese",
-    "mealReminders": "Mementouri pentru mese",
+    "mealReminders": "Mementouri mese",
     "breakfast": "Mic dejun",
     "lunch": "Prânz",
     "dinner": "Cină",
@@ -596,29 +596,29 @@
     "unknown": "Necunoscut",
     "change": "Schimbă",
     "enableNotifications": "Activează notificările",
-    "skipForNow": "Sari peste deocamdată",
+    "skipForNow": "Sari pentru moment",
     "saveChanges": "Salvează modificările",
     "enabledSuccessfully": "Notificările au fost activate cu succes!",
-    "permissionDenied": "Permisiunea pentru notificări a fost refuzată",
+    "permissionDenied": "Permisiune notificări refuzată",
     "errorEnabling": "Eroare la activarea notificărilor: {error}",
     "errorCompletingSetup": "Eroare la finalizarea configurării: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "E timpul pentru micul dejun! 🍳",
-      "body": "Nu uita să îți înregistrezi micul dejun"
+      "title": "Mic dejun! 🍳",
+      "body": "Nu uita să-ți înregistrezi micul dejun"
     },
     "lunch": {
-      "title": "E timpul pentru prânz! 🥗",
-      "body": "E momentul să îți înregistrezi prânzul"
+      "title": "Prânz! 🥗",
+      "body": "E timpul să notezi prânzul"
     },
     "dinner": {
-      "title": "E timpul pentru cină! 🍽️",
-      "body": "Nu uita să îți înregistrezi cina"
+      "title": "Cină! 🍽️",
+      "body": "Nu uita să-ți înregistrezi cina"
     },
     "snack": {
-      "title": "E timpul pentru o gustare! 🍎",
-      "body": "E momentul pentru o gustare sănătoasă"
+      "title": "Gustare! 🍎",
+      "body": "E timpul pentru o gustare sănătoasă"
     },
     "test": {
       "title": "Notificare de test"
@@ -626,75 +626,75 @@
   },
   "login": {
     "title": "Autentificare",
-    "signInWithGoogle": "Autentificare cu Google",
+    "signInWithGoogle": "Autentifică-te cu Google",
     "signInFailed": "Autentificarea cu Google a eșuat sau a fost anulată."
   },
   "disclaimer": {
     "pleaseNote": "Te rugăm să reții",
     "snap": {
-      "description": "{appLabel} oferă informații nutriționale estimate. Acuratețea depinde de datele introduse de tine și de variațiile alimentelor. Folosește ca ghid, nu ca sursă definitivă. Consultă un profesionist pentru sfaturi dietetice personalizate.",
+      "description": "{appLabel} oferă informații nutriționale estimate. Precizia depinde de datele tale și de variațiile alimentelor. Folosește-le ca ghid, nu ca sursă definitivă. Consultă un specialist pentru sfaturi dietetice personalizate.",
       "portionSize": {
         "title": "Mărimea porției",
         "description": "Acuratețea estimărilor depinde în mare măsură de evaluarea corectă a mărimii porției."
       },
       "preparationMethods": {
         "title": "Metode de preparare",
-        "description": "Metodele de gătire pot modifica semnificativ conținutul nutrițional. Estimările {appLabel} s-ar putea să nu surprindă mereu aceste variații."
+        "description": "Metodele de gătit pot altera semnificativ conținutul nutrițional. Estimările {appLabel} pot să nu ia întotdeauna în calcul aceste variații."
       },
       "ingredients": {
         "title": "Ingrediente",
-        "description": "Preparațiile complexe, cu multe ingrediente ascunse, pot duce la estimări mai puțin precise."
+        "description": "Preparatele complexe cu multe ingrediente ascunse pot duce la estimări mai puțin exacte."
       },
       "databaseLimitations": {
         "title": "Limitări ale bazei de date",
-        "description": "Baza de date alimentară a {appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație."
+        "description": "Baza de date de alimente a {appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație."
       }
     },
     "weightEstimate": {
       "title": "Despre estimarea greutății",
-      "description": "Proiecția schimbării în greutate este o estimare teoretică bazată pe modelul simplu calorii-in versus calorii-out. Este destinată doar motivației, nu ca predicție a greutății tale reale.",
+      "description": "Schimbarea proiectată a greutății este o estimare teoretică bazată pe modelul simplu calorii-in vs calorii-out. Este destinat doar ca ghid motivațional, nu ca o predicție a greutății tale reale.",
       "calorieAccuracy": {
         "title": "Acuratețea caloriilor",
-        "description": "Această estimare este la fel de precisă ca înregistrarea aportului și a consumului tău caloric. Înregistrările inexacte vor duce la o proiecție inexactă."
+        "description": "Această estimare este la fel de precisă ca înregistrările tale de aport și cheltuieli calorice. Înregistrările inexacte vor conduce la proiecții inexacte."
       },
       "biologicalFactors": {
         "title": "Factori biologici",
-        "description": "Scăderea/creșterea reală în greutate este influențată de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care {appLabel} nu îi poate măsura."
+        "description": "Pierderea/câștigul real în greutate este influențat de metabolism, hormoni, somn, stres, hidratare și alți factori individuali pe care {appLabel} nu îi poate măsura."
       },
       "waterWeight": {
-        "title": "Greutate de apă și fluctuații",
-        "description": "Greutatea zilnică normală poate fluctua semnificativ din cauza retenției de apă, digestiei și momentului zilei. Estimarea nu ia în considerare aceste variații zilnice."
+        "title": "Greutate apă & fluctuații",
+        "description": "Greutatea zilnică normală poate fluctua semnificativ din cauza retenției de apă, digestiei și a momentului. Estimarea nu ia în calcul aceste schimbări zilnice."
       },
       "professionalGuidance": {
-        "title": "Îndrumare profesională",
-        "description": "Nu folosi această estimare pentru decizii medicale. Consultă întotdeauna un specialist sau un dietetician autorizat pentru sfaturi personalizate privind greutatea."
+        "title": "Ghidare profesională",
+        "description": "Nu folosi această estimare pentru decizii medicale. Consultă întotdeauna un profesionist în sănătate sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății."
       }
     },
     "healthMetrics": {
-      "description": "Acești indicatori te ajută să înțelegi nevoile energetice ale corpului tău și să-ți ghidezi obiectivele nutriționale.",
+      "description": "Acești indicatori te ajută să înțelegi nevoile de energie ale corpului tău și să îți ghideze obiectivele nutriționale.",
       "bmr": {
         "title": "BMR",
-        "description": "Rata Metabolică Bazală (BMR) este numărul de calorii pe care corpul tău le arde în repaus pentru a menține funcții de bază precum respirația și circulația. BMR depinde de vârstă, gen, înălțime și greutate. Un BMR mai mare înseamnă că arzi mai multe calorii în repaus, adesea datorită unei mase musculare mai mari, vârstei mai tinere sau genului masculin. Un BMR mai mic indică de obicei mai puțină masă musculară, vârsta mai înaintată sau genul feminin."
+        "description": "Rata metabolică bazală (BMR) este numărul de calorii pe care corpul le arde în repaus pentru a menține funcțiile de bază precum respirația și circulația. BMR depinde de vârstă, gen, înălțime și greutate. Un BMR mai mare înseamnă că organismul arde natural mai multe calorii în repaus, de obicei din cauza masei musculare mai mari, a vârstei mai tinere sau a sexului masculin. Un BMR mai mic indică de obicei masă musculară mai redusă, vârstă mai înaintată sau sex feminin."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Cheltuiala Energetică Zilnică Totală (TDEE) reprezintă totalul caloriilor arse pe zi, incluzând BMR plus caloriile din activitatea fizică și mișcarea zilnică. TDEE depinde de BMR și nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii per total, de obicei datorită unui nivel mai mare de activitate sau unui BMR mai ridicat. Un TDEE mai mic sugerează o activitate zilnică mai scăzută sau un BMR mai mic."
+        "description": "Cheltuiala totală de energie pe zi (TDEE) este totalul caloriilor arse zilnic, incluzând BMR plus caloriile din activitate fizică și mișcare zilnică. TDEE depinde de BMR și nivelul de activitate. Un TDEE mai mare înseamnă că arzi mai multe calorii în total, de obicei pentru că ești mai activ sau ai un BMR mai mare. Un TDEE mai mic sugerează mai puțină activitate zilnică sau un BMR mai mic."
       },
       "dailyGoal": {
         "title": "Obiectiv zilnic",
-        "description": "Obiectivul zilnic este aportul recomandat de calorii pe baza TDEE-ului și a obiectivului tău de greutate. Pentru slăbire, consumi mai puține calorii decât TDEE-ul. Pentru menținere, îl egalezi. Pentru creștere în greutate, consumi mai multe calorii decât TDEE-ul. Acest lucru te ajută să atingi schimbarea dorită în greutate într-un ritm sănătos."
+        "description": "Obiectivul zilnic este recomandarea ta de aport caloric zilnic bazată pe TDEE și obiectivul de greutate. Pentru pierdere în greutate, consumi mai puține calorii decât TDEE. Pentru menținere, egalezi TDEE. Pentru creștere, consumi mai multe calorii decât TDEE. Acest lucru te ajută să atingi schimbarea dorită a greutății într-un ritm sănătos."
       }
     },
     "calorieExpenditure": {
-      "title": "Estimarea caloriilor arse",
-      "description": "Când datele Health Connect nu sunt disponibile, estimăm caloriile arse azi folosind Rata Metabolică Bazală (BMR) și nivelul de activitate (TDEE), scalate pentru porțiunea din zi care a trecut.",
+      "title": "Estimare cheltuieli calorice",
+      "description": "Când datele din Health Connect nu sunt disponibile, estimăm caloriile arse astăzi folosind BMR și nivelul de activitate (TDEE), scalate pentru porțiunea zilei care a trecut.",
       "howCalculated": {
-        "title": "Cum este calculată estimarea",
-        "description": "Calculăm TDEE-ul (pe baza profilului tău) și îl înmulțim cu fracția din zi scursă (ore + minute) / 24 pentru a estima caloriile arse până acum."
+        "title": "Cum se calculează estimarea",
+        "description": "Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea zilei trecute (ore + minute) / 24 pentru a estima caloriile arse până acum."
       },
       "professionalGuidance": {
-        "title": "Îndrumare profesională",
-        "description": "Nu folosi această estimare pentru decizii medicale. Consultă întotdeauna un specialist sau un dietetician autorizat pentru recomandări personalizate."
+        "title": "Ghidare profesională",
+        "description": "Nu folosi această estimare pentru decizii medicale. Consultă întotdeauna un profesionist în sănătate sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății."
       }
     }
   },
@@ -705,22 +705,22 @@
   "feedbackRating": {
     "enjoyingQuestion": "Îți place {appLabel}?",
     "yes": "Da, îmi place",
-    "no": "Nu prea",
+    "no": "Nu chiar",
     "rateStepHeading": "Evaluează în Play Store",
-    "emailStepHeading": "Trimite feedback pe email",
-    "soloDevMessage": "O evaluare rapidă îi ajută pe alții să descopere {appLabel} și susține dezvoltarea. Ai vrea să lași una?",
-    "shareFeedbackViaEmail": "Feedback-ul tău modelează ce urmează — citim fiecare mesaj. Vrei să ne trimiți gândurile tale prin email?",
+    "emailStepHeading": "Trimite feedback prin email",
+    "soloDevMessage": "O evaluare rapidă ajută alții să găsească {appLabel} și susține dezvoltarea. Ai putea lăsa una?",
+    "shareFeedbackViaEmail": "Feedback-ul tău modelează viitorul — citim fiecare mesaj. Vrei să ne împărtășești gândurile prin email?",
     "rateCta": "Evaluează în Play Store",
     "maybeLater": "Poate mai târziu",
     "sendFeedback": "Trimite feedback",
     "noThanks": "Nu, mulțumesc",
-    "aboutUsDescription": "Realizat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să-ți construiești obiceiuri alimentare mai bune.",
-    "aboutUsMentionBeforeLink": "Curios cine se află în spatele {appLabel}? Vezi ",
+    "aboutUsDescription": "Creat cu grijă de o echipă mică. Ne concentrăm pe confidențialitate, simplitate și pe a te ajuta să construiești obiceiuri alimentare mai bune.",
+    "aboutUsMentionBeforeLink": "Curios cine stă în spatele {appLabel}? Vezi ",
     "aboutUsLinkLabel": "Despre noi",
-    "thankYouMessage": "Mulțumim! Vom mai întreba altă dată."
+    "thankYouMessage": "Mulțumim! Te vom întreba din nou altădată."
   },
   "health": {
-    "syncFailed": "Nu s-a putut sincroniza cu Health Connect",
-    "mealSynced": "Masa a fost sincronizată cu Health Connect"
+    "syncFailed": "Sincronizarea cu Health Connect a eșuat",
+    "mealSynced": "Masa sincronizată cu Health Connect"
   }
 }

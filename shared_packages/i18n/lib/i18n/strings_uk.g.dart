@@ -67,12 +67,12 @@ class _TranslationsErrorsUk implements TranslationsErrorsEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Занадто багато запитів. Будь ласка, зачекайте трохи й спробуйте знову.';
-	@override String get networkError => 'Помилка мережі. Перевірте підключення до інтернету.';
+	@override String get rateLimitExceeded => 'Ви зробили забагато запитів. Будь ласка, зачекайте трохи перед наступною спробою.';
+	@override String get networkError => 'Помилка мережі. Будь ласка, перевірте інтернет-з\'єднання.';
 	@override String get unknownError => 'Щось пішло не так. Спробуйте пізніше.';
 	@override String get loadingProfileData => 'Помилка завантаження даних профілю';
 	@override String get somethingWentWrong => 'Щось пішло не так.';
-	@override String get retry => 'Спробувати знову';
+	@override String get retry => 'Спробувати ще раз';
 }
 
 // Path: onboarding
@@ -83,8 +83,8 @@ class _TranslationsOnboardingUk implements TranslationsOnboardingEn {
 
 	// Translations
 	@override String welcome({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}';
-	@override String get subtitle => 'Ваш персональний помічник з харчування на базі ШІ';
-	@override String get getStarted => 'Розпочати';
+	@override String get subtitle => 'Ваш персональний супутник у харчуванні з підтримкою AI';
+	@override String get getStarted => 'Почати';
 	@override late final _TranslationsOnboardingFeaturesUk features = _TranslationsOnboardingFeaturesUk._(_root);
 	@override late final _TranslationsOnboardingGenderUk gender = _TranslationsOnboardingGenderUk._(_root);
 	@override late final _TranslationsOnboardingHeightUk height = _TranslationsOnboardingHeightUk._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsUk implements TranslationsTabsEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Головна';
+	@override String get dashboard => 'Панель';
 	@override String get history => 'Історія';
 }
 
@@ -134,8 +134,8 @@ class _TranslationsHistoryUk implements TranslationsHistoryEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'Немає зафіксованих прийомів їжі';
-	@override String get emptyMessage => 'Зробіть фото свого останнього прийому їжі, щоб додати його сюди.';
+	@override String get noMeals => 'Немає записаних страв';
+	@override String get emptyMessage => 'Зробіть фото останньої страви, щоб записати її тут.';
 	@override String get today => 'Сьогодні';
 	@override String get yesterday => 'Вчора';
 }
@@ -149,33 +149,33 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	// Translations
 	@override String get ohNo => 'Ой!';
 	@override String get delete => 'Видалити';
-	@override String get editMeal => 'Редагувати прийом';
-	@override String get addMeal => 'Додати прийом';
-	@override String get saveMeal => 'Зберегти прийом';
+	@override String get editMeal => 'Редагувати страву';
+	@override String get addMeal => 'Додати страву';
+	@override String get saveMeal => 'Зберегти страву';
 	@override String get save => 'Зберегти';
 	@override String get mealName => 'Назва страви';
-	@override String get mealNameHint => 'напр., яєшня зі скибочкою тосту';
-	@override String get mealQuantity => 'Кількість/порція';
-	@override String get mealQuantityHint => 'напр., 1 миска, 2 скибочки';
-	@override String get timeOfMeal => 'Час прийому їжі';
+	@override String get mealNameHint => 'наприклад: Омлет з тостом';
+	@override String get mealQuantity => 'Кількість';
+	@override String get mealQuantityHint => 'наприклад: 1 миска, 2 шматки';
+	@override String get timeOfMeal => 'Час прийому';
 	@override String get timeOfMealHint => 'Виберіть час, коли ви їли';
-	@override String get mealType => 'Тип прийому їжі';
+	@override String get mealType => 'Тип страви';
 	@override late final _TranslationsMealNutritionUk nutrition = _TranslationsMealNutritionUk._(_root);
 	@override late final _TranslationsMealDeleteConfirmationUk deleteConfirmation = _TranslationsMealDeleteConfirmationUk._(_root);
-	@override String get addedToLog => 'Прийом їжі додано до вашого журналу!';
-	@override String couldNotAdd({required Object error}) => 'Не вдалося додати прийом: ${error}';
-	@override String get savedSuccessfully => 'Прийом успішно додано!';
-	@override String get updatedSuccessfully => 'Прийом успішно оновлено!';
-	@override String errorSaving({required Object error}) => 'Помилка збереження прийому: ${error}';
-	@override String get removedFromFavorites => 'Видалено з обраного!';
-	@override String get savedAsFavorite => 'Прийом збережено в обране!';
-	@override String get unfavorite => 'Прибрати з обраного';
-	@override String couldNotUpdateFavorite({required Object error}) => 'Не вдалося оновити обране: ${error}';
+	@override String get addedToLog => 'Страва додана до записів!';
+	@override String couldNotAdd({required Object error}) => 'Не вдалося додати страву: ${error}';
+	@override String get savedSuccessfully => 'Страва успішно додана!';
+	@override String get updatedSuccessfully => 'Страву успішно оновлено!';
+	@override String errorSaving({required Object error}) => 'Помилка при збереженні страви: ${error}';
+	@override String get removedFromFavorites => 'Вилучено з улюблених!';
+	@override String get savedAsFavorite => 'Страву збережено в улюблених!';
+	@override String get unfavorite => 'Прибрати з улюблених';
+	@override String couldNotUpdateFavorite({required Object error}) => 'Не вдалося оновити улюблене: ${error}';
 	@override String get feedbackThanks => 'Дякуємо за відгук!';
-	@override String get reanalysisUpdated => 'Оновлено аналіз прийому на основі вашого відгуку.';
+	@override String get reanalysisUpdated => 'Аналіз страви оновлено на основі вашого відгуку.';
 	@override String failedToProcess({required Object error}) => 'Не вдалося обробити: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Не вдалося обробити зображення: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'Помилка оптимізації зображення: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'Помилка стиснення зображення: ${error}';
 	@override String get failedToSave => 'Не вдалося зберегти дані. Спробуйте ще раз.';
 	@override String get skip => 'Пропустити';
 	@override late final _TranslationsMealQuestionFlowUk questionFlow = _TranslationsMealQuestionFlowUk._(_root);
@@ -190,14 +190,14 @@ class _TranslationsFavoritesUk implements TranslationsFavoritesEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Обране';
-	@override String get empty => 'Поки що немає обраних страв.';
-	@override String get searchPlaceholder => 'Пошук в обраному';
-	@override String get searchEmptyTitle => 'Немає відповідних обраних';
-	@override String get searchEmptySubtitle => 'Спробуйте іншу назву страви, кількість або тип прийому.';
-	@override String get sortLabel => 'Сортувати обране';
+	@override String get title => 'Улюблене';
+	@override String get empty => 'Улюблені страви відсутні.';
+	@override String get searchPlaceholder => 'Пошук улюблених страв';
+	@override String get searchEmptyTitle => 'За пошуком нічого не знайдено';
+	@override String get searchEmptySubtitle => 'Спробуйте іншу назву страви, кількість або тип';
+	@override String get sortLabel => 'Порядок сортування';
 	@override String get undo => 'Скасувати';
-	@override String removed({required Object name}) => 'Видалено ${name} з обраного';
+	@override String removed({required Object name}) => 'Вилучено ${name} з улюблених';
 	@override late final _TranslationsFavoritesSortOptionsUk sortOptions = _TranslationsFavoritesSortOptionsUk._(_root);
 }
 
@@ -209,18 +209,18 @@ class _TranslationsProfileUk implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => 'Профіль';
-	@override String get noProfileData => 'Дані профілю не знайдені';
+	@override String get noProfileData => 'Дані профілю не знайдено';
 	@override String get yourProfile => 'Ваш профіль';
-	@override String get viewAndManage => 'Переглядайте й керуйте інформацією про здоров’я';
+	@override String get viewAndManage => 'Перегляд та керування інформацією про здоров\'я';
 	@override late final _TranslationsProfileSectionsUk sections = _TranslationsProfileSectionsUk._(_root);
 	@override String get gender => 'Стать';
 	@override String get height => 'Зріст';
 	@override String get weight => 'Вага';
 	@override String get age => 'Вік';
-	@override String get weightGoal => 'Мета щодо ваги';
+	@override String get weightGoal => 'Мета по вазі';
 	@override String get targetWeight => 'Цільова вага';
 	@override String get activityLevel => 'Рівень активності';
-	@override String get healthMetrics => 'Показники здоров’я';
+	@override String get healthMetrics => 'Показники здоров\'я';
 	@override String get notSet => 'Не встановлено';
 	@override String get years => 'років';
 	@override String get updatedSuccessfully => 'Профіль успішно оновлено!';
@@ -234,9 +234,9 @@ class _TranslationsHealthScoreUk implements TranslationsHealthScoreEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Оцінка здоровʼя';
+	@override String get title => 'Оцінка здоров\'я';
 	@override String get whyThisScore => 'Чому така оцінка?';
-	@override String get note => 'Ця оцінка — орієнтовна оцінка ШІ на основі визначених інгредієнтів і поживної щільності. Завжди консультуйтеся з фахівцем щодо харчування.';
+	@override String get note => 'Ця оцінка — AI‑оцінка, побудована на виявлених інгредієнтах і поживній густині. Для дієтичних порад завжди консультуйтеся з фахівцем.';
 	@override String get unhealthy => 'Нездорово';
 	@override String get healthy => 'Здорово';
 	@override String get neutral => 'Нейтрально';
@@ -255,14 +255,14 @@ class _TranslationsEditProfileUk implements TranslationsEditProfileEn {
 	@override String get dateOfBirth => 'Дата народження';
 	@override String get height => 'Зріст';
 	@override String get weight => 'Вага';
-	@override String get weightGoal => 'Мета щодо ваги';
+	@override String get weightGoal => 'Мета по вазі';
 	@override String get activityLevel => 'Рівень активності';
 	@override String get metric => 'Метрична';
 	@override String get imperial => 'Імперська';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'фунти';
 	@override String get metricCm => 'Метрична (cm)';
 	@override String get imperialFtIn => 'Імперська (ft/in)';
 	@override String get metricKg => 'Метрична (kg)';
@@ -304,13 +304,13 @@ class _TranslationsRemindersUk implements TranslationsRemindersEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Залишайтеся на шляху з нагадуваннями';
-	@override String get description => 'Отримуйте делікатні нагадування фіксувати прийоми й бути послідовними у харчуванні';
+	@override String get title => 'Тримайтеся плану за допомогою нагадувань';
+	@override String get description => 'Отримуйте м’які нагадування записувати прийоми їжі і залишатися послідовними у харчових цілях';
 	@override String get notificationsEnabled => 'Сповіщення увімкнено';
 	@override String get notificationsDisabled => 'Сповіщення вимкнено';
-	@override String get enabledSubtitle => 'Ви отримуватимете нагадування про прийоми їжі';
-	@override String get disabledSubtitle => 'Увімкніть сповіщення, щоб отримувати нагадування про прийоми їжі';
-	@override String get mealReminders => 'Нагадування про прийоми їжі';
+	@override String get enabledSubtitle => 'Ви будете отримувати нагадування про прийоми їжі';
+	@override String get disabledSubtitle => 'Увімкніть сповіщення, щоб отримувати нагадування';
+	@override String get mealReminders => 'Нагадування про їжу';
 	@override String get breakfast => 'Сніданок';
 	@override String get lunch => 'Обід';
 	@override String get dinner => 'Вечеря';
@@ -318,12 +318,12 @@ class _TranslationsRemindersUk implements TranslationsRemindersEn {
 	@override String get unknown => 'Невідомо';
 	@override String get change => 'Змінити';
 	@override String get enableNotifications => 'Увімкнути сповіщення';
-	@override String get skipForNow => 'Поки що пропустити';
+	@override String get skipForNow => 'Пропустити зараз';
 	@override String get saveChanges => 'Зберегти зміни';
 	@override String get enabledSuccessfully => 'Сповіщення успішно увімкнено!';
-	@override String get permissionDenied => 'Доступ до сповіщень заборонено';
-	@override String errorEnabling({required Object error}) => 'Помилка під час увімкнення сповіщень: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Помилка під час завершення налаштування: ${error}';
+	@override String get permissionDenied => 'Дозвіл на сповіщення відхилено';
+	@override String errorEnabling({required Object error}) => 'Помилка увімкнення сповіщень: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'Помилка завершення налаштування: ${error}';
 }
 
 // Path: notifications
@@ -347,7 +347,7 @@ class _TranslationsLoginUk implements TranslationsLoginEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Вхід';
+	@override String get title => 'Увійти';
 	@override String get signInWithGoogle => 'Увійти через Google';
 	@override String get signInFailed => 'Вхід через Google не вдався або був скасований.';
 }
@@ -386,19 +386,19 @@ class _TranslationsFeedbackRatingUk implements TranslationsFeedbackRatingEn {
 	// Translations
 	@override String enjoyingQuestion({required Object appLabel}) => 'Подобається ${appLabel}?';
 	@override String get yes => 'Так, мені подобається';
-	@override String get no => 'Не дуже';
-	@override String get rateStepHeading => 'Оцініть у Play Store';
-	@override String get emailStepHeading => 'Надішліть відгук на ел. пошту';
-	@override String soloDevMessage({required Object appLabel}) => 'Швидка оцінка допоможе іншим знайти ${appLabel} і підтримає подальшу розробку. Виділите хвильку, щоб залишити її?';
-	@override String get shareFeedbackViaEmail => 'Ваш відгук формує майбутні оновлення — ми читаємо кожне повідомлення. Хочете поділитися думками електронною поштою?';
+	@override String get no => 'Поки що ні';
+	@override String get rateStepHeading => 'Оцініть в Play Store';
+	@override String get emailStepHeading => 'Надіслати відгук електронною поштою';
+	@override String soloDevMessage({required Object appLabel}) => 'Швидка оцінка допомагає іншим знайти ${appLabel} і підтримує розвиток. Чи не могли б ви залишити відгук?';
+	@override String get shareFeedbackViaEmail => 'Ваш відгук формує подальший розвиток — ми читаємо кожне повідомлення. Хочете поділитися думками через email?';
 	@override String get rateCta => 'Оцінити в Play Store';
 	@override String get maybeLater => 'Можливо пізніше';
 	@override String get sendFeedback => 'Надіслати відгук';
 	@override String get noThanks => 'Ні, дякую';
-	@override String get aboutUsDescription => 'Створено з турботою невеликою командою. Ми зосереджені на приватності, простоті та допомозі у формуванні корисних харчових звичок.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Цікаво, хто стоїть за ${appLabel}? Перегляньте ';
+	@override String get aboutUsDescription => 'Створено з душею маленькою командою. Ми орієнтовані на приватність, простоту та допомогу у формуванні кращих харчових звичок.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дивіться ';
 	@override String get aboutUsLinkLabel => 'Про нас';
-	@override String get thankYouMessage => 'Дякуємо! Запитаємо іншим разом.';
+	@override String get thankYouMessage => 'Дякуємо! Ми запитаємо ще пізніше.';
 }
 
 // Path: health
@@ -409,7 +409,7 @@ class _TranslationsHealthUk implements TranslationsHealthEn {
 
 	// Translations
 	@override String get syncFailed => 'Не вдалося синхронізувати з Health Connect';
-	@override String get mealSynced => 'Прийом їжі синхронізовано з Health Connect';
+	@override String get mealSynced => 'Страва синхронізована з Health Connect';
 }
 
 // Path: onboarding.features
@@ -431,8 +431,8 @@ class _TranslationsOnboardingGenderUk implements TranslationsOnboardingGenderEn 
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Яка ваша стать?';
-	@override String get description => 'Стать допомагає точно розрахувати базовий обмін (BMR).';
+	@override String get title => 'Яка у вас стать?';
+	@override String get description => 'Стать допомагає нам точніше розрахувати ваш базальний метаболізм (BMR).';
 	@override String get next => 'Далі';
 }
 
@@ -444,7 +444,7 @@ class _TranslationsOnboardingHeightUk implements TranslationsOnboardingHeightEn 
 
 	// Translations
 	@override String get title => 'Який у вас зріст?';
-	@override String get description => 'Зріст допомагає точно розрахувати ІМТ і енергетичні потреби.';
+	@override String get description => 'Ваш зріст допомагає точно розрахувати BMI і енергетичні потреби.';
 	@override String get metric => 'Метрична';
 	@override String get imperial => 'Імперська';
 	@override String get next => 'Далі';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeUk implements TranslationsOnboardingAgeEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Коли у вас день народження?';
-	@override String get description => 'Вік допомагає точно розрахувати вашу потребу в калоріях.';
+	@override String get title => 'Коли ваш день народження?';
+	@override String get description => 'Ваш вік допомагає точно розрахувати потребу в калоріях.';
 	@override String get next => 'Далі';
 }
 
@@ -485,9 +485,9 @@ class _TranslationsOnboardingBmiScaleUk implements TranslationsOnboardingBmiScal
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Недовага';
-	@override String get healthy => 'Норма';
-	@override String get overweight => 'Надмірна';
+	@override String get underweight => 'Нижче норми';
+	@override String get healthy => 'Здорова';
+	@override String get overweight => 'Зайва вага';
 	@override String get obese => 'Ожиріння';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesUk categories = _TranslationsOnboardingBmiScaleCategoriesUk._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesUk messages = _TranslationsOnboardingBmiScaleMessagesUk._(_root);
@@ -501,7 +501,7 @@ class _TranslationsOnboardingWeightGoalUk implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Яка ваша мета?';
-	@override String get description => 'Оберіть мету, яка найкраще описує бажаний результат';
+	@override String get description => 'Виберіть мету, яка найкраще описує, чого ви хочете досягти';
 }
 
 // Path: onboarding.activityLevel
@@ -512,7 +512,7 @@ class _TranslationsOnboardingActivityLevelUk implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Наскільки ви активні?';
-	@override String get description => 'Це допоможе точніше розрахувати вашу денну потребу в калоріях';
+	@override String get description => 'Це допоможе точніше розрахувати ваші щоденні потреби в калоріях';
 }
 
 // Path: onboarding.healthConnect
@@ -523,14 +523,14 @@ class _TranslationsOnboardingHealthConnectUk implements TranslationsOnboardingHe
 
 	// Translations
 	@override String get title => 'Підключіться до Health Connect';
-	@override String get description => 'Синхронізуйте дані про здоров’я для кращих інсайтів і автоматичного підрахунку калорій';
+	@override String get description => 'Синхронізуйте дані про здоров\'я для кращих інсайтів і автоматичного відстеження калорій';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingUk automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingUk._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsUk progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsUk._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationUk seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationUk._(_root);
 	@override String get connected => 'Health Connect підключено';
 	@override String get notConnected => 'Health Connect не підключено';
 	@override String get setup => 'Налаштувати Health Connect';
-	@override String get skipForNow => 'Поки що пропустити';
+	@override String get skipForNow => 'Пропустити зараз';
 	@override String get statusConnected => 'Health Connect підключено.';
 	@override String get statusSuccess => 'Health Connect успішно підключено!';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для ${appLabel}.';
@@ -556,12 +556,12 @@ class _TranslationsHomeAiSummaryUk implements TranslationsHomeAiSummaryEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ваш підсумок від ШІ';
-	@override String get logMore => 'Протягом кількох наступних днів фіксуйте більше прийомів їжі, щоб отримати персоналізовані інсайти від ШІ.';
-	@override String get loading => 'Завантаження підсумку...';
-	@override String mealCount({required Object count}) => '${count} зафіксованих прийомів їжі';
-	@override String macroBalanceScore({required Object score}) => 'Оцінка балансу ${score}';
-	@override String get topFoods => 'Топ-страви';
+	@override String get title => 'Ваш AI-звіт';
+	@override String get logMore => 'Заносьте більше страв найближчими днями, щоб отримати персоналізовані AI-інсайти.';
+	@override String get loading => 'Завантаження звіту...';
+	@override String mealCount({required Object count}) => '${count} записаних страв';
+	@override String macroBalanceScore({required Object score}) => 'Баланс макро ${score}';
+	@override String get topFoods => 'Топ продуктів';
 	@override String get trendUp => 'Калорії зростають';
 	@override String get trendDown => 'Калорії знижуються';
 	@override String get trendSteady => 'Калорії стабільні';
@@ -575,19 +575,19 @@ class _TranslationsHomeDailyGoalUk implements TranslationsHomeDailyGoalEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Встановіть свою денну ціль';
-	@override String get titleSet => 'Ваша денна ціль';
-	@override String get description => 'Готові вирушити у wellness-подорож? Задайте денну калорійну ціль нижче, щоб розпочати прогрес.';
-	@override String get descriptionSet => 'Ваш компас налаштовано! Це ваша денна калорійна ціль-навігатор.';
-	@override String get yourGoal => 'Ваша ціль';
-	@override String get goal => 'Ціль';
-	@override String get dailyCalories => 'Денні калорії (ккал)';
-	@override String get setGoal => 'Встановити ціль';
+	@override String get title => 'Встановіть щоденну мету';
+	@override String get titleSet => 'Ваша щоденна мета';
+	@override String get description => 'Готові розпочати шлях до кращого самопочуття? Встановіть щоденну калорійну ціль нижче, щоб розпочати прогрес.';
+	@override String get descriptionSet => 'Ваш компас налаштовано! Це ваша щоденна калорійна ціль.';
+	@override String get yourGoal => 'Ваша мета';
+	@override String get goal => 'Мета';
+	@override String get dailyCalories => 'Щоденні калорії (kcal)';
+	@override String get setGoal => 'Встановити мету';
 	@override String get intake => 'Спожито';
-	@override String get burned => 'Спалено';
+	@override String get burned => 'Витрачено';
 	@override String get weightImpact => 'Вплив на вагу';
-	@override String get estLoss => 'Оціночна втрата';
-	@override String get estGain => 'Оціночний набір';
+	@override String get estLoss => 'Прибл. втрата';
+	@override String get estGain => 'Прибл. набір';
 	@override String get kcal => 'ккал';
 }
 
@@ -604,8 +604,8 @@ class _TranslationsHomeDailySummaryUk implements TranslationsHomeDailySummaryEn 
 	@override String get protein => 'Білки';
 	@override String get fat => 'Жири';
 	@override String get fiber => 'Клітковина';
-	@override String get grams => 'грамів';
-	@override String get chartAccessibilityLabel => 'Діаграма макроелементів';
+	@override String get grams => 'г';
+	@override String get chartAccessibilityLabel => 'Діаграма макронутрієнтів';
 }
 
 // Path: home.intakeProgress
@@ -615,9 +615,9 @@ class _TranslationsHomeIntakeProgressUk implements TranslationsHomeIntakeProgres
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Сьогоднішній розподіл макроелементів';
+	@override String get title => 'Сьогоднішній розподіл макро';
 	@override String get target => 'Ціль';
-	@override String get current => 'Поточний';
+	@override String get current => 'Поточне';
 }
 
 // Path: home.intakeHistory
@@ -627,11 +627,11 @@ class _TranslationsHomeIntakeHistoryUk implements TranslationsHomeIntakeHistoryE
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-денна історія макросів';
-	@override String get trendTitle => 'Сьогоднішній тренд';
+	@override String get title => 'Історія макро за 7 днів';
+	@override String get trendTitle => 'Сьогоднішня тенденція';
 	@override String peakHour({required Object hour}) => 'Пік: ${hour}:00';
-	@override String get noHistoryYet => 'Поки що немає історії';
-	@override String get startLogging => 'Почніть фіксувати прийоми їжі, щоб побачити тут\n7-денні тренди макроелементів';
+	@override String get noHistoryYet => 'Історія відсутня';
+	@override String get startLogging => 'Почніть записувати страви, щоб бачити ваші\n7‑денні макро-тенденції тут';
 }
 
 // Path: home.mealLog
@@ -641,10 +641,10 @@ class _TranslationsHomeMealLogUk implements TranslationsHomeMealLogEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Зафіксовані прийоми';
-	@override String get emptyMessage => 'Зробіть фото свого останнього прийому їжі, щоб додати його сюди.';
-	@override String get noMealsToday => 'Сьогодні прийомів їжі не зафіксовано';
-	@override String get seeAllMeals => 'Переглянути всі прийоми їжі';
+	@override String get title => 'Записані страви';
+	@override String get emptyMessage => 'Зробіть фото останньої страви, щоб записати її тут.';
+	@override String get noMealsToday => 'За сьогодні немає записів';
+	@override String get seeAllMeals => 'Переглянути всі страви';
 }
 
 // Path: home.mealDescription
@@ -654,10 +654,10 @@ class _TranslationsHomeMealDescriptionUk implements TranslationsHomeMealDescript
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Швидке додавання за допомогою ШІ';
-	@override String get description => 'Опишіть свою страву — ШІ подбає про деталі.';
-	@override String get hint => 'наприклад: на сніданок я з’їв(ла) велику миску вівсянки з бананом і порцією сироваткового протеїну ...';
-	@override String get analyzeMeal => 'Проаналізувати прийом';
+	@override String get title => 'Швидке додавання з AI';
+	@override String get description => 'Опишіть страву, а AI подбає про деталі.';
+	@override String get hint => 'наприклад: на сніданок я з\'їв велику миску вівсянки з порізаним бананом і ложкою сироваткового протеїну ...';
+	@override String get analyzeMeal => 'Аналізувати страву';
 }
 
 // Path: home.favoriteMeals
@@ -667,10 +667,10 @@ class _TranslationsHomeFavoriteMealsUk implements TranslationsHomeFavoriteMealsE
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Обрані страви';
+	@override String get title => 'Улюблені страви';
 	@override String get description => 'Швидко додайте одну з улюблених страв.';
-	@override String get noFavorites => 'Поки що немає обраних страв.';
-	@override String get addFavoriteHint => 'Натисніть зірочку на страві, щоб позначити її як обрану.';
+	@override String get noFavorites => 'Улюблені страви відсутні.';
+	@override String get addFavoriteHint => 'Натисніть зірку на страві, щоб додати її до улюблених.';
 	@override String get seeAll => 'Переглянути всі';
 	@override String get add => 'Додати';
 }
@@ -682,8 +682,8 @@ class _TranslationsHomeMealSnapUk implements TranslationsHomeMealSnapEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Знімайте й відстежуйте свій прийом';
-	@override String get description => 'Скористайтеся камерою, щоб сфотографувати їжу для аналізу ШІ.';
+	@override String get title => 'Зфотографуйте й відстежте страву';
+	@override String get description => 'Використайте камеру, щоб сфотографувати їжу для AI‑аналізу.';
 	@override String get openCamera => 'Відкрити камеру';
 	@override String get gallery => 'Галерея';
 	@override String get compressingPhoto => 'Оптимізація фото…';
@@ -697,8 +697,8 @@ class _TranslationsHomeConnectHealthUk implements TranslationsHomeConnectHealthE
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Синхронізація з Health Connect';
-	@override String get description => 'Синхронізуйте харчові дані з Health Connect';
+	@override String get title => 'Синхронізувати з Health Connect';
+	@override String get description => 'Синхронізуйте дані про харчування з Health Connect';
 	@override String get install => 'Встановити';
 	@override String get connect => 'Підключити';
 }
@@ -724,8 +724,8 @@ class _TranslationsMealDeleteConfirmationUk implements TranslationsMealDeleteCon
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Видалити прийом?';
-	@override String get message => 'Ви впевнені, що хочете видалити цей запис прийому їжі?';
+	@override String get title => 'Видалити страву';
+	@override String get message => 'Ви впевнені, що хочете видалити цю запис про страву?';
 	@override String get cancel => 'Скасувати';
 	@override String get delete => 'Видалити';
 }
@@ -738,7 +738,7 @@ class _TranslationsMealQuestionFlowUk implements TranslationsMealQuestionFlowEn 
 
 	// Translations
 	@override String progress({required Object current, required Object total}) => 'Питання ${current} з ${total}';
-	@override String get noQuestionsAvailable => 'Немає доступних запитань';
+	@override String get noQuestionsAvailable => 'Питань немає';
 	@override String get next => 'Далі';
 	@override String get continueLabel => 'Продовжити';
 }
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisUk implements TranslationsMealAnalysisEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Аналіз прийому їжі ШІ';
-	@override String get stepStarted => 'Починаємо…';
-	@override String get stepDecomposition => 'Розуміємо ваш прийом…';
-	@override String get stepIngredients => 'Зіставляємо інгредієнти з базою харчової цінності…';
-	@override String get stepUncertainty => 'Перевіряємо впевненість…';
+	@override String get title => 'Аналізуємо вашу страву';
+	@override String get stepStarted => 'Початок…';
+	@override String get stepDecomposition => 'Аналіз страви…';
+	@override String get stepIngredients => 'Пошук інгредієнтів у базі…';
+	@override String get stepUncertainty => 'Перевірка впевненості…';
 	@override String get stepMealTypeQuestion => 'Майже готово…';
-	@override String get stepResult => 'Фіналізуємо результат…';
+	@override String get stepResult => 'Завершення аналізу…';
 	@override String get stepError => 'Щось пішло не так';
-	@override String get stepDefault => 'Аналізуємо ваш прийом…';
-	@override String get progressUnderstand => 'Аналіз';
-	@override String get progressMatch => 'Відповідність';
-	@override String get progressCheck => 'Перевірка';
-	@override String get progressMealType => 'Вибір типу прийому їжі';
-	@override String get progressFinish => 'Завершення';
-	@override String get detectedIngredientHeading => 'Інгредієнти, які ми розпізнаємо';
+	@override String get stepDefault => 'Аналізуємо вашу страву…';
+	@override String get progressUnderstand => 'Розуміння страви';
+	@override String get progressMatch => 'Пошук поживності інгредієнтів';
+	@override String get progressCheck => 'Перевірка порцій і точності';
+	@override String get progressMealType => 'Визначення типу страви';
+	@override String get progressFinish => 'Обчислення калорій та макро';
+	@override String get detectedIngredientHeading => 'Інгредієнти, які ми знайшли';
 	@override String ingredientsOverflow({required Object count}) => 'ще ${count}';
-	@override String ingredientsLine({required Object count}) => 'Виявлено інгредієнтів: ${count}';
+	@override String ingredientsLine({required Object count}) => 'виявлено ${count} інгредієнтів';
 	@override String get ingredientsPending => 'Сканування інгредієнтів…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get offlineTip0 => 'Порада: Постійність важливіша за досконалість — регулярні записи виявляють суттєві закономірності.';
+	@override String get offlineTip1 => 'Порада: Для фото природне світло і вид зверху допомагають точніше визначити порцію.';
+	@override String get offlineTip2 => 'Порада: Згадуйте напої, соуси та олію — вони додають калорії, про які часто забувають.';
+	@override String get offlineTip3 => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.';
+	@override String get offlineTip4 => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.';
+	@override String get offlineTip5 => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).';
 }
 
 // Path: meal.feedback
@@ -785,16 +785,16 @@ class _TranslationsMealFeedbackUk implements TranslationsMealFeedbackEn {
 
 	// Translations
 	@override String get title => 'Що виглядає неправильно?';
-	@override String get subtitle => 'Допоможіть нам покращити аналіз, обравши одну або кілька проблем.';
+	@override String get subtitle => 'Допоможіть покращити аналіз, вибравши одну або кілька проблем.';
 	@override String get tellUsMore => 'Розкажіть більше';
-	@override String get describeIncorrect => 'Опишіть, що було неправильно';
+	@override String get describeIncorrect => 'Опишіть, що було неточно';
 	@override String get submit => 'Надіслати';
-	@override String get issueFoodIdentification => 'Розпізнавання їжі';
+	@override String get issueFoodIdentification => 'Ідентифікація їжі';
 	@override String get issuePortionSize => 'Розмір порції';
 	@override String get issueCalorieDistribution => 'Розподіл калорій';
-	@override String get issueMacrosWrong => 'Макроелементи неправильні';
-	@override String get issueMissingItems => 'Відсутні елементи';
-	@override String get issueExtraItems => 'Зайві елементи';
+	@override String get issueMacrosWrong => 'Макроси невірні';
+	@override String get issueMissingItems => 'Відсутні інгредієнти';
+	@override String get issueExtraItems => 'Зайві інгредієнти';
 	@override String get issueOther => 'Інше';
 }
 
@@ -805,9 +805,9 @@ class _TranslationsFavoritesSortOptionsUk implements TranslationsFavoritesSortOp
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get recent => 'Нещодавні';
+	@override String get recent => 'Недавні';
 	@override String get calories => 'Калорії';
-	@override String get alphabetical => 'А-Я';
+	@override String get alphabetical => 'А‑Я';
 }
 
 // Path: profile.sections
@@ -820,7 +820,7 @@ class _TranslationsProfileSectionsUk implements TranslationsProfileSectionsEn {
 	@override String get profile => 'ПРОФІЛЬ';
 	@override String get basicInformation => 'ОСНОВНА ІНФОРМАЦІЯ';
 	@override String get goalsAndActivity => 'ЦІЛІ ТА АКТИВНІСТЬ';
-	@override String get calculatedValues => 'РОЗРАХОВАНІ ЗНАЧЕННЯ';
+	@override String get calculatedValues => 'РОЗРАХОВАНІ ПОКАЗНИКИ';
 }
 
 // Path: profile.calculatedValues
@@ -832,8 +832,8 @@ class _TranslationsProfileCalculatedValuesUk implements TranslationsProfileCalcu
 	// Translations
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'Денна ціль';
-	@override String get calPerDay => 'ккал/день';
+	@override String get dailyGoal => 'Щоденна мета';
+	@override String get calPerDay => 'кал/добу';
 	@override String get notAvailable => 'Н/Д';
 }
 
@@ -856,8 +856,8 @@ class _TranslationsEditProfileGendersUk implements TranslationsEditProfileGender
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get male => 'Чоловіча';
-	@override String get female => 'Жіноча';
+	@override String get male => 'Чоловік';
+	@override String get female => 'Жінка';
 	@override String get other => 'Інше';
 }
 
@@ -900,7 +900,7 @@ class _TranslationsSettingsSectionsUk implements TranslationsSettingsSectionsEn 
 	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'ПІДТРИМКА ТА ПРАВО';
 	@override String get about => 'ПРО ДОДАТОК';
-	@override String get dangerZone => 'НЕБЕЗПЕЧНА ЗОНА';
+	@override String get dangerZone => 'ОБЛАСТЬ РИЗИКУ';
 	@override String get developer => 'РОЗРОБНИК';
 }
 
@@ -912,7 +912,7 @@ class _TranslationsSettingsEditProfileUk implements TranslationsSettingsEditProf
 
 	// Translations
 	@override String get title => 'Редагувати профіль';
-	@override String get subtitle => 'Оновіть свою особисту інформацію';
+	@override String get subtitle => 'Оновіть особисту інформацію';
 }
 
 // Path: settings.language
@@ -925,7 +925,7 @@ class _TranslationsSettingsLanguageUk implements TranslationsSettingsLanguageEn 
 	@override String get title => 'Мова';
 	@override String get subtitle => 'Оберіть бажану мову';
 	@override String get searchHint => 'Пошук мов...';
-	@override String get noResults => 'Нічого не знайдено';
+	@override String get noResults => 'Результатів не знайдено';
 }
 
 // Path: settings.heightUnit
@@ -935,7 +935,7 @@ class _TranslationsSettingsHeightUnitUk implements TranslationsSettingsHeightUni
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Одиниця зросту';
+	@override String get title => 'Одиниця для зросту';
 }
 
 // Path: settings.weightUnit
@@ -945,7 +945,7 @@ class _TranslationsSettingsWeightUnitUk implements TranslationsSettingsWeightUni
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Одиниця ваги';
+	@override String get title => 'Одиниця для ваги';
 }
 
 // Path: settings.mealReminders
@@ -955,8 +955,8 @@ class _TranslationsSettingsMealRemindersUk implements TranslationsSettingsMealRe
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Нагадування про прийоми їжі';
-	@override String get subtitle => 'Будьте на шляху завдяки вчасним сповіщенням';
+	@override String get title => 'Нагадування про їжу';
+	@override String get subtitle => 'Тримайтеся плану з вчасними нагадуваннями';
 }
 
 // Path: settings.theme
@@ -969,7 +969,7 @@ class _TranslationsSettingsThemeUk implements TranslationsSettingsThemeEn {
 	@override String get title => 'Тема';
 	@override String get light => 'Світла';
 	@override String get dark => 'Темна';
-	@override String get system => 'Системна';
+	@override String get system => 'Система';
 }
 
 // Path: settings.sendFeedback
@@ -980,10 +980,10 @@ class _TranslationsSettingsSendFeedbackUk implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Надіслати відгук';
-	@override String subtitle({required Object appLabel}) => 'Допоможіть нам покращити ${appLabel}';
-	@override String emailSubject({required Object appLabel}) => 'Відгук про ${appLabel}';
+	@override String subtitle({required Object appLabel}) => 'Допоможіть покращити ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel}: відгук про додаток';
 	@override String get emailBodyPrefix => 'Будь ласка, залиште свій відгук нижче:';
-	@override String get appVersion => 'Версія додатка';
+	@override String get appVersion => 'Версія додатку';
 	@override String get device => 'Пристрій';
 	@override String get osVersion => 'Версія ОС';
 	@override String get uid => 'UID';
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryUk implements TranslationsSettingsEx
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Експорт історії прийомів';
-	@override String get subtitle => 'Поділіться CSV-файлом ваших зафіксованих прийомів їжі';
-	@override String get shareText => 'Експорт історії ваших прийомів їжі Calorify';
-	@override String failed({required Object error}) => 'Не вдалося експортувати історію прийомів їжі: ${error}';
+	@override String get title => 'Експорт історії прийомів їжі';
+	@override String get subtitle => 'Поділіться CSV з вашими записаними стравами';
+	@override String get shareText => 'Експорт історії прийомів їжі з Calorify';
+	@override String failed({required Object error}) => 'Не вдалося експортувати історію: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1009,10 +1009,10 @@ class _TranslationsSettingsClearAllDataUk implements TranslationsSettingsClearAl
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Очистити всі дані';
+	@override String get title => 'Видалити всі дані';
 	@override String get subtitle => 'Безповоротно видалити всю вашу інформацію';
-	@override String get confirmationTitle => 'Очистити всі дані?';
-	@override String get confirmationMessage => 'Цю дію не можна скасувати. Усі ваші зафіксовані прийоми, обране та налаштування профілю буде назавжди видалено.';
+	@override String get confirmationTitle => 'Видалити всі дані?';
+	@override String get confirmationMessage => 'Цю дію не можна скасувати. Всі ваші записані страви, улюблені та налаштування профілю будуть назавжди видалені.';
 	@override String get cancel => 'Скасувати';
 	@override String get clearEverything => 'Видалити все';
 }
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsUk implements TranslationsSettingsDebugOp
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Параметри налагодження';
+	@override String get title => 'Опції відладки';
 }
 
 // Path: settings.healthConnect
@@ -1035,15 +1035,15 @@ class _TranslationsSettingsHealthConnectUk implements TranslationsSettingsHealth
 
 	// Translations
 	@override String get title => 'Health Connect';
-	@override String get subtitle => 'Перегляд і керування дозволами';
+	@override String get subtitle => 'Перегляд та керування дозволами';
 	@override late final _TranslationsSettingsHealthConnectUnavailableUk unavailable = _TranslationsSettingsHealthConnectUnavailableUk._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsUk permissions = _TranslationsSettingsHealthConnectPermissionsUk._(_root);
 	@override String get managePermissions => 'Керувати дозволами';
 	@override String get openSettings => 'Відкрити налаштування Health Connect';
-	@override String get requestPermissions => 'Запросити дозволи';
-	@override String get permissionRequestCancelledOrFailed => 'Запит на дозволи було скасовано або не вдався. Спробуйте знову або надайте дозволи вручну в налаштуваннях Health Connect.';
-	@override String get permissionRequestFailed => 'Не вдалося запросити дозволи. Спробуйте знову або надайте дозволи вручну в налаштуваннях Health Connect.';
-	@override String get requestingPermissions => 'Запит...';
+	@override String get requestPermissions => 'Запитати дозволи';
+	@override String get permissionRequestCancelledOrFailed => 'Запит дозволів був скасований або не вдався. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.';
+	@override String get permissionRequestFailed => 'Не вдалося запитати дозволи. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.';
+	@override String get requestingPermissions => 'Запит…';
 }
 
 // Path: settings.about
@@ -1054,7 +1054,7 @@ class _TranslationsSettingsAboutUk implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'Про додаток';
-	@override String get tagline => 'Швидкий, безкоштовний і з пріоритетом приватності контроль калорій';
+	@override String get tagline => 'Швидко, безкоштовно та з пріоритетом приватності для обізнаності про калорії';
 	@override late final _TranslationsSettingsAboutOurStoryUk ourStory = _TranslationsSettingsAboutOurStoryUk._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyUk privacy = _TranslationsSettingsAboutPrivacyUk._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperUk developer = _TranslationsSettingsAboutDeveloperUk._(_root);
@@ -1080,7 +1080,7 @@ class _TranslationsNotificationsBreakfastUk implements TranslationsNotifications
 
 	// Translations
 	@override String get title => 'Час сніданку! 🍳';
-	@override String get body => 'Не забудьте зафіксувати свій сніданок';
+	@override String get body => 'Не забудьте записати сніданок';
 }
 
 // Path: notifications.lunch
@@ -1091,7 +1091,7 @@ class _TranslationsNotificationsLunchUk implements TranslationsNotificationsLunc
 
 	// Translations
 	@override String get title => 'Час обіду! 🥗';
-	@override String get body => 'Пора зафіксувати свій обід';
+	@override String get body => 'Час записати обід';
 }
 
 // Path: notifications.dinner
@@ -1102,7 +1102,7 @@ class _TranslationsNotificationsDinnerUk implements TranslationsNotificationsDin
 
 	// Translations
 	@override String get title => 'Час вечері! 🍽️';
-	@override String get body => 'Не забудьте зафіксувати свою вечерю';
+	@override String get body => 'Не забудьте записати вечерю';
 }
 
 // Path: notifications.snack
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapUk implements TranslationsDisclaimerSnapEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} надає орієнтовну інформацію про харчову цінність. Точність залежить від ваших даних і варіацій страв. Використовуйте як підказку, а не остаточне джерело. Для персональних порад звертайтеся до фахівця.';
+	@override String description({required Object appLabel}) => '${appLabel} надає приблизну інформацію про поживність. Точність залежить від ваших даних і варіацій страв. Використовуйте як орієнтир, а не остаточне джерело. Для персоналізованих порад зверніться до фахівця.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeUk portionSize = _TranslationsDisclaimerSnapPortionSizeUk._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsUk preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsUk._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsUk ingredients = _TranslationsDisclaimerSnapIngredientsUk._(_root);
@@ -1148,7 +1148,7 @@ class _TranslationsDisclaimerWeightEstimateUk implements TranslationsDisclaimerW
 
 	// Translations
 	@override String get title => 'Про оцінку зміни ваги';
-	@override String get description => 'Прогнозована зміна ваги — теоретична оцінка на основі моделі «спожиті калорії проти витрачених». Це лише мотиваційний орієнтир, а не передбачення вашої фактичної ваги.';
+	@override String get description => 'Проєктована зміна ваги — це теоретична оцінка на основі простої моделі калорії в проти калорії з. Вона служить лише мотиваційним орієнтиром, а не прогнозом вашої фактичної ваги.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyUk calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyUk._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsUk biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsUk._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightUk waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightUk._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsUk implements TranslationsDisclaimerHe
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Ці показники допомагають зрозуміти енергетичні потреби організму та формують ваші харчові цілі.';
+	@override String get description => 'Ці показники допомагають зрозуміти енергетичні потреби вашого тіла і спрямувати ваші харчові цілі.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrUk bmr = _TranslationsDisclaimerHealthMetricsBmrUk._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeUk tdee = _TranslationsDisclaimerHealthMetricsTdeeUk._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalUk dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalUk._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureUk implements TranslationsDisclai
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Оцінка витрати калорій';
-	@override String get description => 'Коли дані Health Connect недоступні, ми оцінюємо сьогоднішні витрати калорій, використовуючи ваш базовий обмін (BMR) і рівень активності (TDEE), масштабуючи їх на частину дня, що минула.';
+	@override String get title => 'Оцінка витрат калорій';
+	@override String get description => 'Коли дані Health Connect недоступні, ми оцінюємо сьогоднішні витрати калорій, використовуючи ваш BMR і рівень активності (TDEE), пропорційно пройденій частині доби.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedUk howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedUk._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk._(_root);
 }
@@ -1189,7 +1189,7 @@ class _TranslationsOnboardingFeaturesFoodRecognitionUk implements TranslationsOn
 
 	// Translations
 	@override String get title => 'Розумне розпізнавання їжі';
-	@override String get description => 'Зробіть фото — ШІ розпізнає вашу страву';
+	@override String get description => 'Зробіть фото — AI ідентифікує вашу страву';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1199,8 +1199,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisUk implements TranslationsOnboard
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Аналіз ШІ';
-	@override String get description => 'Миттєві дані про харчову цінність з ваших описів';
+	@override String get title => 'AI-аналіз';
+	@override String get description => 'Отримуйте миттєву інформацію про поживну цінність за описом';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1210,7 +1210,7 @@ class _TranslationsOnboardingFeaturesHealthIntegrationUk implements Translations
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Інтеграція зі здоров\'ям';
+	@override String get title => 'Інтеграція зі Health Connect';
 	@override String get description => 'Підключіться до Health Connect для кращих інсайтів';
 }
 
@@ -1222,8 +1222,8 @@ class _TranslationsOnboardingBmiScaleCategoriesUk implements TranslationsOnboard
 
 	// Translations
 	@override String get underweight => 'Недостатня вага';
-	@override String get healthyWeight => 'Нормальна вага';
-	@override String get overweight => 'Надмірна вага';
+	@override String get healthyWeight => 'Здорова вага';
+	@override String get overweight => 'Зайва вага';
 	@override String get obese => 'Ожиріння';
 }
 
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesUk implements TranslationsOnboardin
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Ми допоможемо скласти здоровий план, щоб досягти збалансованої ваги з поживними стравами.';
-	@override String get healthy => 'Чудова робота! Ви в здоровому діапазоні. Ми допоможемо підтримувати енергійність і життєвий тонус.';
-	@override String overweight({required Object appLabel}) => '${appLabel} спростить ваш шлях: відстеження на базі ШІ допоможе комфортно досягти мети.';
-	@override String get obese => 'Ми поруч, аби підтримати вас персональними порадами та сталими стратегіями для ваших цілей здоров\'я.';
+	@override String get underweight => 'Ми допоможемо скласти здоровий план, щоб досягти збалансованої ваги за допомогою поживних страв.';
+	@override String get healthy => 'Чудово! Ви у здоровому діапазоні. Ми допоможемо зберегти вашу життєвість та енергію.';
+	@override String overweight({required Object appLabel}) => '${appLabel} спростить вашу дорогу за допомогою AI‑відстеження, щоб ви комфортно досягли цілі.';
+	@override String get obese => 'Ми поруч, щоб підтримати вас персональними порадами та стійкими стратегіями для ваших цілей зі здоров\'я.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1248,7 +1248,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingUk implements Transla
 
 	// Translations
 	@override String get title => 'Автоматичне відстеження калорій';
-	@override String get description => 'Відстежуйте спалені калорії з ваших фітнес-додатків';
+	@override String get description => 'Відстежуйте витрачені калорії з ваших фітнес‑додатків';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsUk implements Translat
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Інсайти про прогрес';
-	@override String get description => 'Отримуйте детальні інсайти щодо тенденцій вашого здоров’я';
+	@override String get title => 'Інсайти прогресу';
+	@override String get description => 'Отримуйте детальні інсайти про тенденції вашого здоров\'я';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1270,7 +1270,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationUk implements Trans
 
 	// Translations
 	@override String get title => 'Безшовна інтеграція';
-	@override String get description => 'Синхронізуйте дані з улюблених додатків про здоров’я';
+	@override String get description => 'Синхронізуйте дані з улюблених додатків для здоров\'я';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1281,16 +1281,16 @@ class _TranslationsOnboardingReinforcementTrackingSuccessUk implements Translati
 
 	// Translations
 	@override String get title => 'Ви не самі';
-	@override String get genericMessage => 'Дослідження показують, що послідовне відстеження — №1 предиктор довгострокового успіху.';
-	@override String personalizedMessage({required Object gender, required Object age, required Object goal}) => 'Для ${gender} віком ${age} років із метою ${goal} послідовність у відстеженні — головний предиктор успіху.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} робить це у 10 разів простіше, ніж вручну.';
-	@override String get getStartedTitle => 'Готові розпочати?';
-	@override String get tipPhoto => 'Фотографуйте свої страви для миттєвого аналізу';
-	@override String get tipConsistency => 'Фіксуйте регулярно, щоб бачити відчутний прогрес';
-	@override String get tipProgress => 'Щодня відстежуйте прогрес — це мотивує';
-	@override String get button => 'Вперед';
-	@override String get defaultGender => 'людина';
-	@override String get defaultGoal => 'здоровішу версію себе';
+	@override String get genericMessage => 'Дослідження показують, що регулярне відстеження — найсильніший прогноз довгострокового успіху.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Для ${age}-річного ${gender}, який прагне ${goal}, регулярне відстеження — найкращий показник успіху.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} робить це у 10 разів легше, ніж вручну.';
+	@override String get getStartedTitle => 'Готові почати?';
+	@override String get tipPhoto => 'Зробіть фото страв для миттєвого аналізу';
+	@override String get tipConsistency => 'Записуйте регулярно, щоб бачити реальний прогрес';
+	@override String get tipProgress => 'Щоденно відстежуйте прогрес, щоб залишатися мотивованими';
+	@override String get button => 'Почнемо';
+	@override String get defaultGender => 'особа';
+	@override String get defaultGoal => 'здоровіший ви';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1300,14 +1300,14 @@ class _TranslationsOnboardingReinforcementHealthProfileUk implements Translation
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ваш профіль здоровʼя';
-	@override String bmiDescription({required Object bmi}) => 'Виходячи з ваших параметрів, ваш ІМТ: ${bmi}.';
-	@override String get finalizeDescription => 'Завершімо налаштування профілю, щоб персоналізувати ваш досвід.';
-	@override String get goalGain => 'набирати';
-	@override String get goalLose => 'знижувати';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Щоб досягти мети, вам потрібно ${direction} на ${diff} ${unit}.';
-	@override String get goalReached => 'Ви на цільовій вазі! Ми допоможемо її підтримувати.';
-	@override String get button => 'Вперед';
+	@override String get title => 'Ваш профіль здоров\'я';
+	@override String bmiDescription({required Object bmi}) => 'За вашими даними, ваш BMI становить ${bmi}.';
+	@override String get finalizeDescription => 'Завершимо налаштування профілю, щоб персоналізувати досвід.';
+	@override String get goalGain => 'набрати';
+	@override String get goalLose => 'скинути';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Щоб досягти мети, ви ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'Ви досягли цільової ваги! Ми допоможемо її підтримувати.';
+	@override String get button => 'Почнемо';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1317,13 +1317,13 @@ class _TranslationsOnboardingReinforcementGoalLifestyleUk implements Translation
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Чудовий старт!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, ${appLabel} скоригує цілі під ваш стиль життя.';
-	@override String get personalizedTargets => 'Персоналізовані калорійні цілі';
-	@override String get aiMealDetection => 'Визначення страв за допомогою ШІ';
-	@override String get macroBreakdowns => 'Детальний розподіл макроелементів';
-	@override String get button => 'Вперед';
-	@override String get defaultGoal => 'ваших цілей';
+	@override String get title => 'Відмінний початок!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, ${appLabel} відкоригує цілі під ваш спосіб життя.';
+	@override String get personalizedTargets => 'Персоналізовані цілі по калоріях';
+	@override String get aiMealDetection => 'Виявлення страв на основі AI';
+	@override String get macroBreakdowns => 'Докладний розподіл макронутрієнтів';
+	@override String get button => 'Почнемо';
+	@override String get defaultGoal => 'ваші цілі';
 	@override String get defaultActivity => 'активні';
 }
 
@@ -1335,7 +1335,7 @@ class _TranslationsEditProfileWeightGoalsLoseWeightUk implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'Схуднути';
-	@override String get description => 'Створити дефіцит калорій для зниження ваги';
+	@override String get description => 'Створити дефіцит калорій для втрати ваги';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1346,7 +1346,7 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightUk implements Translation
 
 	// Translations
 	@override String get name => 'Підтримувати вагу';
-	@override String get description => 'Підтримувати вашу поточну вагу';
+	@override String get description => 'Підтримувати поточну вагу';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1357,7 +1357,7 @@ class _TranslationsEditProfileWeightGoalsGainWeightUk implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'Набрати вагу';
-	@override String get description => 'Створити профіцит калорій для набору ваги';
+	@override String get description => 'Створити надлишок калорій для набору ваги';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1367,8 +1367,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryUk implements TranslationsE
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Малорухливий(а)';
-	@override String get description => 'Мало або відсутність вправ';
+	@override String get name => 'Малоактивний';
+	@override String get description => 'Мало або взагалі немає вправ';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1378,8 +1378,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveUk implements Translati
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Невисока активність';
-	@override String get description => 'Легкі вправи 1–3 дні/тиждень';
+	@override String get name => 'Легко активний';
+	@override String get description => 'Легкі вправи 1-3 дні/тиждень';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1389,8 +1389,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveUk implements Transl
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Помірна активність';
-	@override String get description => 'Помірні вправи 3–5 днів/тиждень';
+	@override String get name => 'Помірно активний';
+	@override String get description => 'Помірні вправи 3-5 днів/тиждень';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1400,8 +1400,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveUk implements Translations
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Висока активність';
-	@override String get description => 'Інтенсивні вправи 6–7 днів/тиждень';
+	@override String get name => 'Дуже активний';
+	@override String get description => 'Інтенсивні вправи 6-7 днів/тиждень';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1411,8 +1411,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveUk implements Transla
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Дуже висока активність';
-	@override String get description => 'Дуже інтенсивні вправи, фізична робота';
+	@override String get name => 'Надмірно активний';
+	@override String get description => 'Дуже важкі вправи, фізична робота';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1423,7 +1423,7 @@ class _TranslationsSettingsHealthConnectUnavailableUk implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Health Connect недоступний';
-	@override String get description => 'Health Connect недоступний на цьому пристрої. Встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.';
+	@override String get description => 'Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1434,7 +1434,7 @@ class _TranslationsSettingsHealthConnectPermissionsUk implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Дозволи';
-	@override String get description => 'Для інтеграції з Health Connect потрібні такі дозволи:';
+	@override String get description => 'Запитуються наступні дозволи для інтеграції з Health Connect:';
 	@override String get granted => 'Надано';
 	@override String get notGranted => 'Не надано';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk._(_root);
@@ -1450,7 +1450,7 @@ class _TranslationsSettingsAboutOurStoryUk implements TranslationsSettingsAboutO
 
 	// Translations
 	@override String get title => 'Наша історія';
-	@override String content({required Object appLabel}) => '${appLabel} народився з простої фрустрації: більшість додатків для підрахунку калорій або надто складні, або вимагають постійного ручного введення, коштують дорого за підписку чи нехтують приватністю.\n\nЯк сольний розробник, я хотів створити щось простіше й чесніше — додаток, який завдяки ШІ зменшує зусилля, залишається швидким і безкоштовним та поважає ваші дані про здоров’я.\n\n${appLabel} — це додаток, якого мені бракувало: без акаунтів, без стеження, без реклами — лише чіткі, практичні інсайти та ваші цілі щодо здоров’я.';
+	@override String content({required Object appLabel}) => '${appLabel} з\'явився через просте розчарування: більшість додатків для відстеження калорій або надто складні, або вимагають постійного ручного введення, або стягують високі підписки, або порушують приватність.\n\nЯк сольний розробник, я хотів створити щось простіше й чесніше — додаток, що використовує AI для зменшення зусиль, залишається швидким і безкоштовним у використанні та поважає ваші дані про здоров\'я.\n\n${appLabel} — це додаток, який я хотів би мати: без акаунтів, без трекінгу, без реклами — лише чіткі, практичні інсайти і ваші цілі щодо здоров\'я.';
 }
 
 // Path: settings.about.privacy
@@ -1460,14 +1460,14 @@ class _TranslationsSettingsAboutPrivacyUk implements TranslationsSettingsAboutPr
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ваша приватність має значення';
-	@override String get description => 'Приватність — не другорядна річ, а принцип дизайну. Ось що це означає на практиці:';
-	@override String get noAccounts => 'Без облікових записів\nКористуйтеся додатком одразу. Жодних реєстрацій, жодних ідентифікацій.';
-	@override String noTracking({required Object appLabel}) => 'Без поведінкового стеження\n${appLabel} не відстежує вашу активність, не створює профілі використання та не стежить за вами в інших додатках або на сайтах.';
-	@override String noAds({required Object appLabel}) => 'Без реклами за задумом\n${appLabel} створено так, щоб працювати без реклами та монетизації на основі даних.';
-	@override String get noDataSelling => 'Без продажу даних\nВаші дані про здоров’я ніколи не продаються та не передаються третім сторонам.';
-	@override String get localStorage => 'Локальне зберігання насамперед\nВаші дані залишаються на вашому пристрої.';
-	@override String get privacyPolicy => 'Політика конфіденційності';
+	@override String get title => 'Ваша приватність важлива';
+	@override String get description => 'Приватність — не додатковий фактор, а принцип дизайну. Ось що це означає на практиці:';
+	@override String get noAccounts => 'Без акаунтів\nВикористовуйте додаток одразу. Без реєстрації, без профілів.';
+	@override String noTracking({required Object appLabel}) => 'Без відстеження поведінки\n${appLabel} не відстежує вашу активність, не формує профілі використання і не стежить за вами в інших додатках чи на сайтах.';
+	@override String noAds({required Object appLabel}) => 'Без реклами за дизайном\n${appLabel} створено для роботи без реклами та монетизації на основі даних.';
+	@override String get noDataSelling => 'Без продажу даних\nВаші дані про здоров\'я ніколи не продаються і не передаються третім сторонам.';
+	@override String get localStorage => 'Переважно локальне зберігання\nВаші дані залишаються на пристрої.';
+	@override String get privacyPolicy => 'Політика приватності';
 }
 
 // Path: settings.about.developer
@@ -1477,10 +1477,10 @@ class _TranslationsSettingsAboutDeveloperUk implements TranslationsSettingsAbout
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Створено сольним розробником';
-	@override String description({required Object appLabel}) => '${appLabel} створює та підтримує один розробник, зосереджений на спокійному, приватному софті для здоров’я.\n\nВідгуки читаються особисто й допомагають формувати розвиток додатка.';
+	@override String get title => 'Розроблено сольним розробником';
+	@override String description({required Object appLabel}) => '${appLabel} створено і підтримується одним розробником, який прагне робити спокійний софт для здоров\'я, що поважає приватність.\n\nВідгуки читаються особисто і допомагають формувати напрямок розвитку додатку.';
 	@override String get website => 'Вебсайт';
-	@override String get email => 'Ел. пошта';
+	@override String get email => 'Електронна пошта';
 }
 
 // Path: settings.about.feedback
@@ -1491,8 +1491,8 @@ class _TranslationsSettingsAboutFeedbackUk implements TranslationsSettingsAboutF
 
 	// Translations
 	@override String title({required Object appLabel}) => 'Подобається ${appLabel}?';
-	@override String description({required Object appLabel}) => 'Ваш відгук допомагає робити ${appLabel} кращим для всіх.';
-	@override String get rateApp => 'Оцініть у Play Store';
+	@override String description({required Object appLabel}) => 'Ваш відгук допомагає зробити ${appLabel} кращим для всіх.';
+	@override String get rateApp => 'Оцінити в Play Store';
 	@override String get sendFeedback => 'Надіслати відгук';
 }
 
@@ -1504,7 +1504,7 @@ class _TranslationsDisclaimerSnapPortionSizeUk implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Розмір порції';
-	@override String get description => 'Точність оцінок значною мірою залежить від правильного визначення вами розміру порції.';
+	@override String get description => 'Точність оцінок значною мірою залежить від правильної оцінки розміру порції.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsUk implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Способи приготування';
-	@override String description({required Object appLabel}) => 'Способи готування можуть суттєво змінювати харчову цінність. Оцінки ${appLabel} можуть не завжди враховувати ці відмінності.';
+	@override String description({required Object appLabel}) => 'Спосіб приготування може істотно змінювати поживний склад їжі. Оцінки ${appLabel} не завжди враховують ці відмінності.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsUk implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Інгредієнти';
-	@override String get description => 'Складні страви з багатьма прихованими інгредієнтами можуть зменшувати точність оцінок.';
+	@override String get description => 'Складні страви з багатьма прихованими інгредієнтами можуть призводити до менш точних оцінок.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1537,7 +1537,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsUk implements TranslationsDi
 
 	// Translations
 	@override String get title => 'Обмеження бази даних';
-	@override String description({required Object appLabel}) => 'База даних ${appLabel} велика, але може не містити кожну страву або її варіації.';
+	@override String description({required Object appLabel}) => 'База продуктів ${appLabel} обширна, але може не містити кожен окремий продукт чи варіацію.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1548,7 +1548,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyUk implements Translat
 
 	// Translations
 	@override String get title => 'Точність калорій';
-	@override String get description => 'Точність оцінки дорівнює точності ваших записів про спожиті та витрачені калорії. Неточні записи призведуть до неточного прогнозу.';
+	@override String get description => 'Ця оцінка є настільки точною, наскільки точні ваші записи про споживання й витрати калорій. Неточні записи призведуть до неточного прогнозу.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsUk implements Transl
 
 	// Translations
 	@override String get title => 'Біологічні фактори';
-	@override String description({required Object appLabel}) => 'Реальне схуднення/набір залежать від метаболізму, гормонів, сну, стресу, гідратації та інших індивідуальних чинників, які ${appLabel} не вимірює.';
+	@override String description({required Object appLabel}) => 'Фактична втрата чи набір ваги залежить від метаболізму, гормонів, сну, стресу, гідратації та інших індивідуальних факторів, які ${appLabel} не може виміряти.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1569,8 +1569,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightUk implements Translations
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Вода в організмі та коливання';
-	@override String get description => 'Нормальна денна вага може суттєво коливатися через затримку води, травлення й час вимірювання. Оцінка цього не враховує.';
+	@override String get title => 'Водна вага та коливання';
+	@override String get description => 'Нормальна щоденна вага може значно коливатися через затримку води, процеси травлення та час вимірювання. Оцінка не враховує ці щоденні зміни.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1581,7 +1581,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceUk implements Tra
 
 	// Translations
 	@override String get title => 'Поради фахівця';
-	@override String get description => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з лікарем або дієтологом щодо персонального управління вагою.';
+	@override String get description => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з медичним фахівцем або зареєстрованим дієтологом щодо персоналізованого керування вагою.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrUk implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Basal Metabolic Rate (BMR) — це кількість калорій, які ваше тіло спалює у стані спокою для підтримки базових функцій, як-от дихання і кровообіг. BMR залежить від віку, статі, зросту та ваги. Вищий BMR означає, що тіло природно спалює більше калорій у спокої (часто через більшу м’язову масу, молодший вік або чоловічу стать). Нижчий BMR зазвичай свідчить про меншу м’язову масу, старший вік або жіночу стать.';
+	@override String get description => 'Basal Metabolic Rate (BMR) — це кількість калорій, які ваше тіло витрачає у стані спокою для підтримки базових функцій, таких як дихання та кровообіг. BMR залежить від вашого віку, статі, зросту й ваги. Вищий BMR означає, що тіло природно спалює більше калорій у спокої, часто через більшу м\'язову масу, молодший вік або чоловічу стать. Нижчий BMR зазвичай вказує на меншу м\'язову масу, старший вік або жіночу стать.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeUk implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Total Daily Energy Expenditure (TDEE) — це загальна кількість калорій, які ви спалюєте за добу: ваш BMR плюс калорії від фізичної активності та повсякденного руху. TDEE залежить від BMR і рівня активності. Вищий TDEE означає більше спалених калорій загалом (зазвичай через більшу активність або вищий BMR). Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.';
+	@override String get description => 'Total Daily Energy Expenditure (TDEE) — це загальна кількість калорій, які ви витрачаєте за день, включно з BMR та калоріями від фізичної активності і руху. TDEE залежить від вашого BMR і рівня активності. Вищий TDEE означає, що ви витрачаєте більше калорій загалом, зазвичай через вищу активність або більший BMR. Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1613,8 +1613,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalUk implements TranslationsDis
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Денна ціль';
-	@override String get description => 'Денна ціль — рекомендована денна норма калорій на основі вашого TDEE та мети щодо ваги. Для схуднення споживайте менше калорій, ніж ваш TDEE. Для підтримки ваги — приблизно на рівні TDEE. Для набору ваги — більше, ніж TDEE. Це допомагає змінювати вагу здоровими темпами.';
+	@override String get title => 'Щоденна мета';
+	@override String get description => 'Daily Goal — це рекомендована щоденна кількість калорій на основі вашого TDEE і мети по вазі. Для втрати ваги ви споживаєте менше калорій, ніж ваш TDEE. Для підтримання — відповідаєте TDEE. Для набору — споживаєте більше калорій, ніж ваш TDEE. Це допомагає досягти бажаної зміни ваги у здоровому темпі.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1625,7 +1625,7 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedUk implements Transl
 
 	// Translations
 	@override String get title => 'Як розраховується оцінка';
-	@override String get description => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку доби, що минула (години + хвилини) / 24, щоб оцінити вже спалені калорії.';
+	@override String get description => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку доби, що пройшла (години + хвилини) / 24, щоб оцінити витрачені до цього моменту калорії.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1636,7 +1636,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceUk implements
 
 	// Translations
 	@override String get title => 'Поради фахівця';
-	@override String get description => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з лікарем або дієтологом щодо персональних порад.';
+	@override String get description => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з медичним фахівцем або зареєстрованим дієтологом щодо персоналізованого керування вагою.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1646,9 +1646,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk implements T
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Читати загальні спалені калорії';
-	@override String get description => 'Дозволяє додатку читати ваші загальні спалені калорії з Health Connect.';
-	@override String get usage => 'Цей дозвіл використовується для відображення ваших щоденних витрат калорій у додатку, щоб ви розуміли загальні енергозатрати протягом дня.';
+	@override String get title => 'Читати загальні витрачені калорії';
+	@override String get description => 'Дозволяє додатку читати загальну кількість витрачених калорій з Health Connect.';
+	@override String get usage => 'Цей дозвіл використовується для відображення щоденного витрачання калорій у додатку, що допомагає зрозуміти загальні витрати енергії за день.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1659,8 +1659,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadUk implements Tr
 
 	// Translations
 	@override String get title => 'Читати дані про харчування';
-	@override String get description => 'Дозволяє додатку читати харчові дані з Health Connect.';
-	@override String get usage => 'Цей дозвіл дозволяє додатку читати інформацію про харчування, яку могли зафіксувати інші додатки, підключені до Health Connect, забезпечуючи повну картину вашого харчування.';
+	@override String get description => 'Дозволяє додатку читати дані про харчування з Health Connect.';
+	@override String get usage => 'Цей дозвіл дозволяє читати інформацію про харчування, яку могли записати інші додатки, підключені до Health Connect, забезпечуючи повніший огляд вашого харчування.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1671,8 +1671,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteUk implements T
 
 	// Translations
 	@override String get title => 'Записувати дані про харчування';
-	@override String get description => 'Дозволяє додатку записувати харчові дані в Health Connect.';
-	@override String get usage => 'Цей дозвіл дозволяє синхронізувати ваші зафіксовані прийоми з Health Connect, роблячи дані про харчування доступними для інших додатків здоров’я та фітнесу.';
+	@override String get description => 'Дозволяє додатку записувати дані про харчування в Health Connect.';
+	@override String get usage => 'Цей дозвіл дозволяє синхронізувати ваші записані страви з Health Connect, роблячи дані про харчування доступними іншим додаткам для здоров\'я та фітнесу.';
 }
 
 /// The flat map containing all translations for locale <uk>.
@@ -1686,26 +1686,26 @@ extension on TranslationsUk {
 			'language' => 'Українська',
 			'flag' => '🇺🇦',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Занадто багато запитів. Будь ласка, зачекайте трохи й спробуйте знову.',
-			'errors.networkError' => 'Помилка мережі. Перевірте підключення до інтернету.',
+			'errors.rateLimitExceeded' => 'Ви зробили забагато запитів. Будь ласка, зачекайте трохи перед наступною спробою.',
+			'errors.networkError' => 'Помилка мережі. Будь ласка, перевірте інтернет-з\'єднання.',
 			'errors.unknownError' => 'Щось пішло не так. Спробуйте пізніше.',
 			'errors.loadingProfileData' => 'Помилка завантаження даних профілю',
 			'errors.somethingWentWrong' => 'Щось пішло не так.',
-			'errors.retry' => 'Спробувати знову',
+			'errors.retry' => 'Спробувати ще раз',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Ласкаво просимо до ${appLabel}',
-			'onboarding.subtitle' => 'Ваш персональний помічник з харчування на базі ШІ',
-			'onboarding.getStarted' => 'Розпочати',
+			'onboarding.subtitle' => 'Ваш персональний супутник у харчуванні з підтримкою AI',
+			'onboarding.getStarted' => 'Почати',
 			'onboarding.features.foodRecognition.title' => 'Розумне розпізнавання їжі',
-			'onboarding.features.foodRecognition.description' => 'Зробіть фото — ШІ розпізнає вашу страву',
-			'onboarding.features.aiAnalysis.title' => 'Аналіз ШІ',
-			'onboarding.features.aiAnalysis.description' => 'Миттєві дані про харчову цінність з ваших описів',
-			'onboarding.features.healthIntegration.title' => 'Інтеграція зі здоров\'ям',
+			'onboarding.features.foodRecognition.description' => 'Зробіть фото — AI ідентифікує вашу страву',
+			'onboarding.features.aiAnalysis.title' => 'AI-аналіз',
+			'onboarding.features.aiAnalysis.description' => 'Отримуйте миттєву інформацію про поживну цінність за описом',
+			'onboarding.features.healthIntegration.title' => 'Інтеграція зі Health Connect',
 			'onboarding.features.healthIntegration.description' => 'Підключіться до Health Connect для кращих інсайтів',
-			'onboarding.gender.title' => 'Яка ваша стать?',
-			'onboarding.gender.description' => 'Стать допомагає точно розрахувати базовий обмін (BMR).',
+			'onboarding.gender.title' => 'Яка у вас стать?',
+			'onboarding.gender.description' => 'Стать допомагає нам точніше розрахувати ваш базальний метаболізм (BMR).',
 			'onboarding.gender.next' => 'Далі',
 			'onboarding.height.title' => 'Який у вас зріст?',
-			'onboarding.height.description' => 'Зріст допомагає точно розрахувати ІМТ і енергетичні потреби.',
+			'onboarding.height.description' => 'Ваш зріст допомагає точно розрахувати BMI і енергетичні потреби.',
 			'onboarding.height.metric' => 'Метрична',
 			'onboarding.height.imperial' => 'Імперська',
 			'onboarding.height.next' => 'Далі',
@@ -1716,93 +1716,93 @@ extension on TranslationsUk {
 			'onboarding.weight.metric' => 'Метрична',
 			'onboarding.weight.imperial' => 'Імперська',
 			'onboarding.weight.next' => 'Далі',
-			'onboarding.age.title' => 'Коли у вас день народження?',
-			'onboarding.age.description' => 'Вік допомагає точно розрахувати вашу потребу в калоріях.',
+			'onboarding.age.title' => 'Коли ваш день народження?',
+			'onboarding.age.description' => 'Ваш вік допомагає точно розрахувати потребу в калоріях.',
 			'onboarding.age.next' => 'Далі',
-			'onboarding.bmiScale.underweight' => 'Недовага',
-			'onboarding.bmiScale.healthy' => 'Норма',
-			'onboarding.bmiScale.overweight' => 'Надмірна',
+			'onboarding.bmiScale.underweight' => 'Нижче норми',
+			'onboarding.bmiScale.healthy' => 'Здорова',
+			'onboarding.bmiScale.overweight' => 'Зайва вага',
 			'onboarding.bmiScale.obese' => 'Ожиріння',
 			'onboarding.bmiScale.categories.underweight' => 'Недостатня вага',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Нормальна вага',
-			'onboarding.bmiScale.categories.overweight' => 'Надмірна вага',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Здорова вага',
+			'onboarding.bmiScale.categories.overweight' => 'Зайва вага',
 			'onboarding.bmiScale.categories.obese' => 'Ожиріння',
-			'onboarding.bmiScale.messages.underweight' => 'Ми допоможемо скласти здоровий план, щоб досягти збалансованої ваги з поживними стравами.',
-			'onboarding.bmiScale.messages.healthy' => 'Чудова робота! Ви в здоровому діапазоні. Ми допоможемо підтримувати енергійність і життєвий тонус.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} спростить ваш шлях: відстеження на базі ШІ допоможе комфортно досягти мети.',
-			'onboarding.bmiScale.messages.obese' => 'Ми поруч, аби підтримати вас персональними порадами та сталими стратегіями для ваших цілей здоров\'я.',
+			'onboarding.bmiScale.messages.underweight' => 'Ми допоможемо скласти здоровий план, щоб досягти збалансованої ваги за допомогою поживних страв.',
+			'onboarding.bmiScale.messages.healthy' => 'Чудово! Ви у здоровому діапазоні. Ми допоможемо зберегти вашу життєвість та енергію.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} спростить вашу дорогу за допомогою AI‑відстеження, щоб ви комфортно досягли цілі.',
+			'onboarding.bmiScale.messages.obese' => 'Ми поруч, щоб підтримати вас персональними порадами та стійкими стратегіями для ваших цілей зі здоров\'я.',
 			'onboarding.weightGoal.title' => 'Яка ваша мета?',
-			'onboarding.weightGoal.description' => 'Оберіть мету, яка найкраще описує бажаний результат',
+			'onboarding.weightGoal.description' => 'Виберіть мету, яка найкраще описує, чого ви хочете досягти',
 			'onboarding.activityLevel.title' => 'Наскільки ви активні?',
-			'onboarding.activityLevel.description' => 'Це допоможе точніше розрахувати вашу денну потребу в калоріях',
+			'onboarding.activityLevel.description' => 'Це допоможе точніше розрахувати ваші щоденні потреби в калоріях',
 			'onboarding.healthConnect.title' => 'Підключіться до Health Connect',
-			'onboarding.healthConnect.description' => 'Синхронізуйте дані про здоров’я для кращих інсайтів і автоматичного підрахунку калорій',
+			'onboarding.healthConnect.description' => 'Синхронізуйте дані про здоров\'я для кращих інсайтів і автоматичного відстеження калорій',
 			'onboarding.healthConnect.automaticTracking.title' => 'Автоматичне відстеження калорій',
-			'onboarding.healthConnect.automaticTracking.description' => 'Відстежуйте спалені калорії з ваших фітнес-додатків',
-			'onboarding.healthConnect.progressInsights.title' => 'Інсайти про прогрес',
-			'onboarding.healthConnect.progressInsights.description' => 'Отримуйте детальні інсайти щодо тенденцій вашого здоров’я',
+			'onboarding.healthConnect.automaticTracking.description' => 'Відстежуйте витрачені калорії з ваших фітнес‑додатків',
+			'onboarding.healthConnect.progressInsights.title' => 'Інсайти прогресу',
+			'onboarding.healthConnect.progressInsights.description' => 'Отримуйте детальні інсайти про тенденції вашого здоров\'я',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Безшовна інтеграція',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Синхронізуйте дані з улюблених додатків про здоров’я',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Синхронізуйте дані з улюблених додатків для здоров\'я',
 			'onboarding.healthConnect.connected' => 'Health Connect підключено',
 			'onboarding.healthConnect.notConnected' => 'Health Connect не підключено',
 			'onboarding.healthConnect.setup' => 'Налаштувати Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Поки що пропустити',
+			'onboarding.healthConnect.skipForNow' => 'Пропустити зараз',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect підключено.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect успішно підключено!',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Помилка налаштування Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Ви не самі',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Дослідження показують, що послідовне відстеження — №1 предиктор довгострокового успіху.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object gender, required Object age, required Object goal}) => 'Для ${gender} віком ${age} років із метою ${goal} послідовність у відстеженні — головний предиктор успіху.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} робить це у 10 разів простіше, ніж вручну.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Готові розпочати?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Фотографуйте свої страви для миттєвого аналізу',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Фіксуйте регулярно, щоб бачити відчутний прогрес',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Щодня відстежуйте прогрес — це мотивує',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Вперед',
-			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'людина',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'здоровішу версію себе',
-			'onboarding.reinforcement.healthProfile.title' => 'Ваш профіль здоровʼя',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Виходячи з ваших параметрів, ваш ІМТ: ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Завершімо налаштування профілю, щоб персоналізувати ваш досвід.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'набирати',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'знижувати',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Щоб досягти мети, вам потрібно ${direction} на ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Ви на цільовій вазі! Ми допоможемо її підтримувати.',
-			'onboarding.reinforcement.healthProfile.button' => 'Вперед',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Чудовий старт!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, ${appLabel} скоригує цілі під ваш стиль життя.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Персоналізовані калорійні цілі',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Визначення страв за допомогою ШІ',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Детальний розподіл макроелементів',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Вперед',
-			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'ваших цілей',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Дослідження показують, що регулярне відстеження — найсильніший прогноз довгострокового успіху.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Для ${age}-річного ${gender}, який прагне ${goal}, регулярне відстеження — найкращий показник успіху.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} робить це у 10 разів легше, ніж вручну.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Готові почати?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Зробіть фото страв для миттєвого аналізу',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Записуйте регулярно, щоб бачити реальний прогрес',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Щоденно відстежуйте прогрес, щоб залишатися мотивованими',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Почнемо',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'особа',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'здоровіший ви',
+			'onboarding.reinforcement.healthProfile.title' => 'Ваш профіль здоров\'я',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'За вашими даними, ваш BMI становить ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Завершимо налаштування профілю, щоб персоналізувати досвід.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'набрати',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'скинути',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Щоб досягти мети, ви ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Ви досягли цільової ваги! Ми допоможемо її підтримувати.',
+			'onboarding.reinforcement.healthProfile.button' => 'Почнемо',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Відмінний початок!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Ви зробили перший крок до ${goalText}. Оскільки ви ${activityText}, ${appLabel} відкоригує цілі під ваш спосіб життя.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Персоналізовані цілі по калоріях',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Виявлення страв на основі AI',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Докладний розподіл макронутрієнтів',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Почнемо',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'ваші цілі',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'активні',
-			'tabs.dashboard' => 'Головна',
+			'tabs.dashboard' => 'Панель',
 			'tabs.history' => 'Історія',
-			'home.aiSummary.title' => 'Ваш підсумок від ШІ',
-			'home.aiSummary.logMore' => 'Протягом кількох наступних днів фіксуйте більше прийомів їжі, щоб отримати персоналізовані інсайти від ШІ.',
-			'home.aiSummary.loading' => 'Завантаження підсумку...',
-			'home.aiSummary.mealCount' => ({required Object count}) => '${count} зафіксованих прийомів їжі',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Оцінка балансу ${score}',
-			'home.aiSummary.topFoods' => 'Топ-страви',
+			'home.aiSummary.title' => 'Ваш AI-звіт',
+			'home.aiSummary.logMore' => 'Заносьте більше страв найближчими днями, щоб отримати персоналізовані AI-інсайти.',
+			'home.aiSummary.loading' => 'Завантаження звіту...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} записаних страв',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Баланс макро ${score}',
+			'home.aiSummary.topFoods' => 'Топ продуктів',
 			'home.aiSummary.trendUp' => 'Калорії зростають',
 			'home.aiSummary.trendDown' => 'Калорії знижуються',
 			'home.aiSummary.trendSteady' => 'Калорії стабільні',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Оновлено ${time}',
-			'home.dailyGoal.title' => 'Встановіть свою денну ціль',
-			'home.dailyGoal.titleSet' => 'Ваша денна ціль',
-			'home.dailyGoal.description' => 'Готові вирушити у wellness-подорож? Задайте денну калорійну ціль нижче, щоб розпочати прогрес.',
-			'home.dailyGoal.descriptionSet' => 'Ваш компас налаштовано! Це ваша денна калорійна ціль-навігатор.',
-			'home.dailyGoal.yourGoal' => 'Ваша ціль',
-			'home.dailyGoal.goal' => 'Ціль',
-			'home.dailyGoal.dailyCalories' => 'Денні калорії (ккал)',
-			'home.dailyGoal.setGoal' => 'Встановити ціль',
+			'home.dailyGoal.title' => 'Встановіть щоденну мету',
+			'home.dailyGoal.titleSet' => 'Ваша щоденна мета',
+			'home.dailyGoal.description' => 'Готові розпочати шлях до кращого самопочуття? Встановіть щоденну калорійну ціль нижче, щоб розпочати прогрес.',
+			'home.dailyGoal.descriptionSet' => 'Ваш компас налаштовано! Це ваша щоденна калорійна ціль.',
+			'home.dailyGoal.yourGoal' => 'Ваша мета',
+			'home.dailyGoal.goal' => 'Мета',
+			'home.dailyGoal.dailyCalories' => 'Щоденні калорії (kcal)',
+			'home.dailyGoal.setGoal' => 'Встановити мету',
 			'home.dailyGoal.intake' => 'Спожито',
-			'home.dailyGoal.burned' => 'Спалено',
+			'home.dailyGoal.burned' => 'Витрачено',
 			'home.dailyGoal.weightImpact' => 'Вплив на вагу',
-			'home.dailyGoal.estLoss' => 'Оціночна втрата',
-			'home.dailyGoal.estGain' => 'Оціночний набір',
+			'home.dailyGoal.estLoss' => 'Прибл. втрата',
+			'home.dailyGoal.estGain' => 'Прибл. набір',
 			'home.dailyGoal.kcal' => 'ккал',
 			'home.dailySummary.title' => 'Щоденний підсумок',
 			'home.dailySummary.calories' => 'Калорії',
@@ -1810,161 +1810,161 @@ extension on TranslationsUk {
 			'home.dailySummary.protein' => 'Білки',
 			'home.dailySummary.fat' => 'Жири',
 			'home.dailySummary.fiber' => 'Клітковина',
-			'home.dailySummary.grams' => 'грамів',
-			'home.dailySummary.chartAccessibilityLabel' => 'Діаграма макроелементів',
-			'home.intakeProgress.title' => 'Сьогоднішній розподіл макроелементів',
+			'home.dailySummary.grams' => 'г',
+			'home.dailySummary.chartAccessibilityLabel' => 'Діаграма макронутрієнтів',
+			'home.intakeProgress.title' => 'Сьогоднішній розподіл макро',
 			'home.intakeProgress.target' => 'Ціль',
-			'home.intakeProgress.current' => 'Поточний',
-			'home.intakeHistory.title' => '7-денна історія макросів',
-			'home.intakeHistory.trendTitle' => 'Сьогоднішній тренд',
+			'home.intakeProgress.current' => 'Поточне',
+			'home.intakeHistory.title' => 'Історія макро за 7 днів',
+			'home.intakeHistory.trendTitle' => 'Сьогоднішня тенденція',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Пік: ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'Поки що немає історії',
-			'home.intakeHistory.startLogging' => 'Почніть фіксувати прийоми їжі, щоб побачити тут\n7-денні тренди макроелементів',
-			'home.mealLog.title' => 'Зафіксовані прийоми',
-			'home.mealLog.emptyMessage' => 'Зробіть фото свого останнього прийому їжі, щоб додати його сюди.',
-			'home.mealLog.noMealsToday' => 'Сьогодні прийомів їжі не зафіксовано',
-			'home.mealLog.seeAllMeals' => 'Переглянути всі прийоми їжі',
-			'home.mealDescription.title' => 'Швидке додавання за допомогою ШІ',
-			'home.mealDescription.description' => 'Опишіть свою страву — ШІ подбає про деталі.',
-			'home.mealDescription.hint' => 'наприклад: на сніданок я з’їв(ла) велику миску вівсянки з бананом і порцією сироваткового протеїну ...',
-			'home.mealDescription.analyzeMeal' => 'Проаналізувати прийом',
-			'home.favoriteMeals.title' => 'Обрані страви',
+			'home.intakeHistory.noHistoryYet' => 'Історія відсутня',
+			'home.intakeHistory.startLogging' => 'Почніть записувати страви, щоб бачити ваші\n7‑денні макро-тенденції тут',
+			'home.mealLog.title' => 'Записані страви',
+			'home.mealLog.emptyMessage' => 'Зробіть фото останньої страви, щоб записати її тут.',
+			'home.mealLog.noMealsToday' => 'За сьогодні немає записів',
+			'home.mealLog.seeAllMeals' => 'Переглянути всі страви',
+			'home.mealDescription.title' => 'Швидке додавання з AI',
+			'home.mealDescription.description' => 'Опишіть страву, а AI подбає про деталі.',
+			'home.mealDescription.hint' => 'наприклад: на сніданок я з\'їв велику миску вівсянки з порізаним бананом і ложкою сироваткового протеїну ...',
+			'home.mealDescription.analyzeMeal' => 'Аналізувати страву',
+			'home.favoriteMeals.title' => 'Улюблені страви',
 			'home.favoriteMeals.description' => 'Швидко додайте одну з улюблених страв.',
-			'home.favoriteMeals.noFavorites' => 'Поки що немає обраних страв.',
-			'home.favoriteMeals.addFavoriteHint' => 'Натисніть зірочку на страві, щоб позначити її як обрану.',
+			'home.favoriteMeals.noFavorites' => 'Улюблені страви відсутні.',
+			'home.favoriteMeals.addFavoriteHint' => 'Натисніть зірку на страві, щоб додати її до улюблених.',
 			'home.favoriteMeals.seeAll' => 'Переглянути всі',
 			'home.favoriteMeals.add' => 'Додати',
-			'home.mealSnap.title' => 'Знімайте й відстежуйте свій прийом',
-			'home.mealSnap.description' => 'Скористайтеся камерою, щоб сфотографувати їжу для аналізу ШІ.',
+			'home.mealSnap.title' => 'Зфотографуйте й відстежте страву',
+			'home.mealSnap.description' => 'Використайте камеру, щоб сфотографувати їжу для AI‑аналізу.',
 			'home.mealSnap.openCamera' => 'Відкрити камеру',
 			'home.mealSnap.gallery' => 'Галерея',
 			'home.mealSnap.compressingPhoto' => 'Оптимізація фото…',
 			'home.mealSnap.uploadingPhoto' => 'Завантаження фото…',
-			'home.connectHealth.title' => 'Синхронізація з Health Connect',
-			'home.connectHealth.description' => 'Синхронізуйте харчові дані з Health Connect',
+			'home.connectHealth.title' => 'Синхронізувати з Health Connect',
+			'home.connectHealth.description' => 'Синхронізуйте дані про харчування з Health Connect',
 			'home.connectHealth.install' => 'Встановити',
 			'home.connectHealth.connect' => 'Підключити',
-			'history.noMeals' => 'Немає зафіксованих прийомів їжі',
-			'history.emptyMessage' => 'Зробіть фото свого останнього прийому їжі, щоб додати його сюди.',
+			'history.noMeals' => 'Немає записаних страв',
+			'history.emptyMessage' => 'Зробіть фото останньої страви, щоб записати її тут.',
 			'history.today' => 'Сьогодні',
 			'history.yesterday' => 'Вчора',
 			'meal.ohNo' => 'Ой!',
 			'meal.delete' => 'Видалити',
-			'meal.editMeal' => 'Редагувати прийом',
-			'meal.addMeal' => 'Додати прийом',
-			'meal.saveMeal' => 'Зберегти прийом',
+			'meal.editMeal' => 'Редагувати страву',
+			'meal.addMeal' => 'Додати страву',
+			'meal.saveMeal' => 'Зберегти страву',
 			'meal.save' => 'Зберегти',
 			'meal.mealName' => 'Назва страви',
-			'meal.mealNameHint' => 'напр., яєшня зі скибочкою тосту',
-			'meal.mealQuantity' => 'Кількість/порція',
-			'meal.mealQuantityHint' => 'напр., 1 миска, 2 скибочки',
-			'meal.timeOfMeal' => 'Час прийому їжі',
+			'meal.mealNameHint' => 'наприклад: Омлет з тостом',
+			'meal.mealQuantity' => 'Кількість',
+			'meal.mealQuantityHint' => 'наприклад: 1 миска, 2 шматки',
+			'meal.timeOfMeal' => 'Час прийому',
 			'meal.timeOfMealHint' => 'Виберіть час, коли ви їли',
-			'meal.mealType' => 'Тип прийому їжі',
+			'meal.mealType' => 'Тип страви',
 			'meal.nutrition.calories' => 'Калорії',
 			'meal.nutrition.carbs' => 'Вуглеводи (г)',
 			'meal.nutrition.protein' => 'Білки (г)',
 			'meal.nutrition.fat' => 'Жири (г)',
 			'meal.nutrition.fiber' => 'Клітковина (г)',
-			'meal.deleteConfirmation.title' => 'Видалити прийом?',
-			'meal.deleteConfirmation.message' => 'Ви впевнені, що хочете видалити цей запис прийому їжі?',
+			'meal.deleteConfirmation.title' => 'Видалити страву',
+			'meal.deleteConfirmation.message' => 'Ви впевнені, що хочете видалити цю запис про страву?',
 			'meal.deleteConfirmation.cancel' => 'Скасувати',
 			'meal.deleteConfirmation.delete' => 'Видалити',
-			'meal.addedToLog' => 'Прийом їжі додано до вашого журналу!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Не вдалося додати прийом: ${error}',
-			'meal.savedSuccessfully' => 'Прийом успішно додано!',
-			'meal.updatedSuccessfully' => 'Прийом успішно оновлено!',
-			'meal.errorSaving' => ({required Object error}) => 'Помилка збереження прийому: ${error}',
-			'meal.removedFromFavorites' => 'Видалено з обраного!',
-			'meal.savedAsFavorite' => 'Прийом збережено в обране!',
-			'meal.unfavorite' => 'Прибрати з обраного',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Не вдалося оновити обране: ${error}',
+			'meal.addedToLog' => 'Страва додана до записів!',
+			'meal.couldNotAdd' => ({required Object error}) => 'Не вдалося додати страву: ${error}',
+			'meal.savedSuccessfully' => 'Страва успішно додана!',
+			'meal.updatedSuccessfully' => 'Страву успішно оновлено!',
+			'meal.errorSaving' => ({required Object error}) => 'Помилка при збереженні страви: ${error}',
+			'meal.removedFromFavorites' => 'Вилучено з улюблених!',
+			'meal.savedAsFavorite' => 'Страву збережено в улюблених!',
+			'meal.unfavorite' => 'Прибрати з улюблених',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Не вдалося оновити улюблене: ${error}',
 			'meal.feedbackThanks' => 'Дякуємо за відгук!',
-			'meal.reanalysisUpdated' => 'Оновлено аналіз прийому на основі вашого відгуку.',
+			'meal.reanalysisUpdated' => 'Аналіз страви оновлено на основі вашого відгуку.',
 			'meal.failedToProcess' => ({required Object error}) => 'Не вдалося обробити: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не вдалося обробити зображення: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'Помилка оптимізації зображення: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'Помилка стиснення зображення: ${error}',
 			'meal.failedToSave' => 'Не вдалося зберегти дані. Спробуйте ще раз.',
 			'meal.skip' => 'Пропустити',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Питання ${current} з ${total}',
-			'meal.questionFlow.noQuestionsAvailable' => 'Немає доступних запитань',
+			'meal.questionFlow.noQuestionsAvailable' => 'Питань немає',
 			'meal.questionFlow.next' => 'Далі',
 			'meal.questionFlow.continueLabel' => 'Продовжити',
-			'meal.analysis.title' => 'Аналіз прийому їжі ШІ',
-			'meal.analysis.stepStarted' => 'Починаємо…',
-			'meal.analysis.stepDecomposition' => 'Розуміємо ваш прийом…',
-			'meal.analysis.stepIngredients' => 'Зіставляємо інгредієнти з базою харчової цінності…',
-			'meal.analysis.stepUncertainty' => 'Перевіряємо впевненість…',
+			'meal.analysis.title' => 'Аналізуємо вашу страву',
+			'meal.analysis.stepStarted' => 'Початок…',
+			'meal.analysis.stepDecomposition' => 'Аналіз страви…',
+			'meal.analysis.stepIngredients' => 'Пошук інгредієнтів у базі…',
+			'meal.analysis.stepUncertainty' => 'Перевірка впевненості…',
 			'meal.analysis.stepMealTypeQuestion' => 'Майже готово…',
-			'meal.analysis.stepResult' => 'Фіналізуємо результат…',
+			'meal.analysis.stepResult' => 'Завершення аналізу…',
 			'meal.analysis.stepError' => 'Щось пішло не так',
-			'meal.analysis.stepDefault' => 'Аналізуємо ваш прийом…',
-			'meal.analysis.progressUnderstand' => 'Аналіз',
-			'meal.analysis.progressMatch' => 'Відповідність',
-			'meal.analysis.progressCheck' => 'Перевірка',
-			'meal.analysis.progressMealType' => 'Вибір типу прийому їжі',
-			'meal.analysis.progressFinish' => 'Завершення',
-			'meal.analysis.detectedIngredientHeading' => 'Інгредієнти, які ми розпізнаємо',
+			'meal.analysis.stepDefault' => 'Аналізуємо вашу страву…',
+			'meal.analysis.progressUnderstand' => 'Розуміння страви',
+			'meal.analysis.progressMatch' => 'Пошук поживності інгредієнтів',
+			'meal.analysis.progressCheck' => 'Перевірка порцій і точності',
+			'meal.analysis.progressMealType' => 'Визначення типу страви',
+			'meal.analysis.progressFinish' => 'Обчислення калорій та макро',
+			'meal.analysis.detectedIngredientHeading' => 'Інгредієнти, які ми знайшли',
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'ще ${count}',
-			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Виявлено інгредієнтів: ${count}',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => 'виявлено ${count} інгредієнтів',
 			'meal.analysis.ingredientsPending' => 'Сканування інгредієнтів…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.analysis.offlineTip0' => 'Порада: Постійність важливіша за досконалість — регулярні записи виявляють суттєві закономірності.',
+			'meal.analysis.offlineTip1' => 'Порада: Для фото природне світло і вид зверху допомагають точніше визначити порцію.',
+			'meal.analysis.offlineTip2' => 'Порада: Згадуйте напої, соуси та олію — вони додають калорії, про які часто забувають.',
+			'meal.analysis.offlineTip3' => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.',
+			'meal.analysis.offlineTip4' => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.',
+			'meal.analysis.offlineTip5' => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).',
 			'meal.feedback.title' => 'Що виглядає неправильно?',
-			'meal.feedback.subtitle' => 'Допоможіть нам покращити аналіз, обравши одну або кілька проблем.',
+			'meal.feedback.subtitle' => 'Допоможіть покращити аналіз, вибравши одну або кілька проблем.',
 			'meal.feedback.tellUsMore' => 'Розкажіть більше',
-			'meal.feedback.describeIncorrect' => 'Опишіть, що було неправильно',
+			'meal.feedback.describeIncorrect' => 'Опишіть, що було неточно',
 			'meal.feedback.submit' => 'Надіслати',
-			'meal.feedback.issueFoodIdentification' => 'Розпізнавання їжі',
+			'meal.feedback.issueFoodIdentification' => 'Ідентифікація їжі',
 			'meal.feedback.issuePortionSize' => 'Розмір порції',
 			'meal.feedback.issueCalorieDistribution' => 'Розподіл калорій',
-			'meal.feedback.issueMacrosWrong' => 'Макроелементи неправильні',
-			'meal.feedback.issueMissingItems' => 'Відсутні елементи',
-			'meal.feedback.issueExtraItems' => 'Зайві елементи',
+			'meal.feedback.issueMacrosWrong' => 'Макроси невірні',
+			'meal.feedback.issueMissingItems' => 'Відсутні інгредієнти',
+			'meal.feedback.issueExtraItems' => 'Зайві інгредієнти',
 			'meal.feedback.issueOther' => 'Інше',
-			'favorites.title' => 'Обране',
-			'favorites.empty' => 'Поки що немає обраних страв.',
-			'favorites.searchPlaceholder' => 'Пошук в обраному',
-			'favorites.searchEmptyTitle' => 'Немає відповідних обраних',
-			'favorites.searchEmptySubtitle' => 'Спробуйте іншу назву страви, кількість або тип прийому.',
-			'favorites.sortLabel' => 'Сортувати обране',
+			'favorites.title' => 'Улюблене',
+			'favorites.empty' => 'Улюблені страви відсутні.',
+			'favorites.searchPlaceholder' => 'Пошук улюблених страв',
+			'favorites.searchEmptyTitle' => 'За пошуком нічого не знайдено',
+			'favorites.searchEmptySubtitle' => 'Спробуйте іншу назву страви, кількість або тип',
+			'favorites.sortLabel' => 'Порядок сортування',
 			'favorites.undo' => 'Скасувати',
-			'favorites.removed' => ({required Object name}) => 'Видалено ${name} з обраного',
-			'favorites.sortOptions.recent' => 'Нещодавні',
+			'favorites.removed' => ({required Object name}) => 'Вилучено ${name} з улюблених',
+			'favorites.sortOptions.recent' => 'Недавні',
 			'favorites.sortOptions.calories' => 'Калорії',
-			'favorites.sortOptions.alphabetical' => 'А-Я',
+			'favorites.sortOptions.alphabetical' => 'А‑Я',
 			'profile.title' => 'Профіль',
-			'profile.noProfileData' => 'Дані профілю не знайдені',
+			'profile.noProfileData' => 'Дані профілю не знайдено',
 			'profile.yourProfile' => 'Ваш профіль',
-			'profile.viewAndManage' => 'Переглядайте й керуйте інформацією про здоров’я',
+			'profile.viewAndManage' => 'Перегляд та керування інформацією про здоров\'я',
 			'profile.sections.profile' => 'ПРОФІЛЬ',
 			'profile.sections.basicInformation' => 'ОСНОВНА ІНФОРМАЦІЯ',
 			'profile.sections.goalsAndActivity' => 'ЦІЛІ ТА АКТИВНІСТЬ',
-			'profile.sections.calculatedValues' => 'РОЗРАХОВАНІ ЗНАЧЕННЯ',
+			'profile.sections.calculatedValues' => 'РОЗРАХОВАНІ ПОКАЗНИКИ',
 			'profile.gender' => 'Стать',
 			'profile.height' => 'Зріст',
 			'profile.weight' => 'Вага',
 			'profile.age' => 'Вік',
-			'profile.weightGoal' => 'Мета щодо ваги',
+			'profile.weightGoal' => 'Мета по вазі',
 			'profile.targetWeight' => 'Цільова вага',
 			'profile.activityLevel' => 'Рівень активності',
-			'profile.healthMetrics' => 'Показники здоров’я',
+			'profile.healthMetrics' => 'Показники здоров\'я',
 			'profile.notSet' => 'Не встановлено',
 			'profile.years' => 'років',
 			'profile.updatedSuccessfully' => 'Профіль успішно оновлено!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'Денна ціль',
-			'profile.calculatedValues.calPerDay' => 'ккал/день',
+			'profile.calculatedValues.dailyGoal' => 'Щоденна мета',
+			'profile.calculatedValues.calPerDay' => 'кал/добу',
 			'profile.calculatedValues.notAvailable' => 'Н/Д',
-			'healthScore.title' => 'Оцінка здоровʼя',
+			'healthScore.title' => 'Оцінка здоров\'я',
 			'healthScore.whyThisScore' => 'Чому така оцінка?',
-			'healthScore.note' => 'Ця оцінка — орієнтовна оцінка ШІ на основі визначених інгредієнтів і поживної щільності. Завжди консультуйтеся з фахівцем щодо харчування.',
+			'healthScore.note' => 'Ця оцінка — AI‑оцінка, побудована на виявлених інгредієнтах і поживній густині. Для дієтичних порад завжди консультуйтеся з фахівцем.',
 			'healthScore.unhealthy' => 'Нездорово',
 			'healthScore.healthy' => 'Здорово',
 			'healthScore.neutral' => 'Нейтрально',
@@ -1976,37 +1976,37 @@ extension on TranslationsUk {
 			'editProfile.dateOfBirth' => 'Дата народження',
 			'editProfile.height' => 'Зріст',
 			'editProfile.weight' => 'Вага',
-			'editProfile.weightGoal' => 'Мета щодо ваги',
+			'editProfile.weightGoal' => 'Мета по вазі',
 			'editProfile.activityLevel' => 'Рівень активності',
 			'editProfile.metric' => 'Метрична',
 			'editProfile.imperial' => 'Імперська',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'фунти',
 			'editProfile.metricCm' => 'Метрична (cm)',
 			'editProfile.imperialFtIn' => 'Імперська (ft/in)',
 			'editProfile.metricKg' => 'Метрична (kg)',
 			'editProfile.imperialLbs' => 'Імперська (lbs)',
-			'editProfile.genders.male' => 'Чоловіча',
-			'editProfile.genders.female' => 'Жіноча',
+			'editProfile.genders.male' => 'Чоловік',
+			'editProfile.genders.female' => 'Жінка',
 			'editProfile.genders.other' => 'Інше',
 			'editProfile.weightGoals.loseWeight.name' => 'Схуднути',
-			'editProfile.weightGoals.loseWeight.description' => 'Створити дефіцит калорій для зниження ваги',
+			'editProfile.weightGoals.loseWeight.description' => 'Створити дефіцит калорій для втрати ваги',
 			'editProfile.weightGoals.maintainWeight.name' => 'Підтримувати вагу',
-			'editProfile.weightGoals.maintainWeight.description' => 'Підтримувати вашу поточну вагу',
+			'editProfile.weightGoals.maintainWeight.description' => 'Підтримувати поточну вагу',
 			'editProfile.weightGoals.gainWeight.name' => 'Набрати вагу',
-			'editProfile.weightGoals.gainWeight.description' => 'Створити профіцит калорій для набору ваги',
-			'editProfile.activityLevels.sedentary.name' => 'Малорухливий(а)',
-			'editProfile.activityLevels.sedentary.description' => 'Мало або відсутність вправ',
-			'editProfile.activityLevels.lightlyActive.name' => 'Невисока активність',
-			'editProfile.activityLevels.lightlyActive.description' => 'Легкі вправи 1–3 дні/тиждень',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Помірна активність',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Помірні вправи 3–5 днів/тиждень',
-			'editProfile.activityLevels.veryActive.name' => 'Висока активність',
-			'editProfile.activityLevels.veryActive.description' => 'Інтенсивні вправи 6–7 днів/тиждень',
-			'editProfile.activityLevels.extremelyActive.name' => 'Дуже висока активність',
-			'editProfile.activityLevels.extremelyActive.description' => 'Дуже інтенсивні вправи, фізична робота',
+			'editProfile.weightGoals.gainWeight.description' => 'Створити надлишок калорій для набору ваги',
+			'editProfile.activityLevels.sedentary.name' => 'Малоактивний',
+			'editProfile.activityLevels.sedentary.description' => 'Мало або взагалі немає вправ',
+			'editProfile.activityLevels.lightlyActive.name' => 'Легко активний',
+			'editProfile.activityLevels.lightlyActive.description' => 'Легкі вправи 1-3 дні/тиждень',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Помірно активний',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Помірні вправи 3-5 днів/тиждень',
+			'editProfile.activityLevels.veryActive.name' => 'Дуже активний',
+			'editProfile.activityLevels.veryActive.description' => 'Інтенсивні вправи 6-7 днів/тиждень',
+			'editProfile.activityLevels.extremelyActive.name' => 'Надмірно активний',
+			'editProfile.activityLevels.extremelyActive.description' => 'Дуже важкі вправи, фізична робота',
 			'settings.title' => 'Налаштування',
 			'settings.sections.profile' => 'ПРОФІЛЬ',
 			'settings.sections.localization' => 'ЛОКАЛІЗАЦІЯ',
@@ -2014,94 +2014,94 @@ extension on TranslationsUk {
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'ПІДТРИМКА ТА ПРАВО',
 			'settings.sections.about' => 'ПРО ДОДАТОК',
-			'settings.sections.dangerZone' => 'НЕБЕЗПЕЧНА ЗОНА',
+			'settings.sections.dangerZone' => 'ОБЛАСТЬ РИЗИКУ',
 			'settings.sections.developer' => 'РОЗРОБНИК',
 			'settings.editProfile.title' => 'Редагувати профіль',
-			'settings.editProfile.subtitle' => 'Оновіть свою особисту інформацію',
+			'settings.editProfile.subtitle' => 'Оновіть особисту інформацію',
 			'settings.language.title' => 'Мова',
 			'settings.language.subtitle' => 'Оберіть бажану мову',
 			'settings.language.searchHint' => 'Пошук мов...',
-			'settings.language.noResults' => 'Нічого не знайдено',
-			'settings.heightUnit.title' => 'Одиниця зросту',
-			'settings.weightUnit.title' => 'Одиниця ваги',
-			'settings.mealReminders.title' => 'Нагадування про прийоми їжі',
-			'settings.mealReminders.subtitle' => 'Будьте на шляху завдяки вчасним сповіщенням',
+			'settings.language.noResults' => 'Результатів не знайдено',
+			'settings.heightUnit.title' => 'Одиниця для зросту',
+			'settings.weightUnit.title' => 'Одиниця для ваги',
+			'settings.mealReminders.title' => 'Нагадування про їжу',
+			'settings.mealReminders.subtitle' => 'Тримайтеся плану з вчасними нагадуваннями',
 			'settings.theme.title' => 'Тема',
 			'settings.theme.light' => 'Світла',
 			'settings.theme.dark' => 'Темна',
-			'settings.theme.system' => 'Системна',
+			'settings.theme.system' => 'Система',
 			'settings.sendFeedback.title' => 'Надіслати відгук',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Допоможіть нам покращити ${appLabel}',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Відгук про ${appLabel}',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Допоможіть покращити ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel}: відгук про додаток',
 			'settings.sendFeedback.emailBodyPrefix' => 'Будь ласка, залиште свій відгук нижче:',
-			'settings.sendFeedback.appVersion' => 'Версія додатка',
+			'settings.sendFeedback.appVersion' => 'Версія додатку',
 			'settings.sendFeedback.device' => 'Пристрій',
 			'settings.sendFeedback.osVersion' => 'Версія ОС',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'Експорт історії прийомів',
-			'settings.exportMealHistory.subtitle' => 'Поділіться CSV-файлом ваших зафіксованих прийомів їжі',
-			'settings.exportMealHistory.shareText' => 'Експорт історії ваших прийомів їжі Calorify',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'Не вдалося експортувати історію прийомів їжі: ${error}',
-			'settings.clearAllData.title' => 'Очистити всі дані',
+			'settings.exportMealHistory.title' => 'Експорт історії прийомів їжі',
+			'settings.exportMealHistory.subtitle' => 'Поділіться CSV з вашими записаними стравами',
+			'settings.exportMealHistory.shareText' => 'Експорт історії прийомів їжі з Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Не вдалося експортувати історію: ${error}',
+			'settings.clearAllData.title' => 'Видалити всі дані',
 			'settings.clearAllData.subtitle' => 'Безповоротно видалити всю вашу інформацію',
-			'settings.clearAllData.confirmationTitle' => 'Очистити всі дані?',
-			'settings.clearAllData.confirmationMessage' => 'Цю дію не можна скасувати. Усі ваші зафіксовані прийоми, обране та налаштування профілю буде назавжди видалено.',
+			'settings.clearAllData.confirmationTitle' => 'Видалити всі дані?',
+			'settings.clearAllData.confirmationMessage' => 'Цю дію не можна скасувати. Всі ваші записані страви, улюблені та налаштування профілю будуть назавжди видалені.',
 			'settings.clearAllData.cancel' => 'Скасувати',
 			'settings.clearAllData.clearEverything' => 'Видалити все',
-			'settings.debugOptions.title' => 'Параметри налагодження',
+			'settings.debugOptions.title' => 'Опції відладки',
 			'settings.developerModeEnabled' => 'Режим розробника увімкнено!',
 			'settings.healthConnect.title' => 'Health Connect',
-			'settings.healthConnect.subtitle' => 'Перегляд і керування дозволами',
+			'settings.healthConnect.subtitle' => 'Перегляд та керування дозволами',
 			'settings.healthConnect.unavailable.title' => 'Health Connect недоступний',
-			'settings.healthConnect.unavailable.description' => 'Health Connect недоступний на цьому пристрої. Встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.',
+			'settings.healthConnect.unavailable.description' => 'Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Дозволи',
-			'settings.healthConnect.permissions.description' => 'Для інтеграції з Health Connect потрібні такі дозволи:',
+			'settings.healthConnect.permissions.description' => 'Запитуються наступні дозволи для інтеграції з Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Надано',
 			'settings.healthConnect.permissions.notGranted' => 'Не надано',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Читати загальні спалені калорії',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Дозволяє додатку читати ваші загальні спалені калорії з Health Connect.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Цей дозвіл використовується для відображення ваших щоденних витрат калорій у додатку, щоб ви розуміли загальні енергозатрати протягом дня.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Читати загальні витрачені калорії',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Дозволяє додатку читати загальну кількість витрачених калорій з Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Цей дозвіл використовується для відображення щоденного витрачання калорій у додатку, що допомагає зрозуміти загальні витрати енергії за день.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Читати дані про харчування',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Дозволяє додатку читати харчові дані з Health Connect.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Цей дозвіл дозволяє додатку читати інформацію про харчування, яку могли зафіксувати інші додатки, підключені до Health Connect, забезпечуючи повну картину вашого харчування.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Дозволяє додатку читати дані про харчування з Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Цей дозвіл дозволяє читати інформацію про харчування, яку могли записати інші додатки, підключені до Health Connect, забезпечуючи повніший огляд вашого харчування.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Записувати дані про харчування',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Дозволяє додатку записувати харчові дані в Health Connect.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Цей дозвіл дозволяє синхронізувати ваші зафіксовані прийоми з Health Connect, роблячи дані про харчування доступними для інших додатків здоров’я та фітнесу.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Дозволяє додатку записувати дані про харчування в Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Цей дозвіл дозволяє синхронізувати ваші записані страви з Health Connect, роблячи дані про харчування доступними іншим додаткам для здоров\'я та фітнесу.',
 			'settings.healthConnect.managePermissions' => 'Керувати дозволами',
 			'settings.healthConnect.openSettings' => 'Відкрити налаштування Health Connect',
-			'settings.healthConnect.requestPermissions' => 'Запросити дозволи',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Запит на дозволи було скасовано або не вдався. Спробуйте знову або надайте дозволи вручну в налаштуваннях Health Connect.',
-			'settings.healthConnect.permissionRequestFailed' => 'Не вдалося запросити дозволи. Спробуйте знову або надайте дозволи вручну в налаштуваннях Health Connect.',
-			'settings.healthConnect.requestingPermissions' => 'Запит...',
+			'settings.healthConnect.requestPermissions' => 'Запитати дозволи',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Запит дозволів був скасований або не вдався. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Не вдалося запитати дозволи. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Запит…',
 			'settings.about.title' => 'Про додаток',
-			'settings.about.tagline' => 'Швидкий, безкоштовний і з пріоритетом приватності контроль калорій',
+			'settings.about.tagline' => 'Швидко, безкоштовно та з пріоритетом приватності для обізнаності про калорії',
 			'settings.about.ourStory.title' => 'Наша історія',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} народився з простої фрустрації: більшість додатків для підрахунку калорій або надто складні, або вимагають постійного ручного введення, коштують дорого за підписку чи нехтують приватністю.\n\nЯк сольний розробник, я хотів створити щось простіше й чесніше — додаток, який завдяки ШІ зменшує зусилля, залишається швидким і безкоштовним та поважає ваші дані про здоров’я.\n\n${appLabel} — це додаток, якого мені бракувало: без акаунтів, без стеження, без реклами — лише чіткі, практичні інсайти та ваші цілі щодо здоров’я.',
-			'settings.about.privacy.title' => 'Ваша приватність має значення',
-			'settings.about.privacy.description' => 'Приватність — не другорядна річ, а принцип дизайну. Ось що це означає на практиці:',
-			'settings.about.privacy.noAccounts' => 'Без облікових записів\nКористуйтеся додатком одразу. Жодних реєстрацій, жодних ідентифікацій.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Без поведінкового стеження\n${appLabel} не відстежує вашу активність, не створює профілі використання та не стежить за вами в інших додатках або на сайтах.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Без реклами за задумом\n${appLabel} створено так, щоб працювати без реклами та монетизації на основі даних.',
-			'settings.about.privacy.noDataSelling' => 'Без продажу даних\nВаші дані про здоров’я ніколи не продаються та не передаються третім сторонам.',
-			'settings.about.privacy.localStorage' => 'Локальне зберігання насамперед\nВаші дані залишаються на вашому пристрої.',
-			'settings.about.privacy.privacyPolicy' => 'Політика конфіденційності',
-			'settings.about.developer.title' => 'Створено сольним розробником',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} створює та підтримує один розробник, зосереджений на спокійному, приватному софті для здоров’я.\n\nВідгуки читаються особисто й допомагають формувати розвиток додатка.',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} з\'явився через просте розчарування: більшість додатків для відстеження калорій або надто складні, або вимагають постійного ручного введення, або стягують високі підписки, або порушують приватність.\n\nЯк сольний розробник, я хотів створити щось простіше й чесніше — додаток, що використовує AI для зменшення зусиль, залишається швидким і безкоштовним у використанні та поважає ваші дані про здоров\'я.\n\n${appLabel} — це додаток, який я хотів би мати: без акаунтів, без трекінгу, без реклами — лише чіткі, практичні інсайти і ваші цілі щодо здоров\'я.',
+			'settings.about.privacy.title' => 'Ваша приватність важлива',
+			'settings.about.privacy.description' => 'Приватність — не додатковий фактор, а принцип дизайну. Ось що це означає на практиці:',
+			'settings.about.privacy.noAccounts' => 'Без акаунтів\nВикористовуйте додаток одразу. Без реєстрації, без профілів.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Без відстеження поведінки\n${appLabel} не відстежує вашу активність, не формує профілі використання і не стежить за вами в інших додатках чи на сайтах.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Без реклами за дизайном\n${appLabel} створено для роботи без реклами та монетизації на основі даних.',
+			'settings.about.privacy.noDataSelling' => 'Без продажу даних\nВаші дані про здоров\'я ніколи не продаються і не передаються третім сторонам.',
+			'settings.about.privacy.localStorage' => 'Переважно локальне зберігання\nВаші дані залишаються на пристрої.',
+			'settings.about.privacy.privacyPolicy' => 'Політика приватності',
+			'settings.about.developer.title' => 'Розроблено сольним розробником',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} створено і підтримується одним розробником, який прагне робити спокійний софт для здоров\'я, що поважає приватність.\n\nВідгуки читаються особисто і допомагають формувати напрямок розвитку додатку.',
 			'settings.about.developer.website' => 'Вебсайт',
-			'settings.about.developer.email' => 'Ел. пошта',
+			'settings.about.developer.email' => 'Електронна пошта',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Подобається ${appLabel}?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваш відгук допомагає робити ${appLabel} кращим для всіх.',
-			'settings.about.feedback.rateApp' => 'Оцініть у Play Store',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваш відгук допомагає зробити ${appLabel} кращим для всіх.',
+			'settings.about.feedback.rateApp' => 'Оцінити в Play Store',
 			'settings.about.feedback.sendFeedback' => 'Надіслати відгук',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Збірка ${buildNumber}',
-			'reminders.title' => 'Залишайтеся на шляху з нагадуваннями',
-			'reminders.description' => 'Отримуйте делікатні нагадування фіксувати прийоми й бути послідовними у харчуванні',
+			'reminders.title' => 'Тримайтеся плану за допомогою нагадувань',
+			'reminders.description' => 'Отримуйте м’які нагадування записувати прийоми їжі і залишатися послідовними у харчових цілях',
 			'reminders.notificationsEnabled' => 'Сповіщення увімкнено',
 			'reminders.notificationsDisabled' => 'Сповіщення вимкнено',
-			'reminders.enabledSubtitle' => 'Ви отримуватимете нагадування про прийоми їжі',
-			'reminders.disabledSubtitle' => 'Увімкніть сповіщення, щоб отримувати нагадування про прийоми їжі',
-			'reminders.mealReminders' => 'Нагадування про прийоми їжі',
+			'reminders.enabledSubtitle' => 'Ви будете отримувати нагадування про прийоми їжі',
+			'reminders.disabledSubtitle' => 'Увімкніть сповіщення, щоб отримувати нагадування',
+			'reminders.mealReminders' => 'Нагадування про їжу',
 			'reminders.breakfast' => 'Сніданок',
 			'reminders.lunch' => 'Обід',
 			'reminders.dinner' => 'Вечеря',
@@ -2109,76 +2109,76 @@ extension on TranslationsUk {
 			'reminders.unknown' => 'Невідомо',
 			'reminders.change' => 'Змінити',
 			'reminders.enableNotifications' => 'Увімкнути сповіщення',
-			'reminders.skipForNow' => 'Поки що пропустити',
+			'reminders.skipForNow' => 'Пропустити зараз',
 			'reminders.saveChanges' => 'Зберегти зміни',
 			'reminders.enabledSuccessfully' => 'Сповіщення успішно увімкнено!',
-			'reminders.permissionDenied' => 'Доступ до сповіщень заборонено',
-			'reminders.errorEnabling' => ({required Object error}) => 'Помилка під час увімкнення сповіщень: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Помилка під час завершення налаштування: ${error}',
+			'reminders.permissionDenied' => 'Дозвіл на сповіщення відхилено',
+			'reminders.errorEnabling' => ({required Object error}) => 'Помилка увімкнення сповіщень: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Помилка завершення налаштування: ${error}',
 			'notifications.breakfast.title' => 'Час сніданку! 🍳',
-			'notifications.breakfast.body' => 'Не забудьте зафіксувати свій сніданок',
+			'notifications.breakfast.body' => 'Не забудьте записати сніданок',
 			'notifications.lunch.title' => 'Час обіду! 🥗',
-			'notifications.lunch.body' => 'Пора зафіксувати свій обід',
+			'notifications.lunch.body' => 'Час записати обід',
 			'notifications.dinner.title' => 'Час вечері! 🍽️',
-			'notifications.dinner.body' => 'Не забудьте зафіксувати свою вечерю',
+			'notifications.dinner.body' => 'Не забудьте записати вечерю',
 			'notifications.snack.title' => 'Час перекусу! 🍎',
 			'notifications.snack.body' => 'Час для корисного перекусу',
 			'notifications.test.title' => 'Тестове сповіщення',
-			'login.title' => 'Вхід',
+			'login.title' => 'Увійти',
 			'login.signInWithGoogle' => 'Увійти через Google',
 			'login.signInFailed' => 'Вхід через Google не вдався або був скасований.',
 			'disclaimer.pleaseNote' => 'Зверніть увагу',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} надає орієнтовну інформацію про харчову цінність. Точність залежить від ваших даних і варіацій страв. Використовуйте як підказку, а не остаточне джерело. Для персональних порад звертайтеся до фахівця.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} надає приблизну інформацію про поживність. Точність залежить від ваших даних і варіацій страв. Використовуйте як орієнтир, а не остаточне джерело. Для персоналізованих порад зверніться до фахівця.',
 			'disclaimer.snap.portionSize.title' => 'Розмір порції',
-			'disclaimer.snap.portionSize.description' => 'Точність оцінок значною мірою залежить від правильного визначення вами розміру порції.',
+			'disclaimer.snap.portionSize.description' => 'Точність оцінок значною мірою залежить від правильної оцінки розміру порції.',
 			'disclaimer.snap.preparationMethods.title' => 'Способи приготування',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Способи готування можуть суттєво змінювати харчову цінність. Оцінки ${appLabel} можуть не завжди враховувати ці відмінності.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Спосіб приготування може істотно змінювати поживний склад їжі. Оцінки ${appLabel} не завжди враховують ці відмінності.',
 			'disclaimer.snap.ingredients.title' => 'Інгредієнти',
-			'disclaimer.snap.ingredients.description' => 'Складні страви з багатьма прихованими інгредієнтами можуть зменшувати точність оцінок.',
+			'disclaimer.snap.ingredients.description' => 'Складні страви з багатьма прихованими інгредієнтами можуть призводити до менш точних оцінок.',
 			'disclaimer.snap.databaseLimitations.title' => 'Обмеження бази даних',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База даних ${appLabel} велика, але може не містити кожну страву або її варіації.',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктів ${appLabel} обширна, але може не містити кожен окремий продукт чи варіацію.',
 			'disclaimer.weightEstimate.title' => 'Про оцінку зміни ваги',
-			'disclaimer.weightEstimate.description' => 'Прогнозована зміна ваги — теоретична оцінка на основі моделі «спожиті калорії проти витрачених». Це лише мотиваційний орієнтир, а не передбачення вашої фактичної ваги.',
+			'disclaimer.weightEstimate.description' => 'Проєктована зміна ваги — це теоретична оцінка на основі простої моделі калорії в проти калорії з. Вона служить лише мотиваційним орієнтиром, а не прогнозом вашої фактичної ваги.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Точність калорій',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Точність оцінки дорівнює точності ваших записів про спожиті та витрачені калорії. Неточні записи призведуть до неточного прогнозу.',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Ця оцінка є настільки точною, наскільки точні ваші записи про споживання й витрати калорій. Неточні записи призведуть до неточного прогнозу.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Біологічні фактори',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Реальне схуднення/набір залежать від метаболізму, гормонів, сну, стресу, гідратації та інших індивідуальних чинників, які ${appLabel} не вимірює.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Вода в організмі та коливання',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Нормальна денна вага може суттєво коливатися через затримку води, травлення й час вимірювання. Оцінка цього не враховує.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Фактична втрата чи набір ваги залежить від метаболізму, гормонів, сну, стресу, гідратації та інших індивідуальних факторів, які ${appLabel} не може виміряти.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Водна вага та коливання',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Нормальна щоденна вага може значно коливатися через затримку води, процеси травлення та час вимірювання. Оцінка не враховує ці щоденні зміни.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Поради фахівця',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з лікарем або дієтологом щодо персонального управління вагою.',
-			'disclaimer.healthMetrics.description' => 'Ці показники допомагають зрозуміти енергетичні потреби організму та формують ваші харчові цілі.',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з медичним фахівцем або зареєстрованим дієтологом щодо персоналізованого керування вагою.',
+			'disclaimer.healthMetrics.description' => 'Ці показники допомагають зрозуміти енергетичні потреби вашого тіла і спрямувати ваші харчові цілі.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolic Rate (BMR) — це кількість калорій, які ваше тіло спалює у стані спокою для підтримки базових функцій, як-от дихання і кровообіг. BMR залежить від віку, статі, зросту та ваги. Вищий BMR означає, що тіло природно спалює більше калорій у спокої (часто через більшу м’язову масу, молодший вік або чоловічу стать). Нижчий BMR зазвичай свідчить про меншу м’язову масу, старший вік або жіночу стать.',
+			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolic Rate (BMR) — це кількість калорій, які ваше тіло витрачає у стані спокою для підтримки базових функцій, таких як дихання та кровообіг. BMR залежить від вашого віку, статі, зросту й ваги. Вищий BMR означає, що тіло природно спалює більше калорій у спокої, часто через більшу м\'язову масу, молодший вік або чоловічу стать. Нижчий BMR зазвичай вказує на меншу м\'язову масу, старший вік або жіночу стать.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) — це загальна кількість калорій, які ви спалюєте за добу: ваш BMR плюс калорії від фізичної активності та повсякденного руху. TDEE залежить від BMR і рівня активності. Вищий TDEE означає більше спалених калорій загалом (зазвичай через більшу активність або вищий BMR). Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.',
-			'disclaimer.healthMetrics.dailyGoal.title' => 'Денна ціль',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Денна ціль — рекомендована денна норма калорій на основі вашого TDEE та мети щодо ваги. Для схуднення споживайте менше калорій, ніж ваш TDEE. Для підтримки ваги — приблизно на рівні TDEE. Для набору ваги — більше, ніж TDEE. Це допомагає змінювати вагу здоровими темпами.',
-			'disclaimer.calorieExpenditure.title' => 'Оцінка витрати калорій',
-			'disclaimer.calorieExpenditure.description' => 'Коли дані Health Connect недоступні, ми оцінюємо сьогоднішні витрати калорій, використовуючи ваш базовий обмін (BMR) і рівень активності (TDEE), масштабуючи їх на частину дня, що минула.',
+			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) — це загальна кількість калорій, які ви витрачаєте за день, включно з BMR та калоріями від фізичної активності і руху. TDEE залежить від вашого BMR і рівня активності. Вищий TDEE означає, що ви витрачаєте більше калорій загалом, зазвичай через вищу активність або більший BMR. Нижчий TDEE свідчить про меншу щоденну активність або нижчий BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Щоденна мета',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Daily Goal — це рекомендована щоденна кількість калорій на основі вашого TDEE і мети по вазі. Для втрати ваги ви споживаєте менше калорій, ніж ваш TDEE. Для підтримання — відповідаєте TDEE. Для набору — споживаєте більше калорій, ніж ваш TDEE. Це допомагає досягти бажаної зміни ваги у здоровому темпі.',
+			'disclaimer.calorieExpenditure.title' => 'Оцінка витрат калорій',
+			'disclaimer.calorieExpenditure.description' => 'Коли дані Health Connect недоступні, ми оцінюємо сьогоднішні витрати калорій, використовуючи ваш BMR і рівень активності (TDEE), пропорційно пройденій частині доби.',
 			'disclaimer.calorieExpenditure.howCalculated.title' => 'Як розраховується оцінка',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку доби, що минула (години + хвилини) / 24, щоб оцінити вже спалені калорії.',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку доби, що пройшла (години + хвилини) / 24, щоб оцінити витрачені до цього моменту калорії.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Поради фахівця',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з лікарем або дієтологом щодо персональних порад.',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з медичним фахівцем або зареєстрованим дієтологом щодо персоналізованого керування вагою.',
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Подобається ${appLabel}?',
 			'feedbackRating.yes' => 'Так, мені подобається',
-			'feedbackRating.no' => 'Не дуже',
-			'feedbackRating.rateStepHeading' => 'Оцініть у Play Store',
-			'feedbackRating.emailStepHeading' => 'Надішліть відгук на ел. пошту',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Швидка оцінка допоможе іншим знайти ${appLabel} і підтримає подальшу розробку. Виділите хвильку, щоб залишити її?',
-			'feedbackRating.shareFeedbackViaEmail' => 'Ваш відгук формує майбутні оновлення — ми читаємо кожне повідомлення. Хочете поділитися думками електронною поштою?',
+			'feedbackRating.no' => 'Поки що ні',
+			'feedbackRating.rateStepHeading' => 'Оцініть в Play Store',
+			'feedbackRating.emailStepHeading' => 'Надіслати відгук електронною поштою',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Швидка оцінка допомагає іншим знайти ${appLabel} і підтримує розвиток. Чи не могли б ви залишити відгук?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Ваш відгук формує подальший розвиток — ми читаємо кожне повідомлення. Хочете поділитися думками через email?',
 			'feedbackRating.rateCta' => 'Оцінити в Play Store',
 			'feedbackRating.maybeLater' => 'Можливо пізніше',
 			'feedbackRating.sendFeedback' => 'Надіслати відгук',
 			'feedbackRating.noThanks' => 'Ні, дякую',
-			'feedbackRating.aboutUsDescription' => 'Створено з турботою невеликою командою. Ми зосереджені на приватності, простоті та допомозі у формуванні корисних харчових звичок.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Цікаво, хто стоїть за ${appLabel}? Перегляньте ',
+			'feedbackRating.aboutUsDescription' => 'Створено з душею маленькою командою. Ми орієнтовані на приватність, простоту та допомогу у формуванні кращих харчових звичок.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Цікавитесь, хто стоїть за ${appLabel}? Дивіться ',
 			'feedbackRating.aboutUsLinkLabel' => 'Про нас',
-			'feedbackRating.thankYouMessage' => 'Дякуємо! Запитаємо іншим разом.',
+			'feedbackRating.thankYouMessage' => 'Дякуємо! Ми запитаємо ще пізніше.',
 			'health.syncFailed' => 'Не вдалося синхронізувати з Health Connect',
-			'health.mealSynced' => 'Прийом їжі синхронізовано з Health Connect',
+			'health.mealSynced' => 'Страва синхронізована з Health Connect',
 			_ => null,
 		};
 	}

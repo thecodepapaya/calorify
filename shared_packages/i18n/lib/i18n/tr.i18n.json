@@ -4,28 +4,28 @@
   "appLabel": "Calorify{env}",
   "errors": {
     "rateLimitExceeded": "Çok fazla istek yaptınız. Lütfen tekrar denemeden önce biraz bekleyin.",
-    "networkError": "Ağ hatası. Lütfen internet bağlantınızı kontrol edin.",
-    "unknownError": "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
+    "networkError": "Ağ hatası. İnternet bağlantınızı kontrol edin.",
+    "unknownError": "Bir şeyler yolunda gitmedi. Lütfen daha sonra tekrar deneyin.",
     "loadingProfileData": "Profil verileri yüklenirken hata oluştu",
-    "somethingWentWrong": "Bir şeyler ters gitti.",
-    "retry": "Yeniden dene"
+    "somethingWentWrong": "Bir şeyler yolunda gitmedi.",
+    "retry": "Tekrar dene"
   },
   "onboarding": {
-    "welcome": "{appLabel}'e hoş geldiniz",
-    "subtitle": "Yapay zekâ ile güçlendirilmiş kişisel beslenme yardımcınız",
+    "welcome": "{appLabel} uygulamasına hoş geldiniz",
+    "subtitle": "Yapay zekâ destekli kişisel beslenme yol arkadaşınız",
     "getStarted": "Başlayalım",
     "features": {
       "foodRecognition": {
-        "title": "Yapay Zekâ ile Yemek Tanıma",
-        "description": "Bir fotoğraf çekin, yemeğinizi yapay zekâ tanısın"
+        "title": "Akıllı Yemek Tanıma",
+        "description": "Bir fotoğraf çekin, yapay zekâ yemeğinizi tanısın"
       },
       "aiAnalysis": {
-        "title": "Yapay Zekâ Analizi",
-        "description": "Açıklamalarınızdan anında besin değerleri alın"
+        "title": "AI Analizi",
+        "description": "Açıklamalarınızdan anında besin bilgileri alın"
       },
       "healthIntegration": {
-        "title": "Sağlık Entegrasyonu",
-        "description": "Daha iyi içgörüler için Health Connect'e bağlanın"
+        "title": "Health Connect Entegrasyonu",
+        "description": "Daha iyi içgörüler için Health Connect ile bağlayın"
       }
     },
     "gender": {
@@ -34,24 +34,24 @@
       "next": "İleri"
     },
     "height": {
-      "title": "Boyunuz kaç?",
-      "description": "Boyunuz, BKİ'nizi ve enerji ihtiyacınızı doğru hesaplamamıza yardımcı olur.",
+      "title": "Boyunuz ne kadar?",
+      "description": "Boyunuz BMI ve enerji ihtiyacınızı doğru hesaplamamız için önemlidir.",
       "metric": "Metrik",
-      "imperial": "İngiliz",
+      "imperial": "İmperial",
       "next": "İleri"
     },
     "weight": {
-      "currentTitle": "Mevcut kilonuz kaç?",
-      "currentDescription": "Mevcut kilonuz, günlük hedeflerinizi kişiselleştirmek için önemlidir.",
-      "targetTitle": "Hedef kilonuz kaç?",
-      "targetDescription": "Bir hedef kilo belirlemek, uzun vadeli planınızı oluşturmamıza yardımcı olur.",
+      "currentTitle": "Mevcut kilonuz nedir?",
+      "currentDescription": "Günlük hedeflerinizi kişiselleştirmek için mevcut kilonuz gereklidir.",
+      "targetTitle": "Hedef kilonuz nedir?",
+      "targetDescription": "Bir hedef kilo belirlemek uzun vadeli planınızı oluşturmamıza yardımcı olur.",
       "metric": "Metrik",
-      "imperial": "İngiliz",
+      "imperial": "İmperial",
       "next": "İleri"
     },
     "age": {
-      "title": "Doğum gününüz ne zaman?",
-      "description": "Yaşınız, kalori ihtiyacınızı doğru hesaplamamızda yardımcı olur.",
+      "title": "Doğum tarihiniz ne zaman?",
+      "description": "Yaşınız kalori ihtiyacınızı doğru hesaplamamıza yardımcı olur.",
       "next": "İleri"
     },
     "bmiScale": {
@@ -66,122 +66,122 @@
         "obese": "Obez"
       },
       "messages": {
-        "underweight": "Besin değeri yüksek öğünlerle dengeli bir kiloya ulaşmanız için sağlıklı bir plan oluşturmaya yardımcı olabiliriz.",
-        "healthy": "Harika! Sağlıklı aralıktasınız. Canlılığınızı ve enerji seviyelerinizi korumanıza yardımcı olacağız.",
-        "overweight": "{appLabel}, hedefinize rahatça ulaşmanız için YZ destekli takiple yolculuğunuzu kolaylaştıracak.",
+        "underweight": "Dengeli kiloya ulaşmanız için besin değeri yüksek öğünlerle sağlıklı bir plan oluşturmada yardımcı olabiliriz.",
+        "healthy": "Aferin! Sağlıklı bir aralıktasınız. Canlılığınızı ve enerjinizi korumanıza yardımcı olacağız.",
+        "overweight": "{appLabel}, hedefinize rahatça ulaşmanız için yapay zekâ destekli takibi basitleştirecek.",
         "obese": "Sağlık hedefleriniz için kişiselleştirilmiş rehberlik ve sürdürülebilir stratejilerle yanınızdayız."
       }
     },
     "weightGoal": {
       "title": "Hedefiniz nedir?",
-      "description": "Ulaşmak istediğinizi en iyi tanımlayan hedefi seçin"
+      "description": "Başarmak istediğinizi en iyi tanımlayan hedefi seçin"
     },
     "activityLevel": {
       "title": "Ne kadar aktifsiniz?",
       "description": "Bu, günlük kalori ihtiyacınızı daha doğru hesaplamamıza yardımcı olur"
     },
     "healthConnect": {
-      "title": "Health Connect'e bağlanın",
-      "description": "Daha iyi içgörü ve otomatik kalori takibi için sağlık verilerinizi eşzamanlayın",
+      "title": "Health Connect ile bağlanın",
+      "description": "Daha iyi içgörüler ve otomatik kalori takibi için sağlık verilerinizi senkronize edin",
       "automaticTracking": {
         "title": "Otomatik Kalori Takibi",
-        "description": "Fitness uygulamalarınızdan yakılan kalorileri takip edin"
+        "description": "Fitness uygulamalarından yanan kalorileri takip edin"
       },
       "progressInsights": {
         "title": "İlerleme İçgörüleri",
-        "description": "Sağlık trendleriniz hakkında ayrıntılı içgörüler edinin"
+        "description": "Sağlık eğilimleriniz hakkında detaylı içgörüler edinin"
       },
       "seamlessIntegration": {
         "title": "Sorunsuz Entegrasyon",
-        "description": "Favori sağlık uygulamalarınızdan verileri senkronize edin"
+        "description": "Favori sağlık uygulamalarınızdan veri senkronize edin"
       },
-      "connected": "Health Connect Bağlı",
+      "connected": "Health Connect Bağlandı",
       "notConnected": "Health Connect Bağlı Değil",
-      "setup": "Health Connect'i Ayarla",
-      "skipForNow": "Şimdilik atla",
+      "setup": "Health Connect Kurulumu",
+      "skipForNow": "Şimdi atla",
       "statusConnected": "Health Connect bağlı.",
       "statusSuccess": "Health Connect başarıyla bağlandı!",
-      "statusPermissionDenied": "İzin reddedildi. Lütfen telefon ayarlarından {appLabel} için Health Connect izinlerini etkinleştirin.",
+      "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.",
       "statusError": "Health Connect kurulurken hata: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "Yalnız Değilsiniz",
-        "genericMessage": "Araştırmalar, düzenli takibin uzun vadeli başarının 1 numaralı göstergesi olduğunu gösteriyor.",
-        "personalizedMessage": "{age} yaşında, {goal} hedefleyen bir {gender} için düzenli takip başarının en güçlü göstergesidir.",
-        "closingMessage": "{appLabel}, bunu elle yapmaya kıyasla 10 kat kolaylaştırır.",
+        "title": "Yalnız değilsiniz",
+        "genericMessage": "Araştırmalar gösteriyor ki, tutarlı takip uzun vadeli başarının 1 numaralı öngörücüsüdür.",
+        "personalizedMessage": "{age} yaşında bir {gender} için {goal} hedefleyenlerde, düzenli takip başarı için bir numaralı belirleyicidir.",
+        "closingMessage": "{appLabel} bunu elle yapmaktan 10 kat daha kolay hale getirir.",
         "getStartedTitle": "Başlamaya hazır mısınız?",
         "tipPhoto": "Anında analiz için öğünlerinizin fotoğrafını çekin",
-        "tipConsistency": "Anlamlı ilerleme görmek için düzenli olarak kayıt tutun",
-        "tipProgress": "Motivasyonu korumak için ilerlemenizi her gün takip edin",
-        "button": "Hadi başlayalım",
+        "tipConsistency": "Anlamlı ilerleme görmek için düzenli olarak kaydedin",
+        "tipProgress": "Motivasyonu sürdürmek için ilerlemenizi günlük takip edin",
+        "button": "Hadi Başlayalım",
         "defaultGender": "birey",
-        "defaultGoal": "daha sağlıklı bir sen"
+        "defaultGoal": "daha sağlıklı siz"
       },
       "healthProfile": {
         "title": "Sağlık Profiliniz",
-        "bmiDescription": "Ölçümlerinize göre BKİ'niz {bmi}.",
-        "finalizeDescription": "Deneyiminizi kişiselleştirmek için profilinizi tamamlayalım.",
-        "goalGain": "alacaksınız",
-        "goalLose": "vereceksiniz",
-        "goalReach": "Hedefinize ulaşmak için {diff} {unit} {direction}.",
-        "goalReached": "Hedef kilonuzdasınız! Bunu korumanıza yardımcı olacağız.",
-        "button": "Hadi başlayalım"
+        "bmiDescription": "Metriklerinize göre BMI'niz {bmi}.",
+        "finalizeDescription": "Deneyiminizi özelleştirmek için profilinizi tamamlayalım.",
+        "goalGain": "kazanmak",
+        "goalLose": "vermek",
+        "goalReach": "Hedefinize ulaşmak için {direction} {diff} {unit}.",
+        "goalReached": "Hedef kilonuzdasınız! Korumanıza yardımcı olacağız.",
+        "button": "Hadi Başlayalım"
       },
       "goalLifestyle": {
-        "title": "Harika Başlangıç!",
-        "description": "{goalText} yolunda ilk adımı attınız. {activityText} olduğunuz için, {appLabel} hedeflerinizi yaşam tarzınıza uyacak şekilde ayarlayacak.",
+        "title": "Harika Bir Başlangıç!",
+        "description": "{goalText} hedefinize ilk adımı attınız. {activityText} olduğunuz için {appLabel} hedeflerinizi yaşam tarzınıza göre ayarlayacak.",
         "personalizedTargets": "Kişiselleştirilmiş kalori hedefleri",
-        "aiMealDetection": "YZ destekli öğün algılama",
-        "macroBreakdowns": "Ayrıntılı makro besin dökümleri",
-        "button": "Hadi başlayalım",
+        "aiMealDetection": "AI destekli öğün tespiti",
+        "macroBreakdowns": "Detaylı makro besin dağılımları",
+        "button": "Hadi Başlayalım",
         "defaultGoal": "hedefleriniz",
         "defaultActivity": "aktif"
       }
     }
   },
   "tabs": {
-    "dashboard": "Pano",
+    "dashboard": "Ana Sayfa",
     "history": "Geçmiş"
   },
   "home": {
     "aiSummary": {
-      "title": "YZ Özetiniz",
-      "logMore": "Kişiselleştirilmiş YZ içgörülerinizi almak için önümüzdeki birkaç gün daha fazla öğün kaydedin.",
+      "title": "AI Özetiniz",
+      "logMore": "Kişiselleştirilmiş AI içgörüleri almak için önümüzdeki günlerde daha fazla öğün kaydedin.",
       "loading": "Özetiniz yükleniyor...",
       "mealCount": "{count} öğün kaydedildi",
       "macroBalanceScore": "Denge puanı {score}",
-      "topFoods": "En çok tüketilenler",
-      "trendUp": "Kaloriler yükseliyor",
-      "trendDown": "Kaloriler düşüyor",
-      "trendSteady": "Kaloriler sabit kalıyor",
+      "topFoods": "Sık tüketilenler",
+      "trendUp": "Kaloriler artıyor",
+      "trendDown": "Kaloriler azalıyor",
+      "trendSteady": "Kaloriler sabit",
       "generatedAt": "Güncellendi {time}"
     },
     "dailyGoal": {
       "title": "Günlük Hedefinizi Belirleyin",
       "titleSet": "Günlük Hedefiniz",
-      "description": "İyilik hâli yolculuğunuza hazır mısınız? İlerlemenizi başlatmak için aşağıdan günlük kalori hedefinizi belirleyin.",
-      "descriptionSet": "Pusulanız ayarlandı! Bu, size yol gösterecek günlük kalori hedefiniz.",
+      "description": "Sağlıklı yaşam yolculuğunuza hazır mısınız? İlerlemenizi başlatmak için aşağıda günlük kalori hedefinizi belirleyin.",
+      "descriptionSet": "Pusulanız ayarlandı! Bu, size rehberlik edecek günlük kalori hedefinizdir.",
       "yourGoal": "Hedefiniz",
       "goal": "Hedef",
       "dailyCalories": "Günlük kalori (kcal)",
       "setGoal": "Hedef Belirle",
-      "intake": "Alınan",
+      "intake": "Alım",
       "burned": "Yakılan",
       "weightImpact": "Kilo Etkisi",
-      "estLoss": "Tahm. kayıp",
-      "estGain": "Tahm. artış",
+      "estLoss": "Tahmini kayıp",
+      "estGain": "Tahmini kazanç",
       "kcal": "kcal"
     },
     "dailySummary": {
       "title": "Günlük Özet",
-      "calories": "Kalori",
+      "calories": "Kaloriler",
       "carbs": "Karbonhidrat",
       "protein": "Protein",
       "fat": "Yağ",
       "fiber": "Lif",
       "grams": "gram",
-      "chartAccessibilityLabel": "Makrolar grafiği"
+      "chartAccessibilityLabel": "Makro besin grafiği"
     },
     "intakeProgress": {
       "title": "Bugünün Makro Dağılımı",
@@ -190,34 +190,34 @@
     },
     "intakeHistory": {
       "title": "7 Günlük Makro Geçmişi",
-      "trendTitle": "Bugünün Trendi",
+      "trendTitle": "Bugünün Eğilimi",
       "peakHour": "Zirve: {hour}:00",
       "noHistoryYet": "Henüz geçmiş yok",
-      "startLogging": "7 günlük makro trendlerinizi görmek için\nöğün kaydetmeye başlayın"
+      "startLogging": "Öğün kaydetmeye başlayın ve\n7 günlük makro eğilimlerinizi burada görün"
     },
     "mealLog": {
       "title": "Kaydedilen Öğünler",
       "emptyMessage": "Buraya kaydetmek için son öğününüzün fotoğrafını çekin.",
-      "noMealsToday": "Bugün kayıtlı öğün yok",
+      "noMealsToday": "Bugün için kayıtlı öğün yok",
       "seeAllMeals": "Tüm öğünleri gör"
     },
     "mealDescription": {
-      "title": "YZ ile Hızlı Ekle",
-      "description": "Öğününüzü tarif edin, detayları YZ halletsin.",
-      "hint": "örn. Kahvaltıda büyük bir kase yulaf ezmesi, bir dilimlenmiş muz ve bir ölçek whey aldım ...",
+      "title": "AI ile Hızlı Ekle",
+      "description": "Öğününüzü tanımlayın, gerisini AI halletsin.",
+      "hint": "ör. Kahvaltıda büyük bir kase yulaf ezmesi, dilimlenmiş muz ve bir ölçek whey ...",
       "analyzeMeal": "Öğünü analiz et"
     },
     "favoriteMeals": {
       "title": "Favori Öğünler",
-      "description": "Favori öğünlerinizden birini hızla ekleyin.",
+      "description": "Favori öğünlerinizi hızlıca ekleyin.",
       "noFavorites": "Henüz favori öğün yok.",
-      "addFavoriteHint": "Bir öğünü favori işaretlemek için yıldız simgesine dokunun.",
+      "addFavoriteHint": "Bir öğünü favori yapmak için yıldıza tıklayın.",
       "seeAll": "Tümünü gör",
       "add": "Ekle"
     },
     "mealSnap": {
-      "title": "Çek ve Öğününü Takip Et",
-      "description": "YZ analizi için yemeğinizin fotoğrafını çekmek üzere kameranızı kullanın.",
+      "title": "Yemeği Fotoğraflayın & Takip Edin",
+      "description": "AI analizi için yiyeceğinizin fotoğrafını çekmek için kameranızı kullanın.",
       "openCamera": "Kamerayı Aç",
       "gallery": "Galeri",
       "compressingPhoto": "Fotoğraf optimize ediliyor…",
@@ -225,9 +225,9 @@
     },
     "connectHealth": {
       "title": "Health Connect ile Senkronize Et",
-      "description": "Beslenme verilerinizi Health Connect ile eşzamanlayın",
+      "description": "Beslenme verilerinizi Health Connect ile senkronize edin",
       "install": "Yükle",
-      "connect": "Bağlan"
+      "connect": "Bağla"
     }
   },
   "history": {
@@ -237,16 +237,16 @@
     "yesterday": "Dün"
   },
   "meal": {
-    "ohNo": "Ah hayır!",
+    "ohNo": "Ay hayır!",
     "delete": "Sil",
     "editMeal": "Öğünü Düzenle",
     "addMeal": "Öğün Ekle",
     "saveMeal": "Öğünü Kaydet",
     "save": "Kaydet",
     "mealName": "Öğün Adı",
-    "mealNameHint": "örn., Çırpılmış yumurta ve tost",
+    "mealNameHint": "ör., Çırpılmış Yumurta ve tost",
     "mealQuantity": "Öğün Miktarı",
-    "mealQuantityHint": "örn., 1 kase, 2 dilim",
+    "mealQuantityHint": "ör., 1 kase, 2 dilim",
     "timeOfMeal": "Öğün Zamanı",
     "timeOfMealHint": "Öğünü yediğiniz zamanı seçin",
     "mealType": "Öğün Türü",
@@ -263,67 +263,67 @@
       "cancel": "İptal",
       "delete": "Sil"
     },
-    "addedToLog": "Öğün günlüğünüze eklendi!",
+    "addedToLog": "Öğün kaydınıza eklendi!",
     "couldNotAdd": "Öğün eklenemedi: {error}",
     "savedSuccessfully": "Öğün başarıyla eklendi!",
     "updatedSuccessfully": "Öğün başarıyla güncellendi!",
     "errorSaving": "Öğün kaydedilirken hata: {error}",
     "removedFromFavorites": "Favorilerden kaldırıldı!",
-    "savedAsFavorite": "Öğün favorilere kaydedildi!",
-    "unfavorite": "Favoriden çıkar",
+    "savedAsFavorite": "Öğün favori olarak kaydedildi!",
+    "unfavorite": "Favorilerden çıkar",
     "couldNotUpdateFavorite": "Favori güncellenemedi: {error}",
     "feedbackThanks": "Geri bildiriminiz için teşekkürler!",
     "reanalysisUpdated": "Geri bildiriminize göre öğün analizi güncellendi.",
     "failedToProcess": "İşlenemedi: {error}",
     "failedToProcessImage": "Görüntü işlenemedi: {error}",
     "errorCompressingImage": "Görüntü sıkıştırılırken hata: {error}",
-    "failedToSave": "Veriler kaydedilemedi. Lütfen tekrar deneyin.",
+    "failedToSave": "Veri kaydedilemedi. Lütfen tekrar deneyin.",
     "skip": "Atla",
     "questionFlow": {
       "progress": "Soru {current} / {total}",
-      "noQuestionsAvailable": "Mevcut soru yok",
-      "next": "Sonraki",
+      "noQuestionsAvailable": "Kullanılabilir soru yok",
+      "next": "İleri",
       "continueLabel": "Devam"
     },
     "analysis": {
-      "title": "YZ öğün analizi",
+      "title": "Öğününüz analiz ediliyor",
       "stepStarted": "Başlanıyor…",
       "stepDecomposition": "Öğününüz anlaşılıyor…",
-      "stepIngredients": "İçerikler besin verileriyle eşleştiriliyor…",
-      "stepUncertainty": "Güven kontrol ediliyor…",
-      "stepMealTypeQuestion": "Neredeyse bitti…",
-      "stepResult": "Sonuç tamamlanıyor…",
-      "stepError": "Bir şeyler ters gitti",
+      "stepIngredients": "İçerikler besin veritabanıyla eşleştiriliyor…",
+      "stepUncertainty": "Güven kontrolü yapılıyor…",
+      "stepMealTypeQuestion": "Çok az kaldı…",
+      "stepResult": "Sonuç finalize ediliyor…",
+      "stepError": "Bir şeyler yolunda gitmedi",
       "stepDefault": "Öğününüz analiz ediliyor…",
-      "progressUnderstand": "Anla",
-      "progressMatch": "Eşle",
-      "progressCheck": "Kontrol",
-      "progressMealType": "Yemek türü seçiliyor",
-      "progressFinish": "Bitir",
-      "detectedIngredientHeading": "Tespit ettiğimiz malzemeler",
-      "ingredientsOverflow": "{count} tane daha",
+      "progressUnderstand": "Öğününüz anlaşılıyor",
+      "progressMatch": "İçeriklerin besin bilgileri aranıyor",
+      "progressCheck": "Porsiyonlar ve güven kontrol ediliyor",
+      "progressMealType": "Öğün türü seçiliyor",
+      "progressFinish": "Kalori ve makrolar hesaplanıyor",
+      "detectedIngredientHeading": "Tespit ettiğimiz içerikler",
+      "ingredientsOverflow": "{count} daha",
       "ingredientsLine": "{count} içerik tespit edildi",
       "ingredientsPending": "İçerikler taranıyor…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.",
+      "offlineTip1": "İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.",
+      "offlineTip2": "İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.",
+      "offlineTip3": "İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.",
+      "offlineTip4": "İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.",
+      "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama)."
     },
     "feedback": {
-      "title": "Ne yanlış görünüyor?",
-      "subtitle": "Bir veya daha fazla sorun seçerek analizi iyileştirmemize yardımcı olun.",
+      "title": "Neresi yanlış görünüyor?",
+      "subtitle": "Analizi geliştirmemize yardımcı olmak için bir veya birden fazla sorun seçin.",
       "tellUsMore": "Daha fazla anlatın",
-      "describeIncorrect": "Neyin yanlış olduğunu açıklayın",
+      "describeIncorrect": "Yanlış olanı açıklayın",
       "submit": "Gönder",
-      "issueFoodIdentification": "Yemek tanıma",
+      "issueFoodIdentification": "Yiyecek tanımlaması",
       "issuePortionSize": "Porsiyon boyutu",
       "issueCalorieDistribution": "Kalori dağılımı",
       "issueMacrosWrong": "Makrolar yanlış",
       "issueMissingItems": "Eksik öğeler",
-      "issueExtraItems": "Fazladan öğeler",
+      "issueExtraItems": "Ekstra öğeler",
       "issueOther": "Diğer"
     }
   },
@@ -332,12 +332,12 @@
     "empty": "Henüz favori öğün yok.",
     "searchPlaceholder": "Favori öğünlerde ara",
     "searchEmptyTitle": "Aramanızla eşleşen favori yok",
-    "searchEmptySubtitle": "Farklı bir öğün adı, miktarı veya türü deneyin.",
+    "searchEmptySubtitle": "Farklı bir öğün adı, miktarı veya öğün türü deneyin.",
     "sortLabel": "Favorileri sırala",
     "undo": "Geri al",
     "removed": "{name} favorilerden kaldırıldı",
     "sortOptions": {
-      "recent": "En yeni",
+      "recent": "Son Eklenen",
       "calories": "Kalori",
       "alphabetical": "A-Z"
     }
@@ -350,8 +350,8 @@
     "sections": {
       "profile": "PROFİL",
       "basicInformation": "TEMEL BİLGİLER",
-      "goalsAndActivity": "HEDEFLER VE AKTİVİTE",
-      "calculatedValues": "HESAPLANAN DEĞERLER"
+      "goalsAndActivity": "HEDEFLER & AKTİVİTE",
+      "calculatedValues": "HESAPLANMIŞ DEĞERLER"
     },
     "gender": "Cinsiyet",
     "height": "Boy",
@@ -359,23 +359,23 @@
     "age": "Yaş",
     "weightGoal": "Kilo Hedefi",
     "targetWeight": "Hedef Kilo",
-    "activityLevel": "Aktivite Düzeyi",
-    "healthMetrics": "Sağlık Ölçümleri",
+    "activityLevel": "Aktivite Seviyesi",
+    "healthMetrics": "Sağlık Metrikleri",
     "notSet": "Ayarlanmadı",
-    "years": "yaş",
+    "years": "yıl",
     "updatedSuccessfully": "Profil başarıyla güncellendi!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "Günlük Hedef",
-      "calPerDay": "kcal/gün",
-      "notAvailable": "Yok"
+      "calPerDay": "cal/gün",
+      "notAvailable": "YOK"
     }
   },
   "healthScore": {
-    "title": "Sağlık Skoru",
-    "whyThisScore": "Bu skor neden?",
-    "note": "Bu skor, tespit edilen içerikler ve besin yoğunluğuna dayalı YZ tahminidir. Diyetle ilgili öneriler için her zaman bir uzmana danışın.",
+    "title": "Sağlık Puanı",
+    "whyThisScore": "Bu puan neden?",
+    "note": "Bu puan, tanımlanan içerikler ve besin yoğunluğuna dayanan bir AI tahminidir. Beslenme ile ilgili tavsiye için her zaman bir uzmana danışın.",
     "unhealthy": "Sağlıksız",
     "healthy": "Sağlıklı",
     "neutral": "Nötr"
@@ -385,24 +385,24 @@
     "sections": {
       "personalInformation": "KİŞİSEL BİLGİLER",
       "physicalMeasurements": "FİZİKSEL ÖLÇÜMLER",
-      "goalsAndActivity": "HEDEFLER VE AKTİVİTE"
+      "goalsAndActivity": "HEDEFLER & AKTİVİTE"
     },
     "gender": "Cinsiyet",
     "dateOfBirth": "Doğum Tarihi",
     "height": "Boy",
     "weight": "Kilo",
     "weightGoal": "Kilo Hedefi",
-    "activityLevel": "Aktivite Düzeyi",
+    "activityLevel": "Aktivite Seviyesi",
     "metric": "Metrik",
-    "imperial": "İngiliz",
+    "imperial": "İmperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
     "metricCm": "Metrik (cm)",
-    "imperialFtIn": "İngiliz (ft/in)",
+    "imperialFtIn": "İmperial (ft/in)",
     "metricKg": "Metrik (kg)",
-    "imperialLbs": "İngiliz (lbs)",
+    "imperialLbs": "İmperial (lbs)",
     "genders": {
       "male": "Erkek",
       "female": "Kadın",
@@ -411,37 +411,37 @@
     "weightGoals": {
       "loseWeight": {
         "name": "Kilo Ver",
-        "description": "Kilo vermek için kalori açığı oluştur"
+        "description": "Kilo vermek için kalori açığı oluşturun"
       },
       "maintainWeight": {
-        "name": "Kiloyu Koru",
+        "name": "Kilo Koruma",
         "description": "Mevcut kilonuzu koruyun"
       },
       "gainWeight": {
         "name": "Kilo Al",
-        "description": "Kilo almak için kalori fazlası oluştur"
+        "description": "Kilo almak için kalori fazlası oluşturun"
       }
     },
     "activityLevels": {
       "sedentary": {
         "name": "Hareketsiz",
-        "description": "Az ya da hiç egzersiz yok"
+        "description": "Az veya hiç egzersiz yok"
       },
       "lightlyActive": {
         "name": "Hafif Aktif",
-        "description": "Hafif egzersiz 1-3 gün/hafta"
+        "description": "Haftada 1-3 gün hafif egzersiz"
       },
       "moderatelyActive": {
-        "name": "Orta Derece Aktif",
-        "description": "Orta şiddette egzersiz 3-5 gün/hafta"
+        "name": "Orta Aktif",
+        "description": "Haftada 3-5 gün orta düzey egzersiz"
       },
       "veryActive": {
         "name": "Çok Aktif",
-        "description": "Zorlayıcı egzersiz 6-7 gün/hafta"
+        "description": "Haftada 6-7 gün yoğun egzersiz"
       },
       "extremelyActive": {
         "name": "Aşırı Aktif",
-        "description": "Çok zorlayıcı egzersiz, fiziksel iş"
+        "description": "Çok yoğun egzersiz veya fiziksel iş"
       }
     }
   },
@@ -449,12 +449,12 @@
     "title": "Ayarlar",
     "sections": {
       "profile": "PROFİL",
-      "localization": "YERELLEŞTİRME",
+      "localization": "LOKALİZASYON",
       "notifications": "BİLDİRİMLER",
       "healthConnect": "HEALTH CONNECT",
-      "supportAndLegal": "DESTEK VE YASAL",
+      "supportAndLegal": "DESTEK & YASAL",
       "about": "HAKKINDA",
-      "dangerZone": "TEHLİKE BÖLGESİ",
+      "dangerZone": "TEHLİKELİ BÖLGE",
       "developer": "GELİŞTİRİCİ"
     },
     "editProfile": {
@@ -475,7 +475,7 @@
     },
     "mealReminders": {
       "title": "Öğün Hatırlatıcıları",
-      "subtitle": "Zamanında uyarılarla rotada kalın"
+      "subtitle": "Zamanında uyarılarla yolda kalın"
     },
     "theme": {
       "title": "Tema",
@@ -485,12 +485,12 @@
     },
     "sendFeedback": {
       "title": "Geri Bildirim Gönder",
-      "subtitle": "{appLabel}'i geliştirmemize yardımcı olun",
+      "subtitle": "{appLabel} için geri bildirimde bulunun",
       "emailSubject": "{appLabel} Uygulama Geri Bildirimi",
-      "emailBodyPrefix": "Lütfen geri bildiriminizi aşağıya yazın:",
+      "emailBodyPrefix": "Lütfen aşağıya geri bildiriminizi ekleyin:",
       "appVersion": "Uygulama Sürümü",
       "device": "Cihaz",
-      "osVersion": "OS Sürümü",
+      "osVersion": "İşletim Sistemi Sürümü",
       "uid": "UID"
     },
     "exportMealHistory": {
@@ -501,107 +501,107 @@
     },
     "clearAllData": {
       "title": "Tüm Verileri Temizle",
-      "subtitle": "Tüm bilgilerinizi geri döndürülemez şekilde silin",
-      "confirmationTitle": "Tüm Veriler Silinsin mi?",
-      "confirmationMessage": "Bu işlem geri alınamaz. Kaydedilen tüm öğünleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecek.",
+      "subtitle": "Tüm bilgilerinizi geri dönülemez şekilde silin",
+      "confirmationTitle": "Tüm Veriler Temizlensin mi?",
+      "confirmationMessage": "Bu işlem geri alınamaz. Tüm kaydedilmiş öğünleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecektir.",
       "cancel": "İptal",
-      "clearEverything": "Her Şeyi Sil"
+      "clearEverything": "Her Şeyi Temizle"
     },
     "debugOptions": {
       "title": "Hata Ayıklama Seçenekleri"
     },
-    "developerModeEnabled": "Geliştirici modu etkin!",
+    "developerModeEnabled": "Geliştirici modu etkinleştirildi!",
     "healthConnect": {
       "title": "Health Connect",
       "subtitle": "İzinleri görüntüleyin ve yönetin",
       "unavailable": {
         "title": "Health Connect Kullanılamıyor",
-        "description": "Health Connect bu cihazda mevcut değil. Lütfen Play Store'dan Health Connect'i yükleyin (Android 9+) veya Android 14+ sürümüne güncelleyin."
+        "description": "Bu cihazda Health Connect kullanılamıyor. Lütfen Play Store'dan Health Connect'i yükleyin (Android 9+) veya Android 14+'e güncelleyin."
       },
       "permissions": {
         "title": "İzinler",
-        "description": "Health Connect entegrasyonu sağlamak için aşağıdaki izinler istenir:",
+        "description": "Health Connect entegrasyonu sağlamak için aşağıdaki izinler istenmektedir:",
         "granted": "Verildi",
         "notGranted": "Verilmedi",
         "caloriesBurned": {
-          "title": "Toplam Yakılan Kaloriyi Oku",
+          "title": "Toplam Yakılan Kalorileri Okuma",
           "description": "Uygulamanın Health Connect'ten toplam yakılan kalorilerinizi okumasına izin verir.",
-          "usage": "Bu izin, gün boyunca toplam enerji harcamanızı anlamanıza yardımcı olmak için uygulamada günlük kalori yakımınızı göstermek amacıyla kullanılır."
+          "usage": "Bu izin, uygulamada günlük yakılan kaloriyi göstererek toplam enerji harcamanızı gün içinde anlamanıza yardımcı olur."
         },
         "nutritionRead": {
-          "title": "Beslenme Verilerini Oku",
+          "title": "Beslenme Verilerini Okuma",
           "description": "Uygulamanın Health Connect'ten beslenme verilerini okumasına izin verir.",
-          "usage": "Bu izin, Health Connect'e bağlı diğer uygulamalar tarafından kaydedilmiş olabilecek beslenme bilgilerini uygulamanın okumasını sağlar ve beslenmenize kapsamlı bir bakış sunar."
+          "usage": "Bu izin, Health Connect'e bağlı diğer uygulamalar tarafından kaydedilmiş beslenme bilgilerini okuyarak kapsamlı bir beslenme görünümü sağlar."
         },
         "nutritionWrite": {
-          "title": "Beslenme Verileri Yaz",
-          "description": "Uygulamanın Health Connect'e beslenme verileri yazmasına izin verir.",
-          "usage": "Bu izin, kaydettiğiniz öğünlerin Health Connect ile senkronize edilmesini sağlar ve beslenme verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarına sunar."
+          "title": "Beslenme Verilerini Yazma",
+          "description": "Uygulamanın beslenme verilerini Health Connect'e yazmasına izin verir.",
+          "usage": "Bu izin, kaydettiğiniz öğünleri Health Connect ile senkronize ederek beslenme verilerinizi kullandığınız diğer sağlık ve fitness uygulamalarına sunar."
         }
       },
       "managePermissions": "İzinleri Yönet",
       "openSettings": "Health Connect Ayarlarını Aç",
       "requestPermissions": "İzin İste",
-      "permissionRequestCancelledOrFailed": "İzin isteği iptal edildi veya başarısız oldu. Lütfen tekrar deneyin ya da Health Connect ayarlarından el ile izin verin.",
-      "permissionRequestFailed": "İzinler istenemedi. Lütfen tekrar deneyin ya da Health Connect ayarlarından el ile izin verin.",
-      "requestingPermissions": "İsteniyor..."
+      "permissionRequestCancelledOrFailed": "İzin isteği iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Health Connect ayarlarından manuel olarak verin.",
+      "permissionRequestFailed": "İzin isteği yapılamıyor. Lütfen tekrar deneyin veya izinleri Health Connect ayarlarından manuel olarak verin.",
+      "requestingPermissions": "İzinler isteniyor..."
     },
     "about": {
       "title": "Hakkında",
-      "tagline": "Hızlı, ücretsiz ve mahremiyet odaklı kalori farkındalığı",
+      "tagline": "Hızlı, ücretsiz ve gizliliği önceliklendiren kalori farkındalığı",
       "ourStory": {
-        "title": "Hikâyemiz",
-        "content": "{appLabel}, basit bir hayal kırıklığından doğdu: Çoğu kalori takip uygulaması ya gereğinden karmaşık, sürekli manuel giriş istiyor, yüksek abonelik ücretleri talep ediyor ya da gizlilikten ödün veriyor.\n\nTek geliştirici olarak daha basit ve daha adil bir şey inşa etmek istedim — emeği azaltmak için yapay zekâ kullanan, hızlı ve ücretsiz kalan ve sağlık verilerinize saygı duyan bir uygulama.\n\n{appLabel}, keşke var olsaydı dediğim uygulama: hesap yok, izleme yok, reklam yok — yalnızca net, pratik içgörüler ve sağlık hedefleriniz."
+        "title": "Bizim Hikâyemiz",
+        "content": "{appLabel} basit bir hayal kırıklığından doğdu: çoğu kalori takip uygulaması ya aşırı karmaşık, sürekli manuel giriş gerektiren, yüksek abonelik ücretleri talep eden ya da gizliliği riske atan uygulamalardı.\n\nTek kişilik bir geliştirici olarak, daha basit ve daha adil bir şey yapmak istedim — çaba gereksinimini azaltmak için AI kullanan, hızlı ve ücretsiz kalan ve sağlık verilerinize saygı duyan bir uygulama.\n\n{appLabel} var olmasını dilediğim uygulama: hesap yok, izleme yok, reklam yok — sadece net, pratik içgörüler ve sağlık hedefleriniz."
       },
       "privacy": {
         "title": "Gizliliğiniz Önemli",
-        "description": "Gizlilik bir sonradan düşünce değil — bir tasarım ilkesidir. Pratikte bu şu anlama gelir:",
+        "description": "Gizlilik sonradan düşünülmüş bir unsur değil — bir tasarım ilkesidir. Bu pratikte şu anlama gelir:",
         "noAccounts": "Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.",
-        "noTracking": "Davranış takibi yok\n{appLabel} etkinliğinizi izlemez, kullanım profilleri oluşturmaz ve sizi uygulamalar veya web siteleri arasında takip etmez.",
-        "noAds": "Tasarımı gereği reklamsız\n{appLabel}, reklama veya veriye dayalı para kazanma modellerine ihtiyaç duymadan çalışacak şekilde tasarlandı.",
-        "noDataSelling": "Veri satışı yok\nSağlık verileriniz üçüncü taraflarla asla satılmaz veya paylaşılmaz.",
-        "localStorage": "Öncelik yerel depolama\nVerileriniz cihazınızda kalır.",
+        "noTracking": "Davranışsal izleme yok\n{appLabel} etkinliğinizi izlemez, kullanımı profillemez veya uygulamalar/veb siteleri arasında sizi takip etmez.",
+        "noAds": "Reklamsız tasarım\n{appLabel} reklamlar veya veri odaklı para kazanma yöntemleri olmadan çalışacak şekilde tasarlandı.",
+        "noDataSelling": "Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.",
+        "localStorage": "Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.",
         "privacyPolicy": "Gizlilik Politikası"
       },
       "developer": {
-        "title": "Tek Bir Geliştirici Tarafından Yapıldı",
-        "description": "{appLabel}, sade ve gizliliğe saygılı sağlık yazılımları geliştirmeye odaklanan tek bir geliştirici tarafından inşa edilip sürdürülüyor.\n\nGeri bildirimler bizzat okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.",
+        "title": "Tek Geliştirici Tarafından Yapıldı",
+        "description": "{appLabel}, sakin, gizliliğe saygılı sağlık yazılımları yaratmaya odaklanmış tek bir geliştirici tarafından inşa edilip sürdürülmektedir.\n\nGeri bildirimler kişisel olarak okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.",
         "website": "Web sitesi",
         "email": "E-posta"
       },
       "feedback": {
-        "title": "{appLabel}'i beğendiniz mi?",
-        "description": "Geri bildiriminiz, {appLabel}'i herkes için daha iyi hâle getirir.",
-        "rateApp": "Play Store'da oy ver",
+        "title": "{appLabel} hoşunuza gidiyor mu?",
+        "description": "Geri bildiriminiz {appLabel}'i herkes için daha iyi hale getirmeye yardımcı olur.",
+        "rateApp": "Play Store'da oy verin",
         "sendFeedback": "Geri Bildirim Gönder"
       }
     },
     "appInfo": {
-      "version": "Calorify Sürüm {version}",
+      "version": "Calorify v{version}",
       "build": "Yapı {buildNumber}"
     }
   },
   "reminders": {
-    "title": "Hatırlatıcılarla rotada kalın",
-    "description": "Öğünlerinizi kaydetmeniz ve beslenme hedeflerinizle tutarlı olmanız için nazik hatırlatmalar alın",
+    "title": "Hatırlatıcılarla yolda kalın",
+    "description": "Öğünlerinizi kaydetmeniz için nazik hatırlatmalar alın ve beslenme hedeflerinize bağlı kalın",
     "notificationsEnabled": "Bildirimler Etkin",
     "notificationsDisabled": "Bildirimler Devre Dışı",
-    "enabledSubtitle": "Öğün hatırlatıcıları alacaksınız",
-    "disabledSubtitle": "Öğün hatırlatıcıları için bildirimleri etkinleştirin",
-    "mealReminders": "Öğün Hatırlatıcıları",
+    "enabledSubtitle": "Öğün hatırlatmaları alacaksınız",
+    "disabledSubtitle": "Öğün hatırlatmaları almak için bildirimleri etkinleştirin",
+    "mealReminders": "Öğün Hatırlatmaları",
     "breakfast": "Kahvaltı",
-    "lunch": "Öğle yemeği",
-    "dinner": "Akşam yemeği",
-    "snack": "Atıştırmalık",
+    "lunch": "Öğle",
+    "dinner": "Akşam",
+    "snack": "Ara Öğün",
     "unknown": "Bilinmiyor",
     "change": "Değiştir",
     "enableNotifications": "Bildirimleri Etkinleştir",
-    "skipForNow": "Şimdilik atla",
+    "skipForNow": "Şimdi atla",
     "saveChanges": "Değişiklikleri Kaydet",
     "enabledSuccessfully": "Bildirimler başarıyla etkinleştirildi!",
     "permissionDenied": "Bildirim izni reddedildi",
     "errorEnabling": "Bildirimler etkinleştirilirken hata: {error}",
-    "errorCompletingSetup": "Kurulum tamamlarken hata: {error}"
+    "errorCompletingSetup": "Kurulum tamamlanırken hata: {error}"
   },
   "notifications": {
     "breakfast": {
@@ -609,16 +609,16 @@
       "body": "Kahvaltınızı kaydetmeyi unutmayın"
     },
     "lunch": {
-      "title": "Öğle Yemeği Zamanı! 🥗",
-      "body": "Öğle yemeğinizi kaydetme zamanı"
+      "title": "Öğle Vakti! 🥗",
+      "body": "Öğlen yemeğinizi kaydetme zamanı"
     },
     "dinner": {
       "title": "Akşam Yemeği Zamanı! 🍽️",
       "body": "Akşam yemeğinizi kaydetmeyi unutmayın"
     },
     "snack": {
-      "title": "Atıştırmalık Zamanı! 🍎",
-      "body": "Sağlıklı bir atıştırma zamanı"
+      "title": "Ara Öğün Zamanı! 🍎",
+      "body": "Sağlıklı bir ara öğün zamanı"
     },
     "test": {
       "title": "Test Bildirimi"
@@ -632,90 +632,90 @@
   "disclaimer": {
     "pleaseNote": "Lütfen Dikkat",
     "snap": {
-      "description": "{appLabel}, tahmini besin bilgileri sunar. Doğruluk, girdilerinize ve yiyecek farklılıklarına bağlıdır. Kesin bir kaynak değil, yol gösterici olarak kullanın. Kişiselleştirilmiş diyet tavsiyesi için bir uzmana danışın.",
+      "description": "{appLabel} tahmini besin bilgileri sağlar. Doğruluk, girdiğiniz bilgilere ve yiyecek çeşitlerine bağlıdır. Bir rehber olarak kullanın, kesin kaynak olarak değil. Kişisel beslenme tavsiyesi için bir uzmana danışın.",
       "portionSize": {
         "title": "Porsiyon Boyutu",
-        "description": "Tahminlerin doğruluğu, porsiyon boyutunu doğru değerlendirmenize büyük ölçüde bağlıdır."
+        "description": "Tahminlerin doğruluğu büyük ölçüde porsiyon boyutunu doğru değerlendirmenize bağlıdır."
       },
       "preparationMethods": {
         "title": "Hazırlama Yöntemleri",
-        "description": "Pişirme yöntemleri yiyeceklerin besin içeriğini önemli ölçüde değiştirebilir. {appLabel}'in tahminleri bu farklılıkları her zaman hesaba katmayabilir."
+        "description": "Pişirme yöntemleri yiyeceğin besin içeriğini önemli ölçüde değiştirebilir. {appLabel} tahminleri her zaman bu farklılıkları hesaba katmayabilir."
       },
       "ingredients": {
         "title": "İçerikler",
-        "description": "Birçok gizli içeriği olan karmaşık yemekler daha az doğru tahminlere yol açabilir."
+        "description": "Birçok gizli içeriğe sahip karmaşık yemekler daha az doğru tahminlere yol açabilir."
       },
       "databaseLimitations": {
         "title": "Veritabanı Sınırlamaları",
-        "description": "{appLabel}'in yiyecek veritabanı kapsamlıdır ancak her yiyecek öğesini veya varyasyonunu içermeyebilir."
+        "description": "{appLabel}'in gıda veritabanı kapsamlıdır ancak her bir yiyecek öğesini veya varyasyonunu içermeyebilir."
       }
     },
     "weightEstimate": {
       "title": "Kilo Tahmini Hakkında",
-      "description": "Öngörülen kilo değişimi, basit kalori-alımı vs. kalori-yakımı modeline dayanan teorik bir tahmindir. Gerçek kilonuzun bir öngörüsü değil, yalnızca motivasyon amaçlıdır.",
+      "description": "Projeksiyon olarak verilen kilo değişimi basit kalori içeriği vs harcama modeli üzerine kurulu teorik bir tahmindir. Motivasyon kaynağı olarak düşünülmelidir, gerçek ağırlığın bir tahmini değildir.",
       "calorieAccuracy": {
         "title": "Kalori Doğruluğu",
-        "description": "Bu tahmin, takip ettiğiniz kalori alımı ve harcaması kadar doğrudur. Hatalı kayıtlar hatalı projeksiyona yol açar."
+        "description": "Bu tahmin, izlediğiniz kalori alımı ve harcamasının doğruluğuna bağlıdır. Hatalı kayıtlar tahminin yanlış olmasına neden olur."
       },
       "biologicalFactors": {
         "title": "Biyolojik Faktörler",
-        "description": "Gerçek kilo kaybı/alımı; metabolizma, hormonlar, uyku, stres, hidrasyon ve {appLabel}'in ölçemediği diğer bireysel faktörlerden etkilenir."
+        "description": "Gerçek kilo kaybı/kazancı metabolizma, hormonlar, uyku, stres, hidrasyon ve {appLabel}’in ölçemeyeceği diğer bireysel faktörlerden etkilenir."
       },
       "waterWeight": {
-        "title": "Su Ağırlığı ve Oynaklıklar",
-        "description": "Normal günlük kilo; su tutma, sindirim ve zamana bağlı olarak önemli ölçüde dalgalanabilir. Bu tahmin bu günlük değişimleri hesaba katmaz."
+        "title": "Su Ağırlığı & Dalgalanmalar",
+        "description": "Normal günlük kilo su tutma, sindirim ve zamana bağlı olarak önemli ölçüde dalgalanabilir. Tahmin bu günlük değişiklikleri hesaba katmaz."
       },
       "professionalGuidance": {
         "title": "Uzman Rehberliği",
-        "description": "Tıbbi kararlar almak için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için daima bir sağlık uzmanına veya diyetisyene danışın."
+        "description": "Tıbbi kararlar için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın."
       }
     },
     "healthMetrics": {
       "description": "Bu metrikler, vücudunuzun enerji ihtiyaçlarını anlamanıza ve beslenme hedeflerinize rehberlik etmenize yardımcı olur.",
       "bmr": {
         "title": "BMR",
-        "description": "Bazal Metabolizma Hızı (BMR), vücudunuzun dinlenme hâlindeyken solunum ve dolaşım gibi temel işlevleri sürdürmek için yaktığı kalori miktarıdır. BMR; yaş, cinsiyet, boy ve kilonuza bağlıdır. Daha yüksek BMR, genellikle daha fazla kas kütlesi, daha genç yaş veya erkek olmak nedeniyle vücudun dinlenme hâlinde doğal olarak daha fazla kalori yaktığı anlamına gelir. Daha düşük BMR ise tipik olarak daha az kas kütlesi, daha ileri yaş veya kadın olmakla ilişkilidir."
+        "description": "Bazal Metabolizma Hızı (BMR), vücudunuzun dinlenme halinde temel fonksiyonları sürdürmek için yaktığı kalori miktarıdır. BMR yaşınıza, cinsiyetinize, boyunuza ve kilonuza bağlıdır. Daha yüksek bir BMR, genellikle daha fazla kas kütlesi, daha genç yaş veya erkek olmak nedeniyle dinlenirken daha fazla kalori yaktığınız anlamına gelir. Daha düşük BMR ise genellikle daha az kas kütlesi, daha ileri yaş veya kadın olmayı gösterir."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Toplam Günlük Enerji Harcaması (TDEE), BMR'niz artı fiziksel aktivite ve günlük hareketten kaynaklanan kaloriler dahil olmak üzere, günde yaktığınız toplam kaloridir. TDEE, BMR'nize ve aktivite düzeyinize bağlıdır. Daha yüksek TDEE, genellikle daha aktif olduğunuz veya daha yüksek bir BMR'ye sahip olduğunuz için toplamda daha fazla kalori yaktığınız anlamına gelir. Daha düşük TDEE ise daha az günlük aktiviteye veya daha düşük BMR'ye işaret eder."
+        "description": "Toplam Günlük Enerji Harcaması (TDEE), BMR'niz artı fiziksel aktivite ve günlük hareketle birlikte günde yaktığınız toplam kaloridir. TDEE BMR ve aktivite seviyenize bağlıdır. Daha yüksek bir TDEE, genellikle daha aktif olmak veya daha yüksek bir BMR nedeniyle daha fazla kalori yaktığınız anlamına gelir. Daha düşük bir TDEE ise daha az günlük aktivite veya daha düşük bir BMR'e işaret eder."
       },
       "dailyGoal": {
         "title": "Günlük Hedef",
-        "description": "Günlük Hedef, TDEE'nize ve kilo hedefinize göre önerilen günlük kalori alımıdır. Kilo kaybı için TDEE'nizden daha az kalori alırsınız. Kiloyu korumak için TDEE'nizi karşılarsınız. Kilo almak için TDEE'nizden daha fazla kalori alırsınız. Bu, istediğiniz kilo değişimine sağlıklı bir hızda ulaşmanıza yardımcı olur."
+        "description": "Günlük Hedef, TDEE'niz ve kilo hedefinize dayanarak önerilen günlük kalori alımınızdır. Kilo kaybı için TDEE'nizden daha az kalori alırsınız. Kilo koruma için TDEE'nizle eşleşirsiniz. Kilo kazanımı için TDEE'nizden daha fazla kalori alırsınız. Bu, istenen kilo değişikliğine sağlıklı bir hızda ulaşmanıza yardımcı olur."
       }
     },
     "calorieExpenditure": {
-      "title": "Kalori Harcaması Tahmini",
-      "description": "Health Connect verileri kullanılamadığında, bugün yakılan kalorileri, Bazal Metabolizma Hızınız (BMR) ve aktivite düzeyiniz (TDEE) kullanılarak, geçen gün kısmına göre ölçekleyerek tahmin ederiz.",
+      "title": "Kalori Harcama Tahmini",
+      "description": "Health Connect verileri kullanılamadığında, bugünkü yakılan kalorileri Basal Metabolizma Hızınız (BMR) ve aktivite seviyeniz (TDEE) kullanılarak, günün geçen kısmına göre ölçeklenmiş şekilde tahmin ederiz.",
       "howCalculated": {
-        "title": "Tahmin Nasıl Hesaplanır",
-        "description": "Profilinize göre TDEE'nizi hesaplar ve şu ana kadar geçen gün fraksiyonu ile çarparız: (saat + dakika) / 24; böylece şimdiye kadar yakılan kaloriyi tahmin ederiz."
+        "title": "Tahmin Nasıl Hesaplanıyor",
+        "description": "TDEE'nizi (profilinize göre) hesaplıyoruz ve günün geçen kısmının kesriyle (saat + dakika) / 24 çarparak şu ana kadar yakılan kalorileri tahmin ediyoruz."
       },
       "professionalGuidance": {
         "title": "Uzman Rehberliği",
-        "description": "Tıbbi kararlar almak için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için daima bir sağlık uzmanına veya diyetisyene danışın."
+        "description": "Tıbbi kararlar için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın."
       }
     }
   },
   "common": {
     "close": "Kapat",
-    "continue": "Devam et"
+    "continue": "Devam"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "{appLabel}'i beğeniyor musunuz?",
-    "yes": "Evet, beğeniyorum",
+    "enjoyingQuestion": "{appLabel} hoşunuza gidiyor mu?",
+    "yes": "Evet, hoşuma gidiyor",
     "no": "Pek değil",
-    "rateStepHeading": "Play Store'da oy ver",
-    "emailStepHeading": "E-postayla geri bildirim gönder",
-    "soloDevMessage": "Kısa bir puanlama başkalarının {appLabel}'i bulmasına yardımcı olur ve geliştirmeyi sürdürür. Bir dakikanızı ayırıp oy verir misiniz?",
-    "shareFeedbackViaEmail": "Gelecek adımları geri bildiriminiz şekillendiriyor — her mesajı okuyoruz. Düşüncelerinizi e-postayla paylaşmak ister misiniz?",
+    "rateStepHeading": "Play Store'da oy verin",
+    "emailStepHeading": "E-posta ile geri bildirim gönder",
+    "soloDevMessage": "Kısa bir değerlendirme, diğerlerinin {appLabel}'i bulmasına yardımcı olur ve geliştirmeyi sürdürür. Bir dakikanızı ayırıp bir yorum bırakır mısınız?",
+    "shareFeedbackViaEmail": "Geri bildiriminiz gelecekleri şekillendirir — her mesajı okuyoruz. Düşüncelerinizi e-posta ile paylaşmak ister misiniz?",
     "rateCta": "Play Store'da oy ver",
     "maybeLater": "Belki sonra",
-    "sendFeedback": "Geri bildirim gönder",
+    "sendFeedback": "Geri bildirimi gönder",
     "noThanks": "Hayır, teşekkürler",
-    "aboutUsDescription": "Küçük bir ekibin özenle geliştirdiği. Odağımız gizlilik, sadelik ve daha iyi beslenme alışkanlıkları edinmenize yardımcı olmak.",
-    "aboutUsMentionBeforeLink": "{appLabel}'in arkasında kim var merak ediyor musunuz? Şuna bakın ",
+    "aboutUsDescription": "Özenle hazırlanmış küçük bir ekip tarafından yapıldı. Gizlilik, sadelik ve daha iyi yeme alışkanlıkları oluşturmanıza yardımcı olmaya odaklanıyoruz.",
+    "aboutUsMentionBeforeLink": "{appLabel} arkasında kimlerin olduğunu merak mı ediyorsunuz? Bakın ",
     "aboutUsLinkLabel": "Hakkımızda",
     "thankYouMessage": "Teşekkürler! Başka bir zaman tekrar soracağız."
   },

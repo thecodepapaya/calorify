@@ -28,6 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate translation catalogs
+        run: python3 scripts/audit_translations.py --fail-on-source-copies
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.41.0"

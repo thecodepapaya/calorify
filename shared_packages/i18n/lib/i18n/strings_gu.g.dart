@@ -38,7 +38,7 @@ class TranslationsGu with BaseTranslations<AppLocale, Translations> implements T
 
 	// Translations
 	@override String get language => 'ગુજરાતી';
-	@override String get flag => '🇺🇸';
+	@override String get flag => '🇮🇳';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsErrorsGu errors = _TranslationsErrorsGu._(_root);
 	@override late final _TranslationsOnboardingGu onboarding = _TranslationsOnboardingGu._(_root);
@@ -67,12 +67,12 @@ class _TranslationsErrorsGu implements TranslationsErrorsEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'તમે બહુ બધી વિનંતીઓ કરી છે. કૃપા કરીને ફરી પ્રયત્ન કરતા પહેલા થોડું રાહ જુઓ.';
+	@override String get rateLimitExceeded => 'તમે ઘણી બધી વિનંતીઓ કરી છે. કૃપા કરીને ફરી પ્રયાસ કરતા પહેલા થોડી રાહ જુઓ.';
 	@override String get networkError => 'નેટવર્ક ભૂલ. કૃપા કરીને તમારું ઇન્ટરનેટ કનેક્શન તપાસો.';
-	@override String get unknownError => 'કૈંક ખોટું થયું. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.';
-	@override String get loadingProfileData => 'પ્રોફાઇલ ડેટા લોડ કરતી વખતે ભૂલ';
-	@override String get somethingWentWrong => 'કૈંક ખોટું થયું.';
-	@override String get retry => 'ફરી પ્રયત્ન કરો';
+	@override String get unknownError => 'કંઈક ખોટું થયું. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.';
+	@override String get loadingProfileData => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ';
+	@override String get somethingWentWrong => 'કંઈક ખોટું થયું.';
+	@override String get retry => 'ફરી પ્રયાસ કરો';
 }
 
 // Path: onboarding
@@ -82,7 +82,7 @@ class _TranslationsOnboardingGu implements TranslationsOnboardingEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String welcome({required Object appLabel}) => '${appLabel} માં સ્વાગત છે';
+	@override String welcome({required Object appLabel}) => '${appLabel} માં આપનું સ્વાગત છે';
 	@override String get subtitle => 'AI દ્વારા સંચાલિત તમારો વ્યક્તિગત પોષણ સાથી';
 	@override String get getStarted => 'શરૂ કરો';
 	@override late final _TranslationsOnboardingFeaturesGu features = _TranslationsOnboardingFeaturesGu._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsGu implements TranslationsTabsEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'ડૅશબોર્ડ';
+	@override String get dashboard => 'ડેશબોર્ડ';
 	@override String get history => 'ઇતિહાસ';
 }
 
@@ -134,10 +134,10 @@ class _TranslationsHistoryGu implements TranslationsHistoryEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'કોઈ ભોજન નોંધાયેલ નથી';
-	@override String get emptyMessage => 'તમારા છેલ્લા ભોજનનો ફોટો લો અને અહીં લોગ કરો.';
+	@override String get noMeals => 'કોઈ ભોજન રેકોર્ડ થયું નથી';
+	@override String get emptyMessage => 'અહીં લોગ કરવા માટે તમારા છેલ્લા ભોજનનો ફોટો લો.';
 	@override String get today => 'આજે';
-	@override String get yesterday => 'ગઇકાલે';
+	@override String get yesterday => 'ગઈકાલે';
 }
 
 // Path: meal
@@ -147,36 +147,36 @@ class _TranslationsMealGu implements TranslationsMealEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get ohNo => 'અરે નહીં!';
-	@override String get delete => 'કાઢી નાંખો';
-	@override String get editMeal => 'ભોજન એડિટ કરો';
+	@override String get ohNo => 'અરે ના!';
+	@override String get delete => 'કાઢી નાખો';
+	@override String get editMeal => 'ભોજન સંપાદિત કરો';
 	@override String get addMeal => 'ભોજન ઉમેરો';
-	@override String get saveMeal => 'ભોજન સંગ્રહ કરો';
-	@override String get save => 'સેવ કરો';
+	@override String get saveMeal => 'ભોજન સાચવો';
+	@override String get save => 'સાચવો';
 	@override String get mealName => 'ભોજનનું નામ';
-	@override String get mealNameHint => 'દા.ત.,スク્રેમ્બલ્ડ એગ્સ સાથે ટોસ્ટ';
+	@override String get mealNameHint => 'દા.ત., ટોસ્ટ સાથે સ્ક્રેમ્બલ્ડ ઇંડા';
 	@override String get mealQuantity => 'ભોજનની માત્રા';
-	@override String get mealQuantityHint => 'દા.ત., 1 બાઉલ, 2 સ્લાઇસ';
+	@override String get mealQuantityHint => 'દા.ત., 1 વાટકી, 2 સ્લાઇસ';
 	@override String get timeOfMeal => 'ભોજનનો સમય';
-	@override String get timeOfMealHint => 'તમે ક્યારે ભોજન લીધું તે સમય પસંદ કરો';
+	@override String get timeOfMealHint => 'તમે ભોજન ક્યારે લીધું તે સમય પસંદ કરો';
 	@override String get mealType => 'ભોજનનો પ્રકાર';
 	@override late final _TranslationsMealNutritionGu nutrition = _TranslationsMealNutritionGu._(_root);
 	@override late final _TranslationsMealDeleteConfirmationGu deleteConfirmation = _TranslationsMealDeleteConfirmationGu._(_root);
 	@override String get addedToLog => 'ભોજન તમારા લોગમાં ઉમેરાયું!';
-	@override String couldNotAdd({required Object error}) => 'ભોજન ઉમેરવામાં અસમર્થ: ${error}';
+	@override String couldNotAdd({required Object error}) => 'ભોજન ઉમેરી શકાયું નથી: ${error}';
 	@override String get savedSuccessfully => 'ભોજન સફળતાપૂર્વક ઉમેરાયું!';
 	@override String get updatedSuccessfully => 'ભોજન સફળતાપૂર્વક અપડેટ થયું!';
-	@override String errorSaving({required Object error}) => 'ભોજન સેવ કરતી વખતે ભૂલ: ${error}';
-	@override String get removedFromFavorites => 'પસંદગીઓમાંથી દૂર કર્યું!';
-	@override String get savedAsFavorite => 'ભોજન ફેવરિટમાં સેવ કર્યું!';
-	@override String get unfavorite => 'ફેવરિટમાંથી કાઢો';
-	@override String couldNotUpdateFavorite({required Object error}) => 'ફેવરિટ અપડેટ થઈ શક્યું નથી: ${error}';
+	@override String errorSaving({required Object error}) => 'ભોજન સાચવવામાં ભૂલ: ${error}';
+	@override String get removedFromFavorites => 'મનપસંદમાંથી દૂર કર્યું!';
+	@override String get savedAsFavorite => 'ભોજન મનપસંદ તરીકે સાચવ્યું!';
+	@override String get unfavorite => 'મનપસંદમાંથી દૂર કરો';
+	@override String couldNotUpdateFavorite({required Object error}) => 'મનપસંદ અપડેટ કરી શકાયું નથી: ${error}';
 	@override String get feedbackThanks => 'પ્રતિસાદ બદલ આભાર!';
-	@override String get reanalysisUpdated => 'તમારા પ્રતિસાદના આધારે ભોજન વિશ્લેષણ અપડેટ કર્યું.';
-	@override String failedToProcess({required Object error}) => 'પ્રોસેસ કરવામાં નિષ્ફળ: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'છબી પ્રોસેસ કરવામાં નિષ્ફળ: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'છબી કમ્પ્રેસ કરતી વખતે ભૂલ: ${error}';
-	@override String get failedToSave => 'ડેટા સેવ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયત્ન કરો.';
+	@override String get reanalysisUpdated => 'તમારા પ્રતિસાદના આધારે ભોજન વિશ્લેષણ અપડેટ થયું.';
+	@override String failedToProcess({required Object error}) => 'પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'છબી પર પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'છબી સંકુચિત કરવામાં ભૂલ: ${error}';
+	@override String get failedToSave => 'ડેટા સાચવવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો.';
 	@override String get skip => 'છોડો';
 	@override late final _TranslationsMealQuestionFlowGu questionFlow = _TranslationsMealQuestionFlowGu._(_root);
 	@override late final _TranslationsMealAnalysisGu analysis = _TranslationsMealAnalysisGu._(_root);
@@ -190,14 +190,14 @@ class _TranslationsFavoritesGu implements TranslationsFavoritesEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પસંદીદા';
-	@override String get empty => 'હજુ સુધી કોઈ પસંદીદા ભોજન નથી.';
-	@override String get searchPlaceholder => 'પસંદીદા ભોજન શોધો';
-	@override String get searchEmptyTitle => 'તમારી શોધ સાથે કોઈ ફેવરિટ મેળ ખાતું નથી';
-	@override String get searchEmptySubtitle => 'અલગ ભોજન નામ, માત્રા અથવા ભોજન પ્રકાર અજમાવો.';
-	@override String get sortLabel => 'ફેવરિટ ક્રમબદ્ધ કરો';
+	@override String get title => 'મનપસંદ';
+	@override String get empty => 'હજુ સુધી કોઈ મનપસંદ ભોજન નથી.';
+	@override String get searchPlaceholder => 'મનપસંદ ભોજન શોધો';
+	@override String get searchEmptyTitle => 'તમારી શોધ સાથે કોઈ મનપસંદ મેળ ખાતા નથી';
+	@override String get searchEmptySubtitle => 'અલગ ભોજનનું નામ, જથ્થો અથવા ભોજનનો પ્રકાર અજમાવો.';
+	@override String get sortLabel => 'મનપસંદને સૉર્ટ કરો';
 	@override String get undo => 'પૂર્વવત્ કરો';
-	@override String removed({required Object name}) => 'પસંદગીમાંથી ${name} દૂર કર્યું';
+	@override String removed({required Object name}) => '${name} ને મનપસંદમાંથી દૂર કર્યું';
 	@override late final _TranslationsFavoritesSortOptionsGu sortOptions = _TranslationsFavoritesSortOptionsGu._(_root);
 }
 
@@ -214,13 +214,13 @@ class _TranslationsProfileGu implements TranslationsProfileEn {
 	@override String get viewAndManage => 'તમારી આરોગ્ય માહિતી જુઓ અને મેનેજ કરો';
 	@override late final _TranslationsProfileSectionsGu sections = _TranslationsProfileSectionsGu._(_root);
 	@override String get gender => 'લિંગ';
-	@override String get height => 'ઉંચાઈ';
+	@override String get height => 'ઊંચાઈ';
 	@override String get weight => 'વજન';
 	@override String get age => 'ઉંમર';
-	@override String get weightGoal => 'વજન લક્ષ્ય';
+	@override String get weightGoal => 'વજનનું લક્ષ્ય';
 	@override String get targetWeight => 'લક્ષ્ય વજન';
-	@override String get activityLevel => 'સક્રિયતા સ્તર';
-	@override String get healthMetrics => 'હેલ્થ મેટ્રિક્સ';
+	@override String get activityLevel => 'પ્રવૃત્તિ સ્તર';
+	@override String get healthMetrics => 'આરોગ્ય મેટ્રિક્સ';
 	@override String get notSet => 'સેટ નથી';
 	@override String get years => 'વર્ષ';
 	@override String get updatedSuccessfully => 'પ્રોફાઇલ સફળતાપૂર્વક અપડેટ થઈ!';
@@ -234,11 +234,11 @@ class _TranslationsHealthScoreGu implements TranslationsHealthScoreEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'હેલ્થ સ્કોર';
+	@override String get title => 'આરોગ્ય સ્કોર';
 	@override String get whyThisScore => 'આ સ્કોર શા માટે?';
-	@override String get note => 'આ સ્કોર ઓળખાયેલા ઘટકો અને પોષણ ઘનતા આધારે AI અંદાજ છે. વ્યક્તિગત આહાર સલાહ માટે હંમેશા વ્યાવસાયિકનો સંપર્ક કરો.';
-	@override String get unhealthy => 'અસ્વસ્થ';
-	@override String get healthy => 'સ્વસ્થ';
+	@override String get note => 'આ સ્કોર ઓળખાયેલા ઘટકો અને પોષક ઘનતાના આધારે AI અંદાજ છે. આહાર સલાહ માટે હંમેશા કોઈ વ્યાવસાયિકની સલાહ લો.';
+	@override String get unhealthy => 'બિનઆરોગ્યપ્રદ';
+	@override String get healthy => 'આરોગ્યપ્રદ';
 	@override String get neutral => 'તટસ્થ';
 }
 
@@ -249,24 +249,24 @@ class _TranslationsEditProfileGu implements TranslationsEditProfileEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પ્રોફાઇલ એડિટ કરો';
+	@override String get title => 'પ્રોફાઇલ સંપાદિત કરો';
 	@override late final _TranslationsEditProfileSectionsGu sections = _TranslationsEditProfileSectionsGu._(_root);
 	@override String get gender => 'લિંગ';
-	@override String get dateOfBirth => 'જન્મતારીખ';
-	@override String get height => 'ઉંચાઈ';
+	@override String get dateOfBirth => 'જન્મ તારીખ';
+	@override String get height => 'ઊંચાઈ';
 	@override String get weight => 'વજન';
-	@override String get weightGoal => 'વજન લક્ષ્ય';
-	@override String get activityLevel => 'સક્રિયતા સ્તર';
+	@override String get weightGoal => 'વજનનું લક્ષ્ય';
+	@override String get activityLevel => 'પ્રવૃત્તિ સ્તર';
 	@override String get metric => 'મેટ્રિક';
 	@override String get imperial => 'ઇમ્પિરિયલ';
-	@override String get unitCm => 'cm';
-	@override String get unitFt => 'ft';
-	@override String get unitKg => 'kg';
+	@override String get unitCm => 'સેમી';
+	@override String get unitFt => 'ફૂટ';
+	@override String get unitKg => 'કિલો';
 	@override String get unitLbs => 'lbs';
-	@override String get metricCm => 'મેટ્રિક (cm)';
-	@override String get imperialFtIn => 'ઇમ્પિરિયલ (ft/in)';
-	@override String get metricKg => 'મેટ્રિક (kg)';
-	@override String get imperialLbs => 'ઇમ્પિરિયલ (lbs)';
+	@override String get metricCm => 'મેટ્રિક (સેમી)';
+	@override String get imperialFtIn => 'ઈમ્પિરિયલ (ફૂટ/ઈંચ)';
+	@override String get metricKg => 'મેટ્રિક (કિલો)';
+	@override String get imperialLbs => 'ઈમ્પિરિયલ (lbs)';
 	@override late final _TranslationsEditProfileGendersGu genders = _TranslationsEditProfileGendersGu._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsGu weightGoals = _TranslationsEditProfileWeightGoalsGu._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsGu activityLevels = _TranslationsEditProfileActivityLevelsGu._(_root);
@@ -291,7 +291,7 @@ class _TranslationsSettingsGu implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryGu exportMealHistory = _TranslationsSettingsExportMealHistoryGu._(_root);
 	@override late final _TranslationsSettingsClearAllDataGu clearAllData = _TranslationsSettingsClearAllDataGu._(_root);
 	@override late final _TranslationsSettingsDebugOptionsGu debugOptions = _TranslationsSettingsDebugOptionsGu._(_root);
-	@override String get developerModeEnabled => 'ડેવલપર મોડ સક્રિય થયો!';
+	@override String get developerModeEnabled => 'ડેવલપર મોડ સક્ષમ!';
 	@override late final _TranslationsSettingsHealthConnectGu healthConnect = _TranslationsSettingsHealthConnectGu._(_root);
 	@override late final _TranslationsSettingsAboutGu about = _TranslationsSettingsAboutGu._(_root);
 	@override late final _TranslationsSettingsAppInfoGu appInfo = _TranslationsSettingsAppInfoGu._(_root);
@@ -304,26 +304,26 @@ class _TranslationsRemindersGu implements TranslationsRemindersEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'રીમાઇન્ડર્સ સાથે માર્ગ પર રહો';
-	@override String get description => 'ભોજન લોગ કરવા અને તમારા પોષણ લક્ષ્યો સાથે સતત રહેવા માટે નાજુક યાદ અપાવણીઓ મેળવો';
-	@override String get notificationsEnabled => 'સૂચનાઓ સક્રિય';
-	@override String get notificationsDisabled => 'સૂચનાઓ નિષ્ક્રિય';
-	@override String get enabledSubtitle => 'તમને ભોજનના રીમાઇન્ડર્સ મળશે';
-	@override String get disabledSubtitle => 'ભોજન રીમાઇન્ડર્સ મેળવવા માટે સૂચનાઓ સક્રિય કરો';
+	@override String get title => 'રીમાઇન્ડર્સ સાથે ટ્રેક પર રહો';
+	@override String get description => 'તમારા ભોજનને લોગ કરવા અને તમારા પોષણ લક્ષ્યો સાથે સુસંગત રહેવા માટે સૌમ્ય રીમાઇન્ડર્સ મેળવો';
+	@override String get notificationsEnabled => 'સૂચનાઓ સક્ષમ છે';
+	@override String get notificationsDisabled => 'સૂચનાઓ અક્ષમ છે';
+	@override String get enabledSubtitle => 'તમને ભોજન રીમાઇન્ડર્સ પ્રાપ્ત થશે';
+	@override String get disabledSubtitle => 'ભોજન રીમાઇન્ડર્સ મેળવવા માટે સૂચનાઓ સક્ષમ કરો';
 	@override String get mealReminders => 'ભોજન રીમાઇન્ડર્સ';
 	@override String get breakfast => 'નાસ્તો';
 	@override String get lunch => 'બપોરનું ભોજન';
-	@override String get dinner => 'રાત્રીભોજન';
+	@override String get dinner => 'રાતનું ભોજન';
 	@override String get snack => 'નાસ્તો';
 	@override String get unknown => 'અજાણ્યું';
 	@override String get change => 'બદલો';
-	@override String get enableNotifications => 'સૂચનાઓ સક્રિય કરો';
-	@override String get skipForNow => 'હાલ માટે છોડો';
+	@override String get enableNotifications => 'સૂચનાઓ સક્ષમ કરો';
+	@override String get skipForNow => 'હમણાં માટે છોડી દો';
 	@override String get saveChanges => 'ફેરફારો સાચવો';
-	@override String get enabledSuccessfully => 'સૂચનાઓ સફળતાપૂર્વક સક્રિય થઈ!';
-	@override String get permissionDenied => 'સૂચના પરવાનગી નામંજૂર';
-	@override String errorEnabling({required Object error}) => 'સૂચનાઓ સક્રિય કરતી વખતે ભૂલ: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'સેટઅપ પૂર્ણ કરતી વખતે ભૂલ: ${error}';
+	@override String get enabledSuccessfully => 'સૂચનાઓ સફળતાપૂર્વક સક્ષમ થઈ!';
+	@override String get permissionDenied => 'સૂચના પરવાનગી નકારી';
+	@override String errorEnabling({required Object error}) => 'સૂચનાઓ સક્ષમ કરવામાં ભૂલ: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'સેટઅપ પૂર્ણ કરવામાં ભૂલ: ${error}';
 }
 
 // Path: notifications
@@ -347,9 +347,9 @@ class _TranslationsLoginGu implements TranslationsLoginEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'લૉગિન';
-	@override String get signInWithGoogle => 'Google થી સાઇન ઇન કરો';
-	@override String get signInFailed => 'Google સાઇન-ઇન નિષ્ફળ ગયું અથવા રદ થયું.';
+	@override String get title => 'લોગિન';
+	@override String get signInWithGoogle => 'Google વડે સાઇન ઇન કરો';
+	@override String get signInFailed => 'Google સાઇન-ઇન નિષ્ફળ ગયું અથવા રદ કરવામાં આવ્યું.';
 }
 
 // Path: disclaimer
@@ -384,21 +384,21 @@ class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} ગમે છે?';
-	@override String get yes => 'હા, મને ગમે છે';
-	@override String get no => 'ખાસ નથી';
-	@override String get rateStepHeading => 'પ્લે સ્ટોર પર રેટ કરો';
+	@override String enjoyingQuestion({required Object appLabel}) => '${appLabel} નો આનંદ માણી રહ્યા છો?';
+	@override String get yes => 'હા, હું તેનો આનંદ માણી રહ્યો છું';
+	@override String get no => 'ખરેખર નહીં';
+	@override String get rateStepHeading => 'Play Store પર રેટ કરો';
 	@override String get emailStepHeading => 'ઇમેઇલ દ્વારા પ્રતિસાદ મોકલો';
-	@override String soloDevMessage({required Object appLabel}) => 'ઝડપી રેટિંગથી અન્ય લોકોને ${appLabel} શોધવામાં મદદ મળે છે અને વિકાસ ચાલુ રહે છે. શું તમે એક ક્ષણ લઈને રેટ કરશો?';
-	@override String get shareFeedbackViaEmail => 'તમારો પ્રતિસાદ આગળ શું આવે છે તે નક્કી કરે છે — અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?';
-	@override String get rateCta => 'પ્લે સ્ટોર પર રેટ કરો';
-	@override String get maybeLater => 'પછી કદાચ';
+	@override String soloDevMessage({required Object appLabel}) => 'એક ઝડપી રેટિંગ અન્ય લોકોને ${appLabel} શોધવામાં મદદ કરે છે અને વિકાસ ચાલુ રાખે છે. શું તમે એક ક્ષણ માટે એક છોડશો?';
+	@override String get shareFeedbackViaEmail => 'તમારો પ્રતિસાદ આગળ શું આવે છે તેને આકાર આપે છે — અમે દરેક સંદેશ વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરવા માંગો છો?';
+	@override String get rateCta => 'Play Store પર રેટ કરો';
+	@override String get maybeLater => 'કદાચ પછી';
 	@override String get sendFeedback => 'પ્રતિસાદ મોકલો';
-	@override String get noThanks => 'ના, આભાર';
-	@override String get aboutUsDescription => 'નાના ટીમ દ્વારા કાળજીપૂર્વક બનાવેલ. અમે ગોપનીયતા, સરળતા અને તમારી ખાવાની આદતોને વધુ સારી બનાવવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ';
+	@override String get noThanks => 'ના આભાર';
+	@override String get aboutUsDescription => 'એક નાની ટીમ દ્વારા કાળજીપૂર્વક બનાવવામાં આવ્યું છે. અમે ગોપનીયતા, સરળતા અને તમને વધુ સારી ખાવાની ટેવો બનાવવામાં મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઉત્સુક છો? જુઓ ';
 	@override String get aboutUsLinkLabel => 'અમારા વિશે';
-	@override String get thankYouMessage => 'આભાર! અમે ફરી અન્ય સમયે પૂછશું.';
+	@override String get thankYouMessage => 'આભાર! અમે તમને બીજી વાર પૂછીશું.';
 }
 
 // Path: health
@@ -408,8 +408,8 @@ class _TranslationsHealthGu implements TranslationsHealthEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'હેલ્થ કનેક્ટ સાથે સિંક થઈ શક્યું નથી';
-	@override String get mealSynced => 'ભોજન હેલ્થ કનેક્ટ સાથે સિંક થયું';
+	@override String get syncFailed => 'Health Connect સાથે સમન્વયિત કરી શકાયું નથી';
+	@override String get mealSynced => 'ભોજન Health Connect સાથે સમન્વયિત થયું';
 }
 
 // Path: onboarding.features
@@ -432,7 +432,7 @@ class _TranslationsOnboardingGenderGu implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'તમારું લિંગ શું છે?';
-	@override String get description => 'લિંગ અમને તમારો બેઝલ મેટાબોલિક રેટ (BMR) ચોક્કસ રીતે ગણવામાં મદદ કરે છે.';
+	@override String get description => 'લિંગ અમને તમારા બેઝલ મેટાબોલિક રેટ (BMR) ની સચોટ ગણતરી કરવામાં મદદ કરે છે.';
 	@override String get next => 'આગળ';
 }
 
@@ -443,8 +443,8 @@ class _TranslationsOnboardingHeightGu implements TranslationsOnboardingHeightEn 
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'તમારી ઉંચાઈ કેટલી છે?';
-	@override String get description => 'તમારી ઉંચાઈ અમને તમારું BMI અને ઉર્જા જરૂરિયાતો ચોક્કસ રીતે ગણવામાં મદદ કરે છે.';
+	@override String get title => 'તમારી ઊંચાઈ કેટલી છે?';
+	@override String get description => 'તમારી ઊંચાઈ અમને તમારા BMI અને ઊર્જાની જરૂરિયાતોની સચોટ ગણતરી કરવામાં મદદ કરે છે.';
 	@override String get metric => 'મેટ્રિક';
 	@override String get imperial => 'ઇમ્પિરિયલ';
 	@override String get next => 'આગળ';
@@ -457,10 +457,10 @@ class _TranslationsOnboardingWeightGu implements TranslationsOnboardingWeightEn 
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'તમારું હાલનું વજન શું છે?';
-	@override String get currentDescription => 'તમારા દૈનિક લક્ષ્યોને વ્યક્તિગત કરવા માટે તમારું હાલનું વજન જરૂરી છે.';
-	@override String get targetTitle => 'તમારું લક્ષ્ય વજન શું છે?';
-	@override String get targetDescription => 'લક્ષ્ય વજન નક્કી કરવાથી અમને તમારી લાંબા ગાળાની યોજના નક્કી કરવામાં મદદ મળે છે.';
+	@override String get currentTitle => 'તમારું વર્તમાન વજન કેટલું છે?';
+	@override String get currentDescription => 'તમારા દૈનિક લક્ષ્યોને વ્યક્તિગત કરવા માટે તમારું વર્તમાન વજન આવશ્યક છે.';
+	@override String get targetTitle => 'તમારું લક્ષ્ય વજન કેટલું છે?';
+	@override String get targetDescription => 'લક્ષ્ય વજન સેટ કરવાથી અમને તમારી લાંબા ગાળાની યોજના નક્કી કરવામાં મદદ મળે છે.';
 	@override String get metric => 'મેટ્રિક';
 	@override String get imperial => 'ઇમ્પિરિયલ';
 	@override String get next => 'આગળ';
@@ -474,7 +474,7 @@ class _TranslationsOnboardingAgeGu implements TranslationsOnboardingAgeEn {
 
 	// Translations
 	@override String get title => 'તમારો જન્મદિવસ ક્યારે છે?';
-	@override String get description => 'તમારી ઉંમર અમને તમારી કૅલરી જરૂરિયાતો ચોક્કસ રીતે ગણવામાં મદદ કરે છે.';
+	@override String get description => 'તમારી ઉંમર અમને તમારી કેલરીની જરૂરિયાતોની સચોટ ગણતરી કરવામાં મદદ કરે છે.';
 	@override String get next => 'આગળ';
 }
 
@@ -487,8 +487,8 @@ class _TranslationsOnboardingBmiScaleGu implements TranslationsOnboardingBmiScal
 	// Translations
 	@override String get underweight => 'ઓછું';
 	@override String get healthy => 'સ્વસ્થ';
-	@override String get overweight => 'વધારે';
-	@override String get obese => 'મોટાપો';
+	@override String get overweight => 'વધુ';
+	@override String get obese => 'સ્થૂળ';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesGu categories = _TranslationsOnboardingBmiScaleCategoriesGu._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesGu messages = _TranslationsOnboardingBmiScaleMessagesGu._(_root);
 }
@@ -500,8 +500,8 @@ class _TranslationsOnboardingWeightGoalGu implements TranslationsOnboardingWeigh
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'તમારું લક્ષ્ય શું છે?';
-	@override String get description => 'તમે શું હાંસલ કરવા માંગો છો તે મુજબનું લક્ષ્ય પસંદ કરો';
+	@override String get title => 'તમારો ધ્યેય શું છે?';
+	@override String get description => 'તમે શું પ્રાપ્ત કરવા માંગો છો તેનું શ્રેષ્ઠ વર્ણન કરતો ધ્યેય પસંદ કરો';
 }
 
 // Path: onboarding.activityLevel
@@ -512,7 +512,7 @@ class _TranslationsOnboardingActivityLevelGu implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'તમે કેટલા સક્રિય છો?';
-	@override String get description => 'આ અમને તમારી દૈનિક કૅલરી જરૂરિયાતો વધુ ચોક્કસ રીતે ગણવામાં મદદ કરે છે';
+	@override String get description => 'આ અમને તમારી દૈનિક કેલરીની જરૂરિયાતોની વધુ સચોટ ગણતરી કરવામાં મદદ કરે છે';
 }
 
 // Path: onboarding.healthConnect
@@ -523,18 +523,18 @@ class _TranslationsOnboardingHealthConnectGu implements TranslationsOnboardingHe
 
 	// Translations
 	@override String get title => 'હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો';
-	@override String get description => 'વધુ સારી સમજ અને આપમેળે કૅલરી ટ્રેકિંગ માટે તમારું હેલ્થ ડેટા સિંક કરો';
+	@override String get description => 'વધુ સારી આંતરદૃષ્ટિ અને સ્વચાલિત કેલરી ટ્રેકિંગ માટે તમારા સ્વાસ્થ્ય ડેટાને સિંક કરો';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingGu automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingGu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsGu progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsGu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationGu seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationGu._(_root);
-	@override String get connected => 'હેલ્થ કનેક્ટ જોડાયેલ';
-	@override String get notConnected => 'હેલ્થ કનેક્ટ જોડાયેલ નથી';
-	@override String get setup => 'હેલ્થ કનેક્ટ સેટઅપ';
-	@override String get skipForNow => 'હાલ માટે છોડો';
+	@override String get connected => 'હેલ્થ કનેક્ટ કનેક્ટેડ';
+	@override String get notConnected => 'હેલ્થ કનેક્ટ કનેક્ટેડ નથી';
+	@override String get setup => 'હેલ્થ કનેક્ટ સેટઅપ કરો';
+	@override String get skipForNow => 'હમણાં માટે છોડો';
 	@override String get statusConnected => 'હેલ્થ કનેક્ટ કનેક્ટેડ છે.';
-	@override String get statusSuccess => 'હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'પરવાનગી નામંજૂર. કૃપા કરીને ${appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્રિય કરો.';
-	@override String statusError({required Object error}) => 'હેલ્થ કનેક્ટ સેટઅપ કરતી વખતે ભૂલ: ${error}';
+	@override String get statusSuccess => 'હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું છે!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'પરવાનગી નકારી. કૃપા કરીને ${appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્ષમ કરો.';
+	@override String statusError({required Object error}) => 'હેલ્થ કનેક્ટ સેટઅપ કરવામાં ભૂલ: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -557,15 +557,15 @@ class _TranslationsHomeAiSummaryGu implements TranslationsHomeAiSummaryEn {
 
 	// Translations
 	@override String get title => 'તમારો AI સારાંશ';
-	@override String get logMore => 'આગામી થોડા દિવસોમાં વધુ ભોજન લોગ કરો જેથી કરીને તમને વ્યક્તિગત AI ઇન્સાઇટ્સ મળે.';
+	@override String get logMore => 'તમારી વ્યક્તિગત AI આંતરદૃષ્ટિ મેળવવા માટે આગામી થોડા દિવસોમાં વધુ ભોજન લોગ કરો.';
 	@override String get loading => 'તમારો સારાંશ લોડ થઈ રહ્યો છે...';
 	@override String mealCount({required Object count}) => '${count} ભોજન લોગ થયા';
 	@override String macroBalanceScore({required Object score}) => 'સંતુલન સ્કોર ${score}';
-	@override String get topFoods => 'શ્રેષ્ઠ ખોરાક';
-	@override String get trendUp => 'કૅલરી વધતી દિશામાં';
-	@override String get trendDown => 'કૅલરી ઘટતી દિશામાં';
-	@override String get trendSteady => 'કૅલરી સ્થિર છે';
-	@override String generatedAt({required Object time}) => 'અપડેટ થયું ${time}';
+	@override String get topFoods => 'ટોચના ખોરાક';
+	@override String get trendUp => 'કેલરી વધી રહી છે';
+	@override String get trendDown => 'કેલરી ઘટી રહી છે';
+	@override String get trendSteady => 'કેલરી સ્થિર રહી છે';
+	@override String generatedAt({required Object time}) => '${time} અપડેટ થયું';
 }
 
 // Path: home.dailyGoal
@@ -575,19 +575,19 @@ class _TranslationsHomeDailyGoalGu implements TranslationsHomeDailyGoalEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'તમારું દૈનિક લક્ષ્ય બદ્ધ કરો';
-	@override String get titleSet => 'તમારું દૈનિક લક્ષ્ય';
-	@override String get description => 'તમારી આરોગ્યયાત્રા શરૂ કરવા તૈયાર છો? શરૂઆત કરવા માટે નીચે તમારી દૈનિક કૅલરી લક્ષ્ય નક્કી કરો.';
-	@override String get descriptionSet => 'તમારો કંપાસ સેટ થઈ ગયો છે! માર્ગદર્શન માટે આ તમારું દૈનિક કૅલરી લક્ષ્ય છે.';
-	@override String get yourGoal => 'તમારું લક્ષ્ય';
+	@override String get title => 'તમારો દૈનિક લક્ષ્ય સેટ કરો';
+	@override String get titleSet => 'તમારો દૈનિક લક્ષ્ય';
+	@override String get description => 'તમારી સુખાકારી યાત્રા શરૂ કરવા તૈયાર છો? તમારી પ્રગતિ શરૂ કરવા માટે નીચે તમારો દૈનિક કેલરી લક્ષ્ય સેટ કરો.';
+	@override String get descriptionSet => 'તમારું હોકાયંત્ર સેટ છે! આ તમારો દૈનિક કેલરી લક્ષ્ય છે જે તમને માર્ગદર્શન આપશે.';
+	@override String get yourGoal => 'તમારો લક્ષ્ય';
 	@override String get goal => 'લક્ષ્ય';
-	@override String get dailyCalories => 'દૈનિક કૅલરી (kcal)';
+	@override String get dailyCalories => 'દૈનિક કેલરી (kcal)';
 	@override String get setGoal => 'લક્ષ્ય સેટ કરો';
-	@override String get intake => 'લેવાત';
-	@override String get burned => 'બર્ન';
+	@override String get intake => 'સેવન';
+	@override String get burned => 'બર્ન થયું';
 	@override String get weightImpact => 'વજન પર અસર';
-	@override String get estLoss => 'આ. ઘટશે';
-	@override String get estGain => 'આ. વધશે';
+	@override String get estLoss => 'અંદાજિત ઘટાડો';
+	@override String get estGain => 'અંદાજિત વધારો';
 	@override String get kcal => 'kcal';
 }
 
@@ -599,13 +599,13 @@ class _TranslationsHomeDailySummaryGu implements TranslationsHomeDailySummaryEn 
 
 	// Translations
 	@override String get title => 'દૈનિક સારાંશ';
-	@override String get calories => 'કૅલરી';
-	@override String get carbs => 'કાર્બ્સ';
+	@override String get calories => 'કેલરી';
+	@override String get carbs => 'કાર્બોહાઇડ્રેટ્સ';
 	@override String get protein => 'પ્રોટીન';
 	@override String get fat => 'ચરબી';
 	@override String get fiber => 'ફાઇબર';
 	@override String get grams => 'ગ્રામ';
-	@override String get chartAccessibilityLabel => 'મૅક્રોઝ ચાર્ટ';
+	@override String get chartAccessibilityLabel => 'મેક્રો ચાર્ટ';
 }
 
 // Path: home.intakeProgress
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressGu implements TranslationsHomeIntakeProgres
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'આજનો મૅક્રો વિભાગ';
+	@override String get title => 'આજનું મેક્રો વિભાજન';
 	@override String get target => 'લક્ષ્ય';
 	@override String get current => 'વર્તમાન';
 }
@@ -627,11 +627,11 @@ class _TranslationsHomeIntakeHistoryGu implements TranslationsHomeIntakeHistoryE
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '7-દિવસનું મૅક્રો ઇતિહાસ';
+	@override String get title => '7-દિવસનો મેક્રો ઇતિહાસ';
 	@override String get trendTitle => 'આજનો ટ્રેન્ડ';
-	@override String peakHour({required Object hour}) => 'સર્વોચ્ચ: ${hour}:00';
-	@override String get noHistoryYet => 'હજુ ઇતિહાસ નથી';
-	@override String get startLogging => 'અહીં તમારો 7-દિવસનો મૅક્રો ટ્રેન્ડ જોવા\nભોજન લોગ કરવાનું શરૂ કરો';
+	@override String peakHour({required Object hour}) => 'પીક: ${hour}:00';
+	@override String get noHistoryYet => 'હજુ કોઈ ઇતિહાસ નથી';
+	@override String get startLogging => 'તમારા 7-દિવસના મેક્રો ટ્રેન્ડ અહીં જોવા માટે\nભોજન લોગ કરવાનું શરૂ કરો';
 }
 
 // Path: home.mealLog
@@ -641,9 +641,9 @@ class _TranslationsHomeMealLogGu implements TranslationsHomeMealLogEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'લોગ થયેલ ભોજન';
-	@override String get emptyMessage => 'તમારા છેલ્લા ભોજનનો ફોટો લો અને અહીં લોગ કરો.';
-	@override String get noMealsToday => 'આજે કોઈ ભોજન નોંધાયેલ નથી';
+	@override String get title => 'લોગ થયેલા ભોજન';
+	@override String get emptyMessage => 'અહીં લોગ કરવા માટે તમારા છેલ્લા ભોજનનો ફોટો લો.';
+	@override String get noMealsToday => 'આજે કોઈ ભોજન રેકોર્ડ થયું નથી';
 	@override String get seeAllMeals => 'બધા ભોજન જુઓ';
 }
 
@@ -655,8 +655,8 @@ class _TranslationsHomeMealDescriptionGu implements TranslationsHomeMealDescript
 
 	// Translations
 	@override String get title => 'AI સાથે ઝડપી ઉમેરો';
-	@override String get description => 'તમારા ભોજનનું વર્ણન કરો, અને વિગતો AI પર છોડી દો.';
-	@override String get hint => 'દા.ત. નાસ્તામાં મેં મોટું ઓટમીલનું એક બાઉલ લીધું, તેમાં કેળાના સ્લાઇસ અને વ્હેનો એક સ્કુપ ...';
+	@override String get description => 'તમારા ભોજનનું વર્ણન કરો, અને AI ને વિગતો સંભાળવા દો.';
+	@override String get hint => 'દા.ત. નાસ્તામાં મેં એક મોટી વાટકી ઓટમીલ, એક કાપેલું કેળું અને એક સ્કૂપ વ્હે પ્રોટીન લીધું હતું...';
 	@override String get analyzeMeal => 'ભોજનનું વિશ્લેષણ કરો';
 }
 
@@ -667,11 +667,11 @@ class _TranslationsHomeFavoriteMealsGu implements TranslationsHomeFavoriteMealsE
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પસંદીદા ભોજન';
-	@override String get description => 'તમારાં મનપસંદ ભોજનમાંથી ઝડપથી એક ઉમેરો.';
-	@override String get noFavorites => 'હજુ પસંદીદા ભોજન નથી.';
-	@override String get addFavoriteHint => 'કોઈ ભોજનને સ્ટાર ક્લિક કરીને ફેવરિટ તરીકે ચિહ્નિત કરો.';
-	@override String get seeAll => 'બધું જુઓ';
+	@override String get title => 'મનપસંદ ભોજન';
+	@override String get description => 'તમારા મનપસંદ ભોજનમાંથી એક ઝડપથી ઉમેરો.';
+	@override String get noFavorites => 'હજુ કોઈ મનપસંદ ભોજન નથી.';
+	@override String get addFavoriteHint => 'ભોજનને મનપસંદ તરીકે ચિહ્નિત કરવા માટે તેના પરના સ્ટાર પર ક્લિક કરો.';
+	@override String get seeAll => 'બધા જુઓ';
 	@override String get add => 'ઉમેરો';
 }
 
@@ -682,12 +682,12 @@ class _TranslationsHomeMealSnapGu implements TranslationsHomeMealSnapEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ફોટો લો અને ભોજન ટ્રેક કરો';
-	@override String get description => 'AI વિશ્લેષણ માટે તમારા ભોજનનો ફોટો લેવા કેમેરાનો ઉપયોગ કરો.';
+	@override String get title => 'તમારા ભોજનનો ફોટો લો અને ટ્રૅક કરો';
+	@override String get description => 'AI વિશ્લેષણ માટે તમારા ખોરાકનો ફોટો લેવા માટે તમારા કેમેરાનો ઉપયોગ કરો.';
 	@override String get openCamera => 'કેમેરા ખોલો';
 	@override String get gallery => 'ગેલેરી';
-	@override String get compressingPhoto => 'ફોટો ઓપ્ટિમાઇઝ કરી રહ્યા છીએ…';
-	@override String get uploadingPhoto => 'ફોટો અપલોડ કરી રહ્યા છીએ…';
+	@override String get compressingPhoto => 'ફોટો ઑપ્ટિમાઇઝ કરી રહ્યું છે…';
+	@override String get uploadingPhoto => 'ફોટો અપલોડ કરી રહ્યું છે…';
 }
 
 // Path: home.connectHealth
@@ -697,8 +697,8 @@ class _TranslationsHomeConnectHealthGu implements TranslationsHomeConnectHealthE
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'હેલ્થ કનેક્ટ સાથે સિંક કરો';
-	@override String get description => 'તમારા પોષણ ડેટાને હેલ્થ કનેક્ટ સાથે સિંક કરો';
+	@override String get title => 'Health Connect સાથે સમન્વય કરો';
+	@override String get description => 'તમારા પોષણ ડેટાને Health Connect સાથે સમન્વય કરો';
 	@override String get install => 'ઇન્સ્ટોલ કરો';
 	@override String get connect => 'કનેક્ટ કરો';
 }
@@ -710,11 +710,11 @@ class _TranslationsMealNutritionGu implements TranslationsMealNutritionEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get calories => 'કૅલરી';
-	@override String get carbs => 'કાર્બ્સ (ગ્રા)';
-	@override String get protein => 'પ્રોટીન (ગ્રા)';
-	@override String get fat => 'ચરબી (ગ્રા)';
-	@override String get fiber => 'ફાઇબર (ગ્રા)';
+	@override String get calories => 'કેલરી';
+	@override String get carbs => 'કાર્બોહાઇડ્રેટ્સ (g)';
+	@override String get protein => 'પ્રોટીન (g)';
+	@override String get fat => 'ચરબી (g)';
+	@override String get fiber => 'ફાઇબર (g)';
 }
 
 // Path: meal.deleteConfirmation
@@ -724,10 +724,10 @@ class _TranslationsMealDeleteConfirmationGu implements TranslationsMealDeleteCon
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ભોજન કાઢી નાંખો';
+	@override String get title => 'ભોજન કાઢી નાખો';
 	@override String get message => 'શું તમે ખરેખર આ ભોજન એન્ટ્રી કાઢી નાખવા માંગો છો?';
 	@override String get cancel => 'રદ કરો';
-	@override String get delete => 'કાઢી નાંખો';
+	@override String get delete => 'કાઢી નાખો';
 }
 
 // Path: meal.questionFlow
@@ -738,9 +738,9 @@ class _TranslationsMealQuestionFlowGu implements TranslationsMealQuestionFlowEn 
 
 	// Translations
 	@override String progress({required Object current, required Object total}) => 'પ્રશ્ન ${current} માંથી ${total}';
-	@override String get noQuestionsAvailable => 'કોઈ પ્રશ્ન ઉપલબ્ધ નથી';
-	@override String get next => 'આગલું';
-	@override String get continueLabel => 'જારી રાખો';
+	@override String get noQuestionsAvailable => 'કોઈ પ્રશ્નો ઉપલબ્ધ નથી';
+	@override String get next => 'આગળ';
+	@override String get continueLabel => 'ચાલુ રાખો';
 }
 
 // Path: meal.analysis
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisGu implements TranslationsMealAnalysisEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'AI ભોજન વિશ્લેષણ';
-	@override String get stepStarted => 'શરૂ કરતા…';
-	@override String get stepDecomposition => 'તમારા ભોજનને સમજતા…';
-	@override String get stepIngredients => 'પોષણ ડેટા સાથે ઘટકો મૅચ કરતા…';
-	@override String get stepUncertainty => 'વિશ્વાસ સ્તર તપાસતા…';
-	@override String get stepMealTypeQuestion => 'લગભગ તૈયાર…';
-	@override String get stepResult => 'તમારો પરિણામ પૂર્ણ કરતા…';
-	@override String get stepError => 'કૈંક ખોટું થયું';
-	@override String get stepDefault => 'તમારું ભોજન વિશ્લેષિત કરી રહ્યા છીએ…';
-	@override String get progressUnderstand => 'સમજો';
-	@override String get progressMatch => 'મૅચ';
-	@override String get progressCheck => 'ચેક';
+	@override String get title => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ';
+	@override String get stepStarted => 'શરૂઆત કરી રહ્યા છીએ…';
+	@override String get stepDecomposition => 'તમારા ભોજનને સમજી રહ્યા છીએ…';
+	@override String get stepIngredients => 'ઘટકોને પોષણ ડેટા સાથે મેચ કરી રહ્યા છીએ…';
+	@override String get stepUncertainty => 'વિશ્વાસ તપાસી રહ્યા છીએ…';
+	@override String get stepMealTypeQuestion => 'લગભગ થઈ ગયું…';
+	@override String get stepResult => 'તમારા પરિણામને અંતિમ સ્વરૂપ આપી રહ્યા છીએ…';
+	@override String get stepError => 'કંઈક ખોટું થયું';
+	@override String get stepDefault => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ…';
+	@override String get progressUnderstand => 'તમારા ભોજનને સમજવું';
+	@override String get progressMatch => 'ઘટક પોષણ શોધી રહ્યા છીએ';
+	@override String get progressCheck => 'ભાગો અને વિશ્વાસ તપાસી રહ્યા છીએ';
 	@override String get progressMealType => 'ભોજનનો પ્રકાર પસંદ કરી રહ્યા છીએ';
-	@override String get progressFinish => 'પૂર્ણ';
-	@override String get detectedIngredientHeading => 'અમે ઓળખી રહ્યા એવા ઘટકો';
-	@override String ingredientsOverflow({required Object count}) => '${count} વધુ';
-	@override String ingredientsLine({required Object count}) => '${count} ઘટકો શોધાયા';
-	@override String get ingredientsPending => 'ઘટકો સ્કૅન કરી રહ્યા છીએ…';
+	@override String get progressFinish => 'કેલરી અને મેક્રોની ગણતરી કરી રહ્યા છીએ';
+	@override String get detectedIngredientHeading => 'અમે જે ઘટકો શોધી રહ્યા છીએ';
+	@override String ingredientsOverflow({required Object count}) => 'વધુ ${count}';
+	@override String ingredientsLine({required Object count}) => '${count} ઘટકો મળ્યા';
+	@override String get ingredientsPending => 'ઘટકો સ્કેન કરી રહ્યા છીએ…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get offlineTip0 => 'ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.';
+	@override String get offlineTip1 => 'ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.';
+	@override String get offlineTip2 => 'ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.';
+	@override String get offlineTip3 => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.';
+	@override String get offlineTip4 => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.';
+	@override String get offlineTip5 => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).';
 }
 
 // Path: meal.feedback
@@ -785,12 +785,12 @@ class _TranslationsMealFeedbackGu implements TranslationsMealFeedbackEn {
 
 	// Translations
 	@override String get title => 'શું ખોટું લાગે છે?';
-	@override String get subtitle => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણ સુધારવામાં અમારી મદદ કરો.';
-	@override String get tellUsMore => 'વધુ જણાવો';
+	@override String get subtitle => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણને સુધારવામાં અમારી સહાય કરો.';
+	@override String get tellUsMore => 'વધુ કહો';
 	@override String get describeIncorrect => 'શું ખોટું હતું તેનું વર્ણન કરો';
 	@override String get submit => 'સબમિટ કરો';
 	@override String get issueFoodIdentification => 'ખોરાકની ઓળખ';
-	@override String get issuePortionSize => 'પીરસવાનું માપ';
+	@override String get issuePortionSize => 'ભાગનું કદ';
 	@override String get issueCalorieDistribution => 'કેલરી વિતરણ';
 	@override String get issueMacrosWrong => 'મેક્રો ખોટા છે';
 	@override String get issueMissingItems => 'ગુમ થયેલ વસ્તુઓ';
@@ -805,8 +805,8 @@ class _TranslationsFavoritesSortOptionsGu implements TranslationsFavoritesSortOp
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get recent => 'તાજેતરનું';
-	@override String get calories => 'કૅલરી';
+	@override String get recent => 'તાજેતરના';
+	@override String get calories => 'કેલરી';
 	@override String get alphabetical => 'A-Z';
 }
 
@@ -819,8 +819,8 @@ class _TranslationsProfileSectionsGu implements TranslationsProfileSectionsEn {
 	// Translations
 	@override String get profile => 'પ્રોફાઇલ';
 	@override String get basicInformation => 'મૂળભૂત માહિતી';
-	@override String get goalsAndActivity => 'લક્ષ્યો અને સક્રિયતા';
-	@override String get calculatedValues => 'ગણિત મૂલ્યો';
+	@override String get goalsAndActivity => 'લક્ષ્યો અને પ્રવૃત્તિ';
+	@override String get calculatedValues => 'ગણતરી કરેલ મૂલ્યો';
 }
 
 // Path: profile.calculatedValues
@@ -833,7 +833,7 @@ class _TranslationsProfileCalculatedValuesGu implements TranslationsProfileCalcu
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'દૈનિક લક્ષ્ય';
-	@override String get calPerDay => 'કૅલ/દિવસ';
+	@override String get calPerDay => 'કેલરી/દિવસ';
 	@override String get notAvailable => 'N/A';
 }
 
@@ -845,8 +845,8 @@ class _TranslationsEditProfileSectionsGu implements TranslationsEditProfileSecti
 
 	// Translations
 	@override String get personalInformation => 'વ્યક્તિગત માહિતી';
-	@override String get physicalMeasurements => 'શારીરિક માપદંડો';
-	@override String get goalsAndActivity => 'લક્ષ્યો અને સક્રિયતા';
+	@override String get physicalMeasurements => 'શારીરિક માપ';
+	@override String get goalsAndActivity => 'લક્ષ્યો અને પ્રવૃત્તિ';
 }
 
 // Path: editProfile.genders
@@ -895,12 +895,12 @@ class _TranslationsSettingsSectionsGu implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'પ્રોફાઇલ';
-	@override String get localization => 'સ્થાનિકકરણ';
+	@override String get localization => 'સ્થાનિકીકરણ';
 	@override String get notifications => 'સૂચનાઓ';
 	@override String get healthConnect => 'હેલ્થ કનેક્ટ';
-	@override String get supportAndLegal => 'આધાર અને કાનૂની';
+	@override String get supportAndLegal => 'સપોર્ટ અને કાનૂની';
 	@override String get about => 'વિશે';
-	@override String get dangerZone => 'જોખમી વિસ્તાર';
+	@override String get dangerZone => 'ડેન્જર ઝોન';
 	@override String get developer => 'ડેવલપર';
 }
 
@@ -911,7 +911,7 @@ class _TranslationsSettingsEditProfileGu implements TranslationsSettingsEditProf
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પ્રોફાઇલ એડિટ કરો';
+	@override String get title => 'પ્રોફાઇલ સંપાદિત કરો';
 	@override String get subtitle => 'તમારી વ્યક્તિગત માહિતી અપડેટ કરો';
 }
 
@@ -925,7 +925,7 @@ class _TranslationsSettingsLanguageGu implements TranslationsSettingsLanguageEn 
 	@override String get title => 'ભાષા';
 	@override String get subtitle => 'તમારી પસંદગીની ભાષા પસંદ કરો';
 	@override String get searchHint => 'ભાષાઓ શોધો...';
-	@override String get noResults => 'કોઈ પરિણામ મળ્યા નથી';
+	@override String get noResults => 'કોઈ પરિણામ મળ્યું નથી';
 }
 
 // Path: settings.heightUnit
@@ -935,7 +935,7 @@ class _TranslationsSettingsHeightUnitGu implements TranslationsSettingsHeightUni
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ઉંચાઈનો એકમ';
+	@override String get title => 'ઊંચાઈનો એકમ';
 }
 
 // Path: settings.weightUnit
@@ -956,7 +956,7 @@ class _TranslationsSettingsMealRemindersGu implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'ભોજન રીમાઇન્ડર્સ';
-	@override String get subtitle => 'સમયસર એલર્ટ સાથે માર્ગ પર રહો';
+	@override String get subtitle => 'સમયસર ચેતવણીઓ સાથે ટ્રેક પર રહો';
 }
 
 // Path: settings.theme
@@ -980,12 +980,12 @@ class _TranslationsSettingsSendFeedbackGu implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'પ્રતિસાદ મોકલો';
-	@override String subtitle({required Object appLabel}) => '${appLabel} ને સુધારવામાં અમારી મદદ કરો';
-	@override String emailSubject({required Object appLabel}) => '${appLabel} એપ પ્રતિસાદ';
-	@override String get emailBodyPrefix => 'કૃપા કરીને તમારો પ્રતિસાદ નીચે આપો:';
-	@override String get appVersion => 'એપ વર્ઝન';
-	@override String get device => 'ડિવાઇસ';
-	@override String get osVersion => 'OS વર્ઝન';
+	@override String subtitle({required Object appLabel}) => '${appLabel} સુધારવામાં અમારી સહાય કરો';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} એપ્લિકેશન પ્રતિસાદ';
+	@override String get emailBodyPrefix => 'કૃપા કરીને નીચે તમારો પ્રતિસાદ આપો:';
+	@override String get appVersion => 'એપ્લિકેશન સંસ્કરણ';
+	@override String get device => 'ઉપકરણ';
+	@override String get osVersion => 'OS સંસ્કરણ';
 	@override String get uid => 'UID';
 }
 
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryGu implements TranslationsSettingsEx
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ભોજન ઇતિહાસ નિકાસ';
-	@override String get subtitle => 'તમારા લોગ થયેલા ભોજનનો CSV શેર કરો';
+	@override String get title => 'ભોજન ઇતિહાસ નિકાસ કરો';
+	@override String get subtitle => 'તમારા લોગ કરેલા ભોજનનો CSV શેર કરો';
 	@override String get shareText => 'તમારો Calorify ભોજન ઇતિહાસ નિકાસ';
-	@override String failed({required Object error}) => 'ભોજન ઇતિહાસ નિકાસ થઈ શક્યો નથી: ${error}';
+	@override String failed({required Object error}) => 'ભોજન ઇતિહાસ નિકાસ કરી શકાયો નથી: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1010,9 +1010,9 @@ class _TranslationsSettingsClearAllDataGu implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'બધો ડેટા સાફ કરો';
-	@override String get subtitle => 'તમારી બધી માહિતી અપ્રતિર્વર્તિત રીતે કાઢી નાખો';
+	@override String get subtitle => 'તમારી બધી માહિતી કાયમ માટે કાઢી નાખો';
 	@override String get confirmationTitle => 'બધો ડેટા સાફ કરવો?';
-	@override String get confirmationMessage => 'આ ક્રિયા પાછી લઈ શકાતી નથી. તમારા બધા લોગ થયેલા ભોજન, પસંદીદા અને પ્રોફાઇલ સેટિંગ્સ કાયમી રીતે કાઢી નાખવામાં આવશે.';
+	@override String get confirmationMessage => 'આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી. તમારા બધા લોગ કરેલા ભોજન, મનપસંદ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે.';
 	@override String get cancel => 'રદ કરો';
 	@override String get clearEverything => 'બધું સાફ કરો';
 }
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsGu implements TranslationsSettingsDebugOp
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ડિબગ વિકલ્પો';
+	@override String get title => 'ડીબગ વિકલ્પો';
 }
 
 // Path: settings.healthConnect
@@ -1040,10 +1040,10 @@ class _TranslationsSettingsHealthConnectGu implements TranslationsSettingsHealth
 	@override late final _TranslationsSettingsHealthConnectPermissionsGu permissions = _TranslationsSettingsHealthConnectPermissionsGu._(_root);
 	@override String get managePermissions => 'પરવાનગીઓ મેનેજ કરો';
 	@override String get openSettings => 'હેલ્થ કનેક્ટ સેટિંગ્સ ખોલો';
-	@override String get requestPermissions => 'પરવાનગીઓ માગો';
-	@override String get permissionRequestCancelledOrFailed => 'પરવાનો વિનંતી રદ થઈ અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયત્ન કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં પરવાનગીઓ હાથેથી મંજૂર કરો.';
-	@override String get permissionRequestFailed => 'પરવાનગીઓ માગી શકાયા નથી. કૃપા કરીને ફરી પ્રયત્ન કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં પરવાનગીઓ હાથેથી મંજૂર કરો.';
-	@override String get requestingPermissions => 'વિનંતી કરી રહ્યા છીએ...';
+	@override String get requestPermissions => 'પરવાનગીઓની વિનંતી કરો';
+	@override String get permissionRequestCancelledOrFailed => 'પરવાનગી વિનંતી રદ કરવામાં આવી અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.';
+	@override String get permissionRequestFailed => 'પરવાનગીઓની વિનંતી કરવામાં અસમર્થ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.';
+	@override String get requestingPermissions => 'વિનંતી કરી રહ્યું છે...';
 }
 
 // Path: settings.about
@@ -1054,7 +1054,7 @@ class _TranslationsSettingsAboutGu implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'વિશે';
-	@override String get tagline => 'ઝડપી, મફત અને ગોપનીયતા-પ્રથમ કૅલરી જાગરૂકતા';
+	@override String get tagline => 'ઝડપી, મફત અને ગોપનીયતા-પ્રથમ કેલરી જાગૃતિ';
 	@override late final _TranslationsSettingsAboutOurStoryGu ourStory = _TranslationsSettingsAboutOurStoryGu._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyGu privacy = _TranslationsSettingsAboutPrivacyGu._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperGu developer = _TranslationsSettingsAboutDeveloperGu._(_root);
@@ -1101,8 +1101,8 @@ class _TranslationsNotificationsDinnerGu implements TranslationsNotificationsDin
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'રાત્રીભોજનનો સમય! 🍽️';
-	@override String get body => 'તમારું રાત્રીભોજન લોગ કરવાનું ભૂલશો નહીં';
+	@override String get title => 'રાત્રિભોજનનો સમય! 🍽️';
+	@override String get body => 'તમારું રાત્રિભોજન લોગ કરવાનું ભૂલશો નહીં';
 }
 
 // Path: notifications.snack
@@ -1113,7 +1113,7 @@ class _TranslationsNotificationsSnackGu implements TranslationsNotificationsSnac
 
 	// Translations
 	@override String get title => 'નાસ્તાનો સમય! 🍎';
-	@override String get body => 'એક સ્વસ્થ નાસ્તાનો સમય';
+	@override String get body => 'સ્વસ્થ નાસ્તાનો સમય';
 }
 
 // Path: notifications.test
@@ -1123,7 +1123,7 @@ class _TranslationsNotificationsTestGu implements TranslationsNotificationsTestE
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ટેસ્ટ સૂચના';
+	@override String get title => 'પરીક્ષણ સૂચના';
 }
 
 // Path: disclaimer.snap
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapGu implements TranslationsDisclaimerSnapEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} અંદાજિત પોષણ માહિતી આપે છે. ચોકસાઈ તમારા ઇનપુટ અને ખોરાકની ભિન્નતાઓ પર નિર્ભર છે. આને માર્ગદર્શન તરીકે વાપરો, અંતિમ સ્રોત તરીકે નહીં. વ્યક્તિગત આહાર સલાહ માટે વ્યાવસાયિકની સલાહ લો.';
+	@override String description({required Object appLabel}) => '${appLabel} અંદાજિત પોષણ માહિતી પ્રદાન કરે છે. ચોકસાઈ તમારા ઇનપુટ અને ખોરાકની વિવિધતાઓ પર આધારિત છે. માર્ગદર્શિકા તરીકે ઉપયોગ કરો, ચોક્કસ સ્ત્રોત તરીકે નહીં. વ્યક્તિગત આહાર સલાહ માટે વ્યાવસાયિકની સલાહ લો.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeGu portionSize = _TranslationsDisclaimerSnapPortionSizeGu._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsGu preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsGu._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsGu ingredients = _TranslationsDisclaimerSnapIngredientsGu._(_root);
@@ -1147,8 +1147,8 @@ class _TranslationsDisclaimerWeightEstimateGu implements TranslationsDisclaimerW
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'વજન અંદાજ વિશે';
-	@override String get description => 'દેખાડવામાં આવેલ વજન પરિવર્તન એક સાધારણ ‘કૅલરી ઇન સામે કૅલરી આઉટ’ મોડલ પર આધારિત સાકલ્યિક અંદાજ છે. આ પ્રેરણાત્મક માર્ગદર્શન માટે છે, તમારા વાસ્તવિક વજનનું પૂર્વાનુમાન નથી.';
+	@override String get title => 'વજનના અંદાજ વિશે';
+	@override String get description => 'અંદાજિત વજનમાં ફેરફાર એ સરળ કેલરી-ઇન વિ. કેલરી-આઉટ મોડેલ પર આધારિત સૈદ્ધાંતિક અંદાજ છે. તે ફક્ત પ્રેરક માર્ગદર્શન માટે છે, તમારા વાસ્તવિક વજનની આગાહી તરીકે નહીં.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyGu calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyGu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightGu waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightGu._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsGu implements TranslationsDisclaimerHe
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'આ મેટ્રિક્સ તમને તમારા શરીરની ઉર્જા જરૂરિયાતો સમજવામાં અને તમારા પોષણ લક્ષ્યોને માર્ગદર્શન આપવા મદદ કરે છે.';
+	@override String get description => 'આ મેટ્રિક્સ તમને તમારા શરીરની ઊર્જાની જરૂરિયાતોને સમજવામાં અને તમારા પોષણ લક્ષ્યોને માર્ગદર્શન આપવામાં મદદ કરે છે.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrGu bmr = _TranslationsDisclaimerHealthMetricsBmrGu._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeGu tdee = _TranslationsDisclaimerHealthMetricsTdeeGu._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalGu dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalGu._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureGu implements TranslationsDisclai
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'કૅલરી ખર્ચાનો અંદાજ';
-	@override String get description => 'જ્યારે હેલ્થ કનેક્ટ ડેટા ઉપલબ્ધ ન હોય, ત્યારે અમે આજની બર્ન થયેલી કૅલરીનો અંદાજ તમારા બેઝલ મેટાબોલિક રેટ (BMR) અને સક્રિયતા સ્તર (TDEE) આધારે, દિવસના પસાર થયેલા સમય પ્રમાણે સ્કેલ કરીને લગાવીએ છીએ.';
+	@override String get title => 'કેલરી ખર્ચનો અંદાજ';
+	@override String get description => 'જ્યારે Health Connect ડેટા અનુપલબ્ધ હોય, ત્યારે અમે તમારા બેઝલ મેટાબોલિક રેટ (BMR) અને પ્રવૃત્તિ સ્તર (TDEE) નો ઉપયોગ કરીને આજે બળી ગયેલી કેલરીનો અંદાજ લગાવીએ છીએ, જે દિવસના વીતી ગયેલા ભાગ માટે સ્કેલ કરવામાં આવે છે.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu._(_root);
 }
@@ -1188,7 +1188,7 @@ class _TranslationsOnboardingFeaturesFoodRecognitionGu implements TranslationsOn
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'સ્માર્ટ ફૂડ ઓળખ';
+	@override String get title => 'સ્માર્ટ ફૂડ રેકગ્નિશન';
 	@override String get description => 'ફોટો લો અને AI ને તમારું ભોજન ઓળખવા દો';
 }
 
@@ -1200,7 +1200,7 @@ class _TranslationsOnboardingFeaturesAiAnalysisGu implements TranslationsOnboard
 
 	// Translations
 	@override String get title => 'AI વિશ્લેષણ';
-	@override String get description => 'તમારી વર્ણનાઓ પરથી તરત જ પોષણ માહિતી મેળવો';
+	@override String get description => 'તમારા વર્ણનોમાંથી ત્વરિત પોષણ તથ્યો મેળવો';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1211,7 +1211,7 @@ class _TranslationsOnboardingFeaturesHealthIntegrationGu implements Translations
 
 	// Translations
 	@override String get title => 'હેલ્થ ઇન્ટિગ્રેશન';
-	@override String get description => 'વધુ સારી સમજ માટે હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો';
+	@override String get description => 'વધુ સારી આંતરદૃષ્ટિ માટે હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1221,10 +1221,10 @@ class _TranslationsOnboardingBmiScaleCategoriesGu implements TranslationsOnboard
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'અવજન';
+	@override String get underweight => 'ઓછું વજન';
 	@override String get healthyWeight => 'સ્વસ્થ વજન';
 	@override String get overweight => 'વધુ વજન';
-	@override String get obese => 'મોટાપો';
+	@override String get obese => 'સ્થૂળતા';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesGu implements TranslationsOnboardin
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'પોષક તત્ત્વોથી સમૃદ્ધ ભોજન સાથે સંતુલિત વજન સુધી પહોંચવા માટે અમે તમને સ્વસ્થ યોજના બનાવવામાં મદદ કરી શકીએ છીએ.';
-	@override String get healthy => 'શાનદાર! તમે સ્વસ્થ શ્રેણીમાં છો. અમે તમને તમારી ઉર્જા અને સ્ફૂર્તિ જાળવવામાં મદદ કરીશું.';
-	@override String overweight({required Object appLabel}) => '${appLabel} AI સંચાલિત ટ્રેકિંગ સાથે તમારી સફરને સરળ બનાવશે જેથી તમે આરામથી તમારું લક્ષ્ય મેળવી શકો.';
-	@override String get obese => 'વ્યક્તિગત માર્ગદર્શન અને ટકાઉ વ્યૂહરચનાઓ સાથે અમે તમારા આરોગ્ય લક્ષ્યોમાં તમારી સાથે છીએ.';
+	@override String get underweight => 'અમે તમને પોષક તત્ત્વોથી ભરપૂર ભોજન સાથે સંતુલિત વજન સુધી પહોંચવા માટે સ્વસ્થ યોજના બનાવવામાં મદદ કરી શકીએ છીએ.';
+	@override String get healthy => 'ખૂબ સરસ કામ! તમે સ્વસ્થ શ્રેણીમાં છો. અમે તમને તમારી જીવંતતા અને ઊર્જા સ્તર જાળવી રાખવામાં મદદ કરીશું.';
+	@override String overweight({required Object appLabel}) => '${appLabel} તમારા લક્ષ્ય સુધી આરામથી પહોંચવામાં મદદ કરવા માટે AI-સંચાલિત ટ્રેકિંગ સાથે તમારી યાત્રાને સરળ બનાવશે.';
+	@override String get obese => 'અમે તમારા સ્વાસ્થ્ય લક્ષ્યો માટે વ્યક્તિગત માર્ગદર્શન અને ટકાઉ વ્યૂહરચનાઓ સાથે તમને ટેકો આપવા માટે અહીં છીએ.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1247,8 +1247,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingGu implements Transla
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'આપમેળે કૅલરી ટ્રેકિંગ';
-	@override String get description => 'તમારા ફિટનેસ એપ્સમાંથી બર્ન થયેલી કૅલરી ટ્રેક કરો';
+	@override String get title => 'સ્વચાલિત કેલરી ટ્રેકિંગ';
+	@override String get description => 'તમારી ફિટનેસ એપ્લિકેશન્સમાંથી બર્ન થયેલી કેલરી ટ્રૅક કરો';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsGu implements Translat
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પ્રગતિ અંગેની ઝાંખી';
-	@override String get description => 'તમારા આરોગ્ય ટ્રેન્ડ્સ વિશે વિગતવાર આંતર્દષ્ટિ મેળવો';
+	@override String get title => 'પ્રગતિ આંતરદૃષ્ટિ';
+	@override String get description => 'તમારા સ્વાસ્થ્યના વલણો વિશે વિગતવાર આંતરદૃષ્ટિ મેળવો';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1269,8 +1269,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationGu implements Trans
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'સુગમ એકીકરણ';
-	@override String get description => 'તમારી મનપસંદ હેલ્થ એપ્સમાંથી ડેટા સિંક કરો';
+	@override String get title => 'સીમલેસ ઇન્ટિગ્રેશન';
+	@override String get description => 'તમારી મનપસંદ સ્વાસ્થ્ય એપ્લિકેશન્સમાંથી ડેટા સિંક કરો';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1281,16 +1281,16 @@ class _TranslationsOnboardingReinforcementTrackingSuccessGu implements Translati
 
 	// Translations
 	@override String get title => 'તમે એકલા નથી';
-	@override String get genericMessage => 'શોધ બતાવે છે કે સતત ટ્રેકિંગ લાંબા ગાળાના સફળતાનો #1 સૂચક છે.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age} વર્ષના ${gender} જે ${goal} ઇચ્છે છે, તેમના માટે સતત ટ્રેકિંગ સફળતાનો #1 સૂચક છે.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} તેને હાથથી કરવાના કરતા 10 ગણા સરળ બનાવે છે.';
+	@override String get genericMessage => 'સંશોધન દર્શાવે છે કે સુસંગત ટ્રેકિંગ લાંબા ગાળાની સફળતાનું #1 અનુમાનક છે.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age} વર્ષના ${gender} માટે જે ${goal} કરવા માંગે છે, સુસંગત ટ્રેકિંગ સફળતાનું #1 અનુમાનક છે.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} તેને મેન્યુઅલી કરવા કરતાં 10 ગણું સરળ બનાવે છે.';
 	@override String get getStartedTitle => 'શરૂ કરવા તૈયાર છો?';
-	@override String get tipPhoto => 'ઝડપી વિશ્લેષણ માટે તમારા ભોજનના ફોટા લો';
-	@override String get tipConsistency => 'અર્થીય પ્રગતિ જોવા નિયમિત રીતે લોગ કરો';
-	@override String get tipProgress => 'પ્રેરિત રહેવા માટે રોજ પ્રગતિ ટ્રેક કરો';
-	@override String get button => 'ચાલો શરૂ કરીએ';
+	@override String get tipPhoto => 'ત્વરિત વિશ્લેષણ માટે તમારા ભોજનનો ફોટો લો';
+	@override String get tipConsistency => 'સાર્થક પ્રગતિ જોવા માટે સુસંગત રીતે લોગ કરો';
+	@override String get tipProgress => 'પ્રેરિત રહેવા માટે તમારી પ્રગતિ દૈનિક ટ્રૅક કરો';
+	@override String get button => 'ચાલો જઈએ';
 	@override String get defaultGender => 'વ્યક્તિ';
-	@override String get defaultGoal => 'વધુ સ્વસ્થ તમે';
+	@override String get defaultGoal => 'સ્વસ્થ તમે';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1300,14 +1300,14 @@ class _TranslationsOnboardingReinforcementHealthProfileGu implements Translation
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'તમારી હેલ્થ પ્રોફાઇલ';
-	@override String bmiDescription({required Object bmi}) => 'તમારા માપદંડો આધારિત, તમારો BMI ${bmi} છે.';
-	@override String get finalizeDescription => 'તમારો અનુભવ વ્યક્તિગત કરવા માટે ચાલો તમારી પ્રોફાઇલ પૂર્ણ કરીએ.';
-	@override String get goalGain => 'વધારવું';
-	@override String get goalLose => 'ઘટાડવું';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'તમારું લક્ષ્ય પ્રાપ્ત કરવા, તમે ${direction} ${diff} ${unit} કરશો.';
-	@override String get goalReached => 'તમે તમારા લક્ષ્ય વજન પર પહોંચી ગયા છો! અમે તેને જાળવવામાં મદદ કરીશું.';
-	@override String get button => 'ચાલો શરૂ કરીએ';
+	@override String get title => 'તમારી સ્વાસ્થ્ય પ્રોફાઇલ';
+	@override String bmiDescription({required Object bmi}) => 'તમારા મેટ્રિક્સના આધારે, તમારો BMI ${bmi} છે.';
+	@override String get finalizeDescription => 'તમારા અનુભવને કસ્ટમાઇઝ કરવા માટે ચાલો તમારી પ્રોફાઇલને અંતિમ સ્વરૂપ આપીએ.';
+	@override String get goalGain => 'મેળવો';
+	@override String get goalLose => 'ઘટાડો';
+	@override String goalReach({required Object diff, required Object unit, required Object direction}) => 'તમારા લક્ષ્ય સુધી પહોંચવા માટે, તમે ${diff} ${unit} ${direction} કરશો.';
+	@override String get goalReached => 'તમે તમારા લક્ષ્ય વજન પર છો! અમે તમને તેને જાળવી રાખવામાં મદદ કરીશું.';
+	@override String get button => 'ચાલો જઈએ';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1318,11 +1318,11 @@ class _TranslationsOnboardingReinforcementGoalLifestyleGu implements Translation
 
 	// Translations
 	@override String get title => 'ઉત્તમ શરૂઆત!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'તમે ${goalText} તરફ પહેલું પગલું ભર્યું છે. તમે ${activityText} હોવાથી, ${appLabel} તમારા લક્ષ્યોને તમારી જીવનશૈલી પ્રમાણે ઢાળશે.';
-	@override String get personalizedTargets => 'વ્યક્તિગત કૅલરી લક્ષ્યો';
-	@override String get aiMealDetection => 'AI સંચાલિત ભોજન શોધ';
-	@override String get macroBreakdowns => 'વિગતવાર મૅક્રો-પોષક તત્ત્વોનો વિભાગ';
-	@override String get button => 'ચાલો શરૂ કરીએ';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'તમે ${goalText} તરફ પ્રથમ પગલું ભર્યું છે. કારણ કે તમે ${activityText} છો, ${appLabel} તમારી જીવનશૈલી સાથે મેળ ખાતા તમારા લક્ષ્યોને સમાયોજિત કરશે.';
+	@override String get personalizedTargets => 'વ્યક્તિગત કેલરી લક્ષ્યો';
+	@override String get aiMealDetection => 'AI-સંચાલિત ભોજન શોધ';
+	@override String get macroBreakdowns => 'વિગતવાર મેક્રો-પોષક વિભાજન';
+	@override String get button => 'ચાલો જઈએ';
 	@override String get defaultGoal => 'તમારા લક્ષ્યો';
 	@override String get defaultActivity => 'સક્રિય';
 }
@@ -1334,8 +1334,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightGu implements TranslationsEdi
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'વજન ઘટાડો';
-	@override String get description => 'વજન ઘટાડવા માટે કૅલરી ડેફિસિટ બનાવો';
+	@override String get name => 'વજન ઘટાડવું';
+	@override String get description => 'વજન ઘટાડવા માટે કેલરીની ઉણપ બનાવો';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1345,8 +1345,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightGu implements Translation
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'વજન જાળવો';
-	@override String get description => 'તમારું હાલનું વજન જાળવો';
+	@override String get name => 'વજન જાળવી રાખવું';
+	@override String get description => 'તમારું વર્તમાન વજન જાળવી રાખો';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1356,8 +1356,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightGu implements TranslationsEdi
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'વજન વધારો';
-	@override String get description => 'વજન વધારવા માટે કૅલરી સરપ્લસ બનાવો';
+	@override String get name => 'વજન વધારવું';
+	@override String get description => 'વજન વધારવા માટે કેલરીનો વધારો બનાવો';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1367,8 +1367,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryGu implements TranslationsE
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'બેઠાડુ';
-	@override String get description => 'થોડી કે બિલકુલ કસરત નથી';
+	@override String get name => 'નિષ્ક્રિય';
+	@override String get description => 'ઓછી અથવા કોઈ કસરત નહીં';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1378,8 +1378,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveGu implements Translati
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'હળવાશથી સક્રિય';
-	@override String get description => 'હળવી કસરત 1-3 દિવસ/અઠવાડિયે';
+	@override String get name => 'હળવી સક્રિય';
+	@override String get description => 'અઠવાડિયામાં 1-3 દિવસ હળવી કસરત';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1390,7 +1390,7 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveGu implements Transl
 
 	// Translations
 	@override String get name => 'મધ્યમ સક્રિય';
-	@override String get description => 'મધ્યમ કસરત 3-5 દિવસ/અઠવાડિયે';
+	@override String get description => 'અઠવાડિયામાં 3-5 દિવસ મધ્યમ કસરત';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1401,7 +1401,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveGu implements Translations
 
 	// Translations
 	@override String get name => 'ખૂબ સક્રિય';
-	@override String get description => 'કઠોર કસરત 6-7 દિવસ/અઠવાડિયે';
+	@override String get description => 'અઠવાડિયામાં 6-7 દિવસ સખત કસરત';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1411,8 +1411,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveGu implements Transla
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'અતિ સક્રિય';
-	@override String get description => 'અતિ કઠોર કસરત, શારીરિક કામ';
+	@override String get name => 'અત્યંત સક્રિય';
+	@override String get description => 'ખૂબ સખત કસરત, શારીરિક નોકરી';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1422,8 +1422,8 @@ class _TranslationsSettingsHealthConnectUnavailableGu implements TranslationsSet
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'હેલ્થ કનેક્ટ ઉપલબ્ધ નથી';
-	@override String get description => 'આ ડિવાઇસ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને પ્લે સ્ટોરમાંથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો (Android 9+) અથવા Android 14+ પર અપડેટ કરો.';
+	@override String get title => 'હેલ્થ કનેક્ટ અનુપલબ્ધ';
+	@override String get description => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store (Android 9+) પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો અથવા Android 14+ પર અપડેટ કરો.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1434,7 +1434,7 @@ class _TranslationsSettingsHealthConnectPermissionsGu implements TranslationsSet
 
 	// Translations
 	@override String get title => 'પરવાનગીઓ';
-	@override String get description => 'હેલ્થ કનેક્ટ ઇન્ટિગ્રેશન આપવા નીચેની પરવાનગીઓ વિનંતી કરવામાં આવે છે:';
+	@override String get description => 'હેલ્થ કનેક્ટ એકીકરણ પ્રદાન કરવા માટે નીચેની પરવાનગીઓની વિનંતી કરવામાં આવે છે:';
 	@override String get granted => 'મંજૂર';
 	@override String get notGranted => 'મંજૂર નથી';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu._(_root);
@@ -1449,8 +1449,8 @@ class _TranslationsSettingsAboutOurStoryGu implements TranslationsSettingsAboutO
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'અમારી કહાની';
-	@override String content({required Object appLabel}) => '${appLabel} એક સરળ નિરાશાથી જન્મ્યું: બહુભાગની કૅલરી ટ્રેકિંગ એપ્સ તો ખૂબ જ જટિલ છે, સતત હસ્તચાલિત ઇનપુટ માંગે છે, ઊંચી સબ્સ્ક્રિપ્શન ફી લે છે, અથવા ગોપનીયતામાં સમાધાન કરે છે.\n\nએક સોલો ડેવલપર તરીકે, હું કંઈક સરળ અને નિષ્પક્ષ બનાવવું ઇચ્છતો હતો — એવી એપ જે AI થી મહેનત ઓછી કરે, ઝડપી અને મફતમાં ચાલે, અને તમારા હેલ્થ ડેટાનો માન રાખે.\n\n${appLabel} એ એવી એપ છે જે હું ઇચ્છતો હતો: કોઈ એકાઉન્ટ્સ નહીં, કોઈ ટ્રેકિંગ નહીં, કોઈ જાહેરાતો નહીં — માત્ર સ્પષ્ટ, વ્યવહારુ ઇન્સાઇટ્સ અને તમારા આરોગ્ય લક્ષ્યો.';
+	@override String get title => 'અમારી વાર્તા';
+	@override String content({required Object appLabel}) => '${appLabel} એક સરળ હતાશામાંથી જન્મ્યું હતું: મોટાભાગની કેલરી ટ્રેકિંગ એપ્લિકેશનો કાં તો વધુ પડતી જટિલ હોય છે, સતત મેન્યુઅલ ઇનપુટની માંગ કરે છે, ઊંચી સબ્સ્ક્રિપ્શન ફી લે છે અથવા ગોપનીયતા સાથે સમાધાન કરે છે.\n\nએક સોલો ડેવલપર તરીકે, હું કંઈક સરળ અને વધુ ન્યાયી બનાવવા માંગતો હતો — એક એવી એપ્લિકેશન જે પ્રયત્નો ઘટાડવા માટે AI નો ઉપયોગ કરે, ઝડપી અને મફત રહે, અને તમારા સ્વાસ્થ્ય ડેટાને આદર સાથે વર્તે.\n\n${appLabel} એ એવી એપ્લિકેશન છે જે હું ઈચ્છતો હતો કે અસ્તિત્વમાં હોય: કોઈ એકાઉન્ટ્સ નહીં, કોઈ ટ્રેકિંગ નહીં, કોઈ જાહેરાતો નહીં — ફક્ત સ્પષ્ટ, વ્યવહારુ આંતરદૃષ્ટિ અને તમારા સ્વાસ્થ્ય લક્ષ્યો.';
 }
 
 // Path: settings.about.privacy
@@ -1460,13 +1460,13 @@ class _TranslationsSettingsAboutPrivacyGu implements TranslationsSettingsAboutPr
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'તમારી ગોપનીયતા મહત્વની છે';
-	@override String get description => 'ગોપનીયતા પછીથી વિચારી નથી — એ ડિઝાઇનનો સિદ્ધાંત છે. હકીકતમાં તેનો અર્થ એ છે:';
-	@override String get noAccounts => 'કોઈ એકાઉન્ટ્સની જરૂર નથી\nતાત્કાલિક એપ વાપરો. કોઈ સાઇન-અપ નથી, કોઈ ઓળખ નથી.';
-	@override String noTracking({required Object appLabel}) => 'કોઈ વર્તન ટ્રેકિંગ નથી\n${appLabel} તમારી પ્રવૃત્તિ મોનીટર કરતી નથી, યુઝેજ પ્રોફાઇલ બનાવતી નથી, અથવા એપ્સ/વેબસાઇટ્સ પર તમને ટ્રેક કરતી નથી.';
-	@override String noAds({required Object appLabel}) => 'જાહેરાત-મુક્ત ડિઝાઇન\n${appLabel} જાહેરાતો અથવા ડેટા-ચલિત મોનેટાઇઝેશન વિના કામ કરવા માટે બનાવવામાં આવી છે.';
-	@override String get noDataSelling => 'કોઈ ડેટા વેચાણ નથી\nતમારો હેલ્થ ડેટા ક્યારેય તૃતીય પક્ષને વેચવામાં અથવા શેર કરવામાં આવતો નથી.';
-	@override String get localStorage => 'લોકલ-પ્રથમ સંગ્રહ\nતમારો ડેટા તમારા ડિવાઇસ પર જ રહે છે.';
+	@override String get title => 'તમારી ગોપનીયતા મહત્વપૂર્ણ છે';
+	@override String get description => 'ગોપનીયતા એ પછીનો વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. વ્યવહારમાં તેનો અર્થ અહીં છે:';
+	@override String get noAccounts => 'કોઈ એકાઉન્ટ્સની જરૂર નથી\nએપ્લિકેશનનો તરત જ ઉપયોગ કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.';
+	@override String noTracking({required Object appLabel}) => 'કોઈ વર્તણૂકીય ટ્રેકિંગ નહીં\n${appLabel} તમારી પ્રવૃત્તિનું નિરીક્ષણ કરતું નથી, ઉપયોગ પ્રોફાઇલ્સ બનાવતું નથી અથવા તમને એપ્લિકેશન્સ અથવા વેબસાઇટ્સ પર ટ્રૅક કરતું નથી.';
+	@override String noAds({required Object appLabel}) => 'ડિઝાઇન દ્વારા જાહેરાત-મુક્ત\n${appLabel} જાહેરાતો અથવા ડેટા-આધારિત મુદ્રીકરણ વિના કાર્ય કરવા માટે બનાવવામાં આવ્યું છે.';
+	@override String get noDataSelling => 'કોઈ ડેટા વેચાણ નહીં\nતમારો સ્વાસ્થ્ય ડેટા ક્યારેય વેચવામાં આવતો નથી અથવા તૃતીય પક્ષો સાથે શેર કરવામાં આવતો નથી.';
+	@override String get localStorage => 'સ્થાનિક-પ્રથમ સ્ટોરેજ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.';
 	@override String get privacyPolicy => 'ગોપનીયતા નીતિ';
 }
 
@@ -1477,8 +1477,8 @@ class _TranslationsSettingsAboutDeveloperGu implements TranslationsSettingsAbout
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'એક સોલો ડેવલપર દ્વારા બનાવેલ';
-	@override String description({required Object appLabel}) => '${appLabel} એક શાંત, ગોપનીયતાને માન આપતું હેલ્થ સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરનાર એક જ સોલો ડેવલપર દ્વારા બનાવવામાં અને જાળવવામાં આવે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપની દિશા નક્કી કરવામાં મદદ કરે છે.';
+	@override String get title => 'એકલા ડેવલપર દ્વારા નિર્મિત';
+	@override String description({required Object appLabel}) => '${appLabel} એક જ સોલો ડેવલપર દ્વારા બનાવવામાં અને જાળવવામાં આવે છે જે શાંત, ગોપનીયતા-સન્માનિત આરોગ્ય સોફ્ટવેર બનાવવા પર ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશાને આકાર આપવામાં મદદ કરે છે.';
 	@override String get website => 'વેબસાઇટ';
 	@override String get email => 'ઇમેઇલ';
 }
@@ -1490,9 +1490,9 @@ class _TranslationsSettingsAboutFeedbackGu implements TranslationsSettingsAboutF
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => '${appLabel} ગમે છે?';
-	@override String description({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને દરેક માટે વધુ સારો બનાવવામાં મદદ કરે છે.';
-	@override String get rateApp => 'પ્લે સ્ટોર પર રેટ કરો';
+	@override String title({required Object appLabel}) => '${appLabel} નો આનંદ માણી રહ્યા છો?';
+	@override String description({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને દરેક માટે વધુ સારું બનાવવામાં મદદ કરે છે.';
+	@override String get rateApp => 'Play Store પર રેટ કરો';
 	@override String get sendFeedback => 'પ્રતિસાદ મોકલો';
 }
 
@@ -1503,8 +1503,8 @@ class _TranslationsDisclaimerSnapPortionSizeGu implements TranslationsDisclaimer
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પરિમાણ કદ';
-	@override String get description => 'અંદાજોની ચોકસાઈ તમારા દ્વારા કરાયેલા યોગ્ય પરિમાણ કદના મૂલ્યાંકન પર ખૂબ નિર્ભર છે.';
+	@override String get title => 'ભાગનું કદ';
+	@override String get description => 'અંદાજોની ચોકસાઈ તમારા ભાગના કદના સાચા મૂલ્યાંકન પર ખૂબ આધાર રાખે છે.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsGu implements TranslationsDis
 
 	// Translations
 	@override String get title => 'તૈયારી પદ્ધતિઓ';
-	@override String description({required Object appLabel}) => 'રસોઈની પદ્ધતિઓ ખોરાકના પોષણ સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજ હંમેશા આ ભિન્નતાઓનો હિસાબ ન રાખતા હોઈ શકે.';
+	@override String description({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsGu implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'ઘટકો';
-	@override String get description => 'ઘણા છુપાયેલા ઘટકોવાળા જટિલ વાનગીઓ ઓછા ચોક્કસ અંદાજ તરફ દોરી શકે છે.';
+	@override String get description => 'ઘણા છુપાયેલા ઘટકોવાળી જટિલ વાનગીઓ ઓછા સચોટ અંદાજો તરફ દોરી શકે છે.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,8 +1536,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsGu implements TranslationsDi
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ડેટાબેસ મર્યાદાઓ';
-	@override String description({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેસ વિશાળ છે પરંતુ તેમાં દરેક ખાદ્ય વસ્તુ અથવા તેના દરેક ભિન્ન પ્રકારનો સમાવેશ હોવો જરૂરી નથી.';
+	@override String get title => 'ડેટાબેઝ મર્યાદાઓ';
+	@override String description({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેઝ વ્યાપક છે પરંતુ તેમાં દરેક એક ખાદ્ય વસ્તુ અથવા ભિન્નતા શામેલ ન હોઈ શકે.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1547,8 +1547,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyGu implements Translat
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'કૅલરી ચોકસાઈ';
-	@override String get description => 'આ અંદાજ તમારી ટ્રેક થયેલી કૅલરી લેવાત અને ખર્ચ જેટલો જ ચોક્કસ છે. અચોક્કસ લોગિંગથી અચોક્કસ પ્રોજેક્શન મળશે.';
+	@override String get title => 'કેલરીની ચોકસાઈ';
+	@override String get description => 'આ અંદાજ ફક્ત તમારી ટ્રેક કરેલી કેલરીનું સેવન અને ખર્ચ જેટલો જ સચોટ છે. ખોટું લોગિંગ અચોક્કસ અંદાજમાં પરિણમશે.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu implements Transl
 
 	// Translations
 	@override String get title => 'જૈવિક પરિબળો';
-	@override String description({required Object appLabel}) => 'વાસ્તવિક વજન વધારો/ઘટાડો મેટાબોલિઝમ, હોર્મોન્સ, ઊંઘ, તાણ, હાઇડ્રેશન અને અન્ય વ્યક્તિગત પરિબળોથી પ્રભાવિત થાય છે, જેને ${appLabel} માપી શકતું નથી.';
+	@override String description({required Object appLabel}) => 'વાસ્તવિક વજન ઘટાડવું/વધવું ચયાપચય, હોર્મોન્સ, ઊંઘ, તણાવ, હાઇડ્રેશન અને અન્ય વ્યક્તિગત પરિબળોથી પ્રભાવિત થાય છે જે ${appLabel} માપી શકતું નથી.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1569,8 +1569,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightGu implements Translations
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'પાણીનું વજન અને ફેરફારો';
-	@override String get description => 'દૈનિક વજન પાણીની ધારણ, પાચન અને સમયને કારણે નોંધપાત્ર રીતે ફેરફારી શકે છે. આ અંદાજ આ દૈનિક ફેરફારોનો હિસાબ નથી રાખતો.';
+	@override String get title => 'પાણીનું વજન અને વધઘટ';
+	@override String get description => 'પાણી જાળવી રાખવા, પાચન અને સમયને કારણે સામાન્ય દૈનિક વજનમાં નોંધપાત્ર વધઘટ થઈ શકે છે. અંદાજ આ દૈનિક ફેરફારોને ધ્યાનમાં લેતો નથી.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1581,7 +1581,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu implements Tra
 
 	// Translations
 	@override String get title => 'વ્યાવસાયિક માર્ગદર્શન';
-	@override String get description => 'ચિકિત્સાકીય નિર્ણય લેવા માટે આ અંદાજનો ઉપયોગ ન કરો. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્ય વ્યવસાયી અથવા નોંધાયેલા ડાયેટિશિયનનો સંપર્ક કરો.';
+	@override String get description => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrGu implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'બેઝલ મેટાબોલિક રેટ (BMR) એ કૅલરીની સંખ્યા છે જે તમારું શરીર આરામની અવસ્થામાં શ્વાસ અને રક્ત પરિસંચરણ જેવી મૂળભૂત ક્રિયાઓ જાળવવા બર્ન કરે છે. BMR તમારી ઉંમર, લિંગ, ઉંચાઈ અને વજન પર આધારિત છે. વધુ BMRનો અર્થ તમારું શરીર સ્વાભાવિક રીતે વધુ કૅલરી બર્ન કરે છે, સામાન્ય રીતે વધુ માંસપેશીઓ, ઓછી ઉંમર અથવા પુરુષ હોવાને કારણે. ઓછું BMR સામાન્ય રીતે ઓછી માંસપેશીઓ, વધુ ઉંમર અથવા સ્ત્રી હોવાને દર્શાવે છે.';
+	@override String get description => 'બેઝલ મેટાબોલિક રેટ (BMR) એ કેલરીની સંખ્યા છે જે તમારું શરીર આરામ કરતી વખતે શ્વાસ લેવા અને રક્ત પરિભ્રમણ જેવા મૂળભૂત કાર્યો જાળવવા માટે બાળે છે. BMR તમારી ઉંમર, લિંગ, ઊંચાઈ અને વજન પર આધાર રાખે છે. ઉચ્ચ BMR નો અર્થ છે કે તમારું શરીર કુદરતી રીતે આરામ કરતી વખતે વધુ કેલરી બાળે છે, જે ઘણીવાર વધુ સ્નાયુ સમૂહ, નાની ઉંમર અથવા પુરુષ હોવાને કારણે થાય છે. નીચું BMR સામાન્ય રીતે ઓછા સ્નાયુ સમૂહ, મોટી ઉંમર અથવા સ્ત્રી હોવાનો સંકેત આપે છે.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeGu implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'ટોટલ ડેઇલી એનર્જી એક્સપેન્ડિચર (TDEE) એ તમે દરરોજ બર્ન કરેલી કુલ કૅલરી છે, જેમાં તમારો BMR અને શારીરિક પ્રવૃત્તિ/દૈનિક હલનચલનથી બર્ન થયેલી કૅલરીનો સમાવેશ થાય છે. TDEE તમારો BMR અને પ્રવૃત્તિ સ્તર પર આધારિત છે. વધુ TDEEનો અર્થ તમે કુલ રીતે વધુ કૅલરી બર્ન કરો છો, સામાન્ય રીતે વધુ સક્રિય હોવા અથવા વધુ BMR હોવાના કારણે. ઓછું TDEE ઓછી દૈનિક સક્રિયતા અથવા ઓછા BMR સૂચવે છે.';
+	@override String get description => 'કુલ દૈનિક ઊર્જા ખર્ચ (TDEE) એ દરરોજ તમે બાળો છો તે કુલ કેલરી છે, જેમાં તમારું BMR વત્તા શારીરિક પ્રવૃત્તિ અને દૈનિક હલનચલનમાંથી કેલરીનો સમાવેશ થાય છે. TDEE તમારા BMR અને પ્રવૃત્તિ સ્તર પર આધાર રાખે છે. ઉચ્ચ TDEE નો અર્થ છે કે તમે એકંદરે વધુ કેલરી બાળો છો, સામાન્ય રીતે વધુ સક્રિય હોવાને કારણે અથવા ઉચ્ચ BMR હોવાને કારણે. નીચું TDEE ઓછી દૈનિક પ્રવૃત્તિ અથવા નીચા BMR સૂચવે છે.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1614,7 +1614,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalGu implements TranslationsDis
 
 	// Translations
 	@override String get title => 'દૈનિક લક્ષ્ય';
-	@override String get description => 'દૈનિક લક્ષ્ય તમારા TDEE અને વજન લક્ષ્ય આધારે ભલામણ કરાયેલ દૈનિક કૅલરી લેવાત છે. વજન ઘટાડવા માટે, તમે તમારા TDEE કરતાં ઓછી કૅલરી લો. વજન જાળવવા માટે, તમારા TDEE જેટલી કૅલરી લો. વજન વધારવા માટે, તમે તમારા TDEE કરતાં વધુ કૅલરી લો. આ તમને સ્વસ્થ ગતિએ ઇચ્છિત વજન પરિવર્તન હાંસલ કરવામાં મદદ કરે છે.';
+	@override String get description => 'દૈનિક લક્ષ્ય એ તમારા TDEE અને વજનના લક્ષ્યના આધારે તમારી ભલામણ કરેલ દૈનિક કેલરીનું સેવન છે. વજન ઘટાડવા માટે, તમે તમારા TDEE કરતાં ઓછી કેલરીનો વપરાશ કરો છો. વજન જાળવવા માટે, તમે તમારા TDEE સાથે મેળ ખાઓ છો. વજન વધારવા માટે, તમે તમારા TDEE કરતાં વધુ કેલરીનો વપરાશ કરો છો. આ તમને સ્વસ્થ ગતિએ તમારા ઇચ્છિત વજનમાં ફેરફાર પ્રાપ્ત કરવામાં મદદ કરે છે.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1624,8 +1624,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu implements Transl
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'અંદાજ કેવી રીતે ગણ્યો છે';
-	@override String get description => 'અમે તમારો TDEE (તમારી પ્રોફાઇલ આધારે) ગણીએ છીએ અને અત્યાર સુધી પસાર થયેલા દિવસના અંશે (કલાક + મિનિટ)/24 ગુણાકાર કરીને હજી સુધી બર્ન થયેલી કૅલરી અંદાજીએ છીએ.';
+	@override String get title => 'અંદાજ કેવી રીતે ગણવામાં આવે છે';
+	@override String get description => 'અમે તમારા TDEE (તમારી પ્રોફાઇલના આધારે) ની ગણતરી કરીએ છીએ અને અત્યાર સુધી બળી ગયેલી કેલરીનો અંદાજ કાઢવા માટે તેને દિવસના વીતી ગયેલા અપૂર્ણાંક (કલાકો + મિનિટ) / 24 વડે ગુણાકાર કરીએ છીએ.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1636,7 +1636,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu implements
 
 	// Translations
 	@override String get title => 'વ્યાવસાયિક માર્ગદર્શન';
-	@override String get description => 'ચિકિત્સાકીય નિર્ણય લેવા માટે આ અંદાજનો ઉપયોગ ન કરો. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્ય વ્યવસાયી અથવા નોંધાયેલા ડાયેટિશિયનનો સંપર્ક કરો.';
+	@override String get description => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1646,9 +1646,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu implements T
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'કુલ બર્ન થયેલી કૅલરી વાંચો';
-	@override String get description => 'એપને હેલ્થ કનેક્ટમાંથી તમારી કુલ બર્ન થયેલી કૅલરી વાંચવાની મંજૂરી આપે છે.';
-	@override String get usage => 'આ પરવાનગીનો ઉપયોગ એપમાં તમારી દૈનિક કૅલરી બર્ન બતાવવા માટે થાય છે, જે તમને દિવસભરની કુલ ઉર્જા ખર્ચણ સમજવામાં મદદ કરે છે.';
+	@override String get title => 'કુલ બળી ગયેલી કેલરી વાંચો';
+	@override String get description => 'એપ્લિકેશનને હેલ્થ કનેક્ટમાંથી તમારી કુલ બળી ગયેલી કેલરી વાંચવાની મંજૂરી આપે છે.';
+	@override String get usage => 'આ પરવાનગીનો ઉપયોગ એપ્લિકેશનમાં તમારી દૈનિક કેલરી બર્ન દર્શાવવા માટે થાય છે, જે તમને દિવસભર તમારા કુલ ઊર્જા ખર્ચને સમજવામાં મદદ કરે છે.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1659,8 +1659,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadGu implements Tr
 
 	// Translations
 	@override String get title => 'પોષણ ડેટા વાંચો';
-	@override String get description => 'એપને હેલ્થ કનેક્ટમાંથી પોષણ ડેટા વાંચવાની મંજૂરી આપે છે.';
-	@override String get usage => 'આ પરવાનગી હેલ્થ કનેક્ટ સાથે જોડાયેલ અન્ય એપ્સે લોગ કરેલી પોષણ માહિતી વાંચવા માટે છે, જેથી તમારી પોષણ અંગે વ્યાપક ઝાંખી મળી શકે.';
+	@override String get description => 'એપ્લિકેશનને હેલ્થ કનેક્ટમાંથી પોષણ ડેટા વાંચવાની મંજૂરી આપે છે.';
+	@override String get usage => 'આ પરવાનગી એપ્લિકેશનને પોષણ માહિતી વાંચવાની મંજૂરી આપે છે જે હેલ્થ કનેક્ટ સાથે જોડાયેલ અન્ય એપ્લિકેશનો દ્વારા લોગ કરવામાં આવી હોય, જે તમારા પોષણનો વ્યાપક દૃશ્ય પ્રદાન કરે છે.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1671,8 +1671,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu implements T
 
 	// Translations
 	@override String get title => 'પોષણ ડેટા લખો';
-	@override String get description => 'એપને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.';
-	@override String get usage => 'આ પરવાનગી તમારા લોગ થયેલા ભોજનને હેલ્થ કનેક્ટ સાથે સિંક કરવા માટે છે, ώστε તમારા પોષણ ડેટા તમે વાપરતા અન્ય હેલ્થ અને ફિટનેસ એપ્સમાં પણ ઉપલબ્ધ રહે.';
+	@override String get description => 'એપ્લિકેશનને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.';
+	@override String get usage => 'આ પરવાનગી એપ્લિકેશનને તમારા લોગ કરેલા ભોજનને હેલ્થ કનેક્ટમાં સિંક કરવાની મંજૂરી આપે છે, જે તમારા પોષણ ડેટાને તમે ઉપયોગ કરો છો તે અન્ય આરોગ્ય અને ફિટનેસ એપ્લિકેશનો માટે ઉપલબ્ધ બનાવે છે.';
 }
 
 /// The flat map containing all translations for locale <gu>.
@@ -1684,259 +1684,259 @@ extension on TranslationsGu {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'language' => 'ગુજરાતી',
-			'flag' => '🇺🇸',
+			'flag' => '🇮🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'તમે બહુ બધી વિનંતીઓ કરી છે. કૃપા કરીને ફરી પ્રયત્ન કરતા પહેલા થોડું રાહ જુઓ.',
+			'errors.rateLimitExceeded' => 'તમે ઘણી બધી વિનંતીઓ કરી છે. કૃપા કરીને ફરી પ્રયાસ કરતા પહેલા થોડી રાહ જુઓ.',
 			'errors.networkError' => 'નેટવર્ક ભૂલ. કૃપા કરીને તમારું ઇન્ટરનેટ કનેક્શન તપાસો.',
-			'errors.unknownError' => 'કૈંક ખોટું થયું. કૃપા કરીને થોડા સમય પછી ફરી પ્રયત્ન કરો.',
-			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરતી વખતે ભૂલ',
-			'errors.somethingWentWrong' => 'કૈંક ખોટું થયું.',
-			'errors.retry' => 'ફરી પ્રયત્ન કરો',
-			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} માં સ્વાગત છે',
+			'errors.unknownError' => 'કંઈક ખોટું થયું. કૃપા કરીને પછીથી ફરી પ્રયાસ કરો.',
+			'errors.loadingProfileData' => 'પ્રોફાઇલ ડેટા લોડ કરવામાં ભૂલ',
+			'errors.somethingWentWrong' => 'કંઈક ખોટું થયું.',
+			'errors.retry' => 'ફરી પ્રયાસ કરો',
+			'onboarding.welcome' => ({required Object appLabel}) => '${appLabel} માં આપનું સ્વાગત છે',
 			'onboarding.subtitle' => 'AI દ્વારા સંચાલિત તમારો વ્યક્તિગત પોષણ સાથી',
 			'onboarding.getStarted' => 'શરૂ કરો',
-			'onboarding.features.foodRecognition.title' => 'સ્માર્ટ ફૂડ ઓળખ',
+			'onboarding.features.foodRecognition.title' => 'સ્માર્ટ ફૂડ રેકગ્નિશન',
 			'onboarding.features.foodRecognition.description' => 'ફોટો લો અને AI ને તમારું ભોજન ઓળખવા દો',
 			'onboarding.features.aiAnalysis.title' => 'AI વિશ્લેષણ',
-			'onboarding.features.aiAnalysis.description' => 'તમારી વર્ણનાઓ પરથી તરત જ પોષણ માહિતી મેળવો',
+			'onboarding.features.aiAnalysis.description' => 'તમારા વર્ણનોમાંથી ત્વરિત પોષણ તથ્યો મેળવો',
 			'onboarding.features.healthIntegration.title' => 'હેલ્થ ઇન્ટિગ્રેશન',
-			'onboarding.features.healthIntegration.description' => 'વધુ સારી સમજ માટે હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો',
+			'onboarding.features.healthIntegration.description' => 'વધુ સારી આંતરદૃષ્ટિ માટે હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો',
 			'onboarding.gender.title' => 'તમારું લિંગ શું છે?',
-			'onboarding.gender.description' => 'લિંગ અમને તમારો બેઝલ મેટાબોલિક રેટ (BMR) ચોક્કસ રીતે ગણવામાં મદદ કરે છે.',
+			'onboarding.gender.description' => 'લિંગ અમને તમારા બેઝલ મેટાબોલિક રેટ (BMR) ની સચોટ ગણતરી કરવામાં મદદ કરે છે.',
 			'onboarding.gender.next' => 'આગળ',
-			'onboarding.height.title' => 'તમારી ઉંચાઈ કેટલી છે?',
-			'onboarding.height.description' => 'તમારી ઉંચાઈ અમને તમારું BMI અને ઉર્જા જરૂરિયાતો ચોક્કસ રીતે ગણવામાં મદદ કરે છે.',
+			'onboarding.height.title' => 'તમારી ઊંચાઈ કેટલી છે?',
+			'onboarding.height.description' => 'તમારી ઊંચાઈ અમને તમારા BMI અને ઊર્જાની જરૂરિયાતોની સચોટ ગણતરી કરવામાં મદદ કરે છે.',
 			'onboarding.height.metric' => 'મેટ્રિક',
 			'onboarding.height.imperial' => 'ઇમ્પિરિયલ',
 			'onboarding.height.next' => 'આગળ',
-			'onboarding.weight.currentTitle' => 'તમારું હાલનું વજન શું છે?',
-			'onboarding.weight.currentDescription' => 'તમારા દૈનિક લક્ષ્યોને વ્યક્તિગત કરવા માટે તમારું હાલનું વજન જરૂરી છે.',
-			'onboarding.weight.targetTitle' => 'તમારું લક્ષ્ય વજન શું છે?',
-			'onboarding.weight.targetDescription' => 'લક્ષ્ય વજન નક્કી કરવાથી અમને તમારી લાંબા ગાળાની યોજના નક્કી કરવામાં મદદ મળે છે.',
+			'onboarding.weight.currentTitle' => 'તમારું વર્તમાન વજન કેટલું છે?',
+			'onboarding.weight.currentDescription' => 'તમારા દૈનિક લક્ષ્યોને વ્યક્તિગત કરવા માટે તમારું વર્તમાન વજન આવશ્યક છે.',
+			'onboarding.weight.targetTitle' => 'તમારું લક્ષ્ય વજન કેટલું છે?',
+			'onboarding.weight.targetDescription' => 'લક્ષ્ય વજન સેટ કરવાથી અમને તમારી લાંબા ગાળાની યોજના નક્કી કરવામાં મદદ મળે છે.',
 			'onboarding.weight.metric' => 'મેટ્રિક',
 			'onboarding.weight.imperial' => 'ઇમ્પિરિયલ',
 			'onboarding.weight.next' => 'આગળ',
 			'onboarding.age.title' => 'તમારો જન્મદિવસ ક્યારે છે?',
-			'onboarding.age.description' => 'તમારી ઉંમર અમને તમારી કૅલરી જરૂરિયાતો ચોક્કસ રીતે ગણવામાં મદદ કરે છે.',
+			'onboarding.age.description' => 'તમારી ઉંમર અમને તમારી કેલરીની જરૂરિયાતોની સચોટ ગણતરી કરવામાં મદદ કરે છે.',
 			'onboarding.age.next' => 'આગળ',
 			'onboarding.bmiScale.underweight' => 'ઓછું',
 			'onboarding.bmiScale.healthy' => 'સ્વસ્થ',
-			'onboarding.bmiScale.overweight' => 'વધારે',
-			'onboarding.bmiScale.obese' => 'મોટાપો',
-			'onboarding.bmiScale.categories.underweight' => 'અવજન',
+			'onboarding.bmiScale.overweight' => 'વધુ',
+			'onboarding.bmiScale.obese' => 'સ્થૂળ',
+			'onboarding.bmiScale.categories.underweight' => 'ઓછું વજન',
 			'onboarding.bmiScale.categories.healthyWeight' => 'સ્વસ્થ વજન',
 			'onboarding.bmiScale.categories.overweight' => 'વધુ વજન',
-			'onboarding.bmiScale.categories.obese' => 'મોટાપો',
-			'onboarding.bmiScale.messages.underweight' => 'પોષક તત્ત્વોથી સમૃદ્ધ ભોજન સાથે સંતુલિત વજન સુધી પહોંચવા માટે અમે તમને સ્વસ્થ યોજના બનાવવામાં મદદ કરી શકીએ છીએ.',
-			'onboarding.bmiScale.messages.healthy' => 'શાનદાર! તમે સ્વસ્થ શ્રેણીમાં છો. અમે તમને તમારી ઉર્જા અને સ્ફૂર્તિ જાળવવામાં મદદ કરીશું.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} AI સંચાલિત ટ્રેકિંગ સાથે તમારી સફરને સરળ બનાવશે જેથી તમે આરામથી તમારું લક્ષ્ય મેળવી શકો.',
-			'onboarding.bmiScale.messages.obese' => 'વ્યક્તિગત માર્ગદર્શન અને ટકાઉ વ્યૂહરચનાઓ સાથે અમે તમારા આરોગ્ય લક્ષ્યોમાં તમારી સાથે છીએ.',
-			'onboarding.weightGoal.title' => 'તમારું લક્ષ્ય શું છે?',
-			'onboarding.weightGoal.description' => 'તમે શું હાંસલ કરવા માંગો છો તે મુજબનું લક્ષ્ય પસંદ કરો',
+			'onboarding.bmiScale.categories.obese' => 'સ્થૂળતા',
+			'onboarding.bmiScale.messages.underweight' => 'અમે તમને પોષક તત્ત્વોથી ભરપૂર ભોજન સાથે સંતુલિત વજન સુધી પહોંચવા માટે સ્વસ્થ યોજના બનાવવામાં મદદ કરી શકીએ છીએ.',
+			'onboarding.bmiScale.messages.healthy' => 'ખૂબ સરસ કામ! તમે સ્વસ્થ શ્રેણીમાં છો. અમે તમને તમારી જીવંતતા અને ઊર્જા સ્તર જાળવી રાખવામાં મદદ કરીશું.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} તમારા લક્ષ્ય સુધી આરામથી પહોંચવામાં મદદ કરવા માટે AI-સંચાલિત ટ્રેકિંગ સાથે તમારી યાત્રાને સરળ બનાવશે.',
+			'onboarding.bmiScale.messages.obese' => 'અમે તમારા સ્વાસ્થ્ય લક્ષ્યો માટે વ્યક્તિગત માર્ગદર્શન અને ટકાઉ વ્યૂહરચનાઓ સાથે તમને ટેકો આપવા માટે અહીં છીએ.',
+			'onboarding.weightGoal.title' => 'તમારો ધ્યેય શું છે?',
+			'onboarding.weightGoal.description' => 'તમે શું પ્રાપ્ત કરવા માંગો છો તેનું શ્રેષ્ઠ વર્ણન કરતો ધ્યેય પસંદ કરો',
 			'onboarding.activityLevel.title' => 'તમે કેટલા સક્રિય છો?',
-			'onboarding.activityLevel.description' => 'આ અમને તમારી દૈનિક કૅલરી જરૂરિયાતો વધુ ચોક્કસ રીતે ગણવામાં મદદ કરે છે',
+			'onboarding.activityLevel.description' => 'આ અમને તમારી દૈનિક કેલરીની જરૂરિયાતોની વધુ સચોટ ગણતરી કરવામાં મદદ કરે છે',
 			'onboarding.healthConnect.title' => 'હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો',
-			'onboarding.healthConnect.description' => 'વધુ સારી સમજ અને આપમેળે કૅલરી ટ્રેકિંગ માટે તમારું હેલ્થ ડેટા સિંક કરો',
-			'onboarding.healthConnect.automaticTracking.title' => 'આપમેળે કૅલરી ટ્રેકિંગ',
-			'onboarding.healthConnect.automaticTracking.description' => 'તમારા ફિટનેસ એપ્સમાંથી બર્ન થયેલી કૅલરી ટ્રેક કરો',
-			'onboarding.healthConnect.progressInsights.title' => 'પ્રગતિ અંગેની ઝાંખી',
-			'onboarding.healthConnect.progressInsights.description' => 'તમારા આરોગ્ય ટ્રેન્ડ્સ વિશે વિગતવાર આંતર્દષ્ટિ મેળવો',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'સુગમ એકીકરણ',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'તમારી મનપસંદ હેલ્થ એપ્સમાંથી ડેટા સિંક કરો',
-			'onboarding.healthConnect.connected' => 'હેલ્થ કનેક્ટ જોડાયેલ',
-			'onboarding.healthConnect.notConnected' => 'હેલ્થ કનેક્ટ જોડાયેલ નથી',
-			'onboarding.healthConnect.setup' => 'હેલ્થ કનેક્ટ સેટઅપ',
-			'onboarding.healthConnect.skipForNow' => 'હાલ માટે છોડો',
+			'onboarding.healthConnect.description' => 'વધુ સારી આંતરદૃષ્ટિ અને સ્વચાલિત કેલરી ટ્રેકિંગ માટે તમારા સ્વાસ્થ્ય ડેટાને સિંક કરો',
+			'onboarding.healthConnect.automaticTracking.title' => 'સ્વચાલિત કેલરી ટ્રેકિંગ',
+			'onboarding.healthConnect.automaticTracking.description' => 'તમારી ફિટનેસ એપ્લિકેશન્સમાંથી બર્ન થયેલી કેલરી ટ્રૅક કરો',
+			'onboarding.healthConnect.progressInsights.title' => 'પ્રગતિ આંતરદૃષ્ટિ',
+			'onboarding.healthConnect.progressInsights.description' => 'તમારા સ્વાસ્થ્યના વલણો વિશે વિગતવાર આંતરદૃષ્ટિ મેળવો',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'સીમલેસ ઇન્ટિગ્રેશન',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'તમારી મનપસંદ સ્વાસ્થ્ય એપ્લિકેશન્સમાંથી ડેટા સિંક કરો',
+			'onboarding.healthConnect.connected' => 'હેલ્થ કનેક્ટ કનેક્ટેડ',
+			'onboarding.healthConnect.notConnected' => 'હેલ્થ કનેક્ટ કનેક્ટેડ નથી',
+			'onboarding.healthConnect.setup' => 'હેલ્થ કનેક્ટ સેટઅપ કરો',
+			'onboarding.healthConnect.skipForNow' => 'હમણાં માટે છોડો',
 			'onboarding.healthConnect.statusConnected' => 'હેલ્થ કનેક્ટ કનેક્ટેડ છે.',
-			'onboarding.healthConnect.statusSuccess' => 'હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'પરવાનગી નામંજૂર. કૃપા કરીને ${appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્રિય કરો.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'હેલ્થ કનેક્ટ સેટઅપ કરતી વખતે ભૂલ: ${error}',
+			'onboarding.healthConnect.statusSuccess' => 'હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું છે!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'પરવાનગી નકારી. કૃપા કરીને ${appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્ષમ કરો.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'હેલ્થ કનેક્ટ સેટઅપ કરવામાં ભૂલ: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'તમે એકલા નથી',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'શોધ બતાવે છે કે સતત ટ્રેકિંગ લાંબા ગાળાના સફળતાનો #1 સૂચક છે.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age} વર્ષના ${gender} જે ${goal} ઇચ્છે છે, તેમના માટે સતત ટ્રેકિંગ સફળતાનો #1 સૂચક છે.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} તેને હાથથી કરવાના કરતા 10 ગણા સરળ બનાવે છે.',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'સંશોધન દર્શાવે છે કે સુસંગત ટ્રેકિંગ લાંબા ગાળાની સફળતાનું #1 અનુમાનક છે.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age} વર્ષના ${gender} માટે જે ${goal} કરવા માંગે છે, સુસંગત ટ્રેકિંગ સફળતાનું #1 અનુમાનક છે.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} તેને મેન્યુઅલી કરવા કરતાં 10 ગણું સરળ બનાવે છે.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'શરૂ કરવા તૈયાર છો?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'ઝડપી વિશ્લેષણ માટે તમારા ભોજનના ફોટા લો',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'અર્થીય પ્રગતિ જોવા નિયમિત રીતે લોગ કરો',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'પ્રેરિત રહેવા માટે રોજ પ્રગતિ ટ્રેક કરો',
-			'onboarding.reinforcement.trackingSuccess.button' => 'ચાલો શરૂ કરીએ',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'ત્વરિત વિશ્લેષણ માટે તમારા ભોજનનો ફોટો લો',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'સાર્થક પ્રગતિ જોવા માટે સુસંગત રીતે લોગ કરો',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'પ્રેરિત રહેવા માટે તમારી પ્રગતિ દૈનિક ટ્રૅક કરો',
+			'onboarding.reinforcement.trackingSuccess.button' => 'ચાલો જઈએ',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'વ્યક્તિ',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'વધુ સ્વસ્થ તમે',
-			'onboarding.reinforcement.healthProfile.title' => 'તમારી હેલ્થ પ્રોફાઇલ',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'તમારા માપદંડો આધારિત, તમારો BMI ${bmi} છે.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'તમારો અનુભવ વ્યક્તિગત કરવા માટે ચાલો તમારી પ્રોફાઇલ પૂર્ણ કરીએ.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'વધારવું',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'ઘટાડવું',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'તમારું લક્ષ્ય પ્રાપ્ત કરવા, તમે ${direction} ${diff} ${unit} કરશો.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'તમે તમારા લક્ષ્ય વજન પર પહોંચી ગયા છો! અમે તેને જાળવવામાં મદદ કરીશું.',
-			'onboarding.reinforcement.healthProfile.button' => 'ચાલો શરૂ કરીએ',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'સ્વસ્થ તમે',
+			'onboarding.reinforcement.healthProfile.title' => 'તમારી સ્વાસ્થ્ય પ્રોફાઇલ',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'તમારા મેટ્રિક્સના આધારે, તમારો BMI ${bmi} છે.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'તમારા અનુભવને કસ્ટમાઇઝ કરવા માટે ચાલો તમારી પ્રોફાઇલને અંતિમ સ્વરૂપ આપીએ.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'મેળવો',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'ઘટાડો',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object diff, required Object unit, required Object direction}) => 'તમારા લક્ષ્ય સુધી પહોંચવા માટે, તમે ${diff} ${unit} ${direction} કરશો.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'તમે તમારા લક્ષ્ય વજન પર છો! અમે તમને તેને જાળવી રાખવામાં મદદ કરીશું.',
+			'onboarding.reinforcement.healthProfile.button' => 'ચાલો જઈએ',
 			'onboarding.reinforcement.goalLifestyle.title' => 'ઉત્તમ શરૂઆત!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'તમે ${goalText} તરફ પહેલું પગલું ભર્યું છે. તમે ${activityText} હોવાથી, ${appLabel} તમારા લક્ષ્યોને તમારી જીવનશૈલી પ્રમાણે ઢાળશે.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'વ્યક્તિગત કૅલરી લક્ષ્યો',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI સંચાલિત ભોજન શોધ',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'વિગતવાર મૅક્રો-પોષક તત્ત્વોનો વિભાગ',
-			'onboarding.reinforcement.goalLifestyle.button' => 'ચાલો શરૂ કરીએ',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'તમે ${goalText} તરફ પ્રથમ પગલું ભર્યું છે. કારણ કે તમે ${activityText} છો, ${appLabel} તમારી જીવનશૈલી સાથે મેળ ખાતા તમારા લક્ષ્યોને સમાયોજિત કરશે.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'વ્યક્તિગત કેલરી લક્ષ્યો',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-સંચાલિત ભોજન શોધ',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'વિગતવાર મેક્રો-પોષક વિભાજન',
+			'onboarding.reinforcement.goalLifestyle.button' => 'ચાલો જઈએ',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'તમારા લક્ષ્યો',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'સક્રિય',
-			'tabs.dashboard' => 'ડૅશબોર્ડ',
+			'tabs.dashboard' => 'ડેશબોર્ડ',
 			'tabs.history' => 'ઇતિહાસ',
 			'home.aiSummary.title' => 'તમારો AI સારાંશ',
-			'home.aiSummary.logMore' => 'આગામી થોડા દિવસોમાં વધુ ભોજન લોગ કરો જેથી કરીને તમને વ્યક્તિગત AI ઇન્સાઇટ્સ મળે.',
+			'home.aiSummary.logMore' => 'તમારી વ્યક્તિગત AI આંતરદૃષ્ટિ મેળવવા માટે આગામી થોડા દિવસોમાં વધુ ભોજન લોગ કરો.',
 			'home.aiSummary.loading' => 'તમારો સારાંશ લોડ થઈ રહ્યો છે...',
 			'home.aiSummary.mealCount' => ({required Object count}) => '${count} ભોજન લોગ થયા',
 			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'સંતુલન સ્કોર ${score}',
-			'home.aiSummary.topFoods' => 'શ્રેષ્ઠ ખોરાક',
-			'home.aiSummary.trendUp' => 'કૅલરી વધતી દિશામાં',
-			'home.aiSummary.trendDown' => 'કૅલરી ઘટતી દિશામાં',
-			'home.aiSummary.trendSteady' => 'કૅલરી સ્થિર છે',
-			'home.aiSummary.generatedAt' => ({required Object time}) => 'અપડેટ થયું ${time}',
-			'home.dailyGoal.title' => 'તમારું દૈનિક લક્ષ્ય બદ્ધ કરો',
-			'home.dailyGoal.titleSet' => 'તમારું દૈનિક લક્ષ્ય',
-			'home.dailyGoal.description' => 'તમારી આરોગ્યયાત્રા શરૂ કરવા તૈયાર છો? શરૂઆત કરવા માટે નીચે તમારી દૈનિક કૅલરી લક્ષ્ય નક્કી કરો.',
-			'home.dailyGoal.descriptionSet' => 'તમારો કંપાસ સેટ થઈ ગયો છે! માર્ગદર્શન માટે આ તમારું દૈનિક કૅલરી લક્ષ્ય છે.',
-			'home.dailyGoal.yourGoal' => 'તમારું લક્ષ્ય',
+			'home.aiSummary.topFoods' => 'ટોચના ખોરાક',
+			'home.aiSummary.trendUp' => 'કેલરી વધી રહી છે',
+			'home.aiSummary.trendDown' => 'કેલરી ઘટી રહી છે',
+			'home.aiSummary.trendSteady' => 'કેલરી સ્થિર રહી છે',
+			'home.aiSummary.generatedAt' => ({required Object time}) => '${time} અપડેટ થયું',
+			'home.dailyGoal.title' => 'તમારો દૈનિક લક્ષ્ય સેટ કરો',
+			'home.dailyGoal.titleSet' => 'તમારો દૈનિક લક્ષ્ય',
+			'home.dailyGoal.description' => 'તમારી સુખાકારી યાત્રા શરૂ કરવા તૈયાર છો? તમારી પ્રગતિ શરૂ કરવા માટે નીચે તમારો દૈનિક કેલરી લક્ષ્ય સેટ કરો.',
+			'home.dailyGoal.descriptionSet' => 'તમારું હોકાયંત્ર સેટ છે! આ તમારો દૈનિક કેલરી લક્ષ્ય છે જે તમને માર્ગદર્શન આપશે.',
+			'home.dailyGoal.yourGoal' => 'તમારો લક્ષ્ય',
 			'home.dailyGoal.goal' => 'લક્ષ્ય',
-			'home.dailyGoal.dailyCalories' => 'દૈનિક કૅલરી (kcal)',
+			'home.dailyGoal.dailyCalories' => 'દૈનિક કેલરી (kcal)',
 			'home.dailyGoal.setGoal' => 'લક્ષ્ય સેટ કરો',
-			'home.dailyGoal.intake' => 'લેવાત',
-			'home.dailyGoal.burned' => 'બર્ન',
+			'home.dailyGoal.intake' => 'સેવન',
+			'home.dailyGoal.burned' => 'બર્ન થયું',
 			'home.dailyGoal.weightImpact' => 'વજન પર અસર',
-			'home.dailyGoal.estLoss' => 'આ. ઘટશે',
-			'home.dailyGoal.estGain' => 'આ. વધશે',
+			'home.dailyGoal.estLoss' => 'અંદાજિત ઘટાડો',
+			'home.dailyGoal.estGain' => 'અંદાજિત વધારો',
 			'home.dailyGoal.kcal' => 'kcal',
 			'home.dailySummary.title' => 'દૈનિક સારાંશ',
-			'home.dailySummary.calories' => 'કૅલરી',
-			'home.dailySummary.carbs' => 'કાર્બ્સ',
+			'home.dailySummary.calories' => 'કેલરી',
+			'home.dailySummary.carbs' => 'કાર્બોહાઇડ્રેટ્સ',
 			'home.dailySummary.protein' => 'પ્રોટીન',
 			'home.dailySummary.fat' => 'ચરબી',
 			'home.dailySummary.fiber' => 'ફાઇબર',
 			'home.dailySummary.grams' => 'ગ્રામ',
-			'home.dailySummary.chartAccessibilityLabel' => 'મૅક્રોઝ ચાર્ટ',
-			'home.intakeProgress.title' => 'આજનો મૅક્રો વિભાગ',
+			'home.dailySummary.chartAccessibilityLabel' => 'મેક્રો ચાર્ટ',
+			'home.intakeProgress.title' => 'આજનું મેક્રો વિભાજન',
 			'home.intakeProgress.target' => 'લક્ષ્ય',
 			'home.intakeProgress.current' => 'વર્તમાન',
-			'home.intakeHistory.title' => '7-દિવસનું મૅક્રો ઇતિહાસ',
+			'home.intakeHistory.title' => '7-દિવસનો મેક્રો ઇતિહાસ',
 			'home.intakeHistory.trendTitle' => 'આજનો ટ્રેન્ડ',
-			'home.intakeHistory.peakHour' => ({required Object hour}) => 'સર્વોચ્ચ: ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'હજુ ઇતિહાસ નથી',
-			'home.intakeHistory.startLogging' => 'અહીં તમારો 7-દિવસનો મૅક્રો ટ્રેન્ડ જોવા\nભોજન લોગ કરવાનું શરૂ કરો',
-			'home.mealLog.title' => 'લોગ થયેલ ભોજન',
-			'home.mealLog.emptyMessage' => 'તમારા છેલ્લા ભોજનનો ફોટો લો અને અહીં લોગ કરો.',
-			'home.mealLog.noMealsToday' => 'આજે કોઈ ભોજન નોંધાયેલ નથી',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'પીક: ${hour}:00',
+			'home.intakeHistory.noHistoryYet' => 'હજુ કોઈ ઇતિહાસ નથી',
+			'home.intakeHistory.startLogging' => 'તમારા 7-દિવસના મેક્રો ટ્રેન્ડ અહીં જોવા માટે\nભોજન લોગ કરવાનું શરૂ કરો',
+			'home.mealLog.title' => 'લોગ થયેલા ભોજન',
+			'home.mealLog.emptyMessage' => 'અહીં લોગ કરવા માટે તમારા છેલ્લા ભોજનનો ફોટો લો.',
+			'home.mealLog.noMealsToday' => 'આજે કોઈ ભોજન રેકોર્ડ થયું નથી',
 			'home.mealLog.seeAllMeals' => 'બધા ભોજન જુઓ',
 			'home.mealDescription.title' => 'AI સાથે ઝડપી ઉમેરો',
-			'home.mealDescription.description' => 'તમારા ભોજનનું વર્ણન કરો, અને વિગતો AI પર છોડી દો.',
-			'home.mealDescription.hint' => 'દા.ત. નાસ્તામાં મેં મોટું ઓટમીલનું એક બાઉલ લીધું, તેમાં કેળાના સ્લાઇસ અને વ્હેનો એક સ્કુપ ...',
+			'home.mealDescription.description' => 'તમારા ભોજનનું વર્ણન કરો, અને AI ને વિગતો સંભાળવા દો.',
+			'home.mealDescription.hint' => 'દા.ત. નાસ્તામાં મેં એક મોટી વાટકી ઓટમીલ, એક કાપેલું કેળું અને એક સ્કૂપ વ્હે પ્રોટીન લીધું હતું...',
 			'home.mealDescription.analyzeMeal' => 'ભોજનનું વિશ્લેષણ કરો',
-			'home.favoriteMeals.title' => 'પસંદીદા ભોજન',
-			'home.favoriteMeals.description' => 'તમારાં મનપસંદ ભોજનમાંથી ઝડપથી એક ઉમેરો.',
-			'home.favoriteMeals.noFavorites' => 'હજુ પસંદીદા ભોજન નથી.',
-			'home.favoriteMeals.addFavoriteHint' => 'કોઈ ભોજનને સ્ટાર ક્લિક કરીને ફેવરિટ તરીકે ચિહ્નિત કરો.',
-			'home.favoriteMeals.seeAll' => 'બધું જુઓ',
+			'home.favoriteMeals.title' => 'મનપસંદ ભોજન',
+			'home.favoriteMeals.description' => 'તમારા મનપસંદ ભોજનમાંથી એક ઝડપથી ઉમેરો.',
+			'home.favoriteMeals.noFavorites' => 'હજુ કોઈ મનપસંદ ભોજન નથી.',
+			'home.favoriteMeals.addFavoriteHint' => 'ભોજનને મનપસંદ તરીકે ચિહ્નિત કરવા માટે તેના પરના સ્ટાર પર ક્લિક કરો.',
+			'home.favoriteMeals.seeAll' => 'બધા જુઓ',
 			'home.favoriteMeals.add' => 'ઉમેરો',
-			'home.mealSnap.title' => 'ફોટો લો અને ભોજન ટ્રેક કરો',
-			'home.mealSnap.description' => 'AI વિશ્લેષણ માટે તમારા ભોજનનો ફોટો લેવા કેમેરાનો ઉપયોગ કરો.',
+			'home.mealSnap.title' => 'તમારા ભોજનનો ફોટો લો અને ટ્રૅક કરો',
+			'home.mealSnap.description' => 'AI વિશ્લેષણ માટે તમારા ખોરાકનો ફોટો લેવા માટે તમારા કેમેરાનો ઉપયોગ કરો.',
 			'home.mealSnap.openCamera' => 'કેમેરા ખોલો',
 			'home.mealSnap.gallery' => 'ગેલેરી',
-			'home.mealSnap.compressingPhoto' => 'ફોટો ઓપ્ટિમાઇઝ કરી રહ્યા છીએ…',
-			'home.mealSnap.uploadingPhoto' => 'ફોટો અપલોડ કરી રહ્યા છીએ…',
-			'home.connectHealth.title' => 'હેલ્થ કનેક્ટ સાથે સિંક કરો',
-			'home.connectHealth.description' => 'તમારા પોષણ ડેટાને હેલ્થ કનેક્ટ સાથે સિંક કરો',
+			'home.mealSnap.compressingPhoto' => 'ફોટો ઑપ્ટિમાઇઝ કરી રહ્યું છે…',
+			'home.mealSnap.uploadingPhoto' => 'ફોટો અપલોડ કરી રહ્યું છે…',
+			'home.connectHealth.title' => 'Health Connect સાથે સમન્વય કરો',
+			'home.connectHealth.description' => 'તમારા પોષણ ડેટાને Health Connect સાથે સમન્વય કરો',
 			'home.connectHealth.install' => 'ઇન્સ્ટોલ કરો',
 			'home.connectHealth.connect' => 'કનેક્ટ કરો',
-			'history.noMeals' => 'કોઈ ભોજન નોંધાયેલ નથી',
-			'history.emptyMessage' => 'તમારા છેલ્લા ભોજનનો ફોટો લો અને અહીં લોગ કરો.',
+			'history.noMeals' => 'કોઈ ભોજન રેકોર્ડ થયું નથી',
+			'history.emptyMessage' => 'અહીં લોગ કરવા માટે તમારા છેલ્લા ભોજનનો ફોટો લો.',
 			'history.today' => 'આજે',
-			'history.yesterday' => 'ગઇકાલે',
-			'meal.ohNo' => 'અરે નહીં!',
-			'meal.delete' => 'કાઢી નાંખો',
-			'meal.editMeal' => 'ભોજન એડિટ કરો',
+			'history.yesterday' => 'ગઈકાલે',
+			'meal.ohNo' => 'અરે ના!',
+			'meal.delete' => 'કાઢી નાખો',
+			'meal.editMeal' => 'ભોજન સંપાદિત કરો',
 			'meal.addMeal' => 'ભોજન ઉમેરો',
-			'meal.saveMeal' => 'ભોજન સંગ્રહ કરો',
-			'meal.save' => 'સેવ કરો',
+			'meal.saveMeal' => 'ભોજન સાચવો',
+			'meal.save' => 'સાચવો',
 			'meal.mealName' => 'ભોજનનું નામ',
-			'meal.mealNameHint' => 'દા.ત.,スク્રેમ્બલ્ડ એગ્સ સાથે ટોસ્ટ',
+			'meal.mealNameHint' => 'દા.ત., ટોસ્ટ સાથે સ્ક્રેમ્બલ્ડ ઇંડા',
 			'meal.mealQuantity' => 'ભોજનની માત્રા',
-			'meal.mealQuantityHint' => 'દા.ત., 1 બાઉલ, 2 સ્લાઇસ',
+			'meal.mealQuantityHint' => 'દા.ત., 1 વાટકી, 2 સ્લાઇસ',
 			'meal.timeOfMeal' => 'ભોજનનો સમય',
-			'meal.timeOfMealHint' => 'તમે ક્યારે ભોજન લીધું તે સમય પસંદ કરો',
+			'meal.timeOfMealHint' => 'તમે ભોજન ક્યારે લીધું તે સમય પસંદ કરો',
 			'meal.mealType' => 'ભોજનનો પ્રકાર',
-			'meal.nutrition.calories' => 'કૅલરી',
-			'meal.nutrition.carbs' => 'કાર્બ્સ (ગ્રા)',
-			'meal.nutrition.protein' => 'પ્રોટીન (ગ્રા)',
-			'meal.nutrition.fat' => 'ચરબી (ગ્રા)',
-			'meal.nutrition.fiber' => 'ફાઇબર (ગ્રા)',
-			'meal.deleteConfirmation.title' => 'ભોજન કાઢી નાંખો',
+			'meal.nutrition.calories' => 'કેલરી',
+			'meal.nutrition.carbs' => 'કાર્બોહાઇડ્રેટ્સ (g)',
+			'meal.nutrition.protein' => 'પ્રોટીન (g)',
+			'meal.nutrition.fat' => 'ચરબી (g)',
+			'meal.nutrition.fiber' => 'ફાઇબર (g)',
+			'meal.deleteConfirmation.title' => 'ભોજન કાઢી નાખો',
 			'meal.deleteConfirmation.message' => 'શું તમે ખરેખર આ ભોજન એન્ટ્રી કાઢી નાખવા માંગો છો?',
 			'meal.deleteConfirmation.cancel' => 'રદ કરો',
-			'meal.deleteConfirmation.delete' => 'કાઢી નાંખો',
+			'meal.deleteConfirmation.delete' => 'કાઢી નાખો',
 			'meal.addedToLog' => 'ભોજન તમારા લોગમાં ઉમેરાયું!',
-			'meal.couldNotAdd' => ({required Object error}) => 'ભોજન ઉમેરવામાં અસમર્થ: ${error}',
+			'meal.couldNotAdd' => ({required Object error}) => 'ભોજન ઉમેરી શકાયું નથી: ${error}',
 			'meal.savedSuccessfully' => 'ભોજન સફળતાપૂર્વક ઉમેરાયું!',
 			'meal.updatedSuccessfully' => 'ભોજન સફળતાપૂર્વક અપડેટ થયું!',
-			'meal.errorSaving' => ({required Object error}) => 'ભોજન સેવ કરતી વખતે ભૂલ: ${error}',
-			'meal.removedFromFavorites' => 'પસંદગીઓમાંથી દૂર કર્યું!',
-			'meal.savedAsFavorite' => 'ભોજન ફેવરિટમાં સેવ કર્યું!',
-			'meal.unfavorite' => 'ફેવરિટમાંથી કાઢો',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ફેવરિટ અપડેટ થઈ શક્યું નથી: ${error}',
+			'meal.errorSaving' => ({required Object error}) => 'ભોજન સાચવવામાં ભૂલ: ${error}',
+			'meal.removedFromFavorites' => 'મનપસંદમાંથી દૂર કર્યું!',
+			'meal.savedAsFavorite' => 'ભોજન મનપસંદ તરીકે સાચવ્યું!',
+			'meal.unfavorite' => 'મનપસંદમાંથી દૂર કરો',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'મનપસંદ અપડેટ કરી શકાયું નથી: ${error}',
 			'meal.feedbackThanks' => 'પ્રતિસાદ બદલ આભાર!',
-			'meal.reanalysisUpdated' => 'તમારા પ્રતિસાદના આધારે ભોજન વિશ્લેષણ અપડેટ કર્યું.',
-			'meal.failedToProcess' => ({required Object error}) => 'પ્રોસેસ કરવામાં નિષ્ફળ: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'છબી પ્રોસેસ કરવામાં નિષ્ફળ: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'છબી કમ્પ્રેસ કરતી વખતે ભૂલ: ${error}',
-			'meal.failedToSave' => 'ડેટા સેવ કરવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયત્ન કરો.',
+			'meal.reanalysisUpdated' => 'તમારા પ્રતિસાદના આધારે ભોજન વિશ્લેષણ અપડેટ થયું.',
+			'meal.failedToProcess' => ({required Object error}) => 'પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'છબી પર પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'છબી સંકુચિત કરવામાં ભૂલ: ${error}',
+			'meal.failedToSave' => 'ડેટા સાચવવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો.',
 			'meal.skip' => 'છોડો',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'પ્રશ્ન ${current} માંથી ${total}',
-			'meal.questionFlow.noQuestionsAvailable' => 'કોઈ પ્રશ્ન ઉપલબ્ધ નથી',
-			'meal.questionFlow.next' => 'આગલું',
-			'meal.questionFlow.continueLabel' => 'જારી રાખો',
-			'meal.analysis.title' => 'AI ભોજન વિશ્લેષણ',
-			'meal.analysis.stepStarted' => 'શરૂ કરતા…',
-			'meal.analysis.stepDecomposition' => 'તમારા ભોજનને સમજતા…',
-			'meal.analysis.stepIngredients' => 'પોષણ ડેટા સાથે ઘટકો મૅચ કરતા…',
-			'meal.analysis.stepUncertainty' => 'વિશ્વાસ સ્તર તપાસતા…',
-			'meal.analysis.stepMealTypeQuestion' => 'લગભગ તૈયાર…',
-			'meal.analysis.stepResult' => 'તમારો પરિણામ પૂર્ણ કરતા…',
-			'meal.analysis.stepError' => 'કૈંક ખોટું થયું',
-			'meal.analysis.stepDefault' => 'તમારું ભોજન વિશ્લેષિત કરી રહ્યા છીએ…',
-			'meal.analysis.progressUnderstand' => 'સમજો',
-			'meal.analysis.progressMatch' => 'મૅચ',
-			'meal.analysis.progressCheck' => 'ચેક',
+			'meal.questionFlow.noQuestionsAvailable' => 'કોઈ પ્રશ્નો ઉપલબ્ધ નથી',
+			'meal.questionFlow.next' => 'આગળ',
+			'meal.questionFlow.continueLabel' => 'ચાલુ રાખો',
+			'meal.analysis.title' => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ',
+			'meal.analysis.stepStarted' => 'શરૂઆત કરી રહ્યા છીએ…',
+			'meal.analysis.stepDecomposition' => 'તમારા ભોજનને સમજી રહ્યા છીએ…',
+			'meal.analysis.stepIngredients' => 'ઘટકોને પોષણ ડેટા સાથે મેચ કરી રહ્યા છીએ…',
+			'meal.analysis.stepUncertainty' => 'વિશ્વાસ તપાસી રહ્યા છીએ…',
+			'meal.analysis.stepMealTypeQuestion' => 'લગભગ થઈ ગયું…',
+			'meal.analysis.stepResult' => 'તમારા પરિણામને અંતિમ સ્વરૂપ આપી રહ્યા છીએ…',
+			'meal.analysis.stepError' => 'કંઈક ખોટું થયું',
+			'meal.analysis.stepDefault' => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ…',
+			'meal.analysis.progressUnderstand' => 'તમારા ભોજનને સમજવું',
+			'meal.analysis.progressMatch' => 'ઘટક પોષણ શોધી રહ્યા છીએ',
+			'meal.analysis.progressCheck' => 'ભાગો અને વિશ્વાસ તપાસી રહ્યા છીએ',
 			'meal.analysis.progressMealType' => 'ભોજનનો પ્રકાર પસંદ કરી રહ્યા છીએ',
-			'meal.analysis.progressFinish' => 'પૂર્ણ',
-			'meal.analysis.detectedIngredientHeading' => 'અમે ઓળખી રહ્યા એવા ઘટકો',
-			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} વધુ',
-			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ઘટકો શોધાયા',
-			'meal.analysis.ingredientsPending' => 'ઘટકો સ્કૅન કરી રહ્યા છીએ…',
+			'meal.analysis.progressFinish' => 'કેલરી અને મેક્રોની ગણતરી કરી રહ્યા છીએ',
+			'meal.analysis.detectedIngredientHeading' => 'અમે જે ઘટકો શોધી રહ્યા છીએ',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'વધુ ${count}',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ઘટકો મળ્યા',
+			'meal.analysis.ingredientsPending' => 'ઘટકો સ્કેન કરી રહ્યા છીએ…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.analysis.offlineTip0' => 'ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.',
+			'meal.analysis.offlineTip1' => 'ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.',
+			'meal.analysis.offlineTip2' => 'ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.',
+			'meal.analysis.offlineTip3' => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.',
+			'meal.analysis.offlineTip4' => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.',
+			'meal.analysis.offlineTip5' => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).',
 			'meal.feedback.title' => 'શું ખોટું લાગે છે?',
-			'meal.feedback.subtitle' => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણ સુધારવામાં અમારી મદદ કરો.',
-			'meal.feedback.tellUsMore' => 'વધુ જણાવો',
+			'meal.feedback.subtitle' => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણને સુધારવામાં અમારી સહાય કરો.',
+			'meal.feedback.tellUsMore' => 'વધુ કહો',
 			'meal.feedback.describeIncorrect' => 'શું ખોટું હતું તેનું વર્ણન કરો',
 			'meal.feedback.submit' => 'સબમિટ કરો',
 			'meal.feedback.issueFoodIdentification' => 'ખોરાકની ઓળખ',
-			'meal.feedback.issuePortionSize' => 'પીરસવાનું માપ',
+			'meal.feedback.issuePortionSize' => 'ભાગનું કદ',
 			'meal.feedback.issueCalorieDistribution' => 'કેલરી વિતરણ',
 			'meal.feedback.issueMacrosWrong' => 'મેક્રો ખોટા છે',
 			'meal.feedback.issueMissingItems' => 'ગુમ થયેલ વસ્તુઓ',
 			'meal.feedback.issueExtraItems' => 'વધારાની વસ્તુઓ',
 			'meal.feedback.issueOther' => 'અન્ય',
-			'favorites.title' => 'પસંદીદા',
-			'favorites.empty' => 'હજુ સુધી કોઈ પસંદીદા ભોજન નથી.',
-			'favorites.searchPlaceholder' => 'પસંદીદા ભોજન શોધો',
-			'favorites.searchEmptyTitle' => 'તમારી શોધ સાથે કોઈ ફેવરિટ મેળ ખાતું નથી',
-			'favorites.searchEmptySubtitle' => 'અલગ ભોજન નામ, માત્રા અથવા ભોજન પ્રકાર અજમાવો.',
-			'favorites.sortLabel' => 'ફેવરિટ ક્રમબદ્ધ કરો',
+			'favorites.title' => 'મનપસંદ',
+			'favorites.empty' => 'હજુ સુધી કોઈ મનપસંદ ભોજન નથી.',
+			'favorites.searchPlaceholder' => 'મનપસંદ ભોજન શોધો',
+			'favorites.searchEmptyTitle' => 'તમારી શોધ સાથે કોઈ મનપસંદ મેળ ખાતા નથી',
+			'favorites.searchEmptySubtitle' => 'અલગ ભોજનનું નામ, જથ્થો અથવા ભોજનનો પ્રકાર અજમાવો.',
+			'favorites.sortLabel' => 'મનપસંદને સૉર્ટ કરો',
 			'favorites.undo' => 'પૂર્વવત્ કરો',
-			'favorites.removed' => ({required Object name}) => 'પસંદગીમાંથી ${name} દૂર કર્યું',
-			'favorites.sortOptions.recent' => 'તાજેતરનું',
-			'favorites.sortOptions.calories' => 'કૅલરી',
+			'favorites.removed' => ({required Object name}) => '${name} ને મનપસંદમાંથી દૂર કર્યું',
+			'favorites.sortOptions.recent' => 'તાજેતરના',
+			'favorites.sortOptions.calories' => 'કેલરી',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'પ્રોફાઇલ',
 			'profile.noProfileData' => 'કોઈ પ્રોફાઇલ ડેટા મળ્યો નથી',
@@ -1944,241 +1944,241 @@ extension on TranslationsGu {
 			'profile.viewAndManage' => 'તમારી આરોગ્ય માહિતી જુઓ અને મેનેજ કરો',
 			'profile.sections.profile' => 'પ્રોફાઇલ',
 			'profile.sections.basicInformation' => 'મૂળભૂત માહિતી',
-			'profile.sections.goalsAndActivity' => 'લક્ષ્યો અને સક્રિયતા',
-			'profile.sections.calculatedValues' => 'ગણિત મૂલ્યો',
+			'profile.sections.goalsAndActivity' => 'લક્ષ્યો અને પ્રવૃત્તિ',
+			'profile.sections.calculatedValues' => 'ગણતરી કરેલ મૂલ્યો',
 			'profile.gender' => 'લિંગ',
-			'profile.height' => 'ઉંચાઈ',
+			'profile.height' => 'ઊંચાઈ',
 			'profile.weight' => 'વજન',
 			'profile.age' => 'ઉંમર',
-			'profile.weightGoal' => 'વજન લક્ષ્ય',
+			'profile.weightGoal' => 'વજનનું લક્ષ્ય',
 			'profile.targetWeight' => 'લક્ષ્ય વજન',
-			'profile.activityLevel' => 'સક્રિયતા સ્તર',
-			'profile.healthMetrics' => 'હેલ્થ મેટ્રિક્સ',
+			'profile.activityLevel' => 'પ્રવૃત્તિ સ્તર',
+			'profile.healthMetrics' => 'આરોગ્ય મેટ્રિક્સ',
 			'profile.notSet' => 'સેટ નથી',
 			'profile.years' => 'વર્ષ',
 			'profile.updatedSuccessfully' => 'પ્રોફાઇલ સફળતાપૂર્વક અપડેટ થઈ!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'દૈનિક લક્ષ્ય',
-			'profile.calculatedValues.calPerDay' => 'કૅલ/દિવસ',
+			'profile.calculatedValues.calPerDay' => 'કેલરી/દિવસ',
 			'profile.calculatedValues.notAvailable' => 'N/A',
-			'healthScore.title' => 'હેલ્થ સ્કોર',
+			'healthScore.title' => 'આરોગ્ય સ્કોર',
 			'healthScore.whyThisScore' => 'આ સ્કોર શા માટે?',
-			'healthScore.note' => 'આ સ્કોર ઓળખાયેલા ઘટકો અને પોષણ ઘનતા આધારે AI અંદાજ છે. વ્યક્તિગત આહાર સલાહ માટે હંમેશા વ્યાવસાયિકનો સંપર્ક કરો.',
-			'healthScore.unhealthy' => 'અસ્વસ્થ',
-			'healthScore.healthy' => 'સ્વસ્થ',
+			'healthScore.note' => 'આ સ્કોર ઓળખાયેલા ઘટકો અને પોષક ઘનતાના આધારે AI અંદાજ છે. આહાર સલાહ માટે હંમેશા કોઈ વ્યાવસાયિકની સલાહ લો.',
+			'healthScore.unhealthy' => 'બિનઆરોગ્યપ્રદ',
+			'healthScore.healthy' => 'આરોગ્યપ્રદ',
 			'healthScore.neutral' => 'તટસ્થ',
-			'editProfile.title' => 'પ્રોફાઇલ એડિટ કરો',
+			'editProfile.title' => 'પ્રોફાઇલ સંપાદિત કરો',
 			'editProfile.sections.personalInformation' => 'વ્યક્તિગત માહિતી',
-			'editProfile.sections.physicalMeasurements' => 'શારીરિક માપદંડો',
-			'editProfile.sections.goalsAndActivity' => 'લક્ષ્યો અને સક્રિયતા',
+			'editProfile.sections.physicalMeasurements' => 'શારીરિક માપ',
+			'editProfile.sections.goalsAndActivity' => 'લક્ષ્યો અને પ્રવૃત્તિ',
 			'editProfile.gender' => 'લિંગ',
-			'editProfile.dateOfBirth' => 'જન્મતારીખ',
-			'editProfile.height' => 'ઉંચાઈ',
+			'editProfile.dateOfBirth' => 'જન્મ તારીખ',
+			'editProfile.height' => 'ઊંચાઈ',
 			'editProfile.weight' => 'વજન',
-			'editProfile.weightGoal' => 'વજન લક્ષ્ય',
-			'editProfile.activityLevel' => 'સક્રિયતા સ્તર',
+			'editProfile.weightGoal' => 'વજનનું લક્ષ્ય',
+			'editProfile.activityLevel' => 'પ્રવૃત્તિ સ્તર',
 			'editProfile.metric' => 'મેટ્રિક',
 			'editProfile.imperial' => 'ઇમ્પિરિયલ',
-			'editProfile.unitCm' => 'cm',
-			'editProfile.unitFt' => 'ft',
-			'editProfile.unitKg' => 'kg',
+			'editProfile.unitCm' => 'સેમી',
+			'editProfile.unitFt' => 'ફૂટ',
+			'editProfile.unitKg' => 'કિલો',
 			'editProfile.unitLbs' => 'lbs',
-			'editProfile.metricCm' => 'મેટ્રિક (cm)',
-			'editProfile.imperialFtIn' => 'ઇમ્પિરિયલ (ft/in)',
-			'editProfile.metricKg' => 'મેટ્રિક (kg)',
-			'editProfile.imperialLbs' => 'ઇમ્પિરિયલ (lbs)',
+			'editProfile.metricCm' => 'મેટ્રિક (સેમી)',
+			'editProfile.imperialFtIn' => 'ઈમ્પિરિયલ (ફૂટ/ઈંચ)',
+			'editProfile.metricKg' => 'મેટ્રિક (કિલો)',
+			'editProfile.imperialLbs' => 'ઈમ્પિરિયલ (lbs)',
 			'editProfile.genders.male' => 'પુરુષ',
 			'editProfile.genders.female' => 'સ્ત્રી',
 			'editProfile.genders.other' => 'અન્ય',
-			'editProfile.weightGoals.loseWeight.name' => 'વજન ઘટાડો',
-			'editProfile.weightGoals.loseWeight.description' => 'વજન ઘટાડવા માટે કૅલરી ડેફિસિટ બનાવો',
-			'editProfile.weightGoals.maintainWeight.name' => 'વજન જાળવો',
-			'editProfile.weightGoals.maintainWeight.description' => 'તમારું હાલનું વજન જાળવો',
-			'editProfile.weightGoals.gainWeight.name' => 'વજન વધારો',
-			'editProfile.weightGoals.gainWeight.description' => 'વજન વધારવા માટે કૅલરી સરપ્લસ બનાવો',
-			'editProfile.activityLevels.sedentary.name' => 'બેઠાડુ',
-			'editProfile.activityLevels.sedentary.description' => 'થોડી કે બિલકુલ કસરત નથી',
-			'editProfile.activityLevels.lightlyActive.name' => 'હળવાશથી સક્રિય',
-			'editProfile.activityLevels.lightlyActive.description' => 'હળવી કસરત 1-3 દિવસ/અઠવાડિયે',
+			'editProfile.weightGoals.loseWeight.name' => 'વજન ઘટાડવું',
+			'editProfile.weightGoals.loseWeight.description' => 'વજન ઘટાડવા માટે કેલરીની ઉણપ બનાવો',
+			'editProfile.weightGoals.maintainWeight.name' => 'વજન જાળવી રાખવું',
+			'editProfile.weightGoals.maintainWeight.description' => 'તમારું વર્તમાન વજન જાળવી રાખો',
+			'editProfile.weightGoals.gainWeight.name' => 'વજન વધારવું',
+			'editProfile.weightGoals.gainWeight.description' => 'વજન વધારવા માટે કેલરીનો વધારો બનાવો',
+			'editProfile.activityLevels.sedentary.name' => 'નિષ્ક્રિય',
+			'editProfile.activityLevels.sedentary.description' => 'ઓછી અથવા કોઈ કસરત નહીં',
+			'editProfile.activityLevels.lightlyActive.name' => 'હળવી સક્રિય',
+			'editProfile.activityLevels.lightlyActive.description' => 'અઠવાડિયામાં 1-3 દિવસ હળવી કસરત',
 			'editProfile.activityLevels.moderatelyActive.name' => 'મધ્યમ સક્રિય',
-			'editProfile.activityLevels.moderatelyActive.description' => 'મધ્યમ કસરત 3-5 દિવસ/અઠવાડિયે',
+			'editProfile.activityLevels.moderatelyActive.description' => 'અઠવાડિયામાં 3-5 દિવસ મધ્યમ કસરત',
 			'editProfile.activityLevels.veryActive.name' => 'ખૂબ સક્રિય',
-			'editProfile.activityLevels.veryActive.description' => 'કઠોર કસરત 6-7 દિવસ/અઠવાડિયે',
-			'editProfile.activityLevels.extremelyActive.name' => 'અતિ સક્રિય',
-			'editProfile.activityLevels.extremelyActive.description' => 'અતિ કઠોર કસરત, શારીરિક કામ',
+			'editProfile.activityLevels.veryActive.description' => 'અઠવાડિયામાં 6-7 દિવસ સખત કસરત',
+			'editProfile.activityLevels.extremelyActive.name' => 'અત્યંત સક્રિય',
+			'editProfile.activityLevels.extremelyActive.description' => 'ખૂબ સખત કસરત, શારીરિક નોકરી',
 			'settings.title' => 'સેટિંગ્સ',
 			'settings.sections.profile' => 'પ્રોફાઇલ',
-			'settings.sections.localization' => 'સ્થાનિકકરણ',
+			'settings.sections.localization' => 'સ્થાનિકીકરણ',
 			'settings.sections.notifications' => 'સૂચનાઓ',
 			'settings.sections.healthConnect' => 'હેલ્થ કનેક્ટ',
-			'settings.sections.supportAndLegal' => 'આધાર અને કાનૂની',
+			'settings.sections.supportAndLegal' => 'સપોર્ટ અને કાનૂની',
 			'settings.sections.about' => 'વિશે',
-			'settings.sections.dangerZone' => 'જોખમી વિસ્તાર',
+			'settings.sections.dangerZone' => 'ડેન્જર ઝોન',
 			'settings.sections.developer' => 'ડેવલપર',
-			'settings.editProfile.title' => 'પ્રોફાઇલ એડિટ કરો',
+			'settings.editProfile.title' => 'પ્રોફાઇલ સંપાદિત કરો',
 			'settings.editProfile.subtitle' => 'તમારી વ્યક્તિગત માહિતી અપડેટ કરો',
 			'settings.language.title' => 'ભાષા',
 			'settings.language.subtitle' => 'તમારી પસંદગીની ભાષા પસંદ કરો',
 			'settings.language.searchHint' => 'ભાષાઓ શોધો...',
-			'settings.language.noResults' => 'કોઈ પરિણામ મળ્યા નથી',
-			'settings.heightUnit.title' => 'ઉંચાઈનો એકમ',
+			'settings.language.noResults' => 'કોઈ પરિણામ મળ્યું નથી',
+			'settings.heightUnit.title' => 'ઊંચાઈનો એકમ',
 			'settings.weightUnit.title' => 'વજનનો એકમ',
 			'settings.mealReminders.title' => 'ભોજન રીમાઇન્ડર્સ',
-			'settings.mealReminders.subtitle' => 'સમયસર એલર્ટ સાથે માર્ગ પર રહો',
+			'settings.mealReminders.subtitle' => 'સમયસર ચેતવણીઓ સાથે ટ્રેક પર રહો',
 			'settings.theme.title' => 'થીમ',
 			'settings.theme.light' => 'લાઇટ',
 			'settings.theme.dark' => 'ડાર્ક',
 			'settings.theme.system' => 'સિસ્ટમ',
 			'settings.sendFeedback.title' => 'પ્રતિસાદ મોકલો',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel} ને સુધારવામાં અમારી મદદ કરો',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} એપ પ્રતિસાદ',
-			'settings.sendFeedback.emailBodyPrefix' => 'કૃપા કરીને તમારો પ્રતિસાદ નીચે આપો:',
-			'settings.sendFeedback.appVersion' => 'એપ વર્ઝન',
-			'settings.sendFeedback.device' => 'ડિવાઇસ',
-			'settings.sendFeedback.osVersion' => 'OS વર્ઝન',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '${appLabel} સુધારવામાં અમારી સહાય કરો',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} એપ્લિકેશન પ્રતિસાદ',
+			'settings.sendFeedback.emailBodyPrefix' => 'કૃપા કરીને નીચે તમારો પ્રતિસાદ આપો:',
+			'settings.sendFeedback.appVersion' => 'એપ્લિકેશન સંસ્કરણ',
+			'settings.sendFeedback.device' => 'ઉપકરણ',
+			'settings.sendFeedback.osVersion' => 'OS સંસ્કરણ',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'ભોજન ઇતિહાસ નિકાસ',
-			'settings.exportMealHistory.subtitle' => 'તમારા લોગ થયેલા ભોજનનો CSV શેર કરો',
+			'settings.exportMealHistory.title' => 'ભોજન ઇતિહાસ નિકાસ કરો',
+			'settings.exportMealHistory.subtitle' => 'તમારા લોગ કરેલા ભોજનનો CSV શેર કરો',
 			'settings.exportMealHistory.shareText' => 'તમારો Calorify ભોજન ઇતિહાસ નિકાસ',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'ભોજન ઇતિહાસ નિકાસ થઈ શક્યો નથી: ${error}',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'ભોજન ઇતિહાસ નિકાસ કરી શકાયો નથી: ${error}',
 			'settings.clearAllData.title' => 'બધો ડેટા સાફ કરો',
-			'settings.clearAllData.subtitle' => 'તમારી બધી માહિતી અપ્રતિર્વર્તિત રીતે કાઢી નાખો',
+			'settings.clearAllData.subtitle' => 'તમારી બધી માહિતી કાયમ માટે કાઢી નાખો',
 			'settings.clearAllData.confirmationTitle' => 'બધો ડેટા સાફ કરવો?',
-			'settings.clearAllData.confirmationMessage' => 'આ ક્રિયા પાછી લઈ શકાતી નથી. તમારા બધા લોગ થયેલા ભોજન, પસંદીદા અને પ્રોફાઇલ સેટિંગ્સ કાયમી રીતે કાઢી નાખવામાં આવશે.',
+			'settings.clearAllData.confirmationMessage' => 'આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી. તમારા બધા લોગ કરેલા ભોજન, મનપસંદ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે.',
 			'settings.clearAllData.cancel' => 'રદ કરો',
 			'settings.clearAllData.clearEverything' => 'બધું સાફ કરો',
-			'settings.debugOptions.title' => 'ડિબગ વિકલ્પો',
-			'settings.developerModeEnabled' => 'ડેવલપર મોડ સક્રિય થયો!',
+			'settings.debugOptions.title' => 'ડીબગ વિકલ્પો',
+			'settings.developerModeEnabled' => 'ડેવલપર મોડ સક્ષમ!',
 			'settings.healthConnect.title' => 'હેલ્થ કનેક્ટ',
 			'settings.healthConnect.subtitle' => 'પરવાનગીઓ જુઓ અને મેનેજ કરો',
-			'settings.healthConnect.unavailable.title' => 'હેલ્થ કનેક્ટ ઉપલબ્ધ નથી',
-			'settings.healthConnect.unavailable.description' => 'આ ડિવાઇસ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને પ્લે સ્ટોરમાંથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો (Android 9+) અથવા Android 14+ પર અપડેટ કરો.',
+			'settings.healthConnect.unavailable.title' => 'હેલ્થ કનેક્ટ અનુપલબ્ધ',
+			'settings.healthConnect.unavailable.description' => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store (Android 9+) પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો અથવા Android 14+ પર અપડેટ કરો.',
 			'settings.healthConnect.permissions.title' => 'પરવાનગીઓ',
-			'settings.healthConnect.permissions.description' => 'હેલ્થ કનેક્ટ ઇન્ટિગ્રેશન આપવા નીચેની પરવાનગીઓ વિનંતી કરવામાં આવે છે:',
+			'settings.healthConnect.permissions.description' => 'હેલ્થ કનેક્ટ એકીકરણ પ્રદાન કરવા માટે નીચેની પરવાનગીઓની વિનંતી કરવામાં આવે છે:',
 			'settings.healthConnect.permissions.granted' => 'મંજૂર',
 			'settings.healthConnect.permissions.notGranted' => 'મંજૂર નથી',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'કુલ બર્ન થયેલી કૅલરી વાંચો',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'એપને હેલ્થ કનેક્ટમાંથી તમારી કુલ બર્ન થયેલી કૅલરી વાંચવાની મંજૂરી આપે છે.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'આ પરવાનગીનો ઉપયોગ એપમાં તમારી દૈનિક કૅલરી બર્ન બતાવવા માટે થાય છે, જે તમને દિવસભરની કુલ ઉર્જા ખર્ચણ સમજવામાં મદદ કરે છે.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'કુલ બળી ગયેલી કેલરી વાંચો',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'એપ્લિકેશનને હેલ્થ કનેક્ટમાંથી તમારી કુલ બળી ગયેલી કેલરી વાંચવાની મંજૂરી આપે છે.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'આ પરવાનગીનો ઉપયોગ એપ્લિકેશનમાં તમારી દૈનિક કેલરી બર્ન દર્શાવવા માટે થાય છે, જે તમને દિવસભર તમારા કુલ ઊર્જા ખર્ચને સમજવામાં મદદ કરે છે.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'પોષણ ડેટા વાંચો',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'એપને હેલ્થ કનેક્ટમાંથી પોષણ ડેટા વાંચવાની મંજૂરી આપે છે.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'આ પરવાનગી હેલ્થ કનેક્ટ સાથે જોડાયેલ અન્ય એપ્સે લોગ કરેલી પોષણ માહિતી વાંચવા માટે છે, જેથી તમારી પોષણ અંગે વ્યાપક ઝાંખી મળી શકે.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'એપ્લિકેશનને હેલ્થ કનેક્ટમાંથી પોષણ ડેટા વાંચવાની મંજૂરી આપે છે.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'આ પરવાનગી એપ્લિકેશનને પોષણ માહિતી વાંચવાની મંજૂરી આપે છે જે હેલ્થ કનેક્ટ સાથે જોડાયેલ અન્ય એપ્લિકેશનો દ્વારા લોગ કરવામાં આવી હોય, જે તમારા પોષણનો વ્યાપક દૃશ્ય પ્રદાન કરે છે.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'પોષણ ડેટા લખો',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'એપને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'આ પરવાનગી તમારા લોગ થયેલા ભોજનને હેલ્થ કનેક્ટ સાથે સિંક કરવા માટે છે, ώστε તમારા પોષણ ડેટા તમે વાપરતા અન્ય હેલ્થ અને ફિટનેસ એપ્સમાં પણ ઉપલબ્ધ રહે.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'એપ્લિકેશનને હેલ્થ કનેક્ટમાં પોષણ ડેટા લખવાની મંજૂરી આપે છે.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'આ પરવાનગી એપ્લિકેશનને તમારા લોગ કરેલા ભોજનને હેલ્થ કનેક્ટમાં સિંક કરવાની મંજૂરી આપે છે, જે તમારા પોષણ ડેટાને તમે ઉપયોગ કરો છો તે અન્ય આરોગ્ય અને ફિટનેસ એપ્લિકેશનો માટે ઉપલબ્ધ બનાવે છે.',
 			'settings.healthConnect.managePermissions' => 'પરવાનગીઓ મેનેજ કરો',
 			'settings.healthConnect.openSettings' => 'હેલ્થ કનેક્ટ સેટિંગ્સ ખોલો',
-			'settings.healthConnect.requestPermissions' => 'પરવાનગીઓ માગો',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'પરવાનો વિનંતી રદ થઈ અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયત્ન કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં પરવાનગીઓ હાથેથી મંજૂર કરો.',
-			'settings.healthConnect.permissionRequestFailed' => 'પરવાનગીઓ માગી શકાયા નથી. કૃપા કરીને ફરી પ્રયત્ન કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં પરવાનગીઓ હાથેથી મંજૂર કરો.',
-			'settings.healthConnect.requestingPermissions' => 'વિનંતી કરી રહ્યા છીએ...',
+			'settings.healthConnect.requestPermissions' => 'પરવાનગીઓની વિનંતી કરો',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'પરવાનગી વિનંતી રદ કરવામાં આવી અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.',
+			'settings.healthConnect.permissionRequestFailed' => 'પરવાનગીઓની વિનંતી કરવામાં અસમર્થ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.',
+			'settings.healthConnect.requestingPermissions' => 'વિનંતી કરી રહ્યું છે...',
 			'settings.about.title' => 'વિશે',
-			'settings.about.tagline' => 'ઝડપી, મફત અને ગોપનીયતા-પ્રથમ કૅલરી જાગરૂકતા',
-			'settings.about.ourStory.title' => 'અમારી કહાની',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} એક સરળ નિરાશાથી જન્મ્યું: બહુભાગની કૅલરી ટ્રેકિંગ એપ્સ તો ખૂબ જ જટિલ છે, સતત હસ્તચાલિત ઇનપુટ માંગે છે, ઊંચી સબ્સ્ક્રિપ્શન ફી લે છે, અથવા ગોપનીયતામાં સમાધાન કરે છે.\n\nએક સોલો ડેવલપર તરીકે, હું કંઈક સરળ અને નિષ્પક્ષ બનાવવું ઇચ્છતો હતો — એવી એપ જે AI થી મહેનત ઓછી કરે, ઝડપી અને મફતમાં ચાલે, અને તમારા હેલ્થ ડેટાનો માન રાખે.\n\n${appLabel} એ એવી એપ છે જે હું ઇચ્છતો હતો: કોઈ એકાઉન્ટ્સ નહીં, કોઈ ટ્રેકિંગ નહીં, કોઈ જાહેરાતો નહીં — માત્ર સ્પષ્ટ, વ્યવહારુ ઇન્સાઇટ્સ અને તમારા આરોગ્ય લક્ષ્યો.',
-			'settings.about.privacy.title' => 'તમારી ગોપનીયતા મહત્વની છે',
-			'settings.about.privacy.description' => 'ગોપનીયતા પછીથી વિચારી નથી — એ ડિઝાઇનનો સિદ્ધાંત છે. હકીકતમાં તેનો અર્થ એ છે:',
-			'settings.about.privacy.noAccounts' => 'કોઈ એકાઉન્ટ્સની જરૂર નથી\nતાત્કાલિક એપ વાપરો. કોઈ સાઇન-અપ નથી, કોઈ ઓળખ નથી.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'કોઈ વર્તન ટ્રેકિંગ નથી\n${appLabel} તમારી પ્રવૃત્તિ મોનીટર કરતી નથી, યુઝેજ પ્રોફાઇલ બનાવતી નથી, અથવા એપ્સ/વેબસાઇટ્સ પર તમને ટ્રેક કરતી નથી.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'જાહેરાત-મુક્ત ડિઝાઇન\n${appLabel} જાહેરાતો અથવા ડેટા-ચલિત મોનેટાઇઝેશન વિના કામ કરવા માટે બનાવવામાં આવી છે.',
-			'settings.about.privacy.noDataSelling' => 'કોઈ ડેટા વેચાણ નથી\nતમારો હેલ્થ ડેટા ક્યારેય તૃતીય પક્ષને વેચવામાં અથવા શેર કરવામાં આવતો નથી.',
-			'settings.about.privacy.localStorage' => 'લોકલ-પ્રથમ સંગ્રહ\nતમારો ડેટા તમારા ડિવાઇસ પર જ રહે છે.',
+			'settings.about.tagline' => 'ઝડપી, મફત અને ગોપનીયતા-પ્રથમ કેલરી જાગૃતિ',
+			'settings.about.ourStory.title' => 'અમારી વાર્તા',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} એક સરળ હતાશામાંથી જન્મ્યું હતું: મોટાભાગની કેલરી ટ્રેકિંગ એપ્લિકેશનો કાં તો વધુ પડતી જટિલ હોય છે, સતત મેન્યુઅલ ઇનપુટની માંગ કરે છે, ઊંચી સબ્સ્ક્રિપ્શન ફી લે છે અથવા ગોપનીયતા સાથે સમાધાન કરે છે.\n\nએક સોલો ડેવલપર તરીકે, હું કંઈક સરળ અને વધુ ન્યાયી બનાવવા માંગતો હતો — એક એવી એપ્લિકેશન જે પ્રયત્નો ઘટાડવા માટે AI નો ઉપયોગ કરે, ઝડપી અને મફત રહે, અને તમારા સ્વાસ્થ્ય ડેટાને આદર સાથે વર્તે.\n\n${appLabel} એ એવી એપ્લિકેશન છે જે હું ઈચ્છતો હતો કે અસ્તિત્વમાં હોય: કોઈ એકાઉન્ટ્સ નહીં, કોઈ ટ્રેકિંગ નહીં, કોઈ જાહેરાતો નહીં — ફક્ત સ્પષ્ટ, વ્યવહારુ આંતરદૃષ્ટિ અને તમારા સ્વાસ્થ્ય લક્ષ્યો.',
+			'settings.about.privacy.title' => 'તમારી ગોપનીયતા મહત્વપૂર્ણ છે',
+			'settings.about.privacy.description' => 'ગોપનીયતા એ પછીનો વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. વ્યવહારમાં તેનો અર્થ અહીં છે:',
+			'settings.about.privacy.noAccounts' => 'કોઈ એકાઉન્ટ્સની જરૂર નથી\nએપ્લિકેશનનો તરત જ ઉપયોગ કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'કોઈ વર્તણૂકીય ટ્રેકિંગ નહીં\n${appLabel} તમારી પ્રવૃત્તિનું નિરીક્ષણ કરતું નથી, ઉપયોગ પ્રોફાઇલ્સ બનાવતું નથી અથવા તમને એપ્લિકેશન્સ અથવા વેબસાઇટ્સ પર ટ્રૅક કરતું નથી.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ડિઝાઇન દ્વારા જાહેરાત-મુક્ત\n${appLabel} જાહેરાતો અથવા ડેટા-આધારિત મુદ્રીકરણ વિના કાર્ય કરવા માટે બનાવવામાં આવ્યું છે.',
+			'settings.about.privacy.noDataSelling' => 'કોઈ ડેટા વેચાણ નહીં\nતમારો સ્વાસ્થ્ય ડેટા ક્યારેય વેચવામાં આવતો નથી અથવા તૃતીય પક્ષો સાથે શેર કરવામાં આવતો નથી.',
+			'settings.about.privacy.localStorage' => 'સ્થાનિક-પ્રથમ સ્ટોરેજ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.',
 			'settings.about.privacy.privacyPolicy' => 'ગોપનીયતા નીતિ',
-			'settings.about.developer.title' => 'એક સોલો ડેવલપર દ્વારા બનાવેલ',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} એક શાંત, ગોપનીયતાને માન આપતું હેલ્થ સોફ્ટવેર બનાવવામાં ધ્યાન કેન્દ્રિત કરનાર એક જ સોલો ડેવલપર દ્વારા બનાવવામાં અને જાળવવામાં આવે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપની દિશા નક્કી કરવામાં મદદ કરે છે.',
+			'settings.about.developer.title' => 'એકલા ડેવલપર દ્વારા નિર્મિત',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} એક જ સોલો ડેવલપર દ્વારા બનાવવામાં અને જાળવવામાં આવે છે જે શાંત, ગોપનીયતા-સન્માનિત આરોગ્ય સોફ્ટવેર બનાવવા પર ધ્યાન કેન્દ્રિત કરે છે.\n\nપ્રતિસાદ વ્યક્તિગત રીતે વાંચવામાં આવે છે અને એપ્લિકેશનની દિશાને આકાર આપવામાં મદદ કરે છે.',
 			'settings.about.developer.website' => 'વેબસાઇટ',
 			'settings.about.developer.email' => 'ઇમેઇલ',
-			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} ગમે છે?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને દરેક માટે વધુ સારો બનાવવામાં મદદ કરે છે.',
-			'settings.about.feedback.rateApp' => 'પ્લે સ્ટોર પર રેટ કરો',
+			'settings.about.feedback.title' => ({required Object appLabel}) => '${appLabel} નો આનંદ માણી રહ્યા છો?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને દરેક માટે વધુ સારું બનાવવામાં મદદ કરે છે.',
+			'settings.about.feedback.rateApp' => 'Play Store પર રેટ કરો',
 			'settings.about.feedback.sendFeedback' => 'પ્રતિસાદ મોકલો',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'બિલ્ડ ${buildNumber}',
-			'reminders.title' => 'રીમાઇન્ડર્સ સાથે માર્ગ પર રહો',
-			'reminders.description' => 'ભોજન લોગ કરવા અને તમારા પોષણ લક્ષ્યો સાથે સતત રહેવા માટે નાજુક યાદ અપાવણીઓ મેળવો',
-			'reminders.notificationsEnabled' => 'સૂચનાઓ સક્રિય',
-			'reminders.notificationsDisabled' => 'સૂચનાઓ નિષ્ક્રિય',
-			'reminders.enabledSubtitle' => 'તમને ભોજનના રીમાઇન્ડર્સ મળશે',
-			'reminders.disabledSubtitle' => 'ભોજન રીમાઇન્ડર્સ મેળવવા માટે સૂચનાઓ સક્રિય કરો',
+			'reminders.title' => 'રીમાઇન્ડર્સ સાથે ટ્રેક પર રહો',
+			'reminders.description' => 'તમારા ભોજનને લોગ કરવા અને તમારા પોષણ લક્ષ્યો સાથે સુસંગત રહેવા માટે સૌમ્ય રીમાઇન્ડર્સ મેળવો',
+			'reminders.notificationsEnabled' => 'સૂચનાઓ સક્ષમ છે',
+			'reminders.notificationsDisabled' => 'સૂચનાઓ અક્ષમ છે',
+			'reminders.enabledSubtitle' => 'તમને ભોજન રીમાઇન્ડર્સ પ્રાપ્ત થશે',
+			'reminders.disabledSubtitle' => 'ભોજન રીમાઇન્ડર્સ મેળવવા માટે સૂચનાઓ સક્ષમ કરો',
 			'reminders.mealReminders' => 'ભોજન રીમાઇન્ડર્સ',
 			'reminders.breakfast' => 'નાસ્તો',
 			'reminders.lunch' => 'બપોરનું ભોજન',
-			'reminders.dinner' => 'રાત્રીભોજન',
+			'reminders.dinner' => 'રાતનું ભોજન',
 			'reminders.snack' => 'નાસ્તો',
 			'reminders.unknown' => 'અજાણ્યું',
 			'reminders.change' => 'બદલો',
-			'reminders.enableNotifications' => 'સૂચનાઓ સક્રિય કરો',
-			'reminders.skipForNow' => 'હાલ માટે છોડો',
+			'reminders.enableNotifications' => 'સૂચનાઓ સક્ષમ કરો',
+			'reminders.skipForNow' => 'હમણાં માટે છોડી દો',
 			'reminders.saveChanges' => 'ફેરફારો સાચવો',
-			'reminders.enabledSuccessfully' => 'સૂચનાઓ સફળતાપૂર્વક સક્રિય થઈ!',
-			'reminders.permissionDenied' => 'સૂચના પરવાનગી નામંજૂર',
-			'reminders.errorEnabling' => ({required Object error}) => 'સૂચનાઓ સક્રિય કરતી વખતે ભૂલ: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'સેટઅપ પૂર્ણ કરતી વખતે ભૂલ: ${error}',
+			'reminders.enabledSuccessfully' => 'સૂચનાઓ સફળતાપૂર્વક સક્ષમ થઈ!',
+			'reminders.permissionDenied' => 'સૂચના પરવાનગી નકારી',
+			'reminders.errorEnabling' => ({required Object error}) => 'સૂચનાઓ સક્ષમ કરવામાં ભૂલ: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'સેટઅપ પૂર્ણ કરવામાં ભૂલ: ${error}',
 			'notifications.breakfast.title' => 'નાસ્તાનો સમય! 🍳',
 			'notifications.breakfast.body' => 'તમારો નાસ્તો લોગ કરવાનું ભૂલશો નહીં',
 			'notifications.lunch.title' => 'બપોરના ભોજનનો સમય! 🥗',
 			'notifications.lunch.body' => 'તમારું બપોરનું ભોજન લોગ કરવાનો સમય',
-			'notifications.dinner.title' => 'રાત્રીભોજનનો સમય! 🍽️',
-			'notifications.dinner.body' => 'તમારું રાત્રીભોજન લોગ કરવાનું ભૂલશો નહીં',
+			'notifications.dinner.title' => 'રાત્રિભોજનનો સમય! 🍽️',
+			'notifications.dinner.body' => 'તમારું રાત્રિભોજન લોગ કરવાનું ભૂલશો નહીં',
 			'notifications.snack.title' => 'નાસ્તાનો સમય! 🍎',
-			'notifications.snack.body' => 'એક સ્વસ્થ નાસ્તાનો સમય',
-			'notifications.test.title' => 'ટેસ્ટ સૂચના',
-			'login.title' => 'લૉગિન',
-			'login.signInWithGoogle' => 'Google થી સાઇન ઇન કરો',
-			'login.signInFailed' => 'Google સાઇન-ઇન નિષ્ફળ ગયું અથવા રદ થયું.',
+			'notifications.snack.body' => 'સ્વસ્થ નાસ્તાનો સમય',
+			'notifications.test.title' => 'પરીક્ષણ સૂચના',
+			'login.title' => 'લોગિન',
+			'login.signInWithGoogle' => 'Google વડે સાઇન ઇન કરો',
+			'login.signInFailed' => 'Google સાઇન-ઇન નિષ્ફળ ગયું અથવા રદ કરવામાં આવ્યું.',
 			'disclaimer.pleaseNote' => 'કૃપા કરીને નોંધ લો',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} અંદાજિત પોષણ માહિતી આપે છે. ચોકસાઈ તમારા ઇનપુટ અને ખોરાકની ભિન્નતાઓ પર નિર્ભર છે. આને માર્ગદર્શન તરીકે વાપરો, અંતિમ સ્રોત તરીકે નહીં. વ્યક્તિગત આહાર સલાહ માટે વ્યાવસાયિકની સલાહ લો.',
-			'disclaimer.snap.portionSize.title' => 'પરિમાણ કદ',
-			'disclaimer.snap.portionSize.description' => 'અંદાજોની ચોકસાઈ તમારા દ્વારા કરાયેલા યોગ્ય પરિમાણ કદના મૂલ્યાંકન પર ખૂબ નિર્ભર છે.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} અંદાજિત પોષણ માહિતી પ્રદાન કરે છે. ચોકસાઈ તમારા ઇનપુટ અને ખોરાકની વિવિધતાઓ પર આધારિત છે. માર્ગદર્શિકા તરીકે ઉપયોગ કરો, ચોક્કસ સ્ત્રોત તરીકે નહીં. વ્યક્તિગત આહાર સલાહ માટે વ્યાવસાયિકની સલાહ લો.',
+			'disclaimer.snap.portionSize.title' => 'ભાગનું કદ',
+			'disclaimer.snap.portionSize.description' => 'અંદાજોની ચોકસાઈ તમારા ભાગના કદના સાચા મૂલ્યાંકન પર ખૂબ આધાર રાખે છે.',
 			'disclaimer.snap.preparationMethods.title' => 'તૈયારી પદ્ધતિઓ',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈની પદ્ધતિઓ ખોરાકના પોષણ સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજ હંમેશા આ ભિન્નતાઓનો હિસાબ ન રાખતા હોઈ શકે.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.',
 			'disclaimer.snap.ingredients.title' => 'ઘટકો',
-			'disclaimer.snap.ingredients.description' => 'ઘણા છુપાયેલા ઘટકોવાળા જટિલ વાનગીઓ ઓછા ચોક્કસ અંદાજ તરફ દોરી શકે છે.',
-			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેસ મર્યાદાઓ',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેસ વિશાળ છે પરંતુ તેમાં દરેક ખાદ્ય વસ્તુ અથવા તેના દરેક ભિન્ન પ્રકારનો સમાવેશ હોવો જરૂરી નથી.',
-			'disclaimer.weightEstimate.title' => 'વજન અંદાજ વિશે',
-			'disclaimer.weightEstimate.description' => 'દેખાડવામાં આવેલ વજન પરિવર્તન એક સાધારણ ‘કૅલરી ઇન સામે કૅલરી આઉટ’ મોડલ પર આધારિત સાકલ્યિક અંદાજ છે. આ પ્રેરણાત્મક માર્ગદર્શન માટે છે, તમારા વાસ્તવિક વજનનું પૂર્વાનુમાન નથી.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'કૅલરી ચોકસાઈ',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'આ અંદાજ તમારી ટ્રેક થયેલી કૅલરી લેવાત અને ખર્ચ જેટલો જ ચોક્કસ છે. અચોક્કસ લોગિંગથી અચોક્કસ પ્રોજેક્શન મળશે.',
+			'disclaimer.snap.ingredients.description' => 'ઘણા છુપાયેલા ઘટકોવાળી જટિલ વાનગીઓ ઓછા સચોટ અંદાજો તરફ દોરી શકે છે.',
+			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેઝ મર્યાદાઓ',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેઝ વ્યાપક છે પરંતુ તેમાં દરેક એક ખાદ્ય વસ્તુ અથવા ભિન્નતા શામેલ ન હોઈ શકે.',
+			'disclaimer.weightEstimate.title' => 'વજનના અંદાજ વિશે',
+			'disclaimer.weightEstimate.description' => 'અંદાજિત વજનમાં ફેરફાર એ સરળ કેલરી-ઇન વિ. કેલરી-આઉટ મોડેલ પર આધારિત સૈદ્ધાંતિક અંદાજ છે. તે ફક્ત પ્રેરક માર્ગદર્શન માટે છે, તમારા વાસ્તવિક વજનની આગાહી તરીકે નહીં.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'કેલરીની ચોકસાઈ',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'આ અંદાજ ફક્ત તમારી ટ્રેક કરેલી કેલરીનું સેવન અને ખર્ચ જેટલો જ સચોટ છે. ખોટું લોગિંગ અચોક્કસ અંદાજમાં પરિણમશે.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'જૈવિક પરિબળો',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'વાસ્તવિક વજન વધારો/ઘટાડો મેટાબોલિઝમ, હોર્મોન્સ, ઊંઘ, તાણ, હાઇડ્રેશન અને અન્ય વ્યક્તિગત પરિબળોથી પ્રભાવિત થાય છે, જેને ${appLabel} માપી શકતું નથી.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'પાણીનું વજન અને ફેરફારો',
-			'disclaimer.weightEstimate.waterWeight.description' => 'દૈનિક વજન પાણીની ધારણ, પાચન અને સમયને કારણે નોંધપાત્ર રીતે ફેરફારી શકે છે. આ અંદાજ આ દૈનિક ફેરફારોનો હિસાબ નથી રાખતો.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'વાસ્તવિક વજન ઘટાડવું/વધવું ચયાપચય, હોર્મોન્સ, ઊંઘ, તણાવ, હાઇડ્રેશન અને અન્ય વ્યક્તિગત પરિબળોથી પ્રભાવિત થાય છે જે ${appLabel} માપી શકતું નથી.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'પાણીનું વજન અને વધઘટ',
+			'disclaimer.weightEstimate.waterWeight.description' => 'પાણી જાળવી રાખવા, પાચન અને સમયને કારણે સામાન્ય દૈનિક વજનમાં નોંધપાત્ર વધઘટ થઈ શકે છે. અંદાજ આ દૈનિક ફેરફારોને ધ્યાનમાં લેતો નથી.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગદર્શન',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'ચિકિત્સાકીય નિર્ણય લેવા માટે આ અંદાજનો ઉપયોગ ન કરો. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્ય વ્યવસાયી અથવા નોંધાયેલા ડાયેટિશિયનનો સંપર્ક કરો.',
-			'disclaimer.healthMetrics.description' => 'આ મેટ્રિક્સ તમને તમારા શરીરની ઉર્જા જરૂરિયાતો સમજવામાં અને તમારા પોષણ લક્ષ્યોને માર્ગદર્શન આપવા મદદ કરે છે.',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.',
+			'disclaimer.healthMetrics.description' => 'આ મેટ્રિક્સ તમને તમારા શરીરની ઊર્જાની જરૂરિયાતોને સમજવામાં અને તમારા પોષણ લક્ષ્યોને માર્ગદર્શન આપવામાં મદદ કરે છે.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'બેઝલ મેટાબોલિક રેટ (BMR) એ કૅલરીની સંખ્યા છે જે તમારું શરીર આરામની અવસ્થામાં શ્વાસ અને રક્ત પરિસંચરણ જેવી મૂળભૂત ક્રિયાઓ જાળવવા બર્ન કરે છે. BMR તમારી ઉંમર, લિંગ, ઉંચાઈ અને વજન પર આધારિત છે. વધુ BMRનો અર્થ તમારું શરીર સ્વાભાવિક રીતે વધુ કૅલરી બર્ન કરે છે, સામાન્ય રીતે વધુ માંસપેશીઓ, ઓછી ઉંમર અથવા પુરુષ હોવાને કારણે. ઓછું BMR સામાન્ય રીતે ઓછી માંસપેશીઓ, વધુ ઉંમર અથવા સ્ત્રી હોવાને દર્શાવે છે.',
+			'disclaimer.healthMetrics.bmr.description' => 'બેઝલ મેટાબોલિક રેટ (BMR) એ કેલરીની સંખ્યા છે જે તમારું શરીર આરામ કરતી વખતે શ્વાસ લેવા અને રક્ત પરિભ્રમણ જેવા મૂળભૂત કાર્યો જાળવવા માટે બાળે છે. BMR તમારી ઉંમર, લિંગ, ઊંચાઈ અને વજન પર આધાર રાખે છે. ઉચ્ચ BMR નો અર્થ છે કે તમારું શરીર કુદરતી રીતે આરામ કરતી વખતે વધુ કેલરી બાળે છે, જે ઘણીવાર વધુ સ્નાયુ સમૂહ, નાની ઉંમર અથવા પુરુષ હોવાને કારણે થાય છે. નીચું BMR સામાન્ય રીતે ઓછા સ્નાયુ સમૂહ, મોટી ઉંમર અથવા સ્ત્રી હોવાનો સંકેત આપે છે.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'ટોટલ ડેઇલી એનર્જી એક્સપેન્ડિચર (TDEE) એ તમે દરરોજ બર્ન કરેલી કુલ કૅલરી છે, જેમાં તમારો BMR અને શારીરિક પ્રવૃત્તિ/દૈનિક હલનચલનથી બર્ન થયેલી કૅલરીનો સમાવેશ થાય છે. TDEE તમારો BMR અને પ્રવૃત્તિ સ્તર પર આધારિત છે. વધુ TDEEનો અર્થ તમે કુલ રીતે વધુ કૅલરી બર્ન કરો છો, સામાન્ય રીતે વધુ સક્રિય હોવા અથવા વધુ BMR હોવાના કારણે. ઓછું TDEE ઓછી દૈનિક સક્રિયતા અથવા ઓછા BMR સૂચવે છે.',
+			'disclaimer.healthMetrics.tdee.description' => 'કુલ દૈનિક ઊર્જા ખર્ચ (TDEE) એ દરરોજ તમે બાળો છો તે કુલ કેલરી છે, જેમાં તમારું BMR વત્તા શારીરિક પ્રવૃત્તિ અને દૈનિક હલનચલનમાંથી કેલરીનો સમાવેશ થાય છે. TDEE તમારા BMR અને પ્રવૃત્તિ સ્તર પર આધાર રાખે છે. ઉચ્ચ TDEE નો અર્થ છે કે તમે એકંદરે વધુ કેલરી બાળો છો, સામાન્ય રીતે વધુ સક્રિય હોવાને કારણે અથવા ઉચ્ચ BMR હોવાને કારણે. નીચું TDEE ઓછી દૈનિક પ્રવૃત્તિ અથવા નીચા BMR સૂચવે છે.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'દૈનિક લક્ષ્ય',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય તમારા TDEE અને વજન લક્ષ્ય આધારે ભલામણ કરાયેલ દૈનિક કૅલરી લેવાત છે. વજન ઘટાડવા માટે, તમે તમારા TDEE કરતાં ઓછી કૅલરી લો. વજન જાળવવા માટે, તમારા TDEE જેટલી કૅલરી લો. વજન વધારવા માટે, તમે તમારા TDEE કરતાં વધુ કૅલરી લો. આ તમને સ્વસ્થ ગતિએ ઇચ્છિત વજન પરિવર્તન હાંસલ કરવામાં મદદ કરે છે.',
-			'disclaimer.calorieExpenditure.title' => 'કૅલરી ખર્ચાનો અંદાજ',
-			'disclaimer.calorieExpenditure.description' => 'જ્યારે હેલ્થ કનેક્ટ ડેટા ઉપલબ્ધ ન હોય, ત્યારે અમે આજની બર્ન થયેલી કૅલરીનો અંદાજ તમારા બેઝલ મેટાબોલિક રેટ (BMR) અને સક્રિયતા સ્તર (TDEE) આધારે, દિવસના પસાર થયેલા સમય પ્રમાણે સ્કેલ કરીને લગાવીએ છીએ.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'અંદાજ કેવી રીતે ગણ્યો છે',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'અમે તમારો TDEE (તમારી પ્રોફાઇલ આધારે) ગણીએ છીએ અને અત્યાર સુધી પસાર થયેલા દિવસના અંશે (કલાક + મિનિટ)/24 ગુણાકાર કરીને હજી સુધી બર્ન થયેલી કૅલરી અંદાજીએ છીએ.',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'દૈનિક લક્ષ્ય એ તમારા TDEE અને વજનના લક્ષ્યના આધારે તમારી ભલામણ કરેલ દૈનિક કેલરીનું સેવન છે. વજન ઘટાડવા માટે, તમે તમારા TDEE કરતાં ઓછી કેલરીનો વપરાશ કરો છો. વજન જાળવવા માટે, તમે તમારા TDEE સાથે મેળ ખાઓ છો. વજન વધારવા માટે, તમે તમારા TDEE કરતાં વધુ કેલરીનો વપરાશ કરો છો. આ તમને સ્વસ્થ ગતિએ તમારા ઇચ્છિત વજનમાં ફેરફાર પ્રાપ્ત કરવામાં મદદ કરે છે.',
+			'disclaimer.calorieExpenditure.title' => 'કેલરી ખર્ચનો અંદાજ',
+			'disclaimer.calorieExpenditure.description' => 'જ્યારે Health Connect ડેટા અનુપલબ્ધ હોય, ત્યારે અમે તમારા બેઝલ મેટાબોલિક રેટ (BMR) અને પ્રવૃત્તિ સ્તર (TDEE) નો ઉપયોગ કરીને આજે બળી ગયેલી કેલરીનો અંદાજ લગાવીએ છીએ, જે દિવસના વીતી ગયેલા ભાગ માટે સ્કેલ કરવામાં આવે છે.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'અંદાજ કેવી રીતે ગણવામાં આવે છે',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'અમે તમારા TDEE (તમારી પ્રોફાઇલના આધારે) ની ગણતરી કરીએ છીએ અને અત્યાર સુધી બળી ગયેલી કેલરીનો અંદાજ કાઢવા માટે તેને દિવસના વીતી ગયેલા અપૂર્ણાંક (કલાકો + મિનિટ) / 24 વડે ગુણાકાર કરીએ છીએ.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગદર્શન',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'ચિકિત્સાકીય નિર્ણય લેવા માટે આ અંદાજનો ઉપયોગ ન કરો. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્ય વ્યવસાયી અથવા નોંધાયેલા ડાયેટિશિયનનો સંપર્ક કરો.',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.',
 			'common.close' => 'બંધ કરો',
 			'common.kContinue' => 'ચાલુ રાખો',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} ગમે છે?',
-			'feedbackRating.yes' => 'હા, મને ગમે છે',
-			'feedbackRating.no' => 'ખાસ નથી',
-			'feedbackRating.rateStepHeading' => 'પ્લે સ્ટોર પર રેટ કરો',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} નો આનંદ માણી રહ્યા છો?',
+			'feedbackRating.yes' => 'હા, હું તેનો આનંદ માણી રહ્યો છું',
+			'feedbackRating.no' => 'ખરેખર નહીં',
+			'feedbackRating.rateStepHeading' => 'Play Store પર રેટ કરો',
 			'feedbackRating.emailStepHeading' => 'ઇમેઇલ દ્વારા પ્રતિસાદ મોકલો',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'ઝડપી રેટિંગથી અન્ય લોકોને ${appLabel} શોધવામાં મદદ મળે છે અને વિકાસ ચાલુ રહે છે. શું તમે એક ક્ષણ લઈને રેટ કરશો?',
-			'feedbackRating.shareFeedbackViaEmail' => 'તમારો પ્રતિસાદ આગળ શું આવે છે તે નક્કી કરે છે — અમે દરેક સંદેશો વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરશો?',
-			'feedbackRating.rateCta' => 'પ્લે સ્ટોર પર રેટ કરો',
-			'feedbackRating.maybeLater' => 'પછી કદાચ',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'એક ઝડપી રેટિંગ અન્ય લોકોને ${appLabel} શોધવામાં મદદ કરે છે અને વિકાસ ચાલુ રાખે છે. શું તમે એક ક્ષણ માટે એક છોડશો?',
+			'feedbackRating.shareFeedbackViaEmail' => 'તમારો પ્રતિસાદ આગળ શું આવે છે તેને આકાર આપે છે — અમે દરેક સંદેશ વાંચીએ છીએ. શું તમે ઇમેઇલ દ્વારા તમારા વિચારો શેર કરવા માંગો છો?',
+			'feedbackRating.rateCta' => 'Play Store પર રેટ કરો',
+			'feedbackRating.maybeLater' => 'કદાચ પછી',
 			'feedbackRating.sendFeedback' => 'પ્રતિસાદ મોકલો',
-			'feedbackRating.noThanks' => 'ના, આભાર',
-			'feedbackRating.aboutUsDescription' => 'નાના ટીમ દ્વારા કાળજીપૂર્વક બનાવેલ. અમે ગોપનીયતા, સરળતા અને તમારી ખાવાની આદતોને વધુ સારી બનાવવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઇચ્છો છો? જુઓ ',
+			'feedbackRating.noThanks' => 'ના આભાર',
+			'feedbackRating.aboutUsDescription' => 'એક નાની ટીમ દ્વારા કાળજીપૂર્વક બનાવવામાં આવ્યું છે. અમે ગોપનીયતા, સરળતા અને તમને વધુ સારી ખાવાની ટેવો બનાવવામાં મદદ કરવા પર ધ્યાન કેન્દ્રિત કરીએ છીએ.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '${appLabel} પાછળ કોણ છે તે જાણવા ઉત્સુક છો? જુઓ ',
 			'feedbackRating.aboutUsLinkLabel' => 'અમારા વિશે',
-			'feedbackRating.thankYouMessage' => 'આભાર! અમે ફરી અન્ય સમયે પૂછશું.',
-			'health.syncFailed' => 'હેલ્થ કનેક્ટ સાથે સિંક થઈ શક્યું નથી',
-			'health.mealSynced' => 'ભોજન હેલ્થ કનેક્ટ સાથે સિંક થયું',
+			'feedbackRating.thankYouMessage' => 'આભાર! અમે તમને બીજી વાર પૂછીશું.',
+			'health.syncFailed' => 'Health Connect સાથે સમન્વયિત કરી શકાયું નથી',
+			'health.mealSynced' => 'ભોજન Health Connect સાથે સમન્વયિત થયું',
 			_ => null,
 		};
 	}

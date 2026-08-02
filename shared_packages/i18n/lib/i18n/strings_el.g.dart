@@ -67,12 +67,12 @@ class _TranslationsErrorsEl implements TranslationsErrorsEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Έκανες πάρα πολλά αιτήματα. Περίμενε λίγο και δοκίμασε ξανά.';
-	@override String get networkError => 'Σφάλμα δικτύου. Έλεγξε τη σύνδεσή σου στο διαδίκτυο.';
-	@override String get unknownError => 'Κάτι πήγε στραβά. Δοκίμασε ξανά αργότερα.';
-	@override String get loadingProfileData => 'Σφάλμα κατά τη φόρτωση προφίλ';
+	@override String get rateLimitExceeded => 'Έχετε κάνει πάρα πολλά αιτήματα. Περιμένετε λίγο πριν προσπαθήσετε ξανά.';
+	@override String get networkError => 'Σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.';
+	@override String get unknownError => 'Κάτι πήγε στραβά. Παρακαλώ δοκιμάστε ξανά αργότερα.';
+	@override String get loadingProfileData => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ';
 	@override String get somethingWentWrong => 'Κάτι πήγε στραβά.';
-	@override String get retry => 'Ξαναπροσπάθησε';
+	@override String get retry => 'Δοκιμάστε ξανά';
 }
 
 // Path: onboarding
@@ -82,9 +82,9 @@ class _TranslationsOnboardingEl implements TranslationsOnboardingEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String welcome({required Object appLabel}) => 'Καλώς ήρθες στο ${appLabel}';
-	@override String get subtitle => 'Ο προσωπικός σου διατροφικός σύμβουλος με τη δύναμη της AI';
-	@override String get getStarted => 'Ξεκίνα';
+	@override String welcome({required Object appLabel}) => 'Καλώς ορίσατε στο ${appLabel}';
+	@override String get subtitle => 'Ο προσωπικός σας σύμβουλος διατροφής με AI';
+	@override String get getStarted => 'Ξεκινήστε';
 	@override late final _TranslationsOnboardingFeaturesEl features = _TranslationsOnboardingFeaturesEl._(_root);
 	@override late final _TranslationsOnboardingGenderEl gender = _TranslationsOnboardingGenderEl._(_root);
 	@override late final _TranslationsOnboardingHeightEl height = _TranslationsOnboardingHeightEl._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsEl implements TranslationsTabsEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Πίνακας';
+	@override String get dashboard => 'Ταμπλό';
 	@override String get history => 'Ιστορικό';
 }
 
@@ -134,8 +134,8 @@ class _TranslationsHistoryEl implements TranslationsHistoryEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'Δεν υπάρχουν γεύματα';
-	@override String get emptyMessage => 'Βγάλε φωτογραφία του τελευταίου σου γεύματος για καταγραφή εδώ.';
+	@override String get noMeals => 'Δεν έχουν καταγραφεί γεύματα';
+	@override String get emptyMessage => 'Τραβήξτε μια φωτογραφία του τελευταίου γεύματός σας για να το καταγράψετε εδώ.';
 	@override String get today => 'Σήμερα';
 	@override String get yesterday => 'Χθες';
 }
@@ -149,34 +149,34 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	// Translations
 	@override String get ohNo => 'Ωχ όχι!';
 	@override String get delete => 'Διαγραφή';
-	@override String get editMeal => 'Επεξεργασία γεύματος';
-	@override String get addMeal => 'Προσθήκη γεύματος';
-	@override String get saveMeal => 'Αποθήκευση γεύματος';
+	@override String get editMeal => 'Επεξεργασία Γεύματος';
+	@override String get addMeal => 'Προσθήκη Γεύματος';
+	@override String get saveMeal => 'Αποθήκευση Γεύματος';
 	@override String get save => 'Αποθήκευση';
-	@override String get mealName => 'Όνομα γεύματος';
-	@override String get mealNameHint => 'π.χ., Ομελέτα με τοστ';
-	@override String get mealQuantity => 'Ποσότητα γεύματος';
+	@override String get mealName => 'Όνομα Γεύματος';
+	@override String get mealNameHint => 'π.χ., Αυγά σκραμπλ με τοστ';
+	@override String get mealQuantity => 'Ποσότητα Γεύματος';
 	@override String get mealQuantityHint => 'π.χ., 1 μπολ, 2 φέτες';
-	@override String get timeOfMeal => 'Ώρα γεύματος';
-	@override String get timeOfMealHint => 'Επίλεξε την ώρα που έφαγες';
-	@override String get mealType => 'Τύπος γεύματος';
+	@override String get timeOfMeal => 'Ώρα Γεύματος';
+	@override String get timeOfMealHint => 'Επιλέξτε την ώρα που φάγατε';
+	@override String get mealType => 'Τύπος Γεύματος';
 	@override late final _TranslationsMealNutritionEl nutrition = _TranslationsMealNutritionEl._(_root);
 	@override late final _TranslationsMealDeleteConfirmationEl deleteConfirmation = _TranslationsMealDeleteConfirmationEl._(_root);
-	@override String get addedToLog => 'Το γεύμα προστέθηκε στο ιστορικό σου!';
+	@override String get addedToLog => 'Το γεύμα προστέθηκε στο ημερολόγιό σας!';
 	@override String couldNotAdd({required Object error}) => 'Δεν ήταν δυνατή η προσθήκη γεύματος: ${error}';
 	@override String get savedSuccessfully => 'Το γεύμα προστέθηκε με επιτυχία!';
 	@override String get updatedSuccessfully => 'Το γεύμα ενημερώθηκε με επιτυχία!';
-	@override String errorSaving({required Object error}) => 'Σφάλμα κατά την αποθήκευση: ${error}';
+	@override String errorSaving({required Object error}) => 'Σφάλμα κατά την αποθήκευση γεύματος: ${error}';
 	@override String get removedFromFavorites => 'Αφαιρέθηκε από τα αγαπημένα!';
-	@override String get savedAsFavorite => 'Το γεύμα αποθηκεύτηκε στα αγαπημένα!';
-	@override String get unfavorite => 'Κατάργηση από αγαπημένα';
-	@override String couldNotUpdateFavorite({required Object error}) => 'Δεν ήταν δυνατή η ενημέρωση αγαπημένου: ${error}';
-	@override String get feedbackThanks => 'Ευχαριστούμε για τα σχόλιά σου!';
-	@override String get reanalysisUpdated => 'Ενημερώθηκε η ανάλυση βάσει των σχολίων σου.';
+	@override String get savedAsFavorite => 'Το γεύμα αποθηκεύτηκε ως αγαπημένο!';
+	@override String get unfavorite => 'Αφαίρεση από αγαπημένα';
+	@override String couldNotUpdateFavorite({required Object error}) => 'Δεν ήταν δυνατή η ενημέρωση του αγαπημένου: ${error}';
+	@override String get feedbackThanks => 'Ευχαριστούμε για τα σχόλια!';
+	@override String get reanalysisUpdated => 'Ενημερώθηκε η ανάλυση γεύματος βάσει των σχολίων σας.';
 	@override String failedToProcess({required Object error}) => 'Αποτυχία επεξεργασίας: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Σφάλμα κατά τη συμπίεση εικόνας: ${error}';
-	@override String get failedToSave => 'Αποτυχία αποθήκευσης δεδομένων. Δοκίμασε ξανά.';
+	@override String get failedToSave => 'Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκιμάστε ξανά.';
 	@override String get skip => 'Παράλειψη';
 	@override late final _TranslationsMealQuestionFlowEl questionFlow = _TranslationsMealQuestionFlowEl._(_root);
 	@override late final _TranslationsMealAnalysisEl analysis = _TranslationsMealAnalysisEl._(_root);
@@ -191,13 +191,13 @@ class _TranslationsFavoritesEl implements TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => 'Αγαπημένα';
-	@override String get empty => 'Δεν υπάρχουν αγαπημένα ακόμη.';
+	@override String get empty => 'Δεν υπάρχουν αγαπημένα γεύματα.';
 	@override String get searchPlaceholder => 'Αναζήτηση αγαπημένων γευμάτων';
-	@override String get searchEmptyTitle => 'Δεν βρέθηκαν αγαπημένα που να ταιριάζουν';
-	@override String get searchEmptySubtitle => 'Δοκίμασε διαφορετικό όνομα γεύματος, ποσότητα ή τύπο γεύματος.';
+	@override String get searchEmptyTitle => 'Καμία αντιστοιχία στα αγαπημένα';
+	@override String get searchEmptySubtitle => 'Δοκιμάστε διαφορετικό όνομα γεύματος, ποσότητα ή τύπο γεύματος.';
 	@override String get sortLabel => 'Ταξινόμηση αγαπημένων';
 	@override String get undo => 'Αναίρεση';
-	@override String removed({required Object name}) => 'Αφαιρέθηκε το ${name} από τα αγαπημένα';
+	@override String removed({required Object name}) => 'Αφαιρέθηκε ${name} από τα αγαπημένα';
 	@override late final _TranslationsFavoritesSortOptionsEl sortOptions = _TranslationsFavoritesSortOptionsEl._(_root);
 }
 
@@ -210,19 +210,19 @@ class _TranslationsProfileEl implements TranslationsProfileEn {
 	// Translations
 	@override String get title => 'Προφίλ';
 	@override String get noProfileData => 'Δεν βρέθηκαν δεδομένα προφίλ';
-	@override String get yourProfile => 'Το προφίλ σου';
-	@override String get viewAndManage => 'Δες και διαχειρίσου τις πληροφορίες υγείας σου';
+	@override String get yourProfile => 'Το Προφίλ Σας';
+	@override String get viewAndManage => 'Προβολή και διαχείριση των πληροφοριών υγείας σας';
 	@override late final _TranslationsProfileSectionsEl sections = _TranslationsProfileSectionsEl._(_root);
 	@override String get gender => 'Φύλο';
 	@override String get height => 'Ύψος';
 	@override String get weight => 'Βάρος';
 	@override String get age => 'Ηλικία';
-	@override String get weightGoal => 'Στόχος βάρους';
-	@override String get targetWeight => 'Επιθυμητό βάρος';
-	@override String get activityLevel => 'Επίπεδο δραστηριότητας';
-	@override String get healthMetrics => 'Δείκτες υγείας';
+	@override String get weightGoal => 'Στόχος Βάρους';
+	@override String get targetWeight => 'Επιδιωκόμενο Βάρος';
+	@override String get activityLevel => 'Επίπεδο Δραστηριότητας';
+	@override String get healthMetrics => 'Δείκτες Υγείας';
 	@override String get notSet => 'Μη ορισμένο';
-	@override String get years => 'ετών';
+	@override String get years => 'έτη';
 	@override String get updatedSuccessfully => 'Το προφίλ ενημερώθηκε με επιτυχία!';
 	@override late final _TranslationsProfileCalculatedValuesEl calculatedValues = _TranslationsProfileCalculatedValuesEl._(_root);
 }
@@ -234,9 +234,9 @@ class _TranslationsHealthScoreEl implements TranslationsHealthScoreEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Δείκτης υγείας';
-	@override String get whyThisScore => 'Γιατί αυτός ο δείκτης;';
-	@override String get note => 'Αυτός ο δείκτης είναι εκτίμηση AI με βάση τα αναγνωρισμένα συστατικά και τη διατροφική πυκνότητα. Πάντα να συμβουλεύεσαι επαγγελματία για διατροφικές συμβουλές.';
+	@override String get title => 'Βαθμολογία Υγείας';
+	@override String get whyThisScore => 'Γιατί αυτή η βαθμολογία;';
+	@override String get note => 'Αυτή η βαθμολογία είναι μια εκτίμηση AI βασισμένη στα εντοπισμένα συστατικά και τη διατροφική πυκνότητα. Συμβουλευτείτε πάντα επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.';
 	@override String get unhealthy => 'Ανθυγιεινό';
 	@override String get healthy => 'Υγιεινό';
 	@override String get neutral => 'Ουδέτερο';
@@ -249,14 +249,14 @@ class _TranslationsEditProfileEl implements TranslationsEditProfileEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Επεξεργασία προφίλ';
+	@override String get title => 'Επεξεργασία Προφίλ';
 	@override late final _TranslationsEditProfileSectionsEl sections = _TranslationsEditProfileSectionsEl._(_root);
 	@override String get gender => 'Φύλο';
-	@override String get dateOfBirth => 'Ημερομηνία γέννησης';
+	@override String get dateOfBirth => 'Ημερομηνία Γέννησης';
 	@override String get height => 'Ύψος';
 	@override String get weight => 'Βάρος';
-	@override String get weightGoal => 'Στόχος βάρους';
-	@override String get activityLevel => 'Επίπεδο δραστηριότητας';
+	@override String get weightGoal => 'Στόχος Βάρους';
+	@override String get activityLevel => 'Επίπεδο Δραστηριότητας';
 	@override String get metric => 'Μετρικό';
 	@override String get imperial => 'Αγγλοσαξονικό';
 	@override String get unitCm => 'cm';
@@ -291,7 +291,7 @@ class _TranslationsSettingsEl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryEl exportMealHistory = _TranslationsSettingsExportMealHistoryEl._(_root);
 	@override late final _TranslationsSettingsClearAllDataEl clearAllData = _TranslationsSettingsClearAllDataEl._(_root);
 	@override late final _TranslationsSettingsDebugOptionsEl debugOptions = _TranslationsSettingsDebugOptionsEl._(_root);
-	@override String get developerModeEnabled => 'Η λειτουργία προγραμματιστή ενεργοποιήθηκε!';
+	@override String get developerModeEnabled => 'Λειτουργία προγραμματιστή ενεργοποιήθηκε!';
 	@override late final _TranslationsSettingsHealthConnectEl healthConnect = _TranslationsSettingsHealthConnectEl._(_root);
 	@override late final _TranslationsSettingsAboutEl about = _TranslationsSettingsAboutEl._(_root);
 	@override late final _TranslationsSettingsAppInfoEl appInfo = _TranslationsSettingsAppInfoEl._(_root);
@@ -304,26 +304,26 @@ class _TranslationsRemindersEl implements TranslationsRemindersEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Μείνε συνεπής με υπενθυμίσεις';
-	@override String get description => 'Λάβε ήπιες υπενθυμίσεις για να καταγράφεις τα γεύματά σου και να μένεις σταθερός/ή στους διατροφικούς σου στόχους';
-	@override String get notificationsEnabled => 'Ενεργοποιημένες ειδοποιήσεις';
-	@override String get notificationsDisabled => 'Απενεργοποιημένες ειδοποιήσεις';
-	@override String get enabledSubtitle => 'Θα λαμβάνεις υπενθυμίσεις γευμάτων';
-	@override String get disabledSubtitle => 'Ενεργοποίησε τις ειδοποιήσεις για να λάβεις υπενθυμίσεις γευμάτων';
-	@override String get mealReminders => 'Υπενθυμίσεις γευμάτων';
+	@override String get title => 'Μείνετε στην πορεία με υπενθυμίσεις';
+	@override String get description => 'Λάβετε ήπιες υπενθυμίσεις για να καταγράφετε τα γεύματά σας και να τηρείτε τους διατροφικούς σας στόχους';
+	@override String get notificationsEnabled => 'Ειδοποιήσεις Ενεργοποιημένες';
+	@override String get notificationsDisabled => 'Ειδοποιήσεις Απενεργοποιημένες';
+	@override String get enabledSubtitle => 'Θα λαμβάνετε υπενθυμίσεις γευμάτων';
+	@override String get disabledSubtitle => 'Ενεργοποιήστε τις ειδοποιήσεις για να λαμβάνετε υπενθυμίσεις γευμάτων';
+	@override String get mealReminders => 'Υπενθυμίσεις Γευμάτων';
 	@override String get breakfast => 'Πρωινό';
 	@override String get lunch => 'Μεσημεριανό';
 	@override String get dinner => 'Βραδινό';
 	@override String get snack => 'Σνακ';
 	@override String get unknown => 'Άγνωστο';
 	@override String get change => 'Αλλαγή';
-	@override String get enableNotifications => 'Ενεργοποίηση ειδοποιήσεων';
+	@override String get enableNotifications => 'Ενεργοποίηση Ειδοποιήσεων';
 	@override String get skipForNow => 'Παράλειψη προς το παρόν';
-	@override String get saveChanges => 'Αποθήκευση αλλαγών';
+	@override String get saveChanges => 'Αποθήκευση Αλλαγών';
 	@override String get enabledSuccessfully => 'Οι ειδοποιήσεις ενεργοποιήθηκαν με επιτυχία!';
-	@override String get permissionDenied => 'Άρνηση άδειας ειδοποιήσεων';
-	@override String errorEnabling({required Object error}) => 'Σφάλμα κατά την ενεργοποίηση ειδοποιήσεων: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'Σφάλμα κατά την ολοκλήρωση ρύθμισης: ${error}';
+	@override String get permissionDenied => 'Αρνήθηκε η άδεια ειδοποιήσεων';
+	@override String errorEnabling({required Object error}) => 'Σφάλμα ενεργοποίησης ειδοποιήσεων: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'Σφάλμα κατά την ολοκλήρωση της ρύθμισης: ${error}';
 }
 
 // Path: notifications
@@ -349,7 +349,7 @@ class _TranslationsLoginEl implements TranslationsLoginEn {
 	// Translations
 	@override String get title => 'Σύνδεση';
 	@override String get signInWithGoogle => 'Σύνδεση με Google';
-	@override String get signInFailed => 'Η σύνδεση με Google απέτυχε ή ακυρώθηκε.';
+	@override String get signInFailed => 'Η Σύνδεση με Google απέτυχε ή ακυρώθηκε.';
 }
 
 // Path: disclaimer
@@ -359,7 +359,7 @@ class _TranslationsDisclaimerEl implements TranslationsDisclaimerEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Παρακαλώ σημείωσε';
+	@override String get pleaseNote => 'Σημειώστε';
 	@override late final _TranslationsDisclaimerSnapEl snap = _TranslationsDisclaimerSnapEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateEl weightEstimate = _TranslationsDisclaimerWeightEstimateEl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsEl healthMetrics = _TranslationsDisclaimerHealthMetricsEl._(_root);
@@ -384,21 +384,21 @@ class _TranslationsFeedbackRatingEl implements TranslationsFeedbackRatingEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Σου αρέσει το ${appLabel};';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Σας αρέσει το ${appLabel};';
 	@override String get yes => 'Ναι, μου αρέσει';
-	@override String get no => 'Όχι ιδιαίτερα';
-	@override String get rateStepHeading => 'Αξιολόγηση στο Play Store';
-	@override String get emailStepHeading => 'Αποστολή σχολίων με email';
-	@override String soloDevMessage({required Object appLabel}) => 'Μια γρήγορη αξιολόγηση βοηθά άλλους να βρουν το ${appLabel} και στηρίζει την ανάπτυξη. Θα αφιερώσεις ένα λεπτό;';
-	@override String get shareFeedbackViaEmail => 'Τα σχόλιά σου καθορίζουν τα επόμενα βήματα — διαβάζουμε κάθε μήνυμα. Θέλεις να μοιραστείς τις σκέψεις σου με email;';
-	@override String get rateCta => 'Αξιολόγηση στο Play Store';
+	@override String get no => 'Όχι τόσο';
+	@override String get rateStepHeading => 'Βαθμολογήστε στο Play Store';
+	@override String get emailStepHeading => 'Στείλτε σχόλια με email';
+	@override String soloDevMessage({required Object appLabel}) => 'Μια γρήγορη αξιολόγηση βοηθά άλλους να βρουν το ${appLabel} και στηρίζει την ανάπτυξη. Θα αφιερώσετε μια στιγμή για να αφήσετε μία;';
+	@override String get shareFeedbackViaEmail => 'Τα σχόλιά σας διαμορφώνουν το επόμενο — διαβάζουμε κάθε μήνυμα. Θέλετε να μοιραστείτε τις σκέψεις σας μέσω email;';
+	@override String get rateCta => 'Βαθμολογήστε στο Play Store';
 	@override String get maybeLater => 'Ίσως αργότερα';
 	@override String get sendFeedback => 'Αποστολή σχολίων';
 	@override String get noThanks => 'Όχι, ευχαριστώ';
-	@override String get aboutUsDescription => 'Φτιαγμένο με φροντίδα από μια μικρή ομάδα. Εστιάζουμε στην ιδιωτικότητα, την απλότητα και στο να σε βοηθήσουμε να χτίσεις καλύτερες διατροφικές συνήθειες.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Αναρωτιέσαι ποιος βρίσκεται πίσω από το ${appLabel}; Δες ';
+	@override String get aboutUsDescription => 'Κατασκευάστηκε με φροντίδα από μια μικρή ομάδα. Εστιάζουμε στην ιδιωτικότητα, την απλότητα και το να σας βοηθήσουμε να χτίσετε καλύτερες διατροφικές συνήθειες.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Περιεργάζεστε ποιος βρίσκεται πίσω από το ${appLabel}; Δείτε ';
 	@override String get aboutUsLinkLabel => 'Σχετικά με εμάς';
-	@override String get thankYouMessage => 'Ευχαριστούμε! Θα ρωτήσουμε ξανά κάποια άλλη στιγμή.';
+	@override String get thankYouMessage => 'Ευχαριστούμε! Θα ρωτήσουμε πάλι άλλη στιγμή.';
 }
 
 // Path: health
@@ -408,7 +408,7 @@ class _TranslationsHealthEl implements TranslationsHealthEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Αδυναμία συγχρονισμού με το Health Connect';
+	@override String get syncFailed => 'Δεν ήταν δυνατή η συγχρονισμός με το Health Connect';
 	@override String get mealSynced => 'Το γεύμα συγχρονίστηκε με το Health Connect';
 }
 
@@ -431,8 +431,8 @@ class _TranslationsOnboardingGenderEl implements TranslationsOnboardingGenderEn 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ποιο είναι το φύλο σου;';
-	@override String get description => 'Το φύλο βοηθά στον ακριβή υπολογισμό του βασικού μεταβολικού ρυθμού (BMR).';
+	@override String get title => 'Ποιο είναι το φύλο σας;';
+	@override String get description => 'Το φύλο μας βοηθά να υπολογίσουμε με ακρίβεια τον βασικό μεταβολικό σας ρυθμό (BMR).';
 	@override String get next => 'Επόμενο';
 }
 
@@ -443,8 +443,8 @@ class _TranslationsOnboardingHeightEl implements TranslationsOnboardingHeightEn 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Πόσο ψηλός/ή είσαι;';
-	@override String get description => 'Το ύψος βοηθά να υπολογίσουμε σωστά τον ΔΜΣ και τις ενεργειακές σου ανάγκες.';
+	@override String get title => 'Πόσο ύψος έχετε;';
+	@override String get description => 'Το ύψος σας βοηθά να υπολογίσουμε με ακρίβεια το BMI και τις ενεργειακές σας ανάγκες.';
 	@override String get metric => 'Μετρικό';
 	@override String get imperial => 'Αγγλοσαξονικό';
 	@override String get next => 'Επόμενο';
@@ -457,10 +457,10 @@ class _TranslationsOnboardingWeightEl implements TranslationsOnboardingWeightEn 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'Ποιο είναι το τωρινό σου βάρος;';
-	@override String get currentDescription => 'Το τωρινό σου βάρος είναι απαραίτητο για την εξατομίκευση των ημερήσιων στόχων σου.';
-	@override String get targetTitle => 'Ποιο είναι το επιθυμητό σου βάρος;';
-	@override String get targetDescription => 'Ο καθορισμός στόχου μάς βοηθά να σχεδιάσουμε το μακροπρόθεσμο πλάνο σου.';
+	@override String get currentTitle => 'Ποιο είναι το τωρινό σας βάρος;';
+	@override String get currentDescription => 'Το τωρινό σας βάρος είναι απαραίτητο για την προσωποποίηση των καθημερινών σας στόχων.';
+	@override String get targetTitle => 'Ποιο είναι το επιδιωκόμενο σας βάρος;';
+	@override String get targetDescription => 'Ορισμός στόχου βάρους για να καθορίσουμε το μακροπρόθεσμο πλάνο σας.';
 	@override String get metric => 'Μετρικό';
 	@override String get imperial => 'Αγγλοσαξονικό';
 	@override String get next => 'Επόμενο';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeEl implements TranslationsOnboardingAgeEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Πότε γεννήθηκες;';
-	@override String get description => 'Η ηλικία βοηθά να υπολογίσουμε με ακρίβεια τις θερμιδικές σου ανάγκες.';
+	@override String get title => 'Πότε είναι τα γενέθλιά σας;';
+	@override String get description => 'Η ηλικία σας βοηθά να υπολογίσουμε με ακρίβεια τις θερμιδικές σας ανάγκες.';
 	@override String get next => 'Επόμενο';
 }
 
@@ -500,8 +500,8 @@ class _TranslationsOnboardingWeightGoalEl implements TranslationsOnboardingWeigh
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ποιος είναι ο στόχος σου;';
-	@override String get description => 'Επίλεξε τον στόχο που περιγράφει καλύτερα αυτό που θέλεις να πετύχεις';
+	@override String get title => 'Ποιος είναι ο στόχος σας;';
+	@override String get description => 'Επιλέξτε τον στόχο που περιγράφει καλύτερα αυτό που θέλετε να πετύχετε';
 }
 
 // Path: onboarding.activityLevel
@@ -511,8 +511,8 @@ class _TranslationsOnboardingActivityLevelEl implements TranslationsOnboardingAc
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Πόσο δραστήριος/α είσαι;';
-	@override String get description => 'Μας βοηθά να υπολογίσουμε πιο σωστά τις ημερήσιες θερμίδες σου';
+	@override String get title => 'Πόσο δραστήριος/α είστε;';
+	@override String get description => 'Αυτό μας βοηθά να υπολογίσουμε πιο ακριβώς τις καθημερινές σας θερμιδικές ανάγκες';
 }
 
 // Path: onboarding.healthConnect
@@ -522,18 +522,18 @@ class _TranslationsOnboardingHealthConnectEl implements TranslationsOnboardingHe
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Σύνδεση με Health Connect';
-	@override String get description => 'Συγχρόνισε τα δεδομένα υγείας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων';
+	@override String get title => 'Συνδέστε με Health Connect';
+	@override String get description => 'Συγχρονίστε τα δεδομένα υγείας σας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingEl automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingEl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsEl progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsEl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationEl seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationEl._(_root);
-	@override String get connected => 'Το Health Connect συνδέθηκε';
-	@override String get notConnected => 'Το Health Connect δεν έχει συνδεθεί';
-	@override String get setup => 'Ρύθμιση του Health Connect';
+	@override String get connected => 'Health Connect Συνδεδεμένο';
+	@override String get notConnected => 'Health Connect Δεν Συνδεδεμένο';
+	@override String get setup => 'Ρύθμιση Health Connect';
 	@override String get skipForNow => 'Παράλειψη προς το παρόν';
 	@override String get statusConnected => 'Το Health Connect είναι συνδεδεμένο.';
-	@override String get statusSuccess => 'Το Health Connect συνδέθηκε με επιτυχία!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Η άδεια απορρίφθηκε. Ενεργοποίησε τα δικαιώματα Health Connect από τις ρυθμίσεις του τηλεφώνου για το ${appLabel}.';
+	@override String get statusSuccess => 'Το Health Connect συνδέθηκε επιτυχώς!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Απαγορεύτηκε η άδεια. Ενεργοποιήστε τα δικαιώματα του Health Connect στις ρυθμίσεις του τηλεφώνου για ${appLabel}.';
 	@override String statusError({required Object error}) => 'Σφάλμα κατά τη ρύθμιση του Health Connect: ${error}';
 }
 
@@ -556,14 +556,14 @@ class _TranslationsHomeAiSummaryEl implements TranslationsHomeAiSummaryEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Η σύνοψη AI σου';
-	@override String get logMore => 'Κατέγραψε περισσότερα γεύματα τις επόμενες ημέρες για να λάβεις εξατομικευμένες πληροφορίες AI.';
-	@override String get loading => 'Φόρτωση σύνοψης...';
-	@override String mealCount({required Object count}) => '${count} γεύματα καταγεγραμμένα';
-	@override String macroBalanceScore({required Object score}) => 'Βαθμός ισορροπίας ${score}';
-	@override String get topFoods => 'Κορυφαίες τροφές';
-	@override String get trendUp => 'Θερμίδες σε ανοδική τάση';
-	@override String get trendDown => 'Θερμίδες σε πτωτική τάση';
+	@override String get title => 'Η Σύνοψη AI σας';
+	@override String get logMore => 'Καταγράψτε περισσότερα γεύματα τις επόμενες μέρες για να λάβετε προσωποποιημένα AI συμπεράσματα.';
+	@override String get loading => 'Φόρτωση της σύνοψης σας...';
+	@override String mealCount({required Object count}) => '${count} γεύματα καταχωρήθηκαν';
+	@override String macroBalanceScore({required Object score}) => 'Βαθμολογία ισορροπίας ${score}';
+	@override String get topFoods => 'Κορυφαία τρόφιμα';
+	@override String get trendUp => 'Θερμίδες σε άνοδο';
+	@override String get trendDown => 'Θερμίδες σε πτώση';
 	@override String get trendSteady => 'Θερμίδες σταθερές';
 	@override String generatedAt({required Object time}) => 'Ενημερώθηκε ${time}';
 }
@@ -575,19 +575,19 @@ class _TranslationsHomeDailyGoalEl implements TranslationsHomeDailyGoalEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Όρισε τον ημερήσιο στόχο';
-	@override String get titleSet => 'Ο ημερήσιος στόχος σου';
-	@override String get description => 'Έτοιμος/η για το ταξίδι ευεξίας; Όρισε τον ημερήσιο θερμιδικό σου στόχο παρακάτω για να ξεκινήσεις.';
-	@override String get descriptionSet => 'Η πυξίδα σου είναι έτοιμη! Αυτός είναι ο ημερήσιος θερμιδικός σου στόχος.';
-	@override String get yourGoal => 'Ο στόχος σου';
+	@override String get title => 'Ορίστε το Ημερήσιο Στόχο σας';
+	@override String get titleSet => 'Ο Ημερήσιος Στόχος σας';
+	@override String get description => 'Έτοιμοι για το ταξίδι ευεξίας σας; Ορίστε παρακάτω τον καθημερινό στόχο θερμίδων για να ξεκινήσετε την πρόοδό σας.';
+	@override String get descriptionSet => 'Η πυξίδα σας έχει οριστεί! Αυτός είναι ο καθημερινός σας στόχος θερμίδων για καθοδήγηση.';
+	@override String get yourGoal => 'Ο Στόχος σας';
 	@override String get goal => 'Στόχος';
 	@override String get dailyCalories => 'Ημερήσιες θερμίδες (kcal)';
-	@override String get setGoal => 'Ορισμός στόχου';
-	@override String get intake => 'Πρόσληψη';
-	@override String get burned => 'Καύσεις';
+	@override String get setGoal => 'Ορισμός Στόχου';
+	@override String get intake => 'Είσοδος';
+	@override String get burned => 'Καμένες';
 	@override String get weightImpact => 'Επίδραση στο βάρος';
-	@override String get estLoss => 'Εκτ. απώλεια';
-	@override String get estGain => 'Εκτ. αύξηση';
+	@override String get estLoss => 'Προβλ. απώλεια';
+	@override String get estGain => 'Προβλ. αύξηση';
 	@override String get kcal => 'kcal';
 }
 
@@ -598,14 +598,14 @@ class _TranslationsHomeDailySummaryEl implements TranslationsHomeDailySummaryEn 
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ημερήσια σύνοψη';
+	@override String get title => 'Ημερήσια Σύνοψη';
 	@override String get calories => 'Θερμίδες';
-	@override String get carbs => 'Υδατ/κες';
+	@override String get carbs => 'Υδατάνθρακες';
 	@override String get protein => 'Πρωτεΐνη';
-	@override String get fat => 'Λιπαρά';
-	@override String get fiber => 'Φυτικές ίνες';
-	@override String get grams => 'γραμμάρια';
-	@override String get chartAccessibilityLabel => 'Γράφημα μακροθρεπτικών';
+	@override String get fat => 'Λίπος';
+	@override String get fiber => 'Ινες';
+	@override String get grams => 'γραμ.';
+	@override String get chartAccessibilityLabel => 'Διάγραμμα μακροθρεπτικών';
 }
 
 // Path: home.intakeProgress
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressEl implements TranslationsHomeIntakeProgres
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Κατανομή μακροθρεπτικών σήμερα';
+	@override String get title => 'Σημερινή Κατανομή Μακροθρεπτικών';
 	@override String get target => 'Στόχος';
 	@override String get current => 'Τρέχον';
 }
@@ -627,11 +627,11 @@ class _TranslationsHomeIntakeHistoryEl implements TranslationsHomeIntakeHistoryE
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ιστορικό μακροθρεπτικών 7 ημερών';
-	@override String get trendTitle => 'Σημερινή τάση';
+	@override String get title => 'Ιστορικό Μακροθρεπτικών 7 ημερών';
+	@override String get trendTitle => 'Σημερινή Τάση';
 	@override String peakHour({required Object hour}) => 'Κορύφωση: ${hour}:00';
-	@override String get noHistoryYet => 'Δεν υπάρχει ακόμη ιστορικό';
-	@override String get startLogging => 'Ξεκίνα να καταγράφεις γεύματα για να δεις εδώ\nτις τάσεις μακροθρεπτικών των 7 ημερών σου';
+	@override String get noHistoryYet => 'Δεν υπάρχει ιστορικό ακόμα';
+	@override String get startLogging => 'Ξεκινήστε να καταγράφετε γεύματα για να δείτε τις\n7ήμερες τάσεις μακροθρεπτικών εδώ';
 }
 
 // Path: home.mealLog
@@ -641,10 +641,10 @@ class _TranslationsHomeMealLogEl implements TranslationsHomeMealLogEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Καταγεγραμμένα γεύματα';
-	@override String get emptyMessage => 'Βγάλε φωτογραφία του τελευταίου σου γεύματος για καταγραφή εδώ.';
-	@override String get noMealsToday => 'Δεν υπάρχουν γεύματα για σήμερα';
-	@override String get seeAllMeals => 'Δες όλα τα γεύματα';
+	@override String get title => 'Καταχωρημένα Γεύματα';
+	@override String get emptyMessage => 'Τραβήξτε μια φωτογραφία του τελευταίου γεύματός σας για να το καταγράψετε εδώ.';
+	@override String get noMealsToday => 'Δεν έχει καταγραφεί κανένα γεύμα για σήμερα';
+	@override String get seeAllMeals => 'Δείτε όλα τα γεύματα';
 }
 
 // Path: home.mealDescription
@@ -654,9 +654,9 @@ class _TranslationsHomeMealDescriptionEl implements TranslationsHomeMealDescript
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Γρήγορη προσθήκη με AI';
-	@override String get description => 'Περιέγραψε το γεύμα σου και άφησε την AI να αναλάβει τα υπόλοιπα.';
-	@override String get hint => 'π.χ. Για πρωινό είχα ένα μεγάλο μπολ βρώμη με μία μπανάνα και μία μεζούρα whey ...';
+	@override String get title => 'Γρήγορη Προσθήκη με AI';
+	@override String get description => 'Περιγράψτε το γεύμα σας και αφήστε το AI να αναλάβει τις λεπτομέρειες.';
+	@override String get hint => 'π.χ. Στο πρωινό είχα ένα μεγάλο μπολ βρώμης με μια μπανάνα σε φέτες και μια μεζούρα πρωτεΐνης ...';
 	@override String get analyzeMeal => 'Ανάλυση γεύματος';
 }
 
@@ -667,11 +667,11 @@ class _TranslationsHomeFavoriteMealsEl implements TranslationsHomeFavoriteMealsE
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Αγαπημένα γεύματα';
-	@override String get description => 'Πρόσθεσε γρήγορα ένα από τα αγαπημένα σου γεύματα.';
+	@override String get title => 'Αγαπημένα Γεύματα';
+	@override String get description => 'Προσθέστε γρήγορα ένα από τα αγαπημένα σας γεύματα.';
 	@override String get noFavorites => 'Δεν υπάρχουν αγαπημένα ακόμη.';
-	@override String get addFavoriteHint => 'Πάτησε το αστέρι σε ένα γεύμα για να το κάνεις αγαπημένο.';
-	@override String get seeAll => 'Δες όλα';
+	@override String get addFavoriteHint => 'Κάντε κλικ στο αστέρι σε ένα γεύμα για να το σημειώσετε ως αγαπημένο.';
+	@override String get seeAll => 'Δείτε όλα';
 	@override String get add => 'Προσθήκη';
 }
 
@@ -682,12 +682,12 @@ class _TranslationsHomeMealSnapEl implements TranslationsHomeMealSnapEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Φωτογράφισε και κατέγραψε το γεύμα σου';
-	@override String get description => 'Χρησιμοποίησε την κάμερα για να βγάλεις φωτογραφία του φαγητού για ανάλυση με AI.';
-	@override String get openCamera => 'Άνοιγμα κάμερας';
-	@override String get gallery => 'Συλλογή';
+	@override String get title => 'Φωτογραφίστε & Καταγράψτε το Γεύμα σας';
+	@override String get description => 'Χρησιμοποιήστε την κάμερα για να τραβήξετε μια εικόνα του φαγητού για ανάλυση με AI.';
+	@override String get openCamera => 'Άνοιγμα Κάμερας';
+	@override String get gallery => 'Σύλλογος';
 	@override String get compressingPhoto => 'Βελτιστοποίηση φωτογραφίας…';
-	@override String get uploadingPhoto => 'Μεταφόρτωση φωτογραφίας…';
+	@override String get uploadingPhoto => 'Αποστολή φωτογραφίας…';
 }
 
 // Path: home.connectHealth
@@ -698,7 +698,7 @@ class _TranslationsHomeConnectHealthEl implements TranslationsHomeConnectHealthE
 
 	// Translations
 	@override String get title => 'Συγχρονισμός με Health Connect';
-	@override String get description => 'Συγχρόνισε τα διατροφικά σου δεδομένα με το Health Connect';
+	@override String get description => 'Συγχρονίστε τα διατροφικά σας με το Health Connect';
 	@override String get install => 'Εγκατάσταση';
 	@override String get connect => 'Σύνδεση';
 }
@@ -711,10 +711,10 @@ class _TranslationsMealNutritionEl implements TranslationsMealNutritionEn {
 
 	// Translations
 	@override String get calories => 'Θερμίδες';
-	@override String get carbs => 'Υδατ/κες (g)';
+	@override String get carbs => 'Υδατάνθρακες (g)';
 	@override String get protein => 'Πρωτεΐνη (g)';
-	@override String get fat => 'Λιπαρά (g)';
-	@override String get fiber => 'Φυτικές ίνες (g)';
+	@override String get fat => 'Λίπος (g)';
+	@override String get fiber => 'Ίνες (g)';
 }
 
 // Path: meal.deleteConfirmation
@@ -724,9 +724,9 @@ class _TranslationsMealDeleteConfirmationEl implements TranslationsMealDeleteCon
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Διαγραφή γεύματος';
-	@override String get message => 'Είσαι σίγουρος/η ότι θέλεις να διαγράψεις αυτήν την καταχώριση;';
-	@override String get cancel => 'Άκυρο';
+	@override String get title => 'Διαγραφή Γεύματος';
+	@override String get message => 'Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτή την καταχώριση γεύματος;';
+	@override String get cancel => 'Ακύρωση';
 	@override String get delete => 'Διαγραφή';
 }
 
@@ -740,7 +740,7 @@ class _TranslationsMealQuestionFlowEl implements TranslationsMealQuestionFlowEn 
 	@override String progress({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}';
 	@override String get noQuestionsAvailable => 'Δεν υπάρχουν διαθέσιμες ερωτήσεις';
 	@override String get next => 'Επόμενο';
-	@override String get continueLabel => 'Συνέχισε';
+	@override String get continueLabel => 'Συνέχεια';
 }
 
 // Path: meal.analysis
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisEl implements TranslationsMealAnalysisEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ανάλυση γεύματος με AI';
-	@override String get stepStarted => 'Ξεκινάμε…';
-	@override String get stepDecomposition => 'Κατανόηση του γεύματός σου…';
+	@override String get title => 'Ανάλυση του γεύματός σας';
+	@override String get stepStarted => 'Εκκίνηση…';
+	@override String get stepDecomposition => 'Κατανόηση του γεύματος…';
 	@override String get stepIngredients => 'Αντιστοίχιση συστατικών με διατροφικά δεδομένα…';
-	@override String get stepUncertainty => 'Έλεγχος βεβαιότητας…';
-	@override String get stepMealTypeQuestion => 'Σχεδόν έτοιμοι…';
-	@override String get stepResult => 'Οριστικοποίηση αποτελέσματος…';
+	@override String get stepUncertainty => 'Έλεγχος εμπιστοσύνης…';
+	@override String get stepMealTypeQuestion => 'Λίγο ακόμα…';
+	@override String get stepResult => 'Ολοκλήρωση αποτελέσματος…';
 	@override String get stepError => 'Κάτι πήγε στραβά';
-	@override String get stepDefault => 'Ανάλυση του γεύματός σου…';
-	@override String get progressUnderstand => 'Κατανόηση';
-	@override String get progressMatch => 'Αντιστοίχιση';
-	@override String get progressCheck => 'Έλεγχος';
+	@override String get stepDefault => 'Ανάλυση του γεύματός σας…';
+	@override String get progressUnderstand => 'Κατανόηση του γεύματος';
+	@override String get progressMatch => 'Αναζήτηση διατροφικών στοιχείων συστατικών';
+	@override String get progressCheck => 'Έλεγχος μερίδων και εμπιστοσύνης';
 	@override String get progressMealType => 'Επιλογή τύπου γεύματος';
-	@override String get progressFinish => 'Τελικό';
+	@override String get progressFinish => 'Υπολογισμός θερμίδων και μακροθρεπτικών';
 	@override String get detectedIngredientHeading => 'Συστατικά που εντοπίζουμε';
 	@override String ingredientsOverflow({required Object count}) => '${count} ακόμη';
 	@override String ingredientsLine({required Object count}) => 'Εντοπίστηκαν ${count} συστατικά';
 	@override String get ingredientsPending => 'Σάρωση συστατικών…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get offlineTip0 => 'Συμβουλή: Η συνέπεια ξεπερνά την τελειότητα — οι τακτικές εγγραφές αποκαλύπτουν τα μοτίβα που έχουν σημασία.';
+	@override String get offlineTip1 => 'Συμβουλή: Για φωτογραφίες, ο φυσικός φωτισμός και η λήψη από πάνω βοηθούν στην ακρίβεια των μερίδων.';
+	@override String get offlineTip2 => 'Συμβουλή: Αναφέρετε ροφήματα, σάλτσες και λάδι μαγειρέματος — προσθέτουν θερμίδες που συχνά ξεχνιούνται.';
+	@override String get offlineTip3 => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.';
+	@override String get offlineTip4 => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.';
+	@override String get offlineTip5 => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).';
 }
 
 // Path: meal.feedback
@@ -784,17 +784,17 @@ class _TranslationsMealFeedbackEl implements TranslationsMealFeedbackEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Τι φαίνεται λάθος;';
-	@override String get subtitle => 'Βοήθησέ μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα προβλήματα.';
-	@override String get tellUsMore => 'Πες μας περισσότερα';
-	@override String get describeIncorrect => 'Περιέγραψε τι ήταν λάθος';
+	@override String get title => 'Τι φαίνεται λανθασμένο;';
+	@override String get subtitle => 'Βοηθήστε μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα ζητήματα.';
+	@override String get tellUsMore => 'Πείτε μας περισσότερα';
+	@override String get describeIncorrect => 'Περιγράψτε τι ήταν λάθος';
 	@override String get submit => 'Υποβολή';
-	@override String get issueFoodIdentification => 'Αναγνώριση φαγητού';
+	@override String get issueFoodIdentification => 'Αναγνώριση τροφίμου';
 	@override String get issuePortionSize => 'Μέγεθος μερίδας';
 	@override String get issueCalorieDistribution => 'Κατανομή θερμίδων';
 	@override String get issueMacrosWrong => 'Λάθος μακροθρεπτικά';
-	@override String get issueMissingItems => 'Στοιχεία που λείπουν';
-	@override String get issueExtraItems => 'Επιπλέον στοιχεία';
+	@override String get issueMissingItems => 'Λείπουν είδη';
+	@override String get issueExtraItems => 'Περιττά είδη';
 	@override String get issueOther => 'Άλλο';
 }
 
@@ -807,7 +807,7 @@ class _TranslationsFavoritesSortOptionsEl implements TranslationsFavoritesSortOp
 	// Translations
 	@override String get recent => 'Πρόσφατα';
 	@override String get calories => 'Θερμίδες';
-	@override String get alphabetical => 'Α-Ω';
+	@override String get alphabetical => 'A-Ω';
 }
 
 // Path: profile.sections
@@ -832,9 +832,9 @@ class _TranslationsProfileCalculatedValuesEl implements TranslationsProfileCalcu
 	// Translations
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'Ημερήσιος στόχος';
+	@override String get dailyGoal => 'Ημερήσιος Στόχος';
 	@override String get calPerDay => 'cal/ημέρα';
-	@override String get notAvailable => 'Μ/Δ';
+	@override String get notAvailable => 'Μη διαθέσιμο';
 }
 
 // Path: editProfile.sections
@@ -845,7 +845,7 @@ class _TranslationsEditProfileSectionsEl implements TranslationsEditProfileSecti
 
 	// Translations
 	@override String get personalInformation => 'ΠΡΟΣΩΠΙΚΕΣ ΠΛΗΡΟΦΟΡΙΕΣ';
-	@override String get physicalMeasurements => 'ΣΩΜΑΤΟΜΕΤΡΙΚΑ ΣΤΟΙΧΕΙΑ';
+	@override String get physicalMeasurements => 'ΣΩΜΑΤΙΚΕΣ ΜΕΤΡΗΣΕΙΣ';
 	@override String get goalsAndActivity => 'ΣΤΟΧΟΙ & ΔΡΑΣΤΗΡΙΟΤΗΤΑ';
 }
 
@@ -895,13 +895,13 @@ class _TranslationsSettingsSectionsEl implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'ΠΡΟΦΙΛ';
-	@override String get localization => 'ΓΛΩΣΣΑ & ΜΟΝΑΔΕΣ';
+	@override String get localization => 'ΤΟΠΟΠΟΙΗΣΗ';
 	@override String get notifications => 'ΕΙΔΟΠΟΙΗΣΕΙΣ';
 	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ';
-	@override String get about => 'ΣΧΕΤΙΚΑ';
-	@override String get dangerZone => 'ΖΩΝΗ ΚΙΝΔΥΝΟΥ';
-	@override String get developer => 'ΠΡΟΓΡΑΜΜΑΤΙΣΤΗΣ';
+	@override String get about => 'ΠΛΗΡΟΦΟΡΙΕΣ';
+	@override String get dangerZone => 'ΠΕΡΙΟΧΗ ΚΙΝΔΥΝΟΥ';
+	@override String get developer => 'ΑΝΑΠΤΥΞΗΣ';
 }
 
 // Path: settings.editProfile
@@ -911,8 +911,8 @@ class _TranslationsSettingsEditProfileEl implements TranslationsSettingsEditProf
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Επεξεργασία προφίλ';
-	@override String get subtitle => 'Ενημέρωσε τα προσωπικά σου στοιχεία';
+	@override String get title => 'Επεξεργασία Προφίλ';
+	@override String get subtitle => 'Ενημερώστε τις προσωπικές σας πληροφορίες';
 }
 
 // Path: settings.language
@@ -923,7 +923,7 @@ class _TranslationsSettingsLanguageEl implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => 'Γλώσσα';
-	@override String get subtitle => 'Επίλεξε την προτιμώμενη γλώσσα';
+	@override String get subtitle => 'Επιλέξτε την προτιμώμενη γλώσσα σας';
 	@override String get searchHint => 'Αναζήτηση γλωσσών...';
 	@override String get noResults => 'Δεν βρέθηκαν αποτελέσματα';
 }
@@ -935,7 +935,7 @@ class _TranslationsSettingsHeightUnitEl implements TranslationsSettingsHeightUni
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Μονάδα ύψους';
+	@override String get title => 'Μονάδα Ύψους';
 }
 
 // Path: settings.weightUnit
@@ -945,7 +945,7 @@ class _TranslationsSettingsWeightUnitEl implements TranslationsSettingsWeightUni
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Μονάδα βάρους';
+	@override String get title => 'Μονάδα Βάρους';
 }
 
 // Path: settings.mealReminders
@@ -955,8 +955,8 @@ class _TranslationsSettingsMealRemindersEl implements TranslationsSettingsMealRe
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Υπενθυμίσεις γευμάτων';
-	@override String get subtitle => 'Μείνε συνεπής με έγκαιρα μηνύματα';
+	@override String get title => 'Υπενθυμίσεις Γευμάτων';
+	@override String get subtitle => 'Μείνετε στην πορεία με έγκαιρες ειδοποιήσεις';
 }
 
 // Path: settings.theme
@@ -968,7 +968,7 @@ class _TranslationsSettingsThemeEl implements TranslationsSettingsThemeEn {
 	// Translations
 	@override String get title => 'Θέμα';
 	@override String get light => 'Φωτεινό';
-	@override String get dark => 'Σκουρό';
+	@override String get dark => 'Σκοτεινό';
 	@override String get system => 'Σύστημα';
 }
 
@@ -979,10 +979,10 @@ class _TranslationsSettingsSendFeedbackEl implements TranslationsSettingsSendFee
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Στείλε σχόλια';
-	@override String subtitle({required Object appLabel}) => 'Βοήθησέ μας να βελτιώσουμε το ${appLabel}';
-	@override String emailSubject({required Object appLabel}) => 'Σχόλια για την εφαρμογή ${appLabel}';
-	@override String get emailBodyPrefix => 'Παρακαλούμε γράψε τα σχόλιά σου παρακάτω:';
+	@override String get title => 'Αποστολή Σχολίων';
+	@override String subtitle({required Object appLabel}) => 'Βοηθήστε να βελτιώσουμε το ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Σχόλια εφαρμογής';
+	@override String get emailBodyPrefix => 'Παρακαλώ δώστε τα σχόλιά σας παρακάτω:';
 	@override String get appVersion => 'Έκδοση εφαρμογής';
 	@override String get device => 'Συσκευή';
 	@override String get osVersion => 'Έκδοση OS';
@@ -996,9 +996,9 @@ class _TranslationsSettingsExportMealHistoryEl implements TranslationsSettingsEx
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Εξαγωγή ιστορικού γευμάτων';
-	@override String get subtitle => 'Μοιράσου ένα CSV με τα καταγεγραμμένα γεύματά σου';
-	@override String get shareText => 'Η εξαγωγή του ιστορικού γευμάτων σου από το Calorify';
+	@override String get title => 'Εξαγωγή Ιστορικού Γευμάτων';
+	@override String get subtitle => 'Μοιραστείτε ένα CSV με τα καταχωρημένα γεύματά σας';
+	@override String get shareText => 'Εξαγωγή ιστορικού γευμάτων Calorify';
 	@override String failed({required Object error}) => 'Δεν ήταν δυνατή η εξαγωγή ιστορικού γευμάτων: ${error}';
 }
 
@@ -1009,12 +1009,12 @@ class _TranslationsSettingsClearAllDataEl implements TranslationsSettingsClearAl
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Διαγραφή όλων των δεδομένων';
-	@override String get subtitle => 'Μη αναστρέψιμη διαγραφή όλων των πληροφοριών';
+	@override String get title => 'Διαγραφή Όλων των Δεδομένων';
+	@override String get subtitle => 'Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή';
 	@override String get confirmationTitle => 'Διαγραφή όλων των δεδομένων;';
-	@override String get confirmationMessage => 'Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα γεύματα, τα αγαπημένα και οι ρυθμίσεις προφίλ θα διαγραφούν οριστικά.';
-	@override String get cancel => 'Άκυρο';
-	@override String get clearEverything => 'Διαγραφή όλων';
+	@override String get confirmationMessage => 'Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα καταγεγραμμένα γεύματα, τα αγαπημένα και οι ρυθμίσεις προφίλ θα διαγραφούν οριστικά.';
+	@override String get cancel => 'Ακύρωση';
+	@override String get clearEverything => 'Διαγραφή Όλων';
 }
 
 // Path: settings.debugOptions
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsEl implements TranslationsSettingsDebugOp
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Επιλογές αποσφαλμάτωσης';
+	@override String get title => 'Επιλογές Αποσφαλμάτωσης';
 }
 
 // Path: settings.healthConnect
@@ -1035,15 +1035,15 @@ class _TranslationsSettingsHealthConnectEl implements TranslationsSettingsHealth
 
 	// Translations
 	@override String get title => 'Health Connect';
-	@override String get subtitle => 'Προβολή και διαχείριση δικαιωμάτων';
+	@override String get subtitle => 'Προβολή και διαχείριση αδειών';
 	@override late final _TranslationsSettingsHealthConnectUnavailableEl unavailable = _TranslationsSettingsHealthConnectUnavailableEl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsEl permissions = _TranslationsSettingsHealthConnectPermissionsEl._(_root);
-	@override String get managePermissions => 'Διαχείριση δικαιωμάτων';
-	@override String get openSettings => 'Άνοιγμα ρυθμίσεων Health Connect';
-	@override String get requestPermissions => 'Αίτημα δικαιωμάτων';
-	@override String get permissionRequestCancelledOrFailed => 'Το αίτημα δικαιωμάτων ακυρώθηκε ή απέτυχε. Δοκίμασε ξανά ή δώσε δικαιώματα χειροκίνητα από τις ρυθμίσεις του Health Connect.';
-	@override String get permissionRequestFailed => 'Δεν ήταν δυνατό το αίτημα δικαιωμάτων. Δοκίμασε ξανά ή δώσε δικαιώματα χειροκίνητα από τις ρυθμίσεις του Health Connect.';
-	@override String get requestingPermissions => 'Γίνεται αίτημα...';
+	@override String get managePermissions => 'Διαχείριση Δικαιωμάτων';
+	@override String get openSettings => 'Άνοιγμα Ρυθμίσεων Health Connect';
+	@override String get requestPermissions => 'Αίτηση Δικαιωμάτων';
+	@override String get permissionRequestCancelledOrFailed => 'Το αίτημα άδειας ακυρώθηκε ή απέτυχε. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.';
+	@override String get permissionRequestFailed => 'Αδυναμία αιτήματος αδειών. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.';
+	@override String get requestingPermissions => 'Αίτηση...';
 }
 
 // Path: settings.about
@@ -1053,8 +1053,8 @@ class _TranslationsSettingsAboutEl implements TranslationsSettingsAboutEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Σχετικά';
-	@override String get tagline => 'Γρήγορη, δωρεάν και με προτεραιότητα στην ιδιωτικότητα επίγνωση θερμίδων';
+	@override String get title => 'Πληροφορίες';
+	@override String get tagline => 'Γρήγορο, δωρεάν και με σεβασμό στην ιδιωτικότητα για την επίγνωση θερμίδων';
 	@override late final _TranslationsSettingsAboutOurStoryEl ourStory = _TranslationsSettingsAboutOurStoryEl._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyEl privacy = _TranslationsSettingsAboutPrivacyEl._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperEl developer = _TranslationsSettingsAboutDeveloperEl._(_root);
@@ -1069,7 +1069,7 @@ class _TranslationsSettingsAppInfoEl implements TranslationsSettingsAppInfoEn {
 
 	// Translations
 	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Δόμηση ${buildNumber}';
+	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1079,8 +1079,8 @@ class _TranslationsNotificationsBreakfastEl implements TranslationsNotifications
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ώρα για πρωινό! 🍳';
-	@override String get body => 'Μην ξεχάσεις να καταγράψεις το πρωινό σου';
+	@override String get title => 'Ώρα για Πρωινό! 🍳';
+	@override String get body => 'Μην ξεχάσετε να καταγράψετε το πρωινό σας';
 }
 
 // Path: notifications.lunch
@@ -1090,8 +1090,8 @@ class _TranslationsNotificationsLunchEl implements TranslationsNotificationsLunc
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ώρα για μεσημεριανό! 🥗';
-	@override String get body => 'Ήρθε η ώρα να καταγράψεις το μεσημεριανό σου';
+	@override String get title => 'Ώρα για Μεσημεριανό! 🥗';
+	@override String get body => 'Ώρα να καταγράψετε το μεσημεριανό σας';
 }
 
 // Path: notifications.dinner
@@ -1101,8 +1101,8 @@ class _TranslationsNotificationsDinnerEl implements TranslationsNotificationsDin
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ώρα για βραδινό! 🍽️';
-	@override String get body => 'Μην ξεχάσεις να καταγράψεις το βραδινό σου';
+	@override String get title => 'Ώρα για Βραδινό! 🍽️';
+	@override String get body => 'Μην ξεχάσετε να καταγράψετε το βραδινό σας';
 }
 
 // Path: notifications.snack
@@ -1112,7 +1112,7 @@ class _TranslationsNotificationsSnackEl implements TranslationsNotificationsSnac
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ώρα για σνακ! 🍎';
+	@override String get title => 'Ώρα για Σνακ! 🍎';
 	@override String get body => 'Ώρα για ένα υγιεινό σνακ';
 }
 
@@ -1123,7 +1123,7 @@ class _TranslationsNotificationsTestEl implements TranslationsNotificationsTestE
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Δοκιμαστική ειδοποίηση';
+	@override String get title => 'Δοκιμαστική Ειδοποίηση';
 }
 
 // Path: disclaimer.snap
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapEl implements TranslationsDisclaimerSnapEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => 'Το ${appLabel} παρέχει εκτιμώμενες διατροφικές πληροφορίες. Η ακρίβεια εξαρτάται από την είσοδό σου και τις διαφορές στα τρόφιμα. Χρησιμοποίησέ το ως οδηγό, όχι ως απόλυτη πηγή. Συμβουλεύσου επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.';
+	@override String description({required Object appLabel}) => '${appLabel} παρέχει εκτιμώμενες διατροφικές πληροφορίες. Η ακρίβεια εξαρτάται από τα στοιχεία που δίνετε και τις παραλλαγές του φαγητού. Χρησιμοποιήστε το ως οδηγό, όχι ως οριστική πηγή. Συμβουλευτείτε επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeEl portionSize = _TranslationsDisclaimerSnapPortionSizeEl._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsEl preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsEl._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsEl ingredients = _TranslationsDisclaimerSnapIngredientsEl._(_root);
@@ -1147,8 +1147,8 @@ class _TranslationsDisclaimerWeightEstimateEl implements TranslationsDisclaimerW
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Σχετικά με την εκτίμηση βάρους';
-	@override String get description => 'Η προβλεπόμενη αλλαγή βάρους είναι θεωρητική εκτίμηση που βασίζεται στο απλό μοντέλο θερμίδες-εντός έναντι θερμίδων-εκτός. Σκοπός της είναι το κίνητρο, όχι η πρόβλεψη του πραγματικού βάρους σου.';
+	@override String get title => 'Σχετικά με την Εκτίμηση Βάρους';
+	@override String get description => 'Η προβλεπόμενη αλλαγή βάρους είναι μια θεωρητική εκτίμηση βασισμένη στο απλό μοντέλο θερμίδες-εισόδου vs θερμίδες-εξόδου. Προορίζεται μόνο για κινητοποίηση, όχι ως πρόβλεψη του πραγματικού σας βάρους.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyEl calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsEl biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsEl._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightEl waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightEl._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsEl implements TranslationsDisclaimerHe
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Αυτοί οι δείκτες βοηθούν να κατανοήσεις τις ενεργειακές ανάγκες του σώματός σου και να καθοδηγήσεις τους διατροφικούς σου στόχους.';
+	@override String get description => 'Αυτοί οι δείκτες σας βοηθούν να κατανοήσετε τις ενεργειακές ανάγκες του σώματός σας και να καθοδηγήσετε τους διατροφικούς σας στόχους.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrEl bmr = _TranslationsDisclaimerHealthMetricsBmrEl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeEl tdee = _TranslationsDisclaimerHealthMetricsTdeeEl._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalEl dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalEl._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureEl implements TranslationsDisclai
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Εκτίμηση δαπάνης θερμίδων';
-	@override String get description => 'Όταν δεν υπάρχουν δεδομένα Health Connect, εκτιμούμε τις θερμίδες που κάηκαν σήμερα χρησιμοποιώντας το BMR και το επίπεδο δραστηριότητάς σου (TDEE), κλιμακωμένα με το ποσοστό της ημέρας που έχει περάσει.';
+	@override String get title => 'Εκτίμηση Δαπάνης Θερμίδων';
+	@override String get description => 'Όταν τα δεδομένα Health Connect δεν είναι διαθέσιμα, εκτιμούμε τις θερμίδες που κάηκαν σήμερα χρησιμοποιώντας τον BMR και το επίπεδο δραστηριότητάς σας (TDEE), κλιμακωμένα για το ποσοστό της ημέρας που έχει περάσει.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedEl howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedEl._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl._(_root);
 }
@@ -1188,8 +1188,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionEl implements TranslationsOn
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Έξυπνη αναγνώριση τροφίμων';
-	@override String get description => 'Βγάλε μια φωτογραφία και άφησε την AI να αναγνωρίσει το γεύμα σου';
+	@override String get title => 'Έξυπνη Αναγνώριση Τροφίμων';
+	@override String get description => 'Τραβήξτε μια φωτογραφία και αφήστε το AI να αναγνωρίσει το γεύμα σας';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1199,8 +1199,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisEl implements TranslationsOnboard
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ανάλυση με AI';
-	@override String get description => 'Άμεσα διατροφικά στοιχεία από τις περιγραφές σου';
+	@override String get title => 'AI Ανάλυση';
+	@override String get description => 'Λάβετε άμεσα διατροφικά στοιχεία από τις περιγραφές σας';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1210,8 +1210,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationEl implements Translations
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Σύνδεση με Health Connect';
-	@override String get description => 'Σύνδεσε το Health Connect για καλύτερες πληροφορίες';
+	@override String get title => 'Ενσωμάτωση Υγείας';
+	@override String get description => 'Συνδεθείτε με Health Connect για καλύτερες πληροφορίες';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1221,7 +1221,7 @@ class _TranslationsOnboardingBmiScaleCategoriesEl implements TranslationsOnboard
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Ελλιποβαρής';
+	@override String get underweight => 'Λιποβαρής';
 	@override String get healthyWeight => 'Υγιές βάρος';
 	@override String get overweight => 'Υπέρβαρος';
 	@override String get obese => 'Παχύσαρκος';
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesEl implements TranslationsOnboardin
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Μπορούμε να σε βοηθήσουμε να χτίσεις ένα υγιεινό πλάνο για να φτάσεις σε ισορροπημένο βάρος με θρεπτικά γεύματα.';
-	@override String get healthy => 'Μπράβο! Βρίσκεσαι σε υγιές εύρος. Θα σε βοηθήσουμε να διατηρήσεις τη ζωντάνια και την ενέργειά σου.';
-	@override String overweight({required Object appLabel}) => 'Το ${appLabel} θα απλοποιήσει το ταξίδι σου με έξυπνη καταγραφή για να φτάσεις άνετα στον στόχο σου.';
-	@override String get obese => 'Είμαστε εδώ για να σε στηρίξουμε με εξατομικευμένη καθοδήγηση και βιώσιμες στρατηγικές για τους στόχους υγείας σου.';
+	@override String get underweight => 'Μπορούμε να σας βοηθήσουμε να φτιάξετε ένα υγιές πλάνο για να φτάσετε σε ισορροπημένο βάρος με θρεπτικά γεύματα.';
+	@override String get healthy => 'Μπράβο! Βρίσκεστε σε υγιή περιοχή. Θα σας βοηθήσουμε να διατηρήσετε τη ζωτικότητα και τα επίπεδα ενέργειάς σας.';
+	@override String overweight({required Object appLabel}) => '${appLabel} θα απλοποιήσει το ταξίδι σας με παρακολούθηση με AI για να φτάσετε άνετα στο στόχο σας.';
+	@override String get obese => 'Είμαστε εδώ για να σας υποστηρίξουμε με εξατομικευμένη καθοδήγηση και βιώσιμες στρατηγικές για τους στόχους υγείας σας.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1247,8 +1247,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingEl implements Transla
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Αυτόματη καταγραφή θερμίδων';
-	@override String get description => 'Κατέγραψε θερμίδες που κάηκαν από τις εφαρμογές fitness';
+	@override String get title => 'Αυτόματη Καταγραφή Θερμίδων';
+	@override String get description => 'Καταγραφή θερμίδων που κάηκαν από τις εφαρμογές fitness';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsEl implements Translat
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Εικόνα προόδου';
-	@override String get description => 'Λάβε λεπτομερή στοιχεία για τις τάσεις της υγείας σου';
+	@override String get title => 'Ενδείξεις Προόδου';
+	@override String get description => 'Λάβετε λεπτομερείς ενδείξεις για τις τάσεις της υγείας σας';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1269,8 +1269,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationEl implements Trans
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Απρόσκοπτη ενσωμάτωση';
-	@override String get description => 'Συγχρόνισε δεδομένα από τις αγαπημένες σου εφαρμογές υγείας';
+	@override String get title => 'Απρόσκοπτη Ενσωμάτωση';
+	@override String get description => 'Συγχρονίστε δεδομένα από τις αγαπημένες σας εφαρμογές υγείας';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1280,17 +1280,17 @@ class _TranslationsOnboardingReinforcementTrackingSuccessEl implements Translati
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Δεν είσαι μόνος/η';
-	@override String get genericMessage => 'Έρευνες δείχνουν ότι η σταθερή καταγραφή είναι ο Νο1 προγνωστικός παράγοντας μακροχρόνιας επιτυχίας.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Για άτομο ${age} ετών (${gender}) που θέλει να ${goal}, η σταθερή καταγραφή είναι ο Νο1 προγνωστικός παράγοντας επιτυχίας.';
-	@override String closingMessage({required Object appLabel}) => 'Το ${appLabel} το κάνει 10 φορές πιο εύκολο από τη χειροκίνητη καταγραφή.';
-	@override String get getStartedTitle => 'Έτοιμος/η να ξεκινήσεις;';
-	@override String get tipPhoto => 'Βγάλε φωτογραφία τα γεύματά σου για άμεση ανάλυση';
-	@override String get tipConsistency => 'Κατέγραφε σταθερά για να δεις ουσιαστική πρόοδο';
-	@override String get tipProgress => 'Παρακολούθησε την πρόοδό σου καθημερινά για κίνητρο';
-	@override String get button => 'Πάμε';
+	@override String get title => 'Δεν είστε μόνος/η';
+	@override String get genericMessage => 'Έρευνες δείχνουν ότι η συνεπής καταγραφή είναι ο πιο σημαντικός δείκτης μακροπρόθεσμης επιτυχίας.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Για έναν/μια ${age} ετών ${gender} που θέλει να ${goal}, η συνεπής καταγραφή είναι ο πιο σημαντικός δείκτης επιτυχίας.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} το κάνει 10x πιο εύκολο από το να το κάνετε χειροκίνητα.';
+	@override String get getStartedTitle => 'Έτοιμος/η να ξεκινήσετε;';
+	@override String get tipPhoto => 'Τραβήξτε φωτογραφία των γευμάτων σας για άμεση ανάλυση';
+	@override String get tipConsistency => 'Καταγράψτε με συνέπεια για να δείτε ουσιαστική πρόοδο';
+	@override String get tipProgress => 'Καταγράψτε την πρόοδό σας καθημερινά για να παραμείνετε κινητοποιημένοι';
+	@override String get button => 'Ας ξεκινήσουμε';
 	@override String get defaultGender => 'άτομο';
-	@override String get defaultGoal => 'πιο υγιή εαυτό';
+	@override String get defaultGoal => 'υγιέστερος/η εσείς';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1300,14 +1300,14 @@ class _TranslationsOnboardingReinforcementHealthProfileEl implements Translation
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Το προφίλ υγείας σου';
-	@override String bmiDescription({required Object bmi}) => 'Με βάση τα στοιχεία σου, ο ΔΜΣ είναι ${bmi}.';
-	@override String get finalizeDescription => 'Ας ολοκληρώσουμε το προφίλ σου για να προσαρμόσουμε την εμπειρία.';
-	@override String get goalGain => 'πάρεις';
-	@override String get goalLose => 'χάσεις';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Για να πετύχεις τον στόχο σου, θα ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'Έφτασες στο επιθυμητό βάρος! Θα σε βοηθήσουμε να το διατηρήσεις.';
-	@override String get button => 'Πάμε';
+	@override String get title => 'Το Προφίλ Υγείας σας';
+	@override String bmiDescription({required Object bmi}) => 'Βάσει των μετρήσεών σας, το BMI σας είναι ${bmi}.';
+	@override String get finalizeDescription => 'Ας ολοκληρώσουμε το προφίλ σας για να προσαρμόσουμε την εμπειρία σας.';
+	@override String get goalGain => 'αυξήσετε';
+	@override String get goalLose => 'χάσετε';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Για να φτάσετε το στόχο σας, θα ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'Έχετε φτάσει το στόχο βάρους! Θα σας βοηθήσουμε να το διατηρήσετε.';
+	@override String get button => 'Ας ξεκινήσουμε';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1318,12 +1318,12 @@ class _TranslationsOnboardingReinforcementGoalLifestyleEl implements Translation
 
 	// Translations
 	@override String get title => 'Εξαιρετική αρχή!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Έκανες το πρώτο βήμα προς ${goalText}. Εφόσον είσαι ${activityText}, το ${appLabel} θα προσαρμόσει τους στόχους σου στο στιλ ζωής σου.';
-	@override String get personalizedTargets => 'Εξατομικευμένοι θερμιδικοί στόχοι';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Έχετε κάνει το πρώτο βήμα προς το ${goalText}. Εφόσον είστε ${activityText}, το ${appLabel} θα προσαρμόσει τους στόχους σας στο τρόπο ζωής σας.';
+	@override String get personalizedTargets => 'Προσωποποιημένοι στόχοι θερμίδων';
 	@override String get aiMealDetection => 'Ανίχνευση γευμάτων με AI';
-	@override String get macroBreakdowns => 'Αναλυτικές κατανομές μακροθρεπτικών';
-	@override String get button => 'Πάμε';
-	@override String get defaultGoal => 'τους στόχους σου';
+	@override String get macroBreakdowns => 'Λεπτομερείς αναλύσεις μακροθρεπτικών';
+	@override String get button => 'Ας ξεκινήσουμε';
+	@override String get defaultGoal => 'τους στόχους σας';
 	@override String get defaultActivity => 'δραστήριος/α';
 }
 
@@ -1334,8 +1334,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightEl implements TranslationsEdi
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Απώλεια βάρους';
-	@override String get description => 'Δημιούργησε θερμιδικό έλλειμμα για να χάσεις βάρος';
+	@override String get name => 'Χάσιμο Βάρους';
+	@override String get description => 'Δημιουργία θερμιδικού ελλείμματος για απώλεια βάρους';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1345,8 +1345,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightEl implements Translation
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Διατήρηση βάρους';
-	@override String get description => 'Διατήρησε το τωρινό σου βάρος';
+	@override String get name => 'Διατήρηση Βάρους';
+	@override String get description => 'Διατήρηση του τρέχοντος βάρους';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1356,8 +1356,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightEl implements TranslationsEdi
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Αύξηση βάρους';
-	@override String get description => 'Δημιούργησε θερμιδικό πλεόνασμα για να πάρεις βάρος';
+	@override String get name => 'Αύξηση Βάρους';
+	@override String get description => 'Δημιουργία θερμιδικού πλεονάσματος για αύξηση βάρους';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1368,7 +1368,7 @@ class _TranslationsEditProfileActivityLevelsSedentaryEl implements TranslationsE
 
 	// Translations
 	@override String get name => 'Καθιστικός';
-	@override String get description => 'Ελάχιστη ή καθόλου άσκηση';
+	@override String get description => 'Λίγη έως καθόλου άσκηση';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1378,8 +1378,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveEl implements Translati
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Ελαφρά δραστήριος/α';
-	@override String get description => 'Ελαφριά άσκηση 1-3 ημέρες/εβδομάδα';
+	@override String get name => 'Ελαφρώς Δραστήριος';
+	@override String get description => 'Ελαφριά άσκηση 1-3 ημέρες/εβδ.';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1389,8 +1389,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveEl implements Transl
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Μέτρια δραστήριος/α';
-	@override String get description => 'Μέτρια άσκηση 3-5 ημέρες/εβδομάδα';
+	@override String get name => 'Μέτρια Δραστήριος';
+	@override String get description => 'Μέτρια άσκηση 3-5 ημέρες/εβδ.';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1400,8 +1400,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveEl implements Translations
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Πολύ δραστήριος/α';
-	@override String get description => 'Έντονη άσκηση 6-7 ημέρες/εβδομάδα';
+	@override String get name => 'Πολύ Δραστήριος';
+	@override String get description => 'Σκληρή άσκηση 6-7 ημέρες/εβδ.';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1411,8 +1411,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveEl implements Transla
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Εξαιρετικά δραστήριος/α';
-	@override String get description => 'Πολύ έντονη άσκηση, χειρωνακτική εργασία';
+	@override String get name => 'Ακραία Δραστήριος';
+	@override String get description => 'Πολύ σκληρή άσκηση, φυσική εργασία';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1422,8 +1422,8 @@ class _TranslationsSettingsHealthConnectUnavailableEl implements TranslationsSet
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Το Health Connect δεν είναι διαθέσιμο';
-	@override String get description => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκατάστησε το από το Play Store (Android 9+) ή αναβάθμισε σε Android 14+.';
+	@override String get title => 'Το Health Connect Δεν Διατίθεται';
+	@override String get description => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1435,8 +1435,8 @@ class _TranslationsSettingsHealthConnectPermissionsEl implements TranslationsSet
 	// Translations
 	@override String get title => 'Δικαιώματα';
 	@override String get description => 'Ζητούνται τα παρακάτω δικαιώματα για την ενσωμάτωση με το Health Connect:';
-	@override String get granted => 'Χορηγήθηκε';
-	@override String get notGranted => 'Δεν χορηγήθηκε';
+	@override String get granted => 'Επιτράπηκε';
+	@override String get notGranted => 'Δεν Επιτράπηκε';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadEl nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadEl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl._(_root);
@@ -1449,8 +1449,8 @@ class _TranslationsSettingsAboutOurStoryEl implements TranslationsSettingsAboutO
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Η ιστορία μας';
-	@override String content({required Object appLabel}) => 'Το ${appLabel} γεννήθηκε από μια απλή απογοήτευση: οι περισσότερες εφαρμογές καταγραφής θερμίδων είναι είτε υπερβολικά πολύπλοκες, απαιτούν συνεχώς χειροκίνητη εισαγωγή, χρεώνουν ακριβά συνδρομές ή δεν σέβονται την ιδιωτικότητα.\n\nΩς solo προγραμματιστής, ήθελα κάτι πιο απλό και δίκαιο — μια εφαρμογή που χρησιμοποιεί AI για να μειώνει την προσπάθεια, παραμένει γρήγορη και δωρεάν, και αντιμετωπίζει με σεβασμό τα δεδομένα υγείας σου.\n\nΤο ${appLabel} είναι η εφαρμογή που θα ήθελα να υπάρχει: χωρίς λογαριασμούς, χωρίς παρακολούθηση, χωρίς διαφημίσεις — μόνο καθαρές, πρακτικές πληροφορίες και οι στόχοι υγείας σου.';
+	@override String get title => 'Η Ιστορία Μας';
+	@override String content({required Object appLabel}) => 'Το ${appLabel} γεννήθηκε από μια απλή απογοήτευση: οι περισσότερες εφαρμογές καταγραφής θερμίδων είναι είτε υπερβολικά περίπλοκες, απαιτούν συνεχή μη αυτόματη εισαγωγή, χρεώνουν υψηλές συνδρομές ή θέτουν σε κίνδυνο το απόρρητο.\n\nΩς μοναδικός προγραμματιστής, ήθελα να δημιουργήσω κάτι απλούστερο και δικαιότερο — μια εφαρμογή που χρησιμοποιεί AI για να μειώσει την προσπάθεια, παραμένει γρήγορη και δωρεάν στη χρήση και αντιμετωπίζει τα δεδομένα υγείας σας με σεβασμό.\n\nΤο ${appLabel} είναι η εφαρμογή που θα ήθελα να υπάρχει: χωρίς λογαριασμούς, χωρίς παρακολούθηση, χωρίς διαφημίσεις — μόνο σαφείς, πρακτικές πληροφορίες και τους στόχους υγείας σας.';
 }
 
 // Path: settings.about.privacy
@@ -1460,14 +1460,14 @@ class _TranslationsSettingsAboutPrivacyEl implements TranslationsSettingsAboutPr
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Η ιδιωτικότητά σου μετράει';
-	@override String get description => 'Η ιδιωτικότητα δεν είναι υστερόγραφο — είναι αρχή σχεδιασμού. Τι σημαίνει αυτό στην πράξη:';
-	@override String get noAccounts => 'Χωρίς λογαριασμούς\nΧρησιμοποίησε την εφαρμογή άμεσα. Χωρίς εγγραφές, χωρίς ταυτοποίηση.';
-	@override String noTracking({required Object appLabel}) => 'Χωρίς συμπεριφορική παρακολούθηση\nΤο ${appLabel} δεν παρακολουθεί τη δραστηριότητά σου, δεν δημιουργεί προφίλ χρήσης και δεν σε ανιχνεύει σε εφαρμογές ή ιστότοπους.';
-	@override String noAds({required Object appLabel}) => 'Χωρίς διαφημίσεις από σχεδιασμό\nΤο ${appLabel} είναι φτιαγμένο να λειτουργεί χωρίς διαφημίσεις ή εμπορευματοποίηση δεδομένων.';
-	@override String get noDataSelling => 'Χωρίς πώληση δεδομένων\nΤα δεδομένα υγείας σου δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.';
-	@override String get localStorage => 'Πρωτίστως τοπική αποθήκευση\nΤα δεδομένα σου παραμένουν στη συσκευή σου.';
-	@override String get privacyPolicy => 'Πολιτική απορρήτου';
+	@override String get title => 'Η Ιδιωτικότητά σας Μετράει';
+	@override String get description => 'Η ιδιωτικότητα δεν είναι μετά -σκέψη — είναι αρχή σχεδιασμού. Αυτό σημαίνει στην πράξη:';
+	@override String get noAccounts => 'Χωρίς λογαριασμούς\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.';
+	@override String noTracking({required Object appLabel}) => 'Χωρίς συμπεριφορική παρακολούθηση\nΤο ${appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης ούτε σας παρακολουθεί σε εφαρμογές ή ιστοσελίδες.';
+	@override String noAds({required Object appLabel}) => 'Χωρίς διαφημίσεις εξ ορισμού\nΤο ${appLabel} σχεδιάστηκε να λειτουργεί χωρίς διαφημίσεις ή εμπορικοποίηση βασισμένη σε δεδομένα.';
+	@override String get noDataSelling => 'Δεν πωλούμε δεδομένα\nΤα δεδομένα υγείας σας δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.';
+	@override String get localStorage => 'Τοπική αποθήκευση ως προτεραιότητα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.';
+	@override String get privacyPolicy => 'Πολιτική Ιδιωτικότητας';
 }
 
 // Path: settings.about.developer
@@ -1477,10 +1477,10 @@ class _TranslationsSettingsAboutDeveloperEl implements TranslationsSettingsAbout
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Κατασκευάστηκε από έναν solo προγραμματιστή';
-	@override String description({required Object appLabel}) => 'Το ${appLabel} δημιουργείται και συντηρείται από έναν solo προγραμματιστή που εστιάζει σε ήσυχο, με σεβασμό στην ιδιωτικότητα λογισμικό υγείας.\n\nΤα σχόλια διαβάζονται προσωπικά και διαμορφώνουν την κατεύθυνση της εφαρμογής.';
-	@override String get website => 'Ιστότοπος';
-	@override String get email => 'Email';
+	@override String get title => 'Δημιουργήθηκε από έναν Μεμονωμένο Προγραμματιστή';
+	@override String description({required Object appLabel}) => 'Το ${appLabel} είναι χτισμένο και συντηρείται από έναν μοναδικό ανεξάρτητο προγραμματιστή που επικεντρώνεται στη δημιουργία ήρεμου λογισμικού υγείας που σέβεται την ιδιωτικότητα.\n\nΤα σχόλια διαβάζονται προσωπικά και βοηθούν στη διαμόρφωση της κατεύθυνσης της εφαρμογής.';
+	@override String get website => 'Ιστοσελίδα';
+	@override String get email => 'Ηλ. ταχυδρομείο';
 }
 
 // Path: settings.about.feedback
@@ -1490,9 +1490,9 @@ class _TranslationsSettingsAboutFeedbackEl implements TranslationsSettingsAboutF
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => 'Σου αρέσει το ${appLabel};';
-	@override String description({required Object appLabel}) => 'Τα σχόλιά σου βοηθούν να γίνει το ${appLabel} καλύτερο για όλους.';
-	@override String get rateApp => 'Αξιολόγηση στο Play Store';
+	@override String title({required Object appLabel}) => 'Σας Αρέσει το ${appLabel};';
+	@override String description({required Object appLabel}) => 'Τα σχόλιά σας βοηθούν το ${appLabel} να γίνει καλύτερο για όλους.';
+	@override String get rateApp => 'Βαθμολογήστε στο Play Store';
 	@override String get sendFeedback => 'Αποστολή σχολίων';
 }
 
@@ -1503,8 +1503,8 @@ class _TranslationsDisclaimerSnapPortionSizeEl implements TranslationsDisclaimer
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Μέγεθος μερίδας';
-	@override String get description => 'Η ακρίβεια των εκτιμήσεων βασίζεται σε μεγάλο βαθμό στη σωστή εκτίμηση του μεγέθους της μερίδας.';
+	@override String get title => 'Μέγεθος Μερίδας';
+	@override String get description => 'Η ακρίβεια των εκτιμήσεων εξαρτάται σε μεγάλο βαθμό από τη σωστή εκτίμηση του μεγέθους της μερίδας.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1514,8 +1514,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsEl implements TranslationsDis
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Μέθοδοι παρασκευής';
-	@override String description({required Object appLabel}) => 'Οι τρόποι μαγειρέματος μπορούν να επηρεάσουν σημαντικά τα διατροφικά στοιχεία. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις διαφορές.';
+	@override String get title => 'Τρόποι Προετοιμασίας';
+	@override String description({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το διατροφικό περιεχόμενο. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsEl implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Συστατικά';
-	@override String get description => 'Σύνθετα πιάτα με πολλά «κρυφά» συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.';
+	@override String get description => 'Τα σύνθετα πιάτα με πολλά κρυφά συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,8 +1536,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsEl implements TranslationsDi
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Περιορισμοί βάσης δεδομένων';
-	@override String description({required Object appLabel}) => 'Η βάση τροφίμων του ${appLabel} είναι εκτενής αλλά ενδέχεται να μην περιλαμβάνει κάθε τρόφιμο ή παραλλαγή.';
+	@override String get title => 'Περιορισμοί Βάσης Δεδομένων';
+	@override String description({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτεταμένη αλλά ενδέχεται να μην περιλαμβάνει κάθε είδος ή παραλλαγή.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1547,8 +1547,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyEl implements Translat
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ακρίβεια θερμίδων';
-	@override String get description => 'Η εκτίμηση είναι τόσο ακριβής όσο η καταγραφή πρόσληψης και δαπάνης θερμίδων. Ανακριβής καταγραφή οδηγεί σε ανακριβή εκτίμηση.';
+	@override String get title => 'Ακρίβεια Θερμίδων';
+	@override String get description => 'Αυτή η εκτίμηση είναι τόσο ακριβής όσο και η καταγραφή της πρόσληψης και δαπάνης θερμίδων. Ανακριβής καταγραφή θα οδηγήσει σε ανακριβή προβολή.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1558,8 +1558,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsEl implements Transl
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Βιολογικοί παράγοντες';
-	@override String description({required Object appLabel}) => 'Η πραγματική απώλεια/αύξηση βάρους επηρεάζεται από μεταβολισμό, ορμόνες, ύπνο, στρες, ενυδάτωση και άλλους ατομικούς παράγοντες που το ${appLabel} δεν μπορεί να μετρήσει.';
+	@override String get title => 'Βιολογικοί Παράγοντες';
+	@override String description({required Object appLabel}) => 'Η πραγματική απώλεια/αύξηση βάρους επηρεάζεται από τον μεταβολισμό, τις ορμόνες, τον ύπνο, το στρες, την ενυδάτωση και άλλους ατομικούς παράγοντες που το ${appLabel} δεν μπορεί να μετρήσει.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1569,8 +1569,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightEl implements Translations
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Κατακράτηση υγρών & διακυμάνσεις';
-	@override String get description => 'Το καθημερινό βάρος μπορεί να μεταβάλλεται σημαντικά λόγω κατακράτησης υγρών, πέψης και χρονισμού. Η εκτίμηση δεν λαμβάνει υπόψη αυτές τις καθημερινές αλλαγές.';
+	@override String get title => 'Βάρος Νερού & Διακυμάνσεις';
+	@override String get description => 'Το φυσιολογικό βάρος μπορεί να διακυμανθεί σημαντικά καθημερινά λόγω συγκράτησης νερού, πέψης και χρονισμού. Η εκτίμηση δεν λαμβάνει υπόψη αυτές τις καθημερινές αλλαγές.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1580,8 +1580,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceEl implements Tra
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Επαγγελματική καθοδήγηση';
-	@override String get description => 'Μην χρησιμοποιείς αυτήν την εκτίμηση για ιατρικές αποφάσεις. Πάντα να συμβουλεύεσαι έναν επαγγελματία υγείας ή πιστοποιημένο διαιτολόγο για εξατομικευμένη διαχείριση βάρους.';
+	@override String get title => 'Επαγγελματική Καθοδήγηση';
+	@override String get description => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrEl implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Ο Βασικός Μεταβολικός Ρυθμός (BMR) είναι οι θερμίδες που καίει το σώμα σου σε κατάσταση ηρεμίας για βασικές λειτουργίες όπως αναπνοή και κυκλοφορία. Εξαρτάται από ηλικία, φύλο, ύψος και βάρος. Υψηλότερο BMR σημαίνει ότι καίγονται περισσότερες θερμίδες σε ηρεμία, συνήθως λόγω περισσότερης μυϊκής μάζας, νεότερης ηλικίας ή ανδρικού φύλου. Χαμηλότερο BMR συνδέεται συνήθως με λιγότερη μυϊκή μάζα, μεγαλύτερη ηλικία ή γυναικείο φύλο.';
+	@override String get description => 'Ο Βασικός Μεταβολικός Ρυθμός (BMR) είναι οι θερμίδες που καίει το σώμα σας σε ηρεμία για να διατηρήσει βασικές λειτουργίες όπως η αναπνοή και η κυκλοφορία. Ο BMR εξαρτάται από την ηλικία, το φύλο, το ύψος και το βάρος. Ένας υψηλότερος BMR σημαίνει ότι το σώμα σας καίει φυσικά περισσότερες θερμίδες σε ηρεμία, συχνά λόγω μεγαλύτερης μυϊκής μάζας, νεότερης ηλικίας ή αρσενικού φύλου. Ένας χαμηλότερος BMR τυπικά υποδεικνύει λιγότερη μυϊκή μάζα, μεγαλύτερη ηλικία ή θηλυκό φύλο.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeEl implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Η Συνολική Ημερήσια Ενεργειακή Δαπάνη (TDEE) είναι οι συνολικές θερμίδες που καίγεις μέσα στην ημέρα, δηλαδή το BMR συν τη σωματική δραστηριότητα και την κίνηση. Εξαρτάται από το BMR και το επίπεδο δραστηριότητας. Υψηλότερο TDEE σημαίνει περισσότερες καύσεις, συνήθως λόγω μεγαλύτερης δραστηριότητας ή υψηλότερου BMR. Χαμηλότερο TDEE υποδηλώνει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.';
+	@override String get description => 'Το Συνολικό Ημερήσιο Ενεργειακό Έξοδο (TDEE) είναι οι συνολικές θερμίδες που καίτε καθημερινά, συμπεριλαμβανομένου του BMR συν τις θερμίδες από σωματική δραστηριότητα και καθημερινή κίνηση. Το TDEE εξαρτάται από τον BMR και το επίπεδο δραστηριότητας. Ένα υψηλότερο TDEE σημαίνει ότι καίτε περισσότερες θερμίδες συνολικά, συνήθως λόγω μεγαλύτερης δραστηριότητας ή υψηλότερου BMR. Ένα χαμηλότερο TDEE υποδηλώνει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1613,8 +1613,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalEl implements TranslationsDis
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ημερήσιος στόχος';
-	@override String get description => 'Ο Ημερήσιος Στόχος είναι η προτεινόμενη ημερήσια πρόσληψη θερμίδων βάσει TDEE και στόχου βάρους. Για απώλεια βάρους, καταναλώνεις λιγότερες θερμίδες από το TDEE. Για διατήρηση, ταιριάζεις το TDEE. Για αύξηση, καταναλώνεις περισσότερες. Αυτό βοηθά να πετύχεις την επιθυμητή αλλαγή βάρους με υγιή ρυθμό.';
+	@override String get title => 'Ημερήσιος Στόχος';
+	@override String get description => 'Ο Ημερήσιος Στόχος είναι η προτεινόμενη ημερήσια πρόσληψη θερμίδων βασισμένη στο TDEE και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE. Για διατήρηση, ταιριάζετε το TDEE. Για αύξηση, καταναλώνετε περισσότερες θερμίδες από το TDEE. Αυτό βοηθά να πετύχετε την επιθυμητή αλλαγή βάρους με υγιή ρυθμό.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1624,8 +1624,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedEl implements Transl
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Πώς υπολογίζεται η εκτίμηση';
-	@override String get description => 'Υπολογίζουμε το TDEE (βάσει προφίλ) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει παρέλθει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις έως τώρα καύσεις.';
+	@override String get title => 'Πώς Υπολογίζεται η Εκτίμηση';
+	@override String get description => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που κάηκαν μέχρι στιγμής.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1635,8 +1635,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEl implements
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Επαγγελματική καθοδήγηση';
-	@override String get description => 'Μην χρησιμοποιείς αυτήν την εκτίμηση για ιατρικές αποφάσεις. Πάντα να συμβουλεύεσαι επαγγελματία υγείας ή πιστοποιημένο διαιτολόγο για εξατομικευμένες συμβουλές.';
+	@override String get title => 'Επαγγελματική Καθοδήγηση';
+	@override String get description => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1646,9 +1646,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEl implements T
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ανάγνωση συνολικών θερμίδων που κάηκαν';
+	@override String get title => 'Ανάγνωση Συνολικών Θερμίδων που Κάηκαν';
 	@override String get description => 'Επιτρέπει στην εφαρμογή να διαβάζει τις συνολικές θερμίδες που κάηκαν από το Health Connect.';
-	@override String get usage => 'Αυτό το δικαίωμα χρησιμοποιείται για να εμφανίζει η εφαρμογή τις ημερήσιες καύσεις θερμίδων, ώστε να κατανοείς τη συνολική ενεργειακή σου δαπάνη μέσα στην ημέρα.';
+	@override String get usage => 'Αυτό το δικαίωμα χρησιμοποιείται για να εμφανιστεί η ημερήσια καύση θερμίδων στην εφαρμογή, βοηθώντας σας να κατανοήσετε τη συνολική ενεργειακή δαπάνη.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1658,9 +1658,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadEl implements Tr
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ανάγνωση διατροφικών δεδομένων';
-	@override String get description => 'Επιτρέπει στην εφαρμογή να διαβάζει διατροφικά δεδομένα από το Health Connect.';
-	@override String get usage => 'Αυτό το δικαίωμα επιτρέπει την ανάγνωση διατροφικών πληροφοριών που μπορεί να έχουν καταγραφεί από άλλες εφαρμογές συνδεδεμένες στο Health Connect, προσφέροντας μια ολοκληρωμένη εικόνα της διατροφής σου.';
+	@override String get title => 'Ανάγνωση Δεδομένων Διατροφής';
+	@override String get description => 'Επιτρέπει στην εφαρμογή να διαβάζει τα δεδομένα διατροφής από το Health Connect.';
+	@override String get usage => 'Αυτό επιτρέπει στην εφαρμογή να διαβάζει διατροφικές πληροφορίες που μπορεί να έχουν καταχωρήσει άλλες εφαρμογές συνδεδεμένες με το Health Connect, παρέχοντας μια ολοκληρωμένη εικόνα της διατροφής σας.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1670,9 +1670,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteEl implements T
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Εγγραφή διατροφικών δεδομένων';
-	@override String get description => 'Επιτρέπει στην εφαρμογή να γράφει διατροφικά δεδομένα στο Health Connect.';
-	@override String get usage => 'Αυτό το δικαίωμα επιτρέπει τον συγχρονισμό των καταγεγραμμένων γευμάτων σου στο Health Connect, ώστε τα διατροφικά σου δεδομένα να είναι διαθέσιμα και σε άλλες εφαρμογές υγείας και fitness που χρησιμοποιείς.';
+	@override String get title => 'Εγγραφή Δεδομένων Διατροφής';
+	@override String get description => 'Επιτρέπει στην εφαρμογή να γράφει δεδομένα διατροφής στο Health Connect.';
+	@override String get usage => 'Αυτό επιτρέπει στην εφαρμογή να συγχρονίζει τα καταγεγραμμένα γεύματά σας στο Health Connect, κάνοντας τα διατροφικά σας δεδομένα διαθέσιμα σε άλλες εφαρμογές υγείας και fitness που χρησιμοποιείτε.';
 }
 
 /// The flat map containing all translations for locale <el>.
@@ -1686,262 +1686,262 @@ extension on TranslationsEl {
 			'language' => 'Ελληνικά',
 			'flag' => '🇬🇷',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Έκανες πάρα πολλά αιτήματα. Περίμενε λίγο και δοκίμασε ξανά.',
-			'errors.networkError' => 'Σφάλμα δικτύου. Έλεγξε τη σύνδεσή σου στο διαδίκτυο.',
-			'errors.unknownError' => 'Κάτι πήγε στραβά. Δοκίμασε ξανά αργότερα.',
-			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση προφίλ',
+			'errors.rateLimitExceeded' => 'Έχετε κάνει πάρα πολλά αιτήματα. Περιμένετε λίγο πριν προσπαθήσετε ξανά.',
+			'errors.networkError' => 'Σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο.',
+			'errors.unknownError' => 'Κάτι πήγε στραβά. Παρακαλώ δοκιμάστε ξανά αργότερα.',
+			'errors.loadingProfileData' => 'Σφάλμα κατά τη φόρτωση των δεδομένων προφίλ',
 			'errors.somethingWentWrong' => 'Κάτι πήγε στραβά.',
-			'errors.retry' => 'Ξαναπροσπάθησε',
-			'onboarding.welcome' => ({required Object appLabel}) => 'Καλώς ήρθες στο ${appLabel}',
-			'onboarding.subtitle' => 'Ο προσωπικός σου διατροφικός σύμβουλος με τη δύναμη της AI',
-			'onboarding.getStarted' => 'Ξεκίνα',
-			'onboarding.features.foodRecognition.title' => 'Έξυπνη αναγνώριση τροφίμων',
-			'onboarding.features.foodRecognition.description' => 'Βγάλε μια φωτογραφία και άφησε την AI να αναγνωρίσει το γεύμα σου',
-			'onboarding.features.aiAnalysis.title' => 'Ανάλυση με AI',
-			'onboarding.features.aiAnalysis.description' => 'Άμεσα διατροφικά στοιχεία από τις περιγραφές σου',
-			'onboarding.features.healthIntegration.title' => 'Σύνδεση με Health Connect',
-			'onboarding.features.healthIntegration.description' => 'Σύνδεσε το Health Connect για καλύτερες πληροφορίες',
-			'onboarding.gender.title' => 'Ποιο είναι το φύλο σου;',
-			'onboarding.gender.description' => 'Το φύλο βοηθά στον ακριβή υπολογισμό του βασικού μεταβολικού ρυθμού (BMR).',
+			'errors.retry' => 'Δοκιμάστε ξανά',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Καλώς ορίσατε στο ${appLabel}',
+			'onboarding.subtitle' => 'Ο προσωπικός σας σύμβουλος διατροφής με AI',
+			'onboarding.getStarted' => 'Ξεκινήστε',
+			'onboarding.features.foodRecognition.title' => 'Έξυπνη Αναγνώριση Τροφίμων',
+			'onboarding.features.foodRecognition.description' => 'Τραβήξτε μια φωτογραφία και αφήστε το AI να αναγνωρίσει το γεύμα σας',
+			'onboarding.features.aiAnalysis.title' => 'AI Ανάλυση',
+			'onboarding.features.aiAnalysis.description' => 'Λάβετε άμεσα διατροφικά στοιχεία από τις περιγραφές σας',
+			'onboarding.features.healthIntegration.title' => 'Ενσωμάτωση Υγείας',
+			'onboarding.features.healthIntegration.description' => 'Συνδεθείτε με Health Connect για καλύτερες πληροφορίες',
+			'onboarding.gender.title' => 'Ποιο είναι το φύλο σας;',
+			'onboarding.gender.description' => 'Το φύλο μας βοηθά να υπολογίσουμε με ακρίβεια τον βασικό μεταβολικό σας ρυθμό (BMR).',
 			'onboarding.gender.next' => 'Επόμενο',
-			'onboarding.height.title' => 'Πόσο ψηλός/ή είσαι;',
-			'onboarding.height.description' => 'Το ύψος βοηθά να υπολογίσουμε σωστά τον ΔΜΣ και τις ενεργειακές σου ανάγκες.',
+			'onboarding.height.title' => 'Πόσο ύψος έχετε;',
+			'onboarding.height.description' => 'Το ύψος σας βοηθά να υπολογίσουμε με ακρίβεια το BMI και τις ενεργειακές σας ανάγκες.',
 			'onboarding.height.metric' => 'Μετρικό',
 			'onboarding.height.imperial' => 'Αγγλοσαξονικό',
 			'onboarding.height.next' => 'Επόμενο',
-			'onboarding.weight.currentTitle' => 'Ποιο είναι το τωρινό σου βάρος;',
-			'onboarding.weight.currentDescription' => 'Το τωρινό σου βάρος είναι απαραίτητο για την εξατομίκευση των ημερήσιων στόχων σου.',
-			'onboarding.weight.targetTitle' => 'Ποιο είναι το επιθυμητό σου βάρος;',
-			'onboarding.weight.targetDescription' => 'Ο καθορισμός στόχου μάς βοηθά να σχεδιάσουμε το μακροπρόθεσμο πλάνο σου.',
+			'onboarding.weight.currentTitle' => 'Ποιο είναι το τωρινό σας βάρος;',
+			'onboarding.weight.currentDescription' => 'Το τωρινό σας βάρος είναι απαραίτητο για την προσωποποίηση των καθημερινών σας στόχων.',
+			'onboarding.weight.targetTitle' => 'Ποιο είναι το επιδιωκόμενο σας βάρος;',
+			'onboarding.weight.targetDescription' => 'Ορισμός στόχου βάρους για να καθορίσουμε το μακροπρόθεσμο πλάνο σας.',
 			'onboarding.weight.metric' => 'Μετρικό',
 			'onboarding.weight.imperial' => 'Αγγλοσαξονικό',
 			'onboarding.weight.next' => 'Επόμενο',
-			'onboarding.age.title' => 'Πότε γεννήθηκες;',
-			'onboarding.age.description' => 'Η ηλικία βοηθά να υπολογίσουμε με ακρίβεια τις θερμιδικές σου ανάγκες.',
+			'onboarding.age.title' => 'Πότε είναι τα γενέθλιά σας;',
+			'onboarding.age.description' => 'Η ηλικία σας βοηθά να υπολογίσουμε με ακρίβεια τις θερμιδικές σας ανάγκες.',
 			'onboarding.age.next' => 'Επόμενο',
 			'onboarding.bmiScale.underweight' => 'Κάτω',
 			'onboarding.bmiScale.healthy' => 'Υγιές',
 			'onboarding.bmiScale.overweight' => 'Πάνω',
 			'onboarding.bmiScale.obese' => 'Παχύσαρκο',
-			'onboarding.bmiScale.categories.underweight' => 'Ελλιποβαρής',
+			'onboarding.bmiScale.categories.underweight' => 'Λιποβαρής',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Υγιές βάρος',
 			'onboarding.bmiScale.categories.overweight' => 'Υπέρβαρος',
 			'onboarding.bmiScale.categories.obese' => 'Παχύσαρκος',
-			'onboarding.bmiScale.messages.underweight' => 'Μπορούμε να σε βοηθήσουμε να χτίσεις ένα υγιεινό πλάνο για να φτάσεις σε ισορροπημένο βάρος με θρεπτικά γεύματα.',
-			'onboarding.bmiScale.messages.healthy' => 'Μπράβο! Βρίσκεσαι σε υγιές εύρος. Θα σε βοηθήσουμε να διατηρήσεις τη ζωντάνια και την ενέργειά σου.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => 'Το ${appLabel} θα απλοποιήσει το ταξίδι σου με έξυπνη καταγραφή για να φτάσεις άνετα στον στόχο σου.',
-			'onboarding.bmiScale.messages.obese' => 'Είμαστε εδώ για να σε στηρίξουμε με εξατομικευμένη καθοδήγηση και βιώσιμες στρατηγικές για τους στόχους υγείας σου.',
-			'onboarding.weightGoal.title' => 'Ποιος είναι ο στόχος σου;',
-			'onboarding.weightGoal.description' => 'Επίλεξε τον στόχο που περιγράφει καλύτερα αυτό που θέλεις να πετύχεις',
-			'onboarding.activityLevel.title' => 'Πόσο δραστήριος/α είσαι;',
-			'onboarding.activityLevel.description' => 'Μας βοηθά να υπολογίσουμε πιο σωστά τις ημερήσιες θερμίδες σου',
-			'onboarding.healthConnect.title' => 'Σύνδεση με Health Connect',
-			'onboarding.healthConnect.description' => 'Συγχρόνισε τα δεδομένα υγείας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων',
-			'onboarding.healthConnect.automaticTracking.title' => 'Αυτόματη καταγραφή θερμίδων',
-			'onboarding.healthConnect.automaticTracking.description' => 'Κατέγραψε θερμίδες που κάηκαν από τις εφαρμογές fitness',
-			'onboarding.healthConnect.progressInsights.title' => 'Εικόνα προόδου',
-			'onboarding.healthConnect.progressInsights.description' => 'Λάβε λεπτομερή στοιχεία για τις τάσεις της υγείας σου',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'Απρόσκοπτη ενσωμάτωση',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Συγχρόνισε δεδομένα από τις αγαπημένες σου εφαρμογές υγείας',
-			'onboarding.healthConnect.connected' => 'Το Health Connect συνδέθηκε',
-			'onboarding.healthConnect.notConnected' => 'Το Health Connect δεν έχει συνδεθεί',
-			'onboarding.healthConnect.setup' => 'Ρύθμιση του Health Connect',
+			'onboarding.bmiScale.messages.underweight' => 'Μπορούμε να σας βοηθήσουμε να φτιάξετε ένα υγιές πλάνο για να φτάσετε σε ισορροπημένο βάρος με θρεπτικά γεύματα.',
+			'onboarding.bmiScale.messages.healthy' => 'Μπράβο! Βρίσκεστε σε υγιή περιοχή. Θα σας βοηθήσουμε να διατηρήσετε τη ζωτικότητα και τα επίπεδα ενέργειάς σας.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} θα απλοποιήσει το ταξίδι σας με παρακολούθηση με AI για να φτάσετε άνετα στο στόχο σας.',
+			'onboarding.bmiScale.messages.obese' => 'Είμαστε εδώ για να σας υποστηρίξουμε με εξατομικευμένη καθοδήγηση και βιώσιμες στρατηγικές για τους στόχους υγείας σας.',
+			'onboarding.weightGoal.title' => 'Ποιος είναι ο στόχος σας;',
+			'onboarding.weightGoal.description' => 'Επιλέξτε τον στόχο που περιγράφει καλύτερα αυτό που θέλετε να πετύχετε',
+			'onboarding.activityLevel.title' => 'Πόσο δραστήριος/α είστε;',
+			'onboarding.activityLevel.description' => 'Αυτό μας βοηθά να υπολογίσουμε πιο ακριβώς τις καθημερινές σας θερμιδικές ανάγκες',
+			'onboarding.healthConnect.title' => 'Συνδέστε με Health Connect',
+			'onboarding.healthConnect.description' => 'Συγχρονίστε τα δεδομένα υγείας σας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων',
+			'onboarding.healthConnect.automaticTracking.title' => 'Αυτόματη Καταγραφή Θερμίδων',
+			'onboarding.healthConnect.automaticTracking.description' => 'Καταγραφή θερμίδων που κάηκαν από τις εφαρμογές fitness',
+			'onboarding.healthConnect.progressInsights.title' => 'Ενδείξεις Προόδου',
+			'onboarding.healthConnect.progressInsights.description' => 'Λάβετε λεπτομερείς ενδείξεις για τις τάσεις της υγείας σας',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'Απρόσκοπτη Ενσωμάτωση',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Συγχρονίστε δεδομένα από τις αγαπημένες σας εφαρμογές υγείας',
+			'onboarding.healthConnect.connected' => 'Health Connect Συνδεδεμένο',
+			'onboarding.healthConnect.notConnected' => 'Health Connect Δεν Συνδεδεμένο',
+			'onboarding.healthConnect.setup' => 'Ρύθμιση Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Παράλειψη προς το παρόν',
 			'onboarding.healthConnect.statusConnected' => 'Το Health Connect είναι συνδεδεμένο.',
-			'onboarding.healthConnect.statusSuccess' => 'Το Health Connect συνδέθηκε με επιτυχία!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Η άδεια απορρίφθηκε. Ενεργοποίησε τα δικαιώματα Health Connect από τις ρυθμίσεις του τηλεφώνου για το ${appLabel}.',
+			'onboarding.healthConnect.statusSuccess' => 'Το Health Connect συνδέθηκε επιτυχώς!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Απαγορεύτηκε η άδεια. Ενεργοποιήστε τα δικαιώματα του Health Connect στις ρυθμίσεις του τηλεφώνου για ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Σφάλμα κατά τη ρύθμιση του Health Connect: ${error}',
-			'onboarding.reinforcement.trackingSuccess.title' => 'Δεν είσαι μόνος/η',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Έρευνες δείχνουν ότι η σταθερή καταγραφή είναι ο Νο1 προγνωστικός παράγοντας μακροχρόνιας επιτυχίας.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Για άτομο ${age} ετών (${gender}) που θέλει να ${goal}, η σταθερή καταγραφή είναι ο Νο1 προγνωστικός παράγοντας επιτυχίας.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => 'Το ${appLabel} το κάνει 10 φορές πιο εύκολο από τη χειροκίνητη καταγραφή.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Έτοιμος/η να ξεκινήσεις;',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Βγάλε φωτογραφία τα γεύματά σου για άμεση ανάλυση',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Κατέγραφε σταθερά για να δεις ουσιαστική πρόοδο',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Παρακολούθησε την πρόοδό σου καθημερινά για κίνητρο',
-			'onboarding.reinforcement.trackingSuccess.button' => 'Πάμε',
+			'onboarding.reinforcement.trackingSuccess.title' => 'Δεν είστε μόνος/η',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Έρευνες δείχνουν ότι η συνεπής καταγραφή είναι ο πιο σημαντικός δείκτης μακροπρόθεσμης επιτυχίας.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Για έναν/μια ${age} ετών ${gender} που θέλει να ${goal}, η συνεπής καταγραφή είναι ο πιο σημαντικός δείκτης επιτυχίας.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} το κάνει 10x πιο εύκολο από το να το κάνετε χειροκίνητα.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Έτοιμος/η να ξεκινήσετε;',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Τραβήξτε φωτογραφία των γευμάτων σας για άμεση ανάλυση',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Καταγράψτε με συνέπεια για να δείτε ουσιαστική πρόοδο',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Καταγράψτε την πρόοδό σας καθημερινά για να παραμείνετε κινητοποιημένοι',
+			'onboarding.reinforcement.trackingSuccess.button' => 'Ας ξεκινήσουμε',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'άτομο',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'πιο υγιή εαυτό',
-			'onboarding.reinforcement.healthProfile.title' => 'Το προφίλ υγείας σου',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Με βάση τα στοιχεία σου, ο ΔΜΣ είναι ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Ας ολοκληρώσουμε το προφίλ σου για να προσαρμόσουμε την εμπειρία.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'πάρεις',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'χάσεις',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Για να πετύχεις τον στόχο σου, θα ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Έφτασες στο επιθυμητό βάρος! Θα σε βοηθήσουμε να το διατηρήσεις.',
-			'onboarding.reinforcement.healthProfile.button' => 'Πάμε',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'υγιέστερος/η εσείς',
+			'onboarding.reinforcement.healthProfile.title' => 'Το Προφίλ Υγείας σας',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Βάσει των μετρήσεών σας, το BMI σας είναι ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Ας ολοκληρώσουμε το προφίλ σας για να προσαρμόσουμε την εμπειρία σας.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'αυξήσετε',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'χάσετε',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Για να φτάσετε το στόχο σας, θα ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Έχετε φτάσει το στόχο βάρους! Θα σας βοηθήσουμε να το διατηρήσετε.',
+			'onboarding.reinforcement.healthProfile.button' => 'Ας ξεκινήσουμε',
 			'onboarding.reinforcement.goalLifestyle.title' => 'Εξαιρετική αρχή!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Έκανες το πρώτο βήμα προς ${goalText}. Εφόσον είσαι ${activityText}, το ${appLabel} θα προσαρμόσει τους στόχους σου στο στιλ ζωής σου.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Εξατομικευμένοι θερμιδικοί στόχοι',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Έχετε κάνει το πρώτο βήμα προς το ${goalText}. Εφόσον είστε ${activityText}, το ${appLabel} θα προσαρμόσει τους στόχους σας στο τρόπο ζωής σας.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Προσωποποιημένοι στόχοι θερμίδων',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Ανίχνευση γευμάτων με AI',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Αναλυτικές κατανομές μακροθρεπτικών',
-			'onboarding.reinforcement.goalLifestyle.button' => 'Πάμε',
-			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'τους στόχους σου',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Λεπτομερείς αναλύσεις μακροθρεπτικών',
+			'onboarding.reinforcement.goalLifestyle.button' => 'Ας ξεκινήσουμε',
+			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'τους στόχους σας',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'δραστήριος/α',
-			'tabs.dashboard' => 'Πίνακας',
+			'tabs.dashboard' => 'Ταμπλό',
 			'tabs.history' => 'Ιστορικό',
-			'home.aiSummary.title' => 'Η σύνοψη AI σου',
-			'home.aiSummary.logMore' => 'Κατέγραψε περισσότερα γεύματα τις επόμενες ημέρες για να λάβεις εξατομικευμένες πληροφορίες AI.',
-			'home.aiSummary.loading' => 'Φόρτωση σύνοψης...',
-			'home.aiSummary.mealCount' => ({required Object count}) => '${count} γεύματα καταγεγραμμένα',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Βαθμός ισορροπίας ${score}',
-			'home.aiSummary.topFoods' => 'Κορυφαίες τροφές',
-			'home.aiSummary.trendUp' => 'Θερμίδες σε ανοδική τάση',
-			'home.aiSummary.trendDown' => 'Θερμίδες σε πτωτική τάση',
+			'home.aiSummary.title' => 'Η Σύνοψη AI σας',
+			'home.aiSummary.logMore' => 'Καταγράψτε περισσότερα γεύματα τις επόμενες μέρες για να λάβετε προσωποποιημένα AI συμπεράσματα.',
+			'home.aiSummary.loading' => 'Φόρτωση της σύνοψης σας...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} γεύματα καταχωρήθηκαν',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Βαθμολογία ισορροπίας ${score}',
+			'home.aiSummary.topFoods' => 'Κορυφαία τρόφιμα',
+			'home.aiSummary.trendUp' => 'Θερμίδες σε άνοδο',
+			'home.aiSummary.trendDown' => 'Θερμίδες σε πτώση',
 			'home.aiSummary.trendSteady' => 'Θερμίδες σταθερές',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Ενημερώθηκε ${time}',
-			'home.dailyGoal.title' => 'Όρισε τον ημερήσιο στόχο',
-			'home.dailyGoal.titleSet' => 'Ο ημερήσιος στόχος σου',
-			'home.dailyGoal.description' => 'Έτοιμος/η για το ταξίδι ευεξίας; Όρισε τον ημερήσιο θερμιδικό σου στόχο παρακάτω για να ξεκινήσεις.',
-			'home.dailyGoal.descriptionSet' => 'Η πυξίδα σου είναι έτοιμη! Αυτός είναι ο ημερήσιος θερμιδικός σου στόχος.',
-			'home.dailyGoal.yourGoal' => 'Ο στόχος σου',
+			'home.dailyGoal.title' => 'Ορίστε το Ημερήσιο Στόχο σας',
+			'home.dailyGoal.titleSet' => 'Ο Ημερήσιος Στόχος σας',
+			'home.dailyGoal.description' => 'Έτοιμοι για το ταξίδι ευεξίας σας; Ορίστε παρακάτω τον καθημερινό στόχο θερμίδων για να ξεκινήσετε την πρόοδό σας.',
+			'home.dailyGoal.descriptionSet' => 'Η πυξίδα σας έχει οριστεί! Αυτός είναι ο καθημερινός σας στόχος θερμίδων για καθοδήγηση.',
+			'home.dailyGoal.yourGoal' => 'Ο Στόχος σας',
 			'home.dailyGoal.goal' => 'Στόχος',
 			'home.dailyGoal.dailyCalories' => 'Ημερήσιες θερμίδες (kcal)',
-			'home.dailyGoal.setGoal' => 'Ορισμός στόχου',
-			'home.dailyGoal.intake' => 'Πρόσληψη',
-			'home.dailyGoal.burned' => 'Καύσεις',
+			'home.dailyGoal.setGoal' => 'Ορισμός Στόχου',
+			'home.dailyGoal.intake' => 'Είσοδος',
+			'home.dailyGoal.burned' => 'Καμένες',
 			'home.dailyGoal.weightImpact' => 'Επίδραση στο βάρος',
-			'home.dailyGoal.estLoss' => 'Εκτ. απώλεια',
-			'home.dailyGoal.estGain' => 'Εκτ. αύξηση',
+			'home.dailyGoal.estLoss' => 'Προβλ. απώλεια',
+			'home.dailyGoal.estGain' => 'Προβλ. αύξηση',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'Ημερήσια σύνοψη',
+			'home.dailySummary.title' => 'Ημερήσια Σύνοψη',
 			'home.dailySummary.calories' => 'Θερμίδες',
-			'home.dailySummary.carbs' => 'Υδατ/κες',
+			'home.dailySummary.carbs' => 'Υδατάνθρακες',
 			'home.dailySummary.protein' => 'Πρωτεΐνη',
-			'home.dailySummary.fat' => 'Λιπαρά',
-			'home.dailySummary.fiber' => 'Φυτικές ίνες',
-			'home.dailySummary.grams' => 'γραμμάρια',
-			'home.dailySummary.chartAccessibilityLabel' => 'Γράφημα μακροθρεπτικών',
-			'home.intakeProgress.title' => 'Κατανομή μακροθρεπτικών σήμερα',
+			'home.dailySummary.fat' => 'Λίπος',
+			'home.dailySummary.fiber' => 'Ινες',
+			'home.dailySummary.grams' => 'γραμ.',
+			'home.dailySummary.chartAccessibilityLabel' => 'Διάγραμμα μακροθρεπτικών',
+			'home.intakeProgress.title' => 'Σημερινή Κατανομή Μακροθρεπτικών',
 			'home.intakeProgress.target' => 'Στόχος',
 			'home.intakeProgress.current' => 'Τρέχον',
-			'home.intakeHistory.title' => 'Ιστορικό μακροθρεπτικών 7 ημερών',
-			'home.intakeHistory.trendTitle' => 'Σημερινή τάση',
+			'home.intakeHistory.title' => 'Ιστορικό Μακροθρεπτικών 7 ημερών',
+			'home.intakeHistory.trendTitle' => 'Σημερινή Τάση',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Κορύφωση: ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'Δεν υπάρχει ακόμη ιστορικό',
-			'home.intakeHistory.startLogging' => 'Ξεκίνα να καταγράφεις γεύματα για να δεις εδώ\nτις τάσεις μακροθρεπτικών των 7 ημερών σου',
-			'home.mealLog.title' => 'Καταγεγραμμένα γεύματα',
-			'home.mealLog.emptyMessage' => 'Βγάλε φωτογραφία του τελευταίου σου γεύματος για καταγραφή εδώ.',
-			'home.mealLog.noMealsToday' => 'Δεν υπάρχουν γεύματα για σήμερα',
-			'home.mealLog.seeAllMeals' => 'Δες όλα τα γεύματα',
-			'home.mealDescription.title' => 'Γρήγορη προσθήκη με AI',
-			'home.mealDescription.description' => 'Περιέγραψε το γεύμα σου και άφησε την AI να αναλάβει τα υπόλοιπα.',
-			'home.mealDescription.hint' => 'π.χ. Για πρωινό είχα ένα μεγάλο μπολ βρώμη με μία μπανάνα και μία μεζούρα whey ...',
+			'home.intakeHistory.noHistoryYet' => 'Δεν υπάρχει ιστορικό ακόμα',
+			'home.intakeHistory.startLogging' => 'Ξεκινήστε να καταγράφετε γεύματα για να δείτε τις\n7ήμερες τάσεις μακροθρεπτικών εδώ',
+			'home.mealLog.title' => 'Καταχωρημένα Γεύματα',
+			'home.mealLog.emptyMessage' => 'Τραβήξτε μια φωτογραφία του τελευταίου γεύματός σας για να το καταγράψετε εδώ.',
+			'home.mealLog.noMealsToday' => 'Δεν έχει καταγραφεί κανένα γεύμα για σήμερα',
+			'home.mealLog.seeAllMeals' => 'Δείτε όλα τα γεύματα',
+			'home.mealDescription.title' => 'Γρήγορη Προσθήκη με AI',
+			'home.mealDescription.description' => 'Περιγράψτε το γεύμα σας και αφήστε το AI να αναλάβει τις λεπτομέρειες.',
+			'home.mealDescription.hint' => 'π.χ. Στο πρωινό είχα ένα μεγάλο μπολ βρώμης με μια μπανάνα σε φέτες και μια μεζούρα πρωτεΐνης ...',
 			'home.mealDescription.analyzeMeal' => 'Ανάλυση γεύματος',
-			'home.favoriteMeals.title' => 'Αγαπημένα γεύματα',
-			'home.favoriteMeals.description' => 'Πρόσθεσε γρήγορα ένα από τα αγαπημένα σου γεύματα.',
+			'home.favoriteMeals.title' => 'Αγαπημένα Γεύματα',
+			'home.favoriteMeals.description' => 'Προσθέστε γρήγορα ένα από τα αγαπημένα σας γεύματα.',
 			'home.favoriteMeals.noFavorites' => 'Δεν υπάρχουν αγαπημένα ακόμη.',
-			'home.favoriteMeals.addFavoriteHint' => 'Πάτησε το αστέρι σε ένα γεύμα για να το κάνεις αγαπημένο.',
-			'home.favoriteMeals.seeAll' => 'Δες όλα',
+			'home.favoriteMeals.addFavoriteHint' => 'Κάντε κλικ στο αστέρι σε ένα γεύμα για να το σημειώσετε ως αγαπημένο.',
+			'home.favoriteMeals.seeAll' => 'Δείτε όλα',
 			'home.favoriteMeals.add' => 'Προσθήκη',
-			'home.mealSnap.title' => 'Φωτογράφισε και κατέγραψε το γεύμα σου',
-			'home.mealSnap.description' => 'Χρησιμοποίησε την κάμερα για να βγάλεις φωτογραφία του φαγητού για ανάλυση με AI.',
-			'home.mealSnap.openCamera' => 'Άνοιγμα κάμερας',
-			'home.mealSnap.gallery' => 'Συλλογή',
+			'home.mealSnap.title' => 'Φωτογραφίστε & Καταγράψτε το Γεύμα σας',
+			'home.mealSnap.description' => 'Χρησιμοποιήστε την κάμερα για να τραβήξετε μια εικόνα του φαγητού για ανάλυση με AI.',
+			'home.mealSnap.openCamera' => 'Άνοιγμα Κάμερας',
+			'home.mealSnap.gallery' => 'Σύλλογος',
 			'home.mealSnap.compressingPhoto' => 'Βελτιστοποίηση φωτογραφίας…',
-			'home.mealSnap.uploadingPhoto' => 'Μεταφόρτωση φωτογραφίας…',
+			'home.mealSnap.uploadingPhoto' => 'Αποστολή φωτογραφίας…',
 			'home.connectHealth.title' => 'Συγχρονισμός με Health Connect',
-			'home.connectHealth.description' => 'Συγχρόνισε τα διατροφικά σου δεδομένα με το Health Connect',
+			'home.connectHealth.description' => 'Συγχρονίστε τα διατροφικά σας με το Health Connect',
 			'home.connectHealth.install' => 'Εγκατάσταση',
 			'home.connectHealth.connect' => 'Σύνδεση',
-			'history.noMeals' => 'Δεν υπάρχουν γεύματα',
-			'history.emptyMessage' => 'Βγάλε φωτογραφία του τελευταίου σου γεύματος για καταγραφή εδώ.',
+			'history.noMeals' => 'Δεν έχουν καταγραφεί γεύματα',
+			'history.emptyMessage' => 'Τραβήξτε μια φωτογραφία του τελευταίου γεύματός σας για να το καταγράψετε εδώ.',
 			'history.today' => 'Σήμερα',
 			'history.yesterday' => 'Χθες',
 			'meal.ohNo' => 'Ωχ όχι!',
 			'meal.delete' => 'Διαγραφή',
-			'meal.editMeal' => 'Επεξεργασία γεύματος',
-			'meal.addMeal' => 'Προσθήκη γεύματος',
-			'meal.saveMeal' => 'Αποθήκευση γεύματος',
+			'meal.editMeal' => 'Επεξεργασία Γεύματος',
+			'meal.addMeal' => 'Προσθήκη Γεύματος',
+			'meal.saveMeal' => 'Αποθήκευση Γεύματος',
 			'meal.save' => 'Αποθήκευση',
-			'meal.mealName' => 'Όνομα γεύματος',
-			'meal.mealNameHint' => 'π.χ., Ομελέτα με τοστ',
-			'meal.mealQuantity' => 'Ποσότητα γεύματος',
+			'meal.mealName' => 'Όνομα Γεύματος',
+			'meal.mealNameHint' => 'π.χ., Αυγά σκραμπλ με τοστ',
+			'meal.mealQuantity' => 'Ποσότητα Γεύματος',
 			'meal.mealQuantityHint' => 'π.χ., 1 μπολ, 2 φέτες',
-			'meal.timeOfMeal' => 'Ώρα γεύματος',
-			'meal.timeOfMealHint' => 'Επίλεξε την ώρα που έφαγες',
-			'meal.mealType' => 'Τύπος γεύματος',
+			'meal.timeOfMeal' => 'Ώρα Γεύματος',
+			'meal.timeOfMealHint' => 'Επιλέξτε την ώρα που φάγατε',
+			'meal.mealType' => 'Τύπος Γεύματος',
 			'meal.nutrition.calories' => 'Θερμίδες',
-			'meal.nutrition.carbs' => 'Υδατ/κες (g)',
+			'meal.nutrition.carbs' => 'Υδατάνθρακες (g)',
 			'meal.nutrition.protein' => 'Πρωτεΐνη (g)',
-			'meal.nutrition.fat' => 'Λιπαρά (g)',
-			'meal.nutrition.fiber' => 'Φυτικές ίνες (g)',
-			'meal.deleteConfirmation.title' => 'Διαγραφή γεύματος',
-			'meal.deleteConfirmation.message' => 'Είσαι σίγουρος/η ότι θέλεις να διαγράψεις αυτήν την καταχώριση;',
-			'meal.deleteConfirmation.cancel' => 'Άκυρο',
+			'meal.nutrition.fat' => 'Λίπος (g)',
+			'meal.nutrition.fiber' => 'Ίνες (g)',
+			'meal.deleteConfirmation.title' => 'Διαγραφή Γεύματος',
+			'meal.deleteConfirmation.message' => 'Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτή την καταχώριση γεύματος;',
+			'meal.deleteConfirmation.cancel' => 'Ακύρωση',
 			'meal.deleteConfirmation.delete' => 'Διαγραφή',
-			'meal.addedToLog' => 'Το γεύμα προστέθηκε στο ιστορικό σου!',
+			'meal.addedToLog' => 'Το γεύμα προστέθηκε στο ημερολόγιό σας!',
 			'meal.couldNotAdd' => ({required Object error}) => 'Δεν ήταν δυνατή η προσθήκη γεύματος: ${error}',
 			'meal.savedSuccessfully' => 'Το γεύμα προστέθηκε με επιτυχία!',
 			'meal.updatedSuccessfully' => 'Το γεύμα ενημερώθηκε με επιτυχία!',
-			'meal.errorSaving' => ({required Object error}) => 'Σφάλμα κατά την αποθήκευση: ${error}',
+			'meal.errorSaving' => ({required Object error}) => 'Σφάλμα κατά την αποθήκευση γεύματος: ${error}',
 			'meal.removedFromFavorites' => 'Αφαιρέθηκε από τα αγαπημένα!',
-			'meal.savedAsFavorite' => 'Το γεύμα αποθηκεύτηκε στα αγαπημένα!',
-			'meal.unfavorite' => 'Κατάργηση από αγαπημένα',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Δεν ήταν δυνατή η ενημέρωση αγαπημένου: ${error}',
-			'meal.feedbackThanks' => 'Ευχαριστούμε για τα σχόλιά σου!',
-			'meal.reanalysisUpdated' => 'Ενημερώθηκε η ανάλυση βάσει των σχολίων σου.',
+			'meal.savedAsFavorite' => 'Το γεύμα αποθηκεύτηκε ως αγαπημένο!',
+			'meal.unfavorite' => 'Αφαίρεση από αγαπημένα',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Δεν ήταν δυνατή η ενημέρωση του αγαπημένου: ${error}',
+			'meal.feedbackThanks' => 'Ευχαριστούμε για τα σχόλια!',
+			'meal.reanalysisUpdated' => 'Ενημερώθηκε η ανάλυση γεύματος βάσει των σχολίων σας.',
 			'meal.failedToProcess' => ({required Object error}) => 'Αποτυχία επεξεργασίας: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Σφάλμα κατά τη συμπίεση εικόνας: ${error}',
-			'meal.failedToSave' => 'Αποτυχία αποθήκευσης δεδομένων. Δοκίμασε ξανά.',
+			'meal.failedToSave' => 'Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκιμάστε ξανά.',
 			'meal.skip' => 'Παράλειψη',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}',
 			'meal.questionFlow.noQuestionsAvailable' => 'Δεν υπάρχουν διαθέσιμες ερωτήσεις',
 			'meal.questionFlow.next' => 'Επόμενο',
-			'meal.questionFlow.continueLabel' => 'Συνέχισε',
-			'meal.analysis.title' => 'Ανάλυση γεύματος με AI',
-			'meal.analysis.stepStarted' => 'Ξεκινάμε…',
-			'meal.analysis.stepDecomposition' => 'Κατανόηση του γεύματός σου…',
+			'meal.questionFlow.continueLabel' => 'Συνέχεια',
+			'meal.analysis.title' => 'Ανάλυση του γεύματός σας',
+			'meal.analysis.stepStarted' => 'Εκκίνηση…',
+			'meal.analysis.stepDecomposition' => 'Κατανόηση του γεύματος…',
 			'meal.analysis.stepIngredients' => 'Αντιστοίχιση συστατικών με διατροφικά δεδομένα…',
-			'meal.analysis.stepUncertainty' => 'Έλεγχος βεβαιότητας…',
-			'meal.analysis.stepMealTypeQuestion' => 'Σχεδόν έτοιμοι…',
-			'meal.analysis.stepResult' => 'Οριστικοποίηση αποτελέσματος…',
+			'meal.analysis.stepUncertainty' => 'Έλεγχος εμπιστοσύνης…',
+			'meal.analysis.stepMealTypeQuestion' => 'Λίγο ακόμα…',
+			'meal.analysis.stepResult' => 'Ολοκλήρωση αποτελέσματος…',
 			'meal.analysis.stepError' => 'Κάτι πήγε στραβά',
-			'meal.analysis.stepDefault' => 'Ανάλυση του γεύματός σου…',
-			'meal.analysis.progressUnderstand' => 'Κατανόηση',
-			'meal.analysis.progressMatch' => 'Αντιστοίχιση',
-			'meal.analysis.progressCheck' => 'Έλεγχος',
+			'meal.analysis.stepDefault' => 'Ανάλυση του γεύματός σας…',
+			'meal.analysis.progressUnderstand' => 'Κατανόηση του γεύματος',
+			'meal.analysis.progressMatch' => 'Αναζήτηση διατροφικών στοιχείων συστατικών',
+			'meal.analysis.progressCheck' => 'Έλεγχος μερίδων και εμπιστοσύνης',
 			'meal.analysis.progressMealType' => 'Επιλογή τύπου γεύματος',
-			'meal.analysis.progressFinish' => 'Τελικό',
+			'meal.analysis.progressFinish' => 'Υπολογισμός θερμίδων και μακροθρεπτικών',
 			'meal.analysis.detectedIngredientHeading' => 'Συστατικά που εντοπίζουμε',
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} ακόμη',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Εντοπίστηκαν ${count} συστατικά',
 			'meal.analysis.ingredientsPending' => 'Σάρωση συστατικών…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'Τι φαίνεται λάθος;',
-			'meal.feedback.subtitle' => 'Βοήθησέ μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα προβλήματα.',
-			'meal.feedback.tellUsMore' => 'Πες μας περισσότερα',
-			'meal.feedback.describeIncorrect' => 'Περιέγραψε τι ήταν λάθος',
+			'meal.analysis.offlineTip0' => 'Συμβουλή: Η συνέπεια ξεπερνά την τελειότητα — οι τακτικές εγγραφές αποκαλύπτουν τα μοτίβα που έχουν σημασία.',
+			'meal.analysis.offlineTip1' => 'Συμβουλή: Για φωτογραφίες, ο φυσικός φωτισμός και η λήψη από πάνω βοηθούν στην ακρίβεια των μερίδων.',
+			'meal.analysis.offlineTip2' => 'Συμβουλή: Αναφέρετε ροφήματα, σάλτσες και λάδι μαγειρέματος — προσθέτουν θερμίδες που συχνά ξεχνιούνται.',
+			'meal.analysis.offlineTip3' => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.',
+			'meal.analysis.offlineTip4' => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.',
+			'meal.analysis.offlineTip5' => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).',
+			'meal.feedback.title' => 'Τι φαίνεται λανθασμένο;',
+			'meal.feedback.subtitle' => 'Βοηθήστε μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα ζητήματα.',
+			'meal.feedback.tellUsMore' => 'Πείτε μας περισσότερα',
+			'meal.feedback.describeIncorrect' => 'Περιγράψτε τι ήταν λάθος',
 			'meal.feedback.submit' => 'Υποβολή',
-			'meal.feedback.issueFoodIdentification' => 'Αναγνώριση φαγητού',
+			'meal.feedback.issueFoodIdentification' => 'Αναγνώριση τροφίμου',
 			'meal.feedback.issuePortionSize' => 'Μέγεθος μερίδας',
 			'meal.feedback.issueCalorieDistribution' => 'Κατανομή θερμίδων',
 			'meal.feedback.issueMacrosWrong' => 'Λάθος μακροθρεπτικά',
-			'meal.feedback.issueMissingItems' => 'Στοιχεία που λείπουν',
-			'meal.feedback.issueExtraItems' => 'Επιπλέον στοιχεία',
+			'meal.feedback.issueMissingItems' => 'Λείπουν είδη',
+			'meal.feedback.issueExtraItems' => 'Περιττά είδη',
 			'meal.feedback.issueOther' => 'Άλλο',
 			'favorites.title' => 'Αγαπημένα',
-			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα ακόμη.',
+			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα γεύματα.',
 			'favorites.searchPlaceholder' => 'Αναζήτηση αγαπημένων γευμάτων',
-			'favorites.searchEmptyTitle' => 'Δεν βρέθηκαν αγαπημένα που να ταιριάζουν',
-			'favorites.searchEmptySubtitle' => 'Δοκίμασε διαφορετικό όνομα γεύματος, ποσότητα ή τύπο γεύματος.',
+			'favorites.searchEmptyTitle' => 'Καμία αντιστοιχία στα αγαπημένα',
+			'favorites.searchEmptySubtitle' => 'Δοκιμάστε διαφορετικό όνομα γεύματος, ποσότητα ή τύπο γεύματος.',
 			'favorites.sortLabel' => 'Ταξινόμηση αγαπημένων',
 			'favorites.undo' => 'Αναίρεση',
-			'favorites.removed' => ({required Object name}) => 'Αφαιρέθηκε το ${name} από τα αγαπημένα',
+			'favorites.removed' => ({required Object name}) => 'Αφαιρέθηκε ${name} από τα αγαπημένα',
 			'favorites.sortOptions.recent' => 'Πρόσφατα',
 			'favorites.sortOptions.calories' => 'Θερμίδες',
-			'favorites.sortOptions.alphabetical' => 'Α-Ω',
+			'favorites.sortOptions.alphabetical' => 'A-Ω',
 			'profile.title' => 'Προφίλ',
 			'profile.noProfileData' => 'Δεν βρέθηκαν δεδομένα προφίλ',
-			'profile.yourProfile' => 'Το προφίλ σου',
-			'profile.viewAndManage' => 'Δες και διαχειρίσου τις πληροφορίες υγείας σου',
+			'profile.yourProfile' => 'Το Προφίλ Σας',
+			'profile.viewAndManage' => 'Προβολή και διαχείριση των πληροφοριών υγείας σας',
 			'profile.sections.profile' => 'ΠΡΟΦΙΛ',
 			'profile.sections.basicInformation' => 'ΒΑΣΙΚΕΣ ΠΛΗΡΟΦΟΡΙΕΣ',
 			'profile.sections.goalsAndActivity' => 'ΣΤΟΧΟΙ & ΔΡΑΣΤΗΡΙΟΤΗΤΑ',
@@ -1950,34 +1950,34 @@ extension on TranslationsEl {
 			'profile.height' => 'Ύψος',
 			'profile.weight' => 'Βάρος',
 			'profile.age' => 'Ηλικία',
-			'profile.weightGoal' => 'Στόχος βάρους',
-			'profile.targetWeight' => 'Επιθυμητό βάρος',
-			'profile.activityLevel' => 'Επίπεδο δραστηριότητας',
-			'profile.healthMetrics' => 'Δείκτες υγείας',
+			'profile.weightGoal' => 'Στόχος Βάρους',
+			'profile.targetWeight' => 'Επιδιωκόμενο Βάρος',
+			'profile.activityLevel' => 'Επίπεδο Δραστηριότητας',
+			'profile.healthMetrics' => 'Δείκτες Υγείας',
 			'profile.notSet' => 'Μη ορισμένο',
-			'profile.years' => 'ετών',
+			'profile.years' => 'έτη',
 			'profile.updatedSuccessfully' => 'Το προφίλ ενημερώθηκε με επιτυχία!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'Ημερήσιος στόχος',
+			'profile.calculatedValues.dailyGoal' => 'Ημερήσιος Στόχος',
 			'profile.calculatedValues.calPerDay' => 'cal/ημέρα',
-			'profile.calculatedValues.notAvailable' => 'Μ/Δ',
-			'healthScore.title' => 'Δείκτης υγείας',
-			'healthScore.whyThisScore' => 'Γιατί αυτός ο δείκτης;',
-			'healthScore.note' => 'Αυτός ο δείκτης είναι εκτίμηση AI με βάση τα αναγνωρισμένα συστατικά και τη διατροφική πυκνότητα. Πάντα να συμβουλεύεσαι επαγγελματία για διατροφικές συμβουλές.',
+			'profile.calculatedValues.notAvailable' => 'Μη διαθέσιμο',
+			'healthScore.title' => 'Βαθμολογία Υγείας',
+			'healthScore.whyThisScore' => 'Γιατί αυτή η βαθμολογία;',
+			'healthScore.note' => 'Αυτή η βαθμολογία είναι μια εκτίμηση AI βασισμένη στα εντοπισμένα συστατικά και τη διατροφική πυκνότητα. Συμβουλευτείτε πάντα επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.',
 			'healthScore.unhealthy' => 'Ανθυγιεινό',
 			'healthScore.healthy' => 'Υγιεινό',
 			'healthScore.neutral' => 'Ουδέτερο',
-			'editProfile.title' => 'Επεξεργασία προφίλ',
+			'editProfile.title' => 'Επεξεργασία Προφίλ',
 			'editProfile.sections.personalInformation' => 'ΠΡΟΣΩΠΙΚΕΣ ΠΛΗΡΟΦΟΡΙΕΣ',
-			'editProfile.sections.physicalMeasurements' => 'ΣΩΜΑΤΟΜΕΤΡΙΚΑ ΣΤΟΙΧΕΙΑ',
+			'editProfile.sections.physicalMeasurements' => 'ΣΩΜΑΤΙΚΕΣ ΜΕΤΡΗΣΕΙΣ',
 			'editProfile.sections.goalsAndActivity' => 'ΣΤΟΧΟΙ & ΔΡΑΣΤΗΡΙΟΤΗΤΑ',
 			'editProfile.gender' => 'Φύλο',
-			'editProfile.dateOfBirth' => 'Ημερομηνία γέννησης',
+			'editProfile.dateOfBirth' => 'Ημερομηνία Γέννησης',
 			'editProfile.height' => 'Ύψος',
 			'editProfile.weight' => 'Βάρος',
-			'editProfile.weightGoal' => 'Στόχος βάρους',
-			'editProfile.activityLevel' => 'Επίπεδο δραστηριότητας',
+			'editProfile.weightGoal' => 'Στόχος Βάρους',
+			'editProfile.activityLevel' => 'Επίπεδο Δραστηριότητας',
 			'editProfile.metric' => 'Μετρικό',
 			'editProfile.imperial' => 'Αγγλοσαξονικό',
 			'editProfile.unitCm' => 'cm',
@@ -1991,193 +1991,193 @@ extension on TranslationsEl {
 			'editProfile.genders.male' => 'Άνδρας',
 			'editProfile.genders.female' => 'Γυναίκα',
 			'editProfile.genders.other' => 'Άλλο',
-			'editProfile.weightGoals.loseWeight.name' => 'Απώλεια βάρους',
-			'editProfile.weightGoals.loseWeight.description' => 'Δημιούργησε θερμιδικό έλλειμμα για να χάσεις βάρος',
-			'editProfile.weightGoals.maintainWeight.name' => 'Διατήρηση βάρους',
-			'editProfile.weightGoals.maintainWeight.description' => 'Διατήρησε το τωρινό σου βάρος',
-			'editProfile.weightGoals.gainWeight.name' => 'Αύξηση βάρους',
-			'editProfile.weightGoals.gainWeight.description' => 'Δημιούργησε θερμιδικό πλεόνασμα για να πάρεις βάρος',
+			'editProfile.weightGoals.loseWeight.name' => 'Χάσιμο Βάρους',
+			'editProfile.weightGoals.loseWeight.description' => 'Δημιουργία θερμιδικού ελλείμματος για απώλεια βάρους',
+			'editProfile.weightGoals.maintainWeight.name' => 'Διατήρηση Βάρους',
+			'editProfile.weightGoals.maintainWeight.description' => 'Διατήρηση του τρέχοντος βάρους',
+			'editProfile.weightGoals.gainWeight.name' => 'Αύξηση Βάρους',
+			'editProfile.weightGoals.gainWeight.description' => 'Δημιουργία θερμιδικού πλεονάσματος για αύξηση βάρους',
 			'editProfile.activityLevels.sedentary.name' => 'Καθιστικός',
-			'editProfile.activityLevels.sedentary.description' => 'Ελάχιστη ή καθόλου άσκηση',
-			'editProfile.activityLevels.lightlyActive.name' => 'Ελαφρά δραστήριος/α',
-			'editProfile.activityLevels.lightlyActive.description' => 'Ελαφριά άσκηση 1-3 ημέρες/εβδομάδα',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Μέτρια δραστήριος/α',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Μέτρια άσκηση 3-5 ημέρες/εβδομάδα',
-			'editProfile.activityLevels.veryActive.name' => 'Πολύ δραστήριος/α',
-			'editProfile.activityLevels.veryActive.description' => 'Έντονη άσκηση 6-7 ημέρες/εβδομάδα',
-			'editProfile.activityLevels.extremelyActive.name' => 'Εξαιρετικά δραστήριος/α',
-			'editProfile.activityLevels.extremelyActive.description' => 'Πολύ έντονη άσκηση, χειρωνακτική εργασία',
+			'editProfile.activityLevels.sedentary.description' => 'Λίγη έως καθόλου άσκηση',
+			'editProfile.activityLevels.lightlyActive.name' => 'Ελαφρώς Δραστήριος',
+			'editProfile.activityLevels.lightlyActive.description' => 'Ελαφριά άσκηση 1-3 ημέρες/εβδ.',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Μέτρια Δραστήριος',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Μέτρια άσκηση 3-5 ημέρες/εβδ.',
+			'editProfile.activityLevels.veryActive.name' => 'Πολύ Δραστήριος',
+			'editProfile.activityLevels.veryActive.description' => 'Σκληρή άσκηση 6-7 ημέρες/εβδ.',
+			'editProfile.activityLevels.extremelyActive.name' => 'Ακραία Δραστήριος',
+			'editProfile.activityLevels.extremelyActive.description' => 'Πολύ σκληρή άσκηση, φυσική εργασία',
 			'settings.title' => 'Ρυθμίσεις',
 			'settings.sections.profile' => 'ΠΡΟΦΙΛ',
-			'settings.sections.localization' => 'ΓΛΩΣΣΑ & ΜΟΝΑΔΕΣ',
+			'settings.sections.localization' => 'ΤΟΠΟΠΟΙΗΣΗ',
 			'settings.sections.notifications' => 'ΕΙΔΟΠΟΙΗΣΕΙΣ',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ',
-			'settings.sections.about' => 'ΣΧΕΤΙΚΑ',
-			'settings.sections.dangerZone' => 'ΖΩΝΗ ΚΙΝΔΥΝΟΥ',
-			'settings.sections.developer' => 'ΠΡΟΓΡΑΜΜΑΤΙΣΤΗΣ',
-			'settings.editProfile.title' => 'Επεξεργασία προφίλ',
-			'settings.editProfile.subtitle' => 'Ενημέρωσε τα προσωπικά σου στοιχεία',
+			'settings.sections.about' => 'ΠΛΗΡΟΦΟΡΙΕΣ',
+			'settings.sections.dangerZone' => 'ΠΕΡΙΟΧΗ ΚΙΝΔΥΝΟΥ',
+			'settings.sections.developer' => 'ΑΝΑΠΤΥΞΗΣ',
+			'settings.editProfile.title' => 'Επεξεργασία Προφίλ',
+			'settings.editProfile.subtitle' => 'Ενημερώστε τις προσωπικές σας πληροφορίες',
 			'settings.language.title' => 'Γλώσσα',
-			'settings.language.subtitle' => 'Επίλεξε την προτιμώμενη γλώσσα',
+			'settings.language.subtitle' => 'Επιλέξτε την προτιμώμενη γλώσσα σας',
 			'settings.language.searchHint' => 'Αναζήτηση γλωσσών...',
 			'settings.language.noResults' => 'Δεν βρέθηκαν αποτελέσματα',
-			'settings.heightUnit.title' => 'Μονάδα ύψους',
-			'settings.weightUnit.title' => 'Μονάδα βάρους',
-			'settings.mealReminders.title' => 'Υπενθυμίσεις γευμάτων',
-			'settings.mealReminders.subtitle' => 'Μείνε συνεπής με έγκαιρα μηνύματα',
+			'settings.heightUnit.title' => 'Μονάδα Ύψους',
+			'settings.weightUnit.title' => 'Μονάδα Βάρους',
+			'settings.mealReminders.title' => 'Υπενθυμίσεις Γευμάτων',
+			'settings.mealReminders.subtitle' => 'Μείνετε στην πορεία με έγκαιρες ειδοποιήσεις',
 			'settings.theme.title' => 'Θέμα',
 			'settings.theme.light' => 'Φωτεινό',
-			'settings.theme.dark' => 'Σκουρό',
+			'settings.theme.dark' => 'Σκοτεινό',
 			'settings.theme.system' => 'Σύστημα',
-			'settings.sendFeedback.title' => 'Στείλε σχόλια',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Βοήθησέ μας να βελτιώσουμε το ${appLabel}',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Σχόλια για την εφαρμογή ${appLabel}',
-			'settings.sendFeedback.emailBodyPrefix' => 'Παρακαλούμε γράψε τα σχόλιά σου παρακάτω:',
+			'settings.sendFeedback.title' => 'Αποστολή Σχολίων',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Βοηθήστε να βελτιώσουμε το ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Σχόλια εφαρμογής',
+			'settings.sendFeedback.emailBodyPrefix' => 'Παρακαλώ δώστε τα σχόλιά σας παρακάτω:',
 			'settings.sendFeedback.appVersion' => 'Έκδοση εφαρμογής',
 			'settings.sendFeedback.device' => 'Συσκευή',
 			'settings.sendFeedback.osVersion' => 'Έκδοση OS',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'Εξαγωγή ιστορικού γευμάτων',
-			'settings.exportMealHistory.subtitle' => 'Μοιράσου ένα CSV με τα καταγεγραμμένα γεύματά σου',
-			'settings.exportMealHistory.shareText' => 'Η εξαγωγή του ιστορικού γευμάτων σου από το Calorify',
+			'settings.exportMealHistory.title' => 'Εξαγωγή Ιστορικού Γευμάτων',
+			'settings.exportMealHistory.subtitle' => 'Μοιραστείτε ένα CSV με τα καταχωρημένα γεύματά σας',
+			'settings.exportMealHistory.shareText' => 'Εξαγωγή ιστορικού γευμάτων Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Δεν ήταν δυνατή η εξαγωγή ιστορικού γευμάτων: ${error}',
-			'settings.clearAllData.title' => 'Διαγραφή όλων των δεδομένων',
-			'settings.clearAllData.subtitle' => 'Μη αναστρέψιμη διαγραφή όλων των πληροφοριών',
+			'settings.clearAllData.title' => 'Διαγραφή Όλων των Δεδομένων',
+			'settings.clearAllData.subtitle' => 'Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή',
 			'settings.clearAllData.confirmationTitle' => 'Διαγραφή όλων των δεδομένων;',
-			'settings.clearAllData.confirmationMessage' => 'Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα γεύματα, τα αγαπημένα και οι ρυθμίσεις προφίλ θα διαγραφούν οριστικά.',
-			'settings.clearAllData.cancel' => 'Άκυρο',
-			'settings.clearAllData.clearEverything' => 'Διαγραφή όλων',
-			'settings.debugOptions.title' => 'Επιλογές αποσφαλμάτωσης',
-			'settings.developerModeEnabled' => 'Η λειτουργία προγραμματιστή ενεργοποιήθηκε!',
+			'settings.clearAllData.confirmationMessage' => 'Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα καταγεγραμμένα γεύματα, τα αγαπημένα και οι ρυθμίσεις προφίλ θα διαγραφούν οριστικά.',
+			'settings.clearAllData.cancel' => 'Ακύρωση',
+			'settings.clearAllData.clearEverything' => 'Διαγραφή Όλων',
+			'settings.debugOptions.title' => 'Επιλογές Αποσφαλμάτωσης',
+			'settings.developerModeEnabled' => 'Λειτουργία προγραμματιστή ενεργοποιήθηκε!',
 			'settings.healthConnect.title' => 'Health Connect',
-			'settings.healthConnect.subtitle' => 'Προβολή και διαχείριση δικαιωμάτων',
-			'settings.healthConnect.unavailable.title' => 'Το Health Connect δεν είναι διαθέσιμο',
-			'settings.healthConnect.unavailable.description' => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκατάστησε το από το Play Store (Android 9+) ή αναβάθμισε σε Android 14+.',
+			'settings.healthConnect.subtitle' => 'Προβολή και διαχείριση αδειών',
+			'settings.healthConnect.unavailable.title' => 'Το Health Connect Δεν Διατίθεται',
+			'settings.healthConnect.unavailable.description' => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Δικαιώματα',
 			'settings.healthConnect.permissions.description' => 'Ζητούνται τα παρακάτω δικαιώματα για την ενσωμάτωση με το Health Connect:',
-			'settings.healthConnect.permissions.granted' => 'Χορηγήθηκε',
-			'settings.healthConnect.permissions.notGranted' => 'Δεν χορηγήθηκε',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Ανάγνωση συνολικών θερμίδων που κάηκαν',
+			'settings.healthConnect.permissions.granted' => 'Επιτράπηκε',
+			'settings.healthConnect.permissions.notGranted' => 'Δεν Επιτράπηκε',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Ανάγνωση Συνολικών Θερμίδων που Κάηκαν',
 			'settings.healthConnect.permissions.caloriesBurned.description' => 'Επιτρέπει στην εφαρμογή να διαβάζει τις συνολικές θερμίδες που κάηκαν από το Health Connect.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Αυτό το δικαίωμα χρησιμοποιείται για να εμφανίζει η εφαρμογή τις ημερήσιες καύσεις θερμίδων, ώστε να κατανοείς τη συνολική ενεργειακή σου δαπάνη μέσα στην ημέρα.',
-			'settings.healthConnect.permissions.nutritionRead.title' => 'Ανάγνωση διατροφικών δεδομένων',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Επιτρέπει στην εφαρμογή να διαβάζει διατροφικά δεδομένα από το Health Connect.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Αυτό το δικαίωμα επιτρέπει την ανάγνωση διατροφικών πληροφοριών που μπορεί να έχουν καταγραφεί από άλλες εφαρμογές συνδεδεμένες στο Health Connect, προσφέροντας μια ολοκληρωμένη εικόνα της διατροφής σου.',
-			'settings.healthConnect.permissions.nutritionWrite.title' => 'Εγγραφή διατροφικών δεδομένων',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Επιτρέπει στην εφαρμογή να γράφει διατροφικά δεδομένα στο Health Connect.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Αυτό το δικαίωμα επιτρέπει τον συγχρονισμό των καταγεγραμμένων γευμάτων σου στο Health Connect, ώστε τα διατροφικά σου δεδομένα να είναι διαθέσιμα και σε άλλες εφαρμογές υγείας και fitness που χρησιμοποιείς.',
-			'settings.healthConnect.managePermissions' => 'Διαχείριση δικαιωμάτων',
-			'settings.healthConnect.openSettings' => 'Άνοιγμα ρυθμίσεων Health Connect',
-			'settings.healthConnect.requestPermissions' => 'Αίτημα δικαιωμάτων',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Το αίτημα δικαιωμάτων ακυρώθηκε ή απέτυχε. Δοκίμασε ξανά ή δώσε δικαιώματα χειροκίνητα από τις ρυθμίσεις του Health Connect.',
-			'settings.healthConnect.permissionRequestFailed' => 'Δεν ήταν δυνατό το αίτημα δικαιωμάτων. Δοκίμασε ξανά ή δώσε δικαιώματα χειροκίνητα από τις ρυθμίσεις του Health Connect.',
-			'settings.healthConnect.requestingPermissions' => 'Γίνεται αίτημα...',
-			'settings.about.title' => 'Σχετικά',
-			'settings.about.tagline' => 'Γρήγορη, δωρεάν και με προτεραιότητα στην ιδιωτικότητα επίγνωση θερμίδων',
-			'settings.about.ourStory.title' => 'Η ιστορία μας',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => 'Το ${appLabel} γεννήθηκε από μια απλή απογοήτευση: οι περισσότερες εφαρμογές καταγραφής θερμίδων είναι είτε υπερβολικά πολύπλοκες, απαιτούν συνεχώς χειροκίνητη εισαγωγή, χρεώνουν ακριβά συνδρομές ή δεν σέβονται την ιδιωτικότητα.\n\nΩς solo προγραμματιστής, ήθελα κάτι πιο απλό και δίκαιο — μια εφαρμογή που χρησιμοποιεί AI για να μειώνει την προσπάθεια, παραμένει γρήγορη και δωρεάν, και αντιμετωπίζει με σεβασμό τα δεδομένα υγείας σου.\n\nΤο ${appLabel} είναι η εφαρμογή που θα ήθελα να υπάρχει: χωρίς λογαριασμούς, χωρίς παρακολούθηση, χωρίς διαφημίσεις — μόνο καθαρές, πρακτικές πληροφορίες και οι στόχοι υγείας σου.',
-			'settings.about.privacy.title' => 'Η ιδιωτικότητά σου μετράει',
-			'settings.about.privacy.description' => 'Η ιδιωτικότητα δεν είναι υστερόγραφο — είναι αρχή σχεδιασμού. Τι σημαίνει αυτό στην πράξη:',
-			'settings.about.privacy.noAccounts' => 'Χωρίς λογαριασμούς\nΧρησιμοποίησε την εφαρμογή άμεσα. Χωρίς εγγραφές, χωρίς ταυτοποίηση.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Χωρίς συμπεριφορική παρακολούθηση\nΤο ${appLabel} δεν παρακολουθεί τη δραστηριότητά σου, δεν δημιουργεί προφίλ χρήσης και δεν σε ανιχνεύει σε εφαρμογές ή ιστότοπους.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Χωρίς διαφημίσεις από σχεδιασμό\nΤο ${appLabel} είναι φτιαγμένο να λειτουργεί χωρίς διαφημίσεις ή εμπορευματοποίηση δεδομένων.',
-			'settings.about.privacy.noDataSelling' => 'Χωρίς πώληση δεδομένων\nΤα δεδομένα υγείας σου δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.',
-			'settings.about.privacy.localStorage' => 'Πρωτίστως τοπική αποθήκευση\nΤα δεδομένα σου παραμένουν στη συσκευή σου.',
-			'settings.about.privacy.privacyPolicy' => 'Πολιτική απορρήτου',
-			'settings.about.developer.title' => 'Κατασκευάστηκε από έναν solo προγραμματιστή',
-			'settings.about.developer.description' => ({required Object appLabel}) => 'Το ${appLabel} δημιουργείται και συντηρείται από έναν solo προγραμματιστή που εστιάζει σε ήσυχο, με σεβασμό στην ιδιωτικότητα λογισμικό υγείας.\n\nΤα σχόλια διαβάζονται προσωπικά και διαμορφώνουν την κατεύθυνση της εφαρμογής.',
-			'settings.about.developer.website' => 'Ιστότοπος',
-			'settings.about.developer.email' => 'Email',
-			'settings.about.feedback.title' => ({required Object appLabel}) => 'Σου αρέσει το ${appLabel};',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Τα σχόλιά σου βοηθούν να γίνει το ${appLabel} καλύτερο για όλους.',
-			'settings.about.feedback.rateApp' => 'Αξιολόγηση στο Play Store',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Αυτό το δικαίωμα χρησιμοποιείται για να εμφανιστεί η ημερήσια καύση θερμίδων στην εφαρμογή, βοηθώντας σας να κατανοήσετε τη συνολική ενεργειακή δαπάνη.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Ανάγνωση Δεδομένων Διατροφής',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Επιτρέπει στην εφαρμογή να διαβάζει τα δεδομένα διατροφής από το Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Αυτό επιτρέπει στην εφαρμογή να διαβάζει διατροφικές πληροφορίες που μπορεί να έχουν καταχωρήσει άλλες εφαρμογές συνδεδεμένες με το Health Connect, παρέχοντας μια ολοκληρωμένη εικόνα της διατροφής σας.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Εγγραφή Δεδομένων Διατροφής',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Επιτρέπει στην εφαρμογή να γράφει δεδομένα διατροφής στο Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Αυτό επιτρέπει στην εφαρμογή να συγχρονίζει τα καταγεγραμμένα γεύματά σας στο Health Connect, κάνοντας τα διατροφικά σας δεδομένα διαθέσιμα σε άλλες εφαρμογές υγείας και fitness που χρησιμοποιείτε.',
+			'settings.healthConnect.managePermissions' => 'Διαχείριση Δικαιωμάτων',
+			'settings.healthConnect.openSettings' => 'Άνοιγμα Ρυθμίσεων Health Connect',
+			'settings.healthConnect.requestPermissions' => 'Αίτηση Δικαιωμάτων',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Το αίτημα άδειας ακυρώθηκε ή απέτυχε. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'Αδυναμία αιτήματος αδειών. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'Αίτηση...',
+			'settings.about.title' => 'Πληροφορίες',
+			'settings.about.tagline' => 'Γρήγορο, δωρεάν και με σεβασμό στην ιδιωτικότητα για την επίγνωση θερμίδων',
+			'settings.about.ourStory.title' => 'Η Ιστορία Μας',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => 'Το ${appLabel} γεννήθηκε από μια απλή απογοήτευση: οι περισσότερες εφαρμογές καταγραφής θερμίδων είναι είτε υπερβολικά περίπλοκες, απαιτούν συνεχή μη αυτόματη εισαγωγή, χρεώνουν υψηλές συνδρομές ή θέτουν σε κίνδυνο το απόρρητο.\n\nΩς μοναδικός προγραμματιστής, ήθελα να δημιουργήσω κάτι απλούστερο και δικαιότερο — μια εφαρμογή που χρησιμοποιεί AI για να μειώσει την προσπάθεια, παραμένει γρήγορη και δωρεάν στη χρήση και αντιμετωπίζει τα δεδομένα υγείας σας με σεβασμό.\n\nΤο ${appLabel} είναι η εφαρμογή που θα ήθελα να υπάρχει: χωρίς λογαριασμούς, χωρίς παρακολούθηση, χωρίς διαφημίσεις — μόνο σαφείς, πρακτικές πληροφορίες και τους στόχους υγείας σας.',
+			'settings.about.privacy.title' => 'Η Ιδιωτικότητά σας Μετράει',
+			'settings.about.privacy.description' => 'Η ιδιωτικότητα δεν είναι μετά -σκέψη — είναι αρχή σχεδιασμού. Αυτό σημαίνει στην πράξη:',
+			'settings.about.privacy.noAccounts' => 'Χωρίς λογαριασμούς\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Χωρίς συμπεριφορική παρακολούθηση\nΤο ${appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης ούτε σας παρακολουθεί σε εφαρμογές ή ιστοσελίδες.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Χωρίς διαφημίσεις εξ ορισμού\nΤο ${appLabel} σχεδιάστηκε να λειτουργεί χωρίς διαφημίσεις ή εμπορικοποίηση βασισμένη σε δεδομένα.',
+			'settings.about.privacy.noDataSelling' => 'Δεν πωλούμε δεδομένα\nΤα δεδομένα υγείας σας δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.',
+			'settings.about.privacy.localStorage' => 'Τοπική αποθήκευση ως προτεραιότητα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.',
+			'settings.about.privacy.privacyPolicy' => 'Πολιτική Ιδιωτικότητας',
+			'settings.about.developer.title' => 'Δημιουργήθηκε από έναν Μεμονωμένο Προγραμματιστή',
+			'settings.about.developer.description' => ({required Object appLabel}) => 'Το ${appLabel} είναι χτισμένο και συντηρείται από έναν μοναδικό ανεξάρτητο προγραμματιστή που επικεντρώνεται στη δημιουργία ήρεμου λογισμικού υγείας που σέβεται την ιδιωτικότητα.\n\nΤα σχόλια διαβάζονται προσωπικά και βοηθούν στη διαμόρφωση της κατεύθυνσης της εφαρμογής.',
+			'settings.about.developer.website' => 'Ιστοσελίδα',
+			'settings.about.developer.email' => 'Ηλ. ταχυδρομείο',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Σας Αρέσει το ${appLabel};',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Τα σχόλιά σας βοηθούν το ${appLabel} να γίνει καλύτερο για όλους.',
+			'settings.about.feedback.rateApp' => 'Βαθμολογήστε στο Play Store',
 			'settings.about.feedback.sendFeedback' => 'Αποστολή σχολίων',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Δόμηση ${buildNumber}',
-			'reminders.title' => 'Μείνε συνεπής με υπενθυμίσεις',
-			'reminders.description' => 'Λάβε ήπιες υπενθυμίσεις για να καταγράφεις τα γεύματά σου και να μένεις σταθερός/ή στους διατροφικούς σου στόχους',
-			'reminders.notificationsEnabled' => 'Ενεργοποιημένες ειδοποιήσεις',
-			'reminders.notificationsDisabled' => 'Απενεργοποιημένες ειδοποιήσεις',
-			'reminders.enabledSubtitle' => 'Θα λαμβάνεις υπενθυμίσεις γευμάτων',
-			'reminders.disabledSubtitle' => 'Ενεργοποίησε τις ειδοποιήσεις για να λάβεις υπενθυμίσεις γευμάτων',
-			'reminders.mealReminders' => 'Υπενθυμίσεις γευμάτων',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'reminders.title' => 'Μείνετε στην πορεία με υπενθυμίσεις',
+			'reminders.description' => 'Λάβετε ήπιες υπενθυμίσεις για να καταγράφετε τα γεύματά σας και να τηρείτε τους διατροφικούς σας στόχους',
+			'reminders.notificationsEnabled' => 'Ειδοποιήσεις Ενεργοποιημένες',
+			'reminders.notificationsDisabled' => 'Ειδοποιήσεις Απενεργοποιημένες',
+			'reminders.enabledSubtitle' => 'Θα λαμβάνετε υπενθυμίσεις γευμάτων',
+			'reminders.disabledSubtitle' => 'Ενεργοποιήστε τις ειδοποιήσεις για να λαμβάνετε υπενθυμίσεις γευμάτων',
+			'reminders.mealReminders' => 'Υπενθυμίσεις Γευμάτων',
 			'reminders.breakfast' => 'Πρωινό',
 			'reminders.lunch' => 'Μεσημεριανό',
 			'reminders.dinner' => 'Βραδινό',
 			'reminders.snack' => 'Σνακ',
 			'reminders.unknown' => 'Άγνωστο',
 			'reminders.change' => 'Αλλαγή',
-			'reminders.enableNotifications' => 'Ενεργοποίηση ειδοποιήσεων',
+			'reminders.enableNotifications' => 'Ενεργοποίηση Ειδοποιήσεων',
 			'reminders.skipForNow' => 'Παράλειψη προς το παρόν',
-			'reminders.saveChanges' => 'Αποθήκευση αλλαγών',
+			'reminders.saveChanges' => 'Αποθήκευση Αλλαγών',
 			'reminders.enabledSuccessfully' => 'Οι ειδοποιήσεις ενεργοποιήθηκαν με επιτυχία!',
-			'reminders.permissionDenied' => 'Άρνηση άδειας ειδοποιήσεων',
-			'reminders.errorEnabling' => ({required Object error}) => 'Σφάλμα κατά την ενεργοποίηση ειδοποιήσεων: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'Σφάλμα κατά την ολοκλήρωση ρύθμισης: ${error}',
-			'notifications.breakfast.title' => 'Ώρα για πρωινό! 🍳',
-			'notifications.breakfast.body' => 'Μην ξεχάσεις να καταγράψεις το πρωινό σου',
-			'notifications.lunch.title' => 'Ώρα για μεσημεριανό! 🥗',
-			'notifications.lunch.body' => 'Ήρθε η ώρα να καταγράψεις το μεσημεριανό σου',
-			'notifications.dinner.title' => 'Ώρα για βραδινό! 🍽️',
-			'notifications.dinner.body' => 'Μην ξεχάσεις να καταγράψεις το βραδινό σου',
-			'notifications.snack.title' => 'Ώρα για σνακ! 🍎',
+			'reminders.permissionDenied' => 'Αρνήθηκε η άδεια ειδοποιήσεων',
+			'reminders.errorEnabling' => ({required Object error}) => 'Σφάλμα ενεργοποίησης ειδοποιήσεων: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'Σφάλμα κατά την ολοκλήρωση της ρύθμισης: ${error}',
+			'notifications.breakfast.title' => 'Ώρα για Πρωινό! 🍳',
+			'notifications.breakfast.body' => 'Μην ξεχάσετε να καταγράψετε το πρωινό σας',
+			'notifications.lunch.title' => 'Ώρα για Μεσημεριανό! 🥗',
+			'notifications.lunch.body' => 'Ώρα να καταγράψετε το μεσημεριανό σας',
+			'notifications.dinner.title' => 'Ώρα για Βραδινό! 🍽️',
+			'notifications.dinner.body' => 'Μην ξεχάσετε να καταγράψετε το βραδινό σας',
+			'notifications.snack.title' => 'Ώρα για Σνακ! 🍎',
 			'notifications.snack.body' => 'Ώρα για ένα υγιεινό σνακ',
-			'notifications.test.title' => 'Δοκιμαστική ειδοποίηση',
+			'notifications.test.title' => 'Δοκιμαστική Ειδοποίηση',
 			'login.title' => 'Σύνδεση',
 			'login.signInWithGoogle' => 'Σύνδεση με Google',
-			'login.signInFailed' => 'Η σύνδεση με Google απέτυχε ή ακυρώθηκε.',
-			'disclaimer.pleaseNote' => 'Παρακαλώ σημείωσε',
-			'disclaimer.snap.description' => ({required Object appLabel}) => 'Το ${appLabel} παρέχει εκτιμώμενες διατροφικές πληροφορίες. Η ακρίβεια εξαρτάται από την είσοδό σου και τις διαφορές στα τρόφιμα. Χρησιμοποίησέ το ως οδηγό, όχι ως απόλυτη πηγή. Συμβουλεύσου επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.',
-			'disclaimer.snap.portionSize.title' => 'Μέγεθος μερίδας',
-			'disclaimer.snap.portionSize.description' => 'Η ακρίβεια των εκτιμήσεων βασίζεται σε μεγάλο βαθμό στη σωστή εκτίμηση του μεγέθους της μερίδας.',
-			'disclaimer.snap.preparationMethods.title' => 'Μέθοδοι παρασκευής',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Οι τρόποι μαγειρέματος μπορούν να επηρεάσουν σημαντικά τα διατροφικά στοιχεία. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις διαφορές.',
+			'login.signInFailed' => 'Η Σύνδεση με Google απέτυχε ή ακυρώθηκε.',
+			'disclaimer.pleaseNote' => 'Σημειώστε',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} παρέχει εκτιμώμενες διατροφικές πληροφορίες. Η ακρίβεια εξαρτάται από τα στοιχεία που δίνετε και τις παραλλαγές του φαγητού. Χρησιμοποιήστε το ως οδηγό, όχι ως οριστική πηγή. Συμβουλευτείτε επαγγελματία για εξατομικευμένες διατροφικές συμβουλές.',
+			'disclaimer.snap.portionSize.title' => 'Μέγεθος Μερίδας',
+			'disclaimer.snap.portionSize.description' => 'Η ακρίβεια των εκτιμήσεων εξαρτάται σε μεγάλο βαθμό από τη σωστή εκτίμηση του μεγέθους της μερίδας.',
+			'disclaimer.snap.preparationMethods.title' => 'Τρόποι Προετοιμασίας',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το διατροφικό περιεχόμενο. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.',
 			'disclaimer.snap.ingredients.title' => 'Συστατικά',
-			'disclaimer.snap.ingredients.description' => 'Σύνθετα πιάτα με πολλά «κρυφά» συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.',
-			'disclaimer.snap.databaseLimitations.title' => 'Περιορισμοί βάσης δεδομένων',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Η βάση τροφίμων του ${appLabel} είναι εκτενής αλλά ενδέχεται να μην περιλαμβάνει κάθε τρόφιμο ή παραλλαγή.',
-			'disclaimer.weightEstimate.title' => 'Σχετικά με την εκτίμηση βάρους',
-			'disclaimer.weightEstimate.description' => 'Η προβλεπόμενη αλλαγή βάρους είναι θεωρητική εκτίμηση που βασίζεται στο απλό μοντέλο θερμίδες-εντός έναντι θερμίδων-εκτός. Σκοπός της είναι το κίνητρο, όχι η πρόβλεψη του πραγματικού βάρους σου.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Ακρίβεια θερμίδων',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Η εκτίμηση είναι τόσο ακριβής όσο η καταγραφή πρόσληψης και δαπάνης θερμίδων. Ανακριβής καταγραφή οδηγεί σε ανακριβή εκτίμηση.',
-			'disclaimer.weightEstimate.biologicalFactors.title' => 'Βιολογικοί παράγοντες',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Η πραγματική απώλεια/αύξηση βάρους επηρεάζεται από μεταβολισμό, ορμόνες, ύπνο, στρες, ενυδάτωση και άλλους ατομικούς παράγοντες που το ${appLabel} δεν μπορεί να μετρήσει.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Κατακράτηση υγρών & διακυμάνσεις',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Το καθημερινό βάρος μπορεί να μεταβάλλεται σημαντικά λόγω κατακράτησης υγρών, πέψης και χρονισμού. Η εκτίμηση δεν λαμβάνει υπόψη αυτές τις καθημερινές αλλαγές.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Επαγγελματική καθοδήγηση',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Μην χρησιμοποιείς αυτήν την εκτίμηση για ιατρικές αποφάσεις. Πάντα να συμβουλεύεσαι έναν επαγγελματία υγείας ή πιστοποιημένο διαιτολόγο για εξατομικευμένη διαχείριση βάρους.',
-			'disclaimer.healthMetrics.description' => 'Αυτοί οι δείκτες βοηθούν να κατανοήσεις τις ενεργειακές ανάγκες του σώματός σου και να καθοδηγήσεις τους διατροφικούς σου στόχους.',
+			'disclaimer.snap.ingredients.description' => 'Τα σύνθετα πιάτα με πολλά κρυφά συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.',
+			'disclaimer.snap.databaseLimitations.title' => 'Περιορισμοί Βάσης Δεδομένων',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτεταμένη αλλά ενδέχεται να μην περιλαμβάνει κάθε είδος ή παραλλαγή.',
+			'disclaimer.weightEstimate.title' => 'Σχετικά με την Εκτίμηση Βάρους',
+			'disclaimer.weightEstimate.description' => 'Η προβλεπόμενη αλλαγή βάρους είναι μια θεωρητική εκτίμηση βασισμένη στο απλό μοντέλο θερμίδες-εισόδου vs θερμίδες-εξόδου. Προορίζεται μόνο για κινητοποίηση, όχι ως πρόβλεψη του πραγματικού σας βάρους.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Ακρίβεια Θερμίδων',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Αυτή η εκτίμηση είναι τόσο ακριβής όσο και η καταγραφή της πρόσληψης και δαπάνης θερμίδων. Ανακριβής καταγραφή θα οδηγήσει σε ανακριβή προβολή.',
+			'disclaimer.weightEstimate.biologicalFactors.title' => 'Βιολογικοί Παράγοντες',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Η πραγματική απώλεια/αύξηση βάρους επηρεάζεται από τον μεταβολισμό, τις ορμόνες, τον ύπνο, το στρες, την ενυδάτωση και άλλους ατομικούς παράγοντες που το ${appLabel} δεν μπορεί να μετρήσει.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Βάρος Νερού & Διακυμάνσεις',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Το φυσιολογικό βάρος μπορεί να διακυμανθεί σημαντικά καθημερινά λόγω συγκράτησης νερού, πέψης και χρονισμού. Η εκτίμηση δεν λαμβάνει υπόψη αυτές τις καθημερινές αλλαγές.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.',
+			'disclaimer.healthMetrics.description' => 'Αυτοί οι δείκτες σας βοηθούν να κατανοήσετε τις ενεργειακές ανάγκες του σώματός σας και να καθοδηγήσετε τους διατροφικούς σας στόχους.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Ο Βασικός Μεταβολικός Ρυθμός (BMR) είναι οι θερμίδες που καίει το σώμα σου σε κατάσταση ηρεμίας για βασικές λειτουργίες όπως αναπνοή και κυκλοφορία. Εξαρτάται από ηλικία, φύλο, ύψος και βάρος. Υψηλότερο BMR σημαίνει ότι καίγονται περισσότερες θερμίδες σε ηρεμία, συνήθως λόγω περισσότερης μυϊκής μάζας, νεότερης ηλικίας ή ανδρικού φύλου. Χαμηλότερο BMR συνδέεται συνήθως με λιγότερη μυϊκή μάζα, μεγαλύτερη ηλικία ή γυναικείο φύλο.',
+			'disclaimer.healthMetrics.bmr.description' => 'Ο Βασικός Μεταβολικός Ρυθμός (BMR) είναι οι θερμίδες που καίει το σώμα σας σε ηρεμία για να διατηρήσει βασικές λειτουργίες όπως η αναπνοή και η κυκλοφορία. Ο BMR εξαρτάται από την ηλικία, το φύλο, το ύψος και το βάρος. Ένας υψηλότερος BMR σημαίνει ότι το σώμα σας καίει φυσικά περισσότερες θερμίδες σε ηρεμία, συχνά λόγω μεγαλύτερης μυϊκής μάζας, νεότερης ηλικίας ή αρσενικού φύλου. Ένας χαμηλότερος BMR τυπικά υποδεικνύει λιγότερη μυϊκή μάζα, μεγαλύτερη ηλικία ή θηλυκό φύλο.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Η Συνολική Ημερήσια Ενεργειακή Δαπάνη (TDEE) είναι οι συνολικές θερμίδες που καίγεις μέσα στην ημέρα, δηλαδή το BMR συν τη σωματική δραστηριότητα και την κίνηση. Εξαρτάται από το BMR και το επίπεδο δραστηριότητας. Υψηλότερο TDEE σημαίνει περισσότερες καύσεις, συνήθως λόγω μεγαλύτερης δραστηριότητας ή υψηλότερου BMR. Χαμηλότερο TDEE υποδηλώνει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.',
-			'disclaimer.healthMetrics.dailyGoal.title' => 'Ημερήσιος στόχος',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Ο Ημερήσιος Στόχος είναι η προτεινόμενη ημερήσια πρόσληψη θερμίδων βάσει TDEE και στόχου βάρους. Για απώλεια βάρους, καταναλώνεις λιγότερες θερμίδες από το TDEE. Για διατήρηση, ταιριάζεις το TDEE. Για αύξηση, καταναλώνεις περισσότερες. Αυτό βοηθά να πετύχεις την επιθυμητή αλλαγή βάρους με υγιή ρυθμό.',
-			'disclaimer.calorieExpenditure.title' => 'Εκτίμηση δαπάνης θερμίδων',
-			'disclaimer.calorieExpenditure.description' => 'Όταν δεν υπάρχουν δεδομένα Health Connect, εκτιμούμε τις θερμίδες που κάηκαν σήμερα χρησιμοποιώντας το BMR και το επίπεδο δραστηριότητάς σου (TDEE), κλιμακωμένα με το ποσοστό της ημέρας που έχει περάσει.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'Πώς υπολογίζεται η εκτίμηση',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Υπολογίζουμε το TDEE (βάσει προφίλ) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει παρέλθει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις έως τώρα καύσεις.',
-			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Επαγγελματική καθοδήγηση',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Μην χρησιμοποιείς αυτήν την εκτίμηση για ιατρικές αποφάσεις. Πάντα να συμβουλεύεσαι επαγγελματία υγείας ή πιστοποιημένο διαιτολόγο για εξατομικευμένες συμβουλές.',
+			'disclaimer.healthMetrics.tdee.description' => 'Το Συνολικό Ημερήσιο Ενεργειακό Έξοδο (TDEE) είναι οι συνολικές θερμίδες που καίτε καθημερινά, συμπεριλαμβανομένου του BMR συν τις θερμίδες από σωματική δραστηριότητα και καθημερινή κίνηση. Το TDEE εξαρτάται από τον BMR και το επίπεδο δραστηριότητας. Ένα υψηλότερο TDEE σημαίνει ότι καίτε περισσότερες θερμίδες συνολικά, συνήθως λόγω μεγαλύτερης δραστηριότητας ή υψηλότερου BMR. Ένα χαμηλότερο TDEE υποδηλώνει λιγότερη καθημερινή δραστηριότητα ή χαμηλότερο BMR.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'Ημερήσιος Στόχος',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Ο Ημερήσιος Στόχος είναι η προτεινόμενη ημερήσια πρόσληψη θερμίδων βασισμένη στο TDEE και τον στόχο βάρους σας. Για απώλεια βάρους, καταναλώνετε λιγότερες θερμίδες από το TDEE. Για διατήρηση, ταιριάζετε το TDEE. Για αύξηση, καταναλώνετε περισσότερες θερμίδες από το TDEE. Αυτό βοηθά να πετύχετε την επιθυμητή αλλαγή βάρους με υγιή ρυθμό.',
+			'disclaimer.calorieExpenditure.title' => 'Εκτίμηση Δαπάνης Θερμίδων',
+			'disclaimer.calorieExpenditure.description' => 'Όταν τα δεδομένα Health Connect δεν είναι διαθέσιμα, εκτιμούμε τις θερμίδες που κάηκαν σήμερα χρησιμοποιώντας τον BMR και το επίπεδο δραστηριότητάς σας (TDEE), κλιμακωμένα για το ποσοστό της ημέρας που έχει περάσει.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Πώς Υπολογίζεται η Εκτίμηση',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που κάηκαν μέχρι στιγμής.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.',
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Σου αρέσει το ${appLabel};',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Σας αρέσει το ${appLabel};',
 			'feedbackRating.yes' => 'Ναι, μου αρέσει',
-			'feedbackRating.no' => 'Όχι ιδιαίτερα',
-			'feedbackRating.rateStepHeading' => 'Αξιολόγηση στο Play Store',
-			'feedbackRating.emailStepHeading' => 'Αποστολή σχολίων με email',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Μια γρήγορη αξιολόγηση βοηθά άλλους να βρουν το ${appLabel} και στηρίζει την ανάπτυξη. Θα αφιερώσεις ένα λεπτό;',
-			'feedbackRating.shareFeedbackViaEmail' => 'Τα σχόλιά σου καθορίζουν τα επόμενα βήματα — διαβάζουμε κάθε μήνυμα. Θέλεις να μοιραστείς τις σκέψεις σου με email;',
-			'feedbackRating.rateCta' => 'Αξιολόγηση στο Play Store',
+			'feedbackRating.no' => 'Όχι τόσο',
+			'feedbackRating.rateStepHeading' => 'Βαθμολογήστε στο Play Store',
+			'feedbackRating.emailStepHeading' => 'Στείλτε σχόλια με email',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Μια γρήγορη αξιολόγηση βοηθά άλλους να βρουν το ${appLabel} και στηρίζει την ανάπτυξη. Θα αφιερώσετε μια στιγμή για να αφήσετε μία;',
+			'feedbackRating.shareFeedbackViaEmail' => 'Τα σχόλιά σας διαμορφώνουν το επόμενο — διαβάζουμε κάθε μήνυμα. Θέλετε να μοιραστείτε τις σκέψεις σας μέσω email;',
+			'feedbackRating.rateCta' => 'Βαθμολογήστε στο Play Store',
 			'feedbackRating.maybeLater' => 'Ίσως αργότερα',
 			'feedbackRating.sendFeedback' => 'Αποστολή σχολίων',
 			'feedbackRating.noThanks' => 'Όχι, ευχαριστώ',
-			'feedbackRating.aboutUsDescription' => 'Φτιαγμένο με φροντίδα από μια μικρή ομάδα. Εστιάζουμε στην ιδιωτικότητα, την απλότητα και στο να σε βοηθήσουμε να χτίσεις καλύτερες διατροφικές συνήθειες.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Αναρωτιέσαι ποιος βρίσκεται πίσω από το ${appLabel}; Δες ',
+			'feedbackRating.aboutUsDescription' => 'Κατασκευάστηκε με φροντίδα από μια μικρή ομάδα. Εστιάζουμε στην ιδιωτικότητα, την απλότητα και το να σας βοηθήσουμε να χτίσετε καλύτερες διατροφικές συνήθειες.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Περιεργάζεστε ποιος βρίσκεται πίσω από το ${appLabel}; Δείτε ',
 			'feedbackRating.aboutUsLinkLabel' => 'Σχετικά με εμάς',
-			'feedbackRating.thankYouMessage' => 'Ευχαριστούμε! Θα ρωτήσουμε ξανά κάποια άλλη στιγμή.',
-			'health.syncFailed' => 'Αδυναμία συγχρονισμού με το Health Connect',
+			'feedbackRating.thankYouMessage' => 'Ευχαριστούμε! Θα ρωτήσουμε πάλι άλλη στιγμή.',
+			'health.syncFailed' => 'Δεν ήταν δυνατή η συγχρονισμός με το Health Connect',
 			'health.mealSynced' => 'Το γεύμα συγχρονίστηκε με το Health Connect',
 			_ => null,
 		};

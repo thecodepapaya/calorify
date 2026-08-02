@@ -37,7 +37,7 @@ class TranslationsZhCn with BaseTranslations<AppLocale, Translations> implements
 	TranslationsZhCn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZhCn(meta: meta ?? this.$meta);
 
 	// Translations
-	@override String get language => '中文（中国）';
+	@override String get language => '简体中文';
 	@override String get flag => '🇨🇳';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
 	@override late final _TranslationsErrorsZhCn errors = _TranslationsErrorsZhCn._(_root);
@@ -67,11 +67,11 @@ class _TranslationsErrorsZhCn implements TranslationsErrorsEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => '你的请求太频繁了。请稍等片刻再试。';
+	@override String get rateLimitExceeded => '请求过多。请稍候再试。';
 	@override String get networkError => '网络错误。请检查你的网络连接。';
-	@override String get unknownError => '出了点问题。请稍后再试。';
-	@override String get loadingProfileData => '加载资料数据出错';
-	@override String get somethingWentWrong => '出了点问题。';
+	@override String get unknownError => '出现问题。请稍后再试。';
+	@override String get loadingProfileData => '加载个人资料数据时出错';
+	@override String get somethingWentWrong => '出现问题。';
 	@override String get retry => '重试';
 }
 
@@ -83,7 +83,7 @@ class _TranslationsOnboardingZhCn implements TranslationsOnboardingEn {
 
 	// Translations
 	@override String welcome({required Object appLabel}) => '欢迎使用 ${appLabel}';
-	@override String get subtitle => '由 AI 驱动的个人营养助手';
+	@override String get subtitle => '由 AI 驱动的你的专属营养助手';
 	@override String get getStarted => '开始使用';
 	@override late final _TranslationsOnboardingFeaturesZhCn features = _TranslationsOnboardingFeaturesZhCn._(_root);
 	@override late final _TranslationsOnboardingGenderZhCn gender = _TranslationsOnboardingGenderZhCn._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsZhCn implements TranslationsTabsEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => '主页';
+	@override String get dashboard => '仪表盘';
 	@override String get history => '历史';
 }
 
@@ -134,8 +134,8 @@ class _TranslationsHistoryZhCn implements TranslationsHistoryEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => '暂无餐食记录';
-	@override String get emptyMessage => '拍下你上一次的餐食照片以在此记录。';
+	@override String get noMeals => '暂无记录的餐食';
+	@override String get emptyMessage => '拍下你最近的一餐照片以在此记录。';
 	@override String get today => '今天';
 	@override String get yesterday => '昨天';
 }
@@ -155,27 +155,27 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String get save => '保存';
 	@override String get mealName => '餐食名称';
 	@override String get mealNameHint => '例如：炒蛋配吐司';
-	@override String get mealQuantity => '份量';
+	@override String get mealQuantity => '餐食数量';
 	@override String get mealQuantityHint => '例如：1 碗，2 片';
 	@override String get timeOfMeal => '用餐时间';
-	@override String get timeOfMealHint => '选择你的用餐时间';
-	@override String get mealType => '用餐类型';
+	@override String get timeOfMealHint => '选择你用餐的时间';
+	@override String get mealType => '餐次类型';
 	@override late final _TranslationsMealNutritionZhCn nutrition = _TranslationsMealNutritionZhCn._(_root);
 	@override late final _TranslationsMealDeleteConfirmationZhCn deleteConfirmation = _TranslationsMealDeleteConfirmationZhCn._(_root);
-	@override String get addedToLog => '餐食已添加到你的记录！';
+	@override String get addedToLog => '餐食已添加到记录！';
 	@override String couldNotAdd({required Object error}) => '无法添加餐食：${error}';
 	@override String get savedSuccessfully => '餐食添加成功！';
 	@override String get updatedSuccessfully => '餐食更新成功！';
-	@override String errorSaving({required Object error}) => '保存餐食出错：${error}';
-	@override String get removedFromFavorites => '已从常用中移除！';
-	@override String get savedAsFavorite => '餐食已设为常用！';
-	@override String get unfavorite => '取消常用';
-	@override String couldNotUpdateFavorite({required Object error}) => '无法更新常用状态：${error}';
+	@override String errorSaving({required Object error}) => '保存餐食时出错：${error}';
+	@override String get removedFromFavorites => '已从收藏中移除！';
+	@override String get savedAsFavorite => '已将餐食保存为收藏！';
+	@override String get unfavorite => '取消收藏';
+	@override String couldNotUpdateFavorite({required Object error}) => '无法更新收藏：${error}';
 	@override String get feedbackThanks => '感谢你的反馈！';
 	@override String get reanalysisUpdated => '已根据你的反馈更新餐食分析。';
 	@override String failedToProcess({required Object error}) => '处理失败：${error}';
 	@override String failedToProcessImage({required Object error}) => '处理图片失败：${error}';
-	@override String errorCompressingImage({required Object error}) => '压缩图片出错：${error}';
+	@override String errorCompressingImage({required Object error}) => '压缩图片时出错：${error}';
 	@override String get failedToSave => '保存数据失败。请重试。';
 	@override String get skip => '跳过';
 	@override late final _TranslationsMealQuestionFlowZhCn questionFlow = _TranslationsMealQuestionFlowZhCn._(_root);
@@ -190,14 +190,14 @@ class _TranslationsFavoritesZhCn implements TranslationsFavoritesEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '常用';
-	@override String get empty => '还没有常用餐食。';
-	@override String get searchPlaceholder => '搜索常用餐食';
-	@override String get searchEmptyTitle => '没有与搜索匹配的常用项';
-	@override String get searchEmptySubtitle => '试试不同的餐食名称、份量或用餐类型。';
-	@override String get sortLabel => '排序常用项';
+	@override String get title => '收藏';
+	@override String get empty => '还没有收藏的餐食。';
+	@override String get searchPlaceholder => '搜索收藏的餐食';
+	@override String get searchEmptyTitle => '没有收藏符合搜索条件';
+	@override String get searchEmptySubtitle => '尝试使用不同的餐名、数量或餐次类型。';
+	@override String get sortLabel => '排序收藏';
 	@override String get undo => '撤销';
-	@override String removed({required Object name}) => '已将 ${name} 从常用中移除';
+	@override String removed({required Object name}) => '已从收藏中移除 ${name}';
 	@override late final _TranslationsFavoritesSortOptionsZhCn sortOptions = _TranslationsFavoritesSortOptionsZhCn._(_root);
 }
 
@@ -209,8 +209,8 @@ class _TranslationsProfileZhCn implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => '个人资料';
-	@override String get noProfileData => '未找到资料数据';
-	@override String get yourProfile => '你的资料';
+	@override String get noProfileData => '未找到个人资料数据';
+	@override String get yourProfile => '你的个人资料';
 	@override String get viewAndManage => '查看并管理你的健康信息';
 	@override late final _TranslationsProfileSectionsZhCn sections = _TranslationsProfileSectionsZhCn._(_root);
 	@override String get gender => '性别';
@@ -219,11 +219,11 @@ class _TranslationsProfileZhCn implements TranslationsProfileEn {
 	@override String get age => '年龄';
 	@override String get weightGoal => '体重目标';
 	@override String get targetWeight => '目标体重';
-	@override String get activityLevel => '活动水平';
+	@override String get activityLevel => '活动等级';
 	@override String get healthMetrics => '健康指标';
 	@override String get notSet => '未设置';
 	@override String get years => '岁';
-	@override String get updatedSuccessfully => '资料更新成功！';
+	@override String get updatedSuccessfully => '个人资料更新成功！';
 	@override late final _TranslationsProfileCalculatedValuesZhCn calculatedValues = _TranslationsProfileCalculatedValuesZhCn._(_root);
 }
 
@@ -234,9 +234,9 @@ class _TranslationsHealthScoreZhCn implements TranslationsHealthScoreEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '健康分';
-	@override String get whyThisScore => '为什么是这个分数？';
-	@override String get note => '该分数是基于识别到的食材与营养密度的 AI 估计。个体饮食建议请始终咨询专业人士。';
+	@override String get title => '健康评分';
+	@override String get whyThisScore => '为什么是这个评分？';
+	@override String get note => '此评分为 AI 基于识别到的食材和营养密度的估算。饮食建议请咨询专业人士。';
 	@override String get unhealthy => '不健康';
 	@override String get healthy => '健康';
 	@override String get neutral => '中性';
@@ -249,24 +249,24 @@ class _TranslationsEditProfileZhCn implements TranslationsEditProfileEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '编辑资料';
+	@override String get title => '编辑个人资料';
 	@override late final _TranslationsEditProfileSectionsZhCn sections = _TranslationsEditProfileSectionsZhCn._(_root);
 	@override String get gender => '性别';
 	@override String get dateOfBirth => '出生日期';
 	@override String get height => '身高';
 	@override String get weight => '体重';
 	@override String get weightGoal => '体重目标';
-	@override String get activityLevel => '活动水平';
+	@override String get activityLevel => '活动等级';
 	@override String get metric => '公制';
 	@override String get imperial => '英制';
-	@override String get unitCm => '厘米';
-	@override String get unitFt => '英尺';
-	@override String get unitKg => '千克';
-	@override String get unitLbs => '磅';
-	@override String get metricCm => '公制（cm）';
-	@override String get imperialFtIn => '英制（ft/in）';
-	@override String get metricKg => '公制（kg）';
-	@override String get imperialLbs => '英制（lbs）';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => '磅 (lbs)';
+	@override String get metricCm => '公制 (cm)';
+	@override String get imperialFtIn => '英制 (ft/in)';
+	@override String get metricKg => '公制 (kg)';
+	@override String get imperialLbs => '英制 (lbs)';
 	@override late final _TranslationsEditProfileGendersZhCn genders = _TranslationsEditProfileGendersZhCn._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsZhCn weightGoals = _TranslationsEditProfileWeightGoalsZhCn._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsZhCn activityLevels = _TranslationsEditProfileActivityLevelsZhCn._(_root);
@@ -291,7 +291,7 @@ class _TranslationsSettingsZhCn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryZhCn exportMealHistory = _TranslationsSettingsExportMealHistoryZhCn._(_root);
 	@override late final _TranslationsSettingsClearAllDataZhCn clearAllData = _TranslationsSettingsClearAllDataZhCn._(_root);
 	@override late final _TranslationsSettingsDebugOptionsZhCn debugOptions = _TranslationsSettingsDebugOptionsZhCn._(_root);
-	@override String get developerModeEnabled => '已启用开发者模式！';
+	@override String get developerModeEnabled => '开发者模式已启用！';
 	@override late final _TranslationsSettingsHealthConnectZhCn healthConnect = _TranslationsSettingsHealthConnectZhCn._(_root);
 	@override late final _TranslationsSettingsAboutZhCn about = _TranslationsSettingsAboutZhCn._(_root);
 	@override late final _TranslationsSettingsAppInfoZhCn appInfo = _TranslationsSettingsAppInfoZhCn._(_root);
@@ -304,13 +304,13 @@ class _TranslationsRemindersZhCn implements TranslationsRemindersEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '用提醒保持节奏';
-	@override String get description => '获得温和的提醒，记录餐食并在营养目标上持续前进';
-	@override String get notificationsEnabled => '已启用通知';
-	@override String get notificationsDisabled => '未启用通知';
-	@override String get enabledSubtitle => '你将收到用餐提醒';
-	@override String get disabledSubtitle => '启用通知以接收用餐提醒';
-	@override String get mealReminders => '用餐提醒';
+	@override String get title => '用提醒保持进度';
+	@override String get description => '收到温和的提醒以记录餐食并坚持你的营养目标';
+	@override String get notificationsEnabled => '通知已启用';
+	@override String get notificationsDisabled => '通知已禁用';
+	@override String get enabledSubtitle => '你将收到餐食提醒';
+	@override String get disabledSubtitle => '启用通知以接收餐食提醒';
+	@override String get mealReminders => '餐食提醒';
 	@override String get breakfast => '早餐';
 	@override String get lunch => '午餐';
 	@override String get dinner => '晚餐';
@@ -318,12 +318,12 @@ class _TranslationsRemindersZhCn implements TranslationsRemindersEn {
 	@override String get unknown => '未知';
 	@override String get change => '更改';
 	@override String get enableNotifications => '启用通知';
-	@override String get skipForNow => '暂时跳过';
+	@override String get skipForNow => '暂不启用';
 	@override String get saveChanges => '保存更改';
-	@override String get enabledSuccessfully => '通知启用成功！';
+	@override String get enabledSuccessfully => '通知已成功启用！';
 	@override String get permissionDenied => '通知权限被拒绝';
-	@override String errorEnabling({required Object error}) => '启用通知出错：${error}';
-	@override String errorCompletingSetup({required Object error}) => '完成设置出错：${error}';
+	@override String errorEnabling({required Object error}) => '启用通知时出错：${error}';
+	@override String errorCompletingSetup({required Object error}) => '完成设置时出错：${error}';
 }
 
 // Path: notifications
@@ -385,20 +385,20 @@ class _TranslationsFeedbackRatingZhCn implements TranslationsFeedbackRatingEn {
 
 	// Translations
 	@override String enjoyingQuestion({required Object appLabel}) => '喜欢 ${appLabel} 吗？';
-	@override String get yes => '是的，我很喜欢';
-	@override String get no => '不太满意';
-	@override String get rateStepHeading => '在 Play 商店评分';
+	@override String get yes => '是，我很喜欢';
+	@override String get no => '不太喜欢';
+	@override String get rateStepHeading => '在 Play Store 评分';
 	@override String get emailStepHeading => '通过邮件发送反馈';
-	@override String soloDevMessage({required Object appLabel}) => '简短的评分有助于他人发现 ${appLabel}，也能支持持续开发。愿意花一点时间评价吗？';
-	@override String get shareFeedbackViaEmail => '你的反馈将影响接下来的方向——我们会阅读每一条留言。愿意通过邮件分享想法吗？';
-	@override String get rateCta => '在 Play 商店评分';
+	@override String soloDevMessage({required Object appLabel}) => '一个简短的评分能帮助更多人发现 ${appLabel} 并支持开发。你愿意花一点时间评分吗？';
+	@override String get shareFeedbackViaEmail => '你的反馈决定下一步方向——我们会阅读每条信息。你愿意通过邮件分享你的想法吗？';
+	@override String get rateCta => '在 Play Store 评分';
 	@override String get maybeLater => '稍后再说';
 	@override String get sendFeedback => '发送反馈';
 	@override String get noThanks => '不用了，谢谢';
-	@override String get aboutUsDescription => '由一个小团队用心打造。我们专注于隐私、简洁，以及帮助你养成更好的饮食习惯。';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是谁在背后打造 ${appLabel}？查看 ';
+	@override String get aboutUsDescription => '由小团队用心打造。我们专注于隐私、简洁，并帮助你养成更好的饮食习惯。';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => '想知道是谁在背后构建 ${appLabel}？查看 ';
 	@override String get aboutUsLinkLabel => '关于我们';
-	@override String get thankYouMessage => '谢谢！我们稍后再问。';
+	@override String get thankYouMessage => '谢谢！我们会在之后再次询问。';
 }
 
 // Path: health
@@ -432,7 +432,7 @@ class _TranslationsOnboardingGenderZhCn implements TranslationsOnboardingGenderE
 
 	// Translations
 	@override String get title => '你的性别是？';
-	@override String get description => '性别有助于我们准确计算你的基础代谢率（BMR）。';
+	@override String get description => '性别有助于我们更准确地计算你的基础代谢率 (BMR)。';
 	@override String get next => '下一步';
 }
 
@@ -457,10 +457,10 @@ class _TranslationsOnboardingWeightZhCn implements TranslationsOnboardingWeightE
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => '你目前的体重是多少？';
-	@override String get currentDescription => '当前体重对于个性化你的每日目标至关重要。';
+	@override String get currentTitle => '你当前的体重是多少？';
+	@override String get currentDescription => '你的当前体重对于个性化每日目标至关重要。';
 	@override String get targetTitle => '你的目标体重是多少？';
-	@override String get targetDescription => '设定目标体重有助于我们制定长期计划。';
+	@override String get targetDescription => '设定目标体重可以帮助我们为你制定长期计划。';
 	@override String get metric => '公制';
 	@override String get imperial => '英制';
 	@override String get next => '下一步';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeZhCn implements TranslationsOnboardingAgeEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '你的生日是？';
-	@override String get description => '你的年龄有助于我们准确计算你的卡路里需求。';
+	@override String get title => '你的出生日期是？';
+	@override String get description => '你的年龄有助于我们准确计算所需热量。';
 	@override String get next => '下一步';
 }
 
@@ -487,7 +487,7 @@ class _TranslationsOnboardingBmiScaleZhCn implements TranslationsOnboardingBmiSc
 	// Translations
 	@override String get underweight => '偏低';
 	@override String get healthy => '健康';
-	@override String get overweight => '偏高';
+	@override String get overweight => '偏重';
 	@override String get obese => '肥胖';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesZhCn categories = _TranslationsOnboardingBmiScaleCategoriesZhCn._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesZhCn messages = _TranslationsOnboardingBmiScaleMessagesZhCn._(_root);
@@ -501,7 +501,7 @@ class _TranslationsOnboardingWeightGoalZhCn implements TranslationsOnboardingWei
 
 	// Translations
 	@override String get title => '你的目标是什么？';
-	@override String get description => '选择最能描述你想达成目标的选项';
+	@override String get description => '选择最符合你想实现目标的选项';
 }
 
 // Path: onboarding.activityLevel
@@ -523,18 +523,18 @@ class _TranslationsOnboardingHealthConnectZhCn implements TranslationsOnboarding
 
 	// Translations
 	@override String get title => '连接 Health Connect';
-	@override String get description => '同步你的健康数据，获得更深入的洞察与自动卡路里追踪';
+	@override String get description => '同步你的健康数据以获得更佳洞察与自动卡路里追踪';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingZhCn automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingZhCn._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsZhCn progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsZhCn._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn._(_root);
 	@override String get connected => '已连接 Health Connect';
 	@override String get notConnected => '未连接 Health Connect';
 	@override String get setup => '设置 Health Connect';
-	@override String get skipForNow => '暂时跳过';
+	@override String get skipForNow => '暂不连接';
 	@override String get statusConnected => 'Health Connect 已连接。';
-	@override String get statusSuccess => 'Health Connect 已成功连接！';
+	@override String get statusSuccess => '已成功连接 Health Connect！';
 	@override String statusPermissionDenied({required Object appLabel}) => '权限被拒绝。请在手机设置中为 ${appLabel} 启用 Health Connect 权限。';
-	@override String statusError({required Object error}) => '设置 Health Connect 出错：${error}';
+	@override String statusError({required Object error}) => '设置 Health Connect 时出错：${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -556,16 +556,16 @@ class _TranslationsHomeAiSummaryZhCn implements TranslationsHomeAiSummaryEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '你的 AI 总结';
-	@override String get logMore => '接下来几天多记录一些餐食，即可获得你的个性化 AI 洞察。';
-	@override String get loading => '正在加载你的总结...';
-	@override String mealCount({required Object count}) => '已记录 ${count} 次用餐';
+	@override String get title => '你的 AI 摘要';
+	@override String get logMore => '在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。';
+	@override String get loading => '正在加载你的摘要...';
+	@override String mealCount({required Object count}) => '已记录 ${count} 餐';
 	@override String macroBalanceScore({required Object score}) => '平衡评分 ${score}';
-	@override String get topFoods => '常吃食物';
-	@override String get trendUp => '卡路里上升趋势';
-	@override String get trendDown => '卡路里下降趋势';
-	@override String get trendSteady => '卡路里保持稳定';
-	@override String generatedAt({required Object time}) => '已更新 ${time}';
+	@override String get topFoods => '常见食物';
+	@override String get trendUp => '热量上升趋势';
+	@override String get trendDown => '热量下降趋势';
+	@override String get trendSteady => '热量保持稳定';
+	@override String generatedAt({required Object time}) => '更新于 ${time}';
 }
 
 // Path: home.dailyGoal
@@ -577,18 +577,18 @@ class _TranslationsHomeDailyGoalZhCn implements TranslationsHomeDailyGoalEn {
 	// Translations
 	@override String get title => '设定你的每日目标';
 	@override String get titleSet => '你的每日目标';
-	@override String get description => '准备好开启健康之旅了吗？在下方设定你的每日卡路里目标来启动进程。';
-	@override String get descriptionSet => '你的指南针已就位！这是引导你的每日卡路里目标。';
+	@override String get description => '准备开始你的健康旅程吗？在下方设置你的每日卡路里目标以开启进步。';
+	@override String get descriptionSet => '指南已设置！这是指引你的每日卡路里目标。';
 	@override String get yourGoal => '你的目标';
 	@override String get goal => '目标';
-	@override String get dailyCalories => '每日卡路里（kcal）';
+	@override String get dailyCalories => '每日卡路里 (kcal)';
 	@override String get setGoal => '设定目标';
 	@override String get intake => '摄入';
 	@override String get burned => '消耗';
-	@override String get weightImpact => '对体重的影响';
-	@override String get estLoss => '预估减少';
-	@override String get estGain => '预估增加';
-	@override String get kcal => '千卡';
+	@override String get weightImpact => '体重影响';
+	@override String get estLoss => '预计减少';
+	@override String get estGain => '预计增加';
+	@override String get kcal => '千卡 (kcal)';
 }
 
 // Path: home.dailySummary
@@ -598,12 +598,12 @@ class _TranslationsHomeDailySummaryZhCn implements TranslationsHomeDailySummaryE
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '每日总结';
+	@override String get title => '每日汇总';
 	@override String get calories => '卡路里';
 	@override String get carbs => '碳水';
 	@override String get protein => '蛋白质';
 	@override String get fat => '脂肪';
-	@override String get fiber => '膳食纤维';
+	@override String get fiber => '纤维';
 	@override String get grams => '克';
 	@override String get chartAccessibilityLabel => '宏量营养素图表';
 }
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressZhCn implements TranslationsHomeIntakeProgr
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '今日宏量分布';
+	@override String get title => '今日宏量分配';
 	@override String get target => '目标';
 	@override String get current => '当前';
 }
@@ -631,7 +631,7 @@ class _TranslationsHomeIntakeHistoryZhCn implements TranslationsHomeIntakeHistor
 	@override String get trendTitle => '今日趋势';
 	@override String peakHour({required Object hour}) => '峰值：${hour}:00';
 	@override String get noHistoryYet => '暂无历史';
-	@override String get startLogging => '开始记录用餐，以在此查看\n你的 7 天宏量趋势';
+	@override String get startLogging => '开始记录餐食以在此查看你的\n7 天宏量趋势';
 }
 
 // Path: home.mealLog
@@ -642,9 +642,9 @@ class _TranslationsHomeMealLogZhCn implements TranslationsHomeMealLogEn {
 
 	// Translations
 	@override String get title => '已记录的餐食';
-	@override String get emptyMessage => '拍下你上一次的餐食照片以在此记录。';
-	@override String get noMealsToday => '今天暂无用餐记录';
-	@override String get seeAllMeals => '查看全部餐食';
+	@override String get emptyMessage => '拍下你最近的一餐照片以在此记录。';
+	@override String get noMealsToday => '今日暂无记录的餐食';
+	@override String get seeAllMeals => '查看所有餐食';
 }
 
 // Path: home.mealDescription
@@ -656,7 +656,7 @@ class _TranslationsHomeMealDescriptionZhCn implements TranslationsHomeMealDescri
 	// Translations
 	@override String get title => 'AI 快速添加';
 	@override String get description => '描述你的餐食，让 AI 处理细节。';
-	@override String get hint => '例如：早餐我吃了一大碗燕麦粥，加了一根切片香蕉和一勺乳清蛋白粉 ...';
+	@override String get hint => '例如：早餐我吃了一大碗燕麦粥，切了一根香蕉，加入一勺乳清蛋白……';
 	@override String get analyzeMeal => '分析餐食';
 }
 
@@ -667,10 +667,10 @@ class _TranslationsHomeFavoriteMealsZhCn implements TranslationsHomeFavoriteMeal
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '常用餐食';
-	@override String get description => '快速添加你的一道常用餐食。';
-	@override String get noFavorites => '还没有常用餐食。';
-	@override String get addFavoriteHint => '点击餐食上的星标将其设为常用。';
+	@override String get title => '收藏餐食';
+	@override String get description => '快速添加你收藏的餐食之一。';
+	@override String get noFavorites => '还没有收藏的餐食。';
+	@override String get addFavoriteHint => '点击餐食上的星标将其标为收藏。';
 	@override String get seeAll => '查看全部';
 	@override String get add => '添加';
 }
@@ -682,12 +682,12 @@ class _TranslationsHomeMealSnapZhCn implements TranslationsHomeMealSnapEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '拍照并追踪你的餐食';
-	@override String get description => '使用相机拍摄食物照片进行 AI 分析。';
+	@override String get title => '拍照并记录餐食';
+	@override String get description => '使用相机拍摄食物照片以进行 AI 分析。';
 	@override String get openCamera => '打开相机';
 	@override String get gallery => '相册';
-	@override String get compressingPhoto => '正在优化照片…';
-	@override String get uploadingPhoto => '正在上传照片…';
+	@override String get compressingPhoto => '优化照片…';
+	@override String get uploadingPhoto => '上传照片…';
 }
 
 // Path: home.connectHealth
@@ -698,7 +698,7 @@ class _TranslationsHomeConnectHealthZhCn implements TranslationsHomeConnectHealt
 
 	// Translations
 	@override String get title => '与 Health Connect 同步';
-	@override String get description => '将你的营养数据与 Health Connect 同步';
+	@override String get description => '将你的营养数据同步到 Health Connect';
 	@override String get install => '安装';
 	@override String get connect => '连接';
 }
@@ -711,10 +711,10 @@ class _TranslationsMealNutritionZhCn implements TranslationsMealNutritionEn {
 
 	// Translations
 	@override String get calories => '卡路里';
-	@override String get carbs => '碳水（g）';
-	@override String get protein => '蛋白质（g）';
-	@override String get fat => '脂肪（g）';
-	@override String get fiber => '膳食纤维（g）';
+	@override String get carbs => '碳水 (g)';
+	@override String get protein => '蛋白质 (g)';
+	@override String get fat => '脂肪 (g)';
+	@override String get fiber => '纤维 (g)';
 }
 
 // Path: meal.deleteConfirmation
@@ -725,7 +725,7 @@ class _TranslationsMealDeleteConfirmationZhCn implements TranslationsMealDeleteC
 
 	// Translations
 	@override String get title => '删除餐食';
-	@override String get message => '确定要删除这条餐食记录吗？';
+	@override String get message => '确定要删除此餐食记录吗？';
 	@override String get cancel => '取消';
 	@override String get delete => '删除';
 }
@@ -737,9 +737,9 @@ class _TranslationsMealQuestionFlowZhCn implements TranslationsMealQuestionFlowE
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String progress({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个';
-	@override String get noQuestionsAvailable => '当前没有可用的问题';
-	@override String get next => '下一题';
+	@override String progress({required Object current, required Object total}) => '问题 ${current} / ${total}';
+	@override String get noQuestionsAvailable => '暂无可用问题';
+	@override String get next => '下一步';
 	@override String get continueLabel => '继续';
 }
 
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisZhCn implements TranslationsMealAnalysisEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'AI 餐食分析';
+	@override String get title => '正在分析你的餐食';
 	@override String get stepStarted => '开始处理…';
-	@override String get stepDecomposition => '正在理解你的餐食…';
-	@override String get stepIngredients => '正在匹配营养数据库…';
-	@override String get stepUncertainty => '正在检查置信度…';
+	@override String get stepDecomposition => '理解你的餐食…';
+	@override String get stepIngredients => '将食材匹配到营养数据…';
+	@override String get stepUncertainty => '核查信心水平…';
 	@override String get stepMealTypeQuestion => '快好了…';
-	@override String get stepResult => '正在完成结果…';
-	@override String get stepError => '出现了问题';
+	@override String get stepResult => '最终结果生成中…';
+	@override String get stepError => '出现问题';
 	@override String get stepDefault => '正在分析你的餐食…';
-	@override String get progressUnderstand => '理解';
-	@override String get progressMatch => '匹配';
-	@override String get progressCheck => '检查';
-	@override String get progressMealType => '正在选择餐食类型';
-	@override String get progressFinish => '完成';
+	@override String get progressUnderstand => '理解你的餐食';
+	@override String get progressMatch => '查找食材营养信息';
+	@override String get progressCheck => '核对分量与置信度';
+	@override String get progressMealType => '选择餐次类型';
+	@override String get progressFinish => '计算卡路里与宏量营养素';
 	@override String get detectedIngredientHeading => '我们识别到的食材';
-	@override String ingredientsOverflow({required Object count}) => '另有 ${count} 个食材';
+	@override String ingredientsOverflow({required Object count}) => '另外还有 ${count} 项';
 	@override String ingredientsLine({required Object count}) => '检测到 ${count} 种食材';
-	@override String get ingredientsPending => '正在扫描食材…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get ingredientsPending => '扫描食材中…';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
+	@override String get offlineTip0 => '提示：持续记录比追求完美更重要——规律的记录能揭示真正有用的模式。';
+	@override String get offlineTip1 => '提示：拍照时使用自然光并从俯视角度拍摄，有助于提升分量估算准确性。';
+	@override String get offlineTip2 => '提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。';
+	@override String get offlineTip3 => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。';
+	@override String get offlineTip4 => '提示：饭后记录同样能培养习惯；不必追求完美。';
+	@override String get offlineTip5 => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。';
 }
 
 // Path: meal.feedback
@@ -784,17 +784,17 @@ class _TranslationsMealFeedbackZhCn implements TranslationsMealFeedbackEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '哪里不对?';
-	@override String get subtitle => '选择一个或多个问题,帮助我们改进分析。';
-	@override String get tellUsMore => '告诉我们更多';
-	@override String get describeIncorrect => '描述哪里不正确';
+	@override String get title => '哪里看起来不对？';
+	@override String get subtitle => '通过选择一个或多个问题来帮助我们改进分析。';
+	@override String get tellUsMore => '告诉我们更多信息';
+	@override String get describeIncorrect => '描述不正确的地方';
 	@override String get submit => '提交';
-	@override String get issueFoodIdentification => '食物识别';
-	@override String get issuePortionSize => '份量大小';
-	@override String get issueCalorieDistribution => '卡路里分布';
-	@override String get issueMacrosWrong => '宏量营养素错误';
-	@override String get issueMissingItems => '缺少项目';
-	@override String get issueExtraItems => '多余项目';
+	@override String get issueFoodIdentification => '食物识别错误';
+	@override String get issuePortionSize => '分量错误';
+	@override String get issueCalorieDistribution => '卡路里分配错误';
+	@override String get issueMacrosWrong => '宏量营养数据错误';
+	@override String get issueMissingItems => '遗漏项';
+	@override String get issueExtraItems => '多余项';
 	@override String get issueOther => '其他';
 }
 
@@ -805,7 +805,7 @@ class _TranslationsFavoritesSortOptionsZhCn implements TranslationsFavoritesSort
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get recent => '最近添加';
+	@override String get recent => '最近';
 	@override String get calories => '卡路里';
 	@override String get alphabetical => 'A-Z';
 }
@@ -833,8 +833,8 @@ class _TranslationsProfileCalculatedValuesZhCn implements TranslationsProfileCal
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => '每日目标';
-	@override String get calPerDay => '千卡/天';
-	@override String get notAvailable => '不可用';
+	@override String get calPerDay => '卡/天';
+	@override String get notAvailable => '无可用数据';
 }
 
 // Path: editProfile.sections
@@ -900,7 +900,7 @@ class _TranslationsSettingsSectionsZhCn implements TranslationsSettingsSectionsE
 	@override String get healthConnect => 'Health Connect';
 	@override String get supportAndLegal => '支持与法律';
 	@override String get about => '关于';
-	@override String get dangerZone => '危险区域';
+	@override String get dangerZone => '危险操作';
 	@override String get developer => '开发者';
 }
 
@@ -911,7 +911,7 @@ class _TranslationsSettingsEditProfileZhCn implements TranslationsSettingsEditPr
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '编辑资料';
+	@override String get title => '编辑个人资料';
 	@override String get subtitle => '更新你的个人信息';
 }
 
@@ -955,8 +955,8 @@ class _TranslationsSettingsMealRemindersZhCn implements TranslationsSettingsMeal
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '用餐提醒';
-	@override String get subtitle => '通过及时提醒保持进度';
+	@override String get title => '餐食提醒';
+	@override String get subtitle => '用及时提醒帮助你保持记录';
 }
 
 // Path: settings.theme
@@ -969,7 +969,7 @@ class _TranslationsSettingsThemeZhCn implements TranslationsSettingsThemeEn {
 	@override String get title => '主题';
 	@override String get light => '浅色';
 	@override String get dark => '深色';
-	@override String get system => '系统';
+	@override String get system => '跟随系统';
 }
 
 // Path: settings.sendFeedback
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryZhCn implements TranslationsSettings
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '导出用餐历史';
-	@override String get subtitle => '分享你记录餐食的 CSV 文件';
-	@override String get shareText => '你的 Calorify 用餐历史导出';
-	@override String failed({required Object error}) => '无法导出用餐历史：${error}';
+	@override String get title => '导出餐食历史';
+	@override String get subtitle => '共享已记录餐食的 CSV';
+	@override String get shareText => '你的 Calorify 餐食历史导出';
+	@override String failed({required Object error}) => '无法导出餐食历史：${error}';
 }
 
 // Path: settings.clearAllData
@@ -1012,9 +1012,9 @@ class _TranslationsSettingsClearAllDataZhCn implements TranslationsSettingsClear
 	@override String get title => '清除所有数据';
 	@override String get subtitle => '不可逆地删除你的全部信息';
 	@override String get confirmationTitle => '清除所有数据？';
-	@override String get confirmationMessage => '此操作不可撤销。你记录的所有餐食、常用项和资料设置都将被永久删除。';
+	@override String get confirmationMessage => '此操作不可撤销。你所有的记录、收藏和个人设置将被永久删除。';
 	@override String get cancel => '取消';
-	@override String get clearEverything => '全部清除';
+	@override String get clearEverything => '清除全部';
 }
 
 // Path: settings.debugOptions
@@ -1041,9 +1041,9 @@ class _TranslationsSettingsHealthConnectZhCn implements TranslationsSettingsHeal
 	@override String get managePermissions => '管理权限';
 	@override String get openSettings => '打开 Health Connect 设置';
 	@override String get requestPermissions => '请求权限';
-	@override String get permissionRequestCancelledOrFailed => '权限请求被取消或失败。请重试，或在 Health Connect 设置中手动授予权限。';
-	@override String get permissionRequestFailed => '无法请求权限。请重试，或在 Health Connect 设置中手动授予权限。';
-	@override String get requestingPermissions => '请求中...';
+	@override String get permissionRequestCancelledOrFailed => '权限请求已取消或失败。请重试或在 Health Connect 设置中手动授予权限。';
+	@override String get permissionRequestFailed => '无法请求权限。请重试或在 Health Connect 设置中手动授予权限。';
+	@override String get requestingPermissions => '正在请求…';
 }
 
 // Path: settings.about
@@ -1054,7 +1054,7 @@ class _TranslationsSettingsAboutZhCn implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => '关于';
-	@override String get tagline => '快速、免费、隐私优先的卡路里意识';
+	@override String get tagline => '快速、免费且以隐私为先的卡路里感知工具';
 	@override late final _TranslationsSettingsAboutOurStoryZhCn ourStory = _TranslationsSettingsAboutOurStoryZhCn._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyZhCn privacy = _TranslationsSettingsAboutPrivacyZhCn._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperZhCn developer = _TranslationsSettingsAboutDeveloperZhCn._(_root);
@@ -1091,7 +1091,7 @@ class _TranslationsNotificationsLunchZhCn implements TranslationsNotificationsLu
 
 	// Translations
 	@override String get title => '午餐时间！ 🥗';
-	@override String get body => '该记录你的午餐了';
+	@override String get body => '是时候记录午餐了';
 }
 
 // Path: notifications.dinner
@@ -1113,7 +1113,7 @@ class _TranslationsNotificationsSnackZhCn implements TranslationsNotificationsSn
 
 	// Translations
 	@override String get title => '加餐时间！ 🍎';
-	@override String get body => '来一份健康加餐吧';
+	@override String get body => '来点健康的加餐吧';
 }
 
 // Path: notifications.test
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapZhCn implements TranslationsDisclaimerSnapEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} 提供的是营养信息估算。准确性取决于你的输入与食物差异。请将其作为参考，而非权威来源。个性化饮食建议请咨询专业人士。';
+	@override String description({required Object appLabel}) => '${appLabel} 提供的是估算的营养信息。准确性取决于你的输入与食物差异。作为参考而非权威来源。如需个性化饮食建议，请咨询专业人士。';
 	@override late final _TranslationsDisclaimerSnapPortionSizeZhCn portionSize = _TranslationsDisclaimerSnapPortionSizeZhCn._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsZhCn preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsZhCn._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsZhCn ingredients = _TranslationsDisclaimerSnapIngredientsZhCn._(_root);
@@ -1148,7 +1148,7 @@ class _TranslationsDisclaimerWeightEstimateZhCn implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => '关于体重估算';
-	@override String get description => '预测的体重变化基于“摄入热量 vs. 消耗热量”的理论模型，仅用于激励与参考，并非对你实际体重的精准预测。';
+	@override String get description => '预测的体重变化是基于简单的热量摄入与消耗模型的理论估算。仅用于激励参考，而非实际体重预测。';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyZhCn calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyZhCn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsZhCn biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsZhCn._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightZhCn waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightZhCn._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsZhCn implements TranslationsDisclaimer
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '这些指标帮助你了解身体的能量需求，并指导你的营养目标。';
+	@override String get description => '这些指标帮助你了解身体的能量需求并指导营养目标。';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrZhCn bmr = _TranslationsDisclaimerHealthMetricsBmrZhCn._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeZhCn tdee = _TranslationsDisclaimerHealthMetricsTdeeZhCn._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalZhCn dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalZhCn._(_root);
@@ -1176,7 +1176,7 @@ class _TranslationsDisclaimerCalorieExpenditureZhCn implements TranslationsDiscl
 
 	// Translations
 	@override String get title => '卡路里消耗估算';
-	@override String get description => '当无法获取 Health Connect 数据时，我们会基于你的基础代谢率（BMR）和活动水平（TDEE），并按当天已过去的时间比例进行缩放，来估算你今日已消耗的卡路里。';
+	@override String get description => '当 Health Connect 数据不可用时，我们会使用你的基础代谢率 (BMR) 和活动水平 (TDEE) 来估算今天已消耗的卡路里，并按当天已过的时间比例进行缩放。';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedZhCn howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedZhCn._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhCn professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhCn._(_root);
 }
@@ -1189,7 +1189,7 @@ class _TranslationsOnboardingFeaturesFoodRecognitionZhCn implements Translations
 
 	// Translations
 	@override String get title => '智能食物识别';
-	@override String get description => '拍张照片，让 AI 识别你的餐食';
+	@override String get description => '拍张照片，让 AI 识别你的餐点';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1200,7 +1200,7 @@ class _TranslationsOnboardingFeaturesAiAnalysisZhCn implements TranslationsOnboa
 
 	// Translations
 	@override String get title => 'AI 分析';
-	@override String get description => '根据你的描述即时获取营养数据';
+	@override String get description => '从你的描述中即时获得营养信息';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1210,8 +1210,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationZhCn implements Translatio
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '健康连接';
-	@override String get description => '连接 Health Connect 获取更深入的洞察';
+	@override String get title => '健康数据集成';
+	@override String get description => '连接 Health Connect 获取更全面的洞察';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1221,7 +1221,7 @@ class _TranslationsOnboardingBmiScaleCategoriesZhCn implements TranslationsOnboa
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => '体重过低';
+	@override String get underweight => '体重偏低';
 	@override String get healthyWeight => '健康体重';
 	@override String get overweight => '超重';
 	@override String get obese => '肥胖';
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesZhCn implements TranslationsOnboard
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => '我们可以帮助你通过营养密度更高的饮食，建立健康的增重计划，达到均衡体重。';
-	@override String get healthy => '做得很好！你的数值在健康范围内。我们将帮助你保持活力与精力。';
-	@override String overweight({required Object appLabel}) => '${appLabel} 将通过 AI 驱动的追踪简化你的旅程，助你更舒适地达成目标。';
-	@override String get obese => '我们会以个性化指导和可持续策略，支持你的健康目标。';
+	@override String get underweight => '我们可以帮助你制定健康计划，通过富含营养的餐食达到更平衡的体重。';
+	@override String get healthy => '做得很好！你处于健康范围内。我们会帮助你维持活力与能量。';
+	@override String overweight({required Object appLabel}) => '${appLabel} 会用 AI 化简你的过程，帮助你舒适地接近目标体重。';
+	@override String get obese => '我们会为你提供个性化支持和可持续的健康策略，陪伴你的目标实现。';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1248,7 +1248,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingZhCn implements Trans
 
 	// Translations
 	@override String get title => '自动卡路里追踪';
-	@override String get description => '从你的健身应用中获取消耗数据';
+	@override String get description => '追踪来自你健身应用的消耗卡路里';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1259,7 +1259,7 @@ class _TranslationsOnboardingHealthConnectProgressInsightsZhCn implements Transl
 
 	// Translations
 	@override String get title => '进度洞察';
-	@override String get description => '获得更详细的健康趋势分析';
+	@override String get description => '获取关于你健康趋势的详细洞察';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1270,7 +1270,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn implements Tra
 
 	// Translations
 	@override String get title => '无缝集成';
-	@override String get description => '从你常用的健康应用同步数据';
+	@override String get description => '从你喜欢的健康应用同步数据';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1281,13 +1281,13 @@ class _TranslationsOnboardingReinforcementTrackingSuccessZhCn implements Transla
 
 	// Translations
 	@override String get title => '你并不孤单';
-	@override String get genericMessage => '研究表明，坚持记录是长期成功的首要预测因素。';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '对于一位 ${age} 岁、性别为 ${gender}、目标是 ${goal} 的用户，坚持记录是成功的首要预测因素。';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} 让这一切比手动记录轻松 10 倍。';
+	@override String get genericMessage => '研究显示，持续记录是长期成功的头号预测因素。';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '对于一位 ${age} 岁的 ${gender} 希望 ${goal}，持续记录是成功的头号预测因素。';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} 让这项工作比手动操作容易 10 倍。';
 	@override String get getStartedTitle => '准备好开始了吗？';
-	@override String get tipPhoto => '拍下你的餐食即可即时分析';
-	@override String get tipConsistency => '持续记录，收获有意义的进步';
-	@override String get tipProgress => '每日跟踪你的进展以保持动力';
+	@override String get tipPhoto => '拍摄餐点照片以获得即时分析';
+	@override String get tipConsistency => '持续记录以看到有意义的进展';
+	@override String get tipProgress => '每天跟踪进展以保持动力';
 	@override String get button => '开始吧';
 	@override String get defaultGender => '个人';
 	@override String get defaultGoal => '更健康的你';
@@ -1301,12 +1301,12 @@ class _TranslationsOnboardingReinforcementHealthProfileZhCn implements Translati
 
 	// Translations
 	@override String get title => '你的健康档案';
-	@override String bmiDescription({required Object bmi}) => '根据你的数据，BMI 为 ${bmi}。';
-	@override String get finalizeDescription => '让我们完成你的资料，以便个性化你的体验。';
-	@override String get goalGain => '增重';
-	@override String get goalLose => '减重';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => '要达到你的目标，你需要${direction}${diff}${unit}。';
-	@override String get goalReached => '你已到达目标体重！我们会帮助你保持它。';
+	@override String bmiDescription({required Object bmi}) => '根据你的指标，你的 BMI 为 ${bmi}。';
+	@override String get finalizeDescription => '让我们完成你的档案以定制你的体验。';
+	@override String get goalGain => '增加';
+	@override String get goalLose => '减少';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => '为达到目标，你需要${direction}${diff}${unit}。';
+	@override String get goalReached => '你已达到目标体重！我们会帮助你维持它。';
 	@override String get button => '开始吧';
 }
 
@@ -1317,8 +1317,8 @@ class _TranslationsOnboardingReinforcementGoalLifestyleZhCn implements Translati
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '很棒的开始！';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '你已迈出通往 ${goalText} 的第一步。由于你${activityText}，${appLabel} 会调整你的目标以匹配你的生活方式。';
+	@override String get title => '良好的开始！';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => '你已经迈出朝 ${goalText} 的第一步。既然你是${activityText}，${appLabel} 会调整你的目标以匹配你的生活方式。';
 	@override String get personalizedTargets => '个性化卡路里目标';
 	@override String get aiMealDetection => 'AI 驱动的餐食识别';
 	@override String get macroBreakdowns => '详细的宏量营养素分解';
@@ -1335,7 +1335,7 @@ class _TranslationsEditProfileWeightGoalsLoseWeightZhCn implements TranslationsE
 
 	// Translations
 	@override String get name => '减重';
-	@override String get description => '通过制造热量缺口来减重';
+	@override String get description => '创建热量赤字以减轻体重';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1346,7 +1346,7 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightZhCn implements Translati
 
 	// Translations
 	@override String get name => '维持体重';
-	@override String get description => '保持你当前的体重';
+	@override String get description => '维持你当前的体重';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1357,7 +1357,7 @@ class _TranslationsEditProfileWeightGoalsGainWeightZhCn implements TranslationsE
 
 	// Translations
 	@override String get name => '增重';
-	@override String get description => '通过制造热量盈余来增重';
+	@override String get description => '创建热量盈余以增加体重';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1368,7 +1368,7 @@ class _TranslationsEditProfileActivityLevelsSedentaryZhCn implements Translation
 
 	// Translations
 	@override String get name => '久坐';
-	@override String get description => '很少或不运动';
+	@override String get description => '几乎不运动';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1378,8 +1378,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveZhCn implements Transla
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => '轻度活动';
-	@override String get description => '每周 1-3 天轻度运动';
+	@override String get name => '轻度活跃';
+	@override String get description => '每周 1-3 天轻量运动';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1389,7 +1389,7 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveZhCn implements Tran
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => '中度活动';
+	@override String get name => '中度活跃';
 	@override String get description => '每周 3-5 天中等强度运动';
 }
 
@@ -1400,7 +1400,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveZhCn implements Translatio
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => '高度活动';
+	@override String get name => '高度活跃';
 	@override String get description => '每周 6-7 天高强度运动';
 }
 
@@ -1411,7 +1411,7 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveZhCn implements Trans
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => '极高活动';
+	@override String get name => '极度活跃';
 	@override String get description => '非常高强度运动或体力工作';
 }
 
@@ -1422,8 +1422,8 @@ class _TranslationsSettingsHealthConnectUnavailableZhCn implements TranslationsS
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '无法使用 Health Connect';
-	@override String get description => '此设备不支持 Health Connect。请从 Play 商店安装 Health Connect（Android 9+），或更新至 Android 14+。';
+	@override String get title => 'Health Connect 不可用';
+	@override String get description => '此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1434,7 +1434,7 @@ class _TranslationsSettingsHealthConnectPermissionsZhCn implements TranslationsS
 
 	// Translations
 	@override String get title => '权限';
-	@override String get description => '为提供 Health Connect 集成，需要以下权限：';
+	@override String get description => '为提供 Health Connect 集成功能，请求以下权限：';
 	@override String get granted => '已授予';
 	@override String get notGranted => '未授予';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhCn caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhCn._(_root);
@@ -1450,7 +1450,7 @@ class _TranslationsSettingsAboutOurStoryZhCn implements TranslationsSettingsAbou
 
 	// Translations
 	@override String get title => '我们的故事';
-	@override String content({required Object appLabel}) => '${appLabel} 源于一个简单的挫败感：大多数卡路里追踪应用要么过于复杂、需要持续手动输入、收取高额订阅费，要么在隐私上做出妥协。\n\n作为一名独立开发者，我想做得更简单、更公平——用 AI 来减少操作负担，保持快速与免费，同时尊重你的健康数据。\n\n${appLabel} 是我也一直期望拥有的应用：无需账户、无跟踪、无广告——只提供清晰、实用的洞察，助你实现健康目标。';
+	@override String content({required Object appLabel}) => '${appLabel} 源自一个简单的挫败感：大多数卡路里追踪应用要么过于复杂、需要大量手动输入、收费高昂，要么在隐私上妥协。\n\n作为一名独立开发者，我想做一个更简单、更公平的应用——一个用 AI 减少操作负担、保持快速且免费使用，并尊重你的健康数据的应用。\n\n${appLabel} 是我希望存在的应用：无需账号、无追踪、无广告——只有清晰、实用的洞察和你的健康目标。';
 }
 
 // Path: settings.about.privacy
@@ -1461,12 +1461,12 @@ class _TranslationsSettingsAboutPrivacyZhCn implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => '你的隐私很重要';
-	@override String get description => '隐私不是事后的补救——而是我们的设计原则。具体体现在：';
-	@override String get noAccounts => '无需账户\n立即使用应用。无需注册、无需身份信息。';
-	@override String noTracking({required Object appLabel}) => '无行为跟踪\n${appLabel} 不会监控你的活动、构建使用画像，也不会在应用或网站间跟踪你。';
-	@override String noAds({required Object appLabel}) => '无广告设计\n${appLabel} 致力于在没有广告或数据驱动变现的情况下运行。';
-	@override String get noDataSelling => '不出售数据\n你的健康数据绝不会被出售或与第三方共享。';
-	@override String get localStorage => '本地优先存储\n你的数据保存在你的设备上。';
+	@override String get description => '隐私不是事后考虑——它是设计原则。以下是实践中的含义：';
+	@override String get noAccounts => '无需账号\n立即使用应用。无注册、无身份绑定。';
+	@override String noTracking({required Object appLabel}) => '无行为追踪\n${appLabel} 不会监控你的活动、构建使用档案或跨应用/网站跟踪你。';
+	@override String noAds({required Object appLabel}) => '内建无广告\n${appLabel} 旨在无需广告或基于数据的变现运行。';
+	@override String get noDataSelling => '不出售数据\n你的健康数据不会被出售或分享给第三方。';
+	@override String get localStorage => '本地优先存储\n你的数据保留在你的设备上。';
 	@override String get privacyPolicy => '隐私政策';
 }
 
@@ -1477,10 +1477,10 @@ class _TranslationsSettingsAboutDeveloperZhCn implements TranslationsSettingsAbo
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '由独立开发者打造';
-	@override String description({required Object appLabel}) => '${appLabel} 由一位独立开发者构建和维护，专注于打造平和、尊重隐私的健康软件。\n\n我会亲自阅读反馈，而这些意见将影响应用的未来方向。';
+	@override String get title => '由独立开发者构建';
+	@override String description({required Object appLabel}) => '${appLabel} 由一位独立开发者构建和维护，致力于创建平静、尊重隐私的健康软件。\n\n反馈由开发者本人阅读，并帮助塑造应用的方向。';
 	@override String get website => '网站';
-	@override String get email => '邮箱';
+	@override String get email => '邮件';
 }
 
 // Path: settings.about.feedback
@@ -1491,8 +1491,8 @@ class _TranslationsSettingsAboutFeedbackZhCn implements TranslationsSettingsAbou
 
 	// Translations
 	@override String title({required Object appLabel}) => '喜欢 ${appLabel} 吗？';
-	@override String description({required Object appLabel}) => '你的反馈能帮助 ${appLabel} 变得更好。';
-	@override String get rateApp => '在 Play 商店评分';
+	@override String description({required Object appLabel}) => '你的反馈能让 ${appLabel} 变得更好，惠及所有用户。';
+	@override String get rateApp => '在 Play Store 评分';
 	@override String get sendFeedback => '发送反馈';
 }
 
@@ -1503,8 +1503,8 @@ class _TranslationsDisclaimerSnapPortionSizeZhCn implements TranslationsDisclaim
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '份量大小';
-	@override String get description => '估算的准确性在很大程度上取决于你对份量的正确评估。';
+	@override String get title => '分量大小';
+	@override String get description => '估算的准确性在很大程度上依赖于你对分量大小的正确评估。';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsZhCn implements TranslationsD
 
 	// Translations
 	@override String get title => '烹饪方式';
-	@override String description({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法完全涵盖这些差异。';
+	@override String description({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsZhCn implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => '食材';
-	@override String get description => '食材复杂或隐藏配料较多的菜肴，可能会导致估算不够准确。';
+	@override String get description => '复杂菜肴中存在许多隐含成分可能导致估算不够准确。';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,8 +1536,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsZhCn implements Translations
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '数据库局限';
-	@override String description({required Object appLabel}) => '${appLabel} 的食物数据库很庞大，但可能无法覆盖所有食物或其所有变体。';
+	@override String get title => '数据库限制';
+	@override String description({required Object appLabel}) => '${appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1548,7 +1548,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyZhCn implements Transl
 
 	// Translations
 	@override String get title => '卡路里准确性';
-	@override String get description => '该估算依赖于你记录的卡路里摄入与消耗的准确性。不准确的记录将导致不准确的预测。';
+	@override String get description => '此估算的准确性取决于你记录的卡路里摄入与消耗。记录不准确会导致预测不准确。';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsZhCn implements Tran
 
 	// Translations
 	@override String get title => '生理因素';
-	@override String description({required Object appLabel}) => '实际的增重/减重受代谢、激素、睡眠、压力、补水等个人因素影响，而这些是 ${appLabel} 无法测量的。';
+	@override String description({required Object appLabel}) => '实际的体重变化受代谢、激素、睡眠、压力、体液和其他个体差异影响，${appLabel} 无法测量这些因素。';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1569,8 +1569,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightZhCn implements Translatio
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '水分与波动';
-	@override String get description => '日常体重会因水分滞留、消化和时间而显著波动。本估算不考虑这些日常变化。';
+	@override String get title => '水重波动';
+	@override String get description => '日常体重可能因水分滞留、消化和记录时机而显著波动。估算并不考虑这些日常变化。';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1580,8 +1580,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceZhCn implements T
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '专业建议';
-	@override String get description => '请勿将本估算用于医疗决策。个性化的体重管理建议请始终咨询医疗专业人士或注册营养师。';
+	@override String get title => '专业指导';
+	@override String get description => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrZhCn implements TranslationsDisclai
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => '基础代谢率（BMR）是指你的身体在静息状态下，为维持呼吸、循环等基本功能所消耗的卡路里。BMR 取决于年龄、性别、身高和体重。BMR 较高意味着身体在静息时自然消耗更多卡路里，通常与肌肉量更多、年龄较轻或男性相关；BMR 较低通常意味着肌肉量较少、年龄较大或女性。';
+	@override String get description => '基础代谢率 (BMR) 是你静息时为维持呼吸、循环等基本功能而消耗的卡路里数。BMR 取决于你的年龄、性别、身高和体重。较高的 BMR 表示你在静息时自然消耗更多热量，通常与更多的肌肉、更年轻的年龄或男性有关。较低的 BMR 通常表示肌肉较少、年龄较大或女性。';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeZhCn implements TranslationsDiscla
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => '每日总能量消耗（TDEE）是你每天消耗的总卡路里，包括 BMR 以及体力活动和日常活动产生的消耗。TDEE 取决于你的 BMR 与活动水平。TDEE 较高通常意味着更活跃或 BMR 较高；TDEE 较低则提示日常活动较少或 BMR 较低。';
+	@override String get description => '每日总能量消耗 (TDEE) 是你每天消耗的总卡路里，包括 BMR 以及来自身体活动和日常活动的卡路里。TDEE 取决于你的 BMR 和活动水平。较高的 TDEE 表示你总体消耗更多卡路里，通常与更活跃或更高的 BMR 有关。较低的 TDEE 则表示日常活动较少或 BMR 较低。';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1614,7 +1614,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalZhCn implements TranslationsD
 
 	// Translations
 	@override String get title => '每日目标';
-	@override String get description => '每日目标是基于你的 TDEE 和体重目标所推荐的每日卡路里摄入。想减重时，摄入少于 TDEE；想维持体重时，摄入与 TDEE 大致相当；想增重时，摄入多于 TDEE。这有助于你以健康的节奏达成理想体重变化。';
+	@override String get description => '每日目标是基于你的 TDEE 和体重目标推荐的每日摄入卡路里。为了减重，你需摄入低于 TDEE 的卡路里；维持体重则与 TDEE 相当；增重则摄入高于 TDEE 的卡路里。这有助于你以健康节奏实现期望的体重变化。';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1625,7 +1625,7 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedZhCn implements Tran
 
 	// Translations
 	@override String get title => '估算如何计算';
-	@override String get description => '我们计算你的 TDEE（基于你的资料），并将其乘以当天已过去的时间比例（小时 + 分钟）/ 24，以估算目前为止的消耗。';
+	@override String get description => '我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1635,8 +1635,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceZhCn implemen
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => '专业建议';
-	@override String get description => '请勿将此估算用于医疗决策。个性化建议请始终咨询医疗专业人士或注册营养师。';
+	@override String get title => '专业指导';
+	@override String get description => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1647,8 +1647,8 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhCn implements
 
 	// Translations
 	@override String get title => '读取总消耗卡路里';
-	@override String get description => '允许应用从 Health Connect 读取你的总消耗卡路里。';
-	@override String get usage => '该权限用于在应用中显示你每日的卡路里消耗，帮助你了解全天的总能量消耗。';
+	@override String get description => '允许应用读取来自 Health Connect 的总消耗卡路里。';
+	@override String get usage => '该权限用于在应用中显示你的每日消耗卡路里，帮助你了解全天的总能量消耗。';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1659,8 +1659,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadZhCn implements 
 
 	// Translations
 	@override String get title => '读取营养数据';
-	@override String get description => '允许应用从 Health Connect 读取营养数据。';
-	@override String get usage => '该权限允许应用读取其他与 Health Connect 连接的应用所记录的营养信息，为你提供全面的营养视图。';
+	@override String get description => '允许应用读取来自 Health Connect 的营养数据。';
+	@override String get usage => '此权限允许应用读取可能由其他连接到 Health Connect 的应用记录的营养信息，从而提供更全面的营养视图。';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1671,8 +1671,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhCn implements
 
 	// Translations
 	@override String get title => '写入营养数据';
-	@override String get description => '允许应用向 Health Connect 写入营养数据。';
-	@override String get usage => '该权限允许应用将你记录的餐食同步到 Health Connect，使你的营养数据可供你使用的其他健康与健身应用读取。';
+	@override String get description => '允许应用将营养数据写入 Health Connect。';
+	@override String get usage => '此权限允许应用将你记录的餐食同步到 Health Connect，使你的营养数据可被你使用的其他健康与健身应用访问。';
 }
 
 /// The flat map containing all translations for locale <zh-CN>.
@@ -1683,169 +1683,169 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhCn implements
 extension on TranslationsZhCn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'language' => '中文（中国）',
+			'language' => '简体中文',
 			'flag' => '🇨🇳',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => '你的请求太频繁了。请稍等片刻再试。',
+			'errors.rateLimitExceeded' => '请求过多。请稍候再试。',
 			'errors.networkError' => '网络错误。请检查你的网络连接。',
-			'errors.unknownError' => '出了点问题。请稍后再试。',
-			'errors.loadingProfileData' => '加载资料数据出错',
-			'errors.somethingWentWrong' => '出了点问题。',
+			'errors.unknownError' => '出现问题。请稍后再试。',
+			'errors.loadingProfileData' => '加载个人资料数据时出错',
+			'errors.somethingWentWrong' => '出现问题。',
 			'errors.retry' => '重试',
 			'onboarding.welcome' => ({required Object appLabel}) => '欢迎使用 ${appLabel}',
-			'onboarding.subtitle' => '由 AI 驱动的个人营养助手',
+			'onboarding.subtitle' => '由 AI 驱动的你的专属营养助手',
 			'onboarding.getStarted' => '开始使用',
 			'onboarding.features.foodRecognition.title' => '智能食物识别',
-			'onboarding.features.foodRecognition.description' => '拍张照片，让 AI 识别你的餐食',
+			'onboarding.features.foodRecognition.description' => '拍张照片，让 AI 识别你的餐点',
 			'onboarding.features.aiAnalysis.title' => 'AI 分析',
-			'onboarding.features.aiAnalysis.description' => '根据你的描述即时获取营养数据',
-			'onboarding.features.healthIntegration.title' => '健康连接',
-			'onboarding.features.healthIntegration.description' => '连接 Health Connect 获取更深入的洞察',
+			'onboarding.features.aiAnalysis.description' => '从你的描述中即时获得营养信息',
+			'onboarding.features.healthIntegration.title' => '健康数据集成',
+			'onboarding.features.healthIntegration.description' => '连接 Health Connect 获取更全面的洞察',
 			'onboarding.gender.title' => '你的性别是？',
-			'onboarding.gender.description' => '性别有助于我们准确计算你的基础代谢率（BMR）。',
+			'onboarding.gender.description' => '性别有助于我们更准确地计算你的基础代谢率 (BMR)。',
 			'onboarding.gender.next' => '下一步',
 			'onboarding.height.title' => '你的身高是多少？',
 			'onboarding.height.description' => '你的身高有助于我们准确计算 BMI 和能量需求。',
 			'onboarding.height.metric' => '公制',
 			'onboarding.height.imperial' => '英制',
 			'onboarding.height.next' => '下一步',
-			'onboarding.weight.currentTitle' => '你目前的体重是多少？',
-			'onboarding.weight.currentDescription' => '当前体重对于个性化你的每日目标至关重要。',
+			'onboarding.weight.currentTitle' => '你当前的体重是多少？',
+			'onboarding.weight.currentDescription' => '你的当前体重对于个性化每日目标至关重要。',
 			'onboarding.weight.targetTitle' => '你的目标体重是多少？',
-			'onboarding.weight.targetDescription' => '设定目标体重有助于我们制定长期计划。',
+			'onboarding.weight.targetDescription' => '设定目标体重可以帮助我们为你制定长期计划。',
 			'onboarding.weight.metric' => '公制',
 			'onboarding.weight.imperial' => '英制',
 			'onboarding.weight.next' => '下一步',
-			'onboarding.age.title' => '你的生日是？',
-			'onboarding.age.description' => '你的年龄有助于我们准确计算你的卡路里需求。',
+			'onboarding.age.title' => '你的出生日期是？',
+			'onboarding.age.description' => '你的年龄有助于我们准确计算所需热量。',
 			'onboarding.age.next' => '下一步',
 			'onboarding.bmiScale.underweight' => '偏低',
 			'onboarding.bmiScale.healthy' => '健康',
-			'onboarding.bmiScale.overweight' => '偏高',
+			'onboarding.bmiScale.overweight' => '偏重',
 			'onboarding.bmiScale.obese' => '肥胖',
-			'onboarding.bmiScale.categories.underweight' => '体重过低',
+			'onboarding.bmiScale.categories.underweight' => '体重偏低',
 			'onboarding.bmiScale.categories.healthyWeight' => '健康体重',
 			'onboarding.bmiScale.categories.overweight' => '超重',
 			'onboarding.bmiScale.categories.obese' => '肥胖',
-			'onboarding.bmiScale.messages.underweight' => '我们可以帮助你通过营养密度更高的饮食，建立健康的增重计划，达到均衡体重。',
-			'onboarding.bmiScale.messages.healthy' => '做得很好！你的数值在健康范围内。我们将帮助你保持活力与精力。',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} 将通过 AI 驱动的追踪简化你的旅程，助你更舒适地达成目标。',
-			'onboarding.bmiScale.messages.obese' => '我们会以个性化指导和可持续策略，支持你的健康目标。',
+			'onboarding.bmiScale.messages.underweight' => '我们可以帮助你制定健康计划，通过富含营养的餐食达到更平衡的体重。',
+			'onboarding.bmiScale.messages.healthy' => '做得很好！你处于健康范围内。我们会帮助你维持活力与能量。',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} 会用 AI 化简你的过程，帮助你舒适地接近目标体重。',
+			'onboarding.bmiScale.messages.obese' => '我们会为你提供个性化支持和可持续的健康策略，陪伴你的目标实现。',
 			'onboarding.weightGoal.title' => '你的目标是什么？',
-			'onboarding.weightGoal.description' => '选择最能描述你想达成目标的选项',
+			'onboarding.weightGoal.description' => '选择最符合你想实现目标的选项',
 			'onboarding.activityLevel.title' => '你的日常活动量如何？',
 			'onboarding.activityLevel.description' => '这有助于我们更准确地计算你的每日热量需求',
 			'onboarding.healthConnect.title' => '连接 Health Connect',
-			'onboarding.healthConnect.description' => '同步你的健康数据，获得更深入的洞察与自动卡路里追踪',
+			'onboarding.healthConnect.description' => '同步你的健康数据以获得更佳洞察与自动卡路里追踪',
 			'onboarding.healthConnect.automaticTracking.title' => '自动卡路里追踪',
-			'onboarding.healthConnect.automaticTracking.description' => '从你的健身应用中获取消耗数据',
+			'onboarding.healthConnect.automaticTracking.description' => '追踪来自你健身应用的消耗卡路里',
 			'onboarding.healthConnect.progressInsights.title' => '进度洞察',
-			'onboarding.healthConnect.progressInsights.description' => '获得更详细的健康趋势分析',
+			'onboarding.healthConnect.progressInsights.description' => '获取关于你健康趋势的详细洞察',
 			'onboarding.healthConnect.seamlessIntegration.title' => '无缝集成',
-			'onboarding.healthConnect.seamlessIntegration.description' => '从你常用的健康应用同步数据',
+			'onboarding.healthConnect.seamlessIntegration.description' => '从你喜欢的健康应用同步数据',
 			'onboarding.healthConnect.connected' => '已连接 Health Connect',
 			'onboarding.healthConnect.notConnected' => '未连接 Health Connect',
 			'onboarding.healthConnect.setup' => '设置 Health Connect',
-			'onboarding.healthConnect.skipForNow' => '暂时跳过',
+			'onboarding.healthConnect.skipForNow' => '暂不连接',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect 已连接。',
-			'onboarding.healthConnect.statusSuccess' => 'Health Connect 已成功连接！',
+			'onboarding.healthConnect.statusSuccess' => '已成功连接 Health Connect！',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '权限被拒绝。请在手机设置中为 ${appLabel} 启用 Health Connect 权限。',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => '设置 Health Connect 出错：${error}',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => '设置 Health Connect 时出错：${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => '你并不孤单',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究表明，坚持记录是长期成功的首要预测因素。',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '对于一位 ${age} 岁、性别为 ${gender}、目标是 ${goal} 的用户，坚持记录是成功的首要预测因素。',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} 让这一切比手动记录轻松 10 倍。',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究显示，持续记录是长期成功的头号预测因素。',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '对于一位 ${age} 岁的 ${gender} 希望 ${goal}，持续记录是成功的头号预测因素。',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} 让这项工作比手动操作容易 10 倍。',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => '准备好开始了吗？',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '拍下你的餐食即可即时分析',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '持续记录，收获有意义的进步',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => '每日跟踪你的进展以保持动力',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => '拍摄餐点照片以获得即时分析',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => '持续记录以看到有意义的进展',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => '每天跟踪进展以保持动力',
 			'onboarding.reinforcement.trackingSuccess.button' => '开始吧',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => '个人',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => '更健康的你',
 			'onboarding.reinforcement.healthProfile.title' => '你的健康档案',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => '根据你的数据，BMI 为 ${bmi}。',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => '让我们完成你的资料，以便个性化你的体验。',
-			'onboarding.reinforcement.healthProfile.goalGain' => '增重',
-			'onboarding.reinforcement.healthProfile.goalLose' => '减重',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => '要达到你的目标，你需要${direction}${diff}${unit}。',
-			'onboarding.reinforcement.healthProfile.goalReached' => '你已到达目标体重！我们会帮助你保持它。',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => '根据你的指标，你的 BMI 为 ${bmi}。',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => '让我们完成你的档案以定制你的体验。',
+			'onboarding.reinforcement.healthProfile.goalGain' => '增加',
+			'onboarding.reinforcement.healthProfile.goalLose' => '减少',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => '为达到目标，你需要${direction}${diff}${unit}。',
+			'onboarding.reinforcement.healthProfile.goalReached' => '你已达到目标体重！我们会帮助你维持它。',
 			'onboarding.reinforcement.healthProfile.button' => '开始吧',
-			'onboarding.reinforcement.goalLifestyle.title' => '很棒的开始！',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '你已迈出通往 ${goalText} 的第一步。由于你${activityText}，${appLabel} 会调整你的目标以匹配你的生活方式。',
+			'onboarding.reinforcement.goalLifestyle.title' => '良好的开始！',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => '你已经迈出朝 ${goalText} 的第一步。既然你是${activityText}，${appLabel} 会调整你的目标以匹配你的生活方式。',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => '个性化卡路里目标',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI 驱动的餐食识别',
 			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => '详细的宏量营养素分解',
 			'onboarding.reinforcement.goalLifestyle.button' => '开始吧',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => '你的目标',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => '活跃',
-			'tabs.dashboard' => '主页',
+			'tabs.dashboard' => '仪表盘',
 			'tabs.history' => '历史',
-			'home.aiSummary.title' => '你的 AI 总结',
-			'home.aiSummary.logMore' => '接下来几天多记录一些餐食，即可获得你的个性化 AI 洞察。',
-			'home.aiSummary.loading' => '正在加载你的总结...',
-			'home.aiSummary.mealCount' => ({required Object count}) => '已记录 ${count} 次用餐',
+			'home.aiSummary.title' => '你的 AI 摘要',
+			'home.aiSummary.logMore' => '在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。',
+			'home.aiSummary.loading' => '正在加载你的摘要...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '已记录 ${count} 餐',
 			'home.aiSummary.macroBalanceScore' => ({required Object score}) => '平衡评分 ${score}',
-			'home.aiSummary.topFoods' => '常吃食物',
-			'home.aiSummary.trendUp' => '卡路里上升趋势',
-			'home.aiSummary.trendDown' => '卡路里下降趋势',
-			'home.aiSummary.trendSteady' => '卡路里保持稳定',
-			'home.aiSummary.generatedAt' => ({required Object time}) => '已更新 ${time}',
+			'home.aiSummary.topFoods' => '常见食物',
+			'home.aiSummary.trendUp' => '热量上升趋势',
+			'home.aiSummary.trendDown' => '热量下降趋势',
+			'home.aiSummary.trendSteady' => '热量保持稳定',
+			'home.aiSummary.generatedAt' => ({required Object time}) => '更新于 ${time}',
 			'home.dailyGoal.title' => '设定你的每日目标',
 			'home.dailyGoal.titleSet' => '你的每日目标',
-			'home.dailyGoal.description' => '准备好开启健康之旅了吗？在下方设定你的每日卡路里目标来启动进程。',
-			'home.dailyGoal.descriptionSet' => '你的指南针已就位！这是引导你的每日卡路里目标。',
+			'home.dailyGoal.description' => '准备开始你的健康旅程吗？在下方设置你的每日卡路里目标以开启进步。',
+			'home.dailyGoal.descriptionSet' => '指南已设置！这是指引你的每日卡路里目标。',
 			'home.dailyGoal.yourGoal' => '你的目标',
 			'home.dailyGoal.goal' => '目标',
-			'home.dailyGoal.dailyCalories' => '每日卡路里（kcal）',
+			'home.dailyGoal.dailyCalories' => '每日卡路里 (kcal)',
 			'home.dailyGoal.setGoal' => '设定目标',
 			'home.dailyGoal.intake' => '摄入',
 			'home.dailyGoal.burned' => '消耗',
-			'home.dailyGoal.weightImpact' => '对体重的影响',
-			'home.dailyGoal.estLoss' => '预估减少',
-			'home.dailyGoal.estGain' => '预估增加',
-			'home.dailyGoal.kcal' => '千卡',
-			'home.dailySummary.title' => '每日总结',
+			'home.dailyGoal.weightImpact' => '体重影响',
+			'home.dailyGoal.estLoss' => '预计减少',
+			'home.dailyGoal.estGain' => '预计增加',
+			'home.dailyGoal.kcal' => '千卡 (kcal)',
+			'home.dailySummary.title' => '每日汇总',
 			'home.dailySummary.calories' => '卡路里',
 			'home.dailySummary.carbs' => '碳水',
 			'home.dailySummary.protein' => '蛋白质',
 			'home.dailySummary.fat' => '脂肪',
-			'home.dailySummary.fiber' => '膳食纤维',
+			'home.dailySummary.fiber' => '纤维',
 			'home.dailySummary.grams' => '克',
 			'home.dailySummary.chartAccessibilityLabel' => '宏量营养素图表',
-			'home.intakeProgress.title' => '今日宏量分布',
+			'home.intakeProgress.title' => '今日宏量分配',
 			'home.intakeProgress.target' => '目标',
 			'home.intakeProgress.current' => '当前',
 			'home.intakeHistory.title' => '7 天宏量历史',
 			'home.intakeHistory.trendTitle' => '今日趋势',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => '峰值：${hour}:00',
 			'home.intakeHistory.noHistoryYet' => '暂无历史',
-			'home.intakeHistory.startLogging' => '开始记录用餐，以在此查看\n你的 7 天宏量趋势',
+			'home.intakeHistory.startLogging' => '开始记录餐食以在此查看你的\n7 天宏量趋势',
 			'home.mealLog.title' => '已记录的餐食',
-			'home.mealLog.emptyMessage' => '拍下你上一次的餐食照片以在此记录。',
-			'home.mealLog.noMealsToday' => '今天暂无用餐记录',
-			'home.mealLog.seeAllMeals' => '查看全部餐食',
+			'home.mealLog.emptyMessage' => '拍下你最近的一餐照片以在此记录。',
+			'home.mealLog.noMealsToday' => '今日暂无记录的餐食',
+			'home.mealLog.seeAllMeals' => '查看所有餐食',
 			'home.mealDescription.title' => 'AI 快速添加',
 			'home.mealDescription.description' => '描述你的餐食，让 AI 处理细节。',
-			'home.mealDescription.hint' => '例如：早餐我吃了一大碗燕麦粥，加了一根切片香蕉和一勺乳清蛋白粉 ...',
+			'home.mealDescription.hint' => '例如：早餐我吃了一大碗燕麦粥，切了一根香蕉，加入一勺乳清蛋白……',
 			'home.mealDescription.analyzeMeal' => '分析餐食',
-			'home.favoriteMeals.title' => '常用餐食',
-			'home.favoriteMeals.description' => '快速添加你的一道常用餐食。',
-			'home.favoriteMeals.noFavorites' => '还没有常用餐食。',
-			'home.favoriteMeals.addFavoriteHint' => '点击餐食上的星标将其设为常用。',
+			'home.favoriteMeals.title' => '收藏餐食',
+			'home.favoriteMeals.description' => '快速添加你收藏的餐食之一。',
+			'home.favoriteMeals.noFavorites' => '还没有收藏的餐食。',
+			'home.favoriteMeals.addFavoriteHint' => '点击餐食上的星标将其标为收藏。',
 			'home.favoriteMeals.seeAll' => '查看全部',
 			'home.favoriteMeals.add' => '添加',
-			'home.mealSnap.title' => '拍照并追踪你的餐食',
-			'home.mealSnap.description' => '使用相机拍摄食物照片进行 AI 分析。',
+			'home.mealSnap.title' => '拍照并记录餐食',
+			'home.mealSnap.description' => '使用相机拍摄食物照片以进行 AI 分析。',
 			'home.mealSnap.openCamera' => '打开相机',
 			'home.mealSnap.gallery' => '相册',
-			'home.mealSnap.compressingPhoto' => '正在优化照片…',
-			'home.mealSnap.uploadingPhoto' => '正在上传照片…',
+			'home.mealSnap.compressingPhoto' => '优化照片…',
+			'home.mealSnap.uploadingPhoto' => '上传照片…',
 			'home.connectHealth.title' => '与 Health Connect 同步',
-			'home.connectHealth.description' => '将你的营养数据与 Health Connect 同步',
+			'home.connectHealth.description' => '将你的营养数据同步到 Health Connect',
 			'home.connectHealth.install' => '安装',
 			'home.connectHealth.connect' => '连接',
-			'history.noMeals' => '暂无餐食记录',
-			'history.emptyMessage' => '拍下你上一次的餐食照片以在此记录。',
+			'history.noMeals' => '暂无记录的餐食',
+			'history.emptyMessage' => '拍下你最近的一餐照片以在此记录。',
 			'history.today' => '今天',
 			'history.yesterday' => '昨天',
 			'meal.ohNo' => '糟糕！',
@@ -1856,91 +1856,91 @@ extension on TranslationsZhCn {
 			'meal.save' => '保存',
 			'meal.mealName' => '餐食名称',
 			'meal.mealNameHint' => '例如：炒蛋配吐司',
-			'meal.mealQuantity' => '份量',
+			'meal.mealQuantity' => '餐食数量',
 			'meal.mealQuantityHint' => '例如：1 碗，2 片',
 			'meal.timeOfMeal' => '用餐时间',
-			'meal.timeOfMealHint' => '选择你的用餐时间',
-			'meal.mealType' => '用餐类型',
+			'meal.timeOfMealHint' => '选择你用餐的时间',
+			'meal.mealType' => '餐次类型',
 			'meal.nutrition.calories' => '卡路里',
-			'meal.nutrition.carbs' => '碳水（g）',
-			'meal.nutrition.protein' => '蛋白质（g）',
-			'meal.nutrition.fat' => '脂肪（g）',
-			'meal.nutrition.fiber' => '膳食纤维（g）',
+			'meal.nutrition.carbs' => '碳水 (g)',
+			'meal.nutrition.protein' => '蛋白质 (g)',
+			'meal.nutrition.fat' => '脂肪 (g)',
+			'meal.nutrition.fiber' => '纤维 (g)',
 			'meal.deleteConfirmation.title' => '删除餐食',
-			'meal.deleteConfirmation.message' => '确定要删除这条餐食记录吗？',
+			'meal.deleteConfirmation.message' => '确定要删除此餐食记录吗？',
 			'meal.deleteConfirmation.cancel' => '取消',
 			'meal.deleteConfirmation.delete' => '删除',
-			'meal.addedToLog' => '餐食已添加到你的记录！',
+			'meal.addedToLog' => '餐食已添加到记录！',
 			'meal.couldNotAdd' => ({required Object error}) => '无法添加餐食：${error}',
 			'meal.savedSuccessfully' => '餐食添加成功！',
 			'meal.updatedSuccessfully' => '餐食更新成功！',
-			'meal.errorSaving' => ({required Object error}) => '保存餐食出错：${error}',
-			'meal.removedFromFavorites' => '已从常用中移除！',
-			'meal.savedAsFavorite' => '餐食已设为常用！',
-			'meal.unfavorite' => '取消常用',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => '无法更新常用状态：${error}',
+			'meal.errorSaving' => ({required Object error}) => '保存餐食时出错：${error}',
+			'meal.removedFromFavorites' => '已从收藏中移除！',
+			'meal.savedAsFavorite' => '已将餐食保存为收藏！',
+			'meal.unfavorite' => '取消收藏',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => '无法更新收藏：${error}',
 			'meal.feedbackThanks' => '感谢你的反馈！',
 			'meal.reanalysisUpdated' => '已根据你的反馈更新餐食分析。',
 			'meal.failedToProcess' => ({required Object error}) => '处理失败：${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '处理图片失败：${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => '压缩图片出错：${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => '压缩图片时出错：${error}',
 			'meal.failedToSave' => '保存数据失败。请重试。',
 			'meal.skip' => '跳过',
-			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '第 ${current} 个问题，共 ${total} 个',
-			'meal.questionFlow.noQuestionsAvailable' => '当前没有可用的问题',
-			'meal.questionFlow.next' => '下一题',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '问题 ${current} / ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => '暂无可用问题',
+			'meal.questionFlow.next' => '下一步',
 			'meal.questionFlow.continueLabel' => '继续',
-			'meal.analysis.title' => 'AI 餐食分析',
+			'meal.analysis.title' => '正在分析你的餐食',
 			'meal.analysis.stepStarted' => '开始处理…',
-			'meal.analysis.stepDecomposition' => '正在理解你的餐食…',
-			'meal.analysis.stepIngredients' => '正在匹配营养数据库…',
-			'meal.analysis.stepUncertainty' => '正在检查置信度…',
+			'meal.analysis.stepDecomposition' => '理解你的餐食…',
+			'meal.analysis.stepIngredients' => '将食材匹配到营养数据…',
+			'meal.analysis.stepUncertainty' => '核查信心水平…',
 			'meal.analysis.stepMealTypeQuestion' => '快好了…',
-			'meal.analysis.stepResult' => '正在完成结果…',
-			'meal.analysis.stepError' => '出现了问题',
+			'meal.analysis.stepResult' => '最终结果生成中…',
+			'meal.analysis.stepError' => '出现问题',
 			'meal.analysis.stepDefault' => '正在分析你的餐食…',
-			'meal.analysis.progressUnderstand' => '理解',
-			'meal.analysis.progressMatch' => '匹配',
-			'meal.analysis.progressCheck' => '检查',
-			'meal.analysis.progressMealType' => '正在选择餐食类型',
-			'meal.analysis.progressFinish' => '完成',
+			'meal.analysis.progressUnderstand' => '理解你的餐食',
+			'meal.analysis.progressMatch' => '查找食材营养信息',
+			'meal.analysis.progressCheck' => '核对分量与置信度',
+			'meal.analysis.progressMealType' => '选择餐次类型',
+			'meal.analysis.progressFinish' => '计算卡路里与宏量营养素',
 			'meal.analysis.detectedIngredientHeading' => '我们识别到的食材',
-			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '另有 ${count} 个食材',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '另外还有 ${count} 项',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '检测到 ${count} 种食材',
-			'meal.analysis.ingredientsPending' => '正在扫描食材…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => '哪里不对?',
-			'meal.feedback.subtitle' => '选择一个或多个问题,帮助我们改进分析。',
-			'meal.feedback.tellUsMore' => '告诉我们更多',
-			'meal.feedback.describeIncorrect' => '描述哪里不正确',
+			'meal.analysis.ingredientsPending' => '扫描食材中…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
+			'meal.analysis.offlineTip0' => '提示：持续记录比追求完美更重要——规律的记录能揭示真正有用的模式。',
+			'meal.analysis.offlineTip1' => '提示：拍照时使用自然光并从俯视角度拍摄，有助于提升分量估算准确性。',
+			'meal.analysis.offlineTip2' => '提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。',
+			'meal.analysis.offlineTip3' => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。',
+			'meal.analysis.offlineTip4' => '提示：饭后记录同样能培养习惯；不必追求完美。',
+			'meal.analysis.offlineTip5' => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。',
+			'meal.feedback.title' => '哪里看起来不对？',
+			'meal.feedback.subtitle' => '通过选择一个或多个问题来帮助我们改进分析。',
+			'meal.feedback.tellUsMore' => '告诉我们更多信息',
+			'meal.feedback.describeIncorrect' => '描述不正确的地方',
 			'meal.feedback.submit' => '提交',
-			'meal.feedback.issueFoodIdentification' => '食物识别',
-			'meal.feedback.issuePortionSize' => '份量大小',
-			'meal.feedback.issueCalorieDistribution' => '卡路里分布',
-			'meal.feedback.issueMacrosWrong' => '宏量营养素错误',
-			'meal.feedback.issueMissingItems' => '缺少项目',
-			'meal.feedback.issueExtraItems' => '多余项目',
+			'meal.feedback.issueFoodIdentification' => '食物识别错误',
+			'meal.feedback.issuePortionSize' => '分量错误',
+			'meal.feedback.issueCalorieDistribution' => '卡路里分配错误',
+			'meal.feedback.issueMacrosWrong' => '宏量营养数据错误',
+			'meal.feedback.issueMissingItems' => '遗漏项',
+			'meal.feedback.issueExtraItems' => '多余项',
 			'meal.feedback.issueOther' => '其他',
-			'favorites.title' => '常用',
-			'favorites.empty' => '还没有常用餐食。',
-			'favorites.searchPlaceholder' => '搜索常用餐食',
-			'favorites.searchEmptyTitle' => '没有与搜索匹配的常用项',
-			'favorites.searchEmptySubtitle' => '试试不同的餐食名称、份量或用餐类型。',
-			'favorites.sortLabel' => '排序常用项',
+			'favorites.title' => '收藏',
+			'favorites.empty' => '还没有收藏的餐食。',
+			'favorites.searchPlaceholder' => '搜索收藏的餐食',
+			'favorites.searchEmptyTitle' => '没有收藏符合搜索条件',
+			'favorites.searchEmptySubtitle' => '尝试使用不同的餐名、数量或餐次类型。',
+			'favorites.sortLabel' => '排序收藏',
 			'favorites.undo' => '撤销',
-			'favorites.removed' => ({required Object name}) => '已将 ${name} 从常用中移除',
-			'favorites.sortOptions.recent' => '最近添加',
+			'favorites.removed' => ({required Object name}) => '已从收藏中移除 ${name}',
+			'favorites.sortOptions.recent' => '最近',
 			'favorites.sortOptions.calories' => '卡路里',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => '个人资料',
-			'profile.noProfileData' => '未找到资料数据',
-			'profile.yourProfile' => '你的资料',
+			'profile.noProfileData' => '未找到个人资料数据',
+			'profile.yourProfile' => '你的个人资料',
 			'profile.viewAndManage' => '查看并管理你的健康信息',
 			'profile.sections.profile' => '个人资料',
 			'profile.sections.basicInformation' => '基础信息',
@@ -1952,23 +1952,23 @@ extension on TranslationsZhCn {
 			'profile.age' => '年龄',
 			'profile.weightGoal' => '体重目标',
 			'profile.targetWeight' => '目标体重',
-			'profile.activityLevel' => '活动水平',
+			'profile.activityLevel' => '活动等级',
 			'profile.healthMetrics' => '健康指标',
 			'profile.notSet' => '未设置',
 			'profile.years' => '岁',
-			'profile.updatedSuccessfully' => '资料更新成功！',
+			'profile.updatedSuccessfully' => '个人资料更新成功！',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => '每日目标',
-			'profile.calculatedValues.calPerDay' => '千卡/天',
-			'profile.calculatedValues.notAvailable' => '不可用',
-			'healthScore.title' => '健康分',
-			'healthScore.whyThisScore' => '为什么是这个分数？',
-			'healthScore.note' => '该分数是基于识别到的食材与营养密度的 AI 估计。个体饮食建议请始终咨询专业人士。',
+			'profile.calculatedValues.calPerDay' => '卡/天',
+			'profile.calculatedValues.notAvailable' => '无可用数据',
+			'healthScore.title' => '健康评分',
+			'healthScore.whyThisScore' => '为什么是这个评分？',
+			'healthScore.note' => '此评分为 AI 基于识别到的食材和营养密度的估算。饮食建议请咨询专业人士。',
 			'healthScore.unhealthy' => '不健康',
 			'healthScore.healthy' => '健康',
 			'healthScore.neutral' => '中性',
-			'editProfile.title' => '编辑资料',
+			'editProfile.title' => '编辑个人资料',
 			'editProfile.sections.personalInformation' => '个人信息',
 			'editProfile.sections.physicalMeasurements' => '身体测量',
 			'editProfile.sections.goalsAndActivity' => '目标与活动',
@@ -1977,35 +1977,35 @@ extension on TranslationsZhCn {
 			'editProfile.height' => '身高',
 			'editProfile.weight' => '体重',
 			'editProfile.weightGoal' => '体重目标',
-			'editProfile.activityLevel' => '活动水平',
+			'editProfile.activityLevel' => '活动等级',
 			'editProfile.metric' => '公制',
 			'editProfile.imperial' => '英制',
-			'editProfile.unitCm' => '厘米',
-			'editProfile.unitFt' => '英尺',
-			'editProfile.unitKg' => '千克',
-			'editProfile.unitLbs' => '磅',
-			'editProfile.metricCm' => '公制（cm）',
-			'editProfile.imperialFtIn' => '英制（ft/in）',
-			'editProfile.metricKg' => '公制（kg）',
-			'editProfile.imperialLbs' => '英制（lbs）',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => '磅 (lbs)',
+			'editProfile.metricCm' => '公制 (cm)',
+			'editProfile.imperialFtIn' => '英制 (ft/in)',
+			'editProfile.metricKg' => '公制 (kg)',
+			'editProfile.imperialLbs' => '英制 (lbs)',
 			'editProfile.genders.male' => '男性',
 			'editProfile.genders.female' => '女性',
 			'editProfile.genders.other' => '其他',
 			'editProfile.weightGoals.loseWeight.name' => '减重',
-			'editProfile.weightGoals.loseWeight.description' => '通过制造热量缺口来减重',
+			'editProfile.weightGoals.loseWeight.description' => '创建热量赤字以减轻体重',
 			'editProfile.weightGoals.maintainWeight.name' => '维持体重',
-			'editProfile.weightGoals.maintainWeight.description' => '保持你当前的体重',
+			'editProfile.weightGoals.maintainWeight.description' => '维持你当前的体重',
 			'editProfile.weightGoals.gainWeight.name' => '增重',
-			'editProfile.weightGoals.gainWeight.description' => '通过制造热量盈余来增重',
+			'editProfile.weightGoals.gainWeight.description' => '创建热量盈余以增加体重',
 			'editProfile.activityLevels.sedentary.name' => '久坐',
-			'editProfile.activityLevels.sedentary.description' => '很少或不运动',
-			'editProfile.activityLevels.lightlyActive.name' => '轻度活动',
-			'editProfile.activityLevels.lightlyActive.description' => '每周 1-3 天轻度运动',
-			'editProfile.activityLevels.moderatelyActive.name' => '中度活动',
+			'editProfile.activityLevels.sedentary.description' => '几乎不运动',
+			'editProfile.activityLevels.lightlyActive.name' => '轻度活跃',
+			'editProfile.activityLevels.lightlyActive.description' => '每周 1-3 天轻量运动',
+			'editProfile.activityLevels.moderatelyActive.name' => '中度活跃',
 			'editProfile.activityLevels.moderatelyActive.description' => '每周 3-5 天中等强度运动',
-			'editProfile.activityLevels.veryActive.name' => '高度活动',
+			'editProfile.activityLevels.veryActive.name' => '高度活跃',
 			'editProfile.activityLevels.veryActive.description' => '每周 6-7 天高强度运动',
-			'editProfile.activityLevels.extremelyActive.name' => '极高活动',
+			'editProfile.activityLevels.extremelyActive.name' => '极度活跃',
 			'editProfile.activityLevels.extremelyActive.description' => '非常高强度运动或体力工作',
 			'settings.title' => '设置',
 			'settings.sections.profile' => '个人资料',
@@ -2014,9 +2014,9 @@ extension on TranslationsZhCn {
 			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.supportAndLegal' => '支持与法律',
 			'settings.sections.about' => '关于',
-			'settings.sections.dangerZone' => '危险区域',
+			'settings.sections.dangerZone' => '危险操作',
 			'settings.sections.developer' => '开发者',
-			'settings.editProfile.title' => '编辑资料',
+			'settings.editProfile.title' => '编辑个人资料',
 			'settings.editProfile.subtitle' => '更新你的个人信息',
 			'settings.language.title' => '语言',
 			'settings.language.subtitle' => '选择你偏好的语言',
@@ -2024,12 +2024,12 @@ extension on TranslationsZhCn {
 			'settings.language.noResults' => '未找到结果',
 			'settings.heightUnit.title' => '身高单位',
 			'settings.weightUnit.title' => '体重单位',
-			'settings.mealReminders.title' => '用餐提醒',
-			'settings.mealReminders.subtitle' => '通过及时提醒保持进度',
+			'settings.mealReminders.title' => '餐食提醒',
+			'settings.mealReminders.subtitle' => '用及时提醒帮助你保持记录',
 			'settings.theme.title' => '主题',
 			'settings.theme.light' => '浅色',
 			'settings.theme.dark' => '深色',
-			'settings.theme.system' => '系统',
+			'settings.theme.system' => '跟随系统',
 			'settings.sendFeedback.title' => '发送反馈',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => '帮助我们改进 ${appLabel}',
 			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} 应用反馈',
@@ -2038,70 +2038,70 @@ extension on TranslationsZhCn {
 			'settings.sendFeedback.device' => '设备',
 			'settings.sendFeedback.osVersion' => '系统版本',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => '导出用餐历史',
-			'settings.exportMealHistory.subtitle' => '分享你记录餐食的 CSV 文件',
-			'settings.exportMealHistory.shareText' => '你的 Calorify 用餐历史导出',
-			'settings.exportMealHistory.failed' => ({required Object error}) => '无法导出用餐历史：${error}',
+			'settings.exportMealHistory.title' => '导出餐食历史',
+			'settings.exportMealHistory.subtitle' => '共享已记录餐食的 CSV',
+			'settings.exportMealHistory.shareText' => '你的 Calorify 餐食历史导出',
+			'settings.exportMealHistory.failed' => ({required Object error}) => '无法导出餐食历史：${error}',
 			'settings.clearAllData.title' => '清除所有数据',
 			'settings.clearAllData.subtitle' => '不可逆地删除你的全部信息',
 			'settings.clearAllData.confirmationTitle' => '清除所有数据？',
-			'settings.clearAllData.confirmationMessage' => '此操作不可撤销。你记录的所有餐食、常用项和资料设置都将被永久删除。',
+			'settings.clearAllData.confirmationMessage' => '此操作不可撤销。你所有的记录、收藏和个人设置将被永久删除。',
 			'settings.clearAllData.cancel' => '取消',
-			'settings.clearAllData.clearEverything' => '全部清除',
+			'settings.clearAllData.clearEverything' => '清除全部',
 			'settings.debugOptions.title' => '调试选项',
-			'settings.developerModeEnabled' => '已启用开发者模式！',
+			'settings.developerModeEnabled' => '开发者模式已启用！',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => '查看并管理权限',
-			'settings.healthConnect.unavailable.title' => '无法使用 Health Connect',
-			'settings.healthConnect.unavailable.description' => '此设备不支持 Health Connect。请从 Play 商店安装 Health Connect（Android 9+），或更新至 Android 14+。',
+			'settings.healthConnect.unavailable.title' => 'Health Connect 不可用',
+			'settings.healthConnect.unavailable.description' => '此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。',
 			'settings.healthConnect.permissions.title' => '权限',
-			'settings.healthConnect.permissions.description' => '为提供 Health Connect 集成，需要以下权限：',
+			'settings.healthConnect.permissions.description' => '为提供 Health Connect 集成功能，请求以下权限：',
 			'settings.healthConnect.permissions.granted' => '已授予',
 			'settings.healthConnect.permissions.notGranted' => '未授予',
 			'settings.healthConnect.permissions.caloriesBurned.title' => '读取总消耗卡路里',
-			'settings.healthConnect.permissions.caloriesBurned.description' => '允许应用从 Health Connect 读取你的总消耗卡路里。',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => '该权限用于在应用中显示你每日的卡路里消耗，帮助你了解全天的总能量消耗。',
+			'settings.healthConnect.permissions.caloriesBurned.description' => '允许应用读取来自 Health Connect 的总消耗卡路里。',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => '该权限用于在应用中显示你的每日消耗卡路里，帮助你了解全天的总能量消耗。',
 			'settings.healthConnect.permissions.nutritionRead.title' => '读取营养数据',
-			'settings.healthConnect.permissions.nutritionRead.description' => '允许应用从 Health Connect 读取营养数据。',
-			'settings.healthConnect.permissions.nutritionRead.usage' => '该权限允许应用读取其他与 Health Connect 连接的应用所记录的营养信息，为你提供全面的营养视图。',
+			'settings.healthConnect.permissions.nutritionRead.description' => '允许应用读取来自 Health Connect 的营养数据。',
+			'settings.healthConnect.permissions.nutritionRead.usage' => '此权限允许应用读取可能由其他连接到 Health Connect 的应用记录的营养信息，从而提供更全面的营养视图。',
 			'settings.healthConnect.permissions.nutritionWrite.title' => '写入营养数据',
-			'settings.healthConnect.permissions.nutritionWrite.description' => '允许应用向 Health Connect 写入营养数据。',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => '该权限允许应用将你记录的餐食同步到 Health Connect，使你的营养数据可供你使用的其他健康与健身应用读取。',
+			'settings.healthConnect.permissions.nutritionWrite.description' => '允许应用将营养数据写入 Health Connect。',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => '此权限允许应用将你记录的餐食同步到 Health Connect，使你的营养数据可被你使用的其他健康与健身应用访问。',
 			'settings.healthConnect.managePermissions' => '管理权限',
 			'settings.healthConnect.openSettings' => '打开 Health Connect 设置',
 			'settings.healthConnect.requestPermissions' => '请求权限',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => '权限请求被取消或失败。请重试，或在 Health Connect 设置中手动授予权限。',
-			'settings.healthConnect.permissionRequestFailed' => '无法请求权限。请重试，或在 Health Connect 设置中手动授予权限。',
-			'settings.healthConnect.requestingPermissions' => '请求中...',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => '权限请求已取消或失败。请重试或在 Health Connect 设置中手动授予权限。',
+			'settings.healthConnect.permissionRequestFailed' => '无法请求权限。请重试或在 Health Connect 设置中手动授予权限。',
+			'settings.healthConnect.requestingPermissions' => '正在请求…',
 			'settings.about.title' => '关于',
-			'settings.about.tagline' => '快速、免费、隐私优先的卡路里意识',
+			'settings.about.tagline' => '快速、免费且以隐私为先的卡路里感知工具',
 			'settings.about.ourStory.title' => '我们的故事',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} 源于一个简单的挫败感：大多数卡路里追踪应用要么过于复杂、需要持续手动输入、收取高额订阅费，要么在隐私上做出妥协。\n\n作为一名独立开发者，我想做得更简单、更公平——用 AI 来减少操作负担，保持快速与免费，同时尊重你的健康数据。\n\n${appLabel} 是我也一直期望拥有的应用：无需账户、无跟踪、无广告——只提供清晰、实用的洞察，助你实现健康目标。',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} 源自一个简单的挫败感：大多数卡路里追踪应用要么过于复杂、需要大量手动输入、收费高昂，要么在隐私上妥协。\n\n作为一名独立开发者，我想做一个更简单、更公平的应用——一个用 AI 减少操作负担、保持快速且免费使用，并尊重你的健康数据的应用。\n\n${appLabel} 是我希望存在的应用：无需账号、无追踪、无广告——只有清晰、实用的洞察和你的健康目标。',
 			'settings.about.privacy.title' => '你的隐私很重要',
-			'settings.about.privacy.description' => '隐私不是事后的补救——而是我们的设计原则。具体体现在：',
-			'settings.about.privacy.noAccounts' => '无需账户\n立即使用应用。无需注册、无需身份信息。',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '无行为跟踪\n${appLabel} 不会监控你的活动、构建使用画像，也不会在应用或网站间跟踪你。',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => '无广告设计\n${appLabel} 致力于在没有广告或数据驱动变现的情况下运行。',
-			'settings.about.privacy.noDataSelling' => '不出售数据\n你的健康数据绝不会被出售或与第三方共享。',
-			'settings.about.privacy.localStorage' => '本地优先存储\n你的数据保存在你的设备上。',
+			'settings.about.privacy.description' => '隐私不是事后考虑——它是设计原则。以下是实践中的含义：',
+			'settings.about.privacy.noAccounts' => '无需账号\n立即使用应用。无注册、无身份绑定。',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '无行为追踪\n${appLabel} 不会监控你的活动、构建使用档案或跨应用/网站跟踪你。',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => '内建无广告\n${appLabel} 旨在无需广告或基于数据的变现运行。',
+			'settings.about.privacy.noDataSelling' => '不出售数据\n你的健康数据不会被出售或分享给第三方。',
+			'settings.about.privacy.localStorage' => '本地优先存储\n你的数据保留在你的设备上。',
 			'settings.about.privacy.privacyPolicy' => '隐私政策',
-			'settings.about.developer.title' => '由独立开发者打造',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} 由一位独立开发者构建和维护，专注于打造平和、尊重隐私的健康软件。\n\n我会亲自阅读反馈，而这些意见将影响应用的未来方向。',
+			'settings.about.developer.title' => '由独立开发者构建',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} 由一位独立开发者构建和维护，致力于创建平静、尊重隐私的健康软件。\n\n反馈由开发者本人阅读，并帮助塑造应用的方向。',
 			'settings.about.developer.website' => '网站',
-			'settings.about.developer.email' => '邮箱',
+			'settings.about.developer.email' => '邮件',
 			'settings.about.feedback.title' => ({required Object appLabel}) => '喜欢 ${appLabel} 吗？',
-			'settings.about.feedback.description' => ({required Object appLabel}) => '你的反馈能帮助 ${appLabel} 变得更好。',
-			'settings.about.feedback.rateApp' => '在 Play 商店评分',
+			'settings.about.feedback.description' => ({required Object appLabel}) => '你的反馈能让 ${appLabel} 变得更好，惠及所有用户。',
+			'settings.about.feedback.rateApp' => '在 Play Store 评分',
 			'settings.about.feedback.sendFeedback' => '发送反馈',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => '构建 ${buildNumber}',
-			'reminders.title' => '用提醒保持节奏',
-			'reminders.description' => '获得温和的提醒，记录餐食并在营养目标上持续前进',
-			'reminders.notificationsEnabled' => '已启用通知',
-			'reminders.notificationsDisabled' => '未启用通知',
-			'reminders.enabledSubtitle' => '你将收到用餐提醒',
-			'reminders.disabledSubtitle' => '启用通知以接收用餐提醒',
-			'reminders.mealReminders' => '用餐提醒',
+			'reminders.title' => '用提醒保持进度',
+			'reminders.description' => '收到温和的提醒以记录餐食并坚持你的营养目标',
+			'reminders.notificationsEnabled' => '通知已启用',
+			'reminders.notificationsDisabled' => '通知已禁用',
+			'reminders.enabledSubtitle' => '你将收到餐食提醒',
+			'reminders.disabledSubtitle' => '启用通知以接收餐食提醒',
+			'reminders.mealReminders' => '餐食提醒',
 			'reminders.breakfast' => '早餐',
 			'reminders.lunch' => '午餐',
 			'reminders.dinner' => '晚餐',
@@ -2109,74 +2109,74 @@ extension on TranslationsZhCn {
 			'reminders.unknown' => '未知',
 			'reminders.change' => '更改',
 			'reminders.enableNotifications' => '启用通知',
-			'reminders.skipForNow' => '暂时跳过',
+			'reminders.skipForNow' => '暂不启用',
 			'reminders.saveChanges' => '保存更改',
-			'reminders.enabledSuccessfully' => '通知启用成功！',
+			'reminders.enabledSuccessfully' => '通知已成功启用！',
 			'reminders.permissionDenied' => '通知权限被拒绝',
-			'reminders.errorEnabling' => ({required Object error}) => '启用通知出错：${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => '完成设置出错：${error}',
+			'reminders.errorEnabling' => ({required Object error}) => '启用通知时出错：${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => '完成设置时出错：${error}',
 			'notifications.breakfast.title' => '早餐时间！ 🍳',
 			'notifications.breakfast.body' => '别忘了记录你的早餐',
 			'notifications.lunch.title' => '午餐时间！ 🥗',
-			'notifications.lunch.body' => '该记录你的午餐了',
+			'notifications.lunch.body' => '是时候记录午餐了',
 			'notifications.dinner.title' => '晚餐时间！ 🍽️',
 			'notifications.dinner.body' => '别忘了记录你的晚餐',
 			'notifications.snack.title' => '加餐时间！ 🍎',
-			'notifications.snack.body' => '来一份健康加餐吧',
+			'notifications.snack.body' => '来点健康的加餐吧',
 			'notifications.test.title' => '测试通知',
 			'login.title' => '登录',
 			'login.signInWithGoogle' => '使用 Google 登录',
 			'login.signInFailed' => 'Google 登录失败或已取消。',
 			'disclaimer.pleaseNote' => '请注意',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} 提供的是营养信息估算。准确性取决于你的输入与食物差异。请将其作为参考，而非权威来源。个性化饮食建议请咨询专业人士。',
-			'disclaimer.snap.portionSize.title' => '份量大小',
-			'disclaimer.snap.portionSize.description' => '估算的准确性在很大程度上取决于你对份量的正确评估。',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} 提供的是估算的营养信息。准确性取决于你的输入与食物差异。作为参考而非权威来源。如需个性化饮食建议，请咨询专业人士。',
+			'disclaimer.snap.portionSize.title' => '分量大小',
+			'disclaimer.snap.portionSize.description' => '估算的准确性在很大程度上依赖于你对分量大小的正确评估。',
 			'disclaimer.snap.preparationMethods.title' => '烹饪方式',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法完全涵盖这些差异。',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。',
 			'disclaimer.snap.ingredients.title' => '食材',
-			'disclaimer.snap.ingredients.description' => '食材复杂或隐藏配料较多的菜肴，可能会导致估算不够准确。',
-			'disclaimer.snap.databaseLimitations.title' => '数据库局限',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物数据库很庞大，但可能无法覆盖所有食物或其所有变体。',
+			'disclaimer.snap.ingredients.description' => '复杂菜肴中存在许多隐含成分可能导致估算不够准确。',
+			'disclaimer.snap.databaseLimitations.title' => '数据库限制',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。',
 			'disclaimer.weightEstimate.title' => '关于体重估算',
-			'disclaimer.weightEstimate.description' => '预测的体重变化基于“摄入热量 vs. 消耗热量”的理论模型，仅用于激励与参考，并非对你实际体重的精准预测。',
+			'disclaimer.weightEstimate.description' => '预测的体重变化是基于简单的热量摄入与消耗模型的理论估算。仅用于激励参考，而非实际体重预测。',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => '卡路里准确性',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => '该估算依赖于你记录的卡路里摄入与消耗的准确性。不准确的记录将导致不准确的预测。',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => '此估算的准确性取决于你记录的卡路里摄入与消耗。记录不准确会导致预测不准确。',
 			'disclaimer.weightEstimate.biologicalFactors.title' => '生理因素',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => '实际的增重/减重受代谢、激素、睡眠、压力、补水等个人因素影响，而这些是 ${appLabel} 无法测量的。',
-			'disclaimer.weightEstimate.waterWeight.title' => '水分与波动',
-			'disclaimer.weightEstimate.waterWeight.description' => '日常体重会因水分滞留、消化和时间而显著波动。本估算不考虑这些日常变化。',
-			'disclaimer.weightEstimate.professionalGuidance.title' => '专业建议',
-			'disclaimer.weightEstimate.professionalGuidance.description' => '请勿将本估算用于医疗决策。个性化的体重管理建议请始终咨询医疗专业人士或注册营养师。',
-			'disclaimer.healthMetrics.description' => '这些指标帮助你了解身体的能量需求，并指导你的营养目标。',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => '实际的体重变化受代谢、激素、睡眠、压力、体液和其他个体差异影响，${appLabel} 无法测量这些因素。',
+			'disclaimer.weightEstimate.waterWeight.title' => '水重波动',
+			'disclaimer.weightEstimate.waterWeight.description' => '日常体重可能因水分滞留、消化和记录时机而显著波动。估算并不考虑这些日常变化。',
+			'disclaimer.weightEstimate.professionalGuidance.title' => '专业指导',
+			'disclaimer.weightEstimate.professionalGuidance.description' => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。',
+			'disclaimer.healthMetrics.description' => '这些指标帮助你了解身体的能量需求并指导营养目标。',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => '基础代谢率（BMR）是指你的身体在静息状态下，为维持呼吸、循环等基本功能所消耗的卡路里。BMR 取决于年龄、性别、身高和体重。BMR 较高意味着身体在静息时自然消耗更多卡路里，通常与肌肉量更多、年龄较轻或男性相关；BMR 较低通常意味着肌肉量较少、年龄较大或女性。',
+			'disclaimer.healthMetrics.bmr.description' => '基础代谢率 (BMR) 是你静息时为维持呼吸、循环等基本功能而消耗的卡路里数。BMR 取决于你的年龄、性别、身高和体重。较高的 BMR 表示你在静息时自然消耗更多热量，通常与更多的肌肉、更年轻的年龄或男性有关。较低的 BMR 通常表示肌肉较少、年龄较大或女性。',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => '每日总能量消耗（TDEE）是你每天消耗的总卡路里，包括 BMR 以及体力活动和日常活动产生的消耗。TDEE 取决于你的 BMR 与活动水平。TDEE 较高通常意味着更活跃或 BMR 较高；TDEE 较低则提示日常活动较少或 BMR 较低。',
+			'disclaimer.healthMetrics.tdee.description' => '每日总能量消耗 (TDEE) 是你每天消耗的总卡路里，包括 BMR 以及来自身体活动和日常活动的卡路里。TDEE 取决于你的 BMR 和活动水平。较高的 TDEE 表示你总体消耗更多卡路里，通常与更活跃或更高的 BMR 有关。较低的 TDEE 则表示日常活动较少或 BMR 较低。',
 			'disclaimer.healthMetrics.dailyGoal.title' => '每日目标',
-			'disclaimer.healthMetrics.dailyGoal.description' => '每日目标是基于你的 TDEE 和体重目标所推荐的每日卡路里摄入。想减重时，摄入少于 TDEE；想维持体重时，摄入与 TDEE 大致相当；想增重时，摄入多于 TDEE。这有助于你以健康的节奏达成理想体重变化。',
+			'disclaimer.healthMetrics.dailyGoal.description' => '每日目标是基于你的 TDEE 和体重目标推荐的每日摄入卡路里。为了减重，你需摄入低于 TDEE 的卡路里；维持体重则与 TDEE 相当；增重则摄入高于 TDEE 的卡路里。这有助于你以健康节奏实现期望的体重变化。',
 			'disclaimer.calorieExpenditure.title' => '卡路里消耗估算',
-			'disclaimer.calorieExpenditure.description' => '当无法获取 Health Connect 数据时，我们会基于你的基础代谢率（BMR）和活动水平（TDEE），并按当天已过去的时间比例进行缩放，来估算你今日已消耗的卡路里。',
+			'disclaimer.calorieExpenditure.description' => '当 Health Connect 数据不可用时，我们会使用你的基础代谢率 (BMR) 和活动水平 (TDEE) 来估算今天已消耗的卡路里，并按当天已过的时间比例进行缩放。',
 			'disclaimer.calorieExpenditure.howCalculated.title' => '估算如何计算',
-			'disclaimer.calorieExpenditure.howCalculated.description' => '我们计算你的 TDEE（基于你的资料），并将其乘以当天已过去的时间比例（小时 + 分钟）/ 24，以估算目前为止的消耗。',
-			'disclaimer.calorieExpenditure.professionalGuidance.title' => '专业建议',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => '请勿将此估算用于医疗决策。个性化建议请始终咨询医疗专业人士或注册营养师。',
+			'disclaimer.calorieExpenditure.howCalculated.description' => '我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => '专业指导',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。',
 			'common.close' => '关闭',
 			'common.kContinue' => '继续',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜欢 ${appLabel} 吗？',
-			'feedbackRating.yes' => '是的，我很喜欢',
-			'feedbackRating.no' => '不太满意',
-			'feedbackRating.rateStepHeading' => '在 Play 商店评分',
+			'feedbackRating.yes' => '是，我很喜欢',
+			'feedbackRating.no' => '不太喜欢',
+			'feedbackRating.rateStepHeading' => '在 Play Store 评分',
 			'feedbackRating.emailStepHeading' => '通过邮件发送反馈',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '简短的评分有助于他人发现 ${appLabel}，也能支持持续开发。愿意花一点时间评价吗？',
-			'feedbackRating.shareFeedbackViaEmail' => '你的反馈将影响接下来的方向——我们会阅读每一条留言。愿意通过邮件分享想法吗？',
-			'feedbackRating.rateCta' => '在 Play 商店评分',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => '一个简短的评分能帮助更多人发现 ${appLabel} 并支持开发。你愿意花一点时间评分吗？',
+			'feedbackRating.shareFeedbackViaEmail' => '你的反馈决定下一步方向——我们会阅读每条信息。你愿意通过邮件分享你的想法吗？',
+			'feedbackRating.rateCta' => '在 Play Store 评分',
 			'feedbackRating.maybeLater' => '稍后再说',
 			'feedbackRating.sendFeedback' => '发送反馈',
 			'feedbackRating.noThanks' => '不用了，谢谢',
-			'feedbackRating.aboutUsDescription' => '由一个小团队用心打造。我们专注于隐私、简洁，以及帮助你养成更好的饮食习惯。',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是谁在背后打造 ${appLabel}？查看 ',
+			'feedbackRating.aboutUsDescription' => '由小团队用心打造。我们专注于隐私、简洁，并帮助你养成更好的饮食习惯。',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => '想知道是谁在背后构建 ${appLabel}？查看 ',
 			'feedbackRating.aboutUsLinkLabel' => '关于我们',
-			'feedbackRating.thankYouMessage' => '谢谢！我们稍后再问。',
+			'feedbackRating.thankYouMessage' => '谢谢！我们会在之后再次询问。',
 			'health.syncFailed' => '无法同步到 Health Connect',
 			'health.mealSynced' => '餐食已与 Health Connect 同步',
 			_ => null,

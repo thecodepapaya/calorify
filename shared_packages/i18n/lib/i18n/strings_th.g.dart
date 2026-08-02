@@ -67,12 +67,12 @@ class _TranslationsErrorsTh implements TranslationsErrorsEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'คุณส่งคำขอมากเกินไป กรุณารอสักครู่ก่อนลองใหม่';
-	@override String get networkError => 'ข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ';
-	@override String get unknownError => 'เกิดข้อผิดพลาดบางอย่าง กรุณาลองใหม่ภายหลัง';
-	@override String get loadingProfileData => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์';
+	@override String get rateLimitExceeded => 'คุณส่งคำขอบ่อยเกินไป โปรดรอสักครู่แล้วลองอีกครั้ง';
+	@override String get networkError => 'เกิดข้อผิดพลาดเครือข่าย โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ';
+	@override String get unknownError => 'เกิดข้อผิดพลาด โปรดลองอีกครั้งภายหลัง';
+	@override String get loadingProfileData => 'เกิดข้อผิดพลาดขณะโหลดข้อมูลโปรไฟล์';
 	@override String get somethingWentWrong => 'เกิดข้อผิดพลาดบางอย่าง';
-	@override String get retry => 'ลองอีกครั้ง';
+	@override String get retry => 'ลองใหม่';
 }
 
 // Path: onboarding
@@ -83,8 +83,8 @@ class _TranslationsOnboardingTh implements TranslationsOnboardingEn {
 
 	// Translations
 	@override String welcome({required Object appLabel}) => 'ยินดีต้อนรับสู่ ${appLabel}';
-	@override String get subtitle => 'ผู้ช่วยด้านโภชนาการส่วนตัวของคุณ ขับเคลื่อนด้วย AI';
-	@override String get getStarted => 'เริ่มต้น';
+	@override String get subtitle => 'ผู้ช่วยโภชนาการส่วนตัวของคุณ ใช้พลังจาก AI';
+	@override String get getStarted => 'เริ่มเลย';
 	@override late final _TranslationsOnboardingFeaturesTh features = _TranslationsOnboardingFeaturesTh._(_root);
 	@override late final _TranslationsOnboardingGenderTh gender = _TranslationsOnboardingGenderTh._(_root);
 	@override late final _TranslationsOnboardingHeightTh height = _TranslationsOnboardingHeightTh._(_root);
@@ -134,8 +134,8 @@ class _TranslationsHistoryTh implements TranslationsHistoryEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'ยังไม่มีมื้ออาหาร';
-	@override String get emptyMessage => 'ถ่ายรูปมื้อที่ผ่านมาเพื่อบันทึกที่นี่';
+	@override String get noMeals => 'ยังไม่มีมื้อบันทึก';
+	@override String get emptyMessage => 'ถ่ายรูปมื้อสุดท้ายของคุณเพื่อบันทึกที่นี่';
 	@override String get today => 'วันนี้';
 	@override String get yesterday => 'เมื่อวาน';
 }
@@ -149,34 +149,34 @@ class _TranslationsMealTh implements TranslationsMealEn {
 	// Translations
 	@override String get ohNo => 'โอ้ ไม่!';
 	@override String get delete => 'ลบ';
-	@override String get editMeal => 'แก้ไขมื้ออาหาร';
-	@override String get addMeal => 'เพิ่มมื้ออาหาร';
-	@override String get saveMeal => 'บันทึกมื้ออาหาร';
+	@override String get editMeal => 'แก้ไขมื้อ';
+	@override String get addMeal => 'เพิ่มมื้อ';
+	@override String get saveMeal => 'บันทึกมื้อ';
 	@override String get save => 'บันทึก';
-	@override String get mealName => 'ชื่อมื้ออาหาร';
+	@override String get mealName => 'ชื่อมื้อ';
 	@override String get mealNameHint => 'เช่น ไข่คนกับขนมปังปิ้ง';
-	@override String get mealQuantity => 'ปริมาณมื้ออาหาร';
-	@override String get mealQuantityHint => 'เช่น 1 ชาม, 2 ชิ้น';
-	@override String get timeOfMeal => 'เวลาที่รับประทาน';
-	@override String get timeOfMealHint => 'เลือกเวลาที่คุณรับประทานมื้อนี้';
-	@override String get mealType => 'ประเภทมื้ออาหาร';
+	@override String get mealQuantity => 'ปริมาณมื้อ';
+	@override String get mealQuantityHint => 'เช่น 1 ถ้วย, 2 แผ่น';
+	@override String get timeOfMeal => 'เวลารับประทาน';
+	@override String get timeOfMealHint => 'เลือกเวลาที่คุณทานมื้ออาหาร';
+	@override String get mealType => 'ประเภทมื้อ';
 	@override late final _TranslationsMealNutritionTh nutrition = _TranslationsMealNutritionTh._(_root);
 	@override late final _TranslationsMealDeleteConfirmationTh deleteConfirmation = _TranslationsMealDeleteConfirmationTh._(_root);
-	@override String get addedToLog => 'เพิ่มมื้ออาหารลงในบันทึกแล้ว!';
-	@override String couldNotAdd({required Object error}) => 'ไม่สามารถเพิ่มมื้ออาหาร: ${error}';
-	@override String get savedSuccessfully => 'เพิ่มมื้ออาหารเรียบร้อย!';
-	@override String get updatedSuccessfully => 'อัปเดตมื้ออาหารเรียบร้อย!';
-	@override String errorSaving({required Object error}) => 'เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: ${error}';
-	@override String get removedFromFavorites => 'เอาออกจากรายการโปรดแล้ว!';
-	@override String get savedAsFavorite => 'บันทึกมื้ออาหารเป็นรายการโปรดแล้ว!';
-	@override String get unfavorite => 'เลิกรายการโปรด';
-	@override String couldNotUpdateFavorite({required Object error}) => 'ไม่สามารถอัปเดตรายการโปรด: ${error}';
-	@override String get feedbackThanks => 'ขอบคุณสำหรับความคิดเห็น!';
-	@override String get reanalysisUpdated => 'อัปเดตการวิเคราะห์มื้ออาหารตามความคิดเห็นของคุณแล้ว';
-	@override String failedToProcess({required Object error}) => 'ไม่สามารถประมวลผล: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'ไม่สามารถประมวลผลรูปภาพ: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'เกิดข้อผิดพลาดขณะบีบอัดรูปภาพ: ${error}';
-	@override String get failedToSave => 'บันทึกข้อมูลไม่สำเร็จ โปรดลองอีกครั้ง';
+	@override String get addedToLog => 'เพิ่มมื้อในบันทึกแล้ว!';
+	@override String couldNotAdd({required Object error}) => 'ไม่สามารถเพิ่มมื้อได้: ${error}';
+	@override String get savedSuccessfully => 'เพิ่มมื้อเรียบร้อยแล้ว!';
+	@override String get updatedSuccessfully => 'แก้ไขมื้อเรียบร้อยแล้ว!';
+	@override String errorSaving({required Object error}) => 'เกิดข้อผิดพลาดขณะบันทึกมื้อ: ${error}';
+	@override String get removedFromFavorites => 'ยกเลิกจากรายการโปรดแล้ว!';
+	@override String get savedAsFavorite => 'บันทึกมื้อเป็นโปรดแล้ว!';
+	@override String get unfavorite => 'ยกเลิกโปรด';
+	@override String couldNotUpdateFavorite({required Object error}) => 'ไม่สามารถอัปเดตสถานะโปรดได้: ${error}';
+	@override String get feedbackThanks => 'ขอบคุณสำหรับคำติชม!';
+	@override String get reanalysisUpdated => 'อัปเดตการวิเคราะห์มื้อตามคำติชมของคุณแล้ว';
+	@override String failedToProcess({required Object error}) => 'ไม่สามารถประมวลผลได้: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'ไม่สามารถประมวลผลรูปได้: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดรูป: ${error}';
+	@override String get failedToSave => 'ไม่สามารถบันทึกข้อมูลได้ โปรดลองอีกครั้ง';
 	@override String get skip => 'ข้าม';
 	@override late final _TranslationsMealQuestionFlowTh questionFlow = _TranslationsMealQuestionFlowTh._(_root);
 	@override late final _TranslationsMealAnalysisTh analysis = _TranslationsMealAnalysisTh._(_root);
@@ -193,11 +193,11 @@ class _TranslationsFavoritesTh implements TranslationsFavoritesEn {
 	@override String get title => 'รายการโปรด';
 	@override String get empty => 'ยังไม่มีมื้อโปรด';
 	@override String get searchPlaceholder => 'ค้นหามื้อโปรด';
-	@override String get searchEmptyTitle => 'ไม่พบรายการโปรดที่ตรงกับการค้นหา';
-	@override String get searchEmptySubtitle => 'ลองใช้ชื่อมื้อ ปริมาณ หรือประเภทมื้อแบบอื่น';
-	@override String get sortLabel => 'เรียงรายการโปรด';
-	@override String get undo => 'เลิกทำ';
-	@override String removed({required Object name}) => 'ลบ ${name} ออกจากรายการโปรดแล้ว';
+	@override String get searchEmptyTitle => 'ไม่มีรายการโปรดที่ตรงกับการค้นหา';
+	@override String get searchEmptySubtitle => 'ลองใช้ชื่อมื้อ ปริมาณ หรือประเภทมื้ออื่น';
+	@override String get sortLabel => 'จัดเรียงรายการโปรด';
+	@override String get undo => 'ยกเลิก';
+	@override String removed({required Object name}) => 'นำ ${name} ออกจากรายการโปรดแล้ว';
 	@override late final _TranslationsFavoritesSortOptionsTh sortOptions = _TranslationsFavoritesSortOptionsTh._(_root);
 }
 
@@ -214,16 +214,16 @@ class _TranslationsProfileTh implements TranslationsProfileEn {
 	@override String get viewAndManage => 'ดูและจัดการข้อมูลสุขภาพของคุณ';
 	@override late final _TranslationsProfileSectionsTh sections = _TranslationsProfileSectionsTh._(_root);
 	@override String get gender => 'เพศ';
-	@override String get height => 'ส่วนสูง';
+	@override String get height => 'ความสูง';
 	@override String get weight => 'น้ำหนัก';
 	@override String get age => 'อายุ';
 	@override String get weightGoal => 'เป้าหมายน้ำหนัก';
 	@override String get targetWeight => 'น้ำหนักเป้าหมาย';
 	@override String get activityLevel => 'ระดับกิจกรรม';
 	@override String get healthMetrics => 'ตัวชี้วัดสุขภาพ';
-	@override String get notSet => 'ยังไม่ตั้งค่า';
+	@override String get notSet => 'ยังไม่ได้ตั้งค่า';
 	@override String get years => 'ปี';
-	@override String get updatedSuccessfully => 'อัปเดตโปรไฟล์เรียบร้อย!';
+	@override String get updatedSuccessfully => 'อัปเดตโปรไฟล์เรียบร้อยแล้ว!';
 	@override late final _TranslationsProfileCalculatedValuesTh calculatedValues = _TranslationsProfileCalculatedValuesTh._(_root);
 }
 
@@ -235,11 +235,11 @@ class _TranslationsHealthScoreTh implements TranslationsHealthScoreEn {
 
 	// Translations
 	@override String get title => 'คะแนนสุขภาพ';
-	@override String get whyThisScore => 'ทำไมถึงได้คะแนนนี้?';
-	@override String get note => 'คะแนนนี้เป็นการประเมินโดย AI จากส่วนผสมที่ตรวจพบและความหนาแน่นของสารอาหาร โปรดปรึกษาผู้เชี่ยวชาญเพื่อขอคำแนะนำด้านโภชนาการที่เหมาะกับคุณ';
-	@override String get unhealthy => 'ไม่ดีต่อสุขภาพ';
-	@override String get healthy => 'ดีต่อสุขภาพ';
-	@override String get neutral => 'กึ่งกลาง';
+	@override String get whyThisScore => 'ทำไมได้คะแนนนี้?';
+	@override String get note => 'คะแนนนี้เป็นการประมาณของ AI โดยอิงจากส่วนผสมที่ระบุและความหนาแน่นทางโภชนาการ ควรปรึกษาผู้เชี่ยวชาญสำหรับคำแนะนำด้านอาหารที่เฉพาะเจาะจง';
+	@override String get unhealthy => 'ไม่แข็งแรง';
+	@override String get healthy => 'แข็งแรง';
+	@override String get neutral => 'ปานกลาง';
 }
 
 // Path: editProfile
@@ -252,21 +252,21 @@ class _TranslationsEditProfileTh implements TranslationsEditProfileEn {
 	@override String get title => 'แก้ไขโปรไฟล์';
 	@override late final _TranslationsEditProfileSectionsTh sections = _TranslationsEditProfileSectionsTh._(_root);
 	@override String get gender => 'เพศ';
-	@override String get dateOfBirth => 'วันเดือนปีเกิด';
-	@override String get height => 'ส่วนสูง';
+	@override String get dateOfBirth => 'วันเกิด';
+	@override String get height => 'ความสูง';
 	@override String get weight => 'น้ำหนัก';
 	@override String get weightGoal => 'เป้าหมายน้ำหนัก';
 	@override String get activityLevel => 'ระดับกิจกรรม';
 	@override String get metric => 'เมตริก';
 	@override String get imperial => 'อิมพีเรียล';
-	@override String get unitCm => 'ซม.';
-	@override String get unitFt => 'ฟุต';
-	@override String get unitKg => 'กก.';
-	@override String get unitLbs => 'ปอนด์';
-	@override String get metricCm => 'เมตริก (ซม.)';
-	@override String get imperialFtIn => 'อิมพีเรียล (ฟุต/นิ้ว)';
-	@override String get metricKg => 'เมตริก (กก.)';
-	@override String get imperialLbs => 'อิมพีเรียล (ปอนด์)';
+	@override String get unitCm => 'cm';
+	@override String get unitFt => 'ft';
+	@override String get unitKg => 'kg';
+	@override String get unitLbs => 'lbs';
+	@override String get metricCm => 'เมตริก (cm)';
+	@override String get imperialFtIn => 'อิมพีเรียล (ft/in)';
+	@override String get metricKg => 'เมตริก (kg)';
+	@override String get imperialLbs => 'อิมพีเรียล (lbs)';
 	@override late final _TranslationsEditProfileGendersTh genders = _TranslationsEditProfileGendersTh._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsTh weightGoals = _TranslationsEditProfileWeightGoalsTh._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsTh activityLevels = _TranslationsEditProfileActivityLevelsTh._(_root);
@@ -304,26 +304,26 @@ class _TranslationsRemindersTh implements TranslationsRemindersEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ไม่หลุดเป้าด้วยการเตือน';
-	@override String get description => 'รับการเตือนอย่างนุ่มนวลให้บันทึกมื้ออาหารและคงความสม่ำเสมอกับเป้าหมายโภชนาการของคุณ';
+	@override String get title => 'เตือนให้สม่ำเสมอด้วยการแจ้งเตือน';
+	@override String get description => 'รับการเตือนอ่อนโยนให้บันทึกมื้อและรักษาความต่อเนื่องในเป้าหมายโภชนาการ';
 	@override String get notificationsEnabled => 'เปิดการแจ้งเตือนแล้ว';
-	@override String get notificationsDisabled => 'ปิดการแจ้งเตือน';
-	@override String get enabledSubtitle => 'คุณจะได้รับการเตือนมื้ออาหาร';
+	@override String get notificationsDisabled => 'ปิดการแจ้งเตือนแล้ว';
+	@override String get enabledSubtitle => 'คุณจะได้รับการแจ้งเตือนเกี่ยวกับมื้ออาหาร';
 	@override String get disabledSubtitle => 'เปิดการแจ้งเตือนเพื่อรับการเตือนมื้ออาหาร';
 	@override String get mealReminders => 'การเตือนมื้ออาหาร';
 	@override String get breakfast => 'มื้อเช้า';
 	@override String get lunch => 'มื้อกลางวัน';
 	@override String get dinner => 'มื้อเย็น';
 	@override String get snack => 'ของว่าง';
-	@override String get unknown => 'ไม่ระบุ';
+	@override String get unknown => 'ไม่ทราบ';
 	@override String get change => 'เปลี่ยน';
 	@override String get enableNotifications => 'เปิดการแจ้งเตือน';
-	@override String get skipForNow => 'ข้ามไปก่อน';
+	@override String get skipForNow => 'ข้ามก่อน';
 	@override String get saveChanges => 'บันทึกการเปลี่ยนแปลง';
-	@override String get enabledSuccessfully => 'เปิดการแจ้งเตือนเรียบร้อย!';
-	@override String get permissionDenied => 'ปฏิเสธการอนุญาตการแจ้งเตือน';
-	@override String errorEnabling({required Object error}) => 'เกิดข้อผิดพลาดในการเปิดการแจ้งเตือน: ${error}';
-	@override String errorCompletingSetup({required Object error}) => 'เกิดข้อผิดพลาดในการตั้งค่าให้เสร็จสิ้น: ${error}';
+	@override String get enabledSuccessfully => 'เปิดการแจ้งเตือนเรียบร้อยแล้ว!';
+	@override String get permissionDenied => 'การอนุญาตแจ้งเตือนถูกปฏิเสธ';
+	@override String errorEnabling({required Object error}) => 'เกิดข้อผิดพลาดขณะเปิดการแจ้งเตือน: ${error}';
+	@override String errorCompletingSetup({required Object error}) => 'เกิดข้อผิดพลาดขณะทำการตั้งค่าให้เสร็จ: ${error}';
 }
 
 // Path: notifications
@@ -349,7 +349,7 @@ class _TranslationsLoginTh implements TranslationsLoginEn {
 	// Translations
 	@override String get title => 'เข้าสู่ระบบ';
 	@override String get signInWithGoogle => 'ลงชื่อเข้าใช้ด้วย Google';
-	@override String get signInFailed => 'การลงชื่อเข้าใช้ด้วย Google ล้มเหลวหรือถูกยกเลิก';
+	@override String get signInFailed => 'การเข้าสู่ระบบด้วย Google ล้มเหลวหรือถูกยกเลิก';
 }
 
 // Path: disclaimer
@@ -385,20 +385,20 @@ class _TranslationsFeedbackRatingTh implements TranslationsFeedbackRatingEn {
 
 	// Translations
 	@override String enjoyingQuestion({required Object appLabel}) => 'ชอบ ${appLabel} ไหม?';
-	@override String get yes => 'ใช่ ชอบมาก';
-	@override String get no => 'ยังไม่เท่าไร';
+	@override String get yes => 'ใช่ ฉันชอบ';
+	@override String get no => 'ไม่ค่อย';
 	@override String get rateStepHeading => 'ให้คะแนนบน Play Store';
-	@override String get emailStepHeading => 'ส่งความคิดเห็นทางอีเมล';
-	@override String soloDevMessage({required Object appLabel}) => 'การให้คะแนนสั้นๆ ช่วยให้คนอื่นค้นพบ ${appLabel} และช่วยให้การพัฒนาต่อเนื่อง คุณสะดวกให้สักนาทีไหม?';
-	@override String get shareFeedbackViaEmail => 'ความคิดเห็นของคุณกำหนดสิ่งที่จะตามมา — เราอ่านทุกข้อความ ต้องการส่งความเห็นทางอีเมลไหม?';
+	@override String get emailStepHeading => 'ส่งคำติชมทางอีเมล';
+	@override String soloDevMessage({required Object appLabel}) => 'การให้คะแนนสั้นๆ ช่วยให้คนอื่นค้นพบ ${appLabel} และช่วยให้การพัฒนายังคงเดินต่อไป คุณช่วยสละเวลาเขียนหน่อยไหม?';
+	@override String get shareFeedbackViaEmail => 'คำติชมของคุณกำหนดทิศทางอนาคต — เราอ่านทุกข้อความ คุณต้องการแชร์ความคิดเห็นทางอีเมลไหม?';
 	@override String get rateCta => 'ให้คะแนนบน Play Store';
 	@override String get maybeLater => 'ไว้ทีหลัง';
-	@override String get sendFeedback => 'ส่งความคิดเห็น';
-	@override String get noThanks => 'ไม่เป็นไร ขอบคุณ';
-	@override String get aboutUsDescription => 'สร้างด้วยความใส่ใจโดยทีมเล็กๆ เรามุ่งเน้นความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการกินที่ดีขึ้น';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'อยากรู้ว่าใครอยู่เบื้องหลัง ${appLabel}? ดู ';
+	@override String get sendFeedback => 'ส่งคำติชม';
+	@override String get noThanks => 'ไม่เป็นไร';
+	@override String get aboutUsDescription => 'สร้างด้วยความใส่ใจโดยทีมขนาดเล็ก เรามุ่งมั่นเรื่องความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการกินที่ดีขึ้น';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'สงสัยว่าใครอยู่เบื้องหลัง ${appLabel}? ดู ';
 	@override String get aboutUsLinkLabel => 'เกี่ยวกับเรา';
-	@override String get thankYouMessage => 'ขอบคุณ! ไว้ค่อยถามใหม่อีกครั้ง';
+	@override String get thankYouMessage => 'ขอบคุณ! เราจะถามอีกครั้งในครั้งหน้า';
 }
 
 // Path: health
@@ -408,8 +408,8 @@ class _TranslationsHealthTh implements TranslationsHealthEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'ไม่สามารถซิงค์ไปยัง Health Connect';
-	@override String get mealSynced => 'ซิงค์มื้ออาหารกับ Health Connect แล้ว';
+	@override String get syncFailed => 'ไม่สามารถซิงก์กับ Health Connect';
+	@override String get mealSynced => 'ซิงก์มื้อกับ Health Connect แล้ว';
 }
 
 // Path: onboarding.features
@@ -431,8 +431,8 @@ class _TranslationsOnboardingGenderTh implements TranslationsOnboardingGenderEn 
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'เพศของคุณคืออะไร?';
-	@override String get description => 'เพศช่วยให้เราคำนวณอัตราการเผาผลาญพื้นฐาน (BMR) ได้แม่นยำ';
+	@override String get title => 'คุณระบุเพศว่าอย่างไร?';
+	@override String get description => 'ข้อมูลเพศช่วยให้เราคำนวณอัตราการเผาผลาญพื้นฐาน (BMR) ได้แม่นยำขึ้น';
 	@override String get next => 'ถัดไป';
 }
 
@@ -443,8 +443,8 @@ class _TranslationsOnboardingHeightTh implements TranslationsOnboardingHeightEn 
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'คุณสูงเท่าไร?';
-	@override String get description => 'ความสูงช่วยให้เราคำนวณ BMI และความต้องการพลังงานได้แม่นยำ';
+	@override String get title => 'คุณสูงเท่าไหร่?';
+	@override String get description => 'ความสูงช่วยให้เราคำนวณ BMI และความต้องการพลังงานได้อย่างแม่นยำ';
 	@override String get metric => 'เมตริก';
 	@override String get imperial => 'อิมพีเรียล';
 	@override String get next => 'ถัดไป';
@@ -457,10 +457,10 @@ class _TranslationsOnboardingWeightTh implements TranslationsOnboardingWeightEn 
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'น้ำหนักปัจจุบันของคุณเท่าไร?';
-	@override String get currentDescription => 'น้ำหนักปัจจุบันสำคัญต่อการปรับเป้าหมายรายวันให้เหมาะกับคุณ';
-	@override String get targetTitle => 'น้ำหนักเป้าหมายของคุณคือเท่าไร?';
-	@override String get targetDescription => 'การตั้งเป้าหมายน้ำหนักช่วยกำหนดแผนระยะยาวที่เหมาะสม';
+	@override String get currentTitle => 'น้ำหนักปัจจุบันของคุณเท่าไหร่?';
+	@override String get currentDescription => 'น้ำหนักปัจจุบันจำเป็นสำหรับการปรับเป้าหมายรายวันให้เหมาะกับคุณ';
+	@override String get targetTitle => 'น้ำหนักเป้าหมายของคุณคือเท่าไหร่?';
+	@override String get targetDescription => 'การตั้งน้ำหนักเป้าหมายช่วยให้เราวางแผนระยะยาวให้เหมาะสม';
 	@override String get metric => 'เมตริก';
 	@override String get imperial => 'อิมพีเรียล';
 	@override String get next => 'ถัดไป';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeTh implements TranslationsOnboardingAgeEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'วันเกิดของคุณคือวันไหน?';
-	@override String get description => 'อายุช่วยให้เราคำนวณความต้องการแคลอรีได้แม่นยำ';
+	@override String get title => 'วันเกิดของคุณคือเมื่อไหร่?';
+	@override String get description => 'อายุช่วยให้เราคำนวณความต้องการแคลอรีได้อย่างแม่นยำ';
 	@override String get next => 'ถัดไป';
 }
 
@@ -485,9 +485,9 @@ class _TranslationsOnboardingBmiScaleTh implements TranslationsOnboardingBmiScal
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'ต่ำ';
-	@override String get healthy => 'ปกติ';
-	@override String get overweight => 'เกิน';
+	@override String get underweight => 'ผอมกว่าปกติ';
+	@override String get healthy => 'สุขภาพดี';
+	@override String get overweight => 'น้ำหนักเกิน';
 	@override String get obese => 'อ้วน';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesTh categories = _TranslationsOnboardingBmiScaleCategoriesTh._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesTh messages = _TranslationsOnboardingBmiScaleMessagesTh._(_root);
@@ -501,7 +501,7 @@ class _TranslationsOnboardingWeightGoalTh implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'เป้าหมายของคุณคืออะไร?';
-	@override String get description => 'เลือกเป้าหมายที่ตรงกับสิ่งที่คุณอยากบรรลุ';
+	@override String get description => 'เลือกเป้าหมายที่ตรงกับสิ่งที่คุณต้องการบรรลุ';
 }
 
 // Path: onboarding.activityLevel
@@ -511,8 +511,8 @@ class _TranslationsOnboardingActivityLevelTh implements TranslationsOnboardingAc
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'คุณมีกิจกรรมมากแค่ไหน?';
-	@override String get description => 'สิ่งนี้ช่วยให้เราคำนวณความต้องการแคลอรีรายวันของคุณได้แม่นยำขึ้น';
+	@override String get title => 'คุณมีกิจกรรมระดับไหน?';
+	@override String get description => 'ข้อมูลนี้ช่วยให้เราคำนวณความต้องการแคลอรีรายวันได้แม่นยำขึ้น';
 }
 
 // Path: onboarding.healthConnect
@@ -523,18 +523,18 @@ class _TranslationsOnboardingHealthConnectTh implements TranslationsOnboardingHe
 
 	// Translations
 	@override String get title => 'เชื่อมต่อกับ Health Connect';
-	@override String get description => 'ซิงค์ข้อมูลสุขภาพเพื่อข้อมูลเชิงลึกที่ดีขึ้นและติดตามแคลอรีอัตโนมัติ';
+	@override String get description => 'ซิงก์ข้อมูลสุขภาพของคุณเพื่อการวิเคราะห์และติดตามแคลอรีอัตโนมัติ';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingTh automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingTh._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsTh progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsTh._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationTh seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationTh._(_root);
-	@override String get connected => 'เชื่อมต่อ Health Connect แล้ว';
-	@override String get notConnected => 'ยังไม่ได้เชื่อมต่อ Health Connect';
+	@override String get connected => 'เชื่อมต่อกับ Health Connect แล้ว';
+	@override String get notConnected => 'ยังไม่ได้เชื่อมต่อกับ Health Connect';
 	@override String get setup => 'ตั้งค่า Health Connect';
-	@override String get skipForNow => 'ข้ามไปก่อน';
-	@override String get statusConnected => 'เชื่อมต่อ Health Connect แล้ว';
-	@override String get statusSuccess => 'เชื่อมต่อ Health Connect สำเร็จ!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'ปฏิเสธสิทธิ์ กรุณาเปิดสิทธิ์ Health Connect จากการตั้งค่าโทรศัพท์สำหรับ ${appLabel}';
-	@override String statusError({required Object error}) => 'เกิดข้อผิดพลาดในการตั้งค่า Health Connect: ${error}';
+	@override String get skipForNow => 'ข้ามก่อน';
+	@override String get statusConnected => 'Health Connect ถูกเชื่อมต่อแล้ว';
+	@override String get statusSuccess => 'เชื่อมต่อกับ Health Connect สำเร็จ!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ ${appLabel}';
+	@override String statusError({required Object error}) => 'เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -556,15 +556,15 @@ class _TranslationsHomeAiSummaryTh implements TranslationsHomeAiSummaryEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'สรุป AI ของคุณ';
-	@override String get logMore => 'บันทึกมื้ออาหารเพิ่มในอีกไม่กี่วันข้างหน้าเพื่อรับข้อมูลเชิงลึกส่วนบุคคลจาก AI';
-	@override String get loading => 'กำลังโหลดสรุปของคุณ...';
-	@override String mealCount({required Object count}) => 'บันทึกอาหารแล้ว ${count} มื้อ';
-	@override String macroBalanceScore({required Object score}) => 'คะแนนสมดุลมาโคร ${score}';
+	@override String get title => 'สรุปโดย AI ของคุณ';
+	@override String get logMore => 'บันทึกมื้ออาหารเพิ่มเติมในอีกไม่กี่วันข้างหน้าเพื่อรับข้อมูล AI ที่ปรับให้เฉพาะคุณ';
+	@override String get loading => 'กำลังโหลดสรุปของคุณ…';
+	@override String mealCount({required Object count}) => 'บันทึก ${count} มื้อ';
+	@override String macroBalanceScore({required Object score}) => 'คะแนนสมดุล ${score}';
 	@override String get topFoods => 'อาหารยอดนิยม';
-	@override String get trendUp => 'แคลอรีมีแนวโน้มเพิ่มขึ้น';
-	@override String get trendDown => 'แคลอรีมีแนวโน้มลดลง';
-	@override String get trendSteady => 'แคลอรีทรงตัว';
+	@override String get trendUp => 'แคลอรีเพิ่มขึ้น';
+	@override String get trendDown => 'แคลอรีลดลง';
+	@override String get trendSteady => 'แคลอรีคงที่';
 	@override String generatedAt({required Object time}) => 'อัปเดตเมื่อ ${time}';
 }
 
@@ -577,17 +577,17 @@ class _TranslationsHomeDailyGoalTh implements TranslationsHomeDailyGoalEn {
 	// Translations
 	@override String get title => 'ตั้งเป้าหมายรายวันของคุณ';
 	@override String get titleSet => 'เป้าหมายรายวันของคุณ';
-	@override String get description => 'พร้อมออกเดินทางสู่สุขภาพที่ดีขึ้นหรือยัง? ตั้งเป้าแคลอรีรายวันด้านล่างเพื่อเริ่มต้นความก้าวหน้า';
-	@override String get descriptionSet => 'เข็มทิศของคุณถูกตั้งไว้แล้ว! นี่คือเป้าหมายแคลอรีรายวันเพื่อคอยนำทางคุณ';
+	@override String get description => 'พร้อมเริ่มต้นการเดินทางสู่ความเป็นอยู่ที่ดีหรือยัง? ตั้งเป้าหมายแคลอรีรายวันด้านล่างเพื่อเริ่มต้นความก้าวหน้า';
+	@override String get descriptionSet => 'เข็มทิศของคุณถูกตั้งแล้ว! นี่คือเป้าหมายแคลอรีรายวันของคุณ';
 	@override String get yourGoal => 'เป้าหมายของคุณ';
 	@override String get goal => 'เป้าหมาย';
 	@override String get dailyCalories => 'แคลอรีต่อวัน (kcal)';
 	@override String get setGoal => 'ตั้งเป้าหมาย';
 	@override String get intake => 'รับเข้า';
 	@override String get burned => 'เผาผลาญ';
-	@override String get weightImpact => 'ผลต่อน้ำหนัก';
-	@override String get estLoss => 'คาดว่าจะลด';
-	@override String get estGain => 'คาดว่าจะเพิ่ม';
+	@override String get weightImpact => 'ผลต่อ น้ำหนัก';
+	@override String get estLoss => 'คาดการณ์การลด';
+	@override String get estGain => 'คาดการณ์การเพิ่ม';
 	@override String get kcal => 'kcal';
 }
 
@@ -598,14 +598,14 @@ class _TranslationsHomeDailySummaryTh implements TranslationsHomeDailySummaryEn 
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'สรุปรายวัน';
+	@override String get title => 'สรุประหว่างวัน';
 	@override String get calories => 'แคลอรี';
-	@override String get carbs => 'คาร์บ';
+	@override String get carbs => 'คาร์โบไฮเดรต';
 	@override String get protein => 'โปรตีน';
 	@override String get fat => 'ไขมัน';
 	@override String get fiber => 'ใยอาหาร';
 	@override String get grams => 'กรัม';
-	@override String get chartAccessibilityLabel => 'แผนภูมิสารอาหารหลัก';
+	@override String get chartAccessibilityLabel => 'กราฟสารอาหารหลัก';
 }
 
 // Path: home.intakeProgress
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressTh implements TranslationsHomeIntakeProgres
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'สัดส่วนมาโครวันนี้';
+	@override String get title => 'สัดส่วนสารอาหารวันนี้';
 	@override String get target => 'เป้าหมาย';
 	@override String get current => 'ปัจจุบัน';
 }
@@ -627,11 +627,11 @@ class _TranslationsHomeIntakeHistoryTh implements TranslationsHomeIntakeHistoryE
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ประวัติมาโคร 7 วัน';
+	@override String get title => 'ประวัติสารอาหาร 7 วัน';
 	@override String get trendTitle => 'แนวโน้มวันนี้';
-	@override String peakHour({required Object hour}) => 'จุดพีค: ${hour}:00';
+	@override String peakHour({required Object hour}) => 'ชั่วโมงสูงสุด: ${hour}:00';
 	@override String get noHistoryYet => 'ยังไม่มีประวัติ';
-	@override String get startLogging => 'เริ่มบันทึกมื้ออาหารเพื่อดู\nแนวโน้มมาโคร 7 วันที่นี่';
+	@override String get startLogging => 'เริ่มบันทึกมื้ออาหารเพื่อดู\nแนวโน้มสารอาหาร 7 วันที่นี่';
 }
 
 // Path: home.mealLog
@@ -641,9 +641,9 @@ class _TranslationsHomeMealLogTh implements TranslationsHomeMealLogEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'มื้อที่บันทึก';
-	@override String get emptyMessage => 'ถ่ายรูปมื้อที่ผ่านมาเพื่อบันทึกที่นี่';
-	@override String get noMealsToday => 'ยังไม่มีมื้ออาหารสำหรับวันนี้';
+	@override String get title => 'มื้อที่บันทึกแล้ว';
+	@override String get emptyMessage => 'ถ่ายรูปมื้อสุดท้ายของคุณเพื่อบันทึกที่นี่';
+	@override String get noMealsToday => 'ยังไม่มีมื้อบันทึกสำหรับวันนี้';
 	@override String get seeAllMeals => 'ดูมื้อทั้งหมด';
 }
 
@@ -654,10 +654,10 @@ class _TranslationsHomeMealDescriptionTh implements TranslationsHomeMealDescript
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'เพิ่มเร็วด้วย AI';
-	@override String get description => 'บรรยายมื้อของคุณ แล้วให้ AI จัดการรายละเอียด';
-	@override String get hint => 'เช่น มื้อเช้าฉันทานโอ๊ตชามใหญ่ ใส่กล้วยหั่นหนึ่งผล และเวย์โปรตีนหนึ่งสกู๊ป ...';
-	@override String get analyzeMeal => 'วิเคราะห์มื้ออาหาร';
+	@override String get title => 'เพิ่มด่วนด้วย AI';
+	@override String get description => 'อธิบายมื้อของคุณ แล้วให้ AI จัดการรายละเอียด';
+	@override String get hint => 'เช่น มื้อเช้าฉันทานโจ๊กถ้วยใหญ่กับกล้วยหั่นและเวย์โปรตีนหนึ่งช้อน ...';
+	@override String get analyzeMeal => 'วิเคราะห์มื้อ';
 }
 
 // Path: home.favoriteMeals
@@ -668,9 +668,9 @@ class _TranslationsHomeFavoriteMealsTh implements TranslationsHomeFavoriteMealsE
 
 	// Translations
 	@override String get title => 'มื้อโปรด';
-	@override String get description => 'เพิ่มหนึ่งในมื้อโปรดของคุณอย่างรวดเร็ว';
+	@override String get description => 'เพิ่มมื้อโปรดของคุณได้อย่างรวดเร็ว';
 	@override String get noFavorites => 'ยังไม่มีมื้อโปรด';
-	@override String get addFavoriteHint => 'กดดาวที่มื้ออาหารเพื่อบันทึกเป็นรายการโปรด';
+	@override String get addFavoriteHint => 'คลิกดาวบนมื้อเพื่อทำเครื่องหมายเป็นโปรด';
 	@override String get seeAll => 'ดูทั้งหมด';
 	@override String get add => 'เพิ่ม';
 }
@@ -682,12 +682,12 @@ class _TranslationsHomeMealSnapTh implements TranslationsHomeMealSnapEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ถ่ายและติดตามมื้อของคุณ';
-	@override String get description => 'ใช้กล้องถ่ายภาพอาหารเพื่อให้ AI วิเคราะห์';
+	@override String get title => 'ถ่ายรูป & ติดตามมื้ออาหาร';
+	@override String get description => 'ใช้กล้องถ่ายรูปอาหารเพื่อให้ AI วิเคราะห์';
 	@override String get openCamera => 'เปิดกล้อง';
 	@override String get gallery => 'แกลเลอรี';
-	@override String get compressingPhoto => 'กำลังปรับรูปภาพให้เหมาะสม…';
-	@override String get uploadingPhoto => 'กำลังอัปโหลดรูปภาพ…';
+	@override String get compressingPhoto => 'กำลังปรับขนาดรูป…';
+	@override String get uploadingPhoto => 'กำลังอัปโหลดรูป…';
 }
 
 // Path: home.connectHealth
@@ -697,8 +697,8 @@ class _TranslationsHomeConnectHealthTh implements TranslationsHomeConnectHealthE
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ซิงค์กับ Health Connect';
-	@override String get description => 'ซิงค์ข้อมูลโภชนาการของคุณกับ Health Connect';
+	@override String get title => 'ซิงก์กับ Health Connect';
+	@override String get description => 'ซิงก์ข้อมูลโภชนาการของคุณกับ Health Connect';
 	@override String get install => 'ติดตั้ง';
 	@override String get connect => 'เชื่อมต่อ';
 }
@@ -711,10 +711,10 @@ class _TranslationsMealNutritionTh implements TranslationsMealNutritionEn {
 
 	// Translations
 	@override String get calories => 'แคลอรี';
-	@override String get carbs => 'คาร์บ (กรัม)';
-	@override String get protein => 'โปรตีน (กรัม)';
-	@override String get fat => 'ไขมัน (กรัม)';
-	@override String get fiber => 'ใยอาหาร (กรัม)';
+	@override String get carbs => 'คาร์บ (g)';
+	@override String get protein => 'โปรตีน (g)';
+	@override String get fat => 'ไขมัน (g)';
+	@override String get fiber => 'ใยอาหาร (g)';
 }
 
 // Path: meal.deleteConfirmation
@@ -725,7 +725,7 @@ class _TranslationsMealDeleteConfirmationTh implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'ลบมื้ออาหาร';
-	@override String get message => 'แน่ใจหรือไม่ว่าต้องการลบบันทึกมื้อนี้?';
+	@override String get message => 'คุณแน่ใจว่าต้องการลบรายการมื้อนี้หรือไม่?';
 	@override String get cancel => 'ยกเลิก';
 	@override String get delete => 'ลบ';
 }
@@ -737,8 +737,8 @@ class _TranslationsMealQuestionFlowTh implements TranslationsMealQuestionFlowEn 
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String progress({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}';
-	@override String get noQuestionsAvailable => 'ไม่มีคำถามให้ตอบ';
+	@override String progress({required Object current, required Object total}) => 'คำถาม ${current} จาก ${total}';
+	@override String get noQuestionsAvailable => 'ไม่มีคำถาม';
 	@override String get next => 'ถัดไป';
 	@override String get continueLabel => 'ดำเนินการต่อ';
 }
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisTh implements TranslationsMealAnalysisEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'การวิเคราะห์มื้ออาหารด้วย AI';
+	@override String get title => 'กำลังวิเคราะห์มื้อของคุณ';
 	@override String get stepStarted => 'เริ่มต้น…';
-	@override String get stepDecomposition => 'กำลังทำความเข้าใจมื้อของคุณ…';
-	@override String get stepIngredients => 'กำลังจับคู่องค์ประกอบกับข้อมูลโภชนาการ…';
-	@override String get stepUncertainty => 'กำลังตรวจสอบความมั่นใจ…';
+	@override String get stepDecomposition => 'กำลังทำความเข้าใจมื้อ…';
+	@override String get stepIngredients => 'จับคู่ส่วนผสมกับข้อมูลโภชนาการ…';
+	@override String get stepUncertainty => 'ตรวจสอบความมั่นใจ…';
 	@override String get stepMealTypeQuestion => 'เกือบเสร็จแล้ว…';
-	@override String get stepResult => 'กำลังสรุปผลลัพธ์…';
+	@override String get stepResult => 'สรุปผล…';
 	@override String get stepError => 'เกิดข้อผิดพลาดบางอย่าง';
-	@override String get stepDefault => 'กำลังวิเคราะห์มื้ออาหารของคุณ…';
-	@override String get progressUnderstand => 'ทำความเข้าใจ';
-	@override String get progressMatch => 'จับคู่';
-	@override String get progressCheck => 'ตรวจสอบ';
-	@override String get progressMealType => 'กำลังเลือกประเภทมื้ออาหาร';
-	@override String get progressFinish => 'เสร็จสิ้น';
+	@override String get stepDefault => 'กำลังวิเคราะห์มื้อของคุณ…';
+	@override String get progressUnderstand => 'กำลังทำความเข้าใจมื้อ';
+	@override String get progressMatch => 'กำลังค้นหาข้อมูลโภชนาการของส่วนผสม';
+	@override String get progressCheck => 'กำลังตรวจสอบขนาดส่วนและความมั่นใจ';
+	@override String get progressMealType => 'กำลังเลือกประเภทมื้อ';
+	@override String get progressFinish => 'กำลังคำนวณแคลอรีและสารอาหารหลัก';
 	@override String get detectedIngredientHeading => 'ส่วนผสมที่เราพบ';
-	@override String ingredientsOverflow({required Object count}) => '${count} รายการเพิ่มเติม';
-	@override String ingredientsLine({required Object count}) => 'ตรวจพบส่วนผสม ${count} รายการ';
+	@override String ingredientsOverflow({required Object count}) => 'มีอีก ${count}';
+	@override String ingredientsLine({required Object count}) => 'ตรวจพบ ${count} ส่วนผสม';
 	@override String get ingredientsPending => 'กำลังสแกนส่วนผสม…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get offlineTip0 => 'เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ';
+	@override String get offlineTip1 => 'เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ';
+	@override String get offlineTip2 => 'เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม';
+	@override String get offlineTip3 => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น';
+	@override String get offlineTip4 => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น';
+	@override String get offlineTip5 => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)';
 }
 
 // Path: meal.feedback
@@ -784,18 +784,18 @@ class _TranslationsMealFeedbackTh implements TranslationsMealFeedbackEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'อะไรดูไม่ถูกต้อง?';
-	@override String get subtitle => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกหนึ่งหรือหลายปัญหา';
-	@override String get tellUsMore => 'บอกเราเพิ่มเติม';
+	@override String get title => 'อะไรที่ดูผิดพลาด?';
+	@override String get subtitle => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกปัญหาหนึ่งข้อหรือหลายข้อ';
+	@override String get tellUsMore => 'บอกเพิ่มเติม';
 	@override String get describeIncorrect => 'อธิบายสิ่งที่ไม่ถูกต้อง';
 	@override String get submit => 'ส่ง';
 	@override String get issueFoodIdentification => 'การระบุอาหาร';
-	@override String get issuePortionSize => 'ขนาดหนึ่งหน่วยบริโภค';
-	@override String get issueCalorieDistribution => 'การกระจายแคลอรี';
-	@override String get issueMacrosWrong => 'มาโครไม่ถูกต้อง';
-	@override String get issueMissingItems => 'รายการที่ขาดหายไป';
-	@override String get issueExtraItems => 'รายการเพิ่มเติม';
-	@override String get issueOther => 'อื่น ๆ';
+	@override String get issuePortionSize => 'ขนาดส่วน';
+	@override String get issueCalorieDistribution => 'การแจกแจงแคลอรี';
+	@override String get issueMacrosWrong => 'สารอาหารหลักผิด';
+	@override String get issueMissingItems => 'ขาดรายการ';
+	@override String get issueExtraItems => 'มีรายการเกิน';
+	@override String get issueOther => 'อื่นๆ';
 }
 
 // Path: favorites.sortOptions
@@ -807,7 +807,7 @@ class _TranslationsFavoritesSortOptionsTh implements TranslationsFavoritesSortOp
 	// Translations
 	@override String get recent => 'ล่าสุด';
 	@override String get calories => 'แคลอรี';
-	@override String get alphabetical => 'ตามตัวอักษร (A-Z)';
+	@override String get alphabetical => 'A-Z';
 }
 
 // Path: profile.sections
@@ -819,7 +819,7 @@ class _TranslationsProfileSectionsTh implements TranslationsProfileSectionsEn {
 	// Translations
 	@override String get profile => 'โปรไฟล์';
 	@override String get basicInformation => 'ข้อมูลพื้นฐาน';
-	@override String get goalsAndActivity => 'เป้าหมายและกิจกรรม';
+	@override String get goalsAndActivity => 'เป้าหมาย & กิจกรรม';
 	@override String get calculatedValues => 'ค่าที่คำนวณได้';
 }
 
@@ -834,7 +834,7 @@ class _TranslationsProfileCalculatedValuesTh implements TranslationsProfileCalcu
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'เป้าหมายรายวัน';
 	@override String get calPerDay => 'แคล/วัน';
-	@override String get notAvailable => 'ไม่พร้อมใช้งาน';
+	@override String get notAvailable => 'ไม่มีข้อมูล';
 }
 
 // Path: editProfile.sections
@@ -844,9 +844,9 @@ class _TranslationsEditProfileSectionsTh implements TranslationsEditProfileSecti
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get personalInformation => 'ข้อมูลส่วนตัว';
-	@override String get physicalMeasurements => 'ข้อมูลสัดส่วนร่างกาย';
-	@override String get goalsAndActivity => 'เป้าหมายและกิจกรรม';
+	@override String get personalInformation => 'ข้อมูลส่วนบุคคล';
+	@override String get physicalMeasurements => 'การวัดสัดส่วนร่างกาย';
+	@override String get goalsAndActivity => 'เป้าหมาย & กิจกรรม';
 }
 
 // Path: editProfile.genders
@@ -895,10 +895,10 @@ class _TranslationsSettingsSectionsTh implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'โปรไฟล์';
-	@override String get localization => 'ภาษาและภูมิภาค';
+	@override String get localization => 'การตั้งค่าภาษา';
 	@override String get notifications => 'การแจ้งเตือน';
-	@override String get healthConnect => 'HEALTH CONNECT';
-	@override String get supportAndLegal => 'การสนับสนุนและเงื่อนไข';
+	@override String get healthConnect => 'Health Connect';
+	@override String get supportAndLegal => 'การสนับสนุน & กฎหมาย';
 	@override String get about => 'เกี่ยวกับ';
 	@override String get dangerZone => 'โซนอันตราย';
 	@override String get developer => 'นักพัฒนา';
@@ -923,7 +923,7 @@ class _TranslationsSettingsLanguageTh implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => 'ภาษา';
-	@override String get subtitle => 'เลือกภาษาที่คุณต้องการ';
+	@override String get subtitle => 'เลือกภาษาที่ต้องการ';
 	@override String get searchHint => 'ค้นหาภาษา...';
 	@override String get noResults => 'ไม่พบผลลัพธ์';
 }
@@ -955,8 +955,8 @@ class _TranslationsSettingsMealRemindersTh implements TranslationsSettingsMealRe
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'การเตือนมื้ออาหาร';
-	@override String get subtitle => 'ไม่พลาดด้วยการแจ้งเตือนตรงเวลา';
+	@override String get title => 'การแจ้งเตือนมื้ออาหาร';
+	@override String get subtitle => 'เตือนให้บันทึกมื้ออย่างสม่ำเสมอ';
 }
 
 // Path: settings.theme
@@ -969,7 +969,7 @@ class _TranslationsSettingsThemeTh implements TranslationsSettingsThemeEn {
 	@override String get title => 'ธีม';
 	@override String get light => 'สว่าง';
 	@override String get dark => 'มืด';
-	@override String get system => 'ตามระบบ';
+	@override String get system => 'ระบบ';
 }
 
 // Path: settings.sendFeedback
@@ -979,13 +979,13 @@ class _TranslationsSettingsSendFeedbackTh implements TranslationsSettingsSendFee
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ส่งความคิดเห็น';
+	@override String get title => 'ส่งคำติชม';
 	@override String subtitle({required Object appLabel}) => 'ช่วยให้ ${appLabel} ดีขึ้น';
-	@override String emailSubject({required Object appLabel}) => 'ข้อเสนอแนะเกี่ยวกับแอป ${appLabel}';
-	@override String get emailBodyPrefix => 'โปรดให้ข้อเสนอแนะของคุณด้านล่าง:';
+	@override String emailSubject({required Object appLabel}) => 'ข้อเสนอแนะสำหรับแอป ${appLabel}';
+	@override String get emailBodyPrefix => 'โปรดส่งคำติชมของคุณด้านล่าง:';
 	@override String get appVersion => 'เวอร์ชันแอป';
 	@override String get device => 'อุปกรณ์';
-	@override String get osVersion => 'เวอร์ชันระบบปฏิบัติการ';
+	@override String get osVersion => 'รุ่นระบบปฏิบัติการ';
 	@override String get uid => 'UID';
 }
 
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryTh implements TranslationsSettingsEx
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ส่งออกประวัติอาหาร';
+	@override String get title => 'ส่งออกประวัติมื้ออาหาร';
 	@override String get subtitle => 'แชร์ไฟล์ CSV ของมื้อที่คุณบันทึก';
-	@override String get shareText => 'ไฟล์ส่งออกประวัติอาหารจาก Calorify ของคุณ';
-	@override String failed({required Object error}) => 'ไม่สามารถส่งออกประวัติอาหาร: ${error}';
+	@override String get shareText => 'การส่งออกประวัติมื้อของคุณจาก Calorify';
+	@override String failed({required Object error}) => 'ไม่สามารถส่งออกประวัติการมื้ออาหารได้: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1010,9 +1010,9 @@ class _TranslationsSettingsClearAllDataTh implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'ล้างข้อมูลทั้งหมด';
-	@override String get subtitle => 'ลบข้อมูลทั้งหมดของคุณอย่างถาวร';
+	@override String get subtitle => 'ลบข้อมูลทั้งหมดอย่างถาวร';
 	@override String get confirmationTitle => 'ล้างข้อมูลทั้งหมด?';
-	@override String get confirmationMessage => 'การกระทำนี้ไม่สามารถย้อนกลับได้ มื้อที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ทั้งหมดจะถูกลบถาวร';
+	@override String get confirmationMessage => 'การกระทำนี้ไม่สามารถย้อนกลับได้ ข้อมูลมื้อทั้งหมด รายการโปรด และการตั้งค่าโปรไฟล์ของคุณจะถูกลบอย่างถาวร';
 	@override String get cancel => 'ยกเลิก';
 	@override String get clearEverything => 'ล้างทั้งหมด';
 }
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsTh implements TranslationsSettingsDebugOp
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ตัวเลือกการดีบัก';
+	@override String get title => 'ตัวเลือกดีบัก';
 }
 
 // Path: settings.healthConnect
@@ -1043,7 +1043,7 @@ class _TranslationsSettingsHealthConnectTh implements TranslationsSettingsHealth
 	@override String get requestPermissions => 'ขอสิทธิ์';
 	@override String get permissionRequestCancelledOrFailed => 'การขอสิทธิ์ถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้งหรือให้สิทธิ์ด้วยตนเองในการตั้งค่า Health Connect';
 	@override String get permissionRequestFailed => 'ไม่สามารถขอสิทธิ์ได้ โปรดลองอีกครั้งหรือให้สิทธิ์ด้วยตนเองในการตั้งค่า Health Connect';
-	@override String get requestingPermissions => 'กำลังขอสิทธิ์...';
+	@override String get requestingPermissions => 'กำลังขอ...';
 }
 
 // Path: settings.about
@@ -1054,7 +1054,7 @@ class _TranslationsSettingsAboutTh implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'เกี่ยวกับ';
-	@override String get tagline => 'รวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัวเป็นอันดับแรก';
+	@override String get tagline => 'รู้เท่าทันแคลอรีอย่างรวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัว';
 	@override late final _TranslationsSettingsAboutOurStoryTh ourStory = _TranslationsSettingsAboutOurStoryTh._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyTh privacy = _TranslationsSettingsAboutPrivacyTh._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperTh developer = _TranslationsSettingsAboutDeveloperTh._(_root);
@@ -1079,7 +1079,7 @@ class _TranslationsNotificationsBreakfastTh implements TranslationsNotifications
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ถึงเวลาอาหารเช้า! 🍳';
+	@override String get title => 'เวลาอาหารเช้า! 🍳';
 	@override String get body => 'อย่าลืมบันทึกมื้อเช้าของคุณ';
 }
 
@@ -1090,8 +1090,8 @@ class _TranslationsNotificationsLunchTh implements TranslationsNotificationsLunc
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ถึงเวลาอาหารกลางวัน! 🥗';
-	@override String get body => 'ได้เวลาบันทึกมื้อกลางวันแล้ว';
+	@override String get title => 'เวลาอาหารกลางวัน! 🥗';
+	@override String get body => 'ถึงเวลาบันทึกมื้อกลางวันแล้ว';
 }
 
 // Path: notifications.dinner
@@ -1101,7 +1101,7 @@ class _TranslationsNotificationsDinnerTh implements TranslationsNotificationsDin
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ถึงเวลาอาหารเย็น! 🍽️';
+	@override String get title => 'เวลามื้อเย็น! 🍽️';
 	@override String get body => 'อย่าลืมบันทึกมื้อเย็นของคุณ';
 }
 
@@ -1112,8 +1112,8 @@ class _TranslationsNotificationsSnackTh implements TranslationsNotificationsSnac
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ถึงเวลาอาหารว่าง! 🍎';
-	@override String get body => 'ได้เวลาของว่างที่ดีต่อสุขภาพแล้ว';
+	@override String get title => 'เวลาของว่าง! 🍎';
+	@override String get body => 'ถึงเวลาสำหรับของว่างเพื่อสุขภาพ';
 }
 
 // Path: notifications.test
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapTh implements TranslationsDisclaimerSnapEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} ให้ข้อมูลโภชนาการโดยประมาณ ความแม่นยำขึ้นอยู่กับข้อมูลที่คุณให้และความแตกต่างของอาหาร ใช้เป็นแนวทาง ไม่ใช่แหล่งข้อมูลที่ชี้ขาด โปรดปรึกษาผู้เชี่ยวชาญเพื่อคำแนะนำด้านโภชนาการเฉพาะบุคคล';
+	@override String description({required Object appLabel}) => '${appLabel} ให้ข้อมูลโภชนาการโดยประมาณ ความแม่นยำขึ้นอยู่กับข้อมูลที่คุณป้อนและความหลากหลายของอาหาร ใช้เป็นแนวทาง ไม่ใช่แหล่งข้อมูลที่ชัดเจนที่สุด ปรึกษาผู้เชี่ยวชาญสำหรับคำแนะนำทางโภชนาการเฉพาะบุคคล';
 	@override late final _TranslationsDisclaimerSnapPortionSizeTh portionSize = _TranslationsDisclaimerSnapPortionSizeTh._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsTh preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsTh._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsTh ingredients = _TranslationsDisclaimerSnapIngredientsTh._(_root);
@@ -1147,8 +1147,8 @@ class _TranslationsDisclaimerWeightEstimateTh implements TranslationsDisclaimerW
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'เกี่ยวกับการคาดการณ์น้ำหนัก';
-	@override String get description => 'การคาดการณ์การเปลี่ยนแปลงน้ำหนักเป็นการประเมินเชิงทฤษฎีตามโมเดลแคลอรีเข้า-แคลอรีออก ใช้เพื่อสร้างแรงจูงใจเท่านั้น ไม่ใช่การทำนายน้ำหนักจริงของคุณ';
+	@override String get title => 'เกี่ยวกับการประเมินน้ำหนัก';
+	@override String get description => 'การคาดการณ์การเปลี่ยนแปลงน้ำหนักเป็นการประมาณทางทฤษฎีโดยอิงจากโมเดลง่ายๆ ของแคลอรีเข้าเทียบกับแคลอรีออก ตั้งใจให้เป็นแนวทางให้กำลังใจ ไม่ใช่การทำนายผลน้ำหนักจริง';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyTh calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyTh._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsTh biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsTh._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightTh waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightTh._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureTh implements TranslationsDisclai
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'การประเมินแคลอรีที่เผาผลาญ';
-	@override String get description => 'เมื่อไม่มีข้อมูลจาก Health Connect เราจะประเมินแคลอรีที่เผาผลาญวันนี้โดยใช้ BMR และระดับกิจกรรม (TDEE) ของคุณ ปรับตามสัดส่วนเวลาของวันที่ผ่านไป';
+	@override String get title => 'การประมาณการเผาผลาญแคลอรี';
+	@override String get description => 'เมื่อไม่สามารถใช้ข้อมูลจาก Health Connect ได้ เราจะประมาณแคลอรีที่เผาผลาญวันนี้โดยใช้ BMR และระดับกิจกรรมของคุณ (TDEE) แล้วปรับตามสัดส่วนของวันที่ผ่านไป';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedTh howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedTh._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh._(_root);
 }
@@ -1188,8 +1188,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionTh implements TranslationsOn
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'รู้จำอาหารอย่างชาญฉลาด';
-	@override String get description => 'ถ่ายภาพแล้วให้ AI ช่วยระบุว่าเป็นมื้ออะไร';
+	@override String get title => 'การจดจำอาหารอัจฉริยะ';
+	@override String get description => 'ถ่ายรูปแล้วให้ AI ระบุมื้ออาหารของคุณ';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1199,8 +1199,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisTh implements TranslationsOnboard
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'วิเคราะห์ด้วย AI';
-	@override String get description => 'รับข้อมูลโภชนาการทันทีจากคำบรรยายของคุณ';
+	@override String get title => 'การวิเคราะห์ด้วย AI';
+	@override String get description => 'รับข้อมูลโภชนาการทันทีจากคำอธิบายของคุณ';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1210,7 +1210,7 @@ class _TranslationsOnboardingFeaturesHealthIntegrationTh implements Translations
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'เชื่อมต่อสุขภาพ';
+	@override String get title => 'การเชื่อมต่อ Health Connect';
 	@override String get description => 'เชื่อมต่อกับ Health Connect เพื่อข้อมูลเชิงลึกที่ดียิ่งขึ้น';
 }
 
@@ -1221,10 +1221,10 @@ class _TranslationsOnboardingBmiScaleCategoriesTh implements TranslationsOnboard
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'น้ำหนักน้อย';
-	@override String get healthyWeight => 'น้ำหนักปกติ';
+	@override String get underweight => 'น้ำหนักน้อยกว่าเกณฑ์';
+	@override String get healthyWeight => 'น้ำหนักในเกณฑ์ดี';
 	@override String get overweight => 'น้ำหนักเกิน';
-	@override String get obese => 'โรคอ้วน';
+	@override String get obese => 'อ้วน';
 }
 
 // Path: onboarding.bmiScale.messages
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesTh implements TranslationsOnboardin
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'เราช่วยคุณวางแผนสุขภาพเพื่อเพิ่มน้ำหนักอย่างสมดุลด้วยมื้ออาหารที่มีสารอาหารหนาแน่นได้';
-	@override String get healthy => 'เยี่ยมมาก! คุณอยู่ในช่วงที่ดี เราจะช่วยให้คุณคงความแข็งแรงและพลังงานไว้';
-	@override String overweight({required Object appLabel}) => '${appLabel} จะทำให้เส้นทางของคุณง่ายขึ้นด้วยการติดตามด้วย AI เพื่อช่วยให้ไปถึงเป้าหมายอย่างสบายใจ';
-	@override String get obese => 'เราพร้อมสนับสนุนคุณด้วยคำแนะนำเฉพาะบุคคลและกลยุทธ์ที่ยั่งยืนเพื่อเป้าหมายสุขภาพของคุณ';
+	@override String get underweight => 'เราช่วยคุณวางแผนการเพิ่มน้ำหนักอย่างมีสุขภาพ ด้วยมื้ออาหารที่อุดมด้วยสารอาหาร';
+	@override String get healthy => 'ยอดเยี่ยม! คุณอยู่ในช่วงสุขภาพดี เราจะช่วยรักษาพลังและความมีชีวิตชีวาไว้ให้';
+	@override String overweight({required Object appLabel}) => '${appLabel} จะช่วยให้ง่ายขึ้นด้วยการติดตามโดยใช้ AI เพื่อไปถึงเป้าหมายอย่างสบายใจ';
+	@override String get obese => 'เราพร้อมสนับสนุนคุณด้วยคำแนะนำเฉพาะบุคคลและกลยุทธ์ยั่งยืนเพื่อสุขภาพของคุณ';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1247,7 +1247,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingTh implements Transla
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ติดตามแคลอรีอัตโนมัติ';
+	@override String get title => 'การติดตามแคลอรีอัตโนมัติ';
 	@override String get description => 'ติดตามแคลอรีที่เผาผลาญจากแอปฟิตเนสของคุณ';
 }
 
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsTh implements Translat
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ข้อมูลเชิงลึกของความก้าวหน้า';
-	@override String get description => 'รับข้อมูลเชิงลึกอย่างละเอียดเกี่ยวกับแนวโน้มสุขภาพของคุณ';
+	@override String get title => 'ข้อมูลเชิงลึกเกี่ยวกับความคืบหน้า';
+	@override String get description => 'รับข้อมูลเชิงลึกละเอียดเกี่ยวกับแนวโน้มสุขภาพของคุณ';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1269,8 +1269,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTh implements Trans
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ผสานการทำงานอย่างลื่นไหล';
-	@override String get description => 'ซิงค์ข้อมูลจากแอปสุขภาพที่คุณชื่นชอบ';
+	@override String get title => 'การเชื่อมต่ออย่างราบรื่น';
+	@override String get description => 'ซิงก์ข้อมูลจากแอปสุขภาพที่คุณชื่นชอบ';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1280,17 +1280,17 @@ class _TranslationsOnboardingReinforcementTrackingSuccessTh implements Translati
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'คุณไม่ได้เดินลำพัง';
-	@override String get genericMessage => 'งานวิจัยชี้ว่าการติดตามอย่างสม่ำเสมอคือปัจจัยทำนายความสำเร็จระยะยาวอันดับ 1';
-	@override String personalizedMessage({required Object gender, required Object age, required Object goal}) => 'สำหรับ${gender}อายุ ${age} ปี ที่ต้องการ ${goal} การติดตามอย่างสม่ำเสมอคือปัจจัยทำนายความสำเร็จอันดับ 1';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} ทำให้เรื่องนี้ง่ายขึ้นเป็น 10 เท่าเมื่อเทียบกับการทำเอง';
-	@override String get getStartedTitle => 'พร้อมเริ่มแล้วหรือยัง?';
-	@override String get tipPhoto => 'ถ่ายภาพมื้ออาหารเพื่อวิเคราะห์ทันที';
-	@override String get tipConsistency => 'บันทึกอย่างสม่ำเสมอเพื่อเห็นความก้าวหน้าที่มีความหมาย';
-	@override String get tipProgress => 'ติดตามความก้าวหน้าทุกวันเพื่อรักษาแรงจูงใจ';
+	@override String get title => 'คุณไม่ได้อยู่คนเดียว';
+	@override String get genericMessage => 'งานวิจัยแสดงให้เห็นว่าการบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายอันดับ 1 ของความสำเร็จในระยะยาว';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'สำหรับคนอายุ ${age} ปี ที่เป็น ${gender} และต้องการ ${goal} การบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายความสำเร็จอันดับ 1';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} ทำให้การทำงานนี้ง่ายขึ้นเป็น 10 เท่าเมื่อเทียบกับการทำด้วยตนเอง';
+	@override String get getStartedTitle => 'พร้อมเริ่มหรือยัง?';
+	@override String get tipPhoto => 'ถ่ายรูปมื้ออาหารเพื่อการวิเคราะห์ทันที';
+	@override String get tipConsistency => 'บันทึกต่อเนื่องเพื่อเห็นความก้าวหน้าอย่างมีนัยสำคัญ';
+	@override String get tipProgress => 'ติดตามความคืบหน้าเป็นประจำทุกวันเพื่อรักษาแรงจูงใจ';
 	@override String get button => 'ไปกันเลย';
 	@override String get defaultGender => 'บุคคล';
-	@override String get defaultGoal => 'การเป็นคุณที่สุขภาพดียิ่งขึ้น';
+	@override String get defaultGoal => 'คุณที่สุขภาพดีขึ้น';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1301,13 +1301,13 @@ class _TranslationsOnboardingReinforcementHealthProfileTh implements Translation
 
 	// Translations
 	@override String get title => 'โปรไฟล์สุขภาพของคุณ';
-	@override String bmiDescription({required Object bmi}) => 'จากข้อมูลของคุณ BMI คือ ${bmi}';
-	@override String get finalizeDescription => 'มาปิดท้ายโปรไฟล์ของคุณเพื่อปรับประสบการณ์ให้เหมาะกับคุณ';
+	@override String bmiDescription({required Object bmi}) => 'จากข้อมูลของคุณ ค่า BMI คือ ${bmi}';
+	@override String get finalizeDescription => 'มาปิดท้ายโปรไฟล์ให้เรียบร้อยเพื่อปรับประสบการณ์ให้เหมาะกับคุณ';
 	@override String get goalGain => 'เพิ่ม';
 	@override String get goalLose => 'ลด';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'เพื่อให้ถึงเป้าหมาย คุณจะต้อง${direction} ${diff} ${unit}';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'เพื่อไปถึงเป้าหมาย คุณจะต้อง${direction} ${diff} ${unit}';
 	@override String get goalReached => 'คุณอยู่ที่น้ำหนักเป้าหมายแล้ว! เราจะช่วยคุณรักษาไว้';
-	@override String get button => 'ไปต่อกันเลย';
+	@override String get button => 'ไปกันเลย';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1317,14 +1317,14 @@ class _TranslationsOnboardingReinforcementGoalLifestyleTh implements Translation
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'เริ่มต้นได้เยี่ยม!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'คุณได้ก้าวแรกสู่ ${goalText} แล้ว เนื่องจากคุณ${activityText} ${appLabel} จะปรับเป้าหมายให้เข้ากับไลฟ์สไตล์ของคุณ';
-	@override String get personalizedTargets => 'เป้าหมายแคลอรีแบบเฉพาะคุณ';
+	@override String get title => 'เริ่มต้นได้ยอดเยี่ยม!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'คุณได้ก้าวแรกสู่ ${goalText} แล้ว เนื่องจากคุณ ${activityText} ${appLabel} จะปรับเป้าหมายให้สอดคล้องกับไลฟ์สไตล์ของคุณ';
+	@override String get personalizedTargets => 'เป้าหมายแคลอรีที่ปรับให้เหมาะกับคุณ';
 	@override String get aiMealDetection => 'การตรวจจับมื้ออาหารด้วย AI';
-	@override String get macroBreakdowns => 'แจกแจงสารอาหารหลักอย่างละเอียด';
+	@override String get macroBreakdowns => 'การแยกสารอาหารหลักอย่างละเอียด';
 	@override String get button => 'ไปกันเลย';
 	@override String get defaultGoal => 'เป้าหมายของคุณ';
-	@override String get defaultActivity => 'แอคทีฟ';
+	@override String get defaultActivity => 'กระตือรือร้น';
 }
 
 // Path: editProfile.weightGoals.loseWeight
@@ -1335,7 +1335,7 @@ class _TranslationsEditProfileWeightGoalsLoseWeightTh implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'ลดน้ำหนัก';
-	@override String get description => 'สร้างภาวะแคลอรีขาดดุลเพื่อให้น้ำหนักลดลง';
+	@override String get description => 'สร้างการขาดแคลอรีเพื่อลดน้ำหนัก';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1345,8 +1345,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightTh implements Translation
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'คุมน้ำหนัก';
-	@override String get description => 'คงน้ำหนักปัจจุบันของคุณ';
+	@override String get name => 'รักษาน้ำหนัก';
+	@override String get description => 'รักษาน้ำหนักปัจจุบัน';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1357,7 +1357,7 @@ class _TranslationsEditProfileWeightGoalsGainWeightTh implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'เพิ่มน้ำหนัก';
-	@override String get description => 'สร้างภาวะแคลอรี่เกินเพื่อเพิ่มน้ำหนัก';
+	@override String get description => 'สร้างการเกินแคลอรีเพื่อเพิ่มน้ำหนัก';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1367,8 +1367,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryTh implements TranslationsE
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'ไม่ค่อยออกกำลังกาย';
-	@override String get description => 'แทบไม่ออกกำลังกาย';
+	@override String get name => 'อยู่นิ่ง';
+	@override String get description => 'ออกกำลังกายน้อยหรือแทบไม่มี';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1378,8 +1378,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveTh implements Translati
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'กิจกรรมเบา';
-	@override String get description => 'ออกกำลังกายเบาๆ 1–3 วัน/สัปดาห์';
+	@override String get name => 'เคลื่อนไหวเล็กน้อย';
+	@override String get description => 'ออกกำลังกายเบา 1-3 วัน/สัปดาห์';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1389,8 +1389,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveTh implements Transl
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'กิจกรรมปานกลาง';
-	@override String get description => 'ออกกำลังกายปานกลาง 3–5 วัน/สัปดาห์';
+	@override String get name => 'เคลื่อนไหวปานกลาง';
+	@override String get description => 'ออกกำลังกายปานกลาง 3-5 วัน/สัปดาห์';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1400,8 +1400,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveTh implements Translations
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'กิจกรรมหนัก';
-	@override String get description => 'ออกกำลังกายหนัก 6–7 วัน/สัปดาห์';
+	@override String get name => 'เคลื่อนไหวมาก';
+	@override String get description => 'ออกกำลังกายหนัก 6-7 วัน/สัปดาห์';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1411,8 +1411,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveTh implements Transla
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'กิจกรรมหนักมาก';
-	@override String get description => 'ออกกำลังกายหนักมากหรือทำงานใช้แรงกาย';
+	@override String get name => 'เคลื่อนไหวหนักมาก';
+	@override String get description => 'ออกกำลังกายหนักมาก หรืองานที่ต้องใช้แรงกาย';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1422,8 +1422,8 @@ class _TranslationsSettingsHealthConnectUnavailableTh implements TranslationsSet
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Connect ใช้งานไม่ได้';
-	@override String get description => 'อุปกรณ์นี้ไม่รองรับ Health Connect โปรดติดตั้งจาก Play Store (Android 9+) หรืออัปเดตเป็น Android 14+';
+	@override String get title => 'ไม่พบ Health Connect';
+	@override String get description => 'อุปกรณ์นี้ไม่มี Health Connect โปรดติดตั้ง Health Connect จาก Play Store (Android 9+) หรืออัปเดตเป็น Android 14+';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1434,9 +1434,9 @@ class _TranslationsSettingsHealthConnectPermissionsTh implements TranslationsSet
 
 	// Translations
 	@override String get title => 'สิทธิ์';
-	@override String get description => 'ต้องการสิทธิ์ต่อไปนี้เพื่อใช้งานการเชื่อมต่อกับ Health Connect:';
-	@override String get granted => 'อนุญาตแล้ว';
-	@override String get notGranted => 'ยังไม่อนุญาต';
+	@override String get description => 'ขอสิทธิ์ต่อไปนี้เพื่อนำเสนอการรวมกับ Health Connect:';
+	@override String get granted => 'ได้รับอนุญาตแล้ว';
+	@override String get notGranted => 'ยังไม่ได้รับอนุญาต';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadTh nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadTh._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteTh nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteTh._(_root);
@@ -1450,7 +1450,7 @@ class _TranslationsSettingsAboutOurStoryTh implements TranslationsSettingsAboutO
 
 	// Translations
 	@override String get title => 'เรื่องราวของเรา';
-	@override String content({required Object appLabel}) => '${appLabel} เกิดจากความไม่สะดวกง่ายๆ: แอปนับแคลอรีส่วนใหญ่มักซับซ้อนเกินไป ต้องกรอกข้อมูลเองตลอดเวลา เก็บค่าบริการแพง หรือกระทบต่อความเป็นส่วนตัว\n\nในฐานะนักพัฒนาเดี่ยว ฉันอยากสร้างสิ่งที่เรียบง่ายและยุติธรรมกว่า — แอปที่ใช้ AI เพื่อลดความยุ่งยาก ทำงานได้รวดเร็ว ฟรี และเคารพข้อมูลสุขภาพของคุณ\n\n${appLabel} คือแอปที่ฉันอยากให้มีอยู่: ไม่ต้องมีบัญชี ไม่ติดตาม ไม่ลงโฆษณา — มีเพียงข้อมูลเชิงปฏิบัติที่ชัดเจนและเป้าหมายสุขภาพของคุณ';
+	@override String content({required Object appLabel}) => '${appLabel} เกิดจากความรู้สึกหงุดหงิดอย่างง่าย: แอปติดตามแคลอรีส่วนใหญ่ซับซ้อนเกินไป ต้องกรอกข้อมูลด้วยตลอด มีค่าใช้จ่ายสมัครสมาชิกราคาแพง หรือประนีประนอมด้านความเป็นส่วนตัว\n\nในฐานะนักพัฒนาเดี่ยว ผมต้องการสร้างสิ่งที่เรียบง่ายและเป็นธรรมกว่า — แอปที่ใช้ AI เพื่อลดความยุ่งยาก ทำงานเร็วและใช้ฟรี และเคารพข้อมูลสุขภาพของคุณ\n\n${appLabel} คือแอปที่ผมอยากให้มีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — มีเพียงข้อมูลเชิงปฏิบัติที่ชัดเจนและเป้าหมายด้านสุขภาพของคุณ';
 }
 
 // Path: settings.about.privacy
@@ -1461,12 +1461,12 @@ class _TranslationsSettingsAboutPrivacyTh implements TranslationsSettingsAboutPr
 
 	// Translations
 	@override String get title => 'ความเป็นส่วนตัวของคุณสำคัญ';
-	@override String get description => 'ความเป็นส่วนตัวไม่ใช่เรื่องหลังบ้าน — แต่เป็นหลักการออกแบบ นี่คือความหมายในทางปฏิบัติ:';
-	@override String get noAccounts => 'ไม่ต้องมีบัญชีผู้ใช้\nใช้งานได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน';
-	@override String noTracking({required Object appLabel}) => 'ไม่มีการติดตามพฤติกรรม\n${appLabel} จะไม่เฝ้าติดตามการใช้งาน สร้างโปรไฟล์พฤติกรรม หรือ ติดตามคุณข้ามแอปหรือเว็บไซต์';
-	@override String noAds({required Object appLabel}) => 'ไร้โฆษณาตามการออกแบบ\n${appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องพึ่งโฆษณาหรือการทำเงินจากข้อมูล';
-	@override String get noDataSelling => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแชร์ให้บุคคลที่สาม';
-	@override String get localStorage => 'บันทึกข้อมูลบนอุปกรณ์เป็นหลัก\nข้อมูลของคุณจะอยู่บนอุปกรณ์ของคุณ';
+	@override String get description => 'ความเป็นส่วนตัวไม่ใช่เรื่องรอง — แต่เป็นหลักการออกแบบ ต่อไปนี้คือสิ่งที่หมายถึงในการใช้งานจริง:';
+	@override String get noAccounts => 'ไม่ต้องมีบัญชี\nใช้แอปได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน';
+	@override String noTracking({required Object appLabel}) => 'ไม่มีการติดตามพฤติกรรม\n${appLabel} จะไม่ตรวจสอบกิจกรรมของคุณ สร้างโปรไฟล์การใช้งาน หรือติดตามข้ามแอปหรือเว็บไซต์';
+	@override String noAds({required Object appLabel}) => 'ออกแบบให้ไม่มีโฆษณา\n${appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องใช้โฆษณาหรือหารายได้จากข้อมูล';
+	@override String get noDataSelling => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม';
+	@override String get localStorage => 'เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ';
 	@override String get privacyPolicy => 'นโยบายความเป็นส่วนตัว';
 }
 
@@ -1478,7 +1478,7 @@ class _TranslationsSettingsAboutDeveloperTh implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => 'สร้างโดยนักพัฒนาเดี่ยว';
-	@override String description({required Object appLabel}) => '${appLabel} ถูกพัฒนาและดูแลโดยนักพัฒนาเดี่ยวที่มุ่งสร้างซอฟต์แวร์สุขภาพที่เรียบง่ายและเคารพความเป็นส่วนตัว\n\nทุกคำติชมถูกอ่านด้วยตัวเองและช่วยกำหนดทิศทางของแอป';
+	@override String description({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาเดี่ยวที่มุ่งมั่นสร้างซอฟต์แวร์ด้านสุขภาพที่สงบและเคารพความเป็นส่วนตัว\n\nคำติชมถูกอ่านด้วยตนเองและมีส่วนช่วยกำหนดทิศทางของแอป';
 	@override String get website => 'เว็บไซต์';
 	@override String get email => 'อีเมล';
 }
@@ -1491,9 +1491,9 @@ class _TranslationsSettingsAboutFeedbackTh implements TranslationsSettingsAboutF
 
 	// Translations
 	@override String title({required Object appLabel}) => 'ชอบ ${appLabel} ไหม?';
-	@override String description({required Object appLabel}) => 'ความคิดเห็นของคุณทำให้ ${appLabel} ดีขึ้นสำหรับทุกคน';
+	@override String description({required Object appLabel}) => 'คำติชมของคุณช่วยให้ ${appLabel} ดีขึ้นสำหรับทุกคน';
 	@override String get rateApp => 'ให้คะแนนบน Play Store';
-	@override String get sendFeedback => 'ส่งความคิดเห็น';
+	@override String get sendFeedback => 'ส่งคำติชม';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1503,8 +1503,8 @@ class _TranslationsDisclaimerSnapPortionSizeTh implements TranslationsDisclaimer
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ขนาดส่วนอาหาร';
-	@override String get description => 'ความแม่นยำของการประเมินขึ้นอยู่กับการประเมินขนาดส่วนอาหารของคุณอย่างถูกต้อง';
+	@override String get title => 'ขนาดส่วน';
+	@override String get description => 'ความแม่นยำของการประมาณพึ่งพาการประเมินขนาดส่วนที่ถูกต้องของคุณอย่างมาก';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsTh implements TranslationsDis
 
 	// Translations
 	@override String get title => 'วิธีการปรุง';
-	@override String description({required Object appLabel}) => 'วิธีการปรุงสามารถเปลี่ยนแปลงคุณค่าทางโภชนาการได้อย่างมาก การประเมินของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป';
+	@override String description({required Object appLabel}) => 'วิธีการปรุงอาหารสามารถเปลี่ยนปริมาณโภชนาการได้อย่างมาก การประมาณของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsTh implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'ส่วนผสม';
-	@override String get description => 'เมนูที่ซับซ้อนและมีส่วนผสมแฝงจำนวนมากอาจทำให้การประเมินแม่นยำน้อยลง';
+	@override String get description => 'จานที่ซับซ้อนมีส่วนผสมแฝงหลายชนิด อาจทำให้การประมาณมีความแม่นยำน้อยลง';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1537,7 +1537,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsTh implements TranslationsDi
 
 	// Translations
 	@override String get title => 'ข้อจำกัดของฐานข้อมูล';
-	@override String description({required Object appLabel}) => 'ฐานข้อมูลองค์ประกอบอาหารของ ${appLabel} มีขนาดใหญ่ แต่ไม่อาจครอบคลุมอาหารหรือทุกรูปแบบได้ทั้งหมด';
+	@override String description({required Object appLabel}) => 'ฐานข้อมูลอาหารของ ${appLabel} มีความหลากหลายแต่ไม่ครอบคลุมทุกรายการอาหารหรือความแตกต่างทั้งหมด';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1548,7 +1548,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyTh implements Translat
 
 	// Translations
 	@override String get title => 'ความแม่นยำของแคลอรี';
-	@override String get description => 'ความแม่นยำนี้ขึ้นอยู่กับการบันทึกแคลอรีที่รับเข้าและที่เผาผลาญของคุณ หากบันทึกไม่แม่นยำ การคาดการณ์ก็จะไม่แม่นยำ';
+	@override String get description => 'การประมาณนี้มีความแม่นยำขึ้นกับการบันทึกการรับและการใช้พลังงานของคุณ หากบันทึกไม่แม่นยำ การคาดการณ์ก็จะคลาดเคลื่อน';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsTh implements Transl
 
 	// Translations
 	@override String get title => 'ปัจจัยทางชีวภาพ';
-	@override String description({required Object appLabel}) => 'น้ำหนักจริงได้รับอิทธิพลจากการเผาผลาญ ฮอร์โมน การนอน ความเครียด ระดับน้ำในร่างกาย และปัจจัยเฉพาะบุคคลอื่นๆ ที่ ${appLabel} ไม่สามารถวัดได้';
+	@override String description({required Object appLabel}) => 'การลด/เพิ่มน้ำหนักจริงได้รับอิทธิพลจากการเผาผลาญ ฮอร์โมน การนอนหลับ ความเครียด การดื่มน้ำ และปัจจัยเฉพาะบุคคลอื่นๆ ที่ ${appLabel} ไม่สามารถวัดได้';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1569,8 +1569,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightTh implements Translations
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'น้ำในร่างกายและความผันผวน';
-	@override String get description => 'น้ำหนักรายวันสามารถผันผวนได้มากจากการกักเก็บน้ำ การย่อยอาหาร และจังหวะเวลา การคาดการณ์นี้ไม่ได้คำนึงถึงความผันผวนรายวันเหล่านี้';
+	@override String get title => 'น้ำในร่างกาย & การแกว่งของน้ำหนัก';
+	@override String get description => 'น้ำหนักปกติสามารถเปลี่ยนแปลงได้มากในแต่ละวันจากการกักเก็บน้ำ การย่อยอาหาร และช่วงเวลา การประมาณนี้ไม่รวมการเปลี่ยนแปลงรายวันเหล่านี้';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1581,7 +1581,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceTh implements Tra
 
 	// Translations
 	@override String get title => 'คำแนะนำจากผู้เชี่ยวชาญ';
-	@override String get description => 'อย่าใช้การคาดการณ์นี้เพื่อตัดสินใจด้านการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือโภชนากรเพื่อคำแนะนำส่วนบุคคล';
+	@override String get description => 'อย่าใช้การประมาณนี้เพื่อการตัดสินใจทางการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือนักโภชนาการที่ลงทะเบียนสำหรับคำแนะนำเฉพาะบุคคล';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrTh implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'อัตราการเผาผลาญพื้นฐาน (BMR) คือจำนวนแคลอรีที่ร่างกายใช้ขณะพักเพื่อคงการทำงานพื้นฐาน เช่น การหายใจและการไหลเวียน BMR ขึ้นอยู่กับอายุ เพศ ส่วนสูง และน้ำหนัก BMR ที่สูงหมายถึงร่างกายเผาผลาญแคลอรีขณะพักได้มาก มักเกิดจากมวลกล้ามเนื้อมากกว่า อายุที่น้อยกว่า หรือเพศชาย ส่วน BMR ต่ำมักบ่งบอกถึงมวลกล้ามเนื้อน้อยกว่า อายุที่มากขึ้น หรือเพศหญิง';
+	@override String get description => 'อัตราการเผาผลาญพื้นฐาน (BMR) คือจำนวนแคลอรีที่ร่างกายเผาผลาญเมื่อพักเพื่อรักษาการทำงานพื้นฐาน เช่น การหายใจและการไหลเวียนของเลือด BMR ขึ้นกับอายุ เพศ ความสูง และน้ำหนัก BMR สูงขึ้นมักหมายถึงร่างกายเผาผลาญแคลอรีมากขึ้นขณะพัก ส่วนใหญ่มาจากมวลกล้ามเนื้อมากกว่า อายุที่น้อยกว่า หรือเป็นเพศชาย BMR ต่ำมักบ่งชี้ถึงมวลกล้ามเนื้อน้อยกว่า อายุที่มากขึ้น หรือเป็นเพศหญิง';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeTh implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'การใช้พลังงานทั้งหมดต่อวัน (TDEE) คือแคลอรีทั้งหมดที่คุณเผาผลาญในหนึ่งวัน รวม BMR และกิจกรรมทางกายภาพกับการเคลื่อนไหวในชีวิตประจำวัน TDEE ขึ้นกับ BMR และระดับกิจกรรม TDEE สูงหมายถึงเผาผลาญมากขึ้นโดยรวม มักมาจากการเคลื่อนไหวมากหรือมี BMR สูง ส่วน TDEE ต่ำบ่งชี้ว่ามีกิจกรรมน้อยหรือ BMR ต่ำ';
+	@override String get description => 'การใช้พลังงานทั้งหมดต่อวัน (TDEE) คือแคลอรีทั้งหมดที่คุณเผาผลาญต่อวัน รวม BMR และแคลอรีจากกิจกรรมและการเคลื่อนไหวประจำวัน TDEE ขึ้นกับ BMR และระดับกิจกรรม TDEE สูงขึ้นหมายถึงการเผาผลาญโดยรวมมากขึ้น มักมาจากกิจกรรมมากขึ้นหรือ BMR สูงกว่า TDEE ต่ำกว่าอาจหมายถึงกิจกรรมประจำวันน้อยหรือ BMR ต่ำกว่า';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1614,7 +1614,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalTh implements TranslationsDis
 
 	// Translations
 	@override String get title => 'เป้าหมายรายวัน';
-	@override String get description => 'เป้าหมายรายวันคือปริมาณแคลอรีที่แนะนำต่อวันตาม TDEE และเป้าหมายน้ำหนักของคุณ หากต้องการลดน้ำหนัก ให้รับแคลอรีน้อยกว่า TDEE หากต้องการคุมน้ำหนัก ให้รับใกล้เคียง TDEE หากต้องการเพิ่มน้ำหนัก ให้รับมากกว่า TDEE สิ่งนี้ช่วยให้คุณบรรลุการเปลี่ยนน้ำหนักตามจังหวะที่ดีต่อสุขภาพ';
+	@override String get description => 'เป้าหมายรายวันคือปริมาณแคลอรีที่แนะนำต่อวันโดยอิงจาก TDEE และเป้าหมายน้ำหนักของคุณ หากต้องการลดน้ำหนัก คุณจะบริโภคน้อยกว่า TDEE หากต้องการรักษา จะเท่ากับ TDEE หากต้องการเพิ่ม จะมากกว่า TDEE ซึ่งช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักในอัตราที่ปลอดภัย';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1624,8 +1624,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedTh implements Transl
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'คำนวณอย่างไร';
-	@override String get description => 'เราจะคำนวณ TDEE (อิงจากโปรไฟล์ของคุณ) แล้วคูณด้วยเศษส่วนของวันเวลาที่ผ่านไป (ชั่วโมง + นาที) / 24 เพื่อประมาณแคลอรีที่เผาผลาญจนถึงตอนนี้';
+	@override String get title => 'การคำนวณเป็นอย่างไร';
+	@override String get description => 'เราคำนวณ TDEE (จากโปรไฟล์ของคุณ) แล้วคูณด้วยสัดส่วนของวันที่ผ่านไป (ชั่วโมง + นาที) / 24 เพื่อประมาณแคลอรีที่เผาผลาญไปแล้ว';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1636,7 +1636,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceTh implements
 
 	// Translations
 	@override String get title => 'คำแนะนำจากผู้เชี่ยวชาญ';
-	@override String get description => 'อย่าใช้ค่าประเมินนี้เพื่อตัดสินใจด้านการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือโภชนากรเพื่อคำแนะนำส่วนบุคคล';
+	@override String get description => 'อย่าใช้การประมาณนี้เพื่อการตัดสินใจทางการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือนักโภชนาการที่ลงทะเบียนสำหรับคำแนะนำเฉพาะบุคคล';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1646,9 +1646,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedTh implements T
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'อ่านจำนวนแคลอรีที่เผาผลาญทั้งหมด';
-	@override String get description => 'อนุญาตให้แอปอ่านแคลอรีที่คุณเผาผลาญทั้งหมดจาก Health Connect';
-	@override String get usage => 'ใช้เพื่อแสดงแคลอรีที่คุณเผาผลาญต่อวันในแอป ช่วยให้คุณเข้าใจการใช้พลังงานรวมตลอดทั้งวัน';
+	@override String get title => 'อ่านแคลอรีที่เผาผลาญทั้งหมด';
+	@override String get description => 'อนุญาตให้แอปอ่านข้อมูลแคลอรีที่เผาผลาญทั้งหมดจาก Health Connect';
+	@override String get usage => 'สิทธิ์นี้ใช้เพื่อแสดงการเผาผลาญแคลอรีรายวันในแอป ช่วยให้คุณเข้าใจการใช้พลังงานตลอดวัน';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1660,7 +1660,7 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadTh implements Tr
 	// Translations
 	@override String get title => 'อ่านข้อมูลโภชนาการ';
 	@override String get description => 'อนุญาตให้แอปอ่านข้อมูลโภชนาการจาก Health Connect';
-	@override String get usage => 'ช่วยให้แอปอ่านข้อมูลโภชนาการที่อาจถูกบันทึกโดยแอปอื่นที่เชื่อมต่อกับ Health Connect เพื่อมุมมองที่ครอบคลุมยิ่งขึ้น';
+	@override String get usage => 'สิทธิ์นี้ช่วยให้แอปอ่านข้อมูลโภชนาการที่อาจถูกบันทึกโดยแอปอื่นที่เชื่อมต่อกับ Health Connect เพื่อให้มุมมองโภชนาการที่ครบถ้วน';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1671,8 +1671,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteTh implements T
 
 	// Translations
 	@override String get title => 'เขียนข้อมูลโภชนาการ';
-	@override String get description => 'อนุญาตให้แอปเขียนข้อมูลโภชนาการไปยัง Health Connect';
-	@override String get usage => 'ช่วยให้แอปซิงค์มื้อที่คุณบันทึกไปยัง Health Connect ทำให้ข้อมูลโภชนาการพร้อมใช้งานกับแอปสุขภาพและฟิตเนสอื่นๆ ของคุณ';
+	@override String get description => 'อนุญาตให้แอปเขียนข้อมูลโภชนาการลงใน Health Connect';
+	@override String get usage => 'สิทธิ์นี้ช่วยให้แอปซิงก์มื้ออาหารที่คุณบันทึกไปยัง Health Connect ทำให้ข้อมูลโภชนาการของคุณพร้อมใช้งานกับแอปสุขภาพและฟิตเนสอื่นๆ';
 }
 
 /// The flat map containing all translations for locale <th>.
@@ -1686,499 +1686,499 @@ extension on TranslationsTh {
 			'language' => 'ไทย',
 			'flag' => '🇹🇭',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'คุณส่งคำขอมากเกินไป กรุณารอสักครู่ก่อนลองใหม่',
-			'errors.networkError' => 'ข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ',
-			'errors.unknownError' => 'เกิดข้อผิดพลาดบางอย่าง กรุณาลองใหม่ภายหลัง',
-			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดในการโหลดข้อมูลโปรไฟล์',
+			'errors.rateLimitExceeded' => 'คุณส่งคำขอบ่อยเกินไป โปรดรอสักครู่แล้วลองอีกครั้ง',
+			'errors.networkError' => 'เกิดข้อผิดพลาดเครือข่าย โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ',
+			'errors.unknownError' => 'เกิดข้อผิดพลาด โปรดลองอีกครั้งภายหลัง',
+			'errors.loadingProfileData' => 'เกิดข้อผิดพลาดขณะโหลดข้อมูลโปรไฟล์',
 			'errors.somethingWentWrong' => 'เกิดข้อผิดพลาดบางอย่าง',
-			'errors.retry' => 'ลองอีกครั้ง',
+			'errors.retry' => 'ลองใหม่',
 			'onboarding.welcome' => ({required Object appLabel}) => 'ยินดีต้อนรับสู่ ${appLabel}',
-			'onboarding.subtitle' => 'ผู้ช่วยด้านโภชนาการส่วนตัวของคุณ ขับเคลื่อนด้วย AI',
-			'onboarding.getStarted' => 'เริ่มต้น',
-			'onboarding.features.foodRecognition.title' => 'รู้จำอาหารอย่างชาญฉลาด',
-			'onboarding.features.foodRecognition.description' => 'ถ่ายภาพแล้วให้ AI ช่วยระบุว่าเป็นมื้ออะไร',
-			'onboarding.features.aiAnalysis.title' => 'วิเคราะห์ด้วย AI',
-			'onboarding.features.aiAnalysis.description' => 'รับข้อมูลโภชนาการทันทีจากคำบรรยายของคุณ',
-			'onboarding.features.healthIntegration.title' => 'เชื่อมต่อสุขภาพ',
+			'onboarding.subtitle' => 'ผู้ช่วยโภชนาการส่วนตัวของคุณ ใช้พลังจาก AI',
+			'onboarding.getStarted' => 'เริ่มเลย',
+			'onboarding.features.foodRecognition.title' => 'การจดจำอาหารอัจฉริยะ',
+			'onboarding.features.foodRecognition.description' => 'ถ่ายรูปแล้วให้ AI ระบุมื้ออาหารของคุณ',
+			'onboarding.features.aiAnalysis.title' => 'การวิเคราะห์ด้วย AI',
+			'onboarding.features.aiAnalysis.description' => 'รับข้อมูลโภชนาการทันทีจากคำอธิบายของคุณ',
+			'onboarding.features.healthIntegration.title' => 'การเชื่อมต่อ Health Connect',
 			'onboarding.features.healthIntegration.description' => 'เชื่อมต่อกับ Health Connect เพื่อข้อมูลเชิงลึกที่ดียิ่งขึ้น',
-			'onboarding.gender.title' => 'เพศของคุณคืออะไร?',
-			'onboarding.gender.description' => 'เพศช่วยให้เราคำนวณอัตราการเผาผลาญพื้นฐาน (BMR) ได้แม่นยำ',
+			'onboarding.gender.title' => 'คุณระบุเพศว่าอย่างไร?',
+			'onboarding.gender.description' => 'ข้อมูลเพศช่วยให้เราคำนวณอัตราการเผาผลาญพื้นฐาน (BMR) ได้แม่นยำขึ้น',
 			'onboarding.gender.next' => 'ถัดไป',
-			'onboarding.height.title' => 'คุณสูงเท่าไร?',
-			'onboarding.height.description' => 'ความสูงช่วยให้เราคำนวณ BMI และความต้องการพลังงานได้แม่นยำ',
+			'onboarding.height.title' => 'คุณสูงเท่าไหร่?',
+			'onboarding.height.description' => 'ความสูงช่วยให้เราคำนวณ BMI และความต้องการพลังงานได้อย่างแม่นยำ',
 			'onboarding.height.metric' => 'เมตริก',
 			'onboarding.height.imperial' => 'อิมพีเรียล',
 			'onboarding.height.next' => 'ถัดไป',
-			'onboarding.weight.currentTitle' => 'น้ำหนักปัจจุบันของคุณเท่าไร?',
-			'onboarding.weight.currentDescription' => 'น้ำหนักปัจจุบันสำคัญต่อการปรับเป้าหมายรายวันให้เหมาะกับคุณ',
-			'onboarding.weight.targetTitle' => 'น้ำหนักเป้าหมายของคุณคือเท่าไร?',
-			'onboarding.weight.targetDescription' => 'การตั้งเป้าหมายน้ำหนักช่วยกำหนดแผนระยะยาวที่เหมาะสม',
+			'onboarding.weight.currentTitle' => 'น้ำหนักปัจจุบันของคุณเท่าไหร่?',
+			'onboarding.weight.currentDescription' => 'น้ำหนักปัจจุบันจำเป็นสำหรับการปรับเป้าหมายรายวันให้เหมาะกับคุณ',
+			'onboarding.weight.targetTitle' => 'น้ำหนักเป้าหมายของคุณคือเท่าไหร่?',
+			'onboarding.weight.targetDescription' => 'การตั้งน้ำหนักเป้าหมายช่วยให้เราวางแผนระยะยาวให้เหมาะสม',
 			'onboarding.weight.metric' => 'เมตริก',
 			'onboarding.weight.imperial' => 'อิมพีเรียล',
 			'onboarding.weight.next' => 'ถัดไป',
-			'onboarding.age.title' => 'วันเกิดของคุณคือวันไหน?',
-			'onboarding.age.description' => 'อายุช่วยให้เราคำนวณความต้องการแคลอรีได้แม่นยำ',
+			'onboarding.age.title' => 'วันเกิดของคุณคือเมื่อไหร่?',
+			'onboarding.age.description' => 'อายุช่วยให้เราคำนวณความต้องการแคลอรีได้อย่างแม่นยำ',
 			'onboarding.age.next' => 'ถัดไป',
-			'onboarding.bmiScale.underweight' => 'ต่ำ',
-			'onboarding.bmiScale.healthy' => 'ปกติ',
-			'onboarding.bmiScale.overweight' => 'เกิน',
+			'onboarding.bmiScale.underweight' => 'ผอมกว่าปกติ',
+			'onboarding.bmiScale.healthy' => 'สุขภาพดี',
+			'onboarding.bmiScale.overweight' => 'น้ำหนักเกิน',
 			'onboarding.bmiScale.obese' => 'อ้วน',
-			'onboarding.bmiScale.categories.underweight' => 'น้ำหนักน้อย',
-			'onboarding.bmiScale.categories.healthyWeight' => 'น้ำหนักปกติ',
+			'onboarding.bmiScale.categories.underweight' => 'น้ำหนักน้อยกว่าเกณฑ์',
+			'onboarding.bmiScale.categories.healthyWeight' => 'น้ำหนักในเกณฑ์ดี',
 			'onboarding.bmiScale.categories.overweight' => 'น้ำหนักเกิน',
-			'onboarding.bmiScale.categories.obese' => 'โรคอ้วน',
-			'onboarding.bmiScale.messages.underweight' => 'เราช่วยคุณวางแผนสุขภาพเพื่อเพิ่มน้ำหนักอย่างสมดุลด้วยมื้ออาหารที่มีสารอาหารหนาแน่นได้',
-			'onboarding.bmiScale.messages.healthy' => 'เยี่ยมมาก! คุณอยู่ในช่วงที่ดี เราจะช่วยให้คุณคงความแข็งแรงและพลังงานไว้',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} จะทำให้เส้นทางของคุณง่ายขึ้นด้วยการติดตามด้วย AI เพื่อช่วยให้ไปถึงเป้าหมายอย่างสบายใจ',
-			'onboarding.bmiScale.messages.obese' => 'เราพร้อมสนับสนุนคุณด้วยคำแนะนำเฉพาะบุคคลและกลยุทธ์ที่ยั่งยืนเพื่อเป้าหมายสุขภาพของคุณ',
+			'onboarding.bmiScale.categories.obese' => 'อ้วน',
+			'onboarding.bmiScale.messages.underweight' => 'เราช่วยคุณวางแผนการเพิ่มน้ำหนักอย่างมีสุขภาพ ด้วยมื้ออาหารที่อุดมด้วยสารอาหาร',
+			'onboarding.bmiScale.messages.healthy' => 'ยอดเยี่ยม! คุณอยู่ในช่วงสุขภาพดี เราจะช่วยรักษาพลังและความมีชีวิตชีวาไว้ให้',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} จะช่วยให้ง่ายขึ้นด้วยการติดตามโดยใช้ AI เพื่อไปถึงเป้าหมายอย่างสบายใจ',
+			'onboarding.bmiScale.messages.obese' => 'เราพร้อมสนับสนุนคุณด้วยคำแนะนำเฉพาะบุคคลและกลยุทธ์ยั่งยืนเพื่อสุขภาพของคุณ',
 			'onboarding.weightGoal.title' => 'เป้าหมายของคุณคืออะไร?',
-			'onboarding.weightGoal.description' => 'เลือกเป้าหมายที่ตรงกับสิ่งที่คุณอยากบรรลุ',
-			'onboarding.activityLevel.title' => 'คุณมีกิจกรรมมากแค่ไหน?',
-			'onboarding.activityLevel.description' => 'สิ่งนี้ช่วยให้เราคำนวณความต้องการแคลอรีรายวันของคุณได้แม่นยำขึ้น',
+			'onboarding.weightGoal.description' => 'เลือกเป้าหมายที่ตรงกับสิ่งที่คุณต้องการบรรลุ',
+			'onboarding.activityLevel.title' => 'คุณมีกิจกรรมระดับไหน?',
+			'onboarding.activityLevel.description' => 'ข้อมูลนี้ช่วยให้เราคำนวณความต้องการแคลอรีรายวันได้แม่นยำขึ้น',
 			'onboarding.healthConnect.title' => 'เชื่อมต่อกับ Health Connect',
-			'onboarding.healthConnect.description' => 'ซิงค์ข้อมูลสุขภาพเพื่อข้อมูลเชิงลึกที่ดีขึ้นและติดตามแคลอรีอัตโนมัติ',
-			'onboarding.healthConnect.automaticTracking.title' => 'ติดตามแคลอรีอัตโนมัติ',
+			'onboarding.healthConnect.description' => 'ซิงก์ข้อมูลสุขภาพของคุณเพื่อการวิเคราะห์และติดตามแคลอรีอัตโนมัติ',
+			'onboarding.healthConnect.automaticTracking.title' => 'การติดตามแคลอรีอัตโนมัติ',
 			'onboarding.healthConnect.automaticTracking.description' => 'ติดตามแคลอรีที่เผาผลาญจากแอปฟิตเนสของคุณ',
-			'onboarding.healthConnect.progressInsights.title' => 'ข้อมูลเชิงลึกของความก้าวหน้า',
-			'onboarding.healthConnect.progressInsights.description' => 'รับข้อมูลเชิงลึกอย่างละเอียดเกี่ยวกับแนวโน้มสุขภาพของคุณ',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'ผสานการทำงานอย่างลื่นไหล',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'ซิงค์ข้อมูลจากแอปสุขภาพที่คุณชื่นชอบ',
-			'onboarding.healthConnect.connected' => 'เชื่อมต่อ Health Connect แล้ว',
-			'onboarding.healthConnect.notConnected' => 'ยังไม่ได้เชื่อมต่อ Health Connect',
+			'onboarding.healthConnect.progressInsights.title' => 'ข้อมูลเชิงลึกเกี่ยวกับความคืบหน้า',
+			'onboarding.healthConnect.progressInsights.description' => 'รับข้อมูลเชิงลึกละเอียดเกี่ยวกับแนวโน้มสุขภาพของคุณ',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'การเชื่อมต่ออย่างราบรื่น',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'ซิงก์ข้อมูลจากแอปสุขภาพที่คุณชื่นชอบ',
+			'onboarding.healthConnect.connected' => 'เชื่อมต่อกับ Health Connect แล้ว',
+			'onboarding.healthConnect.notConnected' => 'ยังไม่ได้เชื่อมต่อกับ Health Connect',
 			'onboarding.healthConnect.setup' => 'ตั้งค่า Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'ข้ามไปก่อน',
-			'onboarding.healthConnect.statusConnected' => 'เชื่อมต่อ Health Connect แล้ว',
-			'onboarding.healthConnect.statusSuccess' => 'เชื่อมต่อ Health Connect สำเร็จ!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'ปฏิเสธสิทธิ์ กรุณาเปิดสิทธิ์ Health Connect จากการตั้งค่าโทรศัพท์สำหรับ ${appLabel}',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'เกิดข้อผิดพลาดในการตั้งค่า Health Connect: ${error}',
-			'onboarding.reinforcement.trackingSuccess.title' => 'คุณไม่ได้เดินลำพัง',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'งานวิจัยชี้ว่าการติดตามอย่างสม่ำเสมอคือปัจจัยทำนายความสำเร็จระยะยาวอันดับ 1',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object gender, required Object age, required Object goal}) => 'สำหรับ${gender}อายุ ${age} ปี ที่ต้องการ ${goal} การติดตามอย่างสม่ำเสมอคือปัจจัยทำนายความสำเร็จอันดับ 1',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} ทำให้เรื่องนี้ง่ายขึ้นเป็น 10 เท่าเมื่อเทียบกับการทำเอง',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'พร้อมเริ่มแล้วหรือยัง?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'ถ่ายภาพมื้ออาหารเพื่อวิเคราะห์ทันที',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'บันทึกอย่างสม่ำเสมอเพื่อเห็นความก้าวหน้าที่มีความหมาย',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'ติดตามความก้าวหน้าทุกวันเพื่อรักษาแรงจูงใจ',
+			'onboarding.healthConnect.skipForNow' => 'ข้ามก่อน',
+			'onboarding.healthConnect.statusConnected' => 'Health Connect ถูกเชื่อมต่อแล้ว',
+			'onboarding.healthConnect.statusSuccess' => 'เชื่อมต่อกับ Health Connect สำเร็จ!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ ${appLabel}',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'คุณไม่ได้อยู่คนเดียว',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'งานวิจัยแสดงให้เห็นว่าการบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายอันดับ 1 ของความสำเร็จในระยะยาว',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'สำหรับคนอายุ ${age} ปี ที่เป็น ${gender} และต้องการ ${goal} การบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายความสำเร็จอันดับ 1',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} ทำให้การทำงานนี้ง่ายขึ้นเป็น 10 เท่าเมื่อเทียบกับการทำด้วยตนเอง',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'พร้อมเริ่มหรือยัง?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'ถ่ายรูปมื้ออาหารเพื่อการวิเคราะห์ทันที',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'บันทึกต่อเนื่องเพื่อเห็นความก้าวหน้าอย่างมีนัยสำคัญ',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'ติดตามความคืบหน้าเป็นประจำทุกวันเพื่อรักษาแรงจูงใจ',
 			'onboarding.reinforcement.trackingSuccess.button' => 'ไปกันเลย',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'บุคคล',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'การเป็นคุณที่สุขภาพดียิ่งขึ้น',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'คุณที่สุขภาพดีขึ้น',
 			'onboarding.reinforcement.healthProfile.title' => 'โปรไฟล์สุขภาพของคุณ',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'จากข้อมูลของคุณ BMI คือ ${bmi}',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'มาปิดท้ายโปรไฟล์ของคุณเพื่อปรับประสบการณ์ให้เหมาะกับคุณ',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'จากข้อมูลของคุณ ค่า BMI คือ ${bmi}',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'มาปิดท้ายโปรไฟล์ให้เรียบร้อยเพื่อปรับประสบการณ์ให้เหมาะกับคุณ',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'เพิ่ม',
 			'onboarding.reinforcement.healthProfile.goalLose' => 'ลด',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'เพื่อให้ถึงเป้าหมาย คุณจะต้อง${direction} ${diff} ${unit}',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'เพื่อไปถึงเป้าหมาย คุณจะต้อง${direction} ${diff} ${unit}',
 			'onboarding.reinforcement.healthProfile.goalReached' => 'คุณอยู่ที่น้ำหนักเป้าหมายแล้ว! เราจะช่วยคุณรักษาไว้',
-			'onboarding.reinforcement.healthProfile.button' => 'ไปต่อกันเลย',
-			'onboarding.reinforcement.goalLifestyle.title' => 'เริ่มต้นได้เยี่ยม!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'คุณได้ก้าวแรกสู่ ${goalText} แล้ว เนื่องจากคุณ${activityText} ${appLabel} จะปรับเป้าหมายให้เข้ากับไลฟ์สไตล์ของคุณ',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'เป้าหมายแคลอรีแบบเฉพาะคุณ',
+			'onboarding.reinforcement.healthProfile.button' => 'ไปกันเลย',
+			'onboarding.reinforcement.goalLifestyle.title' => 'เริ่มต้นได้ยอดเยี่ยม!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'คุณได้ก้าวแรกสู่ ${goalText} แล้ว เนื่องจากคุณ ${activityText} ${appLabel} จะปรับเป้าหมายให้สอดคล้องกับไลฟ์สไตล์ของคุณ',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'เป้าหมายแคลอรีที่ปรับให้เหมาะกับคุณ',
 			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'การตรวจจับมื้ออาหารด้วย AI',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'แจกแจงสารอาหารหลักอย่างละเอียด',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'การแยกสารอาหารหลักอย่างละเอียด',
 			'onboarding.reinforcement.goalLifestyle.button' => 'ไปกันเลย',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'เป้าหมายของคุณ',
-			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'แอคทีฟ',
+			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'กระตือรือร้น',
 			'tabs.dashboard' => 'แดชบอร์ด',
 			'tabs.history' => 'ประวัติ',
-			'home.aiSummary.title' => 'สรุป AI ของคุณ',
-			'home.aiSummary.logMore' => 'บันทึกมื้ออาหารเพิ่มในอีกไม่กี่วันข้างหน้าเพื่อรับข้อมูลเชิงลึกส่วนบุคคลจาก AI',
-			'home.aiSummary.loading' => 'กำลังโหลดสรุปของคุณ...',
-			'home.aiSummary.mealCount' => ({required Object count}) => 'บันทึกอาหารแล้ว ${count} มื้อ',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'คะแนนสมดุลมาโคร ${score}',
+			'home.aiSummary.title' => 'สรุปโดย AI ของคุณ',
+			'home.aiSummary.logMore' => 'บันทึกมื้ออาหารเพิ่มเติมในอีกไม่กี่วันข้างหน้าเพื่อรับข้อมูล AI ที่ปรับให้เฉพาะคุณ',
+			'home.aiSummary.loading' => 'กำลังโหลดสรุปของคุณ…',
+			'home.aiSummary.mealCount' => ({required Object count}) => 'บันทึก ${count} มื้อ',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'คะแนนสมดุล ${score}',
 			'home.aiSummary.topFoods' => 'อาหารยอดนิยม',
-			'home.aiSummary.trendUp' => 'แคลอรีมีแนวโน้มเพิ่มขึ้น',
-			'home.aiSummary.trendDown' => 'แคลอรีมีแนวโน้มลดลง',
-			'home.aiSummary.trendSteady' => 'แคลอรีทรงตัว',
+			'home.aiSummary.trendUp' => 'แคลอรีเพิ่มขึ้น',
+			'home.aiSummary.trendDown' => 'แคลอรีลดลง',
+			'home.aiSummary.trendSteady' => 'แคลอรีคงที่',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'อัปเดตเมื่อ ${time}',
 			'home.dailyGoal.title' => 'ตั้งเป้าหมายรายวันของคุณ',
 			'home.dailyGoal.titleSet' => 'เป้าหมายรายวันของคุณ',
-			'home.dailyGoal.description' => 'พร้อมออกเดินทางสู่สุขภาพที่ดีขึ้นหรือยัง? ตั้งเป้าแคลอรีรายวันด้านล่างเพื่อเริ่มต้นความก้าวหน้า',
-			'home.dailyGoal.descriptionSet' => 'เข็มทิศของคุณถูกตั้งไว้แล้ว! นี่คือเป้าหมายแคลอรีรายวันเพื่อคอยนำทางคุณ',
+			'home.dailyGoal.description' => 'พร้อมเริ่มต้นการเดินทางสู่ความเป็นอยู่ที่ดีหรือยัง? ตั้งเป้าหมายแคลอรีรายวันด้านล่างเพื่อเริ่มต้นความก้าวหน้า',
+			'home.dailyGoal.descriptionSet' => 'เข็มทิศของคุณถูกตั้งแล้ว! นี่คือเป้าหมายแคลอรีรายวันของคุณ',
 			'home.dailyGoal.yourGoal' => 'เป้าหมายของคุณ',
 			'home.dailyGoal.goal' => 'เป้าหมาย',
 			'home.dailyGoal.dailyCalories' => 'แคลอรีต่อวัน (kcal)',
 			'home.dailyGoal.setGoal' => 'ตั้งเป้าหมาย',
 			'home.dailyGoal.intake' => 'รับเข้า',
 			'home.dailyGoal.burned' => 'เผาผลาญ',
-			'home.dailyGoal.weightImpact' => 'ผลต่อน้ำหนัก',
-			'home.dailyGoal.estLoss' => 'คาดว่าจะลด',
-			'home.dailyGoal.estGain' => 'คาดว่าจะเพิ่ม',
+			'home.dailyGoal.weightImpact' => 'ผลต่อ น้ำหนัก',
+			'home.dailyGoal.estLoss' => 'คาดการณ์การลด',
+			'home.dailyGoal.estGain' => 'คาดการณ์การเพิ่ม',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'สรุปรายวัน',
+			'home.dailySummary.title' => 'สรุประหว่างวัน',
 			'home.dailySummary.calories' => 'แคลอรี',
-			'home.dailySummary.carbs' => 'คาร์บ',
+			'home.dailySummary.carbs' => 'คาร์โบไฮเดรต',
 			'home.dailySummary.protein' => 'โปรตีน',
 			'home.dailySummary.fat' => 'ไขมัน',
 			'home.dailySummary.fiber' => 'ใยอาหาร',
 			'home.dailySummary.grams' => 'กรัม',
-			'home.dailySummary.chartAccessibilityLabel' => 'แผนภูมิสารอาหารหลัก',
-			'home.intakeProgress.title' => 'สัดส่วนมาโครวันนี้',
+			'home.dailySummary.chartAccessibilityLabel' => 'กราฟสารอาหารหลัก',
+			'home.intakeProgress.title' => 'สัดส่วนสารอาหารวันนี้',
 			'home.intakeProgress.target' => 'เป้าหมาย',
 			'home.intakeProgress.current' => 'ปัจจุบัน',
-			'home.intakeHistory.title' => 'ประวัติมาโคร 7 วัน',
+			'home.intakeHistory.title' => 'ประวัติสารอาหาร 7 วัน',
 			'home.intakeHistory.trendTitle' => 'แนวโน้มวันนี้',
-			'home.intakeHistory.peakHour' => ({required Object hour}) => 'จุดพีค: ${hour}:00',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'ชั่วโมงสูงสุด: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'ยังไม่มีประวัติ',
-			'home.intakeHistory.startLogging' => 'เริ่มบันทึกมื้ออาหารเพื่อดู\nแนวโน้มมาโคร 7 วันที่นี่',
-			'home.mealLog.title' => 'มื้อที่บันทึก',
-			'home.mealLog.emptyMessage' => 'ถ่ายรูปมื้อที่ผ่านมาเพื่อบันทึกที่นี่',
-			'home.mealLog.noMealsToday' => 'ยังไม่มีมื้ออาหารสำหรับวันนี้',
+			'home.intakeHistory.startLogging' => 'เริ่มบันทึกมื้ออาหารเพื่อดู\nแนวโน้มสารอาหาร 7 วันที่นี่',
+			'home.mealLog.title' => 'มื้อที่บันทึกแล้ว',
+			'home.mealLog.emptyMessage' => 'ถ่ายรูปมื้อสุดท้ายของคุณเพื่อบันทึกที่นี่',
+			'home.mealLog.noMealsToday' => 'ยังไม่มีมื้อบันทึกสำหรับวันนี้',
 			'home.mealLog.seeAllMeals' => 'ดูมื้อทั้งหมด',
-			'home.mealDescription.title' => 'เพิ่มเร็วด้วย AI',
-			'home.mealDescription.description' => 'บรรยายมื้อของคุณ แล้วให้ AI จัดการรายละเอียด',
-			'home.mealDescription.hint' => 'เช่น มื้อเช้าฉันทานโอ๊ตชามใหญ่ ใส่กล้วยหั่นหนึ่งผล และเวย์โปรตีนหนึ่งสกู๊ป ...',
-			'home.mealDescription.analyzeMeal' => 'วิเคราะห์มื้ออาหาร',
+			'home.mealDescription.title' => 'เพิ่มด่วนด้วย AI',
+			'home.mealDescription.description' => 'อธิบายมื้อของคุณ แล้วให้ AI จัดการรายละเอียด',
+			'home.mealDescription.hint' => 'เช่น มื้อเช้าฉันทานโจ๊กถ้วยใหญ่กับกล้วยหั่นและเวย์โปรตีนหนึ่งช้อน ...',
+			'home.mealDescription.analyzeMeal' => 'วิเคราะห์มื้อ',
 			'home.favoriteMeals.title' => 'มื้อโปรด',
-			'home.favoriteMeals.description' => 'เพิ่มหนึ่งในมื้อโปรดของคุณอย่างรวดเร็ว',
+			'home.favoriteMeals.description' => 'เพิ่มมื้อโปรดของคุณได้อย่างรวดเร็ว',
 			'home.favoriteMeals.noFavorites' => 'ยังไม่มีมื้อโปรด',
-			'home.favoriteMeals.addFavoriteHint' => 'กดดาวที่มื้ออาหารเพื่อบันทึกเป็นรายการโปรด',
+			'home.favoriteMeals.addFavoriteHint' => 'คลิกดาวบนมื้อเพื่อทำเครื่องหมายเป็นโปรด',
 			'home.favoriteMeals.seeAll' => 'ดูทั้งหมด',
 			'home.favoriteMeals.add' => 'เพิ่ม',
-			'home.mealSnap.title' => 'ถ่ายและติดตามมื้อของคุณ',
-			'home.mealSnap.description' => 'ใช้กล้องถ่ายภาพอาหารเพื่อให้ AI วิเคราะห์',
+			'home.mealSnap.title' => 'ถ่ายรูป & ติดตามมื้ออาหาร',
+			'home.mealSnap.description' => 'ใช้กล้องถ่ายรูปอาหารเพื่อให้ AI วิเคราะห์',
 			'home.mealSnap.openCamera' => 'เปิดกล้อง',
 			'home.mealSnap.gallery' => 'แกลเลอรี',
-			'home.mealSnap.compressingPhoto' => 'กำลังปรับรูปภาพให้เหมาะสม…',
-			'home.mealSnap.uploadingPhoto' => 'กำลังอัปโหลดรูปภาพ…',
-			'home.connectHealth.title' => 'ซิงค์กับ Health Connect',
-			'home.connectHealth.description' => 'ซิงค์ข้อมูลโภชนาการของคุณกับ Health Connect',
+			'home.mealSnap.compressingPhoto' => 'กำลังปรับขนาดรูป…',
+			'home.mealSnap.uploadingPhoto' => 'กำลังอัปโหลดรูป…',
+			'home.connectHealth.title' => 'ซิงก์กับ Health Connect',
+			'home.connectHealth.description' => 'ซิงก์ข้อมูลโภชนาการของคุณกับ Health Connect',
 			'home.connectHealth.install' => 'ติดตั้ง',
 			'home.connectHealth.connect' => 'เชื่อมต่อ',
-			'history.noMeals' => 'ยังไม่มีมื้ออาหาร',
-			'history.emptyMessage' => 'ถ่ายรูปมื้อที่ผ่านมาเพื่อบันทึกที่นี่',
+			'history.noMeals' => 'ยังไม่มีมื้อบันทึก',
+			'history.emptyMessage' => 'ถ่ายรูปมื้อสุดท้ายของคุณเพื่อบันทึกที่นี่',
 			'history.today' => 'วันนี้',
 			'history.yesterday' => 'เมื่อวาน',
 			'meal.ohNo' => 'โอ้ ไม่!',
 			'meal.delete' => 'ลบ',
-			'meal.editMeal' => 'แก้ไขมื้ออาหาร',
-			'meal.addMeal' => 'เพิ่มมื้ออาหาร',
-			'meal.saveMeal' => 'บันทึกมื้ออาหาร',
+			'meal.editMeal' => 'แก้ไขมื้อ',
+			'meal.addMeal' => 'เพิ่มมื้อ',
+			'meal.saveMeal' => 'บันทึกมื้อ',
 			'meal.save' => 'บันทึก',
-			'meal.mealName' => 'ชื่อมื้ออาหาร',
+			'meal.mealName' => 'ชื่อมื้อ',
 			'meal.mealNameHint' => 'เช่น ไข่คนกับขนมปังปิ้ง',
-			'meal.mealQuantity' => 'ปริมาณมื้ออาหาร',
-			'meal.mealQuantityHint' => 'เช่น 1 ชาม, 2 ชิ้น',
-			'meal.timeOfMeal' => 'เวลาที่รับประทาน',
-			'meal.timeOfMealHint' => 'เลือกเวลาที่คุณรับประทานมื้อนี้',
-			'meal.mealType' => 'ประเภทมื้ออาหาร',
+			'meal.mealQuantity' => 'ปริมาณมื้อ',
+			'meal.mealQuantityHint' => 'เช่น 1 ถ้วย, 2 แผ่น',
+			'meal.timeOfMeal' => 'เวลารับประทาน',
+			'meal.timeOfMealHint' => 'เลือกเวลาที่คุณทานมื้ออาหาร',
+			'meal.mealType' => 'ประเภทมื้อ',
 			'meal.nutrition.calories' => 'แคลอรี',
-			'meal.nutrition.carbs' => 'คาร์บ (กรัม)',
-			'meal.nutrition.protein' => 'โปรตีน (กรัม)',
-			'meal.nutrition.fat' => 'ไขมัน (กรัม)',
-			'meal.nutrition.fiber' => 'ใยอาหาร (กรัม)',
+			'meal.nutrition.carbs' => 'คาร์บ (g)',
+			'meal.nutrition.protein' => 'โปรตีน (g)',
+			'meal.nutrition.fat' => 'ไขมัน (g)',
+			'meal.nutrition.fiber' => 'ใยอาหาร (g)',
 			'meal.deleteConfirmation.title' => 'ลบมื้ออาหาร',
-			'meal.deleteConfirmation.message' => 'แน่ใจหรือไม่ว่าต้องการลบบันทึกมื้อนี้?',
+			'meal.deleteConfirmation.message' => 'คุณแน่ใจว่าต้องการลบรายการมื้อนี้หรือไม่?',
 			'meal.deleteConfirmation.cancel' => 'ยกเลิก',
 			'meal.deleteConfirmation.delete' => 'ลบ',
-			'meal.addedToLog' => 'เพิ่มมื้ออาหารลงในบันทึกแล้ว!',
-			'meal.couldNotAdd' => ({required Object error}) => 'ไม่สามารถเพิ่มมื้ออาหาร: ${error}',
-			'meal.savedSuccessfully' => 'เพิ่มมื้ออาหารเรียบร้อย!',
-			'meal.updatedSuccessfully' => 'อัปเดตมื้ออาหารเรียบร้อย!',
-			'meal.errorSaving' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบันทึกมื้ออาหาร: ${error}',
-			'meal.removedFromFavorites' => 'เอาออกจากรายการโปรดแล้ว!',
-			'meal.savedAsFavorite' => 'บันทึกมื้ออาหารเป็นรายการโปรดแล้ว!',
-			'meal.unfavorite' => 'เลิกรายการโปรด',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ไม่สามารถอัปเดตรายการโปรด: ${error}',
-			'meal.feedbackThanks' => 'ขอบคุณสำหรับความคิดเห็น!',
-			'meal.reanalysisUpdated' => 'อัปเดตการวิเคราะห์มื้ออาหารตามความคิดเห็นของคุณแล้ว',
-			'meal.failedToProcess' => ({required Object error}) => 'ไม่สามารถประมวลผล: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'ไม่สามารถประมวลผลรูปภาพ: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะบีบอัดรูปภาพ: ${error}',
-			'meal.failedToSave' => 'บันทึกข้อมูลไม่สำเร็จ โปรดลองอีกครั้ง',
+			'meal.addedToLog' => 'เพิ่มมื้อในบันทึกแล้ว!',
+			'meal.couldNotAdd' => ({required Object error}) => 'ไม่สามารถเพิ่มมื้อได้: ${error}',
+			'meal.savedSuccessfully' => 'เพิ่มมื้อเรียบร้อยแล้ว!',
+			'meal.updatedSuccessfully' => 'แก้ไขมื้อเรียบร้อยแล้ว!',
+			'meal.errorSaving' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะบันทึกมื้อ: ${error}',
+			'meal.removedFromFavorites' => 'ยกเลิกจากรายการโปรดแล้ว!',
+			'meal.savedAsFavorite' => 'บันทึกมื้อเป็นโปรดแล้ว!',
+			'meal.unfavorite' => 'ยกเลิกโปรด',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'ไม่สามารถอัปเดตสถานะโปรดได้: ${error}',
+			'meal.feedbackThanks' => 'ขอบคุณสำหรับคำติชม!',
+			'meal.reanalysisUpdated' => 'อัปเดตการวิเคราะห์มื้อตามคำติชมของคุณแล้ว',
+			'meal.failedToProcess' => ({required Object error}) => 'ไม่สามารถประมวลผลได้: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'ไม่สามารถประมวลผลรูปได้: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดรูป: ${error}',
+			'meal.failedToSave' => 'ไม่สามารถบันทึกข้อมูลได้ โปรดลองอีกครั้ง',
 			'meal.skip' => 'ข้าม',
-			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'คำถามที่ ${current} จาก ${total}',
-			'meal.questionFlow.noQuestionsAvailable' => 'ไม่มีคำถามให้ตอบ',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'คำถาม ${current} จาก ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'ไม่มีคำถาม',
 			'meal.questionFlow.next' => 'ถัดไป',
 			'meal.questionFlow.continueLabel' => 'ดำเนินการต่อ',
-			'meal.analysis.title' => 'การวิเคราะห์มื้ออาหารด้วย AI',
+			'meal.analysis.title' => 'กำลังวิเคราะห์มื้อของคุณ',
 			'meal.analysis.stepStarted' => 'เริ่มต้น…',
-			'meal.analysis.stepDecomposition' => 'กำลังทำความเข้าใจมื้อของคุณ…',
-			'meal.analysis.stepIngredients' => 'กำลังจับคู่องค์ประกอบกับข้อมูลโภชนาการ…',
-			'meal.analysis.stepUncertainty' => 'กำลังตรวจสอบความมั่นใจ…',
+			'meal.analysis.stepDecomposition' => 'กำลังทำความเข้าใจมื้อ…',
+			'meal.analysis.stepIngredients' => 'จับคู่ส่วนผสมกับข้อมูลโภชนาการ…',
+			'meal.analysis.stepUncertainty' => 'ตรวจสอบความมั่นใจ…',
 			'meal.analysis.stepMealTypeQuestion' => 'เกือบเสร็จแล้ว…',
-			'meal.analysis.stepResult' => 'กำลังสรุปผลลัพธ์…',
+			'meal.analysis.stepResult' => 'สรุปผล…',
 			'meal.analysis.stepError' => 'เกิดข้อผิดพลาดบางอย่าง',
-			'meal.analysis.stepDefault' => 'กำลังวิเคราะห์มื้ออาหารของคุณ…',
-			'meal.analysis.progressUnderstand' => 'ทำความเข้าใจ',
-			'meal.analysis.progressMatch' => 'จับคู่',
-			'meal.analysis.progressCheck' => 'ตรวจสอบ',
-			'meal.analysis.progressMealType' => 'กำลังเลือกประเภทมื้ออาหาร',
-			'meal.analysis.progressFinish' => 'เสร็จสิ้น',
+			'meal.analysis.stepDefault' => 'กำลังวิเคราะห์มื้อของคุณ…',
+			'meal.analysis.progressUnderstand' => 'กำลังทำความเข้าใจมื้อ',
+			'meal.analysis.progressMatch' => 'กำลังค้นหาข้อมูลโภชนาการของส่วนผสม',
+			'meal.analysis.progressCheck' => 'กำลังตรวจสอบขนาดส่วนและความมั่นใจ',
+			'meal.analysis.progressMealType' => 'กำลังเลือกประเภทมื้อ',
+			'meal.analysis.progressFinish' => 'กำลังคำนวณแคลอรีและสารอาหารหลัก',
 			'meal.analysis.detectedIngredientHeading' => 'ส่วนผสมที่เราพบ',
-			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} รายการเพิ่มเติม',
-			'meal.analysis.ingredientsLine' => ({required Object count}) => 'ตรวจพบส่วนผสม ${count} รายการ',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'มีอีก ${count}',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => 'ตรวจพบ ${count} ส่วนผสม',
 			'meal.analysis.ingredientsPending' => 'กำลังสแกนส่วนผสม…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'อะไรดูไม่ถูกต้อง?',
-			'meal.feedback.subtitle' => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกหนึ่งหรือหลายปัญหา',
-			'meal.feedback.tellUsMore' => 'บอกเราเพิ่มเติม',
+			'meal.analysis.offlineTip0' => 'เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ',
+			'meal.analysis.offlineTip1' => 'เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ',
+			'meal.analysis.offlineTip2' => 'เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม',
+			'meal.analysis.offlineTip3' => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น',
+			'meal.analysis.offlineTip4' => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น',
+			'meal.analysis.offlineTip5' => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)',
+			'meal.feedback.title' => 'อะไรที่ดูผิดพลาด?',
+			'meal.feedback.subtitle' => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกปัญหาหนึ่งข้อหรือหลายข้อ',
+			'meal.feedback.tellUsMore' => 'บอกเพิ่มเติม',
 			'meal.feedback.describeIncorrect' => 'อธิบายสิ่งที่ไม่ถูกต้อง',
 			'meal.feedback.submit' => 'ส่ง',
 			'meal.feedback.issueFoodIdentification' => 'การระบุอาหาร',
-			'meal.feedback.issuePortionSize' => 'ขนาดหนึ่งหน่วยบริโภค',
-			'meal.feedback.issueCalorieDistribution' => 'การกระจายแคลอรี',
-			'meal.feedback.issueMacrosWrong' => 'มาโครไม่ถูกต้อง',
-			'meal.feedback.issueMissingItems' => 'รายการที่ขาดหายไป',
-			'meal.feedback.issueExtraItems' => 'รายการเพิ่มเติม',
-			'meal.feedback.issueOther' => 'อื่น ๆ',
+			'meal.feedback.issuePortionSize' => 'ขนาดส่วน',
+			'meal.feedback.issueCalorieDistribution' => 'การแจกแจงแคลอรี',
+			'meal.feedback.issueMacrosWrong' => 'สารอาหารหลักผิด',
+			'meal.feedback.issueMissingItems' => 'ขาดรายการ',
+			'meal.feedback.issueExtraItems' => 'มีรายการเกิน',
+			'meal.feedback.issueOther' => 'อื่นๆ',
 			'favorites.title' => 'รายการโปรด',
 			'favorites.empty' => 'ยังไม่มีมื้อโปรด',
 			'favorites.searchPlaceholder' => 'ค้นหามื้อโปรด',
-			'favorites.searchEmptyTitle' => 'ไม่พบรายการโปรดที่ตรงกับการค้นหา',
-			'favorites.searchEmptySubtitle' => 'ลองใช้ชื่อมื้อ ปริมาณ หรือประเภทมื้อแบบอื่น',
-			'favorites.sortLabel' => 'เรียงรายการโปรด',
-			'favorites.undo' => 'เลิกทำ',
-			'favorites.removed' => ({required Object name}) => 'ลบ ${name} ออกจากรายการโปรดแล้ว',
+			'favorites.searchEmptyTitle' => 'ไม่มีรายการโปรดที่ตรงกับการค้นหา',
+			'favorites.searchEmptySubtitle' => 'ลองใช้ชื่อมื้อ ปริมาณ หรือประเภทมื้ออื่น',
+			'favorites.sortLabel' => 'จัดเรียงรายการโปรด',
+			'favorites.undo' => 'ยกเลิก',
+			'favorites.removed' => ({required Object name}) => 'นำ ${name} ออกจากรายการโปรดแล้ว',
 			'favorites.sortOptions.recent' => 'ล่าสุด',
 			'favorites.sortOptions.calories' => 'แคลอรี',
-			'favorites.sortOptions.alphabetical' => 'ตามตัวอักษร (A-Z)',
+			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'โปรไฟล์',
 			'profile.noProfileData' => 'ไม่พบข้อมูลโปรไฟล์',
 			'profile.yourProfile' => 'โปรไฟล์ของคุณ',
 			'profile.viewAndManage' => 'ดูและจัดการข้อมูลสุขภาพของคุณ',
 			'profile.sections.profile' => 'โปรไฟล์',
 			'profile.sections.basicInformation' => 'ข้อมูลพื้นฐาน',
-			'profile.sections.goalsAndActivity' => 'เป้าหมายและกิจกรรม',
+			'profile.sections.goalsAndActivity' => 'เป้าหมาย & กิจกรรม',
 			'profile.sections.calculatedValues' => 'ค่าที่คำนวณได้',
 			'profile.gender' => 'เพศ',
-			'profile.height' => 'ส่วนสูง',
+			'profile.height' => 'ความสูง',
 			'profile.weight' => 'น้ำหนัก',
 			'profile.age' => 'อายุ',
 			'profile.weightGoal' => 'เป้าหมายน้ำหนัก',
 			'profile.targetWeight' => 'น้ำหนักเป้าหมาย',
 			'profile.activityLevel' => 'ระดับกิจกรรม',
 			'profile.healthMetrics' => 'ตัวชี้วัดสุขภาพ',
-			'profile.notSet' => 'ยังไม่ตั้งค่า',
+			'profile.notSet' => 'ยังไม่ได้ตั้งค่า',
 			'profile.years' => 'ปี',
-			'profile.updatedSuccessfully' => 'อัปเดตโปรไฟล์เรียบร้อย!',
+			'profile.updatedSuccessfully' => 'อัปเดตโปรไฟล์เรียบร้อยแล้ว!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'เป้าหมายรายวัน',
 			'profile.calculatedValues.calPerDay' => 'แคล/วัน',
-			'profile.calculatedValues.notAvailable' => 'ไม่พร้อมใช้งาน',
+			'profile.calculatedValues.notAvailable' => 'ไม่มีข้อมูล',
 			'healthScore.title' => 'คะแนนสุขภาพ',
-			'healthScore.whyThisScore' => 'ทำไมถึงได้คะแนนนี้?',
-			'healthScore.note' => 'คะแนนนี้เป็นการประเมินโดย AI จากส่วนผสมที่ตรวจพบและความหนาแน่นของสารอาหาร โปรดปรึกษาผู้เชี่ยวชาญเพื่อขอคำแนะนำด้านโภชนาการที่เหมาะกับคุณ',
-			'healthScore.unhealthy' => 'ไม่ดีต่อสุขภาพ',
-			'healthScore.healthy' => 'ดีต่อสุขภาพ',
-			'healthScore.neutral' => 'กึ่งกลาง',
+			'healthScore.whyThisScore' => 'ทำไมได้คะแนนนี้?',
+			'healthScore.note' => 'คะแนนนี้เป็นการประมาณของ AI โดยอิงจากส่วนผสมที่ระบุและความหนาแน่นทางโภชนาการ ควรปรึกษาผู้เชี่ยวชาญสำหรับคำแนะนำด้านอาหารที่เฉพาะเจาะจง',
+			'healthScore.unhealthy' => 'ไม่แข็งแรง',
+			'healthScore.healthy' => 'แข็งแรง',
+			'healthScore.neutral' => 'ปานกลาง',
 			'editProfile.title' => 'แก้ไขโปรไฟล์',
-			'editProfile.sections.personalInformation' => 'ข้อมูลส่วนตัว',
-			'editProfile.sections.physicalMeasurements' => 'ข้อมูลสัดส่วนร่างกาย',
-			'editProfile.sections.goalsAndActivity' => 'เป้าหมายและกิจกรรม',
+			'editProfile.sections.personalInformation' => 'ข้อมูลส่วนบุคคล',
+			'editProfile.sections.physicalMeasurements' => 'การวัดสัดส่วนร่างกาย',
+			'editProfile.sections.goalsAndActivity' => 'เป้าหมาย & กิจกรรม',
 			'editProfile.gender' => 'เพศ',
-			'editProfile.dateOfBirth' => 'วันเดือนปีเกิด',
-			'editProfile.height' => 'ส่วนสูง',
+			'editProfile.dateOfBirth' => 'วันเกิด',
+			'editProfile.height' => 'ความสูง',
 			'editProfile.weight' => 'น้ำหนัก',
 			'editProfile.weightGoal' => 'เป้าหมายน้ำหนัก',
 			'editProfile.activityLevel' => 'ระดับกิจกรรม',
 			'editProfile.metric' => 'เมตริก',
 			'editProfile.imperial' => 'อิมพีเรียล',
-			'editProfile.unitCm' => 'ซม.',
-			'editProfile.unitFt' => 'ฟุต',
-			'editProfile.unitKg' => 'กก.',
-			'editProfile.unitLbs' => 'ปอนด์',
-			'editProfile.metricCm' => 'เมตริก (ซม.)',
-			'editProfile.imperialFtIn' => 'อิมพีเรียล (ฟุต/นิ้ว)',
-			'editProfile.metricKg' => 'เมตริก (กก.)',
-			'editProfile.imperialLbs' => 'อิมพีเรียล (ปอนด์)',
+			'editProfile.unitCm' => 'cm',
+			'editProfile.unitFt' => 'ft',
+			'editProfile.unitKg' => 'kg',
+			'editProfile.unitLbs' => 'lbs',
+			'editProfile.metricCm' => 'เมตริก (cm)',
+			'editProfile.imperialFtIn' => 'อิมพีเรียล (ft/in)',
+			'editProfile.metricKg' => 'เมตริก (kg)',
+			'editProfile.imperialLbs' => 'อิมพีเรียล (lbs)',
 			'editProfile.genders.male' => 'ชาย',
 			'editProfile.genders.female' => 'หญิง',
 			'editProfile.genders.other' => 'อื่นๆ',
 			'editProfile.weightGoals.loseWeight.name' => 'ลดน้ำหนัก',
-			'editProfile.weightGoals.loseWeight.description' => 'สร้างภาวะแคลอรีขาดดุลเพื่อให้น้ำหนักลดลง',
-			'editProfile.weightGoals.maintainWeight.name' => 'คุมน้ำหนัก',
-			'editProfile.weightGoals.maintainWeight.description' => 'คงน้ำหนักปัจจุบันของคุณ',
+			'editProfile.weightGoals.loseWeight.description' => 'สร้างการขาดแคลอรีเพื่อลดน้ำหนัก',
+			'editProfile.weightGoals.maintainWeight.name' => 'รักษาน้ำหนัก',
+			'editProfile.weightGoals.maintainWeight.description' => 'รักษาน้ำหนักปัจจุบัน',
 			'editProfile.weightGoals.gainWeight.name' => 'เพิ่มน้ำหนัก',
-			'editProfile.weightGoals.gainWeight.description' => 'สร้างภาวะแคลอรี่เกินเพื่อเพิ่มน้ำหนัก',
-			'editProfile.activityLevels.sedentary.name' => 'ไม่ค่อยออกกำลังกาย',
-			'editProfile.activityLevels.sedentary.description' => 'แทบไม่ออกกำลังกาย',
-			'editProfile.activityLevels.lightlyActive.name' => 'กิจกรรมเบา',
-			'editProfile.activityLevels.lightlyActive.description' => 'ออกกำลังกายเบาๆ 1–3 วัน/สัปดาห์',
-			'editProfile.activityLevels.moderatelyActive.name' => 'กิจกรรมปานกลาง',
-			'editProfile.activityLevels.moderatelyActive.description' => 'ออกกำลังกายปานกลาง 3–5 วัน/สัปดาห์',
-			'editProfile.activityLevels.veryActive.name' => 'กิจกรรมหนัก',
-			'editProfile.activityLevels.veryActive.description' => 'ออกกำลังกายหนัก 6–7 วัน/สัปดาห์',
-			'editProfile.activityLevels.extremelyActive.name' => 'กิจกรรมหนักมาก',
-			'editProfile.activityLevels.extremelyActive.description' => 'ออกกำลังกายหนักมากหรือทำงานใช้แรงกาย',
+			'editProfile.weightGoals.gainWeight.description' => 'สร้างการเกินแคลอรีเพื่อเพิ่มน้ำหนัก',
+			'editProfile.activityLevels.sedentary.name' => 'อยู่นิ่ง',
+			'editProfile.activityLevels.sedentary.description' => 'ออกกำลังกายน้อยหรือแทบไม่มี',
+			'editProfile.activityLevels.lightlyActive.name' => 'เคลื่อนไหวเล็กน้อย',
+			'editProfile.activityLevels.lightlyActive.description' => 'ออกกำลังกายเบา 1-3 วัน/สัปดาห์',
+			'editProfile.activityLevels.moderatelyActive.name' => 'เคลื่อนไหวปานกลาง',
+			'editProfile.activityLevels.moderatelyActive.description' => 'ออกกำลังกายปานกลาง 3-5 วัน/สัปดาห์',
+			'editProfile.activityLevels.veryActive.name' => 'เคลื่อนไหวมาก',
+			'editProfile.activityLevels.veryActive.description' => 'ออกกำลังกายหนัก 6-7 วัน/สัปดาห์',
+			'editProfile.activityLevels.extremelyActive.name' => 'เคลื่อนไหวหนักมาก',
+			'editProfile.activityLevels.extremelyActive.description' => 'ออกกำลังกายหนักมาก หรืองานที่ต้องใช้แรงกาย',
 			'settings.title' => 'การตั้งค่า',
 			'settings.sections.profile' => 'โปรไฟล์',
-			'settings.sections.localization' => 'ภาษาและภูมิภาค',
+			'settings.sections.localization' => 'การตั้งค่าภาษา',
 			'settings.sections.notifications' => 'การแจ้งเตือน',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
-			'settings.sections.supportAndLegal' => 'การสนับสนุนและเงื่อนไข',
+			'settings.sections.healthConnect' => 'Health Connect',
+			'settings.sections.supportAndLegal' => 'การสนับสนุน & กฎหมาย',
 			'settings.sections.about' => 'เกี่ยวกับ',
 			'settings.sections.dangerZone' => 'โซนอันตราย',
 			'settings.sections.developer' => 'นักพัฒนา',
 			'settings.editProfile.title' => 'แก้ไขโปรไฟล์',
 			'settings.editProfile.subtitle' => 'อัปเดตข้อมูลส่วนตัวของคุณ',
 			'settings.language.title' => 'ภาษา',
-			'settings.language.subtitle' => 'เลือกภาษาที่คุณต้องการ',
+			'settings.language.subtitle' => 'เลือกภาษาที่ต้องการ',
 			'settings.language.searchHint' => 'ค้นหาภาษา...',
 			'settings.language.noResults' => 'ไม่พบผลลัพธ์',
 			'settings.heightUnit.title' => 'หน่วยความสูง',
 			'settings.weightUnit.title' => 'หน่วยน้ำหนัก',
-			'settings.mealReminders.title' => 'การเตือนมื้ออาหาร',
-			'settings.mealReminders.subtitle' => 'ไม่พลาดด้วยการแจ้งเตือนตรงเวลา',
+			'settings.mealReminders.title' => 'การแจ้งเตือนมื้ออาหาร',
+			'settings.mealReminders.subtitle' => 'เตือนให้บันทึกมื้ออย่างสม่ำเสมอ',
 			'settings.theme.title' => 'ธีม',
 			'settings.theme.light' => 'สว่าง',
 			'settings.theme.dark' => 'มืด',
-			'settings.theme.system' => 'ตามระบบ',
-			'settings.sendFeedback.title' => 'ส่งความคิดเห็น',
+			'settings.theme.system' => 'ระบบ',
+			'settings.sendFeedback.title' => 'ส่งคำติชม',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'ช่วยให้ ${appLabel} ดีขึ้น',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'ข้อเสนอแนะเกี่ยวกับแอป ${appLabel}',
-			'settings.sendFeedback.emailBodyPrefix' => 'โปรดให้ข้อเสนอแนะของคุณด้านล่าง:',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'ข้อเสนอแนะสำหรับแอป ${appLabel}',
+			'settings.sendFeedback.emailBodyPrefix' => 'โปรดส่งคำติชมของคุณด้านล่าง:',
 			'settings.sendFeedback.appVersion' => 'เวอร์ชันแอป',
 			'settings.sendFeedback.device' => 'อุปกรณ์',
-			'settings.sendFeedback.osVersion' => 'เวอร์ชันระบบปฏิบัติการ',
+			'settings.sendFeedback.osVersion' => 'รุ่นระบบปฏิบัติการ',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'ส่งออกประวัติอาหาร',
+			'settings.exportMealHistory.title' => 'ส่งออกประวัติมื้ออาหาร',
 			'settings.exportMealHistory.subtitle' => 'แชร์ไฟล์ CSV ของมื้อที่คุณบันทึก',
-			'settings.exportMealHistory.shareText' => 'ไฟล์ส่งออกประวัติอาหารจาก Calorify ของคุณ',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'ไม่สามารถส่งออกประวัติอาหาร: ${error}',
+			'settings.exportMealHistory.shareText' => 'การส่งออกประวัติมื้อของคุณจาก Calorify',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'ไม่สามารถส่งออกประวัติการมื้ออาหารได้: ${error}',
 			'settings.clearAllData.title' => 'ล้างข้อมูลทั้งหมด',
-			'settings.clearAllData.subtitle' => 'ลบข้อมูลทั้งหมดของคุณอย่างถาวร',
+			'settings.clearAllData.subtitle' => 'ลบข้อมูลทั้งหมดอย่างถาวร',
 			'settings.clearAllData.confirmationTitle' => 'ล้างข้อมูลทั้งหมด?',
-			'settings.clearAllData.confirmationMessage' => 'การกระทำนี้ไม่สามารถย้อนกลับได้ มื้อที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ทั้งหมดจะถูกลบถาวร',
+			'settings.clearAllData.confirmationMessage' => 'การกระทำนี้ไม่สามารถย้อนกลับได้ ข้อมูลมื้อทั้งหมด รายการโปรด และการตั้งค่าโปรไฟล์ของคุณจะถูกลบอย่างถาวร',
 			'settings.clearAllData.cancel' => 'ยกเลิก',
 			'settings.clearAllData.clearEverything' => 'ล้างทั้งหมด',
-			'settings.debugOptions.title' => 'ตัวเลือกการดีบัก',
+			'settings.debugOptions.title' => 'ตัวเลือกดีบัก',
 			'settings.developerModeEnabled' => 'เปิดโหมดนักพัฒนาแล้ว!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'ดูและจัดการสิทธิ์',
-			'settings.healthConnect.unavailable.title' => 'Health Connect ใช้งานไม่ได้',
-			'settings.healthConnect.unavailable.description' => 'อุปกรณ์นี้ไม่รองรับ Health Connect โปรดติดตั้งจาก Play Store (Android 9+) หรืออัปเดตเป็น Android 14+',
+			'settings.healthConnect.unavailable.title' => 'ไม่พบ Health Connect',
+			'settings.healthConnect.unavailable.description' => 'อุปกรณ์นี้ไม่มี Health Connect โปรดติดตั้ง Health Connect จาก Play Store (Android 9+) หรืออัปเดตเป็น Android 14+',
 			'settings.healthConnect.permissions.title' => 'สิทธิ์',
-			'settings.healthConnect.permissions.description' => 'ต้องการสิทธิ์ต่อไปนี้เพื่อใช้งานการเชื่อมต่อกับ Health Connect:',
-			'settings.healthConnect.permissions.granted' => 'อนุญาตแล้ว',
-			'settings.healthConnect.permissions.notGranted' => 'ยังไม่อนุญาต',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'อ่านจำนวนแคลอรีที่เผาผลาญทั้งหมด',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'อนุญาตให้แอปอ่านแคลอรีที่คุณเผาผลาญทั้งหมดจาก Health Connect',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'ใช้เพื่อแสดงแคลอรีที่คุณเผาผลาญต่อวันในแอป ช่วยให้คุณเข้าใจการใช้พลังงานรวมตลอดทั้งวัน',
+			'settings.healthConnect.permissions.description' => 'ขอสิทธิ์ต่อไปนี้เพื่อนำเสนอการรวมกับ Health Connect:',
+			'settings.healthConnect.permissions.granted' => 'ได้รับอนุญาตแล้ว',
+			'settings.healthConnect.permissions.notGranted' => 'ยังไม่ได้รับอนุญาต',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'อ่านแคลอรีที่เผาผลาญทั้งหมด',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'อนุญาตให้แอปอ่านข้อมูลแคลอรีที่เผาผลาญทั้งหมดจาก Health Connect',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'สิทธิ์นี้ใช้เพื่อแสดงการเผาผลาญแคลอรีรายวันในแอป ช่วยให้คุณเข้าใจการใช้พลังงานตลอดวัน',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'อ่านข้อมูลโภชนาการ',
 			'settings.healthConnect.permissions.nutritionRead.description' => 'อนุญาตให้แอปอ่านข้อมูลโภชนาการจาก Health Connect',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'ช่วยให้แอปอ่านข้อมูลโภชนาการที่อาจถูกบันทึกโดยแอปอื่นที่เชื่อมต่อกับ Health Connect เพื่อมุมมองที่ครอบคลุมยิ่งขึ้น',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'สิทธิ์นี้ช่วยให้แอปอ่านข้อมูลโภชนาการที่อาจถูกบันทึกโดยแอปอื่นที่เชื่อมต่อกับ Health Connect เพื่อให้มุมมองโภชนาการที่ครบถ้วน',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'เขียนข้อมูลโภชนาการ',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'อนุญาตให้แอปเขียนข้อมูลโภชนาการไปยัง Health Connect',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'ช่วยให้แอปซิงค์มื้อที่คุณบันทึกไปยัง Health Connect ทำให้ข้อมูลโภชนาการพร้อมใช้งานกับแอปสุขภาพและฟิตเนสอื่นๆ ของคุณ',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'อนุญาตให้แอปเขียนข้อมูลโภชนาการลงใน Health Connect',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'สิทธิ์นี้ช่วยให้แอปซิงก์มื้ออาหารที่คุณบันทึกไปยัง Health Connect ทำให้ข้อมูลโภชนาการของคุณพร้อมใช้งานกับแอปสุขภาพและฟิตเนสอื่นๆ',
 			'settings.healthConnect.managePermissions' => 'จัดการสิทธิ์',
 			'settings.healthConnect.openSettings' => 'เปิดการตั้งค่า Health Connect',
 			'settings.healthConnect.requestPermissions' => 'ขอสิทธิ์',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'การขอสิทธิ์ถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้งหรือให้สิทธิ์ด้วยตนเองในการตั้งค่า Health Connect',
 			'settings.healthConnect.permissionRequestFailed' => 'ไม่สามารถขอสิทธิ์ได้ โปรดลองอีกครั้งหรือให้สิทธิ์ด้วยตนเองในการตั้งค่า Health Connect',
-			'settings.healthConnect.requestingPermissions' => 'กำลังขอสิทธิ์...',
+			'settings.healthConnect.requestingPermissions' => 'กำลังขอ...',
 			'settings.about.title' => 'เกี่ยวกับ',
-			'settings.about.tagline' => 'รวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัวเป็นอันดับแรก',
+			'settings.about.tagline' => 'รู้เท่าทันแคลอรีอย่างรวดเร็ว ฟรี และให้ความสำคัญกับความเป็นส่วนตัว',
 			'settings.about.ourStory.title' => 'เรื่องราวของเรา',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} เกิดจากความไม่สะดวกง่ายๆ: แอปนับแคลอรีส่วนใหญ่มักซับซ้อนเกินไป ต้องกรอกข้อมูลเองตลอดเวลา เก็บค่าบริการแพง หรือกระทบต่อความเป็นส่วนตัว\n\nในฐานะนักพัฒนาเดี่ยว ฉันอยากสร้างสิ่งที่เรียบง่ายและยุติธรรมกว่า — แอปที่ใช้ AI เพื่อลดความยุ่งยาก ทำงานได้รวดเร็ว ฟรี และเคารพข้อมูลสุขภาพของคุณ\n\n${appLabel} คือแอปที่ฉันอยากให้มีอยู่: ไม่ต้องมีบัญชี ไม่ติดตาม ไม่ลงโฆษณา — มีเพียงข้อมูลเชิงปฏิบัติที่ชัดเจนและเป้าหมายสุขภาพของคุณ',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} เกิดจากความรู้สึกหงุดหงิดอย่างง่าย: แอปติดตามแคลอรีส่วนใหญ่ซับซ้อนเกินไป ต้องกรอกข้อมูลด้วยตลอด มีค่าใช้จ่ายสมัครสมาชิกราคาแพง หรือประนีประนอมด้านความเป็นส่วนตัว\n\nในฐานะนักพัฒนาเดี่ยว ผมต้องการสร้างสิ่งที่เรียบง่ายและเป็นธรรมกว่า — แอปที่ใช้ AI เพื่อลดความยุ่งยาก ทำงานเร็วและใช้ฟรี และเคารพข้อมูลสุขภาพของคุณ\n\n${appLabel} คือแอปที่ผมอยากให้มีอยู่: ไม่มีบัญชี ไม่มีการติดตาม ไม่มีโฆษณา — มีเพียงข้อมูลเชิงปฏิบัติที่ชัดเจนและเป้าหมายด้านสุขภาพของคุณ',
 			'settings.about.privacy.title' => 'ความเป็นส่วนตัวของคุณสำคัญ',
-			'settings.about.privacy.description' => 'ความเป็นส่วนตัวไม่ใช่เรื่องหลังบ้าน — แต่เป็นหลักการออกแบบ นี่คือความหมายในทางปฏิบัติ:',
-			'settings.about.privacy.noAccounts' => 'ไม่ต้องมีบัญชีผู้ใช้\nใช้งานได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ไม่มีการติดตามพฤติกรรม\n${appLabel} จะไม่เฝ้าติดตามการใช้งาน สร้างโปรไฟล์พฤติกรรม หรือ ติดตามคุณข้ามแอปหรือเว็บไซต์',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ไร้โฆษณาตามการออกแบบ\n${appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องพึ่งโฆษณาหรือการทำเงินจากข้อมูล',
-			'settings.about.privacy.noDataSelling' => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแชร์ให้บุคคลที่สาม',
-			'settings.about.privacy.localStorage' => 'บันทึกข้อมูลบนอุปกรณ์เป็นหลัก\nข้อมูลของคุณจะอยู่บนอุปกรณ์ของคุณ',
+			'settings.about.privacy.description' => 'ความเป็นส่วนตัวไม่ใช่เรื่องรอง — แต่เป็นหลักการออกแบบ ต่อไปนี้คือสิ่งที่หมายถึงในการใช้งานจริง:',
+			'settings.about.privacy.noAccounts' => 'ไม่ต้องมีบัญชี\nใช้แอปได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ไม่มีการติดตามพฤติกรรม\n${appLabel} จะไม่ตรวจสอบกิจกรรมของคุณ สร้างโปรไฟล์การใช้งาน หรือติดตามข้ามแอปหรือเว็บไซต์',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ออกแบบให้ไม่มีโฆษณา\n${appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องใช้โฆษณาหรือหารายได้จากข้อมูล',
+			'settings.about.privacy.noDataSelling' => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม',
+			'settings.about.privacy.localStorage' => 'เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ',
 			'settings.about.privacy.privacyPolicy' => 'นโยบายความเป็นส่วนตัว',
 			'settings.about.developer.title' => 'สร้างโดยนักพัฒนาเดี่ยว',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกพัฒนาและดูแลโดยนักพัฒนาเดี่ยวที่มุ่งสร้างซอฟต์แวร์สุขภาพที่เรียบง่ายและเคารพความเป็นส่วนตัว\n\nทุกคำติชมถูกอ่านด้วยตัวเองและช่วยกำหนดทิศทางของแอป',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาเดี่ยวที่มุ่งมั่นสร้างซอฟต์แวร์ด้านสุขภาพที่สงบและเคารพความเป็นส่วนตัว\n\nคำติชมถูกอ่านด้วยตนเองและมีส่วนช่วยกำหนดทิศทางของแอป',
 			'settings.about.developer.website' => 'เว็บไซต์',
 			'settings.about.developer.email' => 'อีเมล',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'ชอบ ${appLabel} ไหม?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'ความคิดเห็นของคุณทำให้ ${appLabel} ดีขึ้นสำหรับทุกคน',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'คำติชมของคุณช่วยให้ ${appLabel} ดีขึ้นสำหรับทุกคน',
 			'settings.about.feedback.rateApp' => 'ให้คะแนนบน Play Store',
-			'settings.about.feedback.sendFeedback' => 'ส่งความคิดเห็น',
+			'settings.about.feedback.sendFeedback' => 'ส่งคำติชม',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'บิลด์ ${buildNumber}',
-			'reminders.title' => 'ไม่หลุดเป้าด้วยการเตือน',
-			'reminders.description' => 'รับการเตือนอย่างนุ่มนวลให้บันทึกมื้ออาหารและคงความสม่ำเสมอกับเป้าหมายโภชนาการของคุณ',
+			'reminders.title' => 'เตือนให้สม่ำเสมอด้วยการแจ้งเตือน',
+			'reminders.description' => 'รับการเตือนอ่อนโยนให้บันทึกมื้อและรักษาความต่อเนื่องในเป้าหมายโภชนาการ',
 			'reminders.notificationsEnabled' => 'เปิดการแจ้งเตือนแล้ว',
-			'reminders.notificationsDisabled' => 'ปิดการแจ้งเตือน',
-			'reminders.enabledSubtitle' => 'คุณจะได้รับการเตือนมื้ออาหาร',
+			'reminders.notificationsDisabled' => 'ปิดการแจ้งเตือนแล้ว',
+			'reminders.enabledSubtitle' => 'คุณจะได้รับการแจ้งเตือนเกี่ยวกับมื้ออาหาร',
 			'reminders.disabledSubtitle' => 'เปิดการแจ้งเตือนเพื่อรับการเตือนมื้ออาหาร',
 			'reminders.mealReminders' => 'การเตือนมื้ออาหาร',
 			'reminders.breakfast' => 'มื้อเช้า',
 			'reminders.lunch' => 'มื้อกลางวัน',
 			'reminders.dinner' => 'มื้อเย็น',
 			'reminders.snack' => 'ของว่าง',
-			'reminders.unknown' => 'ไม่ระบุ',
+			'reminders.unknown' => 'ไม่ทราบ',
 			'reminders.change' => 'เปลี่ยน',
 			'reminders.enableNotifications' => 'เปิดการแจ้งเตือน',
-			'reminders.skipForNow' => 'ข้ามไปก่อน',
+			'reminders.skipForNow' => 'ข้ามก่อน',
 			'reminders.saveChanges' => 'บันทึกการเปลี่ยนแปลง',
-			'reminders.enabledSuccessfully' => 'เปิดการแจ้งเตือนเรียบร้อย!',
-			'reminders.permissionDenied' => 'ปฏิเสธการอนุญาตการแจ้งเตือน',
-			'reminders.errorEnabling' => ({required Object error}) => 'เกิดข้อผิดพลาดในการเปิดการแจ้งเตือน: ${error}',
-			'reminders.errorCompletingSetup' => ({required Object error}) => 'เกิดข้อผิดพลาดในการตั้งค่าให้เสร็จสิ้น: ${error}',
-			'notifications.breakfast.title' => 'ถึงเวลาอาหารเช้า! 🍳',
+			'reminders.enabledSuccessfully' => 'เปิดการแจ้งเตือนเรียบร้อยแล้ว!',
+			'reminders.permissionDenied' => 'การอนุญาตแจ้งเตือนถูกปฏิเสธ',
+			'reminders.errorEnabling' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะเปิดการแจ้งเตือน: ${error}',
+			'reminders.errorCompletingSetup' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะทำการตั้งค่าให้เสร็จ: ${error}',
+			'notifications.breakfast.title' => 'เวลาอาหารเช้า! 🍳',
 			'notifications.breakfast.body' => 'อย่าลืมบันทึกมื้อเช้าของคุณ',
-			'notifications.lunch.title' => 'ถึงเวลาอาหารกลางวัน! 🥗',
-			'notifications.lunch.body' => 'ได้เวลาบันทึกมื้อกลางวันแล้ว',
-			'notifications.dinner.title' => 'ถึงเวลาอาหารเย็น! 🍽️',
+			'notifications.lunch.title' => 'เวลาอาหารกลางวัน! 🥗',
+			'notifications.lunch.body' => 'ถึงเวลาบันทึกมื้อกลางวันแล้ว',
+			'notifications.dinner.title' => 'เวลามื้อเย็น! 🍽️',
 			'notifications.dinner.body' => 'อย่าลืมบันทึกมื้อเย็นของคุณ',
-			'notifications.snack.title' => 'ถึงเวลาอาหารว่าง! 🍎',
-			'notifications.snack.body' => 'ได้เวลาของว่างที่ดีต่อสุขภาพแล้ว',
+			'notifications.snack.title' => 'เวลาของว่าง! 🍎',
+			'notifications.snack.body' => 'ถึงเวลาสำหรับของว่างเพื่อสุขภาพ',
 			'notifications.test.title' => 'ทดสอบการแจ้งเตือน',
 			'login.title' => 'เข้าสู่ระบบ',
 			'login.signInWithGoogle' => 'ลงชื่อเข้าใช้ด้วย Google',
-			'login.signInFailed' => 'การลงชื่อเข้าใช้ด้วย Google ล้มเหลวหรือถูกยกเลิก',
+			'login.signInFailed' => 'การเข้าสู่ระบบด้วย Google ล้มเหลวหรือถูกยกเลิก',
 			'disclaimer.pleaseNote' => 'โปรดทราบ',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} ให้ข้อมูลโภชนาการโดยประมาณ ความแม่นยำขึ้นอยู่กับข้อมูลที่คุณให้และความแตกต่างของอาหาร ใช้เป็นแนวทาง ไม่ใช่แหล่งข้อมูลที่ชี้ขาด โปรดปรึกษาผู้เชี่ยวชาญเพื่อคำแนะนำด้านโภชนาการเฉพาะบุคคล',
-			'disclaimer.snap.portionSize.title' => 'ขนาดส่วนอาหาร',
-			'disclaimer.snap.portionSize.description' => 'ความแม่นยำของการประเมินขึ้นอยู่กับการประเมินขนาดส่วนอาหารของคุณอย่างถูกต้อง',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} ให้ข้อมูลโภชนาการโดยประมาณ ความแม่นยำขึ้นอยู่กับข้อมูลที่คุณป้อนและความหลากหลายของอาหาร ใช้เป็นแนวทาง ไม่ใช่แหล่งข้อมูลที่ชัดเจนที่สุด ปรึกษาผู้เชี่ยวชาญสำหรับคำแนะนำทางโภชนาการเฉพาะบุคคล',
+			'disclaimer.snap.portionSize.title' => 'ขนาดส่วน',
+			'disclaimer.snap.portionSize.description' => 'ความแม่นยำของการประมาณพึ่งพาการประเมินขนาดส่วนที่ถูกต้องของคุณอย่างมาก',
 			'disclaimer.snap.preparationMethods.title' => 'วิธีการปรุง',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'วิธีการปรุงสามารถเปลี่ยนแปลงคุณค่าทางโภชนาการได้อย่างมาก การประเมินของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'วิธีการปรุงอาหารสามารถเปลี่ยนปริมาณโภชนาการได้อย่างมาก การประมาณของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป',
 			'disclaimer.snap.ingredients.title' => 'ส่วนผสม',
-			'disclaimer.snap.ingredients.description' => 'เมนูที่ซับซ้อนและมีส่วนผสมแฝงจำนวนมากอาจทำให้การประเมินแม่นยำน้อยลง',
+			'disclaimer.snap.ingredients.description' => 'จานที่ซับซ้อนมีส่วนผสมแฝงหลายชนิด อาจทำให้การประมาณมีความแม่นยำน้อยลง',
 			'disclaimer.snap.databaseLimitations.title' => 'ข้อจำกัดของฐานข้อมูล',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'ฐานข้อมูลองค์ประกอบอาหารของ ${appLabel} มีขนาดใหญ่ แต่ไม่อาจครอบคลุมอาหารหรือทุกรูปแบบได้ทั้งหมด',
-			'disclaimer.weightEstimate.title' => 'เกี่ยวกับการคาดการณ์น้ำหนัก',
-			'disclaimer.weightEstimate.description' => 'การคาดการณ์การเปลี่ยนแปลงน้ำหนักเป็นการประเมินเชิงทฤษฎีตามโมเดลแคลอรีเข้า-แคลอรีออก ใช้เพื่อสร้างแรงจูงใจเท่านั้น ไม่ใช่การทำนายน้ำหนักจริงของคุณ',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'ฐานข้อมูลอาหารของ ${appLabel} มีความหลากหลายแต่ไม่ครอบคลุมทุกรายการอาหารหรือความแตกต่างทั้งหมด',
+			'disclaimer.weightEstimate.title' => 'เกี่ยวกับการประเมินน้ำหนัก',
+			'disclaimer.weightEstimate.description' => 'การคาดการณ์การเปลี่ยนแปลงน้ำหนักเป็นการประมาณทางทฤษฎีโดยอิงจากโมเดลง่ายๆ ของแคลอรีเข้าเทียบกับแคลอรีออก ตั้งใจให้เป็นแนวทางให้กำลังใจ ไม่ใช่การทำนายผลน้ำหนักจริง',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'ความแม่นยำของแคลอรี',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ความแม่นยำนี้ขึ้นอยู่กับการบันทึกแคลอรีที่รับเข้าและที่เผาผลาญของคุณ หากบันทึกไม่แม่นยำ การคาดการณ์ก็จะไม่แม่นยำ',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'การประมาณนี้มีความแม่นยำขึ้นกับการบันทึกการรับและการใช้พลังงานของคุณ หากบันทึกไม่แม่นยำ การคาดการณ์ก็จะคลาดเคลื่อน',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'ปัจจัยทางชีวภาพ',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'น้ำหนักจริงได้รับอิทธิพลจากการเผาผลาญ ฮอร์โมน การนอน ความเครียด ระดับน้ำในร่างกาย และปัจจัยเฉพาะบุคคลอื่นๆ ที่ ${appLabel} ไม่สามารถวัดได้',
-			'disclaimer.weightEstimate.waterWeight.title' => 'น้ำในร่างกายและความผันผวน',
-			'disclaimer.weightEstimate.waterWeight.description' => 'น้ำหนักรายวันสามารถผันผวนได้มากจากการกักเก็บน้ำ การย่อยอาหาร และจังหวะเวลา การคาดการณ์นี้ไม่ได้คำนึงถึงความผันผวนรายวันเหล่านี้',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'การลด/เพิ่มน้ำหนักจริงได้รับอิทธิพลจากการเผาผลาญ ฮอร์โมน การนอนหลับ ความเครียด การดื่มน้ำ และปัจจัยเฉพาะบุคคลอื่นๆ ที่ ${appLabel} ไม่สามารถวัดได้',
+			'disclaimer.weightEstimate.waterWeight.title' => 'น้ำในร่างกาย & การแกว่งของน้ำหนัก',
+			'disclaimer.weightEstimate.waterWeight.description' => 'น้ำหนักปกติสามารถเปลี่ยนแปลงได้มากในแต่ละวันจากการกักเก็บน้ำ การย่อยอาหาร และช่วงเวลา การประมาณนี้ไม่รวมการเปลี่ยนแปลงรายวันเหล่านี้',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'คำแนะนำจากผู้เชี่ยวชาญ',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'อย่าใช้การคาดการณ์นี้เพื่อตัดสินใจด้านการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือโภชนากรเพื่อคำแนะนำส่วนบุคคล',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'อย่าใช้การประมาณนี้เพื่อการตัดสินใจทางการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือนักโภชนาการที่ลงทะเบียนสำหรับคำแนะนำเฉพาะบุคคล',
 			'disclaimer.healthMetrics.description' => 'ตัวชี้วัดเหล่านี้ช่วยให้คุณเข้าใจความต้องการพลังงานของร่างกายและนำทางเป้าหมายโภชนาการของคุณ',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'อัตราการเผาผลาญพื้นฐาน (BMR) คือจำนวนแคลอรีที่ร่างกายใช้ขณะพักเพื่อคงการทำงานพื้นฐาน เช่น การหายใจและการไหลเวียน BMR ขึ้นอยู่กับอายุ เพศ ส่วนสูง และน้ำหนัก BMR ที่สูงหมายถึงร่างกายเผาผลาญแคลอรีขณะพักได้มาก มักเกิดจากมวลกล้ามเนื้อมากกว่า อายุที่น้อยกว่า หรือเพศชาย ส่วน BMR ต่ำมักบ่งบอกถึงมวลกล้ามเนื้อน้อยกว่า อายุที่มากขึ้น หรือเพศหญิง',
+			'disclaimer.healthMetrics.bmr.description' => 'อัตราการเผาผลาญพื้นฐาน (BMR) คือจำนวนแคลอรีที่ร่างกายเผาผลาญเมื่อพักเพื่อรักษาการทำงานพื้นฐาน เช่น การหายใจและการไหลเวียนของเลือด BMR ขึ้นกับอายุ เพศ ความสูง และน้ำหนัก BMR สูงขึ้นมักหมายถึงร่างกายเผาผลาญแคลอรีมากขึ้นขณะพัก ส่วนใหญ่มาจากมวลกล้ามเนื้อมากกว่า อายุที่น้อยกว่า หรือเป็นเพศชาย BMR ต่ำมักบ่งชี้ถึงมวลกล้ามเนื้อน้อยกว่า อายุที่มากขึ้น หรือเป็นเพศหญิง',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'การใช้พลังงานทั้งหมดต่อวัน (TDEE) คือแคลอรีทั้งหมดที่คุณเผาผลาญในหนึ่งวัน รวม BMR และกิจกรรมทางกายภาพกับการเคลื่อนไหวในชีวิตประจำวัน TDEE ขึ้นกับ BMR และระดับกิจกรรม TDEE สูงหมายถึงเผาผลาญมากขึ้นโดยรวม มักมาจากการเคลื่อนไหวมากหรือมี BMR สูง ส่วน TDEE ต่ำบ่งชี้ว่ามีกิจกรรมน้อยหรือ BMR ต่ำ',
+			'disclaimer.healthMetrics.tdee.description' => 'การใช้พลังงานทั้งหมดต่อวัน (TDEE) คือแคลอรีทั้งหมดที่คุณเผาผลาญต่อวัน รวม BMR และแคลอรีจากกิจกรรมและการเคลื่อนไหวประจำวัน TDEE ขึ้นกับ BMR และระดับกิจกรรม TDEE สูงขึ้นหมายถึงการเผาผลาญโดยรวมมากขึ้น มักมาจากกิจกรรมมากขึ้นหรือ BMR สูงกว่า TDEE ต่ำกว่าอาจหมายถึงกิจกรรมประจำวันน้อยหรือ BMR ต่ำกว่า',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'เป้าหมายรายวัน',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'เป้าหมายรายวันคือปริมาณแคลอรีที่แนะนำต่อวันตาม TDEE และเป้าหมายน้ำหนักของคุณ หากต้องการลดน้ำหนัก ให้รับแคลอรีน้อยกว่า TDEE หากต้องการคุมน้ำหนัก ให้รับใกล้เคียง TDEE หากต้องการเพิ่มน้ำหนัก ให้รับมากกว่า TDEE สิ่งนี้ช่วยให้คุณบรรลุการเปลี่ยนน้ำหนักตามจังหวะที่ดีต่อสุขภาพ',
-			'disclaimer.calorieExpenditure.title' => 'การประเมินแคลอรีที่เผาผลาญ',
-			'disclaimer.calorieExpenditure.description' => 'เมื่อไม่มีข้อมูลจาก Health Connect เราจะประเมินแคลอรีที่เผาผลาญวันนี้โดยใช้ BMR และระดับกิจกรรม (TDEE) ของคุณ ปรับตามสัดส่วนเวลาของวันที่ผ่านไป',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'คำนวณอย่างไร',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'เราจะคำนวณ TDEE (อิงจากโปรไฟล์ของคุณ) แล้วคูณด้วยเศษส่วนของวันเวลาที่ผ่านไป (ชั่วโมง + นาที) / 24 เพื่อประมาณแคลอรีที่เผาผลาญจนถึงตอนนี้',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'เป้าหมายรายวันคือปริมาณแคลอรีที่แนะนำต่อวันโดยอิงจาก TDEE และเป้าหมายน้ำหนักของคุณ หากต้องการลดน้ำหนัก คุณจะบริโภคน้อยกว่า TDEE หากต้องการรักษา จะเท่ากับ TDEE หากต้องการเพิ่ม จะมากกว่า TDEE ซึ่งช่วยให้คุณบรรลุการเปลี่ยนแปลงน้ำหนักในอัตราที่ปลอดภัย',
+			'disclaimer.calorieExpenditure.title' => 'การประมาณการเผาผลาญแคลอรี',
+			'disclaimer.calorieExpenditure.description' => 'เมื่อไม่สามารถใช้ข้อมูลจาก Health Connect ได้ เราจะประมาณแคลอรีที่เผาผลาญวันนี้โดยใช้ BMR และระดับกิจกรรมของคุณ (TDEE) แล้วปรับตามสัดส่วนของวันที่ผ่านไป',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'การคำนวณเป็นอย่างไร',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'เราคำนวณ TDEE (จากโปรไฟล์ของคุณ) แล้วคูณด้วยสัดส่วนของวันที่ผ่านไป (ชั่วโมง + นาที) / 24 เพื่อประมาณแคลอรีที่เผาผลาญไปแล้ว',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'คำแนะนำจากผู้เชี่ยวชาญ',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'อย่าใช้ค่าประเมินนี้เพื่อตัดสินใจด้านการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือโภชนากรเพื่อคำแนะนำส่วนบุคคล',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'อย่าใช้การประมาณนี้เพื่อการตัดสินใจทางการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือนักโภชนาการที่ลงทะเบียนสำหรับคำแนะนำเฉพาะบุคคล',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'ชอบ ${appLabel} ไหม?',
-			'feedbackRating.yes' => 'ใช่ ชอบมาก',
-			'feedbackRating.no' => 'ยังไม่เท่าไร',
+			'feedbackRating.yes' => 'ใช่ ฉันชอบ',
+			'feedbackRating.no' => 'ไม่ค่อย',
 			'feedbackRating.rateStepHeading' => 'ให้คะแนนบน Play Store',
-			'feedbackRating.emailStepHeading' => 'ส่งความคิดเห็นทางอีเมล',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'การให้คะแนนสั้นๆ ช่วยให้คนอื่นค้นพบ ${appLabel} และช่วยให้การพัฒนาต่อเนื่อง คุณสะดวกให้สักนาทีไหม?',
-			'feedbackRating.shareFeedbackViaEmail' => 'ความคิดเห็นของคุณกำหนดสิ่งที่จะตามมา — เราอ่านทุกข้อความ ต้องการส่งความเห็นทางอีเมลไหม?',
+			'feedbackRating.emailStepHeading' => 'ส่งคำติชมทางอีเมล',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'การให้คะแนนสั้นๆ ช่วยให้คนอื่นค้นพบ ${appLabel} และช่วยให้การพัฒนายังคงเดินต่อไป คุณช่วยสละเวลาเขียนหน่อยไหม?',
+			'feedbackRating.shareFeedbackViaEmail' => 'คำติชมของคุณกำหนดทิศทางอนาคต — เราอ่านทุกข้อความ คุณต้องการแชร์ความคิดเห็นทางอีเมลไหม?',
 			'feedbackRating.rateCta' => 'ให้คะแนนบน Play Store',
 			'feedbackRating.maybeLater' => 'ไว้ทีหลัง',
-			'feedbackRating.sendFeedback' => 'ส่งความคิดเห็น',
-			'feedbackRating.noThanks' => 'ไม่เป็นไร ขอบคุณ',
-			'feedbackRating.aboutUsDescription' => 'สร้างด้วยความใส่ใจโดยทีมเล็กๆ เรามุ่งเน้นความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการกินที่ดีขึ้น',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'อยากรู้ว่าใครอยู่เบื้องหลัง ${appLabel}? ดู ',
+			'feedbackRating.sendFeedback' => 'ส่งคำติชม',
+			'feedbackRating.noThanks' => 'ไม่เป็นไร',
+			'feedbackRating.aboutUsDescription' => 'สร้างด้วยความใส่ใจโดยทีมขนาดเล็ก เรามุ่งมั่นเรื่องความเป็นส่วนตัว ความเรียบง่าย และช่วยให้คุณสร้างนิสัยการกินที่ดีขึ้น',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'สงสัยว่าใครอยู่เบื้องหลัง ${appLabel}? ดู ',
 			'feedbackRating.aboutUsLinkLabel' => 'เกี่ยวกับเรา',
-			'feedbackRating.thankYouMessage' => 'ขอบคุณ! ไว้ค่อยถามใหม่อีกครั้ง',
-			'health.syncFailed' => 'ไม่สามารถซิงค์ไปยัง Health Connect',
-			'health.mealSynced' => 'ซิงค์มื้ออาหารกับ Health Connect แล้ว',
+			'feedbackRating.thankYouMessage' => 'ขอบคุณ! เราจะถามอีกครั้งในครั้งหน้า',
+			'health.syncFailed' => 'ไม่สามารถซิงก์กับ Health Connect',
+			'health.mealSynced' => 'ซิงก์มื้อกับ Health Connect แล้ว',
 			_ => null,
 		};
 	}

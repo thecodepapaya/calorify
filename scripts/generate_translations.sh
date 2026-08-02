@@ -8,7 +8,7 @@ export LANG=en_US.UTF-8
 # 1. Analyzes translations for errors
 # 2. Normalizes translations
 # 3. Cleans unused translations (DISABLED - slang clean is too aggressive and empties files)
-# 4. Runs slang_gpt to generate translations for the 5 most common languages.
+# 4. Generates translations for every configured language.
 # 5. Renames the generated files to match the project's naming convention.
 # 6. Cleans all generated .g.dart files (recursively finds and deletes all)
 # 7. Regenerates Dart translation classes (always runs, even if files exist)
@@ -20,6 +20,7 @@ export LANG=en_US.UTF-8
 #   ./generate_translations.sh --full             # Full translation regeneration (all keys)
 #   ./generate_translations.sh --jobs 3           # Use 3 parallel jobs (default: 5)
 #   ./generate_translations.sh --full --jobs 3    # Full translation with 3 parallel jobs
+#   ./generate_translations.sh --repair-source-copies  # Re-translate values still copied from English
 
 # ============================================================================
 # Configuration & Setup
@@ -34,7 +35,9 @@ I18N_PKG_DIR=""
 I18N_DIR="lib/i18n"
 LOG_FILE=""
 FULL_TRANSLATION=false
+REPAIR_SOURCE_COPIES=false
 API_KEY=""
+TRANSLATION_PROVIDER=""
 MAX_PARALLEL_JOBS=5  # Maximum parallel translation jobs (adjust to avoid rate limiting)
 
 # Translation tracking
@@ -56,7 +59,15 @@ setup_environment() {
     # Store original directory and change to git root
     store_original_dir
     GIT_ROOT=$(change_to_git_root)
-    API_KEY=$(python3 "$SCRIPT_DIR/resolve_openai_api_key.py" "$GIT_ROOT") || exit 1
+    if python3 "$SCRIPT_DIR/translate_i18n_openrouter.py" --root "$GIT_ROOT" --check-config; then
+        TRANSLATION_PROVIDER="openrouter"
+        API_KEY=""
+    elif API_KEY=$(python3 "$SCRIPT_DIR/resolve_openai_api_key.py" "$GIT_ROOT" 2>/dev/null) && [ -n "$API_KEY" ]; then
+        TRANSLATION_PROVIDER="openai"
+    else
+        print_error "No translation API key found. Configure OPENAI_API_KEY or OPENROUTER_API_KEY."
+        exit 1
+    fi
     
     # Change to shared i18n package directory
     I18N_PKG_DIR="$GIT_ROOT/shared_packages/i18n"
@@ -76,6 +87,10 @@ parse_arguments() {
                 FULL_TRANSLATION=true
                 shift
                 ;;
+            --repair-source-copies)
+                REPAIR_SOURCE_COPIES=true
+                shift
+                ;;
             --jobs|-j)
                 if [[ -n "$2" ]] && [[ "$2" =~ ^[0-9]+$ ]]; then
                     MAX_PARALLEL_JOBS="$2"
@@ -92,13 +107,22 @@ parse_arguments() {
         esac
     done
     
-    if [ "$FULL_TRANSLATION" = true ]; then
+    if [ "$FULL_TRANSLATION" = true ] && [ "$REPAIR_SOURCE_COPIES" = true ]; then
+        print_error "--full and --repair-source-copies cannot be used together"
+        exit 1
+    elif [ "$REPAIR_SOURCE_COPIES" = true ] && [ "$TRANSLATION_PROVIDER" != "openrouter" ]; then
+        print_error "--repair-source-copies requires OpenRouter"
+        exit 1
+    elif [ "$FULL_TRANSLATION" = true ]; then
         print_info "Mode: ${BOLD}FULL${NC} translation regeneration (all keys will be regenerated)"
+    elif [ "$REPAIR_SOURCE_COPIES" = true ]; then
+        print_info "Mode: ${BOLD}REPAIR${NC} values still copied from English"
     else
         print_info "Mode: ${BOLD}PARTIAL${NC} translation (only missing keys will be updated)"
     fi
     
     print_info "Parallel jobs: ${BOLD}${MAX_PARALLEL_JOBS}${NC}"
+    print_info "Provider: ${BOLD}${TRANSLATION_PROVIDER}${NC}"
     echo ""
 }
 
@@ -149,15 +173,16 @@ reanalyze_translations() {
     FINAL_ANALYZE_EXIT=$?
     echo "$FINAL_ANALYZE_OUTPUT" >> "$LOG_FILE"
     
-    if [ $FINAL_ANALYZE_EXIT -eq 0 ]; then
+    if [ $FINAL_ANALYZE_EXIT -eq 0 ] && python3 "$SCRIPT_DIR/audit_translations.py" --root "$GIT_ROOT" --fail-on-source-copies >> "$LOG_FILE" 2>&1; then
         print_success "Final analysis completed - all translations are valid"
     else
         ERROR_COUNT=$(echo "$FINAL_ANALYZE_OUTPUT" | grep -ic "error" || echo "0")
         if [ "$ERROR_COUNT" -gt 0 ] 2>/dev/null; then
-            print_warning "Translation analysis found $ERROR_COUNT issue(s). Check log: $LOG_FILE"
+            print_error "Translation analysis found $ERROR_COUNT issue(s). Check log: $LOG_FILE"
         else
-            print_warning "Translation analysis found issues. Check log: $LOG_FILE"
+            print_error "Translation catalog audit found issues. Check log: $LOG_FILE"
         fi
+        return 1
     fi
     echo ""
 }
@@ -529,7 +554,17 @@ translate_locale_worker() {
     # When there are many translations, slang_gpt prints a lot; capturing via
     # $(...) uses a fixed-size pipe that can fill and block both the child and
     # the shell, causing the script to appear stuck.
-    if [ "$FULL_TRANSLATION" = true ]; then
+    if [ "$TRANSLATION_PROVIDER" = "openrouter" ]; then
+        local full_arg=()
+        if [ "$FULL_TRANSLATION" = true ]; then
+            full_arg=(--full)
+        elif [ "$REPAIR_SOURCE_COPIES" = true ]; then
+            full_arg=(--source-copies)
+        fi
+        python3 "$SCRIPT_DIR/translate_i18n_openrouter.py" \
+            --root "$GIT_ROOT" --locale "$locale" "${full_arg[@]}" > "$log_file" 2>&1
+        gpt_exit=$?
+    elif [ "$FULL_TRANSLATION" = true ]; then
         dart run slang_gpt --full --target=$locale --api-key=$API_KEY > "$log_file" 2>&1
         gpt_exit=$?
     else
@@ -549,7 +584,7 @@ translate_locale_worker() {
     local cost=$(echo "$gpt_output" | sed -n 's/.*Total cost: \$\([0-9.]*\).*/\1/p' | head -1)
     cost=${cost:-0}
     
-    local new_translations=$(echo "$gpt_output" | grep -i "new translations" | sed -n 's/.*\([0-9]*\) new.*/\1/p' | head -1)
+    local new_translations=$(echo "$gpt_output" | sed -n 's/^\([0-9][0-9]*\) new translations.*/\1/p' | head -1)
     new_translations=${new_translations:-0}
     
     # Write result to file for main process to read
@@ -777,7 +812,11 @@ print_summary() {
         done
     fi
     
-    print_summary_all_success "Translations generated and integrated successfully!"
+    if [ $FAILED -eq 0 ]; then
+        print_summary_all_success "Translations generated and integrated successfully!"
+    else
+        print_error "Translation generation failed for $FAILED locale(s). See the logs above."
+    fi
     print_info "Full log: $LOG_FILE"
     if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
         print_info "Parallel job logs: $PARALLEL_LOG_DIR"
@@ -785,6 +824,9 @@ print_summary() {
         # rm -rf "$TEMP_DIR"
     fi
     print_separator
+    if [ $FAILED -gt 0 ]; then
+        return 1
+    fi
 }
 
 # ============================================================================
@@ -805,7 +847,7 @@ main() {
     clean_generated_files
     regenerate_translation_classes
     print_translation_statistics
-    reanalyze_translations
+    reanalyze_translations || return 1
     print_summary
 }
 

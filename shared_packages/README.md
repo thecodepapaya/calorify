@@ -15,7 +15,17 @@ Regenerate translations through the repository script so locale files stay consi
 
 ```bash
 ./scripts/generate_translations.sh
+./scripts/generate_translations.sh --full --jobs 3
+./scripts/generate_translations.sh --repair-source-copies
+python3 ./scripts/audit_translations.py --fail-on-source-copies
 ```
+
+English (`en.i18n.json`) is the source of truth. The generator uses OpenRouter
+when `OPENROUTER_API_KEY` is configured; otherwise it uses the existing direct
+OpenAI workflow. The audit enforces locale/key parity,
+placeholders, metadata, non-empty values, long English source copies, and
+mixed-script contamination. Generated Dart files must be committed together
+with the locale JSON files.
 
 Regenerate protobuf models after changing `protos/`:
 

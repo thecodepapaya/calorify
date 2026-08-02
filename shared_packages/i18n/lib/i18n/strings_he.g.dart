@@ -67,12 +67,12 @@ class _TranslationsErrorsHe implements TranslationsErrorsEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'ביצעת יותר מדי בקשות. אנא המתן/י רגע ונסה/י שוב.';
-	@override String get networkError => 'שגיאת רשת. בדוק/י את חיבור האינטרנט שלך.';
-	@override String get unknownError => 'משהו השתבש. אנא נסה/י שוב מאוחר יותר.';
+	@override String get rateLimitExceeded => 'ביצעת יותר מדי בקשות. אנא המתן רגע ונסה שוב.';
+	@override String get networkError => 'שגיאת רשת. בדוק את חיבור האינטרנט שלך.';
+	@override String get unknownError => 'משהו השתבש. אנא נסה שוב מאוחר יותר.';
 	@override String get loadingProfileData => 'שגיאה בטעינת נתוני הפרופיל';
 	@override String get somethingWentWrong => 'משהו השתבש.';
-	@override String get retry => 'נסה/י שוב';
+	@override String get retry => 'נסה שוב';
 }
 
 // Path: onboarding
@@ -82,9 +82,9 @@ class _TranslationsOnboardingHe implements TranslationsOnboardingEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String welcome({required Object appLabel}) => 'ברוך/ה הבא/ה אל ${appLabel}';
-	@override String get subtitle => 'בן/בת הלוויה התזונתי/ת האישי/ת שלך, מופעל/ת ב-AI';
-	@override String get getStarted => 'התחל/י';
+	@override String welcome({required Object appLabel}) => 'ברוכים הבאים ל${appLabel}';
+	@override String get subtitle => 'עמית התזונה האישי שלך המונע על ידי AI';
+	@override String get getStarted => 'התחל';
 	@override late final _TranslationsOnboardingFeaturesHe features = _TranslationsOnboardingFeaturesHe._(_root);
 	@override late final _TranslationsOnboardingGenderHe gender = _TranslationsOnboardingGenderHe._(_root);
 	@override late final _TranslationsOnboardingHeightHe height = _TranslationsOnboardingHeightHe._(_root);
@@ -104,8 +104,8 @@ class _TranslationsTabsHe implements TranslationsTabsEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'ראשי';
-	@override String get history => 'היסטוריה';
+	@override String get dashboard => 'דשבורד';
+	@override String get history => 'ההיסטוריה';
 }
 
 // Path: home
@@ -135,7 +135,7 @@ class _TranslationsHistoryHe implements TranslationsHistoryEn {
 
 	// Translations
 	@override String get noMeals => 'אין ארוחות רשומות';
-	@override String get emptyMessage => 'צלם/י תמונה של הארוחה האחרונה כדי לתעד כאן.';
+	@override String get emptyMessage => 'צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.';
 	@override String get today => 'היום';
 	@override String get yesterday => 'אתמול';
 }
@@ -154,30 +154,30 @@ class _TranslationsMealHe implements TranslationsMealEn {
 	@override String get saveMeal => 'שמור ארוחה';
 	@override String get save => 'שמור';
 	@override String get mealName => 'שם הארוחה';
-	@override String get mealNameHint => 'לדוגמה, חביתת ביצים עם טוסט';
+	@override String get mealNameHint => 'למשל: חביתה מקושקשת עם טוסט';
 	@override String get mealQuantity => 'כמות הארוחה';
-	@override String get mealQuantityHint => 'לדוגמה, קערה אחת, 2 פרוסות';
+	@override String get mealQuantityHint => 'למשל: קערה אחת, 2 פרוסות';
 	@override String get timeOfMeal => 'שעת הארוחה';
-	@override String get timeOfMealHint => 'בחר/י את השעה שבה אכלת את הארוחה';
+	@override String get timeOfMealHint => 'בחר את השעה שבה אכלת את הארוחה';
 	@override String get mealType => 'סוג ארוחה';
 	@override late final _TranslationsMealNutritionHe nutrition = _TranslationsMealNutritionHe._(_root);
 	@override late final _TranslationsMealDeleteConfirmationHe deleteConfirmation = _TranslationsMealDeleteConfirmationHe._(_root);
 	@override String get addedToLog => 'הארוחה נוספה ליומן שלך!';
-	@override String couldNotAdd({required Object error}) => 'לא ניתן היה להוסיף ארוחה: ${error}';
+	@override String couldNotAdd({required Object error}) => 'לא ניתן להוסיף ארוחה: ${error}';
 	@override String get savedSuccessfully => 'הארוחה נוספה בהצלחה!';
 	@override String get updatedSuccessfully => 'הארוחה עודכנה בהצלחה!';
 	@override String errorSaving({required Object error}) => 'שגיאה בשמירת הארוחה: ${error}';
 	@override String get removedFromFavorites => 'הוסר מהמועדפים!';
 	@override String get savedAsFavorite => 'הארוחה נשמרה כמועדפת!';
-	@override String get unfavorite => 'הסר ממועדפים';
-	@override String couldNotUpdateFavorite({required Object error}) => 'לא ניתן היה לעדכן מועדף: ${error}';
+	@override String get unfavorite => 'הסר מהמועדפים';
+	@override String couldNotUpdateFavorite({required Object error}) => 'לא ניתן לעדכן מועדף: ${error}';
 	@override String get feedbackThanks => 'תודה על המשוב!';
-	@override String get reanalysisUpdated => 'הניתוח עודכן בהתאם למשוב שלך.';
-	@override String failedToProcess({required Object error}) => 'העיבוד נכשל: ${error}';
-	@override String failedToProcessImage({required Object error}) => 'עיבוד התמונה נכשל: ${error}';
-	@override String errorCompressingImage({required Object error}) => 'שגיאה במיטוב התמונה: ${error}';
-	@override String get failedToSave => 'שמירת הנתונים נכשלה. אנא נסה/י שוב.';
-	@override String get skip => 'דלג/י';
+	@override String get reanalysisUpdated => 'עדכנו את ניתוח הארוחה בהתאם למשוב שלך.';
+	@override String failedToProcess({required Object error}) => 'נכשל בעיבוד: ${error}';
+	@override String failedToProcessImage({required Object error}) => 'נכשל בעיבוד התמונה: ${error}';
+	@override String errorCompressingImage({required Object error}) => 'שגיאה בדחיסת תמונה: ${error}';
+	@override String get failedToSave => 'נכשל בשמירת הנתונים. אנא נסה שוב.';
+	@override String get skip => 'דלג';
 	@override late final _TranslationsMealQuestionFlowHe questionFlow = _TranslationsMealQuestionFlowHe._(_root);
 	@override late final _TranslationsMealAnalysisHe analysis = _TranslationsMealAnalysisHe._(_root);
 	@override late final _TranslationsMealFeedbackHe feedback = _TranslationsMealFeedbackHe._(_root);
@@ -192,12 +192,12 @@ class _TranslationsFavoritesHe implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'מועדפים';
 	@override String get empty => 'עדיין אין ארוחות מועדפות.';
-	@override String get searchPlaceholder => 'חפש/י ארוחות מועדפות';
-	@override String get searchEmptyTitle => 'אין מועדפים תואמים לחיפוש';
-	@override String get searchEmptySubtitle => 'נסו שם ארוחה אחר, כמות או סוג ארוחה שונה.';
-	@override String get sortLabel => 'מיון מועדפים';
+	@override String get searchPlaceholder => 'חפש ארוחות מועדפות';
+	@override String get searchEmptyTitle => 'אין מועדפים התואמים לחיפוש שלך';
+	@override String get searchEmptySubtitle => 'נסה שם ארוחה, כמות או סוג ארוחה אחר.';
+	@override String get sortLabel => 'מיין מועדפים';
 	@override String get undo => 'בטל';
-	@override String removed({required Object name}) => '${name} הוסר מהמועדפים';
+	@override String removed({required Object name}) => 'הוסר ${name} מהמועדפים';
 	@override late final _TranslationsFavoritesSortOptionsHe sortOptions = _TranslationsFavoritesSortOptionsHe._(_root);
 }
 
@@ -211,7 +211,7 @@ class _TranslationsProfileHe implements TranslationsProfileEn {
 	@override String get title => 'פרופיל';
 	@override String get noProfileData => 'לא נמצאו נתוני פרופיל';
 	@override String get yourProfile => 'הפרופיל שלך';
-	@override String get viewAndManage => 'צפה/י ונהלי/ה את פרטי הבריאות שלך';
+	@override String get viewAndManage => 'הצג ונהל את המידע הבריאותי שלך';
 	@override late final _TranslationsProfileSectionsHe sections = _TranslationsProfileSectionsHe._(_root);
 	@override String get gender => 'מגדר';
 	@override String get height => 'גובה';
@@ -236,10 +236,10 @@ class _TranslationsHealthScoreHe implements TranslationsHealthScoreEn {
 	// Translations
 	@override String get title => 'ציון בריאות';
 	@override String get whyThisScore => 'למה הציון הזה?';
-	@override String get note => 'ציון זה הוא הערכה של ה-AI המבוססת על הרכיבים שזוהו ועל צפיפות תזונתית. תמיד כדאי להתייעץ עם איש מקצוע לקבלת ייעוץ תזונתי.';
+	@override String get note => 'ציון זה הוא הערכת AI המבוססת על הרכיבים המזוהים וצפיפותם התזונתית. תמיד התייעץ/י עם מקצוען לקבלת ייעוץ תזונתי מותאם.';
 	@override String get unhealthy => 'לא בריא';
 	@override String get healthy => 'בריא';
-	@override String get neutral => 'ניטרלי';
+	@override String get neutral => 'נייטרלי';
 }
 
 // Path: editProfile
@@ -249,7 +249,7 @@ class _TranslationsEditProfileHe implements TranslationsEditProfileEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'עריכת פרופיל';
+	@override String get title => 'ערוך פרופיל';
 	@override late final _TranslationsEditProfileSectionsHe sections = _TranslationsEditProfileSectionsHe._(_root);
 	@override String get gender => 'מגדר';
 	@override String get dateOfBirth => 'תאריך לידה';
@@ -259,12 +259,12 @@ class _TranslationsEditProfileHe implements TranslationsEditProfileEn {
 	@override String get activityLevel => 'רמת פעילות';
 	@override String get metric => 'מטרי';
 	@override String get imperial => 'אימפריאלי';
-	@override String get unitCm => 'cm';
-	@override String get unitFt => 'ft';
-	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitCm => 'ס"מ';
+	@override String get unitFt => 'רגל';
+	@override String get unitKg => 'ק"ג';
+	@override String get unitLbs => 'lb';
 	@override String get metricCm => 'מטרי (ס"מ)';
-	@override String get imperialFtIn => 'אימפריאלי (ft/in)';
+	@override String get imperialFtIn => 'אימפריאלי (רגל/אינץ\')';
 	@override String get metricKg => 'מטרי (ק"ג)';
 	@override String get imperialLbs => 'אימפריאלי (lbs)';
 	@override late final _TranslationsEditProfileGendersHe genders = _TranslationsEditProfileGendersHe._(_root);
@@ -291,7 +291,7 @@ class _TranslationsSettingsHe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsExportMealHistoryHe exportMealHistory = _TranslationsSettingsExportMealHistoryHe._(_root);
 	@override late final _TranslationsSettingsClearAllDataHe clearAllData = _TranslationsSettingsClearAllDataHe._(_root);
 	@override late final _TranslationsSettingsDebugOptionsHe debugOptions = _TranslationsSettingsDebugOptionsHe._(_root);
-	@override String get developerModeEnabled => 'מצב מפתח הופעל!';
+	@override String get developerModeEnabled => 'מצב מפתח מופעל!';
 	@override late final _TranslationsSettingsHealthConnectHe healthConnect = _TranslationsSettingsHealthConnectHe._(_root);
 	@override late final _TranslationsSettingsAboutHe about = _TranslationsSettingsAboutHe._(_root);
 	@override late final _TranslationsSettingsAppInfoHe appInfo = _TranslationsSettingsAppInfoHe._(_root);
@@ -304,23 +304,23 @@ class _TranslationsRemindersHe implements TranslationsRemindersEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'הישאר/י על המסלול עם תזכורות';
-	@override String get description => 'קבל/י תזכורות עדינות לתעד את הארוחות ולהתמיד ביעדי התזונה שלך';
+	@override String get title => 'הישארו על המסלול עם תזכורות';
+	@override String get description => 'קבל תזכורות עדינות לרישום הארוחות והישאר עקבי עם יעדי התזונה שלך';
 	@override String get notificationsEnabled => 'התראות מופעלות';
-	@override String get notificationsDisabled => 'התראות כבויות';
-	@override String get enabledSubtitle => 'תקבל/י תזכורות לארוחות';
-	@override String get disabledSubtitle => 'אפשר/י התראות כדי לקבל תזכורות לארוחות';
-	@override String get mealReminders => 'תזכורות לארוחות';
-	@override String get breakfast => 'ארוחת בוקר';
-	@override String get lunch => 'ארוחת צהריים';
-	@override String get dinner => 'ארוחת ערב';
-	@override String get snack => 'חטיף';
+	@override String get notificationsDisabled => 'התראות מושבתות';
+	@override String get enabledSubtitle => 'תקבל תזכורות לארוחות';
+	@override String get disabledSubtitle => 'הפעל התראות כדי לקבל תזכורות לארוחות';
+	@override String get mealReminders => 'תזכורות ארוחה';
+	@override String get breakfast => 'בוקר';
+	@override String get lunch => 'צהריים';
+	@override String get dinner => 'ערב';
+	@override String get snack => 'נשנוש';
 	@override String get unknown => 'לא ידוע';
-	@override String get change => 'שנה/י';
-	@override String get enableNotifications => 'אפשר/י התראות';
-	@override String get skipForNow => 'דלג/י לעת עתה';
-	@override String get saveChanges => 'שמור/י שינויים';
-	@override String get enabledSuccessfully => 'התראות הופעלו בהצלחה!';
+	@override String get change => 'שנה';
+	@override String get enableNotifications => 'הפעל התראות';
+	@override String get skipForNow => 'דלג לעכשיו';
+	@override String get saveChanges => 'שמור שינויים';
+	@override String get enabledSuccessfully => 'ההתראות הופעלו בהצלחה!';
 	@override String get permissionDenied => 'הרשאת התראות נדחתה';
 	@override String errorEnabling({required Object error}) => 'שגיאה בהפעלת התראות: ${error}';
 	@override String errorCompletingSetup({required Object error}) => 'שגיאה בהשלמת ההגדרה: ${error}';
@@ -347,8 +347,8 @@ class _TranslationsLoginHe implements TranslationsLoginEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'התחברות';
-	@override String get signInWithGoogle => 'התחבר/י עם Google';
+	@override String get title => 'התחבר';
+	@override String get signInWithGoogle => 'התחבר עם Google';
 	@override String get signInFailed => 'ההתחברות עם Google נכשלה או בוטלה.';
 }
 
@@ -359,7 +359,7 @@ class _TranslationsDisclaimerHe implements TranslationsDisclaimerEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'לתשומת לבך';
+	@override String get pleaseNote => 'שים/י לב';
 	@override late final _TranslationsDisclaimerSnapHe snap = _TranslationsDisclaimerSnapHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateHe weightEstimate = _TranslationsDisclaimerWeightEstimateHe._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsHe healthMetrics = _TranslationsDisclaimerHealthMetricsHe._(_root);
@@ -384,21 +384,21 @@ class _TranslationsFeedbackRatingHe implements TranslationsFeedbackRatingEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'נהנ/ית מ-${appLabel}?';
-	@override String get yes => 'כן, אני נהנ/ית';
+	@override String enjoyingQuestion({required Object appLabel}) => 'נהנים מ-${appLabel}?';
+	@override String get yes => 'כן, אני נהנה/ת';
 	@override String get no => 'לא ממש';
-	@override String get rateStepHeading => 'דרג/י בחנות Play';
-	@override String get emailStepHeading => 'שליחת משוב בדוא"ל';
-	@override String soloDevMessage({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ושומר על המשך הפיתוח. תקדיש/י רגע להשאיר אחד?';
-	@override String get shareFeedbackViaEmail => 'המשוב שלך מעצב את הצעד הבא — אנחנו קוראים כל הודעה. לשתף מחשבות בדוא"ל?';
-	@override String get rateCta => 'דרג/י בחנות Play';
-	@override String get maybeLater => 'אולי אחר כך';
-	@override String get sendFeedback => 'שלח/י משוב';
-	@override String get noThanks => 'לא תודה';
-	@override String get aboutUsDescription => 'נבנה באהבה על ידי צוות קטן. אנחנו מתמקדים בפרטיות, פשטות ובבניית הרגלי אכילה טובים יותר.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראו ';
+	@override String get rateStepHeading => 'דרג ב-Play Store';
+	@override String get emailStepHeading => 'שלח משוב בדוא"ל';
+	@override String soloDevMessage({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ושומר על המשך הפיתוח. האם תקדיש/י רגע להשאיר דירוג?';
+	@override String get shareFeedbackViaEmail => 'המשוב שלך מעצב את מה שיבוא אחר כך — אנו קוראים כל הודעה. תרצה/י לשתף את מחשבותיך במייל?';
+	@override String get rateCta => 'דרג ב-Play Store';
+	@override String get maybeLater => 'אולי מאוחר יותר';
+	@override String get sendFeedback => 'שלח משוב';
+	@override String get noThanks => 'לא, תודה';
+	@override String get aboutUsDescription => 'נוצר/ה בקפידה על ידי צוות קטן. אנו מתמקדים בפרטיות, בפשטות ובעזרה ביצירת הרגלי אכילה טובים יותר.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'סקרנים מי מאחורי ${appLabel}? ראו ';
 	@override String get aboutUsLinkLabel => 'אודותינו';
-	@override String get thankYouMessage => 'תודה! נשאל שוב בפעם אחרת.';
+	@override String get thankYouMessage => 'תודה! נשאל שוב בעתיד.';
 }
 
 // Path: health
@@ -408,7 +408,7 @@ class _TranslationsHealthHe implements TranslationsHealthEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'לא ניתן היה לסנכרן ל-Health Connect';
+	@override String get syncFailed => 'לא ניתן לסנכרן ל-Health Connect';
 	@override String get mealSynced => 'הארוחה סונכרנה עם Health Connect';
 }
 
@@ -432,7 +432,7 @@ class _TranslationsOnboardingGenderHe implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'מה המגדר שלך?';
-	@override String get description => 'מגדר עוזר לנו לחשב במדויק את קצב חילוף החומרים הבסיסי (BMR).';
+	@override String get description => 'מגדר עוזר לנו לחשב במדויק את קצב חילוף החומרים הבסיסי (BMR) שלך.';
 	@override String get next => 'הבא';
 }
 
@@ -443,8 +443,8 @@ class _TranslationsOnboardingHeightHe implements TranslationsOnboardingHeightEn 
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'מה הגובה שלך?';
-	@override String get description => 'הגובה עוזר לנו לחשב במדויק את ה-BMI וצרכי האנרגיה שלך.';
+	@override String get title => 'כמה אתה/את גבוה/ה?';
+	@override String get description => 'הגובה שלך מסייע לנו לחשב במדויק את ה-BMI ואת צרכי האנרגיה.';
 	@override String get metric => 'מטרי';
 	@override String get imperial => 'אימפריאלי';
 	@override String get next => 'הבא';
@@ -458,9 +458,9 @@ class _TranslationsOnboardingWeightHe implements TranslationsOnboardingWeightEn 
 
 	// Translations
 	@override String get currentTitle => 'מה המשקל הנוכחי שלך?';
-	@override String get currentDescription => 'המשקל הנוכחי חיוני להתאמה אישית של היעדים היומיים שלך.';
-	@override String get targetTitle => 'מהו משקל היעד שלך?';
-	@override String get targetDescription => 'קביעת משקל יעד עוזרת לנו לבנות תוכנית לטווח ארוך.';
+	@override String get currentDescription => 'המשקל הנוכחי חשוב להתאמת היעדים היומיים האישיים שלך.';
+	@override String get targetTitle => 'מה המשקל היעד שלך?';
+	@override String get targetDescription => 'קביעת משקל מטרה עוזרת לנו לתכנן תוכנית ארוכת טווח עבורך.';
 	@override String get metric => 'מטרי';
 	@override String get imperial => 'אימפריאלי';
 	@override String get next => 'הבא';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeHe implements TranslationsOnboardingAgeEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'מהי תאריך הלידה שלך?';
-	@override String get description => 'הגיל עוזר לנו לחשב במדויק את צריכת הקלוריות המומלצת עבורך.';
+	@override String get title => 'מתי יום הולדתך?';
+	@override String get description => 'הגיל שלך מסייע לנו לחשב במדויק את צריכת הקלוריות שלך.';
 	@override String get next => 'הבא';
 }
 
@@ -485,10 +485,10 @@ class _TranslationsOnboardingBmiScaleHe implements TranslationsOnboardingBmiScal
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'תת';
-	@override String get healthy => 'תקין';
-	@override String get overweight => 'עודף';
-	@override String get obese => 'השמנה';
+	@override String get underweight => 'מתחת';
+	@override String get healthy => 'בריא';
+	@override String get overweight => 'מייגע';
+	@override String get obese => 'חולה';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesHe categories = _TranslationsOnboardingBmiScaleCategoriesHe._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesHe messages = _TranslationsOnboardingBmiScaleMessagesHe._(_root);
 }
@@ -500,8 +500,8 @@ class _TranslationsOnboardingWeightGoalHe implements TranslationsOnboardingWeigh
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'מה המטרה שלך?';
-	@override String get description => 'בחר/י את המטרה שמתארת הכי טוב את מה שתרצה/י להשיג';
+	@override String get title => 'מה היעד שלך?';
+	@override String get description => 'בחר את המטרה שמתארת הכי טוב מה ברצונך להשיג';
 }
 
 // Path: onboarding.activityLevel
@@ -511,8 +511,8 @@ class _TranslationsOnboardingActivityLevelHe implements TranslationsOnboardingAc
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'כמה את/ה פעיל/ה?';
-	@override String get description => 'זה יעזור לנו לחשב במדויק יותר את צריכת הקלוריות היומית שלך';
+	@override String get title => 'כמה אתה פעיל/ה?';
+	@override String get description => 'זה עוזר לנו לחשב במדויק יותר את צרכי הקלוריות היומיים שלך';
 }
 
 // Path: onboarding.healthConnect
@@ -522,18 +522,18 @@ class _TranslationsOnboardingHealthConnectHe implements TranslationsOnboardingHe
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'התחבר/י ל-Health Connect';
-	@override String get description => 'סנכרן/ני את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי';
+	@override String get title => 'חבר ל-Health Connect';
+	@override String get description => 'סנכרן את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingHe automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingHe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsHe progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsHe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationHe seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationHe._(_root);
 	@override String get connected => 'Health Connect מחובר';
 	@override String get notConnected => 'Health Connect לא מחובר';
-	@override String get setup => 'הגדרת Health Connect';
-	@override String get skipForNow => 'דלג/י לעת עתה';
+	@override String get setup => 'הגדר Health Connect';
+	@override String get skipForNow => 'דלג לעכשיו';
 	@override String get statusConnected => 'Health Connect מחובר.';
 	@override String get statusSuccess => 'Health Connect חובר בהצלחה!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'ההרשאה נדחתה. אנא אפשר/י הרשאות Health Connect מהגדרות הטלפון עבור ${appLabel}.';
+	@override String statusPermissionDenied({required Object appLabel}) => 'הרשאה נדחתה. אנא אפשר הרשאות ל-Health Connect בהגדרות הטלפון עבור ${appLabel}.';
 	@override String statusError({required Object error}) => 'שגיאה בהגדרת Health Connect: ${error}';
 }
 
@@ -557,14 +557,14 @@ class _TranslationsHomeAiSummaryHe implements TranslationsHomeAiSummaryEn {
 
 	// Translations
 	@override String get title => 'סיכום ה-AI שלך';
-	@override String get logMore => 'תעד/י עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מה-AI.';
-	@override String get loading => 'טוען/ת את הסיכום שלך...';
-	@override String mealCount({required Object count}) => '${count} ארוחות תועדו';
+	@override String get logMore => 'הקלד/י עוד ארוחות בימים הקרובים כדי לקבל תובנות AI מותאמות אישית.';
+	@override String get loading => 'טוען את הסיכום...';
+	@override String mealCount({required Object count}) => '${count} ארוחות רשומות';
 	@override String macroBalanceScore({required Object score}) => 'ציון איזון ${score}';
 	@override String get topFoods => 'המזונות המובילים';
-	@override String get trendUp => 'הקלוריות במגמת עלייה';
-	@override String get trendDown => 'הקלוריות במגמת ירידה';
-	@override String get trendSteady => 'הקלוריות יציבות';
+	@override String get trendUp => 'קלוריות במגמת עלייה';
+	@override String get trendDown => 'קלוריות במגמת ירידה';
+	@override String get trendSteady => 'קלוריות יציבות';
 	@override String generatedAt({required Object time}) => 'עודכן ${time}';
 }
 
@@ -575,19 +575,19 @@ class _TranslationsHomeDailyGoalHe implements TranslationsHomeDailyGoalEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'הגדר/י את היעד היומי שלך';
-	@override String get titleSet => 'היעד היומי שלך';
-	@override String get description => 'מוכנים לצאת לדרך הבריאותית? קבע/י למטה את יעד הקלוריות היומי כדי להתחיל להתקדם.';
-	@override String get descriptionSet => 'המצפן מכוון! זהו יעד הקלוריות היומי שלך להנחיה.';
-	@override String get yourGoal => 'היעד שלך';
-	@override String get goal => 'יעד';
+	@override String get title => 'הגדר את המטרה היומית שלך';
+	@override String get titleSet => 'המטרה היומית שלך';
+	@override String get description => 'מוכן/ה לצאת למסע הבריאות שלך? הגדר כאן את יעד הקלוריות היומי כדי להתחיל.';
+	@override String get descriptionSet => 'המצפן הוגדר! זהו יעד הקלוריות היומי שלך להנחיה.';
+	@override String get yourGoal => 'המטרה שלך';
+	@override String get goal => 'מטרה';
 	@override String get dailyCalories => 'קלוריות יומיות (kcal)';
-	@override String get setGoal => 'קבע/י יעד';
-	@override String get intake => 'נצרך';
+	@override String get setGoal => 'הגדר מטרה';
+	@override String get intake => 'צריכה';
 	@override String get burned => 'נשרף';
-	@override String get weightImpact => 'השפעת המשקל';
-	@override String get estLoss => 'הפסד משוער של';
-	@override String get estGain => 'עלייה משוערת של';
+	@override String get weightImpact => 'השפעה על משקל';
+	@override String get estLoss => 'אומד. אובדן של';
+	@override String get estGain => 'אומד. עלייה של';
 	@override String get kcal => 'kcal';
 }
 
@@ -605,7 +605,7 @@ class _TranslationsHomeDailySummaryHe implements TranslationsHomeDailySummaryEn 
 	@override String get fat => 'שומן';
 	@override String get fiber => 'סיבים';
 	@override String get grams => 'גרם';
-	@override String get chartAccessibilityLabel => 'תרשים מאקרו';
+	@override String get chartAccessibilityLabel => 'תרשים מאקרו-נוטריינטים';
 }
 
 // Path: home.intakeProgress
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressHe implements TranslationsHomeIntakeProgres
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'פיצול המאקרו של היום';
+	@override String get title => 'חלוקת המאקרו של היום';
 	@override String get target => 'יעד';
 	@override String get current => 'נוכחי';
 }
@@ -628,10 +628,10 @@ class _TranslationsHomeIntakeHistoryHe implements TranslationsHomeIntakeHistoryE
 
 	// Translations
 	@override String get title => 'היסטוריית מאקרו ל-7 ימים';
-	@override String get trendTitle => 'המגמה של היום';
+	@override String get trendTitle => 'מגמת היום';
 	@override String peakHour({required Object hour}) => 'שיא: ${hour}:00';
-	@override String get noHistoryYet => 'אין היסטוריה עדיין';
-	@override String get startLogging => 'התחל/י לתעד ארוחות כדי לראות כאן\nמגמות מאקרו ל-7 ימים';
+	@override String get noHistoryYet => 'עדיין אין היסטוריה';
+	@override String get startLogging => 'התחל לרשום ארוחות כדי לראות כאן\nמגמות מאקרו ל-7 ימים';
 }
 
 // Path: home.mealLog
@@ -641,10 +641,10 @@ class _TranslationsHomeMealLogHe implements TranslationsHomeMealLogEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ארוחות מתועדות';
-	@override String get emptyMessage => 'צלם/י תמונה של הארוחה האחרונה כדי לתעד כאן.';
-	@override String get noMealsToday => 'אין ארוחות רשומות להיום';
-	@override String get seeAllMeals => 'הצג את כל הארוחות';
+	@override String get title => 'ארוחות שנרשמו';
+	@override String get emptyMessage => 'צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.';
+	@override String get noMealsToday => 'אין ארוחות שנרשמו להיום';
+	@override String get seeAllMeals => 'ראה את כל הארוחות';
 }
 
 // Path: home.mealDescription
@@ -655,8 +655,8 @@ class _TranslationsHomeMealDescriptionHe implements TranslationsHomeMealDescript
 
 	// Translations
 	@override String get title => 'הוספה מהירה עם AI';
-	@override String get description => 'תאר/י את הארוחה שלך, וה-AI יטפל בפרטים.';
-	@override String get hint => 'לדוגמה: לארוחת בוקר אכלתי קערה גדולה של שיבולת שועל עם בננה פרוסה וכף מי גבינה...';
+	@override String get description => 'תאר את הארוחה ותן ל-AI לדאוג לפרטים.';
+	@override String get hint => 'למשל: בארוחת בוקר היה לי קערת שיבולת שועל גדולה עם בננה פרוסה וכפית אבקת חלבון...';
 	@override String get analyzeMeal => 'נתח ארוחה';
 }
 
@@ -668,9 +668,9 @@ class _TranslationsHomeFavoriteMealsHe implements TranslationsHomeFavoriteMealsE
 
 	// Translations
 	@override String get title => 'ארוחות מועדפות';
-	@override String get description => 'הוספה מהירה של אחת מהארוחות המועדפות עליך.';
+	@override String get description => 'הוסף במהירות אחת מהארוחות המועדפות עליך.';
 	@override String get noFavorites => 'עדיין אין ארוחות מועדפות.';
-	@override String get addFavoriteHint => 'לחץ/י על הכוכב בארוחה כדי לסמן כמועדף.';
+	@override String get addFavoriteHint => 'לחץ על הכוכב על מנת לסמן ארוחה כמועדפת.';
 	@override String get seeAll => 'הצג הכל';
 	@override String get add => 'הוסף';
 }
@@ -682,12 +682,12 @@ class _TranslationsHomeMealSnapHe implements TranslationsHomeMealSnapEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'צלם/י ותעד/י את הארוחה שלך';
-	@override String get description => 'השתמש/י במצלמה כדי לצלם את האוכל לניתוח AI.';
-	@override String get openCamera => 'פתח/י מצלמה';
+	@override String get title => 'צלם ומעקב אחר הארוחה';
+	@override String get description => 'השתמש במצלמה כדי לצלם את המזון לניתוח על ידי AI.';
+	@override String get openCamera => 'פתח מצלמה';
 	@override String get gallery => 'גלריה';
-	@override String get compressingPhoto => 'מיטוב התמונה…';
-	@override String get uploadingPhoto => 'מעלה את התמונה…';
+	@override String get compressingPhoto => 'מייעל תמונה…';
+	@override String get uploadingPhoto => 'מעלה תמונה…';
 }
 
 // Path: home.connectHealth
@@ -697,10 +697,10 @@ class _TranslationsHomeConnectHealthHe implements TranslationsHomeConnectHealthE
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'סנכרון עם Health Connect';
-	@override String get description => 'סנכרן/ני את נתוני התזונה שלך עם Health Connect';
+	@override String get title => 'סנכרן עם Health Connect';
+	@override String get description => 'סנכרן את נתוני התזונה שלך עם Health Connect';
 	@override String get install => 'התקן';
-	@override String get connect => 'התחבר/י';
+	@override String get connect => 'חבר';
 }
 
 // Path: meal.nutrition
@@ -711,10 +711,10 @@ class _TranslationsMealNutritionHe implements TranslationsMealNutritionEn {
 
 	// Translations
 	@override String get calories => 'קלוריות';
-	@override String get carbs => 'פחמימות (גרם)';
-	@override String get protein => 'חלבון (גרם)';
-	@override String get fat => 'שומן (גרם)';
-	@override String get fiber => 'סיבים (גרם)';
+	@override String get carbs => 'פחמימות (ג\')';
+	@override String get protein => 'חלבון (ג\')';
+	@override String get fat => 'שומן (ג\')';
+	@override String get fiber => 'סיבים (ג\')';
 }
 
 // Path: meal.deleteConfirmation
@@ -725,8 +725,8 @@ class _TranslationsMealDeleteConfirmationHe implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'מחיקת ארוחה';
-	@override String get message => 'למחוק את רשומת הארוחה הזו?';
-	@override String get cancel => 'בטל';
+	@override String get message => 'האם אתה בטוח שברצונך למחוק רשומת ארוחה זו?';
+	@override String get cancel => 'ביטול';
 	@override String get delete => 'מחק';
 }
 
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisHe implements TranslationsMealAnalysisEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ניתוח ארוחה בעזרת AI';
+	@override String get title => 'מנתחים את הארוחה שלך';
 	@override String get stepStarted => 'מתחילים…';
-	@override String get stepDecomposition => 'מבינים את הארוחה שלך…';
+	@override String get stepDecomposition => 'מנתחים את הארוחה…';
 	@override String get stepIngredients => 'מתאימים רכיבים לנתוני תזונה…';
-	@override String get stepUncertainty => 'בודקים רמת ביטחון…';
-	@override String get stepMealTypeQuestion => 'כמעט סיימנו…';
+	@override String get stepUncertainty => 'בודקים אמון…';
+	@override String get stepMealTypeQuestion => 'עוד מעט…';
 	@override String get stepResult => 'מסיימים את התוצאה…';
 	@override String get stepError => 'משהו השתבש';
-	@override String get stepDefault => 'מנתחים את הארוחה…';
-	@override String get progressUnderstand => 'הבנה';
-	@override String get progressMatch => 'התאמה';
-	@override String get progressCheck => 'בדיקה';
-	@override String get progressMealType => 'בחירת סוג הארוחה';
-	@override String get progressFinish => 'סיום';
-	@override String get detectedIngredientHeading => 'מרכיבים שאנחנו מזהים';
-	@override String ingredientsOverflow({required Object count}) => 'עוד ${count}';
+	@override String get stepDefault => 'מנתחים את הארוחה שלך…';
+	@override String get progressUnderstand => 'מנסים להבין את הארוחה';
+	@override String get progressMatch => 'מחפשים ערכי תזונה לרכיבים';
+	@override String get progressCheck => 'בודקים כמויות ואמינות';
+	@override String get progressMealType => 'מחליטים סוג ארוחה';
+	@override String get progressFinish => 'מחשבים קלוריות ומאקרו-נוטריינטים';
+	@override String get detectedIngredientHeading => 'רכיבים שאנו מזהים';
+	@override String ingredientsOverflow({required Object count}) => '${count} עוד';
 	@override String ingredientsLine({required Object count}) => 'זוהו ${count} רכיבים';
-	@override String get ingredientsPending => 'סורקים רכיבים…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get ingredientsPending => 'סורק רכיבים…';
+	@override String mealPreviewDescription({required Object text}) => '״${text}״';
+	@override String get offlineTip0 => 'טיפ: עקביות עדיפה על שלמות — רישומים סדירים מגלים דפוסים חשובים.';
+	@override String get offlineTip1 => 'טיפ: באור טבעי ובמבט מלמעלה מקלים דיוק הכמויות בתמונות.';
+	@override String get offlineTip2 => 'טיפ: ציין משקאות, רטבים ושמן בישול — הם מוסיפים קלוריות שאנשים שוכחים לעתים קרובות.';
+	@override String get offlineTip3 => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.';
+	@override String get offlineTip4 => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.';
+	@override String get offlineTip5 => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).';
 }
 
 // Path: meal.feedback
@@ -784,15 +784,15 @@ class _TranslationsMealFeedbackHe implements TranslationsMealFeedbackEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'מה נראה לא נכון?';
-	@override String get subtitle => 'עזרו לנו לשפר את הניתוח על ידי בחירת בעיה אחת או יותר.';
-	@override String get tellUsMore => 'ספרו לנו עוד';
-	@override String get describeIncorrect => 'תארו מה לא היה נכון';
+	@override String get title => 'מה לא נראה נכון?';
+	@override String get subtitle => 'עזור לנו לשפר את הניתוח על ידי בחירת אחת או יותר מהבעיות.';
+	@override String get tellUsMore => 'ספר לנו עוד';
+	@override String get describeIncorrect => 'תאר מה היה לא נכון';
 	@override String get submit => 'שלח';
-	@override String get issueFoodIdentification => 'זיהוי המזון';
-	@override String get issuePortionSize => 'גודל המנה';
-	@override String get issueCalorieDistribution => 'התפלגות קלוריות';
-	@override String get issueMacrosWrong => 'מאקרו שגויים';
+	@override String get issueFoodIdentification => 'זיהוי מזון';
+	@override String get issuePortionSize => 'גודל מנה';
+	@override String get issueCalorieDistribution => 'חלוקת קלוריות';
+	@override String get issueMacrosWrong => 'המאקרו-ערכים שגויים';
 	@override String get issueMissingItems => 'פריטים חסרים';
 	@override String get issueExtraItems => 'פריטים מיותרים';
 	@override String get issueOther => 'אחר';
@@ -807,7 +807,7 @@ class _TranslationsFavoritesSortOptionsHe implements TranslationsFavoritesSortOp
 	// Translations
 	@override String get recent => 'אחרונים';
 	@override String get calories => 'קלוריות';
-	@override String get alphabetical => 'א-ת';
+	@override String get alphabetical => 'A-ת';
 }
 
 // Path: profile.sections
@@ -818,8 +818,8 @@ class _TranslationsProfileSectionsHe implements TranslationsProfileSectionsEn {
 
 	// Translations
 	@override String get profile => 'פרופיל';
-	@override String get basicInformation => 'פרטים בסיסיים';
-	@override String get goalsAndActivity => 'מטרות ופעילות';
+	@override String get basicInformation => 'מידע בסיסי';
+	@override String get goalsAndActivity => 'מטרות & פעילות';
 	@override String get calculatedValues => 'ערכים מחושבים';
 }
 
@@ -832,8 +832,8 @@ class _TranslationsProfileCalculatedValuesHe implements TranslationsProfileCalcu
 	// Translations
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'יעד יומי';
-	@override String get calPerDay => 'cal/day';
+	@override String get dailyGoal => 'מטרה יומית';
+	@override String get calPerDay => 'קלוריות/יום';
 	@override String get notAvailable => 'N/A';
 }
 
@@ -844,9 +844,9 @@ class _TranslationsEditProfileSectionsHe implements TranslationsEditProfileSecti
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get personalInformation => 'פרטים אישיים';
-	@override String get physicalMeasurements => 'מדדים גופניים';
-	@override String get goalsAndActivity => 'מטרות ופעילות';
+	@override String get personalInformation => 'מידע אישי';
+	@override String get physicalMeasurements => 'מדידות פיזיות';
+	@override String get goalsAndActivity => 'מטרות & פעילות';
 }
 
 // Path: editProfile.genders
@@ -895,10 +895,10 @@ class _TranslationsSettingsSectionsHe implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'פרופיל';
-	@override String get localization => 'התאמה לשפה ואזור';
+	@override String get localization => 'מיקום שפה';
 	@override String get notifications => 'התראות';
-	@override String get healthConnect => 'Health Connect';
-	@override String get supportAndLegal => 'תמיכה וחוקיות';
+	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get supportAndLegal => 'תמיכה & משפטי';
 	@override String get about => 'אודות';
 	@override String get dangerZone => 'אזור מסוכן';
 	@override String get developer => 'מפתח';
@@ -911,8 +911,8 @@ class _TranslationsSettingsEditProfileHe implements TranslationsSettingsEditProf
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'עריכת פרופיל';
-	@override String get subtitle => 'עדכון המידע האישי שלך';
+	@override String get title => 'ערוך פרופיל';
+	@override String get subtitle => 'עדכן את המידע האישי שלך';
 }
 
 // Path: settings.language
@@ -923,8 +923,8 @@ class _TranslationsSettingsLanguageHe implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => 'שפה';
-	@override String get subtitle => 'בחר/י את השפה המועדפת';
-	@override String get searchHint => 'חפש/י שפות...';
+	@override String get subtitle => 'בחר את שפת הממשק המועדפת עליך';
+	@override String get searchHint => 'חפש שפות...';
 	@override String get noResults => 'לא נמצאו תוצאות';
 }
 
@@ -955,8 +955,8 @@ class _TranslationsSettingsMealRemindersHe implements TranslationsSettingsMealRe
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'תזכורות לארוחות';
-	@override String get subtitle => 'הישאר/י על המסלול עם התראות בזמן';
+	@override String get title => 'תזכורות ארוחות';
+	@override String get subtitle => 'הישאר על המסלול עם התראות בזמן';
 }
 
 // Path: settings.theme
@@ -966,7 +966,7 @@ class _TranslationsSettingsThemeHe implements TranslationsSettingsThemeEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ערכת נושא';
+	@override String get title => 'נושא';
 	@override String get light => 'בהיר';
 	@override String get dark => 'כהה';
 	@override String get system => 'מערכת';
@@ -979,13 +979,13 @@ class _TranslationsSettingsSendFeedbackHe implements TranslationsSettingsSendFee
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'שליחת משוב';
-	@override String subtitle({required Object appLabel}) => 'עזר/י לנו לשפר את ${appLabel}';
-	@override String emailSubject({required Object appLabel}) => 'משוב על ${appLabel}';
-	@override String get emailBodyPrefix => 'אנא ספק/י את המשוב שלך כאן:';
-	@override String get appVersion => 'גרסת אפליקציה';
+	@override String get title => 'שלח משוב';
+	@override String subtitle({required Object appLabel}) => 'עזור לנו לשפר את ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => 'משוב על אפליקציית ${appLabel}';
+	@override String get emailBodyPrefix => 'אנא ספק/י את המשוב שלך למטה:';
+	@override String get appVersion => 'גרסת האפליקציה';
 	@override String get device => 'מכשיר';
-	@override String get osVersion => 'גרסת מערכת הפעלה';
+	@override String get osVersion => 'גרסת מערכת ההפעלה';
 	@override String get uid => 'UID';
 }
 
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryHe implements TranslationsSettingsEx
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ייצוא היסטוריית ארוחות';
-	@override String get subtitle => 'שיתוף קובץ CSV של הארוחות שתיעדת';
-	@override String get shareText => 'ייצוא היסטוריית הארוחות שלך מ-Calorify';
-	@override String failed({required Object error}) => 'לא ניתן היה לייצא את היסטוריית הארוחות: ${error}';
+	@override String get title => 'ייצא היסטוריית ארוחות';
+	@override String get subtitle => 'שתף CSV של הארוחות שנרשמו';
+	@override String get shareText => 'ייצוא היסטוריית הארוחות של Calorify שלך';
+	@override String failed({required Object error}) => 'לא ניתן לייצא היסטוריית הארוחות: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1009,12 +1009,12 @@ class _TranslationsSettingsClearAllDataHe implements TranslationsSettingsClearAl
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'מחיקת כל הנתונים';
-	@override String get subtitle => 'מחיקה בלתי הפיכה של כל המידע שלך';
-	@override String get confirmationTitle => 'למחוק את כל הנתונים?';
-	@override String get confirmationMessage => 'לא ניתן לבטל פעולה זו. כל הארוחות, המועדפים והגדרות הפרופיל יימחקו לצמיתות.';
-	@override String get cancel => 'בטל';
-	@override String get clearEverything => 'מחק הכל';
+	@override String get title => 'נקה את כל הנתונים';
+	@override String get subtitle => 'מחק ללא אפשרות שחזור את כל המידע שלך';
+	@override String get confirmationTitle => 'לנקות את כל הנתונים?';
+	@override String get confirmationMessage => 'פעולה זו לא ניתנת לביטול. כל הארוחות שנרשמו, המועדפים והגדרות הפרופיל ימחקו לצמיתות.';
+	@override String get cancel => 'ביטול';
+	@override String get clearEverything => 'נקה הכל';
 }
 
 // Path: settings.debugOptions
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsHe implements TranslationsSettingsDebugOp
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'אפשרויות ניפוי שגיאות';
+	@override String get title => 'אפשרויות דיבוג';
 }
 
 // Path: settings.healthConnect
@@ -1035,15 +1035,15 @@ class _TranslationsSettingsHealthConnectHe implements TranslationsSettingsHealth
 
 	// Translations
 	@override String get title => 'Health Connect';
-	@override String get subtitle => 'צפייה וניהול הרשאות';
+	@override String get subtitle => 'הצג ונהל הרשאות';
 	@override late final _TranslationsSettingsHealthConnectUnavailableHe unavailable = _TranslationsSettingsHealthConnectUnavailableHe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsHe permissions = _TranslationsSettingsHealthConnectPermissionsHe._(_root);
-	@override String get managePermissions => 'ניהול הרשאות';
-	@override String get openSettings => 'פתח/י את הגדרות Health Connect';
-	@override String get requestPermissions => 'בקש/י הרשאות';
-	@override String get permissionRequestCancelledOrFailed => 'בקשת ההרשאות בוטלה או נכשלה. נסה/י שוב או אשר/י הרשאות ידנית בהגדרות Health Connect.';
-	@override String get permissionRequestFailed => 'אין אפשרות לבקש הרשאות. נסה/י שוב או אשר/י הרשאות ידנית בהגדרות Health Connect.';
-	@override String get requestingPermissions => 'מבקשים הרשאות...';
+	@override String get managePermissions => 'נהל הרשאות';
+	@override String get openSettings => 'פתח הגדרות Health Connect';
+	@override String get requestPermissions => 'בקש הרשאות';
+	@override String get permissionRequestCancelledOrFailed => 'בקשת ההרשאה בוטלה או נכשלה. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.';
+	@override String get permissionRequestFailed => 'לא ניתן לבקש הרשאות. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.';
+	@override String get requestingPermissions => 'מבקש…';
 }
 
 // Path: settings.about
@@ -1054,7 +1054,7 @@ class _TranslationsSettingsAboutHe implements TranslationsSettingsAboutEn {
 
 	// Translations
 	@override String get title => 'אודות';
-	@override String get tagline => 'מודעות לקלוריות מהירה, חינמית ומבוססת פרטיות';
+	@override String get tagline => 'מודעות קלוריות מהירה, חינמית ובעדיפות לפרטיות';
 	@override late final _TranslationsSettingsAboutOurStoryHe ourStory = _TranslationsSettingsAboutOurStoryHe._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyHe privacy = _TranslationsSettingsAboutPrivacyHe._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperHe developer = _TranslationsSettingsAboutDeveloperHe._(_root);
@@ -1069,7 +1069,7 @@ class _TranslationsSettingsAppInfoHe implements TranslationsSettingsAppInfoEn {
 
 	// Translations
 	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String build({required Object buildNumber}) => 'בנייה ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1079,8 +1079,8 @@ class _TranslationsNotificationsBreakfastHe implements TranslationsNotifications
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'זמן לארוחת בוקר! 🍳';
-	@override String get body => 'אל תשכח/י לתעד את ארוחת הבוקר';
+	@override String get title => 'זמן ארוחת בוקר! 🍳';
+	@override String get body => 'אל תשכח/י לרשום את ארוחת הבוקר שלך';
 }
 
 // Path: notifications.lunch
@@ -1090,8 +1090,8 @@ class _TranslationsNotificationsLunchHe implements TranslationsNotificationsLunc
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'זמן לארוחת צהריים! 🥗';
-	@override String get body => 'זה הזמן לתעד את ארוחת הצהריים';
+	@override String get title => 'זמן ארוחת צהריים! 🥗';
+	@override String get body => 'הגיע הזמן לרשום את ארוחת הצהריים';
 }
 
 // Path: notifications.dinner
@@ -1101,8 +1101,8 @@ class _TranslationsNotificationsDinnerHe implements TranslationsNotificationsDin
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'זמן לארוחת ערב! 🍽️';
-	@override String get body => 'אל תשכח/י לתעד את ארוחת הערב';
+	@override String get title => 'זמן ארוחת ערב! 🍽️';
+	@override String get body => 'אל תשכח/י לרשום את ארוחת הערב שלך';
 }
 
 // Path: notifications.snack
@@ -1112,8 +1112,8 @@ class _TranslationsNotificationsSnackHe implements TranslationsNotificationsSnac
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'זמן לחטיף! 🍎';
-	@override String get body => 'זה הזמן לחטיף בריא';
+	@override String get title => 'זמן נשנוש! 🍎';
+	@override String get body => 'הגיע הזמן לנשנוש בריא';
 }
 
 // Path: notifications.test
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapHe implements TranslationsDisclaimerSnapEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} מספקת מידע תזונתי משוער. הדיוק תלוי בקלט שלך ובשונות בין מזונות. השתמש/י בכך כהנחיה, לא כמקור מוחלט. תמיד התייעצ/י עם איש מקצוע לייעוץ תזונתי אישי.';
+	@override String description({required Object appLabel}) => '${appLabel} מספקת מידע תזונתי מוערך. הדיוק תלוי בקלט שלך ובשונות של המזון. השתמש/י בזה כהנחיה, לא כמקור מוחלט. להתייעצות אישית התייעץ/י עם איש מקצוע.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeHe portionSize = _TranslationsDisclaimerSnapPortionSizeHe._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsHe preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsHe._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsHe ingredients = _TranslationsDisclaimerSnapIngredientsHe._(_root);
@@ -1147,8 +1147,8 @@ class _TranslationsDisclaimerWeightEstimateHe implements TranslationsDisclaimerW
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'אודות הערכת משקל';
-	@override String get description => 'השינוי החזוי במשקל הוא הערכה תיאורטית המבוססת על מודל פשוט של קלוריות נכנסות מול קלוריות נשרפות. זה מיועד כהנחיה למוטיבציה בלבד, ולא כניבוי למשקל בפועל.';
+	@override String get title => 'על אומדן שינוי משקל';
+	@override String get description => 'שינוי משקל משוער הוא חישוב תאורטי המבוסס על מודל קלוריות פנימה מול קלוריות החוצה. הוא מיועד כהנעה מוטיבציונית בלבד, לא כנבואה למשקל בפועל.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyHe calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsHe biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsHe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightHe waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightHe._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsHe implements TranslationsDisclaimerHe
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'מדדים אלה עוזרים לך להבין את צרכי האנרגיה של הגוף ולהנחות את יעדי התזונה שלך.';
+	@override String get description => 'מדדים אלה עוזרים לך להבין את צרכי האנרגיה של גופך ומנחים את יעדי התזונה שלך.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrHe bmr = _TranslationsDisclaimerHealthMetricsBmrHe._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeHe tdee = _TranslationsDisclaimerHealthMetricsTdeeHe._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalHe dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalHe._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureHe implements TranslationsDisclai
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'הערכת הוצאת קלוריות';
-	@override String get description => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי (BMR) ורמת הפעילות (TDEE), מותאמים לחלק היום שעבר.';
+	@override String get title => 'אומדן הוצאה קלורית';
+	@override String get description => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות ה-BMR שלך ורמת הפעילות (TDEE), פרופורציונלית לחלק היומי שעבר.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe._(_root);
 }
@@ -1188,8 +1188,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionHe implements TranslationsOn
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'זיהוי מזון חכם';
-	@override String get description => 'צלם/י תמונה ותן/י ל-AI לזהות את הארוחה שלך';
+	@override String get title => 'זיהוי אוכל חכם';
+	@override String get description => 'צלם תמונה ותן ל-AI לזהות את הארוחה שלך';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1199,8 +1199,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisHe implements TranslationsOnboard
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'ניתוח בעזרת AI';
-	@override String get description => 'קבל/י מיד נתוני תזונה מהתיאור שלך';
+	@override String get title => 'ניתוח AI';
+	@override String get description => 'קבל נתוני תזונה מיידיים מתאורים שלך';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1211,7 +1211,7 @@ class _TranslationsOnboardingFeaturesHealthIntegrationHe implements Translations
 
 	// Translations
 	@override String get title => 'אינטגרציה עם Health Connect';
-	@override String get description => 'התחבר/י ל-Health Connect לתובנות טובות יותר';
+	@override String get description => 'חבר ל-Health Connect לקבלת תובנות טובות יותר';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1221,8 +1221,8 @@ class _TranslationsOnboardingBmiScaleCategoriesHe implements TranslationsOnboard
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'תת־משקל';
-	@override String get healthyWeight => 'משקל תקין';
+	@override String get underweight => 'תת משקל';
+	@override String get healthyWeight => 'משקל בריא';
 	@override String get overweight => 'עודף משקל';
 	@override String get obese => 'השמנת יתר';
 }
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesHe implements TranslationsOnboardin
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בערכים תזונתיים.';
-	@override String get healthy => 'כל הכבוד! את/ה בטווח בריא. נעזור לך לשמור על חיוניות ורמות אנרגיה.';
-	@override String overweight({required Object appLabel}) => '${appLabel} תהפוך את הדרך שלך לפשוטה יותר עם מעקב מונע-AI שיעזור לך להגיע ליעד בנוחות.';
-	@override String get obese => 'אנחנו כאן כדי לתמוך בך עם הנחיות מותאמות אישית ואסטרטגיות ברות־קיימא להשגת מטרות הבריאות שלך.';
+	@override String get underweight => 'נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בתזונה.';
+	@override String get healthy => 'כל הכבוד! אתה בטווח בריא. נעזור לך לשמור על החיוניות והרמות אנרגיה שלך.';
+	@override String overweight({required Object appLabel}) => '${appLabel} יפשט את המסע שלך עם מעקב מונחה AI שיעזור לך להגיע ליעד בנוחות.';
+	@override String get obese => 'אנחנו כאן לתמוך בך עם הנחיות מותאמות ואסטרטגיות ברות קיימא למטרות הבריאות שלך.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1248,7 +1248,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingHe implements Transla
 
 	// Translations
 	@override String get title => 'מעקב קלוריות אוטומטי';
-	@override String get description => 'עקוב/י אחרי קלוריות שנשרפו מאפליקציות הכושר שלך';
+	@override String get description => 'עקוב אחר הקלוריות שנשרפו מתוך אפליקציות הכושר שלך';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1259,7 +1259,7 @@ class _TranslationsOnboardingHealthConnectProgressInsightsHe implements Translat
 
 	// Translations
 	@override String get title => 'תובנות התקדמות';
-	@override String get description => 'קבל/י תובנות מפורטות על מגמות הבריאות שלך';
+	@override String get description => 'קבל תובנות מפורטות על מגמות הבריאות שלך';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1270,7 +1270,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationHe implements Trans
 
 	// Translations
 	@override String get title => 'אינטגרציה חלקה';
-	@override String get description => 'סנכרון נתונים מאפליקציות הבריאות האהובות עליך';
+	@override String get description => 'סנכרן נתונים מאפליקציות הבריאות האהובות עליך';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1280,17 +1280,17 @@ class _TranslationsOnboardingReinforcementTrackingSuccessHe implements Translati
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'את/ה לא לבד';
-	@override String get genericMessage => 'מחקרים מראים שמעקב עקבי הוא המנבא מספר 1 להצלחה ארוכת טווח.';
-	@override String personalizedMessage({required Object gender, required Object age, required Object goal}) => 'עבור ${gender} בגיל ${age} השואפ/ת ל${goal}, מעקב עקבי הוא המנבא מספר 1 להצלחה.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} הופכת את זה לקל פי 10 מביצוע ידני.';
-	@override String get getStartedTitle => 'מוכנים להתחיל?';
-	@override String get tipPhoto => 'צלם/י את הארוחות שלך לניתוח מיידי';
-	@override String get tipConsistency => 'תעד/י בעקביות כדי לראות התקדמות משמעותית';
-	@override String get tipProgress => 'עקוב/י מדי יום אחרי ההתקדמות שלך כדי להישאר במוטיבציה';
-	@override String get button => 'בואו נתחיל';
-	@override String get defaultGender => 'אדם';
-	@override String get defaultGoal => 'בריאה/בריא יותר';
+	@override String get title => 'אתה לא לבד';
+	@override String get genericMessage => 'מחקרים מראים שמעקב עקבי הוא המדד מספר 1 להצלחה לטווח הארוך.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'לאדם בגיל ${age} ובמגדר ${gender} השואף ${goal}, מעקב עקבי הוא המדד המוביל להצלחה.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} עושה את זה בעשר פעמים יותר קל מאשר ידני.';
+	@override String get getStartedTitle => 'מוכן/ה להתחיל?';
+	@override String get tipPhoto => 'צלם תמונה של הארוחות לקבלת ניתוח מיידי';
+	@override String get tipConsistency => 'הקלד באופן עקבי כדי לראות התקדמות משמעותית';
+	@override String get tipProgress => 'עקוב אחרי ההתקדמות כל יום כדי להישאר מוטיבציה';
+	@override String get button => 'יאללה נתחיל';
+	@override String get defaultGender => 'יחיד/ה';
+	@override String get defaultGoal => 'גרסה בריאה יותר של עצמך';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1300,14 +1300,14 @@ class _TranslationsOnboardingReinforcementHealthProfileHe implements Translation
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'פרופיל הבריאות שלך';
-	@override String bmiDescription({required Object bmi}) => 'בהתבסס על המדדים שלך, ה-BMI הוא ${bmi}.';
-	@override String get finalizeDescription => 'בוא/י נסיים את הפרופיל כדי להתאים את החוויה אישית.';
+	@override String get title => 'הפרופיל הבריאותי שלך';
+	@override String bmiDescription({required Object bmi}) => 'בהתבסס על המידות שלך, ה-BMI שלך הוא ${bmi}.';
+	@override String get finalizeDescription => 'נסיים את הפרופיל כדי להתאים עבורך את החוויה.';
 	@override String get goalGain => 'להעלות';
 	@override String get goalLose => 'להוריד';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'כדי להגיע ליעד, תצטרך/י ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'את/ה במשקל היעד! נעזור לך לשמור עליו.';
-	@override String get button => 'בואו נתחיל';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'כדי להגיע ליעדך, תצטרך ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'הגעת למשקל היעד! נעזור לך לשמור עליו.';
+	@override String get button => 'יאללה נתחיל';
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
@@ -1317,12 +1317,12 @@ class _TranslationsOnboardingReinforcementGoalLifestyleHe implements Translation
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'תחילת דרך מצוינת!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'עשית את הצעד הראשון לקראת ${goalText}. מאחר שאת/ה ${activityText}, ${appLabel} תתאים את היעדים שלך לסגנון החיים שלך.';
-	@override String get personalizedTargets => 'יעדי קלוריות מותאמים אישית';
-	@override String get aiMealDetection => 'זיהוי ארוחות מונע-AI';
-	@override String get macroBreakdowns => 'פירוט מפורט של מקרו-נוטריינטים';
-	@override String get button => 'בואו נתחיל';
+	@override String get title => 'תחילת מעולה!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'נקטת את הצעד הראשון לקראת ${goalText}. כיוון שאתה/את ${activityText}, ${appLabel} יתאים את היעדים שלך לסגנון החיים.';
+	@override String get personalizedTargets => 'יעדי קלוריות מותאמים';
+	@override String get aiMealDetection => 'זיהוי ארוחות מונע AI';
+	@override String get macroBreakdowns => 'פירוט מאקרו-רכיבים מפורט';
+	@override String get button => 'יאללה נתחיל';
 	@override String get defaultGoal => 'המטרות שלך';
 	@override String get defaultActivity => 'פעיל/ה';
 }
@@ -1334,8 +1334,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightHe implements TranslationsEdi
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'ירידה במשקל';
-	@override String get description => 'יצירת גירעון קלורי לירידה במשקל';
+	@override String get name => 'להוריד משקל';
+	@override String get description => 'יצירת גרעון קלורי להורדת משקל';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1345,8 +1345,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightHe implements Translation
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'שמירה על משקל';
-	@override String get description => 'שמירה על המשקל הנוכחי שלך';
+	@override String get name => 'לשמור על משקל';
+	@override String get description => 'שמירה על המשקל הנוכחי';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1356,8 +1356,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightHe implements TranslationsEdi
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'עלייה במשקל';
-	@override String get description => 'יצירת עודף קלורי לעלייה במשקל';
+	@override String get name => 'להעלות משקל';
+	@override String get description => 'יצירת עודף קלורי להעלאת משקל';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1379,7 +1379,7 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveHe implements Translati
 
 	// Translations
 	@override String get name => 'פעילות קלה';
-	@override String get description => 'פעילות קלה 1–3 ימים בשבוע';
+	@override String get description => 'אימון קל 1-3 ימים/שבוע';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1390,7 +1390,7 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveHe implements Transl
 
 	// Translations
 	@override String get name => 'פעילות מתונה';
-	@override String get description => 'פעילות מתונה 3–5 ימים בשבוע';
+	@override String get description => 'אימון מתון 3-5 ימים/שבוע';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1401,7 +1401,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveHe implements Translations
 
 	// Translations
 	@override String get name => 'פעילות גבוהה';
-	@override String get description => 'אימונים קשים 6–7 ימים בשבוע';
+	@override String get description => 'אימון קשה 6-7 ימים/שבוע';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1411,8 +1411,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveHe implements Transla
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'פעילות קיצונית';
-	@override String get description => 'מאמץ קשה מאוד, עבודה פיזית';
+	@override String get name => 'פעילות אינטנסיבית';
+	@override String get description => 'עבודה פיזית קשה או אימון מאוד אינטנסיבי';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1422,8 +1422,8 @@ class _TranslationsSettingsHealthConnectUnavailableHe implements TranslationsSet
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Connect אינו זמין';
-	@override String get description => 'Health Connect אינו זמין במכשיר זה. אנא התקן/י את Health Connect מחנות Play (Android 9+) או עדכן/י ל-Android 14+.';
+	@override String get title => 'Health Connect לא זמין';
+	@override String get description => 'Health Connect אינו זמין במכשיר זה. אנא התקן את Health Connect מה-Play Store (Android 9+) או עדכן ל-Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1434,9 +1434,9 @@ class _TranslationsSettingsHealthConnectPermissionsHe implements TranslationsSet
 
 	// Translations
 	@override String get title => 'הרשאות';
-	@override String get description => 'ההרשאות הבאות נדרשות כדי לספק אינטגרציה עם Health Connect:';
-	@override String get granted => 'מאושרת';
-	@override String get notGranted => 'לא מאושרת';
+	@override String get description => 'מבוקשות ההרשאות הבאות כדי לאפשר אינטגרציה עם Health Connect:';
+	@override String get granted => 'הוענקו';
+	@override String get notGranted => 'לא הוענקו';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadHe nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadHe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteHe nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteHe._(_root);
@@ -1450,7 +1450,7 @@ class _TranslationsSettingsAboutOurStoryHe implements TranslationsSettingsAboutO
 
 	// Translations
 	@override String get title => 'הסיפור שלנו';
-	@override String content({required Object appLabel}) => '${appLabel} נולדה מתסכול פשוט: רוב אפליקציות ספירת הקלוריות מורכבות מדי, דורשות הזנה ידנית מתמדת, גובות דמי מנוי גבוהים או פוגעות בפרטיות.\n\nכמפתח יחיד, רציתי לבנות משהו פשוט והוגן יותר — אפליקציה שמשתמשת ב-AI כדי להפחית מאמץ, נשארת מהירה וחינמית, ומתייחסת לנתוני הבריאות שלך בכבוד.\n\n${appLabel} היא האפליקציה שרציתי שתתקיים: בלי חשבונות, בלי מעקב, בלי פרסומות — רק תובנות ברורות ומעשיות ומטרות הבריאות שלך.';
+	@override String content({required Object appLabel}) => '${appLabel} נולדה מתוך תסכול פשוט: רוב אפליקציות המעקב אחרי קלוריות או מסובכות מדי, או דורשות הקלדה ידנית מתמדת, גובות דמי מנוי גבוהים, או פוגעות בפרטיות.\n\nכאשר מפתח יחיד עמד מאחורי הרעיון, רציתי לבנות משהו פשוט והוגן — אפליקציה שמשתמשת ב-AI להפחית את המאמץ, נשארת מהירה וחינמית לשימוש, ומכבדת את נתוני הבריאות שלך.\n\n${appLabel} היא האפליקציה שהייתי רוצה שתהיה קיימת: ללא חשבונות, ללא איסוף מעקב, ללא פרסומות — רק תובנות ברורות ומעשיות ומטרות בריאות אישיות.';
 }
 
 // Path: settings.about.privacy
@@ -1461,12 +1461,12 @@ class _TranslationsSettingsAboutPrivacyHe implements TranslationsSettingsAboutPr
 
 	// Translations
 	@override String get title => 'הפרטיות שלך חשובה';
-	@override String get description => 'הפרטיות אינה מחשבה מאוחרת — היא עקרון תכנוני. כך זה נראה בפועל:';
-	@override String get noAccounts => 'אין צורך בחשבונות\nהשתמש/י באפליקציה מיד. בלי הרשמה, בלי זיהוי.';
-	@override String noTracking({required Object appLabel}) => 'ללא מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילי שימוש ואינה עוקבת אחריך באפליקציות או אתרים.';
-	@override String noAds({required Object appLabel}) => 'ללא פרסומות כברירת מחדל\n${appLabel} בנויה לפעול ללא פרסומות או מוניטיזציה מבוססת נתונים.';
-	@override String get noDataSelling => 'ללא מכירת נתונים\nנתוני הבריאות שלך לעולם לא נמכרים או משותפים לצדדים שלישיים.';
-	@override String get localStorage => 'אחסון מקומי תחילה\nהנתונים שלך נשארים במכשיר שלך.';
+	@override String get description => 'פרטיות אינה מחשבה מאוחרת — זו עקרון עיצובי. הנה מה זה אומר בפועל:';
+	@override String get noAccounts => 'אין דרישות להקמת חשבונות\nהשתמש באפליקציה מיד. ללא הרשמות, ללא זיהויים.';
+	@override String noTracking({required Object appLabel}) => 'ללא מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילים שימושיים, ולא עוקבת אחרי שימושך באפליקציות או אתרי אינטרנט.';
+	@override String noAds({required Object appLabel}) => 'ללא פרסומות לפי עיצוב\n${appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.';
+	@override String get noDataSelling => 'אין מכירת נתונים\nנתוני הבריאות שלך אינם נמכרים או משותפים לצדדים שלישיים.';
+	@override String get localStorage => 'אחסון מקומי כעיקרון\nהנתונים שלך נשארים על המכשיר שלך.';
 	@override String get privacyPolicy => 'מדיניות פרטיות';
 }
 
@@ -1477,10 +1477,10 @@ class _TranslationsSettingsAboutDeveloperHe implements TranslationsSettingsAbout
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'פותחה על ידי מפתח יחיד';
-	@override String description({required Object appLabel}) => '${appLabel} מפותחת ומתוחזקת על ידי מפתח יחיד, המתמקד ביצירת תוכנת בריאות שקטה ומכבדת פרטיות.\n\nמשוב נקרא אישית ותורם לעיצוב כיוון האפליקציה.';
+	@override String get title => 'נבנה על ידי מפתח עצמאי';
+	@override String description({required Object appLabel}) => '${appLabel} נבנתה ומנוהלת על ידי מפתח יחיד המתמקד ביצירת תוכנת בריאות רגועה המכבדת פרטיות.\n\nהמשובים נקראים באופן אישי ועוזרים לעצב את כיוון האפליקציה.';
 	@override String get website => 'אתר';
-	@override String get email => 'דוא"ל';
+	@override String get email => 'אימייל';
 }
 
 // Path: settings.about.feedback
@@ -1490,10 +1490,10 @@ class _TranslationsSettingsAboutFeedbackHe implements TranslationsSettingsAboutF
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => 'נהנ/ית מ-${appLabel}?';
-	@override String description({required Object appLabel}) => 'המשוב שלך עוזר להפוך את ${appLabel} לטובה יותר עבור כולם.';
-	@override String get rateApp => 'דרג/י בחנות Play';
-	@override String get sendFeedback => 'שליחת משוב';
+	@override String title({required Object appLabel}) => 'נהנים מ-${appLabel}?';
+	@override String description({required Object appLabel}) => 'המשוב שלך עוזר לשפר את ${appLabel} עבור כולם.';
+	@override String get rateApp => 'דרג ב-Play Store';
+	@override String get sendFeedback => 'שלח משוב';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1504,7 +1504,7 @@ class _TranslationsDisclaimerSnapPortionSizeHe implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'גודל מנה';
-	@override String get description => 'הדיוק של ההערכות תלוי מאוד בהערכתך הנכונה של גודל המנה.';
+	@override String get description => 'דיוק הערכות תלוי במידה רבה בהערכת גודל המנה על ידך.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsHe implements TranslationsDis
 
 	// Translations
 	@override String get title => 'שיטות הכנה';
-	@override String description({required Object appLabel}) => 'שיטות בישול עשויות להשפיע באופן משמעותי על הערך התזונתי. ההערכות של ${appLabel} אינן תמיד לוקחות בחשבון את כל השינויים הללו.';
+	@override String description({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1525,8 +1525,8 @@ class _TranslationsDisclaimerSnapIngredientsHe implements TranslationsDisclaimer
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'רכיבים';
-	@override String get description => 'מנות מורכבות עם רכיבים רבים ונסתרים עשויות להוביל להערכות פחות מדויקות.';
+	@override String get title => 'מרכיבים';
+	@override String get description => 'מנות מורכבות עם מרכיבים נסתרים רבים עלולות להוביל להערכות פחות מדויקות.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,8 +1536,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsHe implements TranslationsDi
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'מגבלות מאגר המידע';
-	@override String description({required Object appLabel}) => 'מאגר המזון של ${appLabel} רחב, אך ייתכן שאינו כולל כל פריט מזון או וריאציה.';
+	@override String get title => 'מגבלות מאגר הנתונים';
+	@override String description({required Object appLabel}) => 'מאגר המזונות של ${appLabel} הוא רחב אך עשוי שלא לכלול כל פריט או וריאציה.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1548,7 +1548,7 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyHe implements Translat
 
 	// Translations
 	@override String get title => 'דיוק הקלוריות';
-	@override String get description => 'ההערכה מדויקת רק כפי דיוק המעקב אחרי צריכת ושריפת הקלוריות שלך. תיעוד לא מדויק יוביל להערכה לא מדויקת.';
+	@override String get description => 'הערכה זו מדויקת ככל שהרישום שלך של צריכת ושריפת הקלוריות מדויק. רישום שגוי יוביל להערכה שגויה.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsHe implements Transl
 
 	// Translations
 	@override String get title => 'גורמים ביולוגיים';
-	@override String description({required Object appLabel}) => 'ירידה/עלייה בפועל במשקל מושפעת מחילוף חומרים, הורמונים, שינה, סטרס, הידרציה ועוד גורמים אישיים ש-${appLabel} אינה יכולה למדוד.';
+	@override String description({required Object appLabel}) => 'הורדה/עלייה ממשית במשקל מושפעת ממטבוליזם, הורמונים, שינה, מתח, רמת נוזלים וגורמים אישיים אחרים ש-${appLabel} לא יכולה למדוד.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1570,7 +1570,7 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightHe implements Translations
 
 	// Translations
 	@override String get title => 'משקל מים ותנודות';
-	@override String get description => 'משקל יומי תקין יכול להשתנות משמעותית עקב אגירת נוזלים, עיכול ותזמון. ההערכה אינה מתחשבת בשינויים היומיים הללו.';
+	@override String get description => 'משקל יומי רגיל יכול להשתנות משמעותית בגלל החזקת מים, עיכול וזמנים. ההערכה אינה מתחשבת בתנודות יומיות אלו.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1581,7 +1581,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceHe implements Tra
 
 	// Translations
 	@override String get title => 'הנחיה מקצועית';
-	@override String get description => 'אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעצ/י עם איש מקצוע רפואי או דיאטנ/ית קליני/ת לניהול משקל מותאם אישית.';
+	@override String get description => 'אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrHe implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'קצב חילוף החומרים הבסיסי (BMR) הוא מספר הקלוריות שהגוף שורף במנוחה כדי לקיים תפקודים בסיסיים כמו נשימה וזרימת דם. BMR תלוי בגיל, מגדר, גובה ומשקל. BMR גבוה יותר משמעו שהגוף שורף יותר קלוריות במנוחה, לעיתים בשל מסת שריר גבוהה יותר, גיל צעיר יותר, או היותך זכר. BMR נמוך יותר מעיד לרוב על מסת שריר נמוכה יותר, גיל מבוגר יותר, או היותך נקבה.';
+	@override String get description => 'Basal Metabolic Rate (BMR) הוא מספר הקלוריות שגופך שורף במנוחה כדי לקיים פונקציות בסיסיות כמו נשימה וזרימת דם. ה-BMR תלוי בגיל, מגדר, גובה ומשקל. BMR גבוה יותר משקף שריפת קלוריות במנוחה גבוהה יותר, לעיתים בשל מסת שריר גבוהה יותר, גיל צעיר יותר או מגדר זכר. BMR נמוך יותר מעיד בדרך כלל על מסת שריר נמוכה יותר, גיל מתקדם יותר או מגדר נקבה.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeHe implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'הוצאה אנרגטית יומית כוללת (TDEE) היא סך הקלוריות שאת/ה שורפ/ת ביום, כולל ה-BMR שלך בתוספת קלוריות מפעילות גופנית ותנועה יומית. TDEE תלוי ב-BMR וברמת הפעילות שלך. TDEE גבוה יותר משמעו שאת/ה שורפ/ת יותר קלוריות בסך הכול, בדרך כלל עקב פעילות גבוהה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פעילות יומית מועטה יותר או BMR נמוך.';
+	@override String get description => 'Total Daily Energy Expenditure (TDEE) הוא כלל הקלוריות שאתה שורף ביום, כולל ה-BMR שלך יחד עם הקלוריות מפעילות גופנית ותנועה יומית. ה-TDEE תלוי ב-BMR וברמת הפעילות שלך. TDEE גבוה יותר אומר שאתה שורף יותר קלוריות בסך הכל, בדרך כלל בגלל פעילות רבה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פחות פעילות יומית או BMR נמוך יותר.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1613,8 +1613,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalHe implements TranslationsDis
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'יעד יומי';
-	@override String get description => 'היעד היומי הוא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE ומטרת המשקל. לירידה במשקל, צורכים פחות קלוריות מה-TDEE. לשמירה על משקל, מתאימים ל-TDEE. לעלייה במשקל, צורכים יותר קלוריות מה-TDEE. זה עוזר לך להשיג שינוי משקל בקצב בריא.';
+	@override String get title => 'מטרה יומית';
+	@override String get description => 'המטרה היומית היא צריכת הקלוריות המומלצת עבורך בהתבסס על ה-TDEE והמטרה המשקלית שלך. לאובדן משקל צורכים פחות קלוריות מה-TDEE. לשימור משקל מתאימים ל-TDEE. לעלייה במשקל צורכים יותר קלוריות מה-TDEE. זה עוזר להשיג את שינוי המשקל הרצוי בקצב בריא.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1624,8 +1624,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedHe implements Transl
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'כיצד מחושבת ההערכה';
-	@override String get description => 'אנחנו מחשבים את ה-TDEE שלך (על בסיס הפרופיל) ומכפילים אותו בשבריר היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.';
+	@override String get title => 'כיצד מחושב האומדן';
+	@override String get description => 'אנו מחשבים את ה-TDEE שלך (בהתבסס על הפרופיל) ומכפילים אותו בחלק של היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1636,7 +1636,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceHe implements
 
 	// Translations
 	@override String get title => 'הנחיה מקצועית';
-	@override String get description => 'אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעצ/י עם איש מקצוע רפואי או דיאטנ/ית קליני/ת להמלצות מותאמות אישית.';
+	@override String get description => 'אל תשתמש/י באומדן זה לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1648,7 +1648,7 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedHe implements T
 	// Translations
 	@override String get title => 'קריאת סך הקלוריות שנשרפו';
 	@override String get description => 'מאפשר לאפליקציה לקרוא את סך הקלוריות שנשרפו מ-Health Connect.';
-	@override String get usage => 'הרשאה זו משמשת להצגת שריפת הקלוריות היומית שלך באפליקציה, כדי לעזור לך להבין את הוצאה האנרגטית הכוללת לאורך היום.';
+	@override String get usage => 'הרשאה זו משמשת להצגת צריכת הקלוריות היומית שלך באפליקציה, ועוזרת להבין את ההוצאה האנרגטית הכוללת שלך במהלך היום.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1659,8 +1659,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadHe implements Tr
 
 	// Translations
 	@override String get title => 'קריאת נתוני תזונה';
-	@override String get description => 'מאפשר לאפליקציה לקרוא נתוני תזונה מ-Health Connect.';
-	@override String get usage => 'הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שעשוי להיות מתועד באפליקציות אחרות המחוברות ל-Health Connect, כדי לספק תמונה מקיפה של התזונה שלך.';
+	@override String get description => 'מאפשר לאפליקציה לקרוא נתוני תזונה מתוך Health Connect.';
+	@override String get usage => 'הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שאולי הוזן על ידי אפליקציות אחרות המחוברות ל-Health Connect, ולספק תמונה מקיפה של התזונה שלך.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1672,7 +1672,7 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteHe implements T
 	// Translations
 	@override String get title => 'כתיבת נתוני תזונה';
 	@override String get description => 'מאפשר לאפליקציה לכתוב נתוני תזונה ל-Health Connect.';
-	@override String get usage => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שתיעדת ל-Health Connect, כך שנתוני התזונה שלך יהיו זמינים גם באפליקציות בריאות וכושר אחרות שבהן את/ה משתמש/ת.';
+	@override String get usage => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שרשמת ל-Health Connect, ולהפוך את נתוני התזונה הזמינים לאפליקציות בריאות וכושר אחרות שבהן אתה משתמש.';
 }
 
 /// The flat map containing all translations for locale <he>.
@@ -1686,123 +1686,123 @@ extension on TranslationsHe {
 			'language' => 'עברית',
 			'flag' => '🇮🇱',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'ביצעת יותר מדי בקשות. אנא המתן/י רגע ונסה/י שוב.',
-			'errors.networkError' => 'שגיאת רשת. בדוק/י את חיבור האינטרנט שלך.',
-			'errors.unknownError' => 'משהו השתבש. אנא נסה/י שוב מאוחר יותר.',
+			'errors.rateLimitExceeded' => 'ביצעת יותר מדי בקשות. אנא המתן רגע ונסה שוב.',
+			'errors.networkError' => 'שגיאת רשת. בדוק את חיבור האינטרנט שלך.',
+			'errors.unknownError' => 'משהו השתבש. אנא נסה שוב מאוחר יותר.',
 			'errors.loadingProfileData' => 'שגיאה בטעינת נתוני הפרופיל',
 			'errors.somethingWentWrong' => 'משהו השתבש.',
-			'errors.retry' => 'נסה/י שוב',
-			'onboarding.welcome' => ({required Object appLabel}) => 'ברוך/ה הבא/ה אל ${appLabel}',
-			'onboarding.subtitle' => 'בן/בת הלוויה התזונתי/ת האישי/ת שלך, מופעל/ת ב-AI',
-			'onboarding.getStarted' => 'התחל/י',
-			'onboarding.features.foodRecognition.title' => 'זיהוי מזון חכם',
-			'onboarding.features.foodRecognition.description' => 'צלם/י תמונה ותן/י ל-AI לזהות את הארוחה שלך',
-			'onboarding.features.aiAnalysis.title' => 'ניתוח בעזרת AI',
-			'onboarding.features.aiAnalysis.description' => 'קבל/י מיד נתוני תזונה מהתיאור שלך',
+			'errors.retry' => 'נסה שוב',
+			'onboarding.welcome' => ({required Object appLabel}) => 'ברוכים הבאים ל${appLabel}',
+			'onboarding.subtitle' => 'עמית התזונה האישי שלך המונע על ידי AI',
+			'onboarding.getStarted' => 'התחל',
+			'onboarding.features.foodRecognition.title' => 'זיהוי אוכל חכם',
+			'onboarding.features.foodRecognition.description' => 'צלם תמונה ותן ל-AI לזהות את הארוחה שלך',
+			'onboarding.features.aiAnalysis.title' => 'ניתוח AI',
+			'onboarding.features.aiAnalysis.description' => 'קבל נתוני תזונה מיידיים מתאורים שלך',
 			'onboarding.features.healthIntegration.title' => 'אינטגרציה עם Health Connect',
-			'onboarding.features.healthIntegration.description' => 'התחבר/י ל-Health Connect לתובנות טובות יותר',
+			'onboarding.features.healthIntegration.description' => 'חבר ל-Health Connect לקבלת תובנות טובות יותר',
 			'onboarding.gender.title' => 'מה המגדר שלך?',
-			'onboarding.gender.description' => 'מגדר עוזר לנו לחשב במדויק את קצב חילוף החומרים הבסיסי (BMR).',
+			'onboarding.gender.description' => 'מגדר עוזר לנו לחשב במדויק את קצב חילוף החומרים הבסיסי (BMR) שלך.',
 			'onboarding.gender.next' => 'הבא',
-			'onboarding.height.title' => 'מה הגובה שלך?',
-			'onboarding.height.description' => 'הגובה עוזר לנו לחשב במדויק את ה-BMI וצרכי האנרגיה שלך.',
+			'onboarding.height.title' => 'כמה אתה/את גבוה/ה?',
+			'onboarding.height.description' => 'הגובה שלך מסייע לנו לחשב במדויק את ה-BMI ואת צרכי האנרגיה.',
 			'onboarding.height.metric' => 'מטרי',
 			'onboarding.height.imperial' => 'אימפריאלי',
 			'onboarding.height.next' => 'הבא',
 			'onboarding.weight.currentTitle' => 'מה המשקל הנוכחי שלך?',
-			'onboarding.weight.currentDescription' => 'המשקל הנוכחי חיוני להתאמה אישית של היעדים היומיים שלך.',
-			'onboarding.weight.targetTitle' => 'מהו משקל היעד שלך?',
-			'onboarding.weight.targetDescription' => 'קביעת משקל יעד עוזרת לנו לבנות תוכנית לטווח ארוך.',
+			'onboarding.weight.currentDescription' => 'המשקל הנוכחי חשוב להתאמת היעדים היומיים האישיים שלך.',
+			'onboarding.weight.targetTitle' => 'מה המשקל היעד שלך?',
+			'onboarding.weight.targetDescription' => 'קביעת משקל מטרה עוזרת לנו לתכנן תוכנית ארוכת טווח עבורך.',
 			'onboarding.weight.metric' => 'מטרי',
 			'onboarding.weight.imperial' => 'אימפריאלי',
 			'onboarding.weight.next' => 'הבא',
-			'onboarding.age.title' => 'מהי תאריך הלידה שלך?',
-			'onboarding.age.description' => 'הגיל עוזר לנו לחשב במדויק את צריכת הקלוריות המומלצת עבורך.',
+			'onboarding.age.title' => 'מתי יום הולדתך?',
+			'onboarding.age.description' => 'הגיל שלך מסייע לנו לחשב במדויק את צריכת הקלוריות שלך.',
 			'onboarding.age.next' => 'הבא',
-			'onboarding.bmiScale.underweight' => 'תת',
-			'onboarding.bmiScale.healthy' => 'תקין',
-			'onboarding.bmiScale.overweight' => 'עודף',
-			'onboarding.bmiScale.obese' => 'השמנה',
-			'onboarding.bmiScale.categories.underweight' => 'תת־משקל',
-			'onboarding.bmiScale.categories.healthyWeight' => 'משקל תקין',
+			'onboarding.bmiScale.underweight' => 'מתחת',
+			'onboarding.bmiScale.healthy' => 'בריא',
+			'onboarding.bmiScale.overweight' => 'מייגע',
+			'onboarding.bmiScale.obese' => 'חולה',
+			'onboarding.bmiScale.categories.underweight' => 'תת משקל',
+			'onboarding.bmiScale.categories.healthyWeight' => 'משקל בריא',
 			'onboarding.bmiScale.categories.overweight' => 'עודף משקל',
 			'onboarding.bmiScale.categories.obese' => 'השמנת יתר',
-			'onboarding.bmiScale.messages.underweight' => 'נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בערכים תזונתיים.',
-			'onboarding.bmiScale.messages.healthy' => 'כל הכבוד! את/ה בטווח בריא. נעזור לך לשמור על חיוניות ורמות אנרגיה.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} תהפוך את הדרך שלך לפשוטה יותר עם מעקב מונע-AI שיעזור לך להגיע ליעד בנוחות.',
-			'onboarding.bmiScale.messages.obese' => 'אנחנו כאן כדי לתמוך בך עם הנחיות מותאמות אישית ואסטרטגיות ברות־קיימא להשגת מטרות הבריאות שלך.',
-			'onboarding.weightGoal.title' => 'מה המטרה שלך?',
-			'onboarding.weightGoal.description' => 'בחר/י את המטרה שמתארת הכי טוב את מה שתרצה/י להשיג',
-			'onboarding.activityLevel.title' => 'כמה את/ה פעיל/ה?',
-			'onboarding.activityLevel.description' => 'זה יעזור לנו לחשב במדויק יותר את צריכת הקלוריות היומית שלך',
-			'onboarding.healthConnect.title' => 'התחבר/י ל-Health Connect',
-			'onboarding.healthConnect.description' => 'סנכרן/ני את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי',
+			'onboarding.bmiScale.messages.underweight' => 'נוכל לעזור לך לבנות תוכנית בריאה להגיע למשקל מאוזן עם ארוחות עשירות בתזונה.',
+			'onboarding.bmiScale.messages.healthy' => 'כל הכבוד! אתה בטווח בריא. נעזור לך לשמור על החיוניות והרמות אנרגיה שלך.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} יפשט את המסע שלך עם מעקב מונחה AI שיעזור לך להגיע ליעד בנוחות.',
+			'onboarding.bmiScale.messages.obese' => 'אנחנו כאן לתמוך בך עם הנחיות מותאמות ואסטרטגיות ברות קיימא למטרות הבריאות שלך.',
+			'onboarding.weightGoal.title' => 'מה היעד שלך?',
+			'onboarding.weightGoal.description' => 'בחר את המטרה שמתארת הכי טוב מה ברצונך להשיג',
+			'onboarding.activityLevel.title' => 'כמה אתה פעיל/ה?',
+			'onboarding.activityLevel.description' => 'זה עוזר לנו לחשב במדויק יותר את צרכי הקלוריות היומיים שלך',
+			'onboarding.healthConnect.title' => 'חבר ל-Health Connect',
+			'onboarding.healthConnect.description' => 'סנכרן את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי',
 			'onboarding.healthConnect.automaticTracking.title' => 'מעקב קלוריות אוטומטי',
-			'onboarding.healthConnect.automaticTracking.description' => 'עקוב/י אחרי קלוריות שנשרפו מאפליקציות הכושר שלך',
+			'onboarding.healthConnect.automaticTracking.description' => 'עקוב אחר הקלוריות שנשרפו מתוך אפליקציות הכושר שלך',
 			'onboarding.healthConnect.progressInsights.title' => 'תובנות התקדמות',
-			'onboarding.healthConnect.progressInsights.description' => 'קבל/י תובנות מפורטות על מגמות הבריאות שלך',
+			'onboarding.healthConnect.progressInsights.description' => 'קבל תובנות מפורטות על מגמות הבריאות שלך',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'אינטגרציה חלקה',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'סנכרון נתונים מאפליקציות הבריאות האהובות עליך',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'סנכרן נתונים מאפליקציות הבריאות האהובות עליך',
 			'onboarding.healthConnect.connected' => 'Health Connect מחובר',
 			'onboarding.healthConnect.notConnected' => 'Health Connect לא מחובר',
-			'onboarding.healthConnect.setup' => 'הגדרת Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'דלג/י לעת עתה',
+			'onboarding.healthConnect.setup' => 'הגדר Health Connect',
+			'onboarding.healthConnect.skipForNow' => 'דלג לעכשיו',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect מחובר.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect חובר בהצלחה!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'ההרשאה נדחתה. אנא אפשר/י הרשאות Health Connect מהגדרות הטלפון עבור ${appLabel}.',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'הרשאה נדחתה. אנא אפשר הרשאות ל-Health Connect בהגדרות הטלפון עבור ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'שגיאה בהגדרת Health Connect: ${error}',
-			'onboarding.reinforcement.trackingSuccess.title' => 'את/ה לא לבד',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'מחקרים מראים שמעקב עקבי הוא המנבא מספר 1 להצלחה ארוכת טווח.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object gender, required Object age, required Object goal}) => 'עבור ${gender} בגיל ${age} השואפ/ת ל${goal}, מעקב עקבי הוא המנבא מספר 1 להצלחה.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} הופכת את זה לקל פי 10 מביצוע ידני.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'מוכנים להתחיל?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'צלם/י את הארוחות שלך לניתוח מיידי',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'תעד/י בעקביות כדי לראות התקדמות משמעותית',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'עקוב/י מדי יום אחרי ההתקדמות שלך כדי להישאר במוטיבציה',
-			'onboarding.reinforcement.trackingSuccess.button' => 'בואו נתחיל',
-			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'אדם',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'בריאה/בריא יותר',
-			'onboarding.reinforcement.healthProfile.title' => 'פרופיל הבריאות שלך',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'בהתבסס על המדדים שלך, ה-BMI הוא ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'בוא/י נסיים את הפרופיל כדי להתאים את החוויה אישית.',
+			'onboarding.reinforcement.trackingSuccess.title' => 'אתה לא לבד',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'מחקרים מראים שמעקב עקבי הוא המדד מספר 1 להצלחה לטווח הארוך.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'לאדם בגיל ${age} ובמגדר ${gender} השואף ${goal}, מעקב עקבי הוא המדד המוביל להצלחה.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} עושה את זה בעשר פעמים יותר קל מאשר ידני.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'מוכן/ה להתחיל?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'צלם תמונה של הארוחות לקבלת ניתוח מיידי',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'הקלד באופן עקבי כדי לראות התקדמות משמעותית',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'עקוב אחרי ההתקדמות כל יום כדי להישאר מוטיבציה',
+			'onboarding.reinforcement.trackingSuccess.button' => 'יאללה נתחיל',
+			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'יחיד/ה',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'גרסה בריאה יותר של עצמך',
+			'onboarding.reinforcement.healthProfile.title' => 'הפרופיל הבריאותי שלך',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'בהתבסס על המידות שלך, ה-BMI שלך הוא ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'נסיים את הפרופיל כדי להתאים עבורך את החוויה.',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'להעלות',
 			'onboarding.reinforcement.healthProfile.goalLose' => 'להוריד',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'כדי להגיע ליעד, תצטרך/י ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'את/ה במשקל היעד! נעזור לך לשמור עליו.',
-			'onboarding.reinforcement.healthProfile.button' => 'בואו נתחיל',
-			'onboarding.reinforcement.goalLifestyle.title' => 'תחילת דרך מצוינת!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'עשית את הצעד הראשון לקראת ${goalText}. מאחר שאת/ה ${activityText}, ${appLabel} תתאים את היעדים שלך לסגנון החיים שלך.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'יעדי קלוריות מותאמים אישית',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'זיהוי ארוחות מונע-AI',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'פירוט מפורט של מקרו-נוטריינטים',
-			'onboarding.reinforcement.goalLifestyle.button' => 'בואו נתחיל',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'כדי להגיע ליעדך, תצטרך ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'הגעת למשקל היעד! נעזור לך לשמור עליו.',
+			'onboarding.reinforcement.healthProfile.button' => 'יאללה נתחיל',
+			'onboarding.reinforcement.goalLifestyle.title' => 'תחילת מעולה!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'נקטת את הצעד הראשון לקראת ${goalText}. כיוון שאתה/את ${activityText}, ${appLabel} יתאים את היעדים שלך לסגנון החיים.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'יעדי קלוריות מותאמים',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'זיהוי ארוחות מונע AI',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'פירוט מאקרו-רכיבים מפורט',
+			'onboarding.reinforcement.goalLifestyle.button' => 'יאללה נתחיל',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'המטרות שלך',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'פעיל/ה',
-			'tabs.dashboard' => 'ראשי',
-			'tabs.history' => 'היסטוריה',
+			'tabs.dashboard' => 'דשבורד',
+			'tabs.history' => 'ההיסטוריה',
 			'home.aiSummary.title' => 'סיכום ה-AI שלך',
-			'home.aiSummary.logMore' => 'תעד/י עוד ארוחות בימים הקרובים כדי לקבל תובנות מותאמות אישית מה-AI.',
-			'home.aiSummary.loading' => 'טוען/ת את הסיכום שלך...',
-			'home.aiSummary.mealCount' => ({required Object count}) => '${count} ארוחות תועדו',
+			'home.aiSummary.logMore' => 'הקלד/י עוד ארוחות בימים הקרובים כדי לקבל תובנות AI מותאמות אישית.',
+			'home.aiSummary.loading' => 'טוען את הסיכום...',
+			'home.aiSummary.mealCount' => ({required Object count}) => '${count} ארוחות רשומות',
 			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'ציון איזון ${score}',
 			'home.aiSummary.topFoods' => 'המזונות המובילים',
-			'home.aiSummary.trendUp' => 'הקלוריות במגמת עלייה',
-			'home.aiSummary.trendDown' => 'הקלוריות במגמת ירידה',
-			'home.aiSummary.trendSteady' => 'הקלוריות יציבות',
+			'home.aiSummary.trendUp' => 'קלוריות במגמת עלייה',
+			'home.aiSummary.trendDown' => 'קלוריות במגמת ירידה',
+			'home.aiSummary.trendSteady' => 'קלוריות יציבות',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'עודכן ${time}',
-			'home.dailyGoal.title' => 'הגדר/י את היעד היומי שלך',
-			'home.dailyGoal.titleSet' => 'היעד היומי שלך',
-			'home.dailyGoal.description' => 'מוכנים לצאת לדרך הבריאותית? קבע/י למטה את יעד הקלוריות היומי כדי להתחיל להתקדם.',
-			'home.dailyGoal.descriptionSet' => 'המצפן מכוון! זהו יעד הקלוריות היומי שלך להנחיה.',
-			'home.dailyGoal.yourGoal' => 'היעד שלך',
-			'home.dailyGoal.goal' => 'יעד',
+			'home.dailyGoal.title' => 'הגדר את המטרה היומית שלך',
+			'home.dailyGoal.titleSet' => 'המטרה היומית שלך',
+			'home.dailyGoal.description' => 'מוכן/ה לצאת למסע הבריאות שלך? הגדר כאן את יעד הקלוריות היומי כדי להתחיל.',
+			'home.dailyGoal.descriptionSet' => 'המצפן הוגדר! זהו יעד הקלוריות היומי שלך להנחיה.',
+			'home.dailyGoal.yourGoal' => 'המטרה שלך',
+			'home.dailyGoal.goal' => 'מטרה',
 			'home.dailyGoal.dailyCalories' => 'קלוריות יומיות (kcal)',
-			'home.dailyGoal.setGoal' => 'קבע/י יעד',
-			'home.dailyGoal.intake' => 'נצרך',
+			'home.dailyGoal.setGoal' => 'הגדר מטרה',
+			'home.dailyGoal.intake' => 'צריכה',
 			'home.dailyGoal.burned' => 'נשרף',
-			'home.dailyGoal.weightImpact' => 'השפעת המשקל',
-			'home.dailyGoal.estLoss' => 'הפסד משוער של',
-			'home.dailyGoal.estGain' => 'עלייה משוערת של',
+			'home.dailyGoal.weightImpact' => 'השפעה על משקל',
+			'home.dailyGoal.estLoss' => 'אומד. אובדן של',
+			'home.dailyGoal.estGain' => 'אומד. עלייה של',
 			'home.dailyGoal.kcal' => 'kcal',
 			'home.dailySummary.title' => 'סיכום יומי',
 			'home.dailySummary.calories' => 'קלוריות',
@@ -1811,41 +1811,41 @@ extension on TranslationsHe {
 			'home.dailySummary.fat' => 'שומן',
 			'home.dailySummary.fiber' => 'סיבים',
 			'home.dailySummary.grams' => 'גרם',
-			'home.dailySummary.chartAccessibilityLabel' => 'תרשים מאקרו',
-			'home.intakeProgress.title' => 'פיצול המאקרו של היום',
+			'home.dailySummary.chartAccessibilityLabel' => 'תרשים מאקרו-נוטריינטים',
+			'home.intakeProgress.title' => 'חלוקת המאקרו של היום',
 			'home.intakeProgress.target' => 'יעד',
 			'home.intakeProgress.current' => 'נוכחי',
 			'home.intakeHistory.title' => 'היסטוריית מאקרו ל-7 ימים',
-			'home.intakeHistory.trendTitle' => 'המגמה של היום',
+			'home.intakeHistory.trendTitle' => 'מגמת היום',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => 'שיא: ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'אין היסטוריה עדיין',
-			'home.intakeHistory.startLogging' => 'התחל/י לתעד ארוחות כדי לראות כאן\nמגמות מאקרו ל-7 ימים',
-			'home.mealLog.title' => 'ארוחות מתועדות',
-			'home.mealLog.emptyMessage' => 'צלם/י תמונה של הארוחה האחרונה כדי לתעד כאן.',
-			'home.mealLog.noMealsToday' => 'אין ארוחות רשומות להיום',
-			'home.mealLog.seeAllMeals' => 'הצג את כל הארוחות',
+			'home.intakeHistory.noHistoryYet' => 'עדיין אין היסטוריה',
+			'home.intakeHistory.startLogging' => 'התחל לרשום ארוחות כדי לראות כאן\nמגמות מאקרו ל-7 ימים',
+			'home.mealLog.title' => 'ארוחות שנרשמו',
+			'home.mealLog.emptyMessage' => 'צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.',
+			'home.mealLog.noMealsToday' => 'אין ארוחות שנרשמו להיום',
+			'home.mealLog.seeAllMeals' => 'ראה את כל הארוחות',
 			'home.mealDescription.title' => 'הוספה מהירה עם AI',
-			'home.mealDescription.description' => 'תאר/י את הארוחה שלך, וה-AI יטפל בפרטים.',
-			'home.mealDescription.hint' => 'לדוגמה: לארוחת בוקר אכלתי קערה גדולה של שיבולת שועל עם בננה פרוסה וכף מי גבינה...',
+			'home.mealDescription.description' => 'תאר את הארוחה ותן ל-AI לדאוג לפרטים.',
+			'home.mealDescription.hint' => 'למשל: בארוחת בוקר היה לי קערת שיבולת שועל גדולה עם בננה פרוסה וכפית אבקת חלבון...',
 			'home.mealDescription.analyzeMeal' => 'נתח ארוחה',
 			'home.favoriteMeals.title' => 'ארוחות מועדפות',
-			'home.favoriteMeals.description' => 'הוספה מהירה של אחת מהארוחות המועדפות עליך.',
+			'home.favoriteMeals.description' => 'הוסף במהירות אחת מהארוחות המועדפות עליך.',
 			'home.favoriteMeals.noFavorites' => 'עדיין אין ארוחות מועדפות.',
-			'home.favoriteMeals.addFavoriteHint' => 'לחץ/י על הכוכב בארוחה כדי לסמן כמועדף.',
+			'home.favoriteMeals.addFavoriteHint' => 'לחץ על הכוכב על מנת לסמן ארוחה כמועדפת.',
 			'home.favoriteMeals.seeAll' => 'הצג הכל',
 			'home.favoriteMeals.add' => 'הוסף',
-			'home.mealSnap.title' => 'צלם/י ותעד/י את הארוחה שלך',
-			'home.mealSnap.description' => 'השתמש/י במצלמה כדי לצלם את האוכל לניתוח AI.',
-			'home.mealSnap.openCamera' => 'פתח/י מצלמה',
+			'home.mealSnap.title' => 'צלם ומעקב אחר הארוחה',
+			'home.mealSnap.description' => 'השתמש במצלמה כדי לצלם את המזון לניתוח על ידי AI.',
+			'home.mealSnap.openCamera' => 'פתח מצלמה',
 			'home.mealSnap.gallery' => 'גלריה',
-			'home.mealSnap.compressingPhoto' => 'מיטוב התמונה…',
-			'home.mealSnap.uploadingPhoto' => 'מעלה את התמונה…',
-			'home.connectHealth.title' => 'סנכרון עם Health Connect',
-			'home.connectHealth.description' => 'סנכרן/ני את נתוני התזונה שלך עם Health Connect',
+			'home.mealSnap.compressingPhoto' => 'מייעל תמונה…',
+			'home.mealSnap.uploadingPhoto' => 'מעלה תמונה…',
+			'home.connectHealth.title' => 'סנכרן עם Health Connect',
+			'home.connectHealth.description' => 'סנכרן את נתוני התזונה שלך עם Health Connect',
 			'home.connectHealth.install' => 'התקן',
-			'home.connectHealth.connect' => 'התחבר/י',
+			'home.connectHealth.connect' => 'חבר',
 			'history.noMeals' => 'אין ארוחות רשומות',
-			'history.emptyMessage' => 'צלם/י תמונה של הארוחה האחרונה כדי לתעד כאן.',
+			'history.emptyMessage' => 'צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.',
 			'history.today' => 'היום',
 			'history.yesterday' => 'אתמול',
 			'meal.ohNo' => 'אוי לא!',
@@ -1855,96 +1855,96 @@ extension on TranslationsHe {
 			'meal.saveMeal' => 'שמור ארוחה',
 			'meal.save' => 'שמור',
 			'meal.mealName' => 'שם הארוחה',
-			'meal.mealNameHint' => 'לדוגמה, חביתת ביצים עם טוסט',
+			'meal.mealNameHint' => 'למשל: חביתה מקושקשת עם טוסט',
 			'meal.mealQuantity' => 'כמות הארוחה',
-			'meal.mealQuantityHint' => 'לדוגמה, קערה אחת, 2 פרוסות',
+			'meal.mealQuantityHint' => 'למשל: קערה אחת, 2 פרוסות',
 			'meal.timeOfMeal' => 'שעת הארוחה',
-			'meal.timeOfMealHint' => 'בחר/י את השעה שבה אכלת את הארוחה',
+			'meal.timeOfMealHint' => 'בחר את השעה שבה אכלת את הארוחה',
 			'meal.mealType' => 'סוג ארוחה',
 			'meal.nutrition.calories' => 'קלוריות',
-			'meal.nutrition.carbs' => 'פחמימות (גרם)',
-			'meal.nutrition.protein' => 'חלבון (גרם)',
-			'meal.nutrition.fat' => 'שומן (גרם)',
-			'meal.nutrition.fiber' => 'סיבים (גרם)',
+			'meal.nutrition.carbs' => 'פחמימות (ג\')',
+			'meal.nutrition.protein' => 'חלבון (ג\')',
+			'meal.nutrition.fat' => 'שומן (ג\')',
+			'meal.nutrition.fiber' => 'סיבים (ג\')',
 			'meal.deleteConfirmation.title' => 'מחיקת ארוחה',
-			'meal.deleteConfirmation.message' => 'למחוק את רשומת הארוחה הזו?',
-			'meal.deleteConfirmation.cancel' => 'בטל',
+			'meal.deleteConfirmation.message' => 'האם אתה בטוח שברצונך למחוק רשומת ארוחה זו?',
+			'meal.deleteConfirmation.cancel' => 'ביטול',
 			'meal.deleteConfirmation.delete' => 'מחק',
 			'meal.addedToLog' => 'הארוחה נוספה ליומן שלך!',
-			'meal.couldNotAdd' => ({required Object error}) => 'לא ניתן היה להוסיף ארוחה: ${error}',
+			'meal.couldNotAdd' => ({required Object error}) => 'לא ניתן להוסיף ארוחה: ${error}',
 			'meal.savedSuccessfully' => 'הארוחה נוספה בהצלחה!',
 			'meal.updatedSuccessfully' => 'הארוחה עודכנה בהצלחה!',
 			'meal.errorSaving' => ({required Object error}) => 'שגיאה בשמירת הארוחה: ${error}',
 			'meal.removedFromFavorites' => 'הוסר מהמועדפים!',
 			'meal.savedAsFavorite' => 'הארוחה נשמרה כמועדפת!',
-			'meal.unfavorite' => 'הסר ממועדפים',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'לא ניתן היה לעדכן מועדף: ${error}',
+			'meal.unfavorite' => 'הסר מהמועדפים',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'לא ניתן לעדכן מועדף: ${error}',
 			'meal.feedbackThanks' => 'תודה על המשוב!',
-			'meal.reanalysisUpdated' => 'הניתוח עודכן בהתאם למשוב שלך.',
-			'meal.failedToProcess' => ({required Object error}) => 'העיבוד נכשל: ${error}',
-			'meal.failedToProcessImage' => ({required Object error}) => 'עיבוד התמונה נכשל: ${error}',
-			'meal.errorCompressingImage' => ({required Object error}) => 'שגיאה במיטוב התמונה: ${error}',
-			'meal.failedToSave' => 'שמירת הנתונים נכשלה. אנא נסה/י שוב.',
-			'meal.skip' => 'דלג/י',
+			'meal.reanalysisUpdated' => 'עדכנו את ניתוח הארוחה בהתאם למשוב שלך.',
+			'meal.failedToProcess' => ({required Object error}) => 'נכשל בעיבוד: ${error}',
+			'meal.failedToProcessImage' => ({required Object error}) => 'נכשל בעיבוד התמונה: ${error}',
+			'meal.errorCompressingImage' => ({required Object error}) => 'שגיאה בדחיסת תמונה: ${error}',
+			'meal.failedToSave' => 'נכשל בשמירת הנתונים. אנא נסה שוב.',
+			'meal.skip' => 'דלג',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'שאלה ${current} מתוך ${total}',
 			'meal.questionFlow.noQuestionsAvailable' => 'אין שאלות זמינות',
 			'meal.questionFlow.next' => 'הבא',
 			'meal.questionFlow.continueLabel' => 'המשך',
-			'meal.analysis.title' => 'ניתוח ארוחה בעזרת AI',
+			'meal.analysis.title' => 'מנתחים את הארוחה שלך',
 			'meal.analysis.stepStarted' => 'מתחילים…',
-			'meal.analysis.stepDecomposition' => 'מבינים את הארוחה שלך…',
+			'meal.analysis.stepDecomposition' => 'מנתחים את הארוחה…',
 			'meal.analysis.stepIngredients' => 'מתאימים רכיבים לנתוני תזונה…',
-			'meal.analysis.stepUncertainty' => 'בודקים רמת ביטחון…',
-			'meal.analysis.stepMealTypeQuestion' => 'כמעט סיימנו…',
+			'meal.analysis.stepUncertainty' => 'בודקים אמון…',
+			'meal.analysis.stepMealTypeQuestion' => 'עוד מעט…',
 			'meal.analysis.stepResult' => 'מסיימים את התוצאה…',
 			'meal.analysis.stepError' => 'משהו השתבש',
-			'meal.analysis.stepDefault' => 'מנתחים את הארוחה…',
-			'meal.analysis.progressUnderstand' => 'הבנה',
-			'meal.analysis.progressMatch' => 'התאמה',
-			'meal.analysis.progressCheck' => 'בדיקה',
-			'meal.analysis.progressMealType' => 'בחירת סוג הארוחה',
-			'meal.analysis.progressFinish' => 'סיום',
-			'meal.analysis.detectedIngredientHeading' => 'מרכיבים שאנחנו מזהים',
-			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'עוד ${count}',
+			'meal.analysis.stepDefault' => 'מנתחים את הארוחה שלך…',
+			'meal.analysis.progressUnderstand' => 'מנסים להבין את הארוחה',
+			'meal.analysis.progressMatch' => 'מחפשים ערכי תזונה לרכיבים',
+			'meal.analysis.progressCheck' => 'בודקים כמויות ואמינות',
+			'meal.analysis.progressMealType' => 'מחליטים סוג ארוחה',
+			'meal.analysis.progressFinish' => 'מחשבים קלוריות ומאקרו-נוטריינטים',
+			'meal.analysis.detectedIngredientHeading' => 'רכיבים שאנו מזהים',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} עוד',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'זוהו ${count} רכיבים',
-			'meal.analysis.ingredientsPending' => 'סורקים רכיבים…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'מה נראה לא נכון?',
-			'meal.feedback.subtitle' => 'עזרו לנו לשפר את הניתוח על ידי בחירת בעיה אחת או יותר.',
-			'meal.feedback.tellUsMore' => 'ספרו לנו עוד',
-			'meal.feedback.describeIncorrect' => 'תארו מה לא היה נכון',
+			'meal.analysis.ingredientsPending' => 'סורק רכיבים…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '״${text}״',
+			'meal.analysis.offlineTip0' => 'טיפ: עקביות עדיפה על שלמות — רישומים סדירים מגלים דפוסים חשובים.',
+			'meal.analysis.offlineTip1' => 'טיפ: באור טבעי ובמבט מלמעלה מקלים דיוק הכמויות בתמונות.',
+			'meal.analysis.offlineTip2' => 'טיפ: ציין משקאות, רטבים ושמן בישול — הם מוסיפים קלוריות שאנשים שוכחים לעתים קרובות.',
+			'meal.analysis.offlineTip3' => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.',
+			'meal.analysis.offlineTip4' => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.',
+			'meal.analysis.offlineTip5' => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).',
+			'meal.feedback.title' => 'מה לא נראה נכון?',
+			'meal.feedback.subtitle' => 'עזור לנו לשפר את הניתוח על ידי בחירת אחת או יותר מהבעיות.',
+			'meal.feedback.tellUsMore' => 'ספר לנו עוד',
+			'meal.feedback.describeIncorrect' => 'תאר מה היה לא נכון',
 			'meal.feedback.submit' => 'שלח',
-			'meal.feedback.issueFoodIdentification' => 'זיהוי המזון',
-			'meal.feedback.issuePortionSize' => 'גודל המנה',
-			'meal.feedback.issueCalorieDistribution' => 'התפלגות קלוריות',
-			'meal.feedback.issueMacrosWrong' => 'מאקרו שגויים',
+			'meal.feedback.issueFoodIdentification' => 'זיהוי מזון',
+			'meal.feedback.issuePortionSize' => 'גודל מנה',
+			'meal.feedback.issueCalorieDistribution' => 'חלוקת קלוריות',
+			'meal.feedback.issueMacrosWrong' => 'המאקרו-ערכים שגויים',
 			'meal.feedback.issueMissingItems' => 'פריטים חסרים',
 			'meal.feedback.issueExtraItems' => 'פריטים מיותרים',
 			'meal.feedback.issueOther' => 'אחר',
 			'favorites.title' => 'מועדפים',
 			'favorites.empty' => 'עדיין אין ארוחות מועדפות.',
-			'favorites.searchPlaceholder' => 'חפש/י ארוחות מועדפות',
-			'favorites.searchEmptyTitle' => 'אין מועדפים תואמים לחיפוש',
-			'favorites.searchEmptySubtitle' => 'נסו שם ארוחה אחר, כמות או סוג ארוחה שונה.',
-			'favorites.sortLabel' => 'מיון מועדפים',
+			'favorites.searchPlaceholder' => 'חפש ארוחות מועדפות',
+			'favorites.searchEmptyTitle' => 'אין מועדפים התואמים לחיפוש שלך',
+			'favorites.searchEmptySubtitle' => 'נסה שם ארוחה, כמות או סוג ארוחה אחר.',
+			'favorites.sortLabel' => 'מיין מועדפים',
 			'favorites.undo' => 'בטל',
-			'favorites.removed' => ({required Object name}) => '${name} הוסר מהמועדפים',
+			'favorites.removed' => ({required Object name}) => 'הוסר ${name} מהמועדפים',
 			'favorites.sortOptions.recent' => 'אחרונים',
 			'favorites.sortOptions.calories' => 'קלוריות',
-			'favorites.sortOptions.alphabetical' => 'א-ת',
+			'favorites.sortOptions.alphabetical' => 'A-ת',
 			'profile.title' => 'פרופיל',
 			'profile.noProfileData' => 'לא נמצאו נתוני פרופיל',
 			'profile.yourProfile' => 'הפרופיל שלך',
-			'profile.viewAndManage' => 'צפה/י ונהלי/ה את פרטי הבריאות שלך',
+			'profile.viewAndManage' => 'הצג ונהל את המידע הבריאותי שלך',
 			'profile.sections.profile' => 'פרופיל',
-			'profile.sections.basicInformation' => 'פרטים בסיסיים',
-			'profile.sections.goalsAndActivity' => 'מטרות ופעילות',
+			'profile.sections.basicInformation' => 'מידע בסיסי',
+			'profile.sections.goalsAndActivity' => 'מטרות & פעילות',
 			'profile.sections.calculatedValues' => 'ערכים מחושבים',
 			'profile.gender' => 'מגדר',
 			'profile.height' => 'גובה',
@@ -1959,19 +1959,19 @@ extension on TranslationsHe {
 			'profile.updatedSuccessfully' => 'הפרופיל עודכן בהצלחה!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'יעד יומי',
-			'profile.calculatedValues.calPerDay' => 'cal/day',
+			'profile.calculatedValues.dailyGoal' => 'מטרה יומית',
+			'profile.calculatedValues.calPerDay' => 'קלוריות/יום',
 			'profile.calculatedValues.notAvailable' => 'N/A',
 			'healthScore.title' => 'ציון בריאות',
 			'healthScore.whyThisScore' => 'למה הציון הזה?',
-			'healthScore.note' => 'ציון זה הוא הערכה של ה-AI המבוססת על הרכיבים שזוהו ועל צפיפות תזונתית. תמיד כדאי להתייעץ עם איש מקצוע לקבלת ייעוץ תזונתי.',
+			'healthScore.note' => 'ציון זה הוא הערכת AI המבוססת על הרכיבים המזוהים וצפיפותם התזונתית. תמיד התייעץ/י עם מקצוען לקבלת ייעוץ תזונתי מותאם.',
 			'healthScore.unhealthy' => 'לא בריא',
 			'healthScore.healthy' => 'בריא',
-			'healthScore.neutral' => 'ניטרלי',
-			'editProfile.title' => 'עריכת פרופיל',
-			'editProfile.sections.personalInformation' => 'פרטים אישיים',
-			'editProfile.sections.physicalMeasurements' => 'מדדים גופניים',
-			'editProfile.sections.goalsAndActivity' => 'מטרות ופעילות',
+			'healthScore.neutral' => 'נייטרלי',
+			'editProfile.title' => 'ערוך פרופיל',
+			'editProfile.sections.personalInformation' => 'מידע אישי',
+			'editProfile.sections.physicalMeasurements' => 'מדידות פיזיות',
+			'editProfile.sections.goalsAndActivity' => 'מטרות & פעילות',
 			'editProfile.gender' => 'מגדר',
 			'editProfile.dateOfBirth' => 'תאריך לידה',
 			'editProfile.height' => 'גובה',
@@ -1980,204 +1980,204 @@ extension on TranslationsHe {
 			'editProfile.activityLevel' => 'רמת פעילות',
 			'editProfile.metric' => 'מטרי',
 			'editProfile.imperial' => 'אימפריאלי',
-			'editProfile.unitCm' => 'cm',
-			'editProfile.unitFt' => 'ft',
-			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitCm' => 'ס"מ',
+			'editProfile.unitFt' => 'רגל',
+			'editProfile.unitKg' => 'ק"ג',
+			'editProfile.unitLbs' => 'lb',
 			'editProfile.metricCm' => 'מטרי (ס"מ)',
-			'editProfile.imperialFtIn' => 'אימפריאלי (ft/in)',
+			'editProfile.imperialFtIn' => 'אימפריאלי (רגל/אינץ\')',
 			'editProfile.metricKg' => 'מטרי (ק"ג)',
 			'editProfile.imperialLbs' => 'אימפריאלי (lbs)',
 			'editProfile.genders.male' => 'זכר',
 			'editProfile.genders.female' => 'נקבה',
 			'editProfile.genders.other' => 'אחר',
-			'editProfile.weightGoals.loseWeight.name' => 'ירידה במשקל',
-			'editProfile.weightGoals.loseWeight.description' => 'יצירת גירעון קלורי לירידה במשקל',
-			'editProfile.weightGoals.maintainWeight.name' => 'שמירה על משקל',
-			'editProfile.weightGoals.maintainWeight.description' => 'שמירה על המשקל הנוכחי שלך',
-			'editProfile.weightGoals.gainWeight.name' => 'עלייה במשקל',
-			'editProfile.weightGoals.gainWeight.description' => 'יצירת עודף קלורי לעלייה במשקל',
+			'editProfile.weightGoals.loseWeight.name' => 'להוריד משקל',
+			'editProfile.weightGoals.loseWeight.description' => 'יצירת גרעון קלורי להורדת משקל',
+			'editProfile.weightGoals.maintainWeight.name' => 'לשמור על משקל',
+			'editProfile.weightGoals.maintainWeight.description' => 'שמירה על המשקל הנוכחי',
+			'editProfile.weightGoals.gainWeight.name' => 'להעלות משקל',
+			'editProfile.weightGoals.gainWeight.description' => 'יצירת עודף קלורי להעלאת משקל',
 			'editProfile.activityLevels.sedentary.name' => 'יושבני',
 			'editProfile.activityLevels.sedentary.description' => 'מעט או ללא פעילות גופנית',
 			'editProfile.activityLevels.lightlyActive.name' => 'פעילות קלה',
-			'editProfile.activityLevels.lightlyActive.description' => 'פעילות קלה 1–3 ימים בשבוע',
+			'editProfile.activityLevels.lightlyActive.description' => 'אימון קל 1-3 ימים/שבוע',
 			'editProfile.activityLevels.moderatelyActive.name' => 'פעילות מתונה',
-			'editProfile.activityLevels.moderatelyActive.description' => 'פעילות מתונה 3–5 ימים בשבוע',
+			'editProfile.activityLevels.moderatelyActive.description' => 'אימון מתון 3-5 ימים/שבוע',
 			'editProfile.activityLevels.veryActive.name' => 'פעילות גבוהה',
-			'editProfile.activityLevels.veryActive.description' => 'אימונים קשים 6–7 ימים בשבוע',
-			'editProfile.activityLevels.extremelyActive.name' => 'פעילות קיצונית',
-			'editProfile.activityLevels.extremelyActive.description' => 'מאמץ קשה מאוד, עבודה פיזית',
+			'editProfile.activityLevels.veryActive.description' => 'אימון קשה 6-7 ימים/שבוע',
+			'editProfile.activityLevels.extremelyActive.name' => 'פעילות אינטנסיבית',
+			'editProfile.activityLevels.extremelyActive.description' => 'עבודה פיזית קשה או אימון מאוד אינטנסיבי',
 			'settings.title' => 'הגדרות',
 			'settings.sections.profile' => 'פרופיל',
-			'settings.sections.localization' => 'התאמה לשפה ואזור',
+			'settings.sections.localization' => 'מיקום שפה',
 			'settings.sections.notifications' => 'התראות',
-			'settings.sections.healthConnect' => 'Health Connect',
-			'settings.sections.supportAndLegal' => 'תמיכה וחוקיות',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.supportAndLegal' => 'תמיכה & משפטי',
 			'settings.sections.about' => 'אודות',
 			'settings.sections.dangerZone' => 'אזור מסוכן',
 			'settings.sections.developer' => 'מפתח',
-			'settings.editProfile.title' => 'עריכת פרופיל',
-			'settings.editProfile.subtitle' => 'עדכון המידע האישי שלך',
+			'settings.editProfile.title' => 'ערוך פרופיל',
+			'settings.editProfile.subtitle' => 'עדכן את המידע האישי שלך',
 			'settings.language.title' => 'שפה',
-			'settings.language.subtitle' => 'בחר/י את השפה המועדפת',
-			'settings.language.searchHint' => 'חפש/י שפות...',
+			'settings.language.subtitle' => 'בחר את שפת הממשק המועדפת עליך',
+			'settings.language.searchHint' => 'חפש שפות...',
 			'settings.language.noResults' => 'לא נמצאו תוצאות',
 			'settings.heightUnit.title' => 'יחידת גובה',
 			'settings.weightUnit.title' => 'יחידת משקל',
-			'settings.mealReminders.title' => 'תזכורות לארוחות',
-			'settings.mealReminders.subtitle' => 'הישאר/י על המסלול עם התראות בזמן',
-			'settings.theme.title' => 'ערכת נושא',
+			'settings.mealReminders.title' => 'תזכורות ארוחות',
+			'settings.mealReminders.subtitle' => 'הישאר על המסלול עם התראות בזמן',
+			'settings.theme.title' => 'נושא',
 			'settings.theme.light' => 'בהיר',
 			'settings.theme.dark' => 'כהה',
 			'settings.theme.system' => 'מערכת',
-			'settings.sendFeedback.title' => 'שליחת משוב',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'עזר/י לנו לשפר את ${appLabel}',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'משוב על ${appLabel}',
-			'settings.sendFeedback.emailBodyPrefix' => 'אנא ספק/י את המשוב שלך כאן:',
-			'settings.sendFeedback.appVersion' => 'גרסת אפליקציה',
+			'settings.sendFeedback.title' => 'שלח משוב',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'עזור לנו לשפר את ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'משוב על אפליקציית ${appLabel}',
+			'settings.sendFeedback.emailBodyPrefix' => 'אנא ספק/י את המשוב שלך למטה:',
+			'settings.sendFeedback.appVersion' => 'גרסת האפליקציה',
 			'settings.sendFeedback.device' => 'מכשיר',
-			'settings.sendFeedback.osVersion' => 'גרסת מערכת הפעלה',
+			'settings.sendFeedback.osVersion' => 'גרסת מערכת ההפעלה',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'ייצוא היסטוריית ארוחות',
-			'settings.exportMealHistory.subtitle' => 'שיתוף קובץ CSV של הארוחות שתיעדת',
-			'settings.exportMealHistory.shareText' => 'ייצוא היסטוריית הארוחות שלך מ-Calorify',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'לא ניתן היה לייצא את היסטוריית הארוחות: ${error}',
-			'settings.clearAllData.title' => 'מחיקת כל הנתונים',
-			'settings.clearAllData.subtitle' => 'מחיקה בלתי הפיכה של כל המידע שלך',
-			'settings.clearAllData.confirmationTitle' => 'למחוק את כל הנתונים?',
-			'settings.clearAllData.confirmationMessage' => 'לא ניתן לבטל פעולה זו. כל הארוחות, המועדפים והגדרות הפרופיל יימחקו לצמיתות.',
-			'settings.clearAllData.cancel' => 'בטל',
-			'settings.clearAllData.clearEverything' => 'מחק הכל',
-			'settings.debugOptions.title' => 'אפשרויות ניפוי שגיאות',
-			'settings.developerModeEnabled' => 'מצב מפתח הופעל!',
+			'settings.exportMealHistory.title' => 'ייצא היסטוריית ארוחות',
+			'settings.exportMealHistory.subtitle' => 'שתף CSV של הארוחות שנרשמו',
+			'settings.exportMealHistory.shareText' => 'ייצוא היסטוריית הארוחות של Calorify שלך',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'לא ניתן לייצא היסטוריית הארוחות: ${error}',
+			'settings.clearAllData.title' => 'נקה את כל הנתונים',
+			'settings.clearAllData.subtitle' => 'מחק ללא אפשרות שחזור את כל המידע שלך',
+			'settings.clearAllData.confirmationTitle' => 'לנקות את כל הנתונים?',
+			'settings.clearAllData.confirmationMessage' => 'פעולה זו לא ניתנת לביטול. כל הארוחות שנרשמו, המועדפים והגדרות הפרופיל ימחקו לצמיתות.',
+			'settings.clearAllData.cancel' => 'ביטול',
+			'settings.clearAllData.clearEverything' => 'נקה הכל',
+			'settings.debugOptions.title' => 'אפשרויות דיבוג',
+			'settings.developerModeEnabled' => 'מצב מפתח מופעל!',
 			'settings.healthConnect.title' => 'Health Connect',
-			'settings.healthConnect.subtitle' => 'צפייה וניהול הרשאות',
-			'settings.healthConnect.unavailable.title' => 'Health Connect אינו זמין',
-			'settings.healthConnect.unavailable.description' => 'Health Connect אינו זמין במכשיר זה. אנא התקן/י את Health Connect מחנות Play (Android 9+) או עדכן/י ל-Android 14+.',
+			'settings.healthConnect.subtitle' => 'הצג ונהל הרשאות',
+			'settings.healthConnect.unavailable.title' => 'Health Connect לא זמין',
+			'settings.healthConnect.unavailable.description' => 'Health Connect אינו זמין במכשיר זה. אנא התקן את Health Connect מה-Play Store (Android 9+) או עדכן ל-Android 14+.',
 			'settings.healthConnect.permissions.title' => 'הרשאות',
-			'settings.healthConnect.permissions.description' => 'ההרשאות הבאות נדרשות כדי לספק אינטגרציה עם Health Connect:',
-			'settings.healthConnect.permissions.granted' => 'מאושרת',
-			'settings.healthConnect.permissions.notGranted' => 'לא מאושרת',
+			'settings.healthConnect.permissions.description' => 'מבוקשות ההרשאות הבאות כדי לאפשר אינטגרציה עם Health Connect:',
+			'settings.healthConnect.permissions.granted' => 'הוענקו',
+			'settings.healthConnect.permissions.notGranted' => 'לא הוענקו',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'קריאת סך הקלוריות שנשרפו',
 			'settings.healthConnect.permissions.caloriesBurned.description' => 'מאפשר לאפליקציה לקרוא את סך הקלוריות שנשרפו מ-Health Connect.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'הרשאה זו משמשת להצגת שריפת הקלוריות היומית שלך באפליקציה, כדי לעזור לך להבין את הוצאה האנרגטית הכוללת לאורך היום.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'הרשאה זו משמשת להצגת צריכת הקלוריות היומית שלך באפליקציה, ועוזרת להבין את ההוצאה האנרגטית הכוללת שלך במהלך היום.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'קריאת נתוני תזונה',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'מאפשר לאפליקציה לקרוא נתוני תזונה מ-Health Connect.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שעשוי להיות מתועד באפליקציות אחרות המחוברות ל-Health Connect, כדי לספק תמונה מקיפה של התזונה שלך.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'מאפשר לאפליקציה לקרוא נתוני תזונה מתוך Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'הרשאה זו מאפשרת לאפליקציה לקרוא מידע תזונתי שאולי הוזן על ידי אפליקציות אחרות המחוברות ל-Health Connect, ולספק תמונה מקיפה של התזונה שלך.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'כתיבת נתוני תזונה',
 			'settings.healthConnect.permissions.nutritionWrite.description' => 'מאפשר לאפליקציה לכתוב נתוני תזונה ל-Health Connect.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שתיעדת ל-Health Connect, כך שנתוני התזונה שלך יהיו זמינים גם באפליקציות בריאות וכושר אחרות שבהן את/ה משתמש/ת.',
-			'settings.healthConnect.managePermissions' => 'ניהול הרשאות',
-			'settings.healthConnect.openSettings' => 'פתח/י את הגדרות Health Connect',
-			'settings.healthConnect.requestPermissions' => 'בקש/י הרשאות',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'בקשת ההרשאות בוטלה או נכשלה. נסה/י שוב או אשר/י הרשאות ידנית בהגדרות Health Connect.',
-			'settings.healthConnect.permissionRequestFailed' => 'אין אפשרות לבקש הרשאות. נסה/י שוב או אשר/י הרשאות ידנית בהגדרות Health Connect.',
-			'settings.healthConnect.requestingPermissions' => 'מבקשים הרשאות...',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שרשמת ל-Health Connect, ולהפוך את נתוני התזונה הזמינים לאפליקציות בריאות וכושר אחרות שבהן אתה משתמש.',
+			'settings.healthConnect.managePermissions' => 'נהל הרשאות',
+			'settings.healthConnect.openSettings' => 'פתח הגדרות Health Connect',
+			'settings.healthConnect.requestPermissions' => 'בקש הרשאות',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'בקשת ההרשאה בוטלה או נכשלה. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.',
+			'settings.healthConnect.permissionRequestFailed' => 'לא ניתן לבקש הרשאות. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.',
+			'settings.healthConnect.requestingPermissions' => 'מבקש…',
 			'settings.about.title' => 'אודות',
-			'settings.about.tagline' => 'מודעות לקלוריות מהירה, חינמית ומבוססת פרטיות',
+			'settings.about.tagline' => 'מודעות קלוריות מהירה, חינמית ובעדיפות לפרטיות',
 			'settings.about.ourStory.title' => 'הסיפור שלנו',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} נולדה מתסכול פשוט: רוב אפליקציות ספירת הקלוריות מורכבות מדי, דורשות הזנה ידנית מתמדת, גובות דמי מנוי גבוהים או פוגעות בפרטיות.\n\nכמפתח יחיד, רציתי לבנות משהו פשוט והוגן יותר — אפליקציה שמשתמשת ב-AI כדי להפחית מאמץ, נשארת מהירה וחינמית, ומתייחסת לנתוני הבריאות שלך בכבוד.\n\n${appLabel} היא האפליקציה שרציתי שתתקיים: בלי חשבונות, בלי מעקב, בלי פרסומות — רק תובנות ברורות ומעשיות ומטרות הבריאות שלך.',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} נולדה מתוך תסכול פשוט: רוב אפליקציות המעקב אחרי קלוריות או מסובכות מדי, או דורשות הקלדה ידנית מתמדת, גובות דמי מנוי גבוהים, או פוגעות בפרטיות.\n\nכאשר מפתח יחיד עמד מאחורי הרעיון, רציתי לבנות משהו פשוט והוגן — אפליקציה שמשתמשת ב-AI להפחית את המאמץ, נשארת מהירה וחינמית לשימוש, ומכבדת את נתוני הבריאות שלך.\n\n${appLabel} היא האפליקציה שהייתי רוצה שתהיה קיימת: ללא חשבונות, ללא איסוף מעקב, ללא פרסומות — רק תובנות ברורות ומעשיות ומטרות בריאות אישיות.',
 			'settings.about.privacy.title' => 'הפרטיות שלך חשובה',
-			'settings.about.privacy.description' => 'הפרטיות אינה מחשבה מאוחרת — היא עקרון תכנוני. כך זה נראה בפועל:',
-			'settings.about.privacy.noAccounts' => 'אין צורך בחשבונות\nהשתמש/י באפליקציה מיד. בלי הרשמה, בלי זיהוי.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ללא מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילי שימוש ואינה עוקבת אחריך באפליקציות או אתרים.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ללא פרסומות כברירת מחדל\n${appLabel} בנויה לפעול ללא פרסומות או מוניטיזציה מבוססת נתונים.',
-			'settings.about.privacy.noDataSelling' => 'ללא מכירת נתונים\nנתוני הבריאות שלך לעולם לא נמכרים או משותפים לצדדים שלישיים.',
-			'settings.about.privacy.localStorage' => 'אחסון מקומי תחילה\nהנתונים שלך נשארים במכשיר שלך.',
+			'settings.about.privacy.description' => 'פרטיות אינה מחשבה מאוחרת — זו עקרון עיצובי. הנה מה זה אומר בפועל:',
+			'settings.about.privacy.noAccounts' => 'אין דרישות להקמת חשבונות\nהשתמש באפליקציה מיד. ללא הרשמות, ללא זיהויים.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ללא מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילים שימושיים, ולא עוקבת אחרי שימושך באפליקציות או אתרי אינטרנט.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ללא פרסומות לפי עיצוב\n${appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.',
+			'settings.about.privacy.noDataSelling' => 'אין מכירת נתונים\nנתוני הבריאות שלך אינם נמכרים או משותפים לצדדים שלישיים.',
+			'settings.about.privacy.localStorage' => 'אחסון מקומי כעיקרון\nהנתונים שלך נשארים על המכשיר שלך.',
 			'settings.about.privacy.privacyPolicy' => 'מדיניות פרטיות',
-			'settings.about.developer.title' => 'פותחה על ידי מפתח יחיד',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} מפותחת ומתוחזקת על ידי מפתח יחיד, המתמקד ביצירת תוכנת בריאות שקטה ומכבדת פרטיות.\n\nמשוב נקרא אישית ותורם לעיצוב כיוון האפליקציה.',
+			'settings.about.developer.title' => 'נבנה על ידי מפתח עצמאי',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} נבנתה ומנוהלת על ידי מפתח יחיד המתמקד ביצירת תוכנת בריאות רגועה המכבדת פרטיות.\n\nהמשובים נקראים באופן אישי ועוזרים לעצב את כיוון האפליקציה.',
 			'settings.about.developer.website' => 'אתר',
-			'settings.about.developer.email' => 'דוא"ל',
-			'settings.about.feedback.title' => ({required Object appLabel}) => 'נהנ/ית מ-${appLabel}?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'המשוב שלך עוזר להפוך את ${appLabel} לטובה יותר עבור כולם.',
-			'settings.about.feedback.rateApp' => 'דרג/י בחנות Play',
-			'settings.about.feedback.sendFeedback' => 'שליחת משוב',
+			'settings.about.developer.email' => 'אימייל',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'נהנים מ-${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'המשוב שלך עוזר לשפר את ${appLabel} עבור כולם.',
+			'settings.about.feedback.rateApp' => 'דרג ב-Play Store',
+			'settings.about.feedback.sendFeedback' => 'שלח משוב',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
-			'reminders.title' => 'הישאר/י על המסלול עם תזכורות',
-			'reminders.description' => 'קבל/י תזכורות עדינות לתעד את הארוחות ולהתמיד ביעדי התזונה שלך',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'בנייה ${buildNumber}',
+			'reminders.title' => 'הישארו על המסלול עם תזכורות',
+			'reminders.description' => 'קבל תזכורות עדינות לרישום הארוחות והישאר עקבי עם יעדי התזונה שלך',
 			'reminders.notificationsEnabled' => 'התראות מופעלות',
-			'reminders.notificationsDisabled' => 'התראות כבויות',
-			'reminders.enabledSubtitle' => 'תקבל/י תזכורות לארוחות',
-			'reminders.disabledSubtitle' => 'אפשר/י התראות כדי לקבל תזכורות לארוחות',
-			'reminders.mealReminders' => 'תזכורות לארוחות',
-			'reminders.breakfast' => 'ארוחת בוקר',
-			'reminders.lunch' => 'ארוחת צהריים',
-			'reminders.dinner' => 'ארוחת ערב',
-			'reminders.snack' => 'חטיף',
+			'reminders.notificationsDisabled' => 'התראות מושבתות',
+			'reminders.enabledSubtitle' => 'תקבל תזכורות לארוחות',
+			'reminders.disabledSubtitle' => 'הפעל התראות כדי לקבל תזכורות לארוחות',
+			'reminders.mealReminders' => 'תזכורות ארוחה',
+			'reminders.breakfast' => 'בוקר',
+			'reminders.lunch' => 'צהריים',
+			'reminders.dinner' => 'ערב',
+			'reminders.snack' => 'נשנוש',
 			'reminders.unknown' => 'לא ידוע',
-			'reminders.change' => 'שנה/י',
-			'reminders.enableNotifications' => 'אפשר/י התראות',
-			'reminders.skipForNow' => 'דלג/י לעת עתה',
-			'reminders.saveChanges' => 'שמור/י שינויים',
-			'reminders.enabledSuccessfully' => 'התראות הופעלו בהצלחה!',
+			'reminders.change' => 'שנה',
+			'reminders.enableNotifications' => 'הפעל התראות',
+			'reminders.skipForNow' => 'דלג לעכשיו',
+			'reminders.saveChanges' => 'שמור שינויים',
+			'reminders.enabledSuccessfully' => 'ההתראות הופעלו בהצלחה!',
 			'reminders.permissionDenied' => 'הרשאת התראות נדחתה',
 			'reminders.errorEnabling' => ({required Object error}) => 'שגיאה בהפעלת התראות: ${error}',
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'שגיאה בהשלמת ההגדרה: ${error}',
-			'notifications.breakfast.title' => 'זמן לארוחת בוקר! 🍳',
-			'notifications.breakfast.body' => 'אל תשכח/י לתעד את ארוחת הבוקר',
-			'notifications.lunch.title' => 'זמן לארוחת צהריים! 🥗',
-			'notifications.lunch.body' => 'זה הזמן לתעד את ארוחת הצהריים',
-			'notifications.dinner.title' => 'זמן לארוחת ערב! 🍽️',
-			'notifications.dinner.body' => 'אל תשכח/י לתעד את ארוחת הערב',
-			'notifications.snack.title' => 'זמן לחטיף! 🍎',
-			'notifications.snack.body' => 'זה הזמן לחטיף בריא',
+			'notifications.breakfast.title' => 'זמן ארוחת בוקר! 🍳',
+			'notifications.breakfast.body' => 'אל תשכח/י לרשום את ארוחת הבוקר שלך',
+			'notifications.lunch.title' => 'זמן ארוחת צהריים! 🥗',
+			'notifications.lunch.body' => 'הגיע הזמן לרשום את ארוחת הצהריים',
+			'notifications.dinner.title' => 'זמן ארוחת ערב! 🍽️',
+			'notifications.dinner.body' => 'אל תשכח/י לרשום את ארוחת הערב שלך',
+			'notifications.snack.title' => 'זמן נשנוש! 🍎',
+			'notifications.snack.body' => 'הגיע הזמן לנשנוש בריא',
 			'notifications.test.title' => 'התראת בדיקה',
-			'login.title' => 'התחברות',
-			'login.signInWithGoogle' => 'התחבר/י עם Google',
+			'login.title' => 'התחבר',
+			'login.signInWithGoogle' => 'התחבר עם Google',
 			'login.signInFailed' => 'ההתחברות עם Google נכשלה או בוטלה.',
-			'disclaimer.pleaseNote' => 'לתשומת לבך',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} מספקת מידע תזונתי משוער. הדיוק תלוי בקלט שלך ובשונות בין מזונות. השתמש/י בכך כהנחיה, לא כמקור מוחלט. תמיד התייעצ/י עם איש מקצוע לייעוץ תזונתי אישי.',
+			'disclaimer.pleaseNote' => 'שים/י לב',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} מספקת מידע תזונתי מוערך. הדיוק תלוי בקלט שלך ובשונות של המזון. השתמש/י בזה כהנחיה, לא כמקור מוחלט. להתייעצות אישית התייעץ/י עם איש מקצוע.',
 			'disclaimer.snap.portionSize.title' => 'גודל מנה',
-			'disclaimer.snap.portionSize.description' => 'הדיוק של ההערכות תלוי מאוד בהערכתך הנכונה של גודל המנה.',
+			'disclaimer.snap.portionSize.description' => 'דיוק הערכות תלוי במידה רבה בהערכת גודל המנה על ידך.',
 			'disclaimer.snap.preparationMethods.title' => 'שיטות הכנה',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול עשויות להשפיע באופן משמעותי על הערך התזונתי. ההערכות של ${appLabel} אינן תמיד לוקחות בחשבון את כל השינויים הללו.',
-			'disclaimer.snap.ingredients.title' => 'רכיבים',
-			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם רכיבים רבים ונסתרים עשויות להוביל להערכות פחות מדויקות.',
-			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר המידע',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'מאגר המזון של ${appLabel} רחב, אך ייתכן שאינו כולל כל פריט מזון או וריאציה.',
-			'disclaimer.weightEstimate.title' => 'אודות הערכת משקל',
-			'disclaimer.weightEstimate.description' => 'השינוי החזוי במשקל הוא הערכה תיאורטית המבוססת על מודל פשוט של קלוריות נכנסות מול קלוריות נשרפות. זה מיועד כהנחיה למוטיבציה בלבד, ולא כניבוי למשקל בפועל.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.',
+			'disclaimer.snap.ingredients.title' => 'מרכיבים',
+			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם מרכיבים נסתרים רבים עלולות להוביל להערכות פחות מדויקות.',
+			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר הנתונים',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'מאגר המזונות של ${appLabel} הוא רחב אך עשוי שלא לכלול כל פריט או וריאציה.',
+			'disclaimer.weightEstimate.title' => 'על אומדן שינוי משקל',
+			'disclaimer.weightEstimate.description' => 'שינוי משקל משוער הוא חישוב תאורטי המבוסס על מודל קלוריות פנימה מול קלוריות החוצה. הוא מיועד כהנעה מוטיבציונית בלבד, לא כנבואה למשקל בפועל.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'דיוק הקלוריות',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ההערכה מדויקת רק כפי דיוק המעקב אחרי צריכת ושריפת הקלוריות שלך. תיעוד לא מדויק יוביל להערכה לא מדויקת.',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'הערכה זו מדויקת ככל שהרישום שלך של צריכת ושריפת הקלוריות מדויק. רישום שגוי יוביל להערכה שגויה.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'גורמים ביולוגיים',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'ירידה/עלייה בפועל במשקל מושפעת מחילוף חומרים, הורמונים, שינה, סטרס, הידרציה ועוד גורמים אישיים ש-${appLabel} אינה יכולה למדוד.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'הורדה/עלייה ממשית במשקל מושפעת ממטבוליזם, הורמונים, שינה, מתח, רמת נוזלים וגורמים אישיים אחרים ש-${appLabel} לא יכולה למדוד.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'משקל מים ותנודות',
-			'disclaimer.weightEstimate.waterWeight.description' => 'משקל יומי תקין יכול להשתנות משמעותית עקב אגירת נוזלים, עיכול ותזמון. ההערכה אינה מתחשבת בשינויים היומיים הללו.',
+			'disclaimer.weightEstimate.waterWeight.description' => 'משקל יומי רגיל יכול להשתנות משמעותית בגלל החזקת מים, עיכול וזמנים. ההערכה אינה מתחשבת בתנודות יומיות אלו.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'הנחיה מקצועית',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעצ/י עם איש מקצוע רפואי או דיאטנ/ית קליני/ת לניהול משקל מותאם אישית.',
-			'disclaimer.healthMetrics.description' => 'מדדים אלה עוזרים לך להבין את צרכי האנרגיה של הגוף ולהנחות את יעדי התזונה שלך.',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.',
+			'disclaimer.healthMetrics.description' => 'מדדים אלה עוזרים לך להבין את צרכי האנרגיה של גופך ומנחים את יעדי התזונה שלך.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'קצב חילוף החומרים הבסיסי (BMR) הוא מספר הקלוריות שהגוף שורף במנוחה כדי לקיים תפקודים בסיסיים כמו נשימה וזרימת דם. BMR תלוי בגיל, מגדר, גובה ומשקל. BMR גבוה יותר משמעו שהגוף שורף יותר קלוריות במנוחה, לעיתים בשל מסת שריר גבוהה יותר, גיל צעיר יותר, או היותך זכר. BMR נמוך יותר מעיד לרוב על מסת שריר נמוכה יותר, גיל מבוגר יותר, או היותך נקבה.',
+			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolic Rate (BMR) הוא מספר הקלוריות שגופך שורף במנוחה כדי לקיים פונקציות בסיסיות כמו נשימה וזרימת דם. ה-BMR תלוי בגיל, מגדר, גובה ומשקל. BMR גבוה יותר משקף שריפת קלוריות במנוחה גבוהה יותר, לעיתים בשל מסת שריר גבוהה יותר, גיל צעיר יותר או מגדר זכר. BMR נמוך יותר מעיד בדרך כלל על מסת שריר נמוכה יותר, גיל מתקדם יותר או מגדר נקבה.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'הוצאה אנרגטית יומית כוללת (TDEE) היא סך הקלוריות שאת/ה שורפ/ת ביום, כולל ה-BMR שלך בתוספת קלוריות מפעילות גופנית ותנועה יומית. TDEE תלוי ב-BMR וברמת הפעילות שלך. TDEE גבוה יותר משמעו שאת/ה שורפ/ת יותר קלוריות בסך הכול, בדרך כלל עקב פעילות גבוהה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פעילות יומית מועטה יותר או BMR נמוך.',
-			'disclaimer.healthMetrics.dailyGoal.title' => 'יעד יומי',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'היעד היומי הוא צריכת הקלוריות היומית המומלצת שלך בהתבסס על ה-TDEE ומטרת המשקל. לירידה במשקל, צורכים פחות קלוריות מה-TDEE. לשמירה על משקל, מתאימים ל-TDEE. לעלייה במשקל, צורכים יותר קלוריות מה-TDEE. זה עוזר לך להשיג שינוי משקל בקצב בריא.',
-			'disclaimer.calorieExpenditure.title' => 'הערכת הוצאת קלוריות',
-			'disclaimer.calorieExpenditure.description' => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות קצב חילוף החומרים הבסיסי (BMR) ורמת הפעילות (TDEE), מותאמים לחלק היום שעבר.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'כיצד מחושבת ההערכה',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'אנחנו מחשבים את ה-TDEE שלך (על בסיס הפרופיל) ומכפילים אותו בשבריר היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.',
+			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) הוא כלל הקלוריות שאתה שורף ביום, כולל ה-BMR שלך יחד עם הקלוריות מפעילות גופנית ותנועה יומית. ה-TDEE תלוי ב-BMR וברמת הפעילות שלך. TDEE גבוה יותר אומר שאתה שורף יותר קלוריות בסך הכל, בדרך כלל בגלל פעילות רבה יותר או BMR גבוה יותר. TDEE נמוך יותר מצביע על פחות פעילות יומית או BMR נמוך יותר.',
+			'disclaimer.healthMetrics.dailyGoal.title' => 'מטרה יומית',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'המטרה היומית היא צריכת הקלוריות המומלצת עבורך בהתבסס על ה-TDEE והמטרה המשקלית שלך. לאובדן משקל צורכים פחות קלוריות מה-TDEE. לשימור משקל מתאימים ל-TDEE. לעלייה במשקל צורכים יותר קלוריות מה-TDEE. זה עוזר להשיג את שינוי המשקל הרצוי בקצב בריא.',
+			'disclaimer.calorieExpenditure.title' => 'אומדן הוצאה קלורית',
+			'disclaimer.calorieExpenditure.description' => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות ה-BMR שלך ורמת הפעילות (TDEE), פרופורציונלית לחלק היומי שעבר.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'כיצד מחושב האומדן',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'אנו מחשבים את ה-TDEE שלך (בהתבסס על הפרופיל) ומכפילים אותו בחלק של היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'הנחיה מקצועית',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'אל תשתמש/י בהערכה זו לקבלת החלטות רפואיות. תמיד התייעצ/י עם איש מקצוע רפואי או דיאטנ/ית קליני/ת להמלצות מותאמות אישית.',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'אל תשתמש/י באומדן זה לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'המשך',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנ/ית מ-${appLabel}?',
-			'feedbackRating.yes' => 'כן, אני נהנ/ית',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מ-${appLabel}?',
+			'feedbackRating.yes' => 'כן, אני נהנה/ת',
 			'feedbackRating.no' => 'לא ממש',
-			'feedbackRating.rateStepHeading' => 'דרג/י בחנות Play',
-			'feedbackRating.emailStepHeading' => 'שליחת משוב בדוא"ל',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ושומר על המשך הפיתוח. תקדיש/י רגע להשאיר אחד?',
-			'feedbackRating.shareFeedbackViaEmail' => 'המשוב שלך מעצב את הצעד הבא — אנחנו קוראים כל הודעה. לשתף מחשבות בדוא"ל?',
-			'feedbackRating.rateCta' => 'דרג/י בחנות Play',
-			'feedbackRating.maybeLater' => 'אולי אחר כך',
-			'feedbackRating.sendFeedback' => 'שלח/י משוב',
-			'feedbackRating.noThanks' => 'לא תודה',
-			'feedbackRating.aboutUsDescription' => 'נבנה באהבה על ידי צוות קטן. אנחנו מתמקדים בפרטיות, פשטות ובבניית הרגלי אכילה טובים יותר.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'סקרנים מי עומד מאחורי ${appLabel}? ראו ',
+			'feedbackRating.rateStepHeading' => 'דרג ב-Play Store',
+			'feedbackRating.emailStepHeading' => 'שלח משוב בדוא"ל',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'דירוג קצר עוזר לאחרים למצוא את ${appLabel} ושומר על המשך הפיתוח. האם תקדיש/י רגע להשאיר דירוג?',
+			'feedbackRating.shareFeedbackViaEmail' => 'המשוב שלך מעצב את מה שיבוא אחר כך — אנו קוראים כל הודעה. תרצה/י לשתף את מחשבותיך במייל?',
+			'feedbackRating.rateCta' => 'דרג ב-Play Store',
+			'feedbackRating.maybeLater' => 'אולי מאוחר יותר',
+			'feedbackRating.sendFeedback' => 'שלח משוב',
+			'feedbackRating.noThanks' => 'לא, תודה',
+			'feedbackRating.aboutUsDescription' => 'נוצר/ה בקפידה על ידי צוות קטן. אנו מתמקדים בפרטיות, בפשטות ובעזרה ביצירת הרגלי אכילה טובים יותר.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'סקרנים מי מאחורי ${appLabel}? ראו ',
 			'feedbackRating.aboutUsLinkLabel' => 'אודותינו',
-			'feedbackRating.thankYouMessage' => 'תודה! נשאל שוב בפעם אחרת.',
-			'health.syncFailed' => 'לא ניתן היה לסנכרן ל-Health Connect',
+			'feedbackRating.thankYouMessage' => 'תודה! נשאל שוב בעתיד.',
+			'health.syncFailed' => 'לא ניתן לסנכרן ל-Health Connect',
 			'health.mealSynced' => 'הארוחה סונכרנה עם Health Connect',
 			_ => null,
 		};

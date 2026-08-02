@@ -5,7 +5,8 @@ Resolve the OpenAI API key for local scripts (release notes, etc.).
 Resolution order (first match wins):
 1. OPENAI_API_KEY environment variable
 2. scripts/.openai_api_key in the repository (first non-empty line, trimmed; no shell parsing)
-3. API_KEY= assignment in scripts/generate_translations.sh (tolerant: optional export, flexible
+3. OPENAI_API_KEY in ignored backend/staging.env or backend/production.env
+4. API_KEY= assignment in scripts/generate_translations.sh (tolerant: optional export, flexible
    spaces around =, double- or single-quoted or unquoted value; ignores full-line # comments)
 """
 
@@ -46,7 +47,10 @@ def _value_from_assignment_tail(tail: str) -> str | None:
         return out if isinstance(out, str) else None
     # Unquoted: first shell token
     m = re.match(r"^(\S+)", tail)
-    return m.group(1) if m else None
+    value = m.group(1) if m else None
+    if value and (value.startswith("$") or value.startswith("`")):
+        return None
+    return value
 
 
 def extract_api_key_from_shell_file(path: Path) -> str | None:
@@ -84,6 +88,25 @@ def from_dotfile(scripts_dir: Path) -> str | None:
     return None
 
 
+def from_env_file(path: Path, variable: str) -> str | None:
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError:
+        return None
+    pattern = re.compile(rf"^(?:export\s+)?{re.escape(variable)}\s*=\s*(.*)$")
+    for raw_line in text.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        match = pattern.match(line)
+        if not match:
+            continue
+        value = _value_from_assignment_tail(match.group(1))
+        if value:
+            return value
+    return None
+
+
 def main() -> int:
     if len(sys.argv) < 2:
         print("Usage: resolve_openai_api_key.py <git_root>", file=sys.stderr)
@@ -100,6 +123,12 @@ def main() -> int:
     if from_file:
         print(from_file, end="")
         return 0
+
+    for env_path in (root / "backend" / "staging.env", root / "backend" / "production.env"):
+        from_env = from_env_file(env_path, "OPENAI_API_KEY")
+        if from_env:
+            print(from_env, end="")
+            return 0
 
     path = scripts_dir / "generate_translations.sh"
     from_script = extract_api_key_from_shell_file(path)

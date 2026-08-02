@@ -3,62 +3,62 @@
   "flag": "🇪🇸",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Has hecho demasiadas solicitudes. Espera un momento antes de intentarlo de nuevo.",
-    "networkError": "Error de red. Comprueba tu conexión a internet.",
-    "unknownError": "Algo salió mal. Inténtalo de nuevo más tarde.",
+    "rateLimitExceeded": "Has realizado demasiadas solicitudes. Espera un momento antes de intentarlo de nuevo.",
+    "networkError": "Error de red. Por favor, verifica tu conexión a internet.",
+    "unknownError": "Algo salió mal. Por favor, inténtalo de nuevo más tarde.",
     "loadingProfileData": "Error al cargar los datos del perfil",
     "somethingWentWrong": "Algo salió mal.",
     "retry": "Reintentar"
   },
   "onboarding": {
     "welcome": "Bienvenido a {appLabel}",
-    "subtitle": "Tu compañero personal de nutrición impulsado por IA",
-    "getStarted": "Empezar",
+    "subtitle": "Tu compañero personal de nutrición potenciado por AI",
+    "getStarted": "Comenzar",
     "features": {
       "foodRecognition": {
-        "title": "Reconocimiento inteligente de comida",
-        "description": "Toma una foto y deja que la IA identifique tu comida"
+        "title": "Reconocimiento inteligente de alimentos",
+        "description": "Toma una foto y deja que la AI identifique tu comida"
       },
       "aiAnalysis": {
-        "title": "Análisis con IA",
-        "description": "Obtén al instante datos nutricionales a partir de tus descripciones"
+        "title": "Análisis por AI",
+        "description": "Obtén datos nutricionales instantáneos a partir de tus descripciones"
       },
       "healthIntegration": {
         "title": "Integración con Health Connect",
-        "description": "Conéctate con Health Connect para obtener mejores análisis"
+        "description": "Conecta con Health Connect para obtener mejores insights"
       }
     },
     "gender": {
       "title": "¿Cuál es tu género?",
-      "description": "El género nos ayuda a calcular con precisión tu tasa metabólica basal (TMB).",
+      "description": "El género nos ayuda a calcular con precisión tu tasa metabólica basal (BMR).",
       "next": "Siguiente"
     },
     "height": {
-      "title": "¿Cuál es tu estatura?",
-      "description": "Tu estatura nos ayuda a calcular tu IMC y tus necesidades energéticas con precisión.",
+      "title": "¿Cuánto mides?",
+      "description": "Tu altura nos ayuda a calcular tu BMI y tus necesidades energéticas con precisión.",
       "metric": "Métrico",
       "imperial": "Imperial",
       "next": "Siguiente"
     },
     "weight": {
       "currentTitle": "¿Cuál es tu peso actual?",
-      "currentDescription": "Tu peso actual es esencial para personalizar tus objetivos diarios.",
+      "currentDescription": "Tu peso actual es esencial para personalizar tus metas diarias.",
       "targetTitle": "¿Cuál es tu peso objetivo?",
-      "targetDescription": "Definir un peso objetivo nos ayuda a trazar tu plan a largo plazo.",
+      "targetDescription": "Establecer un peso objetivo nos ayuda a determinar tu plan a largo plazo.",
       "metric": "Métrico",
       "imperial": "Imperial",
       "next": "Siguiente"
     },
     "age": {
-      "title": "¿Cuál es tu fecha de nacimiento?",
-      "description": "Tu edad nos ayuda a calcular con precisión tus necesidades de calorías.",
+      "title": "¿Cuándo es tu cumpleaños?",
+      "description": "Tu edad nos ayuda a calcular tus necesidades calóricas con precisión.",
       "next": "Siguiente"
     },
     "bmiScale": {
       "underweight": "Bajo",
       "healthy": "Saludable",
       "overweight": "Sobrepeso",
-      "obese": "Obesidad",
+      "obese": "Obeso",
       "categories": {
         "underweight": "Bajo peso",
         "healthyWeight": "Peso saludable",
@@ -67,33 +67,33 @@
       },
       "messages": {
         "underweight": "Podemos ayudarte a crear un plan saludable para alcanzar un peso equilibrado con comidas ricas en nutrientes.",
-        "healthy": "¡Excelente! Estás en un rango saludable. Te ayudaremos a mantener tu vitalidad y niveles de energía.",
-        "overweight": "{appLabel} simplificará tu camino con seguimiento impulsado por IA para ayudarte a alcanzar tu objetivo con comodidad.",
+        "healthy": "¡Buen trabajo! Estás en un rango saludable. Te ayudaremos a mantener tu vitalidad y niveles de energía.",
+        "overweight": "{appLabel} simplificará tu camino con seguimiento potenciado por AI para ayudarte a alcanzar tu objetivo con comodidad.",
         "obese": "Estamos aquí para apoyarte con orientación personalizada y estrategias sostenibles para tus metas de salud."
       }
     },
     "weightGoal": {
       "title": "¿Cuál es tu objetivo?",
-      "description": "Elige el objetivo que mejor describa lo que quieres lograr"
+      "description": "Elige la meta que mejor describa lo que quieres lograr"
     },
     "activityLevel": {
       "title": "¿Qué tan activo eres?",
-      "description": "Esto nos ayuda a calcular con mayor precisión tus necesidades calóricas diarias"
+      "description": "Esto nos ayuda a calcular tus necesidades calóricas diarias con mayor precisión"
     },
     "healthConnect": {
       "title": "Conéctate con Health Connect",
-      "description": "Sincroniza tus datos de salud para mejores análisis y seguimiento automático de calorías",
+      "description": "Sincroniza tus datos de salud para obtener mejores insights y seguimiento automático de calorías",
       "automaticTracking": {
         "title": "Seguimiento automático de calorías",
-        "description": "Registra calorías quemadas desde tus apps de fitness"
+        "description": "Registra las calorías quemadas desde tus apps de fitness"
       },
       "progressInsights": {
-        "title": "Información sobre tu progreso",
-        "description": "Obtén análisis detallados de tus tendencias de salud"
+        "title": "Insights de progreso",
+        "description": "Obtén insights detallados sobre tus tendencias de salud"
       },
       "seamlessIntegration": {
-        "title": "Integración sin fricciones",
-        "description": "Sincroniza datos de tus apps de salud favoritas"
+        "title": "Integración sin complicaciones",
+        "description": "Sincroniza datos desde tus apps de salud favoritas"
       },
       "connected": "Health Connect conectado",
       "notConnected": "Health Connect no conectado",
@@ -101,76 +101,76 @@
       "skipForNow": "Saltar por ahora",
       "statusConnected": "Health Connect está conectado.",
       "statusSuccess": "¡Health Connect se ha conectado correctamente!",
-      "statusPermissionDenied": "Permiso denegado. Activa los permisos de Health Connect desde los ajustes del teléfono para {appLabel}.",
+      "statusPermissionDenied": "Permiso denegado. Por favor, habilita los permisos de Health Connect desde los ajustes de tu teléfono para {appLabel}.",
       "statusError": "Error al configurar Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "No estás solo",
-        "genericMessage": "Las investigaciones muestran que el seguimiento constante es el principal factor de éxito a largo plazo.",
-        "personalizedMessage": "Para una persona de {age} años ({gender}) que desea {goal}, el seguimiento constante es el principal predictor de éxito.",
-        "closingMessage": "{appLabel} lo hace 10 veces más fácil que hacerlo manualmente.",
-        "getStartedTitle": "¿Listo para empezar?",
-        "tipPhoto": "Toma una foto de tus comidas para un análisis instantáneo",
-        "tipConsistency": "Registra de forma constante para ver un progreso significativo",
-        "tipProgress": "Controla tu progreso a diario para mantener la motivación",
-        "button": "¡Vamos!",
+        "genericMessage": "La investigación muestra que el seguimiento constante es el predictor número 1 de éxito a largo plazo.",
+        "personalizedMessage": "Para una persona de {age} años {gender} que quiere {goal}, el seguimiento constante es el predictor número 1 de éxito.",
+        "closingMessage": "{appLabel} lo hace 10x más fácil que hacerlo manualmente.",
+        "getStartedTitle": "¿Listo para comenzar?",
+        "tipPhoto": "Toma una foto de tus comidas para análisis instantáneo",
+        "tipConsistency": "Registra con constancia para ver progreso significativo",
+        "tipProgress": "Registra tu progreso diariamente para mantener la motivación",
+        "button": "Vamos",
         "defaultGender": "persona",
         "defaultGoal": "una versión más saludable de ti"
       },
       "healthProfile": {
         "title": "Tu perfil de salud",
-        "bmiDescription": "Según tus métricas, tu IMC es {bmi}.",
-        "finalizeDescription": "Vamos a finalizar tu perfil para personalizar tu experiencia.",
+        "bmiDescription": "Según tus métricas, tu BMI es {bmi}.",
+        "finalizeDescription": "Finalicemos tu perfil para personalizar tu experiencia.",
         "goalGain": "ganar",
         "goalLose": "perder",
-        "goalReach": "Para alcanzar tu objetivo, deberás {direction} {diff} {unit}.",
+        "goalReach": "Para alcanzar tu objetivo, vas a {direction} {diff} {unit}.",
         "goalReached": "¡Estás en tu peso objetivo! Te ayudaremos a mantenerlo.",
-        "button": "¡Vamos!"
+        "button": "Vamos"
       },
       "goalLifestyle": {
         "title": "¡Excelente comienzo!",
-        "description": "Has dado el primer paso hacia {goalText}. Dado que estás {activityText}, {appLabel} ajustará tus objetivos para que se adapten a tu estilo de vida.",
-        "personalizedTargets": "Objetivos de calorías personalizados",
-        "aiMealDetection": "Detección de comidas con IA",
-        "macroBreakdowns": "Desgloses detallados de macronutrientes",
-        "button": "Empezar",
-        "defaultGoal": "tus objetivos",
+        "description": "Has dado el primer paso hacia {goalText}. Como eres {activityText}, {appLabel} ajustará tus objetivos para coincidir con tu estilo de vida.",
+        "personalizedTargets": "Objetivos calóricos personalizados",
+        "aiMealDetection": "Detección de comidas potenciada por AI",
+        "macroBreakdowns": "Desglose detallado de macronutrientes",
+        "button": "Vamos",
+        "defaultGoal": "tus metas",
         "defaultActivity": "activo"
       }
     }
   },
   "tabs": {
-    "dashboard": "Panel",
+    "dashboard": "Resumen",
     "history": "Historial"
   },
   "home": {
     "aiSummary": {
-      "title": "Tu resumen con IA",
-      "logMore": "Registra más comidas en los próximos días para obtener tus insights personalizados con IA.",
+      "title": "Tu resumen por AI",
+      "logMore": "Registra más comidas en los próximos días para obtener tus insights personalizados por AI.",
       "loading": "Cargando tu resumen...",
       "mealCount": "{count} comidas registradas",
       "macroBalanceScore": "Puntuación de equilibrio {score}",
       "topFoods": "Alimentos destacados",
       "trendUp": "Calorías en aumento",
-      "trendDown": "Calorías a la baja",
+      "trendDown": "Calorías en descenso",
       "trendSteady": "Calorías estables",
       "generatedAt": "Actualizado {time}"
     },
     "dailyGoal": {
-      "title": "Configura tu objetivo diario",
+      "title": "Establece tu objetivo diario",
       "titleSet": "Tu objetivo diario",
-      "description": "¿Listo para comenzar tu camino de bienestar? Establece abajo tu objetivo diario de calorías para impulsar tu progreso.",
-      "descriptionSet": "¡Tu brújula está lista! Este es tu objetivo diario de calorías para guiarte.",
+      "description": "¿Listo para comenzar tu camino de bienestar? Establece tu objetivo de calorías diarias abajo para impulsar tu progreso.",
+      "descriptionSet": "¡Tu rumbo está marcado! Este es tu objetivo calórico diario para guiarte.",
       "yourGoal": "Tu objetivo",
-      "goal": "Objetivo",
+      "goal": "Meta",
       "dailyCalories": "Calorías diarias (kcal)",
       "setGoal": "Establecer objetivo",
-      "intake": "Ingeridas",
+      "intake": "Ingesta",
       "burned": "Quemadas",
       "weightImpact": "Impacto en el peso",
       "estLoss": "Pérdida estimada de",
-      "estGain": "Aumento estimado de",
+      "estGain": "Ganancia estimada de",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -181,7 +181,7 @@
       "fat": "Grasas",
       "fiber": "Fibra",
       "grams": "gramos",
-      "chartAccessibilityLabel": "Gráfico de macros"
+      "chartAccessibilityLabel": "Gráfico de macronutrientes"
     },
     "intakeProgress": {
       "title": "Distribución de macros de hoy",
@@ -189,42 +189,42 @@
       "current": "Actual"
     },
     "intakeHistory": {
-      "title": "Historial de macros de 7 días",
+      "title": "Historial de macros 7 días",
       "trendTitle": "Tendencia de hoy",
       "peakHour": "Pico: {hour}:00",
-      "noHistoryYet": "Aún no hay historial",
-      "startLogging": "Empieza a registrar comidas para ver aquí tus\ntendencias de macros de 7 días"
+      "noHistoryYet": "Sin historial todavía",
+      "startLogging": "Empieza a registrar comidas para ver tus\ntendencias de macronutrientes de 7 días aquí"
     },
     "mealLog": {
       "title": "Comidas registradas",
-      "emptyMessage": "Toma una foto de tu última comida para registrarla aquí.",
+      "emptyMessage": "Haz una foto de tu última comida para registrarla aquí.",
       "noMealsToday": "No hay comidas registradas hoy",
       "seeAllMeals": "Ver todas las comidas"
     },
     "mealDescription": {
-      "title": "Añadir rápido con IA",
-      "description": "Describe tu comida y deja que la IA se encargue de los detalles.",
-      "hint": "p. ej., En el desayuno tomé un tazón grande de avena con un plátano en rodajas y una cucharada de suero ...",
+      "title": "Añadir rápido con AI",
+      "description": "Describe tu comida y deja que la AI se encargue de los detalles.",
+      "hint": "p.ej. En el desayuno tomé un bol grande de avena con un plátano en rodajas y una cucharada de whey ...",
       "analyzeMeal": "Analizar comida"
     },
     "favoriteMeals": {
       "title": "Comidas favoritas",
       "description": "Añade rápidamente una de tus comidas favoritas.",
       "noFavorites": "Aún no hay comidas favoritas.",
-      "addFavoriteHint": "Pulsa la estrella en una comida para marcarla como favorita.",
-      "seeAll": "Ver todo",
+      "addFavoriteHint": "Haz clic en la estrella de una comida para marcarla como favorita.",
+      "seeAll": "Ver todas",
       "add": "Añadir"
     },
     "mealSnap": {
-      "title": "Haz una foto y registra tu comida",
-      "description": "Usa tu cámara para tomar una foto de tu comida y que la IA la analice.",
+      "title": "Fotografía y registra tu comida",
+      "description": "Usa la cámara para tomar una foto de tu comida y que la AI la analice.",
       "openCamera": "Abrir cámara",
       "gallery": "Galería",
-      "compressingPhoto": "Optimizando la foto…",
+      "compressingPhoto": "Optimizando foto…",
       "uploadingPhoto": "Subiendo foto…"
     },
     "connectHealth": {
-      "title": "Sincroniza con Health Connect",
+      "title": "Sincronizar con Health Connect",
       "description": "Sincroniza tus datos de nutrición con Health Connect",
       "install": "Instalar",
       "connect": "Conectar"
@@ -232,52 +232,52 @@
   },
   "history": {
     "noMeals": "No hay comidas registradas",
-    "emptyMessage": "Toma una foto de tu última comida para registrarla aquí.",
+    "emptyMessage": "Haz una foto de tu última comida para registrarla aquí.",
     "today": "Hoy",
     "yesterday": "Ayer"
   },
   "meal": {
-    "ohNo": "¡Oh no!",
+    "ohNo": "¡Vaya!",
     "delete": "Eliminar",
     "editMeal": "Editar comida",
     "addMeal": "Añadir comida",
     "saveMeal": "Guardar comida",
     "save": "Guardar",
     "mealName": "Nombre de la comida",
-    "mealNameHint": "p. ej., Huevos revueltos con tostadas",
+    "mealNameHint": "p.ej., Huevos revueltos con tostadas",
     "mealQuantity": "Cantidad de la comida",
-    "mealQuantityHint": "p. ej., 1 tazón, 2 rebanadas",
+    "mealQuantityHint": "p.ej., 1 bol, 2 rebanadas",
     "timeOfMeal": "Hora de la comida",
-    "timeOfMealHint": "Selecciona la hora a la que comiste",
+    "timeOfMealHint": "Selecciona la hora en que comiste",
     "mealType": "Tipo de comida",
     "nutrition": {
       "calories": "Calorías",
       "carbs": "Carbohidratos (g)",
-      "protein": "Proteínas (g)",
-      "fat": "Grasas (g)",
+      "protein": "Proteína (g)",
+      "fat": "Grasa (g)",
       "fiber": "Fibra (g)"
     },
     "deleteConfirmation": {
       "title": "Eliminar comida",
-      "message": "¿Seguro que quieres eliminar este registro de comida?",
+      "message": "¿Estás seguro de que quieres eliminar esta entrada de comida?",
       "cancel": "Cancelar",
       "delete": "Eliminar"
     },
     "addedToLog": "¡Comida añadida a tu registro!",
     "couldNotAdd": "No se pudo añadir la comida: {error}",
-    "savedSuccessfully": "¡Comida añadida correctamente!",
-    "updatedSuccessfully": "¡Comida actualizada correctamente!",
+    "savedSuccessfully": "¡Comida añadida con éxito!",
+    "updatedSuccessfully": "¡Comida actualizada con éxito!",
     "errorSaving": "Error al guardar la comida: {error}",
     "removedFromFavorites": "¡Eliminado de favoritos!",
     "savedAsFavorite": "¡Comida guardada como favorita!",
     "unfavorite": "Quitar de favoritos",
-    "couldNotUpdateFavorite": "No se pudo actualizar el favorito: {error}",
-    "feedbackThanks": "¡Gracias por tus comentarios!",
-    "reanalysisUpdated": "Actualizamos el análisis de la comida según tus comentarios.",
-    "failedToProcess": "No se pudo procesar: {error}",
-    "failedToProcessImage": "No se pudo procesar la imagen: {error}",
+    "couldNotUpdateFavorite": "No se pudo actualizar favorito: {error}",
+    "feedbackThanks": "¡Gracias por la retroalimentación!",
+    "reanalysisUpdated": "Se actualizó el análisis de la comida según tus comentarios.",
+    "failedToProcess": "Error al procesar: {error}",
+    "failedToProcessImage": "Error al procesar la imagen: {error}",
     "errorCompressingImage": "Error al comprimir la imagen: {error}",
-    "failedToSave": "No se pudieron guardar los datos. Inténtalo de nuevo.",
+    "failedToSave": "Error al guardar los datos. Por favor, inténtalo de nuevo.",
     "skip": "Omitir",
     "questionFlow": {
       "progress": "Pregunta {current} de {total}",
@@ -286,8 +286,8 @@
       "continueLabel": "Continuar"
     },
     "analysis": {
-      "title": "Análisis de comida con IA",
-      "stepStarted": "Comenzando…",
+      "title": "Analizando tu comida",
+      "stepStarted": "Iniciando…",
       "stepDecomposition": "Entendiendo tu comida…",
       "stepIngredients": "Relacionando ingredientes con datos nutricionales…",
       "stepUncertainty": "Comprobando la confianza…",
@@ -295,35 +295,35 @@
       "stepResult": "Finalizando tu resultado…",
       "stepError": "Algo salió mal",
       "stepDefault": "Analizando tu comida…",
-      "progressUnderstand": "Entender",
-      "progressMatch": "Relacionar",
-      "progressCheck": "Comprobar",
-      "progressMealType": "Seleccionando el tipo de comida",
-      "progressFinish": "Finalizar",
-      "detectedIngredientHeading": "Ingredientes detectados",
+      "progressUnderstand": "Entendiendo tu comida",
+      "progressMatch": "Buscando nutrición de ingredientes",
+      "progressCheck": "Comprobando porciones y confianza",
+      "progressMealType": "Eligiendo tipo de comida",
+      "progressFinish": "Calculando calorías y macros",
+      "detectedIngredientHeading": "Ingredientes que estamos detectando",
       "ingredientsOverflow": "{count} más",
       "ingredientsLine": "{count} ingredientes detectados",
-      "ingredientsPending": "Analizando ingredientes…",
+      "ingredientsPending": "Escaneando ingredientes…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "Consejo: La consistencia supera a la perfección — los registros regulares revelan los patrones que importan.",
+      "offlineTip1": "Consejo: Para fotos, la luz natural y una vista cenital ayudan con la precisión de la porción.",
+      "offlineTip2": "Consejo: Menciona bebidas, salsas y aceite de cocina—añaden calorías que a menudo se olvidan.",
+      "offlineTip3": "Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.",
+      "offlineTip4": "Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.",
+      "offlineTip5": "Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado)."
     },
     "feedback": {
-      "title": "¿Qué se ve mal?",
+      "title": "¿Qué está mal?",
       "subtitle": "Ayúdanos a mejorar el análisis seleccionando uno o más problemas.",
       "tellUsMore": "Cuéntanos más",
-      "describeIncorrect": "Describe qué estaba incorrecto",
+      "describeIncorrect": "Describe qué fue incorrecto",
       "submit": "Enviar",
-      "issueFoodIdentification": "Identificación del alimento",
+      "issueFoodIdentification": "Identificación de alimentos",
       "issuePortionSize": "Tamaño de la porción",
       "issueCalorieDistribution": "Distribución de calorías",
       "issueMacrosWrong": "Macros incorrectos",
-      "issueMissingItems": "Elementos faltantes",
-      "issueExtraItems": "Elementos de más",
+      "issueMissingItems": "Faltan elementos",
+      "issueExtraItems": "Elementos extra",
       "issueOther": "Otro"
     }
   },
@@ -331,8 +331,8 @@
     "title": "Favoritos",
     "empty": "Aún no hay comidas favoritas.",
     "searchPlaceholder": "Buscar comidas favoritas",
-    "searchEmptyTitle": "No hay favoritos que coincidan con tu búsqueda",
-    "searchEmptySubtitle": "Prueba con un nombre de comida, cantidad o tipo diferentes.",
+    "searchEmptyTitle": "Ningún favorito coincide con tu búsqueda",
+    "searchEmptySubtitle": "Prueba con un nombre de comida, cantidad o tipo de comida diferente.",
     "sortLabel": "Ordenar favoritos",
     "undo": "Deshacer",
     "removed": "Se eliminó {name} de favoritos",
@@ -346,15 +346,15 @@
     "title": "Perfil",
     "noProfileData": "No se encontraron datos de perfil",
     "yourProfile": "Tu perfil",
-    "viewAndManage": "Consulta y gestiona tu información de salud",
+    "viewAndManage": "Ver y administrar tu información de salud",
     "sections": {
       "profile": "PERFIL",
       "basicInformation": "INFORMACIÓN BÁSICA",
-      "goalsAndActivity": "OBJETIVOS Y ACTIVIDAD",
+      "goalsAndActivity": "METAS Y ACTIVIDAD",
       "calculatedValues": "VALORES CALCULADOS"
     },
     "gender": "Género",
-    "height": "Estatura",
+    "height": "Altura",
     "weight": "Peso",
     "age": "Edad",
     "weightGoal": "Objetivo de peso",
@@ -363,9 +363,9 @@
     "healthMetrics": "Métricas de salud",
     "notSet": "No establecido",
     "years": "años",
-    "updatedSuccessfully": "¡Perfil actualizado correctamente!",
+    "updatedSuccessfully": "¡Perfil actualizado con éxito!",
     "calculatedValues": {
-      "bmr": "TMB",
+      "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "Objetivo diario",
       "calPerDay": "cal/día",
@@ -375,7 +375,7 @@
   "healthScore": {
     "title": "Puntuación de salud",
     "whyThisScore": "¿Por qué esta puntuación?",
-    "note": "Esta puntuación es una estimación de la IA basada en los ingredientes identificados y la densidad nutricional. Consulta siempre a un profesional para recibir asesoramiento dietético.",
+    "note": "Esta puntuación es una estimación por AI basada en los ingredientes identificados y la densidad nutricional. Consulta siempre a un profesional para asesoramiento dietético.",
     "unhealthy": "Poco saludable",
     "healthy": "Saludable",
     "neutral": "Neutral"
@@ -385,11 +385,11 @@
     "sections": {
       "personalInformation": "INFORMACIÓN PERSONAL",
       "physicalMeasurements": "MEDIDAS FÍSICAS",
-      "goalsAndActivity": "OBJETIVOS Y ACTIVIDAD"
+      "goalsAndActivity": "METAS Y ACTIVIDAD"
     },
     "gender": "Género",
     "dateOfBirth": "Fecha de nacimiento",
-    "height": "Estatura",
+    "height": "Altura",
     "weight": "Peso",
     "weightGoal": "Objetivo de peso",
     "activityLevel": "Nivel de actividad",
@@ -404,22 +404,22 @@
     "metricKg": "Métrico (kg)",
     "imperialLbs": "Imperial (lbs)",
     "genders": {
-      "male": "Hombre",
-      "female": "Mujer",
+      "male": "Masculino",
+      "female": "Femenino",
       "other": "Otro"
     },
     "weightGoals": {
       "loseWeight": {
         "name": "Perder peso",
-        "description": "Crea un déficit calórico para perder peso"
+        "description": "Crear un déficit calórico para perder peso"
       },
       "maintainWeight": {
         "name": "Mantener peso",
-        "description": "Mantén tu peso actual"
+        "description": "Mantener tu peso actual"
       },
       "gainWeight": {
         "name": "Ganar peso",
-        "description": "Crea un superávit calórico para ganar peso"
+        "description": "Crear un superávit calórico para ganar peso"
       }
     },
     "activityLevels": {
@@ -441,7 +441,7 @@
       },
       "extremelyActive": {
         "name": "Extremadamente activo",
-        "description": "Ejercicio muy intenso, trabajo físico"
+        "description": "Ejercicio muy intenso o trabajo físico"
       }
     }
   },
@@ -454,7 +454,7 @@
       "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "SOPORTE Y LEGAL",
       "about": "ACERCA DE",
-      "dangerZone": "ZONA DE PELIGRO",
+      "dangerZone": "ZONA DE RIESGO",
       "developer": "DESARROLLADOR"
     },
     "editProfile": {
@@ -468,14 +468,14 @@
       "noResults": "No se encontraron resultados"
     },
     "heightUnit": {
-      "title": "Unidad de estatura"
+      "title": "Unidad de altura"
     },
     "weightUnit": {
       "title": "Unidad de peso"
     },
     "mealReminders": {
       "title": "Recordatorios de comidas",
-      "subtitle": "Mantente al día con alertas oportunas"
+      "subtitle": "Mantente en camino con alertas oportunas"
     },
     "theme": {
       "title": "Tema",
@@ -484,10 +484,10 @@
       "system": "Sistema"
     },
     "sendFeedback": {
-      "title": "Enviar comentarios",
+      "title": "Enviar retroalimentación",
       "subtitle": "Ayúdanos a mejorar {appLabel}",
       "emailSubject": "Comentarios sobre {appLabel}",
-      "emailBodyPrefix": "Por favor, escribe tus comentarios a continuación:",
+      "emailBodyPrefix": "Por favor, proporciona tu retroalimentación a continuación:",
       "appVersion": "Versión de la app",
       "device": "Dispositivo",
       "osVersion": "Versión del SO",
@@ -495,15 +495,15 @@
     },
     "exportMealHistory": {
       "title": "Exportar historial de comidas",
-      "subtitle": "Comparte un CSV de tus comidas registradas",
+      "subtitle": "Compartir un CSV de tus comidas registradas",
       "shareText": "Tu exportación del historial de comidas de Calorify",
       "failed": "No se pudo exportar el historial de comidas: {error}"
     },
     "clearAllData": {
       "title": "Borrar todos los datos",
-      "subtitle": "Elimina de forma irreversible toda tu información",
+      "subtitle": "Eliminar irreversiblemente toda tu información",
       "confirmationTitle": "¿Borrar todos los datos?",
-      "confirmationMessage": "Esta acción no se puede deshacer. Todas tus comidas, favoritos y ajustes de perfil se eliminarán permanentemente.",
+      "confirmationMessage": "Esta acción no se puede deshacer. Todas tus comidas registradas, favoritos y ajustes de perfil se eliminarán permanentemente.",
       "cancel": "Cancelar",
       "clearEverything": "Borrar todo"
     },
@@ -513,10 +513,10 @@
     "developerModeEnabled": "¡Modo desarrollador activado!",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "Ver y gestionar permisos",
+      "subtitle": "Ver y administrar permisos",
       "unavailable": {
         "title": "Health Connect no disponible",
-        "description": "Health Connect no está disponible en este dispositivo. Instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+."
+        "description": "Health Connect no está disponible en este dispositivo. Por favor, instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+."
       },
       "permissions": {
         "title": "Permisos",
@@ -525,55 +525,55 @@
         "notGranted": "No concedido",
         "caloriesBurned": {
           "title": "Leer calorías totales quemadas",
-          "description": "Permite que la app lea tus calorías totales quemadas desde Health Connect.",
-          "usage": "Este permiso se usa para mostrar tu gasto calórico diario en la app, ayudándote a entender tu gasto energético total a lo largo del día."
+          "description": "Permite a la app leer tus calorías totales quemadas desde Health Connect.",
+          "usage": "Este permiso se utiliza para mostrar tu quema de calorías diaria en la app, ayudándote a entender tu gasto energético total durante el día."
         },
         "nutritionRead": {
           "title": "Leer datos de nutrición",
-          "description": "Permite que la app lea datos de nutrición desde Health Connect.",
-          "usage": "Este permiso permite que la app lea información de nutrición que pueda haber sido registrada por otras apps conectadas a Health Connect, ofreciendo una visión integral de tu nutrición."
+          "description": "Permite a la app leer datos de nutrición desde Health Connect.",
+          "usage": "Este permiso permite que la app lea información nutricional que otros apps conectados a Health Connect hayan registrado, proporcionando una vista completa de tu nutrición."
         },
         "nutritionWrite": {
           "title": "Escribir datos de nutrición",
-          "description": "Permite que la app escriba datos de nutrición en Health Connect.",
-          "usage": "Este permiso permite que la app sincronice tus comidas registradas con Health Connect, poniendo tus datos de nutrición a disposición de otras apps de salud y fitness que utilices."
+          "description": "Permite a la app escribir datos de nutrición en Health Connect.",
+          "usage": "Este permiso permite que la app sincronice tus comidas registradas a Health Connect, haciendo que tu información nutricional esté disponible para otras apps de salud y fitness que uses."
         }
       },
-      "managePermissions": "Gestionar permisos",
+      "managePermissions": "Administrar permisos",
       "openSettings": "Abrir ajustes de Health Connect",
       "requestPermissions": "Solicitar permisos",
-      "permissionRequestCancelledOrFailed": "La solicitud de permisos se canceló o falló. Inténtalo de nuevo o concédelos manualmente en los ajustes de Health Connect.",
-      "permissionRequestFailed": "No se pueden solicitar permisos. Inténtalo de nuevo o concédelos manualmente en los ajustes de Health Connect.",
+      "permissionRequestCancelledOrFailed": "La solicitud de permisos fue cancelada o falló. Por favor, inténtalo de nuevo o concede los permisos manualmente en los ajustes de Health Connect.",
+      "permissionRequestFailed": "No se pudo solicitar permisos. Por favor, inténtalo de nuevo o concede los permisos manualmente en los ajustes de Health Connect.",
       "requestingPermissions": "Solicitando..."
     },
     "about": {
       "title": "Acerca de",
-      "tagline": "Conciencia calórica rápida, gratuita y con la privacidad primero",
+      "tagline": "Rápido, gratis y con privacidad como prioridad",
       "ourStory": {
         "title": "Nuestra historia",
-        "content": "{appLabel} nació de una frustración sencilla: la mayoría de apps de conteo de calorías son demasiado complicadas, exigen entrada manual constante, cobran suscripciones altas o comprometen tu privacidad.\n\nComo desarrollador en solitario, quise crear algo más simple y justo: una app que use IA para reducir el esfuerzo, que sea rápida y gratuita, y que trate tus datos de salud con respeto.\n\n{appLabel} es la app que me hubiese gustado que existiera: sin cuentas, sin rastreo, sin anuncios; solo información clara y práctica y tus objetivos de salud."
+        "content": "{appLabel} nació de una frustración simple: la mayoría de las apps de seguimiento de calorías son demasiado complicadas, requieren entradas manuales constantes, cobran suscripciones altas o comprometen la privacidad.\n\nComo desarrollador independiente, quería crear algo más simple y justo — una app que use AI para reducir el esfuerzo, que sea rápida y gratuita, y que trate tus datos de salud con respeto.\n\n{appLabel} es la app que desearía que existiera: sin cuentas, sin seguimiento, sin anuncios — solo insights claros y prácticos y tus metas de salud."
       },
       "privacy": {
         "title": "Tu privacidad importa",
-        "description": "La privacidad no es una idea secundaria: es un principio de diseño. Esto es lo que significa en la práctica:",
-        "noAccounts": "Sin cuentas\nUsa la app de inmediato. Sin registros ni identidades.",
-        "noTracking": "Sin rastreo de comportamiento\n{appLabel} no supervisa tu actividad, no crea perfiles de uso ni te rastrea en apps o sitios web.",
-        "noAds": "Sin anuncios por diseño\n{appLabel} está creada para funcionar sin anuncios ni monetización basada en datos.",
-        "noDataSelling": "Sin venta de datos\nTus datos de salud nunca se venden ni comparten con terceros.",
-        "localStorage": "Almacenamiento local primero\nTus datos se quedan en tu dispositivo.",
+        "description": "La privacidad no es una idea secundaria — es un principio de diseño. Esto es lo que significa en la práctica:",
+        "noAccounts": "Sin cuentas requeridas\nUsa la app de inmediato. Sin registros, sin identidades.",
+        "noTracking": "Sin seguimiento de comportamiento\n{appLabel} no monitorea tu actividad, no crea perfiles de uso ni te rastrea entre apps o sitios web.",
+        "noAds": "Sin anuncios por diseño\n{appLabel} está construido para funcionar sin anuncios ni monetización basada en datos.",
+        "noDataSelling": "Sin venta de datos\nTus datos de salud nunca se venden ni se comparten con terceros.",
+        "localStorage": "Almacenamiento local primero\nTus datos permanecen en tu dispositivo.",
         "privacyPolicy": "Política de privacidad"
       },
       "developer": {
-        "title": "Creada por un desarrollador en solitario",
-        "description": "{appLabel} está construida y mantenida por un único desarrollador centrado en crear software de salud sereno y respetuoso con la privacidad.\n\nLeemos personalmente tus comentarios y ayudan a definir la dirección de la app.",
+        "title": "Desarrollado por un desarrollador independiente",
+        "description": "{appLabel} está creado y mantenido por un único desarrollador independiente enfocado en crear software de salud tranquilo y respetuoso con la privacidad.\n\nLos comentarios se leen personalmente y ayudan a dar forma a la dirección de la app.",
         "website": "Sitio web",
         "email": "Correo"
       },
       "feedback": {
-        "title": "¿Disfrutas de {appLabel}?",
-        "description": "Tus comentarios ayudan a que {appLabel} mejore para todos.",
+        "title": "¿Disfrutando {appLabel}?",
+        "description": "Tu retroalimentación ayuda a hacer {appLabel} mejor para todos.",
         "rateApp": "Valorar en Play Store",
-        "sendFeedback": "Enviar comentarios"
+        "sendFeedback": "Enviar retroalimentación"
       }
     },
     "appInfo": {
@@ -582,43 +582,43 @@
     }
   },
   "reminders": {
-    "title": "Mantente en el camino con recordatorios",
-    "description": "Recibe recordatorios suaves para registrar tus comidas y mantener la constancia con tus objetivos de nutrición",
-    "notificationsEnabled": "Notificaciones habilitadas",
-    "notificationsDisabled": "Notificaciones deshabilitadas",
+    "title": "Mantente al día con recordatorios",
+    "description": "Recibe recordatorios suaves para registrar tus comidas y mantener la constancia con tus metas nutricionales",
+    "notificationsEnabled": "Notificaciones activadas",
+    "notificationsDisabled": "Notificaciones desactivadas",
     "enabledSubtitle": "Recibirás recordatorios de comidas",
-    "disabledSubtitle": "Habilita las notificaciones para recibir recordatorios de comidas",
+    "disabledSubtitle": "Activa las notificaciones para recibir recordatorios de comidas",
     "mealReminders": "Recordatorios de comidas",
     "breakfast": "Desayuno",
     "lunch": "Almuerzo",
     "dinner": "Cena",
-    "snack": "Snack",
+    "snack": "Merienda",
     "unknown": "Desconocido",
     "change": "Cambiar",
-    "enableNotifications": "Habilitar notificaciones",
+    "enableNotifications": "Activar notificaciones",
     "skipForNow": "Saltar por ahora",
     "saveChanges": "Guardar cambios",
-    "enabledSuccessfully": "¡Notificaciones habilitadas correctamente!",
+    "enabledSuccessfully": "¡Notificaciones activadas con éxito!",
     "permissionDenied": "Permiso de notificaciones denegado",
-    "errorEnabling": "Error al habilitar las notificaciones: {error}",
-    "errorCompletingSetup": "Error al finalizar la configuración: {error}"
+    "errorEnabling": "Error al activar notificaciones: {error}",
+    "errorCompletingSetup": "Error al completar la configuración: {error}"
   },
   "notifications": {
     "breakfast": {
       "title": "¡Hora del desayuno! 🍳",
-      "body": "No olvides registrar tu desayuno"
+      "body": "No te olvides de registrar tu desayuno"
     },
     "lunch": {
       "title": "¡Hora del almuerzo! 🥗",
-      "body": "Es momento de registrar tu almuerzo"
+      "body": "Es hora de registrar tu almuerzo"
     },
     "dinner": {
       "title": "¡Hora de la cena! 🍽️",
-      "body": "No olvides registrar tu cena"
+      "body": "No te olvides de registrar tu cena"
     },
     "snack": {
-      "title": "¡Hora del snack! 🍎",
-      "body": "Es momento de un snack saludable"
+      "title": "¡Hora de un snack! 🍎",
+      "body": "Hora de un snack saludable"
     },
     "test": {
       "title": "Notificación de prueba"
@@ -627,74 +627,74 @@
   "login": {
     "title": "Iniciar sesión",
     "signInWithGoogle": "Iniciar sesión con Google",
-    "signInFailed": "El inicio de sesión con Google falló o se canceló."
+    "signInFailed": "El inicio de sesión con Google falló o fue cancelado."
   },
   "disclaimer": {
-    "pleaseNote": "Ten en cuenta",
+    "pleaseNote": "Por favor ten en cuenta",
     "snap": {
-      "description": "{appLabel} proporciona información nutricional estimada. La precisión depende de tus datos y de las variaciones de los alimentos. Úsala como guía, no como fuente definitiva. Consulta a un profesional para recibir asesoramiento dietético personalizado.",
+      "description": "{appLabel} ofrece información nutricional estimada. La precisión depende de tu entrada y de las variaciones de los alimentos. Úsalo como guía, no como fuente definitiva. Consulta a un profesional para asesoramiento dietético personalizado.",
       "portionSize": {
         "title": "Tamaño de la porción",
-        "description": "La precisión de las estimaciones depende en gran medida de tu correcta valoración del tamaño de la porción."
+        "description": "La precisión de las estimaciones depende en gran medida de tu evaluación correcta del tamaño de la porción."
       },
       "preparationMethods": {
         "title": "Métodos de preparación",
-        "description": "Los métodos de cocción pueden alterar significativamente el contenido nutricional de los alimentos. Las estimaciones de {appLabel} pueden no reflejar siempre estas variaciones."
+        "description": "Los métodos de cocción pueden alterar significativamente el contenido nutricional de los alimentos. Las estimaciones de {appLabel} pueden no tener en cuenta siempre estas variaciones."
       },
       "ingredients": {
         "title": "Ingredientes",
-        "description": "Los platos complejos con muchos ingredientes ocultos pueden dar lugar a estimaciones menos precisas."
+        "description": "Platos complejos con muchos ingredientes ocultos pueden conducir a estimaciones menos precisas."
       },
       "databaseLimitations": {
         "title": "Limitaciones de la base de datos",
-        "description": "La base de datos de alimentos de {appLabel} es amplia, pero puede que no incluya todos los alimentos o variaciones existentes."
+        "description": "La base de datos de alimentos de {appLabel} es extensa pero puede no incluir todos los alimentos o variaciones."
       }
     },
     "weightEstimate": {
-      "title": "Acerca de la estimación de peso",
-      "description": "El cambio de peso proyectado es una estimación teórica basada en el modelo simple de calorías ingeridas vs. calorías gastadas. Está pensada solo como una guía motivacional, no como una predicción de tu peso real.",
+      "title": "Sobre la estimación de peso",
+      "description": "El cambio de peso proyectado es una estimación teórica basada en el modelo simple de calorías entrantes vs. calorías gastadas. Está destinado solo como guía motivacional, no como predicción de tu peso real.",
       "calorieAccuracy": {
-        "title": "Precisión de calorías",
-        "description": "Esta estimación es tan precisa como tu registro de calorías ingeridas y gastadas. Un registro inexacto producirá una proyección inexacta."
+        "title": "Precisión de las calorías",
+        "description": "Esta estimación es tan precisa como tu registro de ingesta y gasto calórico. Un registro inexacto dará lugar a una proyección inexacta."
       },
       "biologicalFactors": {
         "title": "Factores biológicos",
-        "description": "La pérdida/ganancia de peso real está influida por metabolismo, hormonas, sueño, estrés, hidratación y otros factores individuales que {appLabel} no puede medir."
+        "description": "La pérdida/ganancia de peso real está influenciada por metabolismo, hormonas, sueño, estrés, hidratación y otros factores individuales que {appLabel} no puede medir."
       },
       "waterWeight": {
-        "title": "Agua y fluctuaciones de peso",
-        "description": "El peso diario normal puede fluctuar significativamente por retención de agua, digestión y horarios. La estimación no tiene en cuenta estos cambios diarios."
+        "title": "Peso de agua y fluctuaciones",
+        "description": "El peso diario normal puede fluctuar significativamente debido a retención de agua, digestión y horarios. La estimación no contempla estos cambios diarios."
       },
       "professionalGuidance": {
         "title": "Orientación profesional",
-        "description": "No uses esta estimación para tomar decisiones médicas. Consulta siempre a un profesional de la salud o dietista registrado para un manejo de peso personalizado."
+        "description": "No uses esta estimación para tomar decisiones médicas. Consulta siempre a un profesional de la salud o a un dietista registrado para consejos personalizados de manejo de peso."
       }
     },
     "healthMetrics": {
-      "description": "Estas métricas te ayudan a entender las necesidades energéticas de tu cuerpo y a guiar tus objetivos de nutrición.",
+      "description": "Estas métricas te ayudan a entender las necesidades energéticas de tu cuerpo y guiar tus objetivos nutricionales.",
       "bmr": {
-        "title": "TMB",
-        "description": "La Tasa Metabólica Basal (TMB) es la cantidad de calorías que tu cuerpo quema en reposo para mantener funciones básicas como la respiración y la circulación. La TMB depende de tu edad, género, estatura y peso. Una TMB más alta significa que tu cuerpo quema más calorías en reposo, a menudo por mayor masa muscular, menor edad o ser hombre. Una TMB más baja suele indicar menor masa muscular, mayor edad o ser mujer."
+        "title": "BMR",
+        "description": "La tasa metabólica basal (BMR) es la cantidad de calorías que tu cuerpo quema en reposo para mantener funciones básicas como la respiración y la circulación. El BMR depende de tu edad, género, altura y peso. Un BMR más alto significa que tu cuerpo quema más calorías en reposo, a menudo debido a mayor masa muscular, menor edad o ser hombre. Un BMR más bajo suele indicar menos masa muscular, mayor edad o ser mujer."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "El Gasto Energético Diario Total (TDEE) es el total de calorías que quemas al día, incluyendo tu TMB más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu TMB y tu nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, normalmente por ser más activo o tener una TMB más alta. Un TDEE más bajo sugiere menos actividad diaria o una TMB menor."
+        "description": "El gasto energético diario total (TDEE) es las calorías totales que quemas por día, incluyendo tu BMR más las calorías de la actividad física y el movimiento diario. El TDEE depende de tu BMR y nivel de actividad. Un TDEE más alto significa que quemas más calorías en general, generalmente por ser más activo o tener un BMR mayor. Un TDEE más bajo sugiere menos actividad diaria o un BMR más bajo."
       },
       "dailyGoal": {
         "title": "Objetivo diario",
-        "description": "El objetivo diario es tu ingesta recomendada de calorías según tu TDEE y tu objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener, igualas tu TDEE. Para ganar peso, consumes más que tu TDEE. Esto te ayuda a lograr el cambio deseado de peso a un ritmo saludable."
+        "description": "El objetivo diario es tu ingesta calórica recomendada basada en tu TDEE y tu objetivo de peso. Para perder peso, consumes menos calorías que tu TDEE. Para mantener el peso, igualas tu TDEE. Para ganar peso, consumes más calorías que tu TDEE. Esto te ayuda a lograr el cambio de peso deseado a un ritmo saludable."
       }
     },
     "calorieExpenditure": {
-      "title": "Estimación de gasto calórico",
-      "description": "Cuando no hay datos de Health Connect, estimamos las calorías quemadas hoy usando tu Tasa Metabólica Basal (TMB) y nivel de actividad (TDEE), ajustadas a la porción del día transcurrida.",
+      "title": "Estimación de gasto de calorías",
+      "description": "Cuando los datos de Health Connect no están disponibles, estimamos las calorías quemadas del día usando tu BMR y nivel de actividad (TDEE), ajustadas por la fracción del día que ha pasado.",
       "howCalculated": {
         "title": "Cómo se calcula la estimación",
-        "description": "Calculamos tu TDEE (según tu perfil) y lo multiplicamos por la fracción del día transcurrido (horas + minutos) / 24 para estimar las calorías quemadas hasta el momento."
+        "description": "Calculamos tu TDEE (basado en tu perfil) y lo multiplicamos por la fracción del día transcurrida (horas + minutos) / 24 para estimar las calorías quemadas hasta ahora."
       },
       "professionalGuidance": {
         "title": "Orientación profesional",
-        "description": "No uses esta estimación para tomar decisiones médicas. Consulta siempre a un profesional de la salud o dietista registrado para un consejo personalizado."
+        "description": "No uses esta estimación para tomar decisiones médicas. Consulta siempre a un profesional de la salud o a un dietista registrado para consejos personalizados de manejo de peso."
       }
     }
   },
@@ -703,21 +703,21 @@
     "continue": "Continuar"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "¿Disfrutas de {appLabel}?",
+    "enjoyingQuestion": "¿Disfrutando {appLabel}?",
     "yes": "Sí, me gusta",
     "no": "No mucho",
     "rateStepHeading": "Valorar en Play Store",
     "emailStepHeading": "Enviar comentarios por correo",
-    "soloDevMessage": "Una valoración rápida ayuda a otros a encontrar {appLabel} y mantiene el desarrollo en marcha. ¿Te tomas un momento para dejar una?",
-    "shareFeedbackViaEmail": "Tus comentarios marcan lo que viene después: leemos cada mensaje. ¿Quieres compartir tus ideas por correo?",
+    "soloDevMessage": "Una valoración rápida ayuda a otros a encontrar {appLabel} y mantiene el desarrollo en marcha. ¿Tomarías un momento para dejar una?",
+    "shareFeedbackViaEmail": "Tu retroalimentación da forma a lo que viene — leemos cada mensaje. ¿Te gustaría compartir tus ideas por correo?",
     "rateCta": "Valorar en Play Store",
-    "maybeLater": "Quizás más tarde",
+    "maybeLater": "Quizá más tarde",
     "sendFeedback": "Enviar comentarios",
     "noThanks": "No, gracias",
-    "aboutUsDescription": "Hecho con cariño por un equipo pequeño. Nos enfocamos en la privacidad, la simplicidad y en ayudarte a construir mejores hábitos alimenticios.",
-    "aboutUsMentionBeforeLink": "¿Te preguntas quién está detrás de {appLabel}? Mira ",
-    "aboutUsLinkLabel": "Sobre nosotros",
-    "thankYouMessage": "¡Gracias! Te lo volveremos a preguntar en otro momento."
+    "aboutUsDescription": "Hecho con cuidado por un equipo pequeño. Nos enfocamos en privacidad, simplicidad y en ayudarte a construir mejores hábitos alimentarios.",
+    "aboutUsMentionBeforeLink": "¿Curioso quién está detrás de {appLabel}? Ver ",
+    "aboutUsLinkLabel": "Acerca de nosotros",
+    "thankYouMessage": "¡Gracias! Te preguntaremos de nuevo otra vez."
   },
   "health": {
     "syncFailed": "No se pudo sincronizar con Health Connect",

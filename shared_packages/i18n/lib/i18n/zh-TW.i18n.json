@@ -1,726 +1,726 @@
 {
-  "language": "English",
-  "flag": "🇺🇸",
+  "language": "繁體中文（台灣）",
+  "flag": "🇹🇼",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "You've made too many requests. Please wait a moment before trying again.",
-    "networkError": "Network error. Please check your internet connection.",
-    "unknownError": "Something went wrong. Please try again later.",
-    "loadingProfileData": "Error loading profile data",
-    "somethingWentWrong": "Something went wrong.",
-    "retry": "Retry"
+    "rateLimitExceeded": "您發出太多請求。請稍後再試。",
+    "networkError": "網路錯誤。請檢查您的網路連線。",
+    "unknownError": "發生錯誤。請稍後再試。",
+    "loadingProfileData": "載入個人資料資料時發生錯誤",
+    "somethingWentWrong": "發生問題。",
+    "retry": "重試"
   },
   "onboarding": {
-    "welcome": "Welcome to {appLabel}",
-    "subtitle": "Your personal nutrition companion powered by AI",
-    "getStarted": "Get Started",
+    "welcome": "歡迎使用 {appLabel}",
+    "subtitle": "由 AI 驅動的個人營養夥伴",
+    "getStarted": "開始使用",
     "features": {
       "foodRecognition": {
-        "title": "Smart Food Recognition",
-        "description": "Take a photo and let AI identify your meal"
+        "title": "智慧食物識別",
+        "description": "拍張照片，讓 AI 辨識您的餐點"
       },
       "aiAnalysis": {
-        "title": "AI Analysis",
-        "description": "Get instant nutrition facts from your descriptions"
+        "title": "AI 分析",
+        "description": "從您的描述即時取得營養資訊"
       },
       "healthIntegration": {
-        "title": "Health Integration",
-        "description": "Connect with Health Connect for better insights"
+        "title": "Health Connect 整合",
+        "description": "連接 Health Connect 以獲得更完整的洞察"
       }
     },
     "gender": {
-      "title": "What is your gender?",
-      "description": "Gender helps us accurately calculate your basal metabolic rate (BMR).",
-      "next": "Next"
+      "title": "您的性別是？",
+      "description": "性別有助於我們更準確地計算您的基礎代謝率 (BMR)。",
+      "next": "下一步"
     },
     "height": {
-      "title": "How tall are you?",
-      "description": "Your height helps us calculate your BMI and energy needs accurately.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "title": "您的身高是多少？",
+      "description": "您的身高可幫助我們準確計算 BMI 與能量需求。",
+      "metric": "公制",
+      "imperial": "英制",
+      "next": "下一步"
     },
     "weight": {
-      "currentTitle": "What is your current weight?",
-      "currentDescription": "Your current weight is essential for personalizing your daily goals.",
-      "targetTitle": "What is your target weight?",
-      "targetDescription": "Setting a goal weight helps us determine your long-term plan.",
-      "metric": "Metric",
-      "imperial": "Imperial",
-      "next": "Next"
+      "currentTitle": "您目前的體重是多少？",
+      "currentDescription": "目前體重對於個人化每日目標非常重要。",
+      "targetTitle": "您的目標體重是多少？",
+      "targetDescription": "設定目標體重可幫助我們規劃您的長期方案。",
+      "metric": "公制",
+      "imperial": "英制",
+      "next": "下一步"
     },
     "age": {
-      "title": "When is your birthday?",
-      "description": "Your age helps us calculate your calorie needs accurately.",
-      "next": "Next"
+      "title": "您的生日是什麼時候？",
+      "description": "年齡有助於我們準確計算您的熱量需求。",
+      "next": "下一步"
     },
     "bmiScale": {
-      "underweight": "Under",
-      "healthy": "Healthy",
-      "overweight": "Over",
-      "obese": "Obese",
+      "underweight": "偏低",
+      "healthy": "健康",
+      "overweight": "過重",
+      "obese": "肥胖",
       "categories": {
-        "underweight": "Underweight",
-        "healthyWeight": "Healthy weight",
-        "overweight": "Overweight",
-        "obese": "Obese"
+        "underweight": "體重過輕",
+        "healthyWeight": "健康體重",
+        "overweight": "體重過重",
+        "obese": "肥胖"
       },
       "messages": {
-        "underweight": "We can help you build a healthy plan to reach a balanced weight with nutrient-dense meals.",
-        "healthy": "Great job! You're in a healthy range. We'll help you maintain your vitality and energy levels.",
-        "overweight": "{appLabel} will simplify your journey with AI-powered tracking to help you reach your target comfortably.",
-        "obese": "We're here to support you with personalized guidance and sustainable strategies for your health goals."
+        "underweight": "我們可以幫助您建立健康計畫，藉由高營養密度餐點達成均衡體重。",
+        "healthy": "做得很好！您處於健康範圍。我們會協助您維持活力與能量。",
+        "overweight": "{appLabel} 會用 AI 化繁為簡的追蹤方式，幫助您舒適地達成目標。",
+        "obese": "我們會提供個人化的支援與可長期維持的策略，協助您的健康目標。"
       }
     },
     "weightGoal": {
-      "title": "What's your goal?",
-      "description": "Choose the goal that best describes what you want to achieve"
+      "title": "您的目標是什麼？",
+      "description": "選擇最能描述您想達成的目標"
     },
     "activityLevel": {
-      "title": "How active are you?",
-      "description": "This helps us calculate your daily calorie needs more accurately"
+      "title": "您的活動量如何？",
+      "description": "這有助於我們更精確地計算您的每日熱量需求"
     },
     "healthConnect": {
-      "title": "Connect with Health Connect",
-      "description": "Sync your health data for better insights and automatic calorie tracking",
+      "title": "連接 Health Connect",
+      "description": "同步健康資料以獲得更完整的洞察與自動熱量追蹤",
       "automaticTracking": {
-        "title": "Automatic Calorie Tracking",
-        "description": "Track calories burned from your fitness apps"
+        "title": "自動熱量追蹤",
+        "description": "追蹤來自您健身應用的燃燒卡路里"
       },
       "progressInsights": {
-        "title": "Progress Insights",
-        "description": "Get detailed insights into your health trends"
+        "title": "進展洞察",
+        "description": "取得更詳盡的健康趨勢分析"
       },
       "seamlessIntegration": {
-        "title": "Seamless Integration",
-        "description": "Sync data from your favorite health apps"
+        "title": "無縫整合",
+        "description": "與您喜愛的健康應用同步資料"
       },
-      "connected": "Health Connect Connected",
-      "notConnected": "Health Connect Not Connected",
-      "setup": "Setup Health Connect",
-      "skipForNow": "Skip for now",
-      "statusConnected": "Health Connect is connected.",
-      "statusSuccess": "Health Connect has been successfully connected!",
-      "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for {appLabel}.",
-      "statusError": "Error setting up Health Connect: {error}"
+      "connected": "已連接 Health Connect",
+      "notConnected": "未連接 Health Connect",
+      "setup": "設定 Health Connect",
+      "skipForNow": "暫時跳過",
+      "statusConnected": "Health Connect 已連線。",
+      "statusSuccess": "已成功連接 Health Connect！",
+      "statusPermissionDenied": "權限被拒。請在手機設定中為 {appLabel} 啟用 Health Connect 權限。",
+      "statusError": "設定 Health Connect 時發生錯誤：{error}"
     },
     "reinforcement": {
       "trackingSuccess": {
-        "title": "You're Not Alone",
-        "genericMessage": "Research shows that consistent tracking is the #1 predictor of long-term success.",
-        "personalizedMessage": "For a {age} year old {gender} looking to {goal}, consistent tracking is the #1 predictor of success.",
-        "closingMessage": "{appLabel} makes it 10x easier than doing it manually.",
-        "getStartedTitle": "Ready to get started?",
-        "tipPhoto": "Take a photo of your meals for instant analysis",
-        "tipConsistency": "Log consistently to see meaningful progress",
-        "tipProgress": "Track your progress daily to stay motivated",
-        "button": "Let's Go",
-        "defaultGender": "individual",
-        "defaultGoal": "healthier you"
+        "title": "你並非獨自一人",
+        "genericMessage": "研究顯示，一致性的紀錄是長期成功的首要預測因子。",
+        "personalizedMessage": "對於 {age} 歲的 {gender} 想要 {goal} 的人來說，一致的紀錄是成功的首要預測因子。",
+        "closingMessage": "{appLabel} 讓它比手動操作簡單 10 倍。",
+        "getStartedTitle": "準備開始了嗎？",
+        "tipPhoto": "拍攝餐點照片以獲得即時分析",
+        "tipConsistency": "持續紀錄即可看到顯著進展",
+        "tipProgress": "每天追蹤進展以維持動力",
+        "button": "出發吧",
+        "defaultGender": "個人",
+        "defaultGoal": "更健康的你"
       },
       "healthProfile": {
-        "title": "Your Health Profile",
-        "bmiDescription": "Based on your metrics, your BMI is {bmi}.",
-        "finalizeDescription": "Let's finalize your profile to customize your experience.",
-        "goalGain": "gain",
-        "goalLose": "lose",
-        "goalReach": "To reach your goal, you'll {direction} {diff} {unit}.",
-        "goalReached": "You're at your target weight! We'll help you maintain it.",
-        "button": "Let's Go"
+        "title": "您的健康檔案",
+        "bmiDescription": "依據您的資料，您的 BMI 為 {bmi}。",
+        "finalizeDescription": "讓我們完成您的個人檔案以客製化體驗。",
+        "goalGain": "增加",
+        "goalLose": "減少",
+        "goalReach": "為了達成目標，您需要{direction}{diff}{unit}。",
+        "goalReached": "您已達到目標體重！我們會協助您維持。",
+        "button": "出發吧"
       },
       "goalLifestyle": {
-        "title": "Excellent Start!",
-        "description": "You've taken the first step towards {goalText}. Since you're {activityText}, {appLabel} will adjust your targets to match your lifestyle.",
-        "personalizedTargets": "Personalized calorie targets",
-        "aiMealDetection": "AI-powered meal detection",
-        "macroBreakdowns": "Detailed macro-nutrient breakdowns",
-        "button": "Let's Go",
-        "defaultGoal": "your goals",
-        "defaultActivity": "active"
+        "title": "良好開始！",
+        "description": "您已邁出朝 {goalText} 的第一步。既然您是 {activityText}，{appLabel} 會調整目標以配合您的生活型態。",
+        "personalizedTargets": "個人化卡路里目標",
+        "aiMealDetection": "AI 驅動的餐點偵測",
+        "macroBreakdowns": "詳細的三大營養素分解",
+        "button": "出發吧",
+        "defaultGoal": "您的目標",
+        "defaultActivity": "活躍"
       }
     }
   },
   "tabs": {
-    "dashboard": "Dashboard",
-    "history": "History"
+    "dashboard": "儀表板",
+    "history": "記錄歷史"
   },
   "home": {
     "aiSummary": {
-      "title": "Your AI Summary",
-      "logMore": "Log more meals over the next few days to get your personalized AI insights.",
-      "loading": "Loading your summary...",
-      "mealCount": "{count} meals logged",
-      "macroBalanceScore": "Balance score {score}",
-      "topFoods": "Top foods",
-      "trendUp": "Calories trending up",
-      "trendDown": "Calories trending down",
-      "trendSteady": "Calories staying steady",
-      "generatedAt": "Updated {time}"
+      "title": "您的 AI 摘要",
+      "logMore": "接下來幾天多紀錄幾餐，讓 AI 為您提供個人化洞察。",
+      "loading": "載入摘要中…",
+      "mealCount": "已記錄 {count} 餐",
+      "macroBalanceScore": "均衡分數 {score}",
+      "topFoods": "常見食物",
+      "trendUp": "熱量上升中",
+      "trendDown": "熱量下降中",
+      "trendSteady": "熱量穩定",
+      "generatedAt": "更新於 {time}"
     },
     "dailyGoal": {
-      "title": "Set Your Daily Goal",
-      "titleSet": "Your Daily Goal",
-      "description": "Ready to embark on your wellness journey? Set your daily calorie target below to kickstart your progress.",
-      "descriptionSet": "Your compass is set! This is your daily calorie target to guide you.",
-      "yourGoal": "Your Goal",
-      "goal": "Goal",
-      "dailyCalories": "Daily calories (kcal)",
-      "setGoal": "Set Goal",
-      "intake": "Intake",
-      "burned": "Burned",
-      "weightImpact": "Weight Impact",
-      "estLoss": "Est. loss of",
-      "estGain": "Est. gain of",
+      "title": "設定您的每日目標",
+      "titleSet": "您的每日目標",
+      "description": "準備好展開健康旅程了嗎？在下方設定您的每日卡路里目標以啟動進程。",
+      "descriptionSet": "您的航向已設定！這是指引您每日的卡路里目標。",
+      "yourGoal": "您的目標",
+      "goal": "目標",
+      "dailyCalories": "每日卡路里 (kcal)",
+      "setGoal": "設定目標",
+      "intake": "攝取",
+      "burned": "消耗",
+      "weightImpact": "體重影響",
+      "estLoss": "預估減少",
+      "estGain": "預估增加",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Daily Summary",
-      "calories": "Calories",
-      "carbs": "Carbs",
-      "protein": "Protein",
-      "fat": "Fat",
-      "fiber": "Fiber",
-      "grams": "grams",
-      "chartAccessibilityLabel": "Macros chart"
+      "title": "每日摘要",
+      "calories": "卡路里",
+      "carbs": "碳水化合物",
+      "protein": "蛋白質",
+      "fat": "脂肪",
+      "fiber": "纖維",
+      "grams": "公克",
+      "chartAccessibilityLabel": "三大營養素圖表"
     },
     "intakeProgress": {
-      "title": "Today's Macro Split",
-      "target": "Target",
-      "current": "Current"
+      "title": "今日三大營養素分配",
+      "target": "目標",
+      "current": "目前"
     },
     "intakeHistory": {
-      "title": "7-Day Macro History",
-      "trendTitle": "Today's Trend",
-      "peakHour": "Peak: {hour}:00",
-      "noHistoryYet": "No history yet",
-      "startLogging": "Start logging meals to see your\n7-day macro trends here"
+      "title": "7 天三大營養素歷史",
+      "trendTitle": "今日趨勢",
+      "peakHour": "高峰：{hour}:00",
+      "noHistoryYet": "還沒有紀錄",
+      "startLogging": "開始記錄餐點以在此查看\n7 天三大營養素趨勢"
     },
     "mealLog": {
-      "title": "Logged Meals",
-      "emptyMessage": "Snap a picture of your last meal to log here.",
-      "noMealsToday": "No meals recorded for today",
-      "seeAllMeals": "See all meals"
+      "title": "已記錄的餐點",
+      "emptyMessage": "拍張您剛吃的餐點照片，這裡就會顯示。",
+      "noMealsToday": "今天尚未記錄餐點",
+      "seeAllMeals": "查看所有餐點"
     },
     "mealDescription": {
-      "title": "Quick Add with AI",
-      "description": "Describe your meal, and let AI handle the details.",
-      "hint": "e.g. For breakfast I had a large bowl of oatmeal with a sliced banana and a scoop of whey ...",
-      "analyzeMeal": "Analyze meal"
+      "title": "AI 快速新增",
+      "description": "描述您的餐點，讓 AI 幫您填入細節。",
+      "hint": "例如：早餐我吃了一大碗燕麥片，配半根香蕉和一匙乳清蛋白…",
+      "analyzeMeal": "分析餐點"
     },
     "favoriteMeals": {
-      "title": "Favorite Meals",
-      "description": "Quickly add one of your favorite meals.",
-      "noFavorites": "No favorite meals yet.",
-      "addFavoriteHint": "Click the star on a meal to mark it as a favorite.",
-      "seeAll": "See all",
-      "add": "Add"
+      "title": "我的最愛餐點",
+      "description": "快速新增您常吃的餐點。",
+      "noFavorites": "目前沒有最愛餐點。",
+      "addFavoriteHint": "點選餐點上的星號即可標為最愛。",
+      "seeAll": "查看全部",
+      "add": "新增"
     },
     "mealSnap": {
-      "title": "Snap & Track Your Meal",
-      "description": "Use your camera to take a picture of your food for AI analysis.",
-      "openCamera": "Open Camera",
-      "gallery": "Gallery",
-      "compressingPhoto": "Optimizing photo…",
-      "uploadingPhoto": "Uploading photo…"
+      "title": "拍照並記錄餐點",
+      "description": "使用相機拍攝您的食物，讓 AI 分析。",
+      "openCamera": "開啟相機",
+      "gallery": "相簿",
+      "compressingPhoto": "正在優化照片…",
+      "uploadingPhoto": "正在上傳照片…"
     },
     "connectHealth": {
-      "title": "Sync with Health Connect",
-      "description": "Sync your nutrition data with Health Connect",
-      "install": "Install",
-      "connect": "Connect"
+      "title": "與 Health Connect 同步",
+      "description": "將您的營養資料與 Health Connect 同步",
+      "install": "安裝",
+      "connect": "連接"
     }
   },
   "history": {
-    "noMeals": "No meals recorded",
-    "emptyMessage": "Snap a picture of your last meal to log here.",
-    "today": "Today",
-    "yesterday": "Yesterday"
+    "noMeals": "尚未記錄任何餐點",
+    "emptyMessage": "拍張您剛吃的餐點照片，這裡就會顯示。",
+    "today": "今天",
+    "yesterday": "昨天"
   },
   "meal": {
-    "ohNo": "Oh no!",
-    "delete": "Delete",
-    "editMeal": "Edit Meal",
-    "addMeal": "Add Meal",
-    "saveMeal": "Save Meal",
-    "save": "Save",
-    "mealName": "Meal Name",
-    "mealNameHint": "e.g., Scrambled Eggs with toast",
-    "mealQuantity": "Meal Quantity",
-    "mealQuantityHint": "e.g., 1 bowl, 2 slices",
-    "timeOfMeal": "Time of Meal",
-    "timeOfMealHint": "Select the time you had your meal",
-    "mealType": "Meal Type",
+    "ohNo": "糟了！",
+    "delete": "刪除",
+    "editMeal": "編輯餐點",
+    "addMeal": "新增餐點",
+    "saveMeal": "儲存餐點",
+    "save": "儲存",
+    "mealName": "餐點名稱",
+    "mealNameHint": "例如：炒蛋配吐司",
+    "mealQuantity": "餐點數量/份量",
+    "mealQuantityHint": "例如：1 碗、2 片",
+    "timeOfMeal": "用餐時間",
+    "timeOfMealHint": "選擇您用餐的時間",
+    "mealType": "餐點類型",
     "nutrition": {
-      "calories": "Calories",
-      "carbs": "Carbs (g)",
-      "protein": "Protein (g)",
-      "fat": "Fat (g)",
-      "fiber": "Fiber (g)"
+      "calories": "卡路里",
+      "carbs": "碳水 (g)",
+      "protein": "蛋白質 (g)",
+      "fat": "脂肪 (g)",
+      "fiber": "纖維 (g)"
     },
     "deleteConfirmation": {
-      "title": "Delete Meal",
-      "message": "Are you sure you want to delete this meal entry?",
-      "cancel": "Cancel",
-      "delete": "Delete"
+      "title": "刪除餐點",
+      "message": "確定要刪除此餐點紀錄嗎？",
+      "cancel": "取消",
+      "delete": "刪除"
     },
-    "addedToLog": "Meal added to your log!",
-    "couldNotAdd": "Could not add meal: {error}",
-    "savedSuccessfully": "Meal added successfully!",
-    "updatedSuccessfully": "Meal updated successfully!",
-    "errorSaving": "Error saving meal: {error}",
-    "removedFromFavorites": "Removed from favorites!",
-    "savedAsFavorite": "Meal saved as favorite!",
-    "unfavorite": "Unfavorite",
-    "couldNotUpdateFavorite": "Could not update favorite: {error}",
-    "feedbackThanks": "Thanks for the feedback!",
-    "reanalysisUpdated": "Updated the meal analysis based on your feedback.",
-    "failedToProcess": "Failed to process: {error}",
-    "failedToProcessImage": "Failed to process image: {error}",
-    "errorCompressingImage": "Error compressing image: {error}",
-    "failedToSave": "Failed to save data. Please try again.",
-    "skip": "Skip",
+    "addedToLog": "餐點已新增到您的記錄！",
+    "couldNotAdd": "無法新增餐點：{error}",
+    "savedSuccessfully": "餐點新增成功！",
+    "updatedSuccessfully": "餐點更新成功！",
+    "errorSaving": "儲存餐點時發生錯誤：{error}",
+    "removedFromFavorites": "已從最愛移除！",
+    "savedAsFavorite": "餐點已儲存為最愛！",
+    "unfavorite": "取消最愛",
+    "couldNotUpdateFavorite": "無法更新最愛：{error}",
+    "feedbackThanks": "感謝您的回饋！",
+    "reanalysisUpdated": "已根據您的回饋更新餐點分析。",
+    "failedToProcess": "處理失敗：{error}",
+    "failedToProcessImage": "處理影像失敗：{error}",
+    "errorCompressingImage": "壓縮影像時發生錯誤：{error}",
+    "failedToSave": "儲存資料失敗。請再試一次。",
+    "skip": "跳過",
     "questionFlow": {
-      "progress": "第 {current} 題，共 {total} 題",
-      "noQuestionsAvailable": "目前沒有可用的問題",
-      "next": "下一題",
+      "progress": "問題 {current} / {total}",
+      "noQuestionsAvailable": "沒有可用問題",
+      "next": "下一步",
       "continueLabel": "繼續"
     },
     "analysis": {
-      "title": "AI meal analysis",
-      "stepStarted": "Getting started…",
-      "stepDecomposition": "Understanding your meal…",
-      "stepIngredients": "Matching ingredients to nutrition data…",
-      "stepUncertainty": "Checking confidence…",
-      "stepMealTypeQuestion": "Almost there…",
-      "stepResult": "Finalizing your result…",
-      "stepError": "Something went wrong",
-      "stepDefault": "Analyzing your meal…",
-      "progressUnderstand": "Understand",
-      "progressMatch": "Match",
-      "progressCheck": "Check",
-      "progressMealType": "正在選擇餐點類型",
-      "progressFinish": "Finish",
-      "detectedIngredientHeading": "我們偵測到的食材",
-      "ingredientsOverflow": "還有 {count} 項食材",
-      "ingredientsLine": "{count} ingredients detected",
-      "ingredientsPending": "Scanning ingredients…",
-      "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "title": "正在分析您的餐點",
+      "stepStarted": "準備中…",
+      "stepDecomposition": "理解您的餐點…",
+      "stepIngredients": "比對成分與營養資料…",
+      "stepUncertainty": "確認可信度…",
+      "stepMealTypeQuestion": "快完成了…",
+      "stepResult": "完成結果…",
+      "stepError": "發生錯誤",
+      "stepDefault": "分析您的餐點…",
+      "progressUnderstand": "理解餐點內容",
+      "progressMatch": "查找成分營養資料",
+      "progressCheck": "檢查份量與可信度",
+      "progressMealType": "選擇餐點類型",
+      "progressFinish": "計算卡路里與三大營養素",
+      "detectedIngredientHeading": "我們辨識到的成分",
+      "ingredientsOverflow": "還有 {count} 項",
+      "ingredientsLine": "偵測到 {count} 種成分",
+      "ingredientsPending": "掃描成分中…",
+      "mealPreviewDescription": "「{text}」",
+      "offlineTip0": "提示：持續紀錄比追求完美更重要——規律的紀錄能揭露重要模式。",
+      "offlineTip1": "提示：拍照時使用自然光與俯拍有助於估算份量。",
+      "offlineTip2": "提示：記得提到飲料、醬汁與烹調用油——這些通常會額外增加熱量。",
+      "offlineTip3": "提示：簡單的份量說明（1 碗、大杯咖啡）會讓估算更準確。",
+      "offlineTip4": "提示：餐後紀錄仍能建立習慣；不必追求完美。",
+      "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。"
     },
     "feedback": {
-      "title": "哪裡不對?",
-      "subtitle": "選擇一個或多個問題,協助我們改善分析。",
+      "title": "哪裡看起來不對？",
+      "subtitle": "請選擇一項或多項問題，幫助我們改進分析結果。",
       "tellUsMore": "告訴我們更多",
-      "describeIncorrect": "描述哪裡不正確",
+      "describeIncorrect": "描述不正確的地方",
       "submit": "送出",
-      "issueFoodIdentification": "食物辨識",
-      "issuePortionSize": "份量大小",
-      "issueCalorieDistribution": "熱量分布",
-      "issueMacrosWrong": "巨量營養素錯誤",
-      "issueMissingItems": "缺少項目",
-      "issueExtraItems": "多餘項目",
+      "issueFoodIdentification": "食物識別錯誤",
+      "issuePortionSize": "份量不正確",
+      "issueCalorieDistribution": "卡路里分配問題",
+      "issueMacrosWrong": "三大營養素錯誤",
+      "issueMissingItems": "遺漏項目",
+      "issueExtraItems": "多出項目",
       "issueOther": "其他"
     }
   },
   "favorites": {
-    "title": "Favorites",
-    "empty": "No favorite meals yet.",
-    "searchPlaceholder": "Search favorite meals",
-    "searchEmptyTitle": "No favorites match your search",
-    "searchEmptySubtitle": "Try a different meal name, quantity, or meal type.",
-    "sortLabel": "Sort favorites",
-    "undo": "Undo",
-    "removed": "Removed {name} from favorites",
+    "title": "我的最愛",
+    "empty": "目前沒有最愛餐點。",
+    "searchPlaceholder": "搜尋最愛餐點",
+    "searchEmptyTitle": "沒有符合搜尋條件的最愛",
+    "searchEmptySubtitle": "請嘗試不同的餐名、份量或餐點類型。",
+    "sortLabel": "排序最愛",
+    "undo": "復原",
+    "removed": "已從最愛移除 {name}",
     "sortOptions": {
-      "recent": "Recent",
-      "calories": "Calories",
+      "recent": "最近",
+      "calories": "卡路里",
       "alphabetical": "A-Z"
     }
   },
   "profile": {
-    "title": "Profile",
-    "noProfileData": "No profile data found",
-    "yourProfile": "Your Profile",
-    "viewAndManage": "View and manage your health information",
+    "title": "個人檔案",
+    "noProfileData": "找不到個人檔案資料",
+    "yourProfile": "您的個人檔案",
+    "viewAndManage": "檢視並管理您的健康資訊",
     "sections": {
-      "profile": "PROFILE",
-      "basicInformation": "BASIC INFORMATION",
-      "goalsAndActivity": "GOALS & ACTIVITY",
-      "calculatedValues": "CALCULATED VALUES"
+      "profile": "個人檔案",
+      "basicInformation": "基本資料",
+      "goalsAndActivity": "目標與活動",
+      "calculatedValues": "計算值"
     },
-    "gender": "Gender",
-    "height": "Height",
-    "weight": "Weight",
-    "age": "Age",
-    "weightGoal": "Weight Goal",
-    "targetWeight": "Target Weight",
-    "activityLevel": "Activity Level",
-    "healthMetrics": "Health Metrics",
-    "notSet": "Not set",
-    "years": "years",
-    "updatedSuccessfully": "Profile updated successfully!",
+    "gender": "性別",
+    "height": "身高",
+    "weight": "體重",
+    "age": "年齡",
+    "weightGoal": "體重目標",
+    "targetWeight": "目標體重",
+    "activityLevel": "活動量",
+    "healthMetrics": "健康指標",
+    "notSet": "未設定",
+    "years": "歲",
+    "updatedSuccessfully": "個人檔案更新成功！",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Daily Goal",
-      "calPerDay": "cal/day",
+      "dailyGoal": "每日目標",
+      "calPerDay": "cal/天",
       "notAvailable": "N/A"
     }
   },
   "healthScore": {
-    "title": "Health Score",
-    "whyThisScore": "Why this score?",
-    "note": "This score is an AI estimate based on the identified ingredients and nutritional density. Always consult a professional for dietary advice.",
-    "unhealthy": "Unhealthy",
-    "healthy": "Healthy",
-    "neutral": "Neutral"
+    "title": "健康分數",
+    "whyThisScore": "為何顯示此分數？",
+    "note": "此分數為根據辨識成分與營養密度的 AI 估算。若需飲食建議，請務必諮詢專業人士。",
+    "unhealthy": "不健康",
+    "healthy": "健康",
+    "neutral": "中性"
   },
   "editProfile": {
-    "title": "Edit Profile",
+    "title": "編輯個人檔案",
     "sections": {
-      "personalInformation": "PERSONAL INFORMATION",
-      "physicalMeasurements": "PHYSICAL MEASUREMENTS",
-      "goalsAndActivity": "GOALS & ACTIVITY"
+      "personalInformation": "個人資訊",
+      "physicalMeasurements": "身體測量",
+      "goalsAndActivity": "目標與活動"
     },
-    "gender": "Gender",
-    "dateOfBirth": "Date of Birth",
-    "height": "Height",
-    "weight": "Weight",
-    "weightGoal": "Weight Goal",
-    "activityLevel": "Activity Level",
-    "metric": "Metric",
-    "imperial": "Imperial",
+    "gender": "性別",
+    "dateOfBirth": "生日",
+    "height": "身高",
+    "weight": "體重",
+    "weightGoal": "體重目標",
+    "activityLevel": "活動量",
+    "metric": "公制",
+    "imperial": "英制",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
     "unitLbs": "lbs",
-    "metricCm": "Metric (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "metricCm": "公制 (cm)",
+    "imperialFtIn": "英制 (ft/in)",
+    "metricKg": "公制 (kg)",
+    "imperialLbs": "英制 (lbs)",
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "other": "Other"
+      "male": "男性",
+      "female": "女性",
+      "other": "其他"
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Lose Weight",
-        "description": "Create a calorie deficit to lose weight"
+        "name": "減重",
+        "description": "透過熱量赤字來減重"
       },
       "maintainWeight": {
-        "name": "Maintain Weight",
-        "description": "Maintain your current weight"
+        "name": "維持體重",
+        "description": "維持您目前的體重"
       },
       "gainWeight": {
-        "name": "Gain Weight",
-        "description": "Create a calorie surplus to gain weight"
+        "name": "增重",
+        "description": "透過熱量盈餘來增加體重"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Sedentary",
-        "description": "Little to no exercise"
+        "name": "久坐少動",
+        "description": "幾乎沒有運動"
       },
       "lightlyActive": {
-        "name": "Lightly Active",
-        "description": "Light exercise 1-3 days/week"
+        "name": "輕度活動",
+        "description": "每週輕度運動 1-3 天"
       },
       "moderatelyActive": {
-        "name": "Moderately Active",
-        "description": "Moderate exercise 3-5 days/week"
+        "name": "中度活動",
+        "description": "每週中度運動 3-5 天"
       },
       "veryActive": {
-        "name": "Very Active",
-        "description": "Hard exercise 6-7 days/week"
+        "name": "高強度活動",
+        "description": "每週劇烈運動 6-7 天"
       },
       "extremelyActive": {
-        "name": "Extremely Active",
-        "description": "Very hard exercise, physical job"
+        "name": "非常劇烈活動",
+        "description": "非常劇烈的運動或體力工作"
       }
     }
   },
   "settings": {
-    "title": "Settings",
+    "title": "設定",
     "sections": {
-      "profile": "PROFILE",
-      "localization": "LOCALIZATION",
-      "notifications": "NOTIFICATIONS",
-      "healthConnect": "HEALTH CONNECT",
-      "supportAndLegal": "SUPPORT & LEGAL",
-      "about": "ABOUT",
-      "dangerZone": "DANGER ZONE",
-      "developer": "DEVELOPER"
+      "profile": "個人檔案",
+      "localization": "在地化",
+      "notifications": "通知",
+      "healthConnect": "Health Connect",
+      "supportAndLegal": "支援與法律",
+      "about": "關於",
+      "dangerZone": "危險區",
+      "developer": "開發者"
     },
     "editProfile": {
-      "title": "Edit Profile",
-      "subtitle": "Update your personal information"
+      "title": "編輯個人檔案",
+      "subtitle": "更新您的個人資訊"
     },
     "language": {
-      "title": "Language",
-      "subtitle": "Choose your preferred language",
-      "searchHint": "Search languages...",
-      "noResults": "No results found"
+      "title": "語言",
+      "subtitle": "選擇您偏好的語言",
+      "searchHint": "搜尋語言…",
+      "noResults": "找不到結果"
     },
     "heightUnit": {
-      "title": "Height Unit"
+      "title": "身高單位"
     },
     "weightUnit": {
-      "title": "Weight Unit"
+      "title": "體重單位"
     },
     "mealReminders": {
-      "title": "Meal Reminders",
-      "subtitle": "Stay on track with timely alerts"
+      "title": "用餐提醒",
+      "subtitle": "透過定時提醒保持紀錄習慣"
     },
     "theme": {
-      "title": "Theme",
-      "light": "Light",
-      "dark": "Dark",
-      "system": "System"
+      "title": "主題",
+      "light": "淺色",
+      "dark": "深色",
+      "system": "系統"
     },
     "sendFeedback": {
-      "title": "Send Feedback",
-      "subtitle": "Help us improve {appLabel}",
-      "emailSubject": "{appLabel} App Feedback",
-      "emailBodyPrefix": "Please provide your feedback below:",
-      "appVersion": "App Version",
-      "device": "Device",
-      "osVersion": "OS Version",
+      "title": "傳送回饋",
+      "subtitle": "幫助我們改進 {appLabel}",
+      "emailSubject": "{appLabel} App 回饋",
+      "emailBodyPrefix": "請在下方提供您的回饋：",
+      "appVersion": "App 版本",
+      "device": "裝置",
+      "osVersion": "作業系統版本",
       "uid": "UID"
     },
     "exportMealHistory": {
-      "title": "Export Meal History",
-      "subtitle": "Share a CSV of your logged meals",
-      "shareText": "Your Calorify meal history export",
-      "failed": "Could not export meal history: {error}"
+      "title": "匯出餐點歷史",
+      "subtitle": "分享已記錄餐點的 CSV",
+      "shareText": "您的 Calorify 餐點歷史匯出檔",
+      "failed": "無法匯出餐點歷史：{error}"
     },
     "clearAllData": {
-      "title": "Clear All Data",
-      "subtitle": "Irreversibly delete all your information",
-      "confirmationTitle": "Clear All Data?",
-      "confirmationMessage": "This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.",
-      "cancel": "Cancel",
-      "clearEverything": "Clear Everything"
+      "title": "清除所有資料",
+      "subtitle": "不可逆地刪除您的所有資訊",
+      "confirmationTitle": "清除所有資料？",
+      "confirmationMessage": "此動作無法復原。您所有記錄的餐點、最愛與個人設定將被永久刪除。",
+      "cancel": "取消",
+      "clearEverything": "全部清除"
     },
     "debugOptions": {
-      "title": "Debug Options"
+      "title": "除錯選項"
     },
-    "developerModeEnabled": "Developer mode enabled!",
+    "developerModeEnabled": "已啟用開發者模式！",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "View and manage permissions",
+      "subtitle": "檢視並管理權限",
       "unavailable": {
-        "title": "Health Connect Unavailable",
-        "description": "Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+."
+        "title": "Health Connect 無法使用",
+        "description": "此裝置無法使用 Health Connect。請從 Play Store 安裝 Health Connect（Android 9+）或更新至 Android 14+。"
       },
       "permissions": {
-        "title": "Permissions",
-        "description": "The following permissions are requested to provide Health Connect integration:",
-        "granted": "Granted",
-        "notGranted": "Not Granted",
+        "title": "權限",
+        "description": "為了提供 Health Connect 整合，會請求以下權限：",
+        "granted": "已授權",
+        "notGranted": "未授權",
         "caloriesBurned": {
-          "title": "Read Total Calories Burned",
-          "description": "Allows the app to read your total calories burned from Health Connect.",
-          "usage": "This permission is used to display your daily calorie burn in the app, helping you understand your total energy expenditure throughout the day."
+          "title": "讀取總消耗卡路里",
+          "description": "允許應用程式從 Health Connect 讀取您的總消耗卡路里。",
+          "usage": "此權限用來在應用中顯示您每日的卡路里消耗，幫助您了解全天的總能量支出。"
         },
         "nutritionRead": {
-          "title": "Read Nutrition Data",
-          "description": "Allows the app to read nutrition data from Health Connect.",
-          "usage": "This permission allows the app to read nutrition information that may have been logged by other apps connected to Health Connect, providing a comprehensive view of your nutrition."
+          "title": "讀取營養資料",
+          "description": "允許應用從 Health Connect 讀取營養資料。",
+          "usage": "此權限讓應用能讀取其他已連接至 Health Connect 的應用所紀錄的營養資訊，提供更完整的營養檢視。"
         },
         "nutritionWrite": {
-          "title": "Write Nutrition Data",
-          "description": "Allows the app to write nutrition data to Health Connect.",
-          "usage": "This permission allows the app to sync your logged meals to Health Connect, making your nutrition data available to other health and fitness apps you use."
+          "title": "寫入營養資料",
+          "description": "允許應用將營養資料寫入 Health Connect。",
+          "usage": "此權限讓應用能同步您記錄的餐點到 Health Connect，讓您使用的其他健康與健身應用也能取得您的營養資料。"
         }
       },
-      "managePermissions": "Manage Permissions",
-      "openSettings": "Open Health Connect Settings",
-      "requestPermissions": "Request Permissions",
-      "permissionRequestCancelledOrFailed": "Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.",
-      "permissionRequestFailed": "Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.",
-      "requestingPermissions": "Requesting..."
+      "managePermissions": "管理權限",
+      "openSettings": "開啟 Health Connect 設定",
+      "requestPermissions": "請求權限",
+      "permissionRequestCancelledOrFailed": "權限請求已取消或失敗。請再試一次或在 Health Connect 設定中手動授權。",
+      "permissionRequestFailed": "無法請求權限。請再試一次或在 Health Connect 設定中手動授權。",
+      "requestingPermissions": "請求中..."
     },
     "about": {
-      "title": "About",
-      "tagline": "Fast, free, and privacy-first calorie awareness",
+      "title": "關於",
+      "tagline": "快速、免費且以隱私為先的卡路里意識工具",
       "ourStory": {
-        "title": "Our Story",
-        "content": "{appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy.\n\nAs a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect.\n\n{appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals."
+        "title": "我們的故事",
+        "content": "{appLabel} 的誕生來自一個簡單的挫折感：大多數卡路里追蹤應用要麼過於複雜、需要大量手動輸入、收取高額訂閱費，或在隱私上妥協。\n\n作為獨立開發者，我想做一個更簡單、更公平的產品——使用 AI 減少操作成本，保持速度與免費使用，並尊重您的健康資料。\n\n{appLabel} 是我希望存在的那款應用：不需要帳號、不進行追蹤、沒有廣告——只有清晰、實用的洞察與您的健康目標。"
       },
       "privacy": {
-        "title": "Your Privacy Matters",
-        "description": "Privacy isn't an afterthought — it's a design principle. Here's what that means in practice:",
-        "noAccounts": "No accounts required\nUse the app immediately. No sign-ups, no identities.",
-        "noTracking": "No behavioral tracking\n{appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.",
-        "noAds": "Ad-free by design\n{appLabel} is built to work without ads or data-driven monetization.",
-        "noDataSelling": "No data selling\nYour health data is never sold or shared with third parties.",
-        "localStorage": "Local-first storage\nYour data stays on your device.",
-        "privacyPolicy": "Privacy Policy"
+        "title": "您的隱私很重要",
+        "description": "隱私不是事後補充，而是設計原則。以下是實際上的做法：",
+        "noAccounts": "免帳號\n即可立即使用。無需註冊或身分資料。",
+        "noTracking": "無行為追蹤\n{appLabel} 不會監控您的活動、建立使用者檔案，或跨應用與網站追蹤您。",
+        "noAds": "無廣告設計\n{appLabel} 的設計不依賴廣告或以資料為驅動的獲利方式。",
+        "noDataSelling": "不販售資料\n您的健康資料絕不會出售或分享給第三方。",
+        "localStorage": "以裝置為優先的儲存\n您的資料保留在您的裝置上。",
+        "privacyPolicy": "隱私政策"
       },
       "developer": {
-        "title": "Built by a Solo Developer",
-        "description": "{appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software.\n\nFeedback is read personally and helps shape the direction of the app.",
-        "website": "Website",
-        "email": "Email"
+        "title": "由單人開發者打造",
+        "description": "{appLabel} 由一位獨立開發者建立與維護，致力於打造冷靜且尊重隱私的健康軟體。\n\n回饋會由我親自閱讀，並幫助塑造應用的未來方向。",
+        "website": "網站",
+        "email": "電子郵件"
       },
       "feedback": {
-        "title": "Enjoying {appLabel}?",
-        "description": "Your feedback helps make {appLabel} better for everyone.",
-        "rateApp": "Rate on Play Store",
-        "sendFeedback": "Send Feedback"
+        "title": "喜歡 {appLabel} 嗎？",
+        "description": "您的回饋能讓 {appLabel} 對每個人更好。",
+        "rateApp": "在 Play Store 評分",
+        "sendFeedback": "傳送回饋"
       }
     },
     "appInfo": {
       "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "build": "建置 {buildNumber}"
     }
   },
   "reminders": {
-    "title": "Stay on track with reminders",
-    "description": "Get gentle reminders to log your meals and stay consistent with your nutrition goals",
-    "notificationsEnabled": "Notifications Enabled",
-    "notificationsDisabled": "Notifications Disabled",
-    "enabledSubtitle": "You'll receive meal reminders",
-    "disabledSubtitle": "Enable notifications to get meal reminders",
-    "mealReminders": "Meal Reminders",
-    "breakfast": "Breakfast",
-    "lunch": "Lunch",
-    "dinner": "Dinner",
-    "snack": "Snack",
-    "unknown": "Unknown",
-    "change": "Change",
-    "enableNotifications": "Enable Notifications",
-    "skipForNow": "Skip for now",
-    "saveChanges": "Save Changes",
-    "enabledSuccessfully": "Notifications enabled successfully!",
-    "permissionDenied": "Notification permission denied",
-    "errorEnabling": "Error enabling notifications: {error}",
-    "errorCompletingSetup": "Error completing setup: {error}"
+    "title": "用提醒幫助您保持進度",
+    "description": "收到溫和的提醒以記錄餐點並維持營養紀律",
+    "notificationsEnabled": "已啟用通知",
+    "notificationsDisabled": "已停用通知",
+    "enabledSubtitle": "您會收到用餐提醒",
+    "disabledSubtitle": "請啟用通知以接收用餐提醒",
+    "mealReminders": "用餐提醒",
+    "breakfast": "早餐",
+    "lunch": "午餐",
+    "dinner": "晚餐",
+    "snack": "點心",
+    "unknown": "未知",
+    "change": "更改",
+    "enableNotifications": "啟用通知",
+    "skipForNow": "暫時跳過",
+    "saveChanges": "儲存變更",
+    "enabledSuccessfully": "通知已成功啟用！",
+    "permissionDenied": "通知權限被拒絕",
+    "errorEnabling": "啟用通知時發生錯誤：{error}",
+    "errorCompletingSetup": "完成設定時發生錯誤：{error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Breakfast Time! 🍳",
-      "body": "Don't forget to log your breakfast"
+      "title": "該吃早餐囉！ 🍳",
+      "body": "別忘了記錄您的早餐"
     },
     "lunch": {
-      "title": "Lunch Time! 🥗",
-      "body": "Time to log your lunch"
+      "title": "午餐時間！ 🥗",
+      "body": "該記錄午餐了"
     },
     "dinner": {
-      "title": "Dinner Time! 🍽️",
-      "body": "Don't forget to log your dinner"
+      "title": "晚餐時間！ 🍽️",
+      "body": "別忘了記錄您的晚餐"
     },
     "snack": {
-      "title": "Snack Time! 🍎",
-      "body": "Time for a healthy snack"
+      "title": "點心時間！ 🍎",
+      "body": "該吃個健康點心了"
     },
     "test": {
-      "title": "Test Notification"
+      "title": "測試通知"
     }
   },
   "login": {
-    "title": "Login",
-    "signInWithGoogle": "Sign in with Google",
-    "signInFailed": "Google Sign-In failed or was cancelled."
+    "title": "登入",
+    "signInWithGoogle": "使用 Google 登入",
+    "signInFailed": "Google 登入失敗或已取消。"
   },
   "disclaimer": {
-    "pleaseNote": "Please Note",
+    "pleaseNote": "請注意",
     "snap": {
-      "description": "{appLabel} provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.",
+      "description": "{appLabel} 提供的是估算營養資訊。準確度取決於您的輸入與食物的變異性。請將其作為參考而非唯一依據。若需個人化飲食建議，請諮詢專業人士。",
       "portionSize": {
-        "title": "Portion Size",
-        "description": "The accuracy of the estimates heavily relies on your correct assessment of the portion size."
+        "title": "份量大小",
+        "description": "估算的準確性很大程度取決於您對份量的正確判斷。"
       },
       "preparationMethods": {
-        "title": "Preparation Methods",
-        "description": "Cooking methods can significantly alter the nutritional content of food. {appLabel}'s estimates may not always account for these variations."
+        "title": "烹調方式",
+        "description": "烹調方式會顯著改變食物的營養成分。{appLabel} 的估算可能無法涵蓋所有變化。"
       },
       "ingredients": {
-        "title": "Ingredients",
-        "description": "Complex dishes with many hidden ingredients may lead to less accurate estimations."
+        "title": "成分",
+        "description": "成分複雜且含多種隱藏食材的菜餚可能降低估算準確度。"
       },
       "databaseLimitations": {
-        "title": "Database Limitations",
-        "description": "{appLabel}'s food database is extensive but may not include every single food item or variation."
+        "title": "資料庫限制",
+        "description": "{appLabel} 的食物資料庫相當完整，但可能不包含每一種食材或變體。"
       }
     },
     "weightEstimate": {
-      "title": "About Weight Estimate",
-      "description": "The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.",
+      "title": "關於體重估算",
+      "description": "預測的體重變化是基於簡單的熱量攝入與支出模型的理論估算。此結果僅供激勵參考，並非您實際體重的預測。",
       "calorieAccuracy": {
-        "title": "Calorie Accuracy",
-        "description": "This estimate is only as accurate as your tracked calorie intake and expenditure. Inaccurate logging will result in an inaccurate projection."
+        "title": "卡路里準確性",
+        "description": "此估算的準確性取決於您記錄的攝取與消耗熱量。若記錄不準確，估算也會不準確。"
       },
       "biologicalFactors": {
-        "title": "Biological Factors",
-        "description": "Actual weight loss/gain is influenced by metabolism, hormones, sleep, stress, hydration, and other individual factors that {appLabel} cannot measure."
+        "title": "生理因素",
+        "description": "實際的增減重受新陳代謝、荷爾蒙、睡眠、壓力、體內水分等個人因素影響，這些是 {appLabel} 無法測量的。"
       },
       "waterWeight": {
-        "title": "Water Weight & Fluctuations",
-        "description": "Normal daily weight can fluctuate significantly due to water retention, digestion, and timing. The estimate does not account for these daily changes."
+        "title": "水分與體重波動",
+        "description": "每日體重會因水分滯留、消化與時間點而有顯著波動。估算不會考量這些日常變化。"
       },
       "professionalGuidance": {
-        "title": "Professional Guidance",
-        "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        "title": "專業指導",
+        "description": "請勿以此估算作為醫療決策依據。若需個人化體重管理建議，請務必諮詢醫療或註冊營養師。"
       }
     },
     "healthMetrics": {
-      "description": "These metrics help you understand your body's energy needs and guide your nutrition goals.",
+      "description": "這些指標可幫助您了解身體的能量需求並指引營養目標。",
       "bmr": {
         "title": "BMR",
-        "description": "Basal Metabolic Rate (BMR) is the number of calories your body burns at rest to maintain basic functions like breathing and circulation. BMR depends on your age, gender, height, and weight. A higher BMR means your body naturally burns more calories at rest, often due to more muscle mass, younger age, or being male. A lower BMR typically indicates less muscle mass, older age, or being female."
+        "description": "基礎代謝率 (BMR) 是您在靜止狀態下為維持呼吸與循環等基本生理功能所消耗的卡路里。BMR 取決於年齡、性別、身高與體重。較高的 BMR 意味著身體在靜息時燃燒更多卡路里，通常與較多肌肉量、較年輕或為男性相關；較低的 BMR 通常表示肌肉量較少、年齡較大或為女性。"
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Total Daily Energy Expenditure (TDEE) is the total calories you burn per day, including your BMR plus calories from physical activity and daily movement. TDEE depends on your BMR and activity level. A higher TDEE means you burn more calories overall, usually from being more active or having a higher BMR. A lower TDEE suggests less daily activity or a lower BMR."
+        "description": "每日總能量消耗 (TDEE) 是您每天消耗的總卡路里，包括 BMR 以及運動與日常活動所消耗的熱量。TDEE 取決於您的 BMR 與活動量。較高的 TDEE 意味著您整體燃燒更多卡路里，通常因活動量較大或 BMR 較高；較低的 TDEE 則表示日常活動較少或 BMR 較低。"
       },
       "dailyGoal": {
-        "title": "Daily Goal",
-        "description": "Daily Goal is your recommended daily calorie intake based on your TDEE and weight goal. For weight loss, you consume fewer calories than your TDEE. For weight maintenance, you match your TDEE. For weight gain, you consume more calories than your TDEE. This helps you achieve your desired weight change at a healthy pace."
+        "title": "每日目標",
+        "description": "每日目標是根據您的 TDEE 與體重目標所建議的每日卡路里攝取量。若目標是減重，則攝取少於 TDEE；若維持體重，則接近 TDEE；若增重，則攝取高於 TDEE。這有助於您以健康速度達成預期的體重變化。"
       }
     },
     "calorieExpenditure": {
-      "title": "Calorie Expenditure Estimate",
-      "description": "When Health Connect data is unavailable, we estimate today's calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.",
+      "title": "卡路里消耗估算",
+      "description": "當 Health Connect 資料不可用時，我們會使用您的基礎代謝率 (BMR) 與活動量 (TDEE)，並依照當日已過時間比例估算今天的消耗卡路里。",
       "howCalculated": {
-        "title": "How The Estimate Is Calculated",
-        "description": "We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far."
+        "title": "估算方式",
+        "description": "我們會計算您的 TDEE（根據個人檔案），並乘以當日已過的比例（小時 + 分鐘）/ 24，以估算目前為止燃燒的卡路里。"
       },
       "professionalGuidance": {
-        "title": "Professional Guidance",
-        "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
+        "title": "專業指導",
+        "description": "請勿以此估算作為醫療決策。若需個人化體重管理建議，務必諮詢醫療或註冊營養師。"
       }
     }
   },
   "common": {
-    "close": "Close",
-    "continue": "Continue"
+    "close": "關閉",
+    "continue": "繼續"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Enjoying {appLabel}?",
-    "yes": "Yes, I'm enjoying it",
-    "no": "Not really",
-    "rateStepHeading": "Rate on Play Store",
-    "emailStepHeading": "Send feedback by email",
-    "soloDevMessage": "A quick rating helps others find {appLabel} and keeps development going. Would you take a moment to leave one?",
-    "shareFeedbackViaEmail": "Your feedback shapes what comes next — we read every message. Would you like to share your thoughts via email?",
-    "rateCta": "Rate on Play Store",
-    "maybeLater": "Maybe later",
-    "sendFeedback": "Send feedback",
-    "noThanks": "No thanks",
-    "aboutUsDescription": "Made with care by a small team. We're focused on privacy, simplicity, and helping you build better eating habits.",
-    "aboutUsMentionBeforeLink": "Curious who's behind {appLabel}? See ",
-    "aboutUsLinkLabel": "About us",
-    "thankYouMessage": "Thanks! We'll ask again another time."
+    "enjoyingQuestion": "喜歡 {appLabel} 嗎？",
+    "yes": "是的，我很喜歡",
+    "no": "不太喜歡",
+    "rateStepHeading": "在 Play Store 評分",
+    "emailStepHeading": "透過電子郵件提供回饋",
+    "soloDevMessage": "簡短的評分能幫助其他人找到 {appLabel}，並支持開發持續進行。您願意花一點時間留下評分嗎？",
+    "shareFeedbackViaEmail": "您的回饋將影響未來功能，我們會閱讀每封訊息。想用電子郵件分享意見嗎？",
+    "rateCta": "在 Play Store 評分",
+    "maybeLater": "稍後再說",
+    "sendFeedback": "傳送回饋",
+    "noThanks": "不用了，謝謝",
+    "aboutUsDescription": "由用心的小團隊製作。我們專注於隱私、簡潔，並幫助您養成更好的飲食習慣。",
+    "aboutUsMentionBeforeLink": "想知道 {appLabel} 背後是誰？請參閱 ",
+    "aboutUsLinkLabel": "關於我們",
+    "thankYouMessage": "感謝！我們稍後會再次詢問。"
   },
   "health": {
-    "syncFailed": "Could not sync to Health Connect",
-    "mealSynced": "Meal synced with Health Connect"
+    "syncFailed": "無法同步至 Health Connect",
+    "mealSynced": "餐點已同步至 Health Connect"
   }
 }

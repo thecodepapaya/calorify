@@ -67,12 +67,12 @@ class _TranslationsErrorsId implements TranslationsErrorsEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Anda membuat terlalu banyak permintaan. Harap tunggu sebentar sebelum mencoba lagi.';
+	@override String get rateLimitExceeded => 'Anda telah membuat terlalu banyak permintaan. Mohon tunggu sebentar sebelum mencoba lagi.';
 	@override String get networkError => 'Kesalahan jaringan. Periksa koneksi internet Anda.';
 	@override String get unknownError => 'Terjadi kesalahan. Silakan coba lagi nanti.';
-	@override String get loadingProfileData => 'Kesalahan memuat data profil';
-	@override String get somethingWentWrong => 'Ada yang tidak beres.';
-	@override String get retry => 'Coba Lagi';
+	@override String get loadingProfileData => 'Gagal memuat data profil';
+	@override String get somethingWentWrong => 'Terjadi kesalahan.';
+	@override String get retry => 'Coba lagi';
 }
 
 // Path: onboarding
@@ -135,7 +135,7 @@ class _TranslationsHistoryId implements TranslationsHistoryEn {
 
 	// Translations
 	@override String get noMeals => 'Belum ada makanan tercatat';
-	@override String get emptyMessage => 'Ambil foto makanan terakhir Anda untuk mencatatnya di sini.';
+	@override String get emptyMessage => 'Ambil foto makanan terakhir Anda untuk mencatat di sini.';
 	@override String get today => 'Hari ini';
 	@override String get yesterday => 'Kemarin';
 }
@@ -147,32 +147,32 @@ class _TranslationsMealId implements TranslationsMealEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get ohNo => 'Waduh!';
+	@override String get ohNo => 'Aduh!';
 	@override String get delete => 'Hapus';
 	@override String get editMeal => 'Edit Makanan';
 	@override String get addMeal => 'Tambah Makanan';
 	@override String get saveMeal => 'Simpan Makanan';
 	@override String get save => 'Simpan';
 	@override String get mealName => 'Nama Makanan';
-	@override String get mealNameHint => 'mis., Telur Orak-arik dengan roti panggang';
-	@override String get mealQuantity => 'Jumlah Porsi';
-	@override String get mealQuantityHint => 'mis., 1 mangkuk, 2 iris';
+	@override String get mealNameHint => 'mis., Telur orak-arik dengan roti';
+	@override String get mealQuantity => 'Jumlah Makanan';
+	@override String get mealQuantityHint => 'mis., 1 mangkuk, 2 potong';
 	@override String get timeOfMeal => 'Waktu Makan';
 	@override String get timeOfMealHint => 'Pilih waktu Anda makan';
 	@override String get mealType => 'Jenis Makanan';
 	@override late final _TranslationsMealNutritionId nutrition = _TranslationsMealNutritionId._(_root);
 	@override late final _TranslationsMealDeleteConfirmationId deleteConfirmation = _TranslationsMealDeleteConfirmationId._(_root);
-	@override String get addedToLog => 'Makanan ditambahkan ke catatan Anda!';
-	@override String couldNotAdd({required Object error}) => 'Tidak dapat menambahkan makanan: ${error}';
+	@override String get addedToLog => 'Makanan ditambahkan ke log Anda!';
+	@override String couldNotAdd({required Object error}) => 'Gagal menambahkan makanan: ${error}';
 	@override String get savedSuccessfully => 'Makanan berhasil ditambahkan!';
 	@override String get updatedSuccessfully => 'Makanan berhasil diperbarui!';
 	@override String errorSaving({required Object error}) => 'Kesalahan menyimpan makanan: ${error}';
 	@override String get removedFromFavorites => 'Dihapus dari favorit!';
 	@override String get savedAsFavorite => 'Makanan disimpan sebagai favorit!';
-	@override String get unfavorite => 'Batalkan favorit';
-	@override String couldNotUpdateFavorite({required Object error}) => 'Tidak dapat memperbarui favorit: ${error}';
-	@override String get feedbackThanks => 'Terima kasih atas masukan Anda!';
-	@override String get reanalysisUpdated => 'Analisis makanan diperbarui berdasarkan masukan Anda.';
+	@override String get unfavorite => 'Hapus favorit';
+	@override String couldNotUpdateFavorite({required Object error}) => 'Gagal memperbarui favorit: ${error}';
+	@override String get feedbackThanks => 'Terima kasih atas umpan baliknya!';
+	@override String get reanalysisUpdated => 'Analisis makanan diperbarui berdasarkan umpan balik Anda.';
 	@override String failedToProcess({required Object error}) => 'Gagal memproses: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Gagal memproses gambar: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Kesalahan mengompresi gambar: ${error}';
@@ -193,7 +193,7 @@ class _TranslationsFavoritesId implements TranslationsFavoritesEn {
 	@override String get title => 'Favorit';
 	@override String get empty => 'Belum ada makanan favorit.';
 	@override String get searchPlaceholder => 'Cari makanan favorit';
-	@override String get searchEmptyTitle => 'Tidak ada favorit yang cocok dengan pencarian Anda';
+	@override String get searchEmptyTitle => 'Tidak ada favorit yang cocok';
 	@override String get searchEmptySubtitle => 'Coba nama makanan, jumlah, atau jenis makanan yang berbeda.';
 	@override String get sortLabel => 'Urutkan favorit';
 	@override String get undo => 'Urungkan';
@@ -209,13 +209,13 @@ class _TranslationsProfileId implements TranslationsProfileEn {
 
 	// Translations
 	@override String get title => 'Profil';
-	@override String get noProfileData => 'Tidak ada data profil';
+	@override String get noProfileData => 'Data profil tidak ditemukan';
 	@override String get yourProfile => 'Profil Anda';
 	@override String get viewAndManage => 'Lihat dan kelola informasi kesehatan Anda';
 	@override late final _TranslationsProfileSectionsId sections = _TranslationsProfileSectionsId._(_root);
 	@override String get gender => 'Jenis Kelamin';
-	@override String get height => 'Tinggi Badan';
-	@override String get weight => 'Berat Badan';
+	@override String get height => 'Tinggi';
+	@override String get weight => 'Berat';
 	@override String get age => 'Usia';
 	@override String get weightGoal => 'Tujuan Berat';
 	@override String get targetWeight => 'Berat Target';
@@ -236,8 +236,8 @@ class _TranslationsHealthScoreId implements TranslationsHealthScoreEn {
 	// Translations
 	@override String get title => 'Skor Kesehatan';
 	@override String get whyThisScore => 'Mengapa skor ini?';
-	@override String get note => 'Skor ini adalah perkiraan AI berdasarkan bahan yang teridentifikasi dan kepadatan nutrisi. Selalu konsultasikan dengan profesional untuk saran diet.';
-	@override String get unhealthy => 'Tidak sehat';
+	@override String get note => 'Skor ini adalah perkiraan AI berdasarkan bahan yang teridentifikasi dan kepadatan nutrisi. Selalu konsultasikan ke profesional untuk saran diet personal.';
+	@override String get unhealthy => 'Tidak Sehat';
 	@override String get healthy => 'Sehat';
 	@override String get neutral => 'Netral';
 }
@@ -253,8 +253,8 @@ class _TranslationsEditProfileId implements TranslationsEditProfileEn {
 	@override late final _TranslationsEditProfileSectionsId sections = _TranslationsEditProfileSectionsId._(_root);
 	@override String get gender => 'Jenis Kelamin';
 	@override String get dateOfBirth => 'Tanggal Lahir';
-	@override String get height => 'Tinggi Badan';
-	@override String get weight => 'Berat Badan';
+	@override String get height => 'Tinggi';
+	@override String get weight => 'Berat';
 	@override String get weightGoal => 'Tujuan Berat';
 	@override String get activityLevel => 'Tingkat Aktivitas';
 	@override String get metric => 'Metrik';
@@ -304,8 +304,8 @@ class _TranslationsRemindersId implements TranslationsRemindersEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tetap di jalur dengan pengingat';
-	@override String get description => 'Dapatkan pengingat lembut untuk mencatat makanan dan tetap konsisten dengan tujuan nutrisi Anda';
+	@override String get title => 'Tetap pada jalur dengan pengingat';
+	@override String get description => 'Dapatkan pengingat lembut untuk mencatat makanan Anda dan tetap konsisten dengan tujuan nutrisi';
 	@override String get notificationsEnabled => 'Notifikasi Diaktifkan';
 	@override String get notificationsDisabled => 'Notifikasi Dinonaktifkan';
 	@override String get enabledSubtitle => 'Anda akan menerima pengingat makan';
@@ -314,11 +314,11 @@ class _TranslationsRemindersId implements TranslationsRemindersEn {
 	@override String get breakfast => 'Sarapan';
 	@override String get lunch => 'Makan Siang';
 	@override String get dinner => 'Makan Malam';
-	@override String get snack => 'Camilan';
+	@override String get snack => 'Cemilan';
 	@override String get unknown => 'Tidak diketahui';
 	@override String get change => 'Ubah';
 	@override String get enableNotifications => 'Aktifkan Notifikasi';
-	@override String get skipForNow => 'Lewati dulu';
+	@override String get skipForNow => 'Lewati sekarang';
 	@override String get saveChanges => 'Simpan Perubahan';
 	@override String get enabledSuccessfully => 'Notifikasi berhasil diaktifkan!';
 	@override String get permissionDenied => 'Izin notifikasi ditolak';
@@ -349,7 +349,7 @@ class _TranslationsLoginId implements TranslationsLoginEn {
 	// Translations
 	@override String get title => 'Masuk';
 	@override String get signInWithGoogle => 'Masuk dengan Google';
-	@override String get signInFailed => 'Masuk Google gagal atau dibatalkan.';
+	@override String get signInFailed => 'Google Sign-In gagal atau dibatalkan.';
 }
 
 // Path: disclaimer
@@ -386,19 +386,19 @@ class _TranslationsFeedbackRatingId implements TranslationsFeedbackRatingEn {
 	// Translations
 	@override String enjoyingQuestion({required Object appLabel}) => 'Menikmati ${appLabel}?';
 	@override String get yes => 'Ya, saya menikmatinya';
-	@override String get no => 'Tidak juga';
+	@override String get no => 'Tidak begitu';
 	@override String get rateStepHeading => 'Beri rating di Play Store';
-	@override String get emailStepHeading => 'Kirim masukan lewat email';
-	@override String soloDevMessage({required Object appLabel}) => 'Rating singkat membantu orang lain menemukan ${appLabel} dan mendukung pengembangannya. Bersediakah Anda meluangkan waktu sejenak untuk memberi rating?';
-	@override String get shareFeedbackViaEmail => 'Masukan Anda menentukan langkah selanjutnya — kami membaca setiap pesan. Ingin berbagi pendapat melalui email?';
+	@override String get emailStepHeading => 'Kirim umpan balik lewat email';
+	@override String soloDevMessage({required Object appLabel}) => 'Rating singkat membantu orang lain menemukan ${appLabel} dan mendukung pengembangan. Maukah Anda meluangkan waktu untuk memberi rating?';
+	@override String get shareFeedbackViaEmail => 'Umpan balik Anda membentuk perkembangan selanjutnya — kami membaca setiap pesan. Ingin berbagi melalui email?';
 	@override String get rateCta => 'Beri rating di Play Store';
-	@override String get maybeLater => 'Mungkin nanti';
-	@override String get sendFeedback => 'Kirim masukan';
+	@override String get maybeLater => 'Nanti saja';
+	@override String get sendFeedback => 'Kirim umpan balik';
 	@override String get noThanks => 'Tidak, terima kasih';
-	@override String get aboutUsDescription => 'Dibuat dengan penuh perhatian oleh tim kecil. Kami fokus pada privasi, kesederhanaan, dan membantu Anda membangun kebiasaan makan yang lebih baik.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Ingin tahu siapa di balik ${appLabel}? Lihat ';
+	@override String get aboutUsDescription => 'Dibuat dengan hati-hati oleh tim kecil. Kami fokus pada privasi, kesederhanaan, dan membantu Anda membentuk kebiasaan makan yang lebih baik.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ';
 	@override String get aboutUsLinkLabel => 'Tentang kami';
-	@override String get thankYouMessage => 'Terima kasih! Kami akan menanyakannya lagi lain waktu.';
+	@override String get thankYouMessage => 'Terima kasih! Kami akan menanyakan lagi di lain waktu.';
 }
 
 // Path: health
@@ -408,8 +408,8 @@ class _TranslationsHealthId implements TranslationsHealthEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Tidak dapat menyinkronkan ke Health Connect';
-	@override String get mealSynced => 'Makanan tersinkron dengan Health Connect';
+	@override String get syncFailed => 'Gagal menyinkronkan ke Health Connect';
+	@override String get mealSynced => 'Makanan disinkronkan dengan Health Connect';
 }
 
 // Path: onboarding.features
@@ -432,7 +432,7 @@ class _TranslationsOnboardingGenderId implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'Apa jenis kelamin Anda?';
-	@override String get description => 'Jenis kelamin membantu kami menghitung laju metabolisme basal (BMR) Anda dengan akurat.';
+	@override String get description => 'Jenis kelamin membantu kami menghitung basal metabolic rate (BMR) secara akurat.';
 	@override String get next => 'Berikutnya';
 }
 
@@ -443,8 +443,8 @@ class _TranslationsOnboardingHeightId implements TranslationsOnboardingHeightEn 
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Berapa tinggi badan Anda?';
-	@override String get description => 'Tinggi badan Anda membantu kami menghitung BMI dan kebutuhan energi secara akurat.';
+	@override String get title => 'Berapa tinggi Anda?';
+	@override String get description => 'Tinggi Anda membantu kami menghitung BMI dan kebutuhan energi dengan tepat.';
 	@override String get metric => 'Metrik';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Berikutnya';
@@ -457,10 +457,10 @@ class _TranslationsOnboardingWeightId implements TranslationsOnboardingWeightEn 
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get currentTitle => 'Berapa berat badan Anda saat ini?';
-	@override String get currentDescription => 'Berat badan saat ini penting untuk mempersonalisasi target harian Anda.';
-	@override String get targetTitle => 'Berapa target berat badan Anda?';
-	@override String get targetDescription => 'Menetapkan target berat membantu kami menentukan rencana jangka panjang Anda.';
+	@override String get currentTitle => 'Berapa berat Anda saat ini?';
+	@override String get currentDescription => 'Berat Anda saat ini penting untuk mempersonalisasi target harian Anda.';
+	@override String get targetTitle => 'Berapa berat tujuan Anda?';
+	@override String get targetDescription => 'Menetapkan berat tujuan membantu kami menentukan rencana jangka panjang Anda.';
 	@override String get metric => 'Metrik';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Berikutnya';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeId implements TranslationsOnboardingAgeEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kapan tanggal lahir Anda?';
-	@override String get description => 'Usia Anda membantu kami menghitung kebutuhan kalori secara akurat.';
+	@override String get title => 'Kapan ulang tahun Anda?';
+	@override String get description => 'Usia Anda membantu kami menghitung kebutuhan kalori dengan akurat.';
 	@override String get next => 'Berikutnya';
 }
 
@@ -488,7 +488,7 @@ class _TranslationsOnboardingBmiScaleId implements TranslationsOnboardingBmiScal
 	@override String get underweight => 'Kurang';
 	@override String get healthy => 'Sehat';
 	@override String get overweight => 'Lebih';
-	@override String get obese => 'Obes';
+	@override String get obese => 'Obesitas';
 	@override late final _TranslationsOnboardingBmiScaleCategoriesId categories = _TranslationsOnboardingBmiScaleCategoriesId._(_root);
 	@override late final _TranslationsOnboardingBmiScaleMessagesId messages = _TranslationsOnboardingBmiScaleMessagesId._(_root);
 }
@@ -501,7 +501,7 @@ class _TranslationsOnboardingWeightGoalId implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Apa tujuan Anda?';
-	@override String get description => 'Pilih tujuan yang paling sesuai dengan yang ingin Anda capai';
+	@override String get description => 'Pilih tujuan yang paling menggambarkan apa yang ingin Anda capai';
 }
 
 // Path: onboarding.activityLevel
@@ -512,7 +512,7 @@ class _TranslationsOnboardingActivityLevelId implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Seberapa aktif Anda?';
-	@override String get description => 'Ini membantu kami menghitung kebutuhan kalori harian Anda dengan lebih akurat';
+	@override String get description => 'Ini membantu kami menghitung kebutuhan kalori harian Anda lebih akurat';
 }
 
 // Path: onboarding.healthConnect
@@ -522,19 +522,19 @@ class _TranslationsOnboardingHealthConnectId implements TranslationsOnboardingHe
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Hubungkan dengan Health Connect';
-	@override String get description => 'Sinkronkan data kesehatan Anda untuk wawasan lebih baik dan pelacakan kalori otomatis';
+	@override String get title => 'Sambungkan dengan Health Connect';
+	@override String get description => 'Sinkronkan data kesehatan Anda untuk wawasan yang lebih baik dan pelacakan kalori otomatis';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingId automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingId._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsId progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsId._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationId seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationId._(_root);
 	@override String get connected => 'Health Connect Terhubung';
 	@override String get notConnected => 'Health Connect Tidak Terhubung';
-	@override String get setup => 'Atur Health Connect';
-	@override String get skipForNow => 'Lewati dulu';
+	@override String get setup => 'Siapkan Health Connect';
+	@override String get skipForNow => 'Lewati sekarang';
 	@override String get statusConnected => 'Health Connect terhubung.';
-	@override String get statusSuccess => 'Health Connect berhasil terhubung!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Izin ditolak. Harap aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.';
-	@override String statusError({required Object error}) => 'Kesalahan menyiapkan Health Connect: ${error}';
+	@override String get statusSuccess => 'Health Connect berhasil dihubungkan!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.';
+	@override String statusError({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -562,9 +562,9 @@ class _TranslationsHomeAiSummaryId implements TranslationsHomeAiSummaryEn {
 	@override String mealCount({required Object count}) => '${count} makanan tercatat';
 	@override String macroBalanceScore({required Object score}) => 'Skor keseimbangan ${score}';
 	@override String get topFoods => 'Makanan teratas';
-	@override String get trendUp => 'Kalori cenderung naik';
-	@override String get trendDown => 'Kalori cenderung turun';
-	@override String get trendSteady => 'Kalori cenderung stabil';
+	@override String get trendUp => 'Kalori meningkat';
+	@override String get trendDown => 'Kalori menurun';
+	@override String get trendSteady => 'Kalori stabil';
 	@override String generatedAt({required Object time}) => 'Diperbarui ${time}';
 }
 
@@ -577,18 +577,18 @@ class _TranslationsHomeDailyGoalId implements TranslationsHomeDailyGoalEn {
 	// Translations
 	@override String get title => 'Atur Target Harian Anda';
 	@override String get titleSet => 'Target Harian Anda';
-	@override String get description => 'Siap memulai perjalanan kebugaran Anda? Tetapkan target kalori harian di bawah untuk mulai melaju.';
-	@override String get descriptionSet => 'Kompas Anda sudah ditetapkan! Ini adalah target kalori harian sebagai panduan Anda.';
+	@override String get description => 'Siap memulai perjalanan kesehatan Anda? Atur target kalori harian di bawah untuk memulai kemajuan Anda.';
+	@override String get descriptionSet => 'Kompas Anda sudah diatur! Ini adalah target kalori harian untuk membimbing Anda.';
 	@override String get yourGoal => 'Target Anda';
 	@override String get goal => 'Target';
-	@override String get dailyCalories => 'Kalori harian (kkal)';
+	@override String get dailyCalories => 'Kalori harian (kcal)';
 	@override String get setGoal => 'Atur Target';
 	@override String get intake => 'Asupan';
-	@override String get burned => 'Dibakar';
-	@override String get weightImpact => 'Dampak Berat Badan';
-	@override String get estLoss => 'Perk. turun';
-	@override String get estGain => 'Perk. naik';
-	@override String get kcal => 'kkal';
+	@override String get burned => 'Terbakar';
+	@override String get weightImpact => 'Dampak Berat';
+	@override String get estLoss => 'Perk. penurunan';
+	@override String get estGain => 'Perk. kenaikan';
+	@override String get kcal => 'kcal';
 }
 
 // Path: home.dailySummary
@@ -605,7 +605,7 @@ class _TranslationsHomeDailySummaryId implements TranslationsHomeDailySummaryEn 
 	@override String get fat => 'Lemak';
 	@override String get fiber => 'Serat';
 	@override String get grams => 'gram';
-	@override String get chartAccessibilityLabel => 'Bagan makro';
+	@override String get chartAccessibilityLabel => 'Grafik makro';
 }
 
 // Path: home.intakeProgress
@@ -616,7 +616,7 @@ class _TranslationsHomeIntakeProgressId implements TranslationsHomeIntakeProgres
 
 	// Translations
 	@override String get title => 'Pembagian Makro Hari Ini';
-	@override String get target => 'Target';
+	@override String get target => 'Sasaran';
 	@override String get current => 'Saat ini';
 }
 
@@ -631,7 +631,7 @@ class _TranslationsHomeIntakeHistoryId implements TranslationsHomeIntakeHistoryE
 	@override String get trendTitle => 'Tren Hari Ini';
 	@override String peakHour({required Object hour}) => 'Puncak: ${hour}:00';
 	@override String get noHistoryYet => 'Belum ada riwayat';
-	@override String get startLogging => 'Mulai mencatat makanan untuk melihat\ntren makro 7 hari di sini';
+	@override String get startLogging => 'Mulai mencatat makanan untuk melihat\ntren makro 7 hari Anda di sini';
 }
 
 // Path: home.mealLog
@@ -642,8 +642,8 @@ class _TranslationsHomeMealLogId implements TranslationsHomeMealLogEn {
 
 	// Translations
 	@override String get title => 'Makanan Tercatat';
-	@override String get emptyMessage => 'Ambil foto makanan terakhir Anda untuk mencatatnya di sini.';
-	@override String get noMealsToday => 'Belum ada makanan hari ini';
+	@override String get emptyMessage => 'Ambil foto makanan terakhir Anda untuk mencatat di sini.';
+	@override String get noMealsToday => 'Belum ada makanan tercatat hari ini';
 	@override String get seeAllMeals => 'Lihat semua makanan';
 }
 
@@ -655,8 +655,8 @@ class _TranslationsHomeMealDescriptionId implements TranslationsHomeMealDescript
 
 	// Translations
 	@override String get title => 'Tambah Cepat dengan AI';
-	@override String get description => 'Deskripsikan makanan Anda, dan biarkan AI mengurus detailnya.';
-	@override String get hint => 'mis. Untuk sarapan saya makan semangkuk besar oatmeal dengan satu pisang iris dan satu scoop whey ...';
+	@override String get description => 'Deskripsikan makanan Anda, dan biarkan AI menangani rinciannya.';
+	@override String get hint => 'mis. Untuk sarapan saya makan semangkuk besar oatmeal dengan pisang iris dan satu scoop whey ...';
 	@override String get analyzeMeal => 'Analisis makanan';
 }
 
@@ -670,7 +670,7 @@ class _TranslationsHomeFavoriteMealsId implements TranslationsHomeFavoriteMealsE
 	@override String get title => 'Makanan Favorit';
 	@override String get description => 'Tambahkan salah satu makanan favorit Anda dengan cepat.';
 	@override String get noFavorites => 'Belum ada makanan favorit.';
-	@override String get addFavoriteHint => 'Klik bintang pada makanan untuk menandainya sebagai favorit.';
+	@override String get addFavoriteHint => 'Klik bintang pada makanan untuk menandai sebagai favorit.';
 	@override String get seeAll => 'Lihat semua';
 	@override String get add => 'Tambah';
 }
@@ -682,7 +682,7 @@ class _TranslationsHomeMealSnapId implements TranslationsHomeMealSnapEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Foto & Lacak Makanan Anda';
+	@override String get title => 'Foto & Catat Makanan Anda';
 	@override String get description => 'Gunakan kamera untuk memotret makanan Anda untuk analisis AI.';
 	@override String get openCamera => 'Buka Kamera';
 	@override String get gallery => 'Galeri';
@@ -699,8 +699,8 @@ class _TranslationsHomeConnectHealthId implements TranslationsHomeConnectHealthE
 	// Translations
 	@override String get title => 'Sinkronkan dengan Health Connect';
 	@override String get description => 'Sinkronkan data nutrisi Anda dengan Health Connect';
-	@override String get install => 'Instal';
-	@override String get connect => 'Hubungkan';
+	@override String get install => 'Pasang';
+	@override String get connect => 'Sambungkan';
 }
 
 // Path: meal.nutrition
@@ -711,7 +711,7 @@ class _TranslationsMealNutritionId implements TranslationsMealNutritionEn {
 
 	// Translations
 	@override String get calories => 'Kalori';
-	@override String get carbs => 'Karbohidrat (g)';
+	@override String get carbs => 'Karbo (g)';
 	@override String get protein => 'Protein (g)';
 	@override String get fat => 'Lemak (g)';
 	@override String get fiber => 'Serat (g)';
@@ -725,7 +725,7 @@ class _TranslationsMealDeleteConfirmationId implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'Hapus Makanan';
-	@override String get message => 'Yakin ingin menghapus entri makanan ini?';
+	@override String get message => 'Apakah Anda yakin ingin menghapus entri makanan ini?';
 	@override String get cancel => 'Batal';
 	@override String get delete => 'Hapus';
 }
@@ -738,7 +738,7 @@ class _TranslationsMealQuestionFlowId implements TranslationsMealQuestionFlowEn 
 
 	// Translations
 	@override String progress({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}';
-	@override String get noQuestionsAvailable => 'Tidak ada pertanyaan yang tersedia';
+	@override String get noQuestionsAvailable => 'Tidak ada pertanyaan tersedia';
 	@override String get next => 'Berikutnya';
 	@override String get continueLabel => 'Lanjutkan';
 }
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisId implements TranslationsMealAnalysisEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Analisis makanan oleh AI';
+	@override String get title => 'Menganalisis makanan Anda';
 	@override String get stepStarted => 'Memulai…';
 	@override String get stepDecomposition => 'Memahami makanan Anda…';
-	@override String get stepIngredients => 'Mencocokkan bahan dengan data gizi…';
+	@override String get stepIngredients => 'Mencocokkan bahan dengan data nutrisi…';
 	@override String get stepUncertainty => 'Memeriksa tingkat keyakinan…';
 	@override String get stepMealTypeQuestion => 'Hampir selesai…';
-	@override String get stepResult => 'Menyelesaikan hasil…';
+	@override String get stepResult => 'Menyelesaikan hasil Anda…';
 	@override String get stepError => 'Terjadi kesalahan';
 	@override String get stepDefault => 'Menganalisis makanan Anda…';
-	@override String get progressUnderstand => 'Memahami';
-	@override String get progressMatch => 'Mencocokkan';
-	@override String get progressCheck => 'Memeriksa';
+	@override String get progressUnderstand => 'Memahami makanan Anda';
+	@override String get progressMatch => 'Mencari nutrisi bahan';
+	@override String get progressCheck => 'Memeriksa porsi dan keyakinan';
 	@override String get progressMealType => 'Memilih jenis makanan';
-	@override String get progressFinish => 'Selesai';
-	@override String get detectedIngredientHeading => 'Bahan yang kami deteksi';
-	@override String ingredientsOverflow({required Object count}) => '${count} lainnya';
+	@override String get progressFinish => 'Menghitung kalori dan makro';
+	@override String get detectedIngredientHeading => 'Bahan yang terdeteksi';
+	@override String ingredientsOverflow({required Object count}) => '${count} lagi';
 	@override String ingredientsLine({required Object count}) => '${count} bahan terdeteksi';
 	@override String get ingredientsPending => 'Memindai bahan…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get offlineTip0 => 'Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.';
+	@override String get offlineTip1 => 'Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.';
+	@override String get offlineTip2 => 'Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.';
+	@override String get offlineTip3 => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.';
+	@override String get offlineTip4 => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.';
+	@override String get offlineTip5 => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).';
 }
 
 // Path: meal.feedback
@@ -784,17 +784,17 @@ class _TranslationsMealFeedbackId implements TranslationsMealFeedbackEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Apa yang terlihat salah?';
+	@override String get title => 'Apa yang kelihatan salah?';
 	@override String get subtitle => 'Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.';
-	@override String get tellUsMore => 'Beri tahu kami lebih lanjut';
+	@override String get tellUsMore => 'Ceritakan lebih lanjut';
 	@override String get describeIncorrect => 'Jelaskan apa yang salah';
 	@override String get submit => 'Kirim';
 	@override String get issueFoodIdentification => 'Identifikasi makanan';
 	@override String get issuePortionSize => 'Ukuran porsi';
 	@override String get issueCalorieDistribution => 'Distribusi kalori';
 	@override String get issueMacrosWrong => 'Makro salah';
-	@override String get issueMissingItems => 'Item yang hilang';
-	@override String get issueExtraItems => 'Item tambahan';
+	@override String get issueMissingItems => 'Item hilang';
+	@override String get issueExtraItems => 'Item ekstra';
 	@override String get issueOther => 'Lainnya';
 }
 
@@ -820,7 +820,7 @@ class _TranslationsProfileSectionsId implements TranslationsProfileSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get basicInformation => 'INFORMASI DASAR';
 	@override String get goalsAndActivity => 'TUJUAN & AKTIVITAS';
-	@override String get calculatedValues => 'NILAI PERHITUNGAN';
+	@override String get calculatedValues => 'NILAI TERHITUNG';
 }
 
 // Path: profile.calculatedValues
@@ -833,7 +833,7 @@ class _TranslationsProfileCalculatedValuesId implements TranslationsProfileCalcu
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'Target Harian';
-	@override String get calPerDay => 'kkal/hari';
+	@override String get calPerDay => 'cal/hari';
 	@override String get notAvailable => 'N/A';
 }
 
@@ -856,8 +856,8 @@ class _TranslationsEditProfileGendersId implements TranslationsEditProfileGender
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get male => 'Laki-laki';
-	@override String get female => 'Perempuan';
+	@override String get male => 'Pria';
+	@override String get female => 'Wanita';
 	@override String get other => 'Lainnya';
 }
 
@@ -898,9 +898,9 @@ class _TranslationsSettingsSectionsId implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALISASI';
 	@override String get notifications => 'NOTIFIKASI';
 	@override String get healthConnect => 'HEALTH CONNECT';
-	@override String get supportAndLegal => 'DUKUNGAN & LEGAL';
+	@override String get supportAndLegal => 'DUKUNGAN & HUKUM';
 	@override String get about => 'TENTANG';
-	@override String get dangerZone => 'ZONA BAHAYA';
+	@override String get dangerZone => 'AREA BERISIKO';
 	@override String get developer => 'PENGEMBANG';
 }
 
@@ -956,7 +956,7 @@ class _TranslationsSettingsMealRemindersId implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'Pengingat Makan';
-	@override String get subtitle => 'Tetap di jalur dengan pengingat tepat waktu';
+	@override String get subtitle => 'Tetap pada jalur dengan pengingat tepat waktu';
 }
 
 // Path: settings.theme
@@ -979,10 +979,10 @@ class _TranslationsSettingsSendFeedbackId implements TranslationsSettingsSendFee
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kirim Masukan';
-	@override String subtitle({required Object appLabel}) => 'Bantu kami menyempurnakan ${appLabel}';
-	@override String emailSubject({required Object appLabel}) => 'Masukan Aplikasi ${appLabel}';
-	@override String get emailBodyPrefix => 'Silakan berikan masukan Anda di bawah ini:';
+	@override String get title => 'Kirim Umpan Balik';
+	@override String subtitle({required Object appLabel}) => 'Bantu kami meningkatkan ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} Umpan Balik Aplikasi';
+	@override String get emailBodyPrefix => 'Silakan berikan umpan balik Anda di bawah:';
 	@override String get appVersion => 'Versi Aplikasi';
 	@override String get device => 'Perangkat';
 	@override String get osVersion => 'Versi OS';
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryId implements TranslationsSettingsEx
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ekspor Riwayat Makanan';
+	@override String get title => 'Ekspor Riwayat Makan';
 	@override String get subtitle => 'Bagikan CSV dari makanan yang Anda catat';
 	@override String get shareText => 'Ekspor riwayat makanan Calorify Anda';
-	@override String failed({required Object error}) => 'Tidak dapat mengekspor riwayat makanan: ${error}';
+	@override String failed({required Object error}) => 'Tidak dapat mengekspor riwayat makan: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1010,9 +1010,9 @@ class _TranslationsSettingsClearAllDataId implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'Hapus Semua Data';
-	@override String get subtitle => 'Hapus semua informasi Anda secara permanen';
+	@override String get subtitle => 'Hapus semua informasi Anda secara tak dapat dikembalikan';
 	@override String get confirmationTitle => 'Hapus Semua Data?';
-	@override String get confirmationMessage => 'Tindakan ini tidak dapat dibatalkan. Semua makanan yang dicatat, favorit, dan pengaturan profil akan dihapus permanen.';
+	@override String get confirmationMessage => 'Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.';
 	@override String get cancel => 'Batal';
 	@override String get clearEverything => 'Hapus Semua';
 }
@@ -1053,8 +1053,8 @@ class _TranslationsSettingsAboutId implements TranslationsSettingsAboutEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'About';
-	@override String get tagline => 'Fast, free, and privacy-first calorie awareness';
+	@override String get title => 'Tentang';
+	@override String get tagline => 'Cepat, gratis, dan mengutamakan privasi untuk kesadaran kalori';
 	@override late final _TranslationsSettingsAboutOurStoryId ourStory = _TranslationsSettingsAboutOurStoryId._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyId privacy = _TranslationsSettingsAboutPrivacyId._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperId developer = _TranslationsSettingsAboutDeveloperId._(_root);
@@ -1080,7 +1080,7 @@ class _TranslationsNotificationsBreakfastId implements TranslationsNotifications
 
 	// Translations
 	@override String get title => 'Waktunya Sarapan! 🍳';
-	@override String get body => 'Jangan lupa catat sarapan Anda';
+	@override String get body => 'Jangan lupa mencatat sarapan Anda';
 }
 
 // Path: notifications.lunch
@@ -1102,7 +1102,7 @@ class _TranslationsNotificationsDinnerId implements TranslationsNotificationsDin
 
 	// Translations
 	@override String get title => 'Waktunya Makan Malam! 🍽️';
-	@override String get body => 'Jangan lupa catat makan malam Anda';
+	@override String get body => 'Jangan lupa mencatat makan malam Anda';
 }
 
 // Path: notifications.snack
@@ -1112,8 +1112,8 @@ class _TranslationsNotificationsSnackId implements TranslationsNotificationsSnac
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Waktunya Camilan! 🍎';
-	@override String get body => 'Saatnya camilan yang sehat';
+	@override String get title => 'Waktunya Cemilan! 🍎';
+	@override String get body => 'Waktunya cemilan sehat';
 }
 
 // Path: notifications.test
@@ -1123,7 +1123,7 @@ class _TranslationsNotificationsTestId implements TranslationsNotificationsTestE
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Notifikasi Uji';
+	@override String get title => 'Notifikasi Tes';
 }
 
 // Path: disclaimer.snap
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapId implements TranslationsDisclaimerSnapEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} memberikan info gizi perkiraan. Akurasi bergantung pada input Anda & variasi makanan. Gunakan sebagai panduan, bukan sumber definitif. Konsultasikan profesional untuk saran diet yang dipersonalisasi.';
+	@override String description({required Object appLabel}) => '${appLabel} menyediakan informasi nutrisi perkiraan. Ketepatan bergantung pada input Anda & variasi makanan. Gunakan sebagai panduan, bukan sumber pasti. Konsultasikan profesional untuk saran diet personal.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeId portionSize = _TranslationsDisclaimerSnapPortionSizeId._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsId preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsId._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsId ingredients = _TranslationsDisclaimerSnapIngredientsId._(_root);
@@ -1148,7 +1148,7 @@ class _TranslationsDisclaimerWeightEstimateId implements TranslationsDisclaimerW
 
 	// Translations
 	@override String get title => 'Tentang Perkiraan Berat';
-	@override String get description => 'Proyeksi perubahan berat adalah perkiraan teoretis berdasarkan model sederhana kalori masuk vs. kalori keluar. Ini ditujukan untuk panduan motivasi saja, bukan prediksi berat aktual Anda.';
+	@override String get description => 'Perubahan berat yang diproyeksikan adalah perkiraan teoretis berdasarkan model kalori masuk vs keluar sederhana. Ini dimaksudkan untuk panduan motivasi saja, bukan prediksi berat aktual Anda.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyId calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyId._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsId biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsId._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightId waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightId._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsId implements TranslationsDisclaimerHe
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Metrik ini membantu Anda memahami kebutuhan energi tubuh dan memandu tujuan nutrisi Anda.';
+	@override String get description => 'Metrik ini membantu Anda memahami kebutuhan energi tubuh dan membimbing tujuan nutrisi Anda.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrId bmr = _TranslationsDisclaimerHealthMetricsBmrId._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeId tdee = _TranslationsDisclaimerHealthMetricsTdeeId._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalId dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalId._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureId implements TranslationsDisclai
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Perkiraan Kalori Terbakar';
-	@override String get description => 'Saat data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini menggunakan Laju Metabolisme Basal (BMR) dan tingkat aktivitas (TDEE), disesuaikan dengan porsi hari yang telah berlalu.';
+	@override String get title => 'Perkiraan Pengeluaran Kalori';
+	@override String get description => 'Saat data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini menggunakan Basal Metabolic Rate (BMR) dan tingkat aktivitas Anda (TDEE), diskalakan untuk porsi hari yang telah berlalu.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedId howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedId._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId._(_root);
 }
@@ -1188,7 +1188,7 @@ class _TranslationsOnboardingFeaturesFoodRecognitionId implements TranslationsOn
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Pengenalan Makanan Cerdas';
+	@override String get title => 'Pengenalan Makanan Pintar';
 	@override String get description => 'Ambil foto dan biarkan AI mengenali makanan Anda';
 }
 
@@ -1200,7 +1200,7 @@ class _TranslationsOnboardingFeaturesAiAnalysisId implements TranslationsOnboard
 
 	// Translations
 	@override String get title => 'Analisis AI';
-	@override String get description => 'Dapatkan informasi gizi instan dari deskripsi Anda';
+	@override String get description => 'Dapatkan fakta nutrisi instan dari deskripsi Anda';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1210,8 +1210,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationId implements Translations
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Integrasi Kesehatan';
-	@override String get description => 'Hubungkan dengan Health Connect untuk wawasan yang lebih baik';
+	@override String get title => 'Integrasi Health Connect';
+	@override String get description => 'Sambungkan dengan Health Connect untuk wawasan yang lebih baik';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1223,7 +1223,7 @@ class _TranslationsOnboardingBmiScaleCategoriesId implements TranslationsOnboard
 	// Translations
 	@override String get underweight => 'Berat badan kurang';
 	@override String get healthyWeight => 'Berat badan sehat';
-	@override String get overweight => 'Kelebihan berat badan';
+	@override String get overweight => 'Berat badan berlebih';
 	@override String get obese => 'Obesitas';
 }
 
@@ -1235,9 +1235,9 @@ class _TranslationsOnboardingBmiScaleMessagesId implements TranslationsOnboardin
 
 	// Translations
 	@override String get underweight => 'Kami dapat membantu Anda menyusun rencana sehat untuk mencapai berat seimbang dengan makanan padat nutrisi.';
-	@override String get healthy => 'Kerja bagus! Anda berada dalam kisaran sehat. Kami akan membantu Anda menjaga vitalitas dan energi.';
-	@override String overweight({required Object appLabel}) => '${appLabel} akan menyederhanakan perjalanan Anda dengan pelacakan bertenaga AI agar Anda nyaman mencapai target.';
-	@override String get obese => 'Kami siap mendukung Anda dengan panduan yang dipersonalisasi dan strategi berkelanjutan untuk tujuan kesehatan Anda.';
+	@override String get healthy => 'Kerja bagus! Anda berada dalam kisaran sehat. Kami akan membantu Anda mempertahankan vitalitas dan energi.';
+	@override String overweight({required Object appLabel}) => '${appLabel} akan mempermudah perjalanan Anda dengan pelacakan bertenaga AI untuk membantu mencapai target dengan nyaman.';
+	@override String get obese => 'Kami hadir untuk mendukung Anda dengan panduan personal dan strategi berkelanjutan untuk tujuan kesehatan Anda.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1248,7 +1248,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingId implements Transla
 
 	// Translations
 	@override String get title => 'Pelacakan Kalori Otomatis';
-	@override String get description => 'Lacak kalori yang terbakar dari aplikasi kebugaran Anda';
+	@override String get description => 'Lacak kalori yang dibakar dari aplikasi kebugaran Anda';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsId implements Translat
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Wawasan Perkembangan';
-	@override String get description => 'Dapatkan wawasan mendalam tentang tren kesehatan Anda';
+	@override String get title => 'Wawasan Kemajuan';
+	@override String get description => 'Dapatkan wawasan rinci tentang tren kesehatan Anda';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1269,7 +1269,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationId implements Trans
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Integrasi Mulus';
+	@override String get title => 'Integrasi Tanpa Hambatan';
 	@override String get description => 'Sinkronkan data dari aplikasi kesehatan favorit Anda';
 }
 
@@ -1280,14 +1280,14 @@ class _TranslationsOnboardingReinforcementTrackingSuccessId implements Translati
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Anda Tidak Sendirian';
-	@override String get genericMessage => 'Riset menunjukkan bahwa pencatatan konsisten adalah faktor #1 keberhasilan jangka panjang.';
-	@override String personalizedMessage({required Object gender, required Object age, required Object goal}) => 'Untuk ${gender} berusia ${age} tahun yang ingin ${goal}, pencatatan konsisten adalah prediktor keberhasilan #1.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} membuatnya 10x lebih mudah dibanding secara manual.';
-	@override String get getStartedTitle => 'Siap untuk mulai?';
-	@override String get tipPhoto => 'Ambil foto makanan Anda untuk analisis instan';
-	@override String get tipConsistency => 'Catat secara konsisten untuk melihat perkembangan bermakna';
-	@override String get tipProgress => 'Lacak perkembangan harian agar tetap termotivasi';
+	@override String get title => 'Anda Tidak Sendiri';
+	@override String get genericMessage => 'Penelitian menunjukkan pelacakan konsisten adalah prediktor nomor 1 keberhasilan jangka panjang.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Untuk individu berusia ${age} tahun berjenis ${gender} yang ingin ${goal}, pelacakan konsisten adalah prediktor utama keberhasilan.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} membuatnya 10x lebih mudah daripada melakukannya secara manual.';
+	@override String get getStartedTitle => 'Siap untuk memulai?';
+	@override String get tipPhoto => 'Ambil foto makanan untuk analisis instan';
+	@override String get tipConsistency => 'Catat secara konsisten untuk melihat kemajuan bermakna';
+	@override String get tipProgress => 'Lacak kemajuan Anda tiap hari untuk tetap termotivasi';
 	@override String get button => 'Ayo Mulai';
 	@override String get defaultGender => 'individu';
 	@override String get defaultGoal => 'Anda yang lebih sehat';
@@ -1305,8 +1305,8 @@ class _TranslationsOnboardingReinforcementHealthProfileId implements Translation
 	@override String get finalizeDescription => 'Mari selesaikan profil Anda untuk menyesuaikan pengalaman.';
 	@override String get goalGain => 'menambah';
 	@override String get goalLose => 'mengurangi';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Untuk mencapai tujuan Anda, Anda perlu ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'Anda sudah di berat target! Kami akan membantu Anda mempertahankannya.';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Untuk mencapai tujuan Anda, Anda akan ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'Anda sudah mencapai berat target! Kami akan membantu mempertahankannya.';
 	@override String get button => 'Ayo Mulai';
 }
 
@@ -1317,11 +1317,11 @@ class _TranslationsOnboardingReinforcementGoalLifestyleId implements Translation
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Awal yang Luar Biasa!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Anda telah mengambil langkah pertama menuju ${goalText}. Karena Anda ${activityText}, ${appLabel} akan menyesuaikan target agar selaras dengan gaya hidup Anda.';
-	@override String get personalizedTargets => 'Target kalori yang dipersonalisasi';
-	@override String get aiMealDetection => 'Pendeteksian makanan bertenaga AI';
-	@override String get macroBreakdowns => 'Rincian makronutrien yang detail';
+	@override String get title => 'Awal yang Bagus!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Anda telah mengambil langkah pertama menuju ${goalText}. Karena Anda ${activityText}, ${appLabel} akan menyesuaikan target Anda agar sesuai gaya hidup Anda.';
+	@override String get personalizedTargets => 'Target kalori personal';
+	@override String get aiMealDetection => 'Deteksi makanan bertenaga AI';
+	@override String get macroBreakdowns => 'Rincian makronutrien';
 	@override String get button => 'Ayo Mulai';
 	@override String get defaultGoal => 'tujuan Anda';
 	@override String get defaultActivity => 'aktif';
@@ -1334,8 +1334,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightId implements TranslationsEdi
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Turun Berat';
-	@override String get description => 'Buat defisit kalori untuk menurunkan berat';
+	@override String get name => 'Turunkan Berat';
+	@override String get description => 'Buat defisit kalori untuk menurunkan berat badan';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1346,7 +1346,7 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightId implements Translation
 
 	// Translations
 	@override String get name => 'Pertahankan Berat';
-	@override String get description => 'Pertahankan berat badan saat ini';
+	@override String get description => 'Mempertahankan berat Anda saat ini';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1356,7 +1356,7 @@ class _TranslationsEditProfileWeightGoalsGainWeightId implements TranslationsEdi
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Naik Berat';
+	@override String get name => 'Tambah Berat';
 	@override String get description => 'Buat surplus kalori untuk menambah berat';
 }
 
@@ -1367,8 +1367,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryId implements TranslationsE
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Sedenter';
-	@override String get description => 'Sedikit atau tidak berolahraga';
+	@override String get name => 'Sedentari';
+	@override String get description => 'Sedikit atau tidak ada olahraga';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1378,7 +1378,7 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveId implements Translati
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Cukup Aktif';
+	@override String get name => 'Ringan Aktif';
 	@override String get description => 'Olahraga ringan 1-3 hari/minggu';
 }
 
@@ -1389,7 +1389,7 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveId implements Transl
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Cukup Intens';
+	@override String get name => 'Cukup Aktif';
 	@override String get description => 'Olahraga sedang 3-5 hari/minggu';
 }
 
@@ -1411,7 +1411,7 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveId implements Transla
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Sangat Intens';
+	@override String get name => 'Ekstrem Aktif';
 	@override String get description => 'Olahraga sangat berat, pekerjaan fisik';
 }
 
@@ -1423,7 +1423,7 @@ class _TranslationsSettingsHealthConnectUnavailableId implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Health Connect Tidak Tersedia';
-	@override String get description => 'Health Connect tidak tersedia di perangkat ini. Harap instal Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.';
+	@override String get description => 'Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1435,8 +1435,8 @@ class _TranslationsSettingsHealthConnectPermissionsId implements TranslationsSet
 	// Translations
 	@override String get title => 'Izin';
 	@override String get description => 'Izin berikut diminta untuk menyediakan integrasi Health Connect:';
-	@override String get granted => 'Diizinkan';
-	@override String get notGranted => 'Tidak Diizinkan';
+	@override String get granted => 'Diberikan';
+	@override String get notGranted => 'Belum Diberikan';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadId nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadId._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteId nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteId._(_root);
@@ -1449,8 +1449,8 @@ class _TranslationsSettingsAboutOurStoryId implements TranslationsSettingsAboutO
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Our Story';
-	@override String content({required Object appLabel}) => '${appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy.\n\nAs a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect.\n\n${appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals.';
+	@override String get title => 'Kisah Kami';
+	@override String content({required Object appLabel}) => '${appLabel} lahir dari satu kekesalan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, menuntut input manual terus-menerus, mengenakan biaya langganan tinggi, atau mengorbankan privasi.\n\nSebagai pengembang solo, saya ingin membuat sesuatu yang lebih sederhana dan lebih adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghargai data kesehatan Anda.\n\n${appLabel} adalah aplikasi yang saya harap ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas dan praktis serta tujuan kesehatan Anda.';
 }
 
 // Path: settings.about.privacy
@@ -1460,14 +1460,14 @@ class _TranslationsSettingsAboutPrivacyId implements TranslationsSettingsAboutPr
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Your Privacy Matters';
-	@override String get description => 'Privacy isn\'t an afterthought — it\'s a design principle. Here\'s what that means in practice:';
-	@override String get noAccounts => 'No accounts required\nUse the app immediately. No sign-ups, no identities.';
-	@override String noTracking({required Object appLabel}) => 'No behavioral tracking\n${appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.';
-	@override String noAds({required Object appLabel}) => 'Ad-free by design\n${appLabel} is built to work without ads or data-driven monetization.';
-	@override String get noDataSelling => 'No data selling\nYour health data is never sold or shared with third parties.';
-	@override String get localStorage => 'Local-first storage\nYour data stays on your device.';
-	@override String get privacyPolicy => 'Privacy Policy';
+	@override String get title => 'Privasi Anda Penting';
+	@override String get description => 'Privasi bukan sekadar pemikiran tambahan — itu adalah prinsip desain. Berikut arti itu dalam praktik:';
+	@override String get noAccounts => 'Tanpa akun\nGunakan aplikasi langsung. Tidak perlu mendaftar, tanpa identitas.';
+	@override String noTracking({required Object appLabel}) => 'Tanpa pelacakan perilaku\n${appLabel} tidak memantau aktivitas Anda, membuat profil penggunaan, atau melacak Anda antar aplikasi atau situs web.';
+	@override String noAds({required Object appLabel}) => 'Tanpa iklan secara desain\n${appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.';
+	@override String get noDataSelling => 'Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.';
+	@override String get localStorage => 'Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.';
+	@override String get privacyPolicy => 'Kebijakan Privasi';
 }
 
 // Path: settings.about.developer
@@ -1477,9 +1477,9 @@ class _TranslationsSettingsAboutDeveloperId implements TranslationsSettingsAbout
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Built by a Solo Developer';
-	@override String description({required Object appLabel}) => '${appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software.\n\nFeedback is read personally and helps shape the direction of the app.';
-	@override String get website => 'Website';
+	@override String get title => 'Dibuat oleh Pengembang Solo';
+	@override String description({required Object appLabel}) => '${appLabel} dibuat dan dipelihara oleh satu pengembang solo yang fokus pada pembuatan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nUmpan balik dibaca secara pribadi dan membantu membentuk arah aplikasi.';
+	@override String get website => 'Situs Web';
 	@override String get email => 'Email';
 }
 
@@ -1490,10 +1490,10 @@ class _TranslationsSettingsAboutFeedbackId implements TranslationsSettingsAboutF
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => 'Enjoying ${appLabel}?';
-	@override String description({required Object appLabel}) => 'Your feedback helps make ${appLabel} better for everyone.';
-	@override String get rateApp => 'Rate on Play Store';
-	@override String get sendFeedback => 'Send Feedback';
+	@override String title({required Object appLabel}) => 'Menikmati ${appLabel}?';
+	@override String description({required Object appLabel}) => 'Umpan balik Anda membantu membuat ${appLabel} lebih baik untuk semua orang.';
+	@override String get rateApp => 'Beri rating di Play Store';
+	@override String get sendFeedback => 'Kirim Umpan Balik';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1504,7 +1504,7 @@ class _TranslationsDisclaimerSnapPortionSizeId implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Ukuran Porsi';
-	@override String get description => 'Akurasi perkiraan sangat bergantung pada penilaian ukuran porsi yang benar oleh Anda.';
+	@override String get description => 'Akurasi perkiraan sangat bergantung pada penilaian ukuran porsi yang benar.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsId implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Metode Persiapan';
-	@override String description({required Object appLabel}) => 'Metode memasak dapat secara signifikan mengubah kandungan gizi makanan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.';
+	@override String description({required Object appLabel}) => 'Metode memasak dapat mengubah kandungan nutrisi secara signifikan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsId implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Bahan';
-	@override String get description => 'Hidangan kompleks dengan banyak bahan tersembunyi dapat menghasilkan estimasi yang kurang akurat.';
+	@override String get description => 'Hidangan kompleks dengan banyak bahan tersembunyi dapat menyebabkan estimasi yang kurang akurat.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,8 +1536,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsId implements TranslationsDi
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Keterbatasan Basis Data';
-	@override String description({required Object appLabel}) => 'Basis data makanan ${appLabel} luas namun mungkin tidak mencakup setiap item atau variasi makanan.';
+	@override String get title => 'Batasan Basis Data';
+	@override String description({required Object appLabel}) => 'Basis data makanan ${appLabel} luas tetapi mungkin tidak mencakup setiap item makanan atau variasinya.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsId implements Transl
 
 	// Translations
 	@override String get title => 'Faktor Biologis';
-	@override String description({required Object appLabel}) => 'Penurunan/kenaikan berat aktual dipengaruhi oleh metabolisme, hormon, tidur, stres, hidrasi, dan faktor individual lain yang tidak dapat diukur ${appLabel}.';
+	@override String description({required Object appLabel}) => 'Penurunan/penambahan berat aktual dipengaruhi oleh metabolisme, hormon, tidur, stres, hidrasi, dan faktor individu lain yang tidak dapat diukur oleh ${appLabel}.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1570,7 +1570,7 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightId implements Translations
 
 	// Translations
 	@override String get title => 'Berat Air & Fluktuasi';
-	@override String get description => 'Berat harian normal dapat berfluktuasi signifikan karena retensi air, pencernaan, dan waktu. Perkiraan ini tidak memperhitungkan perubahan harian tersebut.';
+	@override String get description => 'Berat harian normal dapat berfluktuasi secara signifikan akibat retensi air, pencernaan, dan waktu. Perkiraan tidak memperhitungkan perubahan harian ini.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1581,7 +1581,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceId implements Tra
 
 	// Translations
 	@override String get title => 'Panduan Profesional';
-	@override String get description => 'Jangan gunakan perkiraan ini untuk keputusan medis. Selalu konsultasikan tenaga kesehatan profesional atau ahli gizi terdaftar untuk saran manajemen berat yang dipersonalisasi.';
+	@override String get description => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrId implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Basal Metabolic Rate (BMR) atau Laju Metabolisme Basal adalah jumlah kalori yang dibakar tubuh saat istirahat untuk mempertahankan fungsi dasar seperti bernapas dan sirkulasi. BMR bergantung pada usia, jenis kelamin, tinggi, dan berat badan Anda. BMR yang lebih tinggi berarti tubuh secara alami membakar lebih banyak kalori saat istirahat, sering kali karena massa otot lebih besar, usia lebih muda, atau laki-laki. BMR lebih rendah biasanya menunjukkan massa otot lebih sedikit, usia lebih tua, atau perempuan.';
+	@override String get description => 'Basal Metabolic Rate (BMR) adalah jumlah kalori yang dibakar tubuh Anda saat istirahat untuk mempertahankan fungsi dasar seperti bernapas dan sirkulasi. BMR bergantung pada usia, jenis kelamin, tinggi, dan berat badan. BMR lebih tinggi berarti tubuh Anda secara alami membakar lebih banyak kalori saat istirahat, seringkali karena massa otot lebih banyak, usia lebih muda, atau laki-laki. BMR lebih rendah biasanya menunjukkan massa otot lebih sedikit, usia lebih tua, atau perempuan.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeId implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Total Daily Energy Expenditure (TDEE) atau Total Pengeluaran Energi Harian adalah total kalori yang Anda bakar per hari, termasuk BMR ditambah kalori dari aktivitas fisik dan gerak harian. TDEE bergantung pada BMR dan tingkat aktivitas Anda. TDEE yang lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR lebih tinggi. TDEE yang lebih rendah menunjukkan aktivitas harian lebih sedikit atau BMR lebih rendah.';
+	@override String get description => 'Total Daily Energy Expenditure (TDEE) adalah total kalori yang Anda bakar per hari, termasuk BMR ditambah kalori dari aktivitas fisik dan gerakan harian. TDEE bergantung pada BMR dan tingkat aktivitas Anda. TDEE lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR lebih tinggi. TDEE lebih rendah menunjukkan aktivitas harian yang lebih sedikit atau BMR lebih rendah.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1614,7 +1614,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalId implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Target Harian';
-	@override String get description => 'Target Harian adalah asupan kalori harian yang direkomendasikan berdasarkan TDEE dan tujuan berat Anda. Untuk penurunan berat, Anda mengonsumsi lebih sedikit kalori daripada TDEE. Untuk pemeliharaan, Anda menyamai TDEE. Untuk kenaikan berat, Anda mengonsumsi lebih banyak kalori daripada TDEE. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan laju yang sehat.';
+	@override String get description => 'Target Harian adalah rekomendasi asupan kalori harian Anda berdasarkan TDEE dan tujuan berat Anda. Untuk penurunan berat, Anda mengonsumsi lebih sedikit kalori daripada TDEE. Untuk mempertahankan berat, Anda mencocokkan TDEE. Untuk penambahan berat, Anda mengonsumsi lebih banyak kalori daripada TDEE. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan kecepatan yang sehat.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1624,8 +1624,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedId implements Transl
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Cara Perkiraan Dihitung';
-	@override String get description => 'Kami menghitung TDEE Anda (berdasarkan profil) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang sudah terbakar.';
+	@override String get title => 'Bagaimana Perkiraan Dihitung';
+	@override String get description => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang terbakar sejauh ini.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1636,7 +1636,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceId implements
 
 	// Translations
 	@override String get title => 'Panduan Profesional';
-	@override String get description => 'Jangan gunakan perkiraan ini untuk keputusan medis. Selalu konsultasikan tenaga kesehatan profesional atau ahli gizi terdaftar untuk saran yang dipersonalisasi.';
+	@override String get description => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1647,8 +1647,8 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId implements T
 
 	// Translations
 	@override String get title => 'Baca Total Kalori Terbakar';
-	@override String get description => 'Mengizinkan aplikasi membaca total kalori terbakar dari Health Connect.';
-	@override String get usage => 'Izin ini digunakan untuk menampilkan kalori harian yang Anda bakar di aplikasi, membantu Anda memahami total pengeluaran energi sepanjang hari.';
+	@override String get description => 'Memungkinkan aplikasi membaca total kalori yang Anda bakar dari Health Connect.';
+	@override String get usage => 'Izin ini digunakan untuk menampilkan pembakaran kalori harian Anda di aplikasi, membantu Anda memahami total pengeluaran energi sepanjang hari.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1659,8 +1659,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadId implements Tr
 
 	// Translations
 	@override String get title => 'Baca Data Nutrisi';
-	@override String get description => 'Mengizinkan aplikasi membaca data nutrisi dari Health Connect.';
-	@override String get usage => 'Izin ini memungkinkan aplikasi membaca informasi nutrisi yang mungkin dicatat oleh aplikasi lain yang terhubung ke Health Connect, memberikan gambaran nutrisi yang menyeluruh.';
+	@override String get description => 'Memungkinkan aplikasi membaca data nutrisi dari Health Connect.';
+	@override String get usage => 'Izin ini memungkinkan aplikasi membaca informasi nutrisi yang mungkin telah dicatat oleh aplikasi lain yang terhubung ke Health Connect, memberikan pandangan yang komprehensif tentang nutrisi Anda.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1671,8 +1671,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteId implements T
 
 	// Translations
 	@override String get title => 'Tulis Data Nutrisi';
-	@override String get description => 'Mengizinkan aplikasi menulis data nutrisi ke Health Connect.';
-	@override String get usage => 'Izin ini memungkinkan aplikasi menyinkronkan makanan yang Anda catat ke Health Connect, sehingga data nutrisi Anda tersedia bagi aplikasi kesehatan dan kebugaran lain yang Anda gunakan.';
+	@override String get description => 'Memungkinkan aplikasi menulis data nutrisi ke Health Connect.';
+	@override String get usage => 'Izin ini memungkinkan aplikasi menyinkronkan makanan yang Anda catat ke Health Connect, sehingga data nutrisi Anda tersedia untuk aplikasi kesehatan dan kebugaran lain yang Anda gunakan.';
 }
 
 /// The flat map containing all translations for locale <id>.
@@ -1686,79 +1686,79 @@ extension on TranslationsId {
 			'language' => 'Bahasa Indonesia',
 			'flag' => '🇮🇩',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Anda membuat terlalu banyak permintaan. Harap tunggu sebentar sebelum mencoba lagi.',
+			'errors.rateLimitExceeded' => 'Anda telah membuat terlalu banyak permintaan. Mohon tunggu sebentar sebelum mencoba lagi.',
 			'errors.networkError' => 'Kesalahan jaringan. Periksa koneksi internet Anda.',
 			'errors.unknownError' => 'Terjadi kesalahan. Silakan coba lagi nanti.',
-			'errors.loadingProfileData' => 'Kesalahan memuat data profil',
-			'errors.somethingWentWrong' => 'Ada yang tidak beres.',
-			'errors.retry' => 'Coba Lagi',
+			'errors.loadingProfileData' => 'Gagal memuat data profil',
+			'errors.somethingWentWrong' => 'Terjadi kesalahan.',
+			'errors.retry' => 'Coba lagi',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Selamat datang di ${appLabel}',
 			'onboarding.subtitle' => 'Pendamping nutrisi pribadi Anda yang didukung AI',
 			'onboarding.getStarted' => 'Mulai',
-			'onboarding.features.foodRecognition.title' => 'Pengenalan Makanan Cerdas',
+			'onboarding.features.foodRecognition.title' => 'Pengenalan Makanan Pintar',
 			'onboarding.features.foodRecognition.description' => 'Ambil foto dan biarkan AI mengenali makanan Anda',
 			'onboarding.features.aiAnalysis.title' => 'Analisis AI',
-			'onboarding.features.aiAnalysis.description' => 'Dapatkan informasi gizi instan dari deskripsi Anda',
-			'onboarding.features.healthIntegration.title' => 'Integrasi Kesehatan',
-			'onboarding.features.healthIntegration.description' => 'Hubungkan dengan Health Connect untuk wawasan yang lebih baik',
+			'onboarding.features.aiAnalysis.description' => 'Dapatkan fakta nutrisi instan dari deskripsi Anda',
+			'onboarding.features.healthIntegration.title' => 'Integrasi Health Connect',
+			'onboarding.features.healthIntegration.description' => 'Sambungkan dengan Health Connect untuk wawasan yang lebih baik',
 			'onboarding.gender.title' => 'Apa jenis kelamin Anda?',
-			'onboarding.gender.description' => 'Jenis kelamin membantu kami menghitung laju metabolisme basal (BMR) Anda dengan akurat.',
+			'onboarding.gender.description' => 'Jenis kelamin membantu kami menghitung basal metabolic rate (BMR) secara akurat.',
 			'onboarding.gender.next' => 'Berikutnya',
-			'onboarding.height.title' => 'Berapa tinggi badan Anda?',
-			'onboarding.height.description' => 'Tinggi badan Anda membantu kami menghitung BMI dan kebutuhan energi secara akurat.',
+			'onboarding.height.title' => 'Berapa tinggi Anda?',
+			'onboarding.height.description' => 'Tinggi Anda membantu kami menghitung BMI dan kebutuhan energi dengan tepat.',
 			'onboarding.height.metric' => 'Metrik',
 			'onboarding.height.imperial' => 'Imperial',
 			'onboarding.height.next' => 'Berikutnya',
-			'onboarding.weight.currentTitle' => 'Berapa berat badan Anda saat ini?',
-			'onboarding.weight.currentDescription' => 'Berat badan saat ini penting untuk mempersonalisasi target harian Anda.',
-			'onboarding.weight.targetTitle' => 'Berapa target berat badan Anda?',
-			'onboarding.weight.targetDescription' => 'Menetapkan target berat membantu kami menentukan rencana jangka panjang Anda.',
+			'onboarding.weight.currentTitle' => 'Berapa berat Anda saat ini?',
+			'onboarding.weight.currentDescription' => 'Berat Anda saat ini penting untuk mempersonalisasi target harian Anda.',
+			'onboarding.weight.targetTitle' => 'Berapa berat tujuan Anda?',
+			'onboarding.weight.targetDescription' => 'Menetapkan berat tujuan membantu kami menentukan rencana jangka panjang Anda.',
 			'onboarding.weight.metric' => 'Metrik',
 			'onboarding.weight.imperial' => 'Imperial',
 			'onboarding.weight.next' => 'Berikutnya',
-			'onboarding.age.title' => 'Kapan tanggal lahir Anda?',
-			'onboarding.age.description' => 'Usia Anda membantu kami menghitung kebutuhan kalori secara akurat.',
+			'onboarding.age.title' => 'Kapan ulang tahun Anda?',
+			'onboarding.age.description' => 'Usia Anda membantu kami menghitung kebutuhan kalori dengan akurat.',
 			'onboarding.age.next' => 'Berikutnya',
 			'onboarding.bmiScale.underweight' => 'Kurang',
 			'onboarding.bmiScale.healthy' => 'Sehat',
 			'onboarding.bmiScale.overweight' => 'Lebih',
-			'onboarding.bmiScale.obese' => 'Obes',
+			'onboarding.bmiScale.obese' => 'Obesitas',
 			'onboarding.bmiScale.categories.underweight' => 'Berat badan kurang',
 			'onboarding.bmiScale.categories.healthyWeight' => 'Berat badan sehat',
-			'onboarding.bmiScale.categories.overweight' => 'Kelebihan berat badan',
+			'onboarding.bmiScale.categories.overweight' => 'Berat badan berlebih',
 			'onboarding.bmiScale.categories.obese' => 'Obesitas',
 			'onboarding.bmiScale.messages.underweight' => 'Kami dapat membantu Anda menyusun rencana sehat untuk mencapai berat seimbang dengan makanan padat nutrisi.',
-			'onboarding.bmiScale.messages.healthy' => 'Kerja bagus! Anda berada dalam kisaran sehat. Kami akan membantu Anda menjaga vitalitas dan energi.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} akan menyederhanakan perjalanan Anda dengan pelacakan bertenaga AI agar Anda nyaman mencapai target.',
-			'onboarding.bmiScale.messages.obese' => 'Kami siap mendukung Anda dengan panduan yang dipersonalisasi dan strategi berkelanjutan untuk tujuan kesehatan Anda.',
+			'onboarding.bmiScale.messages.healthy' => 'Kerja bagus! Anda berada dalam kisaran sehat. Kami akan membantu Anda mempertahankan vitalitas dan energi.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} akan mempermudah perjalanan Anda dengan pelacakan bertenaga AI untuk membantu mencapai target dengan nyaman.',
+			'onboarding.bmiScale.messages.obese' => 'Kami hadir untuk mendukung Anda dengan panduan personal dan strategi berkelanjutan untuk tujuan kesehatan Anda.',
 			'onboarding.weightGoal.title' => 'Apa tujuan Anda?',
-			'onboarding.weightGoal.description' => 'Pilih tujuan yang paling sesuai dengan yang ingin Anda capai',
+			'onboarding.weightGoal.description' => 'Pilih tujuan yang paling menggambarkan apa yang ingin Anda capai',
 			'onboarding.activityLevel.title' => 'Seberapa aktif Anda?',
-			'onboarding.activityLevel.description' => 'Ini membantu kami menghitung kebutuhan kalori harian Anda dengan lebih akurat',
-			'onboarding.healthConnect.title' => 'Hubungkan dengan Health Connect',
-			'onboarding.healthConnect.description' => 'Sinkronkan data kesehatan Anda untuk wawasan lebih baik dan pelacakan kalori otomatis',
+			'onboarding.activityLevel.description' => 'Ini membantu kami menghitung kebutuhan kalori harian Anda lebih akurat',
+			'onboarding.healthConnect.title' => 'Sambungkan dengan Health Connect',
+			'onboarding.healthConnect.description' => 'Sinkronkan data kesehatan Anda untuk wawasan yang lebih baik dan pelacakan kalori otomatis',
 			'onboarding.healthConnect.automaticTracking.title' => 'Pelacakan Kalori Otomatis',
-			'onboarding.healthConnect.automaticTracking.description' => 'Lacak kalori yang terbakar dari aplikasi kebugaran Anda',
-			'onboarding.healthConnect.progressInsights.title' => 'Wawasan Perkembangan',
-			'onboarding.healthConnect.progressInsights.description' => 'Dapatkan wawasan mendalam tentang tren kesehatan Anda',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'Integrasi Mulus',
+			'onboarding.healthConnect.automaticTracking.description' => 'Lacak kalori yang dibakar dari aplikasi kebugaran Anda',
+			'onboarding.healthConnect.progressInsights.title' => 'Wawasan Kemajuan',
+			'onboarding.healthConnect.progressInsights.description' => 'Dapatkan wawasan rinci tentang tren kesehatan Anda',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'Integrasi Tanpa Hambatan',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Sinkronkan data dari aplikasi kesehatan favorit Anda',
 			'onboarding.healthConnect.connected' => 'Health Connect Terhubung',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Tidak Terhubung',
-			'onboarding.healthConnect.setup' => 'Atur Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Lewati dulu',
+			'onboarding.healthConnect.setup' => 'Siapkan Health Connect',
+			'onboarding.healthConnect.skipForNow' => 'Lewati sekarang',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect terhubung.',
-			'onboarding.healthConnect.statusSuccess' => 'Health Connect berhasil terhubung!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Izin ditolak. Harap aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Kesalahan menyiapkan Health Connect: ${error}',
-			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Sendirian',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Riset menunjukkan bahwa pencatatan konsisten adalah faktor #1 keberhasilan jangka panjang.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object gender, required Object age, required Object goal}) => 'Untuk ${gender} berusia ${age} tahun yang ingin ${goal}, pencatatan konsisten adalah prediktor keberhasilan #1.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} membuatnya 10x lebih mudah dibanding secara manual.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Siap untuk mulai?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ambil foto makanan Anda untuk analisis instan',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Catat secara konsisten untuk melihat perkembangan bermakna',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Lacak perkembangan harian agar tetap termotivasi',
+			'onboarding.healthConnect.statusSuccess' => 'Health Connect berhasil dihubungkan!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}',
+			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Sendiri',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penelitian menunjukkan pelacakan konsisten adalah prediktor nomor 1 keberhasilan jangka panjang.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Untuk individu berusia ${age} tahun berjenis ${gender} yang ingin ${goal}, pelacakan konsisten adalah prediktor utama keberhasilan.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} membuatnya 10x lebih mudah daripada melakukannya secara manual.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Siap untuk memulai?',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ambil foto makanan untuk analisis instan',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Catat secara konsisten untuk melihat kemajuan bermakna',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Lacak kemajuan Anda tiap hari untuk tetap termotivasi',
 			'onboarding.reinforcement.trackingSuccess.button' => 'Ayo Mulai',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'individu',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'Anda yang lebih sehat',
@@ -1767,14 +1767,14 @@ extension on TranslationsId {
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Mari selesaikan profil Anda untuk menyesuaikan pengalaman.',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'menambah',
 			'onboarding.reinforcement.healthProfile.goalLose' => 'mengurangi',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Untuk mencapai tujuan Anda, Anda perlu ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Anda sudah di berat target! Kami akan membantu Anda mempertahankannya.',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Untuk mencapai tujuan Anda, Anda akan ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Anda sudah mencapai berat target! Kami akan membantu mempertahankannya.',
 			'onboarding.reinforcement.healthProfile.button' => 'Ayo Mulai',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Awal yang Luar Biasa!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Anda telah mengambil langkah pertama menuju ${goalText}. Karena Anda ${activityText}, ${appLabel} akan menyesuaikan target agar selaras dengan gaya hidup Anda.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Target kalori yang dipersonalisasi',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Pendeteksian makanan bertenaga AI',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Rincian makronutrien yang detail',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Awal yang Bagus!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Anda telah mengambil langkah pertama menuju ${goalText}. Karena Anda ${activityText}, ${appLabel} akan menyesuaikan target Anda agar sesuai gaya hidup Anda.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Target kalori personal',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Deteksi makanan bertenaga AI',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Rincian makronutrien',
 			'onboarding.reinforcement.goalLifestyle.button' => 'Ayo Mulai',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'tujuan Anda',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktif',
@@ -1786,24 +1786,24 @@ extension on TranslationsId {
 			'home.aiSummary.mealCount' => ({required Object count}) => '${count} makanan tercatat',
 			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Skor keseimbangan ${score}',
 			'home.aiSummary.topFoods' => 'Makanan teratas',
-			'home.aiSummary.trendUp' => 'Kalori cenderung naik',
-			'home.aiSummary.trendDown' => 'Kalori cenderung turun',
-			'home.aiSummary.trendSteady' => 'Kalori cenderung stabil',
+			'home.aiSummary.trendUp' => 'Kalori meningkat',
+			'home.aiSummary.trendDown' => 'Kalori menurun',
+			'home.aiSummary.trendSteady' => 'Kalori stabil',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Diperbarui ${time}',
 			'home.dailyGoal.title' => 'Atur Target Harian Anda',
 			'home.dailyGoal.titleSet' => 'Target Harian Anda',
-			'home.dailyGoal.description' => 'Siap memulai perjalanan kebugaran Anda? Tetapkan target kalori harian di bawah untuk mulai melaju.',
-			'home.dailyGoal.descriptionSet' => 'Kompas Anda sudah ditetapkan! Ini adalah target kalori harian sebagai panduan Anda.',
+			'home.dailyGoal.description' => 'Siap memulai perjalanan kesehatan Anda? Atur target kalori harian di bawah untuk memulai kemajuan Anda.',
+			'home.dailyGoal.descriptionSet' => 'Kompas Anda sudah diatur! Ini adalah target kalori harian untuk membimbing Anda.',
 			'home.dailyGoal.yourGoal' => 'Target Anda',
 			'home.dailyGoal.goal' => 'Target',
-			'home.dailyGoal.dailyCalories' => 'Kalori harian (kkal)',
+			'home.dailyGoal.dailyCalories' => 'Kalori harian (kcal)',
 			'home.dailyGoal.setGoal' => 'Atur Target',
 			'home.dailyGoal.intake' => 'Asupan',
-			'home.dailyGoal.burned' => 'Dibakar',
-			'home.dailyGoal.weightImpact' => 'Dampak Berat Badan',
-			'home.dailyGoal.estLoss' => 'Perk. turun',
-			'home.dailyGoal.estGain' => 'Perk. naik',
-			'home.dailyGoal.kcal' => 'kkal',
+			'home.dailyGoal.burned' => 'Terbakar',
+			'home.dailyGoal.weightImpact' => 'Dampak Berat',
+			'home.dailyGoal.estLoss' => 'Perk. penurunan',
+			'home.dailyGoal.estGain' => 'Perk. kenaikan',
+			'home.dailyGoal.kcal' => 'kcal',
 			'home.dailySummary.title' => 'Ringkasan Harian',
 			'home.dailySummary.calories' => 'Kalori',
 			'home.dailySummary.carbs' => 'Karbohidrat',
@@ -1811,30 +1811,30 @@ extension on TranslationsId {
 			'home.dailySummary.fat' => 'Lemak',
 			'home.dailySummary.fiber' => 'Serat',
 			'home.dailySummary.grams' => 'gram',
-			'home.dailySummary.chartAccessibilityLabel' => 'Bagan makro',
+			'home.dailySummary.chartAccessibilityLabel' => 'Grafik makro',
 			'home.intakeProgress.title' => 'Pembagian Makro Hari Ini',
-			'home.intakeProgress.target' => 'Target',
+			'home.intakeProgress.target' => 'Sasaran',
 			'home.intakeProgress.current' => 'Saat ini',
 			'home.intakeHistory.title' => 'Riwayat Makro 7 Hari',
 			'home.intakeHistory.trendTitle' => 'Tren Hari Ini',
 			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Puncak: ${hour}:00',
 			'home.intakeHistory.noHistoryYet' => 'Belum ada riwayat',
-			'home.intakeHistory.startLogging' => 'Mulai mencatat makanan untuk melihat\ntren makro 7 hari di sini',
+			'home.intakeHistory.startLogging' => 'Mulai mencatat makanan untuk melihat\ntren makro 7 hari Anda di sini',
 			'home.mealLog.title' => 'Makanan Tercatat',
-			'home.mealLog.emptyMessage' => 'Ambil foto makanan terakhir Anda untuk mencatatnya di sini.',
-			'home.mealLog.noMealsToday' => 'Belum ada makanan hari ini',
+			'home.mealLog.emptyMessage' => 'Ambil foto makanan terakhir Anda untuk mencatat di sini.',
+			'home.mealLog.noMealsToday' => 'Belum ada makanan tercatat hari ini',
 			'home.mealLog.seeAllMeals' => 'Lihat semua makanan',
 			'home.mealDescription.title' => 'Tambah Cepat dengan AI',
-			'home.mealDescription.description' => 'Deskripsikan makanan Anda, dan biarkan AI mengurus detailnya.',
-			'home.mealDescription.hint' => 'mis. Untuk sarapan saya makan semangkuk besar oatmeal dengan satu pisang iris dan satu scoop whey ...',
+			'home.mealDescription.description' => 'Deskripsikan makanan Anda, dan biarkan AI menangani rinciannya.',
+			'home.mealDescription.hint' => 'mis. Untuk sarapan saya makan semangkuk besar oatmeal dengan pisang iris dan satu scoop whey ...',
 			'home.mealDescription.analyzeMeal' => 'Analisis makanan',
 			'home.favoriteMeals.title' => 'Makanan Favorit',
 			'home.favoriteMeals.description' => 'Tambahkan salah satu makanan favorit Anda dengan cepat.',
 			'home.favoriteMeals.noFavorites' => 'Belum ada makanan favorit.',
-			'home.favoriteMeals.addFavoriteHint' => 'Klik bintang pada makanan untuk menandainya sebagai favorit.',
+			'home.favoriteMeals.addFavoriteHint' => 'Klik bintang pada makanan untuk menandai sebagai favorit.',
 			'home.favoriteMeals.seeAll' => 'Lihat semua',
 			'home.favoriteMeals.add' => 'Tambah',
-			'home.mealSnap.title' => 'Foto & Lacak Makanan Anda',
+			'home.mealSnap.title' => 'Foto & Catat Makanan Anda',
 			'home.mealSnap.description' => 'Gunakan kamera untuk memotret makanan Anda untuk analisis AI.',
 			'home.mealSnap.openCamera' => 'Buka Kamera',
 			'home.mealSnap.gallery' => 'Galeri',
@@ -1842,95 +1842,95 @@ extension on TranslationsId {
 			'home.mealSnap.uploadingPhoto' => 'Mengunggah foto…',
 			'home.connectHealth.title' => 'Sinkronkan dengan Health Connect',
 			'home.connectHealth.description' => 'Sinkronkan data nutrisi Anda dengan Health Connect',
-			'home.connectHealth.install' => 'Instal',
-			'home.connectHealth.connect' => 'Hubungkan',
+			'home.connectHealth.install' => 'Pasang',
+			'home.connectHealth.connect' => 'Sambungkan',
 			'history.noMeals' => 'Belum ada makanan tercatat',
-			'history.emptyMessage' => 'Ambil foto makanan terakhir Anda untuk mencatatnya di sini.',
+			'history.emptyMessage' => 'Ambil foto makanan terakhir Anda untuk mencatat di sini.',
 			'history.today' => 'Hari ini',
 			'history.yesterday' => 'Kemarin',
-			'meal.ohNo' => 'Waduh!',
+			'meal.ohNo' => 'Aduh!',
 			'meal.delete' => 'Hapus',
 			'meal.editMeal' => 'Edit Makanan',
 			'meal.addMeal' => 'Tambah Makanan',
 			'meal.saveMeal' => 'Simpan Makanan',
 			'meal.save' => 'Simpan',
 			'meal.mealName' => 'Nama Makanan',
-			'meal.mealNameHint' => 'mis., Telur Orak-arik dengan roti panggang',
-			'meal.mealQuantity' => 'Jumlah Porsi',
-			'meal.mealQuantityHint' => 'mis., 1 mangkuk, 2 iris',
+			'meal.mealNameHint' => 'mis., Telur orak-arik dengan roti',
+			'meal.mealQuantity' => 'Jumlah Makanan',
+			'meal.mealQuantityHint' => 'mis., 1 mangkuk, 2 potong',
 			'meal.timeOfMeal' => 'Waktu Makan',
 			'meal.timeOfMealHint' => 'Pilih waktu Anda makan',
 			'meal.mealType' => 'Jenis Makanan',
 			'meal.nutrition.calories' => 'Kalori',
-			'meal.nutrition.carbs' => 'Karbohidrat (g)',
+			'meal.nutrition.carbs' => 'Karbo (g)',
 			'meal.nutrition.protein' => 'Protein (g)',
 			'meal.nutrition.fat' => 'Lemak (g)',
 			'meal.nutrition.fiber' => 'Serat (g)',
 			'meal.deleteConfirmation.title' => 'Hapus Makanan',
-			'meal.deleteConfirmation.message' => 'Yakin ingin menghapus entri makanan ini?',
+			'meal.deleteConfirmation.message' => 'Apakah Anda yakin ingin menghapus entri makanan ini?',
 			'meal.deleteConfirmation.cancel' => 'Batal',
 			'meal.deleteConfirmation.delete' => 'Hapus',
-			'meal.addedToLog' => 'Makanan ditambahkan ke catatan Anda!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Tidak dapat menambahkan makanan: ${error}',
+			'meal.addedToLog' => 'Makanan ditambahkan ke log Anda!',
+			'meal.couldNotAdd' => ({required Object error}) => 'Gagal menambahkan makanan: ${error}',
 			'meal.savedSuccessfully' => 'Makanan berhasil ditambahkan!',
 			'meal.updatedSuccessfully' => 'Makanan berhasil diperbarui!',
 			'meal.errorSaving' => ({required Object error}) => 'Kesalahan menyimpan makanan: ${error}',
 			'meal.removedFromFavorites' => 'Dihapus dari favorit!',
 			'meal.savedAsFavorite' => 'Makanan disimpan sebagai favorit!',
-			'meal.unfavorite' => 'Batalkan favorit',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Tidak dapat memperbarui favorit: ${error}',
-			'meal.feedbackThanks' => 'Terima kasih atas masukan Anda!',
-			'meal.reanalysisUpdated' => 'Analisis makanan diperbarui berdasarkan masukan Anda.',
+			'meal.unfavorite' => 'Hapus favorit',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Gagal memperbarui favorit: ${error}',
+			'meal.feedbackThanks' => 'Terima kasih atas umpan baliknya!',
+			'meal.reanalysisUpdated' => 'Analisis makanan diperbarui berdasarkan umpan balik Anda.',
 			'meal.failedToProcess' => ({required Object error}) => 'Gagal memproses: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Gagal memproses gambar: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Kesalahan mengompresi gambar: ${error}',
 			'meal.failedToSave' => 'Gagal menyimpan data. Silakan coba lagi.',
 			'meal.skip' => 'Lewati',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}',
-			'meal.questionFlow.noQuestionsAvailable' => 'Tidak ada pertanyaan yang tersedia',
+			'meal.questionFlow.noQuestionsAvailable' => 'Tidak ada pertanyaan tersedia',
 			'meal.questionFlow.next' => 'Berikutnya',
 			'meal.questionFlow.continueLabel' => 'Lanjutkan',
-			'meal.analysis.title' => 'Analisis makanan oleh AI',
+			'meal.analysis.title' => 'Menganalisis makanan Anda',
 			'meal.analysis.stepStarted' => 'Memulai…',
 			'meal.analysis.stepDecomposition' => 'Memahami makanan Anda…',
-			'meal.analysis.stepIngredients' => 'Mencocokkan bahan dengan data gizi…',
+			'meal.analysis.stepIngredients' => 'Mencocokkan bahan dengan data nutrisi…',
 			'meal.analysis.stepUncertainty' => 'Memeriksa tingkat keyakinan…',
 			'meal.analysis.stepMealTypeQuestion' => 'Hampir selesai…',
-			'meal.analysis.stepResult' => 'Menyelesaikan hasil…',
+			'meal.analysis.stepResult' => 'Menyelesaikan hasil Anda…',
 			'meal.analysis.stepError' => 'Terjadi kesalahan',
 			'meal.analysis.stepDefault' => 'Menganalisis makanan Anda…',
-			'meal.analysis.progressUnderstand' => 'Memahami',
-			'meal.analysis.progressMatch' => 'Mencocokkan',
-			'meal.analysis.progressCheck' => 'Memeriksa',
+			'meal.analysis.progressUnderstand' => 'Memahami makanan Anda',
+			'meal.analysis.progressMatch' => 'Mencari nutrisi bahan',
+			'meal.analysis.progressCheck' => 'Memeriksa porsi dan keyakinan',
 			'meal.analysis.progressMealType' => 'Memilih jenis makanan',
-			'meal.analysis.progressFinish' => 'Selesai',
-			'meal.analysis.detectedIngredientHeading' => 'Bahan yang kami deteksi',
-			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lainnya',
+			'meal.analysis.progressFinish' => 'Menghitung kalori dan makro',
+			'meal.analysis.detectedIngredientHeading' => 'Bahan yang terdeteksi',
+			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lagi',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} bahan terdeteksi',
 			'meal.analysis.ingredientsPending' => 'Memindai bahan…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'Apa yang terlihat salah?',
+			'meal.analysis.offlineTip0' => 'Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.',
+			'meal.analysis.offlineTip1' => 'Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.',
+			'meal.analysis.offlineTip2' => 'Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.',
+			'meal.analysis.offlineTip3' => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.',
+			'meal.analysis.offlineTip4' => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.',
+			'meal.analysis.offlineTip5' => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).',
+			'meal.feedback.title' => 'Apa yang kelihatan salah?',
 			'meal.feedback.subtitle' => 'Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.',
-			'meal.feedback.tellUsMore' => 'Beri tahu kami lebih lanjut',
+			'meal.feedback.tellUsMore' => 'Ceritakan lebih lanjut',
 			'meal.feedback.describeIncorrect' => 'Jelaskan apa yang salah',
 			'meal.feedback.submit' => 'Kirim',
 			'meal.feedback.issueFoodIdentification' => 'Identifikasi makanan',
 			'meal.feedback.issuePortionSize' => 'Ukuran porsi',
 			'meal.feedback.issueCalorieDistribution' => 'Distribusi kalori',
 			'meal.feedback.issueMacrosWrong' => 'Makro salah',
-			'meal.feedback.issueMissingItems' => 'Item yang hilang',
-			'meal.feedback.issueExtraItems' => 'Item tambahan',
+			'meal.feedback.issueMissingItems' => 'Item hilang',
+			'meal.feedback.issueExtraItems' => 'Item ekstra',
 			'meal.feedback.issueOther' => 'Lainnya',
 			'favorites.title' => 'Favorit',
 			'favorites.empty' => 'Belum ada makanan favorit.',
 			'favorites.searchPlaceholder' => 'Cari makanan favorit',
-			'favorites.searchEmptyTitle' => 'Tidak ada favorit yang cocok dengan pencarian Anda',
+			'favorites.searchEmptyTitle' => 'Tidak ada favorit yang cocok',
 			'favorites.searchEmptySubtitle' => 'Coba nama makanan, jumlah, atau jenis makanan yang berbeda.',
 			'favorites.sortLabel' => 'Urutkan favorit',
 			'favorites.undo' => 'Urungkan',
@@ -1939,16 +1939,16 @@ extension on TranslationsId {
 			'favorites.sortOptions.calories' => 'Kalori',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
 			'profile.title' => 'Profil',
-			'profile.noProfileData' => 'Tidak ada data profil',
+			'profile.noProfileData' => 'Data profil tidak ditemukan',
 			'profile.yourProfile' => 'Profil Anda',
 			'profile.viewAndManage' => 'Lihat dan kelola informasi kesehatan Anda',
 			'profile.sections.profile' => 'PROFIL',
 			'profile.sections.basicInformation' => 'INFORMASI DASAR',
 			'profile.sections.goalsAndActivity' => 'TUJUAN & AKTIVITAS',
-			'profile.sections.calculatedValues' => 'NILAI PERHITUNGAN',
+			'profile.sections.calculatedValues' => 'NILAI TERHITUNG',
 			'profile.gender' => 'Jenis Kelamin',
-			'profile.height' => 'Tinggi Badan',
-			'profile.weight' => 'Berat Badan',
+			'profile.height' => 'Tinggi',
+			'profile.weight' => 'Berat',
 			'profile.age' => 'Usia',
 			'profile.weightGoal' => 'Tujuan Berat',
 			'profile.targetWeight' => 'Berat Target',
@@ -1960,12 +1960,12 @@ extension on TranslationsId {
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'Target Harian',
-			'profile.calculatedValues.calPerDay' => 'kkal/hari',
+			'profile.calculatedValues.calPerDay' => 'cal/hari',
 			'profile.calculatedValues.notAvailable' => 'N/A',
 			'healthScore.title' => 'Skor Kesehatan',
 			'healthScore.whyThisScore' => 'Mengapa skor ini?',
-			'healthScore.note' => 'Skor ini adalah perkiraan AI berdasarkan bahan yang teridentifikasi dan kepadatan nutrisi. Selalu konsultasikan dengan profesional untuk saran diet.',
-			'healthScore.unhealthy' => 'Tidak sehat',
+			'healthScore.note' => 'Skor ini adalah perkiraan AI berdasarkan bahan yang teridentifikasi dan kepadatan nutrisi. Selalu konsultasikan ke profesional untuk saran diet personal.',
+			'healthScore.unhealthy' => 'Tidak Sehat',
 			'healthScore.healthy' => 'Sehat',
 			'healthScore.neutral' => 'Netral',
 			'editProfile.title' => 'Edit Profil',
@@ -1974,8 +1974,8 @@ extension on TranslationsId {
 			'editProfile.sections.goalsAndActivity' => 'TUJUAN & AKTIVITAS',
 			'editProfile.gender' => 'Jenis Kelamin',
 			'editProfile.dateOfBirth' => 'Tanggal Lahir',
-			'editProfile.height' => 'Tinggi Badan',
-			'editProfile.weight' => 'Berat Badan',
+			'editProfile.height' => 'Tinggi',
+			'editProfile.weight' => 'Berat',
 			'editProfile.weightGoal' => 'Tujuan Berat',
 			'editProfile.activityLevel' => 'Tingkat Aktivitas',
 			'editProfile.metric' => 'Metrik',
@@ -1988,33 +1988,33 @@ extension on TranslationsId {
 			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
 			'editProfile.metricKg' => 'Metrik (kg)',
 			'editProfile.imperialLbs' => 'Imperial (lbs)',
-			'editProfile.genders.male' => 'Laki-laki',
-			'editProfile.genders.female' => 'Perempuan',
+			'editProfile.genders.male' => 'Pria',
+			'editProfile.genders.female' => 'Wanita',
 			'editProfile.genders.other' => 'Lainnya',
-			'editProfile.weightGoals.loseWeight.name' => 'Turun Berat',
-			'editProfile.weightGoals.loseWeight.description' => 'Buat defisit kalori untuk menurunkan berat',
+			'editProfile.weightGoals.loseWeight.name' => 'Turunkan Berat',
+			'editProfile.weightGoals.loseWeight.description' => 'Buat defisit kalori untuk menurunkan berat badan',
 			'editProfile.weightGoals.maintainWeight.name' => 'Pertahankan Berat',
-			'editProfile.weightGoals.maintainWeight.description' => 'Pertahankan berat badan saat ini',
-			'editProfile.weightGoals.gainWeight.name' => 'Naik Berat',
+			'editProfile.weightGoals.maintainWeight.description' => 'Mempertahankan berat Anda saat ini',
+			'editProfile.weightGoals.gainWeight.name' => 'Tambah Berat',
 			'editProfile.weightGoals.gainWeight.description' => 'Buat surplus kalori untuk menambah berat',
-			'editProfile.activityLevels.sedentary.name' => 'Sedenter',
-			'editProfile.activityLevels.sedentary.description' => 'Sedikit atau tidak berolahraga',
-			'editProfile.activityLevels.lightlyActive.name' => 'Cukup Aktif',
+			'editProfile.activityLevels.sedentary.name' => 'Sedentari',
+			'editProfile.activityLevels.sedentary.description' => 'Sedikit atau tidak ada olahraga',
+			'editProfile.activityLevels.lightlyActive.name' => 'Ringan Aktif',
 			'editProfile.activityLevels.lightlyActive.description' => 'Olahraga ringan 1-3 hari/minggu',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Cukup Intens',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Cukup Aktif',
 			'editProfile.activityLevels.moderatelyActive.description' => 'Olahraga sedang 3-5 hari/minggu',
 			'editProfile.activityLevels.veryActive.name' => 'Sangat Aktif',
 			'editProfile.activityLevels.veryActive.description' => 'Olahraga berat 6-7 hari/minggu',
-			'editProfile.activityLevels.extremelyActive.name' => 'Sangat Intens',
+			'editProfile.activityLevels.extremelyActive.name' => 'Ekstrem Aktif',
 			'editProfile.activityLevels.extremelyActive.description' => 'Olahraga sangat berat, pekerjaan fisik',
 			'settings.title' => 'Pengaturan',
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISASI',
 			'settings.sections.notifications' => 'NOTIFIKASI',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
-			'settings.sections.supportAndLegal' => 'DUKUNGAN & LEGAL',
+			'settings.sections.supportAndLegal' => 'DUKUNGAN & HUKUM',
 			'settings.sections.about' => 'TENTANG',
-			'settings.sections.dangerZone' => 'ZONA BAHAYA',
+			'settings.sections.dangerZone' => 'AREA BERISIKO',
 			'settings.sections.developer' => 'PENGEMBANG',
 			'settings.editProfile.title' => 'Edit Profil',
 			'settings.editProfile.subtitle' => 'Perbarui informasi pribadi Anda',
@@ -2025,27 +2025,27 @@ extension on TranslationsId {
 			'settings.heightUnit.title' => 'Satuan Tinggi',
 			'settings.weightUnit.title' => 'Satuan Berat',
 			'settings.mealReminders.title' => 'Pengingat Makan',
-			'settings.mealReminders.subtitle' => 'Tetap di jalur dengan pengingat tepat waktu',
+			'settings.mealReminders.subtitle' => 'Tetap pada jalur dengan pengingat tepat waktu',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Terang',
 			'settings.theme.dark' => 'Gelap',
 			'settings.theme.system' => 'Sistem',
-			'settings.sendFeedback.title' => 'Kirim Masukan',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Bantu kami menyempurnakan ${appLabel}',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Masukan Aplikasi ${appLabel}',
-			'settings.sendFeedback.emailBodyPrefix' => 'Silakan berikan masukan Anda di bawah ini:',
+			'settings.sendFeedback.title' => 'Kirim Umpan Balik',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Bantu kami meningkatkan ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} Umpan Balik Aplikasi',
+			'settings.sendFeedback.emailBodyPrefix' => 'Silakan berikan umpan balik Anda di bawah:',
 			'settings.sendFeedback.appVersion' => 'Versi Aplikasi',
 			'settings.sendFeedback.device' => 'Perangkat',
 			'settings.sendFeedback.osVersion' => 'Versi OS',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'Ekspor Riwayat Makanan',
+			'settings.exportMealHistory.title' => 'Ekspor Riwayat Makan',
 			'settings.exportMealHistory.subtitle' => 'Bagikan CSV dari makanan yang Anda catat',
 			'settings.exportMealHistory.shareText' => 'Ekspor riwayat makanan Calorify Anda',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'Tidak dapat mengekspor riwayat makanan: ${error}',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Tidak dapat mengekspor riwayat makan: ${error}',
 			'settings.clearAllData.title' => 'Hapus Semua Data',
-			'settings.clearAllData.subtitle' => 'Hapus semua informasi Anda secara permanen',
+			'settings.clearAllData.subtitle' => 'Hapus semua informasi Anda secara tak dapat dikembalikan',
 			'settings.clearAllData.confirmationTitle' => 'Hapus Semua Data?',
-			'settings.clearAllData.confirmationMessage' => 'Tindakan ini tidak dapat dibatalkan. Semua makanan yang dicatat, favorit, dan pengaturan profil akan dihapus permanen.',
+			'settings.clearAllData.confirmationMessage' => 'Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.',
 			'settings.clearAllData.cancel' => 'Batal',
 			'settings.clearAllData.clearEverything' => 'Hapus Semua',
 			'settings.debugOptions.title' => 'Opsi Debug',
@@ -2053,50 +2053,50 @@ extension on TranslationsId {
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Lihat dan kelola izin',
 			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
-			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia di perangkat ini. Harap instal Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.',
+			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Izin',
 			'settings.healthConnect.permissions.description' => 'Izin berikut diminta untuk menyediakan integrasi Health Connect:',
-			'settings.healthConnect.permissions.granted' => 'Diizinkan',
-			'settings.healthConnect.permissions.notGranted' => 'Tidak Diizinkan',
+			'settings.healthConnect.permissions.granted' => 'Diberikan',
+			'settings.healthConnect.permissions.notGranted' => 'Belum Diberikan',
 			'settings.healthConnect.permissions.caloriesBurned.title' => 'Baca Total Kalori Terbakar',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Mengizinkan aplikasi membaca total kalori terbakar dari Health Connect.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Izin ini digunakan untuk menampilkan kalori harian yang Anda bakar di aplikasi, membantu Anda memahami total pengeluaran energi sepanjang hari.',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Memungkinkan aplikasi membaca total kalori yang Anda bakar dari Health Connect.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Izin ini digunakan untuk menampilkan pembakaran kalori harian Anda di aplikasi, membantu Anda memahami total pengeluaran energi sepanjang hari.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Baca Data Nutrisi',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Mengizinkan aplikasi membaca data nutrisi dari Health Connect.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Izin ini memungkinkan aplikasi membaca informasi nutrisi yang mungkin dicatat oleh aplikasi lain yang terhubung ke Health Connect, memberikan gambaran nutrisi yang menyeluruh.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Memungkinkan aplikasi membaca data nutrisi dari Health Connect.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Izin ini memungkinkan aplikasi membaca informasi nutrisi yang mungkin telah dicatat oleh aplikasi lain yang terhubung ke Health Connect, memberikan pandangan yang komprehensif tentang nutrisi Anda.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Tulis Data Nutrisi',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Mengizinkan aplikasi menulis data nutrisi ke Health Connect.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Izin ini memungkinkan aplikasi menyinkronkan makanan yang Anda catat ke Health Connect, sehingga data nutrisi Anda tersedia bagi aplikasi kesehatan dan kebugaran lain yang Anda gunakan.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Memungkinkan aplikasi menulis data nutrisi ke Health Connect.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Izin ini memungkinkan aplikasi menyinkronkan makanan yang Anda catat ke Health Connect, sehingga data nutrisi Anda tersedia untuk aplikasi kesehatan dan kebugaran lain yang Anda gunakan.',
 			'settings.healthConnect.managePermissions' => 'Kelola Izin',
 			'settings.healthConnect.openSettings' => 'Buka Pengaturan Health Connect',
 			'settings.healthConnect.requestPermissions' => 'Minta Izin',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
 			'settings.healthConnect.requestingPermissions' => 'Meminta...',
-			'settings.about.title' => 'About',
-			'settings.about.tagline' => 'Fast, free, and privacy-first calorie awareness',
-			'settings.about.ourStory.title' => 'Our Story',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} was born from a simple frustration: most calorie tracking apps are either overly complicated, demand constant manual input, charge high subscription fees, or compromise on privacy.\n\nAs a solo developer, I wanted to build something simpler and fairer — an app that uses AI to reduce effort, stays fast and free to use, and treats your health data with respect.\n\n${appLabel} is the app I wish existed: no accounts, no tracking, no ads — just clear, practical insights and your health goals.',
-			'settings.about.privacy.title' => 'Your Privacy Matters',
-			'settings.about.privacy.description' => 'Privacy isn\'t an afterthought — it\'s a design principle. Here\'s what that means in practice:',
-			'settings.about.privacy.noAccounts' => 'No accounts required\nUse the app immediately. No sign-ups, no identities.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'No behavioral tracking\n${appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Ad-free by design\n${appLabel} is built to work without ads or data-driven monetization.',
-			'settings.about.privacy.noDataSelling' => 'No data selling\nYour health data is never sold or shared with third parties.',
-			'settings.about.privacy.localStorage' => 'Local-first storage\nYour data stays on your device.',
-			'settings.about.privacy.privacyPolicy' => 'Privacy Policy',
-			'settings.about.developer.title' => 'Built by a Solo Developer',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} is built and maintained by a single solo developer focused on creating calm, privacy-respecting health software.\n\nFeedback is read personally and helps shape the direction of the app.',
-			'settings.about.developer.website' => 'Website',
+			'settings.about.title' => 'Tentang',
+			'settings.about.tagline' => 'Cepat, gratis, dan mengutamakan privasi untuk kesadaran kalori',
+			'settings.about.ourStory.title' => 'Kisah Kami',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} lahir dari satu kekesalan sederhana: sebagian besar aplikasi pelacak kalori terlalu rumit, menuntut input manual terus-menerus, mengenakan biaya langganan tinggi, atau mengorbankan privasi.\n\nSebagai pengembang solo, saya ingin membuat sesuatu yang lebih sederhana dan lebih adil — aplikasi yang menggunakan AI untuk mengurangi usaha, tetap cepat dan gratis digunakan, serta menghargai data kesehatan Anda.\n\n${appLabel} adalah aplikasi yang saya harap ada: tanpa akun, tanpa pelacakan, tanpa iklan — hanya wawasan yang jelas dan praktis serta tujuan kesehatan Anda.',
+			'settings.about.privacy.title' => 'Privasi Anda Penting',
+			'settings.about.privacy.description' => 'Privasi bukan sekadar pemikiran tambahan — itu adalah prinsip desain. Berikut arti itu dalam praktik:',
+			'settings.about.privacy.noAccounts' => 'Tanpa akun\nGunakan aplikasi langsung. Tidak perlu mendaftar, tanpa identitas.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Tanpa pelacakan perilaku\n${appLabel} tidak memantau aktivitas Anda, membuat profil penggunaan, atau melacak Anda antar aplikasi atau situs web.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Tanpa iklan secara desain\n${appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.',
+			'settings.about.privacy.noDataSelling' => 'Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.',
+			'settings.about.privacy.localStorage' => 'Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.',
+			'settings.about.privacy.privacyPolicy' => 'Kebijakan Privasi',
+			'settings.about.developer.title' => 'Dibuat oleh Pengembang Solo',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} dibuat dan dipelihara oleh satu pengembang solo yang fokus pada pembuatan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nUmpan balik dibaca secara pribadi dan membantu membentuk arah aplikasi.',
+			'settings.about.developer.website' => 'Situs Web',
 			'settings.about.developer.email' => 'Email',
-			'settings.about.feedback.title' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Your feedback helps make ${appLabel} better for everyone.',
-			'settings.about.feedback.rateApp' => 'Rate on Play Store',
-			'settings.about.feedback.sendFeedback' => 'Send Feedback',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Umpan balik Anda membantu membuat ${appLabel} lebih baik untuk semua orang.',
+			'settings.about.feedback.rateApp' => 'Beri rating di Play Store',
+			'settings.about.feedback.sendFeedback' => 'Kirim Umpan Balik',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
-			'reminders.title' => 'Tetap di jalur dengan pengingat',
-			'reminders.description' => 'Dapatkan pengingat lembut untuk mencatat makanan dan tetap konsisten dengan tujuan nutrisi Anda',
+			'reminders.title' => 'Tetap pada jalur dengan pengingat',
+			'reminders.description' => 'Dapatkan pengingat lembut untuk mencatat makanan Anda dan tetap konsisten dengan tujuan nutrisi',
 			'reminders.notificationsEnabled' => 'Notifikasi Diaktifkan',
 			'reminders.notificationsDisabled' => 'Notifikasi Dinonaktifkan',
 			'reminders.enabledSubtitle' => 'Anda akan menerima pengingat makan',
@@ -2105,80 +2105,80 @@ extension on TranslationsId {
 			'reminders.breakfast' => 'Sarapan',
 			'reminders.lunch' => 'Makan Siang',
 			'reminders.dinner' => 'Makan Malam',
-			'reminders.snack' => 'Camilan',
+			'reminders.snack' => 'Cemilan',
 			'reminders.unknown' => 'Tidak diketahui',
 			'reminders.change' => 'Ubah',
 			'reminders.enableNotifications' => 'Aktifkan Notifikasi',
-			'reminders.skipForNow' => 'Lewati dulu',
+			'reminders.skipForNow' => 'Lewati sekarang',
 			'reminders.saveChanges' => 'Simpan Perubahan',
 			'reminders.enabledSuccessfully' => 'Notifikasi berhasil diaktifkan!',
 			'reminders.permissionDenied' => 'Izin notifikasi ditolak',
 			'reminders.errorEnabling' => ({required Object error}) => 'Kesalahan mengaktifkan notifikasi: ${error}',
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kesalahan menyelesaikan pengaturan: ${error}',
 			'notifications.breakfast.title' => 'Waktunya Sarapan! 🍳',
-			'notifications.breakfast.body' => 'Jangan lupa catat sarapan Anda',
+			'notifications.breakfast.body' => 'Jangan lupa mencatat sarapan Anda',
 			'notifications.lunch.title' => 'Waktunya Makan Siang! 🥗',
 			'notifications.lunch.body' => 'Saatnya mencatat makan siang Anda',
 			'notifications.dinner.title' => 'Waktunya Makan Malam! 🍽️',
-			'notifications.dinner.body' => 'Jangan lupa catat makan malam Anda',
-			'notifications.snack.title' => 'Waktunya Camilan! 🍎',
-			'notifications.snack.body' => 'Saatnya camilan yang sehat',
-			'notifications.test.title' => 'Notifikasi Uji',
+			'notifications.dinner.body' => 'Jangan lupa mencatat makan malam Anda',
+			'notifications.snack.title' => 'Waktunya Cemilan! 🍎',
+			'notifications.snack.body' => 'Waktunya cemilan sehat',
+			'notifications.test.title' => 'Notifikasi Tes',
 			'login.title' => 'Masuk',
 			'login.signInWithGoogle' => 'Masuk dengan Google',
-			'login.signInFailed' => 'Masuk Google gagal atau dibatalkan.',
+			'login.signInFailed' => 'Google Sign-In gagal atau dibatalkan.',
 			'disclaimer.pleaseNote' => 'Harap Diperhatikan',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} memberikan info gizi perkiraan. Akurasi bergantung pada input Anda & variasi makanan. Gunakan sebagai panduan, bukan sumber definitif. Konsultasikan profesional untuk saran diet yang dipersonalisasi.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} menyediakan informasi nutrisi perkiraan. Ketepatan bergantung pada input Anda & variasi makanan. Gunakan sebagai panduan, bukan sumber pasti. Konsultasikan profesional untuk saran diet personal.',
 			'disclaimer.snap.portionSize.title' => 'Ukuran Porsi',
-			'disclaimer.snap.portionSize.description' => 'Akurasi perkiraan sangat bergantung pada penilaian ukuran porsi yang benar oleh Anda.',
+			'disclaimer.snap.portionSize.description' => 'Akurasi perkiraan sangat bergantung pada penilaian ukuran porsi yang benar.',
 			'disclaimer.snap.preparationMethods.title' => 'Metode Persiapan',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metode memasak dapat secara signifikan mengubah kandungan gizi makanan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metode memasak dapat mengubah kandungan nutrisi secara signifikan. Perkiraan ${appLabel} mungkin tidak selalu memperhitungkan variasi ini.',
 			'disclaimer.snap.ingredients.title' => 'Bahan',
-			'disclaimer.snap.ingredients.description' => 'Hidangan kompleks dengan banyak bahan tersembunyi dapat menghasilkan estimasi yang kurang akurat.',
-			'disclaimer.snap.databaseLimitations.title' => 'Keterbatasan Basis Data',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Basis data makanan ${appLabel} luas namun mungkin tidak mencakup setiap item atau variasi makanan.',
+			'disclaimer.snap.ingredients.description' => 'Hidangan kompleks dengan banyak bahan tersembunyi dapat menyebabkan estimasi yang kurang akurat.',
+			'disclaimer.snap.databaseLimitations.title' => 'Batasan Basis Data',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Basis data makanan ${appLabel} luas tetapi mungkin tidak mencakup setiap item makanan atau variasinya.',
 			'disclaimer.weightEstimate.title' => 'Tentang Perkiraan Berat',
-			'disclaimer.weightEstimate.description' => 'Proyeksi perubahan berat adalah perkiraan teoretis berdasarkan model sederhana kalori masuk vs. kalori keluar. Ini ditujukan untuk panduan motivasi saja, bukan prediksi berat aktual Anda.',
+			'disclaimer.weightEstimate.description' => 'Perubahan berat yang diproyeksikan adalah perkiraan teoretis berdasarkan model kalori masuk vs keluar sederhana. Ini dimaksudkan untuk panduan motivasi saja, bukan prediksi berat aktual Anda.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Akurasi Kalori',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Perkiraan ini hanya seakurat pencatatan asupan dan pengeluaran kalori Anda. Pencatatan yang tidak akurat akan menghasilkan proyeksi yang tidak akurat.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Faktor Biologis',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Penurunan/kenaikan berat aktual dipengaruhi oleh metabolisme, hormon, tidur, stres, hidrasi, dan faktor individual lain yang tidak dapat diukur ${appLabel}.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Penurunan/penambahan berat aktual dipengaruhi oleh metabolisme, hormon, tidur, stres, hidrasi, dan faktor individu lain yang tidak dapat diukur oleh ${appLabel}.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Berat Air & Fluktuasi',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Berat harian normal dapat berfluktuasi signifikan karena retensi air, pencernaan, dan waktu. Perkiraan ini tidak memperhitungkan perubahan harian tersebut.',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Berat harian normal dapat berfluktuasi secara signifikan akibat retensi air, pencernaan, dan waktu. Perkiraan tidak memperhitungkan perubahan harian ini.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Panduan Profesional',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk keputusan medis. Selalu konsultasikan tenaga kesehatan profesional atau ahli gizi terdaftar untuk saran manajemen berat yang dipersonalisasi.',
-			'disclaimer.healthMetrics.description' => 'Metrik ini membantu Anda memahami kebutuhan energi tubuh dan memandu tujuan nutrisi Anda.',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.',
+			'disclaimer.healthMetrics.description' => 'Metrik ini membantu Anda memahami kebutuhan energi tubuh dan membimbing tujuan nutrisi Anda.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolic Rate (BMR) atau Laju Metabolisme Basal adalah jumlah kalori yang dibakar tubuh saat istirahat untuk mempertahankan fungsi dasar seperti bernapas dan sirkulasi. BMR bergantung pada usia, jenis kelamin, tinggi, dan berat badan Anda. BMR yang lebih tinggi berarti tubuh secara alami membakar lebih banyak kalori saat istirahat, sering kali karena massa otot lebih besar, usia lebih muda, atau laki-laki. BMR lebih rendah biasanya menunjukkan massa otot lebih sedikit, usia lebih tua, atau perempuan.',
+			'disclaimer.healthMetrics.bmr.description' => 'Basal Metabolic Rate (BMR) adalah jumlah kalori yang dibakar tubuh Anda saat istirahat untuk mempertahankan fungsi dasar seperti bernapas dan sirkulasi. BMR bergantung pada usia, jenis kelamin, tinggi, dan berat badan. BMR lebih tinggi berarti tubuh Anda secara alami membakar lebih banyak kalori saat istirahat, seringkali karena massa otot lebih banyak, usia lebih muda, atau laki-laki. BMR lebih rendah biasanya menunjukkan massa otot lebih sedikit, usia lebih tua, atau perempuan.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) atau Total Pengeluaran Energi Harian adalah total kalori yang Anda bakar per hari, termasuk BMR ditambah kalori dari aktivitas fisik dan gerak harian. TDEE bergantung pada BMR dan tingkat aktivitas Anda. TDEE yang lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR lebih tinggi. TDEE yang lebih rendah menunjukkan aktivitas harian lebih sedikit atau BMR lebih rendah.',
+			'disclaimer.healthMetrics.tdee.description' => 'Total Daily Energy Expenditure (TDEE) adalah total kalori yang Anda bakar per hari, termasuk BMR ditambah kalori dari aktivitas fisik dan gerakan harian. TDEE bergantung pada BMR dan tingkat aktivitas Anda. TDEE lebih tinggi berarti Anda membakar lebih banyak kalori secara keseluruhan, biasanya karena lebih aktif atau memiliki BMR lebih tinggi. TDEE lebih rendah menunjukkan aktivitas harian yang lebih sedikit atau BMR lebih rendah.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Target Harian',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Target Harian adalah asupan kalori harian yang direkomendasikan berdasarkan TDEE dan tujuan berat Anda. Untuk penurunan berat, Anda mengonsumsi lebih sedikit kalori daripada TDEE. Untuk pemeliharaan, Anda menyamai TDEE. Untuk kenaikan berat, Anda mengonsumsi lebih banyak kalori daripada TDEE. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan laju yang sehat.',
-			'disclaimer.calorieExpenditure.title' => 'Perkiraan Kalori Terbakar',
-			'disclaimer.calorieExpenditure.description' => 'Saat data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini menggunakan Laju Metabolisme Basal (BMR) dan tingkat aktivitas (TDEE), disesuaikan dengan porsi hari yang telah berlalu.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'Cara Perkiraan Dihitung',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami menghitung TDEE Anda (berdasarkan profil) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang sudah terbakar.',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Target Harian adalah rekomendasi asupan kalori harian Anda berdasarkan TDEE dan tujuan berat Anda. Untuk penurunan berat, Anda mengonsumsi lebih sedikit kalori daripada TDEE. Untuk mempertahankan berat, Anda mencocokkan TDEE. Untuk penambahan berat, Anda mengonsumsi lebih banyak kalori daripada TDEE. Ini membantu Anda mencapai perubahan berat yang diinginkan dengan kecepatan yang sehat.',
+			'disclaimer.calorieExpenditure.title' => 'Perkiraan Pengeluaran Kalori',
+			'disclaimer.calorieExpenditure.description' => 'Saat data Health Connect tidak tersedia, kami memperkirakan kalori yang terbakar hari ini menggunakan Basal Metabolic Rate (BMR) dan tingkat aktivitas Anda (TDEE), diskalakan untuk porsi hari yang telah berlalu.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Bagaimana Perkiraan Dihitung',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang terbakar sejauh ini.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Panduan Profesional',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk keputusan medis. Selalu konsultasikan tenaga kesehatan profesional atau ahli gizi terdaftar untuk saran yang dipersonalisasi.',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Lanjutkan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',
 			'feedbackRating.yes' => 'Ya, saya menikmatinya',
-			'feedbackRating.no' => 'Tidak juga',
+			'feedbackRating.no' => 'Tidak begitu',
 			'feedbackRating.rateStepHeading' => 'Beri rating di Play Store',
-			'feedbackRating.emailStepHeading' => 'Kirim masukan lewat email',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Rating singkat membantu orang lain menemukan ${appLabel} dan mendukung pengembangannya. Bersediakah Anda meluangkan waktu sejenak untuk memberi rating?',
-			'feedbackRating.shareFeedbackViaEmail' => 'Masukan Anda menentukan langkah selanjutnya — kami membaca setiap pesan. Ingin berbagi pendapat melalui email?',
+			'feedbackRating.emailStepHeading' => 'Kirim umpan balik lewat email',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Rating singkat membantu orang lain menemukan ${appLabel} dan mendukung pengembangan. Maukah Anda meluangkan waktu untuk memberi rating?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Umpan balik Anda membentuk perkembangan selanjutnya — kami membaca setiap pesan. Ingin berbagi melalui email?',
 			'feedbackRating.rateCta' => 'Beri rating di Play Store',
-			'feedbackRating.maybeLater' => 'Mungkin nanti',
-			'feedbackRating.sendFeedback' => 'Kirim masukan',
+			'feedbackRating.maybeLater' => 'Nanti saja',
+			'feedbackRating.sendFeedback' => 'Kirim umpan balik',
 			'feedbackRating.noThanks' => 'Tidak, terima kasih',
-			'feedbackRating.aboutUsDescription' => 'Dibuat dengan penuh perhatian oleh tim kecil. Kami fokus pada privasi, kesederhanaan, dan membantu Anda membangun kebiasaan makan yang lebih baik.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Ingin tahu siapa di balik ${appLabel}? Lihat ',
+			'feedbackRating.aboutUsDescription' => 'Dibuat dengan hati-hati oleh tim kecil. Kami fokus pada privasi, kesederhanaan, dan membantu Anda membentuk kebiasaan makan yang lebih baik.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Penasaran siapa di balik ${appLabel}? Lihat ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tentang kami',
-			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan menanyakannya lagi lain waktu.',
-			'health.syncFailed' => 'Tidak dapat menyinkronkan ke Health Connect',
-			'health.mealSynced' => 'Makanan tersinkron dengan Health Connect',
+			'feedbackRating.thankYouMessage' => 'Terima kasih! Kami akan menanyakan lagi di lain waktu.',
+			'health.syncFailed' => 'Gagal menyinkronkan ke Health Connect',
+			'health.mealSynced' => 'Makanan disinkronkan dengan Health Connect',
 			_ => null,
 		};
 	}

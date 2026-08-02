@@ -67,9 +67,9 @@ class _TranslationsErrorsDe implements TranslationsErrorsEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Du hast zu viele Anfragen gesendet. Bitte warte einen Moment, bevor du es erneut versuchst.';
+	@override String get rateLimitExceeded => 'Du hast zu viele Anfragen gesendet. Bitte warte einen Moment und versuche es dann erneut.';
 	@override String get networkError => 'Netzwerkfehler. Bitte überprüfe deine Internetverbindung.';
-	@override String get unknownError => 'Etwas ist schiefgelaufen. Bitte versuche es später erneut.';
+	@override String get unknownError => 'Etwas ist schiefgelaufen. Bitte versuche es später noch einmal.';
 	@override String get loadingProfileData => 'Fehler beim Laden der Profildaten';
 	@override String get somethingWentWrong => 'Etwas ist schiefgelaufen.';
 	@override String get retry => 'Erneut versuchen';
@@ -83,8 +83,8 @@ class _TranslationsOnboardingDe implements TranslationsOnboardingEn {
 
 	// Translations
 	@override String welcome({required Object appLabel}) => 'Willkommen bei ${appLabel}';
-	@override String get subtitle => 'Dein persönlicher Ernährungsbegleiter mit KI-Unterstützung';
-	@override String get getStarted => 'Los geht\'s';
+	@override String get subtitle => 'Dein persönlicher Ernährungsbegleiter, unterstützt von AI';
+	@override String get getStarted => 'Loslegen';
 	@override late final _TranslationsOnboardingFeaturesDe features = _TranslationsOnboardingFeaturesDe._(_root);
 	@override late final _TranslationsOnboardingGenderDe gender = _TranslationsOnboardingGenderDe._(_root);
 	@override late final _TranslationsOnboardingHeightDe height = _TranslationsOnboardingHeightDe._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsDe implements TranslationsTabsEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Dashboard';
+	@override String get dashboard => 'Übersicht';
 	@override String get history => 'Verlauf';
 }
 
@@ -155,24 +155,24 @@ class _TranslationsMealDe implements TranslationsMealEn {
 	@override String get save => 'Speichern';
 	@override String get mealName => 'Name der Mahlzeit';
 	@override String get mealNameHint => 'z. B. Rührei mit Toast';
-	@override String get mealQuantity => 'Menge der Mahlzeit';
-	@override String get mealQuantityHint => 'z. B. 1 Schüssel, 2 Scheiben';
+	@override String get mealQuantity => 'Mengenangabe';
+	@override String get mealQuantityHint => 'z. B. 1 Schale, 2 Scheiben';
 	@override String get timeOfMeal => 'Uhrzeit der Mahlzeit';
-	@override String get timeOfMealHint => 'Wähle die Uhrzeit deiner Mahlzeit';
-	@override String get mealType => 'Mahlzeitentyp';
+	@override String get timeOfMealHint => 'Wähle die Uhrzeit, zu der du gegessen hast';
+	@override String get mealType => 'Mahlzeittyp';
 	@override late final _TranslationsMealNutritionDe nutrition = _TranslationsMealNutritionDe._(_root);
 	@override late final _TranslationsMealDeleteConfirmationDe deleteConfirmation = _TranslationsMealDeleteConfirmationDe._(_root);
 	@override String get addedToLog => 'Mahlzeit zu deinem Protokoll hinzugefügt!';
-	@override String couldNotAdd({required Object error}) => 'Mahlzeit konnte nicht hinzugefügt werden: ${error}';
+	@override String couldNotAdd({required Object error}) => 'Konnte Mahlzeit nicht hinzufügen: ${error}';
 	@override String get savedSuccessfully => 'Mahlzeit erfolgreich hinzugefügt!';
 	@override String get updatedSuccessfully => 'Mahlzeit erfolgreich aktualisiert!';
 	@override String errorSaving({required Object error}) => 'Fehler beim Speichern der Mahlzeit: ${error}';
 	@override String get removedFromFavorites => 'Aus Favoriten entfernt!';
 	@override String get savedAsFavorite => 'Mahlzeit als Favorit gespeichert!';
-	@override String get unfavorite => 'Favorit entfernen';
+	@override String get unfavorite => 'Als Favorit entfernen';
 	@override String couldNotUpdateFavorite({required Object error}) => 'Favorit konnte nicht aktualisiert werden: ${error}';
 	@override String get feedbackThanks => 'Danke für dein Feedback!';
-	@override String get reanalysisUpdated => 'Analyse basierend auf deinem Feedback aktualisiert.';
+	@override String get reanalysisUpdated => 'Mahlzeitanalyse basierend auf deinem Feedback aktualisiert.';
 	@override String failedToProcess({required Object error}) => 'Verarbeitung fehlgeschlagen: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Bildverarbeitung fehlgeschlagen: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}';
@@ -192,9 +192,9 @@ class _TranslationsFavoritesDe implements TranslationsFavoritesEn {
 	// Translations
 	@override String get title => 'Favoriten';
 	@override String get empty => 'Noch keine Lieblingsmahlzeiten.';
-	@override String get searchPlaceholder => 'Lieblingsmahlzeiten suchen';
-	@override String get searchEmptyTitle => 'Keine Favoriten passen zu deiner Suche';
-	@override String get searchEmptySubtitle => 'Versuche einen anderen Namen, eine andere Menge oder einen anderen Mahlzeitentyp.';
+	@override String get searchPlaceholder => 'Favorisierte Mahlzeiten durchsuchen';
+	@override String get searchEmptyTitle => 'Keine Favoriten gefunden';
+	@override String get searchEmptySubtitle => 'Versuche einen anderen Namen, eine andere Menge oder einen anderen Mahlzeittyp.';
 	@override String get sortLabel => 'Favoriten sortieren';
 	@override String get undo => 'Rückgängig';
 	@override String removed({required Object name}) => '${name} aus Favoriten entfernt';
@@ -211,7 +211,7 @@ class _TranslationsProfileDe implements TranslationsProfileEn {
 	@override String get title => 'Profil';
 	@override String get noProfileData => 'Keine Profildaten gefunden';
 	@override String get yourProfile => 'Dein Profil';
-	@override String get viewAndManage => 'Zeige und verwalte deine Gesundheitsinformationen';
+	@override String get viewAndManage => 'Deine Gesundheitsinformationen anzeigen und verwalten';
 	@override late final _TranslationsProfileSectionsDe sections = _TranslationsProfileSectionsDe._(_root);
 	@override String get gender => 'Geschlecht';
 	@override String get height => 'Größe';
@@ -219,9 +219,9 @@ class _TranslationsProfileDe implements TranslationsProfileEn {
 	@override String get age => 'Alter';
 	@override String get weightGoal => 'Gewichtsziel';
 	@override String get targetWeight => 'Zielgewicht';
-	@override String get activityLevel => 'Aktivitätsniveau';
-	@override String get healthMetrics => 'Gesundheitsmetriken';
-	@override String get notSet => 'Nicht festgelegt';
+	@override String get activityLevel => 'Aktivitätslevel';
+	@override String get healthMetrics => 'Gesundheitswerte';
+	@override String get notSet => 'Nicht gesetzt';
 	@override String get years => 'Jahre';
 	@override String get updatedSuccessfully => 'Profil erfolgreich aktualisiert!';
 	@override late final _TranslationsProfileCalculatedValuesDe calculatedValues = _TranslationsProfileCalculatedValuesDe._(_root);
@@ -234,9 +234,9 @@ class _TranslationsHealthScoreDe implements TranslationsHealthScoreEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Gesundheits-Score';
-	@override String get whyThisScore => 'Warum dieser Score?';
-	@override String get note => 'Dieser Score ist eine KI-Schätzung basierend auf den erkannten Zutaten und der Nährstoffdichte. Für Ernährungsberatung wende dich immer an Fachleute.';
+	@override String get title => 'Health-Score';
+	@override String get whyThisScore => 'Warum diese Bewertung?';
+	@override String get note => 'Diese Bewertung ist eine AI‑Schätzung basierend auf erkannten Zutaten und Nährstoffdichte. Ziehe für Ernährungsberatung stets eine Fachperson zu Rate.';
 	@override String get unhealthy => 'Ungesund';
 	@override String get healthy => 'Gesund';
 	@override String get neutral => 'Neutral';
@@ -256,7 +256,7 @@ class _TranslationsEditProfileDe implements TranslationsEditProfileEn {
 	@override String get height => 'Größe';
 	@override String get weight => 'Gewicht';
 	@override String get weightGoal => 'Gewichtsziel';
-	@override String get activityLevel => 'Aktivitätsniveau';
+	@override String get activityLevel => 'Aktivitätslevel';
 	@override String get metric => 'Metrisch';
 	@override String get imperial => 'Imperial';
 	@override String get unitCm => 'cm';
@@ -304,13 +304,13 @@ class _TranslationsRemindersDe implements TranslationsRemindersEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Bleibe mit Erinnerungen auf Kurs';
-	@override String get description => 'Erhalte sanfte Erinnerungen, deine Mahlzeiten zu protokollieren und bei deinen Ernährungszielen dranzubleiben';
+	@override String get title => 'Bleib mit Erinnerungen auf Kurs';
+	@override String get description => 'Erhalte freundliche Erinnerungen, um Mahlzeiten zu protokollieren und konsequent bei deinen Ernährungszielen zu bleiben';
 	@override String get notificationsEnabled => 'Benachrichtigungen aktiviert';
 	@override String get notificationsDisabled => 'Benachrichtigungen deaktiviert';
-	@override String get enabledSubtitle => 'Du erhältst Mahlzeit-Erinnerungen';
-	@override String get disabledSubtitle => 'Aktiviere Benachrichtigungen, um Mahlzeit-Erinnerungen zu bekommen';
-	@override String get mealReminders => 'Mahlzeit-Erinnerungen';
+	@override String get enabledSubtitle => 'Du erhältst Mahlzeit‑Erinnerungen';
+	@override String get disabledSubtitle => 'Aktiviere Benachrichtigungen, um Mahlzeit‑Erinnerungen zu erhalten';
+	@override String get mealReminders => 'Mahlzeit‑Erinnerungen';
 	@override String get breakfast => 'Frühstück';
 	@override String get lunch => 'Mittagessen';
 	@override String get dinner => 'Abendessen';
@@ -318,7 +318,7 @@ class _TranslationsRemindersDe implements TranslationsRemindersEn {
 	@override String get unknown => 'Unbekannt';
 	@override String get change => 'Ändern';
 	@override String get enableNotifications => 'Benachrichtigungen aktivieren';
-	@override String get skipForNow => 'Für jetzt überspringen';
+	@override String get skipForNow => 'Vorerst überspringen';
 	@override String get saveChanges => 'Änderungen speichern';
 	@override String get enabledSuccessfully => 'Benachrichtigungen erfolgreich aktiviert!';
 	@override String get permissionDenied => 'Benachrichtigungsberechtigung verweigert';
@@ -385,20 +385,20 @@ class _TranslationsFeedbackRatingDe implements TranslationsFeedbackRatingEn {
 
 	// Translations
 	@override String enjoyingQuestion({required Object appLabel}) => 'Gefällt dir ${appLabel}?';
-	@override String get yes => 'Ja, es gefällt mir';
+	@override String get yes => 'Ja, mir gefällt es';
 	@override String get no => 'Nicht wirklich';
 	@override String get rateStepHeading => 'Im Play Store bewerten';
 	@override String get emailStepHeading => 'Feedback per E‑Mail senden';
-	@override String soloDevMessage({required Object appLabel}) => 'Eine kurze Bewertung hilft anderen, ${appLabel} zu finden und hält die Entwicklung am Laufen. Hättest du einen Moment dafür?';
+	@override String soloDevMessage({required Object appLabel}) => 'Eine kurze Bewertung hilft anderen, ${appLabel} zu finden, und unterstützt die Entwicklung. Würdest du kurz eine Bewertung abgeben?';
 	@override String get shareFeedbackViaEmail => 'Dein Feedback bestimmt, was als Nächstes kommt — wir lesen jede Nachricht. Möchtest du deine Gedanken per E‑Mail teilen?';
 	@override String get rateCta => 'Im Play Store bewerten';
 	@override String get maybeLater => 'Vielleicht später';
 	@override String get sendFeedback => 'Feedback senden';
 	@override String get noThanks => 'Nein, danke';
-	@override String get aboutUsDescription => 'Mit Sorgfalt von einem kleinen Team entwickelt. Unser Fokus liegt auf Datenschutz, Einfachheit und dabei zu helfen, bessere Essgewohnheiten aufzubauen.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ';
+	@override String get aboutUsDescription => 'Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und helfen dir, bessere Essgewohnheiten aufzubauen.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh ';
 	@override String get aboutUsLinkLabel => 'Über uns';
-	@override String get thankYouMessage => 'Danke! Wir fragen ein andermal erneut.';
+	@override String get thankYouMessage => 'Danke! Wir fragen ein anderes Mal noch einmal.';
 }
 
 // Path: health
@@ -408,7 +408,7 @@ class _TranslationsHealthDe implements TranslationsHealthEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Konnte nicht mit Health Connect synchronisieren';
+	@override String get syncFailed => 'Synchronisierung mit Health Connect fehlgeschlagen';
 	@override String get mealSynced => 'Mahlzeit mit Health Connect synchronisiert';
 }
 
@@ -431,8 +431,8 @@ class _TranslationsOnboardingGenderDe implements TranslationsOnboardingGenderEn 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Welches Geschlecht hast du?';
-	@override String get description => 'Das Geschlecht hilft uns, deinen Grundumsatz (BMR) genau zu berechnen.';
+	@override String get title => 'Was ist dein Geschlecht?';
+	@override String get description => 'Dein Geschlecht hilft uns, deinen Ruheumsatz (BMR) genau zu berechnen.';
 	@override String get next => 'Weiter';
 }
 
@@ -444,7 +444,7 @@ class _TranslationsOnboardingHeightDe implements TranslationsOnboardingHeightEn 
 
 	// Translations
 	@override String get title => 'Wie groß bist du?';
-	@override String get description => 'Deine Größe hilft uns, deinen BMI und Energiebedarf genau zu berechnen.';
+	@override String get description => 'Deine Körpergröße hilft uns, BMI und Energiebedarf genau zu berechnen.';
 	@override String get metric => 'Metrisch';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Weiter';
@@ -459,8 +459,8 @@ class _TranslationsOnboardingWeightDe implements TranslationsOnboardingWeightEn 
 	// Translations
 	@override String get currentTitle => 'Wie viel wiegst du aktuell?';
 	@override String get currentDescription => 'Dein aktuelles Gewicht ist wichtig, um deine täglichen Ziele zu personalisieren.';
-	@override String get targetTitle => 'Was ist dein Zielgewicht?';
-	@override String get targetDescription => 'Ein Zielgewicht hilft uns, deinen langfristigen Plan festzulegen.';
+	@override String get targetTitle => 'Welches Zielgewicht hast du?';
+	@override String get targetDescription => 'Ein Zielgewicht hilft uns, deinen langfristigen Plan zu bestimmen.';
 	@override String get metric => 'Metrisch';
 	@override String get imperial => 'Imperial';
 	@override String get next => 'Weiter';
@@ -473,7 +473,7 @@ class _TranslationsOnboardingAgeDe implements TranslationsOnboardingAgeEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Wann hast du Geburtstag?';
+	@override String get title => 'Wann ist dein Geburtstag?';
 	@override String get description => 'Dein Alter hilft uns, deinen Kalorienbedarf genau zu berechnen.';
 	@override String get next => 'Weiter';
 }
@@ -501,7 +501,7 @@ class _TranslationsOnboardingWeightGoalDe implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Was ist dein Ziel?';
-	@override String get description => 'Wähle das Ziel, das am besten zu dir passt';
+	@override String get description => 'Wähle das Ziel, das am besten beschreibt, was du erreichen möchtest';
 }
 
 // Path: onboarding.activityLevel
@@ -523,18 +523,18 @@ class _TranslationsOnboardingHealthConnectDe implements TranslationsOnboardingHe
 
 	// Translations
 	@override String get title => 'Mit Health Connect verbinden';
-	@override String get description => 'Synchronisiere deine Gesundheitsdaten für bessere Einblicke und automatische Kalorienerfassung';
+	@override String get description => 'Synchronisiere deine Gesundheitsdaten für bessere Einblicke und automatische Kalorienverfolgung';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingDe automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingDe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsDe progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsDe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationDe seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationDe._(_root);
 	@override String get connected => 'Health Connect verbunden';
 	@override String get notConnected => 'Health Connect nicht verbunden';
 	@override String get setup => 'Health Connect einrichten';
-	@override String get skipForNow => 'Für jetzt überspringen';
+	@override String get skipForNow => 'Später überspringen';
 	@override String get statusConnected => 'Health Connect ist verbunden.';
 	@override String get statusSuccess => 'Health Connect wurde erfolgreich verbunden!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Zugriff verweigert. Bitte aktiviere die Health-Connect-Berechtigungen in den Telefoneinstellungen für ${appLabel}.';
-	@override String statusError({required Object error}) => 'Fehler beim Einrichten von Health Connect: ${error}';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Berechtigung verweigert. Bitte aktiviere die Health Connect-Berechtigungen in den Einstellungen deines Telefons für ${appLabel}.';
+	@override String statusError({required Object error}) => 'Fehler bei der Einrichtung von Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -556,15 +556,15 @@ class _TranslationsHomeAiSummaryDe implements TranslationsHomeAiSummaryEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Deine KI-Zusammenfassung';
-	@override String get logMore => 'Protokolliere in den nächsten Tagen mehr Mahlzeiten, um deine personalisierten KI-Einblicke zu erhalten.';
-	@override String get loading => 'Deine Zusammenfassung wird geladen ...';
+	@override String get title => 'Deine AI-Zusammenfassung';
+	@override String get logMore => 'Trage in den nächsten Tagen mehr Mahlzeiten ein, um personalisierte AI-Einblicke zu erhalten.';
+	@override String get loading => 'Lade deine Zusammenfassung...';
 	@override String mealCount({required Object count}) => '${count} Mahlzeiten protokolliert';
-	@override String macroBalanceScore({required Object score}) => 'Balance-Score ${score}';
+	@override String macroBalanceScore({required Object score}) => 'Balancestufe ${score}';
 	@override String get topFoods => 'Top-Lebensmittel';
-	@override String get trendUp => 'Kalorien im Aufwärtstrend';
-	@override String get trendDown => 'Kalorien im Abwärtstrend';
-	@override String get trendSteady => 'Kalorien bleiben konstant';
+	@override String get trendUp => 'Kalorien steigen';
+	@override String get trendDown => 'Kalorien sinken';
+	@override String get trendSteady => 'Kalorien stabil';
 	@override String generatedAt({required Object time}) => 'Aktualisiert ${time}';
 }
 
@@ -577,17 +577,17 @@ class _TranslationsHomeDailyGoalDe implements TranslationsHomeDailyGoalEn {
 	// Translations
 	@override String get title => 'Setze dein Tagesziel';
 	@override String get titleSet => 'Dein Tagesziel';
-	@override String get description => 'Bereit für deine Wohlfühlreise? Lege unten dein tägliches Kalorienziel fest, um durchzustarten.';
-	@override String get descriptionSet => 'Dein Kompass ist gesetzt! Das ist dein tägliches Kalorienziel als Orientierung.';
+	@override String get description => 'Bereit für deine Gesundheitsreise? Lege unten dein tägliches Kalorienziel fest, um loszulegen.';
+	@override String get descriptionSet => 'Dein Kompass ist gesetzt! Dies ist dein tägliches Kalorienziel zur Orientierung.';
 	@override String get yourGoal => 'Dein Ziel';
 	@override String get goal => 'Ziel';
 	@override String get dailyCalories => 'Tägliche Kalorien (kcal)';
 	@override String get setGoal => 'Ziel festlegen';
-	@override String get intake => 'Aufnahme';
+	@override String get intake => 'Zufuhr';
 	@override String get burned => 'Verbrannt';
 	@override String get weightImpact => 'Gewichtsauswirkung';
 	@override String get estLoss => 'Geschätzter Verlust von';
-	@override String get estGain => 'Geschätzte Zunahme von';
+	@override String get estGain => 'Geschätzter Zuwachs von';
 	@override String get kcal => 'kcal';
 }
 
@@ -601,11 +601,11 @@ class _TranslationsHomeDailySummaryDe implements TranslationsHomeDailySummaryEn 
 	@override String get title => 'Tagesübersicht';
 	@override String get calories => 'Kalorien';
 	@override String get carbs => 'Kohlenhydrate';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Eiweiß';
 	@override String get fat => 'Fett';
 	@override String get fiber => 'Ballaststoffe';
 	@override String get grams => 'Gramm';
-	@override String get chartAccessibilityLabel => 'Makros-Diagramm';
+	@override String get chartAccessibilityLabel => 'Makronährstoff-Diagramm';
 }
 
 // Path: home.intakeProgress
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressDe implements TranslationsHomeIntakeProgres
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Heutige Makro-Verteilung';
+	@override String get title => 'Heutige Makroaufteilung';
 	@override String get target => 'Ziel';
 	@override String get current => 'Aktuell';
 }
@@ -629,9 +629,9 @@ class _TranslationsHomeIntakeHistoryDe implements TranslationsHomeIntakeHistoryE
 	// Translations
 	@override String get title => '7-Tage-Makroverlauf';
 	@override String get trendTitle => 'Heutiger Trend';
-	@override String peakHour({required Object hour}) => 'Spitze: ${hour}:00';
-	@override String get noHistoryYet => 'Noch kein Verlauf';
-	@override String get startLogging => 'Beginne mit dem Protokollieren, um hier\ndeinen 7‑Tage-Makrotrend zu sehen';
+	@override String peakHour({required Object hour}) => 'Höchstwert: ${hour}:00';
+	@override String get noHistoryYet => 'Noch keine Daten';
+	@override String get startLogging => 'Beginne, Mahlzeiten zu protokollieren, um deine\n7‑tägigen Makrotrends hier zu sehen';
 }
 
 // Path: home.mealLog
@@ -654,9 +654,9 @@ class _TranslationsHomeMealDescriptionDe implements TranslationsHomeMealDescript
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Schnell hinzufügen mit KI';
-	@override String get description => 'Beschreibe deine Mahlzeit – die KI übernimmt den Rest.';
-	@override String get hint => 'z. B. Zum Frühstück hatte ich eine große Schüssel Haferflocken mit einer Banane und einem Scoop Whey ...';
+	@override String get title => 'Schnell hinzufügen mit AI';
+	@override String get description => 'Beschreibe deine Mahlzeit und lass AI die Details übernehmen.';
+	@override String get hint => 'z. B. Zum Frühstück hatte ich eine große Schale Haferflocken mit einer aufgeschnittenen Banane und einem Becher Whey ...';
 	@override String get analyzeMeal => 'Mahlzeit analysieren';
 }
 
@@ -669,9 +669,9 @@ class _TranslationsHomeFavoriteMealsDe implements TranslationsHomeFavoriteMealsE
 	// Translations
 	@override String get title => 'Lieblingsmahlzeiten';
 	@override String get description => 'Füge schnell eine deiner Lieblingsmahlzeiten hinzu.';
-	@override String get noFavorites => 'Noch keine Lieblingsmahlzeiten.';
-	@override String get addFavoriteHint => 'Klicke auf den Stern bei einer Mahlzeit, um sie als Favorit zu markieren.';
-	@override String get seeAll => 'Alle ansehen';
+	@override String get noFavorites => 'Noch keine Favoriten.';
+	@override String get addFavoriteHint => 'Klicke den Stern bei einer Mahlzeit, um sie zu favorisieren.';
+	@override String get seeAll => 'Alle anzeigen';
 	@override String get add => 'Hinzufügen';
 }
 
@@ -682,12 +682,12 @@ class _TranslationsHomeMealSnapDe implements TranslationsHomeMealSnapEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Fotografiere & tracke deine Mahlzeit';
-	@override String get description => 'Nutze deine Kamera, um ein Foto deines Essens für die KI-Analyse zu machen.';
+	@override String get title => 'Foto & Verfolge deine Mahlzeit';
+	@override String get description => 'Nutze deine Kamera, um ein Foto deines Essens für die AI-Analyse zu machen.';
 	@override String get openCamera => 'Kamera öffnen';
 	@override String get gallery => 'Galerie';
-	@override String get compressingPhoto => 'Foto wird optimiert …';
-	@override String get uploadingPhoto => 'Foto wird hochgeladen …';
+	@override String get compressingPhoto => 'Foto wird optimiert…';
+	@override String get uploadingPhoto => 'Foto wird hochgeladen…';
 }
 
 // Path: home.connectHealth
@@ -712,7 +712,7 @@ class _TranslationsMealNutritionDe implements TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Kalorien';
 	@override String get carbs => 'Kohlenhydrate (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Eiweiß (g)';
 	@override String get fat => 'Fett (g)';
 	@override String get fiber => 'Ballaststoffe (g)';
 }
@@ -725,7 +725,7 @@ class _TranslationsMealDeleteConfirmationDe implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'Mahlzeit löschen';
-	@override String get message => 'Möchtest du diesen Mahlzeiteintrag wirklich löschen?';
+	@override String get message => 'Möchtest du diesen Eintrag wirklich löschen?';
 	@override String get cancel => 'Abbrechen';
 	@override String get delete => 'Löschen';
 }
@@ -738,9 +738,9 @@ class _TranslationsMealQuestionFlowDe implements TranslationsMealQuestionFlowEn 
 
 	// Translations
 	@override String progress({required Object current, required Object total}) => 'Frage ${current} von ${total}';
-	@override String get noQuestionsAvailable => 'Zurzeit sind keine Fragen verfügbar';
+	@override String get noQuestionsAvailable => 'Keine Fragen verfügbar';
 	@override String get next => 'Weiter';
-	@override String get continueLabel => 'Fortfahren';
+	@override String get continueLabel => 'Weiter';
 }
 
 // Path: meal.analysis
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisDe implements TranslationsMealAnalysisEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'KI-Mahlzeitenanalyse';
-	@override String get stepStarted => 'Es geht los …';
-	@override String get stepDecomposition => 'Wir verstehen deine Mahlzeit …';
-	@override String get stepIngredients => 'Zutaten werden mit Nährwertdaten abgeglichen …';
-	@override String get stepUncertainty => 'Vertrauen wird überprüft …';
-	@override String get stepMealTypeQuestion => 'Gleich geschafft …';
-	@override String get stepResult => 'Ergebnis wird finalisiert …';
+	@override String get title => 'Wir analysieren deine Mahlzeit';
+	@override String get stepStarted => 'Starte…';
+	@override String get stepDecomposition => 'Mahlzeit wird erfasst…';
+	@override String get stepIngredients => 'Zutaten werden mit Nährwertdaten abgeglichen…';
+	@override String get stepUncertainty => 'Vertrauensniveau prüfen…';
+	@override String get stepMealTypeQuestion => 'Fast fertig…';
+	@override String get stepResult => 'Ergebnis wird abgeschlossen…';
 	@override String get stepError => 'Etwas ist schiefgelaufen';
-	@override String get stepDefault => 'Deine Mahlzeit wird analysiert …';
-	@override String get progressUnderstand => 'Verstehen';
-	@override String get progressMatch => 'Abgleichen';
-	@override String get progressCheck => 'Prüfen';
-	@override String get progressMealType => 'Mahlzeitart wird ausgewählt';
-	@override String get progressFinish => 'Fertigstellen';
-	@override String get detectedIngredientHeading => 'Zutaten, die wir erkennen';
+	@override String get stepDefault => 'Mahlzeit wird analysiert…';
+	@override String get progressUnderstand => 'Mahlzeit erfassen';
+	@override String get progressMatch => 'Nährwerte der Zutaten suchen';
+	@override String get progressCheck => 'Portionen und Sicherheit prüfen';
+	@override String get progressMealType => 'Mahlzeittyp auswählen';
+	@override String get progressFinish => 'Kalorien und Makros berechnen';
+	@override String get detectedIngredientHeading => 'Erkannte Zutaten';
 	@override String ingredientsOverflow({required Object count}) => '${count} weitere';
 	@override String ingredientsLine({required Object count}) => '${count} Zutaten erkannt';
-	@override String get ingredientsPending => 'Zutaten werden gescannt …';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get ingredientsPending => 'Zutaten werden gescannt…';
+	@override String mealPreviewDescription({required Object text}) => '„${text}“';
+	@override String get offlineTip0 => 'Tipp: Konstanz schlägt Perfektion – regelmäßige Einträge zeigen die wirklich wichtigen Muster.';
+	@override String get offlineTip1 => 'Tipp: Bei Fotos helfen natürliches Licht und Draufsicht für genauere Portionsschätzungen.';
+	@override String get offlineTip2 => 'Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.';
+	@override String get offlineTip3 => 'Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.';
+	@override String get offlineTip4 => 'Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.';
+	@override String get offlineTip5 => 'Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).';
 }
 
 // Path: meal.feedback
@@ -784,18 +784,18 @@ class _TranslationsMealFeedbackDe implements TranslationsMealFeedbackEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Was sieht falsch aus?';
+	@override String get title => 'Was stimmt hier nicht?';
 	@override String get subtitle => 'Hilf uns, die Analyse zu verbessern, indem du ein oder mehrere Probleme auswählst.';
-	@override String get tellUsMore => 'Mehr erzählen';
+	@override String get tellUsMore => 'Erzähl uns mehr';
 	@override String get describeIncorrect => 'Beschreibe, was falsch war';
-	@override String get submit => 'Senden';
-	@override String get issueFoodIdentification => 'Lebensmittel­erkennung';
+	@override String get submit => 'Absenden';
+	@override String get issueFoodIdentification => 'Lebensmittelzuordnung';
 	@override String get issuePortionSize => 'Portionsgröße';
 	@override String get issueCalorieDistribution => 'Kalorienverteilung';
 	@override String get issueMacrosWrong => 'Makros sind falsch';
-	@override String get issueMissingItems => 'Fehlende Elemente';
-	@override String get issueExtraItems => 'Zusätzliche Elemente';
-	@override String get issueOther => 'Sonstiges';
+	@override String get issueMissingItems => 'Fehlende Zutaten';
+	@override String get issueExtraItems => 'Zusätzliche Zutaten';
+	@override String get issueOther => 'Andere';
 }
 
 // Path: favorites.sortOptions
@@ -833,7 +833,7 @@ class _TranslationsProfileCalculatedValuesDe implements TranslationsProfileCalcu
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'Tagesziel';
-	@override String get calPerDay => 'kcal/Tag';
+	@override String get calPerDay => 'cal/Tag';
 	@override String get notAvailable => 'k. A.';
 }
 
@@ -844,7 +844,7 @@ class _TranslationsEditProfileSectionsDe implements TranslationsEditProfileSecti
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get personalInformation => 'PERSÖNLICHE ANGABEN';
+	@override String get personalInformation => 'PERSÖNLICHE DATEN';
 	@override String get physicalMeasurements => 'KÖRPERMAßE';
 	@override String get goalsAndActivity => 'ZIELE & AKTIVITÄT';
 }
@@ -858,7 +858,7 @@ class _TranslationsEditProfileGendersDe implements TranslationsEditProfileGender
 	// Translations
 	@override String get male => 'Männlich';
 	@override String get female => 'Weiblich';
-	@override String get other => 'Divers';
+	@override String get other => 'Andere';
 }
 
 // Path: editProfile.weightGoals
@@ -896,11 +896,11 @@ class _TranslationsSettingsSectionsDe implements TranslationsSettingsSectionsEn 
 	// Translations
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALISIERUNG';
-	@override String get notifications => 'BENACHRICH­TIGUNGEN';
+	@override String get notifications => 'BENACHRICHTIGUNGEN';
 	@override String get healthConnect => 'HEALTH CONNECT';
 	@override String get supportAndLegal => 'SUPPORT & RECHTLICHES';
-	@override String get about => 'INFO';
-	@override String get dangerZone => 'GEFAHRENBEREICH';
+	@override String get about => 'ÜBER';
+	@override String get dangerZone => 'RISIKOBEREICH';
 	@override String get developer => 'ENTWICKLER';
 }
 
@@ -912,7 +912,7 @@ class _TranslationsSettingsEditProfileDe implements TranslationsSettingsEditProf
 
 	// Translations
 	@override String get title => 'Profil bearbeiten';
-	@override String get subtitle => 'Aktualisiere deine persönlichen Angaben';
+	@override String get subtitle => 'Aktualisiere deine persönlichen Daten';
 }
 
 // Path: settings.language
@@ -924,7 +924,7 @@ class _TranslationsSettingsLanguageDe implements TranslationsSettingsLanguageEn 
 	// Translations
 	@override String get title => 'Sprache';
 	@override String get subtitle => 'Wähle deine bevorzugte Sprache';
-	@override String get searchHint => 'Sprachen suchen ...';
+	@override String get searchHint => 'Sprachen suchen...';
 	@override String get noResults => 'Keine Ergebnisse gefunden';
 }
 
@@ -935,7 +935,7 @@ class _TranslationsSettingsHeightUnitDe implements TranslationsSettingsHeightUni
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Größeneinheit';
+	@override String get title => 'Längeneinheit';
 }
 
 // Path: settings.weightUnit
@@ -955,8 +955,8 @@ class _TranslationsSettingsMealRemindersDe implements TranslationsSettingsMealRe
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Mahlzeit-Erinnerungen';
-	@override String get subtitle => 'Bleibe mit rechtzeitigen Hinweisen auf Kurs';
+	@override String get title => 'Mahlzeit‑Erinnerungen';
+	@override String get subtitle => 'Bleib mit rechtzeitigen Erinnerungen auf Kurs';
 }
 
 // Path: settings.theme
@@ -981,11 +981,11 @@ class _TranslationsSettingsSendFeedbackDe implements TranslationsSettingsSendFee
 	// Translations
 	@override String get title => 'Feedback senden';
 	@override String subtitle({required Object appLabel}) => 'Hilf uns, ${appLabel} zu verbessern';
-	@override String emailSubject({required Object appLabel}) => '${appLabel} App-Feedback';
+	@override String emailSubject({required Object appLabel}) => 'Feedback zur ${appLabel}-App';
 	@override String get emailBodyPrefix => 'Bitte gib dein Feedback unten ein:';
 	@override String get appVersion => 'App-Version';
 	@override String get device => 'Gerät';
-	@override String get osVersion => 'OS-Version';
+	@override String get osVersion => 'OS‑Version';
 	@override String get uid => 'UID';
 }
 
@@ -998,8 +998,8 @@ class _TranslationsSettingsExportMealHistoryDe implements TranslationsSettingsEx
 	// Translations
 	@override String get title => 'Mahlzeitenverlauf exportieren';
 	@override String get subtitle => 'Teile eine CSV deiner protokollierten Mahlzeiten';
-	@override String get shareText => 'Dein Calorify-Mahlzeitenexport';
-	@override String failed({required Object error}) => 'Konnte den Mahlzeitenverlauf nicht exportieren: ${error}';
+	@override String get shareText => 'Dein Calorify‑Mahlzeitenexport';
+	@override String failed({required Object error}) => 'Mahlzeitenverlauf konnte nicht exportiert werden: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1010,9 +1010,9 @@ class _TranslationsSettingsClearAllDataDe implements TranslationsSettingsClearAl
 
 	// Translations
 	@override String get title => 'Alle Daten löschen';
-	@override String get subtitle => 'Unwiderruflich alle deine Informationen löschen';
+	@override String get subtitle => 'Alle deine Informationen unwiderruflich löschen';
 	@override String get confirmationTitle => 'Alle Daten löschen?';
-	@override String get confirmationMessage => 'Diese Aktion kann nicht rückgängig gemacht werden. Alle deine protokollierten Mahlzeiten, Favoriten und Profileinstellungen werden dauerhaft gelöscht.';
+	@override String get confirmationMessage => 'Dieser Vorgang kann nicht rückgängig gemacht werden. Alle protokollierten Mahlzeiten, Favoriten und Profileinstellungen werden dauerhaft gelöscht.';
 	@override String get cancel => 'Abbrechen';
 	@override String get clearEverything => 'Alles löschen';
 }
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsDe implements TranslationsSettingsDebugOp
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Debug-Optionen';
+	@override String get title => 'Debug‑Optionen';
 }
 
 // Path: settings.healthConnect
@@ -1039,11 +1039,11 @@ class _TranslationsSettingsHealthConnectDe implements TranslationsSettingsHealth
 	@override late final _TranslationsSettingsHealthConnectUnavailableDe unavailable = _TranslationsSettingsHealthConnectUnavailableDe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsDe permissions = _TranslationsSettingsHealthConnectPermissionsDe._(_root);
 	@override String get managePermissions => 'Berechtigungen verwalten';
-	@override String get openSettings => 'Health-Connect-Einstellungen öffnen';
+	@override String get openSettings => 'Health Connect Einstellungen öffnen';
 	@override String get requestPermissions => 'Berechtigungen anfordern';
-	@override String get permissionRequestCancelledOrFailed => 'Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health-Connect-Einstellungen.';
-	@override String get permissionRequestFailed => 'Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health-Connect-Einstellungen.';
-	@override String get requestingPermissions => 'Anfordern ...';
+	@override String get permissionRequestCancelledOrFailed => 'Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect‑Einstellungen.';
+	@override String get permissionRequestFailed => 'Berechtigungen konnten nicht angefragt werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect‑Einstellungen.';
+	@override String get requestingPermissions => 'Anfrage läuft...';
 }
 
 // Path: settings.about
@@ -1053,8 +1053,8 @@ class _TranslationsSettingsAboutDe implements TranslationsSettingsAboutEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Info';
-	@override String get tagline => 'Schnelle, kostenlose und datenschutzfreundliche Kalorienorientierung';
+	@override String get title => 'Über';
+	@override String get tagline => 'Schnell, kostenlos und datenschutzorientiert: Kalorien-Bewusstsein';
 	@override late final _TranslationsSettingsAboutOurStoryDe ourStory = _TranslationsSettingsAboutOurStoryDe._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyDe privacy = _TranslationsSettingsAboutPrivacyDe._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperDe developer = _TranslationsSettingsAboutDeveloperDe._(_root);
@@ -1080,7 +1080,7 @@ class _TranslationsNotificationsBreakfastDe implements TranslationsNotifications
 
 	// Translations
 	@override String get title => 'Frühstückszeit! 🍳';
-	@override String get body => 'Vergiss nicht, dein Frühstück zu protokollieren';
+	@override String get body => 'Vergiss nicht, dein Frühstück zu erfassen';
 }
 
 // Path: notifications.lunch
@@ -1101,8 +1101,8 @@ class _TranslationsNotificationsDinnerDe implements TranslationsNotificationsDin
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Abendessenszeit! 🍽️';
-	@override String get body => 'Vergiss nicht, dein Abendessen zu protokollieren';
+	@override String get title => 'Abendessen! 🍽️';
+	@override String get body => 'Vergiss nicht, dein Abendessen zu erfassen';
 }
 
 // Path: notifications.snack
@@ -1112,7 +1112,7 @@ class _TranslationsNotificationsSnackDe implements TranslationsNotificationsSnac
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Snackzeit! 🍎';
+	@override String get title => 'Snack‑Zeit! 🍎';
 	@override String get body => 'Zeit für einen gesunden Snack';
 }
 
@@ -1123,7 +1123,7 @@ class _TranslationsNotificationsTestDe implements TranslationsNotificationsTestE
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Testbenachrichtigung';
+	@override String get title => 'Test‑Benachrichtigung';
 }
 
 // Path: disclaimer.snap
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapDe implements TranslationsDisclaimerSnapEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} liefert geschätzte Nährwertangaben. Die Genauigkeit hängt von deinen Eingaben & Lebensmittelvariationen ab. Nutze dies als Orientierung, nicht als endgültige Quelle. Für individuelle Beratung wende dich an Fachleute.';
+	@override String description({required Object appLabel}) => '${appLabel} liefert geschätzte Nährwertangaben. Die Genauigkeit hängt von deinen Eingaben und Lebensmittelvarianten ab. Nutze die Angaben als Orientierung, nicht als endgültige Quelle. Konsultiere eine Fachperson für personalisierte Ernährungsberatung.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeDe portionSize = _TranslationsDisclaimerSnapPortionSizeDe._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsDe preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsDe._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsDe ingredients = _TranslationsDisclaimerSnapIngredientsDe._(_root);
@@ -1147,8 +1147,8 @@ class _TranslationsDisclaimerWeightEstimateDe implements TranslationsDisclaimerW
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Über die Gewichtsschätzung';
-	@override String get description => 'Die prognostizierte Gewichtsveränderung ist eine theoretische Schätzung basierend auf dem einfachen Modell von aufgenommenen vs. verbrauchten Kalorien. Sie dient nur als Motivation und ist keine Vorhersage deines tatsächlichen Gewichts.';
+	@override String get title => 'Zur Gewichtsschätzung';
+	@override String get description => 'Die prognostizierte Gewichtsveränderung ist eine theoretische Schätzung basierend auf dem einfachen Kalorien‑ein‑/Kalorien‑aus‑Modell. Sie dient nur zur Motivation und nicht als Vorhersage deines tatsächlichen Gewichts.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyDe calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyDe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsDe biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsDe._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightDe waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightDe._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureDe implements TranslationsDisclai
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Schätzung des Kalorienverbrauchs';
-	@override String get description => 'Wenn Health-Connect-Daten nicht verfügbar sind, schätzen wir die heute verbrannten Kalorien mithilfe deines Grundumsatzes (BMR) und Aktivitätsniveaus (TDEE), skaliert auf den bereits vergangenen Tagesanteil.';
+	@override String get title => 'Geschätzter Kalorienverbrauch';
+	@override String get description => 'Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir den heutigen Kalorienverbrauch anhand deines Ruheumsatzes (BMR) und Aktivitätsniveaus (TDEE), skaliert auf den bereits vergangenen Teil des Tages.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedDe howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedDe._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe._(_root);
 }
@@ -1189,7 +1189,7 @@ class _TranslationsOnboardingFeaturesFoodRecognitionDe implements TranslationsOn
 
 	// Translations
 	@override String get title => 'Intelligente Lebensmittelerkennung';
-	@override String get description => 'Mach ein Foto und lass die KI deine Mahlzeit erkennen';
+	@override String get description => 'Mach ein Foto und lass AI dein Gericht identifizieren';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1199,7 +1199,7 @@ class _TranslationsOnboardingFeaturesAiAnalysisDe implements TranslationsOnboard
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'KI-Analyse';
+	@override String get title => 'AI-Analyse';
 	@override String get description => 'Erhalte sofort Nährwertangaben aus deinen Beschreibungen';
 }
 
@@ -1210,8 +1210,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationDe implements Translations
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health-Integration';
-	@override String get description => 'Verbinde Health Connect für bessere Einblicke';
+	@override String get title => 'Gesundheitsintegration';
+	@override String get description => 'Verbinde dich mit Health Connect für bessere Einblicke';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesDe implements TranslationsOnboardin
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Wir helfen dir mit einem gesunden Plan, um mit nährstoffreichen Mahlzeiten ein ausgewogenes Gewicht zu erreichen.';
-	@override String get healthy => 'Großartige Arbeit! Du liegst im gesunden Bereich. Wir helfen dir, Vitalität und Energie zu erhalten.';
-	@override String overweight({required Object appLabel}) => '${appLabel} macht deine Reise mit KI-gestütztem Tracking einfacher, damit du dein Ziel entspannt erreichst.';
-	@override String get obese => 'Wir unterstützen dich mit persönlicher Begleitung und nachhaltigen Strategien für deine Gesundheitsziele.';
+	@override String get underweight => 'Wir helfen dir dabei, einen gesunden Plan zu erstellen, um ein ausgeglichenes Gewicht mit nährstoffreichen Mahlzeiten zu erreichen.';
+	@override String get healthy => 'Gut gemacht! Du liegst im gesunden Bereich. Wir helfen dir, deine Vitalität und Energie zu erhalten.';
+	@override String overweight({required Object appLabel}) => '${appLabel} macht deine Reise einfacher mit AI-gestütztem Tracking, damit du bequem dein Ziel erreichst.';
+	@override String get obese => 'Wir unterstützen dich mit persönlicher Anleitung und nachhaltigen Strategien für deine Gesundheitsziele.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1247,8 +1247,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingDe implements Transla
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Automatisches Kalorientracking';
-	@override String get description => 'Verbrannte Kalorien aus deinen Fitness-Apps erfassen';
+	@override String get title => 'Automatische Kalorienverfolgung';
+	@override String get description => 'Erfasste verbrannte Kalorien aus deinen Fitness-Apps verfolgen';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsDe implements Translat
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Fortschritts-Insights';
-	@override String get description => 'Erhalte detaillierte Einblicke in deine Gesundheitstrends';
+	@override String get title => 'Fortschritts-Einblicke';
+	@override String get description => 'Erhalte detaillierte Einblicke in deine Gesundheitsentwicklungen';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1270,7 +1270,7 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationDe implements Trans
 
 	// Translations
 	@override String get title => 'Nahtlose Integration';
-	@override String get description => 'Synchronisiere Daten aus deinen Gesundheits-Apps';
+	@override String get description => 'Synchronisiere Daten aus deinen bevorzugten Gesundheits-Apps';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1281,16 +1281,16 @@ class _TranslationsOnboardingReinforcementTrackingSuccessDe implements Translati
 
 	// Translations
 	@override String get title => 'Du bist nicht allein';
-	@override String get genericMessage => 'Studien zeigen: Konsequentes Tracking ist der stärkste Prädiktor für langfristigen Erfolg.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Für eine(n) ${age}-jährige(n) ${gender} mit dem Ziel, ${goal}, ist konsequentes Tracking der stärkste Erfolgsfaktor.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} macht es 10x einfacher als manuell.';
-	@override String get getStartedTitle => 'Bereit, loszulegen?';
+	@override String get genericMessage => 'Studien zeigen, dass konsequentes Tracking der wichtigste Prädiktor für langfristigen Erfolg ist.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => 'Bei einer ${age}-jährigen Person (${gender}), die ${goal} möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} macht es 10x einfacher als manuelle Aufzeichnung.';
+	@override String get getStartedTitle => 'Bereit loszulegen?';
 	@override String get tipPhoto => 'Fotografiere deine Mahlzeiten für eine sofortige Analyse';
-	@override String get tipConsistency => 'Logge konsequent, um spürbare Fortschritte zu sehen';
+	@override String get tipConsistency => 'Trage regelmäßig ein, um echte Fortschritte zu sehen';
 	@override String get tipProgress => 'Verfolge deinen Fortschritt täglich, um motiviert zu bleiben';
 	@override String get button => 'Los geht\'s';
 	@override String get defaultGender => 'Person';
-	@override String get defaultGoal => 'ein gesünderes Ich';
+	@override String get defaultGoal => 'ein gesünderes Du';
 }
 
 // Path: onboarding.reinforcement.healthProfile
@@ -1301,12 +1301,12 @@ class _TranslationsOnboardingReinforcementHealthProfileDe implements Translation
 
 	// Translations
 	@override String get title => 'Dein Gesundheitsprofil';
-	@override String bmiDescription({required Object bmi}) => 'Basierend auf deinen Angaben beträgt dein BMI ${bmi}.';
-	@override String get finalizeDescription => 'Lass uns dein Profil fertigstellen, um deine Erfahrung zu personalisieren.';
+	@override String bmiDescription({required Object bmi}) => 'Basierend auf deinen Daten liegt dein BMI bei ${bmi}.';
+	@override String get finalizeDescription => 'Fassen wir dein Profil zusammen, um dein Erlebnis zu personalisieren.';
 	@override String get goalGain => 'zunehmen';
 	@override String get goalLose => 'abnehmen';
 	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Um dein Ziel zu erreichen, wirst du ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'Du bist bei deinem Zielgewicht! Wir helfen dir, es zu halten.';
+	@override String get goalReached => 'Du hast dein Zielgewicht erreicht! Wir helfen dir, es zu halten.';
 	@override String get button => 'Los geht\'s';
 }
 
@@ -1317,11 +1317,11 @@ class _TranslationsOnboardingReinforcementGoalLifestyleDe implements Translation
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ausgezeichneter Start!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Du hast den ersten Schritt Richtung ${goalText} gemacht. Da du ${activityText} bist, passt ${appLabel} deine Ziele an deinen Lebensstil an.';
+	@override String get title => 'Hervorragender Start!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Du hast den ersten Schritt in Richtung ${goalText} gemacht. Da du ${activityText} bist, passt ${appLabel} deine Ziele an deinen Lebensstil an.';
 	@override String get personalizedTargets => 'Personalisierte Kalorienziele';
-	@override String get aiMealDetection => 'KI-gestützte Mahlzeiterkennung';
-	@override String get macroBreakdowns => 'Detaillierte Makronährstoff-Aufschlüsselungen';
+	@override String get aiMealDetection => 'AI-gestützte Mahlzeitenerkennung';
+	@override String get macroBreakdowns => 'Detaillierte Makronährstoffaufschlüsselung';
 	@override String get button => 'Los geht\'s';
 	@override String get defaultGoal => 'deine Ziele';
 	@override String get defaultActivity => 'aktiv';
@@ -1335,7 +1335,7 @@ class _TranslationsEditProfileWeightGoalsLoseWeightDe implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'Abnehmen';
-	@override String get description => 'Kaloriendefizit erstellen, um Gewicht zu verlieren';
+	@override String get description => 'Erschaffe ein Kaloriendefizit zum Abnehmen';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1346,7 +1346,7 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightDe implements Translation
 
 	// Translations
 	@override String get name => 'Gewicht halten';
-	@override String get description => 'Dein aktuelles Gewicht beibehalten';
+	@override String get description => 'Halte dein aktuelles Gewicht';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1357,7 +1357,7 @@ class _TranslationsEditProfileWeightGoalsGainWeightDe implements TranslationsEdi
 
 	// Translations
 	@override String get name => 'Zunehmen';
-	@override String get description => 'Kalorienüberschuss erstellen, um zuzunehmen';
+	@override String get description => 'Erschaffe einen Kalorienüberschuss zum Zunehmen';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1367,8 +1367,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryDe implements TranslationsE
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Überwiegend sitzend';
-	@override String get description => 'Kaum bis keine Bewegung';
+	@override String get name => 'Wenig aktiv';
+	@override String get description => 'Kaum oder keine Bewegung';
 }
 
 // Path: editProfile.activityLevels.lightlyActive
@@ -1379,7 +1379,7 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveDe implements Translati
 
 	// Translations
 	@override String get name => 'Leicht aktiv';
-	@override String get description => 'Leichte Bewegung 1–3 Tage/Woche';
+	@override String get description => 'Leichte Aktivität 1–3 Tage/Woche';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1389,8 +1389,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveDe implements Transl
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Mäßig aktiv';
-	@override String get description => 'Mäßige Bewegung 3–5 Tage/Woche';
+	@override String get name => 'Moderat aktiv';
+	@override String get description => 'Mäßige Aktivität 3–5 Tage/Woche';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1401,7 +1401,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveDe implements Translations
 
 	// Translations
 	@override String get name => 'Sehr aktiv';
-	@override String get description => 'Intensives Training 6–7 Tage/Woche';
+	@override String get description => 'Intensive Aktivität 6–7 Tage/Woche';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1412,7 +1412,7 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveDe implements Transla
 
 	// Translations
 	@override String get name => 'Extrem aktiv';
-	@override String get description => 'Sehr intensives Training, körperlicher Beruf';
+	@override String get description => 'Sehr harte Aktivität oder körperlich anstrengender Beruf';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1434,9 +1434,9 @@ class _TranslationsSettingsHealthConnectPermissionsDe implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Berechtigungen';
-	@override String get description => 'Die folgenden Berechtigungen werden für die Health-Connect-Integration benötigt:';
-	@override String get granted => 'Erteilt';
-	@override String get notGranted => 'Nicht erteilt';
+	@override String get description => 'Die folgenden Berechtigungen werden angefragt, um Health Connect zu integrieren:';
+	@override String get granted => 'Gewährt';
+	@override String get notGranted => 'Nicht gewährt';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDe caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadDe nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadDe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteDe nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteDe._(_root);
@@ -1450,7 +1450,7 @@ class _TranslationsSettingsAboutOurStoryDe implements TranslationsSettingsAboutO
 
 	// Translations
 	@override String get title => 'Unsere Geschichte';
-	@override String content({required Object appLabel}) => '${appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorientracker sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, kosten teure Abos oder gehen auf Kosten der Privatsphäre.\n\nAls Solo-Entwickler wollte ich etwas Einfacheres und Faireres bauen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos bleibt und deine Gesundheitsdaten respektiert.\n\n${appLabel} ist die App, die ich mir gewünscht habe: keine Accounts, kein Tracking, keine Werbung — nur klare, praktische Einblicke und deine Gesundheitsziele.';
+	@override String content({required Object appLabel}) => '${appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler sind entweder zu kompliziert, verlangen ständige manuelle Eingaben, verlangen hohe Abo‑Gebühren oder gefährden die Privatsphäre.\n\nAls Solo‑Entwickler wollte ich etwas Einfacheres und Gerechteres schaffen — eine App, die AI nutzt, um Aufwand zu reduzieren, schnell und kostenlos bleibt und deine Gesundheitsdaten respektvoll behandelt.\n\n${appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und deine Gesundheitsziele.';
 }
 
 // Path: settings.about.privacy
@@ -1460,14 +1460,14 @@ class _TranslationsSettingsAboutPrivacyDe implements TranslationsSettingsAboutPr
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Deine Privatsphäre zählt';
-	@override String get description => 'Datenschutz ist kein Nachgedanke — er ist ein Gestaltungsprinzip. Das bedeutet konkret:';
-	@override String get noAccounts => 'Keine Accounts erforderlich\nNutze die App sofort. Keine Anmeldungen, keine Identitäten.';
-	@override String noTracking({required Object appLabel}) => 'Kein Verhaltenstracking\n${appLabel} überwacht deine Aktivität nicht, erstellt keine Nutzungsprofile und verfolgt dich nicht über Apps oder Websites hinweg.';
-	@override String noAds({required Object appLabel}) => 'Keine Werbung\n${appLabel} funktioniert ohne Werbung oder datengetriebene Monetarisierung.';
-	@override String get noDataSelling => 'Kein Datenverkauf\nDeine Gesundheitsdaten werden niemals an Dritte verkauft oder weitergegeben.';
-	@override String get localStorage => 'Lokal-first-Speicherung\nDeine Daten bleiben auf deinem Gerät.';
-	@override String get privacyPolicy => 'Datenschutzrichtlinie';
+	@override String get title => 'Dein Datenschutz ist wichtig';
+	@override String get description => 'Datenschutz ist kein Nebengedanke, sondern ein Designprinzip. Das bedeutet in der Praxis:';
+	@override String get noAccounts => 'Keine Konten erforderlich\nApp sofort nutzen. Keine Registrierung, keine Identitäten.';
+	@override String noTracking({required Object appLabel}) => 'Kein Verhaltens‑Tracking\n${appLabel} überwacht deine Aktivitäten nicht, erstellt keine Nutzungsprofile und verfolgt dich nicht über Apps oder Websites hinweg.';
+	@override String noAds({required Object appLabel}) => 'Werbefrei aus Prinzip\n${appLabel} wurde so entwickelt, dass es ohne Werbung oder datengetriebene Monetarisierung funktioniert.';
+	@override String get noDataSelling => 'Kein Verkauf von Daten\nDeine Gesundheitsdaten werden niemals an Dritte verkauft oder weitergegeben.';
+	@override String get localStorage => 'Lokale Speicherung\nDeine Daten bleiben auf deinem Gerät.';
+	@override String get privacyPolicy => 'Datenschutzerklärung';
 }
 
 // Path: settings.about.developer
@@ -1477,10 +1477,10 @@ class _TranslationsSettingsAboutDeveloperDe implements TranslationsSettingsAbout
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Von einem Solo-Entwickler gebaut';
-	@override String description({required Object appLabel}) => '${appLabel} wird von einem einzelnen Solo-Entwickler entwickelt und gepflegt, der ruhige, datenschutzfreundliche Gesundheitssoftware baut.\n\nFeedback wird persönlich gelesen und beeinflusst die Ausrichtung der App.';
-	@override String get website => 'Webseite';
-	@override String get email => 'E-Mail';
+	@override String get title => 'Von einem Solo‑Entwickler entwickelt';
+	@override String description({required Object appLabel}) => '${appLabel} wird von einem einzelnen Entwickler gebaut und gepflegt, der sich auf ruhige, datenschutzfreundliche Gesundheitssoftware konzentriert.\n\nFeedback wird persönlich gelesen und beeinflusst die Richtung der App.';
+	@override String get website => 'Website';
+	@override String get email => 'E‑Mail';
 }
 
 // Path: settings.about.feedback
@@ -1491,7 +1491,7 @@ class _TranslationsSettingsAboutFeedbackDe implements TranslationsSettingsAboutF
 
 	// Translations
 	@override String title({required Object appLabel}) => 'Gefällt dir ${appLabel}?';
-	@override String description({required Object appLabel}) => 'Dein Feedback hilft, ${appLabel} für alle besser zu machen.';
+	@override String description({required Object appLabel}) => 'Dein Feedback macht ${appLabel} für alle besser.';
 	@override String get rateApp => 'Im Play Store bewerten';
 	@override String get sendFeedback => 'Feedback senden';
 }
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsDe implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Zubereitungsmethoden';
-	@override String description({required Object appLabel}) => 'Kochmethoden können den Nährstoffgehalt stark verändern. Die Schätzungen von ${appLabel} berücksichtigen diese Unterschiede nicht immer.';
+	@override String description({required Object appLabel}) => 'Zubereitungsarten können den Nährstoffgehalt erheblich verändern. Die Schätzungen von ${appLabel} berücksichtigen diese Variationen möglicherweise nicht vollständig.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsDe implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Zutaten';
-	@override String get description => 'Komplexe Gerichte mit vielen versteckten Zutaten können zu weniger genauen Schätzungen führen.';
+	@override String get description => 'Komplexe Gerichte mit vielen versteckten Zutaten können zu ungenaueren Schätzungen führen.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,7 +1536,7 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsDe implements TranslationsDi
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Datenbankgrenzen';
+	@override String get title => 'Datenbankbegrenzungen';
 	@override String description({required Object appLabel}) => 'Die Lebensmitteldatenbank von ${appLabel} ist umfangreich, enthält aber möglicherweise nicht jedes einzelne Lebensmittel oder jede Variante.';
 }
 
@@ -1547,8 +1547,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyDe implements Translat
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kaloriengenauigkeit';
-	@override String get description => 'Diese Schätzung ist nur so genau wie deine erfasste Kalorienaufnahme und ‑verwendung. Ungenaue Protokolle führen zu ungenauen Projektionen.';
+	@override String get title => 'Genauigkeit der Kalorien';
+	@override String get description => 'Diese Schätzung ist nur so genau wie deine erfassten Kalorienzufuhr- und verbrauchsangaben. Ungenaue Einträge führen zu ungenauen Vorhersagen.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsDe implements Transl
 
 	// Translations
 	@override String get title => 'Biologische Faktoren';
-	@override String description({required Object appLabel}) => 'Tatsächliche Gewichtsabnahme/-zunahme wird von Stoffwechsel, Hormonen, Schlaf, Stress, Hydration und weiteren individuellen Faktoren beeinflusst, die ${appLabel} nicht messen kann.';
+	@override String description({required Object appLabel}) => 'Gewichtsveränderungen werden von Stoffwechsel, Hormonen, Schlaf, Stress, Flüssigkeitshaushalt und anderen individuellen Faktoren beeinflusst, die ${appLabel} nicht messen kann.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1570,7 +1570,7 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightDe implements Translations
 
 	// Translations
 	@override String get title => 'Wassergewicht & Schwankungen';
-	@override String get description => 'Das normale Tagesgewicht kann durch Wassereinlagerungen, Verdauung und Timing deutlich schwanken. Die Schätzung berücksichtigt diese täglichen Veränderungen nicht.';
+	@override String get description => 'Das tägliche Gewicht kann durch Wassereinlagerungen, Verdauung und Zeitpunkt stark schwanken. Die Schätzung berücksichtigt diese täglichen Veränderungen nicht.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1581,7 +1581,7 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceDe implements Tra
 
 	// Translations
 	@override String get title => 'Professionelle Beratung';
-	@override String get description => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Wende dich für persönliche Empfehlungen stets an medizinisches Fachpersonal oder eine/n Ernährungsberater/in.';
+	@override String get description => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Konsultiere stets eine Fachperson oder eine registrierte Ernährungsberaterin/einen registrierten Ernährungsberater für persönliche Gewichtsmanagement‑Beratung.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrDe implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Der Grundumsatz (BMR) ist die Kalorienmenge, die dein Körper in Ruhe verbrennt, um grundlegende Funktionen wie Atmung und Kreislauf aufrechtzuerhalten. Der BMR hängt von Alter, Geschlecht, Größe und Gewicht ab. Ein höherer BMR bedeutet, dass dein Körper in Ruhe mehr Kalorien verbrennt – oft aufgrund von mehr Muskelmasse, jüngerem Alter oder männlichem Geschlecht. Ein niedrigerer BMR weist typischerweise auf weniger Muskelmasse, höheres Alter oder weibliches Geschlecht hin.';
+	@override String get description => 'Der Ruheumsatz (BMR) ist die Menge an Kalorien, die dein Körper im Ruhezustand zur Aufrechterhaltung grundlegender Funktionen wie Atmung und Kreislauf verbrennt. Der BMR hängt von Alter, Geschlecht, Größe und Gewicht ab. Ein höherer BMR bedeutet, dass dein Körper im Ruhezustand mehr Kalorien verbrennt – oft bedingt durch mehr Muskelmasse, jüngeres Alter oder männliches Geschlecht. Ein niedrigerer BMR weist typischerweise auf weniger Muskelmasse, höheres Alter oder weibliches Geschlecht hin.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeDe implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Der Gesamtenergieverbrauch pro Tag (TDEE) ist die Gesamtzahl der Kalorien, die du täglich verbrennst – einschließlich BMR plus Kalorien aus körperlicher Aktivität und Alltagsbewegung. Der TDEE hängt von deinem BMR und Aktivitätsniveau ab. Ein höherer TDEE bedeutet insgesamt mehr verbrannte Kalorien, meist durch mehr Aktivität oder einen höheren BMR. Ein niedrigerer TDEE deutet auf weniger tägliche Aktivität oder einen niedrigeren BMR hin.';
+	@override String get description => 'Der gesamte tägliche Energieverbrauch (TDEE) ist die Gesamtmenge an Kalorien, die du pro Tag verbrennst, einschließlich BMR sowie Kalorien durch körperliche Aktivität und Alltagsbewegung. Der TDEE hängt von deinem BMR und deinem Aktivitätsniveau ab. Ein höherer TDEE bedeutet, dass du insgesamt mehr Kalorien verbrennst, meist durch mehr Aktivität oder einen höheren BMR. Ein niedrigerer TDEE deutet auf weniger tägliche Aktivität oder einen niedrigeren BMR hin.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1614,7 +1614,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalDe implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Tagesziel';
-	@override String get description => 'Das Tagesziel ist deine empfohlene tägliche Kalorienaufnahme basierend auf deinem TDEE und deinem Gewichtsziel. Für Gewichtsverlust nimmst du weniger Kalorien als deinen TDEE zu dir. Für Gewichtserhalt entspricht deine Aufnahme dem TDEE. Für Gewichtszunahme isst du mehr als deinen TDEE. So erreichst du dein gewünschtes Gewicht in einem gesunden Tempo.';
+	@override String get description => 'Das Tagesziel ist deine empfohlene tägliche Kalorienzufuhr basierend auf deinem TDEE und deinem Gewichtsziel. Beim Abnehmen konsumierst du weniger Kalorien als dein TDEE. Zur Gewichtserhaltung entspricht deine Aufnahme dem TDEE. Zum Zunehmen konsumierst du mehr Kalorien als dein TDEE. Das hilft dir, die gewünschte Gewichtsentwicklung in einem gesunden Tempo zu erreichen.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1624,8 +1624,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedDe implements Transl
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'So wird die Schätzung berechnet';
-	@override String get description => 'Wir berechnen deinen TDEE (basierend auf deinem Profil) und multiplizieren ihn mit dem Bruchteil des verstrichenen Tages (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien zu schätzen.';
+	@override String get title => 'Wie die Schätzung berechnet wird';
+	@override String get description => 'Wir berechnen deinen TDEE (auf Basis deines Profils) und multiplizieren ihn mit dem Anteil des bereits vergangenen Tages (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien abzuschätzen.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1636,7 +1636,7 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceDe implements
 
 	// Translations
 	@override String get title => 'Professionelle Beratung';
-	@override String get description => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Wende dich für persönliche Empfehlungen stets an medizinisches Fachpersonal oder eine/n Ernährungsberater/in.';
+	@override String get description => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Konsultiere stets eine Fachperson oder eine registrierte Ernährungsberaterin/einen registrierten Ernährungsberater für persönliche Gewichtsmanagement‑Beratung.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1646,9 +1646,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedDe implements T
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Gesamtverbrauchte Kalorien lesen';
-	@override String get description => 'Erlaubt der App, deine insgesamt verbrannten Kalorien aus Health Connect zu lesen.';
-	@override String get usage => 'Diese Berechtigung wird verwendet, um deinen täglichen Kalorienverbrauch in der App anzuzeigen, so verstehst du deinen gesamten Energieverbrauch im Tagesverlauf.';
+	@override String get title => 'Gesamte verbrannte Kalorien lesen';
+	@override String get description => 'Ermöglicht der App, deine insgesamt verbrannten Kalorien aus Health Connect zu lesen.';
+	@override String get usage => 'Diese Berechtigung wird verwendet, um deinen täglichen Kalorienverbrauch in der App anzuzeigen und so deinen gesamten Energieverbrauch über den Tag zu verstehen.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1659,8 +1659,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadDe implements Tr
 
 	// Translations
 	@override String get title => 'Ernährungsdaten lesen';
-	@override String get description => 'Erlaubt der App, Ernährungsdaten aus Health Connect zu lesen.';
-	@override String get usage => 'Diese Berechtigung ermöglicht es der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen Apps in Health Connect erfasst wurden, um dir einen umfassenden Überblick über deine Ernährung zu geben.';
+	@override String get description => 'Ermöglicht der App, Ernährungsdaten aus Health Connect zu lesen.';
+	@override String get usage => 'Diese Berechtigung erlaubt der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen mit Health Connect verbundenen Apps protokolliert wurden, und bietet so eine umfassende Übersicht deiner Ernährung.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1671,8 +1671,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteDe implements T
 
 	// Translations
 	@override String get title => 'Ernährungsdaten schreiben';
-	@override String get description => 'Erlaubt der App, Ernährungsdaten in Health Connect zu schreiben.';
-	@override String get usage => 'Diese Berechtigung ermöglicht es der App, deine protokollierten Mahlzeiten mit Health Connect zu synchronisieren, sodass deine Ernährungsdaten auch in anderen Gesundheits- und Fitness-Apps verfügbar sind.';
+	@override String get description => 'Ermöglicht der App, Ernährungsdaten in Health Connect zu schreiben.';
+	@override String get usage => 'Diese Berechtigung erlaubt der App, deine protokollierten Mahlzeiten mit Health Connect zu synchronisieren, sodass deine Ernährungsdaten auch anderen Gesundheits‑ und Fitness‑Apps zur Verfügung stehen.';
 }
 
 /// The flat map containing all translations for locale <de>.
@@ -1686,37 +1686,37 @@ extension on TranslationsDe {
 			'language' => 'Deutsch',
 			'flag' => '🇩🇪',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Du hast zu viele Anfragen gesendet. Bitte warte einen Moment, bevor du es erneut versuchst.',
+			'errors.rateLimitExceeded' => 'Du hast zu viele Anfragen gesendet. Bitte warte einen Moment und versuche es dann erneut.',
 			'errors.networkError' => 'Netzwerkfehler. Bitte überprüfe deine Internetverbindung.',
-			'errors.unknownError' => 'Etwas ist schiefgelaufen. Bitte versuche es später erneut.',
+			'errors.unknownError' => 'Etwas ist schiefgelaufen. Bitte versuche es später noch einmal.',
 			'errors.loadingProfileData' => 'Fehler beim Laden der Profildaten',
 			'errors.somethingWentWrong' => 'Etwas ist schiefgelaufen.',
 			'errors.retry' => 'Erneut versuchen',
 			'onboarding.welcome' => ({required Object appLabel}) => 'Willkommen bei ${appLabel}',
-			'onboarding.subtitle' => 'Dein persönlicher Ernährungsbegleiter mit KI-Unterstützung',
-			'onboarding.getStarted' => 'Los geht\'s',
+			'onboarding.subtitle' => 'Dein persönlicher Ernährungsbegleiter, unterstützt von AI',
+			'onboarding.getStarted' => 'Loslegen',
 			'onboarding.features.foodRecognition.title' => 'Intelligente Lebensmittelerkennung',
-			'onboarding.features.foodRecognition.description' => 'Mach ein Foto und lass die KI deine Mahlzeit erkennen',
-			'onboarding.features.aiAnalysis.title' => 'KI-Analyse',
+			'onboarding.features.foodRecognition.description' => 'Mach ein Foto und lass AI dein Gericht identifizieren',
+			'onboarding.features.aiAnalysis.title' => 'AI-Analyse',
 			'onboarding.features.aiAnalysis.description' => 'Erhalte sofort Nährwertangaben aus deinen Beschreibungen',
-			'onboarding.features.healthIntegration.title' => 'Health-Integration',
-			'onboarding.features.healthIntegration.description' => 'Verbinde Health Connect für bessere Einblicke',
-			'onboarding.gender.title' => 'Welches Geschlecht hast du?',
-			'onboarding.gender.description' => 'Das Geschlecht hilft uns, deinen Grundumsatz (BMR) genau zu berechnen.',
+			'onboarding.features.healthIntegration.title' => 'Gesundheitsintegration',
+			'onboarding.features.healthIntegration.description' => 'Verbinde dich mit Health Connect für bessere Einblicke',
+			'onboarding.gender.title' => 'Was ist dein Geschlecht?',
+			'onboarding.gender.description' => 'Dein Geschlecht hilft uns, deinen Ruheumsatz (BMR) genau zu berechnen.',
 			'onboarding.gender.next' => 'Weiter',
 			'onboarding.height.title' => 'Wie groß bist du?',
-			'onboarding.height.description' => 'Deine Größe hilft uns, deinen BMI und Energiebedarf genau zu berechnen.',
+			'onboarding.height.description' => 'Deine Körpergröße hilft uns, BMI und Energiebedarf genau zu berechnen.',
 			'onboarding.height.metric' => 'Metrisch',
 			'onboarding.height.imperial' => 'Imperial',
 			'onboarding.height.next' => 'Weiter',
 			'onboarding.weight.currentTitle' => 'Wie viel wiegst du aktuell?',
 			'onboarding.weight.currentDescription' => 'Dein aktuelles Gewicht ist wichtig, um deine täglichen Ziele zu personalisieren.',
-			'onboarding.weight.targetTitle' => 'Was ist dein Zielgewicht?',
-			'onboarding.weight.targetDescription' => 'Ein Zielgewicht hilft uns, deinen langfristigen Plan festzulegen.',
+			'onboarding.weight.targetTitle' => 'Welches Zielgewicht hast du?',
+			'onboarding.weight.targetDescription' => 'Ein Zielgewicht hilft uns, deinen langfristigen Plan zu bestimmen.',
 			'onboarding.weight.metric' => 'Metrisch',
 			'onboarding.weight.imperial' => 'Imperial',
 			'onboarding.weight.next' => 'Weiter',
-			'onboarding.age.title' => 'Wann hast du Geburtstag?',
+			'onboarding.age.title' => 'Wann ist dein Geburtstag?',
 			'onboarding.age.description' => 'Dein Alter hilft uns, deinen Kalorienbedarf genau zu berechnen.',
 			'onboarding.age.next' => 'Weiter',
 			'onboarding.bmiScale.underweight' => 'Unter',
@@ -1727,119 +1727,119 @@ extension on TranslationsDe {
 			'onboarding.bmiScale.categories.healthyWeight' => 'Gesundes Gewicht',
 			'onboarding.bmiScale.categories.overweight' => 'Übergewicht',
 			'onboarding.bmiScale.categories.obese' => 'Adipös',
-			'onboarding.bmiScale.messages.underweight' => 'Wir helfen dir mit einem gesunden Plan, um mit nährstoffreichen Mahlzeiten ein ausgewogenes Gewicht zu erreichen.',
-			'onboarding.bmiScale.messages.healthy' => 'Großartige Arbeit! Du liegst im gesunden Bereich. Wir helfen dir, Vitalität und Energie zu erhalten.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} macht deine Reise mit KI-gestütztem Tracking einfacher, damit du dein Ziel entspannt erreichst.',
-			'onboarding.bmiScale.messages.obese' => 'Wir unterstützen dich mit persönlicher Begleitung und nachhaltigen Strategien für deine Gesundheitsziele.',
+			'onboarding.bmiScale.messages.underweight' => 'Wir helfen dir dabei, einen gesunden Plan zu erstellen, um ein ausgeglichenes Gewicht mit nährstoffreichen Mahlzeiten zu erreichen.',
+			'onboarding.bmiScale.messages.healthy' => 'Gut gemacht! Du liegst im gesunden Bereich. Wir helfen dir, deine Vitalität und Energie zu erhalten.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} macht deine Reise einfacher mit AI-gestütztem Tracking, damit du bequem dein Ziel erreichst.',
+			'onboarding.bmiScale.messages.obese' => 'Wir unterstützen dich mit persönlicher Anleitung und nachhaltigen Strategien für deine Gesundheitsziele.',
 			'onboarding.weightGoal.title' => 'Was ist dein Ziel?',
-			'onboarding.weightGoal.description' => 'Wähle das Ziel, das am besten zu dir passt',
+			'onboarding.weightGoal.description' => 'Wähle das Ziel, das am besten beschreibt, was du erreichen möchtest',
 			'onboarding.activityLevel.title' => 'Wie aktiv bist du?',
 			'onboarding.activityLevel.description' => 'Das hilft uns, deinen täglichen Kalorienbedarf genauer zu berechnen',
 			'onboarding.healthConnect.title' => 'Mit Health Connect verbinden',
-			'onboarding.healthConnect.description' => 'Synchronisiere deine Gesundheitsdaten für bessere Einblicke und automatische Kalorienerfassung',
-			'onboarding.healthConnect.automaticTracking.title' => 'Automatisches Kalorientracking',
-			'onboarding.healthConnect.automaticTracking.description' => 'Verbrannte Kalorien aus deinen Fitness-Apps erfassen',
-			'onboarding.healthConnect.progressInsights.title' => 'Fortschritts-Insights',
-			'onboarding.healthConnect.progressInsights.description' => 'Erhalte detaillierte Einblicke in deine Gesundheitstrends',
+			'onboarding.healthConnect.description' => 'Synchronisiere deine Gesundheitsdaten für bessere Einblicke und automatische Kalorienverfolgung',
+			'onboarding.healthConnect.automaticTracking.title' => 'Automatische Kalorienverfolgung',
+			'onboarding.healthConnect.automaticTracking.description' => 'Erfasste verbrannte Kalorien aus deinen Fitness-Apps verfolgen',
+			'onboarding.healthConnect.progressInsights.title' => 'Fortschritts-Einblicke',
+			'onboarding.healthConnect.progressInsights.description' => 'Erhalte detaillierte Einblicke in deine Gesundheitsentwicklungen',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Nahtlose Integration',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Synchronisiere Daten aus deinen Gesundheits-Apps',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Synchronisiere Daten aus deinen bevorzugten Gesundheits-Apps',
 			'onboarding.healthConnect.connected' => 'Health Connect verbunden',
 			'onboarding.healthConnect.notConnected' => 'Health Connect nicht verbunden',
 			'onboarding.healthConnect.setup' => 'Health Connect einrichten',
-			'onboarding.healthConnect.skipForNow' => 'Für jetzt überspringen',
+			'onboarding.healthConnect.skipForNow' => 'Später überspringen',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect ist verbunden.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect wurde erfolgreich verbunden!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Zugriff verweigert. Bitte aktiviere die Health-Connect-Berechtigungen in den Telefoneinstellungen für ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Fehler beim Einrichten von Health Connect: ${error}',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Berechtigung verweigert. Bitte aktiviere die Health Connect-Berechtigungen in den Einstellungen deines Telefons für ${appLabel}.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Fehler bei der Einrichtung von Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Du bist nicht allein',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Studien zeigen: Konsequentes Tracking ist der stärkste Prädiktor für langfristigen Erfolg.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Für eine(n) ${age}-jährige(n) ${gender} mit dem Ziel, ${goal}, ist konsequentes Tracking der stärkste Erfolgsfaktor.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} macht es 10x einfacher als manuell.',
-			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Bereit, loszulegen?',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Studien zeigen, dass konsequentes Tracking der wichtigste Prädiktor für langfristigen Erfolg ist.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Bei einer ${age}-jährigen Person (${gender}), die ${goal} möchte, ist konsequentes Tracking der wichtigste Erfolgsfaktor.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} macht es 10x einfacher als manuelle Aufzeichnung.',
+			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Bereit loszulegen?',
 			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Fotografiere deine Mahlzeiten für eine sofortige Analyse',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Logge konsequent, um spürbare Fortschritte zu sehen',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Trage regelmäßig ein, um echte Fortschritte zu sehen',
 			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Verfolge deinen Fortschritt täglich, um motiviert zu bleiben',
 			'onboarding.reinforcement.trackingSuccess.button' => 'Los geht\'s',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'Person',
-			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'ein gesünderes Ich',
+			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'ein gesünderes Du',
 			'onboarding.reinforcement.healthProfile.title' => 'Dein Gesundheitsprofil',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Basierend auf deinen Angaben beträgt dein BMI ${bmi}.',
-			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Lass uns dein Profil fertigstellen, um deine Erfahrung zu personalisieren.',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Basierend auf deinen Daten liegt dein BMI bei ${bmi}.',
+			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Fassen wir dein Profil zusammen, um dein Erlebnis zu personalisieren.',
 			'onboarding.reinforcement.healthProfile.goalGain' => 'zunehmen',
 			'onboarding.reinforcement.healthProfile.goalLose' => 'abnehmen',
 			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Um dein Ziel zu erreichen, wirst du ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Du bist bei deinem Zielgewicht! Wir helfen dir, es zu halten.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Du hast dein Zielgewicht erreicht! Wir helfen dir, es zu halten.',
 			'onboarding.reinforcement.healthProfile.button' => 'Los geht\'s',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Ausgezeichneter Start!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Du hast den ersten Schritt Richtung ${goalText} gemacht. Da du ${activityText} bist, passt ${appLabel} deine Ziele an deinen Lebensstil an.',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Hervorragender Start!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Du hast den ersten Schritt in Richtung ${goalText} gemacht. Da du ${activityText} bist, passt ${appLabel} deine Ziele an deinen Lebensstil an.',
 			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Personalisierte Kalorienziele',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'KI-gestützte Mahlzeiterkennung',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detaillierte Makronährstoff-Aufschlüsselungen',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-gestützte Mahlzeitenerkennung',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Detaillierte Makronährstoffaufschlüsselung',
 			'onboarding.reinforcement.goalLifestyle.button' => 'Los geht\'s',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'deine Ziele',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktiv',
-			'tabs.dashboard' => 'Dashboard',
+			'tabs.dashboard' => 'Übersicht',
 			'tabs.history' => 'Verlauf',
-			'home.aiSummary.title' => 'Deine KI-Zusammenfassung',
-			'home.aiSummary.logMore' => 'Protokolliere in den nächsten Tagen mehr Mahlzeiten, um deine personalisierten KI-Einblicke zu erhalten.',
-			'home.aiSummary.loading' => 'Deine Zusammenfassung wird geladen ...',
+			'home.aiSummary.title' => 'Deine AI-Zusammenfassung',
+			'home.aiSummary.logMore' => 'Trage in den nächsten Tagen mehr Mahlzeiten ein, um personalisierte AI-Einblicke zu erhalten.',
+			'home.aiSummary.loading' => 'Lade deine Zusammenfassung...',
 			'home.aiSummary.mealCount' => ({required Object count}) => '${count} Mahlzeiten protokolliert',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Balance-Score ${score}',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Balancestufe ${score}',
 			'home.aiSummary.topFoods' => 'Top-Lebensmittel',
-			'home.aiSummary.trendUp' => 'Kalorien im Aufwärtstrend',
-			'home.aiSummary.trendDown' => 'Kalorien im Abwärtstrend',
-			'home.aiSummary.trendSteady' => 'Kalorien bleiben konstant',
+			'home.aiSummary.trendUp' => 'Kalorien steigen',
+			'home.aiSummary.trendDown' => 'Kalorien sinken',
+			'home.aiSummary.trendSteady' => 'Kalorien stabil',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Aktualisiert ${time}',
 			'home.dailyGoal.title' => 'Setze dein Tagesziel',
 			'home.dailyGoal.titleSet' => 'Dein Tagesziel',
-			'home.dailyGoal.description' => 'Bereit für deine Wohlfühlreise? Lege unten dein tägliches Kalorienziel fest, um durchzustarten.',
-			'home.dailyGoal.descriptionSet' => 'Dein Kompass ist gesetzt! Das ist dein tägliches Kalorienziel als Orientierung.',
+			'home.dailyGoal.description' => 'Bereit für deine Gesundheitsreise? Lege unten dein tägliches Kalorienziel fest, um loszulegen.',
+			'home.dailyGoal.descriptionSet' => 'Dein Kompass ist gesetzt! Dies ist dein tägliches Kalorienziel zur Orientierung.',
 			'home.dailyGoal.yourGoal' => 'Dein Ziel',
 			'home.dailyGoal.goal' => 'Ziel',
 			'home.dailyGoal.dailyCalories' => 'Tägliche Kalorien (kcal)',
 			'home.dailyGoal.setGoal' => 'Ziel festlegen',
-			'home.dailyGoal.intake' => 'Aufnahme',
+			'home.dailyGoal.intake' => 'Zufuhr',
 			'home.dailyGoal.burned' => 'Verbrannt',
 			'home.dailyGoal.weightImpact' => 'Gewichtsauswirkung',
 			'home.dailyGoal.estLoss' => 'Geschätzter Verlust von',
-			'home.dailyGoal.estGain' => 'Geschätzte Zunahme von',
+			'home.dailyGoal.estGain' => 'Geschätzter Zuwachs von',
 			'home.dailyGoal.kcal' => 'kcal',
 			'home.dailySummary.title' => 'Tagesübersicht',
 			'home.dailySummary.calories' => 'Kalorien',
 			'home.dailySummary.carbs' => 'Kohlenhydrate',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Eiweiß',
 			'home.dailySummary.fat' => 'Fett',
 			'home.dailySummary.fiber' => 'Ballaststoffe',
 			'home.dailySummary.grams' => 'Gramm',
-			'home.dailySummary.chartAccessibilityLabel' => 'Makros-Diagramm',
-			'home.intakeProgress.title' => 'Heutige Makro-Verteilung',
+			'home.dailySummary.chartAccessibilityLabel' => 'Makronährstoff-Diagramm',
+			'home.intakeProgress.title' => 'Heutige Makroaufteilung',
 			'home.intakeProgress.target' => 'Ziel',
 			'home.intakeProgress.current' => 'Aktuell',
 			'home.intakeHistory.title' => '7-Tage-Makroverlauf',
 			'home.intakeHistory.trendTitle' => 'Heutiger Trend',
-			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Spitze: ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'Noch kein Verlauf',
-			'home.intakeHistory.startLogging' => 'Beginne mit dem Protokollieren, um hier\ndeinen 7‑Tage-Makrotrend zu sehen',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Höchstwert: ${hour}:00',
+			'home.intakeHistory.noHistoryYet' => 'Noch keine Daten',
+			'home.intakeHistory.startLogging' => 'Beginne, Mahlzeiten zu protokollieren, um deine\n7‑tägigen Makrotrends hier zu sehen',
 			'home.mealLog.title' => 'Protokollierte Mahlzeiten',
 			'home.mealLog.emptyMessage' => 'Mach ein Foto deiner letzten Mahlzeit, um sie hier zu protokollieren.',
 			'home.mealLog.noMealsToday' => 'Heute keine Mahlzeiten erfasst',
 			'home.mealLog.seeAllMeals' => 'Alle Mahlzeiten ansehen',
-			'home.mealDescription.title' => 'Schnell hinzufügen mit KI',
-			'home.mealDescription.description' => 'Beschreibe deine Mahlzeit – die KI übernimmt den Rest.',
-			'home.mealDescription.hint' => 'z. B. Zum Frühstück hatte ich eine große Schüssel Haferflocken mit einer Banane und einem Scoop Whey ...',
+			'home.mealDescription.title' => 'Schnell hinzufügen mit AI',
+			'home.mealDescription.description' => 'Beschreibe deine Mahlzeit und lass AI die Details übernehmen.',
+			'home.mealDescription.hint' => 'z. B. Zum Frühstück hatte ich eine große Schale Haferflocken mit einer aufgeschnittenen Banane und einem Becher Whey ...',
 			'home.mealDescription.analyzeMeal' => 'Mahlzeit analysieren',
 			'home.favoriteMeals.title' => 'Lieblingsmahlzeiten',
 			'home.favoriteMeals.description' => 'Füge schnell eine deiner Lieblingsmahlzeiten hinzu.',
-			'home.favoriteMeals.noFavorites' => 'Noch keine Lieblingsmahlzeiten.',
-			'home.favoriteMeals.addFavoriteHint' => 'Klicke auf den Stern bei einer Mahlzeit, um sie als Favorit zu markieren.',
-			'home.favoriteMeals.seeAll' => 'Alle ansehen',
+			'home.favoriteMeals.noFavorites' => 'Noch keine Favoriten.',
+			'home.favoriteMeals.addFavoriteHint' => 'Klicke den Stern bei einer Mahlzeit, um sie zu favorisieren.',
+			'home.favoriteMeals.seeAll' => 'Alle anzeigen',
 			'home.favoriteMeals.add' => 'Hinzufügen',
-			'home.mealSnap.title' => 'Fotografiere & tracke deine Mahlzeit',
-			'home.mealSnap.description' => 'Nutze deine Kamera, um ein Foto deines Essens für die KI-Analyse zu machen.',
+			'home.mealSnap.title' => 'Foto & Verfolge deine Mahlzeit',
+			'home.mealSnap.description' => 'Nutze deine Kamera, um ein Foto deines Essens für die AI-Analyse zu machen.',
 			'home.mealSnap.openCamera' => 'Kamera öffnen',
 			'home.mealSnap.gallery' => 'Galerie',
-			'home.mealSnap.compressingPhoto' => 'Foto wird optimiert …',
-			'home.mealSnap.uploadingPhoto' => 'Foto wird hochgeladen …',
+			'home.mealSnap.compressingPhoto' => 'Foto wird optimiert…',
+			'home.mealSnap.uploadingPhoto' => 'Foto wird hochgeladen…',
 			'home.connectHealth.title' => 'Mit Health Connect synchronisieren',
 			'home.connectHealth.description' => 'Synchronisiere deine Ernährungsdaten mit Health Connect',
 			'home.connectHealth.install' => 'Installieren',
@@ -1856,82 +1856,82 @@ extension on TranslationsDe {
 			'meal.save' => 'Speichern',
 			'meal.mealName' => 'Name der Mahlzeit',
 			'meal.mealNameHint' => 'z. B. Rührei mit Toast',
-			'meal.mealQuantity' => 'Menge der Mahlzeit',
-			'meal.mealQuantityHint' => 'z. B. 1 Schüssel, 2 Scheiben',
+			'meal.mealQuantity' => 'Mengenangabe',
+			'meal.mealQuantityHint' => 'z. B. 1 Schale, 2 Scheiben',
 			'meal.timeOfMeal' => 'Uhrzeit der Mahlzeit',
-			'meal.timeOfMealHint' => 'Wähle die Uhrzeit deiner Mahlzeit',
-			'meal.mealType' => 'Mahlzeitentyp',
+			'meal.timeOfMealHint' => 'Wähle die Uhrzeit, zu der du gegessen hast',
+			'meal.mealType' => 'Mahlzeittyp',
 			'meal.nutrition.calories' => 'Kalorien',
 			'meal.nutrition.carbs' => 'Kohlenhydrate (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Eiweiß (g)',
 			'meal.nutrition.fat' => 'Fett (g)',
 			'meal.nutrition.fiber' => 'Ballaststoffe (g)',
 			'meal.deleteConfirmation.title' => 'Mahlzeit löschen',
-			'meal.deleteConfirmation.message' => 'Möchtest du diesen Mahlzeiteintrag wirklich löschen?',
+			'meal.deleteConfirmation.message' => 'Möchtest du diesen Eintrag wirklich löschen?',
 			'meal.deleteConfirmation.cancel' => 'Abbrechen',
 			'meal.deleteConfirmation.delete' => 'Löschen',
 			'meal.addedToLog' => 'Mahlzeit zu deinem Protokoll hinzugefügt!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Mahlzeit konnte nicht hinzugefügt werden: ${error}',
+			'meal.couldNotAdd' => ({required Object error}) => 'Konnte Mahlzeit nicht hinzufügen: ${error}',
 			'meal.savedSuccessfully' => 'Mahlzeit erfolgreich hinzugefügt!',
 			'meal.updatedSuccessfully' => 'Mahlzeit erfolgreich aktualisiert!',
 			'meal.errorSaving' => ({required Object error}) => 'Fehler beim Speichern der Mahlzeit: ${error}',
 			'meal.removedFromFavorites' => 'Aus Favoriten entfernt!',
 			'meal.savedAsFavorite' => 'Mahlzeit als Favorit gespeichert!',
-			'meal.unfavorite' => 'Favorit entfernen',
+			'meal.unfavorite' => 'Als Favorit entfernen',
 			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Favorit konnte nicht aktualisiert werden: ${error}',
 			'meal.feedbackThanks' => 'Danke für dein Feedback!',
-			'meal.reanalysisUpdated' => 'Analyse basierend auf deinem Feedback aktualisiert.',
+			'meal.reanalysisUpdated' => 'Mahlzeitanalyse basierend auf deinem Feedback aktualisiert.',
 			'meal.failedToProcess' => ({required Object error}) => 'Verarbeitung fehlgeschlagen: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Bildverarbeitung fehlgeschlagen: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fehler beim Komprimieren des Bildes: ${error}',
 			'meal.failedToSave' => 'Daten konnten nicht gespeichert werden. Bitte versuche es erneut.',
 			'meal.skip' => 'Überspringen',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Frage ${current} von ${total}',
-			'meal.questionFlow.noQuestionsAvailable' => 'Zurzeit sind keine Fragen verfügbar',
+			'meal.questionFlow.noQuestionsAvailable' => 'Keine Fragen verfügbar',
 			'meal.questionFlow.next' => 'Weiter',
-			'meal.questionFlow.continueLabel' => 'Fortfahren',
-			'meal.analysis.title' => 'KI-Mahlzeitenanalyse',
-			'meal.analysis.stepStarted' => 'Es geht los …',
-			'meal.analysis.stepDecomposition' => 'Wir verstehen deine Mahlzeit …',
-			'meal.analysis.stepIngredients' => 'Zutaten werden mit Nährwertdaten abgeglichen …',
-			'meal.analysis.stepUncertainty' => 'Vertrauen wird überprüft …',
-			'meal.analysis.stepMealTypeQuestion' => 'Gleich geschafft …',
-			'meal.analysis.stepResult' => 'Ergebnis wird finalisiert …',
+			'meal.questionFlow.continueLabel' => 'Weiter',
+			'meal.analysis.title' => 'Wir analysieren deine Mahlzeit',
+			'meal.analysis.stepStarted' => 'Starte…',
+			'meal.analysis.stepDecomposition' => 'Mahlzeit wird erfasst…',
+			'meal.analysis.stepIngredients' => 'Zutaten werden mit Nährwertdaten abgeglichen…',
+			'meal.analysis.stepUncertainty' => 'Vertrauensniveau prüfen…',
+			'meal.analysis.stepMealTypeQuestion' => 'Fast fertig…',
+			'meal.analysis.stepResult' => 'Ergebnis wird abgeschlossen…',
 			'meal.analysis.stepError' => 'Etwas ist schiefgelaufen',
-			'meal.analysis.stepDefault' => 'Deine Mahlzeit wird analysiert …',
-			'meal.analysis.progressUnderstand' => 'Verstehen',
-			'meal.analysis.progressMatch' => 'Abgleichen',
-			'meal.analysis.progressCheck' => 'Prüfen',
-			'meal.analysis.progressMealType' => 'Mahlzeitart wird ausgewählt',
-			'meal.analysis.progressFinish' => 'Fertigstellen',
-			'meal.analysis.detectedIngredientHeading' => 'Zutaten, die wir erkennen',
+			'meal.analysis.stepDefault' => 'Mahlzeit wird analysiert…',
+			'meal.analysis.progressUnderstand' => 'Mahlzeit erfassen',
+			'meal.analysis.progressMatch' => 'Nährwerte der Zutaten suchen',
+			'meal.analysis.progressCheck' => 'Portionen und Sicherheit prüfen',
+			'meal.analysis.progressMealType' => 'Mahlzeittyp auswählen',
+			'meal.analysis.progressFinish' => 'Kalorien und Makros berechnen',
+			'meal.analysis.detectedIngredientHeading' => 'Erkannte Zutaten',
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} weitere',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} Zutaten erkannt',
-			'meal.analysis.ingredientsPending' => 'Zutaten werden gescannt …',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
-			'meal.feedback.title' => 'Was sieht falsch aus?',
+			'meal.analysis.ingredientsPending' => 'Zutaten werden gescannt…',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '„${text}“',
+			'meal.analysis.offlineTip0' => 'Tipp: Konstanz schlägt Perfektion – regelmäßige Einträge zeigen die wirklich wichtigen Muster.',
+			'meal.analysis.offlineTip1' => 'Tipp: Bei Fotos helfen natürliches Licht und Draufsicht für genauere Portionsschätzungen.',
+			'meal.analysis.offlineTip2' => 'Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.',
+			'meal.analysis.offlineTip3' => 'Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.',
+			'meal.analysis.offlineTip4' => 'Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.',
+			'meal.analysis.offlineTip5' => 'Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).',
+			'meal.feedback.title' => 'Was stimmt hier nicht?',
 			'meal.feedback.subtitle' => 'Hilf uns, die Analyse zu verbessern, indem du ein oder mehrere Probleme auswählst.',
-			'meal.feedback.tellUsMore' => 'Mehr erzählen',
+			'meal.feedback.tellUsMore' => 'Erzähl uns mehr',
 			'meal.feedback.describeIncorrect' => 'Beschreibe, was falsch war',
-			'meal.feedback.submit' => 'Senden',
-			'meal.feedback.issueFoodIdentification' => 'Lebensmittel­erkennung',
+			'meal.feedback.submit' => 'Absenden',
+			'meal.feedback.issueFoodIdentification' => 'Lebensmittelzuordnung',
 			'meal.feedback.issuePortionSize' => 'Portionsgröße',
 			'meal.feedback.issueCalorieDistribution' => 'Kalorienverteilung',
 			'meal.feedback.issueMacrosWrong' => 'Makros sind falsch',
-			'meal.feedback.issueMissingItems' => 'Fehlende Elemente',
-			'meal.feedback.issueExtraItems' => 'Zusätzliche Elemente',
-			'meal.feedback.issueOther' => 'Sonstiges',
+			'meal.feedback.issueMissingItems' => 'Fehlende Zutaten',
+			'meal.feedback.issueExtraItems' => 'Zusätzliche Zutaten',
+			'meal.feedback.issueOther' => 'Andere',
 			'favorites.title' => 'Favoriten',
 			'favorites.empty' => 'Noch keine Lieblingsmahlzeiten.',
-			'favorites.searchPlaceholder' => 'Lieblingsmahlzeiten suchen',
-			'favorites.searchEmptyTitle' => 'Keine Favoriten passen zu deiner Suche',
-			'favorites.searchEmptySubtitle' => 'Versuche einen anderen Namen, eine andere Menge oder einen anderen Mahlzeitentyp.',
+			'favorites.searchPlaceholder' => 'Favorisierte Mahlzeiten durchsuchen',
+			'favorites.searchEmptyTitle' => 'Keine Favoriten gefunden',
+			'favorites.searchEmptySubtitle' => 'Versuche einen anderen Namen, eine andere Menge oder einen anderen Mahlzeittyp.',
 			'favorites.sortLabel' => 'Favoriten sortieren',
 			'favorites.undo' => 'Rückgängig',
 			'favorites.removed' => ({required Object name}) => '${name} aus Favoriten entfernt',
@@ -1941,7 +1941,7 @@ extension on TranslationsDe {
 			'profile.title' => 'Profil',
 			'profile.noProfileData' => 'Keine Profildaten gefunden',
 			'profile.yourProfile' => 'Dein Profil',
-			'profile.viewAndManage' => 'Zeige und verwalte deine Gesundheitsinformationen',
+			'profile.viewAndManage' => 'Deine Gesundheitsinformationen anzeigen und verwalten',
 			'profile.sections.profile' => 'PROFIL',
 			'profile.sections.basicInformation' => 'GRUNDINFORMATIONEN',
 			'profile.sections.goalsAndActivity' => 'ZIELE & AKTIVITÄT',
@@ -1952,24 +1952,24 @@ extension on TranslationsDe {
 			'profile.age' => 'Alter',
 			'profile.weightGoal' => 'Gewichtsziel',
 			'profile.targetWeight' => 'Zielgewicht',
-			'profile.activityLevel' => 'Aktivitätsniveau',
-			'profile.healthMetrics' => 'Gesundheitsmetriken',
-			'profile.notSet' => 'Nicht festgelegt',
+			'profile.activityLevel' => 'Aktivitätslevel',
+			'profile.healthMetrics' => 'Gesundheitswerte',
+			'profile.notSet' => 'Nicht gesetzt',
 			'profile.years' => 'Jahre',
 			'profile.updatedSuccessfully' => 'Profil erfolgreich aktualisiert!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'Tagesziel',
-			'profile.calculatedValues.calPerDay' => 'kcal/Tag',
+			'profile.calculatedValues.calPerDay' => 'cal/Tag',
 			'profile.calculatedValues.notAvailable' => 'k. A.',
-			'healthScore.title' => 'Gesundheits-Score',
-			'healthScore.whyThisScore' => 'Warum dieser Score?',
-			'healthScore.note' => 'Dieser Score ist eine KI-Schätzung basierend auf den erkannten Zutaten und der Nährstoffdichte. Für Ernährungsberatung wende dich immer an Fachleute.',
+			'healthScore.title' => 'Health-Score',
+			'healthScore.whyThisScore' => 'Warum diese Bewertung?',
+			'healthScore.note' => 'Diese Bewertung ist eine AI‑Schätzung basierend auf erkannten Zutaten und Nährstoffdichte. Ziehe für Ernährungsberatung stets eine Fachperson zu Rate.',
 			'healthScore.unhealthy' => 'Ungesund',
 			'healthScore.healthy' => 'Gesund',
 			'healthScore.neutral' => 'Neutral',
 			'editProfile.title' => 'Profil bearbeiten',
-			'editProfile.sections.personalInformation' => 'PERSÖNLICHE ANGABEN',
+			'editProfile.sections.personalInformation' => 'PERSÖNLICHE DATEN',
 			'editProfile.sections.physicalMeasurements' => 'KÖRPERMAßE',
 			'editProfile.sections.goalsAndActivity' => 'ZIELE & AKTIVITÄT',
 			'editProfile.gender' => 'Geschlecht',
@@ -1977,7 +1977,7 @@ extension on TranslationsDe {
 			'editProfile.height' => 'Größe',
 			'editProfile.weight' => 'Gewicht',
 			'editProfile.weightGoal' => 'Gewichtsziel',
-			'editProfile.activityLevel' => 'Aktivitätsniveau',
+			'editProfile.activityLevel' => 'Aktivitätslevel',
 			'editProfile.metric' => 'Metrisch',
 			'editProfile.imperial' => 'Imperial',
 			'editProfile.unitCm' => 'cm',
@@ -1990,118 +1990,118 @@ extension on TranslationsDe {
 			'editProfile.imperialLbs' => 'Imperial (lbs)',
 			'editProfile.genders.male' => 'Männlich',
 			'editProfile.genders.female' => 'Weiblich',
-			'editProfile.genders.other' => 'Divers',
+			'editProfile.genders.other' => 'Andere',
 			'editProfile.weightGoals.loseWeight.name' => 'Abnehmen',
-			'editProfile.weightGoals.loseWeight.description' => 'Kaloriendefizit erstellen, um Gewicht zu verlieren',
+			'editProfile.weightGoals.loseWeight.description' => 'Erschaffe ein Kaloriendefizit zum Abnehmen',
 			'editProfile.weightGoals.maintainWeight.name' => 'Gewicht halten',
-			'editProfile.weightGoals.maintainWeight.description' => 'Dein aktuelles Gewicht beibehalten',
+			'editProfile.weightGoals.maintainWeight.description' => 'Halte dein aktuelles Gewicht',
 			'editProfile.weightGoals.gainWeight.name' => 'Zunehmen',
-			'editProfile.weightGoals.gainWeight.description' => 'Kalorienüberschuss erstellen, um zuzunehmen',
-			'editProfile.activityLevels.sedentary.name' => 'Überwiegend sitzend',
-			'editProfile.activityLevels.sedentary.description' => 'Kaum bis keine Bewegung',
+			'editProfile.weightGoals.gainWeight.description' => 'Erschaffe einen Kalorienüberschuss zum Zunehmen',
+			'editProfile.activityLevels.sedentary.name' => 'Wenig aktiv',
+			'editProfile.activityLevels.sedentary.description' => 'Kaum oder keine Bewegung',
 			'editProfile.activityLevels.lightlyActive.name' => 'Leicht aktiv',
-			'editProfile.activityLevels.lightlyActive.description' => 'Leichte Bewegung 1–3 Tage/Woche',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Mäßig aktiv',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Mäßige Bewegung 3–5 Tage/Woche',
+			'editProfile.activityLevels.lightlyActive.description' => 'Leichte Aktivität 1–3 Tage/Woche',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Moderat aktiv',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Mäßige Aktivität 3–5 Tage/Woche',
 			'editProfile.activityLevels.veryActive.name' => 'Sehr aktiv',
-			'editProfile.activityLevels.veryActive.description' => 'Intensives Training 6–7 Tage/Woche',
+			'editProfile.activityLevels.veryActive.description' => 'Intensive Aktivität 6–7 Tage/Woche',
 			'editProfile.activityLevels.extremelyActive.name' => 'Extrem aktiv',
-			'editProfile.activityLevels.extremelyActive.description' => 'Sehr intensives Training, körperlicher Beruf',
+			'editProfile.activityLevels.extremelyActive.description' => 'Sehr harte Aktivität oder körperlich anstrengender Beruf',
 			'settings.title' => 'Einstellungen',
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISIERUNG',
-			'settings.sections.notifications' => 'BENACHRICH­TIGUNGEN',
+			'settings.sections.notifications' => 'BENACHRICHTIGUNGEN',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
 			'settings.sections.supportAndLegal' => 'SUPPORT & RECHTLICHES',
-			'settings.sections.about' => 'INFO',
-			'settings.sections.dangerZone' => 'GEFAHRENBEREICH',
+			'settings.sections.about' => 'ÜBER',
+			'settings.sections.dangerZone' => 'RISIKOBEREICH',
 			'settings.sections.developer' => 'ENTWICKLER',
 			'settings.editProfile.title' => 'Profil bearbeiten',
-			'settings.editProfile.subtitle' => 'Aktualisiere deine persönlichen Angaben',
+			'settings.editProfile.subtitle' => 'Aktualisiere deine persönlichen Daten',
 			'settings.language.title' => 'Sprache',
 			'settings.language.subtitle' => 'Wähle deine bevorzugte Sprache',
-			'settings.language.searchHint' => 'Sprachen suchen ...',
+			'settings.language.searchHint' => 'Sprachen suchen...',
 			'settings.language.noResults' => 'Keine Ergebnisse gefunden',
-			'settings.heightUnit.title' => 'Größeneinheit',
+			'settings.heightUnit.title' => 'Längeneinheit',
 			'settings.weightUnit.title' => 'Gewichtseinheit',
-			'settings.mealReminders.title' => 'Mahlzeit-Erinnerungen',
-			'settings.mealReminders.subtitle' => 'Bleibe mit rechtzeitigen Hinweisen auf Kurs',
+			'settings.mealReminders.title' => 'Mahlzeit‑Erinnerungen',
+			'settings.mealReminders.subtitle' => 'Bleib mit rechtzeitigen Erinnerungen auf Kurs',
 			'settings.theme.title' => 'Design',
 			'settings.theme.light' => 'Hell',
 			'settings.theme.dark' => 'Dunkel',
 			'settings.theme.system' => 'System',
 			'settings.sendFeedback.title' => 'Feedback senden',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Hilf uns, ${appLabel} zu verbessern',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} App-Feedback',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => 'Feedback zur ${appLabel}-App',
 			'settings.sendFeedback.emailBodyPrefix' => 'Bitte gib dein Feedback unten ein:',
 			'settings.sendFeedback.appVersion' => 'App-Version',
 			'settings.sendFeedback.device' => 'Gerät',
-			'settings.sendFeedback.osVersion' => 'OS-Version',
+			'settings.sendFeedback.osVersion' => 'OS‑Version',
 			'settings.sendFeedback.uid' => 'UID',
 			'settings.exportMealHistory.title' => 'Mahlzeitenverlauf exportieren',
 			'settings.exportMealHistory.subtitle' => 'Teile eine CSV deiner protokollierten Mahlzeiten',
-			'settings.exportMealHistory.shareText' => 'Dein Calorify-Mahlzeitenexport',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'Konnte den Mahlzeitenverlauf nicht exportieren: ${error}',
+			'settings.exportMealHistory.shareText' => 'Dein Calorify‑Mahlzeitenexport',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Mahlzeitenverlauf konnte nicht exportiert werden: ${error}',
 			'settings.clearAllData.title' => 'Alle Daten löschen',
-			'settings.clearAllData.subtitle' => 'Unwiderruflich alle deine Informationen löschen',
+			'settings.clearAllData.subtitle' => 'Alle deine Informationen unwiderruflich löschen',
 			'settings.clearAllData.confirmationTitle' => 'Alle Daten löschen?',
-			'settings.clearAllData.confirmationMessage' => 'Diese Aktion kann nicht rückgängig gemacht werden. Alle deine protokollierten Mahlzeiten, Favoriten und Profileinstellungen werden dauerhaft gelöscht.',
+			'settings.clearAllData.confirmationMessage' => 'Dieser Vorgang kann nicht rückgängig gemacht werden. Alle protokollierten Mahlzeiten, Favoriten und Profileinstellungen werden dauerhaft gelöscht.',
 			'settings.clearAllData.cancel' => 'Abbrechen',
 			'settings.clearAllData.clearEverything' => 'Alles löschen',
-			'settings.debugOptions.title' => 'Debug-Optionen',
+			'settings.debugOptions.title' => 'Debug‑Optionen',
 			'settings.developerModeEnabled' => 'Entwicklermodus aktiviert!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Berechtigungen anzeigen und verwalten',
 			'settings.healthConnect.unavailable.title' => 'Health Connect nicht verfügbar',
 			'settings.healthConnect.unavailable.description' => 'Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+.',
 			'settings.healthConnect.permissions.title' => 'Berechtigungen',
-			'settings.healthConnect.permissions.description' => 'Die folgenden Berechtigungen werden für die Health-Connect-Integration benötigt:',
-			'settings.healthConnect.permissions.granted' => 'Erteilt',
-			'settings.healthConnect.permissions.notGranted' => 'Nicht erteilt',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Gesamtverbrauchte Kalorien lesen',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Erlaubt der App, deine insgesamt verbrannten Kalorien aus Health Connect zu lesen.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Diese Berechtigung wird verwendet, um deinen täglichen Kalorienverbrauch in der App anzuzeigen, so verstehst du deinen gesamten Energieverbrauch im Tagesverlauf.',
+			'settings.healthConnect.permissions.description' => 'Die folgenden Berechtigungen werden angefragt, um Health Connect zu integrieren:',
+			'settings.healthConnect.permissions.granted' => 'Gewährt',
+			'settings.healthConnect.permissions.notGranted' => 'Nicht gewährt',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Gesamte verbrannte Kalorien lesen',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Ermöglicht der App, deine insgesamt verbrannten Kalorien aus Health Connect zu lesen.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Diese Berechtigung wird verwendet, um deinen täglichen Kalorienverbrauch in der App anzuzeigen und so deinen gesamten Energieverbrauch über den Tag zu verstehen.',
 			'settings.healthConnect.permissions.nutritionRead.title' => 'Ernährungsdaten lesen',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Erlaubt der App, Ernährungsdaten aus Health Connect zu lesen.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Diese Berechtigung ermöglicht es der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen Apps in Health Connect erfasst wurden, um dir einen umfassenden Überblick über deine Ernährung zu geben.',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Ermöglicht der App, Ernährungsdaten aus Health Connect zu lesen.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Diese Berechtigung erlaubt der App, Ernährungsinformationen zu lesen, die möglicherweise von anderen mit Health Connect verbundenen Apps protokolliert wurden, und bietet so eine umfassende Übersicht deiner Ernährung.',
 			'settings.healthConnect.permissions.nutritionWrite.title' => 'Ernährungsdaten schreiben',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Erlaubt der App, Ernährungsdaten in Health Connect zu schreiben.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Diese Berechtigung ermöglicht es der App, deine protokollierten Mahlzeiten mit Health Connect zu synchronisieren, sodass deine Ernährungsdaten auch in anderen Gesundheits- und Fitness-Apps verfügbar sind.',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Ermöglicht der App, Ernährungsdaten in Health Connect zu schreiben.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Diese Berechtigung erlaubt der App, deine protokollierten Mahlzeiten mit Health Connect zu synchronisieren, sodass deine Ernährungsdaten auch anderen Gesundheits‑ und Fitness‑Apps zur Verfügung stehen.',
 			'settings.healthConnect.managePermissions' => 'Berechtigungen verwalten',
-			'settings.healthConnect.openSettings' => 'Health-Connect-Einstellungen öffnen',
+			'settings.healthConnect.openSettings' => 'Health Connect Einstellungen öffnen',
 			'settings.healthConnect.requestPermissions' => 'Berechtigungen anfordern',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health-Connect-Einstellungen.',
-			'settings.healthConnect.permissionRequestFailed' => 'Berechtigungen konnten nicht angefordert werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health-Connect-Einstellungen.',
-			'settings.healthConnect.requestingPermissions' => 'Anfordern ...',
-			'settings.about.title' => 'Info',
-			'settings.about.tagline' => 'Schnelle, kostenlose und datenschutzfreundliche Kalorienorientierung',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect‑Einstellungen.',
+			'settings.healthConnect.permissionRequestFailed' => 'Berechtigungen konnten nicht angefragt werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect‑Einstellungen.',
+			'settings.healthConnect.requestingPermissions' => 'Anfrage läuft...',
+			'settings.about.title' => 'Über',
+			'settings.about.tagline' => 'Schnell, kostenlos und datenschutzorientiert: Kalorien-Bewusstsein',
 			'settings.about.ourStory.title' => 'Unsere Geschichte',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorientracker sind entweder übermäßig kompliziert, verlangen ständige manuelle Eingaben, kosten teure Abos oder gehen auf Kosten der Privatsphäre.\n\nAls Solo-Entwickler wollte ich etwas Einfacheres und Faireres bauen — eine App, die KI nutzt, um den Aufwand zu reduzieren, schnell und kostenlos bleibt und deine Gesundheitsdaten respektiert.\n\n${appLabel} ist die App, die ich mir gewünscht habe: keine Accounts, kein Tracking, keine Werbung — nur klare, praktische Einblicke und deine Gesundheitsziele.',
-			'settings.about.privacy.title' => 'Deine Privatsphäre zählt',
-			'settings.about.privacy.description' => 'Datenschutz ist kein Nachgedanke — er ist ein Gestaltungsprinzip. Das bedeutet konkret:',
-			'settings.about.privacy.noAccounts' => 'Keine Accounts erforderlich\nNutze die App sofort. Keine Anmeldungen, keine Identitäten.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Kein Verhaltenstracking\n${appLabel} überwacht deine Aktivität nicht, erstellt keine Nutzungsprofile und verfolgt dich nicht über Apps oder Websites hinweg.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Keine Werbung\n${appLabel} funktioniert ohne Werbung oder datengetriebene Monetarisierung.',
-			'settings.about.privacy.noDataSelling' => 'Kein Datenverkauf\nDeine Gesundheitsdaten werden niemals an Dritte verkauft oder weitergegeben.',
-			'settings.about.privacy.localStorage' => 'Lokal-first-Speicherung\nDeine Daten bleiben auf deinem Gerät.',
-			'settings.about.privacy.privacyPolicy' => 'Datenschutzrichtlinie',
-			'settings.about.developer.title' => 'Von einem Solo-Entwickler gebaut',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} wird von einem einzelnen Solo-Entwickler entwickelt und gepflegt, der ruhige, datenschutzfreundliche Gesundheitssoftware baut.\n\nFeedback wird persönlich gelesen und beeinflusst die Ausrichtung der App.',
-			'settings.about.developer.website' => 'Webseite',
-			'settings.about.developer.email' => 'E-Mail',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} entstand aus einer einfachen Frustration: Die meisten Kalorienzähler sind entweder zu kompliziert, verlangen ständige manuelle Eingaben, verlangen hohe Abo‑Gebühren oder gefährden die Privatsphäre.\n\nAls Solo‑Entwickler wollte ich etwas Einfacheres und Gerechteres schaffen — eine App, die AI nutzt, um Aufwand zu reduzieren, schnell und kostenlos bleibt und deine Gesundheitsdaten respektvoll behandelt.\n\n${appLabel} ist die App, die ich mir gewünscht hätte: keine Konten, kein Tracking, keine Werbung — nur klare, praktische Einblicke und deine Gesundheitsziele.',
+			'settings.about.privacy.title' => 'Dein Datenschutz ist wichtig',
+			'settings.about.privacy.description' => 'Datenschutz ist kein Nebengedanke, sondern ein Designprinzip. Das bedeutet in der Praxis:',
+			'settings.about.privacy.noAccounts' => 'Keine Konten erforderlich\nApp sofort nutzen. Keine Registrierung, keine Identitäten.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Kein Verhaltens‑Tracking\n${appLabel} überwacht deine Aktivitäten nicht, erstellt keine Nutzungsprofile und verfolgt dich nicht über Apps oder Websites hinweg.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Werbefrei aus Prinzip\n${appLabel} wurde so entwickelt, dass es ohne Werbung oder datengetriebene Monetarisierung funktioniert.',
+			'settings.about.privacy.noDataSelling' => 'Kein Verkauf von Daten\nDeine Gesundheitsdaten werden niemals an Dritte verkauft oder weitergegeben.',
+			'settings.about.privacy.localStorage' => 'Lokale Speicherung\nDeine Daten bleiben auf deinem Gerät.',
+			'settings.about.privacy.privacyPolicy' => 'Datenschutzerklärung',
+			'settings.about.developer.title' => 'Von einem Solo‑Entwickler entwickelt',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} wird von einem einzelnen Entwickler gebaut und gepflegt, der sich auf ruhige, datenschutzfreundliche Gesundheitssoftware konzentriert.\n\nFeedback wird persönlich gelesen und beeinflusst die Richtung der App.',
+			'settings.about.developer.website' => 'Website',
+			'settings.about.developer.email' => 'E‑Mail',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Gefällt dir ${appLabel}?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Dein Feedback hilft, ${appLabel} für alle besser zu machen.',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Dein Feedback macht ${appLabel} für alle besser.',
 			'settings.about.feedback.rateApp' => 'Im Play Store bewerten',
 			'settings.about.feedback.sendFeedback' => 'Feedback senden',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
-			'reminders.title' => 'Bleibe mit Erinnerungen auf Kurs',
-			'reminders.description' => 'Erhalte sanfte Erinnerungen, deine Mahlzeiten zu protokollieren und bei deinen Ernährungszielen dranzubleiben',
+			'reminders.title' => 'Bleib mit Erinnerungen auf Kurs',
+			'reminders.description' => 'Erhalte freundliche Erinnerungen, um Mahlzeiten zu protokollieren und konsequent bei deinen Ernährungszielen zu bleiben',
 			'reminders.notificationsEnabled' => 'Benachrichtigungen aktiviert',
 			'reminders.notificationsDisabled' => 'Benachrichtigungen deaktiviert',
-			'reminders.enabledSubtitle' => 'Du erhältst Mahlzeit-Erinnerungen',
-			'reminders.disabledSubtitle' => 'Aktiviere Benachrichtigungen, um Mahlzeit-Erinnerungen zu bekommen',
-			'reminders.mealReminders' => 'Mahlzeit-Erinnerungen',
+			'reminders.enabledSubtitle' => 'Du erhältst Mahlzeit‑Erinnerungen',
+			'reminders.disabledSubtitle' => 'Aktiviere Benachrichtigungen, um Mahlzeit‑Erinnerungen zu erhalten',
+			'reminders.mealReminders' => 'Mahlzeit‑Erinnerungen',
 			'reminders.breakfast' => 'Frühstück',
 			'reminders.lunch' => 'Mittagessen',
 			'reminders.dinner' => 'Abendessen',
@@ -2109,75 +2109,75 @@ extension on TranslationsDe {
 			'reminders.unknown' => 'Unbekannt',
 			'reminders.change' => 'Ändern',
 			'reminders.enableNotifications' => 'Benachrichtigungen aktivieren',
-			'reminders.skipForNow' => 'Für jetzt überspringen',
+			'reminders.skipForNow' => 'Vorerst überspringen',
 			'reminders.saveChanges' => 'Änderungen speichern',
 			'reminders.enabledSuccessfully' => 'Benachrichtigungen erfolgreich aktiviert!',
 			'reminders.permissionDenied' => 'Benachrichtigungsberechtigung verweigert',
 			'reminders.errorEnabling' => ({required Object error}) => 'Fehler beim Aktivieren der Benachrichtigungen: ${error}',
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Fehler beim Abschließen der Einrichtung: ${error}',
 			'notifications.breakfast.title' => 'Frühstückszeit! 🍳',
-			'notifications.breakfast.body' => 'Vergiss nicht, dein Frühstück zu protokollieren',
+			'notifications.breakfast.body' => 'Vergiss nicht, dein Frühstück zu erfassen',
 			'notifications.lunch.title' => 'Mittagszeit! 🥗',
 			'notifications.lunch.body' => 'Zeit, dein Mittagessen zu protokollieren',
-			'notifications.dinner.title' => 'Abendessenszeit! 🍽️',
-			'notifications.dinner.body' => 'Vergiss nicht, dein Abendessen zu protokollieren',
-			'notifications.snack.title' => 'Snackzeit! 🍎',
+			'notifications.dinner.title' => 'Abendessen! 🍽️',
+			'notifications.dinner.body' => 'Vergiss nicht, dein Abendessen zu erfassen',
+			'notifications.snack.title' => 'Snack‑Zeit! 🍎',
 			'notifications.snack.body' => 'Zeit für einen gesunden Snack',
-			'notifications.test.title' => 'Testbenachrichtigung',
+			'notifications.test.title' => 'Test‑Benachrichtigung',
 			'login.title' => 'Anmelden',
 			'login.signInWithGoogle' => 'Mit Google anmelden',
 			'login.signInFailed' => 'Google-Anmeldung fehlgeschlagen oder abgebrochen.',
 			'disclaimer.pleaseNote' => 'Bitte beachten',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} liefert geschätzte Nährwertangaben. Die Genauigkeit hängt von deinen Eingaben & Lebensmittelvariationen ab. Nutze dies als Orientierung, nicht als endgültige Quelle. Für individuelle Beratung wende dich an Fachleute.',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} liefert geschätzte Nährwertangaben. Die Genauigkeit hängt von deinen Eingaben und Lebensmittelvarianten ab. Nutze die Angaben als Orientierung, nicht als endgültige Quelle. Konsultiere eine Fachperson für personalisierte Ernährungsberatung.',
 			'disclaimer.snap.portionSize.title' => 'Portionsgröße',
 			'disclaimer.snap.portionSize.description' => 'Die Genauigkeit der Schätzungen hängt stark von deiner korrekten Einschätzung der Portionsgröße ab.',
 			'disclaimer.snap.preparationMethods.title' => 'Zubereitungsmethoden',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Kochmethoden können den Nährstoffgehalt stark verändern. Die Schätzungen von ${appLabel} berücksichtigen diese Unterschiede nicht immer.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Zubereitungsarten können den Nährstoffgehalt erheblich verändern. Die Schätzungen von ${appLabel} berücksichtigen diese Variationen möglicherweise nicht vollständig.',
 			'disclaimer.snap.ingredients.title' => 'Zutaten',
-			'disclaimer.snap.ingredients.description' => 'Komplexe Gerichte mit vielen versteckten Zutaten können zu weniger genauen Schätzungen führen.',
-			'disclaimer.snap.databaseLimitations.title' => 'Datenbankgrenzen',
+			'disclaimer.snap.ingredients.description' => 'Komplexe Gerichte mit vielen versteckten Zutaten können zu ungenaueren Schätzungen führen.',
+			'disclaimer.snap.databaseLimitations.title' => 'Datenbankbegrenzungen',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Die Lebensmitteldatenbank von ${appLabel} ist umfangreich, enthält aber möglicherweise nicht jedes einzelne Lebensmittel oder jede Variante.',
-			'disclaimer.weightEstimate.title' => 'Über die Gewichtsschätzung',
-			'disclaimer.weightEstimate.description' => 'Die prognostizierte Gewichtsveränderung ist eine theoretische Schätzung basierend auf dem einfachen Modell von aufgenommenen vs. verbrauchten Kalorien. Sie dient nur als Motivation und ist keine Vorhersage deines tatsächlichen Gewichts.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kaloriengenauigkeit',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Diese Schätzung ist nur so genau wie deine erfasste Kalorienaufnahme und ‑verwendung. Ungenaue Protokolle führen zu ungenauen Projektionen.',
+			'disclaimer.weightEstimate.title' => 'Zur Gewichtsschätzung',
+			'disclaimer.weightEstimate.description' => 'Die prognostizierte Gewichtsveränderung ist eine theoretische Schätzung basierend auf dem einfachen Kalorien‑ein‑/Kalorien‑aus‑Modell. Sie dient nur zur Motivation und nicht als Vorhersage deines tatsächlichen Gewichts.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Genauigkeit der Kalorien',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Diese Schätzung ist nur so genau wie deine erfassten Kalorienzufuhr- und verbrauchsangaben. Ungenaue Einträge führen zu ungenauen Vorhersagen.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biologische Faktoren',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Tatsächliche Gewichtsabnahme/-zunahme wird von Stoffwechsel, Hormonen, Schlaf, Stress, Hydration und weiteren individuellen Faktoren beeinflusst, die ${appLabel} nicht messen kann.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Gewichtsveränderungen werden von Stoffwechsel, Hormonen, Schlaf, Stress, Flüssigkeitshaushalt und anderen individuellen Faktoren beeinflusst, die ${appLabel} nicht messen kann.',
 			'disclaimer.weightEstimate.waterWeight.title' => 'Wassergewicht & Schwankungen',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Das normale Tagesgewicht kann durch Wassereinlagerungen, Verdauung und Timing deutlich schwanken. Die Schätzung berücksichtigt diese täglichen Veränderungen nicht.',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Das tägliche Gewicht kann durch Wassereinlagerungen, Verdauung und Zeitpunkt stark schwanken. Die Schätzung berücksichtigt diese täglichen Veränderungen nicht.',
 			'disclaimer.weightEstimate.professionalGuidance.title' => 'Professionelle Beratung',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Wende dich für persönliche Empfehlungen stets an medizinisches Fachpersonal oder eine/n Ernährungsberater/in.',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Konsultiere stets eine Fachperson oder eine registrierte Ernährungsberaterin/einen registrierten Ernährungsberater für persönliche Gewichtsmanagement‑Beratung.',
 			'disclaimer.healthMetrics.description' => 'Diese Kennzahlen helfen dir, den Energiebedarf deines Körpers zu verstehen und deine Ernährungsziele zu steuern.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Der Grundumsatz (BMR) ist die Kalorienmenge, die dein Körper in Ruhe verbrennt, um grundlegende Funktionen wie Atmung und Kreislauf aufrechtzuerhalten. Der BMR hängt von Alter, Geschlecht, Größe und Gewicht ab. Ein höherer BMR bedeutet, dass dein Körper in Ruhe mehr Kalorien verbrennt – oft aufgrund von mehr Muskelmasse, jüngerem Alter oder männlichem Geschlecht. Ein niedrigerer BMR weist typischerweise auf weniger Muskelmasse, höheres Alter oder weibliches Geschlecht hin.',
+			'disclaimer.healthMetrics.bmr.description' => 'Der Ruheumsatz (BMR) ist die Menge an Kalorien, die dein Körper im Ruhezustand zur Aufrechterhaltung grundlegender Funktionen wie Atmung und Kreislauf verbrennt. Der BMR hängt von Alter, Geschlecht, Größe und Gewicht ab. Ein höherer BMR bedeutet, dass dein Körper im Ruhezustand mehr Kalorien verbrennt – oft bedingt durch mehr Muskelmasse, jüngeres Alter oder männliches Geschlecht. Ein niedrigerer BMR weist typischerweise auf weniger Muskelmasse, höheres Alter oder weibliches Geschlecht hin.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Der Gesamtenergieverbrauch pro Tag (TDEE) ist die Gesamtzahl der Kalorien, die du täglich verbrennst – einschließlich BMR plus Kalorien aus körperlicher Aktivität und Alltagsbewegung. Der TDEE hängt von deinem BMR und Aktivitätsniveau ab. Ein höherer TDEE bedeutet insgesamt mehr verbrannte Kalorien, meist durch mehr Aktivität oder einen höheren BMR. Ein niedrigerer TDEE deutet auf weniger tägliche Aktivität oder einen niedrigeren BMR hin.',
+			'disclaimer.healthMetrics.tdee.description' => 'Der gesamte tägliche Energieverbrauch (TDEE) ist die Gesamtmenge an Kalorien, die du pro Tag verbrennst, einschließlich BMR sowie Kalorien durch körperliche Aktivität und Alltagsbewegung. Der TDEE hängt von deinem BMR und deinem Aktivitätsniveau ab. Ein höherer TDEE bedeutet, dass du insgesamt mehr Kalorien verbrennst, meist durch mehr Aktivität oder einen höheren BMR. Ein niedrigerer TDEE deutet auf weniger tägliche Aktivität oder einen niedrigeren BMR hin.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Tagesziel',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Das Tagesziel ist deine empfohlene tägliche Kalorienaufnahme basierend auf deinem TDEE und deinem Gewichtsziel. Für Gewichtsverlust nimmst du weniger Kalorien als deinen TDEE zu dir. Für Gewichtserhalt entspricht deine Aufnahme dem TDEE. Für Gewichtszunahme isst du mehr als deinen TDEE. So erreichst du dein gewünschtes Gewicht in einem gesunden Tempo.',
-			'disclaimer.calorieExpenditure.title' => 'Schätzung des Kalorienverbrauchs',
-			'disclaimer.calorieExpenditure.description' => 'Wenn Health-Connect-Daten nicht verfügbar sind, schätzen wir die heute verbrannten Kalorien mithilfe deines Grundumsatzes (BMR) und Aktivitätsniveaus (TDEE), skaliert auf den bereits vergangenen Tagesanteil.',
-			'disclaimer.calorieExpenditure.howCalculated.title' => 'So wird die Schätzung berechnet',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Wir berechnen deinen TDEE (basierend auf deinem Profil) und multiplizieren ihn mit dem Bruchteil des verstrichenen Tages (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien zu schätzen.',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Das Tagesziel ist deine empfohlene tägliche Kalorienzufuhr basierend auf deinem TDEE und deinem Gewichtsziel. Beim Abnehmen konsumierst du weniger Kalorien als dein TDEE. Zur Gewichtserhaltung entspricht deine Aufnahme dem TDEE. Zum Zunehmen konsumierst du mehr Kalorien als dein TDEE. Das hilft dir, die gewünschte Gewichtsentwicklung in einem gesunden Tempo zu erreichen.',
+			'disclaimer.calorieExpenditure.title' => 'Geschätzter Kalorienverbrauch',
+			'disclaimer.calorieExpenditure.description' => 'Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir den heutigen Kalorienverbrauch anhand deines Ruheumsatzes (BMR) und Aktivitätsniveaus (TDEE), skaliert auf den bereits vergangenen Teil des Tages.',
+			'disclaimer.calorieExpenditure.howCalculated.title' => 'Wie die Schätzung berechnet wird',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Wir berechnen deinen TDEE (auf Basis deines Profils) und multiplizieren ihn mit dem Anteil des bereits vergangenen Tages (Stunden + Minuten) / 24, um die bisher verbrannten Kalorien abzuschätzen.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionelle Beratung',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Wende dich für persönliche Empfehlungen stets an medizinisches Fachpersonal oder eine/n Ernährungsberater/in.',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nutze diese Schätzung nicht für medizinische Entscheidungen. Konsultiere stets eine Fachperson oder eine registrierte Ernährungsberaterin/einen registrierten Ernährungsberater für persönliche Gewichtsmanagement‑Beratung.',
 			'common.close' => 'Schließen',
 			'common.kContinue' => 'Weiter',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Gefällt dir ${appLabel}?',
-			'feedbackRating.yes' => 'Ja, es gefällt mir',
+			'feedbackRating.yes' => 'Ja, mir gefällt es',
 			'feedbackRating.no' => 'Nicht wirklich',
 			'feedbackRating.rateStepHeading' => 'Im Play Store bewerten',
 			'feedbackRating.emailStepHeading' => 'Feedback per E‑Mail senden',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Eine kurze Bewertung hilft anderen, ${appLabel} zu finden und hält die Entwicklung am Laufen. Hättest du einen Moment dafür?',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Eine kurze Bewertung hilft anderen, ${appLabel} zu finden, und unterstützt die Entwicklung. Würdest du kurz eine Bewertung abgeben?',
 			'feedbackRating.shareFeedbackViaEmail' => 'Dein Feedback bestimmt, was als Nächstes kommt — wir lesen jede Nachricht. Möchtest du deine Gedanken per E‑Mail teilen?',
 			'feedbackRating.rateCta' => 'Im Play Store bewerten',
 			'feedbackRating.maybeLater' => 'Vielleicht später',
 			'feedbackRating.sendFeedback' => 'Feedback senden',
 			'feedbackRating.noThanks' => 'Nein, danke',
-			'feedbackRating.aboutUsDescription' => 'Mit Sorgfalt von einem kleinen Team entwickelt. Unser Fokus liegt auf Datenschutz, Einfachheit und dabei zu helfen, bessere Essgewohnheiten aufzubauen.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh dir ',
+			'feedbackRating.aboutUsDescription' => 'Mit Sorgfalt von einem kleinen Team entwickelt. Wir legen Wert auf Datenschutz, Einfachheit und helfen dir, bessere Essgewohnheiten aufzubauen.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Neugierig, wer hinter ${appLabel} steckt? Sieh ',
 			'feedbackRating.aboutUsLinkLabel' => 'Über uns',
-			'feedbackRating.thankYouMessage' => 'Danke! Wir fragen ein andermal erneut.',
-			'health.syncFailed' => 'Konnte nicht mit Health Connect synchronisieren',
+			'feedbackRating.thankYouMessage' => 'Danke! Wir fragen ein anderes Mal noch einmal.',
+			'health.syncFailed' => 'Synchronisierung mit Health Connect fehlgeschlagen',
 			'health.mealSynced' => 'Mahlzeit mit Health Connect synchronisiert',
 			_ => null,
 		};

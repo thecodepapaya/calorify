@@ -3,55 +3,55 @@
   "flag": "🇫🇮",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Teit liian monta pyyntöä. Odota hetki ja yritä uudelleen.",
+    "rateLimitExceeded": "Olet tehnyt liian monta pyyntöä. Odota hetki ja yritä uudelleen.",
     "networkError": "Verkkovirhe. Tarkista internet-yhteytesi.",
     "unknownError": "Jotain meni pieleen. Yritä myöhemmin uudelleen.",
-    "loadingProfileData": "Virhe profiilitietojen latauksessa",
+    "loadingProfileData": "Virhe profiilitietojen lataamisessa",
     "somethingWentWrong": "Jotain meni pieleen.",
     "retry": "Yritä uudelleen"
   },
   "onboarding": {
-    "welcome": "Tervetuloa sovellukseen {appLabel}",
-    "subtitle": "Henkilökohtainen ravitsemuskumppanisi tekoälyn voimalla",
+    "welcome": "Tervetuloa {appLabel}",
+    "subtitle": "Henkilökohtainen ravitsemuskumppanisi, jota pyörittää AI",
     "getStarted": "Aloita",
     "features": {
       "foodRecognition": {
-        "title": "Älykäs ruoantunnistus",
-        "description": "Ota kuva ja anna tekoälyn tunnistaa ateriasi"
+        "title": "Älykäs ruoan tunnistus",
+        "description": "Ota kuva ja anna AI:n tunnistaa ateriasi"
       },
       "aiAnalysis": {
-        "title": "Tekoälyanalyysi",
-        "description": "Saat heti ravintoarvot kuvauksesi perusteella"
+        "title": "AI-analyysi",
+        "description": "Saat välittömiä ravintoarvoja kuvauksistasi"
       },
       "healthIntegration": {
-        "title": "Health Connect -integraatio",
-        "description": "Yhdistä Health Connectiin parempia oivalluksia varten"
+        "title": "Terveystietojen integraatio",
+        "description": "Yhdistä Health Connectiin saadaksesi parempia näkemyksiä"
       }
     },
     "gender": {
       "title": "Mikä on sukupuolesi?",
-      "description": "Sukupuoli auttaa meitä laskemaan perusaineenvaihduntasi (BMR) tarkemmin.",
+      "description": "Sukupuoli auttaa meitä laskemaan perusaineenvaihduntasi (BMR) tarkasti.",
       "next": "Seuraava"
     },
     "height": {
       "title": "Kuinka pitkä olet?",
-      "description": "Pituutesi auttaa meitä laskemaan BMI:si ja energiatarpeesi tarkasti.",
+      "description": "Pituutesi auttaa meitä laskemaan BMI:si ja energiantarpeesi tarkasti.",
       "metric": "Metrinen",
       "imperial": "Imperiaalinen",
       "next": "Seuraava"
     },
     "weight": {
       "currentTitle": "Mikä on nykyinen painosi?",
-      "currentDescription": "Nykyinen painosi on oleellinen päivittäisten tavoitteidesi personoinnissa.",
+      "currentDescription": "Nykyinen painosi on tärkeä, jotta voimme räätälöidä päivittäiset tavoitteesi.",
       "targetTitle": "Mikä on tavoitepainosi?",
-      "targetDescription": "Tavoitepainon asettaminen auttaa määrittämään pitkän aikavälin suunnitelmasi.",
+      "targetDescription": "Tavoitepainon asettaminen auttaa meitä määrittämään pitkän aikavälin suunnitelmasi.",
       "metric": "Metrinen",
       "imperial": "Imperiaalinen",
       "next": "Seuraava"
     },
     "age": {
-      "title": "Milloin on syntymäpäiväsi?",
-      "description": "Ikäsi auttaa meitä arvioimaan kaloritarpeesi tarkasti.",
+      "title": "Milloin olet syntynyt?",
+      "description": "Ikäsi auttaa meitä laskemaan kaloritarpeesi tarkasti.",
       "next": "Seuraava"
     },
     "bmiScale": {
@@ -61,79 +61,79 @@
       "obese": "Lihavuus",
       "categories": {
         "underweight": "Alipaino",
-        "healthyWeight": "Normaalipaino",
+        "healthyWeight": "Terve paino",
         "overweight": "Ylipaino",
         "obese": "Lihavuus"
       },
       "messages": {
-        "underweight": "Autamme sinua rakentamaan terveellisen suunnitelman tasapainoiseen painoon ravintorikkaiden aterioiden avulla.",
-        "healthy": "Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään vireyttäsi ja energiatasojasi.",
-        "overweight": "{appLabel} tekee matkasta helpomman tekoälypohjaisella seurannalla, jotta pääset kohti tavoitettasi mukavasti.",
-        "obese": "Olemme tukenasi henkilökohtaisella ohjauksella ja kestävillä strategioilla terveytesi tavoitteisiin."
+        "underweight": "Voimme auttaa sinua rakentamaan terveellisen suunnitelman kohti tasapainoista painoa ja ravinteikkaita aterioita.",
+        "healthy": "Hyvä työ! Olet terveellä alueella. Autamme sinua ylläpitämään elinvoimaa ja energiatason.",
+        "overweight": "{appLabel} yksinkertaistaa matkaasi AI-pohjaisella seurannalla, jotta saavutat tavoitteesi mukavasti.",
+        "obese": "Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestäviksi suunnitelluilla strategioilla terveyttäsi varten."
       }
     },
     "weightGoal": {
       "title": "Mikä on tavoitteesi?",
-      "description": "Valitse tavoite, joka kuvaa parhaiten sitä, mitä haluat saavuttaa"
+      "description": "Valitse tavoite, joka parhaiten kuvaa mitä haluat saavuttaa"
     },
     "activityLevel": {
       "title": "Kuinka aktiivinen olet?",
-      "description": "Tämä auttaa meitä laskemaan päivittäisen kaloritarpeesi tarkemmin"
+      "description": "Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin"
     },
     "healthConnect": {
       "title": "Yhdistä Health Connectiin",
-      "description": "Synkkaa terveystietosi parempia oivalluksia ja automaattista kaloriseurantaa varten",
+      "description": "Synkronoi terveystietosi parempia näkemyksiä ja automaattista kaloriseurantaa varten",
       "automaticTracking": {
         "title": "Automaattinen kaloriseuranta",
-        "description": "Seuraa poltettuja kaloreita kuntosovelluksistasi"
+        "description": "Seuraa harjoittelun polttamia kaloreita suosikkisovelluksistasi"
       },
       "progressInsights": {
-        "title": "Edistymisen oivallukset",
-        "description": "Saat yksityiskohtaisia näkymiä terveystrendeihin"
+        "title": "Edistymisnäkymät",
+        "description": "Saat yksityiskohtaisia näkymiä terveystrendeistäsi"
       },
       "seamlessIntegration": {
-        "title": "Saumaton integrointi",
-        "description": "Synkkaa tietoja suosikkiterveyssovelluksistasi"
+        "title": "Saumaton integraatio",
+        "description": "Synkronoi tietoja suosikkiterveyssovelluksistasi"
       },
       "connected": "Health Connect yhdistetty",
       "notConnected": "Health Connect ei yhdistetty",
-      "setup": "Määritä Health Connect",
-      "skipForNow": "Ohita toistaiseksi",
+      "setup": "Aseta Health Connect",
+      "skipForNow": "Ohita nyt",
       "statusConnected": "Health Connect on yhdistetty.",
-      "statusSuccess": "Health Connect yhdistettiin onnistuneesti!",
-      "statusPermissionDenied": "Lupa evätty. Ota Health Connect -lupia käyttöön puhelimesi asetuksista sovellukselle {appLabel}.",
-      "statusError": "Virhe Health Connectin määrityksessä: {error}"
+      "statusSuccess": "Health Connect on yhdistetty onnistuneesti!",
+      "statusPermissionDenied": "Lupa evätty. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista {appLabel}:lle.",
+      "statusError": "Virhe Health Connectin asennuksessa: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Et ole yksin",
-        "genericMessage": "Tutkimusten mukaan johdonmukainen seuranta on pitkäaikaisen menestyksen ykkösennustaja.",
-        "personalizedMessage": "{age}-vuotiaalle {gender}, joka haluaa {goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.",
-        "closingMessage": "{appLabel} tekee tästä 10x helpompaa kuin manuaalisesti.",
+        "genericMessage": "Tutkimukset osoittavat, että johdonmukainen seuranta on paras ennustaja pitkäaikaiselle menestykselle.",
+        "personalizedMessage": "{age}-vuotiaalle {gender}:lle, joka haluaa {goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.",
+        "closingMessage": "{appLabel} tekee siitä 10x helpompaa kuin manuaalisesti.",
         "getStartedTitle": "Valmis aloittamaan?",
-        "tipPhoto": "Ota kuvat aterioistasi saadaksesi välittömän analyysin",
-        "tipConsistency": "Kirjaa säännöllisesti nähdäksesi merkityksellistä edistystä",
-        "tipProgress": "Seuraa edistymistäsi päivittäin pysyäksesi motivoituneena",
+        "tipPhoto": "Ota kuva aterioistasi välitöntä analyysia varten",
+        "tipConsistency": "Kirjaa säännöllisesti nähdäksesi merkittäviä edistysaskeleita",
+        "tipProgress": "Seuraa edistystäsi päivittäin pysyäksesi motivoituneena",
         "button": "Aloitetaan",
         "defaultGender": "henkilö",
         "defaultGoal": "terveempi sinä"
       },
       "healthProfile": {
         "title": "Terveysprofiilisi",
-        "bmiDescription": "Mittariesi perusteella BMI:si on {bmi}.",
+        "bmiDescription": "Mittiesi perusteella BMI:si on {bmi}.",
         "finalizeDescription": "Viimeistellään profiilisi, jotta voimme räätälöidä kokemuksesi.",
-        "goalGain": "nostaa",
-        "goalLose": "laskea",
-        "goalReach": "Päästäksesi tavoitteeseesi sinun tulisi {direction} {diff} {unit}.",
-        "goalReached": "Olet tavoitepainossasi! Autamme sinua ylläpitämään sen.",
+        "goalGain": "saada",
+        "goalLose": "laihtua",
+        "goalReach": "Saavuttaaksesi tavoitteen, sinun täytyy {direction} {diff} {unit}.",
+        "goalReached": "Olet tavoitepainossasi! Autamme sinua ylläpitämään sitä.",
         "button": "Aloitetaan"
       },
       "goalLifestyle": {
-        "title": "Loistava alku!",
-        "description": "Olet ottanut ensimmäisen askeleen kohti {goalText}. Koska olet {activityText}, {appLabel} säätää tavoitteitasi elämäntapaasi sopiviksi.",
-        "personalizedTargets": "Henkilökohtaiset kalorisuositukset",
-        "aiMealDetection": "Tekoälypohjainen aterioiden tunnistus",
-        "macroBreakdowns": "Yksityiskohtaiset makroravinne-erittelyt",
+        "title": "Erinomainen alku!",
+        "description": "Olet ottanut ensimmäisen askeleen kohti {goalText}. Koska olet {activityText}, {appLabel} säätää tavoitteesi vastaamaan elämäntyyliäsi.",
+        "personalizedTargets": "Räätälöidyt kalorintavoitteet",
+        "aiMealDetection": "AI-pohjainen aterian tunnistus",
+        "macroBreakdowns": "Yksityiskohtaiset makroravinteiden erittelyt",
         "button": "Aloitetaan",
         "defaultGoal": "tavoitteitasi",
         "defaultActivity": "aktiivinen"
@@ -141,98 +141,98 @@
     }
   },
   "tabs": {
-    "dashboard": "Etusivu",
+    "dashboard": "Koonti",
     "history": "Historia"
   },
   "home": {
     "aiSummary": {
-      "title": "Tekoälyn yhteenveto",
-      "logMore": "Kirjaa lisää aterioita seuraavien päivien aikana saadaksesi henkilökohtaiset tekoälyoivallukset.",
-      "loading": "Ladataan yhteenvetoasi...",
+      "title": "AI-yhteenvetosi",
+      "logMore": "Kirjaa lisää aterioita seuraavien päivien aikana saadaksesi henkilökohtaisia AI-näkemyksiä.",
+      "loading": "Ladataan yhteenvetoa...",
       "mealCount": "{count} ateriaa kirjattu",
-      "macroBalanceScore": "Tasapainopiste {score}",
+      "macroBalanceScore": "Tasapainopisteet {score}",
       "topFoods": "Suosituimmat ruoat",
-      "trendUp": "Kalorit nousussa",
-      "trendDown": "Kalorit laskussa",
-      "trendSteady": "Kalorit tasaisena",
+      "trendUp": "Kalorit nousemassa",
+      "trendDown": "Kalorit laskevana",
+      "trendSteady": "Kalorit pysyvät tasaisina",
       "generatedAt": "Päivitetty {time}"
     },
     "dailyGoal": {
-      "title": "Aseta päivätavoitteesi",
-      "titleSet": "Päivätavoitteesi",
-      "description": "Valmis aloittamaan hyvinvointimatkasi? Aseta päivittäinen kaloritaso alla käynnistääksesi edistymisen.",
-      "descriptionSet": "Suuntasi on selvä! Tämä on päivittäinen kaloritasosi ohjenuoraksi.",
+      "title": "Aseta päivittäinen tavoitteesi",
+      "titleSet": "Päivittäinen tavoitteesi",
+      "description": "Valmis aloittamaan hyvinvointimatkasi? Aseta päivittäinen kalorirajasi alle käynnistääksesi edistymisen.",
+      "descriptionSet": "Kompassisi on asetettu! Tämä on päivittäinen kalorirajasi, joka ohjaa sinua.",
       "yourGoal": "Tavoitteesi",
       "goal": "Tavoite",
       "dailyCalories": "Päivittäiset kalorit (kcal)",
       "setGoal": "Aseta tavoite",
       "intake": "Saanti",
-      "burned": "Kulutus",
+      "burned": "Poltettu",
       "weightImpact": "Vaikutus painoon",
-      "estLoss": "Arv. lasku",
-      "estGain": "Arv. nousu",
+      "estLoss": "Arvioitu pudotus",
+      "estGain": "Arvioitu nousu",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Päivän yhteenveto",
+      "title": "Päiväkohtainen yhteenveto",
       "calories": "Kalorit",
       "carbs": "Hiilihydraatit",
       "protein": "Proteiini",
       "fat": "Rasva",
       "fiber": "Kuitu",
       "grams": "grammaa",
-      "chartAccessibilityLabel": "Makrojen kaavio"
+      "chartAccessibilityLabel": "Makroravinteiden kaavio"
     },
     "intakeProgress": {
-      "title": "Tämän päivän makrojakauma",
+      "title": "Päivän makrojako",
       "target": "Tavoite",
       "current": "Nykyinen"
     },
     "intakeHistory": {
       "title": "7 päivän makrohistoria",
       "trendTitle": "Päivän trendi",
-      "peakHour": "Huippu: klo {hour}:00",
-      "noHistoryYet": "Ei vielä historiaa",
+      "peakHour": "Huippu: {hour}:00",
+      "noHistoryYet": "Ei historiaa vielä",
       "startLogging": "Aloita aterioiden kirjaaminen nähdäksesi\n7 päivän makrotrendit täällä"
     },
     "mealLog": {
       "title": "Kirjatut ateriat",
-      "emptyMessage": "Nappaa kuva viimeisimmästä ateriastasi kirjautuaksesi tähän.",
-      "noMealsToday": "Tälle päivälle ei kirjattuja aterioita",
+      "emptyMessage": "Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.",
+      "noMealsToday": "Ei ateriakirjauksia tälle päivälle",
       "seeAllMeals": "Näytä kaikki ateriat"
     },
     "mealDescription": {
-      "title": "Pikalisäys tekoälyllä",
-      "description": "Kuvaile ateriasi ja anna tekoälyn hoitaa loput.",
-      "hint": "esim. Aamiaiseksi söin ison kulhon kaurapuuroa, banaanin siivuina ja annoksen heraa ...",
+      "title": "Nopea lisäys AI:lla",
+      "description": "Kuvaile ateriasi ja anna AI:n hoitaa yksityiskohdat.",
+      "hint": "esim. Aamupalalla söin ison kulhollisen kaurapuuroa viipaloidun banaanin ja mitallisen heraproteiinia ...",
       "analyzeMeal": "Analysoi ateria"
     },
     "favoriteMeals": {
       "title": "Suosikkiateriat",
-      "description": "Lisää nopeasti jokin suosikkiaterioistasi.",
-      "noFavorites": "Ei vielä suosikkiaterioita.",
-      "addFavoriteHint": "Merkitse ateria suosikiksi klikkaamalla tähteä.",
+      "description": "Lisää nopeasti joku suosikeistasi.",
+      "noFavorites": "Ei suosikkia vielä.",
+      "addFavoriteHint": "Klikkaa tähteä aterian kohdalla merkitäksesi sen suosikiksi.",
       "seeAll": "Näytä kaikki",
       "add": "Lisää"
     },
     "mealSnap": {
-      "title": "Kuvaa ja seuraa ateriasi",
-      "description": "Käytä kameraa ottaaksesi kuvan ruoastasi tekoälyanalyysiä varten.",
+      "title": "Kuvaa & seuraa ateriasi",
+      "description": "Käytä kameraa ottaaksesi kuvan ruoastasi AI-analyysiä varten.",
       "openCamera": "Avaa kamera",
       "gallery": "Galleria",
-      "compressingPhoto": "Optimoidaan kuvaa…",
+      "compressingPhoto": "Optimoidaan kuva…",
       "uploadingPhoto": "Lähetetään kuvaa…"
     },
     "connectHealth": {
-      "title": "Synkkaa Health Connectiin",
-      "description": "Synkkaa ravitsemustietosi Health Connectin kanssa",
+      "title": "Synkronoi Health Connectiin",
+      "description": "Synkronoi ravintotietosi Health Connectiin",
       "install": "Asenna",
       "connect": "Yhdistä"
     }
   },
   "history": {
-    "noMeals": "Ei yhtään ateriaa",
-    "emptyMessage": "Nappaa kuva viimeisimmästä ateriastasi kirjautuaksesi tähän.",
+    "noMeals": "Ei kirjattuja aterioita",
+    "emptyMessage": "Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.",
     "today": "Tänään",
     "yesterday": "Eilen"
   },
@@ -247,8 +247,8 @@
     "mealNameHint": "esim. Munakokkeli ja paahtoleipä",
     "mealQuantity": "Aterian määrä",
     "mealQuantityHint": "esim. 1 kulho, 2 viipaletta",
-    "timeOfMeal": "Aterian ajankohta",
-    "timeOfMealHint": "Valitse, milloin söit aterian",
+    "timeOfMeal": "Ajanhetki",
+    "timeOfMealHint": "Valitse milloin söit aterian",
     "mealType": "Ateriatyyppi",
     "nutrition": {
       "calories": "Kalorit",
@@ -259,85 +259,85 @@
     },
     "deleteConfirmation": {
       "title": "Poista ateria",
-      "message": "Haluatko varmasti poistaa tämän ateriamerkinnän?",
+      "message": "Haluatko varmasti poistaa tämän ateriakirjauksen?",
       "cancel": "Peruuta",
       "delete": "Poista"
     },
-    "addedToLog": "Ateria lisättiin lokiin!",
-    "couldNotAdd": "Ateriaa ei voitu lisätä: {error}",
+    "addedToLog": "Ateria lisätty kirjanpitoosi!",
+    "couldNotAdd": "Aterian lisääminen epäonnistui: {error}",
     "savedSuccessfully": "Ateria lisätty onnistuneesti!",
     "updatedSuccessfully": "Ateria päivitetty onnistuneesti!",
-    "errorSaving": "Virhe tallennuksessa: {error}",
+    "errorSaving": "Virhe tallennettaessa ateriaa: {error}",
     "removedFromFavorites": "Poistettu suosikeista!",
     "savedAsFavorite": "Ateria tallennettu suosikiksi!",
-    "unfavorite": "Poista suosikeista",
-    "couldNotUpdateFavorite": "Suosikin päivitys epäonnistui: {error}",
+    "unfavorite": "Poista suosikista",
+    "couldNotUpdateFavorite": "Suosikin päivittäminen epäonnistui: {error}",
     "feedbackThanks": "Kiitos palautteesta!",
-    "reanalysisUpdated": "Päivitetty ateria-analyysi palautteesi perusteella.",
+    "reanalysisUpdated": "Päivitettiin aterian analyysi palautteesi perusteella.",
     "failedToProcess": "Käsittely epäonnistui: {error}",
     "failedToProcessImage": "Kuvan käsittely epäonnistui: {error}",
     "errorCompressingImage": "Virhe kuvan pakkaamisessa: {error}",
     "failedToSave": "Tietojen tallennus epäonnistui. Yritä uudelleen.",
     "skip": "Ohita",
     "questionFlow": {
-      "progress": "Kysymys {current}/{total}",
-      "noQuestionsAvailable": "Kysymyksiä ei ole saatavilla",
+      "progress": "Kysymys {current} / {total}",
+      "noQuestionsAvailable": "Ei saatavilla olevia kysymyksiä",
       "next": "Seuraava",
       "continueLabel": "Jatka"
     },
     "analysis": {
-      "title": "Tekoälyn ateria-analyysi",
+      "title": "Analysoidaan ateriaasi",
       "stepStarted": "Aloitetaan…",
-      "stepDecomposition": "Ymmärretään ateriasi…",
-      "stepIngredients": "Yhdistetään ainesosat ravintotietoihin…",
+      "stepDecomposition": "Ymmärretään ateriaasi…",
+      "stepIngredients": "Etsitään ainesosia ja ravintoarvoja…",
       "stepUncertainty": "Tarkistetaan varmuutta…",
-      "stepMealTypeQuestion": "Melkein valmista…",
+      "stepMealTypeQuestion": "Melkein valmis…",
       "stepResult": "Viimeistellään tulosta…",
       "stepError": "Jotain meni pieleen",
       "stepDefault": "Analysoidaan ateriaasi…",
-      "progressUnderstand": "Ymmärrys",
-      "progressMatch": "Vastaavuus",
-      "progressCheck": "Tarkistus",
+      "progressUnderstand": "Ymmärretään ateria",
+      "progressMatch": "Haetaan ainesosien ravintoarvoja",
+      "progressCheck": "Tarkistetaan annoskoot ja varmuus",
       "progressMealType": "Valitaan ateriatyyppi",
-      "progressFinish": "Viimeistely",
-      "detectedIngredientHeading": "Tunnistamamme ainesosat",
+      "progressFinish": "Lasketaan kalorit ja makrot",
+      "detectedIngredientHeading": "Havaitsemamme ainesosat",
       "ingredientsOverflow": "{count} lisää",
-      "ingredientsLine": "{count} ainesosaa havaittu",
+      "ingredientsLine": "{count} ainesosaa tunnistettu",
       "ingredientsPending": "Skannataan ainesosia…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.",
+      "offlineTip1": "Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.",
+      "offlineTip2": "Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.",
+      "offlineTip3": "Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.",
+      "offlineTip4": "Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.",
+      "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa)."
     },
     "feedback": {
       "title": "Mikä näyttää väärältä?",
-      "subtitle": "Auta meitä parantamaan analyysiä valitsemalla yksi tai useampi ongelma.",
+      "subtitle": "Auttaaksesi parantamaan analyysiä, valitse yksi tai useampi ongelma.",
       "tellUsMore": "Kerro lisää",
-      "describeIncorrect": "Kuvaile, mikä oli väärin",
+      "describeIncorrect": "Kuvaile mikä oli virheellistä",
       "submit": "Lähetä",
       "issueFoodIdentification": "Ruoan tunnistus",
       "issuePortionSize": "Annoksen koko",
-      "issueCalorieDistribution": "Kalorijakauma",
-      "issueMacrosWrong": "Makrot ovat väärin",
-      "issueMissingItems": "Puuttuvat kohteet",
-      "issueExtraItems": "Ylimääräiset kohteet",
+      "issueCalorieDistribution": "Kalorien jakautuminen",
+      "issueMacrosWrong": "Makrot väärin",
+      "issueMissingItems": "Puuttuvat ainesosat",
+      "issueExtraItems": "Liian monta ainesosaa",
       "issueOther": "Muu"
     }
   },
   "favorites": {
     "title": "Suosikit",
-    "empty": "Ei vielä suosikkiaterioita.",
+    "empty": "Ei suosikkia vielä.",
     "searchPlaceholder": "Hae suosikkiaterioita",
-    "searchEmptyTitle": "Hakusi ei tuottanut suosikkeja",
+    "searchEmptyTitle": "Hakusi ei vastaa yhtään suosikkia",
     "searchEmptySubtitle": "Kokeile toista aterian nimeä, määrää tai ateriatyyppiä.",
-    "sortLabel": "Järjestä suosikit",
+    "sortLabel": "Lajittele suosikit",
     "undo": "Kumoa",
     "removed": "Poistettiin {name} suosikeista",
     "sortOptions": {
-      "recent": "Uusimmat",
+      "recent": "Viimeisimmät",
       "calories": "Kalorit",
       "alphabetical": "A–Ö"
     }
@@ -346,11 +346,11 @@
     "title": "Profiili",
     "noProfileData": "Profiilitietoja ei löytynyt",
     "yourProfile": "Profiilisi",
-    "viewAndManage": "Näytä ja hallitse terveystietojasi",
+    "viewAndManage": "Katso ja hallinnoi terveystietojasi",
     "sections": {
       "profile": "PROFIILI",
       "basicInformation": "PERUSTIEDOT",
-      "goalsAndActivity": "TAVOITTEET JA AKTIIVISUUS",
+      "goalsAndActivity": "TAVOITTEET & AKTIVITEETTI",
       "calculatedValues": "LASKETUT ARVOT"
     },
     "gender": "Sukupuoli",
@@ -367,15 +367,15 @@
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Päivätavoite",
-      "calPerDay": "kcal/vrk",
+      "dailyGoal": "Päivittäinen tavoite",
+      "calPerDay": "kal/pv",
       "notAvailable": "Ei saatavilla"
     }
   },
   "healthScore": {
-    "title": "Terveysarvio",
-    "whyThisScore": "Miksi tämä arvosana?",
-    "note": "Tämä pisteytys on tekoälyn arvio tunnistetuista ainesosista ja ravintotiheydestä. Käänny aina ammattilaisen puoleen henkilökohtaista ravinto-ohjausta varten.",
+    "title": "Terveysarvo",
+    "whyThisScore": "Miksi tämä arvo?",
+    "note": "Tämä arvio on AI-arvio tunnistettujen ainesosien ja ravintotiheyden perusteella. Kysy aina ammattilaiselta henkilökohtaista ravitsemusneuvontaa.",
     "unhealthy": "Epäterveellinen",
     "healthy": "Terveellinen",
     "neutral": "Neutraali"
@@ -384,8 +384,8 @@
     "title": "Muokkaa profiilia",
     "sections": {
       "personalInformation": "HENKILÖTIEDOT",
-      "physicalMeasurements": "FYYSISET MITAT",
-      "goalsAndActivity": "TAVOITTEET JA AKTIIVISUUS"
+      "physicalMeasurements": "KEHON MITAT",
+      "goalsAndActivity": "TAVOITTEET & AKTIVITEETTI"
     },
     "gender": "Sukupuoli",
     "dateOfBirth": "Syntymäaika",
@@ -410,38 +410,38 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Laihdu",
-        "description": "Luo kalorivaje laihtuaksesi"
+        "name": "Läihtyminen",
+        "description": "Luo kalorivajetta laihtumista varten"
       },
       "maintainWeight": {
-        "name": "Ylläpidä paino",
-        "description": "Ylläpidä nykyinen painosi"
+        "name": "Säilytä paino",
+        "description": "Säilytä nykyinen painosi"
       },
       "gainWeight": {
-        "name": "Nosta painoa",
-        "description": "Luo kaloriylijäämä painon nostamiseksi"
+        "name": "Lisää painoa",
+        "description": "Luo kaloriylijäämä painon lisäämiseksi"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Vähäinen aktiivisuus",
+        "name": "Vähän liikkuva",
         "description": "Vähän tai ei lainkaan liikuntaa"
       },
       "lightlyActive": {
-        "name": "Kevyen aktiivinen",
-        "description": "Kevyttä liikuntaa 1–3 päivää/viikko"
+        "name": "Kevyesti aktiivinen",
+        "description": "Kevyt liikunta 1–3 päivää/viikko"
       },
       "moderatelyActive": {
-        "name": "Kohtalaisen aktiivinen",
-        "description": "Kohtalaista liikuntaa 3–5 päivää/viikko"
+        "name": "Kohtalaisesti aktiivinen",
+        "description": "Kohtalainen liikunta 3–5 päivää/viikko"
       },
       "veryActive": {
         "name": "Erittäin aktiivinen",
-        "description": "Raskasta liikuntaa 6–7 päivää/viikko"
+        "description": "Rankka liikunta 6–7 päivää/viikko"
       },
       "extremelyActive": {
-        "name": "Äärimmäisen aktiivinen",
-        "description": "Erittäin raskasta liikuntaa, fyysinen työ"
+        "name": "Erittäin intensiivinen",
+        "description": "Todella raskas liikunta tai fyysinen työ"
       }
     }
   },
@@ -449,33 +449,33 @@
     "title": "Asetukset",
     "sections": {
       "profile": "PROFIILI",
-      "localization": "KIELI JA ALUE",
+      "localization": "LOKALISAATIO",
       "notifications": "ILMOITUKSET",
       "healthConnect": "HEALTH CONNECT",
-      "supportAndLegal": "TUKI JA OIKEUDELLISET",
-      "about": "TIETOJA",
-      "dangerZone": "VAARA-ALUE",
+      "supportAndLegal": "TUKI & LAINSÄÄDÄNTÖ",
+      "about": "TIETOA",
+      "dangerZone": "VAIKUTUSALUE",
       "developer": "KEHITTÄJÄ"
     },
     "editProfile": {
       "title": "Muokkaa profiilia",
-      "subtitle": "Päivitä henkilötietosi"
+      "subtitle": "Päivitä henkilökohtaiset tietosi"
     },
     "language": {
       "title": "Kieli",
-      "subtitle": "Valitse ensisijainen kielesi",
+      "subtitle": "Valitse haluamasi kieli",
       "searchHint": "Hae kieliä...",
       "noResults": "Ei tuloksia"
     },
     "heightUnit": {
-      "title": "Pituuden yksikkö"
+      "title": "Pituusyksikkö"
     },
     "weightUnit": {
-      "title": "Painon yksikkö"
+      "title": "Painoyksikkö"
     },
     "mealReminders": {
       "title": "Ateriamuistutukset",
-      "subtitle": "Pysy raiteilla ajantasaisilla muistutuksilla"
+      "subtitle": "Pysy raiteilla ajankohtaisilla muistutuksilla"
     },
     "theme": {
       "title": "Teema",
@@ -485,105 +485,105 @@
     },
     "sendFeedback": {
       "title": "Lähetä palautetta",
-      "subtitle": "Auta meitä parantamaan {appLabel}-sovellusta",
-      "emailSubject": "{appLabel}-sovelluksen palaute",
-      "emailBodyPrefix": "Anna palautteesi alle:",
-      "appVersion": "Sovellusversio",
+      "subtitle": "Auta parantamaan {appLabel}",
+      "emailSubject": "{appLabel} - Sovelluspalaute",
+      "emailBodyPrefix": "Anna palautteesi alla:",
+      "appVersion": "Sovelluksen versio",
       "device": "Laite",
       "osVersion": "Käyttöjärjestelmäversio",
       "uid": "UID"
     },
     "exportMealHistory": {
-      "title": "Vie ateriahistoria",
-      "subtitle": "Jaa CSV kirjatuista aterioistasi",
-      "shareText": "Your Calorify meal history export",
-      "failed": "Ateriahistorian vienti epäonnistui: {error}"
+      "title": "Vie ateriakirja",
+      "subtitle": "Jaa CSV tiedosto kirjatuista aterioistasi",
+      "shareText": "Calorify meal history export",
+      "failed": "Ateriakirjan vieminen epäonnistui: {error}"
     },
     "clearAllData": {
       "title": "Tyhjennä kaikki tiedot",
       "subtitle": "Poista kaikki tietosi peruuttamattomasti",
       "confirmationTitle": "Tyhjennetäänkö kaikki tiedot?",
-      "confirmationMessage": "Tätä toimintoa ei voi perua. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.",
+      "confirmationMessage": "Tätä toimenpidettä ei voi peruuttaa. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.",
       "cancel": "Peruuta",
       "clearEverything": "Tyhjennä kaikki"
     },
     "debugOptions": {
-      "title": "Vianjäljitysasetukset"
+      "title": "Debug-asetukset"
     },
     "developerModeEnabled": "Kehittäjätila käytössä!",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "Näytä ja hallitse käyttöoikeuksia",
+      "subtitle": "Katso ja hallinnoi käyttöoikeuksia",
       "unavailable": {
-        "title": "Health Connect ei ole saatavilla",
-        "description": "Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan."
+        "title": "Health Connect ei saatavilla",
+        "description": "Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan."
       },
       "permissions": {
-        "title": "Käyttöluvat",
-        "description": "Seuraavia lupia pyydetään Health Connect -integraation tarjoamiseksi:",
+        "title": "Oikeudet",
+        "description": "Seuraavia oikeuksia pyydetään tarjotaksemme Health Connect -integraation:",
         "granted": "Myönnetty",
         "notGranted": "Ei myönnetty",
         "caloriesBurned": {
-          "title": "Lue poltetut kalorit yhteensä",
-          "description": "Mahdollistaa sovelluksen lukea Health Connectista kokonaistason poltetut kalorit.",
-          "usage": "Tätä lupaa käytetään näyttämään päivittäinen kalorinkulutuksesi sovelluksessa, jotta ymmärrät kokonaisenergiankulutuksesi päivän aikana."
+          "title": "Lue poltetut kokonaiskalorit",
+          "description": "Antaa sovellukselle luvan lukea Health Connectista polttamasi kokonaiskalorit.",
+          "usage": "Tätä käyttöoikeutta käytetään näyttämään päivittäinen kalorinkulutuksesi sovelluksessa, jotta ymmärrät kokonaissähkönkulutuksesi päivän aikana."
         },
         "nutritionRead": {
-          "title": "Lue ravitsemustiedot",
-          "description": "Mahdollistaa sovelluksen lukea ravitsemustietoja Health Connectista.",
-          "usage": "Tämän luvan avulla sovellus voi lukea ravintotietoja, joita muut Health Connectiin yhdistetyt sovellukset ovat kirjanneet, tarjoten kattavan näkymän ravitsemukseesi."
+          "title": "Lue ravintotiedot",
+          "description": "Antaa sovellukselle luvan lukea ravintotietoja Health Connectista.",
+          "usage": "Tämä oikeus sallii sovelluksen lukea muiden Health Connectiin yhdistettyjen sovellusten kirjaamia ravintotietoja ja tarjoaa kattavamman kuvan ravinnostasi."
         },
         "nutritionWrite": {
-          "title": "Kirjoita ravitsemustietoja",
-          "description": "Mahdollistaa sovelluksen kirjoittaa ravitsemustietoja Health Connectiin.",
-          "usage": "Tämän luvan avulla sovellus synkkaa kirjatut ateriasi Health Connectiin, jolloin ravintotietosi ovat käytettävissä muissa käyttämissäsi terveys- ja kuntosovelluksissa."
+          "title": "Kirjoita ravintotietoja",
+          "description": "Antaa sovellukselle luvan kirjoittaa ravintotietoja Health Connectiin.",
+          "usage": "Tämä oikeus sallii sovelluksen synkronoida kirjauksesi Health Connectiin, jolloin ravintotietosi ovat muiden käyttämiesi terveys- ja kuntoilussovellusten saatavilla."
         }
       },
       "managePermissions": "Hallitse käyttöoikeuksia",
       "openSettings": "Avaa Health Connect -asetukset",
-      "requestPermissions": "Pyydä käyttöoikeuksia",
-      "permissionRequestCancelledOrFailed": "Käyttöoikeuspyyntö peruttiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connect -asetuksissa.",
-      "permissionRequestFailed": "Käyttöoikeuksien pyytäminen ei onnistu. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connect -asetuksissa.",
+      "requestPermissions": "Pyydä oikeuksia",
+      "permissionRequestCancelledOrFailed": "Käyttöoikeuspyyntö keskeytettiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.",
+      "permissionRequestFailed": "Oikeuspyyntöä ei voitu lähettää. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.",
       "requestingPermissions": "Pyydetään..."
     },
     "about": {
-      "title": "Tietoja",
-      "tagline": "Nopea, ilmainen ja yksityisyyttä kunnioittava kalorivalmennus",
+      "title": "Tietoa",
+      "tagline": "Nopea, ilmainen ja tietosuoja etusijalla oleva kaloritehokkuus",
       "ourStory": {
-        "title": "Tarina",
-        "content": "{appLabel} syntyi yksinkertaisesta turhautumisesta: useimmat kaloriseurantasovellukset ovat joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttöä, perivät korkeat tilausmaksut tai tinkivät yksityisyydestä.\n\nYksin kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja reilumpaa — sovelluksen, joka hyödyntää tekoälyä vaivannäön vähentämiseksi, pysyy nopeana ja ilmaisena sekä kohtelee terveystietojasi kunnioittavasti.\n\n{appLabel} on sovellus, jonka olisin itse halunnut: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja terveytesi tukemista."
+        "title": "Tarinaamme",
+        "content": "{appLabel} syntyi yksinkertaisesta turhautumisesta: useimmat kaloriseurantasovellukset ovat joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttöä, veloittavat suuria tilausmaksuja tai vaarantavat yksityisyyden.\n\nYksittäisenä kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja reilumpaa — sovelluksen, joka käyttää AI:ta vähentääkseen vaivaa, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioittavasti.\n\n{appLabel} on sovellus, jonka toivoisin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä näkemyksiä ja sinun terveystavoitteesi."
       },
       "privacy": {
         "title": "Yksityisyytesi on tärkeä",
-        "description": "Yksityisyys ei ole jälkiajatus — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:",
-        "noAccounts": "Ei tilejä tarpeen\nKäytä sovellusta heti. Ei rekisteröitymisiä, ei henkilöllisyyksiä.",
-        "noTracking": "Ei käyttäytymisen seurantaa\n{appLabel} ei seuraa toimintaasi, laadi käyttötapaprofiileja tai seuraa sinua sovellusten tai verkkosivustojen välillä.",
-        "noAds": "Ei mainoksia suunnittelusta lähtien\n{appLabel} on rakennettu toimimaan ilman mainoksia tai datavetoista kaupallistamista.",
-        "noDataSelling": "Ei tietojen myyntiä\nTerveysdataasi ei koskaan myydä tai jaeta kolmansille osapuolille.",
-        "localStorage": "Lokaali tallennus ensin\nTietosi pysyvät laitteellasi.",
+        "description": "Yksityisyys ei ole harkinnanvarainen lisä — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:",
+        "noAccounts": "Ei tilejä vaadita\nKäytä sovellusta välittömästi. Ei kirjautumisia, ei identiteettejä.",
+        "noTracking": "Ei käytöksen seurantaa\n{appLabel} ei seuraa toimintaasi, rakenna käyttötottumuksia tai seuraa sinua sovellusten tai verkkosivujen välillä.",
+        "noAds": "Mainokseton suunnittelu\n{appLabel} on rakennettu toimimaan ilman mainoksia tai dataperusteista rahastusta.",
+        "noDataSelling": "Ei datan myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.",
+        "localStorage": "Laitteella ensisijaisesti tallennus\nTietosi säilyvät laitteellasi.",
         "privacyPolicy": "Tietosuojakäytäntö"
       },
       "developer": {
         "title": "Rakennettu yksinkehittäjän toimesta",
-        "description": "{appLabel} on yhden kehittäjän rakentama ja ylläpitämä, keskittyen rauhalliseen, yksityisyyttä kunnioittavaan terveysteknologiaan.\n\nPalaute luetaan henkilökohtaisesti ja se ohjaa sovelluksen suuntaa.",
+        "description": "{appLabel} on rakennettu ja ylläpidetty yhden kehittäjän toimesta, joka keskittyy rauhalliseen, yksityisyyttä kunnioittavaan terveysohjelmistoon.\n\nPalaute luetaan henkilökohtaisesti ja auttaa muovaamaan sovelluksen kehityssuuntaa.",
         "website": "Verkkosivusto",
         "email": "Sähköposti"
       },
       "feedback": {
-        "title": "Pidätkö {appLabel}-sovelluksesta?",
-        "description": "Palautteesi auttaa tekemään {appLabel}-sovelluksesta paremman kaikille.",
+        "title": "Pidätkö {appLabel}:sta?",
+        "description": "Palautteesi auttaa tekemään {appLabel}:sta parempaa kaikille.",
         "rateApp": "Arvostele Play Storessa",
-        "sendFeedback": "Lähetä palautetta"
+        "sendFeedback": "Lähetä palaute"
       }
     },
     "appInfo": {
       "version": "Calorify v{version}",
-      "build": "Koontiversio {buildNumber}"
+      "build": "Koonti {buildNumber}"
     }
   },
   "reminders": {
-    "title": "Pysy raiteilla muistutusten avulla",
-    "description": "Saat lempeitä muistutuksia aterioiden kirjaamiseen ja pysyt johdonmukaisena ravintotavoitteidesi kanssa",
+    "title": "Pysy raiteilla muistutuksilla",
+    "description": "Saat lempeitä muistutuksia kirjataksesi ateriasi ja pysyäksesi johdonmukaisena ravintotavoissasi",
     "notificationsEnabled": "Ilmoitukset käytössä",
     "notificationsDisabled": "Ilmoitukset pois käytöstä",
     "enabledSubtitle": "Saat ateriamuistutuksia",
@@ -594,23 +594,23 @@
     "dinner": "Päivällinen",
     "snack": "Välipala",
     "unknown": "Tuntematon",
-    "change": "Muuta",
+    "change": "Vaihda",
     "enableNotifications": "Ota ilmoitukset käyttöön",
-    "skipForNow": "Ohita toistaiseksi",
+    "skipForNow": "Ohita nyt",
     "saveChanges": "Tallenna muutokset",
-    "enabledSuccessfully": "Ilmoitukset otettiin käyttöön onnistuneesti!",
-    "permissionDenied": "Ilmoituslupa evätty",
-    "errorEnabling": "Virhe ilmoitusten käyttöönotossa: {error}",
+    "enabledSuccessfully": "Ilmoitukset otettu käyttöön onnistuneesti!",
+    "permissionDenied": "Ilmoitusoikeus evätty",
+    "errorEnabling": "Virhe ilmoitusten ottamisessa käyttöön: {error}",
     "errorCompletingSetup": "Virhe asetusten viimeistelyssä: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Aamiaisaika! 🍳",
+      "title": "Aamupala-aika! 🍳",
       "body": "Muista kirjata aamiaisesi"
     },
     "lunch": {
       "title": "Lounasaika! 🥗",
-      "body": "On aika kirjata lounaasi"
+      "body": "On aika kirjata lounas"
     },
     "dinner": {
       "title": "Päivällisaika! 🍽️",
@@ -630,71 +630,71 @@
     "signInFailed": "Google-kirjautuminen epäonnistui tai peruttiin."
   },
   "disclaimer": {
-    "pleaseNote": "Huomio",
+    "pleaseNote": "Huomioithan",
     "snap": {
-      "description": "{appLabel} tarjoaa arvioidut ravintoarvot. Tarkkuus riippuu syötteestäsi ja ruoan vaihtelusta. Käytä ohjenuorana, ei lopullisena lähteenä. Käänny ammattilaisen puoleen henkilökohtaista ravinto-ohjausta varten.",
+      "description": "{appLabel} antaa arvioidut ravintoarvot. Tarkkuus riippuu antamistasi tiedoista ja ruokien vaihteluista. Käytä ohjeellisena, ei lopullisena tietolähteenä. Kysy henkilökohtaista ravitsemusneuvontaa ammattilaiselta.",
       "portionSize": {
         "title": "Annoskoko",
-        "description": "Arvioiden tarkkuus riippuu vahvasti annoskoon oikeasta arviostasi."
+        "description": "Arvioiden tarkkuus perustuu pitkälti oikeaan annoskoon arviointiisi."
       },
       "preparationMethods": {
         "title": "Valmistustavat",
-        "description": "Ruoanvalmistus voi muuttaa ravintosisältöä merkittävästi. {appLabel}:n arviot eivät aina huomioi kaikkia vaihteluita."
+        "description": "Ruokien valmistustavat voivat merkittävästi muuttaa ravintoarvoja. {appLabel}in arviot eivät aina huomioi näitä eroja."
       },
       "ingredients": {
         "title": "Ainesosat",
-        "description": "Monimutkaiset ruoat, joissa on paljon piiloainesosia, voivat johtaa epätarkempiin arvioihin."
+        "description": "Monimutkaiset ruoat, joissa on paljon piilotettuja ainesosia, saattavat johtaa epätarkempiin arvioihin."
       },
       "databaseLimitations": {
-        "title": "Tietokannan rajoitukset",
-        "description": "{appLabel}:n ruokakanta on laaja, mutta ei välttämättä sisällä jokaista ruoka-ainetta tai variaatiota."
+        "title": "Tietokantaan liittyvät rajoitukset",
+        "description": "{appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota."
       }
     },
     "weightEstimate": {
       "title": "Tietoa painoarviosta",
-      "description": "Arvioitu painonmuutos perustuu teoreettiseen malliimme kalorit sisään vs. kalorit ulos. Se on tarkoitettu vain motivaatioksi, ei todellisen painon ennusteeksi.",
+      "description": "Projektio painonmuutoksesta on teoreettinen arvio perustuen yksinkertaiseen kalorien sisään vs. ulos -malliin. Se on tarkoitettu motivoivaksi ohjaukseksi, ei ennusteeksi todellisesta painostasi.",
       "calorieAccuracy": {
-        "title": "Kalorilukemien tarkkuus",
-        "description": "Tämä arvio on yhtä tarkka kuin kirjaamasi kalorien saanti ja kulutus. Epätarkat merkinnät tuottavat epätarkan arvion."
+        "title": "Kalorien tarkkuus",
+        "description": "Tämä arvio on yhtä tarkka kuin kirjaamiesi kulutus- ja polttoarvioiden tarkkuus. Virheellinen kirjaaminen johtaa virheelliseen ennusteeseen."
       },
       "biologicalFactors": {
         "title": "Biologiset tekijät",
-        "description": "Todelliseen painonmuutokseen vaikuttavat aineenvaihdunta, hormonit, uni, stressi, nesteytys ja muut yksilölliset tekijät, joita {appLabel} ei voi mitata."
+        "description": "Todellinen laihtuminen/lihastus riippuu aineenvaihdunnasta, hormoneista, unesta, stressistä, nesteytyksestä ja muista yksilöllisistä tekijöistä, joita {appLabel} ei voi mitata."
       },
       "waterWeight": {
-        "title": "Nestetasapaino ja vaihtelut",
-        "description": "Päivittäinen paino voi vaihdella merkittävästi veden kertymisen, ruoansulatuksen ja ajoituksen vuoksi. Arvio ei huomioi näitä vaihteluita."
+        "title": "Veden paino & vaihtelut",
+        "description": "Normaali päiväkohtainen paino voi vaihdella merkittävästi vedenpidätyksen, ruoansulatuksen ja ajankohdan vuoksi. Arvio ei ota huomioon näitä päivittäisiä vaihteluita."
       },
       "professionalGuidance": {
-        "title": "Ammattilaisen ohjeistus",
-        "description": "Älä tee tämän arvion perusteella lääketieteellisiä päätöksiä. Käänny aina terveydenhuollon ammattilaisen tai ravitsemusterapeutin puoleen."
+        "title": "Ammatillinen ohjaus",
+        "description": "Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta."
       }
     },
     "healthMetrics": {
-      "description": "Nämä mittarit auttavat sinua ymmärtämään kehosi energiantarvetta ja ohjaavat ravintotavoitteitasi.",
+      "description": "Nämä mittarit auttavat ymmärtämään kehosi energiantarpeita ja ohjaavat ravitsemustavoitteitasi.",
       "bmr": {
         "title": "BMR",
-        "description": "Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi kuluttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi kuluttaa levossa luonnostaan enemmän kaloreita, usein suuremman lihasmassan, nuoremman iän tai miehen sukupuolen vuoksi. Matalampi BMR viittaa tyypillisesti pienempään lihasmassaan, vanhempaan ikään tai naisen sukupuoleen."
+        "description": "Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi polttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi polttaa luonnollisesti enemmän kaloreita levossa, usein enemmän lihasmassan, nuoren iän tai miehisyyden takia. Alhaisempi BMR viittaa yleensä vähäisempään lihasmassan määrään, korkeampaan ikään tai naiseuteen."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Päivittäinen kokonaisenergiankulutus (TDEE) on kokonaiskalorimäärä, jonka kulutat päivässä, mukaan lukien BMR sekä fyysisen aktiivisuuden ja päivittäisen liikkumisen kulutus. TDEE riippuu BMR-arvostasi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että kulutat kokonaisuudessaan enemmän kaloreita, yleensä koska olet aktiivisempi tai BMR-arvosi on korkeampi. Matalampi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai alempaan BMR:ään."
+        "description": "Kokonaispäivittäinen energiankulutus (TDEE) on päivittäinen kalorimäärä, jonka poltat, ja siihen sisältyy BMR sekä liikunnasta ja päivittäisestä liikkumisesta poltetut kalorit. TDEE riippuu BMR:stäsi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että poltat enemmän kaloreita kokonaisuudessaan, yleensä aktiivisuuden tai korkeamman BMR:n vuoksi. Alhaisempi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai matalampaan BMR:ään."
       },
       "dailyGoal": {
         "title": "Päivittäinen tavoite",
-        "description": "Päivittäinen tavoite on suositeltu päivittäinen kalorinsaanti TDEE-arvosi ja painotavoitteesi perusteella. Painonpudotuksessa syöt vähemmän kaloreita kuin TDEE-arvosi. Painon ylläpidossa kalorien saanti vastaa TDEE-arvoasi. Painonnousussa syöt enemmän kaloreita kuin TDEE-arvosi. Tämä auttaa saavuttamaan toivotun painonmuutoksen terveellisessä tahdissa."
+        "description": "Päivittäinen tavoite on suositeltu päivittäinen kalorinsaantisi TDEE:si ja painotavoitteesi perusteella. Laihduttaessa kulutat vähemmän kaloreita kuin TDEE. Painon ylläpitämiseksi vastaat TDEE:tä. Painon nostamiseksi kulutat enemmän kaloreita kuin TDEE. Tämä auttaa sinua saavuttamaan halutun painon muutoksen terveellisellä tahdilla."
       }
     },
     "calorieExpenditure": {
-      "title": "Kalorien kulutuksen arvio",
-      "description": "Kun Health Connect -tietoja ei ole saatavilla, arvioimme tämän päivän kulutetut kalorit perusaineenvaihdunnan (BMR) ja aktiivisuustason (TDEE) perusteella, skaalattuna kuluneen päivän osuuden mukaan.",
+      "title": "Arvio kalorinkulutuksesta",
+      "description": "Kun Health Connect -data ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttäen perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalaamalla sen kuluneen päivän osuuden mukaan.",
       "howCalculated": {
         "title": "Miten arvio lasketaan",
-        "description": "Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä kulutetut kalorit."
+        "description": "Laskemme TDEE:si (profiilisi perusteella) ja kerromme sen kuluneen päivän osuudella (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit."
       },
       "professionalGuidance": {
-        "title": "Ammattilaisen ohjeistus",
-        "description": "Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Käänny aina terveydenhuollon ammattilaisen tai laillistetun ravitsemusterapeutin puoleen saadaksesi yksilöllisiä neuvoja painonhallintaan."
+        "title": "Ammatillinen ohjaus",
+        "description": "Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta."
       }
     }
   },
@@ -703,24 +703,24 @@
     "continue": "Jatka"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Pidätkö {appLabel}-sovelluksesta?",
+    "enjoyingQuestion": "Pidätkö {appLabel}:sta?",
     "yes": "Kyllä, pidän siitä",
-    "no": "En oikein",
+    "no": "En oikeastaan",
     "rateStepHeading": "Arvostele Play Storessa",
-    "emailStepHeading": "Lähetä palautetta sähköpostilla",
-    "soloDevMessage": "Nopea arvostelu auttaa muita löytämään {appLabel}-sovelluksen ja pitää kehityksen käynnissä. Voisitko jättää sellaisen?",
-    "shareFeedbackViaEmail": "Palautteesi ohjaa seuraavia askeleita — luemme jokaisen viestin. Haluaisitko jakaa ajatuksiasi sähköpostitse?",
+    "emailStepHeading": "Lähetä palaute sähköpostilla",
+    "soloDevMessage": "Pikainen arvostelu auttaa muita löytämään {appLabel}:n ja pitää kehitystyön käynnissä. Voisitko hetken jättää arvion?",
+    "shareFeedbackViaEmail": "Palautteesi muokkaa tulevaa — luemme jokaisen viestin. Haluatko jakaa ajatuksesi sähköpostilla?",
     "rateCta": "Arvostele Play Storessa",
     "maybeLater": "Ehkä myöhemmin",
-    "sendFeedback": "Lähetä palautetta",
+    "sendFeedback": "Lähetä palaute",
     "noThanks": "Ei kiitos",
-    "aboutUsDescription": "Pienen tiimin huolella tekemä. Keskitymme yksityisyyteen, yksinkertaisuuteen ja parempien ruokailutottumusten rakentamiseen.",
-    "aboutUsMentionBeforeLink": "Kiinnostaako, kuka {appLabel}:n takana on? Katso ",
+    "aboutUsDescription": "Tehty huolella pienellä tiimillä. Keskitymme yksityisyyteen, yksinkertaisuuteen ja auttamaan sinua kehittämään parempia ruokailutottumuksia.",
+    "aboutUsMentionBeforeLink": "Kiinnostaa kuka {appLabel}:n takana on? Katso ",
     "aboutUsLinkLabel": "Tietoa meistä",
-    "thankYouMessage": "Kiitos! Kysymme uudelleen toisen kerran."
+    "thankYouMessage": "Kiitos! Kysymme taas myöhemmin."
   },
   "health": {
-    "syncFailed": "Synkkaus Health Connectiin epäonnistui",
+    "syncFailed": "Synkronointi Health Connectiin epäonnistui",
     "mealSynced": "Ateria synkattu Health Connectiin"
   }
 }

@@ -1,36 +1,36 @@
 {
-  "language": "中文（中国）",
+  "language": "简体中文",
   "flag": "🇨🇳",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "你的请求太频繁了。请稍等片刻再试。",
+    "rateLimitExceeded": "请求过多。请稍候再试。",
     "networkError": "网络错误。请检查你的网络连接。",
-    "unknownError": "出了点问题。请稍后再试。",
-    "loadingProfileData": "加载资料数据出错",
-    "somethingWentWrong": "出了点问题。",
+    "unknownError": "出现问题。请稍后再试。",
+    "loadingProfileData": "加载个人资料数据时出错",
+    "somethingWentWrong": "出现问题。",
     "retry": "重试"
   },
   "onboarding": {
     "welcome": "欢迎使用 {appLabel}",
-    "subtitle": "由 AI 驱动的个人营养助手",
+    "subtitle": "由 AI 驱动的你的专属营养助手",
     "getStarted": "开始使用",
     "features": {
       "foodRecognition": {
         "title": "智能食物识别",
-        "description": "拍张照片，让 AI 识别你的餐食"
+        "description": "拍张照片，让 AI 识别你的餐点"
       },
       "aiAnalysis": {
         "title": "AI 分析",
-        "description": "根据你的描述即时获取营养数据"
+        "description": "从你的描述中即时获得营养信息"
       },
       "healthIntegration": {
-        "title": "健康连接",
-        "description": "连接 Health Connect 获取更深入的洞察"
+        "title": "健康数据集成",
+        "description": "连接 Health Connect 获取更全面的洞察"
       }
     },
     "gender": {
       "title": "你的性别是？",
-      "description": "性别有助于我们准确计算你的基础代谢率（BMR）。",
+      "description": "性别有助于我们更准确地计算你的基础代谢率 (BMR)。",
       "next": "下一步"
     },
     "height": {
@@ -41,40 +41,40 @@
       "next": "下一步"
     },
     "weight": {
-      "currentTitle": "你目前的体重是多少？",
-      "currentDescription": "当前体重对于个性化你的每日目标至关重要。",
+      "currentTitle": "你当前的体重是多少？",
+      "currentDescription": "你的当前体重对于个性化每日目标至关重要。",
       "targetTitle": "你的目标体重是多少？",
-      "targetDescription": "设定目标体重有助于我们制定长期计划。",
+      "targetDescription": "设定目标体重可以帮助我们为你制定长期计划。",
       "metric": "公制",
       "imperial": "英制",
       "next": "下一步"
     },
     "age": {
-      "title": "你的生日是？",
-      "description": "你的年龄有助于我们准确计算你的卡路里需求。",
+      "title": "你的出生日期是？",
+      "description": "你的年龄有助于我们准确计算所需热量。",
       "next": "下一步"
     },
     "bmiScale": {
       "underweight": "偏低",
       "healthy": "健康",
-      "overweight": "偏高",
+      "overweight": "偏重",
       "obese": "肥胖",
       "categories": {
-        "underweight": "体重过低",
+        "underweight": "体重偏低",
         "healthyWeight": "健康体重",
         "overweight": "超重",
         "obese": "肥胖"
       },
       "messages": {
-        "underweight": "我们可以帮助你通过营养密度更高的饮食，建立健康的增重计划，达到均衡体重。",
-        "healthy": "做得很好！你的数值在健康范围内。我们将帮助你保持活力与精力。",
-        "overweight": "{appLabel} 将通过 AI 驱动的追踪简化你的旅程，助你更舒适地达成目标。",
-        "obese": "我们会以个性化指导和可持续策略，支持你的健康目标。"
+        "underweight": "我们可以帮助你制定健康计划，通过富含营养的餐食达到更平衡的体重。",
+        "healthy": "做得很好！你处于健康范围内。我们会帮助你维持活力与能量。",
+        "overweight": "{appLabel} 会用 AI 化简你的过程，帮助你舒适地接近目标体重。",
+        "obese": "我们会为你提供个性化支持和可持续的健康策略，陪伴你的目标实现。"
       }
     },
     "weightGoal": {
       "title": "你的目标是什么？",
-      "description": "选择最能描述你想达成目标的选项"
+      "description": "选择最符合你想实现目标的选项"
     },
     "activityLevel": {
       "title": "你的日常活动量如何？",
@@ -82,55 +82,55 @@
     },
     "healthConnect": {
       "title": "连接 Health Connect",
-      "description": "同步你的健康数据，获得更深入的洞察与自动卡路里追踪",
+      "description": "同步你的健康数据以获得更佳洞察与自动卡路里追踪",
       "automaticTracking": {
         "title": "自动卡路里追踪",
-        "description": "从你的健身应用中获取消耗数据"
+        "description": "追踪来自你健身应用的消耗卡路里"
       },
       "progressInsights": {
         "title": "进度洞察",
-        "description": "获得更详细的健康趋势分析"
+        "description": "获取关于你健康趋势的详细洞察"
       },
       "seamlessIntegration": {
         "title": "无缝集成",
-        "description": "从你常用的健康应用同步数据"
+        "description": "从你喜欢的健康应用同步数据"
       },
       "connected": "已连接 Health Connect",
       "notConnected": "未连接 Health Connect",
       "setup": "设置 Health Connect",
-      "skipForNow": "暂时跳过",
+      "skipForNow": "暂不连接",
       "statusConnected": "Health Connect 已连接。",
-      "statusSuccess": "Health Connect 已成功连接！",
+      "statusSuccess": "已成功连接 Health Connect！",
       "statusPermissionDenied": "权限被拒绝。请在手机设置中为 {appLabel} 启用 Health Connect 权限。",
-      "statusError": "设置 Health Connect 出错：{error}"
+      "statusError": "设置 Health Connect 时出错：{error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "你并不孤单",
-        "genericMessage": "研究表明，坚持记录是长期成功的首要预测因素。",
-        "personalizedMessage": "对于一位 {age} 岁、性别为 {gender}、目标是 {goal} 的用户，坚持记录是成功的首要预测因素。",
-        "closingMessage": "{appLabel} 让这一切比手动记录轻松 10 倍。",
+        "genericMessage": "研究显示，持续记录是长期成功的头号预测因素。",
+        "personalizedMessage": "对于一位 {age} 岁的 {gender} 希望 {goal}，持续记录是成功的头号预测因素。",
+        "closingMessage": "{appLabel} 让这项工作比手动操作容易 10 倍。",
         "getStartedTitle": "准备好开始了吗？",
-        "tipPhoto": "拍下你的餐食即可即时分析",
-        "tipConsistency": "持续记录，收获有意义的进步",
-        "tipProgress": "每日跟踪你的进展以保持动力",
+        "tipPhoto": "拍摄餐点照片以获得即时分析",
+        "tipConsistency": "持续记录以看到有意义的进展",
+        "tipProgress": "每天跟踪进展以保持动力",
         "button": "开始吧",
         "defaultGender": "个人",
         "defaultGoal": "更健康的你"
       },
       "healthProfile": {
         "title": "你的健康档案",
-        "bmiDescription": "根据你的数据，BMI 为 {bmi}。",
-        "finalizeDescription": "让我们完成你的资料，以便个性化你的体验。",
-        "goalGain": "增重",
-        "goalLose": "减重",
-        "goalReach": "要达到你的目标，你需要{direction}{diff}{unit}。",
-        "goalReached": "你已到达目标体重！我们会帮助你保持它。",
+        "bmiDescription": "根据你的指标，你的 BMI 为 {bmi}。",
+        "finalizeDescription": "让我们完成你的档案以定制你的体验。",
+        "goalGain": "增加",
+        "goalLose": "减少",
+        "goalReach": "为达到目标，你需要{direction}{diff}{unit}。",
+        "goalReached": "你已达到目标体重！我们会帮助你维持它。",
         "button": "开始吧"
       },
       "goalLifestyle": {
-        "title": "很棒的开始！",
-        "description": "你已迈出通往 {goalText} 的第一步。由于你{activityText}，{appLabel} 会调整你的目标以匹配你的生活方式。",
+        "title": "良好的开始！",
+        "description": "你已经迈出朝 {goalText} 的第一步。既然你是{activityText}，{appLabel} 会调整你的目标以匹配你的生活方式。",
         "personalizedTargets": "个性化卡路里目标",
         "aiMealDetection": "AI 驱动的餐食识别",
         "macroBreakdowns": "详细的宏量营养素分解",
@@ -141,50 +141,50 @@
     }
   },
   "tabs": {
-    "dashboard": "主页",
+    "dashboard": "仪表盘",
     "history": "历史"
   },
   "home": {
     "aiSummary": {
-      "title": "你的 AI 总结",
-      "logMore": "接下来几天多记录一些餐食，即可获得你的个性化 AI 洞察。",
-      "loading": "正在加载你的总结...",
-      "mealCount": "已记录 {count} 次用餐",
+      "title": "你的 AI 摘要",
+      "logMore": "在接下来的几天里多记录几餐，以获得个性化的 AI 洞察。",
+      "loading": "正在加载你的摘要...",
+      "mealCount": "已记录 {count} 餐",
       "macroBalanceScore": "平衡评分 {score}",
-      "topFoods": "常吃食物",
-      "trendUp": "卡路里上升趋势",
-      "trendDown": "卡路里下降趋势",
-      "trendSteady": "卡路里保持稳定",
-      "generatedAt": "已更新 {time}"
+      "topFoods": "常见食物",
+      "trendUp": "热量上升趋势",
+      "trendDown": "热量下降趋势",
+      "trendSteady": "热量保持稳定",
+      "generatedAt": "更新于 {time}"
     },
     "dailyGoal": {
       "title": "设定你的每日目标",
       "titleSet": "你的每日目标",
-      "description": "准备好开启健康之旅了吗？在下方设定你的每日卡路里目标来启动进程。",
-      "descriptionSet": "你的指南针已就位！这是引导你的每日卡路里目标。",
+      "description": "准备开始你的健康旅程吗？在下方设置你的每日卡路里目标以开启进步。",
+      "descriptionSet": "指南已设置！这是指引你的每日卡路里目标。",
       "yourGoal": "你的目标",
       "goal": "目标",
-      "dailyCalories": "每日卡路里（kcal）",
+      "dailyCalories": "每日卡路里 (kcal)",
       "setGoal": "设定目标",
       "intake": "摄入",
       "burned": "消耗",
-      "weightImpact": "对体重的影响",
-      "estLoss": "预估减少",
-      "estGain": "预估增加",
-      "kcal": "千卡"
+      "weightImpact": "体重影响",
+      "estLoss": "预计减少",
+      "estGain": "预计增加",
+      "kcal": "千卡 (kcal)"
     },
     "dailySummary": {
-      "title": "每日总结",
+      "title": "每日汇总",
       "calories": "卡路里",
       "carbs": "碳水",
       "protein": "蛋白质",
       "fat": "脂肪",
-      "fiber": "膳食纤维",
+      "fiber": "纤维",
       "grams": "克",
       "chartAccessibilityLabel": "宏量营养素图表"
     },
     "intakeProgress": {
-      "title": "今日宏量分布",
+      "title": "今日宏量分配",
       "target": "目标",
       "current": "当前"
     },
@@ -193,46 +193,46 @@
       "trendTitle": "今日趋势",
       "peakHour": "峰值：{hour}:00",
       "noHistoryYet": "暂无历史",
-      "startLogging": "开始记录用餐，以在此查看\n你的 7 天宏量趋势"
+      "startLogging": "开始记录餐食以在此查看你的\n7 天宏量趋势"
     },
     "mealLog": {
       "title": "已记录的餐食",
-      "emptyMessage": "拍下你上一次的餐食照片以在此记录。",
-      "noMealsToday": "今天暂无用餐记录",
-      "seeAllMeals": "查看全部餐食"
+      "emptyMessage": "拍下你最近的一餐照片以在此记录。",
+      "noMealsToday": "今日暂无记录的餐食",
+      "seeAllMeals": "查看所有餐食"
     },
     "mealDescription": {
       "title": "AI 快速添加",
       "description": "描述你的餐食，让 AI 处理细节。",
-      "hint": "例如：早餐我吃了一大碗燕麦粥，加了一根切片香蕉和一勺乳清蛋白粉 ...",
+      "hint": "例如：早餐我吃了一大碗燕麦粥，切了一根香蕉，加入一勺乳清蛋白……",
       "analyzeMeal": "分析餐食"
     },
     "favoriteMeals": {
-      "title": "常用餐食",
-      "description": "快速添加你的一道常用餐食。",
-      "noFavorites": "还没有常用餐食。",
-      "addFavoriteHint": "点击餐食上的星标将其设为常用。",
+      "title": "收藏餐食",
+      "description": "快速添加你收藏的餐食之一。",
+      "noFavorites": "还没有收藏的餐食。",
+      "addFavoriteHint": "点击餐食上的星标将其标为收藏。",
       "seeAll": "查看全部",
       "add": "添加"
     },
     "mealSnap": {
-      "title": "拍照并追踪你的餐食",
-      "description": "使用相机拍摄食物照片进行 AI 分析。",
+      "title": "拍照并记录餐食",
+      "description": "使用相机拍摄食物照片以进行 AI 分析。",
       "openCamera": "打开相机",
       "gallery": "相册",
-      "compressingPhoto": "正在优化照片…",
-      "uploadingPhoto": "正在上传照片…"
+      "compressingPhoto": "优化照片…",
+      "uploadingPhoto": "上传照片…"
     },
     "connectHealth": {
       "title": "与 Health Connect 同步",
-      "description": "将你的营养数据与 Health Connect 同步",
+      "description": "将你的营养数据同步到 Health Connect",
       "install": "安装",
       "connect": "连接"
     }
   },
   "history": {
-    "noMeals": "暂无餐食记录",
-    "emptyMessage": "拍下你上一次的餐食照片以在此记录。",
+    "noMeals": "暂无记录的餐食",
+    "emptyMessage": "拍下你最近的一餐照片以在此记录。",
     "today": "今天",
     "yesterday": "昨天"
   },
@@ -245,107 +245,107 @@
     "save": "保存",
     "mealName": "餐食名称",
     "mealNameHint": "例如：炒蛋配吐司",
-    "mealQuantity": "份量",
+    "mealQuantity": "餐食数量",
     "mealQuantityHint": "例如：1 碗，2 片",
     "timeOfMeal": "用餐时间",
-    "timeOfMealHint": "选择你的用餐时间",
-    "mealType": "用餐类型",
+    "timeOfMealHint": "选择你用餐的时间",
+    "mealType": "餐次类型",
     "nutrition": {
       "calories": "卡路里",
-      "carbs": "碳水（g）",
-      "protein": "蛋白质（g）",
-      "fat": "脂肪（g）",
-      "fiber": "膳食纤维（g）"
+      "carbs": "碳水 (g)",
+      "protein": "蛋白质 (g)",
+      "fat": "脂肪 (g)",
+      "fiber": "纤维 (g)"
     },
     "deleteConfirmation": {
       "title": "删除餐食",
-      "message": "确定要删除这条餐食记录吗？",
+      "message": "确定要删除此餐食记录吗？",
       "cancel": "取消",
       "delete": "删除"
     },
-    "addedToLog": "餐食已添加到你的记录！",
+    "addedToLog": "餐食已添加到记录！",
     "couldNotAdd": "无法添加餐食：{error}",
     "savedSuccessfully": "餐食添加成功！",
     "updatedSuccessfully": "餐食更新成功！",
-    "errorSaving": "保存餐食出错：{error}",
-    "removedFromFavorites": "已从常用中移除！",
-    "savedAsFavorite": "餐食已设为常用！",
-    "unfavorite": "取消常用",
-    "couldNotUpdateFavorite": "无法更新常用状态：{error}",
+    "errorSaving": "保存餐食时出错：{error}",
+    "removedFromFavorites": "已从收藏中移除！",
+    "savedAsFavorite": "已将餐食保存为收藏！",
+    "unfavorite": "取消收藏",
+    "couldNotUpdateFavorite": "无法更新收藏：{error}",
     "feedbackThanks": "感谢你的反馈！",
     "reanalysisUpdated": "已根据你的反馈更新餐食分析。",
     "failedToProcess": "处理失败：{error}",
     "failedToProcessImage": "处理图片失败：{error}",
-    "errorCompressingImage": "压缩图片出错：{error}",
+    "errorCompressingImage": "压缩图片时出错：{error}",
     "failedToSave": "保存数据失败。请重试。",
     "skip": "跳过",
     "questionFlow": {
-      "progress": "第 {current} 个问题，共 {total} 个",
-      "noQuestionsAvailable": "当前没有可用的问题",
-      "next": "下一题",
+      "progress": "问题 {current} / {total}",
+      "noQuestionsAvailable": "暂无可用问题",
+      "next": "下一步",
       "continueLabel": "继续"
     },
     "analysis": {
-      "title": "AI 餐食分析",
+      "title": "正在分析你的餐食",
       "stepStarted": "开始处理…",
-      "stepDecomposition": "正在理解你的餐食…",
-      "stepIngredients": "正在匹配营养数据库…",
-      "stepUncertainty": "正在检查置信度…",
+      "stepDecomposition": "理解你的餐食…",
+      "stepIngredients": "将食材匹配到营养数据…",
+      "stepUncertainty": "核查信心水平…",
       "stepMealTypeQuestion": "快好了…",
-      "stepResult": "正在完成结果…",
-      "stepError": "出现了问题",
+      "stepResult": "最终结果生成中…",
+      "stepError": "出现问题",
       "stepDefault": "正在分析你的餐食…",
-      "progressUnderstand": "理解",
-      "progressMatch": "匹配",
-      "progressCheck": "检查",
-      "progressMealType": "正在选择餐食类型",
-      "progressFinish": "完成",
+      "progressUnderstand": "理解你的餐食",
+      "progressMatch": "查找食材营养信息",
+      "progressCheck": "核对分量与置信度",
+      "progressMealType": "选择餐次类型",
+      "progressFinish": "计算卡路里与宏量营养素",
       "detectedIngredientHeading": "我们识别到的食材",
-      "ingredientsOverflow": "另有 {count} 个食材",
+      "ingredientsOverflow": "另外还有 {count} 项",
       "ingredientsLine": "检测到 {count} 种食材",
-      "ingredientsPending": "正在扫描食材…",
-      "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "ingredientsPending": "扫描食材中…",
+      "mealPreviewDescription": "“{text}”",
+      "offlineTip0": "提示：持续记录比追求完美更重要——规律的记录能揭示真正有用的模式。",
+      "offlineTip1": "提示：拍照时使用自然光并从俯视角度拍摄，有助于提升分量估算准确性。",
+      "offlineTip2": "提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。",
+      "offlineTip3": "提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。",
+      "offlineTip4": "提示：饭后记录同样能培养习惯；不必追求完美。",
+      "offlineTip5": "提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。"
     },
     "feedback": {
-      "title": "哪里不对?",
-      "subtitle": "选择一个或多个问题,帮助我们改进分析。",
-      "tellUsMore": "告诉我们更多",
-      "describeIncorrect": "描述哪里不正确",
+      "title": "哪里看起来不对？",
+      "subtitle": "通过选择一个或多个问题来帮助我们改进分析。",
+      "tellUsMore": "告诉我们更多信息",
+      "describeIncorrect": "描述不正确的地方",
       "submit": "提交",
-      "issueFoodIdentification": "食物识别",
-      "issuePortionSize": "份量大小",
-      "issueCalorieDistribution": "卡路里分布",
-      "issueMacrosWrong": "宏量营养素错误",
-      "issueMissingItems": "缺少项目",
-      "issueExtraItems": "多余项目",
+      "issueFoodIdentification": "食物识别错误",
+      "issuePortionSize": "分量错误",
+      "issueCalorieDistribution": "卡路里分配错误",
+      "issueMacrosWrong": "宏量营养数据错误",
+      "issueMissingItems": "遗漏项",
+      "issueExtraItems": "多余项",
       "issueOther": "其他"
     }
   },
   "favorites": {
-    "title": "常用",
-    "empty": "还没有常用餐食。",
-    "searchPlaceholder": "搜索常用餐食",
-    "searchEmptyTitle": "没有与搜索匹配的常用项",
-    "searchEmptySubtitle": "试试不同的餐食名称、份量或用餐类型。",
-    "sortLabel": "排序常用项",
+    "title": "收藏",
+    "empty": "还没有收藏的餐食。",
+    "searchPlaceholder": "搜索收藏的餐食",
+    "searchEmptyTitle": "没有收藏符合搜索条件",
+    "searchEmptySubtitle": "尝试使用不同的餐名、数量或餐次类型。",
+    "sortLabel": "排序收藏",
     "undo": "撤销",
-    "removed": "已将 {name} 从常用中移除",
+    "removed": "已从收藏中移除 {name}",
     "sortOptions": {
-      "recent": "最近添加",
+      "recent": "最近",
       "calories": "卡路里",
       "alphabetical": "A-Z"
     }
   },
   "profile": {
     "title": "个人资料",
-    "noProfileData": "未找到资料数据",
-    "yourProfile": "你的资料",
+    "noProfileData": "未找到个人资料数据",
+    "yourProfile": "你的个人资料",
     "viewAndManage": "查看并管理你的健康信息",
     "sections": {
       "profile": "个人资料",
@@ -359,29 +359,29 @@
     "age": "年龄",
     "weightGoal": "体重目标",
     "targetWeight": "目标体重",
-    "activityLevel": "活动水平",
+    "activityLevel": "活动等级",
     "healthMetrics": "健康指标",
     "notSet": "未设置",
     "years": "岁",
-    "updatedSuccessfully": "资料更新成功！",
+    "updatedSuccessfully": "个人资料更新成功！",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "每日目标",
-      "calPerDay": "千卡/天",
-      "notAvailable": "不可用"
+      "calPerDay": "卡/天",
+      "notAvailable": "无可用数据"
     }
   },
   "healthScore": {
-    "title": "健康分",
-    "whyThisScore": "为什么是这个分数？",
-    "note": "该分数是基于识别到的食材与营养密度的 AI 估计。个体饮食建议请始终咨询专业人士。",
+    "title": "健康评分",
+    "whyThisScore": "为什么是这个评分？",
+    "note": "此评分为 AI 基于识别到的食材和营养密度的估算。饮食建议请咨询专业人士。",
     "unhealthy": "不健康",
     "healthy": "健康",
     "neutral": "中性"
   },
   "editProfile": {
-    "title": "编辑资料",
+    "title": "编辑个人资料",
     "sections": {
       "personalInformation": "个人信息",
       "physicalMeasurements": "身体测量",
@@ -392,17 +392,17 @@
     "height": "身高",
     "weight": "体重",
     "weightGoal": "体重目标",
-    "activityLevel": "活动水平",
+    "activityLevel": "活动等级",
     "metric": "公制",
     "imperial": "英制",
-    "unitCm": "厘米",
-    "unitFt": "英尺",
-    "unitKg": "千克",
-    "unitLbs": "磅",
-    "metricCm": "公制（cm）",
-    "imperialFtIn": "英制（ft/in）",
-    "metricKg": "公制（kg）",
-    "imperialLbs": "英制（lbs）",
+    "unitCm": "cm",
+    "unitFt": "ft",
+    "unitKg": "kg",
+    "unitLbs": "磅 (lbs)",
+    "metricCm": "公制 (cm)",
+    "imperialFtIn": "英制 (ft/in)",
+    "metricKg": "公制 (kg)",
+    "imperialLbs": "英制 (lbs)",
     "genders": {
       "male": "男性",
       "female": "女性",
@@ -411,36 +411,36 @@
     "weightGoals": {
       "loseWeight": {
         "name": "减重",
-        "description": "通过制造热量缺口来减重"
+        "description": "创建热量赤字以减轻体重"
       },
       "maintainWeight": {
         "name": "维持体重",
-        "description": "保持你当前的体重"
+        "description": "维持你当前的体重"
       },
       "gainWeight": {
         "name": "增重",
-        "description": "通过制造热量盈余来增重"
+        "description": "创建热量盈余以增加体重"
       }
     },
     "activityLevels": {
       "sedentary": {
         "name": "久坐",
-        "description": "很少或不运动"
+        "description": "几乎不运动"
       },
       "lightlyActive": {
-        "name": "轻度活动",
-        "description": "每周 1-3 天轻度运动"
+        "name": "轻度活跃",
+        "description": "每周 1-3 天轻量运动"
       },
       "moderatelyActive": {
-        "name": "中度活动",
+        "name": "中度活跃",
         "description": "每周 3-5 天中等强度运动"
       },
       "veryActive": {
-        "name": "高度活动",
+        "name": "高度活跃",
         "description": "每周 6-7 天高强度运动"
       },
       "extremelyActive": {
-        "name": "极高活动",
+        "name": "极度活跃",
         "description": "非常高强度运动或体力工作"
       }
     }
@@ -454,11 +454,11 @@
       "healthConnect": "Health Connect",
       "supportAndLegal": "支持与法律",
       "about": "关于",
-      "dangerZone": "危险区域",
+      "dangerZone": "危险操作",
       "developer": "开发者"
     },
     "editProfile": {
-      "title": "编辑资料",
+      "title": "编辑个人资料",
       "subtitle": "更新你的个人信息"
     },
     "language": {
@@ -474,14 +474,14 @@
       "title": "体重单位"
     },
     "mealReminders": {
-      "title": "用餐提醒",
-      "subtitle": "通过及时提醒保持进度"
+      "title": "餐食提醒",
+      "subtitle": "用及时提醒帮助你保持记录"
     },
     "theme": {
       "title": "主题",
       "light": "浅色",
       "dark": "深色",
-      "system": "系统"
+      "system": "跟随系统"
     },
     "sendFeedback": {
       "title": "发送反馈",
@@ -494,85 +494,85 @@
       "uid": "UID"
     },
     "exportMealHistory": {
-      "title": "导出用餐历史",
-      "subtitle": "分享你记录餐食的 CSV 文件",
-      "shareText": "你的 Calorify 用餐历史导出",
-      "failed": "无法导出用餐历史：{error}"
+      "title": "导出餐食历史",
+      "subtitle": "共享已记录餐食的 CSV",
+      "shareText": "你的 Calorify 餐食历史导出",
+      "failed": "无法导出餐食历史：{error}"
     },
     "clearAllData": {
       "title": "清除所有数据",
       "subtitle": "不可逆地删除你的全部信息",
       "confirmationTitle": "清除所有数据？",
-      "confirmationMessage": "此操作不可撤销。你记录的所有餐食、常用项和资料设置都将被永久删除。",
+      "confirmationMessage": "此操作不可撤销。你所有的记录、收藏和个人设置将被永久删除。",
       "cancel": "取消",
-      "clearEverything": "全部清除"
+      "clearEverything": "清除全部"
     },
     "debugOptions": {
       "title": "调试选项"
     },
-    "developerModeEnabled": "已启用开发者模式！",
+    "developerModeEnabled": "开发者模式已启用！",
     "healthConnect": {
       "title": "Health Connect",
       "subtitle": "查看并管理权限",
       "unavailable": {
-        "title": "无法使用 Health Connect",
-        "description": "此设备不支持 Health Connect。请从 Play 商店安装 Health Connect（Android 9+），或更新至 Android 14+。"
+        "title": "Health Connect 不可用",
+        "description": "此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。"
       },
       "permissions": {
         "title": "权限",
-        "description": "为提供 Health Connect 集成，需要以下权限：",
+        "description": "为提供 Health Connect 集成功能，请求以下权限：",
         "granted": "已授予",
         "notGranted": "未授予",
         "caloriesBurned": {
           "title": "读取总消耗卡路里",
-          "description": "允许应用从 Health Connect 读取你的总消耗卡路里。",
-          "usage": "该权限用于在应用中显示你每日的卡路里消耗，帮助你了解全天的总能量消耗。"
+          "description": "允许应用读取来自 Health Connect 的总消耗卡路里。",
+          "usage": "该权限用于在应用中显示你的每日消耗卡路里，帮助你了解全天的总能量消耗。"
         },
         "nutritionRead": {
           "title": "读取营养数据",
-          "description": "允许应用从 Health Connect 读取营养数据。",
-          "usage": "该权限允许应用读取其他与 Health Connect 连接的应用所记录的营养信息，为你提供全面的营养视图。"
+          "description": "允许应用读取来自 Health Connect 的营养数据。",
+          "usage": "此权限允许应用读取可能由其他连接到 Health Connect 的应用记录的营养信息，从而提供更全面的营养视图。"
         },
         "nutritionWrite": {
           "title": "写入营养数据",
-          "description": "允许应用向 Health Connect 写入营养数据。",
-          "usage": "该权限允许应用将你记录的餐食同步到 Health Connect，使你的营养数据可供你使用的其他健康与健身应用读取。"
+          "description": "允许应用将营养数据写入 Health Connect。",
+          "usage": "此权限允许应用将你记录的餐食同步到 Health Connect，使你的营养数据可被你使用的其他健康与健身应用访问。"
         }
       },
       "managePermissions": "管理权限",
       "openSettings": "打开 Health Connect 设置",
       "requestPermissions": "请求权限",
-      "permissionRequestCancelledOrFailed": "权限请求被取消或失败。请重试，或在 Health Connect 设置中手动授予权限。",
-      "permissionRequestFailed": "无法请求权限。请重试，或在 Health Connect 设置中手动授予权限。",
-      "requestingPermissions": "请求中..."
+      "permissionRequestCancelledOrFailed": "权限请求已取消或失败。请重试或在 Health Connect 设置中手动授予权限。",
+      "permissionRequestFailed": "无法请求权限。请重试或在 Health Connect 设置中手动授予权限。",
+      "requestingPermissions": "正在请求…"
     },
     "about": {
       "title": "关于",
-      "tagline": "快速、免费、隐私优先的卡路里意识",
+      "tagline": "快速、免费且以隐私为先的卡路里感知工具",
       "ourStory": {
         "title": "我们的故事",
-        "content": "{appLabel} 源于一个简单的挫败感：大多数卡路里追踪应用要么过于复杂、需要持续手动输入、收取高额订阅费，要么在隐私上做出妥协。\n\n作为一名独立开发者，我想做得更简单、更公平——用 AI 来减少操作负担，保持快速与免费，同时尊重你的健康数据。\n\n{appLabel} 是我也一直期望拥有的应用：无需账户、无跟踪、无广告——只提供清晰、实用的洞察，助你实现健康目标。"
+        "content": "{appLabel} 源自一个简单的挫败感：大多数卡路里追踪应用要么过于复杂、需要大量手动输入、收费高昂，要么在隐私上妥协。\n\n作为一名独立开发者，我想做一个更简单、更公平的应用——一个用 AI 减少操作负担、保持快速且免费使用，并尊重你的健康数据的应用。\n\n{appLabel} 是我希望存在的应用：无需账号、无追踪、无广告——只有清晰、实用的洞察和你的健康目标。"
       },
       "privacy": {
         "title": "你的隐私很重要",
-        "description": "隐私不是事后的补救——而是我们的设计原则。具体体现在：",
-        "noAccounts": "无需账户\n立即使用应用。无需注册、无需身份信息。",
-        "noTracking": "无行为跟踪\n{appLabel} 不会监控你的活动、构建使用画像，也不会在应用或网站间跟踪你。",
-        "noAds": "无广告设计\n{appLabel} 致力于在没有广告或数据驱动变现的情况下运行。",
-        "noDataSelling": "不出售数据\n你的健康数据绝不会被出售或与第三方共享。",
-        "localStorage": "本地优先存储\n你的数据保存在你的设备上。",
+        "description": "隐私不是事后考虑——它是设计原则。以下是实践中的含义：",
+        "noAccounts": "无需账号\n立即使用应用。无注册、无身份绑定。",
+        "noTracking": "无行为追踪\n{appLabel} 不会监控你的活动、构建使用档案或跨应用/网站跟踪你。",
+        "noAds": "内建无广告\n{appLabel} 旨在无需广告或基于数据的变现运行。",
+        "noDataSelling": "不出售数据\n你的健康数据不会被出售或分享给第三方。",
+        "localStorage": "本地优先存储\n你的数据保留在你的设备上。",
         "privacyPolicy": "隐私政策"
       },
       "developer": {
-        "title": "由独立开发者打造",
-        "description": "{appLabel} 由一位独立开发者构建和维护，专注于打造平和、尊重隐私的健康软件。\n\n我会亲自阅读反馈，而这些意见将影响应用的未来方向。",
+        "title": "由独立开发者构建",
+        "description": "{appLabel} 由一位独立开发者构建和维护，致力于创建平静、尊重隐私的健康软件。\n\n反馈由开发者本人阅读，并帮助塑造应用的方向。",
         "website": "网站",
-        "email": "邮箱"
+        "email": "邮件"
       },
       "feedback": {
         "title": "喜欢 {appLabel} 吗？",
-        "description": "你的反馈能帮助 {appLabel} 变得更好。",
-        "rateApp": "在 Play 商店评分",
+        "description": "你的反馈能让 {appLabel} 变得更好，惠及所有用户。",
+        "rateApp": "在 Play Store 评分",
         "sendFeedback": "发送反馈"
       }
     },
@@ -582,13 +582,13 @@
     }
   },
   "reminders": {
-    "title": "用提醒保持节奏",
-    "description": "获得温和的提醒，记录餐食并在营养目标上持续前进",
-    "notificationsEnabled": "已启用通知",
-    "notificationsDisabled": "未启用通知",
-    "enabledSubtitle": "你将收到用餐提醒",
-    "disabledSubtitle": "启用通知以接收用餐提醒",
-    "mealReminders": "用餐提醒",
+    "title": "用提醒保持进度",
+    "description": "收到温和的提醒以记录餐食并坚持你的营养目标",
+    "notificationsEnabled": "通知已启用",
+    "notificationsDisabled": "通知已禁用",
+    "enabledSubtitle": "你将收到餐食提醒",
+    "disabledSubtitle": "启用通知以接收餐食提醒",
+    "mealReminders": "餐食提醒",
     "breakfast": "早餐",
     "lunch": "午餐",
     "dinner": "晚餐",
@@ -596,12 +596,12 @@
     "unknown": "未知",
     "change": "更改",
     "enableNotifications": "启用通知",
-    "skipForNow": "暂时跳过",
+    "skipForNow": "暂不启用",
     "saveChanges": "保存更改",
-    "enabledSuccessfully": "通知启用成功！",
+    "enabledSuccessfully": "通知已成功启用！",
     "permissionDenied": "通知权限被拒绝",
-    "errorEnabling": "启用通知出错：{error}",
-    "errorCompletingSetup": "完成设置出错：{error}"
+    "errorEnabling": "启用通知时出错：{error}",
+    "errorCompletingSetup": "完成设置时出错：{error}"
   },
   "notifications": {
     "breakfast": {
@@ -610,7 +610,7 @@
     },
     "lunch": {
       "title": "午餐时间！ 🥗",
-      "body": "该记录你的午餐了"
+      "body": "是时候记录午餐了"
     },
     "dinner": {
       "title": "晚餐时间！ 🍽️",
@@ -618,7 +618,7 @@
     },
     "snack": {
       "title": "加餐时间！ 🍎",
-      "body": "来一份健康加餐吧"
+      "body": "来点健康的加餐吧"
     },
     "test": {
       "title": "测试通知"
@@ -632,69 +632,69 @@
   "disclaimer": {
     "pleaseNote": "请注意",
     "snap": {
-      "description": "{appLabel} 提供的是营养信息估算。准确性取决于你的输入与食物差异。请将其作为参考，而非权威来源。个性化饮食建议请咨询专业人士。",
+      "description": "{appLabel} 提供的是估算的营养信息。准确性取决于你的输入与食物差异。作为参考而非权威来源。如需个性化饮食建议，请咨询专业人士。",
       "portionSize": {
-        "title": "份量大小",
-        "description": "估算的准确性在很大程度上取决于你对份量的正确评估。"
+        "title": "分量大小",
+        "description": "估算的准确性在很大程度上依赖于你对分量大小的正确评估。"
       },
       "preparationMethods": {
         "title": "烹饪方式",
-        "description": "烹饪方法会显著改变食物的营养成分。{appLabel} 的估算可能无法完全涵盖这些差异。"
+        "description": "烹饪方法会显著改变食物的营养成分。{appLabel} 的估算可能无法始终考虑这些差异。"
       },
       "ingredients": {
         "title": "食材",
-        "description": "食材复杂或隐藏配料较多的菜肴，可能会导致估算不够准确。"
+        "description": "复杂菜肴中存在许多隐含成分可能导致估算不够准确。"
       },
       "databaseLimitations": {
-        "title": "数据库局限",
-        "description": "{appLabel} 的食物数据库很庞大，但可能无法覆盖所有食物或其所有变体。"
+        "title": "数据库限制",
+        "description": "{appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。"
       }
     },
     "weightEstimate": {
       "title": "关于体重估算",
-      "description": "预测的体重变化基于“摄入热量 vs. 消耗热量”的理论模型，仅用于激励与参考，并非对你实际体重的精准预测。",
+      "description": "预测的体重变化是基于简单的热量摄入与消耗模型的理论估算。仅用于激励参考，而非实际体重预测。",
       "calorieAccuracy": {
         "title": "卡路里准确性",
-        "description": "该估算依赖于你记录的卡路里摄入与消耗的准确性。不准确的记录将导致不准确的预测。"
+        "description": "此估算的准确性取决于你记录的卡路里摄入与消耗。记录不准确会导致预测不准确。"
       },
       "biologicalFactors": {
         "title": "生理因素",
-        "description": "实际的增重/减重受代谢、激素、睡眠、压力、补水等个人因素影响，而这些是 {appLabel} 无法测量的。"
+        "description": "实际的体重变化受代谢、激素、睡眠、压力、体液和其他个体差异影响，{appLabel} 无法测量这些因素。"
       },
       "waterWeight": {
-        "title": "水分与波动",
-        "description": "日常体重会因水分滞留、消化和时间而显著波动。本估算不考虑这些日常变化。"
+        "title": "水重波动",
+        "description": "日常体重可能因水分滞留、消化和记录时机而显著波动。估算并不考虑这些日常变化。"
       },
       "professionalGuidance": {
-        "title": "专业建议",
-        "description": "请勿将本估算用于医疗决策。个性化的体重管理建议请始终咨询医疗专业人士或注册营养师。"
+        "title": "专业指导",
+        "description": "不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。"
       }
     },
     "healthMetrics": {
-      "description": "这些指标帮助你了解身体的能量需求，并指导你的营养目标。",
+      "description": "这些指标帮助你了解身体的能量需求并指导营养目标。",
       "bmr": {
         "title": "BMR",
-        "description": "基础代谢率（BMR）是指你的身体在静息状态下，为维持呼吸、循环等基本功能所消耗的卡路里。BMR 取决于年龄、性别、身高和体重。BMR 较高意味着身体在静息时自然消耗更多卡路里，通常与肌肉量更多、年龄较轻或男性相关；BMR 较低通常意味着肌肉量较少、年龄较大或女性。"
+        "description": "基础代谢率 (BMR) 是你静息时为维持呼吸、循环等基本功能而消耗的卡路里数。BMR 取决于你的年龄、性别、身高和体重。较高的 BMR 表示你在静息时自然消耗更多热量，通常与更多的肌肉、更年轻的年龄或男性有关。较低的 BMR 通常表示肌肉较少、年龄较大或女性。"
       },
       "tdee": {
         "title": "TDEE",
-        "description": "每日总能量消耗（TDEE）是你每天消耗的总卡路里，包括 BMR 以及体力活动和日常活动产生的消耗。TDEE 取决于你的 BMR 与活动水平。TDEE 较高通常意味着更活跃或 BMR 较高；TDEE 较低则提示日常活动较少或 BMR 较低。"
+        "description": "每日总能量消耗 (TDEE) 是你每天消耗的总卡路里，包括 BMR 以及来自身体活动和日常活动的卡路里。TDEE 取决于你的 BMR 和活动水平。较高的 TDEE 表示你总体消耗更多卡路里，通常与更活跃或更高的 BMR 有关。较低的 TDEE 则表示日常活动较少或 BMR 较低。"
       },
       "dailyGoal": {
         "title": "每日目标",
-        "description": "每日目标是基于你的 TDEE 和体重目标所推荐的每日卡路里摄入。想减重时，摄入少于 TDEE；想维持体重时，摄入与 TDEE 大致相当；想增重时，摄入多于 TDEE。这有助于你以健康的节奏达成理想体重变化。"
+        "description": "每日目标是基于你的 TDEE 和体重目标推荐的每日摄入卡路里。为了减重，你需摄入低于 TDEE 的卡路里；维持体重则与 TDEE 相当；增重则摄入高于 TDEE 的卡路里。这有助于你以健康节奏实现期望的体重变化。"
       }
     },
     "calorieExpenditure": {
       "title": "卡路里消耗估算",
-      "description": "当无法获取 Health Connect 数据时，我们会基于你的基础代谢率（BMR）和活动水平（TDEE），并按当天已过去的时间比例进行缩放，来估算你今日已消耗的卡路里。",
+      "description": "当 Health Connect 数据不可用时，我们会使用你的基础代谢率 (BMR) 和活动水平 (TDEE) 来估算今天已消耗的卡路里，并按当天已过的时间比例进行缩放。",
       "howCalculated": {
         "title": "估算如何计算",
-        "description": "我们计算你的 TDEE（基于你的资料），并将其乘以当天已过去的时间比例（小时 + 分钟）/ 24，以估算目前为止的消耗。"
+        "description": "我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。"
       },
       "professionalGuidance": {
-        "title": "专业建议",
-        "description": "请勿将此估算用于医疗决策。个性化建议请始终咨询医疗专业人士或注册营养师。"
+        "title": "专业指导",
+        "description": "不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。"
       }
     }
   },
@@ -704,20 +704,20 @@
   },
   "feedbackRating": {
     "enjoyingQuestion": "喜欢 {appLabel} 吗？",
-    "yes": "是的，我很喜欢",
-    "no": "不太满意",
-    "rateStepHeading": "在 Play 商店评分",
+    "yes": "是，我很喜欢",
+    "no": "不太喜欢",
+    "rateStepHeading": "在 Play Store 评分",
     "emailStepHeading": "通过邮件发送反馈",
-    "soloDevMessage": "简短的评分有助于他人发现 {appLabel}，也能支持持续开发。愿意花一点时间评价吗？",
-    "shareFeedbackViaEmail": "你的反馈将影响接下来的方向——我们会阅读每一条留言。愿意通过邮件分享想法吗？",
-    "rateCta": "在 Play 商店评分",
+    "soloDevMessage": "一个简短的评分能帮助更多人发现 {appLabel} 并支持开发。你愿意花一点时间评分吗？",
+    "shareFeedbackViaEmail": "你的反馈决定下一步方向——我们会阅读每条信息。你愿意通过邮件分享你的想法吗？",
+    "rateCta": "在 Play Store 评分",
     "maybeLater": "稍后再说",
     "sendFeedback": "发送反馈",
     "noThanks": "不用了，谢谢",
-    "aboutUsDescription": "由一个小团队用心打造。我们专注于隐私、简洁，以及帮助你养成更好的饮食习惯。",
-    "aboutUsMentionBeforeLink": "想知道是谁在背后打造 {appLabel}？查看 ",
+    "aboutUsDescription": "由小团队用心打造。我们专注于隐私、简洁，并帮助你养成更好的饮食习惯。",
+    "aboutUsMentionBeforeLink": "想知道是谁在背后构建 {appLabel}？查看 ",
     "aboutUsLinkLabel": "关于我们",
-    "thankYouMessage": "谢谢！我们稍后再问。"
+    "thankYouMessage": "谢谢！我们会在之后再次询问。"
   },
   "health": {
     "syncFailed": "无法同步到 Health Connect",

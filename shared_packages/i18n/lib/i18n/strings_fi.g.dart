@@ -67,10 +67,10 @@ class _TranslationsErrorsFi implements TranslationsErrorsEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get rateLimitExceeded => 'Teit liian monta pyyntöä. Odota hetki ja yritä uudelleen.';
+	@override String get rateLimitExceeded => 'Olet tehnyt liian monta pyyntöä. Odota hetki ja yritä uudelleen.';
 	@override String get networkError => 'Verkkovirhe. Tarkista internet-yhteytesi.';
 	@override String get unknownError => 'Jotain meni pieleen. Yritä myöhemmin uudelleen.';
-	@override String get loadingProfileData => 'Virhe profiilitietojen latauksessa';
+	@override String get loadingProfileData => 'Virhe profiilitietojen lataamisessa';
 	@override String get somethingWentWrong => 'Jotain meni pieleen.';
 	@override String get retry => 'Yritä uudelleen';
 }
@@ -82,8 +82,8 @@ class _TranslationsOnboardingFi implements TranslationsOnboardingEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String welcome({required Object appLabel}) => 'Tervetuloa sovellukseen ${appLabel}';
-	@override String get subtitle => 'Henkilökohtainen ravitsemuskumppanisi tekoälyn voimalla';
+	@override String welcome({required Object appLabel}) => 'Tervetuloa ${appLabel}';
+	@override String get subtitle => 'Henkilökohtainen ravitsemuskumppanisi, jota pyörittää AI';
 	@override String get getStarted => 'Aloita';
 	@override late final _TranslationsOnboardingFeaturesFi features = _TranslationsOnboardingFeaturesFi._(_root);
 	@override late final _TranslationsOnboardingGenderFi gender = _TranslationsOnboardingGenderFi._(_root);
@@ -104,7 +104,7 @@ class _TranslationsTabsFi implements TranslationsTabsEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Etusivu';
+	@override String get dashboard => 'Koonti';
 	@override String get history => 'Historia';
 }
 
@@ -134,8 +134,8 @@ class _TranslationsHistoryFi implements TranslationsHistoryEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get noMeals => 'Ei yhtään ateriaa';
-	@override String get emptyMessage => 'Nappaa kuva viimeisimmästä ateriastasi kirjautuaksesi tähän.';
+	@override String get noMeals => 'Ei kirjattuja aterioita';
+	@override String get emptyMessage => 'Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.';
 	@override String get today => 'Tänään';
 	@override String get yesterday => 'Eilen';
 }
@@ -157,22 +157,22 @@ class _TranslationsMealFi implements TranslationsMealEn {
 	@override String get mealNameHint => 'esim. Munakokkeli ja paahtoleipä';
 	@override String get mealQuantity => 'Aterian määrä';
 	@override String get mealQuantityHint => 'esim. 1 kulho, 2 viipaletta';
-	@override String get timeOfMeal => 'Aterian ajankohta';
-	@override String get timeOfMealHint => 'Valitse, milloin söit aterian';
+	@override String get timeOfMeal => 'Ajanhetki';
+	@override String get timeOfMealHint => 'Valitse milloin söit aterian';
 	@override String get mealType => 'Ateriatyyppi';
 	@override late final _TranslationsMealNutritionFi nutrition = _TranslationsMealNutritionFi._(_root);
 	@override late final _TranslationsMealDeleteConfirmationFi deleteConfirmation = _TranslationsMealDeleteConfirmationFi._(_root);
-	@override String get addedToLog => 'Ateria lisättiin lokiin!';
-	@override String couldNotAdd({required Object error}) => 'Ateriaa ei voitu lisätä: ${error}';
+	@override String get addedToLog => 'Ateria lisätty kirjanpitoosi!';
+	@override String couldNotAdd({required Object error}) => 'Aterian lisääminen epäonnistui: ${error}';
 	@override String get savedSuccessfully => 'Ateria lisätty onnistuneesti!';
 	@override String get updatedSuccessfully => 'Ateria päivitetty onnistuneesti!';
-	@override String errorSaving({required Object error}) => 'Virhe tallennuksessa: ${error}';
+	@override String errorSaving({required Object error}) => 'Virhe tallennettaessa ateriaa: ${error}';
 	@override String get removedFromFavorites => 'Poistettu suosikeista!';
 	@override String get savedAsFavorite => 'Ateria tallennettu suosikiksi!';
-	@override String get unfavorite => 'Poista suosikeista';
-	@override String couldNotUpdateFavorite({required Object error}) => 'Suosikin päivitys epäonnistui: ${error}';
+	@override String get unfavorite => 'Poista suosikista';
+	@override String couldNotUpdateFavorite({required Object error}) => 'Suosikin päivittäminen epäonnistui: ${error}';
 	@override String get feedbackThanks => 'Kiitos palautteesta!';
-	@override String get reanalysisUpdated => 'Päivitetty ateria-analyysi palautteesi perusteella.';
+	@override String get reanalysisUpdated => 'Päivitettiin aterian analyysi palautteesi perusteella.';
 	@override String failedToProcess({required Object error}) => 'Käsittely epäonnistui: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}';
@@ -191,11 +191,11 @@ class _TranslationsFavoritesFi implements TranslationsFavoritesEn {
 
 	// Translations
 	@override String get title => 'Suosikit';
-	@override String get empty => 'Ei vielä suosikkiaterioita.';
+	@override String get empty => 'Ei suosikkia vielä.';
 	@override String get searchPlaceholder => 'Hae suosikkiaterioita';
-	@override String get searchEmptyTitle => 'Hakusi ei tuottanut suosikkeja';
+	@override String get searchEmptyTitle => 'Hakusi ei vastaa yhtään suosikkia';
 	@override String get searchEmptySubtitle => 'Kokeile toista aterian nimeä, määrää tai ateriatyyppiä.';
-	@override String get sortLabel => 'Järjestä suosikit';
+	@override String get sortLabel => 'Lajittele suosikit';
 	@override String get undo => 'Kumoa';
 	@override String removed({required Object name}) => 'Poistettiin ${name} suosikeista';
 	@override late final _TranslationsFavoritesSortOptionsFi sortOptions = _TranslationsFavoritesSortOptionsFi._(_root);
@@ -211,7 +211,7 @@ class _TranslationsProfileFi implements TranslationsProfileEn {
 	@override String get title => 'Profiili';
 	@override String get noProfileData => 'Profiilitietoja ei löytynyt';
 	@override String get yourProfile => 'Profiilisi';
-	@override String get viewAndManage => 'Näytä ja hallitse terveystietojasi';
+	@override String get viewAndManage => 'Katso ja hallinnoi terveystietojasi';
 	@override late final _TranslationsProfileSectionsFi sections = _TranslationsProfileSectionsFi._(_root);
 	@override String get gender => 'Sukupuoli';
 	@override String get height => 'Pituus';
@@ -234,9 +234,9 @@ class _TranslationsHealthScoreFi implements TranslationsHealthScoreEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Terveysarvio';
-	@override String get whyThisScore => 'Miksi tämä arvosana?';
-	@override String get note => 'Tämä pisteytys on tekoälyn arvio tunnistetuista ainesosista ja ravintotiheydestä. Käänny aina ammattilaisen puoleen henkilökohtaista ravinto-ohjausta varten.';
+	@override String get title => 'Terveysarvo';
+	@override String get whyThisScore => 'Miksi tämä arvo?';
+	@override String get note => 'Tämä arvio on AI-arvio tunnistettujen ainesosien ja ravintotiheyden perusteella. Kysy aina ammattilaiselta henkilökohtaista ravitsemusneuvontaa.';
 	@override String get unhealthy => 'Epäterveellinen';
 	@override String get healthy => 'Terveellinen';
 	@override String get neutral => 'Neutraali';
@@ -304,8 +304,8 @@ class _TranslationsRemindersFi implements TranslationsRemindersEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Pysy raiteilla muistutusten avulla';
-	@override String get description => 'Saat lempeitä muistutuksia aterioiden kirjaamiseen ja pysyt johdonmukaisena ravintotavoitteidesi kanssa';
+	@override String get title => 'Pysy raiteilla muistutuksilla';
+	@override String get description => 'Saat lempeitä muistutuksia kirjataksesi ateriasi ja pysyäksesi johdonmukaisena ravintotavoissasi';
 	@override String get notificationsEnabled => 'Ilmoitukset käytössä';
 	@override String get notificationsDisabled => 'Ilmoitukset pois käytöstä';
 	@override String get enabledSubtitle => 'Saat ateriamuistutuksia';
@@ -316,13 +316,13 @@ class _TranslationsRemindersFi implements TranslationsRemindersEn {
 	@override String get dinner => 'Päivällinen';
 	@override String get snack => 'Välipala';
 	@override String get unknown => 'Tuntematon';
-	@override String get change => 'Muuta';
+	@override String get change => 'Vaihda';
 	@override String get enableNotifications => 'Ota ilmoitukset käyttöön';
-	@override String get skipForNow => 'Ohita toistaiseksi';
+	@override String get skipForNow => 'Ohita nyt';
 	@override String get saveChanges => 'Tallenna muutokset';
-	@override String get enabledSuccessfully => 'Ilmoitukset otettiin käyttöön onnistuneesti!';
-	@override String get permissionDenied => 'Ilmoituslupa evätty';
-	@override String errorEnabling({required Object error}) => 'Virhe ilmoitusten käyttöönotossa: ${error}';
+	@override String get enabledSuccessfully => 'Ilmoitukset otettu käyttöön onnistuneesti!';
+	@override String get permissionDenied => 'Ilmoitusoikeus evätty';
+	@override String errorEnabling({required Object error}) => 'Virhe ilmoitusten ottamisessa käyttöön: ${error}';
 	@override String errorCompletingSetup({required Object error}) => 'Virhe asetusten viimeistelyssä: ${error}';
 }
 
@@ -359,7 +359,7 @@ class _TranslationsDisclaimerFi implements TranslationsDisclaimerEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseNote => 'Huomio';
+	@override String get pleaseNote => 'Huomioithan';
 	@override late final _TranslationsDisclaimerSnapFi snap = _TranslationsDisclaimerSnapFi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateFi weightEstimate = _TranslationsDisclaimerWeightEstimateFi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsFi healthMetrics = _TranslationsDisclaimerHealthMetricsFi._(_root);
@@ -384,21 +384,21 @@ class _TranslationsFeedbackRatingFi implements TranslationsFeedbackRatingEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String enjoyingQuestion({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta?';
+	@override String enjoyingQuestion({required Object appLabel}) => 'Pidätkö ${appLabel}:sta?';
 	@override String get yes => 'Kyllä, pidän siitä';
-	@override String get no => 'En oikein';
+	@override String get no => 'En oikeastaan';
 	@override String get rateStepHeading => 'Arvostele Play Storessa';
-	@override String get emailStepHeading => 'Lähetä palautetta sähköpostilla';
-	@override String soloDevMessage({required Object appLabel}) => 'Nopea arvostelu auttaa muita löytämään ${appLabel}-sovelluksen ja pitää kehityksen käynnissä. Voisitko jättää sellaisen?';
-	@override String get shareFeedbackViaEmail => 'Palautteesi ohjaa seuraavia askeleita — luemme jokaisen viestin. Haluaisitko jakaa ajatuksiasi sähköpostitse?';
+	@override String get emailStepHeading => 'Lähetä palaute sähköpostilla';
+	@override String soloDevMessage({required Object appLabel}) => 'Pikainen arvostelu auttaa muita löytämään ${appLabel}:n ja pitää kehitystyön käynnissä. Voisitko hetken jättää arvion?';
+	@override String get shareFeedbackViaEmail => 'Palautteesi muokkaa tulevaa — luemme jokaisen viestin. Haluatko jakaa ajatuksesi sähköpostilla?';
 	@override String get rateCta => 'Arvostele Play Storessa';
 	@override String get maybeLater => 'Ehkä myöhemmin';
-	@override String get sendFeedback => 'Lähetä palautetta';
+	@override String get sendFeedback => 'Lähetä palaute';
 	@override String get noThanks => 'Ei kiitos';
-	@override String get aboutUsDescription => 'Pienen tiimin huolella tekemä. Keskitymme yksityisyyteen, yksinkertaisuuteen ja parempien ruokailutottumusten rakentamiseen.';
-	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Kiinnostaako, kuka ${appLabel}:n takana on? Katso ';
+	@override String get aboutUsDescription => 'Tehty huolella pienellä tiimillä. Keskitymme yksityisyyteen, yksinkertaisuuteen ja auttamaan sinua kehittämään parempia ruokailutottumuksia.';
+	@override String aboutUsMentionBeforeLink({required Object appLabel}) => 'Kiinnostaa kuka ${appLabel}:n takana on? Katso ';
 	@override String get aboutUsLinkLabel => 'Tietoa meistä';
-	@override String get thankYouMessage => 'Kiitos! Kysymme uudelleen toisen kerran.';
+	@override String get thankYouMessage => 'Kiitos! Kysymme taas myöhemmin.';
 }
 
 // Path: health
@@ -408,7 +408,7 @@ class _TranslationsHealthFi implements TranslationsHealthEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get syncFailed => 'Synkkaus Health Connectiin epäonnistui';
+	@override String get syncFailed => 'Synkronointi Health Connectiin epäonnistui';
 	@override String get mealSynced => 'Ateria synkattu Health Connectiin';
 }
 
@@ -432,7 +432,7 @@ class _TranslationsOnboardingGenderFi implements TranslationsOnboardingGenderEn 
 
 	// Translations
 	@override String get title => 'Mikä on sukupuolesi?';
-	@override String get description => 'Sukupuoli auttaa meitä laskemaan perusaineenvaihduntasi (BMR) tarkemmin.';
+	@override String get description => 'Sukupuoli auttaa meitä laskemaan perusaineenvaihduntasi (BMR) tarkasti.';
 	@override String get next => 'Seuraava';
 }
 
@@ -444,7 +444,7 @@ class _TranslationsOnboardingHeightFi implements TranslationsOnboardingHeightEn 
 
 	// Translations
 	@override String get title => 'Kuinka pitkä olet?';
-	@override String get description => 'Pituutesi auttaa meitä laskemaan BMI:si ja energiatarpeesi tarkasti.';
+	@override String get description => 'Pituutesi auttaa meitä laskemaan BMI:si ja energiantarpeesi tarkasti.';
 	@override String get metric => 'Metrinen';
 	@override String get imperial => 'Imperiaalinen';
 	@override String get next => 'Seuraava';
@@ -458,9 +458,9 @@ class _TranslationsOnboardingWeightFi implements TranslationsOnboardingWeightEn 
 
 	// Translations
 	@override String get currentTitle => 'Mikä on nykyinen painosi?';
-	@override String get currentDescription => 'Nykyinen painosi on oleellinen päivittäisten tavoitteidesi personoinnissa.';
+	@override String get currentDescription => 'Nykyinen painosi on tärkeä, jotta voimme räätälöidä päivittäiset tavoitteesi.';
 	@override String get targetTitle => 'Mikä on tavoitepainosi?';
-	@override String get targetDescription => 'Tavoitepainon asettaminen auttaa määrittämään pitkän aikavälin suunnitelmasi.';
+	@override String get targetDescription => 'Tavoitepainon asettaminen auttaa meitä määrittämään pitkän aikavälin suunnitelmasi.';
 	@override String get metric => 'Metrinen';
 	@override String get imperial => 'Imperiaalinen';
 	@override String get next => 'Seuraava';
@@ -473,8 +473,8 @@ class _TranslationsOnboardingAgeFi implements TranslationsOnboardingAgeEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Milloin on syntymäpäiväsi?';
-	@override String get description => 'Ikäsi auttaa meitä arvioimaan kaloritarpeesi tarkasti.';
+	@override String get title => 'Milloin olet syntynyt?';
+	@override String get description => 'Ikäsi auttaa meitä laskemaan kaloritarpeesi tarkasti.';
 	@override String get next => 'Seuraava';
 }
 
@@ -501,7 +501,7 @@ class _TranslationsOnboardingWeightGoalFi implements TranslationsOnboardingWeigh
 
 	// Translations
 	@override String get title => 'Mikä on tavoitteesi?';
-	@override String get description => 'Valitse tavoite, joka kuvaa parhaiten sitä, mitä haluat saavuttaa';
+	@override String get description => 'Valitse tavoite, joka parhaiten kuvaa mitä haluat saavuttaa';
 }
 
 // Path: onboarding.activityLevel
@@ -512,7 +512,7 @@ class _TranslationsOnboardingActivityLevelFi implements TranslationsOnboardingAc
 
 	// Translations
 	@override String get title => 'Kuinka aktiivinen olet?';
-	@override String get description => 'Tämä auttaa meitä laskemaan päivittäisen kaloritarpeesi tarkemmin';
+	@override String get description => 'Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin';
 }
 
 // Path: onboarding.healthConnect
@@ -523,18 +523,18 @@ class _TranslationsOnboardingHealthConnectFi implements TranslationsOnboardingHe
 
 	// Translations
 	@override String get title => 'Yhdistä Health Connectiin';
-	@override String get description => 'Synkkaa terveystietosi parempia oivalluksia ja automaattista kaloriseurantaa varten';
+	@override String get description => 'Synkronoi terveystietosi parempia näkemyksiä ja automaattista kaloriseurantaa varten';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingFi automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingFi._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsFi progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsFi._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationFi seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationFi._(_root);
 	@override String get connected => 'Health Connect yhdistetty';
 	@override String get notConnected => 'Health Connect ei yhdistetty';
-	@override String get setup => 'Määritä Health Connect';
-	@override String get skipForNow => 'Ohita toistaiseksi';
+	@override String get setup => 'Aseta Health Connect';
+	@override String get skipForNow => 'Ohita nyt';
 	@override String get statusConnected => 'Health Connect on yhdistetty.';
-	@override String get statusSuccess => 'Health Connect yhdistettiin onnistuneesti!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Lupa evätty. Ota Health Connect -lupia käyttöön puhelimesi asetuksista sovellukselle ${appLabel}.';
-	@override String statusError({required Object error}) => 'Virhe Health Connectin määrityksessä: ${error}';
+	@override String get statusSuccess => 'Health Connect on yhdistetty onnistuneesti!';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Lupa evätty. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista ${appLabel}:lle.';
+	@override String statusError({required Object error}) => 'Virhe Health Connectin asennuksessa: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -556,15 +556,15 @@ class _TranslationsHomeAiSummaryFi implements TranslationsHomeAiSummaryEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tekoälyn yhteenveto';
-	@override String get logMore => 'Kirjaa lisää aterioita seuraavien päivien aikana saadaksesi henkilökohtaiset tekoälyoivallukset.';
-	@override String get loading => 'Ladataan yhteenvetoasi...';
+	@override String get title => 'AI-yhteenvetosi';
+	@override String get logMore => 'Kirjaa lisää aterioita seuraavien päivien aikana saadaksesi henkilökohtaisia AI-näkemyksiä.';
+	@override String get loading => 'Ladataan yhteenvetoa...';
 	@override String mealCount({required Object count}) => '${count} ateriaa kirjattu';
-	@override String macroBalanceScore({required Object score}) => 'Tasapainopiste ${score}';
+	@override String macroBalanceScore({required Object score}) => 'Tasapainopisteet ${score}';
 	@override String get topFoods => 'Suosituimmat ruoat';
-	@override String get trendUp => 'Kalorit nousussa';
-	@override String get trendDown => 'Kalorit laskussa';
-	@override String get trendSteady => 'Kalorit tasaisena';
+	@override String get trendUp => 'Kalorit nousemassa';
+	@override String get trendDown => 'Kalorit laskevana';
+	@override String get trendSteady => 'Kalorit pysyvät tasaisina';
 	@override String generatedAt({required Object time}) => 'Päivitetty ${time}';
 }
 
@@ -575,19 +575,19 @@ class _TranslationsHomeDailyGoalFi implements TranslationsHomeDailyGoalEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Aseta päivätavoitteesi';
-	@override String get titleSet => 'Päivätavoitteesi';
-	@override String get description => 'Valmis aloittamaan hyvinvointimatkasi? Aseta päivittäinen kaloritaso alla käynnistääksesi edistymisen.';
-	@override String get descriptionSet => 'Suuntasi on selvä! Tämä on päivittäinen kaloritasosi ohjenuoraksi.';
+	@override String get title => 'Aseta päivittäinen tavoitteesi';
+	@override String get titleSet => 'Päivittäinen tavoitteesi';
+	@override String get description => 'Valmis aloittamaan hyvinvointimatkasi? Aseta päivittäinen kalorirajasi alle käynnistääksesi edistymisen.';
+	@override String get descriptionSet => 'Kompassisi on asetettu! Tämä on päivittäinen kalorirajasi, joka ohjaa sinua.';
 	@override String get yourGoal => 'Tavoitteesi';
 	@override String get goal => 'Tavoite';
 	@override String get dailyCalories => 'Päivittäiset kalorit (kcal)';
 	@override String get setGoal => 'Aseta tavoite';
 	@override String get intake => 'Saanti';
-	@override String get burned => 'Kulutus';
+	@override String get burned => 'Poltettu';
 	@override String get weightImpact => 'Vaikutus painoon';
-	@override String get estLoss => 'Arv. lasku';
-	@override String get estGain => 'Arv. nousu';
+	@override String get estLoss => 'Arvioitu pudotus';
+	@override String get estGain => 'Arvioitu nousu';
 	@override String get kcal => 'kcal';
 }
 
@@ -598,14 +598,14 @@ class _TranslationsHomeDailySummaryFi implements TranslationsHomeDailySummaryEn 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Päivän yhteenveto';
+	@override String get title => 'Päiväkohtainen yhteenveto';
 	@override String get calories => 'Kalorit';
 	@override String get carbs => 'Hiilihydraatit';
 	@override String get protein => 'Proteiini';
 	@override String get fat => 'Rasva';
 	@override String get fiber => 'Kuitu';
 	@override String get grams => 'grammaa';
-	@override String get chartAccessibilityLabel => 'Makrojen kaavio';
+	@override String get chartAccessibilityLabel => 'Makroravinteiden kaavio';
 }
 
 // Path: home.intakeProgress
@@ -615,7 +615,7 @@ class _TranslationsHomeIntakeProgressFi implements TranslationsHomeIntakeProgres
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tämän päivän makrojakauma';
+	@override String get title => 'Päivän makrojako';
 	@override String get target => 'Tavoite';
 	@override String get current => 'Nykyinen';
 }
@@ -629,8 +629,8 @@ class _TranslationsHomeIntakeHistoryFi implements TranslationsHomeIntakeHistoryE
 	// Translations
 	@override String get title => '7 päivän makrohistoria';
 	@override String get trendTitle => 'Päivän trendi';
-	@override String peakHour({required Object hour}) => 'Huippu: klo ${hour}:00';
-	@override String get noHistoryYet => 'Ei vielä historiaa';
+	@override String peakHour({required Object hour}) => 'Huippu: ${hour}:00';
+	@override String get noHistoryYet => 'Ei historiaa vielä';
 	@override String get startLogging => 'Aloita aterioiden kirjaaminen nähdäksesi\n7 päivän makrotrendit täällä';
 }
 
@@ -642,8 +642,8 @@ class _TranslationsHomeMealLogFi implements TranslationsHomeMealLogEn {
 
 	// Translations
 	@override String get title => 'Kirjatut ateriat';
-	@override String get emptyMessage => 'Nappaa kuva viimeisimmästä ateriastasi kirjautuaksesi tähän.';
-	@override String get noMealsToday => 'Tälle päivälle ei kirjattuja aterioita';
+	@override String get emptyMessage => 'Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.';
+	@override String get noMealsToday => 'Ei ateriakirjauksia tälle päivälle';
 	@override String get seeAllMeals => 'Näytä kaikki ateriat';
 }
 
@@ -654,9 +654,9 @@ class _TranslationsHomeMealDescriptionFi implements TranslationsHomeMealDescript
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Pikalisäys tekoälyllä';
-	@override String get description => 'Kuvaile ateriasi ja anna tekoälyn hoitaa loput.';
-	@override String get hint => 'esim. Aamiaiseksi söin ison kulhon kaurapuuroa, banaanin siivuina ja annoksen heraa ...';
+	@override String get title => 'Nopea lisäys AI:lla';
+	@override String get description => 'Kuvaile ateriasi ja anna AI:n hoitaa yksityiskohdat.';
+	@override String get hint => 'esim. Aamupalalla söin ison kulhollisen kaurapuuroa viipaloidun banaanin ja mitallisen heraproteiinia ...';
 	@override String get analyzeMeal => 'Analysoi ateria';
 }
 
@@ -668,9 +668,9 @@ class _TranslationsHomeFavoriteMealsFi implements TranslationsHomeFavoriteMealsE
 
 	// Translations
 	@override String get title => 'Suosikkiateriat';
-	@override String get description => 'Lisää nopeasti jokin suosikkiaterioistasi.';
-	@override String get noFavorites => 'Ei vielä suosikkiaterioita.';
-	@override String get addFavoriteHint => 'Merkitse ateria suosikiksi klikkaamalla tähteä.';
+	@override String get description => 'Lisää nopeasti joku suosikeistasi.';
+	@override String get noFavorites => 'Ei suosikkia vielä.';
+	@override String get addFavoriteHint => 'Klikkaa tähteä aterian kohdalla merkitäksesi sen suosikiksi.';
 	@override String get seeAll => 'Näytä kaikki';
 	@override String get add => 'Lisää';
 }
@@ -682,11 +682,11 @@ class _TranslationsHomeMealSnapFi implements TranslationsHomeMealSnapEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kuvaa ja seuraa ateriasi';
-	@override String get description => 'Käytä kameraa ottaaksesi kuvan ruoastasi tekoälyanalyysiä varten.';
+	@override String get title => 'Kuvaa & seuraa ateriasi';
+	@override String get description => 'Käytä kameraa ottaaksesi kuvan ruoastasi AI-analyysiä varten.';
 	@override String get openCamera => 'Avaa kamera';
 	@override String get gallery => 'Galleria';
-	@override String get compressingPhoto => 'Optimoidaan kuvaa…';
+	@override String get compressingPhoto => 'Optimoidaan kuva…';
 	@override String get uploadingPhoto => 'Lähetetään kuvaa…';
 }
 
@@ -697,8 +697,8 @@ class _TranslationsHomeConnectHealthFi implements TranslationsHomeConnectHealthE
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Synkkaa Health Connectiin';
-	@override String get description => 'Synkkaa ravitsemustietosi Health Connectin kanssa';
+	@override String get title => 'Synkronoi Health Connectiin';
+	@override String get description => 'Synkronoi ravintotietosi Health Connectiin';
 	@override String get install => 'Asenna';
 	@override String get connect => 'Yhdistä';
 }
@@ -725,7 +725,7 @@ class _TranslationsMealDeleteConfirmationFi implements TranslationsMealDeleteCon
 
 	// Translations
 	@override String get title => 'Poista ateria';
-	@override String get message => 'Haluatko varmasti poistaa tämän ateriamerkinnän?';
+	@override String get message => 'Haluatko varmasti poistaa tämän ateriakirjauksen?';
 	@override String get cancel => 'Peruuta';
 	@override String get delete => 'Poista';
 }
@@ -737,8 +737,8 @@ class _TranslationsMealQuestionFlowFi implements TranslationsMealQuestionFlowEn 
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String progress({required Object current, required Object total}) => 'Kysymys ${current}/${total}';
-	@override String get noQuestionsAvailable => 'Kysymyksiä ei ole saatavilla';
+	@override String progress({required Object current, required Object total}) => 'Kysymys ${current} / ${total}';
+	@override String get noQuestionsAvailable => 'Ei saatavilla olevia kysymyksiä';
 	@override String get next => 'Seuraava';
 	@override String get continueLabel => 'Jatka';
 }
@@ -750,31 +750,31 @@ class _TranslationsMealAnalysisFi implements TranslationsMealAnalysisEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tekoälyn ateria-analyysi';
+	@override String get title => 'Analysoidaan ateriaasi';
 	@override String get stepStarted => 'Aloitetaan…';
-	@override String get stepDecomposition => 'Ymmärretään ateriasi…';
-	@override String get stepIngredients => 'Yhdistetään ainesosat ravintotietoihin…';
+	@override String get stepDecomposition => 'Ymmärretään ateriaasi…';
+	@override String get stepIngredients => 'Etsitään ainesosia ja ravintoarvoja…';
 	@override String get stepUncertainty => 'Tarkistetaan varmuutta…';
-	@override String get stepMealTypeQuestion => 'Melkein valmista…';
+	@override String get stepMealTypeQuestion => 'Melkein valmis…';
 	@override String get stepResult => 'Viimeistellään tulosta…';
 	@override String get stepError => 'Jotain meni pieleen';
 	@override String get stepDefault => 'Analysoidaan ateriaasi…';
-	@override String get progressUnderstand => 'Ymmärrys';
-	@override String get progressMatch => 'Vastaavuus';
-	@override String get progressCheck => 'Tarkistus';
+	@override String get progressUnderstand => 'Ymmärretään ateria';
+	@override String get progressMatch => 'Haetaan ainesosien ravintoarvoja';
+	@override String get progressCheck => 'Tarkistetaan annoskoot ja varmuus';
 	@override String get progressMealType => 'Valitaan ateriatyyppi';
-	@override String get progressFinish => 'Viimeistely';
-	@override String get detectedIngredientHeading => 'Tunnistamamme ainesosat';
+	@override String get progressFinish => 'Lasketaan kalorit ja makrot';
+	@override String get detectedIngredientHeading => 'Havaitsemamme ainesosat';
 	@override String ingredientsOverflow({required Object count}) => '${count} lisää';
-	@override String ingredientsLine({required Object count}) => '${count} ainesosaa havaittu';
+	@override String ingredientsLine({required Object count}) => '${count} ainesosaa tunnistettu';
 	@override String get ingredientsPending => 'Skannataan ainesosia…';
 	@override String mealPreviewDescription({required Object text}) => '"${text}"';
-	@override String get offlineTip0 => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.';
-	@override String get offlineTip1 => 'Tip: For photos, natural light and a top-down view help with portion accuracy.';
-	@override String get offlineTip2 => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.';
-	@override String get offlineTip3 => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.';
-	@override String get offlineTip4 => 'Tip: Logging after the meal still builds the habit; perfection is optional.';
-	@override String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
+	@override String get offlineTip0 => 'Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.';
+	@override String get offlineTip1 => 'Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.';
+	@override String get offlineTip2 => 'Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.';
+	@override String get offlineTip3 => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.';
+	@override String get offlineTip4 => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.';
+	@override String get offlineTip5 => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).';
 }
 
 // Path: meal.feedback
@@ -785,16 +785,16 @@ class _TranslationsMealFeedbackFi implements TranslationsMealFeedbackEn {
 
 	// Translations
 	@override String get title => 'Mikä näyttää väärältä?';
-	@override String get subtitle => 'Auta meitä parantamaan analyysiä valitsemalla yksi tai useampi ongelma.';
+	@override String get subtitle => 'Auttaaksesi parantamaan analyysiä, valitse yksi tai useampi ongelma.';
 	@override String get tellUsMore => 'Kerro lisää';
-	@override String get describeIncorrect => 'Kuvaile, mikä oli väärin';
+	@override String get describeIncorrect => 'Kuvaile mikä oli virheellistä';
 	@override String get submit => 'Lähetä';
 	@override String get issueFoodIdentification => 'Ruoan tunnistus';
 	@override String get issuePortionSize => 'Annoksen koko';
-	@override String get issueCalorieDistribution => 'Kalorijakauma';
-	@override String get issueMacrosWrong => 'Makrot ovat väärin';
-	@override String get issueMissingItems => 'Puuttuvat kohteet';
-	@override String get issueExtraItems => 'Ylimääräiset kohteet';
+	@override String get issueCalorieDistribution => 'Kalorien jakautuminen';
+	@override String get issueMacrosWrong => 'Makrot väärin';
+	@override String get issueMissingItems => 'Puuttuvat ainesosat';
+	@override String get issueExtraItems => 'Liian monta ainesosaa';
 	@override String get issueOther => 'Muu';
 }
 
@@ -805,7 +805,7 @@ class _TranslationsFavoritesSortOptionsFi implements TranslationsFavoritesSortOp
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get recent => 'Uusimmat';
+	@override String get recent => 'Viimeisimmät';
 	@override String get calories => 'Kalorit';
 	@override String get alphabetical => 'A–Ö';
 }
@@ -819,7 +819,7 @@ class _TranslationsProfileSectionsFi implements TranslationsProfileSectionsEn {
 	// Translations
 	@override String get profile => 'PROFIILI';
 	@override String get basicInformation => 'PERUSTIEDOT';
-	@override String get goalsAndActivity => 'TAVOITTEET JA AKTIIVISUUS';
+	@override String get goalsAndActivity => 'TAVOITTEET & AKTIVITEETTI';
 	@override String get calculatedValues => 'LASKETUT ARVOT';
 }
 
@@ -832,8 +832,8 @@ class _TranslationsProfileCalculatedValuesFi implements TranslationsProfileCalcu
 	// Translations
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
-	@override String get dailyGoal => 'Päivätavoite';
-	@override String get calPerDay => 'kcal/vrk';
+	@override String get dailyGoal => 'Päivittäinen tavoite';
+	@override String get calPerDay => 'kal/pv';
 	@override String get notAvailable => 'Ei saatavilla';
 }
 
@@ -845,8 +845,8 @@ class _TranslationsEditProfileSectionsFi implements TranslationsEditProfileSecti
 
 	// Translations
 	@override String get personalInformation => 'HENKILÖTIEDOT';
-	@override String get physicalMeasurements => 'FYYSISET MITAT';
-	@override String get goalsAndActivity => 'TAVOITTEET JA AKTIIVISUUS';
+	@override String get physicalMeasurements => 'KEHON MITAT';
+	@override String get goalsAndActivity => 'TAVOITTEET & AKTIVITEETTI';
 }
 
 // Path: editProfile.genders
@@ -895,12 +895,12 @@ class _TranslationsSettingsSectionsFi implements TranslationsSettingsSectionsEn 
 
 	// Translations
 	@override String get profile => 'PROFIILI';
-	@override String get localization => 'KIELI JA ALUE';
+	@override String get localization => 'LOKALISAATIO';
 	@override String get notifications => 'ILMOITUKSET';
 	@override String get healthConnect => 'HEALTH CONNECT';
-	@override String get supportAndLegal => 'TUKI JA OIKEUDELLISET';
-	@override String get about => 'TIETOJA';
-	@override String get dangerZone => 'VAARA-ALUE';
+	@override String get supportAndLegal => 'TUKI & LAINSÄÄDÄNTÖ';
+	@override String get about => 'TIETOA';
+	@override String get dangerZone => 'VAIKUTUSALUE';
 	@override String get developer => 'KEHITTÄJÄ';
 }
 
@@ -912,7 +912,7 @@ class _TranslationsSettingsEditProfileFi implements TranslationsSettingsEditProf
 
 	// Translations
 	@override String get title => 'Muokkaa profiilia';
-	@override String get subtitle => 'Päivitä henkilötietosi';
+	@override String get subtitle => 'Päivitä henkilökohtaiset tietosi';
 }
 
 // Path: settings.language
@@ -923,7 +923,7 @@ class _TranslationsSettingsLanguageFi implements TranslationsSettingsLanguageEn 
 
 	// Translations
 	@override String get title => 'Kieli';
-	@override String get subtitle => 'Valitse ensisijainen kielesi';
+	@override String get subtitle => 'Valitse haluamasi kieli';
 	@override String get searchHint => 'Hae kieliä...';
 	@override String get noResults => 'Ei tuloksia';
 }
@@ -935,7 +935,7 @@ class _TranslationsSettingsHeightUnitFi implements TranslationsSettingsHeightUni
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Pituuden yksikkö';
+	@override String get title => 'Pituusyksikkö';
 }
 
 // Path: settings.weightUnit
@@ -945,7 +945,7 @@ class _TranslationsSettingsWeightUnitFi implements TranslationsSettingsWeightUni
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Painon yksikkö';
+	@override String get title => 'Painoyksikkö';
 }
 
 // Path: settings.mealReminders
@@ -956,7 +956,7 @@ class _TranslationsSettingsMealRemindersFi implements TranslationsSettingsMealRe
 
 	// Translations
 	@override String get title => 'Ateriamuistutukset';
-	@override String get subtitle => 'Pysy raiteilla ajantasaisilla muistutuksilla';
+	@override String get subtitle => 'Pysy raiteilla ajankohtaisilla muistutuksilla';
 }
 
 // Path: settings.theme
@@ -980,10 +980,10 @@ class _TranslationsSettingsSendFeedbackFi implements TranslationsSettingsSendFee
 
 	// Translations
 	@override String get title => 'Lähetä palautetta';
-	@override String subtitle({required Object appLabel}) => 'Auta meitä parantamaan ${appLabel}-sovellusta';
-	@override String emailSubject({required Object appLabel}) => '${appLabel}-sovelluksen palaute';
-	@override String get emailBodyPrefix => 'Anna palautteesi alle:';
-	@override String get appVersion => 'Sovellusversio';
+	@override String subtitle({required Object appLabel}) => 'Auta parantamaan ${appLabel}';
+	@override String emailSubject({required Object appLabel}) => '${appLabel} - Sovelluspalaute';
+	@override String get emailBodyPrefix => 'Anna palautteesi alla:';
+	@override String get appVersion => 'Sovelluksen versio';
 	@override String get device => 'Laite';
 	@override String get osVersion => 'Käyttöjärjestelmäversio';
 	@override String get uid => 'UID';
@@ -996,10 +996,10 @@ class _TranslationsSettingsExportMealHistoryFi implements TranslationsSettingsEx
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Vie ateriahistoria';
-	@override String get subtitle => 'Jaa CSV kirjatuista aterioistasi';
-	@override String get shareText => 'Your Calorify meal history export';
-	@override String failed({required Object error}) => 'Ateriahistorian vienti epäonnistui: ${error}';
+	@override String get title => 'Vie ateriakirja';
+	@override String get subtitle => 'Jaa CSV tiedosto kirjatuista aterioistasi';
+	@override String get shareText => 'Calorify meal history export';
+	@override String failed({required Object error}) => 'Ateriakirjan vieminen epäonnistui: ${error}';
 }
 
 // Path: settings.clearAllData
@@ -1012,7 +1012,7 @@ class _TranslationsSettingsClearAllDataFi implements TranslationsSettingsClearAl
 	@override String get title => 'Tyhjennä kaikki tiedot';
 	@override String get subtitle => 'Poista kaikki tietosi peruuttamattomasti';
 	@override String get confirmationTitle => 'Tyhjennetäänkö kaikki tiedot?';
-	@override String get confirmationMessage => 'Tätä toimintoa ei voi perua. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.';
+	@override String get confirmationMessage => 'Tätä toimenpidettä ei voi peruuttaa. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.';
 	@override String get cancel => 'Peruuta';
 	@override String get clearEverything => 'Tyhjennä kaikki';
 }
@@ -1024,7 +1024,7 @@ class _TranslationsSettingsDebugOptionsFi implements TranslationsSettingsDebugOp
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Vianjäljitysasetukset';
+	@override String get title => 'Debug-asetukset';
 }
 
 // Path: settings.healthConnect
@@ -1035,14 +1035,14 @@ class _TranslationsSettingsHealthConnectFi implements TranslationsSettingsHealth
 
 	// Translations
 	@override String get title => 'Health Connect';
-	@override String get subtitle => 'Näytä ja hallitse käyttöoikeuksia';
+	@override String get subtitle => 'Katso ja hallinnoi käyttöoikeuksia';
 	@override late final _TranslationsSettingsHealthConnectUnavailableFi unavailable = _TranslationsSettingsHealthConnectUnavailableFi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsFi permissions = _TranslationsSettingsHealthConnectPermissionsFi._(_root);
 	@override String get managePermissions => 'Hallitse käyttöoikeuksia';
 	@override String get openSettings => 'Avaa Health Connect -asetukset';
-	@override String get requestPermissions => 'Pyydä käyttöoikeuksia';
-	@override String get permissionRequestCancelledOrFailed => 'Käyttöoikeuspyyntö peruttiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connect -asetuksissa.';
-	@override String get permissionRequestFailed => 'Käyttöoikeuksien pyytäminen ei onnistu. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connect -asetuksissa.';
+	@override String get requestPermissions => 'Pyydä oikeuksia';
+	@override String get permissionRequestCancelledOrFailed => 'Käyttöoikeuspyyntö keskeytettiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.';
+	@override String get permissionRequestFailed => 'Oikeuspyyntöä ei voitu lähettää. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.';
 	@override String get requestingPermissions => 'Pyydetään...';
 }
 
@@ -1053,8 +1053,8 @@ class _TranslationsSettingsAboutFi implements TranslationsSettingsAboutEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tietoja';
-	@override String get tagline => 'Nopea, ilmainen ja yksityisyyttä kunnioittava kalorivalmennus';
+	@override String get title => 'Tietoa';
+	@override String get tagline => 'Nopea, ilmainen ja tietosuoja etusijalla oleva kaloritehokkuus';
 	@override late final _TranslationsSettingsAboutOurStoryFi ourStory = _TranslationsSettingsAboutOurStoryFi._(_root);
 	@override late final _TranslationsSettingsAboutPrivacyFi privacy = _TranslationsSettingsAboutPrivacyFi._(_root);
 	@override late final _TranslationsSettingsAboutDeveloperFi developer = _TranslationsSettingsAboutDeveloperFi._(_root);
@@ -1069,7 +1069,7 @@ class _TranslationsSettingsAppInfoFi implements TranslationsSettingsAppInfoEn {
 
 	// Translations
 	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Koontiversio ${buildNumber}';
+	@override String build({required Object buildNumber}) => 'Koonti ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1079,7 +1079,7 @@ class _TranslationsNotificationsBreakfastFi implements TranslationsNotifications
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Aamiaisaika! 🍳';
+	@override String get title => 'Aamupala-aika! 🍳';
 	@override String get body => 'Muista kirjata aamiaisesi';
 }
 
@@ -1091,7 +1091,7 @@ class _TranslationsNotificationsLunchFi implements TranslationsNotificationsLunc
 
 	// Translations
 	@override String get title => 'Lounasaika! 🥗';
-	@override String get body => 'On aika kirjata lounaasi';
+	@override String get body => 'On aika kirjata lounas';
 }
 
 // Path: notifications.dinner
@@ -1133,7 +1133,7 @@ class _TranslationsDisclaimerSnapFi implements TranslationsDisclaimerSnapEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String description({required Object appLabel}) => '${appLabel} tarjoaa arvioidut ravintoarvot. Tarkkuus riippuu syötteestäsi ja ruoan vaihtelusta. Käytä ohjenuorana, ei lopullisena lähteenä. Käänny ammattilaisen puoleen henkilökohtaista ravinto-ohjausta varten.';
+	@override String description({required Object appLabel}) => '${appLabel} antaa arvioidut ravintoarvot. Tarkkuus riippuu antamistasi tiedoista ja ruokien vaihteluista. Käytä ohjeellisena, ei lopullisena tietolähteenä. Kysy henkilökohtaista ravitsemusneuvontaa ammattilaiselta.';
 	@override late final _TranslationsDisclaimerSnapPortionSizeFi portionSize = _TranslationsDisclaimerSnapPortionSizeFi._(_root);
 	@override late final _TranslationsDisclaimerSnapPreparationMethodsFi preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsFi._(_root);
 	@override late final _TranslationsDisclaimerSnapIngredientsFi ingredients = _TranslationsDisclaimerSnapIngredientsFi._(_root);
@@ -1148,7 +1148,7 @@ class _TranslationsDisclaimerWeightEstimateFi implements TranslationsDisclaimerW
 
 	// Translations
 	@override String get title => 'Tietoa painoarviosta';
-	@override String get description => 'Arvioitu painonmuutos perustuu teoreettiseen malliimme kalorit sisään vs. kalorit ulos. Se on tarkoitettu vain motivaatioksi, ei todellisen painon ennusteeksi.';
+	@override String get description => 'Projektio painonmuutoksesta on teoreettinen arvio perustuen yksinkertaiseen kalorien sisään vs. ulos -malliin. Se on tarkoitettu motivoivaksi ohjaukseksi, ei ennusteeksi todellisesta painostasi.';
 	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyFi calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyFi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsFi biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsFi._(_root);
 	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightFi waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightFi._(_root);
@@ -1162,7 +1162,7 @@ class _TranslationsDisclaimerHealthMetricsFi implements TranslationsDisclaimerHe
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Nämä mittarit auttavat sinua ymmärtämään kehosi energiantarvetta ja ohjaavat ravintotavoitteitasi.';
+	@override String get description => 'Nämä mittarit auttavat ymmärtämään kehosi energiantarpeita ja ohjaavat ravitsemustavoitteitasi.';
 	@override late final _TranslationsDisclaimerHealthMetricsBmrFi bmr = _TranslationsDisclaimerHealthMetricsBmrFi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsTdeeFi tdee = _TranslationsDisclaimerHealthMetricsTdeeFi._(_root);
 	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalFi dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalFi._(_root);
@@ -1175,8 +1175,8 @@ class _TranslationsDisclaimerCalorieExpenditureFi implements TranslationsDisclai
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kalorien kulutuksen arvio';
-	@override String get description => 'Kun Health Connect -tietoja ei ole saatavilla, arvioimme tämän päivän kulutetut kalorit perusaineenvaihdunnan (BMR) ja aktiivisuustason (TDEE) perusteella, skaalattuna kuluneen päivän osuuden mukaan.';
+	@override String get title => 'Arvio kalorinkulutuksesta';
+	@override String get description => 'Kun Health Connect -data ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttäen perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalaamalla sen kuluneen päivän osuuden mukaan.';
 	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi._(_root);
 	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi._(_root);
 }
@@ -1188,8 +1188,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionFi implements TranslationsOn
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Älykäs ruoantunnistus';
-	@override String get description => 'Ota kuva ja anna tekoälyn tunnistaa ateriasi';
+	@override String get title => 'Älykäs ruoan tunnistus';
+	@override String get description => 'Ota kuva ja anna AI:n tunnistaa ateriasi';
 }
 
 // Path: onboarding.features.aiAnalysis
@@ -1199,8 +1199,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisFi implements TranslationsOnboard
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tekoälyanalyysi';
-	@override String get description => 'Saat heti ravintoarvot kuvauksesi perusteella';
+	@override String get title => 'AI-analyysi';
+	@override String get description => 'Saat välittömiä ravintoarvoja kuvauksistasi';
 }
 
 // Path: onboarding.features.healthIntegration
@@ -1210,8 +1210,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationFi implements Translations
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Connect -integraatio';
-	@override String get description => 'Yhdistä Health Connectiin parempia oivalluksia varten';
+	@override String get title => 'Terveystietojen integraatio';
+	@override String get description => 'Yhdistä Health Connectiin saadaksesi parempia näkemyksiä';
 }
 
 // Path: onboarding.bmiScale.categories
@@ -1222,7 +1222,7 @@ class _TranslationsOnboardingBmiScaleCategoriesFi implements TranslationsOnboard
 
 	// Translations
 	@override String get underweight => 'Alipaino';
-	@override String get healthyWeight => 'Normaalipaino';
+	@override String get healthyWeight => 'Terve paino';
 	@override String get overweight => 'Ylipaino';
 	@override String get obese => 'Lihavuus';
 }
@@ -1234,10 +1234,10 @@ class _TranslationsOnboardingBmiScaleMessagesFi implements TranslationsOnboardin
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get underweight => 'Autamme sinua rakentamaan terveellisen suunnitelman tasapainoiseen painoon ravintorikkaiden aterioiden avulla.';
-	@override String get healthy => 'Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään vireyttäsi ja energiatasojasi.';
-	@override String overweight({required Object appLabel}) => '${appLabel} tekee matkasta helpomman tekoälypohjaisella seurannalla, jotta pääset kohti tavoitettasi mukavasti.';
-	@override String get obese => 'Olemme tukenasi henkilökohtaisella ohjauksella ja kestävillä strategioilla terveytesi tavoitteisiin.';
+	@override String get underweight => 'Voimme auttaa sinua rakentamaan terveellisen suunnitelman kohti tasapainoista painoa ja ravinteikkaita aterioita.';
+	@override String get healthy => 'Hyvä työ! Olet terveellä alueella. Autamme sinua ylläpitämään elinvoimaa ja energiatason.';
+	@override String overweight({required Object appLabel}) => '${appLabel} yksinkertaistaa matkaasi AI-pohjaisella seurannalla, jotta saavutat tavoitteesi mukavasti.';
+	@override String get obese => 'Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestäviksi suunnitelluilla strategioilla terveyttäsi varten.';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1248,7 +1248,7 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingFi implements Transla
 
 	// Translations
 	@override String get title => 'Automaattinen kaloriseuranta';
-	@override String get description => 'Seuraa poltettuja kaloreita kuntosovelluksistasi';
+	@override String get description => 'Seuraa harjoittelun polttamia kaloreita suosikkisovelluksistasi';
 }
 
 // Path: onboarding.healthConnect.progressInsights
@@ -1258,8 +1258,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsFi implements Translat
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Edistymisen oivallukset';
-	@override String get description => 'Saat yksityiskohtaisia näkymiä terveystrendeihin';
+	@override String get title => 'Edistymisnäkymät';
+	@override String get description => 'Saat yksityiskohtaisia näkymiä terveystrendeistäsi';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1269,8 +1269,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationFi implements Trans
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Saumaton integrointi';
-	@override String get description => 'Synkkaa tietoja suosikkiterveyssovelluksistasi';
+	@override String get title => 'Saumaton integraatio';
+	@override String get description => 'Synkronoi tietoja suosikkiterveyssovelluksistasi';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1281,13 +1281,13 @@ class _TranslationsOnboardingReinforcementTrackingSuccessFi implements Translati
 
 	// Translations
 	@override String get title => 'Et ole yksin';
-	@override String get genericMessage => 'Tutkimusten mukaan johdonmukainen seuranta on pitkäaikaisen menestyksen ykkösennustaja.';
-	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age}-vuotiaalle ${gender}, joka haluaa ${goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.';
-	@override String closingMessage({required Object appLabel}) => '${appLabel} tekee tästä 10x helpompaa kuin manuaalisesti.';
+	@override String get genericMessage => 'Tutkimukset osoittavat, että johdonmukainen seuranta on paras ennustaja pitkäaikaiselle menestykselle.';
+	@override String personalizedMessage({required Object age, required Object gender, required Object goal}) => '${age}-vuotiaalle ${gender}:lle, joka haluaa ${goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.';
+	@override String closingMessage({required Object appLabel}) => '${appLabel} tekee siitä 10x helpompaa kuin manuaalisesti.';
 	@override String get getStartedTitle => 'Valmis aloittamaan?';
-	@override String get tipPhoto => 'Ota kuvat aterioistasi saadaksesi välittömän analyysin';
-	@override String get tipConsistency => 'Kirjaa säännöllisesti nähdäksesi merkityksellistä edistystä';
-	@override String get tipProgress => 'Seuraa edistymistäsi päivittäin pysyäksesi motivoituneena';
+	@override String get tipPhoto => 'Ota kuva aterioistasi välitöntä analyysia varten';
+	@override String get tipConsistency => 'Kirjaa säännöllisesti nähdäksesi merkittäviä edistysaskeleita';
+	@override String get tipProgress => 'Seuraa edistystäsi päivittäin pysyäksesi motivoituneena';
 	@override String get button => 'Aloitetaan';
 	@override String get defaultGender => 'henkilö';
 	@override String get defaultGoal => 'terveempi sinä';
@@ -1301,12 +1301,12 @@ class _TranslationsOnboardingReinforcementHealthProfileFi implements Translation
 
 	// Translations
 	@override String get title => 'Terveysprofiilisi';
-	@override String bmiDescription({required Object bmi}) => 'Mittariesi perusteella BMI:si on ${bmi}.';
+	@override String bmiDescription({required Object bmi}) => 'Mittiesi perusteella BMI:si on ${bmi}.';
 	@override String get finalizeDescription => 'Viimeistellään profiilisi, jotta voimme räätälöidä kokemuksesi.';
-	@override String get goalGain => 'nostaa';
-	@override String get goalLose => 'laskea';
-	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Päästäksesi tavoitteeseesi sinun tulisi ${direction} ${diff} ${unit}.';
-	@override String get goalReached => 'Olet tavoitepainossasi! Autamme sinua ylläpitämään sen.';
+	@override String get goalGain => 'saada';
+	@override String get goalLose => 'laihtua';
+	@override String goalReach({required Object direction, required Object diff, required Object unit}) => 'Saavuttaaksesi tavoitteen, sinun täytyy ${direction} ${diff} ${unit}.';
+	@override String get goalReached => 'Olet tavoitepainossasi! Autamme sinua ylläpitämään sitä.';
 	@override String get button => 'Aloitetaan';
 }
 
@@ -1317,11 +1317,11 @@ class _TranslationsOnboardingReinforcementGoalLifestyleFi implements Translation
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Loistava alku!';
-	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, ${appLabel} säätää tavoitteitasi elämäntapaasi sopiviksi.';
-	@override String get personalizedTargets => 'Henkilökohtaiset kalorisuositukset';
-	@override String get aiMealDetection => 'Tekoälypohjainen aterioiden tunnistus';
-	@override String get macroBreakdowns => 'Yksityiskohtaiset makroravinne-erittelyt';
+	@override String get title => 'Erinomainen alku!';
+	@override String description({required Object goalText, required Object activityText, required Object appLabel}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, ${appLabel} säätää tavoitteesi vastaamaan elämäntyyliäsi.';
+	@override String get personalizedTargets => 'Räätälöidyt kalorintavoitteet';
+	@override String get aiMealDetection => 'AI-pohjainen aterian tunnistus';
+	@override String get macroBreakdowns => 'Yksityiskohtaiset makroravinteiden erittelyt';
 	@override String get button => 'Aloitetaan';
 	@override String get defaultGoal => 'tavoitteitasi';
 	@override String get defaultActivity => 'aktiivinen';
@@ -1334,8 +1334,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightFi implements TranslationsEdi
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Laihdu';
-	@override String get description => 'Luo kalorivaje laihtuaksesi';
+	@override String get name => 'Läihtyminen';
+	@override String get description => 'Luo kalorivajetta laihtumista varten';
 }
 
 // Path: editProfile.weightGoals.maintainWeight
@@ -1345,8 +1345,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightFi implements Translation
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Ylläpidä paino';
-	@override String get description => 'Ylläpidä nykyinen painosi';
+	@override String get name => 'Säilytä paino';
+	@override String get description => 'Säilytä nykyinen painosi';
 }
 
 // Path: editProfile.weightGoals.gainWeight
@@ -1356,8 +1356,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightFi implements TranslationsEdi
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Nosta painoa';
-	@override String get description => 'Luo kaloriylijäämä painon nostamiseksi';
+	@override String get name => 'Lisää painoa';
+	@override String get description => 'Luo kaloriylijäämä painon lisäämiseksi';
 }
 
 // Path: editProfile.activityLevels.sedentary
@@ -1367,7 +1367,7 @@ class _TranslationsEditProfileActivityLevelsSedentaryFi implements TranslationsE
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Vähäinen aktiivisuus';
+	@override String get name => 'Vähän liikkuva';
 	@override String get description => 'Vähän tai ei lainkaan liikuntaa';
 }
 
@@ -1378,8 +1378,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveFi implements Translati
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Kevyen aktiivinen';
-	@override String get description => 'Kevyttä liikuntaa 1–3 päivää/viikko';
+	@override String get name => 'Kevyesti aktiivinen';
+	@override String get description => 'Kevyt liikunta 1–3 päivää/viikko';
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
@@ -1389,8 +1389,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveFi implements Transl
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Kohtalaisen aktiivinen';
-	@override String get description => 'Kohtalaista liikuntaa 3–5 päivää/viikko';
+	@override String get name => 'Kohtalaisesti aktiivinen';
+	@override String get description => 'Kohtalainen liikunta 3–5 päivää/viikko';
 }
 
 // Path: editProfile.activityLevels.veryActive
@@ -1401,7 +1401,7 @@ class _TranslationsEditProfileActivityLevelsVeryActiveFi implements Translations
 
 	// Translations
 	@override String get name => 'Erittäin aktiivinen';
-	@override String get description => 'Raskasta liikuntaa 6–7 päivää/viikko';
+	@override String get description => 'Rankka liikunta 6–7 päivää/viikko';
 }
 
 // Path: editProfile.activityLevels.extremelyActive
@@ -1411,8 +1411,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveFi implements Transla
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get name => 'Äärimmäisen aktiivinen';
-	@override String get description => 'Erittäin raskasta liikuntaa, fyysinen työ';
+	@override String get name => 'Erittäin intensiivinen';
+	@override String get description => 'Todella raskas liikunta tai fyysinen työ';
 }
 
 // Path: settings.healthConnect.unavailable
@@ -1422,8 +1422,8 @@ class _TranslationsSettingsHealthConnectUnavailableFi implements TranslationsSet
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Health Connect ei ole saatavilla';
-	@override String get description => 'Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.';
+	@override String get title => 'Health Connect ei saatavilla';
+	@override String get description => 'Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1433,8 +1433,8 @@ class _TranslationsSettingsHealthConnectPermissionsFi implements TranslationsSet
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Käyttöluvat';
-	@override String get description => 'Seuraavia lupia pyydetään Health Connect -integraation tarjoamiseksi:';
+	@override String get title => 'Oikeudet';
+	@override String get description => 'Seuraavia oikeuksia pyydetään tarjotaksemme Health Connect -integraation:';
 	@override String get granted => 'Myönnetty';
 	@override String get notGranted => 'Ei myönnetty';
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFi caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFi._(_root);
@@ -1449,8 +1449,8 @@ class _TranslationsSettingsAboutOurStoryFi implements TranslationsSettingsAboutO
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tarina';
-	@override String content({required Object appLabel}) => '${appLabel} syntyi yksinkertaisesta turhautumisesta: useimmat kaloriseurantasovellukset ovat joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttöä, perivät korkeat tilausmaksut tai tinkivät yksityisyydestä.\n\nYksin kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja reilumpaa — sovelluksen, joka hyödyntää tekoälyä vaivannäön vähentämiseksi, pysyy nopeana ja ilmaisena sekä kohtelee terveystietojasi kunnioittavasti.\n\n${appLabel} on sovellus, jonka olisin itse halunnut: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja terveytesi tukemista.';
+	@override String get title => 'Tarinaamme';
+	@override String content({required Object appLabel}) => '${appLabel} syntyi yksinkertaisesta turhautumisesta: useimmat kaloriseurantasovellukset ovat joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttöä, veloittavat suuria tilausmaksuja tai vaarantavat yksityisyyden.\n\nYksittäisenä kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja reilumpaa — sovelluksen, joka käyttää AI:ta vähentääkseen vaivaa, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioittavasti.\n\n${appLabel} on sovellus, jonka toivoisin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä näkemyksiä ja sinun terveystavoitteesi.';
 }
 
 // Path: settings.about.privacy
@@ -1461,12 +1461,12 @@ class _TranslationsSettingsAboutPrivacyFi implements TranslationsSettingsAboutPr
 
 	// Translations
 	@override String get title => 'Yksityisyytesi on tärkeä';
-	@override String get description => 'Yksityisyys ei ole jälkiajatus — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:';
-	@override String get noAccounts => 'Ei tilejä tarpeen\nKäytä sovellusta heti. Ei rekisteröitymisiä, ei henkilöllisyyksiä.';
-	@override String noTracking({required Object appLabel}) => 'Ei käyttäytymisen seurantaa\n${appLabel} ei seuraa toimintaasi, laadi käyttötapaprofiileja tai seuraa sinua sovellusten tai verkkosivustojen välillä.';
-	@override String noAds({required Object appLabel}) => 'Ei mainoksia suunnittelusta lähtien\n${appLabel} on rakennettu toimimaan ilman mainoksia tai datavetoista kaupallistamista.';
-	@override String get noDataSelling => 'Ei tietojen myyntiä\nTerveysdataasi ei koskaan myydä tai jaeta kolmansille osapuolille.';
-	@override String get localStorage => 'Lokaali tallennus ensin\nTietosi pysyvät laitteellasi.';
+	@override String get description => 'Yksityisyys ei ole harkinnanvarainen lisä — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:';
+	@override String get noAccounts => 'Ei tilejä vaadita\nKäytä sovellusta välittömästi. Ei kirjautumisia, ei identiteettejä.';
+	@override String noTracking({required Object appLabel}) => 'Ei käytöksen seurantaa\n${appLabel} ei seuraa toimintaasi, rakenna käyttötottumuksia tai seuraa sinua sovellusten tai verkkosivujen välillä.';
+	@override String noAds({required Object appLabel}) => 'Mainokseton suunnittelu\n${appLabel} on rakennettu toimimaan ilman mainoksia tai dataperusteista rahastusta.';
+	@override String get noDataSelling => 'Ei datan myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.';
+	@override String get localStorage => 'Laitteella ensisijaisesti tallennus\nTietosi säilyvät laitteellasi.';
 	@override String get privacyPolicy => 'Tietosuojakäytäntö';
 }
 
@@ -1478,7 +1478,7 @@ class _TranslationsSettingsAboutDeveloperFi implements TranslationsSettingsAbout
 
 	// Translations
 	@override String get title => 'Rakennettu yksinkehittäjän toimesta';
-	@override String description({required Object appLabel}) => '${appLabel} on yhden kehittäjän rakentama ja ylläpitämä, keskittyen rauhalliseen, yksityisyyttä kunnioittavaan terveysteknologiaan.\n\nPalaute luetaan henkilökohtaisesti ja se ohjaa sovelluksen suuntaa.';
+	@override String description({required Object appLabel}) => '${appLabel} on rakennettu ja ylläpidetty yhden kehittäjän toimesta, joka keskittyy rauhalliseen, yksityisyyttä kunnioittavaan terveysohjelmistoon.\n\nPalaute luetaan henkilökohtaisesti ja auttaa muovaamaan sovelluksen kehityssuuntaa.';
 	@override String get website => 'Verkkosivusto';
 	@override String get email => 'Sähköposti';
 }
@@ -1490,10 +1490,10 @@ class _TranslationsSettingsAboutFeedbackFi implements TranslationsSettingsAboutF
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String title({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta?';
-	@override String description({required Object appLabel}) => 'Palautteesi auttaa tekemään ${appLabel}-sovelluksesta paremman kaikille.';
+	@override String title({required Object appLabel}) => 'Pidätkö ${appLabel}:sta?';
+	@override String description({required Object appLabel}) => 'Palautteesi auttaa tekemään ${appLabel}:sta parempaa kaikille.';
 	@override String get rateApp => 'Arvostele Play Storessa';
-	@override String get sendFeedback => 'Lähetä palautetta';
+	@override String get sendFeedback => 'Lähetä palaute';
 }
 
 // Path: disclaimer.snap.portionSize
@@ -1504,7 +1504,7 @@ class _TranslationsDisclaimerSnapPortionSizeFi implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Annoskoko';
-	@override String get description => 'Arvioiden tarkkuus riippuu vahvasti annoskoon oikeasta arviostasi.';
+	@override String get description => 'Arvioiden tarkkuus perustuu pitkälti oikeaan annoskoon arviointiisi.';
 }
 
 // Path: disclaimer.snap.preparationMethods
@@ -1515,7 +1515,7 @@ class _TranslationsDisclaimerSnapPreparationMethodsFi implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Valmistustavat';
-	@override String description({required Object appLabel}) => 'Ruoanvalmistus voi muuttaa ravintosisältöä merkittävästi. ${appLabel}:n arviot eivät aina huomioi kaikkia vaihteluita.';
+	@override String description({required Object appLabel}) => 'Ruokien valmistustavat voivat merkittävästi muuttaa ravintoarvoja. ${appLabel}in arviot eivät aina huomioi näitä eroja.';
 }
 
 // Path: disclaimer.snap.ingredients
@@ -1526,7 +1526,7 @@ class _TranslationsDisclaimerSnapIngredientsFi implements TranslationsDisclaimer
 
 	// Translations
 	@override String get title => 'Ainesosat';
-	@override String get description => 'Monimutkaiset ruoat, joissa on paljon piiloainesosia, voivat johtaa epätarkempiin arvioihin.';
+	@override String get description => 'Monimutkaiset ruoat, joissa on paljon piilotettuja ainesosia, saattavat johtaa epätarkempiin arvioihin.';
 }
 
 // Path: disclaimer.snap.databaseLimitations
@@ -1536,8 +1536,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsFi implements TranslationsDi
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Tietokannan rajoitukset';
-	@override String description({required Object appLabel}) => '${appLabel}:n ruokakanta on laaja, mutta ei välttämättä sisällä jokaista ruoka-ainetta tai variaatiota.';
+	@override String get title => 'Tietokantaan liittyvät rajoitukset';
+	@override String description({required Object appLabel}) => '${appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota.';
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
@@ -1547,8 +1547,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyFi implements Translat
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kalorilukemien tarkkuus';
-	@override String get description => 'Tämä arvio on yhtä tarkka kuin kirjaamasi kalorien saanti ja kulutus. Epätarkat merkinnät tuottavat epätarkan arvion.';
+	@override String get title => 'Kalorien tarkkuus';
+	@override String get description => 'Tämä arvio on yhtä tarkka kuin kirjaamiesi kulutus- ja polttoarvioiden tarkkuus. Virheellinen kirjaaminen johtaa virheelliseen ennusteeseen.';
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
@@ -1559,7 +1559,7 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsFi implements Transl
 
 	// Translations
 	@override String get title => 'Biologiset tekijät';
-	@override String description({required Object appLabel}) => 'Todelliseen painonmuutokseen vaikuttavat aineenvaihdunta, hormonit, uni, stressi, nesteytys ja muut yksilölliset tekijät, joita ${appLabel} ei voi mitata.';
+	@override String description({required Object appLabel}) => 'Todellinen laihtuminen/lihastus riippuu aineenvaihdunnasta, hormoneista, unesta, stressistä, nesteytyksestä ja muista yksilöllisistä tekijöistä, joita ${appLabel} ei voi mitata.';
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
@@ -1569,8 +1569,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightFi implements Translations
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Nestetasapaino ja vaihtelut';
-	@override String get description => 'Päivittäinen paino voi vaihdella merkittävästi veden kertymisen, ruoansulatuksen ja ajoituksen vuoksi. Arvio ei huomioi näitä vaihteluita.';
+	@override String get title => 'Veden paino & vaihtelut';
+	@override String get description => 'Normaali päiväkohtainen paino voi vaihdella merkittävästi vedenpidätyksen, ruoansulatuksen ja ajankohdan vuoksi. Arvio ei ota huomioon näitä päivittäisiä vaihteluita.';
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
@@ -1580,8 +1580,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceFi implements Tra
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ammattilaisen ohjeistus';
-	@override String get description => 'Älä tee tämän arvion perusteella lääketieteellisiä päätöksiä. Käänny aina terveydenhuollon ammattilaisen tai ravitsemusterapeutin puoleen.';
+	@override String get title => 'Ammatillinen ohjaus';
+	@override String get description => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.';
 }
 
 // Path: disclaimer.healthMetrics.bmr
@@ -1592,7 +1592,7 @@ class _TranslationsDisclaimerHealthMetricsBmrFi implements TranslationsDisclaime
 
 	// Translations
 	@override String get title => 'BMR';
-	@override String get description => 'Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi kuluttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi kuluttaa levossa luonnostaan enemmän kaloreita, usein suuremman lihasmassan, nuoremman iän tai miehen sukupuolen vuoksi. Matalampi BMR viittaa tyypillisesti pienempään lihasmassaan, vanhempaan ikään tai naisen sukupuoleen.';
+	@override String get description => 'Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi polttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi polttaa luonnollisesti enemmän kaloreita levossa, usein enemmän lihasmassan, nuoren iän tai miehisyyden takia. Alhaisempi BMR viittaa yleensä vähäisempään lihasmassan määrään, korkeampaan ikään tai naiseuteen.';
 }
 
 // Path: disclaimer.healthMetrics.tdee
@@ -1603,7 +1603,7 @@ class _TranslationsDisclaimerHealthMetricsTdeeFi implements TranslationsDisclaim
 
 	// Translations
 	@override String get title => 'TDEE';
-	@override String get description => 'Päivittäinen kokonaisenergiankulutus (TDEE) on kokonaiskalorimäärä, jonka kulutat päivässä, mukaan lukien BMR sekä fyysisen aktiivisuuden ja päivittäisen liikkumisen kulutus. TDEE riippuu BMR-arvostasi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että kulutat kokonaisuudessaan enemmän kaloreita, yleensä koska olet aktiivisempi tai BMR-arvosi on korkeampi. Matalampi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai alempaan BMR:ään.';
+	@override String get description => 'Kokonaispäivittäinen energiankulutus (TDEE) on päivittäinen kalorimäärä, jonka poltat, ja siihen sisältyy BMR sekä liikunnasta ja päivittäisestä liikkumisesta poltetut kalorit. TDEE riippuu BMR:stäsi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että poltat enemmän kaloreita kokonaisuudessaan, yleensä aktiivisuuden tai korkeamman BMR:n vuoksi. Alhaisempi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai matalampaan BMR:ään.';
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
@@ -1614,7 +1614,7 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalFi implements TranslationsDis
 
 	// Translations
 	@override String get title => 'Päivittäinen tavoite';
-	@override String get description => 'Päivittäinen tavoite on suositeltu päivittäinen kalorinsaanti TDEE-arvosi ja painotavoitteesi perusteella. Painonpudotuksessa syöt vähemmän kaloreita kuin TDEE-arvosi. Painon ylläpidossa kalorien saanti vastaa TDEE-arvoasi. Painonnousussa syöt enemmän kaloreita kuin TDEE-arvosi. Tämä auttaa saavuttamaan toivotun painonmuutoksen terveellisessä tahdissa.';
+	@override String get description => 'Päivittäinen tavoite on suositeltu päivittäinen kalorinsaantisi TDEE:si ja painotavoitteesi perusteella. Laihduttaessa kulutat vähemmän kaloreita kuin TDEE. Painon ylläpitämiseksi vastaat TDEE:tä. Painon nostamiseksi kulutat enemmän kaloreita kuin TDEE. Tämä auttaa sinua saavuttamaan halutun painon muutoksen terveellisellä tahdilla.';
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
@@ -1625,7 +1625,7 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedFi implements Transl
 
 	// Translations
 	@override String get title => 'Miten arvio lasketaan';
-	@override String get description => 'Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä kulutetut kalorit.';
+	@override String get description => 'Laskemme TDEE:si (profiilisi perusteella) ja kerromme sen kuluneen päivän osuudella (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.';
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
@@ -1635,8 +1635,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFi implements
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Ammattilaisen ohjeistus';
-	@override String get description => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Käänny aina terveydenhuollon ammattilaisen tai laillistetun ravitsemusterapeutin puoleen saadaksesi yksilöllisiä neuvoja painonhallintaan.';
+	@override String get title => 'Ammatillinen ohjaus';
+	@override String get description => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.';
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
@@ -1646,9 +1646,9 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFi implements T
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Lue poltetut kalorit yhteensä';
-	@override String get description => 'Mahdollistaa sovelluksen lukea Health Connectista kokonaistason poltetut kalorit.';
-	@override String get usage => 'Tätä lupaa käytetään näyttämään päivittäinen kalorinkulutuksesi sovelluksessa, jotta ymmärrät kokonaisenergiankulutuksesi päivän aikana.';
+	@override String get title => 'Lue poltetut kokonaiskalorit';
+	@override String get description => 'Antaa sovellukselle luvan lukea Health Connectista polttamasi kokonaiskalorit.';
+	@override String get usage => 'Tätä käyttöoikeutta käytetään näyttämään päivittäinen kalorinkulutuksesi sovelluksessa, jotta ymmärrät kokonaissähkönkulutuksesi päivän aikana.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
@@ -1658,9 +1658,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadFi implements Tr
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Lue ravitsemustiedot';
-	@override String get description => 'Mahdollistaa sovelluksen lukea ravitsemustietoja Health Connectista.';
-	@override String get usage => 'Tämän luvan avulla sovellus voi lukea ravintotietoja, joita muut Health Connectiin yhdistetyt sovellukset ovat kirjanneet, tarjoten kattavan näkymän ravitsemukseesi.';
+	@override String get title => 'Lue ravintotiedot';
+	@override String get description => 'Antaa sovellukselle luvan lukea ravintotietoja Health Connectista.';
+	@override String get usage => 'Tämä oikeus sallii sovelluksen lukea muiden Health Connectiin yhdistettyjen sovellusten kirjaamia ravintotietoja ja tarjoaa kattavamman kuvan ravinnostasi.';
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
@@ -1670,9 +1670,9 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionWriteFi implements T
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kirjoita ravitsemustietoja';
-	@override String get description => 'Mahdollistaa sovelluksen kirjoittaa ravitsemustietoja Health Connectiin.';
-	@override String get usage => 'Tämän luvan avulla sovellus synkkaa kirjatut ateriasi Health Connectiin, jolloin ravintotietosi ovat käytettävissä muissa käyttämissäsi terveys- ja kuntosovelluksissa.';
+	@override String get title => 'Kirjoita ravintotietoja';
+	@override String get description => 'Antaa sovellukselle luvan kirjoittaa ravintotietoja Health Connectiin.';
+	@override String get usage => 'Tämä oikeus sallii sovelluksen synkronoida kirjauksesi Health Connectiin, jolloin ravintotietosi ovat muiden käyttämiesi terveys- ja kuntoilussovellusten saatavilla.';
 }
 
 /// The flat map containing all translations for locale <fi>.
@@ -1686,166 +1686,166 @@ extension on TranslationsFi {
 			'language' => 'Suomi',
 			'flag' => '🇫🇮',
 			'appLabel' => ({required Object env}) => 'Calorify${env}',
-			'errors.rateLimitExceeded' => 'Teit liian monta pyyntöä. Odota hetki ja yritä uudelleen.',
+			'errors.rateLimitExceeded' => 'Olet tehnyt liian monta pyyntöä. Odota hetki ja yritä uudelleen.',
 			'errors.networkError' => 'Verkkovirhe. Tarkista internet-yhteytesi.',
 			'errors.unknownError' => 'Jotain meni pieleen. Yritä myöhemmin uudelleen.',
-			'errors.loadingProfileData' => 'Virhe profiilitietojen latauksessa',
+			'errors.loadingProfileData' => 'Virhe profiilitietojen lataamisessa',
 			'errors.somethingWentWrong' => 'Jotain meni pieleen.',
 			'errors.retry' => 'Yritä uudelleen',
-			'onboarding.welcome' => ({required Object appLabel}) => 'Tervetuloa sovellukseen ${appLabel}',
-			'onboarding.subtitle' => 'Henkilökohtainen ravitsemuskumppanisi tekoälyn voimalla',
+			'onboarding.welcome' => ({required Object appLabel}) => 'Tervetuloa ${appLabel}',
+			'onboarding.subtitle' => 'Henkilökohtainen ravitsemuskumppanisi, jota pyörittää AI',
 			'onboarding.getStarted' => 'Aloita',
-			'onboarding.features.foodRecognition.title' => 'Älykäs ruoantunnistus',
-			'onboarding.features.foodRecognition.description' => 'Ota kuva ja anna tekoälyn tunnistaa ateriasi',
-			'onboarding.features.aiAnalysis.title' => 'Tekoälyanalyysi',
-			'onboarding.features.aiAnalysis.description' => 'Saat heti ravintoarvot kuvauksesi perusteella',
-			'onboarding.features.healthIntegration.title' => 'Health Connect -integraatio',
-			'onboarding.features.healthIntegration.description' => 'Yhdistä Health Connectiin parempia oivalluksia varten',
+			'onboarding.features.foodRecognition.title' => 'Älykäs ruoan tunnistus',
+			'onboarding.features.foodRecognition.description' => 'Ota kuva ja anna AI:n tunnistaa ateriasi',
+			'onboarding.features.aiAnalysis.title' => 'AI-analyysi',
+			'onboarding.features.aiAnalysis.description' => 'Saat välittömiä ravintoarvoja kuvauksistasi',
+			'onboarding.features.healthIntegration.title' => 'Terveystietojen integraatio',
+			'onboarding.features.healthIntegration.description' => 'Yhdistä Health Connectiin saadaksesi parempia näkemyksiä',
 			'onboarding.gender.title' => 'Mikä on sukupuolesi?',
-			'onboarding.gender.description' => 'Sukupuoli auttaa meitä laskemaan perusaineenvaihduntasi (BMR) tarkemmin.',
+			'onboarding.gender.description' => 'Sukupuoli auttaa meitä laskemaan perusaineenvaihduntasi (BMR) tarkasti.',
 			'onboarding.gender.next' => 'Seuraava',
 			'onboarding.height.title' => 'Kuinka pitkä olet?',
-			'onboarding.height.description' => 'Pituutesi auttaa meitä laskemaan BMI:si ja energiatarpeesi tarkasti.',
+			'onboarding.height.description' => 'Pituutesi auttaa meitä laskemaan BMI:si ja energiantarpeesi tarkasti.',
 			'onboarding.height.metric' => 'Metrinen',
 			'onboarding.height.imperial' => 'Imperiaalinen',
 			'onboarding.height.next' => 'Seuraava',
 			'onboarding.weight.currentTitle' => 'Mikä on nykyinen painosi?',
-			'onboarding.weight.currentDescription' => 'Nykyinen painosi on oleellinen päivittäisten tavoitteidesi personoinnissa.',
+			'onboarding.weight.currentDescription' => 'Nykyinen painosi on tärkeä, jotta voimme räätälöidä päivittäiset tavoitteesi.',
 			'onboarding.weight.targetTitle' => 'Mikä on tavoitepainosi?',
-			'onboarding.weight.targetDescription' => 'Tavoitepainon asettaminen auttaa määrittämään pitkän aikavälin suunnitelmasi.',
+			'onboarding.weight.targetDescription' => 'Tavoitepainon asettaminen auttaa meitä määrittämään pitkän aikavälin suunnitelmasi.',
 			'onboarding.weight.metric' => 'Metrinen',
 			'onboarding.weight.imperial' => 'Imperiaalinen',
 			'onboarding.weight.next' => 'Seuraava',
-			'onboarding.age.title' => 'Milloin on syntymäpäiväsi?',
-			'onboarding.age.description' => 'Ikäsi auttaa meitä arvioimaan kaloritarpeesi tarkasti.',
+			'onboarding.age.title' => 'Milloin olet syntynyt?',
+			'onboarding.age.description' => 'Ikäsi auttaa meitä laskemaan kaloritarpeesi tarkasti.',
 			'onboarding.age.next' => 'Seuraava',
 			'onboarding.bmiScale.underweight' => 'Alipaino',
 			'onboarding.bmiScale.healthy' => 'Terve',
 			'onboarding.bmiScale.overweight' => 'Ylipaino',
 			'onboarding.bmiScale.obese' => 'Lihavuus',
 			'onboarding.bmiScale.categories.underweight' => 'Alipaino',
-			'onboarding.bmiScale.categories.healthyWeight' => 'Normaalipaino',
+			'onboarding.bmiScale.categories.healthyWeight' => 'Terve paino',
 			'onboarding.bmiScale.categories.overweight' => 'Ylipaino',
 			'onboarding.bmiScale.categories.obese' => 'Lihavuus',
-			'onboarding.bmiScale.messages.underweight' => 'Autamme sinua rakentamaan terveellisen suunnitelman tasapainoiseen painoon ravintorikkaiden aterioiden avulla.',
-			'onboarding.bmiScale.messages.healthy' => 'Hienoa! Olet terveellisellä alueella. Autamme sinua ylläpitämään vireyttäsi ja energiatasojasi.',
-			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} tekee matkasta helpomman tekoälypohjaisella seurannalla, jotta pääset kohti tavoitettasi mukavasti.',
-			'onboarding.bmiScale.messages.obese' => 'Olemme tukenasi henkilökohtaisella ohjauksella ja kestävillä strategioilla terveytesi tavoitteisiin.',
+			'onboarding.bmiScale.messages.underweight' => 'Voimme auttaa sinua rakentamaan terveellisen suunnitelman kohti tasapainoista painoa ja ravinteikkaita aterioita.',
+			'onboarding.bmiScale.messages.healthy' => 'Hyvä työ! Olet terveellä alueella. Autamme sinua ylläpitämään elinvoimaa ja energiatason.',
+			'onboarding.bmiScale.messages.overweight' => ({required Object appLabel}) => '${appLabel} yksinkertaistaa matkaasi AI-pohjaisella seurannalla, jotta saavutat tavoitteesi mukavasti.',
+			'onboarding.bmiScale.messages.obese' => 'Olemme täällä tukemassa sinua henkilökohtaisella ohjauksella ja kestäviksi suunnitelluilla strategioilla terveyttäsi varten.',
 			'onboarding.weightGoal.title' => 'Mikä on tavoitteesi?',
-			'onboarding.weightGoal.description' => 'Valitse tavoite, joka kuvaa parhaiten sitä, mitä haluat saavuttaa',
+			'onboarding.weightGoal.description' => 'Valitse tavoite, joka parhaiten kuvaa mitä haluat saavuttaa',
 			'onboarding.activityLevel.title' => 'Kuinka aktiivinen olet?',
-			'onboarding.activityLevel.description' => 'Tämä auttaa meitä laskemaan päivittäisen kaloritarpeesi tarkemmin',
+			'onboarding.activityLevel.description' => 'Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin',
 			'onboarding.healthConnect.title' => 'Yhdistä Health Connectiin',
-			'onboarding.healthConnect.description' => 'Synkkaa terveystietosi parempia oivalluksia ja automaattista kaloriseurantaa varten',
+			'onboarding.healthConnect.description' => 'Synkronoi terveystietosi parempia näkemyksiä ja automaattista kaloriseurantaa varten',
 			'onboarding.healthConnect.automaticTracking.title' => 'Automaattinen kaloriseuranta',
-			'onboarding.healthConnect.automaticTracking.description' => 'Seuraa poltettuja kaloreita kuntosovelluksistasi',
-			'onboarding.healthConnect.progressInsights.title' => 'Edistymisen oivallukset',
-			'onboarding.healthConnect.progressInsights.description' => 'Saat yksityiskohtaisia näkymiä terveystrendeihin',
-			'onboarding.healthConnect.seamlessIntegration.title' => 'Saumaton integrointi',
-			'onboarding.healthConnect.seamlessIntegration.description' => 'Synkkaa tietoja suosikkiterveyssovelluksistasi',
+			'onboarding.healthConnect.automaticTracking.description' => 'Seuraa harjoittelun polttamia kaloreita suosikkisovelluksistasi',
+			'onboarding.healthConnect.progressInsights.title' => 'Edistymisnäkymät',
+			'onboarding.healthConnect.progressInsights.description' => 'Saat yksityiskohtaisia näkymiä terveystrendeistäsi',
+			'onboarding.healthConnect.seamlessIntegration.title' => 'Saumaton integraatio',
+			'onboarding.healthConnect.seamlessIntegration.description' => 'Synkronoi tietoja suosikkiterveyssovelluksistasi',
 			'onboarding.healthConnect.connected' => 'Health Connect yhdistetty',
 			'onboarding.healthConnect.notConnected' => 'Health Connect ei yhdistetty',
-			'onboarding.healthConnect.setup' => 'Määritä Health Connect',
-			'onboarding.healthConnect.skipForNow' => 'Ohita toistaiseksi',
+			'onboarding.healthConnect.setup' => 'Aseta Health Connect',
+			'onboarding.healthConnect.skipForNow' => 'Ohita nyt',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect on yhdistetty.',
-			'onboarding.healthConnect.statusSuccess' => 'Health Connect yhdistettiin onnistuneesti!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Lupa evätty. Ota Health Connect -lupia käyttöön puhelimesi asetuksista sovellukselle ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Virhe Health Connectin määrityksessä: ${error}',
+			'onboarding.healthConnect.statusSuccess' => 'Health Connect on yhdistetty onnistuneesti!',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Lupa evätty. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista ${appLabel}:lle.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Virhe Health Connectin asennuksessa: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Et ole yksin',
-			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Tutkimusten mukaan johdonmukainen seuranta on pitkäaikaisen menestyksen ykkösennustaja.',
-			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}-vuotiaalle ${gender}, joka haluaa ${goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.',
-			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} tekee tästä 10x helpompaa kuin manuaalisesti.',
+			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Tutkimukset osoittavat, että johdonmukainen seuranta on paras ennustaja pitkäaikaiselle menestykselle.',
+			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}-vuotiaalle ${gender}:lle, joka haluaa ${goal}, johdonmukainen seuranta on tärkein menestyksen ennustaja.',
+			'onboarding.reinforcement.trackingSuccess.closingMessage' => ({required Object appLabel}) => '${appLabel} tekee siitä 10x helpompaa kuin manuaalisesti.',
 			'onboarding.reinforcement.trackingSuccess.getStartedTitle' => 'Valmis aloittamaan?',
-			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ota kuvat aterioistasi saadaksesi välittömän analyysin',
-			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Kirjaa säännöllisesti nähdäksesi merkityksellistä edistystä',
-			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Seuraa edistymistäsi päivittäin pysyäksesi motivoituneena',
+			'onboarding.reinforcement.trackingSuccess.tipPhoto' => 'Ota kuva aterioistasi välitöntä analyysia varten',
+			'onboarding.reinforcement.trackingSuccess.tipConsistency' => 'Kirjaa säännöllisesti nähdäksesi merkittäviä edistysaskeleita',
+			'onboarding.reinforcement.trackingSuccess.tipProgress' => 'Seuraa edistystäsi päivittäin pysyäksesi motivoituneena',
 			'onboarding.reinforcement.trackingSuccess.button' => 'Aloitetaan',
 			'onboarding.reinforcement.trackingSuccess.defaultGender' => 'henkilö',
 			'onboarding.reinforcement.trackingSuccess.defaultGoal' => 'terveempi sinä',
 			'onboarding.reinforcement.healthProfile.title' => 'Terveysprofiilisi',
-			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Mittariesi perusteella BMI:si on ${bmi}.',
+			'onboarding.reinforcement.healthProfile.bmiDescription' => ({required Object bmi}) => 'Mittiesi perusteella BMI:si on ${bmi}.',
 			'onboarding.reinforcement.healthProfile.finalizeDescription' => 'Viimeistellään profiilisi, jotta voimme räätälöidä kokemuksesi.',
-			'onboarding.reinforcement.healthProfile.goalGain' => 'nostaa',
-			'onboarding.reinforcement.healthProfile.goalLose' => 'laskea',
-			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Päästäksesi tavoitteeseesi sinun tulisi ${direction} ${diff} ${unit}.',
-			'onboarding.reinforcement.healthProfile.goalReached' => 'Olet tavoitepainossasi! Autamme sinua ylläpitämään sen.',
+			'onboarding.reinforcement.healthProfile.goalGain' => 'saada',
+			'onboarding.reinforcement.healthProfile.goalLose' => 'laihtua',
+			'onboarding.reinforcement.healthProfile.goalReach' => ({required Object direction, required Object diff, required Object unit}) => 'Saavuttaaksesi tavoitteen, sinun täytyy ${direction} ${diff} ${unit}.',
+			'onboarding.reinforcement.healthProfile.goalReached' => 'Olet tavoitepainossasi! Autamme sinua ylläpitämään sitä.',
 			'onboarding.reinforcement.healthProfile.button' => 'Aloitetaan',
-			'onboarding.reinforcement.goalLifestyle.title' => 'Loistava alku!',
-			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, ${appLabel} säätää tavoitteitasi elämäntapaasi sopiviksi.',
-			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Henkilökohtaiset kalorisuositukset',
-			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'Tekoälypohjainen aterioiden tunnistus',
-			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Yksityiskohtaiset makroravinne-erittelyt',
+			'onboarding.reinforcement.goalLifestyle.title' => 'Erinomainen alku!',
+			'onboarding.reinforcement.goalLifestyle.description' => ({required Object goalText, required Object activityText, required Object appLabel}) => 'Olet ottanut ensimmäisen askeleen kohti ${goalText}. Koska olet ${activityText}, ${appLabel} säätää tavoitteesi vastaamaan elämäntyyliäsi.',
+			'onboarding.reinforcement.goalLifestyle.personalizedTargets' => 'Räätälöidyt kalorintavoitteet',
+			'onboarding.reinforcement.goalLifestyle.aiMealDetection' => 'AI-pohjainen aterian tunnistus',
+			'onboarding.reinforcement.goalLifestyle.macroBreakdowns' => 'Yksityiskohtaiset makroravinteiden erittelyt',
 			'onboarding.reinforcement.goalLifestyle.button' => 'Aloitetaan',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'tavoitteitasi',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktiivinen',
-			'tabs.dashboard' => 'Etusivu',
+			'tabs.dashboard' => 'Koonti',
 			'tabs.history' => 'Historia',
-			'home.aiSummary.title' => 'Tekoälyn yhteenveto',
-			'home.aiSummary.logMore' => 'Kirjaa lisää aterioita seuraavien päivien aikana saadaksesi henkilökohtaiset tekoälyoivallukset.',
-			'home.aiSummary.loading' => 'Ladataan yhteenvetoasi...',
+			'home.aiSummary.title' => 'AI-yhteenvetosi',
+			'home.aiSummary.logMore' => 'Kirjaa lisää aterioita seuraavien päivien aikana saadaksesi henkilökohtaisia AI-näkemyksiä.',
+			'home.aiSummary.loading' => 'Ladataan yhteenvetoa...',
 			'home.aiSummary.mealCount' => ({required Object count}) => '${count} ateriaa kirjattu',
-			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Tasapainopiste ${score}',
+			'home.aiSummary.macroBalanceScore' => ({required Object score}) => 'Tasapainopisteet ${score}',
 			'home.aiSummary.topFoods' => 'Suosituimmat ruoat',
-			'home.aiSummary.trendUp' => 'Kalorit nousussa',
-			'home.aiSummary.trendDown' => 'Kalorit laskussa',
-			'home.aiSummary.trendSteady' => 'Kalorit tasaisena',
+			'home.aiSummary.trendUp' => 'Kalorit nousemassa',
+			'home.aiSummary.trendDown' => 'Kalorit laskevana',
+			'home.aiSummary.trendSteady' => 'Kalorit pysyvät tasaisina',
 			'home.aiSummary.generatedAt' => ({required Object time}) => 'Päivitetty ${time}',
-			'home.dailyGoal.title' => 'Aseta päivätavoitteesi',
-			'home.dailyGoal.titleSet' => 'Päivätavoitteesi',
-			'home.dailyGoal.description' => 'Valmis aloittamaan hyvinvointimatkasi? Aseta päivittäinen kaloritaso alla käynnistääksesi edistymisen.',
-			'home.dailyGoal.descriptionSet' => 'Suuntasi on selvä! Tämä on päivittäinen kaloritasosi ohjenuoraksi.',
+			'home.dailyGoal.title' => 'Aseta päivittäinen tavoitteesi',
+			'home.dailyGoal.titleSet' => 'Päivittäinen tavoitteesi',
+			'home.dailyGoal.description' => 'Valmis aloittamaan hyvinvointimatkasi? Aseta päivittäinen kalorirajasi alle käynnistääksesi edistymisen.',
+			'home.dailyGoal.descriptionSet' => 'Kompassisi on asetettu! Tämä on päivittäinen kalorirajasi, joka ohjaa sinua.',
 			'home.dailyGoal.yourGoal' => 'Tavoitteesi',
 			'home.dailyGoal.goal' => 'Tavoite',
 			'home.dailyGoal.dailyCalories' => 'Päivittäiset kalorit (kcal)',
 			'home.dailyGoal.setGoal' => 'Aseta tavoite',
 			'home.dailyGoal.intake' => 'Saanti',
-			'home.dailyGoal.burned' => 'Kulutus',
+			'home.dailyGoal.burned' => 'Poltettu',
 			'home.dailyGoal.weightImpact' => 'Vaikutus painoon',
-			'home.dailyGoal.estLoss' => 'Arv. lasku',
-			'home.dailyGoal.estGain' => 'Arv. nousu',
+			'home.dailyGoal.estLoss' => 'Arvioitu pudotus',
+			'home.dailyGoal.estGain' => 'Arvioitu nousu',
 			'home.dailyGoal.kcal' => 'kcal',
-			'home.dailySummary.title' => 'Päivän yhteenveto',
+			'home.dailySummary.title' => 'Päiväkohtainen yhteenveto',
 			'home.dailySummary.calories' => 'Kalorit',
 			'home.dailySummary.carbs' => 'Hiilihydraatit',
 			'home.dailySummary.protein' => 'Proteiini',
 			'home.dailySummary.fat' => 'Rasva',
 			'home.dailySummary.fiber' => 'Kuitu',
 			'home.dailySummary.grams' => 'grammaa',
-			'home.dailySummary.chartAccessibilityLabel' => 'Makrojen kaavio',
-			'home.intakeProgress.title' => 'Tämän päivän makrojakauma',
+			'home.dailySummary.chartAccessibilityLabel' => 'Makroravinteiden kaavio',
+			'home.intakeProgress.title' => 'Päivän makrojako',
 			'home.intakeProgress.target' => 'Tavoite',
 			'home.intakeProgress.current' => 'Nykyinen',
 			'home.intakeHistory.title' => '7 päivän makrohistoria',
 			'home.intakeHistory.trendTitle' => 'Päivän trendi',
-			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Huippu: klo ${hour}:00',
-			'home.intakeHistory.noHistoryYet' => 'Ei vielä historiaa',
+			'home.intakeHistory.peakHour' => ({required Object hour}) => 'Huippu: ${hour}:00',
+			'home.intakeHistory.noHistoryYet' => 'Ei historiaa vielä',
 			'home.intakeHistory.startLogging' => 'Aloita aterioiden kirjaaminen nähdäksesi\n7 päivän makrotrendit täällä',
 			'home.mealLog.title' => 'Kirjatut ateriat',
-			'home.mealLog.emptyMessage' => 'Nappaa kuva viimeisimmästä ateriastasi kirjautuaksesi tähän.',
-			'home.mealLog.noMealsToday' => 'Tälle päivälle ei kirjattuja aterioita',
+			'home.mealLog.emptyMessage' => 'Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.',
+			'home.mealLog.noMealsToday' => 'Ei ateriakirjauksia tälle päivälle',
 			'home.mealLog.seeAllMeals' => 'Näytä kaikki ateriat',
-			'home.mealDescription.title' => 'Pikalisäys tekoälyllä',
-			'home.mealDescription.description' => 'Kuvaile ateriasi ja anna tekoälyn hoitaa loput.',
-			'home.mealDescription.hint' => 'esim. Aamiaiseksi söin ison kulhon kaurapuuroa, banaanin siivuina ja annoksen heraa ...',
+			'home.mealDescription.title' => 'Nopea lisäys AI:lla',
+			'home.mealDescription.description' => 'Kuvaile ateriasi ja anna AI:n hoitaa yksityiskohdat.',
+			'home.mealDescription.hint' => 'esim. Aamupalalla söin ison kulhollisen kaurapuuroa viipaloidun banaanin ja mitallisen heraproteiinia ...',
 			'home.mealDescription.analyzeMeal' => 'Analysoi ateria',
 			'home.favoriteMeals.title' => 'Suosikkiateriat',
-			'home.favoriteMeals.description' => 'Lisää nopeasti jokin suosikkiaterioistasi.',
-			'home.favoriteMeals.noFavorites' => 'Ei vielä suosikkiaterioita.',
-			'home.favoriteMeals.addFavoriteHint' => 'Merkitse ateria suosikiksi klikkaamalla tähteä.',
+			'home.favoriteMeals.description' => 'Lisää nopeasti joku suosikeistasi.',
+			'home.favoriteMeals.noFavorites' => 'Ei suosikkia vielä.',
+			'home.favoriteMeals.addFavoriteHint' => 'Klikkaa tähteä aterian kohdalla merkitäksesi sen suosikiksi.',
 			'home.favoriteMeals.seeAll' => 'Näytä kaikki',
 			'home.favoriteMeals.add' => 'Lisää',
-			'home.mealSnap.title' => 'Kuvaa ja seuraa ateriasi',
-			'home.mealSnap.description' => 'Käytä kameraa ottaaksesi kuvan ruoastasi tekoälyanalyysiä varten.',
+			'home.mealSnap.title' => 'Kuvaa & seuraa ateriasi',
+			'home.mealSnap.description' => 'Käytä kameraa ottaaksesi kuvan ruoastasi AI-analyysiä varten.',
 			'home.mealSnap.openCamera' => 'Avaa kamera',
 			'home.mealSnap.gallery' => 'Galleria',
-			'home.mealSnap.compressingPhoto' => 'Optimoidaan kuvaa…',
+			'home.mealSnap.compressingPhoto' => 'Optimoidaan kuva…',
 			'home.mealSnap.uploadingPhoto' => 'Lähetetään kuvaa…',
-			'home.connectHealth.title' => 'Synkkaa Health Connectiin',
-			'home.connectHealth.description' => 'Synkkaa ravitsemustietosi Health Connectin kanssa',
+			'home.connectHealth.title' => 'Synkronoi Health Connectiin',
+			'home.connectHealth.description' => 'Synkronoi ravintotietosi Health Connectiin',
 			'home.connectHealth.install' => 'Asenna',
 			'home.connectHealth.connect' => 'Yhdistä',
-			'history.noMeals' => 'Ei yhtään ateriaa',
-			'history.emptyMessage' => 'Nappaa kuva viimeisimmästä ateriastasi kirjautuaksesi tähän.',
+			'history.noMeals' => 'Ei kirjattuja aterioita',
+			'history.emptyMessage' => 'Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.',
 			'history.today' => 'Tänään',
 			'history.yesterday' => 'Eilen',
 			'meal.ohNo' => 'Voi ei!',
@@ -1858,8 +1858,8 @@ extension on TranslationsFi {
 			'meal.mealNameHint' => 'esim. Munakokkeli ja paahtoleipä',
 			'meal.mealQuantity' => 'Aterian määrä',
 			'meal.mealQuantityHint' => 'esim. 1 kulho, 2 viipaletta',
-			'meal.timeOfMeal' => 'Aterian ajankohta',
-			'meal.timeOfMealHint' => 'Valitse, milloin söit aterian',
+			'meal.timeOfMeal' => 'Ajanhetki',
+			'meal.timeOfMealHint' => 'Valitse milloin söit aterian',
 			'meal.mealType' => 'Ateriatyyppi',
 			'meal.nutrition.calories' => 'Kalorit',
 			'meal.nutrition.carbs' => 'Hiilihydraatit (g)',
@@ -1867,84 +1867,84 @@ extension on TranslationsFi {
 			'meal.nutrition.fat' => 'Rasva (g)',
 			'meal.nutrition.fiber' => 'Kuitu (g)',
 			'meal.deleteConfirmation.title' => 'Poista ateria',
-			'meal.deleteConfirmation.message' => 'Haluatko varmasti poistaa tämän ateriamerkinnän?',
+			'meal.deleteConfirmation.message' => 'Haluatko varmasti poistaa tämän ateriakirjauksen?',
 			'meal.deleteConfirmation.cancel' => 'Peruuta',
 			'meal.deleteConfirmation.delete' => 'Poista',
-			'meal.addedToLog' => 'Ateria lisättiin lokiin!',
-			'meal.couldNotAdd' => ({required Object error}) => 'Ateriaa ei voitu lisätä: ${error}',
+			'meal.addedToLog' => 'Ateria lisätty kirjanpitoosi!',
+			'meal.couldNotAdd' => ({required Object error}) => 'Aterian lisääminen epäonnistui: ${error}',
 			'meal.savedSuccessfully' => 'Ateria lisätty onnistuneesti!',
 			'meal.updatedSuccessfully' => 'Ateria päivitetty onnistuneesti!',
-			'meal.errorSaving' => ({required Object error}) => 'Virhe tallennuksessa: ${error}',
+			'meal.errorSaving' => ({required Object error}) => 'Virhe tallennettaessa ateriaa: ${error}',
 			'meal.removedFromFavorites' => 'Poistettu suosikeista!',
 			'meal.savedAsFavorite' => 'Ateria tallennettu suosikiksi!',
-			'meal.unfavorite' => 'Poista suosikeista',
-			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Suosikin päivitys epäonnistui: ${error}',
+			'meal.unfavorite' => 'Poista suosikista',
+			'meal.couldNotUpdateFavorite' => ({required Object error}) => 'Suosikin päivittäminen epäonnistui: ${error}',
 			'meal.feedbackThanks' => 'Kiitos palautteesta!',
-			'meal.reanalysisUpdated' => 'Päivitetty ateria-analyysi palautteesi perusteella.',
+			'meal.reanalysisUpdated' => 'Päivitettiin aterian analyysi palautteesi perusteella.',
 			'meal.failedToProcess' => ({required Object error}) => 'Käsittely epäonnistui: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}',
 			'meal.failedToSave' => 'Tietojen tallennus epäonnistui. Yritä uudelleen.',
 			'meal.skip' => 'Ohita',
-			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Kysymys ${current}/${total}',
-			'meal.questionFlow.noQuestionsAvailable' => 'Kysymyksiä ei ole saatavilla',
+			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Kysymys ${current} / ${total}',
+			'meal.questionFlow.noQuestionsAvailable' => 'Ei saatavilla olevia kysymyksiä',
 			'meal.questionFlow.next' => 'Seuraava',
 			'meal.questionFlow.continueLabel' => 'Jatka',
-			'meal.analysis.title' => 'Tekoälyn ateria-analyysi',
+			'meal.analysis.title' => 'Analysoidaan ateriaasi',
 			'meal.analysis.stepStarted' => 'Aloitetaan…',
-			'meal.analysis.stepDecomposition' => 'Ymmärretään ateriasi…',
-			'meal.analysis.stepIngredients' => 'Yhdistetään ainesosat ravintotietoihin…',
+			'meal.analysis.stepDecomposition' => 'Ymmärretään ateriaasi…',
+			'meal.analysis.stepIngredients' => 'Etsitään ainesosia ja ravintoarvoja…',
 			'meal.analysis.stepUncertainty' => 'Tarkistetaan varmuutta…',
-			'meal.analysis.stepMealTypeQuestion' => 'Melkein valmista…',
+			'meal.analysis.stepMealTypeQuestion' => 'Melkein valmis…',
 			'meal.analysis.stepResult' => 'Viimeistellään tulosta…',
 			'meal.analysis.stepError' => 'Jotain meni pieleen',
 			'meal.analysis.stepDefault' => 'Analysoidaan ateriaasi…',
-			'meal.analysis.progressUnderstand' => 'Ymmärrys',
-			'meal.analysis.progressMatch' => 'Vastaavuus',
-			'meal.analysis.progressCheck' => 'Tarkistus',
+			'meal.analysis.progressUnderstand' => 'Ymmärretään ateria',
+			'meal.analysis.progressMatch' => 'Haetaan ainesosien ravintoarvoja',
+			'meal.analysis.progressCheck' => 'Tarkistetaan annoskoot ja varmuus',
 			'meal.analysis.progressMealType' => 'Valitaan ateriatyyppi',
-			'meal.analysis.progressFinish' => 'Viimeistely',
-			'meal.analysis.detectedIngredientHeading' => 'Tunnistamamme ainesosat',
+			'meal.analysis.progressFinish' => 'Lasketaan kalorit ja makrot',
+			'meal.analysis.detectedIngredientHeading' => 'Havaitsemamme ainesosat',
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lisää',
-			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ainesosaa havaittu',
+			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ainesosaa tunnistettu',
 			'meal.analysis.ingredientsPending' => 'Skannataan ainesosia…',
 			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
-			'meal.analysis.offlineTip0' => 'Tip: Consistency beats perfection—regular logs reveal the patterns that matter.',
-			'meal.analysis.offlineTip1' => 'Tip: For photos, natural light and a top-down view help with portion accuracy.',
-			'meal.analysis.offlineTip2' => 'Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.',
-			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
-			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
-			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.analysis.offlineTip0' => 'Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.',
+			'meal.analysis.offlineTip1' => 'Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.',
+			'meal.analysis.offlineTip2' => 'Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.',
+			'meal.analysis.offlineTip3' => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.',
+			'meal.analysis.offlineTip4' => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.',
+			'meal.analysis.offlineTip5' => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).',
 			'meal.feedback.title' => 'Mikä näyttää väärältä?',
-			'meal.feedback.subtitle' => 'Auta meitä parantamaan analyysiä valitsemalla yksi tai useampi ongelma.',
+			'meal.feedback.subtitle' => 'Auttaaksesi parantamaan analyysiä, valitse yksi tai useampi ongelma.',
 			'meal.feedback.tellUsMore' => 'Kerro lisää',
-			'meal.feedback.describeIncorrect' => 'Kuvaile, mikä oli väärin',
+			'meal.feedback.describeIncorrect' => 'Kuvaile mikä oli virheellistä',
 			'meal.feedback.submit' => 'Lähetä',
 			'meal.feedback.issueFoodIdentification' => 'Ruoan tunnistus',
 			'meal.feedback.issuePortionSize' => 'Annoksen koko',
-			'meal.feedback.issueCalorieDistribution' => 'Kalorijakauma',
-			'meal.feedback.issueMacrosWrong' => 'Makrot ovat väärin',
-			'meal.feedback.issueMissingItems' => 'Puuttuvat kohteet',
-			'meal.feedback.issueExtraItems' => 'Ylimääräiset kohteet',
+			'meal.feedback.issueCalorieDistribution' => 'Kalorien jakautuminen',
+			'meal.feedback.issueMacrosWrong' => 'Makrot väärin',
+			'meal.feedback.issueMissingItems' => 'Puuttuvat ainesosat',
+			'meal.feedback.issueExtraItems' => 'Liian monta ainesosaa',
 			'meal.feedback.issueOther' => 'Muu',
 			'favorites.title' => 'Suosikit',
-			'favorites.empty' => 'Ei vielä suosikkiaterioita.',
+			'favorites.empty' => 'Ei suosikkia vielä.',
 			'favorites.searchPlaceholder' => 'Hae suosikkiaterioita',
-			'favorites.searchEmptyTitle' => 'Hakusi ei tuottanut suosikkeja',
+			'favorites.searchEmptyTitle' => 'Hakusi ei vastaa yhtään suosikkia',
 			'favorites.searchEmptySubtitle' => 'Kokeile toista aterian nimeä, määrää tai ateriatyyppiä.',
-			'favorites.sortLabel' => 'Järjestä suosikit',
+			'favorites.sortLabel' => 'Lajittele suosikit',
 			'favorites.undo' => 'Kumoa',
 			'favorites.removed' => ({required Object name}) => 'Poistettiin ${name} suosikeista',
-			'favorites.sortOptions.recent' => 'Uusimmat',
+			'favorites.sortOptions.recent' => 'Viimeisimmät',
 			'favorites.sortOptions.calories' => 'Kalorit',
 			'favorites.sortOptions.alphabetical' => 'A–Ö',
 			'profile.title' => 'Profiili',
 			'profile.noProfileData' => 'Profiilitietoja ei löytynyt',
 			'profile.yourProfile' => 'Profiilisi',
-			'profile.viewAndManage' => 'Näytä ja hallitse terveystietojasi',
+			'profile.viewAndManage' => 'Katso ja hallinnoi terveystietojasi',
 			'profile.sections.profile' => 'PROFIILI',
 			'profile.sections.basicInformation' => 'PERUSTIEDOT',
-			'profile.sections.goalsAndActivity' => 'TAVOITTEET JA AKTIIVISUUS',
+			'profile.sections.goalsAndActivity' => 'TAVOITTEET & AKTIVITEETTI',
 			'profile.sections.calculatedValues' => 'LASKETUT ARVOT',
 			'profile.gender' => 'Sukupuoli',
 			'profile.height' => 'Pituus',
@@ -1959,19 +1959,19 @@ extension on TranslationsFi {
 			'profile.updatedSuccessfully' => 'Profiili päivitetty onnistuneesti!',
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
-			'profile.calculatedValues.dailyGoal' => 'Päivätavoite',
-			'profile.calculatedValues.calPerDay' => 'kcal/vrk',
+			'profile.calculatedValues.dailyGoal' => 'Päivittäinen tavoite',
+			'profile.calculatedValues.calPerDay' => 'kal/pv',
 			'profile.calculatedValues.notAvailable' => 'Ei saatavilla',
-			'healthScore.title' => 'Terveysarvio',
-			'healthScore.whyThisScore' => 'Miksi tämä arvosana?',
-			'healthScore.note' => 'Tämä pisteytys on tekoälyn arvio tunnistetuista ainesosista ja ravintotiheydestä. Käänny aina ammattilaisen puoleen henkilökohtaista ravinto-ohjausta varten.',
+			'healthScore.title' => 'Terveysarvo',
+			'healthScore.whyThisScore' => 'Miksi tämä arvo?',
+			'healthScore.note' => 'Tämä arvio on AI-arvio tunnistettujen ainesosien ja ravintotiheyden perusteella. Kysy aina ammattilaiselta henkilökohtaista ravitsemusneuvontaa.',
 			'healthScore.unhealthy' => 'Epäterveellinen',
 			'healthScore.healthy' => 'Terveellinen',
 			'healthScore.neutral' => 'Neutraali',
 			'editProfile.title' => 'Muokkaa profiilia',
 			'editProfile.sections.personalInformation' => 'HENKILÖTIEDOT',
-			'editProfile.sections.physicalMeasurements' => 'FYYSISET MITAT',
-			'editProfile.sections.goalsAndActivity' => 'TAVOITTEET JA AKTIIVISUUS',
+			'editProfile.sections.physicalMeasurements' => 'KEHON MITAT',
+			'editProfile.sections.goalsAndActivity' => 'TAVOITTEET & AKTIVITEETTI',
 			'editProfile.gender' => 'Sukupuoli',
 			'editProfile.dateOfBirth' => 'Syntymäaika',
 			'editProfile.height' => 'Pituus',
@@ -1991,112 +1991,112 @@ extension on TranslationsFi {
 			'editProfile.genders.male' => 'Mies',
 			'editProfile.genders.female' => 'Nainen',
 			'editProfile.genders.other' => 'Muu',
-			'editProfile.weightGoals.loseWeight.name' => 'Laihdu',
-			'editProfile.weightGoals.loseWeight.description' => 'Luo kalorivaje laihtuaksesi',
-			'editProfile.weightGoals.maintainWeight.name' => 'Ylläpidä paino',
-			'editProfile.weightGoals.maintainWeight.description' => 'Ylläpidä nykyinen painosi',
-			'editProfile.weightGoals.gainWeight.name' => 'Nosta painoa',
-			'editProfile.weightGoals.gainWeight.description' => 'Luo kaloriylijäämä painon nostamiseksi',
-			'editProfile.activityLevels.sedentary.name' => 'Vähäinen aktiivisuus',
+			'editProfile.weightGoals.loseWeight.name' => 'Läihtyminen',
+			'editProfile.weightGoals.loseWeight.description' => 'Luo kalorivajetta laihtumista varten',
+			'editProfile.weightGoals.maintainWeight.name' => 'Säilytä paino',
+			'editProfile.weightGoals.maintainWeight.description' => 'Säilytä nykyinen painosi',
+			'editProfile.weightGoals.gainWeight.name' => 'Lisää painoa',
+			'editProfile.weightGoals.gainWeight.description' => 'Luo kaloriylijäämä painon lisäämiseksi',
+			'editProfile.activityLevels.sedentary.name' => 'Vähän liikkuva',
 			'editProfile.activityLevels.sedentary.description' => 'Vähän tai ei lainkaan liikuntaa',
-			'editProfile.activityLevels.lightlyActive.name' => 'Kevyen aktiivinen',
-			'editProfile.activityLevels.lightlyActive.description' => 'Kevyttä liikuntaa 1–3 päivää/viikko',
-			'editProfile.activityLevels.moderatelyActive.name' => 'Kohtalaisen aktiivinen',
-			'editProfile.activityLevels.moderatelyActive.description' => 'Kohtalaista liikuntaa 3–5 päivää/viikko',
+			'editProfile.activityLevels.lightlyActive.name' => 'Kevyesti aktiivinen',
+			'editProfile.activityLevels.lightlyActive.description' => 'Kevyt liikunta 1–3 päivää/viikko',
+			'editProfile.activityLevels.moderatelyActive.name' => 'Kohtalaisesti aktiivinen',
+			'editProfile.activityLevels.moderatelyActive.description' => 'Kohtalainen liikunta 3–5 päivää/viikko',
 			'editProfile.activityLevels.veryActive.name' => 'Erittäin aktiivinen',
-			'editProfile.activityLevels.veryActive.description' => 'Raskasta liikuntaa 6–7 päivää/viikko',
-			'editProfile.activityLevels.extremelyActive.name' => 'Äärimmäisen aktiivinen',
-			'editProfile.activityLevels.extremelyActive.description' => 'Erittäin raskasta liikuntaa, fyysinen työ',
+			'editProfile.activityLevels.veryActive.description' => 'Rankka liikunta 6–7 päivää/viikko',
+			'editProfile.activityLevels.extremelyActive.name' => 'Erittäin intensiivinen',
+			'editProfile.activityLevels.extremelyActive.description' => 'Todella raskas liikunta tai fyysinen työ',
 			'settings.title' => 'Asetukset',
 			'settings.sections.profile' => 'PROFIILI',
-			'settings.sections.localization' => 'KIELI JA ALUE',
+			'settings.sections.localization' => 'LOKALISAATIO',
 			'settings.sections.notifications' => 'ILMOITUKSET',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
-			'settings.sections.supportAndLegal' => 'TUKI JA OIKEUDELLISET',
-			'settings.sections.about' => 'TIETOJA',
-			'settings.sections.dangerZone' => 'VAARA-ALUE',
+			'settings.sections.supportAndLegal' => 'TUKI & LAINSÄÄDÄNTÖ',
+			'settings.sections.about' => 'TIETOA',
+			'settings.sections.dangerZone' => 'VAIKUTUSALUE',
 			'settings.sections.developer' => 'KEHITTÄJÄ',
 			'settings.editProfile.title' => 'Muokkaa profiilia',
-			'settings.editProfile.subtitle' => 'Päivitä henkilötietosi',
+			'settings.editProfile.subtitle' => 'Päivitä henkilökohtaiset tietosi',
 			'settings.language.title' => 'Kieli',
-			'settings.language.subtitle' => 'Valitse ensisijainen kielesi',
+			'settings.language.subtitle' => 'Valitse haluamasi kieli',
 			'settings.language.searchHint' => 'Hae kieliä...',
 			'settings.language.noResults' => 'Ei tuloksia',
-			'settings.heightUnit.title' => 'Pituuden yksikkö',
-			'settings.weightUnit.title' => 'Painon yksikkö',
+			'settings.heightUnit.title' => 'Pituusyksikkö',
+			'settings.weightUnit.title' => 'Painoyksikkö',
 			'settings.mealReminders.title' => 'Ateriamuistutukset',
-			'settings.mealReminders.subtitle' => 'Pysy raiteilla ajantasaisilla muistutuksilla',
+			'settings.mealReminders.subtitle' => 'Pysy raiteilla ajankohtaisilla muistutuksilla',
 			'settings.theme.title' => 'Teema',
 			'settings.theme.light' => 'Vaalea',
 			'settings.theme.dark' => 'Tumma',
 			'settings.theme.system' => 'Järjestelmä',
 			'settings.sendFeedback.title' => 'Lähetä palautetta',
-			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Auta meitä parantamaan ${appLabel}-sovellusta',
-			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel}-sovelluksen palaute',
-			'settings.sendFeedback.emailBodyPrefix' => 'Anna palautteesi alle:',
-			'settings.sendFeedback.appVersion' => 'Sovellusversio',
+			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Auta parantamaan ${appLabel}',
+			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} - Sovelluspalaute',
+			'settings.sendFeedback.emailBodyPrefix' => 'Anna palautteesi alla:',
+			'settings.sendFeedback.appVersion' => 'Sovelluksen versio',
 			'settings.sendFeedback.device' => 'Laite',
 			'settings.sendFeedback.osVersion' => 'Käyttöjärjestelmäversio',
 			'settings.sendFeedback.uid' => 'UID',
-			'settings.exportMealHistory.title' => 'Vie ateriahistoria',
-			'settings.exportMealHistory.subtitle' => 'Jaa CSV kirjatuista aterioistasi',
-			'settings.exportMealHistory.shareText' => 'Your Calorify meal history export',
-			'settings.exportMealHistory.failed' => ({required Object error}) => 'Ateriahistorian vienti epäonnistui: ${error}',
+			'settings.exportMealHistory.title' => 'Vie ateriakirja',
+			'settings.exportMealHistory.subtitle' => 'Jaa CSV tiedosto kirjatuista aterioistasi',
+			'settings.exportMealHistory.shareText' => 'Calorify meal history export',
+			'settings.exportMealHistory.failed' => ({required Object error}) => 'Ateriakirjan vieminen epäonnistui: ${error}',
 			'settings.clearAllData.title' => 'Tyhjennä kaikki tiedot',
 			'settings.clearAllData.subtitle' => 'Poista kaikki tietosi peruuttamattomasti',
 			'settings.clearAllData.confirmationTitle' => 'Tyhjennetäänkö kaikki tiedot?',
-			'settings.clearAllData.confirmationMessage' => 'Tätä toimintoa ei voi perua. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.',
+			'settings.clearAllData.confirmationMessage' => 'Tätä toimenpidettä ei voi peruuttaa. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.',
 			'settings.clearAllData.cancel' => 'Peruuta',
 			'settings.clearAllData.clearEverything' => 'Tyhjennä kaikki',
-			'settings.debugOptions.title' => 'Vianjäljitysasetukset',
+			'settings.debugOptions.title' => 'Debug-asetukset',
 			'settings.developerModeEnabled' => 'Kehittäjätila käytössä!',
 			'settings.healthConnect.title' => 'Health Connect',
-			'settings.healthConnect.subtitle' => 'Näytä ja hallitse käyttöoikeuksia',
-			'settings.healthConnect.unavailable.title' => 'Health Connect ei ole saatavilla',
-			'settings.healthConnect.unavailable.description' => 'Health Connect ei ole saatavilla tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.',
-			'settings.healthConnect.permissions.title' => 'Käyttöluvat',
-			'settings.healthConnect.permissions.description' => 'Seuraavia lupia pyydetään Health Connect -integraation tarjoamiseksi:',
+			'settings.healthConnect.subtitle' => 'Katso ja hallinnoi käyttöoikeuksia',
+			'settings.healthConnect.unavailable.title' => 'Health Connect ei saatavilla',
+			'settings.healthConnect.unavailable.description' => 'Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.',
+			'settings.healthConnect.permissions.title' => 'Oikeudet',
+			'settings.healthConnect.permissions.description' => 'Seuraavia oikeuksia pyydetään tarjotaksemme Health Connect -integraation:',
 			'settings.healthConnect.permissions.granted' => 'Myönnetty',
 			'settings.healthConnect.permissions.notGranted' => 'Ei myönnetty',
-			'settings.healthConnect.permissions.caloriesBurned.title' => 'Lue poltetut kalorit yhteensä',
-			'settings.healthConnect.permissions.caloriesBurned.description' => 'Mahdollistaa sovelluksen lukea Health Connectista kokonaistason poltetut kalorit.',
-			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Tätä lupaa käytetään näyttämään päivittäinen kalorinkulutuksesi sovelluksessa, jotta ymmärrät kokonaisenergiankulutuksesi päivän aikana.',
-			'settings.healthConnect.permissions.nutritionRead.title' => 'Lue ravitsemustiedot',
-			'settings.healthConnect.permissions.nutritionRead.description' => 'Mahdollistaa sovelluksen lukea ravitsemustietoja Health Connectista.',
-			'settings.healthConnect.permissions.nutritionRead.usage' => 'Tämän luvan avulla sovellus voi lukea ravintotietoja, joita muut Health Connectiin yhdistetyt sovellukset ovat kirjanneet, tarjoten kattavan näkymän ravitsemukseesi.',
-			'settings.healthConnect.permissions.nutritionWrite.title' => 'Kirjoita ravitsemustietoja',
-			'settings.healthConnect.permissions.nutritionWrite.description' => 'Mahdollistaa sovelluksen kirjoittaa ravitsemustietoja Health Connectiin.',
-			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Tämän luvan avulla sovellus synkkaa kirjatut ateriasi Health Connectiin, jolloin ravintotietosi ovat käytettävissä muissa käyttämissäsi terveys- ja kuntosovelluksissa.',
+			'settings.healthConnect.permissions.caloriesBurned.title' => 'Lue poltetut kokonaiskalorit',
+			'settings.healthConnect.permissions.caloriesBurned.description' => 'Antaa sovellukselle luvan lukea Health Connectista polttamasi kokonaiskalorit.',
+			'settings.healthConnect.permissions.caloriesBurned.usage' => 'Tätä käyttöoikeutta käytetään näyttämään päivittäinen kalorinkulutuksesi sovelluksessa, jotta ymmärrät kokonaissähkönkulutuksesi päivän aikana.',
+			'settings.healthConnect.permissions.nutritionRead.title' => 'Lue ravintotiedot',
+			'settings.healthConnect.permissions.nutritionRead.description' => 'Antaa sovellukselle luvan lukea ravintotietoja Health Connectista.',
+			'settings.healthConnect.permissions.nutritionRead.usage' => 'Tämä oikeus sallii sovelluksen lukea muiden Health Connectiin yhdistettyjen sovellusten kirjaamia ravintotietoja ja tarjoaa kattavamman kuvan ravinnostasi.',
+			'settings.healthConnect.permissions.nutritionWrite.title' => 'Kirjoita ravintotietoja',
+			'settings.healthConnect.permissions.nutritionWrite.description' => 'Antaa sovellukselle luvan kirjoittaa ravintotietoja Health Connectiin.',
+			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Tämä oikeus sallii sovelluksen synkronoida kirjauksesi Health Connectiin, jolloin ravintotietosi ovat muiden käyttämiesi terveys- ja kuntoilussovellusten saatavilla.',
 			'settings.healthConnect.managePermissions' => 'Hallitse käyttöoikeuksia',
 			'settings.healthConnect.openSettings' => 'Avaa Health Connect -asetukset',
-			'settings.healthConnect.requestPermissions' => 'Pyydä käyttöoikeuksia',
-			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Käyttöoikeuspyyntö peruttiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connect -asetuksissa.',
-			'settings.healthConnect.permissionRequestFailed' => 'Käyttöoikeuksien pyytäminen ei onnistu. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connect -asetuksissa.',
+			'settings.healthConnect.requestPermissions' => 'Pyydä oikeuksia',
+			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Käyttöoikeuspyyntö keskeytettiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.',
+			'settings.healthConnect.permissionRequestFailed' => 'Oikeuspyyntöä ei voitu lähettää. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.',
 			'settings.healthConnect.requestingPermissions' => 'Pyydetään...',
-			'settings.about.title' => 'Tietoja',
-			'settings.about.tagline' => 'Nopea, ilmainen ja yksityisyyttä kunnioittava kalorivalmennus',
-			'settings.about.ourStory.title' => 'Tarina',
-			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} syntyi yksinkertaisesta turhautumisesta: useimmat kaloriseurantasovellukset ovat joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttöä, perivät korkeat tilausmaksut tai tinkivät yksityisyydestä.\n\nYksin kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja reilumpaa — sovelluksen, joka hyödyntää tekoälyä vaivannäön vähentämiseksi, pysyy nopeana ja ilmaisena sekä kohtelee terveystietojasi kunnioittavasti.\n\n${appLabel} on sovellus, jonka olisin itse halunnut: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä oivalluksia ja terveytesi tukemista.',
+			'settings.about.title' => 'Tietoa',
+			'settings.about.tagline' => 'Nopea, ilmainen ja tietosuoja etusijalla oleva kaloritehokkuus',
+			'settings.about.ourStory.title' => 'Tarinaamme',
+			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} syntyi yksinkertaisesta turhautumisesta: useimmat kaloriseurantasovellukset ovat joko liian monimutkaisia, vaativat jatkuvaa manuaalista syöttöä, veloittavat suuria tilausmaksuja tai vaarantavat yksityisyyden.\n\nYksittäisenä kehittäjänä halusin rakentaa jotain yksinkertaisempaa ja reilumpaa — sovelluksen, joka käyttää AI:ta vähentääkseen vaivaa, pysyy nopeana ja ilmaisena käyttää, ja käsittelee terveystietojasi kunnioittavasti.\n\n${appLabel} on sovellus, jonka toivoisin olevan olemassa: ei tilejä, ei seurantaa, ei mainoksia — vain selkeitä, käytännöllisiä näkemyksiä ja sinun terveystavoitteesi.',
 			'settings.about.privacy.title' => 'Yksityisyytesi on tärkeä',
-			'settings.about.privacy.description' => 'Yksityisyys ei ole jälkiajatus — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:',
-			'settings.about.privacy.noAccounts' => 'Ei tilejä tarpeen\nKäytä sovellusta heti. Ei rekisteröitymisiä, ei henkilöllisyyksiä.',
-			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ei käyttäytymisen seurantaa\n${appLabel} ei seuraa toimintaasi, laadi käyttötapaprofiileja tai seuraa sinua sovellusten tai verkkosivustojen välillä.',
-			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Ei mainoksia suunnittelusta lähtien\n${appLabel} on rakennettu toimimaan ilman mainoksia tai datavetoista kaupallistamista.',
-			'settings.about.privacy.noDataSelling' => 'Ei tietojen myyntiä\nTerveysdataasi ei koskaan myydä tai jaeta kolmansille osapuolille.',
-			'settings.about.privacy.localStorage' => 'Lokaali tallennus ensin\nTietosi pysyvät laitteellasi.',
+			'settings.about.privacy.description' => 'Yksityisyys ei ole harkinnanvarainen lisä — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:',
+			'settings.about.privacy.noAccounts' => 'Ei tilejä vaadita\nKäytä sovellusta välittömästi. Ei kirjautumisia, ei identiteettejä.',
+			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ei käytöksen seurantaa\n${appLabel} ei seuraa toimintaasi, rakenna käyttötottumuksia tai seuraa sinua sovellusten tai verkkosivujen välillä.',
+			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Mainokseton suunnittelu\n${appLabel} on rakennettu toimimaan ilman mainoksia tai dataperusteista rahastusta.',
+			'settings.about.privacy.noDataSelling' => 'Ei datan myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.',
+			'settings.about.privacy.localStorage' => 'Laitteella ensisijaisesti tallennus\nTietosi säilyvät laitteellasi.',
 			'settings.about.privacy.privacyPolicy' => 'Tietosuojakäytäntö',
 			'settings.about.developer.title' => 'Rakennettu yksinkehittäjän toimesta',
-			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} on yhden kehittäjän rakentama ja ylläpitämä, keskittyen rauhalliseen, yksityisyyttä kunnioittavaan terveysteknologiaan.\n\nPalaute luetaan henkilökohtaisesti ja se ohjaa sovelluksen suuntaa.',
+			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} on rakennettu ja ylläpidetty yhden kehittäjän toimesta, joka keskittyy rauhalliseen, yksityisyyttä kunnioittavaan terveysohjelmistoon.\n\nPalaute luetaan henkilökohtaisesti ja auttaa muovaamaan sovelluksen kehityssuuntaa.',
 			'settings.about.developer.website' => 'Verkkosivusto',
 			'settings.about.developer.email' => 'Sähköposti',
-			'settings.about.feedback.title' => ({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta?',
-			'settings.about.feedback.description' => ({required Object appLabel}) => 'Palautteesi auttaa tekemään ${appLabel}-sovelluksesta paremman kaikille.',
+			'settings.about.feedback.title' => ({required Object appLabel}) => 'Pidätkö ${appLabel}:sta?',
+			'settings.about.feedback.description' => ({required Object appLabel}) => 'Palautteesi auttaa tekemään ${appLabel}:sta parempaa kaikille.',
 			'settings.about.feedback.rateApp' => 'Arvostele Play Storessa',
-			'settings.about.feedback.sendFeedback' => 'Lähetä palautetta',
+			'settings.about.feedback.sendFeedback' => 'Lähetä palaute',
 			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Koontiversio ${buildNumber}',
-			'reminders.title' => 'Pysy raiteilla muistutusten avulla',
-			'reminders.description' => 'Saat lempeitä muistutuksia aterioiden kirjaamiseen ja pysyt johdonmukaisena ravintotavoitteidesi kanssa',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Koonti ${buildNumber}',
+			'reminders.title' => 'Pysy raiteilla muistutuksilla',
+			'reminders.description' => 'Saat lempeitä muistutuksia kirjataksesi ateriasi ja pysyäksesi johdonmukaisena ravintotavoissasi',
 			'reminders.notificationsEnabled' => 'Ilmoitukset käytössä',
 			'reminders.notificationsDisabled' => 'Ilmoitukset pois käytöstä',
 			'reminders.enabledSubtitle' => 'Saat ateriamuistutuksia',
@@ -2107,18 +2107,18 @@ extension on TranslationsFi {
 			'reminders.dinner' => 'Päivällinen',
 			'reminders.snack' => 'Välipala',
 			'reminders.unknown' => 'Tuntematon',
-			'reminders.change' => 'Muuta',
+			'reminders.change' => 'Vaihda',
 			'reminders.enableNotifications' => 'Ota ilmoitukset käyttöön',
-			'reminders.skipForNow' => 'Ohita toistaiseksi',
+			'reminders.skipForNow' => 'Ohita nyt',
 			'reminders.saveChanges' => 'Tallenna muutokset',
-			'reminders.enabledSuccessfully' => 'Ilmoitukset otettiin käyttöön onnistuneesti!',
-			'reminders.permissionDenied' => 'Ilmoituslupa evätty',
-			'reminders.errorEnabling' => ({required Object error}) => 'Virhe ilmoitusten käyttöönotossa: ${error}',
+			'reminders.enabledSuccessfully' => 'Ilmoitukset otettu käyttöön onnistuneesti!',
+			'reminders.permissionDenied' => 'Ilmoitusoikeus evätty',
+			'reminders.errorEnabling' => ({required Object error}) => 'Virhe ilmoitusten ottamisessa käyttöön: ${error}',
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Virhe asetusten viimeistelyssä: ${error}',
-			'notifications.breakfast.title' => 'Aamiaisaika! 🍳',
+			'notifications.breakfast.title' => 'Aamupala-aika! 🍳',
 			'notifications.breakfast.body' => 'Muista kirjata aamiaisesi',
 			'notifications.lunch.title' => 'Lounasaika! 🥗',
-			'notifications.lunch.body' => 'On aika kirjata lounaasi',
+			'notifications.lunch.body' => 'On aika kirjata lounas',
 			'notifications.dinner.title' => 'Päivällisaika! 🍽️',
 			'notifications.dinner.body' => 'Muista kirjata päivällisesi',
 			'notifications.snack.title' => 'Välipala-aika! 🍎',
@@ -2127,57 +2127,57 @@ extension on TranslationsFi {
 			'login.title' => 'Kirjaudu',
 			'login.signInWithGoogle' => 'Kirjaudu Googlella',
 			'login.signInFailed' => 'Google-kirjautuminen epäonnistui tai peruttiin.',
-			'disclaimer.pleaseNote' => 'Huomio',
-			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} tarjoaa arvioidut ravintoarvot. Tarkkuus riippuu syötteestäsi ja ruoan vaihtelusta. Käytä ohjenuorana, ei lopullisena lähteenä. Käänny ammattilaisen puoleen henkilökohtaista ravinto-ohjausta varten.',
+			'disclaimer.pleaseNote' => 'Huomioithan',
+			'disclaimer.snap.description' => ({required Object appLabel}) => '${appLabel} antaa arvioidut ravintoarvot. Tarkkuus riippuu antamistasi tiedoista ja ruokien vaihteluista. Käytä ohjeellisena, ei lopullisena tietolähteenä. Kysy henkilökohtaista ravitsemusneuvontaa ammattilaiselta.',
 			'disclaimer.snap.portionSize.title' => 'Annoskoko',
-			'disclaimer.snap.portionSize.description' => 'Arvioiden tarkkuus riippuu vahvasti annoskoon oikeasta arviostasi.',
+			'disclaimer.snap.portionSize.description' => 'Arvioiden tarkkuus perustuu pitkälti oikeaan annoskoon arviointiisi.',
 			'disclaimer.snap.preparationMethods.title' => 'Valmistustavat',
-			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Ruoanvalmistus voi muuttaa ravintosisältöä merkittävästi. ${appLabel}:n arviot eivät aina huomioi kaikkia vaihteluita.',
+			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Ruokien valmistustavat voivat merkittävästi muuttaa ravintoarvoja. ${appLabel}in arviot eivät aina huomioi näitä eroja.',
 			'disclaimer.snap.ingredients.title' => 'Ainesosat',
-			'disclaimer.snap.ingredients.description' => 'Monimutkaiset ruoat, joissa on paljon piiloainesosia, voivat johtaa epätarkempiin arvioihin.',
-			'disclaimer.snap.databaseLimitations.title' => 'Tietokannan rajoitukset',
-			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}:n ruokakanta on laaja, mutta ei välttämättä sisällä jokaista ruoka-ainetta tai variaatiota.',
+			'disclaimer.snap.ingredients.description' => 'Monimutkaiset ruoat, joissa on paljon piilotettuja ainesosia, saattavat johtaa epätarkempiin arvioihin.',
+			'disclaimer.snap.databaseLimitations.title' => 'Tietokantaan liittyvät rajoitukset',
+			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota.',
 			'disclaimer.weightEstimate.title' => 'Tietoa painoarviosta',
-			'disclaimer.weightEstimate.description' => 'Arvioitu painonmuutos perustuu teoreettiseen malliimme kalorit sisään vs. kalorit ulos. Se on tarkoitettu vain motivaatioksi, ei todellisen painon ennusteeksi.',
-			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorilukemien tarkkuus',
-			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tämä arvio on yhtä tarkka kuin kirjaamasi kalorien saanti ja kulutus. Epätarkat merkinnät tuottavat epätarkan arvion.',
+			'disclaimer.weightEstimate.description' => 'Projektio painonmuutoksesta on teoreettinen arvio perustuen yksinkertaiseen kalorien sisään vs. ulos -malliin. Se on tarkoitettu motivoivaksi ohjaukseksi, ei ennusteeksi todellisesta painostasi.',
+			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorien tarkkuus',
+			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tämä arvio on yhtä tarkka kuin kirjaamiesi kulutus- ja polttoarvioiden tarkkuus. Virheellinen kirjaaminen johtaa virheelliseen ennusteeseen.',
 			'disclaimer.weightEstimate.biologicalFactors.title' => 'Biologiset tekijät',
-			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Todelliseen painonmuutokseen vaikuttavat aineenvaihdunta, hormonit, uni, stressi, nesteytys ja muut yksilölliset tekijät, joita ${appLabel} ei voi mitata.',
-			'disclaimer.weightEstimate.waterWeight.title' => 'Nestetasapaino ja vaihtelut',
-			'disclaimer.weightEstimate.waterWeight.description' => 'Päivittäinen paino voi vaihdella merkittävästi veden kertymisen, ruoansulatuksen ja ajoituksen vuoksi. Arvio ei huomioi näitä vaihteluita.',
-			'disclaimer.weightEstimate.professionalGuidance.title' => 'Ammattilaisen ohjeistus',
-			'disclaimer.weightEstimate.professionalGuidance.description' => 'Älä tee tämän arvion perusteella lääketieteellisiä päätöksiä. Käänny aina terveydenhuollon ammattilaisen tai ravitsemusterapeutin puoleen.',
-			'disclaimer.healthMetrics.description' => 'Nämä mittarit auttavat sinua ymmärtämään kehosi energiantarvetta ja ohjaavat ravintotavoitteitasi.',
+			'disclaimer.weightEstimate.biologicalFactors.description' => ({required Object appLabel}) => 'Todellinen laihtuminen/lihastus riippuu aineenvaihdunnasta, hormoneista, unesta, stressistä, nesteytyksestä ja muista yksilöllisistä tekijöistä, joita ${appLabel} ei voi mitata.',
+			'disclaimer.weightEstimate.waterWeight.title' => 'Veden paino & vaihtelut',
+			'disclaimer.weightEstimate.waterWeight.description' => 'Normaali päiväkohtainen paino voi vaihdella merkittävästi vedenpidätyksen, ruoansulatuksen ja ajankohdan vuoksi. Arvio ei ota huomioon näitä päivittäisiä vaihteluita.',
+			'disclaimer.weightEstimate.professionalGuidance.title' => 'Ammatillinen ohjaus',
+			'disclaimer.weightEstimate.professionalGuidance.description' => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.',
+			'disclaimer.healthMetrics.description' => 'Nämä mittarit auttavat ymmärtämään kehosi energiantarpeita ja ohjaavat ravitsemustavoitteitasi.',
 			'disclaimer.healthMetrics.bmr.title' => 'BMR',
-			'disclaimer.healthMetrics.bmr.description' => 'Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi kuluttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi kuluttaa levossa luonnostaan enemmän kaloreita, usein suuremman lihasmassan, nuoremman iän tai miehen sukupuolen vuoksi. Matalampi BMR viittaa tyypillisesti pienempään lihasmassaan, vanhempaan ikään tai naisen sukupuoleen.',
+			'disclaimer.healthMetrics.bmr.description' => 'Perusaineenvaihdunta (BMR) on kalorimäärä, jonka kehosi polttaa levossa ylläpitääkseen perustoimintoja, kuten hengitystä ja verenkiertoa. BMR riippuu iästäsi, sukupuolestasi, pituudestasi ja painostasi. Korkeampi BMR tarkoittaa, että kehosi polttaa luonnollisesti enemmän kaloreita levossa, usein enemmän lihasmassan, nuoren iän tai miehisyyden takia. Alhaisempi BMR viittaa yleensä vähäisempään lihasmassan määrään, korkeampaan ikään tai naiseuteen.',
 			'disclaimer.healthMetrics.tdee.title' => 'TDEE',
-			'disclaimer.healthMetrics.tdee.description' => 'Päivittäinen kokonaisenergiankulutus (TDEE) on kokonaiskalorimäärä, jonka kulutat päivässä, mukaan lukien BMR sekä fyysisen aktiivisuuden ja päivittäisen liikkumisen kulutus. TDEE riippuu BMR-arvostasi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että kulutat kokonaisuudessaan enemmän kaloreita, yleensä koska olet aktiivisempi tai BMR-arvosi on korkeampi. Matalampi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai alempaan BMR:ään.',
+			'disclaimer.healthMetrics.tdee.description' => 'Kokonaispäivittäinen energiankulutus (TDEE) on päivittäinen kalorimäärä, jonka poltat, ja siihen sisältyy BMR sekä liikunnasta ja päivittäisestä liikkumisesta poltetut kalorit. TDEE riippuu BMR:stäsi ja aktiivisuustasostasi. Korkeampi TDEE tarkoittaa, että poltat enemmän kaloreita kokonaisuudessaan, yleensä aktiivisuuden tai korkeamman BMR:n vuoksi. Alhaisempi TDEE viittaa vähäisempään päivittäiseen aktiivisuuteen tai matalampaan BMR:ään.',
 			'disclaimer.healthMetrics.dailyGoal.title' => 'Päivittäinen tavoite',
-			'disclaimer.healthMetrics.dailyGoal.description' => 'Päivittäinen tavoite on suositeltu päivittäinen kalorinsaanti TDEE-arvosi ja painotavoitteesi perusteella. Painonpudotuksessa syöt vähemmän kaloreita kuin TDEE-arvosi. Painon ylläpidossa kalorien saanti vastaa TDEE-arvoasi. Painonnousussa syöt enemmän kaloreita kuin TDEE-arvosi. Tämä auttaa saavuttamaan toivotun painonmuutoksen terveellisessä tahdissa.',
-			'disclaimer.calorieExpenditure.title' => 'Kalorien kulutuksen arvio',
-			'disclaimer.calorieExpenditure.description' => 'Kun Health Connect -tietoja ei ole saatavilla, arvioimme tämän päivän kulutetut kalorit perusaineenvaihdunnan (BMR) ja aktiivisuustason (TDEE) perusteella, skaalattuna kuluneen päivän osuuden mukaan.',
+			'disclaimer.healthMetrics.dailyGoal.description' => 'Päivittäinen tavoite on suositeltu päivittäinen kalorinsaantisi TDEE:si ja painotavoitteesi perusteella. Laihduttaessa kulutat vähemmän kaloreita kuin TDEE. Painon ylläpitämiseksi vastaat TDEE:tä. Painon nostamiseksi kulutat enemmän kaloreita kuin TDEE. Tämä auttaa sinua saavuttamaan halutun painon muutoksen terveellisellä tahdilla.',
+			'disclaimer.calorieExpenditure.title' => 'Arvio kalorinkulutuksesta',
+			'disclaimer.calorieExpenditure.description' => 'Kun Health Connect -data ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttäen perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalaamalla sen kuluneen päivän osuuden mukaan.',
 			'disclaimer.calorieExpenditure.howCalculated.title' => 'Miten arvio lasketaan',
-			'disclaimer.calorieExpenditure.howCalculated.description' => 'Laskemme TDEE-arvosi (profiilisi perusteella) ja kerromme sen kuluneen päivän murto-osalla (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä kulutetut kalorit.',
-			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ammattilaisen ohjeistus',
-			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Käänny aina terveydenhuollon ammattilaisen tai laillistetun ravitsemusterapeutin puoleen saadaksesi yksilöllisiä neuvoja painonhallintaan.',
+			'disclaimer.calorieExpenditure.howCalculated.description' => 'Laskemme TDEE:si (profiilisi perusteella) ja kerromme sen kuluneen päivän osuudella (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.',
+			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ammatillinen ohjaus',
+			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.',
 			'common.close' => 'Sulje',
 			'common.kContinue' => 'Jatka',
-			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Pidätkö ${appLabel}-sovelluksesta?',
+			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Pidätkö ${appLabel}:sta?',
 			'feedbackRating.yes' => 'Kyllä, pidän siitä',
-			'feedbackRating.no' => 'En oikein',
+			'feedbackRating.no' => 'En oikeastaan',
 			'feedbackRating.rateStepHeading' => 'Arvostele Play Storessa',
-			'feedbackRating.emailStepHeading' => 'Lähetä palautetta sähköpostilla',
-			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Nopea arvostelu auttaa muita löytämään ${appLabel}-sovelluksen ja pitää kehityksen käynnissä. Voisitko jättää sellaisen?',
-			'feedbackRating.shareFeedbackViaEmail' => 'Palautteesi ohjaa seuraavia askeleita — luemme jokaisen viestin. Haluaisitko jakaa ajatuksiasi sähköpostitse?',
+			'feedbackRating.emailStepHeading' => 'Lähetä palaute sähköpostilla',
+			'feedbackRating.soloDevMessage' => ({required Object appLabel}) => 'Pikainen arvostelu auttaa muita löytämään ${appLabel}:n ja pitää kehitystyön käynnissä. Voisitko hetken jättää arvion?',
+			'feedbackRating.shareFeedbackViaEmail' => 'Palautteesi muokkaa tulevaa — luemme jokaisen viestin. Haluatko jakaa ajatuksesi sähköpostilla?',
 			'feedbackRating.rateCta' => 'Arvostele Play Storessa',
 			'feedbackRating.maybeLater' => 'Ehkä myöhemmin',
-			'feedbackRating.sendFeedback' => 'Lähetä palautetta',
+			'feedbackRating.sendFeedback' => 'Lähetä palaute',
 			'feedbackRating.noThanks' => 'Ei kiitos',
-			'feedbackRating.aboutUsDescription' => 'Pienen tiimin huolella tekemä. Keskitymme yksityisyyteen, yksinkertaisuuteen ja parempien ruokailutottumusten rakentamiseen.',
-			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Kiinnostaako, kuka ${appLabel}:n takana on? Katso ',
+			'feedbackRating.aboutUsDescription' => 'Tehty huolella pienellä tiimillä. Keskitymme yksityisyyteen, yksinkertaisuuteen ja auttamaan sinua kehittämään parempia ruokailutottumuksia.',
+			'feedbackRating.aboutUsMentionBeforeLink' => ({required Object appLabel}) => 'Kiinnostaa kuka ${appLabel}:n takana on? Katso ',
 			'feedbackRating.aboutUsLinkLabel' => 'Tietoa meistä',
-			'feedbackRating.thankYouMessage' => 'Kiitos! Kysymme uudelleen toisen kerran.',
-			'health.syncFailed' => 'Synkkaus Health Connectiin epäonnistui',
+			'feedbackRating.thankYouMessage' => 'Kiitos! Kysymme taas myöhemmin.',
+			'health.syncFailed' => 'Synkronointi Health Connectiin epäonnistui',
 			'health.mealSynced' => 'Ateria synkattu Health Connectiin',
 			_ => null,
 		};

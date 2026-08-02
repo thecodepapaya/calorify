@@ -3,178 +3,178 @@
   "flag": "🇭🇺",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Túl sok kérést küldtél. Kérlek, várj egy kicsit, majd próbáld újra.",
-    "networkError": "Hálózati hiba. Kérlek, ellenőrizd az internetkapcsolatod.",
-    "unknownError": "Valami hiba történt. Kérlek, próbáld meg később újra.",
+    "rateLimitExceeded": "Túl sok kérést küldtél. Kérlek várj egy kicsit, majd próbáld újra.",
+    "networkError": "Hálózati hiba. Ellenőrizd az internetkapcsolatodat.",
+    "unknownError": "Valami hiba történt. Kérlek próbáld meg később.",
     "loadingProfileData": "Hiba a profiladatok betöltésekor",
-    "somethingWentWrong": "Valami hiba történt.",
-    "retry": "Próbáld újra"
+    "somethingWentWrong": "Valami elromlott.",
+    "retry": "Újrapróbálás"
   },
   "onboarding": {
-    "welcome": "Üdvözlünk a {appLabel} alkalmazásban",
-    "subtitle": "Személyes táplálkozási társad MI-vel",
-    "getStarted": "Kezdjük el",
+    "welcome": "Üdvözlünk a {appLabel}-ben",
+    "subtitle": "Személyes táplálkozási társad az AI erejével",
+    "getStarted": "Kezdés",
     "features": {
       "foodRecognition": {
         "title": "Okos ételfelismerés",
-        "description": "Készíts egy fotót, és hagyd, hogy az MI azonosítsa az ételt"
+        "description": "Készíts fotót, és az AI azonosítja az ételt"
       },
       "aiAnalysis": {
-        "title": "MI‑elemzés",
-        "description": "Azonnali tápértékek a leírásaid alapján"
+        "title": "AI elemzés",
+        "description": "Azonnali tápanyagadatok a leírásaid alapján"
       },
       "healthIntegration": {
         "title": "Egészségintegráció",
-        "description": "Csatlakozz a Health Connecthez a jobb betekintésekért"
+        "description": "Kapcsolódj a Health Connecthez a jobb elemzésekért"
       }
     },
     "gender": {
-      "title": "Mi a nemed?",
-      "description": "A nem segít a nyugalmi anyagcsere (BMR) pontos kiszámításában.",
+      "title": "Mi a neme?",
+      "description": "A nem segít pontosan kiszámolni az alapanyagcserédet (BMR).",
       "next": "Tovább"
     },
     "height": {
       "title": "Milyen magas vagy?",
-      "description": "A magasságod segít a BMI és energiaigény pontos kiszámításában.",
+      "description": "A magasság pontosítja a BMI és energiaigény számítást.",
       "metric": "Metrikus",
-      "imperial": "Angolszász",
+      "imperial": "Imperiális",
       "next": "Tovább"
     },
     "weight": {
-      "currentTitle": "Mennyi a jelenlegi testsúlyod?",
-      "currentDescription": "A jelenlegi testsúlyod elengedhetetlen a napi céljaid személyre szabásához.",
-      "targetTitle": "Mi a céltestsúlyod?",
-      "targetDescription": "A céltestsúly beállítása segít a hosszú távú terved meghatározásában.",
+      "currentTitle": "Mennyi a jelenlegi súlyod?",
+      "currentDescription": "A jelenlegi súly fontos a napi célok személyre szabásához.",
+      "targetTitle": "Mi a cél súlyod?",
+      "targetDescription": "A cél súly beállítása segít a hosszú távú terv meghatározásában.",
       "metric": "Metrikus",
-      "imperial": "Angolszász",
+      "imperial": "Imperiális",
       "next": "Tovább"
     },
     "age": {
       "title": "Mikor van a születésnapod?",
-      "description": "Az életkorod segít a kalóriaszükségleted pontos kiszámításában.",
+      "description": "Az életkor segít pontosan kiszámolni a kalóriaszükségletedet.",
       "next": "Tovább"
     },
     "bmiScale": {
-      "underweight": "Sovány",
+      "underweight": "Alacsony testsúly",
       "healthy": "Egészséges",
       "overweight": "Túlsúly",
       "obese": "Elhízás",
       "categories": {
-        "underweight": "Sovány",
+        "underweight": "Alacsony testsúly",
         "healthyWeight": "Egészséges testsúly",
-        "overweight": "Túlsúlyos",
-        "obese": "Elhízott"
+        "overweight": "Túlsúly",
+        "obese": "Elhízás"
       },
       "messages": {
-        "underweight": "Segítünk egészséges tervet kialakítani, hogy tápanyagdús ételekkel kiegyensúlyozott testsúlyt érj el.",
-        "healthy": "Szép munka! Az egészséges tartományban vagy. Segítünk megőrizni vitalitásodat és energiaszinted.",
-        "overweight": "{appLabel} MI‑alapú követéssel egyszerűsíti az utad, hogy kényelmesen elérd célodat.",
-        "obese": "Személyre szabott útmutatással és fenntartható stratégiákkal támogatunk egészségügyi céljaid elérésében."
+        "underweight": "Segítünk egy egészséges terv felépítésében, hogy tápanyagban gazdag ételekkel elérd az egyensúlyi súlyt.",
+        "healthy": "Remek! Egészséges tartományban vagy. Segítünk megőrizni a vitalitásodat és energiaszintedet.",
+        "overweight": "{appLabel} egyszerűsíti az utadat AI-alapú nyomon követéssel, hogy kényelmesen elérd a célodat.",
+        "obese": "Támogatunk személyre szabott útmutatással és fenntartható stratégiákkal az egészséged érdekében."
       }
     },
     "weightGoal": {
       "title": "Mi a célod?",
-      "description": "Válaszd ki azt, ami leginkább leírja, mit szeretnél elérni"
+      "description": "Válaszd ki azt a célt, ami leginkább tükrözi, mit szeretnél elérni"
     },
     "activityLevel": {
-      "title": "Mennyire vagy aktív?",
-      "description": "Ez segít pontosabban kiszámítani a napi kalóriaszükségletedet"
+      "title": "Milyen aktív vagy?",
+      "description": "Ez segít pontosabban kiszámolni a napi kalóriaszükségletedet"
     },
     "healthConnect": {
-      "title": "Csatlakozás a Health Connecthez",
-      "description": "Szinkronizáld egészségadataidat jobb betekintésekért és automatikus kalóriakövetésért",
+      "title": "Kapcsolódj a Health Connecthez",
+      "description": "Szinkronizáld egészségadataid a jobb elemzésekért és automatikus kalóriakövetésért",
       "automaticTracking": {
         "title": "Automatikus kalóriakövetés",
-        "description": "Kövesd az elégetett kalóriákat a fitneszalkalmazásokból"
+        "description": "Kövesd a fitneszalkalmazásaidból származó elégetett kalóriákat"
       },
       "progressInsights": {
-        "title": "Haladási betekintések",
-        "description": "Részletes betekintések az egészségügyi trendjeidbe"
+        "title": "Haladás-elemzések",
+        "description": "Részletes betekintés az egészséged trendjeibe"
       },
       "seamlessIntegration": {
         "title": "Zökkenőmentes integráció",
-        "description": "Szinkronizáld adataidat kedvenc egészségappjaidból"
+        "description": "Szinkronizáld adataid a kedvenc egészségalkalmazásaiddal"
       },
       "connected": "Health Connect csatlakoztatva",
       "notConnected": "Health Connect nincs csatlakoztatva",
       "setup": "Health Connect beállítása",
-      "skipForNow": "Kihagyás most",
-      "statusConnected": "A Health Connect csatlakoztatva van.",
-      "statusSuccess": "A Health Connect sikeresen csatlakozott!",
-      "statusPermissionDenied": "Hozzáférés megtagadva. Engedélyezd a Health Connect jogosultságait a telefon beállításaiban a {appLabel} számára.",
-      "statusError": "Hiba a Health Connect beállításakor: {error}"
+      "skipForNow": "Most kihagyom",
+      "statusConnected": "A Health Connect csatlakoztatva.",
+      "statusSuccess": "A Health Connect sikeresen csatlakoztatva!",
+      "statusPermissionDenied": "Hozzáférés megtagadva. Kérlek engedélyezd a Health Connect jogosultságokat a telefon beállításaiban a {appLabel} számára.",
+      "statusError": "Hiba a Health Connect beállítása közben: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Nem vagy egyedül",
-        "genericMessage": "A kutatások szerint a következetes naplózás a hosszú távú siker legfontosabb előrejelzője.",
-        "personalizedMessage": "Egy {age} éves {gender} számára, aki {goal} szeretne elérni, a következetes naplózás a siker legfontosabb előrejelzője.",
-        "closingMessage": "{appLabel} tízszer könnyebbé teszi, mint a kézi naplózás.",
+        "genericMessage": "A kutatások szerint a következetes naplózás a legjobb előrejelzője a hosszú távú sikernek.",
+        "personalizedMessage": "{age} éves, {gender} személyként, aki {goal}-t szeretne elérni, a következetes naplózás a siker legfontosabb előrejelzője.",
+        "closingMessage": "{appLabel} tízszer könnyebbé teszi, mint kézzel vezetni.",
         "getStartedTitle": "Készen állsz a kezdésre?",
         "tipPhoto": "Készíts fotót az ételeidről az azonnali elemzéshez",
-        "tipConsistency": "Naplózz következetesen, hogy valódi előrelépést láss",
-        "tipProgress": "Kövesd a fejlődésed naponta, hogy motivált maradj",
-        "button": "Kezdjük!",
-        "defaultGender": "személy",
-        "defaultGoal": "egészségesebb életet"
+        "tipConsistency": "Naplózz rendszeresen a látható előrelépésért",
+        "tipProgress": "Kövesd a haladásod naponta, hogy motivált maradj",
+        "button": "Indulás",
+        "defaultGender": "egyén",
+        "defaultGoal": "egészségesebb te"
       },
       "healthProfile": {
-        "title": "Egészségügyi profilod",
-        "bmiDescription": "A megadott adataid alapján a BMI-d {bmi}.",
-        "finalizeDescription": "Véglegesítsük a profilodat, hogy személyre szabhassuk az élményt.",
-        "goalGain": "híznod",
-        "goalLose": "fogynod",
-        "goalReach": "A célod eléréséhez {direction} kell {diff} {unit}.",
-        "goalReached": "Elérted a céltestsúlyodat! Segítünk megtartani.",
-        "button": "Kezdjük!"
+        "title": "Az egészségi profilod",
+        "bmiDescription": "A mért adataid alapján a BMI-d: {bmi}.",
+        "finalizeDescription": "Zárjuk le a profilodat, hogy személyre szabhassuk az élményt.",
+        "goalGain": "növelni",
+        "goalLose": "csökkenteni",
+        "goalReach": "A cél eléréséhez {direction} {diff} {unit}.",
+        "goalReached": "Elérted a cél súlyodat! Segítünk a megtartásban.",
+        "button": "Indulás"
       },
       "goalLifestyle": {
-        "title": "Remek kezdet!",
-        "description": "Megtetted az első lépést {goalText} felé. Mivel {activityText} vagy, {appLabel} a célokat az életmódodhoz igazítja.",
+        "title": "Kiváló kezdet!",
+        "description": "Megtetted az első lépést a {goalText} felé. Mivel {activityText} vagy, a {appLabel} módosítja a céljaidat az életstílusodhoz igazodva.",
         "personalizedTargets": "Személyre szabott kalóriacélok",
-        "aiMealDetection": "MI-alapú ételfelismerés",
-        "macroBreakdowns": "Részletes makrotápanyag-bontások",
-        "button": "Kezdjük!",
-        "defaultGoal": "céljaid",
+        "aiMealDetection": "AI-alapú ételészlelés",
+        "macroBreakdowns": "Részletes makrotápanyag bontások",
+        "button": "Indulás",
+        "defaultGoal": "a céljaid",
         "defaultActivity": "aktív"
       }
     }
   },
   "tabs": {
-    "dashboard": "Vezérlőpult",
+    "dashboard": "Irányítópult",
     "history": "Előzmények"
   },
   "home": {
     "aiSummary": {
-      "title": "Az MI összefoglalód",
-      "logMore": "Naplózz több ételt a következő napokban, hogy megkaphasd a személyre szabott MI‑betekintéseket.",
-      "loading": "Összefoglaló betöltése…",
+      "title": "AI összegzésed",
+      "logMore": "Adj több ételt a következő napokban, hogy személyre szabott AI-elemzést kapj.",
+      "loading": "Összegzés betöltése…",
       "mealCount": "{count} étel naplózva",
-      "macroBalanceScore": "Egyensúlyi pontszám {score}",
-      "topFoods": "Top ételek",
-      "trendUp": "Kalóriák emelkedőben",
-      "trendDown": "Kalóriák csökkenőben",
-      "trendSteady": "Kalóriák stabilan",
-      "generatedAt": "Frissítve: {time}"
+      "macroBalanceScore": "Egyensúly pontszám {score}",
+      "topFoods": "Leggyakoribb ételek",
+      "trendUp": "Kalóriák növekvő tendenciát mutatnak",
+      "trendDown": "Kalóriák csökkenő tendenciát mutatnak",
+      "trendSteady": "Kalóriák stabilak",
+      "generatedAt": "Frissítve {time}"
     },
     "dailyGoal": {
       "title": "Állítsd be a napi célod",
-      "titleSet": "A napi célod",
-      "description": "Készen állsz az egészségesebb útra? Állítsd be az alábbi napi kalóriacélt a kezdéshez.",
-      "descriptionSet": "Iránytűd beállítva! Ez a napi kalóriacélod, amely vezet az utadon.",
-      "yourGoal": "Célod",
+      "titleSet": "Napi célod",
+      "description": "Készen állsz az egészséged felé vezető útra? Állítsd be napi kalóriacélodat az elinduláshoz.",
+      "descriptionSet": "Az iránytű beállítva! Ez a napi kalóriacélod, amely vezérelni fog.",
+      "yourGoal": "A célod",
       "goal": "Cél",
       "dailyCalories": "Napi kalória (kcal)",
       "setGoal": "Cél beállítása",
       "intake": "Bevitel",
-      "burned": "Elégetett",
-      "weightImpact": "Testsúlyra gyakorolt hatás",
-      "estLoss": "Becs. fogyás",
-      "estGain": "Becs. gyarapodás",
+      "burned": "Elégetve",
+      "weightImpact": "Súlyra gyakorolt hatás",
+      "estLoss": "Becsült veszteség",
+      "estGain": "Becsült gyarapodás",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Napi összegzés",
+      "title": "Napi összefoglaló",
       "calories": "Kalória",
       "carbs": "Szénhidrát",
       "protein": "Fehérje",
@@ -184,71 +184,71 @@
       "chartAccessibilityLabel": "Makrók diagram"
     },
     "intakeProgress": {
-      "title": "A mai makrók megoszlása",
+      "title": "A mai makró megoszlás",
       "target": "Cél",
       "current": "Jelenlegi"
     },
     "intakeHistory": {
-      "title": "7 napos makrótörténet",
+      "title": "7 napos makró előzmények",
       "trendTitle": "Mai trend",
       "peakHour": "Csúcs: {hour}:00",
       "noHistoryYet": "Még nincs előzmény",
-      "startLogging": "Kezdd el naplózni az étkezéseidet, hogy itt lásd a\n7 napos makrótrendeket"
+      "startLogging": "Kezdj el étkezéseket naplózni, hogy itt lásd a\n7 napos makró trendeket"
     },
     "mealLog": {
-      "title": "Naplózott étkezések",
-      "emptyMessage": "Fotózd le az utolsó étkezésed, hogy itt megjelenjen.",
-      "noMealsToday": "Ma nincs rögzített étkezés",
-      "seeAllMeals": "Összes étkezés megtekintése"
+      "title": "Naplózott ételek",
+      "emptyMessage": "Készíts fotót az utolsó étkezésedről, hogy itt naplózd.",
+      "noMealsToday": "Ma még nincs rögzített étkezés",
+      "seeAllMeals": "Összes étel megtekintése"
     },
     "mealDescription": {
-      "title": "Gyors hozzáadás MI‑vel",
-      "description": "Írd le az étkezésed, a többit intézi az MI.",
-      "hint": "pl.: Reggelire ettem egy nagy tál zabkását egy szeletelt banánnal és egy adag tejsavóval ...",
-      "analyzeMeal": "Étkezés elemzése"
+      "title": "Gyors hozzáadás AI-vel",
+      "description": "Írd le az étkezésedet, és az AI elintézi a részleteket.",
+      "hint": "pl. Reggelire nagy tál zabkása szeletelt banánnal és egy adag tejsavó fehérjével ...",
+      "analyzeMeal": "Étel elemzése"
     },
     "favoriteMeals": {
-      "title": "Kedvenc étkezések",
-      "description": "Add hozzá gyorsan valamelyik kedvenced.",
-      "noFavorites": "Még nincsenek kedvenc étkezések.",
-      "addFavoriteHint": "Koppints a csillagra egy étkezésen, hogy kedvencnek jelöld.",
+      "title": "Kedvenc ételek",
+      "description": "Gyorsan add hozzá az egyik kedvencét.",
+      "noFavorites": "Még nincsenek kedvenc ételek.",
+      "addFavoriteHint": "Kattints a csillagra egy ételnél, hogy kedvenccé tedd.",
       "seeAll": "Összes megtekintése",
       "add": "Hozzáadás"
     },
     "mealSnap": {
-      "title": "Fotózd és kövesd az étkezést",
-      "description": "Használd a kamerát, készíts képet az ételről MI‑elemzéshez.",
+      "title": "Fényképezd és kövesd az ételt",
+      "description": "Használd a kamerát az étel fotózásához AI-elemzéshez.",
       "openCamera": "Kamera megnyitása",
       "gallery": "Galéria",
       "compressingPhoto": "Fénykép optimalizálása…",
       "uploadingPhoto": "Fénykép feltöltése…"
     },
     "connectHealth": {
-      "title": "Szinkronizálás a Health Connecttel",
+      "title": "Szinkron a Health Connecttel",
       "description": "Szinkronizáld a táplálkozási adataidat a Health Connecttel",
       "install": "Telepítés",
       "connect": "Csatlakozás"
     }
   },
   "history": {
-    "noMeals": "Nincsenek rögzített étkezések",
-    "emptyMessage": "Fotózd le az utolsó étkezésed, hogy itt megjelenjen.",
+    "noMeals": "Nincsenek rögzített ételek",
+    "emptyMessage": "Készíts fotót az utolsó étkezésedről, hogy itt naplózd.",
     "today": "Ma",
     "yesterday": "Tegnap"
   },
   "meal": {
-    "ohNo": "Jaj ne!",
+    "ohNo": "Húha!",
     "delete": "Törlés",
-    "editMeal": "Étkezés szerkesztése",
-    "addMeal": "Étkezés hozzáadása",
-    "saveMeal": "Étkezés mentése",
+    "editMeal": "Étel szerkesztése",
+    "addMeal": "Étel hozzáadása",
+    "saveMeal": "Étel mentése",
     "save": "Mentés",
-    "mealName": "Étkezés neve",
-    "mealNameHint": "pl.: Rántotta pirítóssal",
-    "mealQuantity": "Étkezés mennyisége",
-    "mealQuantityHint": "pl.: 1 tál, 2 szelet",
+    "mealName": "Étel neve",
+    "mealNameHint": "pl. Tojásrántotta pirítóssal",
+    "mealQuantity": "Adag mennyisége",
+    "mealQuantityHint": "pl. 1 tál, 2 szelet",
     "timeOfMeal": "Étkezés ideje",
-    "timeOfMealHint": "Válaszd ki, mikor ettél",
+    "timeOfMealHint": "Válaszd ki, mikor etted az ételt",
     "mealType": "Étkezés típusa",
     "nutrition": {
       "calories": "Kalória",
@@ -258,26 +258,26 @@
       "fiber": "Rost (g)"
     },
     "deleteConfirmation": {
-      "title": "Étkezés törlése",
-      "message": "Biztosan törölni szeretnéd ezt a bejegyzést?",
+      "title": "Étel törlése",
+      "message": "Biztosan törölni szeretnéd ezt az étkezési bejegyzést?",
       "cancel": "Mégse",
       "delete": "Törlés"
     },
-    "addedToLog": "Étkezés hozzáadva a naplódhoz!",
-    "couldNotAdd": "Nem sikerült hozzáadni az étkezést: {error}",
-    "savedSuccessfully": "Étkezés sikeresen hozzáadva!",
-    "updatedSuccessfully": "Étkezés sikeresen frissítve!",
-    "errorSaving": "Hiba az étkezés mentésekor: {error}",
+    "addedToLog": "Az étel hozzáadva a naplódhoz!",
+    "couldNotAdd": "Nem sikerült hozzáadni az ételt: {error}",
+    "savedSuccessfully": "Az étel sikeresen hozzáadva!",
+    "updatedSuccessfully": "Az étel sikeresen frissítve!",
+    "errorSaving": "Hiba az étel mentésekor: {error}",
     "removedFromFavorites": "Eltávolítva a kedvencek közül!",
-    "savedAsFavorite": "Étkezés elmentve kedvencként!",
-    "unfavorite": "Kedvenc törlése",
+    "savedAsFavorite": "Az étel kedvencként elmentve!",
+    "unfavorite": "Eltávolítás a kedvencek közül",
     "couldNotUpdateFavorite": "Nem sikerült frissíteni a kedvencet: {error}",
     "feedbackThanks": "Köszönjük a visszajelzést!",
-    "reanalysisUpdated": "Frissítettük az elemzést a visszajelzésed alapján.",
-    "failedToProcess": "Nem sikerült feldolgozni: {error}",
-    "failedToProcessImage": "A kép feldolgozása sikertelen: {error}",
-    "errorCompressingImage": "Hiba a kép tömörítésekor: {error}",
-    "failedToSave": "Nem sikerült menteni az adatokat. Kérlek, próbáld újra.",
+    "reanalysisUpdated": "Frissítettük az étel elemzését a visszajelzésed alapján.",
+    "failedToProcess": "Feldolgozás sikertelen: {error}",
+    "failedToProcessImage": "A képfeldolgozás sikertelen: {error}",
+    "errorCompressingImage": "Hiba a kép tömörítése közben: {error}",
+    "failedToSave": "Az adatok mentése sikertelen. Kérlek próbáld újra.",
     "skip": "Kihagyás",
     "questionFlow": {
       "progress": "Kérdés {current} / {total}",
@@ -286,56 +286,56 @@
       "continueLabel": "Folytatás"
     },
     "analysis": {
-      "title": "MI étkezéselemzés",
-      "stepStarted": "Kezdés…",
-      "stepDecomposition": "Étkezés értelmezése…",
-      "stepIngredients": "Hozzávalók párosítása a tápanyagadatokkal…",
-      "stepUncertainty": "Bizonytalanság ellenőrzése…",
+      "title": "Étel elemzése",
+      "stepStarted": "Elindulás…",
+      "stepDecomposition": "Az étel megértése…",
+      "stepIngredients": "Hozzávalók párosítása tápanyagadatokkal…",
+      "stepUncertainty": "Bizonyosság ellenőrzése…",
       "stepMealTypeQuestion": "Majdnem kész…",
       "stepResult": "Eredmény véglegesítése…",
       "stepError": "Valami hiba történt",
-      "stepDefault": "Étkezés elemzése…",
-      "progressUnderstand": "Megértés",
-      "progressMatch": "Párosítás",
-      "progressCheck": "Ellenőrzés",
-      "progressMealType": "Ételfajta kiválasztása",
-      "progressFinish": "Befejezés",
-      "detectedIngredientHeading": "Összetevők, amiket észlelünk",
-      "ingredientsOverflow": "{count} további",
-      "ingredientsLine": "{count} hozzávaló felismerve",
-      "ingredientsPending": "Hozzávalók keresése…",
+      "stepDefault": "Étel elemzése…",
+      "progressUnderstand": "Az étel megértése",
+      "progressMatch": "Hozzávalók tápanyagainak keresése",
+      "progressCheck": "Adagok és bizonyosság ellenőrzése",
+      "progressMealType": "Ételtípus kiválasztása",
+      "progressFinish": "Kalóriák és makrók számítása",
+      "detectedIngredientHeading": "Azonosított összetevők",
+      "ingredientsOverflow": "még {count}",
+      "ingredientsLine": "{count} összetevő észlelve",
+      "ingredientsPending": "Összetevők beolvasása…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "Tipp: A következetesség fontosabb, mint a tökéletesség — a rendszeres naplózás mutatja meg a valódi mintákat.",
+      "offlineTip1": "Tipp: Fotókhoz a természetes fény és felülnézeti fotó segít az adagpontosságban.",
+      "offlineTip2": "Tipp: Említsd meg az italokat, szószokat és sütőolajat — ezek plusz kalóriát adnak, amit gyakran elfelejtenek.",
+      "offlineTip3": "Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.",
+      "offlineTip4": "Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.",
+      "offlineTip5": "Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben)."
     },
     "feedback": {
       "title": "Mi tűnik hibásnak?",
       "subtitle": "Segíts javítani az elemzést egy vagy több probléma kiválasztásával.",
-      "tellUsMore": "Mondj el többet",
-      "describeIncorrect": "Írd le, mi volt helytelen",
+      "tellUsMore": "Mesélj részletesebben",
+      "describeIncorrect": "Írd le, mi volt pontatlan",
       "submit": "Beküldés",
-      "issueFoodIdentification": "Étel azonosítása",
-      "issuePortionSize": "Adag mérete",
-      "issueCalorieDistribution": "Kalória-eloszlás",
-      "issueMacrosWrong": "A makrók hibásak",
+      "issueFoodIdentification": "Ételazonosítás",
+      "issuePortionSize": "Adagméret",
+      "issueCalorieDistribution": "Kalóriaeloszlás",
+      "issueMacrosWrong": "Makrók hibásak",
       "issueMissingItems": "Hiányzó elemek",
-      "issueExtraItems": "Extra elemek",
+      "issueExtraItems": "Többlet elemek",
       "issueOther": "Egyéb"
     }
   },
   "favorites": {
     "title": "Kedvencek",
-    "empty": "Még nincsenek kedvenc étkezések.",
-    "searchPlaceholder": "Kedvenc étkezések keresése",
-    "searchEmptyTitle": "Nincs a keresésnek megfelelő kedvenc",
-    "searchEmptySubtitle": "Próbálj másik ételnevet, mennyiséget vagy étkezéstípust.",
+    "empty": "Még nincs kedvenc étel.",
+    "searchPlaceholder": "Keresés a kedvencek között",
+    "searchEmptyTitle": "Nincs találat a kedvencek között",
+    "searchEmptySubtitle": "Próbálj más ételnevet, adagmennyiséget vagy étkezéstípust.",
     "sortLabel": "Kedvencek rendezése",
     "undo": "Visszavonás",
-    "removed": "{name} eltávolítva a kedvencek közül",
+    "removed": "Eltávolítva: {name} a kedvencek közül",
     "sortOptions": {
       "recent": "Legutóbbi",
       "calories": "Kalória",
@@ -344,39 +344,39 @@
   },
   "profile": {
     "title": "Profil",
-    "noProfileData": "Nem található profiladat",
-    "yourProfile": "Profilod",
-    "viewAndManage": "Egészségügyi adataid megtekintése és kezelése",
+    "noProfileData": "Nincs profiladat",
+    "yourProfile": "A profilod",
+    "viewAndManage": "Egészségügyi adatok megtekintése és kezelése",
     "sections": {
       "profile": "PROFIL",
-      "basicInformation": "ALAPINFORMÁCIÓK",
-      "goalsAndActivity": "CÉLOK ÉS AKTIVITÁS",
-      "calculatedValues": "SZÁMÍTOTT ÉRTÉKEK"
+      "basicInformation": "ALAPADATOK",
+      "goalsAndActivity": "CÉLOK & AKTIVITÁS",
+      "calculatedValues": "SZÁMOLT ÉRTÉKEK"
     },
     "gender": "Nem",
     "height": "Magasság",
-    "weight": "Testsúly",
-    "age": "Életkor",
-    "weightGoal": "Testsúlycél",
-    "targetWeight": "Céltestsúly",
+    "weight": "Súly",
+    "age": "Kor",
+    "weightGoal": "Súlycél",
+    "targetWeight": "Cél súly",
     "activityLevel": "Aktivitási szint",
-    "healthMetrics": "Egészségügyi mutatók",
+    "healthMetrics": "Egészségmutatók",
     "notSet": "Nincs beállítva",
     "years": "év",
-    "updatedSuccessfully": "Profil sikeresen frissítve!",
+    "updatedSuccessfully": "A profil sikeresen frissítve!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "Napi cél",
-      "calPerDay": "kcal/nap",
+      "calPerDay": "cal/nap",
       "notAvailable": "N/A"
     }
   },
   "healthScore": {
     "title": "Egészségpontszám",
     "whyThisScore": "Miért ez a pontszám?",
-    "note": "Ez a pontszám MI‑becslés az azonosított hozzávalók és a tápanyagsűrűség alapján. Személyre szabott tanácsért mindig kérj szakembertől útmutatást.",
-    "unhealthy": "Egészségtelen",
+    "note": "Ez a pontszám AI-becslés az azonosított összetevők és a tápanyagsűrűség alapján. Mindig kérj szakmai tanácsot személyre szabott étrendhez.",
+    "unhealthy": "Nem egészséges",
     "healthy": "Egészséges",
     "neutral": "Semleges"
   },
@@ -384,25 +384,25 @@
     "title": "Profil szerkesztése",
     "sections": {
       "personalInformation": "SZEMÉLYES ADATOK",
-      "physicalMeasurements": "TESTI MÉRÉSEK",
-      "goalsAndActivity": "CÉLOK ÉS AKTIVITÁS"
+      "physicalMeasurements": "TESTMÉRETEK",
+      "goalsAndActivity": "CÉLOK & AKTIVITÁS"
     },
     "gender": "Nem",
     "dateOfBirth": "Születési dátum",
     "height": "Magasság",
-    "weight": "Testsúly",
-    "weightGoal": "Testsúlycél",
+    "weight": "Súly",
+    "weightGoal": "Súlycél",
     "activityLevel": "Aktivitási szint",
     "metric": "Metrikus",
-    "imperial": "Angolszász",
+    "imperial": "Imperiális",
     "unitCm": "cm",
-    "unitFt": "láb",
+    "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "font",
+    "unitLbs": "lbs",
     "metricCm": "Metrikus (cm)",
-    "imperialFtIn": "Angolszász (láb/hüvelyk)",
+    "imperialFtIn": "Imperiális (ft/in)",
     "metricKg": "Metrikus (kg)",
-    "imperialLbs": "Angolszász (font)",
+    "imperialLbs": "Imperiális (lbs)",
     "genders": {
       "male": "Férfi",
       "female": "Nő",
@@ -410,38 +410,38 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Fogyás",
-        "description": "Kalóriadeficit kialakítása a fogyáshoz"
+        "name": "Testsúly csökkentése",
+        "description": "Kalóriahiányt létrehozva fogyni"
       },
       "maintainWeight": {
-        "name": "Súlytartás",
-        "description": "Jelenlegi testsúlyod fenntartása"
+        "name": "Testsúly megtartása",
+        "description": "A jelenlegi súly fenntartása"
       },
       "gainWeight": {
-        "name": "Tömegnövelés",
-        "description": "Kalóriatöbblet kialakítása a gyarapodáshoz"
+        "name": "Testsúly növelése",
+        "description": "Kalóriatöbbletet létrehozva hízni"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Ülő életmód",
-        "description": "Kevés vagy semmilyen testmozgás"
+        "name": "Ülő",
+        "description": "Kevés vagy semmilyen mozgás"
       },
       "lightlyActive": {
-        "name": "Enyhén aktív",
-        "description": "Könnyű mozgás heti 1–3 nap"
+        "name": "Könnyen aktív",
+        "description": "Könnyű edzés 1–3 nap/hét"
       },
       "moderatelyActive": {
-        "name": "Közepesen aktív",
-        "description": "Közepes mozgás heti 3–5 nap"
+        "name": "Mérsékelten aktív",
+        "description": "Mérsékelt edzés 3–5 nap/hét"
       },
       "veryActive": {
         "name": "Nagyon aktív",
-        "description": "Intenzív mozgás heti 6–7 nap"
+        "description": "Kemény edzés 6–7 nap/hét"
       },
       "extremelyActive": {
-        "name": "Rendkívül aktív",
-        "description": "Nagyon megerőltető edzés, fizikai munka"
+        "name": "Extrém aktív",
+        "description": "Nagyon kemény edzés vagy fizikai munka"
       }
     }
   },
@@ -452,14 +452,14 @@
       "localization": "LOKALIZÁCIÓ",
       "notifications": "ÉRTESÍTÉSEK",
       "healthConnect": "HEALTH CONNECT",
-      "supportAndLegal": "TÁMOGATÁS ÉS JOGI",
+      "supportAndLegal": "TÁMOGATÁS & JOGI",
       "about": "NÉVJEGY",
       "dangerZone": "VESZÉLYZÓNA",
       "developer": "FEJLESZTŐ"
     },
     "editProfile": {
       "title": "Profil szerkesztése",
-      "subtitle": "Személyes adataid frissítése"
+      "subtitle": "Személyes adatok frissítése"
     },
     "language": {
       "title": "Nyelv",
@@ -471,11 +471,11 @@
       "title": "Magasság mértékegysége"
     },
     "weightUnit": {
-      "title": "Testsúly mértékegysége"
+      "title": "Súly mértékegysége"
     },
     "mealReminders": {
-      "title": "Étkezési emlékeztetők",
-      "subtitle": "Maradj pályán az időzített értesítésekkel"
+      "title": "Étkezés emlékeztetők",
+      "subtitle": "Maradj a pályán időben érkező figyelmeztetésekkel"
     },
     "theme": {
       "title": "Téma",
@@ -485,94 +485,94 @@
     },
     "sendFeedback": {
       "title": "Visszajelzés küldése",
-      "subtitle": "Segíts jobbá tenni a {appLabel} alkalmazást",
-      "emailSubject": "Visszajelzés a {appLabel} alkalmazáshoz",
-      "emailBodyPrefix": "Kérjük, írd le a visszajelzésed:",
-      "appVersion": "Alkalmazásverzió",
+      "subtitle": "Segíts fejleszteni a {appLabel}-t",
+      "emailSubject": "{appLabel} alkalmazás visszajelzés",
+      "emailBodyPrefix": "Kérlek írd le a visszajelzésed itt:",
+      "appVersion": "Alkalmazás verzió",
       "device": "Eszköz",
-      "osVersion": "Operációs rendszer",
+      "osVersion": "OS verzió",
       "uid": "UID"
     },
     "exportMealHistory": {
       "title": "Étkezési előzmények exportálása",
-      "subtitle": "Oszd meg a naplózott étkezéseid CSV-jét",
+      "subtitle": "Oszd meg a naplózott ételek CSV-jét",
       "shareText": "A Calorify étkezési előzményeid exportja",
       "failed": "Nem sikerült exportálni az étkezési előzményeket: {error}"
     },
     "clearAllData": {
-      "title": "Összes adat törlése",
-      "subtitle": "Véglegesen töröl minden információt",
-      "confirmationTitle": "Törölni az összes adatot?",
-      "confirmationMessage": "Ez a művelet nem vonható vissza. Minden naplózott étkezésed, kedvenced és beállításod véglegesen törlődik.",
+      "title": "Az összes adat törlése",
+      "subtitle": "Minden információ végleges törlése",
+      "confirmationTitle": "Töröljem az összes adatot?",
+      "confirmationMessage": "Ez a művelet nem visszavonható. Minden naplózott étel, kedvenc és profilbeállítás véglegesen törlődik.",
       "cancel": "Mégse",
-      "clearEverything": "Minden törlése"
+      "clearEverything": "Mindent törlök"
     },
     "debugOptions": {
-      "title": "Hibakeresési opciók"
+      "title": "Hibakeresési beállítások"
     },
     "developerModeEnabled": "Fejlesztői mód engedélyezve!",
     "healthConnect": {
       "title": "Health Connect",
       "subtitle": "Engedélyek megtekintése és kezelése",
       "unavailable": {
-        "title": "A Health Connect nem érhető el",
-        "description": "A Health Connect nem érhető el ezen az eszközön. Telepítsd a Play Áruházból (Android 9+) vagy frissíts Android 14+ verzióra."
+        "title": "Health Connect nem elérhető",
+        "description": "A Health Connect nem elérhető ezen az eszközön. Kérlek telepítsd a Health Connectet a Play Store-ból (Android 9+), vagy frissíts Android 14+-ra."
       },
       "permissions": {
         "title": "Engedélyek",
-        "description": "A következő engedélyek szükségesek a Health Connect integrációhoz:",
-        "granted": "Megadva",
-        "notGranted": "Nincs megadva",
+        "description": "A Health Connect integrációhoz a következő engedélyekre van szükség:",
+        "granted": "Engedélyezve",
+        "notGranted": "Nincs engedélyezve",
         "caloriesBurned": {
-          "title": "Elégetett kalóriák olvasása",
-          "description": "Lehetővé teszi az alkalmazásnak, hogy olvassa az összes elégetett kalóriádat a Health Connectből.",
-          "usage": "Ezt az engedélyt arra használjuk, hogy megjelenítsük a napi kalóriaégetésed az alkalmazásban, segítve a napi energiafelhasználás megértését."
+          "title": "Összes elégetett kalória olvasása",
+          "description": "Lehetővé teszi az alkalmazás számára az összes Health Connectből származó elégetett kalória olvasását.",
+          "usage": "Ezt az engedélyt a napi elégetett kalória megjelenítéséhez használjuk az alkalmazásban, hogy megértsd az egész napi energiafelhasználásodat."
         },
         "nutritionRead": {
           "title": "Táplálkozási adatok olvasása",
-          "description": "Lehetővé teszi az alkalmazásnak, hogy táplálkozási adatokat olvasson a Health Connectből.",
-          "usage": "Ez az engedély lehetővé teszi, hogy az alkalmazás elolvassa más appok által a Health Connectbe rögzített táplálkozási információkat, átfogó képet adva az étkezésedről."
+          "description": "Lehetővé teszi az alkalmazás számára a táplálkozási adatok olvasását a Health Connectből.",
+          "usage": "Ezzel az engedéllyel az alkalmazás más, Health Connecthez csatlakoztatott alkalmazások által rögzített táplálkozási adatokat is olvashat, átfogó képet adva a táplálkozásodról."
         },
         "nutritionWrite": {
           "title": "Táplálkozási adatok írása",
-          "description": "Lehetővé teszi az alkalmazásnak, hogy táplálkozási adatokat írjon a Health Connectbe.",
-          "usage": "Ez az engedély lehetővé teszi, hogy a naplózott étkezéseidet a Health Connecttel szinkronizáljuk, így a táplálkozási adataid más egészség‑ és fitneszappokban is elérhetők."
+          "description": "Lehetővé teszi az alkalmazás számára a táplálkozási adatok írását a Health Connectre.",
+          "usage": "Ezzel az engedéllyel az alkalmazás a naplózott ételeidet szinkronizálhatja a Health Connectbe, így táplálkozási adataid elérhetővé válnak más egészség- és fitneszalkalmazások számára."
         }
       },
       "managePermissions": "Engedélyek kezelése",
       "openSettings": "Health Connect beállítások megnyitása",
       "requestPermissions": "Engedélyek kérése",
-      "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen. Próbáld újra, vagy add meg kézzel a Health Connect beállításaiban.",
-      "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Próbáld újra, vagy add meg kézzel a Health Connect beállításaiban.",
-      "requestingPermissions": "Kérés folyamatban..."
+      "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen volt. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.",
+      "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.",
+      "requestingPermissions": "Engedélyek kérése..."
     },
     "about": {
       "title": "Névjegy",
-      "tagline": "Gyors, ingyenes és adatvédelem‑első kalóriatudatosság",
+      "tagline": "Gyors, ingyenes és adatvédelem-központú kalória-tudatosság",
       "ourStory": {
-        "title": "Történetünk",
-        "content": "{appLabel} egy egyszerű frusztrációból született: a legtöbb kalóriakövető app vagy túlbonyolított, állandó kézi bevitelre kényszerít, drága előfizetést kér, vagy kompromisszumot köt az adatvédelemmel.\n\nEgyedüli fejlesztőként valami egyszerűbbet és korrektebbet akartam — egy olyan appot, amely MI‑t használ a kevesebb erőfeszítésért, gyors és ingyenes marad, és tisztelettel kezeli az egészségügyi adataidat.\n\n{appLabel} az az app, amit mindig is szerettem volna: nincs fiók, nincs követés, nincs reklám — csak tiszta, gyakorlatias betekintések és a te egészségcéljaid."
+        "title": "A mi történetünk",
+        "content": "{appLabel} egy egyszerű frusztrációból született: a legtöbb kalóriakövető alkalmazás túl bonyolult, állandó kézi bevitelre kényszerít, magas előfizetési díjat kér, vagy kompromisszumot köt az adatvédelemben.\n\nEgyetlen fejlesztőként valami egyszerűbbet és tisztességesebbet akartam: egy olyan alkalmazást, amely AI-t használ a terhek csökkentésére, gyors és ingyenes marad, és tisztelettel bánik az egészségügyi adataiddal.\n\nA {appLabel} az az alkalmazás, amilyet szerettem volna: nincs fiók, nincs követés, nincs reklám — csak tiszta, praktikus betekintés és a személyes egészségi céljaid."
       },
       "privacy": {
-        "title": "Fontos a magánszférád",
-        "description": "Az adatvédelem nem utólagos gondolat — tervezési alapelv. Ez a gyakorlatban ezt jelenti:",
-        "noAccounts": "Nincs szükség fiókra\nAzonnal használhatod. Nincs regisztráció, nincs azonosítás.",
-        "noTracking": "Nincs viselkedéskövetés\nA {appLabel} nem figyeli a tevékenységed, nem épít használati profilt, és nem követ alkalmazásokon vagy webhelyeken át.",
-        "noAds": "Reklámmentes kialakítás\nA {appLabel} hirdetések és adatalapú pénzkeresés nélkül működik.",
-        "noDataSelling": "Nincs adattovábbítás\nAz egészségügyi adataidat soha nem adjuk el és nem osztjuk meg harmadik felekkel.",
-        "localStorage": "Elsődlegesen helyi tárolás\nAz adataid az eszközödön maradnak.",
+        "title": "Az adataid számítanak",
+        "description": "A magánszféra nem utólagos gondolat — tervezési elv. Mit jelent ez a gyakorlatban:",
+        "noAccounts": "Nincs szükség fiókra\nHasználd az alkalmazást azonnal. Nincsenek regisztrációk, nincs személyazonosság-követés.",
+        "noTracking": "Nincs viselkedési követés\nA {appLabel} nem figyeli a tevékenységedet, nem készít használati profilokat, és nem követ az alkalmazások vagy webhelyek között.",
+        "noAds": "Reklámmentes alapból\nA {appLabel} reklámok vagy adatvezérelt pénzszerzés nélkül működik.",
+        "noDataSelling": "Nincs adateladás\nAz egészségügyi adataidat soha nem adjuk el és nem osztjuk meg harmadik féllel.",
+        "localStorage": "Elsősorban helyi tárolás\nAz adataid az eszközödön maradnak.",
         "privacyPolicy": "Adatvédelmi irányelvek"
       },
       "developer": {
-        "title": "Egyedüli fejlesztő készítette",
-        "description": "A {appLabel}-t egyetlen fejlesztő építi és tartja karban, aki nyugodt, adatvédelmet tiszteletben tartó egészségszoftvert készít.\n\nA visszajelzéseket személyesen olvasom, és ezek alakítják az app jövőjét.",
+        "title": "Egyéni fejlesztő készítette",
+        "description": "{appLabel} egyetlen fejlesztő által készített és karbantartott alkalmazás, aki a nyugodt, adatvédelmet tiszteletben tartó egészségügyi szoftverre összpontosít.\n\nA visszajelzéseket személyesen olvassák, és formálják az alkalmazás irányát.",
         "website": "Weboldal",
-        "email": "E‑mail"
+        "email": "E-mail"
       },
       "feedback": {
         "title": "Tetszik a {appLabel}?",
-        "description": "A visszajelzésed segít, hogy a {appLabel} mindenkinek jobb legyen.",
-        "rateApp": "Értékelés a Play Áruházban",
+        "description": "A visszajelzésed jobbá teszi a {appLabel}-t mindenki számára.",
+        "rateApp": "Értékelés a Play Store-ban",
         "sendFeedback": "Visszajelzés küldése"
       }
     },
@@ -582,22 +582,22 @@
     }
   },
   "reminders": {
-    "title": "Maradj pályán emlékeztetőkkel",
-    "description": "Kíméletes emlékeztetők az étkezések naplózásához és a céljaidhoz való következetes ragaszkodáshoz",
+    "title": "Maradj a pályán emlékeztetőkkel",
+    "description": "Gyengéd emlékeztetők, hogy naplózd az étkezéseidet és következetes maradj a táplálkozási célokkal",
     "notificationsEnabled": "Értesítések engedélyezve",
     "notificationsDisabled": "Értesítések letiltva",
-    "enabledSubtitle": "Étkezési emlékeztetőket fogsz kapni",
-    "disabledSubtitle": "Engedélyezd az értesítéseket az emlékeztetőkért",
-    "mealReminders": "Étkezési emlékeztetők",
+    "enabledSubtitle": "Étkezés emlékeztetőket fogsz kapni",
+    "disabledSubtitle": "Kapcsold be az értesítéseket az étkezés emlékeztetőkhöz",
+    "mealReminders": "Étkezés emlékeztetők",
     "breakfast": "Reggeli",
     "lunch": "Ebéd",
     "dinner": "Vacsora",
-    "snack": "Nasi",
+    "snack": "Uzsonna",
     "unknown": "Ismeretlen",
     "change": "Módosítás",
     "enableNotifications": "Értesítések engedélyezése",
-    "skipForNow": "Kihagyás most",
-    "saveChanges": "Változások mentése",
+    "skipForNow": "Most kihagyom",
+    "saveChanges": "Változtatások mentése",
     "enabledSuccessfully": "Értesítések sikeresen engedélyezve!",
     "permissionDenied": "Értesítési engedély megtagadva",
     "errorEnabling": "Hiba az értesítések engedélyezésekor: {error}",
@@ -605,20 +605,20 @@
   },
   "notifications": {
     "breakfast": {
-      "title": "Reggeli idő! 🍳",
+      "title": "Ideje reggelizni! 🍳",
       "body": "Ne felejtsd el naplózni a reggelidet"
     },
     "lunch": {
       "title": "Ebédidő! 🥗",
-      "body": "Itt az idő, naplózd az ebéded"
+      "body": "Ideje naplózni az ebéded"
     },
     "dinner": {
       "title": "Vacsoraidő! 🍽️",
-      "body": "Ne felejtsd el naplózni a vacsorád"
+      "body": "Ne felejtsd el naplózni a vacsorádat"
     },
     "snack": {
-      "title": "Nasidő! 🍎",
-      "body": "Ideje egy egészséges nassnak"
+      "title": "Uzsonnaidő! 🍎",
+      "body": "Ideje egy egészséges nassolnivalónak"
     },
     "test": {
       "title": "Teszt értesítés"
@@ -626,75 +626,75 @@
   },
   "login": {
     "title": "Bejelentkezés",
-    "signInWithGoogle": "Bejelentkezés Google‑lel",
-    "signInFailed": "A Google‑bejelentkezés sikertelen vagy megszakadt."
+    "signInWithGoogle": "Bejelentkezés Google-lal",
+    "signInFailed": "A Google bejelentkezés sikertelen vagy megszakadt."
   },
   "disclaimer": {
-    "pleaseNote": "Fontos",
+    "pleaseNote": "Kérjük vedd figyelembe",
     "snap": {
-      "description": "{appLabel} becsült tápértékeket ad. A pontosság a bevitt adataidtól és az ételváltozatoktól függ. Irányadónak használd, ne végleges forrásnak. Személyre szabott tanácsért fordulj szakemberhez.",
+      "description": "{appLabel} becsült táplálkozási információt ad. A pontosság függ a beviteledtől és az étel változataitól. Használd útmutatásként, ne végső forrásként. Személyre szabott tanácsért fordulj szakemberhez.",
       "portionSize": {
         "title": "Adagméret",
-        "description": "A becslések pontossága nagyban függ a helyesen megadott adagmérettől."
+        "description": "A becslések pontossága nagymértékben függ az adagméret helyes megadásától."
       },
       "preparationMethods": {
         "title": "Elkészítési módok",
-        "description": "A főzési eljárások jelentősen módosíthatják az ételek tápanyagtartalmát. A {appLabel} becslései nem mindig tudják ezeket a különbségeket figyelembe venni."
+        "description": "A főzési módok jelentősen megváltoztathatják az étel tápanyagtartalmát. A {appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat."
       },
       "ingredients": {
-        "title": "Hozzávalók",
-        "description": "Az összetett, sok rejtett összetevőt tartalmazó ételek kevésbé pontos becslésekhez vezethetnek."
+        "title": "Összetevők",
+        "description": "Az összetett ételek sok rejtett összetevője pontatlansághoz vezethet."
       },
       "databaseLimitations": {
-        "title": "Adatbázis korlátai",
-        "description": "A {appLabel} élelmiszer-adatbázisa kiterjedt, de nem tartalmaz minden egyes ételt vagy változatot."
+        "title": "Adatbázis korlátok",
+        "description": "A {appLabel} ételadatbázisa kiterjedt, de előfordulhat, hogy nem tartalmaz minden egyes élelmiszert vagy variánst."
       }
     },
     "weightEstimate": {
-      "title": "A testsúlybecslésről",
-      "description": "A jelzett testsúlyváltozás elméleti becslés az egyszerű bevitt kontra elégetett kalória modellen alapul. Csak motivációs iránymutatásként szolgál, nem a tényleges testsúlyod előrejelzéseként.",
+      "title": "A súlybecslésről",
+      "description": "A becsült súlyváltozás elméleti számításon alapul a kalória-bevitel és -kiadás egyszerű modelljén. Motivációs útmutatásnak készült, nem az aktuális súlyod előrejelzésére.",
       "calorieAccuracy": {
-        "title": "Kalóriapontosság",
-        "description": "Ez a becslés csak annyira pontos, amennyire a kalóriabeviteled és -felhasználásod naplózása. A pontatlan rögzítés pontatlan előrejelzést eredményez."
+        "title": "Kalória pontosság",
+        "description": "Ez a becslés annyira pontos, amennyire a naplózott kalória bevitel és kiadás az. Pontatlan naplózás pontatlan előrejelzést eredményez."
       },
       "biologicalFactors": {
         "title": "Biológiai tényezők",
-        "description": "A tényleges fogyást/gyarapodást befolyásolja az anyagcsere, a hormonok, az alvás, a stressz, a hidratáltság és más egyéni tényezők, amelyeket a {appLabel} nem tud mérni."
+        "description": "A tényleges fogyás/gyarapodás befolyásolják az anyagcsere, hormonok, alvás, stressz, hidratáltság és egyéb egyéni tényezők, amelyeket a {appLabel} nem mérhet."
       },
       "waterWeight": {
         "title": "Vízsúly és ingadozások",
-        "description": "A napi testsúly természetesen jelentősen ingadozhat a vízvisszatartás, emésztés és időzítés miatt. A becslés ezeket a napi változásokat nem veszi figyelembe."
+        "description": "A napi testsúly jelentősen ingadozhat a vízvisszatartás, emésztés és időzítés miatt. A becslés nem számol ezekkel a napi változásokkal."
       },
       "professionalGuidance": {
         "title": "Szakmai útmutatás",
-        "description": "Ne használd ezt a becslést orvosi döntésekhez. Személyre szabott súlykontrollért mindig konzultálj egészségügyi szakemberrel vagy dietetikussal."
+        "description": "Ne használd ezt a becslést orvosi döntések meghozatalára. Mindig kérj tanácsot egészségügyi szakembertől vagy regisztrált dietetikustól személyre szabott súlykezelési útmutatáshoz."
       }
     },
     "healthMetrics": {
-      "description": "Ezek a mutatók segítenek megérteni a szervezeted energiaigényét és irányt mutatnak a táplálkozási céljaidhoz.",
+      "description": "Ezek a mutatók segítenek megérteni a tested energiaigényét és iránytűként szolgálnak a táplálkozási céljaidhoz.",
       "bmr": {
         "title": "BMR",
-        "description": "A nyugalmi anyagcsere (BMR) az a kalóriamennyiség, amit a tested nyugalomban éget el az alapvető funkciók, például a légzés és a keringés fenntartásához. A BMR függ az életkorodtól, nemedtől, magasságodtól és testsúlyodtól. A magasabb BMR azt jelenti, hogy a tested több kalóriát éget el nyugalomban — gyakran több izomtömegnek, fiatalabb kornak vagy férfinemnek köszönhetően. Az alacsonyabb BMR tipikusan kevesebb izomtömegre, idősebb korra vagy női nemre utal."
+        "description": "Az alapanyagcsere (BMR) az a kalóriamennyiség, amit a tested nyugalmi állapotban eléget az alapvető funkciók fenntartásához, mint a légzés és a keringés. A BMR függ az életkortól, nemetől, magasságtól és testsúlytól. A magasabb BMR általában több izomzattal, fiatalabb korral vagy férfi nemmel jár együtt. Az alacsonyabb BMR általában kevesebb izomzattal, idősebb korral vagy női nemmel kapcsolatos."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "A teljes napi energiafelhasználás (TDEE) az egy nap alatt elégetett összes kalória, vagyis a BMR és a fizikai aktivitásból, napi mozgásból származó kalóriák összege. A TDEE a BMR-edtől és aktivitási szintedtől függ. A magasabb TDEE több elégetett kalóriát jelent — általában aktívabb életmód vagy magasabb BMR miatt. Az alacsonyabb TDEE kevesebb napi aktivitásra vagy alacsonyabb BMR-re utal."
+        "description": "A teljes napi energiafelhasználás (TDEE) a napi elégetett kalóriák összessége, beleértve a BMR-t és a fizikai aktivitást. A TDEE függ a BMR-től és az aktivitási szinttől. A magasabb TDEE több általános kalóriaégetést jelent, általában aktívabb életmódból vagy magasabb BMR-ből adódóan. Az alacsonyabb TDEE kevesebb napi aktivitást vagy alacsonyabb BMR-t jelez."
       },
       "dailyGoal": {
         "title": "Napi cél",
-        "description": "A napi cél az ajánlott napi kalóriabevitel a TDEE-d és a testsúlycélod alapján. Fogyáshoz kevesebbet eszel, mint a TDEE-d; súlytartáshoz megegyezik vele; gyarapodáshoz többet eszel. Ez segít elérni a kívánt testsúlyváltozást egészséges ütemben."
+        "description": "A napi cél a TDEE-d és a súlycélod alapján javasolt napi kalóriabevitel. Fogyáshoz kevesebb kalóriát fogyasztasz, mint a TDEE; tartáshoz a TDEE-vel egyezőt; hízáshoz többet. Ez segít egészséges tempóban elérni a kívánt súlyváltozást."
       }
     },
     "calorieExpenditure": {
       "title": "Kalóriafelhasználás becslése",
-      "description": "Ha a Health Connect adatai nem elérhetők, a mai elégetett kalóriákat a nyugalmi anyagcsere (BMR) és az aktivitási szint (TDEE) alapján becsüljük, arányosítva az eltelt naprésszel.",
+      "description": "Ha a Health Connect adatok nem elérhetők, a mai elégetett kalóriát a BMR és aktivitási szint (TDEE) alapján becsüljük, a nap eltelt részének arányában skálázva.",
       "howCalculated": {
-        "title": "Hogyan számoljuk a becslést",
-        "description": "Kiszámítjuk a TDEE-det (a profilod alapján), majd megszorozzuk a nap eltelt részének arányával (óra + perc) / 24, hogy megbecsüljük az eddig elégetett kalóriákat."
+        "title": "Hogyan számoljuk",
+        "description": "Kiszámítjuk a TDEE-det (a profilod alapján), és megszorozzuk a nap eltelt részével (órák + percek) / 24, hogy megbecsüljük az eddig elégetett kalóriákat."
       },
       "professionalGuidance": {
         "title": "Szakmai útmutatás",
-        "description": "Ne használd ezt a becslést orvosi döntésekhez. Személyre szabott tanácsért mindig konzultálj egészségügyi szakemberrel vagy dietetikussal."
+        "description": "Ne használd ezt a becslést orvosi döntésekhez. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott súlykezelési tanácsért."
       }
     }
   },
@@ -706,18 +706,18 @@
     "enjoyingQuestion": "Tetszik a {appLabel}?",
     "yes": "Igen, tetszik",
     "no": "Nem igazán",
-    "rateStepHeading": "Értékelés a Play Áruházban",
-    "emailStepHeading": "Visszajelzés küldése e‑mailben",
-    "soloDevMessage": "Egy gyors értékelés segít másoknak megtalálni a {appLabel}-t és támogatja a fejlesztést. Szánnál rá egy percet?",
-    "shareFeedbackViaEmail": "A visszajelzésed alakítja a következő lépéseket — minden üzenetet elolvasunk. Megosztanád gondolataid e‑mailben?",
-    "rateCta": "Értékelés a Play Áruházban",
+    "rateStepHeading": "Értékelés a Play Store-ban",
+    "emailStepHeading": "Visszajelzés küldése e-mailben",
+    "soloDevMessage": "Egy gyors értékelés segít másoknak megtalálni a {appLabel}-t és támogatja a fejlesztést. Tudnál egy percet szánni rá?",
+    "shareFeedbackViaEmail": "A visszajelzésed alakítja a jövőt — minden üzenetet elolvasunk. Szeretnél e-mailben megosztani gondolatokat?",
+    "rateCta": "Értékelés a Play Store-ban",
     "maybeLater": "Talán később",
     "sendFeedback": "Visszajelzés küldése",
-    "noThanks": "Köszönöm, nem",
-    "aboutUsDescription": "Gondossággal készítve egy kis csapat által. A fókuszunk az adatvédelem, az egyszerűség és a jobb étkezési szokások kialakítása.",
-    "aboutUsMentionBeforeLink": "Kíváncsi vagy, kik állnak a {appLabel} mögött? Nézd meg a ",
+    "noThanks": "Nem köszönöm",
+    "aboutUsDescription": "Gondosan készítve egy kis csapat által. Az adatvédelemre, egyszerűségre és a jobb étkezési szokások építésére fókuszálunk.",
+    "aboutUsMentionBeforeLink": "Kíváncsi vagy, ki áll a {appLabel} mögött? Lásd: ",
     "aboutUsLinkLabel": "Rólunk",
-    "thankYouMessage": "Köszönjük! Később újra megkérdezzük."
+    "thankYouMessage": "Köszönjük! Egy másik alkalommal újra megkérdezünk."
   },
   "health": {
     "syncFailed": "Nem sikerült szinkronizálni a Health Connecttel",

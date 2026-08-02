@@ -98,6 +98,9 @@ jobs:
         working-directory: watch_app
         run: flutter pub get
 
+      - name: Validate translation catalogs
+        run: python3 scripts/audit_translations.py --fail-on-source-copies
+
       - name: Analyze
         working-directory: watch_app
         run: flutter analyze

@@ -12,25 +12,25 @@
   },
   "onboarding": {
     "welcome": "Welkom bij {appLabel}",
-    "subtitle": "Jouw persoonlijke voedingscoach, aangedreven door AI",
+    "subtitle": "Je persoonlijke voedingsassistent met AI",
     "getStarted": "Aan de slag",
     "features": {
       "foodRecognition": {
-        "title": "Slimme voedselherkenning",
+        "title": "Slimme voedingsherkenning",
         "description": "Maak een foto en laat AI je maaltijd identificeren"
       },
       "aiAnalysis": {
         "title": "AI-analyse",
-        "description": "Krijg direct voedingswaarden op basis van jouw beschrijvingen"
+        "description": "Krijg direct voedingswaarden op basis van je beschrijvingen"
       },
       "healthIntegration": {
-        "title": "Gezondheidsintegratie",
+        "title": "Health Connect-integratie",
         "description": "Koppel met Health Connect voor betere inzichten"
       }
     },
     "gender": {
-      "title": "Wat is je geslacht?",
-      "description": "Geslacht helpt ons je basaal metabolisme (BMR) nauwkeurig te berekenen.",
+      "title": "Wat is je gender?",
+      "description": "Je gender helpt ons je basale stofwisselingssnelheid (BMR) nauwkeurig te berekenen.",
       "next": "Volgende"
     },
     "height": {
@@ -44,21 +44,21 @@
       "currentTitle": "Wat is je huidige gewicht?",
       "currentDescription": "Je huidige gewicht is essentieel om je dagelijkse doelen te personaliseren.",
       "targetTitle": "Wat is je streefgewicht?",
-      "targetDescription": "Een streefgewicht helpt ons je langetermijnplan te bepalen.",
+      "targetDescription": "Het instellen van een streefgewicht helpt ons je langetermijnplan te bepalen.",
       "metric": "Metrisch",
       "imperial": "Imperiaal",
       "next": "Volgende"
     },
     "age": {
-      "title": "Wat is je geboortedatum?",
+      "title": "Wanneer is je verjaardag?",
       "description": "Je leeftijd helpt ons je caloriebehoefte nauwkeurig te berekenen.",
       "next": "Volgende"
     },
     "bmiScale": {
       "underweight": "Onder",
       "healthy": "Gezond",
-      "overweight": "Over",
-      "obese": "Obesitas",
+      "overweight": "Overgewicht",
+      "obese": "Obees",
       "categories": {
         "underweight": "Ondergewicht",
         "healthyWeight": "Gezond gewicht",
@@ -66,26 +66,26 @@
         "obese": "Obesitas"
       },
       "messages": {
-        "underweight": "We helpen je graag met een gezond plan om een evenwichtig gewicht te bereiken met voedzame maaltijden.",
-        "healthy": "Goed gedaan! Je zit in een gezonde range. We helpen je je vitaliteit en energieniveau te behouden.",
-        "overweight": "{appLabel} maakt je reis eenvoudiger met AI-gestuurd bijhouden zodat je je doel comfortabel kunt bereiken.",
-        "obese": "We staan voor je klaar met persoonlijke begeleiding en duurzame strategieën voor je gezondheidsdoelen."
+        "underweight": "We kunnen je helpen een gezond plan op te bouwen om een evenwichtig gewicht te bereiken met voedzame maaltijden.",
+        "healthy": "Goed bezig! Je zit in een gezond bereik. We helpen je je vitaliteit en energieniveau te behouden.",
+        "overweight": "{appLabel} maakt je reis eenvoudiger met AI-gestuurde tracking om je comfortabel je doel te laten bereiken.",
+        "obese": "We zijn er om je te ondersteunen met gepersonaliseerde begeleiding en duurzame strategieën voor je gezondheidsdoelen."
       }
     },
     "weightGoal": {
       "title": "Wat is je doel?",
-      "description": "Kies het doel dat het best past bij wat je wilt bereiken"
+      "description": "Kies het doel dat het beste beschrijft wat je wilt bereiken"
     },
     "activityLevel": {
       "title": "Hoe actief ben je?",
       "description": "Dit helpt ons je dagelijkse caloriebehoefte nauwkeuriger te berekenen"
     },
     "healthConnect": {
-      "title": "Verbind met Health Connect",
-      "description": "Synchroniseer je gezondheidsgegevens voor betere inzichten en automatische calorietracking",
+      "title": "Koppel met Health Connect",
+      "description": "Synchroniseer je gezondheidsgegevens voor betere inzichten en automatische calorie-registratie",
       "automaticTracking": {
-        "title": "Automatische calorietracking",
-        "description": "Houd verbrande calorieën bij vanuit je fitness-apps"
+        "title": "Automatische calorie-tracking",
+        "description": "Houd verbrande calorieën bij vanuit je fitnessapps"
       },
       "progressInsights": {
         "title": "Voortgangsinzichten",
@@ -98,23 +98,23 @@
       "connected": "Health Connect verbonden",
       "notConnected": "Health Connect niet verbonden",
       "setup": "Health Connect instellen",
-      "skipForNow": "Voor nu overslaan",
+      "skipForNow": "Sla voorlopig over",
       "statusConnected": "Health Connect is verbonden.",
       "statusSuccess": "Health Connect is succesvol verbonden!",
-      "statusPermissionDenied": "Toestemming geweigerd. Schakel Health Connect-machtigingen in via de instellingen van je telefoon voor {appLabel}.",
-      "statusError": "Fout bij het instellen van Health Connect: {error}"
+      "statusPermissionDenied": "Toestemming geweigerd. Schakel Health Connect-machtigingen in via de telefooninstellingen voor {appLabel}.",
+      "statusError": "Fout bij instellen van Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Je staat er niet alleen voor",
-        "genericMessage": "Onderzoek laat zien dat consequent bijhouden de #1 voorspeller is van langetermijnsucces.",
-        "personalizedMessage": "Voor een {age}-jarige {gender} die wil {goal}, is consequent bijhouden de belangrijkste voorspeller van succes.",
-        "closingMessage": "{appLabel} maakt het 10x makkelijker dan handmatig.",
+        "genericMessage": "Onderzoek toont aan dat consistent bijhouden de belangrijkste voorspeller is van langdurig succes.",
+        "personalizedMessage": "Voor een {age} jaar oude {gender} die wil {goal}, is consistent bijhouden de belangrijkste voorspeller van succes.",
+        "closingMessage": "{appLabel} maakt het 10x gemakkelijker dan handmatig bijhouden.",
         "getStartedTitle": "Klaar om te beginnen?",
-        "tipPhoto": "Maak een foto van je maaltijden voor directe analyse",
-        "tipConsistency": "Log consequent om betekenisvolle vooruitgang te zien",
+        "tipPhoto": "Maak een foto van je maaltijd voor directe analyse",
+        "tipConsistency": "Log regelmatig om echte vooruitgang te zien",
         "tipProgress": "Volg je voortgang dagelijks om gemotiveerd te blijven",
-        "button": "Let's go",
+        "button": "Laten we gaan",
         "defaultGender": "persoon",
         "defaultGoal": "een gezondere jij"
       },
@@ -124,99 +124,99 @@
         "finalizeDescription": "Laten we je profiel afronden om je ervaring te personaliseren.",
         "goalGain": "aankomen",
         "goalLose": "afvallen",
-        "goalReach": "Om je doel te bereiken zul je {direction} {diff} {unit}.",
-        "goalReached": "Je zit op je streefgewicht! We helpen je het te behouden.",
-        "button": "Let's go"
+        "goalReach": "Om je doel te bereiken, zul je {direction} {diff} {unit}.",
+        "goalReached": "Je hebt je streefgewicht bereikt! We helpen je het te behouden.",
+        "button": "Laten we gaan"
       },
       "goalLifestyle": {
         "title": "Uitstekende start!",
-        "description": "Je hebt de eerste stap gezet richting {goalText}. Omdat je {activityText} bent, past {appLabel} je doelen aan op jouw levensstijl.",
-        "personalizedTargets": "Gepersonaliseerde caloriedoelen",
-        "aiMealDetection": "AI-gestuurde maaltijdherkenning",
-        "macroBreakdowns": "Gedetailleerde macroverdeling",
-        "button": "Let's go",
+        "description": "Je hebt de eerste stap gezet richting {goalText}. Aangezien je {activityText}, past {appLabel} je doelen aan op jouw levensstijl.",
+        "personalizedTargets": "Gepersonaliseerde calorie-doelen",
+        "aiMealDetection": "AI-gestuurde maaltijddetectie",
+        "macroBreakdowns": "Gedetailleerde macroverdelingen",
+        "button": "Laten we gaan",
         "defaultGoal": "je doelen",
         "defaultActivity": "actief"
       }
     }
   },
   "tabs": {
-    "dashboard": "Dashboard",
+    "dashboard": "Overzicht",
     "history": "Geschiedenis"
   },
   "home": {
     "aiSummary": {
       "title": "Jouw AI-samenvatting",
-      "logMore": "Log de komende dagen meer maaltijden om je persoonlijke AI-inzichten te krijgen.",
-      "loading": "Je samenvatting laden...",
-      "mealCount": "{count} maaltijden gelogd",
+      "logMore": "Log de komende dagen meer maaltijden om je gepersonaliseerde AI-inzichten te krijgen.",
+      "loading": "Je samenvatting wordt geladen...",
+      "mealCount": "{count} maaltijden geregistreerd",
       "macroBalanceScore": "Balansscore {score}",
-      "topFoods": "Topvoedingsmiddelen",
+      "topFoods": "Top voedingsmiddelen",
       "trendUp": "Calorieën stijgen",
       "trendDown": "Calorieën dalen",
-      "trendSteady": "Calorieën blijven stabiel",
+      "trendSteady": "Calorieën stabiel",
       "generatedAt": "Bijgewerkt {time}"
     },
     "dailyGoal": {
-      "title": "Stel je dagdoel in",
-      "titleSet": "Je dagdoel",
-      "description": "Klaar voor je welzijnsreis? Stel hieronder je dagelijkse caloriedoel in om je vooruitgang te starten.",
-      "descriptionSet": "Je kompas staat goed! Dit is je dagelijkse caloriedoel om je te begeleiden.",
-      "yourGoal": "Jouw doel",
+      "title": "Stel je dagelijkse doel",
+      "titleSet": "Je dagelijkse doel",
+      "description": "Klaar om aan je wellness-reis te beginnen? Stel hieronder je dagelijkse calorie-doel in om van start te gaan.",
+      "descriptionSet": "Je kompas is ingesteld! Dit is je dagelijkse calorie-doel om je te begeleiden.",
+      "yourGoal": "Je doel",
       "goal": "Doel",
       "dailyCalories": "Dagelijkse calorieën (kcal)",
-      "setGoal": "Doel instellen",
+      "setGoal": "Stel doel in",
       "intake": "Inname",
       "burned": "Verbrand",
-      "weightImpact": "Invloed op gewicht",
-      "estLoss": "Geschat verlies van",
-      "estGain": "Geschatte toename van",
+      "weightImpact": "Gewichtsimpact",
+      "estLoss": "Gesch. verlies van",
+      "estGain": "Gesch. toename van",
       "kcal": "kcal"
     },
     "dailySummary": {
-      "title": "Dagoverzicht",
+      "title": "Dagelijkse samenvatting",
       "calories": "Calorieën",
       "carbs": "Koolhydraten",
       "protein": "Eiwit",
-      "fat": "Vet",
+      "fat": "Vetten",
       "fiber": "Vezels",
       "grams": "gram",
-      "chartAccessibilityLabel": "Macro-diagram"
+      "chartAccessibilityLabel": "Macro-grafiek"
     },
     "intakeProgress": {
-      "title": "Macroverdeling van vandaag",
+      "title": "Macroverdeling vandaag",
       "target": "Doel",
       "current": "Huidig"
     },
     "intakeHistory": {
-      "title": "Macrogeschiedenis 7 dagen",
-      "trendTitle": "Trend van vandaag",
+      "title": "Macrogeschiedenis (7 dagen)",
+      "trendTitle": "Huidige trend",
       "peakHour": "Piek: {hour}:00",
       "noHistoryYet": "Nog geen geschiedenis",
-      "startLogging": "Begin met het loggen van maaltijden om hier je\n7-daagse macrotrends te zien"
+      "startLogging": "Start met het loggen van maaltijden om je\n7-daagse macrotrends hier te zien"
     },
     "mealLog": {
-      "title": "Gelogde maaltijden",
-      "emptyMessage": "Maak een foto van je laatste maaltijd om deze hier te loggen.",
-      "noMealsToday": "Vandaag geen maaltijden geregistreerd",
+      "title": "Geregistreerde maaltijden",
+      "emptyMessage": "Maak een foto van je laatste maaltijd om hier te registreren.",
+      "noMealsToday": "Geen maaltijden geregistreerd voor vandaag",
       "seeAllMeals": "Alle maaltijden bekijken"
     },
     "mealDescription": {
       "title": "Snel toevoegen met AI",
-      "description": "Beschrijf je maaltijd en laat de AI de details afhandelen.",
-      "hint": "bijv. Voor het ontbijt had ik een grote kom havermout met een gesneden banaan en een schep whey ...",
-      "analyzeMeal": "Maaltijd analyseren"
+      "description": "Beschrijf je maaltijd en laat AI de details invullen.",
+      "hint": "bijv. Bij het ontbijt had ik een grote kom havermout met een gesneden banaan en een schep whey ...",
+      "analyzeMeal": "Analyseer maaltijd"
     },
     "favoriteMeals": {
       "title": "Favoriete maaltijden",
       "description": "Voeg snel een van je favoriete maaltijden toe.",
       "noFavorites": "Nog geen favoriete maaltijden.",
-      "addFavoriteHint": "Tik op de ster bij een maaltijd om deze als favoriet te markeren.",
-      "seeAll": "Alles bekijken",
+      "addFavoriteHint": "Klik op de ster bij een maaltijd om het als favoriet te markeren.",
+      "seeAll": "Alles zien",
       "add": "Toevoegen"
     },
     "mealSnap": {
-      "title": "Fotografeer & volg je maaltijd",
+      "title": "Maak een foto & registreer je maaltijd",
       "description": "Gebruik je camera om een foto van je eten te maken voor AI-analyse.",
       "openCamera": "Camera openen",
       "gallery": "Galerij",
@@ -224,15 +224,15 @@
       "uploadingPhoto": "Foto uploaden…"
     },
     "connectHealth": {
-      "title": "Synchroniseer met Health Connect",
+      "title": "Synchroniseren met Health Connect",
       "description": "Synchroniseer je voedingsgegevens met Health Connect",
       "install": "Installeren",
-      "connect": "Verbinden"
+      "connect": "Koppelen"
     }
   },
   "history": {
-    "noMeals": "Geen maaltijden geregistreerd",
-    "emptyMessage": "Maak een foto van je laatste maaltijd om deze hier te loggen.",
+    "noMeals": "Geen geregistreerde maaltijden",
+    "emptyMessage": "Maak een foto van je laatste maaltijd om hier te registreren.",
     "today": "Vandaag",
     "yesterday": "Gisteren"
   },
@@ -243,13 +243,13 @@
     "addMeal": "Maaltijd toevoegen",
     "saveMeal": "Maaltijd opslaan",
     "save": "Opslaan",
-    "mealName": "Naam van de maaltijd",
-    "mealNameHint": "bijv. Roerei met toast",
+    "mealName": "Naam van maaltijd",
+    "mealNameHint": "bijv., Roerei met toast",
     "mealQuantity": "Hoeveelheid maaltijd",
-    "mealQuantityHint": "bijv. 1 kom, 2 sneetjes",
-    "timeOfMeal": "Tijdstip van de maaltijd",
-    "timeOfMealHint": "Kies het tijdstip waarop je je maaltijd had",
-    "mealType": "Type maaltijd",
+    "mealQuantityHint": "bijv., 1 kom, 2 sneetjes",
+    "timeOfMeal": "Tijd van maaltijd",
+    "timeOfMealHint": "Selecteer de tijd waarop je at",
+    "mealType": "Soort maaltijd",
     "nutrition": {
       "calories": "Calorieën",
       "carbs": "Koolhydraten (g)",
@@ -267,17 +267,17 @@
     "couldNotAdd": "Kon maaltijd niet toevoegen: {error}",
     "savedSuccessfully": "Maaltijd succesvol toegevoegd!",
     "updatedSuccessfully": "Maaltijd succesvol bijgewerkt!",
-    "errorSaving": "Fout bij het opslaan van de maaltijd: {error}",
+    "errorSaving": "Fout bij opslaan van maaltijd: {error}",
     "removedFromFavorites": "Verwijderd uit favorieten!",
     "savedAsFavorite": "Maaltijd opgeslagen als favoriet!",
-    "unfavorite": "Verwijderen uit favorieten",
+    "unfavorite": "Favoriet verwijderen",
     "couldNotUpdateFavorite": "Kon favoriet niet bijwerken: {error}",
-    "feedbackThanks": "Bedankt voor je feedback!",
-    "reanalysisUpdated": "De analyse is bijgewerkt op basis van je feedback.",
-    "failedToProcess": "Verwerken mislukt: {error}",
-    "failedToProcessImage": "Afbeelding verwerken mislukt: {error}",
-    "errorCompressingImage": "Fout bij het comprimeren van de afbeelding: {error}",
-    "failedToSave": "Opslaan van gegevens mislukt. Probeer het opnieuw.",
+    "feedbackThanks": "Bedankt voor de feedback!",
+    "reanalysisUpdated": "Maaltijdanalyse bijgewerkt op basis van je feedback.",
+    "failedToProcess": "Verwerking mislukt: {error}",
+    "failedToProcessImage": "Verwerking afbeelding mislukt: {error}",
+    "errorCompressingImage": "Fout bij comprimeren van afbeelding: {error}",
+    "failedToSave": "Gegevens opslaan mislukt. Probeer het opnieuw.",
     "skip": "Overslaan",
     "questionFlow": {
       "progress": "Vraag {current} van {total}",
@@ -286,58 +286,58 @@
       "continueLabel": "Doorgaan"
     },
     "analysis": {
-      "title": "AI-maalanalyse",
+      "title": "Je maaltijd wordt geanalyseerd",
       "stepStarted": "Bezig met starten…",
-      "stepDecomposition": "Je maaltijd begrijpen…",
-      "stepIngredients": "Ingrediënten koppelen aan voedingsgegevens…",
-      "stepUncertainty": "Zekerheid controleren…",
+      "stepDecomposition": "Begrijpen van je maaltijd…",
+      "stepIngredients": "Ingrediënten matchen met voedingsdata…",
+      "stepUncertainty": "Betrouwbaarheid controleren…",
       "stepMealTypeQuestion": "Bijna klaar…",
-      "stepResult": "Resultaat afronden…",
+      "stepResult": "Resultaat finaliseren…",
       "stepError": "Er is iets misgegaan",
-      "stepDefault": "Je maaltijd analyseren…",
-      "progressUnderstand": "Begrijpen",
-      "progressMatch": "Koppelen",
-      "progressCheck": "Controleren",
+      "stepDefault": "Maaltijd analyseren…",
+      "progressUnderstand": "Je maaltijd begrijpen",
+      "progressMatch": "Voedingswaarden opzoeken voor ingrediënten",
+      "progressCheck": "Porties en betrouwbaarheid controleren",
       "progressMealType": "Maaltijdtype kiezen",
-      "progressFinish": "Afronden",
+      "progressFinish": "Calorieën en macro's berekenen",
       "detectedIngredientHeading": "Ingrediënten die we herkennen",
       "ingredientsOverflow": "{count} meer",
       "ingredientsLine": "{count} ingrediënten gedetecteerd",
       "ingredientsPending": "Ingrediënten scannen…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "Tip: Consistentie is belangrijker dan perfectie—regelmatig loggen onthult de patronen die ertoe doen.",
+      "offlineTip1": "Tip: Voor foto's helpen natuurlijk licht en een bovenaanzicht bij de portie-accuraatheid.",
+      "offlineTip2": "Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.",
+      "offlineTip3": "Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.",
+      "offlineTip4": "Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.",
+      "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken)."
     },
     "feedback": {
-      "title": "Wat lijkt er fout?",
-      "subtitle": "Help ons de analyse te verbeteren door een of meer problemen te selecteren.",
+      "title": "Wat klopt er niet?",
+      "subtitle": "Help ons de analyse te verbeteren door één of meer problemen te selecteren.",
       "tellUsMore": "Vertel ons meer",
-      "describeIncorrect": "Beschrijf wat er onjuist was",
-      "submit": "Verzenden",
-      "issueFoodIdentification": "Voedselherkenning",
+      "describeIncorrect": "Beschrijf wat onjuist was",
+      "submit": "Verstuur",
+      "issueFoodIdentification": "Voedselidentificatie",
       "issuePortionSize": "Portiegrootte",
-      "issueCalorieDistribution": "Calorieverdeling",
+      "issueCalorieDistribution": "Verdeling van calorieën",
       "issueMacrosWrong": "Macro's kloppen niet",
       "issueMissingItems": "Ontbrekende items",
-      "issueExtraItems": "Te veel items",
+      "issueExtraItems": "Extra items",
       "issueOther": "Anders"
     }
   },
   "favorites": {
     "title": "Favorieten",
     "empty": "Nog geen favoriete maaltijden.",
-    "searchPlaceholder": "Favoriete maaltijden zoeken",
-    "searchEmptyTitle": "Geen favorieten komen overeen met je zoekopdracht",
+    "searchPlaceholder": "Zoek favoriete maaltijden",
+    "searchEmptyTitle": "Geen favorieten bij je zoekopdracht",
     "searchEmptySubtitle": "Probeer een andere maaltijdnaam, hoeveelheid of maaltijdtype.",
-    "sortLabel": "Favorieten sorteren",
+    "sortLabel": "Sorteer favorieten",
     "undo": "Ongedaan maken",
-    "removed": "{name} verwijderd uit favorieten",
+    "removed": "Verwijderd {name} uit favorieten",
     "sortOptions": {
-      "recent": "Recent",
+      "recent": "Meest recent",
       "calories": "Calorieën",
       "alphabetical": "A-Z"
     }
@@ -345,7 +345,7 @@
   "profile": {
     "title": "Profiel",
     "noProfileData": "Geen profielgegevens gevonden",
-    "yourProfile": "Jouw profiel",
+    "yourProfile": "Je profiel",
     "viewAndManage": "Bekijk en beheer je gezondheidsinformatie",
     "sections": {
       "profile": "PROFIEL",
@@ -360,22 +360,22 @@
     "weightGoal": "Gewichtsdoel",
     "targetWeight": "Streefgewicht",
     "activityLevel": "Activiteitsniveau",
-    "healthMetrics": "Gezondheidsstatistieken",
+    "healthMetrics": "Gezondheidswaarden",
     "notSet": "Niet ingesteld",
     "years": "jaar",
     "updatedSuccessfully": "Profiel succesvol bijgewerkt!",
     "calculatedValues": {
       "bmr": "BMR",
       "tdee": "TDEE",
-      "dailyGoal": "Dagdoel",
+      "dailyGoal": "Dagelijks doel",
       "calPerDay": "cal/dag",
-      "notAvailable": "n.v.t."
+      "notAvailable": "N.v.t."
     }
   },
   "healthScore": {
     "title": "Gezondheidsscore",
     "whyThisScore": "Waarom deze score?",
-    "note": "Deze score is een AI-schatting op basis van de herkende ingrediënten en voedingsdichtheid. Raadpleeg altijd een professional voor dieetadvies.",
+    "note": "Deze score is een AI-schatting op basis van de geïdentificeerde ingrediënten en voedingsdichtheid. Raadpleeg altijd een professional voor voedingsadvies.",
     "unhealthy": "Ongezond",
     "healthy": "Gezond",
     "neutral": "Neutraal"
@@ -383,8 +383,8 @@
   "editProfile": {
     "title": "Profiel bewerken",
     "sections": {
-      "personalInformation": "PERSOONLIJKE INFORMATIE",
-      "physicalMeasurements": "FYSIEKE METINGEN",
+      "personalInformation": "PERSOONLIJKE GEGEVENS",
+      "physicalMeasurements": "LICHAAMSMAAT",
       "goalsAndActivity": "DOELEN & ACTIVITEIT"
     },
     "gender": "Geslacht",
@@ -411,7 +411,7 @@
     "weightGoals": {
       "loseWeight": {
         "name": "Afvallen",
-        "description": "Creëer een calorietekort om af te vallen"
+        "description": "Creëer een calorie-tekort om af te vallen"
       },
       "maintainWeight": {
         "name": "Gewicht behouden",
@@ -424,24 +424,24 @@
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Zittend",
-        "description": "Weinig tot geen lichaamsbeweging"
+        "name": "Weinig actief",
+        "description": "Weinig tot geen beweging"
       },
       "lightlyActive": {
         "name": "Licht actief",
-        "description": "Lichte lichaamsbeweging 1–3 dagen/week"
+        "description": "Lichte inspanning 1-3 dagen/week"
       },
       "moderatelyActive": {
         "name": "Matig actief",
-        "description": "Matige lichaamsbeweging 3–5 dagen/week"
+        "description": "Matige inspanning 3-5 dagen/week"
       },
       "veryActive": {
         "name": "Zeer actief",
-        "description": "Zware training 6–7 dagen/week"
+        "description": "Zware inspanning 6-7 dagen/week"
       },
       "extremelyActive": {
-        "name": "Uiterst actief",
-        "description": "Zeer zware training, fysiek beroep"
+        "name": "Extreem actief",
+        "description": "Zeer zware inspanning, fysiek werk"
       }
     }
   },
@@ -449,17 +449,17 @@
     "title": "Instellingen",
     "sections": {
       "profile": "PROFIEL",
-      "localization": "LOCALISATIE",
+      "localization": "LOKALISATIE",
       "notifications": "MELDINGEN",
       "healthConnect": "HEALTH CONNECT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
       "about": "OVER",
-      "dangerZone": "GEVAARSZONE",
+      "dangerZone": "GEVAARZONE",
       "developer": "ONTWIKKELAAR"
     },
     "editProfile": {
       "title": "Profiel bewerken",
-      "subtitle": "Werk je persoonsgegevens bij"
+      "subtitle": "Werk je persoonlijke gegevens bij"
     },
     "language": {
       "title": "Taal",
@@ -468,7 +468,7 @@
       "noResults": "Geen resultaten gevonden"
     },
     "heightUnit": {
-      "title": "Lengte-eenheid"
+      "title": "Hoogteeenheid"
     },
     "weightUnit": {
       "title": "Gewichtseenheid"
@@ -485,8 +485,8 @@
     },
     "sendFeedback": {
       "title": "Feedback verzenden",
-      "subtitle": "Help {appLabel} te verbeteren",
-      "emailSubject": "{appLabel} app-feedback",
+      "subtitle": "Help {appLabel} verbeteren",
+      "emailSubject": "Feedback voor {appLabel}",
       "emailBodyPrefix": "Geef hieronder je feedback:",
       "appVersion": "App-versie",
       "device": "Apparaat",
@@ -494,86 +494,86 @@
       "uid": "UID"
     },
     "exportMealHistory": {
-      "title": "Maaltijdgeschiedenis exporteren",
-      "subtitle": "Deel een CSV van je gelogde maaltijden",
-      "shareText": "Je Calorify-export van de maaltijdgeschiedenis",
+      "title": "Exporteer maaltijdgeschiedenis",
+      "subtitle": "Deel een CSV van je geregistreerde maaltijden",
+      "shareText": "Je Calorify maaltijdgeschiedenis-export",
       "failed": "Kon maaltijdgeschiedenis niet exporteren: {error}"
     },
     "clearAllData": {
       "title": "Alle gegevens wissen",
-      "subtitle": "Verwijder onherroepelijk al je informatie",
+      "subtitle": "Verwijder onomkeerbaar al je informatie",
       "confirmationTitle": "Alle gegevens wissen?",
-      "confirmationMessage": "Deze actie kan niet ongedaan worden gemaakt. Al je gelogde maaltijden, favorieten en profielinstellingen worden permanent verwijderd.",
+      "confirmationMessage": "Deze actie kan niet ongedaan gemaakt worden. Al je geregistreerde maaltijden, favorieten en profielinstellingen worden permanent verwijderd.",
       "cancel": "Annuleren",
       "clearEverything": "Alles wissen"
     },
     "debugOptions": {
-      "title": "Debugopties"
+      "title": "Debug-opties"
     },
     "developerModeEnabled": "Ontwikkelaarsmodus ingeschakeld!",
     "healthConnect": {
       "title": "Health Connect",
-      "subtitle": "Machtigingen bekijken en beheren",
+      "subtitle": "Bekijk en beheer machtigingen",
       "unavailable": {
         "title": "Health Connect niet beschikbaar",
-        "description": "Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect via de Play Store (Android 9+) of update naar Android 14+."
+        "description": "Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect vanuit de Play Store (Android 9+) of werk bij naar Android 14+."
       },
       "permissions": {
         "title": "Machtigingen",
-        "description": "De volgende machtigingen zijn vereist om Health Connect-integratie te bieden:",
-        "granted": "Toegekend",
-        "notGranted": "Niet toegekend",
+        "description": "De volgende machtigingen worden gevraagd om Health Connect-integratie te bieden:",
+        "granted": "Toegewezen",
+        "notGranted": "Niet toegewezen",
         "caloriesBurned": {
-          "title": "Totale verbrande calorieën lezen",
-          "description": "Staat de app toe om je totale verbrande calorieën uit Health Connect te lezen.",
-          "usage": "Deze machtiging wordt gebruikt om je dagelijkse calorieverbranding in de app te tonen, zodat je je totale energieverbruik gedurende de dag beter begrijpt."
+          "title": "Lees totaal verbrande calorieën",
+          "description": "Staat de app toe je totaal verbrande calorieën te lezen van Health Connect.",
+          "usage": "Deze toestemming wordt gebruikt om je dagelijkse calorieverbruik in de app weer te geven, zodat je je totale energieverbruik gedurende de dag begrijpt."
         },
         "nutritionRead": {
-          "title": "Voedingsgegevens lezen",
-          "description": "Staat de app toe om voedingsgegevens uit Health Connect te lezen.",
-          "usage": "Met deze machtiging kan de app voedingsinformatie lezen die mogelijk is gelogd door andere apps die met Health Connect zijn verbonden, voor een compleet beeld van je voeding."
+          "title": "Lees voedingsgegevens",
+          "description": "Staat de app toe voedingsgegevens te lezen van Health Connect.",
+          "usage": "Deze toestemming maakt het mogelijk dat de app voedingsinformatie leest die mogelijk door andere apps naar Health Connect is gelogd, voor een compleet beeld van je voeding."
         },
         "nutritionWrite": {
-          "title": "Voedingsgegevens schrijven",
-          "description": "Staat de app toe om voedingsgegevens naar Health Connect te schrijven.",
-          "usage": "Met deze machtiging kan de app je gelogde maaltijden synchroniseren met Health Connect, zodat je voedingsgegevens beschikbaar zijn voor andere gezondheids- en fitnessapps die je gebruikt."
+          "title": "Schrijf voedingsgegevens",
+          "description": "Staat de app toe voedingsgegevens te schrijven naar Health Connect.",
+          "usage": "Deze toestemming maakt het mogelijk dat de app je geregistreerde maaltijden synchroniseert met Health Connect, zodat je voedingsgegevens beschikbaar zijn voor andere gezondheids- en fitnessapps."
         }
       },
       "managePermissions": "Machtigingen beheren",
-      "openSettings": "Instellingen van Health Connect openen",
-      "requestPermissions": "Machtigingen aanvragen",
-      "permissionRequestCancelledOrFailed": "Machtigingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef machtigingen handmatig in de instellingen van Health Connect.",
-      "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef machtigingen handmatig in de instellingen van Health Connect.",
-      "requestingPermissions": "Aanvragen..."
+      "openSettings": "Open Health Connect-instellingen",
+      "requestPermissions": "Vraag machtigingen aan",
+      "permissionRequestCancelledOrFailed": "De toestemmingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef machtigingen handmatig in de Health Connect-instellingen.",
+      "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef machtigingen handmatig in de Health Connect-instellingen.",
+      "requestingPermissions": "Bezig met aanvragen..."
     },
     "about": {
       "title": "Over",
-      "tagline": "Snel, gratis en met privacy voorop: inzicht in calorieën",
+      "tagline": "Snel, gratis en privacygericht caloriebewustzijn",
       "ourStory": {
         "title": "Ons verhaal",
-        "content": "{appLabel} is ontstaan uit een simpele frustratie: de meeste calorie-apps zijn óf te ingewikkeld, vereisen constant handmatig invoeren, vragen hoge abonnementskosten, of gaan slordig om met privacy.\n\nAls solodeveloper wilde ik iets simpelers en eerlijkers bouwen — een app die AI inzet om moeite te verminderen, snel en gratis blijft, en je gezondheidsdata met respect behandelt.\n\n{appLabel} is de app waarvan ik wilde dat die bestond: geen accounts, geen tracking, geen advertenties — alleen heldere, praktische inzichten en jouw gezondheidsdoelen."
+        "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-trackingapps zijn óf te ingewikkeld, vereisen constant handmatig invoer, vragen hoge abonnementskosten of schenden de privacy.\n\nAls solo-ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om inspanning te verminderen, snel en gratis blijft, en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app die ik had willen bestaan: geen accounts, geen tracking, geen advertenties — alleen heldere, praktische inzichten en jouw gezondheidsdoelen."
       },
       "privacy": {
-        "title": "Jouw privacy telt",
-        "description": "Privacy is geen bijzaak — het is een ontwerpbeginsel. Dit betekent in de praktijk:",
-        "noAccounts": "Geen accounts vereist\nGebruik de app direct. Geen aanmeldingen, geen identiteiten.",
-        "noTracking": "Geen gedrags-tracking\n{appLabel} monitort je activiteit niet, bouwt geen gebruiksprofielen en volgt je niet over apps of websites heen.",
-        "noAds": "Advertentievrij ontworpen\n{appLabel} werkt zonder advertenties of datagedreven verdienmodellen.",
-        "noDataSelling": "Geen verkoop van data\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.",
-        "localStorage": "Local-first opslag\nJe data blijft op je apparaat.",
+        "title": "Je privacy doet ertoe",
+        "description": "Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:",
+        "noAccounts": "Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.",
+        "noTracking": "Geen gedrags-tracking\n{appLabel} volgt je activiteit niet, bouwt geen gebruiksprofielen en monitort je niet over apps of websites.",
+        "noAds": "Advertentievrij bij ontwerp\n{appLabel} is gebouwd om te werken zonder advertenties of datagedreven monetisatie.",
+        "noDataSelling": "Geen verkoop van gegevens\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.",
+        "localStorage": "Lokaal als eerste opslag\nJe gegevens blijven op je apparaat.",
         "privacyPolicy": "Privacybeleid"
       },
       "developer": {
-        "title": "Gemaakt door een solodeveloper",
-        "description": "{appLabel} is gebouwd en onderhouden door één solodeveloper die focust op rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app te bepalen.",
+        "title": "Gemaakt door een solo-ontwikkelaar",
+        "description": "{appLabel} is gebouwd en wordt onderhouden door een enkele solo-ontwikkelaar die zich richt op het maken van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app vormgeven.",
         "website": "Website",
         "email": "E-mail"
       },
       "feedback": {
         "title": "Geniet je van {appLabel}?",
-        "description": "Jouw feedback helpt {appLabel} voor iedereen beter te maken.",
-        "rateApp": "Beoordeel in de Play Store",
-        "sendFeedback": "Feedback verzenden"
+        "description": "Je feedback helpt {appLabel} beter te maken voor iedereen.",
+        "rateApp": "Beoordeel in Play Store",
+        "sendFeedback": "Verstuur feedback"
       }
     },
     "appInfo": {
@@ -583,7 +583,7 @@
   },
   "reminders": {
     "title": "Blijf op koers met herinneringen",
-    "description": "Ontvang vriendelijke herinneringen om je maaltijden te loggen en consequent te blijven met je voedingsdoelen",
+    "description": "Ontvang vriendelijke herinneringen om je maaltijden te loggen en consistent te blijven met je voedingsdoelen",
     "notificationsEnabled": "Meldingen ingeschakeld",
     "notificationsDisabled": "Meldingen uitgeschakeld",
     "enabledSubtitle": "Je ontvangt maaltijdherinneringen",
@@ -592,32 +592,32 @@
     "breakfast": "Ontbijt",
     "lunch": "Lunch",
     "dinner": "Diner",
-    "snack": "Snack",
+    "snack": "Tussendoortje",
     "unknown": "Onbekend",
-    "change": "Wijzigen",
-    "enableNotifications": "Meldingen inschakelen",
-    "skipForNow": "Voor nu overslaan",
+    "change": "Wijzig",
+    "enableNotifications": "Schakel meldingen in",
+    "skipForNow": "Sla voorlopig over",
     "saveChanges": "Wijzigingen opslaan",
     "enabledSuccessfully": "Meldingen succesvol ingeschakeld!",
-    "permissionDenied": "Machtiging voor meldingen geweigerd",
-    "errorEnabling": "Fout bij het inschakelen van meldingen: {error}",
-    "errorCompletingSetup": "Fout bij het voltooien van de instelling: {error}"
+    "permissionDenied": "Meldingstoestemming geweigerd",
+    "errorEnabling": "Fout bij inschakelen van meldingen: {error}",
+    "errorCompletingSetup": "Fout bij voltooien van installatie: {error}"
   },
   "notifications": {
     "breakfast": {
-      "title": "Ontbijttijd! 🍳",
-      "body": "Vergeet niet je ontbijt te loggen"
+      "title": "Tijd voor ontbijt! 🍳",
+      "body": "Vergeet niet je ontbijt te registreren"
     },
     "lunch": {
-      "title": "Lunchtijd! 🥗",
-      "body": "Tijd om je lunch te loggen"
+      "title": "Tijd voor lunch! 🥗",
+      "body": "Tijd om je lunch te registreren"
     },
     "dinner": {
-      "title": "Dinertijd! 🍽️",
-      "body": "Vergeet niet je diner te loggen"
+      "title": "Tijd voor diner! 🍽️",
+      "body": "Vergeet niet je diner te registreren"
     },
     "snack": {
-      "title": "Snacktijd! 🍎",
+      "title": "Tijd voor een snack! 🍎",
       "body": "Tijd voor een gezonde snack"
     },
     "test": {
@@ -632,69 +632,69 @@
   "disclaimer": {
     "pleaseNote": "Let op",
     "snap": {
-      "description": "{appLabel} geeft geschatte voedingsinformatie. De nauwkeurigheid hangt af van jouw invoer en variaties in voeding. Gebruik dit als richtlijn, niet als definitieve bron. Raadpleeg een professional voor persoonlijk dieetadvies.",
+      "description": "{appLabel} geeft geschatte voedingsinformatie. De nauwkeurigheid hangt af van je invoer en variaties in voedsel. Gebruik het als richtlijn, niet als definitieve bron. Raadpleeg een professional voor persoonlijk voedingsadvies.",
       "portionSize": {
         "title": "Portiegrootte",
         "description": "De nauwkeurigheid van de schattingen hangt sterk af van je juiste inschatting van de portiegrootte."
       },
       "preparationMethods": {
         "title": "Bereidingsmethoden",
-        "description": "Kookmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van {appLabel} houden hier mogelijk niet altijd rekening mee."
+        "description": "Bereidingsmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van {appLabel} houden mogelijk niet altijd rekening met deze variaties."
       },
       "ingredients": {
         "title": "Ingrediënten",
-        "description": "Complexe gerechten met veel verborgen ingrediënten kunnen tot minder nauwkeurige schattingen leiden."
+        "description": "Complexe gerechten met veel verborgen ingrediënten kunnen leiden tot minder nauwkeurige schattingen."
       },
       "databaseLimitations": {
         "title": "Beperkingen van de database",
-        "description": "De voedsel­database van {appLabel} is uitgebreid, maar bevat mogelijk niet elk voedingsmiddel of elke variant."
+        "description": "{appLabel}'s voedseldatabase is uitgebreid maar bevat mogelijk niet elk afzonderlijk voedingsmiddel of variant."
       }
     },
     "weightEstimate": {
-      "title": "Over gewichtsinschatting",
-      "description": "De geprojecteerde gewichtsverandering is een theoretische schatting op basis van het simpele ‘calorieën in vs. calorieën uit’-model. Het is alleen bedoeld als motivatie, niet als voorspelling van je werkelijke gewicht.",
+      "title": "Over gewichtsschatting",
+      "description": "De geschatte gewichtsverandering is een theoretische schatting gebaseerd op het eenvoudige model calorieën-in vs calorieën-uit. Het is bedoeld als motivatiegids, niet als voorspelling van je werkelijke gewicht.",
       "calorieAccuracy": {
-        "title": "Calorie-nauwkeurigheid",
-        "description": "Deze schatting is zo nauwkeurig als jouw bijgehouden calorie-inname en -verbruik. Onnauwkeurig loggen leidt tot een onnauwkeurige projectie."
+        "title": "Nauwkeurigheid van calorieën",
+        "description": "Deze schatting is slechts zo nauwkeurig als je geregistreerde calorie-inname en -verbruik. Onnauwkeurig loggen resulteert in een onnauwkeurige prognose."
       },
       "biologicalFactors": {
         "title": "Biologische factoren",
-        "description": "Werkelijk afvallen/aankomen wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die {appLabel} niet kan meten."
+        "description": "Werkelijk gewichtsverlies/-toename wordt beïnvloed door metabolisme, hormonen, slaap, stress, hydratatie en andere individuele factoren die {appLabel} niet kan meten."
       },
       "waterWeight": {
-        "title": "Watergewicht & schommelingen",
-        "description": "Normaal dagelijks gewicht kan aanzienlijk schommelen door vocht, spijsvertering en timing. De schatting houdt geen rekening met deze dagelijkse veranderingen."
+        "title": "Watergewicht & Schommelingen",
+        "description": "Dagelijks gewicht kan flink fluctueren door waterretentie, spijsvertering en timing. De schatting houdt geen rekening met deze dagelijkse veranderingen."
       },
       "professionalGuidance": {
         "title": "Professionele begeleiding",
-        "description": "Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of diëtist voor persoonlijk advies over gewichtsbeheer."
+        "description": "Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor persoonlijk gewichtsadvies."
       }
     },
     "healthMetrics": {
-      "description": "Deze statistieken helpen je de energiebehoefte van je lichaam te begrijpen en sturen je voedingsdoelen.",
+      "description": "Deze meetwaarden helpen je je energiebehoefte te begrijpen en je voedingsdoelen te sturen.",
       "bmr": {
         "title": "BMR",
-        "description": "Basale stofwisseling (BMR) is het aantal calorieën dat je lichaam in rust verbrandt om basisfuncties zoals ademhaling en circulatie te onderhouden. BMR hangt af van je leeftijd, geslacht, lengte en gewicht. Een hogere BMR betekent dat je lichaam in rust van nature meer calorieën verbrandt, vaak door meer spiermassa, jongere leeftijd of mannelijk geslacht. Een lagere BMR duidt meestal op minder spiermassa, hogere leeftijd of vrouwelijk geslacht."
+        "description": "BMR (Basal Metabolic Rate) is het aantal calorieën dat je lichaam in rust verbrandt om basisfuncties zoals ademen en bloedsomloop te behouden. BMR is afhankelijk van je leeftijd, gender, lengte en gewicht. Een hogere BMR betekent dat je lichaam in rust meer calorieën verbrandt, vaak door meer spiermassa, jongere leeftijd of mannelijk geslacht. Een lagere BMR duidt meestal op minder spiermassa, hogere leeftijd of vrouwelijk geslacht."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Totale dagelijkse energieverbruik (TDEE) is het totaal aan calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën uit lichamelijke activiteit en dagelijkse beweging. TDEE hangt af van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je totaal meer calorieën verbrandt, meestal door actiever te zijn of een hogere BMR te hebben. Een lagere TDEE suggereert minder dagelijkse activiteit of een lagere BMR."
+        "description": "TDEE is het totale aantal calorieën dat je per dag verbrandt, inclusief je BMR plus calorieën uit fysieke activiteit en dagelijkse beweging. TDEE is afhankelijk van je BMR en activiteitsniveau. Een hogere TDEE betekent dat je in totaal meer calorieën verbrandt, meestal door actiever te zijn of een hogere BMR. Een lagere TDEE wijst op minder dagelijkse activiteit of een lagere BMR."
       },
       "dailyGoal": {
-        "title": "Dagdoel",
-        "description": "Dagdoel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor afvallen consumeer je minder calorieën dan je TDEE. Voor gewichtsbehoud kom je overeen met je TDEE. Voor aankomen consumeer je meer calorieën dan je TDEE. Dit helpt je je gewenste gewichtsverandering in een gezond tempo te bereiken."
+        "title": "Dagelijks doel",
+        "description": "Het dagelijkse doel is je aanbevolen dagelijkse calorie-inname op basis van je TDEE en gewichtsdoel. Voor gewichtsverlies consumeer je minder calorieën dan je TDEE. Voor gewichtsonderhoud stem je je inname af op je TDEE. Voor gewichtstoename consumeer je meer calorieën dan je TDEE. Dit helpt je het gewenste gewichtsverandering in een gezond tempo te bereiken."
       }
     },
     "calorieExpenditure": {
-      "title": "Schatting calorieverbruik",
-      "description": "Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de vandaag verbrande calorieën met je basale stofwisseling (BMR) en activiteitsniveau (TDEE), geschaald naar het deel van de dag dat is verstreken.",
+      "title": "Schatting van calorieverbruik",
+      "description": "Wanneer Health Connect-gegevens niet beschikbaar zijn, schatten we de verbrande calorieën van vandaag met behulp van je Basal Metabolic Rate (BMR) en activiteitsniveau (TDEE), geschaald voor het reeds verstreken deel van de dag.",
       "howCalculated": {
         "title": "Hoe de schatting wordt berekend",
-        "description": "We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen dit met het deel van de dag dat is verstreken (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten."
+        "description": "We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen het met het aandeel van de dag dat verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten."
       },
       "professionalGuidance": {
         "title": "Professionele begeleiding",
-        "description": "Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of diëtist voor persoonlijk advies over gewichtsbeheer."
+        "description": "Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor persoonlijk gewichtsadvies."
       }
     }
   },
@@ -703,21 +703,21 @@
     "continue": "Doorgaan"
   },
   "feedbackRating": {
-    "enjoyingQuestion": "Bevalt {appLabel}?",
-    "yes": "Ja, het bevalt me",
+    "enjoyingQuestion": "Geniet je van {appLabel}?",
+    "yes": "Ja, ik geniet ervan",
     "no": "Niet echt",
-    "rateStepHeading": "Beoordeel in de Play Store",
+    "rateStepHeading": "Beoordeel in Play Store",
     "emailStepHeading": "Stuur feedback per e-mail",
-    "soloDevMessage": "Een snelle beoordeling helpt anderen {appLabel} te vinden en houdt de ontwikkeling gaande. Wil je een moment nemen om er een achter te laten?",
-    "shareFeedbackViaEmail": "Jouw feedback bepaalt wat er volgt — we lezen elk bericht. Wil je je gedachten delen via e-mail?",
-    "rateCta": "Beoordeel in de Play Store",
+    "soloDevMessage": "Een korte beoordeling helpt anderen {appLabel} te vinden en houdt de ontwikkeling gaande. Wil je even een moment nemen om er één achter te laten?",
+    "shareFeedbackViaEmail": "Je feedback bepaalt wat er hierna komt — we lezen elk bericht. Wil je je gedachten delen via e-mail?",
+    "rateCta": "Beoordeel in Play Store",
     "maybeLater": "Misschien later",
-    "sendFeedback": "Feedback verzenden",
-    "noThanks": "Nee, bedankt",
-    "aboutUsDescription": "Met zorg gemaakt door een klein team. We focussen op privacy, eenvoud en het helpen opbouwen van betere eetgewoonten.",
-    "aboutUsMentionBeforeLink": "Benieuwd wie er achter {appLabel} zit? Zie ",
+    "sendFeedback": "Feedback versturen",
+    "noThanks": "Nee bedankt",
+    "aboutUsDescription": "Gemaakt met zorg door een klein team. We richten ons op privacy, eenvoud en helpen je betere eetgewoonten opbouwen.",
+    "aboutUsMentionBeforeLink": "Benieuwd wie erachter {appLabel} zit? Zie ",
     "aboutUsLinkLabel": "Over ons",
-    "thankYouMessage": "Bedankt! We vragen het een andere keer nog eens."
+    "thankYouMessage": "Bedankt! We vragen het later nog eens."
   },
   "health": {
     "syncFailed": "Kon niet synchroniseren met Health Connect",

@@ -3,97 +3,97 @@
   "flag": "🇲🇾",
   "appLabel": "Calorify{env}",
   "errors": {
-    "rateLimitExceeded": "Anda membuat terlalu banyak permintaan. Sila tunggu seketika sebelum cuba lagi.",
-    "networkError": "Ralat rangkaian. Sila semak sambungan internet anda.",
-    "unknownError": "Sesuatu telah berlaku. Sila cuba lagi kemudian.",
-    "loadingProfileData": "Ralat memuatkan data profil",
-    "somethingWentWrong": "Sesuatu telah berlaku.",
-    "retry": "Cuba Lagi"
+    "rateLimitExceeded": "Anda telah membuat terlalu banyak permintaan. Sila tunggu seketika sebelum mencuba lagi.",
+    "networkError": "Ralat rangkaian. Sila periksa sambungan internet anda.",
+    "unknownError": "Ada yang tidak kena. Sila cuba lagi nanti.",
+    "loadingProfileData": "Ralat memuat data profil",
+    "somethingWentWrong": "Ada yang tidak kena.",
+    "retry": "Cuba semula"
   },
   "onboarding": {
     "welcome": "Selamat datang ke {appLabel}",
-    "subtitle": "Teman pemakanan peribadi anda dikuasakan oleh AI",
+    "subtitle": "Rakan pemakanan peribadi anda yang dikuasakan oleh AI",
     "getStarted": "Mula",
     "features": {
       "foodRecognition": {
-        "title": "Pengecaman Makanan Pintar",
-        "description": "Ambil gambar dan biarkan AI mengenal pasti hidangan anda"
+        "title": "Pengesanan Makanan Pintar",
+        "description": "Ambil gambar dan biarkan AI kenal pasti hidangan anda"
       },
       "aiAnalysis": {
         "title": "Analisis AI",
-        "description": "Dapatkan fakta pemakanan serta-merta daripada penerangan anda"
+        "description": "Dapatkan fakta pemakanan segera daripada penerangan anda"
       },
       "healthIntegration": {
         "title": "Integrasi Kesihatan",
-        "description": "Sambung dengan Health Connect untuk cerapan yang lebih baik"
+        "description": "Sambungkan dengan Health Connect untuk maklumat yang lebih baik"
       }
     },
     "gender": {
       "title": "Apakah jantina anda?",
-      "description": "Jantina membantu kami mengira Kadar Metabolik Asas (BMR) anda dengan tepat.",
+      "description": "Jantina membantu kami mengira kadar metabolisme basal (BMR) dengan tepat.",
       "next": "Seterusnya"
     },
     "height": {
-      "title": "Berapakah ketinggian anda?",
-      "description": "Ketinggian anda membantu kami mengira BMI dan keperluan tenaga dengan tepat.",
+      "title": "Berapa tinggi anda?",
+      "description": "Tinggi anda membantu kami mengira BMI dan keperluan tenaga dengan tepat.",
       "metric": "Metrik",
       "imperial": "Imperial",
       "next": "Seterusnya"
     },
     "weight": {
-      "currentTitle": "Berapakah berat anda sekarang?",
-      "currentDescription": "Berat semasa penting untuk memperibadikan sasaran harian anda.",
-      "targetTitle": "Berapakah berat sasaran anda?",
+      "currentTitle": "Berapa berat anda sekarang?",
+      "currentDescription": "Berat semasa anda penting untuk menyesuaikan sasaran harian anda.",
+      "targetTitle": "Berapa berat sasaran anda?",
       "targetDescription": "Menetapkan berat sasaran membantu kami menentukan pelan jangka panjang anda.",
       "metric": "Metrik",
       "imperial": "Imperial",
       "next": "Seterusnya"
     },
     "age": {
-      "title": "Bilakah tarikh lahir anda?",
-      "description": "Umur anda membantu kami mengira keperluan kalori anda dengan tepat.",
+      "title": "Bila tarikh lahir anda?",
+      "description": "Umur anda membantu kami mengira keperluan kalori dengan tepat.",
       "next": "Seterusnya"
     },
     "bmiScale": {
       "underweight": "Kurang",
       "healthy": "Sihat",
-      "overweight": "Lebih",
+      "overweight": "Berlebihan",
       "obese": "Obes",
       "categories": {
-        "underweight": "Kurang berat",
+        "underweight": "Berat kurang",
         "healthyWeight": "Berat sihat",
-        "overweight": "Berlebihan berat badan",
+        "overweight": "Berat berlebihan",
         "obese": "Obes"
       },
       "messages": {
-        "underweight": "Kami boleh bantu anda membina pelan sihat untuk mencapai berat seimbang dengan hidangan padat nutrisi.",
-        "healthy": "Tahniah! Anda berada dalam julat sihat. Kami akan bantu anda mengekalkan tenaga dan kecergasan.",
-        "overweight": "{appLabel} memudahkan perjalanan anda dengan penjejakan dikuasakan AI untuk membantu anda capai sasaran dengan selesa.",
-        "obese": "Kami di sini untuk menyokong anda dengan panduan diperibadikan dan strategi mampan untuk matlamat kesihatan anda."
+        "underweight": "Kami boleh membantu anda membina pelan sihat untuk mencapai berat seimbang dengan makanan berkhasiat.",
+        "healthy": "Bagus! Anda berada dalam julat sihat. Kami akan membantu mengekalkan tenaga dan kecergasan anda.",
+        "overweight": "{appLabel} akan memudahkan perjalanan anda dengan pengesanan dikuasakan AI untuk membantu anda mencapai sasaran dengan selesa.",
+        "obese": "Kami sedia menyokong anda dengan panduan peribadi dan strategi mampan untuk matlamat kesihatan anda."
       }
     },
     "weightGoal": {
       "title": "Apakah matlamat anda?",
-      "description": "Pilih matlamat yang paling menggambarkan apa yang anda ingin capai"
+      "description": "Pilih matlamat yang paling menggambarkan apa yang anda mahu capai"
     },
     "activityLevel": {
-      "title": "Seberapa aktif anda?",
+      "title": "Sejauh mana aktif anda?",
       "description": "Ini membantu kami mengira keperluan kalori harian anda dengan lebih tepat"
     },
     "healthConnect": {
       "title": "Sambung dengan Health Connect",
-      "description": "Segerakkan data kesihatan anda untuk cerapan lebih baik dan penjejakan kalori automatik",
+      "description": "Segerakkan data kesihatan anda untuk maklumat lebih baik dan pengesanan kalori automatik",
       "automaticTracking": {
-        "title": "Penjejakan Kalori Automatik",
-        "description": "Jejak kalori dibakar daripada aplikasi kecergasan anda"
+        "title": "Pengesanan Kalori Automatik",
+        "description": "Jejaki kalori yang dibakar dari aplikasi kecergasan anda"
       },
       "progressInsights": {
-        "title": "Cerapan Kemajuan",
-        "description": "Dapatkan cerapan terperinci tentang trend kesihatan anda"
+        "title": "Wawasan Kemajuan",
+        "description": "Dapatkan wawasan terperinci tentang trend kesihatan anda"
       },
       "seamlessIntegration": {
         "title": "Integrasi Lancar",
-        "description": "Segerakkan data daripada aplikasi kesihatan kegemaran anda"
+        "description": "Segerakkan data dari aplikasi kesihatan kegemaran anda"
       },
       "connected": "Health Connect Disambungkan",
       "notConnected": "Health Connect Tidak Disambungkan",
@@ -101,40 +101,40 @@
       "skipForNow": "Langkau buat masa ini",
       "statusConnected": "Health Connect telah disambungkan.",
       "statusSuccess": "Health Connect berjaya disambungkan!",
-      "statusPermissionDenied": "Kebenaran dinafikan. Sila benarkan kebenaran Health Connect daripada tetapan telefon anda untuk {appLabel}.",
-      "statusError": "Ralat menyediakan Health Connect: {error}"
+      "statusPermissionDenied": "Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon untuk {appLabel}.",
+      "statusError": "Ralat semasa menyediakan Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
         "title": "Anda Tidak Bersendirian",
-        "genericMessage": "Kajian menunjukkan bahawa penjejakan yang konsisten ialah peramal #1 kejayaan jangka panjang.",
-        "personalizedMessage": "Bagi {gender} berumur {age} tahun yang ingin {goal}, penjejakan yang konsisten ialah peramal #1 kejayaan.",
-        "closingMessage": "{appLabel} menjadikannya 10x lebih mudah berbanding secara manual.",
+        "genericMessage": "Penyelidikan menunjukkan pengesanan konsisten adalah peramal nombor 1 kejayaan jangka panjang.",
+        "personalizedMessage": "Bagi seorang {age} tahun {gender} yang ingin {goal}, pengesanan konsisten adalah peramal nombor 1 kejayaan.",
+        "closingMessage": "{appLabel} menjadikannya 10x lebih mudah berbanding melakukan secara manual.",
         "getStartedTitle": "Sedia untuk bermula?",
-        "tipPhoto": "Ambil foto hidangan anda untuk analisis serta-merta",
-        "tipConsistency": "Catat secara konsisten untuk melihat kemajuan yang bermakna",
-        "tipProgress": "Jejak kemajuan anda setiap hari untuk kekal bermotivasi",
-        "button": "Mari Mulakan",
+        "tipPhoto": "Ambil gambar hidangan anda untuk analisis segera",
+        "tipConsistency": "Log secara konsisten untuk melihat kemajuan bermakna",
+        "tipProgress": "Jejaki kemajuan anda setiap hari untuk kekal bermotivasi",
+        "button": "Mari Mula",
         "defaultGender": "individu",
         "defaultGoal": "anda yang lebih sihat"
       },
       "healthProfile": {
         "title": "Profil Kesihatan Anda",
         "bmiDescription": "Berdasarkan metrik anda, BMI anda ialah {bmi}.",
-        "finalizeDescription": "Mari sempurnakan profil anda untuk memperibadikan pengalaman anda.",
+        "finalizeDescription": "Mari lengkapkan profil anda untuk menyesuaikan pengalaman anda.",
         "goalGain": "menambah",
         "goalLose": "mengurangkan",
         "goalReach": "Untuk mencapai matlamat anda, anda akan {direction} {diff} {unit}.",
-        "goalReached": "Anda berada pada berat sasaran! Kami akan bantu anda mengekalkannya.",
-        "button": "Mari Mulakan"
+        "goalReached": "Anda telah mencapai berat sasaran! Kami akan membantu anda mengekalkannya.",
+        "button": "Mari Mula"
       },
       "goalLifestyle": {
-        "title": "Permulaan yang Cemerlang!",
-        "description": "Anda telah mengambil langkah pertama ke arah {goalText}. Memandangkan anda {activityText}, {appLabel} akan melaras sasaran anda agar sepadan dengan gaya hidup anda.",
-        "personalizedTargets": "Sasaran kalori diperibadikan",
-        "aiMealDetection": "Pengesanan hidangan berkuasa AI",
-        "macroBreakdowns": "Pecahan makronutrien terperinci",
-        "button": "Mari Mulakan",
+        "title": "Permulaan Hebat!",
+        "description": "Anda telah mengambil langkah pertama ke arah {goalText}. Oleh kerana anda {activityText}, {appLabel} akan menyesuaikan sasaran anda mengikut gaya hidup anda.",
+        "personalizedTargets": "Sasaran kalori peribadi",
+        "aiMealDetection": "Pengesanan hidangan dikuasakan AI",
+        "macroBreakdowns": "Pecahan makro-nutrien terperinci",
+        "button": "Mari Mula",
         "defaultGoal": "matlamat anda",
         "defaultActivity": "aktif"
       }
@@ -147,21 +147,21 @@
   "home": {
     "aiSummary": {
       "title": "Ringkasan AI Anda",
-      "logMore": "Catat lebih banyak hidangan dalam beberapa hari akan datang untuk mendapatkan cerapan AI diperibadikan.",
-      "loading": "Memuatkan ringkasan anda...",
-      "mealCount": "{count} hidangan dicatat",
-      "macroBalanceScore": "Skor keseimbangan {score}",
+      "logMore": "Log lebih banyak hidangan dalam beberapa hari akan datang untuk mendapatkan wawasan AI peribadi anda.",
+      "loading": "Memuat ringkasan anda...",
+      "mealCount": "{count} hidangan direkod",
+      "macroBalanceScore": "Skor imbangan {score}",
       "topFoods": "Makanan teratas",
       "trendUp": "Kalori meningkat",
       "trendDown": "Kalori menurun",
-      "trendSteady": "Kalori kekal stabil",
+      "trendSteady": "Kalori stabil",
       "generatedAt": "Dikemas kini {time}"
     },
     "dailyGoal": {
       "title": "Tetapkan Sasaran Harian Anda",
       "titleSet": "Sasaran Harian Anda",
-      "description": "Sedia memulakan perjalanan kesihatan anda? Tetapkan sasaran kalori harian di bawah untuk memulakan kemajuan anda.",
-      "descriptionSet": "Kompas anda telah ditetapkan! Ini ialah sasaran kalori harian untuk membimbing anda.",
+      "description": "Bersedia untuk memulakan perjalanan kesejahteraan anda? Tetapkan sasaran kalori harian di bawah untuk memulakan kemajuan anda.",
+      "descriptionSet": "Kompas anda telah ditetapkan! Ini ialah sasaran kalori harian anda untuk membimbing anda.",
       "yourGoal": "Sasaran Anda",
       "goal": "Sasaran",
       "dailyCalories": "Kalori harian (kcal)",
@@ -169,8 +169,8 @@
       "intake": "Pengambilan",
       "burned": "Dibakar",
       "weightImpact": "Kesan Berat",
-      "estLoss": "Angg. turun sebanyak",
-      "estGain": "Angg. naik sebanyak",
+      "estLoss": "Anggaran kehilangan",
+      "estGain": "Anggaran penambahan",
       "kcal": "kcal"
     },
     "dailySummary": {
@@ -184,44 +184,44 @@
       "chartAccessibilityLabel": "Carta makro"
     },
     "intakeProgress": {
-      "title": "Bahagian Makro Hari Ini",
+      "title": "Pembahagian Makro Hari Ini",
       "target": "Sasaran",
       "current": "Semasa"
     },
     "intakeHistory": {
       "title": "Sejarah Makro 7 Hari",
-      "trendTitle": "Aliran Hari Ini",
-      "peakHour": "Puncak: {hour}:00",
+      "trendTitle": "Trend Hari Ini",
+      "peakHour": "Kemuncak: {hour}:00",
       "noHistoryYet": "Tiada sejarah lagi",
-      "startLogging": "Mula mencatat hidangan untuk melihat\naliran makro 7 hari anda di sini"
+      "startLogging": "Mula log hidangan untuk melihat\ntrend makro 7 hari anda di sini"
     },
     "mealLog": {
-      "title": "Hidangan Dicatat",
-      "emptyMessage": "Ambil gambar hidangan terakhir anda untuk catat di sini.",
-      "noMealsToday": "Tiada hidangan direkodkan untuk hari ini",
+      "title": "Hidangan Direkod",
+      "emptyMessage": "Snap gambar hidangan terakhir anda untuk direkod di sini.",
+      "noMealsToday": "Tiada hidangan direkod untuk hari ini",
       "seeAllMeals": "Lihat semua hidangan"
     },
     "mealDescription": {
       "title": "Tambah Pantas dengan AI",
-      "description": "Huraikan hidangan anda, dan biarkan AI uruskan butirannya.",
-      "hint": "cth. Untuk sarapan saya makan semangkuk besar oat dengan sebiji pisang dihiris dan sesenduk whey ...",
+      "description": "Huraikan hidangan anda, dan biarkan AI menguruskan butirannya.",
+      "hint": "cth. untuk sarapan saya makan semangkuk besar oat dengan sebiji pisang dihiris dan satu scoop whey ...",
       "analyzeMeal": "Analisis hidangan"
     },
     "favoriteMeals": {
       "title": "Hidangan Kegemaran",
       "description": "Tambah salah satu hidangan kegemaran anda dengan pantas.",
       "noFavorites": "Tiada hidangan kegemaran lagi.",
-      "addFavoriteHint": "Klik bintang pada hidangan untuk menandakan sebagai kegemaran.",
+      "addFavoriteHint": "Klik bintang pada hidangan untuk tandakan sebagai kegemaran.",
       "seeAll": "Lihat semua",
       "add": "Tambah"
     },
     "mealSnap": {
-      "title": "Ambil & Jejak Hidangan Anda",
-      "description": "Gunakan kamera untuk mengambil gambar makanan anda untuk analisis AI.",
+      "title": "Snap & Jejak Hidangan Anda",
+      "description": "Gunakan kamera anda untuk mengambil gambar makanan untuk analisis AI.",
       "openCamera": "Buka Kamera",
       "gallery": "Galeri",
       "compressingPhoto": "Mengoptimumkan foto…",
-      "uploadingPhoto": "Memuat naik foto…"
+      "uploadingPhoto": "Muat naik foto…"
     },
     "connectHealth": {
       "title": "Segerakkan dengan Health Connect",
@@ -231,24 +231,24 @@
     }
   },
   "history": {
-    "noMeals": "Tiada hidangan direkodkan",
-    "emptyMessage": "Ambil gambar hidangan terakhir anda untuk catat di sini.",
+    "noMeals": "Tiada hidangan direkod",
+    "emptyMessage": "Snap gambar hidangan terakhir anda untuk direkod di sini.",
     "today": "Hari ini",
     "yesterday": "Semalam"
   },
   "meal": {
     "ohNo": "Aduh!",
     "delete": "Padam",
-    "editMeal": "Edit Hidangan",
+    "editMeal": "Sunting Hidangan",
     "addMeal": "Tambah Hidangan",
     "saveMeal": "Simpan Hidangan",
     "save": "Simpan",
     "mealName": "Nama Hidangan",
-    "mealNameHint": "cth., Telur Hancur dengan roti bakar",
+    "mealNameHint": "cth., Telur Dadar dengan roti bakar",
     "mealQuantity": "Kuantiti Hidangan",
     "mealQuantityHint": "cth., 1 mangkuk, 2 keping",
-    "timeOfMeal": "Waktu Hidangan",
-    "timeOfMealHint": "Pilih waktu anda menikmati hidangan",
+    "timeOfMeal": "Masa Hidangan",
+    "timeOfMealHint": "Pilih masa anda makan hidangan",
     "mealType": "Jenis Hidangan",
     "nutrition": {
       "calories": "Kalori",
@@ -259,7 +259,7 @@
     },
     "deleteConfirmation": {
       "title": "Padam Hidangan",
-      "message": "Adakah anda pasti mahu memadam entri hidangan ini?",
+      "message": "Anda pasti mahu memadam entri hidangan ini?",
       "cancel": "Batal",
       "delete": "Padam"
     },
@@ -268,9 +268,9 @@
     "savedSuccessfully": "Hidangan berjaya ditambah!",
     "updatedSuccessfully": "Hidangan berjaya dikemas kini!",
     "errorSaving": "Ralat menyimpan hidangan: {error}",
-    "removedFromFavorites": "Dikeluarkan daripada kegemaran!",
+    "removedFromFavorites": "Dikeluarkan dari kegemaran!",
     "savedAsFavorite": "Hidangan disimpan sebagai kegemaran!",
-    "unfavorite": "Nyahkegemaran",
+    "unfavorite": "Buang Kegemaran",
     "couldNotUpdateFavorite": "Tidak dapat mengemas kini kegemaran: {error}",
     "feedbackThanks": "Terima kasih atas maklum balas!",
     "reanalysisUpdated": "Analisis hidangan dikemas kini berdasarkan maklum balas anda.",
@@ -280,50 +280,50 @@
     "failedToSave": "Gagal menyimpan data. Sila cuba lagi.",
     "skip": "Langkau",
     "questionFlow": {
-      "progress": "Soalan {current} daripada {total}",
+      "progress": "Soalan {current} dari {total}",
       "noQuestionsAvailable": "Tiada soalan tersedia",
       "next": "Seterusnya",
       "continueLabel": "Teruskan"
     },
     "analysis": {
-      "title": "Analisis hidangan AI",
-      "stepStarted": "Memulakan…",
+      "title": "Menganalisis hidangan anda",
+      "stepStarted": "Bermula…",
       "stepDecomposition": "Memahami hidangan anda…",
       "stepIngredients": "Memadankan bahan dengan data pemakanan…",
       "stepUncertainty": "Menyemak keyakinan…",
       "stepMealTypeQuestion": "Hampir siap…",
-      "stepResult": "Memuktamadkan keputusan…",
-      "stepError": "Sesuatu telah berlaku",
+      "stepResult": "Memfinalkan keputusan anda…",
+      "stepError": "Ada yang tidak kena",
       "stepDefault": "Menganalisis hidangan anda…",
-      "progressUnderstand": "Faham",
-      "progressMatch": "Padan",
-      "progressCheck": "Semak",
+      "progressUnderstand": "Memahami hidangan anda",
+      "progressMatch": "Mencari nutrisi bahan",
+      "progressCheck": "Menyemak bahagian dan keyakinan",
       "progressMealType": "Memilih jenis hidangan",
-      "progressFinish": "Selesai",
-      "detectedIngredientHeading": "Bahan yang kami kesan",
+      "progressFinish": "Mengira kalori dan makro",
+      "detectedIngredientHeading": "Bahan yang kami kenal pasti",
       "ingredientsOverflow": "{count} lagi",
       "ingredientsLine": "{count} bahan dikesan",
       "ingredientsPending": "Mengimbas bahan…",
       "mealPreviewDescription": "\"{text}\"",
-      "offlineTip0": "Tip: Consistency beats perfection—regular logs reveal the patterns that matter.",
-      "offlineTip1": "Tip: For photos, natural light and a top-down view help with portion accuracy.",
-      "offlineTip2": "Tip: Mention drinks, sauces, and cooking oil—they add calories people often forget.",
-      "offlineTip3": "Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.",
-      "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
-      "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
+      "offlineTip0": "Tip: Konsistensi lebih penting daripada kesempurnaan—log secara tetap mendedahkan corak yang bermakna.",
+      "offlineTip1": "Tip: Untuk foto, cahaya semula jadi dan pandangan dari atas membantu ketepatan bahagian.",
+      "offlineTip2": "Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.",
+      "offlineTip3": "Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.",
+      "offlineTip4": "Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.",
+      "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar)."
     },
     "feedback": {
       "title": "Apa yang kelihatan salah?",
-      "subtitle": "Bantu kami menambah baik analisis dengan memilih satu atau lebih isu.",
+      "subtitle": "Bantu kami memperbaiki analisis dengan memilih satu atau lebih isu.",
       "tellUsMore": "Beritahu kami lebih lanjut",
-      "describeIncorrect": "Terangkan apa yang tidak betul",
+      "describeIncorrect": "Huraikan apa yang tidak tepat",
       "submit": "Hantar",
-      "issueFoodIdentification": "Pengenalan makanan",
-      "issuePortionSize": "Saiz hidangan",
-      "issueCalorieDistribution": "Taburan kalori",
+      "issueFoodIdentification": "Pengenalpastian makanan",
+      "issuePortionSize": "Saiz bahagian",
+      "issueCalorieDistribution": "Pengagihan kalori",
       "issueMacrosWrong": "Makro salah",
-      "issueMissingItems": "Item yang hilang",
-      "issueExtraItems": "Item tambahan",
+      "issueMissingItems": "Barang hilang",
+      "issueExtraItems": "Barang tambahan",
       "issueOther": "Lain-lain"
     }
   },
@@ -331,11 +331,11 @@
     "title": "Kegemaran",
     "empty": "Tiada hidangan kegemaran lagi.",
     "searchPlaceholder": "Cari hidangan kegemaran",
-    "searchEmptyTitle": "Tiada kegemaran sepadan dengan carian anda",
-    "searchEmptySubtitle": "Cuba nama hidangan, kuantiti, atau jenis hidangan yang berbeza.",
-    "sortLabel": "Isih kegemaran",
-    "undo": "Buat asal",
-    "removed": "Telah mengalih {name} daripada kegemaran",
+    "searchEmptyTitle": "Tiada kegemaran sepadan carian anda",
+    "searchEmptySubtitle": "Cuba nama hidangan, kuantiti, atau jenis hidangan lain.",
+    "sortLabel": "Susun kegemaran",
+    "undo": "Batal",
+    "removed": "Telah mengeluarkan {name} dari kegemaran",
     "sortOptions": {
       "recent": "Terkini",
       "calories": "Kalori",
@@ -350,17 +350,17 @@
     "sections": {
       "profile": "PROFIL",
       "basicInformation": "MAKLUMAT ASAS",
-      "goalsAndActivity": "MATLAMAT & AKTIVITI",
+      "goalsAndActivity": "SASARAN & AKTIVITI",
       "calculatedValues": "NILAI DIKIRA"
     },
     "gender": "Jantina",
-    "height": "Ketinggian",
+    "height": "Tinggi",
     "weight": "Berat",
     "age": "Umur",
     "weightGoal": "Matlamat Berat",
     "targetWeight": "Berat Sasaran",
     "activityLevel": "Tahap Aktiviti",
-    "healthMetrics": "Metrik Kesihatan",
+    "healthMetrics": "Metik Kesihatan",
     "notSet": "Belum ditetapkan",
     "years": "tahun",
     "updatedSuccessfully": "Profil berjaya dikemas kini!",
@@ -368,28 +368,28 @@
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "Sasaran Harian",
-      "calPerDay": "kal/hari",
-      "notAvailable": "N/A"
+      "calPerDay": "cal/hari",
+      "notAvailable": "T/T"
     }
   },
   "healthScore": {
     "title": "Skor Kesihatan",
-    "whyThisScore": "Mengapa skor ini?",
-    "note": "Skor ini ialah anggaran AI berdasarkan bahan yang dikenal pasti dan kepadatan nutrisi. Sentiasa rujuk pakar untuk nasihat pemakanan.",
+    "whyThisScore": "Kenapa skor ini?",
+    "note": "Skor ini adalah anggaran AI berdasarkan bahan yang dikenalpasti dan kepadatan nutrisi. Sentiasa rujuk profesional untuk nasihat pemakanan peribadi.",
     "unhealthy": "Tidak sihat",
     "healthy": "Sihat",
     "neutral": "Neutral"
   },
   "editProfile": {
-    "title": "Edit Profil",
+    "title": "Sunting Profil",
     "sections": {
       "personalInformation": "MAKLUMAT PERIBADI",
       "physicalMeasurements": "UKURAN FIZIKAL",
-      "goalsAndActivity": "MATLAMAT & AKTIVITI"
+      "goalsAndActivity": "SASARAN & AKTIVITI"
     },
     "gender": "Jantina",
     "dateOfBirth": "Tarikh Lahir",
-    "height": "Ketinggian",
+    "height": "Tinggi",
     "weight": "Berat",
     "weightGoal": "Matlamat Berat",
     "activityLevel": "Tahap Aktiviti",
@@ -410,25 +410,25 @@
     },
     "weightGoals": {
       "loseWeight": {
-        "name": "Turun Berat",
-        "description": "Wujudkan defisit kalori untuk menurunkan berat"
+        "name": "Turunkan Berat",
+        "description": "Cipta defisit kalori untuk menurunkan berat"
       },
       "maintainWeight": {
         "name": "Kekalkan Berat",
         "description": "Kekalkan berat semasa anda"
       },
       "gainWeight": {
-        "name": "Naik Berat",
-        "description": "Wujudkan lebihan kalori untuk menambah berat"
+        "name": "Tambah Berat",
+        "description": "Cipta lebihan kalori untuk menambah berat"
       }
     },
     "activityLevels": {
       "sedentary": {
-        "name": "Sedentari",
+        "name": "Tidak Aktif",
         "description": "Sedikit atau tiada senaman"
       },
       "lightlyActive": {
-        "name": "Sedikit Aktif",
+        "name": "Kurang Aktif",
         "description": "Senaman ringan 1-3 hari/minggu"
       },
       "moderatelyActive": {
@@ -441,7 +441,7 @@
       },
       "extremelyActive": {
         "name": "Amat Aktif",
-        "description": "Senaman sangat berat, kerja fizikal"
+        "description": "Senaman sangat berat atau kerja fizikal"
       }
     }
   },
@@ -449,33 +449,33 @@
     "title": "Tetapan",
     "sections": {
       "profile": "PROFIL",
-      "localization": "PENYETEMPATAN",
+      "localization": "PENENTUAN LOKAL",
       "notifications": "PEMBERITAHUAN",
       "healthConnect": "HEALTH CONNECT",
-      "supportAndLegal": "SOKONGAN & PERUNDANGAN",
-      "about": "PERIHAL",
-      "dangerZone": "ZON BAHAYA",
+      "supportAndLegal": "SOKONGAN & UNDANG-UNDANG",
+      "about": "TENTANG",
+      "dangerZone": "ZON BERISIKO",
       "developer": "PEMBANGUN"
     },
     "editProfile": {
-      "title": "Edit Profil",
+      "title": "Sunting Profil",
       "subtitle": "Kemas kini maklumat peribadi anda"
     },
     "language": {
       "title": "Bahasa",
       "subtitle": "Pilih bahasa pilihan anda",
       "searchHint": "Cari bahasa...",
-      "noResults": "Tiada hasil ditemui"
+      "noResults": "Tiada keputusan ditemui"
     },
     "heightUnit": {
-      "title": "Unit Ketinggian"
+      "title": "Unit Tinggi"
     },
     "weightUnit": {
       "title": "Unit Berat"
     },
     "mealReminders": {
       "title": "Peringatan Hidangan",
-      "subtitle": "Kekal di landasan dengan isyarat tepat pada masanya"
+      "subtitle": "Kekal pada landasan dengan amaran tepat pada masanya"
     },
     "theme": {
       "title": "Tema",
@@ -485,30 +485,30 @@
     },
     "sendFeedback": {
       "title": "Hantar Maklum Balas",
-      "subtitle": "Bantu kami menambah baik {appLabel}",
-      "emailSubject": "Maklum Balas Aplikasi {appLabel}",
-      "emailBodyPrefix": "Sila berikan maklum balas anda di bawah:",
-      "appVersion": "Versi Aplikasi",
+      "subtitle": "Bantu kami memperbaiki {appLabel}",
+      "emailSubject": "{appLabel} Maklum Balas Aplikasi",
+      "emailBodyPrefix": "Sila nyatakan maklum balas anda di bawah:",
+      "appVersion": "Versi App",
       "device": "Peranti",
       "osVersion": "Versi OS",
       "uid": "UID"
     },
     "exportMealHistory": {
       "title": "Eksport Sejarah Hidangan",
-      "subtitle": "Kongsi CSV hidangan yang anda catat",
+      "subtitle": "Kongsi CSV hidangan yang anda log",
       "shareText": "Eksport sejarah hidangan Calorify anda",
       "failed": "Tidak dapat mengeksport sejarah hidangan: {error}"
     },
     "clearAllData": {
-      "title": "Padam Semua Data",
-      "subtitle": "Padam semua maklumat anda secara kekal",
-      "confirmationTitle": "Padam Semua Data?",
-      "confirmationMessage": "Tindakan ini tidak boleh dibuat asal. Semua hidangan, kegemaran, dan tetapan profil anda akan dipadam secara kekal.",
+      "title": "Kosongkan Semua Data",
+      "subtitle": "Padam semua maklumat anda secara tidak boleh dipulihkan",
+      "confirmationTitle": "Kosongkan Semua Data?",
+      "confirmationMessage": "Tindakan ini tidak boleh dibatalkan. Semua hidangan yang anda log, kegemaran, dan tetapan profil akan dipadamkan secara kekal.",
       "cancel": "Batal",
       "clearEverything": "Padam Semua"
     },
     "debugOptions": {
-      "title": "Pilihan Nyahpepijat"
+      "title": "Pilihan Debug"
     },
     "developerModeEnabled": "Mod pembangun diaktifkan!",
     "healthConnect": {
@@ -521,58 +521,58 @@
       "permissions": {
         "title": "Kebenaran",
         "description": "Kebenaran berikut diminta untuk menyediakan integrasi Health Connect:",
-        "granted": "Diberikan",
-        "notGranted": "Tidak Diberikan",
+        "granted": "Diberi",
+        "notGranted": "Belum Diberi",
         "caloriesBurned": {
           "title": "Baca Jumlah Kalori Dibakar",
-          "description": "Membolehkan aplikasi membaca jumlah kalori dibakar anda daripada Health Connect.",
-          "usage": "Kebenaran ini digunakan untuk memaparkan kalori baka harian anda dalam aplikasi, membantu anda memahami perbelanjaan tenaga sepanjang hari."
+          "description": "Membenarkan aplikasi membaca jumlah kalori anda yang dibakar dari Health Connect.",
+          "usage": "Kebenaran ini digunakan untuk memaparkan pembakaran kalori harian anda dalam aplikasi, membantu anda memahami perbelanjaan tenaga keseluruhan anda sepanjang hari."
         },
         "nutritionRead": {
           "title": "Baca Data Pemakanan",
-          "description": "Membolehkan aplikasi membaca data pemakanan daripada Health Connect.",
-          "usage": "Kebenaran ini membolehkan aplikasi membaca maklumat pemakanan yang mungkin telah dicatat oleh aplikasi lain yang disambungkan ke Health Connect, menyediakan pandangan menyeluruh tentang pemakanan anda."
+          "description": "Membenarkan aplikasi membaca data pemakanan dari Health Connect.",
+          "usage": "Kebenaran ini membolehkan aplikasi membaca maklumat pemakanan yang mungkin telah direkod oleh aplikasi lain yang disambungkan ke Health Connect, memberikan gambaran menyeluruh tentang pemakanan anda."
         },
         "nutritionWrite": {
           "title": "Tulis Data Pemakanan",
-          "description": "Membolehkan aplikasi menulis data pemakanan ke Health Connect.",
-          "usage": "Kebenaran ini membolehkan aplikasi menyegerakkan hidangan yang anda catat ke Health Connect, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan."
+          "description": "Membenarkan aplikasi menulis data pemakanan ke Health Connect.",
+          "usage": "Kebenaran ini membolehkan aplikasi menyegerakkan hidangan yang anda log ke Health Connect, menjadikan data pemakanan anda tersedia kepada aplikasi kesihatan dan kecergasan lain yang anda gunakan."
         }
       },
       "managePermissions": "Urus Kebenaran",
       "openSettings": "Buka Tetapan Health Connect",
       "requestPermissions": "Minta Kebenaran",
-      "permissionRequestCancelledOrFailed": "Permintaan kebenaran telah dibatalkan atau gagal. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.",
-      "permissionRequestFailed": "Tidak dapat meminta kebenaran. Sila cuba lagi atau berikan kebenaran secara manual dalam tetapan Health Connect.",
+      "permissionRequestCancelledOrFailed": "Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau beri kebenaran secara manual di tetapan Health Connect.",
+      "permissionRequestFailed": "Tidak dapat meminta kebenaran. Sila cuba lagi atau beri kebenaran secara manual di tetapan Health Connect.",
       "requestingPermissions": "Meminta..."
     },
     "about": {
-      "title": "Perihal",
-      "tagline": "Kesedaran kalori yang pantas, percuma, dan mengutamakan privasi",
+      "title": "Tentang",
+      "tagline": "Cepat, percuma, dan mengutamakan privasi untuk kesedaran kalori",
       "ourStory": {
         "title": "Kisah Kami",
-        "content": "{appLabel} lahir daripada satu kekecewaan mudah: kebanyakan aplikasi penjejakan kalori sama ada terlalu rumit, memerlukan input manual yang berterusan, mengenakan yuran langganan tinggi, atau mengabaikan privasi.\n\nSebagai pembangun tunggal, saya ingin membina sesuatu yang lebih ringkas dan adil — aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma digunakan, serta menghormati data kesihatan anda.\n\n{appLabel} ialah aplikasi yang saya harapkan wujud: tiada akaun, tiada penjejakan, tiada iklan — hanya cerapan yang jelas dan praktikal serta matlamat kesihatan anda."
+        "content": "{appLabel} lahir daripada kekecewaan ringkas: kebanyakan aplikasi pengesanan kalori terlalu rumit, memerlukan input manual berterusan, mengenakan yuran langganan tinggi, atau mengkompromi privasi.\n\nSebagai pembangun solo, saya mahu membina sesuatu yang lebih ringkas dan adil — sebuah aplikasi yang menggunakan AI untuk mengurangkan usaha, kekal pantas dan percuma untuk digunakan, serta menghormati data kesihatan anda.\n\n{appLabel} ialah aplikasi yang saya harap wujud: tiada akaun, tiada penjejakan, tiada iklan — cuma wawasan yang jelas dan praktikal serta matlamat kesihatan anda."
       },
       "privacy": {
         "title": "Privasi Anda Penting",
-        "description": "Privasi bukan sekadar selepas fikir — ia adalah prinsip reka bentuk. Inilah maksudnya dalam amalan:",
+        "description": "Privasi bukan selepas-fikir — ia adalah prinsip reka bentuk. Ini maksudnya dalam amalan:",
         "noAccounts": "Tiada akaun diperlukan\nGunakan aplikasi serta-merta. Tiada pendaftaran, tiada identiti.",
-        "noTracking": "Tiada penjejakan tingkah laku\n{appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda merentas aplikasi atau laman web.",
-        "noAds": "Tanpa iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau pengewangan berasaskan data.",
+        "noTracking": "Tiada penjejakan tingkah laku\n{appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda merentasi aplikasi atau laman web.",
+        "noAds": "Tiada iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau pemanfaatkan data.",
         "noDataSelling": "Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.",
-        "localStorage": "Penyimpanan setempat\nData anda kekal pada peranti anda.",
+        "localStorage": "Penyimpanan bermula-lokal\nData anda kekal pada peranti anda.",
         "privacyPolicy": "Dasar Privasi"
       },
       "developer": {
-        "title": "Dibina oleh Pembangun Tunggal",
-        "description": "{appLabel} dibina dan diselenggara oleh seorang pembangun tunggal yang fokus mencipta perisian kesihatan yang tenang dan menghormati privasi.\n\nMaklum balas dibaca secara peribadi dan membantu membentuk hala tuju aplikasi.",
-        "website": "Laman web",
+        "title": "Dibina oleh Pembangun Solo",
+        "description": "{appLabel} dibina dan diselenggara oleh seorang pembangun solo yang memberi tumpuan kepada mencipta perisian kesihatan yang tenang dan menghormati privasi.\n\nMaklum balas dibaca secara peribadi dan membantu membentuk hala tuju aplikasi.",
+        "website": "Laman Web",
         "email": "E-mel"
       },
       "feedback": {
         "title": "Menikmati {appLabel}?",
         "description": "Maklum balas anda membantu menjadikan {appLabel} lebih baik untuk semua.",
-        "rateApp": "Nilaikan di Play Store",
+        "rateApp": "Beri penilaian di Play Store",
         "sendFeedback": "Hantar Maklum Balas"
       }
     },
@@ -582,43 +582,43 @@
     }
   },
   "reminders": {
-    "title": "Kekal di landasan dengan peringatan",
-    "description": "Terima peringatan lembut untuk mencatat hidangan dan kekal konsisten dengan matlamat pemakanan anda",
-    "notificationsEnabled": "Pemberitahuan Didayakan",
-    "notificationsDisabled": "Pemberitahuan Dimatikan",
+    "title": "Kekal pada landasan dengan peringatan",
+    "description": "Dapatkan peringatan lembut untuk log hidangan anda dan kekal konsisten dengan matlamat pemakanan anda",
+    "notificationsEnabled": "Pemberitahuan Diaktifkan",
+    "notificationsDisabled": "Pemberitahuan Dinonaktifkan",
     "enabledSubtitle": "Anda akan menerima peringatan hidangan",
-    "disabledSubtitle": "Dayakan pemberitahuan untuk mendapatkan peringatan hidangan",
+    "disabledSubtitle": "Aktifkan pemberitahuan untuk mendapatkan peringatan hidangan",
     "mealReminders": "Peringatan Hidangan",
     "breakfast": "Sarapan",
     "lunch": "Makan Tengah Hari",
     "dinner": "Makan Malam",
     "snack": "Snek",
-    "unknown": "Tidak diketahui",
+    "unknown": "Tidak Diketahui",
     "change": "Tukar",
-    "enableNotifications": "Dayakan Pemberitahuan",
+    "enableNotifications": "Aktifkan Pemberitahuan",
     "skipForNow": "Langkau buat masa ini",
     "saveChanges": "Simpan Perubahan",
-    "enabledSuccessfully": "Pemberitahuan berjaya didayakan!",
-    "permissionDenied": "Kebenaran pemberitahuan dinafikan",
-    "errorEnabling": "Ralat mendayakan pemberitahuan: {error}",
-    "errorCompletingSetup": "Ralat menyiapkan tetapan: {error}"
+    "enabledSuccessfully": "Pemberitahuan berjaya diaktifkan!",
+    "permissionDenied": "Kebenaran pemberitahuan ditolak",
+    "errorEnabling": "Ralat mengaktifkan pemberitahuan: {error}",
+    "errorCompletingSetup": "Ralat melengkapkan persediaan: {error}"
   },
   "notifications": {
     "breakfast": {
       "title": "Masa Sarapan! 🍳",
-      "body": "Jangan lupa catat sarapan anda"
+      "body": "Jangan lupa log sarapan anda"
     },
     "lunch": {
       "title": "Masa Makan Tengah Hari! 🥗",
-      "body": "Masa untuk catat makan tengah hari anda"
+      "body": "Masa untuk log makan tengah hari anda"
     },
     "dinner": {
       "title": "Masa Makan Malam! 🍽️",
-      "body": "Jangan lupa catat makan malam anda"
+      "body": "Jangan lupa log makan malam anda"
     },
     "snack": {
       "title": "Masa Snek! 🍎",
-      "body": "Masa untuk snek yang sihat"
+      "body": "Masa untuk snek sihat"
     },
     "test": {
       "title": "Pemberitahuan Ujian"
@@ -627,74 +627,74 @@
   "login": {
     "title": "Log Masuk",
     "signInWithGoogle": "Log masuk dengan Google",
-    "signInFailed": "Log masuk Google gagal atau dibatalkan."
+    "signInFailed": "Log Masuk Google gagal atau dibatalkan."
   },
   "disclaimer": {
-    "pleaseNote": "Harap Maklum",
+    "pleaseNote": "Sila Maklum",
     "snap": {
-      "description": "{appLabel} menyediakan maklumat pemakanan anggaran. Ketepatan bergantung pada input anda & variasi makanan. Gunakan sebagai panduan, bukan sumber muktamad. Rujuk pakar untuk nasihat pemakanan yang diperibadikan.",
+      "description": "{appLabel} menyediakan maklumat pemakanan anggaran. Ketepatan bergantung pada input anda & variasi makanan. Gunakan sebagai panduan, bukan sumber muktamad. Rujuk profesional untuk nasihat pemakanan peribadi.",
       "portionSize": {
-        "title": "Saiz Hidangan",
-        "description": "Ketepatan anggaran sangat bergantung pada penilaian saiz hidangan anda yang betul."
+        "title": "Saiz Bahagian",
+        "description": "Ketepatan anggaran bergantung kuat pada penilaian saiz bahagian yang betul oleh anda."
       },
       "preparationMethods": {
         "title": "Kaedah Penyediaan",
-        "description": "Kaedah memasak boleh mengubah kandungan nutrisi dengan ketara. Anggaran {appLabel} mungkin tidak sentiasa mengambil kira variasi ini."
+        "description": "Kaedah memasak boleh mengubah kandungan pemakanan makanan dengan ketara. Anggaran {appLabel} mungkin tidak sentiasa mengambil kira variasi ini."
       },
       "ingredients": {
-        "title": "Bahan-bahan",
-        "description": "Hidangan kompleks dengan banyak bahan tersembunyi mungkin membawa kepada anggaran yang kurang tepat."
+        "title": "Bahan",
+        "description": "Hidangan kompleks dengan banyak bahan tersembunyi mungkin menghasilkan anggaran kurang tepat."
       },
       "databaseLimitations": {
         "title": "Had Pangkalan Data",
-        "description": "Pangkalan data makanan {appLabel} adalah meluas tetapi mungkin tidak merangkumi setiap item atau variasi makanan."
+        "description": "Pangkalan data makanan {appLabel} luas tetapi mungkin tidak mengandungi setiap item makanan atau variasinya."
       }
     },
     "weightEstimate": {
-      "title": "Tentang Anggaran Berat",
-      "description": "Perubahan berat yang diunjurkan adalah anggaran teori berdasarkan model kalori masuk vs. kalori keluar. Ia bertujuan untuk panduan motivasi sahaja, bukan ramalan berat sebenar anda.",
+      "title": "Mengenai Anggaran Berat",
+      "description": "Perubahan berat yang dijangka adalah anggaran teoretikal berdasarkan model kalori masuk vs keluar yang mudah. Ia bertujuan sebagai panduan motivasi sahaja, bukan ramalan berat sebenar anda.",
       "calorieAccuracy": {
         "title": "Ketepatan Kalori",
-        "description": "Anggaran ini hanya seakurat pengambilan dan perbelanjaan kalori yang anda jejak. Catatan yang tidak tepat akan menghasilkan unjuran yang tidak tepat."
+        "description": "Anggaran ini hanya setepat pengambilan dan perbelanjaan kalori yang anda log. Pencatatan tidak tepat akan menghasilkan unjuran yang tidak tepat."
       },
       "biologicalFactors": {
         "title": "Faktor Biologi",
-        "description": "Penurunan/peningkatan berat sebenar dipengaruhi oleh metabolisme, hormon, tidur, stres, hidrasi, dan faktor individu lain yang tidak dapat diukur oleh {appLabel}."
+        "description": "Kehilangan/penambahan berat sebenar dipengaruhi oleh metabolisme, hormon, tidur, tekanan, hidrasi, dan faktor individu lain yang {appLabel} tidak dapat ukur."
       },
       "waterWeight": {
-        "title": "Berat Air & Turun Naik",
-        "description": "Berat harian normal boleh turun naik dengan ketara disebabkan pengekalan air, pencernaan, dan masa. Anggaran ini tidak mengambil kira perubahan harian tersebut."
+        "title": "Berat Air & Fluktuasi",
+        "description": "Berat harian normal boleh berfluktuasi dengan ketara disebabkan penahanan air, pencernaan, dan masa. Anggaran tidak mengambil kira perubahan harian ini."
       },
       "professionalGuidance": {
         "title": "Panduan Profesional",
-        "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa rujuk profesional kesihatan atau pakar diet bertauliah untuk nasihat pengurusan berat peribadi."
+        "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa rujuk profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat peribadi."
       }
     },
     "healthMetrics": {
-      "description": "Metrik ini membantu anda memahami keperluan tenaga badan anda dan membimbing matlamat pemakanan anda.",
+      "description": "Metik ini membantu anda memahami keperluan tenaga badan anda dan membimbing sasaran pemakanan anda.",
       "bmr": {
         "title": "BMR",
-        "description": "Kadar Metabolisme Basal (BMR) ialah jumlah kalori yang dibakar oleh badan anda ketika rehat untuk mengekalkan fungsi asas seperti pernafasan dan peredaran darah. BMR bergantung pada umur, jantina, ketinggian dan berat badan anda. BMR yang lebih tinggi bermakna badan anda secara semula jadi membakar lebih banyak kalori ketika rehat, selalunya disebabkan oleh lebih banyak jisim otot, umur yang lebih muda, atau menjadi lelaki. BMR yang lebih rendah biasanya menunjukkan jisim otot yang kurang, umur yang lebih tua, atau menjadi wanita."
+        "description": "Basal Metabolic Rate (BMR) ialah jumlah kalori yang badan anda bakar ketika berehat untuk mengekalkan fungsi asas seperti bernafas dan peredaran. BMR bergantung pada umur, jantina, tinggi, dan berat anda. BMR lebih tinggi bermaksud badan anda secara semula jadi membakar lebih banyak kalori ketika berehat, sering kerana lebih banyak jisim otot, usia lebih muda, atau jantina lelaki. BMR lebih rendah biasanya menunjukkan jisim otot berkurang, usia lebih tua, atau jantina perempuan."
       },
       "tdee": {
         "title": "TDEE",
-        "description": "Jumlah Perbelanjaan Tenaga Harian (TDEE) ialah jumlah kalori yang anda bakar setiap hari, termasuk BMR anda serta kalori daripada aktiviti fizikal dan pergerakan harian. TDEE bergantung pada BMR dan tahap aktiviti anda. TDEE yang lebih tinggi bermakna anda membakar lebih banyak kalori secara keseluruhan, biasanya kerana lebih aktif atau mempunyai BMR yang lebih tinggi. TDEE yang lebih rendah menunjukkan aktiviti harian yang kurang atau BMR yang lebih rendah."
+        "description": "Total Daily Energy Expenditure (TDEE) ialah jumlah kalori yang anda bakar sehari, termasuk BMR anda ditambah kalori dari aktiviti fizikal dan pergerakan harian. TDEE bergantung pada BMR dan tahap aktiviti anda. TDEE lebih tinggi bermaksud anda membakar lebih banyak kalori keseluruhan, biasanya kerana lebih aktif atau mempunyai BMR lebih tinggi. TDEE lebih rendah menunjukkan aktiviti harian kurang atau BMR lebih rendah."
       },
       "dailyGoal": {
-        "title": "Matlamat Harian",
-        "description": "Matlamat Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat badan anda. Untuk penurunan berat badan, pengambilan kalori anda adalah kurang daripada TDEE anda. Untuk pengekalan berat badan, ia sepadan dengan TDEE anda. Untuk penambahan berat badan, pengambilan kalori anda melebihi TDEE anda. Ini membantu anda mencapai perubahan berat badan yang diingini pada kadar yang sihat."
+        "title": "Sasaran Harian",
+        "description": "Sasaran Harian ialah pengambilan kalori harian yang disyorkan berdasarkan TDEE dan matlamat berat anda. Untuk penurunan berat, anda mengambil lebih sedikit kalori daripada TDEE anda. Untuk mengekalkan berat, anda menyamai TDEE anda. Untuk penambahan berat, anda mengambil lebih banyak kalori daripada TDEE anda. Ini membantu anda mencapai perubahan berat yang diingini pada kadar sihat."
       }
     },
     "calorieExpenditure": {
-      "title": "Anggaran Perbelanjaan Kalori",
-      "description": "Apabila data Health Connect tidak tersedia, kami menganggar kalori yang dibakar hari ini menggunakan Kadar Metabolisme Basal (BMR) dan tahap aktiviti anda (TDEE), diskalakan mengikut bahagian hari yang telah berlalu.",
+      "title": "Anggaran Pembakaran Kalori",
+      "description": "Apabila data Health Connect tidak tersedia, kami menganggarkan kalori yang dibakar hari ini menggunakan BMR dan tahap aktiviti (TDEE), diselaraskan mengikut bahagian hari yang telah berlalu.",
       "howCalculated": {
-        "title": "Bagaimana Anggaran Ini Dikira",
-        "description": "Kami mengira TDEE anda (berdasarkan profil anda) dan mendarabkannya dengan pecahan hari yang telah berlalu (jam + minit) / 24 untuk menganggar kalori yang telah dibakar setakat ini."
+        "title": "Bagaimana Anggaran Dikira",
+        "description": "Kami mengira TDEE anda (berdasarkan profil anda) dan mendarabkannya dengan pecahan hari yang telah berlalu (jam + minit) / 24 untuk menganggarkan kalori yang dibakar setakat ini."
       },
       "professionalGuidance": {
         "title": "Panduan Profesional",
-        "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa berunding dengan profesional penjagaan kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat badan yang diperibadikan."
+        "description": "Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa rujuk profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat peribadi."
       }
     }
   },
@@ -706,21 +706,21 @@
     "enjoyingQuestion": "Menikmati {appLabel}?",
     "yes": "Ya, saya menikmatinya",
     "no": "Tidak begitu",
-    "rateStepHeading": "Nilaikan di Play Store",
+    "rateStepHeading": "Beri penilaian di Play Store",
     "emailStepHeading": "Hantar maklum balas melalui e-mel",
-    "soloDevMessage": "Penilaian pantas membantu orang lain menemui {appLabel} dan mengekalkan pembangunan. Sudi luangkan masa untuk menilai?",
-    "shareFeedbackViaEmail": "Maklum balas anda membentuk apa yang seterusnya — kami baca setiap mesej. Mahu berkongsi pandangan melalui e-mel?",
-    "rateCta": "Nilaikan di Play Store",
+    "soloDevMessage": "Penilaian ringkas membantu orang lain menemui {appLabel} dan menyokong pembangunan. Boleh luangkan masa untuk beri satu?",
+    "shareFeedbackViaEmail": "Maklum balas anda membentuk apa yang akan datang — kami baca setiap mesej. Mahu kongsi pendapat melalui e-mel?",
+    "rateCta": "Beri penilaian di Play Store",
     "maybeLater": "Mungkin nanti",
     "sendFeedback": "Hantar maklum balas",
     "noThanks": "Tidak, terima kasih",
-    "aboutUsDescription": "Dibina dengan teliti oleh pasukan kecil. Kami fokus pada privasi, kesederhanaan, dan membantu anda membina tabiat makan yang lebih baik.",
+    "aboutUsDescription": "Dibuat dengan penuh perhatian oleh pasukan kecil. Kami memberi tumpuan pada privasi, kesederhanaan, dan membantu anda membina tabiat makan yang lebih baik.",
     "aboutUsMentionBeforeLink": "Ingin tahu siapa di sebalik {appLabel}? Lihat ",
-    "aboutUsLinkLabel": "Perihal kami",
+    "aboutUsLinkLabel": "Tentang kami",
     "thankYouMessage": "Terima kasih! Kami akan bertanya lagi pada masa lain."
   },
   "health": {
-    "syncFailed": "Tidak dapat disegerakkan ke Health Connect",
+    "syncFailed": "Tidak dapat menyegerakkan ke Health Connect",
     "mealSynced": "Hidangan disegerakkan dengan Health Connect"
   }
 }
