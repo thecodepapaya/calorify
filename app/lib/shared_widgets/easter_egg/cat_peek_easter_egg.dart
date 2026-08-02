@@ -242,7 +242,7 @@ class _PeekAnimationState extends State<_PeekAnimation>
 
         return AnimatedBuilder(
           animation: _controller,
-          builder: (context, _) {
+          builder: (context, child) {
             final t = _clampT(_controller.value);
             double phase;
             if (t < 0.28) {
@@ -256,15 +256,13 @@ class _PeekAnimationState extends State<_PeekAnimation>
             }
             final position =
                 Offset.lerp(layout.hidden, layout.revealed, _clampT(phase))!;
-            return _positionedCat(
-              position,
-              _CatImage(
-                widget.cat,
-                extent: extent,
-                rotationDegrees: layout.rotationDegrees,
-              ),
-            );
+            return _positionedCat(position, child!);
           },
+          child: _CatImage(
+            widget.cat,
+            extent: extent,
+            rotationDegrees: layout.rotationDegrees,
+          ),
         );
       },
     );
@@ -344,7 +342,6 @@ class _JumpAtYouAnimationState extends State<_JumpAtYouAnimation>
             final scale = 0.9 + 0.32 * arc;
             final rotation = 0.08 * math.sin(t * math.pi * 2);
 
-            final catWidget = _CatImage(widget.cat, extent: extent);
             return _positionedCat(
               Offset(left, dy),
               Transform.rotate(
@@ -352,11 +349,12 @@ class _JumpAtYouAnimationState extends State<_JumpAtYouAnimation>
                 child: Transform.scale(
                   scale: scale,
                   alignment: Alignment.bottomCenter,
-                  child: catWidget,
+                  child: child,
                 ),
               ),
             );
           },
+          child: _CatImage(widget.cat, extent: extent),
         );
       },
     );
@@ -462,11 +460,9 @@ class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
             }
             final x =
                 t < 0.5 ? firstLayout.revealed.dx : secondLayout.revealed.dx;
-            return _positionedCat(
-              Offset(x, y),
-              _CatImage(widget.cat, extent: extent),
-            );
+            return _positionedCat(Offset(x, y), child!);
           },
+          child: _CatImage(widget.cat, extent: extent),
         );
       },
     );

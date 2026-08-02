@@ -342,6 +342,12 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(result);
       } catch (error) {
+        if (error instanceof fastify.multipartErrors.RequestFileTooLargeError) {
+          reply.status(413).send(
+            createErrorResponse('Image is too large. Maximum upload size is 10 MiB.')
+          );
+          return;
+        }
         reply.status(500).send(
           createErrorResponse(
             error instanceof Error ? error.message : 'Failed to analyze image'

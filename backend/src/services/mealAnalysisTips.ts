@@ -13,8 +13,14 @@ const EMPTY_PAYLOAD: MealAnalysisTipsPayload = {
   locales: {},
 };
 
-type TipsCache = { filePath: string; mtimeMs: number; payload: MealAnalysisTipsPayload };
+type TipsCache = {
+  filePath: string;
+  mtimeMs: number | null;
+  checkedAtMs: number;
+  payload: MealAnalysisTipsPayload;
+};
 let cache: TipsCache | null = null;
+const TIPS_FILE_CHECK_INTERVAL_MS = 30_000;
 
 function normalizeTipsLocaleKey(key: string): string {
   return key.trim().toLowerCase().replace(/_/g, '-');
@@ -92,9 +98,20 @@ export function pickRandomTips<T>(items: readonly T[], count: number): T[] {
 
 export function loadMealAnalysisTipsPayload(): MealAnalysisTipsPayload {
   const filePath = resolveTipsFilePath();
+  const now = Date.now();
+  if (
+    cache &&
+    cache.filePath === filePath &&
+    now - cache.checkedAtMs < TIPS_FILE_CHECK_INTERVAL_MS
+  ) {
+    return cache.payload;
+  }
+
   try {
     if (!fs.existsSync(filePath)) {
-      return { ...EMPTY_PAYLOAD };
+      const payload = { ...EMPTY_PAYLOAD };
+      cache = { filePath, mtimeMs: null, checkedAtMs: now, payload };
+      return payload;
     }
     const stat = fs.statSync(filePath);
     if (
@@ -102,18 +119,21 @@ export function loadMealAnalysisTipsPayload(): MealAnalysisTipsPayload {
       cache.filePath === filePath &&
       cache.mtimeMs === stat.mtimeMs
     ) {
+      cache.checkedAtMs = now;
       return cache.payload;
     }
     const raw = fs.readFileSync(filePath, 'utf8');
     const payload = normalizePayload(JSON.parse(raw));
-    cache = { filePath, mtimeMs: stat.mtimeMs, payload };
+    cache = { filePath, mtimeMs: stat.mtimeMs, checkedAtMs: now, payload };
     return payload;
   } catch (err) {
     console.error(
       '[mealAnalysisTips] Failed to load tips file; meal-analysis-tips will return empty tips:',
       err instanceof Error ? err.message : err
     );
-    return { ...EMPTY_PAYLOAD };
+    const payload = { ...EMPTY_PAYLOAD };
+    cache = { filePath, mtimeMs: null, checkedAtMs: now, payload };
+    return payload;
   }
 }
 

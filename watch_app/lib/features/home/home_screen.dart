@@ -91,13 +91,21 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         child: ValueListenableBuilder<List<LoggedMeal>>(
           valueListenable: SyncService.instance.todaysMeals,
           builder: (context, meals, _) {
+            var totalCalories = 0;
+            var totalProtein = 0;
+            var totalCarbs = 0;
+            var totalFat = 0;
+            for (final meal in meals) {
+              final macros = meal.meal.macros;
+              totalCalories += macros.calories;
+              totalProtein += macros.protein;
+              totalCarbs += macros.carbs;
+              totalFat += macros.fat;
+            }
+
             return ValueListenableBuilder<int?>(
               valueListenable: SyncService.instance.calorieGoal,
               builder: (context, goal, _) {
-                final totalCalories = meals.fold<int>(
-                  0,
-                  (sum, m) => sum + m.meal.macros.calories,
-                );
                 return RefreshIndicator(
                   onRefresh: _refresh,
                   color: colorScheme.primary,
@@ -137,18 +145,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: WatchMacroSummary(
-                          protein: meals.fold<int>(
-                            0,
-                            (sum, meal) => sum + meal.meal.macros.protein,
-                          ),
-                          carbs: meals.fold<int>(
-                            0,
-                            (sum, meal) => sum + meal.meal.macros.carbs,
-                          ),
-                          fat: meals.fold<int>(
-                            0,
-                            (sum, meal) => sum + meal.meal.macros.fat,
-                          ),
+                          protein: totalProtein,
+                          carbs: totalCarbs,
+                          fat: totalFat,
                         ),
                       ),
                       // Action buttons

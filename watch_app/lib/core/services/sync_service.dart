@@ -494,13 +494,15 @@ class SyncService {
     }
     _isFlushingPending = true;
     try {
-      if (!await _ensurePhoneConnected()) {
-        return false;
-      }
-
       final operations = await _database.getPendingOperations();
       if (operations.isEmpty) {
         _restoreCachedSyncState();
+        return false;
+      }
+
+      // The timer runs every 30 seconds. Check the local queue before waking
+      // the Wear OS channel so an idle watch does no phone-connectivity work.
+      if (!await _ensurePhoneConnected()) {
         return false;
       }
 

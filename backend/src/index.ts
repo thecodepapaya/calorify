@@ -60,6 +60,10 @@ async function buildApp() {
 
   const fastify = Fastify({
     logger: loggerConfig,
+    // The hooks below emit the structured request/response records used by
+    // Loki. Disable Fastify's built-in pair to avoid duplicate log I/O on
+    // every request.
+    disableRequestLogging: true,
     trustProxy: config.TRUST_PROXY,
     // 60s per-request timeout — prevents slow AI/DB handlers from holding connections open
     // indefinitely. Individual AI client timeouts (30s) still trigger first for cleaner errors.
@@ -77,11 +81,14 @@ async function buildApp() {
     },
   });
 
-  // Capture response body for logging (onSend runs when reply.send() is called)
-  fastify.addHook('onSend', async (request, _reply, payload) => {
-    (request as any).responsePayload = payload;
-    return payload;
-  });
+  // Retaining response payloads until onResponse adds memory pressure for no
+  // benefit when body logging is disabled (the production default).
+  if (config.LOG_REQUEST_RESPONSE_BODIES) {
+    fastify.addHook('onSend', async (request, _reply, payload) => {
+      (request as any).responsePayload = payload;
+      return payload;
+    });
+  }
 
   // Request logging: full request object (headers redacted)
   fastify.addHook('onRequest', async (request) => {
@@ -225,7 +232,14 @@ async function buildApp() {
   });
 
   // Register multipart for file uploads
-  await fastify.register(multipart);
+  await fastify.register(multipart, {
+    limits: {
+      files: 1,
+      // The legacy multipart endpoint buffers the image for the AI SDK. Bound
+      // that allocation; current clients upload compressed images by URL.
+      fileSize: 10 * 1024 * 1024,
+    },
+  });
 
   // Register Swagger for API documentation
   await fastify.register(swagger, {

@@ -31,8 +31,9 @@ class DatabaseService {
         // adapter = SyncingDatabaseAdapter(RealDatabaseAdapter(_database!));
         adapter = RealDatabaseAdapter(_database!);
       }
-      // Wrap with logger to track all DB operations
-      _databaseInterface = DatabaseLogger(adapter);
+      // Developer logging is useful during diagnosis, but constructing log
+      // messages around every database operation is needless release overhead.
+      _databaseInterface = kDebugMode ? DatabaseLogger(adapter) : adapter;
       _initialized = true;
     }
   }

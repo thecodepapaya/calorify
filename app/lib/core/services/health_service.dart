@@ -403,15 +403,13 @@ class HealthService {
 
     // 1) If Health Connect is available and we have permission, try to fetch real data.
     try {
-      if (status == HealthConnectSdkStatus.sdkAvailable &&
-          await hasPermission(
-            HealthDataType.TOTAL_CALORIES_BURNED,
-            HealthDataAccess.READ,
-          )) {
+      if (status == HealthConnectSdkStatus.sdkAvailable) {
         final now = DateTime.now();
         final startTime = DateTime(now.year, now.month, now.day);
         final endTime = now;
 
+        // fetchHealthData performs the permission check itself. Avoid making
+        // the same platform-channel permission call twice for every refresh.
         final data = await fetchHealthData(
           startTime,
           endTime,

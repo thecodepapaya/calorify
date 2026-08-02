@@ -282,3 +282,29 @@ test('cron job passes country list to query for user lookup', async () => {
   assert.deepEqual(params[0], ['JP', 'KR']);
 });
 
+test('cron job skips an overlapping hourly invocation', async () => {
+  resetAll();
+  let releasePending!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    releasePending = resolve;
+  });
+  mockGetPendingBatches.mock.mockImplementation(async () => {
+    await pending;
+    return [];
+  });
+  mockGetCountriesNear3am.mock.mockImplementation(() => []);
+
+  startAiSummaryCron();
+  const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [
+    string,
+    () => Promise<void>,
+  ];
+
+  const firstRun = callback();
+  await Promise.resolve();
+  await callback();
+
+  assert.equal(mockGetPendingBatches.mock.calls.length, 1);
+  releasePending();
+  await firstRun;
+});

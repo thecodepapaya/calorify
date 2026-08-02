@@ -187,12 +187,17 @@ class FoodRepository {
         '${Uri.encodeComponent(folder)}/${Uri.encodeComponent(fileName)}';
     final uploadUrl = '${ImageConfig.oracleBucketUploadUrl}$objectKey';
     final contentType = ImageConfig.getMimeType(fileExtension);
-    final fileBytes = await imageFile.readAsBytes();
+    final fileLength = await imageFile.length();
 
     await _networkClient.client.put(
       uploadUrl,
-      data: fileBytes,
-      options: Options(headers: {'Content-Type': contentType}),
+      data: imageFile.openRead(),
+      options: Options(
+        headers: {
+          'Content-Type': contentType,
+          Headers.contentLengthHeader: fileLength,
+        },
+      ),
     );
 
     return uploadUrl;

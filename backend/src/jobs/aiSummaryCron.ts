@@ -221,13 +221,25 @@ export async function runAiSummaryJob(options?: RunAiSummaryJobOptions): Promise
   return { submitOutcome };
 }
 
+let cronJobRunning = false;
+
 export function startAiSummaryCron(): void {
   // Run at the top of every hour
-  cron.schedule('0 * * * *', () =>
-    runAiSummaryJob().catch((err) => {
+  cron.schedule('0 * * * *', async () => {
+    if (cronJobRunning) {
+      console.warn('[aiSummaryCron] Previous hourly run is still active; skipping overlap');
+      return;
+    }
+
+    cronJobRunning = true;
+    try {
+      await runAiSummaryJob();
+    } catch (err) {
       console.error('[aiSummaryCron] Unhandled error in job:', err);
-    })
-  );
+    } finally {
+      cronJobRunning = false;
+    }
+  });
 
   console.log(
     `✅ AI summary CRON scheduled (hourly @ :00 UTC: poll batches + submit for countries in local ` +

@@ -43,6 +43,8 @@ class NotificationService {
   final FirebaseMessaging _firebaseMessaging;
 
   bool _isInitialized = false;
+  bool _isFirebaseMessagingInitialized = false;
+  Future<void>? _firebaseMessagingInitialization;
   String? _fcmToken;
 
   // Notification channels
@@ -112,7 +114,15 @@ class NotificationService {
   }
 
   /// Initialize Firebase messaging and request permissions
-  Future<void> initializeFirebaseMessaging() async {
+  Future<void> initializeFirebaseMessaging() {
+    if (_isFirebaseMessagingInitialized) return Future.value();
+    return _firebaseMessagingInitialization ??= _initializeFirebaseMessaging()
+        .whenComplete(() {
+          _firebaseMessagingInitialization = null;
+        });
+  }
+
+  Future<void> _initializeFirebaseMessaging() async {
     // Request permission for notifications
     final settings = await _firebaseMessaging.requestPermission(
       alert: true,
@@ -130,6 +140,7 @@ class NotificationService {
       FirebaseMessaging.onMessage.listen(_onForegroundMessage);
       FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedApp);
       FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+      _isFirebaseMessagingInitialized = true;
     }
   }
 

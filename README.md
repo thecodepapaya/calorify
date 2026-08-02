@@ -56,6 +56,8 @@ The upload URL is optional for text analysis, but required for photo uploads. A 
 
 ## Verification
 
+The current cross-project findings and prioritized measurement/refactor backlog are in [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md).
+
 ```bash
 # Backend
 cd backend

@@ -49,6 +49,7 @@ class _LogMealScreenState extends State<LogMealScreen>
   Timer? _countdownTimer;
   Timer? _finalizeTimer;
   Timer? _startWatchdogTimer;
+  int _lastWaveformUpdateMicros = 0;
   int _secondsLeft = _listenTimeout;
 
   @override
@@ -180,6 +181,12 @@ class _LogMealScreenState extends State<LogMealScreen>
 
   void _onSoundLevel(double soundLevel) {
     if (!mounted || !_isListening) return;
+    final nowMicros = DateTime.now().microsecondsSinceEpoch;
+    // Recognizers may emit audio levels faster than the display can make use
+    // of them. Cap visual updates at 20 fps to reduce watch allocations and
+    // rebuilds while preserving a responsive waveform.
+    if (nowMicros - _lastWaveformUpdateMicros < 50_000) return;
+    _lastWaveformUpdateMicros = nowMicros;
     final normalized = ((soundLevel + 2) / 12).clamp(0.05, 1.0);
     final current = _levelsNotifier.value;
     _levelsNotifier.value = [
@@ -256,6 +263,7 @@ class _LogMealScreenState extends State<LogMealScreen>
   }
 
   void _resetWaveform() {
+    _lastWaveformUpdateMicros = 0;
     _levelsNotifier.value = List<double>.filled(5, 0.0);
   }
 
