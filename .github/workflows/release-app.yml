@@ -128,6 +128,15 @@ jobs:
           : "${MEASURE_API_KEY:?Missing MEASURE_API_KEY}"
           : "${SHOREBIRD_TOKEN:?Missing SHOREBIRD_TOKEN}"
 
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Validate Google Play version code
+        run: bundle exec fastlane android validate_version_code
+        env:
+          PLAY_PUBSPEC_PATH: app/pubspec.yaml
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -148,9 +157,6 @@ jobs:
           args: --flavor=prod --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }} --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
           working-directory: app
           flutter-version: "3.41.0"
-
-      - name: Install Ruby dependencies
-        run: bundle install
 
       - name: Upload to Play Store
         run: bundle exec fastlane android release

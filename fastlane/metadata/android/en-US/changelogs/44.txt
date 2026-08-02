@@ -1,0 +1,4 @@
+Health Connect status now updates reliably after permissions are granted.
+Improved meal reminders, favorite editing, and duplicate-log protection.
+More reliable Wear OS voice recording and phone synchronization.
+Additional validation and reliability improvements across calorie estimation and meal logging.

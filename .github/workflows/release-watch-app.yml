@@ -81,6 +81,15 @@ jobs:
           set -euo pipefail
           : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
 
+      - name: Install Ruby dependencies
+        run: bundle install
+
+      - name: Validate Google Play version code
+        run: bundle exec fastlane android validate_version_code
+        env:
+          PLAY_PUBSPEC_PATH: watch_app/pubspec.yaml
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -123,9 +132,6 @@ jobs:
           path: watch_app/build/app/outputs/bundle/release/app-release.aab
           if-no-files-found: error
           retention-days: 14
-
-      - name: Install Ruby dependencies
-        run: bundle install
 
       - name: Upload Watch App to Play Store
         run: bundle exec fastlane android release_watch

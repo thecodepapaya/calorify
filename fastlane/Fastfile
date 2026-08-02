@@ -7,6 +7,50 @@ platform :android do
     "#{options[:prefix]}:#{options[:track]}"
   end
 
+  private_lane :pubspec_version_code do |options|
+    path = options.fetch(:path)
+    match = File.read(path).match(/^version:\s*\d+\.\d+\.\d+\+(\d+)\s*$/)
+    UI.user_error!("Could not read an Android version code from #{path}") unless match
+
+    Integer(match[1], 10)
+  end
+
+  desc "Fail before building when an Android version code cannot be uploaded"
+  lane :validate_version_code do
+    candidate = pubspec_version_code(
+      path: ENV.fetch("PLAY_PUBSPEC_PATH")
+    )
+    tracks = ["internal", "beta", "production", "wear:internal", "wear:beta", "wear:production"]
+    inspected_tracks = 0
+    active_codes = tracks.flat_map do |track|
+      codes = google_play_track_version_codes(
+        track: track,
+        json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+        package_name: package_name
+      ).map(&:to_i)
+      inspected_tracks += 1
+      UI.message("#{track}: #{codes.empty? ? 'no active releases' : codes.join(', ')}")
+      codes
+    rescue StandardError => error
+      UI.important("Could not inspect #{track}: #{error.message}")
+      []
+    end.uniq
+
+    UI.user_error!("Could not inspect any Google Play tracks") if inspected_tracks.zero?
+
+    maximum = active_codes.max
+    if active_codes.include?(candidate)
+      UI.user_error!("Version code #{candidate} is already active on Google Play")
+    end
+    if maximum && candidate <= maximum
+      UI.user_error!(
+        "Version code #{candidate} must be greater than the highest active phone/Wear OS code #{maximum}"
+      )
+    end
+
+    UI.success("Version code #{candidate} is available for upload")
+  end
+
   desc "Draft and translate Google Play release notes"
   lane :release_notes do
     sh("./scripts/generate_release_notes.sh")
