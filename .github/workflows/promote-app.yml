@@ -1,0 +1,64 @@
+name: Promote Phone App Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_track:
+        description: Existing phone track containing the tested release
+        required: true
+        default: internal
+        type: choice
+        options: [internal, beta]
+      target_track:
+        description: Phone track to promote the release to
+        required: true
+        default: production
+        type: choice
+        options: [beta, production]
+      expected_version_code:
+        description: Version code that must exist on the source track
+        required: true
+        type: string
+      release_status:
+        description: Status for the promoted release
+        required: true
+        default: completed
+        type: choice
+        options: [draft, completed]
+
+concurrency:
+  group: calorify-phone-store-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  promote-android-phone-app:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.0"
+          bundler-cache: true
+
+      - name: Validate release credentials
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
+
+      - name: Promote tested Phone release
+        run: bundle exec fastlane android promote_phone
+        env:
+          PLAY_SOURCE_TRACK: ${{ inputs.source_track }}
+          PLAY_TARGET_TRACK: ${{ inputs.target_track }}
+          PLAY_EXPECTED_VERSION_CODE: ${{ inputs.expected_version_code }}
+          PLAY_RELEASE_STATUS: ${{ inputs.release_status }}
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}

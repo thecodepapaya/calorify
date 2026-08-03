@@ -16,6 +16,60 @@ platform :android do
     Integer(match[1], 10)
   end
 
+  private_lane :promote_existing_release do |options|
+    source_track = options.fetch(:source_track)
+    target_track = options.fetch(:target_track)
+    expected_version_code = options.fetch(:expected_version_code)
+
+    UI.user_error!("Source and target tracks must differ") if source_track == target_track
+
+    source_version_codes = google_play_track_version_codes(
+      track: source_track,
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+      package_name: package_name
+    ).map(&:to_i)
+
+    unless source_version_codes.include?(expected_version_code)
+      candidate_tracks = ["internal", "beta", "production", "wear:internal", "wear:beta", "wear:production"]
+      matching_tracks = candidate_tracks.reject { |track| track == source_track }.filter_map do |track|
+        version_codes = google_play_track_version_codes(
+          track: track,
+          json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+          package_name: package_name
+        ).map(&:to_i)
+        track if version_codes.include?(expected_version_code)
+      rescue StandardError => error
+        UI.important("Could not inspect #{track}: #{error.message}")
+        nil
+      end
+
+      location_hint = if matching_tracks.empty?
+                        "It is not active on any standard phone or Wear OS track."
+                      else
+                        "It is active on: #{matching_tracks.join(', ')}."
+                      end
+      UI.user_error!(
+        "Expected version code #{expected_version_code} on #{source_track}, " \
+        "but found: #{source_version_codes.join(', ')}. #{location_hint}"
+      )
+    end
+
+    upload_to_play_store(
+      track: source_track,
+      track_promote_to: target_track,
+      track_promote_release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
+      version_code: expected_version_code,
+      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
+      package_name: package_name,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: true
+    )
+  end
+
   desc "Fail before building when an Android version code cannot be uploaded"
   lane :validate_version_code do
     candidate = pubspec_version_code(
@@ -91,64 +145,27 @@ platform :android do
     )
   end
 
+  desc "Promote an existing phone release between Google Play tracks"
+  lane :promote_phone do
+    promote_existing_release(
+      source_track: ENV.fetch("PLAY_SOURCE_TRACK", "internal"),
+      target_track: ENV.fetch("PLAY_TARGET_TRACK", "production"),
+      expected_version_code: Integer(ENV.fetch("PLAY_EXPECTED_VERSION_CODE"), 10)
+    )
+  end
+
   desc "Promote an existing watch release between Google Play Wear OS tracks"
   lane :promote_watch do
-    source_track = form_factor_track(
-      prefix: "wear",
-      track: ENV.fetch("PLAY_SOURCE_TRACK", "internal")
-    )
-    target_track = form_factor_track(
-      prefix: "wear",
-      track: ENV.fetch("PLAY_TARGET_TRACK", "production")
-    )
-    expected_version_code = Integer(ENV.fetch("PLAY_EXPECTED_VERSION_CODE"), 10)
-
-    UI.user_error!("Source and target tracks must differ") if source_track == target_track
-
-    source_version_codes = google_play_track_version_codes(
-      track: source_track,
-      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      package_name: package_name
-    ).map(&:to_i)
-
-    unless source_version_codes.include?(expected_version_code)
-      candidate_tracks = ["wear:internal", "wear:beta", "wear:production", "internal", "beta", "production"]
-      matching_tracks = candidate_tracks.reject { |track| track == source_track }.filter_map do |track|
-        version_codes = google_play_track_version_codes(
-          track: track,
-          json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-          package_name: package_name
-        ).map(&:to_i)
-        track if version_codes.include?(expected_version_code)
-      rescue StandardError => error
-        UI.important("Could not inspect #{track}: #{error.message}")
-        nil
-      end
-
-      location_hint = if matching_tracks.empty?
-                        "It is not active on any standard phone or Wear OS track."
-                      else
-                        "It is active on: #{matching_tracks.join(', ')}."
-                      end
-      UI.user_error!(
-        "Expected version code #{expected_version_code} on #{source_track}, " \
-        "but found: #{source_version_codes.join(', ')}. #{location_hint}"
-      )
-    end
-
-    upload_to_play_store(
-      track: source_track,
-      track_promote_to: target_track,
-      track_promote_release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
-      version_code: expected_version_code,
-      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      package_name: package_name,
-      skip_upload_apk: true,
-      skip_upload_aab: true,
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-      skip_upload_changelogs: true
+    promote_existing_release(
+      source_track: form_factor_track(
+        prefix: "wear",
+        track: ENV.fetch("PLAY_SOURCE_TRACK", "internal")
+      ),
+      target_track: form_factor_track(
+        prefix: "wear",
+        track: ENV.fetch("PLAY_TARGET_TRACK", "production")
+      ),
+      expected_version_code: Integer(ENV.fetch("PLAY_EXPECTED_VERSION_CODE"), 10)
     )
   end
 end

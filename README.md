@@ -101,7 +101,7 @@ See [SECURITY.md](SECURITY.md) for reporting and credential-response guidance.
 
 Pushes affecting `backend/` on `main` run backend checks and the production deployment workflow. VM connection data is stored as GitHub environment secrets; runtime secrets stay in ignored files on the host. The deployment script waits for container health checks and rolls back the backend image on failure.
 
-The phone, watch, and Shorebird workflows are manually dispatched and read signing credentials from GitHub Actions secrets. New watch bundles go to the Wear OS internal track with `release-watch-app.yml`. After device testing, `promote-watch-app.yml` promotes a specified existing version code to beta or production without rebuilding or uploading a different artifact.
+The phone, watch, and Shorebird workflows are manually dispatched and read signing credentials from GitHub Actions secrets. New bundles go to their phone or Wear OS internal tracks. After device testing, `promote-app.yml` and `promote-watch-app.yml` promote a specified existing version code to beta or production without rebuilding or uploading a different artifact.
 
 ## Contributing
 
