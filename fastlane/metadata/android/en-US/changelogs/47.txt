@@ -1,0 +1,1 @@
+Fixed meal analysis, offline errors, profile syncing, meal times, and onboarding guidance.
