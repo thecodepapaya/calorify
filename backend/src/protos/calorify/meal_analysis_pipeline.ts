@@ -189,6 +189,7 @@ export interface PipelineResultData {
   calorieConfidence: CalorieConfidence;
   calorieBand?: PipelineCalorieBand | undefined;
   ingredients: PipelineResolvedIngredient[];
+  confidenceReasons: string[];
 }
 
 export interface PipelineErrorData {

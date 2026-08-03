@@ -150,7 +150,6 @@ class NotificationService {
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       // Get FCM token
       _fcmToken = await _firebaseMessaging.getToken();
-      debugPrint('FCM Token: $_fcmToken');
 
       // Set up message handlers
       FirebaseMessaging.onMessage.listen(_onForegroundMessage);

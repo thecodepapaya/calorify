@@ -6,6 +6,7 @@ import 'package:calorify/shared_widgets/app_outlined_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 
 Future<MealType?> showV2MealTypeSheet({
   required BuildContext context,
@@ -13,6 +14,7 @@ Future<MealType?> showV2MealTypeSheet({
 }) {
   return showModalBottomSheet<MealType>(
     context: context,
+    useRootNavigator: true,
     isDismissible: true,
     showDragHandle: true,
     isScrollControlled: true,
@@ -37,9 +39,8 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
   @override
   void initState() {
     super.initState();
-    _optionMealTypes = widget.question.options
-        .where((t) => t != MealType.UNKNOWN)
-        .toList();
+    _optionMealTypes =
+        widget.question.options.where((t) => t != MealType.UNKNOWN).toList();
 
     if (widget.question.hasInferredMealType() &&
         widget.question.inferredMealType != MealType.UNKNOWN) {
@@ -62,7 +63,7 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Confirm meal type',
+            t.meal.mealType,
             style: textTheme.titleLarge?.copyWith(
               color: colorScheme.onSurface,
               fontWeight: FontWeight.w600,
@@ -79,17 +80,18 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: _optionMealTypes.map((mealType) {
-              return ChoiceChip(
-                label: Text(mealType.displayName),
-                selected: _selectedMealType == mealType,
-                onSelected: (_) {
-                  setState(() {
-                    _selectedMealType = mealType;
-                  });
-                },
-              );
-            }).toList(),
+            children:
+                _optionMealTypes.map((mealType) {
+                  return ChoiceChip(
+                    label: Text(mealType.displayName),
+                    selected: _selectedMealType == mealType,
+                    onSelected: (_) {
+                      setState(() {
+                        _selectedMealType = mealType;
+                      });
+                    },
+                  );
+                }).toList(),
           ),
           const SizedBox(height: 20),
           Row(
@@ -97,17 +99,18 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
               Expanded(
                 child: AppOutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  text: 'Cancel',
+                  text: t.meal.deleteConfirmation.cancel,
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: PrimaryButton(
                   analyticsEvent: AnalyticsEvent.mealTypeQuestionAnswered,
-                  onPressed: _selectedMealType == null
-                      ? null
-                      : () => Navigator.of(context).pop(_selectedMealType),
-                  text: 'Continue',
+                  onPressed:
+                      _selectedMealType == null
+                          ? null
+                          : () => Navigator.of(context).pop(_selectedMealType),
+                  text: t.common.kContinue,
                 ),
               ),
             ],

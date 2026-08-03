@@ -143,6 +143,7 @@ message PipelineResultData {
   meal.CalorieConfidence calorie_confidence = 9;
   PipelineCalorieBand calorie_band = 10;
   repeated PipelineResolvedIngredient ingredients = 11;
+  repeated string confidence_reasons = 12;
 }
 
 message PipelineErrorData {

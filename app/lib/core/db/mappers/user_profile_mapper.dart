@@ -10,7 +10,13 @@ class UserProfileMapper {
       weight: data.weight,
       targetWeight: data.targetWeight,
       gender: data.gender == null ? null : genderFromLegacyName(data.gender),
-      dateOfBirth: data.dateOfBirth?.toIso8601String(),
+      // Drift restores timestamps as local DateTimes. Always add an explicit
+      // UTC offset before sending the profile to the API, whose validator
+      // requires RFC 3339 date-times with a timezone.
+      dateOfBirth:
+          data.dateOfBirth == null
+              ? null
+              : dateTimeToIso8601String(data.dateOfBirth!),
       weightGoal:
           data.weightGoal == null
               ? null

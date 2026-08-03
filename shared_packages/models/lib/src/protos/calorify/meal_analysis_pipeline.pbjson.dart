@@ -515,6 +515,13 @@ const PipelineResultData$json = {
       '6': '.calorify.PipelineResolvedIngredient',
       '10': 'ingredients'
     },
+    {
+      '1': 'confidence_reasons',
+      '3': 12,
+      '4': 3,
+      '5': 9,
+      '10': 'confidenceReasons'
+    },
   ],
   '8': [
     {'1': '_health'},
@@ -532,7 +539,8 @@ final $typed_data.Uint8List pipelineResultDataDescriptor = $convert.base64Decode
     'aWVfY29uZmlkZW5jZRgJIAEoDjIXLm1lYWwuQ2Fsb3JpZUNvbmZpZGVuY2VSEWNhbG9yaWVDb2'
     '5maWRlbmNlEkAKDGNhbG9yaWVfYmFuZBgKIAEoCzIdLmNhbG9yaWZ5LlBpcGVsaW5lQ2Fsb3Jp'
     'ZUJhbmRSC2NhbG9yaWVCYW5kEkYKC2luZ3JlZGllbnRzGAsgAygLMiQuY2Fsb3JpZnkuUGlwZW'
-    'xpbmVSZXNvbHZlZEluZ3JlZGllbnRSC2luZ3JlZGllbnRzQgkKB19oZWFsdGg=');
+    'xpbmVSZXNvbHZlZEluZ3JlZGllbnRSC2luZ3JlZGllbnRzEi0KEmNvbmZpZGVuY2VfcmVhc29u'
+    'cxgMIAMoCVIRY29uZmlkZW5jZVJlYXNvbnNCCQoHX2hlYWx0aA==');
 
 @$core.Deprecated('Use pipelineErrorDataDescriptor instead')
 const PipelineErrorData$json = {

@@ -120,7 +120,8 @@ export function localizeOptionDetail(
 
 /**
  * The size-clarification question text. For COUNT, includes the count to
- * make the multiplication explicit ("How big were each of your 4 rotis?").
+ * make the multiplication explicit without assuming the ingredient is a
+ * countable noun ("What size was each of the 4 portions of roti?").
  */
 export function localizeSizeQuestion(
   rawName: string,
@@ -137,7 +138,7 @@ export function localizeSizeQuestion(
         : `कितना ${trimmedName}?`;
     default:
       return kind === PortionKind.COUNT
-        ? `How big were each of your ${countLabel} ${trimmedName}?`
+        ? `What size was each of the ${countLabel} portions of ${trimmedName}?`
         : `How much ${trimmedName}?`;
   }
 }

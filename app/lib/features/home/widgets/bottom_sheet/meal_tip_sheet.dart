@@ -43,6 +43,7 @@ Future<void> showMealTip({
   final parentContext = context;
   return showModalBottomSheet(
     context: context,
+    useRootNavigator: true,
     isDismissible: true,
     showDragHandle: true,
     enableDrag: true,

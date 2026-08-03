@@ -8,8 +8,6 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
-import 'package:calorify/core/services/remote_db.dart';
-// import 'package:calorify/core/services/sync_service.dart'; // Temporarily disabled
 import 'package:calorify/core/services/wear_os_service.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -87,8 +85,6 @@ class AppInitialization {
           NotificationService.instance.initialize,
           parentSpan: span,
         );
-    // SyncService temporarily disabled
-    // unawaited(SyncService.instance.initialize());
     hadInitializationError |=
         !await _runInitializationStep(
           'Wear OS service',
@@ -187,12 +183,7 @@ class AppInitialization {
 
   static Future<void> _updateRemoteDb() async {
     try {
-      final remoteDb = RemoteDb();
       await NotificationService.instance.initializeFirebaseMessaging();
-      final fcmToken = NotificationService.instance.fcmToken;
-      if (fcmToken != null) {
-        await remoteDb.saveFcmToken(fcmToken);
-      }
 
       final userProfile = await OnboardingService.instance.getProfileData();
       if (userProfile != null) {

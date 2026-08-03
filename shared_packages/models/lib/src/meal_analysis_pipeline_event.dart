@@ -33,45 +33,59 @@ class MealAnalysisPipelineEvent {
 
     switch (step) {
       case PipelineStep.STARTED:
-        final m = PipelineStartedData()..mergeFromProto3Json(data);
+        final m =
+            PipelineStartedData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(step: step, analysisId: m.analysisId);
       case PipelineStep.DECOMPOSITION:
-        final m = PipelineDecompositionData()..mergeFromProto3Json(data);
+        final m =
+            PipelineDecompositionData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(
           step: step,
           analysisId: m.analysisId,
           decomposition: m,
         );
       case PipelineStep.INGREDIENTS:
-        final m = PipelineIngredientsData()..mergeFromProto3Json(data);
+        final m =
+            PipelineIngredientsData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(
           step: step,
           analysisId: m.analysisId,
           ingredientsStep: m,
         );
       case PipelineStep.UNCERTAINTY:
-        final m = PipelineUncertaintyData()..mergeFromProto3Json(data);
+        final m =
+            PipelineUncertaintyData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(
           step: step,
           analysisId: m.analysisId,
           uncertainty: m,
         );
       case PipelineStep.MEAL_TYPE_QUESTION:
-        final m = PipelineMealTypeQuestionData()..mergeFromProto3Json(data);
+        final m =
+            PipelineMealTypeQuestionData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(
           step: step,
           analysisId: m.analysisId,
           mealTypeQuestion: m,
         );
       case PipelineStep.RESULT:
-        final m = PipelineResultData()..mergeFromProto3Json(data);
+        final m =
+            PipelineResultData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(
           step: step,
           analysisId: m.analysisId,
           result: m,
         );
       case PipelineStep.ERROR:
-        final m = PipelineErrorData()..mergeFromProto3Json(data);
+        final m =
+            PipelineErrorData()
+              ..mergeFromProto3Json(data, ignoreUnknownFields: true);
         return MealAnalysisPipelineEvent(
           step: step,
           analysisId: m.analysisId,

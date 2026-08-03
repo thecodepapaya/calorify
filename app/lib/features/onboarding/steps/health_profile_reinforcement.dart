@@ -85,7 +85,8 @@ class _HealthProfileReinforcementState extends State<HealthProfileReinforcement>
                       .healthProfile
                       .finalizeDescription;
 
-          if (profile?.targetWeight != null && profile?.weight != null) {
+          if ((profile?.hasTargetWeight() ?? false) &&
+              (profile?.hasWeight() ?? false)) {
             final diff = (profile!.targetWeight - profile.weight).abs();
             final direction =
                 profile.targetWeight > profile.weight

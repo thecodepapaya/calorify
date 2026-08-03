@@ -454,7 +454,7 @@ const List<MealType> mealTypeValues = [
 extension LoggedMealCopyWith on LoggedMeal {
   DateTime get dateTime =>
       hasCreatedAt()
-          ? iso8601StringToDateTime(createdAt) ?? DateTime.now()
+          ? iso8601StringToDateTime(createdAt)?.toLocal() ?? DateTime.now()
           : DateTime.now();
 
   LoggedMeal copyWith({

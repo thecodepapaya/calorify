@@ -23,9 +23,7 @@ void main() {
           fat: 0,
           fiber: 4,
         ),
-        health: MealHealth(
-          healthScore: HealthScore.HEALTHY,
-        ),
+        health: MealHealth(healthScore: HealthScore.HEALTHY),
       ),
       createdAt: dateTimeToIso8601String(now),
     );
@@ -37,7 +35,10 @@ void main() {
       expect(fromJson.meal.name, loggedMeal.meal.name);
       expect(fromJson.meal.macros.calories, loggedMeal.meal.macros.calories);
       expect(fromJson.dateTime.day, loggedMeal.dateTime.day);
-      expect(fromJson.meal.health.healthScore, loggedMeal.meal.health.healthScore);
+      expect(
+        fromJson.meal.health.healthScore,
+        loggedMeal.meal.health.healthScore,
+      );
     });
 
     test('copyWith works correctly', () {
@@ -48,6 +49,13 @@ void main() {
       expect(updatedMeal.name, 'Banana');
       expect(updatedMeal.macros.calories, 105);
       expect(updatedMeal.type, loggedMeal.meal.type);
+    });
+
+    test('dateTime exposes stored UTC instants in the device timezone', () {
+      final meal = LoggedMeal(createdAt: '2026-08-03T06:52:00.000Z');
+
+      expect(meal.dateTime.isUtc, isFalse);
+      expect(meal.dateTime.toUtc(), DateTime.parse('2026-08-03T06:52:00.000Z'));
     });
   });
 
@@ -72,7 +80,9 @@ void main() {
 
     test('age calculation is correct', () {
       final birthday = DateTime(DateTime.now().year - 25, 1, 1);
-      final profile = UserProfile(dateOfBirth: dateTimeToIso8601String(birthday));
+      final profile = UserProfile(
+        dateOfBirth: dateTimeToIso8601String(birthday),
+      );
       expect(profile.age, 25);
     });
   });

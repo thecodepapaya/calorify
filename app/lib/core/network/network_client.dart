@@ -83,7 +83,8 @@ class NetworkClient {
     if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
       dio.interceptors.add(
         PrettyDioLogger(
-          requestHeader: true,
+          // Authorization and device-identifying headers must never reach logs.
+          requestHeader: false,
           requestBody: false,
           responseBody: true,
           responseHeader: false,
@@ -192,13 +193,15 @@ class NetworkClient {
           .bind(responseBody.stream)
           .transform(const LineSplitter())
           .where((line) => line.trim().isNotEmpty)
-          .map((line) {
-            if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
-              debugPrint('[stream:$endpoint] $line');
-            }
-            return line;
-          })
           .map((line) => jsonDecode(line) as Map<String, dynamic>)
+          .map((event) {
+            if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
+              debugPrint(
+                '[stream:$endpoint] step=${event['step'] ?? 'unknown'}',
+              );
+            }
+            return event;
+          })
           .map(parseEvent);
     } on DioException catch (exception) {
       _handleError(exception, endpoint);

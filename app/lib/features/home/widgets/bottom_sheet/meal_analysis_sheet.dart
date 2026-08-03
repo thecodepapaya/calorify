@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/errors/app_error.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/router/route_names.dart';
@@ -65,6 +66,7 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
     ).read(foodRepositoryProvider);
     final outcome = await showModalBottomSheet<_MealAnalysisFlowOutcome>(
       context: context,
+      useRootNavigator: true,
       isDismissible: true,
       showDragHandle: true,
       isScrollControlled: true,
@@ -146,6 +148,7 @@ Future<void> showDebugMealAnalysisPipelineSheet({
 }) async {
   await showModalBottomSheet<void>(
     context: context,
+    useRootNavigator: true,
     isDismissible: true,
     showDragHandle: true,
     isScrollControlled: true,
@@ -469,11 +472,11 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
   }
 
   NavigatorState? _navigatorForSheet() {
-    return Navigator.maybeOf(context) ??
-        Navigator.maybeOf(context, rootNavigator: true);
+    return Navigator.maybeOf(context, rootNavigator: true) ??
+        Navigator.maybeOf(context);
   }
 
-  void _safePopSheet([Object? result]) {
+  void _safePopSheet([_MealAnalysisFlowOutcome? result]) {
     if (!mounted || _sheetDismissed) return;
     final nav = _navigatorForSheet();
     if (nav == null || !nav.canPop()) return;
@@ -481,7 +484,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
     _subscription?.cancel();
     _subscription = null;
     if (result != null) {
-      nav.pop(result);
+      nav.pop<_MealAnalysisFlowOutcome>(result);
     } else {
       nav.pop();
     }
@@ -498,6 +501,19 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
         showFlushbar(message, context: ctx);
       }
     });
+  }
+
+  String _userMessageFor(Object error) {
+    final appError = AppError.fromException(error);
+    return switch (appError) {
+      NetworkError() => t.errors.networkError,
+      RateLimitError() => t.errors.rateLimitExceeded,
+      AuthError() ||
+      ServerError() ||
+      ValidationError() ||
+      ParseError() => appError.message,
+      UnknownError() => t.errors.unknownError,
+    };
   }
 
   Widget _emergingPreviewContent({
@@ -839,9 +855,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
           Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
           _runAfterFrame(() {
             if (!mounted || _sheetDismissed) return;
-            final msg =
-                error is Exception ? '$error' : t.meal.analysis.stepError;
-            _dismissSheetAndShowMessage(msg);
+            _dismissSheetAndShowMessage(_userMessageFor(error));
           });
         },
       );
@@ -850,7 +864,7 @@ class _MealAnalysisPipelineSheetState extends State<_MealAnalysisPipelineSheet>
       Analytics.instance.logEvent(AnalyticsEvent.mealAnalysisV2Failed);
       _runAfterFrame(() {
         if (!mounted || _sheetDismissed) return;
-        _dismissSheetAndShowMessage('$error');
+        _dismissSheetAndShowMessage(_userMessageFor(error));
       });
     }
   }

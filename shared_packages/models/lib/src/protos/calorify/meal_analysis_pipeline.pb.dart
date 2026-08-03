@@ -1326,6 +1326,7 @@ class PipelineResultData extends $pb.GeneratedMessage {
     $0.CalorieConfidence? calorieConfidence,
     PipelineCalorieBand? calorieBand,
     $core.Iterable<PipelineResolvedIngredient>? ingredients,
+    $core.Iterable<$core.String>? confidenceReasons,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
@@ -1339,6 +1340,8 @@ class PipelineResultData extends $pb.GeneratedMessage {
     if (calorieConfidence != null) result.calorieConfidence = calorieConfidence;
     if (calorieBand != null) result.calorieBand = calorieBand;
     if (ingredients != null) result.ingredients.addAll(ingredients);
+    if (confidenceReasons != null)
+      result.confidenceReasons.addAll(confidenceReasons);
     return result;
   }
 
@@ -1372,6 +1375,7 @@ class PipelineResultData extends $pb.GeneratedMessage {
         subBuilder: PipelineCalorieBand.create)
     ..pPM<PipelineResolvedIngredient>(11, _omitFieldNames ? '' : 'ingredients',
         subBuilder: PipelineResolvedIngredient.create)
+    ..pPS(12, _omitFieldNames ? '' : 'confidenceReasons')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1491,6 +1495,9 @@ class PipelineResultData extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(11)
   $pb.PbList<PipelineResolvedIngredient> get ingredients => $_getList(10);
+
+  @$pb.TagNumber(12)
+  $pb.PbList<$core.String> get confidenceReasons => $_getList(11);
 }
 
 class PipelineErrorData extends $pb.GeneratedMessage {

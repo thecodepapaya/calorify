@@ -42,6 +42,7 @@ Future<List<MealClarificationAnswer>?> showMealQuestionFlowFromPipeline({
 }) {
   return showModalBottomSheet<List<MealClarificationAnswer>>(
     context: context,
+    useRootNavigator: true,
     isDismissible: true,
     showDragHandle: true,
     isScrollControlled: true,
