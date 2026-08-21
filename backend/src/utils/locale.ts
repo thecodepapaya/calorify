@@ -93,3 +93,18 @@ export function getCountryFromRequest(request: FastifyRequest): string | undefin
 
     return undefined;
 }
+
+/** Extract and validate the app-provided IANA timezone identifier. */
+export function getTimeZoneFromRequest(request: FastifyRequest): string | undefined {
+    const raw = request.headers['x-time-zone'];
+    const value = Array.isArray(raw) ? raw[0] : raw;
+    if (!value || typeof value !== 'string' || value.length > 64) return undefined;
+
+    const normalized = value.trim();
+    try {
+        new Intl.DateTimeFormat('en', { timeZone: normalized }).format();
+        return normalized;
+    } catch {
+        return undefined;
+    }
+}

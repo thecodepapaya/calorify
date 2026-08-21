@@ -28,22 +28,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     with WidgetsBindingObserver {
   int _healthConnectRefreshTrigger = 0;
   DateTime _dashboardDay = _dateOnly(DateTime.now());
+  Duration _dashboardTimeZoneOffset = DateTime.now().timeZoneOffset;
+  Timer? _aiSummaryRefreshTimer;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _aiSummaryRefreshTimer = Timer.periodic(const Duration(minutes: 15), (_) {
+      if (mounted) ref.invalidate(aiSummaryProvider);
+    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    _aiSummaryRefreshTimer?.cancel();
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
+      // A provider batch can finish at any point during the same calendar day.
+      ref.invalidate(aiSummaryProvider);
       _refreshDateSensitiveData();
       unawaited(_refreshHealthConnectStatus());
     }
@@ -54,12 +62,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   void _refreshDateSensitiveData() {
     final today = _dateOnly(DateTime.now());
-    if (today == _dashboardDay) return;
+    final timeZoneOffset = DateTime.now().timeZoneOffset;
+    if (today == _dashboardDay && timeZoneOffset == _dashboardTimeZoneOffset) {
+      return;
+    }
     _dashboardDay = today;
+    _dashboardTimeZoneOffset = timeZoneOffset;
     ref.invalidate(todaysMealsProvider);
     ref.invalidate(last7DaysMealsProvider);
     ref.invalidate(mealHistoryProvider);
-    ref.invalidate(aiSummaryProvider);
     ref.invalidate(caloriesBurnedProvider);
   }
 

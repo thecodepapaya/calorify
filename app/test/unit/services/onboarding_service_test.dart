@@ -36,7 +36,7 @@ void main() {
       height: 180,
       weight: 80,
       gender: Gender.MALE,
-      dateOfBirth: dateTimeToIso8601String(DateTime(1990, 1, 1)),
+      dateOfBirth: dateTimeToIso8601Date(DateTime(1990, 1, 1)),
       activityLevel: ActivityLevel.MODERATELY_ACTIVE,
       weightGoal: WeightGoal.LOSE_WEIGHT,
     );
@@ -90,7 +90,7 @@ void main() {
           height: 180,
           weight: 80,
           gender: Gender.MALE,
-          dateOfBirth: dateTimeToIso8601String(DateTime(1990, 1, 1)),
+          dateOfBirth: dateTimeToIso8601Date(DateTime(1990, 1, 1)),
           activityLevel: ActivityLevel.MODERATELY_ACTIVE,
           weightGoal: WeightGoal.LOSE_WEIGHT,
         );

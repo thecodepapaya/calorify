@@ -12,6 +12,7 @@ export interface MealAnalysisSessionRecord {
   source: MealAnalysisSource;
   locale: string;
   countryCode?: string;
+  timeZone?: string;
   requestPayload: unknown;
   decompositionData?: unknown;
   ingredientsData?: unknown;
@@ -59,6 +60,7 @@ export async function upsertMealAnalysisSession(
         source,
         locale,
         country_code,
+        time_zone,
         request_payload,
         decomposition_data,
         ingredients_data,
@@ -69,7 +71,7 @@ export async function upsertMealAnalysisSession(
         result_data,
         clarification_answers
       ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7::jsonb, $8::jsonb, $9::jsonb, $10::jsonb, $11::jsonb, $12, $13, $14::jsonb, $15::jsonb
+        $1, $2, $3, $4, $5, $6, $7, $8::jsonb, $9::jsonb, $10::jsonb, $11::jsonb, $12::jsonb, $13, $14, $15::jsonb, $16::jsonb
       )
       ON CONFLICT (analysis_id) DO UPDATE SET
         parent_analysis_id = EXCLUDED.parent_analysis_id,
@@ -77,6 +79,7 @@ export async function upsertMealAnalysisSession(
         source = EXCLUDED.source,
         locale = EXCLUDED.locale,
         country_code = EXCLUDED.country_code,
+        time_zone = COALESCE(EXCLUDED.time_zone, meal_analysis_session.time_zone),
         request_payload = EXCLUDED.request_payload,
         decomposition_data = COALESCE(EXCLUDED.decomposition_data, meal_analysis_session.decomposition_data),
         ingredients_data = COALESCE(EXCLUDED.ingredients_data, meal_analysis_session.ingredients_data),
@@ -94,6 +97,7 @@ export async function upsertMealAnalysisSession(
       record.source,
       record.locale,
       record.countryCode ?? null,
+      record.timeZone ?? null,
       JSON.stringify(record.requestPayload ?? null),
       JSON.stringify(record.decompositionData ?? null),
       JSON.stringify(record.ingredientsData ?? null),
@@ -119,6 +123,7 @@ export async function getMealAnalysisSession(
     source: MealAnalysisSource;
     locale: string;
     country_code: string | null;
+    time_zone: string | null;
     request_payload: unknown;
     decomposition_data: unknown;
     ingredients_data: unknown;
@@ -138,6 +143,7 @@ export async function getMealAnalysisSession(
         source,
         locale,
         country_code,
+        time_zone,
         request_payload,
         decomposition_data,
         ingredients_data,
@@ -167,6 +173,7 @@ export async function getMealAnalysisSession(
     source: row.source,
     locale: row.locale,
     countryCode: row.country_code ?? undefined,
+    timeZone: row.time_zone ?? undefined,
     requestPayload: parseJson(row.request_payload),
     decompositionData: parseJson(row.decomposition_data),
     ingredientsData: parseJson(row.ingredients_data),
@@ -288,6 +295,7 @@ export interface MealLogConfirmationRecord {
   fiber: number;
   mealType: string;
   quantity: string;
+  timeZone?: string;
 }
 
 export async function confirmMealAnalysisLogged(
@@ -306,6 +314,7 @@ export async function confirmMealAnalysisLogged(
             logged_fiber     = $8,
             logged_meal_type = $9,
             logged_quantity  = $10,
+            time_zone        = COALESCE($11, time_zone),
             updated_at       = CURRENT_TIMESTAMP
       WHERE analysis_id = $1`,
     [
@@ -319,6 +328,7 @@ export async function confirmMealAnalysisLogged(
       record.fiber,
       record.mealType,
       record.quantity,
+      record.timeZone ?? null,
     ]
   );
 }

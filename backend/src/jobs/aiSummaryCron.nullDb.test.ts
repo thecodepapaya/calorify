@@ -24,18 +24,23 @@ await mock.module('../services/aiSummaryService.js', {
     })),
     updateBatchStatus: mock.fn(async () => {}),
     collectMealDataForUser: mock.fn(async () => null),
+    collectMealDataForUsers: mock.fn(async () => []),
     submitBatch: mock.fn(async () => ({
       openAiBatchId: 'x',
       requestCount: 0,
       userData: {},
     })),
-    saveBatchRecord: mock.fn(async () => {}),
+    saveBatchIntent: mock.fn(async () => {}),
+    activateBatchRecord: mock.fn(async () => {}),
+    reconcileCreatingBatches: mock.fn(async () => {}),
+    splitSummaryRequestsIntoBatches: (requests: unknown[]) => [requests],
   },
 });
 
 await mock.module('../utils/timezone.js', {
   namedExports: {
-    getCountriesNear3am: mock.fn(() => ['US']),
+    isTimeZoneNear3am: mock.fn(() => false),
+    resolveTimeZone: mock.fn(() => 'UTC'),
     DEFAULT_THREE_AM_PLUS_MINUS_MINUTES: 30,
   },
 });

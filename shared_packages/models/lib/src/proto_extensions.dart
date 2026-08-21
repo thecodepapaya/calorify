@@ -334,7 +334,7 @@ extension UserProfileCopyWith on UserProfile {
     if (targetWeight != null) copy.targetWeight = targetWeight;
     if (gender != null) copy.gender = gender;
     if (dateOfBirth != null) {
-      copy.dateOfBirth = dateTimeToIso8601String(dateOfBirth);
+      copy.dateOfBirth = dateTimeToIso8601Date(dateOfBirth);
     }
     if (weightGoal != null) copy.weightGoal = weightGoal;
     if (activityLevel != null) copy.activityLevel = activityLevel;
@@ -367,7 +367,7 @@ extension UserProfileCopyWith on UserProfile {
     if (gender != null) copy.gender = gender;
     if (clearGender) copy.clearGender();
     if (dateOfBirth != null) {
-      copy.dateOfBirth = dateTimeToIso8601String(dateOfBirth);
+      copy.dateOfBirth = dateTimeToIso8601Date(dateOfBirth);
     }
     if (clearDateOfBirth) copy.clearDateOfBirth();
     if (weightGoal != null) copy.weightGoal = weightGoal;
@@ -401,7 +401,7 @@ extension ActivityLevelMultiplier on ActivityLevel {
 
 extension UserProfileExtensions on UserProfile {
   int? get age {
-    final dob = iso8601StringToDateTime(dateOfBirth);
+    final dob = iso8601DateToDateTime(dateOfBirth);
     if (dob == null) return null;
     final now = DateTime.now();
     var years = now.year - dob.year;

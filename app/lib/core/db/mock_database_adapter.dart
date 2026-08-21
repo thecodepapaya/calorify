@@ -197,11 +197,12 @@ class MockDatabaseAdapter implements DatabaseInterface {
 
   @override
   Stream<List<LoggedMeal>> watchAllMealsForLast7Days() async* {
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month, now.day - 6);
+    final end = DateTime(now.year, now.month, now.day + 1);
     yield _meals.where((meal) {
-      final now = DateTime.now();
-      final sevenDaysAgo = now.subtract(const Duration(days: 7));
       final mealDate = meal.dateTime;
-      return mealDate.isAfter(sevenDaysAgo) && mealDate.isBefore(now);
+      return !mealDate.isBefore(start) && mealDate.isBefore(end);
     }).toList();
   }
 

@@ -7,7 +7,7 @@ const mockQuery = mock.fn(async (sql: string, _params?: unknown[]) => {
     return {
       rows: [{
         height: '175.5', weight: '72', target_weight: '68', gender: 'male',
-        date_of_birth: new Date('1990-01-01T00:00:00Z'), weight_goal: 'lose',
+        date_of_birth: '1990-01-01', weight_goal: 'lose',
         activity_level: 'moderate', height_unit: 'cm', weight_unit: 'kg',
         daily_calorie_goal: 2100, created_at: now, updated_at: now,
       }],
@@ -20,7 +20,7 @@ const mockQuery = mock.fn(async (sql: string, _params?: unknown[]) => {
     return { rows: [{ logged_at: now, logged_meal_name: 'Dal rice', logged_meal_type: 'LUNCH', logged_calories: 450, logged_protein: 20, logged_carbs: 65, logged_fat: 12, logged_fiber: 8 }] };
   }
   if (sql.includes('decomposition_data')) {
-    return { rows: [{ analysis_id: 'analysis-1', parent_analysis_id: null, source: 'text', locale: 'en-IN', country_code: 'IN', selected_meal_type: 'LUNCH', selected_meal_type_source: 'model', decomposition_data: { confidence: 0.9 }, uncertainty_data: { variancePercent: 12 }, result_data: { mealName: 'Dal rice', calorieConfidence: 'HIGH', macros: { calories: 450 } }, clarification_answers: null, logged_at: now, logged_meal_name: 'Dal rice', logged_calories: 450, logged_protein: 20, logged_carbs: 65, logged_fat: 12, logged_fiber: 8, logged_meal_type: 'LUNCH', logged_quantity: '1 bowl', created_at: now, updated_at: now }] };
+    return { rows: [{ analysis_id: 'analysis-1', parent_analysis_id: null, source: 'text', locale: 'en-IN', country_code: 'IN', time_zone: 'Asia/Kolkata', selected_meal_type: 'LUNCH', selected_meal_type_source: 'model', decomposition_data: { confidence: 0.9 }, uncertainty_data: { variancePercent: 12 }, result_data: { mealName: 'Dal rice', calorieConfidence: 'HIGH', macros: { calories: 450 } }, clarification_answers: null, logged_at: now, logged_meal_name: 'Dal rice', logged_calories: 450, logged_protein: 20, logged_carbs: 65, logged_fat: 12, logged_fiber: 8, logged_meal_type: 'LUNCH', logged_quantity: '1 bowl', created_at: now, updated_at: now }] };
   }
   if (sql.includes('FROM ai_summaries')) {
     return { rows: [{ summary: 'Based on what you logged, meals look balanced.', locale: 'en-IN', meal_count: 1, generated_at: now }] };
@@ -56,6 +56,7 @@ test('inspectUser returns the user summary pipeline and related values', async (
   assert.equal(report.user.userId, 'uid-123');
   assert.equal(report.user.exists, true);
   assert.equal(report.user.profile?.height, 175.5);
+  assert.equal(report.user.profile?.dateOfBirth, '1990-01-01');
   assert.equal(report.aiSummary.latest?.mealCount, 1);
   assert.equal(report.aiSummary.nextModelInput.csv, '2026-08-02, L, Dal rice, 450 cal');
   assert.equal(report.aiSummary.apiStats.mealCount, 1);
@@ -69,7 +70,11 @@ test('inspectUser returns the user summary pipeline and related values', async (
     assert.equal(params[0], 'uid-123');
     assert.ok(!sql.includes('request_payload'));
   }
-  assert.deepEqual(mockCollectMealData.mock.calls[0]?.arguments, ['uid-123', 'en-IN']);
+  assert.deepEqual(mockCollectMealData.mock.calls[0]?.arguments, [
+    'uid-123',
+    'en-IN',
+    'Asia/Kolkata',
+  ]);
 });
 
 test('inspectUser rejects an empty user ID before querying', async () => {

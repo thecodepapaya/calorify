@@ -79,6 +79,7 @@ await mock.module('../../utils/locale.js', {
   namedExports: {
     getLocaleFromRequest: mock.fn(() => 'en'),
     getCountryFromRequest: mock.fn(() => undefined),
+    getTimeZoneFromRequest: mock.fn(() => 'Asia/Kolkata'),
   },
 });
 
@@ -657,6 +658,46 @@ test('POST /confirm-log returns { ok: true } for valid payload', async () => {
   await app.close();
 });
 
+test('POST /confirm-log rejects timestamps without an explicit timezone', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/confirm-log',
+    payload: {
+      analysisId: 'ambiguous-log-time',
+      loggedAt: '2024-01-15T12:00:00',
+      meal: {
+        name: 'Dal Rice',
+        quantity: '1 bowl',
+        type: 'LUNCH',
+        macros: { calories: 450, protein: 15, carbs: 70, fat: 8, fiber: 5 },
+      },
+    },
+  });
+  assert.equal(response.statusCode, 400);
+  await app.close();
+});
+
+test('POST /confirm-log rejects timestamps more than five minutes in the future', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/confirm-log',
+    payload: {
+      analysisId: 'future-log-time',
+      loggedAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      meal: {
+        name: 'Dal Rice',
+        quantity: '1 bowl',
+        type: 'LUNCH',
+        macros: { calories: 450, protein: 15, carbs: 70, fat: 8, fiber: 5 },
+      },
+    },
+  });
+  assert.equal(response.statusCode, 400);
+  await app.close();
+});
+
 test('POST /confirm-log calls confirmMealAnalysisLogged with full record', async () => {
   mockConfirmMealAnalysisLogged.mock.resetCalls();
   const app = await buildTestApp();
@@ -681,6 +722,7 @@ test('POST /confirm-log calls confirmMealAnalysisLogged with full record', async
   assert.equal(arg.mealName, 'Chicken Curry');
   assert.equal(arg.calories, 520);
   assert.equal(arg.mealType, 'DINNER');
+  assert.equal(arg.timeZone, 'Asia/Kolkata');
   await app.close();
 });
 

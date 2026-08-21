@@ -10,13 +10,10 @@ class UserProfileMapper {
       weight: data.weight,
       targetWeight: data.targetWeight,
       gender: data.gender == null ? null : genderFromLegacyName(data.gender),
-      // Drift restores timestamps as local DateTimes. Always add an explicit
-      // UTC offset before sending the profile to the API, whose validator
-      // requires RFC 3339 date-times with a timezone.
       dateOfBirth:
           data.dateOfBirth == null
               ? null
-              : dateTimeToIso8601String(data.dateOfBirth!),
+              : _dateOfBirthFromDrift(data.dateOfBirth!),
       weightGoal:
           data.weightGoal == null
               ? null
@@ -47,7 +44,8 @@ class UserProfileMapper {
       dateOfBirth:
           profile.hasDateOfBirth()
               ? Value(
-                iso8601StringToDateTime(profile.dateOfBirth) ?? DateTime.now(),
+                _dateOfBirthForDrift(profile.dateOfBirth) ??
+                    DateTime.now().toUtc(),
               )
               : const Value.absent(),
       weightGoal:
@@ -61,5 +59,24 @@ class UserProfileMapper {
       heightUnit: Value(profile.heightUnit.legacyName),
       weightUnit: Value(profile.weightUnit.legacyName),
     );
+  }
+
+  static String _dateOfBirthFromDrift(DateTime value) {
+    final utc = value.toUtc();
+    // New values are canonical UTC midnights. Older app versions stored local
+    // midnight as an instant, so recover their local calendar date when the
+    // UTC time-of-day is non-zero.
+    final isCanonical =
+        utc.hour == 0 &&
+        utc.minute == 0 &&
+        utc.second == 0 &&
+        utc.millisecond == 0 &&
+        utc.microsecond == 0;
+    return dateTimeToIso8601Date(isCanonical ? utc : value.toLocal());
+  }
+
+  static DateTime? _dateOfBirthForDrift(String value) {
+    final date = iso8601DateToDateTime(value);
+    return date == null ? null : DateTime.utc(date.year, date.month, date.day);
   }
 }

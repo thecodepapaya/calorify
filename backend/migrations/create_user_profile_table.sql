@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS user_profile (
     weight DECIMAL(5, 2),
     target_weight DECIMAL(5, 2),
     gender VARCHAR(50),
-    date_of_birth TIMESTAMP,
+    date_of_birth DATE,
     weight_goal VARCHAR(50),
     activity_level VARCHAR(50),
     height_unit VARCHAR(20),

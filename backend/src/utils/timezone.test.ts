@@ -1,6 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getUtcOffsetForCountry, getCountriesAt3am, getCountriesNear3am } from './timezone.js';
+import {
+  calendarDateInTimeZone,
+  getUtcOffsetForCountry,
+  getCountriesAt3am,
+  getCountriesNear3am,
+  isTimeZoneNear3am,
+  resolveTimeZone,
+} from './timezone.js';
 
 // ---------------------------------------------------------------------------
 // getUtcOffsetForCountry
@@ -127,8 +134,8 @@ test('getCountriesAt3am handles negative UTC offsets (Americas at 3am)', () => {
 });
 
 test('getCountriesAt3am handles UTC+12 (NZ) at 3am', () => {
-  // At UTC 15:00, NZ (UTC+12) → 15 + 12 = 27 % 24 = 3 → 3:00am
-  const utcDate = new Date('2024-01-01T15:00:00Z');
+  // New Zealand is on daylight time (UTC+13) in January.
+  const utcDate = new Date('2024-01-01T14:00:00Z');
   const result = getCountriesAt3am(utcDate);
   assert.ok(result.includes('NZ'));
 });
@@ -164,3 +171,25 @@ test('getCountriesNear3am excludes IN at 03:30 local (end ±30 is exclusive)', (
   assert.ok(!result.includes('IN'));
 });
 
+test('isTimeZoneNear3am observes daylight saving time', () => {
+  assert.equal(
+    isTimeZoneNear3am(new Date('2024-07-01T07:00:00Z'), 'America/New_York'),
+    true
+  );
+  assert.equal(
+    isTimeZoneNear3am(new Date('2024-07-01T08:00:00Z'), 'America/New_York'),
+    false
+  );
+});
+
+test('resolveTimeZone prefers a device timezone and falls back by country', () => {
+  assert.equal(resolveTimeZone('America/Los_Angeles', 'US'), 'America/Los_Angeles');
+  assert.equal(resolveTimeZone(undefined, 'IN'), 'Asia/Kolkata');
+  assert.equal(resolveTimeZone(undefined, 'XX'), 'UTC');
+});
+
+test('calendarDateInTimeZone returns the local civil date', () => {
+  const instant = new Date('2024-01-15T20:00:00Z');
+  assert.equal(calendarDateInTimeZone(instant, 'Asia/Kolkata'), '2024-01-16');
+  assert.equal(calendarDateInTimeZone(instant, 'America/Los_Angeles'), '2024-01-15');
+});

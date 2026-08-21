@@ -5,20 +5,25 @@ import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { parseBody, z } from '../../utils/validation.js';
 import type { ApiResult } from '../../protos/calorify/http_api.js';
 import { getApiResultSchema, getErrorResponseSchema } from '../../utils/schema-generator.js';
+import { getTimeZoneFromRequest } from '../../utils/locale.js';
+import { calendarDateInTimeZone } from '../../utils/timezone.js';
 
 // Zod schema adds bounds checks that Fastify's JSON schema isn't expressing.
-// - DOB: ISO 8601 string (same as user.UserProfile / sync).
+// - DOB: ISO calendar date (legacy offset-bearing timestamps remain accepted).
 // All fields optional because this endpoint is a partial-update PATCH-like POST.
 const userProfileBodySchema = z.object({
   height: z.number().finite().positive().max(400).optional(),
   weight: z.number().finite().positive().max(1000).optional(),
   targetWeight: z.number().finite().positive().max(1000).optional(),
   gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
-  dateOfBirth: z
-    .string()
-    .datetime({ offset: true })
-    .refine((value) => Date.parse(value) <= Date.now(), 'must not be in the future')
-    .optional(),
+  dateOfBirth: z.string().refine((value) => {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      const parsed = new Date(`${value}T00:00:00.000Z`);
+      return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+    }
+    return /^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/i.test(value) &&
+      Number.isFinite(Date.parse(value));
+  }, 'must be an ISO calendar date').optional(),
   weightGoal: z.enum(['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT']).optional(),
   activityLevel: z
     .enum(['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'])
@@ -28,6 +33,12 @@ const userProfileBodySchema = z.object({
   dailyCalorieGoal: z.number().finite().min(500).max(20_000).optional(),
 });
 type UserProfileBody = z.infer<typeof userProfileBodySchema>;
+
+function normalizeDateOfBirth(value: string): string {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ? value
+    : new Date(value).toISOString().slice(0, 10);
+}
 
 export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   /**
@@ -69,8 +80,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
             },
             dateOfBirth: {
               type: 'string',
-              format: 'date-time',
-              description: 'Date of birth as ISO 8601 (e.g. 1990-01-01T00:00:00.000Z)',
+              description: 'Date of birth as an ISO calendar date (e.g. 1990-01-01)',
             },
             weightGoal: {
               type: 'string',
@@ -142,6 +152,18 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
           dailyCalorieGoal,
         } = parsed;
 
+        const normalizedDateOfBirth = dateOfBirth
+          ? normalizeDateOfBirth(dateOfBirth)
+          : undefined;
+        const today = calendarDateInTimeZone(
+          new Date(),
+          getTimeZoneFromRequest(request) ?? 'UTC'
+        );
+        if (normalizedDateOfBirth && normalizedDateOfBirth > today) {
+          reply.status(400).send(createErrorResponse('dateOfBirth must not be in the future'));
+          return;
+        }
+
         const now = new Date();
 
         // A single upsert avoids a SELECT/INSERT race when startup and profile
@@ -175,7 +197,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
             weight ?? null,
             targetWeight ?? null,
             gender ?? null,
-            dateOfBirth ? new Date(dateOfBirth) : null,
+            normalizedDateOfBirth ?? null,
             weightGoal ?? null,
             activityLevel ?? null,
             heightUnit ?? null,

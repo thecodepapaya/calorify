@@ -123,7 +123,7 @@ test('upsertMealAnalysisSession serializes requestPayload as JSON string', async
     requestPayload: payload,
   });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.equal(params[6], JSON.stringify(payload));
+  assert.equal(params[7], JSON.stringify(payload));
 });
 
 test('upsertMealAnalysisSession throws when DATABASE_URL is null', async () => {
@@ -374,6 +374,7 @@ test('confirmMealAnalysisLogged updates meal_analysis_session with all logged fi
     fiber: 5,
     mealType: 'LUNCH',
     quantity: '1 bowl',
+    timeZone: 'Asia/Kolkata',
   });
   const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.ok(sql.includes('UPDATE meal_analysis_session'));
@@ -390,6 +391,8 @@ test('confirmMealAnalysisLogged updates meal_analysis_session with all logged fi
   assert.equal(params[7], 5);
   assert.equal(params[8], 'LUNCH');
   assert.equal(params[9], '1 bowl');
+  assert.equal(params[10], 'Asia/Kolkata');
+  assert.ok(sql.includes('time_zone'));
 });
 
 test('confirmMealAnalysisLogged sets updated_at to CURRENT_TIMESTAMP', async () => {

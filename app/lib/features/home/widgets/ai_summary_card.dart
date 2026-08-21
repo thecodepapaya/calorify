@@ -17,8 +17,7 @@ class AiSummaryCard extends ConsumerWidget {
     final summaryAsync = ref.watch(aiSummaryProvider);
 
     return summaryAsync.when(
-      loading:
-          () => const _SummaryCardScaffold(child: AiSummarySkeletonBody()),
+      loading: () => const _SummaryCardScaffold(child: AiSummarySkeletonBody()),
       error:
           (error, _) => _SummaryCardScaffold(
             child: _ErrorState(
@@ -75,7 +74,7 @@ class _SummaryCardContent extends StatelessWidget {
         TranslationProvider.of(context).locale.flutterLocale.toLanguageTag();
     final generatedAt = DateFormat.MMMd(
       localeTag,
-    ).add_jm().format(DateTime.parse(summary.generatedAt));
+    ).add_jm().format(DateTime.parse(summary.generatedAt).toLocal());
 
     final trend = summary.trend;
 
@@ -96,10 +95,7 @@ class _SummaryCardContent extends StatelessWidget {
                 score: summary.macroBalanceScore,
               ),
             ),
-            _MetricChip(
-              icon: trend.displayIcon,
-              label: trend.displayLabel(t),
-            ),
+            _MetricChip(icon: trend.displayIcon, label: trend.displayLabel(t)),
           ],
         ),
         const SizedBox(height: 14),

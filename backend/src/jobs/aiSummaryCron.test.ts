@@ -20,12 +20,24 @@ const mockPollAndProcessBatch = mock.fn(async () => ({
 }));
 const mockUpdateBatchStatus = mock.fn(async () => {});
 const mockCollectMealDataForUser = mock.fn(async () => null);
+const mockCollectMealDataForUsers = mock.fn(async (users: Array<{
+  userId: string;
+  locale: string;
+  timeZone: string;
+}>) => {
+  const results = await Promise.all(users.map((user) =>
+    mockCollectMealDataForUser(user.userId, user.locale, user.timeZone)
+  ));
+  return results.filter((result) => result !== null);
+});
 const mockSubmitBatch = mock.fn(async () => ({
   openAiBatchId: 'batch-cron-1',
   requestCount: 1,
   userData: {},
 }));
 const mockSaveBatchRecord = mock.fn(async () => {});
+const mockSaveBatchIntent = mock.fn(async () => {});
+const mockReconcileCreatingBatches = mock.fn(async () => {});
 
 await mock.module('../services/aiSummaryService.js', {
   namedExports: {
@@ -33,16 +45,24 @@ await mock.module('../services/aiSummaryService.js', {
     pollAndProcessBatch: mockPollAndProcessBatch,
     updateBatchStatus: mockUpdateBatchStatus,
     collectMealDataForUser: mockCollectMealDataForUser,
+    collectMealDataForUsers: mockCollectMealDataForUsers,
     submitBatch: mockSubmitBatch,
-    saveBatchRecord: mockSaveBatchRecord,
+    saveBatchIntent: mockSaveBatchIntent,
+    activateBatchRecord: mockSaveBatchRecord,
+    reconcileCreatingBatches: mockReconcileCreatingBatches,
+    splitSummaryRequestsIntoBatches: (requests: unknown[]) => [requests],
   },
 });
 
-const mockGetCountriesNear3am = mock.fn(() => []);
+const mockIsTimeZoneNear3am = mock.fn(() => false);
+const mockResolveTimeZone = mock.fn((timeZone?: string, countryCode?: string) =>
+  timeZone ?? (countryCode === 'IN' ? 'Asia/Kolkata' : 'UTC')
+);
 
 await mock.module('../utils/timezone.js', {
   namedExports: {
-    getCountriesNear3am: mockGetCountriesNear3am,
+    isTimeZoneNear3am: mockIsTimeZoneNear3am,
+    resolveTimeZone: mockResolveTimeZone,
     DEFAULT_THREE_AM_PLUS_MINUS_MINUTES: 30,
   },
 });
@@ -76,9 +96,13 @@ function resetAll() {
   mockPollAndProcessBatch.mock.resetCalls();
   mockUpdateBatchStatus.mock.resetCalls();
   mockCollectMealDataForUser.mock.resetCalls();
+  mockCollectMealDataForUsers.mock.resetCalls();
   mockSubmitBatch.mock.resetCalls();
   mockSaveBatchRecord.mock.resetCalls();
-  mockGetCountriesNear3am.mock.resetCalls();
+  mockSaveBatchIntent.mock.resetCalls();
+  mockReconcileCreatingBatches.mock.resetCalls();
+  mockIsTimeZoneNear3am.mock.resetCalls();
+  mockResolveTimeZone.mock.resetCalls();
   mockQuery.mock.resetCalls();
   mockCronSchedule.mock.resetCalls();
 }
@@ -109,7 +133,7 @@ test('startAiSummaryCron passes a callback function to cron.schedule', () => {
 test('cron job callback calls getPendingBatches', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesNear3am.mock.mockImplementation(() => []);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => false);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -129,7 +153,7 @@ test('cron job polls and updates each pending batch', async () => {
     savedCount: 0,
     errorCount: 0,
   }));
-  mockGetCountriesNear3am.mock.mockImplementation(() => []);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => false);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -149,7 +173,7 @@ test('cron job calls updateBatchStatus with correct batch id and status', async 
     savedCount: 3,
     errorCount: 0,
   }));
-  mockGetCountriesNear3am.mock.mockImplementation(() => []);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => false);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -172,7 +196,7 @@ test('cron job continues polling remaining batches when one throws', async () =>
     if (id === 'b-fail') throw new Error('Network error');
     return { status: 'completed' as const, savedCount: 0, errorCount: 0 };
   });
-  mockGetCountriesNear3am.mock.mockImplementation(() => []);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => false);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
@@ -185,31 +209,34 @@ test('cron job continues polling remaining batches when one throws', async () =>
 // Phase 2 — submitNewBatch
 // ---------------------------------------------------------------------------
 
-test('cron job skips batch submission when no countries are at 3am', async () => {
+test('cron job skips batch submission when no users are near 3am', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesNear3am.mock.mockImplementation(() => []); // no 3am countries
+  mockQuery.mock.mockImplementation(async () => ({
+    rows: [{ user_id: 'user-1', locale: 'en', time_zone: 'Europe/London', country_code: 'GB' }],
+  }));
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => false);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
   await callback();
 
-  // query should not be called for user lookup since no countries
+  // The scheduler resolves recent users first, then filters by their timezone.
   const userLookupCalls = mockQuery.mock.calls.filter(
     (c) => (c.arguments[0] as string).includes('meal_analysis_session')
   );
-  assert.equal(userLookupCalls.length, 0);
+  assert.equal(userLookupCalls.length, 1);
   assert.equal(mockSubmitBatch.mock.calls.length, 0);
 });
 
-test('cron job queries users in 3am countries and submits batch', async () => {
+test('cron job queries users near local 3am and submits batch', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesNear3am.mock.mockImplementation(() => ['IN', 'LK']);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => true);
   mockQuery.mock.mockImplementation(async () => ({
     rows: [
-      { user_id: 'user-in-1', locale: 'hi' },
-      { user_id: 'user-in-2', locale: 'en' },
+      { user_id: 'user-in-1', locale: 'hi', time_zone: 'Asia/Kolkata', country_code: 'IN' },
+      { user_id: 'user-in-2', locale: 'en', time_zone: 'Asia/Kolkata', country_code: 'IN' },
     ],
   }));
   mockCollectMealDataForUser.mock.mockImplementation(async (userId: string, locale: string) => ({
@@ -225,15 +252,42 @@ test('cron job queries users in 3am countries and submits batch', async () => {
 
   assert.equal(mockCollectMealDataForUser.mock.calls.length, 2);
   assert.equal(mockSubmitBatch.mock.calls.length, 1);
+  assert.equal(mockSaveBatchIntent.mock.calls.length, 1);
   assert.equal(mockSaveBatchRecord.mock.calls.length, 1);
+  assert.match(mockQuery.mock.calls[0]!.arguments[0] as string, /NOT EXISTS/);
+});
+
+test('cron job never submits externally when the batch intent cannot be persisted', async () => {
+  resetAll();
+  mockGetPendingBatches.mock.mockImplementation(async () => []);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => true);
+  mockQuery.mock.mockImplementation(async () => ({
+    rows: [{ user_id: 'u1', locale: 'en', time_zone: 'UTC', country_code: null }],
+  }));
+  mockCollectMealDataForUser.mock.mockImplementation(async () => ({
+    userId: 'u1', locale: 'en', mealCount: 1, csv: 'row',
+  }));
+  mockSaveBatchIntent.mock.mockImplementation(async () => {
+    throw new Error('database unavailable');
+  });
+
+  startAiSummaryCron();
+  const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [
+    string,
+    () => Promise<void>,
+  ];
+  await callback();
+  assert.equal(mockSubmitBatch.mock.calls.length, 0);
+
+  mockSaveBatchIntent.mock.mockImplementation(async () => {});
 });
 
 test('cron job skips batch submission when no users have meal data', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesNear3am.mock.mockImplementation(() => ['US']);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => true);
   mockQuery.mock.mockImplementation(async () => ({
-    rows: [{ user_id: 'user-no-meals', locale: 'en' }],
+    rows: [{ user_id: 'user-no-meals', locale: 'en', time_zone: 'America/New_York', country_code: 'US' }],
   }));
   // collectMealDataForUser returns null (no meals in last 3 days)
   mockCollectMealDataForUser.mock.mockImplementation(async () => null);
@@ -248,9 +302,9 @@ test('cron job skips batch submission when no users have meal data', async () =>
 test('cron job does not throw when submitBatch fails', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesNear3am.mock.mockImplementation(() => ['FR']);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => true);
   mockQuery.mock.mockImplementation(async () => ({
-    rows: [{ user_id: 'u1', locale: 'fr' }],
+    rows: [{ user_id: 'u1', locale: 'fr', time_zone: 'Europe/Paris', country_code: 'FR' }],
   }));
   mockCollectMealDataForUser.mock.mockImplementation(async () => ({
     userId: 'u1', locale: 'fr', mealCount: 2, csv: 'data',
@@ -264,22 +318,24 @@ test('cron job does not throw when submitBatch fails', async () => {
   await assert.doesNotReject(() => callback());
 });
 
-test('cron job passes country list to query for user lookup', async () => {
+test('cron job selects timezone fields and passes the resolved timezone to collection', async () => {
   resetAll();
   mockGetPendingBatches.mock.mockImplementation(async () => []);
-  mockGetCountriesNear3am.mock.mockImplementation(() => ['JP', 'KR']);
-  mockQuery.mock.mockImplementation(async () => ({ rows: [] }));
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => true);
+  mockQuery.mock.mockImplementation(async () => ({
+    rows: [{ user_id: 'u1', locale: 'ja', time_zone: 'Asia/Tokyo', country_code: 'JP' }],
+  }));
+  mockCollectMealDataForUser.mock.mockImplementation(async () => null);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
   await callback();
 
   const userQueryCall = mockQuery.mock.calls.find(
-    (c) => (c.arguments[0] as string).includes('country_code = ANY')
+    (c) => (c.arguments[0] as string).includes('s.time_zone')
   );
   assert.ok(userQueryCall !== undefined);
-  const [, params] = userQueryCall.arguments as [string, unknown[]];
-  assert.deepEqual(params[0], ['JP', 'KR']);
+  assert.equal(mockCollectMealDataForUser.mock.calls[0]!.arguments[2], 'Asia/Tokyo');
 });
 
 test('cron job skips an overlapping hourly invocation', async () => {
@@ -292,7 +348,7 @@ test('cron job skips an overlapping hourly invocation', async () => {
     await pending;
     return [];
   });
-  mockGetCountriesNear3am.mock.mockImplementation(() => []);
+  mockIsTimeZoneNear3am.mock.mockImplementation(() => false);
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [

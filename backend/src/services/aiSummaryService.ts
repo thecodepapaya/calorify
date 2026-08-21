@@ -2,6 +2,12 @@ import OpenAI, { toFile } from './openaiClient.js';
 import config from '../config.js';
 import { OPENAI_AI_SUMMARY_MODEL } from '../openaiModels.js';
 import { query } from './database.js';
+import { calendarDateInTimeZone } from '../utils/timezone.js';
+import {
+  computeAiSummaryStats,
+  type AiSummaryMealRow,
+  type AiSummaryStats,
+} from './aiSummaryStats.js';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -24,20 +30,34 @@ const SYSTEM_PROMPT_TEMPLATE =
   `Output language must match the locale: {locale}.\n` +
   `Return JSON only: {"summary": "..."}`;
 
-interface MealRow {
+interface MealRow extends AiSummaryMealRow {
   logged_at: Date;
-  logged_meal_name: string;
+  logged_meal_name: string | null;
   logged_calories: number;
-  logged_meal_type: string;
+  logged_meal_type: string | null;
 }
 
-function formatMealsAsCsv(meals: MealRow[]): string {
+interface UserMealRow extends MealRow {
+  user_id: string;
+}
+
+function csvCell(value: string | number): string {
+  const normalized = String(value).replace(/[\r\n]+/g, ' ');
+  return /[",]/.test(normalized)
+    ? `"${normalized.replace(/"/g, '""')}"`
+    : normalized;
+}
+
+function formatMealsAsCsv(meals: MealRow[], timeZone: string): string {
   return meals
     .map((m) => {
-      const date = m.logged_at.toISOString().slice(0, 10);
-      const type = MEAL_TYPE_ABBREV[m.logged_meal_type] ?? m.logged_meal_type[0] ?? '?';
+      const date = calendarDateInTimeZone(m.logged_at, timeZone);
+      const mealType = m.logged_meal_type ?? '';
+      const type = MEAL_TYPE_ABBREV[mealType] ?? mealType[0] ?? '?';
       const name = (m.logged_meal_name ?? '').slice(0, 40);
-      return `${date}, ${type}, ${name}, ${m.logged_calories} cal`;
+      return [date, type, name, `${m.logged_calories} cal`]
+        .map(csvCell)
+        .join(', ');
     })
     .join('\n');
 }
@@ -51,7 +71,9 @@ const openai = new OpenAI({ apiKey: config.OPENAI_API_KEY ?? undefined });
 export interface UserSummaryRequest {
   userId: string;
   locale: string;
+  timeZone?: string;
   mealCount: number;
+  stats?: AiSummaryStats;
   csv: string;
 }
 
@@ -59,7 +81,9 @@ export interface UserSummaryRequest {
 export interface BatchUserMeta {
   userId: string;
   locale: string;
+  timeZone?: string;
   mealCount: number;
+  stats?: AiSummaryStats;
 }
 
 // ---------------------------------------------------------------------------
@@ -68,13 +92,16 @@ export interface BatchUserMeta {
 
 export async function collectMealDataForUser(
   userId: string,
-  locale: string
+  locale: string,
+  timeZone: string = 'UTC'
 ): Promise<UserSummaryRequest | null> {
   const { rows: meals } = await query<MealRow>(
-    `SELECT logged_at, logged_meal_name, logged_calories, logged_meal_type
+    `SELECT logged_at, logged_meal_name, logged_calories, logged_meal_type,
+            logged_protein, logged_carbs, logged_fat, logged_fiber
        FROM meal_analysis_session
       WHERE user_id = $1
         AND logged_at >= NOW() - INTERVAL '3 days'
+        AND logged_at <= NOW() + INTERVAL '5 minutes'
         AND logged_meal_name IS NOT NULL
       ORDER BY logged_at`,
     [userId]
@@ -85,9 +112,54 @@ export async function collectMealDataForUser(
   return {
     userId,
     locale,
+    timeZone,
     mealCount: meals.length,
-    csv: formatMealsAsCsv(meals),
+    stats: computeAiSummaryStats(meals),
+    csv: formatMealsAsCsv(meals, timeZone),
   };
+}
+
+export interface SummaryUserInput {
+  userId: string;
+  locale: string;
+  timeZone: string;
+}
+
+/** Collect many users in one ordered query to avoid one DB request per user. */
+export async function collectMealDataForUsers(
+  users: SummaryUserInput[]
+): Promise<UserSummaryRequest[]> {
+  if (users.length === 0) return [];
+  const { rows } = await query<UserMealRow>(
+    `SELECT user_id, logged_at, logged_meal_name, logged_calories,
+            logged_meal_type, logged_protein, logged_carbs, logged_fat,
+            logged_fiber
+       FROM meal_analysis_session
+      WHERE user_id = ANY($1::text[])
+        AND logged_at >= NOW() - INTERVAL '3 days'
+        AND logged_at <= NOW() + INTERVAL '5 minutes'
+        AND logged_meal_name IS NOT NULL
+      ORDER BY user_id, logged_at`,
+    [users.map((user) => user.userId)]
+  );
+  const mealsByUser = new Map<string, MealRow[]>();
+  for (const row of rows) {
+    const meals = mealsByUser.get(row.user_id) ?? [];
+    meals.push(row);
+    mealsByUser.set(row.user_id, meals);
+  }
+  return users.flatMap((user) => {
+    const meals = mealsByUser.get(user.userId) ?? [];
+    if (meals.length === 0) return [];
+    return [{
+      userId: user.userId,
+      locale: user.locale,
+      timeZone: user.timeZone,
+      mealCount: meals.length,
+      stats: computeAiSummaryStats(meals),
+      csv: formatMealsAsCsv(meals, user.timeZone),
+    }];
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -124,6 +196,35 @@ function buildBatchJsonl(requests: UserSummaryRequest[]): string {
     .join('\n');
 }
 
+const BATCH_MAX_REQUESTS = 10_000;
+const BATCH_MAX_BYTES = 190 * 1024 * 1024;
+
+export function splitSummaryRequestsIntoBatches(
+  requests: UserSummaryRequest[]
+): UserSummaryRequest[][] {
+  const chunks: UserSummaryRequest[][] = [];
+  let chunk: UserSummaryRequest[] = [];
+  let chunkBytes = 0;
+  for (const request of requests) {
+    const requestBytes = Buffer.byteLength(buildBatchJsonl([request]), 'utf8') + 1;
+    if (requestBytes > BATCH_MAX_BYTES) {
+      throw new Error(`AI summary request for user ${request.userId} exceeds the batch file limit`);
+    }
+    if (
+      chunk.length > 0 &&
+      (chunk.length >= BATCH_MAX_REQUESTS || chunkBytes + requestBytes > BATCH_MAX_BYTES)
+    ) {
+      chunks.push(chunk);
+      chunk = [];
+      chunkBytes = 0;
+    }
+    chunk.push(request);
+    chunkBytes += requestBytes;
+  }
+  if (chunk.length > 0) chunks.push(chunk);
+  return chunks;
+}
+
 export interface SubmittedBatch {
   openAiBatchId: string;
   requestCount: number;
@@ -131,12 +232,27 @@ export interface SubmittedBatch {
   userData: Record<string, BatchUserMeta>;
 }
 
+function buildUserData(requests: UserSummaryRequest[]): Record<string, BatchUserMeta> {
+  const userData: Record<string, BatchUserMeta> = Object.create(null);
+  for (const req of requests) {
+    userData[req.userId] = {
+      userId: req.userId,
+      locale: req.locale,
+      timeZone: req.timeZone,
+      mealCount: req.mealCount,
+      stats: req.stats,
+    };
+  }
+  return userData;
+}
+
 /**
  * Uploads the JSONL file to OpenAI and creates a batch job.
  * Returns the batch ID and the user metadata map for storage.
  */
 export async function submitBatch(
-  requests: UserSummaryRequest[]
+  requests: UserSummaryRequest[],
+  submissionKey?: string
 ): Promise<SubmittedBatch> {
   if (requests.length === 0) throw new Error('No requests to batch');
 
@@ -154,22 +270,15 @@ export async function submitBatch(
     input_file_id: inputFile.id,
     endpoint: '/v1/chat/completions',
     completion_window: '24h',
+    metadata: submissionKey
+      ? { calorify_submission_key: submissionKey }
+      : undefined,
   });
-
-  // Build the user data map for persistence
-  const userData: Record<string, BatchUserMeta> = {};
-  for (const req of requests) {
-    userData[req.userId] = {
-      userId: req.userId,
-      locale: req.locale,
-      mealCount: req.mealCount,
-    };
-  }
 
   return {
     openAiBatchId: batch.id,
     requestCount: requests.length,
-    userData,
+    userData: buildUserData(requests),
   };
 }
 
@@ -177,12 +286,20 @@ export async function submitBatch(
 // Step 3 — Poll a pending batch and process results if complete
 // ---------------------------------------------------------------------------
 
-export type BatchStatus = 'submitted' | 'processing' | 'completed' | 'failed' | 'cancelled' | 'expired';
+export type BatchStatus =
+  | 'creating'
+  | 'submitted'
+  | 'processing'
+  | 'completed'
+  | 'failed'
+  | 'cancelled'
+  | 'expired';
 
 export interface PollResult {
   status: BatchStatus;
   savedCount: number;
   errorCount: number;
+  error?: string;
 }
 
 /**
@@ -212,17 +329,31 @@ export async function pollAndProcessBatch(
     return { status: ourStatus, savedCount: 0, errorCount: 0 };
   }
 
-  if (!batch.output_file_id) {
-    return { status: 'failed', savedCount: 0, errorCount: 0 };
+  const fileIds = [batch.output_file_id, batch.error_file_id].filter(
+    (id): id is string => Boolean(id)
+  );
+  if (fileIds.length === 0) {
+    const errorCount = Object.keys(userData).length;
+    return {
+      status: 'failed',
+      savedCount: 0,
+      errorCount,
+      error: 'Completed provider batch had no output or error file',
+    };
   }
 
-  // Download and parse the results JSONL
-  const fileResponse = await openai.files.content(batch.output_file_id);
-  const text = await fileResponse.text();
-  const lines = text.split('\n').filter((l) => l.trim().length > 0);
+  const lines: string[] = [];
+  for (const fileId of fileIds) {
+    const fileResponse = await openai.files.content(fileId);
+    const text = await fileResponse.text();
+    lines.push(...text.split('\n').filter((line) => line.trim().length > 0));
+  }
 
   let savedCount = 0;
   let errorCount = 0;
+  let persistenceFailed = false;
+  const seenUserIds = new Set<string>();
+  const errors: string[] = [];
 
   for (const line of lines) {
     let result: {
@@ -246,9 +377,11 @@ export async function pollAndProcessBatch(
       );
       continue;
     }
+    seenUserIds.add(result.custom_id);
 
     if (result.error || result.response?.status_code !== 200) {
       errorCount++;
+      errors.push(`Provider request failed for user ${meta.userId}`);
       console.error(`[aiSummaryService] Batch result error for user ${meta.userId}:`, result.error);
       continue;
     }
@@ -256,14 +389,15 @@ export async function pollAndProcessBatch(
     const content = result.response?.body?.choices?.[0]?.message?.content ?? '{}';
     let summary: string;
     try {
-      const parsed = JSON.parse(content) as { summary?: string | null };
-      summary = parsed.summary ?? '';
+      const parsed = JSON.parse(content) as { summary?: unknown };
+      summary = typeof parsed.summary === 'string' ? parsed.summary.trim() : '';
     } catch {
       summary = '';
     }
 
     if (!summary) {
       errorCount++;
+      errors.push(`Provider returned no summary for user ${meta.userId}`);
       console.error(
         `[aiSummaryService] Batch result missing or empty "summary" for user ${meta.userId} after parsing model output`
       );
@@ -271,15 +405,46 @@ export async function pollAndProcessBatch(
     }
 
     try {
-      await saveAiSummary(meta.userId, summary, meta.locale, meta.mealCount);
+      await saveAiSummary(
+        meta.userId,
+        summary,
+        meta.locale,
+        meta.mealCount,
+        openAiBatchId,
+        meta.stats
+      );
       savedCount++;
     } catch (err) {
       errorCount++;
+      persistenceFailed = true;
+      errors.push(`Database save failed for user ${meta.userId}`);
       console.error(`[aiSummaryService] Failed to save summary for user ${meta.userId}:`, err);
     }
   }
 
-  return { status: 'completed', savedCount, errorCount };
+  for (const [customId, meta] of Object.entries(userData)) {
+    if (seenUserIds.has(customId)) continue;
+    errorCount++;
+    errors.push(`Provider returned no result for user ${meta.userId}`);
+  }
+
+  if (persistenceFailed) {
+    return {
+      status: 'processing',
+      savedCount,
+      errorCount,
+      error: errors.join('; '),
+    };
+  }
+  if (errorCount > 0) {
+    return {
+      status: 'failed',
+      savedCount,
+      errorCount,
+      error: errors.join('; ') || `${errorCount} batch result(s) could not be processed`,
+    };
+  }
+  return { status: 'completed', savedCount, errorCount: 0 };
 }
 
 // ---------------------------------------------------------------------------
@@ -290,13 +455,115 @@ export async function saveAiSummary(
   userId: string,
   summary: string,
   locale: string,
-  mealCount: number
+  mealCount: number,
+  openAiBatchId?: string,
+  stats?: AiSummaryStats
+): Promise<boolean> {
+  const result = await query(
+    `INSERT INTO ai_summaries
+       (user_id, summary, locale, meal_count, openai_batch_id, stats_snapshot)
+     VALUES ($1, $2, $3, $4, $5, $6::jsonb)
+     ON CONFLICT (openai_batch_id, user_id) WHERE openai_batch_id IS NOT NULL
+     DO NOTHING`,
+    [
+      userId,
+      summary,
+      locale,
+      mealCount,
+      openAiBatchId ?? null,
+      stats ? JSON.stringify(stats) : null,
+    ]
+  );
+  return result.rowCount !== 0;
+}
+
+export async function saveBatchIntent(
+  pendingBatchId: string,
+  requests: UserSummaryRequest[]
 ): Promise<void> {
   await query(
-    `INSERT INTO ai_summaries (user_id, summary, locale, meal_count)
-     VALUES ($1, $2, $3, $4)`,
-    [userId, summary, locale, mealCount]
+    `INSERT INTO ai_summary_batches
+       (openai_batch_id, status, request_count, user_data)
+     VALUES ($1, 'creating', $2, $3::jsonb)`,
+    [pendingBatchId, requests.length, JSON.stringify(buildUserData(requests))]
   );
+}
+
+export async function activateBatchRecord(
+  pendingBatchId: string,
+  batch: SubmittedBatch
+): Promise<void> {
+  await query(
+    `UPDATE ai_summary_batches
+        SET openai_batch_id = $2,
+            status = 'submitted',
+            request_count = $3,
+            user_data = $4::jsonb,
+            error = NULL
+      WHERE openai_batch_id = $1
+        AND status = 'creating'`,
+    [
+      pendingBatchId,
+      batch.openAiBatchId,
+      batch.requestCount,
+      JSON.stringify(batch.userData),
+    ]
+  );
+}
+
+interface CreatingBatchRow {
+  openai_batch_id: string;
+  submitted_at: Date | string;
+}
+
+/** Recover the narrow crash window between provider creation and DB activation. */
+export async function reconcileCreatingBatches(): Promise<void> {
+  const { rows } = await query<CreatingBatchRow>(
+    `SELECT openai_batch_id, submitted_at
+       FROM ai_summary_batches
+      WHERE status = 'creating'
+      ORDER BY submitted_at`
+  );
+  if (rows.length === 0) return;
+
+  const pendingByKey = new Map(
+    rows.map((row) => [row.openai_batch_id.replace(/^pending:/, ''), row])
+  );
+
+  try {
+    for await (const batch of openai.batches.list({ limit: 100 })) {
+      const submissionKey = batch.metadata?.calorify_submission_key;
+      if (!submissionKey || !pendingByKey.has(submissionKey)) continue;
+      const row = pendingByKey.get(submissionKey)!;
+      await query(
+        `UPDATE ai_summary_batches
+            SET openai_batch_id = $2,
+                status = 'submitted',
+                error = NULL
+          WHERE openai_batch_id = $1
+            AND status = 'creating'`,
+        [row.openai_batch_id, batch.id]
+      );
+      pendingByKey.delete(submissionKey);
+      if (pendingByKey.size === 0) break;
+    }
+  } catch (err) {
+    console.error(
+      '[aiSummaryService] Failed to reconcile creating batches:',
+      err instanceof Error ? err.message : err
+    );
+    return;
+  }
+
+  const staleBefore = Date.now() - 26 * 60 * 60 * 1000;
+  for (const row of pendingByKey.values()) {
+    if (new Date(row.submitted_at).getTime() >= staleBefore) continue;
+    await updateBatchStatus(
+      row.openai_batch_id,
+      'failed',
+      'No provider batch was found for the persisted submission intent'
+    );
+  }
 }
 
 export async function saveBatchRecord(batch: SubmittedBatch): Promise<void> {

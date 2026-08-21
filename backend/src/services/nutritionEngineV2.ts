@@ -371,6 +371,7 @@ export interface AnalysisRequestOptions {
   userId?: string;
   locale?: string;
   countryCode?: string;
+  timeZone?: string;
   feedbackIssues?: MealFeedbackIssue[];
   otherText?: string;
   selectedMealType?: MealTypeValue;
@@ -387,6 +388,7 @@ interface PipelineRunContext {
   userId?: string;
   locale: string;
   countryCode?: string;
+  timeZone?: string;
   selectedMealType?: MealTypeValue;
   selectedMealTypeSource?: MealTypeSource;
   feedbackIssues?: MealFeedbackIssue[];
@@ -1832,6 +1834,7 @@ async function persistSessionSnapshot(
     source: context.source,
     locale: context.locale,
     countryCode: context.countryCode,
+    timeZone: context.timeZone,
     requestPayload: context.requestPayload,
     decompositionData: payload.decompositionData,
     ingredientsData: payload.ingredientsData,
@@ -2271,6 +2274,7 @@ export async function* analyzeTextMeal(
     source: 'text',
     locale: options.locale ?? 'en',
     countryCode: options.countryCode,
+    timeZone: options.timeZone,
     requestPayload: { textDescription: input },
     selectedMealType: options.selectedMealType,
     selectedMealTypeSource: options.selectedMealTypeSource,
@@ -2332,6 +2336,7 @@ export async function* analyzeImageMeal(
     source: 'image',
     locale: options.locale ?? 'en',
     countryCode: options.countryCode,
+    timeZone: options.timeZone,
     requestPayload: { imageUrl },
     selectedMealType: options.selectedMealType,
     selectedMealTypeSource: options.selectedMealTypeSource,
@@ -2419,6 +2424,7 @@ export async function* continueMealAnalysis(
       source: session.source,
       locale: session.locale,
       countryCode: session.countryCode,
+      timeZone: session.timeZone,
       requestPayload: (session.requestPayload as Record<string, unknown>) ?? {},
       selectedMealType: session.selectedMealType as MealTypeValue | undefined,
       selectedMealTypeSource: session.selectedMealTypeSource,
@@ -2479,6 +2485,7 @@ export async function* continueMealAnalysisWithMealType(
       source: session.source,
       locale: session.locale,
       countryCode: session.countryCode,
+      timeZone: session.timeZone,
       requestPayload: (session.requestPayload as Record<string, unknown>) ?? {},
       selectedMealType,
       selectedMealTypeSource: 'user',
@@ -2538,6 +2545,7 @@ export async function* reanalyzeMeal(
       userId: userId ?? session.userId,
       locale: session.locale,
       countryCode: session.countryCode,
+      timeZone: session.timeZone,
       feedbackIssues: issues,
       otherText,
       selectedMealType:

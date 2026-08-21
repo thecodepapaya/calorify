@@ -17,6 +17,7 @@ import type { ImageMealDetectionRequest, TextMealDetectionRequest } from '../../
 import {
   computeAiSummaryStats,
   type AiSummaryMealRow,
+  type AiSummaryStats,
 } from '../../services/aiSummaryStats.js';
 
 const imageDetectionBodySchema = z.object({
@@ -69,6 +70,7 @@ function parseMealAnalysisTipsQueryCount(
 interface AiSummaryRow {
   summary: string;
   generated_at: Date;
+  stats_snapshot: AiSummaryStats | null;
 }
 
 type RecentMealRow = AiSummaryMealRow;
@@ -146,7 +148,7 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
 
       const userId = getCurrentUserId(request);
       const { rows } = await query<AiSummaryRow>(
-        `SELECT summary, generated_at
+        `SELECT summary, generated_at, stats_snapshot
            FROM ai_summaries
           WHERE user_id = $1
           ORDER BY generated_at DESC
@@ -166,24 +168,29 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         return;
       }
 
-      const { rows: recentMeals } = await query<RecentMealRow>(
-        `SELECT
-            logged_at,
-            logged_meal_name,
-            logged_meal_type,
-            logged_calories,
-            logged_protein,
-            logged_carbs,
-            logged_fat,
-            logged_fiber
-           FROM meal_analysis_session
-          WHERE user_id = $1
-            AND logged_at >= NOW() - INTERVAL '3 days'
-            AND logged_at IS NOT NULL
-          ORDER BY logged_at DESC`,
-        [userId]
-      );
-      const stats = computeAiSummaryStats(recentMeals);
+      let stats = row.stats_snapshot;
+      if (!stats) {
+        // Legacy summaries predate snapshot persistence. Keep the old fallback
+        // until those rows naturally age out of the latest-summary position.
+        const { rows: recentMeals } = await query<RecentMealRow>(
+          `SELECT
+              logged_at,
+              logged_meal_name,
+              logged_meal_type,
+              logged_calories,
+              logged_protein,
+              logged_carbs,
+              logged_fat,
+              logged_fiber
+             FROM meal_analysis_session
+            WHERE user_id = $1
+              AND logged_at >= NOW() - INTERVAL '3 days'
+              AND logged_at <= NOW() + INTERVAL '5 minutes'
+            ORDER BY logged_at DESC`,
+          [userId]
+        );
+        stats = computeAiSummaryStats(recentMeals);
+      }
 
       const body: AiMealSummaryResponse = {
         summary: row.summary,

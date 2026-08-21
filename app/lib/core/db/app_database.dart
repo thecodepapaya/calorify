@@ -221,7 +221,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   Stream<List<LoggedMeal>> watchAllMealsForToday() {
     final now = DateTime.now();
     final startOfToday = DateTime(now.year, now.month, now.day);
-    final endOfToday = startOfToday.add(const Duration(days: 1));
+    final endOfToday = DateTime(now.year, now.month, now.day + 1);
 
     return (select(mealInfoTable)
           ..where(
@@ -243,12 +243,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Stream<List<LoggedMeal>> watchAllMealsForLast7Days() {
     final now = DateTime.now();
-    final sevenDaysAgo = now.subtract(const Duration(days: 6));
-    final startOfSevenDaysAgo = DateTime(
-      sevenDaysAgo.year,
-      sevenDaysAgo.month,
-      sevenDaysAgo.day,
-    );
+    final startOfSevenDaysAgo = DateTime(now.year, now.month, now.day - 6);
 
     return (select(mealInfoTable)..where(
       (tbl) => tbl.timestamp.isBiggerOrEqualValue(startOfSevenDaysAgo),

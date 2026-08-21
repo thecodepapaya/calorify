@@ -18,7 +18,11 @@ import {
   type PipelineEvent,
 } from '../../services/nutritionEngineV2.js';
 import { createErrorResponse } from '../../utils/errors.js';
-import { getCountryFromRequest, getLocaleFromRequest } from '../../utils/locale.js';
+import {
+  getCountryFromRequest,
+  getLocaleFromRequest,
+  getTimeZoneFromRequest,
+} from '../../utils/locale.js';
 import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.js';
 import {
   MealAnalysisFeedbackSignal,
@@ -110,19 +114,22 @@ const confirmLogMealSchema = z.object({
 
 const confirmLogBodySchema = z.object({
   analysisId: nonEmptyString.max(128),
-  loggedAt: nonEmptyString.refine(
-    (value) => Number.isFinite(Date.parse(value)),
-    'must be a valid ISO-8601 timestamp'
+  loggedAt: z.string().datetime({ offset: true }).refine(
+    (value) => Date.parse(value) <= Date.now() + 5 * 60 * 1000,
+    'must not be more than 5 minutes in the future'
   ),
   meal: confirmLogMealSchema,
 });
 type ConfirmLogBody = z.infer<typeof confirmLogBodySchema>;
 
-function confirmLogBodyToStoreRecord(body: ConfirmLogBody): MealLogConfirmationRecord {
+function confirmLogBodyToStoreRecord(
+  body: ConfirmLogBody,
+  timeZone?: string
+): MealLogConfirmationRecord {
   const { meal: m } = body;
   return {
     analysisId: body.analysisId,
-    loggedAt: body.loggedAt,
+    loggedAt: new Date(body.loggedAt).toISOString(),
     mealName: m.name,
     calories: Math.round(m.macros.calories),
     protein: Math.round(m.macros.protein),
@@ -131,6 +138,7 @@ function confirmLogBodyToStoreRecord(body: ConfirmLogBody): MealLogConfirmationR
     fiber: Math.round(m.macros.fiber),
     mealType: m.type,
     quantity: m.quantity,
+    timeZone,
   };
 }
 
@@ -293,6 +301,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         analyzeTextMeal(parsed.textDescription, {
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
+          timeZone: getTimeZoneFromRequest(request),
           userId,
           logger: request.log,
         })
@@ -345,6 +354,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         analyzeImageMeal(finalImageUrl, {
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
+          timeZone: getTimeZoneFromRequest(request),
           userId,
           logger: request.log,
         })
@@ -571,7 +581,9 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       const userId = getCurrentUserId(request);
       if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
 
-      await confirmMealAnalysisLogged(confirmLogBodyToStoreRecord(parsed));
+      await confirmMealAnalysisLogged(
+        confirmLogBodyToStoreRecord(parsed, getTimeZoneFromRequest(request))
+      );
       const ok: ApiResult = { ok: true, message: '' };
       reply.send(ok);
     }

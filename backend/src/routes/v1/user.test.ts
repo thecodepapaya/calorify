@@ -240,24 +240,23 @@ test('POST /profile accepts all valid activityLevel values', async () => {
   await app.close();
 });
 
-test('POST /profile converts dateOfBirth ISO string to Date', async () => {
+test('POST /profile stores dateOfBirth as a calendar date', async () => {
   resetQuery({ rows: [] });
   const app = await buildTestApp();
-  const dobIso = '1990-01-01T00:00:00.000Z';
-  const expectedMs = new Date(dobIso).getTime();
-  await app.inject({
+  const dobIso = '1990-01-01';
+  const response = await app.inject({
     method: 'POST',
     url: PROFILE_URL,
     headers: AUTH_HEADERS,
     payload: { dateOfBirth: dobIso },
   });
+  assert.equal(response.statusCode, 200, response.body);
   const insertCall = mockQuery.mock.calls.find(
     (c) => (c.arguments[0] as string).includes('INSERT INTO user_profile')
   );
   const params = insertCall!.arguments[1] as unknown[];
   // dateOfBirth is param[5] (userId, height, weight, targetWeight, gender, dateOfBirth)
-  assert.ok(params[5] instanceof Date);
-  assert.equal((params[5] as Date).getTime(), expectedMs);
+  assert.equal(params[5], dobIso);
   await app.close();
 });
 
@@ -283,7 +282,7 @@ test('POST /profile rejects implausibly low calorie goals', async () => {
     headers: AUTH_HEADERS,
     payload: { dailyCalorieGoal: 100 },
   });
-  assert.equal(response.statusCode, 400);
+  assert.equal(response.statusCode, 400, response.body);
   assert.equal(mockQuery.mock.callCount(), 0);
   await app.close();
 });
@@ -295,9 +294,9 @@ test('POST /profile rejects future dates of birth', async () => {
     method: 'POST',
     url: PROFILE_URL,
     headers: AUTH_HEADERS,
-    payload: { dateOfBirth: '2999-01-01T00:00:00.000Z' },
+    payload: { dateOfBirth: '2999-01-01' },
   });
-  assert.equal(response.statusCode, 400);
+  assert.equal(response.statusCode, 400, response.body);
   assert.equal(mockQuery.mock.callCount(), 0);
   await app.close();
 });

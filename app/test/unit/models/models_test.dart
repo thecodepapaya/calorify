@@ -65,7 +65,7 @@ void main() {
         height: 180,
         weight: 80,
         gender: Gender.MALE,
-        dateOfBirth: dateTimeToIso8601String(DateTime(1990, 1, 1)),
+        dateOfBirth: dateTimeToIso8601Date(DateTime(1990, 1, 1)),
         activityLevel: ActivityLevel.MODERATELY_ACTIVE,
         weightGoal: WeightGoal.MAINTAIN_WEIGHT,
       );
@@ -80,9 +80,7 @@ void main() {
 
     test('age calculation is correct', () {
       final birthday = DateTime(DateTime.now().year - 25, 1, 1);
-      final profile = UserProfile(
-        dateOfBirth: dateTimeToIso8601String(birthday),
-      );
+      final profile = UserProfile(dateOfBirth: dateTimeToIso8601Date(birthday));
       expect(profile.age, 25);
     });
   });

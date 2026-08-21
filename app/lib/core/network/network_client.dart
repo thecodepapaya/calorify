@@ -8,6 +8,7 @@ import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:i18n/i18n.dart';
 import 'package:measure_dio/measure_dio.dart';
 import 'package:models/models.dart' show ApiResult;
@@ -54,6 +55,13 @@ class NetworkClient {
             final token = await AuthService.instance.resolveAuthToken();
             if (token != null) {
               options.headers['Authorization'] = 'Bearer $token';
+            }
+            try {
+              final timeZone = await FlutterTimezone.getLocalTimezone();
+              options.headers['X-Time-Zone'] = timeZone.identifier;
+            } on Object {
+              // Requests still work without this optional personalization
+              // header. The backend falls back to geo-derived timezone data.
             }
           }
 

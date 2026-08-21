@@ -41,17 +41,15 @@ class _MacroHistoryChart extends ConsumerWidget {
     Iterable<LoggedMeal> loggedMeals,
   ) {
     final now = DateTime.now();
-    final sevenDaysAgo = now.subtract(const Duration(days: 6));
-    final startOfSevenDaysAgo = DateTime(
-      sevenDaysAgo.year,
-      sevenDaysAgo.month,
-      sevenDaysAgo.day,
-    );
+    final startOfSevenDaysAgo = DateTime(now.year, now.month, now.day - 6);
 
     Map<DateTime, Map<String, double>> processedData = {};
     for (int i = 0; i < 7; i++) {
-      final dayDate = startOfSevenDaysAgo.add(Duration(days: i));
-      final mapKeyDate = DateTime(dayDate.year, dayDate.month, dayDate.day);
+      final mapKeyDate = DateTime(
+        startOfSevenDaysAgo.year,
+        startOfSevenDaysAgo.month,
+        startOfSevenDaysAgo.day + i,
+      );
       processedData[mapKeyDate] = {
         'protein': 0.0,
         'carbs': 0.0,

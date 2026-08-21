@@ -6,7 +6,8 @@ await mock.module('../config.js', {
   defaultExport: { DEBUG: false, ENVIRONMENT: 'development' },
 });
 
-const { getLocaleFromRequest, getCountryFromRequest } = await import('./locale.js');
+const { getLocaleFromRequest, getCountryFromRequest, getTimeZoneFromRequest } =
+  await import('./locale.js');
 import type { FastifyRequest } from 'fastify';
 
 function makeRequest(headers: Record<string, string | string[] | undefined> = {}): FastifyRequest {
@@ -139,4 +140,18 @@ test('getCountryFromRequest handles array header value by taking first element',
 
 test('getCountryFromRequest returns undefined for empty string country code', () => {
   assert.equal(getCountryFromRequest(makeRequest({ 'cf-ipcountry': '' })), undefined);
+});
+
+test('getTimeZoneFromRequest accepts an IANA timezone', () => {
+  assert.equal(
+    getTimeZoneFromRequest(makeRequest({ 'x-time-zone': 'Asia/Kolkata' })),
+    'Asia/Kolkata'
+  );
+});
+
+test('getTimeZoneFromRequest rejects invalid timezone identifiers', () => {
+  assert.equal(
+    getTimeZoneFromRequest(makeRequest({ 'x-time-zone': 'Not/A_Zone' })),
+    undefined
+  );
 });

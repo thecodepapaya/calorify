@@ -11,11 +11,18 @@ export interface AiSummaryMealRow {
   logged_fiber: number | null;
 }
 
+export interface AiSummaryStats {
+  mealCount: number;
+  topFoods: string[];
+  macroBalanceScore: number;
+  trend: AiMealSummaryTrend;
+}
+
 function toMillis(value: Date | string): number {
   return value instanceof Date ? value.getTime() : new Date(value).getTime();
 }
 
-export function computeAiSummaryStats(meals: AiSummaryMealRow[]) {
+export function computeAiSummaryStats(meals: AiSummaryMealRow[]): AiSummaryStats {
   if (meals.length === 0) {
     return {
       mealCount: 0,

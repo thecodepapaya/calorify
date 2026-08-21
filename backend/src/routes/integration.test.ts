@@ -119,6 +119,7 @@ await mock.module('../utils/locale.js', {
   namedExports: {
     getLocaleFromRequest: mock.fn(() => 'en'),
     getCountryFromRequest: mock.fn(() => 'US'),
+    getTimeZoneFromRequest: mock.fn(() => 'America/New_York'),
   },
 });
 

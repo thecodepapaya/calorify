@@ -1,20 +1,33 @@
 import cron from 'node-cron';
+import { randomUUID } from 'node:crypto';
 import { query } from '../services/database.js';
 import {
-  collectMealDataForUser,
+  activateBatchRecord,
+  collectMealDataForUsers,
   submitBatch,
-  saveBatchRecord,
+  saveBatchIntent,
   getPendingBatches,
   pollAndProcessBatch,
+  reconcileCreatingBatches,
+  splitSummaryRequestsIntoBatches,
   updateBatchStatus,
+  type UserSummaryRequest,
 } from '../services/aiSummaryService.js';
-import { DEFAULT_THREE_AM_PLUS_MINUS_MINUTES, getCountriesNear3am } from '../utils/timezone.js';
+import {
+  DEFAULT_THREE_AM_PLUS_MINUS_MINUTES,
+  isTimeZoneNear3am,
+  resolveTimeZone,
+} from '../utils/timezone.js';
 import config from '../config.js';
 
 interface UserRow {
   user_id: string;
   locale: string;
+  time_zone: string | null;
+  country_code: string | null;
 }
+
+const COLLECTION_QUERY_USER_LIMIT = 1_000;
 
 /**
  * How to pick users for the submit phase (after polling pending batches).
@@ -38,7 +51,7 @@ async function pollPendingBatches(): Promise<void> {
   for (const row of pending) {
     try {
       const result = await pollAndProcessBatch(row.openai_batch_id, row.user_data);
-      await updateBatchStatus(row.openai_batch_id, result.status);
+      await updateBatchStatus(row.openai_batch_id, result.status, result.error);
 
       if (result.status === 'completed') {
         console.log(
@@ -62,27 +75,29 @@ async function pollPendingBatches(): Promise<void> {
 // User resolution for submit phase
 // ---------------------------------------------------------------------------
 
-async function queryUsersByCountries(countries: string[]): Promise<UserRow[]> {
-  if (countries.length === 0) return [];
-
+async function queryAllRecentUsers(excludeActiveOrRecentBatches: boolean = false): Promise<UserRow[]> {
+  const batchExclusion = excludeActiveOrRecentBatches
+    ? `AND NOT EXISTS (
+         SELECT 1
+           FROM ai_summary_batches b
+          WHERE b.user_data ? s.user_id
+            AND (
+              b.status IN ('creating', 'submitted', 'processing')
+              OR (b.status = 'completed' AND b.submitted_at >= NOW() - INTERVAL '20 hours')
+            )
+       )`
+    : '';
   const { rows } = await query<UserRow>(
-    `SELECT DISTINCT ON (s.user_id) s.user_id, COALESCE(s.locale, 'en') AS locale
-       FROM meal_analysis_session s
-      WHERE s.country_code = ANY($1::text[])
-        AND s.user_id IS NOT NULL
-        AND s.logged_at >= NOW() - INTERVAL '3 days'
-      ORDER BY s.user_id, s.created_at DESC`,
-    [countries]
-  );
-  return rows;
-}
-
-async function queryAllRecentUsers(): Promise<UserRow[]> {
-  const { rows } = await query<UserRow>(
-    `SELECT DISTINCT ON (s.user_id) s.user_id, COALESCE(s.locale, 'en') AS locale
+    `SELECT DISTINCT ON (s.user_id)
+            s.user_id,
+            COALESCE(s.locale, 'en') AS locale,
+            s.time_zone,
+            s.country_code
        FROM meal_analysis_session s
       WHERE s.user_id IS NOT NULL
         AND s.logged_at >= NOW() - INTERVAL '3 days'
+        AND s.logged_at <= NOW() + INTERVAL '5 minutes'
+        ${batchExclusion}
       ORDER BY s.user_id, s.created_at DESC`
   );
   return rows;
@@ -90,7 +105,10 @@ async function queryAllRecentUsers(): Promise<UserRow[]> {
 
 async function queryLatestSessionForUser(userId: string): Promise<UserRow | null> {
   const { rows } = await query<UserRow>(
-    `SELECT s.user_id, COALESCE(s.locale, 'en') AS locale
+    `SELECT s.user_id,
+            COALESCE(s.locale, 'en') AS locale,
+            s.time_zone,
+            s.country_code
        FROM meal_analysis_session s
       WHERE s.user_id = $1
       ORDER BY s.created_at DESC
@@ -100,25 +118,33 @@ async function queryLatestSessionForUser(userId: string): Promise<UserRow | null
   return rows[0] ?? null;
 }
 
-async function resolveUsersAndCountries(
+async function resolveUsersAndTimeZones(
   submit: AiSummarySubmitMode,
   now: Date
-): Promise<{ users: UserRow[]; countries: string[] }> {
+): Promise<{ users: UserRow[]; timeZones: string[] }> {
   switch (submit.mode) {
     case 'cron_hour': {
-      const countries = getCountriesNear3am(now, DEFAULT_THREE_AM_PLUS_MINUS_MINUTES);
-      if (countries.length === 0) return { users: [], countries: [] };
-      const users = await queryUsersByCountries(countries);
-      return { users, countries };
+      const recentUsers = await queryAllRecentUsers(true);
+      const users = recentUsers.filter((user) =>
+        isTimeZoneNear3am(
+          now,
+          resolveTimeZone(user.time_zone ?? undefined, user.country_code ?? undefined),
+          DEFAULT_THREE_AM_PLUS_MINUS_MINUTES
+        )
+      );
+      const timeZones = [...new Set(users.map((user) =>
+        resolveTimeZone(user.time_zone ?? undefined, user.country_code ?? undefined)
+      ))];
+      return { users, timeZones };
     }
     case 'all': {
       const users = await queryAllRecentUsers();
-      return { users, countries: [] };
+      return { users, timeZones: [] };
     }
     case 'user': {
       const row = await queryLatestSessionForUser(submit.userId);
       const users = row ? [row] : [];
-      return { users, countries: [] };
+      return { users, timeZones: [] };
     }
     default: {
       const _exhaustive: never = submit;
@@ -127,12 +153,12 @@ async function resolveUsersAndCountries(
   }
 }
 
-function submitLogLabel(submit: AiSummarySubmitMode, countries: string[]): string {
+function submitLogLabel(submit: AiSummarySubmitMode, timeZones: string[]): string {
   switch (submit.mode) {
     case 'cron_hour':
       return (
         `local ~03:00 [−${DEFAULT_THREE_AM_PLUS_MINUS_MINUTES}m inclusive, +${DEFAULT_THREE_AM_PLUS_MINUS_MINUTES}m exclusive)` +
-        ` → countries: ${countries.join(', ')}`
+        ` → timezones: ${timeZones.join(', ')}`
       );
     case 'all':
       return 'all users with sessions in last 3 days';
@@ -151,8 +177,56 @@ function submitLogLabel(submit: AiSummarySubmitMode, countries: string[]): strin
 
 export type AiSummarySubmitOutcome = 'submitted' | 'skipped' | 'failed';
 
+async function submitTrackedBatch(
+  requests: UserSummaryRequest[]
+): Promise<AiSummarySubmitOutcome> {
+  const submissionKey = randomUUID();
+  const pendingBatchId = `pending:${submissionKey}`;
+
+  try {
+    await saveBatchIntent(pendingBatchId, requests);
+  } catch (err) {
+    console.error(
+      '[aiSummaryCron] Failed to persist batch intent; provider submission skipped:',
+      err instanceof Error ? err.message : err
+    );
+    return 'failed';
+  }
+
+  let submitted;
+  try {
+    submitted = await submitBatch(requests, submissionKey);
+  } catch (err) {
+    await updateBatchStatus(
+      pendingBatchId,
+      'failed',
+      err instanceof Error ? err.message : String(err)
+    ).catch((statusErr) =>
+      console.error('[aiSummaryCron] Failed to close rejected batch intent:', statusErr)
+    );
+    console.error('[aiSummaryCron] Failed to submit batch:', err instanceof Error ? err.message : err);
+    return 'failed';
+  }
+
+  try {
+    await activateBatchRecord(pendingBatchId, submitted);
+  } catch (err) {
+    // The provider batch carries submissionKey metadata, so the next run can
+    // recover this activation without losing or duplicating the external job.
+    console.error(
+      `[aiSummaryCron] Batch ${submitted.openAiBatchId} submitted; DB activation deferred to reconciliation:`,
+      err instanceof Error ? err.message : err
+    );
+  }
+  console.log(
+    `[aiSummaryCron] Submitted batch ${submitted.openAiBatchId} ` +
+      `with ${submitted.requestCount} request(s)`
+  );
+  return 'submitted';
+}
+
 async function submitNewBatch(submit: AiSummarySubmitMode, now: Date): Promise<AiSummarySubmitOutcome> {
-  const { users, countries } = await resolveUsersAndCountries(submit, now);
+  const { users, timeZones } = await resolveUsersAndTimeZones(submit, now);
 
   if (submit.mode === 'user' && users.length === 0) {
     console.error(
@@ -169,31 +243,29 @@ async function submitNewBatch(submit: AiSummarySubmitMode, now: Date): Promise<A
     return 'skipped';
   }
 
-  console.log(`[aiSummaryCron] Building batch for ${users.length} user(s) (${submitLogLabel(submit, countries)})`);
+  console.log(`[aiSummaryCron] Building batch for ${users.length} user(s) (${submitLogLabel(submit, timeZones)})`);
 
-  const requests = (
-    await Promise.all(
-      users.map((u) => collectMealDataForUser(u.user_id, u.locale))
-    )
-  ).filter((r) => r !== null);
+  const requests: UserSummaryRequest[] = [];
+  for (let start = 0; start < users.length; start += COLLECTION_QUERY_USER_LIMIT) {
+    const chunk = users.slice(start, start + COLLECTION_QUERY_USER_LIMIT);
+    requests.push(...await collectMealDataForUsers(chunk.map((user) => ({
+      userId: user.user_id,
+      locale: user.locale,
+      timeZone: resolveTimeZone(user.time_zone ?? undefined, user.country_code ?? undefined),
+    }))));
+  }
 
   if (requests.length === 0) {
     console.log('[aiSummaryCron] No users with meal data, skipping batch submission');
     return 'skipped';
   }
 
-  try {
-    const submitted = await submitBatch(requests);
-    await saveBatchRecord(submitted);
-    console.log(
-      `[aiSummaryCron] Submitted batch ${submitted.openAiBatchId} ` +
-      `with ${submitted.requestCount} request(s)`
-    );
-    return 'submitted';
-  } catch (err) {
-    console.error('[aiSummaryCron] Failed to submit batch:', err instanceof Error ? err.message : err);
-    return 'failed';
+  let outcome: AiSummarySubmitOutcome = 'submitted';
+  for (const requestChunk of splitSummaryRequestsIntoBatches(requests)) {
+    const chunkOutcome = await submitTrackedBatch(requestChunk);
+    if (chunkOutcome === 'failed') outcome = 'failed';
   }
+  return outcome;
 }
 
 // ---------------------------------------------------------------------------
@@ -201,7 +273,7 @@ async function submitNewBatch(submit: AiSummarySubmitMode, now: Date): Promise<A
 // ---------------------------------------------------------------------------
 
 export type RunAiSummaryJobOptions = {
-  /** Default matches production cron: countries in the ~3am ±window (see timezone helper). */
+  /** Default matches production cron: users in their local ~3am window. */
   submit?: AiSummarySubmitMode;
 };
 
@@ -216,6 +288,7 @@ export async function runAiSummaryJob(options?: RunAiSummaryJobOptions): Promise
 
   const submit: AiSummarySubmitMode = options?.submit ?? { mode: 'cron_hour' };
 
+  await reconcileCreatingBatches();
   await pollPendingBatches();
   const submitOutcome = await submitNewBatch(submit, new Date());
   return { submitOutcome };
@@ -242,7 +315,7 @@ export function startAiSummaryCron(): void {
   });
 
   console.log(
-    `✅ AI summary CRON scheduled (hourly @ :00 UTC: poll batches + submit for countries in local ` +
+    `✅ AI summary CRON scheduled (hourly @ :00 UTC: poll batches + submit for users in local ` +
       `03:00 ±${DEFAULT_THREE_AM_PLUS_MINUS_MINUTES}min window [02:30, 03:30))`
   );
 }

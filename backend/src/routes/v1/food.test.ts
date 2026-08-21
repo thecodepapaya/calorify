@@ -259,6 +259,45 @@ test('GET /ai-summary returns summary and generatedAt from DB row', async () => 
   await app.close();
 });
 
+test('GET /ai-summary returns the stats snapshot stored with the narrative', async () => {
+  const generatedAt = new Date('2026-08-21T03:30:00Z');
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) => {
+    if (sql.includes('ai_summaries')) {
+      return {
+        rows: [{
+          summary: 'Snapshot summary',
+          generated_at: generatedAt,
+          stats_snapshot: {
+            mealCount: 4,
+            topFoods: ['Dal'],
+            macroBalanceScore: 77,
+            trend: 'UP',
+          },
+        }],
+      };
+    }
+    throw new Error('Current meals must not be queried for a snapshotted summary');
+  });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/ai-summary',
+    headers: authBearer,
+  });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(response.json(), {
+    summary: 'Snapshot summary',
+    generatedAt: generatedAt.toISOString(),
+    mealCount: 4,
+    topFoods: ['Dal'],
+    macroBalanceScore: 77,
+    trend: 'UP',
+  });
+  assert.equal(mockQuery.mock.calls.length, 1);
+  await app.close();
+});
+
 // ---------------------------------------------------------------------------
 // GET /api/v1/food/meal-analysis-tips
 // ---------------------------------------------------------------------------

@@ -36,7 +36,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
     if (profile != null && profile.hasDateOfBirth() && mounted) {
       setState(() {
         _dateOfBirth =
-            iso8601StringToDateTime(profile.dateOfBirth) ?? _dateOfBirth;
+            iso8601DateToDateTime(profile.dateOfBirth) ?? _dateOfBirth;
       });
     }
   }
@@ -149,7 +149,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
       final profile =
           await OnboardingService.instance.getProfileData() ?? UserProfile();
       final updatedProfile = profile.deepCopy();
-      updatedProfile.dateOfBirth = dateTimeToIso8601String(_dateOfBirth);
+      updatedProfile.dateOfBirth = dateTimeToIso8601Date(_dateOfBirth);
       await OnboardingService.instance.saveProfileData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);

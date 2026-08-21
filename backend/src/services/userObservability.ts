@@ -2,6 +2,7 @@ import { OPENAI_AI_SUMMARY_MODEL } from '../openaiModels.js';
 import { collectMealDataForUser } from './aiSummaryService.js';
 import { computeAiSummaryStats, type AiSummaryMealRow } from './aiSummaryStats.js';
 import { query } from './database.js';
+import { resolveTimeZone } from '../utils/timezone.js';
 
 interface UserProfileRow {
   height: string | number | null;
@@ -31,6 +32,7 @@ interface AnalysisRow {
   source: string;
   locale: string;
   country_code: string | null;
+  time_zone: string | null;
   selected_meal_type: string | null;
   selected_meal_type_source: string | null;
   decomposition_data: unknown;
@@ -84,6 +86,12 @@ function iso(value: Date | string | null): string | null {
   return (value instanceof Date ? value : new Date(value)).toISOString();
 }
 
+function calendarDate(value: Date | string | null): string | null {
+  if (value == null) return null;
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  return iso(value)?.slice(0, 10) ?? null;
+}
+
 function numberValue(value: string | number | null): number | null {
   if (value == null) return null;
   const parsed = Number(value);
@@ -134,7 +142,7 @@ export async function inspectUser(
   );
 
   const { rows: analyses } = await query<AnalysisRow>(
-    `SELECT analysis_id, parent_analysis_id, source, locale, country_code,
+    `SELECT analysis_id, parent_analysis_id, source, locale, country_code, time_zone,
             selected_meal_type, selected_meal_type_source,
             decomposition_data, uncertainty_data, result_data,
             clarification_answers, logged_at, logged_meal_name,
@@ -181,7 +189,11 @@ export async function inspectUser(
   );
 
   const locale = analyses[0]?.locale ?? summaries[0]?.locale ?? 'en';
-  const modelInput = await collectMealDataForUser(normalizedUserId, locale);
+  const timeZone = resolveTimeZone(
+    analyses[0]?.time_zone ?? undefined,
+    analyses[0]?.country_code ?? undefined
+  );
+  const modelInput = await collectMealDataForUser(normalizedUserId, locale, timeZone);
   const profile = profiles[0];
   const overview = overviewRows[0];
   const sources = [
@@ -205,7 +217,7 @@ export async function inspectUser(
             weight: numberValue(profile.weight),
             targetWeight: numberValue(profile.target_weight),
             gender: profile.gender,
-            dateOfBirth: iso(profile.date_of_birth),
+            dateOfBirth: calendarDate(profile.date_of_birth),
             weightGoal: profile.weight_goal,
             activityLevel: profile.activity_level,
             heightUnit: profile.height_unit,

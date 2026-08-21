@@ -42,6 +42,82 @@ const COUNTRY_UTC_OFFSET: Record<string, number> = {
   NZ: 12,
 };
 
+/** Representative IANA zone used only for legacy sessions without a device zone. */
+const COUNTRY_PRIMARY_TIME_ZONE: Record<string, string> = {
+  US: 'America/New_York', CA: 'America/Toronto', MX: 'America/Mexico_City',
+  BR: 'America/Sao_Paulo', AR: 'America/Argentina/Buenos_Aires', CL: 'America/Santiago',
+  CO: 'America/Bogota', PE: 'America/Lima', VE: 'America/Caracas',
+  GB: 'Europe/London', IE: 'Europe/Dublin', PT: 'Europe/Lisbon', IS: 'Atlantic/Reykjavik',
+  GH: 'Africa/Accra', NG: 'Africa/Lagos', SN: 'Africa/Dakar', CI: 'Africa/Abidjan', ML: 'Africa/Bamako',
+  FR: 'Europe/Paris', DE: 'Europe/Berlin', IT: 'Europe/Rome', ES: 'Europe/Madrid',
+  PL: 'Europe/Warsaw', NL: 'Europe/Amsterdam', BE: 'Europe/Brussels', AT: 'Europe/Vienna',
+  CH: 'Europe/Zurich', SE: 'Europe/Stockholm', NO: 'Europe/Oslo', DK: 'Europe/Copenhagen',
+  CZ: 'Europe/Prague', HU: 'Europe/Budapest', SK: 'Europe/Bratislava', HR: 'Europe/Zagreb',
+  RS: 'Europe/Belgrade', RO: 'Europe/Bucharest', BG: 'Europe/Sofia',
+  ZA: 'Africa/Johannesburg', EG: 'Africa/Cairo', KE: 'Africa/Nairobi', ET: 'Africa/Addis_Ababa',
+  TZ: 'Africa/Dar_es_Salaam', UG: 'Africa/Kampala', DZ: 'Africa/Algiers', MA: 'Africa/Casablanca',
+  TN: 'Africa/Tunis', LY: 'Africa/Tripoli', UA: 'Europe/Kyiv', FI: 'Europe/Helsinki',
+  GR: 'Europe/Athens', TR: 'Europe/Istanbul', IL: 'Asia/Jerusalem', LB: 'Asia/Beirut',
+  JO: 'Asia/Amman', PS: 'Asia/Gaza', SA: 'Asia/Riyadh', IQ: 'Asia/Baghdad', SY: 'Asia/Damascus',
+  YE: 'Asia/Aden', OM: 'Asia/Muscat', QA: 'Asia/Qatar', KW: 'Asia/Kuwait', BH: 'Asia/Bahrain',
+  AE: 'Asia/Dubai', RU: 'Europe/Moscow', AM: 'Asia/Yerevan', AZ: 'Asia/Baku', GE: 'Asia/Tbilisi',
+  AF: 'Asia/Kabul', PK: 'Asia/Karachi', UZ: 'Asia/Tashkent', KZ: 'Asia/Almaty', TM: 'Asia/Ashgabat',
+  IN: 'Asia/Kolkata', LK: 'Asia/Colombo', NP: 'Asia/Kathmandu', BD: 'Asia/Dhaka', MM: 'Asia/Yangon',
+  TH: 'Asia/Bangkok', VN: 'Asia/Ho_Chi_Minh', ID: 'Asia/Jakarta', KH: 'Asia/Phnom_Penh',
+  LA: 'Asia/Vientiane', CN: 'Asia/Shanghai', MY: 'Asia/Kuala_Lumpur', SG: 'Asia/Singapore',
+  PH: 'Asia/Manila', TW: 'Asia/Taipei', HK: 'Asia/Hong_Kong', MO: 'Asia/Macau',
+  JP: 'Asia/Tokyo', KR: 'Asia/Seoul', KP: 'Asia/Pyongyang', AU: 'Australia/Sydney',
+  NZ: 'Pacific/Auckland',
+};
+
+export function isValidTimeZone(timeZone: string | undefined): timeZone is string {
+  if (!timeZone) return false;
+  try {
+    new Intl.DateTimeFormat('en', { timeZone }).format();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function resolveTimeZone(timeZone?: string, countryCode?: string): string {
+  if (isValidTimeZone(timeZone)) return timeZone;
+  return COUNTRY_PRIMARY_TIME_ZONE[countryCode?.toUpperCase() ?? ''] ?? 'UTC';
+}
+
+function localMinuteOfDay(now: Date, timeZone: string): number {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(now);
+  const hour = Number(parts.find((part) => part.type === 'hour')?.value ?? 0);
+  const minute = Number(parts.find((part) => part.type === 'minute')?.value ?? 0);
+  return hour * 60 + minute;
+}
+
+export function calendarDateInTimeZone(date: Date, timeZone: string): string {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: resolveTimeZone(timeZone),
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(date);
+  const value = (type: string) =>
+    parts.find((part) => part.type === type)?.value ?? '';
+  return `${value('year')}-${value('month')}-${value('day')}`;
+}
+
+export function isTimeZoneNear3am(
+  now: Date,
+  timeZone: string,
+  plusMinusMinutes: number = DEFAULT_THREE_AM_PLUS_MINUS_MINUTES
+): boolean {
+  const localMinute = localMinuteOfDay(now, resolveTimeZone(timeZone));
+  return localMinute >= 180 - plusMinusMinutes && localMinute < 180 + plusMinusMinutes;
+}
+
 /**
  * Returns the UTC offset (hours) for a given country code.
  * Defaults to 0 (UTC) for unknown codes.
@@ -55,12 +131,10 @@ export function getUtcOffsetForCountry(countryCode: string): number {
  * (i.e. local time >= 03:00 and < 04:00) at the given UTC time.
  */
 export function getCountriesAt3am(nowUtc: Date): string[] {
-  const utcHour = nowUtc.getUTCHours() + nowUtc.getUTCMinutes() / 60;
-
-  return Object.entries(COUNTRY_UTC_OFFSET)
-    .filter(([, offset]) => {
-      const localHour = (utcHour + offset + 24) % 24;
-      return localHour >= 3 && localHour < 4;
+  return Object.entries(COUNTRY_PRIMARY_TIME_ZONE)
+    .filter(([, timeZone]) => {
+      const minute = localMinuteOfDay(nowUtc, timeZone);
+      return minute >= 180 && minute < 240;
     })
     .map(([code]) => code);
 }
@@ -69,25 +143,18 @@ export function getCountriesAt3am(nowUtc: Date): string[] {
 export const DEFAULT_THREE_AM_PLUS_MINUS_MINUTES = 30;
 
 /**
- * Countries whose local civil time falls in **[03:00 − m, 03:00 + m)** (half‑open interval):
- * e.g. `m = 30` ⇒ **02:30 inclusive … 03:30 exclusive**. Same coarse one-offset-per-country model as {@link getCountriesAt3am}.
+ * Countries whose representative IANA zone has a local civil time in
+ * **[03:00 − m, 03:00 + m)** (half-open interval). For example, `m = 30`
+ * means **02:30 inclusive through 03:30 exclusive**.
  *
- * With hourly cron ticks at `:00` UTC and a 1‑hour‑wide `[2.5h, 3.5h)` window in **local fractional hours**, each country hits
- * **at most one** such tick per local night—no duplicate submit hours for the same offset.
+ * With hourly cron ticks and a one-hour window, each zone matches at most one
+ * tick per local night. IANA rules account for daylight-saving transitions.
  */
 export function getCountriesNear3am(
   nowUtc: Date,
   plusMinusMinutes: number = DEFAULT_THREE_AM_PLUS_MINUS_MINUTES
 ): string[] {
-  const halfSpanHours = plusMinusMinutes / 60;
-  const min = 3 - halfSpanHours;
-  const max = 3 + halfSpanHours;
-  const utcHour = nowUtc.getUTCHours() + nowUtc.getUTCMinutes() / 60;
-
-  return Object.entries(COUNTRY_UTC_OFFSET)
-    .filter(([, offset]) => {
-      const localHour = (utcHour + offset + 24) % 24;
-      return localHour >= min && localHour < max;
-    })
+  return Object.entries(COUNTRY_PRIMARY_TIME_ZONE)
+    .filter(([, timeZone]) => isTimeZoneNear3am(nowUtc, timeZone, plusMinusMinutes))
     .map(([code]) => code);
 }
