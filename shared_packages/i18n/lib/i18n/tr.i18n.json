@@ -245,6 +245,7 @@
     "save": "Kaydet",
     "mealName": "Öğün Adı",
     "mealNameHint": "ör., Çırpılmış Yumurta ve tost",
+    "nameRequired": "Kaydetmeden önce bir öğün adı girin.",
     "mealQuantity": "Öğün Miktarı",
     "mealQuantityHint": "ör., 1 kase, 2 dilim",
     "timeOfMeal": "Öğün Zamanı",
@@ -312,6 +313,26 @@
       "offlineTip4": "İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.",
       "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama)."
     },
+    "localInference": {
+      "reviewTitle": "Tespit edilen malzemeleri gözden geçir",
+      "reviewSubtitle": "Bu işlem cihazınızda gerçekleştirildi. Besin değerleri hesaplanmadan önce isimleri veya porsiyonları düzeltin.",
+      "mealName": "Öğün adı",
+      "ingredient": "Malzeme",
+      "grams": "Tahmini gram",
+      "removeIngredient": "Malzemeyi kaldır",
+      "continueLabel": "Devam et",
+      "invalidProposal": "Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.",
+      "localUnavailable": "Cihaz içi analiz şu anda kullanılamıyor.",
+      "calculationDetails": "Bu nasıl hesaplandı",
+      "interpretationLocal": "Bu cihazda yorumlanan malzemeler",
+      "interpretationCloud": "Bulutta yorumlanan malzemeler",
+      "interpretationManual": "Tarafınızca gözden geçirilen veya düzenlenen malzemeler",
+      "nutritionRemote": "Besin değerleri Calorify aracılığıyla USDA'dan alındı",
+      "nutritionFallback": "Bazı besin değerleri uzaktan tahmin edildi",
+      "calculationServer": "Kaloriler ve makrolar Calorify tarafından hesaplandı",
+      "fallbackUsed": "Yerel analiz, bulut işlemeye yönlendirildi",
+      "noRawContent": "Tanılama makbuzları, öğün metninizi veya fotoğrafınızı içermez."
+    },
     "feedback": {
       "title": "Neresi yanlış görünüyor?",
       "subtitle": "Analizi geliştirmemize yardımcı olmak için bir veya birden fazla sorun seçin.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Eksik öğeler",
       "issueExtraItems": "Ekstra öğeler",
       "issueOther": "Diğer"
-    },
-    "nameRequired": "Kaydetmeden önce bir öğün adı girin."
+    }
   },
   "favorites": {
     "title": "Favoriler",
@@ -453,6 +473,7 @@
       "localization": "LOKALİZASYON",
       "notifications": "BİLDİRİMLER",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "CİHAZ İÇİ ANALİZ",
       "supportAndLegal": "DESTEK & YASAL",
       "about": "HAKKINDA",
       "dangerZone": "TEHLİKELİ BÖLGE",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Öğün Hatırlatıcıları",
       "subtitle": "Zamanında uyarılarla yolda kalın"
+    },
+    "localInference": {
+      "title": "Cihaz içi öğün analizi",
+      "subtitle": "Besin değerleri hesaplanmadan önce desteklenen öğünleri Gemini Nano ile yorumlayın",
+      "unavailable": "Bu cihazda mevcut değil",
+      "rolloutUnavailable": "Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi",
+      "modelSetup": "Bu özelliğin etkinleştirilebilmesi için Gemini Nano'nun indirme işlemini tamamlaması gerekiyor",
+      "useLocalTitle": "Cihaz içi analizi kullan",
+      "useLocalSubtitle": "İsteğe bağlıdır ve varsayılan olarak kapalıdır. Karmaşık öğünler için sonuçlar daha az güvenilir olabilir.",
+      "disclosureTitle": "Cihaz içi analizi etkinleştirmeden önce",
+      "disclosureBody": "Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify'a gönderilir.",
+      "disclosureLimit1": "Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.",
+      "disclosureLimit2": "Model; indirme sırasında, meşgulken, arka plandayken veya cihaz tarafından sınırlandırıldığında kullanılamayabilir.",
+      "disclosureLimit3": "Yerel yorumlama tamamlanamazsa, bu beta sürümü orijinal öğün açıklamanızı bulut analizi için otomatik olarak Calorify'a gönderir.",
+      "acknowledgement": "Tespit edilen malzemeleri ve porsiyonları gözden geçirmem gerektiğini anlıyorum.",
+      "enable": "Onayla ve etkinleştir",
+      "cancel": "İptal"
     },
     "theme": {
       "title": "Tema",

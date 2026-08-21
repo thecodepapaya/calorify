@@ -245,6 +245,7 @@
     "save": "Guardar",
     "mealName": "Nome da refeição",
     "mealNameHint": "ex.: Ovos mexidos com torrada",
+    "nameRequired": "Introduza um nome para a refeição antes de guardar.",
     "mealQuantity": "Quantidade da refeição",
     "mealQuantityHint": "ex.: 1 taça, 2 fatias",
     "timeOfMeal": "Hora da refeição",
@@ -312,6 +313,26 @@
       "offlineTip4": "Dica: Registar depois da refeição também cria o hábito; a perfeição é opcional.",
       "offlineTip5": "Dica: Indique como foi cozinhado quando altera muito as calorias (frito vs assado)."
     },
+    "localInference": {
+      "reviewTitle": "Rever ingredientes detetados",
+      "reviewSubtitle": "Isto foi interpretado no seu dispositivo. Corrija os nomes ou as porções antes de a nutrição ser calculada.",
+      "mealName": "Nome da refeição",
+      "ingredient": "Ingrediente",
+      "grams": "Gramas estimadas",
+      "removeIngredient": "Remover ingrediente",
+      "continueLabel": "Continuar",
+      "invalidProposal": "Adicione pelo menos um ingrediente e utilize uma quantidade de gramas positiva.",
+      "localUnavailable": "A análise no dispositivo não está disponível de momento.",
+      "calculationDetails": "Como isto foi calculado",
+      "interpretationLocal": "Ingredientes interpretados neste dispositivo",
+      "interpretationCloud": "Ingredientes interpretados na nuvem",
+      "interpretationManual": "Ingredientes revistos ou editados por si",
+      "nutritionRemote": "Nutrição obtida do USDA através do Calorify",
+      "nutritionFallback": "Alguns valores nutricionais foram estimados remotamente",
+      "calculationServer": "Calorias e macros calculadas pelo Calorify",
+      "fallbackUsed": "A análise local recorreu ao processamento na nuvem",
+      "noRawContent": "Os recibos de diagnóstico não incluem o texto ou a foto da sua refeição."
+    },
     "feedback": {
       "title": "O que está errado?",
       "subtitle": "Ajude-nos a melhorar a análise selecionando um ou mais problemas.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Itens em falta",
       "issueExtraItems": "Itens extra",
       "issueOther": "Outro"
-    },
-    "nameRequired": "Introduza um nome para a refeição antes de guardar."
+    }
   },
   "favorites": {
     "title": "Favoritos",
@@ -453,6 +473,7 @@
       "localization": "LOCALIZAÇÃO",
       "notifications": "NOTIFICAÇÕES",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANÁLISE NO DISPOSITIVO",
       "supportAndLegal": "SUPORTE & LEGAL",
       "about": "SOBRE",
       "dangerZone": "ZONA PERIGOSA",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Lembretes de refeições",
       "subtitle": "Mantenha-se em dia com alertas oportunos"
+    },
+    "localInference": {
+      "title": "Análise de refeições no dispositivo",
+      "subtitle": "Interpretar refeições suportadas com Gemini Nano antes de a nutrição ser calculada",
+      "unavailable": "Não disponível neste dispositivo",
+      "rolloutUnavailable": "Hardware compatível encontrado, mas esta funcionalidade não está ativada para esta versão da app",
+      "modelSetup": "O Gemini Nano precisa de terminar o download antes de isto poder ser ativado",
+      "useLocalTitle": "Utilizar análise no dispositivo",
+      "useLocalSubtitle": "Opcional e desativado por predefinição. Os resultados podem ser menos fiáveis para refeições complexas.",
+      "disclosureTitle": "Antes de ativar a análise no dispositivo",
+      "disclosureBody": "O Gemini Nano pode identificar ingredientes e estimar porções em dispositivos Android suportados. A proposta de ingredientes revista é enviada para o Calorify para a fundamentação nutricional do USDA e cálculo.",
+      "disclosureLimit1": "Pratos complexos, ingredientes ocultos e tamanhos de porções podem ser identificados incorretamente.",
+      "disclosureLimit2": "O modelo pode estar indisponível durante o download, ocupado, em segundo plano ou limitado pelo dispositivo.",
+      "disclosureLimit3": "Se a interpretação local não puder ser concluída, esta versão beta envia automaticamente a descrição original da sua refeição para o Calorify para análise na nuvem.",
+      "acknowledgement": "Compreendo que devo rever os ingredientes e as porções detetados.",
+      "enable": "Confirmar e ativar",
+      "cancel": "Cancelar"
     },
     "theme": {
       "title": "Tema",

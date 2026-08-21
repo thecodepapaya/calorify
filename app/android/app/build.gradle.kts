@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -7,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     // END: FlutterFire Configuration
     id("kotlin-android")
+    id("com.google.devtools.ksp")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
     id("sh.measure.android.gradle") version "0.11.0"
@@ -39,10 +41,6 @@ android {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     defaultConfig {
@@ -98,6 +96,12 @@ android {
     )
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
+    }
+}
+
 dependencies {
     implementation("sh.measure:measure-android:0.14.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
@@ -108,6 +112,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
     implementation("com.google.protobuf:protobuf-kotlin-lite:4.27.3")
+    implementation("com.google.mlkit:genai-prompt:1.0.0-beta4")
+    implementation("com.google.mlkit:genai-schema:1.0.0-alpha1")
+    ksp("com.google.mlkit:genai-schema-compiler:1.0.0-alpha1")
 }
 
 flutter {

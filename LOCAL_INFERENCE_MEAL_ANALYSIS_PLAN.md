@@ -1,6 +1,6 @@
 # Local inference for meal analysis
 
-Status: Proposed direction
+Status: Engineering implementation complete through Phase 3; rollout gated
 Last updated: 2026-08-22
 
 ## Executive summary
@@ -27,6 +27,21 @@ coverage, model quality, runtime quotas, thermal conditions, model updates, and
 missing nutrition records all make a dependable fallback necessary. The plan
 therefore treats local execution as a capability chosen by a router, not as a
 separate meal-analysis implementation.
+
+## Implementation status — 22 August 2026
+
+Phases 1–3 are implemented as a default-off release candidate. The shared
+contracts, cloud settlement boundary, Gemini Nano text adapter, strict proposal
+validation, capability-gated setting and disclosure, editable proposal review,
+automatic fallback, provenance UI, kill switch, and developer diagnostics are
+in the repository. Phase 4 and later work has not started.
+
+This is an engineering-complete checkpoint, not a claim that the limited beta
+has already shipped. Production release completion still requires the external
+gates in this plan: product/terms approval, a supported physical-device matrix,
+live holdout and latency evidence, staged distribution, telemetry review, and a
+live rollback rehearsal. The implementation and verification record is in
+`backend/docs/local-inference-phases-1-3-release-candidate.md`.
 
 ## Product vision
 
@@ -102,9 +117,11 @@ The local path should reuse these contracts and invariants. It should not create
 a second definition of ingredient identity, portion semantics, uncertainty, or
 macro arithmetic.
 
-The Wear OS app should continue its existing phone-first behavior. A watch text
-request can ask the paired phone to execute the same router; the watch retains
-its authenticated backend path only as a fallback. Image analysis remains a
+The Wear OS app continues its existing phone-assisted authenticated backend
+path for text analysis. Applying the phone's local policy is deliberately held
+until the watch flow has a proposal-review or equivalent confirmation contract;
+silently accepting a local proposal would weaken the Phase 3 user-review
+boundary. The watch itself does not run Nano, and image analysis remains a
 phone feature.
 
 ## Terminology
@@ -730,6 +747,13 @@ remain indefinitely even if no later phase is built. Completion requires:
 - known limitations and deliberately deferred scope recorded in this document;
 - a written go/no-go decision before the next phase begins.
 
+Repository implementation readiness and production release completion are
+tracked separately. A checked engineering phase below means its code,
+contracts, migrations, default-safe controls, tests, and operator notes are
+ready for the declared release process. It is not marked `released` in a phase
+completion record until the deployment, physical-device evidence, metrics, and
+rollback requirements above are also complete.
+
 Use this completion record at the end of each phase:
 
 ```text
@@ -743,9 +767,11 @@ Known limitations:
 Go/no-go decision for next phase:
 ```
 
-### Preconditions — resolve before Phase 1
+### Release preconditions — resolve before enabling the candidate
 
-These are blocking decisions, not an implementation phase:
+These are blocking release decisions, not another implementation phase. The
+default-off code may be reviewed internally, but no Phase 3 cohort should be
+enabled until they are resolved:
 
 - confirm that Calorify's audience and intended use comply with the current ML
   Kit GenAI terms, including the published age/audience restriction;
@@ -758,8 +784,8 @@ These are blocking decisions, not an implementation phase:
   backend contracts, and rollout decisions;
 - decide where phase completion reports and device benchmark results are kept.
 
-If any precondition cannot be resolved, pause the program before adding an ML
-Kit dependency.
+If any precondition cannot be resolved, keep the backend capability disabled
+and do not distribute an enabled candidate.
 
 ### Roadmap at a glance
 
@@ -775,13 +801,19 @@ Kit dependency.
 
 Progress tracker:
 
-- [ ] Phase 1 — Workflow foundation
-- [ ] Phase 2 — Local text candidate
-- [ ] Phase 3 — Hybrid text beta
+- [x] Phase 1 — Workflow foundation (engineering complete; production release
+  record pending)
+- [x] Phase 2 — Local text candidate (internal candidate complete; supported
+  physical-device benchmark pending)
+- [x] Phase 3 — Hybrid text beta (default-off release candidate complete;
+  limited rollout and live acceptance metrics pending)
 - [ ] Phase 4 — Local nutrition beta
 - [ ] Phase 5 — Private and offline modes
 - [ ] Phase 6 — Text general availability
 - [ ] Phase 7 — Local image beta
+
+Work is intentionally stopped after Phase 3. No Phase 4 dataset, cache, local
+nutrition authority, or offline-mode behavior is included in this checkpoint.
 
 ## Phase 1 — Workflow foundation
 
@@ -1002,8 +1034,9 @@ settlement.
 - Use the Phase 1 attempt/handoff state machine for timeout and fallback.
 - Show compact interpretation provenance in the result screen.
 - Add remote cohort rollout and a modality-specific kill switch.
-- Let phone-assisted Wear OS text requests use the phone's effective policy;
-  the watch itself does not run Nano.
+- Keep phone-assisted Wear OS text requests on their existing authenticated
+  backend path until a watch-compatible proposal review/settlement handoff is
+  available; the watch itself does not run Nano.
 
 ### Deliverables
 
@@ -1055,6 +1088,7 @@ disabled cohorts while keeping already logged provenance readable.
 - guarantees that meal data never leaves the phone;
 - durable partial/offline drafts;
 - image inference;
+- Wear OS activation of the phone's local proposal policy;
 - default-on behavior.
 
 ### Phase completion artifact
@@ -1538,21 +1572,22 @@ At minimum, test:
 10. What telemetry can be retained without collecting raw meal content or a
     persistent device fingerprint?
 
-## Next phase to execute
+## Current stopping point
 
-Begin with **Phase 1 — Workflow foundation** only. Its first implementation
-slice is:
+The repository is stopped at the Phase 3 default-off release candidate. Before
+enabling a limited beta, complete the remaining release gates in this order:
 
-1. Freeze `IngredientProposalV1` and the typed provenance/fallback enums.
-2. Add golden contract tests proving that proposals cannot contain authoritative
-   nutrient values.
-3. Wrap the current backend flow in the cloud-only executor/router boundary.
-4. Add attempt identity and tests for retry, late completion, clarification
-   resume, and exactly-once logging.
-5. Persist the bounded analysis receipt for the existing cloud path.
-6. Expand the text holdout corpus and commit the repeated backend baseline.
-7. Release with all local capabilities off and rehearse direct-cloud rollback.
+1. Approve audience/terms suitability and the Phase 3 disclosure copy.
+2. Run the committed holdout and cold/warm latency harness on each proposed
+   supported Gemini Nano device/model cohort.
+3. Repeat backend compatibility and rollback checks against the deployed
+   candidate, including the global text kill switch.
+4. Publish through internal testing, then a deliberately limited eligible
+   cohort; review fallback, correction, latency, crash, and completion metrics.
+5. Create the formal Phase 1, 2, and 3 completion records with release IDs and
+   a go/no-go decision.
 
-Do not add the ML Kit dependency, user setting, local USDA storage, or image work
-until the Phase 1 completion record is accepted. Phase 2 starts in a separate
-implementation cycle.
+Do not begin Phase 4 until those Phase 3 release records are accepted. In
+particular, do not add a local USDA pack, overlay cache, local macro authority,
+offline drafts, image inference, or broader fallback choices as part of this
+checkpoint.

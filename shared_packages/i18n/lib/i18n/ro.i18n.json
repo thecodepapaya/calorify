@@ -245,6 +245,7 @@
     "save": "Salvează",
     "mealName": "Numele mesei",
     "mealNameHint": "ex.: Ouă amestecate cu pâine prăjită",
+    "nameRequired": "Introduceți un nume pentru masă înainte de a salva.",
     "mealQuantity": "Cantitate masă",
     "mealQuantityHint": "ex.: 1 bol, 2 felii",
     "timeOfMeal": "Ora mesei",
@@ -312,6 +313,26 @@
       "offlineTip4": "Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.",
       "offlineTip5": "Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt)."
     },
+    "localInference": {
+      "reviewTitle": "Revizuiește ingredientele detectate",
+      "reviewSubtitle": "Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.",
+      "mealName": "Numele mesei",
+      "ingredient": "Ingredient",
+      "grams": "Grame estimate",
+      "removeIngredient": "Elimină ingredientul",
+      "continueLabel": "Continuă",
+      "invalidProposal": "Adaugă cel puțin un ingredient și folosește o cantitate pozitivă de grame.",
+      "localUnavailable": "Analiza pe dispozitiv nu este disponibilă în acest moment.",
+      "calculationDetails": "Cum a fost calculat",
+      "interpretationLocal": "Ingrediente interpretate pe acest dispozitiv",
+      "interpretationCloud": "Ingrediente interpretate în cloud",
+      "interpretationManual": "Ingrediente revizuite sau editate de tine",
+      "nutritionRemote": "Nutriția preluată din USDA prin Calorify",
+      "nutritionFallback": "Unele valori nutriționale au fost estimate de la distanță",
+      "calculationServer": "Calorii și macronutrienți calculați de Calorify",
+      "fallbackUsed": "Analiza locală a revenit la procesarea în cloud",
+      "noRawContent": "Bonurile de diagnostic nu includ textul sau fotografia mesei tale."
+    },
     "feedback": {
       "title": "Ce pare greșit?",
       "subtitle": "Ajută-ne să îmbunătățim analiza selectând una sau mai multe probleme.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Lipsesc elemente",
       "issueExtraItems": "Elemente în plus",
       "issueOther": "Altceva"
-    },
-    "nameRequired": "Introduceți un nume pentru masă înainte de a salva."
+    }
   },
   "favorites": {
     "title": "Favorite",
@@ -453,6 +473,7 @@
       "localization": "LOCALIZARE",
       "notifications": "NOTIFICĂRI",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALIZĂ PE DISPOZITIV",
       "supportAndLegal": "SUPORT & LEGAL",
       "about": "DESPRE",
       "dangerZone": "ZONĂ DE PERICOL",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Mementouri mese",
       "subtitle": "Rămâi pe drumul cel bun cu alerte la timp"
+    },
+    "localInference": {
+      "title": "Analiza meselor pe dispozitiv",
+      "subtitle": "Interpretează mesele suportate cu Gemini Nano înainte de calculul nutrițional",
+      "unavailable": "Nedisponibil pe acest dispozitiv",
+      "rolloutUnavailable": "Hardware compatibil găsit, dar această funcție nu este activată pentru această versiune a aplicației",
+      "modelSetup": "Gemini Nano trebuie să finalizeze descărcarea înainte de a putea fi activat",
+      "useLocalTitle": "Folosește analiza pe dispozitiv",
+      "useLocalSubtitle": "Opțional și dezactivat implicit. Rezultatele pot fi mai puțin sigure pentru mese complexe.",
+      "disclosureTitle": "Înainte de a activa analiza pe dispozitiv",
+      "disclosureBody": "Gemini Nano poate identifica ingredientele și poate estima porțiile pe dispozitivele Android suportate. Propunerea de ingrediente revizuită este trimisă către Calorify pentru fundamentarea nutrițională USDA și calcul.",
+      "disclosureLimit1": "Felurile de mâncare complexe, ingredientele ascunse și dimensiunile porțiilor pot fi identificate incorect.",
+      "disclosureLimit2": "Modelul poate fi indisponibil în timpul descărcării, când este ocupat, în fundal sau limitat de dispozitiv.",
+      "disclosureLimit3": "Dacă interpretarea locală nu poate fi finalizată, această versiune beta trimite automat descrierea originală a mesei către Calorify pentru analiza în cloud.",
+      "acknowledgement": "Înțeleg că trebuie să revizuiesc ingredientele și porțiile detectate.",
+      "enable": "Confirm și activez",
+      "cancel": "Anulează"
     },
     "theme": {
       "title": "Temă",

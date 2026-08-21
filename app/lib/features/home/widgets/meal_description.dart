@@ -1,17 +1,15 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/features/home/utils/local_text_meal_analysis_flow.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getSnapDisclaimer;
-import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/meal_analysis_tip_line.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class DescribeMeal extends StatefulWidget {
@@ -121,18 +119,8 @@ class _DescribeMealState extends State<DescribeMeal> {
 
     var analysisCompleted = false;
     try {
-      final repository = ProviderScope.containerOf(
-        context,
-        listen: false,
-      ).read(foodRepositoryProvider);
-      analysisCompleted = await showV2MealAnalysisFlow(
+      analysisCompleted = await showRoutedTextMealAnalysisFlow(
         context: context,
-        startAnalysis:
-            (cancellation, analysisId) => repository.analyzeTextV2(
-              analysisId: analysisId,
-              textDescription: description,
-              cancellation: cancellation,
-            ),
         textDescription: description,
       );
     } on Exception catch (e) {

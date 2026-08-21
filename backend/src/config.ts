@@ -39,6 +39,8 @@ interface Config {
     readonly USDA_ZIP_URL: string;
     /** Optional path to meal analysis rotating tips JSON; default backend/data/meal_analysis_tips.json */
     readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
+    readonly LOCAL_INFERENCE_POLICY_VERSION: string;
+    readonly LOCAL_INFERENCE_TEXT_ENABLED: boolean;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -169,6 +171,14 @@ const config: Config = {
         'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_csv_2025-12-18.zip'
     ),
     MEAL_ANALYSIS_TIPS_PATH: getEnvVarOptional('MEAL_ANALYSIS_TIPS_PATH'),
+    LOCAL_INFERENCE_POLICY_VERSION: getEnvVar(
+        'LOCAL_INFERENCE_POLICY_VERSION',
+        'local-inference-disabled-v1'
+    ),
+    LOCAL_INFERENCE_TEXT_ENABLED: getEnvVarBoolean(
+        'LOCAL_INFERENCE_TEXT_ENABLED',
+        false
+    ),
 } as const;
 
 // Validate critical settings in production

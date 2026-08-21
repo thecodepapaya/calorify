@@ -54,6 +54,18 @@ const _legacyPreferencesTableSql = '''
   )
 ''';
 
+const _v22PreferencesTableSql = '''
+  CREATE TABLE user_preferences_table (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    language_code TEXT,
+    theme TEXT,
+    feedback_sheet_shown_at INTEGER,
+    onboarding_current_step INTEGER,
+    onboarding_completed_at INTEGER,
+    updated_at INTEGER NOT NULL DEFAULT (CAST(strftime('%s', 'now') AS INTEGER))
+  )
+''';
+
 const _legacyProfileTableSql = '''
   CREATE TABLE user_profile_table (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -303,6 +315,60 @@ void main() {
 
     await database.setOnboardingCompleted();
     expect(await database.hasCompletedOnboarding(), isTrue);
+  });
+
+  test(
+    'local inference preference is off by default and persists consent',
+    () async {
+      expect(
+        await database.getLocalInferencePreferences(),
+        isA<LocalInferencePreferences>()
+            .having((value) => value.enabled, 'enabled', isFalse)
+            .having(
+              (value) => value.acknowledgedPolicyVersion,
+              'acknowledgedPolicyVersion',
+              isNull,
+            ),
+      );
+
+      await database.acknowledgeLocalInferencePolicy('policy-v1');
+      await database.setLocalInferenceEnabled(true);
+
+      expect(
+        await database.getLocalInferencePreferences(),
+        isA<LocalInferencePreferences>()
+            .having((value) => value.enabled, 'enabled', isTrue)
+            .having(
+              (value) => value.acknowledgedPolicyVersion,
+              'acknowledgedPolicyVersion',
+              'policy-v1',
+            ),
+      );
+    },
+  );
+
+  test('v22 upgrade adds default-off local inference columns', () async {
+    await database.close();
+    database = AppDatabase.forTesting(
+      NativeDatabase.memory(
+        setup: (rawDatabase) {
+          rawDatabase.execute(_v22PreferencesTableSql);
+          rawDatabase.execute('''
+            INSERT INTO user_preferences_table (id, theme)
+            VALUES (1, 'system')
+          ''');
+          rawDatabase.execute('PRAGMA user_version = 22');
+        },
+      ),
+    );
+
+    final preferences = await database.getLocalInferencePreferences();
+    final columns = await _columnNames(database, 'user_preferences_table');
+
+    expect(columns, contains('local_inference_enabled'));
+    expect(columns, contains('local_inference_acknowledged_policy_version'));
+    expect(preferences.enabled, isFalse);
+    expect(preferences.acknowledgedPolicyVersion, isNull);
   });
 
   test('v17 upgrade repairs missing inherited favorite columns', () async {

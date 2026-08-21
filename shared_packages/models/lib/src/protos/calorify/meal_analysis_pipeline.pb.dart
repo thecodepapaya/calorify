@@ -12,6 +12,7 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import '../meal/meal.pbenum.dart' as $0;
@@ -187,6 +188,770 @@ class PipelineMacros extends $pb.GeneratedMessage {
   $core.bool hasFiber() => $_has(4);
   @$pb.TagNumber(5)
   void clearFiber() => $_clearField(5);
+}
+
+class IngredientFieldProvenance extends $pb.GeneratedMessage {
+  factory IngredientFieldProvenance({
+    $core.String? fieldName,
+    IngredientFieldOrigin? origin,
+  }) {
+    final result = create();
+    if (fieldName != null) result.fieldName = fieldName;
+    if (origin != null) result.origin = origin;
+    return result;
+  }
+
+  IngredientFieldProvenance._();
+
+  factory IngredientFieldProvenance.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory IngredientFieldProvenance.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'IngredientFieldProvenance',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'fieldName')
+    ..aE<IngredientFieldOrigin>(2, _omitFieldNames ? '' : 'origin',
+        enumValues: IngredientFieldOrigin.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IngredientFieldProvenance clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IngredientFieldProvenance copyWith(
+          void Function(IngredientFieldProvenance) updates) =>
+      super.copyWith((message) => updates(message as IngredientFieldProvenance))
+          as IngredientFieldProvenance;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static IngredientFieldProvenance create() => IngredientFieldProvenance._();
+  @$core.override
+  IngredientFieldProvenance createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static IngredientFieldProvenance getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<IngredientFieldProvenance>(create);
+  static IngredientFieldProvenance? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get fieldName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set fieldName($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasFieldName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFieldName() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  IngredientFieldOrigin get origin => $_getN(1);
+  @$pb.TagNumber(2)
+  set origin(IngredientFieldOrigin value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasOrigin() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearOrigin() => $_clearField(2);
+}
+
+/// Models may propose identity and portion information only. Nutrient values
+/// intentionally do not exist in this contract.
+class IngredientProposalItemV1 extends $pb.GeneratedMessage {
+  factory IngredientProposalItemV1({
+    $core.String? rowId,
+    $core.String? rawName,
+    $core.String? canonicalHint,
+    $core.String? preparation,
+    $core.double? gramsEstimated,
+    $core.double? minGrams,
+    $core.double? maxGrams,
+    $core.String? notes,
+    PortionKind? portionKind,
+    $core.double? count,
+    $core.double? perUnitGrams,
+    $core.double? perUnitMinGrams,
+    $core.double? perUnitMaxGrams,
+    $core.bool? sizeSpecifiedByUser,
+    $core.double? confidence,
+    $core.Iterable<IngredientFieldProvenance>? fieldProvenance,
+  }) {
+    final result = create();
+    if (rowId != null) result.rowId = rowId;
+    if (rawName != null) result.rawName = rawName;
+    if (canonicalHint != null) result.canonicalHint = canonicalHint;
+    if (preparation != null) result.preparation = preparation;
+    if (gramsEstimated != null) result.gramsEstimated = gramsEstimated;
+    if (minGrams != null) result.minGrams = minGrams;
+    if (maxGrams != null) result.maxGrams = maxGrams;
+    if (notes != null) result.notes = notes;
+    if (portionKind != null) result.portionKind = portionKind;
+    if (count != null) result.count = count;
+    if (perUnitGrams != null) result.perUnitGrams = perUnitGrams;
+    if (perUnitMinGrams != null) result.perUnitMinGrams = perUnitMinGrams;
+    if (perUnitMaxGrams != null) result.perUnitMaxGrams = perUnitMaxGrams;
+    if (sizeSpecifiedByUser != null)
+      result.sizeSpecifiedByUser = sizeSpecifiedByUser;
+    if (confidence != null) result.confidence = confidence;
+    if (fieldProvenance != null) result.fieldProvenance.addAll(fieldProvenance);
+    return result;
+  }
+
+  IngredientProposalItemV1._();
+
+  factory IngredientProposalItemV1.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory IngredientProposalItemV1.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'IngredientProposalItemV1',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'rowId')
+    ..aOS(2, _omitFieldNames ? '' : 'rawName')
+    ..aOS(3, _omitFieldNames ? '' : 'canonicalHint')
+    ..aOS(4, _omitFieldNames ? '' : 'preparation')
+    ..aD(5, _omitFieldNames ? '' : 'gramsEstimated')
+    ..aD(6, _omitFieldNames ? '' : 'minGrams')
+    ..aD(7, _omitFieldNames ? '' : 'maxGrams')
+    ..aOS(8, _omitFieldNames ? '' : 'notes')
+    ..aE<PortionKind>(9, _omitFieldNames ? '' : 'portionKind',
+        enumValues: PortionKind.values)
+    ..aD(10, _omitFieldNames ? '' : 'count')
+    ..aD(11, _omitFieldNames ? '' : 'perUnitGrams')
+    ..aD(12, _omitFieldNames ? '' : 'perUnitMinGrams')
+    ..aD(13, _omitFieldNames ? '' : 'perUnitMaxGrams')
+    ..aOB(14, _omitFieldNames ? '' : 'sizeSpecifiedByUser')
+    ..aD(15, _omitFieldNames ? '' : 'confidence')
+    ..pPM<IngredientFieldProvenance>(
+        16, _omitFieldNames ? '' : 'fieldProvenance',
+        subBuilder: IngredientFieldProvenance.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IngredientProposalItemV1 clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IngredientProposalItemV1 copyWith(
+          void Function(IngredientProposalItemV1) updates) =>
+      super.copyWith((message) => updates(message as IngredientProposalItemV1))
+          as IngredientProposalItemV1;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static IngredientProposalItemV1 create() => IngredientProposalItemV1._();
+  @$core.override
+  IngredientProposalItemV1 createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static IngredientProposalItemV1 getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<IngredientProposalItemV1>(create);
+  static IngredientProposalItemV1? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get rowId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set rowId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasRowId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRowId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get rawName => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set rawName($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasRawName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearRawName() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get canonicalHint => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set canonicalHint($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasCanonicalHint() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearCanonicalHint() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get preparation => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set preparation($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasPreparation() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPreparation() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.double get gramsEstimated => $_getN(4);
+  @$pb.TagNumber(5)
+  set gramsEstimated($core.double value) => $_setDouble(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasGramsEstimated() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearGramsEstimated() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.double get minGrams => $_getN(5);
+  @$pb.TagNumber(6)
+  set minGrams($core.double value) => $_setDouble(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasMinGrams() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearMinGrams() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.double get maxGrams => $_getN(6);
+  @$pb.TagNumber(7)
+  set maxGrams($core.double value) => $_setDouble(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasMaxGrams() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearMaxGrams() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get notes => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set notes($core.String value) => $_setString(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasNotes() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearNotes() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  PortionKind get portionKind => $_getN(8);
+  @$pb.TagNumber(9)
+  set portionKind(PortionKind value) => $_setField(9, value);
+  @$pb.TagNumber(9)
+  $core.bool hasPortionKind() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearPortionKind() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.double get count => $_getN(9);
+  @$pb.TagNumber(10)
+  set count($core.double value) => $_setDouble(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasCount() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearCount() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.double get perUnitGrams => $_getN(10);
+  @$pb.TagNumber(11)
+  set perUnitGrams($core.double value) => $_setDouble(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasPerUnitGrams() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearPerUnitGrams() => $_clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.double get perUnitMinGrams => $_getN(11);
+  @$pb.TagNumber(12)
+  set perUnitMinGrams($core.double value) => $_setDouble(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasPerUnitMinGrams() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearPerUnitMinGrams() => $_clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.double get perUnitMaxGrams => $_getN(12);
+  @$pb.TagNumber(13)
+  set perUnitMaxGrams($core.double value) => $_setDouble(12, value);
+  @$pb.TagNumber(13)
+  $core.bool hasPerUnitMaxGrams() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearPerUnitMaxGrams() => $_clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.bool get sizeSpecifiedByUser => $_getBF(13);
+  @$pb.TagNumber(14)
+  set sizeSpecifiedByUser($core.bool value) => $_setBool(13, value);
+  @$pb.TagNumber(14)
+  $core.bool hasSizeSpecifiedByUser() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearSizeSpecifiedByUser() => $_clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.double get confidence => $_getN(14);
+  @$pb.TagNumber(15)
+  set confidence($core.double value) => $_setDouble(14, value);
+  @$pb.TagNumber(15)
+  $core.bool hasConfidence() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearConfidence() => $_clearField(15);
+
+  @$pb.TagNumber(16)
+  $pb.PbList<IngredientFieldProvenance> get fieldProvenance => $_getList(15);
+}
+
+class IngredientProposalV1 extends $pb.GeneratedMessage {
+  factory IngredientProposalV1({
+    $core.int? schemaVersion,
+    $core.String? proposalId,
+    AnalysisModality? modality,
+    $core.String? mealName,
+    $0.MealType? inferredMealType,
+    $core.bool? mealTypeConfident,
+    $core.double? confidence,
+    $core.Iterable<IngredientProposalItemV1>? ingredients,
+    InterpretationOrigin? interpretationOrigin,
+    $core.String? modelName,
+    $core.String? modelVersion,
+  }) {
+    final result = create();
+    if (schemaVersion != null) result.schemaVersion = schemaVersion;
+    if (proposalId != null) result.proposalId = proposalId;
+    if (modality != null) result.modality = modality;
+    if (mealName != null) result.mealName = mealName;
+    if (inferredMealType != null) result.inferredMealType = inferredMealType;
+    if (mealTypeConfident != null) result.mealTypeConfident = mealTypeConfident;
+    if (confidence != null) result.confidence = confidence;
+    if (ingredients != null) result.ingredients.addAll(ingredients);
+    if (interpretationOrigin != null)
+      result.interpretationOrigin = interpretationOrigin;
+    if (modelName != null) result.modelName = modelName;
+    if (modelVersion != null) result.modelVersion = modelVersion;
+    return result;
+  }
+
+  IngredientProposalV1._();
+
+  factory IngredientProposalV1.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory IngredientProposalV1.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'IngredientProposalV1',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aI(1, _omitFieldNames ? '' : 'schemaVersion',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aOS(2, _omitFieldNames ? '' : 'proposalId')
+    ..aE<AnalysisModality>(3, _omitFieldNames ? '' : 'modality',
+        enumValues: AnalysisModality.values)
+    ..aOS(4, _omitFieldNames ? '' : 'mealName')
+    ..aE<$0.MealType>(5, _omitFieldNames ? '' : 'inferredMealType',
+        enumValues: $0.MealType.values)
+    ..aOB(6, _omitFieldNames ? '' : 'mealTypeConfident')
+    ..aD(7, _omitFieldNames ? '' : 'confidence')
+    ..pPM<IngredientProposalItemV1>(8, _omitFieldNames ? '' : 'ingredients',
+        subBuilder: IngredientProposalItemV1.create)
+    ..aE<InterpretationOrigin>(9, _omitFieldNames ? '' : 'interpretationOrigin',
+        enumValues: InterpretationOrigin.values)
+    ..aOS(10, _omitFieldNames ? '' : 'modelName')
+    ..aOS(11, _omitFieldNames ? '' : 'modelVersion')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IngredientProposalV1 clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  IngredientProposalV1 copyWith(void Function(IngredientProposalV1) updates) =>
+      super.copyWith((message) => updates(message as IngredientProposalV1))
+          as IngredientProposalV1;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static IngredientProposalV1 create() => IngredientProposalV1._();
+  @$core.override
+  IngredientProposalV1 createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static IngredientProposalV1 getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<IngredientProposalV1>(create);
+  static IngredientProposalV1? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get schemaVersion => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set schemaVersion($core.int value) => $_setUnsignedInt32(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSchemaVersion() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSchemaVersion() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get proposalId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set proposalId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasProposalId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProposalId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  AnalysisModality get modality => $_getN(2);
+  @$pb.TagNumber(3)
+  set modality(AnalysisModality value) => $_setField(3, value);
+  @$pb.TagNumber(3)
+  $core.bool hasModality() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearModality() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get mealName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set mealName($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasMealName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearMealName() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $0.MealType get inferredMealType => $_getN(4);
+  @$pb.TagNumber(5)
+  set inferredMealType($0.MealType value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasInferredMealType() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearInferredMealType() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.bool get mealTypeConfident => $_getBF(5);
+  @$pb.TagNumber(6)
+  set mealTypeConfident($core.bool value) => $_setBool(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasMealTypeConfident() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearMealTypeConfident() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.double get confidence => $_getN(6);
+  @$pb.TagNumber(7)
+  set confidence($core.double value) => $_setDouble(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasConfidence() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearConfidence() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $pb.PbList<IngredientProposalItemV1> get ingredients => $_getList(7);
+
+  @$pb.TagNumber(9)
+  InterpretationOrigin get interpretationOrigin => $_getN(8);
+  @$pb.TagNumber(9)
+  set interpretationOrigin(InterpretationOrigin value) => $_setField(9, value);
+  @$pb.TagNumber(9)
+  $core.bool hasInterpretationOrigin() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearInterpretationOrigin() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get modelName => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set modelName($core.String value) => $_setString(9, value);
+  @$pb.TagNumber(10)
+  $core.bool hasModelName() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearModelName() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get modelVersion => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set modelVersion($core.String value) => $_setString(10, value);
+  @$pb.TagNumber(11)
+  $core.bool hasModelVersion() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearModelVersion() => $_clearField(11);
+}
+
+class AnalysisAttemptReceipt extends $pb.GeneratedMessage {
+  factory AnalysisAttemptReceipt({
+    $core.String? attemptId,
+    InterpretationOrigin? executorOrigin,
+    $fixnum.Int64? startedAtEpochMs,
+    $fixnum.Int64? completedAtEpochMs,
+    AnalysisAttemptStatus? status,
+    MealAnalysisFallbackReason? fallbackReason,
+  }) {
+    final result = create();
+    if (attemptId != null) result.attemptId = attemptId;
+    if (executorOrigin != null) result.executorOrigin = executorOrigin;
+    if (startedAtEpochMs != null) result.startedAtEpochMs = startedAtEpochMs;
+    if (completedAtEpochMs != null)
+      result.completedAtEpochMs = completedAtEpochMs;
+    if (status != null) result.status = status;
+    if (fallbackReason != null) result.fallbackReason = fallbackReason;
+    return result;
+  }
+
+  AnalysisAttemptReceipt._();
+
+  factory AnalysisAttemptReceipt.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AnalysisAttemptReceipt.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AnalysisAttemptReceipt',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'attemptId')
+    ..aE<InterpretationOrigin>(2, _omitFieldNames ? '' : 'executorOrigin',
+        enumValues: InterpretationOrigin.values)
+    ..aInt64(3, _omitFieldNames ? '' : 'startedAtEpochMs')
+    ..aInt64(4, _omitFieldNames ? '' : 'completedAtEpochMs')
+    ..aE<AnalysisAttemptStatus>(5, _omitFieldNames ? '' : 'status',
+        enumValues: AnalysisAttemptStatus.values)
+    ..aE<MealAnalysisFallbackReason>(6, _omitFieldNames ? '' : 'fallbackReason',
+        enumValues: MealAnalysisFallbackReason.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AnalysisAttemptReceipt clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AnalysisAttemptReceipt copyWith(
+          void Function(AnalysisAttemptReceipt) updates) =>
+      super.copyWith((message) => updates(message as AnalysisAttemptReceipt))
+          as AnalysisAttemptReceipt;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AnalysisAttemptReceipt create() => AnalysisAttemptReceipt._();
+  @$core.override
+  AnalysisAttemptReceipt createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AnalysisAttemptReceipt getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AnalysisAttemptReceipt>(create);
+  static AnalysisAttemptReceipt? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get attemptId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set attemptId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAttemptId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAttemptId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  InterpretationOrigin get executorOrigin => $_getN(1);
+  @$pb.TagNumber(2)
+  set executorOrigin(InterpretationOrigin value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasExecutorOrigin() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearExecutorOrigin() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get startedAtEpochMs => $_getI64(2);
+  @$pb.TagNumber(3)
+  set startedAtEpochMs($fixnum.Int64 value) => $_setInt64(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasStartedAtEpochMs() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearStartedAtEpochMs() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get completedAtEpochMs => $_getI64(3);
+  @$pb.TagNumber(4)
+  set completedAtEpochMs($fixnum.Int64 value) => $_setInt64(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasCompletedAtEpochMs() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCompletedAtEpochMs() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  AnalysisAttemptStatus get status => $_getN(4);
+  @$pb.TagNumber(5)
+  set status(AnalysisAttemptStatus value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasStatus() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearStatus() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  MealAnalysisFallbackReason get fallbackReason => $_getN(5);
+  @$pb.TagNumber(6)
+  set fallbackReason(MealAnalysisFallbackReason value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasFallbackReason() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearFallbackReason() => $_clearField(6);
+}
+
+class MealAnalysisReceipt extends $pb.GeneratedMessage {
+  factory MealAnalysisReceipt({
+    $core.int? schemaVersion,
+    $core.int? proposalSchemaVersion,
+    $core.bool? localAttempted,
+    InterpretationOrigin? interpretationOrigin,
+    NutritionOrigin? nutritionOrigin,
+    CalculationOrigin? calculationOrigin,
+    $core.String? usdaDatasetVersion,
+    $core.String? calculationVersion,
+    $core.Iterable<AnalysisAttemptReceipt>? attempts,
+    MealAnalysisFallbackReason? fallbackReason,
+  }) {
+    final result = create();
+    if (schemaVersion != null) result.schemaVersion = schemaVersion;
+    if (proposalSchemaVersion != null)
+      result.proposalSchemaVersion = proposalSchemaVersion;
+    if (localAttempted != null) result.localAttempted = localAttempted;
+    if (interpretationOrigin != null)
+      result.interpretationOrigin = interpretationOrigin;
+    if (nutritionOrigin != null) result.nutritionOrigin = nutritionOrigin;
+    if (calculationOrigin != null) result.calculationOrigin = calculationOrigin;
+    if (usdaDatasetVersion != null)
+      result.usdaDatasetVersion = usdaDatasetVersion;
+    if (calculationVersion != null)
+      result.calculationVersion = calculationVersion;
+    if (attempts != null) result.attempts.addAll(attempts);
+    if (fallbackReason != null) result.fallbackReason = fallbackReason;
+    return result;
+  }
+
+  MealAnalysisReceipt._();
+
+  factory MealAnalysisReceipt.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealAnalysisReceipt.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealAnalysisReceipt',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aI(1, _omitFieldNames ? '' : 'schemaVersion',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aI(2, _omitFieldNames ? '' : 'proposalSchemaVersion',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aOB(3, _omitFieldNames ? '' : 'localAttempted')
+    ..aE<InterpretationOrigin>(4, _omitFieldNames ? '' : 'interpretationOrigin',
+        enumValues: InterpretationOrigin.values)
+    ..aE<NutritionOrigin>(5, _omitFieldNames ? '' : 'nutritionOrigin',
+        enumValues: NutritionOrigin.values)
+    ..aE<CalculationOrigin>(6, _omitFieldNames ? '' : 'calculationOrigin',
+        enumValues: CalculationOrigin.values)
+    ..aOS(7, _omitFieldNames ? '' : 'usdaDatasetVersion')
+    ..aOS(8, _omitFieldNames ? '' : 'calculationVersion')
+    ..pPM<AnalysisAttemptReceipt>(9, _omitFieldNames ? '' : 'attempts',
+        subBuilder: AnalysisAttemptReceipt.create)
+    ..aE<MealAnalysisFallbackReason>(
+        10, _omitFieldNames ? '' : 'fallbackReason',
+        enumValues: MealAnalysisFallbackReason.values)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisReceipt clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisReceipt copyWith(void Function(MealAnalysisReceipt) updates) =>
+      super.copyWith((message) => updates(message as MealAnalysisReceipt))
+          as MealAnalysisReceipt;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisReceipt create() => MealAnalysisReceipt._();
+  @$core.override
+  MealAnalysisReceipt createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisReceipt getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealAnalysisReceipt>(create);
+  static MealAnalysisReceipt? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get schemaVersion => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set schemaVersion($core.int value) => $_setUnsignedInt32(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSchemaVersion() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSchemaVersion() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get proposalSchemaVersion => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set proposalSchemaVersion($core.int value) => $_setUnsignedInt32(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasProposalSchemaVersion() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProposalSchemaVersion() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get localAttempted => $_getBF(2);
+  @$pb.TagNumber(3)
+  set localAttempted($core.bool value) => $_setBool(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLocalAttempted() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLocalAttempted() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  InterpretationOrigin get interpretationOrigin => $_getN(3);
+  @$pb.TagNumber(4)
+  set interpretationOrigin(InterpretationOrigin value) => $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasInterpretationOrigin() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearInterpretationOrigin() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  NutritionOrigin get nutritionOrigin => $_getN(4);
+  @$pb.TagNumber(5)
+  set nutritionOrigin(NutritionOrigin value) => $_setField(5, value);
+  @$pb.TagNumber(5)
+  $core.bool hasNutritionOrigin() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearNutritionOrigin() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  CalculationOrigin get calculationOrigin => $_getN(5);
+  @$pb.TagNumber(6)
+  set calculationOrigin(CalculationOrigin value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasCalculationOrigin() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCalculationOrigin() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get usdaDatasetVersion => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set usdaDatasetVersion($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasUsdaDatasetVersion() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearUsdaDatasetVersion() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get calculationVersion => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set calculationVersion($core.String value) => $_setString(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasCalculationVersion() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearCalculationVersion() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $pb.PbList<AnalysisAttemptReceipt> get attempts => $_getList(8);
+
+  @$pb.TagNumber(10)
+  MealAnalysisFallbackReason get fallbackReason => $_getN(9);
+  @$pb.TagNumber(10)
+  set fallbackReason(MealAnalysisFallbackReason value) => $_setField(10, value);
+  @$pb.TagNumber(10)
+  $core.bool hasFallbackReason() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearFallbackReason() => $_clearField(10);
 }
 
 class PipelineMealHealth extends $pb.GeneratedMessage {
@@ -473,6 +1238,11 @@ class PipelineResolvedIngredient extends $pb.GeneratedMessage {
     PortionKind? portionKind,
     $core.double? count,
     $core.double? perUnitGrams,
+    NutritionOrigin? nutritionOrigin,
+    $core.String? fdcId,
+    $core.String? usdaDatasetVersion,
+    PipelineMacros? nutrientsPer100g,
+    $core.Iterable<IngredientFieldProvenance>? fieldProvenance,
   }) {
     final result = create();
     if (rowId != null) result.rowId = rowId;
@@ -485,6 +1255,12 @@ class PipelineResolvedIngredient extends $pb.GeneratedMessage {
     if (portionKind != null) result.portionKind = portionKind;
     if (count != null) result.count = count;
     if (perUnitGrams != null) result.perUnitGrams = perUnitGrams;
+    if (nutritionOrigin != null) result.nutritionOrigin = nutritionOrigin;
+    if (fdcId != null) result.fdcId = fdcId;
+    if (usdaDatasetVersion != null)
+      result.usdaDatasetVersion = usdaDatasetVersion;
+    if (nutrientsPer100g != null) result.nutrientsPer100g = nutrientsPer100g;
+    if (fieldProvenance != null) result.fieldProvenance.addAll(fieldProvenance);
     return result;
   }
 
@@ -513,6 +1289,15 @@ class PipelineResolvedIngredient extends $pb.GeneratedMessage {
         enumValues: PortionKind.values)
     ..aD(9, _omitFieldNames ? '' : 'count')
     ..aD(10, _omitFieldNames ? '' : 'perUnitGrams')
+    ..aE<NutritionOrigin>(11, _omitFieldNames ? '' : 'nutritionOrigin',
+        enumValues: NutritionOrigin.values)
+    ..aOS(12, _omitFieldNames ? '' : 'fdcId')
+    ..aOS(13, _omitFieldNames ? '' : 'usdaDatasetVersion')
+    ..aOM<PipelineMacros>(14, _omitFieldNames ? '' : 'nutrientsPer100g',
+        protoName: 'nutrients_per_100g', subBuilder: PipelineMacros.create)
+    ..pPM<IngredientFieldProvenance>(
+        15, _omitFieldNames ? '' : 'fieldProvenance',
+        subBuilder: IngredientFieldProvenance.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -627,6 +1412,47 @@ class PipelineResolvedIngredient extends $pb.GeneratedMessage {
   $core.bool hasPerUnitGrams() => $_has(9);
   @$pb.TagNumber(10)
   void clearPerUnitGrams() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  NutritionOrigin get nutritionOrigin => $_getN(10);
+  @$pb.TagNumber(11)
+  set nutritionOrigin(NutritionOrigin value) => $_setField(11, value);
+  @$pb.TagNumber(11)
+  $core.bool hasNutritionOrigin() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearNutritionOrigin() => $_clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get fdcId => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set fdcId($core.String value) => $_setString(11, value);
+  @$pb.TagNumber(12)
+  $core.bool hasFdcId() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearFdcId() => $_clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.String get usdaDatasetVersion => $_getSZ(12);
+  @$pb.TagNumber(13)
+  set usdaDatasetVersion($core.String value) => $_setString(12, value);
+  @$pb.TagNumber(13)
+  $core.bool hasUsdaDatasetVersion() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearUsdaDatasetVersion() => $_clearField(13);
+
+  @$pb.TagNumber(14)
+  PipelineMacros get nutrientsPer100g => $_getN(13);
+  @$pb.TagNumber(14)
+  set nutrientsPer100g(PipelineMacros value) => $_setField(14, value);
+  @$pb.TagNumber(14)
+  $core.bool hasNutrientsPer100g() => $_has(13);
+  @$pb.TagNumber(14)
+  void clearNutrientsPer100g() => $_clearField(14);
+  @$pb.TagNumber(14)
+  PipelineMacros ensureNutrientsPer100g() => $_ensure(13);
+
+  @$pb.TagNumber(15)
+  $pb.PbList<IngredientFieldProvenance> get fieldProvenance => $_getList(14);
 }
 
 class PipelineClarificationOption extends $pb.GeneratedMessage {
@@ -919,6 +1745,8 @@ class PipelineDecompositionData extends $pb.GeneratedMessage {
     $core.Iterable<PipelineDecomposedIngredient>? ingredients,
     $0.MealType? inferredMealType,
     $core.bool? mealTypeConfident,
+    InterpretationOrigin? interpretationOrigin,
+    IngredientProposalV1? proposal,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
@@ -927,6 +1755,9 @@ class PipelineDecompositionData extends $pb.GeneratedMessage {
     if (ingredients != null) result.ingredients.addAll(ingredients);
     if (inferredMealType != null) result.inferredMealType = inferredMealType;
     if (mealTypeConfident != null) result.mealTypeConfident = mealTypeConfident;
+    if (interpretationOrigin != null)
+      result.interpretationOrigin = interpretationOrigin;
+    if (proposal != null) result.proposal = proposal;
     return result;
   }
 
@@ -951,6 +1782,10 @@ class PipelineDecompositionData extends $pb.GeneratedMessage {
     ..aE<$0.MealType>(5, _omitFieldNames ? '' : 'inferredMealType',
         enumValues: $0.MealType.values)
     ..aOB(6, _omitFieldNames ? '' : 'mealTypeConfident')
+    ..aE<InterpretationOrigin>(7, _omitFieldNames ? '' : 'interpretationOrigin',
+        enumValues: InterpretationOrigin.values)
+    ..aOM<IngredientProposalV1>(8, _omitFieldNames ? '' : 'proposal',
+        subBuilder: IngredientProposalV1.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1020,6 +1855,26 @@ class PipelineDecompositionData extends $pb.GeneratedMessage {
   $core.bool hasMealTypeConfident() => $_has(5);
   @$pb.TagNumber(6)
   void clearMealTypeConfident() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  InterpretationOrigin get interpretationOrigin => $_getN(6);
+  @$pb.TagNumber(7)
+  set interpretationOrigin(InterpretationOrigin value) => $_setField(7, value);
+  @$pb.TagNumber(7)
+  $core.bool hasInterpretationOrigin() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearInterpretationOrigin() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  IngredientProposalV1 get proposal => $_getN(7);
+  @$pb.TagNumber(8)
+  set proposal(IngredientProposalV1 value) => $_setField(8, value);
+  @$pb.TagNumber(8)
+  $core.bool hasProposal() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearProposal() => $_clearField(8);
+  @$pb.TagNumber(8)
+  IngredientProposalV1 ensureProposal() => $_ensure(7);
 }
 
 class PipelineIngredientsData extends $pb.GeneratedMessage {
@@ -1327,6 +2182,7 @@ class PipelineResultData extends $pb.GeneratedMessage {
     PipelineCalorieBand? calorieBand,
     $core.Iterable<PipelineResolvedIngredient>? ingredients,
     $core.Iterable<$core.String>? confidenceReasons,
+    MealAnalysisReceipt? receipt,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
@@ -1342,6 +2198,7 @@ class PipelineResultData extends $pb.GeneratedMessage {
     if (ingredients != null) result.ingredients.addAll(ingredients);
     if (confidenceReasons != null)
       result.confidenceReasons.addAll(confidenceReasons);
+    if (receipt != null) result.receipt = receipt;
     return result;
   }
 
@@ -1376,6 +2233,8 @@ class PipelineResultData extends $pb.GeneratedMessage {
     ..pPM<PipelineResolvedIngredient>(11, _omitFieldNames ? '' : 'ingredients',
         subBuilder: PipelineResolvedIngredient.create)
     ..pPS(12, _omitFieldNames ? '' : 'confidenceReasons')
+    ..aOM<MealAnalysisReceipt>(13, _omitFieldNames ? '' : 'receipt',
+        subBuilder: MealAnalysisReceipt.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1498,6 +2357,17 @@ class PipelineResultData extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(12)
   $pb.PbList<$core.String> get confidenceReasons => $_getList(11);
+
+  @$pb.TagNumber(13)
+  MealAnalysisReceipt get receipt => $_getN(12);
+  @$pb.TagNumber(13)
+  set receipt(MealAnalysisReceipt value) => $_setField(13, value);
+  @$pb.TagNumber(13)
+  $core.bool hasReceipt() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearReceipt() => $_clearField(13);
+  @$pb.TagNumber(13)
+  MealAnalysisReceipt ensureReceipt() => $_ensure(12);
 }
 
 class PipelineErrorData extends $pb.GeneratedMessage {

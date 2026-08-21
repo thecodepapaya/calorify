@@ -49,6 +49,7 @@ export function toResolvedIngredientsSnapshot(
       perUnitMinGrams: ingredient.perUnitMinGrams,
       perUnitMaxGrams: ingredient.perUnitMaxGrams,
       sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
+      nutritionReference: ingredient.nutritionReference,
     })),
   };
 }
@@ -297,6 +298,30 @@ function parseFullResolvedIngredient(
     );
   }
   const match = snapshotRecord(raw.match, `${rowId}.match`);
+  const nutritionReference = raw.nutritionReference == null
+    ? undefined
+    : (() => {
+        const reference = snapshotRecord(
+          raw.nutritionReference,
+          `${rowId}.nutritionReference`
+        );
+        return {
+          fdcId: snapshotString(
+            reference.fdcId,
+            `${rowId}.nutritionReference.fdcId`
+          ),
+          datasetVersion: reference.datasetVersion == null
+            ? undefined
+            : snapshotString(
+                reference.datasetVersion,
+                `${rowId}.nutritionReference.datasetVersion`
+              ),
+          per100g: snapshotMacros(
+            reference.per100g,
+            `${rowId}.nutritionReference.per100g`
+          ),
+        };
+      })();
   return {
     rowId,
     rawName: snapshotString(raw.rawName, `${rowId}.rawName`),
@@ -336,6 +361,7 @@ function parseFullResolvedIngredient(
       `${rowId}.perUnitMaxGrams`
     ),
     sizeSpecifiedByUser: raw.sizeSpecifiedByUser === true,
+    nutritionReference,
   };
 }
 

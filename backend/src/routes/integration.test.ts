@@ -23,6 +23,8 @@ await mock.module('../config.js', {
     USDA_DATA_DIR: '/tmp/usda',
     USDA_DATASET_VERSION: null,
     USDA_SOURCE_RELEASE_DATE: null,
+    LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-disabled-v1',
+    LOCAL_INFERENCE_TEXT_ENABLED: false,
     ORACLE_BUCKET_DOWNLOAD_URL:
       'https://objectstorage.example.com/n/ns/b/bucket/o/',
   },
@@ -68,6 +70,9 @@ await mock.module('../services/nutritionEngineV2.js', {
       };
     }),
     analyzeImageMeal: mock.fn(async function* () {
+      yield { step: 'RESULT', data: {} };
+    }),
+    analyzeIngredientProposal: mock.fn(async function* () {
       yield { step: 'RESULT', data: {} };
     }),
     continueMealAnalysis: mock.fn(async function* () {

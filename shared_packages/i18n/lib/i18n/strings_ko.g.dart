@@ -155,6 +155,7 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override String get save => '저장';
 	@override String get mealName => '식사 이름';
 	@override String get mealNameHint => '예: 스크램블 에그와 토스트';
+	@override String get nameRequired => '저장하기 전에 식사 이름을 입력하세요.';
 	@override String get mealQuantity => '식사 수량';
 	@override String get mealQuantityHint => '예: 1그릇, 2조각';
 	@override String get timeOfMeal => '식사 시간';
@@ -180,8 +181,8 @@ class _TranslationsMealKo implements TranslationsMealEn {
 	@override String get skip => '건너뛰기';
 	@override late final _TranslationsMealQuestionFlowKo questionFlow = _TranslationsMealQuestionFlowKo._(_root);
 	@override late final _TranslationsMealAnalysisKo analysis = _TranslationsMealAnalysisKo._(_root);
+	@override late final _TranslationsMealLocalInferenceKo localInference = _TranslationsMealLocalInferenceKo._(_root);
 	@override late final _TranslationsMealFeedbackKo feedback = _TranslationsMealFeedbackKo._(_root);
-	@override String get nameRequired => '저장하기 전에 식사 이름을 입력하세요.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsKo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitKo heightUnit = _TranslationsSettingsHeightUnitKo._(_root);
 	@override late final _TranslationsSettingsWeightUnitKo weightUnit = _TranslationsSettingsWeightUnitKo._(_root);
 	@override late final _TranslationsSettingsMealRemindersKo mealReminders = _TranslationsSettingsMealRemindersKo._(_root);
+	@override late final _TranslationsSettingsLocalInferenceKo localInference = _TranslationsSettingsLocalInferenceKo._(_root);
 	@override late final _TranslationsSettingsThemeKo theme = _TranslationsSettingsThemeKo._(_root);
 	@override late final _TranslationsSettingsSendFeedbackKo sendFeedback = _TranslationsSettingsSendFeedbackKo._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryKo exportMealHistory = _TranslationsSettingsExportMealHistoryKo._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisKo implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceKo implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => '감지된 식재료 확인';
+	@override String get reviewSubtitle => '기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.';
+	@override String get mealName => '식사 이름';
+	@override String get ingredient => '식재료';
+	@override String get grams => '추정 중량(g)';
+	@override String get removeIngredient => '식재료 삭제';
+	@override String get continueLabel => '계속하기';
+	@override String get invalidProposal => '최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.';
+	@override String get localUnavailable => '현재 기기 내 분석을 사용할 수 없습니다.';
+	@override String get calculationDetails => '계산 방식';
+	@override String get interpretationLocal => '기기에서 분석한 식재료';
+	@override String get interpretationCloud => '클라우드에서 분석한 식재료';
+	@override String get interpretationManual => '사용자가 확인하거나 수정한 식재료';
+	@override String get nutritionRemote => 'Calorify를 통해 USDA에서 가져온 영양 정보';
+	@override String get nutritionFallback => '일부 영양 수치는 원격으로 추정되었습니다';
+	@override String get calculationServer => 'Calorify에서 계산한 칼로리 및 매크로';
+	@override String get fallbackUsed => '기기 내 분석 실패로 클라우드 처리를 사용했습니다';
+	@override String get noRawContent => '진단 영수증에는 식사 텍스트나 사진이 포함되지 않습니다.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackKo implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackKo._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsKo implements TranslationsSettingsSectionsEn 
 	@override String get localization => '지역화';
 	@override String get notifications => '알림';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => '기기 내 분석';
 	@override String get supportAndLegal => '지원 및 법적 고지';
 	@override String get about => '앱 정보';
 	@override String get dangerZone => '위험 구역';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersKo implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => '식사 알림';
 	@override String get subtitle => '정시 알림으로 계획을 지키세요';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceKo implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceKo._(this._root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '기기 내 식사 분석';
+	@override String get subtitle => '영양 성분을 계산하기 전, Gemini Nano를 통해 지원되는 식사를 분석합니다';
+	@override String get unavailable => '이 기기에서는 사용할 수 없습니다';
+	@override String get rolloutUnavailable => '지원 하드웨어가 발견되었으나, 현재 앱 버전에서는 이 기능이 활성화되지 않았습니다';
+	@override String get modelSetup => '이 기능을 활성화하려면 Gemini Nano 다운로드가 완료되어야 합니다';
+	@override String get useLocalTitle => '기기 내 분석 사용';
+	@override String get useLocalSubtitle => '선택 사항이며 기본적으로 꺼져 있습니다. 복잡한 식사의 경우 결과가 덜 정확할 수 있습니다.';
+	@override String get disclosureTitle => '기기 내 분석을 활성화하기 전에';
+	@override String get disclosureBody => 'Gemini Nano는 지원되는 Android 기기에서 식재료를 식별하고 양을 추정할 수 있습니다. 확인된 식재료 제안은 USDA 영양 정보 기반 확인 및 계산을 위해 Calorify로 전송됩니다.';
+	@override String get disclosureLimit1 => '복잡한 요리, 숨겨진 식재료 및 분량은 잘못 식별될 수 있습니다.';
+	@override String get disclosureLimit2 => '다운로드 중이거나, 기기가 바쁘거나, 백그라운드 상태이거나, 기기 제한이 있는 경우 모델을 사용할 수 없습니다.';
+	@override String get disclosureLimit3 => '기기 내 분석을 완료할 수 없는 경우, 이 베타 버전은 원래의 식사 설명을 Calorify로 자동 전송하여 클라우드 분석을 수행합니다.';
+	@override String get acknowledgement => '감지된 식재료와 양을 확인해야 함을 이해했습니다.';
+	@override String get enable => '동의 및 활성화';
+	@override String get cancel => '취소';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsKo {
 			'meal.save' => '저장',
 			'meal.mealName' => '식사 이름',
 			'meal.mealNameHint' => '예: 스크램블 에그와 토스트',
+			'meal.nameRequired' => '저장하기 전에 식사 이름을 입력하세요.',
 			'meal.mealQuantity' => '식사 수량',
 			'meal.mealQuantityHint' => '예: 1그릇, 2조각',
 			'meal.timeOfMeal' => '식사 시간',
@@ -1916,6 +1971,24 @@ extension on TranslationsKo {
 			'meal.analysis.offlineTip3' => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.',
 			'meal.analysis.offlineTip4' => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.',
 			'meal.analysis.offlineTip5' => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.',
+			'meal.localInference.reviewTitle' => '감지된 식재료 확인',
+			'meal.localInference.reviewSubtitle' => '기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.',
+			'meal.localInference.mealName' => '식사 이름',
+			'meal.localInference.ingredient' => '식재료',
+			'meal.localInference.grams' => '추정 중량(g)',
+			'meal.localInference.removeIngredient' => '식재료 삭제',
+			'meal.localInference.continueLabel' => '계속하기',
+			'meal.localInference.invalidProposal' => '최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.',
+			'meal.localInference.localUnavailable' => '현재 기기 내 분석을 사용할 수 없습니다.',
+			'meal.localInference.calculationDetails' => '계산 방식',
+			'meal.localInference.interpretationLocal' => '기기에서 분석한 식재료',
+			'meal.localInference.interpretationCloud' => '클라우드에서 분석한 식재료',
+			'meal.localInference.interpretationManual' => '사용자가 확인하거나 수정한 식재료',
+			'meal.localInference.nutritionRemote' => 'Calorify를 통해 USDA에서 가져온 영양 정보',
+			'meal.localInference.nutritionFallback' => '일부 영양 수치는 원격으로 추정되었습니다',
+			'meal.localInference.calculationServer' => 'Calorify에서 계산한 칼로리 및 매크로',
+			'meal.localInference.fallbackUsed' => '기기 내 분석 실패로 클라우드 처리를 사용했습니다',
+			'meal.localInference.noRawContent' => '진단 영수증에는 식사 텍스트나 사진이 포함되지 않습니다.',
 			'meal.feedback.title' => '어떤 점이 잘못되었나요?',
 			'meal.feedback.subtitle' => '분석 개선을 위해 한 가지 이상 문제를 선택해주세요.',
 			'meal.feedback.tellUsMore' => '자세히 알려주세요',
@@ -1928,7 +2001,6 @@ extension on TranslationsKo {
 			'meal.feedback.issueMissingItems' => '누락된 항목',
 			'meal.feedback.issueExtraItems' => '불필요한 항목',
 			'meal.feedback.issueOther' => '기타',
-			'meal.nameRequired' => '저장하기 전에 식사 이름을 입력하세요.',
 			'favorites.title' => '즐겨찾기',
 			'favorites.empty' => '아직 즐겨찾기 식사가 없습니다.',
 			'favorites.searchPlaceholder' => '즐겨찾기 식사 검색',
@@ -2014,6 +2086,7 @@ extension on TranslationsKo {
 			'settings.sections.localization' => '지역화',
 			'settings.sections.notifications' => '알림',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => '기기 내 분석',
 			'settings.sections.supportAndLegal' => '지원 및 법적 고지',
 			'settings.sections.about' => '앱 정보',
 			'settings.sections.dangerZone' => '위험 구역',
@@ -2028,6 +2101,21 @@ extension on TranslationsKo {
 			'settings.weightUnit.title' => '체중 단위',
 			'settings.mealReminders.title' => '식사 알림',
 			'settings.mealReminders.subtitle' => '정시 알림으로 계획을 지키세요',
+			'settings.localInference.title' => '기기 내 식사 분석',
+			'settings.localInference.subtitle' => '영양 성분을 계산하기 전, Gemini Nano를 통해 지원되는 식사를 분석합니다',
+			'settings.localInference.unavailable' => '이 기기에서는 사용할 수 없습니다',
+			'settings.localInference.rolloutUnavailable' => '지원 하드웨어가 발견되었으나, 현재 앱 버전에서는 이 기능이 활성화되지 않았습니다',
+			'settings.localInference.modelSetup' => '이 기능을 활성화하려면 Gemini Nano 다운로드가 완료되어야 합니다',
+			'settings.localInference.useLocalTitle' => '기기 내 분석 사용',
+			'settings.localInference.useLocalSubtitle' => '선택 사항이며 기본적으로 꺼져 있습니다. 복잡한 식사의 경우 결과가 덜 정확할 수 있습니다.',
+			'settings.localInference.disclosureTitle' => '기기 내 분석을 활성화하기 전에',
+			'settings.localInference.disclosureBody' => 'Gemini Nano는 지원되는 Android 기기에서 식재료를 식별하고 양을 추정할 수 있습니다. 확인된 식재료 제안은 USDA 영양 정보 기반 확인 및 계산을 위해 Calorify로 전송됩니다.',
+			'settings.localInference.disclosureLimit1' => '복잡한 요리, 숨겨진 식재료 및 분량은 잘못 식별될 수 있습니다.',
+			'settings.localInference.disclosureLimit2' => '다운로드 중이거나, 기기가 바쁘거나, 백그라운드 상태이거나, 기기 제한이 있는 경우 모델을 사용할 수 없습니다.',
+			'settings.localInference.disclosureLimit3' => '기기 내 분석을 완료할 수 없는 경우, 이 베타 버전은 원래의 식사 설명을 Calorify로 자동 전송하여 클라우드 분석을 수행합니다.',
+			'settings.localInference.acknowledgement' => '감지된 식재료와 양을 확인해야 함을 이해했습니다.',
+			'settings.localInference.enable' => '동의 및 활성화',
+			'settings.localInference.cancel' => '취소',
 			'settings.theme.title' => '테마',
 			'settings.theme.light' => '라이트',
 			'settings.theme.dark' => '다크',
@@ -2162,6 +2250,8 @@ extension on TranslationsKo {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '프로필을 기반으로 TDEE를 계산하고 경과한 시간(시 + 분) / 24를 곱해 지금까지 소모한 칼로리를 추정합니다.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '전문가 조언',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '이 추정치를 의료 결정에 사용하지 마세요. 개인화된 체중 관리 조언은 항상 의료 전문가나 공인 영양사와 상담하세요.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => '닫기',
 			'common.kContinue' => '계속',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}이 마음에 드시나요?',

@@ -3,6 +3,20 @@ import 'package:flutter/material.dart' show ThemeMode;
 
 enum DataSourceType { real, mock }
 
+class LocalInferencePreferences {
+  const LocalInferencePreferences({
+    required this.enabled,
+    this.acknowledgedPolicyVersion,
+  });
+
+  const LocalInferencePreferences.defaults()
+    : enabled = false,
+      acknowledgedPolicyVersion = null;
+
+  final bool enabled;
+  final String? acknowledgedPolicyVersion;
+}
+
 class PendingProfileSync {
   const PendingProfileSync({required this.profile, required this.revision});
 
@@ -114,6 +128,12 @@ abstract class DatabaseInterface {
 
   /// Persist explicit onboarding completion.
   Future<void> setOnboardingCompleted();
+
+  Future<LocalInferencePreferences> getLocalInferencePreferences();
+
+  Future<void> setLocalInferenceEnabled(bool enabled);
+
+  Future<void> acknowledgeLocalInferencePolicy(String policyVersion);
 
   /// Latest N meals by timestamp (for feedback eligibility check). Default limit 5.
   Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({

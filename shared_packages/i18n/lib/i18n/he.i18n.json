@@ -245,6 +245,7 @@
     "save": "שמור",
     "mealName": "שם הארוחה",
     "mealNameHint": "למשל: חביתה מקושקשת עם טוסט",
+    "nameRequired": "הזן שם ארוחה לפני השמירה.",
     "mealQuantity": "כמות הארוחה",
     "mealQuantityHint": "למשל: קערה אחת, 2 פרוסות",
     "timeOfMeal": "שעת הארוחה",
@@ -312,6 +313,26 @@
       "offlineTip4": "טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.",
       "offlineTip5": "טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי)."
     },
+    "localInference": {
+      "reviewTitle": "בדיקת רכיבים שזוהו",
+      "reviewSubtitle": "המידע פוענח במכשיר שלך. תקן שמות או כמויות לפני חישוב הערכים התזונתיים.",
+      "mealName": "שם הארוחה",
+      "ingredient": "רכיב",
+      "grams": "גרמים מוערכים",
+      "removeIngredient": "הסר רכיב",
+      "continueLabel": "המשך",
+      "invalidProposal": "הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.",
+      "localUnavailable": "ניתוח מקומי במכשיר אינו זמין כעת.",
+      "calculationDetails": "כיצד זה חושב",
+      "interpretationLocal": "רכיבים שפוענחו במכשיר זה",
+      "interpretationCloud": "רכיבים שפוענחו בענן",
+      "interpretationManual": "רכיבים שנבדקו או נערכו על ידיך",
+      "nutritionRemote": "ערכים תזונתיים נשלפו מ-USDA באמצעות Calorify",
+      "nutritionFallback": "חלק מהערכים התזונתיים הוערכו מרחוק",
+      "calculationServer": "קלוריות ומקרוס חושבו על ידי Calorify",
+      "fallbackUsed": "הניתוח המקומי עבר לעיבוד בענן",
+      "noRawContent": "קבצי אבחון אינם כוללים את טקסט הארוחה או התמונה שלך."
+    },
     "feedback": {
       "title": "מה לא נראה נכון?",
       "subtitle": "עזור לנו לשפר את הניתוח על ידי בחירת אחת או יותר מהבעיות.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "פריטים חסרים",
       "issueExtraItems": "פריטים מיותרים",
       "issueOther": "אחר"
-    },
-    "nameRequired": "הזן שם ארוחה לפני השמירה."
+    }
   },
   "favorites": {
     "title": "מועדפים",
@@ -453,6 +473,7 @@
       "localization": "מיקום שפה",
       "notifications": "התראות",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ניתוח במכשיר",
       "supportAndLegal": "תמיכה & משפטי",
       "about": "אודות",
       "dangerZone": "אזור מסוכן",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "תזכורות ארוחות",
       "subtitle": "הישאר על המסלול עם התראות בזמן"
+    },
+    "localInference": {
+      "title": "ניתוח ארוחות במכשיר",
+      "subtitle": "פענוח ארוחות נתמכות באמצעות Gemini Nano לפני חישוב הערכים התזונתיים",
+      "unavailable": "לא זמין במכשיר זה",
+      "rolloutUnavailable": "חומרה תומכת נמצאה, אך תכונה זו אינה זמינה בגרסה זו של האפליקציה",
+      "modelSetup": "Gemini Nano צריך לסיים את ההורדה לפני שניתן יהיה להפעיל זאת",
+      "useLocalTitle": "השתמש בניתוח במכשיר",
+      "useLocalSubtitle": "אופציונלי וכבוי כברירת מחדל. התוצאות עשויות להיות פחות אמינות עבור ארוחות מורכבות.",
+      "disclosureTitle": "לפני הפעלת הניתוח במכשיר",
+      "disclosureBody": "Gemini Nano יכול לזהות רכיבים ולהעריך כמויות במכשירי Android נתמכים. הצעת הרכיבים שבדקת נשלחת ל-Calorify לצורך ביסוס ערכים תזונתיים מ-USDA וחישוב.",
+      "disclosureLimit1": "מנות מורכבות, רכיבים נסתרים וגדלי מנות עשויים להיות מזוהים באופן שגוי.",
+      "disclosureLimit2": "המודל עשוי להיות לא זמין בזמן הורדה, כאשר הוא תפוס, ברקע, או בשל מגבלות המכשיר.",
+      "disclosureLimit3": "אם הפענוח המקומי לא יוכל להסתיים, גרסת בטא זו תשלח באופן אוטומטי את תיאור הארוחה המקורי ל-Calorify לצורך ניתוח בענן.",
+      "acknowledgement": "אני מבין/ה שעלי לבדוק את הרכיבים והכמויות שזוהו.",
+      "enable": "אישור והפעלה",
+      "cancel": "ביטול"
     },
     "theme": {
       "title": "נושא",

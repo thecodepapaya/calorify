@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fixnum/fixnum.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/network/network_request_cancellation.dart';
@@ -69,6 +70,11 @@ class FoodRepository {
   Future<Stream<MealAnalysisPipelineEvent>> analyzeTextV2({
     required String analysisId,
     required String textDescription,
+    bool? localAttempted,
+    MealAnalysisFallbackReason? fallbackReason,
+    String? localAttemptId,
+    DateTime? localAttemptStartedAt,
+    DateTime? localAttemptCompletedAt,
     NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
@@ -77,6 +83,17 @@ class FoodRepository {
       data: MealAnalysisTextRequest(
         analysisId: analysisId,
         textDescription: textDescription,
+        localAttempted: localAttempted,
+        fallbackReason: fallbackReason,
+        localAttemptId: localAttemptId,
+        localAttemptStartedAtEpochMs:
+            localAttemptStartedAt == null
+                ? null
+                : Int64(localAttemptStartedAt.toUtc().millisecondsSinceEpoch),
+        localAttemptCompletedAtEpochMs:
+            localAttemptCompletedAt == null
+                ? null
+                : Int64(localAttemptCompletedAt.toUtc().millisecondsSinceEpoch),
       ),
       cancellation: cancellation,
     );
@@ -115,6 +132,39 @@ class FoodRepository {
       analysisId: analysisId,
       uploadedImageUrl: uploadUrl,
       events: events,
+    );
+  }
+
+  Future<Stream<MealAnalysisPipelineEvent>> analyzeProposalV2({
+    required String analysisId,
+    required IngredientProposalV1 proposal,
+    required String localAttemptId,
+    required DateTime localAttemptStartedAt,
+    required DateTime localAttemptCompletedAt,
+    NetworkRequestCancellation? cancellation,
+  }) {
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
+      '/api/v2/food/analyze-proposal',
+      MealAnalysisPipelineEvent.fromJson,
+      data: MealAnalysisProposalRequest(
+        analysisId: analysisId,
+        proposal: proposal,
+        localAttemptId: localAttemptId,
+        localAttemptStartedAtEpochMs: Int64(
+          localAttemptStartedAt.toUtc().millisecondsSinceEpoch,
+        ),
+        localAttemptCompletedAtEpochMs: Int64(
+          localAttemptCompletedAt.toUtc().millisecondsSinceEpoch,
+        ),
+      ),
+      cancellation: cancellation,
+    );
+  }
+
+  Future<LocalInferenceCapabilityPolicy> getLocalInferencePolicy() {
+    return _networkClient.apiCall<ApiResult, LocalInferenceCapabilityPolicy>(
+      '/api/v2/food/local-capabilities',
+      LocalInferenceCapabilityPolicy.new,
     );
   }
 

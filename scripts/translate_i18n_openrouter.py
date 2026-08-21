@@ -38,9 +38,11 @@ ALLOWED_SOURCE_VALUES = {
     "Calorify",
     "Google",
     "Google Play Store",
+    "Gemini Nano",
     "Health Connect",
     "TDEE",
     "UID",
+    "USDA",
 }
 PLACEHOLDER_RE = re.compile(r"\{[^{}]+\}")
 
@@ -196,7 +198,7 @@ def request_translation(api_key: str, locale: str, source: dict[str, Any]) -> tu
         "Translate every user-facing JSON string naturally from English into "
         f"{locale_name} ({locale}). Preserve the JSON structure and keys exactly. "
         "Preserve every {placeholder} exactly, including braces, and preserve meaningful newlines. "
-        "Keep Calorify, Health Connect, Play Store, Google, Android, AI, BMI, BMR, TDEE, CSV, UID, "
+        "Keep Calorify, Health Connect, Play Store, Google, Gemini Nano, USDA, Android, AI, BMI, BMR, TDEE, CSV, UID, "
         "units, and version tokens unchanged where linguistically appropriate. Translate all other "
         "phrases, including tips, accessibility labels, privacy/legal text, errors, and technical UI labels. "
         "Use concise, idiomatic product language and the source's encouraging, non-judgmental tone. "

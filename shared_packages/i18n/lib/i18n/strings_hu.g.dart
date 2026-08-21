@@ -155,6 +155,7 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override String get save => 'Mentés';
 	@override String get mealName => 'Étel neve';
 	@override String get mealNameHint => 'pl. Tojásrántotta pirítóssal';
+	@override String get nameRequired => 'Mentés előtt add meg az étkezés nevét.';
 	@override String get mealQuantity => 'Adag mennyisége';
 	@override String get mealQuantityHint => 'pl. 1 tál, 2 szelet';
 	@override String get timeOfMeal => 'Étkezés ideje';
@@ -180,8 +181,8 @@ class _TranslationsMealHu implements TranslationsMealEn {
 	@override String get skip => 'Kihagyás';
 	@override late final _TranslationsMealQuestionFlowHu questionFlow = _TranslationsMealQuestionFlowHu._(_root);
 	@override late final _TranslationsMealAnalysisHu analysis = _TranslationsMealAnalysisHu._(_root);
+	@override late final _TranslationsMealLocalInferenceHu localInference = _TranslationsMealLocalInferenceHu._(_root);
 	@override late final _TranslationsMealFeedbackHu feedback = _TranslationsMealFeedbackHu._(_root);
-	@override String get nameRequired => 'Mentés előtt add meg az étkezés nevét.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsHu implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitHu heightUnit = _TranslationsSettingsHeightUnitHu._(_root);
 	@override late final _TranslationsSettingsWeightUnitHu weightUnit = _TranslationsSettingsWeightUnitHu._(_root);
 	@override late final _TranslationsSettingsMealRemindersHu mealReminders = _TranslationsSettingsMealRemindersHu._(_root);
+	@override late final _TranslationsSettingsLocalInferenceHu localInference = _TranslationsSettingsLocalInferenceHu._(_root);
 	@override late final _TranslationsSettingsThemeHu theme = _TranslationsSettingsThemeHu._(_root);
 	@override late final _TranslationsSettingsSendFeedbackHu sendFeedback = _TranslationsSettingsSendFeedbackHu._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryHu exportMealHistory = _TranslationsSettingsExportMealHistoryHu._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisHu implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceHu implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Élelmiszerek ellenőrzése';
+	@override String get reviewSubtitle => 'Ezt a készüléked elemezte. Kérjük, javítsd a neveket vagy az adagokat a tápérték számítása előtt.';
+	@override String get mealName => 'Étel neve';
+	@override String get ingredient => 'Összetevő';
+	@override String get grams => 'Becsült gramm';
+	@override String get removeIngredient => 'Összetevő törlése';
+	@override String get continueLabel => 'Folytatás';
+	@override String get invalidProposal => 'Adjon hozzá legalább egy összetevőt, és adjon meg egy pozitív grammsúlyt.';
+	@override String get localUnavailable => 'A készüléken történő elemzés jelenleg nem érhető el.';
+	@override String get calculationDetails => 'A számítás módja';
+	@override String get interpretationLocal => 'A készüléken elemezett összetevők';
+	@override String get interpretationCloud => 'Felhőben elemezett összetevők';
+	@override String get interpretationManual => 'Általad ellenőrzött vagy szerkesztett összetevők';
+	@override String get nutritionRemote => 'USDA tápértékadatok a Calorify-on keresztül';
+	@override String get nutritionFallback => 'Néhány tápértékadatot távolról becsültük';
+	@override String get calculationServer => 'Kalóriákat és makrókat a Calorify számolta';
+	@override String get fallbackUsed => 'A helyi elemzés helyett felhőalapú feldolgozást használtunk';
+	@override String get noRawContent => 'A diagnosztikai nyugtások nem tartalmazzák az étel leírását vagy fotóját.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackHu implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackHu._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsHu implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALIZÁCIÓ';
 	@override String get notifications => 'ÉRTESÍTÉSEK';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'KÉSZÜLÉKEN TÖRTÉNŐ ELEMZÉS';
 	@override String get supportAndLegal => 'TÁMOGATÁS & JOGI';
 	@override String get about => 'NÉVJEGY';
 	@override String get dangerZone => 'VESZÉLYZÓNA';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersHu implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Étkezés emlékeztetők';
 	@override String get subtitle => 'Maradj a pályán időben érkező figyelmeztetésekkel';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceHu implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceHu._(this._root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Készüléken történő ételelemzés';
+	@override String get subtitle => 'Támogatott ételek elemzése Gemini Nano segítségével a tápérték számítása előtt';
+	@override String get unavailable => 'Nem érhető el ezen a készüléken';
+	@override String get rolloutUnavailable => 'Megfelelő hardver található, de ez a funkció nem aktív a jelenlegi applikációs verzióban';
+	@override String get modelSetup => 'A Gemini Nano letöltése be kell fejeznie, mielőtt ez engedhetővé válna';
+	@override String get useLocalTitle => 'Készüléken történő elemzés használata';
+	@override String get useLocalSubtitle => 'Opcionális, alapértelmezetten ki van kapcsolva. A komplex ételeknél az eredmények kevésbé megbízhatóak lehetnek.';
+	@override String get disclosureTitle => 'Mielőtt engedélyezné a készüléken történő elemzést';
+	@override String get disclosureBody => 'A Gemini Nano képes az összetevők azonosítására és az adagok becslésére a támogatott Android készülékeken. Az ellenőrzött összetevő-javaslatot a Calorify-nak küldjük a USDA tápértékadatok alapú számításhoz.';
+	@override String get disclosureLimit1 => 'A komplex ételek, a rejtett összetevők és az adagméretek esetleg hibásan kerülhetnek azonosításra.';
+	@override String get disclosureLimit2 => 'A modell nem lehet elérhető letöltés közben, elfoglaltság esetén, háttérben vagy a készülék korlátozásai miatt.';
+	@override String get disclosureLimit3 => 'Ha a helyi elemzés nem tud befejeződni, ez a bétaverzió automatikusan elküldi az eredeti ételleírást a Calorify-nak felhőalapú elemzésre.';
+	@override String get acknowledgement => 'Értem, hogy ellenőriznem kell az azonosított összetevőket és adagokat.';
+	@override String get enable => 'Elfogadom és engedélyezem';
+	@override String get cancel => 'Mégse';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsHu {
 			'meal.save' => 'Mentés',
 			'meal.mealName' => 'Étel neve',
 			'meal.mealNameHint' => 'pl. Tojásrántotta pirítóssal',
+			'meal.nameRequired' => 'Mentés előtt add meg az étkezés nevét.',
 			'meal.mealQuantity' => 'Adag mennyisége',
 			'meal.mealQuantityHint' => 'pl. 1 tál, 2 szelet',
 			'meal.timeOfMeal' => 'Étkezés ideje',
@@ -1916,6 +1971,24 @@ extension on TranslationsHu {
 			'meal.analysis.offlineTip3' => 'Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.',
 			'meal.analysis.offlineTip4' => 'Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.',
 			'meal.analysis.offlineTip5' => 'Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).',
+			'meal.localInference.reviewTitle' => 'Élelmiszerek ellenőrzése',
+			'meal.localInference.reviewSubtitle' => 'Ezt a készüléked elemezte. Kérjük, javítsd a neveket vagy az adagokat a tápérték számítása előtt.',
+			'meal.localInference.mealName' => 'Étel neve',
+			'meal.localInference.ingredient' => 'Összetevő',
+			'meal.localInference.grams' => 'Becsült gramm',
+			'meal.localInference.removeIngredient' => 'Összetevő törlése',
+			'meal.localInference.continueLabel' => 'Folytatás',
+			'meal.localInference.invalidProposal' => 'Adjon hozzá legalább egy összetevőt, és adjon meg egy pozitív grammsúlyt.',
+			'meal.localInference.localUnavailable' => 'A készüléken történő elemzés jelenleg nem érhető el.',
+			'meal.localInference.calculationDetails' => 'A számítás módja',
+			'meal.localInference.interpretationLocal' => 'A készüléken elemezett összetevők',
+			'meal.localInference.interpretationCloud' => 'Felhőben elemezett összetevők',
+			'meal.localInference.interpretationManual' => 'Általad ellenőrzött vagy szerkesztett összetevők',
+			'meal.localInference.nutritionRemote' => 'USDA tápértékadatok a Calorify-on keresztül',
+			'meal.localInference.nutritionFallback' => 'Néhány tápértékadatot távolról becsültük',
+			'meal.localInference.calculationServer' => 'Kalóriákat és makrókat a Calorify számolta',
+			'meal.localInference.fallbackUsed' => 'A helyi elemzés helyett felhőalapú feldolgozást használtunk',
+			'meal.localInference.noRawContent' => 'A diagnosztikai nyugtások nem tartalmazzák az étel leírását vagy fotóját.',
 			'meal.feedback.title' => 'Mi tűnik hibásnak?',
 			'meal.feedback.subtitle' => 'Segíts javítani az elemzést egy vagy több probléma kiválasztásával.',
 			'meal.feedback.tellUsMore' => 'Mesélj részletesebben',
@@ -1928,7 +2001,6 @@ extension on TranslationsHu {
 			'meal.feedback.issueMissingItems' => 'Hiányzó elemek',
 			'meal.feedback.issueExtraItems' => 'Többlet elemek',
 			'meal.feedback.issueOther' => 'Egyéb',
-			'meal.nameRequired' => 'Mentés előtt add meg az étkezés nevét.',
 			'favorites.title' => 'Kedvencek',
 			'favorites.empty' => 'Még nincs kedvenc étel.',
 			'favorites.searchPlaceholder' => 'Keresés a kedvencek között',
@@ -2014,6 +2086,7 @@ extension on TranslationsHu {
 			'settings.sections.localization' => 'LOKALIZÁCIÓ',
 			'settings.sections.notifications' => 'ÉRTESÍTÉSEK',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'KÉSZÜLÉKEN TÖRTÉNŐ ELEMZÉS',
 			'settings.sections.supportAndLegal' => 'TÁMOGATÁS & JOGI',
 			'settings.sections.about' => 'NÉVJEGY',
 			'settings.sections.dangerZone' => 'VESZÉLYZÓNA',
@@ -2028,6 +2101,21 @@ extension on TranslationsHu {
 			'settings.weightUnit.title' => 'Súly mértékegysége',
 			'settings.mealReminders.title' => 'Étkezés emlékeztetők',
 			'settings.mealReminders.subtitle' => 'Maradj a pályán időben érkező figyelmeztetésekkel',
+			'settings.localInference.title' => 'Készüléken történő ételelemzés',
+			'settings.localInference.subtitle' => 'Támogatott ételek elemzése Gemini Nano segítségével a tápérték számítása előtt',
+			'settings.localInference.unavailable' => 'Nem érhető el ezen a készüléken',
+			'settings.localInference.rolloutUnavailable' => 'Megfelelő hardver található, de ez a funkció nem aktív a jelenlegi applikációs verzióban',
+			'settings.localInference.modelSetup' => 'A Gemini Nano letöltése be kell fejeznie, mielőtt ez engedhetővé válna',
+			'settings.localInference.useLocalTitle' => 'Készüléken történő elemzés használata',
+			'settings.localInference.useLocalSubtitle' => 'Opcionális, alapértelmezetten ki van kapcsolva. A komplex ételeknél az eredmények kevésbé megbízhatóak lehetnek.',
+			'settings.localInference.disclosureTitle' => 'Mielőtt engedélyezné a készüléken történő elemzést',
+			'settings.localInference.disclosureBody' => 'A Gemini Nano képes az összetevők azonosítására és az adagok becslésére a támogatott Android készülékeken. Az ellenőrzött összetevő-javaslatot a Calorify-nak küldjük a USDA tápértékadatok alapú számításhoz.',
+			'settings.localInference.disclosureLimit1' => 'A komplex ételek, a rejtett összetevők és az adagméretek esetleg hibásan kerülhetnek azonosításra.',
+			'settings.localInference.disclosureLimit2' => 'A modell nem lehet elérhető letöltés közben, elfoglaltság esetén, háttérben vagy a készülék korlátozásai miatt.',
+			'settings.localInference.disclosureLimit3' => 'Ha a helyi elemzés nem tud befejeződni, ez a bétaverzió automatikusan elküldi az eredeti ételleírást a Calorify-nak felhőalapú elemzésre.',
+			'settings.localInference.acknowledgement' => 'Értem, hogy ellenőriznem kell az azonosított összetevőket és adagokat.',
+			'settings.localInference.enable' => 'Elfogadom és engedélyezem',
+			'settings.localInference.cancel' => 'Mégse',
 			'settings.theme.title' => 'Téma',
 			'settings.theme.light' => 'Világos',
 			'settings.theme.dark' => 'Sötét',
@@ -2162,6 +2250,8 @@ extension on TranslationsHu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kiszámítjuk a TDEE-det (a profilod alapján), és megszorozzuk a nap eltelt részével (órák + percek) / 24, hogy megbecsüljük az eddig elégetett kalóriákat.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Szakmai útmutatás',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Ne használd ezt a becslést orvosi döntésekhez. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott súlykezelési tanácsért.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Folytatás',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}?',

@@ -15,6 +15,7 @@ import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_question_flow_sheet.dart';
 import 'package:calorify/features/debug/database_inspector_screen.dart';
+import 'package:calorify/features/debug/local_inference_debug_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_observability_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_sheet_debug_previews.dart';
 import 'package:calorify/features/debug/widgets/debug_user_id_field.dart';
@@ -98,6 +99,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
+    final localInferenceOptions = _buildLocalInferenceOptions(context);
     final mealAnalysisSheetUiOptions = _buildMealAnalysisSheetUiOptions(
       context,
     );
@@ -159,6 +161,11 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
             if (foodApiOptions != null) ...[
               _buildSectionTitle(context, 'Food API Tests'),
               foodApiOptions,
+              const SizedBox(height: 24),
+            ],
+            if (localInferenceOptions != null) ...[
+              _buildSectionTitle(context, 'Local inference'),
+              localInferenceOptions,
               const SizedBox(height: 24),
             ],
             if (mealAnalysisSheetUiOptions != null) ...[
@@ -746,6 +753,31 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     }
     if (filtered.isEmpty) return null;
     return Card(child: Column(children: filtered));
+  }
+
+  Widget? _buildLocalInferenceOptions(BuildContext context) {
+    const section = 'Local inference';
+    const title = 'Gemini Nano one-off tests';
+    if (!_matchesQuery(section, title, 'capability failures comparison')) {
+      return null;
+    }
+    return Card(
+      child: ListTile(
+        leading: const Icon(LucideIcons.cpu),
+        title: const Text(title),
+        subtitle: const Text(
+          'Capability, warm-up, local/cloud comparison, and simulated failures',
+        ),
+        trailing: const Icon(LucideIcons.chevronRight, size: 18),
+        onTap:
+            () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const LocalInferenceDebugScreen(),
+                settings: const RouteSettings(name: 'localInferenceTests'),
+              ),
+            ),
+      ),
+    );
   }
 
   Widget? _buildMealAnalysisSheetUiOptions(BuildContext context) {

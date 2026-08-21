@@ -245,6 +245,7 @@
     "save": "I-save",
     "mealName": "Pangalan ng Pagkain",
     "mealNameHint": "hal. Scrambled eggs na may toast",
+    "nameRequired": "Ilagay ang pangalan ng pagkain bago i-save.",
     "mealQuantity": "Dami ng Pagkain",
     "mealQuantityHint": "hal. 1 mangkok, 2 hiwa",
     "timeOfMeal": "Oras ng Pagkain",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.",
       "offlineTip5": "Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno)."
     },
+    "localInference": {
+      "reviewTitle": "Suriin ang mga nakitang sangkap",
+      "reviewSubtitle": "Binigyang-kahulugan ito sa iyong device. Itama ang mga pangalan o dami bago kalkulahin ang nutrisyon.",
+      "mealName": "Pangalan ng pagkain",
+      "ingredient": "Sangkap",
+      "grams": "Tinatayang gramo",
+      "removeIngredient": "Alisin ang sangkap",
+      "continueLabel": "Magpatuloy",
+      "invalidProposal": "Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.",
+      "localUnavailable": "Hindi available ang on-device analysis sa ngayon.",
+      "calculationDetails": "Paano ito kinalkula",
+      "interpretationLocal": "Mga sangkap na binigyang-kahulugan sa device na ito",
+      "interpretationCloud": "Mga sangkap na binigyang-kahulugan sa cloud",
+      "interpretationManual": "Mga sangkap na sinuri o inedit mo",
+      "nutritionRemote": "Nutrisyon na nakuha mula sa USDA sa pamamagitan ng Calorify",
+      "nutritionFallback": "Ang ilang halaga ng nutrisyon ay tinaya nang remote",
+      "calculationServer": "Calories at macros na kinalkula ng Calorify",
+      "fallbackUsed": "Ang local analysis ay lumipat sa cloud processing",
+      "noRawContent": "Ang mga diagnostic receipt ay hindi kasama ang text o larawan ng iyong pagkain."
+    },
     "feedback": {
       "title": "Ano ang mali?",
       "subtitle": "Tulungan kaming pagbutihin ang pagsusuri sa pamamagitan ng pagpili ng isa o higit pang isyu.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Nawawalang items",
       "issueExtraItems": "Sobrang items",
       "issueOther": "Iba pa"
-    },
-    "nameRequired": "Ilagay ang pangalan ng pagkain bago i-save."
+    }
   },
   "favorites": {
     "title": "Mga Paborito",
@@ -453,6 +473,7 @@
       "localization": "Wika at Lokalidad",
       "notifications": "Mga Notification",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ON-DEVICE ANALYSIS",
       "supportAndLegal": "SUPORTA & LEGAL",
       "about": "TUNGKOL",
       "dangerZone": "DELIKADONG ZONA",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Paalaala sa Pagkain",
       "subtitle": "Manatiling nasa tamang landas sa tamang oras na mga alerto"
+    },
+    "localInference": {
+      "title": "Pagsusuri ng Pagkain sa Device",
+      "subtitle": "Bigyang-kahulugan ang mga suportadong pagkain gamit ang Gemini Nano bago kalkulahin ang nutrisyon",
+      "unavailable": "Hindi available sa device na ito",
+      "rolloutUnavailable": "May nakitang compatible na hardware, ngunit ang feature na ito ay hindi enabled para sa release na ito ng app",
+      "modelSetup": "Kailangang matapos muna ang pag-download ng Gemini Nano bago ito ma-enable",
+      "useLocalTitle": "Gamitin ang on-device analysis",
+      "useLocalSubtitle": "Opsyonal at naka-off by default. Maaaring hindi gaanong maaasahan ang mga resulta para sa mga komplikadong pagkain.",
+      "disclosureTitle": "Bago i-enable ang on-device analysis",
+      "disclosureBody": "Kayang tukuyin ng Gemini Nano ang mga sangkap at tantyahin ang mga bahagi sa mga suportadong Android device. Ang iyong sinuring mungkahi ng sangkap ay ipapadala sa Calorify para sa USDA nutrition grounding at kalkulasyon.",
+      "disclosureLimit1": "Ang mga komplikadong putahe, nakatagong sangkap, at laki ng bahagi ay maaaring matukoy nang mali.",
+      "disclosureLimit2": "Maaaring hindi available ang model habang nag-da-download, busy, nasa background, o limitado ng device.",
+      "disclosureLimit3": "Kung hindi matapos ang local interpretation, awtomatikong ipapadala ng beta na ito ang iyong orihinal na paglalarawan ng pagkain sa Calorify para sa cloud analysis.",
+      "acknowledgement": "Naiintindihan ko na dapat kong suriin ang mga nakitang sangkap at bahagi.",
+      "enable": "Kumpirmahin at i-enable",
+      "cancel": "Kanselahin"
     },
     "theme": {
       "title": "Tema",

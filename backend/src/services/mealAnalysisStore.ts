@@ -143,7 +143,7 @@ export async function claimMealAnalysisDecomposition(
           user_id IS NOT DISTINCT FROM $2
           AND parent_analysis_id IS NOT DISTINCT FROM $3
           AND source = $4
-          AND request_payload = $5::jsonb
+          AND (request_payload - 'execution') = ($5::jsonb - 'execution')
         ) AS identity_matches
          FROM meal_analysis_session
         WHERE analysis_id = $1

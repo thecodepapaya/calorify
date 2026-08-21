@@ -245,6 +245,7 @@
     "save": "Lưu",
     "mealName": "Tên bữa ăn",
     "mealNameHint": "ví dụ: Trứng khuấy với bánh mì nướng",
+    "nameRequired": "Nhập tên bữa ăn trước khi lưu.",
     "mealQuantity": "Số lượng bữa ăn",
     "mealQuantityHint": "ví dụ: 1 bát, 2 lát",
     "timeOfMeal": "Thời gian bữa ăn",
@@ -312,6 +313,26 @@
       "offlineTip4": "Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.",
       "offlineTip5": "Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng)."
     },
+    "localInference": {
+      "reviewTitle": "Xem lại các thành phần đã nhận diện",
+      "reviewSubtitle": "Nội dung này được phân tích trên thiết bị của bạn. Hãy chỉnh sửa tên hoặc định lượng trước khi tính toán dinh dưỡng.",
+      "mealName": "Tên bữa ăn",
+      "ingredient": "Thành phần",
+      "grams": "Số gam ước tính",
+      "removeIngredient": "Xóa thành phần",
+      "continueLabel": "Tiếp tục",
+      "invalidProposal": "Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.",
+      "localUnavailable": "Tính năng phân tích trên thiết bị hiện không khả dụng.",
+      "calculationDetails": "Cách tính toán",
+      "interpretationLocal": "Thành phần được phân tích trên thiết bị này",
+      "interpretationCloud": "Thành phần được phân tích trên đám mây",
+      "interpretationManual": "Thành phần do bạn xem lại hoặc chỉnh sửa",
+      "nutritionRemote": "Dữ liệu dinh dưỡng được lấy từ USDA thông qua Calorify",
+      "nutritionFallback": "Một số giá trị dinh dưỡng được ước tính từ xa",
+      "calculationServer": "Calo và macro được tính toán bởi Calorify",
+      "fallbackUsed": "Phân tích cục bộ đã chuyển sang xử lý trên đám mây",
+      "noRawContent": "Biên lai chẩn đoán không bao gồm văn bản hoặc ảnh bữa ăn của bạn."
+    },
     "feedback": {
       "title": "Có gì sai?",
       "subtitle": "Giúp chúng tôi cải thiện phân tích bằng cách chọn một hoặc nhiều vấn đề.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Thiếu mục",
       "issueExtraItems": "Thừa mục",
       "issueOther": "Khác"
-    },
-    "nameRequired": "Nhập tên bữa ăn trước khi lưu."
+    }
   },
   "favorites": {
     "title": "Yêu thích",
@@ -453,6 +473,7 @@
       "localization": "NGÔN NGỮ",
       "notifications": "THÔNG BÁO",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "PHÂN TÍCH TRÊN THIẾT BỊ",
       "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
       "about": "VỀ ỨNG DỤNG",
       "dangerZone": "KHU VỰC NGUY HIỂM",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Nhắc bữa ăn",
       "subtitle": "Giữ đúng lịch với thông báo kịp thời"
+    },
+    "localInference": {
+      "title": "Phân tích bữa ăn trên thiết bị",
+      "subtitle": "Sử dụng Gemini Nano để phân tích các bữa ăn được hỗ trợ trước khi tính toán dinh dưỡng",
+      "unavailable": "Không khả dụng trên thiết bị này",
+      "rolloutUnavailable": "Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này",
+      "modelSetup": "Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này",
+      "useLocalTitle": "Sử dụng phân tích trên thiết bị",
+      "useLocalSubtitle": "Tùy chọn và mặc định là tắt. Kết quả có thể kém chính xác hơn đối với các bữa ăn phức tạp.",
+      "disclosureTitle": "Trước khi bạn bật phân tích trên thiết bị",
+      "disclosureBody": "Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.",
+      "disclosureLimit1": "Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.",
+      "disclosureLimit2": "Mô hình có thể không khả dụng khi đang tải xuống, đang bận, chạy ngầm hoặc bị giới hạn bởi thiết bị.",
+      "disclosureLimit3": "Nếu phân tích cục bộ không thể hoàn tất, bản beta này sẽ tự động gửi mô tả bữa ăn gốc của bạn đến Calorify để phân tích trên đám mây.",
+      "acknowledgement": "Tôi hiểu rằng tôi nên xem lại các thành phần và định lượng đã nhận diện.",
+      "enable": "Xác nhận và kích hoạt",
+      "cancel": "Hủy"
     },
     "theme": {
       "title": "Giao diện",

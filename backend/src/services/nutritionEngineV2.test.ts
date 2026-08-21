@@ -174,6 +174,7 @@ await mock.module('openai', {
 const {
   analyzeTextMeal,
   analyzeImageMeal,
+  analyzeIngredientProposal,
   createAnalysisTrace,
   summarizeAnalysisTrace,
   continueMealAnalysis,
@@ -302,6 +303,12 @@ function installInMemorySessionStore(): Map<string, any> {
     }
     return merged;
   };
+  const dispatchIdentityPayload = (payload: any): any => {
+    if (!payload || typeof payload !== 'object') return payload;
+    const identity = { ...payload };
+    delete identity.execution;
+    return identity;
+  };
 
   mockUpsertSession.mock.mockImplementation(async (record: any) => {
     sessions.set(record.analysisId, mergeDefined(sessions.get(record.analysisId), record));
@@ -331,7 +338,8 @@ function installInMemorySessionStore(): Map<string, any> {
         existing.userId === record.userId &&
         existing.parentAnalysisId === record.parentAnalysisId &&
         existing.source === record.source &&
-        JSON.stringify(existing.requestPayload) === JSON.stringify(record.requestPayload);
+        JSON.stringify(dispatchIdentityPayload(existing.requestPayload)) ===
+          JSON.stringify(dispatchIdentityPayload(record.requestPayload));
       if (!identityMatches) return { status: 'conflict' };
       if (existing.stage !== 'PENDING_DECOMPOSITION') return { status: 'existing' };
     }
@@ -1006,6 +1014,115 @@ test('analyzeTextMeal emits result event when no clarification needed', async ()
   assert.ok('calories' in result.data.macros);
 });
 
+test('accepted local proposal produces authoritative provenance and receipt', async () => {
+  const decomposition = {
+    meal_name: 'Dal',
+    ingredients: [{
+      raw_name: 'dal', canonical_hint: 'lentils cooked',
+      grams_estimated: 200, min_grams: 200, max_grams: 200, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null,
+      size_specified_by_user: true,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockDecompositionWithFallback(decomposition, 120);
+  const proposal: any = {
+    schemaVersion: 1,
+    proposalId: 'proposal-1',
+    modality: 'ANALYSIS_MODALITY_TEXT',
+    mealName: 'Dal',
+    inferredMealType: 'LUNCH',
+    mealTypeConfident: true,
+    confidence: 0.9,
+    ingredients: [{
+      rowId: 'ingredient-1', rawName: 'dal', canonicalHint: 'lentils cooked',
+      preparation: 'cooked', gramsEstimated: 200, minGrams: 200,
+      maxGrams: 200, notes: '', portionKind: 'BULK',
+      sizeSpecifiedByUser: true, confidence: 0.9, fieldProvenance: [
+        { fieldName: 'identity', origin: 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL' },
+        { fieldName: 'portion', origin: 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL' },
+      ],
+    }],
+    interpretationOrigin: 'INTERPRETATION_ORIGIN_LOCAL_NANO',
+    modelName: 'gemini-nano',
+  };
+  const startedAt = Date.now() - 500;
+  const completedAt = Date.now() - 100;
+
+  const events = await collectEvents(analyzeIngredientProposal(proposal, {
+    analysisId: '00000000-0000-4000-8000-000000000501',
+    localAttemptId: '00000000-0000-4000-8000-000000000502',
+    localAttemptStartedAtEpochMs: startedAt,
+    localAttemptCompletedAtEpochMs: completedAt,
+  }));
+
+  const decompositionEvent = events.find((event) => event.step === 'DECOMPOSITION');
+  assert.equal(decompositionEvent?.data.interpretationOrigin, 'INTERPRETATION_ORIGIN_LOCAL_NANO');
+  assert.equal(decompositionEvent?.data.proposal?.proposalId, 'proposal-1');
+  const result = events.find((event) => event.step === 'RESULT');
+  assert.ok(result?.data.receipt);
+  assert.equal(result.data.receipt.localAttempted, true);
+  assert.equal(result.data.receipt.interpretationOrigin, 'INTERPRETATION_ORIGIN_LOCAL_NANO');
+  assert.equal(result.data.receipt.calculationOrigin, 'CALCULATION_ORIGIN_SERVER_DETERMINISTIC');
+  assert.equal(result.data.receipt.fallbackReason, 'MEAL_ANALYSIS_FALLBACK_REASON_NONE');
+  assert.deepEqual(result.data.ingredients[0]?.fieldProvenance, proposal.ingredients[0].fieldProvenance);
+  assert.equal(result.data.receipt.attempts.length, 1);
+  assert.deepEqual(result.data.receipt.attempts[0], {
+    attemptId: '00000000-0000-4000-8000-000000000502',
+    executorOrigin: 'INTERPRETATION_ORIGIN_LOCAL_NANO',
+    startedAtEpochMs: startedAt,
+    completedAtEpochMs: completedAt,
+    status: 'ANALYSIS_ATTEMPT_STATUS_ACCEPTED',
+    fallbackReason: 'MEAL_ANALYSIS_FALLBACK_REASON_NONE',
+  });
+});
+
+test('cloud fallback receipt preserves failed-local handoff metadata', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked',
+      grams_estimated: 180, min_grams: 180, max_grams: 180, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null,
+      size_specified_by_user: true,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  }, 130);
+  const startedAt = Date.now() - 600;
+  const completedAt = Date.now() - 200;
+
+  const events = await collectEvents(analyzeTextMeal('rice', {
+    localAttempted: true,
+    localAttemptId: '00000000-0000-4000-8000-000000000503',
+    localAttemptStartedAtEpochMs: startedAt,
+    localAttemptCompletedAtEpochMs: completedAt,
+    fallbackReason: 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY',
+  }));
+
+  const receipt = events.find((event) => event.step === 'RESULT')?.data.receipt;
+  assert.ok(receipt);
+  assert.equal(receipt.localAttempted, true);
+  assert.equal(receipt.interpretationOrigin, 'INTERPRETATION_ORIGIN_CLOUD_MODEL');
+  assert.equal(receipt.fallbackReason, 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY');
+  assert.equal(receipt.attempts.length, 2);
+  assert.deepEqual(receipt.attempts[0], {
+    attemptId: '00000000-0000-4000-8000-000000000503',
+    executorOrigin: 'INTERPRETATION_ORIGIN_LOCAL_NANO',
+    startedAtEpochMs: startedAt,
+    completedAtEpochMs: completedAt,
+    status: 'ANALYSIS_ATTEMPT_STATUS_FAILED',
+    fallbackReason: 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY',
+  });
+  assert.equal(receipt.attempts[1]?.executorOrigin, 'INTERPRETATION_ORIGIN_CLOUD_MODEL');
+  assert.equal(receipt.attempts[1]?.status, 'ANALYSIS_ATTEMPT_STATUS_ACCEPTED');
+});
+
 test('analyzeTextMeal uses provided analysisId option', async () => {
   const events = await collectEvents(
     analyzeTextMeal('dal', { analysisId: 'fixed-id-123' })
@@ -1531,16 +1648,21 @@ test('analyzeImageMeal uses image source in session record', async () => {
   const firstCall = mockClaimDecomposition.mock.calls[0];
   if (firstCall) {
     assert.equal(firstCall.arguments[0].source, 'image');
-    assert.deepEqual(firstCall.arguments[0].requestPayload, {
-      imageObjectKey: 'test-user/curry.jpg',
-      analysisContext: {
-        locale: 'en',
-        countryCode: null,
-        timeZone: null,
-        selectedMealType: null,
-        selectedMealTypeSource: null,
-      },
+    assert.equal(
+      firstCall.arguments[0].requestPayload.imageObjectKey,
+      'test-user/curry.jpg'
+    );
+    assert.deepEqual(firstCall.arguments[0].requestPayload.analysisContext, {
+      locale: 'en',
+      countryCode: null,
+      timeZone: null,
+      selectedMealType: null,
+      selectedMealTypeSource: null,
     });
+    assert.equal(
+      firstCall.arguments[0].requestPayload.execution.localAttempted,
+      false
+    );
     assert.equal(
       JSON.stringify(firstCall.arguments[0].requestPayload).includes('download-token'),
       false

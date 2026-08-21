@@ -59,6 +59,188 @@ export namespace PortionKind {
   export type UNRECOGNIZED = typeof PortionKind.UNRECOGNIZED;
 }
 
+export const AnalysisModality = {
+  ANALYSIS_MODALITY_UNSPECIFIED: "ANALYSIS_MODALITY_UNSPECIFIED",
+  ANALYSIS_MODALITY_TEXT: "ANALYSIS_MODALITY_TEXT",
+  ANALYSIS_MODALITY_IMAGE: "ANALYSIS_MODALITY_IMAGE",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type AnalysisModality = typeof AnalysisModality[keyof typeof AnalysisModality];
+
+export namespace AnalysisModality {
+  export type ANALYSIS_MODALITY_UNSPECIFIED = typeof AnalysisModality.ANALYSIS_MODALITY_UNSPECIFIED;
+  export type ANALYSIS_MODALITY_TEXT = typeof AnalysisModality.ANALYSIS_MODALITY_TEXT;
+  export type ANALYSIS_MODALITY_IMAGE = typeof AnalysisModality.ANALYSIS_MODALITY_IMAGE;
+  export type UNRECOGNIZED = typeof AnalysisModality.UNRECOGNIZED;
+}
+
+export const InterpretationOrigin = {
+  INTERPRETATION_ORIGIN_UNSPECIFIED: "INTERPRETATION_ORIGIN_UNSPECIFIED",
+  INTERPRETATION_ORIGIN_CLOUD_MODEL: "INTERPRETATION_ORIGIN_CLOUD_MODEL",
+  INTERPRETATION_ORIGIN_LOCAL_NANO: "INTERPRETATION_ORIGIN_LOCAL_NANO",
+  INTERPRETATION_ORIGIN_MANUAL: "INTERPRETATION_ORIGIN_MANUAL",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type InterpretationOrigin = typeof InterpretationOrigin[keyof typeof InterpretationOrigin];
+
+export namespace InterpretationOrigin {
+  export type INTERPRETATION_ORIGIN_UNSPECIFIED = typeof InterpretationOrigin.INTERPRETATION_ORIGIN_UNSPECIFIED;
+  export type INTERPRETATION_ORIGIN_CLOUD_MODEL = typeof InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL;
+  export type INTERPRETATION_ORIGIN_LOCAL_NANO = typeof InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO;
+  export type INTERPRETATION_ORIGIN_MANUAL = typeof InterpretationOrigin.INTERPRETATION_ORIGIN_MANUAL;
+  export type UNRECOGNIZED = typeof InterpretationOrigin.UNRECOGNIZED;
+}
+
+export const NutritionOrigin = {
+  NUTRITION_ORIGIN_UNSPECIFIED: "NUTRITION_ORIGIN_UNSPECIFIED",
+  NUTRITION_ORIGIN_BUNDLED_USDA: "NUTRITION_ORIGIN_BUNDLED_USDA",
+  NUTRITION_ORIGIN_CACHED_USDA: "NUTRITION_ORIGIN_CACHED_USDA",
+  NUTRITION_ORIGIN_REMOTE_USDA: "NUTRITION_ORIGIN_REMOTE_USDA",
+  NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT: "NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT",
+  NUTRITION_ORIGIN_LLM_FALLBACK: "NUTRITION_ORIGIN_LLM_FALLBACK",
+  NUTRITION_ORIGIN_UNRESOLVED: "NUTRITION_ORIGIN_UNRESOLVED",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type NutritionOrigin = typeof NutritionOrigin[keyof typeof NutritionOrigin];
+
+export namespace NutritionOrigin {
+  export type NUTRITION_ORIGIN_UNSPECIFIED = typeof NutritionOrigin.NUTRITION_ORIGIN_UNSPECIFIED;
+  export type NUTRITION_ORIGIN_BUNDLED_USDA = typeof NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA;
+  export type NUTRITION_ORIGIN_CACHED_USDA = typeof NutritionOrigin.NUTRITION_ORIGIN_CACHED_USDA;
+  export type NUTRITION_ORIGIN_REMOTE_USDA = typeof NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA;
+  export type NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT = typeof NutritionOrigin.NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT;
+  export type NUTRITION_ORIGIN_LLM_FALLBACK = typeof NutritionOrigin.NUTRITION_ORIGIN_LLM_FALLBACK;
+  export type NUTRITION_ORIGIN_UNRESOLVED = typeof NutritionOrigin.NUTRITION_ORIGIN_UNRESOLVED;
+  export type UNRECOGNIZED = typeof NutritionOrigin.UNRECOGNIZED;
+}
+
+export const CalculationOrigin = {
+  CALCULATION_ORIGIN_UNSPECIFIED: "CALCULATION_ORIGIN_UNSPECIFIED",
+  CALCULATION_ORIGIN_LOCAL_DETERMINISTIC: "CALCULATION_ORIGIN_LOCAL_DETERMINISTIC",
+  CALCULATION_ORIGIN_SERVER_DETERMINISTIC: "CALCULATION_ORIGIN_SERVER_DETERMINISTIC",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type CalculationOrigin = typeof CalculationOrigin[keyof typeof CalculationOrigin];
+
+export namespace CalculationOrigin {
+  export type CALCULATION_ORIGIN_UNSPECIFIED = typeof CalculationOrigin.CALCULATION_ORIGIN_UNSPECIFIED;
+  export type CALCULATION_ORIGIN_LOCAL_DETERMINISTIC = typeof CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC;
+  export type CALCULATION_ORIGIN_SERVER_DETERMINISTIC =
+    typeof CalculationOrigin.CALCULATION_ORIGIN_SERVER_DETERMINISTIC;
+  export type UNRECOGNIZED = typeof CalculationOrigin.UNRECOGNIZED;
+}
+
+export const IngredientFieldOrigin = {
+  INGREDIENT_FIELD_ORIGIN_UNSPECIFIED: "INGREDIENT_FIELD_ORIGIN_UNSPECIFIED",
+  INGREDIENT_FIELD_ORIGIN_USER_INPUT: "INGREDIENT_FIELD_ORIGIN_USER_INPUT",
+  INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL: "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
+  INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL: "INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL",
+  INGREDIENT_FIELD_ORIGIN_USER_EDIT: "INGREDIENT_FIELD_ORIGIN_USER_EDIT",
+  INGREDIENT_FIELD_ORIGIN_DETERMINISTIC: "INGREDIENT_FIELD_ORIGIN_DETERMINISTIC",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type IngredientFieldOrigin = typeof IngredientFieldOrigin[keyof typeof IngredientFieldOrigin];
+
+export namespace IngredientFieldOrigin {
+  export type INGREDIENT_FIELD_ORIGIN_UNSPECIFIED = typeof IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_UNSPECIFIED;
+  export type INGREDIENT_FIELD_ORIGIN_USER_INPUT = typeof IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_INPUT;
+  export type INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL = typeof IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL;
+  export type INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL = typeof IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL;
+  export type INGREDIENT_FIELD_ORIGIN_USER_EDIT = typeof IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT;
+  export type INGREDIENT_FIELD_ORIGIN_DETERMINISTIC =
+    typeof IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_DETERMINISTIC;
+  export type UNRECOGNIZED = typeof IngredientFieldOrigin.UNRECOGNIZED;
+}
+
+export const AnalysisAttemptStatus = {
+  ANALYSIS_ATTEMPT_STATUS_UNSPECIFIED: "ANALYSIS_ATTEMPT_STATUS_UNSPECIFIED",
+  ANALYSIS_ATTEMPT_STATUS_STARTED: "ANALYSIS_ATTEMPT_STATUS_STARTED",
+  ANALYSIS_ATTEMPT_STATUS_ACCEPTED: "ANALYSIS_ATTEMPT_STATUS_ACCEPTED",
+  ANALYSIS_ATTEMPT_STATUS_FAILED: "ANALYSIS_ATTEMPT_STATUS_FAILED",
+  ANALYSIS_ATTEMPT_STATUS_CANCELLED: "ANALYSIS_ATTEMPT_STATUS_CANCELLED",
+  ANALYSIS_ATTEMPT_STATUS_SUPERSEDED: "ANALYSIS_ATTEMPT_STATUS_SUPERSEDED",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type AnalysisAttemptStatus = typeof AnalysisAttemptStatus[keyof typeof AnalysisAttemptStatus];
+
+export namespace AnalysisAttemptStatus {
+  export type ANALYSIS_ATTEMPT_STATUS_UNSPECIFIED = typeof AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_UNSPECIFIED;
+  export type ANALYSIS_ATTEMPT_STATUS_STARTED = typeof AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_STARTED;
+  export type ANALYSIS_ATTEMPT_STATUS_ACCEPTED = typeof AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_ACCEPTED;
+  export type ANALYSIS_ATTEMPT_STATUS_FAILED = typeof AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_FAILED;
+  export type ANALYSIS_ATTEMPT_STATUS_CANCELLED = typeof AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_CANCELLED;
+  export type ANALYSIS_ATTEMPT_STATUS_SUPERSEDED = typeof AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_SUPERSEDED;
+  export type UNRECOGNIZED = typeof AnalysisAttemptStatus.UNRECOGNIZED;
+}
+
+export const MealAnalysisFallbackReason = {
+  MEAL_ANALYSIS_FALLBACK_REASON_UNSPECIFIED: "MEAL_ANALYSIS_FALLBACK_REASON_UNSPECIFIED",
+  MEAL_ANALYSIS_FALLBACK_REASON_NONE: "MEAL_ANALYSIS_FALLBACK_REASON_NONE",
+  MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE: "MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE",
+  MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY: "MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY",
+  MEAL_ANALYSIS_FALLBACK_REASON_BUSY: "MEAL_ANALYSIS_FALLBACK_REASON_BUSY",
+  MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED: "MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED",
+  MEAL_ANALYSIS_FALLBACK_REASON_BACKGROUND_BLOCKED: "MEAL_ANALYSIS_FALLBACK_REASON_BACKGROUND_BLOCKED",
+  MEAL_ANALYSIS_FALLBACK_REASON_THERMALLY_LIMITED: "MEAL_ANALYSIS_FALLBACK_REASON_THERMALLY_LIMITED",
+  MEAL_ANALYSIS_FALLBACK_REASON_MODEL_UPDATING: "MEAL_ANALYSIS_FALLBACK_REASON_MODEL_UPDATING",
+  MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED: "MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED",
+  MEAL_ANALYSIS_FALLBACK_REASON_TIMED_OUT: "MEAL_ANALYSIS_FALLBACK_REASON_TIMED_OUT",
+  MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT: "MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT",
+  MEAL_ANALYSIS_FALLBACK_REASON_CANCELLED: "MEAL_ANALYSIS_FALLBACK_REASON_CANCELLED",
+  MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS: "MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS",
+  MEAL_ANALYSIS_FALLBACK_REASON_DATASET_INCOMPATIBLE: "MEAL_ANALYSIS_FALLBACK_REASON_DATASET_INCOMPATIBLE",
+  MEAL_ANALYSIS_FALLBACK_REASON_USER_APPROVED: "MEAL_ANALYSIS_FALLBACK_REASON_USER_APPROVED",
+  MEAL_ANALYSIS_FALLBACK_REASON_USER_DENIED: "MEAL_ANALYSIS_FALLBACK_REASON_USER_DENIED",
+  MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN: "MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type MealAnalysisFallbackReason = typeof MealAnalysisFallbackReason[keyof typeof MealAnalysisFallbackReason];
+
+export namespace MealAnalysisFallbackReason {
+  export type MEAL_ANALYSIS_FALLBACK_REASON_UNSPECIFIED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNSPECIFIED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_NONE = typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_BUSY = typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_BUSY;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_BACKGROUND_BLOCKED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_BACKGROUND_BLOCKED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_THERMALLY_LIMITED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_THERMALLY_LIMITED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_MODEL_UPDATING =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_MODEL_UPDATING;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_TIMED_OUT =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_TIMED_OUT;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_CANCELLED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_CANCELLED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_DATASET_INCOMPATIBLE =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_DATASET_INCOMPATIBLE;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_USER_APPROVED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_USER_APPROVED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_USER_DENIED =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_USER_DENIED;
+  export type MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN =
+    typeof MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN;
+  export type UNRECOGNIZED = typeof MealAnalysisFallbackReason.UNRECOGNIZED;
+}
+
 export interface PipelineCalorieBand {
   min: number;
   max: number;
@@ -70,6 +252,70 @@ export interface PipelineMacros {
   carbs: number;
   fat: number;
   fiber: number;
+}
+
+export interface IngredientFieldProvenance {
+  fieldName: string;
+  origin: IngredientFieldOrigin;
+}
+
+/**
+ * Models may propose identity and portion information only. Nutrient values
+ * intentionally do not exist in this contract.
+ */
+export interface IngredientProposalItemV1 {
+  rowId: string;
+  rawName: string;
+  canonicalHint: string;
+  preparation: string;
+  gramsEstimated: number;
+  minGrams: number;
+  maxGrams: number;
+  notes: string;
+  portionKind: PortionKind;
+  count?: number | undefined;
+  perUnitGrams?: number | undefined;
+  perUnitMinGrams?: number | undefined;
+  perUnitMaxGrams?: number | undefined;
+  sizeSpecifiedByUser: boolean;
+  confidence: number;
+  fieldProvenance: IngredientFieldProvenance[];
+}
+
+export interface IngredientProposalV1 {
+  schemaVersion: number;
+  proposalId: string;
+  modality: AnalysisModality;
+  mealName: string;
+  inferredMealType: MealType;
+  mealTypeConfident: boolean;
+  confidence: number;
+  ingredients: IngredientProposalItemV1[];
+  interpretationOrigin: InterpretationOrigin;
+  modelName?: string | undefined;
+  modelVersion?: string | undefined;
+}
+
+export interface AnalysisAttemptReceipt {
+  attemptId: string;
+  executorOrigin: InterpretationOrigin;
+  startedAtEpochMs: number;
+  completedAtEpochMs?: number | undefined;
+  status: AnalysisAttemptStatus;
+  fallbackReason: MealAnalysisFallbackReason;
+}
+
+export interface MealAnalysisReceipt {
+  schemaVersion: number;
+  proposalSchemaVersion: number;
+  localAttempted: boolean;
+  interpretationOrigin: InterpretationOrigin;
+  nutritionOrigin: NutritionOrigin;
+  calculationOrigin: CalculationOrigin;
+  usdaDatasetVersion?: string | undefined;
+  calculationVersion: string;
+  attempts: AnalysisAttemptReceipt[];
+  fallbackReason: MealAnalysisFallbackReason;
 }
 
 export interface PipelineMealHealth {
@@ -110,6 +356,11 @@ export interface PipelineResolvedIngredient {
   portionKind: PortionKind;
   count?: number | undefined;
   perUnitGrams?: number | undefined;
+  nutritionOrigin: NutritionOrigin;
+  fdcId?: string | undefined;
+  usdaDatasetVersion?: string | undefined;
+  nutrientsPer100g?: PipelineMacros | undefined;
+  fieldProvenance: IngredientFieldProvenance[];
 }
 
 export interface PipelineClarificationOption {
@@ -151,6 +402,8 @@ export interface PipelineDecompositionData {
   ingredients: PipelineDecomposedIngredient[];
   inferredMealType: MealType;
   mealTypeConfident: boolean;
+  interpretationOrigin: InterpretationOrigin;
+  proposal?: IngredientProposalV1 | undefined;
 }
 
 export interface PipelineIngredientsData {
@@ -190,6 +443,7 @@ export interface PipelineResultData {
   calorieBand?: PipelineCalorieBand | undefined;
   ingredients: PipelineResolvedIngredient[];
   confidenceReasons: string[];
+  receipt?: MealAnalysisReceipt | undefined;
 }
 
 export interface PipelineErrorData {

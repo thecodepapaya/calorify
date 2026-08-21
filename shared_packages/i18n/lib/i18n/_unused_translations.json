@@ -318,6 +318,26 @@
         "offlineTip4": "Tip: Logging after the meal still builds the habit; perfection is optional.",
         "offlineTip5": "Tip: Say how food was cooked when it changes calories a lot (fried vs baked)."
       },
+      "localInference": {
+        "reviewTitle": "Review detected ingredients",
+        "reviewSubtitle": "This was interpreted on your device. Correct names or portions before nutrition is calculated.",
+        "mealName": "Meal name",
+        "ingredient": "Ingredient",
+        "grams": "Estimated grams",
+        "removeIngredient": "Remove ingredient",
+        "continueLabel": "Continue",
+        "invalidProposal": "Add at least one ingredient and use a positive gram amount.",
+        "localUnavailable": "On-device analysis is unavailable right now.",
+        "calculationDetails": "How this was calculated",
+        "interpretationLocal": "Ingredients interpreted on this device",
+        "interpretationCloud": "Ingredients interpreted in the cloud",
+        "interpretationManual": "Ingredients reviewed or edited by you",
+        "nutritionRemote": "Nutrition fetched from USDA through Calorify",
+        "nutritionFallback": "Some nutrition values were estimated remotely",
+        "calculationServer": "Calories and macros calculated by Calorify",
+        "fallbackUsed": "Local analysis fell back to cloud processing",
+        "noRawContent": "Diagnostic receipts do not include your meal text or photo."
+      },
       "feedback": {
         "title": "What looks wrong?",
         "subtitle": "Help us improve the analysis by selecting one or more issues.",
@@ -458,6 +478,7 @@
         "localization": "LOCALIZATION",
         "notifications": "NOTIFICATIONS",
         "healthConnect": "HEALTH CONNECT",
+        "localInference": "ON-DEVICE ANALYSIS",
         "supportAndLegal": "SUPPORT & LEGAL",
         "about": "ABOUT",
         "dangerZone": "DANGER ZONE",
@@ -482,6 +503,23 @@
       "mealReminders": {
         "title": "Meal Reminders",
         "subtitle": "Stay on track with timely alerts"
+      },
+      "localInference": {
+        "title": "On-device meal analysis",
+        "subtitle": "Interpret supported meals with Gemini Nano before nutrition is calculated",
+        "unavailable": "Not available on this device",
+        "rolloutUnavailable": "Available hardware found, but this feature is not enabled for this app release",
+        "modelSetup": "Gemini Nano needs to finish downloading before this can be enabled",
+        "useLocalTitle": "Use on-device analysis",
+        "useLocalSubtitle": "Optional and off by default. Results may be less reliable for complex meals.",
+        "disclosureTitle": "Before you enable on-device analysis",
+        "disclosureBody": "Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.",
+        "disclosureLimit1": "Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.",
+        "disclosureLimit2": "The model may be unavailable while downloading, busy, in the background, or limited by the device.",
+        "disclosureLimit3": "If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.",
+        "acknowledgement": "I understand that I should review detected ingredients and portions.",
+        "enable": "Acknowledge and enable",
+        "cancel": "Cancel"
       },
       "theme": {
         "title": "Theme",

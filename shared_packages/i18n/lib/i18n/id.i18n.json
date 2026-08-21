@@ -245,6 +245,7 @@
     "save": "Simpan",
     "mealName": "Nama Makanan",
     "mealNameHint": "mis., Telur orak-arik dengan roti",
+    "nameRequired": "Masukkan nama makanan sebelum menyimpan.",
     "mealQuantity": "Jumlah Makanan",
     "mealQuantityHint": "mis., 1 mangkuk, 2 potong",
     "timeOfMeal": "Waktu Makan",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.",
       "offlineTip5": "Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang)."
     },
+    "localInference": {
+      "reviewTitle": "Tinjau bahan yang terdeteksi",
+      "reviewSubtitle": "Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.",
+      "mealName": "Nama makanan",
+      "ingredient": "Bahan",
+      "grams": "Estimasi gram",
+      "removeIngredient": "Hapus bahan",
+      "continueLabel": "Lanjutkan",
+      "invalidProposal": "Tambahkan setidaknya satu bahan dan gunakan jumlah gram yang positif.",
+      "localUnavailable": "Analisis pada perangkat saat ini tidak tersedia.",
+      "calculationDetails": "Cara perhitungan ini dilakukan",
+      "interpretationLocal": "Bahan diinterpretasikan pada perangkat ini",
+      "interpretationCloud": "Bahan diinterpretasikan di cloud",
+      "interpretationManual": "Bahan ditinjau atau diedit oleh Anda",
+      "nutritionRemote": "Nutrisi diambil dari USDA melalui Calorify",
+      "nutritionFallback": "Beberapa nilai nutrisi diestimasi secara jarak jauh",
+      "calculationServer": "Kalori dan makro dihitung oleh Calorify",
+      "fallbackUsed": "Analisis lokal dialihkan ke pemrosesan cloud",
+      "noRawContent": "Resi diagnostik tidak menyertakan teks atau foto makanan Anda."
+    },
     "feedback": {
       "title": "Apa yang kelihatan salah?",
       "subtitle": "Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Item hilang",
       "issueExtraItems": "Item ekstra",
       "issueOther": "Lainnya"
-    },
-    "nameRequired": "Masukkan nama makanan sebelum menyimpan."
+    }
   },
   "favorites": {
     "title": "Favorit",
@@ -453,6 +473,7 @@
       "localization": "LOKALISASI",
       "notifications": "NOTIFIKASI",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALISIS PADA PERANGKAT",
       "supportAndLegal": "DUKUNGAN & HUKUM",
       "about": "TENTANG",
       "dangerZone": "AREA BERISIKO",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Pengingat Makan",
       "subtitle": "Tetap pada jalur dengan pengingat tepat waktu"
+    },
+    "localInference": {
+      "title": "Analisis makanan pada perangkat",
+      "subtitle": "Interpretasikan makanan yang didukung dengan Gemini Nano sebelum nutrisi dihitung",
+      "unavailable": "Tidak tersedia pada perangkat ini",
+      "rolloutUnavailable": "Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini",
+      "modelSetup": "Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan",
+      "useLocalTitle": "Gunakan analisis pada perangkat",
+      "useLocalSubtitle": "Opsional dan nonaktif secara default. Hasil mungkin kurang akurat untuk makanan yang kompleks.",
+      "disclosureTitle": "Sebelum Anda mengaktifkan analisis pada perangkat",
+      "disclosureBody": "Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.",
+      "disclosureLimit1": "Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.",
+      "disclosureLimit2": "Model mungkin tidak tersedia saat mengunduh, sedang sibuk, berjalan di latar belakang, atau dibatasi oleh perangkat.",
+      "disclosureLimit3": "Jika interpretasi lokal tidak dapat selesai, versi beta ini secara otomatis mengirimkan deskripsi makanan asli Anda ke Calorify untuk analisis cloud.",
+      "acknowledgement": "Saya mengerti bahwa saya harus meninjau bahan dan porsi yang terdeteksi.",
+      "enable": "Setujui dan aktifkan",
+      "cancel": "Batal"
     },
     "theme": {
       "title": "Tema",

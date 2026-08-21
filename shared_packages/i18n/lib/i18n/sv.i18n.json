@@ -245,6 +245,7 @@
     "save": "Spara",
     "mealName": "Måltidens namn",
     "mealNameHint": "t.ex., Äggröra med rostat bröd",
+    "nameRequired": "Ange ett namn för måltiden innan du sparar.",
     "mealQuantity": "Portionsstorlek",
     "mealQuantityHint": "t.ex., 1 skål, 2 skivor",
     "timeOfMeal": "Tid för måltid",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tips: Att registrera efter måltiden bygger fortfarande vana; perfektion är inte nödvändig.",
       "offlineTip5": "Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad)."
     },
+    "localInference": {
+      "reviewTitle": "Granska identifierade ingredienser",
+      "reviewSubtitle": "Detta tolkades på din enhet. Korrigera namn eller portioner innan näringsvärdet beräknas.",
+      "mealName": "Måltidsnamn",
+      "ingredient": "Ingrediens",
+      "grams": "Uppskattade gram",
+      "removeIngredient": "Ta bort ingrediens",
+      "continueLabel": "Fortsätt",
+      "invalidProposal": "Lägg till minst en ingrediens och använd ett positivt antal gram.",
+      "localUnavailable": "Analys på enheten är inte tillgänglig just nu.",
+      "calculationDetails": "Hur detta beräknades",
+      "interpretationLocal": "Ingredienser tolkade på denna enhet",
+      "interpretationCloud": "Ingredienser tolkade i molnet",
+      "interpretationManual": "Ingredienser granskade eller redigerade av dig",
+      "nutritionRemote": "Näringsvärden hämtade från USDA via Calorify",
+      "nutritionFallback": "Vissa näringsvärden uppskattades via molnet",
+      "calculationServer": "Kalorier och makronutrienter beräknade av Calorify",
+      "fallbackUsed": "Lokal analys föll tillbaka på molnbaserad bearbetning",
+      "noRawContent": "Diagnostiska kvitton inkluderar inte din måltidstext eller bild."
+    },
     "feedback": {
       "title": "Vad ser fel ut?",
       "subtitle": "Hjälp oss förbättra analysen genom att välja ett eller flera problem.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Saknade artiklar",
       "issueExtraItems": "Extra artiklar",
       "issueOther": "Annat"
-    },
-    "nameRequired": "Ange ett namn för måltiden innan du sparar."
+    }
   },
   "favorites": {
     "title": "Favoriter",
@@ -453,6 +473,7 @@
       "localization": "SPRÅK",
       "notifications": "NOTIFIKATIONER",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALYS PÅ ENHETEN",
       "supportAndLegal": "SUPPORT & JURIDIK",
       "about": "OM",
       "dangerZone": "FARLIGT",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Måltidspåminnelser",
       "subtitle": "Håll kurs med tidsanpassade påminnelser"
+    },
+    "localInference": {
+      "title": "Måltidsanalys på enheten",
+      "subtitle": "Tolka stödda måltider med Gemini Nano innan näringsvärdet beräknas",
+      "unavailable": "Inte tillgängligt på denna enhet",
+      "rolloutUnavailable": "Lämplig hårdvara hittades, men funktionen är inte aktiverad för denna appversion",
+      "modelSetup": "Gemini Nano måste slutföra nedladdningen innan detta kan aktiveras",
+      "useLocalTitle": "Använd analys på enheten",
+      "useLocalSubtitle": "Valfritt och avstängt som standard. Resultaten kan vara mindre tillförlitliga för komplexa måltider.",
+      "disclosureTitle": "Innan du aktiverar analys på enheten",
+      "disclosureBody": "Gemini Nano kan identifiera ingredienser och uppskatta portioner på stödda Android-enheter. Ditt granskade ingrediensförslag skickas till Calorify för USDA-baserad näringsinformation och beräkning.",
+      "disclosureLimit1": "Komplexa rätter, dolda ingredienser och portionsstorlekar kan identifieras felaktigt.",
+      "disclosureLimit2": "Modellen kan vara otillgänglig under nedladdning, när den är upptagen, körs i bakgrunden eller begränsas av enheten.",
+      "disclosureLimit3": "Om den lokala tolkningen inte kan slutföras, skickar denna beta automatiskt din ursprungliga måltidsbeskrivning till Calorify för molnanalys.",
+      "acknowledgement": "Jag förstår att jag bör granska identifierade ingredienser och portioner.",
+      "enable": "Bekräfta och aktivera",
+      "cancel": "Avbryt"
     },
     "theme": {
       "title": "Tema",

@@ -21,6 +21,11 @@ const mockAnalyzeImageMeal = mock.fn(function* () {
   yield { step: 'RESULT', data: { analysisId: 'img-id', mealName: 'Biryani', quantity: '1 plate', mealType: 'DINNER', mealTypeSource: 'model', tip: 'Rich', health: null, macros: { calories: 600, protein: 20, carbs: 80, fat: 15, fiber: 3 }, calorieConfidence: 'HIGH', calorieBand: { min: 550, max: 650 }, ingredients: [] } };
 });
 
+const mockAnalyzeIngredientProposal = mock.fn(function* () {
+  yield { step: 'STARTED', data: { analysisId: 'proposal-id' } };
+  yield { step: 'RESULT', data: { analysisId: 'proposal-id' } };
+});
+
 const mockContinueMealAnalysis = mock.fn(function* () {
   yield { step: 'RESULT', data: { analysisId: 'clarified-id', mealName: 'Rice', quantity: '1 cup', mealType: 'LUNCH', mealTypeSource: 'model', tip: 'Carbs', health: null, macros: { calories: 200, protein: 4, carbs: 44, fat: 1, fiber: 1 }, calorieConfidence: 'HIGH', calorieBand: { min: 180, max: 220 }, ingredients: [] } };
 });
@@ -45,6 +50,7 @@ await mock.module('../../services/nutritionEngineV2.js', {
   namedExports: {
     analyzeTextMeal: mockAnalyzeTextMeal,
     analyzeImageMeal: mockAnalyzeImageMeal,
+    analyzeIngredientProposal: mockAnalyzeIngredientProposal,
     continueMealAnalysis: mockContinueMealAnalysis,
     continueMealAnalysisWithMealType: mockContinueMealAnalysisWithMealType,
     resumeMealAnalysis: mockResumeMealAnalysis,
@@ -78,6 +84,8 @@ await mock.module('../../config.js', {
     API_V1_STR: '/api/v1',
     DEBUG: false,
     ENVIRONMENT: 'development',
+    LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-test-v1',
+    LOCAL_INFERENCE_TEXT_ENABLED: false,
   },
 });
 
@@ -120,6 +128,43 @@ function parseNdjson(body: string): any[] {
     .split('\n')
     .filter((line) => line.trim().length > 0)
     .map((line) => JSON.parse(line));
+}
+
+function validLocalProposal() {
+  return {
+    schemaVersion: 1,
+    proposalId: 'proposal-1',
+    modality: 'ANALYSIS_MODALITY_TEXT',
+    mealName: 'Dal and rice',
+    inferredMealType: 'LUNCH',
+    mealTypeConfident: true,
+    confidence: 0.9,
+    ingredients: [{
+      rowId: 'ingredient-1',
+      rawName: 'dal',
+      canonicalHint: 'lentils cooked',
+      preparation: 'cooked',
+      gramsEstimated: 200,
+      minGrams: 170,
+      maxGrams: 230,
+      notes: '',
+      portionKind: 'BULK',
+      sizeSpecifiedByUser: false,
+      confidence: 0.9,
+      fieldProvenance: [
+        {
+          fieldName: 'identity',
+          origin: 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
+        },
+        {
+          fieldName: 'portion',
+          origin: 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
+        },
+      ],
+    }],
+    interpretationOrigin: 'INTERPRETATION_ORIGIN_LOCAL_NANO',
+    modelName: 'gemini-nano',
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -259,6 +304,160 @@ test('POST /analyze-text rejects a malformed analysis ID', async () => {
     method: 'POST', url: '/api/v2/food/analyze-text',
     payload: { analysisId: 'not-a-uuid', textDescription: 'dal rice' },
   });
+  assert.equal(response.statusCode, 400);
+  await app.close();
+});
+
+test('GET /local-capabilities is default-safe and versioned', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v2/food/local-capabilities',
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(response.json(), {
+    policyVersion: 'local-inference-test-v1',
+    textEnabled: false,
+    imageEnabled: false,
+    localNutritionEnabled: false,
+    privateModesEnabled: false,
+    maxAgeSeconds: 3600,
+  });
+  await app.close();
+});
+
+test('POST /analyze-text requires complete metadata after a local attempt', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/analyze-text',
+    payload: {
+      textDescription: 'dal rice',
+      localAttempted: true,
+      fallbackReason: 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY',
+    },
+  });
+
+  assert.equal(response.statusCode, 400);
+  assertClientError(response.json(), 'localAttemptId');
+  await app.close();
+});
+
+test('POST /analyze-text forwards an ordered failed-local handoff', async () => {
+  mockAnalyzeTextMeal.mock.resetCalls();
+  const app = await buildTestApp();
+  const now = Date.now();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/analyze-text',
+    payload: {
+      textDescription: 'dal rice',
+      localAttempted: true,
+      localAttemptId: '00000000-0000-4000-8000-000000000410',
+      localAttemptStartedAtEpochMs: now - 500,
+      localAttemptCompletedAtEpochMs: now - 100,
+      fallbackReason: 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY',
+    },
+  });
+
+  assert.equal(response.statusCode, 200);
+  const options = mockAnalyzeTextMeal.mock.calls[0]!.arguments[1];
+  assert.equal(options.localAttempted, true);
+  assert.equal(options.localAttemptId, '00000000-0000-4000-8000-000000000410');
+  assert.equal(options.localAttemptStartedAtEpochMs, now - 500);
+  assert.equal(options.localAttemptCompletedAtEpochMs, now - 100);
+  assert.equal(options.fallbackReason, 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY');
+  await app.close();
+});
+
+test('POST /analyze-proposal settles a strictly valid local proposal', async () => {
+  mockAnalyzeIngredientProposal.mock.resetCalls();
+  const app = await buildTestApp();
+  const now = Date.now();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/analyze-proposal',
+    payload: {
+      analysisId: '00000000-0000-4000-8000-000000000411',
+      proposal: validLocalProposal(),
+      localAttemptId: '00000000-0000-4000-8000-000000000412',
+      localAttemptStartedAtEpochMs: now - 500,
+      localAttemptCompletedAtEpochMs: now - 100,
+    },
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.equal(mockAnalyzeIngredientProposal.mock.calls.length, 1);
+  const [proposal, options] = mockAnalyzeIngredientProposal.mock.calls[0]!.arguments;
+  assert.equal(proposal.mealName, 'Dal and rice');
+  assert.equal(options.analysisId, '00000000-0000-4000-8000-000000000411');
+  assert.equal(options.userId, 'test-user');
+  await app.close();
+});
+
+test('POST /analyze-proposal rejects model-returned nutrition values', async () => {
+  mockAnalyzeIngredientProposal.mock.resetCalls();
+  const app = await buildTestApp();
+  const proposal = validLocalProposal();
+  Object.assign(proposal.ingredients[0]!, { calories: 450 });
+  const now = Date.now();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/analyze-proposal',
+    payload: {
+      analysisId: '00000000-0000-4000-8000-000000000413',
+      proposal,
+      localAttemptId: '00000000-0000-4000-8000-000000000414',
+      localAttemptStartedAtEpochMs: now - 500,
+      localAttemptCompletedAtEpochMs: now - 100,
+    },
+  });
+
+  assert.equal(response.statusCode, 400);
+  assert.equal(mockAnalyzeIngredientProposal.mock.calls.length, 0);
+  await app.close();
+});
+
+test('POST /analyze-proposal rejects count values on bulk portions', async () => {
+  const app = await buildTestApp();
+  const proposal = validLocalProposal();
+  Object.assign(proposal.ingredients[0]!, { count: 1 });
+  const now = Date.now();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/analyze-proposal',
+    payload: {
+      analysisId: '00000000-0000-4000-8000-000000000415',
+      proposal,
+      localAttemptId: '00000000-0000-4000-8000-000000000416',
+      localAttemptStartedAtEpochMs: now - 500,
+      localAttemptCompletedAtEpochMs: now - 100,
+    },
+  });
+
+  assert.equal(response.statusCode, 400);
+  await app.close();
+});
+
+test('POST /analyze-proposal requires identity and portion provenance', async () => {
+  const app = await buildTestApp();
+  const proposal = validLocalProposal();
+  proposal.ingredients[0]!.fieldProvenance = proposal.ingredients[0]!
+    .fieldProvenance.filter((entry) => entry.fieldName === 'identity');
+  const now = Date.now();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/analyze-proposal',
+    payload: {
+      analysisId: '00000000-0000-4000-8000-000000000417',
+      proposal,
+      localAttemptId: '00000000-0000-4000-8000-000000000418',
+      localAttemptStartedAtEpochMs: now - 500,
+      localAttemptCompletedAtEpochMs: now - 100,
+    },
+  });
+
   assert.equal(response.statusCode, 400);
   await app.close();
 });

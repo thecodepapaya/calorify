@@ -245,6 +245,7 @@
     "save": "儲存",
     "mealName": "餐點名稱",
     "mealNameHint": "例如：炒蛋配吐司",
+    "nameRequired": "請在儲存前輸入餐點名稱。",
     "mealQuantity": "餐點數量/份量",
     "mealQuantityHint": "例如：1 碗、2 片",
     "timeOfMeal": "用餐時間",
@@ -312,6 +313,26 @@
       "offlineTip4": "提示：餐後紀錄仍能建立習慣；不必追求完美。",
       "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。"
     },
+    "localInference": {
+      "reviewTitle": "確認偵測到的食材",
+      "reviewSubtitle": "此內容由您的裝置解析。請在計算營養價值前修正名稱或份量。",
+      "mealName": "餐點名稱",
+      "ingredient": "食材",
+      "grams": "預估克數",
+      "removeIngredient": "移除食材",
+      "continueLabel": "繼續",
+      "invalidProposal": "請至少新增一項食材，且克數必須為正數。",
+      "localUnavailable": "目前無法使用裝置端分析。",
+      "calculationDetails": "計算方式",
+      "interpretationLocal": "由本裝置解析的食材",
+      "interpretationCloud": "由雲端解析的食材",
+      "interpretationManual": "由您審核或編輯的食材",
+      "nutritionRemote": "營養數據由 Calorify 透過 USDA 獲取",
+      "nutritionFallback": "部分營養數值為遠端預估",
+      "calculationServer": "卡路里與營養素由 Calorify 計算",
+      "fallbackUsed": "本地分析已切換至雲端處理",
+      "noRawContent": "診斷收據不包含您的餐點文字或照片。"
+    },
     "feedback": {
       "title": "哪裡看起來不對？",
       "subtitle": "請選擇一項或多項問題，幫助我們改進分析結果。",
@@ -325,8 +346,7 @@
       "issueMissingItems": "遺漏項目",
       "issueExtraItems": "多出項目",
       "issueOther": "其他"
-    },
-    "nameRequired": "請在儲存前輸入餐點名稱。"
+    }
   },
   "favorites": {
     "title": "我的最愛",
@@ -453,6 +473,7 @@
       "localization": "在地化",
       "notifications": "通知",
       "healthConnect": "Health Connect",
+      "localInference": "裝置端分析",
       "supportAndLegal": "支援與法律",
       "about": "關於",
       "dangerZone": "危險區",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "用餐提醒",
       "subtitle": "透過定時提醒保持紀錄習慣"
+    },
+    "localInference": {
+      "title": "裝置端餐點分析",
+      "subtitle": "在計算營養價值前，使用 Gemini Nano 解析支援的餐點",
+      "unavailable": "此裝置不支援",
+      "rolloutUnavailable": "偵測到支援的硬體，但此功能尚未在此版本中啟用",
+      "modelSetup": "Gemini Nano 需完成下載後才能啟用此功能",
+      "useLocalTitle": "使用裝置端分析",
+      "useLocalSubtitle": "選用功能，預設為關閉。複雜餐點的結果可靠性可能較低。",
+      "disclosureTitle": "在啟用裝置端分析之前",
+      "disclosureBody": "Gemini Nano 可在支援的 Android 裝置上識別食材並預估份量。您審核後的食材建議將傳送至 Calorify，以進行 USDA 營養對照與計算。",
+      "disclosureLimit1": "複雜料理、隱藏食材及份量大小可能會被錯誤識別。",
+      "disclosureLimit2": "模型在下載中、忙碌、處於背景執行或受裝置限制時可能無法使用。",
+      "disclosureLimit3": "若本地解析無法完成，此 Beta 版本會自動將您的原始餐點描述傳送至 Calorify 進行雲端分析。",
+      "acknowledgement": "我了解我應該審核偵測到的食材與份量。",
+      "enable": "確認並啟用",
+      "cancel": "取消"
     },
     "theme": {
       "title": "主題",

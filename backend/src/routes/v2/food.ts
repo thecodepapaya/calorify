@@ -1,4 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
   confirmMealAnalysisLogged,
@@ -8,6 +9,7 @@ import {
 } from '../../services/mealAnalysisStore.js';
 import {
   analyzeImageMeal,
+  analyzeIngredientProposal,
   analyzeTextMeal,
   continueMealAnalysis,
   continueMealAnalysisWithMealType,
@@ -28,11 +30,17 @@ import {
   MealAnalysisFeedbackSignal,
   type ApiResult,
   type MealClarificationAnswer,
-  type MealAnalysisImageRequest,
   type MealAnalysisReanalyzeRequest,
   type MealAnalysisResumeRequest,
-  type MealAnalysisTextRequest,
 } from '../../protos/calorify/http_api.js';
+import {
+  AnalysisModality,
+  IngredientFieldOrigin,
+  InterpretationOrigin,
+  MealAnalysisFallbackReason,
+  PortionKind,
+  type IngredientProposalV1,
+} from '../../protos/calorify/meal_analysis_pipeline.js';
 import {
   getApiResultSchema,
   getErrorResponseSchema,
@@ -45,17 +53,208 @@ const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 // Zod: bounded checks on top of proto-shaped bodies (protos/calorify/*.proto).
 // -----------------------------------------------------------------------------
 
-const analyzeTextBodySchema: z.ZodType<MealAnalysisTextRequest> = z.object({
+const fallbackReasonSchema = z.enum([
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_BUSY,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_BACKGROUND_BLOCKED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_THERMALLY_LIMITED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_MODEL_UPDATING,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_TIMED_OUT,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_CANCELLED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_DATASET_INCOMPATIBLE,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_USER_APPROVED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_USER_DENIED,
+  MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN,
+]);
+
+const epochMsSchema = z.coerce.number().int().positive().refine(
+  (value) => value <= Date.now() + 5 * 60 * 1000,
+  'must not be more than 5 minutes in the future'
+);
+
+const analyzeTextBodySchema = z.object({
   analysisId: z.string().uuid().optional(),
   textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
+  localAttempted: z.boolean().optional().default(false),
+  fallbackReason: fallbackReasonSchema.optional().default(
+    MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE
+  ),
+  localAttemptId: z.string().uuid().optional(),
+  localAttemptStartedAtEpochMs: epochMsSchema.optional(),
+  localAttemptCompletedAtEpochMs: epochMsSchema.optional(),
+}).superRefine((body, ctx) => {
+  if (body.localAttempted) {
+    if (body.localAttemptId == null) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'localAttemptId is required after a local attempt' });
+    }
+    if (body.localAttemptStartedAtEpochMs == null || body.localAttemptCompletedAtEpochMs == null) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'local attempt timestamps are required after a local attempt' });
+    }
+    if (body.fallbackReason === MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'fallbackReason is required after a failed local attempt' });
+    }
+  } else if (
+    body.localAttemptId != null ||
+    body.localAttemptStartedAtEpochMs != null ||
+    body.localAttemptCompletedAtEpochMs != null
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'local attempt metadata requires localAttempted=true' });
+  }
+  if (
+    body.localAttemptStartedAtEpochMs != null &&
+    body.localAttemptCompletedAtEpochMs != null &&
+    body.localAttemptStartedAtEpochMs > body.localAttemptCompletedAtEpochMs
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'local attempt timestamps must be ordered' });
+  }
 });
-type AnalyzeTextBody = MealAnalysisTextRequest;
+type AnalyzeTextBody = z.infer<typeof analyzeTextBodySchema>;
 
-const analyzeImageBodySchema: z.ZodType<MealAnalysisImageRequest> = z.object({
+const analyzeImageBodySchema = z.object({
   analysisId: z.string().uuid().optional(),
   imageUrl: urlString,
 });
-type AnalyzeImageBody = MealAnalysisImageRequest;
+type AnalyzeImageBody = z.infer<typeof analyzeImageBodySchema>;
+
+const proposalFieldProvenanceSchema = z.object({
+  fieldName: nonEmptyString.max(64),
+  origin: z.enum([
+    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_INPUT,
+    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
+    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
+    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_DETERMINISTIC,
+  ]),
+}).strict();
+
+function approximatelyEqual(actual: number, expected: number): boolean {
+  return Math.abs(actual - expected) <= Math.abs(expected) * 0.1 + 0.5;
+}
+
+const proposalIngredientSchema = z.object({
+  rowId: nonEmptyString.max(128),
+  rawName: nonEmptyString.max(160),
+  canonicalHint: nonEmptyString.max(160),
+  preparation: z.string().trim().max(80).optional().default(''),
+  gramsEstimated: z.number().finite().positive().max(5000),
+  minGrams: z.number().finite().positive().max(5000),
+  maxGrams: z.number().finite().positive().max(5000),
+  notes: z.string().trim().max(240).optional().default(''),
+  portionKind: z.enum([
+    PortionKind.COUNT,
+    PortionKind.BULK,
+    PortionKind.PINCH,
+  ]),
+  count: z.number().finite().positive().max(20).optional(),
+  perUnitGrams: z.number().finite().positive().max(2000).optional(),
+  perUnitMinGrams: z.number().finite().positive().max(2000).optional(),
+  perUnitMaxGrams: z.number().finite().positive().max(2000).optional(),
+  sizeSpecifiedByUser: z.boolean().optional().default(false),
+  confidence: z.number().finite().min(0).max(1),
+  fieldProvenance: z.array(proposalFieldProvenanceSchema).min(2).max(20),
+}).strict().superRefine((ingredient, ctx) => {
+  const provenanceFields = new Set(
+    ingredient.fieldProvenance.map((provenance) => provenance.fieldName)
+  );
+  if (!provenanceFields.has('identity') || !provenanceFields.has('portion')) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'identity and portion provenance are required',
+    });
+  }
+  if (
+    ingredient.minGrams > ingredient.gramsEstimated ||
+    ingredient.gramsEstimated > ingredient.maxGrams
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'gram range must be ordered' });
+  }
+  if (ingredient.portionKind === PortionKind.COUNT && ingredient.count == null) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'count is required for count portions' });
+  }
+  if (
+    ingredient.portionKind === PortionKind.COUNT &&
+    (
+      ingredient.perUnitGrams == null ||
+      ingredient.perUnitMinGrams == null ||
+      ingredient.perUnitMaxGrams == null
+    )
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'per-unit gram range is required for count portions' });
+  }
+  if (
+    ingredient.portionKind === PortionKind.COUNT &&
+    ingredient.perUnitMinGrams != null &&
+    ingredient.perUnitGrams != null &&
+    ingredient.perUnitMaxGrams != null &&
+    (
+      ingredient.perUnitMinGrams > ingredient.perUnitGrams ||
+      ingredient.perUnitGrams > ingredient.perUnitMaxGrams
+    )
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'per-unit gram range must be ordered' });
+  }
+  if (
+    ingredient.portionKind === PortionKind.COUNT &&
+    ingredient.count != null &&
+    ingredient.perUnitGrams != null &&
+    !approximatelyEqual(
+      ingredient.gramsEstimated,
+      ingredient.count * ingredient.perUnitGrams
+    )
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'count and total grams must be consistent' });
+  }
+  if (
+    ingredient.portionKind !== PortionKind.COUNT &&
+    (
+      ingredient.count != null ||
+      ingredient.perUnitGrams != null ||
+      ingredient.perUnitMinGrams != null ||
+      ingredient.perUnitMaxGrams != null
+    )
+  ) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'non-count portions cannot contain count values' });
+  }
+});
+
+const ingredientProposalSchema = z.object({
+  schemaVersion: z.literal(1),
+  proposalId: nonEmptyString.max(128),
+  modality: z.literal(AnalysisModality.ANALYSIS_MODALITY_TEXT),
+  mealName: nonEmptyString.max(160),
+  inferredMealType: z.enum(MEAL_TYPE_VALUES),
+  mealTypeConfident: z.boolean().optional().default(false),
+  confidence: z.number().finite().min(0).max(1),
+  ingredients: z.array(proposalIngredientSchema).min(1).max(20),
+  interpretationOrigin: z.literal(
+    InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+  ),
+  modelName: z.string().trim().max(100).optional(),
+  modelVersion: z.string().trim().max(100).optional(),
+}).strict().superRefine((proposal, ctx) => {
+  const rowIds = proposal.ingredients.map((ingredient) => ingredient.rowId);
+  if (new Set(rowIds).size !== rowIds.length) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'ingredient row IDs must be unique' });
+  }
+});
+
+const analyzeProposalBodySchema = z.object({
+  analysisId: z.string().uuid(),
+  proposal: ingredientProposalSchema,
+  localAttemptId: z.string().uuid(),
+  localAttemptStartedAtEpochMs: epochMsSchema,
+  localAttemptCompletedAtEpochMs: epochMsSchema,
+}).superRefine((body, ctx) => {
+  if (body.localAttemptStartedAtEpochMs > body.localAttemptCompletedAtEpochMs) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'local attempt timestamps must be ordered' });
+  }
+});
+type AnalyzeProposalBody = z.infer<typeof analyzeProposalBodySchema>;
 
 /** Accepts proto3 camelCase or snake_case nested keys. */
 const clarifyAnswerItemSchema = z.preprocess((raw) => {
@@ -171,6 +370,7 @@ async function requireOwnedAnalysis(
 export type {
   AnalyzeTextBody,
   AnalyzeImageBody,
+  AnalyzeProposalBody,
   ClarifyBody,
   ResumeBody,
   FeedbackBody,
@@ -263,6 +463,24 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
   // caller from continuing or confirming another caller's analysis.
   fastify.addHook('preHandler', authenticateUser);
 
+  fastify.get(
+    '/local-capabilities',
+    {
+      schema: {
+        description: 'Return the default-safe local inference rollout policy.',
+        tags: ['Food', 'V2'],
+      },
+    },
+    async () => ({
+      policyVersion: config.LOCAL_INFERENCE_POLICY_VERSION,
+      textEnabled: config.LOCAL_INFERENCE_TEXT_ENABLED,
+      imageEnabled: false,
+      localNutritionEnabled: false,
+      privateModesEnabled: false,
+      maxAgeSeconds: 3600,
+    })
+  );
+
   fastify.post<{ Body: AnalyzeTextBody }>(
     '/analyze-text',
     {
@@ -303,6 +521,58 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           countryCode: getCountryFromRequest(request),
           timeZone: getTimeZoneFromRequest(request),
           userId,
+          localAttempted: parsed.localAttempted,
+          localAttemptId: parsed.localAttemptId,
+          localAttemptStartedAtEpochMs: parsed.localAttemptStartedAtEpochMs,
+          localAttemptCompletedAtEpochMs: parsed.localAttemptCompletedAtEpochMs,
+          fallbackReason: parsed.fallbackReason,
+          logger: request.log,
+        })
+      );
+    }
+  );
+
+  fastify.post<{ Body: AnalyzeProposalBody }>(
+    '/analyze-proposal',
+    {
+      config: {
+        rateLimit: {
+          max: 20,
+          timeWindow: '1 minute',
+        },
+      },
+      schema: {
+        description:
+          'Settle a strictly validated on-device ingredient proposal using the authoritative nutrition pipeline.',
+        tags: ['Food', 'V2'],
+        response: {
+          200: {
+            description: 'Stream of events (application/x-ndjson or text/event-stream)',
+            type: 'string',
+          },
+          400: {
+            description: 'Bad request',
+            ...getErrorResponseSchema(),
+          },
+        },
+      } as any,
+    },
+    async (request: FastifyRequest<{ Body: AnalyzeProposalBody }>, reply: FastifyReply) => {
+      const parsed = parseBody(analyzeProposalBodySchema, request.body, reply);
+      if (!parsed) return;
+      await streamEvents(
+        reply,
+        request.headers.accept,
+        analyzeIngredientProposal(parsed.proposal as IngredientProposalV1, {
+          analysisId: parsed.analysisId,
+          localAttempted: true,
+          localAttemptId: parsed.localAttemptId,
+          localAttemptStartedAtEpochMs: parsed.localAttemptStartedAtEpochMs,
+          localAttemptCompletedAtEpochMs: parsed.localAttemptCompletedAtEpochMs,
+          locale: getLocaleFromRequest(request),
+          countryCode: getCountryFromRequest(request),
+          timeZone: getTimeZoneFromRequest(request),
+          userId: getCurrentUserId(request),
           logger: request.log,
         })
       );

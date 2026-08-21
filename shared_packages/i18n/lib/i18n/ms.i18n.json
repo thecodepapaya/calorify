@@ -245,6 +245,7 @@
     "save": "Simpan",
     "mealName": "Nama Hidangan",
     "mealNameHint": "cth., Telur Dadar dengan roti bakar",
+    "nameRequired": "Masukkan nama hidangan sebelum menyimpan.",
     "mealQuantity": "Kuantiti Hidangan",
     "mealQuantityHint": "cth., 1 mangkuk, 2 keping",
     "timeOfMeal": "Masa Hidangan",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.",
       "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar)."
     },
+    "localInference": {
+      "reviewTitle": "Semak ramuan yang dikesan",
+      "reviewSubtitle": "Ini ditafsirkan pada peranti anda. Betulkan nama atau bahagian sebelum pemakanan dikira.",
+      "mealName": "Nama hidangan",
+      "ingredient": "Ramuan",
+      "grams": "Anggaran gram",
+      "removeIngredient": "Alih keluar ramuan",
+      "continueLabel": "Teruskan",
+      "invalidProposal": "Tambah sekurang-kurangnya satu ramuan dan gunakan jumlah gram yang positif.",
+      "localUnavailable": "Analisis pada peranti tidak tersedia buat masa ini.",
+      "calculationDetails": "Bagaimana ini dikira",
+      "interpretationLocal": "Ramuan ditafsirkan pada peranti ini",
+      "interpretationCloud": "Ramuan ditafsirkan di awan",
+      "interpretationManual": "Ramuan disemak atau diedit oleh anda",
+      "nutritionRemote": "Maklumat pemakanan diambil daripada USDA melalui Calorify",
+      "nutritionFallback": "Beberapa nilai pemakanan dianggar secara jarak jauh",
+      "calculationServer": "Kalori dan makro dikira oleh Calorify",
+      "fallbackUsed": "Analisis tempatan beralih kepada pemprosesan awan",
+      "noRawContent": "Resit diagnostik tidak termasuk teks atau foto hidangan anda."
+    },
     "feedback": {
       "title": "Apa yang kelihatan salah?",
       "subtitle": "Bantu kami memperbaiki analisis dengan memilih satu atau lebih isu.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Barang hilang",
       "issueExtraItems": "Barang tambahan",
       "issueOther": "Lain-lain"
-    },
-    "nameRequired": "Masukkan nama hidangan sebelum menyimpan."
+    }
   },
   "favorites": {
     "title": "Kegemaran",
@@ -453,6 +473,7 @@
       "localization": "PENENTUAN LOKAL",
       "notifications": "PEMBERITAHUAN",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALISIS PADA PERANTI",
       "supportAndLegal": "SOKONGAN & UNDANG-UNDANG",
       "about": "TENTANG",
       "dangerZone": "ZON BERISIKO",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Peringatan Hidangan",
       "subtitle": "Kekal pada landasan dengan amaran tepat pada masanya"
+    },
+    "localInference": {
+      "title": "Analisis hidangan pada peranti",
+      "subtitle": "Tafsir hidangan yang disokong dengan Gemini Nano sebelum pemakanan dikira",
+      "unavailable": "Tidak tersedia pada peranti ini",
+      "rolloutUnavailable": "Perkakasan yang tersedia ditemui, tetapi ciri ini tidak didayakan untuk versi aplikasi ini",
+      "modelSetup": "Gemini Nano perlu selesai dimuat turun sebelum ini boleh didayakan",
+      "useLocalTitle": "Gunakan analisis pada peranti",
+      "useLocalSubtitle": "Pilihan dan dimatikan secara lalai. Keputusan mungkin kurang tepat untuk hidangan yang kompleks.",
+      "disclosureTitle": "Sebelum anda mendayakan analisis pada peranti",
+      "disclosureBody": "Gemini Nano boleh mengenal pasti ramuan dan menganggar bahagian pada peranti Android yang disokong. Cadangan ramuan yang anda semak akan dihantar ke Calorify untuk pengesahan pemakanan USDA dan pengiraan.",
+      "disclosureLimit1": "Hidangan kompleks, ramuan tersembunyi, dan saiz bahagian mungkin dikenal pasti secara tidak tepat.",
+      "disclosureLimit2": "Model mungkin tidak tersedia semasa memuat turun, sibuk, berada di latar belakang, atau dihadkan oleh peranti.",
+      "disclosureLimit3": "Jika tafsiran tempatan tidak dapat diselesaikan, versi beta ini secara automatik menghantar huraian asal hidangan anda ke Calorify untuk analisis awan.",
+      "acknowledgement": "Saya faham bahawa saya perlu menyemak ramuan dan bahagian yang dikesan.",
+      "enable": "Sahkan dan dayakan",
+      "cancel": "Batal"
     },
     "theme": {
       "title": "Tema",

@@ -245,6 +245,7 @@
     "save": "Speichern",
     "mealName": "Name der Mahlzeit",
     "mealNameHint": "z. B. Rührei mit Toast",
+    "nameRequired": "Gib einen Namen für die Mahlzeit ein, bevor du sie speicherst.",
     "mealQuantity": "Mengenangabe",
     "mealQuantityHint": "z. B. 1 Schale, 2 Scheiben",
     "timeOfMeal": "Uhrzeit der Mahlzeit",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.",
       "offlineTip5": "Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken)."
     },
+    "localInference": {
+      "reviewTitle": "Erkannte Zutaten prüfen",
+      "reviewSubtitle": "Dies wurde auf Ihrem Gerät interpretiert. Bitte korrigieren Sie Namen oder Mengen, bevor die Nährwerte berechnet werden.",
+      "mealName": "Mahlzeitenname",
+      "ingredient": "Zutat",
+      "grams": "Geschätzte Gramm",
+      "removeIngredient": "Zutat entfernen",
+      "continueLabel": "Weiter",
+      "invalidProposal": "Fügen Sie mindestens eine Zutat hinzu und geben Sie eine positive Grammzahl an.",
+      "localUnavailable": "Die On-Device-Analyse ist derzeit nicht verfügbar.",
+      "calculationDetails": "Berechnungsgrundlagen",
+      "interpretationLocal": "Zutaten auf diesem Gerät interpretiert",
+      "interpretationCloud": "Zutaten in der Cloud interpretiert",
+      "interpretationManual": "Zutaten von Ihnen geprüft oder bearbeitet",
+      "nutritionRemote": "Nährwerte über Calorify von der USDA bezogen",
+      "nutritionFallback": "Einige Nährwerte wurden remote geschätzt",
+      "calculationServer": "Kalorien und Makros von Calorify berechnet",
+      "fallbackUsed": "Lokale Analyse auf Cloud-Verarbeitung zurückgegriffen",
+      "noRawContent": "Diagnosebelege enthalten weder Ihren Mahlzeitentext noch Ihr Foto."
+    },
     "feedback": {
       "title": "Was stimmt hier nicht?",
       "subtitle": "Hilf uns, die Analyse zu verbessern, indem du ein oder mehrere Probleme auswählst.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Fehlende Zutaten",
       "issueExtraItems": "Zusätzliche Zutaten",
       "issueOther": "Andere"
-    },
-    "nameRequired": "Gib einen Namen für die Mahlzeit ein, bevor du sie speicherst."
+    }
   },
   "favorites": {
     "title": "Favoriten",
@@ -453,6 +473,7 @@
       "localization": "LOKALISIERUNG",
       "notifications": "BENACHRICHTIGUNGEN",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ON-DEVICE-ANALYSE",
       "supportAndLegal": "SUPPORT & RECHTLICHES",
       "about": "ÜBER",
       "dangerZone": "RISIKOBEREICH",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Mahlzeit‑Erinnerungen",
       "subtitle": "Bleib mit rechtzeitigen Erinnerungen auf Kurs"
+    },
+    "localInference": {
+      "title": "On-Device-Mahlzeitenanalyse",
+      "subtitle": "Unterstützte Mahlzeiten mit Gemini Nano interpretieren, bevor die Nährwerte berechnet werden",
+      "unavailable": "Auf diesem Gerät nicht verfügbar",
+      "rolloutUnavailable": "Kompatible Hardware gefunden, aber diese Funktion ist für diese App-Version nicht aktiviert",
+      "modelSetup": "Gemini Nano muss den Download abschließen, bevor dies aktiviert werden kann",
+      "useLocalTitle": "On-Device-Analyse verwenden",
+      "useLocalSubtitle": "Optional und standardmäßig deaktiviert. Ergebnisse bei komplexen Mahlzeiten können weniger zuverlässig sein.",
+      "disclosureTitle": "Bevor Sie die On-Device-Analyse aktivieren",
+      "disclosureBody": "Gemini Nano kann Zutaten identifizieren und Portionen auf unterstützten Android-Geräten schätzen. Ihr geprüfter Zutatenvorschlag wird an Calorify zur USDA-Nährwertprüfung und Berechnung gesendet.",
+      "disclosureLimit1": "Komplexe Gerichte, versteckte Zutaten und Portionsgrößen können falsch identifiziert werden.",
+      "disclosureLimit2": "Das Modell kann während des Downloads, bei hoher Auslastung, im Hintergrund oder durch das Gerät eingeschränkt sein.",
+      "disclosureLimit3": "Wenn die lokale Interpretation nicht abgeschlossen werden kann, sendet diese Beta-Version Ihre ursprüngliche Mahlzeitenbeschreibung automatisch an Calorify zur Cloud-Analyse.",
+      "acknowledgement": "Ich verstehe, dass ich die erkannten Zutaten und Portionen prüfen sollte.",
+      "enable": "Bestätigen und aktivieren",
+      "cancel": "Abbrechen"
     },
     "theme": {
       "title": "Design",

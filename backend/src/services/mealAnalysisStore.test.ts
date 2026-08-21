@@ -226,7 +226,10 @@ test('claimMealAnalysisDecomposition inserts pending state and returns a fenced 
   const [claimSql, claimParams] = mockQuery.mock.calls[2]!.arguments as [string, unknown[]];
   assert.match(insertSql, /'PENDING_DECOMPOSITION'/);
   assert.match(insertSql, /ON CONFLICT \(analysis_id\) DO NOTHING/);
-  assert.match(identitySql, /request_payload = \$5::jsonb/);
+  assert.match(
+    identitySql,
+    /\(request_payload - 'execution'\) = \(\$5::jsonb - 'execution'\)/
+  );
   assert.match(identitySql, /FOR UPDATE/);
   const [, identityParams] = mockQuery.mock.calls[1]!.arguments as [string, unknown[]];
   assert.equal(identityParams[1], 'user-1');

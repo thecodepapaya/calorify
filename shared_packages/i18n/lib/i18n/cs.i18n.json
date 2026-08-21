@@ -245,6 +245,7 @@
     "save": "Uložit",
     "mealName": "Název jídla",
     "mealNameHint": "např. Míchaná vejce s toustem",
+    "nameRequired": "Zadejte název jídla před uložením.",
     "mealQuantity": "Množství jídla",
     "mealQuantityHint": "např. 1 miska, 2 plátky",
     "timeOfMeal": "Čas jídla",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.",
       "offlineTip5": "Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené)."
     },
+    "localInference": {
+      "reviewTitle": "Zkontrolujte detekované ingredience",
+      "reviewSubtitle": "Tento text byl interpretován ve vašem zařízení. Před výpočtem výživových hodnot opravte názvy nebo porce.",
+      "mealName": "Název jídla",
+      "ingredient": "Ingredience",
+      "grams": "Odhadované gramy",
+      "removeIngredient": "Odebrat ingredienci",
+      "continueLabel": "Pokračovat",
+      "invalidProposal": "Přidejte alespoň jednu ingredienci a zadejte kladný počet gramů.",
+      "localUnavailable": "Analýza v zařízení momentálně není k dispozici.",
+      "calculationDetails": "Jak bylo vypočítáno",
+      "interpretationLocal": "Ingredience interpretované v tomto zařízení",
+      "interpretationCloud": "Ingredience interpretované v cloudu",
+      "interpretationManual": "Ingredience zkontrolované nebo upravené vámi",
+      "nutritionRemote": "Výživové hodnoty staženy z USDA prostřednictvím Calorify",
+      "nutritionFallback": "Některé výživové hodnoty byly odhadnuty vzdáleně",
+      "calculationServer": "Kalorie a makroživiny vypočítány aplikací Calorify",
+      "fallbackUsed": "Lokální analýza byla nahrazena zpracováním v cloudu",
+      "noRawContent": "Diagnostické účtenky neobsahují text ani fotografii vašeho jídla."
+    },
     "feedback": {
       "title": "Co vypadá špatně?",
       "subtitle": "Označte jednu nebo více chyb a pomozte nám zlepšit analýzu.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Chybějící položky",
       "issueExtraItems": "Nadbytečné položky",
       "issueOther": "Jiné"
-    },
-    "nameRequired": "Zadejte název jídla před uložením."
+    }
   },
   "favorites": {
     "title": "Oblíbené",
@@ -453,6 +473,7 @@
       "localization": "LOKALIZACE",
       "notifications": "UPOZORNĚNÍ",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALÝZA V ZAŘÍZENÍ",
       "supportAndLegal": "PODPORA & PRÁVNÍ",
       "about": "O APLIKACI",
       "dangerZone": "RIZIKOVÁ ZÓNA",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Připomenutí jídel",
       "subtitle": "Zůstaňte na cestě díky včasným upozorněním"
+    },
+    "localInference": {
+      "title": "Analýza jídla v zařízení",
+      "subtitle": "Interpretujte podporovaná jídla pomocí Gemini Nano před výpočtem výživových hodnot",
+      "unavailable": "V tomto zařízení není k dispozici",
+      "rolloutUnavailable": "Podporovaný hardware byl nalezen, ale tato funkce není pro tuto verzi aplikace aktivní",
+      "modelSetup": "Před aktivací musí Gemini Nano dokončit stahování",
+      "useLocalTitle": "Používat analýzu v zařízení",
+      "useLocalSubtitle": "Volitelné, ve výchozím nastavení vypnuto. Výsledky mohou být u složitých jídel méně spolehlivé.",
+      "disclosureTitle": "Než zapnete analýzu v zařízení",
+      "disclosureBody": "Gemini Nano dokáže identifikovat ingredience a odhadnout porce na podporovaných zařízeních Android. Váš zkontrolovaný návrh ingrediencí je odeslán do Calorify za účelem ověření výživových hodnot USDA a výpočtu.",
+      "disclosureLimit1": "Složitá jídla, skryté ingredience a velikosti porcí mohou být identifikovány nesprávně.",
+      "disclosureLimit2": "Model nemusí být k dispozici během stahování, při vysokém zatížení, v pozadí nebo z důvodu omezení zařízení.",
+      "disclosureLimit3": "Pokud lokální interpretace nedokončí, tato beta verze automaticky odešle původní popis jídla do Calorify za účelem analýzy v cloudu.",
+      "acknowledgement": "Rozumím tomu, že mám zkontrolovat detekované ingredience a porce.",
+      "enable": "Potvrdit a zapnout",
+      "cancel": "Zrušit"
     },
     "theme": {
       "title": "Téma",

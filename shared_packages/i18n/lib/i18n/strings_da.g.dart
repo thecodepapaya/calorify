@@ -155,6 +155,7 @@ class _TranslationsMealDa implements TranslationsMealEn {
 	@override String get save => 'Gem';
 	@override String get mealName => 'Måltidets navn';
 	@override String get mealNameHint => 'fx. Røræg med toast';
+	@override String get nameRequired => 'Indtast et navn på måltidet, før du gemmer.';
 	@override String get mealQuantity => 'Mængde';
 	@override String get mealQuantityHint => 'fx. 1 skål, 2 skiver';
 	@override String get timeOfMeal => 'Tidspunkt for måltid';
@@ -180,8 +181,8 @@ class _TranslationsMealDa implements TranslationsMealEn {
 	@override String get skip => 'Spring over';
 	@override late final _TranslationsMealQuestionFlowDa questionFlow = _TranslationsMealQuestionFlowDa._(_root);
 	@override late final _TranslationsMealAnalysisDa analysis = _TranslationsMealAnalysisDa._(_root);
+	@override late final _TranslationsMealLocalInferenceDa localInference = _TranslationsMealLocalInferenceDa._(_root);
 	@override late final _TranslationsMealFeedbackDa feedback = _TranslationsMealFeedbackDa._(_root);
-	@override String get nameRequired => 'Indtast et navn på måltidet, før du gemmer.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsDa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitDa heightUnit = _TranslationsSettingsHeightUnitDa._(_root);
 	@override late final _TranslationsSettingsWeightUnitDa weightUnit = _TranslationsSettingsWeightUnitDa._(_root);
 	@override late final _TranslationsSettingsMealRemindersDa mealReminders = _TranslationsSettingsMealRemindersDa._(_root);
+	@override late final _TranslationsSettingsLocalInferenceDa localInference = _TranslationsSettingsLocalInferenceDa._(_root);
 	@override late final _TranslationsSettingsThemeDa theme = _TranslationsSettingsThemeDa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackDa sendFeedback = _TranslationsSettingsSendFeedbackDa._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryDa exportMealHistory = _TranslationsSettingsExportMealHistoryDa._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisDa implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceDa implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Gennemse detekterede ingredienser';
+	@override String get reviewSubtitle => 'Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.';
+	@override String get mealName => 'Måltidets navn';
+	@override String get ingredient => 'Ingrediens';
+	@override String get grams => 'Estimeret antal gram';
+	@override String get removeIngredient => 'Fjern ingrediens';
+	@override String get continueLabel => 'Fortsæt';
+	@override String get invalidProposal => 'Tilføj mindst én ingrediens og brug et positivt antal gram.';
+	@override String get localUnavailable => 'Analyse på enheden er ikke tilgængelig lige nu.';
+	@override String get calculationDetails => 'Sådan blev dette beregnet';
+	@override String get interpretationLocal => 'Ingredienser fortolket på denne enhed';
+	@override String get interpretationCloud => 'Ingredienser fortolket i skyen';
+	@override String get interpretationManual => 'Ingredienser gennemset eller redigeret af dig';
+	@override String get nutritionRemote => 'Næringsindhold hentet fra USDA via Calorify';
+	@override String get nutritionFallback => 'Nogle næringsværdier blev estimeret eksternt';
+	@override String get calculationServer => 'Kalorier og makronæringsstoffer beregnet af Calorify';
+	@override String get fallbackUsed => 'Lokal analyse skiftede til cloud-behandling';
+	@override String get noRawContent => 'Diagnostiske kvitteringer indeholder ikke din måltidstekst eller dit foto.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackDa implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackDa._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsDa implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIKATIONER';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ANALYSE PÅ ENHED';
 	@override String get supportAndLegal => 'SUPPORT & JURA';
 	@override String get about => 'OM';
 	@override String get dangerZone => 'FARLIG ZONE';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersDa implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Måltidspåmindelser';
 	@override String get subtitle => 'Hold dig på sporet med rettidige påmindelser';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceDa implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceDa._(this._root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Måltidsanalyse på enheden';
+	@override String get subtitle => 'Fortolk understøttede måltider med Gemini Nano, før næringsindholdet beregnes';
+	@override String get unavailable => 'Ikke tilgængelig på denne enhed';
+	@override String get rolloutUnavailable => 'Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version';
+	@override String get modelSetup => 'Gemini Nano skal færdiggøre download, før dette kan aktiveres';
+	@override String get useLocalTitle => 'Brug analyse på enheden';
+	@override String get useLocalSubtitle => 'Valgfrit og deaktiveret som standard. Resultaterne kan være mindre pålidelige for komplekse måltider.';
+	@override String get disclosureTitle => 'Før du aktiverer analyse på enheden';
+	@override String get disclosureBody => 'Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.';
+	@override String get disclosureLimit1 => 'Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.';
+	@override String get disclosureLimit2 => 'Modellen kan være utilgængelig under download, når den er optaget, kører i baggrunden eller er begrænset af enheden.';
+	@override String get disclosureLimit3 => 'Hvis den lokale fortolkning ikke kan færdiggøres, sender denne beta automatisk din oprindelige måltidsbeskrivelse til Calorify for cloud-analyse.';
+	@override String get acknowledgement => 'Jeg forstår, at jeg bør gennemse detekterede ingredienser og portioner.';
+	@override String get enable => 'Bekræft og aktiver';
+	@override String get cancel => 'Annuller';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsDa {
 			'meal.save' => 'Gem',
 			'meal.mealName' => 'Måltidets navn',
 			'meal.mealNameHint' => 'fx. Røræg med toast',
+			'meal.nameRequired' => 'Indtast et navn på måltidet, før du gemmer.',
 			'meal.mealQuantity' => 'Mængde',
 			'meal.mealQuantityHint' => 'fx. 1 skål, 2 skiver',
 			'meal.timeOfMeal' => 'Tidspunkt for måltid',
@@ -1916,6 +1971,24 @@ extension on TranslationsDa {
 			'meal.analysis.offlineTip3' => 'Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.',
 			'meal.analysis.offlineTip4' => 'Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.',
 			'meal.analysis.offlineTip5' => 'Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).',
+			'meal.localInference.reviewTitle' => 'Gennemse detekterede ingredienser',
+			'meal.localInference.reviewSubtitle' => 'Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.',
+			'meal.localInference.mealName' => 'Måltidets navn',
+			'meal.localInference.ingredient' => 'Ingrediens',
+			'meal.localInference.grams' => 'Estimeret antal gram',
+			'meal.localInference.removeIngredient' => 'Fjern ingrediens',
+			'meal.localInference.continueLabel' => 'Fortsæt',
+			'meal.localInference.invalidProposal' => 'Tilføj mindst én ingrediens og brug et positivt antal gram.',
+			'meal.localInference.localUnavailable' => 'Analyse på enheden er ikke tilgængelig lige nu.',
+			'meal.localInference.calculationDetails' => 'Sådan blev dette beregnet',
+			'meal.localInference.interpretationLocal' => 'Ingredienser fortolket på denne enhed',
+			'meal.localInference.interpretationCloud' => 'Ingredienser fortolket i skyen',
+			'meal.localInference.interpretationManual' => 'Ingredienser gennemset eller redigeret af dig',
+			'meal.localInference.nutritionRemote' => 'Næringsindhold hentet fra USDA via Calorify',
+			'meal.localInference.nutritionFallback' => 'Nogle næringsværdier blev estimeret eksternt',
+			'meal.localInference.calculationServer' => 'Kalorier og makronæringsstoffer beregnet af Calorify',
+			'meal.localInference.fallbackUsed' => 'Lokal analyse skiftede til cloud-behandling',
+			'meal.localInference.noRawContent' => 'Diagnostiske kvitteringer indeholder ikke din måltidstekst eller dit foto.',
 			'meal.feedback.title' => 'Hvad ser forkert ud?',
 			'meal.feedback.subtitle' => 'Hjælp os med at forbedre analysen ved at vælge ét eller flere problemer.',
 			'meal.feedback.tellUsMore' => 'Fortæl os mere',
@@ -1928,7 +2001,6 @@ extension on TranslationsDa {
 			'meal.feedback.issueMissingItems' => 'Mangler varer',
 			'meal.feedback.issueExtraItems' => 'Ekstra varer',
 			'meal.feedback.issueOther' => 'Andet',
-			'meal.nameRequired' => 'Indtast et navn på måltidet, før du gemmer.',
 			'favorites.title' => 'Favoritter',
 			'favorites.empty' => 'Ingen favoritmåltider endnu.',
 			'favorites.searchPlaceholder' => 'Søg i favoritter',
@@ -2014,6 +2086,7 @@ extension on TranslationsDa {
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIKATIONER',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ANALYSE PÅ ENHED',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURA',
 			'settings.sections.about' => 'OM',
 			'settings.sections.dangerZone' => 'FARLIG ZONE',
@@ -2028,6 +2101,21 @@ extension on TranslationsDa {
 			'settings.weightUnit.title' => 'Vægtenhed',
 			'settings.mealReminders.title' => 'Måltidspåmindelser',
 			'settings.mealReminders.subtitle' => 'Hold dig på sporet med rettidige påmindelser',
+			'settings.localInference.title' => 'Måltidsanalyse på enheden',
+			'settings.localInference.subtitle' => 'Fortolk understøttede måltider med Gemini Nano, før næringsindholdet beregnes',
+			'settings.localInference.unavailable' => 'Ikke tilgængelig på denne enhed',
+			'settings.localInference.rolloutUnavailable' => 'Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version',
+			'settings.localInference.modelSetup' => 'Gemini Nano skal færdiggøre download, før dette kan aktiveres',
+			'settings.localInference.useLocalTitle' => 'Brug analyse på enheden',
+			'settings.localInference.useLocalSubtitle' => 'Valgfrit og deaktiveret som standard. Resultaterne kan være mindre pålidelige for komplekse måltider.',
+			'settings.localInference.disclosureTitle' => 'Før du aktiverer analyse på enheden',
+			'settings.localInference.disclosureBody' => 'Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.',
+			'settings.localInference.disclosureLimit1' => 'Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.',
+			'settings.localInference.disclosureLimit2' => 'Modellen kan være utilgængelig under download, når den er optaget, kører i baggrunden eller er begrænset af enheden.',
+			'settings.localInference.disclosureLimit3' => 'Hvis den lokale fortolkning ikke kan færdiggøres, sender denne beta automatisk din oprindelige måltidsbeskrivelse til Calorify for cloud-analyse.',
+			'settings.localInference.acknowledgement' => 'Jeg forstår, at jeg bør gennemse detekterede ingredienser og portioner.',
+			'settings.localInference.enable' => 'Bekræft og aktiver',
+			'settings.localInference.cancel' => 'Annuller',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Lyst',
 			'settings.theme.dark' => 'Mørkt',
@@ -2162,6 +2250,8 @@ extension on TranslationsDa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beregner din TDEE (baseret på din profil) og ganger den med den passerede del af dagen (timer + minutter) / 24 for at estimere forbrændte kalorier indtil nu.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionel vejledning',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Brug ikke dette estimat til medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller registreret diætist for personlig vægtstyringsrådgivning.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Luk',
 			'common.kContinue' => 'Fortsæt',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nyder du ${appLabel}?',

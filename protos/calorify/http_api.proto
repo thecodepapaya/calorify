@@ -5,6 +5,7 @@ package calorify;
 import "protos/meal/meal.proto";
 
 import "protos/calorify/ai_meal_summary_trend.proto";
+import "protos/calorify/meal_analysis_pipeline.proto";
 
 
 
@@ -34,12 +35,34 @@ message MealAnalysisTipsResponse {
 message MealAnalysisTextRequest {
   optional string analysis_id = 1;
   string text_description = 2;
+  bool local_attempted = 3;
+  MealAnalysisFallbackReason fallback_reason = 4;
+  optional string local_attempt_id = 5;
+  optional int64 local_attempt_started_at_epoch_ms = 6;
+  optional int64 local_attempt_completed_at_epoch_ms = 7;
 }
 
 
 message MealAnalysisImageRequest {
   optional string analysis_id = 1;
   string image_url = 2;
+}
+
+message MealAnalysisProposalRequest {
+  string analysis_id = 1;
+  IngredientProposalV1 proposal = 2;
+  string local_attempt_id = 3;
+  int64 local_attempt_started_at_epoch_ms = 4;
+  int64 local_attempt_completed_at_epoch_ms = 5;
+}
+
+message LocalInferenceCapabilityPolicy {
+  string policy_version = 1;
+  bool text_enabled = 2;
+  bool image_enabled = 3;
+  bool local_nutrition_enabled = 4;
+  bool private_modes_enabled = 5;
+  int32 max_age_seconds = 6;
 }
 
 

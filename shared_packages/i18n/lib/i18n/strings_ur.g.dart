@@ -155,6 +155,7 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String get save => 'محفوظ کریں';
 	@override String get mealName => 'کھانے کا نام';
 	@override String get mealNameHint => 'مثلاً، آملیٹ کے ساتھ ٹوسٹ';
+	@override String get nameRequired => 'محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔';
 	@override String get mealQuantity => 'کھانے کی مقدار';
 	@override String get mealQuantityHint => 'مثلاً، 1 پیالہ، 2 سلائس';
 	@override String get timeOfMeal => 'کھانے کا وقت';
@@ -180,8 +181,8 @@ class _TranslationsMealUr implements TranslationsMealEn {
 	@override String get skip => 'اسکِپ کریں';
 	@override late final _TranslationsMealQuestionFlowUr questionFlow = _TranslationsMealQuestionFlowUr._(_root);
 	@override late final _TranslationsMealAnalysisUr analysis = _TranslationsMealAnalysisUr._(_root);
+	@override late final _TranslationsMealLocalInferenceUr localInference = _TranslationsMealLocalInferenceUr._(_root);
 	@override late final _TranslationsMealFeedbackUr feedback = _TranslationsMealFeedbackUr._(_root);
-	@override String get nameRequired => 'محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsUr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitUr heightUnit = _TranslationsSettingsHeightUnitUr._(_root);
 	@override late final _TranslationsSettingsWeightUnitUr weightUnit = _TranslationsSettingsWeightUnitUr._(_root);
 	@override late final _TranslationsSettingsMealRemindersUr mealReminders = _TranslationsSettingsMealRemindersUr._(_root);
+	@override late final _TranslationsSettingsLocalInferenceUr localInference = _TranslationsSettingsLocalInferenceUr._(_root);
 	@override late final _TranslationsSettingsThemeUr theme = _TranslationsSettingsThemeUr._(_root);
 	@override late final _TranslationsSettingsSendFeedbackUr sendFeedback = _TranslationsSettingsSendFeedbackUr._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryUr exportMealHistory = _TranslationsSettingsExportMealHistoryUr._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisUr implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceUr implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'جائزہ شدہ اجزاء دیکھیں';
+	@override String get reviewSubtitle => 'یہ آپ کے ڈیوائس پر ترتیب دیا گیا تھا۔ غذائیت کے حساب سے پہلے ناموں یا مقدار کی تصحیح کریں۔';
+	@override String get mealName => 'کھانے کا نام';
+	@override String get ingredient => 'اجزاء';
+	@override String get grams => 'تخمینہ گرام';
+	@override String get removeIngredient => 'اجزاء ہٹائیں';
+	@override String get continueLabel => 'جاری رکھیں';
+	@override String get invalidProposal => 'کم از کم ایک جزو شامل کریں اور گرام کی مثبت مقدار استعمال کریں۔';
+	@override String get localUnavailable => 'آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔';
+	@override String get calculationDetails => 'اس کا حساب کیسے لگایا گیا';
+	@override String get interpretationLocal => 'اس ڈیوائس پر ترتیب دیے گئے اجزاء';
+	@override String get interpretationCloud => 'کلاؤڈ میں ترتیب دیے گئے اجزاء';
+	@override String get interpretationManual => 'آپ کے ذریعے جائزہ لیے گئے یا تبدیل کیے گئے اجزاء';
+	@override String get nutritionRemote => 'USDA سے Calorify کے ذریعے حاصل کردہ غذائیت';
+	@override String get nutritionFallback => 'کچھ غذائی اقدار کا تخمینہ ریموٹلی لگایا گیا';
+	@override String get calculationServer => 'کیلوریز اور میکروز کا حساب Calorify نے لگایا';
+	@override String get fallbackUsed => 'مقامی تجزیہ کلاؤڈ پروسیسنگ پر منتقل ہو گیا';
+	@override String get noRawContent => 'تشخیصی رسیدوں میں آپ کے کھانے کی تحریر یا تصویر شامل نہیں ہوتی۔';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackUr implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackUr._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsUr implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'لوکلائزیشن';
 	@override String get notifications => 'اطلاعات';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'آن-ڈیوائس تجزیہ';
 	@override String get supportAndLegal => 'سپورٹ اور قانونی';
 	@override String get about => 'ایپ کے بارے میں';
 	@override String get dangerZone => 'خطرناک علاقے';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersUr implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'کھانے کی یاددہانیاں';
 	@override String get subtitle => 'بروقت اعلانات کے ساتھ راستے پر رہیں';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceUr implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceUr._(this._root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'آن-ڈیوائس کھانے کا تجزیہ';
+	@override String get subtitle => 'غذائیت کے حساب سے پہلے Gemini Nano کے ذریعے معاون کھانے ترتیب دیں';
+	@override String get unavailable => 'اس ڈیوائس پر دستیاب نہیں ہے';
+	@override String get rolloutUnavailable => 'مطابقہ ہارڈ ویئر مل گیا، لیکن یہ فیچر اس ایپ ریلیز کے لیے فعال نہیں ہے';
+	@override String get modelSetup => 'اسے فعال کرنے سے پہلے Gemini Nano کا ڈاؤن لوڈ مکمل ہونا ضروری ہے';
+	@override String get useLocalTitle => 'آن-ڈیوائس تجزیہ استعمال کریں';
+	@override String get useLocalSubtitle => 'اختیاری اور ڈیفالٹ طور پر بند۔ پیچیدہ کھانوں کے لیے نتائج کم قابل اعتماد ہو سکتے ہیں۔';
+	@override String get disclosureTitle => 'آن-ڈیوائس تجزیہ فعال کرنے سے پہلے';
+	@override String get disclosureBody => 'Gemini Nano معاون Android ڈیوائسز پر اجزاء کی شناخت اور مقدار کا تخمینہ لگا سکتا ہے۔ آپ کا جائزہ لیا گیا تجویز کردہ جزو USDA غذائی بنیاد اور حساب کے لیے Calorify کو بھیجا جاتا ہے۔';
+	@override String get disclosureLimit1 => 'پیچیدہ پکوان، چھپے ہوئے اجزاء، اور مقدار کی شناخت غلط ہو سکتی ہے۔';
+	@override String get disclosureLimit2 => 'ڈاؤن لوڈنگ، مصروفیت، بیک گراؤنڈ میں ہونے، یا ڈیوائس کی حدود کی وجہ سے ماڈل دستیاب نہیں ہو سکتا۔';
+	@override String get disclosureLimit3 => 'اگر مقامی ترتیب مکمل نہیں ہو پاتی، تو یہ بیٹا ورژن خود بخود آپ کے کھانے کی اصل تفصیل کلاؤڈ تجزیہ کے لیے Calorify کو بھیج دیتا ہے۔';
+	@override String get acknowledgement => 'میں سمجھتا/سمجھتی ہوں کہ مجھے شناخت شدہ اجزاء اور مقدار کا جائزہ لینا چاہیے۔';
+	@override String get enable => 'تسلیم کریں اور فعال کریں';
+	@override String get cancel => 'منسوخ کریں';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsUr {
 			'meal.save' => 'محفوظ کریں',
 			'meal.mealName' => 'کھانے کا نام',
 			'meal.mealNameHint' => 'مثلاً، آملیٹ کے ساتھ ٹوسٹ',
+			'meal.nameRequired' => 'محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔',
 			'meal.mealQuantity' => 'کھانے کی مقدار',
 			'meal.mealQuantityHint' => 'مثلاً، 1 پیالہ، 2 سلائس',
 			'meal.timeOfMeal' => 'کھانے کا وقت',
@@ -1916,6 +1971,24 @@ extension on TranslationsUr {
 			'meal.analysis.offlineTip3' => 'ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔',
 			'meal.analysis.offlineTip4' => 'ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔',
 			'meal.analysis.offlineTip5' => 'ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔',
+			'meal.localInference.reviewTitle' => 'جائزہ شدہ اجزاء دیکھیں',
+			'meal.localInference.reviewSubtitle' => 'یہ آپ کے ڈیوائس پر ترتیب دیا گیا تھا۔ غذائیت کے حساب سے پہلے ناموں یا مقدار کی تصحیح کریں۔',
+			'meal.localInference.mealName' => 'کھانے کا نام',
+			'meal.localInference.ingredient' => 'اجزاء',
+			'meal.localInference.grams' => 'تخمینہ گرام',
+			'meal.localInference.removeIngredient' => 'اجزاء ہٹائیں',
+			'meal.localInference.continueLabel' => 'جاری رکھیں',
+			'meal.localInference.invalidProposal' => 'کم از کم ایک جزو شامل کریں اور گرام کی مثبت مقدار استعمال کریں۔',
+			'meal.localInference.localUnavailable' => 'آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔',
+			'meal.localInference.calculationDetails' => 'اس کا حساب کیسے لگایا گیا',
+			'meal.localInference.interpretationLocal' => 'اس ڈیوائس پر ترتیب دیے گئے اجزاء',
+			'meal.localInference.interpretationCloud' => 'کلاؤڈ میں ترتیب دیے گئے اجزاء',
+			'meal.localInference.interpretationManual' => 'آپ کے ذریعے جائزہ لیے گئے یا تبدیل کیے گئے اجزاء',
+			'meal.localInference.nutritionRemote' => 'USDA سے Calorify کے ذریعے حاصل کردہ غذائیت',
+			'meal.localInference.nutritionFallback' => 'کچھ غذائی اقدار کا تخمینہ ریموٹلی لگایا گیا',
+			'meal.localInference.calculationServer' => 'کیلوریز اور میکروز کا حساب Calorify نے لگایا',
+			'meal.localInference.fallbackUsed' => 'مقامی تجزیہ کلاؤڈ پروسیسنگ پر منتقل ہو گیا',
+			'meal.localInference.noRawContent' => 'تشخیصی رسیدوں میں آپ کے کھانے کی تحریر یا تصویر شامل نہیں ہوتی۔',
 			'meal.feedback.title' => 'کون سی بات غلط لگی؟',
 			'meal.feedback.subtitle' => 'کئی مسائل میں سے ایک یا زیادہ منتخب کر کے تجزیے کو بہتر بنانے میں ہماری مدد کریں۔',
 			'meal.feedback.tellUsMore' => 'ہمیں مزید بتائیں',
@@ -1928,7 +2001,6 @@ extension on TranslationsUr {
 			'meal.feedback.issueMissingItems' => 'غائب اشیاء',
 			'meal.feedback.issueExtraItems' => 'اضافی اشیاء',
 			'meal.feedback.issueOther' => 'دوسرا',
-			'meal.nameRequired' => 'محفوظ کرنے سے پہلے کھانے کا نام درج کریں۔',
 			'favorites.title' => 'پسندیدہ',
 			'favorites.empty' => 'ابھی کوئی پسندیدہ کھانا نہیں ہے۔',
 			'favorites.searchPlaceholder' => 'پسندیدہ کھانے تلاش کریں',
@@ -2014,6 +2086,7 @@ extension on TranslationsUr {
 			'settings.sections.localization' => 'لوکلائزیشن',
 			'settings.sections.notifications' => 'اطلاعات',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'آن-ڈیوائس تجزیہ',
 			'settings.sections.supportAndLegal' => 'سپورٹ اور قانونی',
 			'settings.sections.about' => 'ایپ کے بارے میں',
 			'settings.sections.dangerZone' => 'خطرناک علاقے',
@@ -2028,6 +2101,21 @@ extension on TranslationsUr {
 			'settings.weightUnit.title' => 'وزن کی اکائی',
 			'settings.mealReminders.title' => 'کھانے کی یاددہانیاں',
 			'settings.mealReminders.subtitle' => 'بروقت اعلانات کے ساتھ راستے پر رہیں',
+			'settings.localInference.title' => 'آن-ڈیوائس کھانے کا تجزیہ',
+			'settings.localInference.subtitle' => 'غذائیت کے حساب سے پہلے Gemini Nano کے ذریعے معاون کھانے ترتیب دیں',
+			'settings.localInference.unavailable' => 'اس ڈیوائس پر دستیاب نہیں ہے',
+			'settings.localInference.rolloutUnavailable' => 'مطابقہ ہارڈ ویئر مل گیا، لیکن یہ فیچر اس ایپ ریلیز کے لیے فعال نہیں ہے',
+			'settings.localInference.modelSetup' => 'اسے فعال کرنے سے پہلے Gemini Nano کا ڈاؤن لوڈ مکمل ہونا ضروری ہے',
+			'settings.localInference.useLocalTitle' => 'آن-ڈیوائس تجزیہ استعمال کریں',
+			'settings.localInference.useLocalSubtitle' => 'اختیاری اور ڈیفالٹ طور پر بند۔ پیچیدہ کھانوں کے لیے نتائج کم قابل اعتماد ہو سکتے ہیں۔',
+			'settings.localInference.disclosureTitle' => 'آن-ڈیوائس تجزیہ فعال کرنے سے پہلے',
+			'settings.localInference.disclosureBody' => 'Gemini Nano معاون Android ڈیوائسز پر اجزاء کی شناخت اور مقدار کا تخمینہ لگا سکتا ہے۔ آپ کا جائزہ لیا گیا تجویز کردہ جزو USDA غذائی بنیاد اور حساب کے لیے Calorify کو بھیجا جاتا ہے۔',
+			'settings.localInference.disclosureLimit1' => 'پیچیدہ پکوان، چھپے ہوئے اجزاء، اور مقدار کی شناخت غلط ہو سکتی ہے۔',
+			'settings.localInference.disclosureLimit2' => 'ڈاؤن لوڈنگ، مصروفیت، بیک گراؤنڈ میں ہونے، یا ڈیوائس کی حدود کی وجہ سے ماڈل دستیاب نہیں ہو سکتا۔',
+			'settings.localInference.disclosureLimit3' => 'اگر مقامی ترتیب مکمل نہیں ہو پاتی، تو یہ بیٹا ورژن خود بخود آپ کے کھانے کی اصل تفصیل کلاؤڈ تجزیہ کے لیے Calorify کو بھیج دیتا ہے۔',
+			'settings.localInference.acknowledgement' => 'میں سمجھتا/سمجھتی ہوں کہ مجھے شناخت شدہ اجزاء اور مقدار کا جائزہ لینا چاہیے۔',
+			'settings.localInference.enable' => 'تسلیم کریں اور فعال کریں',
+			'settings.localInference.cancel' => 'منسوخ کریں',
 			'settings.theme.title' => 'تھیم',
 			'settings.theme.light' => 'ہلکا',
 			'settings.theme.dark' => 'تاریک',
@@ -2162,6 +2250,8 @@ extension on TranslationsUr {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'ہم آپ کا TDEE (آپ کے پروفائل کی بنیاد پر) حساب کرتے ہیں اور دن کے گزرے ہوئے حصے (گھنٹے + منٹ) / 24 سے ضرب دے کر آج تک جلائی گئی کیلوریز کا اندازہ لگاتے ہیں۔',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'پیشہ ورانہ رہنمائی',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'اس اندازے کو طبی فیصلوں کے لیے استعمال نہ کریں۔ ذاتی وزن انتظام کے مشورے کے لیے ہمیشہ کسی ہیلتھ پروفیشنل یا رجسٹرڈ ڈائیٹیشن سے رجوع کریں۔',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'بند کریں',
 			'common.kContinue' => 'جاری رکھیں',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} پسند آ رہا ہے؟',

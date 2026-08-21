@@ -245,6 +245,7 @@
     "save": "Lagre",
     "mealName": "Måltidsnavn",
     "mealNameHint": "f.eks. Eggerøre med toast",
+    "nameRequired": "Oppgi et måltidsnavn før du lagrer.",
     "mealQuantity": "Mengde",
     "mealQuantityHint": "f.eks. 1 bolle, 2 skiver",
     "timeOfMeal": "Tidspunkt for måltidet",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.",
       "offlineTip5": "Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt)."
     },
+    "localInference": {
+      "reviewTitle": "Se over gjenkjente ingredienser",
+      "reviewSubtitle": "Dette ble tolket på enheten din. Korriger navn eller porsjoner før næringsinnholdet beregnes.",
+      "mealName": "Måltidnavn",
+      "ingredient": "Ingrediens",
+      "grams": "Estimert antall gram",
+      "removeIngredient": "Fjern ingrediens",
+      "continueLabel": "Fortsett",
+      "invalidProposal": "Legg til minst én ingrediens og bruk en positiv mengde gram.",
+      "localUnavailable": "Analyse på enheten er utilgjengelig akkurat nå.",
+      "calculationDetails": "Slik ble dette beregnet",
+      "interpretationLocal": "Ingredienser tolket på denne enheten",
+      "interpretationCloud": "Ingredienser tolket i skyen",
+      "interpretationManual": "Ingredienser gjennomgått eller redigert av deg",
+      "nutritionRemote": "Næringsinnhold hentet fra USDA via Calorify",
+      "nutritionFallback": "Noen næringsverdier ble estimert eksternt",
+      "calculationServer": "Kalorier og makronæringsstoffer beregnet av Calorify",
+      "fallbackUsed": "Lokal analyse ble erstattet av skybehandling",
+      "noRawContent": "Diagnostiske kvitteringer inkluderer ikke måltidstekst eller bilder."
+    },
     "feedback": {
       "title": "Hva ser feil ut?",
       "subtitle": "Hjelp oss forbedre analysen ved å velge ett eller flere problemer.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Mangler elementer",
       "issueExtraItems": "Ekstra elementer",
       "issueOther": "Annet"
-    },
-    "nameRequired": "Oppgi et måltidsnavn før du lagrer."
+    }
   },
   "favorites": {
     "title": "Favoritter",
@@ -453,6 +473,7 @@
       "localization": "LOKALISERING",
       "notifications": "MELDINGER",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALYSE PÅ ENHETEN",
       "supportAndLegal": "SUPPORT & JURIDISK",
       "about": "OM",
       "dangerZone": "FARLIG SONE",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Måltidspåminnelser",
       "subtitle": "Hold deg på sporet med vennlige varsler"
+    },
+    "localInference": {
+      "title": "Måltidsanalyse på enheten",
+      "subtitle": "Tolk støttede måltider med Gemini Nano før næringsinnholdet beregnes",
+      "unavailable": "Ikke tilgjengelig på denne enheten",
+      "rolloutUnavailable": "Støttet maskinvare funnet, men denne funksjonen er ikke aktivert for denne app-versjonen",
+      "modelSetup": "Gemini Nano må fullføre nedlastingen før dette kan aktiveres",
+      "useLocalTitle": "Bruk analyse på enheten",
+      "useLocalSubtitle": "Valgfritt og avslått som standard. Resultatene kan være mindre pålitelige for komplekse måltider.",
+      "disclosureTitle": "Før du aktiverer analyse på enheten",
+      "disclosureBody": "Gemini Nano kan identifisere ingredienser og estimere porsjoner på støttede Android-enheter. Ditt gjennomgåtte forslag til ingredienser sendes til Calorify for USDA-næringsgrunnlag og beregning.",
+      "disclosureLimit1": "Komplekse retter, skjulte ingredienser og porsjonsstørrelser kan bli identifisert feil.",
+      "disclosureLimit2": "Modellen kan være utilgjengelig under nedlasting, når den er opptatt, kjører i bakgrunnen eller er begrenset av enheten.",
+      "disclosureLimit3": "Hvis lokal tolkning ikke kan fullføres, sender denne betaen automatisk din opprinnelige måltidsbeskrivelse til Calorify for skyanalyse.",
+      "acknowledgement": "Jeg forstår at jeg bør se over gjenkjente ingredienser og porsjoner.",
+      "enable": "Bekreft og aktiver",
+      "cancel": "Avbryt"
     },
     "theme": {
       "title": "Tema",

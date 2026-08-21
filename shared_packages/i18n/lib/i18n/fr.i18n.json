@@ -245,6 +245,7 @@
     "save": "Enregistrer",
     "mealName": "Nom du repas",
     "mealNameHint": "ex. Œufs brouillés avec toast",
+    "nameRequired": "Donnez un nom au repas avant de l'enregistrer.",
     "mealQuantity": "Quantité du repas",
     "mealQuantityHint": "ex. 1 bol, 2 tranches",
     "timeOfMeal": "Heure du repas",
@@ -312,6 +313,26 @@
       "offlineTip4": "Astuce : Enregistrer après le repas aide aussi à créer l'habitude ; la perfection est optionnelle.",
       "offlineTip5": "Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four)."
     },
+    "localInference": {
+      "reviewTitle": "Vérifier les ingrédients détectés",
+      "reviewSubtitle": "Ceci a été interprété sur votre appareil. Corrigez les noms ou les portions avant le calcul nutritionnel.",
+      "mealName": "Nom du repas",
+      "ingredient": "Ingrédient",
+      "grams": "Grammes estimés",
+      "removeIngredient": "Supprimer l'ingrédient",
+      "continueLabel": "Continuer",
+      "invalidProposal": "Ajoutez au moins un ingrédient et utilisez une quantité de grammes positive.",
+      "localUnavailable": "L'analyse sur l'appareil est actuellement indisponible.",
+      "calculationDetails": "Comment ceci a été calculé",
+      "interpretationLocal": "Ingrédients interprétés sur cet appareil",
+      "interpretationCloud": "Ingrédients interprétés dans le cloud",
+      "interpretationManual": "Ingrédients vérifiés ou modifiés par vous",
+      "nutritionRemote": "Valeurs nutritionnelles récupérées de l'USDA via Calorify",
+      "nutritionFallback": "Certaines valeurs nutritionnelles ont été estimées à distance",
+      "calculationServer": "Calories et macros calculées par Calorify",
+      "fallbackUsed": "L'analyse locale a été remplacée par un traitement cloud",
+      "noRawContent": "Les reçus de diagnostic n'incluent pas le texte ou la photo de votre repas."
+    },
     "feedback": {
       "title": "Qu'est‑ce qui cloche ?",
       "subtitle": "Aidez‑nous à améliorer l'analyse en sélectionnant un ou plusieurs problèmes.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Éléments manquants",
       "issueExtraItems": "Éléments en trop",
       "issueOther": "Autre"
-    },
-    "nameRequired": "Donnez un nom au repas avant de l'enregistrer."
+    }
   },
   "favorites": {
     "title": "Favoris",
@@ -453,6 +473,7 @@
       "localization": "LOCALISATION",
       "notifications": "NOTIFICATIONS",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALYSE SUR L'APPAREIL",
       "supportAndLegal": "SUPPORT & LÉGAL",
       "about": "À PROPOS",
       "dangerZone": "ZONE DANGEREUSE",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Rappels de repas",
       "subtitle": "Restez sur la bonne voie grâce à des alertes ponctuelles"
+    },
+    "localInference": {
+      "title": "Analyse des repas sur l'appareil",
+      "subtitle": "Interpréter les repas compatibles avec Gemini Nano avant le calcul nutritionnel",
+      "unavailable": "Non disponible sur cet appareil",
+      "rolloutUnavailable": "Matériel compatible trouvé, mais cette fonctionnalité n'est pas activée pour cette version de l'application",
+      "modelSetup": "Gemini Nano doit terminer son téléchargement avant de pouvoir être activé",
+      "useLocalTitle": "Utiliser l'analyse sur l'appareil",
+      "useLocalSubtitle": "Optionnel et désactivé par défaut. Les résultats peuvent être moins fiables pour les repas complexes.",
+      "disclosureTitle": "Avant d'activer l'analyse sur l'appareil",
+      "disclosureBody": "Gemini Nano peut identifier les ingrédients et estimer les portions sur les appareils Android compatibles. Votre proposition d'ingrédients vérifiée est envoyée à Calorify pour l'ancrage nutritionnel USDA et le calcul.",
+      "disclosureLimit1": "Les plats complexes, les ingrédients cachés et la taille des portions peuvent être identifiés incorrectement.",
+      "disclosureLimit2": "Le modèle peut être indisponible pendant le téléchargement, s'il est occupé, en arrière-plan ou limité par l'appareil.",
+      "disclosureLimit3": "Si l'interprétation locale ne peut pas se terminer, cette version bêta envoie automatiquement la description originale de votre repas à Calorify pour une analyse cloud.",
+      "acknowledgement": "Je comprends que je dois vérifier les ingrédients et les portions détectés.",
+      "enable": "Accepter et activer",
+      "cancel": "Annuler"
     },
     "theme": {
       "title": "Thème",

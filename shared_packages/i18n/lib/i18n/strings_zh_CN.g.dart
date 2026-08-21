@@ -155,6 +155,7 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String get save => '保存';
 	@override String get mealName => '餐食名称';
 	@override String get mealNameHint => '例如：炒蛋配吐司';
+	@override String get nameRequired => '请在保存前输入餐名。';
 	@override String get mealQuantity => '餐食数量';
 	@override String get mealQuantityHint => '例如：1 碗，2 片';
 	@override String get timeOfMeal => '用餐时间';
@@ -180,8 +181,8 @@ class _TranslationsMealZhCn implements TranslationsMealEn {
 	@override String get skip => '跳过';
 	@override late final _TranslationsMealQuestionFlowZhCn questionFlow = _TranslationsMealQuestionFlowZhCn._(_root);
 	@override late final _TranslationsMealAnalysisZhCn analysis = _TranslationsMealAnalysisZhCn._(_root);
+	@override late final _TranslationsMealLocalInferenceZhCn localInference = _TranslationsMealLocalInferenceZhCn._(_root);
 	@override late final _TranslationsMealFeedbackZhCn feedback = _TranslationsMealFeedbackZhCn._(_root);
-	@override String get nameRequired => '请在保存前输入餐名。';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsZhCn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitZhCn heightUnit = _TranslationsSettingsHeightUnitZhCn._(_root);
 	@override late final _TranslationsSettingsWeightUnitZhCn weightUnit = _TranslationsSettingsWeightUnitZhCn._(_root);
 	@override late final _TranslationsSettingsMealRemindersZhCn mealReminders = _TranslationsSettingsMealRemindersZhCn._(_root);
+	@override late final _TranslationsSettingsLocalInferenceZhCn localInference = _TranslationsSettingsLocalInferenceZhCn._(_root);
 	@override late final _TranslationsSettingsThemeZhCn theme = _TranslationsSettingsThemeZhCn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackZhCn sendFeedback = _TranslationsSettingsSendFeedbackZhCn._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryZhCn exportMealHistory = _TranslationsSettingsExportMealHistoryZhCn._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisZhCn implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceZhCn implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => '核对检测到的食材';
+	@override String get reviewSubtitle => '此内容由您的设备解析。在计算营养成分前，请修正名称或分量。';
+	@override String get mealName => '餐食名称';
+	@override String get ingredient => '食材';
+	@override String get grams => '预计克数';
+	@override String get removeIngredient => '移除食材';
+	@override String get continueLabel => '继续';
+	@override String get invalidProposal => '请至少添加一种食材，并输入正数的克数。';
+	@override String get localUnavailable => '目前无法使用设备端分析。';
+	@override String get calculationDetails => '计算详情';
+	@override String get interpretationLocal => '由本设备解析的食材';
+	@override String get interpretationCloud => '由云端解析的食材';
+	@override String get interpretationManual => '由您核对或编辑的食材';
+	@override String get nutritionRemote => '营养数据通过 Calorify 从 USDA 获取';
+	@override String get nutritionFallback => '部分营养数值为远程估算';
+	@override String get calculationServer => '卡路里和宏量营养素由 Calorify 计算';
+	@override String get fallbackUsed => '本地分析已回退至云端处理';
+	@override String get noRawContent => '诊断收据不包含您的餐食文本或照片。';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackZhCn implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackZhCn._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsZhCn implements TranslationsSettingsSectionsE
 	@override String get localization => '本地化';
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
+	@override String get localInference => '设备端分析';
 	@override String get supportAndLegal => '支持与法律';
 	@override String get about => '关于';
 	@override String get dangerZone => '危险操作';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersZhCn implements TranslationsSettingsMeal
 	// Translations
 	@override String get title => '餐食提醒';
 	@override String get subtitle => '用及时提醒帮助你保持记录';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceZhCn implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceZhCn._(this._root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '设备端餐食分析';
+	@override String get subtitle => '在计算营养成分前，使用 Gemini Nano 解析支持的餐食';
+	@override String get unavailable => '此设备不支持';
+	@override String get rolloutUnavailable => '检测到可用硬件，但此功能在当前应用版本中尚未启用';
+	@override String get modelSetup => 'Gemini Nano 需要完成下载后才能启用此功能';
+	@override String get useLocalTitle => '使用设备端分析';
+	@override String get useLocalSubtitle => '可选功能，默认关闭。对于复杂餐食，结果的可靠性可能较低。';
+	@override String get disclosureTitle => '在启用设备端分析之前';
+	@override String get disclosureBody => 'Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。';
+	@override String get disclosureLimit1 => '复杂菜肴、隐藏食材和分量大小可能会被错误识别。';
+	@override String get disclosureLimit2 => '模型在下载中、繁忙、处于后台或受设备限制时可能无法使用。';
+	@override String get disclosureLimit3 => '如果本地解析无法完成，此 Beta 版本会自动将您的原始餐食描述发送至 Calorify 进行云端分析。';
+	@override String get acknowledgement => '我明白我应当核对检测到的食材和分量。';
+	@override String get enable => '确认并启用';
+	@override String get cancel => '取消';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsZhCn {
 			'meal.save' => '保存',
 			'meal.mealName' => '餐食名称',
 			'meal.mealNameHint' => '例如：炒蛋配吐司',
+			'meal.nameRequired' => '请在保存前输入餐名。',
 			'meal.mealQuantity' => '餐食数量',
 			'meal.mealQuantityHint' => '例如：1 碗，2 片',
 			'meal.timeOfMeal' => '用餐时间',
@@ -1916,6 +1971,24 @@ extension on TranslationsZhCn {
 			'meal.analysis.offlineTip3' => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。',
 			'meal.analysis.offlineTip4' => '提示：饭后记录同样能培养习惯；不必追求完美。',
 			'meal.analysis.offlineTip5' => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。',
+			'meal.localInference.reviewTitle' => '核对检测到的食材',
+			'meal.localInference.reviewSubtitle' => '此内容由您的设备解析。在计算营养成分前，请修正名称或分量。',
+			'meal.localInference.mealName' => '餐食名称',
+			'meal.localInference.ingredient' => '食材',
+			'meal.localInference.grams' => '预计克数',
+			'meal.localInference.removeIngredient' => '移除食材',
+			'meal.localInference.continueLabel' => '继续',
+			'meal.localInference.invalidProposal' => '请至少添加一种食材，并输入正数的克数。',
+			'meal.localInference.localUnavailable' => '目前无法使用设备端分析。',
+			'meal.localInference.calculationDetails' => '计算详情',
+			'meal.localInference.interpretationLocal' => '由本设备解析的食材',
+			'meal.localInference.interpretationCloud' => '由云端解析的食材',
+			'meal.localInference.interpretationManual' => '由您核对或编辑的食材',
+			'meal.localInference.nutritionRemote' => '营养数据通过 Calorify 从 USDA 获取',
+			'meal.localInference.nutritionFallback' => '部分营养数值为远程估算',
+			'meal.localInference.calculationServer' => '卡路里和宏量营养素由 Calorify 计算',
+			'meal.localInference.fallbackUsed' => '本地分析已回退至云端处理',
+			'meal.localInference.noRawContent' => '诊断收据不包含您的餐食文本或照片。',
 			'meal.feedback.title' => '哪里看起来不对？',
 			'meal.feedback.subtitle' => '通过选择一个或多个问题来帮助我们改进分析。',
 			'meal.feedback.tellUsMore' => '告诉我们更多信息',
@@ -1928,7 +2001,6 @@ extension on TranslationsZhCn {
 			'meal.feedback.issueMissingItems' => '遗漏项',
 			'meal.feedback.issueExtraItems' => '多余项',
 			'meal.feedback.issueOther' => '其他',
-			'meal.nameRequired' => '请在保存前输入餐名。',
 			'favorites.title' => '收藏',
 			'favorites.empty' => '还没有收藏的餐食。',
 			'favorites.searchPlaceholder' => '搜索收藏的餐食',
@@ -2014,6 +2086,7 @@ extension on TranslationsZhCn {
 			'settings.sections.localization' => '本地化',
 			'settings.sections.notifications' => '通知',
 			'settings.sections.healthConnect' => 'Health Connect',
+			'settings.sections.localInference' => '设备端分析',
 			'settings.sections.supportAndLegal' => '支持与法律',
 			'settings.sections.about' => '关于',
 			'settings.sections.dangerZone' => '危险操作',
@@ -2028,6 +2101,21 @@ extension on TranslationsZhCn {
 			'settings.weightUnit.title' => '体重单位',
 			'settings.mealReminders.title' => '餐食提醒',
 			'settings.mealReminders.subtitle' => '用及时提醒帮助你保持记录',
+			'settings.localInference.title' => '设备端餐食分析',
+			'settings.localInference.subtitle' => '在计算营养成分前，使用 Gemini Nano 解析支持的餐食',
+			'settings.localInference.unavailable' => '此设备不支持',
+			'settings.localInference.rolloutUnavailable' => '检测到可用硬件，但此功能在当前应用版本中尚未启用',
+			'settings.localInference.modelSetup' => 'Gemini Nano 需要完成下载后才能启用此功能',
+			'settings.localInference.useLocalTitle' => '使用设备端分析',
+			'settings.localInference.useLocalSubtitle' => '可选功能，默认关闭。对于复杂餐食，结果的可靠性可能较低。',
+			'settings.localInference.disclosureTitle' => '在启用设备端分析之前',
+			'settings.localInference.disclosureBody' => 'Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。',
+			'settings.localInference.disclosureLimit1' => '复杂菜肴、隐藏食材和分量大小可能会被错误识别。',
+			'settings.localInference.disclosureLimit2' => '模型在下载中、繁忙、处于后台或受设备限制时可能无法使用。',
+			'settings.localInference.disclosureLimit3' => '如果本地解析无法完成，此 Beta 版本会自动将您的原始餐食描述发送至 Calorify 进行云端分析。',
+			'settings.localInference.acknowledgement' => '我明白我应当核对检测到的食材和分量。',
+			'settings.localInference.enable' => '确认并启用',
+			'settings.localInference.cancel' => '取消',
 			'settings.theme.title' => '主题',
 			'settings.theme.light' => '浅色',
 			'settings.theme.dark' => '深色',
@@ -2162,6 +2250,8 @@ extension on TranslationsZhCn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '专业指导',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => '关闭',
 			'common.kContinue' => '继续',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜欢 ${appLabel} 吗？',

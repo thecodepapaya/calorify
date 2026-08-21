@@ -12,11 +12,13 @@
 
 import 'dart:core' as $core;
 
+import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import '../meal/meal.pb.dart' as $0;
-import 'ai_meal_summary_trend.pbenum.dart' as $1;
+import '../meal/meal.pb.dart' as $1;
+import 'ai_meal_summary_trend.pbenum.dart' as $2;
 import 'http_api.pbenum.dart';
+import 'meal_analysis_pipeline.pb.dart' as $0;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
@@ -94,7 +96,7 @@ class AiMealSummaryResponse extends $pb.GeneratedMessage {
     $core.int? mealCount,
     $core.Iterable<$core.String>? topFoods,
     $core.int? macroBalanceScore,
-    $1.AiMealSummaryTrend? trend,
+    $2.AiMealSummaryTrend? trend,
   }) {
     final result = create();
     if (summary != null) result.summary = summary;
@@ -124,8 +126,8 @@ class AiMealSummaryResponse extends $pb.GeneratedMessage {
     ..aI(3, _omitFieldNames ? '' : 'mealCount')
     ..pPS(4, _omitFieldNames ? '' : 'topFoods')
     ..aI(5, _omitFieldNames ? '' : 'macroBalanceScore')
-    ..aE<$1.AiMealSummaryTrend>(6, _omitFieldNames ? '' : 'trend',
-        enumValues: $1.AiMealSummaryTrend.values)
+    ..aE<$2.AiMealSummaryTrend>(6, _omitFieldNames ? '' : 'trend',
+        enumValues: $2.AiMealSummaryTrend.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -188,9 +190,9 @@ class AiMealSummaryResponse extends $pb.GeneratedMessage {
   void clearMacroBalanceScore() => $_clearField(5);
 
   @$pb.TagNumber(6)
-  $1.AiMealSummaryTrend get trend => $_getN(5);
+  $2.AiMealSummaryTrend get trend => $_getN(5);
   @$pb.TagNumber(6)
-  set trend($1.AiMealSummaryTrend value) => $_setField(6, value);
+  set trend($2.AiMealSummaryTrend value) => $_setField(6, value);
   @$pb.TagNumber(6)
   $core.bool hasTrend() => $_has(5);
   @$pb.TagNumber(6)
@@ -262,10 +264,22 @@ class MealAnalysisTextRequest extends $pb.GeneratedMessage {
   factory MealAnalysisTextRequest({
     $core.String? analysisId,
     $core.String? textDescription,
+    $core.bool? localAttempted,
+    $0.MealAnalysisFallbackReason? fallbackReason,
+    $core.String? localAttemptId,
+    $fixnum.Int64? localAttemptStartedAtEpochMs,
+    $fixnum.Int64? localAttemptCompletedAtEpochMs,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
     if (textDescription != null) result.textDescription = textDescription;
+    if (localAttempted != null) result.localAttempted = localAttempted;
+    if (fallbackReason != null) result.fallbackReason = fallbackReason;
+    if (localAttemptId != null) result.localAttemptId = localAttemptId;
+    if (localAttemptStartedAtEpochMs != null)
+      result.localAttemptStartedAtEpochMs = localAttemptStartedAtEpochMs;
+    if (localAttemptCompletedAtEpochMs != null)
+      result.localAttemptCompletedAtEpochMs = localAttemptCompletedAtEpochMs;
     return result;
   }
 
@@ -284,6 +298,13 @@ class MealAnalysisTextRequest extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
     ..aOS(2, _omitFieldNames ? '' : 'textDescription')
+    ..aOB(3, _omitFieldNames ? '' : 'localAttempted')
+    ..aE<$0.MealAnalysisFallbackReason>(
+        4, _omitFieldNames ? '' : 'fallbackReason',
+        enumValues: $0.MealAnalysisFallbackReason.values)
+    ..aOS(5, _omitFieldNames ? '' : 'localAttemptId')
+    ..aInt64(6, _omitFieldNames ? '' : 'localAttemptStartedAtEpochMs')
+    ..aInt64(7, _omitFieldNames ? '' : 'localAttemptCompletedAtEpochMs')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -323,6 +344,53 @@ class MealAnalysisTextRequest extends $pb.GeneratedMessage {
   $core.bool hasTextDescription() => $_has(1);
   @$pb.TagNumber(2)
   void clearTextDescription() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get localAttempted => $_getBF(2);
+  @$pb.TagNumber(3)
+  set localAttempted($core.bool value) => $_setBool(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLocalAttempted() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLocalAttempted() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $0.MealAnalysisFallbackReason get fallbackReason => $_getN(3);
+  @$pb.TagNumber(4)
+  set fallbackReason($0.MealAnalysisFallbackReason value) =>
+      $_setField(4, value);
+  @$pb.TagNumber(4)
+  $core.bool hasFallbackReason() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFallbackReason() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get localAttemptId => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set localAttemptId($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasLocalAttemptId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearLocalAttemptId() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $fixnum.Int64 get localAttemptStartedAtEpochMs => $_getI64(5);
+  @$pb.TagNumber(6)
+  set localAttemptStartedAtEpochMs($fixnum.Int64 value) => $_setInt64(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasLocalAttemptStartedAtEpochMs() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearLocalAttemptStartedAtEpochMs() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $fixnum.Int64 get localAttemptCompletedAtEpochMs => $_getI64(6);
+  @$pb.TagNumber(7)
+  set localAttemptCompletedAtEpochMs($fixnum.Int64 value) =>
+      $_setInt64(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasLocalAttemptCompletedAtEpochMs() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearLocalAttemptCompletedAtEpochMs() => $_clearField(7);
 }
 
 class MealAnalysisImageRequest extends $pb.GeneratedMessage {
@@ -390,6 +458,236 @@ class MealAnalysisImageRequest extends $pb.GeneratedMessage {
   $core.bool hasImageUrl() => $_has(1);
   @$pb.TagNumber(2)
   void clearImageUrl() => $_clearField(2);
+}
+
+class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
+  factory MealAnalysisProposalRequest({
+    $core.String? analysisId,
+    $0.IngredientProposalV1? proposal,
+    $core.String? localAttemptId,
+    $fixnum.Int64? localAttemptStartedAtEpochMs,
+    $fixnum.Int64? localAttemptCompletedAtEpochMs,
+  }) {
+    final result = create();
+    if (analysisId != null) result.analysisId = analysisId;
+    if (proposal != null) result.proposal = proposal;
+    if (localAttemptId != null) result.localAttemptId = localAttemptId;
+    if (localAttemptStartedAtEpochMs != null)
+      result.localAttemptStartedAtEpochMs = localAttemptStartedAtEpochMs;
+    if (localAttemptCompletedAtEpochMs != null)
+      result.localAttemptCompletedAtEpochMs = localAttemptCompletedAtEpochMs;
+    return result;
+  }
+
+  MealAnalysisProposalRequest._();
+
+  factory MealAnalysisProposalRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealAnalysisProposalRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealAnalysisProposalRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'analysisId')
+    ..aOM<$0.IngredientProposalV1>(2, _omitFieldNames ? '' : 'proposal',
+        subBuilder: $0.IngredientProposalV1.create)
+    ..aOS(3, _omitFieldNames ? '' : 'localAttemptId')
+    ..aInt64(4, _omitFieldNames ? '' : 'localAttemptStartedAtEpochMs')
+    ..aInt64(5, _omitFieldNames ? '' : 'localAttemptCompletedAtEpochMs')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisProposalRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisProposalRequest copyWith(
+          void Function(MealAnalysisProposalRequest) updates) =>
+      super.copyWith(
+              (message) => updates(message as MealAnalysisProposalRequest))
+          as MealAnalysisProposalRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisProposalRequest create() =>
+      MealAnalysisProposalRequest._();
+  @$core.override
+  MealAnalysisProposalRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisProposalRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealAnalysisProposalRequest>(create);
+  static MealAnalysisProposalRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get analysisId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set analysisId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAnalysisId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAnalysisId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $0.IngredientProposalV1 get proposal => $_getN(1);
+  @$pb.TagNumber(2)
+  set proposal($0.IngredientProposalV1 value) => $_setField(2, value);
+  @$pb.TagNumber(2)
+  $core.bool hasProposal() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProposal() => $_clearField(2);
+  @$pb.TagNumber(2)
+  $0.IngredientProposalV1 ensureProposal() => $_ensure(1);
+
+  @$pb.TagNumber(3)
+  $core.String get localAttemptId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set localAttemptId($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasLocalAttemptId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLocalAttemptId() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get localAttemptStartedAtEpochMs => $_getI64(3);
+  @$pb.TagNumber(4)
+  set localAttemptStartedAtEpochMs($fixnum.Int64 value) => $_setInt64(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasLocalAttemptStartedAtEpochMs() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearLocalAttemptStartedAtEpochMs() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get localAttemptCompletedAtEpochMs => $_getI64(4);
+  @$pb.TagNumber(5)
+  set localAttemptCompletedAtEpochMs($fixnum.Int64 value) =>
+      $_setInt64(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasLocalAttemptCompletedAtEpochMs() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearLocalAttemptCompletedAtEpochMs() => $_clearField(5);
+}
+
+class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
+  factory LocalInferenceCapabilityPolicy({
+    $core.String? policyVersion,
+    $core.bool? textEnabled,
+    $core.bool? imageEnabled,
+    $core.bool? localNutritionEnabled,
+    $core.bool? privateModesEnabled,
+    $core.int? maxAgeSeconds,
+  }) {
+    final result = create();
+    if (policyVersion != null) result.policyVersion = policyVersion;
+    if (textEnabled != null) result.textEnabled = textEnabled;
+    if (imageEnabled != null) result.imageEnabled = imageEnabled;
+    if (localNutritionEnabled != null)
+      result.localNutritionEnabled = localNutritionEnabled;
+    if (privateModesEnabled != null)
+      result.privateModesEnabled = privateModesEnabled;
+    if (maxAgeSeconds != null) result.maxAgeSeconds = maxAgeSeconds;
+    return result;
+  }
+
+  LocalInferenceCapabilityPolicy._();
+
+  factory LocalInferenceCapabilityPolicy.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LocalInferenceCapabilityPolicy.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LocalInferenceCapabilityPolicy',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'policyVersion')
+    ..aOB(2, _omitFieldNames ? '' : 'textEnabled')
+    ..aOB(3, _omitFieldNames ? '' : 'imageEnabled')
+    ..aOB(4, _omitFieldNames ? '' : 'localNutritionEnabled')
+    ..aOB(5, _omitFieldNames ? '' : 'privateModesEnabled')
+    ..aI(6, _omitFieldNames ? '' : 'maxAgeSeconds')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalInferenceCapabilityPolicy clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalInferenceCapabilityPolicy copyWith(
+          void Function(LocalInferenceCapabilityPolicy) updates) =>
+      super.copyWith(
+              (message) => updates(message as LocalInferenceCapabilityPolicy))
+          as LocalInferenceCapabilityPolicy;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LocalInferenceCapabilityPolicy create() =>
+      LocalInferenceCapabilityPolicy._();
+  @$core.override
+  LocalInferenceCapabilityPolicy createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LocalInferenceCapabilityPolicy getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LocalInferenceCapabilityPolicy>(create);
+  static LocalInferenceCapabilityPolicy? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get policyVersion => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set policyVersion($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasPolicyVersion() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPolicyVersion() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get textEnabled => $_getBF(1);
+  @$pb.TagNumber(2)
+  set textEnabled($core.bool value) => $_setBool(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTextEnabled() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTextEnabled() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get imageEnabled => $_getBF(2);
+  @$pb.TagNumber(3)
+  set imageEnabled($core.bool value) => $_setBool(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasImageEnabled() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearImageEnabled() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.bool get localNutritionEnabled => $_getBF(3);
+  @$pb.TagNumber(4)
+  set localNutritionEnabled($core.bool value) => $_setBool(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasLocalNutritionEnabled() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearLocalNutritionEnabled() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.bool get privateModesEnabled => $_getBF(4);
+  @$pb.TagNumber(5)
+  set privateModesEnabled($core.bool value) => $_setBool(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasPrivateModesEnabled() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPrivateModesEnabled() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get maxAgeSeconds => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set maxAgeSeconds($core.int value) => $_setSignedInt32(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasMaxAgeSeconds() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearMaxAgeSeconds() => $_clearField(6);
 }
 
 class MealAnalysisFeedbackRequest extends $pb.GeneratedMessage {
@@ -466,7 +764,7 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
   factory MealAnalysisConfirmLogRequest({
     $core.String? analysisId,
     $core.String? loggedAt,
-    $0.Meal? meal,
+    $1.Meal? meal,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
@@ -490,7 +788,7 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
     ..aOS(2, _omitFieldNames ? '' : 'loggedAt')
-    ..aOM<$0.Meal>(3, _omitFieldNames ? '' : 'meal', subBuilder: $0.Meal.create)
+    ..aOM<$1.Meal>(3, _omitFieldNames ? '' : 'meal', subBuilder: $1.Meal.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -534,15 +832,15 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
   void clearLoggedAt() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $0.Meal get meal => $_getN(2);
+  $1.Meal get meal => $_getN(2);
   @$pb.TagNumber(3)
-  set meal($0.Meal value) => $_setField(3, value);
+  set meal($1.Meal value) => $_setField(3, value);
   @$pb.TagNumber(3)
   $core.bool hasMeal() => $_has(2);
   @$pb.TagNumber(3)
   void clearMeal() => $_clearField(3);
   @$pb.TagNumber(3)
-  $0.Meal ensureMeal() => $_ensure(2);
+  $1.Meal ensureMeal() => $_ensure(2);
 }
 
 class MealClarificationAnswer extends $pb.GeneratedMessage {
@@ -733,7 +1031,7 @@ class MealAnalysisResumeRequest extends $pb.GeneratedMessage {
 class MealAnalysisMealTypeRequest extends $pb.GeneratedMessage {
   factory MealAnalysisMealTypeRequest({
     $core.String? analysisId,
-    $0.MealType? mealType,
+    $1.MealType? mealType,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
@@ -755,8 +1053,8 @@ class MealAnalysisMealTypeRequest extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
-    ..aE<$0.MealType>(2, _omitFieldNames ? '' : 'mealType',
-        enumValues: $0.MealType.values)
+    ..aE<$1.MealType>(2, _omitFieldNames ? '' : 'mealType',
+        enumValues: $1.MealType.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -791,9 +1089,9 @@ class MealAnalysisMealTypeRequest extends $pb.GeneratedMessage {
   void clearAnalysisId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $0.MealType get mealType => $_getN(1);
+  $1.MealType get mealType => $_getN(1);
   @$pb.TagNumber(2)
-  set mealType($0.MealType value) => $_setField(2, value);
+  set mealType($1.MealType value) => $_setField(2, value);
   @$pb.TagNumber(2)
   $core.bool hasMealType() => $_has(1);
   @$pb.TagNumber(2)

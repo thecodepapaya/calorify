@@ -364,6 +364,10 @@ class _MealTipState extends State<_MealTip> {
           ],
         ),
       ),
+      if (_pipelineContext?.result.hasReceipt() == true) ...[
+        const SizedBox(height: 4),
+        _buildProvenanceCard(context, _pipelineContext!.result),
+      ],
       const SizedBox(height: 20),
       _mealDetectionResult != null
           ? (widget.previewOnly
@@ -385,6 +389,92 @@ class _MealTipState extends State<_MealTip> {
               ))
           : _buildLoggedMealActions(context),
     ];
+  }
+
+  Widget _buildProvenanceCard(BuildContext context, PipelineResultData result) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final receipt = result.receipt;
+    final interpretation = switch (receipt.interpretationOrigin) {
+      InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO =>
+        t.meal.localInference.interpretationLocal,
+      InterpretationOrigin.INTERPRETATION_ORIGIN_MANUAL =>
+        t.meal.localInference.interpretationManual,
+      _ => t.meal.localInference.interpretationCloud,
+    };
+    final nutrition = switch (receipt.nutritionOrigin) {
+      NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA =>
+        t.meal.localInference.nutritionRemote,
+      _ => t.meal.localInference.nutritionFallback,
+    };
+    final usedFallback =
+        receipt.localAttempted &&
+        receipt.fallbackReason !=
+            MealAnalysisFallbackReason
+                .MEAL_ANALYSIS_FALLBACK_REASON_UNSPECIFIED &&
+        receipt.fallbackReason !=
+            MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE;
+    final wasUserEdited = result.ingredients.any(
+      (ingredient) => ingredient.fieldProvenance.any(
+        (provenance) =>
+            provenance.origin ==
+                IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT ||
+            provenance.origin ==
+                IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_INPUT,
+      ),
+    );
+
+    return Card(
+      elevation: 0,
+      color: colorScheme.surfaceContainerLow,
+      child: ExpansionTile(
+        leading: Icon(LucideIcons.info, color: colorScheme.primary, size: 20),
+        title: Text(
+          t.meal.localInference.calculationDetails,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+        ),
+        subtitle: Text(interpretation),
+        childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+        children: [
+          _provenanceRow(LucideIcons.brain, interpretation),
+          if (wasUserEdited)
+            _provenanceRow(
+              LucideIcons.pencil,
+              t.meal.localInference.interpretationManual,
+            ),
+          _provenanceRow(LucideIcons.database, nutrition),
+          _provenanceRow(
+            LucideIcons.calculator,
+            t.meal.localInference.calculationServer,
+          ),
+          if (usedFallback)
+            _provenanceRow(
+              LucideIcons.cloud,
+              t.meal.localInference.fallbackUsed,
+            ),
+          const SizedBox(height: 6),
+          Text(
+            t.meal.localInference.noRawContent,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _provenanceRow(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 9),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 17),
+          const SizedBox(width: 9),
+          Expanded(child: Text(text)),
+        ],
+      ),
+    );
   }
 
   Future<void> _saveDetectedMeal() async {

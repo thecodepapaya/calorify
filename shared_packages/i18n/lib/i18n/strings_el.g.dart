@@ -155,6 +155,7 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override String get save => 'Αποθήκευση';
 	@override String get mealName => 'Όνομα Γεύματος';
 	@override String get mealNameHint => 'π.χ., Αυγά σκραμπλ με τοστ';
+	@override String get nameRequired => 'Εισαγάγετε ένα όνομα γεύματος πριν την αποθήκευση.';
 	@override String get mealQuantity => 'Ποσότητα Γεύματος';
 	@override String get mealQuantityHint => 'π.χ., 1 μπολ, 2 φέτες';
 	@override String get timeOfMeal => 'Ώρα Γεύματος';
@@ -180,8 +181,8 @@ class _TranslationsMealEl implements TranslationsMealEn {
 	@override String get skip => 'Παράλειψη';
 	@override late final _TranslationsMealQuestionFlowEl questionFlow = _TranslationsMealQuestionFlowEl._(_root);
 	@override late final _TranslationsMealAnalysisEl analysis = _TranslationsMealAnalysisEl._(_root);
+	@override late final _TranslationsMealLocalInferenceEl localInference = _TranslationsMealLocalInferenceEl._(_root);
 	@override late final _TranslationsMealFeedbackEl feedback = _TranslationsMealFeedbackEl._(_root);
-	@override String get nameRequired => 'Εισαγάγετε ένα όνομα γεύματος πριν την αποθήκευση.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsEl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitEl heightUnit = _TranslationsSettingsHeightUnitEl._(_root);
 	@override late final _TranslationsSettingsWeightUnitEl weightUnit = _TranslationsSettingsWeightUnitEl._(_root);
 	@override late final _TranslationsSettingsMealRemindersEl mealReminders = _TranslationsSettingsMealRemindersEl._(_root);
+	@override late final _TranslationsSettingsLocalInferenceEl localInference = _TranslationsSettingsLocalInferenceEl._(_root);
 	@override late final _TranslationsSettingsThemeEl theme = _TranslationsSettingsThemeEl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackEl sendFeedback = _TranslationsSettingsSendFeedbackEl._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryEl exportMealHistory = _TranslationsSettingsExportMealHistoryEl._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisEl implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceEl implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Ελεγχος ανιχνευμένων συστατικών';
+	@override String get reviewSubtitle => 'Αυτό ερμηνεύτηκε στη συσκευή σας. Διορθώστε τα ονόματα ή τις ποσότητες πριν υπολογιστεί η θρεπτική αξία.';
+	@override String get mealName => 'Όνομα γεύματος';
+	@override String get ingredient => 'Συστατικό';
+	@override String get grams => 'Εκτιμώμενα γραμμάρια';
+	@override String get removeIngredient => 'Αφαίρεση συστατικού';
+	@override String get continueLabel => 'Συνέχεια';
+	@override String get invalidProposal => 'Προσθέστε τουλάχιστον ένα συστατικό και χρησιμοποιήστε μια θετική ποσότητα γραμμαρίων.';
+	@override String get localUnavailable => 'Η ανάλυση στη συσκευή δεν είναι διαθέσιμη αυτή τη στιγμή.';
+	@override String get calculationDetails => 'Πώς υπολογίστηκε αυτό';
+	@override String get interpretationLocal => 'Συστατικά που ερμηνεύτηκαν σε αυτή τη συσκευή';
+	@override String get interpretationCloud => 'Συστατικά που ερμηνεύτηκαν στο cloud';
+	@override String get interpretationManual => 'Συστατικά που ελέγξατε ή επεξεργαστήκατε εσείς';
+	@override String get nutritionRemote => 'Θρεπτικά στοιχεία από το USDA μέσω του Calorify';
+	@override String get nutritionFallback => 'Ορισμένες θρεπτικές τιμές εκτιμήθηκαν απομακρυσμένα';
+	@override String get calculationServer => 'Θερμίδες και μακροθρεπτικά υπολογίστηκαν από το Calorify';
+	@override String get fallbackUsed => 'Η τοπική ανάλυση μεταφέρθηκε σε επεξεργασία cloud';
+	@override String get noRawContent => 'Οι διαγνωστικές αποδείξεις δεν περιλαμβάνουν το κείμενο ή τη φωτογραφία του γεύματός σας.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackEl implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackEl._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsEl implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'ΤΟΠΟΠΟΙΗΣΗ';
 	@override String get notifications => 'ΕΙΔΟΠΟΙΗΣΕΙΣ';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ΑΝΑΛΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ';
 	@override String get supportAndLegal => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ';
 	@override String get about => 'ΠΛΗΡΟΦΟΡΙΕΣ';
 	@override String get dangerZone => 'ΠΕΡΙΟΧΗ ΚΙΝΔΥΝΟΥ';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersEl implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Υπενθυμίσεις Γευμάτων';
 	@override String get subtitle => 'Μείνετε στην πορεία με έγκαιρες ειδοποιήσεις';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceEl implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceEl._(this._root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ανάλυση γεύματος στη συσκευή';
+	@override String get subtitle => 'Ερμηνεία υποστηριζόμενων γευμάτων με το Gemini Nano πριν τον υπολογισμό της θρεπτικής αξίας';
+	@override String get unavailable => 'Δεν είναι διαθέσιμο σε αυτή τη συσκευή';
+	@override String get rolloutUnavailable => 'Βρέθηκε συμβατό υλικό, αλλά αυτή η λειτουργία δεν είναι ενεργοποιημένη για αυτή την έκδοση της εφαρμογής';
+	@override String get modelSetup => 'Το Gemini Nano πρέπει να ολοκληρώσει τη λήψη πριν ενεργοποιηθεί αυτή η λειτουργία';
+	@override String get useLocalTitle => 'Χρήση ανάλυσης στη συσκευή';
+	@override String get useLocalSubtitle => 'Προαιρετικό και απενεργοποιημένο από προεπιλογή. Τα αποτελέσματα ενδέχεται να είναι λιγότερο αξιόπιστα για σύνθετα γεύματα.';
+	@override String get disclosureTitle => 'Πριν ενεργοποιήσετε την ανάλυση στη συσκευή';
+	@override String get disclosureBody => 'Το Gemini Nano μπορεί να αναγνωρίσει συστατικά και να εκτιμήσει μερίδες σε υποστηριζόμενες συσκευές Android. Η πρόταση συστατικών που ελέγξατε αποστέλλεται στο Calorify για τεκμηρίωση θρεπτικών στοιχείων από το USDA και υπολογισμό.';
+	@override String get disclosureLimit1 => 'Σύνθετα πιάτα, κρυμμένα συστατικά και μεγέθη μερίδων ενδέχεται να αναγνωριστούν λανθασμένα.';
+	@override String get disclosureLimit2 => 'Το μοντέλο ενδέχεται να είναι μη διαθέσιμο κατά τη λήψη, όταν είναι απασχολημένο, στο παρασκήνιο ή λόγω περιορισμών της συσκευής.';
+	@override String get disclosureLimit3 => 'Εάν η τοπική ερμηνεία δεν μπορεί να ολοκληρωθεί, αυτή η beta έκδοση στέλνει αυτόματα την αρχική περιγραφή του γεύματός σας στο Calorify για ανάλυση στο cloud.';
+	@override String get acknowledgement => 'Κατανοώ ότι πρέπει να ελέγχω τα ανιχνευμένα συστατικά και τις μερίδες.';
+	@override String get enable => 'Αποδοχή και ενεργοποίηση';
+	@override String get cancel => 'Ακύρωση';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsEl {
 			'meal.save' => 'Αποθήκευση',
 			'meal.mealName' => 'Όνομα Γεύματος',
 			'meal.mealNameHint' => 'π.χ., Αυγά σκραμπλ με τοστ',
+			'meal.nameRequired' => 'Εισαγάγετε ένα όνομα γεύματος πριν την αποθήκευση.',
 			'meal.mealQuantity' => 'Ποσότητα Γεύματος',
 			'meal.mealQuantityHint' => 'π.χ., 1 μπολ, 2 φέτες',
 			'meal.timeOfMeal' => 'Ώρα Γεύματος',
@@ -1916,6 +1971,24 @@ extension on TranslationsEl {
 			'meal.analysis.offlineTip3' => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.',
 			'meal.analysis.offlineTip4' => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.',
 			'meal.analysis.offlineTip5' => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).',
+			'meal.localInference.reviewTitle' => 'Ελεγχος ανιχνευμένων συστατικών',
+			'meal.localInference.reviewSubtitle' => 'Αυτό ερμηνεύτηκε στη συσκευή σας. Διορθώστε τα ονόματα ή τις ποσότητες πριν υπολογιστεί η θρεπτική αξία.',
+			'meal.localInference.mealName' => 'Όνομα γεύματος',
+			'meal.localInference.ingredient' => 'Συστατικό',
+			'meal.localInference.grams' => 'Εκτιμώμενα γραμμάρια',
+			'meal.localInference.removeIngredient' => 'Αφαίρεση συστατικού',
+			'meal.localInference.continueLabel' => 'Συνέχεια',
+			'meal.localInference.invalidProposal' => 'Προσθέστε τουλάχιστον ένα συστατικό και χρησιμοποιήστε μια θετική ποσότητα γραμμαρίων.',
+			'meal.localInference.localUnavailable' => 'Η ανάλυση στη συσκευή δεν είναι διαθέσιμη αυτή τη στιγμή.',
+			'meal.localInference.calculationDetails' => 'Πώς υπολογίστηκε αυτό',
+			'meal.localInference.interpretationLocal' => 'Συστατικά που ερμηνεύτηκαν σε αυτή τη συσκευή',
+			'meal.localInference.interpretationCloud' => 'Συστατικά που ερμηνεύτηκαν στο cloud',
+			'meal.localInference.interpretationManual' => 'Συστατικά που ελέγξατε ή επεξεργαστήκατε εσείς',
+			'meal.localInference.nutritionRemote' => 'Θρεπτικά στοιχεία από το USDA μέσω του Calorify',
+			'meal.localInference.nutritionFallback' => 'Ορισμένες θρεπτικές τιμές εκτιμήθηκαν απομακρυσμένα',
+			'meal.localInference.calculationServer' => 'Θερμίδες και μακροθρεπτικά υπολογίστηκαν από το Calorify',
+			'meal.localInference.fallbackUsed' => 'Η τοπική ανάλυση μεταφέρθηκε σε επεξεργασία cloud',
+			'meal.localInference.noRawContent' => 'Οι διαγνωστικές αποδείξεις δεν περιλαμβάνουν το κείμενο ή τη φωτογραφία του γεύματός σας.',
 			'meal.feedback.title' => 'Τι φαίνεται λανθασμένο;',
 			'meal.feedback.subtitle' => 'Βοηθήστε μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα ζητήματα.',
 			'meal.feedback.tellUsMore' => 'Πείτε μας περισσότερα',
@@ -1928,7 +2001,6 @@ extension on TranslationsEl {
 			'meal.feedback.issueMissingItems' => 'Λείπουν είδη',
 			'meal.feedback.issueExtraItems' => 'Περιττά είδη',
 			'meal.feedback.issueOther' => 'Άλλο',
-			'meal.nameRequired' => 'Εισαγάγετε ένα όνομα γεύματος πριν την αποθήκευση.',
 			'favorites.title' => 'Αγαπημένα',
 			'favorites.empty' => 'Δεν υπάρχουν αγαπημένα γεύματα.',
 			'favorites.searchPlaceholder' => 'Αναζήτηση αγαπημένων γευμάτων',
@@ -2014,6 +2086,7 @@ extension on TranslationsEl {
 			'settings.sections.localization' => 'ΤΟΠΟΠΟΙΗΣΗ',
 			'settings.sections.notifications' => 'ΕΙΔΟΠΟΙΗΣΕΙΣ',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ΑΝΑΛΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ',
 			'settings.sections.supportAndLegal' => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ',
 			'settings.sections.about' => 'ΠΛΗΡΟΦΟΡΙΕΣ',
 			'settings.sections.dangerZone' => 'ΠΕΡΙΟΧΗ ΚΙΝΔΥΝΟΥ',
@@ -2028,6 +2101,21 @@ extension on TranslationsEl {
 			'settings.weightUnit.title' => 'Μονάδα Βάρους',
 			'settings.mealReminders.title' => 'Υπενθυμίσεις Γευμάτων',
 			'settings.mealReminders.subtitle' => 'Μείνετε στην πορεία με έγκαιρες ειδοποιήσεις',
+			'settings.localInference.title' => 'Ανάλυση γεύματος στη συσκευή',
+			'settings.localInference.subtitle' => 'Ερμηνεία υποστηριζόμενων γευμάτων με το Gemini Nano πριν τον υπολογισμό της θρεπτικής αξίας',
+			'settings.localInference.unavailable' => 'Δεν είναι διαθέσιμο σε αυτή τη συσκευή',
+			'settings.localInference.rolloutUnavailable' => 'Βρέθηκε συμβατό υλικό, αλλά αυτή η λειτουργία δεν είναι ενεργοποιημένη για αυτή την έκδοση της εφαρμογής',
+			'settings.localInference.modelSetup' => 'Το Gemini Nano πρέπει να ολοκληρώσει τη λήψη πριν ενεργοποιηθεί αυτή η λειτουργία',
+			'settings.localInference.useLocalTitle' => 'Χρήση ανάλυσης στη συσκευή',
+			'settings.localInference.useLocalSubtitle' => 'Προαιρετικό και απενεργοποιημένο από προεπιλογή. Τα αποτελέσματα ενδέχεται να είναι λιγότερο αξιόπιστα για σύνθετα γεύματα.',
+			'settings.localInference.disclosureTitle' => 'Πριν ενεργοποιήσετε την ανάλυση στη συσκευή',
+			'settings.localInference.disclosureBody' => 'Το Gemini Nano μπορεί να αναγνωρίσει συστατικά και να εκτιμήσει μερίδες σε υποστηριζόμενες συσκευές Android. Η πρόταση συστατικών που ελέγξατε αποστέλλεται στο Calorify για τεκμηρίωση θρεπτικών στοιχείων από το USDA και υπολογισμό.',
+			'settings.localInference.disclosureLimit1' => 'Σύνθετα πιάτα, κρυμμένα συστατικά και μεγέθη μερίδων ενδέχεται να αναγνωριστούν λανθασμένα.',
+			'settings.localInference.disclosureLimit2' => 'Το μοντέλο ενδέχεται να είναι μη διαθέσιμο κατά τη λήψη, όταν είναι απασχολημένο, στο παρασκήνιο ή λόγω περιορισμών της συσκευής.',
+			'settings.localInference.disclosureLimit3' => 'Εάν η τοπική ερμηνεία δεν μπορεί να ολοκληρωθεί, αυτή η beta έκδοση στέλνει αυτόματα την αρχική περιγραφή του γεύματός σας στο Calorify για ανάλυση στο cloud.',
+			'settings.localInference.acknowledgement' => 'Κατανοώ ότι πρέπει να ελέγχω τα ανιχνευμένα συστατικά και τις μερίδες.',
+			'settings.localInference.enable' => 'Αποδοχή και ενεργοποίηση',
+			'settings.localInference.cancel' => 'Ακύρωση',
 			'settings.theme.title' => 'Θέμα',
 			'settings.theme.light' => 'Φωτεινό',
 			'settings.theme.dark' => 'Σκοτεινό',
@@ -2162,6 +2250,8 @@ extension on TranslationsEl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που κάηκαν μέχρι στιγμής.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Σας αρέσει το ${appLabel};',

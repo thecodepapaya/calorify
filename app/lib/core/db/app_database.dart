@@ -53,7 +53,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final bool _seedDevelopmentData;
 
   @override
-  int get schemaVersion => 22;
+  int get schemaVersion => 23;
 
   @override
   MigrationStrategy get migration {
@@ -320,6 +320,28 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             ON meal_info_table(analysis_id)
           ''');
         }
+        if (from < 23) {
+          if (!await _tableExists('user_preferences_table')) {
+            await m.createTable(userPreferencesTable);
+          } else if (!await _columnExists(
+            'user_preferences_table',
+            'local_inference_enabled',
+          )) {
+            await m.addColumn(
+              userPreferencesTable,
+              userPreferencesTable.localInferenceEnabled,
+            );
+          }
+          if (!await _columnExists(
+            'user_preferences_table',
+            'local_inference_acknowledged_policy_version',
+          )) {
+            await m.addColumn(
+              userPreferencesTable,
+              userPreferencesTable.localInferenceAcknowledgedPolicyVersion,
+            );
+          }
+        }
       },
     );
   }
@@ -488,6 +510,39 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         id: const Value(_userPreferencesId),
         onboardingCompletedAt: Value(DateTime.now()),
         updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  @override
+  Future<LocalInferencePreferences> getLocalInferencePreferences() async {
+    final prefs = await _getOrInitPreferences();
+    return LocalInferencePreferences(
+      enabled: prefs.localInferenceEnabled,
+      acknowledgedPolicyVersion: prefs.localInferenceAcknowledgedPolicyVersion,
+    );
+  }
+
+  @override
+  Future<void> setLocalInferenceEnabled(bool enabled) async {
+    await _getOrInitPreferences();
+    await (update(userPreferencesTable)
+      ..where((table) => table.id.equals(_userPreferencesId))).write(
+      UserPreferencesTableCompanion(
+        localInferenceEnabled: Value(enabled),
+        updatedAt: Value(DateTime.now().toUtc()),
+      ),
+    );
+  }
+
+  @override
+  Future<void> acknowledgeLocalInferencePolicy(String policyVersion) async {
+    await _getOrInitPreferences();
+    await (update(userPreferencesTable)
+      ..where((table) => table.id.equals(_userPreferencesId))).write(
+      UserPreferencesTableCompanion(
+        localInferenceAcknowledgedPolicyVersion: Value(policyVersion),
+        updatedAt: Value(DateTime.now().toUtc()),
       ),
     );
   }

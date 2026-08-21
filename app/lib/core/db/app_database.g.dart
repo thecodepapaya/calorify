@@ -1792,6 +1792,32 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         type: DriftSqlType.dateTime,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _localInferenceEnabledMeta =
+      const VerificationMeta('localInferenceEnabled');
+  @override
+  late final GeneratedColumn<bool> localInferenceEnabled =
+      GeneratedColumn<bool>(
+        'local_inference_enabled',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("local_inference_enabled" IN (0, 1))',
+        ),
+        defaultValue: const Constant(false),
+      );
+  static const VerificationMeta _localInferenceAcknowledgedPolicyVersionMeta =
+      const VerificationMeta('localInferenceAcknowledgedPolicyVersion');
+  @override
+  late final GeneratedColumn<String> localInferenceAcknowledgedPolicyVersion =
+      GeneratedColumn<String>(
+        'local_inference_acknowledged_policy_version',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
   );
@@ -1812,6 +1838,8 @@ class $UserPreferencesTableTable extends UserPreferencesTable
     feedbackSheetShownAt,
     onboardingCurrentStep,
     onboardingCompletedAt,
+    localInferenceEnabled,
+    localInferenceAcknowledgedPolicyVersion,
     updatedAt,
   ];
   @override
@@ -1871,6 +1899,24 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         ),
       );
     }
+    if (data.containsKey('local_inference_enabled')) {
+      context.handle(
+        _localInferenceEnabledMeta,
+        localInferenceEnabled.isAcceptableOrUnknown(
+          data['local_inference_enabled']!,
+          _localInferenceEnabledMeta,
+        ),
+      );
+    }
+    if (data.containsKey('local_inference_acknowledged_policy_version')) {
+      context.handle(
+        _localInferenceAcknowledgedPolicyVersionMeta,
+        localInferenceAcknowledgedPolicyVersion.isAcceptableOrUnknown(
+          data['local_inference_acknowledged_policy_version']!,
+          _localInferenceAcknowledgedPolicyVersionMeta,
+        ),
+      );
+    }
     if (data.containsKey('updated_at')) {
       context.handle(
         _updatedAtMeta,
@@ -1914,6 +1960,15 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         DriftSqlType.dateTime,
         data['${effectivePrefix}onboarding_completed_at'],
       ),
+      localInferenceEnabled:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}local_inference_enabled'],
+          )!,
+      localInferenceAcknowledgedPolicyVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}local_inference_acknowledged_policy_version'],
+      ),
       updatedAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -1936,6 +1991,8 @@ class UserPreferencesTableData extends DataClass
   final DateTime? feedbackSheetShownAt;
   final int? onboardingCurrentStep;
   final DateTime? onboardingCompletedAt;
+  final bool localInferenceEnabled;
+  final String? localInferenceAcknowledgedPolicyVersion;
   final DateTime updatedAt;
   const UserPreferencesTableData({
     required this.id,
@@ -1944,6 +2001,8 @@ class UserPreferencesTableData extends DataClass
     this.feedbackSheetShownAt,
     this.onboardingCurrentStep,
     this.onboardingCompletedAt,
+    required this.localInferenceEnabled,
+    this.localInferenceAcknowledgedPolicyVersion,
     required this.updatedAt,
   });
   @override
@@ -1965,6 +2024,12 @@ class UserPreferencesTableData extends DataClass
     if (!nullToAbsent || onboardingCompletedAt != null) {
       map['onboarding_completed_at'] = Variable<DateTime>(
         onboardingCompletedAt,
+      );
+    }
+    map['local_inference_enabled'] = Variable<bool>(localInferenceEnabled);
+    if (!nullToAbsent || localInferenceAcknowledgedPolicyVersion != null) {
+      map['local_inference_acknowledged_policy_version'] = Variable<String>(
+        localInferenceAcknowledgedPolicyVersion,
       );
     }
     map['updated_at'] = Variable<DateTime>(updatedAt);
@@ -1992,6 +2057,11 @@ class UserPreferencesTableData extends DataClass
           onboardingCompletedAt == null && nullToAbsent
               ? const Value.absent()
               : Value(onboardingCompletedAt),
+      localInferenceEnabled: Value(localInferenceEnabled),
+      localInferenceAcknowledgedPolicyVersion:
+          localInferenceAcknowledgedPolicyVersion == null && nullToAbsent
+              ? const Value.absent()
+              : Value(localInferenceAcknowledgedPolicyVersion),
       updatedAt: Value(updatedAt),
     );
   }
@@ -2014,6 +2084,12 @@ class UserPreferencesTableData extends DataClass
       onboardingCompletedAt: serializer.fromJson<DateTime?>(
         json['onboardingCompletedAt'],
       ),
+      localInferenceEnabled: serializer.fromJson<bool>(
+        json['localInferenceEnabled'],
+      ),
+      localInferenceAcknowledgedPolicyVersion: serializer.fromJson<String?>(
+        json['localInferenceAcknowledgedPolicyVersion'],
+      ),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
@@ -2031,6 +2107,10 @@ class UserPreferencesTableData extends DataClass
       'onboardingCompletedAt': serializer.toJson<DateTime?>(
         onboardingCompletedAt,
       ),
+      'localInferenceEnabled': serializer.toJson<bool>(localInferenceEnabled),
+      'localInferenceAcknowledgedPolicyVersion': serializer.toJson<String?>(
+        localInferenceAcknowledgedPolicyVersion,
+      ),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
@@ -2042,6 +2122,9 @@ class UserPreferencesTableData extends DataClass
     Value<DateTime?> feedbackSheetShownAt = const Value.absent(),
     Value<int?> onboardingCurrentStep = const Value.absent(),
     Value<DateTime?> onboardingCompletedAt = const Value.absent(),
+    bool? localInferenceEnabled,
+    Value<String?> localInferenceAcknowledgedPolicyVersion =
+        const Value.absent(),
     DateTime? updatedAt,
   }) => UserPreferencesTableData(
     id: id ?? this.id,
@@ -2059,6 +2142,11 @@ class UserPreferencesTableData extends DataClass
         onboardingCompletedAt.present
             ? onboardingCompletedAt.value
             : this.onboardingCompletedAt,
+    localInferenceEnabled: localInferenceEnabled ?? this.localInferenceEnabled,
+    localInferenceAcknowledgedPolicyVersion:
+        localInferenceAcknowledgedPolicyVersion.present
+            ? localInferenceAcknowledgedPolicyVersion.value
+            : this.localInferenceAcknowledgedPolicyVersion,
     updatedAt: updatedAt ?? this.updatedAt,
   );
   UserPreferencesTableData copyWithCompanion(
@@ -2083,6 +2171,14 @@ class UserPreferencesTableData extends DataClass
           data.onboardingCompletedAt.present
               ? data.onboardingCompletedAt.value
               : this.onboardingCompletedAt,
+      localInferenceEnabled:
+          data.localInferenceEnabled.present
+              ? data.localInferenceEnabled.value
+              : this.localInferenceEnabled,
+      localInferenceAcknowledgedPolicyVersion:
+          data.localInferenceAcknowledgedPolicyVersion.present
+              ? data.localInferenceAcknowledgedPolicyVersion.value
+              : this.localInferenceAcknowledgedPolicyVersion,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
@@ -2096,6 +2192,10 @@ class UserPreferencesTableData extends DataClass
           ..write('feedbackSheetShownAt: $feedbackSheetShownAt, ')
           ..write('onboardingCurrentStep: $onboardingCurrentStep, ')
           ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
+          ..write('localInferenceEnabled: $localInferenceEnabled, ')
+          ..write(
+            'localInferenceAcknowledgedPolicyVersion: $localInferenceAcknowledgedPolicyVersion, ',
+          )
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -2109,6 +2209,8 @@ class UserPreferencesTableData extends DataClass
     feedbackSheetShownAt,
     onboardingCurrentStep,
     onboardingCompletedAt,
+    localInferenceEnabled,
+    localInferenceAcknowledgedPolicyVersion,
     updatedAt,
   );
   @override
@@ -2121,6 +2223,9 @@ class UserPreferencesTableData extends DataClass
           other.feedbackSheetShownAt == this.feedbackSheetShownAt &&
           other.onboardingCurrentStep == this.onboardingCurrentStep &&
           other.onboardingCompletedAt == this.onboardingCompletedAt &&
+          other.localInferenceEnabled == this.localInferenceEnabled &&
+          other.localInferenceAcknowledgedPolicyVersion ==
+              this.localInferenceAcknowledgedPolicyVersion &&
           other.updatedAt == this.updatedAt);
 }
 
@@ -2132,6 +2237,8 @@ class UserPreferencesTableCompanion
   final Value<DateTime?> feedbackSheetShownAt;
   final Value<int?> onboardingCurrentStep;
   final Value<DateTime?> onboardingCompletedAt;
+  final Value<bool> localInferenceEnabled;
+  final Value<String?> localInferenceAcknowledgedPolicyVersion;
   final Value<DateTime> updatedAt;
   const UserPreferencesTableCompanion({
     this.id = const Value.absent(),
@@ -2140,6 +2247,8 @@ class UserPreferencesTableCompanion
     this.feedbackSheetShownAt = const Value.absent(),
     this.onboardingCurrentStep = const Value.absent(),
     this.onboardingCompletedAt = const Value.absent(),
+    this.localInferenceEnabled = const Value.absent(),
+    this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   UserPreferencesTableCompanion.insert({
@@ -2149,6 +2258,8 @@ class UserPreferencesTableCompanion
     this.feedbackSheetShownAt = const Value.absent(),
     this.onboardingCurrentStep = const Value.absent(),
     this.onboardingCompletedAt = const Value.absent(),
+    this.localInferenceEnabled = const Value.absent(),
+    this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   static Insertable<UserPreferencesTableData> custom({
@@ -2158,6 +2269,8 @@ class UserPreferencesTableCompanion
     Expression<DateTime>? feedbackSheetShownAt,
     Expression<int>? onboardingCurrentStep,
     Expression<DateTime>? onboardingCompletedAt,
+    Expression<bool>? localInferenceEnabled,
+    Expression<String>? localInferenceAcknowledgedPolicyVersion,
     Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
@@ -2170,6 +2283,11 @@ class UserPreferencesTableCompanion
         'onboarding_current_step': onboardingCurrentStep,
       if (onboardingCompletedAt != null)
         'onboarding_completed_at': onboardingCompletedAt,
+      if (localInferenceEnabled != null)
+        'local_inference_enabled': localInferenceEnabled,
+      if (localInferenceAcknowledgedPolicyVersion != null)
+        'local_inference_acknowledged_policy_version':
+            localInferenceAcknowledgedPolicyVersion,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
@@ -2181,6 +2299,8 @@ class UserPreferencesTableCompanion
     Value<DateTime?>? feedbackSheetShownAt,
     Value<int?>? onboardingCurrentStep,
     Value<DateTime?>? onboardingCompletedAt,
+    Value<bool>? localInferenceEnabled,
+    Value<String?>? localInferenceAcknowledgedPolicyVersion,
     Value<DateTime>? updatedAt,
   }) {
     return UserPreferencesTableCompanion(
@@ -2192,6 +2312,11 @@ class UserPreferencesTableCompanion
           onboardingCurrentStep ?? this.onboardingCurrentStep,
       onboardingCompletedAt:
           onboardingCompletedAt ?? this.onboardingCompletedAt,
+      localInferenceEnabled:
+          localInferenceEnabled ?? this.localInferenceEnabled,
+      localInferenceAcknowledgedPolicyVersion:
+          localInferenceAcknowledgedPolicyVersion ??
+          this.localInferenceAcknowledgedPolicyVersion,
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
@@ -2223,6 +2348,16 @@ class UserPreferencesTableCompanion
         onboardingCompletedAt.value,
       );
     }
+    if (localInferenceEnabled.present) {
+      map['local_inference_enabled'] = Variable<bool>(
+        localInferenceEnabled.value,
+      );
+    }
+    if (localInferenceAcknowledgedPolicyVersion.present) {
+      map['local_inference_acknowledged_policy_version'] = Variable<String>(
+        localInferenceAcknowledgedPolicyVersion.value,
+      );
+    }
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
@@ -2238,6 +2373,10 @@ class UserPreferencesTableCompanion
           ..write('feedbackSheetShownAt: $feedbackSheetShownAt, ')
           ..write('onboardingCurrentStep: $onboardingCurrentStep, ')
           ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
+          ..write('localInferenceEnabled: $localInferenceEnabled, ')
+          ..write(
+            'localInferenceAcknowledgedPolicyVersion: $localInferenceAcknowledgedPolicyVersion, ',
+          )
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -4079,6 +4218,8 @@ typedef $$UserPreferencesTableTableCreateCompanionBuilder =
       Value<DateTime?> feedbackSheetShownAt,
       Value<int?> onboardingCurrentStep,
       Value<DateTime?> onboardingCompletedAt,
+      Value<bool> localInferenceEnabled,
+      Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<DateTime> updatedAt,
     });
 typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
@@ -4089,6 +4230,8 @@ typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
       Value<DateTime?> feedbackSheetShownAt,
       Value<int?> onboardingCurrentStep,
       Value<DateTime?> onboardingCompletedAt,
+      Value<bool> localInferenceEnabled,
+      Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<DateTime> updatedAt,
     });
 
@@ -4130,6 +4273,17 @@ class $$UserPreferencesTableTableFilterComposer
     column: $table.onboardingCompletedAt,
     builder: (column) => ColumnFilters(column),
   );
+
+  ColumnFilters<bool> get localInferenceEnabled => $composableBuilder(
+    column: $table.localInferenceEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get localInferenceAcknowledgedPolicyVersion =>
+      $composableBuilder(
+        column: $table.localInferenceAcknowledgedPolicyVersion,
+        builder: (column) => ColumnFilters(column),
+      );
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
@@ -4176,6 +4330,17 @@ class $$UserPreferencesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get localInferenceEnabled => $composableBuilder(
+    column: $table.localInferenceEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get localInferenceAcknowledgedPolicyVersion =>
+      $composableBuilder(
+        column: $table.localInferenceAcknowledgedPolicyVersion,
+        builder: (column) => ColumnOrderings(column),
+      );
+
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
@@ -4216,6 +4381,17 @@ class $$UserPreferencesTableTableAnnotationComposer
     column: $table.onboardingCompletedAt,
     builder: (column) => column,
   );
+
+  GeneratedColumn<bool> get localInferenceEnabled => $composableBuilder(
+    column: $table.localInferenceEnabled,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get localInferenceAcknowledgedPolicyVersion =>
+      $composableBuilder(
+        column: $table.localInferenceAcknowledgedPolicyVersion,
+        builder: (column) => column,
+      );
 
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
@@ -4273,6 +4449,9 @@ class $$UserPreferencesTableTableTableManager
                 Value<DateTime?> feedbackSheetShownAt = const Value.absent(),
                 Value<int?> onboardingCurrentStep = const Value.absent(),
                 Value<DateTime?> onboardingCompletedAt = const Value.absent(),
+                Value<bool> localInferenceEnabled = const Value.absent(),
+                Value<String?> localInferenceAcknowledgedPolicyVersion =
+                    const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserPreferencesTableCompanion(
                 id: id,
@@ -4281,6 +4460,9 @@ class $$UserPreferencesTableTableTableManager
                 feedbackSheetShownAt: feedbackSheetShownAt,
                 onboardingCurrentStep: onboardingCurrentStep,
                 onboardingCompletedAt: onboardingCompletedAt,
+                localInferenceEnabled: localInferenceEnabled,
+                localInferenceAcknowledgedPolicyVersion:
+                    localInferenceAcknowledgedPolicyVersion,
                 updatedAt: updatedAt,
               ),
           createCompanionCallback:
@@ -4291,6 +4473,9 @@ class $$UserPreferencesTableTableTableManager
                 Value<DateTime?> feedbackSheetShownAt = const Value.absent(),
                 Value<int?> onboardingCurrentStep = const Value.absent(),
                 Value<DateTime?> onboardingCompletedAt = const Value.absent(),
+                Value<bool> localInferenceEnabled = const Value.absent(),
+                Value<String?> localInferenceAcknowledgedPolicyVersion =
+                    const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserPreferencesTableCompanion.insert(
                 id: id,
@@ -4299,6 +4484,9 @@ class $$UserPreferencesTableTableTableManager
                 feedbackSheetShownAt: feedbackSheetShownAt,
                 onboardingCurrentStep: onboardingCurrentStep,
                 onboardingCompletedAt: onboardingCompletedAt,
+                localInferenceEnabled: localInferenceEnabled,
+                localInferenceAcknowledgedPolicyVersion:
+                    localInferenceAcknowledgedPolicyVersion,
                 updatedAt: updatedAt,
               ),
           withReferenceMapper:

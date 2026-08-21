@@ -155,6 +155,7 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override String get save => 'సేవ్ చేయండి';
 	@override String get mealName => 'భోజనం పేరు';
 	@override String get mealNameHint => 'ఉదా., టోస్ట్‌తో స్క్రాంబుల్డ్ ఎగ్స్';
+	@override String get nameRequired => 'సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి.';
 	@override String get mealQuantity => 'భోజనం పరిమాణం';
 	@override String get mealQuantityHint => 'ఉదా., 1 గిన్నె, 2 ముక్కలు';
 	@override String get timeOfMeal => 'భోజనం సమయం';
@@ -180,8 +181,8 @@ class _TranslationsMealTe implements TranslationsMealEn {
 	@override String get skip => 'దాటవేయి';
 	@override late final _TranslationsMealQuestionFlowTe questionFlow = _TranslationsMealQuestionFlowTe._(_root);
 	@override late final _TranslationsMealAnalysisTe analysis = _TranslationsMealAnalysisTe._(_root);
+	@override late final _TranslationsMealLocalInferenceTe localInference = _TranslationsMealLocalInferenceTe._(_root);
 	@override late final _TranslationsMealFeedbackTe feedback = _TranslationsMealFeedbackTe._(_root);
-	@override String get nameRequired => 'సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsTe implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitTe heightUnit = _TranslationsSettingsHeightUnitTe._(_root);
 	@override late final _TranslationsSettingsWeightUnitTe weightUnit = _TranslationsSettingsWeightUnitTe._(_root);
 	@override late final _TranslationsSettingsMealRemindersTe mealReminders = _TranslationsSettingsMealRemindersTe._(_root);
+	@override late final _TranslationsSettingsLocalInferenceTe localInference = _TranslationsSettingsLocalInferenceTe._(_root);
 	@override late final _TranslationsSettingsThemeTe theme = _TranslationsSettingsThemeTe._(_root);
 	@override late final _TranslationsSettingsSendFeedbackTe sendFeedback = _TranslationsSettingsSendFeedbackTe._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryTe exportMealHistory = _TranslationsSettingsExportMealHistoryTe._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisTe implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceTe implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'గుర్తించిన పదార్థాలను సమీక్షించండి';
+	@override String get reviewSubtitle => 'ఇది మీ పరికరంలో విశ్లేషించబడింది. పోషక విలువలు లెక్కించే ముందు పేర్లను లేదా పరిమాణాలను సరిచేసుకోండి.';
+	@override String get mealName => 'భోజనం పేరు';
+	@override String get ingredient => 'పదార్థం';
+	@override String get grams => 'అంచనా వేసిన గ్రాములు';
+	@override String get removeIngredient => 'పదార్థాన్ని తొలగించు';
+	@override String get continueLabel => 'కొనసాగించు';
+	@override String get invalidProposal => 'కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.';
+	@override String get localUnavailable => 'ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.';
+	@override String get calculationDetails => 'ఇది ఎలా లెక్కించబడింది';
+	@override String get interpretationLocal => 'ఈ పరికరంలో విశ్లేషించబడిన పదార్థాలు';
+	@override String get interpretationCloud => 'క్లౌడ్‌లో విశ్లేషించబడిన పదార్థాలు';
+	@override String get interpretationManual => 'మీరు సమీక్షించిన లేదా సవరించిన పదార్థాలు';
+	@override String get nutritionRemote => 'Calorify ద్వారా USDA నుండి సేకరించిన పోషక విలువలు';
+	@override String get nutritionFallback => 'కొన్ని పోషక విలువలు రిమోట్‌గా అంచనా వేయబడ్డాయి';
+	@override String get calculationServer => 'క్యాలరీలు మరియు మాక్రోలు Calorify ద్వారా లెక్కించబడ్డాయి';
+	@override String get fallbackUsed => 'స్థానిక విశ్లేషణ విఫలమై క్లౌడ్ ప్రాసెసింగ్‌కు మారింది';
+	@override String get noRawContent => 'డయాగ్నోస్టిక్ రసీదులలో మీ భోజనం టెక్స్ట్ లేదా ఫోటో ఉండవు.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackTe implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackTe._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsTe implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'స్థానికీకరణ';
 	@override String get notifications => 'నోటిఫికేషన్‌లు';
 	@override String get healthConnect => 'హెల్త్ కనెక్ట్';
+	@override String get localInference => 'ఆన్-డివైస్ విశ్లేషణ';
 	@override String get supportAndLegal => 'మద్దతు & చట్టపరమైన';
 	@override String get about => 'గురించి';
 	@override String get dangerZone => 'డేంజర్ జోన్';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersTe implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'భోజన రిమైండర్‌లు';
 	@override String get subtitle => 'సమయానుకూల హెచ్చరికలతో ట్రాక్‌లో ఉండండి';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceTe implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceTe._(this._root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ఆన్-డివైస్ భోజన విశ్లేషణ';
+	@override String get subtitle => 'పోషక విలువలు లెక్కించే ముందు Gemini Nano తో మద్దతు ఉన్న భోజనాలను విశ్లేషించండి';
+	@override String get unavailable => 'ఈ పరికరంలో అందుబాటులో లేదు';
+	@override String get rolloutUnavailable => 'మద్దతు ఉన్న హార్డ్‌వేర్ ఉంది, కానీ ఈ యాప్ వెర్షన్‌లో ఈ ఫీచర్ ఎనేబుల్ చేయబడలేదు';
+	@override String get modelSetup => 'దీనిని ఎనేబుల్ చేయడానికి ముందు Gemini Nano డౌన్‌లోడ్ పూర్తి కావాలి';
+	@override String get useLocalTitle => 'ఆన్-డివైస్ విశ్లేషణను ఉపయోగించు';
+	@override String get useLocalSubtitle => 'ఇది ఐచ్ఛికం మరియు డిఫాల్ట్‌గా ఆఫ్ చేయబడి ఉంటుంది. సంక్లిష్టమైన భోజనాలకు ఫలితాలు తక్కువ ఖచ్చితత్వంతో ఉండవచ్చు.';
+	@override String get disclosureTitle => 'ఆన్-డివైస్ విశ్లేషణను ఎనేబుల్ చేసే ముందు';
+	@override String get disclosureBody => 'మద్దతు ఉన్న Android పరికరాలలో Gemini Nano పదార్థాలను గుర్తించగలదు మరియు పరిమాణాలను అంచనా వేయగలదు. మీరు సమీక్షించిన పదార్థాల ప్రతిపాదన USDA పోషక విశ్లేషణ మరియు గణన కోసం Calorifyకి పంపబడుతుంది.';
+	@override String get disclosureLimit1 => 'సంక్లిష్టమైన వంటకాలు, దాగి ఉన్న పదార్థాలు మరియు పరిమాణాలు తప్పుగా గుర్తించబడవచ్చు.';
+	@override String get disclosureLimit2 => 'డౌన్‌లోడ్ అవుతున్నప్పుడు, బిజీగా ఉన్నప్పుడు, బ్యాక్‌గ్రౌండ్‌లో ఉన్నప్పుడు లేదా పరికర పరిమితుల వల్ల మోడల్ అందుబాటులో ఉండకపోవచ్చు.';
+	@override String get disclosureLimit3 => 'స్థానిక విశ్లేషణ పూర్తి కాకపోతే, ఈ బీటా వెర్షన్ మీ అసలు భోజన వివరణను క్లౌడ్ విశ్లేషణ కోసం స్వయంచాలకంగా Calorifyకి పంపుతుంది.';
+	@override String get acknowledgement => 'గుర్తించిన పదార్థాలను మరియు పరిమాణాలను నేను సమీక్షించాలో నాకు అర్థమైంది.';
+	@override String get enable => 'అంగీకరించి ఎనేబుల్ చేయి';
+	@override String get cancel => 'రద్దు చేయి';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsTe {
 			'meal.save' => 'సేవ్ చేయండి',
 			'meal.mealName' => 'భోజనం పేరు',
 			'meal.mealNameHint' => 'ఉదా., టోస్ట్‌తో స్క్రాంబుల్డ్ ఎగ్స్',
+			'meal.nameRequired' => 'సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి.',
 			'meal.mealQuantity' => 'భోజనం పరిమాణం',
 			'meal.mealQuantityHint' => 'ఉదా., 1 గిన్నె, 2 ముక్కలు',
 			'meal.timeOfMeal' => 'భోజనం సమయం',
@@ -1916,6 +1971,24 @@ extension on TranslationsTe {
 			'meal.analysis.offlineTip3' => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.',
 			'meal.analysis.offlineTip4' => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.',
 			'meal.analysis.offlineTip5' => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.',
+			'meal.localInference.reviewTitle' => 'గుర్తించిన పదార్థాలను సమీక్షించండి',
+			'meal.localInference.reviewSubtitle' => 'ఇది మీ పరికరంలో విశ్లేషించబడింది. పోషక విలువలు లెక్కించే ముందు పేర్లను లేదా పరిమాణాలను సరిచేసుకోండి.',
+			'meal.localInference.mealName' => 'భోజనం పేరు',
+			'meal.localInference.ingredient' => 'పదార్థం',
+			'meal.localInference.grams' => 'అంచనా వేసిన గ్రాములు',
+			'meal.localInference.removeIngredient' => 'పదార్థాన్ని తొలగించు',
+			'meal.localInference.continueLabel' => 'కొనసాగించు',
+			'meal.localInference.invalidProposal' => 'కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.',
+			'meal.localInference.localUnavailable' => 'ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.',
+			'meal.localInference.calculationDetails' => 'ఇది ఎలా లెక్కించబడింది',
+			'meal.localInference.interpretationLocal' => 'ఈ పరికరంలో విశ్లేషించబడిన పదార్థాలు',
+			'meal.localInference.interpretationCloud' => 'క్లౌడ్‌లో విశ్లేషించబడిన పదార్థాలు',
+			'meal.localInference.interpretationManual' => 'మీరు సమీక్షించిన లేదా సవరించిన పదార్థాలు',
+			'meal.localInference.nutritionRemote' => 'Calorify ద్వారా USDA నుండి సేకరించిన పోషక విలువలు',
+			'meal.localInference.nutritionFallback' => 'కొన్ని పోషక విలువలు రిమోట్‌గా అంచనా వేయబడ్డాయి',
+			'meal.localInference.calculationServer' => 'క్యాలరీలు మరియు మాక్రోలు Calorify ద్వారా లెక్కించబడ్డాయి',
+			'meal.localInference.fallbackUsed' => 'స్థానిక విశ్లేషణ విఫలమై క్లౌడ్ ప్రాసెసింగ్‌కు మారింది',
+			'meal.localInference.noRawContent' => 'డయాగ్నోస్టిక్ రసీదులలో మీ భోజనం టెక్స్ట్ లేదా ఫోటో ఉండవు.',
 			'meal.feedback.title' => 'ఏమి తప్పుగా కనిపిస్తుంది?',
 			'meal.feedback.subtitle' => 'ఒకటి లేదా అంతకంటే ఎక్కువ సమస్యలను ఎంచుకోవడం ద్వారా విశ్లేషణను మెరుగుపరచడంలో మాకు సహాయపడండి.',
 			'meal.feedback.tellUsMore' => 'మరింత చెప్పండి',
@@ -1928,7 +2001,6 @@ extension on TranslationsTe {
 			'meal.feedback.issueMissingItems' => 'తప్పిపోయిన అంశాలు',
 			'meal.feedback.issueExtraItems' => 'అదనపు అంశాలు',
 			'meal.feedback.issueOther' => 'ఇతర',
-			'meal.nameRequired' => 'సేవ్ చేసే ముందు భోజనం పేరును నమోదు చేయండి.',
 			'favorites.title' => 'ఇష్టమైనవి',
 			'favorites.empty' => 'ఇంకా ఇష్టమైన భోజనాలు లేవు.',
 			'favorites.searchPlaceholder' => 'ఇష్టమైన భోజనాలను శోధించండి',
@@ -2014,6 +2086,7 @@ extension on TranslationsTe {
 			'settings.sections.localization' => 'స్థానికీకరణ',
 			'settings.sections.notifications' => 'నోటిఫికేషన్‌లు',
 			'settings.sections.healthConnect' => 'హెల్త్ కనెక్ట్',
+			'settings.sections.localInference' => 'ఆన్-డివైస్ విశ్లేషణ',
 			'settings.sections.supportAndLegal' => 'మద్దతు & చట్టపరమైన',
 			'settings.sections.about' => 'గురించి',
 			'settings.sections.dangerZone' => 'డేంజర్ జోన్',
@@ -2028,6 +2101,21 @@ extension on TranslationsTe {
 			'settings.weightUnit.title' => 'బరువు యూనిట్',
 			'settings.mealReminders.title' => 'భోజన రిమైండర్‌లు',
 			'settings.mealReminders.subtitle' => 'సమయానుకూల హెచ్చరికలతో ట్రాక్‌లో ఉండండి',
+			'settings.localInference.title' => 'ఆన్-డివైస్ భోజన విశ్లేషణ',
+			'settings.localInference.subtitle' => 'పోషక విలువలు లెక్కించే ముందు Gemini Nano తో మద్దతు ఉన్న భోజనాలను విశ్లేషించండి',
+			'settings.localInference.unavailable' => 'ఈ పరికరంలో అందుబాటులో లేదు',
+			'settings.localInference.rolloutUnavailable' => 'మద్దతు ఉన్న హార్డ్‌వేర్ ఉంది, కానీ ఈ యాప్ వెర్షన్‌లో ఈ ఫీచర్ ఎనేబుల్ చేయబడలేదు',
+			'settings.localInference.modelSetup' => 'దీనిని ఎనేబుల్ చేయడానికి ముందు Gemini Nano డౌన్‌లోడ్ పూర్తి కావాలి',
+			'settings.localInference.useLocalTitle' => 'ఆన్-డివైస్ విశ్లేషణను ఉపయోగించు',
+			'settings.localInference.useLocalSubtitle' => 'ఇది ఐచ్ఛికం మరియు డిఫాల్ట్‌గా ఆఫ్ చేయబడి ఉంటుంది. సంక్లిష్టమైన భోజనాలకు ఫలితాలు తక్కువ ఖచ్చితత్వంతో ఉండవచ్చు.',
+			'settings.localInference.disclosureTitle' => 'ఆన్-డివైస్ విశ్లేషణను ఎనేబుల్ చేసే ముందు',
+			'settings.localInference.disclosureBody' => 'మద్దతు ఉన్న Android పరికరాలలో Gemini Nano పదార్థాలను గుర్తించగలదు మరియు పరిమాణాలను అంచనా వేయగలదు. మీరు సమీక్షించిన పదార్థాల ప్రతిపాదన USDA పోషక విశ్లేషణ మరియు గణన కోసం Calorifyకి పంపబడుతుంది.',
+			'settings.localInference.disclosureLimit1' => 'సంక్లిష్టమైన వంటకాలు, దాగి ఉన్న పదార్థాలు మరియు పరిమాణాలు తప్పుగా గుర్తించబడవచ్చు.',
+			'settings.localInference.disclosureLimit2' => 'డౌన్‌లోడ్ అవుతున్నప్పుడు, బిజీగా ఉన్నప్పుడు, బ్యాక్‌గ్రౌండ్‌లో ఉన్నప్పుడు లేదా పరికర పరిమితుల వల్ల మోడల్ అందుబాటులో ఉండకపోవచ్చు.',
+			'settings.localInference.disclosureLimit3' => 'స్థానిక విశ్లేషణ పూర్తి కాకపోతే, ఈ బీటా వెర్షన్ మీ అసలు భోజన వివరణను క్లౌడ్ విశ్లేషణ కోసం స్వయంచాలకంగా Calorifyకి పంపుతుంది.',
+			'settings.localInference.acknowledgement' => 'గుర్తించిన పదార్థాలను మరియు పరిమాణాలను నేను సమీక్షించాలో నాకు అర్థమైంది.',
+			'settings.localInference.enable' => 'అంగీకరించి ఎనేబుల్ చేయి',
+			'settings.localInference.cancel' => 'రద్దు చేయి',
 			'settings.theme.title' => 'థీమ్',
 			'settings.theme.light' => 'లేత',
 			'settings.theme.dark' => 'ముదురు',
@@ -2162,6 +2250,8 @@ extension on TranslationsTe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'మేము మీ TDEE (మీ ప్రొఫైల్ ఆధారంగా)ని లెక్కిస్తాము మరియు ఇప్పటివరకు బర్న్ చేసిన కేలరీలను అంచనా వేయడానికి గడిచిన రోజులో (గంటలు + నిమిషాలు) / 24 భిన్నంతో గుణిస్తాము.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'వృత్తిపరమైన మార్గదర్శకత్వం',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'వైద్య నిర్ణయాలు తీసుకోవడానికి ఈ అంచనాను ఉపయోగించవద్దు. వ్యక్తిగతీకరించిన బరువు నిర్వహణ సలహా కోసం ఎల్లప్పుడూ ఆరోగ్య సంరక్షణ నిపుణుడిని లేదా రిజిస్టర్డ్ డైటీషియన్‌ను సంప్రదించండి.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'మూసివేయి',
 			'common.kContinue' => 'కొనసాగించు',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} ఆనందిస్తున్నారా?',

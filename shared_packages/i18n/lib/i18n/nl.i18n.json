@@ -245,6 +245,7 @@
     "save": "Opslaan",
     "mealName": "Naam van maaltijd",
     "mealNameHint": "bijv., Roerei met toast",
+    "nameRequired": "Voer een naam voor je maaltijd in voordat je deze opslaat.",
     "mealQuantity": "Hoeveelheid maaltijd",
     "mealQuantityHint": "bijv., 1 kom, 2 sneetjes",
     "timeOfMeal": "Tijd van maaltijd",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.",
       "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken)."
     },
+    "localInference": {
+      "reviewTitle": "Gedetecteerde ingrediënten controleren",
+      "reviewSubtitle": "Dit is op je apparaat geïnterpreteerd. Corrigeer namen of porties voordat de voedingswaarde wordt berekend.",
+      "mealName": "Maaltijdnaam",
+      "ingredient": "Ingrediënt",
+      "grams": "Geschatte grammen",
+      "removeIngredient": "Ingrediënt verwijderen",
+      "continueLabel": "Doorgaan",
+      "invalidProposal": "Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.",
+      "localUnavailable": "Analyse op het apparaat is momenteel niet beschikbaar.",
+      "calculationDetails": "Hoe dit is berekend",
+      "interpretationLocal": "Ingrediënten geïnterpreteerd op dit apparaat",
+      "interpretationCloud": "Ingrediënten geïnterpreteerd in de cloud",
+      "interpretationManual": "Ingrediënten gecontroleerd of bewerkt door jou",
+      "nutritionRemote": "Voedingswaarde opgehaald uit USDA via Calorify",
+      "nutritionFallback": "Sommige voedingswaarden zijn op afstand geschat",
+      "calculationServer": "Calorieën en macro's berekend door Calorify",
+      "fallbackUsed": "Lokale analyse is teruggevallen op cloudverwerking",
+      "noRawContent": "Diagnostische bonnen bevatten geen maaltijdtekst of foto."
+    },
     "feedback": {
       "title": "Wat klopt er niet?",
       "subtitle": "Help ons de analyse te verbeteren door één of meer problemen te selecteren.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Ontbrekende items",
       "issueExtraItems": "Extra items",
       "issueOther": "Anders"
-    },
-    "nameRequired": "Voer een naam voor je maaltijd in voordat je deze opslaat."
+    }
   },
   "favorites": {
     "title": "Favorieten",
@@ -453,6 +473,7 @@
       "localization": "LOKALISATIE",
       "notifications": "MELDINGEN",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALYSE OP APPARAAT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
       "about": "OVER",
       "dangerZone": "GEVAARZONE",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Maaltijdherinneringen",
       "subtitle": "Blijf op koers met tijdige meldingen"
+    },
+    "localInference": {
+      "title": "Maaltijdanalyse op apparaat",
+      "subtitle": "Ondersteunde maaltijden interpreteren met Gemini Nano voordat de voedingswaarde wordt berekend",
+      "unavailable": "Niet beschikbaar op dit apparaat",
+      "rolloutUnavailable": "Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie",
+      "modelSetup": "Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld",
+      "useLocalTitle": "Analyse op apparaat gebruiken",
+      "useLocalSubtitle": "Optioneel en standaard uitgeschakeld. Resultaten kunnen minder betrouwbaar zijn voor complexe maaltijden.",
+      "disclosureTitle": "Voordat je analyse op apparaat inschakelt",
+      "disclosureBody": "Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.",
+      "disclosureLimit1": "Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.",
+      "disclosureLimit2": "Het model kan onbeschikbaar zijn tijdens het downloaden, wanneer het bezet is, op de achtergrond draait of beperkt wordt door het apparaat.",
+      "disclosureLimit3": "Als de lokale interpretatie niet kan worden voltooid, stuurt deze bèta automatisch je oorspronkelijke maaltijdbeschrijving naar Calorify voor cloudanalyse.",
+      "acknowledgement": "Ik begrijp dat ik de gedetecteerde ingrediënten en porties moet controleren.",
+      "enable": "Bevestigen en inschakelen",
+      "cancel": "Annuleren"
     },
     "theme": {
       "title": "Thema",

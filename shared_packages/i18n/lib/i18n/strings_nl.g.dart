@@ -155,6 +155,7 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String get save => 'Opslaan';
 	@override String get mealName => 'Naam van maaltijd';
 	@override String get mealNameHint => 'bijv., Roerei met toast';
+	@override String get nameRequired => 'Voer een naam voor je maaltijd in voordat je deze opslaat.';
 	@override String get mealQuantity => 'Hoeveelheid maaltijd';
 	@override String get mealQuantityHint => 'bijv., 1 kom, 2 sneetjes';
 	@override String get timeOfMeal => 'Tijd van maaltijd';
@@ -180,8 +181,8 @@ class _TranslationsMealNl implements TranslationsMealEn {
 	@override String get skip => 'Overslaan';
 	@override late final _TranslationsMealQuestionFlowNl questionFlow = _TranslationsMealQuestionFlowNl._(_root);
 	@override late final _TranslationsMealAnalysisNl analysis = _TranslationsMealAnalysisNl._(_root);
+	@override late final _TranslationsMealLocalInferenceNl localInference = _TranslationsMealLocalInferenceNl._(_root);
 	@override late final _TranslationsMealFeedbackNl feedback = _TranslationsMealFeedbackNl._(_root);
-	@override String get nameRequired => 'Voer een naam voor je maaltijd in voordat je deze opslaat.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsNl implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitNl heightUnit = _TranslationsSettingsHeightUnitNl._(_root);
 	@override late final _TranslationsSettingsWeightUnitNl weightUnit = _TranslationsSettingsWeightUnitNl._(_root);
 	@override late final _TranslationsSettingsMealRemindersNl mealReminders = _TranslationsSettingsMealRemindersNl._(_root);
+	@override late final _TranslationsSettingsLocalInferenceNl localInference = _TranslationsSettingsLocalInferenceNl._(_root);
 	@override late final _TranslationsSettingsThemeNl theme = _TranslationsSettingsThemeNl._(_root);
 	@override late final _TranslationsSettingsSendFeedbackNl sendFeedback = _TranslationsSettingsSendFeedbackNl._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryNl exportMealHistory = _TranslationsSettingsExportMealHistoryNl._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisNl implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceNl implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Gedetecteerde ingrediënten controleren';
+	@override String get reviewSubtitle => 'Dit is op je apparaat geïnterpreteerd. Corrigeer namen of porties voordat de voedingswaarde wordt berekend.';
+	@override String get mealName => 'Maaltijdnaam';
+	@override String get ingredient => 'Ingrediënt';
+	@override String get grams => 'Geschatte grammen';
+	@override String get removeIngredient => 'Ingrediënt verwijderen';
+	@override String get continueLabel => 'Doorgaan';
+	@override String get invalidProposal => 'Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.';
+	@override String get localUnavailable => 'Analyse op het apparaat is momenteel niet beschikbaar.';
+	@override String get calculationDetails => 'Hoe dit is berekend';
+	@override String get interpretationLocal => 'Ingrediënten geïnterpreteerd op dit apparaat';
+	@override String get interpretationCloud => 'Ingrediënten geïnterpreteerd in de cloud';
+	@override String get interpretationManual => 'Ingrediënten gecontroleerd of bewerkt door jou';
+	@override String get nutritionRemote => 'Voedingswaarde opgehaald uit USDA via Calorify';
+	@override String get nutritionFallback => 'Sommige voedingswaarden zijn op afstand geschat';
+	@override String get calculationServer => 'Calorieën en macro\'s berekend door Calorify';
+	@override String get fallbackUsed => 'Lokale analyse is teruggevallen op cloudverwerking';
+	@override String get noRawContent => 'Diagnostische bonnen bevatten geen maaltijdtekst of foto.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackNl implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackNl._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsNl implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALISATIE';
 	@override String get notifications => 'MELDINGEN';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ANALYSE OP APPARAAT';
 	@override String get supportAndLegal => 'ONDERSTEUNING & JURIDISCH';
 	@override String get about => 'OVER';
 	@override String get dangerZone => 'GEVAARZONE';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersNl implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Maaltijdherinneringen';
 	@override String get subtitle => 'Blijf op koers met tijdige meldingen';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceNl implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceNl._(this._root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Maaltijdanalyse op apparaat';
+	@override String get subtitle => 'Ondersteunde maaltijden interpreteren met Gemini Nano voordat de voedingswaarde wordt berekend';
+	@override String get unavailable => 'Niet beschikbaar op dit apparaat';
+	@override String get rolloutUnavailable => 'Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie';
+	@override String get modelSetup => 'Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld';
+	@override String get useLocalTitle => 'Analyse op apparaat gebruiken';
+	@override String get useLocalSubtitle => 'Optioneel en standaard uitgeschakeld. Resultaten kunnen minder betrouwbaar zijn voor complexe maaltijden.';
+	@override String get disclosureTitle => 'Voordat je analyse op apparaat inschakelt';
+	@override String get disclosureBody => 'Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.';
+	@override String get disclosureLimit1 => 'Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.';
+	@override String get disclosureLimit2 => 'Het model kan onbeschikbaar zijn tijdens het downloaden, wanneer het bezet is, op de achtergrond draait of beperkt wordt door het apparaat.';
+	@override String get disclosureLimit3 => 'Als de lokale interpretatie niet kan worden voltooid, stuurt deze bèta automatisch je oorspronkelijke maaltijdbeschrijving naar Calorify voor cloudanalyse.';
+	@override String get acknowledgement => 'Ik begrijp dat ik de gedetecteerde ingrediënten en porties moet controleren.';
+	@override String get enable => 'Bevestigen en inschakelen';
+	@override String get cancel => 'Annuleren';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsNl {
 			'meal.save' => 'Opslaan',
 			'meal.mealName' => 'Naam van maaltijd',
 			'meal.mealNameHint' => 'bijv., Roerei met toast',
+			'meal.nameRequired' => 'Voer een naam voor je maaltijd in voordat je deze opslaat.',
 			'meal.mealQuantity' => 'Hoeveelheid maaltijd',
 			'meal.mealQuantityHint' => 'bijv., 1 kom, 2 sneetjes',
 			'meal.timeOfMeal' => 'Tijd van maaltijd',
@@ -1916,6 +1971,24 @@ extension on TranslationsNl {
 			'meal.analysis.offlineTip3' => 'Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.',
 			'meal.analysis.offlineTip4' => 'Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.',
 			'meal.analysis.offlineTip5' => 'Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).',
+			'meal.localInference.reviewTitle' => 'Gedetecteerde ingrediënten controleren',
+			'meal.localInference.reviewSubtitle' => 'Dit is op je apparaat geïnterpreteerd. Corrigeer namen of porties voordat de voedingswaarde wordt berekend.',
+			'meal.localInference.mealName' => 'Maaltijdnaam',
+			'meal.localInference.ingredient' => 'Ingrediënt',
+			'meal.localInference.grams' => 'Geschatte grammen',
+			'meal.localInference.removeIngredient' => 'Ingrediënt verwijderen',
+			'meal.localInference.continueLabel' => 'Doorgaan',
+			'meal.localInference.invalidProposal' => 'Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.',
+			'meal.localInference.localUnavailable' => 'Analyse op het apparaat is momenteel niet beschikbaar.',
+			'meal.localInference.calculationDetails' => 'Hoe dit is berekend',
+			'meal.localInference.interpretationLocal' => 'Ingrediënten geïnterpreteerd op dit apparaat',
+			'meal.localInference.interpretationCloud' => 'Ingrediënten geïnterpreteerd in de cloud',
+			'meal.localInference.interpretationManual' => 'Ingrediënten gecontroleerd of bewerkt door jou',
+			'meal.localInference.nutritionRemote' => 'Voedingswaarde opgehaald uit USDA via Calorify',
+			'meal.localInference.nutritionFallback' => 'Sommige voedingswaarden zijn op afstand geschat',
+			'meal.localInference.calculationServer' => 'Calorieën en macro\'s berekend door Calorify',
+			'meal.localInference.fallbackUsed' => 'Lokale analyse is teruggevallen op cloudverwerking',
+			'meal.localInference.noRawContent' => 'Diagnostische bonnen bevatten geen maaltijdtekst of foto.',
 			'meal.feedback.title' => 'Wat klopt er niet?',
 			'meal.feedback.subtitle' => 'Help ons de analyse te verbeteren door één of meer problemen te selecteren.',
 			'meal.feedback.tellUsMore' => 'Vertel ons meer',
@@ -1928,7 +2001,6 @@ extension on TranslationsNl {
 			'meal.feedback.issueMissingItems' => 'Ontbrekende items',
 			'meal.feedback.issueExtraItems' => 'Extra items',
 			'meal.feedback.issueOther' => 'Anders',
-			'meal.nameRequired' => 'Voer een naam voor je maaltijd in voordat je deze opslaat.',
 			'favorites.title' => 'Favorieten',
 			'favorites.empty' => 'Nog geen favoriete maaltijden.',
 			'favorites.searchPlaceholder' => 'Zoek favoriete maaltijden',
@@ -2014,6 +2086,7 @@ extension on TranslationsNl {
 			'settings.sections.localization' => 'LOKALISATIE',
 			'settings.sections.notifications' => 'MELDINGEN',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ANALYSE OP APPARAAT',
 			'settings.sections.supportAndLegal' => 'ONDERSTEUNING & JURIDISCH',
 			'settings.sections.about' => 'OVER',
 			'settings.sections.dangerZone' => 'GEVAARZONE',
@@ -2028,6 +2101,21 @@ extension on TranslationsNl {
 			'settings.weightUnit.title' => 'Gewichtseenheid',
 			'settings.mealReminders.title' => 'Maaltijdherinneringen',
 			'settings.mealReminders.subtitle' => 'Blijf op koers met tijdige meldingen',
+			'settings.localInference.title' => 'Maaltijdanalyse op apparaat',
+			'settings.localInference.subtitle' => 'Ondersteunde maaltijden interpreteren met Gemini Nano voordat de voedingswaarde wordt berekend',
+			'settings.localInference.unavailable' => 'Niet beschikbaar op dit apparaat',
+			'settings.localInference.rolloutUnavailable' => 'Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie',
+			'settings.localInference.modelSetup' => 'Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld',
+			'settings.localInference.useLocalTitle' => 'Analyse op apparaat gebruiken',
+			'settings.localInference.useLocalSubtitle' => 'Optioneel en standaard uitgeschakeld. Resultaten kunnen minder betrouwbaar zijn voor complexe maaltijden.',
+			'settings.localInference.disclosureTitle' => 'Voordat je analyse op apparaat inschakelt',
+			'settings.localInference.disclosureBody' => 'Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.',
+			'settings.localInference.disclosureLimit1' => 'Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.',
+			'settings.localInference.disclosureLimit2' => 'Het model kan onbeschikbaar zijn tijdens het downloaden, wanneer het bezet is, op de achtergrond draait of beperkt wordt door het apparaat.',
+			'settings.localInference.disclosureLimit3' => 'Als de lokale interpretatie niet kan worden voltooid, stuurt deze bèta automatisch je oorspronkelijke maaltijdbeschrijving naar Calorify voor cloudanalyse.',
+			'settings.localInference.acknowledgement' => 'Ik begrijp dat ik de gedetecteerde ingrediënten en porties moet controleren.',
+			'settings.localInference.enable' => 'Bevestigen en inschakelen',
+			'settings.localInference.cancel' => 'Annuleren',
 			'settings.theme.title' => 'Thema',
 			'settings.theme.light' => 'Licht',
 			'settings.theme.dark' => 'Donker',
@@ -2162,6 +2250,8 @@ extension on TranslationsNl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen het met het aandeel van de dag dat verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionele begeleiding',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor persoonlijk gewichtsadvies.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',

@@ -155,6 +155,7 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String get save => '保存';
 	@override String get mealName => '食事名';
 	@override String get mealNameHint => '例：スクランブルエッグとトースト';
+	@override String get nameRequired => '保存する前に食事名を入力してください。';
 	@override String get mealQuantity => '食事の量';
 	@override String get mealQuantityHint => '例：1杯、2枚';
 	@override String get timeOfMeal => '食事の時間';
@@ -180,8 +181,8 @@ class _TranslationsMealJa implements TranslationsMealEn {
 	@override String get skip => 'スキップ';
 	@override late final _TranslationsMealQuestionFlowJa questionFlow = _TranslationsMealQuestionFlowJa._(_root);
 	@override late final _TranslationsMealAnalysisJa analysis = _TranslationsMealAnalysisJa._(_root);
+	@override late final _TranslationsMealLocalInferenceJa localInference = _TranslationsMealLocalInferenceJa._(_root);
 	@override late final _TranslationsMealFeedbackJa feedback = _TranslationsMealFeedbackJa._(_root);
-	@override String get nameRequired => '保存する前に食事名を入力してください。';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsJa implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitJa heightUnit = _TranslationsSettingsHeightUnitJa._(_root);
 	@override late final _TranslationsSettingsWeightUnitJa weightUnit = _TranslationsSettingsWeightUnitJa._(_root);
 	@override late final _TranslationsSettingsMealRemindersJa mealReminders = _TranslationsSettingsMealRemindersJa._(_root);
+	@override late final _TranslationsSettingsLocalInferenceJa localInference = _TranslationsSettingsLocalInferenceJa._(_root);
 	@override late final _TranslationsSettingsThemeJa theme = _TranslationsSettingsThemeJa._(_root);
 	@override late final _TranslationsSettingsSendFeedbackJa sendFeedback = _TranslationsSettingsSendFeedbackJa._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryJa exportMealHistory = _TranslationsSettingsExportMealHistoryJa._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisJa implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceJa implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => '検出された食材を確認';
+	@override String get reviewSubtitle => 'これはデバイス上で解析されました。栄養計算の前に、名称や分量を修正してください。';
+	@override String get mealName => '食事名';
+	@override String get ingredient => '食材';
+	@override String get grams => '推定重量 (g)';
+	@override String get removeIngredient => '食材を削除';
+	@override String get continueLabel => '次へ';
+	@override String get invalidProposal => '少なくとも1つの食材を追加し、正の数値を入力してください。';
+	@override String get localUnavailable => '現在、デバイス上での解析は利用できません。';
+	@override String get calculationDetails => '計算方法の詳細';
+	@override String get interpretationLocal => 'このデバイスで解析された食材';
+	@override String get interpretationCloud => 'クラウドで解析された食材';
+	@override String get interpretationManual => 'ユーザーによって確認または編集された食材';
+	@override String get nutritionRemote => 'Calorifyを通じてUSDAから取得した栄養価';
+	@override String get nutritionFallback => '一部の栄養価はリモートで推定されました';
+	@override String get calculationServer => 'カロリーとマクロ栄養素はCalorifyによって計算されました';
+	@override String get fallbackUsed => 'ローカル解析からクラウド処理に切り替わりました';
+	@override String get noRawContent => '診断用レシートに食事のテキストや写真は含まれません。';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackJa implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackJa._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsJa implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'ローカリゼーション';
 	@override String get notifications => '通知';
 	@override String get healthConnect => 'Health Connect';
+	@override String get localInference => 'デバイス上での解析';
 	@override String get supportAndLegal => 'サポートと法務';
 	@override String get about => 'このアプリについて';
 	@override String get dangerZone => '危険領域';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersJa implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => '食事リマインダー';
 	@override String get subtitle => 'タイムリーな通知で軌道に乗りましょう';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceJa implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceJa._(this._root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'デバイス上での食事解析';
+	@override String get subtitle => '栄養計算の前に、Gemini Nanoを使用して対応している食事を解析します';
+	@override String get unavailable => 'このデバイスでは利用できません';
+	@override String get rolloutUnavailable => '対応ハードウェアは見つかりましたが、このアプリのバージョンでは機能が有効になっていません';
+	@override String get modelSetup => '有効にする前にGemini Nanoのダウンロードを完了させる必要があります';
+	@override String get useLocalTitle => 'デバイス上での解析を使用';
+	@override String get useLocalSubtitle => 'オプションであり、デフォルトではオフになっています。複雑な食事の場合、結果の信頼性が低くなることがあります。';
+	@override String get disclosureTitle => 'デバイス上での解析を有効にする前に';
+	@override String get disclosureBody => 'Gemini Nanoは、対応するAndroidデバイスで食材の特定と分量の推定が可能です。確認済みの食材案は、USDAの栄養データに基づいた計算のためCalorifyに送信されます。';
+	@override String get disclosureLimit1 => '複雑な料理、隠れた食材、分量の特定が正しく行われない場合があります。';
+	@override String get disclosureLimit2 => 'ダウンロード中、ビジー状態、バックグラウンド動作中、またはデバイスの制限により、モデルが利用できない場合があります。';
+	@override String get disclosureLimit3 => 'ローカルでの解析が完了できない場合、このベータ版では元の食事内容が自動的にCalorifyに送信され、クラウドで解析されます。';
+	@override String get acknowledgement => '検出された食材と分量を確認する必要があることを理解しました。';
+	@override String get enable => '同意して有効にする';
+	@override String get cancel => 'キャンセル';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsJa {
 			'meal.save' => '保存',
 			'meal.mealName' => '食事名',
 			'meal.mealNameHint' => '例：スクランブルエッグとトースト',
+			'meal.nameRequired' => '保存する前に食事名を入力してください。',
 			'meal.mealQuantity' => '食事の量',
 			'meal.mealQuantityHint' => '例：1杯、2枚',
 			'meal.timeOfMeal' => '食事の時間',
@@ -1916,6 +1971,24 @@ extension on TranslationsJa {
 			'meal.analysis.offlineTip3' => 'ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。',
 			'meal.analysis.offlineTip4' => 'ヒント：食後に記録しても習慣化になります。完璧である必要はありません。',
 			'meal.analysis.offlineTip5' => 'ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。',
+			'meal.localInference.reviewTitle' => '検出された食材を確認',
+			'meal.localInference.reviewSubtitle' => 'これはデバイス上で解析されました。栄養計算の前に、名称や分量を修正してください。',
+			'meal.localInference.mealName' => '食事名',
+			'meal.localInference.ingredient' => '食材',
+			'meal.localInference.grams' => '推定重量 (g)',
+			'meal.localInference.removeIngredient' => '食材を削除',
+			'meal.localInference.continueLabel' => '次へ',
+			'meal.localInference.invalidProposal' => '少なくとも1つの食材を追加し、正の数値を入力してください。',
+			'meal.localInference.localUnavailable' => '現在、デバイス上での解析は利用できません。',
+			'meal.localInference.calculationDetails' => '計算方法の詳細',
+			'meal.localInference.interpretationLocal' => 'このデバイスで解析された食材',
+			'meal.localInference.interpretationCloud' => 'クラウドで解析された食材',
+			'meal.localInference.interpretationManual' => 'ユーザーによって確認または編集された食材',
+			'meal.localInference.nutritionRemote' => 'Calorifyを通じてUSDAから取得した栄養価',
+			'meal.localInference.nutritionFallback' => '一部の栄養価はリモートで推定されました',
+			'meal.localInference.calculationServer' => 'カロリーとマクロ栄養素はCalorifyによって計算されました',
+			'meal.localInference.fallbackUsed' => 'ローカル解析からクラウド処理に切り替わりました',
+			'meal.localInference.noRawContent' => '診断用レシートに食事のテキストや写真は含まれません。',
 			'meal.feedback.title' => 'どこが違いますか？',
 			'meal.feedback.subtitle' => '分析の改善のために、1つ以上の問題を選んでください。',
 			'meal.feedback.tellUsMore' => '詳しく教えてください',
@@ -1928,7 +2001,6 @@ extension on TranslationsJa {
 			'meal.feedback.issueMissingItems' => '欠けている項目',
 			'meal.feedback.issueExtraItems' => '余分な項目',
 			'meal.feedback.issueOther' => 'その他',
-			'meal.nameRequired' => '保存する前に食事名を入力してください。',
 			'favorites.title' => 'お気に入り',
 			'favorites.empty' => 'お気に入りはまだありません。',
 			'favorites.searchPlaceholder' => 'お気に入りの食事を検索',
@@ -2014,6 +2086,7 @@ extension on TranslationsJa {
 			'settings.sections.localization' => 'ローカリゼーション',
 			'settings.sections.notifications' => '通知',
 			'settings.sections.healthConnect' => 'Health Connect',
+			'settings.sections.localInference' => 'デバイス上での解析',
 			'settings.sections.supportAndLegal' => 'サポートと法務',
 			'settings.sections.about' => 'このアプリについて',
 			'settings.sections.dangerZone' => '危険領域',
@@ -2028,6 +2101,21 @@ extension on TranslationsJa {
 			'settings.weightUnit.title' => '体重の単位',
 			'settings.mealReminders.title' => '食事リマインダー',
 			'settings.mealReminders.subtitle' => 'タイムリーな通知で軌道に乗りましょう',
+			'settings.localInference.title' => 'デバイス上での食事解析',
+			'settings.localInference.subtitle' => '栄養計算の前に、Gemini Nanoを使用して対応している食事を解析します',
+			'settings.localInference.unavailable' => 'このデバイスでは利用できません',
+			'settings.localInference.rolloutUnavailable' => '対応ハードウェアは見つかりましたが、このアプリのバージョンでは機能が有効になっていません',
+			'settings.localInference.modelSetup' => '有効にする前にGemini Nanoのダウンロードを完了させる必要があります',
+			'settings.localInference.useLocalTitle' => 'デバイス上での解析を使用',
+			'settings.localInference.useLocalSubtitle' => 'オプションであり、デフォルトではオフになっています。複雑な食事の場合、結果の信頼性が低くなることがあります。',
+			'settings.localInference.disclosureTitle' => 'デバイス上での解析を有効にする前に',
+			'settings.localInference.disclosureBody' => 'Gemini Nanoは、対応するAndroidデバイスで食材の特定と分量の推定が可能です。確認済みの食材案は、USDAの栄養データに基づいた計算のためCalorifyに送信されます。',
+			'settings.localInference.disclosureLimit1' => '複雑な料理、隠れた食材、分量の特定が正しく行われない場合があります。',
+			'settings.localInference.disclosureLimit2' => 'ダウンロード中、ビジー状態、バックグラウンド動作中、またはデバイスの制限により、モデルが利用できない場合があります。',
+			'settings.localInference.disclosureLimit3' => 'ローカルでの解析が完了できない場合、このベータ版では元の食事内容が自動的にCalorifyに送信され、クラウドで解析されます。',
+			'settings.localInference.acknowledgement' => '検出された食材と分量を確認する必要があることを理解しました。',
+			'settings.localInference.enable' => '同意して有効にする',
+			'settings.localInference.cancel' => 'キャンセル',
 			'settings.theme.title' => 'テーマ',
 			'settings.theme.light' => 'ライト',
 			'settings.theme.dark' => 'ダーク',
@@ -2162,6 +2250,8 @@ extension on TranslationsJa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'プロフィールに基づいてTDEEを算出し、経過した日の割合（時間＋分）/24を掛けて、これまでの消費カロリーを推定します。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '専門的な助言',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'この推定を医療上の判断に使用しないでください。個別の体重管理については医療専門家や登録栄養士に必ず相談してください。',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}を楽しんでいますか？',

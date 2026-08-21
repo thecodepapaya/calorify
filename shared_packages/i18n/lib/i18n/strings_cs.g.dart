@@ -155,6 +155,7 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String get save => 'Uložit';
 	@override String get mealName => 'Název jídla';
 	@override String get mealNameHint => 'např. Míchaná vejce s toustem';
+	@override String get nameRequired => 'Zadejte název jídla před uložením.';
 	@override String get mealQuantity => 'Množství jídla';
 	@override String get mealQuantityHint => 'např. 1 miska, 2 plátky';
 	@override String get timeOfMeal => 'Čas jídla';
@@ -180,8 +181,8 @@ class _TranslationsMealCs implements TranslationsMealEn {
 	@override String get skip => 'Přeskočit';
 	@override late final _TranslationsMealQuestionFlowCs questionFlow = _TranslationsMealQuestionFlowCs._(_root);
 	@override late final _TranslationsMealAnalysisCs analysis = _TranslationsMealAnalysisCs._(_root);
+	@override late final _TranslationsMealLocalInferenceCs localInference = _TranslationsMealLocalInferenceCs._(_root);
 	@override late final _TranslationsMealFeedbackCs feedback = _TranslationsMealFeedbackCs._(_root);
-	@override String get nameRequired => 'Zadejte název jídla před uložením.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsCs implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitCs heightUnit = _TranslationsSettingsHeightUnitCs._(_root);
 	@override late final _TranslationsSettingsWeightUnitCs weightUnit = _TranslationsSettingsWeightUnitCs._(_root);
 	@override late final _TranslationsSettingsMealRemindersCs mealReminders = _TranslationsSettingsMealRemindersCs._(_root);
+	@override late final _TranslationsSettingsLocalInferenceCs localInference = _TranslationsSettingsLocalInferenceCs._(_root);
 	@override late final _TranslationsSettingsThemeCs theme = _TranslationsSettingsThemeCs._(_root);
 	@override late final _TranslationsSettingsSendFeedbackCs sendFeedback = _TranslationsSettingsSendFeedbackCs._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryCs exportMealHistory = _TranslationsSettingsExportMealHistoryCs._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisCs implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceCs implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Zkontrolujte detekované ingredience';
+	@override String get reviewSubtitle => 'Tento text byl interpretován ve vašem zařízení. Před výpočtem výživových hodnot opravte názvy nebo porce.';
+	@override String get mealName => 'Název jídla';
+	@override String get ingredient => 'Ingredience';
+	@override String get grams => 'Odhadované gramy';
+	@override String get removeIngredient => 'Odebrat ingredienci';
+	@override String get continueLabel => 'Pokračovat';
+	@override String get invalidProposal => 'Přidejte alespoň jednu ingredienci a zadejte kladný počet gramů.';
+	@override String get localUnavailable => 'Analýza v zařízení momentálně není k dispozici.';
+	@override String get calculationDetails => 'Jak bylo vypočítáno';
+	@override String get interpretationLocal => 'Ingredience interpretované v tomto zařízení';
+	@override String get interpretationCloud => 'Ingredience interpretované v cloudu';
+	@override String get interpretationManual => 'Ingredience zkontrolované nebo upravené vámi';
+	@override String get nutritionRemote => 'Výživové hodnoty staženy z USDA prostřednictvím Calorify';
+	@override String get nutritionFallback => 'Některé výživové hodnoty byly odhadnuty vzdáleně';
+	@override String get calculationServer => 'Kalorie a makroživiny vypočítány aplikací Calorify';
+	@override String get fallbackUsed => 'Lokální analýza byla nahrazena zpracováním v cloudu';
+	@override String get noRawContent => 'Diagnostické účtenky neobsahují text ani fotografii vašeho jídla.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackCs implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackCs._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsCs implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALIZACE';
 	@override String get notifications => 'UPOZORNĚNÍ';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ANALÝZA V ZAŘÍZENÍ';
 	@override String get supportAndLegal => 'PODPORA & PRÁVNÍ';
 	@override String get about => 'O APLIKACI';
 	@override String get dangerZone => 'RIZIKOVÁ ZÓNA';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersCs implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Připomenutí jídel';
 	@override String get subtitle => 'Zůstaňte na cestě díky včasným upozorněním';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceCs implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceCs._(this._root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Analýza jídla v zařízení';
+	@override String get subtitle => 'Interpretujte podporovaná jídla pomocí Gemini Nano před výpočtem výživových hodnot';
+	@override String get unavailable => 'V tomto zařízení není k dispozici';
+	@override String get rolloutUnavailable => 'Podporovaný hardware byl nalezen, ale tato funkce není pro tuto verzi aplikace aktivní';
+	@override String get modelSetup => 'Před aktivací musí Gemini Nano dokončit stahování';
+	@override String get useLocalTitle => 'Používat analýzu v zařízení';
+	@override String get useLocalSubtitle => 'Volitelné, ve výchozím nastavení vypnuto. Výsledky mohou být u složitých jídel méně spolehlivé.';
+	@override String get disclosureTitle => 'Než zapnete analýzu v zařízení';
+	@override String get disclosureBody => 'Gemini Nano dokáže identifikovat ingredience a odhadnout porce na podporovaných zařízeních Android. Váš zkontrolovaný návrh ingrediencí je odeslán do Calorify za účelem ověření výživových hodnot USDA a výpočtu.';
+	@override String get disclosureLimit1 => 'Složitá jídla, skryté ingredience a velikosti porcí mohou být identifikovány nesprávně.';
+	@override String get disclosureLimit2 => 'Model nemusí být k dispozici během stahování, při vysokém zatížení, v pozadí nebo z důvodu omezení zařízení.';
+	@override String get disclosureLimit3 => 'Pokud lokální interpretace nedokončí, tato beta verze automaticky odešle původní popis jídla do Calorify za účelem analýzy v cloudu.';
+	@override String get acknowledgement => 'Rozumím tomu, že mám zkontrolovat detekované ingredience a porce.';
+	@override String get enable => 'Potvrdit a zapnout';
+	@override String get cancel => 'Zrušit';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsCs {
 			'meal.save' => 'Uložit',
 			'meal.mealName' => 'Název jídla',
 			'meal.mealNameHint' => 'např. Míchaná vejce s toustem',
+			'meal.nameRequired' => 'Zadejte název jídla před uložením.',
 			'meal.mealQuantity' => 'Množství jídla',
 			'meal.mealQuantityHint' => 'např. 1 miska, 2 plátky',
 			'meal.timeOfMeal' => 'Čas jídla',
@@ -1916,6 +1971,24 @@ extension on TranslationsCs {
 			'meal.analysis.offlineTip3' => 'Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.',
 			'meal.analysis.offlineTip4' => 'Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.',
 			'meal.analysis.offlineTip5' => 'Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).',
+			'meal.localInference.reviewTitle' => 'Zkontrolujte detekované ingredience',
+			'meal.localInference.reviewSubtitle' => 'Tento text byl interpretován ve vašem zařízení. Před výpočtem výživových hodnot opravte názvy nebo porce.',
+			'meal.localInference.mealName' => 'Název jídla',
+			'meal.localInference.ingredient' => 'Ingredience',
+			'meal.localInference.grams' => 'Odhadované gramy',
+			'meal.localInference.removeIngredient' => 'Odebrat ingredienci',
+			'meal.localInference.continueLabel' => 'Pokračovat',
+			'meal.localInference.invalidProposal' => 'Přidejte alespoň jednu ingredienci a zadejte kladný počet gramů.',
+			'meal.localInference.localUnavailable' => 'Analýza v zařízení momentálně není k dispozici.',
+			'meal.localInference.calculationDetails' => 'Jak bylo vypočítáno',
+			'meal.localInference.interpretationLocal' => 'Ingredience interpretované v tomto zařízení',
+			'meal.localInference.interpretationCloud' => 'Ingredience interpretované v cloudu',
+			'meal.localInference.interpretationManual' => 'Ingredience zkontrolované nebo upravené vámi',
+			'meal.localInference.nutritionRemote' => 'Výživové hodnoty staženy z USDA prostřednictvím Calorify',
+			'meal.localInference.nutritionFallback' => 'Některé výživové hodnoty byly odhadnuty vzdáleně',
+			'meal.localInference.calculationServer' => 'Kalorie a makroživiny vypočítány aplikací Calorify',
+			'meal.localInference.fallbackUsed' => 'Lokální analýza byla nahrazena zpracováním v cloudu',
+			'meal.localInference.noRawContent' => 'Diagnostické účtenky neobsahují text ani fotografii vašeho jídla.',
 			'meal.feedback.title' => 'Co vypadá špatně?',
 			'meal.feedback.subtitle' => 'Označte jednu nebo více chyb a pomozte nám zlepšit analýzu.',
 			'meal.feedback.tellUsMore' => 'Řekněte více',
@@ -1928,7 +2001,6 @@ extension on TranslationsCs {
 			'meal.feedback.issueMissingItems' => 'Chybějící položky',
 			'meal.feedback.issueExtraItems' => 'Nadbytečné položky',
 			'meal.feedback.issueOther' => 'Jiné',
-			'meal.nameRequired' => 'Zadejte název jídla před uložením.',
 			'favorites.title' => 'Oblíbené',
 			'favorites.empty' => 'Zatím žádná oblíbená jídla.',
 			'favorites.searchPlaceholder' => 'Hledat oblíbená jídla',
@@ -2014,6 +2086,7 @@ extension on TranslationsCs {
 			'settings.sections.localization' => 'LOKALIZACE',
 			'settings.sections.notifications' => 'UPOZORNĚNÍ',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ANALÝZA V ZAŘÍZENÍ',
 			'settings.sections.supportAndLegal' => 'PODPORA & PRÁVNÍ',
 			'settings.sections.about' => 'O APLIKACI',
 			'settings.sections.dangerZone' => 'RIZIKOVÁ ZÓNA',
@@ -2028,6 +2101,21 @@ extension on TranslationsCs {
 			'settings.weightUnit.title' => 'Jednotka hmotnosti',
 			'settings.mealReminders.title' => 'Připomenutí jídel',
 			'settings.mealReminders.subtitle' => 'Zůstaňte na cestě díky včasným upozorněním',
+			'settings.localInference.title' => 'Analýza jídla v zařízení',
+			'settings.localInference.subtitle' => 'Interpretujte podporovaná jídla pomocí Gemini Nano před výpočtem výživových hodnot',
+			'settings.localInference.unavailable' => 'V tomto zařízení není k dispozici',
+			'settings.localInference.rolloutUnavailable' => 'Podporovaný hardware byl nalezen, ale tato funkce není pro tuto verzi aplikace aktivní',
+			'settings.localInference.modelSetup' => 'Před aktivací musí Gemini Nano dokončit stahování',
+			'settings.localInference.useLocalTitle' => 'Používat analýzu v zařízení',
+			'settings.localInference.useLocalSubtitle' => 'Volitelné, ve výchozím nastavení vypnuto. Výsledky mohou být u složitých jídel méně spolehlivé.',
+			'settings.localInference.disclosureTitle' => 'Než zapnete analýzu v zařízení',
+			'settings.localInference.disclosureBody' => 'Gemini Nano dokáže identifikovat ingredience a odhadnout porce na podporovaných zařízeních Android. Váš zkontrolovaný návrh ingrediencí je odeslán do Calorify za účelem ověření výživových hodnot USDA a výpočtu.',
+			'settings.localInference.disclosureLimit1' => 'Složitá jídla, skryté ingredience a velikosti porcí mohou být identifikovány nesprávně.',
+			'settings.localInference.disclosureLimit2' => 'Model nemusí být k dispozici během stahování, při vysokém zatížení, v pozadí nebo z důvodu omezení zařízení.',
+			'settings.localInference.disclosureLimit3' => 'Pokud lokální interpretace nedokončí, tato beta verze automaticky odešle původní popis jídla do Calorify za účelem analýzy v cloudu.',
+			'settings.localInference.acknowledgement' => 'Rozumím tomu, že mám zkontrolovat detekované ingredience a porce.',
+			'settings.localInference.enable' => 'Potvrdit a zapnout',
+			'settings.localInference.cancel' => 'Zrušit',
 			'settings.theme.title' => 'Téma',
 			'settings.theme.light' => 'Světlé',
 			'settings.theme.dark' => 'Tmavé',
@@ -2162,6 +2250,8 @@ extension on TranslationsCs {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vypočítáme váš TDEE (na základě profilu) a vynásobíme ho zlomkem uběhlého dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Odborné poradenství',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nepoužívejte tento odhad pro lékařská rozhodnutí. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem pro personalizovanou péči.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',

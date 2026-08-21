@@ -245,6 +245,7 @@
     "save": "Zapisz",
     "mealName": "Nazwa posiłku",
     "mealNameHint": "np. Jajecznica z tostami",
+    "nameRequired": "Podaj nazwę posiłku przed zapisaniem.",
     "mealQuantity": "Ilość posiłku",
     "mealQuantityHint": "np. 1 miska, 2 kromki",
     "timeOfMeal": "Czas posiłku",
@@ -312,6 +313,26 @@
       "offlineTip4": "Wskazówka: Zapis po posiłku też buduje nawyk; perfekcja nie jest obowiązkowa.",
       "offlineTip5": "Wskazówka: Powiedz, jak jedzenie było przygotowane, jeśli to znacząco zmienia kalorie (smażone vs pieczone)."
     },
+    "localInference": {
+      "reviewTitle": "Sprawdź wykryte składniki",
+      "reviewSubtitle": "Dane zostały zinterpretowane na Twoim urządzeniu. Popraw nazwy lub porcje przed obliczeniem wartości odżywczych.",
+      "mealName": "Nazwa posiłku",
+      "ingredient": "Składnik",
+      "grams": "Szacowana waga (g)",
+      "removeIngredient": "Usuń składnik",
+      "continueLabel": "Kontynuuj",
+      "invalidProposal": "Dodaj co najmniej jeden składnik i podaj dodatnią wartość gramów.",
+      "localUnavailable": "Analiza na urządzeniu jest obecnie niedostępna.",
+      "calculationDetails": "Jak to zostało obliczone",
+      "interpretationLocal": "Składniki zinterpretowane na tym urządzeniu",
+      "interpretationCloud": "Składniki zinterpretowane w chmurze",
+      "interpretationManual": "Składniki sprawdzone lub edytowane przez Ciebie",
+      "nutritionRemote": "Wartości odżywcze pobrane z USDA przez Calorify",
+      "nutritionFallback": "Niektóre wartości odżywcze zostały oszacowane zdalnie",
+      "calculationServer": "Kalorie i makroskładniki obliczone przez Calorify",
+      "fallbackUsed": "Analiza lokalna została zastąpiona przetwarzaniem w chmurze",
+      "noRawContent": "Paragony diagnostyczne nie zawierają tekstu ani zdjęcia Twojego posiłku."
+    },
     "feedback": {
       "title": "Co wygląda nie tak?",
       "subtitle": "Pomóż nam ulepszyć analizę, wybierając jeden lub więcej problemów.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Brakujące elementy",
       "issueExtraItems": "Dodatkowe elementy",
       "issueOther": "Inne"
-    },
-    "nameRequired": "Podaj nazwę posiłku przed zapisaniem."
+    }
   },
   "favorites": {
     "title": "Ulubione",
@@ -453,6 +473,7 @@
       "localization": "LOKALIZACJA",
       "notifications": "POWIADOMIENIA",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALIZA NA URZĄDZENIU",
       "supportAndLegal": "POMOC I DANE PRAWNE",
       "about": "O APLIKACJI",
       "dangerZone": "STREFA RYZYKA",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Przypomnienia o posiłkach",
       "subtitle": "Pozostań na ścieżce dzięki przypomnieniom"
+    },
+    "localInference": {
+      "title": "Analiza posiłków na urządzeniu",
+      "subtitle": "Interpretuj obsługiwane posiłki za pomocą Gemini Nano przed obliczeniem wartości odżywczych",
+      "unavailable": "Niedostępne na tym urządzeniu",
+      "rolloutUnavailable": "Wykryto odpowiedni sprzęt, ale ta funkcja nie jest włączona w tej wersji aplikacji",
+      "modelSetup": "Gemini Nano musi zakończyć pobieranie, zanim będzie można to włączyć",
+      "useLocalTitle": "Używaj analizy na urządzeniu",
+      "useLocalSubtitle": "Opcjonalnie, domyślnie wyłączone. Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.",
+      "disclosureTitle": "Zanim włączysz analizę na urządzeniu",
+      "disclosureBody": "Gemini Nano potrafi identyfikować składniki i szacować porcje na obsługiwanych urządzeniach Android. Twoja zweryfikowana propozycja składników jest wysyłana do Calorify w celu weryfikacji wartości odżywczych USDA i obliczeń.",
+      "disclosureLimit1": "Złożone dania, ukryte składniki i wielkość porcji mogą zostać błędnie zidentyfikowane.",
+      "disclosureLimit2": "Model może być niedostępny podczas pobierania, gdy jest zajęty, działa w tle lub jest ograniczony przez urządzenie.",
+      "disclosureLimit3": "Jeśli interpretacja lokalna nie może zostać zakończona, ta wersja beta automatycznie wysyła oryginalny opis posiłku do Calorify w celu analizy w chmurze.",
+      "acknowledgement": "Rozumiem, że powinienem sprawdzać wykryte składniki i porcje.",
+      "enable": "Potwierdź i włącz",
+      "cancel": "Anuluj"
     },
     "theme": {
       "title": "Motyw",

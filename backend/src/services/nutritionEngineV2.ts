@@ -49,7 +49,19 @@ import {
   mealAnalysisDecompositionIssuesTotal,
 } from './metrics.js';
 import type { MealClarificationAnswer } from '../protos/calorify/http_api.js';
-import { PortionKind } from '../protos/calorify/meal_analysis_pipeline.js';
+import {
+  AnalysisModality,
+  AnalysisAttemptStatus,
+  CalculationOrigin,
+  IngredientFieldOrigin,
+  InterpretationOrigin,
+  MealAnalysisFallbackReason,
+  NutritionOrigin,
+  PortionKind,
+  type IngredientFieldProvenance,
+  type IngredientProposalV1,
+  type MealAnalysisReceipt,
+} from '../protos/calorify/meal_analysis_pipeline.js';
 import {
   lookupTemplate,
   synthesizeFallbackTemplate,
@@ -234,6 +246,11 @@ export interface PipelineResolvedIngredient {
   portionKind: PortionKindValue;
   count?: number;
   perUnitGrams?: number;
+  nutritionOrigin: NutritionOrigin;
+  fdcId?: string;
+  usdaDatasetVersion?: string;
+  nutrientsPer100g?: Macros;
+  fieldProvenance: IngredientFieldProvenance[];
 }
 
 export interface ClarificationOptionDTO {
@@ -309,6 +326,8 @@ export type PipelineEvent =
         ingredients: PipelineDecomposedIngredient[];
         inferredMealType: MealTypeValue;
         mealTypeConfident: boolean;
+        interpretationOrigin: InterpretationOrigin;
+        proposal: IngredientProposalV1;
       };
     }
   | {
@@ -348,6 +367,7 @@ export type PipelineEvent =
         confidenceReasons: string[];
         calorieBand: { min: number; max: number };
         ingredients: PipelineResolvedIngredient[];
+        receipt: MealAnalysisReceipt;
       };
     }
   | {
@@ -370,6 +390,11 @@ export interface AnalysisRequestOptions {
   trace?: AnalysisTrace;
   /** Persisted object identity; the bearer download URL remains transient. */
   imageObjectKey?: string;
+  localAttempted?: boolean;
+  localAttemptId?: string;
+  localAttemptStartedAtEpochMs?: number;
+  localAttemptCompletedAtEpochMs?: number;
+  fallbackReason?: MealAnalysisFallbackReason;
 }
 
 interface PipelineRunContext {
@@ -388,6 +413,15 @@ interface PipelineRunContext {
   otherText?: string;
   logger?: AnalysisLogger;
   trace?: AnalysisTrace;
+  interpretationOrigin: InterpretationOrigin;
+  localAttempted: boolean;
+  localAttemptId?: string;
+  localAttemptStartedAtEpochMs?: number;
+  localAttemptCompletedAtEpochMs?: number;
+  fallbackReason: MealAnalysisFallbackReason;
+  attemptId: string;
+  attemptStartedAt: number;
+  acceptedProposal?: IngredientProposalV1;
 }
 
 function normalize(name: string): string {
@@ -423,6 +457,144 @@ function toWirePortionKind(value: PortionKindValue): PortionKind {
     case 'BULK':
       return PortionKind.BULK;
   }
+}
+
+function proposalToDecomposition(proposal: IngredientProposalV1): LLMDecomposition {
+  if (proposal.schemaVersion !== INGREDIENT_PROPOSAL_SCHEMA_VERSION) {
+    throw new Error('Unsupported ingredient proposal version');
+  }
+  if (
+    proposal.interpretationOrigin !==
+    InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+  ) {
+    throw new Error('Proposal must identify local interpretation origin');
+  }
+  if (
+    proposal.modality !== AnalysisModality.ANALYSIS_MODALITY_TEXT &&
+    proposal.modality !== AnalysisModality.ANALYSIS_MODALITY_IMAGE
+  ) {
+    throw new Error('Proposal modality is invalid');
+  }
+  const mealName = proposal.mealName.trim();
+  if (!mealName || mealName.length > 200) {
+    throw new Error('Proposal meal name is invalid');
+  }
+  if (
+    !Number.isFinite(proposal.confidence) ||
+    proposal.confidence < 0 ||
+    proposal.confidence > 1
+  ) {
+    throw new Error('Proposal confidence is invalid');
+  }
+  if (proposal.ingredients.length === 0 || proposal.ingredients.length > 30) {
+    throw new Error('Proposal ingredient count is invalid');
+  }
+  const rowIds = new Set<string>();
+  const ingredients = proposal.ingredients.map((ingredient) => {
+    const rowId = ingredient.rowId.trim();
+    const rawName = ingredient.rawName.trim();
+    const canonicalHint = ingredient.canonicalHint.trim();
+    if (
+      !rowId || rowIds.has(rowId) || rowId.length > 128 ||
+      !rawName || rawName.length > 200 ||
+      !canonicalHint || canonicalHint.length > 200
+    ) {
+      throw new Error('Proposal ingredient identity is invalid');
+    }
+    rowIds.add(rowId);
+    const gramValues = [
+      ingredient.minGrams,
+      ingredient.gramsEstimated,
+      ingredient.maxGrams,
+    ];
+    if (
+      gramValues.some((value) => !Number.isFinite(value) || value <= 0 || value > 5000) ||
+      ingredient.minGrams > ingredient.gramsEstimated ||
+      ingredient.gramsEstimated > ingredient.maxGrams
+    ) {
+      throw new Error('Proposal ingredient portion is invalid');
+    }
+    const portionKind = asPortionKind(ingredient.portionKind);
+    if (
+      ingredient.portionKind === PortionKind.PORTION_KIND_UNSPECIFIED ||
+      ingredient.portionKind === PortionKind.UNRECOGNIZED
+    ) {
+      throw new Error('Proposal ingredient portion kind is invalid');
+    }
+    if (
+      ingredient.confidence < 0 ||
+      ingredient.confidence > 1 ||
+      !Number.isFinite(ingredient.confidence)
+    ) {
+      throw new Error('Proposal ingredient confidence is invalid');
+    }
+    const provenanceFields = new Set(
+      ingredient.fieldProvenance.map((provenance) => provenance.fieldName)
+    );
+    if (!provenanceFields.has('identity') || !provenanceFields.has('portion')) {
+      throw new Error('Proposal ingredient provenance is incomplete');
+    }
+    const count = ingredient.count;
+    if (
+      portionKind === 'COUNT' &&
+      (count == null || !Number.isFinite(count) || count <= 0 || count > 20)
+    ) {
+      throw new Error('Count proposal requires a plausible count');
+    }
+    if (portionKind === 'COUNT') {
+      const perUnitValues = [
+        ingredient.perUnitMinGrams,
+        ingredient.perUnitGrams,
+        ingredient.perUnitMaxGrams,
+      ];
+      if (
+        perUnitValues.some(
+          (value) => value == null || !Number.isFinite(value) || value <= 0 || value > 2000
+        ) ||
+        ingredient.perUnitMinGrams! > ingredient.perUnitGrams! ||
+        ingredient.perUnitGrams! > ingredient.perUnitMaxGrams! ||
+        Math.abs(ingredient.gramsEstimated - count! * ingredient.perUnitGrams!) >
+          Math.abs(count! * ingredient.perUnitGrams!) * 0.1 + 0.5
+      ) {
+        throw new Error('Count proposal per-unit values are invalid');
+      }
+    } else if (
+      ingredient.count != null ||
+      ingredient.perUnitGrams != null ||
+      ingredient.perUnitMinGrams != null ||
+      ingredient.perUnitMaxGrams != null
+    ) {
+      throw new Error('Non-count proposal contains count values');
+    }
+    const preparation = ingredient.preparation.trim();
+    const notes = ingredient.notes.trim();
+    return {
+      row_id: rowId,
+      raw_name: rawName,
+      canonical_hint: canonicalHint,
+      grams_estimated: ingredient.gramsEstimated,
+      min_grams: ingredient.minGrams,
+      max_grams: ingredient.maxGrams,
+      notes: [preparation, notes].filter(Boolean).join('; '),
+      portion_kind: portionKind,
+      count: ingredient.count,
+      per_unit_grams: ingredient.perUnitGrams,
+      per_unit_min_grams: ingredient.perUnitMinGrams,
+      per_unit_max_grams: ingredient.perUnitMaxGrams,
+      size_specified_by_user: ingredient.sizeSpecifiedByUser,
+    } satisfies LLMIngredient;
+  });
+  if (!MEAL_TYPES.includes(proposal.inferredMealType as (typeof MEAL_TYPES)[number]) &&
+      proposal.inferredMealType !== 'UNKNOWN') {
+    throw new Error('Proposal meal type is invalid');
+  }
+  return {
+    meal_name: mealName,
+    ingredients,
+    confidence: proposal.confidence,
+    inferred_meal_type: proposal.inferredMealType as MealTypeValue,
+    meal_type_confident: proposal.mealTypeConfident,
+  };
 }
 
 function finiteNumber(value: unknown, fallback: number): number {
@@ -964,7 +1136,152 @@ function toDecompositionWire(decomposition: NormalizedDecomposition): PipelineDe
   }));
 }
 
-function toResolvedIngredientWire(resolved: ResolvedIngredient[]): PipelineResolvedIngredient[] {
+const INGREDIENT_PROPOSAL_SCHEMA_VERSION = 1;
+const ANALYSIS_RECEIPT_SCHEMA_VERSION = 1;
+const CALCULATION_VERSION = 'nutrition-engine-v2';
+
+function proposalForDecomposition(
+  context: PipelineRunContext,
+  decomposition: NormalizedDecomposition
+): IngredientProposalV1 {
+  if (context.acceptedProposal) return context.acceptedProposal;
+  const fieldOrigin = context.interpretationOrigin === InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+    ? IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL
+    : IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL;
+  return {
+    schemaVersion: INGREDIENT_PROPOSAL_SCHEMA_VERSION,
+    proposalId: `${context.analysisId}:proposal-v1`,
+    modality: context.source === 'image'
+      ? AnalysisModality.ANALYSIS_MODALITY_IMAGE
+      : AnalysisModality.ANALYSIS_MODALITY_TEXT,
+    mealName: decomposition.mealName,
+    inferredMealType: decomposition.inferredMealType,
+    mealTypeConfident: decomposition.mealTypeConfident,
+    confidence: decomposition.confidence,
+    ingredients: decomposition.ingredients.map((ingredient) => ({
+      rowId: ingredient.rowId,
+      rawName: ingredient.rawName,
+      canonicalHint: ingredient.canonicalHint,
+      preparation: '',
+      gramsEstimated: ingredient.gramsEstimated,
+      minGrams: ingredient.minGrams,
+      maxGrams: ingredient.maxGrams,
+      notes: ingredient.notes,
+      portionKind: toWirePortionKind(ingredient.portionKind),
+      count: ingredient.count ?? undefined,
+      perUnitGrams: ingredient.perUnitGrams ?? undefined,
+      perUnitMinGrams: ingredient.perUnitMinGrams ?? undefined,
+      perUnitMaxGrams: ingredient.perUnitMaxGrams ?? undefined,
+      sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
+      confidence: decomposition.confidence,
+      fieldProvenance: [
+        { fieldName: 'identity', origin: fieldOrigin },
+        { fieldName: 'portion', origin: fieldOrigin },
+      ],
+    })),
+    interpretationOrigin: context.interpretationOrigin,
+    modelName: context.interpretationOrigin === InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL
+      ? OPENAI_MEAL_ANALYSIS_MODEL
+      : undefined,
+    modelVersion: undefined,
+  };
+}
+
+function nutritionOriginForIngredient(ingredient: ResolvedIngredient): NutritionOrigin {
+  if (ingredient.source === 'db') return NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA;
+  if (ingredient.source === 'deterministic') {
+    return NutritionOrigin.NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT;
+  }
+  return ingredient.macros.calories === 0
+    ? NutritionOrigin.NUTRITION_ORIGIN_UNRESOLVED
+    : NutritionOrigin.NUTRITION_ORIGIN_LLM_FALLBACK;
+}
+
+function aggregateNutritionOrigin(resolved: ResolvedIngredient[]): NutritionOrigin {
+  const origins = new Set(resolved.map(nutritionOriginForIngredient));
+  if (origins.has(NutritionOrigin.NUTRITION_ORIGIN_UNRESOLVED)) {
+    return NutritionOrigin.NUTRITION_ORIGIN_UNRESOLVED;
+  }
+  if (origins.has(NutritionOrigin.NUTRITION_ORIGIN_LLM_FALLBACK)) {
+    return NutritionOrigin.NUTRITION_ORIGIN_LLM_FALLBACK;
+  }
+  if (origins.has(NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA)) {
+    return NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA;
+  }
+  return NutritionOrigin.NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT;
+}
+
+function buildAnalysisReceipt(
+  context: PipelineRunContext,
+  resolved: ResolvedIngredient[]
+): MealAnalysisReceipt {
+  const completedAt = Date.now();
+  const attempts = [];
+  if (context.localAttempted && context.localAttemptId) {
+    attempts.push({
+      attemptId: context.localAttemptId,
+      executorOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
+      startedAtEpochMs: context.localAttemptStartedAtEpochMs ?? 0,
+      completedAtEpochMs:
+        context.localAttemptCompletedAtEpochMs ?? context.attemptStartedAt,
+      status: context.interpretationOrigin ===
+        InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+        ? AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_ACCEPTED
+        : AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_FAILED,
+      fallbackReason: context.interpretationOrigin ===
+        InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+        ? MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE
+        : context.fallbackReason,
+    });
+  }
+  if (
+    context.interpretationOrigin ===
+    InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL
+  ) {
+    attempts.push({
+      attemptId: context.attemptId,
+      executorOrigin: context.interpretationOrigin,
+      startedAtEpochMs: context.attemptStartedAt,
+      completedAtEpochMs: completedAt,
+      status: AnalysisAttemptStatus.ANALYSIS_ATTEMPT_STATUS_ACCEPTED,
+      fallbackReason: MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    });
+  }
+  const datasetVersions = new Set(
+    resolved
+      .map((ingredient) => ingredient.nutritionReference?.datasetVersion)
+      .filter((value): value is string => Boolean(value))
+  );
+  return {
+    schemaVersion: ANALYSIS_RECEIPT_SCHEMA_VERSION,
+    proposalSchemaVersion: INGREDIENT_PROPOSAL_SCHEMA_VERSION,
+    localAttempted: context.localAttempted,
+    interpretationOrigin: context.interpretationOrigin,
+    nutritionOrigin: aggregateNutritionOrigin(resolved),
+    calculationOrigin: CalculationOrigin.CALCULATION_ORIGIN_SERVER_DETERMINISTIC,
+    usdaDatasetVersion: datasetVersions.size === 1
+      ? datasetVersions.values().next().value
+      : undefined,
+    calculationVersion: CALCULATION_VERSION,
+    attempts,
+    fallbackReason: context.fallbackReason,
+  };
+}
+
+function toResolvedIngredientWire(
+  context: PipelineRunContext,
+  resolved: ResolvedIngredient[]
+): PipelineResolvedIngredient[] {
+  const proposalByRowId = new Map(
+    context.acceptedProposal?.ingredients.map((ingredient) => [
+      ingredient.rowId,
+      ingredient,
+    ]) ?? []
+  );
+  const defaultFieldOrigin = context.interpretationOrigin ===
+      InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+    ? IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL
+    : IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL;
   return resolved.map((ingredient) => ({
     rowId: ingredient.rowId,
     rawName: ingredient.rawName,
@@ -976,6 +1293,14 @@ function toResolvedIngredientWire(resolved: ResolvedIngredient[]): PipelineResol
     portionKind: ingredient.portionKind,
     count: ingredient.count ?? undefined,
     perUnitGrams: ingredient.perUnitGrams ?? undefined,
+    nutritionOrigin: nutritionOriginForIngredient(ingredient),
+    fdcId: ingredient.nutritionReference?.fdcId,
+    usdaDatasetVersion: ingredient.nutritionReference?.datasetVersion,
+    nutrientsPer100g: ingredient.nutritionReference?.per100g,
+    fieldProvenance: proposalByRowId.get(ingredient.rowId)?.fieldProvenance ?? [
+      { fieldName: 'identity', origin: defaultFieldOrigin },
+      { fieldName: 'portion', origin: defaultFieldOrigin },
+    ],
   }));
 }
 
@@ -1408,6 +1733,19 @@ async function resolveIngredients(
       perUnitMinGrams: ingredient.perUnitMinGrams,
       perUnitMaxGrams: ingredient.perUnitMaxGrams,
       sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
+      nutritionReference: usdaMatch.row
+        ? {
+            fdcId: String(usdaMatch.row.fdc_id),
+            datasetVersion: usdaMatch.row.dataset_version,
+            per100g: {
+              calories: usdaMatch.row.kcal_per_100g,
+              protein: usdaMatch.row.protein_per_100g,
+              carbs: usdaMatch.row.carbs_per_100g,
+              fat: usdaMatch.row.fat_per_100g,
+              fiber: usdaMatch.row.fiber_per_100g,
+            },
+          }
+        : undefined,
     });
   }
 
@@ -1766,6 +2104,8 @@ function buildDecompositionEvent(
       ingredients: toDecompositionWire(decomposition),
       inferredMealType: decomposition.inferredMealType,
       mealTypeConfident: decomposition.mealTypeConfident,
+      interpretationOrigin: context.interpretationOrigin,
+      proposal: proposalForDecomposition(context, decomposition),
     },
   };
 }
@@ -1802,7 +2142,7 @@ function buildIngredientsEvent(
     data: {
       analysisId: context.analysisId,
       mealName: decomposition.mealName,
-      ingredients: toResolvedIngredientWire(resolved),
+      ingredients: toResolvedIngredientWire(context, resolved),
     },
   };
 }
@@ -1963,7 +2303,8 @@ async function* runPresentationStage(
           min: uncertainty.minTotal.calories,
           max: uncertainty.maxTotal.calories,
         },
-        ingredients: toResolvedIngredientWire(resolved),
+        ingredients: toResolvedIngredientWire(context, resolved),
+        receipt: buildAnalysisReceipt(context, resolved),
       },
     };
 
@@ -2091,7 +2432,7 @@ async function* runPostResolutionPipeline(
       data: {
         analysisId: context.analysisId,
         mealName: decomposition.mealName,
-        ingredients: toResolvedIngredientWire(resolved),
+        ingredients: toResolvedIngredientWire(context, resolved),
       },
     }
       : undefined;
@@ -2495,6 +2836,12 @@ function contextFromSession(
 ): PipelineRunContext {
   const requestPayload = snapshotRecord(session.requestPayload, 'request payload');
   const feedbackContext = feedbackContextFromSessionPayload(requestPayload);
+  const execution = requestPayload.execution && typeof requestPayload.execution === 'object'
+    ? requestPayload.execution as Record<string, unknown>
+    : {};
+  const acceptedProposal = requestPayload.proposal && typeof requestPayload.proposal === 'object'
+    ? requestPayload.proposal as IngredientProposalV1
+    : undefined;
   const persistedMealType = session.selectedMealType == null
     ? undefined
     : snapshotMealType(session.selectedMealType, 'selected meal type');
@@ -2516,6 +2863,31 @@ function contextFromSession(
     ...feedbackContext,
     logger: options.logger,
     trace,
+    interpretationOrigin: acceptedProposal
+      ? InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
+      : InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL,
+    localAttempted: execution.localAttempted === true || Boolean(acceptedProposal),
+    localAttemptId: typeof execution.localAttemptId === 'string'
+      ? execution.localAttemptId
+      : undefined,
+    localAttemptStartedAtEpochMs:
+      typeof execution.localAttemptStartedAtEpochMs === 'number'
+        ? execution.localAttemptStartedAtEpochMs
+        : undefined,
+    localAttemptCompletedAtEpochMs:
+      typeof execution.localAttemptCompletedAtEpochMs === 'number'
+        ? execution.localAttemptCompletedAtEpochMs
+        : undefined,
+    fallbackReason: typeof execution.fallbackReason === 'string'
+      ? execution.fallbackReason as MealAnalysisFallbackReason
+      : MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    attemptId: typeof execution.attemptId === 'string'
+      ? execution.attemptId
+      : randomUUID(),
+    attemptStartedAt: typeof execution.attemptStartedAt === 'number'
+      ? execution.attemptStartedAt
+      : Date.now(),
+    acceptedProposal,
   };
 }
 
@@ -2550,6 +2922,23 @@ function durableAnalysisContext(
     timeZone: options.timeZone ?? null,
     selectedMealType: options.selectedMealType ?? null,
     selectedMealTypeSource: options.selectedMealTypeSource ?? null,
+  };
+}
+
+function executionContext(
+  options: AnalysisRequestOptions,
+  attemptId: string,
+  attemptStartedAt: number
+): Record<string, unknown> {
+  return {
+    attemptId,
+    attemptStartedAt,
+    localAttempted: options.localAttempted ?? false,
+    localAttemptId: options.localAttemptId ?? null,
+    localAttemptStartedAtEpochMs: options.localAttemptStartedAtEpochMs ?? null,
+    localAttemptCompletedAtEpochMs: options.localAttemptCompletedAtEpochMs ?? null,
+    fallbackReason: options.fallbackReason ??
+      MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
   };
 }
 
@@ -2616,6 +3005,8 @@ export async function* analyzeTextMeal(
 ): AsyncGenerator<PipelineEvent> {
   const analysisId = options.analysisId ?? randomUUID();
   const trace = options.trace ?? createAnalysisTrace();
+  const attemptId = randomUUID();
+  const attemptStartedAt = Date.now();
   const context: PipelineRunContext = {
     analysisId,
     parentAnalysisId: options.parentAnalysisId,
@@ -2627,6 +3018,7 @@ export async function* analyzeTextMeal(
     requestPayload: {
       textDescription: input,
       analysisContext: durableAnalysisContext(options, options.locale ?? 'en'),
+      execution: executionContext(options, attemptId, attemptStartedAt),
       ...(options.feedbackIssues?.length ? { feedbackIssues: options.feedbackIssues } : {}),
       ...(options.otherText ? { otherText: options.otherText } : {}),
     },
@@ -2636,6 +3028,15 @@ export async function* analyzeTextMeal(
     otherText: options.otherText,
     logger: options.logger,
     trace,
+    interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL,
+    localAttempted: options.localAttempted ?? false,
+    localAttemptId: options.localAttemptId,
+    localAttemptStartedAtEpochMs: options.localAttemptStartedAtEpochMs,
+    localAttemptCompletedAtEpochMs: options.localAttemptCompletedAtEpochMs,
+    fallbackReason: options.fallbackReason ??
+      MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    attemptId,
+    attemptStartedAt,
   };
   let decompositionLease: MealAnalysisStageLease | undefined;
 
@@ -2685,12 +3086,108 @@ export async function* analyzeTextMeal(
   }
 }
 
+export async function* analyzeIngredientProposal(
+  proposal: IngredientProposalV1,
+  options: AnalysisRequestOptions = {}
+): AsyncGenerator<PipelineEvent> {
+  const analysisId = options.analysisId ?? randomUUID();
+  const trace = options.trace ?? createAnalysisTrace();
+  const attemptId = options.localAttemptId ?? randomUUID();
+  const attemptStartedAt = Date.now();
+  const decomposition = proposalToDecomposition(proposal);
+  const source = proposal.modality === AnalysisModality.ANALYSIS_MODALITY_IMAGE
+    ? 'image' as const
+    : 'text' as const;
+  const localOptions: AnalysisRequestOptions = {
+    ...options,
+    localAttempted: true,
+    localAttemptId: attemptId,
+    localAttemptStartedAtEpochMs: options.localAttemptStartedAtEpochMs,
+    localAttemptCompletedAtEpochMs: options.localAttemptCompletedAtEpochMs,
+    fallbackReason: MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+  };
+  const context: PipelineRunContext = {
+    analysisId,
+    parentAnalysisId: options.parentAnalysisId,
+    userId: options.userId,
+    source,
+    locale: options.locale ?? 'en',
+    countryCode: options.countryCode,
+    timeZone: options.timeZone,
+    requestPayload: {
+      proposal,
+      analysisContext: durableAnalysisContext(options, options.locale ?? 'en'),
+      execution: executionContext(localOptions, attemptId, attemptStartedAt),
+    },
+    selectedMealType: options.selectedMealType,
+    selectedMealTypeSource: options.selectedMealTypeSource,
+    logger: options.logger,
+    trace,
+    interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
+    localAttempted: true,
+    localAttemptId: attemptId,
+    localAttemptStartedAtEpochMs: options.localAttemptStartedAtEpochMs,
+    localAttemptCompletedAtEpochMs: options.localAttemptCompletedAtEpochMs,
+    fallbackReason: MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    attemptId,
+    attemptStartedAt,
+    acceptedProposal: proposal,
+  };
+  let decompositionLease: MealAnalysisStageLease | undefined;
+
+  try {
+    const dispatch = await claimMealAnalysisDecomposition(
+      decompositionClaimRecord(context)
+    );
+    if (dispatch.status === 'conflict') {
+      throw new Error('Analysis ID is unavailable');
+    }
+    if (dispatch.status === 'existing') {
+      yield* resumeMealAnalysis(analysisId, { ...options, trace });
+      return;
+    }
+    decompositionLease = dispatch.lease;
+    yield { step: 'STARTED', data: { analysisId } };
+    const client = getMealAnalysisClient(trace);
+    yield* runPipelineFromDecomposition(
+      client,
+      decomposition,
+      context,
+      decompositionLease
+    );
+  } catch (error) {
+    logAnalysis(options.logger, 'error', 'local_proposal_analysis_failed', {
+      analysisId,
+      source,
+      errorKind: mealAnalysisErrorKind(error, 'local_proposal_analysis_failed'),
+      traceSummary: summarizeAnalysisTrace(trace),
+    });
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Meal proposal analysis failed')
+    );
+  } finally {
+    if (decompositionLease) {
+      try {
+        await releaseMealAnalysisDecomposition(analysisId, decompositionLease.token);
+      } catch (error) {
+        logAnalysis(options.logger, 'error', 'decomposition_stage_release_failed', {
+          analysisId,
+          ...safeErrorMetadata(error, 'decomposition_stage_release_failed'),
+        });
+      }
+    }
+  }
+}
+
 export async function* analyzeImageMeal(
   imageUrl: string,
   options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
   const analysisId = options.analysisId ?? randomUUID();
   const trace = options.trace ?? createAnalysisTrace();
+  const attemptId = randomUUID();
+  const attemptStartedAt = Date.now();
   const context: PipelineRunContext = {
     analysisId,
     parentAnalysisId: options.parentAnalysisId,
@@ -2702,6 +3199,7 @@ export async function* analyzeImageMeal(
     requestPayload: {
       ...(options.imageObjectKey ? { imageObjectKey: options.imageObjectKey } : {}),
       analysisContext: durableAnalysisContext(options, options.locale ?? 'en'),
+      execution: executionContext(options, attemptId, attemptStartedAt),
       ...(options.feedbackIssues?.length ? { feedbackIssues: options.feedbackIssues } : {}),
       ...(options.otherText ? { otherText: options.otherText } : {}),
     },
@@ -2712,6 +3210,13 @@ export async function* analyzeImageMeal(
     otherText: options.otherText,
     logger: options.logger,
     trace,
+    interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL,
+    localAttempted: options.localAttempted ?? false,
+    localAttemptId: options.localAttemptId,
+    fallbackReason: options.fallbackReason ??
+      MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    attemptId,
+    attemptStartedAt,
   };
   let decompositionLease: MealAnalysisStageLease | undefined;
 

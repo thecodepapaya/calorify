@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
+import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/local_inference_providers.dart';
 import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/services/notification_service.dart';
@@ -49,6 +52,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final profileAsync = ref.watch(userProfileProvider);
+    final localAvailabilityAsync = ref.watch(
+      localInferenceAvailabilityProvider,
+    );
+    final localPreferencesAsync = ref.watch(localInferencePreferencesProvider);
     final userProfile = profileAsync.maybeWhen(
       data: (profile) => profile,
       orElse: () => null,
@@ -159,6 +166,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     () => context.router.push(
                       const HealthConnectPermissionsRoute(),
                     ),
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildCardSection(t.settings.sections.localInference, [
+              _buildLocalInferenceTile(
+                availabilityAsync: localAvailabilityAsync,
+                preferencesAsync: localPreferencesAsync,
               ),
             ]),
             const SizedBox(height: 16),
@@ -335,6 +349,193 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           child: Column(children: children),
         ),
       ],
+    );
+  }
+
+  Widget _buildLocalInferenceTile({
+    required AsyncValue<LocalInferenceAvailability> availabilityAsync,
+    required AsyncValue<LocalInferencePreferences> preferencesAsync,
+  }) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final availability = switch (availabilityAsync) {
+      AsyncData(:final value) => value,
+      _ => null,
+    };
+    final preferences = switch (preferencesAsync) {
+      AsyncData(:final value) => value,
+      _ => null,
+    };
+    final enabled = preferences?.enabled ?? false;
+    final device = availability?.device;
+    final rolloutEnabled = availability?.policy.textEnabled == true;
+    final canEnable =
+        device?.platformSupported == true &&
+        device?.textSupported == true &&
+        rolloutEnabled;
+    final subtitle =
+        availability == null
+            ? t.settings.localInference.subtitle
+            : device?.platformSupported != true || device?.textSupported != true
+            ? t.settings.localInference.unavailable
+            : !rolloutEnabled
+            ? t.settings.localInference.rolloutUnavailable
+            : device?.ready != true
+            ? t.settings.localInference.subtitle
+            : t.settings.localInference.useLocalSubtitle;
+
+    return SwitchListTile(
+      secondary: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          LucideIcons.cpu,
+          color:
+              canEnable || enabled ? colorScheme.primary : colorScheme.outline,
+          size: 20,
+        ),
+      ),
+      title: Text(
+        t.settings.localInference.useLocalTitle,
+        style: const TextStyle(fontWeight: FontWeight.w600),
+      ),
+      subtitle: Text(subtitle),
+      value: enabled,
+      onChanged:
+          preferences == null || (!enabled && !canEnable)
+              ? null
+              : (value) => _setLocalInferenceEnabled(
+                value: value,
+                preferences: preferences,
+                availability: availability,
+              ),
+    );
+  }
+
+  Future<void> _setLocalInferenceEnabled({
+    required bool value,
+    required LocalInferencePreferences preferences,
+    required LocalInferenceAvailability? availability,
+  }) async {
+    final database = ref.read(databaseInterfaceProvider);
+    if (!value) {
+      await database.setLocalInferenceEnabled(false);
+      ref.invalidate(localInferencePreferencesProvider);
+      return;
+    }
+    if (availability == null || !availability.policy.textEnabled) return;
+    final policyVersion = availability.policy.policyVersion;
+    if (preferences.acknowledgedPolicyVersion != policyVersion) {
+      final acknowledged = await _showLocalInferenceDisclosure();
+      if (acknowledged != true || !mounted) return;
+      await database.acknowledgeLocalInferencePolicy(policyVersion);
+    }
+    await database.setLocalInferenceEnabled(true);
+    ref.invalidate(localInferencePreferencesProvider);
+
+    if (availability.device.canDownload) {
+      unawaited(_downloadLocalInferenceModel());
+    }
+  }
+
+  Future<void> _downloadLocalInferenceModel() async {
+    try {
+      await ref.read(localInferenceServiceProvider).downloadModel();
+      ref.invalidate(localInferenceAvailabilityProvider);
+    } on Object {
+      // The setting remains enabled and the normal cloud fallback is safe.
+      // A later capability refresh can offer the model download again.
+    }
+  }
+
+  Future<bool?> _showLocalInferenceDisclosure() {
+    var acknowledged = false;
+    return showModalBottomSheet<bool>(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      showDragHandle: true,
+      builder:
+          (sheetContext) => StatefulBuilder(
+            builder:
+                (context, setSheetState) => SafeArea(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(24, 4, 24, 24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          t.settings.localInference.disclosureTitle,
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(t.settings.localInference.disclosureBody),
+                        const SizedBox(height: 16),
+                        _disclosurePoint(
+                          context,
+                          t.settings.localInference.disclosureLimit1,
+                        ),
+                        _disclosurePoint(
+                          context,
+                          t.settings.localInference.disclosureLimit2,
+                        ),
+                        _disclosurePoint(
+                          context,
+                          t.settings.localInference.disclosureLimit3,
+                        ),
+                        const SizedBox(height: 12),
+                        CheckboxListTile(
+                          contentPadding: EdgeInsets.zero,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          value: acknowledged,
+                          title: Text(
+                            t.settings.localInference.acknowledgement,
+                          ),
+                          onChanged:
+                              (value) => setSheetState(
+                                () => acknowledged = value ?? false,
+                              ),
+                        ),
+                        const SizedBox(height: 8),
+                        FilledButton(
+                          onPressed:
+                              acknowledged
+                                  ? () => Navigator.pop(sheetContext, true)
+                                  : null,
+                          child: Text(t.settings.localInference.enable),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.pop(sheetContext, false),
+                          child: Text(t.settings.localInference.cancel),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+          ),
+    );
+  }
+
+  Widget _disclosurePoint(BuildContext context, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            LucideIcons.circleAlert,
+            size: 18,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(width: 10),
+          Expanded(child: Text(text)),
+        ],
+      ),
     );
   }
 

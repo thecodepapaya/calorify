@@ -284,6 +284,7 @@ class TranslationsMealEn {
 
 	late final TranslationsMealQuestionFlowEn questionFlow = TranslationsMealQuestionFlowEn._(_root);
 	late final TranslationsMealAnalysisEn analysis = TranslationsMealAnalysisEn._(_root);
+	late final TranslationsMealLocalInferenceEn localInference = TranslationsMealLocalInferenceEn._(_root);
 	late final TranslationsMealFeedbackEn feedback = TranslationsMealFeedbackEn._(_root);
 }
 
@@ -490,6 +491,7 @@ class TranslationsSettingsEn {
 	late final TranslationsSettingsHeightUnitEn heightUnit = TranslationsSettingsHeightUnitEn._(_root);
 	late final TranslationsSettingsWeightUnitEn weightUnit = TranslationsSettingsWeightUnitEn._(_root);
 	late final TranslationsSettingsMealRemindersEn mealReminders = TranslationsSettingsMealRemindersEn._(_root);
+	late final TranslationsSettingsLocalInferenceEn localInference = TranslationsSettingsLocalInferenceEn._(_root);
 	late final TranslationsSettingsThemeEn theme = TranslationsSettingsThemeEn._(_root);
 	late final TranslationsSettingsSendFeedbackEn sendFeedback = TranslationsSettingsSendFeedbackEn._(_root);
 	late final TranslationsSettingsExportMealHistoryEn exportMealHistory = TranslationsSettingsExportMealHistoryEn._(_root);
@@ -1349,6 +1351,69 @@ class TranslationsMealAnalysisEn {
 	String get offlineTip5 => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).';
 }
 
+// Path: meal.localInference
+class TranslationsMealLocalInferenceEn {
+	TranslationsMealLocalInferenceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Review detected ingredients'
+	String get reviewTitle => 'Review detected ingredients';
+
+	/// en: 'This was interpreted on your device. Correct names or portions before nutrition is calculated.'
+	String get reviewSubtitle => 'This was interpreted on your device. Correct names or portions before nutrition is calculated.';
+
+	/// en: 'Meal name'
+	String get mealName => 'Meal name';
+
+	/// en: 'Ingredient'
+	String get ingredient => 'Ingredient';
+
+	/// en: 'Estimated grams'
+	String get grams => 'Estimated grams';
+
+	/// en: 'Remove ingredient'
+	String get removeIngredient => 'Remove ingredient';
+
+	/// en: 'Continue'
+	String get continueLabel => 'Continue';
+
+	/// en: 'Add at least one ingredient and use a positive gram amount.'
+	String get invalidProposal => 'Add at least one ingredient and use a positive gram amount.';
+
+	/// en: 'On-device analysis is unavailable right now.'
+	String get localUnavailable => 'On-device analysis is unavailable right now.';
+
+	/// en: 'How this was calculated'
+	String get calculationDetails => 'How this was calculated';
+
+	/// en: 'Ingredients interpreted on this device'
+	String get interpretationLocal => 'Ingredients interpreted on this device';
+
+	/// en: 'Ingredients interpreted in the cloud'
+	String get interpretationCloud => 'Ingredients interpreted in the cloud';
+
+	/// en: 'Ingredients reviewed or edited by you'
+	String get interpretationManual => 'Ingredients reviewed or edited by you';
+
+	/// en: 'Nutrition fetched from USDA through Calorify'
+	String get nutritionRemote => 'Nutrition fetched from USDA through Calorify';
+
+	/// en: 'Some nutrition values were estimated remotely'
+	String get nutritionFallback => 'Some nutrition values were estimated remotely';
+
+	/// en: 'Calories and macros calculated by Calorify'
+	String get calculationServer => 'Calories and macros calculated by Calorify';
+
+	/// en: 'Local analysis fell back to cloud processing'
+	String get fallbackUsed => 'Local analysis fell back to cloud processing';
+
+	/// en: 'Diagnostic receipts do not include your meal text or photo.'
+	String get noRawContent => 'Diagnostic receipts do not include your meal text or photo.';
+}
+
 // Path: meal.feedback
 class TranslationsMealFeedbackEn {
 	TranslationsMealFeedbackEn._(this._root);
@@ -1539,6 +1604,9 @@ class TranslationsSettingsSectionsEn {
 	/// en: 'HEALTH CONNECT'
 	String get healthConnect => 'HEALTH CONNECT';
 
+	/// en: 'ON-DEVICE ANALYSIS'
+	String get localInference => 'ON-DEVICE ANALYSIS';
+
 	/// en: 'SUPPORT & LEGAL'
 	String get supportAndLegal => 'SUPPORT & LEGAL';
 
@@ -1625,6 +1693,60 @@ class TranslationsSettingsMealRemindersEn {
 
 	/// en: 'Stay on track with timely alerts'
 	String get subtitle => 'Stay on track with timely alerts';
+}
+
+// Path: settings.localInference
+class TranslationsSettingsLocalInferenceEn {
+	TranslationsSettingsLocalInferenceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'On-device meal analysis'
+	String get title => 'On-device meal analysis';
+
+	/// en: 'Interpret supported meals with Gemini Nano before nutrition is calculated'
+	String get subtitle => 'Interpret supported meals with Gemini Nano before nutrition is calculated';
+
+	/// en: 'Not available on this device'
+	String get unavailable => 'Not available on this device';
+
+	/// en: 'Available hardware found, but this feature is not enabled for this app release'
+	String get rolloutUnavailable => 'Available hardware found, but this feature is not enabled for this app release';
+
+	/// en: 'Gemini Nano needs to finish downloading before this can be enabled'
+	String get modelSetup => 'Gemini Nano needs to finish downloading before this can be enabled';
+
+	/// en: 'Use on-device analysis'
+	String get useLocalTitle => 'Use on-device analysis';
+
+	/// en: 'Optional and off by default. Results may be less reliable for complex meals.'
+	String get useLocalSubtitle => 'Optional and off by default. Results may be less reliable for complex meals.';
+
+	/// en: 'Before you enable on-device analysis'
+	String get disclosureTitle => 'Before you enable on-device analysis';
+
+	/// en: 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.'
+	String get disclosureBody => 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.';
+
+	/// en: 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.'
+	String get disclosureLimit1 => 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.';
+
+	/// en: 'The model may be unavailable while downloading, busy, in the background, or limited by the device.'
+	String get disclosureLimit2 => 'The model may be unavailable while downloading, busy, in the background, or limited by the device.';
+
+	/// en: 'If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.'
+	String get disclosureLimit3 => 'If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.';
+
+	/// en: 'I understand that I should review detected ingredients and portions.'
+	String get acknowledgement => 'I understand that I should review detected ingredients and portions.';
+
+	/// en: 'Acknowledge and enable'
+	String get enable => 'Acknowledge and enable';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
 }
 
 // Path: settings.theme
@@ -2935,6 +3057,24 @@ extension on Translations {
 			'meal.analysis.offlineTip3' => 'Tip: A quick portion note (1 bowl, large coffee) makes estimates much sharper.',
 			'meal.analysis.offlineTip4' => 'Tip: Logging after the meal still builds the habit; perfection is optional.',
 			'meal.analysis.offlineTip5' => 'Tip: Say how food was cooked when it changes calories a lot (fried vs baked).',
+			'meal.localInference.reviewTitle' => 'Review detected ingredients',
+			'meal.localInference.reviewSubtitle' => 'This was interpreted on your device. Correct names or portions before nutrition is calculated.',
+			'meal.localInference.mealName' => 'Meal name',
+			'meal.localInference.ingredient' => 'Ingredient',
+			'meal.localInference.grams' => 'Estimated grams',
+			'meal.localInference.removeIngredient' => 'Remove ingredient',
+			'meal.localInference.continueLabel' => 'Continue',
+			'meal.localInference.invalidProposal' => 'Add at least one ingredient and use a positive gram amount.',
+			'meal.localInference.localUnavailable' => 'On-device analysis is unavailable right now.',
+			'meal.localInference.calculationDetails' => 'How this was calculated',
+			'meal.localInference.interpretationLocal' => 'Ingredients interpreted on this device',
+			'meal.localInference.interpretationCloud' => 'Ingredients interpreted in the cloud',
+			'meal.localInference.interpretationManual' => 'Ingredients reviewed or edited by you',
+			'meal.localInference.nutritionRemote' => 'Nutrition fetched from USDA through Calorify',
+			'meal.localInference.nutritionFallback' => 'Some nutrition values were estimated remotely',
+			'meal.localInference.calculationServer' => 'Calories and macros calculated by Calorify',
+			'meal.localInference.fallbackUsed' => 'Local analysis fell back to cloud processing',
+			'meal.localInference.noRawContent' => 'Diagnostic receipts do not include your meal text or photo.',
 			'meal.feedback.title' => 'What looks wrong?',
 			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
 			'meal.feedback.tellUsMore' => 'Tell us more',
@@ -3032,6 +3172,7 @@ extension on Translations {
 			'settings.sections.localization' => 'LOCALIZATION',
 			'settings.sections.notifications' => 'NOTIFICATIONS',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ON-DEVICE ANALYSIS',
 			'settings.sections.supportAndLegal' => 'SUPPORT & LEGAL',
 			'settings.sections.about' => 'ABOUT',
 			'settings.sections.dangerZone' => 'DANGER ZONE',
@@ -3046,6 +3187,21 @@ extension on Translations {
 			'settings.weightUnit.title' => 'Weight Unit',
 			'settings.mealReminders.title' => 'Meal Reminders',
 			'settings.mealReminders.subtitle' => 'Stay on track with timely alerts',
+			'settings.localInference.title' => 'On-device meal analysis',
+			'settings.localInference.subtitle' => 'Interpret supported meals with Gemini Nano before nutrition is calculated',
+			'settings.localInference.unavailable' => 'Not available on this device',
+			'settings.localInference.rolloutUnavailable' => 'Available hardware found, but this feature is not enabled for this app release',
+			'settings.localInference.modelSetup' => 'Gemini Nano needs to finish downloading before this can be enabled',
+			'settings.localInference.useLocalTitle' => 'Use on-device analysis',
+			'settings.localInference.useLocalSubtitle' => 'Optional and off by default. Results may be less reliable for complex meals.',
+			'settings.localInference.disclosureTitle' => 'Before you enable on-device analysis',
+			'settings.localInference.disclosureBody' => 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.',
+			'settings.localInference.disclosureLimit1' => 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.',
+			'settings.localInference.disclosureLimit2' => 'The model may be unavailable while downloading, busy, in the background, or limited by the device.',
+			'settings.localInference.disclosureLimit3' => 'If local interpretation cannot finish, this beta automatically sends your original meal description to Calorify for cloud analysis.',
+			'settings.localInference.acknowledgement' => 'I understand that I should review detected ingredients and portions.',
+			'settings.localInference.enable' => 'Acknowledge and enable',
+			'settings.localInference.cancel' => 'Cancel',
 			'settings.theme.title' => 'Theme',
 			'settings.theme.light' => 'Light',
 			'settings.theme.dark' => 'Dark',
@@ -3180,6 +3336,8 @@ extension on Translations {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professional Guidance',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',

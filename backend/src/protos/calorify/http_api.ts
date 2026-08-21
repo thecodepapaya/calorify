@@ -7,6 +7,7 @@
 /* eslint-disable */
 import type { Meal, MealType } from "../meal/meal";
 import type { AiMealSummaryTrend } from "./ai_meal_summary_trend";
+import type { IngredientProposalV1, MealAnalysisFallbackReason } from "./meal_analysis_pipeline";
 
 export const protobufPackage = "calorify";
 
@@ -74,11 +75,33 @@ export interface MealAnalysisTipsResponse {
 export interface MealAnalysisTextRequest {
   analysisId?: string | undefined;
   textDescription: string;
+  localAttempted: boolean;
+  fallbackReason: MealAnalysisFallbackReason;
+  localAttemptId?: string | undefined;
+  localAttemptStartedAtEpochMs?: number | undefined;
+  localAttemptCompletedAtEpochMs?: number | undefined;
 }
 
 export interface MealAnalysisImageRequest {
   analysisId?: string | undefined;
   imageUrl: string;
+}
+
+export interface MealAnalysisProposalRequest {
+  analysisId: string;
+  proposal?: IngredientProposalV1 | undefined;
+  localAttemptId: string;
+  localAttemptStartedAtEpochMs: number;
+  localAttemptCompletedAtEpochMs: number;
+}
+
+export interface LocalInferenceCapabilityPolicy {
+  policyVersion: string;
+  textEnabled: boolean;
+  imageEnabled: boolean;
+  localNutritionEnabled: boolean;
+  privateModesEnabled: boolean;
+  maxAgeSeconds: number;
 }
 
 export interface MealAnalysisFeedbackRequest {

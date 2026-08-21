@@ -155,6 +155,7 @@ class _TranslationsMealPt implements TranslationsMealEn {
 	@override String get save => 'Guardar';
 	@override String get mealName => 'Nome da refeição';
 	@override String get mealNameHint => 'ex.: Ovos mexidos com torrada';
+	@override String get nameRequired => 'Introduza um nome para a refeição antes de guardar.';
 	@override String get mealQuantity => 'Quantidade da refeição';
 	@override String get mealQuantityHint => 'ex.: 1 taça, 2 fatias';
 	@override String get timeOfMeal => 'Hora da refeição';
@@ -180,8 +181,8 @@ class _TranslationsMealPt implements TranslationsMealEn {
 	@override String get skip => 'Ignorar';
 	@override late final _TranslationsMealQuestionFlowPt questionFlow = _TranslationsMealQuestionFlowPt._(_root);
 	@override late final _TranslationsMealAnalysisPt analysis = _TranslationsMealAnalysisPt._(_root);
+	@override late final _TranslationsMealLocalInferencePt localInference = _TranslationsMealLocalInferencePt._(_root);
 	@override late final _TranslationsMealFeedbackPt feedback = _TranslationsMealFeedbackPt._(_root);
-	@override String get nameRequired => 'Introduza um nome para a refeição antes de guardar.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsPt implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitPt heightUnit = _TranslationsSettingsHeightUnitPt._(_root);
 	@override late final _TranslationsSettingsWeightUnitPt weightUnit = _TranslationsSettingsWeightUnitPt._(_root);
 	@override late final _TranslationsSettingsMealRemindersPt mealReminders = _TranslationsSettingsMealRemindersPt._(_root);
+	@override late final _TranslationsSettingsLocalInferencePt localInference = _TranslationsSettingsLocalInferencePt._(_root);
 	@override late final _TranslationsSettingsThemePt theme = _TranslationsSettingsThemePt._(_root);
 	@override late final _TranslationsSettingsSendFeedbackPt sendFeedback = _TranslationsSettingsSendFeedbackPt._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryPt exportMealHistory = _TranslationsSettingsExportMealHistoryPt._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisPt implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Dica: Indique como foi cozinhado quando altera muito as calorias (frito vs assado).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferencePt implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferencePt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Rever ingredientes detetados';
+	@override String get reviewSubtitle => 'Isto foi interpretado no seu dispositivo. Corrija os nomes ou as porções antes de a nutrição ser calculada.';
+	@override String get mealName => 'Nome da refeição';
+	@override String get ingredient => 'Ingrediente';
+	@override String get grams => 'Gramas estimadas';
+	@override String get removeIngredient => 'Remover ingrediente';
+	@override String get continueLabel => 'Continuar';
+	@override String get invalidProposal => 'Adicione pelo menos um ingrediente e utilize uma quantidade de gramas positiva.';
+	@override String get localUnavailable => 'A análise no dispositivo não está disponível de momento.';
+	@override String get calculationDetails => 'Como isto foi calculado';
+	@override String get interpretationLocal => 'Ingredientes interpretados neste dispositivo';
+	@override String get interpretationCloud => 'Ingredientes interpretados na nuvem';
+	@override String get interpretationManual => 'Ingredientes revistos ou editados por si';
+	@override String get nutritionRemote => 'Nutrição obtida do USDA através do Calorify';
+	@override String get nutritionFallback => 'Alguns valores nutricionais foram estimados remotamente';
+	@override String get calculationServer => 'Calorias e macros calculadas pelo Calorify';
+	@override String get fallbackUsed => 'A análise local recorreu ao processamento na nuvem';
+	@override String get noRawContent => 'Os recibos de diagnóstico não incluem o texto ou a foto da sua refeição.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackPt implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackPt._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsPt implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOCALIZAÇÃO';
 	@override String get notifications => 'NOTIFICAÇÕES';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ANÁLISE NO DISPOSITIVO';
 	@override String get supportAndLegal => 'SUPORTE & LEGAL';
 	@override String get about => 'SOBRE';
 	@override String get dangerZone => 'ZONA PERIGOSA';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersPt implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Lembretes de refeições';
 	@override String get subtitle => 'Mantenha-se em dia com alertas oportunos';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferencePt implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferencePt._(this._root);
+
+	final TranslationsPt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Análise de refeições no dispositivo';
+	@override String get subtitle => 'Interpretar refeições suportadas com Gemini Nano antes de a nutrição ser calculada';
+	@override String get unavailable => 'Não disponível neste dispositivo';
+	@override String get rolloutUnavailable => 'Hardware compatível encontrado, mas esta funcionalidade não está ativada para esta versão da app';
+	@override String get modelSetup => 'O Gemini Nano precisa de terminar o download antes de isto poder ser ativado';
+	@override String get useLocalTitle => 'Utilizar análise no dispositivo';
+	@override String get useLocalSubtitle => 'Opcional e desativado por predefinição. Os resultados podem ser menos fiáveis para refeições complexas.';
+	@override String get disclosureTitle => 'Antes de ativar a análise no dispositivo';
+	@override String get disclosureBody => 'O Gemini Nano pode identificar ingredientes e estimar porções em dispositivos Android suportados. A proposta de ingredientes revista é enviada para o Calorify para a fundamentação nutricional do USDA e cálculo.';
+	@override String get disclosureLimit1 => 'Pratos complexos, ingredientes ocultos e tamanhos de porções podem ser identificados incorretamente.';
+	@override String get disclosureLimit2 => 'O modelo pode estar indisponível durante o download, ocupado, em segundo plano ou limitado pelo dispositivo.';
+	@override String get disclosureLimit3 => 'Se a interpretação local não puder ser concluída, esta versão beta envia automaticamente a descrição original da sua refeição para o Calorify para análise na nuvem.';
+	@override String get acknowledgement => 'Compreendo que devo rever os ingredientes e as porções detetados.';
+	@override String get enable => 'Confirmar e ativar';
+	@override String get cancel => 'Cancelar';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsPt {
 			'meal.save' => 'Guardar',
 			'meal.mealName' => 'Nome da refeição',
 			'meal.mealNameHint' => 'ex.: Ovos mexidos com torrada',
+			'meal.nameRequired' => 'Introduza um nome para a refeição antes de guardar.',
 			'meal.mealQuantity' => 'Quantidade da refeição',
 			'meal.mealQuantityHint' => 'ex.: 1 taça, 2 fatias',
 			'meal.timeOfMeal' => 'Hora da refeição',
@@ -1916,6 +1971,24 @@ extension on TranslationsPt {
 			'meal.analysis.offlineTip3' => 'Dica: Uma nota rápida da porção (1 taça, café grande) torna as estimativas muito mais precisas.',
 			'meal.analysis.offlineTip4' => 'Dica: Registar depois da refeição também cria o hábito; a perfeição é opcional.',
 			'meal.analysis.offlineTip5' => 'Dica: Indique como foi cozinhado quando altera muito as calorias (frito vs assado).',
+			'meal.localInference.reviewTitle' => 'Rever ingredientes detetados',
+			'meal.localInference.reviewSubtitle' => 'Isto foi interpretado no seu dispositivo. Corrija os nomes ou as porções antes de a nutrição ser calculada.',
+			'meal.localInference.mealName' => 'Nome da refeição',
+			'meal.localInference.ingredient' => 'Ingrediente',
+			'meal.localInference.grams' => 'Gramas estimadas',
+			'meal.localInference.removeIngredient' => 'Remover ingrediente',
+			'meal.localInference.continueLabel' => 'Continuar',
+			'meal.localInference.invalidProposal' => 'Adicione pelo menos um ingrediente e utilize uma quantidade de gramas positiva.',
+			'meal.localInference.localUnavailable' => 'A análise no dispositivo não está disponível de momento.',
+			'meal.localInference.calculationDetails' => 'Como isto foi calculado',
+			'meal.localInference.interpretationLocal' => 'Ingredientes interpretados neste dispositivo',
+			'meal.localInference.interpretationCloud' => 'Ingredientes interpretados na nuvem',
+			'meal.localInference.interpretationManual' => 'Ingredientes revistos ou editados por si',
+			'meal.localInference.nutritionRemote' => 'Nutrição obtida do USDA através do Calorify',
+			'meal.localInference.nutritionFallback' => 'Alguns valores nutricionais foram estimados remotamente',
+			'meal.localInference.calculationServer' => 'Calorias e macros calculadas pelo Calorify',
+			'meal.localInference.fallbackUsed' => 'A análise local recorreu ao processamento na nuvem',
+			'meal.localInference.noRawContent' => 'Os recibos de diagnóstico não incluem o texto ou a foto da sua refeição.',
 			'meal.feedback.title' => 'O que está errado?',
 			'meal.feedback.subtitle' => 'Ajude-nos a melhorar a análise selecionando um ou mais problemas.',
 			'meal.feedback.tellUsMore' => 'Diga-nos mais',
@@ -1928,7 +2001,6 @@ extension on TranslationsPt {
 			'meal.feedback.issueMissingItems' => 'Itens em falta',
 			'meal.feedback.issueExtraItems' => 'Itens extra',
 			'meal.feedback.issueOther' => 'Outro',
-			'meal.nameRequired' => 'Introduza um nome para a refeição antes de guardar.',
 			'favorites.title' => 'Favoritos',
 			'favorites.empty' => 'Ainda sem refeições favoritas.',
 			'favorites.searchPlaceholder' => 'Pesquisar refeições favoritas',
@@ -2014,6 +2086,7 @@ extension on TranslationsPt {
 			'settings.sections.localization' => 'LOCALIZAÇÃO',
 			'settings.sections.notifications' => 'NOTIFICAÇÕES',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ANÁLISE NO DISPOSITIVO',
 			'settings.sections.supportAndLegal' => 'SUPORTE & LEGAL',
 			'settings.sections.about' => 'SOBRE',
 			'settings.sections.dangerZone' => 'ZONA PERIGOSA',
@@ -2028,6 +2101,21 @@ extension on TranslationsPt {
 			'settings.weightUnit.title' => 'Unidade de peso',
 			'settings.mealReminders.title' => 'Lembretes de refeições',
 			'settings.mealReminders.subtitle' => 'Mantenha-se em dia com alertas oportunos',
+			'settings.localInference.title' => 'Análise de refeições no dispositivo',
+			'settings.localInference.subtitle' => 'Interpretar refeições suportadas com Gemini Nano antes de a nutrição ser calculada',
+			'settings.localInference.unavailable' => 'Não disponível neste dispositivo',
+			'settings.localInference.rolloutUnavailable' => 'Hardware compatível encontrado, mas esta funcionalidade não está ativada para esta versão da app',
+			'settings.localInference.modelSetup' => 'O Gemini Nano precisa de terminar o download antes de isto poder ser ativado',
+			'settings.localInference.useLocalTitle' => 'Utilizar análise no dispositivo',
+			'settings.localInference.useLocalSubtitle' => 'Opcional e desativado por predefinição. Os resultados podem ser menos fiáveis para refeições complexas.',
+			'settings.localInference.disclosureTitle' => 'Antes de ativar a análise no dispositivo',
+			'settings.localInference.disclosureBody' => 'O Gemini Nano pode identificar ingredientes e estimar porções em dispositivos Android suportados. A proposta de ingredientes revista é enviada para o Calorify para a fundamentação nutricional do USDA e cálculo.',
+			'settings.localInference.disclosureLimit1' => 'Pratos complexos, ingredientes ocultos e tamanhos de porções podem ser identificados incorretamente.',
+			'settings.localInference.disclosureLimit2' => 'O modelo pode estar indisponível durante o download, ocupado, em segundo plano ou limitado pelo dispositivo.',
+			'settings.localInference.disclosureLimit3' => 'Se a interpretação local não puder ser concluída, esta versão beta envia automaticamente a descrição original da sua refeição para o Calorify para análise na nuvem.',
+			'settings.localInference.acknowledgement' => 'Compreendo que devo rever os ingredientes e as porções detetados.',
+			'settings.localInference.enable' => 'Confirmar e ativar',
+			'settings.localInference.cancel' => 'Cancelar',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Claro',
 			'settings.theme.dark' => 'Escuro',
@@ -2162,6 +2250,8 @@ extension on TranslationsPt {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calculamos o seu TDEE (com base no seu perfil) e multiplicamo‑lo pela fração do dia decorrido (horas + minutos) / 24 para estimar as calorias gastas até ao momento.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Orientação profissional',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Não utilize esta estimativa para tomar decisões médicas. Consulte sempre um profissional de saúde ou nutricionista registado para aconselhamento personalizado de gestão de peso.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Fechar',
 			'common.kContinue' => 'Continuar',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Está a gostar de ${appLabel}?',

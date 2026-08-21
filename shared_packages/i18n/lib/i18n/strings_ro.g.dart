@@ -155,6 +155,7 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String get save => 'Salvează';
 	@override String get mealName => 'Numele mesei';
 	@override String get mealNameHint => 'ex.: Ouă amestecate cu pâine prăjită';
+	@override String get nameRequired => 'Introduceți un nume pentru masă înainte de a salva.';
 	@override String get mealQuantity => 'Cantitate masă';
 	@override String get mealQuantityHint => 'ex.: 1 bol, 2 felii';
 	@override String get timeOfMeal => 'Ora mesei';
@@ -180,8 +181,8 @@ class _TranslationsMealRo implements TranslationsMealEn {
 	@override String get skip => 'Sari';
 	@override late final _TranslationsMealQuestionFlowRo questionFlow = _TranslationsMealQuestionFlowRo._(_root);
 	@override late final _TranslationsMealAnalysisRo analysis = _TranslationsMealAnalysisRo._(_root);
+	@override late final _TranslationsMealLocalInferenceRo localInference = _TranslationsMealLocalInferenceRo._(_root);
 	@override late final _TranslationsMealFeedbackRo feedback = _TranslationsMealFeedbackRo._(_root);
-	@override String get nameRequired => 'Introduceți un nume pentru masă înainte de a salva.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsRo implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitRo heightUnit = _TranslationsSettingsHeightUnitRo._(_root);
 	@override late final _TranslationsSettingsWeightUnitRo weightUnit = _TranslationsSettingsWeightUnitRo._(_root);
 	@override late final _TranslationsSettingsMealRemindersRo mealReminders = _TranslationsSettingsMealRemindersRo._(_root);
+	@override late final _TranslationsSettingsLocalInferenceRo localInference = _TranslationsSettingsLocalInferenceRo._(_root);
 	@override late final _TranslationsSettingsThemeRo theme = _TranslationsSettingsThemeRo._(_root);
 	@override late final _TranslationsSettingsSendFeedbackRo sendFeedback = _TranslationsSettingsSendFeedbackRo._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryRo exportMealHistory = _TranslationsSettingsExportMealHistoryRo._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisRo implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceRo implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Revizuiește ingredientele detectate';
+	@override String get reviewSubtitle => 'Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.';
+	@override String get mealName => 'Numele mesei';
+	@override String get ingredient => 'Ingredient';
+	@override String get grams => 'Grame estimate';
+	@override String get removeIngredient => 'Elimină ingredientul';
+	@override String get continueLabel => 'Continuă';
+	@override String get invalidProposal => 'Adaugă cel puțin un ingredient și folosește o cantitate pozitivă de grame.';
+	@override String get localUnavailable => 'Analiza pe dispozitiv nu este disponibilă în acest moment.';
+	@override String get calculationDetails => 'Cum a fost calculat';
+	@override String get interpretationLocal => 'Ingrediente interpretate pe acest dispozitiv';
+	@override String get interpretationCloud => 'Ingrediente interpretate în cloud';
+	@override String get interpretationManual => 'Ingrediente revizuite sau editate de tine';
+	@override String get nutritionRemote => 'Nutriția preluată din USDA prin Calorify';
+	@override String get nutritionFallback => 'Unele valori nutriționale au fost estimate de la distanță';
+	@override String get calculationServer => 'Calorii și macronutrienți calculați de Calorify';
+	@override String get fallbackUsed => 'Analiza locală a revenit la procesarea în cloud';
+	@override String get noRawContent => 'Bonurile de diagnostic nu includ textul sau fotografia mesei tale.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackRo implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackRo._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsRo implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOCALIZARE';
 	@override String get notifications => 'NOTIFICĂRI';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ANALIZĂ PE DISPOZITIV';
 	@override String get supportAndLegal => 'SUPORT & LEGAL';
 	@override String get about => 'DESPRE';
 	@override String get dangerZone => 'ZONĂ DE PERICOL';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersRo implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Mementouri mese';
 	@override String get subtitle => 'Rămâi pe drumul cel bun cu alerte la timp';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceRo implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceRo._(this._root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Analiza meselor pe dispozitiv';
+	@override String get subtitle => 'Interpretează mesele suportate cu Gemini Nano înainte de calculul nutrițional';
+	@override String get unavailable => 'Nedisponibil pe acest dispozitiv';
+	@override String get rolloutUnavailable => 'Hardware compatibil găsit, dar această funcție nu este activată pentru această versiune a aplicației';
+	@override String get modelSetup => 'Gemini Nano trebuie să finalizeze descărcarea înainte de a putea fi activat';
+	@override String get useLocalTitle => 'Folosește analiza pe dispozitiv';
+	@override String get useLocalSubtitle => 'Opțional și dezactivat implicit. Rezultatele pot fi mai puțin sigure pentru mese complexe.';
+	@override String get disclosureTitle => 'Înainte de a activa analiza pe dispozitiv';
+	@override String get disclosureBody => 'Gemini Nano poate identifica ingredientele și poate estima porțiile pe dispozitivele Android suportate. Propunerea de ingrediente revizuită este trimisă către Calorify pentru fundamentarea nutrițională USDA și calcul.';
+	@override String get disclosureLimit1 => 'Felurile de mâncare complexe, ingredientele ascunse și dimensiunile porțiilor pot fi identificate incorect.';
+	@override String get disclosureLimit2 => 'Modelul poate fi indisponibil în timpul descărcării, când este ocupat, în fundal sau limitat de dispozitiv.';
+	@override String get disclosureLimit3 => 'Dacă interpretarea locală nu poate fi finalizată, această versiune beta trimite automat descrierea originală a mesei către Calorify pentru analiza în cloud.';
+	@override String get acknowledgement => 'Înțeleg că trebuie să revizuiesc ingredientele și porțiile detectate.';
+	@override String get enable => 'Confirm și activez';
+	@override String get cancel => 'Anulează';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsRo {
 			'meal.save' => 'Salvează',
 			'meal.mealName' => 'Numele mesei',
 			'meal.mealNameHint' => 'ex.: Ouă amestecate cu pâine prăjită',
+			'meal.nameRequired' => 'Introduceți un nume pentru masă înainte de a salva.',
 			'meal.mealQuantity' => 'Cantitate masă',
 			'meal.mealQuantityHint' => 'ex.: 1 bol, 2 felii',
 			'meal.timeOfMeal' => 'Ora mesei',
@@ -1916,6 +1971,24 @@ extension on TranslationsRo {
 			'meal.analysis.offlineTip3' => 'Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.',
 			'meal.analysis.offlineTip4' => 'Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.',
 			'meal.analysis.offlineTip5' => 'Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).',
+			'meal.localInference.reviewTitle' => 'Revizuiește ingredientele detectate',
+			'meal.localInference.reviewSubtitle' => 'Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.',
+			'meal.localInference.mealName' => 'Numele mesei',
+			'meal.localInference.ingredient' => 'Ingredient',
+			'meal.localInference.grams' => 'Grame estimate',
+			'meal.localInference.removeIngredient' => 'Elimină ingredientul',
+			'meal.localInference.continueLabel' => 'Continuă',
+			'meal.localInference.invalidProposal' => 'Adaugă cel puțin un ingredient și folosește o cantitate pozitivă de grame.',
+			'meal.localInference.localUnavailable' => 'Analiza pe dispozitiv nu este disponibilă în acest moment.',
+			'meal.localInference.calculationDetails' => 'Cum a fost calculat',
+			'meal.localInference.interpretationLocal' => 'Ingrediente interpretate pe acest dispozitiv',
+			'meal.localInference.interpretationCloud' => 'Ingrediente interpretate în cloud',
+			'meal.localInference.interpretationManual' => 'Ingrediente revizuite sau editate de tine',
+			'meal.localInference.nutritionRemote' => 'Nutriția preluată din USDA prin Calorify',
+			'meal.localInference.nutritionFallback' => 'Unele valori nutriționale au fost estimate de la distanță',
+			'meal.localInference.calculationServer' => 'Calorii și macronutrienți calculați de Calorify',
+			'meal.localInference.fallbackUsed' => 'Analiza locală a revenit la procesarea în cloud',
+			'meal.localInference.noRawContent' => 'Bonurile de diagnostic nu includ textul sau fotografia mesei tale.',
 			'meal.feedback.title' => 'Ce pare greșit?',
 			'meal.feedback.subtitle' => 'Ajută-ne să îmbunătățim analiza selectând una sau mai multe probleme.',
 			'meal.feedback.tellUsMore' => 'Spune-ne mai mult',
@@ -1928,7 +2001,6 @@ extension on TranslationsRo {
 			'meal.feedback.issueMissingItems' => 'Lipsesc elemente',
 			'meal.feedback.issueExtraItems' => 'Elemente în plus',
 			'meal.feedback.issueOther' => 'Altceva',
-			'meal.nameRequired' => 'Introduceți un nume pentru masă înainte de a salva.',
 			'favorites.title' => 'Favorite',
 			'favorites.empty' => 'Nu există mese favorite încă.',
 			'favorites.searchPlaceholder' => 'Caută mese favorite',
@@ -2014,6 +2086,7 @@ extension on TranslationsRo {
 			'settings.sections.localization' => 'LOCALIZARE',
 			'settings.sections.notifications' => 'NOTIFICĂRI',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ANALIZĂ PE DISPOZITIV',
 			'settings.sections.supportAndLegal' => 'SUPORT & LEGAL',
 			'settings.sections.about' => 'DESPRE',
 			'settings.sections.dangerZone' => 'ZONĂ DE PERICOL',
@@ -2028,6 +2101,21 @@ extension on TranslationsRo {
 			'settings.weightUnit.title' => 'Unitate greutate',
 			'settings.mealReminders.title' => 'Mementouri mese',
 			'settings.mealReminders.subtitle' => 'Rămâi pe drumul cel bun cu alerte la timp',
+			'settings.localInference.title' => 'Analiza meselor pe dispozitiv',
+			'settings.localInference.subtitle' => 'Interpretează mesele suportate cu Gemini Nano înainte de calculul nutrițional',
+			'settings.localInference.unavailable' => 'Nedisponibil pe acest dispozitiv',
+			'settings.localInference.rolloutUnavailable' => 'Hardware compatibil găsit, dar această funcție nu este activată pentru această versiune a aplicației',
+			'settings.localInference.modelSetup' => 'Gemini Nano trebuie să finalizeze descărcarea înainte de a putea fi activat',
+			'settings.localInference.useLocalTitle' => 'Folosește analiza pe dispozitiv',
+			'settings.localInference.useLocalSubtitle' => 'Opțional și dezactivat implicit. Rezultatele pot fi mai puțin sigure pentru mese complexe.',
+			'settings.localInference.disclosureTitle' => 'Înainte de a activa analiza pe dispozitiv',
+			'settings.localInference.disclosureBody' => 'Gemini Nano poate identifica ingredientele și poate estima porțiile pe dispozitivele Android suportate. Propunerea de ingrediente revizuită este trimisă către Calorify pentru fundamentarea nutrițională USDA și calcul.',
+			'settings.localInference.disclosureLimit1' => 'Felurile de mâncare complexe, ingredientele ascunse și dimensiunile porțiilor pot fi identificate incorect.',
+			'settings.localInference.disclosureLimit2' => 'Modelul poate fi indisponibil în timpul descărcării, când este ocupat, în fundal sau limitat de dispozitiv.',
+			'settings.localInference.disclosureLimit3' => 'Dacă interpretarea locală nu poate fi finalizată, această versiune beta trimite automat descrierea originală a mesei către Calorify pentru analiza în cloud.',
+			'settings.localInference.acknowledgement' => 'Înțeleg că trebuie să revizuiesc ingredientele și porțiile detectate.',
+			'settings.localInference.enable' => 'Confirm și activez',
+			'settings.localInference.cancel' => 'Anulează',
 			'settings.theme.title' => 'Temă',
 			'settings.theme.light' => 'Lumină',
 			'settings.theme.dark' => 'Întunecat',
@@ -2162,6 +2250,8 @@ extension on TranslationsRo {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea zilei trecute (ore + minute) / 24 pentru a estima caloriile arse până acum.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ghidare profesională',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nu folosi această estimare pentru decizii medicale. Consultă întotdeauna un profesionist în sănătate sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}?',

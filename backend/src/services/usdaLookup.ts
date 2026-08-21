@@ -11,6 +11,7 @@ export interface UsdaFoodRow {
   carbs_per_100g: number;
   fat_per_100g: number;
   fiber_per_100g: number;
+  dataset_version?: string;
 }
 
 export interface UsdaMatch {
@@ -333,7 +334,8 @@ function bestCandidate(
 
 export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow | null> {
   const result = await query<UsdaFoodRow>(
-    `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g
+    `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g,
+            (SELECT dataset_version FROM usda_dataset_version WHERE is_active = TRUE AND is_materialized = TRUE LIMIT 1) AS dataset_version
       FROM usda_foods
       WHERE EXISTS (
         SELECT 1
@@ -365,6 +367,7 @@ export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT):
   if (!normalizedTerm) return [];
   const result = await query<TrgmCandidate>(
     `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g,
+            (SELECT dataset_version FROM usda_dataset_version WHERE is_active = TRUE AND is_materialized = TRUE LIMIT 1) AS dataset_version,
             GREATEST(similarity(normalized_name, $1), similarity(description, $1)) AS sim
        FROM usda_foods
       WHERE EXISTS (

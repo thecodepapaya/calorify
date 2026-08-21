@@ -155,6 +155,7 @@ class _TranslationsMealId implements TranslationsMealEn {
 	@override String get save => 'Simpan';
 	@override String get mealName => 'Nama Makanan';
 	@override String get mealNameHint => 'mis., Telur orak-arik dengan roti';
+	@override String get nameRequired => 'Masukkan nama makanan sebelum menyimpan.';
 	@override String get mealQuantity => 'Jumlah Makanan';
 	@override String get mealQuantityHint => 'mis., 1 mangkuk, 2 potong';
 	@override String get timeOfMeal => 'Waktu Makan';
@@ -180,8 +181,8 @@ class _TranslationsMealId implements TranslationsMealEn {
 	@override String get skip => 'Lewati';
 	@override late final _TranslationsMealQuestionFlowId questionFlow = _TranslationsMealQuestionFlowId._(_root);
 	@override late final _TranslationsMealAnalysisId analysis = _TranslationsMealAnalysisId._(_root);
+	@override late final _TranslationsMealLocalInferenceId localInference = _TranslationsMealLocalInferenceId._(_root);
 	@override late final _TranslationsMealFeedbackId feedback = _TranslationsMealFeedbackId._(_root);
-	@override String get nameRequired => 'Masukkan nama makanan sebelum menyimpan.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsId implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitId heightUnit = _TranslationsSettingsHeightUnitId._(_root);
 	@override late final _TranslationsSettingsWeightUnitId weightUnit = _TranslationsSettingsWeightUnitId._(_root);
 	@override late final _TranslationsSettingsMealRemindersId mealReminders = _TranslationsSettingsMealRemindersId._(_root);
+	@override late final _TranslationsSettingsLocalInferenceId localInference = _TranslationsSettingsLocalInferenceId._(_root);
 	@override late final _TranslationsSettingsThemeId theme = _TranslationsSettingsThemeId._(_root);
 	@override late final _TranslationsSettingsSendFeedbackId sendFeedback = _TranslationsSettingsSendFeedbackId._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryId exportMealHistory = _TranslationsSettingsExportMealHistoryId._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisId implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceId implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Tinjau bahan yang terdeteksi';
+	@override String get reviewSubtitle => 'Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.';
+	@override String get mealName => 'Nama makanan';
+	@override String get ingredient => 'Bahan';
+	@override String get grams => 'Estimasi gram';
+	@override String get removeIngredient => 'Hapus bahan';
+	@override String get continueLabel => 'Lanjutkan';
+	@override String get invalidProposal => 'Tambahkan setidaknya satu bahan dan gunakan jumlah gram yang positif.';
+	@override String get localUnavailable => 'Analisis pada perangkat saat ini tidak tersedia.';
+	@override String get calculationDetails => 'Cara perhitungan ini dilakukan';
+	@override String get interpretationLocal => 'Bahan diinterpretasikan pada perangkat ini';
+	@override String get interpretationCloud => 'Bahan diinterpretasikan di cloud';
+	@override String get interpretationManual => 'Bahan ditinjau atau diedit oleh Anda';
+	@override String get nutritionRemote => 'Nutrisi diambil dari USDA melalui Calorify';
+	@override String get nutritionFallback => 'Beberapa nilai nutrisi diestimasi secara jarak jauh';
+	@override String get calculationServer => 'Kalori dan makro dihitung oleh Calorify';
+	@override String get fallbackUsed => 'Analisis lokal dialihkan ke pemrosesan cloud';
+	@override String get noRawContent => 'Resi diagnostik tidak menyertakan teks atau foto makanan Anda.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackId implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackId._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsId implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'LOKALISASI';
 	@override String get notifications => 'NOTIFIKASI';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'ANALISIS PADA PERANGKAT';
 	@override String get supportAndLegal => 'DUKUNGAN & HUKUM';
 	@override String get about => 'TENTANG';
 	@override String get dangerZone => 'AREA BERISIKO';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersId implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Pengingat Makan';
 	@override String get subtitle => 'Tetap pada jalur dengan pengingat tepat waktu';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceId implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Analisis makanan pada perangkat';
+	@override String get subtitle => 'Interpretasikan makanan yang didukung dengan Gemini Nano sebelum nutrisi dihitung';
+	@override String get unavailable => 'Tidak tersedia pada perangkat ini';
+	@override String get rolloutUnavailable => 'Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini';
+	@override String get modelSetup => 'Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan';
+	@override String get useLocalTitle => 'Gunakan analisis pada perangkat';
+	@override String get useLocalSubtitle => 'Opsional dan nonaktif secara default. Hasil mungkin kurang akurat untuk makanan yang kompleks.';
+	@override String get disclosureTitle => 'Sebelum Anda mengaktifkan analisis pada perangkat';
+	@override String get disclosureBody => 'Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.';
+	@override String get disclosureLimit1 => 'Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.';
+	@override String get disclosureLimit2 => 'Model mungkin tidak tersedia saat mengunduh, sedang sibuk, berjalan di latar belakang, atau dibatasi oleh perangkat.';
+	@override String get disclosureLimit3 => 'Jika interpretasi lokal tidak dapat selesai, versi beta ini secara otomatis mengirimkan deskripsi makanan asli Anda ke Calorify untuk analisis cloud.';
+	@override String get acknowledgement => 'Saya mengerti bahwa saya harus meninjau bahan dan porsi yang terdeteksi.';
+	@override String get enable => 'Setujui dan aktifkan';
+	@override String get cancel => 'Batal';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsId {
 			'meal.save' => 'Simpan',
 			'meal.mealName' => 'Nama Makanan',
 			'meal.mealNameHint' => 'mis., Telur orak-arik dengan roti',
+			'meal.nameRequired' => 'Masukkan nama makanan sebelum menyimpan.',
 			'meal.mealQuantity' => 'Jumlah Makanan',
 			'meal.mealQuantityHint' => 'mis., 1 mangkuk, 2 potong',
 			'meal.timeOfMeal' => 'Waktu Makan',
@@ -1916,6 +1971,24 @@ extension on TranslationsId {
 			'meal.analysis.offlineTip3' => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.',
 			'meal.analysis.offlineTip4' => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.',
 			'meal.analysis.offlineTip5' => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).',
+			'meal.localInference.reviewTitle' => 'Tinjau bahan yang terdeteksi',
+			'meal.localInference.reviewSubtitle' => 'Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.',
+			'meal.localInference.mealName' => 'Nama makanan',
+			'meal.localInference.ingredient' => 'Bahan',
+			'meal.localInference.grams' => 'Estimasi gram',
+			'meal.localInference.removeIngredient' => 'Hapus bahan',
+			'meal.localInference.continueLabel' => 'Lanjutkan',
+			'meal.localInference.invalidProposal' => 'Tambahkan setidaknya satu bahan dan gunakan jumlah gram yang positif.',
+			'meal.localInference.localUnavailable' => 'Analisis pada perangkat saat ini tidak tersedia.',
+			'meal.localInference.calculationDetails' => 'Cara perhitungan ini dilakukan',
+			'meal.localInference.interpretationLocal' => 'Bahan diinterpretasikan pada perangkat ini',
+			'meal.localInference.interpretationCloud' => 'Bahan diinterpretasikan di cloud',
+			'meal.localInference.interpretationManual' => 'Bahan ditinjau atau diedit oleh Anda',
+			'meal.localInference.nutritionRemote' => 'Nutrisi diambil dari USDA melalui Calorify',
+			'meal.localInference.nutritionFallback' => 'Beberapa nilai nutrisi diestimasi secara jarak jauh',
+			'meal.localInference.calculationServer' => 'Kalori dan makro dihitung oleh Calorify',
+			'meal.localInference.fallbackUsed' => 'Analisis lokal dialihkan ke pemrosesan cloud',
+			'meal.localInference.noRawContent' => 'Resi diagnostik tidak menyertakan teks atau foto makanan Anda.',
 			'meal.feedback.title' => 'Apa yang kelihatan salah?',
 			'meal.feedback.subtitle' => 'Bantu kami meningkatkan analisis dengan memilih satu atau beberapa masalah.',
 			'meal.feedback.tellUsMore' => 'Ceritakan lebih lanjut',
@@ -1928,7 +2001,6 @@ extension on TranslationsId {
 			'meal.feedback.issueMissingItems' => 'Item hilang',
 			'meal.feedback.issueExtraItems' => 'Item ekstra',
 			'meal.feedback.issueOther' => 'Lainnya',
-			'meal.nameRequired' => 'Masukkan nama makanan sebelum menyimpan.',
 			'favorites.title' => 'Favorit',
 			'favorites.empty' => 'Belum ada makanan favorit.',
 			'favorites.searchPlaceholder' => 'Cari makanan favorit',
@@ -2014,6 +2086,7 @@ extension on TranslationsId {
 			'settings.sections.localization' => 'LOKALISASI',
 			'settings.sections.notifications' => 'NOTIFIKASI',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'ANALISIS PADA PERANGKAT',
 			'settings.sections.supportAndLegal' => 'DUKUNGAN & HUKUM',
 			'settings.sections.about' => 'TENTANG',
 			'settings.sections.dangerZone' => 'AREA BERISIKO',
@@ -2028,6 +2101,21 @@ extension on TranslationsId {
 			'settings.weightUnit.title' => 'Satuan Berat',
 			'settings.mealReminders.title' => 'Pengingat Makan',
 			'settings.mealReminders.subtitle' => 'Tetap pada jalur dengan pengingat tepat waktu',
+			'settings.localInference.title' => 'Analisis makanan pada perangkat',
+			'settings.localInference.subtitle' => 'Interpretasikan makanan yang didukung dengan Gemini Nano sebelum nutrisi dihitung',
+			'settings.localInference.unavailable' => 'Tidak tersedia pada perangkat ini',
+			'settings.localInference.rolloutUnavailable' => 'Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini',
+			'settings.localInference.modelSetup' => 'Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan',
+			'settings.localInference.useLocalTitle' => 'Gunakan analisis pada perangkat',
+			'settings.localInference.useLocalSubtitle' => 'Opsional dan nonaktif secara default. Hasil mungkin kurang akurat untuk makanan yang kompleks.',
+			'settings.localInference.disclosureTitle' => 'Sebelum Anda mengaktifkan analisis pada perangkat',
+			'settings.localInference.disclosureBody' => 'Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.',
+			'settings.localInference.disclosureLimit1' => 'Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.',
+			'settings.localInference.disclosureLimit2' => 'Model mungkin tidak tersedia saat mengunduh, sedang sibuk, berjalan di latar belakang, atau dibatasi oleh perangkat.',
+			'settings.localInference.disclosureLimit3' => 'Jika interpretasi lokal tidak dapat selesai, versi beta ini secara otomatis mengirimkan deskripsi makanan asli Anda ke Calorify untuk analisis cloud.',
+			'settings.localInference.acknowledgement' => 'Saya mengerti bahwa saya harus meninjau bahan dan porsi yang terdeteksi.',
+			'settings.localInference.enable' => 'Setujui dan aktifkan',
+			'settings.localInference.cancel' => 'Batal',
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Terang',
 			'settings.theme.dark' => 'Gelap',
@@ -2162,6 +2250,8 @@ extension on TranslationsId {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang terbakar sejauh ini.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Panduan Profesional',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Lanjutkan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',

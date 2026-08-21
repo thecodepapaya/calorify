@@ -149,17 +149,63 @@ const MealAnalysisTextRequest$json = {
       '17': true
     },
     {'1': 'text_description', '3': 2, '4': 1, '5': 9, '10': 'textDescription'},
+    {'1': 'local_attempted', '3': 3, '4': 1, '5': 8, '10': 'localAttempted'},
+    {
+      '1': 'fallback_reason',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.calorify.MealAnalysisFallbackReason',
+      '10': 'fallbackReason'
+    },
+    {
+      '1': 'local_attempt_id',
+      '3': 5,
+      '4': 1,
+      '5': 9,
+      '9': 1,
+      '10': 'localAttemptId',
+      '17': true
+    },
+    {
+      '1': 'local_attempt_started_at_epoch_ms',
+      '3': 6,
+      '4': 1,
+      '5': 3,
+      '9': 2,
+      '10': 'localAttemptStartedAtEpochMs',
+      '17': true
+    },
+    {
+      '1': 'local_attempt_completed_at_epoch_ms',
+      '3': 7,
+      '4': 1,
+      '5': 3,
+      '9': 3,
+      '10': 'localAttemptCompletedAtEpochMs',
+      '17': true
+    },
   ],
   '8': [
     {'1': '_analysis_id'},
+    {'1': '_local_attempt_id'},
+    {'1': '_local_attempt_started_at_epoch_ms'},
+    {'1': '_local_attempt_completed_at_epoch_ms'},
   ],
 };
 
 /// Descriptor for `MealAnalysisTextRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List mealAnalysisTextRequestDescriptor = $convert.base64Decode(
     'ChdNZWFsQW5hbHlzaXNUZXh0UmVxdWVzdBIkCgthbmFseXNpc19pZBgBIAEoCUgAUgphbmFseX'
-    'Npc0lkiAEBEikKEHRleHRfZGVzY3JpcHRpb24YAiABKAlSD3RleHREZXNjcmlwdGlvbkIOCgxf'
-    'YW5hbHlzaXNfaWQ=');
+    'Npc0lkiAEBEikKEHRleHRfZGVzY3JpcHRpb24YAiABKAlSD3RleHREZXNjcmlwdGlvbhInCg9s'
+    'b2NhbF9hdHRlbXB0ZWQYAyABKAhSDmxvY2FsQXR0ZW1wdGVkEk0KD2ZhbGxiYWNrX3JlYXNvbh'
+    'gEIAEoDjIkLmNhbG9yaWZ5Lk1lYWxBbmFseXNpc0ZhbGxiYWNrUmVhc29uUg5mYWxsYmFja1Jl'
+    'YXNvbhItChBsb2NhbF9hdHRlbXB0X2lkGAUgASgJSAFSDmxvY2FsQXR0ZW1wdElkiAEBEkwKIW'
+    'xvY2FsX2F0dGVtcHRfc3RhcnRlZF9hdF9lcG9jaF9tcxgGIAEoA0gCUhxsb2NhbEF0dGVtcHRT'
+    'dGFydGVkQXRFcG9jaE1ziAEBElAKI2xvY2FsX2F0dGVtcHRfY29tcGxldGVkX2F0X2Vwb2NoX2'
+    '1zGAcgASgDSANSHmxvY2FsQXR0ZW1wdENvbXBsZXRlZEF0RXBvY2hNc4gBAUIOCgxfYW5hbHlz'
+    'aXNfaWRCEwoRX2xvY2FsX2F0dGVtcHRfaWRCJAoiX2xvY2FsX2F0dGVtcHRfc3RhcnRlZF9hdF'
+    '9lcG9jaF9tc0ImCiRfbG9jYWxfYXR0ZW1wdF9jb21wbGV0ZWRfYXRfZXBvY2hfbXM=');
 
 @$core.Deprecated('Use mealAnalysisImageRequestDescriptor instead')
 const MealAnalysisImageRequest$json = {
@@ -185,6 +231,80 @@ const MealAnalysisImageRequest$json = {
 final $typed_data.Uint8List mealAnalysisImageRequestDescriptor = $convert.base64Decode(
     'ChhNZWFsQW5hbHlzaXNJbWFnZVJlcXVlc3QSJAoLYW5hbHlzaXNfaWQYASABKAlIAFIKYW5hbH'
     'lzaXNJZIgBARIbCglpbWFnZV91cmwYAiABKAlSCGltYWdlVXJsQg4KDF9hbmFseXNpc19pZA==');
+
+@$core.Deprecated('Use mealAnalysisProposalRequestDescriptor instead')
+const MealAnalysisProposalRequest$json = {
+  '1': 'MealAnalysisProposalRequest',
+  '2': [
+    {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
+    {
+      '1': 'proposal',
+      '3': 2,
+      '4': 1,
+      '5': 11,
+      '6': '.calorify.IngredientProposalV1',
+      '10': 'proposal'
+    },
+    {'1': 'local_attempt_id', '3': 3, '4': 1, '5': 9, '10': 'localAttemptId'},
+    {
+      '1': 'local_attempt_started_at_epoch_ms',
+      '3': 4,
+      '4': 1,
+      '5': 3,
+      '10': 'localAttemptStartedAtEpochMs'
+    },
+    {
+      '1': 'local_attempt_completed_at_epoch_ms',
+      '3': 5,
+      '4': 1,
+      '5': 3,
+      '10': 'localAttemptCompletedAtEpochMs'
+    },
+  ],
+};
+
+/// Descriptor for `MealAnalysisProposalRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mealAnalysisProposalRequestDescriptor = $convert.base64Decode(
+    'ChtNZWFsQW5hbHlzaXNQcm9wb3NhbFJlcXVlc3QSHwoLYW5hbHlzaXNfaWQYASABKAlSCmFuYW'
+    'x5c2lzSWQSOgoIcHJvcG9zYWwYAiABKAsyHi5jYWxvcmlmeS5JbmdyZWRpZW50UHJvcG9zYWxW'
+    'MVIIcHJvcG9zYWwSKAoQbG9jYWxfYXR0ZW1wdF9pZBgDIAEoCVIObG9jYWxBdHRlbXB0SWQSRw'
+    'ohbG9jYWxfYXR0ZW1wdF9zdGFydGVkX2F0X2Vwb2NoX21zGAQgASgDUhxsb2NhbEF0dGVtcHRT'
+    'dGFydGVkQXRFcG9jaE1zEksKI2xvY2FsX2F0dGVtcHRfY29tcGxldGVkX2F0X2Vwb2NoX21zGA'
+    'UgASgDUh5sb2NhbEF0dGVtcHRDb21wbGV0ZWRBdEVwb2NoTXM=');
+
+@$core.Deprecated('Use localInferenceCapabilityPolicyDescriptor instead')
+const LocalInferenceCapabilityPolicy$json = {
+  '1': 'LocalInferenceCapabilityPolicy',
+  '2': [
+    {'1': 'policy_version', '3': 1, '4': 1, '5': 9, '10': 'policyVersion'},
+    {'1': 'text_enabled', '3': 2, '4': 1, '5': 8, '10': 'textEnabled'},
+    {'1': 'image_enabled', '3': 3, '4': 1, '5': 8, '10': 'imageEnabled'},
+    {
+      '1': 'local_nutrition_enabled',
+      '3': 4,
+      '4': 1,
+      '5': 8,
+      '10': 'localNutritionEnabled'
+    },
+    {
+      '1': 'private_modes_enabled',
+      '3': 5,
+      '4': 1,
+      '5': 8,
+      '10': 'privateModesEnabled'
+    },
+    {'1': 'max_age_seconds', '3': 6, '4': 1, '5': 5, '10': 'maxAgeSeconds'},
+  ],
+};
+
+/// Descriptor for `LocalInferenceCapabilityPolicy`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List localInferenceCapabilityPolicyDescriptor = $convert.base64Decode(
+    'Ch5Mb2NhbEluZmVyZW5jZUNhcGFiaWxpdHlQb2xpY3kSJQoOcG9saWN5X3ZlcnNpb24YASABKA'
+    'lSDXBvbGljeVZlcnNpb24SIQoMdGV4dF9lbmFibGVkGAIgASgIUgt0ZXh0RW5hYmxlZBIjCg1p'
+    'bWFnZV9lbmFibGVkGAMgASgIUgxpbWFnZUVuYWJsZWQSNgoXbG9jYWxfbnV0cml0aW9uX2VuYW'
+    'JsZWQYBCABKAhSFWxvY2FsTnV0cml0aW9uRW5hYmxlZBIyChVwcml2YXRlX21vZGVzX2VuYWJs'
+    'ZWQYBSABKAhSE3ByaXZhdGVNb2Rlc0VuYWJsZWQSJgoPbWF4X2FnZV9zZWNvbmRzGAYgASgFUg'
+    '1tYXhBZ2VTZWNvbmRz');
 
 @$core.Deprecated('Use mealAnalysisFeedbackRequestDescriptor instead')
 const MealAnalysisFeedbackRequest$json = {

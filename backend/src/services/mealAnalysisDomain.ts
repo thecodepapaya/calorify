@@ -66,6 +66,11 @@ export interface ResolvedIngredient {
   perUnitMinGrams: number | null;
   perUnitMaxGrams: number | null;
   sizeSpecifiedByUser: boolean;
+  nutritionReference?: {
+    fdcId: string;
+    datasetVersion?: string;
+    per100g: Macros;
+  };
 }
 
 export interface UncertaintyReport {

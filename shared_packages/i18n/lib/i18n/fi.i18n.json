@@ -245,6 +245,7 @@
     "save": "Tallenna",
     "mealName": "Aterian nimi",
     "mealNameHint": "esim. Munakokkeli ja paahtoleipä",
+    "nameRequired": "Anna aterialle nimi ennen tallentamista.",
     "mealQuantity": "Aterian määrä",
     "mealQuantityHint": "esim. 1 kulho, 2 viipaletta",
     "timeOfMeal": "Ajanhetki",
@@ -312,6 +313,26 @@
       "offlineTip4": "Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.",
       "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa)."
     },
+    "localInference": {
+      "reviewTitle": "Tarkista tunnistetut ainesosat",
+      "reviewSubtitle": "Tämä tulkittiin laitteellasi. Korjaa nimet tai annoskoot ennen ravintoarvojen laskemista.",
+      "mealName": "Aterian nimi",
+      "ingredient": "Ainesosa",
+      "grams": "Arvioidut grammat",
+      "removeIngredient": "Poista ainesosa",
+      "continueLabel": "Jatka",
+      "invalidProposal": "Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.",
+      "localUnavailable": "Laitteen oma analyysi ei ole tällä hetkellä käytettävissä.",
+      "calculationDetails": "Näin tämä laskettiin",
+      "interpretationLocal": "Ainesosat tulkittu tällä laitteella",
+      "interpretationCloud": "Ainesosat tulkittu pilvipalvelussa",
+      "interpretationManual": "Ainesosat tarkistettu tai muokattu käyttäjän toimesta",
+      "nutritionRemote": "Ravintoarvot haettu USDA:sta Calorifyn kautta",
+      "nutritionFallback": "Osa ravintoarvoista arvioitiin etänä",
+      "calculationServer": "Kalorit ja makroravinteet laskettu Calorifyn toimesta",
+      "fallbackUsed": "Paikallinen analyysi siirtyi pilvikäsittelyyn",
+      "noRawContent": "Diagnostiikkakuittaukset eivät sisällä ateriatekstiäsi tai valokuvaasi."
+    },
     "feedback": {
       "title": "Mikä näyttää väärältä?",
       "subtitle": "Auttaaksesi parantamaan analyysiä, valitse yksi tai useampi ongelma.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Puuttuvat ainesosat",
       "issueExtraItems": "Liian monta ainesosaa",
       "issueOther": "Muu"
-    },
-    "nameRequired": "Anna aterialle nimi ennen tallentamista."
+    }
   },
   "favorites": {
     "title": "Suosikit",
@@ -453,6 +473,7 @@
       "localization": "LOKALISAATIO",
       "notifications": "ILMOITUKSET",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "LAITTEEN OMA ANALYYSI",
       "supportAndLegal": "TUKI & LAINSÄÄDÄNTÖ",
       "about": "TIETOA",
       "dangerZone": "VAIKUTUSALUE",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Ateriamuistutukset",
       "subtitle": "Pysy raiteilla ajankohtaisilla muistutuksilla"
+    },
+    "localInference": {
+      "title": "Aterioiden paikallinen analyysi",
+      "subtitle": "Tulkitse tuetut ateriat Gemini Nanolla ennen ravintoarvojen laskemista",
+      "unavailable": "Ei käytettävissä tällä laitteella",
+      "rolloutUnavailable": "Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa",
+      "modelSetup": "Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön",
+      "useLocalTitle": "Käytä paikallista analyysia",
+      "useLocalSubtitle": "Valinnainen ja oletuksena pois päältä. Tulokset voivat olla epätarkempia monimutkaisten aterioiden kohdalla.",
+      "disclosureTitle": "Ennen paikallisen analyysin käyttöönottoa",
+      "disclosureBody": "Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.",
+      "disclosureLimit1": "Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.",
+      "disclosureLimit2": "Malli voi olla käytettävissämätön latauksen aikana, kun se on varattu, taustalla tai laitteen rajoitusten vuoksi.",
+      "disclosureLimit3": "Jos paikallinen tulkinta ei valmistu, tämä beta-versio lähettää alkuperäisen ateriakuvauksesi automaattisesti Calorifylle pilvianalyysia varten.",
+      "acknowledgement": "Ymmärrän, että minun tulee tarkistaa tunnistetut ainesosat ja annoskoot.",
+      "enable": "Hyväksy ja ota käyttöön",
+      "cancel": "Peruuta"
     },
     "theme": {
       "title": "Teema",

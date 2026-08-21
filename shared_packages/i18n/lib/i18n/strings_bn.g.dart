@@ -155,6 +155,7 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override String get save => 'সংরক্ষণ';
 	@override String get mealName => 'খাবারের নাম';
 	@override String get mealNameHint => 'যেমন: স্ক্র্যাম্বলড ডিম এবং টোস্ট';
+	@override String get nameRequired => 'সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।';
 	@override String get mealQuantity => 'খাবারের পরিমাণ';
 	@override String get mealQuantityHint => 'যেমন: ১ বাটি, ২ স্লাইস';
 	@override String get timeOfMeal => 'খাবারের সময়';
@@ -180,8 +181,8 @@ class _TranslationsMealBn implements TranslationsMealEn {
 	@override String get skip => 'ছাড়ুন';
 	@override late final _TranslationsMealQuestionFlowBn questionFlow = _TranslationsMealQuestionFlowBn._(_root);
 	@override late final _TranslationsMealAnalysisBn analysis = _TranslationsMealAnalysisBn._(_root);
+	@override late final _TranslationsMealLocalInferenceBn localInference = _TranslationsMealLocalInferenceBn._(_root);
 	@override late final _TranslationsMealFeedbackBn feedback = _TranslationsMealFeedbackBn._(_root);
-	@override String get nameRequired => 'সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsBn implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitBn heightUnit = _TranslationsSettingsHeightUnitBn._(_root);
 	@override late final _TranslationsSettingsWeightUnitBn weightUnit = _TranslationsSettingsWeightUnitBn._(_root);
 	@override late final _TranslationsSettingsMealRemindersBn mealReminders = _TranslationsSettingsMealRemindersBn._(_root);
+	@override late final _TranslationsSettingsLocalInferenceBn localInference = _TranslationsSettingsLocalInferenceBn._(_root);
 	@override late final _TranslationsSettingsThemeBn theme = _TranslationsSettingsThemeBn._(_root);
 	@override late final _TranslationsSettingsSendFeedbackBn sendFeedback = _TranslationsSettingsSendFeedbackBn._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryBn exportMealHistory = _TranslationsSettingsExportMealHistoryBn._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisBn implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'পরামর্শ: যদি রান্নার পদ্ধতি ক্যালরি অনেক পরিবর্তন করে (ভাজা বনাম বেকড), সেক্ষেত্রে রান্নার ধরন জানান।';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceBn implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'শনাক্ত করা উপাদানগুলো যাচাই করুন';
+	@override String get reviewSubtitle => 'এটি আপনার ডিভাইসে বিশ্লেষণ করা হয়েছে। পুষ্টির হিসাব করার আগে নাম বা পরিমাণ সংশোধন করুন।';
+	@override String get mealName => 'খাবারের নাম';
+	@override String get ingredient => 'উপাদান';
+	@override String get grams => 'আনুমানিক গ্রাম';
+	@override String get removeIngredient => 'উপাদান সরিয়ে ফেলুন';
+	@override String get continueLabel => 'চালিয়ে যান';
+	@override String get invalidProposal => 'অন্তত একটি উপাদান যোগ করুন এবং গ্রামের পরিমাণ ধনাত্মক সংখ্যায় লিখুন।';
+	@override String get localUnavailable => 'অন-ডিভাইস বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই।';
+	@override String get calculationDetails => 'এটি যেভাবে গণনা করা হয়েছে';
+	@override String get interpretationLocal => 'এই ডিভাইসে বিশ্লেষণ করা উপাদান';
+	@override String get interpretationCloud => 'ক্লাউডে বিশ্লেষণ করা উপাদান';
+	@override String get interpretationManual => 'আপনার দ্বারা যাচাই বা সম্পাদিত উপাদান';
+	@override String get nutritionRemote => 'Calorify-এর মাধ্যমে USDA থেকে পুষ্টির তথ্য সংগ্রহ করা হয়েছে';
+	@override String get nutritionFallback => 'কিছু পুষ্টির মান রিমোটলি অনুমান করা হয়েছে';
+	@override String get calculationServer => 'ক্যালোরি এবং ম্যাক্রোস Calorify দ্বারা গণনা করা হয়েছে';
+	@override String get fallbackUsed => 'লোকাল অ্যানালাইসিসের পরিবর্তে ক্লাউড প্রসেসিং ব্যবহার করা হয়েছে';
+	@override String get noRawContent => 'ডায়াগনস্টিক রসিদে আপনার খাবারের টেক্সট বা ফটো অন্তর্ভুক্ত নেই।';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackBn implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackBn._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsBn implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'লোকালাইজেশন';
 	@override String get notifications => 'নোটিফিকেশন';
 	@override String get healthConnect => 'Health Connect';
+	@override String get localInference => 'অন-ডিভাইস বিশ্লেষণ';
 	@override String get supportAndLegal => 'সহায়তা ও আইনগত';
 	@override String get about => 'অ্যাপ সম্পর্কে';
 	@override String get dangerZone => 'ঝুঁকির এলাকা';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersBn implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'খাবারের রিমাইন্ডার';
 	@override String get subtitle => 'সময়ে সতর্ক করে আপনার রুটিন বজায় রাখুন';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceBn implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceBn._(this._root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'অন-ডিভাইস মিল অ্যানালাইসিস';
+	@override String get subtitle => 'পুষ্টির হিসাব করার আগে Gemini Nano দিয়ে সমর্থিত খাবারগুলো বিশ্লেষণ করুন';
+	@override String get unavailable => 'এই ডিভাইসে উপলব্ধ নেই';
+	@override String get rolloutUnavailable => 'উপযুক্ত হার্ডওয়্যার পাওয়া গেছে, তবে এই অ্যাপ রিলিজের জন্য এই ফিচারটি সক্রিয় করা হয়নি';
+	@override String get modelSetup => 'এটি সক্রিয় করার আগে Gemini Nano ডাউনলোড শেষ হওয়া প্রয়োজন';
+	@override String get useLocalTitle => 'অন-ডিভাইস বিশ্লেষণ ব্যবহার করুন';
+	@override String get useLocalSubtitle => 'ঐচ্ছিক এবং ডিফল্টভাবে বন্ধ থাকে। জটিল খাবারের ক্ষেত্রে ফলাফল কম নির্ভরযোগ্য হতে পারে।';
+	@override String get disclosureTitle => 'অন-ডিভাইস বিশ্লেষণ সক্রিয় করার আগে';
+	@override String get disclosureBody => 'Gemini Nano সমর্থিত Android ডিভাইসে উপাদান শনাক্ত করতে এবং পরিমাণের অনুমান করতে পারে। আপনার যাচাই করা উপাদানের প্রস্তাবটি USDA পুষ্টির ভিত্তি এবং গণনার জন্য Calorify-এ পাঠানো হয়।';
+	@override String get disclosureLimit1 => 'জটিল খাবার, লুকানো উপাদান এবং পরিমাণের আকার ভুলভাবে শনাক্ত হতে পারে।';
+	@override String get disclosureLimit2 => 'ডাউনলোড চলাকালীন, ব্যস্ত থাকলে, ব্যাকগ্রাউন্ডে থাকলে বা ডিভাইসের সীমাবদ্ধতার কারণে মডেলটি অনুপলব্ধ হতে পারে।';
+	@override String get disclosureLimit3 => 'যদি লোকাল ইন্টারপ্রিটেশন শেষ না হয়, তবে এই বিটা সংস্করণটি ক্লাউড অ্যানালাইসিসের জন্য আপনার মূল খাবারের বিবরণটি স্বয়ংক্রিয়ভাবে Calorify-এ পাঠিয়ে দেয়।';
+	@override String get acknowledgement => 'আমি বুঝতে পারছি যে আমার শনাক্ত করা উপাদান এবং পরিমাণগুলো যাচাই করা উচিত।';
+	@override String get enable => 'স্বীকার করুন এবং সক্রিয় করুন';
+	@override String get cancel => 'বাতিল করুন';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsBn {
 			'meal.save' => 'সংরক্ষণ',
 			'meal.mealName' => 'খাবারের নাম',
 			'meal.mealNameHint' => 'যেমন: স্ক্র্যাম্বলড ডিম এবং টোস্ট',
+			'meal.nameRequired' => 'সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।',
 			'meal.mealQuantity' => 'খাবারের পরিমাণ',
 			'meal.mealQuantityHint' => 'যেমন: ১ বাটি, ২ স্লাইস',
 			'meal.timeOfMeal' => 'খাবারের সময়',
@@ -1916,6 +1971,24 @@ extension on TranslationsBn {
 			'meal.analysis.offlineTip3' => 'পরামর্শ: একটি দ্রুত পরিমাণ নোট (১ বাটি, বড় কফি) অনুমান অনেক উন্নত করে।',
 			'meal.analysis.offlineTip4' => 'পরামর্শ: খাবারের পরে লগ করলেও অভ্যাস তৈরি হয়; পরিপূর্ণতা বাধ্যতামূলক নয়।',
 			'meal.analysis.offlineTip5' => 'পরামর্শ: যদি রান্নার পদ্ধতি ক্যালরি অনেক পরিবর্তন করে (ভাজা বনাম বেকড), সেক্ষেত্রে রান্নার ধরন জানান।',
+			'meal.localInference.reviewTitle' => 'শনাক্ত করা উপাদানগুলো যাচাই করুন',
+			'meal.localInference.reviewSubtitle' => 'এটি আপনার ডিভাইসে বিশ্লেষণ করা হয়েছে। পুষ্টির হিসাব করার আগে নাম বা পরিমাণ সংশোধন করুন।',
+			'meal.localInference.mealName' => 'খাবারের নাম',
+			'meal.localInference.ingredient' => 'উপাদান',
+			'meal.localInference.grams' => 'আনুমানিক গ্রাম',
+			'meal.localInference.removeIngredient' => 'উপাদান সরিয়ে ফেলুন',
+			'meal.localInference.continueLabel' => 'চালিয়ে যান',
+			'meal.localInference.invalidProposal' => 'অন্তত একটি উপাদান যোগ করুন এবং গ্রামের পরিমাণ ধনাত্মক সংখ্যায় লিখুন।',
+			'meal.localInference.localUnavailable' => 'অন-ডিভাইস বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই।',
+			'meal.localInference.calculationDetails' => 'এটি যেভাবে গণনা করা হয়েছে',
+			'meal.localInference.interpretationLocal' => 'এই ডিভাইসে বিশ্লেষণ করা উপাদান',
+			'meal.localInference.interpretationCloud' => 'ক্লাউডে বিশ্লেষণ করা উপাদান',
+			'meal.localInference.interpretationManual' => 'আপনার দ্বারা যাচাই বা সম্পাদিত উপাদান',
+			'meal.localInference.nutritionRemote' => 'Calorify-এর মাধ্যমে USDA থেকে পুষ্টির তথ্য সংগ্রহ করা হয়েছে',
+			'meal.localInference.nutritionFallback' => 'কিছু পুষ্টির মান রিমোটলি অনুমান করা হয়েছে',
+			'meal.localInference.calculationServer' => 'ক্যালোরি এবং ম্যাক্রোস Calorify দ্বারা গণনা করা হয়েছে',
+			'meal.localInference.fallbackUsed' => 'লোকাল অ্যানালাইসিসের পরিবর্তে ক্লাউড প্রসেসিং ব্যবহার করা হয়েছে',
+			'meal.localInference.noRawContent' => 'ডায়াগনস্টিক রসিদে আপনার খাবারের টেক্সট বা ফটো অন্তর্ভুক্ত নেই।',
 			'meal.feedback.title' => 'কোন অংশটি ভুল দেখাচ্ছে?',
 			'meal.feedback.subtitle' => 'এক বা একাধিক সমস্যা নির্বাচন করে বিশ্লেষণ উন্নত করতে সাহায্য করুন।',
 			'meal.feedback.tellUsMore' => 'আরও বলুন',
@@ -1928,7 +2001,6 @@ extension on TranslationsBn {
 			'meal.feedback.issueMissingItems' => 'অনুপস্থিত আইটেম',
 			'meal.feedback.issueExtraItems' => 'অতিরিক্ত আইটেম',
 			'meal.feedback.issueOther' => 'অন্যান্য',
-			'meal.nameRequired' => 'সংরক্ষণ করার আগে একটি খাবারের নাম লিখুন।',
 			'favorites.title' => 'প্রিয়',
 			'favorites.empty' => 'এখনও কোনো প্রিয় খাবার নেই।',
 			'favorites.searchPlaceholder' => 'প্রিয় খাবার অনুসন্ধান করুন',
@@ -2014,6 +2086,7 @@ extension on TranslationsBn {
 			'settings.sections.localization' => 'লোকালাইজেশন',
 			'settings.sections.notifications' => 'নোটিফিকেশন',
 			'settings.sections.healthConnect' => 'Health Connect',
+			'settings.sections.localInference' => 'অন-ডিভাইস বিশ্লেষণ',
 			'settings.sections.supportAndLegal' => 'সহায়তা ও আইনগত',
 			'settings.sections.about' => 'অ্যাপ সম্পর্কে',
 			'settings.sections.dangerZone' => 'ঝুঁকির এলাকা',
@@ -2028,6 +2101,21 @@ extension on TranslationsBn {
 			'settings.weightUnit.title' => 'ওজনের একক',
 			'settings.mealReminders.title' => 'খাবারের রিমাইন্ডার',
 			'settings.mealReminders.subtitle' => 'সময়ে সতর্ক করে আপনার রুটিন বজায় রাখুন',
+			'settings.localInference.title' => 'অন-ডিভাইস মিল অ্যানালাইসিস',
+			'settings.localInference.subtitle' => 'পুষ্টির হিসাব করার আগে Gemini Nano দিয়ে সমর্থিত খাবারগুলো বিশ্লেষণ করুন',
+			'settings.localInference.unavailable' => 'এই ডিভাইসে উপলব্ধ নেই',
+			'settings.localInference.rolloutUnavailable' => 'উপযুক্ত হার্ডওয়্যার পাওয়া গেছে, তবে এই অ্যাপ রিলিজের জন্য এই ফিচারটি সক্রিয় করা হয়নি',
+			'settings.localInference.modelSetup' => 'এটি সক্রিয় করার আগে Gemini Nano ডাউনলোড শেষ হওয়া প্রয়োজন',
+			'settings.localInference.useLocalTitle' => 'অন-ডিভাইস বিশ্লেষণ ব্যবহার করুন',
+			'settings.localInference.useLocalSubtitle' => 'ঐচ্ছিক এবং ডিফল্টভাবে বন্ধ থাকে। জটিল খাবারের ক্ষেত্রে ফলাফল কম নির্ভরযোগ্য হতে পারে।',
+			'settings.localInference.disclosureTitle' => 'অন-ডিভাইস বিশ্লেষণ সক্রিয় করার আগে',
+			'settings.localInference.disclosureBody' => 'Gemini Nano সমর্থিত Android ডিভাইসে উপাদান শনাক্ত করতে এবং পরিমাণের অনুমান করতে পারে। আপনার যাচাই করা উপাদানের প্রস্তাবটি USDA পুষ্টির ভিত্তি এবং গণনার জন্য Calorify-এ পাঠানো হয়।',
+			'settings.localInference.disclosureLimit1' => 'জটিল খাবার, লুকানো উপাদান এবং পরিমাণের আকার ভুলভাবে শনাক্ত হতে পারে।',
+			'settings.localInference.disclosureLimit2' => 'ডাউনলোড চলাকালীন, ব্যস্ত থাকলে, ব্যাকগ্রাউন্ডে থাকলে বা ডিভাইসের সীমাবদ্ধতার কারণে মডেলটি অনুপলব্ধ হতে পারে।',
+			'settings.localInference.disclosureLimit3' => 'যদি লোকাল ইন্টারপ্রিটেশন শেষ না হয়, তবে এই বিটা সংস্করণটি ক্লাউড অ্যানালাইসিসের জন্য আপনার মূল খাবারের বিবরণটি স্বয়ংক্রিয়ভাবে Calorify-এ পাঠিয়ে দেয়।',
+			'settings.localInference.acknowledgement' => 'আমি বুঝতে পারছি যে আমার শনাক্ত করা উপাদান এবং পরিমাণগুলো যাচাই করা উচিত।',
+			'settings.localInference.enable' => 'স্বীকার করুন এবং সক্রিয় করুন',
+			'settings.localInference.cancel' => 'বাতিল করুন',
 			'settings.theme.title' => 'থিম',
 			'settings.theme.light' => 'হালকা',
 			'settings.theme.dark' => 'অন্ধকার',
@@ -2162,6 +2250,8 @@ extension on TranslationsBn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'আমরা আপনার প্রোফাইল ভিত্তিক TDEE হিসাব করি এবং দিনের কত অংশ পেরোয় (ঘণ্টা + মিনিট) / 24 অনুপাতে গুণ করে এ পর্যন্ত জ্বালানো ক্যালোরি অনুমান করি।',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'পেশাদার পরামর্শ',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'চিকিৎসাসংক্রান্ত সিদ্ধান্ত নিতে এই আনুমানিকতাকে ব্যবহার করবেন না। ব্যক্তিগতকৃত ওজন ব্যবস্থাপনার পরামর্শের জন্য সবসময় একজন স্বাস্থ্যের পেশাদার বা নিবন্ধিত ডায়েটিশিয়ানের সঙ্গে পরামর্শ করুন।',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'বন্ধ',
 			'common.kContinue' => 'চালিয়ে যান',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন?',

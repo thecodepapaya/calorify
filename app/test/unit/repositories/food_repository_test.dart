@@ -76,6 +76,136 @@ void main() {
     expect(events.last.errorMessage, 'try again');
   });
 
+  test('analyzeTextV2 sends a complete failed-local attempt receipt', () async {
+    adapter.respondWithText(
+      '${jsonEncode({
+        'step': 'STARTED',
+        'data': {'analysisId': 'analysis-local-fallback'},
+      })}\n',
+      contentType: 'application/x-ndjson',
+    );
+    final startedAt = DateTime.utc(2026, 8, 22, 1, 2, 3);
+    final completedAt = startedAt.add(const Duration(milliseconds: 250));
+
+    final stream = await repository.analyzeTextV2(
+      analysisId: 'analysis-local-fallback',
+      textDescription: 'a bowl of poha',
+      localAttempted: true,
+      localAttemptId: '00000000-0000-4000-8000-000000000111',
+      localAttemptStartedAt: startedAt,
+      localAttemptCompletedAt: completedAt,
+      fallbackReason:
+          MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_BUSY,
+    );
+    await stream.drain<void>();
+
+    final payload = adapter.lastRequest?.data as Map<String, dynamic>;
+    expect(payload['localAttempted'], isTrue);
+    expect(payload['localAttemptId'], '00000000-0000-4000-8000-000000000111');
+    expect(payload['fallbackReason'], 'MEAL_ANALYSIS_FALLBACK_REASON_BUSY');
+    expect(
+      payload['localAttemptStartedAtEpochMs'].toString(),
+      startedAt.millisecondsSinceEpoch.toString(),
+    );
+    expect(
+      payload['localAttemptCompletedAtEpochMs'].toString(),
+      completedAt.millisecondsSinceEpoch.toString(),
+    );
+  });
+
+  test(
+    'analyzeProposalV2 sends identity and portion data for server settlement',
+    () async {
+      adapter.respondWithText(
+        '${jsonEncode({
+          'step': 'STARTED',
+          'data': {'analysisId': 'analysis-proposal'},
+        })}\n',
+        contentType: 'application/x-ndjson',
+      );
+      final proposal = IngredientProposalV1(
+        schemaVersion: 1,
+        proposalId: 'proposal-1',
+        modality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
+        mealName: 'Dal and rice',
+        inferredMealType: MealType.LUNCH,
+        mealTypeConfident: true,
+        confidence: 0.9,
+        interpretationOrigin:
+            InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
+        ingredients: [
+          IngredientProposalItemV1(
+            rowId: 'ingredient-1',
+            rawName: 'dal',
+            canonicalHint: 'lentils cooked',
+            gramsEstimated: 200,
+            minGrams: 170,
+            maxGrams: 230,
+            portionKind: PortionKind.BULK,
+            confidence: 0.9,
+            fieldProvenance: [
+              IngredientFieldProvenance(
+                fieldName: 'identity',
+                origin:
+                    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
+              ),
+              IngredientFieldProvenance(
+                fieldName: 'portion',
+                origin:
+                    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
+              ),
+            ],
+          ),
+        ],
+      );
+      final startedAt = DateTime.utc(2026, 8, 22, 1, 2, 3);
+
+      final stream = await repository.analyzeProposalV2(
+        analysisId: 'analysis-proposal',
+        proposal: proposal,
+        localAttemptId: '00000000-0000-4000-8000-000000000112',
+        localAttemptStartedAt: startedAt,
+        localAttemptCompletedAt: startedAt.add(
+          const Duration(milliseconds: 120),
+        ),
+      );
+      await stream.drain<void>();
+
+      expect(adapter.lastRequest?.path, '/api/v2/food/analyze-proposal');
+      final payload = adapter.lastRequest?.data as Map<String, dynamic>;
+      final proposalPayload = payload['proposal'] as Map<String, dynamic>;
+      expect(proposalPayload['mealName'], 'Dal and rice');
+      expect(proposalPayload, isNot(contains('calories')));
+      expect(
+        (proposalPayload['ingredients'] as List).single,
+        isNot(contains('macros')),
+      );
+    },
+  );
+
+  test(
+    'local capability policy fails closed through typed proto defaults',
+    () async {
+      adapter.respondWithJson({
+        'policyVersion': 'local-beta-v1',
+        'textEnabled': true,
+        'imageEnabled': false,
+        'localNutritionEnabled': false,
+        'privateModesEnabled': false,
+        'maxAgeSeconds': 3600,
+      });
+
+      final policy = await repository.getLocalInferencePolicy();
+
+      expect(adapter.lastRequest?.path, '/api/v2/food/local-capabilities');
+      expect(policy.policyVersion, 'local-beta-v1');
+      expect(policy.textEnabled, isTrue);
+      expect(policy.imageEnabled, isFalse);
+      expect(policy.localNutritionEnabled, isFalse);
+      expect(policy.privateModesEnabled, isFalse);
+    },
+  );
+
   test('resumeV2 sends the canonical proto request', () async {
     adapter.respondWithText(
       '${jsonEncode({

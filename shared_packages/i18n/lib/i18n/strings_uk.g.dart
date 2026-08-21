@@ -155,6 +155,7 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override String get save => 'Зберегти';
 	@override String get mealName => 'Назва страви';
 	@override String get mealNameHint => 'наприклад: Омлет з тостом';
+	@override String get nameRequired => 'Введіть назву страви перед збереженням.';
 	@override String get mealQuantity => 'Кількість';
 	@override String get mealQuantityHint => 'наприклад: 1 миска, 2 шматки';
 	@override String get timeOfMeal => 'Час прийому';
@@ -180,8 +181,8 @@ class _TranslationsMealUk implements TranslationsMealEn {
 	@override String get skip => 'Пропустити';
 	@override late final _TranslationsMealQuestionFlowUk questionFlow = _TranslationsMealQuestionFlowUk._(_root);
 	@override late final _TranslationsMealAnalysisUk analysis = _TranslationsMealAnalysisUk._(_root);
+	@override late final _TranslationsMealLocalInferenceUk localInference = _TranslationsMealLocalInferenceUk._(_root);
 	@override late final _TranslationsMealFeedbackUk feedback = _TranslationsMealFeedbackUk._(_root);
-	@override String get nameRequired => 'Введіть назву страви перед збереженням.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsUk implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitUk heightUnit = _TranslationsSettingsHeightUnitUk._(_root);
 	@override late final _TranslationsSettingsWeightUnitUk weightUnit = _TranslationsSettingsWeightUnitUk._(_root);
 	@override late final _TranslationsSettingsMealRemindersUk mealReminders = _TranslationsSettingsMealRemindersUk._(_root);
+	@override late final _TranslationsSettingsLocalInferenceUk localInference = _TranslationsSettingsLocalInferenceUk._(_root);
 	@override late final _TranslationsSettingsThemeUk theme = _TranslationsSettingsThemeUk._(_root);
 	@override late final _TranslationsSettingsSendFeedbackUk sendFeedback = _TranslationsSettingsSendFeedbackUk._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryUk exportMealHistory = _TranslationsSettingsExportMealHistoryUk._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisUk implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceUk implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'Перевірте виявлені інгредієнти';
+	@override String get reviewSubtitle => 'Ці дані були оброблені на вашому пристрої. Виправте назви або порції перед розрахунком харчової цінності.';
+	@override String get mealName => 'Назва страви';
+	@override String get ingredient => 'Інгредієнт';
+	@override String get grams => 'Орієнтовна вага (г)';
+	@override String get removeIngredient => 'Видалити інгредієнт';
+	@override String get continueLabel => 'Продовжити';
+	@override String get invalidProposal => 'Додайте принаймні один інгредієнт і вкажіть додатню кількість грамів.';
+	@override String get localUnavailable => 'Аналіз на пристрої наразі недоступний.';
+	@override String get calculationDetails => 'Як це було розраховано';
+	@override String get interpretationLocal => 'Інгредієнти визначено на цьому пристрої';
+	@override String get interpretationCloud => 'Інгредієнти визначено у хмарі';
+	@override String get interpretationManual => 'Інгредієнти перевірені або відредаговані вами';
+	@override String get nutritionRemote => 'Дані про поживність отримано з USDA через Calorify';
+	@override String get nutritionFallback => 'Деякі значення поживності були оцінені віддалено';
+	@override String get calculationServer => 'Калорії та макронутрієнти розраховані Calorify';
+	@override String get fallbackUsed => 'Локальний аналіз було замінено хмарною обробкою';
+	@override String get noRawContent => 'Діагностичні чеки не містять тексту вашої страви або фото.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackUk implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackUk._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsUk implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'ЛОКАЛІЗАЦІЯ';
 	@override String get notifications => 'СПОВІЩЕННЯ';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'АНАЛІЗ НА ПРИСТРОЇ';
 	@override String get supportAndLegal => 'ПІДТРИМКА ТА ПРАВО';
 	@override String get about => 'ПРО ДОДАТОК';
 	@override String get dangerZone => 'ОБЛАСТЬ РИЗИКУ';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersUk implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'Нагадування про їжу';
 	@override String get subtitle => 'Тримайтеся плану з вчасними нагадуваннями';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceUk implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceUk._(this._root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Аналіз страв на пристрої';
+	@override String get subtitle => 'Визначення підтримуваних страв за допомогою Gemini Nano перед розрахунком харчової цінності';
+	@override String get unavailable => 'Недоступно на цьому пристрої';
+	@override String get rolloutUnavailable => 'Відповідне обладнання знайдено, але ця функція не активована для цієї версії програми';
+	@override String get modelSetup => 'Gemini Nano має завершити завантаження, перш ніж цю функцію можна буде увімкнути';
+	@override String get useLocalTitle => 'Використовувати аналіз на пристрої';
+	@override String get useLocalSubtitle => 'Додатково, вимкнено за замовчуванням. Результати можуть бути менш точними для складних страв.';
+	@override String get disclosureTitle => 'Перш ніж увімкнути аналіз на пристрої';
+	@override String get disclosureBody => 'Gemini Nano може ідентифікувати інгредієнти та оцінювати порції на підтримуваних пристроях Android. Ваші перевірені пропозиції інгредієнтів надсилаються до Calorify для уточнення даних USDA та розрахунків.';
+	@override String get disclosureLimit1 => 'Складні страви, приховані інгредієнти та розміри порцій можуть бути визначені неправильно.';
+	@override String get disclosureLimit2 => 'Модель може бути недоступною під час завантаження, бути зайнятою, працювати у фоновому режимі або мати обмеження пристрою.';
+	@override String get disclosureLimit3 => 'Якщо локальне визначення не може бути завершене, ця бета-версія автоматично надсилає оригінальний опис вашої страви до Calorify для хмарного аналізу.';
+	@override String get acknowledgement => 'Я розумію, що повинен перевіряти виявлені інгредієнти та порції.';
+	@override String get enable => 'Підтвердити та увімкнути';
+	@override String get cancel => 'Скасувати';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsUk {
 			'meal.save' => 'Зберегти',
 			'meal.mealName' => 'Назва страви',
 			'meal.mealNameHint' => 'наприклад: Омлет з тостом',
+			'meal.nameRequired' => 'Введіть назву страви перед збереженням.',
 			'meal.mealQuantity' => 'Кількість',
 			'meal.mealQuantityHint' => 'наприклад: 1 миска, 2 шматки',
 			'meal.timeOfMeal' => 'Час прийому',
@@ -1916,6 +1971,24 @@ extension on TranslationsUk {
 			'meal.analysis.offlineTip3' => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.',
 			'meal.analysis.offlineTip4' => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.',
 			'meal.analysis.offlineTip5' => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).',
+			'meal.localInference.reviewTitle' => 'Перевірте виявлені інгредієнти',
+			'meal.localInference.reviewSubtitle' => 'Ці дані були оброблені на вашому пристрої. Виправте назви або порції перед розрахунком харчової цінності.',
+			'meal.localInference.mealName' => 'Назва страви',
+			'meal.localInference.ingredient' => 'Інгредієнт',
+			'meal.localInference.grams' => 'Орієнтовна вага (г)',
+			'meal.localInference.removeIngredient' => 'Видалити інгредієнт',
+			'meal.localInference.continueLabel' => 'Продовжити',
+			'meal.localInference.invalidProposal' => 'Додайте принаймні один інгредієнт і вкажіть додатню кількість грамів.',
+			'meal.localInference.localUnavailable' => 'Аналіз на пристрої наразі недоступний.',
+			'meal.localInference.calculationDetails' => 'Як це було розраховано',
+			'meal.localInference.interpretationLocal' => 'Інгредієнти визначено на цьому пристрої',
+			'meal.localInference.interpretationCloud' => 'Інгредієнти визначено у хмарі',
+			'meal.localInference.interpretationManual' => 'Інгредієнти перевірені або відредаговані вами',
+			'meal.localInference.nutritionRemote' => 'Дані про поживність отримано з USDA через Calorify',
+			'meal.localInference.nutritionFallback' => 'Деякі значення поживності були оцінені віддалено',
+			'meal.localInference.calculationServer' => 'Калорії та макронутрієнти розраховані Calorify',
+			'meal.localInference.fallbackUsed' => 'Локальний аналіз було замінено хмарною обробкою',
+			'meal.localInference.noRawContent' => 'Діагностичні чеки не містять тексту вашої страви або фото.',
 			'meal.feedback.title' => 'Що виглядає неправильно?',
 			'meal.feedback.subtitle' => 'Допоможіть покращити аналіз, вибравши одну або кілька проблем.',
 			'meal.feedback.tellUsMore' => 'Розкажіть більше',
@@ -1928,7 +2001,6 @@ extension on TranslationsUk {
 			'meal.feedback.issueMissingItems' => 'Відсутні інгредієнти',
 			'meal.feedback.issueExtraItems' => 'Зайві інгредієнти',
 			'meal.feedback.issueOther' => 'Інше',
-			'meal.nameRequired' => 'Введіть назву страви перед збереженням.',
 			'favorites.title' => 'Улюблене',
 			'favorites.empty' => 'Улюблені страви відсутні.',
 			'favorites.searchPlaceholder' => 'Пошук улюблених страв',
@@ -2014,6 +2086,7 @@ extension on TranslationsUk {
 			'settings.sections.localization' => 'ЛОКАЛІЗАЦІЯ',
 			'settings.sections.notifications' => 'СПОВІЩЕННЯ',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'АНАЛІЗ НА ПРИСТРОЇ',
 			'settings.sections.supportAndLegal' => 'ПІДТРИМКА ТА ПРАВО',
 			'settings.sections.about' => 'ПРО ДОДАТОК',
 			'settings.sections.dangerZone' => 'ОБЛАСТЬ РИЗИКУ',
@@ -2028,6 +2101,21 @@ extension on TranslationsUk {
 			'settings.weightUnit.title' => 'Одиниця для ваги',
 			'settings.mealReminders.title' => 'Нагадування про їжу',
 			'settings.mealReminders.subtitle' => 'Тримайтеся плану з вчасними нагадуваннями',
+			'settings.localInference.title' => 'Аналіз страв на пристрої',
+			'settings.localInference.subtitle' => 'Визначення підтримуваних страв за допомогою Gemini Nano перед розрахунком харчової цінності',
+			'settings.localInference.unavailable' => 'Недоступно на цьому пристрої',
+			'settings.localInference.rolloutUnavailable' => 'Відповідне обладнання знайдено, але ця функція не активована для цієї версії програми',
+			'settings.localInference.modelSetup' => 'Gemini Nano має завершити завантаження, перш ніж цю функцію можна буде увімкнути',
+			'settings.localInference.useLocalTitle' => 'Використовувати аналіз на пристрої',
+			'settings.localInference.useLocalSubtitle' => 'Додатково, вимкнено за замовчуванням. Результати можуть бути менш точними для складних страв.',
+			'settings.localInference.disclosureTitle' => 'Перш ніж увімкнути аналіз на пристрої',
+			'settings.localInference.disclosureBody' => 'Gemini Nano може ідентифікувати інгредієнти та оцінювати порції на підтримуваних пристроях Android. Ваші перевірені пропозиції інгредієнтів надсилаються до Calorify для уточнення даних USDA та розрахунків.',
+			'settings.localInference.disclosureLimit1' => 'Складні страви, приховані інгредієнти та розміри порцій можуть бути визначені неправильно.',
+			'settings.localInference.disclosureLimit2' => 'Модель може бути недоступною під час завантаження, бути зайнятою, працювати у фоновому режимі або мати обмеження пристрою.',
+			'settings.localInference.disclosureLimit3' => 'Якщо локальне визначення не може бути завершене, ця бета-версія автоматично надсилає оригінальний опис вашої страви до Calorify для хмарного аналізу.',
+			'settings.localInference.acknowledgement' => 'Я розумію, що повинен перевіряти виявлені інгредієнти та порції.',
+			'settings.localInference.enable' => 'Підтвердити та увімкнути',
+			'settings.localInference.cancel' => 'Скасувати',
 			'settings.theme.title' => 'Тема',
 			'settings.theme.light' => 'Світла',
 			'settings.theme.dark' => 'Темна',
@@ -2162,6 +2250,8 @@ extension on TranslationsUk {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку доби, що пройшла (години + хвилини) / 24, щоб оцінити витрачені до цього моменту калорії.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Поради фахівця',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з медичним фахівцем або зареєстрованим дієтологом щодо персоналізованого керування вагою.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Подобається ${appLabel}?',

@@ -155,6 +155,7 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override String get save => 'حفظ';
 	@override String get mealName => 'اسم الوجبة';
 	@override String get mealNameHint => 'مثال: بيض مخفوق مع توست';
+	@override String get nameRequired => 'يرجى إدخال اسم الوجبة قبل الحفظ.';
 	@override String get mealQuantity => 'كمية الوجبة';
 	@override String get mealQuantityHint => 'مثال: 1 وعاء، 2 شريحة';
 	@override String get timeOfMeal => 'وقت الوجبة';
@@ -180,8 +181,8 @@ class _TranslationsMealAr implements TranslationsMealEn {
 	@override String get skip => 'تخطٍّ';
 	@override late final _TranslationsMealQuestionFlowAr questionFlow = _TranslationsMealQuestionFlowAr._(_root);
 	@override late final _TranslationsMealAnalysisAr analysis = _TranslationsMealAnalysisAr._(_root);
+	@override late final _TranslationsMealLocalInferenceAr localInference = _TranslationsMealLocalInferenceAr._(_root);
 	@override late final _TranslationsMealFeedbackAr feedback = _TranslationsMealFeedbackAr._(_root);
-	@override String get nameRequired => 'يرجى إدخال اسم الوجبة قبل الحفظ.';
 }
 
 // Path: favorites
@@ -287,6 +288,7 @@ class _TranslationsSettingsAr implements TranslationsSettingsEn {
 	@override late final _TranslationsSettingsHeightUnitAr heightUnit = _TranslationsSettingsHeightUnitAr._(_root);
 	@override late final _TranslationsSettingsWeightUnitAr weightUnit = _TranslationsSettingsWeightUnitAr._(_root);
 	@override late final _TranslationsSettingsMealRemindersAr mealReminders = _TranslationsSettingsMealRemindersAr._(_root);
+	@override late final _TranslationsSettingsLocalInferenceAr localInference = _TranslationsSettingsLocalInferenceAr._(_root);
 	@override late final _TranslationsSettingsThemeAr theme = _TranslationsSettingsThemeAr._(_root);
 	@override late final _TranslationsSettingsSendFeedbackAr sendFeedback = _TranslationsSettingsSendFeedbackAr._(_root);
 	@override late final _TranslationsSettingsExportMealHistoryAr exportMealHistory = _TranslationsSettingsExportMealHistoryAr._(_root);
@@ -778,6 +780,33 @@ class _TranslationsMealAnalysisAr implements TranslationsMealAnalysisEn {
 	@override String get offlineTip5 => 'نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).';
 }
 
+// Path: meal.localInference
+class _TranslationsMealLocalInferenceAr implements TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get reviewTitle => 'مراجعة المكونات المكتشفة';
+	@override String get reviewSubtitle => 'تم تحليل هذه البيانات على جهازك. يرجى تصحيح الأسماء أو الكميات قبل حساب القيم الغذائية.';
+	@override String get mealName => 'اسم الوجبة';
+	@override String get ingredient => 'المكون';
+	@override String get grams => 'الجرامات التقديرية';
+	@override String get removeIngredient => 'إزالة المكون';
+	@override String get continueLabel => 'متابعة';
+	@override String get invalidProposal => 'يرجى إضافة مكون واحد على الأقل واستخدام كمية جرامات موجبة.';
+	@override String get localUnavailable => 'التحليل على الجهاز غير متاح حالياً.';
+	@override String get calculationDetails => 'كيفية حساب هذه القيم';
+	@override String get interpretationLocal => 'مكونات تم تحليلها على هذا الجهاز';
+	@override String get interpretationCloud => 'مكونات تم تحليلها في السحابة';
+	@override String get interpretationManual => 'مكونات تمت مراجعتها أو تعديلها بواسطتك';
+	@override String get nutritionRemote => 'تم جلب القيم الغذائية من USDA عبر Calorify';
+	@override String get nutritionFallback => 'تم تقدير بعض القيم الغذائية عن بُعد';
+	@override String get calculationServer => 'تم حساب السعرات الحرارية والمغذيات الكبرى بواسطة Calorify';
+	@override String get fallbackUsed => 'تم الانتقال من التحليل المحلي إلى المعالجة السحابية';
+	@override String get noRawContent => 'إيصالات التشخيص لا تتضمن نص الوجبة أو صورتها.';
+}
+
 // Path: meal.feedback
 class _TranslationsMealFeedbackAr implements TranslationsMealFeedbackEn {
 	_TranslationsMealFeedbackAr._(this._root);
@@ -899,6 +928,7 @@ class _TranslationsSettingsSectionsAr implements TranslationsSettingsSectionsEn 
 	@override String get localization => 'اللغة';
 	@override String get notifications => 'الإشعارات';
 	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get localInference => 'التحليل على الجهاز';
 	@override String get supportAndLegal => 'الدعم والقانونية';
 	@override String get about => 'حول';
 	@override String get dangerZone => 'منطقة الخطر';
@@ -958,6 +988,30 @@ class _TranslationsSettingsMealRemindersAr implements TranslationsSettingsMealRe
 	// Translations
 	@override String get title => 'تذكيرات الوجبات';
 	@override String get subtitle => 'ابقَ على الطريق مع تنبيهات في الوقت المناسب';
+}
+
+// Path: settings.localInference
+class _TranslationsSettingsLocalInferenceAr implements TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceAr._(this._root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تحليل الوجبات على الجهاز';
+	@override String get subtitle => 'تحليل الوجبات المدعومة باستخدام Gemini Nano قبل حساب القيم الغذائية';
+	@override String get unavailable => 'غير متاح على هذا الجهاز';
+	@override String get rolloutUnavailable => 'تم العثور على الأجهزة المتوافقة، ولكن هذه الميزة غير مفعلة في هذا الإصدار من التطبيق';
+	@override String get modelSetup => 'يجب أن ينتهي تحميل Gemini Nano قبل تفعيل هذه الميزة';
+	@override String get useLocalTitle => 'استخدام التحليل على الجهاز';
+	@override String get useLocalSubtitle => 'اختياري ومعطل افتراضياً. قد تكون النتائج أقل دقة للوجبات المعقدة.';
+	@override String get disclosureTitle => 'قبل تفعيل التحليل على الجهاز';
+	@override String get disclosureBody => 'يمكن لـ Gemini Nano تحديد المكونات وتقدير الكميات على أجهزة Android المدعومة. يتم إرسال مقترح المكونات الذي تراجعه إلى Calorify لربطه بالقيم الغذائية من USDA وحسابها.';
+	@override String get disclosureLimit1 => 'قد يتم تحديد الأطباق المعقدة، والمكونات المخفية، وأحجام الحصص بشكل غير صحيح.';
+	@override String get disclosureLimit2 => 'قد يكون النموذج غير متاح أثناء التحميل، أو عند انشغاله، أو في الخلفية، أو بسبب قيود الجهاز.';
+	@override String get disclosureLimit3 => 'إذا تعذر إكمال التحليل المحلي، ستقوم هذه النسخة التجريبية تلقائياً بإرسال وصف وجبتك الأصلي إلى Calorify للتحليل السحابي.';
+	@override String get acknowledgement => 'أدرك أنه يجب علي مراجعة المكونات والكميات المكتشفة.';
+	@override String get enable => 'موافق وتفعيل';
+	@override String get cancel => 'إلغاء';
 }
 
 // Path: settings.theme
@@ -1857,6 +1911,7 @@ extension on TranslationsAr {
 			'meal.save' => 'حفظ',
 			'meal.mealName' => 'اسم الوجبة',
 			'meal.mealNameHint' => 'مثال: بيض مخفوق مع توست',
+			'meal.nameRequired' => 'يرجى إدخال اسم الوجبة قبل الحفظ.',
 			'meal.mealQuantity' => 'كمية الوجبة',
 			'meal.mealQuantityHint' => 'مثال: 1 وعاء، 2 شريحة',
 			'meal.timeOfMeal' => 'وقت الوجبة',
@@ -1916,6 +1971,24 @@ extension on TranslationsAr {
 			'meal.analysis.offlineTip3' => 'نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.',
 			'meal.analysis.offlineTip4' => 'نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.',
 			'meal.analysis.offlineTip5' => 'نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).',
+			'meal.localInference.reviewTitle' => 'مراجعة المكونات المكتشفة',
+			'meal.localInference.reviewSubtitle' => 'تم تحليل هذه البيانات على جهازك. يرجى تصحيح الأسماء أو الكميات قبل حساب القيم الغذائية.',
+			'meal.localInference.mealName' => 'اسم الوجبة',
+			'meal.localInference.ingredient' => 'المكون',
+			'meal.localInference.grams' => 'الجرامات التقديرية',
+			'meal.localInference.removeIngredient' => 'إزالة المكون',
+			'meal.localInference.continueLabel' => 'متابعة',
+			'meal.localInference.invalidProposal' => 'يرجى إضافة مكون واحد على الأقل واستخدام كمية جرامات موجبة.',
+			'meal.localInference.localUnavailable' => 'التحليل على الجهاز غير متاح حالياً.',
+			'meal.localInference.calculationDetails' => 'كيفية حساب هذه القيم',
+			'meal.localInference.interpretationLocal' => 'مكونات تم تحليلها على هذا الجهاز',
+			'meal.localInference.interpretationCloud' => 'مكونات تم تحليلها في السحابة',
+			'meal.localInference.interpretationManual' => 'مكونات تمت مراجعتها أو تعديلها بواسطتك',
+			'meal.localInference.nutritionRemote' => 'تم جلب القيم الغذائية من USDA عبر Calorify',
+			'meal.localInference.nutritionFallback' => 'تم تقدير بعض القيم الغذائية عن بُعد',
+			'meal.localInference.calculationServer' => 'تم حساب السعرات الحرارية والمغذيات الكبرى بواسطة Calorify',
+			'meal.localInference.fallbackUsed' => 'تم الانتقال من التحليل المحلي إلى المعالجة السحابية',
+			'meal.localInference.noRawContent' => 'إيصالات التشخيص لا تتضمن نص الوجبة أو صورتها.',
 			'meal.feedback.title' => 'ما الخطأ في التقدير؟',
 			'meal.feedback.subtitle' => 'ساعدنا في تحسين التحليل باختيار مشكلة أو أكثر.',
 			'meal.feedback.tellUsMore' => 'أخبرنا المزيد',
@@ -1928,7 +2001,6 @@ extension on TranslationsAr {
 			'meal.feedback.issueMissingItems' => 'عناصر مفقودة',
 			'meal.feedback.issueExtraItems' => 'عناصر إضافية',
 			'meal.feedback.issueOther' => 'أخرى',
-			'meal.nameRequired' => 'يرجى إدخال اسم الوجبة قبل الحفظ.',
 			'favorites.title' => 'المفضلات',
 			'favorites.empty' => 'لا توجد وجبات مفضلة بعد.',
 			'favorites.searchPlaceholder' => 'ابحث في الوجبات المفضلة',
@@ -2014,6 +2086,7 @@ extension on TranslationsAr {
 			'settings.sections.localization' => 'اللغة',
 			'settings.sections.notifications' => 'الإشعارات',
 			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.localInference' => 'التحليل على الجهاز',
 			'settings.sections.supportAndLegal' => 'الدعم والقانونية',
 			'settings.sections.about' => 'حول',
 			'settings.sections.dangerZone' => 'منطقة الخطر',
@@ -2028,6 +2101,21 @@ extension on TranslationsAr {
 			'settings.weightUnit.title' => 'وحدة الوزن',
 			'settings.mealReminders.title' => 'تذكيرات الوجبات',
 			'settings.mealReminders.subtitle' => 'ابقَ على الطريق مع تنبيهات في الوقت المناسب',
+			'settings.localInference.title' => 'تحليل الوجبات على الجهاز',
+			'settings.localInference.subtitle' => 'تحليل الوجبات المدعومة باستخدام Gemini Nano قبل حساب القيم الغذائية',
+			'settings.localInference.unavailable' => 'غير متاح على هذا الجهاز',
+			'settings.localInference.rolloutUnavailable' => 'تم العثور على الأجهزة المتوافقة، ولكن هذه الميزة غير مفعلة في هذا الإصدار من التطبيق',
+			'settings.localInference.modelSetup' => 'يجب أن ينتهي تحميل Gemini Nano قبل تفعيل هذه الميزة',
+			'settings.localInference.useLocalTitle' => 'استخدام التحليل على الجهاز',
+			'settings.localInference.useLocalSubtitle' => 'اختياري ومعطل افتراضياً. قد تكون النتائج أقل دقة للوجبات المعقدة.',
+			'settings.localInference.disclosureTitle' => 'قبل تفعيل التحليل على الجهاز',
+			'settings.localInference.disclosureBody' => 'يمكن لـ Gemini Nano تحديد المكونات وتقدير الكميات على أجهزة Android المدعومة. يتم إرسال مقترح المكونات الذي تراجعه إلى Calorify لربطه بالقيم الغذائية من USDA وحسابها.',
+			'settings.localInference.disclosureLimit1' => 'قد يتم تحديد الأطباق المعقدة، والمكونات المخفية، وأحجام الحصص بشكل غير صحيح.',
+			'settings.localInference.disclosureLimit2' => 'قد يكون النموذج غير متاح أثناء التحميل، أو عند انشغاله، أو في الخلفية، أو بسبب قيود الجهاز.',
+			'settings.localInference.disclosureLimit3' => 'إذا تعذر إكمال التحليل المحلي، ستقوم هذه النسخة التجريبية تلقائياً بإرسال وصف وجبتك الأصلي إلى Calorify للتحليل السحابي.',
+			'settings.localInference.acknowledgement' => 'أدرك أنه يجب علي مراجعة المكونات والكميات المكتشفة.',
+			'settings.localInference.enable' => 'موافق وتفعيل',
+			'settings.localInference.cancel' => 'إلغاء',
 			'settings.theme.title' => 'المظهر',
 			'settings.theme.light' => 'فاتح',
 			'settings.theme.dark' => 'داكن',
@@ -2162,6 +2250,8 @@ extension on TranslationsAr {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'نحسب TDEE (بناءً على ملفك) ونضربه في نسبة اليوم المنقضي (الساعات + الدقائق) / 24 لتقدير السعرات المحروقة حتى الآن.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'إرشاد مهني',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا مختص رعاية صحية أو أخصائي تغذية مسجل لإدارة الوزن بشكل شخصي.',
+			_ => null,
+		} ?? switch (path) {
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع بـ ${appLabel}؟',

@@ -24,6 +24,74 @@ enum PortionKind {
   COUNT_QUESTION = 4; // synthetic; clarification asks "how many?"
 }
 
+enum AnalysisModality {
+  ANALYSIS_MODALITY_UNSPECIFIED = 0;
+  ANALYSIS_MODALITY_TEXT = 1;
+  ANALYSIS_MODALITY_IMAGE = 2;
+}
+
+enum InterpretationOrigin {
+  INTERPRETATION_ORIGIN_UNSPECIFIED = 0;
+  INTERPRETATION_ORIGIN_CLOUD_MODEL = 1;
+  INTERPRETATION_ORIGIN_LOCAL_NANO = 2;
+  INTERPRETATION_ORIGIN_MANUAL = 3;
+}
+
+enum NutritionOrigin {
+  NUTRITION_ORIGIN_UNSPECIFIED = 0;
+  NUTRITION_ORIGIN_BUNDLED_USDA = 1;
+  NUTRITION_ORIGIN_CACHED_USDA = 2;
+  NUTRITION_ORIGIN_REMOTE_USDA = 3;
+  NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT = 4;
+  NUTRITION_ORIGIN_LLM_FALLBACK = 5;
+  NUTRITION_ORIGIN_UNRESOLVED = 6;
+}
+
+enum CalculationOrigin {
+  CALCULATION_ORIGIN_UNSPECIFIED = 0;
+  CALCULATION_ORIGIN_LOCAL_DETERMINISTIC = 1;
+  CALCULATION_ORIGIN_SERVER_DETERMINISTIC = 2;
+}
+
+enum IngredientFieldOrigin {
+  INGREDIENT_FIELD_ORIGIN_UNSPECIFIED = 0;
+  INGREDIENT_FIELD_ORIGIN_USER_INPUT = 1;
+  INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL = 2;
+  INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL = 3;
+  INGREDIENT_FIELD_ORIGIN_USER_EDIT = 4;
+  INGREDIENT_FIELD_ORIGIN_DETERMINISTIC = 5;
+}
+
+enum AnalysisAttemptStatus {
+  ANALYSIS_ATTEMPT_STATUS_UNSPECIFIED = 0;
+  ANALYSIS_ATTEMPT_STATUS_STARTED = 1;
+  ANALYSIS_ATTEMPT_STATUS_ACCEPTED = 2;
+  ANALYSIS_ATTEMPT_STATUS_FAILED = 3;
+  ANALYSIS_ATTEMPT_STATUS_CANCELLED = 4;
+  ANALYSIS_ATTEMPT_STATUS_SUPERSEDED = 5;
+}
+
+enum MealAnalysisFallbackReason {
+  MEAL_ANALYSIS_FALLBACK_REASON_UNSPECIFIED = 0;
+  MEAL_ANALYSIS_FALLBACK_REASON_NONE = 1;
+  MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE = 2;
+  MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY = 3;
+  MEAL_ANALYSIS_FALLBACK_REASON_BUSY = 4;
+  MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED = 5;
+  MEAL_ANALYSIS_FALLBACK_REASON_BACKGROUND_BLOCKED = 6;
+  MEAL_ANALYSIS_FALLBACK_REASON_THERMALLY_LIMITED = 7;
+  MEAL_ANALYSIS_FALLBACK_REASON_MODEL_UPDATING = 8;
+  MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED = 9;
+  MEAL_ANALYSIS_FALLBACK_REASON_TIMED_OUT = 10;
+  MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT = 11;
+  MEAL_ANALYSIS_FALLBACK_REASON_CANCELLED = 12;
+  MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS = 13;
+  MEAL_ANALYSIS_FALLBACK_REASON_DATASET_INCOMPATIBLE = 14;
+  MEAL_ANALYSIS_FALLBACK_REASON_USER_APPROVED = 15;
+  MEAL_ANALYSIS_FALLBACK_REASON_USER_DENIED = 16;
+  MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN = 17;
+}
+
 
 message PipelineCalorieBand {
   int32 min = 1;
@@ -36,6 +104,68 @@ message PipelineMacros {
   double carbs = 3;
   double fat = 4;
   double fiber = 5;
+}
+
+message IngredientFieldProvenance {
+  string field_name = 1;
+  IngredientFieldOrigin origin = 2;
+}
+
+// Models may propose identity and portion information only. Nutrient values
+// intentionally do not exist in this contract.
+message IngredientProposalItemV1 {
+  string row_id = 1;
+  string raw_name = 2;
+  string canonical_hint = 3;
+  string preparation = 4;
+  double grams_estimated = 5;
+  double min_grams = 6;
+  double max_grams = 7;
+  string notes = 8;
+  PortionKind portion_kind = 9;
+  optional double count = 10;
+  optional double per_unit_grams = 11;
+  optional double per_unit_min_grams = 12;
+  optional double per_unit_max_grams = 13;
+  bool size_specified_by_user = 14;
+  double confidence = 15;
+  repeated IngredientFieldProvenance field_provenance = 16;
+}
+
+message IngredientProposalV1 {
+  uint32 schema_version = 1;
+  string proposal_id = 2;
+  AnalysisModality modality = 3;
+  string meal_name = 4;
+  meal.MealType inferred_meal_type = 5;
+  bool meal_type_confident = 6;
+  double confidence = 7;
+  repeated IngredientProposalItemV1 ingredients = 8;
+  InterpretationOrigin interpretation_origin = 9;
+  optional string model_name = 10;
+  optional string model_version = 11;
+}
+
+message AnalysisAttemptReceipt {
+  string attempt_id = 1;
+  InterpretationOrigin executor_origin = 2;
+  int64 started_at_epoch_ms = 3;
+  optional int64 completed_at_epoch_ms = 4;
+  AnalysisAttemptStatus status = 5;
+  MealAnalysisFallbackReason fallback_reason = 6;
+}
+
+message MealAnalysisReceipt {
+  uint32 schema_version = 1;
+  uint32 proposal_schema_version = 2;
+  bool local_attempted = 3;
+  InterpretationOrigin interpretation_origin = 4;
+  NutritionOrigin nutrition_origin = 5;
+  CalculationOrigin calculation_origin = 6;
+  optional string usda_dataset_version = 7;
+  string calculation_version = 8;
+  repeated AnalysisAttemptReceipt attempts = 9;
+  MealAnalysisFallbackReason fallback_reason = 10;
 }
 
 message PipelineMealHealth {
@@ -75,6 +205,11 @@ message PipelineResolvedIngredient {
   PortionKind portion_kind = 8;
   optional double count = 9;
   optional double per_unit_grams = 10;
+  NutritionOrigin nutrition_origin = 11;
+  optional string fdc_id = 12;
+  optional string usda_dataset_version = 13;
+  optional PipelineMacros nutrients_per_100g = 14;
+  repeated IngredientFieldProvenance field_provenance = 15;
 }
 
 message PipelineClarificationOption {
@@ -106,6 +241,8 @@ message PipelineDecompositionData {
   repeated PipelineDecomposedIngredient ingredients = 4;
   meal.MealType inferred_meal_type = 5;
   bool meal_type_confident = 6;
+  InterpretationOrigin interpretation_origin = 7;
+  optional IngredientProposalV1 proposal = 8;
 }
 
 message PipelineIngredientsData {
@@ -144,6 +281,7 @@ message PipelineResultData {
   PipelineCalorieBand calorie_band = 10;
   repeated PipelineResolvedIngredient ingredients = 11;
   repeated string confidence_reasons = 12;
+  optional MealAnalysisReceipt receipt = 13;
 }
 
 message PipelineErrorData {

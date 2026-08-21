@@ -8,5 +8,8 @@ class UserPreferencesTable extends Table {
   DateTimeColumn get feedbackSheetShownAt => dateTime().nullable()();
   IntColumn get onboardingCurrentStep => integer().nullable()();
   DateTimeColumn get onboardingCompletedAt => dateTime().nullable()();
+  BoolColumn get localInferenceEnabled =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get localInferenceAcknowledgedPolicyVersion => text().nullable()();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

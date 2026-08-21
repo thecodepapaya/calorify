@@ -245,6 +245,7 @@
     "save": "Gem",
     "mealName": "Måltidets navn",
     "mealNameHint": "fx. Røræg med toast",
+    "nameRequired": "Indtast et navn på måltidet, før du gemmer.",
     "mealQuantity": "Mængde",
     "mealQuantityHint": "fx. 1 skål, 2 skiver",
     "timeOfMeal": "Tidspunkt for måltid",
@@ -312,6 +313,26 @@
       "offlineTip4": "Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.",
       "offlineTip5": "Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt)."
     },
+    "localInference": {
+      "reviewTitle": "Gennemse detekterede ingredienser",
+      "reviewSubtitle": "Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.",
+      "mealName": "Måltidets navn",
+      "ingredient": "Ingrediens",
+      "grams": "Estimeret antal gram",
+      "removeIngredient": "Fjern ingrediens",
+      "continueLabel": "Fortsæt",
+      "invalidProposal": "Tilføj mindst én ingrediens og brug et positivt antal gram.",
+      "localUnavailable": "Analyse på enheden er ikke tilgængelig lige nu.",
+      "calculationDetails": "Sådan blev dette beregnet",
+      "interpretationLocal": "Ingredienser fortolket på denne enhed",
+      "interpretationCloud": "Ingredienser fortolket i skyen",
+      "interpretationManual": "Ingredienser gennemset eller redigeret af dig",
+      "nutritionRemote": "Næringsindhold hentet fra USDA via Calorify",
+      "nutritionFallback": "Nogle næringsværdier blev estimeret eksternt",
+      "calculationServer": "Kalorier og makronæringsstoffer beregnet af Calorify",
+      "fallbackUsed": "Lokal analyse skiftede til cloud-behandling",
+      "noRawContent": "Diagnostiske kvitteringer indeholder ikke din måltidstekst eller dit foto."
+    },
     "feedback": {
       "title": "Hvad ser forkert ud?",
       "subtitle": "Hjælp os med at forbedre analysen ved at vælge ét eller flere problemer.",
@@ -325,8 +346,7 @@
       "issueMissingItems": "Mangler varer",
       "issueExtraItems": "Ekstra varer",
       "issueOther": "Andet"
-    },
-    "nameRequired": "Indtast et navn på måltidet, før du gemmer."
+    }
   },
   "favorites": {
     "title": "Favoritter",
@@ -453,6 +473,7 @@
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKATIONER",
       "healthConnect": "HEALTH CONNECT",
+      "localInference": "ANALYSE PÅ ENHED",
       "supportAndLegal": "SUPPORT & JURA",
       "about": "OM",
       "dangerZone": "FARLIG ZONE",
@@ -477,6 +498,23 @@
     "mealReminders": {
       "title": "Måltidspåmindelser",
       "subtitle": "Hold dig på sporet med rettidige påmindelser"
+    },
+    "localInference": {
+      "title": "Måltidsanalyse på enheden",
+      "subtitle": "Fortolk understøttede måltider med Gemini Nano, før næringsindholdet beregnes",
+      "unavailable": "Ikke tilgængelig på denne enhed",
+      "rolloutUnavailable": "Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version",
+      "modelSetup": "Gemini Nano skal færdiggøre download, før dette kan aktiveres",
+      "useLocalTitle": "Brug analyse på enheden",
+      "useLocalSubtitle": "Valgfrit og deaktiveret som standard. Resultaterne kan være mindre pålidelige for komplekse måltider.",
+      "disclosureTitle": "Før du aktiverer analyse på enheden",
+      "disclosureBody": "Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.",
+      "disclosureLimit1": "Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.",
+      "disclosureLimit2": "Modellen kan være utilgængelig under download, når den er optaget, kører i baggrunden eller er begrænset af enheden.",
+      "disclosureLimit3": "Hvis den lokale fortolkning ikke kan færdiggøres, sender denne beta automatisk din oprindelige måltidsbeskrivelse til Calorify for cloud-analyse.",
+      "acknowledgement": "Jeg forstår, at jeg bør gennemse detekterede ingredienser og portioner.",
+      "enable": "Bekræft og aktiver",
+      "cancel": "Annuller"
     },
     "theme": {
       "title": "Tema",
