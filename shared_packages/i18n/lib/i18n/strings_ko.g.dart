@@ -1424,7 +1424,7 @@ class _TranslationsSettingsHealthConnectUnavailableKo implements TranslationsSet
 
 	// Translations
 	@override String get title => 'Health Connect 사용 불가';
-	@override String get description => '이 기기에서는 Health Connect를 사용할 수 없습니다. Play Store에서 Health Connect를 설치(또는 Android 9 이상)하거나 Android 14 이상으로 업데이트하세요.';
+	@override String get description => '이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -2055,7 +2055,7 @@ extension on TranslationsKo {
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => '권한 보기 및 관리',
 			'settings.healthConnect.unavailable.title' => 'Health Connect 사용 불가',
-			'settings.healthConnect.unavailable.description' => '이 기기에서는 Health Connect를 사용할 수 없습니다. Play Store에서 Health Connect를 설치(또는 Android 9 이상)하거나 Android 14 이상으로 업데이트하세요.',
+			'settings.healthConnect.unavailable.description' => '이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.',
 			'settings.healthConnect.permissions.title' => '권한',
 			'settings.healthConnect.permissions.description' => 'Health Connect 통합을 제공하기 위해 다음 권한이 요청됩니다:',
 			'settings.healthConnect.permissions.granted' => '허용됨',

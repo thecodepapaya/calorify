@@ -517,7 +517,7 @@
       "subtitle": "권한 보기 및 관리",
       "unavailable": {
         "title": "Health Connect 사용 불가",
-        "description": "이 기기에서는 Health Connect를 사용할 수 없습니다. Play Store에서 Health Connect를 설치(또는 Android 9 이상)하거나 Android 14 이상으로 업데이트하세요."
+        "description": "이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요."
       },
       "permissions": {
         "title": "권한",
