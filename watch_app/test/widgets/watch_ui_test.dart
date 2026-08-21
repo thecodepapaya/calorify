@@ -1,3 +1,4 @@
+import 'package:calorify_watch/app.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -108,5 +109,64 @@ void main() {
     expect(tester.takeException(), isNull);
     expect(find.textContaining('1240', findRichText: true), findsOneWidget);
     expect(find.text('Protein'), findsOneWidget);
+  });
+
+  test('watch theme always uses a black app canvas', () {
+    final theme = buildWatchTheme(AppThemes.lightTheme);
+
+    expect(theme.scaffoldBackgroundColor, Colors.black);
+    expect(theme.canvasColor, Colors.black);
+    expect(theme.colorScheme.surface, Colors.black);
+  });
+
+  testWidgets('scrollable views receive a Wear position indicator', (
+    tester,
+  ) async {
+    await useSmallWatchSurface(tester);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        scrollBehavior: const WatchScrollBehavior(),
+        home: Scaffold(body: ListView(children: const [SizedBox(height: 400)])),
+      ),
+    );
+
+    expect(find.byType(Scrollbar), findsOneWidget);
+  });
+
+  testWidgets('fixed list controls stay inside a 192dp round display', (
+    tester,
+  ) async {
+    await useSmallWatchSurface(tester);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppThemes.darkTheme,
+        home: WatchListScaffold(
+          title: 'Favorites',
+          icon: LucideIcons.star,
+          onBack: () {},
+          trailing: WatchIconButton(
+            icon: LucideIcons.refreshCw,
+            semanticLabel: 'Refresh',
+            onPressed: () {},
+          ),
+          body: const SizedBox.shrink(),
+        ),
+      ),
+    );
+
+    const displayCenter = Offset(96, 96);
+    const displayRadius = 96.0;
+    for (final button in tester.widgetList<WatchIconButton>(
+      find.byType(WatchIconButton),
+    )) {
+      final rect = tester.getRect(find.byWidget(button));
+      final buttonRadius = rect.shortestSide / 2;
+      expect(
+        (rect.center - displayCenter).distance + buttonRadius,
+        lessThanOrEqualTo(displayRadius),
+      );
+    }
   });
 }

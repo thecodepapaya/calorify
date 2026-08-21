@@ -62,6 +62,9 @@ android {
 }
 
 dependencies {
+    // Backports the Wear OS splash-screen dimensions and behavior to all
+    // supported OS versions.
+    implementation("androidx.core:core-splashscreen:1.2.0")
     // Wear OS Data Layer API
     implementation("com.google.android.gms:play-services-wearable:18.1.0")
     // Kotlin coroutines

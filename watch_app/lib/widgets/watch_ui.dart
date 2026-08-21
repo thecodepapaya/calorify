@@ -184,7 +184,9 @@ class WatchListScaffold extends StatelessWidget {
     return Scaffold(
       backgroundColor: colors.surface,
       body: SafeArea(
-        minimum: const EdgeInsets.all(8),
+        // Keep the fixed header inside the usable chord of a 192dp round
+        // display. Scrollable content can still use the full center width.
+        minimum: const EdgeInsets.fromLTRB(10, 22, 10, 10),
         child: Column(
           children: [
             Padding(

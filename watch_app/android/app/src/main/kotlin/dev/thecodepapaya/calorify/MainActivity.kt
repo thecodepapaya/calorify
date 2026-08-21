@@ -1,5 +1,7 @@
 package dev.thecodepapaya.calorify
 
+import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import kotlinx.coroutines.*
@@ -8,6 +10,11 @@ class MainActivity : FlutterActivity() {
     private val job = SupervisorJob()
     private val coroutineScope = CoroutineScope(job + Dispatchers.Main)
     private var wearOsHandler: WearOsChannelHandler? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
