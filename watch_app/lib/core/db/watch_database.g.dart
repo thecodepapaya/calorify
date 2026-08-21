@@ -145,6 +145,18 @@ class $CachedMealsTableTable extends CachedMealsTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _protoPayloadMeta = const VerificationMeta(
+    'protoPayload',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> protoPayload =
+      GeneratedColumn<Uint8List>(
+        'proto_payload',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     mealId,
@@ -160,6 +172,7 @@ class $CachedMealsTableTable extends CachedMealsTable
     imageUrl,
     healthScore,
     healthScoreReason,
+    protoPayload,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -278,6 +291,15 @@ class $CachedMealsTableTable extends CachedMealsTable
         ),
       );
     }
+    if (data.containsKey('proto_payload')) {
+      context.handle(
+        _protoPayloadMeta,
+        protoPayload.isAcceptableOrUnknown(
+          data['proto_payload']!,
+          _protoPayloadMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -349,6 +371,10 @@ class $CachedMealsTableTable extends CachedMealsTable
         DriftSqlType.string,
         data['${effectivePrefix}health_score_reason'],
       ),
+      protoPayload: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}proto_payload'],
+      ),
     );
   }
 
@@ -373,6 +399,7 @@ class CachedMealsTableData extends DataClass
   final String? imageUrl;
   final String? healthScore;
   final String? healthScoreReason;
+  final Uint8List? protoPayload;
   const CachedMealsTableData({
     required this.mealId,
     required this.mealName,
@@ -387,6 +414,7 @@ class CachedMealsTableData extends DataClass
     this.imageUrl,
     this.healthScore,
     this.healthScoreReason,
+    this.protoPayload,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -409,6 +437,9 @@ class CachedMealsTableData extends DataClass
     }
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
+    }
+    if (!nullToAbsent || protoPayload != null) {
+      map['proto_payload'] = Variable<Uint8List>(protoPayload);
     }
     return map;
   }
@@ -437,6 +468,10 @@ class CachedMealsTableData extends DataClass
           healthScoreReason == null && nullToAbsent
               ? const Value.absent()
               : Value(healthScoreReason),
+      protoPayload:
+          protoPayload == null && nullToAbsent
+              ? const Value.absent()
+              : Value(protoPayload),
     );
   }
 
@@ -461,6 +496,7 @@ class CachedMealsTableData extends DataClass
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
+      protoPayload: serializer.fromJson<Uint8List?>(json['protoPayload']),
     );
   }
   @override
@@ -480,6 +516,7 @@ class CachedMealsTableData extends DataClass
       'imageUrl': serializer.toJson<String?>(imageUrl),
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
+      'protoPayload': serializer.toJson<Uint8List?>(protoPayload),
     };
   }
 
@@ -497,6 +534,7 @@ class CachedMealsTableData extends DataClass
     Value<String?> imageUrl = const Value.absent(),
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
+    Value<Uint8List?> protoPayload = const Value.absent(),
   }) => CachedMealsTableData(
     mealId: mealId ?? this.mealId,
     mealName: mealName ?? this.mealName,
@@ -514,6 +552,7 @@ class CachedMealsTableData extends DataClass
         healthScoreReason.present
             ? healthScoreReason.value
             : this.healthScoreReason,
+    protoPayload: protoPayload.present ? protoPayload.value : this.protoPayload,
   );
   CachedMealsTableData copyWithCompanion(CachedMealsTableCompanion data) {
     return CachedMealsTableData(
@@ -537,6 +576,10 @@ class CachedMealsTableData extends DataClass
           data.healthScoreReason.present
               ? data.healthScoreReason.value
               : this.healthScoreReason,
+      protoPayload:
+          data.protoPayload.present
+              ? data.protoPayload.value
+              : this.protoPayload,
     );
   }
 
@@ -555,7 +598,8 @@ class CachedMealsTableData extends DataClass
           ..write('timestamp: $timestamp, ')
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
-          ..write('healthScoreReason: $healthScoreReason')
+          ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('protoPayload: $protoPayload')
           ..write(')'))
         .toString();
   }
@@ -575,6 +619,7 @@ class CachedMealsTableData extends DataClass
     imageUrl,
     healthScore,
     healthScoreReason,
+    $driftBlobEquality.hash(protoPayload),
   );
   @override
   bool operator ==(Object other) =>
@@ -592,7 +637,8 @@ class CachedMealsTableData extends DataClass
           other.timestamp == this.timestamp &&
           other.imageUrl == this.imageUrl &&
           other.healthScore == this.healthScore &&
-          other.healthScoreReason == this.healthScoreReason);
+          other.healthScoreReason == this.healthScoreReason &&
+          $driftBlobEquality.equals(other.protoPayload, this.protoPayload));
 }
 
 class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
@@ -609,6 +655,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
   final Value<String?> imageUrl;
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
+  final Value<Uint8List?> protoPayload;
   const CachedMealsTableCompanion({
     this.mealId = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -623,6 +670,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.protoPayload = const Value.absent(),
   });
   CachedMealsTableCompanion.insert({
     this.mealId = const Value.absent(),
@@ -638,6 +686,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.protoPayload = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -661,6 +710,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
     Expression<String>? imageUrl,
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
+    Expression<Uint8List>? protoPayload,
   }) {
     return RawValuesInsertable({
       if (mealId != null) 'meal_id': mealId,
@@ -676,6 +726,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
       if (imageUrl != null) 'image_url': imageUrl,
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
+      if (protoPayload != null) 'proto_payload': protoPayload,
     });
   }
 
@@ -693,6 +744,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
     Value<String?>? imageUrl,
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
+    Value<Uint8List?>? protoPayload,
   }) {
     return CachedMealsTableCompanion(
       mealId: mealId ?? this.mealId,
@@ -708,6 +760,7 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
       imageUrl: imageUrl ?? this.imageUrl,
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
+      protoPayload: protoPayload ?? this.protoPayload,
     );
   }
 
@@ -753,6 +806,9 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
     }
+    if (protoPayload.present) {
+      map['proto_payload'] = Variable<Uint8List>(protoPayload.value);
+    }
     return map;
   }
 
@@ -771,7 +827,8 @@ class CachedMealsTableCompanion extends UpdateCompanion<CachedMealsTableData> {
           ..write('timestamp: $timestamp, ')
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
-          ..write('healthScoreReason: $healthScoreReason')
+          ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('protoPayload: $protoPayload')
           ..write(')'))
         .toString();
   }
@@ -919,6 +976,18 @@ class $CachedFavoritesTableTable extends CachedFavoritesTable
         type: DriftSqlType.string,
         requiredDuringInsert: false,
       );
+  static const VerificationMeta _protoPayloadMeta = const VerificationMeta(
+    'protoPayload',
+  );
+  @override
+  late final GeneratedColumn<Uint8List> protoPayload =
+      GeneratedColumn<Uint8List>(
+        'proto_payload',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _favoritedAtMeta = const VerificationMeta(
     'favoritedAt',
   );
@@ -956,6 +1025,7 @@ class $CachedFavoritesTableTable extends CachedFavoritesTable
     imageUrl,
     healthScore,
     healthScoreReason,
+    protoPayload,
     favoritedAt,
     lastUsedAt,
   ];
@@ -1076,6 +1146,15 @@ class $CachedFavoritesTableTable extends CachedFavoritesTable
         ),
       );
     }
+    if (data.containsKey('proto_payload')) {
+      context.handle(
+        _protoPayloadMeta,
+        protoPayload.isAcceptableOrUnknown(
+          data['proto_payload']!,
+          _protoPayloadMeta,
+        ),
+      );
+    }
     if (data.containsKey('favorited_at')) {
       context.handle(
         _favoritedAtMeta,
@@ -1170,6 +1249,10 @@ class $CachedFavoritesTableTable extends CachedFavoritesTable
         DriftSqlType.string,
         data['${effectivePrefix}health_score_reason'],
       ),
+      protoPayload: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}proto_payload'],
+      ),
       favoritedAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -1203,6 +1286,7 @@ class CachedFavoritesTableData extends DataClass
   final String? imageUrl;
   final String? healthScore;
   final String? healthScoreReason;
+  final Uint8List? protoPayload;
   final DateTime favoritedAt;
   final DateTime? lastUsedAt;
   const CachedFavoritesTableData({
@@ -1219,6 +1303,7 @@ class CachedFavoritesTableData extends DataClass
     this.imageUrl,
     this.healthScore,
     this.healthScoreReason,
+    this.protoPayload,
     required this.favoritedAt,
     this.lastUsedAt,
   });
@@ -1243,6 +1328,9 @@ class CachedFavoritesTableData extends DataClass
     }
     if (!nullToAbsent || healthScoreReason != null) {
       map['health_score_reason'] = Variable<String>(healthScoreReason);
+    }
+    if (!nullToAbsent || protoPayload != null) {
+      map['proto_payload'] = Variable<Uint8List>(protoPayload);
     }
     map['favorited_at'] = Variable<DateTime>(favoritedAt);
     if (!nullToAbsent || lastUsedAt != null) {
@@ -1275,6 +1363,10 @@ class CachedFavoritesTableData extends DataClass
           healthScoreReason == null && nullToAbsent
               ? const Value.absent()
               : Value(healthScoreReason),
+      protoPayload:
+          protoPayload == null && nullToAbsent
+              ? const Value.absent()
+              : Value(protoPayload),
       favoritedAt: Value(favoritedAt),
       lastUsedAt:
           lastUsedAt == null && nullToAbsent
@@ -1304,6 +1396,7 @@ class CachedFavoritesTableData extends DataClass
       healthScoreReason: serializer.fromJson<String?>(
         json['healthScoreReason'],
       ),
+      protoPayload: serializer.fromJson<Uint8List?>(json['protoPayload']),
       favoritedAt: serializer.fromJson<DateTime>(json['favoritedAt']),
       lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
     );
@@ -1325,6 +1418,7 @@ class CachedFavoritesTableData extends DataClass
       'imageUrl': serializer.toJson<String?>(imageUrl),
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
+      'protoPayload': serializer.toJson<Uint8List?>(protoPayload),
       'favoritedAt': serializer.toJson<DateTime>(favoritedAt),
       'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
     };
@@ -1344,6 +1438,7 @@ class CachedFavoritesTableData extends DataClass
     Value<String?> imageUrl = const Value.absent(),
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
+    Value<Uint8List?> protoPayload = const Value.absent(),
     DateTime? favoritedAt,
     Value<DateTime?> lastUsedAt = const Value.absent(),
   }) => CachedFavoritesTableData(
@@ -1363,6 +1458,7 @@ class CachedFavoritesTableData extends DataClass
         healthScoreReason.present
             ? healthScoreReason.value
             : this.healthScoreReason,
+    protoPayload: protoPayload.present ? protoPayload.value : this.protoPayload,
     favoritedAt: favoritedAt ?? this.favoritedAt,
     lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
   );
@@ -1390,6 +1486,10 @@ class CachedFavoritesTableData extends DataClass
           data.healthScoreReason.present
               ? data.healthScoreReason.value
               : this.healthScoreReason,
+      protoPayload:
+          data.protoPayload.present
+              ? data.protoPayload.value
+              : this.protoPayload,
       favoritedAt:
           data.favoritedAt.present ? data.favoritedAt.value : this.favoritedAt,
       lastUsedAt:
@@ -1413,6 +1513,7 @@ class CachedFavoritesTableData extends DataClass
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('protoPayload: $protoPayload, ')
           ..write('favoritedAt: $favoritedAt, ')
           ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
@@ -1434,6 +1535,7 @@ class CachedFavoritesTableData extends DataClass
     imageUrl,
     healthScore,
     healthScoreReason,
+    $driftBlobEquality.hash(protoPayload),
     favoritedAt,
     lastUsedAt,
   );
@@ -1454,6 +1556,7 @@ class CachedFavoritesTableData extends DataClass
           other.imageUrl == this.imageUrl &&
           other.healthScore == this.healthScore &&
           other.healthScoreReason == this.healthScoreReason &&
+          $driftBlobEquality.equals(other.protoPayload, this.protoPayload) &&
           other.favoritedAt == this.favoritedAt &&
           other.lastUsedAt == this.lastUsedAt);
 }
@@ -1473,6 +1576,7 @@ class CachedFavoritesTableCompanion
   final Value<String?> imageUrl;
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
+  final Value<Uint8List?> protoPayload;
   final Value<DateTime> favoritedAt;
   final Value<DateTime?> lastUsedAt;
   const CachedFavoritesTableCompanion({
@@ -1489,6 +1593,7 @@ class CachedFavoritesTableCompanion
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.protoPayload = const Value.absent(),
     this.favoritedAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
   });
@@ -1506,6 +1611,7 @@ class CachedFavoritesTableCompanion
     this.imageUrl = const Value.absent(),
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
+    this.protoPayload = const Value.absent(),
     required DateTime favoritedAt,
     this.lastUsedAt = const Value.absent(),
   }) : mealName = Value(mealName),
@@ -1532,6 +1638,7 @@ class CachedFavoritesTableCompanion
     Expression<String>? imageUrl,
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
+    Expression<Uint8List>? protoPayload,
     Expression<DateTime>? favoritedAt,
     Expression<DateTime>? lastUsedAt,
   }) {
@@ -1549,6 +1656,7 @@ class CachedFavoritesTableCompanion
       if (imageUrl != null) 'image_url': imageUrl,
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
+      if (protoPayload != null) 'proto_payload': protoPayload,
       if (favoritedAt != null) 'favorited_at': favoritedAt,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
     });
@@ -1568,6 +1676,7 @@ class CachedFavoritesTableCompanion
     Value<String?>? imageUrl,
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
+    Value<Uint8List?>? protoPayload,
     Value<DateTime>? favoritedAt,
     Value<DateTime?>? lastUsedAt,
   }) {
@@ -1585,6 +1694,7 @@ class CachedFavoritesTableCompanion
       imageUrl: imageUrl ?? this.imageUrl,
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
+      protoPayload: protoPayload ?? this.protoPayload,
       favoritedAt: favoritedAt ?? this.favoritedAt,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
     );
@@ -1632,6 +1742,9 @@ class CachedFavoritesTableCompanion
     if (healthScoreReason.present) {
       map['health_score_reason'] = Variable<String>(healthScoreReason.value);
     }
+    if (protoPayload.present) {
+      map['proto_payload'] = Variable<Uint8List>(protoPayload.value);
+    }
     if (favoritedAt.present) {
       map['favorited_at'] = Variable<DateTime>(favoritedAt.value);
     }
@@ -1657,6 +1770,7 @@ class CachedFavoritesTableCompanion
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
+          ..write('protoPayload: $protoPayload, ')
           ..write('favoritedAt: $favoritedAt, ')
           ..write('lastUsedAt: $lastUsedAt')
           ..write(')'))
@@ -1701,8 +1815,24 @@ class $WatchCacheMetadataTableTable extends WatchCacheMetadataTable
     type: DriftSqlType.dateTime,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _favoritesLastSyncAtMeta =
+      const VerificationMeta('favoritesLastSyncAt');
   @override
-  List<GeneratedColumn> get $columns => [id, calorieGoal, lastSyncAt];
+  late final GeneratedColumn<DateTime> favoritesLastSyncAt =
+      GeneratedColumn<DateTime>(
+        'favorites_last_sync_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: false,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    calorieGoal,
+    lastSyncAt,
+    favoritesLastSyncAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1736,6 +1866,15 @@ class $WatchCacheMetadataTableTable extends WatchCacheMetadataTable
         ),
       );
     }
+    if (data.containsKey('favorites_last_sync_at')) {
+      context.handle(
+        _favoritesLastSyncAtMeta,
+        favoritesLastSyncAt.isAcceptableOrUnknown(
+          data['favorites_last_sync_at']!,
+          _favoritesLastSyncAtMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -1761,6 +1900,10 @@ class $WatchCacheMetadataTableTable extends WatchCacheMetadataTable
         DriftSqlType.dateTime,
         data['${effectivePrefix}last_sync_at'],
       ),
+      favoritesLastSyncAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}favorites_last_sync_at'],
+      ),
     );
   }
 
@@ -1774,11 +1917,16 @@ class WatchCacheMetadataTableData extends DataClass
     implements Insertable<WatchCacheMetadataTableData> {
   final int id;
   final int? calorieGoal;
+
+  /// Dashboard freshness. The column keeps its original SQL name so existing
+  /// installations migrate without rewriting the row.
   final DateTime? lastSyncAt;
+  final DateTime? favoritesLastSyncAt;
   const WatchCacheMetadataTableData({
     required this.id,
     this.calorieGoal,
     this.lastSyncAt,
+    this.favoritesLastSyncAt,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1789,6 +1937,9 @@ class WatchCacheMetadataTableData extends DataClass
     }
     if (!nullToAbsent || lastSyncAt != null) {
       map['last_sync_at'] = Variable<DateTime>(lastSyncAt);
+    }
+    if (!nullToAbsent || favoritesLastSyncAt != null) {
+      map['favorites_last_sync_at'] = Variable<DateTime>(favoritesLastSyncAt);
     }
     return map;
   }
@@ -1804,6 +1955,10 @@ class WatchCacheMetadataTableData extends DataClass
           lastSyncAt == null && nullToAbsent
               ? const Value.absent()
               : Value(lastSyncAt),
+      favoritesLastSyncAt:
+          favoritesLastSyncAt == null && nullToAbsent
+              ? const Value.absent()
+              : Value(favoritesLastSyncAt),
     );
   }
 
@@ -1816,6 +1971,9 @@ class WatchCacheMetadataTableData extends DataClass
       id: serializer.fromJson<int>(json['id']),
       calorieGoal: serializer.fromJson<int?>(json['calorieGoal']),
       lastSyncAt: serializer.fromJson<DateTime?>(json['lastSyncAt']),
+      favoritesLastSyncAt: serializer.fromJson<DateTime?>(
+        json['favoritesLastSyncAt'],
+      ),
     );
   }
   @override
@@ -1825,6 +1983,7 @@ class WatchCacheMetadataTableData extends DataClass
       'id': serializer.toJson<int>(id),
       'calorieGoal': serializer.toJson<int?>(calorieGoal),
       'lastSyncAt': serializer.toJson<DateTime?>(lastSyncAt),
+      'favoritesLastSyncAt': serializer.toJson<DateTime?>(favoritesLastSyncAt),
     };
   }
 
@@ -1832,10 +1991,15 @@ class WatchCacheMetadataTableData extends DataClass
     int? id,
     Value<int?> calorieGoal = const Value.absent(),
     Value<DateTime?> lastSyncAt = const Value.absent(),
+    Value<DateTime?> favoritesLastSyncAt = const Value.absent(),
   }) => WatchCacheMetadataTableData(
     id: id ?? this.id,
     calorieGoal: calorieGoal.present ? calorieGoal.value : this.calorieGoal,
     lastSyncAt: lastSyncAt.present ? lastSyncAt.value : this.lastSyncAt,
+    favoritesLastSyncAt:
+        favoritesLastSyncAt.present
+            ? favoritesLastSyncAt.value
+            : this.favoritesLastSyncAt,
   );
   WatchCacheMetadataTableData copyWithCompanion(
     WatchCacheMetadataTableCompanion data,
@@ -1846,6 +2010,10 @@ class WatchCacheMetadataTableData extends DataClass
           data.calorieGoal.present ? data.calorieGoal.value : this.calorieGoal,
       lastSyncAt:
           data.lastSyncAt.present ? data.lastSyncAt.value : this.lastSyncAt,
+      favoritesLastSyncAt:
+          data.favoritesLastSyncAt.present
+              ? data.favoritesLastSyncAt.value
+              : this.favoritesLastSyncAt,
     );
   }
 
@@ -1854,20 +2022,23 @@ class WatchCacheMetadataTableData extends DataClass
     return (StringBuffer('WatchCacheMetadataTableData(')
           ..write('id: $id, ')
           ..write('calorieGoal: $calorieGoal, ')
-          ..write('lastSyncAt: $lastSyncAt')
+          ..write('lastSyncAt: $lastSyncAt, ')
+          ..write('favoritesLastSyncAt: $favoritesLastSyncAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, calorieGoal, lastSyncAt);
+  int get hashCode =>
+      Object.hash(id, calorieGoal, lastSyncAt, favoritesLastSyncAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is WatchCacheMetadataTableData &&
           other.id == this.id &&
           other.calorieGoal == this.calorieGoal &&
-          other.lastSyncAt == this.lastSyncAt);
+          other.lastSyncAt == this.lastSyncAt &&
+          other.favoritesLastSyncAt == this.favoritesLastSyncAt);
 }
 
 class WatchCacheMetadataTableCompanion
@@ -1875,25 +2046,31 @@ class WatchCacheMetadataTableCompanion
   final Value<int> id;
   final Value<int?> calorieGoal;
   final Value<DateTime?> lastSyncAt;
+  final Value<DateTime?> favoritesLastSyncAt;
   const WatchCacheMetadataTableCompanion({
     this.id = const Value.absent(),
     this.calorieGoal = const Value.absent(),
     this.lastSyncAt = const Value.absent(),
+    this.favoritesLastSyncAt = const Value.absent(),
   });
   WatchCacheMetadataTableCompanion.insert({
     this.id = const Value.absent(),
     this.calorieGoal = const Value.absent(),
     this.lastSyncAt = const Value.absent(),
+    this.favoritesLastSyncAt = const Value.absent(),
   });
   static Insertable<WatchCacheMetadataTableData> custom({
     Expression<int>? id,
     Expression<int>? calorieGoal,
     Expression<DateTime>? lastSyncAt,
+    Expression<DateTime>? favoritesLastSyncAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (calorieGoal != null) 'calorie_goal': calorieGoal,
       if (lastSyncAt != null) 'last_sync_at': lastSyncAt,
+      if (favoritesLastSyncAt != null)
+        'favorites_last_sync_at': favoritesLastSyncAt,
     });
   }
 
@@ -1901,11 +2078,13 @@ class WatchCacheMetadataTableCompanion
     Value<int>? id,
     Value<int?>? calorieGoal,
     Value<DateTime?>? lastSyncAt,
+    Value<DateTime?>? favoritesLastSyncAt,
   }) {
     return WatchCacheMetadataTableCompanion(
       id: id ?? this.id,
       calorieGoal: calorieGoal ?? this.calorieGoal,
       lastSyncAt: lastSyncAt ?? this.lastSyncAt,
+      favoritesLastSyncAt: favoritesLastSyncAt ?? this.favoritesLastSyncAt,
     );
   }
 
@@ -1921,6 +2100,11 @@ class WatchCacheMetadataTableCompanion
     if (lastSyncAt.present) {
       map['last_sync_at'] = Variable<DateTime>(lastSyncAt.value);
     }
+    if (favoritesLastSyncAt.present) {
+      map['favorites_last_sync_at'] = Variable<DateTime>(
+        favoritesLastSyncAt.value,
+      );
+    }
     return map;
   }
 
@@ -1929,7 +2113,8 @@ class WatchCacheMetadataTableCompanion
     return (StringBuffer('WatchCacheMetadataTableCompanion(')
           ..write('id: $id, ')
           ..write('calorieGoal: $calorieGoal, ')
-          ..write('lastSyncAt: $lastSyncAt')
+          ..write('lastSyncAt: $lastSyncAt, ')
+          ..write('favoritesLastSyncAt: $favoritesLastSyncAt')
           ..write(')'))
         .toString();
   }
@@ -2408,6 +2593,7 @@ typedef $$CachedMealsTableTableCreateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<Uint8List?> protoPayload,
     });
 typedef $$CachedMealsTableTableUpdateCompanionBuilder =
     CachedMealsTableCompanion Function({
@@ -2424,6 +2610,7 @@ typedef $$CachedMealsTableTableUpdateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<Uint8List?> protoPayload,
     });
 
 class $$CachedMealsTableTableFilterComposer
@@ -2497,6 +2684,11 @@ class $$CachedMealsTableTableFilterComposer
 
   ColumnFilters<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get protoPayload => $composableBuilder(
+    column: $table.protoPayload,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -2574,6 +2766,11 @@ class $$CachedMealsTableTableOrderingComposer
     column: $table.healthScoreReason,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<Uint8List> get protoPayload => $composableBuilder(
+    column: $table.protoPayload,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$CachedMealsTableTableAnnotationComposer
@@ -2627,6 +2824,11 @@ class $$CachedMealsTableTableAnnotationComposer
 
   GeneratedColumn<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<Uint8List> get protoPayload => $composableBuilder(
+    column: $table.protoPayload,
     builder: (column) => column,
   );
 }
@@ -2688,6 +2890,7 @@ class $$CachedMealsTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<Uint8List?> protoPayload = const Value.absent(),
               }) => CachedMealsTableCompanion(
                 mealId: mealId,
                 mealName: mealName,
@@ -2702,6 +2905,7 @@ class $$CachedMealsTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                protoPayload: protoPayload,
               ),
           createCompanionCallback:
               ({
@@ -2718,6 +2922,7 @@ class $$CachedMealsTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<Uint8List?> protoPayload = const Value.absent(),
               }) => CachedMealsTableCompanion.insert(
                 mealId: mealId,
                 mealName: mealName,
@@ -2732,6 +2937,7 @@ class $$CachedMealsTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                protoPayload: protoPayload,
               ),
           withReferenceMapper:
               (p0) =>
@@ -2784,6 +2990,7 @@ typedef $$CachedFavoritesTableTableCreateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<Uint8List?> protoPayload,
       required DateTime favoritedAt,
       Value<DateTime?> lastUsedAt,
     });
@@ -2802,6 +3009,7 @@ typedef $$CachedFavoritesTableTableUpdateCompanionBuilder =
       Value<String?> imageUrl,
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
+      Value<Uint8List?> protoPayload,
       Value<DateTime> favoritedAt,
       Value<DateTime?> lastUsedAt,
     });
@@ -2877,6 +3085,11 @@ class $$CachedFavoritesTableTableFilterComposer
 
   ColumnFilters<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<Uint8List> get protoPayload => $composableBuilder(
+    column: $table.protoPayload,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2965,6 +3178,11 @@ class $$CachedFavoritesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<Uint8List> get protoPayload => $composableBuilder(
+    column: $table.protoPayload,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get favoritedAt => $composableBuilder(
     column: $table.favoritedAt,
     builder: (column) => ColumnOrderings(column),
@@ -3027,6 +3245,11 @@ class $$CachedFavoritesTableTableAnnotationComposer
 
   GeneratedColumn<String> get healthScoreReason => $composableBuilder(
     column: $table.healthScoreReason,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<Uint8List> get protoPayload => $composableBuilder(
+    column: $table.protoPayload,
     builder: (column) => column,
   );
 
@@ -3100,6 +3323,7 @@ class $$CachedFavoritesTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<Uint8List?> protoPayload = const Value.absent(),
                 Value<DateTime> favoritedAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => CachedFavoritesTableCompanion(
@@ -3116,6 +3340,7 @@ class $$CachedFavoritesTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                protoPayload: protoPayload,
                 favoritedAt: favoritedAt,
                 lastUsedAt: lastUsedAt,
               ),
@@ -3134,6 +3359,7 @@ class $$CachedFavoritesTableTableTableManager
                 Value<String?> imageUrl = const Value.absent(),
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
+                Value<Uint8List?> protoPayload = const Value.absent(),
                 required DateTime favoritedAt,
                 Value<DateTime?> lastUsedAt = const Value.absent(),
               }) => CachedFavoritesTableCompanion.insert(
@@ -3150,6 +3376,7 @@ class $$CachedFavoritesTableTableTableManager
                 imageUrl: imageUrl,
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
+                protoPayload: protoPayload,
                 favoritedAt: favoritedAt,
                 lastUsedAt: lastUsedAt,
               ),
@@ -3194,12 +3421,14 @@ typedef $$WatchCacheMetadataTableTableCreateCompanionBuilder =
       Value<int> id,
       Value<int?> calorieGoal,
       Value<DateTime?> lastSyncAt,
+      Value<DateTime?> favoritesLastSyncAt,
     });
 typedef $$WatchCacheMetadataTableTableUpdateCompanionBuilder =
     WatchCacheMetadataTableCompanion Function({
       Value<int> id,
       Value<int?> calorieGoal,
       Value<DateTime?> lastSyncAt,
+      Value<DateTime?> favoritesLastSyncAt,
     });
 
 class $$WatchCacheMetadataTableTableFilterComposer
@@ -3223,6 +3452,11 @@ class $$WatchCacheMetadataTableTableFilterComposer
 
   ColumnFilters<DateTime> get lastSyncAt => $composableBuilder(
     column: $table.lastSyncAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get favoritesLastSyncAt => $composableBuilder(
+    column: $table.favoritesLastSyncAt,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -3250,6 +3484,11 @@ class $$WatchCacheMetadataTableTableOrderingComposer
     column: $table.lastSyncAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<DateTime> get favoritesLastSyncAt => $composableBuilder(
+    column: $table.favoritesLastSyncAt,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$WatchCacheMetadataTableTableAnnotationComposer
@@ -3271,6 +3510,11 @@ class $$WatchCacheMetadataTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get lastSyncAt => $composableBuilder(
     column: $table.lastSyncAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get favoritesLastSyncAt => $composableBuilder(
+    column: $table.favoritesLastSyncAt,
     builder: (column) => column,
   );
 }
@@ -3324,20 +3568,24 @@ class $$WatchCacheMetadataTableTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<int?> calorieGoal = const Value.absent(),
                 Value<DateTime?> lastSyncAt = const Value.absent(),
+                Value<DateTime?> favoritesLastSyncAt = const Value.absent(),
               }) => WatchCacheMetadataTableCompanion(
                 id: id,
                 calorieGoal: calorieGoal,
                 lastSyncAt: lastSyncAt,
+                favoritesLastSyncAt: favoritesLastSyncAt,
               ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 Value<int?> calorieGoal = const Value.absent(),
                 Value<DateTime?> lastSyncAt = const Value.absent(),
+                Value<DateTime?> favoritesLastSyncAt = const Value.absent(),
               }) => WatchCacheMetadataTableCompanion.insert(
                 id: id,
                 calorieGoal: calorieGoal,
                 lastSyncAt: lastSyncAt,
+                favoritesLastSyncAt: favoritesLastSyncAt,
               ),
           withReferenceMapper:
               (p0) =>

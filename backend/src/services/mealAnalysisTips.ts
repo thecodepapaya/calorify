@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import config from '../config.js';
+import { safeErrorMetadata } from '../utils/safeError.js';
 
 export interface MealAnalysisTipsPayload {
   version: number;
@@ -129,7 +130,7 @@ export function loadMealAnalysisTipsPayload(): MealAnalysisTipsPayload {
   } catch (err) {
     console.error(
       '[mealAnalysisTips] Failed to load tips file; meal-analysis-tips will return empty tips:',
-      err instanceof Error ? err.message : err
+      safeErrorMetadata(err, 'meal_analysis_tips_load_failed')
     );
     const payload = { ...EMPTY_PAYLOAD };
     cache = { filePath, mtimeMs: null, checkedAtMs: now, payload };

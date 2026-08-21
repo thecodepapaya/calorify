@@ -34,6 +34,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   // Initialize with safe defaults
   late double _height;
   late double _weight;
+  double? _targetWeight;
   late DateTime _dateOfBirth;
 
   late Gender _selectedGender;
@@ -47,6 +48,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   // Store original values to detect changes
   late double _originalHeight;
   late double _originalWeight;
+  double? _originalTargetWeight;
   late DateTime _originalDateOfBirth;
   late Gender _originalGender;
   late WeightGoal _originalWeightGoal;
@@ -122,6 +124,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             ? widget.userProfile.weight
             : defaultWeight)
         .clamp(_weightUnit.weightMin, _weightUnit.weightMax);
+    _targetWeight =
+        widget.userProfile.hasTargetWeight()
+            ? widget.userProfile.targetWeight
+            : null;
 
     // Initialize other fields with safe defaults
     _dailyCalorieGoal = 0;
@@ -135,6 +141,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     // Initialize original values
     _originalHeight = _height;
     _originalWeight = _weight;
+    _originalTargetWeight = _targetWeight;
     _originalDateOfBirth = _dateOfBirth;
     _originalGender = _selectedGender;
     _originalWeightGoal = _selectedWeightGoal;
@@ -152,6 +159,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   bool _hasChanges() {
     return _height != _originalHeight ||
         _weight != _originalWeight ||
+        _targetWeight != _originalTargetWeight ||
         _dateOfBirth != _originalDateOfBirth ||
         _selectedGender != _originalGender ||
         _selectedWeightGoal != _originalWeightGoal ||
@@ -549,15 +557,26 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             context,
             currentUnit: _weightUnit,
             onChanged: (newUnit) {
+              if (newUnit.isMetric == _weightUnit.isMetric) return;
               setState(() {
                 if (newUnit.isMetric) {
                   _weight = LocaleUtils.convertWeightToMetric(
                     _weight,
                   ).clamp(newUnit.weightMin, newUnit.weightMax);
+                  if (_targetWeight != null) {
+                    _targetWeight = LocaleUtils.convertWeightToMetric(
+                      _targetWeight!,
+                    ).clamp(newUnit.weightMin, newUnit.weightMax);
+                  }
                 } else {
                   _weight = LocaleUtils.convertWeightToImperial(
                     _weight,
                   ).clamp(newUnit.weightMin, newUnit.weightMax);
+                  if (_targetWeight != null) {
+                    _targetWeight = LocaleUtils.convertWeightToImperial(
+                      _targetWeight!,
+                    ).clamp(newUnit.weightMin, newUnit.weightMax);
+                  }
                 }
                 _weightUnit = newUnit;
               });
@@ -734,6 +753,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       final updatedData = widget.userProfile.deepCopy();
       updatedData.height = _height;
       updatedData.weight = _weight;
+      if (_targetWeight != null) {
+        updatedData.targetWeight = _targetWeight!;
+      }
       updatedData.gender = _selectedGender;
       updatedData.dateOfBirth = dateTimeToIso8601Date(_dateOfBirth);
       updatedData.weightGoal = _selectedWeightGoal;
@@ -746,7 +768,6 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           .saveProfile(
             profile: updatedData,
             dailyCalorieGoal: _dailyCalorieGoal,
-            originalDailyCalorieGoal: _originalDailyCalorieGoal,
           );
       ref.invalidate(userProfileProvider);
       ref.invalidate(savedDailyCalorieGoalProvider);
@@ -757,6 +778,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       setState(() {
         _originalHeight = _height;
         _originalWeight = _weight;
+        _originalTargetWeight = _targetWeight;
         _originalDateOfBirth = _dateOfBirth;
         _originalGender = _selectedGender;
         _originalWeightGoal = _selectedWeightGoal;

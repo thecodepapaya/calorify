@@ -186,11 +186,21 @@ restore_original_dir() {
     fi
 }
 
-# Find git root directory by traversing up from current directory
+# Find the Git root, including when .git is a worktree file rather than a
+# directory. Keep the traversal fallback for environments without git in PATH.
 find_git_root() {
+    if command -v git >/dev/null 2>&1; then
+        local git_root
+        git_root=$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null) || true
+        if [ -n "$git_root" ]; then
+            echo "$git_root"
+            return 0
+        fi
+    fi
+
     local current_dir="$PWD"
     while [ "$current_dir" != "/" ]; do
-        if [ -d "$current_dir/.git" ]; then
+        if [ -e "$current_dir/.git" ]; then
             echo "$current_dir"
             return 0
         fi
@@ -201,14 +211,14 @@ find_git_root() {
 
 # Change to git root directory (exits with error if not in git repo)
 change_to_git_root() {
-    local git_root=$(find_git_root)
+    local git_root
+    git_root=$(find_git_root)
     if [ -z "$git_root" ]; then
         print_error "Not in a git repository. Please run this script from within a git repository."
         exit 1
     fi
     print_info "Git root: $git_root" >&2
     cd "$git_root" || exit 1
-    echo "$git_root"
 }
 
 # ============================================================================

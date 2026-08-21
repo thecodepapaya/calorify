@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "backend/**"
+      - "protos/**"
+      - ".github/workflows/backend-checks.yml"
       - ".github/workflows/deploy-backend.yml"
   workflow_dispatch:
 
@@ -12,24 +14,12 @@ concurrency:
   group: calorify-backend-production
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   verify:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: backend/package-lock.json
-      - run: npm ci
-      - run: npm run type-check
-      - run: npm run lint
-      - run: npm run test:coverage
-      - run: docker build -t calorify-backend-ci .
+    uses: ./.github/workflows/backend-checks.yml
 
   deploy:
     needs: verify

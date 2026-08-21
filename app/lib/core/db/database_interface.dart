@@ -3,6 +3,13 @@ import 'package:flutter/material.dart' show ThemeMode;
 
 enum DataSourceType { real, mock }
 
+class PendingProfileSync {
+  const PendingProfileSync({required this.profile, required this.revision});
+
+  final UserProfile profile;
+  final String revision;
+}
+
 /// Interface for database operations that can be implemented by both real and mock databases
 abstract class DatabaseInterface {
   /// Get daily calorie goal
@@ -26,14 +33,20 @@ abstract class DatabaseInterface {
   /// Get a meal by id (local database id)
   Future<LoggedMeal?> getMealById(int mealId);
 
-  /// Check if a meal is favorite
-  Future<bool> isFavoriteMeal(int mealId);
+  /// Check if a logged meal is a favorite by its source meal id.
+  Future<bool> isFavoriteMeal(int sourceMealId);
 
   /// Add a meal to favorites
   Future<void> addToFavorites(LoggedMeal mealInfo);
 
-  /// Remove a meal from favorites
-  Future<void> removeFavoriteMeal(int mealId);
+  /// Update a favorite row while retaining its favorite id.
+  Future<void> updateFavoriteMeal(int favoriteId, LoggedMeal mealInfo);
+
+  /// Remove a favorite by its own database id.
+  Future<void> removeFavoriteMeal(int favoriteId);
+
+  /// Remove a favorite associated with a logged meal.
+  Future<void> removeFavoriteMealBySourceMealId(int sourceMealId);
 
   /// Update last used time for a favorite meal
   Future<void> updateFavoriteLastUsedAt(int mealId);
@@ -63,6 +76,12 @@ abstract class DatabaseInterface {
   /// Get user profile
   Future<UserProfile?> getUserProfile();
 
+  /// Latest local profile revision waiting to be sent to the backend.
+  Future<PendingProfileSync?> getPendingProfileSync();
+
+  /// Acknowledge a sent revision. Returns false if a newer edit won the race.
+  Future<bool> markProfileSynced(String revision);
+
   /// Check if user profile is complete
   Future<bool> isProfileComplete();
 
@@ -84,8 +103,22 @@ abstract class DatabaseInterface {
   /// Mark that the feedback/rating sheet was shown (so it is not shown again)
   Future<void> setFeedbackSheetShown();
 
+  /// Last onboarding page reached, or null for legacy/never-started flows.
+  Future<int?> getOnboardingStep();
+
+  /// Persist the onboarding page before navigating to it.
+  Future<void> setOnboardingStep(int step);
+
+  /// Whether onboarding has been explicitly completed.
+  Future<bool> hasCompletedOnboarding();
+
+  /// Persist explicit onboarding completion.
+  Future<void> setOnboardingCompleted();
+
   /// Latest N meals by timestamp (for feedback eligibility check). Default limit 5.
-  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({int limit = 5});
+  Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({
+    int limit = 5,
+  });
 
   /// Clear user preferences row only (for debug). Meals and profile unchanged.
   Future<void> clearUserPreferences();

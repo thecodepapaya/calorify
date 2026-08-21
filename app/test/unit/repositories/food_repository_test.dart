@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:calorify/core/network/network_client.dart';
+import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -57,16 +59,108 @@ void main() {
     );
 
     final stream = await repository.analyzeTextV2(
+      analysisId: 'analysis-1',
       textDescription: 'a bowl of poha',
     );
     final events = await stream.toList();
 
     expect(adapter.lastRequest?.path, '/api/v2/food/analyze-text');
+    expect(adapter.lastRequest?.data, {
+      'analysisId': 'analysis-1',
+      'textDescription': 'a bowl of poha',
+    });
     expect(adapter.lastRequest?.headers['Accept'], 'application/x-ndjson');
     expect(events, hasLength(2));
     expect(events.first.step, PipelineStep.STARTED);
     expect(events.last.step, PipelineStep.ERROR);
     expect(events.last.errorMessage, 'try again');
+  });
+
+  test('resumeV2 sends the canonical proto request', () async {
+    adapter.respondWithText(
+      '${jsonEncode({
+        'step': 'RESULT',
+        'data': {'analysisId': 'analysis-7'},
+      })}\n',
+      contentType: 'application/x-ndjson',
+    );
+
+    final stream = await repository.resumeV2(analysisId: 'analysis-7');
+    await stream.drain<void>();
+
+    expect(adapter.lastRequest?.path, '/api/v2/food/resume');
+    expect(adapter.lastRequest?.data, {'analysisId': 'analysis-7'});
+  });
+
+  test('reanalyzeV2 sends a distinct idempotent child analysis id', () async {
+    adapter.respondWithText(
+      '${jsonEncode({
+        'step': 'STARTED',
+        'data': {'analysisId': 'analysis-child'},
+      })}\n',
+      contentType: 'application/x-ndjson',
+    );
+
+    final stream = await repository.reanalyzeV2(
+      analysisId: 'analysis-parent',
+      newAnalysisId: 'analysis-child',
+      issues: [MealReanalyzeFeedbackIssue.PORTION_SIZE],
+    );
+    await stream.drain<void>();
+
+    expect(adapter.lastRequest?.path, '/api/v2/food/reanalyze');
+    expect(adapter.lastRequest?.data, {
+      'analysisId': 'analysis-parent',
+      'issues': ['PORTION_SIZE'],
+      'newAnalysisId': 'analysis-child',
+    });
+  });
+
+  test('analyzeImageFromUrlV2 sends the client analysis id', () async {
+    adapter.respondWithText(
+      '${jsonEncode({
+        'step': 'STARTED',
+        'data': {'analysisId': 'analysis-image'},
+      })}\n',
+      contentType: 'application/x-ndjson',
+    );
+
+    final stream = await repository.analyzeImageFromUrlV2(
+      analysisId: 'analysis-image',
+      imageUrl: 'https://storage.example.test/owned-image',
+    );
+    await stream.drain<void>();
+
+    expect(adapter.lastRequest?.path, '/api/v2/food/analyze-image');
+    expect(adapter.lastRequest?.data, {
+      'analysisId': 'analysis-image',
+      'imageUrl': 'https://storage.example.test/owned-image',
+    });
+  });
+
+  test('stream cancellation aborts a request waiting for headers', () async {
+    adapter.waitForCancellation();
+    final cancellation = NetworkRequestCancellation();
+
+    final request = repository.analyzeTextV2(
+      analysisId: 'analysis-cancel',
+      textDescription: 'a bowl of poha',
+      cancellation: cancellation,
+    );
+    await adapter.requestStarted;
+    cancellation.cancel();
+
+    await expectLater(
+      request,
+      throwsA(
+        isA<DioException>().having(
+          (error) => error.type,
+          'type',
+          DioExceptionType.cancel,
+        ),
+      ),
+    );
+    expect(adapter.cancellationObserved, isTrue);
   });
 
   test(
@@ -111,6 +205,16 @@ class _RecordingAdapter implements HttpClientAdapter {
   int _statusCode = 200;
   String _body = '{}';
   String _contentType = 'application/json';
+  Completer<void>? _requestStarted;
+  bool _waitForCancellation = false;
+  bool cancellationObserved = false;
+
+  Future<void> get requestStarted => _requestStarted!.future;
+
+  void waitForCancellation() {
+    _waitForCancellation = true;
+    _requestStarted = Completer<void>();
+  }
 
   void respondWithJson(Object body) {
     _statusCode = 200;
@@ -137,6 +241,15 @@ class _RecordingAdapter implements HttpClientAdapter {
     Future<void>? cancelFuture,
   ) async {
     lastRequest = options;
+    _requestStarted?.complete();
+    if (_waitForCancellation) {
+      await cancelFuture!;
+      cancellationObserved = true;
+      throw DioException(
+        requestOptions: options,
+        type: DioExceptionType.cancel,
+      );
+    }
     return ResponseBody.fromString(
       _body,
       _statusCode,

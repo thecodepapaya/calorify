@@ -1,10 +1,5 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mock } from 'node:test';
-
-await mock.module('../config.js', {
-  defaultExport: { DEBUG: false, ENVIRONMENT: 'development' },
-});
 
 const { getLocaleFromRequest, getCountryFromRequest, getTimeZoneFromRequest } =
   await import('./locale.js');
@@ -67,9 +62,22 @@ test('getLocaleFromRequest normalizes to lowercase', () => {
   assert.equal(getLocaleFromRequest(makeRequest({ 'accept-language': 'EN-US' })), 'en');
 });
 
-test('getLocaleFromRequest returns string result for wildcard *', () => {
-  const result = getLocaleFromRequest(makeRequest({ 'accept-language': '*' }));
-  assert.equal(typeof result, 'string');
+test('getLocaleFromRequest falls back for wildcard or malformed values', () => {
+  assert.equal(getLocaleFromRequest(makeRequest({ 'accept-language': '*' })), 'en');
+  assert.equal(
+    getLocaleFromRequest(makeRequest({
+      'accept-language': 'PRIVATE_MEAL_OR_CREDENTIAL_MARKER',
+    })),
+    'en'
+  );
+});
+
+test('getLocaleFromRequest bounds defaults and array-valued headers', () => {
+  assert.equal(getLocaleFromRequest(makeRequest({}), 'PRIVATE_DEFAULT'), 'en');
+  assert.equal(
+    getLocaleFromRequest(makeRequest({ 'accept-language': ['PT-BR', 'en-US'] })),
+    'pt'
+  );
 });
 
 // ---------------------------------------------------------------------------

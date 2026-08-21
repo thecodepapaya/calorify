@@ -42,8 +42,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed && _initialLoadDone) {
-      unawaited(SyncService.instance.refreshDashboard(forceRefresh: true));
+      unawaited(_refreshAfterResume());
     }
+  }
+
+  Future<void> _refreshAfterResume() async {
+    try {
+      await SyncService.instance.refreshDashboard(forceRefresh: true);
+    } catch (_) {}
   }
 
   Future<void> _initialLoad() async {
@@ -391,7 +397,7 @@ class _ActionButtons extends StatelessWidget {
           label: 'Log a meal',
           icon: LucideIcons.mic,
           primary: true,
-          onPressed: () => context.router.push(const LogMealRoute()),
+          onPressed: () => context.router.push(LogMealRoute()),
         ),
         const SizedBox(height: 8),
         Row(

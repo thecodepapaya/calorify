@@ -28,7 +28,6 @@ void main() {
     mockHealthService = MockHealthService();
     mockDatabaseInterface = MockDatabaseInterface();
 
-    HealthService.setMockInstance(mockHealthService);
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
     when(
@@ -58,7 +57,10 @@ void main() {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
             ProviderScope(
-              overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+              overrides: [
+                healthServiceProvider.overrideWithValue(mockHealthService),
+                aiSummaryProvider.overrideWith((ref) => null),
+              ],
               child: const HomeScreen(),
             ),
             wrapper: goldenWrapper(locale: locale),
@@ -81,7 +83,10 @@ void main() {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
             ProviderScope(
-              overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+              overrides: [
+                healthServiceProvider.overrideWithValue(mockHealthService),
+                aiSummaryProvider.overrideWith((ref) => null),
+              ],
               child: const HomeScreen(),
             ),
             wrapper: goldenWrapper(locale: locale),

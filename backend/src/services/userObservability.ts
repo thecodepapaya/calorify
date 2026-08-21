@@ -166,10 +166,24 @@ export async function inspectUser(
   );
 
   const { rows: batches } = await query<BatchRow>(
-    `SELECT openai_batch_id, status, request_count, user_data -> $1 AS user_meta,
+    `SELECT openai_batch_id, status, request_count,
+            COALESCE(
+              user_data -> $1,
+              (
+                SELECT batch_user.metadata
+                  FROM jsonb_each(user_data) AS batch_user(_custom_id, metadata)
+                 WHERE batch_user.metadata ->> 'userId' = $1
+                 LIMIT 1
+              )
+            ) AS user_meta,
             submitted_at, completed_at, error
        FROM ai_summary_batches
       WHERE user_data ? $1
+         OR EXISTS (
+              SELECT 1
+                FROM jsonb_each(user_data) AS batch_user(_custom_id, metadata)
+               WHERE batch_user.metadata ->> 'userId' = $1
+            )
       ORDER BY submitted_at DESC
       LIMIT $2`,
     [normalizedUserId, limit]

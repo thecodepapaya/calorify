@@ -27,7 +27,18 @@ await mock.module('../config.js', { defaultExport: mockConfig });
 
 const {
   upsertMealAnalysisSession,
+  advanceMealAnalysisSession,
+  claimMealAnalysisDecomposition,
+  releaseMealAnalysisDecomposition,
   getMealAnalysisSession,
+  claimMealAnalysisClarification,
+  claimMealAnalysisFinalization,
+  claimMealAnalysisIngredientResolution,
+  releaseMealAnalysisClarification,
+  releaseMealAnalysisFinalization,
+  releaseMealAnalysisIngredientResolution,
+  claimMealAnalysisPresentation,
+  releaseMealAnalysisPresentation,
   isMealAnalysisSessionOwnedByUser,
   recordMealAnalysisClarification,
   recordMealAnalysisMealType,
@@ -54,6 +65,7 @@ test('upsertMealAnalysisSession inserts into meal_analysis_session', async () =>
     analysisId: 'test-id-1',
     source: 'text',
     locale: 'en',
+    stage: 'DECOMPOSED',
     requestPayload: { textDescription: '2 rotis with dal' },
   });
   assert.equal(mockQuery.mock.calls.length, 1);
@@ -67,6 +79,7 @@ test('upsertMealAnalysisSession uses ON CONFLICT DO UPDATE', async () => {
     analysisId: 'test-id-upsert',
     source: 'text',
     locale: 'en',
+    stage: 'DECOMPOSED',
     requestPayload: {},
   });
   const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
@@ -80,6 +93,7 @@ test('upsertMealAnalysisSession passes analysisId as first param', async () => {
     analysisId: 'specific-id',
     source: 'image',
     locale: 'hi',
+    stage: 'DECOMPOSED',
     requestPayload: { imageUrl: 'https://example.com/img.jpg' },
   });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
@@ -92,6 +106,7 @@ test('upsertMealAnalysisSession passes null for missing optional fields', async 
     analysisId: 'id-nulls',
     source: 'text',
     locale: 'en',
+    stage: 'DECOMPOSED',
     requestPayload: {},
   });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
@@ -107,6 +122,7 @@ test('upsertMealAnalysisSession passes userId when provided', async () => {
     source: 'text',
     locale: 'en',
     userId: 'firebase-uid-abc',
+    stage: 'DECOMPOSED',
     requestPayload: {},
   });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
@@ -120,16 +136,139 @@ test('upsertMealAnalysisSession serializes requestPayload as JSON string', async
     analysisId: 'id-payload',
     source: 'text',
     locale: 'en',
+    stage: 'DECOMPOSED',
     requestPayload: payload,
   });
   const [, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.equal(params[7], JSON.stringify(payload));
 });
 
+test('upsertMealAnalysisSession persists the typed stage and preserves omitted JSON fields', async () => {
+  resetQuery({ rows: [{ persisted: true }] });
+  const persisted = await upsertMealAnalysisSession({
+    analysisId: 'staged-session',
+    source: 'text',
+    locale: 'en',
+    requestPayload: {},
+    stage: 'DECOMPOSED',
+    decompositionData: { analysisId: 'staged-session' },
+  });
+  assert.equal(persisted, true);
+  const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.equal(params[16], 'DECOMPOSED');
+  assert.equal(params[9], null); // omitted ingredients_data is SQL NULL, not JSON null
+  assert.match(sql, /stage = EXCLUDED\.stage/);
+  assert.match(sql, /stage_lease_token IS NULL/);
+  assert.match(sql, /'RESOLVING_INGREDIENTS'/);
+  assert.match(sql, /RETURNING TRUE AS persisted/);
+});
+
+test('advanceMealAnalysisSession requires the exact busy stage and lease token', async () => {
+  resetQuery({ rows: [{ persisted: true }] });
+  const persisted = await advanceMealAnalysisSession({
+    analysisId: 'leased-session',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rice' },
+    stage: 'INGREDIENTS_RESOLVED',
+  }, {
+    stage: 'RESOLVING_INGREDIENTS',
+    token: '00000000-0000-4000-8000-000000000099',
+  });
+  assert.equal(persisted, true);
+  const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(sql, /stage = \$19/);
+  assert.match(sql, /stage_lease_token = \$20::uuid/);
+  assert.match(sql, /pending_clarification_answers = NULL/);
+  assert.equal(params[18], 'RESOLVING_INGREDIENTS');
+  assert.equal(params[19], '00000000-0000-4000-8000-000000000099');
+});
+
+test('advanceMealAnalysisSession rejects a stale worker after its token is replaced', async () => {
+  resetQuery({ rows: [] });
+  const persisted = await advanceMealAnalysisSession({
+    analysisId: 'reclaimed-session', source: 'text', locale: 'en',
+    requestPayload: {}, stage: 'INGREDIENTS_RESOLVED',
+  }, {
+    stage: 'RESOLVING_INGREDIENTS',
+    token: '00000000-0000-4000-8000-000000000001',
+  });
+  assert.equal(persisted, false);
+  const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
+  assert.match(sql, /stage_lease_token = \$20::uuid/);
+});
+
+test('claimMealAnalysisDecomposition inserts pending state and returns a fenced claim', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) => {
+    if (sql.includes('SELECT (')) return { rows: [{ identity_matches: true }] };
+    if (sql.includes("SET stage = 'DECOMPOSING'")) return { rows: [{ claimed: true }] };
+    return { rows: [] };
+  });
+  const dispatch = await claimMealAnalysisDecomposition({
+    analysisId: '00000000-0000-4000-8000-000000000301',
+    userId: 'user-1', source: 'text', locale: 'en',
+    countryCode: 'IN', timeZone: 'Asia/Kolkata',
+    selectedMealType: 'LUNCH', selectedMealTypeSource: 'user',
+    requestPayload: {
+      textDescription: 'rice',
+      analysisContext: {
+        locale: 'en', countryCode: 'IN', timeZone: 'Asia/Kolkata',
+        selectedMealType: 'LUNCH', selectedMealTypeSource: 'user',
+      },
+    },
+  });
+  assert.equal(dispatch.status, 'claimed');
+  if (dispatch.status !== 'claimed') return;
+  assert.equal(dispatch.lease.stage, 'DECOMPOSING');
+  const [insertSql] = mockQuery.mock.calls[0]!.arguments as [string];
+  const [identitySql] = mockQuery.mock.calls[1]!.arguments as [string];
+  const [claimSql, claimParams] = mockQuery.mock.calls[2]!.arguments as [string, unknown[]];
+  assert.match(insertSql, /'PENDING_DECOMPOSITION'/);
+  assert.match(insertSql, /ON CONFLICT \(analysis_id\) DO NOTHING/);
+  assert.match(identitySql, /request_payload = \$5::jsonb/);
+  assert.match(identitySql, /FOR UPDATE/);
+  const [, identityParams] = mockQuery.mock.calls[1]!.arguments as [string, unknown[]];
+  assert.equal(identityParams[1], 'user-1');
+  assert.equal(identityParams[2], null);
+  assert.equal(identityParams[3], 'text');
+  assert.match(String(identityParams[4]), /"analysisContext"/);
+  assert.match(claimSql, /INTERVAL '5 minutes'/);
+  assert.equal(claimParams[1], dispatch.lease.token);
+
+  resetQuery();
+  await releaseMealAnalysisDecomposition(
+    '00000000-0000-4000-8000-000000000301',
+    dispatch.lease.token
+  );
+  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(releaseSql, /SET stage = 'PENDING_DECOMPOSITION'/);
+  assert.match(releaseSql, /stage_lease_token = \$2::uuid/);
+  assert.equal(releaseParams[1], dispatch.lease.token);
+});
+
+test('claimMealAnalysisDecomposition rejects an ID collision without claiming it', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) =>
+    sql.includes('SELECT (')
+      ? { rows: [{ identity_matches: false }] }
+      : { rows: [] }
+  );
+  const dispatch = await claimMealAnalysisDecomposition({
+    analysisId: '00000000-0000-4000-8000-000000000302',
+    userId: 'other-user', source: 'text', locale: 'en',
+    requestPayload: { textDescription: 'different' },
+  });
+  assert.deepEqual(dispatch, { status: 'conflict' });
+  assert.equal(mockQuery.mock.calls.length, 2);
+});
+
 test('upsertMealAnalysisSession throws when DATABASE_URL is null', async () => {
   mockConfig.DATABASE_URL = null;
   await assert.rejects(
-    () => upsertMealAnalysisSession({ analysisId: 'x', source: 'text', locale: 'en', requestPayload: {} }),
+    () => upsertMealAnalysisSession({
+      analysisId: 'x', source: 'text', locale: 'en', stage: 'DECOMPOSED', requestPayload: {},
+    }),
     /DATABASE_URL is required/
   );
   mockConfig.DATABASE_URL = 'postgres://mock';
@@ -216,6 +355,100 @@ test('getMealAnalysisSession maps null optional fields to undefined', async () =
   assert.equal(result!.selectedMealTypeSource, undefined);
 });
 
+test('getMealAnalysisSession validates and returns a stored stage marker', async () => {
+  resetQuery({
+    rows: [{
+      analysis_id: 'sess-stage', parent_analysis_id: null, user_id: null,
+      source: 'text', locale: 'en', country_code: null, time_zone: null,
+      request_payload: '{}', decomposition_data: '{}', ingredients_data: null,
+      uncertainty_data: null, meal_type_question_data: null,
+      selected_meal_type: null, selected_meal_type_source: null,
+      result_data: null, clarification_answers: null, stage: 'DECOMPOSED',
+      created_at: '2024-01-01T00:00:00Z', updated_at: '2024-01-01T00:00:00Z',
+    }],
+  });
+  assert.equal((await getMealAnalysisSession('sess-stage'))?.stage, 'DECOMPOSED');
+});
+
+test('presentation claim is an atomic stage transition and release is conditional', async () => {
+  resetQuery({ rows: [{ claimed: true }] });
+  const lease = await claimMealAnalysisPresentation(
+    'sess-present', 'AWAITING_MEAL_TYPE', 'DINNER', 'user'
+  );
+  assert.equal(lease?.stage, 'PRESENTING');
+  assert.match(lease?.token ?? '', /^[0-9a-f-]{36}$/);
+  const [claimSql, claimParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(claimSql, /SET stage = 'PRESENTING'/);
+  assert.match(claimSql, /stage_lease_token = \$6::uuid/);
+  assert.match(claimSql, /RETURNING TRUE AS claimed/);
+  assert.deepEqual(claimParams.slice(0, 4), [
+    'sess-present', 'AWAITING_MEAL_TYPE', 'DINNER', 'user',
+  ]);
+
+  resetQuery();
+  await releaseMealAnalysisPresentation('sess-present', 'AWAITING_MEAL_TYPE', lease!.token);
+  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(releaseSql, /stage = 'PRESENTING'/);
+  assert.match(releaseSql, /stage_lease_token = \$3::uuid/);
+  assert.equal(releaseParams[2], lease!.token);
+});
+
+test('clarification claim serializes application across processes', async () => {
+  resetQuery({ rows: [{ claimed: true }] });
+  const pending = [{ clarificationId: 'portion-1', selectedOptionId: 'large' }];
+  const lease = await claimMealAnalysisClarification('sess-clarify', pending);
+  assert.equal(lease?.stage, 'APPLYING_CLARIFICATION');
+  const [claimSql, claimParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(claimSql, /SET stage = 'APPLYING_CLARIFICATION'/);
+  assert.match(claimSql, /AWAITING_CLARIFICATION/);
+  assert.match(claimSql, /pending_clarification_answers = COALESCE/);
+  assert.equal(claimParams[1], JSON.stringify(pending));
+
+  resetQuery();
+  await releaseMealAnalysisClarification('sess-clarify', lease!.token);
+  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(releaseSql, /stage = 'AWAITING_CLARIFICATION'/);
+  assert.equal(releaseParams[1], lease!.token);
+});
+
+test('ingredient resolution claim supports stale recovery and conditional release', async () => {
+  resetQuery({ rows: [{ claimed: true }] });
+  const lease = await claimMealAnalysisIngredientResolution('sess-resolve');
+  assert.equal(lease?.stage, 'RESOLVING_INGREDIENTS');
+  const [claimSql] = mockQuery.mock.calls[0]!.arguments as [string];
+  assert.match(claimSql, /SET stage = 'RESOLVING_INGREDIENTS'/);
+  assert.match(claimSql, /stage_lease_token = \$3::uuid/);
+  assert.match(claimSql, /INTERVAL '5 minutes'/);
+  assert.match(claimSql, /ingredients_data IS NULL OR ingredients_data = 'null'::jsonb/);
+  assert.match(claimSql, /decomposition_data <> 'null'::jsonb/);
+
+  resetQuery();
+  await releaseMealAnalysisIngredientResolution('sess-resolve', lease!.token);
+  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(releaseSql, /SET stage = 'DECOMPOSED'/);
+  assert.match(releaseSql, /stage = 'RESOLVING_INGREDIENTS'/);
+  assert.equal(releaseParams[1], lease!.token);
+});
+
+test('post-resolution finalization has its own recoverable claim', async () => {
+  resetQuery({ rows: [{ claimed: true }] });
+  const lease = await claimMealAnalysisFinalization('sess-finalize');
+  assert.equal(lease?.stage, 'FINALIZING_ANALYSIS');
+  const [claimSql] = mockQuery.mock.calls[0]!.arguments as [string];
+  assert.match(claimSql, /SET stage = 'FINALIZING_ANALYSIS'/);
+  assert.match(claimSql, /stage = 'INGREDIENTS_RESOLVED'/);
+  assert.match(claimSql, /INTERVAL '5 minutes'/);
+  assert.match(claimSql, /uncertainty_data IS NULL OR uncertainty_data = 'null'::jsonb/);
+  assert.match(claimSql, /ingredients_data <> 'null'::jsonb/);
+
+  resetQuery();
+  await releaseMealAnalysisFinalization('sess-finalize', lease!.token);
+  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(releaseSql, /SET stage = 'INGREDIENTS_RESOLVED'/);
+  assert.match(releaseSql, /stage = 'FINALIZING_ANALYSIS'/);
+  assert.equal(releaseParams[1], lease!.token);
+});
+
 test('getMealAnalysisSession uses LIMIT 1', async () => {
   resetQuery({ rows: [] });
   await getMealAnalysisSession('any-id');
@@ -245,10 +478,12 @@ test('isMealAnalysisSessionOwnedByUser scopes the lookup to analysis and user', 
 // recordMealAnalysisClarification
 // ---------------------------------------------------------------------------
 
-test('recordMealAnalysisClarification runs two queries', async () => {
+test('recordMealAnalysisClarification is append-only', async () => {
   resetQuery();
   await recordMealAnalysisClarification('sess-clr', [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }]);
-  assert.equal(mockQuery.mock.calls.length, 2);
+  assert.equal(mockQuery.mock.calls.length, 1);
+  const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
+  assert.doesNotMatch(sql, /UPDATE meal_analysis_session/);
 });
 
 test('recordMealAnalysisClarification first query inserts into meal_analysis_clarification', async () => {
@@ -256,14 +491,6 @@ test('recordMealAnalysisClarification first query inserts into meal_analysis_cla
   await recordMealAnalysisClarification('sess-clr2', []);
   const [insertSql] = mockQuery.mock.calls[0]!.arguments as [string];
   assert.ok(insertSql.includes('INSERT INTO meal_analysis_clarification'));
-});
-
-test('recordMealAnalysisClarification second query updates meal_analysis_session', async () => {
-  resetQuery();
-  await recordMealAnalysisClarification('sess-clr3', []);
-  const [updateSql] = mockQuery.mock.calls[1]!.arguments as [string];
-  assert.ok(updateSql.includes('UPDATE meal_analysis_session'));
-  assert.ok(updateSql.includes('clarification_answers'));
 });
 
 test('recordMealAnalysisClarification serializes answers as JSON', async () => {
@@ -278,10 +505,12 @@ test('recordMealAnalysisClarification serializes answers as JSON', async () => {
 // recordMealAnalysisMealType
 // ---------------------------------------------------------------------------
 
-test('recordMealAnalysisMealType runs two queries', async () => {
+test('recordMealAnalysisMealType is append-only', async () => {
   resetQuery();
   await recordMealAnalysisMealType('sess-mt', 'DINNER', 'user');
-  assert.equal(mockQuery.mock.calls.length, 2);
+  assert.equal(mockQuery.mock.calls.length, 1);
+  const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
+  assert.doesNotMatch(sql, /UPDATE meal_analysis_session/);
 });
 
 test('recordMealAnalysisMealType inserts into meal_analysis_meal_type', async () => {
@@ -292,15 +521,6 @@ test('recordMealAnalysisMealType inserts into meal_analysis_meal_type', async ()
   assert.equal(insertParams[0], 'sess-mt1');
   assert.equal(insertParams[1], 'BREAKFAST');
   assert.equal(insertParams[2], 'model');
-});
-
-test('recordMealAnalysisMealType updates session with meal type and source', async () => {
-  resetQuery();
-  await recordMealAnalysisMealType('sess-mt2', 'SNACK', 'user');
-  const [, updateParams] = mockQuery.mock.calls[1]!.arguments as [string, unknown[]];
-  assert.equal(updateParams[1], 'SNACK');
-  assert.equal(updateParams[2], 'user');
-  assert.equal(updateParams[0], 'sess-mt2');
 });
 
 // ---------------------------------------------------------------------------

@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
@@ -97,7 +96,7 @@ class ProfileScreen extends ConsumerWidget {
                 _buildCardSection(
                   context,
                   t.profile.sections.calculatedValues,
-                  [_buildCalculatedValuesTile(context, userProfile)],
+                  [_buildCalculatedValuesTile(context, ref, userProfile)],
                 ),
                 const SizedBox(height: 32),
               ],
@@ -379,14 +378,15 @@ class ProfileScreen extends ConsumerWidget {
 
   Widget _buildCalculatedValuesTile(
     BuildContext context,
+    WidgetRef ref,
     UserProfile userProfile,
   ) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final bmr = OnboardingService.instance.calculateBMR(userProfile);
-    final tdee = OnboardingService.instance.calculateTDEE(userProfile);
-    final dailyCalorieGoal = OnboardingService.instance
-        .calculateDailyCalorieGoal(userProfile);
+    final metrics = ref.read(profileMetricsProvider);
+    final bmr = metrics.basalMetabolicRate(userProfile);
+    final tdee = metrics.totalDailyEnergyExpenditure(userProfile);
+    final dailyCalorieGoal = metrics.dailyCalorieGoal(userProfile);
 
     // Always display BMR, TDEE, and Daily Goal - show N/A if calculation fails
     final bmrText =

@@ -18,11 +18,20 @@ void main() {
       expect(yesterday.formatted, 'yesterday');
     });
 
-    test('returns "today" for today (more than an hour ago)', () {
-      final today = DateTime.now().subtract(const Duration(hours: 5));
-      // Depending on the logic, this might return "5 hours ago" or "today"
-      // Line 25: return '${difference.inHours} hours ago';
-      expect(today.formatted, '5 hours ago');
+    test('formats five hours ago across the local midnight boundary', () {
+      final before = DateTime.now();
+      final fiveHoursAgo = before.subtract(const Duration(hours: 5));
+      final actual = fiveHoursAgo.formatted;
+      final after = DateTime.now();
+
+      String expectedAt(DateTime now) =>
+          fiveHoursAgo.year == now.year &&
+                  fiveHoursAgo.month == now.month &&
+                  fiveHoursAgo.day == now.day
+              ? '5 hours ago'
+              : 'yesterday';
+
+      expect(actual, anyOf(expectedAt(before), expectedAt(after)));
     });
 
     test('returns formatted date for last year', () {

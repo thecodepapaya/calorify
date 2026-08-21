@@ -12,7 +12,7 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 /// Background message handler (must be top-level for Firebase Messaging).
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint('Background message: ${message.notification?.title}');
+  if (kDebugMode) debugPrint('Background notification received');
 }
 
 /// Service for managing local and push notifications (Android only)
@@ -21,11 +21,18 @@ class NotificationService {
     FlutterLocalNotificationsPlugin? localNotifications,
     FirebaseMessaging? firebaseMessaging,
     MealReminderSettingsStore? reminderSettingsStore,
+    Stream<RemoteMessage>? foregroundMessages,
+    Stream<RemoteMessage>? openedMessages,
+    void Function(BackgroundMessageHandler)? backgroundMessageRegistrar,
   }) : _localNotifications =
            localNotifications ?? FlutterLocalNotificationsPlugin(),
        _firebaseMessaging = firebaseMessaging ?? FirebaseMessaging.instance,
        _reminderSettingsStore =
-           reminderSettingsStore ?? FileMealReminderSettingsStore();
+           reminderSettingsStore ?? FileMealReminderSettingsStore(),
+       _foregroundMessages = foregroundMessages ?? FirebaseMessaging.onMessage,
+       _openedMessages = openedMessages ?? FirebaseMessaging.onMessageOpenedApp,
+       _backgroundMessageRegistrar =
+           backgroundMessageRegistrar ?? FirebaseMessaging.onBackgroundMessage;
 
   static NotificationService _instance = NotificationService._();
   static NotificationService get instance => _instance;
@@ -40,15 +47,24 @@ class NotificationService {
     FlutterLocalNotificationsPlugin? localNotifications,
     FirebaseMessaging? firebaseMessaging,
     MealReminderSettingsStore? reminderSettingsStore,
+    Stream<RemoteMessage>? foregroundMessages,
+    Stream<RemoteMessage>? openedMessages,
+    void Function(BackgroundMessageHandler)? backgroundMessageRegistrar,
   }) => NotificationService._(
     localNotifications: localNotifications,
     firebaseMessaging: firebaseMessaging,
     reminderSettingsStore: reminderSettingsStore,
+    foregroundMessages: foregroundMessages,
+    openedMessages: openedMessages,
+    backgroundMessageRegistrar: backgroundMessageRegistrar,
   );
 
   final FlutterLocalNotificationsPlugin _localNotifications;
   final FirebaseMessaging _firebaseMessaging;
   final MealReminderSettingsStore _reminderSettingsStore;
+  final Stream<RemoteMessage> _foregroundMessages;
+  final Stream<RemoteMessage> _openedMessages;
+  final void Function(BackgroundMessageHandler) _backgroundMessageRegistrar;
 
   bool _isInitialized = false;
   bool _isFirebaseMessagingInitialized = false;
@@ -129,7 +145,7 @@ class NotificationService {
         ?.createNotificationChannel(generalChannel);
   }
 
-  /// Initialize Firebase messaging and request permissions
+  /// Register Firebase message listeners without prompting for permission.
   Future<void> initializeFirebaseMessaging() {
     if (_isFirebaseMessagingInitialized) return Future.value();
     return _firebaseMessagingInitialization ??= _initializeFirebaseMessaging()
@@ -139,35 +155,29 @@ class NotificationService {
   }
 
   Future<void> _initializeFirebaseMessaging() async {
-    // Request permission for notifications
-    final settings = await _firebaseMessaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-      provisional: false,
-    );
+    _foregroundMessages.listen(_onForegroundMessage);
+    _openedMessages.listen(_onMessageOpenedApp);
+    _backgroundMessageRegistrar(firebaseMessagingBackgroundHandler);
+    _isFirebaseMessagingInitialized = true;
 
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      // Get FCM token
+    // Reading settings is non-interactive. Existing authorized users can still
+    // provide a token during startup, while first-time users are only prompted
+    // from requestPermissions after an explicit UI action.
+    final settings = await _firebaseMessaging.getNotificationSettings();
+    if (_isAuthorized(settings.authorizationStatus)) {
       _fcmToken = await _firebaseMessaging.getToken();
-
-      // Set up message handlers
-      FirebaseMessaging.onMessage.listen(_onForegroundMessage);
-      FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenedApp);
-      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-      _isFirebaseMessagingInitialized = true;
     }
   }
 
   /// Handle notification tap
   void _onNotificationTapped(NotificationResponse response) {
-    debugPrint('Notification tapped: ${response.payload}');
+    if (kDebugMode) debugPrint('Local notification opened');
     // Handle navigation based on payload
   }
 
   /// Handle foreground messages
   void _onForegroundMessage(RemoteMessage message) {
-    debugPrint('Foreground message: ${message.notification?.title}');
+    if (kDebugMode) debugPrint('Foreground notification received');
 
     // Show local notification for foreground messages
     _showLocalNotification(
@@ -179,17 +189,35 @@ class NotificationService {
 
   /// Handle message opened app
   void _onMessageOpenedApp(RemoteMessage message) {
-    debugPrint('Message opened app: ${message.notification?.title}');
+    if (kDebugMode) debugPrint('Push notification opened');
     // Handle navigation based on message data
   }
 
-  /// Request notification permissions (Android only)
+  /// Request notification permissions after an explicit user action.
   Future<bool> requestPermissions() async {
+    var granted = false;
     if (Platform.isAndroid) {
       final status = await Permission.notification.request();
-      return status.isGranted;
+      granted = status.isGranted;
+    } else if (Platform.isIOS) {
+      final settings = await _firebaseMessaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+        provisional: false,
+      );
+      granted = _isAuthorized(settings.authorizationStatus);
     }
-    return false;
+
+    if (granted) {
+      _fcmToken = await _firebaseMessaging.getToken();
+    }
+    return granted;
+  }
+
+  bool _isAuthorized(AuthorizationStatus status) {
+    return status == AuthorizationStatus.authorized ||
+        status == AuthorizationStatus.provisional;
   }
 
   /// Check if notifications are enabled (Android only)

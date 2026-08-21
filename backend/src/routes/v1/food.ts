@@ -19,6 +19,8 @@ import {
   type AiSummaryMealRow,
   type AiSummaryStats,
 } from '../../services/aiSummaryStats.js';
+import { resolveOwnedImageObject } from '../../services/oracleObjectStorage.js';
+import { safeErrorMetadata } from '../../utils/safeError.js';
 
 const imageDetectionBodySchema = z.object({
   imageUrl: urlString,
@@ -30,8 +32,8 @@ const imageDetectionBodySchema = z.object({
 const textDetectionBodySchema = z.object({
   textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
 });
-// IMPORTANT: Use schema generator functions to keep documentation in sync with proto definitions
-// See src/utils/schema-generator.ts and the contracts section of backend/README.md.
+// Manually maintained OpenAPI helpers for the legacy proto-shaped HTTP API.
+// Route and integration tests enforce the runtime contract.
 import {
   getAiMealSummaryResponseSchema,
   getMealAnalysisTipsResponseSchema,
@@ -113,6 +115,30 @@ function buildMealHistoryCsv(meals: RecentMealRow[]): string {
   return [header.join(','), ...rows].join('\n');
 }
 
+const foodFailureMessages = {
+  load_ai_summary: 'Failed to load AI meal summary',
+  load_meal_analysis_tips: 'Failed to load meal analysis tips',
+  export_meal_history: 'Failed to export meal history',
+  analyze_image_upload: 'Failed to analyze image',
+  detect_image: 'Failed to detect meal from image',
+  detect_text: 'Failed to detect meal from text description',
+} as const;
+
+type FoodOperation = keyof typeof foodFailureMessages;
+
+function sendUnexpectedFoodError(
+  request: FastifyRequest,
+  reply: FastifyReply,
+  error: unknown,
+  operation: FoodOperation
+): void {
+  request.log.error(
+    { operation, ...safeErrorMetadata(error) },
+    'Unexpected V1 food request failure'
+  );
+  reply.status(500).send(createErrorResponse(foodFailureMessages[operation]));
+}
+
 export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
   /**
    * GET /api/v1/food/ai-summary
@@ -135,72 +161,81 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      if (!config.DATABASE_URL) {
-        const body: AiMealSummaryResponse = {
-          mealCount: 0,
-          topFoods: [],
-          macroBalanceScore: 0,
-          trend: AiMealSummaryTrend.STEADY,
-        };
-        reply.send(body);
-        return;
-      }
+      try {
+        if (!config.DATABASE_URL) {
+          const body: AiMealSummaryResponse = {
+            mealCount: 0,
+            topFoods: [],
+            macroBalanceScore: 0,
+            trend: AiMealSummaryTrend.STEADY,
+          };
+          reply.send(body);
+          return;
+        }
 
-      const userId = getCurrentUserId(request);
-      const { rows } = await query<AiSummaryRow>(
-        `SELECT summary, generated_at, stats_snapshot
-           FROM ai_summaries
-          WHERE user_id = $1
-          ORDER BY generated_at DESC
-          LIMIT 1`,
-        [userId]
-      );
-
-      const row = rows[0];
-      if (!row) {
-        const body: AiMealSummaryResponse = {
-          mealCount: 0,
-          topFoods: [],
-          macroBalanceScore: 0,
-          trend: AiMealSummaryTrend.STEADY,
-        };
-        reply.send(body);
-        return;
-      }
-
-      let stats = row.stats_snapshot;
-      if (!stats) {
-        // Legacy summaries predate snapshot persistence. Keep the old fallback
-        // until those rows naturally age out of the latest-summary position.
-        const { rows: recentMeals } = await query<RecentMealRow>(
-          `SELECT
-              logged_at,
-              logged_meal_name,
-              logged_meal_type,
-              logged_calories,
-              logged_protein,
-              logged_carbs,
-              logged_fat,
-              logged_fiber
-             FROM meal_analysis_session
+        const userId = getCurrentUserId(request);
+        const { rows } = await query<AiSummaryRow>(
+          `SELECT summary, generated_at, stats_snapshot
+             FROM ai_summaries
             WHERE user_id = $1
-              AND logged_at >= NOW() - INTERVAL '3 days'
-              AND logged_at <= NOW() + INTERVAL '5 minutes'
-            ORDER BY logged_at DESC`,
+            ORDER BY generated_at DESC
+            LIMIT 1`,
           [userId]
         );
-        stats = computeAiSummaryStats(recentMeals);
-      }
 
-      const body: AiMealSummaryResponse = {
-        summary: row.summary,
-        generatedAt: toIsoString(row.generated_at),
-        mealCount: stats.mealCount,
-        topFoods: stats.topFoods,
-        macroBalanceScore: stats.macroBalanceScore,
-        trend: stats.trend,
-      };
-      reply.send(body);
+        const row = rows[0];
+        if (!row) {
+          const body: AiMealSummaryResponse = {
+            mealCount: 0,
+            topFoods: [],
+            macroBalanceScore: 0,
+            trend: AiMealSummaryTrend.STEADY,
+          };
+          reply.send(body);
+          return;
+        }
+
+        let stats = row.stats_snapshot;
+        if (!stats) {
+          // Legacy summaries predate snapshot persistence. Keep the old fallback
+          // until those rows naturally age out of the latest-summary position.
+          const { rows: recentMeals } = await query<RecentMealRow>(
+            `SELECT
+                logged_at,
+                logged_meal_name,
+                logged_meal_type,
+                logged_calories,
+                logged_protein,
+                logged_carbs,
+                logged_fat,
+                logged_fiber
+               FROM meal_analysis_session
+              WHERE user_id = $1
+                AND logged_at >= NOW() - INTERVAL '3 days'
+                AND logged_at <= NOW() + INTERVAL '5 minutes'
+              ORDER BY logged_at DESC`,
+            [userId]
+          );
+          stats = computeAiSummaryStats(recentMeals);
+        }
+
+        const body: AiMealSummaryResponse = {
+          summary: row.summary,
+          generatedAt: toIsoString(row.generated_at),
+          mealCount: stats.mealCount,
+          topFoods: stats.topFoods,
+          macroBalanceScore: stats.macroBalanceScore,
+          trend: stats.trend,
+        };
+        reply.send(body);
+      } catch (error) {
+        sendUnexpectedFoodError(
+          request,
+          reply,
+          error,
+          'load_ai_summary'
+        );
+      }
     }
   );
 
@@ -227,17 +262,26 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const parsed = parseMealAnalysisTipsQueryCount(request.query);
-      if (!parsed.ok) {
-        reply.status(400).send(createErrorResponse(parsed.message));
-        return;
+      try {
+        const parsed = parseMealAnalysisTipsQueryCount(request.query);
+        if (!parsed.ok) {
+          reply.status(400).send(createErrorResponse(parsed.message));
+          return;
+        }
+        const locale = getLocaleFromRequest(request);
+        const { version, tips } = getMealAnalysisTipsForLocale(locale);
+        const outTips =
+          parsed.limit !== undefined ? pickRandomTips(tips, parsed.limit) : tips;
+        const body: MealAnalysisTipsResponse = { version, tips: outTips };
+        reply.send(body);
+      } catch (error) {
+        sendUnexpectedFoodError(
+          request,
+          reply,
+          error,
+          'load_meal_analysis_tips'
+        );
       }
-      const locale = getLocaleFromRequest(request);
-      const { version, tips } = getMealAnalysisTipsForLocale(locale);
-      const outTips =
-        parsed.limit !== undefined ? pickRandomTips(tips, parsed.limit) : tips;
-      const body: MealAnalysisTipsResponse = { version, tips: outTips };
-      reply.send(body);
     }
   );
 
@@ -257,38 +301,47 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
       } as any,
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      if (!config.DATABASE_URL) {
+      try {
+        if (!config.DATABASE_URL) {
+          reply
+            .header('Content-Type', 'text/csv; charset=utf-8')
+            .send(buildMealHistoryCsv([]));
+          return;
+        }
+
+        const userId = getCurrentUserId(request);
+        const { rows } = await query<RecentMealRow>(
+          `SELECT
+              logged_at,
+              logged_meal_name,
+              logged_meal_type,
+              logged_calories,
+              logged_protein,
+              logged_carbs,
+              logged_fat,
+              logged_fiber
+             FROM meal_analysis_session
+            WHERE user_id = $1
+              AND logged_at IS NOT NULL
+            ORDER BY logged_at DESC`,
+          [userId]
+        );
+
         reply
           .header('Content-Type', 'text/csv; charset=utf-8')
-          .send(buildMealHistoryCsv([]));
-        return;
+          .header(
+            'Content-Disposition',
+            `attachment; filename="calorify-meals-${userId}.csv"`
+          )
+          .send(buildMealHistoryCsv(rows));
+      } catch (error) {
+        sendUnexpectedFoodError(
+          request,
+          reply,
+          error,
+          'export_meal_history'
+        );
       }
-
-      const userId = getCurrentUserId(request);
-      const { rows } = await query<RecentMealRow>(
-        `SELECT
-            logged_at,
-            logged_meal_name,
-            logged_meal_type,
-            logged_calories,
-            logged_protein,
-            logged_carbs,
-            logged_fat,
-            logged_fiber
-           FROM meal_analysis_session
-          WHERE user_id = $1
-            AND logged_at IS NOT NULL
-          ORDER BY logged_at DESC`,
-        [userId]
-      );
-
-      reply
-        .header('Content-Type', 'text/csv; charset=utf-8')
-        .header(
-          'Content-Disposition',
-          `attachment; filename="calorify-meals-${userId}.csv"`
-        )
-        .send(buildMealHistoryCsv(rows));
     }
   );
 
@@ -355,10 +408,11 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
           );
           return;
         }
-        reply.status(500).send(
-          createErrorResponse(
-            error instanceof Error ? error.message : 'Failed to analyze image'
-          )
+        sendUnexpectedFoodError(
+          request,
+          reply,
+          error,
+          'analyze_image_upload'
         );
       }
     }
@@ -397,27 +451,14 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         if (!parsed) return;
         const { imageUrl } = parsed;
 
-        // Convert upload URL to download URL.
-        // Object key = path after bucket "o/" (supports folderized keys: uid/iso_uuid.ext)
+        // Accept only this user's object in the configured namespace and bucket,
+        // then replace the short-lived upload credential with the download one.
         let finalImageUrl: string;
         try {
-          const url = new URL(imageUrl);
-          const pathParts = url.pathname.split('/');
-          const oIndex = pathParts.indexOf('o');
-          const objectKey =
-            oIndex >= 0
-              ? pathParts
-                .slice(oIndex + 1)
-                .map((seg) => encodeURIComponent(decodeURIComponent(seg)))
-                .join('/')
-              : encodeURIComponent(decodeURIComponent(pathParts[pathParts.length - 1]));
-
-          const baseUrl = config.ORACLE_BUCKET_DOWNLOAD_URL.endsWith('/')
-            ? config.ORACLE_BUCKET_DOWNLOAD_URL
-            : `${config.ORACLE_BUCKET_DOWNLOAD_URL}/`;
-          finalImageUrl = `${baseUrl}${objectKey}`;
+          const userId = getCurrentUserId(request);
+          finalImageUrl = resolveOwnedImageObject(imageUrl, userId).downloadUrl;
         } catch {
-          reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
+          reply.status(400).send(createErrorResponse('Invalid or unowned imageUrl'));
           return;
         }
 
@@ -431,10 +472,11 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(response);
       } catch (error) {
-        reply.status(500).send(
-          createErrorResponse(
-            error instanceof Error ? error.message : 'Failed to detect meal from image'
-          )
+        sendUnexpectedFoodError(
+          request,
+          reply,
+          error,
+          'detect_image'
         );
       }
     }
@@ -482,10 +524,11 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
         // Return protobuf object directly (Fastify handles JSON serialization)
         reply.send(response);
       } catch (error) {
-        reply.status(500).send(
-          createErrorResponse(
-            error instanceof Error ? error.message : 'Failed to detect meal from text description'
-          )
+        sendUnexpectedFoodError(
+          request,
+          reply,
+          error,
+          'detect_text'
         );
       }
     }

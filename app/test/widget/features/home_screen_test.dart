@@ -17,8 +17,11 @@ import '../../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
 
+class MockHealthService extends Mock implements HealthService {}
+
 void main() {
   late MockDatabaseInterface mockDatabaseInterface;
+  late MockHealthService mockHealthService;
 
   setUpAll(() {
     setupAllTests();
@@ -26,10 +29,10 @@ void main() {
 
   setUp(() {
     mockDatabaseInterface = MockDatabaseInterface();
+    mockHealthService = MockHealthService();
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
     // Default stubs
-    final mockHealthService = HealthService.instance;
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
@@ -59,7 +62,10 @@ void main() {
       await tester.pumpWidget(
         wrapWithProviders(
           const HomeScreen(),
-          overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+          overrides: [
+            healthServiceProvider.overrideWithValue(mockHealthService),
+            aiSummaryProvider.overrideWith((ref) => null),
+          ],
         ),
       );
       await tester.pump();
@@ -77,13 +83,15 @@ void main() {
     testWidgets('shows Health Connect prompt when not authorized', (
       WidgetTester tester,
     ) async {
-      final mockHealthService = HealthService.instance;
       when(() => mockHealthService.isAuthorized).thenReturn(false);
 
       await tester.pumpWidget(
         wrapWithProviders(
           const HomeScreen(),
-          overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+          overrides: [
+            healthServiceProvider.overrideWithValue(mockHealthService),
+            aiSummaryProvider.overrideWith((ref) => null),
+          ],
         ),
       );
       await tester.pump();
@@ -94,7 +102,6 @@ void main() {
     testWidgets('hides Health Connect prompt after permissions change', (
       WidgetTester tester,
     ) async {
-      final mockHealthService = HealthService.instance;
       var isAuthorized = false;
       when(
         () => mockHealthService.isAuthorized,
@@ -109,7 +116,10 @@ void main() {
       await tester.pumpWidget(
         wrapWithProviders(
           const HomeScreen(),
-          overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+          overrides: [
+            healthServiceProvider.overrideWithValue(mockHealthService),
+            aiSummaryProvider.overrideWith((ref) => null),
+          ],
         ),
       );
       await tester.pump();
@@ -126,7 +136,6 @@ void main() {
     testWidgets('prevents duplicate Health Connect permission requests', (
       WidgetTester tester,
     ) async {
-      final mockHealthService = HealthService.instance;
       final authorization = Completer<bool>();
       when(
         () => mockHealthService.requestAuthorization(),
@@ -168,6 +177,7 @@ void main() {
         wrapWithProviders(
           const HomeScreen(),
           overrides: [
+            healthServiceProvider.overrideWithValue(mockHealthService),
             todaysMealsProvider.overrideWith(
               (ref) => todaysMealsController.stream,
             ),

@@ -2,9 +2,6 @@ import { after, before, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { mock } from 'node:test';
 import Fastify, { type FastifyInstance } from 'fastify';
-import cors from '@fastify/cors';
-import multipart from '@fastify/multipart';
-import rateLimit from '@fastify/rate-limit';
 import { errorHandler } from '../utils/errors.js';
 
 // ---------------------------------------------------------------------------
@@ -21,8 +18,6 @@ await mock.module('../config.js', {
     TRUST_PROXY: false,
     LOKI_URL: null,
     ENVIRONMENT: 'test',
-    MAX_BODY_LOG_BYTES: 1000,
-    LOG_REQUEST_RESPONSE_BODIES: false,
     USDA_AUTO_REFRESH_ENABLED: false,
     USDA_REFRESH_CRON: '0 3 1 * *',
     USDA_DATA_DIR: '/tmp/usda',
@@ -37,6 +32,7 @@ await mock.module('../services/firebase.js', {
   namedExports: {
     verifyFirebaseToken: mock.fn(async (token: string) => {
       if (token === 'valid-token') return { uid: 'user-123' };
+      if (token === 'valid-token-2') return { uid: 'user-456' };
       throw new Error('Invalid or expired authentication token');
     }),
     getUserIdFromToken: mock.fn((d: any) => d.uid),
@@ -48,6 +44,12 @@ await mock.module('../services/database.js', {
   namedExports: {
     query: mock.fn(async () => ({ rows: [] })),
     initializeDatabase: mock.fn(() => {}),
+    closeDatabase: mock.fn(async () => {}),
+    getClient: mock.fn(async () => ({
+      query: mock.fn(async () => ({ rows: [], rowCount: 0 })),
+      release: mock.fn(() => {}),
+    })),
+    readinessCheck: mock.fn(async () => ({ database: true, usdaDataset: true })),
   },
 });
 
@@ -72,6 +74,9 @@ await mock.module('../services/nutritionEngineV2.js', {
       yield { step: 'RESULT', data: {} };
     }),
     continueMealAnalysisWithMealType: mock.fn(async function* () {
+      yield { step: 'RESULT', data: {} };
+    }),
+    resumeMealAnalysis: mock.fn(async function* () {
       yield { step: 'RESULT', data: {} };
     }),
     reanalyzeMeal: mock.fn(async function* () {
@@ -123,42 +128,14 @@ await mock.module('../utils/locale.js', {
   },
 });
 
-const { registerRoutes } = await import('../routes/index.js');
+const { buildApp } = await import('../index.js');
 
 // ---------------------------------------------------------------------------
-// Build the test app (mirrors src/index.ts buildApp(), minus swagger/logging)
+// Build the real application composition with deterministic test-only limits.
 // ---------------------------------------------------------------------------
 
 async function buildTestApp(rateLimitMax = 100): Promise<FastifyInstance> {
-  const fastify = Fastify({ logger: false });
-
-  await fastify.register(cors, {
-    origin: true,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'X-Requested-With',
-      'Accept-Language',
-    ],
-  });
-
-  await fastify.register(rateLimit, {
-    global: true,
-    max: rateLimitMax,
-    timeWindow: '1 minute',
-    errorResponseBuilder: (_request: any, context: any) => ({
-      statusCode: 429,
-      error: 'Too Many Requests',
-      ok: false,
-      message: `Rate limit exceeded. Try again in ${context.after}.`,
-    }),
-  });
-
-  await fastify.register(multipart);
-  await fastify.register(registerRoutes);
-  fastify.setErrorHandler(errorHandler);
+  const fastify = await buildApp({ logger: false, rateLimitMax });
   await fastify.ready();
   return fastify;
 }
@@ -194,6 +171,15 @@ describe('Health routes', () => {
     const res = await app.inject({ method: 'GET', url: '/health' });
     assert.equal(res.statusCode, 200);
     assert.deepEqual(res.json(), { status: 'ok' });
+  });
+
+  it('GET /ready uses the production readiness route', async () => {
+    const res = await app.inject({ method: 'GET', url: '/ready' });
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.json(), {
+      status: 'ready',
+      checks: { database: true, usdaDataset: true },
+    });
   });
 });
 
@@ -271,6 +257,19 @@ describe('Route registration', () => {
     const res = await app.inject({
       method: 'POST',
       url: '/api/v2/food/clarify',
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer valid-token',
+      },
+      payload: JSON.stringify({}),
+    });
+    assert.equal(res.statusCode, 400);
+  });
+
+  it('POST /api/v2/food/resume with missing body returns 400', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/v2/food/resume',
       headers: {
         'content-type': 'application/json',
         authorization: 'Bearer valid-token',
@@ -410,10 +409,11 @@ describe('404 for unknown routes', () => {
 
 describe('Error handler format', () => {
   it('unhandled thrown error returns 500 JSON with ApiResult shape', async () => {
+    const secret = 'PRIVATE_PROVIDER_OR_MEAL_DETAILS';
     const errApp = Fastify({ logger: false });
     errApp.setErrorHandler(errorHandler);
     errApp.get('/test-error', async () => {
-      throw new Error('Test error');
+      throw new Error(`Test error ${secret}`);
     });
     await errApp.ready();
 
@@ -424,7 +424,8 @@ describe('Error handler format', () => {
     assert.equal(typeof body, 'object');
     assert.equal(body.ok, false);
     assert.ok('message' in body, 'Expected response body to have a "message" field');
-    assert.equal(typeof body.message, 'string');
+    assert.equal(body.message, 'Internal Server Error');
+    assert.doesNotMatch(res.body, new RegExp(secret));
     await errApp.close();
   });
 });
@@ -459,6 +460,28 @@ describe('Rate limit response format', () => {
       await limitedApp.close();
     }
   });
+
+  it('keys authenticated requests by user after authentication', async () => {
+    const limitedApp = await buildTestApp(1);
+
+    const saveProfile = (token: string) => limitedApp.inject({
+      method: 'POST',
+      url: '/api/v1/user/profile',
+      headers: {
+        authorization: `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+      payload: {},
+    });
+
+    try {
+      assert.equal((await saveProfile('valid-token')).statusCode, 200);
+      assert.equal((await saveProfile('valid-token-2')).statusCode, 200);
+      assert.equal((await saveProfile('valid-token')).statusCode, 429);
+    } finally {
+      await limitedApp.close();
+    }
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -485,12 +508,91 @@ describe('Request ID handling', () => {
     assert.equal(res.statusCode, 200);
   });
 
-  it('GET /health with x-request-id header returns 200 (custom request ID accepted)', async () => {
+  it('GET /health ignores a client request ID without affecting the response', async () => {
     const res = await app.inject({
       method: 'GET',
       url: '/health',
       headers: { 'x-request-id': 'my-req-id' },
     });
     assert.equal(res.statusCode, 200);
+  });
+});
+
+describe('Request logging privacy', () => {
+  it('never logs query, header, IP, profile, meal, or free-text payload data', async () => {
+    const secret = 'PRIVATE_QUERY_CREDENTIAL';
+    const headerSecret = 'PRIVATE_HEADER_VALUE';
+    const mealSecret = 'PRIVATE_FREE_TEXT_MEAL';
+    const profileDate = '1991-02-03';
+    const lines: string[] = [];
+    const logApp = await buildApp({
+      logger: {
+        level: 'info',
+        stream: {
+          write(message: string) {
+            lines.push(message);
+          },
+        },
+      },
+    });
+    await logApp.ready();
+
+    try {
+      const res = await logApp.inject({
+        method: 'GET',
+        url: `/health?token=${secret}`,
+        headers: {
+          'x-private-header-name': headerSecret,
+          'x-forwarded-for': '198.51.100.77',
+          'x-request-id': 'PRIVATE_REQUEST_ID',
+          'x-correlation-id': 'PRIVATE_CORRELATION_ID',
+          'user-agent': 'PRIVATE_FINGERPRINT',
+        },
+      });
+      assert.equal(res.statusCode, 200);
+
+      const profile = await logApp.inject({
+        method: 'POST',
+        url: '/api/v1/user/profile',
+        headers: { authorization: 'Bearer valid-token' },
+        payload: {
+          weight: 73.123,
+          dateOfBirth: profileDate,
+          dailyCalorieGoal: 9876,
+        },
+      });
+      assert.equal(profile.statusCode, 200);
+
+      const meal = await logApp.inject({
+        method: 'POST',
+        url: '/api/v2/food/analyze-text',
+        headers: { authorization: 'Bearer valid-token' },
+        payload: { textDescription: mealSecret },
+      });
+      assert.equal(meal.statusCode, 200);
+
+      const output = lines.join('');
+      assert.match(output, /\/health/);
+      for (const marker of [
+        secret,
+        headerSecret,
+        'x-private-header-name',
+        '198.51.100.77',
+        '127.0.0.1',
+        'PRIVATE_FINGERPRINT',
+        'PRIVATE_REQUEST_ID',
+        'PRIVATE_CORRELATION_ID',
+        profileDate,
+        '73.123',
+        '9876',
+        mealSecret,
+        '"status":"ok"',
+        '"meal_name":"Test"',
+      ]) {
+        assert.doesNotMatch(output, new RegExp(marker));
+      }
+    } finally {
+      await logApp.close();
+    }
   });
 });

@@ -9,7 +9,8 @@ source "$SCRIPT_DIR/project_utils.sh"
 store_original_dir
 
 # Change to git root directory
-GIT_ROOT=$(change_to_git_root)
+change_to_git_root
+GIT_ROOT="$PWD"
 
 print_header "Cleaning Build Artifacts"
 

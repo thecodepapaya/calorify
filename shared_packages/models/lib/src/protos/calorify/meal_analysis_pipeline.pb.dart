@@ -8,7 +8,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:core' as $core;
 
@@ -1504,10 +1504,12 @@ class PipelineErrorData extends $pb.GeneratedMessage {
   factory PipelineErrorData({
     $core.String? analysisId,
     $core.String? message,
+    $core.bool? retryable,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
     if (message != null) result.message = message;
+    if (retryable != null) result.retryable = retryable;
     return result;
   }
 
@@ -1526,6 +1528,7 @@ class PipelineErrorData extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
     ..aOS(2, _omitFieldNames ? '' : 'message')
+    ..aOB(3, _omitFieldNames ? '' : 'retryable')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1564,6 +1567,15 @@ class PipelineErrorData extends $pb.GeneratedMessage {
   $core.bool hasMessage() => $_has(1);
   @$pb.TagNumber(2)
   void clearMessage() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.bool get retryable => $_getBF(2);
+  @$pb.TagNumber(3)
+  set retryable($core.bool value) => $_setBool(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasRetryable() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRetryable() => $_clearField(3);
 }
 
 class MealAnalysisPipelineSessionContext extends $pb.GeneratedMessage {

@@ -14,6 +14,14 @@ await mock.module('../services/database.js', {
   namedExports: { query: mock.fn(async () => ({ rows: [] })) },
 });
 
+await mock.module('../services/databaseAdvisoryLock.js', {
+  namedExports: {
+    withDatabaseAdvisoryLock: mock.fn(async () => {
+      throw new Error('lock should not be requested without DATABASE_URL');
+    }),
+  },
+});
+
 await mock.module('../services/aiSummaryService.js', {
   namedExports: {
     getPendingBatches: mockGetPendingBatches,

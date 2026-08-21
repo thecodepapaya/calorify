@@ -149,6 +149,7 @@ message PipelineResultData {
 message PipelineErrorData {
   string analysis_id = 1;
   string message = 2;
+  bool retryable = 3;
 }
 
 

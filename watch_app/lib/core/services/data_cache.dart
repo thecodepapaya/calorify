@@ -1,6 +1,5 @@
-import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import 'package:flutter/foundation.dart';
+import 'package:models/models.dart';
 
 /// Combines a phone snapshot with local operations that have not been
 /// acknowledged yet. A late background refresh must not make a just-recorded
@@ -33,9 +32,9 @@ List<LoggedMeal> mergeWatchDashboardMeals({
 }
 
 class DataCache {
-  DataCache._();
+  DataCache();
 
-  static final DataCache instance = DataCache._();
+  static final DataCache instance = DataCache();
   static const Duration cacheLifetime = Duration(minutes: 5);
 
   final ValueNotifier<List<LoggedMeal>> todaysMeals = ValueNotifier(const []);
@@ -43,12 +42,16 @@ class DataCache {
   final ValueNotifier<List<FavoriteMeal>> favoriteMeals = ValueNotifier(
     const [],
   );
-  final ValueNotifier<DateTime?> lastSyncTime = ValueNotifier(null);
+  final ValueNotifier<DateTime?> dashboardLastSyncTime = ValueNotifier(null);
+  final ValueNotifier<DateTime?> favoritesLastSyncTime = ValueNotifier(null);
 
   int _nextTemporaryMealId = -1;
 
-  bool get hasFreshData {
-    final syncedAt = lastSyncTime.value;
+  bool get hasFreshDashboard => _isFresh(dashboardLastSyncTime.value);
+
+  bool get hasFreshFavorites => _isFresh(favoritesLastSyncTime.value);
+
+  bool _isFresh(DateTime? syncedAt) {
     if (syncedAt == null) {
       return false;
     }
@@ -60,12 +63,14 @@ class DataCache {
     required List<LoggedMeal> meals,
     required List<FavoriteMeal> favorites,
     required int? goal,
-    required DateTime? syncedAt,
+    required DateTime? dashboardSyncedAt,
+    required DateTime? favoritesSyncedAt,
   }) {
     todaysMeals.value = _sortMeals(meals);
     calorieGoal.value = goal;
     favoriteMeals.value = List<FavoriteMeal>.unmodifiable(favorites);
-    lastSyncTime.value = syncedAt;
+    dashboardLastSyncTime.value = dashboardSyncedAt;
+    favoritesLastSyncTime.value = favoritesSyncedAt;
 
     final lowestTemporaryId = meals
         .where((meal) => meal.hasClientId() && meal.clientId < 0)
@@ -86,26 +91,29 @@ class DataCache {
     todaysMeals.value = _sortMeals(meals);
     calorieGoal.value = goal;
     if (syncedAt != null) {
-      lastSyncTime.value = syncedAt;
+      dashboardLastSyncTime.value = syncedAt;
     }
   }
 
   void setTodaysMeals(List<LoggedMeal> meals, {DateTime? syncedAt}) {
     todaysMeals.value = _sortMeals(meals);
     if (syncedAt != null) {
-      lastSyncTime.value = syncedAt;
+      dashboardLastSyncTime.value = syncedAt;
     }
   }
 
   void setCalorieGoal(int? goal, {DateTime? syncedAt}) {
     calorieGoal.value = goal;
     if (syncedAt != null) {
-      lastSyncTime.value = syncedAt;
+      dashboardLastSyncTime.value = syncedAt;
     }
   }
 
-  void setFavoriteMeals(List<FavoriteMeal> favorites) {
+  void setFavoriteMeals(List<FavoriteMeal> favorites, {DateTime? syncedAt}) {
     favoriteMeals.value = List<FavoriteMeal>.unmodifiable(favorites);
+    if (syncedAt != null) {
+      favoritesLastSyncTime.value = syncedAt;
+    }
   }
 
   LoggedMeal addOptimisticMeal(Meal meal) {
@@ -151,6 +159,7 @@ class DataCache {
     todaysMeals.dispose();
     calorieGoal.dispose();
     favoriteMeals.dispose();
-    lastSyncTime.dispose();
+    dashboardLastSyncTime.dispose();
+    favoritesLastSyncTime.dispose();
   }
 }

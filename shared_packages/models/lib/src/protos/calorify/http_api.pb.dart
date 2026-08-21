@@ -8,7 +8,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:core' as $core;
 
@@ -256,6 +256,140 @@ class MealAnalysisTipsResponse extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(2)
   $pb.PbList<$core.String> get tips => $_getList(1);
+}
+
+class MealAnalysisTextRequest extends $pb.GeneratedMessage {
+  factory MealAnalysisTextRequest({
+    $core.String? analysisId,
+    $core.String? textDescription,
+  }) {
+    final result = create();
+    if (analysisId != null) result.analysisId = analysisId;
+    if (textDescription != null) result.textDescription = textDescription;
+    return result;
+  }
+
+  MealAnalysisTextRequest._();
+
+  factory MealAnalysisTextRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealAnalysisTextRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealAnalysisTextRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'analysisId')
+    ..aOS(2, _omitFieldNames ? '' : 'textDescription')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisTextRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisTextRequest copyWith(
+          void Function(MealAnalysisTextRequest) updates) =>
+      super.copyWith((message) => updates(message as MealAnalysisTextRequest))
+          as MealAnalysisTextRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisTextRequest create() => MealAnalysisTextRequest._();
+  @$core.override
+  MealAnalysisTextRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisTextRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealAnalysisTextRequest>(create);
+  static MealAnalysisTextRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get analysisId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set analysisId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAnalysisId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAnalysisId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get textDescription => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set textDescription($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTextDescription() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTextDescription() => $_clearField(2);
+}
+
+class MealAnalysisImageRequest extends $pb.GeneratedMessage {
+  factory MealAnalysisImageRequest({
+    $core.String? analysisId,
+    $core.String? imageUrl,
+  }) {
+    final result = create();
+    if (analysisId != null) result.analysisId = analysisId;
+    if (imageUrl != null) result.imageUrl = imageUrl;
+    return result;
+  }
+
+  MealAnalysisImageRequest._();
+
+  factory MealAnalysisImageRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealAnalysisImageRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealAnalysisImageRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'analysisId')
+    ..aOS(2, _omitFieldNames ? '' : 'imageUrl')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisImageRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisImageRequest copyWith(
+          void Function(MealAnalysisImageRequest) updates) =>
+      super.copyWith((message) => updates(message as MealAnalysisImageRequest))
+          as MealAnalysisImageRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisImageRequest create() => MealAnalysisImageRequest._();
+  @$core.override
+  MealAnalysisImageRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisImageRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealAnalysisImageRequest>(create);
+  static MealAnalysisImageRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get analysisId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set analysisId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAnalysisId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAnalysisId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get imageUrl => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set imageUrl($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasImageUrl() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearImageUrl() => $_clearField(2);
 }
 
 class MealAnalysisFeedbackRequest extends $pb.GeneratedMessage {
@@ -541,6 +675,61 @@ class MealAnalysisClarifyRequest extends $pb.GeneratedMessage {
   $pb.PbList<MealClarificationAnswer> get answers => $_getList(1);
 }
 
+class MealAnalysisResumeRequest extends $pb.GeneratedMessage {
+  factory MealAnalysisResumeRequest({
+    $core.String? analysisId,
+  }) {
+    final result = create();
+    if (analysisId != null) result.analysisId = analysisId;
+    return result;
+  }
+
+  MealAnalysisResumeRequest._();
+
+  factory MealAnalysisResumeRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory MealAnalysisResumeRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'MealAnalysisResumeRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'analysisId')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisResumeRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  MealAnalysisResumeRequest copyWith(
+          void Function(MealAnalysisResumeRequest) updates) =>
+      super.copyWith((message) => updates(message as MealAnalysisResumeRequest))
+          as MealAnalysisResumeRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisResumeRequest create() => MealAnalysisResumeRequest._();
+  @$core.override
+  MealAnalysisResumeRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static MealAnalysisResumeRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<MealAnalysisResumeRequest>(create);
+  static MealAnalysisResumeRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get analysisId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set analysisId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAnalysisId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAnalysisId() => $_clearField(1);
+}
+
 class MealAnalysisMealTypeRequest extends $pb.GeneratedMessage {
   factory MealAnalysisMealTypeRequest({
     $core.String? analysisId,
@@ -616,11 +805,13 @@ class MealAnalysisReanalyzeRequest extends $pb.GeneratedMessage {
     $core.String? analysisId,
     $core.Iterable<MealReanalyzeFeedbackIssue>? issues,
     $core.String? otherText,
+    $core.String? newAnalysisId,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
     if (issues != null) result.issues.addAll(issues);
     if (otherText != null) result.otherText = otherText;
+    if (newAnalysisId != null) result.newAnalysisId = newAnalysisId;
     return result;
   }
 
@@ -644,6 +835,7 @@ class MealAnalysisReanalyzeRequest extends $pb.GeneratedMessage {
         enumValues: MealReanalyzeFeedbackIssue.values,
         defaultEnumValue: MealReanalyzeFeedbackIssue.ISSUE_UNSPECIFIED)
     ..aOS(3, _omitFieldNames ? '' : 'otherText')
+    ..aOS(4, _omitFieldNames ? '' : 'newAnalysisId')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -688,6 +880,15 @@ class MealAnalysisReanalyzeRequest extends $pb.GeneratedMessage {
   $core.bool hasOtherText() => $_has(2);
   @$pb.TagNumber(3)
   void clearOtherText() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get newAnalysisId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set newAnalysisId($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasNewAnalysisId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNewAnalysisId() => $_clearField(4);
 }
 
 const $core.bool _omitFieldNames =

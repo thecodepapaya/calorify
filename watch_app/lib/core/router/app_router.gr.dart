@@ -27,6 +27,22 @@ class DebugRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FavoritesScreen]
+class FavoritesRoute extends PageRouteInfo<void> {
+  const FavoritesRoute({List<PageRouteInfo>? children})
+    : super(FavoritesRoute.name, initialChildren: children);
+
+  static const String name = 'FavoritesRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const FavoritesScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HistoryScreen]
 class HistoryRoute extends PageRouteInfo<void> {
   const HistoryRoute({List<PageRouteInfo>? children})
@@ -60,18 +76,51 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [LogMealScreen]
-class LogMealRoute extends PageRouteInfo<void> {
-  const LogMealRoute({List<PageRouteInfo>? children})
-    : super(LogMealRoute.name, initialChildren: children);
+class LogMealRoute extends PageRouteInfo<LogMealRouteArgs> {
+  LogMealRoute({
+    Key? key,
+    WatchSpeechService? speechService,
+    List<PageRouteInfo>? children,
+  }) : super(
+         LogMealRoute.name,
+         args: LogMealRouteArgs(key: key, speechService: speechService),
+         initialChildren: children,
+       );
 
   static const String name = 'LogMealRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const LogMealScreen();
+      final args = data.argsAs<LogMealRouteArgs>(
+        orElse: () => const LogMealRouteArgs(),
+      );
+      return LogMealScreen(key: args.key, speechService: args.speechService);
     },
   );
+}
+
+class LogMealRouteArgs {
+  const LogMealRouteArgs({this.key, this.speechService});
+
+  final Key? key;
+
+  final WatchSpeechService? speechService;
+
+  @override
+  String toString() {
+    return 'LogMealRouteArgs{key: $key, speechService: $speechService}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! LogMealRouteArgs) return false;
+    return key == other.key && speechService == other.speechService;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ speechService.hashCode;
 }
 
 /// generated route for
@@ -133,22 +182,6 @@ class SplashRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const SplashScreen();
-    },
-  );
-}
-
-/// generated route for
-/// [FavoritesScreen]
-class FavoritesRoute extends PageRouteInfo<void> {
-  const FavoritesRoute({List<PageRouteInfo>? children})
-    : super(FavoritesRoute.name, initialChildren: children);
-
-  static const String name = 'FavoritesRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const FavoritesScreen();
     },
   );
 }

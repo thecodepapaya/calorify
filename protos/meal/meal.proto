@@ -32,7 +32,7 @@ message MealMacro {
 }
 
 message MealHealth {
-  HealthScore health_score = 1;
+  optional HealthScore health_score = 1;
   optional string health_score_reason = 2;
 }
 
@@ -43,5 +43,4 @@ message Meal {
   MealMacro macros = 5;
   optional MealHealth health = 6;
 }
-
 

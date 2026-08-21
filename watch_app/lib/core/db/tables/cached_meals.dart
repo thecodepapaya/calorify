@@ -14,6 +14,7 @@ class CachedMealsTable extends Table {
   TextColumn get imageUrl => text().nullable()();
   TextColumn get healthScore => text().nullable()();
   TextColumn get healthScoreReason => text().nullable()();
+  BlobColumn get protoPayload => blob().nullable()();
 
   @override
   Set<Column<Object>> get primaryKey => {mealId};

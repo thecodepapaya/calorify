@@ -1,4 +1,5 @@
 import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:health/health.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
@@ -29,7 +31,6 @@ void main() {
     mockHealthService = MockHealthService();
 
     DatabaseService.setMockInterface(mockDatabaseInterface);
-    HealthService.setMockInstance(mockHealthService);
 
     when(
       () => mockDatabaseInterface.watchDailyCalorieGoal(),
@@ -54,7 +55,12 @@ void main() {
       for (final locale in goldenTestLocales) {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
-            const SetDailyGoal(),
+            ProviderScope(
+              overrides: [
+                healthServiceProvider.overrideWithValue(mockHealthService),
+              ],
+              child: const SetDailyGoal(),
+            ),
             wrapper: goldenWrapper(locale: locale),
             surfaceSize: device.size,
           );
@@ -70,7 +76,12 @@ void main() {
       for (final locale in goldenTestLocales) {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
-            const DailySummaryCard(),
+            ProviderScope(
+              overrides: [
+                healthServiceProvider.overrideWithValue(mockHealthService),
+              ],
+              child: const DailySummaryCard(),
+            ),
             wrapper: goldenWrapper(locale: locale),
             surfaceSize: device.size,
           );

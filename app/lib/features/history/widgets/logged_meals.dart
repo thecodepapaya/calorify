@@ -15,11 +15,13 @@ class MealLogCard extends StatelessWidget {
   const MealLogCard({
     super.key,
     required this.loggedMeal,
+    this.favoriteId,
     this.showTimestamp = true,
     this.sheetPurpose = MealDetailsSheetPurpose.historyEdit,
   });
 
   final LoggedMeal loggedMeal;
+  final int? favoriteId;
   final bool showTimestamp;
   final MealDetailsSheetPurpose sheetPurpose;
 
@@ -38,6 +40,7 @@ class MealLogCard extends StatelessWidget {
             context: context,
             purpose: sheetPurpose,
             loggedMeal: loggedMeal,
+            favoriteId: favoriteId,
           );
         },
         child: Container(

@@ -15,7 +15,6 @@ import {
   HealthScore as HealthScoreEnum,
   CalorieConfidence as CalorieConfidenceEnum,
 } from '../protos/meal/meal.js';
-import config from '../config.js';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import { CircuitBreaker } from '../utils/circuitBreaker.js';
@@ -64,6 +63,23 @@ interface OpenAIResponse {
     } | null;
   };
   variations: OpenAIVariation[];
+}
+
+export type OpenAIFoodAnalysisErrorCode =
+  | 'invalid_image_url'
+  | 'invalid_provider_response'
+  | 'provider_failure';
+
+export class OpenAIFoodAnalysisError extends Error {
+  constructor(readonly code: OpenAIFoodAnalysisErrorCode) {
+    const message = code === 'invalid_image_url'
+      ? 'Invalid image URL format'
+      : code === 'invalid_provider_response'
+        ? 'Food analysis provider returned an invalid response'
+        : 'Food analysis provider request failed';
+    super(message);
+    this.name = 'OpenAIFoodAnalysisError';
+  }
 }
 
 /** JSON Schema for Structured Outputs; matches OpenAIResponse. */
@@ -229,16 +245,6 @@ class OpenAIFoodAnalysisService {
     this.client = createMealAnalysisLlmClient();
   }
 
-  private shouldDebugLog(): boolean {
-    return config.DEBUG || config.ENVIRONMENT === 'staging';
-  }
-
-  private logLocale(method: string, locale: string): void {
-    if (this.shouldDebugLog()) {
-      console.log(`[OpenAI] ${method} - locale:`, locale, 'language:', locale);
-    }
-  }
-
   /**
    * Execute a structured completion call and parse model JSON output.
    */
@@ -256,21 +262,19 @@ class OpenAIFoodAnalysisService {
 
     const content = response.choices[0]?.message?.content;
     if (!content) {
-      throw new Error('No response content from OpenAI');
+      throw new OpenAIFoodAnalysisError('invalid_provider_response');
     }
 
     // For strict json_schema responses, content is expected to be valid JSON.
     // Parse raw content first; only fall back to sanitizer for defensive compatibility.
     try {
       return JSON.parse(content) as OpenAIResponse;
-    } catch (parseError) {
+    } catch {
       const jsonText = this.extractJson(content);
       try {
         return JSON.parse(jsonText) as OpenAIResponse;
-      } catch (fallbackParseError) {
-        throw new Error(
-          `Failed to parse OpenAI response as JSON: ${fallbackParseError instanceof Error ? fallbackParseError.message : 'Unknown error'}`
-        );
+      } catch {
+        throw new OpenAIFoodAnalysisError('invalid_provider_response');
       }
     }
   }
@@ -525,10 +529,8 @@ class OpenAIFoodAnalysisService {
       try {
         new URL(imageUrl);
       } catch {
-        throw new Error('Invalid image URL format');
+        throw new OpenAIFoodAnalysisError('invalid_image_url');
       }
-
-      this.logLocale('analyzeImageFromUrl', locale);
 
       const resultDict = await this.createStructuredResponse([
         {
@@ -550,9 +552,8 @@ class OpenAIFoodAnalysisService {
 
       return this.buildProtoResponse(resultDict);
     } catch (error) {
-      throw new Error(
-        `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
-      );
+      if (error instanceof OpenAIFoodAnalysisError) throw error;
+      throw new OpenAIFoodAnalysisError('provider_failure');
     }
   }
 
@@ -572,8 +573,6 @@ class OpenAIFoodAnalysisService {
       // Validate/sanitize MIME type
       const validMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
       const finalMimeType = validMimeTypes.includes(mimeType) ? mimeType : 'image/jpeg';
-
-      this.logLocale('analyzeImageFromBuffer', locale);
 
       const resultDict = await this.createStructuredResponse([
         {
@@ -596,9 +595,8 @@ class OpenAIFoodAnalysisService {
       // Return full response with variations
       return this.buildProtoResponse(resultDict);
     } catch (error) {
-      throw new Error(
-        `Failed to analyze image: ${error instanceof Error ? error.message : 'Unknown error'}`
-      );
+      if (error instanceof OpenAIFoodAnalysisError) throw error;
+      throw new OpenAIFoodAnalysisError('provider_failure');
     }
   }
 
@@ -611,8 +609,6 @@ class OpenAIFoodAnalysisService {
    */
   async analyzeTextDescription(description: string, locale: string = 'en', countryCode?: string): Promise<MealDetectionResponse> {
     try {
-      this.logLocale('analyzeTextDescription', locale);
-
       const resultDict = await this.createStructuredResponse([
         {
           role: 'system',
@@ -626,9 +622,8 @@ class OpenAIFoodAnalysisService {
 
       return this.buildProtoResponse(resultDict);
     } catch (error) {
-      throw new Error(
-        `Failed to analyze description: ${error instanceof Error ? error.message : 'Unknown error'}`
-      );
+      if (error instanceof OpenAIFoodAnalysisError) throw error;
+      throw new OpenAIFoodAnalysisError('provider_failure');
     }
   }
 }

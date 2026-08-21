@@ -8,8 +8,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
-// ignore_for_file: unused_import
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -136,6 +135,57 @@ final $typed_data.Uint8List mealAnalysisTipsResponseDescriptor =
         'ChhNZWFsQW5hbHlzaXNUaXBzUmVzcG9uc2USGAoHdmVyc2lvbhgBIAEoBVIHdmVyc2lvbhISCg'
         'R0aXBzGAIgAygJUgR0aXBz');
 
+@$core.Deprecated('Use mealAnalysisTextRequestDescriptor instead')
+const MealAnalysisTextRequest$json = {
+  '1': 'MealAnalysisTextRequest',
+  '2': [
+    {
+      '1': 'analysis_id',
+      '3': 1,
+      '4': 1,
+      '5': 9,
+      '9': 0,
+      '10': 'analysisId',
+      '17': true
+    },
+    {'1': 'text_description', '3': 2, '4': 1, '5': 9, '10': 'textDescription'},
+  ],
+  '8': [
+    {'1': '_analysis_id'},
+  ],
+};
+
+/// Descriptor for `MealAnalysisTextRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mealAnalysisTextRequestDescriptor = $convert.base64Decode(
+    'ChdNZWFsQW5hbHlzaXNUZXh0UmVxdWVzdBIkCgthbmFseXNpc19pZBgBIAEoCUgAUgphbmFseX'
+    'Npc0lkiAEBEikKEHRleHRfZGVzY3JpcHRpb24YAiABKAlSD3RleHREZXNjcmlwdGlvbkIOCgxf'
+    'YW5hbHlzaXNfaWQ=');
+
+@$core.Deprecated('Use mealAnalysisImageRequestDescriptor instead')
+const MealAnalysisImageRequest$json = {
+  '1': 'MealAnalysisImageRequest',
+  '2': [
+    {
+      '1': 'analysis_id',
+      '3': 1,
+      '4': 1,
+      '5': 9,
+      '9': 0,
+      '10': 'analysisId',
+      '17': true
+    },
+    {'1': 'image_url', '3': 2, '4': 1, '5': 9, '10': 'imageUrl'},
+  ],
+  '8': [
+    {'1': '_analysis_id'},
+  ],
+};
+
+/// Descriptor for `MealAnalysisImageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mealAnalysisImageRequestDescriptor = $convert.base64Decode(
+    'ChhNZWFsQW5hbHlzaXNJbWFnZVJlcXVlc3QSJAoLYW5hbHlzaXNfaWQYASABKAlIAFIKYW5hbH'
+    'lzaXNJZIgBARIbCglpbWFnZV91cmwYAiABKAlSCGltYWdlVXJsQg4KDF9hbmFseXNpc19pZA==');
+
 @$core.Deprecated('Use mealAnalysisFeedbackRequestDescriptor instead')
 const MealAnalysisFeedbackRequest$json = {
   '1': 'MealAnalysisFeedbackRequest',
@@ -220,6 +270,20 @@ final $typed_data.Uint8List mealAnalysisClarifyRequestDescriptor =
         'lzaXNJZBI7CgdhbnN3ZXJzGAIgAygLMiEuY2Fsb3JpZnkuTWVhbENsYXJpZmljYXRpb25BbnN3'
         'ZXJSB2Fuc3dlcnM=');
 
+@$core.Deprecated('Use mealAnalysisResumeRequestDescriptor instead')
+const MealAnalysisResumeRequest$json = {
+  '1': 'MealAnalysisResumeRequest',
+  '2': [
+    {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
+  ],
+};
+
+/// Descriptor for `MealAnalysisResumeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List mealAnalysisResumeRequestDescriptor =
+    $convert.base64Decode(
+        'ChlNZWFsQW5hbHlzaXNSZXN1bWVSZXF1ZXN0Eh8KC2FuYWx5c2lzX2lkGAEgASgJUgphbmFseX'
+        'Npc0lk');
+
 @$core.Deprecated('Use mealAnalysisMealTypeRequestDescriptor instead')
 const MealAnalysisMealTypeRequest$json = {
   '1': 'MealAnalysisMealTypeRequest',
@@ -264,9 +328,19 @@ const MealAnalysisReanalyzeRequest$json = {
       '10': 'otherText',
       '17': true
     },
+    {
+      '1': 'new_analysis_id',
+      '3': 4,
+      '4': 1,
+      '5': 9,
+      '9': 1,
+      '10': 'newAnalysisId',
+      '17': true
+    },
   ],
   '8': [
     {'1': '_other_text'},
+    {'1': '_new_analysis_id'},
   ],
 };
 
@@ -274,5 +348,6 @@ const MealAnalysisReanalyzeRequest$json = {
 final $typed_data.Uint8List mealAnalysisReanalyzeRequestDescriptor = $convert.base64Decode(
     'ChxNZWFsQW5hbHlzaXNSZWFuYWx5emVSZXF1ZXN0Eh8KC2FuYWx5c2lzX2lkGAEgASgJUgphbm'
     'FseXNpc0lkEjwKBmlzc3VlcxgCIAMoDjIkLmNhbG9yaWZ5Lk1lYWxSZWFuYWx5emVGZWVkYmFj'
-    'a0lzc3VlUgZpc3N1ZXMSIgoKb3RoZXJfdGV4dBgDIAEoCUgAUglvdGhlclRleHSIAQFCDQoLX2'
-    '90aGVyX3RleHQ=');
+    'a0lzc3VlUgZpc3N1ZXMSIgoKb3RoZXJfdGV4dBgDIAEoCUgAUglvdGhlclRleHSIAQESKwoPbm'
+    'V3X2FuYWx5c2lzX2lkGAQgASgJSAFSDW5ld0FuYWx5c2lzSWSIAQFCDQoLX290aGVyX3RleHRC'
+    'EgoQX25ld19hbmFseXNpc19pZA==');

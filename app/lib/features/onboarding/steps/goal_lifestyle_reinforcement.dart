@@ -1,23 +1,25 @@
 import 'package:calorify/core/config/env_config.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/onboarding/steps/reinforcement_components.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class GoalLifestyleReinforcement extends StatefulWidget {
+class GoalLifestyleReinforcement extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
 
   const GoalLifestyleReinforcement({super.key, required this.onContinue});
 
   @override
-  State<GoalLifestyleReinforcement> createState() =>
+  ConsumerState<GoalLifestyleReinforcement> createState() =>
       _GoalLifestyleReinforcementState();
 }
 
-class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
+class _GoalLifestyleReinforcementState
+    extends ConsumerState<GoalLifestyleReinforcement>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
@@ -27,7 +29,7 @@ class _GoalLifestyleReinforcementState extends State<GoalLifestyleReinforcement>
   @override
   void initState() {
     super.initState();
-    _profileFuture = OnboardingService.instance.getProfileData();
+    _profileFuture = ref.read(onboardingServiceProvider).getProfileData();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,

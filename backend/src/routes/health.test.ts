@@ -14,6 +14,15 @@ await mock.module('../config.js', {
   },
 });
 
+const mockReadinessCheck = mock.fn(async () => ({
+  database: true,
+  usdaDataset: true,
+}));
+
+await mock.module('../services/database.js', {
+  namedExports: { readinessCheck: mockReadinessCheck },
+});
+
 const { healthRoutes } = await import('./health.js');
 
 // ---------------------------------------------------------------------------
@@ -101,6 +110,53 @@ test('GET /health responds quickly (under 500ms)', async () => {
   await app.inject({ method: 'GET', url: '/health' });
   const elapsed = Date.now() - start;
   assert.ok(elapsed < 500);
+  await app.close();
+});
+
+// ---------------------------------------------------------------------------
+// GET /ready
+// ---------------------------------------------------------------------------
+
+test('GET /ready returns 200 only when database and USDA are ready', async () => {
+  mockReadinessCheck.mock.mockImplementationOnce(async () => ({
+    database: true,
+    usdaDataset: true,
+  }));
+  const app = await buildTestApp();
+  const response = await app.inject({ method: 'GET', url: '/ready' });
+  assert.equal(response.statusCode, 200);
+  assert.deepEqual(response.json(), {
+    status: 'ready',
+    checks: { database: true, usdaDataset: true },
+  });
+  await app.close();
+});
+
+test('GET /ready returns 503 while the USDA dataset is not materialized', async () => {
+  mockReadinessCheck.mock.mockImplementationOnce(async () => ({
+    database: true,
+    usdaDataset: false,
+  }));
+  const app = await buildTestApp();
+  const response = await app.inject({ method: 'GET', url: '/ready' });
+  assert.equal(response.statusCode, 503);
+  assert.deepEqual(response.json(), {
+    status: 'not_ready',
+    checks: { database: true, usdaDataset: false },
+  });
+  await app.close();
+});
+
+test('GET /ready returns 503 when the database is unavailable but liveness stays healthy', async () => {
+  mockReadinessCheck.mock.mockImplementationOnce(async () => ({
+    database: false,
+    usdaDataset: false,
+  }));
+  const app = await buildTestApp();
+  const readiness = await app.inject({ method: 'GET', url: '/ready' });
+  const liveness = await app.inject({ method: 'GET', url: '/health' });
+  assert.equal(readiness.statusCode, 503);
+  assert.equal(liveness.statusCode, 200);
   await app.close();
 });
 

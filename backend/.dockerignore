@@ -1,8 +1,22 @@
 node_modules/
 dist/
 data/usda/
+# Runtime configuration and credentials are supplied by Docker Compose or
+# bind-mounted at startup. Never make them available to a COPY instruction.
 .env
 .env.*
+*.env
+**/*.env
+.npmrc
+**/.npmrc
+firebase-adminsdk*.json
+**/firebase-adminsdk*.json
+firebase-service-account*.json
+**/firebase-service-account*.json
+*service-account*.json
+**/*service-account*.json
+serviceAccount*.json
+**/serviceAccount*.json
 .git
 .gitignore
 .vscode

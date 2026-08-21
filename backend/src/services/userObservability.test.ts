@@ -65,6 +65,15 @@ test('inspectUser returns the user summary pipeline and related values', async (
   assert.equal(report.mealAnalysis.recent[0]?.loggedMeal?.macros.calories, 450);
   assert.equal(report.feedback[0]?.signal, 'UP');
 
+  const batchQuery = mockQuery.mock.calls.find(
+    (call) => (call.arguments[0] as string).includes('FROM ai_summary_batches')
+  );
+  assert.ok(batchQuery !== undefined);
+  const batchSql = batchQuery.arguments[0] as string;
+  assert.match(batchSql, /user_data -> \$1/);
+  assert.match(batchSql, /jsonb_each\(user_data\)/);
+  assert.match(batchSql, /metadata ->> 'userId' = \$1/);
+
   for (const call of mockQuery.mock.calls) {
     const [sql, params] = call.arguments as [string, unknown[]];
     assert.equal(params[0], 'uid-123');

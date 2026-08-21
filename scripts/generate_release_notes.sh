@@ -20,6 +20,10 @@ OPENAI_MODEL="gpt-5-mini"
 DRY_RUN=false
 OVERWRITE=false
 SINCE_REF=""
+SOURCE_TEXT=""
+SOURCE_FILE=""
+USE_EXISTING_ENGLISH=false
+TARGET_LOCALE=""
 GIT_ROOT=""
 VERSION_CODE=""
 PREVIOUS_VERSION_CODE=""
@@ -32,6 +36,8 @@ PLAY_LOCALES=()
 LOCALE_NAMES=()
 GENERATED_FILES=()
 UNSUPPORTED_APP_LOCALES=()
+OUTPUT_PLAY_LOCALES=()
+OUTPUT_LOCALE_NAMES=()
 
 usage() {
     cat <<EOF
@@ -41,6 +47,11 @@ Usage:
 Options:
   --dry-run       Draft and translate notes, but do not write changelog files.
   --since <ref>   Override the detected previous release boundary.
+  --text <text>   Use supplied English notes instead of drafting from git.
+  --file <path>   Read supplied English notes from a UTF-8 text file.
+  --use-existing-english
+                  Read the current version's existing en-US changelog.
+  --locale <id>   Generate only one Google Play locale (for example fr-FR).
   --overwrite     Replace existing changelog files for the current version.
   --help          Show this help message.
 EOF
@@ -72,6 +83,34 @@ parse_arguments() {
                 SINCE_REF="$2"
                 shift 2
                 ;;
+            --text)
+                if [ -z "${2:-}" ]; then
+                    print_error "--text requires non-empty English release notes"
+                    exit 1
+                fi
+                SOURCE_TEXT="$2"
+                shift 2
+                ;;
+            --file)
+                if [ -z "${2:-}" ]; then
+                    print_error "--file requires a path"
+                    exit 1
+                fi
+                SOURCE_FILE="$2"
+                shift 2
+                ;;
+            --use-existing-english)
+                USE_EXISTING_ENGLISH=true
+                shift
+                ;;
+            --locale)
+                if [ -z "${2:-}" ]; then
+                    print_error "--locale requires a Google Play locale"
+                    exit 1
+                fi
+                TARGET_LOCALE="$2"
+                shift 2
+                ;;
             --help|-h)
                 usage
                 exit 0
@@ -83,11 +122,31 @@ parse_arguments() {
                 ;;
         esac
     done
+
+    local source_count=0
+    if [ -n "$SOURCE_TEXT" ]; then
+        source_count=$((source_count + 1))
+    fi
+    if [ -n "$SOURCE_FILE" ]; then
+        source_count=$((source_count + 1))
+    fi
+    if [ "$USE_EXISTING_ENGLISH" = true ]; then
+        source_count=$((source_count + 1))
+    fi
+    if [ "$source_count" -gt 1 ]; then
+        print_error "Use only one of --text, --file, or --use-existing-english"
+        exit 1
+    fi
+    if [ "$source_count" -gt 0 ] && [ -n "$SINCE_REF" ]; then
+        print_error "--since cannot be combined with supplied English release notes"
+        exit 1
+    fi
 }
 
 setup_environment() {
     store_original_dir
-    GIT_ROOT=$(change_to_git_root)
+    change_to_git_root
+    GIT_ROOT="$PWD"
 
     if ! check_command git || ! check_command python3 || ! check_command curl; then
         exit 1
@@ -261,10 +320,62 @@ PY
     fi
 }
 
+select_output_locales() {
+    local index
+
+    if [ -z "$TARGET_LOCALE" ]; then
+        OUTPUT_PLAY_LOCALES=("${PLAY_LOCALES[@]}")
+        OUTPUT_LOCALE_NAMES=("${LOCALE_NAMES[@]}")
+        return
+    fi
+
+    for index in "${!PLAY_LOCALES[@]}"; do
+        if [ "${PLAY_LOCALES[$index]}" = "$TARGET_LOCALE" ]; then
+            OUTPUT_PLAY_LOCALES=("${PLAY_LOCALES[$index]}")
+            OUTPUT_LOCALE_NAMES=("${LOCALE_NAMES[$index]}")
+            return
+        fi
+    done
+
+    print_error "Unsupported Google Play locale: $TARGET_LOCALE"
+    exit 1
+}
+
+has_supplied_english() {
+    [ -n "$SOURCE_TEXT" ] || [ -n "$SOURCE_FILE" ] || [ "$USE_EXISTING_ENGLISH" = true ]
+}
+
+resolve_supplied_english_file() {
+    if [ "$USE_EXISTING_ENGLISH" = true ]; then
+        SOURCE_FILE="$GIT_ROOT/fastlane/metadata/android/en-US/changelogs/$VERSION_CODE.txt"
+    elif [ -n "$SOURCE_FILE" ] && [[ "$SOURCE_FILE" != /* ]]; then
+        SOURCE_FILE="$GIT_ROOT/$SOURCE_FILE"
+    fi
+
+    if [ -n "$SOURCE_FILE" ] && [ ! -f "$SOURCE_FILE" ]; then
+        print_error "English release-note file not found: $SOURCE_FILE"
+        exit 1
+    fi
+}
+
+requires_api_key() {
+    local locale
+
+    if ! has_supplied_english; then
+        return 0
+    fi
+    for locale in "${OUTPUT_PLAY_LOCALES[@]}"; do
+        if [ "$locale" != "en-US" ]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
 current_changelog_exists() {
     local found=0
     local locale
-    for locale in "${PLAY_LOCALES[@]}"; do
+    for locale in "${OUTPUT_PLAY_LOCALES[@]}"; do
         if [ -f "$GIT_ROOT/fastlane/metadata/android/$locale/changelogs/$VERSION_CODE.txt" ]; then
             found=1
             print_warning "Existing changelog: fastlane/metadata/android/$locale/changelogs/$VERSION_CODE.txt"
@@ -570,21 +681,37 @@ generate_all_notes() {
     local locale_name
     local output_file
 
-    print_step "3" "Collecting release context"
-    build_release_context "$context_file"
-    print_success "Release context ready"
-    echo ""
+    if has_supplied_english; then
+        print_step "3" "Preparing supplied English release notes"
+        if [ -n "$SOURCE_TEXT" ]; then
+            printf '%s\n' "$SOURCE_TEXT" > "$english_file"
+        else
+            cp "$SOURCE_FILE" "$english_file"
+        fi
+        if ! validate_text_file_length "$english_file"; then
+            print_error "English release notes exceed $CHANGELOG_MAX_LENGTH characters"
+            exit 1
+        fi
+        print_success "Prepared en-US ($(text_length "$english_file")/$CHANGELOG_MAX_LENGTH chars)"
+        echo ""
+    else
+        print_step "3" "Collecting release context"
+        build_release_context "$context_file"
+        print_success "Release context ready"
+        echo ""
 
-    print_step "4" "Drafting English release notes"
-    draft_english_notes "$context_file" "$english_file"
+        print_step "4" "Drafting English release notes"
+        draft_english_notes "$context_file" "$english_file"
+        print_success "Drafted en-US ($(text_length "$english_file")/$CHANGELOG_MAX_LENGTH chars)"
+        echo ""
+    fi
+
     GENERATED_FILES+=("$english_file")
-    print_success "Drafted en-US ($(text_length "$english_file")/$CHANGELOG_MAX_LENGTH chars)"
-    echo ""
 
     print_step "5" "Translating release notes"
-    for index in "${!PLAY_LOCALES[@]}"; do
-        play_locale="${PLAY_LOCALES[$index]}"
-        locale_name="${LOCALE_NAMES[$index]}"
+    for index in "${!OUTPUT_PLAY_LOCALES[@]}"; do
+        play_locale="${OUTPUT_PLAY_LOCALES[$index]}"
+        locale_name="${OUTPUT_LOCALE_NAMES[$index]}"
 
         if [ "$play_locale" = "en-US" ]; then
             continue
@@ -608,8 +735,8 @@ print_dry_run_output() {
     print_info "Dry run: generated release notes were not written"
     echo ""
 
-    for index in "${!PLAY_LOCALES[@]}"; do
-        play_locale="${PLAY_LOCALES[$index]}"
+    for index in "${!OUTPUT_PLAY_LOCALES[@]}"; do
+        play_locale="${OUTPUT_PLAY_LOCALES[$index]}"
         file="$TEMP_DIR/${play_locale}.txt"
         if [ "$play_locale" = "en-US" ]; then
             file="$TEMP_DIR/en-US.txt"
@@ -630,8 +757,8 @@ write_changelog_files() {
 
     print_step "6" "Writing Fastlane changelog files"
 
-    for index in "${!PLAY_LOCALES[@]}"; do
-        play_locale="${PLAY_LOCALES[$index]}"
+    for index in "${!OUTPUT_PLAY_LOCALES[@]}"; do
+        play_locale="${OUTPUT_PLAY_LOCALES[$index]}"
         source_file="$TEMP_DIR/${play_locale}.txt"
         if [ "$play_locale" = "en-US" ]; then
             source_file="$TEMP_DIR/en-US.txt"
@@ -654,10 +781,12 @@ main() {
 
     extract_version_code
     collect_and_validate_locales
+    select_output_locales
+    resolve_supplied_english_file
 
     print_step "1" "Checking release metadata"
     print_info "Current version code: $VERSION_CODE"
-    print_info "Target locales: ${#PLAY_LOCALES[@]}"
+    print_info "Target locales: ${#OUTPUT_PLAY_LOCALES[@]}"
     if current_changelog_exists; then
         if [ "$DRY_RUN" = true ]; then
             print_warning "Continuing because --dry-run does not write files"
@@ -671,19 +800,32 @@ main() {
     print_success "Release metadata checks completed"
     echo ""
 
-    print_step "2" "Determining release boundary"
-    find_previous_version_code
-    determine_release_range
-    if [ -n "$SINCE_REF" ]; then
-        print_info "Using manual boundary: $SINCE_REF"
+    if has_supplied_english; then
+        print_step "2" "Using supplied English release notes"
+        if [ -n "$SOURCE_FILE" ]; then
+            print_info "Source: $SOURCE_FILE"
+        else
+            print_info "Source: --text"
+        fi
+        print_success "Release-note source selected"
+        echo ""
     else
-        print_info "Previous version code: $PREVIOUS_VERSION_CODE"
+        print_step "2" "Determining release boundary"
+        find_previous_version_code
+        determine_release_range
+        if [ -n "$SINCE_REF" ]; then
+            print_info "Using manual boundary: $SINCE_REF"
+        else
+            print_info "Previous version code: $PREVIOUS_VERSION_CODE"
+        fi
+        print_info "Git range: $RELEASE_RANGE"
+        print_success "Release boundary detected"
+        echo ""
     fi
-    print_info "Git range: $RELEASE_RANGE"
-    print_success "Release boundary detected"
-    echo ""
 
-    resolve_api_key
+    if requires_api_key; then
+        resolve_api_key
+    fi
     generate_all_notes
 
     if [ "$DRY_RUN" = true ]; then
@@ -691,7 +833,7 @@ main() {
     else
         write_changelog_files
         print_separator
-        print_summary_all_success "Release notes generated for ${#PLAY_LOCALES[@]} locale(s)"
+        print_summary_all_success "Release notes generated for ${#OUTPUT_PLAY_LOCALES[@]} locale(s)"
     fi
 }
 

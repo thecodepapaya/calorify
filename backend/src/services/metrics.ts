@@ -5,7 +5,7 @@
  *  - Default Node.js runtime metrics (CPU, memory, event loop lag, GC, etc.).
  *  - HTTP metrics: request count + duration histogram, labeled by method, route, status.
  *  - AI metrics: request count + duration histogram, labeled by provider + outcome. This lets
- *    us alert on OpenAI/Gemini error rates independent of overall request volume.
+ *    us alert on upstream-provider error rates independent of overall request volume.
  *  - Circuit breaker state gauge: 0 = CLOSED, 1 = HALF_OPEN, 2 = OPEN, per breaker name.
  *
  * Scrape endpoint: GET /metrics (registered in index.ts).

@@ -11,7 +11,6 @@ import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:utils/utils.dart';
 
 part 'watch_database.g.dart';
 
@@ -22,13 +21,15 @@ class WatchCacheSnapshot {
     required this.meals,
     required this.favoriteMeals,
     this.calorieGoal,
-    this.lastSyncAt,
+    this.dashboardLastSyncAt,
+    this.favoritesLastSyncAt,
   });
 
   final List<LoggedMeal> meals;
   final List<FavoriteMeal> favoriteMeals;
   final int? calorieGoal;
-  final DateTime? lastSyncAt;
+  final DateTime? dashboardLastSyncAt;
+  final DateTime? favoritesLastSyncAt;
 }
 
 class PendingWatchOperation {
@@ -49,6 +50,37 @@ class PendingWatchOperation {
   final LoggedMeal? meal;
 }
 
+abstract interface class WatchSyncDatabase {
+  Future<WatchCacheSnapshot> loadSnapshot();
+
+  Future<void> replaceDashboard({
+    required List<LoggedMeal> meals,
+    required int? calorieGoal,
+    DateTime? dashboardLastSyncAt,
+  });
+
+  Future<void> replaceFavorites(
+    List<FavoriteMeal> favorites, {
+    required DateTime lastSyncAt,
+  });
+
+  Future<void> upsertMeal(LoggedMeal meal);
+
+  Future<void> deleteCachedMeal(int mealId);
+
+  Future<void> queueMealLog(LoggedMeal meal, {int? favoriteMealId});
+
+  Future<void> queueMealDelete(int mealId);
+
+  Future<void> cancelQueuedMealLog(int mealId);
+
+  Future<List<PendingWatchOperation>> getPendingOperations();
+
+  Future<void> deletePendingOperation(int operationId);
+
+  Future<void> close();
+}
+
 @DriftDatabase(
   tables: [
     CachedMealsTable,
@@ -57,7 +89,7 @@ class PendingWatchOperation {
     PendingOperationsTable,
   ],
 )
-class WatchDatabase extends _$WatchDatabase {
+class WatchDatabase extends _$WatchDatabase implements WatchSyncDatabase {
   WatchDatabase() : super(_openConnection());
 
   @visibleForTesting
@@ -66,8 +98,30 @@ class WatchDatabase extends _$WatchDatabase {
   static const int _metadataRowId = 1;
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (migrator) => migrator.createAll(),
+    onUpgrade: (migrator, from, to) async {
+      if (from < 2) {
+        await migrator.addColumn(
+          cachedMealsTable,
+          cachedMealsTable.protoPayload,
+        );
+        await migrator.addColumn(
+          cachedFavoritesTable,
+          cachedFavoritesTable.protoPayload,
+        );
+        await migrator.addColumn(
+          watchCacheMetadataTable,
+          watchCacheMetadataTable.favoritesLastSyncAt,
+        );
+      }
+    },
+  );
+
+  @override
   Future<WatchCacheSnapshot> loadSnapshot() async {
     final meals = await select(cachedMealsTable).get();
     final favorites = await select(cachedFavoritesTable).get();
@@ -79,14 +133,16 @@ class WatchDatabase extends _$WatchDatabase {
       meals: meals.map(_loggedMealFromCachedRow).toList(),
       favoriteMeals: favorites.map(_favoriteMealFromCachedRow).toList(),
       calorieGoal: metadata?.calorieGoal,
-      lastSyncAt: metadata?.lastSyncAt,
+      dashboardLastSyncAt: metadata?.lastSyncAt,
+      favoritesLastSyncAt: metadata?.favoritesLastSyncAt,
     );
   }
 
+  @override
   Future<void> replaceDashboard({
     required List<LoggedMeal> meals,
     required int? calorieGoal,
-    DateTime? lastSyncAt,
+    DateTime? dashboardLastSyncAt,
   }) async {
     await transaction(() async {
       await delete(cachedMealsTable).go();
@@ -101,35 +157,16 @@ class WatchDatabase extends _$WatchDatabase {
       }
       await _saveMetadata(
         calorieGoal: Value(calorieGoal),
-        lastSyncAt: Value(lastSyncAt),
+        dashboardLastSyncAt: Value(dashboardLastSyncAt),
       );
     });
   }
 
-  Future<void> replaceMeals(List<LoggedMeal> meals) async {
-    await transaction(() async {
-      await delete(cachedMealsTable).go();
-      if (meals.isNotEmpty) {
-        await batch((batch) {
-          batch.insertAll(
-            cachedMealsTable,
-            meals.map(_cachedMealCompanionFromLoggedMeal).toList(),
-            mode: InsertMode.insertOrReplace,
-          );
-        });
-      }
-    });
-  }
-
-  Future<void> saveCalorieGoal(int? calorieGoal) {
-    return _saveMetadata(calorieGoal: Value(calorieGoal));
-  }
-
-  Future<void> saveLastSync(DateTime? lastSyncAt) {
-    return _saveMetadata(lastSyncAt: Value(lastSyncAt));
-  }
-
-  Future<void> replaceFavorites(List<FavoriteMeal> favorites) async {
+  @override
+  Future<void> replaceFavorites(
+    List<FavoriteMeal> favorites, {
+    required DateTime lastSyncAt,
+  }) async {
     await transaction(() async {
       await delete(cachedFavoritesTable).go();
       if (favorites.isNotEmpty) {
@@ -141,22 +178,29 @@ class WatchDatabase extends _$WatchDatabase {
           );
         });
       }
+      await _saveMetadata(favoritesLastSyncAt: Value(lastSyncAt));
     });
   }
 
+  @override
   Future<void> upsertMeal(LoggedMeal meal) {
     return into(
       cachedMealsTable,
     ).insertOnConflictUpdate(_cachedMealCompanionFromLoggedMeal(meal));
   }
 
+  @override
   Future<void> deleteCachedMeal(int mealId) {
     return (delete(cachedMealsTable)
       ..where((tbl) => tbl.mealId.equals(mealId))).go();
   }
 
+  @override
   Future<void> queueMealLog(LoggedMeal meal, {int? favoriteMealId}) async {
-    final payloadJson = jsonEncode(mealInfoToLegacyJson(meal));
+    final payloadJson = jsonEncode({
+      'version': 2,
+      'loggedMealProto': base64Encode(meal.writeToBuffer()),
+    });
     await transaction(() async {
       await (delete(pendingOperationsTable)..where(
         (tbl) =>
@@ -174,6 +218,7 @@ class WatchDatabase extends _$WatchDatabase {
     });
   }
 
+  @override
   Future<void> queueMealDelete(int mealId) async {
     await transaction(() async {
       await (delete(pendingOperationsTable)..where(
@@ -192,6 +237,7 @@ class WatchDatabase extends _$WatchDatabase {
     });
   }
 
+  @override
   Future<void> cancelQueuedMealLog(int mealId) {
     return (delete(pendingOperationsTable)..where(
       (tbl) =>
@@ -208,6 +254,7 @@ class WatchDatabase extends _$WatchDatabase {
     )).go();
   }
 
+  @override
   Future<List<PendingWatchOperation>> getPendingOperations() async {
     final rows =
         await (select(pendingOperationsTable)
@@ -241,6 +288,7 @@ class WatchDatabase extends _$WatchDatabase {
     return result.read(rowCount)! > 0;
   }
 
+  @override
   Future<void> deletePendingOperation(int operationId) {
     return (delete(pendingOperationsTable)
       ..where((tbl) => tbl.id.equals(operationId))).go();
@@ -248,7 +296,8 @@ class WatchDatabase extends _$WatchDatabase {
 
   Future<void> _saveMetadata({
     Value<int?>? calorieGoal,
-    Value<DateTime?>? lastSyncAt,
+    Value<DateTime?>? dashboardLastSyncAt,
+    Value<DateTime?>? favoritesLastSyncAt,
   }) async {
     final existing =
         await (select(watchCacheMetadataTable)
@@ -258,7 +307,9 @@ class WatchDatabase extends _$WatchDatabase {
       WatchCacheMetadataTableCompanion(
         id: const Value(_metadataRowId),
         calorieGoal: calorieGoal ?? Value(existing?.calorieGoal),
-        lastSyncAt: lastSyncAt ?? Value(existing?.lastSyncAt),
+        lastSyncAt: dashboardLastSyncAt ?? Value(existing?.lastSyncAt),
+        favoritesLastSyncAt:
+            favoritesLastSyncAt ?? Value(existing?.favoritesLastSyncAt),
       ),
     );
   }
@@ -277,13 +328,17 @@ class WatchDatabase extends _$WatchDatabase {
       if (row.payloadJson != null) {
         final decoded = jsonDecode(row.payloadJson!);
         if (decoded is Map) {
-          meal = mealInfoFromLegacyJson(Map<String, dynamic>.from(decoded));
+          final payload = Map<String, dynamic>.from(decoded);
+          final encodedProto = payload['loggedMealProto'];
+          meal =
+              encodedProto is String
+                  ? LoggedMeal.fromBuffer(base64Decode(encodedProto))
+                  : mealInfoFromLegacyJson(payload);
         }
       }
-    } catch (error) {
+    } catch (_) {
       _debugLog(
-        'Failed to decode queued operation ${row.id}; removing it from cache: '
-        '$error',
+        'Failed to decode queued operation ${row.id}; removing it from cache.',
       );
       return null;
     }
@@ -329,6 +384,7 @@ class WatchDatabase extends _$WatchDatabase {
       healthScoreReason: Value(
         health.hasHealthScoreReason() ? health.healthScoreReason : null,
       ),
+      protoPayload: Value(meal.writeToBuffer()),
     );
   }
 
@@ -379,10 +435,22 @@ class WatchDatabase extends _$WatchDatabase {
       healthScoreReason: Value(
         health.hasHealthScoreReason() ? health.healthScoreReason : null,
       ),
+      protoPayload: Value(favorite.writeToBuffer()),
     );
   }
 
   LoggedMeal _loggedMealFromCachedRow(CachedMealsTableData row) {
+    final protoPayload = row.protoPayload;
+    if (protoPayload != null) {
+      try {
+        return LoggedMeal.fromBuffer(protoPayload);
+      } catch (_) {
+        _debugLog(
+          'Failed to decode cached meal ${row.mealId}; using legacy columns.',
+        );
+      }
+    }
+
     return LoggedMeal(
       clientId: row.mealId,
       meal: Meal(
@@ -396,9 +464,9 @@ class WatchDatabase extends _$WatchDatabase {
           fat: row.fat,
           fiber: row.fiber,
         ),
-        health: MealHealth(
-          healthScore: healthScoreFromLegacyName(row.healthScore),
-          healthScoreReason: row.healthScoreReason,
+        health: _mealHealthFromLegacyColumns(
+          score: row.healthScore,
+          reason: row.healthScoreReason,
         ),
       ),
       createdAt: dateTimeToIso8601String(row.timestamp),
@@ -408,6 +476,18 @@ class WatchDatabase extends _$WatchDatabase {
   }
 
   FavoriteMeal _favoriteMealFromCachedRow(CachedFavoritesTableData row) {
+    final protoPayload = row.protoPayload;
+    if (protoPayload != null) {
+      try {
+        return FavoriteMeal.fromBuffer(protoPayload);
+      } catch (_) {
+        _debugLog(
+          'Failed to decode cached favorite ${row.mealId}; using legacy '
+          'columns.',
+        );
+      }
+    }
+
     return FavoriteMeal(
       clientId: row.mealId,
       loggedMeal: LoggedMeal(
@@ -423,9 +503,9 @@ class WatchDatabase extends _$WatchDatabase {
             fat: row.fat,
             fiber: row.fiber,
           ),
-          health: MealHealth(
-            healthScore: healthScoreFromLegacyName(row.healthScore),
-            healthScoreReason: row.healthScoreReason,
+          health: _mealHealthFromLegacyColumns(
+            score: row.healthScore,
+            reason: row.healthScoreReason,
           ),
         ),
         createdAt: dateTimeToIso8601String(row.timestamp),
@@ -437,6 +517,20 @@ class WatchDatabase extends _$WatchDatabase {
           row.lastUsedAt != null
               ? dateTimeToIso8601String(row.lastUsedAt!)
               : '',
+    );
+  }
+
+  MealHealth? _mealHealthFromLegacyColumns({
+    required String? score,
+    required String? reason,
+  }) {
+    if (score == null && reason == null) {
+      return null;
+    }
+
+    return MealHealth(
+      healthScore: score == null ? null : healthScoreFromLegacyName(score),
+      healthScoreReason: reason,
     );
   }
 

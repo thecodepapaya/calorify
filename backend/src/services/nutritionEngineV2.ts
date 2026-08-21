@@ -5,7 +5,9 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import { setTimeout as delay } from 'node:timers/promises';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
+import { safeErrorKind, safeErrorMetadata } from '../utils/safeError.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
 import {
   createMealAnalysisLlmClient,
@@ -17,12 +19,30 @@ import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
 import { dishTemplateGramBounds, missingDishTemplateComponents } from './dishTemplates.js';
 import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
+  advanceMealAnalysisSession,
+  claimMealAnalysisClarification,
+  claimMealAnalysisDecomposition,
+  claimMealAnalysisFinalization,
+  claimMealAnalysisIngredientResolution,
+  claimMealAnalysisPresentation,
   getMealAnalysisSession,
   recordMealAnalysisClarification,
   recordMealAnalysisMealType,
+  releaseMealAnalysisClarification,
+  releaseMealAnalysisDecomposition,
+  releaseMealAnalysisFinalization,
+  releaseMealAnalysisIngredientResolution,
+  releaseMealAnalysisPresentation,
+  type MealAnalysisStageLease,
+  type MealAnalysisSessionRecord,
   type MealTypeSource,
   upsertMealAnalysisSession,
 } from './mealAnalysisStore.js';
+import {
+  InvalidMealAnalysisSnapshotError,
+  resolveMealAnalysisStage,
+  type MealAnalysisStage,
+} from './mealAnalysisStage.js';
 import {
   mealAnalysisTraceStepSeconds,
   mealAnalysisClarificationSkipsTotal,
@@ -43,8 +63,46 @@ import {
   localizeCountQuestion,
   localizeCountOptionLabel,
 } from './portionLabels.js';
+import { buildOracleDownloadUrl } from './oracleObjectStorage.js';
+import {
+  MEAL_TYPES,
+  analyzeUncertainty,
+  roundGram,
+  scaleMacros,
+  sumMacros,
+  type CanonicalMatch,
+  type Macros,
+  type MealTypeValue,
+  type NormalizedDecomposition,
+  type NormalizedIngredient,
+  type PortionKindValue,
+  type ResolvedIngredient,
+  type UncertaintyReport,
+} from './mealAnalysisDomain.js';
+import {
+  clarificationAnswersFromSession,
+  pendingClarificationAnswersFromSession,
+  sessionToNormalizedDecomposition,
+  sessionToResolvedIngredients,
+  snapshotMacros,
+  snapshotMealType,
+  snapshotNumber,
+  snapshotRecord,
+  snapshotString,
+  toResolvedIngredientsSnapshot,
+  validatePersistedUncertaintySnapshot,
+} from './mealAnalysisSnapshot.js';
+import {
+  DECOMPOSITION_SCHEMA,
+  DECOMPOSITION_SYSTEM_PROMPT,
+  FALLBACK_SCHEMA,
+  FALLBACK_SYSTEM_PROMPT,
+  PRESENTATION_SCHEMA,
+  PRESENTATION_SYSTEM_PROMPT,
+} from './mealAnalysisPrompts.js';
 
-type PortionKindValue = 'COUNT' | 'BULK' | 'PINCH' | 'COUNT_QUESTION';
+export { MEAL_TYPES } from './mealAnalysisDomain.js';
+export type { Macros, MealTypeValue } from './mealAnalysisDomain.js';
 
 interface LLMIngredient {
   row_id?: string;
@@ -71,69 +129,6 @@ interface LLMDecomposition {
   meal_type_confident: boolean;
 }
 
-/**
- * Decomposition after wire-layer normalization: row IDs assigned, count×per_unit math
- * enforced as the single source of truth for grams totals, sanity clamps applied.
- */
-interface NormalizedIngredient {
-  rowId: string;
-  rawName: string;
-  canonicalHint: string;
-  gramsEstimated: number;
-  minGrams: number;
-  maxGrams: number;
-  notes: string;
-  portionKind: PortionKindValue;
-  count: number | null;
-  perUnitGrams: number | null;
-  perUnitMinGrams: number | null;
-  perUnitMaxGrams: number | null;
-  sizeSpecifiedByUser: boolean;
-}
-
-interface NormalizedDecomposition {
-  mealName: string;
-  ingredients: NormalizedIngredient[];
-  confidence: number;
-  inferredMealType: MealTypeValue;
-  mealTypeConfident: boolean;
-}
-
-interface CanonicalMatch {
-  foodId: string;
-  canonicalName: string;
-  score: number;
-  matchType: 'exact' | 'alias' | 'fuzzy' | 'deterministic' | 'llm_fallback' | 'unmatched';
-}
-
-export interface Macros {
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
-  fiber: number;
-}
-
-interface ResolvedIngredient {
-  rowId: string;
-  rawName: string;
-  canonicalHint: string;
-  match: CanonicalMatch;
-  grams: number;
-  minGrams: number;
-  maxGrams: number;
-  macros: Macros;
-  minMacros: Macros;
-  maxMacros: Macros;
-  source: 'db' | 'deterministic' | 'llm_fallback';
-  portionKind: PortionKindValue;
-  count: number | null;
-  perUnitGrams: number | null;
-  perUnitMinGrams: number | null;
-  perUnitMaxGrams: number | null;
-  sizeSpecifiedByUser: boolean;
-}
-
 interface LLMFallbackEntry {
   name: string;
   kcal_per_100g: number;
@@ -141,6 +136,10 @@ interface LLMFallbackEntry {
   carbs_per_100g: number;
   fat_per_100g: number;
   fiber_per_100g: number;
+}
+
+interface LLMFallbackResponseEntry extends LLMFallbackEntry {
+  request_id: string;
 }
 
 const FALLBACK_NUTRITION_CACHE_LIMIT = 500;
@@ -195,13 +194,6 @@ export interface AnalysisTrace {
   dbWriteCount: number;
 }
 
-interface UncertaintyReport {
-  variancePercent: number;
-  needsClarification: boolean;
-  minTotal: Macros;
-  maxTotal: Macros;
-}
-
 export const FEEDBACK_ISSUES = [
   'FOOD_IDENTIFICATION',
   'PORTION_SIZE',
@@ -213,8 +205,6 @@ export const FEEDBACK_ISSUES = [
 ] as const;
 
 export type MealFeedbackIssue = (typeof FEEDBACK_ISSUES)[number];
-export const MEAL_TYPES = ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'] as const;
-export type MealTypeValue = (typeof MEAL_TYPES)[number] | 'UNKNOWN';
 export type HealthScoreValue = 'HEALTHY' | 'NEUTRAL' | 'UNHEALTHY';
 
 export interface PipelineDecomposedIngredient {
@@ -362,7 +352,7 @@ export type PipelineEvent =
     }
   | {
       step: 'ERROR';
-      data: PipelineEventBase & { message: string };
+      data: PipelineEventBase & { message: string; retryable?: boolean };
     };
 
 export interface AnalysisRequestOptions {
@@ -378,12 +368,15 @@ export interface AnalysisRequestOptions {
   selectedMealTypeSource?: MealTypeSource;
   logger?: AnalysisLogger;
   trace?: AnalysisTrace;
+  /** Persisted object identity; the bearer download URL remains transient. */
+  imageObjectKey?: string;
 }
 
 interface PipelineRunContext {
   analysisId: string;
   source: 'text' | 'image';
   requestPayload: Record<string, unknown>;
+  imageUrl?: string;
   parentAnalysisId?: string;
   userId?: string;
   locale: string;
@@ -396,165 +389,6 @@ interface PipelineRunContext {
   logger?: AnalysisLogger;
   trace?: AnalysisTrace;
 }
-
-const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram and portion estimates. Inputs may be in any language; handle all world cuisines.
-
-RULES:
-1. NEVER generate calorie or macro nutritional values. You ONLY estimate grams.
-2. Decompose composite dishes into atomic ingredients, but preserve the user's named dish context in raw_name or notes.
-3. For each ingredient provide: raw_name, canonical_hint, grams_estimated, min_grams, max_grams, notes, portion_kind, count, per_unit_grams, per_unit_min_grams, per_unit_max_grams, size_specified_by_user.
-4. Prefer cooked weights for cooked dishes.
-5. Include ALL ingredients — oils, butter, ghee, salt, spices.
-6. confidence: 0-1 reflecting how confident you are overall.
-7. inferred_meal_type: one of BREAKFAST, LUNCH, DINNER, SNACK, or UNKNOWN.
-   - Use UNKNOWN when the description/image does not clearly imply a single meal context.
-   - Strong signals: explicit keywords ("breakfast", "lunch", "dinner"), classic dishes with fixed meal context (pancakes/cereal → BREAKFAST; ramen/curry-rice → LUNCH/DINNER), tiny portions/sweets → SNACK.
-8. meal_type_confident: true ONLY when the meal_name or visible context strongly implies a single meal type. When in doubt, set false so the user is asked.
-9. Set portion_kind to COUNT for foods that come in discrete units (roti, chapati, bread slice, egg, idli, dosa, samosa, banana, piece). Set BULK for spoon/cup/bowl foods (rice, dal, sabzi, curry, sauces, milk, oil). Set PINCH for trace amounts (salt, spices, garnishes).
-10. For COUNT, emit count when the user's words imply it. Fractional counts are allowed (0.5 = half). Also emit per_unit_grams, per_unit_min_grams, and per_unit_max_grams. The server will recompute total grams as count × per_unit.
-11. If the user states the size of a unit ("4 large rotis"), set size_specified_by_user=true and collapse per_unit_min_grams/per_unit_grams/per_unit_max_grams to that one size.
-12. If the user mentions different sizes within the same food ("2 small + 2 large rotis"), emit separate ingredient rows instead of averaging.
-13. canonical_hint MUST be a simple, single English food-database lookup term for one atomic ingredient, regardless of the input language. Preserve preparation state whenever it changes nutrition: use "lentils mature seeds cooked boiled without salt" for cooked dal, "rice white cooked" for cooked rice, and explicit "raw" or "dry" terms when the user means uncooked food. NEVER use slugs, paths, underscores, role labels, or compound alternatives with "or", "and", commas, or parentheses. When a dish admits multiple proteins, pick the single most traditional one. One lookup term per row.
-14. Preserve defining components of named dishes. Masala dosa includes its potato filling; idli-sambar includes both idli and sambar. Do not silently reduce a named dish to only its wrapper, base, or garnish.
-14. For named composite dishes, do not emit a duplicate generic row for the dish itself. "paneer sabzi" is one dish context; emit its likely atomic ingredients under that context rather than adding a separate "sabzi" or "vegetable curry" row.
-15. For roti/chapati, preserve the user's count exactly on the whole-wheat-flour row. Add separate small rows for salt and oil/ghee/butter when appropriate; do not replace roti with synthetic raw-ingredient labels.
-
-Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 0-3g ghee/oil + a pinch of salt; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g; 1 cup noodles cooked ≈ 160g; 1 tbsp soy sauce ≈ 15g; 1 medium tortilla ≈ 30g.
-
-Example — "2 rotis with paneer sabzi" → meal_name "Roti with paneer sabzi", inferred_meal_type UNKNOWN:
-- raw_name "roti (whole wheat flour)", canonical_hint "whole wheat flour", portion_kind COUNT, count 2, per_unit_grams 30, grams_estimated 60, min_grams 50, max_grams 70.
-- raw_name "roti (ghee)", canonical_hint "ghee", portion_kind BULK, grams_estimated 3, min_grams 0, max_grams 6.
-- raw_name "roti (salt)", canonical_hint "salt", portion_kind PINCH, grams_estimated 1, min_grams 0, max_grams 2.
-- raw_name "paneer sabzi (paneer)", canonical_hint "paneer", portion_kind BULK, grams_estimated 80, min_grams 60, max_grams 100.
-- raw_name "paneer sabzi (onion)", canonical_hint "onion", portion_kind BULK, grams_estimated 40, min_grams 30, max_grams 60.
-- raw_name "paneer sabzi (tomato)", canonical_hint "tomato", portion_kind BULK, grams_estimated 50, min_grams 30, max_grams 70.
-- raw_name "paneer sabzi (oil)", canonical_hint "vegetable oil", portion_kind BULK, grams_estimated 10, min_grams 5, max_grams 15.
-- raw_name "paneer sabzi (spices)", canonical_hint "curry powder", portion_kind PINCH, grams_estimated 2, min_grams 1, max_grams 3.`;
-
-const DECOMPOSITION_SCHEMA = {
-  type: 'object' as const,
-  properties: {
-    meal_name: { type: 'string' as const },
-    ingredients: {
-      type: 'array' as const,
-      items: {
-        type: 'object' as const,
-        properties: {
-          raw_name: { type: 'string' as const },
-          canonical_hint: { type: 'string' as const },
-          grams_estimated: { type: 'number' as const },
-          min_grams: { type: 'number' as const },
-          max_grams: { type: 'number' as const },
-          notes: { type: 'string' as const },
-          portion_kind: {
-            type: 'string' as const,
-            enum: ['COUNT', 'BULK', 'PINCH'],
-          },
-          count: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
-          per_unit_grams: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
-          per_unit_min_grams: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
-          per_unit_max_grams: { anyOf: [{ type: 'number' as const }, { type: 'null' as const }] },
-          size_specified_by_user: { type: 'boolean' as const },
-        },
-        required: [
-          'raw_name',
-          'canonical_hint',
-          'grams_estimated',
-          'min_grams',
-          'max_grams',
-          'notes',
-          'portion_kind',
-          'count',
-          'per_unit_grams',
-          'per_unit_min_grams',
-          'per_unit_max_grams',
-          'size_specified_by_user',
-        ] as const,
-        additionalProperties: false,
-      },
-    },
-    confidence: { type: 'number' as const },
-    inferred_meal_type: {
-      type: 'string' as const,
-      enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-    },
-    meal_type_confident: { type: 'boolean' as const },
-  },
-  required: ['meal_name', 'ingredients', 'confidence', 'inferred_meal_type', 'meal_type_confident'] as const,
-  additionalProperties: false,
-};
-
-const FALLBACK_SYSTEM_PROMPT = `You are a nutritional database. For each ingredient provided, return its macronutrient values per 100 grams. Use values consistent with USDA FoodData Central where possible.
-
-Preparation state is mandatory: never return dry/raw values for an ingredient labeled cooked or boiled. In particular, cooked dal/lentils are roughly 110-130 kcal per 100g, not the 330-370 kcal typical of dry lentils.`;
-
-const FALLBACK_SCHEMA = {
-  type: 'object' as const,
-  properties: {
-    ingredients: {
-      type: 'array' as const,
-      items: {
-        type: 'object' as const,
-        properties: {
-          name: { type: 'string' as const },
-          kcal_per_100g: { type: 'number' as const },
-          protein_per_100g: { type: 'number' as const },
-          carbs_per_100g: { type: 'number' as const },
-          fat_per_100g: { type: 'number' as const },
-          fiber_per_100g: { type: 'number' as const },
-        },
-        required: ['name', 'kcal_per_100g', 'protein_per_100g', 'carbs_per_100g', 'fat_per_100g', 'fiber_per_100g'] as const,
-        additionalProperties: false,
-      },
-    },
-  },
-  required: ['ingredients'] as const,
-  additionalProperties: false,
-};
-
-const PRESENTATION_SYSTEM_PROMPT = `You turn a grounded meal analysis into a user-facing meal summary.
-
-RULES:
-1. Keep all user-facing text in the requested locale.
-2. Return a short meal_name, a natural quantity string, a short helpful tip, meal_type, meal_type_confident, and optional health summary.
-3. Use UNKNOWN for meal_type when the evidence is not strong enough.
-4. Set meal_type_confident=false when the user should be asked explicitly.
-5. Do not invent macros; use the provided numeric summary as context only.
-6. quantity should be a short serving description such as "1 bowl", "2 slices", or "1 serving".
-7. health_score should be one of HEALTHY, NEUTRAL, UNHEALTHY when health is present.`;
-
-const PRESENTATION_SCHEMA = {
-  type: 'object' as const,
-  properties: {
-    meal_name: { type: 'string' as const },
-    quantity: { type: 'string' as const },
-    meal_type: {
-      type: 'string' as const,
-      enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-    },
-    meal_type_confident: { type: 'boolean' as const },
-    tip: { type: 'string' as const },
-    health: {
-      anyOf: [
-        {
-          type: 'object' as const,
-          properties: {
-            health_score: {
-              type: 'string' as const,
-              enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
-            },
-            health_score_reason: { type: 'string' as const },
-          },
-          required: ['health_score', 'health_score_reason'] as const,
-          additionalProperties: false,
-        },
-        { type: 'null' as const },
-      ],
-    },
-  },
-  required: ['meal_name', 'quantity', 'meal_type', 'meal_type_confident', 'tip', 'health'] as const,
-  additionalProperties: false,
-};
 
 function normalize(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
@@ -569,34 +403,6 @@ function calcMacrosFromPer100g(per100g: LLMFallbackEntry, grams: number): Macros
     fat: +(per100g.fat_per_100g * ratio).toFixed(1),
     fiber: +(per100g.fiber_per_100g * ratio).toFixed(1),
   };
-}
-
-function scaleMacros(macros: Macros, currentGrams: number, nextGrams: number): Macros {
-  if (currentGrams <= 0) return macros;
-  const ratio = nextGrams / currentGrams;
-  return {
-    calories: Math.round(macros.calories * ratio),
-    protein: +(macros.protein * ratio).toFixed(1),
-    carbs: +(macros.carbs * ratio).toFixed(1),
-    fat: +(macros.fat * ratio).toFixed(1),
-    fiber: +(macros.fiber * ratio).toFixed(1),
-  };
-}
-
-function sumMacros(items: Macros[]): Macros {
-  const total: Macros = { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 };
-  for (const item of items) {
-    total.calories += item.calories;
-    total.protein += item.protein;
-    total.carbs += item.carbs;
-    total.fat += item.fat;
-    total.fiber += item.fiber;
-  }
-  total.protein = +total.protein.toFixed(1);
-  total.carbs = +total.carbs.toFixed(1);
-  total.fat = +total.fat.toFixed(1);
-  total.fiber = +total.fiber.toFixed(1);
-  return total;
 }
 
 function asPortionKind(value: unknown): PortionKindValue {
@@ -632,10 +438,6 @@ function finiteOptionalNumber(value: unknown): number | null {
 
 function cleanMealName(value: string): string {
   return value.trim();
-}
-
-function roundGram(value: number): number {
-  return +value.toFixed(1);
 }
 
 function orderedBand(min: number, mid: number, max: number): { min: number; mid: number; max: number } {
@@ -793,7 +595,6 @@ function normalizeDecomposition(
         logAnalysis(logger, 'warn', 'decomposition_implausible_count', {
           analysisId,
           rowId,
-          rawName,
           count,
           perUnitMaxGrams: perUnitBand.max,
           totalMax,
@@ -972,20 +773,6 @@ function maybeLogDroppedCounts(
     analysisId,
     source: 'text',
   });
-}
-
-function analyzeUncertainty(resolved: ResolvedIngredient[]): UncertaintyReport {
-  const minTotal = sumMacros(resolved.map((r) => r.minMacros));
-  const maxTotal = sumMacros(resolved.map((r) => r.maxMacros));
-  const midTotal = sumMacros(resolved.map((r) => r.macros));
-  const avg = midTotal.calories || 1;
-  const variancePercent = +((maxTotal.calories - minTotal.calories) / avg).toFixed(3);
-  return {
-    variancePercent,
-    needsClarification: variancePercent > 0.15,
-    minTotal,
-    maxTotal,
-  };
 }
 
 function buildCountQuestion(ingredient: ResolvedIngredient, locale: string): ClarificationDTO {
@@ -1264,7 +1051,7 @@ async function traceAsync<T>(
         meta: {
           ...meta,
           ok: false,
-          error: error instanceof Error ? error.message : 'Unknown error',
+          errorKind: mealAnalysisErrorKind(error, `${category}_step_failed`),
         },
       });
       if (category === 'llm') trace.llmCallCount += 1;
@@ -1325,8 +1112,74 @@ function detectExplicitMealTypeFromText(input: string): MealTypeValue | undefine
   return undefined;
 }
 
-function buildErrorEvent(analysisId: string, message: string): PipelineEvent {
-  return { step: 'ERROR', data: { analysisId, message } };
+function buildErrorEvent(
+  analysisId: string,
+  message: string,
+  retryable: boolean = false
+): PipelineEvent {
+  return { step: 'ERROR', data: { analysisId, message, retryable } };
+}
+
+const SAFE_PUBLIC_ANALYSIS_ERRORS = new Set([
+  'Analysis ID is unavailable',
+  'Analysis session not found',
+  'Image analysis session is missing an image object key',
+]);
+
+const SAFE_PUBLIC_SNAPSHOT_ERRORS = new Set([
+  'Invalid meal analysis snapshot: A concrete meal type is required to continue analysis',
+]);
+
+function publicMealAnalysisError(error: unknown, fallback: string): string {
+  if (error instanceof MealAnalysisStageBusyError) {
+    return 'Analysis is still in progress; retry resume';
+  }
+  if (error instanceof InvalidMealAnalysisSnapshotError) {
+    if (SAFE_PUBLIC_SNAPSHOT_ERRORS.has(error.message)) return error.message;
+    return 'Analysis session cannot continue from its current state';
+  }
+  if (error instanceof Error && SAFE_PUBLIC_ANALYSIS_ERRORS.has(error.message)) {
+    return error.message;
+  }
+  return fallback;
+}
+
+function mealAnalysisErrorKind(error: unknown, fallback: string): string {
+  if (error instanceof MealAnalysisStageBusyError) return 'stage_busy';
+  if (error instanceof InvalidMealAnalysisSnapshotError) return 'invalid_snapshot';
+  return safeErrorKind(error, fallback);
+}
+
+function imageDownloadUrlFromSessionPayload(payload: unknown): string | undefined {
+  if (!payload || typeof payload !== 'object') return undefined;
+  const requestPayload = payload as Record<string, unknown>;
+  if (
+    typeof requestPayload.imageObjectKey === 'string' &&
+    requestPayload.imageObjectKey.trim() !== ''
+  ) {
+    return buildOracleDownloadUrl(requestPayload.imageObjectKey);
+  }
+  return undefined;
+}
+
+function feedbackContextFromSessionPayload(payload: Record<string, unknown>): {
+  feedbackIssues?: MealFeedbackIssue[];
+  otherText?: string;
+} {
+  const feedbackIssues = Array.isArray(payload.feedbackIssues)
+    ? payload.feedbackIssues.filter(
+      (value): value is MealFeedbackIssue =>
+        typeof value === 'string' && (FEEDBACK_ISSUES as readonly string[]).includes(value)
+    )
+    : undefined;
+  return {
+    feedbackIssues: feedbackIssues && feedbackIssues.length > 0
+      ? feedbackIssues
+      : undefined,
+    otherText: typeof payload.otherText === 'string' && payload.otherText.trim() !== ''
+      ? payload.otherText
+      : undefined,
+  };
 }
 
 function getMealAnalysisClient(trace?: AnalysisTrace): MealAnalysisLlmClient {
@@ -1411,12 +1264,23 @@ async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string
   }
   if (missingNames.length === 0) return result;
 
-  const prompt = missingNames.map((name, index) => `${index + 1}. ${name}`).join('\n');
+  const requests = missingNames.map((name, index) => ({
+    requestId: `ingredient_${index + 1}`,
+    name,
+  }));
+  const prompt = requests
+    .map(({ requestId, name }) => `${requestId}: ${name}`)
+    .join('\n');
   const response = await client.chat.completions.create({
     model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
       { role: 'system', content: FALLBACK_SYSTEM_PROMPT },
-      { role: 'user', content: `Provide per-100g macros for:\n${prompt}` },
+      {
+        role: 'user',
+        content:
+          `Provide per-100g macros for the following request IDs. ` +
+          `Echo each request_id and ingredient name exactly:\n${prompt}`,
+      },
     ],
     response_format: {
       type: 'json_schema',
@@ -1426,19 +1290,22 @@ async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string
   }, { operation: 'estimate_macros_fallback' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM fallback response');
-  const parsed = JSON.parse(raw) as { ingredients: LLMFallbackEntry[] };
+  const parsed = JSON.parse(raw) as { ingredients: LLMFallbackResponseEntry[] };
+  const expectedById = new Map(requests.map(({ requestId, name }) => [requestId, name]));
+  const matchedIds = new Set<string>();
   for (const entry of parsed.ingredients) {
-    if (isPlausibleFallbackEntry(entry)) {
-      result.set(normalize(entry.name), entry);
-      cacheFallbackEntry(entry.name, entry);
+    const expectedName = expectedById.get(entry.request_id);
+    if (
+      !expectedName ||
+      matchedIds.has(entry.request_id) ||
+      normalize(entry.name) !== normalize(expectedName) ||
+      !isPlausibleFallbackEntry(entry)
+    ) {
+      continue;
     }
-  }
-  for (let i = 0; i < missingNames.length && i < parsed.ingredients.length; i++) {
-    const entry = parsed.ingredients[i]!;
-    if (isPlausibleFallbackEntry(entry)) {
-      result.set(normalize(missingNames[i]!), entry);
-      cacheFallbackEntry(missingNames[i]!, entry);
-    }
+    matchedIds.add(entry.request_id);
+    result.set(normalize(expectedName), entry);
+    cacheFallbackEntry(expectedName, entry);
   }
   return result;
 }
@@ -1463,7 +1330,7 @@ async function resolveIngredients(
 
   // USDA lookups are independent — run them in parallel to collapse per-ingredient latency.
   const usdaMatches = await Promise.all(
-    decomposition.ingredients.map((ingredient) =>
+    decomposition.ingredients.map((ingredient, ingredientIndex) =>
       isPlainWater(ingredient)
         ? Promise.resolve({ row: null, matchType: 'unmatched' as const, score: 0, confidenceMargin: 1 })
         : traceAsync(
@@ -1472,8 +1339,7 @@ async function resolveIngredients(
         'canonicalize_with_usda',
         {
           analysisId,
-          ingredient: ingredient.rawName,
-          canonicalHint: ingredient.canonicalHint,
+          ingredientIndex,
         },
         () => canonicalizeWithUsda(ingredient.canonicalHint)
       )
@@ -1556,7 +1422,6 @@ async function resolveIngredients(
           analysisId,
           model: OPENAI_MEAL_ANALYSIS_MODEL,
           unmatchedCount: unmatched.length,
-          unmatchedHints,
         },
         () => estimateMacrosViaLLM(client, unmatchedHints)
       );
@@ -1573,14 +1438,12 @@ async function resolveIngredients(
       logAnalysis(logger, 'warn', 'llm_macro_fallback_applied', {
         analysisId,
         unmatchedCount: unmatched.length,
-        unmatchedHints,
       });
     } catch {
       // Keep unresolved items as zero macros.
       logAnalysis(logger, 'error', 'llm_macro_fallback_failed', {
         analysisId,
         unmatchedCount: unmatched.length,
-        unmatchedHints,
       });
     }
   }
@@ -1658,10 +1521,9 @@ function applyClarificationAnswers(
   for (const answer of answers) {
     const clarification = clarificationMap.get(answer.clarificationId);
     if (!clarification) continue;
-    const option =
-      clarification.options.find((candidate) => candidate.option_id === answer.selectedOptionId) ??
-      clarification.options.find((candidate) => candidate.option_id === clarification.default_option_id) ??
-      clarification.options[0];
+    const option = clarification.options.find(
+      (candidate) => candidate.option_id === answer.selectedOptionId
+    );
     if (!option) continue;
 
     const ingredient = ingredientMap.get(clarification.row_id);
@@ -1748,7 +1610,8 @@ async function enrichPresentationFromImage(
   correctionContext: string,
   mealNameHint: string
 ): Promise<PresentationResult> {
-  const imageUrl = String(context.requestPayload.imageUrl ?? '');
+  const imageUrl = context.imageUrl;
+  if (!imageUrl) throw new Error('Image analysis session is missing an image object key');
   const prompt = [
     mealNameHint
       ? `Canonical meal name hint: Use "${mealNameHint}" as the meal name unless the image clearly supports a better, more specific title.`
@@ -1819,15 +1682,17 @@ async function enrichPresentation(
 async function persistSessionSnapshot(
   context: PipelineRunContext,
   payload: {
+    stage: MealAnalysisStage;
     decompositionData?: unknown;
     ingredientsData?: unknown;
     uncertaintyData?: unknown;
     mealTypeQuestionData?: unknown;
     resultData?: unknown;
     clarificationAnswers?: MealClarificationAnswer[];
+    stageLease?: MealAnalysisStageLease;
   }
 ): Promise<void> {
-  await upsertMealAnalysisSession({
+  const record = {
     analysisId: context.analysisId,
     parentAnalysisId: context.parentAnalysisId,
     userId: context.userId,
@@ -1836,6 +1701,7 @@ async function persistSessionSnapshot(
     countryCode: context.countryCode,
     timeZone: context.timeZone,
     requestPayload: context.requestPayload,
+    stage: payload.stage,
     decompositionData: payload.decompositionData,
     ingredientsData: payload.ingredientsData,
     uncertaintyData: payload.uncertaintyData,
@@ -1844,23 +1710,639 @@ async function persistSessionSnapshot(
     selectedMealTypeSource: context.selectedMealTypeSource,
     resultData: payload.resultData,
     clarificationAnswers: payload.clarificationAnswers,
-  });
+  };
+  const persisted = payload.stageLease
+    ? await advanceMealAnalysisSession(record, payload.stageLease)
+    : await upsertMealAnalysisSession(record);
+  if (!persisted) {
+    throw new Error(`Meal analysis stage transition to ${payload.stage} was rejected`);
+  }
+}
+
+type ResultPipelineEvent = Extract<PipelineEvent, { step: 'RESULT' }>;
+type PresentationResumeStage = 'AWAITING_MEAL_TYPE' | 'READY_FOR_PRESENTATION';
+
+interface PostResolutionOptions {
+  incomingAnswers?: MealClarificationAnswer[];
+  accumulatedAnswers?: MealClarificationAnswer[];
+  emitUpdatedIngredients?: boolean;
+  stageLease?: MealAnalysisStageLease;
+}
+
+async function recordClarificationAudit(
+  context: PipelineRunContext,
+  acceptedAnswerCount: number,
+  clarificationAnswers: MealClarificationAnswer[]
+): Promise<void> {
+  if (acceptedAnswerCount === 0) return;
+  try {
+    await traceAsync(
+      context.trace,
+      'db',
+      'record_meal_analysis_clarification',
+      { analysisId: context.analysisId, answerCount: acceptedAnswerCount },
+      () => recordMealAnalysisClarification(context.analysisId, clarificationAnswers)
+    );
+  } catch (error) {
+    // The stage snapshot already contains the accepted cumulative answers.
+    // Audit history must not roll back a valid resumable transition.
+    logAnalysis(context.logger, 'error', 'clarification_audit_persist_failed', {
+      analysisId: context.analysisId,
+      ...safeErrorMetadata(error, 'clarification_audit_persist_failed'),
+    });
+  }
+}
+
+function buildDecompositionEvent(
+  context: PipelineRunContext,
+  decomposition: NormalizedDecomposition
+): Extract<PipelineEvent, { step: 'DECOMPOSITION' }> {
+  return {
+    step: 'DECOMPOSITION',
+    data: {
+      analysisId: context.analysisId,
+      mealName: decomposition.mealName,
+      confidence: decomposition.confidence,
+      ingredients: toDecompositionWire(decomposition),
+      inferredMealType: decomposition.inferredMealType,
+      mealTypeConfident: decomposition.mealTypeConfident,
+    },
+  };
+}
+
+function buildUncertaintyEvent(
+  context: PipelineRunContext,
+  decomposition: NormalizedDecomposition,
+  uncertainty: UncertaintyReport,
+  clarifications: ClarificationDTO[]
+): Extract<PipelineEvent, { step: 'UNCERTAINTY' }> {
+  return {
+    step: 'UNCERTAINTY',
+    data: {
+      analysisId: context.analysisId,
+      mealName: decomposition.mealName,
+      variancePercent: uncertainty.variancePercent,
+      needsClarification: clarifications.length > 0,
+      calorieBand: {
+        min: uncertainty.minTotal.calories,
+        max: uncertainty.maxTotal.calories,
+      },
+      clarifications: clarificationsToWire(clarifications),
+    },
+  };
+}
+
+function buildIngredientsEvent(
+  context: PipelineRunContext,
+  decomposition: NormalizedDecomposition,
+  resolved: ResolvedIngredient[]
+): Extract<PipelineEvent, { step: 'INGREDIENTS' }> {
+  return {
+    step: 'INGREDIENTS',
+    data: {
+      analysisId: context.analysisId,
+      mealName: decomposition.mealName,
+      ingredients: toResolvedIngredientWire(resolved),
+    },
+  };
+}
+
+function buildMealTypeQuestionEvent(
+  context: PipelineRunContext,
+  decomposition: NormalizedDecomposition
+): Extract<PipelineEvent, { step: 'MEAL_TYPE_QUESTION' }> {
+  return {
+    step: 'MEAL_TYPE_QUESTION',
+    data: {
+      analysisId: context.analysisId,
+      mealName: decomposition.mealName,
+      question: 'Which meal is this?',
+      options: [...MEAL_TYPES],
+      inferredMealType: decomposition.inferredMealType !== 'UNKNOWN'
+        ? decomposition.inferredMealType
+        : undefined,
+    },
+  };
+}
+
+const RESUME_WAIT_TIMEOUT_MS = 30_000;
+const RESUME_POLL_INTERVAL_MS = 500;
+
+class MealAnalysisStageBusyError extends Error {
+  constructor(readonly stage: MealAnalysisStage) {
+    super(`Meal analysis stage ${stage} is already in progress`);
+    this.name = 'MealAnalysisStageBusyError';
+  }
+}
+
+async function waitForMealAnalysisStageChange(
+  analysisId: string,
+  blockedStage: MealAnalysisStage
+): Promise<MealAnalysisSessionRecord> {
+  const deadline = Date.now() + RESUME_WAIT_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    await delay(RESUME_POLL_INTERVAL_MS);
+    const latest = await getMealAnalysisSession(analysisId);
+    if (!latest) {
+      throw new Error('Analysis session not found');
+    }
+    if (resolveMealAnalysisStage(latest) !== blockedStage) {
+      return latest;
+    }
+  }
+  throw new MealAnalysisStageBusyError(blockedStage);
+}
+
+async function waitAfterBusyStage(
+  analysisId: string,
+  busyStage: MealAnalysisStage
+): Promise<MealAnalysisSessionRecord> {
+  const latest = await getMealAnalysisSession(analysisId);
+  if (!latest) {
+    throw new Error('Analysis session not found');
+  }
+  return resolveMealAnalysisStage(latest) === busyStage
+    ? waitForMealAnalysisStageChange(analysisId, busyStage)
+    : latest;
+}
+
+async function* runPresentationStage(
+  client: MealAnalysisLlmClient,
+  decomposition: NormalizedDecomposition,
+  resolved: ResolvedIngredient[],
+  uncertainty: UncertaintyReport,
+  uncertaintyEvent: Extract<PipelineEvent, { step: 'UNCERTAINTY' }>,
+  context: PipelineRunContext,
+  expectedStage: PresentationResumeStage,
+  clarificationAnswers: MealClarificationAnswer[] | undefined,
+  allowLegacyMissingStage: boolean = false,
+  preclaimedLease?: MealAnalysisStageLease
+): AsyncGenerator<PipelineEvent> {
+  const finalMealType = context.selectedMealType;
+  const mealTypeSource = context.selectedMealTypeSource;
+  if (!finalMealType || finalMealType === 'UNKNOWN' || !mealTypeSource) {
+    throw new Error('Presentation stage requires a resolved meal type');
+  }
+
+  const presentationLease = preclaimedLease ?? await traceAsync(
+      context.trace,
+      'db',
+      'claim_presentation_stage',
+      { analysisId: context.analysisId, expectedStage },
+      () => claimMealAnalysisPresentation(
+        context.analysisId,
+        expectedStage,
+        finalMealType,
+        mealTypeSource,
+        allowLegacyMissingStage
+      )
+    );
+
+  if (!presentationLease) {
+    const latest = await getMealAnalysisSession(context.analysisId);
+    const completed = latest ? sessionToResultEvent(latest) : undefined;
+    if (completed) {
+      yield completed;
+      return;
+    }
+    throw new Error('Analysis presentation is already in progress or its stage changed');
+  }
+
+  try {
+    const totalMacros = sumMacros(resolved.map((ingredient) => ingredient.macros));
+    const presentation = await traceAsync(
+      context.trace,
+      'llm',
+      'enrich_presentation',
+      {
+        analysisId: context.analysisId,
+        source: context.source,
+        model: OPENAI_MEAL_ANALYSIS_MODEL,
+        ingredientCount: resolved.length,
+      },
+      () => enrichPresentation(
+        client,
+        context,
+        resolved,
+        totalMacros,
+        decomposition.mealName
+      )
+    );
+
+    const resultEvent: ResultPipelineEvent = {
+      step: 'RESULT',
+      data: {
+        analysisId: context.analysisId,
+        mealName: presentation.meal_name,
+        quantity: presentation.quantity,
+        mealType: finalMealType,
+        mealTypeSource,
+        tip: presentation.tip,
+        health: presentation.health
+          ? {
+              healthScore: presentation.health.health_score,
+              healthScoreReason: presentation.health.health_score_reason,
+            }
+          : null,
+        macros: totalMacros,
+        calorieConfidence: resolved.some((ingredient) =>
+          ingredient.source === 'llm_fallback' && ingredient.macros.calories === 0
+        )
+          ? 'LOW'
+          : varianceToCalorieConfidence(uncertainty.variancePercent),
+        confidenceReasons: [
+          ...(resolved.some((ingredient) => ingredient.source === 'llm_fallback')
+            ? ['llm_nutrition_fallback']
+            : []),
+          ...(resolved.some((ingredient) =>
+            ingredient.source === 'llm_fallback' && ingredient.macros.calories === 0
+          ) ? ['unresolved_nutrition'] : []),
+          ...(uncertainty.variancePercent > 0.15 ? ['portion_uncertainty'] : []),
+        ],
+        calorieBand: {
+          min: uncertainty.minTotal.calories,
+          max: uncertainty.maxTotal.calories,
+        },
+        ingredients: toResolvedIngredientWire(resolved),
+      },
+    };
+
+    await traceAsync(
+      context.trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'COMPLETED' },
+      () => persistSessionSnapshot(context, {
+        stage: 'COMPLETED',
+        decompositionData: buildDecompositionEvent(context, decomposition).data,
+        ingredientsData: toResolvedIngredientsSnapshot(
+          context.analysisId,
+          decomposition.mealName,
+          resolved
+        ),
+        uncertaintyData: uncertaintyEvent.data,
+        resultData: resultEvent.data,
+        clarificationAnswers,
+        stageLease: presentationLease,
+      })
+    );
+
+    // The completed session is authoritative. A failure to append the audit
+    // row must not cause another presentation call on retry.
+    try {
+      await traceAsync(
+        context.trace,
+        'db',
+        'record_meal_analysis_meal_type',
+        { analysisId: context.analysisId, finalMealType, mealTypeSource },
+        () => recordMealAnalysisMealType(
+          context.analysisId,
+          finalMealType,
+          mealTypeSource
+        )
+      );
+    } catch (error) {
+      logAnalysis(context.logger, 'error', 'meal_type_audit_persist_failed', {
+        analysisId: context.analysisId,
+        ...safeErrorMetadata(error, 'meal_type_audit_persist_failed'),
+      });
+    }
+
+    yield resultEvent;
+  } catch (error) {
+    try {
+      await releaseMealAnalysisPresentation(
+        context.analysisId,
+        expectedStage,
+        presentationLease.token
+      );
+    } catch (releaseError) {
+      logAnalysis(context.logger, 'error', 'presentation_stage_release_failed', {
+        analysisId: context.analysisId,
+        ...safeErrorMetadata(releaseError, 'presentation_stage_release_failed'),
+      });
+    }
+    throw error;
+  }
+}
+
+async function* runPostResolutionPipeline(
+  client: MealAnalysisLlmClient,
+  decomposition: NormalizedDecomposition,
+  initialResolved: ResolvedIngredient[],
+  context: PipelineRunContext,
+  options: PostResolutionOptions = {}
+): AsyncGenerator<PipelineEvent> {
+  const startedAt = Date.now();
+  let resolved = initialResolved;
+  let uncertainty = analyzeUncertainty(resolved);
+  let clarifications = uncertainty.needsClarification
+    ? generateClarifications(resolved, context.locale)
+    : [];
+  const wasClarifiedRowIds = new Set(clarifications.map((item) => item.row_id));
+  const remainingAnswers = new Map(
+    (options.incomingAnswers ?? []).map((answer) => [answer.clarificationId, answer])
+  );
+  const acceptedAnswers: MealClarificationAnswer[] = [];
+  const MAX_APPLY_ITERATIONS = 4;
+
+  for (let i = 0; i < MAX_APPLY_ITERATIONS; i += 1) {
+    const matched: MealClarificationAnswer[] = [];
+    for (const clarification of clarifications) {
+      const answer = remainingAnswers.get(clarification.clarification_id);
+      if (
+        answer &&
+        clarification.options.some((option) => option.option_id === answer.selectedOptionId)
+      ) {
+        matched.push(answer);
+      }
+    }
+    if (matched.length === 0) break;
+
+    resolved = applyClarificationAnswers(resolved, clarifications, matched);
+    for (const answer of matched) {
+      remainingAnswers.delete(answer.clarificationId);
+      acceptedAnswers.push(answer);
+    }
+    uncertainty = analyzeUncertainty(resolved);
+    clarifications = uncertainty.needsClarification
+      ? generateClarifications(resolved, context.locale)
+      : [];
+    for (const clarification of clarifications) {
+      wasClarifiedRowIds.add(clarification.row_id);
+    }
+  }
+
+  if (remainingAnswers.size > 0) {
+    logAnalysis(context.logger, 'warn', 'clarification_answer_unmatched', {
+      analysisId: context.analysisId,
+      unmatchedCount: remainingAnswers.size,
+    });
+  }
+
+  const clarificationAnswers = mergeClarificationAnswers(
+    options.accumulatedAnswers ?? [],
+    acceptedAnswers
+  );
+  const updatedIngredientsEvent: Extract<PipelineEvent, { step: 'INGREDIENTS' }> | undefined =
+    options.emitUpdatedIngredients
+      ? {
+      step: 'INGREDIENTS',
+      data: {
+        analysisId: context.analysisId,
+        mealName: decomposition.mealName,
+        ingredients: toResolvedIngredientWire(resolved),
+      },
+    }
+      : undefined;
+
+  recordClarificationOutcomes(resolved, clarifications, wasClarifiedRowIds);
+  const uncertaintyEvent = buildUncertaintyEvent(
+    context,
+    decomposition,
+    uncertainty,
+    clarifications
+  );
+  const ingredientsData = toResolvedIngredientsSnapshot(
+    context.analysisId,
+    decomposition.mealName,
+    resolved
+  );
+  const decompositionData = buildDecompositionEvent(context, decomposition).data;
+
+  if (clarifications.length > 0) {
+    await traceAsync(
+      context.trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'AWAITING_CLARIFICATION' },
+      () => persistSessionSnapshot(context, {
+        stage: 'AWAITING_CLARIFICATION',
+        decompositionData,
+        ingredientsData,
+        uncertaintyData: uncertaintyEvent.data,
+        clarificationAnswers: clarificationAnswers.length > 0
+          ? clarificationAnswers
+          : undefined,
+        stageLease: options.stageLease,
+      })
+    );
+    await recordClarificationAudit(
+      context,
+      acceptedAnswers.length,
+      clarificationAnswers
+    );
+    if (updatedIngredientsEvent) yield updatedIngredientsEvent;
+    yield uncertaintyEvent;
+    logAnalysis(context.logger, 'info', 'clarification_requested', {
+      analysisId: context.analysisId,
+      source: context.source,
+      totalDurationMs: Date.now() - startedAt,
+      clarificationCount: clarifications.length,
+      sourceSummary: summarizeResolvedSources(resolved),
+    });
+    return;
+  }
+
+  const decompositionInferredMealType =
+    decomposition.mealTypeConfident && decomposition.inferredMealType !== 'UNKNOWN'
+      ? decomposition.inferredMealType
+      : undefined;
+  const textHeuristicMealType = context.source === 'text'
+    ? detectExplicitMealTypeFromText(String(context.requestPayload.textDescription ?? ''))
+    : undefined;
+  const finalMealType =
+    context.selectedMealType ?? decompositionInferredMealType ?? textHeuristicMealType;
+
+  if (!finalMealType || finalMealType === 'UNKNOWN') {
+    const mealTypeQuestionEvent = buildMealTypeQuestionEvent(context, decomposition);
+    await traceAsync(
+      context.trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'AWAITING_MEAL_TYPE' },
+      () => persistSessionSnapshot(context, {
+        stage: 'AWAITING_MEAL_TYPE',
+        decompositionData,
+        ingredientsData,
+        uncertaintyData: uncertaintyEvent.data,
+        mealTypeQuestionData: mealTypeQuestionEvent.data,
+        clarificationAnswers: clarificationAnswers.length > 0
+          ? clarificationAnswers
+          : undefined,
+        stageLease: options.stageLease,
+      })
+    );
+    await recordClarificationAudit(
+      context,
+      acceptedAnswers.length,
+      clarificationAnswers
+    );
+    if (updatedIngredientsEvent) yield updatedIngredientsEvent;
+    yield uncertaintyEvent;
+    yield mealTypeQuestionEvent;
+    return;
+  }
+
+  const presentationContext: PipelineRunContext = {
+    ...context,
+    selectedMealType: finalMealType,
+    selectedMealTypeSource: context.selectedMealTypeSource ??
+      (context.selectedMealType ? 'user' : 'model'),
+  };
+  await traceAsync(
+    context.trace,
+    'db',
+    'persist_session_snapshot',
+    { analysisId: context.analysisId, stage: 'READY_FOR_PRESENTATION' },
+    () => persistSessionSnapshot(presentationContext, {
+      stage: 'READY_FOR_PRESENTATION',
+      decompositionData,
+      ingredientsData,
+      uncertaintyData: uncertaintyEvent.data,
+      clarificationAnswers: clarificationAnswers.length > 0
+        ? clarificationAnswers
+        : undefined,
+      stageLease: options.stageLease,
+    })
+  );
+  await recordClarificationAudit(
+    context,
+    acceptedAnswers.length,
+    clarificationAnswers
+  );
+  if (updatedIngredientsEvent) yield updatedIngredientsEvent;
+  yield uncertaintyEvent;
+  yield* runPresentationStage(
+    client,
+    decomposition,
+    resolved,
+    uncertainty,
+    uncertaintyEvent,
+    presentationContext,
+    'READY_FOR_PRESENTATION',
+    clarificationAnswers.length > 0 ? clarificationAnswers : undefined
+  );
+}
+
+async function resolveAndPersistIngredientsStage(
+  client: MealAnalysisLlmClient,
+  decomposition: NormalizedDecomposition,
+  context: PipelineRunContext,
+  allowLegacyMissingStage: boolean = false
+): Promise<ResolvedIngredient[]> {
+  const stageLease = await traceAsync(
+    context.trace,
+    'db',
+    'claim_ingredient_resolution_stage',
+    { analysisId: context.analysisId },
+    () => claimMealAnalysisIngredientResolution(
+      context.analysisId,
+      allowLegacyMissingStage
+    )
+  );
+  if (!stageLease) {
+    throw new MealAnalysisStageBusyError('RESOLVING_INGREDIENTS');
+  }
+
+  try {
+    const resolved = await traceAsync(
+      context.trace,
+      'pipeline',
+      'resolve_ingredients',
+      {
+        analysisId: context.analysisId,
+        source: context.source,
+        ingredientCount: decomposition.ingredients.length,
+      },
+      () => resolveIngredients(
+        client,
+        decomposition,
+        context.logger,
+        context.analysisId,
+        context.trace
+      )
+    );
+    await traceAsync(
+      context.trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'INGREDIENTS_RESOLVED' },
+      () => persistSessionSnapshot(context, {
+        stage: 'INGREDIENTS_RESOLVED',
+        decompositionData: buildDecompositionEvent(context, decomposition).data,
+        ingredientsData: toResolvedIngredientsSnapshot(
+          context.analysisId,
+          decomposition.mealName,
+          resolved
+        ),
+        stageLease,
+      })
+    );
+    return resolved;
+  } catch (error) {
+    try {
+      await releaseMealAnalysisIngredientResolution(
+        context.analysisId,
+        stageLease.token
+      );
+    } catch (releaseError) {
+      logAnalysis(context.logger, 'error', 'ingredient_resolution_stage_release_failed', {
+        analysisId: context.analysisId,
+        ...safeErrorMetadata(releaseError, 'ingredient_resolution_stage_release_failed'),
+      });
+    }
+    throw error;
+  }
+}
+
+async function* runFinalizationStage(
+  client: MealAnalysisLlmClient,
+  decomposition: NormalizedDecomposition,
+  resolved: ResolvedIngredient[],
+  context: PipelineRunContext,
+  allowLegacyMissingStage: boolean = false
+): AsyncGenerator<PipelineEvent> {
+  const stageLease = await traceAsync(
+    context.trace,
+    'db',
+    'claim_finalization_stage',
+    { analysisId: context.analysisId },
+    () => claimMealAnalysisFinalization(
+      context.analysisId,
+      allowLegacyMissingStage
+    )
+  );
+  if (!stageLease) {
+    throw new MealAnalysisStageBusyError('FINALIZING_ANALYSIS');
+  }
+
+  try {
+    yield* runPostResolutionPipeline(client, decomposition, resolved, context, {
+      stageLease,
+    });
+  } finally {
+    try {
+      await releaseMealAnalysisFinalization(context.analysisId, stageLease.token);
+    } catch (error) {
+      logAnalysis(context.logger, 'error', 'finalization_stage_release_failed', {
+        analysisId: context.analysisId,
+        ...safeErrorMetadata(error, 'finalization_stage_release_failed'),
+      });
+    }
+  }
 }
 
 async function* runPipelineFromDecomposition(
   client: MealAnalysisLlmClient,
   decomposition: LLMDecomposition,
   context: PipelineRunContext,
-  clarificationAnswers?: MealClarificationAnswer[],
-  emitDecomposition: boolean = true,
-  persistClarificationAnswers: boolean = true
+  decompositionLease: MealAnalysisStageLease
 ): AsyncGenerator<PipelineEvent> {
   const startedAt = Date.now();
-  const logger = context.logger;
-  const trace = context.trace;
   const normalizedDecomposition = normalizeDecomposition(
     decomposition,
-    logger,
+    context.logger,
     context.analysisId,
     context.source === 'text' ? String(context.requestPayload.textDescription ?? '') : ''
   );
@@ -1868,37 +2350,29 @@ async function* runPipelineFromDecomposition(
     maybeLogDroppedCounts(
       String(context.requestPayload.textDescription ?? ''),
       normalizedDecomposition,
-      logger,
+      context.logger,
       context.analysisId
     );
   }
 
-  const decompositionEvent: PipelineEvent = {
-    step: 'DECOMPOSITION',
-    data: {
-      analysisId: context.analysisId,
-      mealName: normalizedDecomposition.mealName,
-      confidence: normalizedDecomposition.confidence,
-      ingredients: toDecompositionWire(normalizedDecomposition),
-      // Persisted so /clarify and /meal-type can reuse the decomposition-time
-      // meal-type inference without re-running the presentation LLM.
-      inferredMealType: normalizedDecomposition.inferredMealType,
-      mealTypeConfident: normalizedDecomposition.mealTypeConfident,
-    },
-  };
-  if (emitDecomposition) yield decompositionEvent;
-
-  // Overlap first session write with USDA resolution so the client gets the
-  // decomposition event earlier while we still await persistence before later stages.
-  const persistDecompositionPromise = traceAsync(
-    trace,
+  const decompositionEvent = buildDecompositionEvent(context, normalizedDecomposition);
+  // A DECOMPOSITION event is a resumability promise. Make its snapshot durable
+  // before exposing the event so an early-closing consumer cannot leave a
+  // phantom analysis ID.
+  await traceAsync(
+    context.trace,
     'db',
     'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'DECOMPOSITION' },
-    () => persistSessionSnapshot(context, { decompositionData: decompositionEvent.data })
+    { analysisId: context.analysisId, stage: 'DECOMPOSED' },
+    () => persistSessionSnapshot(context, {
+      stage: 'DECOMPOSED',
+      decompositionData: decompositionEvent.data,
+      stageLease: decompositionLease,
+    })
   );
+  yield decompositionEvent;
 
-  logAnalysis(logger, 'info', 'decomposition_complete', {
+  logAnalysis(context.logger, 'info', 'decomposition_complete', {
     analysisId: context.analysisId,
     source: context.source,
     ingredientCount: normalizedDecomposition.ingredients.length,
@@ -1907,358 +2381,233 @@ async function* runPipelineFromDecomposition(
   });
 
   const resolveStartedAt = Date.now();
-  let resolved = await traceAsync(
-    trace,
-    'pipeline',
-    'resolve_ingredients',
-    { analysisId: context.analysisId, source: context.source, ingredientCount: normalizedDecomposition.ingredients.length },
-    () => resolveIngredients(client, normalizedDecomposition, logger, context.analysisId, trace)
+  const resolved = await resolveAndPersistIngredientsStage(
+    client,
+    normalizedDecomposition,
+    context
   );
-  await persistDecompositionPromise;
-  let sourceSummary = summarizeResolvedSources(resolved);
-  const ingredientsEvent: PipelineEvent = {
-    step: 'INGREDIENTS',
-    data: {
-      analysisId: context.analysisId,
-      mealName: normalizedDecomposition.mealName,
-      ingredients: toResolvedIngredientWire(resolved),
-    },
-  };
-  await traceAsync(
-    trace,
-    'db',
-    'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'INGREDIENTS' },
-    () =>
-      persistSessionSnapshot(context, {
-        decompositionData: decompositionEvent.data,
-        ingredientsData: ingredientsEvent.data,
-        clarificationAnswers,
-      })
+  const ingredientsEvent = buildIngredientsEvent(
+    context,
+    normalizedDecomposition,
+    resolved
   );
   yield ingredientsEvent;
 
   logAnalysis(
-    logger,
-    sourceSummary.llmFallbackCount > 0 ? 'warn' : 'info',
+    context.logger,
+    summarizeResolvedSources(resolved).llmFallbackCount > 0 ? 'warn' : 'info',
     'ingredients_resolved',
     {
       analysisId: context.analysisId,
       source: context.source,
       durationMs: Date.now() - resolveStartedAt,
-      sourceSummary,
+      sourceSummary: summarizeResolvedSources(resolved),
     }
   );
 
-  let uncertainty = analyzeUncertainty(resolved);
-  let clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
-  // Tracks every row that ever produced a clarification across iterations of
-  // the apply loop, so post-pipeline metrics distinguish "asked the user" from
-  // "below threshold from the start".
-  const wasClarifiedRowIds = new Set<string>();
-  for (const c of clarifications) wasClarifiedRowIds.add(c.row_id);
-
-  if (clarificationAnswers && clarificationAnswers.length > 0) {
-    // Iteratively apply answers: a COUNT_QUESTION answer transitions the row to
-    // `count != null`, which then unlocks the size question on the next regen.
-    // If the caller bundled both count and size answers in one request, both
-    // get applied in successive iterations of this loop. The loop terminates
-    // when no answer matches the current clarifications (either because all
-    // answers have been applied or because the remaining clarifications are
-    // ones the user hasn't answered yet).
-    const remainingAnswers = new Map(
-      clarificationAnswers.map((answer) => [answer.clarificationId, answer])
-    );
-    const matchedAnswerIds = new Set<string>();
-    const MAX_APPLY_ITERATIONS = 4; // count → size → (future) any nested. Hard cap to prevent runaway.
-    for (let i = 0; i < MAX_APPLY_ITERATIONS; i += 1) {
-      const matched: MealClarificationAnswer[] = [];
-      for (const clarification of clarifications) {
-        const answer = remainingAnswers.get(clarification.clarification_id);
-        if (answer) matched.push(answer);
-      }
-      if (matched.length === 0) break;
-      resolved = applyClarificationAnswers(resolved, clarifications, matched);
-      for (const answer of matched) {
-        remainingAnswers.delete(answer.clarificationId);
-        matchedAnswerIds.add(answer.clarificationId);
-      }
-      sourceSummary = summarizeResolvedSources(resolved);
-      uncertainty = analyzeUncertainty(resolved);
-      clarifications = uncertainty.needsClarification ? generateClarifications(resolved, context.locale) : [];
-      for (const c of clarifications) wasClarifiedRowIds.add(c.row_id);
-    }
-
-    if (remainingAnswers.size > 0) {
-      // Answers that didn't match any clarification — likely a stale clarification_id
-      // from a client that was looking at an older version of the session. Logged so
-      // we can quantify if/when it happens, but doesn't fail the pipeline.
-      logAnalysis(logger, 'warn', 'clarification_answer_unmatched', {
-        analysisId: context.analysisId,
-        unmatchedCount: remainingAnswers.size,
-        unmatchedIds: Array.from(remainingAnswers.keys()),
-      });
-    }
-
-    if (persistClarificationAnswers && matchedAnswerIds.size > 0) {
-      await traceAsync(
-        trace,
-        'db',
-        'record_meal_analysis_clarification',
-        { analysisId: context.analysisId, answerCount: matchedAnswerIds.size },
-        () => recordMealAnalysisClarification(context.analysisId, clarificationAnswers)
-      );
-    }
-  }
-
-  // Record skip-reason counters once per analysis using the final state. Done
-  // here rather than inside generateClarifications because the apply loop may
-  // call generateClarifications multiple times.
-  recordClarificationOutcomes(resolved, clarifications, wasClarifiedRowIds);
-
-  const uncertaintyEvent: PipelineEvent = {
-    step: 'UNCERTAINTY',
-    data: {
-      analysisId: context.analysisId,
-      mealName: normalizedDecomposition.mealName,
-      variancePercent: uncertainty.variancePercent,
-      needsClarification: clarifications.length > 0,
-      calorieBand: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
-      clarifications: clarificationsToWire(clarifications),
-    },
-  };
-  await traceAsync(
-    trace,
-    'db',
-    'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'UNCERTAINTY' },
-    () =>
-      persistSessionSnapshot(context, {
-        decompositionData: decompositionEvent.data,
-        ingredientsData: {
-          analysisId: context.analysisId,
-          mealName: normalizedDecomposition.mealName,
-          ingredients: toResolvedIngredientWire(resolved),
-        },
-        uncertaintyData: uncertaintyEvent.data,
-        clarificationAnswers,
-      })
+  yield* runFinalizationStage(
+    client,
+    normalizedDecomposition,
+    resolved,
+    context
   );
-  yield uncertaintyEvent;
-
-  logAnalysis(logger, 'info', 'uncertainty_evaluated', {
-    analysisId: context.analysisId,
-    source: context.source,
-    needsClarification: clarifications.length > 0,
-    clarificationCount: clarifications.length,
-    variancePercent: uncertainty.variancePercent,
-  });
-
-  if (clarifications.length > 0) {
-    logAnalysis(logger, 'info', 'clarification_requested', {
-      analysisId: context.analysisId,
-      source: context.source,
-      totalDurationMs: Date.now() - startedAt,
-      clarificationCount: clarifications.length,
-      sourceSummary,
-    });
-    return;
-  }
-
-  // Resolve meal-type BEFORE running the presentation LLM.
-  // Priority: user selection > decomposition-time inference (if confident) > text heuristic.
-  // If none applies, we emit meal_type_question here so presentation runs exactly once across
-  // the whole clarify/meal-type flow (instead of twice: pre-question and post-question).
-  const decompositionInferredMealType =
-    normalizedDecomposition.mealTypeConfident && normalizedDecomposition.inferredMealType !== 'UNKNOWN'
-      ? normalizedDecomposition.inferredMealType
-      : undefined;
-  const textHeuristicMealType =
-    context.source === 'text'
-      ? detectExplicitMealTypeFromText(String(context.requestPayload.textDescription ?? ''))
-      : undefined;
-  const preResolvedMealType: MealTypeValue | undefined =
-    context.selectedMealType ?? decompositionInferredMealType ?? textHeuristicMealType;
-
-  if (!preResolvedMealType) {
-    const mealTypeQuestionEvent: PipelineEvent = {
-      step: 'MEAL_TYPE_QUESTION',
-      data: {
-        analysisId: context.analysisId,
-        mealName: normalizedDecomposition.mealName,
-        question: 'Which meal is this?',
-        options: [...MEAL_TYPES],
-        inferredMealType:
-          normalizedDecomposition.inferredMealType !== 'UNKNOWN' ? normalizedDecomposition.inferredMealType : undefined,
-      },
-    };
-    await traceAsync(
-      trace,
-      'db',
-      'persist_session_snapshot',
-      { analysisId: context.analysisId, stage: 'MEAL_TYPE_QUESTION' },
-      () =>
-        persistSessionSnapshot(context, {
-          decompositionData: decompositionEvent.data,
-          ingredientsData: {
-            analysisId: context.analysisId,
-            mealName: normalizedDecomposition.mealName,
-            ingredients: toResolvedIngredientWire(resolved),
-          },
-          uncertaintyData: uncertaintyEvent.data,
-          mealTypeQuestionData: mealTypeQuestionEvent.data,
-          clarificationAnswers,
-        })
-    );
-    yield mealTypeQuestionEvent;
-    logAnalysis(logger, 'info', 'meal_type_question_requested', {
-      analysisId: context.analysisId,
-      source: context.source,
-      totalDurationMs: Date.now() - startedAt,
-      inferredMealType:
-        normalizedDecomposition.inferredMealType !== 'UNKNOWN' ? normalizedDecomposition.inferredMealType : undefined,
-      sourceSummary,
-    });
-    return;
-  }
-
-  // Feed the resolved meal-type into the context so enrichPresentation treats it as user-chosen
-  // (skips the presentation LLM's own meal_type inference branch).
-  const presentationContext: PipelineRunContext = {
-    ...context,
-    selectedMealType: preResolvedMealType,
-    selectedMealTypeSource: context.selectedMealTypeSource ?? (context.selectedMealType ? 'user' : 'model'),
-  };
-
-  const totalMacros = sumMacros(resolved.map((ingredient) => ingredient.macros));
-  const presentation = await traceAsync(
-    trace,
-    'llm',
-    'enrich_presentation',
-    {
-      analysisId: context.analysisId,
-      source: context.source,
-      model: OPENAI_MEAL_ANALYSIS_MODEL,
-      ingredientCount: resolved.length,
-    },
-    () => enrichPresentation(client, presentationContext, resolved, totalMacros, normalizedDecomposition.mealName)
-  );
-
-  const finalMealType: MealTypeValue = preResolvedMealType;
-  const mealTypeSource: MealTypeSource =
-    context.selectedMealTypeSource ??
-    (context.selectedMealType ? 'user' : 'model');
-
-  await traceAsync(
-    trace,
-    'db',
-    'record_meal_analysis_meal_type',
-    { analysisId: context.analysisId, finalMealType, mealTypeSource },
-    () => recordMealAnalysisMealType(context.analysisId, finalMealType, mealTypeSource)
-  );
-
-  const resultEvent: PipelineEvent = {
-    step: 'RESULT',
-    data: {
-      analysisId: context.analysisId,
-      mealName: presentation.meal_name,
-      quantity: presentation.quantity,
-      mealType: finalMealType,
-      mealTypeSource: mealTypeSource,
-      tip: presentation.tip,
-      health: presentation.health
-        ? {
-            healthScore: presentation.health.health_score,
-            healthScoreReason: presentation.health.health_score_reason,
-          }
-        : null,
-      macros: totalMacros,
-      calorieConfidence: resolved.some((ingredient) =>
-        ingredient.source === 'llm_fallback' && ingredient.macros.calories === 0
-      )
-        ? 'LOW'
-        : varianceToCalorieConfidence(uncertainty.variancePercent),
-      confidenceReasons: [
-        ...(resolved.some((ingredient) => ingredient.source === 'llm_fallback')
-          ? ['llm_nutrition_fallback']
-          : []),
-        ...(resolved.some((ingredient) =>
-          ingredient.source === 'llm_fallback' && ingredient.macros.calories === 0
-        ) ? ['unresolved_nutrition'] : []),
-        ...(uncertainty.variancePercent > 0.15 ? ['portion_uncertainty'] : []),
-      ],
-      calorieBand: { min: uncertainty.minTotal.calories, max: uncertainty.maxTotal.calories },
-      ingredients: toResolvedIngredientWire(resolved),
-    },
-  };
-  await traceAsync(
-    trace,
-    'db',
-    'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'RESULT' },
-    () =>
-      persistSessionSnapshot(context, {
-        decompositionData: decompositionEvent.data,
-        ingredientsData: {
-          analysisId: context.analysisId,
-          mealName: normalizedDecomposition.mealName,
-          ingredients: toResolvedIngredientWire(resolved),
-        },
-        uncertaintyData: uncertaintyEvent.data,
-        resultData: resultEvent.data,
-        clarificationAnswers,
-      })
-  );
-  yield resultEvent;
-
-  logAnalysis(logger, 'info', 'analysis_completed', {
-    analysisId: context.analysisId,
-    source: context.source,
-    totalDurationMs: Date.now() - startedAt,
-    mealType: finalMealType,
-    mealTypeSource,
-    calories: totalMacros.calories,
-    sourceSummary,
-    traceSummary: summarizeAnalysisTrace(trace),
-  });
 }
 
-function sessionToDecomposition(session: Awaited<ReturnType<typeof getMealAnalysisSession>>): LLMDecomposition | undefined {
-  const raw = session?.decompositionData as Record<string, unknown> | undefined;
-  if (!raw || typeof raw !== 'object') return undefined;
+function validatePersistedUncertainty(
+  session: MealAnalysisSessionRecord,
+  resolved: ResolvedIngredient[],
+  locale: string
+): UncertaintyReport {
+  const calculated = analyzeUncertainty(resolved);
+  const clarifications = calculated.needsClarification
+    ? generateClarifications(resolved, locale)
+    : [];
+  return validatePersistedUncertaintySnapshot(
+    session,
+    calculated,
+    clarifications.map((item) => item.clarification_id)
+  );
+}
 
-  const mealName = raw.mealName ?? raw.meal_name;
-  if (typeof mealName !== 'string') return undefined;
-
-  const ingredientsRaw = raw.ingredients;
-  if (!Array.isArray(ingredientsRaw)) return undefined;
-
-  const ingredients = ingredientsRaw.map((item) => {
-    const ing = item as Record<string, unknown>;
-    return {
-      row_id: typeof ing.rowId === 'string' ? ing.rowId : typeof ing.row_id === 'string' ? ing.row_id : undefined,
-      raw_name: String(ing.rawName ?? ing.raw_name ?? ''),
-      canonical_hint: String(ing.canonicalHint ?? ing.canonical_hint ?? ''),
-      grams_estimated: Number(ing.gramsEstimated ?? ing.grams_estimated ?? 0),
-      min_grams: Number(ing.minGrams ?? ing.min_grams ?? 0),
-      max_grams: Number(ing.maxGrams ?? ing.max_grams ?? 0),
-      notes: String(ing.notes ?? ''),
-      portion_kind: asPortionKind(ing.portionKind ?? ing.portion_kind),
-      count: finiteOptionalNumber(ing.count),
-      per_unit_grams: finiteOptionalNumber(ing.perUnitGrams ?? ing.per_unit_grams),
-      per_unit_min_grams: finiteOptionalNumber(ing.perUnitMinGrams ?? ing.per_unit_min_grams),
-      per_unit_max_grams: finiteOptionalNumber(ing.perUnitMaxGrams ?? ing.per_unit_max_grams),
-      size_specified_by_user: Boolean(ing.sizeSpecifiedByUser ?? ing.size_specified_by_user ?? false),
-    };
+function sessionToResultEvent(
+  session: MealAnalysisSessionRecord
+): ResultPipelineEvent | undefined {
+  if (session.resultData == null) return undefined;
+  const stage = resolveMealAnalysisStage(session);
+  if (stage !== 'COMPLETED') return undefined;
+  const decomposition = sessionToNormalizedDecomposition(session);
+  const resolved = sessionToResolvedIngredients(session, decomposition);
+  validatePersistedUncertainty(session, resolved, session.locale);
+  const raw = snapshotRecord(session.resultData, 'result data');
+  if (raw.analysisId !== session.analysisId) {
+    throw new InvalidMealAnalysisSnapshotError('result analysisId does not match the row');
+  }
+  const mealType = snapshotMealType(raw.mealType, 'result mealType');
+  if (mealType === 'UNKNOWN') {
+    throw new InvalidMealAnalysisSnapshotError('completed result has UNKNOWN meal type');
+  }
+  if (raw.mealTypeSource !== 'model' && raw.mealTypeSource !== 'user') {
+    throw new InvalidMealAnalysisSnapshotError('result mealTypeSource is invalid');
+  }
+  if (!Array.isArray(raw.ingredients) || !Array.isArray(raw.confidenceReasons)) {
+    throw new InvalidMealAnalysisSnapshotError('result collections are invalid');
+  }
+  // The result was produced from the already validated resolved snapshot. The
+  // shape checks here make idempotent replay safe without broad schema casts.
+  snapshotString(raw.mealName, 'result mealName', true);
+  snapshotString(raw.quantity, 'result quantity', true);
+  snapshotString(raw.tip, 'result tip', true);
+  snapshotString(raw.calorieConfidence, 'result calorieConfidence');
+  const resultMacros = snapshotMacros(raw.macros, 'result macros');
+  const calculatedMacros = sumMacros(resolved.map((ingredient) => ingredient.macros));
+  if (JSON.stringify(resultMacros) !== JSON.stringify(calculatedMacros)) {
+    throw new InvalidMealAnalysisSnapshotError(
+      'result macros disagree with the resolved ingredient snapshot'
+    );
+  }
+  const resultRowIds = raw.ingredients.map((value, index) => {
+    const ingredient = snapshotRecord(value, `result ingredient ${index}`);
+    return snapshotString(ingredient.rowId, `result ingredient ${index}.rowId`);
   });
-
+  if (
+    resultRowIds.length !== resolved.length ||
+    resultRowIds.some((rowId, index) => rowId !== resolved[index]?.rowId)
+  ) {
+    throw new InvalidMealAnalysisSnapshotError(
+      'result ingredient identities disagree with the resolved snapshot'
+    );
+  }
+  const band = snapshotRecord(raw.calorieBand, 'result calorieBand');
+  snapshotNumber(band.min, 'result calorieBand.min');
+  snapshotNumber(band.max, 'result calorieBand.max');
   return {
-    meal_name: mealName,
-    confidence: Number(raw.confidence ?? 0),
-    ingredients,
-    inferred_meal_type: (raw.inferredMealType ?? raw.inferred_meal_type ?? 'UNKNOWN') as MealTypeValue,
-    meal_type_confident: Boolean(raw.mealTypeConfident ?? raw.meal_type_confident ?? false),
+    step: 'RESULT',
+    data: raw as unknown as ResultPipelineEvent['data'],
   };
+}
+
+function contextFromSession(
+  session: MealAnalysisSessionRecord,
+  options: AnalysisRequestOptions,
+  trace: AnalysisTrace,
+  selectedMealType?: MealTypeValue,
+  selectedMealTypeSource?: MealTypeSource
+): PipelineRunContext {
+  const requestPayload = snapshotRecord(session.requestPayload, 'request payload');
+  const feedbackContext = feedbackContextFromSessionPayload(requestPayload);
+  const persistedMealType = session.selectedMealType == null
+    ? undefined
+    : snapshotMealType(session.selectedMealType, 'selected meal type');
+  return {
+    analysisId: session.analysisId,
+    parentAnalysisId: session.parentAnalysisId,
+    userId: session.userId,
+    source: session.source,
+    locale: session.locale,
+    countryCode: session.countryCode,
+    timeZone: session.timeZone,
+    requestPayload,
+    imageUrl: session.source === 'image'
+      ? imageDownloadUrlFromSessionPayload(requestPayload)
+      : undefined,
+    selectedMealType: selectedMealType ?? persistedMealType,
+    selectedMealTypeSource:
+      selectedMealTypeSource ?? session.selectedMealTypeSource,
+    ...feedbackContext,
+    logger: options.logger,
+    trace,
+  };
+}
+
+function decompositionClaimRecord(context: PipelineRunContext) {
+  return {
+    analysisId: context.analysisId,
+    parentAnalysisId: context.parentAnalysisId,
+    userId: context.userId,
+    source: context.source,
+    locale: context.locale,
+    countryCode: context.countryCode,
+    timeZone: context.timeZone,
+    requestPayload: context.requestPayload,
+    selectedMealType: context.selectedMealType,
+    selectedMealTypeSource: context.selectedMealTypeSource,
+  };
+}
+
+/**
+ * Keep dispatch identity immutable inside request_payload. Some corresponding
+ * session columns legitimately change later (for example, user meal-type
+ * selection and log time zone), so comparing those mutable columns would make
+ * a completed same-ID retry look like a collision.
+ */
+function durableAnalysisContext(
+  options: AnalysisRequestOptions,
+  locale: string
+): Record<string, string | null> {
+  return {
+    locale,
+    countryCode: options.countryCode ?? null,
+    timeZone: options.timeZone ?? null,
+    selectedMealType: options.selectedMealType ?? null,
+    selectedMealTypeSource: options.selectedMealTypeSource ?? null,
+  };
+}
+
+async function decomposeFromContext(
+  client: MealAnalysisLlmClient,
+  context: PipelineRunContext
+): Promise<LLMDecomposition> {
+  const correctionContext = buildCorrectionContext(
+    context.feedbackIssues,
+    context.otherText
+  );
+  if (context.source === 'text') {
+    const input = String(context.requestPayload.textDescription ?? '');
+    if (input.trim() === '') {
+      throw new InvalidMealAnalysisSnapshotError(
+        'text request is missing textDescription'
+      );
+    }
+    return traceAsync(
+      context.trace,
+      'llm',
+      'decompose_text',
+      {
+        analysisId: context.analysisId,
+        model: OPENAI_MEAL_ANALYSIS_MODEL,
+        source: 'text',
+      },
+      () => decomposeFromText(client, input, correctionContext)
+    );
+  }
+
+  if (!context.imageUrl) {
+    throw new InvalidMealAnalysisSnapshotError(
+      'image request is missing an image object key'
+    );
+  }
+  return traceAsync(
+    context.trace,
+    'llm',
+    'decompose_image',
+    {
+      analysisId: context.analysisId,
+      model: OPENAI_MEAL_ANALYSIS_MODEL,
+      source: 'image',
+    },
+    () => decomposeFromImage(client, context.imageUrl!, correctionContext)
+  );
+}
+
+async function* runClaimedDecomposition(
+  context: PipelineRunContext,
+  lease: MealAnalysisStageLease
+): AsyncGenerator<PipelineEvent> {
+  // The ID, request and fenced DECOMPOSING stage are durable before STARTED.
+  yield { step: 'STARTED', data: { analysisId: context.analysisId } };
+  const client = getMealAnalysisClient(context.trace);
+  const decomposition = await decomposeFromContext(client, context);
+  yield* runPipelineFromDecomposition(client, decomposition, context, lease);
 }
 
 export async function* analyzeTextMeal(
@@ -2275,7 +2624,12 @@ export async function* analyzeTextMeal(
     locale: options.locale ?? 'en',
     countryCode: options.countryCode,
     timeZone: options.timeZone,
-    requestPayload: { textDescription: input },
+    requestPayload: {
+      textDescription: input,
+      analysisContext: durableAnalysisContext(options, options.locale ?? 'en'),
+      ...(options.feedbackIssues?.length ? { feedbackIssues: options.feedbackIssues } : {}),
+      ...(options.otherText ? { otherText: options.otherText } : {}),
+    },
     selectedMealType: options.selectedMealType,
     selectedMealTypeSource: options.selectedMealTypeSource,
     feedbackIssues: options.feedbackIssues,
@@ -2283,6 +2637,7 @@ export async function* analyzeTextMeal(
     logger: options.logger,
     trace,
   };
+  let decompositionLease: MealAnalysisStageLease | undefined;
 
   try {
     logAnalysis(options.logger, 'info', 'analysis_started', {
@@ -2293,33 +2648,40 @@ export async function* analyzeTextMeal(
       textLength: input.length,
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
-    yield { step: 'STARTED', data: { analysisId } };
-    const client = getMealAnalysisClient(trace);
-    const decomposition = await traceAsync(
-      trace,
-      'llm',
-      'decompose_text',
-      {
-        analysisId,
-        model: OPENAI_MEAL_ANALYSIS_MODEL,
-        source: 'text',
-      },
-      () =>
-        decomposeFromText(
-          client,
-          input,
-          buildCorrectionContext(options.feedbackIssues, options.otherText)
-        )
+    const dispatch = await claimMealAnalysisDecomposition(
+      decompositionClaimRecord(context)
     );
-    yield* runPipelineFromDecomposition(client, decomposition, context);
+    if (dispatch.status === 'conflict') {
+      throw new Error('Analysis ID is unavailable');
+    }
+    if (dispatch.status === 'existing') {
+      yield* resumeMealAnalysis(analysisId, { ...options, trace });
+      return;
+    }
+    decompositionLease = dispatch.lease;
+    yield* runClaimedDecomposition(context, decompositionLease);
   } catch (error) {
     logAnalysis(options.logger, 'error', 'analysis_failed', {
       analysisId,
       source: 'text',
-      message: error instanceof Error ? error.message : 'Analysis failed',
+      errorKind: mealAnalysisErrorKind(error, 'analysis_failed'),
       traceSummary: summarizeAnalysisTrace(trace),
     });
-    yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Analysis failed');
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Meal analysis failed')
+    );
+  } finally {
+    if (decompositionLease) {
+      try {
+        await releaseMealAnalysisDecomposition(analysisId, decompositionLease.token);
+      } catch (error) {
+        logAnalysis(options.logger, 'error', 'decomposition_stage_release_failed', {
+          analysisId,
+          ...safeErrorMetadata(error, 'decomposition_stage_release_failed'),
+        });
+      }
+    }
   }
 }
 
@@ -2337,7 +2699,13 @@ export async function* analyzeImageMeal(
     locale: options.locale ?? 'en',
     countryCode: options.countryCode,
     timeZone: options.timeZone,
-    requestPayload: { imageUrl },
+    requestPayload: {
+      ...(options.imageObjectKey ? { imageObjectKey: options.imageObjectKey } : {}),
+      analysisContext: durableAnalysisContext(options, options.locale ?? 'en'),
+      ...(options.feedbackIssues?.length ? { feedbackIssues: options.feedbackIssues } : {}),
+      ...(options.otherText ? { otherText: options.otherText } : {}),
+    },
+    imageUrl,
     selectedMealType: options.selectedMealType,
     selectedMealTypeSource: options.selectedMealTypeSource,
     feedbackIssues: options.feedbackIssues,
@@ -2345,6 +2713,7 @@ export async function* analyzeImageMeal(
     logger: options.logger,
     trace,
   };
+  let decompositionLease: MealAnalysisStageLease | undefined;
 
   try {
     logAnalysis(options.logger, 'info', 'analysis_started', {
@@ -2361,33 +2730,265 @@ export async function* analyzeImageMeal(
       })(),
       hasFeedbackContext: Boolean(options.feedbackIssues?.length || options.otherText),
     });
-    yield { step: 'STARTED', data: { analysisId } };
-    const client = getMealAnalysisClient(trace);
-    const decomposition = await traceAsync(
-      trace,
-      'llm',
-      'decompose_image',
-      {
-        analysisId,
-        model: OPENAI_MEAL_ANALYSIS_MODEL,
-        source: 'image',
-      },
-      () =>
-        decomposeFromImage(
-          client,
-          imageUrl,
-          buildCorrectionContext(options.feedbackIssues, options.otherText)
-        )
+    const dispatch = await claimMealAnalysisDecomposition(
+      decompositionClaimRecord(context)
     );
-    yield* runPipelineFromDecomposition(client, decomposition, context);
+    if (dispatch.status === 'conflict') {
+      throw new Error('Analysis ID is unavailable');
+    }
+    if (dispatch.status === 'existing') {
+      yield* resumeMealAnalysis(analysisId, { ...options, trace });
+      return;
+    }
+    decompositionLease = dispatch.lease;
+    yield* runClaimedDecomposition(context, decompositionLease);
   } catch (error) {
     logAnalysis(options.logger, 'error', 'analysis_failed', {
       analysisId,
       source: 'image',
-      message: error instanceof Error ? error.message : 'Image analysis failed',
+      errorKind: mealAnalysisErrorKind(error, 'image_analysis_failed'),
       traceSummary: summarizeAnalysisTrace(trace),
     });
-    yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Image analysis failed');
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Image analysis failed')
+    );
+  } finally {
+    if (decompositionLease) {
+      try {
+        await releaseMealAnalysisDecomposition(analysisId, decompositionLease.token);
+      } catch (error) {
+        logAnalysis(options.logger, 'error', 'decomposition_stage_release_failed', {
+          analysisId,
+          ...safeErrorMetadata(error, 'decomposition_stage_release_failed'),
+        });
+      }
+    }
+  }
+}
+
+/**
+ * Continue from the last durable snapshot after a stream disconnect or worker
+ * restart. In-flight claims are polled for a bounded interval; stale claims are
+ * recovered by the same compare-and-set transitions used by the original run.
+ */
+export async function* resumeMealAnalysis(
+  analysisId: string,
+  options: AnalysisRequestOptions = {}
+): AsyncGenerator<PipelineEvent> {
+  const trace = options.trace ?? createAnalysisTrace();
+  try {
+    let session = await getMealAnalysisSession(analysisId);
+    if (!session || (options.userId && session.userId !== options.userId)) {
+      yield buildErrorEvent(analysisId, 'Analysis session not found');
+      return;
+    }
+
+    while (true) {
+      const stage = resolveMealAnalysisStage(session);
+      if (stage === 'COMPLETED') {
+        const result = sessionToResultEvent(session);
+        if (!result) {
+          throw new InvalidMealAnalysisSnapshotError('COMPLETED has no valid result');
+        }
+        yield result;
+        return;
+      }
+
+      if (stage === 'PENDING_DECOMPOSITION' || stage === 'DECOMPOSING') {
+        const context = contextFromSession(session, options, trace);
+        const dispatch = await claimMealAnalysisDecomposition(
+          decompositionClaimRecord(context)
+        );
+        if (dispatch.status === 'conflict') {
+          throw new Error('Analysis session not found');
+        }
+        if (dispatch.status === 'existing') {
+          session = await waitAfterBusyStage(analysisId, 'DECOMPOSING');
+          continue;
+        }
+        try {
+          yield* runClaimedDecomposition(context, dispatch.lease);
+          return;
+        } finally {
+          await releaseMealAnalysisDecomposition(
+            analysisId,
+            dispatch.lease.token
+          );
+        }
+      }
+
+      const decomposition = sessionToNormalizedDecomposition(session);
+      const selectedMealType = session.selectedMealType == null
+        ? undefined
+        : snapshotMealType(session.selectedMealType, 'selected meal type');
+      const context = contextFromSession(
+        session,
+        options,
+        trace,
+        selectedMealType,
+        session.selectedMealTypeSource ?? (selectedMealType ? 'model' : undefined)
+      );
+      const client = getMealAnalysisClient(trace);
+
+      if (stage === 'DECOMPOSED' || stage === 'RESOLVING_INGREDIENTS') {
+        yield buildDecompositionEvent(context, decomposition);
+        try {
+          const resolved = await resolveAndPersistIngredientsStage(
+            client,
+            decomposition,
+            context,
+            session.stage == null
+          );
+          yield buildIngredientsEvent(context, decomposition, resolved);
+          try {
+            yield* runFinalizationStage(client, decomposition, resolved, context);
+            return;
+          } catch (error) {
+            if (!(error instanceof MealAnalysisStageBusyError)) throw error;
+            session = await waitAfterBusyStage(analysisId, error.stage);
+            continue;
+          }
+        } catch (error) {
+          if (!(error instanceof MealAnalysisStageBusyError)) throw error;
+          session = await waitAfterBusyStage(analysisId, error.stage);
+          continue;
+        }
+      }
+
+      const resolved = sessionToResolvedIngredients(session, decomposition);
+      if (stage === 'INGREDIENTS_RESOLVED' || stage === 'FINALIZING_ANALYSIS') {
+        yield buildDecompositionEvent(context, decomposition);
+        yield buildIngredientsEvent(context, decomposition, resolved);
+        try {
+          yield* runFinalizationStage(
+            client,
+            decomposition,
+            resolved,
+            context,
+            session.stage == null
+          );
+          return;
+        } catch (error) {
+          if (!(error instanceof MealAnalysisStageBusyError)) throw error;
+          session = await waitAfterBusyStage(analysisId, error.stage);
+          continue;
+        }
+      }
+
+      const uncertainty = validatePersistedUncertainty(
+        session,
+        resolved,
+        context.locale
+      );
+      const clarifications = uncertainty.needsClarification
+        ? generateClarifications(resolved, context.locale)
+        : [];
+      const uncertaintyEvent = buildUncertaintyEvent(
+        context,
+        decomposition,
+        uncertainty,
+        clarifications
+      );
+
+      const pendingClarificationAnswers = pendingClarificationAnswersFromSession(session);
+      if (
+        stage === 'APPLYING_CLARIFICATION' ||
+        (stage === 'AWAITING_CLARIFICATION' && pendingClarificationAnswers.length > 0)
+      ) {
+        const stageLease = await claimMealAnalysisClarification(
+          analysisId,
+          undefined,
+          session.stage == null
+        );
+        if (!stageLease) {
+          session = await waitForMealAnalysisStageChange(analysisId, stage);
+          continue;
+        }
+        try {
+          yield* runPostResolutionPipeline(client, decomposition, resolved, context, {
+            incomingAnswers: pendingClarificationAnswers,
+            accumulatedAnswers: clarificationAnswersFromSession(session),
+            stageLease,
+          });
+          return;
+        } finally {
+          await releaseMealAnalysisClarification(analysisId, stageLease.token);
+        }
+      }
+
+      yield buildDecompositionEvent(context, decomposition);
+      yield buildIngredientsEvent(context, decomposition, resolved);
+      yield uncertaintyEvent;
+
+      if (stage === 'AWAITING_CLARIFICATION') {
+        return;
+      }
+      if (stage === 'AWAITING_MEAL_TYPE') {
+        yield buildMealTypeQuestionEvent(context, decomposition);
+        return;
+      }
+      if (stage !== 'READY_FOR_PRESENTATION' && stage !== 'PRESENTING') {
+        throw new InvalidMealAnalysisSnapshotError(`cannot resume stage ${stage}`);
+      }
+
+      const finalMealType = context.selectedMealType;
+      const mealTypeSource = context.selectedMealTypeSource;
+      if (!finalMealType || finalMealType === 'UNKNOWN' || !mealTypeSource) {
+        throw new InvalidMealAnalysisSnapshotError(
+          `${stage} is missing its selected meal type`
+        );
+      }
+      const presentationLease = await claimMealAnalysisPresentation(
+        analysisId,
+        'READY_FOR_PRESENTATION',
+        finalMealType,
+        mealTypeSource,
+        session.stage == null
+      );
+      if (!presentationLease) {
+        const latest = await getMealAnalysisSession(analysisId);
+        const completed = latest ? sessionToResultEvent(latest) : undefined;
+        if (completed) {
+          yield completed;
+          return;
+        }
+        if (latest && resolveMealAnalysisStage(latest) === 'PRESENTING') {
+          session = await waitForMealAnalysisStageChange(
+            analysisId,
+            'PRESENTING'
+          );
+          continue;
+        }
+        throw new Error('Analysis presentation stage changed while resuming');
+      }
+
+      yield* runPresentationStage(
+        client,
+        decomposition,
+        resolved,
+        uncertainty,
+        uncertaintyEvent,
+        context,
+        'READY_FOR_PRESENTATION',
+        clarificationAnswersFromSession(session),
+        session.stage == null,
+        presentationLease
+      );
+      return;
+    }
+  } catch (error) {
+    const retryable = error instanceof MealAnalysisStageBusyError;
+    logAnalysis(options.logger, 'error', 'analysis_resume_failed', {
+      analysisId,
+      errorKind: mealAnalysisErrorKind(error, 'analysis_resume_failed'),
+      traceSummary: summarizeAnalysisTrace(trace),
+    });
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Analysis resume failed'),
+      retryable
+    );
   }
 }
 
@@ -2397,6 +2998,7 @@ export async function* continueMealAnalysis(
   options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
   const trace = options.trace ?? createAnalysisTrace();
+  let clarificationLease: MealAnalysisStageLease | undefined;
   try {
     logAnalysis(options.logger, 'info', 'clarification_resume_started', {
       analysisId,
@@ -2411,44 +3013,123 @@ export async function* continueMealAnalysis(
       yield buildErrorEvent(analysisId, 'Analysis session not found');
       return;
     }
-    const decomposition = sessionToDecomposition(session);
-    if (!decomposition) {
-      yield buildErrorEvent(analysisId, 'Analysis session is missing decomposition data');
+
+    const stage = resolveMealAnalysisStage(session);
+    if (stage === 'COMPLETED') {
+      const result = sessionToResultEvent(session);
+      if (!result) {
+        throw new InvalidMealAnalysisSnapshotError('COMPLETED has no valid result');
+      }
+      yield result;
+      return;
+    }
+    if (stage === 'DECOMPOSED' || stage === 'AWAITING_MEAL_TYPE') {
+      throw new InvalidMealAnalysisSnapshotError(
+        `${stage} cannot accept clarification answers`
+      );
+    }
+
+    const decomposition = sessionToNormalizedDecomposition(session);
+    const resolved = sessionToResolvedIngredients(session, decomposition);
+    const selectedMealType = session.selectedMealType == null
+      ? undefined
+      : snapshotMealType(session.selectedMealType, 'selected meal type');
+    const context = contextFromSession(
+      session,
+      options,
+      trace,
+      selectedMealType,
+      session.selectedMealTypeSource ?? (selectedMealType ? 'model' : undefined)
+    );
+    const priorAnswers = clarificationAnswersFromSession(session);
+    const client = getMealAnalysisClient(trace);
+
+    if (stage === 'READY_FOR_PRESENTATION' || stage === 'PRESENTING') {
+      if (answers.length > 0) {
+        throw new InvalidMealAnalysisSnapshotError(
+          `${stage} cannot accept additional clarification answers`
+        );
+      }
+      const uncertainty = validatePersistedUncertainty(
+        session,
+        resolved,
+        context.locale
+      );
+      const uncertaintyEvent = buildUncertaintyEvent(
+        context,
+        decomposition,
+        uncertainty,
+        []
+      );
+      yield* runPresentationStage(
+        client,
+        decomposition,
+        resolved,
+        uncertainty,
+        uncertaintyEvent,
+        context,
+        'READY_FOR_PRESENTATION',
+        priorAnswers.length > 0 ? priorAnswers : undefined,
+        session.stage == null
+      );
       return;
     }
 
-    const context: PipelineRunContext = {
+    if (stage === 'INGREDIENTS_RESOLVED') {
+      if (answers.length > 0) {
+        throw new InvalidMealAnalysisSnapshotError(
+          'INGREDIENTS_RESOLVED has no persisted clarification to answer'
+        );
+      }
+      yield* runFinalizationStage(client, decomposition, resolved, context);
+      return;
+    }
+
+    validatePersistedUncertainty(session, resolved, context.locale);
+    clarificationLease = await claimMealAnalysisClarification(
       analysisId,
-      parentAnalysisId: session.parentAnalysisId,
-      userId: session.userId,
-      source: session.source,
-      locale: session.locale,
-      countryCode: session.countryCode,
-      timeZone: session.timeZone,
-      requestPayload: (session.requestPayload as Record<string, unknown>) ?? {},
-      selectedMealType: session.selectedMealType as MealTypeValue | undefined,
-      selectedMealTypeSource: session.selectedMealTypeSource,
-      logger: options.logger,
-      trace,
-    };
-
-    // Merge prior persisted answers with incoming ones. Required for the
-    // multi-round count → size flow: round 1 answers a COUNT_QUESTION, the
-    // server emits a follow-up size question, and round 2 only carries the
-    // size answer. Without merging, round 2 would re-run with count=null
-    // and loop the user back to the count question.
-    const priorAnswers = (session.clarificationAnswers as MealClarificationAnswer[] | undefined) ?? [];
-    const mergedAnswers = mergeClarificationAnswers(priorAnswers, answers);
-
-    const client = getMealAnalysisClient(trace);
-    yield* runPipelineFromDecomposition(client, decomposition, context, mergedAnswers, false);
+      answers,
+      session.stage == null
+    );
+    if (!clarificationLease) {
+      const latest = await getMealAnalysisSession(analysisId);
+      const result = latest ? sessionToResultEvent(latest) : undefined;
+      if (result) {
+        yield result;
+        return;
+      }
+      throw new Error('Analysis clarification is already being applied or its stage changed');
+    }
+    yield* runPostResolutionPipeline(client, decomposition, resolved, context, {
+      incomingAnswers: answers,
+      accumulatedAnswers: priorAnswers,
+      emitUpdatedIngredients: true,
+      stageLease: clarificationLease,
+    });
   } catch (error) {
     logAnalysis(options.logger, 'error', 'clarification_resume_failed', {
       analysisId,
-      message: error instanceof Error ? error.message : 'Clarification failed',
+      errorKind: mealAnalysisErrorKind(error, 'clarification_failed'),
       traceSummary: summarizeAnalysisTrace(trace),
     });
-    yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Clarification failed');
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Clarification failed')
+    );
+  } finally {
+    if (clarificationLease) {
+      try {
+        await releaseMealAnalysisClarification(
+          analysisId,
+          clarificationLease.token
+        );
+      } catch (error) {
+        logAnalysis(options.logger, 'error', 'clarification_stage_release_failed', {
+          analysisId,
+          ...safeErrorMetadata(error, 'clarification_stage_release_failed'),
+        });
+      }
+    }
   }
 }
 
@@ -2459,6 +3140,11 @@ export async function* continueMealAnalysisWithMealType(
 ): AsyncGenerator<PipelineEvent> {
   const trace = options.trace ?? createAnalysisTrace();
   try {
+    if (selectedMealType === 'UNKNOWN') {
+      throw new InvalidMealAnalysisSnapshotError(
+        'A concrete meal type is required to continue analysis'
+      );
+    }
     logAnalysis(options.logger, 'info', 'meal_type_resume_started', {
       analysisId,
       selectedMealType,
@@ -2472,44 +3158,61 @@ export async function* continueMealAnalysisWithMealType(
       yield buildErrorEvent(analysisId, 'Analysis session not found');
       return;
     }
-    const decomposition = sessionToDecomposition(session);
-    if (!decomposition) {
-      yield buildErrorEvent(analysisId, 'Analysis session is missing decomposition data');
+
+    const stage = resolveMealAnalysisStage(session);
+    if (stage === 'COMPLETED') {
+      const result = sessionToResultEvent(session);
+      if (!result) {
+        throw new InvalidMealAnalysisSnapshotError('COMPLETED has no valid result');
+      }
+      yield result;
       return;
     }
+    if (stage !== 'AWAITING_MEAL_TYPE' && stage !== 'PRESENTING') {
+      throw new InvalidMealAnalysisSnapshotError(
+        `${stage} is not awaiting a meal type`
+      );
+    }
 
-    const context: PipelineRunContext = {
-      analysisId,
-      parentAnalysisId: session.parentAnalysisId,
-      userId: session.userId,
-      source: session.source,
-      locale: session.locale,
-      countryCode: session.countryCode,
-      timeZone: session.timeZone,
-      requestPayload: (session.requestPayload as Record<string, unknown>) ?? {},
-      selectedMealType,
-      selectedMealTypeSource: 'user',
-      logger: options.logger,
+    const decomposition = sessionToNormalizedDecomposition(session);
+    const resolved = sessionToResolvedIngredients(session, decomposition);
+    const uncertainty = validatePersistedUncertainty(session, resolved, session.locale);
+    const context = contextFromSession(
+      session,
+      options,
       trace,
-    };
-
+      selectedMealType,
+      'user'
+    );
+    const uncertaintyEvent = buildUncertaintyEvent(
+      context,
+      decomposition,
+      uncertainty,
+      []
+    );
     const client = getMealAnalysisClient(trace);
-    yield* runPipelineFromDecomposition(
+    yield* runPresentationStage(
       client,
       decomposition,
+      resolved,
+      uncertainty,
+      uncertaintyEvent,
       context,
-      session.clarificationAnswers as MealClarificationAnswer[] | undefined,
-      false,
-      false
+      'AWAITING_MEAL_TYPE',
+      clarificationAnswersFromSession(session),
+      session.stage == null
     );
   } catch (error) {
     logAnalysis(options.logger, 'error', 'meal_type_resume_failed', {
       analysisId,
       selectedMealType,
-      message: error instanceof Error ? error.message : 'Meal type continuation failed',
+      errorKind: mealAnalysisErrorKind(error, 'meal_type_continuation_failed'),
       traceSummary: summarizeAnalysisTrace(trace),
     });
-    yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Meal type continuation failed');
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Meal type continuation failed')
+    );
   }
 }
 
@@ -2538,7 +3241,7 @@ export async function* reanalyzeMeal(
       return;
     }
 
-    const nextAnalysisId = randomUUID();
+    const nextAnalysisId = requestOptions.analysisId ?? randomUUID();
     const options: AnalysisRequestOptions = {
       analysisId: nextAnalysisId,
       parentAnalysisId: analysisId,
@@ -2560,12 +3263,17 @@ export async function* reanalyzeMeal(
 
     const requestPayload = (session.requestPayload as Record<string, unknown>) ?? {};
     if (session.source === 'image') {
-      const imageUrl = requestPayload.imageUrl;
-      if (typeof imageUrl !== 'string' || imageUrl.trim() === '') {
-        yield buildErrorEvent(nextAnalysisId, 'Image analysis session is missing imageUrl');
+      let imageUrl: string | undefined;
+      let imageObjectKey: string | undefined;
+      if (typeof requestPayload.imageObjectKey === 'string') {
+        imageObjectKey = requestPayload.imageObjectKey;
+        imageUrl = buildOracleDownloadUrl(imageObjectKey);
+      }
+      if (!imageUrl || !imageObjectKey) {
+        yield buildErrorEvent(nextAnalysisId, 'Image analysis session is missing an image object key');
         return;
       }
-      yield* analyzeImageMeal(imageUrl, options);
+      yield* analyzeImageMeal(imageUrl, { ...options, imageObjectKey });
       return;
     }
 
@@ -2578,9 +3286,12 @@ export async function* reanalyzeMeal(
   } catch (error) {
     logAnalysis(requestOptions.logger, 'error', 'reanalyze_failed', {
       analysisId,
-      message: error instanceof Error ? error.message : 'Reanalysis failed',
+      errorKind: mealAnalysisErrorKind(error, 'reanalysis_failed'),
       traceSummary: summarizeAnalysisTrace(trace),
     });
-    yield buildErrorEvent(analysisId, error instanceof Error ? error.message : 'Reanalysis failed');
+    yield buildErrorEvent(
+      analysisId,
+      publicMealAnalysisError(error, 'Reanalysis failed')
+    );
   }
 }

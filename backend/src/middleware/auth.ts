@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { verifyFirebaseToken, getUserIdFromToken } from '../services/firebase.js';
 import { createErrorResponse } from '../utils/errors.js';
+import { safeErrorMetadata } from '../utils/safeError.js';
 
 /**
  * Extract Bearer token from Authorization header
@@ -65,11 +66,16 @@ export async function authenticateUser(
     // Attach user ID to request for use in route handlers
     (request as FastifyRequest & { userId: string }).userId = userId;
   } catch (error) {
-    reply.status(401).send(
-      createErrorResponse(
-        error instanceof Error ? error.message : 'Invalid or expired authentication token'
-      )
+    request.log.warn(
+      {
+        operation: 'authenticate_user',
+        ...safeErrorMetadata(error, 'authentication_rejected'),
+      },
+      'Authentication rejected'
     );
+    reply
+      .status(401)
+      .send(createErrorResponse('Invalid or expired authentication token'));
     return;
   }
 }

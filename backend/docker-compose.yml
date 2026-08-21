@@ -22,7 +22,7 @@ services:
       - calorify-network
 
   promtail:
-    image: grafana/promtail:latest
+    image: grafana/promtail:2.9.2
     container_name: calorify-promtail
     restart: always
     volumes:
@@ -79,7 +79,9 @@ services:
       - calorify-network
 
   backend-prod:
-    build: .
+    build:
+      context: .
+      target: production
     image: calorify-backend-prod:latest
     container_name: calorify-backend-prod
     restart: always
@@ -94,7 +96,7 @@ services:
     volumes:
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/ready', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -130,7 +132,9 @@ services:
       - calorify-network
 
   backend-staging:
-    build: .
+    build:
+      context: .
+      target: development
     image: calorify-backend-staging:latest
     container_name: calorify-backend-staging
     restart: always
@@ -147,7 +151,7 @@ services:
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     command: npm run dev
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/ready', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
       timeout: 5s
       retries: 3

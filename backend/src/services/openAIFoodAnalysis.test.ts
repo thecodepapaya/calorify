@@ -11,7 +11,6 @@ process.env.OPENAI_API_KEY ??= 'test-openai-key';
 process.env.DEBUG ??= 'false';
 process.env.ENVIRONMENT ??= 'development';
 
-const { default: config } = await import('../config.js');
 const { openAIFoodAnalysisService } = await import('./openAIFoodAnalysis.js');
 
 type OpenAIRequest = {
@@ -51,9 +50,6 @@ const mockChatCreate = mock.fn(
     },
   },
 };
-
-(config as { DEBUG: boolean; ENVIRONMENT: string }).DEBUG = false;
-(config as { DEBUG: boolean; ENVIRONMENT: string }).ENVIRONMENT = 'development';
 
 function resetChatCreate(content: string): void {
   mockChatCreate.mock.resetCalls();
@@ -169,7 +165,7 @@ test('OpenAI service rejects invalid image URLs before calling the SDK', async (
 
   await assert.rejects(
     () => openAIFoodAnalysisService.analyzeImageFromUrl('not-a-url'),
-    /Failed to analyze image: Invalid image URL format/
+    /Invalid image URL format/
   );
 
   assert.equal(mockChatCreate.mock.calls.length, 0);
@@ -180,6 +176,25 @@ test('OpenAI service surfaces JSON parse failures clearly', async () => {
 
   await assert.rejects(
     () => openAIFoodAnalysisService.analyzeTextDescription('toast'),
-    /Failed to analyze description: Failed to parse OpenAI response as JSON/
+    /Food analysis provider returned an invalid response/
+  );
+});
+
+test('OpenAI service never propagates raw SDK error messages', async () => {
+  const secret = 'PRIVATE_MEAL_AND_PROVIDER_CREDENTIAL';
+  mockChatCreate.mock.resetCalls();
+  mockChatCreate.mock.mockImplementation(async () => {
+    throw new Error(`SDK request failed with ${secret}`);
+  });
+
+  await assert.rejects(
+    () => openAIFoodAnalysisService.analyzeTextDescription('toast'),
+    (error: Error & { code?: string }) => {
+      assert.equal(error.name, 'OpenAIFoodAnalysisError');
+      assert.equal(error.code, 'provider_failure');
+      assert.equal(error.message, 'Food analysis provider request failed');
+      assert.doesNotMatch(error.message, new RegExp(secret));
+      return true;
+    }
   );
 });

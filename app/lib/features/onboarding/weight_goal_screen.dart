@@ -1,25 +1,26 @@
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:i18n/i18n.dart';
 import 'package:widgets/widgets.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/profile_enum_extensions.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 
-class WeightGoalScreen extends StatefulWidget {
+class WeightGoalScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   const WeightGoalScreen({super.key, required this.onContinue});
 
   @override
-  State<WeightGoalScreen> createState() => _WeightGoalScreenState();
+  ConsumerState<WeightGoalScreen> createState() => _WeightGoalScreenState();
 }
 
-class _WeightGoalScreenState extends State<WeightGoalScreen> {
+class _WeightGoalScreenState extends ConsumerState<WeightGoalScreen> {
   WeightGoal? _selectedGoal;
   bool _isLoading = true;
   UserProfile? _userProfile;
@@ -32,7 +33,7 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
   }
 
   Future<void> _loadProfileData() async {
-    final data = await OnboardingService.instance.getProfileData();
+    final data = await ref.read(onboardingServiceProvider).getProfileData();
     if (!mounted) return;
     setState(() {
       _userProfile = data ?? UserProfile();
@@ -84,7 +85,8 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 0.0, top: 24.0),
-            child: PrimaryButton(
+            child: AppButton(
+              variant: AppButtonVariant.primary,
               analyticsEvent: AnalyticsEvent.onboardingSetWeightGoal,
               onPressed:
                   _selectedGoal != null && !_isSaving
@@ -125,7 +127,9 @@ class _WeightGoalScreenState extends State<WeightGoalScreen> {
       final updatedProfile = profile.deepCopy();
       updatedProfile.weightGoal = _selectedGoal!;
       try {
-        await OnboardingService.instance.saveProfileData(updatedProfile);
+        await ref
+            .read(onboardingServiceProvider)
+            .saveProfileData(updatedProfile);
         if (!mounted) return;
         widget.onContinue();
       } catch (_) {

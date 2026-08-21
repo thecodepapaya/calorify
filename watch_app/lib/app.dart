@@ -1,8 +1,6 @@
 import 'package:specs/specs.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
-import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 final _appRouter = AppRouter();
 
@@ -71,9 +69,6 @@ class CalorifyWatchApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       scrollBehavior: const WatchScrollBehavior(),
       routerConfig: _appRouter.config(),
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      supportedLocales: AppLocaleUtils.supportedLocales,
-      locale: LocaleSettings.currentLocale.flutterLocale,
     );
   }
 }

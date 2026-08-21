@@ -1,5 +1,5 @@
 /**
- * Shared system prompt for food analysis (OpenAI and Gemini).
+ * Shared system prompt for food analysis across the configured LLM providers.
  * Single source of truth for schema and rules.
  */
 

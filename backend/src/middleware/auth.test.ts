@@ -7,7 +7,7 @@ await mock.module('../services/firebase.js', {
   namedExports: {
     verifyFirebaseToken: mock.fn(async (token: string) => {
       if (token === 'valid-token') return { uid: 'user-123' };
-      throw new Error('Invalid or expired authentication token: Token invalid');
+      throw new Error('Firebase rejected token; injected-secret=auth-secret-value');
     }),
     getUserIdFromToken: mock.fn((decoded: { uid: string }) => decoded.uid),
     initializeFirebase: mock.fn(() => {}),
@@ -21,8 +21,16 @@ import type { FastifyRequest, FastifyReply } from 'fastify';
 // Helpers
 // ---------------------------------------------------------------------------
 
-function makeRequest(headers: Record<string, string | undefined> = {}): FastifyRequest {
-  return { headers } as unknown as FastifyRequest;
+function makeRequest(
+  headers: Record<string, string | undefined> = {},
+  warnings: unknown[][] = []
+): FastifyRequest {
+  return {
+    headers,
+    log: {
+      warn: (...args: unknown[]) => warnings.push(args),
+    },
+  } as unknown as FastifyRequest;
 }
 
 function makeReply() {
@@ -67,10 +75,19 @@ test('authenticateUser returns 401 for non-Bearer scheme', async () => {
 });
 
 test('authenticateUser returns 401 when token is invalid', async () => {
+  const warnings: unknown[][] = [];
   const reply = makeReply();
-  await authenticateUser(makeRequest({ authorization: 'Bearer bad-token' }), reply as FastifyReply);
+  await authenticateUser(
+    makeRequest({ authorization: 'Bearer bad-token' }, warnings),
+    reply as FastifyReply
+  );
   assert.equal(reply.sentStatus, 401);
-  assert.ok((reply.sentBody as any).message.includes('Invalid or expired authentication token'));
+  assert.deepEqual(reply.sentBody, {
+    ok: false,
+    message: 'Invalid or expired authentication token',
+  });
+  assert.equal(warnings.length, 1);
+  assert.equal(JSON.stringify(warnings).includes('auth-secret-value'), false);
 });
 
 test('authenticateUser returns 401 for empty bearer value', async () => {
@@ -80,10 +97,14 @@ test('authenticateUser returns 401 for empty bearer value', async () => {
   assert.equal(reply.sentStatus, 401);
 });
 
-test('authenticateUser error message comes from thrown error message', async () => {
+test('authenticateUser never exposes the Firebase exception message', async () => {
   const reply = makeReply();
   await authenticateUser(makeRequest({ authorization: 'Bearer expired-token' }), reply as FastifyReply);
-  assert.ok(typeof (reply.sentBody as any).message === 'string');
+  assert.deepEqual(reply.sentBody, {
+    ok: false,
+    message: 'Invalid or expired authentication token',
+  });
+  assert.equal(JSON.stringify(reply.sentBody).includes('auth-secret-value'), false);
 });
 
 // ---------------------------------------------------------------------------

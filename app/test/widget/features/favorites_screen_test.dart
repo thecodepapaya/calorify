@@ -9,7 +9,6 @@ import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
@@ -161,10 +160,7 @@ void main() {
         invocation,
       ) async {
         final mealId = invocation.positionalArguments.first as int;
-        favorites =
-            favorites
-                .where((item) => item.loggedMeal.clientId != mealId)
-                .toList();
+        favorites = favorites.where((item) => item.clientId != mealId).toList();
         favoritesController.add(favorites);
       });
       when(() => mockDatabaseInterface.addToFavorites(any())).thenAnswer((
@@ -195,7 +191,7 @@ void main() {
         findsOneWidget,
       );
       expect(find.text('Paneer Bowl'), findsNothing);
-      verify(() => mockDatabaseInterface.removeFavoriteMeal(10)).called(1);
+      verify(() => mockDatabaseInterface.removeFavoriteMeal(1)).called(1);
 
       await tester.tap(find.text(t.favorites.undo));
       await tester.pumpAndSettle();

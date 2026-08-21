@@ -1,5 +1,6 @@
 import { Pool, PoolClient, QueryResultRow } from 'pg';
 import config from '../config.js';
+import { safeErrorMetadata } from '../utils/safeError.js';
 
 let pool: Pool | null = null;
 
@@ -24,7 +25,10 @@ export function initializeDatabase(): void {
 
   // Handle pool errors
   pool.on('error', (err: Error) => {
-    console.error('Unexpected error on idle client', err);
+    console.error(
+      'Unexpected error on idle database client',
+      safeErrorMetadata(err, 'database_idle_client_error')
+    );
   });
 }
 
@@ -77,7 +81,10 @@ export async function withTransaction<T>(
       await client.query('ROLLBACK');
     } catch (rollbackErr) {
       // Log rollback failure but preserve the original error.
-      console.error('Rollback failed after transaction error:', rollbackErr);
+      console.error(
+        'Rollback failed after transaction error:',
+        safeErrorMetadata(rollbackErr, 'database_rollback_failed')
+      );
     }
     throw err;
   } finally {
@@ -107,5 +114,41 @@ export async function healthCheck(): Promise<boolean> {
     return true;
   } catch {
     return false;
+  }
+}
+
+export interface ReadinessStatus {
+  database: boolean;
+  usdaDataset: boolean;
+}
+
+/**
+ * Readiness is stricter than liveness: the process must be able to query
+ * PostgreSQL and the active USDA snapshot must have completed materialization.
+ */
+export async function readinessCheck(): Promise<ReadinessStatus> {
+  if (!pool) return { database: false, usdaDataset: false };
+
+  try {
+    await pool.query('SELECT 1');
+  } catch {
+    return { database: false, usdaDataset: false };
+  }
+
+  try {
+    const result = await pool.query<{ usda_ready: boolean }>(
+      `SELECT EXISTS (
+         SELECT 1
+           FROM usda_dataset_version
+          WHERE is_active = TRUE
+            AND is_materialized = TRUE
+       ) AS usda_ready`
+    );
+    return {
+      database: true,
+      usdaDataset: result.rows[0]?.usda_ready === true,
+    };
+  } catch {
+    return { database: true, usdaDataset: false };
   }
 }

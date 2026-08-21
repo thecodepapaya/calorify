@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/network/firebase_performance_interceptor.dart';
+import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/network/rate_limit_exception.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
@@ -11,10 +12,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:i18n/i18n.dart';
 import 'package:measure_dio/measure_dio.dart';
-import 'package:models/models.dart' show ApiResult;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:protobuf/protobuf.dart';
-import 'package:services/services.dart' show showFlushbar;
+
+enum ProtoHttpMethod { get, post, put }
 
 class NetworkClient {
   NetworkClient._(this._dio);
@@ -94,19 +95,11 @@ class NetworkClient {
           // Authorization and device-identifying headers must never reach logs.
           requestHeader: false,
           requestBody: false,
-          responseBody: true,
+          // Meal analysis and profile responses contain personal health data.
+          responseBody: false,
           responseHeader: false,
           compact: true,
-          logPrint: (object) {
-            final message = object.toString();
-            if (message.contains("Instance of 'ResponseBody'")) {
-              debugPrint(
-                'Streamed HTTP response detected (NDJSON). Payload lines are logged as they arrive.',
-              );
-              return;
-            }
-            debugPrint(message);
-          },
+          logPrint: (object) => debugPrint(object.toString()),
         ),
       );
     }
@@ -121,54 +114,32 @@ class NetworkClient {
         options.uri.port == apiBaseUri.port;
   }
 
-  /// Proto JSON over HTTP: GET when [request] is null, otherwise POST with [request].
+  /// Sends and decodes proto JSON over HTTP.
   ///
-  /// For GET-only calls, pick any [ReqT] extending [GeneratedMessage]; it is unused when
-  /// [request] is null (e.g. `<ApiResult, AiMealSummaryResponse>`).
+  /// When [method] is omitted, requests without a body use GET and requests
+  /// with a body use POST. Pass PUT explicitly for full-resource replacement.
   Future<RespT>
   apiCall<ReqT extends GeneratedMessage, RespT extends GeneratedMessage>(
     String endpoint,
     RespT Function() parseResponse, {
     ReqT? request,
-    bool processError = true,
+    ProtoHttpMethod? method,
   }) async {
-    try {
-      final response =
-          request == null
-              ? await _dio.get<Map<String, dynamic>>(endpoint)
-              : await _dio.post<Map<String, dynamic>>(
-                endpoint,
-                data: request.toProto3Json(),
-              );
-      return parseResponse()..mergeFromProto3Json(response.data!);
-    } on DioException catch (exception) {
-      if (processError) {
-        _handleError(exception, endpoint);
-      }
-      rethrow;
-    }
-  }
-
-  void _handleError(DioException exception, String endpoint) {
-    final message = _apiResultMessageFromResponse(exception.response?.data);
-    if (message != null) {
-      showFlushbar(message);
-    }
-  }
-
-  /// Parses a [calorify.ApiResult] error body via proto3 JSON when present.
-  String? _apiResultMessageFromResponse(Object? data) {
-    if (data is! Map) return null;
-    final map = Map<String, dynamic>.from(data);
-    try {
-      final api = ApiResult.create()..mergeFromProto3Json(map);
-      if (!api.hasOk() || api.ok != false) return null;
-      if (!api.hasMessage()) return null;
-      final trimmed = api.message.trim();
-      return trimmed.isEmpty ? null : trimmed;
-    } on Exception {
-      return null;
-    }
+    final resolvedMethod =
+        method ??
+        (request == null ? ProtoHttpMethod.get : ProtoHttpMethod.post);
+    final response = switch (resolvedMethod) {
+      ProtoHttpMethod.get => await _dio.get<Map<String, dynamic>>(endpoint),
+      ProtoHttpMethod.post => await _dio.post<Map<String, dynamic>>(
+        endpoint,
+        data: request?.toProto3Json(),
+      ),
+      ProtoHttpMethod.put => await _dio.put<Map<String, dynamic>>(
+        endpoint,
+        data: request?.toProto3Json(),
+      ),
+    };
+    return parseResponse()..mergeFromProto3Json(response.data!);
   }
 
   Future<Stream<T>> streamPost<T>(
@@ -176,44 +147,39 @@ class NetworkClient {
     T Function(Map<String, dynamic>) parseEvent, {
     required Object data,
     Duration? receiveTimeout,
+    NetworkRequestCancellation? cancellation,
   }) async {
-    try {
-      final payload = data is GeneratedMessage ? data.toProto3Json() : data;
-      final response = await _dio.post<ResponseBody>(
-        endpoint,
-        data: payload,
-        options: Options(
-          responseType: ResponseType.stream,
-          headers: {'Accept': 'application/x-ndjson'},
-          receiveTimeout: receiveTimeout ?? const Duration(minutes: 1),
-        ),
+    final payload = data is GeneratedMessage ? data.toProto3Json() : data;
+    final response = await _dio.post<ResponseBody>(
+      endpoint,
+      data: payload,
+      options: Options(
+        responseType: ResponseType.stream,
+        headers: {'Accept': 'application/x-ndjson'},
+        receiveTimeout: receiveTimeout ?? const Duration(minutes: 1),
+      ),
+      cancelToken: cancellation?.cancelToken,
+    );
+
+    final responseBody = response.data;
+    if (responseBody == null) {
+      throw DioException(
+        requestOptions: response.requestOptions,
+        message: 'Empty streamed response',
       );
-
-      final responseBody = response.data;
-      if (responseBody == null) {
-        throw DioException(
-          requestOptions: response.requestOptions,
-          message: 'Empty streamed response',
-        );
-      }
-
-      return utf8.decoder
-          .bind(responseBody.stream)
-          .transform(const LineSplitter())
-          .where((line) => line.trim().isNotEmpty)
-          .map((line) => jsonDecode(line) as Map<String, dynamic>)
-          .map((event) {
-            if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
-              debugPrint(
-                '[stream:$endpoint] step=${event['step'] ?? 'unknown'}',
-              );
-            }
-            return event;
-          })
-          .map(parseEvent);
-    } on DioException catch (exception) {
-      _handleError(exception, endpoint);
-      rethrow;
     }
+
+    return utf8.decoder
+        .bind(responseBody.stream)
+        .transform(const LineSplitter())
+        .where((line) => line.trim().isNotEmpty)
+        .map((line) => jsonDecode(line) as Map<String, dynamic>)
+        .map((event) {
+          if (kDebugMode || EnvConfig.instance.usesStagingIdentity) {
+            debugPrint('[stream:$endpoint] step=${event['step'] ?? 'unknown'}');
+          }
+          return event;
+        })
+        .map(parseEvent);
   }
 }

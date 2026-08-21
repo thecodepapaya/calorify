@@ -41,7 +41,7 @@ sum by (name) (
 
 ## Existing AI metrics
 
-Upstream OpenAI/Gemini calls also increment `ai_requests_total` and `ai_request_duration_seconds` when wrapped with `instrumentAiCall` elsewhere; meal analysis LLM rounds inside `nutritionEngineV2` are primarily reflected in `meal_analysis_trace_step_seconds` for decomposition, fallback macros, and presentation.
+Upstream OpenRouter/OpenAI calls also increment `ai_requests_total` and `ai_request_duration_seconds` when wrapped with `instrumentAiCall` elsewhere; meal analysis LLM rounds inside `nutritionEngineV2` are primarily reflected in `meal_analysis_trace_step_seconds` for decomposition, fallback macros, and presentation.
 
 ## Mobile / client
 

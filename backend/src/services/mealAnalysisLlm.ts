@@ -1,6 +1,7 @@
 import OpenAI from 'openai';
 import config from '../config.js';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
+import { safeErrorKind } from '../utils/safeError.js';
 import { instrumentAiCall } from './metrics.js';
 
 type CompletionRequest = OpenAI.Chat.Completions.ChatCompletionCreateParamsNonStreaming;
@@ -24,7 +25,7 @@ export interface MealAnalysisLlmAttempt {
   model: string;
   outcome: 'success' | 'error';
   durationMs: number;
-  error?: string;
+  errorKind?: string;
 }
 
 export interface MealAnalysisLlmClientOptions {
@@ -99,9 +100,21 @@ function assertMatchesSchema(value: unknown, schema: JsonSchema, path = '$'): vo
   }
 }
 
+class MealAnalysisLlmResponseError extends Error {
+  readonly errorKind: 'empty_response' | 'invalid_structured_response';
+
+  constructor(errorKind: 'empty_response' | 'invalid_structured_response') {
+    super(errorKind === 'empty_response'
+      ? 'LLM returned an empty response'
+      : 'LLM returned an invalid structured response');
+    this.name = 'MealAnalysisLlmResponseError';
+    this.errorKind = errorKind;
+  }
+}
+
 function validateStructuredContent(response: CompletionResponse, request: CompletionRequest): void {
   const content = response.choices[0]?.message?.content;
-  if (!content) throw new Error('LLM returned an empty response');
+  if (!content) throw new MealAnalysisLlmResponseError('empty_response');
 
   if (request.response_format?.type === 'json_schema' || request.response_format?.type === 'json_object') {
     try {
@@ -113,14 +126,14 @@ function validateStructuredContent(response: CompletionResponse, request: Comple
         );
       }
     } catch {
-      throw new Error('LLM returned invalid JSON for a structured response');
+      throw new MealAnalysisLlmResponseError('invalid_structured_response');
     }
   }
 }
 
-function describeError(error: unknown): string {
-  if (error instanceof Error) return error.message;
-  return String(error);
+function describeErrorKind(error: unknown): string {
+  if (error instanceof MealAnalysisLlmResponseError) return error.errorKind;
+  return safeErrorKind(error, 'provider_error');
 }
 
 /**
@@ -176,7 +189,6 @@ export function createMealAnalysisLlmClient(
           request: CompletionRequest,
           context: MealAnalysisLlmCallContext = {}
         ): Promise<CompletionResponse> {
-          const errors: string[] = [];
           for (const attempt of attempts) {
             const startedAt = Date.now();
             try {
@@ -197,25 +209,24 @@ export function createMealAnalysisLlmClient(
               });
               return response;
             } catch (error) {
-              const message = describeError(error);
-              errors.push(`${attempt.provider}/${attempt.model}: ${message}`);
+              const errorKind = describeErrorKind(error);
               options.onAttempt?.({
                 operation: context.operation,
                 provider: attempt.provider,
                 model: attempt.model,
                 outcome: 'error',
                 durationMs: Date.now() - startedAt,
-                error: message,
+                errorKind,
               });
               console.warn('[meal-analysis-llm] provider attempt failed', {
                 provider: attempt.provider,
                 model: attempt.model,
                 operation: context.operation,
-                error: message,
+                errorKind,
               });
             }
           }
-          throw new Error(`All meal analysis LLM providers failed: ${errors.join(' | ')}`);
+          throw new Error('All meal analysis LLM providers failed');
         },
       },
     },

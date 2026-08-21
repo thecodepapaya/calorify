@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
   confirmMealAnalysisLogged,
@@ -15,6 +14,7 @@ import {
   FEEDBACK_ISSUES,
   MEAL_TYPES,
   reanalyzeMeal,
+  resumeMealAnalysis,
   type PipelineEvent,
 } from '../../services/nutritionEngineV2.js';
 import { createErrorResponse } from '../../utils/errors.js';
@@ -28,11 +28,16 @@ import {
   MealAnalysisFeedbackSignal,
   type ApiResult,
   type MealClarificationAnswer,
+  type MealAnalysisImageRequest,
+  type MealAnalysisReanalyzeRequest,
+  type MealAnalysisResumeRequest,
+  type MealAnalysisTextRequest,
 } from '../../protos/calorify/http_api.js';
 import {
   getApiResultSchema,
   getErrorResponseSchema,
 } from '../../utils/schema-generator.js';
+import { resolveOwnedImageObject } from '../../services/oracleObjectStorage.js';
 
 const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 
@@ -40,15 +45,17 @@ const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 // Zod: bounded checks on top of proto-shaped bodies (protos/calorify/*.proto).
 // -----------------------------------------------------------------------------
 
-const analyzeTextBodySchema = z.object({
+const analyzeTextBodySchema: z.ZodType<MealAnalysisTextRequest> = z.object({
+  analysisId: z.string().uuid().optional(),
   textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
 });
-type AnalyzeTextBody = z.infer<typeof analyzeTextBodySchema>;
+type AnalyzeTextBody = MealAnalysisTextRequest;
 
-const analyzeImageBodySchema = z.object({
+const analyzeImageBodySchema: z.ZodType<MealAnalysisImageRequest> = z.object({
+  analysisId: z.string().uuid().optional(),
   imageUrl: urlString,
 });
-type AnalyzeImageBody = z.infer<typeof analyzeImageBodySchema>;
+type AnalyzeImageBody = MealAnalysisImageRequest;
 
 /** Accepts proto3 camelCase or snake_case nested keys. */
 const clarifyAnswerItemSchema = z.preprocess((raw) => {
@@ -75,6 +82,11 @@ const clarifyBodySchema = z.object({
 });
 type ClarifyBody = z.infer<typeof clarifyBodySchema>;
 
+const resumeBodySchema: z.ZodType<MealAnalysisResumeRequest> = z.object({
+  analysisId: nonEmptyString.max(128),
+});
+type ResumeBody = MealAnalysisResumeRequest;
+
 const feedbackBodySchema = z.object({
   analysisId: nonEmptyString.max(128),
   signal: z.enum([MealAnalysisFeedbackSignal.UP, MealAnalysisFeedbackSignal.DOWN]),
@@ -89,13 +101,16 @@ type MealTypeBody = z.infer<typeof mealTypeBodySchema>;
 
 const reanalyzeBodySchema = z.object({
   analysisId: nonEmptyString.max(128),
+  newAnalysisId: z.string().uuid().optional(),
   issues: z
     .array(z.enum(FEEDBACK_ISSUES))
     .min(1, 'must contain at least one issue')
     .max(FEEDBACK_ISSUES.length),
   otherText: z.string().trim().max(2000).optional(),
 });
-type ReanalyzeBody = z.infer<typeof reanalyzeBodySchema>;
+type ReanalyzeBody = Omit<MealAnalysisReanalyzeRequest, 'issues'> & {
+  issues: (typeof FEEDBACK_ISSUES)[number][];
+};
 
 const confirmLogMealMacroSchema = z.object({
   calories: z.number().finite().nonnegative().max(100_000),
@@ -157,6 +172,7 @@ export type {
   AnalyzeTextBody,
   AnalyzeImageBody,
   ClarifyBody,
+  ResumeBody,
   FeedbackBody,
   MealTypeBody,
   ReanalyzeBody,
@@ -185,24 +201,6 @@ function writeEvent(reply: FastifyReply, format: StreamFormat, event: PipelineEv
     return;
   }
   reply.raw.write(`${JSON.stringify(event)}\n`);
-}
-
-function toDownloadUrl(imageUrl: string): string {
-  const url = new URL(imageUrl);
-  const pathParts = url.pathname.split('/');
-  const oIndex = pathParts.indexOf('o');
-  const objectKey =
-    oIndex >= 0
-      ? pathParts
-          .slice(oIndex + 1)
-          .map((segment) => encodeURIComponent(decodeURIComponent(segment)))
-          .join('/')
-      : encodeURIComponent(decodeURIComponent(pathParts[pathParts.length - 1] ?? ''));
-
-  const baseUrl = config.ORACLE_BUCKET_DOWNLOAD_URL.endsWith('/')
-    ? config.ORACLE_BUCKET_DOWNLOAD_URL
-    : `${config.ORACLE_BUCKET_DOWNLOAD_URL}/`;
-  return `${baseUrl}${objectKey}`;
 }
 
 async function streamEvents(
@@ -244,13 +242,14 @@ async function streamEvents(
         break;
       }
     }
-  } catch (error) {
+  } catch {
     streamMeta.hasErrorEvent = true;
     writeEvent(reply, format, {
       step: 'ERROR',
       data: {
         analysisId: 'unknown',
-        message: error instanceof Error ? error.message : 'Pipeline failed',
+        message: 'Pipeline failed',
+        retryable: false,
       },
     });
   } finally {
@@ -277,7 +276,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         description:
           'Analyze a meal from text description. Streams V2 pipeline events as NDJSON or SSE.',
         tags: ['Food', 'V2'],
-        // Body: Zod only (analyzeTextBodySchema)—same as V1 detect-text; avoids duplicate AJV + coercion.
+        // Body validation is centralized in analyzeTextBodySchema below.
         response: {
           200: {
             description: 'Stream of events (application/x-ndjson or text/event-stream)',
@@ -299,6 +298,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         reply,
         request.headers.accept,
         analyzeTextMeal(parsed.textDescription, {
+          analysisId: parsed.analysisId,
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
           timeZone: getTimeZoneFromRequest(request),
@@ -322,7 +322,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         description:
           'Analyze a meal from image URL. Streams V2 pipeline events as NDJSON or SSE.',
         tags: ['Food', 'V2'],
-        // Body: Zod only (analyzeImageBodySchema)—same as V1 detect-image.
+        // Body validation is centralized in analyzeImageBodySchema below.
         response: {
           200: {
             description: 'Stream of events (application/x-ndjson or text/event-stream)',
@@ -339,23 +339,25 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       const parsed = parseBody(analyzeImageBodySchema, request.body, reply);
       if (!parsed) return;
 
-      let finalImageUrl: string;
+      const userId = getCurrentUserId(request);
+      let imageObject: ReturnType<typeof resolveOwnedImageObject>;
       try {
-        finalImageUrl = toDownloadUrl(parsed.imageUrl);
+        imageObject = resolveOwnedImageObject(parsed.imageUrl, userId);
       } catch {
-        reply.status(400).send(createErrorResponse('Invalid imageUrl format'));
+        reply.status(400).send(createErrorResponse('Invalid or unowned imageUrl'));
         return;
       }
 
-      const userId = getCurrentUserId(request);
       await streamEvents(
         reply,
         request.headers.accept,
-        analyzeImageMeal(finalImageUrl, {
+        analyzeImageMeal(imageObject.downloadUrl, {
+          analysisId: parsed.analysisId,
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
           timeZone: getTimeZoneFromRequest(request),
           userId,
+          imageObjectKey: imageObject.objectKey,
           logger: request.log,
         })
       );
@@ -400,6 +402,38 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
             logger: request.log,
           }
         )
+      );
+    }
+  );
+
+  fastify.post<{ Body: ResumeBody }>(
+    '/resume',
+    {
+      schema: {
+        description: 'Resume a V2 meal analysis from its last durable stage.',
+        tags: ['Food', 'V2'],
+        body: {
+          type: 'object',
+          required: ['analysisId'],
+          properties: {
+            analysisId: { type: 'string' },
+          },
+        },
+      } as any,
+    },
+    async (request: FastifyRequest<{ Body: ResumeBody }>, reply: FastifyReply) => {
+      const parsed = parseBody(resumeBodySchema, request.body, reply);
+      if (!parsed) return;
+      const userId = getCurrentUserId(request);
+      if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
+
+      await streamEvents(
+        reply,
+        request.headers.accept,
+        resumeMealAnalysis(parsed.analysisId, {
+          userId,
+          logger: request.log,
+        })
       );
     }
   );
@@ -493,6 +527,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           required: ['analysisId', 'issues'],
           properties: {
             analysisId: { type: 'string' },
+            newAnalysisId: { type: 'string', format: 'uuid' },
             issues: {
               type: 'array',
               items: {
@@ -524,6 +559,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         reply,
         request.headers.accept,
         reanalyzeMeal(parsed.analysisId, parsed.issues, parsed.otherText, userId, {
+          analysisId: parsed.newAnalysisId,
           logger: request.log,
         })
       );

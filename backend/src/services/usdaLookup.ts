@@ -27,9 +27,10 @@ interface TrgmCandidate extends UsdaFoodRow {
 const MATCH_THRESHOLD = 0.45;
 const CANDIDATE_LIMIT = 20;
 const AMBIGUITY_MARGIN = 0.04;
-const LOOKUP_CACHE_LIMIT = 500;
-const LOOKUP_CACHE_TTL_MS = 10 * 60 * 1000;
-const lookupCache = new Map<string, { expiresAt: number; value: Promise<UsdaMatch> }>();
+// Deduplicate only concurrent lookups. A persistent process-local cache can
+// outlive an atomic refresh performed by another replica and return rows from
+// the previous release.
+const inFlightLookups = new Map<string, Promise<UsdaMatch>>();
 
 // Aliases remain intentionally focused on semantic translations and preparation state.
 // pg_trgm handles harmless wording/order differences; aliases handle terms where a lexical
@@ -334,7 +335,13 @@ export async function findUsdaExact(normalizedName: string): Promise<UsdaFoodRow
   const result = await query<UsdaFoodRow>(
     `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g
       FROM usda_foods
-      WHERE normalized_name = $1
+      WHERE EXISTS (
+        SELECT 1
+          FROM usda_dataset_version
+         WHERE is_active = TRUE
+           AND is_materialized = TRUE
+      )
+        AND normalized_name = $1
       ORDER BY
         CASE data_type
           WHEN 'survey_fndds_food' THEN 0
@@ -360,7 +367,13 @@ export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT):
     `SELECT fdc_id, description, data_type, normalized_name, kcal_per_100g, protein_per_100g, carbs_per_100g, fat_per_100g, fiber_per_100g,
             GREATEST(similarity(normalized_name, $1), similarity(description, $1)) AS sim
        FROM usda_foods
-      WHERE normalized_name % $1 OR description % $1
+      WHERE EXISTS (
+        SELECT 1
+          FROM usda_dataset_version
+         WHERE is_active = TRUE
+           AND is_materialized = TRUE
+      )
+        AND (normalized_name % $1 OR description % $1)
       ORDER BY sim DESC
       LIMIT $2`,
     [normalizedTerm, limit]
@@ -402,30 +415,17 @@ async function canonicalizeUncached(hint: string): Promise<UsdaMatch> {
 }
 
 export function clearUsdaLookupCache(): void {
-  lookupCache.clear();
+  inFlightLookups.clear();
 }
 
 export async function canonicalizeWithUsda(hint: string): Promise<UsdaMatch> {
   const key = normalizeUsdaTerm(hint);
-  const now = Date.now();
-  const cached = lookupCache.get(key);
-  if (cached && cached.expiresAt > now) {
-    // Refresh recency for bounded LRU eviction.
-    lookupCache.delete(key);
-    lookupCache.set(key, cached);
-    return cached.value;
-  }
-  if (cached) lookupCache.delete(key);
+  const inFlight = inFlightLookups.get(key);
+  if (inFlight) return inFlight;
 
-  const value = canonicalizeUncached(hint).catch((error) => {
-    lookupCache.delete(key);
-    throw error;
+  const value = canonicalizeUncached(hint).finally(() => {
+    if (inFlightLookups.get(key) === value) inFlightLookups.delete(key);
   });
-  lookupCache.set(key, { expiresAt: now + LOOKUP_CACHE_TTL_MS, value });
-  while (lookupCache.size > LOOKUP_CACHE_LIMIT) {
-    const oldest = lookupCache.keys().next().value as string | undefined;
-    if (oldest == null) break;
-    lookupCache.delete(oldest);
-  }
+  inFlightLookups.set(key, value);
   return value;
 }

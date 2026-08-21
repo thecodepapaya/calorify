@@ -32,15 +32,55 @@ await mock.module('./usdaLookupUtils.js', {
   },
 });
 
-const mockUpsertSession = mock.fn(async () => {});
+const mockUpsertSession = mock.fn(async () => true);
+const mockAdvanceSession = mock.fn(async () => true);
+const mockClaimDecomposition = mock.fn(async () => ({
+  status: 'claimed' as const,
+  lease: {
+    stage: 'DECOMPOSING' as const,
+    token: '00000000-0000-4000-8000-000000000010',
+  },
+}));
+const mockReleaseDecomposition = mock.fn(async () => {});
 const mockRecordClarification = mock.fn(async () => {});
 const mockRecordMealType = mock.fn(async () => {});
 const mockGetSession = mock.fn(async () => undefined);
+const mockClaimClarification = mock.fn(async () => ({
+  stage: 'APPLYING_CLARIFICATION' as const,
+  token: '00000000-0000-4000-8000-000000000011',
+}));
+const mockReleaseClarification = mock.fn(async () => {});
+const mockClaimIngredientResolution = mock.fn(async () => ({
+  stage: 'RESOLVING_INGREDIENTS' as const,
+  token: '00000000-0000-4000-8000-000000000012',
+}));
+const mockReleaseIngredientResolution = mock.fn(async () => {});
+const mockClaimFinalization = mock.fn(async () => ({
+  stage: 'FINALIZING_ANALYSIS' as const,
+  token: '00000000-0000-4000-8000-000000000013',
+}));
+const mockReleaseFinalization = mock.fn(async () => {});
+const mockClaimPresentation = mock.fn(async () => ({
+  stage: 'PRESENTING' as const,
+  token: '00000000-0000-4000-8000-000000000014',
+}));
+const mockReleasePresentation = mock.fn(async () => {});
 
 await mock.module('./mealAnalysisStore.js', {
   namedExports: {
     upsertMealAnalysisSession: mockUpsertSession,
+    advanceMealAnalysisSession: mockAdvanceSession,
+    claimMealAnalysisDecomposition: mockClaimDecomposition,
+    releaseMealAnalysisDecomposition: mockReleaseDecomposition,
     getMealAnalysisSession: mockGetSession,
+    claimMealAnalysisClarification: mockClaimClarification,
+    releaseMealAnalysisClarification: mockReleaseClarification,
+    claimMealAnalysisIngredientResolution: mockClaimIngredientResolution,
+    releaseMealAnalysisIngredientResolution: mockReleaseIngredientResolution,
+    claimMealAnalysisFinalization: mockClaimFinalization,
+    releaseMealAnalysisFinalization: mockReleaseFinalization,
+    claimMealAnalysisPresentation: mockClaimPresentation,
+    releaseMealAnalysisPresentation: mockReleasePresentation,
     recordMealAnalysisClarification: mockRecordClarification,
     recordMealAnalysisMealType: mockRecordMealType,
   },
@@ -55,6 +95,8 @@ await mock.module('./foodAnalysisSystemPrompt.js', {
 const mockConfig = {
   OPENAI_API_KEY: 'test-key' as string | null,
   DATABASE_URL: 'postgres://mock',
+  ORACLE_BUCKET_DOWNLOAD_URL:
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
   DEBUG: false,
   ENVIRONMENT: 'development',
 };
@@ -132,8 +174,11 @@ await mock.module('openai', {
 const {
   analyzeTextMeal,
   analyzeImageMeal,
+  createAnalysisTrace,
+  summarizeAnalysisTrace,
   continueMealAnalysis,
   continueMealAnalysisWithMealType,
+  resumeMealAnalysis,
   reanalyzeMeal,
   FEEDBACK_ISSUES,
   MEAL_TYPES,
@@ -141,7 +186,38 @@ const {
   clearFallbackNutritionCache,
 } = await import('./nutritionEngineV2.js');
 
-test.beforeEach(() => clearFallbackNutritionCache());
+test.beforeEach(() => {
+  clearFallbackNutritionCache();
+  mockUpsertSession.mock.mockImplementation(async () => true);
+  mockAdvanceSession.mock.mockImplementation(async () => true);
+  mockClaimDecomposition.mock.mockImplementation(async () => ({
+    status: 'claimed',
+    lease: {
+      stage: 'DECOMPOSING',
+      token: '00000000-0000-4000-8000-000000000010',
+    },
+  }));
+  mockReleaseDecomposition.mock.mockImplementation(async () => {});
+  mockGetSession.mock.mockImplementation(async () => undefined);
+  mockClaimClarification.mock.mockImplementation(async () => ({
+    stage: 'APPLYING_CLARIFICATION', token: '00000000-0000-4000-8000-000000000011',
+  }));
+  mockReleaseClarification.mock.mockImplementation(async () => {});
+  mockClaimIngredientResolution.mock.mockImplementation(async () => ({
+    stage: 'RESOLVING_INGREDIENTS', token: '00000000-0000-4000-8000-000000000012',
+  }));
+  mockReleaseIngredientResolution.mock.mockImplementation(async () => {});
+  mockClaimFinalization.mock.mockImplementation(async () => ({
+    stage: 'FINALIZING_ANALYSIS', token: '00000000-0000-4000-8000-000000000013',
+  }));
+  mockReleaseFinalization.mock.mockImplementation(async () => {});
+  mockClaimPresentation.mock.mockImplementation(async () => ({
+    stage: 'PRESENTING', token: '00000000-0000-4000-8000-000000000014',
+  }));
+  mockReleasePresentation.mock.mockImplementation(async () => {});
+  mockRecordClarification.mock.mockImplementation(async () => {});
+  mockRecordMealType.mock.mockImplementation(async () => {});
+});
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -212,11 +288,177 @@ async function collectEvents(gen: AsyncGenerator<any>): Promise<any[]> {
   return events;
 }
 
+function installInMemorySessionStore(): Map<string, any> {
+  const sessions = new Map<string, any>();
+  let leaseSequence = 100;
+  const nextLease = (stage: string) => ({
+    stage,
+    token: `00000000-0000-4000-8000-${String(leaseSequence++).padStart(12, '0')}`,
+  });
+  const mergeDefined = (previous: any, next: any): any => {
+    const merged = { ...(previous ?? {}) };
+    for (const [key, value] of Object.entries(next)) {
+      if (value !== undefined) merged[key] = value;
+    }
+    return merged;
+  };
+
+  mockUpsertSession.mock.mockImplementation(async (record: any) => {
+    sessions.set(record.analysisId, mergeDefined(sessions.get(record.analysisId), record));
+    return true;
+  });
+  mockAdvanceSession.mock.mockImplementation(async (record: any, lease: any) => {
+    const session = sessions.get(record.analysisId);
+    if (
+      !session ||
+      session.stage !== lease.stage ||
+      session.stageLeaseToken !== lease.token
+    ) {
+      return false;
+    }
+    sessions.set(record.analysisId, {
+      ...mergeDefined(session, record),
+      pendingClarificationAnswers: undefined,
+      stageLeaseToken: undefined,
+    });
+    return true;
+  });
+  mockGetSession.mock.mockImplementation(async (analysisId: string) => sessions.get(analysisId));
+  mockClaimDecomposition.mock.mockImplementation(async (record: any) => {
+    const existing = sessions.get(record.analysisId);
+    if (existing) {
+      const identityMatches =
+        existing.userId === record.userId &&
+        existing.parentAnalysisId === record.parentAnalysisId &&
+        existing.source === record.source &&
+        JSON.stringify(existing.requestPayload) === JSON.stringify(record.requestPayload);
+      if (!identityMatches) return { status: 'conflict' };
+      if (existing.stage !== 'PENDING_DECOMPOSITION') return { status: 'existing' };
+    }
+    const lease = nextLease('DECOMPOSING');
+    sessions.set(record.analysisId, {
+      ...(existing ?? record),
+      stage: lease.stage,
+      stageLeaseToken: lease.token,
+    });
+    return { status: 'claimed', lease };
+  });
+  mockReleaseDecomposition.mock.mockImplementation(async (analysisId: string, token: string) => {
+    const session = sessions.get(analysisId);
+    if (session?.stage === 'DECOMPOSING' && session.stageLeaseToken === token) {
+      sessions.set(analysisId, {
+        ...session,
+        stage: 'PENDING_DECOMPOSITION',
+        stageLeaseToken: undefined,
+      });
+    }
+  });
+  mockClaimIngredientResolution.mock.mockImplementation(async (analysisId: string) => {
+    const session = sessions.get(analysisId);
+    if (!session || !['DECOMPOSED', 'RESOLVING_INGREDIENTS'].includes(session.stage)) {
+      return false;
+    }
+    if (session.stage === 'RESOLVING_INGREDIENTS') return false;
+    const lease = nextLease('RESOLVING_INGREDIENTS');
+    sessions.set(analysisId, {
+      ...session,
+      stage: lease.stage,
+      stageLeaseToken: lease.token,
+    });
+    return lease;
+  });
+  mockReleaseIngredientResolution.mock.mockImplementation(async (analysisId: string, token: string) => {
+    const session = sessions.get(analysisId);
+    if (session?.stage === 'RESOLVING_INGREDIENTS' && session.stageLeaseToken === token) {
+      sessions.set(analysisId, {
+        ...session, stage: 'DECOMPOSED', stageLeaseToken: undefined,
+      });
+    }
+  });
+  mockClaimFinalization.mock.mockImplementation(async (analysisId: string) => {
+    const session = sessions.get(analysisId);
+    if (!session || session.stage !== 'INGREDIENTS_RESOLVED') return false;
+    const lease = nextLease('FINALIZING_ANALYSIS');
+    sessions.set(analysisId, {
+      ...session, stage: lease.stage, stageLeaseToken: lease.token,
+    });
+    return lease;
+  });
+  mockReleaseFinalization.mock.mockImplementation(async (analysisId: string, token: string) => {
+    const session = sessions.get(analysisId);
+    if (session?.stage === 'FINALIZING_ANALYSIS' && session.stageLeaseToken === token) {
+      sessions.set(analysisId, {
+        ...session, stage: 'INGREDIENTS_RESOLVED', stageLeaseToken: undefined,
+      });
+    }
+  });
+  mockClaimClarification.mock.mockImplementation(async (analysisId: string, pendingAnswers?: any) => {
+    const session = sessions.get(analysisId);
+    if (!session || !['AWAITING_CLARIFICATION', 'APPLYING_CLARIFICATION'].includes(session.stage)) {
+      return false;
+    }
+    if (session.stage === 'APPLYING_CLARIFICATION') return false;
+    const lease = nextLease('APPLYING_CLARIFICATION');
+    sessions.set(analysisId, {
+      ...session,
+      stage: lease.stage,
+      stageLeaseToken: lease.token,
+      pendingClarificationAnswers:
+        pendingAnswers === undefined ? session.pendingClarificationAnswers : pendingAnswers,
+    });
+    return lease;
+  });
+  mockReleaseClarification.mock.mockImplementation(async (analysisId: string, token: string) => {
+    const session = sessions.get(analysisId);
+    if (session?.stage === 'APPLYING_CLARIFICATION' && session.stageLeaseToken === token) {
+      sessions.set(analysisId, {
+        ...session, stage: 'AWAITING_CLARIFICATION', stageLeaseToken: undefined,
+      });
+    }
+  });
+  mockClaimPresentation.mock.mockImplementation(async (
+    analysisId: string,
+    expectedStage: string,
+    selectedMealType: string,
+    selectedMealTypeSource: string
+  ) => {
+    const session = sessions.get(analysisId);
+    if (!session || session.stage !== expectedStage) {
+      return false;
+    }
+    const lease = nextLease('PRESENTING');
+    sessions.set(analysisId, {
+      ...session,
+      stage: lease.stage,
+      stageLeaseToken: lease.token,
+      selectedMealType,
+      selectedMealTypeSource,
+    });
+    return lease;
+  });
+  mockReleasePresentation.mock.mockImplementation(async (
+    analysisId: string,
+    stage: string,
+    token: string
+  ) => {
+    const session = sessions.get(analysisId);
+    if (session?.stage === 'PRESENTING' && session.stageLeaseToken === token) {
+      sessions.set(analysisId, { ...session, stage, stageLeaseToken: undefined });
+    }
+  });
+  // Audit writers are intentionally append-only; the fenced snapshot is the
+  // only operation allowed to mutate canonical session state.
+  mockRecordClarification.mock.mockImplementation(async () => {});
+  mockRecordMealType.mock.mockImplementation(async () => {});
+  return sessions;
+}
+
 function mockDecompositionWithFallback(decomposition: Record<string, unknown>, kcalPer100g = 300): void {
   mockChatCreate.mock.mockImplementation(async (opts: any) => {
     const schemaName = opts?.response_format?.json_schema?.name;
     if (schemaName === 'macro_fallback') {
-      const ingredients = (decomposition.ingredients as Array<Record<string, unknown>>).map((ingredient) => ({
+      const ingredients = (decomposition.ingredients as Array<Record<string, unknown>>).map((ingredient, index) => ({
+        request_id: `ingredient_${index + 1}`,
         name: ingredient.canonical_hint,
         kcal_per_100g: kcalPer100g,
         protein_per_100g: 10,
@@ -245,6 +487,138 @@ function mockDecompositionWithFallback(decomposition: Record<string, unknown>, k
     return { choices: [{ message: { content: JSON.stringify(decomposition) } }] };
   });
 }
+
+test('meal analysis telemetry omits ingredient and free-text health data', async () => {
+  const mealName = 'PRIVATE_MEAL_NAME_MARKER';
+  const ingredientName = 'PRIVATE_INGREDIENT_MARKER';
+  const canonicalHint = 'PRIVATE_CANONICAL_HINT_MARKER';
+  const input = 'PRIVATE_FREE_TEXT_MARKER';
+  mockDecompositionWithFallback({
+    meal_name: mealName,
+    ingredients: [{
+      raw_name: ingredientName,
+      canonical_hint: canonicalHint,
+      grams_estimated: 100,
+      min_grams: 100,
+      max_grams: 100,
+      notes: '',
+      portion_kind: 'BULK',
+      count: null,
+      per_unit_grams: null,
+      per_unit_min_grams: null,
+      per_unit_max_grams: null,
+      size_specified_by_user: true,
+    }],
+    confidence: 0.8,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+  const trace = createAnalysisTrace();
+  const logEntries: unknown[] = [];
+  const logger = {
+    info: (entry: Record<string, unknown>) => logEntries.push(entry),
+    warn: (entry: Record<string, unknown>) => logEntries.push(entry),
+    error: (entry: Record<string, unknown>) => logEntries.push(entry),
+  };
+
+  const events = await collectEvents(analyzeTextMeal(input, { trace, logger }));
+
+  assert.ok(events.some((event) => event.step === 'RESULT'));
+  const telemetry = JSON.stringify({ logEntries, trace: summarizeAnalysisTrace(trace) });
+  for (const marker of [mealName, ingredientName, canonicalHint, input]) {
+    assert.doesNotMatch(telemetry, new RegExp(marker));
+  }
+});
+
+test('LLM fallback matches reordered results by request identity', async () => {
+  const decomposition = {
+    meal_name: 'Two regional foods',
+    ingredients: [
+      {
+        raw_name: 'alpha food', canonical_hint: 'alpha regional food',
+        grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+        portion_kind: 'BULK', count: null, per_unit_grams: null,
+        per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+      },
+      {
+        raw_name: 'beta food', canonical_hint: 'beta regional food',
+        grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+        portion_kind: 'BULK', count: null, per_unit_grams: null,
+        per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+      },
+    ],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockChatCreate.mock.mockImplementation(async (opts: any) => {
+    const schemaName = opts?.response_format?.json_schema?.name;
+    if (schemaName === 'macro_fallback') {
+      const nutrition = (request_id: string, name: string, kcal: number) => ({
+        request_id,
+        name,
+        kcal_per_100g: kcal,
+        protein_per_100g: 5,
+        carbs_per_100g: 10,
+        fat_per_100g: 2,
+        fiber_per_100g: 1,
+      });
+      return { choices: [{ message: { content: JSON.stringify({
+        ingredients: [
+          nutrition('ingredient_2', 'beta regional food', 200),
+          nutrition('ingredient_1', 'alpha regional food', 100),
+        ],
+      }) } }] };
+    }
+    if (schemaName === 'meal_presentation') {
+      return { choices: [{ message: { content: JSON.stringify({
+        meal_name: decomposition.meal_name,
+        quantity: '1 serving',
+        meal_type: 'LUNCH',
+        meal_type_confident: true,
+        tip: 'Test',
+        health: null,
+      }) } }] };
+    }
+    return { choices: [{ message: { content: JSON.stringify(decomposition) } }] };
+  });
+
+  const events = await collectEvents(analyzeTextMeal('alpha food and beta food'));
+  const ingredients = events.find((event) => event.step === 'INGREDIENTS')?.data.ingredients;
+  assert.equal(ingredients.find((item: any) => item.rawName === 'alpha food')?.macros.calories, 100);
+  assert.equal(ingredients.find((item: any) => item.rawName === 'beta food')?.macros.calories, 200);
+});
+
+test('decomposition output is durable before it is emitted or ingredient resolution starts', async () => {
+  mockDecompositionWithFallback({
+    meal_name: 'Pending food',
+    ingredients: [{
+      raw_name: 'pending food', canonical_hint: 'pending regional food',
+      grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.8,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  });
+  mockAdvanceSession.mock.mockImplementationOnce(async () => {
+    throw new Error('session write failed');
+  });
+  mockCanonicalizeWithUsda.mock.resetCalls();
+
+  try {
+    const events = await collectEvents(analyzeTextMeal('pending food'));
+    const error = events.find((event) => event.step === 'ERROR');
+    assert.ok(error);
+    assert.equal(error.data.message, 'Meal analysis failed');
+    assert.equal(events.some((event) => event.step === 'STARTED'), true);
+    assert.equal(events.some((event) => event.step === 'DECOMPOSITION'), false);
+    assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
+  } finally {
+    mockAdvanceSession.mock.mockImplementation(async () => true);
+  }
+});
 
 test('cooked dal keeps a cooked USDA lookup hint when the model returns generic lentils', async () => {
   mockDecompositionWithFallback({
@@ -648,20 +1022,36 @@ test('analyzeTextMeal emits error event when OPENAI_API_KEY is missing', async (
     const events = await collectEvents(analyzeTextMeal('rice'));
     const err = events.find((e) => e.step === 'ERROR');
     assert.ok(err !== undefined);
-    assert.ok(err.data.message.includes('OPENAI_API_KEY'));
+    assert.equal(err.data.message, 'Meal analysis failed');
   } finally {
     mockConfig.OPENAI_API_KEY = previous;
   }
 });
 
-test('analyzeTextMeal emits error event when LLM throws', async () => {
+test('analyzeTextMeal redacts provider failures from events, logs, and traces', async (t) => {
+  const secret = 'SIGNED_IMAGE_URL_AND_PRIVATE_MEAL';
   mockChatCreate.mock.mockImplementation(async () => {
-    throw new Error('LLM network error');
+    throw new Error(`LLM network error: ${secret}`);
   });
-  const events = await collectEvents(analyzeTextMeal('some food'));
+  const logEntries: unknown[] = [];
+  const logger = {
+    info: (entry: Record<string, unknown>) => logEntries.push(entry),
+    warn: (entry: Record<string, unknown>) => logEntries.push(entry),
+    error: (entry: Record<string, unknown>) => logEntries.push(entry),
+  };
+  const warnings: unknown[][] = [];
+  t.mock.method(console, 'warn', (...values: unknown[]) => warnings.push(values));
+  const trace = createAnalysisTrace();
+  const events = await collectEvents(analyzeTextMeal('some food', { logger, trace }));
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
-  assert.ok(err.data.message.includes('LLM network error'));
+  assert.equal(err.data.message, 'Meal analysis failed');
+  assert.equal(trace.llmAttempts[0]?.errorKind, 'provider_error');
+  assert.ok(trace.steps.some((step) => step.meta?.errorKind === 'llm_step_failed'));
+  assert.doesNotMatch(
+    JSON.stringify({ events, logEntries, trace, warnings }),
+    new RegExp(secret)
+  );
 });
 
 test('analyzeTextMeal emits clarification event when variance is high', async () => {
@@ -1107,14 +1497,14 @@ test('analyzeImageMeal emits error event when image URL causes LLM failure', asy
     throw new Error('Image analysis failed: unsupported format');
   });
   const events = await collectEvents(analyzeImageMeal('https://example.com/bad.bmp'));
-  assert.equal(events[0]?.step, 'STARTED');
+  assert.equal(events.some((event) => event.step === 'STARTED'), true);
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.ok(err.data.message.includes('Image analysis failed'));
 });
 
 test('analyzeImageMeal uses image source in session record', async () => {
-  mockUpsertSession.mock.resetCalls();
+  mockClaimDecomposition.mock.resetCalls();
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{
       message: {
@@ -1134,11 +1524,395 @@ test('analyzeImageMeal uses image source in session record', async () => {
     }],
   }));
 
-  await collectEvents(analyzeImageMeal('https://example.com/curry.jpg'));
-  const firstCall = mockUpsertSession.mock.calls[0];
+  await collectEvents(analyzeImageMeal(
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/test-user/curry.jpg',
+    { imageObjectKey: 'test-user/curry.jpg' }
+  ));
+  const firstCall = mockClaimDecomposition.mock.calls[0];
   if (firstCall) {
     assert.equal(firstCall.arguments[0].source, 'image');
+    assert.deepEqual(firstCall.arguments[0].requestPayload, {
+      imageObjectKey: 'test-user/curry.jpg',
+      analysisContext: {
+        locale: 'en',
+        countryCode: null,
+        timeZone: null,
+        selectedMealType: null,
+        selectedMealTypeSource: null,
+      },
+    });
+    assert.equal(
+      JSON.stringify(firstCall.arguments[0].requestPayload).includes('download-token'),
+      false
+    );
   }
+});
+
+test('closing after STARTED resumes its durable request with one decomposition', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000201';
+  const decomposition = {
+    meal_name: 'Fixed rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.95,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockChatCreate.mock.resetCalls();
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockDecompositionWithFallback(decomposition, 200);
+
+  for await (const event of analyzeTextMeal('fixed rice', {
+    analysisId,
+    userId: 'resume-user',
+  })) {
+    if (event.step === 'STARTED') break;
+  }
+  assert.equal(sessions.get(analysisId)?.stage, 'PENDING_DECOMPOSITION');
+  const decompositionCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_decomposition'
+  ).length;
+
+  const events = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  assert.ok(events.some((event) => event.step === 'RESULT'));
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_decomposition'
+  ).length, decompositionCalls + 1);
+  assert.equal(sessions.get(analysisId)?.stage, 'COMPLETED');
+});
+
+test('retrying an initial request with the same analysis ID replays without decomposition', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000206';
+  mockDecompositionWithFallback({
+    meal_name: 'Rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 1,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  }, 200);
+  await collectEvents(analyzeTextMeal('rice', { analysisId, userId: 'user-1' }));
+  const decompositionCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_decomposition'
+  ).length;
+
+  const replay = await collectEvents(
+    analyzeTextMeal('rice', { analysisId, userId: 'user-1' })
+  );
+  assert.equal(replay.length, 1);
+  assert.equal(replay[0]?.step, 'RESULT');
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_decomposition'
+  ).length, decompositionCalls);
+});
+
+test('reusing an analysis ID for a different request fails without external work', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000207';
+  mockDecompositionWithFallback({
+    meal_name: 'Rice', ingredients: [], confidence: 1,
+    inferred_meal_type: 'LUNCH', meal_type_confident: true,
+  });
+  await collectEvents(analyzeTextMeal('rice', { analysisId, userId: 'user-1' }));
+  mockChatCreate.mock.resetCalls();
+
+  const collision = await collectEvents(
+    analyzeTextMeal('dal', { analysisId, userId: 'user-1' })
+  );
+  assert.equal(collision.length, 1);
+  assert.equal(collision[0]?.step, 'ERROR');
+  assert.equal(collision[0]?.data.message, 'Analysis ID is unavailable');
+  assert.equal(collision[0]?.data.retryable, false);
+  assert.equal(mockChatCreate.mock.calls.length, 0);
+});
+
+test('same-ID dispatch rejects changed owner, source, object key, or locale context', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000208';
+  mockDecompositionWithFallback({
+    meal_name: 'Rice', ingredients: [], confidence: 1,
+    inferred_meal_type: 'LUNCH', meal_type_confident: true,
+  });
+  await collectEvents(analyzeImageMeal(
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/user-1/meal.jpg',
+    {
+      analysisId,
+      userId: 'user-1',
+      imageObjectKey: 'user-1/meal.jpg',
+      locale: 'en',
+      countryCode: 'IN',
+      timeZone: 'Asia/Kolkata',
+    }
+  ));
+  mockChatCreate.mock.resetCalls();
+
+  const collisions = [
+    analyzeImageMeal(
+      'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/user-1/meal.jpg',
+      {
+        analysisId, userId: 'user-2', imageObjectKey: 'user-1/meal.jpg',
+        locale: 'en', countryCode: 'IN', timeZone: 'Asia/Kolkata',
+      }
+    ),
+    analyzeImageMeal(
+      'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/user-1/other.jpg',
+      {
+        analysisId, userId: 'user-1', imageObjectKey: 'user-1/other.jpg',
+        locale: 'en', countryCode: 'IN', timeZone: 'Asia/Kolkata',
+      }
+    ),
+    analyzeTextMeal('rice', {
+      analysisId, userId: 'user-1', locale: 'en', countryCode: 'IN',
+      timeZone: 'Asia/Kolkata',
+    }),
+    analyzeImageMeal(
+      'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/user-1/meal.jpg',
+      {
+        analysisId, userId: 'user-1', imageObjectKey: 'user-1/meal.jpg',
+        locale: 'fr', countryCode: 'IN', timeZone: 'Asia/Kolkata',
+      }
+    ),
+  ];
+  for (const collision of collisions) {
+    const events = await collectEvents(collision);
+    assert.equal(events.length, 1);
+    assert.equal(events[0]?.step, 'ERROR');
+    assert.equal(events[0]?.data.message, 'Analysis ID is unavailable');
+    assert.equal(events[0]?.data.retryable, false);
+  }
+  assert.equal(mockChatCreate.mock.calls.length, 0);
+});
+
+test('resumeMealAnalysis continues INGREDIENTS_RESOLVED without repeating resolution', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000202';
+  const decomposition = {
+    meal_name: 'Fixed dal',
+    ingredients: [{
+      raw_name: 'dal', canonical_hint: 'lentils cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.95,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockChatCreate.mock.resetCalls();
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockDecompositionWithFallback(decomposition, 180);
+
+  for await (const event of analyzeTextMeal('fixed dal', {
+    analysisId,
+    userId: 'resume-user',
+  })) {
+    if (event.step === 'INGREDIENTS') break;
+  }
+  assert.equal(sessions.get(analysisId)?.stage, 'INGREDIENTS_RESOLVED');
+  const usdaCalls = mockCanonicalizeWithUsda.mock.calls.length;
+  const fallbackCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'macro_fallback'
+  ).length;
+
+  const resumed = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  assert.ok(resumed.some((event) => event.step === 'RESULT'));
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, usdaCalls);
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'macro_fallback'
+  ).length, fallbackCalls);
+
+  const presentationCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_presentation'
+  ).length;
+  const replay = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  assert.equal(replay.length, 1);
+  assert.equal(replay[0]?.step, 'RESULT');
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_presentation'
+  ).length, presentationCalls);
+});
+
+test('concurrent resume waits for the active resolution and replays its result', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000203';
+  const decomposition = {
+    meal_name: 'Rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 1,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockDecompositionWithFallback(decomposition, 200);
+  await collectEvents(analyzeTextMeal('rice', { analysisId, userId: 'resume-user' }));
+  const completed = sessions.get(analysisId);
+  sessions.set(analysisId, {
+    analysisId,
+    userId: 'resume-user',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rice' },
+    stage: 'RESOLVING_INGREDIENTS',
+    decompositionData: completed.decompositionData,
+  });
+  mockChatCreate.mock.resetCalls();
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  setTimeout(() => sessions.set(analysisId, completed), 25);
+
+  const events = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  assert.equal(events.at(-1)?.step, 'RESULT');
+  assert.equal(mockChatCreate.mock.calls.length, 0);
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
+});
+
+test('busy resume timeout is retryable without exposing a terminal pipeline error', async (t) => {
+  t.mock.timers.enable({ apis: ['Date'] });
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000209';
+  sessions.set(analysisId, {
+    analysisId,
+    userId: 'resume-user',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rice' },
+    stage: 'DECOMPOSING',
+    stageLeaseToken: '00000000-0000-4000-8000-000000000999',
+  });
+  let reads = 0;
+  mockGetSession.mock.mockImplementation(async (id: string) => {
+    reads += 1;
+    if (reads === 3) t.mock.timers.setTime(31_000);
+    return sessions.get(id);
+  });
+  mockChatCreate.mock.resetCalls();
+
+  const events = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  assert.equal(events.length, 1);
+  assert.equal(events[0]?.step, 'ERROR');
+  assert.equal(events[0]?.data.message, 'Analysis is still in progress; retry resume');
+  assert.equal(events[0]?.data.retryable, true);
+  assert.equal(mockChatCreate.mock.calls.length, 0);
+});
+
+test('stale ingredient-resolution claim can be recovered by resume', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000204';
+  const decomposition = {
+    meal_name: 'Rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 1,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockDecompositionWithFallback(decomposition, 200);
+  sessions.set(analysisId, {
+    analysisId,
+    userId: 'resume-user',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rice' },
+    stage: 'RESOLVING_INGREDIENTS',
+    decompositionData: {
+      analysisId,
+      mealName: 'Rice',
+      confidence: 1,
+      ingredients: [{
+        rowId: 'ingredient_1', rawName: 'rice', canonicalHint: 'rice cooked',
+        gramsEstimated: 100, minGrams: 100, maxGrams: 100, notes: '',
+        portionKind: 'BULK', count: null, perUnitGrams: null,
+        perUnitMinGrams: null, perUnitMaxGrams: null, sizeSpecifiedByUser: true,
+      }],
+      inferredMealType: 'LUNCH',
+      mealTypeConfident: true,
+    },
+  });
+  mockClaimIngredientResolution.mock.mockImplementationOnce(async () => {
+    const lease = {
+      stage: 'RESOLVING_INGREDIENTS',
+      token: '00000000-0000-4000-8000-000000000204',
+    };
+    sessions.set(analysisId, {
+      ...sessions.get(analysisId),
+      stageLeaseToken: lease.token,
+    });
+    return lease;
+  });
+
+  const events = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  assert.ok(events.some((event) => event.step === 'RESULT'));
+  assert.equal(sessions.get(analysisId)?.stage, 'COMPLETED');
+});
+
+test('resume fails safely when a legacy image session has only a bearer URL', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000205';
+  const decomposition = {
+    meal_name: 'Image rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 1,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockDecompositionWithFallback(decomposition, 200);
+  await collectEvents(analyzeImageMeal(
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/resume-user/image.jpg',
+    { analysisId, userId: 'resume-user', imageObjectKey: 'resume-user/image.jpg' }
+  ));
+  const completed = sessions.get(analysisId);
+  const withoutResult = { ...completed };
+  delete withoutResult.resultData;
+  const legacyUrl =
+    'https://objectstorage.example.com/p/legacy-secret/n/ns/b/bucket/o/resume-user/image.jpg';
+  sessions.set(analysisId, {
+    ...withoutResult,
+    stage: 'READY_FOR_PRESENTATION',
+    requestPayload: { imageUrl: legacyUrl },
+  });
+  mockChatCreate.mock.resetCalls();
+
+  const events = await collectEvents(resumeMealAnalysis(analysisId, {
+    userId: 'resume-user',
+  }));
+  const error = events.find((event) => event.step === 'ERROR');
+  assert.equal(error?.data.message, 'Image analysis session is missing an image object key');
+  assert.equal(JSON.stringify(events).includes('legacy-secret'), false);
+  assert.equal(mockChatCreate.mock.calls.length, 0);
 });
 
 // ---------------------------------------------------------------------------
@@ -1187,340 +1961,238 @@ test('continueMealAnalysis emits error when session has no decomposition data', 
   );
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
-  assert.ok(err.data.message.includes('missing decomposition data'));
+  assert.equal(err.data.message, 'Analysis session cannot continue from its current state');
 });
 
-test('continueMealAnalysis resumes pipeline with stored decomposition', async () => {
-  mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-resume',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'dal rice' },
-    decompositionData: {
-      analysisId: 'sess-resume',
-      mealName: 'Dal Rice',
-      confidence: 0.9,
-      ingredients: [
-        {
-          rawName: 'rice',
-          canonicalHint: 'rice',
-          gramsEstimated: 185,
-          minGrams: 150,
-          maxGrams: 220,
-          notes: '',
-        },
-      ],
-      inferredMealType: 'UNKNOWN',
-      mealTypeConfident: false,
-    },
-    selectedMealType: undefined,
-    selectedMealTypeSource: undefined,
-    countryCode: undefined,
-  }));
-
-  mockChatCreate.mock.mockImplementation(async () => ({
-    choices: [{
-      message: {
-        content: JSON.stringify({
-          meal_name: 'Dal Rice',
-          quantity: '1 plate',
-          meal_type: 'LUNCH',
-          meal_type_confident: true,
-          tip: 'Protein rich combo',
-          health: null,
-        }),
-      },
+test('clarification continuation reuses persisted resolution and presentation is idempotent', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000101';
+  const decomposition = {
+    meal_name: 'Rice',
+    ingredients: [{
+      row_id: 'rice-row', raw_name: 'rice', canonical_hint: 'rice white cooked',
+      grams_estimated: 185, min_grams: 100, max_grams: 300, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null,
+      size_specified_by_user: false,
     }],
-  }));
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockChatCreate.mock.resetCalls();
+  mockDecompositionWithFallback(decomposition, 300);
 
-  const events = await collectEvents(
-    continueMealAnalysis('sess-resume', [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }])
-  );
+  const initial = await collectEvents(analyzeTextMeal('rice', { analysisId }));
+  const pending = initial.find(
+    (event) => event.step === 'UNCERTAINTY'
+  )?.data.clarifications[0];
+  assert.ok(pending);
+  assert.equal(sessions.get(analysisId)?.stage, 'AWAITING_CLARIFICATION');
+  const usdaCalls = mockCanonicalizeWithUsda.mock.calls.length;
+  const decompositionCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_decomposition'
+  ).length;
+  const fallbackCalls = mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'macro_fallback'
+  ).length;
 
-  // Should emit at least ingredients event
-  const ingr = events.find((e) => e.step === 'INGREDIENTS');
-  assert.ok(ingr !== undefined);
+  const resumed = await collectEvents(continueMealAnalysis(analysisId, [{
+    clarificationId: pending.clarificationId,
+    selectedOptionId: pending.defaultOptionId,
+  }]));
+  assert.ok(resumed.some((event) => event.step === 'RESULT'));
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, usdaCalls);
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_decomposition'
+  ).length, decompositionCalls);
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'macro_fallback'
+  ).length, fallbackCalls);
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_presentation'
+  ).length, 1);
+
+  const replay = await collectEvents(continueMealAnalysis(analysisId, []));
+  assert.equal(replay.length, 1);
+  assert.equal(replay[0]?.step, 'RESULT');
+  assert.equal(mockChatCreate.mock.calls.filter(
+    (call) => call.arguments[0]?.response_format?.json_schema?.name === 'meal_presentation'
+  ).length, 1);
 });
 
-test('continueMealAnalysis matches duplicate raw names by clarification id and row id', async () => {
-  mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-oil',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'oil and oil' },
-    decompositionData: {
-      analysisId: 'sess-oil',
-      mealName: 'Oil Test',
-      confidence: 0.9,
-      ingredients: [
-        {
-          rowId: 'oil-a',
-          rawName: 'oil',
-          canonicalHint: 'oil',
-          gramsEstimated: 14,
-          minGrams: 5,
-          maxGrams: 28,
-          notes: '',
-          portionKind: 'BULK',
-          sizeSpecifiedByUser: false,
-        },
-        {
-          rowId: 'oil-b',
-          rawName: 'oil',
-          canonicalHint: 'oil',
-          gramsEstimated: 14,
-          minGrams: 5,
-          maxGrams: 28,
-          notes: '',
-          portionKind: 'BULK',
-          sizeSpecifiedByUser: false,
-        },
-      ],
-      inferredMealType: 'LUNCH',
-      mealTypeConfident: true,
-    },
-    selectedMealType: 'LUNCH',
-    selectedMealTypeSource: 'user',
-    countryCode: undefined,
-  }));
-  mockDecompositionWithFallback({
+test('a failed clarification keeps pending answers and resume applies them', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000109';
+  const decomposition = {
+    meal_name: 'Rice',
+    ingredients: [{
+      row_id: 'rice-row', raw_name: 'rice', canonical_hint: 'rice white cooked',
+      grams_estimated: 185, min_grams: 100, max_grams: 300, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockDecompositionWithFallback(decomposition, 300);
+  const initial = await collectEvents(analyzeTextMeal('rice', { analysisId }));
+  const clarification = initial.find(
+    (event) => event.step === 'UNCERTAINTY'
+  )?.data.clarifications[0];
+  assert.ok(clarification);
+  const selected = clarification.options.at(-1);
+  const answer = {
+    clarificationId: clarification.clarificationId,
+    selectedOptionId: selected.optionId,
+  };
+
+  mockAdvanceSession.mock.mockImplementationOnce(async () => false);
+  const failed = await collectEvents(continueMealAnalysis(analysisId, [answer]));
+  assert.equal(failed.at(-1)?.step, 'ERROR');
+  assert.deepEqual(sessions.get(analysisId)?.pendingClarificationAnswers, [answer]);
+  assert.equal(sessions.get(analysisId)?.stage, 'AWAITING_CLARIFICATION');
+
+  const resumed = await collectEvents(resumeMealAnalysis(analysisId));
+  const result = resumed.find((event) => event.step === 'RESULT');
+  assert.ok(result);
+  assert.equal(result.data.ingredients[0].grams, selected.grams);
+  assert.equal(sessions.get(analysisId)?.pendingClarificationAnswers, undefined);
+  assert.equal(sessions.get(analysisId)?.stage, 'COMPLETED');
+});
+
+function rotiDecomposition(count: number | null = null): Record<string, unknown> {
+  return {
+    meal_name: 'Rotis',
+    ingredients: [{
+      row_id: 'roti-row', raw_name: 'roti', canonical_hint: 'roti',
+      grams_estimated: count == null ? 105 : count * 35,
+      min_grams: count == null ? 35 : count * 25,
+      max_grams: count == null ? 210 : count * 45,
+      notes: '', portion_kind: 'COUNT', count, per_unit_grams: 35,
+      per_unit_min_grams: 25, per_unit_max_grams: 45,
+      size_specified_by_user: false,
+    }],
+    confidence: 0.8,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+}
+
+test('continueMealAnalysis matches duplicate raw names by persisted row id', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000102';
+  const decomposition = {
     meal_name: 'Oil Test',
     ingredients: [
-      { canonical_hint: 'oil' },
-      { canonical_hint: 'oil' },
+      { row_id: 'oil-a', raw_name: 'oil', canonical_hint: 'oil', grams_estimated: 14,
+        min_grams: 5, max_grams: 28, notes: '', portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: false },
+      { row_id: 'oil-b', raw_name: 'oil', canonical_hint: 'oil', grams_estimated: 14,
+        min_grams: 5, max_grams: 28, notes: '', portion_kind: 'BULK', count: null,
+        per_unit_grams: null, per_unit_min_grams: null, per_unit_max_grams: null,
+        size_specified_by_user: false },
     ],
-  }, 900);
-
-  const events = await collectEvents(
-    continueMealAnalysis('sess-oil', [
-      { clarificationId: 'clr_oil-a', selectedOptionId: 'small' },
-      { clarificationId: 'clr_oil-b', selectedOptionId: 'heavy' },
-    ])
-  );
-
-  const result = events.find((e) => e.step === 'RESULT');
-  assert.ok(result !== undefined);
+    confidence: 0.9,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  mockDecompositionWithFallback(decomposition, 900);
+  await collectEvents(analyzeTextMeal('oil and oil', { analysisId }));
+  const events = await collectEvents(continueMealAnalysis(analysisId, [
+    { clarificationId: 'clr_oil-a', selectedOptionId: 'small' },
+    { clarificationId: 'clr_oil-b', selectedOptionId: 'heavy' },
+  ]));
+  const result = events.find((event) => event.step === 'RESULT');
+  assert.ok(result);
   assert.deepEqual(result.data.ingredients.map((ingredient: any) => ingredient.grams), [5, 28]);
 });
 
-test('continueMealAnalysis: round-2 size answer merges with round-1 count from session and reaches RESULT', async () => {
-  // Regression for the multi-round bug: round 1 answers a COUNT_QUESTION and
-  // the count answer is persisted to session.clarification_answers. Round 2
-  // submits only the size answer. Without merging, decomposition would re-run
-  // with count=null and the user would be asked the count question AGAIN.
-  mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-roti-round2',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'rotis' },
-    decompositionData: {
-      analysisId: 'sess-roti-round2',
-      mealName: 'Rotis',
-      confidence: 0.8,
-      ingredients: [
-        {
-          rowId: 'roti-row',
-          rawName: 'roti',
-          canonicalHint: 'roti',
-          gramsEstimated: 105,
-          minGrams: 35,
-          maxGrams: 210,
-          notes: '',
-          portionKind: 'COUNT',
-          count: null,
-          perUnitGrams: 35,
-          perUnitMinGrams: 25,
-          perUnitMaxGrams: 45,
-          sizeSpecifiedByUser: false,
-        },
-      ],
-      inferredMealType: 'LUNCH',
-      mealTypeConfident: true,
-    },
-    selectedMealType: 'LUNCH',
-    selectedMealTypeSource: 'user',
-    countryCode: undefined,
-    // Round-1 count answer persisted from the prior /clarify call.
-    clarificationAnswers: [{ clarificationId: 'clr_roti-row_count', selectedOptionId: '4' }],
-  }));
-  mockDecompositionWithFallback({
-    meal_name: 'Rotis',
-    ingredients: [{ canonical_hint: 'roti' }],
-  }, 300);
-
-  // Round 2 only carries the size answer.
-  const events = await collectEvents(
-    continueMealAnalysis('sess-roti-round2', [{ clarificationId: 'clr_roti-row', selectedOptionId: 'thick' }])
-  );
-
-  // Pipeline must reach RESULT — proves both answers were applied via the
-  // merge + iterative-apply path.
-  const result = events.find((e) => e.step === 'RESULT');
-  assert.ok(result !== undefined, 'expected RESULT event');
-  // Ingredient resolved to 4 × 45g = 180g (count from session × per-unit "thick" from request).
+test('round-2 size answer resumes the count-adjusted snapshot', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000103';
+  mockDecompositionWithFallback(rotiDecomposition(), 300);
+  await collectEvents(analyzeTextMeal('rotis', { analysisId }));
+  await collectEvents(continueMealAnalysis(analysisId, [{
+    clarificationId: 'clr_roti-row_count', selectedOptionId: '4',
+  }]));
+  const events = await collectEvents(continueMealAnalysis(analysisId, [{
+    clarificationId: 'clr_roti-row', selectedOptionId: 'thick',
+  }]));
+  const result = events.find((event) => event.step === 'RESULT');
+  assert.ok(result);
   assert.equal(result.data.ingredients[0].grams, 180);
   assert.equal(result.data.ingredients[0].count, 4);
 });
 
-test('continueMealAnalysis: bundling count+size answers in one call resolves both via iterative apply', async () => {
-  // If a client ever bundles both answers in a single request (e.g. a fast
-  // user picking through both screens), the iterative apply loop must walk
-  // count → regen → size in the same call.
-  mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-bundled',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'rotis' },
-    decompositionData: {
-      analysisId: 'sess-bundled',
-      mealName: 'Rotis',
-      confidence: 0.8,
-      ingredients: [
-        {
-          rowId: 'roti-row',
-          rawName: 'roti',
-          canonicalHint: 'roti',
-          gramsEstimated: 105,
-          minGrams: 35,
-          maxGrams: 210,
-          notes: '',
-          portionKind: 'COUNT',
-          count: null,
-          perUnitGrams: 35,
-          perUnitMinGrams: 25,
-          perUnitMaxGrams: 45,
-          sizeSpecifiedByUser: false,
-        },
-      ],
-      inferredMealType: 'LUNCH',
-      mealTypeConfident: true,
-    },
-    selectedMealType: 'LUNCH',
-    selectedMealTypeSource: 'user',
-    countryCode: undefined,
-    clarificationAnswers: undefined,
-  }));
-  mockDecompositionWithFallback({
-    meal_name: 'Rotis',
-    ingredients: [{ canonical_hint: 'roti' }],
-  }, 300);
-
-  const events = await collectEvents(
-    continueMealAnalysis('sess-bundled', [
-      { clarificationId: 'clr_roti-row_count', selectedOptionId: '3' },
-      { clarificationId: 'clr_roti-row', selectedOptionId: 'regular' },
-    ])
-  );
-
-  const result = events.find((e) => e.step === 'RESULT');
-  assert.ok(result !== undefined, 'expected RESULT after bundled apply');
-  assert.equal(result.data.ingredients[0].grams, 105); // 3 × 35
+test('bundled count and size answers apply iteratively to one resolved snapshot', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000104';
+  mockDecompositionWithFallback(rotiDecomposition(), 300);
+  await collectEvents(analyzeTextMeal('rotis', { analysisId }));
+  const events = await collectEvents(continueMealAnalysis(analysisId, [
+    { clarificationId: 'clr_roti-row_count', selectedOptionId: '3' },
+    { clarificationId: 'clr_roti-row', selectedOptionId: 'regular' },
+  ]));
+  const result = events.find((event) => event.step === 'RESULT');
+  assert.ok(result);
+  assert.equal(result.data.ingredients[0].grams, 105);
   assert.equal(result.data.ingredients[0].count, 3);
 });
 
-test('continueMealAnalysis: stale clarificationId is logged and ignored, does not block remaining valid answers', async () => {
-  mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-stale',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'roti' },
-    decompositionData: {
-      analysisId: 'sess-stale',
-      mealName: 'Rotis',
-      confidence: 0.8,
-      ingredients: [
-        {
-          rowId: 'roti-row',
-          rawName: 'roti',
-          canonicalHint: 'roti',
-          gramsEstimated: 140,
-          minGrams: 100,
-          maxGrams: 180,
-          notes: '',
-          portionKind: 'COUNT',
-          count: 4,
-          perUnitGrams: 35,
-          perUnitMinGrams: 25,
-          perUnitMaxGrams: 45,
-          sizeSpecifiedByUser: false,
-        },
-      ],
-      inferredMealType: 'LUNCH',
-      mealTypeConfident: true,
-    },
-    selectedMealType: 'LUNCH',
-    selectedMealTypeSource: 'user',
-    countryCode: undefined,
-    clarificationAnswers: undefined,
-  }));
-  mockDecompositionWithFallback({
-    meal_name: 'Rotis',
-    ingredients: [{ canonical_hint: 'roti' }],
-  }, 300);
-
-  const events = await collectEvents(
-    continueMealAnalysis('sess-stale', [
-      { clarificationId: 'clr_does_not_exist', selectedOptionId: 'thick' },
-      { clarificationId: 'clr_roti-row', selectedOptionId: 'thick' },
-    ])
-  );
-
-  const result = events.find((e) => e.step === 'RESULT');
-  assert.ok(result !== undefined, 'expected RESULT despite stale id');
-  assert.equal(result.data.ingredients[0].grams, 180); // 4 × 45
+test('stale clarification IDs do not block a valid row-id answer', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000105';
+  mockDecompositionWithFallback(rotiDecomposition(4), 300);
+  await collectEvents(analyzeTextMeal('4 rotis', { analysisId }));
+  const events = await collectEvents(continueMealAnalysis(analysisId, [
+    { clarificationId: 'clr_does_not_exist', selectedOptionId: 'thick' },
+    { clarificationId: 'clr_roti-row', selectedOptionId: 'thick' },
+  ]));
+  const result = events.find((event) => event.step === 'RESULT');
+  assert.ok(result);
+  assert.equal(result.data.ingredients[0].grams, 180);
 });
 
-test('continueMealAnalysis emits size clarification after count answer when uncertainty remains', async () => {
-  mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-roti-count',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'rotis' },
-    decompositionData: {
-      analysisId: 'sess-roti-count',
-      mealName: 'Rotis',
-      confidence: 0.8,
-      ingredients: [
-        {
-          rowId: 'roti-row',
-          rawName: 'roti',
-          canonicalHint: 'roti',
-          gramsEstimated: 105,
-          minGrams: 35,
-          maxGrams: 210,
-          notes: '',
-          portionKind: 'COUNT',
-          count: null,
-          perUnitGrams: 35,
-          perUnitMinGrams: 25,
-          perUnitMaxGrams: 45,
-          sizeSpecifiedByUser: false,
-        },
-      ],
-      inferredMealType: 'LUNCH',
-      mealTypeConfident: true,
-    },
-    selectedMealType: 'LUNCH',
-    selectedMealTypeSource: 'user',
-    countryCode: undefined,
-  }));
-  mockDecompositionWithFallback({
-    meal_name: 'Rotis',
-    ingredients: [{ canonical_hint: 'roti' }],
-  }, 300);
-
-  const events = await collectEvents(
-    continueMealAnalysis('sess-roti-count', [{ clarificationId: 'clr_roti-row_count', selectedOptionId: '4' }])
-  );
-
-  const unc = events.find((e) => e.step === 'UNCERTAINTY');
-  const clarification = unc.data.clarifications[0];
+test('count answer persists a size-question snapshot without another resolution', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000106';
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockDecompositionWithFallback(rotiDecomposition(), 300);
+  await collectEvents(analyzeTextMeal('rotis', { analysisId }));
+  const usdaCalls = mockCanonicalizeWithUsda.mock.calls.length;
+  const events = await collectEvents(continueMealAnalysis(analysisId, [{
+    clarificationId: 'clr_roti-row_count', selectedOptionId: '4',
+  }]));
+  const clarification = events.find(
+    (event) => event.step === 'UNCERTAINTY'
+  )?.data.clarifications[0];
   assert.equal(clarification.clarificationId, 'clr_roti-row');
   assert.equal(clarification.portionKind, 'COUNT');
   assert.deepEqual(
     clarification.options.map((option: any) => [option.optionId, option.grams]),
     [['thin', 100], ['regular', 140], ['thick', 180]]
   );
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, usdaCalls);
+});
+
+test('unknown option IDs are not silently replaced with the default', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000108';
+  mockDecompositionWithFallback(rotiDecomposition(), 300);
+  await collectEvents(analyzeTextMeal('rotis', { analysisId }));
+  mockRecordClarification.mock.resetCalls();
+  const events = await collectEvents(continueMealAnalysis(analysisId, [{
+    clarificationId: 'clr_roti-row_count', selectedOptionId: 'not-an-option',
+  }]));
+  const uncertainty = events.find((event) => event.step === 'UNCERTAINTY');
+  assert.equal(uncertainty?.data.clarifications[0]?.clarificationId, 'clr_roti-row_count');
+  assert.equal(sessions.get(analysisId)?.clarificationAnswers, undefined);
+  assert.equal(mockRecordClarification.mock.calls.length, 0);
 });
 
 // ---------------------------------------------------------------------------
@@ -1537,57 +2209,178 @@ test('continueMealAnalysisWithMealType emits error when session not found', asyn
   assert.ok(err.data.message.includes('session not found'));
 });
 
+test('continueMealAnalysisWithMealType rejects UNKNOWN before loading a session', async () => {
+  mockGetSession.mock.resetCalls();
+  const events = await collectEvents(
+    continueMealAnalysisWithMealType('unused-session', 'UNKNOWN')
+  );
+  assert.match(
+    events.find((event) => event.step === 'ERROR')?.data.message,
+    /concrete meal type is required/
+  );
+  assert.equal(mockGetSession.mock.calls.length, 0);
+});
+
 test('continueMealAnalysisWithMealType resumes with user-selected meal type', async () => {
+  const sessions = installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000107';
+  const decomposition = {
+    meal_name: 'Poha',
+    ingredients: [{
+      row_id: 'poha-row', raw_name: 'flattened rice', canonical_hint: 'rice flattened',
+      grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.9,
+    inferred_meal_type: 'UNKNOWN',
+    meal_type_confident: false,
+  };
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockChatCreate.mock.resetCalls();
+  mockDecompositionWithFallback(decomposition, 200);
+  const initial = await collectEvents(analyzeTextMeal('poha', { analysisId }));
+  assert.ok(initial.some((event) => event.step === 'MEAL_TYPE_QUESTION'));
+  assert.equal(sessions.get(analysisId)?.stage, 'AWAITING_MEAL_TYPE');
+  const usdaCalls = mockCanonicalizeWithUsda.mock.calls.length;
+  const llmCalls = mockChatCreate.mock.calls.length;
+  const events = await collectEvents(
+    continueMealAnalysisWithMealType(analysisId, 'BREAKFAST')
+  );
+  const result = events.find((e) => e.step === 'RESULT');
+  assert.ok(result);
+  assert.equal(result.data.mealType, 'BREAKFAST');
+  assert.equal(result.data.mealTypeSource, 'user');
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, usdaCalls);
+  assert.equal(mockChatCreate.mock.calls.length, llmCalls + 1);
+});
+
+test('concurrent meal-type continuations claim one presentation attempt', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000109';
+  const decomposition = {
+    meal_name: 'Poha',
+    ingredients: [{
+      row_id: 'poha-row', raw_name: 'poha', canonical_hint: 'rice flattened',
+      grams_estimated: 100, min_grams: 100, max_grams: 100, notes: '',
+      portion_kind: 'BULK', count: null, per_unit_grams: null,
+      per_unit_min_grams: null, per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 0.9, inferred_meal_type: 'UNKNOWN', meal_type_confident: false,
+  };
+  mockDecompositionWithFallback(decomposition, 200);
+  await collectEvents(analyzeTextMeal('poha', { analysisId }));
+
+  let releasePresentation!: () => void;
+  const presentationGate = new Promise<void>((resolve) => {
+    releasePresentation = resolve;
+  });
+  mockChatCreate.mock.resetCalls();
+  mockChatCreate.mock.mockImplementation(async (options: any) => {
+    assert.equal(
+      options?.response_format?.json_schema?.name,
+      'meal_presentation'
+    );
+    await presentationGate;
+    return { choices: [{ message: { content: JSON.stringify({
+      meal_name: 'Poha', quantity: '1 bowl', meal_type: 'BREAKFAST',
+      meal_type_confident: true, tip: 'Light breakfast', health: null,
+    }) } }] };
+  });
+
+  const first = collectEvents(
+    continueMealAnalysisWithMealType(analysisId, 'BREAKFAST')
+  );
+  await new Promise<void>((resolve) => setImmediate(resolve));
+  const second = await collectEvents(
+    continueMealAnalysisWithMealType(analysisId, 'BREAKFAST')
+  );
+  releasePresentation();
+  const firstEvents = await first;
+
+  assert.ok(firstEvents.some((event) => event.step === 'RESULT'));
+  assert.equal(
+    second.find((event) => event.step === 'ERROR')?.data.message,
+    'Meal type continuation failed'
+  );
+  assert.equal(mockChatCreate.mock.calls.length, 1);
+});
+
+test('legacy stage-less meal-type snapshot is inferred without re-resolution', async () => {
+  mockCanonicalizeWithUsda.mock.resetCalls();
   mockGetSession.mock.mockImplementation(async () => ({
-    analysisId: 'sess-mt',
+    analysisId: 'legacy-meal-type',
     source: 'text',
     locale: 'en',
     requestPayload: { textDescription: 'poha' },
     decompositionData: {
-      analysisId: 'sess-mt',
-      mealName: 'Poha',
-      confidence: 0.9,
+      analysisId: 'legacy-meal-type', mealName: 'Poha', confidence: 0.9,
       ingredients: [{
-        rawName: 'flattened rice',
-        canonicalHint: 'rice flattened',
-        gramsEstimated: 100,
-        minGrams: 90,
-        maxGrams: 110,
-        notes: '',
+        rowId: 'poha-row', rawName: 'flattened rice', canonicalHint: 'rice flattened',
+        gramsEstimated: 100, minGrams: 100, maxGrams: 100, notes: '',
+        portionKind: 'BULK', sizeSpecifiedByUser: true,
       }],
-      inferredMealType: 'UNKNOWN',
-      mealTypeConfident: false,
+      inferredMealType: 'UNKNOWN', mealTypeConfident: false,
     },
-    clarificationAnswers: null,
-    selectedMealType: undefined,
-    selectedMealTypeSource: undefined,
-    countryCode: undefined,
+    ingredientsData: {
+      analysisId: 'legacy-meal-type', mealName: 'Poha', ingredients: [{
+        rowId: 'poha-row', rawName: 'flattened rice', canonicalName: 'rice flattened',
+        matchType: 'llm_fallback', grams: 100,
+        macros: { calories: 200, protein: 10, carbs: 40, fat: 5, fiber: 3 },
+        source: 'llm_fallback', portionKind: 'BULK',
+      }],
+    },
+    uncertaintyData: {
+      analysisId: 'legacy-meal-type', mealName: 'Poha', variancePercent: 0,
+      needsClarification: false, calorieBand: { min: 200, max: 200 },
+      clarifications: [],
+    },
+    mealTypeQuestionData: {
+      analysisId: 'legacy-meal-type', mealName: 'Poha', question: 'Which meal is this?',
+      options: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK'],
+    },
   }));
-
   mockChatCreate.mock.mockImplementation(async () => ({
-    choices: [{
-      message: {
-        content: JSON.stringify({
-          meal_name: 'Poha',
-          quantity: '1 bowl',
-          meal_type: 'BREAKFAST',
-          meal_type_confident: true,
-          tip: 'Light breakfast',
-          health: null,
-        }),
-      },
-    }],
+    choices: [{ message: { content: JSON.stringify({
+      meal_name: 'Poha', quantity: '1 bowl', meal_type: 'BREAKFAST',
+      meal_type_confident: true, tip: 'Light breakfast', health: null,
+    }) } }],
   }));
-
   const events = await collectEvents(
-    continueMealAnalysisWithMealType('sess-mt', 'BREAKFAST')
+    continueMealAnalysisWithMealType('legacy-meal-type', 'BREAKFAST')
   );
+  assert.ok(events.some((event) => event.step === 'RESULT'));
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
+});
 
-  const result = events.find((e) => e.step === 'RESULT');
-  if (result) {
-    assert.equal(result.data.mealType, 'BREAKFAST');
-    assert.equal(result.data.mealTypeSource, 'user');
-  }
+test('inconsistent typed stage snapshot is rejected before any expensive call', async () => {
+  mockCanonicalizeWithUsda.mock.resetCalls();
+  mockChatCreate.mock.resetCalls();
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'corrupt-stage',
+    source: 'text',
+    locale: 'en',
+    requestPayload: { textDescription: 'rice' },
+    stage: 'AWAITING_MEAL_TYPE',
+    decompositionData: {
+      analysisId: 'corrupt-stage', mealName: 'Rice', confidence: 1,
+      ingredients: [{
+        rowId: 'rice-row', rawName: 'rice', canonicalHint: 'rice',
+        gramsEstimated: 100, minGrams: 100, maxGrams: 100, notes: '',
+        portionKind: 'BULK', sizeSpecifiedByUser: true,
+      }],
+      inferredMealType: 'UNKNOWN', mealTypeConfident: false,
+    },
+    ingredientsData: { analysisId: 'corrupt-stage', ingredients: [] },
+    uncertaintyData: { needsClarification: true, clarifications: [] },
+    mealTypeQuestionData: { question: 'Which meal?' },
+  }));
+  const events = await collectEvents(
+    continueMealAnalysisWithMealType('corrupt-stage', 'LUNCH')
+  );
+  assert.equal(events[0]?.data.message, 'Analysis session cannot continue from its current state');
+  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
+  assert.equal(mockChatCreate.mock.calls.length, 0);
 });
 
 // ---------------------------------------------------------------------------
@@ -1622,12 +2415,12 @@ test('reanalyzeMeal emits error when text session has no textDescription', async
   assert.ok(err.data.message.includes('missing textDescription'));
 });
 
-test('reanalyzeMeal emits error when image session has no imageUrl', async () => {
+test('reanalyzeMeal emits error when image session has no image object key', async () => {
   mockGetSession.mock.mockImplementation(async () => ({
     analysisId: 'sess-img-reanalyze',
     source: 'image',
     locale: 'en',
-    requestPayload: {}, // missing imageUrl
+    requestPayload: {},
     decompositionData: null,
     selectedMealType: undefined,
     selectedMealTypeSource: undefined,
@@ -1637,7 +2430,29 @@ test('reanalyzeMeal emits error when image session has no imageUrl', async () =>
   );
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
-  assert.ok(err.data.message.includes('missing imageUrl'));
+  assert.ok(err.data.message.includes('missing an image object key'));
+});
+
+test('legacy image URL is never reused or exposed during reanalysis', async () => {
+  const legacyUrl =
+    'https://objectstorage.example.com/p/legacy-secret/n/ns/b/bucket/o/user/image.jpg';
+  mockChatCreate.mock.resetCalls();
+  mockGetSession.mock.mockImplementation(async () => ({
+    analysisId: 'legacy-image-session',
+    userId: 'user',
+    source: 'image',
+    locale: 'en',
+    requestPayload: { imageUrl: legacyUrl },
+    decompositionData: null,
+  }));
+
+  const events = await collectEvents(
+    reanalyzeMeal('legacy-image-session', ['FOOD_IDENTIFICATION'], undefined, 'user')
+  );
+  const error = events.find((event) => event.step === 'ERROR');
+  assert.match(error?.data.message, /missing an image object key/);
+  assert.equal(JSON.stringify(events).includes('legacy-secret'), false);
+  assert.equal(mockChatCreate.mock.calls.length, 0);
 });
 
 test('reanalyzeMeal creates new analysis with parent reference for text source', async () => {
@@ -1725,8 +2540,8 @@ test('reanalyzeMeal preserves user-selected meal type from original session', as
 
   await collectEvents(reanalyzeMeal('sess-mt-preserve', ['extra_items']));
 
-  // The upsert call for the new session should carry selectedMealType = BREAKFAST
-  const upsertCall = mockUpsertSession.mock.calls.find(
+  // The durable pre-decomposition claim carries the preserved user selection.
+  const upsertCall = mockClaimDecomposition.mock.calls.find(
     (c) => c.arguments[0]?.selectedMealType === 'BREAKFAST'
   );
   assert.ok(upsertCall !== undefined);

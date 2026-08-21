@@ -18,4 +18,7 @@ class UserProfileTable extends Table {
       text().withDefault(const Constant('metric'))(); // 'metric' or 'imperial'
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
+  BoolColumn get needsRemoteSync =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get remoteSyncRevision => text().nullable()();
 }

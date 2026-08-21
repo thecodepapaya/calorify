@@ -1,4 +1,7 @@
 import Fastify from 'fastify';
+import type { FastifyServerOptions } from 'fastify';
+import { randomUUID } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import multipart from '@fastify/multipart';
@@ -7,45 +10,43 @@ import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
 import { registerRoutes } from './routes/index.js';
 import { errorHandler } from './utils/errors.js';
-import { redactHeaders, bodyForLog } from './utils/requestLog.js';
+import { redactHeaders } from './utils/requestLog.js';
+import { safeErrorMetadata } from './utils/safeError.js';
 import config from './config.js';
-import { initializeDatabase } from './services/database.js';
+import { closeDatabase, initializeDatabase } from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
 import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
 import { startUsdaRefreshCron } from './jobs/usdaRefreshCron.js';
 import { bootstrapUsdaIfNeeded } from './services/usdaBootstrap.js';
 import {
+  createShutdownCoordinator,
+  registerShutdownSignals,
+  type StoppableTask,
+  withStartupCleanup,
+} from './serverLifecycle.js';
+import {
   registry as metricsRegistry,
   httpRequestsTotal,
   httpRequestDurationSeconds,
 } from './services/metrics.js';
 
-async function buildApp() {
-  // Configure Pino logger with Loki transport in production/staging
+export interface BuildAppOptions {
+  logger?: FastifyServerOptions['logger'];
+  rateLimitMax?: number;
+}
+
+export async function buildApp(options: BuildAppOptions = {}) {
+  // Configure structured stdout logging for production/staging.
   const loggerConfig: any = {
     level: config.DEBUG ? 'debug' : 'info',
   };
 
   // For production/staging: Output JSON logs to stdout
   // Promtail will capture these and send them to Loki
-  // This is more reliable than pino-loki transport which can fail silently
-  if (config.LOKI_URL && config.ENVIRONMENT !== 'development') {
-    // Output JSON logs to stdout - Promtail will capture and send to Loki
-    // This ensures logs are always visible in docker logs AND sent to Loki
-    loggerConfig.serializers = {
-      req: (req: any) => ({
-        method: req.method,
-        url: req.url,
-        path: req.url?.split('?')[0],
-        query: req.query,
-      }),
-      res: (res: any) => ({
-        statusCode: res.statusCode,
-      }),
-    };
+  if (config.ENVIRONMENT !== 'development') {
     // JSON output for Promtail to parse
-    loggerConfig.transport = undefined; // Don't use pino-loki transport
+    loggerConfig.transport = undefined;
   } else {
     // Pretty print for development
     loggerConfig.transport = {
@@ -59,7 +60,7 @@ async function buildApp() {
   }
 
   const fastify = Fastify({
-    logger: loggerConfig,
+    logger: options.logger ?? loggerConfig,
     // The hooks below emit the structured request/response records used by
     // Loki. Disable Fastify's built-in pair to avoid duplicate log I/O on
     // every request.
@@ -68,32 +69,17 @@ async function buildApp() {
     // 60s per-request timeout — prevents slow AI/DB handlers from holding connections open
     // indefinitely. Individual AI client timeouts (30s) still trigger first for cleaner errors.
     requestTimeout: 60_000,
-    // Generate request IDs for log correlation
-    genReqId: (req) => {
-      const reqId = req.headers['x-request-id'];
-      const corrId = req.headers['x-correlation-id'];
-
-      // Handle case where headers might be string or string[]
-      const reqIdStr = Array.isArray(reqId) ? reqId[0] : reqId;
-      const corrIdStr = Array.isArray(corrId) ? corrId[0] : corrId;
-
-      return reqIdStr || corrIdStr || `req-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    },
+    // Client-controlled correlation headers can contain identifiers or log
+    // payloads, so logs use a fresh opaque server-side request ID.
+    genReqId: () => `req-${randomUUID()}`,
   });
 
-  // Retaining response payloads until onResponse adds memory pressure for no
-  // benefit when body logging is disabled (the production default).
-  if (config.LOG_REQUEST_RESPONSE_BODIES) {
-    fastify.addHook('onSend', async (request, _reply, payload) => {
-      (request as any).responsePayload = payload;
-      return payload;
-    });
-  }
-
-  // Request logging: full request object (headers redacted)
+  // Log only bounded request metadata. Route templates avoid recording path
+  // parameters, query strings, and user-provided URL fragments.
   fastify.addHook('onRequest', async (request) => {
     const startTime = Date.now();
     (request as any).startTime = startTime;
+    const route = request.routeOptions?.url ?? 'unmatched';
 
     const headersRecord: Record<string, string> = {};
     for (const [k, v] of Object.entries(request.headers)) {
@@ -102,29 +88,19 @@ async function buildApp() {
 
     request.log.info({
       type: 'request',
-      req: {
-        method: request.method,
-        url: request.url,
-        path: request.url.split('?')[0],
-        query: request.query,
-        headers: redactHeaders(headersRecord),
-        remoteAddress: request.ip,
-      },
       method: request.method,
-      url: request.url,
-      path: request.url.split('?')[0],
-      query: request.query,
+      route,
       headers: redactHeaders(headersRecord),
-      remoteAddress: request.ip,
-    }, `→ ${request.method} ${request.url}`);
+    }, `→ ${request.method} ${route}`);
   });
 
-  // Response logging: full request + response objects (GCP-style for Grafana)
+  // Response logs likewise contain only bounded operational metadata.
   fastify.addHook('onResponse', async (request, reply) => {
     const startTime = (request as any).startTime;
     const responseTime = startTime ? Date.now() - startTime : -1;
     const statusCode = reply.statusCode;
     const logLevel = statusCode >= 500 ? 'error' : statusCode >= 400 ? 'warn' : 'info';
+    const route = request.routeOptions?.url ?? 'unmatched';
 
     const headersRecord: Record<string, string> = {};
     for (const [k, v] of Object.entries(request.headers)) {
@@ -137,41 +113,18 @@ async function buildApp() {
       if (v !== undefined) resHeadersRecord[k] = Array.isArray(v) ? v.join(', ') : String(v);
     }
 
-    const maxBody = config.MAX_BODY_LOG_BYTES;
-    const logBody = config.LOG_REQUEST_RESPONSE_BODIES;
-
-    const reqBody = logBody ? bodyForLog((request as any).body, maxBody) : null;
-    const resPayload = (request as any).responsePayload;
     const streamMeta = (request as any).streamResponseMeta;
-    const resBody = logBody && resPayload !== undefined
-      ? bodyForLog(resPayload, maxBody)
-      : null;
 
     request.log[logLevel]({
       type: 'response',
-      req: {
-        method: request.method,
-        url: request.url,
-        path: request.url.split('?')[0],
-        query: request.query,
-        headers: redactHeaders(headersRecord),
-        body: reqBody,
-        remoteAddress: request.ip,
-      },
-      res: {
-        statusCode,
-        responseTimeMs: responseTime,
-        headers: redactHeaders(resHeadersRecord),
-        body: resBody,
-      },
       method: request.method,
-      url: request.url,
+      route,
       statusCode,
       responseTime,
-      requestBody: reqBody,
-      responseBody: resBody,
+      requestHeaders: redactHeaders(headersRecord),
+      responseHeaders: redactHeaders(resHeadersRecord),
       responseStream: streamMeta ?? null,
-    }, `← ${request.method} ${request.url} ${statusCode} (${responseTime}ms)`);
+    }, `← ${request.method} ${route} ${statusCode} (${responseTime}ms)`);
   });
 
   // Record Prometheus HTTP metrics. Uses onResponse (not onSend) so the statusCode is final.
@@ -183,7 +136,7 @@ async function buildApp() {
 
     const startTime = (request as any).startTime;
     const durationSec = startTime ? (Date.now() - startTime) / 1000 : 0;
-    const route = (request.routeOptions?.url ?? request.routerPath ?? 'unmatched') as string;
+    const route = request.routeOptions?.url ?? 'unmatched';
     const labels = {
       method: request.method,
       route,
@@ -214,8 +167,12 @@ async function buildApp() {
   // Register rate limiting
   await fastify.register(rateLimit, {
     global: true,
-    max: 100,
+    max: options.rateLimitMax ?? 100,
     timeWindow: '1 minute',
+    // @fastify/rate-limit appends its route hook after route-level
+    // preHandlers. Authenticated routes therefore have request.userId before
+    // the key is generated, while public routes continue to fall back to IP.
+    hook: 'preHandler',
     keyGenerator: (request) => {
       // Use userId if available (from authenticateUser middleware)
       // Otherwise fallback to IP address
@@ -336,68 +293,107 @@ async function buildApp() {
 }
 
 async function start() {
+  let app: Awaited<ReturnType<typeof buildApp>> | undefined;
+  const cronTasks: StoppableTask[] = [];
+
   try {
-    // Initialize Firebase
-    initializeFirebase();
+    await withStartupCleanup(async () => {
+      // Initialize Firebase
+      initializeFirebase();
 
-    // Initialize database connection and run pending migrations
-    if (config.DATABASE_URL) {
-      initializeDatabase();
-      console.log('✅ Database connection initialized');
-      await runMigrations();
-      bootstrapUsdaIfNeeded({
-        zipUrl: config.USDA_ZIP_URL,
-        datasetVersion: config.USDA_DATASET_VERSION ?? 'usda-2025-12-18',
-        sourceReleaseDate: config.USDA_SOURCE_RELEASE_DATE ?? '2025-12-18',
-        dataDir: config.USDA_DATA_DIR,
-      }).catch((err) =>
-        console.error('[usda:bootstrap] startup failed:', err instanceof Error ? err.message : err)
+      // Initialize database connection and run pending migrations
+      if (config.DATABASE_URL) {
+        initializeDatabase();
+        console.log('✅ Database connection initialized');
+        await runMigrations();
+        bootstrapUsdaIfNeeded({
+          zipUrl: config.USDA_ZIP_URL,
+          datasetVersion: config.USDA_DATASET_VERSION ?? 'usda-2025-12-18',
+          sourceReleaseDate: config.USDA_SOURCE_RELEASE_DATE ?? '2025-12-18',
+          dataDir: config.USDA_DATA_DIR,
+        }).catch((err) =>
+          console.error(
+            '[usda:bootstrap] startup failed:',
+            safeErrorMetadata(err, 'usda_bootstrap_failed')
+          )
+        );
+      } else {
+        console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
+      }
+
+      // Log Loki configuration
+      if (config.LOKI_URL && config.ENVIRONMENT !== 'development') {
+        const lokiUrl = new URL(config.LOKI_URL);
+        console.log(`📊 Loki logging enabled: ${lokiUrl.hostname}:${lokiUrl.port || '3100'}`);
+        console.log(`📊 Logs Dashboard: http://localhost:3000`);
+      } else {
+        console.log('📝 Using local logging (development mode)');
+      }
+
+      const builtApp = await buildApp();
+      app = builtApp;
+
+      await builtApp.listen({
+        port: config.PORT,
+        host: '0.0.0.0',
+      });
+
+      // Timers are created only after the server is accepting connections. If
+      // either scheduler throws, the handle already created is retained for
+      // startup cleanup.
+      if (config.DATABASE_URL) {
+        cronTasks.push(startAiSummaryCron());
+        const usdaRefreshTask = startUsdaRefreshCron();
+        if (usdaRefreshTask) cronTasks.push(usdaRefreshTask);
+      }
+
+      const shutdown = createShutdownCoordinator({
+        cronTasks,
+        closeServer: () => builtApp.close(),
+        closeDatabase,
+      });
+      registerShutdownSignals(process, shutdown, (error, signal) => {
+        console.error(
+          `Failed to shut down cleanly after ${signal}:`,
+          safeErrorMetadata(error, 'shutdown_failed')
+        );
+        process.exitCode = 1;
+      });
+
+      const externalUrl = config.EXTERNAL_PORT !== config.PORT
+        ? `http://localhost:${config.EXTERNAL_PORT} (external) / http://0.0.0.0:${config.PORT} (internal)`
+        : `http://localhost:${config.PORT}`;
+
+      console.log(`🚀 Server running on http://0.0.0.0:${config.PORT}`);
+      console.log(`📍 Health check: ${externalUrl}`);
+      console.log(`📚 API Documentation: ${externalUrl}/docs`);
+
+      // Log a test message to verify logging is working
+      builtApp.log.info({
+        type: 'startup',
+        message: 'Server started successfully',
+        environment: config.ENVIRONMENT,
+        lokiEnabled: !!(config.LOKI_URL && config.ENVIRONMENT !== 'development'),
+      }, 'Server startup complete');
+    }, {
+      cronTasks,
+      closeServer: async () => {
+        if (app) await app.close();
+      },
+      closeDatabase,
+    }, (cleanupError) => {
+      console.error(
+        'Failed to clean up after startup error:',
+        safeErrorMetadata(cleanupError, 'startup_cleanup_failed')
       );
-    } else {
-      console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
-    }
-
-    // Log Loki configuration
-    if (config.LOKI_URL && config.ENVIRONMENT !== 'development') {
-      const lokiUrl = new URL(config.LOKI_URL);
-      console.log(`📊 Loki logging enabled: ${lokiUrl.hostname}:${lokiUrl.port || '3100'}`);
-      console.log(`📊 Logs Dashboard: http://localhost:3000`);
-    } else {
-      console.log('📝 Using local logging (development mode)');
-    }
-
-    const app = await buildApp();
-
-    // Start scheduled jobs
-    if (config.DATABASE_URL) {
-      startAiSummaryCron();
-      startUsdaRefreshCron();
-    }
-
-    await app.listen({
-      port: config.PORT,
-      host: '0.0.0.0',
     });
-
-    const externalUrl = config.EXTERNAL_PORT !== config.PORT
-      ? `http://localhost:${config.EXTERNAL_PORT} (external) / http://0.0.0.0:${config.PORT} (internal)`
-      : `http://localhost:${config.PORT}`;
-
-    console.log(`🚀 Server running on http://0.0.0.0:${config.PORT}`);
-    console.log(`📍 Health check: ${externalUrl}`);
-    console.log(`📚 API Documentation: ${externalUrl}/docs`);
-
-    // Log a test message to verify logging is working
-    app.log.info({
-      type: 'startup',
-      message: 'Server started successfully',
-      environment: config.ENVIRONMENT,
-      lokiEnabled: !!(config.LOKI_URL && config.ENVIRONMENT !== 'development'),
-    }, 'Server startup complete');
   } catch (error) {
-    console.error('Failed to start server:', error);
+    console.error('Failed to start server:', safeErrorMetadata(error, 'startup_failed'));
     process.exit(1);
   }
 }
 
-start();
+const entrypoint = process.argv[1];
+if (entrypoint && import.meta.url === pathToFileURL(entrypoint).href) {
+  void start();
+}

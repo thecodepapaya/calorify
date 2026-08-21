@@ -1,23 +1,24 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
-import 'package:calorify/shared_widgets/app_filled_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class GenderStepScreen extends StatefulWidget {
+class GenderStepScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   const GenderStepScreen({super.key, required this.onContinue});
 
   @override
-  State<GenderStepScreen> createState() => _GenderStepScreenState();
+  ConsumerState<GenderStepScreen> createState() => _GenderStepScreenState();
 }
 
-class _GenderStepScreenState extends State<GenderStepScreen> {
+class _GenderStepScreenState extends ConsumerState<GenderStepScreen> {
   Gender? _selectedGender;
   bool _isSaving = false;
 
@@ -28,7 +29,7 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await OnboardingService.instance.getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getProfileData();
     if (profile != null && mounted) {
       setState(() {
         _selectedGender = profile.hasGender() ? profile.gender : null;
@@ -68,7 +69,8 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
             ),
           ),
           const Spacer(),
-          AppFilledButton(
+          AppButton(
+            variant: AppButtonVariant.filled,
             onPressed:
                 _selectedGender != null && !_isSaving ? _saveAndContinue : null,
             isLoading: _isSaving,
@@ -153,13 +155,13 @@ class _GenderStepScreenState extends State<GenderStepScreen> {
     if (_isSaving) return;
     setState(() => _isSaving = true);
     try {
-      final profile =
-          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final onboardingService = ref.read(onboardingServiceProvider);
+      final profile = await onboardingService.getProfileData() ?? UserProfile();
       final updatedProfile = profile.deepCopy();
       if (_selectedGender != null) {
         updatedProfile.gender = _selectedGender!;
       }
-      await OnboardingService.instance.saveProfileData(updatedProfile);
+      await onboardingService.saveProfileData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetGender);
       widget.onContinue();

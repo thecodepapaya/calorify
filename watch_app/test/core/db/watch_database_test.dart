@@ -27,6 +27,7 @@ void main() {
       calories: 310,
     );
     final syncedAt = DateTime.utc(2026, 7, 29, 9, 5);
+    final favoritesSyncedAt = DateTime.utc(2026, 7, 29, 9, 6);
     final favorite = FavoriteMeal(
       clientId: 7,
       loggedMeal: newer,
@@ -37,9 +38,9 @@ void main() {
     await database.replaceDashboard(
       meals: [older, newer],
       calorieGoal: 2100,
-      lastSyncAt: syncedAt,
+      dashboardLastSyncAt: syncedAt,
     );
-    await database.replaceFavorites([favorite]);
+    await database.replaceFavorites([favorite], lastSyncAt: favoritesSyncedAt);
 
     final snapshot = await database.loadSnapshot();
     expect(snapshot.meals.map((meal) => meal.clientId), containsAll([1, 2]));
@@ -52,7 +53,11 @@ void main() {
       310,
     );
     expect(snapshot.calorieGoal, 2100);
-    expect(snapshot.lastSyncAt?.isAtSameMomentAs(syncedAt), isTrue);
+    expect(snapshot.dashboardLastSyncAt?.isAtSameMomentAs(syncedAt), isTrue);
+    expect(
+      snapshot.favoritesLastSyncAt?.isAtSameMomentAs(favoritesSyncedAt),
+      isTrue,
+    );
     expect(snapshot.favoriteMeals.single.clientId, 7);
     expect(snapshot.favoriteMeals.single.loggedMeal.meal.name, 'Rice');
     expect(snapshot.favoriteMeals.single.lastUsedAt, favorite.lastUsedAt);
@@ -121,6 +126,51 @@ void main() {
       expect(await database.hasPendingOperations(), isFalse);
     },
   );
+
+  test('cache preserves protobuf presence and complete metadata', () async {
+    final meal = LoggedMeal(
+      clientId: 11,
+      createdAt: DateTime.utc(2026, 8, 21, 8).toIso8601String(),
+      meal: Meal(
+        name: 'Unscored meal',
+        quantity: '1 serving',
+        macros: MealMacro(calories: 200),
+      ),
+      metadata: MealMetadata(
+        mealDescription: 'A detailed description',
+        selectedVariations: [Variation(question: 'Which preparation?')],
+      ),
+    );
+
+    await database.replaceDashboard(
+      meals: [meal],
+      calorieGoal: null,
+      dashboardLastSyncAt: DateTime.utc(2026, 8, 21, 8, 5),
+    );
+
+    final restored = (await database.loadSnapshot()).meals.single;
+    expect(restored.meal.hasHealth(), isFalse);
+    expect(restored.metadata.mealDescription, 'A detailed description');
+    expect(
+      restored.metadata.selectedVariations.single.question,
+      'Which preparation?',
+    );
+  });
+
+  test('queued meals preserve protobuf presence and metadata', () async {
+    final meal = LoggedMeal(
+      clientId: -9,
+      createdAt: DateTime.utc(2026, 8, 21, 8).toIso8601String(),
+      meal: Meal(name: 'Offline meal'),
+      metadata: MealMetadata(mealDescription: 'Recorded on the watch'),
+    );
+
+    await database.queueMealLog(meal);
+
+    final restored = (await database.getPendingOperations()).single.meal!;
+    expect(restored.meal.hasHealth(), isFalse);
+    expect(restored.metadata.mealDescription, 'Recorded on the watch');
+  });
 }
 
 LoggedMeal _meal({

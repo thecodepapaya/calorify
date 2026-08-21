@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import '../../setup/all_tests.dart';
 
 void main() {

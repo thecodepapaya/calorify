@@ -9,47 +9,30 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   
   # Shared packages
   specs:
     path: ../shared_packages/specs
   models:
     path: ../shared_packages/models
-  utils:
-    path: ../shared_packages/utils
-  i18n:
-    path: ../shared_packages/i18n
-  services:
-    path: ../shared_packages/services
   widgets:
     path: ../shared_packages/widgets
   
   speech_to_text: ^7.0.0
   
-  # UI and charts
-  fl_chart: ^1.0.0
-  google_fonts: ^7.0.2
-  lucide_icons_flutter: ^3.1.1
+  # UI
+  lucide_icons_flutter: ^3.1.17
   auto_route: ^11.1.0
   intl: ^0.20.2
   path_provider: ^2.1.5
   path: ^1.9.1
   drift: ^2.26.1
   sqlite3_flutter_libs: ^0.5.33
-  
-  # State management
-  flutter_riverpod: ^3.1.0
-  riverpod_annotation: ^4.0.0
+  flutter_secure_storage: ^9.2.4
   
   # Network (for food analysis API)
   dio: ^5.7.0
   protobuf: ^5.1.0
-
-  # Firebase (auth token used by food analysis API)
-  firebase_core: ^4.1.1
-  firebase_auth: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +40,6 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   speech_to_text_platform_interface: ^2.3.0
   build_runner: ^2.4.15
-  riverpod_generator: ^4.0.0+1
   auto_route_generator: ^10.4.0
   drift_dev: ^2.26.1
 

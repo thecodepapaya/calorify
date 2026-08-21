@@ -1,23 +1,23 @@
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/shared_widgets/app_filled_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 
-class AgeStepScreen extends StatefulWidget {
+class AgeStepScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   const AgeStepScreen({super.key, required this.onContinue});
 
   @override
-  State<AgeStepScreen> createState() => _AgeStepScreenState();
+  ConsumerState<AgeStepScreen> createState() => _AgeStepScreenState();
 }
 
-class _AgeStepScreenState extends State<AgeStepScreen> {
+class _AgeStepScreenState extends ConsumerState<AgeStepScreen> {
   bool _isSaving = false;
   DateTime _dateOfBirth = DateTime(
     DateTime.now().year - 25,
@@ -32,7 +32,7 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await OnboardingService.instance.getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getProfileData();
     if (profile != null && profile.hasDateOfBirth() && mounted) {
       setState(() {
         _dateOfBirth =
@@ -110,7 +110,8 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
             ),
           ),
           const Spacer(),
-          AppFilledButton(
+          AppButton(
+            variant: AppButtonVariant.filled,
             onPressed: _isSaving ? null : _saveAndContinue,
             isLoading: _isSaving,
             text: t.onboarding.age.next,
@@ -146,11 +147,11 @@ class _AgeStepScreenState extends State<AgeStepScreen> {
     if (_isSaving) return;
     setState(() => _isSaving = true);
     try {
-      final profile =
-          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final onboardingService = ref.read(onboardingServiceProvider);
+      final profile = await onboardingService.getProfileData() ?? UserProfile();
       final updatedProfile = profile.deepCopy();
       updatedProfile.dateOfBirth = dateTimeToIso8601Date(_dateOfBirth);
-      await OnboardingService.instance.saveProfileData(updatedProfile);
+      await onboardingService.saveProfileData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetAge);
       widget.onContinue();

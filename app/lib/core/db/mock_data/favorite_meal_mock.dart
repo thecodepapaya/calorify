@@ -1,6 +1,5 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
-import 'package:utils/utils.dart';
 
 /// Mock data generator for FavoriteMeal with realistic favorite meal scenarios
 class FavoriteMealMock {

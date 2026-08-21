@@ -189,6 +189,26 @@ test('POST /profile upsert passes null for omitted fields', async () => {
   await app.close();
 });
 
+test('PUT /profile replaces the full snapshot and clears omitted fields', async () => {
+  resetQuery({ rows: [] });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'PUT',
+    url: PROFILE_URL,
+    headers: AUTH_HEADERS,
+    payload: { weight: 72 },
+  });
+  assert.equal(response.statusCode, 200, response.body);
+  assert.equal(mockQuery.mock.callCount(), 1);
+  const [sql, params] = mockQuery.mock.calls[0].arguments as [string, unknown[]];
+  assert.ok(sql.includes('height = EXCLUDED.height'));
+  assert.ok(!sql.includes('COALESCE'));
+  assert.equal(params[1], null); // omitted height is cleared
+  assert.equal(params[2], 72);
+  assert.equal(params[5], null); // omitted date of birth is cleared
+  await app.close();
+});
+
 // ---------------------------------------------------------------------------
 // POST /api/v1/user/profile — field validation
 // ---------------------------------------------------------------------------
@@ -306,8 +326,9 @@ test('POST /profile rejects future dates of birth', async () => {
 // ---------------------------------------------------------------------------
 
 test('POST /profile returns 500 when database query throws', async () => {
+  const secret = 'postgres-password=profile-secret-value';
   mockQuery.mock.mockImplementation(async () => {
-    throw new Error('DB connection refused');
+    throw new Error(`DB connection refused: ${secret}`);
   });
   const app = await buildTestApp();
   const response = await app.inject({
@@ -318,6 +339,10 @@ test('POST /profile returns 500 when database query throws', async () => {
   });
   assert.equal(response.statusCode, 500);
   const body = response.json();
-  assert.ok(body.message.includes('DB connection refused'));
+  assert.deepEqual(body, {
+    ok: false,
+    message: 'Failed to save user profile',
+  });
+  assert.equal(response.body.includes(secret), false);
   await app.close();
 });

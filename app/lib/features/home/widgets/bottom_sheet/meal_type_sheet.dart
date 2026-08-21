@@ -2,9 +2,8 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
-import 'package:calorify/shared_widgets/app_outlined_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 
@@ -97,14 +96,16 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
           Row(
             children: [
               Expanded(
-                child: AppOutlinedButton(
+                child: AppButton(
+                  variant: AppButtonVariant.outlined,
                   onPressed: () => Navigator.of(context).pop(),
                   text: t.meal.deleteConfirmation.cancel,
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: PrimaryButton(
+                child: AppButton(
+                  variant: AppButtonVariant.primary,
                   analyticsEvent: AnalyticsEvent.mealTypeQuestionAnswered,
                   onPressed:
                       _selectedMealType == null

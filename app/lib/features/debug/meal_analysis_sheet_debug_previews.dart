@@ -7,18 +7,26 @@ import 'package:models/models.dart';
 
 const String _kMockAnalysisId = 'debug-ui-preview';
 
-/// Fake streams for [showDebugMealAnalysisPipelineSheet] — emit then complete so the sheet stays on the last frame.
+/// Fake streams stay open on the last frame until the preview sheet is closed.
+/// Production controllers correctly treat an early stream close as a failure.
+Stream<T> _previewEvents<T>(Iterable<T> events) {
+  return Stream<T>.multi((sink) {
+    for (final event in events) {
+      sink.add(event);
+    }
+  });
+}
 
 Future<void> previewMealAnalysisSheetStartedOnly(BuildContext context) {
   return showDebugMealAnalysisPipelineSheet(
     context: context,
     startAnalysis:
-        () async => Stream.value(
+        (_, _) async => _previewEvents([
           MealAnalysisPipelineEvent(
             step: PipelineStep.STARTED,
             analysisId: _kMockAnalysisId,
           ),
-        ),
+        ]),
   );
 }
 
@@ -26,7 +34,7 @@ Future<void> previewMealAnalysisSheetDecomposition(BuildContext context) {
   return showDebugMealAnalysisPipelineSheet(
     context: context,
     startAnalysis:
-        () async => Stream.fromIterable([
+        (_, _) async => _previewEvents([
           MealAnalysisPipelineEvent(
             step: PipelineStep.STARTED,
             analysisId: _kMockAnalysisId,
@@ -65,7 +73,7 @@ Future<void> previewMealAnalysisSheetIngredients(BuildContext context) {
   return showDebugMealAnalysisPipelineSheet(
     context: context,
     startAnalysis:
-        () async => Stream.fromIterable([
+        (_, _) async => _previewEvents([
           MealAnalysisPipelineEvent(
             step: PipelineStep.STARTED,
             analysisId: _kMockAnalysisId,
@@ -114,7 +122,7 @@ Future<void> previewMealAnalysisSheetProgressStep3(BuildContext context) {
   return showDebugMealAnalysisPipelineSheet(
     context: context,
     startAnalysis:
-        () async => Stream.fromIterable([
+        (_, _) async => _previewEvents([
           MealAnalysisPipelineEvent(
             step: PipelineStep.STARTED,
             analysisId: _kMockAnalysisId,
@@ -169,7 +177,7 @@ Future<void> previewMealAnalysisSheetWithTextBanner(BuildContext context) {
     context: context,
     textDescription: desc,
     startAnalysis:
-        () async => Stream.fromIterable([
+        (_, _) async => _previewEvents([
           MealAnalysisPipelineEvent(
             step: PipelineStep.STARTED,
             analysisId: _kMockAnalysisId,
@@ -200,7 +208,7 @@ Future<void> previewMealAnalysisSheetWithImageBanner(
     imageBytes: imageBytes,
     imageUrl: 'debug://preview',
     startAnalysis:
-        () async => Stream.fromIterable([
+        (_, _) async => _previewEvents([
           MealAnalysisPipelineEvent(
             step: PipelineStep.STARTED,
             analysisId: _kMockAnalysisId,

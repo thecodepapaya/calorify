@@ -33,21 +33,21 @@ describe('metrics', () => {
 
   it('instrumentAiCall records error outcome and re-throws', async () => {
     await assert.rejects(
-      instrumentAiCall('gemini', async () => {
+      instrumentAiCall('openrouter', async () => {
         throw new Error('boom');
       }),
       /boom/
     );
     const text = await registry.metrics();
-    assert.match(text, /ai_requests_total\{[^}]*provider="gemini"[^}]*outcome="error"[^}]*\} 1/);
+    assert.match(text, /ai_requests_total\{[^}]*provider="openrouter"[^}]*outcome="error"[^}]*\} 1/);
   });
 
   it('recordCircuitBreakerState writes the numeric state', async () => {
     recordCircuitBreakerState('openai-food-analysis', 'CLOSED');
-    recordCircuitBreakerState('gemini-food-analysis', 'OPEN');
+    recordCircuitBreakerState('openrouter-food-analysis', 'OPEN');
     const text = await registry.metrics();
     assert.match(text, /circuit_breaker_state\{[^}]*name="openai-food-analysis"[^}]*\} 0/);
-    assert.match(text, /circuit_breaker_state\{[^}]*name="gemini-food-analysis"[^}]*\} 2/);
+    assert.match(text, /circuit_breaker_state\{[^}]*name="openrouter-food-analysis"[^}]*\} 2/);
   });
 
   it('aiRequestsTotal counter also exposed via registry', async () => {

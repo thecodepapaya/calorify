@@ -5,9 +5,10 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
-import 'package:calorify/shared_widgets/app_filled_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:provider/provider.dart'; // If using Provider
 
 @RoutePage()
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!mounted) return;
 
     if (userCredential != null) {
-      log('Signed in: ${userCredential.user?.displayName}');
+      log('Google sign-in completed');
       await context.router.replace(const HomeRoute());
       return;
     }
@@ -47,8 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: globalMargin,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 420),
-            child: AppFilledButton(
-              icon: Icons.login,
+            child: AppButton(
+              variant: AppButtonVariant.filled,
+              leadingIcon: Icons.login,
               text: t.login.signInWithGoogle,
               isLoading: _isSigningIn,
               onPressed: _signIn,

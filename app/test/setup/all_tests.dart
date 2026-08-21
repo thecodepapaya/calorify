@@ -3,9 +3,7 @@ import 'package:calorify/core/services/app_initialization.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
@@ -47,7 +45,6 @@ void setupAllTests() {
 
   // Register mocks for singletons
   Analytics.setMockInstance(MockAnalytics());
-  HealthService.setMockInstance(MockHealthService());
   final mockAuth = MockAuthService();
   when(() => mockAuth.resolveAuthToken()).thenAnswer((_) async => null);
   AuthService.setMockInstance(mockAuth);
@@ -58,10 +55,6 @@ void setupAllTests() {
   ).thenAnswer((_) async => false);
   when(() => mockNotifications.initialize()).thenAnswer((_) async {});
   NotificationService.setMockInstance(mockNotifications);
-
-  final mockOnboarding = MockOnboardingService();
-  when(() => mockOnboarding.getProfileData()).thenAnswer((_) async => null);
-  OnboardingService.setMockInstance(mockOnboarding);
 
   final mockPerformance = MockPerformance();
   final mockSpan = MockSpan();
@@ -77,13 +70,9 @@ void setupAllTests() {
 
 class MockAnalytics extends Mock implements Analytics {}
 
-class MockHealthService extends Mock implements HealthService {}
-
 class MockAuthService extends Mock implements AuthService {}
 
 class MockNotificationService extends Mock implements NotificationService {}
-
-class MockOnboardingService extends Mock implements OnboardingService {}
 
 class MockPerformance extends Mock implements Performance {}
 

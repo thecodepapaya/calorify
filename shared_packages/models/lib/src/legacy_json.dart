@@ -1,5 +1,4 @@
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 
 LoggedMeal mealInfoFromLegacyJson(Map<String, dynamic> json) {
   final normalized = Map<String, dynamic>.from(json);

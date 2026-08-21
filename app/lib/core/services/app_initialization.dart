@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:calorify/core/repositories/profile_repository.dart';
+import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/wear_os_service.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -24,7 +23,11 @@ class AppInitialization {
   static bool isTesting = false;
 
   /// Initialize the app with database service
-  static Future<void> initialize() async {
+  static Future<void> initialize({
+    required DatabaseInterface database,
+    required HealthService healthService,
+    required ProfileRepository profileRepository,
+  }) async {
     if (isTesting) {
       _initialized = true;
       return;
@@ -40,7 +43,7 @@ class AppInitialization {
         !await _runInitializationStep(
           'language preference',
           TraceType.databaseServiceInit,
-          _loadSavedLanguagePreference,
+          () => _loadSavedLanguagePreference(database),
           parentSpan: span,
         );
     hadInitializationError |=
@@ -68,7 +71,7 @@ class AppInitialization {
         !await _runInitializationStep(
           'Health service',
           TraceType.healthServiceInit,
-          HealthService.instance.init,
+          healthService.init,
           parentSpan: span,
         );
     hadInitializationError |=
@@ -87,6 +90,13 @@ class AppInitialization {
         );
     hadInitializationError |=
         !await _runInitializationStep(
+          'Firebase messaging listeners',
+          TraceType.notificationServiceInit,
+          NotificationService.instance.initializeFirebaseMessaging,
+          parentSpan: span,
+        );
+    hadInitializationError |=
+        !await _runInitializationStep(
           'Wear OS service',
           TraceType.watchServiceInit,
           WearOsService.instance.initialize,
@@ -97,7 +107,7 @@ class AppInitialization {
       await _runInitializationStep(
         'remote DB profile update',
         TraceType.remoteDbProfileUpdate,
-        _updateRemoteDb,
+        () => _syncPendingProfile(profileRepository),
         parentSpan: span,
       );
     }());
@@ -128,10 +138,11 @@ class AppInitialization {
     }
   }
 
-  static Future<void> _loadSavedLanguagePreference() async {
+  static Future<void> _loadSavedLanguagePreference(
+    DatabaseInterface database,
+  ) async {
     // Load saved language preference after DB is initialized
-    final db = DatabaseService.databaseInterface;
-    final languageCode = await db.getLanguageCode();
+    final languageCode = await database.getLanguageCode();
     if (languageCode != null) {
       final locale = AppLocaleUtils.parse(languageCode);
       await LocaleSettings.setLocale(locale);
@@ -166,14 +177,14 @@ class AppInitialization {
 
       // Check if user is already signed in
       if (auth.currentUser != null) {
-        log('User already authenticated: ${auth.currentUser!.uid}');
+        log('User session already available');
         return;
       }
 
       // Sign in anonymously for AI services
       final userCredential = await auth.signInAnonymously();
       final uid = userCredential.user?.uid ?? 'unknown';
-      log('Guest user signed in: $uid');
+      log('Guest user sign-in completed');
       await Analytics.instance.setUserId(uid);
     } catch (e) {
       log('Failed to sign in guest user: $e');
@@ -181,18 +192,11 @@ class AppInitialization {
     }
   }
 
-  static Future<void> _updateRemoteDb() async {
-    try {
-      await NotificationService.instance.initializeFirebaseMessaging();
-
-      final userProfile = await OnboardingService.instance.getProfileData();
-      if (userProfile != null) {
-        await ProfileRepository().updateUserProfile(userProfile);
-      }
-    } catch (e) {
-      log('Failed to update remote DB: $e');
-      // Don't throw - app can still work without remote DB
-    }
+  static Future<void> _syncPendingProfile(
+    ProfileRepository profileRepository,
+  ) async {
+    final synced = await profileRepository.syncPendingProfile();
+    if (!synced) log('Pending profile sync will retry on the next app start');
   }
 
   /// Check if app is initialized

@@ -1,0 +1,67 @@
+name: Verify generated contracts
+
+on:
+  pull_request:
+    paths:
+      - "protos/**"
+      - "backend/src/protos/**"
+      - "backend/package.json"
+      - "backend/package-lock.json"
+      - "shared_packages/models/lib/src/protos/**"
+      - "shared_packages/models/generated/kotlin/**"
+      - "shared_packages/models/pubspec.yaml"
+      - "shared_packages/models/pubspec.lock"
+      - "scripts/common.sh"
+      - "scripts/generate_protos.sh"
+      - ".github/workflows/contracts.yml"
+  push:
+    branches: [main]
+    paths:
+      - "protos/**"
+      - "backend/src/protos/**"
+      - "backend/package.json"
+      - "backend/package-lock.json"
+      - "shared_packages/models/lib/src/protos/**"
+      - "shared_packages/models/generated/kotlin/**"
+      - "shared_packages/models/pubspec.yaml"
+      - "shared_packages/models/pubspec.lock"
+      - "scripts/common.sh"
+      - "scripts/generate_protos.sh"
+      - ".github/workflows/contracts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generated-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.0"
+          channel: stable
+          cache: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - uses: arduino/setup-protoc@v3
+        with:
+          version: "27.3"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: dart pub global activate protoc_plugin 24.0.0
+      - run: npm ci --prefix backend
+      - run: ./scripts/generate_protos.sh
+      - name: Require committed generated output
+        run: |
+          changes=$(git status --short --untracked-files=all -- \
+            backend/src/protos shared_packages/models/lib/src/protos \
+            shared_packages/models/generated/kotlin)
+          if [ -n "$changes" ]; then
+            printf '%s\n' "$changes"
+            printf 'Generated contract files are stale. Run ./scripts/generate_protos.sh and commit the result.\n'
+            exit 1
+          fi

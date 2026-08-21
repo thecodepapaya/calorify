@@ -71,7 +71,7 @@ The script resolves the API key via `scripts/resolve_openai_api_key.py`: `OPENAI
 
 ### Automated From Provided Text
 
-Use the `create_changelog.sh` script when you already have English release notes and only need files/translations:
+Use the `create_changelog.sh` compatibility command when you already have English release notes and only need files/translations. It delegates to the same validated, staged implementation as `generate_release_notes.sh`:
 
 1. **Create changelog with automatic translations:**
    ```bash
@@ -79,7 +79,7 @@ Use the `create_changelog.sh` script when you already have English release notes
    ```
    This will:
    - Create the English changelog
-   - Automatically translate it to all 10 supported languages using OpenAI `gpt-5-mini`
+   - Automatically translate it to every app locale supported by Google Play metadata using OpenAI `gpt-5-mini`
    - Save all changelog files in the correct locations
 
 2. **Create changelog from existing file:**

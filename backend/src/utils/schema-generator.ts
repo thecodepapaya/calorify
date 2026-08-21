@@ -1,21 +1,7 @@
 /**
- * Schema Generator Utility
- * Generates OpenAPI/JSON Schema from Proto TypeScript types
- * This ensures API documentation stays in sync with proto definitions
- * 
- * IMPORTANT: When proto definitions change, you MUST update these schemas!
- * 
- * These schemas are derived from the proto definitions in:
- * - protos/calorify/meal_detection.proto
- * - protos/meal/meal.proto
- * 
- * Workflow when protos change:
- * 1. Regenerate TypeScript types: cd ../scripts && ./generate_protos.sh
- * 2. Update the corresponding schema functions below
- * 3. Run validation: npm run validate-schemas
- * 4. Update routes to use new schemas (if needed)
- * 
- * See backend/README.md#contracts for the regeneration workflow.
+ * Manually maintained OpenAPI schema helpers for the legacy proto-shaped HTTP
+ * surface. These are not generated from, and do not validate, proto files.
+ * Route and integration tests are the enforced runtime/documentation path.
  */
 
 /**

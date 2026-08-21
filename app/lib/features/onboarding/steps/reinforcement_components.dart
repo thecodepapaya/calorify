@@ -1,4 +1,4 @@
-import 'package:calorify/shared_widgets/app_filled_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 
 /// Shared header widget for reinforcement screens
@@ -96,7 +96,8 @@ class ReinforcementContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: AppFilledButton(
+      child: AppButton(
+        variant: AppButtonVariant.filled,
         onPressed: onPressed,
         text: buttonText,
       ),

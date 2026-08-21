@@ -13,9 +13,11 @@ import 'package:calorify/features/onboarding/reminder_notifications_screen.dart'
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:health/health.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 
@@ -42,7 +44,6 @@ void main() {
     mockAnalytics = MockAnalytics();
 
     DatabaseService.setMockInterface(mockDatabaseInterface);
-    HealthService.setMockInstance(mockHealthService);
     Analytics.setMockInstance(mockAnalytics);
 
     when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
@@ -175,7 +176,12 @@ void main() {
       for (final locale in goldenTestLocales) {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
-            HealthConnectScreen(onContinue: () {}),
+            ProviderScope(
+              overrides: [
+                healthServiceProvider.overrideWithValue(mockHealthService),
+              ],
+              child: HealthConnectScreen(onContinue: () {}),
+            ),
             wrapper: goldenWrapper(locale: locale),
             surfaceSize: device.size,
           );

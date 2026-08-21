@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/selection_card.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -15,17 +15,19 @@ void main() {
   });
 
   group('Shared Widgets Golden Tests', () {
-    testGoldens('PrimaryButton states', (WidgetTester tester) async {
+    testGoldens('AppButton primary states', (WidgetTester tester) async {
       final widget = Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          PrimaryButton(
+          AppButton(
+            variant: AppButtonVariant.primary,
             onPressed: () {},
             text: 'Continue',
             analyticsEvent: AnalyticsEvent.onboardingStart,
           ),
           const SizedBox(height: 16),
-          PrimaryButton(
+          AppButton(
+            variant: AppButtonVariant.primary,
             onPressed: () {},
             text: 'Continue',
             isLoading: true,

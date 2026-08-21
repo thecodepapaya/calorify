@@ -8,8 +8,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
-// ignore_for_file: unused_import
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -548,13 +547,14 @@ const PipelineErrorData$json = {
   '2': [
     {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
     {'1': 'message', '3': 2, '4': 1, '5': 9, '10': 'message'},
+    {'1': 'retryable', '3': 3, '4': 1, '5': 8, '10': 'retryable'},
   ],
 };
 
 /// Descriptor for `PipelineErrorData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pipelineErrorDataDescriptor = $convert.base64Decode(
     'ChFQaXBlbGluZUVycm9yRGF0YRIfCgthbmFseXNpc19pZBgBIAEoCVIKYW5hbHlzaXNJZBIYCg'
-    'dtZXNzYWdlGAIgASgJUgdtZXNzYWdl');
+    'dtZXNzYWdlGAIgASgJUgdtZXNzYWdlEhwKCXJldHJ5YWJsZRgDIAEoCFIJcmV0cnlhYmxl');
 
 @$core.Deprecated('Use mealAnalysisPipelineSessionContextDescriptor instead')
 const MealAnalysisPipelineSessionContext$json = {

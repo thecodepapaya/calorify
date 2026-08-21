@@ -3,11 +3,11 @@ import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/services/database_service.dart';
-import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
@@ -25,6 +25,7 @@ import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_trigger.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart' hide MealType;
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
@@ -33,14 +34,14 @@ import 'package:shorebird_code_push/shorebird_code_push.dart';
 import 'package:utils/utils.dart';
 
 @RoutePage()
-class DebugOptionsScreen extends StatefulWidget {
+class DebugOptionsScreen extends ConsumerStatefulWidget {
   const DebugOptionsScreen({super.key});
 
   @override
-  State<DebugOptionsScreen> createState() => _DebugOptionsScreenState();
+  ConsumerState<DebugOptionsScreen> createState() => _DebugOptionsScreenState();
 }
 
-class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
+class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
   String _searchQuery = '';
   bool? _isFeedbackEligible;
 
@@ -97,7 +98,9 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
-    final mealAnalysisSheetUiOptions = _buildMealAnalysisSheetUiOptions(context);
+    final mealAnalysisSheetUiOptions = _buildMealAnalysisSheetUiOptions(
+      context,
+    );
     final mealObsOptions = _buildMealAnalysisObservabilityOptions(context);
     final profileApiOptions = _buildProfileApiOptions(context);
     final feedbackOptions = _buildFeedbackOptions(context);
@@ -752,10 +755,7 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         'Sheet: early pipeline',
         'Progress only — STARTED step (no preview panel)',
       ),
-      (
-        'Sheet: decomposition',
-        'Meal title + decomposed ingredient signals',
-      ),
+      ('Sheet: decomposition', 'Meal title + decomposed ingredient signals'),
       (
         'Sheet: ingredients matched',
         'Resolved ingredient list (INGREDIENTS step)',
@@ -777,27 +777,20 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
       ListTile(
         leading: const Icon(LucideIcons.circleDot),
         title: const Text('Sheet: early pipeline'),
-        subtitle: const Text(
-          'Progress only — STARTED step (no preview panel)',
-        ),
-        onTap:
-            () => previewMealAnalysisSheetStartedOnly(context),
+        subtitle: const Text('Progress only — STARTED step (no preview panel)'),
+        onTap: () => previewMealAnalysisSheetStartedOnly(context),
       ),
       ListTile(
         leading: const Icon(LucideIcons.layoutList),
         title: const Text('Sheet: decomposition'),
-        subtitle: const Text(
-          'Meal title + decomposed ingredient signals',
-        ),
-        onTap:
-            () => previewMealAnalysisSheetDecomposition(context),
+        subtitle: const Text('Meal title + decomposed ingredient signals'),
+        onTap: () => previewMealAnalysisSheetDecomposition(context),
       ),
       ListTile(
         leading: const Icon(LucideIcons.listChecks),
         title: const Text('Sheet: ingredients matched'),
         subtitle: const Text('Resolved ingredient list (INGREDIENTS step)'),
-        onTap:
-            () => previewMealAnalysisSheetIngredients(context),
+        onTap: () => previewMealAnalysisSheetIngredients(context),
       ),
       ListTile(
         leading: const Icon(LucideIcons.scale),
@@ -805,17 +798,13 @@ class _DebugOptionsScreenState extends State<DebugOptionsScreen> {
         subtitle: const Text(
           'UNCERTAINTY phase — label progressCheck, bar at 75%',
         ),
-        onTap:
-            () => previewMealAnalysisSheetProgressStep3(context),
+        onTap: () => previewMealAnalysisSheetProgressStep3(context),
       ),
       ListTile(
         leading: const Icon(LucideIcons.fileText),
         title: const Text('Sheet: with text banner'),
-        subtitle: const Text(
-          'Plus logged meal text preview strip',
-        ),
-        onTap:
-            () => previewMealAnalysisSheetWithTextBanner(context),
+        subtitle: const Text('Plus logged meal text preview strip'),
+        onTap: () => previewMealAnalysisSheetWithTextBanner(context),
       ),
       ListTile(
         leading: const Icon(LucideIcons.imagePlus),
@@ -1100,7 +1089,7 @@ Fat: ${mealInfo.macros.fat}g
         context: context,
         imageBytes: bytes,
         imageUrl: handle.uploadedImageUrl,
-        startAnalysis: () async => handle.events,
+        startAnalysis: (_, _) async => handle.events,
       );
     } catch (e) {
       if (!mounted) return;
@@ -1241,7 +1230,11 @@ Fat: ${mealInfo.macros.fat}g
         context: context,
         textDescription: testText,
         startAnalysis:
-            () => repository.analyzeTextV2(textDescription: testText),
+            (cancellation, analysisId) => repository.analyzeTextV2(
+              analysisId: analysisId,
+              textDescription: testText,
+              cancellation: cancellation,
+            ),
       );
     } catch (e) {
       if (!mounted) return;
@@ -1515,12 +1508,12 @@ Fat: ${mealInfo.macros.fat}g
   }
 
   Future<void> _fetchTodaysSteps() async {
-    final steps = await HealthService.instance.getTodaySteps();
+    final steps = await ref.read(healthServiceProvider).getTodaySteps();
     _showDataDialog("Today's Steps", 'Steps: $steps');
   }
 
   Future<void> _fetchLatestWeight() async {
-    final weight = await HealthService.instance.getLatestWeight();
+    final weight = await ref.read(healthServiceProvider).getLatestWeight();
     if (weight == null) {
       _showSnackbar('No weight data found in the last 30 days.');
     } else {
@@ -1532,7 +1525,7 @@ Fat: ${mealInfo.macros.fat}g
   }
 
   Future<void> _fetchLatestHeight() async {
-    final height = await HealthService.instance.getLatestHeight();
+    final height = await ref.read(healthServiceProvider).getLatestHeight();
     if (height == null) {
       _showSnackbar('No height data found in the last year.');
     } else {
@@ -1545,7 +1538,7 @@ Fat: ${mealInfo.macros.fat}g
   }
 
   Future<void> _writeTestWeight() async {
-    final success = await HealthService.instance.writeWeight(70.0);
+    final success = await ref.read(healthServiceProvider).writeWeight(70.0);
     if (success) {
       _showSnackbar('Successfully wrote test weight (70kg).');
     } else {
@@ -1554,7 +1547,7 @@ Fat: ${mealInfo.macros.fat}g
   }
 
   Future<void> _writeTestHeight() async {
-    final success = await HealthService.instance.writeHeight(175.0);
+    final success = await ref.read(healthServiceProvider).writeHeight(175.0);
     if (success) {
       _showSnackbar('Successfully wrote test height (175cm).');
     } else {
@@ -1565,11 +1558,9 @@ Fat: ${mealInfo.macros.fat}g
   Future<void> _fetchTodaysCalories() async {
     final now = DateTime.now();
     final startOfDay = DateTime(now.year, now.month, now.day);
-    final calories = await HealthService.instance.fetchHealthData(
-      startOfDay,
-      now,
-      HealthDataType.TOTAL_CALORIES_BURNED,
-    );
+    final calories = await ref
+        .read(healthServiceProvider)
+        .fetchHealthData(startOfDay, now, HealthDataType.TOTAL_CALORIES_BURNED);
 
     if (!mounted) return;
 
@@ -1602,11 +1593,9 @@ Fat: ${mealInfo.macros.fat}g
 
     int totalPoints = 0;
     for (final type in types) {
-      final data = await HealthService.instance.fetchHealthData(
-        sevenDaysAgo,
-        now,
-        type,
-      );
+      final data = await ref
+          .read(healthServiceProvider)
+          .fetchHealthData(sevenDaysAgo, now, type);
       totalPoints += data.length;
     }
 

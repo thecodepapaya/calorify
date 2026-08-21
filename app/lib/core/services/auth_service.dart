@@ -61,9 +61,9 @@ class AuthService {
     try {
       _authToken = await user.getIdToken();
       return _authToken;
-    } catch (e) {
+    } on Object {
       _authToken = null;
-      log('Error updating auth token: $e');
+      log('Failed to refresh auth token');
       return null;
     }
   }

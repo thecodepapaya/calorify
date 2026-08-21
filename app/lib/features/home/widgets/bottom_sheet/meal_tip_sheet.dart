@@ -16,8 +16,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_feedback_sheet.
 import 'package:calorify/features/home/widgets/daily_summary.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
-import 'package:calorify/shared_widgets/secondary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
@@ -36,6 +35,7 @@ Future<void> showMealTip({
   required MealDetailsSheetPurpose purpose,
   MealDetectionResult? mealDetectionResult,
   LoggedMeal? loggedMeal,
+  int? favoriteId,
   Uint8List? imageBytes,
   MealAnalysisPipelineSessionContext? pipelineContext,
   bool previewOnly = false,
@@ -55,6 +55,7 @@ Future<void> showMealTip({
           purpose: purpose,
           mealDetectionResult: mealDetectionResult,
           loggedMeal: loggedMeal,
+          favoriteId: favoriteId,
           imageBytes: imageBytes,
           pipelineContext: pipelineContext,
           previewOnly: previewOnly,
@@ -68,6 +69,7 @@ class _MealTip extends StatefulWidget {
     required this.purpose,
     this.mealDetectionResult,
     this.loggedMeal,
+    this.favoriteId,
     this.imageBytes,
     this.pipelineContext,
     this.previewOnly = false,
@@ -77,6 +79,7 @@ class _MealTip extends StatefulWidget {
   final MealDetailsSheetPurpose purpose;
   final MealDetectionResult? mealDetectionResult;
   final LoggedMeal? loggedMeal;
+  final int? favoriteId;
   final Uint8List? imageBytes;
   final MealAnalysisPipelineSessionContext? pipelineContext;
   final bool previewOnly;
@@ -115,7 +118,9 @@ class _MealTipState extends State<_MealTip> {
       _isLoggedMealFlow &&
       widget.purpose == MealDetailsSheetPurpose.historyEdit;
   bool get _showFavoritesActions =>
-      _isLoggedMealFlow && widget.purpose == MealDetailsSheetPurpose.favorites;
+      _isLoggedMealFlow &&
+      widget.favoriteId != null &&
+      widget.purpose == MealDetailsSheetPurpose.favorites;
 
   @override
   void initState() {
@@ -370,7 +375,8 @@ class _MealTipState extends State<_MealTip> {
                   label: Text(t.common.close),
                 ),
               )
-              : PrimaryButton(
+              : AppButton(
+                variant: AppButtonVariant.primary,
                 analyticsEvent: AnalyticsEvent.mealSave,
                 onPressed: _isSaving ? null : _saveDetectedMeal,
                 isLoading: _isSaving,
@@ -407,16 +413,18 @@ class _MealTipState extends State<_MealTip> {
       return Row(
         children: [
           Expanded(
-            child: SecondaryButton(
+            child: AppButton(
+              variant: AppButtonVariant.secondary,
               onPressed: _removeFromFavorites,
               text: t.meal.unfavorite,
-              icon: LucideIcons.starOff,
+              leadingIcon: LucideIcons.starOff,
               analyticsEvent: AnalyticsEvent.favoriteRemove,
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: PrimaryButton(
+            child: AppButton(
+              variant: AppButtonVariant.primary,
               onPressed: () => _openEditMealSheet(context),
               text: t.meal.editMeal,
               leadingIcon: AppIcons.pencil,
@@ -431,18 +439,20 @@ class _MealTipState extends State<_MealTip> {
       return Row(
         children: [
           Expanded(
-            child: SecondaryButton(
+            child: AppButton(
+              variant: AppButtonVariant.secondary,
               onPressed: () {
                 _showDeleteConfirmation(context, widget.loggedMeal!.clientId);
               },
               text: t.meal.delete,
-              icon: LucideIcons.trash2,
+              leadingIcon: LucideIcons.trash2,
               analyticsEvent: AnalyticsEvent.mealDelete,
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: PrimaryButton(
+            child: AppButton(
+              variant: AppButtonVariant.primary,
               onPressed: () => _openEditMealSheet(context),
               text: t.meal.editMeal,
               leadingIcon: AppIcons.pencil,
@@ -471,19 +481,20 @@ class _MealTipState extends State<_MealTip> {
       parentContext,
       meal: meal,
       loggedMeal: widget.loggedMeal,
+      favoriteId: widget.favoriteId,
       saveAsFavorite: _showFavoritesActions,
     );
   }
 
   Future<void> _removeFromFavorites() async {
-    final loggedMeal = widget.loggedMeal;
-    if (loggedMeal == null) return;
+    final favoriteId = widget.favoriteId;
+    if (favoriteId == null) return;
 
     try {
       await ProviderScope.containerOf(
         context,
         listen: false,
-      ).read(databaseInterfaceProvider).removeFavoriteMeal(loggedMeal.clientId);
+      ).read(databaseInterfaceProvider).removeFavoriteMeal(favoriteId);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.favoriteRemove);
       showFlushbar(t.meal.removedFromFavorites, context: context);
@@ -544,13 +555,16 @@ class _MealTipState extends State<_MealTip> {
       final nextContext = await resolveV2MealAnalysisFlow(
         context: context,
         startAnalysis:
-            () => ProviderScope.containerOf(context, listen: false)
-                .read(foodRepositoryProvider)
-                .reanalyzeV2(
-                  analysisId: analysisId,
-                  issues: feedbackInput.issues,
-                  otherText: feedbackInput.otherText,
-                ),
+            (cancellation, newAnalysisId) =>
+                ProviderScope.containerOf(context, listen: false)
+                    .read(foodRepositoryProvider)
+                    .reanalyzeV2(
+                      analysisId: analysisId,
+                      newAnalysisId: newAnalysisId,
+                      issues: feedbackInput.issues,
+                      otherText: feedbackInput.otherText,
+                      cancellation: cancellation,
+                    ),
         imageBytes: widget.imageBytes,
         imageUrl: _pipelineContext?.imageUrl,
         textDescription: _pipelineContext?.textDescription,
@@ -696,7 +710,9 @@ class _FavoriteMealStarState extends State<_FavoriteMealStar> {
     ).read(databaseInterfaceProvider);
     try {
       if (_isFavorite) {
-        await database.removeFavoriteMeal(widget.loggedMeal.clientId);
+        await database.removeFavoriteMealBySourceMealId(
+          widget.loggedMeal.clientId,
+        );
         Analytics.instance.logEvent(AnalyticsEvent.favoriteRemove);
         if (!mounted) return;
         showFlushbar(t.meal.removedFromFavorites, context: context);

@@ -24,6 +24,7 @@ class MealAnalysisPipelineEvent {
     this.mealTypeQuestion,
     this.result,
     this.errorMessage,
+    this.retryable = false,
   });
 
   factory MealAnalysisPipelineEvent.fromJson(Map<String, dynamic> json) {
@@ -90,6 +91,7 @@ class MealAnalysisPipelineEvent {
           step: step,
           analysisId: m.analysisId,
           errorMessage: m.message,
+          retryable: m.retryable,
         );
       default:
         return MealAnalysisPipelineEvent(
@@ -108,6 +110,7 @@ class MealAnalysisPipelineEvent {
   final PipelineMealTypeQuestionData? mealTypeQuestion;
   final PipelineResultData? result;
   final String? errorMessage;
+  final bool retryable;
 
   String? get mealName {
     if (decomposition != null && decomposition!.hasMealName()) {

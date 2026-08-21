@@ -3,7 +3,7 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -104,7 +104,8 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
             ),
           ),
           SizedBox(width: 8),
-          PrimaryButton(
+          AppButton(
+            variant: AppButtonVariant.primary,
             analyticsEvent: AnalyticsEvent.connectHealth,
             onPressed:
                 _isWorking

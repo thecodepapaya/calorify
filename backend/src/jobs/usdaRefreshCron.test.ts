@@ -17,7 +17,20 @@ await mock.module('../services/usdaImport.js', {
   namedExports: { runUsdaImport: mockRunUsdaImport },
 });
 
-const mockCronSchedule = mock.fn((_expr: string, _fn: () => void) => {});
+let advisoryLockAvailable = true;
+const mockWithDatabaseAdvisoryLock = mock.fn(async (
+  _name: string,
+  work: () => Promise<unknown>
+) => advisoryLockAvailable
+  ? { acquired: true as const, value: await work() }
+  : { acquired: false as const });
+
+await mock.module('../services/databaseAdvisoryLock.js', {
+  namedExports: { withDatabaseAdvisoryLock: mockWithDatabaseAdvisoryLock },
+});
+
+const mockScheduledTask = { stop: mock.fn(() => {}) };
+const mockCronSchedule = mock.fn((_expr: string, _fn: () => void) => mockScheduledTask);
 
 await mock.module('node-cron', {
   defaultExport: { schedule: mockCronSchedule },
@@ -41,6 +54,8 @@ const { startUsdaRefreshCron } = await import('./usdaRefreshCron.js');
 // ---------------------------------------------------------------------------
 
 function resetAll() {
+  advisoryLockAvailable = true;
+  mockWithDatabaseAdvisoryLock.mock.resetCalls();
   mockRunUsdaImport.mock.resetCalls();
   mockCronSchedule.mock.resetCalls();
 }
@@ -51,8 +66,9 @@ function resetAll() {
 
 test('startUsdaRefreshCron schedules cron with configured expression', () => {
   resetAll();
-  startUsdaRefreshCron();
+  const task = startUsdaRefreshCron();
   assert.equal(mockCronSchedule.mock.calls.length, 1);
+  assert.strictEqual(task, mockScheduledTask);
   const [expr] = mockCronSchedule.mock.calls[0]!.arguments as [string];
   assert.equal(expr, '0 3 1 * *');
 });
@@ -75,6 +91,22 @@ test('cron callback invokes runUsdaImport with correct args', async () => {
   assert.equal(args.dataDir, '/tmp/usda');
   assert.equal(args.importSource, 'cron_refresh');
   assert.equal(args.makeActive, true);
+  assert.equal(
+    mockWithDatabaseAdvisoryLock.mock.calls[0]!.arguments[0],
+    'calorify:usda-refresh-job'
+  );
+});
+
+test('cron callback skips import when another process owns the advisory lock', async () => {
+  resetAll();
+  advisoryLockAvailable = false;
+  startUsdaRefreshCron();
+  const [, cb] = mockCronSchedule.mock.calls[0]!.arguments as [
+    string,
+    () => Promise<void>,
+  ];
+  await cb();
+  assert.equal(mockRunUsdaImport.mock.calls.length, 0);
 });
 
 test('cron callback uses config.USDA_DATASET_VERSION when set', async () => {
@@ -149,9 +181,10 @@ test('cron logs skipped result when import is skipped', async () => {
 test('startUsdaRefreshCron does not schedule when USDA_AUTO_REFRESH_ENABLED is false', async () => {
   resetAll();
   mockConfig.USDA_AUTO_REFRESH_ENABLED = false;
-  startUsdaRefreshCron();
+  const task = startUsdaRefreshCron();
 
   assert.equal(mockCronSchedule.mock.calls.length, 0);
+  assert.equal(task, undefined);
 
   mockConfig.USDA_AUTO_REFRESH_ENABLED = true;
 });

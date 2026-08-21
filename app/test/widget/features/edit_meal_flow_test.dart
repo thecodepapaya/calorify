@@ -45,7 +45,10 @@ void main() {
     await tester.tap(find.text(t.meal.save));
     await tester.pumpAndSettle();
 
-    verify(() => database.addToFavorites(any())).called(1);
+    final savedMeal =
+        verify(() => database.addToFavorites(captureAny())).captured.single
+            as LoggedMeal;
+    expect(savedMeal.hasClientId(), isFalse);
     verifyNever(() => database.upsertMeal(any()));
   });
 
@@ -92,5 +95,29 @@ void main() {
     verify(() => database.addToFavorites(any())).called(1);
     write.complete();
     await tester.pumpAndSettle();
+  });
+
+  testWidgets('editing a favorite updates its row instead of inserting', (
+    tester,
+  ) async {
+    when(
+      () => database.updateFavoriteMeal(any(), any()),
+    ).thenAnswer((_) async {});
+
+    await tester.pumpWidget(
+      wrapWithProviders(
+        EditMealScreen(
+          loggedMeal: LoggedMeal(meal: Meal(name: 'Custom oats')),
+          favoriteId: 42,
+          saveAsFavorite: true,
+        ),
+        withFlushbar: true,
+      ),
+    );
+    await tester.tap(find.text(t.meal.save));
+    await tester.pumpAndSettle();
+
+    verify(() => database.updateFavoriteMeal(42, any())).called(1);
+    verifyNever(() => database.addToFavorites(any()));
   });
 }

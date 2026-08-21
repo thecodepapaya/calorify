@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 

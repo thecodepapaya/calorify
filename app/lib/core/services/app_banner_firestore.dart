@@ -39,8 +39,11 @@ BannerSelection? selectBannerFromDocuments(
   return selectBestBanner(parsed);
 }
 
-/// Prefer larger [`Banner.priority`] enum index (LOW=0 … HIGH=2), then newer [`Banner.createdAt`], then id.
-BannerSelection? selectBestBanner(List<BannerSelection> eligible) {
+/// Ignore malformed banners without an explicit priority. Then prefer larger
+/// [`Banner.priority`] enum values (LOW=0 … HIGH=2), newer
+/// [`Banner.createdAt`], and finally document id.
+BannerSelection? selectBestBanner(List<BannerSelection> candidates) {
+  final eligible = candidates.where((candidate) => candidate.banner.hasPriority()).toList();
   if (eligible.isEmpty) return null;
   eligible.sort((a, b) {
     final pr = b.banner.priority.value.compareTo(a.banner.priority.value);

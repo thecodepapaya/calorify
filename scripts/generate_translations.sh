@@ -50,6 +50,9 @@ COLLECTED_LOCALES=()  # Used by collect_locales function
 # Parallel execution tracking
 TEMP_DIR=""
 PARALLEL_LOG_DIR=""
+I18N_BACKUP_DIR=""
+I18N_TRANSACTION_ACTIVE=false
+I18N_TRANSACTION_COMMITTED=false
 
 # ============================================================================
 # Setup Functions
@@ -58,7 +61,8 @@ PARALLEL_LOG_DIR=""
 setup_environment() {
     # Store original directory and change to git root
     store_original_dir
-    GIT_ROOT=$(change_to_git_root)
+    change_to_git_root
+    GIT_ROOT="$PWD"
     if python3 "$SCRIPT_DIR/translate_i18n_openrouter.py" --root "$GIT_ROOT" --check-config; then
         TRANSLATION_PROVIDER="openrouter"
         API_KEY=""
@@ -92,11 +96,11 @@ parse_arguments() {
                 shift
                 ;;
             --jobs|-j)
-                if [[ -n "$2" ]] && [[ "$2" =~ ^[0-9]+$ ]]; then
+                if [[ -n "${2:-}" ]] && [[ "$2" =~ ^[1-9][0-9]*$ ]]; then
                     MAX_PARALLEL_JOBS="$2"
                     shift 2
                 else
-                    print_error "--jobs requires a number (e.g., --jobs 3)"
+                    print_error "--jobs requires a positive number (e.g., --jobs 3)"
                     exit 1
                 fi
                 ;;
@@ -134,11 +138,67 @@ initialize_logging() {
     TEMP_DIR="/tmp/calorify_translations_$(date +%Y%m%d_%H%M%S)_$$"
     PARALLEL_LOG_DIR="$TEMP_DIR/logs"
     mkdir -p "$PARALLEL_LOG_DIR"
+    begin_i18n_transaction
     
     print_header "Translation Maintenance & Generation Script"
     print_info "Verbose output logged to: $LOG_FILE"
     print_info "Parallel job logs: $PARALLEL_LOG_DIR"
     echo ""
+}
+
+begin_i18n_transaction() {
+    local source_dir="$I18N_PKG_DIR/$I18N_DIR"
+    I18N_BACKUP_DIR="$TEMP_DIR/i18n_backup"
+
+    if [ ! -d "$source_dir" ]; then
+        print_error "Translation source directory not found: $source_dir"
+        exit 1
+    fi
+
+    if ! mkdir -p "$I18N_BACKUP_DIR" || ! cp -R "$source_dir/." "$I18N_BACKUP_DIR/"; then
+        print_error "Failed to create translation backup at $I18N_BACKUP_DIR"
+        exit 1
+    fi
+    I18N_TRANSACTION_ACTIVE=true
+}
+
+rollback_i18n_transaction() {
+    local source_dir="$I18N_PKG_DIR/$I18N_DIR"
+    local failed_dir="$TEMP_DIR/i18n_failed"
+
+    if [ "$I18N_TRANSACTION_ACTIVE" != true ] || [ "$I18N_TRANSACTION_COMMITTED" = true ]; then
+        return 0
+    fi
+    if [ ! -d "$I18N_BACKUP_DIR" ] || [ ! -d "$source_dir" ]; then
+        print_error "Cannot roll back translation files; backup or source directory is missing"
+        return 1
+    fi
+
+    mv "$source_dir" "$failed_dir" || return 1
+    mkdir -p "$source_dir"
+    if ! cp -R "$I18N_BACKUP_DIR/." "$source_dir/"; then
+        print_error "Failed to restore translation files from $I18N_BACKUP_DIR"
+        return 1
+    fi
+    I18N_TRANSACTION_ACTIVE=false
+    print_warning "Translation changes were rolled back; failed output is preserved at $failed_dir"
+}
+
+commit_i18n_transaction() {
+    I18N_TRANSACTION_COMMITTED=true
+    I18N_TRANSACTION_ACTIVE=false
+    if [ -n "$I18N_BACKUP_DIR" ] && [ -d "$I18N_BACKUP_DIR" ]; then
+        rm -rf -- "$I18N_BACKUP_DIR"
+    fi
+}
+
+handle_exit() {
+    local status=$?
+    trap - EXIT
+    if [ "$status" -ne 0 ] && [ "$I18N_TRANSACTION_ACTIVE" = true ]; then
+        rollback_i18n_transaction || status=1
+    fi
+    exit "$status"
 }
 
 # ============================================================================
@@ -205,15 +265,54 @@ collect_locales() {
     done
 }
 
+# Run a worker function over a list with bounded concurrency. Waiting in
+# batches is intentionally simple and works on the older Bash shipped by macOS;
+# it replaces two bespoke process-polling loops and avoids busy waiting.
+run_parallel_workers() {
+    local worker=$1
+    shift
+    local pids=()
+    local item
+    local pid
+    local failed=0
+
+    for item in "$@"; do
+        "$worker" "$item" &
+        pids+=("$!")
+
+        if [ ${#pids[@]} -ge "$MAX_PARALLEL_JOBS" ]; then
+            for pid in "${pids[@]}"; do
+                if ! wait "$pid" 2>/dev/null; then
+                    failed=$((failed + 1))
+                fi
+            done
+            pids=()
+        fi
+    done
+
+    for pid in "${pids[@]}"; do
+        if ! wait "$pid" 2>/dev/null; then
+            failed=$((failed + 1))
+        fi
+    done
+
+    [ "$failed" -eq 0 ]
+}
+
 normalize_locale_worker() {
     local locale=$1
     local log_file="$PARALLEL_LOG_DIR/normalize_${locale}.log"
     
-    local norm_output=$(dart run slang normalize --locale="$locale" 2>&1)
+    local norm_output
+    local norm_exit=0
+    norm_output=$(dart run slang normalize --locale="$locale" 2>&1) || norm_exit=$?
     echo "$norm_output" >> "$log_file"
     echo "$norm_output" >> "$LOG_FILE"
-    
-    if echo "$norm_output" | grep -q .; then
+
+    if [ "$norm_exit" -ne 0 ]; then
+        echo "FAILED:$locale" > "$PARALLEL_LOG_DIR/normalize_${locale}.result"
+        return "$norm_exit"
+    elif echo "$norm_output" | grep -q .; then
         echo "NORMALIZED:$locale" > "$PARALLEL_LOG_DIR/normalize_${locale}.result"
     else
         echo "NO_CHANGE:$locale" > "$PARALLEL_LOG_DIR/normalize_${locale}.result"
@@ -223,8 +322,10 @@ normalize_locale_worker() {
 normalize_translations() {
     print_step "2" "Normalizing translations"
     local normalized=0
-    local normalized_locales=()
     local all_locales=()
+    local failed=0
+    local processed=0
+    local workers_failed=0
     
     collect_locales
     all_locales=("${COLLECTED_LOCALES[@]}")
@@ -239,94 +340,34 @@ normalize_translations() {
     fi
     
     print_info "Normalizing $total_locales locale(s) with up to $MAX_PARALLEL_JOBS parallel jobs"
-    
-    # Run normalization in parallel with job control
-    local pids=()
-    local locale_index=0
-    local processed_locales=()
-    
-    # Start initial batch of jobs
-    while [ $locale_index -lt $total_locales ] && [ ${#pids[@]} -lt $MAX_PARALLEL_JOBS ]; do
-        local locale="${all_locales[$locale_index]}"
-        normalize_locale_worker "$locale" &
-        pids+=($!)
-        ((locale_index++))
-    done
-    
-    # Process jobs as they complete
-    while [ ${#pids[@]} -gt 0 ] || [ $locale_index -lt $total_locales ]; do
-        # Check for completed jobs
-        local new_pids=()
-        for pid in "${pids[@]}"; do
-            if kill -0 "$pid" 2>/dev/null; then
-                new_pids+=("$pid")
-            else
-                wait "$pid" 2>/dev/null || true
-            fi
-        done
-        pids=("${new_pids[@]}")
-        
-        # Process completed results
-        shopt -s nullglob
-        for result_file in "$PARALLEL_LOG_DIR"/normalize_*.result; do
-            [ ! -f "$result_file" ] && continue
-            local result=$(cat "$result_file")
-            local locale=$(echo "$result" | cut -d: -f2)
-            local status=$(echo "$result" | cut -d: -f1)
-            
-            # Skip if already processed
-            if [[ ! " ${processed_locales[@]} " =~ " ${locale} " ]]; then
-                processed_locales+=("$locale")
-                if [ "$status" == "NORMALIZED" ]; then
-                    normalized_locales+=("$locale")
-                    ((normalized++))
-                    printf "  ${GREEN}✓${NC} Normalized %-10s${NC}\n" "$locale"
-                else
-                    printf "  ${DIM}✓${NC} %-10s (no changes)${NC}\n" "$locale"
-                fi
-                rm -f "$result_file"
-            fi
-        done
-        shopt -u nullglob
-        
-        # Start new jobs if we have capacity
-        while [ ${#pids[@]} -lt $MAX_PARALLEL_JOBS ] && [ $locale_index -lt $total_locales ]; do
-            local locale="${all_locales[$locale_index]}"
-            normalize_locale_worker "$locale" &
-            pids+=($!)
-            ((locale_index++))
-        done
-        
-        # Small sleep to avoid busy waiting
-        sleep 0.1
-    done
-    
-    # Wait for all remaining jobs
-    for pid in "${pids[@]}"; do
-        wait "$pid" 2>/dev/null || true
-    done
-    
-    # Process any remaining results
+
+    run_parallel_workers normalize_locale_worker "${all_locales[@]}" || workers_failed=1
+
     shopt -s nullglob
     for result_file in "$PARALLEL_LOG_DIR"/normalize_*.result; do
         [ ! -f "$result_file" ] && continue
         local result=$(cat "$result_file")
         local locale=$(echo "$result" | cut -d: -f2)
         local status=$(echo "$result" | cut -d: -f1)
-        
-        if [[ ! " ${processed_locales[@]} " =~ " ${locale} " ]]; then
-            processed_locales+=("$locale")
-            if [ "$status" == "NORMALIZED" ]; then
-                normalized_locales+=("$locale")
-                ((normalized++))
-                printf "  ${GREEN}✓${NC} Normalized %-10s${NC}\n" "$locale"
-            else
-                printf "  ${DIM}✓${NC} %-10s (no changes)${NC}\n" "$locale"
-            fi
-            rm -f "$result_file"
+        processed=$((processed + 1))
+
+        if [ "$status" = "NORMALIZED" ]; then
+            ((normalized++))
+            printf "  ${GREEN}✓${NC} Normalized %-10s${NC}\n" "$locale"
+        elif [ "$status" = "FAILED" ]; then
+            failed=$((failed + 1))
+            printf "  ${RED}✗${NC} %-10s (normalization failed)${NC}\n" "$locale"
+        else
+            printf "  ${DIM}✓${NC} %-10s (no changes)${NC}\n" "$locale"
         fi
+        rm -f "$result_file"
     done
     shopt -u nullglob
+
+    if [ "$processed" -ne "$total_locales" ] || [ "$failed" -gt 0 ] || [ "$workers_failed" -ne 0 ]; then
+        print_error "Normalization produced $processed/$total_locales result(s), with $failed reported failure(s)"
+        return 1
+    fi
     
     echo ""
     if [ $normalized -gt 0 ]; then
@@ -601,8 +642,9 @@ translate_locale_worker() {
     else
         echo "FAILED:$locale" > "$PARALLEL_LOG_DIR/translate_${locale}.result"
     fi
-    
-    rename_default_file "$locale"
+
+    rename_default_file "$locale" || return 1
+    return "$gpt_exit"
 }
 
 generate_translations() {
@@ -626,128 +668,48 @@ generate_translations() {
     
     local locale_array=($locales)
     local total_trans=${#locale_array[@]}
-    local processed_locales=()
-    
-    # Run translations in parallel with job control
-    local pids=()
-    local locale_index=0
-    
-    # Start initial batch of jobs
-    while [ $locale_index -lt $total_trans ] && [ ${#pids[@]} -lt $MAX_PARALLEL_JOBS ]; do
-        local locale="${locale_array[$locale_index]}"
-        translate_locale_worker "$locale" &
-        pids+=($!)
-        ((locale_index++))
-    done
-    
-    # Process jobs as they complete
-    while [ ${#pids[@]} -gt 0 ] || [ $locale_index -lt $total_trans ]; do
-        # Check for completed jobs
-        local new_pids=()
-        for pid in "${pids[@]}"; do
-            if kill -0 "$pid" 2>/dev/null; then
-                new_pids+=("$pid")
-            else
-                wait "$pid" 2>/dev/null || true
-            fi
-        done
-        pids=("${new_pids[@]}")
-        
-        # Process completed results
-        shopt -s nullglob
-        for result_file in "$PARALLEL_LOG_DIR"/translate_*.result; do
-            [ ! -f "$result_file" ] && continue
-            local result=$(cat "$result_file")
-            local status=$(echo "$result" | cut -d: -f1)
-            local locale=$(echo "$result" | cut -d: -f2)
-            
-            # Skip if already processed
-            if [[ ! " ${processed_locales[@]} " =~ " ${locale} " ]]; then
-                processed_locales+=("$locale")
-                if [ "$status" == "SUCCESS" ]; then
-                    local new_translations=$(echo "$result" | cut -d: -f3)
-                    local cost=$(echo "$result" | cut -d: -f4)
-                    
-                    if [ "$new_translations" != "0" ]; then
-                        if [ "$cost" != "0" ] && [ -n "$cost" ]; then
-                            printf "  ${GREEN}✓${NC} %-10s (${new_translations} new, \$${cost})${NC}\n" "$locale"
-                        else
-                            printf "  ${GREEN}✓${NC} %-10s (${new_translations} new)${NC}\n" "$locale"
-                        fi
-                    else
-                        printf "  ${DIM}✓${NC} %-10s (up to date)${NC}\n" "$locale"
-                    fi
-                    TRANSLATED_LOCALES+=("$locale")
-                    ((TRANSLATED++))
-                else
-                    printf "  ${RED}✗${NC} %-10s (failed)${NC}\n" "$locale"
-                    FAILED_LOCALES+=("$locale")
-                    ((FAILED++))
-                fi
-                rm -f "$result_file"
-            fi
-        done
-        shopt -u nullglob
-        
-        # Start new jobs if we have capacity
-        while [ ${#pids[@]} -lt $MAX_PARALLEL_JOBS ] && [ $locale_index -lt $total_trans ]; do
-            local locale="${locale_array[$locale_index]}"
-            translate_locale_worker "$locale" &
-            pids+=($!)
-            ((locale_index++))
-        done
-        
-        # Once all result files are in, all jobs have finished (they write before exiting).
-        # Reap all pids (kill -0 still succeeds for zombies, so we must wait to exit the loop).
-        if [ ${#processed_locales[@]} -eq $total_trans ]; then
-            for pid in "${pids[@]}"; do wait "$pid" 2>/dev/null || true; done
-            break
-        fi
-        
-        # Small sleep to avoid busy waiting
-        sleep 0.1
-    done
-    
-    # Wait for all remaining jobs
-    for pid in "${pids[@]}"; do
-        wait "$pid" 2>/dev/null || true
-    done
-    
-    # Process any remaining results
+    local processed=0
+    local workers_failed=0
+
+    run_parallel_workers translate_locale_worker "${locale_array[@]}" || workers_failed=1
+
     shopt -s nullglob
     for result_file in "$PARALLEL_LOG_DIR"/translate_*.result; do
         [ ! -f "$result_file" ] && continue
         local result=$(cat "$result_file")
         local status=$(echo "$result" | cut -d: -f1)
         local locale=$(echo "$result" | cut -d: -f2)
+        processed=$((processed + 1))
         
-        if [[ ! " ${processed_locales[@]} " =~ " ${locale} " ]]; then
-            processed_locales+=("$locale")
-            if [ "$status" == "SUCCESS" ]; then
-                local new_translations=$(echo "$result" | cut -d: -f3)
-                local cost=$(echo "$result" | cut -d: -f4)
-                
-                if [ "$new_translations" != "0" ]; then
-                    if [ "$cost" != "0" ] && [ -n "$cost" ]; then
-                        printf "  ${GREEN}✓${NC} %-10s (${new_translations} new, \$${cost})${NC}\n" "$locale"
-                    else
-                        printf "  ${GREEN}✓${NC} %-10s (${new_translations} new)${NC}\n" "$locale"
-                    fi
+        if [ "$status" == "SUCCESS" ]; then
+            local new_translations=$(echo "$result" | cut -d: -f3)
+            local cost=$(echo "$result" | cut -d: -f4)
+
+            if [ "$new_translations" != "0" ]; then
+                if [ "$cost" != "0" ] && [ -n "$cost" ]; then
+                    printf "  ${GREEN}✓${NC} %-10s (${new_translations} new, \$${cost})${NC}\n" "$locale"
                 else
-                    printf "  ${DIM}✓${NC} %-10s (up to date)${NC}\n" "$locale"
+                    printf "  ${GREEN}✓${NC} %-10s (${new_translations} new)${NC}\n" "$locale"
                 fi
-                TRANSLATED_LOCALES+=("$locale")
-                ((TRANSLATED++))
             else
-                printf "  ${RED}✗${NC} %-10s (failed)${NC}\n" "$locale"
-                FAILED_LOCALES+=("$locale")
-                ((FAILED++))
+                printf "  ${DIM}✓${NC} %-10s (up to date)${NC}\n" "$locale"
             fi
-            rm -f "$result_file"
+            TRANSLATED_LOCALES+=("$locale")
+            ((TRANSLATED++))
+        else
+            printf "  ${RED}✗${NC} %-10s (failed)${NC}\n" "$locale"
+            FAILED_LOCALES+=("$locale")
+            ((FAILED++))
         fi
+        rm -f "$result_file"
     done
     shopt -u nullglob
-    
+
+    if [ "$processed" -ne "$total_trans" ] || [ "$FAILED" -gt 0 ] || [ "$workers_failed" -ne 0 ]; then
+        print_error "Translation produced $processed/$total_trans result(s), with $FAILED reported failure(s)"
+        return 1
+    fi
+
     echo ""
 }
 
@@ -834,22 +796,27 @@ print_summary() {
 # ============================================================================
 
 main() {
+    trap handle_exit EXIT
     setup_environment
     parse_arguments "$@"
     initialize_logging
     
     analyze_translations
-    normalize_translations
+    normalize_translations || return 1
     clean_unused_translations
-    generate_translations
+    generate_translations || return 1
     cleanup_default_files
     cleanup_incorrectly_named_files
     clean_generated_files
     regenerate_translation_classes
     print_translation_statistics
     reanalyze_translations || return 1
-    print_summary
+    print_summary || return 1
+    commit_i18n_transaction
 }
 
-# Run main function
-main "$@"
+# Run main only when executed; sourcing is useful for focused shell tests of the
+# worker pool and transaction helpers.
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

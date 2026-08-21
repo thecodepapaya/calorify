@@ -22,6 +22,14 @@ val measureApiKey = providers.gradleProperty("MEASURE_API_KEY")
     .orElse(providers.environmentVariable("MEASURE_API_KEY"))
     .orElse("")
 
+// protobuf-javalite already contains the well-known protobuf messages. Firestore
+// and Firebase Performance also bring Firebase's repackaged copy, which causes
+// duplicate com.google.protobuf classes when the generated watch protocol is
+// compiled into the phone app.
+configurations.configureEach {
+    exclude(group = "com.google.firebase", module = "protolite-well-known-types")
+}
+
 android {
     namespace = "dev.thecodepapaya.calorify"
     compileSdk = flutter.compileSdkVersion
@@ -84,6 +92,10 @@ android {
             }
         }
     }
+
+    sourceSets["main"].java.srcDir(
+        rootProject.file("../../shared_packages/models/generated/kotlin")
+    )
 }
 
 dependencies {
@@ -95,6 +107,7 @@ dependencies {
     // Kotlin coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:4.27.3")
 }
 
 flutter {

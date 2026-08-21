@@ -1,12 +1,10 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:drift/drift.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 
 extension FavoriteMealMapper on LoggedMeal {
   FavoriteMealTableCompanion toFavoriteCompanion() {
     return FavoriteMealTableCompanion(
-      id: Value(clientId),
       mealName: Value(meal.name),
       mealQuantity: Value(meal.quantity),
       mealType: Value(meal.type.legacyName),
@@ -16,17 +14,19 @@ extension FavoriteMealMapper on LoggedMeal {
       fat: Value(meal.macros.fat),
       fiber: Value(meal.macros.fiber),
       healthScore:
-          meal.hasHealth()
+          meal.hasHealth() && meal.health.hasHealthScore()
               ? Value(meal.health.healthScore.legacyName)
-              : const Value.absent(),
+              : const Value(null),
       healthScoreReason:
           meal.hasHealth() && meal.health.hasHealthScoreReason()
               ? Value(meal.health.healthScoreReason)
-              : const Value.absent(),
+              : const Value(null),
+      analysisId: const Value(null),
+      sourceMealId: hasClientId() ? Value(clientId) : const Value(null),
       imageUrl:
           hasMetadata() && metadata.hasImageUrl()
               ? Value(metadata.imageUrl)
-              : const Value.absent(),
+              : const Value(null),
       timestamp: Value(
         hasCreatedAt()
             ? iso8601StringToDateTime(createdAt) ?? DateTime.now()
@@ -40,7 +40,6 @@ extension FavoriteMealMapper on LoggedMeal {
   /// Creates a FavoriteMeal from a FavoriteMealTableData row
   static FavoriteMeal fromRow(FavoriteMealTableData data) {
     final loggedMeal = LoggedMeal(
-      clientId: data.id,
       meal: Meal(
         name: data.mealName,
         quantity: data.mealQuantity,
@@ -64,6 +63,9 @@ extension FavoriteMealMapper on LoggedMeal {
       metadata:
           data.imageUrl != null ? MealMetadata(imageUrl: data.imageUrl) : null,
     );
+    if (data.sourceMealId != null) {
+      loggedMeal.clientId = data.sourceMealId!;
+    }
 
     return FavoriteMeal(
       clientId: data.id,
@@ -72,47 +74,6 @@ extension FavoriteMealMapper on LoggedMeal {
       lastUsedAt:
           data.lastUsedAt != null
               ? dateTimeToIso8601String(data.lastUsedAt!)
-              : dateTimeToIso8601String(data.createdAt),
-    );
-  }
-
-  /// Creates a FavoriteMeal from a Drift row
-  static FavoriteMeal fromDrift(dynamic data) {
-    final loggedMeal = LoggedMeal(
-      clientId: data.id,
-      meal: Meal(
-        name: data.mealName,
-        quantity: data.mealQuantity,
-        type: mealTypeFromLegacyName(data.mealType),
-        health:
-            data.healthScore != null
-                ? MealHealth(
-                  healthScore: healthScoreFromLegacyName(
-                    data.healthScore as String,
-                  ),
-                  healthScoreReason: data.healthScoreReason,
-                )
-                : null,
-        macros: MealMacro(
-          calories: data.calories,
-          protein: data.protein,
-          carbs: data.carbs,
-          fat: data.fat,
-          fiber: data.fiber,
-        ),
-      ),
-      createdAt: dateTimeToIso8601String(data.timestamp),
-      metadata:
-          data.imageUrl != null ? MealMetadata(imageUrl: data.imageUrl) : null,
-    );
-
-    return FavoriteMeal(
-      clientId: data.id,
-      loggedMeal: loggedMeal,
-      favoriteAt: dateTimeToIso8601String(data.createdAt),
-      lastUsedAt:
-          data.lastUsedAt != null
-              ? dateTimeToIso8601String(data.lastUsedAt)
               : dateTimeToIso8601String(data.createdAt),
     );
   }

@@ -12,6 +12,24 @@ await mock.module('../services/database.js', {
   namedExports: { query: mockQuery },
 });
 
+let advisoryLockHeld = false;
+const mockWithDatabaseAdvisoryLock = mock.fn(async (
+  _name: string,
+  work: () => Promise<unknown>
+) => {
+  if (advisoryLockHeld) return { acquired: false as const };
+  advisoryLockHeld = true;
+  try {
+    return { acquired: true as const, value: await work() };
+  } finally {
+    advisoryLockHeld = false;
+  }
+});
+
+await mock.module('../services/databaseAdvisoryLock.js', {
+  namedExports: { withDatabaseAdvisoryLock: mockWithDatabaseAdvisoryLock },
+});
+
 const mockGetPendingBatches = mock.fn(async () => []);
 const mockPollAndProcessBatch = mock.fn(async () => ({
   status: 'completed' as const,
@@ -67,7 +85,8 @@ await mock.module('../utils/timezone.js', {
   },
 });
 
-const mockCronSchedule = mock.fn((_expr: string, _fn: () => void) => {});
+const mockScheduledTask = { stop: mock.fn(() => {}) };
+const mockCronSchedule = mock.fn((_expr: string, _fn: () => void) => mockScheduledTask);
 
 await mock.module('node-cron', {
   defaultExport: { schedule: mockCronSchedule },
@@ -92,6 +111,8 @@ const { startAiSummaryCron } = await import('./aiSummaryCron.js');
 // ---------------------------------------------------------------------------
 
 function resetAll() {
+  advisoryLockHeld = false;
+  mockWithDatabaseAdvisoryLock.mock.resetCalls();
   mockGetPendingBatches.mock.resetCalls();
   mockPollAndProcessBatch.mock.resetCalls();
   mockUpdateBatchStatus.mock.resetCalls();
@@ -113,8 +134,9 @@ function resetAll() {
 
 test('startAiSummaryCron schedules a cron job with hourly expression', () => {
   resetAll();
-  startAiSummaryCron();
+  const task = startAiSummaryCron();
   assert.equal(mockCronSchedule.mock.calls.length, 1);
+  assert.strictEqual(task, mockScheduledTask);
   const [expr] = mockCronSchedule.mock.calls[0]!.arguments as [string];
   assert.equal(expr, '0 * * * *');
 });
@@ -124,6 +146,21 @@ test('startAiSummaryCron passes a callback function to cron.schedule', () => {
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => void];
   assert.equal(typeof callback, 'function');
+});
+
+test('scheduled runs use the cross-process AI summary advisory lock', async () => {
+  resetAll();
+  startAiSummaryCron();
+  const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [
+    string,
+    () => Promise<void>,
+  ];
+  await callback();
+  assert.equal(mockWithDatabaseAdvisoryLock.mock.calls.length, 1);
+  assert.equal(
+    mockWithDatabaseAdvisoryLock.mock.calls[0]!.arguments[0],
+    'calorify:ai-summary-job'
+  );
 });
 
 // ---------------------------------------------------------------------------
@@ -254,7 +291,11 @@ test('cron job queries users near local 3am and submits batch', async () => {
   assert.equal(mockSubmitBatch.mock.calls.length, 1);
   assert.equal(mockSaveBatchIntent.mock.calls.length, 1);
   assert.equal(mockSaveBatchRecord.mock.calls.length, 1);
-  assert.match(mockQuery.mock.calls[0]!.arguments[0] as string, /NOT EXISTS/);
+  const userSelectionSql = mockQuery.mock.calls[0]!.arguments[0] as string;
+  assert.match(userSelectionSql, /NOT EXISTS/);
+  assert.match(userSelectionSql, /b\.user_data \? s\.user_id/);
+  assert.match(userSelectionSql, /jsonb_each\(b\.user_data\)/);
+  assert.match(userSelectionSql, /metadata ->> 'userId' = s\.user_id/);
 });
 
 test('cron job never submits externally when the batch intent cannot be persisted', async () => {
@@ -299,8 +340,11 @@ test('cron job skips batch submission when no users have meal data', async () =>
   assert.equal(mockSubmitBatch.mock.calls.length, 0);
 });
 
-test('cron job does not throw when submitBatch fails', async () => {
+test('cron job sanitizes provider submission failures in logs and persistence', async (t) => {
   resetAll();
+  const secret = 'PRIVATE_MEAL_PROVIDER_ERROR';
+  const logs: unknown[][] = [];
+  t.mock.method(console, 'error', (...values: unknown[]) => logs.push(values));
   mockGetPendingBatches.mock.mockImplementation(async () => []);
   mockIsTimeZoneNear3am.mock.mockImplementation(() => true);
   mockQuery.mock.mockImplementation(async () => ({
@@ -310,12 +354,14 @@ test('cron job does not throw when submitBatch fails', async () => {
     userId: 'u1', locale: 'fr', mealCount: 2, csv: 'data',
   }));
   mockSubmitBatch.mock.mockImplementation(async () => {
-    throw new Error('OpenAI batch API error');
+    throw new Error(`OpenAI batch API error: ${secret}`);
   });
 
   startAiSummaryCron();
   const [, callback] = mockCronSchedule.mock.calls[0]!.arguments as [string, () => Promise<void>];
   await assert.doesNotReject(() => callback());
+  assert.equal(mockUpdateBatchStatus.mock.calls[0]?.arguments[2], 'Provider batch submission failed');
+  assert.doesNotMatch(JSON.stringify(logs), new RegExp(secret));
 });
 
 test('cron job selects timezone fields and passes the resolved timezone to collection', async () => {
@@ -338,7 +384,7 @@ test('cron job selects timezone fields and passes the resolved timezone to colle
   assert.equal(mockCollectMealDataForUser.mock.calls[0]!.arguments[2], 'Asia/Tokyo');
 });
 
-test('cron job skips an overlapping hourly invocation', async () => {
+test('database lock skips an overlapping hourly invocation', async () => {
   resetAll();
   let releasePending!: () => void;
   const pending = new Promise<void>((resolve) => {

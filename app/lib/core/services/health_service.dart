@@ -1,10 +1,12 @@
 import 'dart:developer';
 
-import 'package:models/models.dart';
-import 'package:health/health.dart' hide MealType;
+import 'package:calorify/core/services/profile_metrics.dart';
 import 'package:health/health.dart' as health show MealType;
-import 'package:flutter/foundation.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:health/health.dart' hide MealType;
+import 'package:models/models.dart';
+
+typedef UserProfileLoader = Future<UserProfile?> Function();
+typedef ProfileCalorieEstimator = double? Function(UserProfile profile);
 
 /// Result object returned by `getTotalCaloriesBurned`.
 /// `calories` may be null if no data or estimate is available.
@@ -18,21 +20,28 @@ class CaloriesResult {
 }
 
 class HealthService {
-  HealthService._({Health? health}) : _health = health ?? Health();
+  HealthService({
+    Health? health,
+    required UserProfileLoader profileLoader,
+    ProfileCalorieEstimator? calorieEstimator,
+  }) : _health = health ?? Health(),
+       _profileLoader = profileLoader,
+       _calorieEstimator =
+           calorieEstimator ?? const ProfileMetrics().caloriesBurnedSoFar;
 
-  static HealthService _instance = HealthService._();
-  static HealthService get instance => _instance;
-
-  @visibleForTesting
-  static void setMockInstance(HealthService mock) {
-    _instance = mock;
-  }
-
-  @visibleForTesting
-  factory HealthService.test({Health? health}) =>
-      HealthService._(health: health);
+  factory HealthService.test({
+    Health? health,
+    UserProfileLoader? profileLoader,
+    ProfileCalorieEstimator? calorieEstimator,
+  }) => HealthService(
+    health: health,
+    profileLoader: profileLoader ?? () async => null,
+    calorieEstimator: calorieEstimator,
+  );
 
   final Health _health;
+  final UserProfileLoader _profileLoader;
+  final ProfileCalorieEstimator _calorieEstimator;
   bool _lastFetchUsedFallback = false;
 
   /// True if the most recent `getTotalCaloriesBurned` call returned a
@@ -434,10 +443,9 @@ class HealthService {
 
     // 2) Fallback: estimate using user profile (TDEE * fraction of day)
     try {
-      final profile = await OnboardingService.instance.getProfileData();
+      final profile = await _profileLoader();
       if (profile != null) {
-        final estimate = OnboardingService.instance
-            .estimateCaloriesBurnedTodayFromProfile(profile);
+        final estimate = _calorieEstimator(profile);
         if (estimate != null) {
           _lastFetchUsedFallback = true;
           return CaloriesResult(calories: estimate, usedFallback: true);

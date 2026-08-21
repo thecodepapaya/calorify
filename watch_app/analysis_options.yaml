@@ -6,6 +6,15 @@
 # invoked from the command line by running `dart analyze`.
 
 # Include root-level analysis options (includes flutter_lints, exhaustive_cases, and common lint rules)
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 include: ../analysis_options.yaml
 
 # Additional information about this file can be found at

@@ -52,8 +52,7 @@ class MacroIconCycleLoader extends StatelessWidget {
       return Curves.easeOutCubic.transform(t);
     }
     if (u < _shrinkEnd) {
-      final t =
-          ((u - _zoomEnd) / (_shrinkEnd - _zoomEnd)).clamp(0.0, 1.0);
+      final t = ((u - _zoomEnd) / (_shrinkEnd - _zoomEnd)).clamp(0.0, 1.0);
       final k = Curves.easeInCubic.transform(t);
       return 1.0 + (_dotScale - 1.0) * k;
     }

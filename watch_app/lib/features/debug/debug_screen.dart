@@ -67,7 +67,7 @@ class _DebugScreenState extends State<DebugScreen> {
               0,
               MessageLog(
                 timestamp: DateTime.now(),
-                data: message,
+                data: _messageMetadata(message),
                 path: message['path']?.toString() ?? 'unknown',
               ),
             );
@@ -86,7 +86,7 @@ class _DebugScreenState extends State<DebugScreen> {
               0,
               MessageLog(
                 timestamp: DateTime.now(),
-                data: {'error': error.toString()},
+                data: {'errorType': error.runtimeType.toString()},
                 path: 'error',
               ),
             );
@@ -94,6 +94,11 @@ class _DebugScreenState extends State<DebugScreen> {
         }
       },
     );
+  }
+
+  Map<String, dynamic> _messageMetadata(Map<String, dynamic> message) {
+    final fields = message.keys.where((key) => key != 'path').toList()..sort();
+    return {'fieldCount': fields.length, 'fields': fields.join(', ')};
   }
 
   void _clearMessages() {

@@ -5,25 +5,26 @@ import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:health/health.dart';
 import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 @RoutePage()
-class HealthConnectPermissionsScreen extends StatefulWidget {
+class HealthConnectPermissionsScreen extends ConsumerStatefulWidget {
   const HealthConnectPermissionsScreen({super.key});
 
   @override
-  State<HealthConnectPermissionsScreen> createState() =>
+  ConsumerState<HealthConnectPermissionsScreen> createState() =>
       _HealthConnectPermissionsScreenState();
 }
 
 class _HealthConnectPermissionsScreenState
-    extends State<HealthConnectPermissionsScreen>
+    extends ConsumerState<HealthConnectPermissionsScreen>
     with WidgetsBindingObserver {
   bool _isLoading = true;
   bool _isHealthConnectAvailable = false;
@@ -53,7 +54,7 @@ class _HealthConnectPermissionsScreenState
   Future<void> _checkPermissions() async {
     setState(() => _isLoading = true);
 
-    final healthService = HealthService.instance;
+    final healthService = ref.read(healthServiceProvider);
     await healthService.init();
 
     final isAvailable =
@@ -127,7 +128,8 @@ class _HealthConnectPermissionsScreenState
     });
 
     try {
-      final success = await HealthService.instance.requestAuthorization();
+      final success =
+          await ref.read(healthServiceProvider).requestAuthorization();
 
       // Always refresh permissions after request, regardless of success
       await _checkPermissions();

@@ -18,7 +18,7 @@ npm ci
 cp env.example .env
 ```
 
-Populate `.env` with local-only values. At minimum, a complete environment normally includes `DATABASE_URL`, `SECRET_KEY`, the relevant AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
+Populate `.env` with local-only values. At minimum, a complete environment normally includes `DATABASE_URL`, the relevant AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
 
 Start PostgreSQL and the API:
 
@@ -68,6 +68,8 @@ USDA FoodData Central CSV data is imported into PostgreSQL. Lookup combines sema
 
 The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
 
+The API reports ready only when PostgreSQL is reachable and one active USDA dataset has been fully materialized. A new deployment with no usable dataset therefore remains out of load-balancer rotation until bootstrap completes; an atomic refresh keeps the previous active dataset usable until the replacement is complete.
+
 ## Configuration
 
 `env.example` documents all supported values. Important rules:
@@ -76,7 +78,8 @@ The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-b
 - Keep `POSTGRES_PROD_PASSWORD` and `POSTGRES_STAGING_PASSWORD` consistent with their environment-specific `DATABASE_URL` values.
 - `DEBUG` must be `false` in production.
 - `ORACLE_BUCKET_DOWNLOAD_URL` is a bearer credential and is required in production.
-- Request/response body logging should remain disabled in production unless temporarily needed and carefully reviewed.
+- Request and response bodies are never written to application logs because payloads contain health data.
+- After deploying the legacy image-URL scrub migration, rotate the Oracle pre-authenticated request; application migrations cannot remove the old credential from existing backups or archived WAL.
 
 ## Docker and deployment
 
@@ -91,7 +94,8 @@ Required GitHub deployment secrets are listed in `.github/workflows/deploy-backe
 
 ## Observability
 
-- `GET /health` — liveness/health response.
+- `GET /health` — process liveness only; it does not check dependencies.
+- `GET /ready` — readiness; requires PostgreSQL and an active, materialized USDA dataset.
 - `GET /metrics` — Prometheus exposition.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run calories:estimate -- --text "..."` — one-meal execution trace, including provider failover.

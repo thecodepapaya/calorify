@@ -5,7 +5,6 @@ import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../setup/all_tests.dart';
 

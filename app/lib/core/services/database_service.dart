@@ -1,9 +1,6 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/db/database_logger.dart';
 import 'package:calorify/core/db/mock_data/data_source_config.dart';
-import 'package:calorify/core/db/mock_database_adapter.dart';
-import 'package:calorify/core/db/real_database_adapter.dart';
 import 'package:flutter/foundation.dart';
 
 /// Database service that can switch between mock and real data using interface-based architecture
@@ -23,17 +20,12 @@ class DatabaseService {
   /// Initialize the database service
   static void initialize() {
     if (!_initialized) {
-      DatabaseInterface adapter;
       if (DataSourceConfig.isMockDataEnabled) {
-        adapter = MockDatabaseAdapter();
+        _database = AppDatabase.inMemory();
       } else {
         _database = AppDatabase();
-        // adapter = SyncingDatabaseAdapter(RealDatabaseAdapter(_database!));
-        adapter = RealDatabaseAdapter(_database!);
       }
-      // Developer logging is useful during diagnosis, but constructing log
-      // messages around every database operation is needless release overhead.
-      _databaseInterface = kDebugMode ? DatabaseLogger(adapter) : adapter;
+      _databaseInterface = _database;
       _initialized = true;
     }
   }

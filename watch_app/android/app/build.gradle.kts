@@ -3,9 +3,6 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
-    id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
@@ -59,6 +56,11 @@ android {
             }
         }
     }
+
+
+    sourceSets["main"].java.srcDir(
+        rootProject.file("../../shared_packages/models/generated/kotlin")
+    )
 }
 
 dependencies {
@@ -70,8 +72,7 @@ dependencies {
     // Kotlin coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
-    // Gson for JSON serialization
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:4.27.3")
 }
 
 flutter {

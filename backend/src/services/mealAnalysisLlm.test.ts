@@ -85,12 +85,12 @@ test('reports every provider attempt with its operation and outcome', async () =
   await createMealAnalysisLlmClient({ onAttempt: (attempt) => attempts.push(attempt) })
     .chat.completions.create(request, { operation: 'decompose_text' });
   assert.deepEqual(
-    attempts.map(({ operation, provider, model, outcome, error }) => ({
+    attempts.map(({ operation, provider, model, outcome, errorKind }) => ({
       operation,
       provider,
       model,
       outcome,
-      error,
+      errorKind,
     })),
     [
       {
@@ -98,14 +98,14 @@ test('reports every provider attempt with its operation and outcome', async () =
         provider: 'openrouter',
         model: 'openai/gpt-4.1-nano',
         outcome: 'error',
-        error: 'quota exhausted',
+        errorKind: 'provider_error',
       },
       {
         operation: 'decompose_text',
         provider: 'openrouter',
         model: 'openrouter/free',
         outcome: 'success',
-        error: undefined,
+        errorKind: undefined,
       },
     ]
   );
@@ -157,4 +157,33 @@ test('fails over when JSON does not match the requested schema', async () => {
     },
   });
   assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-4.1-nano', 'openrouter/free']);
+});
+
+test('provider failures expose only bounded error kinds', async (t) => {
+  reset();
+  const secret = 'SIGNED_URL_AND_MEAL_PROMPT_SECRET';
+  implementation = async () => {
+    const error = new Error(`provider echoed ${secret}`) as Error & { code: string };
+    error.code = 'toString';
+    throw error;
+  };
+  const attempts: MealAnalysisLlmAttempt[] = [];
+  const warnings: unknown[][] = [];
+  t.mock.method(console, 'warn', (...values: unknown[]) => {
+    warnings.push(values);
+  });
+
+  await assert.rejects(
+    () => createMealAnalysisLlmClient({ onAttempt: (attempt) => attempts.push(attempt) })
+      .chat.completions.create(request, { operation: 'decompose_text' }),
+    (error: Error) => {
+      assert.equal(error.message, 'All meal analysis LLM providers failed');
+      assert.doesNotMatch(error.message, new RegExp(secret));
+      return true;
+    }
+  );
+
+  assert.equal(attempts.length, 3);
+  assert.ok(attempts.every((attempt) => attempt.errorKind === 'provider_error'));
+  assert.doesNotMatch(JSON.stringify({ attempts, warnings }), new RegExp(secret));
 });

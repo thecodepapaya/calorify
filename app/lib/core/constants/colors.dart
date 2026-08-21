@@ -6,7 +6,6 @@ export 'package:specs/specs.dart'
         proteinIconColor,
         carbsIconColor,
         fatIconColor,
-        fiberIconColor;
-
-// Re-export color scheme extensions
-export 'colors/color_scheme_extensions.dart';
+        fiberIconColor,
+        ColorSchemeSuccess,
+        ColorSchemeMacroNutrients;

@@ -1,17 +1,13 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/router/route_names.dart';
-import 'package:calorify/shared_widgets/app_outlined_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 
 class MealFeedbackInput {
-  const MealFeedbackInput({
-    required this.issues,
-    this.otherText,
-  });
+  const MealFeedbackInput({required this.issues, this.otherText});
 
   final List<MealReanalyzeFeedbackIssue> issues;
   final String? otherText;
@@ -38,10 +34,7 @@ class _V2MealFeedbackSheet extends StatefulWidget {
 class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
   static final List<MealReanalyzeFeedbackIssue> _issueChoices =
       MealReanalyzeFeedbackIssue.values
-          .where(
-            (e) =>
-                e != MealReanalyzeFeedbackIssue.ISSUE_UNSPECIFIED,
-          )
+          .where((e) => e != MealReanalyzeFeedbackIssue.ISSUE_UNSPECIFIED)
           .toList();
 
   final Set<MealReanalyzeFeedbackIssue> _selectedIssues =
@@ -133,15 +126,18 @@ class _V2MealFeedbackSheetState extends State<_V2MealFeedbackSheet> {
           Row(
             children: [
               Expanded(
-                child: AppOutlinedButton(
+                child: AppButton(
+                  variant: AppButtonVariant.outlined,
                   onPressed: () => Navigator.of(context).pop(),
                   text: t.meal.deleteConfirmation.cancel,
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: PrimaryButton(
-                  analyticsEvent: AnalyticsEvent.mealFeedbackThumbsDownSubmitted,
+                child: AppButton(
+                  variant: AppButtonVariant.primary,
+                  analyticsEvent:
+                      AnalyticsEvent.mealFeedbackThumbsDownSubmitted,
                   onPressed:
                       _canSubmit
                           ? () {

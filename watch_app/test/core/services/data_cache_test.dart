@@ -11,12 +11,14 @@ void main() {
       meals: [older, newer],
       favorites: const [],
       goal: 2000,
-      syncedAt: DateTime.now(),
+      dashboardSyncedAt: DateTime.now(),
+      favoritesSyncedAt: null,
     );
 
     expect(cache.todaysMeals.value.map((meal) => meal.clientId), [-8, -4]);
     expect(cache.calorieGoal.value, 2000);
-    expect(cache.hasFreshData, isTrue);
+    expect(cache.hasFreshDashboard, isTrue);
+    expect(cache.hasFreshFavorites, isFalse);
 
     final optimistic = cache.addOptimisticMeal(Meal(name: 'New meal'));
     expect(optimistic.clientId, -9);
@@ -30,7 +32,8 @@ void main() {
       meals: [meal],
       favorites: const [],
       goal: null,
-      syncedAt: null,
+      dashboardSyncedAt: null,
+      favoritesSyncedAt: DateTime.now(),
     );
 
     expect(cache.removeMealById(99), isNull);
@@ -40,7 +43,8 @@ void main() {
 
     cache.restoreMeal(removed!);
     expect(cache.todaysMeals.value.single, same(meal));
-    expect(cache.hasFreshData, isFalse);
+    expect(cache.hasFreshDashboard, isFalse);
+    expect(cache.hasFreshFavorites, isTrue);
   });
 
   test('late phone refresh preserves queued logs and queued deletes', () {

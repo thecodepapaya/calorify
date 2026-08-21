@@ -1,5 +1,4 @@
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 
 /// Mock data generator for LoggedMeal with variety and realistic nutritional values
 class MealInfoMock {

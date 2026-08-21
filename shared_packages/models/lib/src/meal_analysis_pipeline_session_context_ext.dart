@@ -2,7 +2,8 @@ import 'protos/calorify/meal_analysis_pipeline.pb.dart';
 import 'protos/calorify/meal_detection.pb.dart';
 import 'protos/meal/meal.pb.dart';
 
-extension MealAnalysisPipelineSessionContextX on MealAnalysisPipelineSessionContext {
+extension MealAnalysisPipelineSessionContextX
+    on MealAnalysisPipelineSessionContext {
   MealAnalysisPipelineSessionContext copyWithPipelineSession({
     PipelineResultData? result,
     List<int>? imageBytes,
@@ -29,15 +30,16 @@ extension MealAnalysisPipelineSessionContextX on MealAnalysisPipelineSessionCont
       metadata.mealDescription = textDescription;
     }
 
-    final mealMacro = r.hasMacros()
-        ? MealMacro(
-            calories: r.macros.calories.round(),
-            protein: r.macros.protein.round(),
-            carbs: r.macros.carbs.round(),
-            fat: r.macros.fat.round(),
-            fiber: r.macros.fiber.round(),
-          )
-        : MealMacro();
+    final mealMacro =
+        r.hasMacros()
+            ? MealMacro(
+              calories: r.macros.calories.round(),
+              protein: r.macros.protein.round(),
+              carbs: r.macros.carbs.round(),
+              fat: r.macros.fat.round(),
+              fiber: r.macros.fiber.round(),
+            )
+            : MealMacro();
 
     MealHealth? healthProto;
     if (r.hasHealth()) {

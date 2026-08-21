@@ -237,9 +237,13 @@ test('submitBatch calls openai files.create and batches.create', async () => {
   assert.equal(mockBatchesCreate.mock.calls.length, 1);
   assert.equal(result.openAiBatchId, 'batch-abc');
   assert.equal(result.requestCount, 1);
+  const [upload] = mockFilesCreate.mock.calls[0]!.arguments as [{ file: Buffer }];
+  const jsonl = upload.file.toString('utf8');
+  assert.match(jsonl, /"custom_id":"request-1"/);
+  assert.doesNotMatch(jsonl, /user-1/);
 });
 
-test('submitBatch builds userData map keyed by userId', async () => {
+test('submitBatch builds a batch-local userData map without identity-bearing keys', async () => {
   mockBatchesCreate.mock.mockImplementation(async () => ({ id: 'batch-xyz' }));
 
   const result = await submitBatch([
@@ -247,10 +251,11 @@ test('submitBatch builds userData map keyed by userId', async () => {
     { userId: 'user-b', locale: 'fr', mealCount: 1, csv: 'csv-b' },
   ]);
 
-  assert.ok('user-a' in result.userData);
-  assert.ok('user-b' in result.userData);
-  assert.equal(result.userData['user-a']!.locale, 'en');
-  assert.equal(result.userData['user-b']!.locale, 'fr');
+  assert.deepEqual(Object.keys(result.userData), ['request-1', 'request-2']);
+  assert.equal(result.userData['request-1']!.userId, 'user-a');
+  assert.equal(result.userData['request-1']!.locale, 'en');
+  assert.equal(result.userData['request-2']!.userId, 'user-b');
+  assert.equal(result.userData['request-2']!.locale, 'fr');
   assert.equal(result.requestCount, 2);
 });
 
@@ -403,7 +408,11 @@ test('pollAndProcessBatch increments errorCount when response status is not 200'
   assert.equal(result.savedCount, 0);
 });
 
-test('pollAndProcessBatch keeps the batch pending when a summary insert fails', async () => {
+test('pollAndProcessBatch keeps the batch pending when a summary insert fails', async (t) => {
+  const logMessages: string[] = [];
+  t.mock.method(console, 'error', (...values: unknown[]) => {
+    logMessages.push(JSON.stringify(values));
+  });
   mockBatchesRetrieve.mock.mockImplementation(async () => ({
     id: 'batch-db-retry',
     status: 'completed',
@@ -420,13 +429,20 @@ test('pollAndProcessBatch keeps the batch pending when a summary insert fails', 
   }));
   mockQuery.mock.resetCalls();
   mockQuery.mock.mockImplementation(async () => {
-    throw new Error('database unavailable');
+    const error = new Error('database rejected user u1 summary Keep retrying') as Error & {
+      code: string;
+    };
+    error.code = '23505';
+    throw error;
   });
   const result = await pollAndProcessBatch('batch-db-retry', {
     u1: { userId: 'u1', locale: 'en', mealCount: 1 },
   });
   assert.equal(result.status, 'processing');
   assert.match(result.error ?? '', /Database save failed/);
+  assert.match(logMessages.join('\n'), /ai_summary_save_failed/);
+  assert.equal(logMessages.join('\n').includes('u1'), false);
+  assert.equal(logMessages.join('\n').includes('Keep retrying'), false);
 });
 
 test('pollAndProcessBatch reads provider error files and fails partial batches', async () => {
@@ -478,7 +494,35 @@ test('pollAndProcessBatch detects users missing from both provider files', async
     u2: { userId: 'u2', locale: 'en', mealCount: 1 },
   });
   assert.equal(result.status, 'failed');
-  assert.match(result.error ?? '', /no result for user u2/i);
+  assert.match(result.error ?? '', /no result for request 2/i);
+  assert.equal((result.error ?? '').includes('u2'), false);
+});
+
+test('pollAndProcessBatch does not expose user IDs in failure details or logs', async (t) => {
+  const privateUserId = 'firebase-private-user-id';
+  const logMessages: string[] = [];
+  t.mock.method(console, 'error', (...values: unknown[]) => {
+    logMessages.push(values.map(String).join(' '));
+  });
+  mockBatchesRetrieve.mock.mockImplementation(async () => ({
+    id: 'batch-private-error',
+    status: 'completed',
+    output_file_id: 'output-private-error',
+  }));
+  mockFilesContent.mock.mockImplementation(async () => ({
+    text: async () => JSON.stringify({
+      custom_id: privateUserId,
+      error: { message: `provider failed for ${privateUserId}` },
+    }),
+  }));
+
+  const result = await pollAndProcessBatch('batch-private-error', {
+    [privateUserId]: { userId: privateUserId, locale: 'en', mealCount: 1 },
+  });
+
+  assert.equal(result.status, 'failed');
+  assert.equal((result.error ?? '').includes(privateUserId), false);
+  assert.equal(logMessages.join('\n').includes(privateUserId), false);
 });
 
 test('pollAndProcessBatch maps validating status to submitted', async () => {

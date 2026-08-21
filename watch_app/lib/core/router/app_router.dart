@@ -6,6 +6,7 @@ import 'package:calorify_watch/features/home/home_screen.dart';
 import 'package:calorify_watch/features/log_meal/log_meal_screen.dart';
 import 'package:calorify_watch/features/log_meal/meal_result_screen.dart';
 import 'package:calorify_watch/features/splash/splash_screen.dart';
+import 'package:calorify_watch/core/services/watch_speech_service.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 

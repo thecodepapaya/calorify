@@ -1,25 +1,13 @@
-import 'package:calorify/core/db/database_interface.dart';
+export 'package:calorify/core/providers/app_dependencies.dart';
+
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
-import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/models.dart';
 
-final databaseInterfaceProvider = Provider<DatabaseInterface>((ref) {
-  return DatabaseService.databaseInterface;
-});
-
 final foodRepositoryProvider = Provider<FoodRepository>((ref) {
   return FoodRepository();
-});
-
-final healthServiceProvider = Provider<HealthService>((ref) {
-  return HealthService.instance;
-});
-
-final onboardingServiceProvider = Provider<OnboardingService>((ref) {
-  return OnboardingService.instance;
 });
 
 final todaysMealsProvider = StreamProvider.autoDispose<List<LoggedMeal>>((ref) {
@@ -36,7 +24,9 @@ final dailyCalorieGoalProvider = StreamProvider.autoDispose<int?>((ref) {
   return ref.watch(databaseInterfaceProvider).watchDailyCalorieGoal();
 });
 
-final aiSummaryProvider = FutureProvider.autoDispose<AiMealSummaryResponse?>((ref) {
+final aiSummaryProvider = FutureProvider.autoDispose<AiMealSummaryResponse?>((
+  ref,
+) {
   return ref.watch(foodRepositoryProvider).getAiSummary();
 });
 

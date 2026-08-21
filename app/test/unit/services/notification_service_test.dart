@@ -6,7 +6,6 @@ import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/meal_reminder_settings_store.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
-import '../../setup/all_tests.dart';
 
 class MockFlutterLocalNotificationsPlugin extends Mock
     implements FlutterLocalNotificationsPlugin {}
@@ -40,7 +39,7 @@ void main() {
   late MemoryMealReminderSettingsStore reminderSettingsStore;
 
   setUpAll(() {
-    setupAllTests();
+    TestWidgetsFlutterBinding.ensureInitialized();
     tz.initializeTimeZones();
     registerFallbackValue(FakeTZDateTime());
     registerFallbackValue(FakeNotificationDetails());
@@ -58,6 +57,9 @@ void main() {
       localNotifications: mockLocalNotifications,
       firebaseMessaging: mockFirebaseMessaging,
       reminderSettingsStore: reminderSettingsStore,
+      foregroundMessages: const Stream.empty(),
+      openedMessages: const Stream.empty(),
+      backgroundMessageRegistrar: (_) {},
     );
     NotificationService.setMockInstance(notificationService);
 
@@ -85,9 +87,33 @@ void main() {
         payload: any(named: 'payload'),
       ),
     ).thenAnswer((_) async {});
+
+    when(
+      () => mockFirebaseMessaging.getNotificationSettings(),
+    ).thenAnswer((_) async => _notificationSettings());
   });
 
   group('NotificationService', () {
+    test('Firebase listener setup never requests permission', () async {
+      await notificationService.initializeFirebaseMessaging();
+
+      verify(() => mockFirebaseMessaging.getNotificationSettings()).called(1);
+      verifyNever(
+        () => mockFirebaseMessaging.requestPermission(
+          alert: any(named: 'alert'),
+          announcement: any(named: 'announcement'),
+          badge: any(named: 'badge'),
+          carPlay: any(named: 'carPlay'),
+          criticalAlert: any(named: 'criticalAlert'),
+          provisional: any(named: 'provisional'),
+          sound: any(named: 'sound'),
+          providesAppNotificationSettings: any(
+            named: 'providesAppNotificationSettings',
+          ),
+        ),
+      );
+    });
+
     test('scheduleReminder calls zonedSchedule', () async {
       final scheduledTime = DateTime.now().add(const Duration(hours: 1));
 
@@ -155,4 +181,21 @@ void main() {
       },
     );
   });
+}
+
+NotificationSettings _notificationSettings() {
+  return const NotificationSettings(
+    alert: AppleNotificationSetting.notSupported,
+    announcement: AppleNotificationSetting.notSupported,
+    authorizationStatus: AuthorizationStatus.notDetermined,
+    badge: AppleNotificationSetting.notSupported,
+    carPlay: AppleNotificationSetting.notSupported,
+    lockScreen: AppleNotificationSetting.notSupported,
+    notificationCenter: AppleNotificationSetting.notSupported,
+    showPreviews: AppleShowPreviewSetting.notSupported,
+    timeSensitive: AppleNotificationSetting.notSupported,
+    criticalAlert: AppleNotificationSetting.notSupported,
+    sound: AppleNotificationSetting.notSupported,
+    providesAppNotificationSettings: AppleNotificationSetting.notSupported,
+  );
 }

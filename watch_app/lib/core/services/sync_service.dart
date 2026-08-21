@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:calorify_watch/core/db/watch_database.dart';
 import 'package:calorify_watch/core/services/data_cache.dart';
 import 'package:calorify_watch/core/services/watch_auth_session.dart';
+import 'package:calorify_watch/core/services/watch_clock.dart';
+import 'package:calorify_watch/core/services/watch_transport.dart';
 import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
@@ -13,29 +15,48 @@ enum SyncRequestResult { synced, queued, failed }
 
 enum _PendingOperationProcessResult { applied, retryLater, drop }
 
+class WatchSyncException implements Exception {
+  const WatchSyncException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
+}
+
 String watchMealOperationId(LoggedMeal meal) =>
     'watch:${meal.clientId}:${meal.createdAt}';
 
-/// Whether a phone response represents a transient failure that should remain
-/// in the durable watch queue.
-bool shouldRetryWatchResponse(Map<String, dynamic>? response) {
-  if (response == null) return true;
-  final error = response['error']?.toString().toLowerCase() ?? '';
-  return error.contains('timed out') ||
-      error.contains('timeout') ||
-      error.contains('no connected') ||
-      error.contains('unavailable') ||
-      error.contains('network');
-}
-
 /// Service to sync data between watch and main app using Wear OS Data Layer.
 class SyncService {
-  SyncService._();
+  SyncService({
+    required WatchSyncTransport transport,
+    required WatchSyncDatabase database,
+    required DataCache cache,
+    required WatchSyncAuth auth,
+    required WatchClock clock,
+    bool enablePendingPolling = true,
+  }) : _transport = transport,
+       _database = database,
+       _cache = cache,
+       _auth = auth,
+       _clock = clock,
+       _enablePendingPolling = enablePendingPolling;
 
-  static final SyncService instance = SyncService._();
+  static final SyncService instance = SyncService(
+    transport: WearOsSyncTransport(),
+    database: WatchDatabase(),
+    cache: DataCache.instance,
+    auth: WatchAuthSession.instance,
+    clock: const SystemWatchClock(),
+  );
 
-  final DataCache _cache = DataCache.instance;
-  final WatchDatabase _database = WatchDatabase();
+  final WatchSyncTransport _transport;
+  final WatchSyncDatabase _database;
+  final DataCache _cache;
+  final WatchSyncAuth _auth;
+  final WatchClock _clock;
+  final bool _enablePendingPolling;
   final ValueNotifier<SyncState> syncState = ValueNotifier(SyncState.idle);
 
   bool _isInitialized = false;
@@ -44,10 +65,12 @@ class SyncService {
   bool _isFlushingPending = false;
   final Set<int> _activeOptimisticMealIds = <int>{};
   final Set<int> _activeDeletedMealIds = <int>{};
-  StreamSubscription<Map<String, dynamic>>? _messageSubscription;
+  StreamSubscription<WearEnvelope>? _messageSubscription;
   Timer? _pendingSyncTimer;
 
-  ValueListenable<DateTime?> get lastSyncTime => _cache.lastSyncTime;
+  ValueListenable<DateTime?> get lastSyncTime => _cache.dashboardLastSyncTime;
+  ValueListenable<DateTime?> get favoriteLastSyncTime =>
+      _cache.favoritesLastSyncTime;
   ValueListenable<List<LoggedMeal>> get todaysMeals => _cache.todaysMeals;
   ValueListenable<int?> get calorieGoal => _cache.calorieGoal;
   ValueListenable<List<FavoriteMeal>> get favoriteMeals => _cache.favoriteMeals;
@@ -65,33 +88,35 @@ class SyncService {
 
   Future<void> _initialize() async {
     try {
-      await Future.delayed(const Duration(milliseconds: 100));
-      await WatchAuthSession.instance.initialize();
+      await _clock.delay(const Duration(milliseconds: 100));
+      await _auth.initialize();
       await _restorePersistedCache();
 
       // The local cache and retry loop must remain active even when the phone
       // is unavailable during startup.
       _isInitialized = true;
       _startListening();
-      _startPendingSyncPolling();
+      if (_enablePendingPolling) {
+        _startPendingSyncPolling();
+      }
 
-      _channelReady = await WearOsChannel.initialize();
+      _channelReady = await _transport.initialize();
       if (!_channelReady) {
         syncState.value = SyncState.disconnected;
         return;
       }
 
-      final connected = await WearOsChannel.isPhoneConnected();
+      final connected = await _transport.isPhoneConnected();
       if (!connected) {
         syncState.value = SyncState.disconnected;
         return;
       }
 
-      await WatchAuthSession.instance.refreshFromPhone();
+      await _auth.refreshFromPhone();
       _restoreCachedSyncState();
       await _flushPendingOperations();
     } catch (error) {
-      _debugLog('Failed to initialize sync service: $error');
+      _debugLog('Failed to initialize sync service: type=${error.runtimeType}');
       syncState.value = SyncState.error;
     }
   }
@@ -101,7 +126,7 @@ class SyncService {
 
     if (!forceRefresh && _hasDashboardCache) {
       _restoreCachedSyncState();
-      unawaited(_refreshDashboardData());
+      unawaited(_runBackgroundRefresh(_refreshDashboardData));
       return;
     }
 
@@ -114,9 +139,9 @@ class SyncService {
     await _ensureInitialized();
 
     if (!forceRefresh &&
-        (_cache.todaysMeals.value.isNotEmpty || _cache.hasFreshData)) {
+        (_cache.todaysMeals.value.isNotEmpty || _cache.hasFreshDashboard)) {
       _restoreCachedSyncState();
-      unawaited(_refreshDashboardData());
+      unawaited(_runBackgroundRefresh(_refreshDashboardData));
       return _cache.todaysMeals.value;
     }
 
@@ -128,9 +153,9 @@ class SyncService {
     await _ensureInitialized();
 
     if (!forceRefresh &&
-        (_cache.calorieGoal.value != null || _cache.hasFreshData)) {
+        (_cache.calorieGoal.value != null || _cache.hasFreshDashboard)) {
       _restoreCachedSyncState();
-      unawaited(_refreshDashboardData());
+      unawaited(_runBackgroundRefresh(_refreshDashboardData));
       return _cache.calorieGoal.value;
     }
 
@@ -143,38 +168,43 @@ class SyncService {
   }) async {
     await _ensureInitialized();
 
-    if (!forceRefresh && _cache.favoriteMeals.value.isNotEmpty) {
-      unawaited(_refreshFavoriteMeals());
+    if (!forceRefresh &&
+        (_cache.favoriteMeals.value.isNotEmpty || _cache.hasFreshFavorites)) {
+      unawaited(
+        _runBackgroundRefresh(() async {
+          await _refreshFavoriteMeals();
+        }),
+      );
       return _cache.favoriteMeals.value;
     }
 
     return _refreshFavoriteMeals();
   }
 
-  Future<Map<String, dynamic>?> requestUserProfile() async {
+  Future<UserProfile?> requestUserProfile() async {
     await _ensureInitialized();
     if (!await _ensurePhoneConnected()) {
       return null;
     }
 
     try {
-      final response = await WearOsChannel.sendMessage(
-        path: '/user_profile',
-        data: const {},
+      final response = await _transport.send(
+        operation: WearOperation.WEAR_OPERATION_USER_PROFILE,
+        request: WearRequest(userProfile: UserProfileRequest()),
       );
 
-      if (response != null && response['success'] == true) {
-        final profile = response['profile'];
-        if (profile is Map) {
-          _markSynced();
-          return Map<String, dynamic>.from(profile);
+      if (response.isSuccess) {
+        final payload = response.response!;
+        if (payload.hasUserProfile() && payload.userProfile.hasProfile()) {
+          _markTransportSynced();
+          return payload.userProfile.profile;
         }
       }
 
       syncState.value = SyncState.error;
       return null;
     } catch (error) {
-      _debugLog('Failed to request user profile: $error');
+      _debugLog('Failed to request user profile: type=${error.runtimeType}');
       syncState.value = SyncState.error;
       return null;
     }
@@ -199,25 +229,22 @@ class SyncService {
     syncState.value = SyncState.syncing;
 
     try {
-      final requestData = mealInfoToLegacyJson(optimisticMeal);
-      requestData['watch_operation_id'] = watchMealOperationId(optimisticMeal);
-      if (favoriteMealId != null) {
-        requestData['favorite_meal_id'] = favoriteMealId;
-      }
-
-      final response = await WearOsChannel.sendMessage(
-        path: '/meal',
-        data: requestData,
+      final response = await _transport.send(
+        operation: WearOperation.WEAR_OPERATION_MEAL_LOG,
+        request: _mealLogRequest(
+          optimisticMeal,
+          favoriteMealId: favoriteMealId,
+        ),
       );
 
-      if (response != null && response['success'] == true) {
-        _markSynced();
+      if (response.isSuccess) {
+        _markTransportSynced();
         _activeOptimisticMealIds.remove(optimisticMeal.clientId);
-        await _refreshDashboardData();
+        unawaited(_runBackgroundRefresh(_refreshDashboardData));
         return SyncRequestResult.synced;
       }
 
-      if (shouldRetryWatchResponse(response)) {
+      if (!response.isValidatedPeerRejection) {
         await _database.queueMealLog(
           optimisticMeal,
           favoriteMealId: favoriteMealId,
@@ -227,7 +254,7 @@ class SyncService {
         return SyncRequestResult.queued;
       }
     } catch (error) {
-      _debugLog('Failed to send meal: $error');
+      _debugLog('Failed to send meal: type=${error.runtimeType}');
       await _database.queueMealLog(
         optimisticMeal,
         favoriteMealId: favoriteMealId,
@@ -273,26 +300,26 @@ class SyncService {
     syncState.value = SyncState.syncing;
 
     try {
-      final response = await WearOsChannel.sendMessage(
-        path: '/meal/delete',
-        data: {'meal_id': mealId},
+      final response = await _transport.send(
+        operation: WearOperation.WEAR_OPERATION_MEAL_DELETE,
+        request: WearRequest(mealDelete: MealDeleteRequest(mealId: mealId)),
       );
 
-      if (response != null && response['success'] == true) {
-        _markSynced();
-        await _refreshDashboardData();
+      if (response.isSuccess) {
+        _markTransportSynced();
+        unawaited(_runBackgroundRefresh(_refreshDashboardData));
         _activeDeletedMealIds.remove(mealId);
         return SyncRequestResult.synced;
       }
 
-      if (shouldRetryWatchResponse(response)) {
+      if (!response.isValidatedPeerRejection) {
         await _database.queueMealDelete(mealId);
         _activeDeletedMealIds.remove(mealId);
         syncState.value = SyncState.disconnected;
         return SyncRequestResult.queued;
       }
     } catch (error) {
-      _debugLog('Failed to delete meal: $error');
+      _debugLog('Failed to delete meal: type=${error.runtimeType}');
       await _database.queueMealDelete(mealId);
       _activeDeletedMealIds.remove(mealId);
       syncState.value = SyncState.disconnected;
@@ -311,22 +338,19 @@ class SyncService {
       return false;
     }
 
-    return WearOsChannel.isPhoneConnected();
+    return _transport.isPhoneConnected();
   }
 
   Future<void> _refreshDashboardData({bool flushPendingFirst = true}) async {
     if (!await _ensurePhoneConnected()) {
-      return;
+      throw const WatchSyncException('No connected phone');
     }
 
     syncState.value = SyncState.syncing;
 
     try {
       if (flushPendingFirst) {
-        final flushedPendingOperations = await _flushPendingOperations();
-        if (flushedPendingOperations) {
-          return;
-        }
+        await _flushPendingOperations();
       }
       final results = await Future.wait<dynamic>([
         _fetchTodaysMealsFromPhone(),
@@ -347,7 +371,7 @@ class SyncService {
         }
       }
 
-      final syncedAt = DateTime.now();
+      final syncedAt = _clock.now();
       _cache.updateDashboard(
         meals: mergeWatchDashboardMeals(
           remoteMeals: results[0] as List<LoggedMeal>,
@@ -361,90 +385,78 @@ class SyncService {
       await _database.replaceDashboard(
         meals: _cache.todaysMeals.value,
         calorieGoal: _cache.calorieGoal.value,
-        lastSyncAt: syncedAt,
+        dashboardLastSyncAt: syncedAt,
       );
       syncState.value = SyncState.synced;
     } catch (error) {
-      _debugLog('Failed to refresh dashboard data: $error');
+      _debugLog('Failed to refresh dashboard data: type=${error.runtimeType}');
       syncState.value = SyncState.error;
+      rethrow;
     }
   }
 
   Future<List<FavoriteMeal>> _refreshFavoriteMeals() async {
     if (!await _ensurePhoneConnected()) {
-      return _cache.favoriteMeals.value;
+      throw const WatchSyncException('No connected phone');
     }
 
     syncState.value = SyncState.syncing;
 
     try {
-      final response = await WearOsChannel.sendMessage(
-        path: '/favorites',
-        data: const {},
+      final response = await _transport.send(
+        operation: WearOperation.WEAR_OPERATION_FAVORITES,
+        request: WearRequest(favorites: FavoritesRequest()),
       );
 
-      if (response != null && response['success'] == true) {
-        final favoritesData =
-            response['favorites'] as List<dynamic>? ?? const [];
-        final favorites =
-            favoritesData
-                .map(
-                  (json) => favoriteMealFromLegacyJson(
-                    Map<String, dynamic>.from(json as Map),
-                  ),
-                )
-                .toList();
+      if (response.isSuccess) {
+        final favorites = response.response!.favorites.favorites.toList();
 
-        _cache.setFavoriteMeals(favorites);
-        await _database.replaceFavorites(favorites);
-        _markSynced();
+        final syncedAt = _clock.now();
+        _cache.setFavoriteMeals(favorites, syncedAt: syncedAt);
+        await _database.replaceFavorites(favorites, lastSyncAt: syncedAt);
+        _markTransportSynced();
         return favorites;
       }
-    } catch (error) {
-      _debugLog('Failed to refresh favorite meals: $error');
-    }
 
-    syncState.value = SyncState.error;
-    return _cache.favoriteMeals.value;
+      throw WatchSyncException(
+        response.errorMessage ?? 'Failed to fetch favorite meals',
+      );
+    } catch (error) {
+      _debugLog('Failed to refresh favorite meals: type=${error.runtimeType}');
+      syncState.value = SyncState.error;
+      rethrow;
+    }
   }
 
   Future<List<LoggedMeal>> _fetchTodaysMealsFromPhone() async {
-    final response = await WearOsChannel.sendMessage(
-      path: '/meals/today',
-      data: const {},
+    final response = await _transport.send(
+      operation: WearOperation.WEAR_OPERATION_TODAY_MEALS,
+      request: WearRequest(todayMeals: TodayMealsRequest()),
     );
 
-    if (response != null && response['success'] == true) {
-      final mealsData = response['meals'] as List<dynamic>? ?? const [];
-      return mealsData
-          .map(
-            (json) =>
-                mealInfoFromLegacyJson(Map<String, dynamic>.from(json as Map)),
-          )
-          .toList();
+    if (response.isSuccess) {
+      return response.response!.todayMeals.meals.toList();
     }
 
-    throw Exception(response?['error'] ?? 'Failed to fetch today\'s meals');
+    throw WatchSyncException(
+      response.errorMessage ?? 'Failed to fetch today\'s meals',
+    );
   }
 
   Future<int?> _fetchCalorieGoalFromPhone() async {
-    final response = await WearOsChannel.sendMessage(
-      path: '/calorie_goal',
-      data: const {},
+    final response = await _transport.send(
+      operation: WearOperation.WEAR_OPERATION_CALORIE_GOAL,
+      request: WearRequest(calorieGoal: CalorieGoalRequest()),
     );
 
-    if (response != null && response['success'] == true) {
-      final goal = response['goal'];
-      if (goal is int) {
-        return goal;
-      }
-      if (goal is num) {
-        return goal.toInt();
-      }
-      return null;
+    if (response.isSuccess) {
+      final payload = response.response!.calorieGoal;
+      return payload.hasGoal() ? payload.goal : null;
     }
 
-    throw Exception(response?['error'] ?? 'Failed to fetch calorie goal');
+    throw WatchSyncException(
+      response.errorMessage ?? 'Failed to fetch calorie goal',
+    );
   }
 
   Future<void> _ensureInitialized() async {
@@ -455,7 +467,7 @@ class SyncService {
 
   Future<bool> _ensurePhoneConnected() async {
     if (!_channelReady) {
-      _channelReady = await WearOsChannel.initialize();
+      _channelReady = await _transport.initialize();
     }
     if (!_channelReady) {
       syncState.value = SyncState.disconnected;
@@ -463,7 +475,7 @@ class SyncService {
     }
     final connected = await isPhoneConnected();
     if (connected) {
-      unawaited(WatchAuthSession.instance.refreshFromPhone());
+      unawaited(_auth.refreshFromPhone());
       return true;
     }
     if (!connected) {
@@ -476,7 +488,7 @@ class SyncService {
   bool get _hasDashboardCache =>
       _cache.todaysMeals.value.isNotEmpty ||
       _cache.calorieGoal.value != null ||
-      _cache.hasFreshData;
+      _cache.hasFreshDashboard;
 
   Future<void> _restorePersistedCache() async {
     final snapshot = await _database.loadSnapshot();
@@ -484,42 +496,57 @@ class SyncService {
       meals: snapshot.meals,
       favorites: snapshot.favoriteMeals,
       goal: snapshot.calorieGoal,
-      syncedAt: snapshot.lastSyncAt,
+      dashboardSyncedAt: snapshot.dashboardLastSyncAt,
+      favoritesSyncedAt: snapshot.favoritesLastSyncAt,
     );
     _restoreCachedSyncState();
   }
 
   void _restoreCachedSyncState() {
-    if (_cache.lastSyncTime.value != null &&
+    if ((_cache.dashboardLastSyncTime.value != null ||
+            _cache.favoritesLastSyncTime.value != null) &&
         syncState.value != SyncState.syncing &&
         syncState.value != SyncState.disconnected) {
       syncState.value = SyncState.synced;
     }
   }
 
-  void _markSynced() {
-    _cache.lastSyncTime.value = DateTime.now();
-    unawaited(_database.saveLastSync(_cache.lastSyncTime.value));
+  void _markTransportSynced() {
     syncState.value = SyncState.synced;
+  }
+
+  Future<void> _runBackgroundRefresh(Future<void> Function() refresh) async {
+    try {
+      await refresh();
+    } catch (error) {
+      _debugLog('Background refresh failed: type=${error.runtimeType}');
+    }
+  }
+
+  Future<void> _flushPendingAndRefresh() async {
+    final changed = await _flushPendingOperations();
+    if (changed) {
+      await _refreshDashboardData(flushPendingFirst: false);
+    }
   }
 
   void _startListening() {
     _messageSubscription?.cancel();
-    _messageSubscription = WearOsChannel.listenForMessages().listen(
-      (message) {
-        _debugLog('Received message from phone: $message');
-        unawaited(_flushPendingOperations());
+    _messageSubscription = _transport.listenForEvents().listen(
+      (event) {
+        _debugLog('Received Wear event: ${event.operation.name}');
+        unawaited(_runBackgroundRefresh(_flushPendingAndRefresh));
       },
       onError: (error) {
-        _debugLog('Error listening for messages: $error');
+        _debugLog('Error listening for messages: type=${error.runtimeType}');
       },
     );
   }
 
   void _startPendingSyncPolling() {
     _pendingSyncTimer?.cancel();
-    _pendingSyncTimer = Timer.periodic(const Duration(seconds: 30), (_) {
-      unawaited(_flushPendingOperations());
+    _pendingSyncTimer = _clock.periodic(const Duration(seconds: 30), (_) {
+      unawaited(_runBackgroundRefresh(_flushPendingAndRefresh));
     });
   }
 
@@ -558,8 +585,7 @@ class SyncService {
         }
       }
 
-      _markSynced();
-      await _refreshDashboardData(flushPendingFirst: false);
+      _markTransportSynced();
       return true;
     } finally {
       _isFlushingPending = false;
@@ -581,24 +607,23 @@ class SyncService {
             return _PendingOperationProcessResult.drop;
           }
 
-          final requestData = mealInfoToLegacyJson(meal);
-          requestData['watch_operation_id'] = watchMealOperationId(meal);
-          if (operation.favoriteMealId != null) {
-            requestData['favorite_meal_id'] = operation.favoriteMealId;
-          }
-
-          final response = await WearOsChannel.sendMessage(
-            path: '/meal',
-            data: requestData,
+          final response = await _transport.send(
+            operation: WearOperation.WEAR_OPERATION_MEAL_LOG,
+            request: _mealLogRequest(
+              meal,
+              favoriteMealId: operation.favoriteMealId,
+            ),
           );
           return _classifyPendingOperationResponse(
             response,
             operation: operation,
           );
         case PendingWatchOperationType.deleteMeal:
-          final response = await WearOsChannel.sendMessage(
-            path: '/meal/delete',
-            data: {'meal_id': operation.mealId},
+          final response = await _transport.send(
+            operation: WearOperation.WEAR_OPERATION_MEAL_DELETE,
+            request: WearRequest(
+              mealDelete: MealDeleteRequest(mealId: operation.mealId),
+            ),
           );
           return _classifyPendingOperationResponse(
             response,
@@ -608,31 +633,42 @@ class SyncService {
     } catch (error) {
       _debugLog(
         'Retrying queued ${operation.type.name} for meal ${operation.mealId} '
-        'after unexpected error: $error',
+        'after unexpected error: type=${error.runtimeType}',
       );
       return _PendingOperationProcessResult.retryLater;
     }
   }
 
   _PendingOperationProcessResult _classifyPendingOperationResponse(
-    Map<String, dynamic>? response, {
+    WatchTransportResult response, {
     required PendingWatchOperation operation,
   }) {
-    if (shouldRetryWatchResponse(response)) {
-      return _PendingOperationProcessResult.retryLater;
-    }
-    final resolvedResponse = response!;
-
-    if (resolvedResponse['success'] == true) {
+    if (response.isSuccess) {
       return _PendingOperationProcessResult.applied;
+    }
+
+    // Only a validated peer response can permanently reject user work. Local
+    // transport/decode/correlation failures must leave the durable queue intact
+    // even when their error code is otherwise non-retryable.
+    if (!response.isValidatedPeerRejection) {
+      return _PendingOperationProcessResult.retryLater;
     }
 
     _debugLog(
       'Dropping queued ${operation.type.name} for meal ${operation.mealId} '
-      'after server rejection: '
-      '${resolvedResponse['error'] ?? resolvedResponse}',
+      'after server rejection: code=${response.errorCode?.name ?? 'unknown'}',
     );
     return _PendingOperationProcessResult.drop;
+  }
+
+  WearRequest _mealLogRequest(LoggedMeal meal, {int? favoriteMealId}) {
+    return WearRequest(
+      mealLog: MealLogRequest(
+        meal: meal,
+        operationId: watchMealOperationId(meal),
+        favoriteMealId: favoriteMealId,
+      ),
+    );
   }
 
   Future<void> _dropPendingOperation(PendingWatchOperation operation) async {

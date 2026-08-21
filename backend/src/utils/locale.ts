@@ -1,5 +1,4 @@
 import { FastifyRequest } from 'fastify';
-import config from '../config.js';
 
 /**
  * Extract locale from Accept-Language header
@@ -19,34 +18,27 @@ export function getLocaleFromRequest(
     request: FastifyRequest,
     defaultLocale: string = 'en'
 ): string {
+    const normalizedDefault = defaultLocale.trim().toLowerCase();
+    const fallback = /^[a-z]{2,3}$/.test(normalizedDefault) ? normalizedDefault : 'en';
     // Fastify normalizes headers to lowercase, but check both to be safe
-    const acceptLanguage = request.headers['accept-language'] ||
-        request.headers['Accept-Language'] ||
-        (request.headers as any)['accept-language'];
+    const rawAcceptLanguage = request.headers['accept-language'] ||
+        request.headers['Accept-Language'];
+    const acceptLanguage = Array.isArray(rawAcceptLanguage)
+        ? rawAcceptLanguage[0]
+        : rawAcceptLanguage;
 
     if (!acceptLanguage || typeof acceptLanguage !== 'string') {
-        // Log for debugging (only in development/staging)
-        if (config.DEBUG || config.ENVIRONMENT === 'staging') {
-            console.log('[Locale] No Accept-Language header found, using default:', defaultLocale);
-        }
-        return defaultLocale;
+        return fallback;
     }
 
-    // Parse Accept-Language header
-    // Format: "en-US,en;q=0.9,fr;q=0.8"
-    // We take the first language tag (highest priority)
-    const languages = acceptLanguage
-        .split(',')
-        .map(lang => {
-            // Extract language code (e.g., "en-US" -> "en", "fr" -> "fr")
-            const parts = lang.trim().split(';')[0].trim().toLowerCase();
-            // Take only the language part, ignore region (e.g., "en-us" -> "en")
-            return parts.split('-')[0];
-        })
-        .filter(lang => lang.length > 0);
-
-    // Return the first valid language code, or default
-    return languages.length > 0 ? languages[0] : defaultLocale;
+    const primary = acceptLanguage
+        .slice(0, 64)
+        .split(',')[0]
+        ?.split(';')[0]
+        ?.trim()
+        .toLowerCase()
+        .split(/[-_]/)[0];
+    return primary && /^[a-z]{2,3}$/.test(primary) ? primary : fallback;
 }
 
 /**

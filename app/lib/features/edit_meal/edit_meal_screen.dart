@@ -18,6 +18,7 @@ Future<void> showEditMealSheet(
   BuildContext context, {
   Meal? meal,
   LoggedMeal? loggedMeal,
+  int? favoriteId,
   Uint8List? imageBytes,
   bool saveAsFavorite = false,
 }) {
@@ -32,6 +33,7 @@ Future<void> showEditMealSheet(
         (context) => EditMealScreen(
           meal: meal,
           loggedMeal: loggedMeal,
+          favoriteId: favoriteId,
           imageBytes: imageBytes,
           saveAsFavorite: saveAsFavorite,
         ),
@@ -41,6 +43,7 @@ Future<void> showEditMealSheet(
 class EditMealScreen extends ConsumerStatefulWidget {
   final Meal? meal;
   final LoggedMeal? loggedMeal;
+  final int? favoriteId;
   final Uint8List? imageBytes;
   final bool saveAsFavorite;
   final DateTime? initialDateTime;
@@ -49,6 +52,7 @@ class EditMealScreen extends ConsumerStatefulWidget {
     super.key,
     this.meal,
     this.loggedMeal,
+    this.favoriteId,
     this.imageBytes,
     this.saveAsFavorite = false,
     this.initialDateTime,
@@ -429,14 +433,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       _selectedTime.minute,
     );
 
-    // Generate a new clientId if this is a new meal
-    // Use timestamp-based approach for simplicity
-    final finalClientId =
-        _clientId ??
-        (DateTime.now().millisecondsSinceEpoch % 2147483647).toInt();
-
     final mealInfo = LoggedMeal(
-      clientId: finalClientId,
       meal: Meal(
         name: _nameController.text.trim(),
         quantity: _mealQuantityController.text,
@@ -455,11 +452,18 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
               ? MealMetadata(imageUrl: _getImageUrl()!)
               : null,
     );
+    if (_clientId != null) {
+      mealInfo.clientId = _clientId!;
+    }
 
     try {
       final database = ref.read(databaseInterfaceProvider);
       if (widget.saveAsFavorite) {
-        await database.addToFavorites(mealInfo);
+        if (widget.favoriteId != null) {
+          await database.updateFavoriteMeal(widget.favoriteId!, mealInfo);
+        } else {
+          await database.addToFavorites(mealInfo);
+        }
       } else {
         await database.upsertMeal(mealInfo);
       }

@@ -195,7 +195,14 @@ export function printHuman(report: Record<string, unknown>): void {
     usdaLookupCount: number;
     dbWriteCount: number;
     steps: Array<{ category: string; name: string; durationMs: number; meta?: Record<string, unknown> }>;
-    llmAttempts: Array<{ operation?: string; provider: string; model: string; outcome: string; durationMs: number; error?: string }>;
+    llmAttempts: Array<{
+      operation?: string;
+      provider: string;
+      model: string;
+      outcome: string;
+      durationMs: number;
+      errorKind?: string;
+    }>;
   };
 
   console.log(`\nCalorie estimation: ${input.value}`);
@@ -239,13 +246,15 @@ export function printHuman(report: Record<string, unknown>): void {
   console.log('\nLLM routing attempts');
   for (const attempt of trace.llmAttempts) {
     console.log(
-      `  ${attempt.outcome.toUpperCase().padEnd(7)} ${attempt.operation ?? 'unknown'} ${attempt.provider}/${attempt.model} ${attempt.durationMs}ms${attempt.error ? ` — ${attempt.error}` : ''}`
+      `  ${attempt.outcome.toUpperCase().padEnd(7)} ${attempt.operation ?? 'unknown'} ${attempt.provider}/${attempt.model} ${attempt.durationMs}ms${attempt.errorKind ? ` — ${attempt.errorKind}` : ''}`
     );
   }
 
   console.log('\nInternal trace');
   for (const step of trace.steps) {
-    const failed = step.meta?.ok === false ? ` ERROR ${String(step.meta.error ?? '')}` : '';
+    const failed = step.meta?.ok === false
+      ? ` ERROR ${String(step.meta.errorKind ?? '')}`
+      : '';
     console.log(`  ${step.category.padEnd(8)} ${step.name.padEnd(38)} ${String(step.durationMs).padStart(6)}ms${failed}`);
   }
 

@@ -8,8 +8,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
-// ignore_for_file: unused_import
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -48,7 +47,9 @@ const Banner$json = {
       '4': 1,
       '5': 14,
       '6': '.calorify.BannerPriority',
-      '10': 'priority'
+      '9': 0,
+      '10': 'priority',
+      '17': true
     },
     {'1': 'dismissible', '3': 4, '4': 1, '5': 8, '10': 'dismissible'},
     {
@@ -56,7 +57,7 @@ const Banner$json = {
       '3': 5,
       '4': 1,
       '5': 9,
-      '9': 0,
+      '9': 1,
       '10': 'linkUrl',
       '17': true
     },
@@ -65,7 +66,7 @@ const Banner$json = {
       '3': 6,
       '4': 1,
       '5': 3,
-      '9': 1,
+      '9': 2,
       '10': 'minimumBuildInclusive',
       '17': true
     },
@@ -74,7 +75,7 @@ const Banner$json = {
       '3': 7,
       '4': 1,
       '5': 3,
-      '9': 2,
+      '9': 3,
       '10': 'maximumBuildExclusive',
       '17': true
     },
@@ -83,13 +84,14 @@ const Banner$json = {
       '3': 8,
       '4': 1,
       '5': 3,
-      '9': 3,
+      '9': 4,
       '10': 'createdAt',
       '17': true
     },
   ],
   '3': [Banner_MessagesByLocaleEntry$json],
   '8': [
+    {'1': '_priority'},
     {'1': '_link_url'},
     {'1': '_minimum_build_inclusive'},
     {'1': '_maximum_build_exclusive'},
@@ -111,11 +113,12 @@ const Banner_MessagesByLocaleEntry$json = {
 final $typed_data.Uint8List bannerDescriptor = $convert.base64Decode(
     'CgZCYW5uZXISGAoHZW5hYmxlZBgBIAEoCFIHZW5hYmxlZBJUChJtZXNzYWdlc19ieV9sb2NhbG'
     'UYAiADKAsyJi5jYWxvcmlmeS5CYW5uZXIuTWVzc2FnZXNCeUxvY2FsZUVudHJ5UhBtZXNzYWdl'
-    'c0J5TG9jYWxlEjQKCHByaW9yaXR5GAMgASgOMhguY2Fsb3JpZnkuQmFubmVyUHJpb3JpdHlSCH'
-    'ByaW9yaXR5EiAKC2Rpc21pc3NpYmxlGAQgASgIUgtkaXNtaXNzaWJsZRIeCghsaW5rX3VybBgF'
-    'IAEoCUgAUgdsaW5rVXJsiAEBEjsKF21pbmltdW1fYnVpbGRfaW5jbHVzaXZlGAYgASgDSAFSFW'
-    '1pbmltdW1CdWlsZEluY2x1c2l2ZYgBARI7ChdtYXhpbXVtX2J1aWxkX2V4Y2x1c2l2ZRgHIAEo'
-    'A0gCUhVtYXhpbXVtQnVpbGRFeGNsdXNpdmWIAQESIgoKY3JlYXRlZF9hdBgIIAEoA0gDUgljcm'
-    'VhdGVkQXSIAQEaQwoVTWVzc2FnZXNCeUxvY2FsZUVudHJ5EhAKA2tleRgBIAEoCVIDa2V5EhQK'
-    'BXZhbHVlGAIgASgJUgV2YWx1ZToCOAFCCwoJX2xpbmtfdXJsQhoKGF9taW5pbXVtX2J1aWxkX2'
-    'luY2x1c2l2ZUIaChhfbWF4aW11bV9idWlsZF9leGNsdXNpdmVCDQoLX2NyZWF0ZWRfYXQ=');
+    'c0J5TG9jYWxlEjkKCHByaW9yaXR5GAMgASgOMhguY2Fsb3JpZnkuQmFubmVyUHJpb3JpdHlIAF'
+    'IIcHJpb3JpdHmIAQESIAoLZGlzbWlzc2libGUYBCABKAhSC2Rpc21pc3NpYmxlEh4KCGxpbmtf'
+    'dXJsGAUgASgJSAFSB2xpbmtVcmyIAQESOwoXbWluaW11bV9idWlsZF9pbmNsdXNpdmUYBiABKA'
+    'NIAlIVbWluaW11bUJ1aWxkSW5jbHVzaXZliAEBEjsKF21heGltdW1fYnVpbGRfZXhjbHVzaXZl'
+    'GAcgASgDSANSFW1heGltdW1CdWlsZEV4Y2x1c2l2ZYgBARIiCgpjcmVhdGVkX2F0GAggASgDSA'
+    'RSCWNyZWF0ZWRBdIgBARpDChVNZXNzYWdlc0J5TG9jYWxlRW50cnkSEAoDa2V5GAEgASgJUgNr'
+    'ZXkSFAoFdmFsdWUYAiABKAlSBXZhbHVlOgI4AUILCglfcHJpb3JpdHlCCwoJX2xpbmtfdXJsQh'
+    'oKGF9taW5pbXVtX2J1aWxkX2luY2x1c2l2ZUIaChhfbWF4aW11bV9idWlsZF9leGNsdXNpdmVC'
+    'DQoLX2NyZWF0ZWRfYXQ=');

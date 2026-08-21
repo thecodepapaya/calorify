@@ -24,14 +24,7 @@ class Analytics {
   }
 
   void logEvent(AnalyticsEvent event, {Map<String, Object>? parameters}) {
-    final paramsStr =
-        parameters != null && parameters.isNotEmpty
-            ? parameters.entries.map((e) => '${e.key}=${e.value}').join(', ')
-            : '';
-    log(
-      '${event.name}${paramsStr.isNotEmpty ? ' | $paramsStr' : ''}',
-      name: _log,
-    );
+    log(event.name, name: _log);
     FirebaseAnalytics.instance.logEvent(
       name: event.name,
       parameters: parameters,
@@ -40,12 +33,12 @@ class Analytics {
   }
 
   void setUserProperty(String name, String value) {
-    log('setUserProperty | $name=$value', name: _log);
+    log('setUserProperty | $name', name: _log);
     FirebaseAnalytics.instance.setUserProperty(name: name, value: value);
   }
 
   Future<void> setUserId(String uid) async {
-    log('setUserId | uid=$uid', name: _log);
+    log('setUserId', name: _log);
     await FirebaseAnalytics.instance.setUserId(id: uid);
     await Measure.instance.setUserId(uid);
   }

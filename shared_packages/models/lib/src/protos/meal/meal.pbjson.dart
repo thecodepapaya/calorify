@@ -8,8 +8,7 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: curly_braces_in_flow_control_structures
 // ignore_for_file: deprecated_member_use_from_same_package, library_prefixes
-// ignore_for_file: non_constant_identifier_names, prefer_relative_imports
-// ignore_for_file: unused_import
+// ignore_for_file: non_constant_identifier_names, unused_import
 
 import 'dart:convert' as $convert;
 import 'dart:core' as $core;
@@ -90,28 +89,31 @@ const MealHealth$json = {
       '4': 1,
       '5': 14,
       '6': '.meal.HealthScore',
-      '10': 'healthScore'
+      '9': 0,
+      '10': 'healthScore',
+      '17': true
     },
     {
       '1': 'health_score_reason',
       '3': 2,
       '4': 1,
       '5': 9,
-      '9': 0,
+      '9': 1,
       '10': 'healthScoreReason',
       '17': true
     },
   ],
   '8': [
+    {'1': '_health_score'},
     {'1': '_health_score_reason'},
   ],
 };
 
 /// Descriptor for `MealHealth`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List mealHealthDescriptor = $convert.base64Decode(
-    'CgpNZWFsSGVhbHRoEjQKDGhlYWx0aF9zY29yZRgBIAEoDjIRLm1lYWwuSGVhbHRoU2NvcmVSC2'
-    'hlYWx0aFNjb3JlEjMKE2hlYWx0aF9zY29yZV9yZWFzb24YAiABKAlIAFIRaGVhbHRoU2NvcmVS'
-    'ZWFzb26IAQFCFgoUX2hlYWx0aF9zY29yZV9yZWFzb24=');
+    'CgpNZWFsSGVhbHRoEjkKDGhlYWx0aF9zY29yZRgBIAEoDjIRLm1lYWwuSGVhbHRoU2NvcmVIAF'
+    'ILaGVhbHRoU2NvcmWIAQESMwoTaGVhbHRoX3Njb3JlX3JlYXNvbhgCIAEoCUgBUhFoZWFsdGhT'
+    'Y29yZVJlYXNvbogBAUIPCg1faGVhbHRoX3Njb3JlQhYKFF9oZWFsdGhfc2NvcmVfcmVhc29u');
 
 @$core.Deprecated('Use mealDescriptor instead')
 const Meal$json = {

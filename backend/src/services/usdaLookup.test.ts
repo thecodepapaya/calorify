@@ -80,7 +80,9 @@ test('findUsdaExact queries by normalized_name', async () => {
   resetQuery({ rows: [] });
   await findUsdaExact('rice white cooked');
   const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.ok(sql.includes('WHERE normalized_name = $1'));
+  assert.ok(sql.includes('AND normalized_name = $1'));
+  assert.ok(sql.includes('is_active = TRUE'));
+  assert.ok(sql.includes('is_materialized = TRUE'));
   assert.equal(params[0], 'rice white cooked');
 });
 
@@ -137,6 +139,8 @@ test('findUsdaCandidates uses indexed trigram similarity for normalized names an
   const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.ok(sql.includes('similarity(normalized_name, $1)'));
   assert.ok(sql.includes('normalized_name % $1 OR description % $1'));
+  assert.ok(sql.includes('is_active = TRUE'));
+  assert.ok(sql.includes('is_materialized = TRUE'));
   assert.equal(params[0], 'brown rice');
 });
 
@@ -531,11 +535,24 @@ test('canonicalizeWithUsda normalizes hint before lookup', async () => {
   assert.equal(params[0], 'brownrice cooked');
 });
 
-test('canonicalizeWithUsda reuses bounded in-process lookup results', async () => {
-  resetQuery({ rows: [RICE_ROW] });
-  const first = await canonicalizeWithUsda('cacheable rice dish');
-  const callsAfterFirst = mockQuery.mock.calls.length;
-  const second = await canonicalizeWithUsda('cacheable rice dish');
+test('canonicalizeWithUsda deduplicates only in-flight lookups', async () => {
+  resetQuery();
+  let releaseQuery!: () => void;
+  const queryGate = new Promise<void>((resolve) => {
+    releaseQuery = resolve;
+  });
+  mockQuery.mock.mockImplementation(async () => {
+    await queryGate;
+    return { rows: [RICE_ROW] };
+  });
+
+  const firstPromise = canonicalizeWithUsda('cacheable rice dish');
+  const secondPromise = canonicalizeWithUsda('cacheable rice dish');
+  assert.equal(mockQuery.mock.calls.length, 1);
+  releaseQuery();
+  const [first, second] = await Promise.all([firstPromise, secondPromise]);
   assert.deepEqual(second, first);
-  assert.equal(mockQuery.mock.calls.length, callsAfterFirst);
+
+  await canonicalizeWithUsda('cacheable rice dish');
+  assert.equal(mockQuery.mock.calls.length, 2);
 });

@@ -6,5 +6,7 @@ class UserPreferencesTable extends Table {
   TextColumn get theme =>
       text().nullable()(); // 'light', 'dark', 'system' (matches ThemeMode.name)
   DateTimeColumn get feedbackSheetShownAt => dateTime().nullable()();
+  IntColumn get onboardingCurrentStep => integer().nullable()();
+  DateTimeColumn get onboardingCompletedAt => dateTime().nullable()();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

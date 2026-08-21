@@ -20,7 +20,7 @@ flutter test
 flutter run
 ```
 
-Configure Firebase with `flutterfire configure` for your own project. The phone and watch Android applications must use compatible application identities and signing certificates for the Wear OS Data Layer.
+The watch receives its authenticated backend session from the phone and does not initialize Firebase itself. The phone and watch Android applications must still use compatible application identities and signing certificates for the Wear OS Data Layer.
 
 Microphone permission is required for voice logging. Use a paired phone/watch emulator set or physical devices when testing synchronization; ordinary widget tests do not exercise Google Play Services transport.
 

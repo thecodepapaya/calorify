@@ -19,11 +19,39 @@ if [[ ":$PATH:" != *":${HOME}/.pub-cache/bin:"* ]]; then
 fi
 
 store_original_dir
-ROOT_DIR=$(change_to_git_root)
+change_to_git_root
+ROOT_DIR="$PWD"
 
 PROTO_DIR="${ROOT_DIR}/protos"
 DART_OUT="${ROOT_DIR}/shared_packages/models/lib/src"
 TS_OUT="${ROOT_DIR}/backend/src"
+KOTLIN_OUT="${ROOT_DIR}/shared_packages/models/generated/kotlin"
+# Native bridges only consume the Wear envelope and its domain dependencies.
+# Keep this closure explicit so unrelated backend contracts are not bundled in
+# both Android applications.
+KOTLIN_PROTO_FILES=(
+  "${PROTO_DIR}/wear/wear_protocol.proto"
+  "${PROTO_DIR}/app/meal.proto"
+  "${PROTO_DIR}/calorify/meal_detection.proto"
+  "${PROTO_DIR}/meal/meal.proto"
+  "${PROTO_DIR}/user/user.proto"
+)
+PROTOC_VERSION="27.3"
+PROTOC_PLUGIN_VERSION="24.0.0"
+TS_PROTO_VERSION="2.11.0"
+STAGING_DIR=""
+INSTALL_DIR=""
+PRESERVE_INSTALL_DIR=false
+
+cleanup_staging() {
+  if [ -n "${STAGING_DIR}" ] && [ -d "${STAGING_DIR}" ]; then
+    rm -rf -- "${STAGING_DIR}"
+  fi
+  if [ -n "${INSTALL_DIR}" ] && [ -d "${INSTALL_DIR}" ] && \
+     [ "${PRESERVE_INSTALL_DIR}" = false ]; then
+    rm -rf -- "${INSTALL_DIR}"
+  fi
+}
 
 # Automatically discover all proto files
 discover_proto_files() {
@@ -57,6 +85,14 @@ check_protoc() {
     print_info "Install protoc: https://grpc.io/docs/protoc-installation/"
     exit 1
   fi
+
+  local installed_version
+  installed_version=$(protoc --version | awk '{print $2}')
+  if [ "${installed_version}" != "${PROTOC_VERSION}" ]; then
+    print_error "Expected protoc ${PROTOC_VERSION}, found ${installed_version}."
+    print_info "Install the pinned compiler used by contracts CI."
+    exit 1
+  fi
   print_success "protoc found"
 }
 
@@ -69,52 +105,19 @@ check_protoc_gen_dart() {
   fi
   
   if ! command -v protoc-gen-dart >/dev/null 2>&1; then
-    print_warning "protoc-gen-dart not found, attempting to install..."
-    if command -v dart >/dev/null 2>&1; then
-      print_info "Activating protoc_plugin via dart pub global"
-      if dart pub global activate protoc_plugin >/dev/null 2>&1; then
-        export PATH="${PATH}:${HOME}/.pub-cache/bin"
-        print_success "protoc_plugin activated"
-      else
-        print_error "Failed to activate protoc_plugin"
-        exit 1
-      fi
-    else
-      print_error "dart is required to install protoc-gen-dart"
-      exit 1
-    fi
-  fi
-  
-  if ! command -v protoc-gen-dart >/dev/null 2>&1; then
     print_error "protoc-gen-dart is required for Dart code generation."
-    print_info "Try: dart pub global activate protoc_plugin"
+    print_info "Install the pinned version: dart pub global activate protoc_plugin ${PROTOC_PLUGIN_VERSION}"
     exit 1
   fi
-  
-  # Clean up stale snapshots that might cause "Invalid SDK hash" errors
-  # Snapshots are version-specific and can become invalid after Dart SDK updates
-  local snapshot_dir="${HOME}/.pub-cache/global_packages/protoc_plugin/bin"
-  if [ -d "${snapshot_dir}" ]; then
-    local dart_version=$(dart --version 2>&1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-    local current_snapshot="${snapshot_dir}/protoc_plugin.dart-${dart_version}.snapshot"
-    
-    # Check if we have a snapshot for the current Dart version
-    if [ ! -f "${current_snapshot}" ]; then
-      # Remove any stale snapshots
-      local snapshot_count=$(find "${snapshot_dir}" -name "*.snapshot" 2>/dev/null | wc -l | tr -d ' ')
-      if [ "${snapshot_count}" -gt 0 ]; then
-        print_info "Removing stale snapshots (Dart version: ${dart_version})"
-        find "${snapshot_dir}" -name "*.snapshot" -delete 2>/dev/null
-      fi
-      
-      # Trigger snapshot generation by running the plugin wrapper
-      # This will generate the snapshot for the current Dart version
-      print_info "Generating snapshot for Dart ${dart_version}..."
-      # Use a simple test to trigger snapshot generation without hanging
-      echo "" | protoc-gen-dart --help >/dev/null 2>&1 || true
-    fi
+
+  local installed_version
+  installed_version=$(dart pub global list | awk '$1 == "protoc_plugin" { print $2; exit }')
+  if [ "${installed_version}" != "${PROTOC_PLUGIN_VERSION}" ]; then
+    print_error "Expected protoc_plugin ${PROTOC_PLUGIN_VERSION}, found ${installed_version:-unknown}."
+    print_info "Restore the pinned plugin with: dart pub global activate protoc_plugin ${PROTOC_PLUGIN_VERSION}"
+    exit 1
   fi
-  
+
   print_success "protoc-gen-dart found"
 }
 
@@ -125,27 +128,16 @@ check_protoc_gen_ts() {
   local ts_proto_path="${ROOT_DIR}/backend/node_modules/.bin/protoc-gen-ts_proto"
   
   if [ ! -f "${ts_proto_path}" ]; then
-    print_warning "ts-proto not found, attempting to install..."
-    if command -v npm >/dev/null 2>&1; then
-      print_info "Installing ts-proto via npm"
-      cd "${ROOT_DIR}/backend" || exit 1
-      if npm install ts-proto --save-dev >/dev/null 2>&1; then
-        print_success "ts-proto installed"
-      else
-        print_error "Failed to install ts-proto"
-        exit 1
-      fi
-      cd "${ROOT_DIR}" || exit 1
-    else
-      print_error "npm is required to install ts-proto"
-      print_info "Run: cd backend && npm install ts-proto --save-dev"
-      exit 1
-    fi
-  fi
-  
-  if [ ! -f "${ts_proto_path}" ]; then
     print_error "ts-proto is required for TypeScript code generation."
-    print_info "Run: cd backend && npm install ts-proto --save-dev"
+    print_info "Install the lockfile-pinned dependencies: npm ci --prefix backend"
+    exit 1
+  fi
+
+  local installed_version
+  installed_version=$(node -p "require('${ROOT_DIR}/backend/node_modules/ts-proto/package.json').version")
+  if [ "${installed_version}" != "${TS_PROTO_VERSION}" ]; then
+    print_error "Expected ts-proto ${TS_PROTO_VERSION}, found ${installed_version}."
+    print_info "Restore the pinned dependency with: npm ci --prefix backend"
     exit 1
   fi
   
@@ -154,10 +146,13 @@ check_protoc_gen_ts() {
 
 prepare_output_directories() {
   print_step "4" "Preparing output directories"
-  mkdir -p "${DART_OUT}" "${TS_OUT}"
+  STAGING_DIR=$(mktemp -d "${TMPDIR:-/tmp}/calorify-protos.XXXXXX")
+  DART_STAGE="${STAGING_DIR}/dart"
+  TS_STAGE="${STAGING_DIR}/typescript"
+  KOTLIN_STAGE="${STAGING_DIR}/kotlin"
+  mkdir -p "${DART_STAGE}" "${TS_STAGE}" "${KOTLIN_STAGE}"
   print_success "Output directories ready"
-  print_item "Dart: ${DART_OUT}"
-  print_item "TypeScript: ${TS_OUT}"
+  print_item "Staging: ${STAGING_DIR}"
 }
 
 build_include_flags() {
@@ -205,8 +200,9 @@ generate_dart_code() {
   
   # Run protoc and filter out dependency resolution messages that appear in stdout
   # when the snapshot is being regenerated
-  local protoc_output=$(protoc "${INCLUDE_FLAGS[@]}" --dart_out="${DART_OUT}" "${PROTO_FILES[@]}" 2>&1)
-  local protoc_exit=$?
+  local protoc_output
+  local protoc_exit=0
+  protoc_output=$(protoc "${INCLUDE_FLAGS[@]}" --dart_out="${DART_STAGE}" "${PROTO_FILES[@]}" 2>&1) || protoc_exit=$?
   
   # Filter out known dependency messages that appear in the output
   local filtered_output=$(echo "${protoc_output}" | grep -v -E "^(Resolving dependencies|Downloading packages|No dependencies would change|Writing.*to text file|MSG.*Logs written)" || true)
@@ -245,7 +241,7 @@ generate_typescript_code() {
   
   if protoc "${INCLUDE_FLAGS[@]}" \
     --plugin="protoc-gen-ts_proto=${ts_proto_path}" \
-    --ts_proto_out="${TS_OUT}" \
+    --ts_proto_out="${TS_STAGE}" \
     --ts_proto_opt="${ts_proto_opts}" \
     "${PROTO_FILES[@]}" 2>&1; then
     print_success "TypeScript code generated"
@@ -255,11 +251,123 @@ generate_typescript_code() {
   fi
 }
 
+generate_kotlin_code() {
+  print_step "7.5" "Generating Kotlin/JVM lite code"
+  build_include_flags
+
+  if protoc "${INCLUDE_FLAGS[@]}" \
+    --java_out="lite:${KOTLIN_STAGE}" \
+    --kotlin_out="lite:${KOTLIN_STAGE}" \
+    "${KOTLIN_PROTO_FILES[@]}" 2>&1; then
+    print_success "Kotlin/JVM lite code generated"
+  else
+    print_error "Failed to generate Kotlin/JVM lite code"
+    exit 1
+  fi
+}
+
+install_generated_code() {
+  print_step "8" "Installing generated code"
+
+  local staged_dart="${DART_STAGE}/protos"
+  local staged_typescript="${TS_STAGE}/protos"
+  local staged_kotlin="${KOTLIN_STAGE}"
+  local target_dart="${DART_OUT}/protos"
+  local target_typescript="${TS_OUT}/protos"
+  local target_kotlin="${KOTLIN_OUT}"
+
+  if [ ! -d "${staged_dart}" ] || [ ! -d "${staged_typescript}" ] || \
+     [ -z "$(find "${staged_kotlin}" -type f -print -quit)" ]; then
+    print_error "Generation did not produce all expected proto trees."
+    exit 1
+  fi
+
+  # Copy all candidates onto the repository filesystem before touching tracked
+  # outputs. Same-filesystem renames then make each swap atomic, while retained
+  # old trees let us roll the entire three-language install back on any error.
+  INSTALL_DIR=$(mktemp -d "${ROOT_DIR}/.proto-install.XXXXXX")
+  mkdir -p "${INSTALL_DIR}/new" "${INSTALL_DIR}/old" "${INSTALL_DIR}/failed"
+  if ! cp -R "${staged_dart}" "${INSTALL_DIR}/new/dart" || \
+     ! cp -R "${staged_typescript}" "${INSTALL_DIR}/new/typescript" || \
+     ! cp -R "${staged_kotlin}" "${INSTALL_DIR}/new/kotlin"; then
+    print_error "Failed to stage generated outputs on the repository filesystem."
+    exit 1
+  fi
+
+  local targets=("${target_dart}" "${target_typescript}" "${target_kotlin}")
+  local candidates=(
+    "${INSTALL_DIR}/new/dart"
+    "${INSTALL_DIR}/new/typescript"
+    "${INSTALL_DIR}/new/kotlin"
+  )
+  local backups=(
+    "${INSTALL_DIR}/old/dart"
+    "${INSTALL_DIR}/old/typescript"
+    "${INSTALL_DIR}/old/kotlin"
+  )
+  local had_target=(0 0 0)
+  local installed=0
+  local index
+
+  mkdir -p "$(dirname "${target_kotlin}")"
+  for index in 0 1 2; do
+    if [ -e "${targets[$index]}" ]; then
+      if ! mv "${targets[$index]}" "${backups[$index]}"; then
+        print_error "Failed to back up generated output: ${targets[$index]}"
+        rollback_generated_install "${installed}" || true
+        exit 1
+      fi
+      had_target[$index]=1
+    fi
+
+    if ! mv "${candidates[$index]}" "${targets[$index]}"; then
+      print_error "Failed to install generated output: ${targets[$index]}"
+      if [ "${had_target[$index]}" -eq 1 ]; then
+        if ! mv "${backups[$index]}" "${targets[$index]}"; then
+          PRESERVE_INSTALL_DIR=true
+          print_error "Could not restore ${targets[$index]}; recovery files remain in ${INSTALL_DIR}."
+        fi
+      fi
+      rollback_generated_install "${installed}" || true
+      exit 1
+    fi
+    installed=$((installed + 1))
+  done
+
+  print_success "Generated code installed"
+}
+
+rollback_generated_install() {
+  local installed=$1
+  local index
+  local rollback_failed=0
+
+  for ((index = installed - 1; index >= 0; index--)); do
+    if [ -e "${targets[$index]}" ] && \
+       ! mv "${targets[$index]}" "${INSTALL_DIR}/failed/${index}"; then
+      rollback_failed=1
+      continue
+    fi
+    if [ "${had_target[$index]}" -eq 1 ] && \
+       ! mv "${backups[$index]}" "${targets[$index]}"; then
+      rollback_failed=1
+    fi
+  done
+
+  if [ "${rollback_failed}" -ne 0 ]; then
+    PRESERVE_INSTALL_DIR=true
+    print_error "Generated-output rollback was incomplete; recovery files remain in ${INSTALL_DIR}."
+    return 1
+  fi
+  print_warning "Generated-output install failed; previous outputs were restored."
+}
+
 # ============================================================================
 # Main Execution
 # ============================================================================
 
 main() {
+  trap cleanup_staging EXIT
   print_header "Protobuf Code Generation"
   
   check_protoc
@@ -270,12 +378,17 @@ main() {
   verify_proto_files
   generate_dart_code
   generate_typescript_code
+  generate_kotlin_code
+  install_generated_code
   
   print_separator
   print_summary_all_success "Protobuf generation complete!"
   print_info "Generated files:"
   print_item "Dart: ${DART_OUT}"
   print_item "TypeScript: ${TS_OUT}"
+  print_item "Kotlin/JVM lite: ${KOTLIN_OUT}"
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:models/models.dart';
 import 'package:calorify/core/network/network_client.dart';
+import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:uuid/uuid.dart';
@@ -9,10 +10,12 @@ import 'package:utils/utils.dart';
 
 class V2ImageAnalysisHandle {
   const V2ImageAnalysisHandle({
+    required this.analysisId,
     required this.uploadedImageUrl,
     required this.events,
   });
 
+  final String analysisId;
   final String uploadedImageUrl;
   final Stream<MealAnalysisPipelineEvent> events;
 }
@@ -64,12 +67,18 @@ class FoodRepository {
   }
 
   Future<Stream<MealAnalysisPipelineEvent>> analyzeTextV2({
+    required String analysisId,
     required String textDescription,
+    NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/analyze-text',
       MealAnalysisPipelineEvent.fromJson,
-      data: TextMealDetectionRequest(textDescription: textDescription),
+      data: MealAnalysisTextRequest(
+        analysisId: analysisId,
+        textDescription: textDescription,
+      ),
+      cancellation: cancellation,
     );
   }
 
@@ -78,26 +87,41 @@ class FoodRepository {
 
   /// Streams analysis events for an image already stored at [imageUrl] (upload URL from [uploadMealImage]).
   Future<Stream<MealAnalysisPipelineEvent>> analyzeImageFromUrlV2({
+    required String analysisId,
     required String imageUrl,
+    NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/analyze-image',
       MealAnalysisPipelineEvent.fromJson,
-      data: ImageMealDetectionRequest(imageUrl: imageUrl),
+      data: MealAnalysisImageRequest(
+        analysisId: analysisId,
+        imageUrl: imageUrl,
+      ),
+      cancellation: cancellation,
     );
   }
 
   Future<V2ImageAnalysisHandle> analyzeImageV2({
     required File imageFile,
   }) async {
+    final analysisId = const Uuid().v4();
     final uploadUrl = await _uploadImage(imageFile);
-    final events = await analyzeImageFromUrlV2(imageUrl: uploadUrl);
-    return V2ImageAnalysisHandle(uploadedImageUrl: uploadUrl, events: events);
+    final events = await analyzeImageFromUrlV2(
+      analysisId: analysisId,
+      imageUrl: uploadUrl,
+    );
+    return V2ImageAnalysisHandle(
+      analysisId: analysisId,
+      uploadedImageUrl: uploadUrl,
+      events: events,
+    );
   }
 
   Future<Stream<MealAnalysisPipelineEvent>> clarifyV2({
     required String analysisId,
     required List<MealClarificationAnswer> answers,
+    NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/clarify',
@@ -106,12 +130,26 @@ class FoodRepository {
         analysisId: analysisId,
         answers: answers,
       ),
+      cancellation: cancellation,
+    );
+  }
+
+  Future<Stream<MealAnalysisPipelineEvent>> resumeV2({
+    required String analysisId,
+    NetworkRequestCancellation? cancellation,
+  }) {
+    return _networkClient.streamPost<MealAnalysisPipelineEvent>(
+      '/api/v2/food/resume',
+      MealAnalysisPipelineEvent.fromJson,
+      data: MealAnalysisResumeRequest(analysisId: analysisId),
+      cancellation: cancellation,
     );
   }
 
   Future<Stream<MealAnalysisPipelineEvent>> submitMealTypeV2({
     required String analysisId,
     required MealType mealType,
+    NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/meal-type',
@@ -120,6 +158,7 @@ class FoodRepository {
         analysisId: analysisId,
         mealType: mealType,
       ),
+      cancellation: cancellation,
     );
   }
 
@@ -152,17 +191,21 @@ class FoodRepository {
 
   Future<Stream<MealAnalysisPipelineEvent>> reanalyzeV2({
     required String analysisId,
+    required String newAnalysisId,
     required List<MealReanalyzeFeedbackIssue> issues,
     String? otherText,
+    NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
       '/api/v2/food/reanalyze',
       MealAnalysisPipelineEvent.fromJson,
       data: MealAnalysisReanalyzeRequest(
         analysisId: analysisId,
+        newAnalysisId: newAnalysisId,
         issues: issues,
         otherText: otherText,
       ),
+      cancellation: cancellation,
     );
   }
 
@@ -230,7 +273,6 @@ class FoodRepository {
           .apiCall<ApiResult, MealAnalysisTipsResponse>(
             endpoint,
             MealAnalysisTipsResponse.new,
-            processError: false,
           );
       return proto.tips
           .map((s) => s.trim())

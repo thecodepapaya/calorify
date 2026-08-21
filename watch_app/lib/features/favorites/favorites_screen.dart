@@ -52,7 +52,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
       final state = SyncService.instance.syncState.value;
       if (mounted &&
           SyncService.instance.favoriteMeals.value.isEmpty &&
-          SyncService.instance.lastSyncTime.value == null &&
+          SyncService.instance.favoriteLastSyncTime.value == null &&
           (state == SyncState.error || state == SyncState.disconnected)) {
         setState(
           () => _error = 'Open Calorify on your phone, then tap refresh.',

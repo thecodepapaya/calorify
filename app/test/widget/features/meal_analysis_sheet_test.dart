@@ -32,7 +32,7 @@ void main() {
                 onPressed:
                     () => showDebugMealAnalysisPipelineSheet(
                       context: context,
-                      startAnalysis: () async => controller.stream,
+                      startAnalysis: (_, _) async => controller.stream,
                       seedMealName: seedMealName,
                     ),
                 child: const Text('Open'),
@@ -213,5 +213,30 @@ void main() {
     expect(find.text('Paneer curry'), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('dismissing the sheet ignores late pipeline events', (
+    tester,
+  ) async {
+    final controller = StreamController<MealAnalysisPipelineEvent>.broadcast();
+    addTearDown(controller.close);
+    await openSheet(tester, controller);
+
+    await tester.tapAt(const Offset(8, 8));
+    await tester.pumpAndSettle();
+    controller.add(
+      MealAnalysisPipelineEvent(
+        step: PipelineStep.RESULT,
+        analysisId: 'late-result',
+        result: PipelineResultData(
+          analysisId: 'late-result',
+          mealName: 'Late result',
+        ),
+      ),
+    );
+    await tester.pump();
+
+    expect(find.byType(LinearProgressIndicator), findsNothing);
+    expect(tester.takeException(), isNull);
   });
 }

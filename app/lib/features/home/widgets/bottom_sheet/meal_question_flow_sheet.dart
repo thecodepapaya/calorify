@@ -6,7 +6,7 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_question_flow_widgets.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -389,7 +389,8 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
             ),
             const SizedBox(height: mealQuestionFlowOptionsTrailingGap),
             if (!widget._isDetection) ...[
-              PrimaryButton(
+              AppButton(
+                variant: AppButtonVariant.primary,
                 analyticsEvent: AnalyticsEvent.mealQuestionFlowContinue,
                 onPressed:
                     !hasPipelinePrimarySelection

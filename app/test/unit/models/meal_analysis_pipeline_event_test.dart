@@ -29,4 +29,18 @@ void main() {
     expect(event.result!.macros.calories, 159);
     expect(event.result!.confidenceReasons, ['llm_nutrition_fallback']);
   });
+
+  test('ERROR preserves the retryable recovery signal', () {
+    final event = MealAnalysisPipelineEvent.fromJson({
+      'step': 'ERROR',
+      'data': {
+        'analysisId': 'analysis-1',
+        'message': 'Analysis is still in progress',
+        'retryable': true,
+      },
+    });
+
+    expect(event.step, PipelineStep.ERROR);
+    expect(event.retryable, isTrue);
+  });
 }

@@ -25,10 +25,8 @@ export function initializeFirebase(): void {
       admin.initializeApp();
     }
     initialized = true;
-  } catch (error) {
-    throw new Error(
-      `Failed to initialize Firebase: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
+  } catch {
+    throw new Error('Failed to initialize Firebase');
   }
 }
 
@@ -43,10 +41,8 @@ export async function verifyFirebaseToken(token: string): Promise<admin.auth.Dec
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
     return decodedToken;
-  } catch (error) {
-    throw new Error(
-      `Invalid or expired authentication token: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
+  } catch {
+    throw new Error('Invalid or expired authentication token');
   }
 }
 

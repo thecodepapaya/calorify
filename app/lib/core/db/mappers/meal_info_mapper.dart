@@ -1,7 +1,6 @@
 import 'package:calorify/core/db/app_database.dart';
 import 'package:models/models.dart';
 import 'package:drift/drift.dart';
-import 'package:utils/utils.dart';
 
 extension MealToCompanion on Meal {
   /// Converts a Meal to MealInfoTableCompanion for database operations
@@ -9,7 +8,7 @@ extension MealToCompanion on Meal {
     int? clientId,
     DateTime? timestamp,
     String? imageUrl,
-    String? analysisId,
+    Value<String?> analysisId = const Value.absent(),
   }) {
     return MealInfoTableCompanion(
       id: clientId != null ? Value(clientId) : const Value.absent(),
@@ -22,83 +21,40 @@ extension MealToCompanion on Meal {
       fat: Value(macros.fat),
       fiber: Value(macros.fiber),
       timestamp: Value(timestamp ?? DateTime.now()),
-      imageUrl: imageUrl != null ? Value(imageUrl) : const Value.absent(),
+      // A meal companion is a complete snapshot. Explicit nulls clear stale
+      // optional values when an existing row is replaced.
+      imageUrl: Value(imageUrl),
       healthScore:
-          hasHealth()
+          hasHealth() && health.hasHealthScore()
               ? Value(health.healthScore.legacyName)
-              : const Value.absent(),
+              : const Value(null),
       healthScoreReason:
           hasHealth() && health.hasHealthScoreReason()
               ? Value(health.healthScoreReason)
-              : const Value.absent(),
-      analysisId: analysisId != null ? Value(analysisId) : const Value.absent(),
+              : const Value(null),
+      // Analysis identity is persistence metadata, not part of the editable
+      // Meal protobuf snapshot. Callers opt in only when first logging a meal;
+      // an absent value preserves the key during later edits.
+      analysisId: analysisId,
     );
   }
 }
 
 extension MealInfoMapper on LoggedMeal {
   MealInfoTableCompanion toCompanion() {
-    return MealInfoTableCompanion(
-      id: hasClientId() ? Value(clientId) : const Value.absent(),
-      mealName: Value(meal.name),
-      mealQuantity: Value(meal.quantity),
-      mealType: Value(meal.type.legacyName),
-      calories: Value(meal.macros.calories),
-      protein: Value(meal.macros.protein),
-      carbs: Value(meal.macros.carbs),
-      fat: Value(meal.macros.fat),
-      fiber: Value(meal.macros.fiber),
-
-      timestamp: Value(
-        hasCreatedAt()
-            ? iso8601StringToDateTime(createdAt) ?? DateTime.now()
-            : DateTime.now(),
-      ),
+    return meal.toCompanion(
+      clientId: hasClientId() ? clientId : null,
+      timestamp:
+          hasCreatedAt()
+              ? iso8601StringToDateTime(createdAt) ?? DateTime.now()
+              : DateTime.now(),
       imageUrl:
-          hasMetadata() && metadata.hasImageUrl()
-              ? Value(metadata.imageUrl)
-              : const Value.absent(),
-      healthScore:
-          meal.hasHealth()
-              ? Value(meal.health.healthScore.legacyName)
-              : const Value.absent(),
-      healthScoreReason:
-          meal.hasHealth() && meal.health.hasHealthScoreReason()
-              ? Value(meal.health.healthScoreReason)
-              : const Value.absent(),
+          hasMetadata() && metadata.hasImageUrl() ? metadata.imageUrl : null,
     );
   }
 
   /// Creates a Meal from a MealInfoTableData row
   static LoggedMeal fromRow(MealInfoTableData data) {
-    return LoggedMeal(
-      clientId: data.id,
-      meal: Meal(
-        name: data.mealName,
-        quantity: data.mealQuantity,
-        type: mealTypeFromLegacyName(data.mealType),
-        health:
-            data.healthScore != null
-                ? MealHealth(
-                  healthScore: healthScoreFromLegacyName(data.healthScore),
-                  healthScoreReason: data.healthScoreReason,
-                )
-                : null,
-        macros: MealMacro(
-          calories: data.calories,
-          protein: data.protein,
-          carbs: data.carbs,
-          fat: data.fat,
-          fiber: data.fiber,
-        ),
-      ),
-      createdAt: dateTimeToIso8601String(data.timestamp),
-      metadata: MealMetadata(imageUrl: data.imageUrl),
-    );
-  }
-
-  /// Creates a LoggedMeal from a Drift row
-  static LoggedMeal fromDrift(dynamic data) {
     return LoggedMeal(
       clientId: data.id,
       meal: Meal(

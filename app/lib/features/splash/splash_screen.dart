@@ -1,18 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/router/app_router.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/app_initialization.dart';
 import 'package:widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @RoutePage()
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -20,7 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    await AppInitialization.initialize();
+    await AppInitialization.initialize(
+      database: ref.read(databaseInterfaceProvider),
+      healthService: ref.read(healthServiceProvider),
+      profileRepository: ref.read(profileRepositoryProvider),
+    );
 
     if (mounted) {
       // Navigate to home - the OnboardingGuard will handle redirecting to onboarding if needed

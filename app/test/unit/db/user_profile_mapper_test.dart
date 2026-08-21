@@ -13,6 +13,8 @@ void main() {
       weightUnit: 'metric',
       createdAt: DateTime(2026, 8, 3),
       updatedAt: DateTime(2026, 8, 3),
+      needsRemoteSync: false,
+      remoteSyncRevision: null,
     );
 
     final profile = UserProfileMapper.fromDrift(row);
@@ -26,5 +28,27 @@ void main() {
     );
 
     expect(companion.dateOfBirth.value, DateTime.utc(2001, 8, 2));
+  });
+
+  test('writes explicit nulls when optional profile values are cleared', () {
+    final companion = UserProfileMapper.toDrift(UserProfile());
+
+    expect(companion.height.present, isTrue);
+    expect(companion.height.value, isNull);
+    expect(companion.targetWeight.present, isTrue);
+    expect(companion.targetWeight.value, isNull);
+    expect(companion.dateOfBirth.present, isTrue);
+    expect(companion.dateOfBirth.value, isNull);
+    expect(companion.dailyCalorieGoal.present, isTrue);
+    expect(companion.dailyCalorieGoal.value, isNull);
+  });
+
+  test('does not replace an invalid birthday with today', () {
+    final companion = UserProfileMapper.toDrift(
+      UserProfile(dateOfBirth: 'not-a-calendar-date'),
+    );
+
+    expect(companion.dateOfBirth.present, isTrue);
+    expect(companion.dateOfBirth.value, isNull);
   });
 }

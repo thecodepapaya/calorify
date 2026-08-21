@@ -1,6 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getCalorieExpenditureDisclaimer;
 import 'package:calorify/features/home/widgets/home_skeletons.dart';
@@ -9,7 +10,7 @@ import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +34,7 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
 
   Future<void> _updateAndSaveGoal(int calories) async {
     try {
-      await ref.read(databaseInterfaceProvider).setDailyCalorieGoal(calories);
+      await ref.read(profileActionsProvider).updateDailyCalorieGoal(calories);
     } catch (e) {
       debugPrint('Error saving daily goal: $e');
     } finally {
@@ -401,7 +402,8 @@ class _GoalInputState extends State<_GoalInput> {
         SizedBox(height: 8),
         Align(
           alignment: Alignment.centerRight,
-          child: PrimaryButton(
+          child: AppButton(
+            variant: AppButtonVariant.primary,
             analyticsEvent: AnalyticsEvent.setDailyGoal,
             onPressed: () {
               _onSetGoal(_controller.value.text);

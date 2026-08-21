@@ -11,7 +11,7 @@ import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart'
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,7 +41,8 @@ class FavoriteMeals extends ConsumerWidget {
                 ),
               ),
               FilledButton.tonalIcon(
-                onPressed: () => showEditMealSheet(context, saveAsFavorite: true),
+                onPressed:
+                    () => showEditMealSheet(context, saveAsFavorite: true),
                 icon: const Icon(LucideIcons.plus, size: 18),
                 label: Text(t.home.favoriteMeals.add),
                 style: FilledButton.styleFrom(
@@ -137,6 +138,7 @@ class _MealTile extends StatelessWidget {
             context: context,
             purpose: MealDetailsSheetPurpose.favorites,
             loggedMeal: favoriteMeal.loggedMeal,
+            favoriteId: favoriteMeal.clientId,
           ),
 
       borderRadius: globalRadius,
@@ -169,7 +171,8 @@ class _MealTile extends StatelessWidget {
               ),
             ),
             SizedBox(width: 8),
-            PrimaryButton(
+            AppButton(
+              variant: AppButtonVariant.primary,
               analyticsEvent: AnalyticsEvent.addMealFromFavorites,
               onPressed: () async {
                 try {

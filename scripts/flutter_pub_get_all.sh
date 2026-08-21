@@ -8,8 +8,10 @@ source "$SCRIPT_DIR/project_utils.sh"
 # Store original directory
 store_original_dir
 
-# Change to git root directory
-GIT_ROOT=$(change_to_git_root)
+# Change to git root directory. Calling the helper directly matters: command
+# substitution would run its `cd` in a subshell.
+change_to_git_root
+GIT_ROOT="$PWD"
 
 # Find all pubspec.yaml files up to a configurable subdirectory depth
 print_header "Finding Flutter projects"

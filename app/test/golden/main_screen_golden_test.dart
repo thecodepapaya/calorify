@@ -5,6 +5,8 @@ import 'package:calorify/features/main/main_screen.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/providers/home_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
 import '../helpers/golden_test_helpers.dart';
 import '../helpers/test_helpers.dart';
@@ -12,8 +14,11 @@ import '../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
 
+class MockHealthService extends Mock implements HealthService {}
+
 void main() {
   late MockDatabaseInterface mockDatabaseInterface;
+  late MockHealthService mockHealthService;
 
   setUpAll(() async {
     setupAllTests();
@@ -22,9 +27,9 @@ void main() {
 
   setUp(() {
     mockDatabaseInterface = MockDatabaseInterface();
+    mockHealthService = MockHealthService();
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
-    final mockHealthService = HealthService.instance;
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
@@ -58,7 +63,12 @@ void main() {
       for (final locale in goldenTestLocales) {
         for (final device in testDevices) {
           await tester.pumpWidgetBuilder(
-            const MainScreen(),
+            ProviderScope(
+              overrides: [
+                healthServiceProvider.overrideWithValue(mockHealthService),
+              ],
+              child: const MainScreen(),
+            ),
             wrapper: goldenWrapper(router: mockRouter, locale: locale),
             surfaceSize: device.size,
           );

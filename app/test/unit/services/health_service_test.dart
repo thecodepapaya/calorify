@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:health/health.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:models/models.dart';
 import '../../setup/all_tests.dart';
 
@@ -21,12 +20,6 @@ void main() {
   setUp(() {
     mockHealth = MockHealth();
     healthService = HealthService.test(health: mockHealth);
-    HealthService.setMockInstance(healthService);
-  });
-
-  tearDown(() {
-    // Reset any global test-time singletons to avoid test pollution
-    OnboardingService.setMockInstance(null);
   });
 
   group('HealthService', () {
@@ -158,8 +151,6 @@ void main() {
 
         await healthService.init();
 
-        // Prepare a mock onboarding service that returns a profile and a predictable estimate
-        final mockOnboarding = MockOnboardingService();
         final profile = UserProfile(
           height: 170.0,
           weight: 70.0,
@@ -169,15 +160,12 @@ void main() {
           heightUnit: UnitSystem.METRIC,
           weightUnit: UnitSystem.METRIC,
         );
-        when(
-          () => mockOnboarding.getProfileData(),
-        ).thenAnswer((_) async => profile);
-        // Let the estimate function compute based on profile (we can let the real method run,
-        // but since this is a mock, stub it for predictability)
-        when(
-          () => mockOnboarding.estimateCaloriesBurnedTodayFromProfile(profile),
-        ).thenReturn(600.0);
-        OnboardingService.setMockInstance(mockOnboarding);
+        healthService = HealthService.test(
+          health: mockHealth,
+          profileLoader: () async => profile,
+          calorieEstimator: (_) => 600,
+        );
+        await healthService.init();
 
         final result = await healthService.getTotalCaloriesBurned();
         expect(result?.calories, 600.0);

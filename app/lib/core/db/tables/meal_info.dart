@@ -1,5 +1,10 @@
 import 'package:drift/drift.dart';
 
+@TableIndex(
+  name: 'meal_info_analysis_id_unique',
+  columns: {#analysisId},
+  unique: true,
+)
 class MealInfoTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get mealName => text()();
@@ -15,5 +20,7 @@ class MealInfoTable extends Table {
   TextColumn get healthScore =>
       text().nullable()(); // 'healthy', 'neutral', 'unhealthy', 'unknown'
   TextColumn get healthScoreReason => text().nullable()();
-  TextColumn get analysisId => text().nullable()(); // V2 analysis session ID; null for non-V2 meals
+  // V2 analysis session or watch operation ID. The unique index makes retry
+  // idempotency atomic while SQLite continues to allow multiple null values.
+  TextColumn get analysisId => text().nullable()();
 }

@@ -1,23 +1,24 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/shared_widgets/app_filled_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/height_scale_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 
-class HeightStepScreen extends StatefulWidget {
+class HeightStepScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   const HeightStepScreen({super.key, required this.onContinue});
 
   @override
-  State<HeightStepScreen> createState() => _HeightStepScreenState();
+  ConsumerState<HeightStepScreen> createState() => _HeightStepScreenState();
 }
 
-class _HeightStepScreenState extends State<HeightStepScreen> {
+class _HeightStepScreenState extends ConsumerState<HeightStepScreen> {
   double _height = 170;
   UnitSystem _unitSystem = UnitSystem.METRIC;
   bool _unitSystemInitialized = false;
@@ -42,7 +43,7 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await OnboardingService.instance.getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getProfileData();
     if (!mounted) return;
     if (profile != null) {
       setState(() {
@@ -146,7 +147,8 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
             ],
           ),
           const SizedBox(height: 32),
-          AppFilledButton(
+          AppButton(
+            variant: AppButtonVariant.filled,
             onPressed: _isSaving ? null : _saveAndContinue,
             isLoading: _isSaving,
             text: t.onboarding.height.next,
@@ -188,12 +190,12 @@ class _HeightStepScreenState extends State<HeightStepScreen> {
     if (_isSaving) return;
     setState(() => _isSaving = true);
     try {
-      final profile =
-          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final onboardingService = ref.read(onboardingServiceProvider);
+      final profile = await onboardingService.getProfileData() ?? UserProfile();
       final updatedProfile = profile.deepCopy();
       updatedProfile.height = _height;
       updatedProfile.heightUnit = _unitSystem;
-      await OnboardingService.instance.saveProfileData(updatedProfile);
+      await onboardingService.saveProfileData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(AnalyticsEvent.onboardingSetHeight);
       widget.onContinue();

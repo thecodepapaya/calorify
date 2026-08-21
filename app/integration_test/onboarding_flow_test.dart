@@ -4,6 +4,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:calorify/app.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/analytics.dart';
@@ -39,7 +40,6 @@ void main() {
     mockAnalytics = MockAnalytics();
 
     DatabaseService.setMockInterface(mockDatabaseInterface);
-    HealthService.setMockInstance(mockHealthService);
     Analytics.setMockInstance(mockAnalytics);
 
     when(() => mockAnalytics.logEvent(any())).thenAnswer((_) {});
@@ -66,7 +66,15 @@ void main() {
   ) async {
     // Start app
     await tester.pumpWidget(
-      TranslationProvider(child: const ProviderScope(child: CalorifyApp())),
+      TranslationProvider(
+        child: ProviderScope(
+          overrides: [
+            databaseInterfaceProvider.overrideWithValue(mockDatabaseInterface),
+            healthServiceProvider.overrideWithValue(mockHealthService),
+          ],
+          child: const CalorifyApp(),
+        ),
+      ),
     );
     await tester.pumpAndSettle();
 

@@ -1,5 +1,5 @@
 import { createWriteStream, existsSync } from 'node:fs';
-import { cp, mkdir, readdir, rm } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Readable } from 'node:stream';
@@ -20,9 +20,19 @@ export interface UsdaBootstrapOptions {
   dataDir: string;
 }
 
+export interface UsdaBootstrapDependencies {
+  extractArchive?: (zipPath: string, extractDir: string) => Promise<void>;
+  importDataset?: (
+    options: Parameters<typeof runUsdaImport>[0]
+  ) => ReturnType<typeof runUsdaImport>;
+}
+
 async function hasActiveDataset(): Promise<boolean> {
   const result = await query<{ count: string }>(
-    'SELECT COUNT(*) AS count FROM usda_dataset_version WHERE is_active = TRUE'
+    `SELECT COUNT(*) AS count
+       FROM usda_dataset_version
+      WHERE is_active = TRUE
+        AND is_materialized = TRUE`
   );
   return Number(result.rows[0]?.count ?? 0) > 0;
 }
@@ -64,11 +74,19 @@ async function findRequiredCsvs(extractDir: string): Promise<Record<string, stri
   return map;
 }
 
-async function extractAndStage(zipPath: string, dataDir: string): Promise<void> {
+async function unzipArchive(zipPath: string, extractDir: string): Promise<void> {
+  await execFileAsync('unzip', ['-o', zipPath, '-d', extractDir]);
+}
+
+async function extractAndStage(
+  zipPath: string,
+  dataDir: string,
+  extractArchive: (zipPath: string, extractDir: string) => Promise<void>
+): Promise<void> {
   if (!existsSync(zipPath)) throw new Error(`ZIP not found: ${zipPath}`);
-  const extractDir = join(tmpdir(), `usda_extract_${Date.now()}`);
+  const extractDir = await mkdtemp(join(tmpdir(), 'calorify-usda-extract-'));
   try {
-    await execFileAsync('unzip', ['-o', zipPath, '-d', extractDir]);
+    await extractArchive(zipPath, extractDir);
     const files = await findRequiredCsvs(extractDir);
     await mkdir(dataDir, { recursive: true });
     await Promise.all(REQUIRED_FILES.map((name) => cp(files[name], join(dataDir, name))));
@@ -77,32 +95,38 @@ async function extractAndStage(zipPath: string, dataDir: string): Promise<void> 
   }
 }
 
-export async function bootstrapUsdaIfNeeded(options: UsdaBootstrapOptions): Promise<void> {
+export async function bootstrapUsdaIfNeeded(
+  options: UsdaBootstrapOptions,
+  dependencies: UsdaBootstrapDependencies = {}
+): Promise<void> {
   if (await hasActiveDataset()) {
     console.log('[usda:bootstrap] active dataset already present, skipping');
     return;
   }
 
-  const runId = Date.now().toString();
-  const downloadedZip = join(tmpdir(), `usda_${runId}.zip`);
+  await mkdir(options.dataDir, { recursive: true });
+  const workspace = await mkdtemp(join(options.dataDir, '.bootstrap-'));
+  const stagedDataDir = join(workspace, 'csv');
+  const downloadedZip = join(workspace, 'dataset.zip');
   const zipPath = options.localZipPath ?? downloadedZip;
-  const ownedZip = !options.localZipPath;
+  const extractArchive = dependencies.extractArchive ?? unzipArchive;
+  const importDataset = dependencies.importDataset ?? runUsdaImport;
 
   try {
     if (options.localZipPath) {
-      console.log(`[usda:bootstrap] using local ZIP at ${options.localZipPath}`);
+      console.log('[usda:bootstrap] using configured local ZIP');
     } else {
-      console.log(`[usda:bootstrap] no active dataset found, downloading from ${options.zipUrl}`);
+      console.log('[usda:bootstrap] no active dataset found, downloading configured archive');
       await downloadZip(options.zipUrl, downloadedZip);
     }
 
-    console.log(`[usda:bootstrap] staging CSVs to ${options.dataDir}`);
-    await extractAndStage(zipPath, options.dataDir);
+    console.log('[usda:bootstrap] staging CSVs in an isolated workspace');
+    await extractAndStage(zipPath, stagedDataDir, extractArchive);
 
-    const result = await runUsdaImport({
+    const result = await importDataset({
       datasetVersion: options.datasetVersion,
       sourceReleaseDate: options.sourceReleaseDate,
-      dataDir: options.dataDir,
+      dataDir: stagedDataDir,
       importSource: 'startup_bootstrap',
       makeActive: true,
     });
@@ -111,8 +135,6 @@ export async function bootstrapUsdaIfNeeded(options: UsdaBootstrapOptions): Prom
       `[usda:bootstrap] ${result.imported ? 'imported' : 'skipped'} rows=${result.rowCount} checksum=${result.checksum}${result.skippedReason ? ` reason=${result.skippedReason}` : ''}`
     );
   } finally {
-    if (ownedZip) {
-      await rm(downloadedZip, { force: true });
-    }
+    await rm(workspace, { recursive: true, force: true });
   }
 }

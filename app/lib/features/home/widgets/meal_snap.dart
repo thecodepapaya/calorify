@@ -282,7 +282,11 @@ class _MealSnapState extends State<MealSnap> {
         await showV2MealAnalysisFlow(
           context: context,
           startAnalysis:
-              () => repository.analyzeImageFromUrlV2(imageUrl: uploadUrl),
+              (cancellation, analysisId) => repository.analyzeImageFromUrlV2(
+                analysisId: analysisId,
+                imageUrl: uploadUrl,
+                cancellation: cancellation,
+              ),
           imageBytes: compressedImageByte,
           imageUrl: uploadUrl,
         );

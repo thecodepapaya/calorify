@@ -1,16 +1,16 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/meal_reminder_settings_store.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
-import 'package:calorify/shared_widgets/secondary_button.dart';
 
-class ReminderNotificationsScreen extends StatefulWidget {
+class ReminderNotificationsScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   final bool isEditing;
   const ReminderNotificationsScreen({
@@ -20,12 +20,12 @@ class ReminderNotificationsScreen extends StatefulWidget {
   });
 
   @override
-  State<ReminderNotificationsScreen> createState() =>
+  ConsumerState<ReminderNotificationsScreen> createState() =>
       _ReminderNotificationsScreenState();
 }
 
 class _ReminderNotificationsScreenState
-    extends State<ReminderNotificationsScreen> {
+    extends ConsumerState<ReminderNotificationsScreen> {
   bool _isLoading = false;
   bool _notificationsEnabled = false;
   bool _breakfastEnabled = true;
@@ -180,7 +180,8 @@ class _ReminderNotificationsScreenState
             child: Column(
               children: [
                 if (_notificationsEnabled)
-                  PrimaryButton(
+                  AppButton(
+                    variant: AppButtonVariant.primary,
                     analyticsEvent: AnalyticsEvent.onboardingSetReminders,
                     onPressed: _isLoading ? null : _continue,
                     text:
@@ -193,7 +194,8 @@ class _ReminderNotificationsScreenState
                     isLoading: _isLoading,
                   )
                 else ...[
-                  PrimaryButton(
+                  AppButton(
+                    variant: AppButtonVariant.primary,
                     analyticsEvent:
                         AnalyticsEvent.onboardingEnableNotifications,
                     onPressed: _isLoading ? null : _enableNotifications,
@@ -202,7 +204,8 @@ class _ReminderNotificationsScreenState
                     isLoading: _isLoading,
                   ),
                   const SizedBox(height: 16),
-                  SecondaryButton(
+                  AppButton(
+                    variant: AppButtonVariant.secondary,
                     analyticsEvent: AnalyticsEvent.onboardingSkipReminders,
                     onPressed: _skip,
                     text: t.reminders.skipForNow,
@@ -352,7 +355,8 @@ class _ReminderNotificationsScreenState
     setState(() => _isLoading = true);
 
     try {
-      // Initialize firebase messaging and request permissions
+      // Listener setup is non-interactive; the following call is the only
+      // permission prompt in this flow.
       await NotificationService.instance.initializeFirebaseMessaging();
 
       final granted = await NotificationService.instance.requestPermissions();
@@ -392,7 +396,7 @@ class _ReminderNotificationsScreenState
         );
       }
 
-      await OnboardingService.instance.completeOnboarding();
+      await ref.read(onboardingServiceProvider).completeOnboarding();
 
       // Navigate to home
       if (mounted) widget.onContinue();
@@ -410,7 +414,7 @@ class _ReminderNotificationsScreenState
 
   void _skip() async {
     // Mark onboarding as complete
-    await OnboardingService.instance.completeOnboarding();
+    await ref.read(onboardingServiceProvider).completeOnboarding();
 
     // Navigate to home
     if (mounted) {

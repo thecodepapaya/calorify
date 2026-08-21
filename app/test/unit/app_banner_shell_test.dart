@@ -76,8 +76,32 @@ void main() {
         'newer',
       );
     });
-  });
 
+    test('ignores banners without an explicit priority', () {
+      final missingPriority = Banner.create()
+        ..enabled = true
+        ..messagesByLocale['en'] = 'malformed';
+      final valid = _banner(
+        enabled: true,
+        messages: {'en': 'valid'},
+        priority: BannerPriority.LOW,
+      );
+
+      expect(
+        selectBestBanner([
+          BannerSelection(documentId: 'missing', banner: missingPriority),
+          BannerSelection(documentId: 'valid', banner: valid),
+        ])?.documentId,
+        'valid',
+      );
+      expect(
+        selectBestBanner([
+          BannerSelection(documentId: 'missing', banner: missingPriority),
+        ]),
+        isNull,
+      );
+    });
+  });
 
   group('resolveBannerMessage', () {
     test('prefers zh-CN key for zhCn locale', () {

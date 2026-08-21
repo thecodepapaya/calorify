@@ -7,10 +7,12 @@ import type { ApiResult } from '../../protos/calorify/http_api.js';
 import { getApiResultSchema, getErrorResponseSchema } from '../../utils/schema-generator.js';
 import { getTimeZoneFromRequest } from '../../utils/locale.js';
 import { calendarDateInTimeZone } from '../../utils/timezone.js';
+import { safeErrorMetadata } from '../../utils/safeError.js';
 
 // Zod schema adds bounds checks that Fastify's JSON schema isn't expressing.
 // - DOB: ISO calendar date (legacy offset-bearing timestamps remain accepted).
-// All fields optional because this endpoint is a partial-update PATCH-like POST.
+// All fields are optional in both write modes: POST patches the stored profile,
+// while PUT treats omitted fields as explicitly cleared in a full snapshot.
 const userProfileBodySchema = z.object({
   height: z.number().finite().positive().max(400).optional(),
   weight: z.number().finite().positive().max(1000).optional(),
@@ -34,6 +36,35 @@ const userProfileBodySchema = z.object({
 });
 type UserProfileBody = z.infer<typeof userProfileBodySchema>;
 
+const patchProfileAssignments = `
+  height = COALESCE(EXCLUDED.height, user_profile.height),
+  weight = COALESCE(EXCLUDED.weight, user_profile.weight),
+  target_weight = COALESCE(EXCLUDED.target_weight, user_profile.target_weight),
+  gender = COALESCE(EXCLUDED.gender, user_profile.gender),
+  date_of_birth = COALESCE(EXCLUDED.date_of_birth, user_profile.date_of_birth),
+  weight_goal = COALESCE(EXCLUDED.weight_goal, user_profile.weight_goal),
+  activity_level = COALESCE(EXCLUDED.activity_level, user_profile.activity_level),
+  height_unit = COALESCE(EXCLUDED.height_unit, user_profile.height_unit),
+  weight_unit = COALESCE(EXCLUDED.weight_unit, user_profile.weight_unit),
+  daily_calorie_goal = COALESCE(
+    EXCLUDED.daily_calorie_goal,
+    user_profile.daily_calorie_goal
+  ),
+  updated_at = EXCLUDED.updated_at`;
+
+const replaceProfileAssignments = `
+  height = EXCLUDED.height,
+  weight = EXCLUDED.weight,
+  target_weight = EXCLUDED.target_weight,
+  gender = EXCLUDED.gender,
+  date_of_birth = EXCLUDED.date_of_birth,
+  weight_goal = EXCLUDED.weight_goal,
+  activity_level = EXCLUDED.activity_level,
+  height_unit = EXCLUDED.height_unit,
+  weight_unit = EXCLUDED.weight_unit,
+  daily_calorie_goal = EXCLUDED.daily_calorie_goal,
+  updated_at = EXCLUDED.updated_at`;
+
 function normalizeDateOfBirth(value: string): string {
   return /^\d{4}-\d{2}-\d{2}$/.test(value)
     ? value
@@ -42,98 +73,98 @@ function normalizeDateOfBirth(value: string): string {
 
 export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   /**
-   * POST /api/v1/user/profile
-   * Create or update user profile
+   * POST /api/v1/user/profile patches supplied fields for legacy clients.
+   * PUT /api/v1/user/profile replaces the complete profile snapshot.
    */
-  fastify.post<{ Body: UserProfileBody }>(
-    '/profile',
-    {
-      preHandler: [authenticateUser],
-      schema: {
-        description: 'Create or update user profile. If a profile already exists for the authenticated user, it will be updated. Otherwise, a new profile will be created.',
-        tags: ['User'],
-        security: [{ bearerAuth: [] }],
-        body: {
-          type: 'object',
-          description: 'User profile data. All fields are optional.',
-          properties: {
-            height: {
-              type: 'number',
-              description: 'User height',
-              // Example (for docs only): 175.5,
-            },
-            weight: {
-              type: 'number',
-              description: 'Current weight',
-              // Example (for docs only): 70.5,
-            },
-            targetWeight: {
-              type: 'number',
-              description: 'Target weight goal',
-              // Example (for docs only): 65.0,
-            },
-            gender: {
-              type: 'string',
-              description: 'Gender',
-              enum: ['MALE', 'FEMALE', 'OTHER'],
-              // Example (for docs only): 'MALE',
-            },
-            dateOfBirth: {
-              type: 'string',
-              description: 'Date of birth as an ISO calendar date (e.g. 1990-01-01)',
-            },
-            weightGoal: {
-              type: 'string',
-              description: 'Weight goal',
-              enum: ['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT'],
-              // Example (for docs only): 'LOSE_WEIGHT',
-            },
-            activityLevel: {
-              type: 'string',
-              description: 'Activity level',
-              enum: ['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'],
-              // Example (for docs only): 'MODERATELY_ACTIVE',
-            },
-            heightUnit: {
-              type: 'string',
-              description: 'Unit system for height',
-              enum: ['METRIC', 'IMPERIAL'],
-              // Example (for docs only): 'METRIC',
-            },
-            weightUnit: {
-              type: 'string',
-              description: 'Unit system for weight',
-              enum: ['METRIC', 'IMPERIAL'],
-              // Example (for docs only): 'METRIC',
-            },
-            dailyCalorieGoal: {
-              type: 'number',
-              description: 'Daily calorie goal',
-              // Example (for docs only): 2000,
-            },
+  fastify.route<{ Body: UserProfileBody }>({
+    method: ['POST', 'PUT'],
+    url: '/profile',
+    preHandler: [authenticateUser],
+    schema: {
+      description:
+        'Create or update a user profile. POST applies a partial update; PUT replaces the full snapshot and clears omitted fields.',
+      tags: ['User'],
+      security: [{ bearerAuth: [] }],
+      body: {
+        type: 'object',
+        description: 'User profile data. All fields are optional.',
+        properties: {
+          height: {
+            type: 'number',
+            description: 'User height',
+          },
+          weight: {
+            type: 'number',
+            description: 'Current weight',
+          },
+          targetWeight: {
+            type: 'number',
+            description: 'Target weight goal',
+          },
+          gender: {
+            type: 'string',
+            description: 'Gender',
+            enum: ['MALE', 'FEMALE', 'OTHER'],
+          },
+          dateOfBirth: {
+            type: 'string',
+            description: 'Date of birth as an ISO calendar date (e.g. 1990-01-01)',
+          },
+          weightGoal: {
+            type: 'string',
+            description: 'Weight goal',
+            enum: ['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT'],
+          },
+          activityLevel: {
+            type: 'string',
+            description: 'Activity level',
+            enum: [
+              'SEDENTARY',
+              'LIGHTLY_ACTIVE',
+              'MODERATELY_ACTIVE',
+              'VERY_ACTIVE',
+              'EXTREMELY_ACTIVE',
+            ],
+          },
+          heightUnit: {
+            type: 'string',
+            description: 'Unit system for height',
+            enum: ['METRIC', 'IMPERIAL'],
+          },
+          weightUnit: {
+            type: 'string',
+            description: 'Unit system for weight',
+            enum: ['METRIC', 'IMPERIAL'],
+          },
+          dailyCalorieGoal: {
+            type: 'number',
+            description: 'Daily calorie goal',
           },
         },
-        response: {
-          200: {
-            description: 'Profile saved successfully (calorify.ApiResult)',
-            ...getApiResultSchema(),
-          },
-          400: {
-            description: 'Bad request - invalid data',
-            ...getErrorResponseSchema(),
-          },
-          401: {
-            description: 'Unauthorized - invalid or missing authentication token',
-            ...getErrorResponseSchema(),
-          },
-          500: {
-            description: 'Internal server error',
-            ...getErrorResponseSchema(),
-          },
+      },
+      response: {
+        200: {
+          description: 'Profile saved successfully (calorify.ApiResult)',
+          ...getApiResultSchema(),
         },
-      } as any,
-    },
-    async (request: FastifyRequest<{ Body: UserProfileBody }>, reply: FastifyReply) => {
+        400: {
+          description: 'Bad request - invalid data',
+          ...getErrorResponseSchema(),
+        },
+        401: {
+          description: 'Unauthorized - invalid or missing authentication token',
+          ...getErrorResponseSchema(),
+        },
+        500: {
+          description: 'Internal server error',
+          ...getErrorResponseSchema(),
+        },
+      },
+    } as any,
+    handler: async (
+      request: FastifyRequest<{ Body: UserProfileBody }>,
+      reply: FastifyReply
+    ) => {
       try {
         const userId = getCurrentUserId(request);
 
@@ -165,6 +196,10 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
         }
 
         const now = new Date();
+        const updateAssignments =
+          request.method === 'PUT'
+            ? replaceProfileAssignments
+            : patchProfileAssignments;
 
         // A single upsert avoids a SELECT/INSERT race when startup and profile
         // editing save concurrently for a newly-created anonymous user.
@@ -177,20 +212,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
             gen_random_uuid(), $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
           )
           ON CONFLICT (user_id) DO UPDATE SET
-            height = COALESCE(EXCLUDED.height, user_profile.height),
-            weight = COALESCE(EXCLUDED.weight, user_profile.weight),
-            target_weight = COALESCE(EXCLUDED.target_weight, user_profile.target_weight),
-            gender = COALESCE(EXCLUDED.gender, user_profile.gender),
-            date_of_birth = COALESCE(EXCLUDED.date_of_birth, user_profile.date_of_birth),
-            weight_goal = COALESCE(EXCLUDED.weight_goal, user_profile.weight_goal),
-            activity_level = COALESCE(EXCLUDED.activity_level, user_profile.activity_level),
-            height_unit = COALESCE(EXCLUDED.height_unit, user_profile.height_unit),
-            weight_unit = COALESCE(EXCLUDED.weight_unit, user_profile.weight_unit),
-            daily_calorie_goal = COALESCE(
-              EXCLUDED.daily_calorie_goal,
-              user_profile.daily_calorie_goal
-            ),
-            updated_at = EXCLUDED.updated_at`,
+            ${updateAssignments}`,
           [
             userId,
             height ?? null,
@@ -214,12 +236,17 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
         };
         reply.send(result);
       } catch (error) {
-        reply.status(500).send(
-          createErrorResponse(
-            error instanceof Error ? error.message : 'Failed to save user profile'
-          )
+        request.log.error(
+          {
+            operation: 'save_user_profile',
+            ...safeErrorMetadata(error),
+          },
+          'Unexpected V1 user request failure'
         );
+        reply
+          .status(500)
+          .send(createErrorResponse('Failed to save user profile'));
       }
-    }
-  );
+    },
+  });
 }

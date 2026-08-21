@@ -104,7 +104,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
                                 final favorite = visibleFavorites[index];
                                 return Dismissible(
                                   key: ValueKey(
-                                    'favorite-${favorite.loggedMeal.clientId}',
+                                    'favorite-${favorite.clientId}',
                                   ),
                                   direction: DismissDirection.endToStart,
                                   background: const _DeleteFavoriteBackground(),
@@ -136,7 +136,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
     try {
       await ref
           .read(favoriteMealsProvider.notifier)
-          .removeFavoriteMeal(favorite.loggedMeal);
+          .removeFavoriteMeal(favorite);
 
       if (!mounted) return;
 
@@ -274,6 +274,7 @@ class _FavoriteMealCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MealLogCard(
       loggedMeal: favoriteMeal.loggedMeal,
+      favoriteId: favoriteMeal.clientId,
       showTimestamp: false,
       sheetPurpose: MealDetailsSheetPurpose.favorites,
     );

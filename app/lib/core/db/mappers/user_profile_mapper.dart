@@ -1,7 +1,6 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/db/app_database.dart';
 import 'package:drift/drift.dart';
-import 'package:utils/utils.dart';
 
 class UserProfileMapper {
   static UserProfile fromDrift(UserProfileTableData data) {
@@ -24,40 +23,44 @@ class UserProfileMapper {
               : activityLevelFromLegacyName(data.activityLevel),
       heightUnit: unitSystemFromLegacyName(data.heightUnit),
       weightUnit: unitSystemFromLegacyName(data.weightUnit),
+      dailyCalorieGoal: data.dailyCalorieGoal,
     );
   }
 
   static UserProfileTableCompanion toDrift(UserProfile profile) {
+    // A UserProfile passed to saveUserProfile is the complete local snapshot.
+    // Use explicit NULLs for missing optional fields so callers can clear a
+    // previously stored value; Value.absent would preserve stale data during
+    // an upsert (or substitute a column default on insert).
     return UserProfileTableCompanion(
-      height:
-          profile.hasHeight() ? Value(profile.height) : const Value.absent(),
-      weight:
-          profile.hasWeight() ? Value(profile.weight) : const Value.absent(),
+      height: Value(profile.hasHeight() ? profile.height : null),
+      weight: Value(profile.hasWeight() ? profile.weight : null),
       targetWeight:
           profile.hasTargetWeight()
               ? Value(profile.targetWeight)
-              : const Value.absent(),
+              : const Value(null),
       gender:
           profile.hasGender()
               ? Value(profile.gender.legacyName)
-              : const Value.absent(),
+              : const Value(null),
       dateOfBirth:
           profile.hasDateOfBirth()
-              ? Value(
-                _dateOfBirthForDrift(profile.dateOfBirth) ??
-                    DateTime.now().toUtc(),
-              )
-              : const Value.absent(),
+              ? Value(_dateOfBirthForDrift(profile.dateOfBirth))
+              : const Value(null),
       weightGoal:
           profile.hasWeightGoal()
               ? Value(profile.weightGoal.legacyName)
-              : const Value.absent(),
+              : const Value(null),
       activityLevel:
           profile.hasActivityLevel()
               ? Value(profile.activityLevel.legacyName)
-              : const Value.absent(),
+              : const Value(null),
       heightUnit: Value(profile.heightUnit.legacyName),
       weightUnit: Value(profile.weightUnit.legacyName),
+      dailyCalorieGoal:
+          profile.hasDailyCalorieGoal()
+              ? Value(profile.dailyCalorieGoal)
+              : const Value(null),
     );
   }
 

@@ -93,7 +93,8 @@ await mock.module('../../services/openAIFoodAnalysis.js', {
 
 const mockConfig = {
   DATABASE_URL: 'postgres://mock' as string | null,
-  ORACLE_BUCKET_DOWNLOAD_URL: 'https://objectstorage.example.com/bucket/o/',
+  ORACLE_BUCKET_DOWNLOAD_URL:
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
   API_V1_STR: '/api/v1',
   DEBUG: false,
   ENVIRONMENT: 'development',
@@ -110,12 +111,26 @@ const { foodRoutes } = await import('./food.js');
 // Build test app
 // ---------------------------------------------------------------------------
 
-async function buildTestApp() {
-  const fastify = Fastify({ logger: false });
+async function buildTestApp(logger: false | Record<string, unknown> = false) {
+  const fastify = Fastify({ logger: logger as any });
   await fastify.register(multipart);
   await fastify.register(foodRoutes, { prefix: '/api/v1/food' });
   await fastify.ready();
   return fastify;
+}
+
+function createCapturingLogger(entries: unknown[][]): Record<string, unknown> {
+  const write = (...args: unknown[]) => entries.push(args);
+  const logger: Record<string, unknown> = {
+    info: write,
+    error: write,
+    debug: write,
+    fatal: write,
+    warn: write,
+    trace: write,
+    child: () => logger,
+  };
+  return logger;
 }
 
 /** Minimal multipart/form-data body for @fastify/multipart tests. */
@@ -298,6 +313,26 @@ test('GET /ai-summary returns the stats snapshot stored with the narrative', asy
   await app.close();
 });
 
+test('GET /ai-summary does not expose unexpected database errors', async () => {
+  const secret = 'postgres://admin:db-secret-value@private-host/calorify';
+  mockQuery.mock.mockImplementationOnce(async () => {
+    throw new Error(`Database connection failed: ${secret}`);
+  });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/ai-summary',
+    headers: authBearer,
+  });
+  assert.equal(response.statusCode, 500);
+  assert.deepEqual(response.json(), {
+    ok: false,
+    message: 'Failed to load AI meal summary',
+  });
+  assert.equal(response.body.includes(secret), false);
+  await app.close();
+});
+
 // ---------------------------------------------------------------------------
 // GET /api/v1/food/meal-analysis-tips
 // ---------------------------------------------------------------------------
@@ -401,6 +436,26 @@ test('GET /export returns CSV meal history for authenticated user', async () => 
   assert.match(response.headers['content-type'] ?? '', /text\/csv/);
   assert.match(response.body, /logged_at,meal_type,meal_name,calories/);
   assert.match(response.body, /Oats Bowl/);
+  await app.close();
+});
+
+test('GET /export does not expose unexpected database errors', async () => {
+  const secret = 'database-password=export-secret-value';
+  mockQuery.mock.mockImplementationOnce(async () => {
+    throw new Error(`Export query failed: ${secret}`);
+  });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/export',
+    headers: authBearer,
+  });
+  assert.equal(response.statusCode, 500);
+  assert.deepEqual(response.json(), {
+    ok: false,
+    message: 'Failed to export meal history',
+  });
+  assert.equal(response.body.includes(secret), false);
   await app.close();
 });
 
@@ -509,10 +564,12 @@ test('POST /detect-text passes country code from geo header', async () => {
 });
 
 test('POST /detect-text returns 500 when service throws', async () => {
+  const secret = 'openai-key=detect-text-secret-value';
+  const logEntries: unknown[][] = [];
   mockAnalyzeTextDescription.mock.mockImplementationOnce(async () => {
-    throw new Error('OpenAI API error');
+    throw new Error(`OpenAI API error: ${secret}`);
   });
-  const app = await buildTestApp();
+  const app = await buildTestApp(createCapturingLogger(logEntries));
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-text',
@@ -521,7 +578,15 @@ test('POST /detect-text returns 500 when service throws', async () => {
   });
   assert.equal(response.statusCode, 500);
   const body = response.json();
-  assert.ok(body.message.includes('OpenAI API error'));
+  assert.deepEqual(body, {
+    ok: false,
+    message: 'Failed to detect meal from text description',
+  });
+  assert.equal(response.body.includes(secret), false);
+  const serializedLogs = JSON.stringify(logEntries);
+  assert.equal(serializedLogs.includes(secret), false);
+  assert.match(serializedLogs, /detect_text/);
+  assert.match(serializedLogs, /unexpected_error/);
   await app.close();
 });
 
@@ -583,7 +648,8 @@ test('POST /detect-image returns 400 for invalid URL format', async () => {
 
 test('POST /detect-image returns 200 for valid image URL', async () => {
   const app = await buildTestApp();
-  const imageUrl = 'https://objectstorage.example.com/p/token/n/ns/b/bucket/o/uid%2Fmeal.jpg';
+  const imageUrl =
+    'https://objectstorage.example.com/p/upload-token/n/ns/b/bucket/o/user-v1-food/meal.jpg';
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
@@ -600,28 +666,70 @@ test('POST /detect-image returns 200 for valid image URL', async () => {
 test('POST /detect-image converts upload URL to download URL', async () => {
   mockAnalyzeImageFromUrl.mock.resetCalls();
   const app = await buildTestApp();
-  // URL with path segments to test the object-key extraction
-  const imageUrl = 'https://storage.example.com/v0/b/mybucket/o/uid123%2Fphoto.jpg?alt=media';
-  await app.inject({
+  const imageUrl =
+    'https://objectstorage.example.com/p/upload-token/n/ns/b/bucket/o/user-v1-food/photo.jpg';
+  const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
     headers: { ...authBearer },
     payload: { imageUrl },
   });
+  assert.equal(response.statusCode, 200, response.body);
   // Should have called analyzeImageFromUrl with the download URL
   assert.equal(mockAnalyzeImageFromUrl.mock.calls.length, 1);
   const finalUrl = mockAnalyzeImageFromUrl.mock.calls[0]!.arguments[0] as string;
-  // Should start with the configured ORACLE_BUCKET_DOWNLOAD_URL
-  assert.ok(finalUrl.startsWith('https://objectstorage.example.com/bucket/o/'));
+  assert.equal(
+    finalUrl,
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/user-v1-food/photo.jpg'
+  );
+  await app.close();
+});
+
+test('POST /detect-image rejects an object owned by another user', async () => {
+  mockAnalyzeImageFromUrl.mock.resetCalls();
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/food/detect-image',
+    headers: { ...authBearer },
+    payload: {
+      imageUrl:
+        'https://objectstorage.example.com/p/upload-token/n/ns/b/bucket/o/other-user/photo.jpg',
+    },
+  });
+  assert.equal(response.statusCode, 400);
+  assert.equal(mockAnalyzeImageFromUrl.mock.calls.length, 0);
+  await app.close();
+});
+
+test('POST /detect-image rejects another origin, namespace, or bucket', async () => {
+  const app = await buildTestApp();
+  for (const imageUrl of [
+    'https://attacker.example.com/p/upload-token/n/ns/b/bucket/o/user-v1-food/photo.jpg',
+    'https://objectstorage.example.com/p/upload-token/n/other/b/bucket/o/user-v1-food/photo.jpg',
+    'https://objectstorage.example.com/p/upload-token/n/ns/b/other/o/user-v1-food/photo.jpg',
+  ]) {
+    mockAnalyzeImageFromUrl.mock.resetCalls();
+    const response = await app.inject({
+      method: 'POST',
+      url: '/api/v1/food/detect-image',
+      headers: { ...authBearer },
+      payload: { imageUrl },
+    });
+    assert.equal(response.statusCode, 400, imageUrl);
+    assert.equal(mockAnalyzeImageFromUrl.mock.calls.length, 0, imageUrl);
+  }
   await app.close();
 });
 
 test('POST /detect-image returns 500 when service throws', async () => {
+  const secret = 'signed-url-token=detect-image-secret-value';
   mockAnalyzeImageFromUrl.mock.mockImplementationOnce(async () => {
-    throw new Error('Vision API unavailable');
+    throw new Error(`Vision API unavailable: ${secret}`);
   });
   const app = await buildTestApp();
-  const imageUrl = 'https://storage.example.com/v0/b/bucket/o/image.jpg';
+  const imageUrl =
+    'https://objectstorage.example.com/p/upload-token/n/ns/b/bucket/o/user-v1-food/image.jpg';
   const response = await app.inject({
     method: 'POST',
     url: '/api/v1/food/detect-image',
@@ -630,7 +738,11 @@ test('POST /detect-image returns 500 when service throws', async () => {
   });
   assert.equal(response.statusCode, 500);
   const body = response.json();
-  assert.ok(body.message.includes('Vision API unavailable'));
+  assert.deepEqual(body, {
+    ok: false,
+    message: 'Failed to detect meal from image',
+  });
+  assert.equal(response.body.includes(secret), false);
   await app.close();
 });
 
@@ -669,6 +781,32 @@ test('POST /analyze-image passes locale from Accept-Language header', async () =
   assert.equal(response.statusCode, 200);
   const call = mockAnalyzeImageFromBuffer.mock.calls[0];
   assert.equal(call!.arguments[2], 'es');
+  await app.close();
+});
+
+test('POST /analyze-image does not expose provider exceptions', async () => {
+  const secret = 'provider-key=upload-analysis-secret-value';
+  mockAnalyzeImageFromBuffer.mock.mockImplementationOnce(async () => {
+    throw new Error(`Image provider failed: ${secret}`);
+  });
+  const app = await buildTestApp();
+  const { payload, contentType } = buildMultipartFile(
+    Buffer.alloc(100),
+    'meal.jpg',
+    'image/jpeg'
+  );
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v1/food/analyze-image',
+    headers: { ...authBearer, 'content-type': contentType },
+    payload,
+  });
+  assert.equal(response.statusCode, 500);
+  assert.deepEqual(response.json(), {
+    ok: false,
+    message: 'Failed to analyze image',
+  });
+  assert.equal(response.body.includes(secret), false);
   await app.close();
 });
 

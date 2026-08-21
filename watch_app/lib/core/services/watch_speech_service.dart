@@ -5,17 +5,58 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-typedef WatchSpeechResultCallback = void Function(SpeechRecognitionResult);
-typedef WatchSpeechStatusCallback = void Function(String);
-typedef WatchSpeechErrorCallback = void Function(SpeechRecognitionError);
+final class WatchSpeechResult {
+  const WatchSpeechResult({required this.words, required this.isFinal});
+
+  final String words;
+  final bool isFinal;
+}
+
+enum WatchSpeechStatus { listening, done, notListening, other }
+
+enum WatchSpeechErrorCode {
+  permission,
+  network,
+  audio,
+  busy,
+  languageUnsupported,
+  throttled,
+  unknown,
+}
+
+typedef WatchSpeechResultCallback = void Function(WatchSpeechResult);
+typedef WatchSpeechStatusCallback = void Function(WatchSpeechStatus);
+typedef WatchSpeechErrorCallback = void Function(WatchSpeechErrorCode);
 typedef WatchSoundLevelCallback = void Function(double);
+
+abstract interface class WatchSpeechSession {
+  bool get isListening;
+
+  Future<bool> initialize();
+
+  Future<bool> start({
+    required Object owner,
+    required WatchSpeechResultCallback onResult,
+    required WatchSpeechStatusCallback onStatus,
+    required WatchSpeechErrorCallback onError,
+    required WatchSoundLevelCallback onSoundLevel,
+    required Duration listenFor,
+    required Duration pauseFor,
+  });
+
+  Future<void> stop(Object owner);
+
+  Future<void> cancel(Object owner);
+
+  void detach(Object owner);
+}
 
 /// Owns the process-wide speech recognizer used by the watch.
 ///
 /// `SpeechToText` is a singleton on Android. Keeping its platform callbacks in
 /// this service prevents them from remaining attached to a disposed meal-log
 /// screen when the user opens voice input for a second time.
-class WatchSpeechService {
+class WatchSpeechService implements WatchSpeechSession {
   WatchSpeechService._(this._speech);
 
   @visibleForTesting
@@ -36,8 +77,10 @@ class WatchSpeechService {
   WatchSpeechErrorCallback? _errorCallback;
   WatchSoundLevelCallback? _soundLevelCallback;
 
+  @override
   bool get isListening => _speech.isListening;
 
+  @override
   Future<bool> initialize() {
     if (_ready) return Future.value(true);
     return _initialization ??= _initialize().whenComplete(() {
@@ -79,6 +122,7 @@ class WatchSpeechService {
     }
   }
 
+  @override
   Future<bool> start({
     required Object owner,
     required WatchSpeechResultCallback onResult,
@@ -118,16 +162,19 @@ class WatchSpeechService {
     return _speech.isListening;
   }
 
+  @override
   Future<void> stop(Object owner) async {
     if (!identical(_owner, owner)) return;
     await _speech.stop();
   }
 
+  @override
   Future<void> cancel(Object owner) async {
     if (!identical(_owner, owner)) return;
     await _speech.cancel();
   }
 
+  @override
   void detach(Object owner) {
     if (!identical(_owner, owner)) return;
     _owner = null;
@@ -139,15 +186,35 @@ class WatchSpeechService {
   }
 
   void _handleResult(SpeechRecognitionResult result) {
-    _resultCallback?.call(result);
+    _resultCallback?.call(
+      WatchSpeechResult(
+        words: result.recognizedWords,
+        isFinal: result.finalResult,
+      ),
+    );
   }
 
   void _handleStatus(String status) {
-    _statusCallback?.call(status);
+    _statusCallback?.call(switch (status) {
+      stt.SpeechToText.listeningStatus => WatchSpeechStatus.listening,
+      stt.SpeechToText.doneStatus => WatchSpeechStatus.done,
+      stt.SpeechToText.notListeningStatus => WatchSpeechStatus.notListening,
+      _ => WatchSpeechStatus.other,
+    });
   }
 
   void _handleError(SpeechRecognitionError error) {
-    _errorCallback?.call(error);
+    _errorCallback?.call(switch (error.errorMsg) {
+      'error_permission' => WatchSpeechErrorCode.permission,
+      'error_network' ||
+      'error_network_timeout' => WatchSpeechErrorCode.network,
+      'error_audio' || 'error_audio_error' => WatchSpeechErrorCode.audio,
+      'error_busy' => WatchSpeechErrorCode.busy,
+      'error_language_not_supported' ||
+      'error_language_unavailable' => WatchSpeechErrorCode.languageUnsupported,
+      'error_too_many_requests' => WatchSpeechErrorCode.throttled,
+      _ => WatchSpeechErrorCode.unknown,
+    });
   }
 
   void _handleSoundLevel(double level) {

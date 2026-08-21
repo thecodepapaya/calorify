@@ -16,7 +16,6 @@ interface Config {
     readonly APP_VERSION: string;
     readonly DEBUG: boolean;
     readonly API_V1_STR: string;
-    readonly SECRET_KEY: string;
     readonly DATABASE_URL: string | null;
     readonly FIREBASE_SERVICE_ACCOUNT_PATH: string | null;
     readonly ENVIRONMENT: 'development' | 'staging' | 'production';
@@ -28,13 +27,8 @@ interface Config {
     readonly OPENROUTER_MEAL_MODEL: string;
     readonly OPENROUTER_FREE_MODEL: string;
     readonly OPENROUTER_HTTP_REFERER: string | null;
-    readonly GEMINI_API_KEY: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
     readonly LOKI_URL: string | null;
-    /** Log full request/response bodies in JSON logs (Grafana/Loki). Default true for staging, false for production. */
-    readonly LOG_REQUEST_RESPONSE_BODIES: boolean;
-    /** Max size in bytes for request/response body in logs. Larger bodies are truncated. */
-    readonly MAX_BODY_LOG_BYTES: number;
     /** Trust X-Forwarded-* headers for client IP (set true when behind a proxy/load balancer). */
     readonly TRUST_PROXY: boolean;
     readonly USDA_AUTO_REFRESH_ENABLED: boolean;
@@ -117,8 +111,8 @@ function validateFirebaseServiceAccount(path: string | null): string | null {
         const content = readFileSync(resolvedPath, 'utf-8');
         JSON.parse(content); // Validate it's valid JSON
         return resolvedPath;
-    } catch (error) {
-        throw new Error(`Invalid FIREBASE_SERVICE_ACCOUNT_PATH: ${path}. Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } catch {
+        throw new Error('Unable to read Firebase service account configuration');
     }
 }
 
@@ -140,7 +134,6 @@ const config: Config = {
     APP_VERSION: getAppVersion(),
     DEBUG: getEnvVarBoolean('DEBUG', true),
     API_V1_STR: getEnvVar('API_V1_STR', '/api/v1'),
-    SECRET_KEY: getEnvVar('SECRET_KEY', 'DEFAULT_SECRET_KEY'),
     DATABASE_URL: getEnvVarOptional('DATABASE_URL'),
     FIREBASE_SERVICE_ACCOUNT_PATH: validateFirebaseServiceAccount(
         getEnvVarOptional('FIREBASE_SERVICE_ACCOUNT_PATH')
@@ -162,15 +155,9 @@ const config: Config = {
     // request's capabilities (vision / structured output where required).
     OPENROUTER_FREE_MODEL: getEnvVar('OPENROUTER_FREE_MODEL', 'openrouter/free'),
     OPENROUTER_HTTP_REFERER: getEnvVarOptional('OPENROUTER_HTTP_REFERER'),
-    GEMINI_API_KEY: getEnvVarOptional('GEMINI_API_KEY'),
     // Pre-authenticated URLs are bearer credentials and must only come from env.
     ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar('ORACLE_BUCKET_DOWNLOAD_URL', ''),
     LOKI_URL: getEnvVarOptional('LOKI_URL'),
-    LOG_REQUEST_RESPONSE_BODIES: getEnvVarBoolean(
-        'LOG_REQUEST_RESPONSE_BODIES',
-        false
-    ),
-    MAX_BODY_LOG_BYTES: getEnvVarNumber('MAX_BODY_LOG_BYTES', 8192),
     TRUST_PROXY: getEnvVarBoolean('TRUST_PROXY', false),
     USDA_AUTO_REFRESH_ENABLED: getEnvVarBoolean('USDA_AUTO_REFRESH_ENABLED', false),
     USDA_REFRESH_CRON: getEnvVar('USDA_REFRESH_CRON', '0 3 1 * *'),
@@ -186,9 +173,6 @@ const config: Config = {
 
 // Validate critical settings in production
 if (config.ENVIRONMENT === 'production') {
-    if (config.SECRET_KEY === 'DEFAULT_SECRET_KEY') {
-        throw new Error('SECRET_KEY must be set to a secure value in production');
-    }
     if (config.DEBUG === true) {
         throw new Error('DEBUG must be false in production');
     }

@@ -155,14 +155,6 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
         rowCount: await count(db.favoriteMealTable),
       ),
     );
-    results.add(
-      _TableMeta(
-        id: 'sync_queue',
-        displayName: 'sync_queue',
-        rowCount: await count(db.syncQueueTable),
-      ),
-    );
-
     return results;
   }
 
@@ -270,32 +262,6 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
               ..limit(100);
         final rows = await query.get();
         return rows.map((r) => r.toJson()).toList();
-      case 'sync_queue':
-        final query =
-            db.select(db.syncQueueTable)
-              ..orderBy([
-                (t) => OrderingTerm(
-                  expression: t.createdAt,
-                  mode: OrderingMode.desc,
-                ),
-              ])
-              ..limit(100);
-        final rows = await query.get();
-        return rows
-            .map(
-              (r) => <String, dynamic>{
-                'id': r.id,
-                'opType': r.opType,
-                'idempotencyKey': r.idempotencyKey,
-                'attemptCount': r.attemptCount,
-                'createdAt': r.createdAt.toIso8601String(),
-                'lastAttemptAt': r.lastAttemptAt?.toIso8601String(),
-                'nextRetryAt': r.nextRetryAt?.toIso8601String(),
-                'lastError': r.lastError,
-                'payloadBytes': r.payload.length,
-              },
-            )
-            .toList();
       default:
         return const <Map<String, dynamic>>[];
     }

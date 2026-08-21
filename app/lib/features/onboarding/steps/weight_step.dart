@@ -1,15 +1,16 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/shared_widgets/app_filled_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/weight_scale_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 
-class WeightStepScreen extends StatefulWidget {
+class WeightStepScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   final bool isTargetWeight;
   const WeightStepScreen({
@@ -19,10 +20,10 @@ class WeightStepScreen extends StatefulWidget {
   });
 
   @override
-  State<WeightStepScreen> createState() => _WeightStepScreenState();
+  ConsumerState<WeightStepScreen> createState() => _WeightStepScreenState();
 }
 
-class _WeightStepScreenState extends State<WeightStepScreen> {
+class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
   double _weight = 70;
   UnitSystem _unitSystem = UnitSystem.METRIC;
   bool _isSaving = false;
@@ -34,7 +35,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
   }
 
   Future<void> _loadData() async {
-    final profile = await OnboardingService.instance.getProfileData();
+    final profile = await ref.read(onboardingServiceProvider).getProfileData();
     if (!mounted) return;
     if (profile != null) {
       setState(() {
@@ -48,9 +49,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
           _weight = weight;
         } else {
           // Calculate ideal weight as default if no value saved
-          final ideal = OnboardingService.instance.calculateIdealWeight(
-            profile,
-          );
+          final ideal = ref.read(profileMetricsProvider).idealWeight(profile);
           if (ideal != null) {
             _weight = ideal;
           } else {
@@ -165,7 +164,8 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
               ],
             ),
           const SizedBox(height: 32),
-          AppFilledButton(
+          AppButton(
+            variant: AppButtonVariant.filled,
             onPressed: _isSaving ? null : _saveAndContinue,
             isLoading: _isSaving,
             text: t.onboarding.weight.next,
@@ -207,8 +207,8 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
     if (_isSaving) return;
     setState(() => _isSaving = true);
     try {
-      final profile =
-          await OnboardingService.instance.getProfileData() ?? UserProfile();
+      final onboardingService = ref.read(onboardingServiceProvider);
+      final profile = await onboardingService.getProfileData() ?? UserProfile();
       final updatedProfile = profile.deepCopy();
       if (widget.isTargetWeight) {
         updatedProfile.targetWeight = _weight;
@@ -216,7 +216,7 @@ class _WeightStepScreenState extends State<WeightStepScreen> {
         updatedProfile.weight = _weight;
       }
       updatedProfile.weightUnit = _unitSystem;
-      await OnboardingService.instance.saveProfileData(updatedProfile);
+      await onboardingService.saveProfileData(updatedProfile);
       if (!mounted) return;
       Analytics.instance.logEvent(
         widget.isTargetWeight

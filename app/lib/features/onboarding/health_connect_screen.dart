@@ -3,23 +3,24 @@ import 'dart:async';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
-import 'package:calorify/core/services/health_service.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/primary_button.dart';
-import 'package:calorify/shared_widgets/secondary_button.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class HealthConnectScreen extends StatefulWidget {
+class HealthConnectScreen extends ConsumerStatefulWidget {
   final VoidCallback onContinue;
   const HealthConnectScreen({super.key, required this.onContinue});
 
   @override
-  State<HealthConnectScreen> createState() => _HealthConnectScreenState();
+  ConsumerState<HealthConnectScreen> createState() =>
+      _HealthConnectScreenState();
 }
 
-class _HealthConnectScreenState extends State<HealthConnectScreen>
+class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
     with WidgetsBindingObserver {
   bool _isLoading = false;
   bool _healthConnectEnabled = false;
@@ -48,7 +49,7 @@ class _HealthConnectScreenState extends State<HealthConnectScreen>
   Future<void> _checkHealthConnectStatus() async {
     if (mounted) setState(() => _isLoading = true);
     final isAuthorized =
-        await HealthService.instance.refreshAuthorizationStatus();
+        await ref.read(healthServiceProvider).refreshAuthorizationStatus();
     if (!mounted) return;
     setState(() {
       _healthConnectEnabled = isAuthorized;
@@ -196,7 +197,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen>
             child: Column(
               children: [
                 if (_healthConnectEnabled)
-                  PrimaryButton(
+                  AppButton(
+                    variant: AppButtonVariant.primary,
                     analyticsEvent:
                         AnalyticsEvent.onboardingContinueHealthConnect,
                     onPressed: _navigateToReminderNotifications,
@@ -204,7 +206,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen>
                     trailingIcon: LucideIcons.arrowRight,
                   )
                 else ...[
-                  PrimaryButton(
+                  AppButton(
+                    variant: AppButtonVariant.primary,
                     analyticsEvent: AnalyticsEvent.onboardingSetupHealthConnect,
                     onPressed: _isLoading ? null : _setupHealthConnect,
                     text: t.onboarding.healthConnect.setup,
@@ -212,7 +215,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen>
                     isLoading: _isLoading,
                   ),
                   const SizedBox(height: 16),
-                  SecondaryButton(
+                  AppButton(
+                    variant: AppButtonVariant.secondary,
                     analyticsEvent: AnalyticsEvent.onboardingSkipHealthConnect,
                     onPressed: _navigateToReminderNotifications,
                     text: t.onboarding.healthConnect.skipForNow,
@@ -277,7 +281,8 @@ class _HealthConnectScreenState extends State<HealthConnectScreen>
     });
 
     try {
-      final success = await HealthService.instance.requestAuthorization();
+      final success =
+          await ref.read(healthServiceProvider).requestAuthorization();
       if (!mounted) return;
 
       // Track permission result

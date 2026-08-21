@@ -1,9 +1,11 @@
 library;
 
+export 'src/date_codec.dart';
 export 'src/legacy_json.dart';
 export 'src/meal_analysis_pipeline_event.dart';
 export 'src/meal_analysis_pipeline_session_context_ext.dart';
 export 'src/proto_extensions.dart';
+export 'src/wear_protocol.dart';
 export 'src/protos/app/meal.pb.dart';
 export 'src/protos/app/meal.pbenum.dart';
 export 'src/protos/app/sync.pb.dart';
@@ -24,4 +26,6 @@ export 'src/protos/meal/meal.pb.dart';
 export 'src/protos/meal/meal.pbenum.dart';
 export 'src/protos/user/user.pb.dart';
 export 'src/protos/user/user.pbenum.dart';
+export 'src/protos/wear/wear_protocol.pb.dart';
+export 'src/protos/wear/wear_protocol.pbenum.dart';
 export 'src/scale_constants.dart';

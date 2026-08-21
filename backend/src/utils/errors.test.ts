@@ -1,112 +1,69 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createErrorResponse, errorHandler } from './errors.js';
 import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
+import { errorHandler } from './errors.js';
 
-// ---------------------------------------------------------------------------
-// createErrorResponse
-// ---------------------------------------------------------------------------
-
-test('createErrorResponse returns ApiResult with ok false and message', () => {
-  const response = createErrorResponse('Something went wrong');
-  assert.deepEqual(response, { ok: false, message: 'Something went wrong' });
-});
-
-test('createErrorResponse with empty string', () => {
-  const response = createErrorResponse('');
-  assert.deepEqual(response, { ok: false, message: '' });
-});
-
-test('createErrorResponse with special characters', () => {
-  const response = createErrorResponse('Error: <script>alert("xss")</script>');
-  assert.equal(response.message, 'Error: <script>alert("xss")</script>');
-});
-
-test('createErrorResponse with long message', () => {
-  const longMessage = 'a'.repeat(10000);
-  const response = createErrorResponse(longMessage);
-  assert.equal(response.message, longMessage);
-});
-
-// ---------------------------------------------------------------------------
-// errorHandler
-// ---------------------------------------------------------------------------
-
-test('errorHandler sends statusCode from error', async () => {
-  let sentStatus: number | undefined;
-  let sentBody: unknown;
-
-  const mockReply = {
-    status: (code: number) => {
-      sentStatus = code;
-      return mockReply;
+function harness() {
+  let statusCode: number | undefined;
+  let body: unknown;
+  const logs: unknown[][] = [];
+  const request = {
+    log: {
+      error: (...values: unknown[]) => logs.push(values),
+      warn: (...values: unknown[]) => logs.push(values),
     },
-    send: (body: unknown) => {
-      sentBody = body;
+  } as unknown as FastifyRequest;
+  const reply = {
+    status(code: number) {
+      statusCode = code;
+      return this;
+    },
+    send(payload: unknown) {
+      body = payload;
+      return this;
     },
   } as unknown as FastifyReply;
+  return {
+    request,
+    reply,
+    logs,
+    result: () => ({ statusCode, body }),
+  };
+}
 
-  const error: FastifyError = Object.assign(new Error('Not found') as any, {
-    statusCode: 404,
+test('errorHandler redacts unexpected server errors from clients and logs', async () => {
+  const secret = 'SIGNED_URL_AND_PRIVATE_MEAL';
+  const error = Object.assign(new Error(`provider echoed ${secret}`), {
+    statusCode: 500,
+  }) as FastifyError;
+  const target = harness();
+
+  await errorHandler(error, target.request, target.reply);
+
+  assert.deepEqual(target.result(), {
+    statusCode: 500,
+    body: { ok: false, message: 'Internal Server Error' },
   });
-
-  await errorHandler(error, {} as FastifyRequest, mockReply);
-  assert.equal(sentStatus, 404);
-  assert.deepEqual(sentBody, { ok: false, message: 'Not found' });
+  assert.doesNotMatch(JSON.stringify(target.logs), new RegExp(secret));
+  assert.deepEqual(target.logs[0]?.[0], {
+    type: 'request_error',
+    statusCode: 500,
+    errorKind: 'http_500',
+  });
 });
 
-test('errorHandler defaults to 500 when statusCode is missing', async () => {
-  let sentStatus: number | undefined;
-  let sentBody: unknown;
-
-  const mockReply = {
-    status: (code: number) => {
-      sentStatus = code;
-      return mockReply;
-    },
-    send: (body: unknown) => {
-      sentBody = body;
-    },
-  } as unknown as FastifyReply;
-
-  const error = { message: 'Unexpected error' } as FastifyError;
-
-  await errorHandler(error, {} as FastifyRequest, mockReply);
-  assert.equal(sentStatus, 500);
-  assert.deepEqual(sentBody, { ok: false, message: 'Unexpected error' });
-});
-
-test('errorHandler defaults message to Internal Server Error when message is missing', async () => {
-  let sentBody: unknown;
-
-  const mockReply = {
-    status: (_code: number) => mockReply,
-    send: (body: unknown) => {
-      sentBody = body;
-    },
-  } as unknown as FastifyReply;
-
-  const error = { statusCode: 503 } as FastifyError;
-
-  await errorHandler(error, {} as FastifyRequest, mockReply);
-  assert.deepEqual(sentBody, { ok: false, message: 'Internal Server Error' });
-});
-
-test('errorHandler uses statusCode 400 for validation errors', async () => {
-  let sentStatus: number | undefined;
-
-  const mockReply = {
-    status: (code: number) => {
-      sentStatus = code;
-      return mockReply;
-    },
-    send: (_body: unknown) => {},
-  } as unknown as FastifyReply;
-
-  const error: FastifyError = Object.assign(new Error('body/field is required') as any, {
+test('errorHandler preserves actionable Fastify validation messages', async () => {
+  const error = Object.assign(new Error('body must have required property textDescription'), {
+    code: 'FST_ERR_VALIDATION',
     statusCode: 400,
-  });
+    validation: [],
+  }) as FastifyError;
+  const target = harness();
 
-  await errorHandler(error, {} as FastifyRequest, mockReply);
-  assert.equal(sentStatus, 400);
+  await errorHandler(error, target.request, target.reply);
+
+  assert.deepEqual(target.result(), {
+    statusCode: 400,
+    body: { ok: false, message: 'body must have required property textDescription' },
+  });
 });

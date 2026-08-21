@@ -31,6 +31,18 @@ message MealAnalysisTipsResponse {
 }
 
 
+message MealAnalysisTextRequest {
+  optional string analysis_id = 1;
+  string text_description = 2;
+}
+
+
+message MealAnalysisImageRequest {
+  optional string analysis_id = 1;
+  string image_url = 2;
+}
+
+
 enum MealAnalysisFeedbackSignal {
   SIGNAL_UNSPECIFIED = 0;
   UP = 1;
@@ -62,6 +74,11 @@ message MealAnalysisClarifyRequest {
 }
 
 
+message MealAnalysisResumeRequest {
+  string analysis_id = 1;
+}
+
+
 message MealAnalysisMealTypeRequest {
   string analysis_id = 1;
   meal.MealType meal_type = 2;
@@ -83,4 +100,5 @@ message MealAnalysisReanalyzeRequest {
   string analysis_id = 1;
   repeated MealReanalyzeFeedbackIssue issues = 2;
   optional string other_text = 3;
+  optional string new_analysis_id = 4;
 }

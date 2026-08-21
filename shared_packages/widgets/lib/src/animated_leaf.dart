@@ -33,7 +33,6 @@ class _AnimatedLeafState extends State<AnimatedLeaf>
       _controller.repeat(reverse: true);
     }
 
-
     final double maxRotationRadians = 10 * (pi / 180);
 
     _animation = Tween<double>(

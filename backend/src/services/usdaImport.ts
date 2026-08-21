@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'csv-parse';
-import { getClient, query } from './database.js';
+import { getClient } from './database.js';
 import { assessUsdaNutritionQuality } from './usdaLookupUtils.js';
 import { clearUsdaLookupCache } from './usdaLookup.js';
 
@@ -43,6 +43,8 @@ export interface UsdaImportOptions {
 }
 
 const DEFAULT_USDA_DIR = join(process.cwd(), 'data', 'usda');
+const USDA_IMPORT_LOCK_SQL =
+  "SELECT pg_advisory_xact_lock(hashtext('calorify:usda-active-snapshot'))";
 
 function normalize(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
@@ -232,6 +234,11 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
   checksum: string;
   skippedReason?: string;
 }> {
+  const makeActive = options.makeActive ?? true;
+  if (!makeActive) {
+    throw new Error('USDA imports must replace the active snapshot');
+  }
+
   const usdaDir = options.dataDir ?? DEFAULT_USDA_DIR;
   const importSource = options.importSource ?? 'local_csv';
   const foodCsv = join(usdaDir, 'food.csv');
@@ -243,28 +250,53 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
   const macros = await loadFoodNutrients(foodNutrientCsv, nutrientMap);
   const checksum = await calculateChecksum(foods, macros);
 
-  const existing = await query<{ dataset_version: string; checksum: string }>(
-    `SELECT dataset_version, checksum
-       FROM usda_dataset_version
-      WHERE dataset_version = $1
-      LIMIT 1`,
-    [options.datasetVersion]
-  );
-
-  if (existing.rowCount > 0 && existing.rows[0].checksum === checksum) {
-    if (options.makeActive ?? true) {
-      await query('UPDATE usda_dataset_version SET is_active = FALSE WHERE is_active = TRUE');
-      await query('UPDATE usda_dataset_version SET is_active = TRUE WHERE dataset_version = $1', [
-        options.datasetVersion,
-      ]);
-    }
-    return { imported: false, rowCount: foods.size, checksum, skippedReason: 'Dataset version already imported' };
-  }
-
   const client = await getClient();
   try {
     await client.query('BEGIN');
+    // Imports may be started by bootstrap, cron, and an operator script. A
+    // transaction-scoped database lock serializes them across every process.
+    await client.query(USDA_IMPORT_LOCK_SQL);
+
+    const existing = await client.query<{
+      checksum: string;
+      is_active: boolean;
+      is_materialized: boolean;
+    }>(
+      `SELECT checksum, is_active, is_materialized
+         FROM usda_dataset_version
+        WHERE dataset_version = $1
+        LIMIT 1`,
+      [options.datasetVersion]
+    );
+
+    if (
+      existing.rows[0]?.checksum === checksum &&
+      existing.rows[0].is_active &&
+      existing.rows[0].is_materialized
+    ) {
+      await client.query('COMMIT');
+      return {
+        imported: false,
+        rowCount: foods.size,
+        checksum,
+        skippedReason: 'Dataset version already imported',
+      };
+    }
+
+    // usda_foods is the one materialized active snapshot. Replacing it inside
+    // this transaction gives readers either the complete old release or the
+    // complete new release and removes IDs absent from the new CSV.
+    await client.query('DELETE FROM usda_foods');
     const rowCount = await upsertFoods(foods, macros, (text, params) => client.query(text, params));
+
+    // Clear the previous active marker before inserting/updating the new one;
+    // the partial unique index permits only one TRUE row at a time.
+    await client.query(
+      `UPDATE usda_dataset_version
+          SET is_active = FALSE,
+              is_materialized = FALSE
+        WHERE is_active = TRUE OR is_materialized = TRUE`
+    );
     await client.query(
       `INSERT INTO usda_dataset_version (
         dataset_version,
@@ -273,29 +305,25 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
         row_count,
         import_source,
         imported_at,
-        is_active
-      ) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, $6)
+        is_active,
+        is_materialized
+      ) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, TRUE, TRUE)
       ON CONFLICT (dataset_version) DO UPDATE SET
         source_release_date = EXCLUDED.source_release_date,
         checksum = EXCLUDED.checksum,
         row_count = EXCLUDED.row_count,
         import_source = EXCLUDED.import_source,
         imported_at = CURRENT_TIMESTAMP,
-        is_active = EXCLUDED.is_active`,
+        is_active = TRUE,
+        is_materialized = TRUE`,
       [
         options.datasetVersion,
         options.sourceReleaseDate ?? null,
         checksum,
         rowCount,
         importSource,
-        options.makeActive ?? true,
       ]
     );
-    if (options.makeActive ?? true) {
-      await client.query('UPDATE usda_dataset_version SET is_active = FALSE WHERE dataset_version <> $1', [
-        options.datasetVersion,
-      ]);
-    }
     await client.query('COMMIT');
     clearUsdaLookupCache();
     return { imported: true, rowCount, checksum };

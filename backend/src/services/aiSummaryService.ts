@@ -1,6 +1,7 @@
 import OpenAI, { toFile } from './openaiClient.js';
 import config from '../config.js';
 import { OPENAI_AI_SUMMARY_MODEL } from '../openaiModels.js';
+import { safeErrorMetadata } from '../utils/safeError.js';
 import { query } from './database.js';
 import { calendarDateInTimeZone } from '../utils/timezone.js';
 import {
@@ -168,14 +169,15 @@ export async function collectMealDataForUsers(
 
 /**
  * Builds a JSONL string where each line is one OpenAI batch request.
- * custom_id = userId (unique per batch; Firebase UIDs are already unique).
+ * custom_id is batch-local so stable Firebase identities are not disclosed to
+ * the provider alongside meal-history data.
  */
 function buildBatchJsonl(requests: UserSummaryRequest[]): string {
   return requests
-    .map((req) => {
+    .map((req, index) => {
       const systemPrompt = SYSTEM_PROMPT_TEMPLATE.replace('{locale}', req.locale);
       const line = {
-        custom_id: req.userId,
+        custom_id: `request-${index + 1}`,
         method: 'POST',
         url: '/v1/chat/completions',
         body: {
@@ -208,7 +210,7 @@ export function splitSummaryRequestsIntoBatches(
   for (const request of requests) {
     const requestBytes = Buffer.byteLength(buildBatchJsonl([request]), 'utf8') + 1;
     if (requestBytes > BATCH_MAX_BYTES) {
-      throw new Error(`AI summary request for user ${request.userId} exceeds the batch file limit`);
+      throw new Error('An AI summary request exceeds the batch file limit');
     }
     if (
       chunk.length > 0 &&
@@ -234,8 +236,8 @@ export interface SubmittedBatch {
 
 function buildUserData(requests: UserSummaryRequest[]): Record<string, BatchUserMeta> {
   const userData: Record<string, BatchUserMeta> = Object.create(null);
-  for (const req of requests) {
-    userData[req.userId] = {
+  for (const [index, req] of requests.entries()) {
+    userData[`request-${index + 1}`] = {
       userId: req.userId,
       locale: req.locale,
       timeZone: req.timeZone,
@@ -352,10 +354,11 @@ export async function pollAndProcessBatch(
   let savedCount = 0;
   let errorCount = 0;
   let persistenceFailed = false;
-  const seenUserIds = new Set<string>();
+  const seenCustomIds = new Set<string>();
   const errors: string[] = [];
 
-  for (const line of lines) {
+  for (const [resultIndex, line] of lines.entries()) {
+    const requestNumber = resultIndex + 1;
     let result: {
       custom_id: string;
       response?: { status_code: number; body?: { choices?: Array<{ message?: { content?: string } }> } };
@@ -373,16 +376,18 @@ export async function pollAndProcessBatch(
     if (!meta) {
       errorCount++;
       console.error(
-        `[aiSummaryService] Batch result custom_id not in stored user_data: ${String(result.custom_id)}`
+        `[aiSummaryService] Batch result ${requestNumber} did not match stored request metadata`
       );
       continue;
     }
-    seenUserIds.add(result.custom_id);
+    seenCustomIds.add(result.custom_id);
 
     if (result.error || result.response?.status_code !== 200) {
       errorCount++;
-      errors.push(`Provider request failed for user ${meta.userId}`);
-      console.error(`[aiSummaryService] Batch result error for user ${meta.userId}:`, result.error);
+      errors.push(`Provider request ${requestNumber} failed`);
+      console.error(
+        `[aiSummaryService] Provider request ${requestNumber} failed with status ${result.response?.status_code ?? 'error'}`
+      );
       continue;
     }
 
@@ -397,9 +402,9 @@ export async function pollAndProcessBatch(
 
     if (!summary) {
       errorCount++;
-      errors.push(`Provider returned no summary for user ${meta.userId}`);
+      errors.push(`Provider returned no summary for request ${requestNumber}`);
       console.error(
-        `[aiSummaryService] Batch result missing or empty "summary" for user ${meta.userId} after parsing model output`
+        `[aiSummaryService] Batch result ${requestNumber} had no usable summary after parsing model output`
       );
       continue;
     }
@@ -417,15 +422,18 @@ export async function pollAndProcessBatch(
     } catch (err) {
       errorCount++;
       persistenceFailed = true;
-      errors.push(`Database save failed for user ${meta.userId}`);
-      console.error(`[aiSummaryService] Failed to save summary for user ${meta.userId}:`, err);
+      errors.push(`Database save failed for request ${requestNumber}`);
+      console.error(
+        `[aiSummaryService] Database save failed for request ${requestNumber}`,
+        safeErrorMetadata(err, 'ai_summary_save_failed')
+      );
     }
   }
 
-  for (const [customId, meta] of Object.entries(userData)) {
-    if (seenUserIds.has(customId)) continue;
+  for (const [requestIndex, customId] of Object.keys(userData).entries()) {
+    if (seenCustomIds.has(customId)) continue;
     errorCount++;
-    errors.push(`Provider returned no result for user ${meta.userId}`);
+    errors.push(`Provider returned no result for request ${requestIndex + 1}`);
   }
 
   if (persistenceFailed) {
@@ -550,7 +558,7 @@ export async function reconcileCreatingBatches(): Promise<void> {
   } catch (err) {
     console.error(
       '[aiSummaryService] Failed to reconcile creating batches:',
-      err instanceof Error ? err.message : err
+      safeErrorMetadata(err, 'batch_reconciliation_failed')
     );
     return;
   }

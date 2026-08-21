@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/router/guards/onboarding_guard.dart';
+import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/features/auth/login_screen.dart';
 import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
@@ -22,6 +23,11 @@ part 'app_router.gr.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
+  AppRouter({required OnboardingService onboardingService})
+    : _onboardingGuard = OnboardingGuard(onboardingService);
+
+  final OnboardingGuard _onboardingGuard;
+
   @override
   RouteType get defaultRouteType => const RouteType.cupertino();
 
@@ -36,7 +42,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: OnboardingRoute.page),
     CustomRoute(
       page: MainRoute.page,
-      guards: [OnboardingGuard()],
+      guards: [_onboardingGuard],
       transitionsBuilder: TransitionsBuilders.fadeIn,
       children: [
         AutoRoute(page: HomeRoute.page, initial: true),
@@ -44,13 +50,16 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: MealHistoryRoute.page),
       ],
     ),
-    AutoRoute(page: ProfileRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: FavoritesRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: EditProfileRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: EditReminderRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: SettingsRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: HealthConnectPermissionsRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: AboutRoute.page, guards: [OnboardingGuard()]),
-    AutoRoute(page: DebugOptionsRoute.page, guards: [OnboardingGuard()]),
+    AutoRoute(page: ProfileRoute.page, guards: [_onboardingGuard]),
+    AutoRoute(page: FavoritesRoute.page, guards: [_onboardingGuard]),
+    AutoRoute(page: EditProfileRoute.page, guards: [_onboardingGuard]),
+    AutoRoute(page: EditReminderRoute.page, guards: [_onboardingGuard]),
+    AutoRoute(page: SettingsRoute.page, guards: [_onboardingGuard]),
+    AutoRoute(
+      page: HealthConnectPermissionsRoute.page,
+      guards: [_onboardingGuard],
+    ),
+    AutoRoute(page: AboutRoute.page, guards: [_onboardingGuard]),
+    AutoRoute(page: DebugOptionsRoute.page, guards: [_onboardingGuard]),
   ];
 }

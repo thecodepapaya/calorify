@@ -13,16 +13,19 @@ import '../../setup/all_tests.dart';
 
 class MockDatabaseInterface extends Mock implements DatabaseInterface {}
 
+class MockHealthService extends Mock implements HealthService {}
+
 void main() {
   late MockDatabaseInterface database;
+  late MockHealthService healthService;
 
   setUpAll(setupAllTests);
 
   setUp(() {
     database = MockDatabaseInterface();
+    healthService = MockHealthService();
     DatabaseService.setMockInterface(database);
 
-    final healthService = HealthService.instance;
     when(
       () => healthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
@@ -58,7 +61,10 @@ void main() {
       wrapWithProviders(
         const MainScreen(),
         router: router,
-        overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+        overrides: [
+          healthServiceProvider.overrideWithValue(healthService),
+          aiSummaryProvider.overrideWith((ref) => null),
+        ],
       ),
     );
     await tester.pump();
@@ -78,7 +84,10 @@ void main() {
       wrapWithProviders(
         const MainScreen(),
         router: router,
-        overrides: [aiSummaryProvider.overrideWith((ref) => null)],
+        overrides: [
+          healthServiceProvider.overrideWithValue(healthService),
+          aiSummaryProvider.overrideWith((ref) => null),
+        ],
       ),
     );
     await tester.pump();
