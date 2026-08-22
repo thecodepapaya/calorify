@@ -280,6 +280,24 @@ test('POST /profile stores dateOfBirth as a calendar date', async () => {
   await app.close();
 });
 
+test('POST /profile normalizes legacy offset-less dateOfBirth timestamps', async () => {
+  resetQuery({ rows: [] });
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: PROFILE_URL,
+    headers: AUTH_HEADERS,
+    payload: { dateOfBirth: '1990-01-01T00:00:00.000' },
+  });
+  assert.equal(response.statusCode, 200, response.body);
+  const insertCall = mockQuery.mock.calls.find(
+    (call) => (call.arguments[0] as string).includes('INSERT INTO user_profile')
+  );
+  const params = insertCall!.arguments[1] as unknown[];
+  assert.equal(params[5], '1990-01-01');
+  await app.close();
+});
+
 test('POST /profile accepts empty body (all fields optional)', async () => {
   resetQuery({ rows: [] });
   const app = await buildTestApp();

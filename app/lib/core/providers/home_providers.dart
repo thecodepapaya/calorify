@@ -1,10 +1,14 @@
-export 'package:calorify/core/providers/app_dependencies.dart';
-
-import 'package:calorify/core/providers/app_dependencies.dart';
+import 'package:calorify/core/providers/app_dependencies.dart'
+    as app_dependencies;
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/models.dart';
+
+// local-inference consumers are intentionally outside this change and still
+// import this library for database access. Keep object identity while avoiding
+// the former broad re-export of every application dependency.
+final databaseInterfaceProvider = app_dependencies.databaseInterfaceProvider;
 
 final foodRepositoryProvider = Provider<FoodRepository>((ref) {
   return FoodRepository();
@@ -31,10 +35,13 @@ final aiSummaryProvider = FutureProvider.autoDispose<AiMealSummaryResponse?>((
 });
 
 final userProfileProvider = FutureProvider.autoDispose<UserProfile?>((ref) {
-  return ref.watch(onboardingServiceProvider).getProfileData();
+  return ref.watch(app_dependencies.onboardingServiceProvider).getProfileData();
 });
 
-final caloriesBurnedProvider = FutureProvider.autoDispose
-    .family<CaloriesResult?, int>((ref, refreshTrigger) {
-      return ref.watch(healthServiceProvider).getTotalCaloriesBurned();
-    });
+final caloriesBurnedProvider = FutureProvider.autoDispose<CaloriesResult?>((
+  ref,
+) {
+  return ref
+      .watch(app_dependencies.healthServiceProvider)
+      .getTotalCaloriesBurned();
+});

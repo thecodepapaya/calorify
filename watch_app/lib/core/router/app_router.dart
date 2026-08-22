@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify_watch/features/debug/debug_screen.dart';
 import 'package:calorify_watch/features/favorites/favorites_screen.dart';
 import 'package:calorify_watch/features/history/history_screen.dart';
 import 'package:calorify_watch/features/home/home_screen.dart';
@@ -29,6 +28,5 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: MealResultRoute.page),
     AutoRoute(page: HistoryRoute.page),
     AutoRoute(page: FavoritesRoute.page),
-    AutoRoute(page: DebugRoute.page),
   ];
 }

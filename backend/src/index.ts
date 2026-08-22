@@ -16,7 +16,6 @@ import { closeDatabase, initializeDatabase } from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
 import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
-import { startUsdaRefreshCron } from './jobs/usdaRefreshCron.js';
 import { bootstrapUsdaIfNeeded } from './services/usdaBootstrap.js';
 import {
   createShutdownCoordinator,
@@ -332,8 +331,6 @@ async function start() {
       // startup cleanup.
       if (config.DATABASE_URL) {
         cronTasks.push(startAiSummaryCron());
-        const usdaRefreshTask = startUsdaRefreshCron();
-        if (usdaRefreshTask) cronTasks.push(usdaRefreshTask);
       }
 
       const shutdown = createShutdownCoordinator({

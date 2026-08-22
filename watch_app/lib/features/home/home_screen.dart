@@ -6,7 +6,6 @@ import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -289,27 +288,6 @@ class _SyncStatusHeader extends StatelessWidget {
                       );
                     },
                   ),
-                  if (kDebugMode)
-                    GestureDetector(
-                      onTap: () {
-                        unawaited(HapticFeedback.lightImpact());
-                        context.router.push(const DebugRoute());
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: colorScheme.tertiaryContainer.withValues(
-                            alpha: 0.5,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          LucideIcons.bug,
-                          size: 12,
-                          color: colorScheme.tertiary,
-                        ),
-                      ),
-                    ),
                 ],
               ),
             ),

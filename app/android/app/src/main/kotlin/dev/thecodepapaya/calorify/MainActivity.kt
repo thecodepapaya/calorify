@@ -2,7 +2,6 @@ package dev.thecodepapaya.calorify
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.ApplicationInfo
 import android.os.Build
 import android.os.Bundle
 import io.flutter.embedding.android.FlutterFragmentActivity
@@ -21,11 +20,9 @@ class MainActivity : FlutterFragmentActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         wearOsHandler = WearOsMessageHandler(this, flutterEngine, coroutineScope)
-        val debugEnabled = applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
         localInferenceChannel = LocalInferenceChannel(
             flutterEngine,
             coroutineScope,
-            debugEnabled,
         )
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
@@ -87,10 +84,12 @@ class MainActivity : FlutterFragmentActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         wearOsHandler?.dispose()
+        wearOsHandler = null
         localInferenceChannel?.dispose()
+        localInferenceChannel = null
         job.cancel()
+        super.onDestroy()
     }
 
     private companion object {

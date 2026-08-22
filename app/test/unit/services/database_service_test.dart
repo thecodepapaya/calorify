@@ -22,11 +22,5 @@ void main() {
     test('databaseInterface returns mocked interface', () {
       expect(DatabaseService.databaseInterface, mockInterface);
     });
-
-    test('isUsingMockData follows DataSourceConfig (mock enabled by default in tests maybe?)', () {
-      // DataSourceConfig is not mocked here, so it will return real value
-      // But we can check if it returns a boolean
-      expect(DatabaseService.isUsingMockData, isA<bool>());
-    });
   });
 }

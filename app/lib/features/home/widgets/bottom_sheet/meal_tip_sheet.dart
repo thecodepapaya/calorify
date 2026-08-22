@@ -2,8 +2,10 @@ import 'dart:typed_data';
 
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:models/models.dart';
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    hide databaseInterfaceProvider;
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
@@ -108,7 +110,16 @@ class _MealTipState extends State<_MealTip> {
       _pipelineContext != null &&
       _mealDetectionResult != null &&
       widget.loggedMeal == null &&
+      _hasServerAnalysisSession &&
       !_pipelineContext!.isRevised;
+
+  bool get _hasServerAnalysisSession {
+    final result = _pipelineContext?.result;
+    return result != null &&
+        (!result.hasReceipt() ||
+            result.receipt.calculationOrigin !=
+                CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC);
+  }
 
   bool get _isLoggedMealFlow => widget.loggedMeal != null;
   bool get _showFavoriteHeaderAction =>

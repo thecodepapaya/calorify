@@ -1,30 +1,6 @@
-# Calorie estimation tools and evals
+# Calorie estimation evals
 
-Use the diagnostic CLI for a single deeply observable engine run and the eval runner for repeatable API regression suites. Both tools exercise the complete resumable pipeline rather than stopping after meal decomposition.
-
-## Inspect one estimation
-
-From `backend/`:
-
-```bash
-npm run calories:estimate -- --text "2 rotis with dal" --meal-type LUNCH
-npm run calories:estimate -- "100 g dry oats with 250 ml milk" --json
-npm run calories:estimate -- --image-url https://example.com/meal.jpg --meal-type DINNER
-```
-
-The default human report includes:
-
-- every streamed pipeline event and continuation phase;
-- decomposed portions and uncertainty bands;
-- resolved USDA or LLM-fallback ingredients and their calories;
-- automatic clarification and meal-type decisions;
-- actual provider/model attempts, failures, failovers, and latency;
-- database, USDA, LLM, and pipeline trace steps;
-- final macros, calorie band, confidence, and confidence reasons.
-
-Use `--no-auto-continue` to stop when the app would ask a question. Image query parameters are redacted from reports so pre-authenticated URLs are not copied into terminal output. The command still sends the original URL to the engine.
-
-This command needs the normal backend `DATABASE_URL` and at least one configured meal-analysis provider. It loads the same ignored local environment files as the API and never prints API keys.
+The evaluator exercises the deployed HTTP streaming flow and complete resumable pipeline.
 
 ## Run the regression suite
 

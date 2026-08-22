@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:calorify_watch/core/db/watch_database.dart';
 import 'package:calorify_watch/core/services/data_cache.dart';
-import 'package:calorify_watch/core/services/watch_auth_session.dart';
 import 'package:calorify_watch/core/services/watch_clock.dart';
 import 'package:calorify_watch/core/services/watch_transport.dart';
+import 'package:calorify_watch/core/services/wear_json_protocol.dart';
 import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:models/models.dart';
@@ -33,13 +33,11 @@ class SyncService {
     required WatchSyncTransport transport,
     required WatchSyncDatabase database,
     required DataCache cache,
-    required WatchSyncAuth auth,
     required WatchClock clock,
     bool enablePendingPolling = true,
   }) : _transport = transport,
        _database = database,
        _cache = cache,
-       _auth = auth,
        _clock = clock,
        _enablePendingPolling = enablePendingPolling;
 
@@ -47,14 +45,12 @@ class SyncService {
     transport: WearOsSyncTransport(),
     database: WatchDatabase(),
     cache: DataCache.instance,
-    auth: WatchAuthSession.instance,
     clock: const SystemWatchClock(),
   );
 
   final WatchSyncTransport _transport;
   final WatchSyncDatabase _database;
   final DataCache _cache;
-  final WatchSyncAuth _auth;
   final WatchClock _clock;
   final bool _enablePendingPolling;
   final ValueNotifier<SyncState> syncState = ValueNotifier(SyncState.idle);
@@ -65,7 +61,6 @@ class SyncService {
   bool _isFlushingPending = false;
   final Set<int> _activeOptimisticMealIds = <int>{};
   final Set<int> _activeDeletedMealIds = <int>{};
-  StreamSubscription<WearEnvelope>? _messageSubscription;
   Timer? _pendingSyncTimer;
 
   ValueListenable<DateTime?> get lastSyncTime => _cache.dashboardLastSyncTime;
@@ -89,13 +84,11 @@ class SyncService {
   Future<void> _initialize() async {
     try {
       await _clock.delay(const Duration(milliseconds: 100));
-      await _auth.initialize();
       await _restorePersistedCache();
 
       // The local cache and retry loop must remain active even when the phone
       // is unavailable during startup.
       _isInitialized = true;
-      _startListening();
       if (_enablePendingPolling) {
         _startPendingSyncPolling();
       }
@@ -112,7 +105,6 @@ class SyncService {
         return;
       }
 
-      await _auth.refreshFromPhone();
       _restoreCachedSyncState();
       await _flushPendingOperations();
     } catch (error) {
@@ -133,36 +125,6 @@ class SyncService {
     await _refreshDashboardData();
   }
 
-  Future<List<LoggedMeal>> requestTodaysMeals({
-    bool forceRefresh = false,
-  }) async {
-    await _ensureInitialized();
-
-    if (!forceRefresh &&
-        (_cache.todaysMeals.value.isNotEmpty || _cache.hasFreshDashboard)) {
-      _restoreCachedSyncState();
-      unawaited(_runBackgroundRefresh(_refreshDashboardData));
-      return _cache.todaysMeals.value;
-    }
-
-    await _refreshDashboardData();
-    return _cache.todaysMeals.value;
-  }
-
-  Future<int?> requestCalorieGoal({bool forceRefresh = false}) async {
-    await _ensureInitialized();
-
-    if (!forceRefresh &&
-        (_cache.calorieGoal.value != null || _cache.hasFreshDashboard)) {
-      _restoreCachedSyncState();
-      unawaited(_runBackgroundRefresh(_refreshDashboardData));
-      return _cache.calorieGoal.value;
-    }
-
-    await _refreshDashboardData();
-    return _cache.calorieGoal.value;
-  }
-
   Future<List<FavoriteMeal>> requestFavoriteMeals({
     bool forceRefresh = false,
   }) async {
@@ -179,35 +141,6 @@ class SyncService {
     }
 
     return _refreshFavoriteMeals();
-  }
-
-  Future<UserProfile?> requestUserProfile() async {
-    await _ensureInitialized();
-    if (!await _ensurePhoneConnected()) {
-      return null;
-    }
-
-    try {
-      final response = await _transport.send(
-        operation: WearOperation.WEAR_OPERATION_USER_PROFILE,
-        request: WearRequest(userProfile: UserProfileRequest()),
-      );
-
-      if (response.isSuccess) {
-        final payload = response.response!;
-        if (payload.hasUserProfile() && payload.userProfile.hasProfile()) {
-          _markTransportSynced();
-          return payload.userProfile.profile;
-        }
-      }
-
-      syncState.value = SyncState.error;
-      return null;
-    } catch (error) {
-      _debugLog('Failed to request user profile: type=${error.runtimeType}');
-      syncState.value = SyncState.error;
-      return null;
-    }
   }
 
   Future<SyncRequestResult> sendMeal(Meal meal, {int? favoriteMealId}) async {
@@ -230,11 +163,8 @@ class SyncService {
 
     try {
       final response = await _transport.send(
-        operation: WearOperation.WEAR_OPERATION_MEAL_LOG,
-        request: _mealLogRequest(
-          optimisticMeal,
-          favoriteMealId: favoriteMealId,
-        ),
+        path: WatchPaths.mealLog,
+        data: _mealLogRequest(optimisticMeal, favoriteMealId: favoriteMealId),
       );
 
       if (response.isSuccess) {
@@ -301,8 +231,8 @@ class SyncService {
 
     try {
       final response = await _transport.send(
-        operation: WearOperation.WEAR_OPERATION_MEAL_DELETE,
-        request: WearRequest(mealDelete: MealDeleteRequest(mealId: mealId)),
+        path: WatchPaths.mealDelete,
+        data: {'meal_id': mealId},
       );
 
       if (response.isSuccess) {
@@ -403,13 +333,21 @@ class SyncService {
     syncState.value = SyncState.syncing;
 
     try {
-      final response = await _transport.send(
-        operation: WearOperation.WEAR_OPERATION_FAVORITES,
-        request: WearRequest(favorites: FavoritesRequest()),
-      );
+      final response = await _transport.send(path: WatchPaths.favorites);
 
       if (response.isSuccess) {
-        final favorites = response.response!.favorites.favorites.toList();
+        final rawFavorites = response.data!['favorites'];
+        if (rawFavorites is! List) {
+          throw const FormatException('Favorites response is malformed');
+        }
+        final favorites =
+            rawFavorites
+                .map(
+                  (value) => favoriteMealFromLegacyJson(
+                    Map<String, dynamic>.from(value as Map),
+                  ),
+                )
+                .toList();
 
         final syncedAt = _clock.now();
         _cache.setFavoriteMeals(favorites, syncedAt: syncedAt);
@@ -429,13 +367,19 @@ class SyncService {
   }
 
   Future<List<LoggedMeal>> _fetchTodaysMealsFromPhone() async {
-    final response = await _transport.send(
-      operation: WearOperation.WEAR_OPERATION_TODAY_MEALS,
-      request: WearRequest(todayMeals: TodayMealsRequest()),
-    );
+    final response = await _transport.send(path: WatchPaths.todayMeals);
 
     if (response.isSuccess) {
-      return response.response!.todayMeals.meals.toList();
+      final meals = response.data!['meals'];
+      if (meals is! List) {
+        throw const FormatException('Today meals response is malformed');
+      }
+      return meals
+          .map(
+            (value) =>
+                mealInfoFromLegacyJson(Map<String, dynamic>.from(value as Map)),
+          )
+          .toList();
     }
 
     throw WatchSyncException(
@@ -444,14 +388,10 @@ class SyncService {
   }
 
   Future<int?> _fetchCalorieGoalFromPhone() async {
-    final response = await _transport.send(
-      operation: WearOperation.WEAR_OPERATION_CALORIE_GOAL,
-      request: WearRequest(calorieGoal: CalorieGoalRequest()),
-    );
+    final response = await _transport.send(path: WatchPaths.calorieGoal);
 
     if (response.isSuccess) {
-      final payload = response.response!.calorieGoal;
-      return payload.hasGoal() ? payload.goal : null;
+      return (response.data!['goal'] as num?)?.toInt();
     }
 
     throw WatchSyncException(
@@ -474,15 +414,10 @@ class SyncService {
       return false;
     }
     final connected = await isPhoneConnected();
-    if (connected) {
-      unawaited(_auth.refreshFromPhone());
-      return true;
-    }
     if (!connected) {
       syncState.value = SyncState.disconnected;
-      return false;
     }
-    return false;
+    return connected;
   }
 
   bool get _hasDashboardCache =>
@@ -528,19 +463,6 @@ class SyncService {
     if (changed) {
       await _refreshDashboardData(flushPendingFirst: false);
     }
-  }
-
-  void _startListening() {
-    _messageSubscription?.cancel();
-    _messageSubscription = _transport.listenForEvents().listen(
-      (event) {
-        _debugLog('Received Wear event: ${event.operation.name}');
-        unawaited(_runBackgroundRefresh(_flushPendingAndRefresh));
-      },
-      onError: (error) {
-        _debugLog('Error listening for messages: type=${error.runtimeType}');
-      },
-    );
   }
 
   void _startPendingSyncPolling() {
@@ -608,8 +530,8 @@ class SyncService {
           }
 
           final response = await _transport.send(
-            operation: WearOperation.WEAR_OPERATION_MEAL_LOG,
-            request: _mealLogRequest(
+            path: WatchPaths.mealLog,
+            data: _mealLogRequest(
               meal,
               favoriteMealId: operation.favoriteMealId,
             ),
@@ -620,10 +542,8 @@ class SyncService {
           );
         case PendingWatchOperationType.deleteMeal:
           final response = await _transport.send(
-            operation: WearOperation.WEAR_OPERATION_MEAL_DELETE,
-            request: WearRequest(
-              mealDelete: MealDeleteRequest(mealId: operation.mealId),
-            ),
+            path: WatchPaths.mealDelete,
+            data: {'meal_id': operation.mealId},
           );
           return _classifyPendingOperationResponse(
             response,
@@ -661,14 +581,12 @@ class SyncService {
     return _PendingOperationProcessResult.drop;
   }
 
-  WearRequest _mealLogRequest(LoggedMeal meal, {int? favoriteMealId}) {
-    return WearRequest(
-      mealLog: MealLogRequest(
-        meal: meal,
-        operationId: watchMealOperationId(meal),
-        favoriteMealId: favoriteMealId,
-      ),
-    );
+  Map<String, dynamic> _mealLogRequest(LoggedMeal meal, {int? favoriteMealId}) {
+    return {
+      ...mealInfoToLegacyJson(meal),
+      'watch_operation_id': watchMealOperationId(meal),
+      if (favoriteMealId != null) 'favorite_meal_id': favoriteMealId,
+    };
   }
 
   Future<void> _dropPendingOperation(PendingWatchOperation operation) async {
@@ -692,8 +610,6 @@ class SyncService {
   }
 
   void dispose() {
-    _messageSubscription?.cancel();
-    _messageSubscription = null;
     _pendingSyncTimer?.cancel();
     _pendingSyncTimer = null;
     _isInitialized = false;

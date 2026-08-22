@@ -6,7 +6,6 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_connect_sync_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/core/services/profile_metrics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Composition root for profile, onboarding, and health dependencies.
@@ -22,23 +21,11 @@ final networkClientProvider = Provider<NetworkClient>((ref) {
   return NetworkClient.instance;
 });
 
-final profileRemoteDataSourceProvider = Provider<ProfileRemoteDataSource>((
-  ref,
-) {
-  return NetworkProfileRemoteDataSource(
-    networkClient: ref.watch(networkClientProvider),
-  );
-});
-
 final profileRepositoryProvider = Provider<ProfileRepository>((ref) {
   return ProfileRepository(
     database: ref.watch(databaseInterfaceProvider),
-    remote: ref.watch(profileRemoteDataSourceProvider),
+    networkClient: ref.watch(networkClientProvider),
   );
-});
-
-final profileMetricsProvider = Provider<ProfileMetrics>((ref) {
-  return const ProfileMetrics();
 });
 
 final onboardingServiceProvider = Provider<OnboardingService>((ref) {
@@ -52,7 +39,6 @@ final onboardingServiceProvider = Provider<OnboardingService>((ref) {
 final healthServiceProvider = Provider<HealthService>((ref) {
   return HealthService(
     profileLoader: ref.watch(profileRepositoryProvider).getUserProfile,
-    calorieEstimator: ref.watch(profileMetricsProvider).caloriesBurnedSoFar,
   );
 });
 

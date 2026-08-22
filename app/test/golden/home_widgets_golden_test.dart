@@ -1,5 +1,5 @@
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
@@ -44,7 +44,6 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
       () => mockHealthService.initializationState,
     ).thenReturn(HealthServiceInitializationState.ready);

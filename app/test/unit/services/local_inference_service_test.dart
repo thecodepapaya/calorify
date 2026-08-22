@@ -96,7 +96,12 @@ void main() {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(_channel, (call) async {
             expect(call.method, 'analyzeText');
-            expect(call.arguments, containsPair('debugFailure', 'sample'));
+            expect(
+              (call.arguments as Map<Object?, Object?>).containsKey(
+                'debugFailure',
+              ),
+              isFalse,
+            );
             return _proposalJson();
           });
       final service = MethodChannelLocalInferenceService(
@@ -107,7 +112,6 @@ void main() {
       final result = await service.analyzeText(
         'oatmeal with banana',
         requestId: 'request-1',
-        debugFailure: 'sample',
       );
 
       expect(result.requestId, 'request-1');

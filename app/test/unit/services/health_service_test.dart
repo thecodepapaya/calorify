@@ -72,7 +72,6 @@ void main() {
       expect(healthService.canWriteNutrition, isFalse);
       expect(healthService.hasAnyHealthPermission, isTrue);
       expect(healthService.hasAllHealthPermissions, isFalse);
-      expect(healthService.isAuthorized, isTrue);
       expect(
         healthService.initializationState,
         HealthServiceInitializationState.ready,

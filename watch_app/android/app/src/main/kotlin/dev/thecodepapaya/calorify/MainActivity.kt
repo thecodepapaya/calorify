@@ -29,6 +29,7 @@ class MainActivity : FlutterActivity() {
 
     override fun onDestroy() {
         wearOsHandler?.dispose()
+        wearOsHandler = null
         job.cancel()
         super.onDestroy()
     }

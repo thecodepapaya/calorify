@@ -1,8 +1,10 @@
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/local_inference_providers.dart';
 import 'package:calorify/core/network/network_request_cancellation.dart';
+import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
 import 'package:calorify/core/services/local_nutrition_meal_analysis_engine.dart';
+import 'package:calorify/core/services/local_nutrition_repository.dart';
 import 'package:calorify/core/services/text_meal_analysis_router.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/local_proposal_review_sheet.dart';
 import 'package:calorify/features/home/controllers/meal_analysis_controller.dart';
@@ -26,15 +28,11 @@ Future<bool> showRoutedTextMealAnalysisFlow({
 
   switch (route) {
     case CloudTextMealAnalysisRoute():
-      final executor = CloudTextMealAnalysisExecutor(
-        repository: repository,
-        text: textDescription,
-        route: route,
-      );
-      return _showWithExecutor(
+      return _showCloudFlow(
         context: context,
+        repository: repository,
         textDescription: textDescription,
-        executor: executor,
+        route: route,
       );
     case LocalProposalTextMealAnalysisRoute():
       final reviewed = await showLocalProposalReviewSheet(
@@ -58,43 +56,70 @@ Future<bool> showRoutedTextMealAnalysisFlow({
           localAttemptStartedAt: route.startedAt,
           localAttemptCompletedAt: route.completedAt,
         );
-        return _showWithExecutor(
+        return _showCloudFlow(
           context: context,
+          repository: repository,
           textDescription: textDescription,
-          executor: CloudTextMealAnalysisExecutor(
-            repository: repository,
-            text: textDescription,
-            route: fallback,
-          ),
+          route: fallback,
         );
       }
 
-      final localEngine = container.read(
-        localNutritionMealAnalysisEngineProvider,
-      );
-      final executor =
+      final LocalNutritionMealAnalysisEngine? localEngine =
           route.useLocalNutrition
-              ? HybridLocalNutritionMealAnalysisExecutor(
-                localEngine: localEngine,
-                repository: repository,
-                proposal: reviewed,
-                localResult: route.result,
-                startedAt: route.startedAt,
-                completedAt: route.completedAt,
-              )
-              : LocalProposalMealAnalysisExecutor(
-                repository: repository,
+              ? container.read(localNutritionMealAnalysisEngineProvider)
+              : null;
+      Future<Stream<MealAnalysisPipelineEvent>> settleWithBackend(
+        NetworkRequestCancellation cancellation,
+        String analysisId,
+        MealAnalysisFallbackReason fallbackReason,
+      ) {
+        return repository.analyzeProposalV2(
+          analysisId: analysisId,
+          proposal: reviewed,
+          localAttemptId: route.result.requestId,
+          localAttemptStartedAt: route.startedAt,
+          localAttemptCompletedAt: route.completedAt,
+          fallbackReason: fallbackReason,
+          cancellation: cancellation,
+        );
+      }
+
+      return showV2MealAnalysisFlow(
+        context: context,
+        textDescription: textDescription,
+        startAnalysis: (cancellation, analysisId) async {
+          if (localEngine != null) {
+            try {
+              return await localEngine.start(
+                analysisId: analysisId,
                 proposal: reviewed,
                 localResult: route.result,
                 startedAt: route.startedAt,
                 completedAt: route.completedAt,
               );
-      return _showWithExecutor(
-        context: context,
-        textDescription: textDescription,
-        executor: executor,
+            } on LocalNutritionResolutionException catch (error) {
+              return settleWithBackend(
+                cancellation,
+                analysisId,
+                error.fallbackReason,
+              );
+            } on Object {
+              return settleWithBackend(
+                cancellation,
+                analysisId,
+                MealAnalysisFallbackReason
+                    .MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN,
+              );
+            }
+          }
+          return settleWithBackend(
+            cancellation,
+            analysisId,
+            MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+          );
+        },
         continuationRepository:
-            route.useLocalNutrition
+            localEngine != null
                 ? _HybridLocalNutritionContinuation(
                   localEngine: localEngine,
                   remote: FoodRepositoryMealAnalysisContinuation(repository),
@@ -104,21 +129,26 @@ Future<bool> showRoutedTextMealAnalysisFlow({
   }
 }
 
-Future<bool> _showWithExecutor({
+Future<bool> _showCloudFlow({
   required BuildContext context,
+  required FoodRepository repository,
   required String textDescription,
-  required MealAnalysisExecutor executor,
-  MealAnalysisContinuationRepository? continuationRepository,
+  required CloudTextMealAnalysisRoute route,
 }) {
   return showV2MealAnalysisFlow(
     context: context,
     startAnalysis:
-        (cancellation, analysisId) => executor.execute(
+        (cancellation, analysisId) => repository.analyzeTextV2(
           analysisId: analysisId,
+          textDescription: textDescription,
+          localAttempted: route.localAttempted,
+          localAttemptId: route.localAttemptId,
+          fallbackReason: route.fallbackReason,
+          localAttemptStartedAt: route.localAttemptStartedAt,
+          localAttemptCompletedAt: route.localAttemptCompletedAt,
           cancellation: cancellation,
         ),
     textDescription: textDescription,
-    continuationRepository: continuationRepository,
   );
 }
 

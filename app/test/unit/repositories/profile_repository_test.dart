@@ -13,25 +13,23 @@ import 'package:models/models.dart';
 
 class _MockDatabase extends Mock implements DatabaseInterface {}
 
-class _RecordingRemote implements ProfileRemoteDataSource {
+class _RecordingRemote {
   Object? error;
   final updates = <UserProfile>[];
 
-  @override
   Future<void> replaceUserProfile(UserProfile profile) async {
     if (error != null) throw error!;
     updates.add(profile);
   }
 }
 
-class _BlockingRemote implements ProfileRemoteDataSource {
+class _BlockingRemote {
   final firstStarted = Completer<void>();
   final releaseFirst = Completer<void>();
   final updates = <UserProfile>[];
   var activeRequests = 0;
   var maxActiveRequests = 0;
 
-  @override
   Future<void> replaceUserProfile(UserProfile profile) async {
     activeRequests++;
     maxActiveRequests = max(maxActiveRequests, activeRequests);
@@ -57,7 +55,10 @@ void main() {
   setUp(() {
     database = _MockDatabase();
     remote = _RecordingRemote();
-    repository = ProfileRepository(database: database, remote: remote);
+    repository = ProfileRepository.forTesting(
+      database: database,
+      uploadProfile: remote.replaceUserProfile,
+    );
   });
 
   test('save persists locally before sending and acknowledging', () async {
@@ -106,9 +107,9 @@ void main() {
     'overlapping syncs serialize and leave the newest profile remote',
     () async {
       final blockingRemote = _BlockingRemote();
-      repository = ProfileRepository(
+      repository = ProfileRepository.forTesting(
         database: database,
-        remote: blockingRemote,
+        uploadProfile: blockingRemote.replaceUserProfile,
       );
       final newerProfile = UserProfile(weight: 80, dailyCalorieGoal: 2300);
       final newerPending = PendingProfileSync(
@@ -155,15 +156,47 @@ void main() {
     final adapter = _RecordingAdapter();
     final dio = Dio(BaseOptions(baseUrl: 'https://api.example.test'))
       ..httpClientAdapter = adapter;
-    final remote = NetworkProfileRemoteDataSource(
+    final repository = ProfileRepository(
+      database: database,
       networkClient: NetworkClient.forTesting(dio),
     );
+    when(
+      () => database.getPendingProfileSync(),
+    ).thenAnswer((_) async => pending);
+    when(
+      () => database.markProfileSynced('revision-1'),
+    ).thenAnswer((_) async => true);
 
-    await remote.replaceUserProfile(UserProfile(weight: 70));
+    await repository.syncPendingProfile();
 
     expect(adapter.lastRequest?.method, 'PUT');
     expect(adapter.lastRequest?.path, '/api/v1/user/profile');
-    expect(adapter.lastRequest?.data, {'weight': 70.0});
+    expect(adapter.lastRequest?.data, {
+      'weight': 70.0,
+      'dailyCalorieGoal': 2100,
+    });
+  });
+
+  test('normalizes legacy dateOfBirth timestamps only for upload', () async {
+    final legacyProfile = UserProfile(
+      weight: 70,
+      dateOfBirth: '2001-08-02T23:45:00+05:30',
+    );
+    final legacyPending = PendingProfileSync(
+      profile: legacyProfile,
+      revision: 'legacy-revision',
+    );
+    when(
+      () => database.getPendingProfileSync(),
+    ).thenAnswer((_) async => legacyPending);
+    when(
+      () => database.markProfileSynced('legacy-revision'),
+    ).thenAnswer((_) async => true);
+
+    expect(await repository.syncPendingProfile(), isTrue);
+
+    expect(remote.updates.single.dateOfBirth, '2001-08-02');
+    expect(legacyProfile.dateOfBirth, '2001-08-02T23:45:00+05:30');
   });
 }
 

@@ -68,12 +68,6 @@ class HealthService {
   final UserProfileLoader _profileLoader;
   final ProfileCalorieEstimator _calorieEstimator;
   final HealthConnectSettingsOpener _settingsOpener;
-  bool _lastFetchUsedFallback = false;
-
-  /// True if the most recent `getTotalCaloriesBurned` call returned a
-  /// profile-based estimate instead of Health Connect data.
-  bool get lastFetchUsedFallback => _lastFetchUsedFallback;
-
   HealthConnectSdkStatus status = HealthConnectSdkStatus.sdkUnavailable;
 
   HealthPermissionState _caloriesReadPermission = HealthPermissionState.unknown;
@@ -90,9 +84,6 @@ class HealthService {
 
   bool get hasAnyHealthPermission => canReadTotalCalories || canWriteNutrition;
   bool get hasAllHealthPermissions => canReadTotalCalories && canWriteNutrition;
-
-  /// Kept for older callers. New code should check the capability it needs.
-  bool get isAuthorized => hasAnyHealthPermission;
 
   bool _isInitialized = false;
   bool get isInitialized => _isInitialized;
@@ -520,9 +511,6 @@ class HealthService {
       log('Cannot get total calories burned: service not initialized');
       return null;
     }
-    // Reset fallback flag for each fetch
-    _lastFetchUsedFallback = false;
-
     // 1) Prefer Health Connect's aggregation API. Summing raw cumulative
     // records can double count overlapping data origins.
     try {
@@ -560,7 +548,6 @@ class HealthService {
               0,
               (sum, value) => sum + value,
             );
-            _lastFetchUsedFallback = false;
             return CaloriesResult(calories: totalCalories, usedFallback: false);
           }
         }
@@ -578,7 +565,6 @@ class HealthService {
       if (profile != null) {
         final estimate = _calorieEstimator(profile);
         if (estimate != null) {
-          _lastFetchUsedFallback = true;
           return CaloriesResult(calories: estimate, usedFallback: true);
         }
       }
@@ -612,14 +598,6 @@ class HealthService {
     }
     return permission == HealthPermissionState.granted;
   }
-
-  Future<bool> get isNutritionAllowed =>
-      hasPermission(HealthDataType.NUTRITION, HealthDataAccess.WRITE);
-
-  Future<bool> get isCaloriesBurnedAllowed => hasPermission(
-    HealthDataType.TOTAL_CALORIES_BURNED,
-    HealthDataAccess.READ,
-  );
 }
 
 List<HealthDataPoint> _dateOverlappingHealthPoints(

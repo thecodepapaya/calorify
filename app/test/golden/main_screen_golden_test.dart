@@ -5,7 +5,7 @@ import 'package:calorify/features/main/main_screen.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
 import '../helpers/golden_test_helpers.dart';
@@ -33,7 +33,6 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
       () => mockHealthService.initializationState,
     ).thenReturn(HealthServiceInitializationState.ready);

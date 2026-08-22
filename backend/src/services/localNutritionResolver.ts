@@ -25,7 +25,17 @@ async function resolveLookup(
   lookup: LocalNutritionLookup,
   retrievedAtEpochMs: number
 ): Promise<CacheableNutritionRecord | null> {
-  const match = await canonicalizeWithUsda(lookup.canonicalHint);
+  const normalizedHint = normalizeUsdaTerm(lookup.canonicalHint);
+  const normalizedPreparation = normalizeUsdaTerm(lookup.preparation);
+  const hintTokens = new Set(normalizedHint.split(' ').filter(Boolean));
+  const preparationAlreadyPresent = normalizedPreparation
+    .split(' ')
+    .filter(Boolean)
+    .every((token) => hintTokens.has(token));
+  const lookupTerm = normalizedPreparation && !preparationAlreadyPresent
+    ? `${lookup.canonicalHint} ${lookup.preparation}`.trim()
+    : lookup.canonicalHint;
+  const match = await canonicalizeWithUsda(lookupTerm);
   const row = match.row;
   const datasetVersion = row?.dataset_version?.trim() ?? '';
   if (!row || !datasetVersion) return null;
@@ -49,7 +59,7 @@ async function resolveLookup(
     datasetVersion,
     retrievedAtEpochMs,
     lookupKeys: uniqueLookupKeys(
-      lookup.canonicalHint,
+      lookupTerm,
       normalizedName,
       match.matchType
     ),

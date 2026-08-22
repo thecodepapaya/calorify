@@ -11,22 +11,6 @@
 part of 'app_router.dart';
 
 /// generated route for
-/// [DebugScreen]
-class DebugRoute extends PageRouteInfo<void> {
-  const DebugRoute({List<PageRouteInfo>? children})
-    : super(DebugRoute.name, initialChildren: children);
-
-  static const String name = 'DebugRoute';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      return const DebugScreen();
-    },
-  );
-}
-
-/// generated route for
 /// [FavoritesScreen]
 class FavoritesRoute extends PageRouteInfo<void> {
   const FavoritesRoute({List<PageRouteInfo>? children})

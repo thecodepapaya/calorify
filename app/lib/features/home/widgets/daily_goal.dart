@@ -1,7 +1,7 @@
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart';
-import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getCalorieExpenditureDisclaimer;
 import 'package:calorify/features/home/widgets/home_skeletons.dart';
@@ -19,11 +19,7 @@ import 'package:models/models.dart';
 import 'package:utils/utils.dart';
 
 class SetDailyGoal extends ConsumerStatefulWidget {
-  const SetDailyGoal({super.key, this.healthConnectRefreshTrigger = 0});
-
-  /// When this value changes (e.g. after user connects Health Connect),
-  /// calories burned is refetched so the daily goal content updates.
-  final int healthConnectRefreshTrigger;
+  const SetDailyGoal({super.key});
 
   @override
   ConsumerState<SetDailyGoal> createState() => _SetDailyGoalState();
@@ -34,7 +30,9 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
 
   Future<void> _updateAndSaveGoal(int calories) async {
     try {
-      await ref.read(profileActionsProvider).updateDailyCalorieGoal(calories);
+      await ref
+          .read(profileRepositoryProvider)
+          .updateDailyCalorieGoal(calories);
     } catch (e) {
       debugPrint('Error saving daily goal: $e');
     } finally {
@@ -54,9 +52,7 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
     final healthService = ref.watch(healthServiceProvider);
     final goalAsync = ref.watch(dailyCalorieGoalProvider);
     final mealsAsync = ref.watch(todaysMealsProvider);
-    final caloriesBurnedAsync = ref.watch(
-      caloriesBurnedProvider(widget.healthConnectRefreshTrigger),
-    );
+    final caloriesBurnedAsync = ref.watch(caloriesBurnedProvider);
     final caloriesBurned = caloriesBurnedAsync.value?.calories.toInt() ?? 0;
     final usedFallback = caloriesBurnedAsync.value?.usedFallback ?? false;
     final goal = goalAsync.value ?? 0;

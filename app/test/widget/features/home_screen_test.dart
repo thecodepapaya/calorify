@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
@@ -42,7 +43,6 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
       () => mockHealthService.initializationState,
     ).thenReturn(HealthServiceInitializationState.ready);
@@ -52,7 +52,7 @@ void main() {
     when(() => mockHealthService.hasAllHealthPermissions).thenReturn(true);
     when(
       () => mockHealthService.refreshAuthorizationStatus(),
-    ).thenAnswer((_) async => mockHealthService.isAuthorized);
+    ).thenAnswer((_) async => mockHealthService.hasAnyHealthPermission);
     when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer(
       (_) async => CaloriesResult(calories: 500.0, usedFallback: false),
     );
@@ -108,7 +108,6 @@ void main() {
     testWidgets('shows Health Connect prompt when not authorized', (
       WidgetTester tester,
     ) async {
-      when(() => mockHealthService.isAuthorized).thenReturn(false);
       when(() => mockHealthService.canReadTotalCalories).thenReturn(false);
       when(() => mockHealthService.canWriteNutrition).thenReturn(false);
       when(() => mockHealthService.hasAnyHealthPermission).thenReturn(false);

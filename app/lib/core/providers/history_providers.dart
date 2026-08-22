@@ -1,4 +1,6 @@
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    hide databaseInterfaceProvider;
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/errors/app_error.dart';
 import 'package:flutter/foundation.dart';

@@ -2,6 +2,7 @@ import 'package:models/models.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/core/services/profile_metrics.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:utils/utils.dart';
 import 'package:i18n/i18n.dart';
@@ -49,7 +50,7 @@ class _WeightStepScreenState extends ConsumerState<WeightStepScreen> {
           _weight = weight;
         } else {
           // Calculate ideal weight as default if no value saved
-          final ideal = ref.read(profileMetricsProvider).idealWeight(profile);
+          final ideal = const ProfileMetrics().idealWeight(profile);
           if (ideal != null) {
             _weight = ideal;
           } else {

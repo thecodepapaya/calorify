@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:calorify_watch/core/services/watch_transport.dart';
+import 'package:calorify_watch/core/services/wear_json_protocol.dart';
 import 'package:calorify_watch/core/services/wear_os_channel.dart';
 import 'package:models/models.dart';
 
@@ -22,10 +23,12 @@ class WatchFoodRepository {
     final phoneResponse = await (_phoneDetector ?? _detectTextViaPhone)(
       description,
     );
-    if (phoneResponse.isSuccess &&
-        phoneResponse.response!.hasDetectText() &&
-        phoneResponse.response!.detectText.hasResponse()) {
-      return phoneResponse.response!.detectText.response;
+    if (phoneResponse.isSuccess) {
+      final response = phoneResponse.data!['response'];
+      if (response is Map) {
+        return MealDetectionResponse()
+          ..mergeFromProto3Json(Map<String, dynamic>.from(response));
+      }
     }
 
     if (phoneResponse.deliveryUncertain) {
@@ -41,10 +44,8 @@ class WatchFoodRepository {
 
   static Future<WatchTransportResult> _detectTextViaPhone(String description) {
     return WearOsChannel.sendRequest(
-      operation: WearOperation.WEAR_OPERATION_DETECT_TEXT,
-      request: WearRequest(
-        detectText: DetectTextRequest(textDescription: description),
-      ),
+      path: WatchPaths.detectText,
+      data: {'textDescription': description},
     );
   }
 }

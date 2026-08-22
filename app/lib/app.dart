@@ -9,7 +9,6 @@ import 'package:specs/specs.dart' show AppThemes;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
-import 'package:measure_flutter/measure_flutter.dart';
 import 'package:calorify/shared_widgets/app_banner_shell.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
@@ -55,9 +54,7 @@ class CalorifyApp extends ConsumerWidget {
               ),
             ),
           ),
-      routerConfig: appRouter.config(
-        navigatorObservers: () => [RouteLogger(), MsrNavigatorObserver()],
-      ),
+      routerConfig: appRouter.config(navigatorObservers: () => [RouteLogger()]),
     );
   }
 }

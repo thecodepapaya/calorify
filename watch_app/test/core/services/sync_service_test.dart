@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:calorify_watch/core/db/watch_database.dart';
 import 'package:calorify_watch/core/services/data_cache.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:calorify_watch/core/services/watch_auth_session.dart';
 import 'package:calorify_watch/core/services/watch_clock.dart';
 import 'package:calorify_watch/core/services/watch_transport.dart';
+import 'package:calorify_watch/core/services/wear_json_protocol.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
 
@@ -22,49 +22,20 @@ void main() {
     expect(watchMealOperationId(meal), watchMealOperationId(restoredMeal));
   });
 
-  test('typed transport errors determine retry without substring matching', () {
+  test('transport errors determine retry without substring matching', () {
     final timeout = WatchTransportResult.failure(
-      WearErrorCode.WEAR_ERROR_CODE_TIMEOUT,
+      WatchTransportErrorCode.timeout,
       message: 'Any localized message',
     );
     final rejection = WatchTransportResult.failure(
-      WearErrorCode.WEAR_ERROR_CODE_REJECTED,
+      WatchTransportErrorCode.rejected,
       message: 'Network field is invalid',
     );
 
-    expect(timeout.errorCode, WearErrorCode.WEAR_ERROR_CODE_TIMEOUT);
+    expect(timeout.errorCode, WatchTransportErrorCode.timeout);
     expect(timeout.shouldRetry, isTrue);
-    expect(rejection.errorCode, WearErrorCode.WEAR_ERROR_CODE_REJECTED);
+    expect(rejection.errorCode, WatchTransportErrorCode.rejected);
     expect(rejection.shouldRetry, isFalse);
-  });
-
-  test('fresh watch auth does not make a second phone round-trip', () {
-    final freshSession = WatchAuthSnapshot(
-      userId: 'user',
-      authToken: 'token',
-      syncedAt: DateTime.now(),
-      isAnonymous: false,
-    );
-
-    expect(
-      shouldRefreshWatchAuthSession(freshSession, refreshIfNeeded: true),
-      isFalse,
-    );
-  });
-
-  test('missing or stale watch auth is refreshed when requested', () {
-    final staleSession = WatchAuthSnapshot(
-      userId: 'user',
-      authToken: 'token',
-      syncedAt: DateTime.now().subtract(const Duration(hours: 2)),
-      isAnonymous: false,
-    );
-
-    expect(shouldRefreshWatchAuthSession(null, refreshIfNeeded: true), isTrue);
-    expect(
-      shouldRefreshWatchAuthSession(staleSession, refreshIfNeeded: true),
-      isTrue,
-    );
   });
 
   test(
@@ -83,16 +54,13 @@ void main() {
   );
 
   test(
-    'typed transient failures stay queued without reading error text',
+    'transient failures stay queued without reading error text',
     () async {
       final fixture = _SyncFixture();
       addTearDown(fixture.dispose);
-      fixture.transport.responders[WearOperation.WEAR_OPERATION_MEAL_LOG] = (
-        _,
-        _,
-      ) async {
+      fixture.transport.responders[WatchPaths.mealLog] = (_, _) async {
         return WatchTransportResult.failure(
-          WearErrorCode.WEAR_ERROR_CODE_TIMEOUT,
+          WatchTransportErrorCode.timeout,
           message: 'Localized or arbitrary text',
         );
       };
@@ -107,14 +75,11 @@ void main() {
   test('permanent rejection rolls back an optimistic meal', () async {
     final fixture = _SyncFixture();
     addTearDown(fixture.dispose);
-    fixture.transport.responders[WearOperation.WEAR_OPERATION_MEAL_LOG] = (
-      _,
-      _,
-    ) async {
+    fixture.transport.responders[WatchPaths.mealLog] = (_, _) async {
       return WatchTransportResult.failure(
-        WearErrorCode.WEAR_ERROR_CODE_REJECTED,
+        WatchTransportErrorCode.rejected,
         message: 'Invalid meal',
-        isProtocolResponse: true,
+        isPeerResponse: true,
       );
     };
 
@@ -131,12 +96,9 @@ void main() {
     () async {
       final fixture = _SyncFixture();
       addTearDown(fixture.dispose);
-      fixture.transport.responders[WearOperation.WEAR_OPERATION_MEAL_LOG] = (
-        _,
-        _,
-      ) async {
+      fixture.transport.responders[WatchPaths.mealLog] = (_, _) async {
         return WatchTransportResult.failure(
-          WearErrorCode.WEAR_ERROR_CODE_MALFORMED_RESPONSE,
+          WatchTransportErrorCode.malformedResponse,
         );
       };
 
@@ -162,12 +124,9 @@ void main() {
       ],
       favoriteMeals: const [],
     );
-    fixture.transport.responders[WearOperation.WEAR_OPERATION_MEAL_DELETE] = (
-      _,
-      _,
-    ) async {
+    fixture.transport.responders[WatchPaths.mealDelete] = (_, _) async {
       return WatchTransportResult.failure(
-        WearErrorCode.WEAR_ERROR_CODE_MALFORMED_RESPONSE,
+        WatchTransportErrorCode.malformedResponse,
       );
     };
 
@@ -188,19 +147,14 @@ void main() {
         meal: Meal(name: 'Dal', macros: MealMacro(calories: 320)),
         createdAt: now.subtract(const Duration(hours: 1)).toIso8601String(),
       );
-      fixture.transport.responders[WearOperation.WEAR_OPERATION_TODAY_MEALS] = (
-        _,
-        _,
-      ) async {
-        return WatchTransportResult.success(
-          WearResponse(todayMeals: TodayMealsResponse(meals: [remoteMeal])),
-        );
+      fixture.transport.responders[WatchPaths.todayMeals] = (_, _) async {
+        return WatchTransportResult.success({
+          'success': true,
+          'meals': [mealInfoToLegacyJson(remoteMeal)],
+        });
       };
-      fixture.transport.responders[WearOperation
-          .WEAR_OPERATION_CALORIE_GOAL] = (_, _) async {
-        return WatchTransportResult.success(
-          WearResponse(calorieGoal: CalorieGoalResponse(goal: 2100)),
-        );
+      fixture.transport.responders[WatchPaths.calorieGoal] = (_, _) async {
+        return WatchTransportResult.success({'success': true, 'goal': 2100});
       };
 
       await fixture.service.refreshDashboard(forceRefresh: true);
@@ -212,7 +166,7 @@ void main() {
     },
   );
 
-  test('pending operation remains durable after typed retry result', () async {
+  test('pending operation remains durable after a retry result', () async {
     final pendingMeal = LoggedMeal(
       clientId: -5,
       meal: Meal(name: 'Queued meal'),
@@ -227,29 +181,14 @@ void main() {
     );
     final fixture = _SyncFixture(pendingOperations: [pending]);
     addTearDown(fixture.dispose);
-    fixture.transport.responders[WearOperation.WEAR_OPERATION_MEAL_LOG] = (
-      _,
-      _,
-    ) async {
-      return WatchTransportResult.failure(
-        WearErrorCode.WEAR_ERROR_CODE_NETWORK,
-      );
+    fixture.transport.responders[WatchPaths.mealLog] = (_, _) async {
+      return WatchTransportResult.failure(WatchTransportErrorCode.network);
     };
-    fixture.transport.responders[WearOperation.WEAR_OPERATION_TODAY_MEALS] = (
-      _,
-      _,
-    ) async {
-      return WatchTransportResult.success(
-        WearResponse(todayMeals: TodayMealsResponse()),
-      );
+    fixture.transport.responders[WatchPaths.todayMeals] = (_, _) async {
+      return WatchTransportResult.success({'success': true, 'meals': []});
     };
-    fixture.transport.responders[WearOperation.WEAR_OPERATION_CALORIE_GOAL] = (
-      _,
-      _,
-    ) async {
-      return WatchTransportResult.success(
-        WearResponse(calorieGoal: CalorieGoalResponse(goal: 2000)),
-      );
+    fixture.transport.responders[WatchPaths.calorieGoal] = (_, _) async {
+      return WatchTransportResult.success({'success': true, 'goal': 2000});
     };
 
     await fixture.service.refreshDashboard(forceRefresh: true);
@@ -257,67 +196,12 @@ void main() {
     expect(fixture.database.pendingOperations, contains(pending));
     expect(fixture.database.deletedOperationIds, isEmpty);
   });
-
-  test(
-    'pending operation remains durable after malformed correlated response',
-    () async {
-      final pendingMeal = LoggedMeal(
-        clientId: -6,
-        meal: Meal(name: 'Queued malformed response meal'),
-        createdAt: DateTime.utc(2026, 8, 21, 10).toIso8601String(),
-      );
-      final pending = PendingWatchOperation(
-        id: 2,
-        type: PendingWatchOperationType.logMeal,
-        mealId: -6,
-        createdAt: DateTime.utc(2026, 8, 21, 10),
-        meal: pendingMeal,
-      );
-      final fixture = _SyncFixture(pendingOperations: [pending]);
-      addTearDown(fixture.dispose);
-      fixture.transport.responders[WearOperation.WEAR_OPERATION_MEAL_LOG] = (
-        _,
-        _,
-      ) async {
-        return WatchTransportResult.fromEnvelope(
-          WearEnvelope(
-            version: wearProtocolVersion,
-            requestId: 'wrong-request-id',
-            operation: WearOperation.WEAR_OPERATION_MEAL_LOG,
-            response: WearResponse(mealLog: MealLogResponse()),
-          ),
-          requestId: 'expected-request-id',
-          operation: WearOperation.WEAR_OPERATION_MEAL_LOG,
-        );
-      };
-      fixture.transport.responders[WearOperation.WEAR_OPERATION_TODAY_MEALS] = (
-        _,
-        _,
-      ) async {
-        return WatchTransportResult.success(
-          WearResponse(todayMeals: TodayMealsResponse()),
-        );
-      };
-      fixture.transport.responders[WearOperation
-          .WEAR_OPERATION_CALORIE_GOAL] = (_, _) async {
-        return WatchTransportResult.success(
-          WearResponse(calorieGoal: CalorieGoalResponse(goal: 2000)),
-        );
-      };
-
-      await fixture.service.refreshDashboard(forceRefresh: true);
-
-      expect(fixture.database.pendingOperations, contains(pending));
-      expect(fixture.database.deletedOperationIds, isEmpty);
-      expect(fixture.database.deletedMealIds, isEmpty);
-    },
-  );
 }
 
 typedef _TransportResponder =
     Future<WatchTransportResult> Function(
-      WearOperation operation,
-      WearRequest request,
+      String path,
+      Map<String, dynamic> data,
     );
 
 class _SyncFixture {
@@ -328,13 +212,11 @@ class _SyncFixture {
   }) : transport = _FakeTransport(connected: connected),
        database = _FakeDatabase(pendingOperations: pendingOperations),
        cache = DataCache(),
-       auth = _FakeAuth(),
        clock = _FakeClock(now ?? DateTime.utc(2026, 8, 21)) {
     service = SyncService(
       transport: transport,
       database: database,
       cache: cache,
-      auth: auth,
       clock: clock,
       enablePendingPolling: false,
     );
@@ -343,7 +225,6 @@ class _SyncFixture {
   final _FakeTransport transport;
   final _FakeDatabase database;
   final DataCache cache;
-  final _FakeAuth auth;
   final _FakeClock clock;
   late final SyncService service;
 
@@ -357,10 +238,8 @@ class _FakeTransport implements WatchSyncTransport {
   _FakeTransport({required this.connected});
 
   final bool connected;
-  final Map<WearOperation, _TransportResponder> responders = {};
-  final List<WearOperation> requestedOperations = [];
-  final StreamController<WearEnvelope> _messages =
-      StreamController<WearEnvelope>.broadcast();
+  final Map<String, _TransportResponder> responders = {};
+  final List<String> requestedPaths = [];
 
   @override
   Future<bool> initialize() async => true;
@@ -369,37 +248,21 @@ class _FakeTransport implements WatchSyncTransport {
   Future<bool> isPhoneConnected() async => connected;
 
   @override
-  Stream<WearEnvelope> listenForEvents() => _messages.stream;
-
-  @override
   Future<WatchTransportResult> send({
-    required WearOperation operation,
-    required WearRequest request,
+    required String path,
+    Map<String, dynamic> data = const {},
   }) async {
-    requestedOperations.add(operation);
-    final responder = responders[operation];
+    requestedPaths.add(path);
+    final responder = responders[path];
     return responder != null
-        ? responder(operation, request)
+        ? responder(path, data)
         : WatchTransportResult.failure(
-          WearErrorCode.WEAR_ERROR_CODE_REJECTED,
-          message: 'No fake response for ${operation.name}',
+          WatchTransportErrorCode.rejected,
+          message: 'No fake response for $path',
         );
   }
 
-  Future<void> close() => _messages.close();
-}
-
-class _FakeAuth implements WatchSyncAuth {
-  int refreshCount = 0;
-
-  @override
-  Future<void> initialize() async {}
-
-  @override
-  Future<WatchAuthSnapshot?> refreshFromPhone() async {
-    refreshCount++;
-    return null;
-  }
+  Future<void> close() async {}
 }
 
 class _FakeClock implements WatchClock {

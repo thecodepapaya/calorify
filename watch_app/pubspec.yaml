@@ -28,18 +28,12 @@ dependencies:
   path: ^1.9.1
   drift: ^2.26.1
   sqlite3_flutter_libs: ^0.5.33
-  flutter_secure_storage: ^9.2.4
-  
-  protobuf: ^5.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   speech_to_text_platform_interface: ^2.3.0
-  build_runner: ^2.4.15
-  auto_route_generator: ^10.4.0
-  drift_dev: ^2.26.1
 
 flutter:
   uses-material-design: true

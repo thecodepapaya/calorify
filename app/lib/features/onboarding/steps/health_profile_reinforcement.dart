@@ -1,6 +1,7 @@
 import 'package:models/models.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/utilities/onboarding_utils.dart';
+import 'package:calorify/core/services/profile_metrics.dart';
 import 'package:calorify/features/onboarding/steps/bmi_scale.dart';
 import 'package:calorify/features/onboarding/steps/reinforcement_components.dart';
 import 'package:i18n/i18n.dart';
@@ -71,8 +72,7 @@ class _HealthProfileReinforcementState
           final profile = snapshot.data;
           final bmi =
               profile != null
-                  ? ref.read(profileMetricsProvider).bodyMassIndex(profile) ??
-                      0.0
+                  ? const ProfileMetrics().bodyMassIndex(profile) ?? 0.0
                   : 0.0;
           final bmiCategory = OnboardingUtils.getBMICategory(bmi);
           final hasValidBmi = bmi > 0;
