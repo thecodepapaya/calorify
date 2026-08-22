@@ -260,6 +260,14 @@ const MealAnalysisProposalRequest$json = {
       '5': 3,
       '10': 'localAttemptCompletedAtEpochMs'
     },
+    {
+      '1': 'fallback_reason',
+      '3': 6,
+      '4': 1,
+      '5': 14,
+      '6': '.calorify.MealAnalysisFallbackReason',
+      '10': 'fallbackReason'
+    },
   ],
 };
 
@@ -270,7 +278,9 @@ final $typed_data.Uint8List mealAnalysisProposalRequestDescriptor = $convert.bas
     'MVIIcHJvcG9zYWwSKAoQbG9jYWxfYXR0ZW1wdF9pZBgDIAEoCVIObG9jYWxBdHRlbXB0SWQSRw'
     'ohbG9jYWxfYXR0ZW1wdF9zdGFydGVkX2F0X2Vwb2NoX21zGAQgASgDUhxsb2NhbEF0dGVtcHRT'
     'dGFydGVkQXRFcG9jaE1zEksKI2xvY2FsX2F0dGVtcHRfY29tcGxldGVkX2F0X2Vwb2NoX21zGA'
-    'UgASgDUh5sb2NhbEF0dGVtcHRDb21wbGV0ZWRBdEVwb2NoTXM=');
+    'UgASgDUh5sb2NhbEF0dGVtcHRDb21wbGV0ZWRBdEVwb2NoTXMSTQoPZmFsbGJhY2tfcmVhc29u'
+    'GAYgASgOMiQuY2Fsb3JpZnkuTWVhbEFuYWx5c2lzRmFsbGJhY2tSZWFzb25SDmZhbGxiYWNrUm'
+    'Vhc29u');
 
 @$core.Deprecated('Use localInferenceCapabilityPolicyDescriptor instead')
 const LocalInferenceCapabilityPolicy$json = {
@@ -294,6 +304,18 @@ const LocalInferenceCapabilityPolicy$json = {
       '10': 'privateModesEnabled'
     },
     {'1': 'max_age_seconds', '3': 6, '4': 1, '5': 5, '10': 'maxAgeSeconds'},
+    {
+      '1': 'local_nutrition_manifest_url',
+      '3': 7,
+      '4': 1,
+      '5': 9,
+      '9': 0,
+      '10': 'localNutritionManifestUrl',
+      '17': true
+    },
+  ],
+  '8': [
+    {'1': '_local_nutrition_manifest_url'},
   ],
 };
 
@@ -304,7 +326,167 @@ final $typed_data.Uint8List localInferenceCapabilityPolicyDescriptor = $convert.
     'bWFnZV9lbmFibGVkGAMgASgIUgxpbWFnZUVuYWJsZWQSNgoXbG9jYWxfbnV0cml0aW9uX2VuYW'
     'JsZWQYBCABKAhSFWxvY2FsTnV0cml0aW9uRW5hYmxlZBIyChVwcml2YXRlX21vZGVzX2VuYWJs'
     'ZWQYBSABKAhSE3ByaXZhdGVNb2Rlc0VuYWJsZWQSJgoPbWF4X2FnZV9zZWNvbmRzGAYgASgFUg'
-    '1tYXhBZ2VTZWNvbmRz');
+    '1tYXhBZ2VTZWNvbmRzEkQKHGxvY2FsX251dHJpdGlvbl9tYW5pZmVzdF91cmwYByABKAlIAFIZ'
+    'bG9jYWxOdXRyaXRpb25NYW5pZmVzdFVybIgBAUIfCh1fbG9jYWxfbnV0cml0aW9uX21hbmlmZX'
+    'N0X3VybA==');
+
+@$core.Deprecated('Use localNutritionPackManifestDescriptor instead')
+const LocalNutritionPackManifest$json = {
+  '1': 'LocalNutritionPackManifest',
+  '2': [
+    {'1': 'schema_version', '3': 1, '4': 1, '5': 13, '10': 'schemaVersion'},
+    {'1': 'pack_version', '3': 2, '4': 1, '5': 9, '10': 'packVersion'},
+    {'1': 'dataset_version', '3': 3, '4': 1, '5': 9, '10': 'datasetVersion'},
+    {'1': 'object_name', '3': 4, '4': 1, '5': 9, '10': 'objectName'},
+    {'1': 'size_bytes', '3': 5, '4': 1, '5': 3, '10': 'sizeBytes'},
+    {'1': 'signature', '3': 7, '4': 1, '5': 9, '10': 'signature'},
+    {'1': 'signing_key_id', '3': 8, '4': 1, '5': 9, '10': 'signingKeyId'},
+    {
+      '1': 'created_at_epoch_ms',
+      '3': 9,
+      '4': 1,
+      '5': 3,
+      '10': 'createdAtEpochMs'
+    },
+    {'1': 'record_count', '3': 10, '4': 1, '5': 13, '10': 'recordCount'},
+    {
+      '1': 'calculation_version',
+      '3': 11,
+      '4': 1,
+      '5': 9,
+      '10': 'calculationVersion'
+    },
+  ],
+  '9': [
+    {'1': 6, '2': 7},
+  ],
+};
+
+/// Descriptor for `LocalNutritionPackManifest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List localNutritionPackManifestDescriptor = $convert.base64Decode(
+    'ChpMb2NhbE51dHJpdGlvblBhY2tNYW5pZmVzdBIlCg5zY2hlbWFfdmVyc2lvbhgBIAEoDVINc2'
+    'NoZW1hVmVyc2lvbhIhCgxwYWNrX3ZlcnNpb24YAiABKAlSC3BhY2tWZXJzaW9uEicKD2RhdGFz'
+    'ZXRfdmVyc2lvbhgDIAEoCVIOZGF0YXNldFZlcnNpb24SHwoLb2JqZWN0X25hbWUYBCABKAlSCm'
+    '9iamVjdE5hbWUSHQoKc2l6ZV9ieXRlcxgFIAEoA1IJc2l6ZUJ5dGVzEhwKCXNpZ25hdHVyZRgH'
+    'IAEoCVIJc2lnbmF0dXJlEiQKDnNpZ25pbmdfa2V5X2lkGAggASgJUgxzaWduaW5nS2V5SWQSLQ'
+    'oTY3JlYXRlZF9hdF9lcG9jaF9tcxgJIAEoA1IQY3JlYXRlZEF0RXBvY2hNcxIhCgxyZWNvcmRf'
+    'Y291bnQYCiABKA1SC3JlY29yZENvdW50Ei8KE2NhbGN1bGF0aW9uX3ZlcnNpb24YCyABKAlSEm'
+    'NhbGN1bGF0aW9uVmVyc2lvbkoECAYQBw==');
+
+@$core.Deprecated('Use localNutritionLookupDescriptor instead')
+const LocalNutritionLookup$json = {
+  '1': 'LocalNutritionLookup',
+  '2': [
+    {'1': 'row_id', '3': 1, '4': 1, '5': 9, '10': 'rowId'},
+    {'1': 'canonical_hint', '3': 2, '4': 1, '5': 9, '10': 'canonicalHint'},
+    {'1': 'preparation', '3': 3, '4': 1, '5': 9, '10': 'preparation'},
+  ],
+};
+
+/// Descriptor for `LocalNutritionLookup`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List localNutritionLookupDescriptor = $convert.base64Decode(
+    'ChRMb2NhbE51dHJpdGlvbkxvb2t1cBIVCgZyb3dfaWQYASABKAlSBXJvd0lkEiUKDmNhbm9uaW'
+    'NhbF9oaW50GAIgASgJUg1jYW5vbmljYWxIaW50EiAKC3ByZXBhcmF0aW9uGAMgASgJUgtwcmVw'
+    'YXJhdGlvbg==');
+
+@$core.Deprecated('Use cacheableNutritionRecordDescriptor instead')
+const CacheableNutritionRecord$json = {
+  '1': 'CacheableNutritionRecord',
+  '2': [
+    {'1': 'row_id', '3': 1, '4': 1, '5': 9, '10': 'rowId'},
+    {'1': 'fdc_id', '3': 2, '4': 1, '5': 9, '10': 'fdcId'},
+    {'1': 'description', '3': 3, '4': 1, '5': 9, '10': 'description'},
+    {'1': 'normalized_name', '3': 4, '4': 1, '5': 9, '10': 'normalizedName'},
+    {'1': 'data_type', '3': 5, '4': 1, '5': 9, '10': 'dataType'},
+    {
+      '1': 'nutrients_per_100g',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.calorify.PipelineMacros',
+      '10': 'nutrientsPer100g'
+    },
+    {'1': 'dataset_version', '3': 7, '4': 1, '5': 9, '10': 'datasetVersion'},
+    {
+      '1': 'retrieved_at_epoch_ms',
+      '3': 8,
+      '4': 1,
+      '5': 3,
+      '10': 'retrievedAtEpochMs'
+    },
+    {'1': 'lookup_keys', '3': 10, '4': 3, '5': 9, '10': 'lookupKeys'},
+    {'1': 'match_type', '3': 11, '4': 1, '5': 9, '10': 'matchType'},
+    {'1': 'match_confidence', '3': 12, '4': 1, '5': 1, '10': 'matchConfidence'},
+  ],
+  '9': [
+    {'1': 9, '2': 10},
+  ],
+};
+
+/// Descriptor for `CacheableNutritionRecord`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List cacheableNutritionRecordDescriptor = $convert.base64Decode(
+    'ChhDYWNoZWFibGVOdXRyaXRpb25SZWNvcmQSFQoGcm93X2lkGAEgASgJUgVyb3dJZBIVCgZmZG'
+    'NfaWQYAiABKAlSBWZkY0lkEiAKC2Rlc2NyaXB0aW9uGAMgASgJUgtkZXNjcmlwdGlvbhInCg9u'
+    'b3JtYWxpemVkX25hbWUYBCABKAlSDm5vcm1hbGl6ZWROYW1lEhsKCWRhdGFfdHlwZRgFIAEoCV'
+    'IIZGF0YVR5cGUSRgoSbnV0cmllbnRzX3Blcl8xMDBnGAYgASgLMhguY2Fsb3JpZnkuUGlwZWxp'
+    'bmVNYWNyb3NSEG51dHJpZW50c1BlcjEwMGcSJwoPZGF0YXNldF92ZXJzaW9uGAcgASgJUg5kYX'
+    'Rhc2V0VmVyc2lvbhIxChVyZXRyaWV2ZWRfYXRfZXBvY2hfbXMYCCABKANSEnJldHJpZXZlZEF0'
+    'RXBvY2hNcxIfCgtsb29rdXBfa2V5cxgKIAMoCVIKbG9va3VwS2V5cxIdCgptYXRjaF90eXBlGA'
+    'sgASgJUgltYXRjaFR5cGUSKQoQbWF0Y2hfY29uZmlkZW5jZRgMIAEoAVIPbWF0Y2hDb25maWRl'
+    'bmNlSgQICRAK');
+
+@$core.Deprecated('Use localNutritionResolveRequestDescriptor instead')
+const LocalNutritionResolveRequest$json = {
+  '1': 'LocalNutritionResolveRequest',
+  '2': [
+    {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
+    {
+      '1': 'lookups',
+      '3': 2,
+      '4': 3,
+      '5': 11,
+      '6': '.calorify.LocalNutritionLookup',
+      '10': 'lookups'
+    },
+  ],
+};
+
+/// Descriptor for `LocalNutritionResolveRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List localNutritionResolveRequestDescriptor =
+    $convert.base64Decode(
+        'ChxMb2NhbE51dHJpdGlvblJlc29sdmVSZXF1ZXN0Eh8KC2FuYWx5c2lzX2lkGAEgASgJUgphbm'
+        'FseXNpc0lkEjgKB2xvb2t1cHMYAiADKAsyHi5jYWxvcmlmeS5Mb2NhbE51dHJpdGlvbkxvb2t1'
+        'cFIHbG9va3Vwcw==');
+
+@$core.Deprecated('Use localNutritionResolveResponseDescriptor instead')
+const LocalNutritionResolveResponse$json = {
+  '1': 'LocalNutritionResolveResponse',
+  '2': [
+    {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
+    {
+      '1': 'records',
+      '3': 2,
+      '4': 3,
+      '5': 11,
+      '6': '.calorify.CacheableNutritionRecord',
+      '10': 'records'
+    },
+    {
+      '1': 'unresolved_row_ids',
+      '3': 3,
+      '4': 3,
+      '5': 9,
+      '10': 'unresolvedRowIds'
+    },
+  ],
+};
+
+/// Descriptor for `LocalNutritionResolveResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List localNutritionResolveResponseDescriptor = $convert.base64Decode(
+    'Ch1Mb2NhbE51dHJpdGlvblJlc29sdmVSZXNwb25zZRIfCgthbmFseXNpc19pZBgBIAEoCVIKYW'
+    '5hbHlzaXNJZBI8CgdyZWNvcmRzGAIgAygLMiIuY2Fsb3JpZnkuQ2FjaGVhYmxlTnV0cml0aW9u'
+    'UmVjb3JkUgdyZWNvcmRzEiwKEnVucmVzb2x2ZWRfcm93X2lkcxgDIAMoCVIQdW5yZXNvbHZlZF'
+    'Jvd0lkcw==');
 
 @$core.Deprecated('Use mealAnalysisFeedbackRequestDescriptor instead')
 const MealAnalysisFeedbackRequest$json = {

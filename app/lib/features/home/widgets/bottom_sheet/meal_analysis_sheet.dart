@@ -25,6 +25,7 @@ Future<bool> showV2MealAnalysisFlow({
   Uint8List? imageBytes,
   String? imageUrl,
   String? textDescription,
+  MealAnalysisContinuationRepository? continuationRepository,
 }) async {
   final finalContext = await resolveV2MealAnalysisFlow(
     context: context,
@@ -32,6 +33,7 @@ Future<bool> showV2MealAnalysisFlow({
     imageBytes: imageBytes,
     imageUrl: imageUrl,
     textDescription: textDescription,
+    continuationRepository: continuationRepository,
   );
 
   if (finalContext == null || !context.mounted) return false;
@@ -55,6 +57,7 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
   Uint8List? imageBytes,
   String? imageUrl,
   String? textDescription,
+  MealAnalysisContinuationRepository? continuationRepository,
 }) async {
   final controller = _createMealAnalysisController(
     context: context,
@@ -62,6 +65,7 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
     imageBytes: imageBytes,
     imageUrl: imageUrl,
     textDescription: textDescription,
+    continuationRepository: continuationRepository,
   );
   controller.start();
 
@@ -162,6 +166,7 @@ MealAnalysisController _createMealAnalysisController({
   String? imageUrl,
   String? textDescription,
   String? seedMealName,
+  MealAnalysisContinuationRepository? continuationRepository,
 }) {
   final repository = ProviderScope.containerOf(
     context,
@@ -169,7 +174,9 @@ MealAnalysisController _createMealAnalysisController({
   ).read(foodRepositoryProvider);
   return MealAnalysisController(
     initialAnalysis: startAnalysis,
-    repository: FoodRepositoryMealAnalysisContinuation(repository),
+    repository:
+        continuationRepository ??
+        FoodRepositoryMealAnalysisContinuation(repository),
     analytics: AppMealAnalysisAnalytics(Analytics.instance),
     imageBytes: imageBytes,
     imageUrl: imageUrl,

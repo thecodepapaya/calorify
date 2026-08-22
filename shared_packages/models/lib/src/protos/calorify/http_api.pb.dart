@@ -467,6 +467,7 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
     $core.String? localAttemptId,
     $fixnum.Int64? localAttemptStartedAtEpochMs,
     $fixnum.Int64? localAttemptCompletedAtEpochMs,
+    $0.MealAnalysisFallbackReason? fallbackReason,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
@@ -476,6 +477,7 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
       result.localAttemptStartedAtEpochMs = localAttemptStartedAtEpochMs;
     if (localAttemptCompletedAtEpochMs != null)
       result.localAttemptCompletedAtEpochMs = localAttemptCompletedAtEpochMs;
+    if (fallbackReason != null) result.fallbackReason = fallbackReason;
     return result;
   }
 
@@ -498,6 +500,9 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'localAttemptId')
     ..aInt64(4, _omitFieldNames ? '' : 'localAttemptStartedAtEpochMs')
     ..aInt64(5, _omitFieldNames ? '' : 'localAttemptCompletedAtEpochMs')
+    ..aE<$0.MealAnalysisFallbackReason>(
+        6, _omitFieldNames ? '' : 'fallbackReason',
+        enumValues: $0.MealAnalysisFallbackReason.values)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -569,6 +574,16 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
   $core.bool hasLocalAttemptCompletedAtEpochMs() => $_has(4);
   @$pb.TagNumber(5)
   void clearLocalAttemptCompletedAtEpochMs() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $0.MealAnalysisFallbackReason get fallbackReason => $_getN(5);
+  @$pb.TagNumber(6)
+  set fallbackReason($0.MealAnalysisFallbackReason value) =>
+      $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasFallbackReason() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearFallbackReason() => $_clearField(6);
 }
 
 class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
@@ -579,6 +594,7 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
     $core.bool? localNutritionEnabled,
     $core.bool? privateModesEnabled,
     $core.int? maxAgeSeconds,
+    $core.String? localNutritionManifestUrl,
   }) {
     final result = create();
     if (policyVersion != null) result.policyVersion = policyVersion;
@@ -589,6 +605,8 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
     if (privateModesEnabled != null)
       result.privateModesEnabled = privateModesEnabled;
     if (maxAgeSeconds != null) result.maxAgeSeconds = maxAgeSeconds;
+    if (localNutritionManifestUrl != null)
+      result.localNutritionManifestUrl = localNutritionManifestUrl;
     return result;
   }
 
@@ -611,6 +629,7 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
     ..aOB(4, _omitFieldNames ? '' : 'localNutritionEnabled')
     ..aOB(5, _omitFieldNames ? '' : 'privateModesEnabled')
     ..aI(6, _omitFieldNames ? '' : 'maxAgeSeconds')
+    ..aOS(7, _omitFieldNames ? '' : 'localNutritionManifestUrl')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -688,6 +707,568 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
   $core.bool hasMaxAgeSeconds() => $_has(5);
   @$pb.TagNumber(6)
   void clearMaxAgeSeconds() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.String get localNutritionManifestUrl => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set localNutritionManifestUrl($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasLocalNutritionManifestUrl() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearLocalNutritionManifestUrl() => $_clearField(7);
+}
+
+class LocalNutritionPackManifest extends $pb.GeneratedMessage {
+  factory LocalNutritionPackManifest({
+    $core.int? schemaVersion,
+    $core.String? packVersion,
+    $core.String? datasetVersion,
+    $core.String? objectName,
+    $fixnum.Int64? sizeBytes,
+    $core.String? signature,
+    $core.String? signingKeyId,
+    $fixnum.Int64? createdAtEpochMs,
+    $core.int? recordCount,
+    $core.String? calculationVersion,
+  }) {
+    final result = create();
+    if (schemaVersion != null) result.schemaVersion = schemaVersion;
+    if (packVersion != null) result.packVersion = packVersion;
+    if (datasetVersion != null) result.datasetVersion = datasetVersion;
+    if (objectName != null) result.objectName = objectName;
+    if (sizeBytes != null) result.sizeBytes = sizeBytes;
+    if (signature != null) result.signature = signature;
+    if (signingKeyId != null) result.signingKeyId = signingKeyId;
+    if (createdAtEpochMs != null) result.createdAtEpochMs = createdAtEpochMs;
+    if (recordCount != null) result.recordCount = recordCount;
+    if (calculationVersion != null)
+      result.calculationVersion = calculationVersion;
+    return result;
+  }
+
+  LocalNutritionPackManifest._();
+
+  factory LocalNutritionPackManifest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LocalNutritionPackManifest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LocalNutritionPackManifest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aI(1, _omitFieldNames ? '' : 'schemaVersion',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aOS(2, _omitFieldNames ? '' : 'packVersion')
+    ..aOS(3, _omitFieldNames ? '' : 'datasetVersion')
+    ..aOS(4, _omitFieldNames ? '' : 'objectName')
+    ..aInt64(5, _omitFieldNames ? '' : 'sizeBytes')
+    ..aOS(7, _omitFieldNames ? '' : 'signature')
+    ..aOS(8, _omitFieldNames ? '' : 'signingKeyId')
+    ..aInt64(9, _omitFieldNames ? '' : 'createdAtEpochMs')
+    ..aI(10, _omitFieldNames ? '' : 'recordCount',
+        fieldType: $pb.PbFieldType.OU3)
+    ..aOS(11, _omitFieldNames ? '' : 'calculationVersion')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionPackManifest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionPackManifest copyWith(
+          void Function(LocalNutritionPackManifest) updates) =>
+      super.copyWith(
+              (message) => updates(message as LocalNutritionPackManifest))
+          as LocalNutritionPackManifest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionPackManifest create() => LocalNutritionPackManifest._();
+  @$core.override
+  LocalNutritionPackManifest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionPackManifest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LocalNutritionPackManifest>(create);
+  static LocalNutritionPackManifest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get schemaVersion => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set schemaVersion($core.int value) => $_setUnsignedInt32(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSchemaVersion() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSchemaVersion() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get packVersion => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set packVersion($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasPackVersion() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPackVersion() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get datasetVersion => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set datasetVersion($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDatasetVersion() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDatasetVersion() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get objectName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set objectName($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasObjectName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearObjectName() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get sizeBytes => $_getI64(4);
+  @$pb.TagNumber(5)
+  set sizeBytes($fixnum.Int64 value) => $_setInt64(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasSizeBytes() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSizeBytes() => $_clearField(5);
+
+  @$pb.TagNumber(7)
+  $core.String get signature => $_getSZ(5);
+  @$pb.TagNumber(7)
+  set signature($core.String value) => $_setString(5, value);
+  @$pb.TagNumber(7)
+  $core.bool hasSignature() => $_has(5);
+  @$pb.TagNumber(7)
+  void clearSignature() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get signingKeyId => $_getSZ(6);
+  @$pb.TagNumber(8)
+  set signingKeyId($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(8)
+  $core.bool hasSigningKeyId() => $_has(6);
+  @$pb.TagNumber(8)
+  void clearSigningKeyId() => $_clearField(8);
+
+  @$pb.TagNumber(9)
+  $fixnum.Int64 get createdAtEpochMs => $_getI64(7);
+  @$pb.TagNumber(9)
+  set createdAtEpochMs($fixnum.Int64 value) => $_setInt64(7, value);
+  @$pb.TagNumber(9)
+  $core.bool hasCreatedAtEpochMs() => $_has(7);
+  @$pb.TagNumber(9)
+  void clearCreatedAtEpochMs() => $_clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.int get recordCount => $_getIZ(8);
+  @$pb.TagNumber(10)
+  set recordCount($core.int value) => $_setUnsignedInt32(8, value);
+  @$pb.TagNumber(10)
+  $core.bool hasRecordCount() => $_has(8);
+  @$pb.TagNumber(10)
+  void clearRecordCount() => $_clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get calculationVersion => $_getSZ(9);
+  @$pb.TagNumber(11)
+  set calculationVersion($core.String value) => $_setString(9, value);
+  @$pb.TagNumber(11)
+  $core.bool hasCalculationVersion() => $_has(9);
+  @$pb.TagNumber(11)
+  void clearCalculationVersion() => $_clearField(11);
+}
+
+class LocalNutritionLookup extends $pb.GeneratedMessage {
+  factory LocalNutritionLookup({
+    $core.String? rowId,
+    $core.String? canonicalHint,
+    $core.String? preparation,
+  }) {
+    final result = create();
+    if (rowId != null) result.rowId = rowId;
+    if (canonicalHint != null) result.canonicalHint = canonicalHint;
+    if (preparation != null) result.preparation = preparation;
+    return result;
+  }
+
+  LocalNutritionLookup._();
+
+  factory LocalNutritionLookup.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LocalNutritionLookup.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LocalNutritionLookup',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'rowId')
+    ..aOS(2, _omitFieldNames ? '' : 'canonicalHint')
+    ..aOS(3, _omitFieldNames ? '' : 'preparation')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionLookup clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionLookup copyWith(void Function(LocalNutritionLookup) updates) =>
+      super.copyWith((message) => updates(message as LocalNutritionLookup))
+          as LocalNutritionLookup;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionLookup create() => LocalNutritionLookup._();
+  @$core.override
+  LocalNutritionLookup createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionLookup getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LocalNutritionLookup>(create);
+  static LocalNutritionLookup? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get rowId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set rowId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasRowId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRowId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get canonicalHint => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set canonicalHint($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasCanonicalHint() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCanonicalHint() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get preparation => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set preparation($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasPreparation() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPreparation() => $_clearField(3);
+}
+
+class CacheableNutritionRecord extends $pb.GeneratedMessage {
+  factory CacheableNutritionRecord({
+    $core.String? rowId,
+    $core.String? fdcId,
+    $core.String? description,
+    $core.String? normalizedName,
+    $core.String? dataType,
+    $0.PipelineMacros? nutrientsPer100g,
+    $core.String? datasetVersion,
+    $fixnum.Int64? retrievedAtEpochMs,
+    $core.Iterable<$core.String>? lookupKeys,
+    $core.String? matchType,
+    $core.double? matchConfidence,
+  }) {
+    final result = create();
+    if (rowId != null) result.rowId = rowId;
+    if (fdcId != null) result.fdcId = fdcId;
+    if (description != null) result.description = description;
+    if (normalizedName != null) result.normalizedName = normalizedName;
+    if (dataType != null) result.dataType = dataType;
+    if (nutrientsPer100g != null) result.nutrientsPer100g = nutrientsPer100g;
+    if (datasetVersion != null) result.datasetVersion = datasetVersion;
+    if (retrievedAtEpochMs != null)
+      result.retrievedAtEpochMs = retrievedAtEpochMs;
+    if (lookupKeys != null) result.lookupKeys.addAll(lookupKeys);
+    if (matchType != null) result.matchType = matchType;
+    if (matchConfidence != null) result.matchConfidence = matchConfidence;
+    return result;
+  }
+
+  CacheableNutritionRecord._();
+
+  factory CacheableNutritionRecord.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory CacheableNutritionRecord.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'CacheableNutritionRecord',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'rowId')
+    ..aOS(2, _omitFieldNames ? '' : 'fdcId')
+    ..aOS(3, _omitFieldNames ? '' : 'description')
+    ..aOS(4, _omitFieldNames ? '' : 'normalizedName')
+    ..aOS(5, _omitFieldNames ? '' : 'dataType')
+    ..aOM<$0.PipelineMacros>(6, _omitFieldNames ? '' : 'nutrientsPer100g',
+        protoName: 'nutrients_per_100g', subBuilder: $0.PipelineMacros.create)
+    ..aOS(7, _omitFieldNames ? '' : 'datasetVersion')
+    ..aInt64(8, _omitFieldNames ? '' : 'retrievedAtEpochMs')
+    ..pPS(10, _omitFieldNames ? '' : 'lookupKeys')
+    ..aOS(11, _omitFieldNames ? '' : 'matchType')
+    ..aD(12, _omitFieldNames ? '' : 'matchConfidence')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  CacheableNutritionRecord clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  CacheableNutritionRecord copyWith(
+          void Function(CacheableNutritionRecord) updates) =>
+      super.copyWith((message) => updates(message as CacheableNutritionRecord))
+          as CacheableNutritionRecord;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CacheableNutritionRecord create() => CacheableNutritionRecord._();
+  @$core.override
+  CacheableNutritionRecord createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static CacheableNutritionRecord getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<CacheableNutritionRecord>(create);
+  static CacheableNutritionRecord? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get rowId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set rowId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasRowId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRowId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get fdcId => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set fdcId($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasFdcId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearFdcId() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get description => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set description($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasDescription() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearDescription() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get normalizedName => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set normalizedName($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasNormalizedName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearNormalizedName() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get dataType => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set dataType($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasDataType() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearDataType() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $0.PipelineMacros get nutrientsPer100g => $_getN(5);
+  @$pb.TagNumber(6)
+  set nutrientsPer100g($0.PipelineMacros value) => $_setField(6, value);
+  @$pb.TagNumber(6)
+  $core.bool hasNutrientsPer100g() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearNutrientsPer100g() => $_clearField(6);
+  @$pb.TagNumber(6)
+  $0.PipelineMacros ensureNutrientsPer100g() => $_ensure(5);
+
+  @$pb.TagNumber(7)
+  $core.String get datasetVersion => $_getSZ(6);
+  @$pb.TagNumber(7)
+  set datasetVersion($core.String value) => $_setString(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasDatasetVersion() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearDatasetVersion() => $_clearField(7);
+
+  @$pb.TagNumber(8)
+  $fixnum.Int64 get retrievedAtEpochMs => $_getI64(7);
+  @$pb.TagNumber(8)
+  set retrievedAtEpochMs($fixnum.Int64 value) => $_setInt64(7, value);
+  @$pb.TagNumber(8)
+  $core.bool hasRetrievedAtEpochMs() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearRetrievedAtEpochMs() => $_clearField(8);
+
+  @$pb.TagNumber(10)
+  $pb.PbList<$core.String> get lookupKeys => $_getList(8);
+
+  @$pb.TagNumber(11)
+  $core.String get matchType => $_getSZ(9);
+  @$pb.TagNumber(11)
+  set matchType($core.String value) => $_setString(9, value);
+  @$pb.TagNumber(11)
+  $core.bool hasMatchType() => $_has(9);
+  @$pb.TagNumber(11)
+  void clearMatchType() => $_clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.double get matchConfidence => $_getN(10);
+  @$pb.TagNumber(12)
+  set matchConfidence($core.double value) => $_setDouble(10, value);
+  @$pb.TagNumber(12)
+  $core.bool hasMatchConfidence() => $_has(10);
+  @$pb.TagNumber(12)
+  void clearMatchConfidence() => $_clearField(12);
+}
+
+class LocalNutritionResolveRequest extends $pb.GeneratedMessage {
+  factory LocalNutritionResolveRequest({
+    $core.String? analysisId,
+    $core.Iterable<LocalNutritionLookup>? lookups,
+  }) {
+    final result = create();
+    if (analysisId != null) result.analysisId = analysisId;
+    if (lookups != null) result.lookups.addAll(lookups);
+    return result;
+  }
+
+  LocalNutritionResolveRequest._();
+
+  factory LocalNutritionResolveRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LocalNutritionResolveRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LocalNutritionResolveRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'analysisId')
+    ..pPM<LocalNutritionLookup>(2, _omitFieldNames ? '' : 'lookups',
+        subBuilder: LocalNutritionLookup.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionResolveRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionResolveRequest copyWith(
+          void Function(LocalNutritionResolveRequest) updates) =>
+      super.copyWith(
+              (message) => updates(message as LocalNutritionResolveRequest))
+          as LocalNutritionResolveRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionResolveRequest create() =>
+      LocalNutritionResolveRequest._();
+  @$core.override
+  LocalNutritionResolveRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionResolveRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LocalNutritionResolveRequest>(create);
+  static LocalNutritionResolveRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get analysisId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set analysisId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAnalysisId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAnalysisId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<LocalNutritionLookup> get lookups => $_getList(1);
+}
+
+class LocalNutritionResolveResponse extends $pb.GeneratedMessage {
+  factory LocalNutritionResolveResponse({
+    $core.String? analysisId,
+    $core.Iterable<CacheableNutritionRecord>? records,
+    $core.Iterable<$core.String>? unresolvedRowIds,
+  }) {
+    final result = create();
+    if (analysisId != null) result.analysisId = analysisId;
+    if (records != null) result.records.addAll(records);
+    if (unresolvedRowIds != null)
+      result.unresolvedRowIds.addAll(unresolvedRowIds);
+    return result;
+  }
+
+  LocalNutritionResolveResponse._();
+
+  factory LocalNutritionResolveResponse.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LocalNutritionResolveResponse.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LocalNutritionResolveResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'analysisId')
+    ..pPM<CacheableNutritionRecord>(2, _omitFieldNames ? '' : 'records',
+        subBuilder: CacheableNutritionRecord.create)
+    ..pPS(3, _omitFieldNames ? '' : 'unresolvedRowIds')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionResolveResponse clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LocalNutritionResolveResponse copyWith(
+          void Function(LocalNutritionResolveResponse) updates) =>
+      super.copyWith(
+              (message) => updates(message as LocalNutritionResolveResponse))
+          as LocalNutritionResolveResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionResolveResponse create() =>
+      LocalNutritionResolveResponse._();
+  @$core.override
+  LocalNutritionResolveResponse createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LocalNutritionResolveResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LocalNutritionResolveResponse>(create);
+  static LocalNutritionResolveResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get analysisId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set analysisId($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAnalysisId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAnalysisId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<CacheableNutritionRecord> get records => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $pb.PbList<$core.String> get unresolvedRowIds => $_getList(2);
 }
 
 class MealAnalysisFeedbackRequest extends $pb.GeneratedMessage {

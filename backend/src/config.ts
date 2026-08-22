@@ -41,6 +41,8 @@ interface Config {
     readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
     readonly LOCAL_INFERENCE_POLICY_VERSION: string;
     readonly LOCAL_INFERENCE_TEXT_ENABLED: boolean;
+    readonly LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED: boolean;
+    readonly LOCAL_NUTRITION_MANIFEST_OBJECT: string;
 }
 
 function getEnvVar(name: string, defaultValue?: string): string {
@@ -178,6 +180,14 @@ const config: Config = {
     LOCAL_INFERENCE_TEXT_ENABLED: getEnvVarBoolean(
         'LOCAL_INFERENCE_TEXT_ENABLED',
         false
+    ),
+    LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED: getEnvVarBoolean(
+        'LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED',
+        false
+    ),
+    LOCAL_NUTRITION_MANIFEST_OBJECT: getEnvVar(
+        'LOCAL_NUTRITION_MANIFEST_OBJECT',
+        'local-nutrition/manifest.json'
     ),
 } as const;
 

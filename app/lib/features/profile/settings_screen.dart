@@ -38,6 +38,8 @@ class SettingsScreen extends ConsumerStatefulWidget {
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   int _debugTapCount = 0;
   bool _isExporting = false;
+  bool _isInstallingNutrition = false;
+  bool _isClearingNutrition = false;
   bool _showDebugOptions = false;
   late final Future<AppVersionInfo> _appVersionFuture;
 
@@ -56,6 +58,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       localInferenceAvailabilityProvider,
     );
     final localPreferencesAsync = ref.watch(localInferencePreferencesProvider);
+    final localNutritionStatusAsync = ref.watch(localNutritionStatusProvider);
+    final showOfflineNutrition = localPreferencesAsync.maybeWhen(
+      data: (preferences) => preferences.enabled,
+      orElse: () => false,
+    );
     final userProfile = profileAsync.maybeWhen(
       data: (profile) => profile,
       orElse: () => null,
@@ -174,6 +181,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 availabilityAsync: localAvailabilityAsync,
                 preferencesAsync: localPreferencesAsync,
               ),
+              if (showOfflineNutrition)
+                _buildOfflineNutritionTile(
+                  availabilityAsync: localAvailabilityAsync,
+                  preferencesAsync: localPreferencesAsync,
+                  statusAsync: localNutritionStatusAsync,
+                ),
             ]),
             const SizedBox(height: 16),
             _buildCardSection(t.settings.sections.supportAndLegal, [
@@ -413,6 +426,186 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 availability: availability,
               ),
     );
+  }
+
+  Widget _buildOfflineNutritionTile({
+    required AsyncValue<LocalInferenceAvailability> availabilityAsync,
+    required AsyncValue<LocalInferencePreferences> preferencesAsync,
+    required AsyncValue<LocalNutritionStatus> statusAsync,
+  }) {
+    final availability = switch (availabilityAsync) {
+      AsyncData(:final value) => value,
+      _ => null,
+    };
+    final preferences = switch (preferencesAsync) {
+      AsyncData(:final value) => value,
+      _ => null,
+    };
+    final status = switch (statusAsync) {
+      AsyncData(:final value) => value,
+      _ => null,
+    };
+    final policy = availability?.policy;
+    final packService = ref.read(localNutritionPackServiceProvider);
+    final available =
+        preferences?.enabled == true &&
+        policy?.localNutritionEnabled == true &&
+        policy?.hasLocalNutritionManifestUrl() == true &&
+        packService.hasConfiguredSigningKey;
+    final enabled = preferences?.offlineNutritionEnabled ?? false;
+    final pack = status?.pack;
+    final copy = t.localNutritionPhase4;
+    final subtitle =
+        _isInstallingNutrition
+            ? copy.offlineNutritionInstalling
+            : !available
+            ? copy.offlineNutritionUnavailable
+            : pack == null
+            ? copy.offlineNutritionNotDownloaded
+            : copy.offlineNutritionStatus(
+              version: pack.pack.packVersion,
+              size: _formatBytes(pack.byteSize),
+              datasetVersion: pack.pack.datasetVersion,
+            );
+
+    return Column(
+      children: [
+        SwitchListTile(
+          secondary: const Icon(LucideIcons.database),
+          title: Text(
+            copy.offlineNutritionTitle,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Text(subtitle),
+          value: enabled,
+          onChanged:
+              preferences == null ||
+                      _isInstallingNutrition ||
+                      _isClearingNutrition ||
+                      (!enabled && !available)
+                  ? null
+                  : (value) => _setOfflineNutritionEnabled(
+                    value: value,
+                    availability: availability,
+                  ),
+        ),
+        if (pack != null)
+          ListTile(
+            dense: true,
+            leading: const Icon(LucideIcons.hardDrive, size: 19),
+            title: Text(
+              copy.offlineNutritionCacheStatus(
+                count: status!.cacheRecords,
+                size: _formatBytes(status.cacheBytes),
+              ),
+            ),
+            trailing: IconButton(
+              tooltip: copy.offlineNutritionUpdate,
+              onPressed:
+                  available && !_isInstallingNutrition
+                      ? () => _installOfflineNutrition(availability!)
+                      : null,
+              icon: const Icon(LucideIcons.refreshCw, size: 19),
+            ),
+          ),
+        if (pack != null || (status?.cacheRecords ?? 0) > 0)
+          ListTile(
+            dense: true,
+            leading: const Icon(LucideIcons.trash2, size: 19),
+            title: Text(copy.offlineNutritionClear),
+            enabled: !_isClearingNutrition,
+            onTap: _isClearingNutrition ? null : _clearOfflineNutrition,
+          ),
+      ],
+    );
+  }
+
+  Future<void> _setOfflineNutritionEnabled({
+    required bool value,
+    required LocalInferenceAvailability? availability,
+  }) async {
+    final database = ref.read(databaseInterfaceProvider);
+    if (!value) {
+      await database.setOfflineNutritionEnabled(false);
+      ref.invalidate(localInferencePreferencesProvider);
+      return;
+    }
+    if (availability == null) return;
+    await _installOfflineNutrition(availability);
+  }
+
+  Future<void> _installOfflineNutrition(
+    LocalInferenceAvailability availability,
+  ) async {
+    final policy = availability.policy;
+    if (!policy.localNutritionEnabled ||
+        !policy.hasLocalNutritionManifestUrl()) {
+      return;
+    }
+    final manifestUri = Uri.tryParse(policy.localNutritionManifestUrl);
+    if (manifestUri == null) return;
+    setState(() => _isInstallingNutrition = true);
+    try {
+      await ref.read(localNutritionPackServiceProvider).install(manifestUri);
+      await ref
+          .read(databaseInterfaceProvider)
+          .setOfflineNutritionEnabled(true);
+      ref.invalidate(localInferencePreferencesProvider);
+      ref.invalidate(localNutritionStatusProvider);
+    } on Object catch (error) {
+      if (mounted) {
+        showFlushbar(
+          t.localNutritionPhase4.offlineNutritionInstallFailed(error: error),
+          context: context,
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isInstallingNutrition = false);
+    }
+  }
+
+  Future<void> _clearOfflineNutrition() async {
+    final copy = t.localNutritionPhase4;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(copy.offlineNutritionClearTitle),
+            content: Text(copy.offlineNutritionClearBody),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: Text(t.settings.localInference.cancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(dialogContext, true),
+                child: Text(copy.offlineNutritionClearConfirm),
+              ),
+            ],
+          ),
+    );
+    if (confirmed != true || !mounted) return;
+    setState(() => _isClearingNutrition = true);
+    try {
+      await ref.read(localNutritionPackServiceProvider).clear();
+      final database = ref.read(databaseInterfaceProvider);
+      await database.clearLocalNutritionCache();
+      await database.setOfflineNutritionEnabled(false);
+      ref.invalidate(localInferencePreferencesProvider);
+      ref.invalidate(localNutritionStatusProvider);
+      if (mounted) {
+        showFlushbar(copy.offlineNutritionCleared, context: context);
+      }
+    } finally {
+      if (mounted) setState(() => _isClearingNutrition = false);
+    }
+  }
+
+  static String _formatBytes(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    final kilobytes = bytes / 1024;
+    if (kilobytes < 1024) return '${kilobytes.toStringAsFixed(1)} KB';
+    return '${(kilobytes / 1024).toStringAsFixed(1)} MB';
   }
 
   Future<void> _setLocalInferenceEnabled({

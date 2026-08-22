@@ -154,8 +154,51 @@ void main() {
         (proposalPayload['ingredients'] as List).single,
         isNot(contains('macros')),
       );
+      expect(payload['fallbackReason'], 'MEAL_ANALYSIS_FALLBACK_REASON_NONE');
     },
   );
+
+  test('resolveLocalNutrition uses the bounded structured contract', () async {
+    adapter.respondWithJson({
+      'analysisId': 'analysis-local-nutrition',
+      'records': [
+        {
+          'rowId': 'row-1',
+          'fdcId': '169910',
+          'description': 'Bananas, raw',
+          'normalizedName': 'bananas raw',
+          'dataType': 'sr_legacy_food',
+          'nutrientsPer100g': {'calories': 89},
+          'datasetVersion': 'fdc-v1',
+          'retrievedAtEpochMs': '1700000000000',
+          'lookupKeys': ['banana'],
+          'matchType': 'alias',
+          'matchConfidence': 1,
+        },
+      ],
+      'unresolvedRowIds': [],
+    });
+
+    final response = await repository.resolveLocalNutrition(
+      analysisId: 'analysis-local-nutrition',
+      lookups: [
+        LocalNutritionLookup(
+          rowId: 'row-1',
+          canonicalHint: 'banana',
+          preparation: 'raw',
+        ),
+      ],
+    );
+
+    expect(adapter.lastRequest?.path, '/api/v2/food/resolve-local-nutrition');
+    expect(response.records.single.fdcId, '169910');
+    expect(adapter.lastRequest?.data, {
+      'analysisId': 'analysis-local-nutrition',
+      'lookups': [
+        {'rowId': 'row-1', 'canonicalHint': 'banana', 'preparation': 'raw'},
+      ],
+    });
+  });
 
   test(
     'local capability policy fails closed through typed proto defaults',

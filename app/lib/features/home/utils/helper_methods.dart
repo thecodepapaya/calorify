@@ -15,17 +15,26 @@ Future<void> logMeal(
   Meal mealInfo, {
   BuildContext? parentContext,
   String? analysisId,
+  PipelineResultData? analysisSnapshot,
 }) async {
   final loggedAt = DateTime.now();
   final container = ProviderScope.containerOf(context, listen: false);
   final database = container.read(databaseInterfaceProvider);
   final foodRepository = container.read(foodRepositoryProvider);
 
-  await database.logMeal(mealInfo, analysisId: analysisId);
+  await database.logMeal(
+    mealInfo,
+    analysisId: analysisId,
+    analysisSnapshot: analysisSnapshot,
+  );
 
   // Best-effort confirmation to the backend for V2 meals.
   // Never blocks the UI — failures are silently ignored.
-  if (analysisId != null && analysisId.isNotEmpty) {
+  final wasCalculatedLocally =
+      analysisSnapshot?.hasReceipt() == true &&
+      analysisSnapshot!.receipt.calculationOrigin ==
+          CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC;
+  if (analysisId != null && analysisId.isNotEmpty && !wasCalculatedLocally) {
     unawaited(
       foodRepository
           .confirmMealLogV2(

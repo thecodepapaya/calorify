@@ -7,7 +7,7 @@
 /* eslint-disable */
 import type { Meal, MealType } from "../meal/meal";
 import type { AiMealSummaryTrend } from "./ai_meal_summary_trend";
-import type { IngredientProposalV1, MealAnalysisFallbackReason } from "./meal_analysis_pipeline";
+import type { IngredientProposalV1, MealAnalysisFallbackReason, PipelineMacros } from "./meal_analysis_pipeline";
 
 export const protobufPackage = "calorify";
 
@@ -93,6 +93,7 @@ export interface MealAnalysisProposalRequest {
   localAttemptId: string;
   localAttemptStartedAtEpochMs: number;
   localAttemptCompletedAtEpochMs: number;
+  fallbackReason: MealAnalysisFallbackReason;
 }
 
 export interface LocalInferenceCapabilityPolicy {
@@ -102,6 +103,51 @@ export interface LocalInferenceCapabilityPolicy {
   localNutritionEnabled: boolean;
   privateModesEnabled: boolean;
   maxAgeSeconds: number;
+  localNutritionManifestUrl?: string | undefined;
+}
+
+export interface LocalNutritionPackManifest {
+  schemaVersion: number;
+  packVersion: string;
+  datasetVersion: string;
+  objectName: string;
+  sizeBytes: number;
+  signature: string;
+  signingKeyId: string;
+  createdAtEpochMs: number;
+  recordCount: number;
+  calculationVersion: string;
+}
+
+export interface LocalNutritionLookup {
+  rowId: string;
+  canonicalHint: string;
+  preparation: string;
+}
+
+export interface CacheableNutritionRecord {
+  rowId: string;
+  fdcId: string;
+  description: string;
+  normalizedName: string;
+  dataType: string;
+  nutrientsPer100g?: PipelineMacros | undefined;
+  datasetVersion: string;
+  retrievedAtEpochMs: number;
+  lookupKeys: string[];
+  matchType: string;
+  matchConfidence: number;
+}
+
+export interface LocalNutritionResolveRequest {
+  analysisId: string;
+  lookups: LocalNutritionLookup[];
+}
+
+export interface LocalNutritionResolveResponse {
+  analysisId: string;
+  records: CacheableNutritionRecord[];
+  unresolvedRowIds: string[];
 }
 
 export interface MealAnalysisFeedbackRequest {

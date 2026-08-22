@@ -1,6 +1,6 @@
 # Local inference for meal analysis
 
-Status: Engineering implementation complete through Phase 3; rollout gated
+Status: Engineering implementation complete through Phase 4; rollout gated
 Last updated: 2026-08-22
 
 ## Executive summary
@@ -30,18 +30,21 @@ separate meal-analysis implementation.
 
 ## Implementation status — 22 August 2026
 
-Phases 1–3 are implemented as a default-off release candidate. The shared
-contracts, cloud settlement boundary, Gemini Nano text adapter, strict proposal
-validation, capability-gated setting and disclosure, editable proposal review,
-automatic fallback, provenance UI, kill switch, and developer diagnostics are
-in the repository. Phase 4 and later work has not started.
+Phases 1–4 are implemented as default-off release candidates. In addition to
+the Phase 1–3 hybrid text path, the repository now contains the reviewed USDA
+starter-pack pipeline, detached-signature pack verification and rollback,
+bounded authoritative row cache, structured cache-fill resolver, exact local
+matching, deterministic on-device calculation, immutable meal snapshots,
+separate download controls, detailed provenance, and Phase 4 developer
+diagnostics. Phase 5 is intentionally deferred.
 
 This is an engineering-complete checkpoint, not a claim that the limited beta
 has already shipped. Production release completion still requires the external
 gates in this plan: product/terms approval, a supported physical-device matrix,
 live holdout and latency evidence, staged distribution, telemetry review, and a
-live rollback rehearsal. The implementation and verification record is in
-`backend/docs/local-inference-phases-1-3-release-candidate.md`.
+live rollback rehearsal. The implementation and verification records are in
+`backend/docs/local-inference-phases-1-3-release-candidate.md` and
+`backend/docs/local-inference-phase-4-release-candidate.md`.
 
 ## Product vision
 
@@ -414,7 +417,8 @@ Store authoritative nutrient facts rather than portion-specific meal results:
 - units and conversion metadata;
 - USDA dataset/release version;
 - schema version and retrieval timestamp;
-- integrity hash or equivalent corruption check;
+- detached Ed25519 signature covering the manifest metadata and exact pack
+  bytes;
 - source and freshness state.
 
 Do not cache an LLM macro fallback as a USDA record. If the backend has no USDA
@@ -807,13 +811,15 @@ Progress tracker:
   physical-device benchmark pending)
 - [x] Phase 3 — Hybrid text beta (default-off release candidate complete;
   limited rollout and live acceptance metrics pending)
-- [ ] Phase 4 — Local nutrition beta
-- [ ] Phase 5 — Private and offline modes
+- [x] Phase 4 — Local nutrition beta (default-off release candidate complete;
+  production pack publication and cohort acceptance pending)
+- [ ] Phase 5 — Private and offline modes (explicitly deferred)
 - [ ] Phase 6 — Text general availability
 - [ ] Phase 7 — Local image beta
 
-Work is intentionally stopped after Phase 3. No Phase 4 dataset, cache, local
-nutrition authority, or offline-mode behavior is included in this checkpoint.
+Work is intentionally stopped after Phase 4. Local nutrition is implemented
+behind default-off capability and preference gates. Phase 5 egress modes and
+durable offline drafts are not included in this checkpoint.
 
 ## Phase 1 — Workflow foundation
 
@@ -1119,8 +1125,9 @@ authority.
 
 ### In scope
 
-- Build a reviewed, versioned USDA starter pack with a signed/hash-verified
-  manifest and atomic activation/rollback.
+- Build a reviewed, versioned USDA starter pack with a detached-signature-
+  verified manifest and atomic activation/rollback. A separate content hash is
+  intentionally not part of the Phase 4 contract.
 - Add a bounded Drift/SQLite overlay cache for authoritative backend-fetched
   USDA records.
 - Add a local nutrition repository over starter pack, overlay cache, and remote
@@ -1139,7 +1146,7 @@ authority.
 ### Deliverables
 
 1. Reproducible starter-pack build pipeline, reviewed manifest, and download.
-2. Atomic pack installer with integrity, compatibility, and rollback checks.
+2. Atomic pack installer with signature, compatibility, and rollback checks.
 3. Versioned overlay-cache schema, size limit, eviction, and erase semantics.
 4. Backend cache-fill/resolution contract.
 5. Local USDA matcher/repository and deterministic calculator.
@@ -1574,20 +1581,22 @@ At minimum, test:
 
 ## Current stopping point
 
-The repository is stopped at the Phase 3 default-off release candidate. Before
+The repository is stopped at the Phase 4 default-off release candidate. Before
 enabling a limited beta, complete the remaining release gates in this order:
 
-1. Approve audience/terms suitability and the Phase 3 disclosure copy.
-2. Run the committed holdout and cold/warm latency harness on each proposed
-   supported Gemini Nano device/model cohort.
-3. Repeat backend compatibility and rollback checks against the deployed
-   candidate, including the global text kill switch.
-4. Publish through internal testing, then a deliberately limited eligible
-   cohort; review fallback, correction, latency, crash, and completion metrics.
-5. Create the formal Phase 1, 2, and 3 completion records with release IDs and
-   a go/no-go decision.
+1. Complete the Ed25519 signing-key ceremony, build the reviewed pack, and
+   publish the pack and manifest to the existing Oracle object storage.
+2. Configure the matching trusted public key in the app candidate and enable
+   the backend manifest/resolver capability only for the intended cohort.
+3. Run the committed holdout plus cold/warm latency and pack lifecycle checks
+   on each supported physical Gemini Nano device/model cohort.
+4. Repeat backend compatibility, cache-fill, data rollback, and global text
+   kill-switch checks against the deployed candidate.
+5. Publish through internal testing, then a deliberately limited eligible
+   cohort; review pack coverage, cache hit rate, fallback, parity, latency,
+   storage, crash, and completion metrics.
+6. Record release IDs, evidence, and a go/no-go decision for Phases 1–4.
 
-Do not begin Phase 4 until those Phase 3 release records are accepted. In
-particular, do not add a local USDA pack, overlay cache, local macro authority,
-offline drafts, image inference, or broader fallback choices as part of this
-checkpoint.
+Do not begin Phase 5 as part of this checkpoint. In particular, do not add
+Ask/Never egress policies, durable offline drafts, image inference, or broader
+privacy guarantees beyond the implemented Phase 4 local-completion path.

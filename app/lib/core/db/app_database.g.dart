@@ -160,6 +160,17 @@ class $MealInfoTableTable extends MealInfoTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _analysisSnapshotJsonMeta =
+      const VerificationMeta('analysisSnapshotJson');
+  @override
+  late final GeneratedColumn<String> analysisSnapshotJson =
+      GeneratedColumn<String>(
+        'analysis_snapshot_json',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -176,6 +187,7 @@ class $MealInfoTableTable extends MealInfoTable
     healthScore,
     healthScoreReason,
     analysisId,
+    analysisSnapshotJson,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -297,6 +309,15 @@ class $MealInfoTableTable extends MealInfoTable
         analysisId.isAcceptableOrUnknown(data['analysis_id']!, _analysisIdMeta),
       );
     }
+    if (data.containsKey('analysis_snapshot_json')) {
+      context.handle(
+        _analysisSnapshotJsonMeta,
+        analysisSnapshotJson.isAcceptableOrUnknown(
+          data['analysis_snapshot_json']!,
+          _analysisSnapshotJsonMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -372,6 +393,10 @@ class $MealInfoTableTable extends MealInfoTable
         DriftSqlType.string,
         data['${effectivePrefix}analysis_id'],
       ),
+      analysisSnapshotJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}analysis_snapshot_json'],
+      ),
     );
   }
 
@@ -397,6 +422,7 @@ class MealInfoTableData extends DataClass
   final String? healthScore;
   final String? healthScoreReason;
   final String? analysisId;
+  final String? analysisSnapshotJson;
   const MealInfoTableData({
     required this.id,
     required this.mealName,
@@ -412,6 +438,7 @@ class MealInfoTableData extends DataClass
     this.healthScore,
     this.healthScoreReason,
     this.analysisId,
+    this.analysisSnapshotJson,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -437,6 +464,9 @@ class MealInfoTableData extends DataClass
     }
     if (!nullToAbsent || analysisId != null) {
       map['analysis_id'] = Variable<String>(analysisId);
+    }
+    if (!nullToAbsent || analysisSnapshotJson != null) {
+      map['analysis_snapshot_json'] = Variable<String>(analysisSnapshotJson);
     }
     return map;
   }
@@ -469,6 +499,10 @@ class MealInfoTableData extends DataClass
           analysisId == null && nullToAbsent
               ? const Value.absent()
               : Value(analysisId),
+      analysisSnapshotJson:
+          analysisSnapshotJson == null && nullToAbsent
+              ? const Value.absent()
+              : Value(analysisSnapshotJson),
     );
   }
 
@@ -494,6 +528,9 @@ class MealInfoTableData extends DataClass
         json['healthScoreReason'],
       ),
       analysisId: serializer.fromJson<String?>(json['analysisId']),
+      analysisSnapshotJson: serializer.fromJson<String?>(
+        json['analysisSnapshotJson'],
+      ),
     );
   }
   @override
@@ -514,6 +551,7 @@ class MealInfoTableData extends DataClass
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
       'analysisId': serializer.toJson<String?>(analysisId),
+      'analysisSnapshotJson': serializer.toJson<String?>(analysisSnapshotJson),
     };
   }
 
@@ -532,6 +570,7 @@ class MealInfoTableData extends DataClass
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
     Value<String?> analysisId = const Value.absent(),
+    Value<String?> analysisSnapshotJson = const Value.absent(),
   }) => MealInfoTableData(
     id: id ?? this.id,
     mealName: mealName ?? this.mealName,
@@ -550,6 +589,10 @@ class MealInfoTableData extends DataClass
             ? healthScoreReason.value
             : this.healthScoreReason,
     analysisId: analysisId.present ? analysisId.value : this.analysisId,
+    analysisSnapshotJson:
+        analysisSnapshotJson.present
+            ? analysisSnapshotJson.value
+            : this.analysisSnapshotJson,
   );
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
@@ -575,6 +618,10 @@ class MealInfoTableData extends DataClass
               : this.healthScoreReason,
       analysisId:
           data.analysisId.present ? data.analysisId.value : this.analysisId,
+      analysisSnapshotJson:
+          data.analysisSnapshotJson.present
+              ? data.analysisSnapshotJson.value
+              : this.analysisSnapshotJson,
     );
   }
 
@@ -594,7 +641,8 @@ class MealInfoTableData extends DataClass
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
-          ..write('analysisId: $analysisId')
+          ..write('analysisId: $analysisId, ')
+          ..write('analysisSnapshotJson: $analysisSnapshotJson')
           ..write(')'))
         .toString();
   }
@@ -615,6 +663,7 @@ class MealInfoTableData extends DataClass
     healthScore,
     healthScoreReason,
     analysisId,
+    analysisSnapshotJson,
   );
   @override
   bool operator ==(Object other) =>
@@ -633,7 +682,8 @@ class MealInfoTableData extends DataClass
           other.imageUrl == this.imageUrl &&
           other.healthScore == this.healthScore &&
           other.healthScoreReason == this.healthScoreReason &&
-          other.analysisId == this.analysisId);
+          other.analysisId == this.analysisId &&
+          other.analysisSnapshotJson == this.analysisSnapshotJson);
 }
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
@@ -651,6 +701,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
   final Value<String?> analysisId;
+  final Value<String?> analysisSnapshotJson;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -666,6 +717,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
+    this.analysisSnapshotJson = const Value.absent(),
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
@@ -682,6 +734,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
+    this.analysisSnapshotJson = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -706,6 +759,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
     Expression<String>? analysisId,
+    Expression<String>? analysisSnapshotJson,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -722,6 +776,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
       if (analysisId != null) 'analysis_id': analysisId,
+      if (analysisSnapshotJson != null)
+        'analysis_snapshot_json': analysisSnapshotJson,
     });
   }
 
@@ -740,6 +796,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
     Value<String?>? analysisId,
+    Value<String?>? analysisSnapshotJson,
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
@@ -756,6 +813,7 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
       analysisId: analysisId ?? this.analysisId,
+      analysisSnapshotJson: analysisSnapshotJson ?? this.analysisSnapshotJson,
     );
   }
 
@@ -804,6 +862,11 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     if (analysisId.present) {
       map['analysis_id'] = Variable<String>(analysisId.value);
     }
+    if (analysisSnapshotJson.present) {
+      map['analysis_snapshot_json'] = Variable<String>(
+        analysisSnapshotJson.value,
+      );
+    }
     return map;
   }
 
@@ -823,7 +886,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('imageUrl: $imageUrl, ')
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
-          ..write('analysisId: $analysisId')
+          ..write('analysisId: $analysisId, ')
+          ..write('analysisSnapshotJson: $analysisSnapshotJson')
           ..write(')'))
         .toString();
   }
@@ -1807,6 +1871,21 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         ),
         defaultValue: const Constant(false),
       );
+  static const VerificationMeta _offlineNutritionEnabledMeta =
+      const VerificationMeta('offlineNutritionEnabled');
+  @override
+  late final GeneratedColumn<bool> offlineNutritionEnabled =
+      GeneratedColumn<bool>(
+        'offline_nutrition_enabled',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("offline_nutrition_enabled" IN (0, 1))',
+        ),
+        defaultValue: const Constant(false),
+      );
   static const VerificationMeta _localInferenceAcknowledgedPolicyVersionMeta =
       const VerificationMeta('localInferenceAcknowledgedPolicyVersion');
   @override
@@ -1839,6 +1918,7 @@ class $UserPreferencesTableTable extends UserPreferencesTable
     onboardingCurrentStep,
     onboardingCompletedAt,
     localInferenceEnabled,
+    offlineNutritionEnabled,
     localInferenceAcknowledgedPolicyVersion,
     updatedAt,
   ];
@@ -1908,6 +1988,15 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         ),
       );
     }
+    if (data.containsKey('offline_nutrition_enabled')) {
+      context.handle(
+        _offlineNutritionEnabledMeta,
+        offlineNutritionEnabled.isAcceptableOrUnknown(
+          data['offline_nutrition_enabled']!,
+          _offlineNutritionEnabledMeta,
+        ),
+      );
+    }
     if (data.containsKey('local_inference_acknowledged_policy_version')) {
       context.handle(
         _localInferenceAcknowledgedPolicyVersionMeta,
@@ -1965,6 +2054,11 @@ class $UserPreferencesTableTable extends UserPreferencesTable
             DriftSqlType.bool,
             data['${effectivePrefix}local_inference_enabled'],
           )!,
+      offlineNutritionEnabled:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}offline_nutrition_enabled'],
+          )!,
       localInferenceAcknowledgedPolicyVersion: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}local_inference_acknowledged_policy_version'],
@@ -1992,6 +2086,7 @@ class UserPreferencesTableData extends DataClass
   final int? onboardingCurrentStep;
   final DateTime? onboardingCompletedAt;
   final bool localInferenceEnabled;
+  final bool offlineNutritionEnabled;
   final String? localInferenceAcknowledgedPolicyVersion;
   final DateTime updatedAt;
   const UserPreferencesTableData({
@@ -2002,6 +2097,7 @@ class UserPreferencesTableData extends DataClass
     this.onboardingCurrentStep,
     this.onboardingCompletedAt,
     required this.localInferenceEnabled,
+    required this.offlineNutritionEnabled,
     this.localInferenceAcknowledgedPolicyVersion,
     required this.updatedAt,
   });
@@ -2027,6 +2123,7 @@ class UserPreferencesTableData extends DataClass
       );
     }
     map['local_inference_enabled'] = Variable<bool>(localInferenceEnabled);
+    map['offline_nutrition_enabled'] = Variable<bool>(offlineNutritionEnabled);
     if (!nullToAbsent || localInferenceAcknowledgedPolicyVersion != null) {
       map['local_inference_acknowledged_policy_version'] = Variable<String>(
         localInferenceAcknowledgedPolicyVersion,
@@ -2058,6 +2155,7 @@ class UserPreferencesTableData extends DataClass
               ? const Value.absent()
               : Value(onboardingCompletedAt),
       localInferenceEnabled: Value(localInferenceEnabled),
+      offlineNutritionEnabled: Value(offlineNutritionEnabled),
       localInferenceAcknowledgedPolicyVersion:
           localInferenceAcknowledgedPolicyVersion == null && nullToAbsent
               ? const Value.absent()
@@ -2087,6 +2185,9 @@ class UserPreferencesTableData extends DataClass
       localInferenceEnabled: serializer.fromJson<bool>(
         json['localInferenceEnabled'],
       ),
+      offlineNutritionEnabled: serializer.fromJson<bool>(
+        json['offlineNutritionEnabled'],
+      ),
       localInferenceAcknowledgedPolicyVersion: serializer.fromJson<String?>(
         json['localInferenceAcknowledgedPolicyVersion'],
       ),
@@ -2108,6 +2209,9 @@ class UserPreferencesTableData extends DataClass
         onboardingCompletedAt,
       ),
       'localInferenceEnabled': serializer.toJson<bool>(localInferenceEnabled),
+      'offlineNutritionEnabled': serializer.toJson<bool>(
+        offlineNutritionEnabled,
+      ),
       'localInferenceAcknowledgedPolicyVersion': serializer.toJson<String?>(
         localInferenceAcknowledgedPolicyVersion,
       ),
@@ -2123,6 +2227,7 @@ class UserPreferencesTableData extends DataClass
     Value<int?> onboardingCurrentStep = const Value.absent(),
     Value<DateTime?> onboardingCompletedAt = const Value.absent(),
     bool? localInferenceEnabled,
+    bool? offlineNutritionEnabled,
     Value<String?> localInferenceAcknowledgedPolicyVersion =
         const Value.absent(),
     DateTime? updatedAt,
@@ -2143,6 +2248,8 @@ class UserPreferencesTableData extends DataClass
             ? onboardingCompletedAt.value
             : this.onboardingCompletedAt,
     localInferenceEnabled: localInferenceEnabled ?? this.localInferenceEnabled,
+    offlineNutritionEnabled:
+        offlineNutritionEnabled ?? this.offlineNutritionEnabled,
     localInferenceAcknowledgedPolicyVersion:
         localInferenceAcknowledgedPolicyVersion.present
             ? localInferenceAcknowledgedPolicyVersion.value
@@ -2175,6 +2282,10 @@ class UserPreferencesTableData extends DataClass
           data.localInferenceEnabled.present
               ? data.localInferenceEnabled.value
               : this.localInferenceEnabled,
+      offlineNutritionEnabled:
+          data.offlineNutritionEnabled.present
+              ? data.offlineNutritionEnabled.value
+              : this.offlineNutritionEnabled,
       localInferenceAcknowledgedPolicyVersion:
           data.localInferenceAcknowledgedPolicyVersion.present
               ? data.localInferenceAcknowledgedPolicyVersion.value
@@ -2193,6 +2304,7 @@ class UserPreferencesTableData extends DataClass
           ..write('onboardingCurrentStep: $onboardingCurrentStep, ')
           ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
           ..write('localInferenceEnabled: $localInferenceEnabled, ')
+          ..write('offlineNutritionEnabled: $offlineNutritionEnabled, ')
           ..write(
             'localInferenceAcknowledgedPolicyVersion: $localInferenceAcknowledgedPolicyVersion, ',
           )
@@ -2210,6 +2322,7 @@ class UserPreferencesTableData extends DataClass
     onboardingCurrentStep,
     onboardingCompletedAt,
     localInferenceEnabled,
+    offlineNutritionEnabled,
     localInferenceAcknowledgedPolicyVersion,
     updatedAt,
   );
@@ -2224,6 +2337,7 @@ class UserPreferencesTableData extends DataClass
           other.onboardingCurrentStep == this.onboardingCurrentStep &&
           other.onboardingCompletedAt == this.onboardingCompletedAt &&
           other.localInferenceEnabled == this.localInferenceEnabled &&
+          other.offlineNutritionEnabled == this.offlineNutritionEnabled &&
           other.localInferenceAcknowledgedPolicyVersion ==
               this.localInferenceAcknowledgedPolicyVersion &&
           other.updatedAt == this.updatedAt);
@@ -2238,6 +2352,7 @@ class UserPreferencesTableCompanion
   final Value<int?> onboardingCurrentStep;
   final Value<DateTime?> onboardingCompletedAt;
   final Value<bool> localInferenceEnabled;
+  final Value<bool> offlineNutritionEnabled;
   final Value<String?> localInferenceAcknowledgedPolicyVersion;
   final Value<DateTime> updatedAt;
   const UserPreferencesTableCompanion({
@@ -2248,6 +2363,7 @@ class UserPreferencesTableCompanion
     this.onboardingCurrentStep = const Value.absent(),
     this.onboardingCompletedAt = const Value.absent(),
     this.localInferenceEnabled = const Value.absent(),
+    this.offlineNutritionEnabled = const Value.absent(),
     this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -2259,6 +2375,7 @@ class UserPreferencesTableCompanion
     this.onboardingCurrentStep = const Value.absent(),
     this.onboardingCompletedAt = const Value.absent(),
     this.localInferenceEnabled = const Value.absent(),
+    this.offlineNutritionEnabled = const Value.absent(),
     this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -2270,6 +2387,7 @@ class UserPreferencesTableCompanion
     Expression<int>? onboardingCurrentStep,
     Expression<DateTime>? onboardingCompletedAt,
     Expression<bool>? localInferenceEnabled,
+    Expression<bool>? offlineNutritionEnabled,
     Expression<String>? localInferenceAcknowledgedPolicyVersion,
     Expression<DateTime>? updatedAt,
   }) {
@@ -2285,6 +2403,8 @@ class UserPreferencesTableCompanion
         'onboarding_completed_at': onboardingCompletedAt,
       if (localInferenceEnabled != null)
         'local_inference_enabled': localInferenceEnabled,
+      if (offlineNutritionEnabled != null)
+        'offline_nutrition_enabled': offlineNutritionEnabled,
       if (localInferenceAcknowledgedPolicyVersion != null)
         'local_inference_acknowledged_policy_version':
             localInferenceAcknowledgedPolicyVersion,
@@ -2300,6 +2420,7 @@ class UserPreferencesTableCompanion
     Value<int?>? onboardingCurrentStep,
     Value<DateTime?>? onboardingCompletedAt,
     Value<bool>? localInferenceEnabled,
+    Value<bool>? offlineNutritionEnabled,
     Value<String?>? localInferenceAcknowledgedPolicyVersion,
     Value<DateTime>? updatedAt,
   }) {
@@ -2314,6 +2435,8 @@ class UserPreferencesTableCompanion
           onboardingCompletedAt ?? this.onboardingCompletedAt,
       localInferenceEnabled:
           localInferenceEnabled ?? this.localInferenceEnabled,
+      offlineNutritionEnabled:
+          offlineNutritionEnabled ?? this.offlineNutritionEnabled,
       localInferenceAcknowledgedPolicyVersion:
           localInferenceAcknowledgedPolicyVersion ??
           this.localInferenceAcknowledgedPolicyVersion,
@@ -2353,6 +2476,11 @@ class UserPreferencesTableCompanion
         localInferenceEnabled.value,
       );
     }
+    if (offlineNutritionEnabled.present) {
+      map['offline_nutrition_enabled'] = Variable<bool>(
+        offlineNutritionEnabled.value,
+      );
+    }
     if (localInferenceAcknowledgedPolicyVersion.present) {
       map['local_inference_acknowledged_policy_version'] = Variable<String>(
         localInferenceAcknowledgedPolicyVersion.value,
@@ -2374,6 +2502,7 @@ class UserPreferencesTableCompanion
           ..write('onboardingCurrentStep: $onboardingCurrentStep, ')
           ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
           ..write('localInferenceEnabled: $localInferenceEnabled, ')
+          ..write('offlineNutritionEnabled: $offlineNutritionEnabled, ')
           ..write(
             'localInferenceAcknowledgedPolicyVersion: $localInferenceAcknowledgedPolicyVersion, ',
           )
@@ -2540,6 +2669,17 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _analysisSnapshotJsonMeta =
+      const VerificationMeta('analysisSnapshotJson');
+  @override
+  late final GeneratedColumn<String> analysisSnapshotJson =
+      GeneratedColumn<String>(
+        'analysis_snapshot_json',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
   static const VerificationMeta _sourceMealIdMeta = const VerificationMeta(
     'sourceMealId',
   );
@@ -2591,6 +2731,7 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     healthScore,
     healthScoreReason,
     analysisId,
+    analysisSnapshotJson,
     sourceMealId,
     createdAt,
     lastUsedAt,
@@ -2715,6 +2856,15 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         analysisId.isAcceptableOrUnknown(data['analysis_id']!, _analysisIdMeta),
       );
     }
+    if (data.containsKey('analysis_snapshot_json')) {
+      context.handle(
+        _analysisSnapshotJsonMeta,
+        analysisSnapshotJson.isAcceptableOrUnknown(
+          data['analysis_snapshot_json']!,
+          _analysisSnapshotJsonMeta,
+        ),
+      );
+    }
     if (data.containsKey('source_meal_id')) {
       context.handle(
         _sourceMealIdMeta,
@@ -2814,6 +2964,10 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         DriftSqlType.string,
         data['${effectivePrefix}analysis_id'],
       ),
+      analysisSnapshotJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}analysis_snapshot_json'],
+      ),
       sourceMealId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}source_meal_id'],
@@ -2852,6 +3006,7 @@ class FavoriteMealTableData extends DataClass
   final String? healthScore;
   final String? healthScoreReason;
   final String? analysisId;
+  final String? analysisSnapshotJson;
   final int? sourceMealId;
   final DateTime createdAt;
   final DateTime? lastUsedAt;
@@ -2870,6 +3025,7 @@ class FavoriteMealTableData extends DataClass
     this.healthScore,
     this.healthScoreReason,
     this.analysisId,
+    this.analysisSnapshotJson,
     this.sourceMealId,
     required this.createdAt,
     this.lastUsedAt,
@@ -2898,6 +3054,9 @@ class FavoriteMealTableData extends DataClass
     }
     if (!nullToAbsent || analysisId != null) {
       map['analysis_id'] = Variable<String>(analysisId);
+    }
+    if (!nullToAbsent || analysisSnapshotJson != null) {
+      map['analysis_snapshot_json'] = Variable<String>(analysisSnapshotJson);
     }
     if (!nullToAbsent || sourceMealId != null) {
       map['source_meal_id'] = Variable<int>(sourceMealId);
@@ -2937,6 +3096,10 @@ class FavoriteMealTableData extends DataClass
           analysisId == null && nullToAbsent
               ? const Value.absent()
               : Value(analysisId),
+      analysisSnapshotJson:
+          analysisSnapshotJson == null && nullToAbsent
+              ? const Value.absent()
+              : Value(analysisSnapshotJson),
       sourceMealId:
           sourceMealId == null && nullToAbsent
               ? const Value.absent()
@@ -2971,6 +3134,9 @@ class FavoriteMealTableData extends DataClass
         json['healthScoreReason'],
       ),
       analysisId: serializer.fromJson<String?>(json['analysisId']),
+      analysisSnapshotJson: serializer.fromJson<String?>(
+        json['analysisSnapshotJson'],
+      ),
       sourceMealId: serializer.fromJson<int?>(json['sourceMealId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
@@ -2994,6 +3160,7 @@ class FavoriteMealTableData extends DataClass
       'healthScore': serializer.toJson<String?>(healthScore),
       'healthScoreReason': serializer.toJson<String?>(healthScoreReason),
       'analysisId': serializer.toJson<String?>(analysisId),
+      'analysisSnapshotJson': serializer.toJson<String?>(analysisSnapshotJson),
       'sourceMealId': serializer.toJson<int?>(sourceMealId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
@@ -3015,6 +3182,7 @@ class FavoriteMealTableData extends DataClass
     Value<String?> healthScore = const Value.absent(),
     Value<String?> healthScoreReason = const Value.absent(),
     Value<String?> analysisId = const Value.absent(),
+    Value<String?> analysisSnapshotJson = const Value.absent(),
     Value<int?> sourceMealId = const Value.absent(),
     DateTime? createdAt,
     Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -3036,6 +3204,10 @@ class FavoriteMealTableData extends DataClass
             ? healthScoreReason.value
             : this.healthScoreReason,
     analysisId: analysisId.present ? analysisId.value : this.analysisId,
+    analysisSnapshotJson:
+        analysisSnapshotJson.present
+            ? analysisSnapshotJson.value
+            : this.analysisSnapshotJson,
     sourceMealId: sourceMealId.present ? sourceMealId.value : this.sourceMealId,
     createdAt: createdAt ?? this.createdAt,
     lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
@@ -3064,6 +3236,10 @@ class FavoriteMealTableData extends DataClass
               : this.healthScoreReason,
       analysisId:
           data.analysisId.present ? data.analysisId.value : this.analysisId,
+      analysisSnapshotJson:
+          data.analysisSnapshotJson.present
+              ? data.analysisSnapshotJson.value
+              : this.analysisSnapshotJson,
       sourceMealId:
           data.sourceMealId.present
               ? data.sourceMealId.value
@@ -3091,6 +3267,7 @@ class FavoriteMealTableData extends DataClass
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
           ..write('analysisId: $analysisId, ')
+          ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
           ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
@@ -3114,6 +3291,7 @@ class FavoriteMealTableData extends DataClass
     healthScore,
     healthScoreReason,
     analysisId,
+    analysisSnapshotJson,
     sourceMealId,
     createdAt,
     lastUsedAt,
@@ -3136,6 +3314,7 @@ class FavoriteMealTableData extends DataClass
           other.healthScore == this.healthScore &&
           other.healthScoreReason == this.healthScoreReason &&
           other.analysisId == this.analysisId &&
+          other.analysisSnapshotJson == this.analysisSnapshotJson &&
           other.sourceMealId == this.sourceMealId &&
           other.createdAt == this.createdAt &&
           other.lastUsedAt == this.lastUsedAt);
@@ -3157,6 +3336,7 @@ class FavoriteMealTableCompanion
   final Value<String?> healthScore;
   final Value<String?> healthScoreReason;
   final Value<String?> analysisId;
+  final Value<String?> analysisSnapshotJson;
   final Value<int?> sourceMealId;
   final Value<DateTime> createdAt;
   final Value<DateTime?> lastUsedAt;
@@ -3175,6 +3355,7 @@ class FavoriteMealTableCompanion
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
+    this.analysisSnapshotJson = const Value.absent(),
     this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
@@ -3194,6 +3375,7 @@ class FavoriteMealTableCompanion
     this.healthScore = const Value.absent(),
     this.healthScoreReason = const Value.absent(),
     this.analysisId = const Value.absent(),
+    this.analysisSnapshotJson = const Value.absent(),
     this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
@@ -3221,6 +3403,7 @@ class FavoriteMealTableCompanion
     Expression<String>? healthScore,
     Expression<String>? healthScoreReason,
     Expression<String>? analysisId,
+    Expression<String>? analysisSnapshotJson,
     Expression<int>? sourceMealId,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? lastUsedAt,
@@ -3240,6 +3423,8 @@ class FavoriteMealTableCompanion
       if (healthScore != null) 'health_score': healthScore,
       if (healthScoreReason != null) 'health_score_reason': healthScoreReason,
       if (analysisId != null) 'analysis_id': analysisId,
+      if (analysisSnapshotJson != null)
+        'analysis_snapshot_json': analysisSnapshotJson,
       if (sourceMealId != null) 'source_meal_id': sourceMealId,
       if (createdAt != null) 'created_at': createdAt,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
@@ -3261,6 +3446,7 @@ class FavoriteMealTableCompanion
     Value<String?>? healthScore,
     Value<String?>? healthScoreReason,
     Value<String?>? analysisId,
+    Value<String?>? analysisSnapshotJson,
     Value<int?>? sourceMealId,
     Value<DateTime>? createdAt,
     Value<DateTime?>? lastUsedAt,
@@ -3280,6 +3466,7 @@ class FavoriteMealTableCompanion
       healthScore: healthScore ?? this.healthScore,
       healthScoreReason: healthScoreReason ?? this.healthScoreReason,
       analysisId: analysisId ?? this.analysisId,
+      analysisSnapshotJson: analysisSnapshotJson ?? this.analysisSnapshotJson,
       sourceMealId: sourceMealId ?? this.sourceMealId,
       createdAt: createdAt ?? this.createdAt,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
@@ -3331,6 +3518,11 @@ class FavoriteMealTableCompanion
     if (analysisId.present) {
       map['analysis_id'] = Variable<String>(analysisId.value);
     }
+    if (analysisSnapshotJson.present) {
+      map['analysis_snapshot_json'] = Variable<String>(
+        analysisSnapshotJson.value,
+      );
+    }
     if (sourceMealId.present) {
       map['source_meal_id'] = Variable<int>(sourceMealId.value);
     }
@@ -3360,9 +3552,902 @@ class FavoriteMealTableCompanion
           ..write('healthScore: $healthScore, ')
           ..write('healthScoreReason: $healthScoreReason, ')
           ..write('analysisId: $analysisId, ')
+          ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
           ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $LocalNutritionCacheTableTable extends LocalNutritionCacheTable
+    with
+        TableInfo<
+          $LocalNutritionCacheTableTable,
+          LocalNutritionCacheTableData
+        > {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LocalNutritionCacheTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _fdcIdMeta = const VerificationMeta('fdcId');
+  @override
+  late final GeneratedColumn<String> fdcId = GeneratedColumn<String>(
+    'fdc_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _datasetVersionMeta = const VerificationMeta(
+    'datasetVersion',
+  );
+  @override
+  late final GeneratedColumn<String> datasetVersion = GeneratedColumn<String>(
+    'dataset_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _dataTypeMeta = const VerificationMeta(
+    'dataType',
+  );
+  @override
+  late final GeneratedColumn<String> dataType = GeneratedColumn<String>(
+    'data_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lookupKeysJsonMeta = const VerificationMeta(
+    'lookupKeysJson',
+  );
+  @override
+  late final GeneratedColumn<String> lookupKeysJson = GeneratedColumn<String>(
+    'lookup_keys_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _caloriesPer100gMeta = const VerificationMeta(
+    'caloriesPer100g',
+  );
+  @override
+  late final GeneratedColumn<double> caloriesPer100g = GeneratedColumn<double>(
+    'calories_per100g',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _proteinPer100gMeta = const VerificationMeta(
+    'proteinPer100g',
+  );
+  @override
+  late final GeneratedColumn<double> proteinPer100g = GeneratedColumn<double>(
+    'protein_per100g',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _carbsPer100gMeta = const VerificationMeta(
+    'carbsPer100g',
+  );
+  @override
+  late final GeneratedColumn<double> carbsPer100g = GeneratedColumn<double>(
+    'carbs_per100g',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fatPer100gMeta = const VerificationMeta(
+    'fatPer100g',
+  );
+  @override
+  late final GeneratedColumn<double> fatPer100g = GeneratedColumn<double>(
+    'fat_per100g',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fiberPer100gMeta = const VerificationMeta(
+    'fiberPer100g',
+  );
+  @override
+  late final GeneratedColumn<double> fiberPer100g = GeneratedColumn<double>(
+    'fiber_per100g',
+    aliasedName,
+    false,
+    type: DriftSqlType.double,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _retrievedAtMeta = const VerificationMeta(
+    'retrievedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> retrievedAt = GeneratedColumn<DateTime>(
+    'retrieved_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lastAccessedAtMeta = const VerificationMeta(
+    'lastAccessedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> lastAccessedAt =
+      GeneratedColumn<DateTime>(
+        'last_accessed_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _approximateBytesMeta = const VerificationMeta(
+    'approximateBytes',
+  );
+  @override
+  late final GeneratedColumn<int> approximateBytes = GeneratedColumn<int>(
+    'approximate_bytes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    fdcId,
+    datasetVersion,
+    description,
+    normalizedName,
+    dataType,
+    lookupKeysJson,
+    caloriesPer100g,
+    proteinPer100g,
+    carbsPer100g,
+    fatPer100g,
+    fiberPer100g,
+    retrievedAt,
+    lastAccessedAt,
+    approximateBytes,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'local_nutrition_cache_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<LocalNutritionCacheTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('fdc_id')) {
+      context.handle(
+        _fdcIdMeta,
+        fdcId.isAcceptableOrUnknown(data['fdc_id']!, _fdcIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fdcIdMeta);
+    }
+    if (data.containsKey('dataset_version')) {
+      context.handle(
+        _datasetVersionMeta,
+        datasetVersion.isAcceptableOrUnknown(
+          data['dataset_version']!,
+          _datasetVersionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_datasetVersionMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('data_type')) {
+      context.handle(
+        _dataTypeMeta,
+        dataType.isAcceptableOrUnknown(data['data_type']!, _dataTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_dataTypeMeta);
+    }
+    if (data.containsKey('lookup_keys_json')) {
+      context.handle(
+        _lookupKeysJsonMeta,
+        lookupKeysJson.isAcceptableOrUnknown(
+          data['lookup_keys_json']!,
+          _lookupKeysJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lookupKeysJsonMeta);
+    }
+    if (data.containsKey('calories_per100g')) {
+      context.handle(
+        _caloriesPer100gMeta,
+        caloriesPer100g.isAcceptableOrUnknown(
+          data['calories_per100g']!,
+          _caloriesPer100gMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_caloriesPer100gMeta);
+    }
+    if (data.containsKey('protein_per100g')) {
+      context.handle(
+        _proteinPer100gMeta,
+        proteinPer100g.isAcceptableOrUnknown(
+          data['protein_per100g']!,
+          _proteinPer100gMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_proteinPer100gMeta);
+    }
+    if (data.containsKey('carbs_per100g')) {
+      context.handle(
+        _carbsPer100gMeta,
+        carbsPer100g.isAcceptableOrUnknown(
+          data['carbs_per100g']!,
+          _carbsPer100gMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_carbsPer100gMeta);
+    }
+    if (data.containsKey('fat_per100g')) {
+      context.handle(
+        _fatPer100gMeta,
+        fatPer100g.isAcceptableOrUnknown(data['fat_per100g']!, _fatPer100gMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fatPer100gMeta);
+    }
+    if (data.containsKey('fiber_per100g')) {
+      context.handle(
+        _fiberPer100gMeta,
+        fiberPer100g.isAcceptableOrUnknown(
+          data['fiber_per100g']!,
+          _fiberPer100gMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_fiberPer100gMeta);
+    }
+    if (data.containsKey('retrieved_at')) {
+      context.handle(
+        _retrievedAtMeta,
+        retrievedAt.isAcceptableOrUnknown(
+          data['retrieved_at']!,
+          _retrievedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_retrievedAtMeta);
+    }
+    if (data.containsKey('last_accessed_at')) {
+      context.handle(
+        _lastAccessedAtMeta,
+        lastAccessedAt.isAcceptableOrUnknown(
+          data['last_accessed_at']!,
+          _lastAccessedAtMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lastAccessedAtMeta);
+    }
+    if (data.containsKey('approximate_bytes')) {
+      context.handle(
+        _approximateBytesMeta,
+        approximateBytes.isAcceptableOrUnknown(
+          data['approximate_bytes']!,
+          _approximateBytesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_approximateBytesMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {fdcId, datasetVersion};
+  @override
+  LocalNutritionCacheTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LocalNutritionCacheTableData(
+      fdcId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}fdc_id'],
+          )!,
+      datasetVersion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}dataset_version'],
+          )!,
+      description:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}description'],
+          )!,
+      normalizedName:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}normalized_name'],
+          )!,
+      dataType:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}data_type'],
+          )!,
+      lookupKeysJson:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}lookup_keys_json'],
+          )!,
+      caloriesPer100g:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.double,
+            data['${effectivePrefix}calories_per100g'],
+          )!,
+      proteinPer100g:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.double,
+            data['${effectivePrefix}protein_per100g'],
+          )!,
+      carbsPer100g:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.double,
+            data['${effectivePrefix}carbs_per100g'],
+          )!,
+      fatPer100g:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.double,
+            data['${effectivePrefix}fat_per100g'],
+          )!,
+      fiberPer100g:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.double,
+            data['${effectivePrefix}fiber_per100g'],
+          )!,
+      retrievedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}retrieved_at'],
+          )!,
+      lastAccessedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}last_accessed_at'],
+          )!,
+      approximateBytes:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}approximate_bytes'],
+          )!,
+    );
+  }
+
+  @override
+  $LocalNutritionCacheTableTable createAlias(String alias) {
+    return $LocalNutritionCacheTableTable(attachedDatabase, alias);
+  }
+}
+
+class LocalNutritionCacheTableData extends DataClass
+    implements Insertable<LocalNutritionCacheTableData> {
+  final String fdcId;
+  final String datasetVersion;
+  final String description;
+  final String normalizedName;
+  final String dataType;
+  final String lookupKeysJson;
+  final double caloriesPer100g;
+  final double proteinPer100g;
+  final double carbsPer100g;
+  final double fatPer100g;
+  final double fiberPer100g;
+  final DateTime retrievedAt;
+  final DateTime lastAccessedAt;
+  final int approximateBytes;
+  const LocalNutritionCacheTableData({
+    required this.fdcId,
+    required this.datasetVersion,
+    required this.description,
+    required this.normalizedName,
+    required this.dataType,
+    required this.lookupKeysJson,
+    required this.caloriesPer100g,
+    required this.proteinPer100g,
+    required this.carbsPer100g,
+    required this.fatPer100g,
+    required this.fiberPer100g,
+    required this.retrievedAt,
+    required this.lastAccessedAt,
+    required this.approximateBytes,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['fdc_id'] = Variable<String>(fdcId);
+    map['dataset_version'] = Variable<String>(datasetVersion);
+    map['description'] = Variable<String>(description);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    map['data_type'] = Variable<String>(dataType);
+    map['lookup_keys_json'] = Variable<String>(lookupKeysJson);
+    map['calories_per100g'] = Variable<double>(caloriesPer100g);
+    map['protein_per100g'] = Variable<double>(proteinPer100g);
+    map['carbs_per100g'] = Variable<double>(carbsPer100g);
+    map['fat_per100g'] = Variable<double>(fatPer100g);
+    map['fiber_per100g'] = Variable<double>(fiberPer100g);
+    map['retrieved_at'] = Variable<DateTime>(retrievedAt);
+    map['last_accessed_at'] = Variable<DateTime>(lastAccessedAt);
+    map['approximate_bytes'] = Variable<int>(approximateBytes);
+    return map;
+  }
+
+  LocalNutritionCacheTableCompanion toCompanion(bool nullToAbsent) {
+    return LocalNutritionCacheTableCompanion(
+      fdcId: Value(fdcId),
+      datasetVersion: Value(datasetVersion),
+      description: Value(description),
+      normalizedName: Value(normalizedName),
+      dataType: Value(dataType),
+      lookupKeysJson: Value(lookupKeysJson),
+      caloriesPer100g: Value(caloriesPer100g),
+      proteinPer100g: Value(proteinPer100g),
+      carbsPer100g: Value(carbsPer100g),
+      fatPer100g: Value(fatPer100g),
+      fiberPer100g: Value(fiberPer100g),
+      retrievedAt: Value(retrievedAt),
+      lastAccessedAt: Value(lastAccessedAt),
+      approximateBytes: Value(approximateBytes),
+    );
+  }
+
+  factory LocalNutritionCacheTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LocalNutritionCacheTableData(
+      fdcId: serializer.fromJson<String>(json['fdcId']),
+      datasetVersion: serializer.fromJson<String>(json['datasetVersion']),
+      description: serializer.fromJson<String>(json['description']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      dataType: serializer.fromJson<String>(json['dataType']),
+      lookupKeysJson: serializer.fromJson<String>(json['lookupKeysJson']),
+      caloriesPer100g: serializer.fromJson<double>(json['caloriesPer100g']),
+      proteinPer100g: serializer.fromJson<double>(json['proteinPer100g']),
+      carbsPer100g: serializer.fromJson<double>(json['carbsPer100g']),
+      fatPer100g: serializer.fromJson<double>(json['fatPer100g']),
+      fiberPer100g: serializer.fromJson<double>(json['fiberPer100g']),
+      retrievedAt: serializer.fromJson<DateTime>(json['retrievedAt']),
+      lastAccessedAt: serializer.fromJson<DateTime>(json['lastAccessedAt']),
+      approximateBytes: serializer.fromJson<int>(json['approximateBytes']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'fdcId': serializer.toJson<String>(fdcId),
+      'datasetVersion': serializer.toJson<String>(datasetVersion),
+      'description': serializer.toJson<String>(description),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'dataType': serializer.toJson<String>(dataType),
+      'lookupKeysJson': serializer.toJson<String>(lookupKeysJson),
+      'caloriesPer100g': serializer.toJson<double>(caloriesPer100g),
+      'proteinPer100g': serializer.toJson<double>(proteinPer100g),
+      'carbsPer100g': serializer.toJson<double>(carbsPer100g),
+      'fatPer100g': serializer.toJson<double>(fatPer100g),
+      'fiberPer100g': serializer.toJson<double>(fiberPer100g),
+      'retrievedAt': serializer.toJson<DateTime>(retrievedAt),
+      'lastAccessedAt': serializer.toJson<DateTime>(lastAccessedAt),
+      'approximateBytes': serializer.toJson<int>(approximateBytes),
+    };
+  }
+
+  LocalNutritionCacheTableData copyWith({
+    String? fdcId,
+    String? datasetVersion,
+    String? description,
+    String? normalizedName,
+    String? dataType,
+    String? lookupKeysJson,
+    double? caloriesPer100g,
+    double? proteinPer100g,
+    double? carbsPer100g,
+    double? fatPer100g,
+    double? fiberPer100g,
+    DateTime? retrievedAt,
+    DateTime? lastAccessedAt,
+    int? approximateBytes,
+  }) => LocalNutritionCacheTableData(
+    fdcId: fdcId ?? this.fdcId,
+    datasetVersion: datasetVersion ?? this.datasetVersion,
+    description: description ?? this.description,
+    normalizedName: normalizedName ?? this.normalizedName,
+    dataType: dataType ?? this.dataType,
+    lookupKeysJson: lookupKeysJson ?? this.lookupKeysJson,
+    caloriesPer100g: caloriesPer100g ?? this.caloriesPer100g,
+    proteinPer100g: proteinPer100g ?? this.proteinPer100g,
+    carbsPer100g: carbsPer100g ?? this.carbsPer100g,
+    fatPer100g: fatPer100g ?? this.fatPer100g,
+    fiberPer100g: fiberPer100g ?? this.fiberPer100g,
+    retrievedAt: retrievedAt ?? this.retrievedAt,
+    lastAccessedAt: lastAccessedAt ?? this.lastAccessedAt,
+    approximateBytes: approximateBytes ?? this.approximateBytes,
+  );
+  LocalNutritionCacheTableData copyWithCompanion(
+    LocalNutritionCacheTableCompanion data,
+  ) {
+    return LocalNutritionCacheTableData(
+      fdcId: data.fdcId.present ? data.fdcId.value : this.fdcId,
+      datasetVersion:
+          data.datasetVersion.present
+              ? data.datasetVersion.value
+              : this.datasetVersion,
+      description:
+          data.description.present ? data.description.value : this.description,
+      normalizedName:
+          data.normalizedName.present
+              ? data.normalizedName.value
+              : this.normalizedName,
+      dataType: data.dataType.present ? data.dataType.value : this.dataType,
+      lookupKeysJson:
+          data.lookupKeysJson.present
+              ? data.lookupKeysJson.value
+              : this.lookupKeysJson,
+      caloriesPer100g:
+          data.caloriesPer100g.present
+              ? data.caloriesPer100g.value
+              : this.caloriesPer100g,
+      proteinPer100g:
+          data.proteinPer100g.present
+              ? data.proteinPer100g.value
+              : this.proteinPer100g,
+      carbsPer100g:
+          data.carbsPer100g.present
+              ? data.carbsPer100g.value
+              : this.carbsPer100g,
+      fatPer100g:
+          data.fatPer100g.present ? data.fatPer100g.value : this.fatPer100g,
+      fiberPer100g:
+          data.fiberPer100g.present
+              ? data.fiberPer100g.value
+              : this.fiberPer100g,
+      retrievedAt:
+          data.retrievedAt.present ? data.retrievedAt.value : this.retrievedAt,
+      lastAccessedAt:
+          data.lastAccessedAt.present
+              ? data.lastAccessedAt.value
+              : this.lastAccessedAt,
+      approximateBytes:
+          data.approximateBytes.present
+              ? data.approximateBytes.value
+              : this.approximateBytes,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LocalNutritionCacheTableData(')
+          ..write('fdcId: $fdcId, ')
+          ..write('datasetVersion: $datasetVersion, ')
+          ..write('description: $description, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('dataType: $dataType, ')
+          ..write('lookupKeysJson: $lookupKeysJson, ')
+          ..write('caloriesPer100g: $caloriesPer100g, ')
+          ..write('proteinPer100g: $proteinPer100g, ')
+          ..write('carbsPer100g: $carbsPer100g, ')
+          ..write('fatPer100g: $fatPer100g, ')
+          ..write('fiberPer100g: $fiberPer100g, ')
+          ..write('retrievedAt: $retrievedAt, ')
+          ..write('lastAccessedAt: $lastAccessedAt, ')
+          ..write('approximateBytes: $approximateBytes')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    fdcId,
+    datasetVersion,
+    description,
+    normalizedName,
+    dataType,
+    lookupKeysJson,
+    caloriesPer100g,
+    proteinPer100g,
+    carbsPer100g,
+    fatPer100g,
+    fiberPer100g,
+    retrievedAt,
+    lastAccessedAt,
+    approximateBytes,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LocalNutritionCacheTableData &&
+          other.fdcId == this.fdcId &&
+          other.datasetVersion == this.datasetVersion &&
+          other.description == this.description &&
+          other.normalizedName == this.normalizedName &&
+          other.dataType == this.dataType &&
+          other.lookupKeysJson == this.lookupKeysJson &&
+          other.caloriesPer100g == this.caloriesPer100g &&
+          other.proteinPer100g == this.proteinPer100g &&
+          other.carbsPer100g == this.carbsPer100g &&
+          other.fatPer100g == this.fatPer100g &&
+          other.fiberPer100g == this.fiberPer100g &&
+          other.retrievedAt == this.retrievedAt &&
+          other.lastAccessedAt == this.lastAccessedAt &&
+          other.approximateBytes == this.approximateBytes);
+}
+
+class LocalNutritionCacheTableCompanion
+    extends UpdateCompanion<LocalNutritionCacheTableData> {
+  final Value<String> fdcId;
+  final Value<String> datasetVersion;
+  final Value<String> description;
+  final Value<String> normalizedName;
+  final Value<String> dataType;
+  final Value<String> lookupKeysJson;
+  final Value<double> caloriesPer100g;
+  final Value<double> proteinPer100g;
+  final Value<double> carbsPer100g;
+  final Value<double> fatPer100g;
+  final Value<double> fiberPer100g;
+  final Value<DateTime> retrievedAt;
+  final Value<DateTime> lastAccessedAt;
+  final Value<int> approximateBytes;
+  final Value<int> rowid;
+  const LocalNutritionCacheTableCompanion({
+    this.fdcId = const Value.absent(),
+    this.datasetVersion = const Value.absent(),
+    this.description = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.dataType = const Value.absent(),
+    this.lookupKeysJson = const Value.absent(),
+    this.caloriesPer100g = const Value.absent(),
+    this.proteinPer100g = const Value.absent(),
+    this.carbsPer100g = const Value.absent(),
+    this.fatPer100g = const Value.absent(),
+    this.fiberPer100g = const Value.absent(),
+    this.retrievedAt = const Value.absent(),
+    this.lastAccessedAt = const Value.absent(),
+    this.approximateBytes = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LocalNutritionCacheTableCompanion.insert({
+    required String fdcId,
+    required String datasetVersion,
+    required String description,
+    required String normalizedName,
+    required String dataType,
+    required String lookupKeysJson,
+    required double caloriesPer100g,
+    required double proteinPer100g,
+    required double carbsPer100g,
+    required double fatPer100g,
+    required double fiberPer100g,
+    required DateTime retrievedAt,
+    required DateTime lastAccessedAt,
+    required int approximateBytes,
+    this.rowid = const Value.absent(),
+  }) : fdcId = Value(fdcId),
+       datasetVersion = Value(datasetVersion),
+       description = Value(description),
+       normalizedName = Value(normalizedName),
+       dataType = Value(dataType),
+       lookupKeysJson = Value(lookupKeysJson),
+       caloriesPer100g = Value(caloriesPer100g),
+       proteinPer100g = Value(proteinPer100g),
+       carbsPer100g = Value(carbsPer100g),
+       fatPer100g = Value(fatPer100g),
+       fiberPer100g = Value(fiberPer100g),
+       retrievedAt = Value(retrievedAt),
+       lastAccessedAt = Value(lastAccessedAt),
+       approximateBytes = Value(approximateBytes);
+  static Insertable<LocalNutritionCacheTableData> custom({
+    Expression<String>? fdcId,
+    Expression<String>? datasetVersion,
+    Expression<String>? description,
+    Expression<String>? normalizedName,
+    Expression<String>? dataType,
+    Expression<String>? lookupKeysJson,
+    Expression<double>? caloriesPer100g,
+    Expression<double>? proteinPer100g,
+    Expression<double>? carbsPer100g,
+    Expression<double>? fatPer100g,
+    Expression<double>? fiberPer100g,
+    Expression<DateTime>? retrievedAt,
+    Expression<DateTime>? lastAccessedAt,
+    Expression<int>? approximateBytes,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (fdcId != null) 'fdc_id': fdcId,
+      if (datasetVersion != null) 'dataset_version': datasetVersion,
+      if (description != null) 'description': description,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (dataType != null) 'data_type': dataType,
+      if (lookupKeysJson != null) 'lookup_keys_json': lookupKeysJson,
+      if (caloriesPer100g != null) 'calories_per100g': caloriesPer100g,
+      if (proteinPer100g != null) 'protein_per100g': proteinPer100g,
+      if (carbsPer100g != null) 'carbs_per100g': carbsPer100g,
+      if (fatPer100g != null) 'fat_per100g': fatPer100g,
+      if (fiberPer100g != null) 'fiber_per100g': fiberPer100g,
+      if (retrievedAt != null) 'retrieved_at': retrievedAt,
+      if (lastAccessedAt != null) 'last_accessed_at': lastAccessedAt,
+      if (approximateBytes != null) 'approximate_bytes': approximateBytes,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LocalNutritionCacheTableCompanion copyWith({
+    Value<String>? fdcId,
+    Value<String>? datasetVersion,
+    Value<String>? description,
+    Value<String>? normalizedName,
+    Value<String>? dataType,
+    Value<String>? lookupKeysJson,
+    Value<double>? caloriesPer100g,
+    Value<double>? proteinPer100g,
+    Value<double>? carbsPer100g,
+    Value<double>? fatPer100g,
+    Value<double>? fiberPer100g,
+    Value<DateTime>? retrievedAt,
+    Value<DateTime>? lastAccessedAt,
+    Value<int>? approximateBytes,
+    Value<int>? rowid,
+  }) {
+    return LocalNutritionCacheTableCompanion(
+      fdcId: fdcId ?? this.fdcId,
+      datasetVersion: datasetVersion ?? this.datasetVersion,
+      description: description ?? this.description,
+      normalizedName: normalizedName ?? this.normalizedName,
+      dataType: dataType ?? this.dataType,
+      lookupKeysJson: lookupKeysJson ?? this.lookupKeysJson,
+      caloriesPer100g: caloriesPer100g ?? this.caloriesPer100g,
+      proteinPer100g: proteinPer100g ?? this.proteinPer100g,
+      carbsPer100g: carbsPer100g ?? this.carbsPer100g,
+      fatPer100g: fatPer100g ?? this.fatPer100g,
+      fiberPer100g: fiberPer100g ?? this.fiberPer100g,
+      retrievedAt: retrievedAt ?? this.retrievedAt,
+      lastAccessedAt: lastAccessedAt ?? this.lastAccessedAt,
+      approximateBytes: approximateBytes ?? this.approximateBytes,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (fdcId.present) {
+      map['fdc_id'] = Variable<String>(fdcId.value);
+    }
+    if (datasetVersion.present) {
+      map['dataset_version'] = Variable<String>(datasetVersion.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (dataType.present) {
+      map['data_type'] = Variable<String>(dataType.value);
+    }
+    if (lookupKeysJson.present) {
+      map['lookup_keys_json'] = Variable<String>(lookupKeysJson.value);
+    }
+    if (caloriesPer100g.present) {
+      map['calories_per100g'] = Variable<double>(caloriesPer100g.value);
+    }
+    if (proteinPer100g.present) {
+      map['protein_per100g'] = Variable<double>(proteinPer100g.value);
+    }
+    if (carbsPer100g.present) {
+      map['carbs_per100g'] = Variable<double>(carbsPer100g.value);
+    }
+    if (fatPer100g.present) {
+      map['fat_per100g'] = Variable<double>(fatPer100g.value);
+    }
+    if (fiberPer100g.present) {
+      map['fiber_per100g'] = Variable<double>(fiberPer100g.value);
+    }
+    if (retrievedAt.present) {
+      map['retrieved_at'] = Variable<DateTime>(retrievedAt.value);
+    }
+    if (lastAccessedAt.present) {
+      map['last_accessed_at'] = Variable<DateTime>(lastAccessedAt.value);
+    }
+    if (approximateBytes.present) {
+      map['approximate_bytes'] = Variable<int>(approximateBytes.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LocalNutritionCacheTableCompanion(')
+          ..write('fdcId: $fdcId, ')
+          ..write('datasetVersion: $datasetVersion, ')
+          ..write('description: $description, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('dataType: $dataType, ')
+          ..write('lookupKeysJson: $lookupKeysJson, ')
+          ..write('caloriesPer100g: $caloriesPer100g, ')
+          ..write('proteinPer100g: $proteinPer100g, ')
+          ..write('carbsPer100g: $carbsPer100g, ')
+          ..write('fatPer100g: $fatPer100g, ')
+          ..write('fiberPer100g: $fiberPer100g, ')
+          ..write('retrievedAt: $retrievedAt, ')
+          ..write('lastAccessedAt: $lastAccessedAt, ')
+          ..write('approximateBytes: $approximateBytes, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -3379,6 +4464,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $UserPreferencesTableTable(this);
   late final $FavoriteMealTableTable favoriteMealTable =
       $FavoriteMealTableTable(this);
+  late final $LocalNutritionCacheTableTable localNutritionCacheTable =
+      $LocalNutritionCacheTableTable(this);
   late final Index mealInfoAnalysisIdUnique = Index(
     'meal_info_analysis_id_unique',
     'CREATE UNIQUE INDEX meal_info_analysis_id_unique ON meal_info_table (analysis_id)',
@@ -3392,6 +4479,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     userProfileTable,
     userPreferencesTable,
     favoriteMealTable,
+    localNutritionCacheTable,
     mealInfoAnalysisIdUnique,
   ];
 }
@@ -3412,6 +4500,7 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
+      Value<String?> analysisSnapshotJson,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
@@ -3429,6 +4518,7 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
+      Value<String?> analysisSnapshotJson,
     });
 
 class $$MealInfoTableTableFilterComposer
@@ -3507,6 +4597,11 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<String> get analysisId => $composableBuilder(
     column: $table.analysisId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get analysisSnapshotJson => $composableBuilder(
+    column: $table.analysisSnapshotJson,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -3589,6 +4684,11 @@ class $$MealInfoTableTableOrderingComposer
     column: $table.analysisId,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get analysisSnapshotJson => $composableBuilder(
+    column: $table.analysisSnapshotJson,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$MealInfoTableTableAnnotationComposer
@@ -3649,6 +4749,11 @@ class $$MealInfoTableTableAnnotationComposer
     column: $table.analysisId,
     builder: (column) => column,
   );
+
+  GeneratedColumn<String> get analysisSnapshotJson => $composableBuilder(
+    column: $table.analysisSnapshotJson,
+    builder: (column) => column,
+  );
 }
 
 class $$MealInfoTableTableTableManager
@@ -3704,6 +4809,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
+                Value<String?> analysisSnapshotJson = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
                 mealName: mealName,
@@ -3719,6 +4825,7 @@ class $$MealInfoTableTableTableManager
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
+                analysisSnapshotJson: analysisSnapshotJson,
               ),
           createCompanionCallback:
               ({
@@ -3736,6 +4843,7 @@ class $$MealInfoTableTableTableManager
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
+                Value<String?> analysisSnapshotJson = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
                 mealName: mealName,
@@ -3751,6 +4859,7 @@ class $$MealInfoTableTableTableManager
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
+                analysisSnapshotJson: analysisSnapshotJson,
               ),
           withReferenceMapper:
               (p0) =>
@@ -4219,6 +5328,7 @@ typedef $$UserPreferencesTableTableCreateCompanionBuilder =
       Value<int?> onboardingCurrentStep,
       Value<DateTime?> onboardingCompletedAt,
       Value<bool> localInferenceEnabled,
+      Value<bool> offlineNutritionEnabled,
       Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<DateTime> updatedAt,
     });
@@ -4231,6 +5341,7 @@ typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
       Value<int?> onboardingCurrentStep,
       Value<DateTime?> onboardingCompletedAt,
       Value<bool> localInferenceEnabled,
+      Value<bool> offlineNutritionEnabled,
       Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<DateTime> updatedAt,
     });
@@ -4276,6 +5387,11 @@ class $$UserPreferencesTableTableFilterComposer
 
   ColumnFilters<bool> get localInferenceEnabled => $composableBuilder(
     column: $table.localInferenceEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get offlineNutritionEnabled => $composableBuilder(
+    column: $table.offlineNutritionEnabled,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4335,6 +5451,11 @@ class $$UserPreferencesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<bool> get offlineNutritionEnabled => $composableBuilder(
+    column: $table.offlineNutritionEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get localInferenceAcknowledgedPolicyVersion =>
       $composableBuilder(
         column: $table.localInferenceAcknowledgedPolicyVersion,
@@ -4384,6 +5505,11 @@ class $$UserPreferencesTableTableAnnotationComposer
 
   GeneratedColumn<bool> get localInferenceEnabled => $composableBuilder(
     column: $table.localInferenceEnabled,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get offlineNutritionEnabled => $composableBuilder(
+    column: $table.offlineNutritionEnabled,
     builder: (column) => column,
   );
 
@@ -4450,6 +5576,7 @@ class $$UserPreferencesTableTableTableManager
                 Value<int?> onboardingCurrentStep = const Value.absent(),
                 Value<DateTime?> onboardingCompletedAt = const Value.absent(),
                 Value<bool> localInferenceEnabled = const Value.absent(),
+                Value<bool> offlineNutritionEnabled = const Value.absent(),
                 Value<String?> localInferenceAcknowledgedPolicyVersion =
                     const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -4461,6 +5588,7 @@ class $$UserPreferencesTableTableTableManager
                 onboardingCurrentStep: onboardingCurrentStep,
                 onboardingCompletedAt: onboardingCompletedAt,
                 localInferenceEnabled: localInferenceEnabled,
+                offlineNutritionEnabled: offlineNutritionEnabled,
                 localInferenceAcknowledgedPolicyVersion:
                     localInferenceAcknowledgedPolicyVersion,
                 updatedAt: updatedAt,
@@ -4474,6 +5602,7 @@ class $$UserPreferencesTableTableTableManager
                 Value<int?> onboardingCurrentStep = const Value.absent(),
                 Value<DateTime?> onboardingCompletedAt = const Value.absent(),
                 Value<bool> localInferenceEnabled = const Value.absent(),
+                Value<bool> offlineNutritionEnabled = const Value.absent(),
                 Value<String?> localInferenceAcknowledgedPolicyVersion =
                     const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
@@ -4485,6 +5614,7 @@ class $$UserPreferencesTableTableTableManager
                 onboardingCurrentStep: onboardingCurrentStep,
                 onboardingCompletedAt: onboardingCompletedAt,
                 localInferenceEnabled: localInferenceEnabled,
+                offlineNutritionEnabled: offlineNutritionEnabled,
                 localInferenceAcknowledgedPolicyVersion:
                     localInferenceAcknowledgedPolicyVersion,
                 updatedAt: updatedAt,
@@ -4541,6 +5671,7 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
+      Value<String?> analysisSnapshotJson,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
@@ -4561,6 +5692,7 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<String?> healthScore,
       Value<String?> healthScoreReason,
       Value<String?> analysisId,
+      Value<String?> analysisSnapshotJson,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
@@ -4642,6 +5774,11 @@ class $$FavoriteMealTableTableFilterComposer
 
   ColumnFilters<String> get analysisId => $composableBuilder(
     column: $table.analysisId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get analysisSnapshotJson => $composableBuilder(
+    column: $table.analysisSnapshotJson,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -4740,6 +5877,11 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get analysisSnapshotJson => $composableBuilder(
+    column: $table.analysisSnapshotJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get sourceMealId => $composableBuilder(
     column: $table.sourceMealId,
     builder: (column) => ColumnOrderings(column),
@@ -4812,6 +5954,11 @@ class $$FavoriteMealTableTableAnnotationComposer
 
   GeneratedColumn<String> get analysisId => $composableBuilder(
     column: $table.analysisId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get analysisSnapshotJson => $composableBuilder(
+    column: $table.analysisSnapshotJson,
     builder: (column) => column,
   );
 
@@ -4889,6 +6036,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
+                Value<String?> analysisSnapshotJson = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -4907,6 +6055,7 @@ class $$FavoriteMealTableTableTableManager
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
+                analysisSnapshotJson: analysisSnapshotJson,
                 sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
@@ -4927,6 +6076,7 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> healthScore = const Value.absent(),
                 Value<String?> healthScoreReason = const Value.absent(),
                 Value<String?> analysisId = const Value.absent(),
+                Value<String?> analysisSnapshotJson = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -4945,6 +6095,7 @@ class $$FavoriteMealTableTableTableManager
                 healthScore: healthScore,
                 healthScoreReason: healthScoreReason,
                 analysisId: analysisId,
+                analysisSnapshotJson: analysisSnapshotJson,
                 sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
@@ -4985,6 +6136,427 @@ typedef $$FavoriteMealTableTableProcessedTableManager =
       FavoriteMealTableData,
       PrefetchHooks Function()
     >;
+typedef $$LocalNutritionCacheTableTableCreateCompanionBuilder =
+    LocalNutritionCacheTableCompanion Function({
+      required String fdcId,
+      required String datasetVersion,
+      required String description,
+      required String normalizedName,
+      required String dataType,
+      required String lookupKeysJson,
+      required double caloriesPer100g,
+      required double proteinPer100g,
+      required double carbsPer100g,
+      required double fatPer100g,
+      required double fiberPer100g,
+      required DateTime retrievedAt,
+      required DateTime lastAccessedAt,
+      required int approximateBytes,
+      Value<int> rowid,
+    });
+typedef $$LocalNutritionCacheTableTableUpdateCompanionBuilder =
+    LocalNutritionCacheTableCompanion Function({
+      Value<String> fdcId,
+      Value<String> datasetVersion,
+      Value<String> description,
+      Value<String> normalizedName,
+      Value<String> dataType,
+      Value<String> lookupKeysJson,
+      Value<double> caloriesPer100g,
+      Value<double> proteinPer100g,
+      Value<double> carbsPer100g,
+      Value<double> fatPer100g,
+      Value<double> fiberPer100g,
+      Value<DateTime> retrievedAt,
+      Value<DateTime> lastAccessedAt,
+      Value<int> approximateBytes,
+      Value<int> rowid,
+    });
+
+class $$LocalNutritionCacheTableTableFilterComposer
+    extends Composer<_$AppDatabase, $LocalNutritionCacheTableTable> {
+  $$LocalNutritionCacheTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get fdcId => $composableBuilder(
+    column: $table.fdcId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get datasetVersion => $composableBuilder(
+    column: $table.datasetVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get dataType => $composableBuilder(
+    column: $table.dataType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lookupKeysJson => $composableBuilder(
+    column: $table.lookupKeysJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get caloriesPer100g => $composableBuilder(
+    column: $table.caloriesPer100g,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get proteinPer100g => $composableBuilder(
+    column: $table.proteinPer100g,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get carbsPer100g => $composableBuilder(
+    column: $table.carbsPer100g,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fatPer100g => $composableBuilder(
+    column: $table.fatPer100g,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get fiberPer100g => $composableBuilder(
+    column: $table.fiberPer100g,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get retrievedAt => $composableBuilder(
+    column: $table.retrievedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get lastAccessedAt => $composableBuilder(
+    column: $table.lastAccessedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get approximateBytes => $composableBuilder(
+    column: $table.approximateBytes,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$LocalNutritionCacheTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $LocalNutritionCacheTableTable> {
+  $$LocalNutritionCacheTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get fdcId => $composableBuilder(
+    column: $table.fdcId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get datasetVersion => $composableBuilder(
+    column: $table.datasetVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get dataType => $composableBuilder(
+    column: $table.dataType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lookupKeysJson => $composableBuilder(
+    column: $table.lookupKeysJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get caloriesPer100g => $composableBuilder(
+    column: $table.caloriesPer100g,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get proteinPer100g => $composableBuilder(
+    column: $table.proteinPer100g,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get carbsPer100g => $composableBuilder(
+    column: $table.carbsPer100g,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fatPer100g => $composableBuilder(
+    column: $table.fatPer100g,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get fiberPer100g => $composableBuilder(
+    column: $table.fiberPer100g,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get retrievedAt => $composableBuilder(
+    column: $table.retrievedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get lastAccessedAt => $composableBuilder(
+    column: $table.lastAccessedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get approximateBytes => $composableBuilder(
+    column: $table.approximateBytes,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$LocalNutritionCacheTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LocalNutritionCacheTableTable> {
+  $$LocalNutritionCacheTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get fdcId =>
+      $composableBuilder(column: $table.fdcId, builder: (column) => column);
+
+  GeneratedColumn<String> get datasetVersion => $composableBuilder(
+    column: $table.datasetVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get dataType =>
+      $composableBuilder(column: $table.dataType, builder: (column) => column);
+
+  GeneratedColumn<String> get lookupKeysJson => $composableBuilder(
+    column: $table.lookupKeysJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get caloriesPer100g => $composableBuilder(
+    column: $table.caloriesPer100g,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get proteinPer100g => $composableBuilder(
+    column: $table.proteinPer100g,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get carbsPer100g => $composableBuilder(
+    column: $table.carbsPer100g,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get fatPer100g => $composableBuilder(
+    column: $table.fatPer100g,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get fiberPer100g => $composableBuilder(
+    column: $table.fiberPer100g,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get retrievedAt => $composableBuilder(
+    column: $table.retrievedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<DateTime> get lastAccessedAt => $composableBuilder(
+    column: $table.lastAccessedAt,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get approximateBytes => $composableBuilder(
+    column: $table.approximateBytes,
+    builder: (column) => column,
+  );
+}
+
+class $$LocalNutritionCacheTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $LocalNutritionCacheTableTable,
+          LocalNutritionCacheTableData,
+          $$LocalNutritionCacheTableTableFilterComposer,
+          $$LocalNutritionCacheTableTableOrderingComposer,
+          $$LocalNutritionCacheTableTableAnnotationComposer,
+          $$LocalNutritionCacheTableTableCreateCompanionBuilder,
+          $$LocalNutritionCacheTableTableUpdateCompanionBuilder,
+          (
+            LocalNutritionCacheTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $LocalNutritionCacheTableTable,
+              LocalNutritionCacheTableData
+            >,
+          ),
+          LocalNutritionCacheTableData,
+          PrefetchHooks Function()
+        > {
+  $$LocalNutritionCacheTableTableTableManager(
+    _$AppDatabase db,
+    $LocalNutritionCacheTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$LocalNutritionCacheTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$LocalNutritionCacheTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$LocalNutritionCacheTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> fdcId = const Value.absent(),
+                Value<String> datasetVersion = const Value.absent(),
+                Value<String> description = const Value.absent(),
+                Value<String> normalizedName = const Value.absent(),
+                Value<String> dataType = const Value.absent(),
+                Value<String> lookupKeysJson = const Value.absent(),
+                Value<double> caloriesPer100g = const Value.absent(),
+                Value<double> proteinPer100g = const Value.absent(),
+                Value<double> carbsPer100g = const Value.absent(),
+                Value<double> fatPer100g = const Value.absent(),
+                Value<double> fiberPer100g = const Value.absent(),
+                Value<DateTime> retrievedAt = const Value.absent(),
+                Value<DateTime> lastAccessedAt = const Value.absent(),
+                Value<int> approximateBytes = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => LocalNutritionCacheTableCompanion(
+                fdcId: fdcId,
+                datasetVersion: datasetVersion,
+                description: description,
+                normalizedName: normalizedName,
+                dataType: dataType,
+                lookupKeysJson: lookupKeysJson,
+                caloriesPer100g: caloriesPer100g,
+                proteinPer100g: proteinPer100g,
+                carbsPer100g: carbsPer100g,
+                fatPer100g: fatPer100g,
+                fiberPer100g: fiberPer100g,
+                retrievedAt: retrievedAt,
+                lastAccessedAt: lastAccessedAt,
+                approximateBytes: approximateBytes,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String fdcId,
+                required String datasetVersion,
+                required String description,
+                required String normalizedName,
+                required String dataType,
+                required String lookupKeysJson,
+                required double caloriesPer100g,
+                required double proteinPer100g,
+                required double carbsPer100g,
+                required double fatPer100g,
+                required double fiberPer100g,
+                required DateTime retrievedAt,
+                required DateTime lastAccessedAt,
+                required int approximateBytes,
+                Value<int> rowid = const Value.absent(),
+              }) => LocalNutritionCacheTableCompanion.insert(
+                fdcId: fdcId,
+                datasetVersion: datasetVersion,
+                description: description,
+                normalizedName: normalizedName,
+                dataType: dataType,
+                lookupKeysJson: lookupKeysJson,
+                caloriesPer100g: caloriesPer100g,
+                proteinPer100g: proteinPer100g,
+                carbsPer100g: carbsPer100g,
+                fatPer100g: fatPer100g,
+                fiberPer100g: fiberPer100g,
+                retrievedAt: retrievedAt,
+                lastAccessedAt: lastAccessedAt,
+                approximateBytes: approximateBytes,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$LocalNutritionCacheTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $LocalNutritionCacheTableTable,
+      LocalNutritionCacheTableData,
+      $$LocalNutritionCacheTableTableFilterComposer,
+      $$LocalNutritionCacheTableTableOrderingComposer,
+      $$LocalNutritionCacheTableTableAnnotationComposer,
+      $$LocalNutritionCacheTableTableCreateCompanionBuilder,
+      $$LocalNutritionCacheTableTableUpdateCompanionBuilder,
+      (
+        LocalNutritionCacheTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $LocalNutritionCacheTableTable,
+          LocalNutritionCacheTableData
+        >,
+      ),
+      LocalNutritionCacheTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -4997,4 +6569,9 @@ class $AppDatabaseManager {
       $$UserPreferencesTableTableTableManager(_db, _db.userPreferencesTable);
   $$FavoriteMealTableTableTableManager get favoriteMealTable =>
       $$FavoriteMealTableTableTableManager(_db, _db.favoriteMealTable);
+  $$LocalNutritionCacheTableTableTableManager get localNutritionCacheTable =>
+      $$LocalNutritionCacheTableTableTableManager(
+        _db,
+        _db.localNutritionCacheTable,
+      );
 }

@@ -1,9 +1,16 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/local_inference_providers.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
+import 'package:calorify/core/services/local_nutrition_calculator.dart';
+import 'package:calorify/core/services/local_nutrition_pack.dart';
+import 'package:calorify/core/services/local_nutrition_pack_service.dart';
+import 'package:cryptography/cryptography.dart';
+import 'package:dio/dio.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -93,6 +100,63 @@ class _LocalInferenceDebugScreenState
                         onPressed: _running ? null : _warmUp,
                         icon: const Icon(LucideIcons.flame, size: 18),
                         label: const Text('Warm up'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Local nutrition (Phase 4)',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'One-off checks for pack activation, matching, remote cache fill, deterministic math, and signature failures.',
+                    style: theme.textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      OutlinedButton(
+                        onPressed: _running ? null : _nutritionStatus,
+                        child: const Text('Pack/cache status'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _running ? null : _installNutritionPack,
+                        child: const Text('Download + verify'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _running ? null : _testLocalPackLookup,
+                        child: const Text('Known/missing lookup'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _running ? null : _testRemoteResolver,
+                        child: const Text('Remote cache fill'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _running ? null : _testCalculator,
+                        child: const Text('Calculator sample'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _running ? null : _testInvalidSignature,
+                        child: const Text('Invalid signature'),
+                      ),
+                      OutlinedButton(
+                        onPressed: _running ? null : _clearNutritionCache,
+                        child: const Text('Clear lookup cache'),
                       ),
                     ],
                   ),
@@ -309,6 +373,187 @@ class _LocalInferenceDebugScreenState
       'cloudIngredients': cloudNames,
     });
   });
+
+  Future<void> _nutritionStatus() => _run('Pack/cache status', () async {
+    final pack = await ref.read(localNutritionPackServiceProvider).loadActive();
+    final cache =
+        await ref.read(databaseInterfaceProvider).getLocalNutritionCacheStats();
+    return const JsonEncoder.withIndent('  ').convert({
+      'configuredSigningKey':
+          ref.read(localNutritionPackServiceProvider).hasConfiguredSigningKey,
+      'activePack': pack?.pack.packVersion,
+      'datasetVersion': pack?.pack.datasetVersion,
+      'records': pack?.pack.records.length ?? 0,
+      'packBytes': pack?.byteSize ?? 0,
+      'cacheRecords': cache.recordCount,
+      'cacheBytes': cache.approximateBytes,
+    });
+  });
+
+  Future<void> _installNutritionPack() => _run(
+    'Nutrition pack install',
+    () async {
+      final policy =
+          await ref.read(foodRepositoryProvider).getLocalInferencePolicy();
+      if (!policy.localNutritionEnabled ||
+          !policy.hasLocalNutritionManifestUrl()) {
+        throw StateError('Backend local-nutrition capability is disabled.');
+      }
+      final installed = await ref
+          .read(localNutritionPackServiceProvider)
+          .install(Uri.parse(policy.localNutritionManifestUrl));
+      ref.invalidate(localNutritionStatusProvider);
+      return 'verified ${installed.pack.packVersion} · '
+          '${installed.pack.records.length} rows · ${installed.byteSize} bytes';
+    },
+  );
+
+  Future<void> _testLocalPackLookup() => _run('Local pack lookup', () async {
+    final installed =
+        await ref.read(localNutritionPackServiceProvider).loadActive();
+    if (installed == null || installed.pack.records.isEmpty) {
+      throw StateError('Install a verified pack first.');
+    }
+    final record = installed.pack.records.first;
+    final known = normalizeLocalNutritionTerm(record.lookupKeys.first);
+    final index = {
+      for (final row in installed.pack.records)
+        for (final key in row.lookupKeys)
+          normalizeLocalNutritionTerm(key): row.fdcId,
+    };
+    return const JsonEncoder.withIndent('  ').convert({
+      'knownKey': known,
+      'knownFdcId': index[known],
+      'missingKey': 'debug food that cannot exist',
+      'missingResult': index['debug food that cannot exist'],
+    });
+  });
+
+  Future<void> _testRemoteResolver() =>
+      _run('Remote cache-fill contract', () async {
+        final analysisId = const Uuid().v4();
+        final response = await ref
+            .read(foodRepositoryProvider)
+            .resolveLocalNutrition(
+              analysisId: analysisId,
+              lookups: [
+                LocalNutritionLookup(
+                  rowId: 'known',
+                  canonicalHint: 'bananas raw',
+                  preparation: 'raw',
+                ),
+                LocalNutritionLookup(
+                  rowId: 'missing',
+                  canonicalHint: 'debug food that cannot exist qzjx',
+                ),
+              ],
+            );
+        return const JsonEncoder.withIndent(
+          '  ',
+        ).convert(response.toProto3Json());
+      });
+
+  Future<void> _testCalculator() => _run('Calculator sample', () async {
+    const calculator = LocalNutritionCalculator();
+    final banana = calculator.scale(
+      PipelineMacros(
+        calories: 89,
+        protein: 1.09,
+        carbs: 22.84,
+        fat: 0.33,
+        fiber: 2.6,
+      ),
+      118,
+    );
+    final yogurt = calculator.scale(
+      PipelineMacros(
+        calories: 59,
+        protein: 10.3,
+        carbs: 3.6,
+        fat: 0.4,
+        fiber: 0,
+      ),
+      170,
+    );
+    return const JsonEncoder.withIndent('  ').convert({
+      'banana118g': banana.toProto3Json(),
+      'yogurt170g': yogurt.toProto3Json(),
+      'total': calculator.sum([banana, yogurt]).toProto3Json(),
+    });
+  });
+
+  Future<void> _testInvalidSignature() => _run(
+    'Invalid signature simulation',
+    () async {
+      final algorithm = Ed25519();
+      final keyPair = await algorithm.newKeyPair();
+      final publicKey = await keyPair.extractPublicKey();
+      final packBytes = utf8.encode(
+        jsonEncode({
+          'schemaVersion': 1,
+          'packVersion': 'debug-v1',
+          'datasetVersion': 'debug-dataset',
+          'calculationVersion': localNutritionCalculationVersion,
+          'records': [
+            {
+              'fdcId': '1',
+              'description': 'Debug banana',
+              'normalizedName': 'debug banana',
+              'aliases': ['debug banana'],
+              'dataType': 'debug',
+              'nutrientsPer100g': {
+                'calories': 89,
+                'protein': 1.1,
+                'carbs': 22.8,
+                'fat': 0.3,
+                'fiber': 2.6,
+              },
+              'datasetVersion': 'debug-dataset',
+            },
+          ],
+        }),
+      );
+      final manifest = LocalNutritionPackManifest(
+        schemaVersion: 1,
+        packVersion: 'debug-v1',
+        datasetVersion: 'debug-dataset',
+        objectName: 'local-nutrition/debug-v1.json',
+        sizeBytes: Int64(packBytes.length),
+        signingKeyId: 'debug-key',
+        createdAtEpochMs: Int64(DateTime.now().millisecondsSinceEpoch),
+        recordCount: 1,
+        calculationVersion: localNutritionCalculationVersion,
+      );
+      final signature = await algorithm.sign([
+        ...utf8.encode(
+          '${LocalNutritionPackService.manifestMetadata(manifest)}\n--PACK--\n',
+        ),
+        ...packBytes,
+      ], keyPair: keyPair);
+      manifest.signature = base64Encode(signature.bytes);
+      final verifier = LocalNutritionPackService(
+        dio: Dio(),
+        trustedPublicKeys: {'debug-key': publicKey.bytes},
+      );
+      await verifier.verifyAndParse(manifest, packBytes);
+      final corrupted = Uint8List.fromList(packBytes);
+      corrupted[packBytes.length - 1] = corrupted.last ^ 1;
+      try {
+        await verifier.verifyAndParse(manifest, corrupted);
+      } on LocalNutritionPackException catch (error) {
+        return 'valid signature accepted; corrupted bytes rejected '
+            'with code=${error.code}';
+      }
+      throw StateError('Corrupted pack was unexpectedly accepted.');
+    },
+  );
+
+  Future<void> _clearNutritionCache() =>
+      _run('Clear nutrition cache', () async {
+        await ref.read(databaseInterfaceProvider).clearLocalNutritionCache();
+        ref.invalidate(localNutritionStatusProvider);
+        return 'lookup cache cleared; downloaded pack retained';
+      });
 
   Future<void> _run(String label, Future<String> Function() action) async {
     if (_running) return;

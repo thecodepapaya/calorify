@@ -394,6 +394,7 @@ class _MealTipState extends State<_MealTip> {
   Widget _buildProvenanceCard(BuildContext context, PipelineResultData result) {
     final colorScheme = Theme.of(context).colorScheme;
     final receipt = result.receipt;
+    final phase4Copy = t.localNutritionPhase4;
     final interpretation = switch (receipt.interpretationOrigin) {
       InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO =>
         t.meal.localInference.interpretationLocal,
@@ -401,11 +402,33 @@ class _MealTipState extends State<_MealTip> {
         t.meal.localInference.interpretationManual,
       _ => t.meal.localInference.interpretationCloud,
     };
-    final nutrition = switch (receipt.nutritionOrigin) {
-      NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA =>
-        t.meal.localInference.nutritionRemote,
-      _ => t.meal.localInference.nutritionFallback,
-    };
+    final ingredientOrigins =
+        result.ingredients
+            .map((ingredient) => ingredient.nutritionOrigin)
+            .where(
+              (origin) =>
+                  origin != NutritionOrigin.NUTRITION_ORIGIN_UNSPECIFIED,
+            )
+            .toSet();
+    final nutrition =
+        ingredientOrigins.length > 1
+            ? phase4Copy.nutritionMixed
+            : switch (receipt.nutritionOrigin) {
+              NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA =>
+                phase4Copy.nutritionBundled,
+              NutritionOrigin.NUTRITION_ORIGIN_CACHED_USDA =>
+                phase4Copy.nutritionCached,
+              NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA =>
+                t.meal.localInference.nutritionRemote,
+              NutritionOrigin.NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT =>
+                phase4Copy.nutritionBundled,
+              _ => t.meal.localInference.nutritionFallback,
+            };
+    final calculation =
+        receipt.calculationOrigin ==
+                CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC
+            ? phase4Copy.calculationLocal
+            : t.meal.localInference.calculationServer;
     final usedFallback =
         receipt.localAttempted &&
         receipt.fallbackReason !=
@@ -442,10 +465,12 @@ class _MealTipState extends State<_MealTip> {
               t.meal.localInference.interpretationManual,
             ),
           _provenanceRow(LucideIcons.database, nutrition),
-          _provenanceRow(
-            LucideIcons.calculator,
-            t.meal.localInference.calculationServer,
-          ),
+          _provenanceRow(LucideIcons.calculator, calculation),
+          for (final ingredient in result.ingredients)
+            _provenanceRow(
+              LucideIcons.wheat,
+              _ingredientProvenanceText(ingredient),
+            ),
           if (usedFallback)
             _provenanceRow(
               LucideIcons.cloud,
@@ -461,6 +486,30 @@ class _MealTipState extends State<_MealTip> {
         ],
       ),
     );
+  }
+
+  String _ingredientProvenanceText(PipelineResolvedIngredient ingredient) {
+    final copy = t.localNutritionPhase4;
+    final origin = switch (ingredient.nutritionOrigin) {
+      NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA => copy.ingredientBundled(
+        ingredient: ingredient.rawName,
+      ),
+      NutritionOrigin.NUTRITION_ORIGIN_CACHED_USDA => copy.ingredientCached(
+        ingredient: ingredient.rawName,
+      ),
+      NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA => copy.ingredientRemote(
+        ingredient: ingredient.rawName,
+      ),
+      NutritionOrigin.NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT => copy
+          .ingredientDeterministic(ingredient: ingredient.rawName),
+      _ => '${ingredient.rawName}: ${ingredient.source}',
+    };
+    if (!ingredient.hasFdcId() ||
+        !ingredient.hasUsdaDatasetVersion() ||
+        ingredient.fdcId.startsWith('deterministic:')) {
+      return origin;
+    }
+    return '$origin\n${copy.ingredientReference(fdcId: ingredient.fdcId, datasetVersion: ingredient.usdaDatasetVersion)}';
   }
 
   Widget _provenanceRow(IconData icon, String text) {
@@ -488,6 +537,7 @@ class _MealTipState extends State<_MealTip> {
         detectedMeal.meal,
         parentContext: widget.parentContext,
         analysisId: _pipelineContext?.result.analysisId,
+        analysisSnapshot: _pipelineContext?.result,
       );
       if (!mounted) return;
       Navigator.of(context).pop();

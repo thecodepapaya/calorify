@@ -29,6 +29,7 @@ import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.
 import {
   MealAnalysisFeedbackSignal,
   type ApiResult,
+  type LocalNutritionResolveRequest,
   type MealClarificationAnswer,
   type MealAnalysisReanalyzeRequest,
   type MealAnalysisResumeRequest,
@@ -45,7 +46,11 @@ import {
   getApiResultSchema,
   getErrorResponseSchema,
 } from '../../utils/schema-generator.js';
-import { resolveOwnedImageObject } from '../../services/oracleObjectStorage.js';
+import {
+  buildOracleDownloadUrl,
+  resolveOwnedImageObject,
+} from '../../services/oracleObjectStorage.js';
+import { resolveLocalNutritionLookups } from '../../services/localNutritionResolver.js';
 
 const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 
@@ -115,6 +120,30 @@ const analyzeTextBodySchema = z.object({
   }
 });
 type AnalyzeTextBody = z.infer<typeof analyzeTextBodySchema>;
+
+const localNutritionResolveBodySchema = z.object({
+  analysisId: z.string().uuid(),
+  lookups: z.array(
+    z.object({
+      rowId: nonEmptyString.max(128, 'must be at most 128 characters'),
+      canonicalHint: nonEmptyString.max(200, 'must be at most 200 characters'),
+      preparation: z.string().trim().max(100, 'must be at most 100 characters'),
+    }).strict()
+  ).min(1).max(20),
+}).strict().superRefine((body, ctx) => {
+  const rowIds = new Set<string>();
+  body.lookups.forEach((lookup, index) => {
+    if (rowIds.has(lookup.rowId)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['lookups', index, 'rowId'],
+        message: 'rowId values must be unique',
+      });
+    }
+    rowIds.add(lookup.rowId);
+  });
+});
+type LocalNutritionResolveBody = z.infer<typeof localNutritionResolveBodySchema>;
 
 const analyzeImageBodySchema = z.object({
   analysisId: z.string().uuid().optional(),
@@ -249,6 +278,9 @@ const analyzeProposalBodySchema = z.object({
   localAttemptId: z.string().uuid(),
   localAttemptStartedAtEpochMs: epochMsSchema,
   localAttemptCompletedAtEpochMs: epochMsSchema,
+  fallbackReason: fallbackReasonSchema.optional().default(
+    MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE
+  ),
 }).superRefine((body, ctx) => {
   if (body.localAttemptStartedAtEpochMs > body.localAttemptCompletedAtEpochMs) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'local attempt timestamps must be ordered' });
@@ -471,14 +503,69 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         tags: ['Food', 'V2'],
       },
     },
-    async () => ({
-      policyVersion: config.LOCAL_INFERENCE_POLICY_VERSION,
-      textEnabled: config.LOCAL_INFERENCE_TEXT_ENABLED,
-      imageEnabled: false,
-      localNutritionEnabled: false,
-      privateModesEnabled: false,
-      maxAgeSeconds: 3600,
-    })
+    async () => {
+      let localNutritionManifestUrl: string | undefined;
+      if (config.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED) {
+        try {
+          localNutritionManifestUrl = buildOracleDownloadUrl(
+            config.LOCAL_NUTRITION_MANIFEST_OBJECT
+          );
+        } catch {
+          // A malformed/missing object-storage URL must fail closed rather than
+          // advertise a download the client cannot integrity-check.
+        }
+      }
+      const localNutritionEnabled = localNutritionManifestUrl != null;
+      return {
+        policyVersion: config.LOCAL_INFERENCE_POLICY_VERSION,
+        textEnabled: config.LOCAL_INFERENCE_TEXT_ENABLED,
+        imageEnabled: false,
+        localNutritionEnabled,
+        // Phase 5 private/offline routing is deliberately not advertised by
+        // this Phase 4 release.
+        privateModesEnabled: false,
+        maxAgeSeconds: 3600,
+        localNutritionManifestUrl,
+      };
+    }
+  );
+
+  fastify.post<{ Body: LocalNutritionResolveRequest }>(
+    '/resolve-local-nutrition',
+    {
+      config: {
+        rateLimit: {
+          max: 30,
+          timeWindow: '1 minute',
+        },
+      },
+      schema: {
+        description:
+          'Resolve bounded structured ingredient hints to cacheable USDA rows.',
+        tags: ['Food', 'V2'],
+        response: {
+          400: { description: 'Bad request', ...getErrorResponseSchema() },
+          403: { description: 'Local nutrition rollout disabled', ...getErrorResponseSchema() },
+        },
+      } as any,
+    },
+    async (
+      request: FastifyRequest<{ Body: LocalNutritionResolveBody }>,
+      reply: FastifyReply
+    ) => {
+      if (!config.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED) {
+        return reply
+          .status(403)
+          .send(createErrorResponse('Local nutrition resolution is disabled'));
+      }
+      const parsed = parseBody(
+        localNutritionResolveBodySchema,
+        request.body,
+        reply
+      );
+      if (!parsed) return;
+      return resolveLocalNutritionLookups(parsed.analysisId, parsed.lookups);
+    }
   );
 
   fastify.post<{ Body: AnalyzeTextBody }>(
@@ -569,6 +656,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           localAttemptId: parsed.localAttemptId,
           localAttemptStartedAtEpochMs: parsed.localAttemptStartedAtEpochMs,
           localAttemptCompletedAtEpochMs: parsed.localAttemptCompletedAtEpochMs,
+          fallbackReason: parsed.fallbackReason,
           locale: getLocaleFromRequest(request),
           countryCode: getCountryFromRequest(request),
           timeZone: getTimeZoneFromRequest(request),

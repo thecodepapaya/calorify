@@ -3104,7 +3104,9 @@ export async function* analyzeIngredientProposal(
     localAttemptId: attemptId,
     localAttemptStartedAtEpochMs: options.localAttemptStartedAtEpochMs,
     localAttemptCompletedAtEpochMs: options.localAttemptCompletedAtEpochMs,
-    fallbackReason: MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    fallbackReason:
+      options.fallbackReason ??
+      MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
   };
   const context: PipelineRunContext = {
     analysisId,
@@ -3128,7 +3130,9 @@ export async function* analyzeIngredientProposal(
     localAttemptId: attemptId,
     localAttemptStartedAtEpochMs: options.localAttemptStartedAtEpochMs,
     localAttemptCompletedAtEpochMs: options.localAttemptCompletedAtEpochMs,
-    fallbackReason: MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
+    fallbackReason:
+      options.fallbackReason ??
+      MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
     attemptId,
     attemptStartedAt,
     acceptedProposal: proposal,

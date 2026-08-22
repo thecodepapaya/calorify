@@ -347,29 +347,38 @@ void main() {
     },
   );
 
-  test('v22 upgrade adds default-off local inference columns', () async {
-    await database.close();
-    database = AppDatabase.forTesting(
-      NativeDatabase.memory(
-        setup: (rawDatabase) {
-          rawDatabase.execute(_v22PreferencesTableSql);
-          rawDatabase.execute('''
+  test(
+    'v22 upgrade adds default-off local inference and nutrition data',
+    () async {
+      await database.close();
+      database = AppDatabase.forTesting(
+        NativeDatabase.memory(
+          setup: (rawDatabase) {
+            rawDatabase.execute(_v22PreferencesTableSql);
+            rawDatabase.execute('''
             INSERT INTO user_preferences_table (id, theme)
             VALUES (1, 'system')
           ''');
-          rawDatabase.execute('PRAGMA user_version = 22');
-        },
-      ),
-    );
+            rawDatabase.execute('PRAGMA user_version = 22');
+          },
+        ),
+      );
 
-    final preferences = await database.getLocalInferencePreferences();
-    final columns = await _columnNames(database, 'user_preferences_table');
+      final preferences = await database.getLocalInferencePreferences();
+      final columns = await _columnNames(database, 'user_preferences_table');
 
-    expect(columns, contains('local_inference_enabled'));
-    expect(columns, contains('local_inference_acknowledged_policy_version'));
-    expect(preferences.enabled, isFalse);
-    expect(preferences.acknowledgedPolicyVersion, isNull);
-  });
+      expect(columns, contains('local_inference_enabled'));
+      expect(columns, contains('local_inference_acknowledged_policy_version'));
+      expect(columns, contains('offline_nutrition_enabled'));
+      expect(preferences.enabled, isFalse);
+      expect(preferences.offlineNutritionEnabled, isFalse);
+      expect(preferences.acknowledgedPolicyVersion, isNull);
+      expect(
+        await _tableExists(database, 'local_nutrition_cache_table'),
+        isTrue,
+      );
+    },
+  );
 
   test('v17 upgrade repairs missing inherited favorite columns', () async {
     await database.close();

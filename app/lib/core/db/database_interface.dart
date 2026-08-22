@@ -1,19 +1,23 @@
 import 'package:models/models.dart';
 import 'package:flutter/material.dart' show ThemeMode;
+import 'package:calorify/core/db/local_nutrition_cache_entry.dart';
 
 enum DataSourceType { real, mock }
 
 class LocalInferencePreferences {
   const LocalInferencePreferences({
     required this.enabled,
+    this.offlineNutritionEnabled = false,
     this.acknowledgedPolicyVersion,
   });
 
   const LocalInferencePreferences.defaults()
     : enabled = false,
+      offlineNutritionEnabled = false,
       acknowledgedPolicyVersion = null;
 
   final bool enabled;
+  final bool offlineNutritionEnabled;
   final String? acknowledgedPolicyVersion;
 }
 
@@ -36,7 +40,11 @@ abstract class DatabaseInterface {
   Future<void> setDailyCalorieGoal(int goal);
 
   /// Log a meal. [analysisId] is non-null only for V2 analysis results.
-  Future<void> logMeal(Meal mealInfo, {String? analysisId});
+  Future<void> logMeal(
+    Meal mealInfo, {
+    String? analysisId,
+    PipelineResultData? analysisSnapshot,
+  });
 
   /// Upsert a meal
   Future<void> upsertMeal(LoggedMeal mealInfo);
@@ -133,7 +141,23 @@ abstract class DatabaseInterface {
 
   Future<void> setLocalInferenceEnabled(bool enabled);
 
+  Future<void> setOfflineNutritionEnabled(bool enabled);
+
   Future<void> acknowledgeLocalInferencePolicy(String policyVersion);
+
+  Future<List<LocalNutritionCacheEntry>> getLocalNutritionCache();
+
+  Future<void> upsertLocalNutritionCache(
+    List<LocalNutritionCacheEntry> entries,
+  );
+
+  Future<void> touchLocalNutritionCache(
+    Iterable<({String fdcId, String datasetVersion})> keys,
+  );
+
+  Future<LocalNutritionCacheStats> getLocalNutritionCacheStats();
+
+  Future<void> clearLocalNutritionCache();
 
   /// Latest N meals by timestamp (for feedback eligibility check). Default limit 5.
   Future<List<LoggedMeal>> getLatestMealsForFeedbackEligibility({

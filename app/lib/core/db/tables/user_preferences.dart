@@ -10,6 +10,8 @@ class UserPreferencesTable extends Table {
   DateTimeColumn get onboardingCompletedAt => dateTime().nullable()();
   BoolColumn get localInferenceEnabled =>
       boolean().withDefault(const Constant(false))();
+  BoolColumn get offlineNutritionEnabled =>
+      boolean().withDefault(const Constant(false))();
   TextColumn get localInferenceAcknowledgedPolicyVersion => text().nullable()();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }
