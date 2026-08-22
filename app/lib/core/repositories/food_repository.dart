@@ -27,46 +27,6 @@ class FoodRepository {
 
   final NetworkClient _networkClient;
 
-  Future<MealDetectionResponse> analyzeImage({required File imageFile}) async {
-    final formData = FormData.fromMap({
-      'file': await MultipartFile.fromFile(
-        imageFile.path,
-        filename: imageFile.path.split('/').last,
-      ),
-    });
-
-    final response = await _networkClient.client.post<Map<String, dynamic>>(
-      '/api/v1/food/analyze-image',
-      data: formData,
-      options: Options(contentType: 'multipart/form-data'),
-    );
-
-    return MealDetectionResponse()..mergeFromProto3Json(response.data!);
-  }
-
-  Future<MealDetectionResponse> detectImage({required File imageFile}) async {
-    final uploadUrl = await _uploadImage(imageFile);
-
-    // Send the full authenticated upload URL
-    final request = ImageMealDetectionRequest(imageUrl: uploadUrl);
-    return _networkClient
-        .apiCall<ImageMealDetectionRequest, MealDetectionResponse>(
-          '/api/v1/food/detect-image',
-          MealDetectionResponse.new,
-          request: request,
-        );
-  }
-
-  Future<MealDetectionResponse> detectText({required String textDescription}) {
-    final request = TextMealDetectionRequest(textDescription: textDescription);
-    return _networkClient
-        .apiCall<TextMealDetectionRequest, MealDetectionResponse>(
-          '/api/v1/food/detect-text',
-          MealDetectionResponse.new,
-          request: request,
-        );
-  }
-
   Future<Stream<MealAnalysisPipelineEvent>> analyzeTextV2({
     required String analysisId,
     required String textDescription,

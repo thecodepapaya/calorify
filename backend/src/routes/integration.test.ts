@@ -112,19 +112,6 @@ await mock.module('../services/mealAnalysisStore.js', {
   },
 });
 
-await mock.module('../services/openAIFoodAnalysis.js', {
-  namedExports: {
-    detectFoodFromText: mock.fn(async () => ({ foods: [] })),
-    detectFoodFromImageUrl: mock.fn(async () => ({ foods: [] })),
-    analyzeFoodImage: mock.fn(async () => ({ description: 'test', foods: [] })),
-    openAIFoodAnalysisService: {
-      analyzeTextDescription: mock.fn(async () => ({ foods: [] })),
-      analyzeImageFromUrl: mock.fn(async () => ({ foods: [] })),
-      analyzeImageFromBuffer: mock.fn(async () => ({ foods: [] })),
-    },
-  },
-});
-
 await mock.module('../utils/locale.js', {
   namedExports: {
     getLocaleFromRequest: mock.fn(() => 'en'),
@@ -209,30 +196,19 @@ describe('Route registration', () => {
     assert.equal(res.statusCode, 401);
   });
 
-  it('POST /api/v1/food/detect-text with missing body returns 400', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/api/v1/food/detect-text',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer valid-token',
-      },
-      payload: {},
-    });
-    assert.equal(res.statusCode, 400);
-  });
-
-  it('POST /api/v1/food/detect-image with missing body returns 400', async () => {
-    const res = await app.inject({
-      method: 'POST',
-      url: '/api/v1/food/detect-image',
-      headers: {
-        'content-type': 'application/json',
-        authorization: 'Bearer valid-token',
-      },
-      payload: {},
-    });
-    assert.equal(res.statusCode, 400);
+  it('does not register the retired V1 meal-analysis routes', async () => {
+    for (const url of [
+      '/api/v1/food/analyze-image',
+      '/api/v1/food/detect-image',
+      '/api/v1/food/detect-text',
+    ]) {
+      const res = await app.inject({
+        method: 'POST',
+        url,
+        headers: { authorization: 'Bearer valid-token' },
+      });
+      assert.equal(res.statusCode, 404, url);
+    }
   });
 
   it('POST /api/v1/user/profile without auth returns 401', async () => {
@@ -363,10 +339,10 @@ describe('CORS headers', () => {
     );
   });
 
-  it('OPTIONS preflight on POST /api/v1/food/detect-text returns 204 with CORS headers', async () => {
+  it('OPTIONS preflight on POST /api/v2/food/analyze-text returns 204 with CORS headers', async () => {
     const res = await app.inject({
       method: 'OPTIONS',
-      url: '/api/v1/food/detect-text',
+      url: '/api/v2/food/analyze-text',
       headers: {
         origin: 'https://example.com',
         'access-control-request-method': 'POST',

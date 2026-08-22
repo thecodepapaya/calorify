@@ -30,8 +30,6 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.33
   flutter_secure_storage: ^9.2.4
   
-  # Network (for food analysis API)
-  dio: ^5.7.0
   protobuf: ^5.1.0
 
 dev_dependencies:

@@ -1,7 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { openAIFoodAnalysisService } from '../../services/openAIFoodAnalysis.js';
 import { createErrorResponse } from '../../utils/errors.js';
-import { getLocaleFromRequest, getCountryFromRequest } from '../../utils/locale.js';
+import { getLocaleFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { query } from '../../services/database.js';
@@ -10,35 +9,19 @@ import {
   MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX,
   pickRandomTips,
 } from '../../services/mealAnalysisTips.js';
-import { nonEmptyString, parseBody, urlString, z } from '../../utils/validation.js';
 import type { AiMealSummaryResponse, MealAnalysisTipsResponse } from '../../protos/calorify/http_api.js';
 import { AiMealSummaryTrend } from '../../protos/calorify/ai_meal_summary_trend.js';
-import type { ImageMealDetectionRequest, TextMealDetectionRequest } from '../../protos/calorify/meal_detection.js';
 import {
   computeAiSummaryStats,
   type AiSummaryMealRow,
   type AiSummaryStats,
 } from '../../services/aiSummaryStats.js';
-import { resolveOwnedImageObject } from '../../services/oracleObjectStorage.js';
 import { safeErrorMetadata } from '../../utils/safeError.js';
-
-const imageDetectionBodySchema = z.object({
-  imageUrl: urlString,
-});
-
-/** Matches protos/calorify/meal_detection.proto ImageMealDetectionRequest (imageUrl only over HTTP). */
-
-/** Matches protos/calorify/meal_detection.proto TextMealDetectionRequest (+ Zod max length). */
-const textDetectionBodySchema = z.object({
-  textDescription: nonEmptyString.max(2000, 'must be at most 2000 characters'),
-});
 // Manually maintained OpenAPI helpers for the legacy proto-shaped HTTP API.
 // Route and integration tests enforce the runtime contract.
 import {
   getAiMealSummaryResponseSchema,
   getMealAnalysisTipsResponseSchema,
-  getMealDetectionResponseSchema,
-  getStandardErrorResponses,
 } from '../../utils/schema-generator.js';
 
 function parseMealAnalysisTipsQueryCount(
@@ -119,9 +102,6 @@ const foodFailureMessages = {
   load_ai_summary: 'Failed to load AI meal summary',
   load_meal_analysis_tips: 'Failed to load meal analysis tips',
   export_meal_history: 'Failed to export meal history',
-  analyze_image_upload: 'Failed to analyze image',
-  detect_image: 'Failed to detect meal from image',
-  detect_text: 'Failed to detect meal from text description',
 } as const;
 
 type FoodOperation = keyof typeof foodFailureMessages;
@@ -345,192 +325,4 @@ export async function foodRoutes(fastify: FastifyInstance): Promise<void> {
     }
   );
 
-  /**
-   * POST /api/v1/food/analyze-image
-   * Analyze a food image using AI
-   */
-  fastify.post(
-    '/analyze-image',
-    {
-      config: {
-        rateLimit: {
-          max: 20,
-          timeWindow: '1 minute',
-        },
-      },
-      preHandler: [authenticateUser],
-      schema: {
-        description: 'Analyze a food image using OpenAI. Upload an image file to get detailed nutritional information including calories, macros, health score, and variations.',
-        tags: ['Food'],
-        consumes: ['multipart/form-data'],
-        security: [{ bearerAuth: [] }],
-        response: {
-          200: {
-            description: 'Successful analysis with variations',
-            ...getMealDetectionResponseSchema(),
-          },
-          ...getStandardErrorResponses(),
-        },
-      } as any,
-    },
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      try {
-        // Get uploaded file
-        const data = await request.file();
-        if (!data) {
-          reply.status(400).send(createErrorResponse('File is required'));
-          return;
-        }
-
-        // Check if it's an image
-        if (!data.mimetype?.startsWith('image/')) {
-          reply.status(400).send(createErrorResponse('File must be an image'));
-          return;
-        }
-
-        // Read file buffer
-        const buffer = await data.toBuffer();
-        const mimeType = data.mimetype ?? 'image/jpeg';
-
-        // Extract locale from Accept-Language header
-        const locale = getLocaleFromRequest(request);
-        const countryCode = getCountryFromRequest(request);
-
-        // Analyze image using OpenAI (default AI service)
-        const result = await openAIFoodAnalysisService.analyzeImageFromBuffer(buffer, mimeType, locale, countryCode);
-
-        // Return protobuf object directly (Fastify handles JSON serialization)
-        reply.send(result);
-      } catch (error) {
-        if (error instanceof fastify.multipartErrors.RequestFileTooLargeError) {
-          reply.status(413).send(
-            createErrorResponse('Image is too large. Maximum upload size is 10 MiB.')
-          );
-          return;
-        }
-        sendUnexpectedFoodError(
-          request,
-          reply,
-          error,
-          'analyze_image_upload'
-        );
-      }
-    }
-  );
-
-  /**
-   * POST /api/v1/food/detect-image
-   * Detect meal from image URL using OpenAI (proto-based endpoint)
-   */
-  fastify.post<{ Body: ImageMealDetectionRequest }>(
-    '/detect-image',
-    {
-      config: {
-        rateLimit: {
-          max: 20,
-          timeWindow: '1 minute',
-        },
-      },
-      preHandler: [authenticateUser],
-      schema: {
-        description: 'Detect meal from image URL using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
-        tags: ['Food'],
-        // Body validation: Zod (imageDetectionBodySchema) aligned with meal_detection.proto — not duplicate AJV body, to avoid coercion + response-serialization mismatch on 400.
-        response: {
-          200: {
-            description: 'Successful detection',
-            ...getMealDetectionResponseSchema(),
-          },
-          ...getStandardErrorResponses(),
-        },
-      } as any,
-    },
-    async (request: FastifyRequest<{ Body: ImageMealDetectionRequest }>, reply: FastifyReply) => {
-      try {
-        const parsed = parseBody(imageDetectionBodySchema, request.body, reply);
-        if (!parsed) return;
-        const { imageUrl } = parsed;
-
-        // Accept only this user's object in the configured namespace and bucket,
-        // then replace the short-lived upload credential with the download one.
-        let finalImageUrl: string;
-        try {
-          const userId = getCurrentUserId(request);
-          finalImageUrl = resolveOwnedImageObject(imageUrl, userId).downloadUrl;
-        } catch {
-          reply.status(400).send(createErrorResponse('Invalid or unowned imageUrl'));
-          return;
-        }
-
-        // Extract locale from Accept-Language header
-        const locale = getLocaleFromRequest(request);
-        const countryCode = getCountryFromRequest(request);
-
-        // Analyze image from URL using OpenAI
-        const response = await openAIFoodAnalysisService.analyzeImageFromUrl(finalImageUrl, locale, countryCode);
-
-        // Return protobuf object directly (Fastify handles JSON serialization)
-        reply.send(response);
-      } catch (error) {
-        sendUnexpectedFoodError(
-          request,
-          reply,
-          error,
-          'detect_image'
-        );
-      }
-    }
-  );
-
-  /**
-   * POST /api/v1/food/detect-text
-   * Detect meal from text description using OpenAI (proto-based endpoint)
-   */
-  fastify.post<{ Body: TextMealDetectionRequest }>(
-    '/detect-text',
-    {
-      config: {
-        rateLimit: {
-          max: 20,
-          timeWindow: '1 minute',
-        },
-      },
-      preHandler: [authenticateUser],
-      schema: {
-        description: 'Detect meal from text description using OpenAI. Returns MealDetectionResponse with variations if confidence is LOW/MEDIUM.',
-        tags: ['Food'],
-        // Body validation: Zod (textDetectionBodySchema) aligned with meal_detection.proto — not duplicate AJV body (see detect-image).
-        response: {
-          200: {
-            description: 'Successful detection',
-            ...getMealDetectionResponseSchema(),
-          },
-          ...getStandardErrorResponses(),
-        },
-      } as any,
-    },
-    async (request: FastifyRequest<{ Body: TextMealDetectionRequest }>, reply: FastifyReply) => {
-      try {
-        const parsed = parseBody(textDetectionBodySchema, request.body, reply);
-        if (!parsed) return;
-
-        // Extract locale from Accept-Language header
-        const locale = getLocaleFromRequest(request);
-        const countryCode = getCountryFromRequest(request);
-
-        // Analyze text description using OpenAI
-        const response = await openAIFoodAnalysisService.analyzeTextDescription(parsed.textDescription, locale, countryCode);
-
-        // Return protobuf object directly (Fastify handles JSON serialization)
-        reply.send(response);
-      } catch (error) {
-        sendUnexpectedFoodError(
-          request,
-          reply,
-          error,
-          'detect_text'
-        );
-      }
-    }
-  );
 }

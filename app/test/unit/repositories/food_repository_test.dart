@@ -20,32 +20,6 @@ void main() {
     repository = FoodRepository(networkClient: NetworkClient.forTesting(dio));
   });
 
-  test('detectText sends proto JSON and decodes the response', () async {
-    adapter.respondWithJson({
-      'result': {
-        'mealIdentified': true,
-        'meal': {
-          'name': 'Dal and rice',
-          'quantity': '1 plate',
-          'macros': {'calories': 520},
-        },
-      },
-    });
-
-    final response = await repository.detectText(
-      textDescription: 'one plate dal rice',
-    );
-
-    expect(adapter.lastRequest?.method, 'POST');
-    expect(adapter.lastRequest?.path, '/api/v1/food/detect-text');
-    expect(adapter.lastRequest?.data, {
-      'textDescription': 'one plate dal rice',
-    });
-    expect(response.result.mealIdentified, isTrue);
-    expect(response.result.meal.name, 'Dal and rice');
-    expect(response.result.meal.macros.calories, 520);
-  });
-
   test('analyzeTextV2 parses split NDJSON and ignores blank lines', () async {
     adapter.respondWithText(
       '${jsonEncode({
