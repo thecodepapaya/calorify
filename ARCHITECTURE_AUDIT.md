@@ -227,7 +227,8 @@ code; some of those files were intentionally removed during cleanup.
   operational headers.
 - The real application factory is covered by integration tests, authenticated
   throttling runs after identity is known, full profile replacement uses PUT,
-  and both V1 and V2 image routes enforce ownership.
+  and the production meal-analysis surface is V2-only. The unused V1 text,
+  image-URL, and multipart analysis routes and service have been removed.
 - Legacy nutrition/Gemini implementations and their unused dependencies were
   removed. Fallback ingredient results now match stable IDs and validate
   provider reorderings.
@@ -276,7 +277,8 @@ code; some of those files were intentionally removed during cleanup.
 
 ## Additional issues found and fixed during remediation
 
-- [x] V1 image analysis bypassed the new V2 ownership boundary.
+- [x] Retired V1 meal analysis and detection; phone and watch analysis now use
+  the V2 pipeline.
 - [x] Profile POST behavior silently mixed patch and replacement semantics.
 - [x] Firebase message listeners were not registered unless permission was
   requested during startup.

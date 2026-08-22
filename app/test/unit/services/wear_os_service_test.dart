@@ -142,36 +142,37 @@ void main() {
       expect(session['syncedAt'], isA<String>());
     });
 
-    test('analyzes watch text using the phone repository session', () async {
-      final expectedResponse = MealDetectionResponse(
-        result: MealDetectionResult(
-          mealIdentified: true,
-          calorieConfidence: CalorieConfidence.HIGH,
-          tip: 'Looks balanced.',
-          meal: Meal(
-            name: 'Avocado Toast',
-            quantity: '2 slices',
-            type: MealType.BREAKFAST,
-            macros: MealMacro(
-              calories: 360,
-              protein: 11,
-              carbs: 34,
-              fat: 20,
-              fiber: 8,
-            ),
-            health: MealHealth(
-              healthScore: HealthScore.HEALTHY,
-              healthScoreReason: 'Fiber and healthy fats.',
-            ),
-          ),
+    test('analyzes watch text through the phone V2 pipeline', () async {
+      final result = PipelineResultData(
+        analysisId: 'analysis-watch',
+        mealName: 'Avocado Toast',
+        quantity: '2 slices',
+        mealType: MealType.BREAKFAST,
+        calorieConfidence: CalorieConfidence.HIGH,
+        tip: 'Looks balanced.',
+        macros: PipelineMacros(
+          calories: 360,
+          protein: 11,
+          carbs: 34,
+          fat: 20,
+          fiber: 8,
         ),
       );
 
       when(
-        () => mockFoodRepository.detectText(
+        () => mockFoodRepository.analyzeTextV2(
+          analysisId: any(named: 'analysisId'),
           textDescription: 'two slices of avocado toast',
         ),
-      ).thenAnswer((_) async => expectedResponse);
+      ).thenAnswer(
+        (_) async => Stream.value(
+          MealAnalysisPipelineEvent(
+            step: PipelineStep.RESULT,
+            analysisId: 'analysis-watch',
+            result: result,
+          ),
+        ),
+      );
 
       final response = await WearOsService.instance.handleWatchMessage(
         path: '/analysis/detect-text',
@@ -184,7 +185,8 @@ void main() {
       expect(parsed.result.meal.name, 'Avocado Toast');
       expect(parsed.result.meal.macros.calories, 360);
       verify(
-        () => mockFoodRepository.detectText(
+        () => mockFoodRepository.analyzeTextV2(
+          analysisId: any(named: 'analysisId'),
           textDescription: 'two slices of avocado toast',
         ),
       ).called(1);
@@ -194,7 +196,8 @@ void main() {
       'legacy and typed failures never expose analysis exceptions',
       () async {
         when(
-          () => mockFoodRepository.detectText(
+          () => mockFoodRepository.analyzeTextV2(
+            analysisId: any(named: 'analysisId'),
             textDescription: 'private meal description',
           ),
         ).thenThrow(
@@ -377,15 +380,23 @@ void main() {
         when(() => mockAuthService.authToken).thenReturn('binary-auth-token');
         when(() => mockUser.uid).thenReturn('typed-user');
         when(() => mockUser.isAnonymous).thenReturn(false);
-        final detected = MealDetectionResponse(
-          result: MealDetectionResult(
-            mealIdentified: true,
-            meal: Meal(name: 'Fruit bowl'),
+        when(
+          () => mockFoodRepository.analyzeTextV2(
+            analysisId: any(named: 'analysisId'),
+            textDescription: 'fruit bowl',
+          ),
+        ).thenAnswer(
+          (_) async => Stream.value(
+            MealAnalysisPipelineEvent(
+              step: PipelineStep.RESULT,
+              analysisId: 'analysis-fruit',
+              result: PipelineResultData(
+                analysisId: 'analysis-fruit',
+                mealName: 'Fruit bowl',
+              ),
+            ),
           ),
         );
-        when(
-          () => mockFoodRepository.detectText(textDescription: 'fruit bowl'),
-        ).thenAnswer((_) async => detected);
 
         final auth = await sendTyped(
           WearOperation.WEAR_OPERATION_AUTH_SESSION,

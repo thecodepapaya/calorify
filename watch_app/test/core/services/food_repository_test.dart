@@ -6,37 +6,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
 
 void main() {
-  test(
-    'ambiguous dispatched analysis never starts a backend duplicate',
-    () async {
-      var backendCalls = 0;
-      final repository = WatchFoodRepository(
-        phoneDetector: (_) async {
-          return WatchTransportResult.failure(
-            WearErrorCode.WEAR_ERROR_CODE_TIMEOUT,
-            retryable: true,
-            deliveryUncertain: true,
-          );
-        },
-        backendDetector: (_) async {
-          backendCalls++;
-          return MealDetectionResponse();
-        },
-      );
-
-      await expectLater(
-        repository.detectText(textDescription: 'A bowl of poha'),
-        throwsA(isA<TimeoutException>()),
-      );
-      expect(backendCalls, 0);
-    },
-  );
-
-  test('failure before analysis dispatch may use the backend once', () async {
-    var backendCalls = 0;
-    final expected = MealDetectionResponse(
-      result: MealDetectionResult(mealIdentified: true),
+  test('ambiguous dispatched analysis reports a timeout', () async {
+    final repository = WatchFoodRepository(
+      phoneDetector: (_) async {
+        return WatchTransportResult.failure(
+          WearErrorCode.WEAR_ERROR_CODE_TIMEOUT,
+          retryable: true,
+          deliveryUncertain: true,
+        );
+      },
     );
+
+    await expectLater(
+      repository.detectText(textDescription: 'A bowl of poha'),
+      throwsA(isA<TimeoutException>()),
+    );
+  });
+
+  test('phone rejection does not fall back to a backend V1 request', () async {
     final repository = WatchFoodRepository(
       phoneDetector: (_) async {
         return WatchTransportResult.failure(
@@ -44,10 +31,26 @@ void main() {
           retryable: true,
         );
       },
-      backendDetector: (_) async {
-        backendCalls++;
-        return expected;
-      },
+    );
+
+    await expectLater(
+      repository.detectText(textDescription: 'A bowl of poha'),
+      throwsA(isA<StateError>()),
+    );
+  });
+
+  test('returns a successful phone-assisted V2 result', () async {
+    final expected = MealDetectionResponse(
+      result: MealDetectionResult(
+        mealIdentified: true,
+        meal: Meal(name: 'Poha'),
+      ),
+    );
+    final repository = WatchFoodRepository(
+      phoneDetector:
+          (_) async => WatchTransportResult.success(
+            WearResponse(detectText: DetectTextResponse(response: expected)),
+          ),
     );
 
     final result = await repository.detectText(
@@ -55,6 +58,5 @@ void main() {
     );
 
     expect(result, same(expected));
-    expect(backendCalls, 1);
   });
 }

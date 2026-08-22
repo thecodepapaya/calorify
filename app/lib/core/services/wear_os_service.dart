@@ -8,6 +8,7 @@ import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:models/models.dart';
+import 'package:uuid/uuid.dart';
 
 /// Service to handle Wear OS messages from the watch app
 class WearOsService {
@@ -186,7 +187,7 @@ class WearOsService {
         }
         return WearResponse(
           detectText: DetectTextResponse(
-            response: await _detectText(description),
+            response: await _analyzeTextV2(description),
           ),
         );
       case WearRequest_Payload.notSet:
@@ -386,7 +387,7 @@ class WearOsService {
         );
       }
 
-      final response = await _detectText(textDescription.trim());
+      final response = await _analyzeTextV2(textDescription.trim());
 
       return {'success': true, 'response': response.toProto3Json()};
     } catch (e) {
@@ -477,8 +478,42 @@ class WearOsService {
     );
   }
 
-  Future<MealDetectionResponse> _detectText(String description) {
-    return _foodRepository.detectText(textDescription: description);
+  Future<MealDetectionResponse> _analyzeTextV2(String description) async {
+    final analysisId = const Uuid().v4();
+    final events = await _foodRepository.analyzeTextV2(
+      analysisId: analysisId,
+      textDescription: description,
+    );
+
+    await for (final event in events) {
+      if (event.step == PipelineStep.RESULT && event.result != null) {
+        final context = MealAnalysisPipelineSessionContext(
+          result: event.result,
+          textDescription: description,
+        );
+        return MealDetectionResponse(result: context.toMealDetectionResult());
+      }
+      if (event.step == PipelineStep.UNCERTAINTY ||
+          event.step == PipelineStep.MEAL_TYPE_QUESTION) {
+        throw const _WearServiceException(
+          WearErrorCode.WEAR_ERROR_CODE_REJECTED,
+          'Complete this meal analysis on the phone',
+        );
+      }
+      if (event.step == PipelineStep.ERROR) {
+        throw _WearServiceException(
+          WearErrorCode.WEAR_ERROR_CODE_INTERNAL,
+          event.retryable
+              ? 'Meal analysis is temporarily unavailable'
+              : 'Meal analysis failed',
+        );
+      }
+    }
+
+    throw const _WearServiceException(
+      WearErrorCode.WEAR_ERROR_CODE_MALFORMED_RESPONSE,
+      'Meal analysis ended without a result',
+    );
   }
 
   @visibleForTesting

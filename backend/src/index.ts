@@ -4,7 +4,6 @@ import { randomUUID } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
-import multipart from '@fastify/multipart';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
@@ -128,7 +127,7 @@ export async function buildApp(options: BuildAppOptions = {}) {
   });
 
   // Record Prometheus HTTP metrics. Uses onResponse (not onSend) so the statusCode is final.
-  // We label by the Fastify route pattern (e.g. `/api/v1/food/detect-text`) rather than the raw
+  // We label by the Fastify route pattern (e.g. `/api/v2/food/analyze-text`) rather than the raw
   // URL to avoid unbounded label cardinality from path params / query strings.
   fastify.addHook('onResponse', async (request, reply) => {
     // Don't count the scrape endpoint itself — it would inflate request counts and skew dashboards.
@@ -185,16 +184,6 @@ export async function buildApp(options: BuildAppOptions = {}) {
         ok: false,
         message: `Rate limit exceeded. Try again in ${context.after}.`,
       };
-    },
-  });
-
-  // Register multipart for file uploads
-  await fastify.register(multipart, {
-    limits: {
-      files: 1,
-      // The legacy multipart endpoint buffers the image for the AI SDK. Bound
-      // that allocation; current clients upload compressed images by URL.
-      fileSize: 10 * 1024 * 1024,
     },
   });
 

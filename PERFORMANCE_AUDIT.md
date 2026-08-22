@@ -25,7 +25,7 @@ The main scaling risks are outside ordinary single-meal calculation:
 | Backend request path | Disabled Fastify's built-in request logs because structured request/response hooks already emit them. | Removes two duplicate log records and their serialization/output work per request. |
 | Backend response path | Response payloads are retained only when request/response body logging is enabled. | Reduces live memory for normal production responses and streamed requests. |
 | Backend tips | Added a 30-second positive/negative cache for tips-file metadata and parse failures. | Removes blocking filesystem calls from every tips request while preserving server-side updates. |
-| Backend uploads | Limited the legacy multipart upload to one 10 MiB file. | Bounds a route that must buffer its input for the legacy AI API. |
+| Backend uploads | Removed the unused V1 multipart analysis route and plugin; V2 uploads images directly to object storage. | Eliminates request buffering and the legacy AI path. |
 | Backend jobs | Prevented overlapping hourly AI-summary cron executions. | Avoids duplicated database/provider work when a run lasts longer than its schedule interval. |
 | PostgreSQL | Added concurrent partial indexes for `(user_id, logged_at DESC)` and `(user_id, created_at DESC)`. | Matches meal export/history, AI-summary collection, and latest-session queries without blocking table writes during index creation. |
 | Phone database | Disabled the per-operation database logging wrapper in release builds. | Avoids log string/context allocation around every local database read and write. |
@@ -131,10 +131,6 @@ HTTP and AI metrics exist, but PostgreSQL query duration, pool wait time, active
 #### 13. Build a production-only backend image
 
 The current Docker image installs build tools and dev dependencies and is also reused for staging hot reload. Create separate multi-stage targets: a development target for staging and a runtime target containing compiled output, production dependencies, migrations, and required data only. This primarily improves image transfer, deploy/restart time, storage, and attack surface rather than request latency.
-
-#### 14. Retire the legacy multipart image route
-
-Current V2 clients upload compressed images directly to object storage, while `/api/v1/food/analyze-image` still buffers multipart input. After confirming old-client usage, deprecate and remove the route and multipart plugin. Until then, retain the new size/file-count limits and add a metric for rejected 413 responses.
 
 ### P3 — monitor; optimize only with evidence
 
