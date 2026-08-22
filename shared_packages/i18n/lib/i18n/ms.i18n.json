@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Sambung dengan Health Connect",
-      "description": "Segerakkan data kesihatan anda untuk maklumat lebih baik dan pengesanan kalori automatik",
+      "description": "Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.",
       "automaticTracking": {
-        "title": "Pengesanan Kalori Automatik",
-        "description": "Jejaki kalori yang dibakar dari aplikasi kecergasan anda"
+        "title": "Kalori Dibakar",
+        "description": "Baca jumlah kalori yang dibakar hari ini daripada Health Connect"
       },
       "progressInsights": {
-        "title": "Wawasan Kemajuan",
-        "description": "Dapatkan wawasan terperinci tentang trend kesihatan anda"
+        "title": "Kongsi Hidangan yang Direkodkan",
+        "description": "Tulis hidangan yang anda rekod dalam Calorify ke Health Connect"
       },
       "seamlessIntegration": {
-        "title": "Integrasi Lancar",
-        "description": "Segerakkan data dari aplikasi kesihatan kegemaran anda"
+        "title": "Anda yang Mengawal",
+        "description": "Pilih salah satu kebenaran dan ubah akses pada bila-bila masa"
       },
       "connected": "Health Connect Disambungkan",
       "notConnected": "Health Connect Tidak Disambungkan",
@@ -101,6 +101,12 @@
       "skipForNow": "Langkau buat masa ini",
       "statusConnected": "Health Connect telah disambungkan.",
       "statusSuccess": "Health Connect berjaya disambungkan!",
+      "statusNotConnected": "Pilih ciri Health Connect yang ingin anda aktifkan.",
+      "statusPartial": "Health Connect disambungkan sebahagiannya. Aktifkan kebenaran yang selebihnya untuk menggunakan kedua-dua ciri.",
+      "statusProviderUpdateRequired": "Pasang atau kemas kini Health Connect untuk meneruskan.",
+      "statusUnavailable": "Health Connect tidak disokong pada peranti ini.",
+      "installOrUpdate": "Pasang atau kemas kini",
+      "manageAccess": "Urus akses",
       "statusPermissionDenied": "Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon untuk {appLabel}.",
       "statusError": "Ralat semasa menyediakan Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Segerakkan dengan Health Connect",
-      "description": "Segerakkan data pemakanan anda dengan Health Connect",
-      "install": "Pasang",
+      "description": "Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan",
+      "install": "Pasang atau kemas kini",
       "connect": "Sambung"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Kosongkan Semua Data",
-      "subtitle": "Padam semua maklumat anda secara tidak boleh dipulihkan",
+      "subtitle": "Padam data Calorify yang disimpan pada peranti ini",
       "confirmationTitle": "Kosongkan Semua Data?",
-      "confirmationMessage": "Tindakan ini tidak boleh dibatalkan. Semua hidangan yang anda log, kegemaran, dan tetapan profil akan dipadamkan secara kekal.",
+      "confirmationMessage": "Ini akan memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.",
       "cancel": "Batal",
       "clearEverything": "Padam Semua"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Lihat dan urus kebenaran",
       "unavailable": {
         "title": "Health Connect Tidak Tersedia",
-        "description": "Health Connect tidak tersedia pada peranti ini. Sila pasang Health Connect dari Play Store (Android 9+) atau kemas kini ke Android 14+."
+        "description": "Health Connect tidak disokong pada peranti ini."
+      },
+      "updateRequired": {
+        "title": "Health Connect memerlukan perhatian",
+        "description": "Pasang atau kemas kini Health Connect sebelum mengurus akses.",
+        "action": "Pasang atau kemas kini"
       },
       "permissions": {
         "title": "Kebenaran",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Urus Kebenaran",
       "openSettings": "Buka Tetapan Health Connect",
+      "disconnect": "Putuskan sambungan Health Connect",
+      "disconnectConfirmationTitle": "Putuskan sambungan Health Connect?",
+      "disconnectConfirmationMessage": "Calorify akan kehilangan akses kepada Health Connect. Data yang telah ditulis di sana tidak akan dipadamkan.",
+      "disconnectConfirmationAction": "Putuskan sambungan",
+      "deleteSyncedMeals": "Padam hidangan Calorify daripada Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Padam hidangan yang disegerakkan?",
+      "deleteSyncedMealsConfirmationMessage": "Padam hidangan yang disegerakkan oleh versi Calorify ini daripada Health Connect? Log hidangan setempat anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dipadamkan melalui Urus Data dalam Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Padam hidangan yang disegerakkan",
+      "deleteSyncedMealsSuccess": "Hidangan Calorify telah dipadamkan daripada Health Connect.",
+      "deleteSyncedMealsFailed": "Hidangan yang disegerakkan tidak dapat dipadamkan. Sila cuba lagi.",
+      "connectionPartial": "Sesetengah ciri Health Connect diaktifkan.",
+      "connectionComplete": "Kedua-dua ciri Health Connect diaktifkan.",
+      "actionFailed": "Health Connect tidak dapat dibuka. Sila cuba lagi.",
       "requestPermissions": "Minta Kebenaran",
       "permissionRequestCancelledOrFailed": "Permintaan kebenaran dibatalkan atau gagal. Sila cuba lagi atau beri kebenaran secara manual di tetapan Health Connect.",
       "permissionRequestFailed": "Tidak dapat meminta kebenaran. Sila cuba lagi atau beri kebenaran secara manual di tetapan Health Connect.",
@@ -596,7 +620,7 @@
         "title": "Privasi Anda Penting",
         "description": "Privasi bukan selepas-fikir — ia adalah prinsip reka bentuk. Ini maksudnya dalam amalan:",
         "noAccounts": "Tiada akaun diperlukan\nGunakan aplikasi serta-merta. Tiada pendaftaran, tiada identiti.",
-        "noTracking": "Tiada penjejakan tingkah laku\n{appLabel} tidak memantau aktiviti anda, membina profil penggunaan, atau menjejak anda merentasi aplikasi atau laman web.",
+        "noTracking": "Analitik dan diagnostik terhad\n{appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual.",
         "noAds": "Tiada iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau pemanfaatkan data.",
         "noDataSelling": "Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.",
         "localStorage": "Penyimpanan bermula-lokal\nData anda kekal pada peranti anda.",

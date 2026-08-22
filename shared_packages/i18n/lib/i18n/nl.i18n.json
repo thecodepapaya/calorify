@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Koppel met Health Connect",
-      "description": "Synchroniseer je gezondheidsgegevens voor betere inzichten en automatische calorie-registratie",
+      "description": "Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.",
       "automaticTracking": {
-        "title": "Automatische calorie-tracking",
-        "description": "Houd verbrande calorieën bij vanuit je fitnessapps"
+        "title": "Verbrande calorieën",
+        "description": "Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect"
       },
       "progressInsights": {
-        "title": "Voortgangsinzichten",
-        "description": "Krijg gedetailleerde inzichten in je gezondheidstrends"
+        "title": "Geloggde maaltijden delen",
+        "description": "Schrijf maaltijden die je in Calorify logt naar Health Connect"
       },
       "seamlessIntegration": {
-        "title": "Naadloze integratie",
-        "description": "Synchroniseer gegevens van je favoriete gezondheidsapps"
+        "title": "Jij houdt de controle",
+        "description": "Kies een van beide machtigingen en wijzig de toegang wanneer je wilt"
       },
       "connected": "Health Connect verbonden",
       "notConnected": "Health Connect niet verbonden",
@@ -101,6 +101,12 @@
       "skipForNow": "Sla voorlopig over",
       "statusConnected": "Health Connect is verbonden.",
       "statusSuccess": "Health Connect is succesvol verbonden!",
+      "statusNotConnected": "Kies welke Health Connect-functies je wilt inschakelen.",
+      "statusPartial": "Health Connect is gedeeltelijk verbonden. Schakel de resterende machtiging in om beide functies te gebruiken.",
+      "statusProviderUpdateRequired": "Installeer of werk Health Connect bij om door te gaan.",
+      "statusUnavailable": "Health Connect wordt niet ondersteund op dit apparaat.",
+      "installOrUpdate": "Installeren of bijwerken",
+      "manageAccess": "Toegang beheren",
       "statusPermissionDenied": "Toestemming geweigerd. Schakel Health Connect-machtigingen in via de telefooninstellingen voor {appLabel}.",
       "statusError": "Fout bij instellen van Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Synchroniseren met Health Connect",
-      "description": "Synchroniseer je voedingsgegevens met Health Connect",
-      "install": "Installeren",
+      "description": "Gebruik verbrande calorieën in je doel en deel gelogde maaltijden",
+      "install": "Installeren of bijwerken",
       "connect": "Koppelen"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Alle gegevens wissen",
-      "subtitle": "Verwijder onomkeerbaar al je informatie",
+      "subtitle": "Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen",
       "confirmationTitle": "Alle gegevens wissen?",
-      "confirmationMessage": "Deze actie kan niet ongedaan gemaakt worden. Al je geregistreerde maaltijden, favorieten en profielinstellingen worden permanent verwijderd.",
+      "confirmationMessage": "Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect beheer je afzonderlijk via Instellingen > Health Connect.",
       "cancel": "Annuleren",
       "clearEverything": "Alles wissen"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Bekijk en beheer machtigingen",
       "unavailable": {
         "title": "Health Connect niet beschikbaar",
-        "description": "Health Connect is niet beschikbaar op dit apparaat. Installeer Health Connect vanuit de Play Store (Android 9+) of werk bij naar Android 14+."
+        "description": "Health Connect wordt niet ondersteund op dit apparaat."
+      },
+      "updateRequired": {
+        "title": "Health Connect vereist aandacht",
+        "description": "Installeer of werk Health Connect bij voordat je de toegang beheert.",
+        "action": "Installeren of bijwerken"
       },
       "permissions": {
         "title": "Machtigingen",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Machtigingen beheren",
       "openSettings": "Open Health Connect-instellingen",
+      "disconnect": "Health Connect loskoppelen",
+      "disconnectConfirmationTitle": "Health Connect loskoppelen?",
+      "disconnectConfirmationMessage": "Calorify verliest de toegang tot Health Connect. Gegevens die daar al zijn geschreven, worden niet verwijderd.",
+      "disconnectConfirmationAction": "Loskoppelen",
+      "deleteSyncedMeals": "Calorify-maaltijden uit Health Connect verwijderen",
+      "deleteSyncedMealsConfirmationTitle": "Gesynchroniseerde maaltijden verwijderen?",
+      "deleteSyncedMealsConfirmationMessage": "Maaltijden die door deze versie van Calorify zijn gesynchroniseerd uit Health Connect verwijderen? Je lokale maaltijdlogboek verandert niet. Oudere Calorify-vermeldingen moet je mogelijk nog verwijderen via Gegevens beheren in Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Gesynchroniseerde maaltijden verwijderen",
+      "deleteSyncedMealsSuccess": "Calorify-maaltijden zijn uit Health Connect verwijderd.",
+      "deleteSyncedMealsFailed": "Gesynchroniseerde maaltijden konden niet worden verwijderd. Probeer het opnieuw.",
+      "connectionPartial": "Sommige Health Connect-functies zijn ingeschakeld.",
+      "connectionComplete": "Beide Health Connect-functies zijn ingeschakeld.",
+      "actionFailed": "Health Connect kon niet worden geopend. Probeer het opnieuw.",
       "requestPermissions": "Vraag machtigingen aan",
       "permissionRequestCancelledOrFailed": "De toestemmingsaanvraag is geannuleerd of mislukt. Probeer het opnieuw of geef machtigingen handmatig in de Health Connect-instellingen.",
       "permissionRequestFailed": "Kan geen machtigingen aanvragen. Probeer het opnieuw of geef machtigingen handmatig in de Health Connect-instellingen.",
@@ -596,7 +620,7 @@
         "title": "Je privacy doet ertoe",
         "description": "Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:",
         "noAccounts": "Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.",
-        "noTracking": "Geen gedrags-tracking\n{appLabel} volgt je activiteit niet, bouwt geen gebruiksprofielen en monitort je niet over apps of websites.",
+        "noTracking": "Beperkte analyses en diagnostiek\n{appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet voor advertenties gebruikt of verkocht.",
         "noAds": "Advertentievrij bij ontwerp\n{appLabel} is gebouwd om te werken zonder advertenties of datagedreven monetisatie.",
         "noDataSelling": "Geen verkoop van gegevens\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.",
         "localStorage": "Lokaal als eerste opslag\nJe gegevens blijven op je apparaat.",

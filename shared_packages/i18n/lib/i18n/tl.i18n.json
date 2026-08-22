@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Kumonekta sa Health Connect",
-      "description": "I-sync ang iyong health data para sa mas mahusay na pananaw at awtomatikong pagsubaybay ng calories",
+      "description": "Gamitin ang calories na nasunog sa iyong pang-araw-araw na goal at, kung gusto mo, ibahagi sa Health Connect ang mga na-log na pagkain.",
       "automaticTracking": {
-        "title": "Awtomatikong Pagsubaybay ng Kaloriya",
-        "description": "Subaybayan ang calories na nasunog mula sa iyong fitness apps"
+        "title": "Calories na Nasunog",
+        "description": "Basahin mula sa Health Connect ang kabuuang calories na nasunog ngayong araw"
       },
       "progressInsights": {
-        "title": "Mga Pananaw sa Progreso",
-        "description": "Kumuha ng detalyadong pananaw sa iyong mga trend sa kalusugan"
+        "title": "Ibahagi ang mga Na-log na Pagkain",
+        "description": "Isulat sa Health Connect ang mga pagkain na nila-log mo sa Calorify"
       },
       "seamlessIntegration": {
-        "title": "Makinis na Integrasyon",
-        "description": "I-sync ang data mula sa iyong paboritong health apps"
+        "title": "Ikaw ang May Kontrol",
+        "description": "Pumili ng alinmang permiso at baguhin ang access anumang oras"
       },
       "connected": "Naka-konekta ang Health Connect",
       "notConnected": "Hindi nakakonekta ang Health Connect",
@@ -101,6 +101,12 @@
       "skipForNow": "Laktawan muna",
       "statusConnected": "Nakakonekta ang Health Connect.",
       "statusSuccess": "Matagumpay na nakakonekta ang Health Connect!",
+      "statusNotConnected": "Piliin ang mga feature ng Health Connect na gusto mong i-enable.",
+      "statusPartial": "Bahagyang nakakonekta ang Health Connect. I-enable ang natitirang permiso para magamit ang parehong feature.",
+      "statusProviderUpdateRequired": "I-install o i-update ang Health Connect para magpatuloy.",
+      "statusUnavailable": "Hindi sinusuportahan ang Health Connect sa device na ito.",
+      "installOrUpdate": "I-install o i-update",
+      "manageAccess": "Pamahalaan ang access",
       "statusPermissionDenied": "Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa {appLabel}.",
       "statusError": "Nagkaroon ng error sa pag-set up ng Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "I-sync sa Health Connect",
-      "description": "I-sync ang iyong nutrition data sa Health Connect",
-      "install": "I-install",
+      "description": "Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain",
+      "install": "I-install o i-update",
       "connect": "Ikonekta"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "I-clear Lahat ng Datos",
-      "subtitle": "Irreversibleng tanggalin ang lahat ng iyong impormasyon",
+      "subtitle": "Tanggalin ang data ng Calorify na naka-store sa device na ito",
       "confirmationTitle": "Tanggalin Lahat ng Datos?",
-      "confirmationMessage": "Hindi na mababawi ang aksyong ito. Lahat ng iyong na-log na pagkain, mga paborito, at mga setting ng profile ay permanente nang matatanggal.",
+      "confirmationMessage": "Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.",
       "cancel": "Kanselahin",
       "clearEverything": "I-clear Lahat"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Tingnan at pamahalaan ang mga permiso",
       "unavailable": {
         "title": "Hindi Available ang Health Connect",
-        "description": "Hindi available ang Health Connect sa device na ito. Pakai-install ang Health Connect mula sa Play Store (Android 9+) o mag-update sa Android 14+."
+        "description": "Hindi sinusuportahan ang Health Connect sa device na ito."
+      },
+      "updateRequired": {
+        "title": "Kailangang asikasuhin ang Health Connect",
+        "description": "I-install o i-update ang Health Connect bago pamahalaan ang access.",
+        "action": "I-install o i-update"
       },
       "permissions": {
         "title": "Mga Permiso",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Pamahalaan ang mga Permiso",
       "openSettings": "Buksan ang Mga Setting ng Health Connect",
+      "disconnect": "Idiskonekta ang Health Connect",
+      "disconnectConfirmationTitle": "Idiskonekta ang Health Connect?",
+      "disconnectConfirmationMessage": "Mawawalan ng access ang Calorify sa Health Connect. Hindi matatanggal ang data na naisulat na roon.",
+      "disconnectConfirmationAction": "Idiskonekta",
+      "deleteSyncedMeals": "Tanggalin ang mga pagkain ng Calorify sa Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Tanggalin ang mga na-sync na pagkain?",
+      "deleteSyncedMealsConfirmationMessage": "Tanggalin sa Health Connect ang mga pagkaing na-sync ng bersyong ito ng Calorify? Hindi magbabago ang iyong lokal na meal log. Maaaring kailanganin pa ring alisin ang mas lumang Calorify entries gamit ang Pamahalaan ang Data sa Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Tanggalin ang mga na-sync na pagkain",
+      "deleteSyncedMealsSuccess": "Natanggal na sa Health Connect ang mga pagkain ng Calorify.",
+      "deleteSyncedMealsFailed": "Hindi matanggal ang mga na-sync na pagkain. Pakisubukang muli.",
+      "connectionPartial": "Naka-enable ang ilang feature ng Health Connect.",
+      "connectionComplete": "Naka-enable ang parehong feature ng Health Connect.",
+      "actionFailed": "Hindi mabuksan ang Health Connect. Pakisubukang muli.",
       "requestPermissions": "Hilingin ang Mga Permiso",
       "permissionRequestCancelledOrFailed": "Nakansela o nabigo ang kahilingan ng permiso. Pakisubukang muli o bigyan ng permiso nang manu-mano sa mga setting ng Health Connect.",
       "permissionRequestFailed": "Hindi magawa ang paghingi ng permiso. Pakisubukang muli o bigyan nang manu-mano ng permiso sa mga setting ng Health Connect.",
@@ -596,7 +620,7 @@
         "title": "Mahalaga ang Iyong Privacy",
         "description": "Hindi panghuli ang privacy — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktika:",
         "noAccounts": "Hindi kailangan ng account\nGamitin agad ang app. Walang sign-up, walang identity.",
-        "noTracking": "Walang behavioral tracking\n{appLabel} hindi minomonitor ang iyong aktibidad, hindi gumagawa ng usage profiles, at hindi ka sinusubaybayan sa iba pang apps o website.",
+        "noTracking": "Limitadong analytics at diagnostics\nGumagamit ang {appLabel} ng mga pangunahing app event at crash diagnostics para mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga value ng health record.",
         "noAds": "Walang ads ayon sa disenyo\n{appLabel} idinisenyo para gumana nang walang ads o monetization na naka-base sa data.",
         "noDataSelling": "Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.",
         "localStorage": "Local-first storage\nNananatili ang iyong data sa iyong device.",

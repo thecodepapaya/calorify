@@ -5,6 +5,7 @@ import 'package:calorify/core/repositories/profile_repository.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/services/health_connect_sync_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/services/performance_service.dart';
 import 'package:calorify/core/services/wear_os_service.dart';
@@ -26,6 +27,7 @@ class AppInitialization {
   static Future<void> initialize({
     required DatabaseInterface database,
     required HealthService healthService,
+    required HealthConnectSyncService healthConnectSyncService,
     required ProfileRepository profileRepository,
   }) async {
     if (isTesting) {
@@ -72,6 +74,21 @@ class AppInitialization {
           'Health service',
           TraceType.healthServiceInit,
           healthService.init,
+          parentSpan: span,
+        );
+    WearOsService.instance.setHealthConnectSyncCallback(() async {
+      await healthConnectSyncService.syncPending();
+    });
+    hadInitializationError |=
+        !await _runInitializationStep(
+          'Health Connect sync',
+          TraceType.healthServiceInit,
+          () async {
+            await healthConnectSyncService.reconcileAuthorization(
+              adoptExisting: true,
+            );
+            await healthConnectSyncService.syncPending();
+          },
           parentSpan: span,
         );
     hadInitializationError |=

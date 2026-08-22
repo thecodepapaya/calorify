@@ -193,7 +193,7 @@ class AboutScreen extends StatelessWidget {
     final appLabel = t.appLabel(env: EnvConfig.instance.envSuffix);
     final items = <String>[
       t.settings.about.privacy.noAccounts,
-      t.settings.about.privacy.noTracking(appLabel: appLabel),
+      t.settings.about.privacy.analyticsDisclosure(appLabel: appLabel),
       t.settings.about.privacy.noAds(appLabel: appLabel),
       t.settings.about.privacy.noDataSelling,
       t.settings.about.privacy.localStorage,

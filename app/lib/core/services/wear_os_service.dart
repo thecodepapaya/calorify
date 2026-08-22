@@ -19,6 +19,11 @@ class WearOsService {
   bool _isInitialized = false;
   StreamSubscription<Map<String, dynamic>>? _messageSubscription;
   FoodRepository _foodRepository = FoodRepository();
+  Future<void> Function()? _syncHealthConnect;
+
+  void setHealthConnectSyncCallback(Future<void> Function() callback) {
+    _syncHealthConnect = callback;
+  }
 
   /// Initialize the Wear OS service
   Future<void> initialize() async {
@@ -411,7 +416,12 @@ class WearOsService {
     await DatabaseService.databaseInterface.logMeal(
       loggedMeal.meal,
       analysisId: analysisId,
+      loggedAt:
+          loggedMeal.hasCreatedAt()
+              ? iso8601StringToDateTime(loggedMeal.createdAt)
+              : null,
     );
+    _scheduleHealthConnectSync();
     if (favoriteMealId != null && favoriteMealId > 0) {
       await DatabaseService.databaseInterface.updateFavoriteLastUsedAt(
         favoriteMealId,
@@ -419,8 +429,24 @@ class WearOsService {
     }
   }
 
-  Future<void> _deleteMeal(int mealId) {
-    return DatabaseService.databaseInterface.deleteMeal(mealId);
+  Future<void> _deleteMeal(int mealId) async {
+    await DatabaseService.databaseInterface.deleteMeal(mealId);
+    _scheduleHealthConnectSync();
+  }
+
+  void _scheduleHealthConnectSync() {
+    final syncHealthConnect = _syncHealthConnect;
+    if (syncHealthConnect == null) return;
+    unawaited(() async {
+      try {
+        await syncHealthConnect();
+      } catch (error) {
+        debugPrint(
+          'Health Connect sync after a Wear OS mutation failed: '
+          '${error.runtimeType}',
+        );
+      }
+    }());
   }
 
   Future<List<LoggedMeal>> _getTodaysMeals() {
@@ -524,6 +550,7 @@ class WearOsService {
   @visibleForTesting
   void resetForTesting() {
     _foodRepository = FoodRepository();
+    _syncHealthConnect = null;
     dispose();
   }
 

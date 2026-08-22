@@ -6,6 +6,7 @@ import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/services/health_connect_sync_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:health/health.dart';
@@ -19,9 +20,13 @@ class MockDatabaseInterface extends Mock implements DatabaseInterface {}
 
 class MockHealthService extends Mock implements HealthService {}
 
+class MockHealthConnectSyncService extends Mock
+    implements HealthConnectSyncService {}
+
 void main() {
   late MockDatabaseInterface mockDatabaseInterface;
   late MockHealthService mockHealthService;
+  late MockHealthConnectSyncService mockHealthConnectSyncService;
 
   setUpAll(() {
     setupAllTests();
@@ -30,6 +35,7 @@ void main() {
   setUp(() {
     mockDatabaseInterface = MockDatabaseInterface();
     mockHealthService = MockHealthService();
+    mockHealthConnectSyncService = MockHealthConnectSyncService();
     DatabaseService.setMockInterface(mockDatabaseInterface);
 
     // Default stubs
@@ -38,11 +44,27 @@ void main() {
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
+      () => mockHealthService.initializationState,
+    ).thenReturn(HealthServiceInitializationState.ready);
+    when(() => mockHealthService.canReadTotalCalories).thenReturn(true);
+    when(() => mockHealthService.canWriteNutrition).thenReturn(true);
+    when(() => mockHealthService.hasAnyHealthPermission).thenReturn(true);
+    when(() => mockHealthService.hasAllHealthPermissions).thenReturn(true);
+    when(
       () => mockHealthService.refreshAuthorizationStatus(),
     ).thenAnswer((_) async => mockHealthService.isAuthorized);
     when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer(
       (_) async => CaloriesResult(calories: 500.0, usedFallback: false),
     );
+    when(
+      () => mockHealthConnectSyncService.syncPending(),
+    ).thenAnswer((_) async => const HealthConnectSyncResult.none());
+    when(
+      () => mockHealthConnectSyncService.reconcileAuthorization(),
+    ).thenAnswer((_) async {});
+    when(
+      () => mockHealthConnectSyncService.enableNutritionSync(),
+    ).thenAnswer((_) async => const HealthConnectSyncResult.none());
     when(
       () => mockDatabaseInterface.watchDailyCalorieGoal(),
     ).thenAnswer((_) => Stream.value(2000));
@@ -64,6 +86,9 @@ void main() {
           const HomeScreen(),
           overrides: [
             healthServiceProvider.overrideWithValue(mockHealthService),
+            healthConnectSyncServiceProvider.overrideWithValue(
+              mockHealthConnectSyncService,
+            ),
             aiSummaryProvider.overrideWith((ref) => null),
           ],
         ),
@@ -84,12 +109,19 @@ void main() {
       WidgetTester tester,
     ) async {
       when(() => mockHealthService.isAuthorized).thenReturn(false);
+      when(() => mockHealthService.canReadTotalCalories).thenReturn(false);
+      when(() => mockHealthService.canWriteNutrition).thenReturn(false);
+      when(() => mockHealthService.hasAnyHealthPermission).thenReturn(false);
+      when(() => mockHealthService.hasAllHealthPermissions).thenReturn(false);
 
       await tester.pumpWidget(
         wrapWithProviders(
           const HomeScreen(),
           overrides: [
             healthServiceProvider.overrideWithValue(mockHealthService),
+            healthConnectSyncServiceProvider.overrideWithValue(
+              mockHealthConnectSyncService,
+            ),
             aiSummaryProvider.overrideWith((ref) => null),
           ],
         ),
@@ -103,14 +135,24 @@ void main() {
       WidgetTester tester,
     ) async {
       var isAuthorized = false;
+      var shouldAuthorize = false;
       when(
-        () => mockHealthService.isAuthorized,
+        () => mockHealthService.canReadTotalCalories,
+      ).thenAnswer((_) => isAuthorized);
+      when(
+        () => mockHealthService.canWriteNutrition,
+      ).thenAnswer((_) => isAuthorized);
+      when(
+        () => mockHealthService.hasAnyHealthPermission,
+      ).thenAnswer((_) => isAuthorized);
+      when(
+        () => mockHealthService.hasAllHealthPermissions,
       ).thenAnswer((_) => isAuthorized);
       when(() => mockHealthService.refreshAuthorizationStatus()).thenAnswer((
         _,
       ) async {
-        isAuthorized = true;
-        return true;
+        isAuthorized = shouldAuthorize;
+        return isAuthorized;
       });
 
       await tester.pumpWidget(
@@ -118,6 +160,9 @@ void main() {
           const HomeScreen(),
           overrides: [
             healthServiceProvider.overrideWithValue(mockHealthService),
+            healthConnectSyncServiceProvider.overrideWithValue(
+              mockHealthConnectSyncService,
+            ),
             aiSummaryProvider.overrideWith((ref) => null),
           ],
         ),
@@ -126,11 +171,15 @@ void main() {
 
       expect(find.byType(HealthConnectPromptCard), findsOneWidget);
 
+      shouldAuthorize = true;
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.byType(HealthConnectPromptCard), findsNothing);
+      verify(
+        () => mockHealthConnectSyncService.enableNutritionSync(),
+      ).called(1);
     });
 
     testWidgets('prevents duplicate Health Connect permission requests', (
@@ -178,6 +227,9 @@ void main() {
           const HomeScreen(),
           overrides: [
             healthServiceProvider.overrideWithValue(mockHealthService),
+            healthConnectSyncServiceProvider.overrideWithValue(
+              mockHealthConnectSyncService,
+            ),
             todaysMealsProvider.overrideWith(
               (ref) => todaysMealsController.stream,
             ),

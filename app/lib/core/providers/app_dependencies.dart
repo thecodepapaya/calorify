@@ -3,6 +3,7 @@ import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/repositories/profile_repository.dart';
 import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/services/health_connect_sync_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
 import 'package:calorify/core/services/profile_metrics.dart';
@@ -52,5 +53,14 @@ final healthServiceProvider = Provider<HealthService>((ref) {
   return HealthService(
     profileLoader: ref.watch(profileRepositoryProvider).getUserProfile,
     calorieEstimator: ref.watch(profileMetricsProvider).caloriesBurnedSoFar,
+  );
+});
+
+final healthConnectSyncServiceProvider = Provider<HealthConnectSyncService>((
+  ref,
+) {
+  return HealthConnectSyncService(
+    database: ref.watch(databaseInterfaceProvider),
+    healthService: ref.watch(healthServiceProvider),
   );
 });

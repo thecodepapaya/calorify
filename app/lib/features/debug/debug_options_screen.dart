@@ -25,7 +25,6 @@ import 'package:calorify/shared_widgets/easter_egg/cat_trigger.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:health/health.dart' hide MealType;
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:services/services.dart';
@@ -460,50 +459,17 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
   Widget? _buildHealthConnectOptions(BuildContext context) {
     const section = 'Health Connect';
-    const titles = [
-      "Fetch Today's Steps",
-      "Fetch Today's Calories",
-      'Fetch Latest Weight',
-      'Fetch Latest Height',
-      'Write Test Weight (70kg)',
-      'Write Test Height (175cm)',
-      'Sync Last 7 Days',
-    ];
+    const titles = ["Fetch Today's Calories", 'Retry pending meal sync'];
     final items = <Widget>[
-      ListTile(
-        leading: const Icon(LucideIcons.activity),
-        title: const Text("Fetch Today's Steps"),
-        onTap: _fetchTodaysSteps,
-      ),
       ListTile(
         leading: const Icon(LucideIcons.flame),
         title: const Text("Fetch Today's Calories"),
         onTap: _fetchTodaysCalories,
       ),
       ListTile(
-        leading: const Icon(LucideIcons.scale),
-        title: const Text('Fetch Latest Weight'),
-        onTap: _fetchLatestWeight,
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.ruler),
-        title: const Text('Fetch Latest Height'),
-        onTap: _fetchLatestHeight,
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.plus),
-        title: const Text('Write Test Weight (70kg)'),
-        onTap: _writeTestWeight,
-      ),
-      ListTile(
-        leading: const Icon(LucideIcons.plus),
-        title: const Text('Write Test Height (175cm)'),
-        onTap: _writeTestHeight,
-      ),
-      ListTile(
         leading: const Icon(LucideIcons.refreshCw),
-        title: const Text('Sync Last 7 Days'),
-        onTap: _syncLast7Days,
+        title: const Text('Retry pending meal sync'),
+        onTap: _retryHealthConnectSync,
       ),
     ];
     final filtered = <Widget>[];
@@ -1214,101 +1180,33 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     );
   }
 
-  Future<void> _fetchTodaysSteps() async {
-    final steps = await ref.read(healthServiceProvider).getTodaySteps();
-    _showDataDialog("Today's Steps", 'Steps: $steps');
-  }
-
-  Future<void> _fetchLatestWeight() async {
-    final weight = await ref.read(healthServiceProvider).getLatestWeight();
-    if (weight == null) {
-      _showSnackbar('No weight data found in the last 30 days.');
-    } else {
-      _showDataDialog(
-        'Latest Weight',
-        'Weight: ${weight.toStringAsFixed(UnitSystem.METRIC.weightPrecision)} kg',
-      );
-    }
-  }
-
-  Future<void> _fetchLatestHeight() async {
-    final height = await ref.read(healthServiceProvider).getLatestHeight();
-    if (height == null) {
-      _showSnackbar('No height data found in the last year.');
-    } else {
-      // Height is usually in meters from Health Connect
-      _showDataDialog(
-        'Latest Height',
-        'Height: ${(height * 100).toStringAsFixed(UnitSystem.METRIC.heightPrecision)} cm',
-      );
-    }
-  }
-
-  Future<void> _writeTestWeight() async {
-    final success = await ref.read(healthServiceProvider).writeWeight(70.0);
-    if (success) {
-      _showSnackbar('Successfully wrote test weight (70kg).');
-    } else {
-      _showSnackbar('Failed to write test weight.');
-    }
-  }
-
-  Future<void> _writeTestHeight() async {
-    final success = await ref.read(healthServiceProvider).writeHeight(175.0);
-    if (success) {
-      _showSnackbar('Successfully wrote test height (175cm).');
-    } else {
-      _showSnackbar('Failed to write test height.');
-    }
-  }
-
   Future<void> _fetchTodaysCalories() async {
-    final now = DateTime.now();
-    final startOfDay = DateTime(now.year, now.month, now.day);
-    final calories = await ref
-        .read(healthServiceProvider)
-        .fetchHealthData(startOfDay, now, HealthDataType.TOTAL_CALORIES_BURNED);
+    final result =
+        await ref.read(healthServiceProvider).getTotalCaloriesBurned();
 
     if (!mounted) return;
 
-    if (calories.isEmpty) {
+    if (result == null) {
       _showSnackbar('No calorie data found for today.');
       return;
     }
 
-    final totalCalories = calories
-        .map((e) => (e.value as NumericHealthValue).numericValue.toDouble())
-        .reduce((value, element) => value + element);
-
     _showDataDialog(
       "Today's Calories",
-      'Total calories burned: ${totalCalories.toStringAsFixed(2)}',
+      'Total calories burned: ${result.calories.toStringAsFixed(2)}\n'
+          'Source: ${result.usedFallback ? 'profile estimate' : 'Health Connect aggregate'}',
     );
   }
 
-  Future<void> _syncLast7Days() async {
-    final now = DateTime.now();
-    final sevenDaysAgo = now.subtract(const Duration(days: 7));
-
-    _showSnackbar('Fetching data for the last 7 days...');
-
-    final types = [
-      HealthDataType.STEPS,
-      HealthDataType.TOTAL_CALORIES_BURNED,
-      HealthDataType.WEIGHT,
-    ];
-
-    int totalPoints = 0;
-    for (final type in types) {
-      final data = await ref
-          .read(healthServiceProvider)
-          .fetchHealthData(sevenDaysAgo, now, type);
-      totalPoints += data.length;
-    }
-
+  Future<void> _retryHealthConnectSync() async {
+    final result =
+        await ref.read(healthConnectSyncServiceProvider).syncPending();
     _showDataDialog(
-      '7-Day Sync',
-      'Successfully fetched $totalPoints data points for Steps, Calories, and Weight over the last 7 days.',
+      'Health Connect meal sync',
+      'Attempted: ${result.attempted}\n'
+          'Succeeded: ${result.succeeded}\n'
+          'Failed: ${result.failed}\n'
+          'Permission required: ${result.permissionRequired}',
     );
   }
 

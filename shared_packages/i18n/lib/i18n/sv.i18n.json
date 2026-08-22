@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Anslut till Health Connect",
-      "description": "Synka din hälsodata för bättre insikter och automatisk kalorispårning",
+      "description": "Använd förbrända kalorier i ditt dagsmål och dela valfritt loggade måltider med Health Connect.",
       "automaticTracking": {
-        "title": "Automatisk kalorispårning",
-        "description": "Spåra kalorier förbrända från dina träningsappar"
+        "title": "Förbrända kalorier",
+        "description": "Läs dagens totala kaloriförbränning från Health Connect"
       },
       "progressInsights": {
-        "title": "Insikter om framsteg",
-        "description": "Få detaljerade insikter om dina hälsotrender"
+        "title": "Dela loggade måltider",
+        "description": "Skriv måltider som du loggar i Calorify till Health Connect"
       },
       "seamlessIntegration": {
-        "title": "Sömlös integration",
-        "description": "Synka data från dina favoritappar för hälsa"
+        "title": "Du har kontrollen",
+        "description": "Välj valfri behörighet och ändra åtkomsten när som helst"
       },
       "connected": "Health Connect anslutet",
       "notConnected": "Health Connect inte anslutet",
@@ -101,6 +101,12 @@
       "skipForNow": "Hoppa över för nu",
       "statusConnected": "Health Connect är anslutet.",
       "statusSuccess": "Health Connect är nu anslutet!",
+      "statusNotConnected": "Välj vilka Health Connect-funktioner du vill aktivera.",
+      "statusPartial": "Health Connect är delvis anslutet. Aktivera den återstående behörigheten för att använda båda funktionerna.",
+      "statusProviderUpdateRequired": "Installera eller uppdatera Health Connect för att fortsätta.",
+      "statusUnavailable": "Health Connect stöds inte på den här enheten.",
+      "installOrUpdate": "Installera eller uppdatera",
+      "manageAccess": "Hantera åtkomst",
       "statusPermissionDenied": "Behörighet nekad. Aktivera Health Connect-behörigheter i telefonens inställningar för {appLabel}.",
       "statusError": "Fel vid inställning av Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Synka med Health Connect",
-      "description": "Synka din näringsdata med Health Connect",
-      "install": "Installera",
+      "description": "Använd förbrända kalorier i ditt mål och dela loggade måltider",
+      "install": "Installera eller uppdatera",
       "connect": "Anslut"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Radera all data",
-      "subtitle": "Radera all din information oåterkalleligt",
+      "subtitle": "Radera Calorify-data som lagras på den här enheten",
       "confirmationTitle": "Radera all data?",
-      "confirmationMessage": "Denna åtgärd kan inte återställas. Alla dina registrerade måltider, favoriter och profilinställningar kommer att raderas permanent.",
+      "confirmationMessage": "Detta raderar loggade måltider, favoriter och profilinställningar permanent från den här enheten. Måltider som redan har delats med Health Connect och Health Connect-åtkomst hanteras separat under Inställningar > Health Connect.",
       "cancel": "Avbryt",
       "clearEverything": "Radera allt"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Visa och hantera behörigheter",
       "unavailable": {
         "title": "Health Connect är otillgängligt",
-        "description": "Health Connect finns inte på den här enheten. Installera Health Connect från Play Store (Android 9+) eller uppdatera till Android 14+."
+        "description": "Health Connect stöds inte på den här enheten."
+      },
+      "updateRequired": {
+        "title": "Health Connect behöver åtgärdas",
+        "description": "Installera eller uppdatera Health Connect innan du hanterar åtkomst.",
+        "action": "Installera eller uppdatera"
       },
       "permissions": {
         "title": "Behörigheter",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Hantera behörigheter",
       "openSettings": "Öppna Health Connect‑inställningar",
+      "disconnect": "Koppla från Health Connect",
+      "disconnectConfirmationTitle": "Koppla från Health Connect?",
+      "disconnectConfirmationMessage": "Calorify förlorar åtkomsten till Health Connect. Data som redan har skrivits där raderas inte.",
+      "disconnectConfirmationAction": "Koppla från",
+      "deleteSyncedMeals": "Radera Calorify-måltider från Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Radera synkroniserade måltider?",
+      "deleteSyncedMealsConfirmationMessage": "Vill du radera måltider som synkroniserats av den här versionen av Calorify från Health Connect? Din lokala måltidslogg ändras inte. Äldre Calorify-poster kan fortfarande behöva tas bort via Hantera data i Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Radera synkroniserade måltider",
+      "deleteSyncedMealsSuccess": "Calorify-måltider raderades från Health Connect.",
+      "deleteSyncedMealsFailed": "Synkroniserade måltider kunde inte raderas. Försök igen.",
+      "connectionPartial": "Vissa Health Connect-funktioner är aktiverade.",
+      "connectionComplete": "Båda Health Connect-funktionerna är aktiverade.",
+      "actionFailed": "Health Connect kunde inte öppnas. Försök igen.",
       "requestPermissions": "Begär behörigheter",
       "permissionRequestCancelledOrFailed": "Behörighetsförfrågan avbröts eller misslyckades. Försök igen eller ge behörigheter manuellt i Health Connect‑inställningarna.",
       "permissionRequestFailed": "Kunde inte begära behörigheter. Försök igen eller ge behörigheter manuellt i Health Connect‑inställningarna.",
@@ -596,7 +620,7 @@
         "title": "Din integritet är viktig",
         "description": "Integritet är inte en eftertanke — det är en designprincip. Detta innebär i praktiken:",
         "noAccounts": "Inga konton krävs\nAnvänd appen omedelbart. Ingen registrering, inga konton.",
-        "noTracking": "Ingen beteendespårning\n{appLabel} övervakar inte din aktivitet, skapar inte användarprofiler och spårar dig inte över appar eller webbplatser.",
+        "noTracking": "Begränsad analys och diagnostik\n{appLabel} använder grundläggande apphändelser och kraschdiagnostik för att förbättra tillförlitligheten. Värden i hälsoposter används inte för reklam och säljs inte.",
         "noAds": "Annonsfritt av design\n{appLabel} är byggt för att fungera utan annonser eller datadriven monetisering.",
         "noDataSelling": "Ingen försäljning av data\nDin hälsodata säljs eller delas aldrig med tredje part.",
         "localStorage": "Lagring lokalt i första hand\nDin data stannar på din enhet.",

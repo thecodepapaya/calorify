@@ -4,6 +4,28 @@ import 'package:calorify/core/db/local_nutrition_cache_entry.dart';
 
 enum DataSourceType { real, mock }
 
+enum HealthConnectSyncOperation { upsert, delete }
+
+class PendingHealthConnectSync {
+  const PendingHealthConnectSync({
+    required this.id,
+    required this.operation,
+    required this.clientRecordId,
+    required this.clientRecordVersion,
+    required this.attempts,
+    this.meal,
+    this.loggedAt,
+  });
+
+  final int id;
+  final HealthConnectSyncOperation operation;
+  final String clientRecordId;
+  final int clientRecordVersion;
+  final int attempts;
+  final Meal? meal;
+  final DateTime? loggedAt;
+}
+
 class LocalInferencePreferences {
   const LocalInferencePreferences({
     required this.enabled,
@@ -44,6 +66,7 @@ abstract class DatabaseInterface {
     Meal mealInfo, {
     String? analysisId,
     PipelineResultData? analysisSnapshot,
+    DateTime? loggedAt,
   });
 
   /// Upsert a meal
@@ -54,6 +77,40 @@ abstract class DatabaseInterface {
 
   /// Get a meal by id (local database id)
   Future<LoggedMeal?> getMealById(int mealId);
+
+  /// Durable Health Connect work waiting for permission/connectivity.
+  Future<List<PendingHealthConnectSync>> getPendingHealthConnectSyncs({
+    int limit = 50,
+  });
+
+  /// Removes an operation only when the version that was processed is still
+  /// current, so a concurrent edit cannot be lost.
+  Future<void> markHealthConnectSyncCompleted(int id, int clientRecordVersion);
+
+  Future<void> markHealthConnectSyncFailed(
+    int id,
+    int clientRecordVersion,
+    Object error,
+  );
+
+  Future<void> clearHealthConnectSyncQueue();
+
+  Future<int> countPendingHealthConnectDeletes();
+
+  /// Queues deletion of every Health Connect record still linked to a local
+  /// meal. Call only from an explicit, separately confirmed user action.
+  Future<void> enqueueAllHealthConnectDeletes();
+
+  Future<bool?> getHealthConnectNutritionSyncEnabled();
+
+  Future<void> setHealthConnectNutritionSyncEnabled(bool enabled);
+
+  /// Requeues only meals that were previously linked to Health Connect.
+  Future<void> enqueueLinkedHealthConnectUpserts();
+
+  /// Drops meal payloads when export is explicitly disabled. Delete
+  /// tombstones remain so already-synced records can still be reconciled.
+  Future<void> discardPendingHealthConnectUpserts();
 
   /// Check if a logged meal is a favorite by its source meal id.
   Future<bool> isFavoriteMeal(int sourceMealId);

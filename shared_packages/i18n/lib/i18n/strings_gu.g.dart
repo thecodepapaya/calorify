@@ -11,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsGu with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsGu extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsGu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +21,9 @@ class TranslationsGu with BaseTranslations<AppLocale, Translations> implements T
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
 		$meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -29,7 +31,7 @@ class TranslationsGu with BaseTranslations<AppLocale, Translations> implements T
 	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => $meta.getTranslation(key);
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
 
 	late final TranslationsGu _root = this; // ignore: unused_field
 
@@ -62,8 +64,8 @@ class TranslationsGu with BaseTranslations<AppLocale, Translations> implements T
 }
 
 // Path: errors
-class _TranslationsErrorsGu implements TranslationsErrorsEn {
-	_TranslationsErrorsGu._(this._root);
+class _TranslationsErrorsGu extends TranslationsErrorsEn {
+	_TranslationsErrorsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -77,8 +79,8 @@ class _TranslationsErrorsGu implements TranslationsErrorsEn {
 }
 
 // Path: onboarding
-class _TranslationsOnboardingGu implements TranslationsOnboardingEn {
-	_TranslationsOnboardingGu._(this._root);
+class _TranslationsOnboardingGu extends TranslationsOnboardingEn {
+	_TranslationsOnboardingGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -99,8 +101,8 @@ class _TranslationsOnboardingGu implements TranslationsOnboardingEn {
 }
 
 // Path: tabs
-class _TranslationsTabsGu implements TranslationsTabsEn {
-	_TranslationsTabsGu._(this._root);
+class _TranslationsTabsGu extends TranslationsTabsEn {
+	_TranslationsTabsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -110,8 +112,8 @@ class _TranslationsTabsGu implements TranslationsTabsEn {
 }
 
 // Path: home
-class _TranslationsHomeGu implements TranslationsHomeEn {
-	_TranslationsHomeGu._(this._root);
+class _TranslationsHomeGu extends TranslationsHomeEn {
+	_TranslationsHomeGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -129,8 +131,8 @@ class _TranslationsHomeGu implements TranslationsHomeEn {
 }
 
 // Path: history
-class _TranslationsHistoryGu implements TranslationsHistoryEn {
-	_TranslationsHistoryGu._(this._root);
+class _TranslationsHistoryGu extends TranslationsHistoryEn {
+	_TranslationsHistoryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -142,8 +144,8 @@ class _TranslationsHistoryGu implements TranslationsHistoryEn {
 }
 
 // Path: meal
-class _TranslationsMealGu implements TranslationsMealEn {
-	_TranslationsMealGu._(this._root);
+class _TranslationsMealGu extends TranslationsMealEn {
+	_TranslationsMealGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -187,8 +189,8 @@ class _TranslationsMealGu implements TranslationsMealEn {
 }
 
 // Path: favorites
-class _TranslationsFavoritesGu implements TranslationsFavoritesEn {
-	_TranslationsFavoritesGu._(this._root);
+class _TranslationsFavoritesGu extends TranslationsFavoritesEn {
+	_TranslationsFavoritesGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -205,8 +207,8 @@ class _TranslationsFavoritesGu implements TranslationsFavoritesEn {
 }
 
 // Path: profile
-class _TranslationsProfileGu implements TranslationsProfileEn {
-	_TranslationsProfileGu._(this._root);
+class _TranslationsProfileGu extends TranslationsProfileEn {
+	_TranslationsProfileGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -231,8 +233,8 @@ class _TranslationsProfileGu implements TranslationsProfileEn {
 }
 
 // Path: healthScore
-class _TranslationsHealthScoreGu implements TranslationsHealthScoreEn {
-	_TranslationsHealthScoreGu._(this._root);
+class _TranslationsHealthScoreGu extends TranslationsHealthScoreEn {
+	_TranslationsHealthScoreGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -246,8 +248,8 @@ class _TranslationsHealthScoreGu implements TranslationsHealthScoreEn {
 }
 
 // Path: editProfile
-class _TranslationsEditProfileGu implements TranslationsEditProfileEn {
-	_TranslationsEditProfileGu._(this._root);
+class _TranslationsEditProfileGu extends TranslationsEditProfileEn {
+	_TranslationsEditProfileGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -276,8 +278,8 @@ class _TranslationsEditProfileGu implements TranslationsEditProfileEn {
 }
 
 // Path: settings
-class _TranslationsSettingsGu implements TranslationsSettingsEn {
-	_TranslationsSettingsGu._(this._root);
+class _TranslationsSettingsGu extends TranslationsSettingsEn {
+	_TranslationsSettingsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -302,8 +304,8 @@ class _TranslationsSettingsGu implements TranslationsSettingsEn {
 }
 
 // Path: reminders
-class _TranslationsRemindersGu implements TranslationsRemindersEn {
-	_TranslationsRemindersGu._(this._root);
+class _TranslationsRemindersGu extends TranslationsRemindersEn {
+	_TranslationsRemindersGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -331,8 +333,8 @@ class _TranslationsRemindersGu implements TranslationsRemindersEn {
 }
 
 // Path: notifications
-class _TranslationsNotificationsGu implements TranslationsNotificationsEn {
-	_TranslationsNotificationsGu._(this._root);
+class _TranslationsNotificationsGu extends TranslationsNotificationsEn {
+	_TranslationsNotificationsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -345,8 +347,8 @@ class _TranslationsNotificationsGu implements TranslationsNotificationsEn {
 }
 
 // Path: login
-class _TranslationsLoginGu implements TranslationsLoginEn {
-	_TranslationsLoginGu._(this._root);
+class _TranslationsLoginGu extends TranslationsLoginEn {
+	_TranslationsLoginGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -357,8 +359,8 @@ class _TranslationsLoginGu implements TranslationsLoginEn {
 }
 
 // Path: disclaimer
-class _TranslationsDisclaimerGu implements TranslationsDisclaimerEn {
-	_TranslationsDisclaimerGu._(this._root);
+class _TranslationsDisclaimerGu extends TranslationsDisclaimerEn {
+	_TranslationsDisclaimerGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -371,8 +373,8 @@ class _TranslationsDisclaimerGu implements TranslationsDisclaimerEn {
 }
 
 // Path: localNutritionPhase4
-class _TranslationsLocalNutritionPhase4Gu implements TranslationsLocalNutritionPhase4En {
-	_TranslationsLocalNutritionPhase4Gu._(this._root);
+class _TranslationsLocalNutritionPhase4Gu extends TranslationsLocalNutritionPhase4En {
+	_TranslationsLocalNutritionPhase4Gu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -409,8 +411,8 @@ class _TranslationsLocalNutritionPhase4Gu implements TranslationsLocalNutritionP
 }
 
 // Path: common
-class _TranslationsCommonGu implements TranslationsCommonEn {
-	_TranslationsCommonGu._(this._root);
+class _TranslationsCommonGu extends TranslationsCommonEn {
+	_TranslationsCommonGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -420,8 +422,8 @@ class _TranslationsCommonGu implements TranslationsCommonEn {
 }
 
 // Path: feedbackRating
-class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
-	_TranslationsFeedbackRatingGu._(this._root);
+class _TranslationsFeedbackRatingGu extends TranslationsFeedbackRatingEn {
+	_TranslationsFeedbackRatingGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -444,8 +446,8 @@ class _TranslationsFeedbackRatingGu implements TranslationsFeedbackRatingEn {
 }
 
 // Path: health
-class _TranslationsHealthGu implements TranslationsHealthEn {
-	_TranslationsHealthGu._(this._root);
+class _TranslationsHealthGu extends TranslationsHealthEn {
+	_TranslationsHealthGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -455,8 +457,8 @@ class _TranslationsHealthGu implements TranslationsHealthEn {
 }
 
 // Path: onboarding.features
-class _TranslationsOnboardingFeaturesGu implements TranslationsOnboardingFeaturesEn {
-	_TranslationsOnboardingFeaturesGu._(this._root);
+class _TranslationsOnboardingFeaturesGu extends TranslationsOnboardingFeaturesEn {
+	_TranslationsOnboardingFeaturesGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -467,8 +469,8 @@ class _TranslationsOnboardingFeaturesGu implements TranslationsOnboardingFeature
 }
 
 // Path: onboarding.gender
-class _TranslationsOnboardingGenderGu implements TranslationsOnboardingGenderEn {
-	_TranslationsOnboardingGenderGu._(this._root);
+class _TranslationsOnboardingGenderGu extends TranslationsOnboardingGenderEn {
+	_TranslationsOnboardingGenderGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -479,8 +481,8 @@ class _TranslationsOnboardingGenderGu implements TranslationsOnboardingGenderEn 
 }
 
 // Path: onboarding.height
-class _TranslationsOnboardingHeightGu implements TranslationsOnboardingHeightEn {
-	_TranslationsOnboardingHeightGu._(this._root);
+class _TranslationsOnboardingHeightGu extends TranslationsOnboardingHeightEn {
+	_TranslationsOnboardingHeightGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -493,8 +495,8 @@ class _TranslationsOnboardingHeightGu implements TranslationsOnboardingHeightEn 
 }
 
 // Path: onboarding.weight
-class _TranslationsOnboardingWeightGu implements TranslationsOnboardingWeightEn {
-	_TranslationsOnboardingWeightGu._(this._root);
+class _TranslationsOnboardingWeightGu extends TranslationsOnboardingWeightEn {
+	_TranslationsOnboardingWeightGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -509,8 +511,8 @@ class _TranslationsOnboardingWeightGu implements TranslationsOnboardingWeightEn 
 }
 
 // Path: onboarding.age
-class _TranslationsOnboardingAgeGu implements TranslationsOnboardingAgeEn {
-	_TranslationsOnboardingAgeGu._(this._root);
+class _TranslationsOnboardingAgeGu extends TranslationsOnboardingAgeEn {
+	_TranslationsOnboardingAgeGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -521,8 +523,8 @@ class _TranslationsOnboardingAgeGu implements TranslationsOnboardingAgeEn {
 }
 
 // Path: onboarding.bmiScale
-class _TranslationsOnboardingBmiScaleGu implements TranslationsOnboardingBmiScaleEn {
-	_TranslationsOnboardingBmiScaleGu._(this._root);
+class _TranslationsOnboardingBmiScaleGu extends TranslationsOnboardingBmiScaleEn {
+	_TranslationsOnboardingBmiScaleGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -536,8 +538,8 @@ class _TranslationsOnboardingBmiScaleGu implements TranslationsOnboardingBmiScal
 }
 
 // Path: onboarding.weightGoal
-class _TranslationsOnboardingWeightGoalGu implements TranslationsOnboardingWeightGoalEn {
-	_TranslationsOnboardingWeightGoalGu._(this._root);
+class _TranslationsOnboardingWeightGoalGu extends TranslationsOnboardingWeightGoalEn {
+	_TranslationsOnboardingWeightGoalGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -547,8 +549,8 @@ class _TranslationsOnboardingWeightGoalGu implements TranslationsOnboardingWeigh
 }
 
 // Path: onboarding.activityLevel
-class _TranslationsOnboardingActivityLevelGu implements TranslationsOnboardingActivityLevelEn {
-	_TranslationsOnboardingActivityLevelGu._(this._root);
+class _TranslationsOnboardingActivityLevelGu extends TranslationsOnboardingActivityLevelEn {
+	_TranslationsOnboardingActivityLevelGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -558,8 +560,8 @@ class _TranslationsOnboardingActivityLevelGu implements TranslationsOnboardingAc
 }
 
 // Path: onboarding.healthConnect
-class _TranslationsOnboardingHealthConnectGu implements TranslationsOnboardingHealthConnectEn {
-	_TranslationsOnboardingHealthConnectGu._(this._root);
+class _TranslationsOnboardingHealthConnectGu extends TranslationsOnboardingHealthConnectEn {
+	_TranslationsOnboardingHealthConnectGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -580,8 +582,8 @@ class _TranslationsOnboardingHealthConnectGu implements TranslationsOnboardingHe
 }
 
 // Path: onboarding.reinforcement
-class _TranslationsOnboardingReinforcementGu implements TranslationsOnboardingReinforcementEn {
-	_TranslationsOnboardingReinforcementGu._(this._root);
+class _TranslationsOnboardingReinforcementGu extends TranslationsOnboardingReinforcementEn {
+	_TranslationsOnboardingReinforcementGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -592,8 +594,8 @@ class _TranslationsOnboardingReinforcementGu implements TranslationsOnboardingRe
 }
 
 // Path: home.aiSummary
-class _TranslationsHomeAiSummaryGu implements TranslationsHomeAiSummaryEn {
-	_TranslationsHomeAiSummaryGu._(this._root);
+class _TranslationsHomeAiSummaryGu extends TranslationsHomeAiSummaryEn {
+	_TranslationsHomeAiSummaryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -611,8 +613,8 @@ class _TranslationsHomeAiSummaryGu implements TranslationsHomeAiSummaryEn {
 }
 
 // Path: home.dailyGoal
-class _TranslationsHomeDailyGoalGu implements TranslationsHomeDailyGoalEn {
-	_TranslationsHomeDailyGoalGu._(this._root);
+class _TranslationsHomeDailyGoalGu extends TranslationsHomeDailyGoalEn {
+	_TranslationsHomeDailyGoalGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -634,8 +636,8 @@ class _TranslationsHomeDailyGoalGu implements TranslationsHomeDailyGoalEn {
 }
 
 // Path: home.dailySummary
-class _TranslationsHomeDailySummaryGu implements TranslationsHomeDailySummaryEn {
-	_TranslationsHomeDailySummaryGu._(this._root);
+class _TranslationsHomeDailySummaryGu extends TranslationsHomeDailySummaryEn {
+	_TranslationsHomeDailySummaryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -651,8 +653,8 @@ class _TranslationsHomeDailySummaryGu implements TranslationsHomeDailySummaryEn 
 }
 
 // Path: home.intakeProgress
-class _TranslationsHomeIntakeProgressGu implements TranslationsHomeIntakeProgressEn {
-	_TranslationsHomeIntakeProgressGu._(this._root);
+class _TranslationsHomeIntakeProgressGu extends TranslationsHomeIntakeProgressEn {
+	_TranslationsHomeIntakeProgressGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -663,8 +665,8 @@ class _TranslationsHomeIntakeProgressGu implements TranslationsHomeIntakeProgres
 }
 
 // Path: home.intakeHistory
-class _TranslationsHomeIntakeHistoryGu implements TranslationsHomeIntakeHistoryEn {
-	_TranslationsHomeIntakeHistoryGu._(this._root);
+class _TranslationsHomeIntakeHistoryGu extends TranslationsHomeIntakeHistoryEn {
+	_TranslationsHomeIntakeHistoryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -677,8 +679,8 @@ class _TranslationsHomeIntakeHistoryGu implements TranslationsHomeIntakeHistoryE
 }
 
 // Path: home.mealLog
-class _TranslationsHomeMealLogGu implements TranslationsHomeMealLogEn {
-	_TranslationsHomeMealLogGu._(this._root);
+class _TranslationsHomeMealLogGu extends TranslationsHomeMealLogEn {
+	_TranslationsHomeMealLogGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -690,8 +692,8 @@ class _TranslationsHomeMealLogGu implements TranslationsHomeMealLogEn {
 }
 
 // Path: home.mealDescription
-class _TranslationsHomeMealDescriptionGu implements TranslationsHomeMealDescriptionEn {
-	_TranslationsHomeMealDescriptionGu._(this._root);
+class _TranslationsHomeMealDescriptionGu extends TranslationsHomeMealDescriptionEn {
+	_TranslationsHomeMealDescriptionGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -703,8 +705,8 @@ class _TranslationsHomeMealDescriptionGu implements TranslationsHomeMealDescript
 }
 
 // Path: home.favoriteMeals
-class _TranslationsHomeFavoriteMealsGu implements TranslationsHomeFavoriteMealsEn {
-	_TranslationsHomeFavoriteMealsGu._(this._root);
+class _TranslationsHomeFavoriteMealsGu extends TranslationsHomeFavoriteMealsEn {
+	_TranslationsHomeFavoriteMealsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -718,8 +720,8 @@ class _TranslationsHomeFavoriteMealsGu implements TranslationsHomeFavoriteMealsE
 }
 
 // Path: home.mealSnap
-class _TranslationsHomeMealSnapGu implements TranslationsHomeMealSnapEn {
-	_TranslationsHomeMealSnapGu._(this._root);
+class _TranslationsHomeMealSnapGu extends TranslationsHomeMealSnapEn {
+	_TranslationsHomeMealSnapGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -733,8 +735,8 @@ class _TranslationsHomeMealSnapGu implements TranslationsHomeMealSnapEn {
 }
 
 // Path: home.connectHealth
-class _TranslationsHomeConnectHealthGu implements TranslationsHomeConnectHealthEn {
-	_TranslationsHomeConnectHealthGu._(this._root);
+class _TranslationsHomeConnectHealthGu extends TranslationsHomeConnectHealthEn {
+	_TranslationsHomeConnectHealthGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -746,8 +748,8 @@ class _TranslationsHomeConnectHealthGu implements TranslationsHomeConnectHealthE
 }
 
 // Path: meal.nutrition
-class _TranslationsMealNutritionGu implements TranslationsMealNutritionEn {
-	_TranslationsMealNutritionGu._(this._root);
+class _TranslationsMealNutritionGu extends TranslationsMealNutritionEn {
+	_TranslationsMealNutritionGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -760,8 +762,8 @@ class _TranslationsMealNutritionGu implements TranslationsMealNutritionEn {
 }
 
 // Path: meal.deleteConfirmation
-class _TranslationsMealDeleteConfirmationGu implements TranslationsMealDeleteConfirmationEn {
-	_TranslationsMealDeleteConfirmationGu._(this._root);
+class _TranslationsMealDeleteConfirmationGu extends TranslationsMealDeleteConfirmationEn {
+	_TranslationsMealDeleteConfirmationGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -773,8 +775,8 @@ class _TranslationsMealDeleteConfirmationGu implements TranslationsMealDeleteCon
 }
 
 // Path: meal.questionFlow
-class _TranslationsMealQuestionFlowGu implements TranslationsMealQuestionFlowEn {
-	_TranslationsMealQuestionFlowGu._(this._root);
+class _TranslationsMealQuestionFlowGu extends TranslationsMealQuestionFlowEn {
+	_TranslationsMealQuestionFlowGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -786,8 +788,8 @@ class _TranslationsMealQuestionFlowGu implements TranslationsMealQuestionFlowEn 
 }
 
 // Path: meal.analysis
-class _TranslationsMealAnalysisGu implements TranslationsMealAnalysisEn {
-	_TranslationsMealAnalysisGu._(this._root);
+class _TranslationsMealAnalysisGu extends TranslationsMealAnalysisEn {
+	_TranslationsMealAnalysisGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -820,8 +822,8 @@ class _TranslationsMealAnalysisGu implements TranslationsMealAnalysisEn {
 }
 
 // Path: meal.localInference
-class _TranslationsMealLocalInferenceGu implements TranslationsMealLocalInferenceEn {
-	_TranslationsMealLocalInferenceGu._(this._root);
+class _TranslationsMealLocalInferenceGu extends TranslationsMealLocalInferenceEn {
+	_TranslationsMealLocalInferenceGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -847,8 +849,8 @@ class _TranslationsMealLocalInferenceGu implements TranslationsMealLocalInferenc
 }
 
 // Path: meal.feedback
-class _TranslationsMealFeedbackGu implements TranslationsMealFeedbackEn {
-	_TranslationsMealFeedbackGu._(this._root);
+class _TranslationsMealFeedbackGu extends TranslationsMealFeedbackEn {
+	_TranslationsMealFeedbackGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -868,8 +870,8 @@ class _TranslationsMealFeedbackGu implements TranslationsMealFeedbackEn {
 }
 
 // Path: favorites.sortOptions
-class _TranslationsFavoritesSortOptionsGu implements TranslationsFavoritesSortOptionsEn {
-	_TranslationsFavoritesSortOptionsGu._(this._root);
+class _TranslationsFavoritesSortOptionsGu extends TranslationsFavoritesSortOptionsEn {
+	_TranslationsFavoritesSortOptionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -880,8 +882,8 @@ class _TranslationsFavoritesSortOptionsGu implements TranslationsFavoritesSortOp
 }
 
 // Path: profile.sections
-class _TranslationsProfileSectionsGu implements TranslationsProfileSectionsEn {
-	_TranslationsProfileSectionsGu._(this._root);
+class _TranslationsProfileSectionsGu extends TranslationsProfileSectionsEn {
+	_TranslationsProfileSectionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -893,8 +895,8 @@ class _TranslationsProfileSectionsGu implements TranslationsProfileSectionsEn {
 }
 
 // Path: profile.calculatedValues
-class _TranslationsProfileCalculatedValuesGu implements TranslationsProfileCalculatedValuesEn {
-	_TranslationsProfileCalculatedValuesGu._(this._root);
+class _TranslationsProfileCalculatedValuesGu extends TranslationsProfileCalculatedValuesEn {
+	_TranslationsProfileCalculatedValuesGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -907,8 +909,8 @@ class _TranslationsProfileCalculatedValuesGu implements TranslationsProfileCalcu
 }
 
 // Path: editProfile.sections
-class _TranslationsEditProfileSectionsGu implements TranslationsEditProfileSectionsEn {
-	_TranslationsEditProfileSectionsGu._(this._root);
+class _TranslationsEditProfileSectionsGu extends TranslationsEditProfileSectionsEn {
+	_TranslationsEditProfileSectionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -919,8 +921,8 @@ class _TranslationsEditProfileSectionsGu implements TranslationsEditProfileSecti
 }
 
 // Path: editProfile.genders
-class _TranslationsEditProfileGendersGu implements TranslationsEditProfileGendersEn {
-	_TranslationsEditProfileGendersGu._(this._root);
+class _TranslationsEditProfileGendersGu extends TranslationsEditProfileGendersEn {
+	_TranslationsEditProfileGendersGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -931,8 +933,8 @@ class _TranslationsEditProfileGendersGu implements TranslationsEditProfileGender
 }
 
 // Path: editProfile.weightGoals
-class _TranslationsEditProfileWeightGoalsGu implements TranslationsEditProfileWeightGoalsEn {
-	_TranslationsEditProfileWeightGoalsGu._(this._root);
+class _TranslationsEditProfileWeightGoalsGu extends TranslationsEditProfileWeightGoalsEn {
+	_TranslationsEditProfileWeightGoalsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -943,8 +945,8 @@ class _TranslationsEditProfileWeightGoalsGu implements TranslationsEditProfileWe
 }
 
 // Path: editProfile.activityLevels
-class _TranslationsEditProfileActivityLevelsGu implements TranslationsEditProfileActivityLevelsEn {
-	_TranslationsEditProfileActivityLevelsGu._(this._root);
+class _TranslationsEditProfileActivityLevelsGu extends TranslationsEditProfileActivityLevelsEn {
+	_TranslationsEditProfileActivityLevelsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -957,8 +959,8 @@ class _TranslationsEditProfileActivityLevelsGu implements TranslationsEditProfil
 }
 
 // Path: settings.sections
-class _TranslationsSettingsSectionsGu implements TranslationsSettingsSectionsEn {
-	_TranslationsSettingsSectionsGu._(this._root);
+class _TranslationsSettingsSectionsGu extends TranslationsSettingsSectionsEn {
+	_TranslationsSettingsSectionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -975,8 +977,8 @@ class _TranslationsSettingsSectionsGu implements TranslationsSettingsSectionsEn 
 }
 
 // Path: settings.editProfile
-class _TranslationsSettingsEditProfileGu implements TranslationsSettingsEditProfileEn {
-	_TranslationsSettingsEditProfileGu._(this._root);
+class _TranslationsSettingsEditProfileGu extends TranslationsSettingsEditProfileEn {
+	_TranslationsSettingsEditProfileGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -986,8 +988,8 @@ class _TranslationsSettingsEditProfileGu implements TranslationsSettingsEditProf
 }
 
 // Path: settings.language
-class _TranslationsSettingsLanguageGu implements TranslationsSettingsLanguageEn {
-	_TranslationsSettingsLanguageGu._(this._root);
+class _TranslationsSettingsLanguageGu extends TranslationsSettingsLanguageEn {
+	_TranslationsSettingsLanguageGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -999,8 +1001,8 @@ class _TranslationsSettingsLanguageGu implements TranslationsSettingsLanguageEn 
 }
 
 // Path: settings.heightUnit
-class _TranslationsSettingsHeightUnitGu implements TranslationsSettingsHeightUnitEn {
-	_TranslationsSettingsHeightUnitGu._(this._root);
+class _TranslationsSettingsHeightUnitGu extends TranslationsSettingsHeightUnitEn {
+	_TranslationsSettingsHeightUnitGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1009,8 +1011,8 @@ class _TranslationsSettingsHeightUnitGu implements TranslationsSettingsHeightUni
 }
 
 // Path: settings.weightUnit
-class _TranslationsSettingsWeightUnitGu implements TranslationsSettingsWeightUnitEn {
-	_TranslationsSettingsWeightUnitGu._(this._root);
+class _TranslationsSettingsWeightUnitGu extends TranslationsSettingsWeightUnitEn {
+	_TranslationsSettingsWeightUnitGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1019,8 +1021,8 @@ class _TranslationsSettingsWeightUnitGu implements TranslationsSettingsWeightUni
 }
 
 // Path: settings.mealReminders
-class _TranslationsSettingsMealRemindersGu implements TranslationsSettingsMealRemindersEn {
-	_TranslationsSettingsMealRemindersGu._(this._root);
+class _TranslationsSettingsMealRemindersGu extends TranslationsSettingsMealRemindersEn {
+	_TranslationsSettingsMealRemindersGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1030,8 +1032,8 @@ class _TranslationsSettingsMealRemindersGu implements TranslationsSettingsMealRe
 }
 
 // Path: settings.localInference
-class _TranslationsSettingsLocalInferenceGu implements TranslationsSettingsLocalInferenceEn {
-	_TranslationsSettingsLocalInferenceGu._(this._root);
+class _TranslationsSettingsLocalInferenceGu extends TranslationsSettingsLocalInferenceEn {
+	_TranslationsSettingsLocalInferenceGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1054,8 +1056,8 @@ class _TranslationsSettingsLocalInferenceGu implements TranslationsSettingsLocal
 }
 
 // Path: settings.theme
-class _TranslationsSettingsThemeGu implements TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeGu._(this._root);
+class _TranslationsSettingsThemeGu extends TranslationsSettingsThemeEn {
+	_TranslationsSettingsThemeGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1067,8 +1069,8 @@ class _TranslationsSettingsThemeGu implements TranslationsSettingsThemeEn {
 }
 
 // Path: settings.sendFeedback
-class _TranslationsSettingsSendFeedbackGu implements TranslationsSettingsSendFeedbackEn {
-	_TranslationsSettingsSendFeedbackGu._(this._root);
+class _TranslationsSettingsSendFeedbackGu extends TranslationsSettingsSendFeedbackEn {
+	_TranslationsSettingsSendFeedbackGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1084,8 +1086,8 @@ class _TranslationsSettingsSendFeedbackGu implements TranslationsSettingsSendFee
 }
 
 // Path: settings.exportMealHistory
-class _TranslationsSettingsExportMealHistoryGu implements TranslationsSettingsExportMealHistoryEn {
-	_TranslationsSettingsExportMealHistoryGu._(this._root);
+class _TranslationsSettingsExportMealHistoryGu extends TranslationsSettingsExportMealHistoryEn {
+	_TranslationsSettingsExportMealHistoryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1097,8 +1099,8 @@ class _TranslationsSettingsExportMealHistoryGu implements TranslationsSettingsEx
 }
 
 // Path: settings.clearAllData
-class _TranslationsSettingsClearAllDataGu implements TranslationsSettingsClearAllDataEn {
-	_TranslationsSettingsClearAllDataGu._(this._root);
+class _TranslationsSettingsClearAllDataGu extends TranslationsSettingsClearAllDataEn {
+	_TranslationsSettingsClearAllDataGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1112,8 +1114,8 @@ class _TranslationsSettingsClearAllDataGu implements TranslationsSettingsClearAl
 }
 
 // Path: settings.debugOptions
-class _TranslationsSettingsDebugOptionsGu implements TranslationsSettingsDebugOptionsEn {
-	_TranslationsSettingsDebugOptionsGu._(this._root);
+class _TranslationsSettingsDebugOptionsGu extends TranslationsSettingsDebugOptionsEn {
+	_TranslationsSettingsDebugOptionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1122,8 +1124,8 @@ class _TranslationsSettingsDebugOptionsGu implements TranslationsSettingsDebugOp
 }
 
 // Path: settings.healthConnect
-class _TranslationsSettingsHealthConnectGu implements TranslationsSettingsHealthConnectEn {
-	_TranslationsSettingsHealthConnectGu._(this._root);
+class _TranslationsSettingsHealthConnectGu extends TranslationsSettingsHealthConnectEn {
+	_TranslationsSettingsHealthConnectGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1141,8 +1143,8 @@ class _TranslationsSettingsHealthConnectGu implements TranslationsSettingsHealth
 }
 
 // Path: settings.about
-class _TranslationsSettingsAboutGu implements TranslationsSettingsAboutEn {
-	_TranslationsSettingsAboutGu._(this._root);
+class _TranslationsSettingsAboutGu extends TranslationsSettingsAboutEn {
+	_TranslationsSettingsAboutGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1156,8 +1158,8 @@ class _TranslationsSettingsAboutGu implements TranslationsSettingsAboutEn {
 }
 
 // Path: settings.appInfo
-class _TranslationsSettingsAppInfoGu implements TranslationsSettingsAppInfoEn {
-	_TranslationsSettingsAppInfoGu._(this._root);
+class _TranslationsSettingsAppInfoGu extends TranslationsSettingsAppInfoEn {
+	_TranslationsSettingsAppInfoGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1167,8 +1169,8 @@ class _TranslationsSettingsAppInfoGu implements TranslationsSettingsAppInfoEn {
 }
 
 // Path: notifications.breakfast
-class _TranslationsNotificationsBreakfastGu implements TranslationsNotificationsBreakfastEn {
-	_TranslationsNotificationsBreakfastGu._(this._root);
+class _TranslationsNotificationsBreakfastGu extends TranslationsNotificationsBreakfastEn {
+	_TranslationsNotificationsBreakfastGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1178,8 +1180,8 @@ class _TranslationsNotificationsBreakfastGu implements TranslationsNotifications
 }
 
 // Path: notifications.lunch
-class _TranslationsNotificationsLunchGu implements TranslationsNotificationsLunchEn {
-	_TranslationsNotificationsLunchGu._(this._root);
+class _TranslationsNotificationsLunchGu extends TranslationsNotificationsLunchEn {
+	_TranslationsNotificationsLunchGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1189,8 +1191,8 @@ class _TranslationsNotificationsLunchGu implements TranslationsNotificationsLunc
 }
 
 // Path: notifications.dinner
-class _TranslationsNotificationsDinnerGu implements TranslationsNotificationsDinnerEn {
-	_TranslationsNotificationsDinnerGu._(this._root);
+class _TranslationsNotificationsDinnerGu extends TranslationsNotificationsDinnerEn {
+	_TranslationsNotificationsDinnerGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1200,8 +1202,8 @@ class _TranslationsNotificationsDinnerGu implements TranslationsNotificationsDin
 }
 
 // Path: notifications.snack
-class _TranslationsNotificationsSnackGu implements TranslationsNotificationsSnackEn {
-	_TranslationsNotificationsSnackGu._(this._root);
+class _TranslationsNotificationsSnackGu extends TranslationsNotificationsSnackEn {
+	_TranslationsNotificationsSnackGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1211,8 +1213,8 @@ class _TranslationsNotificationsSnackGu implements TranslationsNotificationsSnac
 }
 
 // Path: notifications.test
-class _TranslationsNotificationsTestGu implements TranslationsNotificationsTestEn {
-	_TranslationsNotificationsTestGu._(this._root);
+class _TranslationsNotificationsTestGu extends TranslationsNotificationsTestEn {
+	_TranslationsNotificationsTestGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1221,8 +1223,8 @@ class _TranslationsNotificationsTestGu implements TranslationsNotificationsTestE
 }
 
 // Path: disclaimer.snap
-class _TranslationsDisclaimerSnapGu implements TranslationsDisclaimerSnapEn {
-	_TranslationsDisclaimerSnapGu._(this._root);
+class _TranslationsDisclaimerSnapGu extends TranslationsDisclaimerSnapEn {
+	_TranslationsDisclaimerSnapGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1235,8 +1237,8 @@ class _TranslationsDisclaimerSnapGu implements TranslationsDisclaimerSnapEn {
 }
 
 // Path: disclaimer.weightEstimate
-class _TranslationsDisclaimerWeightEstimateGu implements TranslationsDisclaimerWeightEstimateEn {
-	_TranslationsDisclaimerWeightEstimateGu._(this._root);
+class _TranslationsDisclaimerWeightEstimateGu extends TranslationsDisclaimerWeightEstimateEn {
+	_TranslationsDisclaimerWeightEstimateGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1250,8 +1252,8 @@ class _TranslationsDisclaimerWeightEstimateGu implements TranslationsDisclaimerW
 }
 
 // Path: disclaimer.healthMetrics
-class _TranslationsDisclaimerHealthMetricsGu implements TranslationsDisclaimerHealthMetricsEn {
-	_TranslationsDisclaimerHealthMetricsGu._(this._root);
+class _TranslationsDisclaimerHealthMetricsGu extends TranslationsDisclaimerHealthMetricsEn {
+	_TranslationsDisclaimerHealthMetricsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1263,8 +1265,8 @@ class _TranslationsDisclaimerHealthMetricsGu implements TranslationsDisclaimerHe
 }
 
 // Path: disclaimer.calorieExpenditure
-class _TranslationsDisclaimerCalorieExpenditureGu implements TranslationsDisclaimerCalorieExpenditureEn {
-	_TranslationsDisclaimerCalorieExpenditureGu._(this._root);
+class _TranslationsDisclaimerCalorieExpenditureGu extends TranslationsDisclaimerCalorieExpenditureEn {
+	_TranslationsDisclaimerCalorieExpenditureGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1276,8 +1278,8 @@ class _TranslationsDisclaimerCalorieExpenditureGu implements TranslationsDisclai
 }
 
 // Path: onboarding.features.foodRecognition
-class _TranslationsOnboardingFeaturesFoodRecognitionGu implements TranslationsOnboardingFeaturesFoodRecognitionEn {
-	_TranslationsOnboardingFeaturesFoodRecognitionGu._(this._root);
+class _TranslationsOnboardingFeaturesFoodRecognitionGu extends TranslationsOnboardingFeaturesFoodRecognitionEn {
+	_TranslationsOnboardingFeaturesFoodRecognitionGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1287,8 +1289,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionGu implements TranslationsOn
 }
 
 // Path: onboarding.features.aiAnalysis
-class _TranslationsOnboardingFeaturesAiAnalysisGu implements TranslationsOnboardingFeaturesAiAnalysisEn {
-	_TranslationsOnboardingFeaturesAiAnalysisGu._(this._root);
+class _TranslationsOnboardingFeaturesAiAnalysisGu extends TranslationsOnboardingFeaturesAiAnalysisEn {
+	_TranslationsOnboardingFeaturesAiAnalysisGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1298,8 +1300,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisGu implements TranslationsOnboard
 }
 
 // Path: onboarding.features.healthIntegration
-class _TranslationsOnboardingFeaturesHealthIntegrationGu implements TranslationsOnboardingFeaturesHealthIntegrationEn {
-	_TranslationsOnboardingFeaturesHealthIntegrationGu._(this._root);
+class _TranslationsOnboardingFeaturesHealthIntegrationGu extends TranslationsOnboardingFeaturesHealthIntegrationEn {
+	_TranslationsOnboardingFeaturesHealthIntegrationGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1309,8 +1311,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationGu implements Translations
 }
 
 // Path: onboarding.bmiScale.categories
-class _TranslationsOnboardingBmiScaleCategoriesGu implements TranslationsOnboardingBmiScaleCategoriesEn {
-	_TranslationsOnboardingBmiScaleCategoriesGu._(this._root);
+class _TranslationsOnboardingBmiScaleCategoriesGu extends TranslationsOnboardingBmiScaleCategoriesEn {
+	_TranslationsOnboardingBmiScaleCategoriesGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1322,8 +1324,8 @@ class _TranslationsOnboardingBmiScaleCategoriesGu implements TranslationsOnboard
 }
 
 // Path: onboarding.bmiScale.messages
-class _TranslationsOnboardingBmiScaleMessagesGu implements TranslationsOnboardingBmiScaleMessagesEn {
-	_TranslationsOnboardingBmiScaleMessagesGu._(this._root);
+class _TranslationsOnboardingBmiScaleMessagesGu extends TranslationsOnboardingBmiScaleMessagesEn {
+	_TranslationsOnboardingBmiScaleMessagesGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1335,8 +1337,8 @@ class _TranslationsOnboardingBmiScaleMessagesGu implements TranslationsOnboardin
 }
 
 // Path: onboarding.healthConnect.automaticTracking
-class _TranslationsOnboardingHealthConnectAutomaticTrackingGu implements TranslationsOnboardingHealthConnectAutomaticTrackingEn {
-	_TranslationsOnboardingHealthConnectAutomaticTrackingGu._(this._root);
+class _TranslationsOnboardingHealthConnectAutomaticTrackingGu extends TranslationsOnboardingHealthConnectAutomaticTrackingEn {
+	_TranslationsOnboardingHealthConnectAutomaticTrackingGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1346,8 +1348,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingGu implements Transla
 }
 
 // Path: onboarding.healthConnect.progressInsights
-class _TranslationsOnboardingHealthConnectProgressInsightsGu implements TranslationsOnboardingHealthConnectProgressInsightsEn {
-	_TranslationsOnboardingHealthConnectProgressInsightsGu._(this._root);
+class _TranslationsOnboardingHealthConnectProgressInsightsGu extends TranslationsOnboardingHealthConnectProgressInsightsEn {
+	_TranslationsOnboardingHealthConnectProgressInsightsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1357,8 +1359,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsGu implements Translat
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
-class _TranslationsOnboardingHealthConnectSeamlessIntegrationGu implements TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
-	_TranslationsOnboardingHealthConnectSeamlessIntegrationGu._(this._root);
+class _TranslationsOnboardingHealthConnectSeamlessIntegrationGu extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
+	_TranslationsOnboardingHealthConnectSeamlessIntegrationGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1368,8 +1370,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationGu implements Trans
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
-class _TranslationsOnboardingReinforcementTrackingSuccessGu implements TranslationsOnboardingReinforcementTrackingSuccessEn {
-	_TranslationsOnboardingReinforcementTrackingSuccessGu._(this._root);
+class _TranslationsOnboardingReinforcementTrackingSuccessGu extends TranslationsOnboardingReinforcementTrackingSuccessEn {
+	_TranslationsOnboardingReinforcementTrackingSuccessGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1388,8 +1390,8 @@ class _TranslationsOnboardingReinforcementTrackingSuccessGu implements Translati
 }
 
 // Path: onboarding.reinforcement.healthProfile
-class _TranslationsOnboardingReinforcementHealthProfileGu implements TranslationsOnboardingReinforcementHealthProfileEn {
-	_TranslationsOnboardingReinforcementHealthProfileGu._(this._root);
+class _TranslationsOnboardingReinforcementHealthProfileGu extends TranslationsOnboardingReinforcementHealthProfileEn {
+	_TranslationsOnboardingReinforcementHealthProfileGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1405,8 +1407,8 @@ class _TranslationsOnboardingReinforcementHealthProfileGu implements Translation
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
-class _TranslationsOnboardingReinforcementGoalLifestyleGu implements TranslationsOnboardingReinforcementGoalLifestyleEn {
-	_TranslationsOnboardingReinforcementGoalLifestyleGu._(this._root);
+class _TranslationsOnboardingReinforcementGoalLifestyleGu extends TranslationsOnboardingReinforcementGoalLifestyleEn {
+	_TranslationsOnboardingReinforcementGoalLifestyleGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1422,8 +1424,8 @@ class _TranslationsOnboardingReinforcementGoalLifestyleGu implements Translation
 }
 
 // Path: editProfile.weightGoals.loseWeight
-class _TranslationsEditProfileWeightGoalsLoseWeightGu implements TranslationsEditProfileWeightGoalsLoseWeightEn {
-	_TranslationsEditProfileWeightGoalsLoseWeightGu._(this._root);
+class _TranslationsEditProfileWeightGoalsLoseWeightGu extends TranslationsEditProfileWeightGoalsLoseWeightEn {
+	_TranslationsEditProfileWeightGoalsLoseWeightGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1433,8 +1435,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightGu implements TranslationsEdi
 }
 
 // Path: editProfile.weightGoals.maintainWeight
-class _TranslationsEditProfileWeightGoalsMaintainWeightGu implements TranslationsEditProfileWeightGoalsMaintainWeightEn {
-	_TranslationsEditProfileWeightGoalsMaintainWeightGu._(this._root);
+class _TranslationsEditProfileWeightGoalsMaintainWeightGu extends TranslationsEditProfileWeightGoalsMaintainWeightEn {
+	_TranslationsEditProfileWeightGoalsMaintainWeightGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1444,8 +1446,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightGu implements Translation
 }
 
 // Path: editProfile.weightGoals.gainWeight
-class _TranslationsEditProfileWeightGoalsGainWeightGu implements TranslationsEditProfileWeightGoalsGainWeightEn {
-	_TranslationsEditProfileWeightGoalsGainWeightGu._(this._root);
+class _TranslationsEditProfileWeightGoalsGainWeightGu extends TranslationsEditProfileWeightGoalsGainWeightEn {
+	_TranslationsEditProfileWeightGoalsGainWeightGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1455,8 +1457,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightGu implements TranslationsEdi
 }
 
 // Path: editProfile.activityLevels.sedentary
-class _TranslationsEditProfileActivityLevelsSedentaryGu implements TranslationsEditProfileActivityLevelsSedentaryEn {
-	_TranslationsEditProfileActivityLevelsSedentaryGu._(this._root);
+class _TranslationsEditProfileActivityLevelsSedentaryGu extends TranslationsEditProfileActivityLevelsSedentaryEn {
+	_TranslationsEditProfileActivityLevelsSedentaryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1466,8 +1468,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryGu implements TranslationsE
 }
 
 // Path: editProfile.activityLevels.lightlyActive
-class _TranslationsEditProfileActivityLevelsLightlyActiveGu implements TranslationsEditProfileActivityLevelsLightlyActiveEn {
-	_TranslationsEditProfileActivityLevelsLightlyActiveGu._(this._root);
+class _TranslationsEditProfileActivityLevelsLightlyActiveGu extends TranslationsEditProfileActivityLevelsLightlyActiveEn {
+	_TranslationsEditProfileActivityLevelsLightlyActiveGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1477,8 +1479,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveGu implements Translati
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
-class _TranslationsEditProfileActivityLevelsModeratelyActiveGu implements TranslationsEditProfileActivityLevelsModeratelyActiveEn {
-	_TranslationsEditProfileActivityLevelsModeratelyActiveGu._(this._root);
+class _TranslationsEditProfileActivityLevelsModeratelyActiveGu extends TranslationsEditProfileActivityLevelsModeratelyActiveEn {
+	_TranslationsEditProfileActivityLevelsModeratelyActiveGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1488,8 +1490,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveGu implements Transl
 }
 
 // Path: editProfile.activityLevels.veryActive
-class _TranslationsEditProfileActivityLevelsVeryActiveGu implements TranslationsEditProfileActivityLevelsVeryActiveEn {
-	_TranslationsEditProfileActivityLevelsVeryActiveGu._(this._root);
+class _TranslationsEditProfileActivityLevelsVeryActiveGu extends TranslationsEditProfileActivityLevelsVeryActiveEn {
+	_TranslationsEditProfileActivityLevelsVeryActiveGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1499,8 +1501,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveGu implements Translations
 }
 
 // Path: editProfile.activityLevels.extremelyActive
-class _TranslationsEditProfileActivityLevelsExtremelyActiveGu implements TranslationsEditProfileActivityLevelsExtremelyActiveEn {
-	_TranslationsEditProfileActivityLevelsExtremelyActiveGu._(this._root);
+class _TranslationsEditProfileActivityLevelsExtremelyActiveGu extends TranslationsEditProfileActivityLevelsExtremelyActiveEn {
+	_TranslationsEditProfileActivityLevelsExtremelyActiveGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1510,8 +1512,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveGu implements Transla
 }
 
 // Path: settings.healthConnect.unavailable
-class _TranslationsSettingsHealthConnectUnavailableGu implements TranslationsSettingsHealthConnectUnavailableEn {
-	_TranslationsSettingsHealthConnectUnavailableGu._(this._root);
+class _TranslationsSettingsHealthConnectUnavailableGu extends TranslationsSettingsHealthConnectUnavailableEn {
+	_TranslationsSettingsHealthConnectUnavailableGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1521,8 +1523,8 @@ class _TranslationsSettingsHealthConnectUnavailableGu implements TranslationsSet
 }
 
 // Path: settings.healthConnect.permissions
-class _TranslationsSettingsHealthConnectPermissionsGu implements TranslationsSettingsHealthConnectPermissionsEn {
-	_TranslationsSettingsHealthConnectPermissionsGu._(this._root);
+class _TranslationsSettingsHealthConnectPermissionsGu extends TranslationsSettingsHealthConnectPermissionsEn {
+	_TranslationsSettingsHealthConnectPermissionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1537,8 +1539,8 @@ class _TranslationsSettingsHealthConnectPermissionsGu implements TranslationsSet
 }
 
 // Path: settings.about.ourStory
-class _TranslationsSettingsAboutOurStoryGu implements TranslationsSettingsAboutOurStoryEn {
-	_TranslationsSettingsAboutOurStoryGu._(this._root);
+class _TranslationsSettingsAboutOurStoryGu extends TranslationsSettingsAboutOurStoryEn {
+	_TranslationsSettingsAboutOurStoryGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1548,8 +1550,8 @@ class _TranslationsSettingsAboutOurStoryGu implements TranslationsSettingsAboutO
 }
 
 // Path: settings.about.privacy
-class _TranslationsSettingsAboutPrivacyGu implements TranslationsSettingsAboutPrivacyEn {
-	_TranslationsSettingsAboutPrivacyGu._(this._root);
+class _TranslationsSettingsAboutPrivacyGu extends TranslationsSettingsAboutPrivacyEn {
+	_TranslationsSettingsAboutPrivacyGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1565,8 +1567,8 @@ class _TranslationsSettingsAboutPrivacyGu implements TranslationsSettingsAboutPr
 }
 
 // Path: settings.about.developer
-class _TranslationsSettingsAboutDeveloperGu implements TranslationsSettingsAboutDeveloperEn {
-	_TranslationsSettingsAboutDeveloperGu._(this._root);
+class _TranslationsSettingsAboutDeveloperGu extends TranslationsSettingsAboutDeveloperEn {
+	_TranslationsSettingsAboutDeveloperGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1578,8 +1580,8 @@ class _TranslationsSettingsAboutDeveloperGu implements TranslationsSettingsAbout
 }
 
 // Path: settings.about.feedback
-class _TranslationsSettingsAboutFeedbackGu implements TranslationsSettingsAboutFeedbackEn {
-	_TranslationsSettingsAboutFeedbackGu._(this._root);
+class _TranslationsSettingsAboutFeedbackGu extends TranslationsSettingsAboutFeedbackEn {
+	_TranslationsSettingsAboutFeedbackGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1591,8 +1593,8 @@ class _TranslationsSettingsAboutFeedbackGu implements TranslationsSettingsAboutF
 }
 
 // Path: disclaimer.snap.portionSize
-class _TranslationsDisclaimerSnapPortionSizeGu implements TranslationsDisclaimerSnapPortionSizeEn {
-	_TranslationsDisclaimerSnapPortionSizeGu._(this._root);
+class _TranslationsDisclaimerSnapPortionSizeGu extends TranslationsDisclaimerSnapPortionSizeEn {
+	_TranslationsDisclaimerSnapPortionSizeGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1602,8 +1604,8 @@ class _TranslationsDisclaimerSnapPortionSizeGu implements TranslationsDisclaimer
 }
 
 // Path: disclaimer.snap.preparationMethods
-class _TranslationsDisclaimerSnapPreparationMethodsGu implements TranslationsDisclaimerSnapPreparationMethodsEn {
-	_TranslationsDisclaimerSnapPreparationMethodsGu._(this._root);
+class _TranslationsDisclaimerSnapPreparationMethodsGu extends TranslationsDisclaimerSnapPreparationMethodsEn {
+	_TranslationsDisclaimerSnapPreparationMethodsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1613,8 +1615,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsGu implements TranslationsDis
 }
 
 // Path: disclaimer.snap.ingredients
-class _TranslationsDisclaimerSnapIngredientsGu implements TranslationsDisclaimerSnapIngredientsEn {
-	_TranslationsDisclaimerSnapIngredientsGu._(this._root);
+class _TranslationsDisclaimerSnapIngredientsGu extends TranslationsDisclaimerSnapIngredientsEn {
+	_TranslationsDisclaimerSnapIngredientsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1624,8 +1626,8 @@ class _TranslationsDisclaimerSnapIngredientsGu implements TranslationsDisclaimer
 }
 
 // Path: disclaimer.snap.databaseLimitations
-class _TranslationsDisclaimerSnapDatabaseLimitationsGu implements TranslationsDisclaimerSnapDatabaseLimitationsEn {
-	_TranslationsDisclaimerSnapDatabaseLimitationsGu._(this._root);
+class _TranslationsDisclaimerSnapDatabaseLimitationsGu extends TranslationsDisclaimerSnapDatabaseLimitationsEn {
+	_TranslationsDisclaimerSnapDatabaseLimitationsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1635,8 +1637,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsGu implements TranslationsDi
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
-class _TranslationsDisclaimerWeightEstimateCalorieAccuracyGu implements TranslationsDisclaimerWeightEstimateCalorieAccuracyEn {
-	_TranslationsDisclaimerWeightEstimateCalorieAccuracyGu._(this._root);
+class _TranslationsDisclaimerWeightEstimateCalorieAccuracyGu extends TranslationsDisclaimerWeightEstimateCalorieAccuracyEn {
+	_TranslationsDisclaimerWeightEstimateCalorieAccuracyGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1646,8 +1648,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyGu implements Translat
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
-class _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu implements TranslationsDisclaimerWeightEstimateBiologicalFactorsEn {
-	_TranslationsDisclaimerWeightEstimateBiologicalFactorsGu._(this._root);
+class _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu extends TranslationsDisclaimerWeightEstimateBiologicalFactorsEn {
+	_TranslationsDisclaimerWeightEstimateBiologicalFactorsGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1657,8 +1659,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsGu implements Transl
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
-class _TranslationsDisclaimerWeightEstimateWaterWeightGu implements TranslationsDisclaimerWeightEstimateWaterWeightEn {
-	_TranslationsDisclaimerWeightEstimateWaterWeightGu._(this._root);
+class _TranslationsDisclaimerWeightEstimateWaterWeightGu extends TranslationsDisclaimerWeightEstimateWaterWeightEn {
+	_TranslationsDisclaimerWeightEstimateWaterWeightGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1668,8 +1670,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightGu implements Translations
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
-class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu implements TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
-	_TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu._(this._root);
+class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu extends TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
+	_TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1679,8 +1681,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceGu implements Tra
 }
 
 // Path: disclaimer.healthMetrics.bmr
-class _TranslationsDisclaimerHealthMetricsBmrGu implements TranslationsDisclaimerHealthMetricsBmrEn {
-	_TranslationsDisclaimerHealthMetricsBmrGu._(this._root);
+class _TranslationsDisclaimerHealthMetricsBmrGu extends TranslationsDisclaimerHealthMetricsBmrEn {
+	_TranslationsDisclaimerHealthMetricsBmrGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1690,8 +1692,8 @@ class _TranslationsDisclaimerHealthMetricsBmrGu implements TranslationsDisclaime
 }
 
 // Path: disclaimer.healthMetrics.tdee
-class _TranslationsDisclaimerHealthMetricsTdeeGu implements TranslationsDisclaimerHealthMetricsTdeeEn {
-	_TranslationsDisclaimerHealthMetricsTdeeGu._(this._root);
+class _TranslationsDisclaimerHealthMetricsTdeeGu extends TranslationsDisclaimerHealthMetricsTdeeEn {
+	_TranslationsDisclaimerHealthMetricsTdeeGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1701,8 +1703,8 @@ class _TranslationsDisclaimerHealthMetricsTdeeGu implements TranslationsDisclaim
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
-class _TranslationsDisclaimerHealthMetricsDailyGoalGu implements TranslationsDisclaimerHealthMetricsDailyGoalEn {
-	_TranslationsDisclaimerHealthMetricsDailyGoalGu._(this._root);
+class _TranslationsDisclaimerHealthMetricsDailyGoalGu extends TranslationsDisclaimerHealthMetricsDailyGoalEn {
+	_TranslationsDisclaimerHealthMetricsDailyGoalGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1712,8 +1714,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalGu implements TranslationsDis
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
-class _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu implements TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
-	_TranslationsDisclaimerCalorieExpenditureHowCalculatedGu._(this._root);
+class _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu extends TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
+	_TranslationsDisclaimerCalorieExpenditureHowCalculatedGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1723,8 +1725,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedGu implements Transl
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
-class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu implements TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
-	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu._(this._root);
+class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu extends TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
+	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1734,8 +1736,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceGu implements
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
-class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu implements TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
-	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu._(this._root);
+class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu extends TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
+	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1746,8 +1748,8 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedGu implements T
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
-class _TranslationsSettingsHealthConnectPermissionsNutritionReadGu implements TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
-	_TranslationsSettingsHealthConnectPermissionsNutritionReadGu._(this._root);
+class _TranslationsSettingsHealthConnectPermissionsNutritionReadGu extends TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionReadGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 
@@ -1758,8 +1760,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadGu implements Tr
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
-class _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu implements TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
-	_TranslationsSettingsHealthConnectPermissionsNutritionWriteGu._(this._root);
+class _TranslationsSettingsHealthConnectPermissionsNutritionWriteGu extends TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
+	_TranslationsSettingsHealthConnectPermissionsNutritionWriteGu._(TranslationsGu root) : this._root = root, super.internal(root);
 
 	final TranslationsGu _root; // ignore: unused_field
 

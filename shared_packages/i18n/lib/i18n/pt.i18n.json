@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Ligar ao Health Connect",
-      "description": "Sincronize os seus dados de saúde para obter melhores informações e acompanhamento automático de calorias",
+      "description": "Utilize as calorias queimadas no seu objetivo diário e, opcionalmente, partilhe refeições registadas com o Health Connect.",
       "automaticTracking": {
-        "title": "Acompanhamento automático de calorias",
-        "description": "Registe as calorias queimadas pelas suas apps de fitness"
+        "title": "Calorias queimadas",
+        "description": "Leia o total de calorias queimadas hoje no Health Connect"
       },
       "progressInsights": {
-        "title": "Insights de progresso",
-        "description": "Obtenha informações detalhadas sobre as suas tendências de saúde"
+        "title": "Partilhar refeições registadas",
+        "description": "Grave no Health Connect as refeições que regista no Calorify"
       },
       "seamlessIntegration": {
-        "title": "Integração perfeita",
-        "description": "Sincronize dados das suas apps de saúde favoritas"
+        "title": "O controlo é seu",
+        "description": "Escolha qualquer uma das permissões e altere o acesso a qualquer momento"
       },
       "connected": "Health Connect ligado",
       "notConnected": "Health Connect não ligado",
@@ -101,6 +101,12 @@
       "skipForNow": "Ignorar por agora",
       "statusConnected": "Health Connect está ligado.",
       "statusSuccess": "O Health Connect foi ligado com sucesso!",
+      "statusNotConnected": "Escolha as funcionalidades do Health Connect que pretende ativar.",
+      "statusPartial": "O Health Connect está parcialmente ligado. Ative a permissão restante para utilizar ambas as funcionalidades.",
+      "statusProviderUpdateRequired": "Instale ou atualize o Health Connect para continuar.",
+      "statusUnavailable": "O Health Connect não é suportado neste dispositivo.",
+      "installOrUpdate": "Instalar ou atualizar",
+      "manageAccess": "Gerir acesso",
       "statusPermissionDenied": "Permissão negada. Por favor, ative as permissões do Health Connect nas definições do seu telemóvel para {appLabel}.",
       "statusError": "Erro ao configurar o Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Sincronizar com Health Connect",
-      "description": "Sincronize os seus dados nutricionais com o Health Connect",
-      "install": "Instalar",
+      "description": "Utilize as calorias queimadas no seu objetivo e partilhe refeições registadas",
+      "install": "Instalar ou atualizar",
       "connect": "Ligar"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Apagar Todos os Dados",
-      "subtitle": "Eliminar irreversivelmente todas as suas informações",
+      "subtitle": "Eliminar os dados do Calorify armazenados neste dispositivo",
       "confirmationTitle": "Apagar todos os dados?",
-      "confirmationMessage": "Esta ação não pode ser desfeita. Todas as suas refeições registadas, favoritos e definições de perfil serão eliminados permanentemente.",
+      "confirmationMessage": "Isto elimina permanentemente deste dispositivo as refeições registadas, os favoritos e as definições de perfil. As refeições já partilhadas com o Health Connect e o acesso ao Health Connect são geridos separadamente em Definições > Health Connect.",
       "cancel": "Cancelar",
       "clearEverything": "Apagar tudo"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Ver e gerir permissões",
       "unavailable": {
         "title": "Health Connect indisponível",
-        "description": "Health Connect não está disponível neste dispositivo. Por favor instale o Health Connect a partir do Play Store (Android 9+) ou atualize para Android 14+."
+        "description": "O Health Connect não é suportado neste dispositivo."
+      },
+      "updateRequired": {
+        "title": "O Health Connect requer atenção",
+        "description": "Instale ou atualize o Health Connect antes de gerir o acesso.",
+        "action": "Instalar ou atualizar"
       },
       "permissions": {
         "title": "Permissões",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Gerir Permissões",
       "openSettings": "Abrir definições do Health Connect",
+      "disconnect": "Desligar o Health Connect",
+      "disconnectConfirmationTitle": "Desligar o Health Connect?",
+      "disconnectConfirmationMessage": "O Calorify perderá o acesso ao Health Connect. Os dados já gravados no Health Connect não serão eliminados.",
+      "disconnectConfirmationAction": "Desligar",
+      "deleteSyncedMeals": "Eliminar refeições do Calorify do Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Eliminar refeições sincronizadas?",
+      "deleteSyncedMealsConfirmationMessage": "Eliminar do Health Connect as refeições sincronizadas por esta versão do Calorify? O seu registo local de refeições não será alterado. Poderá ainda ser necessário remover entradas mais antigas do Calorify através de Gerir dados no Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Eliminar refeições sincronizadas",
+      "deleteSyncedMealsSuccess": "As refeições do Calorify foram eliminadas do Health Connect.",
+      "deleteSyncedMealsFailed": "Não foi possível eliminar as refeições sincronizadas. Tente novamente.",
+      "connectionPartial": "Algumas funcionalidades do Health Connect estão ativadas.",
+      "connectionComplete": "Ambas as funcionalidades do Health Connect estão ativadas.",
+      "actionFailed": "Não foi possível abrir o Health Connect. Tente novamente.",
       "requestPermissions": "Solicitar Permissões",
       "permissionRequestCancelledOrFailed": "O pedido de permissões foi cancelado ou falhou. Por favor tente novamente ou conceda as permissões manualmente nas definições do Health Connect.",
       "permissionRequestFailed": "Não foi possível solicitar permissões. Por favor tente novamente ou conceda as permissões manualmente nas definições do Health Connect.",
@@ -596,7 +620,7 @@
         "title": "A sua privacidade importa",
         "description": "A privacidade não é um elemento secundário — é um princípio de design. Eis o que isso significa na prática:",
         "noAccounts": "Sem contas\nUse a app imediatamente. Sem registos, sem identidades.",
-        "noTracking": "Sem rastreamento de comportamento\n{appLabel} não monitoriza a sua atividade, não cria perfis de utilização nem o acompanha através de apps ou sites.",
+        "noTracking": "Análises e diagnósticos limitados\n{appLabel} utiliza eventos básicos da app e diagnósticos de falhas para melhorar a fiabilidade. Os valores dos registos de saúde não são utilizados para publicidade nem vendidos.",
         "noAds": "Sem anúncios por design\n{appLabel} foi concebido para funcionar sem anúncios ou monetização baseada em dados.",
         "noDataSelling": "Sem venda de dados\nOs seus dados de saúde nunca são vendidos nem partilhados com terceiros.",
         "localStorage": "Armazenamento local por defeito\nOs seus dados permanecem no seu dispositivo.",

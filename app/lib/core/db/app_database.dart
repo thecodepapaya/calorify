@@ -11,6 +11,7 @@ import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
 import 'package:calorify/core/db/mock_data/user_settings_mock.dart'
     hide UserProfile;
 import 'package:calorify/core/db/tables/favorite_meal.dart';
+import 'package:calorify/core/db/tables/health_connect_sync_queue.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/local_nutrition_cache.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
@@ -33,6 +34,7 @@ part 'app_database.g.dart';
     UserPreferencesTable,
     FavoriteMealTable,
     LocalNutritionCacheTable,
+    HealthConnectSyncQueueTable,
   ],
 )
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
@@ -57,7 +59,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final bool _seedDevelopmentData;
 
   @override
-  int get schemaVersion => 24;
+  int get schemaVersion => 25;
 
   @override
   MigrationStrategy get migration {
@@ -380,6 +382,61 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           }
           if (!await _tableExists('local_nutrition_cache_table')) {
             await m.createTable(localNutritionCacheTable);
+          }
+        }
+        if (from < 25) {
+          if (await _tableExists('meal_info_table')) {
+            if (!await _columnExists(
+              'meal_info_table',
+              'health_connect_record_id',
+            )) {
+              await m.addColumn(
+                mealInfoTable,
+                mealInfoTable.healthConnectRecordId,
+              );
+            }
+            if (!await _columnExists(
+              'meal_info_table',
+              'health_connect_record_version',
+            )) {
+              await m.addColumn(
+                mealInfoTable,
+                mealInfoTable.healthConnectRecordVersion,
+              );
+            }
+          }
+          if (await _tableExists('favorite_meal_table')) {
+            if (!await _columnExists(
+              'favorite_meal_table',
+              'health_connect_record_id',
+            )) {
+              await m.addColumn(
+                favoriteMealTable,
+                favoriteMealTable.healthConnectRecordId,
+              );
+            }
+            if (!await _columnExists(
+              'favorite_meal_table',
+              'health_connect_record_version',
+            )) {
+              await m.addColumn(
+                favoriteMealTable,
+                favoriteMealTable.healthConnectRecordVersion,
+              );
+            }
+          }
+          if (await _tableExists('user_preferences_table') &&
+              !await _columnExists(
+                'user_preferences_table',
+                'health_connect_nutrition_sync_enabled',
+              )) {
+            await m.addColumn(
+              userPreferencesTable,
+              userPreferencesTable.healthConnectNutritionSyncEnabled,
+            );
+          }
+          if (!await _tableExists('health_connect_sync_queue_table')) {
+            await m.createTable(healthConnectSyncQueueTable);
           }
         }
       },
@@ -729,6 +786,31 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
+  Future<bool?> getHealthConnectNutritionSyncEnabled() async {
+    final preferences =
+        await (select(userPreferencesTable)..where(
+          (table) => table.id.equals(_userPreferencesId),
+        )).getSingleOrNull();
+    return preferences?.healthConnectNutritionSyncEnabled;
+  }
+
+  Future<bool> _isHealthConnectNutritionSyncEnabled() async {
+    return await getHealthConnectNutritionSyncEnabled() ?? false;
+  }
+
+  @override
+  Future<void> setHealthConnectNutritionSyncEnabled(bool enabled) async {
+    await _getOrInitPreferences();
+    await (update(userPreferencesTable)
+      ..where((table) => table.id.equals(_userPreferencesId))).write(
+      UserPreferencesTableCompanion(
+        healthConnectNutritionSyncEnabled: Value(enabled),
+        updatedAt: Value(DateTime.now().toUtc()),
+      ),
+    );
+  }
+
+  @override
   Future<int?> getDailyCalorieGoal() async {
     final setting =
         await (select(userProfileTable)
@@ -797,42 +879,120 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     Meal mealInfo, {
     String? analysisId,
     PipelineResultData? analysisSnapshot,
+    DateTime? loggedAt,
   }) async {
     final normalizedAnalysisId = analysisId?.trim();
     final idempotencyKey =
         normalizedAnalysisId == null || normalizedAnalysisId.isEmpty
             ? null
             : normalizedAnalysisId;
-    final companion = mealInfo.toCompanion(
-      timestamp: DateTime.now(),
-      analysisId: Value(idempotencyKey),
-      analysisSnapshotJson: Value(
-        analysisSnapshot == null
-            ? null
-            : jsonEncode(analysisSnapshot.toProto3Json()),
-      ),
-    );
+    final timestamp = loggedAt ?? DateTime.now();
 
-    if (idempotencyKey == null) {
-      await into(mealInfoTable).insert(companion);
-      return;
-    }
+    await transaction(() async {
+      if (idempotencyKey != null) {
+        final existing =
+            await (select(mealInfoTable)..where(
+              (table) => table.analysisId.equals(idempotencyKey),
+            )).getSingleOrNull();
+        if (existing != null) return;
+      }
 
-    // The unique index and INSERT OR IGNORE form one atomic idempotency
-    // boundary across concurrent UI, watch, and retry deliveries.
-    await into(
-      mealInfoTable,
-    ).insert(companion, mode: InsertMode.insertOrIgnore);
+      final syncEnabled = await _isHealthConnectNutritionSyncEnabled();
+      final recordId =
+          syncEnabled ? 'calorify-meal-${const Uuid().v4()}' : null;
+      final companion = mealInfo.toCompanion(
+        timestamp: timestamp,
+        analysisId: Value(idempotencyKey),
+        analysisSnapshotJson: Value(
+          analysisSnapshot == null
+              ? null
+              : jsonEncode(analysisSnapshot.toProto3Json()),
+        ),
+        healthConnectRecordId:
+            recordId == null ? const Value.absent() : Value(recordId),
+        healthConnectRecordVersion:
+            recordId == null ? const Value.absent() : const Value(1),
+      );
+
+      if (idempotencyKey == null) {
+        await into(mealInfoTable).insert(companion);
+      } else {
+        // The unique index remains the final atomic boundary if two callers
+        // race before either transaction observes the other row.
+        final inserted = await into(
+          mealInfoTable,
+        ).insert(companion, mode: InsertMode.insertOrIgnore);
+        if (inserted <= 0) return;
+      }
+
+      if (recordId != null) {
+        await _enqueueHealthConnectUpsert(
+          mealInfo,
+          loggedAt: timestamp,
+          clientRecordId: recordId,
+          clientRecordVersion: 1,
+        );
+      }
+    });
   }
 
   @override
-  Future<void> upsertMeal(LoggedMeal mealInfo) {
-    return into(mealInfoTable).insertOnConflictUpdate(mealInfo.toCompanion());
+  Future<void> upsertMeal(LoggedMeal mealInfo) async {
+    await transaction(() async {
+      final existing =
+          mealInfo.hasClientId()
+              ? await (select(mealInfoTable)..where(
+                (table) => table.id.equals(mealInfo.clientId),
+              )).getSingleOrNull()
+              : null;
+      final syncEnabled = await _isHealthConnectNutritionSyncEnabled();
+      final loggedAt =
+          mealInfo.hasCreatedAt()
+              ? iso8601StringToDateTime(mealInfo.createdAt) ?? DateTime.now()
+              : DateTime.now();
+
+      if (!syncEnabled) {
+        await into(
+          mealInfoTable,
+        ).insertOnConflictUpdate(mealInfo.toCompanion());
+        return;
+      }
+
+      final recordId =
+          existing?.healthConnectRecordId ??
+          'calorify-meal-${const Uuid().v4()}';
+      final recordVersion =
+          existing == null ? 1 : existing.healthConnectRecordVersion + 1;
+      await into(mealInfoTable).insertOnConflictUpdate(
+        mealInfo.toCompanion().copyWith(
+          healthConnectRecordId: Value(recordId),
+          healthConnectRecordVersion: Value(recordVersion),
+        ),
+      );
+      await _enqueueHealthConnectUpsert(
+        mealInfo.meal,
+        loggedAt: loggedAt,
+        clientRecordId: recordId,
+        clientRecordVersion: recordVersion,
+      );
+    });
   }
 
   @override
-  Future<void> deleteMeal(int mealId) {
-    return (delete(mealInfoTable)..where((tbl) => tbl.id.equals(mealId))).go();
+  Future<void> deleteMeal(int mealId) async {
+    await transaction(() async {
+      final existing =
+          await (select(mealInfoTable)
+            ..where((table) => table.id.equals(mealId))).getSingleOrNull();
+      if (existing?.healthConnectRecordId != null) {
+        await _enqueueHealthConnectDelete(
+          clientRecordId: existing!.healthConnectRecordId!,
+          clientRecordVersion: existing.healthConnectRecordVersion + 1,
+        );
+      }
+      await (delete(mealInfoTable)
+        ..where((table) => table.id.equals(mealId))).go();
+    });
   }
 
   @override
@@ -842,6 +1002,203 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ..where((tbl) => tbl.id.equals(mealId))).getSingleOrNull();
     if (row == null) return null;
     return MealInfoMapper.fromRow(row);
+  }
+
+  @override
+  Future<List<PendingHealthConnectSync>> getPendingHealthConnectSyncs({
+    int limit = 50,
+  }) async {
+    final rows =
+        await (select(healthConnectSyncQueueTable)
+              ..orderBy([(table) => OrderingTerm.asc(table.updatedAt)])
+              ..limit(limit))
+            .get();
+    return rows
+        .map((row) {
+          Meal? meal;
+          if (row.mealJson != null) {
+            final json = jsonDecode(row.mealJson!);
+            meal =
+                Meal()
+                  ..mergeFromProto3Json(Map<String, dynamic>.from(json as Map));
+          }
+          return PendingHealthConnectSync(
+            id: row.id,
+            operation: HealthConnectSyncOperation.values.byName(row.operation),
+            clientRecordId: row.clientRecordId,
+            clientRecordVersion: row.clientRecordVersion,
+            attempts: row.attempts,
+            meal: meal,
+            loggedAt: row.loggedAt,
+          );
+        })
+        .toList(growable: false);
+  }
+
+  @override
+  Future<void> markHealthConnectSyncCompleted(
+    int id,
+    int clientRecordVersion,
+  ) async {
+    await (delete(healthConnectSyncQueueTable)..where(
+      (table) =>
+          table.id.equals(id) &
+          table.clientRecordVersion.equals(clientRecordVersion),
+    )).go();
+  }
+
+  @override
+  Future<void> markHealthConnectSyncFailed(
+    int id,
+    int clientRecordVersion,
+    Object error,
+  ) async {
+    final row =
+        await (select(healthConnectSyncQueueTable)..where(
+          (table) =>
+              table.id.equals(id) &
+              table.clientRecordVersion.equals(clientRecordVersion),
+        )).getSingleOrNull();
+    if (row == null) return;
+    final message = error.toString();
+    await (update(healthConnectSyncQueueTable)..where(
+      (table) =>
+          table.id.equals(id) &
+          table.clientRecordVersion.equals(clientRecordVersion),
+    )).write(
+      HealthConnectSyncQueueTableCompanion(
+        attempts: Value(row.attempts + 1),
+        lastError: Value(
+          message.length <= 500 ? message : message.substring(0, 500),
+        ),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  @override
+  Future<void> clearHealthConnectSyncQueue() async {
+    await delete(healthConnectSyncQueueTable).go();
+  }
+
+  @override
+  Future<int> countPendingHealthConnectDeletes() async {
+    final count = healthConnectSyncQueueTable.id.count();
+    final query =
+        selectOnly(healthConnectSyncQueueTable)
+          ..addColumns([count])
+          ..where(
+            healthConnectSyncQueueTable.operation.equals(
+              HealthConnectSyncOperation.delete.name,
+            ),
+          );
+    return (await query.getSingle()).read(count) ?? 0;
+  }
+
+  @override
+  Future<void> enqueueAllHealthConnectDeletes() async {
+    await transaction(() async {
+      final meals =
+          await (select(mealInfoTable)
+            ..where((table) => table.healthConnectRecordId.isNotNull())).get();
+      for (final meal in meals) {
+        await _enqueueHealthConnectDelete(
+          clientRecordId: meal.healthConnectRecordId!,
+          clientRecordVersion: meal.healthConnectRecordVersion + 1,
+        );
+      }
+    });
+  }
+
+  @override
+  Future<void> enqueueLinkedHealthConnectUpserts() async {
+    await transaction(() async {
+      final meals =
+          await (select(mealInfoTable)
+            ..where((table) => table.healthConnectRecordId.isNotNull())).get();
+      for (final row in meals) {
+        final nextVersion = row.healthConnectRecordVersion + 1;
+        await (update(mealInfoTable)
+          ..where((table) => table.id.equals(row.id))).write(
+          MealInfoTableCompanion(
+            healthConnectRecordVersion: Value(nextVersion),
+          ),
+        );
+        await _enqueueHealthConnectUpsert(
+          MealInfoMapper.fromRow(row).meal,
+          loggedAt: row.timestamp,
+          clientRecordId: row.healthConnectRecordId!,
+          clientRecordVersion: nextVersion,
+        );
+      }
+    });
+  }
+
+  @override
+  Future<void> discardPendingHealthConnectUpserts() async {
+    await (delete(healthConnectSyncQueueTable)..where(
+      (table) => table.operation.equals(HealthConnectSyncOperation.upsert.name),
+    )).go();
+  }
+
+  Future<void> _enqueueHealthConnectUpsert(
+    Meal meal, {
+    required DateTime loggedAt,
+    required String clientRecordId,
+    required int clientRecordVersion,
+  }) {
+    return _enqueueHealthConnectOperation(
+      operation: HealthConnectSyncOperation.upsert,
+      clientRecordId: clientRecordId,
+      clientRecordVersion: clientRecordVersion,
+      mealJson: jsonEncode(meal.toProto3Json()),
+      loggedAt: loggedAt,
+    );
+  }
+
+  Future<void> _enqueueHealthConnectDelete({
+    required String clientRecordId,
+    required int clientRecordVersion,
+  }) {
+    return _enqueueHealthConnectOperation(
+      operation: HealthConnectSyncOperation.delete,
+      clientRecordId: clientRecordId,
+      clientRecordVersion: clientRecordVersion,
+    );
+  }
+
+  Future<void> _enqueueHealthConnectOperation({
+    required HealthConnectSyncOperation operation,
+    required String clientRecordId,
+    required int clientRecordVersion,
+    String? mealJson,
+    DateTime? loggedAt,
+  }) async {
+    final values = HealthConnectSyncQueueTableCompanion.insert(
+      operation: operation.name,
+      clientRecordId: clientRecordId,
+      clientRecordVersion: clientRecordVersion,
+      mealJson: Value(mealJson),
+      loggedAt: Value(loggedAt),
+      attempts: const Value(0),
+      lastError: const Value(null),
+      updatedAt: Value(DateTime.now()),
+    );
+    await into(healthConnectSyncQueueTable).insert(
+      values,
+      onConflict: DoUpdate(
+        (_) => HealthConnectSyncQueueTableCompanion(
+          operation: Value(operation.name),
+          clientRecordVersion: Value(clientRecordVersion),
+          mealJson: Value(mealJson),
+          loggedAt: Value(loggedAt),
+          attempts: const Value(0),
+          lastError: const Value(null),
+          updatedAt: Value(DateTime.now()),
+        ),
+        target: [healthConnectSyncQueueTable.clientRecordId],
+      ),
+    );
   }
 
   @override
@@ -1045,6 +1402,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       await delete(userPreferencesTable).go();
       await delete(favoriteMealTable).go();
       await delete(localNutritionCacheTable).go();
+      await delete(healthConnectSyncQueueTable).go();
     });
   }
 }
