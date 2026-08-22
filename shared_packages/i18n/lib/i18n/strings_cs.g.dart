@@ -379,35 +379,35 @@ class _TranslationsLocalNutritionPhase4Cs extends TranslationsLocalNutritionPhas
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Nutrition matched from the downloaded USDA pack';
-	@override String get nutritionCached => 'Nutrition matched from the on-device USDA cache';
-	@override String get nutritionMixed => 'Nutrition combined from downloaded, cached, and remote USDA rows';
-	@override String get calculationLocal => 'Calories and macros calculated on this device';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: downloaded USDA pack';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: on-device USDA cache';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministic nutrition constant';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}';
-	@override String get portionSmaller => 'Smaller';
-	@override String get portionEstimated => 'Estimated';
-	@override String get portionLarger => 'Larger';
-	@override String portionQuestion({required Object ingredient}) => 'Which portion was closest for ${ingredient}?';
-	@override String get mealTypeQuestion => 'Which meal was this?';
-	@override String get localNutritionTip => 'Calculated from verified local nutrition data.';
-	@override String get offlineNutritionTitle => 'Download nutrition data';
-	@override String get offlineNutritionSubtitle => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.';
-	@override String get offlineNutritionUnavailable => 'Local nutrition data is not available for this app release.';
-	@override String get offlineNutritionNotDownloaded => 'No verified nutrition pack is downloaded.';
-	@override String get offlineNutritionInstalling => 'Downloading and verifying nutrition data…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} cached USDA rows · ${size}';
-	@override String get offlineNutritionUpdate => 'Check for update';
-	@override String get offlineNutritionClear => 'Clear local nutrition data';
-	@override String get offlineNutritionClearTitle => 'Clear local nutrition data?';
-	@override String get offlineNutritionClearBody => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.';
-	@override String get offlineNutritionClearConfirm => 'Clear data';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Could not download and verify local nutrition data: ${error}';
-	@override String get offlineNutritionCleared => 'Local nutrition data cleared';
+	@override String get nutritionBundled => 'Výživové údaje nalezeny ve staženém balíčku USDA';
+	@override String get nutritionCached => 'Výživové údaje nalezeny v mezipaměti USDA v zařízení';
+	@override String get nutritionMixed => 'Výživové údaje sloučeny ze stažených, uložených a vzdálených řádků USDA';
+	@override String get calculationLocal => 'Kalorie a makroživiny vypočítány v tomto zařízení';
+	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: stažený balíček USDA';
+	@override String ingredientCached({required Object ingredient}) => '${ingredient}: mezipaměť USDA v zařízení';
+	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: řádek USDA načtený přes Calorify';
+	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministická nutriční konstanta';
+	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datová sada ${datasetVersion}';
+	@override String get portionSmaller => 'Menší';
+	@override String get portionEstimated => 'Odhadovaná';
+	@override String get portionLarger => 'Větší';
+	@override String portionQuestion({required Object ingredient}) => 'Která porce nejlépe odpovídala položce ${ingredient}?';
+	@override String get mealTypeQuestion => 'O které jídlo šlo?';
+	@override String get localNutritionTip => 'Vypočítáno z ověřených místních výživových dat.';
+	@override String get offlineNutritionTitle => 'Stáhnout výživová data';
+	@override String get offlineNutritionSubtitle => 'Pokud jsou pokryty všechny ingredience, použijí se v tomto zařízení ověřené řádky USDA a deterministický výpočet.';
+	@override String get offlineNutritionUnavailable => 'Místní výživová data nejsou pro tuto verzi aplikace dostupná.';
+	@override String get offlineNutritionNotDownloaded => 'Není stažen žádný ověřený balíček výživových dat.';
+	@override String get offlineNutritionInstalling => 'Stahování a ověřování výživových dat…';
+	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Balíček ${version} · ${size} · USDA ${datasetVersion}';
+	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} řádků USDA v mezipaměti · ${size}';
+	@override String get offlineNutritionUpdate => 'Zkontrolovat aktualizaci';
+	@override String get offlineNutritionClear => 'Vymazat místní výživová data';
+	@override String get offlineNutritionClearTitle => 'Vymazat místní výživová data?';
+	@override String get offlineNutritionClearBody => 'Tímto se odstraní stažený balíček USDA a vyhledávací mezipaměť. Uložená jídla si zachovají přesný snímek výživových hodnot použitý při uložení.';
+	@override String get offlineNutritionClearConfirm => 'Vymazat data';
+	@override String offlineNutritionInstallFailed({required Object error}) => 'Výživová data se nepodařilo stáhnout a ověřit: ${error}';
+	@override String get offlineNutritionCleared => 'Místní výživová data byla vymazána';
 }
 
 // Path: common
@@ -2293,35 +2293,35 @@ extension on TranslationsCs {
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nepoužívejte tento odhad pro lékařská rozhodnutí. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem pro personalizovanou péči.',
 			_ => null,
 		} ?? switch (path) {
-			'localNutritionPhase4.nutritionBundled' => 'Nutrition matched from the downloaded USDA pack',
-			'localNutritionPhase4.nutritionCached' => 'Nutrition matched from the on-device USDA cache',
-			'localNutritionPhase4.nutritionMixed' => 'Nutrition combined from downloaded, cached, and remote USDA rows',
-			'localNutritionPhase4.calculationLocal' => 'Calories and macros calculated on this device',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: downloaded USDA pack',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: on-device USDA cache',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministic nutrition constant',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}',
-			'localNutritionPhase4.portionSmaller' => 'Smaller',
-			'localNutritionPhase4.portionEstimated' => 'Estimated',
-			'localNutritionPhase4.portionLarger' => 'Larger',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Which portion was closest for ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Which meal was this?',
-			'localNutritionPhase4.localNutritionTip' => 'Calculated from verified local nutrition data.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Download nutrition data',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Local nutrition data is not available for this app release.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'No verified nutrition pack is downloaded.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Downloading and verifying nutrition data…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} cached USDA rows · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Check for update',
-			'localNutritionPhase4.offlineNutritionClear' => 'Clear local nutrition data',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Clear local nutrition data?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Clear data',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Could not download and verify local nutrition data: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Local nutrition data cleared',
+			'localNutritionPhase4.nutritionBundled' => 'Výživové údaje nalezeny ve staženém balíčku USDA',
+			'localNutritionPhase4.nutritionCached' => 'Výživové údaje nalezeny v mezipaměti USDA v zařízení',
+			'localNutritionPhase4.nutritionMixed' => 'Výživové údaje sloučeny ze stažených, uložených a vzdálených řádků USDA',
+			'localNutritionPhase4.calculationLocal' => 'Kalorie a makroživiny vypočítány v tomto zařízení',
+			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: stažený balíček USDA',
+			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: mezipaměť USDA v zařízení',
+			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: řádek USDA načtený přes Calorify',
+			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministická nutriční konstanta',
+			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datová sada ${datasetVersion}',
+			'localNutritionPhase4.portionSmaller' => 'Menší',
+			'localNutritionPhase4.portionEstimated' => 'Odhadovaná',
+			'localNutritionPhase4.portionLarger' => 'Větší',
+			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Která porce nejlépe odpovídala položce ${ingredient}?',
+			'localNutritionPhase4.mealTypeQuestion' => 'O které jídlo šlo?',
+			'localNutritionPhase4.localNutritionTip' => 'Vypočítáno z ověřených místních výživových dat.',
+			'localNutritionPhase4.offlineNutritionTitle' => 'Stáhnout výživová data',
+			'localNutritionPhase4.offlineNutritionSubtitle' => 'Pokud jsou pokryty všechny ingredience, použijí se v tomto zařízení ověřené řádky USDA a deterministický výpočet.',
+			'localNutritionPhase4.offlineNutritionUnavailable' => 'Místní výživová data nejsou pro tuto verzi aplikace dostupná.',
+			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'Není stažen žádný ověřený balíček výživových dat.',
+			'localNutritionPhase4.offlineNutritionInstalling' => 'Stahování a ověřování výživových dat…',
+			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Balíček ${version} · ${size} · USDA ${datasetVersion}',
+			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} řádků USDA v mezipaměti · ${size}',
+			'localNutritionPhase4.offlineNutritionUpdate' => 'Zkontrolovat aktualizaci',
+			'localNutritionPhase4.offlineNutritionClear' => 'Vymazat místní výživová data',
+			'localNutritionPhase4.offlineNutritionClearTitle' => 'Vymazat místní výživová data?',
+			'localNutritionPhase4.offlineNutritionClearBody' => 'Tímto se odstraní stažený balíček USDA a vyhledávací mezipaměť. Uložená jídla si zachovají přesný snímek výživových hodnot použitý při uložení.',
+			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Vymazat data',
+			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Výživová data se nepodařilo stáhnout a ověřit: ${error}',
+			'localNutritionPhase4.offlineNutritionCleared' => 'Místní výživová data byla vymazána',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',

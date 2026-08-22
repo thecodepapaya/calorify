@@ -379,35 +379,35 @@ class _TranslationsLocalNutritionPhase4Bn extends TranslationsLocalNutritionPhas
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Nutrition matched from the downloaded USDA pack';
-	@override String get nutritionCached => 'Nutrition matched from the on-device USDA cache';
-	@override String get nutritionMixed => 'Nutrition combined from downloaded, cached, and remote USDA rows';
-	@override String get calculationLocal => 'Calories and macros calculated on this device';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: downloaded USDA pack';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: on-device USDA cache';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministic nutrition constant';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}';
-	@override String get portionSmaller => 'Smaller';
-	@override String get portionEstimated => 'Estimated';
-	@override String get portionLarger => 'Larger';
-	@override String portionQuestion({required Object ingredient}) => 'Which portion was closest for ${ingredient}?';
-	@override String get mealTypeQuestion => 'Which meal was this?';
-	@override String get localNutritionTip => 'Calculated from verified local nutrition data.';
-	@override String get offlineNutritionTitle => 'Download nutrition data';
-	@override String get offlineNutritionSubtitle => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.';
-	@override String get offlineNutritionUnavailable => 'Local nutrition data is not available for this app release.';
-	@override String get offlineNutritionNotDownloaded => 'No verified nutrition pack is downloaded.';
-	@override String get offlineNutritionInstalling => 'Downloading and verifying nutrition data…';
-	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}';
-	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} cached USDA rows · ${size}';
-	@override String get offlineNutritionUpdate => 'Check for update';
-	@override String get offlineNutritionClear => 'Clear local nutrition data';
-	@override String get offlineNutritionClearTitle => 'Clear local nutrition data?';
-	@override String get offlineNutritionClearBody => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.';
-	@override String get offlineNutritionClearConfirm => 'Clear data';
-	@override String offlineNutritionInstallFailed({required Object error}) => 'Could not download and verify local nutrition data: ${error}';
-	@override String get offlineNutritionCleared => 'Local nutrition data cleared';
+	@override String get nutritionBundled => 'ডাউনলোড করা USDA প্যাক থেকে পুষ্টির তথ্য মেলানো হয়েছে';
+	@override String get nutritionCached => 'ডিভাইসের USDA ক্যাশ থেকে পুষ্টির তথ্য মেলানো হয়েছে';
+	@override String get nutritionMixed => 'ডাউনলোড করা, ক্যাশে রাখা এবং দূরবর্তী USDA সারি থেকে পুষ্টির তথ্য একত্র করা হয়েছে';
+	@override String get calculationLocal => 'এই ডিভাইসে ক্যালোরি ও ম্যাক্রো হিসাব করা হয়েছে';
+	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ডাউনলোড করা USDA প্যাক';
+	@override String ingredientCached({required Object ingredient}) => '${ingredient}: ডিভাইসের USDA ক্যাশ';
+	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify-এর মাধ্যমে আনা USDA সারি';
+	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: নির্ধারিত পুষ্টি ধ্রুবক';
+	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ডেটাসেট ${datasetVersion}';
+	@override String get portionSmaller => 'ছোট';
+	@override String get portionEstimated => 'আনুমানিক';
+	@override String get portionLarger => 'বড়';
+	@override String portionQuestion({required Object ingredient}) => '${ingredient}-এর জন্য কোন পরিমাণটি সবচেয়ে কাছাকাছি ছিল?';
+	@override String get mealTypeQuestion => 'এটি কোন বেলার খাবার ছিল?';
+	@override String get localNutritionTip => 'যাচাইকৃত স্থানীয় পুষ্টি তথ্য থেকে হিসাব করা হয়েছে।';
+	@override String get offlineNutritionTitle => 'পুষ্টি তথ্য ডাউনলোড করুন';
+	@override String get offlineNutritionSubtitle => 'প্রতিটি উপাদান অন্তর্ভুক্ত থাকলে এই ডিভাইসে যাচাইকৃত USDA সারি এবং নির্ধারিত হিসাব ব্যবহার করুন।';
+	@override String get offlineNutritionUnavailable => 'অ্যাপের এই সংস্করণের জন্য স্থানীয় পুষ্টি তথ্য পাওয়া যাচ্ছে না।';
+	@override String get offlineNutritionNotDownloaded => 'কোনো যাচাইকৃত পুষ্টি প্যাক ডাউনলোড করা নেই।';
+	@override String get offlineNutritionInstalling => 'পুষ্টি তথ্য ডাউনলোড ও যাচাই করা হচ্ছে…';
+	@override String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'প্যাক ${version} · ${size} · USDA ${datasetVersion}';
+	@override String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count}টি ক্যাশে রাখা USDA সারি · ${size}';
+	@override String get offlineNutritionUpdate => 'আপডেট পরীক্ষা করুন';
+	@override String get offlineNutritionClear => 'স্থানীয় পুষ্টি তথ্য মুছুন';
+	@override String get offlineNutritionClearTitle => 'স্থানীয় পুষ্টি তথ্য মুছবেন?';
+	@override String get offlineNutritionClearBody => 'এটি ডাউনলোড করা USDA প্যাক ও অনুসন্ধান ক্যাশ সরিয়ে দেয়। সংরক্ষিত খাবারগুলো সেভ করার সময় ব্যবহৃত সঠিক পুষ্টি স্ন্যাপশট রেখে দেয়।';
+	@override String get offlineNutritionClearConfirm => 'তথ্য মুছুন';
+	@override String offlineNutritionInstallFailed({required Object error}) => 'স্থানীয় পুষ্টি তথ্য ডাউনলোড ও যাচাই করা যায়নি: ${error}';
+	@override String get offlineNutritionCleared => 'স্থানীয় পুষ্টি তথ্য মুছে ফেলা হয়েছে';
 }
 
 // Path: common
@@ -2293,35 +2293,35 @@ extension on TranslationsBn {
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'চিকিৎসাসংক্রান্ত সিদ্ধান্ত নিতে এই আনুমানিকতাকে ব্যবহার করবেন না। ব্যক্তিগতকৃত ওজন ব্যবস্থাপনার পরামর্শের জন্য সবসময় একজন স্বাস্থ্যের পেশাদার বা নিবন্ধিত ডায়েটিশিয়ানের সঙ্গে পরামর্শ করুন।',
 			_ => null,
 		} ?? switch (path) {
-			'localNutritionPhase4.nutritionBundled' => 'Nutrition matched from the downloaded USDA pack',
-			'localNutritionPhase4.nutritionCached' => 'Nutrition matched from the on-device USDA cache',
-			'localNutritionPhase4.nutritionMixed' => 'Nutrition combined from downloaded, cached, and remote USDA rows',
-			'localNutritionPhase4.calculationLocal' => 'Calories and macros calculated on this device',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: downloaded USDA pack',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: on-device USDA cache',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministic nutrition constant',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}',
-			'localNutritionPhase4.portionSmaller' => 'Smaller',
-			'localNutritionPhase4.portionEstimated' => 'Estimated',
-			'localNutritionPhase4.portionLarger' => 'Larger',
-			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Which portion was closest for ${ingredient}?',
-			'localNutritionPhase4.mealTypeQuestion' => 'Which meal was this?',
-			'localNutritionPhase4.localNutritionTip' => 'Calculated from verified local nutrition data.',
-			'localNutritionPhase4.offlineNutritionTitle' => 'Download nutrition data',
-			'localNutritionPhase4.offlineNutritionSubtitle' => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.',
-			'localNutritionPhase4.offlineNutritionUnavailable' => 'Local nutrition data is not available for this app release.',
-			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'No verified nutrition pack is downloaded.',
-			'localNutritionPhase4.offlineNutritionInstalling' => 'Downloading and verifying nutrition data…',
-			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}',
-			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} cached USDA rows · ${size}',
-			'localNutritionPhase4.offlineNutritionUpdate' => 'Check for update',
-			'localNutritionPhase4.offlineNutritionClear' => 'Clear local nutrition data',
-			'localNutritionPhase4.offlineNutritionClearTitle' => 'Clear local nutrition data?',
-			'localNutritionPhase4.offlineNutritionClearBody' => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.',
-			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Clear data',
-			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Could not download and verify local nutrition data: ${error}',
-			'localNutritionPhase4.offlineNutritionCleared' => 'Local nutrition data cleared',
+			'localNutritionPhase4.nutritionBundled' => 'ডাউনলোড করা USDA প্যাক থেকে পুষ্টির তথ্য মেলানো হয়েছে',
+			'localNutritionPhase4.nutritionCached' => 'ডিভাইসের USDA ক্যাশ থেকে পুষ্টির তথ্য মেলানো হয়েছে',
+			'localNutritionPhase4.nutritionMixed' => 'ডাউনলোড করা, ক্যাশে রাখা এবং দূরবর্তী USDA সারি থেকে পুষ্টির তথ্য একত্র করা হয়েছে',
+			'localNutritionPhase4.calculationLocal' => 'এই ডিভাইসে ক্যালোরি ও ম্যাক্রো হিসাব করা হয়েছে',
+			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ডাউনলোড করা USDA প্যাক',
+			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: ডিভাইসের USDA ক্যাশ',
+			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify-এর মাধ্যমে আনা USDA সারি',
+			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: নির্ধারিত পুষ্টি ধ্রুবক',
+			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ডেটাসেট ${datasetVersion}',
+			'localNutritionPhase4.portionSmaller' => 'ছোট',
+			'localNutritionPhase4.portionEstimated' => 'আনুমানিক',
+			'localNutritionPhase4.portionLarger' => 'বড়',
+			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => '${ingredient}-এর জন্য কোন পরিমাণটি সবচেয়ে কাছাকাছি ছিল?',
+			'localNutritionPhase4.mealTypeQuestion' => 'এটি কোন বেলার খাবার ছিল?',
+			'localNutritionPhase4.localNutritionTip' => 'যাচাইকৃত স্থানীয় পুষ্টি তথ্য থেকে হিসাব করা হয়েছে।',
+			'localNutritionPhase4.offlineNutritionTitle' => 'পুষ্টি তথ্য ডাউনলোড করুন',
+			'localNutritionPhase4.offlineNutritionSubtitle' => 'প্রতিটি উপাদান অন্তর্ভুক্ত থাকলে এই ডিভাইসে যাচাইকৃত USDA সারি এবং নির্ধারিত হিসাব ব্যবহার করুন।',
+			'localNutritionPhase4.offlineNutritionUnavailable' => 'অ্যাপের এই সংস্করণের জন্য স্থানীয় পুষ্টি তথ্য পাওয়া যাচ্ছে না।',
+			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'কোনো যাচাইকৃত পুষ্টি প্যাক ডাউনলোড করা নেই।',
+			'localNutritionPhase4.offlineNutritionInstalling' => 'পুষ্টি তথ্য ডাউনলোড ও যাচাই করা হচ্ছে…',
+			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'প্যাক ${version} · ${size} · USDA ${datasetVersion}',
+			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count}টি ক্যাশে রাখা USDA সারি · ${size}',
+			'localNutritionPhase4.offlineNutritionUpdate' => 'আপডেট পরীক্ষা করুন',
+			'localNutritionPhase4.offlineNutritionClear' => 'স্থানীয় পুষ্টি তথ্য মুছুন',
+			'localNutritionPhase4.offlineNutritionClearTitle' => 'স্থানীয় পুষ্টি তথ্য মুছবেন?',
+			'localNutritionPhase4.offlineNutritionClearBody' => 'এটি ডাউনলোড করা USDA প্যাক ও অনুসন্ধান ক্যাশ সরিয়ে দেয়। সংরক্ষিত খাবারগুলো সেভ করার সময় ব্যবহৃত সঠিক পুষ্টি স্ন্যাপশট রেখে দেয়।',
+			'localNutritionPhase4.offlineNutritionClearConfirm' => 'তথ্য মুছুন',
+			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'স্থানীয় পুষ্টি তথ্য ডাউনলোড ও যাচাই করা যায়নি: ${error}',
+			'localNutritionPhase4.offlineNutritionCleared' => 'স্থানীয় পুষ্টি তথ্য মুছে ফেলা হয়েছে',
 			'common.close' => 'বন্ধ',
 			'common.kContinue' => 'চালিয়ে যান',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন?',
