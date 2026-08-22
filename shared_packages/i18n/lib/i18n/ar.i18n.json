@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "الاتصال بـ Health Connect",
-      "description": "مزامنة بيانات صحتك للحصول على رؤى أفضل وتتبع تلقائي للسعرات",
+      "description": "استخدم السعرات المحروقة ضمن هدفك اليومي وشارك وجباتك المسجّلة اختياريًا مع Health Connect.",
       "automaticTracking": {
-        "title": "تتبع السعرات تلقائيًا",
-        "description": "تتبّع السعرات المحروقة من تطبيقات اللياقة الخاصة بك"
+        "title": "السعرات المحروقة",
+        "description": "اقرأ إجمالي السعرات المحروقة اليوم من Health Connect"
       },
       "progressInsights": {
-        "title": "رؤى التقدّم",
-        "description": "احصل على رؤى مفصّلة حول اتجاهات صحتك"
+        "title": "مشاركة الوجبات المسجّلة",
+        "description": "اكتب الوجبات التي تسجّلها في Calorify إلى Health Connect"
       },
       "seamlessIntegration": {
-        "title": "تكامل سلس",
-        "description": "زامِن البيانات من تطبيقات الصحة المفضلة لديك"
+        "title": "أنت المتحكّم",
+        "description": "اختر أيًا من الإذنين وغيّر الوصول في أي وقت"
       },
       "connected": "تم الاتصال بـ Health Connect",
       "notConnected": "لم يتم الاتصال بـ Health Connect",
@@ -101,6 +101,12 @@
       "skipForNow": "تخطٍّ الآن",
       "statusConnected": "تم الاتصال بـ Health Connect.",
       "statusSuccess": "تم توصيل Health Connect بنجاح!",
+      "statusNotConnected": "اختر ميزات Health Connect التي تريد تفعيلها.",
+      "statusPartial": "Health Connect متصل جزئيًا. فعّل الإذن المتبقي لاستخدام الميزتين.",
+      "statusProviderUpdateRequired": "ثبّت Health Connect أو حدّثه للمتابعة.",
+      "statusUnavailable": "Health Connect غير مدعوم على هذا الجهاز.",
+      "installOrUpdate": "تثبيت أو تحديث",
+      "manageAccess": "إدارة الوصول",
       "statusPermissionDenied": "تم رفض الإذن. يرجى تمكين أذونات Health Connect من إعدادات هاتفك لتطبيق {appLabel}.",
       "statusError": "خطأ أثناء إعداد Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "زامِن مع Health Connect",
-      "description": "زامِن بيانات تغذيتك مع Health Connect",
-      "install": "تثبيت",
+      "description": "استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة",
+      "install": "تثبيت أو تحديث",
       "connect": "اتصال"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "مسح جميع البيانات",
-      "subtitle": "حذف جميع معلوماتك بشكل لا رجعة فيه",
+      "subtitle": "حذف بيانات Calorify المخزّنة على هذا الجهاز",
       "confirmationTitle": "مسح جميع البيانات؟",
-      "confirmationMessage": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع وجباتك المسجلة والمفضلات وإعدادات الملف الشخصي بشكل دائم.",
+      "confirmationMessage": "يؤدي هذا إلى حذف الوجبات المسجّلة والمفضلات وإعدادات الملف الشخصي نهائيًا من هذا الجهاز. تتم إدارة الوجبات التي سبق مشاركتها مع Health Connect وإمكانية الوصول إليه بشكل منفصل في الإعدادات > Health Connect.",
       "cancel": "إلغاء",
       "clearEverything": "امسح الكل"
     },
@@ -555,7 +561,12 @@
       "subtitle": "عرض وإدارة الأذونات",
       "unavailable": {
         "title": "Health Connect غير متاح",
-        "description": "Health Connect غير متاح على هذا الجهاز. يرجى تثبيت Health Connect من Play Store (Android 9+) أو التحديث إلى Android 14+."
+        "description": "Health Connect غير مدعوم على هذا الجهاز."
+      },
+      "updateRequired": {
+        "title": "يحتاج Health Connect إلى اهتمامك",
+        "description": "ثبّت Health Connect أو حدّثه قبل إدارة الوصول.",
+        "action": "تثبيت أو تحديث"
       },
       "permissions": {
         "title": "الأذونات",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "إدارة الأذونات",
       "openSettings": "فتح إعدادات Health Connect",
+      "disconnect": "قطع الاتصال بـ Health Connect",
+      "disconnectConfirmationTitle": "قطع الاتصال بـ Health Connect؟",
+      "disconnectConfirmationMessage": "سيفقد Calorify إمكانية الوصول إلى Health Connect. لن تُحذف البيانات المكتوبة فيه بالفعل.",
+      "disconnectConfirmationAction": "قطع الاتصال",
+      "deleteSyncedMeals": "حذف وجبات Calorify من Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "حذف الوجبات المتزامنة؟",
+      "deleteSyncedMealsConfirmationMessage": "هل تريد حذف الوجبات التي زامنتها هذه النسخة من Calorify مع Health Connect؟ لن يتغيّر سجل وجباتك المحلي. قد تظل إدخالات Calorify الأقدم بحاجة إلى الإزالة باستخدام إدارة البيانات في Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "حذف الوجبات المتزامنة",
+      "deleteSyncedMealsSuccess": "تم حذف وجبات Calorify من Health Connect.",
+      "deleteSyncedMealsFailed": "تعذّر حذف الوجبات المتزامنة. حاول مرة أخرى.",
+      "connectionPartial": "بعض ميزات Health Connect مفعّلة.",
+      "connectionComplete": "ميزتا Health Connect مفعّلتان.",
+      "actionFailed": "تعذّر فتح Health Connect. حاول مرة أخرى.",
       "requestPermissions": "طلب الأذونات",
       "permissionRequestCancelledOrFailed": "تم إلغاء طلب الإذن أو فشل. يرجى المحاولة مرة أخرى أو منح الأذونات يدويًا من إعدادات Health Connect.",
       "permissionRequestFailed": "تعذّر طلب الأذونات. حاول مرة أخرى أو امنح الأذونات يدويًا من إعدادات Health Connect.",
@@ -596,7 +620,7 @@
         "title": "خصوصيتك تهمنا",
         "description": "الخصوصية ليست فكرة لاحقة — إنها مبدأ تصميم. هذا ما يعنيه ذلك عمليًا:",
         "noAccounts": "لا حاجة لحسابات\nاستخدم التطبيق فورًا. لا تسجيل، لا هويات.",
-        "noTracking": "لا تتبّع سلوكي\n{appLabel} لا يراقب نشاطك، ولا يُكوّن ملفات استخدام، ولا يتتبّعك عبر التطبيقات أو المواقع.",
+        "noTracking": "تحليلات وتشخيصات محدودة\nيستخدم {appLabel} أحداث التطبيق الأساسية وتشخيصات الأعطال لتحسين الموثوقية. لا تُستخدم قيم السجلات الصحية للإعلانات ولا يتم بيعها.",
         "noAds": "خالي من الإعلانات بطبيعته\n{appLabel} مصمم للعمل بدون إعلانات أو تحقيق ربح عبر بيانات المستخدم.",
         "noDataSelling": "لا بيع للبيانات\nلا تُباع أو تُشارك بياناتك الصحية مع أطراف ثالثة.",
         "localStorage": "تخزين محلي أولًا\nتظل بياناتك على جهازك.",

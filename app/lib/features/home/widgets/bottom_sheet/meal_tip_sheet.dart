@@ -772,10 +772,20 @@ class _MealTipState extends State<_MealTip> {
               ),
               child: Text(t.meal.deleteConfirmation.delete),
               onPressed: () async {
-                await ProviderScope.containerOf(
+                final container = ProviderScope.containerOf(
                   context,
                   listen: false,
-                ).read(databaseInterfaceProvider).deleteMeal(mealId);
+                );
+                await container
+                    .read(databaseInterfaceProvider)
+                    .deleteMeal(mealId);
+                try {
+                  await container
+                      .read(healthConnectSyncServiceProvider)
+                      .syncPending();
+                } catch (_) {
+                  // The delete tombstone stays queued for the next retry.
+                }
                 if (!context.mounted) return;
                 Navigator.of(dialogContext).pop();
                 navigator.pop();

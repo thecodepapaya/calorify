@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "เชื่อมต่อกับ Health Connect",
-      "description": "ซิงก์ข้อมูลสุขภาพของคุณเพื่อการวิเคราะห์และติดตามแคลอรีอัตโนมัติ",
+      "description": "ใช้แคลอรีที่เผาผลาญในเป้าหมายประจำวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect",
       "automaticTracking": {
-        "title": "การติดตามแคลอรีอัตโนมัติ",
-        "description": "ติดตามแคลอรีที่เผาผลาญจากแอปฟิตเนสของคุณ"
+        "title": "แคลอรีที่เผาผลาญ",
+        "description": "อ่านแคลอรีทั้งหมดที่เผาผลาญวันนี้จาก Health Connect"
       },
       "progressInsights": {
-        "title": "ข้อมูลเชิงลึกเกี่ยวกับความคืบหน้า",
-        "description": "รับข้อมูลเชิงลึกละเอียดเกี่ยวกับแนวโน้มสุขภาพของคุณ"
+        "title": "แชร์มื้ออาหารที่บันทึกไว้",
+        "description": "เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect"
       },
       "seamlessIntegration": {
-        "title": "การเชื่อมต่ออย่างราบรื่น",
-        "description": "ซิงก์ข้อมูลจากแอปสุขภาพที่คุณชื่นชอบ"
+        "title": "คุณเป็นผู้ควบคุม",
+        "description": "เลือกสิทธิ์ใดก็ได้และเปลี่ยนการเข้าถึงได้ทุกเมื่อ"
       },
       "connected": "เชื่อมต่อกับ Health Connect แล้ว",
       "notConnected": "ยังไม่ได้เชื่อมต่อกับ Health Connect",
@@ -101,6 +101,12 @@
       "skipForNow": "ข้ามก่อน",
       "statusConnected": "Health Connect ถูกเชื่อมต่อแล้ว",
       "statusSuccess": "เชื่อมต่อกับ Health Connect สำเร็จ!",
+      "statusNotConnected": "เลือกฟีเจอร์ Health Connect ที่คุณต้องการเปิดใช้",
+      "statusPartial": "Health Connect เชื่อมต่อบางส่วนแล้ว เปิดสิทธิ์ที่เหลือเพื่อใช้ทั้งสองฟีเจอร์",
+      "statusProviderUpdateRequired": "ติดตั้งหรืออัปเดต Health Connect เพื่อดำเนินการต่อ",
+      "statusUnavailable": "อุปกรณ์นี้ไม่รองรับ Health Connect",
+      "installOrUpdate": "ติดตั้งหรืออัปเดต",
+      "manageAccess": "จัดการการเข้าถึง",
       "statusPermissionDenied": "การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ {appLabel}",
       "statusError": "เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "ซิงก์กับ Health Connect",
-      "description": "ซิงก์ข้อมูลโภชนาการของคุณกับ Health Connect",
-      "install": "ติดตั้ง",
+      "description": "ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้",
+      "install": "ติดตั้งหรืออัปเดต",
       "connect": "เชื่อมต่อ"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "ล้างข้อมูลทั้งหมด",
-      "subtitle": "ลบข้อมูลทั้งหมดอย่างถาวร",
+      "subtitle": "ลบข้อมูล Calorify ที่จัดเก็บไว้ในอุปกรณ์นี้",
       "confirmationTitle": "ล้างข้อมูลทั้งหมด?",
-      "confirmationMessage": "การกระทำนี้ไม่สามารถย้อนกลับได้ ข้อมูลมื้อทั้งหมด รายการโปรด และการตั้งค่าโปรไฟล์ของคุณจะถูกลบอย่างถาวร",
+      "confirmationMessage": "การดำเนินการนี้จะลบมื้ออาหารที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและการเข้าถึง Health Connect ต้องจัดการแยกต่างหากใน การตั้งค่า > Health Connect",
       "cancel": "ยกเลิก",
       "clearEverything": "ล้างทั้งหมด"
     },
@@ -555,7 +561,12 @@
       "subtitle": "ดูและจัดการสิทธิ์",
       "unavailable": {
         "title": "ไม่พบ Health Connect",
-        "description": "อุปกรณ์นี้ไม่มี Health Connect โปรดติดตั้ง Health Connect จาก Play Store (Android 9+) หรืออัปเดตเป็น Android 14+"
+        "description": "อุปกรณ์นี้ไม่รองรับ Health Connect"
+      },
+      "updateRequired": {
+        "title": "Health Connect ต้องได้รับการดำเนินการ",
+        "description": "ติดตั้งหรืออัปเดต Health Connect ก่อนจัดการการเข้าถึง",
+        "action": "ติดตั้งหรืออัปเดต"
       },
       "permissions": {
         "title": "สิทธิ์",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "จัดการสิทธิ์",
       "openSettings": "เปิดการตั้งค่า Health Connect",
+      "disconnect": "ยกเลิกการเชื่อมต่อ Health Connect",
+      "disconnectConfirmationTitle": "ยกเลิกการเชื่อมต่อ Health Connect หรือไม่?",
+      "disconnectConfirmationMessage": "Calorify จะสูญเสียสิทธิ์เข้าถึง Health Connect ข้อมูลที่เขียนไว้แล้วจะไม่ถูกลบ",
+      "disconnectConfirmationAction": "ยกเลิกการเชื่อมต่อ",
+      "deleteSyncedMeals": "ลบมื้ออาหารของ Calorify ออกจาก Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "ลบมื้ออาหารที่ซิงก์หรือไม่?",
+      "deleteSyncedMealsConfirmationMessage": "ลบมื้ออาหารที่ซิงก์โดย Calorify เวอร์ชันนี้ออกจาก Health Connect หรือไม่? บันทึกมื้ออาหารในเครื่องจะไม่เปลี่ยนแปลง รายการ Calorify ที่เก่ากว่าอาจยังต้องลบผ่าน จัดการข้อมูล ใน Health Connect",
+      "deleteSyncedMealsConfirmationAction": "ลบมื้ออาหารที่ซิงก์",
+      "deleteSyncedMealsSuccess": "ลบมื้ออาหารของ Calorify ออกจาก Health Connect แล้ว",
+      "deleteSyncedMealsFailed": "ไม่สามารถลบมื้ออาหารที่ซิงก์ได้ โปรดลองอีกครั้ง",
+      "connectionPartial": "เปิดใช้ฟีเจอร์ Health Connect บางส่วนแล้ว",
+      "connectionComplete": "เปิดใช้ฟีเจอร์ Health Connect ทั้งสองรายการแล้ว",
+      "actionFailed": "ไม่สามารถเปิด Health Connect ได้ โปรดลองอีกครั้ง",
       "requestPermissions": "ขอสิทธิ์",
       "permissionRequestCancelledOrFailed": "การขอสิทธิ์ถูกยกเลิกหรือไม่สำเร็จ โปรดลองอีกครั้งหรือให้สิทธิ์ด้วยตนเองในการตั้งค่า Health Connect",
       "permissionRequestFailed": "ไม่สามารถขอสิทธิ์ได้ โปรดลองอีกครั้งหรือให้สิทธิ์ด้วยตนเองในการตั้งค่า Health Connect",
@@ -596,7 +620,7 @@
         "title": "ความเป็นส่วนตัวของคุณสำคัญ",
         "description": "ความเป็นส่วนตัวไม่ใช่เรื่องรอง — แต่เป็นหลักการออกแบบ ต่อไปนี้คือสิ่งที่หมายถึงในการใช้งานจริง:",
         "noAccounts": "ไม่ต้องมีบัญชี\nใช้แอปได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน",
-        "noTracking": "ไม่มีการติดตามพฤติกรรม\n{appLabel} จะไม่ตรวจสอบกิจกรรมของคุณ สร้างโปรไฟล์การใช้งาน หรือติดตามข้ามแอปหรือเว็บไซต์",
+        "noTracking": "การวิเคราะห์และการวินิจฉัยแบบจำกัด\n{appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย",
         "noAds": "ออกแบบให้ไม่มีโฆษณา\n{appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องใช้โฆษณาหรือหารายได้จากข้อมูล",
         "noDataSelling": "ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม",
         "localStorage": "เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ",

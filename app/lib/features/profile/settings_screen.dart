@@ -289,7 +289,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                subtitle: Text(t.settings.clearAllData.subtitle),
+                subtitle: Text(t.settings.clearAllData.localOnlySubtitle),
                 onTap: _showClearDataConfirmation,
               ),
             ]),
@@ -999,7 +999,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         final colorScheme = Theme.of(context).colorScheme;
         return AlertDialog(
           title: Text(t.settings.clearAllData.confirmationTitle),
-          content: Text(t.settings.clearAllData.confirmationMessage),
+          content: Text(t.settings.clearAllData.localOnlyConfirmationMessage),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),

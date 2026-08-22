@@ -92,6 +92,7 @@ void main() {
         () => mockDatabaseInterface.logMeal(
           any(),
           analysisId: 'watch:-1:2026-04-22T08:00:00.000Z',
+          loggedAt: DateTime.utc(2026, 4, 22, 8),
         ),
       ).thenAnswer((_) async {});
       when(
@@ -116,6 +117,7 @@ void main() {
                 ),
           ),
           analysisId: any(named: 'analysisId'),
+          loggedAt: DateTime.utc(2026, 4, 22, 8),
         ),
       ).called(1);
       verify(() => mockDatabaseInterface.updateFavoriteLastUsedAt(7)).called(1);
@@ -288,6 +290,7 @@ void main() {
         () => mockDatabaseInterface.logMeal(
           any(),
           analysisId: 'watch:-3:2026-08-21T08:00:00.000Z',
+          loggedAt: DateTime.utc(2026, 8, 21, 8),
         ),
       ).thenAnswer((_) async {});
       when(
@@ -316,6 +319,7 @@ void main() {
         () => mockDatabaseInterface.logMeal(
           any(that: isA<Meal>().having((meal) => meal.name, 'name', 'Idli')),
           analysisId: 'watch:-3:2026-08-21T08:00:00.000Z',
+          loggedAt: DateTime.utc(2026, 8, 21, 8),
         ),
       ).called(1);
       verify(() => mockDatabaseInterface.deleteMeal(42)).called(1);

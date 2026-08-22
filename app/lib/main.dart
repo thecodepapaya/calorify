@@ -46,7 +46,9 @@ Future<void> main() async {
       hotLaunchSamplingRate: 1,
       coldLaunchSamplingRate: 1,
       warmLaunchSamplingRate: 1,
-      trackScreenshotOnCrash: true,
+      // Health-derived UI can be visible during a crash. Keep diagnostics to
+      // structured traces rather than capturing potentially sensitive pixels.
+      trackScreenshotOnCrash: false,
       maxDiskUsageInMb: 30,
     ),
     clientInfo: ClientInfo(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:typed_data';
 
@@ -466,6 +467,17 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
         }
       } else {
         await database.upsertMeal(mealInfo);
+        unawaited(() async {
+          try {
+            await ref.read(healthConnectSyncServiceProvider).syncPending();
+          } catch (error, stackTrace) {
+            log(
+              'Health Connect sync after a meal edit failed',
+              error: error,
+              stackTrace: stackTrace,
+            );
+          }
+        }());
       }
 
       if (!mounted) return;

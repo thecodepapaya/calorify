@@ -33,7 +33,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  health: ^13.2.0
+  # HealthService contains Android aggregate/recording-method workarounds tied
+  # to this release. Re-verify those mappings before upgrading.
+  health: 13.2.1
   firebase_core: ^4.1.1
   firebase_auth: ^6.1.0
   google_sign_in: ^7.2.0

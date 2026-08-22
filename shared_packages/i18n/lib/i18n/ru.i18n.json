@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Подключитесь к Health Connect",
-      "description": "Синхронизируйте данные о здоровье для более точных сведений и автоматического учёта сожжённых калорий",
+      "description": "Используйте сожжённые калории в дневной цели и при желании делитесь записанными приёмами пищи с Health Connect.",
       "automaticTracking": {
-        "title": "Автоматическое отслеживание калорий",
-        "description": "Отслеживайте сожжённые калории из фитнес‑приложений"
+        "title": "Сожжённые калории",
+        "description": "Считывайте из Health Connect общее количество сожжённых сегодня калорий"
       },
       "progressInsights": {
-        "title": "Аналитика прогресса",
-        "description": "Получайте подробные сведения о тенденциях вашего здоровья"
+        "title": "Делитесь записями о питании",
+        "description": "Записывайте в Health Connect приёмы пищи, добавленные в Calorify"
       },
       "seamlessIntegration": {
-        "title": "Бесшовная интеграция",
-        "description": "Синхронизируйте данные из любимых приложений для здоровья"
+        "title": "Всё под вашим контролем",
+        "description": "Выберите любое из разрешений и меняйте доступ в любое время"
       },
       "connected": "Health Connect подключён",
       "notConnected": "Health Connect не подключён",
@@ -101,6 +101,12 @@
       "skipForNow": "Пропустить",
       "statusConnected": "Health Connect подключён.",
       "statusSuccess": "Health Connect успешно подключён!",
+      "statusNotConnected": "Выберите функции Health Connect, которые хотите включить.",
+      "statusPartial": "Health Connect подключён частично. Включите оставшееся разрешение, чтобы использовать обе функции.",
+      "statusProviderUpdateRequired": "Установите или обновите Health Connect, чтобы продолжить.",
+      "statusUnavailable": "Health Connect не поддерживается на этом устройстве.",
+      "installOrUpdate": "Установить или обновить",
+      "manageAccess": "Управлять доступом",
       "statusPermissionDenied": "Доступ запрещён. Пожалуйста, включите разрешения Health Connect в настройках телефона для {appLabel}.",
       "statusError": "Ошибка при настройке Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Синхронизировать с Health Connect",
-      "description": "Синхронизируйте данные о питании с Health Connect",
-      "install": "Установить",
+      "description": "Используйте сожжённые калории в своей цели и делитесь записями о питании",
+      "install": "Установить или обновить",
       "connect": "Подключить"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Удалить все данные",
-      "subtitle": "Безвозвратно удалить всю вашу информацию",
+      "subtitle": "Удалить данные Calorify, сохранённые на этом устройстве",
       "confirmationTitle": "Удалить все данные?",
-      "confirmationMessage": "Это действие нельзя отменить. Все ваши записи, избранное и настройки профиля будут удалены навсегда.",
+      "confirmationMessage": "Записи о питании, избранное и настройки профиля будут безвозвратно удалены с этого устройства. Приёмы пищи, уже отправленные в Health Connect, и доступ к Health Connect управляются отдельно в разделе Настройки > Health Connect.",
       "cancel": "Отмена",
       "clearEverything": "Удалить всё"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Просмотр и управление разрешениями",
       "unavailable": {
         "title": "Health Connect недоступен",
-        "description": "Health Connect недоступен на этом устройстве. Установите Health Connect из Play Store (Android 9+) или обновите до Android 14+."
+        "description": "Health Connect не поддерживается на этом устройстве."
+      },
+      "updateRequired": {
+        "title": "Health Connect требует внимания",
+        "description": "Установите или обновите Health Connect, прежде чем управлять доступом.",
+        "action": "Установить или обновить"
       },
       "permissions": {
         "title": "Разрешения",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Управление разрешениями",
       "openSettings": "Открыть настройки Health Connect",
+      "disconnect": "Отключить Health Connect",
+      "disconnectConfirmationTitle": "Отключить Health Connect?",
+      "disconnectConfirmationMessage": "Calorify потеряет доступ к Health Connect. Уже записанные туда данные удалены не будут.",
+      "disconnectConfirmationAction": "Отключить",
+      "deleteSyncedMeals": "Удалить приёмы пищи Calorify из Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Удалить синхронизированные приёмы пищи?",
+      "deleteSyncedMealsConfirmationMessage": "Удалить из Health Connect приёмы пищи, синхронизированные этой версией Calorify? Локальный журнал питания не изменится. Более ранние записи Calorify, возможно, потребуется удалить через раздел «Управление данными» в Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Удалить синхронизированные приёмы пищи",
+      "deleteSyncedMealsSuccess": "Приёмы пищи Calorify удалены из Health Connect.",
+      "deleteSyncedMealsFailed": "Не удалось удалить синхронизированные приёмы пищи. Повторите попытку.",
+      "connectionPartial": "Некоторые функции Health Connect включены.",
+      "connectionComplete": "Обе функции Health Connect включены.",
+      "actionFailed": "Не удалось открыть Health Connect. Повторите попытку.",
       "requestPermissions": "Запросить разрешения",
       "permissionRequestCancelledOrFailed": "Запрос разрешений был отменён или не удался. Пожалуйста, попробуйте снова или предоставьте разрешения вручную в настройках Health Connect.",
       "permissionRequestFailed": "Не удалось запросить разрешения. Пожалуйста, попробуйте снова или предоставьте разрешения вручную в настройках Health Connect.",
@@ -596,7 +620,7 @@
         "title": "Ваша приватность важна",
         "description": "Приватность — не второстепенная мысль, а принцип проектирования. Это означает следующее:",
         "noAccounts": "Без аккаунтов\nИспользуйте приложение сразу. Никаких регистрации и идентичностей.",
-        "noTracking": "Без слежки за поведением\n{appLabel} не отслеживает вашу активность, не строит профили использования и не отслеживает вас между приложениями или сайтами.",
+        "noTracking": "Ограниченная аналитика и диагностика\n{appLabel} использует основные события приложения и диагностику сбоев для повышения надёжности. Значения показателей здоровья не используются для рекламы и не продаются.",
         "noAds": "Без рекламы по дизайну\n{appLabel} создан работать без рекламы и монетизации на основе данных.",
         "noDataSelling": "Без продажи данных\nВаши данные о здоровье никогда не продаются и не передаются третьим лицам.",
         "localStorage": "Приоритет локального хранения\nВаши данные остаются на вашем устройстве.",

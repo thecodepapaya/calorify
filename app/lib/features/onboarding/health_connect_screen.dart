@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
-import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/core/services/health_service.dart';
 import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class HealthConnectScreen extends ConsumerStatefulWidget {
@@ -23,8 +23,30 @@ class HealthConnectScreen extends ConsumerStatefulWidget {
 class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
     with WidgetsBindingObserver {
   bool _isLoading = false;
-  bool _healthConnectEnabled = false;
-  String _statusMessage = '';
+  bool _canReadTotalCalories = false;
+  bool _canWriteNutrition = false;
+  bool _loadFailed = false;
+  HealthConnectSdkStatus _sdkStatus = HealthConnectSdkStatus.sdkUnavailable;
+  int _checkGeneration = 0;
+
+  bool get _healthConnectEnabled => _canReadTotalCalories && _canWriteNutrition;
+  bool get _hasAnyPermission => _canReadTotalCalories || _canWriteNutrition;
+  bool get _isAvailable => _sdkStatus == HealthConnectSdkStatus.sdkAvailable;
+  bool get _isProviderUpdateRequired =>
+      _sdkStatus == HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
+
+  String get _statusMessage {
+    if (_loadFailed) return t.settings.healthConnect.permissionRequestFailed;
+    if (_isProviderUpdateRequired) {
+      return t.onboarding.healthConnect.statusProviderUpdateRequired;
+    }
+    if (!_isAvailable) return t.onboarding.healthConnect.statusUnavailable;
+    if (_healthConnectEnabled) {
+      return t.onboarding.healthConnect.statusConnected;
+    }
+    if (_hasAnyPermission) return t.onboarding.healthConnect.statusPartial;
+    return t.onboarding.healthConnect.statusNotConnected;
+  }
 
   @override
   void initState() {
@@ -35,29 +57,71 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
 
   @override
   void dispose() {
+    _checkGeneration++;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      unawaited(_checkHealthConnectStatus());
+    if (state == AppLifecycleState.resumed && !_isLoading) {
+      unawaited(_checkHealthConnectStatus(showLoading: false));
     }
   }
 
-  Future<void> _checkHealthConnectStatus() async {
-    if (mounted) setState(() => _isLoading = true);
-    final isAuthorized =
-        await ref.read(healthServiceProvider).refreshAuthorizationStatus();
-    if (!mounted) return;
-    setState(() {
-      _healthConnectEnabled = isAuthorized;
-      _isLoading = false;
-      if (isAuthorized) {
-        _statusMessage = t.onboarding.healthConnect.statusConnected;
+  Future<void> _checkHealthConnectStatus({bool showLoading = true}) async {
+    final generation = ++_checkGeneration;
+    if (mounted && showLoading) {
+      setState(() {
+        _isLoading = true;
+        _loadFailed = false;
+      });
+    }
+
+    try {
+      final healthService = ref.read(healthServiceProvider);
+      final hadNutritionWrite = healthService.canWriteNutrition;
+      await healthService.refreshAuthorizationStatus();
+      if (healthService.initializationState ==
+          HealthServiceInitializationState.failed) {
+        throw healthService.lastError ??
+            StateError('Health Connect initialization failed');
       }
-    });
+      if (!mounted || generation != _checkGeneration) return;
+      setState(() {
+        _sdkStatus = healthService.status;
+        _canReadTotalCalories = healthService.canReadTotalCalories;
+        _canWriteNutrition = healthService.canWriteNutrition;
+        _loadFailed = false;
+      });
+      unawaited(
+        _reconcileAndSync(
+          enableNutritionSync:
+              !hadNutritionWrite && healthService.canWriteNutrition,
+        ),
+      );
+    } catch (_) {
+      if (!mounted || generation != _checkGeneration) return;
+      setState(() => _loadFailed = true);
+    } finally {
+      if (showLoading && mounted && generation == _checkGeneration) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  Future<void> _reconcileAndSync({bool enableNutritionSync = false}) async {
+    try {
+      final syncService = ref.read(healthConnectSyncServiceProvider);
+      await syncService.reconcileAuthorization();
+      if (enableNutritionSync) {
+        await syncService.enableNutritionSync();
+      } else {
+        await syncService.syncPending();
+      }
+    } catch (_) {
+      // Pending records remain queued and will be retried in the foreground.
+    }
   }
 
   @override
@@ -84,7 +148,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    t.onboarding.healthConnect.description,
+                    t.onboarding.healthConnect.overviewDescription,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -95,35 +159,27 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                   _buildBenefitItem(
                     context,
                     icon: LucideIcons.activity,
-                    title: t.onboarding.healthConnect.automaticTracking.title,
+                    title: t.onboarding.healthConnect.caloriesBurned.title,
                     description:
-                        t
-                            .onboarding
-                            .healthConnect
-                            .automaticTracking
-                            .description,
+                        t.onboarding.healthConnect.caloriesBurned.description,
                   ),
                   const SizedBox(height: 16),
 
                   _buildBenefitItem(
                     context,
                     icon: LucideIcons.trendingUp,
-                    title: t.onboarding.healthConnect.progressInsights.title,
+                    title: t.onboarding.healthConnect.shareLoggedMeals.title,
                     description:
-                        t.onboarding.healthConnect.progressInsights.description,
+                        t.onboarding.healthConnect.shareLoggedMeals.description,
                   ),
                   const SizedBox(height: 16),
 
                   _buildBenefitItem(
                     context,
                     icon: LucideIcons.link,
-                    title: t.onboarding.healthConnect.seamlessIntegration.title,
+                    title: t.onboarding.healthConnect.userControl.title,
                     description:
-                        t
-                            .onboarding
-                            .healthConnect
-                            .seamlessIntegration
-                            .description,
+                        t.onboarding.healthConnect.userControl.description,
                   ),
                   const SizedBox(height: 32),
 
@@ -132,7 +188,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color:
-                          _healthConnectEnabled
+                          _healthConnectEnabled && !_loadFailed
                               ? colorScheme.successContainer
                               : colorScheme.surfaceContainerHighest.withValues(
                                 alpha: 0.5,
@@ -140,7 +196,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color:
-                            _healthConnectEnabled
+                            _healthConnectEnabled && !_loadFailed
                                 ? colorScheme.success
                                 : colorScheme.outline.withValues(alpha: 0.2),
                       ),
@@ -148,11 +204,13 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                     child: Row(
                       children: [
                         Icon(
-                          _healthConnectEnabled
+                          _healthConnectEnabled && !_loadFailed
                               ? LucideIcons.check
+                              : _loadFailed
+                              ? LucideIcons.triangleAlert
                               : LucideIcons.info,
                           color:
-                              _healthConnectEnabled
+                              _healthConnectEnabled && !_loadFailed
                                   ? colorScheme.success
                                   : colorScheme.onSurfaceVariant,
                         ),
@@ -162,13 +220,17 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                _healthConnectEnabled
+                                _loadFailed
+                                    ? t.errors.somethingWentWrong
+                                    : _healthConnectEnabled
                                     ? t.onboarding.healthConnect.connected
+                                    : _hasAnyPermission
+                                    ? t.settings.healthConnect.connectionPartial
                                     : t.onboarding.healthConnect.notConnected,
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                   color:
-                                      _healthConnectEnabled
+                                      _healthConnectEnabled && !_loadFailed
                                           ? colorScheme.onSuccessContainer
                                           : colorScheme.onSurface,
                                 ),
@@ -196,7 +258,7 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
             padding: const EdgeInsets.only(bottom: 0.0, top: 24.0),
             child: Column(
               children: [
-                if (_healthConnectEnabled)
+                if (_healthConnectEnabled && !_loadFailed) ...[
                   AppButton(
                     variant: AppButtonVariant.primary,
                     analyticsEvent:
@@ -204,16 +266,42 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
                     onPressed: _navigateToReminderNotifications,
                     text: t.common.kContinue,
                     trailingIcon: LucideIcons.arrowRight,
-                  )
-                else ...[
+                  ),
+                  const SizedBox(height: 12),
+                  AppButton(
+                    variant: AppButtonVariant.secondary,
+                    onPressed: _isLoading ? null : _openSettings,
+                    text: t.onboarding.healthConnect.manageAccess,
+                    leadingIcon: LucideIcons.settings,
+                  ),
+                ] else ...[
                   AppButton(
                     variant: AppButtonVariant.primary,
                     analyticsEvent: AnalyticsEvent.onboardingSetupHealthConnect,
                     onPressed: _isLoading ? null : _setupHealthConnect,
-                    text: t.onboarding.healthConnect.setup,
-                    leadingIcon: LucideIcons.link,
+                    text:
+                        _isProviderUpdateRequired
+                            ? t.onboarding.healthConnect.installOrUpdate
+                            : (!_isAvailable || _loadFailed)
+                            ? t.errors.retry
+                            : t.onboarding.healthConnect.setup,
+                    leadingIcon:
+                        _isProviderUpdateRequired
+                            ? LucideIcons.download
+                            : (!_isAvailable || _loadFailed)
+                            ? LucideIcons.refreshCw
+                            : LucideIcons.link,
                     isLoading: _isLoading,
                   ),
+                  if (_isAvailable && _hasAnyPermission) ...[
+                    const SizedBox(height: 12),
+                    AppButton(
+                      variant: AppButtonVariant.secondary,
+                      onPressed: _isLoading ? null : _openSettings,
+                      text: t.onboarding.healthConnect.manageAccess,
+                      leadingIcon: LucideIcons.settings,
+                    ),
+                  ],
                   const SizedBox(height: 16),
                   AppButton(
                     variant: AppButtonVariant.secondary,
@@ -275,49 +363,47 @@ class _HealthConnectScreenState extends ConsumerState<HealthConnectScreen>
   }
 
   Future<void> _setupHealthConnect() async {
-    setState(() {
-      _isLoading = true;
-      _statusMessage = '';
-    });
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
 
     try {
-      final success =
-          await ref.read(healthServiceProvider).requestAuthorization();
-      if (!mounted) return;
-
-      // Track permission result
-      if (success) {
-        Analytics.instance.logEvent(
-          AnalyticsEvent.healthConnectPermissionGranted,
-        );
-      } else {
-        Analytics.instance.logEvent(
-          AnalyticsEvent.healthConnectPermissionDenied,
-        );
+      final healthService = ref.read(healthServiceProvider);
+      if (_loadFailed || (!_isAvailable && !_isProviderUpdateRequired)) {
+        await _checkHealthConnectStatus(showLoading: false);
+        return;
       }
 
-      setState(() {
-        _healthConnectEnabled = success;
-        _statusMessage =
-            success
-                ? t.onboarding.healthConnect.statusSuccess
-                : t.onboarding.healthConnect.statusPermissionDenied(
-                  appLabel: t.appLabel(env: EnvConfig.instance.envSuffix),
-                );
-      });
+      if (_isProviderUpdateRequired) {
+        await healthService.installHealthConnect();
+        return;
+      }
 
-      if (success) {
+      final hadNutritionWrite = healthService.canWriteNutrition;
+      await healthService.requestAuthorization();
+      if (!hadNutritionWrite && healthService.canWriteNutrition) {
+        await ref.read(healthConnectSyncServiceProvider).enableNutritionSync();
+      }
+      await _checkHealthConnectStatus(showLoading: false);
+      if (mounted && _healthConnectEnabled) {
         _navigateToReminderNotifications();
       }
-    } catch (e) {
+    } catch (_) {
       if (!mounted) return;
-      Analytics.instance.logEvent(AnalyticsEvent.healthConnectPermissionDenied);
-      setState(() {
-        _healthConnectEnabled = false;
-        _statusMessage = t.onboarding.healthConnect.statusError(
-          error: e.toString(),
-        );
-      });
+      setState(() => _loadFailed = true);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _openSettings() async {
+    if (_isLoading) return;
+    setState(() => _isLoading = true);
+    try {
+      final opened =
+          await ref.read(healthServiceProvider).openHealthConnectSettings();
+      if (!opened && mounted) setState(() => _loadFailed = true);
+    } catch (_) {
+      if (mounted) setState(() => _loadFailed = true);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

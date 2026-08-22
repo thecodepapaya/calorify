@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/history_providers.dart';
+import 'package:calorify/core/services/health_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/features/home/widgets/ai_summary_card.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
@@ -27,23 +28,28 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with WidgetsBindingObserver {
   int _healthConnectRefreshTrigger = 0;
+  int _healthRefreshGeneration = 0;
   DateTime _dashboardDay = _dateOnly(DateTime.now());
   Duration _dashboardTimeZoneOffset = DateTime.now().timeZoneOffset;
-  Timer? _aiSummaryRefreshTimer;
+  Timer? _dashboardRefreshTimer;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _aiSummaryRefreshTimer = Timer.periodic(const Duration(minutes: 15), (_) {
-      if (mounted) ref.invalidate(aiSummaryProvider);
+    unawaited(_refreshHealthConnectStatus(syncPendingMeals: true));
+    _dashboardRefreshTimer = Timer.periodic(const Duration(minutes: 15), (_) {
+      if (!mounted) return;
+      ref.invalidate(aiSummaryProvider);
+      _refreshCaloriesBurned();
     });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _aiSummaryRefreshTimer?.cancel();
+    _healthRefreshGeneration++;
+    _dashboardRefreshTimer?.cancel();
     super.dispose();
   }
 
@@ -53,7 +59,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       // A provider batch can finish at any point during the same calendar day.
       ref.invalidate(aiSummaryProvider);
       _refreshDateSensitiveData();
-      unawaited(_refreshHealthConnectStatus());
+      unawaited(_refreshHealthConnectStatus(syncPendingMeals: true));
     }
   }
 
@@ -74,22 +80,49 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     ref.invalidate(caloriesBurnedProvider);
   }
 
-  Future<void> _refreshHealthConnectStatus() async {
-    final healthService = ref.read(healthServiceProvider);
-    await healthService.refreshAuthorizationStatus();
+  void _refreshCaloriesBurned() {
     if (!mounted) return;
+    ref.invalidate(caloriesBurnedProvider);
+    setState(() => _healthConnectRefreshTrigger++);
+  }
 
-    setState(() {
-      _healthConnectRefreshTrigger++;
-    });
+  Future<void> _refreshHealthConnectStatus({
+    bool syncPendingMeals = false,
+    bool enableNutritionSync = false,
+  }) async {
+    final generation = ++_healthRefreshGeneration;
+    final healthService = ref.read(healthServiceProvider);
+    final hadNutritionWrite = healthService.canWriteNutrition;
+    await healthService.refreshAuthorizationStatus();
+    if (!mounted || generation != _healthRefreshGeneration) return;
+
+    try {
+      final syncService = ref.read(healthConnectSyncServiceProvider);
+      await syncService.reconcileAuthorization();
+      final gainedNutritionWrite =
+          !hadNutritionWrite && healthService.canWriteNutrition;
+      if ((enableNutritionSync || gainedNutritionWrite) &&
+          healthService.canWriteNutrition) {
+        await syncService.enableNutritionSync();
+      } else if (syncPendingMeals) {
+        await syncService.syncPending();
+      }
+      if (!mounted || generation != _healthRefreshGeneration) return;
+    } catch (_) {
+      // Pending records remain queued for the next foreground refresh.
+    }
+
+    _refreshCaloriesBurned();
   }
 
   @override
   Widget build(BuildContext context) {
     final healthService = ref.watch(healthServiceProvider);
     final isHealthConnectUnsupported =
-        healthService.status == HealthConnectSdkStatus.sdkUnavailable;
-    final isHealthConnectAuthorized = healthService.isAuthorized;
+        healthService.status == HealthConnectSdkStatus.sdkUnavailable &&
+        healthService.initializationState !=
+            HealthServiceInitializationState.failed;
+    final hasAnyHealthConnectPermission = healthService.hasAnyHealthPermission;
 
     return Scaffold(
       body: ResponsiveContent(
@@ -101,11 +134,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 const SizedBox(height: 10),
                 const AiSummaryCard(),
                 if (!isHealthConnectUnsupported &&
-                    !isHealthConnectAuthorized) ...[
+                    !hasAnyHealthConnectPermission) ...[
                   const SizedBox(height: 10),
                   HealthConnectPromptCard(
                     healthService: healthService,
-                    onSetupComplete: _refreshHealthConnectStatus,
+                    onSetupComplete:
+                        ({required enableNutritionSync}) =>
+                            _refreshHealthConnectStatus(
+                              syncPendingMeals: true,
+                              enableNutritionSync: enableNutritionSync,
+                            ),
                   ),
                 ],
                 const SizedBox(height: 10),

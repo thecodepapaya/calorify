@@ -26,4 +26,11 @@ class MealInfoTable extends Table {
   // Immutable V2 result snapshot. Local nutrition can finish without creating
   // a backend session, so the exact rows/versions used must live with the meal.
   TextColumn get analysisSnapshotJson => text().nullable()();
+
+  /// Stable identity for the corresponding app-owned Health Connect record.
+  TextColumn get healthConnectRecordId => text().nullable()();
+
+  /// Version sent with [healthConnectRecordId] for idempotent updates.
+  IntColumn get healthConnectRecordVersion =>
+      integer().withDefault(const Constant(0))();
 }

@@ -13,5 +13,8 @@ class UserPreferencesTable extends Table {
   BoolColumn get offlineNutritionEnabled =>
       boolean().withDefault(const Constant(false))();
   TextColumn get localInferenceAcknowledgedPolicyVersion => text().nullable()();
+  // Null lets upgrades adopt an already-granted Health Connect permission
+  // once. Thereafter the explicit in-app sync choice is persisted.
+  BoolColumn get healthConnectNutritionSyncEnabled => boolean().nullable()();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

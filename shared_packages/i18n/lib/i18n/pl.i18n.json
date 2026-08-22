@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Połącz z Health Connect",
-      "description": "Synchronizuj dane zdrowotne, aby uzyskać lepsze informacje i automatyczne śledzenie kalorii",
+      "description": "Wykorzystuj spalone kalorie w swoim dziennym celu i opcjonalnie udostępniaj zapisane posiłki w Health Connect.",
       "automaticTracking": {
-        "title": "Automatyczne śledzenie kalorii",
-        "description": "Śledź kalorie spalane przez Twoje aplikacje fitness"
+        "title": "Spalone kalorie",
+        "description": "Odczytuj dzisiejszą całkowitą liczbę spalonych kalorii z Health Connect"
       },
       "progressInsights": {
-        "title": "Wgląd w postępy",
-        "description": "Otrzymuj szczegółowe informacje o trendach zdrowotnych"
+        "title": "Udostępniaj zapisane posiłki",
+        "description": "Zapisuj w Health Connect posiłki zarejestrowane w Calorify"
       },
       "seamlessIntegration": {
-        "title": "Bezproblemowa integracja",
-        "description": "Synchronizuj dane z ulubionych aplikacji zdrowotnych"
+        "title": "Masz kontrolę",
+        "description": "Wybierz dowolne uprawnienie i zmieniaj dostęp w każdej chwili"
       },
       "connected": "Health Connect połączony",
       "notConnected": "Health Connect niepołączony",
@@ -101,6 +101,12 @@
       "skipForNow": "Pomiń na razie",
       "statusConnected": "Health Connect jest połączony.",
       "statusSuccess": "Health Connect został pomyślnie połączony!",
+      "statusNotConnected": "Wybierz funkcje Health Connect, które chcesz włączyć.",
+      "statusPartial": "Health Connect jest częściowo połączony. Włącz pozostałe uprawnienie, aby korzystać z obu funkcji.",
+      "statusProviderUpdateRequired": "Zainstaluj lub zaktualizuj Health Connect, aby kontynuować.",
+      "statusUnavailable": "Health Connect nie jest obsługiwany na tym urządzeniu.",
+      "installOrUpdate": "Zainstaluj lub zaktualizuj",
+      "manageAccess": "Zarządzaj dostępem",
       "statusPermissionDenied": "Odmowa uprawnień. Włącz uprawnienia Health Connect w ustawieniach telefonu dla {appLabel}.",
       "statusError": "Błąd podczas konfiguracji Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Synchronizuj z Health Connect",
-      "description": "Synchronizuj swoje dane żywieniowe z Health Connect",
-      "install": "Zainstaluj",
+      "description": "Wykorzystuj spalone kalorie w swoim celu i udostępniaj zapisane posiłki",
+      "install": "Zainstaluj lub zaktualizuj",
       "connect": "Połącz"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Wyczyść wszystkie dane",
-      "subtitle": "Trwale usuń wszystkie swoje informacje",
+      "subtitle": "Usuń dane Calorify zapisane na tym urządzeniu",
       "confirmationTitle": "Wyczyścić wszystkie dane?",
-      "confirmationMessage": "Ta operacja jest nieodwracalna. Wszystkie zapisane posiłki, ulubione i ustawienia profilu zostaną trwale usunięte.",
+      "confirmationMessage": "Spowoduje to trwałe usunięcie zapisanych posiłków, ulubionych i ustawień profilu z tego urządzenia. Posiłkami udostępnionymi już w Health Connect i dostępem do Health Connect zarządza się osobno w Ustawienia > Health Connect.",
       "cancel": "Anuluj",
       "clearEverything": "Wyczyść wszystko"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Wyświetl i zarządzaj uprawnieniami",
       "unavailable": {
         "title": "Health Connect niedostępny",
-        "description": "Health Connect jest niedostępny na tym urządzeniu. Zainstaluj Health Connect z Play Store (Android 9+) lub zaktualizuj do Android 14+."
+        "description": "Health Connect nie jest obsługiwany na tym urządzeniu."
+      },
+      "updateRequired": {
+        "title": "Health Connect wymaga uwagi",
+        "description": "Zainstaluj lub zaktualizuj Health Connect przed zarządzaniem dostępem.",
+        "action": "Zainstaluj lub zaktualizuj"
       },
       "permissions": {
         "title": "Uprawnienia",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Zarządzaj uprawnieniami",
       "openSettings": "Otwórz ustawienia Health Connect",
+      "disconnect": "Odłącz Health Connect",
+      "disconnectConfirmationTitle": "Odłączyć Health Connect?",
+      "disconnectConfirmationMessage": "Calorify utraci dostęp do Health Connect. Dane już tam zapisane nie zostaną usunięte.",
+      "disconnectConfirmationAction": "Odłącz",
+      "deleteSyncedMeals": "Usuń posiłki Calorify z Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Usunąć zsynchronizowane posiłki?",
+      "deleteSyncedMealsConfirmationMessage": "Usunąć z Health Connect posiłki zsynchronizowane przez tę wersję Calorify? Lokalny dziennik posiłków nie ulegnie zmianie. Starsze wpisy Calorify mogą nadal wymagać usunięcia za pomocą opcji Zarządzaj danymi w Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Usuń zsynchronizowane posiłki",
+      "deleteSyncedMealsSuccess": "Posiłki Calorify zostały usunięte z Health Connect.",
+      "deleteSyncedMealsFailed": "Nie udało się usunąć zsynchronizowanych posiłków. Spróbuj ponownie.",
+      "connectionPartial": "Niektóre funkcje Health Connect są włączone.",
+      "connectionComplete": "Obie funkcje Health Connect są włączone.",
+      "actionFailed": "Nie udało się otworzyć Health Connect. Spróbuj ponownie.",
       "requestPermissions": "Poproś o uprawnienia",
       "permissionRequestCancelledOrFailed": "Żądanie uprawnień zostało anulowane lub nie powiodło się. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.",
       "permissionRequestFailed": "Nie można poprosić o uprawnienia. Spróbuj ponownie lub przyznaj uprawnienia ręcznie w ustawieniach Health Connect.",
@@ -596,7 +620,7 @@
         "title": "Twoja prywatność ma znaczenie",
         "description": "Prywatność to nie dodatek — to zasada projektowa. Oto, co to oznacza w praktyce:",
         "noAccounts": "Brak wymaganych kont\nKorzystaj z aplikacji od razu. Bez rejestracji, bez tworzenia tożsamości.",
-        "noTracking": "Brak śledzenia zachowań\n{appLabel} nie monitoruje Twojej aktywności, nie tworzy profili użytkowania ani nie śledzi Cię między aplikacjami czy stronami.",
+        "noTracking": "Ograniczona analityka i diagnostyka\n{appLabel} wykorzystuje podstawowe zdarzenia w aplikacji i diagnostykę awarii, aby zwiększać niezawodność. Wartości danych zdrowotnych nie są wykorzystywane do reklam ani sprzedawane.",
         "noAds": "Brak reklam z założenia\n{appLabel} działa bez reklam i monetyzacji opartej na danych.",
         "noDataSelling": "Brak sprzedaży danych\nTwoje dane zdrowotne nigdy nie są sprzedawane ani udostępniane stronom trzecim.",
         "localStorage": "Priorytet lokalny\nTwoje dane pozostają na urządzeniu.",

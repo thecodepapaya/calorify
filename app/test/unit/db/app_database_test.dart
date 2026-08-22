@@ -120,8 +120,9 @@ Meal _meal(String name) => Meal(
 void main() {
   late AppDatabase database;
 
-  setUp(() {
+  setUp(() async {
     database = AppDatabase.forTesting(NativeDatabase.memory());
+    await database.setHealthConnectNutritionSyncEnabled(true);
   });
 
   tearDown(() => database.close());
@@ -132,6 +133,83 @@ void main() {
 
     final meals = await database.paginatedMealsHistory(offset: 0);
     expect(meals, hasLength(1));
+  });
+
+  test(
+    'meal mutations maintain a durable versioned Health Connect outbox',
+    () async {
+      final loggedAt = DateTime(2026, 8, 22, 9, 30);
+      await database.logMeal(_meal('Apple'), loggedAt: loggedAt);
+
+      var pending = await database.getPendingHealthConnectSyncs();
+      expect(pending, hasLength(1));
+      final first = pending.single;
+      expect(first.operation, HealthConnectSyncOperation.upsert);
+      expect(first.clientRecordId, startsWith('calorify-meal-'));
+      expect(first.clientRecordVersion, 1);
+      expect(first.meal?.name, 'Apple');
+      expect(first.loggedAt, loggedAt);
+
+      final stored = (await database.paginatedMealsHistory(offset: 0)).single;
+      await database.upsertMeal(
+        LoggedMeal(
+          clientId: stored.clientId,
+          meal: _meal('Edited apple'),
+          createdAt: dateTimeToIso8601String(loggedAt),
+        ),
+      );
+
+      pending = await database.getPendingHealthConnectSyncs();
+      expect(pending, hasLength(1));
+      expect(pending.single.clientRecordId, first.clientRecordId);
+      expect(pending.single.clientRecordVersion, 2);
+      expect(pending.single.meal?.name, 'Edited apple');
+
+      await database.deleteMeal(stored.clientId);
+      pending = await database.getPendingHealthConnectSyncs();
+      expect(pending, hasLength(1));
+      expect(pending.single.operation, HealthConnectSyncOperation.delete);
+      expect(pending.single.clientRecordId, first.clientRecordId);
+      expect(pending.single.clientRecordVersion, 3);
+      expect(pending.single.meal, isNull);
+    },
+  );
+
+  test(
+    'duplicate analysis retry does not create another sync operation',
+    () async {
+      await database.logMeal(_meal('Apple'), analysisId: 'same-analysis');
+      await database.logMeal(_meal('Apple'), analysisId: 'same-analysis');
+
+      final pending = await database.getPendingHealthConnectSyncs();
+      expect(pending, hasLength(1));
+      expect(pending.single.clientRecordVersion, 1);
+    },
+  );
+
+  test('meals logged before export opt-in are not queued', () async {
+    await database.setHealthConnectNutritionSyncEnabled(false);
+
+    await database.logMeal(_meal('Private apple'));
+
+    expect(await database.getPendingHealthConnectSyncs(), isEmpty);
+    final row =
+        await database
+            .customSelect(
+              'SELECT health_connect_record_id FROM meal_info_table',
+            )
+            .getSingle();
+    expect(row.readNullable<String>('health_connect_record_id'), isNull);
+  });
+
+  test('clear all stays local and removes queued meal payloads', () async {
+    await database.logMeal(_meal('Apple'));
+    expect(await database.getPendingHealthConnectSyncs(), isNotEmpty);
+
+    await database.clearAllData();
+
+    expect(await database.getPendingHealthConnectSyncs(), isEmpty);
+    expect(await database.paginatedMealsHistory(offset: 0), isEmpty);
   });
 
   test('concurrent meal-analysis retries insert one row atomically', () async {
@@ -370,6 +448,7 @@ void main() {
       expect(columns, contains('local_inference_enabled'));
       expect(columns, contains('local_inference_acknowledged_policy_version'));
       expect(columns, contains('offline_nutrition_enabled'));
+      expect(columns, contains('health_connect_nutrition_sync_enabled'));
       expect(preferences.enabled, isFalse);
       expect(preferences.offlineNutritionEnabled, isFalse);
       expect(preferences.acknowledgedPolicyVersion, isNull);

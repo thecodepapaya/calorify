@@ -25,6 +25,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     await AppInitialization.initialize(
       database: ref.read(databaseInterfaceProvider),
       healthService: ref.read(healthServiceProvider),
+      healthConnectSyncService: ref.read(healthConnectSyncServiceProvider),
       profileRepository: ref.read(profileRepositoryProvider),
     );
 

@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Health Connect ile bağlanın",
-      "description": "Daha iyi içgörüler ve otomatik kalori takibi için sağlık verilerinizi senkronize edin",
+      "description": "Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.",
       "automaticTracking": {
-        "title": "Otomatik Kalori Takibi",
-        "description": "Fitness uygulamalarından yanan kalorileri takip edin"
+        "title": "Yakılan Kaloriler",
+        "description": "Bugün yakılan toplam kaloriyi Health Connect'ten okuyun"
       },
       "progressInsights": {
-        "title": "İlerleme İçgörüleri",
-        "description": "Sağlık eğilimleriniz hakkında detaylı içgörüler edinin"
+        "title": "Kaydedilen Öğünleri Paylaş",
+        "description": "Calorify'da kaydettiğiniz öğünleri Health Connect'e yazın"
       },
       "seamlessIntegration": {
-        "title": "Sorunsuz Entegrasyon",
-        "description": "Favori sağlık uygulamalarınızdan veri senkronize edin"
+        "title": "Kontrol Sizde",
+        "description": "İki izinden birini seçin ve erişimi istediğiniz zaman değiştirin"
       },
       "connected": "Health Connect Bağlandı",
       "notConnected": "Health Connect Bağlı Değil",
@@ -101,6 +101,12 @@
       "skipForNow": "Şimdi atla",
       "statusConnected": "Health Connect bağlı.",
       "statusSuccess": "Health Connect başarıyla bağlandı!",
+      "statusNotConnected": "Etkinleştirmek istediğiniz Health Connect özelliklerini seçin.",
+      "statusPartial": "Health Connect kısmen bağlı. Her iki özelliği de kullanmak için kalan izni etkinleştirin.",
+      "statusProviderUpdateRequired": "Devam etmek için Health Connect'i yükleyin veya güncelleyin.",
+      "statusUnavailable": "Health Connect bu cihazda desteklenmiyor.",
+      "installOrUpdate": "Yükle veya güncelle",
+      "manageAccess": "Erişimi yönet",
       "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.",
       "statusError": "Health Connect kurulurken hata: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Health Connect ile Senkronize Et",
-      "description": "Beslenme verilerinizi Health Connect ile senkronize edin",
-      "install": "Yükle",
+      "description": "Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın",
+      "install": "Yükle veya güncelle",
       "connect": "Bağla"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Tüm Verileri Temizle",
-      "subtitle": "Tüm bilgilerinizi geri dönülemez şekilde silin",
+      "subtitle": "Bu cihazda saklanan Calorify verilerini silin",
       "confirmationTitle": "Tüm Veriler Temizlensin mi?",
-      "confirmationMessage": "Bu işlem geri alınamaz. Tüm kaydedilmiş öğünleriniz, favorileriniz ve profil ayarlarınız kalıcı olarak silinecektir.",
+      "confirmationMessage": "Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.",
       "cancel": "İptal",
       "clearEverything": "Her Şeyi Temizle"
     },
@@ -555,7 +561,12 @@
       "subtitle": "İzinleri görüntüleyin ve yönetin",
       "unavailable": {
         "title": "Health Connect Kullanılamıyor",
-        "description": "Bu cihazda Health Connect kullanılamıyor. Lütfen Play Store'dan Health Connect'i yükleyin (Android 9+) veya Android 14+'e güncelleyin."
+        "description": "Health Connect bu cihazda desteklenmiyor."
+      },
+      "updateRequired": {
+        "title": "Health Connect ile ilgilenmeniz gerekiyor",
+        "description": "Erişimi yönetmeden önce Health Connect'i yükleyin veya güncelleyin.",
+        "action": "Yükle veya güncelle"
       },
       "permissions": {
         "title": "İzinler",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "İzinleri Yönet",
       "openSettings": "Health Connect Ayarlarını Aç",
+      "disconnect": "Health Connect bağlantısını kes",
+      "disconnectConfirmationTitle": "Health Connect bağlantısı kesilsin mi?",
+      "disconnectConfirmationMessage": "Calorify, Health Connect erişimini kaybedecek. Önceden yazılmış veriler silinmeyecek.",
+      "disconnectConfirmationAction": "Bağlantıyı kes",
+      "deleteSyncedMeals": "Calorify öğünlerini Health Connect'ten sil",
+      "deleteSyncedMealsConfirmationTitle": "Senkronize edilen öğünler silinsin mi?",
+      "deleteSyncedMealsConfirmationMessage": "Calorify'ın bu sürümü tarafından senkronize edilen öğünler Health Connect'ten silinsin mi? Yerel öğün günlüğünüz değişmez. Eski Calorify kayıtlarının Health Connect'teki Verileri Yönet bölümünden ayrıca kaldırılması gerekebilir.",
+      "deleteSyncedMealsConfirmationAction": "Senkronize edilen öğünleri sil",
+      "deleteSyncedMealsSuccess": "Calorify öğünleri Health Connect'ten silindi.",
+      "deleteSyncedMealsFailed": "Senkronize edilen öğünler silinemedi. Lütfen tekrar deneyin.",
+      "connectionPartial": "Bazı Health Connect özellikleri etkin.",
+      "connectionComplete": "Her iki Health Connect özelliği de etkin.",
+      "actionFailed": "Health Connect açılamadı. Lütfen tekrar deneyin.",
       "requestPermissions": "İzin İste",
       "permissionRequestCancelledOrFailed": "İzin isteği iptal edildi veya başarısız oldu. Lütfen tekrar deneyin veya izinleri Health Connect ayarlarından manuel olarak verin.",
       "permissionRequestFailed": "İzin isteği yapılamıyor. Lütfen tekrar deneyin veya izinleri Health Connect ayarlarından manuel olarak verin.",
@@ -596,7 +620,7 @@
         "title": "Gizliliğiniz Önemli",
         "description": "Gizlilik sonradan düşünülmüş bir unsur değil — bir tasarım ilkesidir. Bu pratikte şu anlama gelir:",
         "noAccounts": "Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.",
-        "noTracking": "Davranışsal izleme yok\n{appLabel} etkinliğinizi izlemez, kullanımı profillemez veya uygulamalar/veb siteleri arasında sizi takip etmez.",
+        "noTracking": "Sınırlı analiz ve tanılama\n{appLabel}, güvenilirliği artırmak için temel uygulama etkinliklerini ve kilitlenme tanılamasını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.",
         "noAds": "Reklamsız tasarım\n{appLabel} reklamlar veya veri odaklı para kazanma yöntemleri olmadan çalışacak şekilde tasarlandı.",
         "noDataSelling": "Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.",
         "localStorage": "Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.",

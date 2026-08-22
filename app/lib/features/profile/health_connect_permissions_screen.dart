@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:calorify/core/constants/analytics_events.dart';
-import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/core/constants/colors.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
-import 'package:calorify/core/services/analytics.dart';
+import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:health/health.dart';
 import 'package:i18n/i18n.dart';
@@ -27,9 +26,17 @@ class _HealthConnectPermissionsScreenState
     extends ConsumerState<HealthConnectPermissionsScreen>
     with WidgetsBindingObserver {
   bool _isLoading = true;
-  bool _isHealthConnectAvailable = false;
   bool _isRequestingPermissions = false;
+  HealthConnectSdkStatus _sdkStatus = HealthConnectSdkStatus.sdkUnavailable;
+  Object? _loadError;
+  int _checkGeneration = 0;
   Map<HealthDataType, Map<HealthDataAccess, bool>> _permissionStatus = {};
+
+  bool get _isHealthConnectAvailable =>
+      _sdkStatus == HealthConnectSdkStatus.sdkAvailable;
+
+  bool get _isProviderUpdateRequired =>
+      _sdkStatus == HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
 
   @override
   void initState() {
@@ -40,61 +47,64 @@ class _HealthConnectPermissionsScreenState
 
   @override
   void dispose() {
+    _checkGeneration++;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      unawaited(_checkPermissions());
+    if (state == AppLifecycleState.resumed && !_isRequestingPermissions) {
+      unawaited(_checkPermissions(showLoading: false));
     }
   }
 
-  Future<void> _checkPermissions() async {
-    setState(() => _isLoading = true);
-
-    final healthService = ref.read(healthServiceProvider);
-    await healthService.init();
-
-    final isAvailable =
-        healthService.status == HealthConnectSdkStatus.sdkAvailable;
-
-    final permissionStatus = <HealthDataType, Map<HealthDataAccess, bool>>{};
-
-    if (isAvailable) {
-      // Check each permission
-      final caloriesBurnedRead = await healthService.hasPermission(
-        HealthDataType.TOTAL_CALORIES_BURNED,
-        HealthDataAccess.READ,
-      );
-
-      final nutritionRead = await healthService.hasPermission(
-        HealthDataType.NUTRITION,
-        HealthDataAccess.READ,
-      );
-
-      final nutritionWrite = await healthService.hasPermission(
-        HealthDataType.NUTRITION,
-        HealthDataAccess.WRITE,
-      );
-
-      permissionStatus[HealthDataType.TOTAL_CALORIES_BURNED] = {
-        HealthDataAccess.READ: caloriesBurnedRead,
-      };
-
-      permissionStatus[HealthDataType.NUTRITION] = {
-        HealthDataAccess.READ: nutritionRead,
-        HealthDataAccess.WRITE: nutritionWrite,
-      };
+  Future<void> _checkPermissions({bool showLoading = true}) async {
+    final generation = ++_checkGeneration;
+    if (mounted && showLoading) {
+      setState(() {
+        _isLoading = true;
+        _loadError = null;
+      });
     }
 
-    if (!mounted) return;
-    setState(() {
-      _isHealthConnectAvailable = isAvailable;
-      _permissionStatus = permissionStatus;
-      _isLoading = false;
-    });
+    try {
+      final healthService = ref.read(healthServiceProvider);
+      final hadNutritionWrite = healthService.canWriteNutrition;
+      await healthService.refreshAuthorizationStatus();
+      if (healthService.initializationState ==
+          HealthServiceInitializationState.failed) {
+        throw healthService.lastError ??
+            StateError('Health Connect initialization failed');
+      }
+      if (!mounted || generation != _checkGeneration) return;
+
+      setState(() {
+        _sdkStatus = healthService.status;
+        _permissionStatus = {
+          HealthDataType.TOTAL_CALORIES_BURNED: {
+            HealthDataAccess.READ: healthService.canReadTotalCalories,
+          },
+          HealthDataType.NUTRITION: {
+            HealthDataAccess.WRITE: healthService.canWriteNutrition,
+          },
+        };
+        _loadError = null;
+      });
+      unawaited(
+        _reconcileAndSync(
+          enableNutritionSync:
+              !hadNutritionWrite && healthService.canWriteNutrition,
+        ),
+      );
+    } catch (error) {
+      if (!mounted || generation != _checkGeneration) return;
+      setState(() => _loadError = error);
+    } finally {
+      if (mounted && generation == _checkGeneration) {
+        setState(() => _isLoading = false);
+      }
+    }
   }
 
   bool _areAllPermissionsGranted() {
@@ -102,23 +112,39 @@ class _HealthConnectPermissionsScreenState
       return false;
     }
 
-    // Check if all required permissions are granted
     final caloriesBurnedRead =
         _permissionStatus[HealthDataType
             .TOTAL_CALORIES_BURNED]?[HealthDataAccess.READ] ??
-        false;
-    final nutritionRead =
-        _permissionStatus[HealthDataType.NUTRITION]?[HealthDataAccess.READ] ??
         false;
     final nutritionWrite =
         _permissionStatus[HealthDataType.NUTRITION]?[HealthDataAccess.WRITE] ??
         false;
 
-    return caloriesBurnedRead && nutritionRead && nutritionWrite;
+    return caloriesBurnedRead && nutritionWrite;
+  }
+
+  bool _hasAnyPermission() =>
+      (_permissionStatus[HealthDataType.TOTAL_CALORIES_BURNED]?[HealthDataAccess
+              .READ] ??
+          false) ||
+      (_permissionStatus[HealthDataType.NUTRITION]?[HealthDataAccess.WRITE] ??
+          false);
+
+  Future<void> _reconcileAndSync({bool enableNutritionSync = false}) async {
+    try {
+      final syncService = ref.read(healthConnectSyncServiceProvider);
+      await syncService.reconcileAuthorization();
+      if (enableNutritionSync) {
+        await syncService.enableNutritionSync();
+      } else {
+        await syncService.syncPending();
+      }
+    } catch (_) {
+      // Pending records remain queued and will be retried on the next refresh.
+    }
   }
 
   Future<void> _requestPermissions() async {
-    // Prevent multiple simultaneous requests
     if (_isRequestingPermissions) {
       return;
     }
@@ -128,45 +154,26 @@ class _HealthConnectPermissionsScreenState
     });
 
     try {
-      final success =
-          await ref.read(healthServiceProvider).requestAuthorization();
+      final healthService = ref.read(healthServiceProvider);
+      final hadNutritionWrite = healthService.canWriteNutrition;
+      final success = await healthService.requestAuthorization();
+      if (!hadNutritionWrite && healthService.canWriteNutrition) {
+        await ref.read(healthConnectSyncServiceProvider).enableNutritionSync();
+      }
 
-      // Always refresh permissions after request, regardless of success
-      await _checkPermissions();
+      await _checkPermissions(showLoading: false);
       if (!mounted) return;
 
-      // Track permission result
-      if (success && _areAllPermissionsGranted()) {
-        Analytics.instance.logEvent(
-          AnalyticsEvent.healthConnectPermissionGranted,
-        );
-      } else {
-        Analytics.instance.logEvent(
-          AnalyticsEvent.healthConnectPermissionDenied,
+      if (!success && !_hasAnyPermission()) {
+        _showMessage(
+          t.settings.healthConnect.permissionRequestCancelledOrFailed,
         );
       }
-
+    } catch (_) {
       if (mounted) {
-        if (!success) {
-          // If request failed, show helpful message
-          showFlushbar(
-            t.settings.healthConnect.permissionRequestCancelledOrFailed,
-            duration: const Duration(seconds: 4),
-            context: context,
-          );
-        }
+        _showMessage(t.settings.healthConnect.permissionRequestFailed);
       }
-    } catch (e) {
-      // Handle any errors gracefully
-      if (mounted) {
-        showFlushbar(
-          t.settings.healthConnect.permissionRequestFailed,
-          duration: const Duration(seconds: 4),
-          context: context,
-        );
-      }
-      // Still refresh permissions in case something changed
-      if (mounted) await _checkPermissions();
+      if (mounted) await _checkPermissions(showLoading: false);
     } finally {
       if (mounted) {
         setState(() {
@@ -174,6 +181,136 @@ class _HealthConnectPermissionsScreenState
         });
       }
     }
+  }
+
+  Future<void> _installOrUpdate() async {
+    if (_isRequestingPermissions) return;
+    setState(() => _isRequestingPermissions = true);
+    try {
+      await ref.read(healthServiceProvider).installHealthConnect();
+    } catch (_) {
+      if (mounted) _showMessage(t.settings.healthConnect.actionFailed);
+    } finally {
+      if (mounted) setState(() => _isRequestingPermissions = false);
+    }
+  }
+
+  Future<void> _openSettings() async {
+    if (_isRequestingPermissions) return;
+    setState(() => _isRequestingPermissions = true);
+    try {
+      final opened =
+          await ref.read(healthServiceProvider).openHealthConnectSettings();
+      if (!opened && mounted) {
+        _showMessage(t.settings.healthConnect.actionFailed);
+      }
+    } catch (_) {
+      if (mounted) _showMessage(t.settings.healthConnect.actionFailed);
+    } finally {
+      if (mounted) setState(() => _isRequestingPermissions = false);
+    }
+  }
+
+  Future<void> _disconnect() async {
+    if (_isRequestingPermissions) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(t.settings.healthConnect.disconnectConfirmationTitle),
+            content: Text(
+              t.settings.healthConnect.disconnectConfirmationMessage,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: Text(t.settings.clearAllData.cancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                child: Text(
+                  t.settings.healthConnect.disconnectConfirmationAction,
+                ),
+              ),
+            ],
+          ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    setState(() => _isRequestingPermissions = true);
+    try {
+      final revoked =
+          await ref.read(healthConnectSyncServiceProvider).disconnect();
+      if (!revoked) {
+        if (mounted) _showMessage(t.settings.healthConnect.actionFailed);
+        return;
+      }
+      if (mounted) {
+        setState(() {
+          _permissionStatus = {
+            HealthDataType.TOTAL_CALORIES_BURNED: {
+              HealthDataAccess.READ: false,
+            },
+            HealthDataType.NUTRITION: {HealthDataAccess.WRITE: false},
+          };
+        });
+      }
+    } catch (_) {
+      if (mounted) _showMessage(t.settings.healthConnect.actionFailed);
+    } finally {
+      if (mounted) setState(() => _isRequestingPermissions = false);
+    }
+  }
+
+  Future<void> _deleteSyncedMeals() async {
+    if (_isRequestingPermissions) return;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(
+              t.settings.healthConnect.deleteSyncedMealsConfirmationTitle,
+            ),
+            content: Text(
+              t.settings.healthConnect.deleteSyncedMealsConfirmationMessage,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: Text(t.settings.clearAllData.cancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                child: Text(
+                  t.settings.healthConnect.deleteSyncedMealsConfirmationAction,
+                ),
+              ),
+            ],
+          ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    setState(() => _isRequestingPermissions = true);
+    try {
+      await ref.read(healthConnectSyncServiceProvider).deleteSyncedMeals();
+      if (mounted) {
+        _showMessage(t.settings.healthConnect.deleteSyncedMealsSuccess);
+      }
+    } catch (_) {
+      if (mounted) {
+        _showMessage(t.settings.healthConnect.deleteSyncedMealsFailed);
+      }
+    } finally {
+      if (mounted) setState(() => _isRequestingPermissions = false);
+    }
+  }
+
+  void _showMessage(String message) {
+    showFlushbar(
+      message,
+      duration: const Duration(seconds: 4),
+      context: context,
+    );
   }
 
   @override
@@ -209,16 +346,77 @@ class _HealthConnectPermissionsScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (!_isHealthConnectAvailable) ...[
+          if (_loadError != null || !_isHealthConnectAvailable) ...[
             _buildUnavailableCard(colorScheme, theme),
             _verticalSpacing(24),
-          ],
-          _buildSectionHeader(theme, colorScheme),
-          _verticalSpacing(24),
-          ..._buildPermissionCards(context),
-          if (_isHealthConnectAvailable && !_areAllPermissionsGranted()) ...[
+            _buildActionButton(
+              onPressed:
+                  _isRequestingPermissions
+                      ? null
+                      : _loadError != null
+                      ? _checkPermissions
+                      : _isProviderUpdateRequired
+                      ? _installOrUpdate
+                      : _checkPermissions,
+              icon:
+                  _loadError != null
+                      ? LucideIcons.refreshCw
+                      : _isProviderUpdateRequired
+                      ? LucideIcons.download
+                      : LucideIcons.refreshCw,
+              label:
+                  _loadError != null
+                      ? t.errors.retry
+                      : _isProviderUpdateRequired
+                      ? t.settings.healthConnect.updateRequired.action
+                      : t.errors.retry,
+              isPrimary: true,
+            ),
+          ] else ...[
+            _buildConnectionSummary(theme, colorScheme),
             _verticalSpacing(24),
-            _buildManagePermissionsButton(context, colorScheme, theme),
+            _buildSectionHeader(theme, colorScheme),
+            _verticalSpacing(24),
+            ..._buildPermissionCards(context),
+            _verticalSpacing(24),
+            if (!_areAllPermissionsGranted()) ...[
+              _buildActionButton(
+                onPressed:
+                    _isRequestingPermissions ? null : _requestPermissions,
+                icon: LucideIcons.link,
+                label:
+                    _isRequestingPermissions
+                        ? t.settings.healthConnect.requestingPermissions
+                        : t.settings.healthConnect.requestPermissions,
+                isPrimary: true,
+              ),
+              _verticalSpacing(12),
+            ],
+            _buildActionButton(
+              onPressed: _isRequestingPermissions ? null : _openSettings,
+              icon: LucideIcons.settings,
+              label: t.settings.healthConnect.openSettings,
+            ),
+            if (_permissionStatus[HealthDataType.NUTRITION]?[HealthDataAccess
+                    .WRITE] ??
+                false) ...[
+              _verticalSpacing(12),
+              _buildActionButton(
+                onPressed: _isRequestingPermissions ? null : _deleteSyncedMeals,
+                icon: LucideIcons.trash2,
+                label: t.settings.healthConnect.deleteSyncedMeals,
+                isDestructive: true,
+              ),
+            ],
+            if (_hasAnyPermission()) ...[
+              _verticalSpacing(12),
+              _buildActionButton(
+                onPressed: _isRequestingPermissions ? null : _disconnect,
+                icon: LucideIcons.unplug,
+                label: t.settings.healthConnect.disconnect,
+                isDestructive: true,
+              ),
+            ],
           ],
           _verticalSpacing(32),
         ],
@@ -259,14 +457,6 @@ class _HealthConnectPermissionsScreenState
       ),
       (
         type: HealthDataType.NUTRITION,
-        access: HealthDataAccess.READ,
-        title: t.settings.healthConnect.permissions.nutritionRead.title,
-        description:
-            t.settings.healthConnect.permissions.nutritionRead.description,
-        usage: t.settings.healthConnect.permissions.nutritionRead.usage,
-      ),
-      (
-        type: HealthDataType.NUTRITION,
         access: HealthDataAccess.WRITE,
         title: t.settings.healthConnect.permissions.nutritionWrite.title,
         description:
@@ -293,6 +483,19 @@ class _HealthConnectPermissionsScreenState
   Widget _verticalSpacing(double height) => SizedBox(height: height);
 
   Widget _buildUnavailableCard(ColorScheme colorScheme, ThemeData theme) {
+    final title =
+        _loadError != null
+            ? t.errors.somethingWentWrong
+            : _isProviderUpdateRequired
+            ? t.settings.healthConnect.updateRequired.title
+            : t.settings.healthConnect.unavailable.title;
+    final description =
+        _loadError != null
+            ? t.settings.healthConnect.permissionRequestFailed
+            : _isProviderUpdateRequired
+            ? t.settings.healthConnect.updateRequired.description
+            : t.settings.healthConnect.unavailable.unsupportedDescription;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -309,7 +512,7 @@ class _HealthConnectPermissionsScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  t.settings.healthConnect.unavailable.title,
+                  title,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onErrorContainer,
@@ -317,7 +520,7 @@ class _HealthConnectPermissionsScreenState
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  t.settings.healthConnect.unavailable.description,
+                  description,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: colorScheme.onErrorContainer.withValues(alpha: 0.8),
                   ),
@@ -475,35 +678,100 @@ class _HealthConnectPermissionsScreenState
     );
   }
 
-  Widget _buildManagePermissionsButton(
-    BuildContext context,
-    ColorScheme colorScheme,
-    ThemeData theme,
-  ) {
+  Widget _buildConnectionSummary(ThemeData theme, ColorScheme colorScheme) {
+    final isComplete = _areAllPermissionsGranted();
+    final isPartial = _hasAnyPermission() && !isComplete;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color:
+            isComplete
+                ? colorScheme.successContainer
+                : colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            isComplete
+                ? LucideIcons.circleCheck
+                : isPartial
+                ? LucideIcons.circleDashed
+                : LucideIcons.circleOff,
+            color:
+                isComplete
+                    ? colorScheme.onSuccessContainer
+                    : colorScheme.onSurfaceVariant,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              isComplete
+                  ? t.settings.healthConnect.connectionComplete
+                  : isPartial
+                  ? t.settings.healthConnect.connectionPartial
+                  : t.onboarding.healthConnect.statusNotConnected,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required VoidCallback? onPressed,
+    required IconData icon,
+    required String label,
+    bool isPrimary = false,
+    bool isDestructive = false,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final child = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (_isRequestingPermissions && isPrimary)
+          const SizedBox.square(
+            dimension: 16,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          )
+        else
+          Icon(icon),
+        const SizedBox(width: 8),
+        Text(label),
+      ],
+    );
+
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton.icon(
-        onPressed: _isRequestingPermissions ? null : _requestPermissions,
-        icon:
-            _isRequestingPermissions
-                ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-                : const Icon(LucideIcons.settings),
-        label: Text(
-          _isRequestingPermissions
-              ? t.settings.healthConnect.requestingPermissions
-              : t.settings.healthConnect.requestPermissions,
-        ),
-        style: OutlinedButton.styleFrom(
-          padding: appButtonOutlinedPadding,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-      ),
+      child:
+          isPrimary
+              ? FilledButton(
+                onPressed: onPressed,
+                style: FilledButton.styleFrom(
+                  padding: appButtonOutlinedPadding,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: child,
+              )
+              : OutlinedButton(
+                onPressed: onPressed,
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: isDestructive ? colorScheme.error : null,
+                  padding: appButtonOutlinedPadding,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: child,
+              ),
     );
   }
 }

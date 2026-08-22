@@ -16,7 +16,8 @@ class HealthConnectPromptCard extends StatefulWidget {
   });
 
   final HealthService healthService;
-  final Future<void> Function()? onSetupComplete;
+  final Future<void> Function({required bool enableNutritionSync})?
+  onSetupComplete;
 
   @override
   State<HealthConnectPromptCard> createState() =>
@@ -32,15 +33,21 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
   ) async {
     if (_isWorking) return;
     setState(() => _isWorking = true);
+    var enableNutritionSync = false;
 
     try {
       if (isInstallRequired) {
         await widget.healthService.installHealthConnect();
       } else {
+        final nutritionPermissionWasMissing =
+            !widget.healthService.canWriteNutrition;
         try {
           final success = await widget.healthService.requestAuthorization();
+          enableNutritionSync =
+              nutritionPermissionWasMissing &&
+              widget.healthService.canWriteNutrition;
           if (!context.mounted) return;
-          if (!success) {
+          if (!success && !widget.healthService.hasAnyHealthPermission) {
             showFlushbar(
               t.settings.healthConnect.permissionRequestCancelledOrFailed,
               duration: const Duration(seconds: 5),
@@ -56,7 +63,9 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
           );
         }
       }
-      await widget.onSetupComplete?.call();
+      await widget.onSetupComplete?.call(
+        enableNutritionSync: enableNutritionSync,
+      );
     } finally {
       if (mounted) setState(() => _isWorking = false);
     }
@@ -71,6 +80,12 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
     final isInstallRequired =
         widget.healthService.status ==
         HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
+    final isRetryRequired =
+        widget.healthService.initializationState ==
+        HealthServiceInitializationState.failed;
+    final isPartiallyConnected =
+        widget.healthService.hasAnyHealthPermission &&
+        !widget.healthService.hasAllHealthPermissions;
 
     return Container(
       margin: globalMargin,
@@ -97,7 +112,7 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  t.home.connectHealth.description,
+                  t.home.connectHealth.dataUseDescription,
                   style: textTheme.bodyMedium,
                 ),
               ],
@@ -114,7 +129,11 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
             isLoading: _isWorking,
             text:
                 isInstallRequired
-                    ? t.home.connectHealth.install
+                    ? t.home.connectHealth.installOrUpdate
+                    : isRetryRequired
+                    ? t.errors.retry
+                    : isPartiallyConnected
+                    ? t.settings.healthConnect.requestPermissions
                     : t.home.connectHealth.connect,
             minimumSize: Size(40, 40),
           ),

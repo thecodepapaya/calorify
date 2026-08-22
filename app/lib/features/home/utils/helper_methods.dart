@@ -26,6 +26,7 @@ Future<void> logMeal(
     mealInfo,
     analysisId: analysisId,
     analysisSnapshot: analysisSnapshot,
+    loggedAt: loggedAt,
   );
 
   // Best-effort confirmation to the backend for V2 meals.
@@ -47,7 +48,7 @@ Future<void> logMeal(
   }
 
   if (!context.mounted) return;
-  await _writeDataToHealthConnect(context, mealInfo);
+  await _syncDataToHealthConnect(context);
   if (!context.mounted) return;
   final feedbackContext =
       parentContext ?? Navigator.of(context).overlay?.context;
@@ -83,24 +84,22 @@ Future<void> maybeShowFeedbackSheetAfterMealSaved(BuildContext context) async {
   await showFeedbackRatingSheet(context);
 }
 
-Future<bool> _writeDataToHealthConnect(
-  BuildContext context,
-  Meal mealInfo,
-) async {
-  final healthService = ProviderScope.containerOf(
+Future<bool> _syncDataToHealthConnect(BuildContext context) async {
+  final syncService = ProviderScope.containerOf(
     context,
     listen: false,
-  ).read(healthServiceProvider);
-  if (!healthService.isAuthorized) return false;
+  ).read(healthConnectSyncServiceProvider);
 
   try {
-    final isSuccess = await healthService.writeMealData(mealInfo);
-    if (!isSuccess) throw Exception(t.health.syncFailed);
+    final result = await syncService.syncPending();
+    if (result.failed > 0) throw Exception(t.health.syncFailed);
 
     if (!context.mounted) return false;
-    showFlushbar(t.health.mealSynced, context: context);
+    if (result.succeeded > 0) {
+      showFlushbar(t.health.mealSynced, context: context);
+    }
 
-    return isSuccess;
+    return result.succeeded > 0;
   } on Exception catch (e) {
     if (!context.mounted) return false;
     showFlushbar('$e', context: context);

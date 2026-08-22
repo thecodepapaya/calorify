@@ -30,6 +30,16 @@ void main() {
       () => healthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
     when(() => healthService.isAuthorized).thenReturn(true);
+    when(
+      () => healthService.initializationState,
+    ).thenReturn(HealthServiceInitializationState.ready);
+    when(() => healthService.canReadTotalCalories).thenReturn(true);
+    when(() => healthService.canWriteNutrition).thenReturn(true);
+    when(() => healthService.hasAnyHealthPermission).thenReturn(true);
+    when(() => healthService.hasAllHealthPermissions).thenReturn(true);
+    when(
+      () => healthService.refreshAuthorizationStatus(),
+    ).thenAnswer((_) async => true);
     when(() => healthService.getTotalCaloriesBurned()).thenAnswer(
       (_) async => CaloriesResult(calories: 500, usedFallback: false),
     );

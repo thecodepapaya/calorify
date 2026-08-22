@@ -82,18 +82,18 @@
     },
     "healthConnect": {
       "title": "Conectează-te la Health Connect",
-      "description": "Sincronizează datele tale de sănătate pentru informații mai bune și urmărire automată a caloriilor",
+      "description": "Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.",
       "automaticTracking": {
-        "title": "Urmărire automată a caloriilor",
-        "description": "Urmărește caloriile arse din aplicațiile tale de fitness"
+        "title": "Calorii arse",
+        "description": "Citește totalul caloriilor arse astăzi din Health Connect"
       },
       "progressInsights": {
-        "title": "Informații despre progres",
-        "description": "Obține informații detaliate despre tendințele tale de sănătate"
+        "title": "Partajează mesele înregistrate",
+        "description": "Scrie în Health Connect mesele pe care le înregistrezi în Calorify"
       },
       "seamlessIntegration": {
-        "title": "Integrare fără efort",
-        "description": "Sincronizează date din aplicațiile tale preferate de sănătate"
+        "title": "Tu deții controlul",
+        "description": "Alege oricare dintre permisiuni și modifică accesul oricând"
       },
       "connected": "Health Connect conectat",
       "notConnected": "Health Connect neconectat",
@@ -101,6 +101,12 @@
       "skipForNow": "Sari pentru moment",
       "statusConnected": "Health Connect este conectat.",
       "statusSuccess": "Health Connect a fost conectat cu succes!",
+      "statusNotConnected": "Alege funcțiile Health Connect pe care vrei să le activezi.",
+      "statusPartial": "Health Connect este conectat parțial. Activează permisiunea rămasă pentru a folosi ambele funcții.",
+      "statusProviderUpdateRequired": "Instalează sau actualizează Health Connect pentru a continua.",
+      "statusUnavailable": "Health Connect nu este acceptat pe acest dispozitiv.",
+      "installOrUpdate": "Instalează sau actualizează",
+      "manageAccess": "Gestionează accesul",
       "statusPermissionDenied": "Permisiune refuzată. Activează permisiunile Health Connect din setările telefonului pentru {appLabel}.",
       "statusError": "Eroare la configurarea Health Connect: {error}"
     },
@@ -225,8 +231,8 @@
     },
     "connectHealth": {
       "title": "Sincronizează cu Health Connect",
-      "description": "Sincronizează datele tale nutriționale cu Health Connect",
-      "install": "Instalează",
+      "description": "Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate",
+      "install": "Instalează sau actualizează",
       "connect": "Conectează-te"
     }
   },
@@ -540,9 +546,9 @@
     },
     "clearAllData": {
       "title": "Șterge toate datele",
-      "subtitle": "Șterge irevocabil toate informațiile tale",
+      "subtitle": "Șterge datele Calorify stocate pe acest dispozitiv",
       "confirmationTitle": "Ștergi toate datele?",
-      "confirmationMessage": "Această acțiune nu poate fi anulată. Toate mesele înregistrate, favoritele și setările profilului vor fi șterse definitiv.",
+      "confirmationMessage": "Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.",
       "cancel": "Anulează",
       "clearEverything": "Șterge totul"
     },
@@ -555,7 +561,12 @@
       "subtitle": "Vizualizează și gestionează permisiunile",
       "unavailable": {
         "title": "Health Connect indisponibil",
-        "description": "Health Connect nu este disponibil pe acest dispozitiv. Te rugăm instalează Health Connect din Play Store (Android 9+) sau actualizează la Android 14+."
+        "description": "Health Connect nu este acceptat pe acest dispozitiv."
+      },
+      "updateRequired": {
+        "title": "Health Connect necesită atenție",
+        "description": "Instalează sau actualizează Health Connect înainte de a gestiona accesul.",
+        "action": "Instalează sau actualizează"
       },
       "permissions": {
         "title": "Permisiuni",
@@ -580,6 +591,19 @@
       },
       "managePermissions": "Gestionare permisiuni",
       "openSettings": "Deschide setările Health Connect",
+      "disconnect": "Deconectează Health Connect",
+      "disconnectConfirmationTitle": "Deconectezi Health Connect?",
+      "disconnectConfirmationMessage": "Calorify va pierde accesul la Health Connect. Datele deja scrise acolo nu vor fi șterse.",
+      "disconnectConfirmationAction": "Deconectează",
+      "deleteSyncedMeals": "Șterge mesele Calorify din Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Ștergi mesele sincronizate?",
+      "deleteSyncedMealsConfirmationMessage": "Ștergi din Health Connect mesele sincronizate de această versiune de Calorify? Jurnalul local de mese nu se va modifica. Este posibil ca intrările Calorify mai vechi să trebuiască eliminate în continuare prin Gestionează datele din Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Șterge mesele sincronizate",
+      "deleteSyncedMealsSuccess": "Mesele Calorify au fost șterse din Health Connect.",
+      "deleteSyncedMealsFailed": "Mesele sincronizate nu au putut fi șterse. Încearcă din nou.",
+      "connectionPartial": "Unele funcții Health Connect sunt activate.",
+      "connectionComplete": "Ambele funcții Health Connect sunt activate.",
+      "actionFailed": "Health Connect nu a putut fi deschis. Încearcă din nou.",
       "requestPermissions": "Solicită permisiuni",
       "permissionRequestCancelledOrFailed": "Cererea de permisiuni a fost anulată sau a eșuat. Te rugăm încearcă din nou sau acordă permisiunile manual în setările Health Connect.",
       "permissionRequestFailed": "Imposibil de solicitat permisiuni. Te rugăm încearcă din nou sau acordă permisiunile manual în setările Health Connect.",
@@ -596,7 +620,7 @@
         "title": "Confidențialitatea ta contează",
         "description": "Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:",
         "noAccounts": "Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.",
-        "noTracking": "Fără urmărire comportamentală\n{appLabel} nu îți monitorizează activitatea, nu creează profile de utilizare și nu te urmărește în aplicații sau site-uri.",
+        "noTracking": "Analize și diagnosticare limitate\n{appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.",
         "noAds": "Fără reclame prin design\n{appLabel} este construit pentru a funcționa fără reclame sau monetizare bazată pe date.",
         "noDataSelling": "Fără vânzare de date\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite terților.",
         "localStorage": "Stocare locală prioritară\nDatele tale rămân pe dispozitivul tău.",
