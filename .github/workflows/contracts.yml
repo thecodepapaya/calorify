@@ -8,7 +8,6 @@ on:
       - "backend/package.json"
       - "backend/package-lock.json"
       - "shared_packages/models/lib/src/protos/**"
-      - "shared_packages/models/generated/kotlin/**"
       - "shared_packages/models/pubspec.yaml"
       - "shared_packages/models/pubspec.lock"
       - "scripts/common.sh"
@@ -22,7 +21,6 @@ on:
       - "backend/package.json"
       - "backend/package-lock.json"
       - "shared_packages/models/lib/src/protos/**"
-      - "shared_packages/models/generated/kotlin/**"
       - "shared_packages/models/pubspec.yaml"
       - "shared_packages/models/pubspec.lock"
       - "scripts/common.sh"
@@ -58,8 +56,7 @@ jobs:
       - name: Require committed generated output
         run: |
           changes=$(git status --short --untracked-files=all -- \
-            backend/src/protos shared_packages/models/lib/src/protos \
-            shared_packages/models/generated/kotlin)
+            backend/src/protos shared_packages/models/lib/src/protos)
           if [ -n "$changes" ]; then
             printf '%s\n' "$changes"
             printf 'Generated contract files are stale. Run ./scripts/generate_protos.sh and commit the result.\n'

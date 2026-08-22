@@ -37,7 +37,7 @@ void main() {
       final authorized = await healthService.requestAuthorization();
 
       expect(authorized, isFalse);
-      expect(healthService.isAuthorized, isFalse);
+      expect(healthService.hasAnyHealthPermission, isFalse);
     });
   });
 }

@@ -52,7 +52,13 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(false);
+    when(
+      () => mockHealthService.initializationState,
+    ).thenReturn(HealthServiceInitializationState.ready);
+    when(() => mockHealthService.canReadTotalCalories).thenReturn(false);
+    when(() => mockHealthService.canWriteNutrition).thenReturn(false);
+    when(() => mockHealthService.hasAnyHealthPermission).thenReturn(false);
+    when(() => mockHealthService.hasAllHealthPermissions).thenReturn(false);
     when(
       () => mockDatabaseInterface.getThemeMode(),
     ).thenAnswer((_) async => ThemeMode.system);

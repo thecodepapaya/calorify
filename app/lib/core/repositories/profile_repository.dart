@@ -2,36 +2,28 @@ import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:models/models.dart';
 
-abstract interface class ProfileRemoteDataSource {
-  Future<void> replaceUserProfile(UserProfile profile);
-}
-
-class NetworkProfileRemoteDataSource implements ProfileRemoteDataSource {
-  NetworkProfileRemoteDataSource({required NetworkClient networkClient})
-    : _networkClient = networkClient;
-
-  final NetworkClient _networkClient;
-
-  @override
-  Future<void> replaceUserProfile(UserProfile profile) async {
-    await _networkClient.apiCall<UserProfile, ApiResult>(
-      '/api/v1/user/profile',
-      ApiResult.new,
-      request: profile,
-      method: ProtoHttpMethod.put,
-    );
-  }
-}
-
 class ProfileRepository {
   ProfileRepository({
     required DatabaseInterface database,
-    required ProfileRemoteDataSource remote,
+    required NetworkClient networkClient,
   }) : _database = database,
-       _remote = remote;
+       _uploadProfile = ((profile) async {
+         await networkClient.apiCall<UserProfile, ApiResult>(
+           '/api/v1/user/profile',
+           ApiResult.new,
+           request: profile,
+           method: ProtoHttpMethod.put,
+         );
+       });
+
+  ProfileRepository.forTesting({
+    required DatabaseInterface database,
+    required Future<void> Function(UserProfile profile) uploadProfile,
+  }) : _database = database,
+       _uploadProfile = uploadProfile;
 
   final DatabaseInterface _database;
-  final ProfileRemoteDataSource _remote;
+  final Future<void> Function(UserProfile profile) _uploadProfile;
   Future<void> _syncTail = Future<void>.value();
 
   Future<UserProfile?> getUserProfile() => _database.getUserProfile();
@@ -44,6 +36,19 @@ class ProfileRepository {
   Future<bool> saveUserProfile(UserProfile profile) async {
     await saveLocalProfile(profile);
     return syncPendingProfile();
+  }
+
+  Future<bool> saveProfile({
+    required UserProfile profile,
+    required int dailyCalorieGoal,
+  }) {
+    final updated = profile.deepCopy();
+    if (dailyCalorieGoal > 0) {
+      updated.dailyCalorieGoal = dailyCalorieGoal;
+    } else {
+      updated.clearDailyCalorieGoal();
+    }
+    return saveUserProfile(updated);
   }
 
   Future<bool> updateDailyCalorieGoal(int goal) async {
@@ -68,7 +73,7 @@ class ProfileRepository {
       final pending = await _database.getPendingProfileSync();
       if (pending == null) return true;
       try {
-        await _remote.replaceUserProfile(pending.profile);
+        await _uploadProfile(_normalizeForUpload(pending.profile));
         if (await _database.markProfileSynced(pending.revision)) return true;
         // A newer local edit replaced this revision while the request was in
         // flight. Send that snapshot before releasing the serialized queue.
@@ -76,5 +81,14 @@ class ProfileRepository {
         return false;
       }
     }
+  }
+
+  UserProfile _normalizeForUpload(UserProfile profile) {
+    if (!profile.hasDateOfBirth()) return profile;
+    final dateOfBirth = iso8601DateToDateTime(profile.dateOfBirth);
+    if (dateOfBirth == null) return profile;
+    final normalized = profile.deepCopy();
+    normalized.dateOfBirth = dateTimeToIso8601Date(dateOfBirth);
+    return normalized;
   }
 }

@@ -95,8 +95,6 @@ await mock.module('node-cron', {
 await mock.module('../config.js', {
   defaultExport: {
     DATABASE_URL: 'postgres://mock',
-    USDA_AUTO_REFRESH_ENABLED: false,
-    USDA_REFRESH_CRON: '0 3 1 * *',
     USDA_DATA_DIR: '/tmp/usda',
     USDA_DATASET_VERSION: null,
     USDA_SOURCE_RELEASE_DATE: null,

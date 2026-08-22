@@ -93,8 +93,6 @@ abstract class DatabaseInterface {
     Object error,
   );
 
-  Future<void> clearHealthConnectSyncQueue();
-
   Future<int> countPendingHealthConnectDeletes();
 
   /// Queues deletion of every Health Connect record still linked to a local

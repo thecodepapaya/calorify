@@ -1,6 +1,8 @@
 import 'dart:async';
 
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    hide databaseInterfaceProvider;
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

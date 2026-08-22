@@ -18,7 +18,6 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
@@ -27,7 +26,6 @@ import kotlinx.coroutines.withTimeout
 class LocalInferenceChannel(
     flutterEngine: FlutterEngine,
     private val scope: CoroutineScope,
-    private val debugEnabled: Boolean,
 ) : MethodChannel.MethodCallHandler {
     private val channel = MethodChannel(
         flutterEngine.dartExecutor.binaryMessenger,
@@ -55,11 +53,6 @@ class LocalInferenceChannel(
             "downloadModel" -> launchResult(result) { downloadModel() }
             "warmUp" -> launchResult(result) { warmUp() }
             "analyzeText" -> startAnalysis(call, result)
-            "cancel" -> {
-                val requestId = call.argument<String>("requestId")
-                requestId?.let { requests.remove(it)?.cancel() }
-                result.success(null)
-            }
             else -> result.notImplemented()
         }
     }
@@ -82,7 +75,6 @@ class LocalInferenceChannel(
         result: MethodChannel.Result,
     ) {
         val requestId = call.argument<String>("requestId") ?: UUID.randomUUID().toString()
-        val debugFailure = call.argument<String>("debugFailure")
         val text = call.argument<String>("text")?.trim().orEmpty()
         val timeoutMs = (call.argument<Number>("timeoutMs")?.toLong() ?: DEFAULT_TIMEOUT_MS)
             .coerceIn(1_000L, MAX_TIMEOUT_MS)
@@ -92,28 +84,14 @@ class LocalInferenceChannel(
         }
         val job = scope.launch(start = CoroutineStart.LAZY) {
             try {
-                simulateFailure(debugFailure)
                 val startedAt = SystemClock.elapsedRealtime()
-                if (debugEnabled && debugFailure == "malformed") {
-                    result.success(malformedPayload(requestId, 0))
-                    return@launch
-                }
-                if (debugEnabled && debugFailure == "sample") {
-                    result.success(samplePayload(requestId, 0))
-                    return@launch
-                }
                 ensureReady()
                 val output = withTimeout(timeoutMs) {
                     inferText(text)
                 }
                 val elapsedMs = SystemClock.elapsedRealtime() - startedAt
                 val modelName = runCatching { model.getBaseModelName() }.getOrNull()
-                val payload = if (debugFailure == "malformed") {
-                    malformedPayload(requestId, elapsedMs)
-                } else {
-                    output.toPayload(requestId, elapsedMs, modelName)
-                }
-                result.success(payload)
+                result.success(output.toPayload(requestId, elapsedMs, modelName))
             } catch (error: Throwable) {
                 completeError(result, error)
             } finally {
@@ -147,7 +125,6 @@ class LocalInferenceChannel(
             "canDownload" to (status == FeatureStatus.DOWNLOADABLE),
             "structuredOutputSupported" to structuredOutput,
             "textSupported" to (status != FeatureStatus.UNAVAILABLE),
-            "imageSupported" to false,
             "modelName" to modelName,
             "modelVersion" to null,
         )
@@ -230,24 +207,6 @@ class LocalInferenceChannel(
         val response = model.generateContent(typedRequest)
         return response.candidates.firstOrNull()?.response
             ?: throw AdapterException("invalid_output", "Gemini Nano returned no valid proposal")
-    }
-
-    private suspend fun simulateFailure(mode: String?) {
-        if (!debugEnabled || mode.isNullOrBlank()) return
-        when (mode) {
-            "unsupported" -> throw AdapterException("unsupported_device", "Simulated unsupported device")
-            "not_ready" -> throw AdapterException("model_not_ready", "Simulated model setup")
-            "busy" -> throw AdapterException("busy", "Simulated AICore busy state")
-            "quota" -> throw AdapterException("quota_limited", "Simulated battery quota")
-            "background" -> throw AdapterException("background_blocked", "Simulated background block")
-            "thermal" -> throw AdapterException("thermally_limited", "Simulated thermal limit")
-            "model_updating" -> throw AdapterException("model_updating", "Simulated model update")
-            "timeout" -> {
-                delay(100)
-                throw AdapterException("timed_out", "Simulated inference timeout")
-            }
-            "cancelled" -> throw CancellationException("Simulated cancellation")
-        }
     }
 
     private fun completeError(result: MethodChannel.Result, error: Throwable) {
@@ -337,92 +296,6 @@ class LocalInferenceChannel(
         "interpretationOrigin" to "INTERPRETATION_ORIGIN_LOCAL_NANO",
         "modelName" to modelName,
         "modelVersion" to null,
-        "elapsedMs" to elapsedMs,
-    )
-
-    private fun malformedPayload(
-        requestId: String,
-        elapsedMs: Long,
-    ): Map<String, Any?> = mapOf(
-        "schemaVersion" to 1,
-        "proposalId" to UUID.randomUUID().toString(),
-        "requestId" to requestId,
-        "modality" to "ANALYSIS_MODALITY_TEXT",
-        "mealName" to "Malformed debug proposal",
-        "inferredMealType" to "UNKNOWN",
-        "mealTypeConfident" to false,
-        "confidence" to 2.0,
-        "ingredients" to emptyList<Any>(),
-        "interpretationOrigin" to "INTERPRETATION_ORIGIN_LOCAL_NANO",
-        "elapsedMs" to elapsedMs,
-    )
-
-    private fun samplePayload(
-        requestId: String,
-        elapsedMs: Long,
-    ): Map<String, Any?> = mapOf(
-        "schemaVersion" to 1,
-        "proposalId" to UUID.randomUUID().toString(),
-        "requestId" to requestId,
-        "modality" to "ANALYSIS_MODALITY_TEXT",
-        "mealName" to "Oatmeal with banana",
-        "inferredMealType" to "BREAKFAST",
-        "mealTypeConfident" to true,
-        "confidence" to 0.9,
-        "ingredients" to listOf(
-            mapOf(
-                "rowId" to UUID.randomUUID().toString(),
-                "rawName" to "cooked oatmeal",
-                "canonicalHint" to "oatmeal cooked with water",
-                "preparation" to "cooked",
-                "gramsEstimated" to 240.0,
-                "minGrams" to 200.0,
-                "maxGrams" to 280.0,
-                "notes" to "",
-                "portionKind" to "BULK",
-                "sizeSpecifiedByUser" to false,
-                "confidence" to 0.9,
-                "fieldProvenance" to listOf(
-                    mapOf(
-                        "fieldName" to "identity",
-                        "origin" to "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
-                    ),
-                    mapOf(
-                        "fieldName" to "portion",
-                        "origin" to "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
-                    ),
-                ),
-            ),
-            mapOf(
-                "rowId" to UUID.randomUUID().toString(),
-                "rawName" to "banana",
-                "canonicalHint" to "banana raw",
-                "preparation" to "raw",
-                "gramsEstimated" to 118.0,
-                "minGrams" to 100.0,
-                "maxGrams" to 136.0,
-                "notes" to "one medium banana",
-                "portionKind" to "COUNT",
-                "count" to 1.0,
-                "perUnitGrams" to 118.0,
-                "perUnitMinGrams" to 100.0,
-                "perUnitMaxGrams" to 136.0,
-                "sizeSpecifiedByUser" to false,
-                "confidence" to 0.9,
-                "fieldProvenance" to listOf(
-                    mapOf(
-                        "fieldName" to "identity",
-                        "origin" to "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
-                    ),
-                    mapOf(
-                        "fieldName" to "portion",
-                        "origin" to "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
-                    ),
-                ),
-            ),
-        ),
-        "interpretationOrigin" to "INTERPRETATION_ORIGIN_LOCAL_NANO",
-        "modelName" to "debug-sample",
         "elapsedMs" to elapsedMs,
     )
 

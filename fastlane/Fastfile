@@ -3,10 +3,6 @@ default_platform(:android)
 platform :android do
   package_name = "dev.thecodepapaya.calorify"
 
-  private_lane :form_factor_track do |options|
-    "#{options[:prefix]}:#{options[:track]}"
-  end
-
   private_lane :pubspec_version_code do |options|
     repository_root = File.expand_path("..", __dir__)
     path = File.expand_path(options.fetch(:path), repository_root)
@@ -125,26 +121,6 @@ platform :android do
     )
   end
 
-  desc "Deploy watch app bundle to Google Play"
-  lane :release_watch do
-    track = form_factor_track(
-      prefix: "wear",
-      track: ENV.fetch("PLAY_TRACK", "internal")
-    )
-
-    upload_to_play_store(
-      track: track,
-      release_status: ENV.fetch("PLAY_RELEASE_STATUS", "completed"),
-      aab: "watch_app/build/app/outputs/bundle/release/app-release.aab",
-      json_key_data: ENV["SUPPLY_JSON_KEY_DATA"],
-      package_name: package_name,
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true,
-      skip_upload_changelogs: true
-    )
-  end
-
   desc "Promote an existing phone release between Google Play tracks"
   lane :promote_phone do
     promote_existing_release(
@@ -154,18 +130,4 @@ platform :android do
     )
   end
 
-  desc "Promote an existing watch release between Google Play Wear OS tracks"
-  lane :promote_watch do
-    promote_existing_release(
-      source_track: form_factor_track(
-        prefix: "wear",
-        track: ENV.fetch("PLAY_SOURCE_TRACK", "internal")
-      ),
-      target_track: form_factor_track(
-        prefix: "wear",
-        track: ENV.fetch("PLAY_TARGET_TRACK", "production")
-      ),
-      expected_version_code: Integer(ENV.fetch("PLAY_EXPECTED_VERSION_CODE"), 10)
-    )
-  end
 end

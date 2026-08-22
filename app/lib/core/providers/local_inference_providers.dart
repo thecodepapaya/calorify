@@ -131,22 +131,9 @@ final textMealAnalysisRouterProvider = Provider<TextMealAnalysisRouter>((ref) {
   return TextMealAnalysisRouter(
     database: ref.watch(databaseInterfaceProvider),
     localInference: ref.watch(localInferenceServiceProvider),
-    loadEligibility: () async {
-      // Re-read the rollout policy for each submission so the backend kill
-      // switch takes effect without an app restart. Device capability and the
-      // small policy request can run together.
-      final results = await Future.wait<Object>([
-        ref.read(localInferenceServiceProvider).getCapabilities(),
-        ref.read(foodRepositoryProvider).getLocalInferencePolicy(),
-      ]);
-      return LocalTextEligibility(
-        device: results[0] as LocalInferenceCapabilities,
-        rolloutEnabled:
-            (results[1] as LocalInferenceCapabilityPolicy).textEnabled,
-        localNutritionEnabled:
-            (results[1] as LocalInferenceCapabilityPolicy)
-                .localNutritionEnabled,
-      );
-    },
+    // Re-read the policy for each submission so the backend kill switch takes
+    // effect without an app restart. The router loads it alongside capability.
+    loadPolicy:
+        () => ref.read(foodRepositoryProvider).getLocalInferencePolicy(),
   );
 });

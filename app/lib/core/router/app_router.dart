@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/router/guards/onboarding_guard.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
-import 'package:calorify/features/auth/login_screen.dart';
 import 'package:calorify/features/favorites/favorites_screen.dart';
 import 'package:calorify/features/history/meal_history_screen.dart';
 import 'package:calorify/features/home/home_screen.dart';
@@ -38,7 +37,6 @@ class AppRouter extends RootStackRouter {
       initial: true,
       transitionsBuilder: TransitionsBuilders.fadeIn,
     ),
-    AutoRoute(page: LoginRoute.page),
     AutoRoute(page: OnboardingRoute.page),
     CustomRoute(
       page: MainRoute.page,

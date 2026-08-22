@@ -1,103 +1,83 @@
-import 'package:models/models.dart';
+enum WatchTransportErrorCode {
+  timeout,
+  disconnected,
+  unavailable,
+  network,
+  unauthenticated,
+  notFound,
+  rejected,
+  invalidPayload,
+  unknownOperation,
+  malformedResponse,
+  internal,
+  platform,
+}
+
+extension WatchTransportErrorCodeRetry on WatchTransportErrorCode {
+  bool get shouldRetry => switch (this) {
+    WatchTransportErrorCode.timeout ||
+    WatchTransportErrorCode.disconnected ||
+    WatchTransportErrorCode.unavailable ||
+    WatchTransportErrorCode.network ||
+    WatchTransportErrorCode.malformedResponse ||
+    WatchTransportErrorCode.internal ||
+    WatchTransportErrorCode.platform => true,
+    _ => false,
+  };
+}
 
 class WatchTransportResult {
-  WatchTransportResult._({
-    required this.response,
-    required this.error,
-    required this.isProtocolResponse,
-    required this.isProtocolUnsupported,
-    required this.legacyFallbackEligible,
+  const WatchTransportResult._({
+    required this.data,
+    required this.errorCode,
+    required this.errorMessage,
+    required this.isPeerResponse,
     required this.deliveryUncertain,
-  });
-
-  factory WatchTransportResult.fromEnvelope(
-    WearEnvelope envelope, {
-    required String requestId,
-    required WearOperation operation,
-  }) {
-    final validation = WearProtocolCodec.validateResponse(
-      envelope,
-      expectedRequestId: requestId,
-      expectedOperation: operation,
-    );
-    if (validation != null) {
-      return WatchTransportResult.failure(
-        validation.code,
-        message: validation.message,
-        // A decoded envelope is not a confirmed peer response until its
-        // version, correlation id, operation, and payload all validate. Keep
-        // durable work retryable when transport bytes are malformed or stale.
-        retryable: true,
-        legacyFallbackEligible: true,
-        deliveryUncertain: true,
-      );
-    }
-    if (envelope.response.hasError()) {
-      return WatchTransportResult._(
-        response: null,
-        error: envelope.response.error,
-        isProtocolResponse: true,
-        isProtocolUnsupported: false,
-        legacyFallbackEligible: false,
-        deliveryUncertain: false,
-      );
-    }
-    return WatchTransportResult.success(
-      envelope.response,
-      isProtocolResponse: true,
-    );
-  }
+    required bool? retryable,
+  }) : _retryable = retryable;
 
   factory WatchTransportResult.success(
-    WearResponse response, {
-    bool isProtocolResponse = false,
+    Map<String, dynamic> data, {
+    bool isPeerResponse = true,
   }) {
     return WatchTransportResult._(
-      response: response,
-      error: null,
-      isProtocolResponse: isProtocolResponse,
-      isProtocolUnsupported: false,
-      legacyFallbackEligible: false,
+      data: data,
+      errorCode: null,
+      errorMessage: null,
+      isPeerResponse: isPeerResponse,
       deliveryUncertain: false,
+      retryable: false,
     );
   }
 
   factory WatchTransportResult.failure(
-    WearErrorCode code, {
+    WatchTransportErrorCode code, {
     String? message,
-    bool retryable = false,
-    bool isProtocolResponse = false,
-    bool isProtocolUnsupported = false,
-    bool legacyFallbackEligible = false,
+    bool? retryable,
+    bool isPeerResponse = false,
     bool deliveryUncertain = false,
   }) {
     return WatchTransportResult._(
-      response: null,
-      error: WearError(code: code, message: message, retryable: retryable),
-      isProtocolResponse: isProtocolResponse,
-      isProtocolUnsupported: isProtocolUnsupported,
-      legacyFallbackEligible: legacyFallbackEligible,
+      data: null,
+      errorCode: code,
+      errorMessage: message,
+      isPeerResponse: isPeerResponse,
       deliveryUncertain: deliveryUncertain,
+      retryable: retryable,
     );
   }
 
-  final WearResponse? response;
-  final WearError? error;
-  final bool isProtocolResponse;
-  final bool isProtocolUnsupported;
-  final bool legacyFallbackEligible;
+  final Map<String, dynamic>? data;
+  final WatchTransportErrorCode? errorCode;
+  final String? errorMessage;
+  final bool isPeerResponse;
   final bool deliveryUncertain;
+  final bool? _retryable;
 
-  WearErrorCode? get errorCode => error?.code;
-  String? get errorMessage => error?.message;
-  bool get isSuccess => response != null && error == null;
-  bool get shouldRetry => error?.shouldRetry ?? false;
+  bool get isSuccess => data != null && errorCode == null;
+  bool get shouldRetry => _retryable ?? errorCode?.shouldRetry ?? false;
   bool get isValidatedPeerRejection =>
-      isProtocolResponse && error != null && !shouldRetry;
-}
-
-bool shouldUseLegacyWearProtocol(WatchTransportResult result) {
-  return result.isProtocolUnsupported || result.legacyFallbackEligible;
+      isPeerResponse && errorCode != null && !shouldRetry;
 }
 
 abstract interface class WatchSyncTransport {
@@ -106,9 +86,7 @@ abstract interface class WatchSyncTransport {
   Future<bool> isPhoneConnected();
 
   Future<WatchTransportResult> send({
-    required WearOperation operation,
-    required WearRequest request,
+    required String path,
+    Map<String, dynamic> data = const {},
   });
-
-  Stream<WearEnvelope> listenForEvents();
 }

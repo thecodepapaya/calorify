@@ -10,7 +10,7 @@ void main() {
     final repository = WatchFoodRepository(
       phoneDetector: (_) async {
         return WatchTransportResult.failure(
-          WearErrorCode.WEAR_ERROR_CODE_TIMEOUT,
+          WatchTransportErrorCode.timeout,
           retryable: true,
           deliveryUncertain: true,
         );
@@ -27,7 +27,7 @@ void main() {
     final repository = WatchFoodRepository(
       phoneDetector: (_) async {
         return WatchTransportResult.failure(
-          WearErrorCode.WEAR_ERROR_CODE_DISCONNECTED,
+          WatchTransportErrorCode.disconnected,
           retryable: true,
         );
       },
@@ -48,15 +48,17 @@ void main() {
     );
     final repository = WatchFoodRepository(
       phoneDetector:
-          (_) async => WatchTransportResult.success(
-            WearResponse(detectText: DetectTextResponse(response: expected)),
-          ),
+          (_) async => WatchTransportResult.success({
+            'success': true,
+            'response': expected.toProto3Json(),
+          }),
     );
 
     final result = await repository.detectText(
       textDescription: 'A bowl of poha',
     );
 
-    expect(result, same(expected));
+    expect(result.result.mealIdentified, isTrue);
+    expect(result.result.meal.name, 'Poha');
   });
 }

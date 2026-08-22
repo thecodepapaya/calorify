@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/network/network_client.dart';
@@ -23,6 +22,7 @@ import 'package:calorify/shared_widgets/easter_egg/cat_easter_egg_test_screen.da
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_trigger.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -96,7 +96,8 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     final healthConnectOptions = _buildHealthConnectOptions(context);
     final wearOsOptions = _buildWearOsOptions(context);
     final foodApiOptions = _buildFoodApiOptions(context);
-    final localInferenceOptions = _buildLocalInferenceOptions(context);
+    final localInferenceOptions =
+        kDebugMode ? _buildLocalInferenceOptions(context) : null;
     final mealAnalysisSheetUiOptions = _buildMealAnalysisSheetUiOptions(
       context,
     );
@@ -677,7 +678,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
   Widget? _buildLocalInferenceOptions(BuildContext context) {
     const section = 'Local inference';
     const title = 'Gemini Nano one-off tests';
-    if (!_matchesQuery(section, title, 'capability failures comparison')) {
+    if (!_matchesQuery(section, title, 'capability comparison nutrition')) {
       return null;
     }
     return Card(
@@ -685,7 +686,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         leading: const Icon(LucideIcons.cpu),
         title: const Text(title),
         subtitle: const Text(
-          'Capability, warm-up, local/cloud comparison, and simulated failures',
+          'Capability, warm-up, local/cloud comparison, and nutrition checks',
         ),
         trailing: const Icon(LucideIcons.chevronRight, size: 18),
         onTap:

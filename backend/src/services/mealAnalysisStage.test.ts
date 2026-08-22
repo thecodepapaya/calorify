@@ -89,7 +89,7 @@ test('in-flight clarification stage retains the pending snapshot invariant', () 
   }), 'APPLYING_CLARIFICATION');
 });
 
-test('in-flight automatic stages retain only their last completed payload', () => {
+test('legacy automatic stage markers resolve from their last completed payload', () => {
   assert.equal(resolveMealAnalysisStage({
     stage: 'RESOLVING_INGREDIENTS',
     decompositionData,

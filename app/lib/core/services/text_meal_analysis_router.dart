@@ -1,39 +1,7 @@
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/network/network_request_cancellation.dart';
-import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
-import 'package:calorify/core/services/local_nutrition_meal_analysis_engine.dart';
-import 'package:calorify/core/services/local_nutrition_repository.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
-
-class LocalTextEligibility {
-  const LocalTextEligibility({
-    required this.device,
-    required this.rolloutEnabled,
-    this.localNutritionEnabled = false,
-  });
-
-  final LocalInferenceCapabilities device;
-  final bool rolloutEnabled;
-  final bool localNutritionEnabled;
-
-  MealAnalysisFallbackReason? get ineligibleReason {
-    if (!rolloutEnabled) {
-      return MealAnalysisFallbackReason
-          .MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED;
-    }
-    if (!device.platformSupported || !device.textSupported) {
-      return MealAnalysisFallbackReason
-          .MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE;
-    }
-    if (!device.ready || !device.structuredOutputSupported) {
-      return MealAnalysisFallbackReason
-          .MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY;
-    }
-    return null;
-  }
-}
 
 sealed class TextMealAnalysisRoute {
   const TextMealAnalysisRoute();
@@ -80,14 +48,16 @@ class TextMealAnalysisRouter {
   TextMealAnalysisRouter({
     required DatabaseInterface database,
     required LocalInferenceService localInference,
-    required Future<LocalTextEligibility> Function() loadEligibility,
+    required Future<LocalInferenceCapabilityPolicy> Function() loadPolicy,
   }) : _database = database,
        _localInference = localInference,
-       _loadEligibility = loadEligibility;
+       _loadPolicy = loadPolicy;
+
+  static const localAttemptTimeout = Duration(seconds: 5);
 
   final DatabaseInterface _database;
   final LocalInferenceService _localInference;
-  final Future<LocalTextEligibility> Function() _loadEligibility;
+  final Future<LocalInferenceCapabilityPolicy> Function() _loadPolicy;
 
   Future<TextMealAnalysisRoute> prepare(String text) async {
     LocalInferencePreferences preferences;
@@ -100,9 +70,15 @@ class TextMealAnalysisRouter {
       return const CloudTextMealAnalysisRoute.cloudOnly();
     }
 
-    LocalTextEligibility eligibility;
+    late LocalInferenceCapabilities device;
+    late LocalInferenceCapabilityPolicy policy;
     try {
-      eligibility = await _loadEligibility();
+      final eligibility = await Future.wait<Object>([
+        _localInference.getCapabilities(),
+        _loadPolicy(),
+      ]);
+      device = eligibility[0] as LocalInferenceCapabilities;
+      policy = eligibility[1] as LocalInferenceCapabilityPolicy;
     } on Object {
       return const CloudTextMealAnalysisRoute(
         localAttempted: false,
@@ -110,7 +86,7 @@ class TextMealAnalysisRouter {
             MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN,
       );
     }
-    final ineligibleReason = eligibility.ineligibleReason;
+    final ineligibleReason = _ineligibleReason(device, policy);
     if (ineligibleReason != null) {
       return CloudTextMealAnalysisRoute(
         localAttempted: false,
@@ -124,6 +100,7 @@ class TextMealAnalysisRouter {
       final result = await _localInference.analyzeText(
         text,
         requestId: attemptId,
+        timeout: localAttemptTimeout,
       );
       final completedAt = DateTime.now().toUtc();
       return LocalProposalTextMealAnalysisRoute(
@@ -131,8 +108,7 @@ class TextMealAnalysisRouter {
         startedAt: startedAt,
         completedAt: completedAt,
         useLocalNutrition:
-            preferences.offlineNutritionEnabled &&
-            eligibility.localNutritionEnabled,
+            preferences.offlineNutritionEnabled && policy.localNutritionEnabled,
       );
     } on LocalInferenceException catch (error) {
       return CloudTextMealAnalysisRoute(
@@ -155,142 +131,21 @@ class TextMealAnalysisRouter {
   }
 }
 
-abstract interface class MealAnalysisExecutor {
-  Future<Stream<MealAnalysisPipelineEvent>> execute({
-    required String analysisId,
-    required NetworkRequestCancellation cancellation,
-  });
-}
-
-class CloudTextMealAnalysisExecutor implements MealAnalysisExecutor {
-  const CloudTextMealAnalysisExecutor({
-    required FoodRepository repository,
-    required String text,
-    required CloudTextMealAnalysisRoute route,
-  }) : _repository = repository,
-       _text = text,
-       _route = route;
-
-  final FoodRepository _repository;
-  final String _text;
-  final CloudTextMealAnalysisRoute _route;
-
-  @override
-  Future<Stream<MealAnalysisPipelineEvent>> execute({
-    required String analysisId,
-    required NetworkRequestCancellation cancellation,
-  }) {
-    return _repository.analyzeTextV2(
-      analysisId: analysisId,
-      textDescription: _text,
-      localAttempted: _route.localAttempted,
-      localAttemptId: _route.localAttemptId,
-      fallbackReason: _route.fallbackReason,
-      localAttemptStartedAt: _route.localAttemptStartedAt,
-      localAttemptCompletedAt: _route.localAttemptCompletedAt,
-      cancellation: cancellation,
-    );
+MealAnalysisFallbackReason? _ineligibleReason(
+  LocalInferenceCapabilities device,
+  LocalInferenceCapabilityPolicy policy,
+) {
+  if (!policy.textEnabled) {
+    return MealAnalysisFallbackReason
+        .MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED;
   }
-}
-
-class LocalProposalMealAnalysisExecutor implements MealAnalysisExecutor {
-  const LocalProposalMealAnalysisExecutor({
-    required FoodRepository repository,
-    required IngredientProposalV1 proposal,
-    required LocalInferenceResult localResult,
-    required DateTime startedAt,
-    required DateTime completedAt,
-    this.fallbackReason =
-        MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
-  }) : _repository = repository,
-       _proposal = proposal,
-       _localResult = localResult,
-       _startedAt = startedAt,
-       _completedAt = completedAt;
-
-  final FoodRepository _repository;
-  final IngredientProposalV1 _proposal;
-  final LocalInferenceResult _localResult;
-  final DateTime _startedAt;
-  final DateTime _completedAt;
-  final MealAnalysisFallbackReason fallbackReason;
-
-  @override
-  Future<Stream<MealAnalysisPipelineEvent>> execute({
-    required String analysisId,
-    required NetworkRequestCancellation cancellation,
-  }) {
-    return _repository.analyzeProposalV2(
-      analysisId: analysisId,
-      proposal: _proposal,
-      localAttemptId: _localResult.requestId,
-      localAttemptStartedAt: _startedAt,
-      localAttemptCompletedAt: _completedAt,
-      fallbackReason: fallbackReason,
-      cancellation: cancellation,
-    );
+  if (!device.platformSupported || !device.textSupported) {
+    return MealAnalysisFallbackReason
+        .MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE;
   }
-}
-
-class HybridLocalNutritionMealAnalysisExecutor implements MealAnalysisExecutor {
-  const HybridLocalNutritionMealAnalysisExecutor({
-    required LocalNutritionMealAnalysisEngine localEngine,
-    required FoodRepository repository,
-    required IngredientProposalV1 proposal,
-    required LocalInferenceResult localResult,
-    required DateTime startedAt,
-    required DateTime completedAt,
-  }) : _localEngine = localEngine,
-       _repository = repository,
-       _proposal = proposal,
-       _localResult = localResult,
-       _startedAt = startedAt,
-       _completedAt = completedAt;
-
-  final LocalNutritionMealAnalysisEngine _localEngine;
-  final FoodRepository _repository;
-  final IngredientProposalV1 _proposal;
-  final LocalInferenceResult _localResult;
-  final DateTime _startedAt;
-  final DateTime _completedAt;
-
-  @override
-  Future<Stream<MealAnalysisPipelineEvent>> execute({
-    required String analysisId,
-    required NetworkRequestCancellation cancellation,
-  }) async {
-    try {
-      return await _localEngine.start(
-        analysisId: analysisId,
-        proposal: _proposal,
-        localResult: _localResult,
-        startedAt: _startedAt,
-        completedAt: _completedAt,
-      );
-    } on LocalNutritionResolutionException catch (error) {
-      return _fallback(analysisId, cancellation, error.fallbackReason);
-    } on Object {
-      return _fallback(
-        analysisId,
-        cancellation,
-        MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_UNKNOWN,
-      );
-    }
+  if (!device.ready || !device.structuredOutputSupported) {
+    return MealAnalysisFallbackReason
+        .MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY;
   }
-
-  Future<Stream<MealAnalysisPipelineEvent>> _fallback(
-    String analysisId,
-    NetworkRequestCancellation cancellation,
-    MealAnalysisFallbackReason reason,
-  ) {
-    return _repository.analyzeProposalV2(
-      analysisId: analysisId,
-      proposal: _proposal,
-      localAttemptId: _localResult.requestId,
-      localAttemptStartedAt: _startedAt,
-      localAttemptCompletedAt: _completedAt,
-      fallbackReason: reason,
-      cancellation: cancellation,
-    );
-  }
+  return null;
 }

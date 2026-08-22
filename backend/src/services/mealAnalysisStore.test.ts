@@ -28,15 +28,10 @@ await mock.module('../config.js', { defaultExport: mockConfig });
 const {
   upsertMealAnalysisSession,
   advanceMealAnalysisSession,
-  claimMealAnalysisDecomposition,
-  releaseMealAnalysisDecomposition,
+  createMealAnalysisSession,
   getMealAnalysisSession,
   claimMealAnalysisClarification,
-  claimMealAnalysisFinalization,
-  claimMealAnalysisIngredientResolution,
   releaseMealAnalysisClarification,
-  releaseMealAnalysisFinalization,
-  releaseMealAnalysisIngredientResolution,
   claimMealAnalysisPresentation,
   releaseMealAnalysisPresentation,
   isMealAnalysisSessionOwnedByUser,
@@ -158,21 +153,21 @@ test('upsertMealAnalysisSession persists the typed stage and preserves omitted J
   assert.equal(params[16], 'DECOMPOSED');
   assert.equal(params[9], null); // omitted ingredients_data is SQL NULL, not JSON null
   assert.match(sql, /stage = EXCLUDED\.stage/);
-  assert.match(sql, /stage_lease_token IS NULL/);
-  assert.match(sql, /'RESOLVING_INGREDIENTS'/);
+  assert.match(sql, /stage_lease_token = NULL/);
+  assert.match(sql, /CASE meal_analysis_session\.stage/);
   assert.match(sql, /RETURNING TRUE AS persisted/);
 });
 
-test('advanceMealAnalysisSession requires the exact busy stage and lease token', async () => {
+test('advanceMealAnalysisSession requires the exact interactive stage and lease token', async () => {
   resetQuery({ rows: [{ persisted: true }] });
   const persisted = await advanceMealAnalysisSession({
     analysisId: 'leased-session',
     source: 'text',
     locale: 'en',
     requestPayload: { textDescription: 'rice' },
-    stage: 'INGREDIENTS_RESOLVED',
+    stage: 'AWAITING_MEAL_TYPE',
   }, {
-    stage: 'RESOLVING_INGREDIENTS',
+    stage: 'APPLYING_CLARIFICATION',
     token: '00000000-0000-4000-8000-000000000099',
   });
   assert.equal(persisted, true);
@@ -180,7 +175,7 @@ test('advanceMealAnalysisSession requires the exact busy stage and lease token',
   assert.match(sql, /stage = \$19/);
   assert.match(sql, /stage_lease_token = \$20::uuid/);
   assert.match(sql, /pending_clarification_answers = NULL/);
-  assert.equal(params[18], 'RESOLVING_INGREDIENTS');
+  assert.equal(params[18], 'APPLYING_CLARIFICATION');
   assert.equal(params[19], '00000000-0000-4000-8000-000000000099');
 });
 
@@ -188,9 +183,9 @@ test('advanceMealAnalysisSession rejects a stale worker after its token is repla
   resetQuery({ rows: [] });
   const persisted = await advanceMealAnalysisSession({
     analysisId: 'reclaimed-session', source: 'text', locale: 'en',
-    requestPayload: {}, stage: 'INGREDIENTS_RESOLVED',
+    requestPayload: {}, stage: 'AWAITING_MEAL_TYPE',
   }, {
-    stage: 'RESOLVING_INGREDIENTS',
+    stage: 'APPLYING_CLARIFICATION',
     token: '00000000-0000-4000-8000-000000000001',
   });
   assert.equal(persisted, false);
@@ -198,14 +193,14 @@ test('advanceMealAnalysisSession rejects a stale worker after its token is repla
   assert.match(sql, /stage_lease_token = \$20::uuid/);
 });
 
-test('claimMealAnalysisDecomposition inserts pending state and returns a fenced claim', async () => {
+test('createMealAnalysisSession inserts a durable pending request', async () => {
   mockQuery.mock.resetCalls();
   mockQuery.mock.mockImplementation(async (sql: string) => {
     if (sql.includes('SELECT (')) return { rows: [{ identity_matches: true }] };
-    if (sql.includes("SET stage = 'DECOMPOSING'")) return { rows: [{ claimed: true }] };
+    if (sql.includes('INSERT INTO meal_analysis_session')) return { rows: [{ inserted: true }] };
     return { rows: [] };
   });
-  const dispatch = await claimMealAnalysisDecomposition({
+  const dispatch = await createMealAnalysisSession({
     analysisId: '00000000-0000-4000-8000-000000000301',
     userId: 'user-1', source: 'text', locale: 'en',
     countryCode: 'IN', timeZone: 'Asia/Kolkata',
@@ -218,14 +213,12 @@ test('claimMealAnalysisDecomposition inserts pending state and returns a fenced 
       },
     },
   });
-  assert.equal(dispatch.status, 'claimed');
-  if (dispatch.status !== 'claimed') return;
-  assert.equal(dispatch.lease.stage, 'DECOMPOSING');
+  assert.deepEqual(dispatch, { status: 'created' });
   const [insertSql] = mockQuery.mock.calls[0]!.arguments as [string];
   const [identitySql] = mockQuery.mock.calls[1]!.arguments as [string];
-  const [claimSql, claimParams] = mockQuery.mock.calls[2]!.arguments as [string, unknown[]];
   assert.match(insertSql, /'PENDING_DECOMPOSITION'/);
   assert.match(insertSql, /ON CONFLICT \(analysis_id\) DO NOTHING/);
+  assert.match(insertSql, /RETURNING TRUE AS inserted/);
   assert.match(
     identitySql,
     /\(request_payload - 'execution'\) = \(\$5::jsonb - 'execution'\)/
@@ -236,33 +229,40 @@ test('claimMealAnalysisDecomposition inserts pending state and returns a fenced 
   assert.equal(identityParams[2], null);
   assert.equal(identityParams[3], 'text');
   assert.match(String(identityParams[4]), /"analysisContext"/);
-  assert.match(claimSql, /INTERVAL '5 minutes'/);
-  assert.equal(claimParams[1], dispatch.lease.token);
-
-  resetQuery();
-  await releaseMealAnalysisDecomposition(
-    '00000000-0000-4000-8000-000000000301',
-    dispatch.lease.token
-  );
-  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.match(releaseSql, /SET stage = 'PENDING_DECOMPOSITION'/);
-  assert.match(releaseSql, /stage_lease_token = \$2::uuid/);
-  assert.equal(releaseParams[1], dispatch.lease.token);
+  assert.equal(mockQuery.mock.calls.length, 2);
 });
 
-test('claimMealAnalysisDecomposition rejects an ID collision without claiming it', async () => {
+test('createMealAnalysisSession rejects an ID collision', async () => {
   mockQuery.mock.resetCalls();
   mockQuery.mock.mockImplementation(async (sql: string) =>
     sql.includes('SELECT (')
       ? { rows: [{ identity_matches: false }] }
       : { rows: [] }
   );
-  const dispatch = await claimMealAnalysisDecomposition({
+  const dispatch = await createMealAnalysisSession({
     analysisId: '00000000-0000-4000-8000-000000000302',
     userId: 'other-user', source: 'text', locale: 'en',
     requestPayload: { textDescription: 'different' },
   });
   assert.deepEqual(dispatch, { status: 'conflict' });
+  assert.equal(mockQuery.mock.calls.length, 2);
+});
+
+test('createMealAnalysisSession replays an existing matching ID', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementation(async (sql: string) =>
+    sql.includes('SELECT (')
+      ? { rows: [{ identity_matches: true }] }
+      : { rows: [] }
+  );
+
+  const dispatch = await createMealAnalysisSession({
+    analysisId: '00000000-0000-4000-8000-000000000303',
+    userId: 'user-1', source: 'text', locale: 'en',
+    requestPayload: { textDescription: 'rice' },
+  });
+
+  assert.deepEqual(dispatch, { status: 'existing' });
   assert.equal(mockQuery.mock.calls.length, 2);
 });
 
@@ -411,44 +411,6 @@ test('clarification claim serializes application across processes', async () => 
   await releaseMealAnalysisClarification('sess-clarify', lease!.token);
   const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.match(releaseSql, /stage = 'AWAITING_CLARIFICATION'/);
-  assert.equal(releaseParams[1], lease!.token);
-});
-
-test('ingredient resolution claim supports stale recovery and conditional release', async () => {
-  resetQuery({ rows: [{ claimed: true }] });
-  const lease = await claimMealAnalysisIngredientResolution('sess-resolve');
-  assert.equal(lease?.stage, 'RESOLVING_INGREDIENTS');
-  const [claimSql] = mockQuery.mock.calls[0]!.arguments as [string];
-  assert.match(claimSql, /SET stage = 'RESOLVING_INGREDIENTS'/);
-  assert.match(claimSql, /stage_lease_token = \$3::uuid/);
-  assert.match(claimSql, /INTERVAL '5 minutes'/);
-  assert.match(claimSql, /ingredients_data IS NULL OR ingredients_data = 'null'::jsonb/);
-  assert.match(claimSql, /decomposition_data <> 'null'::jsonb/);
-
-  resetQuery();
-  await releaseMealAnalysisIngredientResolution('sess-resolve', lease!.token);
-  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.match(releaseSql, /SET stage = 'DECOMPOSED'/);
-  assert.match(releaseSql, /stage = 'RESOLVING_INGREDIENTS'/);
-  assert.equal(releaseParams[1], lease!.token);
-});
-
-test('post-resolution finalization has its own recoverable claim', async () => {
-  resetQuery({ rows: [{ claimed: true }] });
-  const lease = await claimMealAnalysisFinalization('sess-finalize');
-  assert.equal(lease?.stage, 'FINALIZING_ANALYSIS');
-  const [claimSql] = mockQuery.mock.calls[0]!.arguments as [string];
-  assert.match(claimSql, /SET stage = 'FINALIZING_ANALYSIS'/);
-  assert.match(claimSql, /stage = 'INGREDIENTS_RESOLVED'/);
-  assert.match(claimSql, /INTERVAL '5 minutes'/);
-  assert.match(claimSql, /uncertainty_data IS NULL OR uncertainty_data = 'null'::jsonb/);
-  assert.match(claimSql, /ingredients_data <> 'null'::jsonb/);
-
-  resetQuery();
-  await releaseMealAnalysisFinalization('sess-finalize', lease!.token);
-  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.match(releaseSql, /SET stage = 'INGREDIENTS_RESOLVED'/);
-  assert.match(releaseSql, /stage = 'FINALIZING_ANALYSIS'/);
   assert.equal(releaseParams[1], lease!.token);
 });
 

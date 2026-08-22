@@ -18,146 +18,14 @@ import '../meal/meal.pb.dart' as $0;
 
 export 'package:protobuf/protobuf.dart' show GeneratedMessageGenericExtensions;
 
-class Variation_Option extends $pb.GeneratedMessage {
-  factory Variation_Option({
-    $core.String? option,
-    $0.MealMacro? macroDiff,
-  }) {
-    final result = create();
-    if (option != null) result.option = option;
-    if (macroDiff != null) result.macroDiff = macroDiff;
-    return result;
-  }
-
-  Variation_Option._();
-
-  factory Variation_Option.fromBuffer($core.List<$core.int> data,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
-  factory Variation_Option.fromJson($core.String json,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'Variation.Option',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
-      createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'option')
-    ..aOM<$0.MealMacro>(2, _omitFieldNames ? '' : 'macroDiff',
-        subBuilder: $0.MealMacro.create)
-    ..hasRequiredFields = false;
-
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Variation_Option clone() => deepCopy();
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Variation_Option copyWith(void Function(Variation_Option) updates) =>
-      super.copyWith((message) => updates(message as Variation_Option))
-          as Variation_Option;
-
-  @$core.override
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Variation_Option create() => Variation_Option._();
-  @$core.override
-  Variation_Option createEmptyInstance() => create();
-  @$core.pragma('dart2js:noInline')
-  static Variation_Option getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<Variation_Option>(create);
-  static Variation_Option? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get option => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set option($core.String value) => $_setString(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasOption() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearOption() => $_clearField(1);
-
-  @$pb.TagNumber(2)
-  $0.MealMacro get macroDiff => $_getN(1);
-  @$pb.TagNumber(2)
-  set macroDiff($0.MealMacro value) => $_setField(2, value);
-  @$pb.TagNumber(2)
-  $core.bool hasMacroDiff() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearMacroDiff() => $_clearField(2);
-  @$pb.TagNumber(2)
-  $0.MealMacro ensureMacroDiff() => $_ensure(1);
-}
-
-class Variation extends $pb.GeneratedMessage {
-  factory Variation({
-    $core.String? question,
-    $core.Iterable<Variation_Option>? options,
-  }) {
-    final result = create();
-    if (question != null) result.question = question;
-    if (options != null) result.options.addAll(options);
-    return result;
-  }
-
-  Variation._();
-
-  factory Variation.fromBuffer($core.List<$core.int> data,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
-  factory Variation.fromJson($core.String json,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'Variation',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
-      createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'question')
-    ..pPM<Variation_Option>(2, _omitFieldNames ? '' : 'options',
-        subBuilder: Variation_Option.create)
-    ..hasRequiredFields = false;
-
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Variation clone() => deepCopy();
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  Variation copyWith(void Function(Variation) updates) =>
-      super.copyWith((message) => updates(message as Variation)) as Variation;
-
-  @$core.override
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static Variation create() => Variation._();
-  @$core.override
-  Variation createEmptyInstance() => create();
-  @$core.pragma('dart2js:noInline')
-  static Variation getDefault() =>
-      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Variation>(create);
-  static Variation? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get question => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set question($core.String value) => $_setString(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasQuestion() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearQuestion() => $_clearField(1);
-
-  @$pb.TagNumber(2)
-  $pb.PbList<Variation_Option> get options => $_getList(1);
-}
-
 class MealMetadata extends $pb.GeneratedMessage {
   factory MealMetadata({
     $core.String? imageUrl,
     $core.String? mealDescription,
-    $core.Iterable<Variation>? selectedVariations,
   }) {
     final result = create();
     if (imageUrl != null) result.imageUrl = imageUrl;
     if (mealDescription != null) result.mealDescription = mealDescription;
-    if (selectedVariations != null)
-      result.selectedVariations.addAll(selectedVariations);
     return result;
   }
 
@@ -176,8 +44,6 @@ class MealMetadata extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'imageUrl')
     ..aOS(2, _omitFieldNames ? '' : 'mealDescription')
-    ..pPM<Variation>(3, _omitFieldNames ? '' : 'selectedVariations',
-        subBuilder: Variation.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -216,9 +82,6 @@ class MealMetadata extends $pb.GeneratedMessage {
   $core.bool hasMealDescription() => $_has(1);
   @$pb.TagNumber(2)
   void clearMealDescription() => $_clearField(2);
-
-  @$pb.TagNumber(3)
-  $pb.PbList<Variation> get selectedVariations => $_getList(2);
 }
 
 class MealDetectionResult extends $pb.GeneratedMessage {
@@ -329,136 +192,12 @@ class MealDetectionResult extends $pb.GeneratedMessage {
   MealMetadata ensureMetadata() => $_ensure(4);
 }
 
-class ImageMealDetectionRequest extends $pb.GeneratedMessage {
-  factory ImageMealDetectionRequest({
-    $core.String? imageUrl,
-    $core.String? mimeType,
-  }) {
-    final result = create();
-    if (imageUrl != null) result.imageUrl = imageUrl;
-    if (mimeType != null) result.mimeType = mimeType;
-    return result;
-  }
-
-  ImageMealDetectionRequest._();
-
-  factory ImageMealDetectionRequest.fromBuffer($core.List<$core.int> data,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
-  factory ImageMealDetectionRequest.fromJson($core.String json,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'ImageMealDetectionRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
-      createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'imageUrl')
-    ..aOS(3, _omitFieldNames ? '' : 'mimeType')
-    ..hasRequiredFields = false;
-
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  ImageMealDetectionRequest clone() => deepCopy();
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  ImageMealDetectionRequest copyWith(
-          void Function(ImageMealDetectionRequest) updates) =>
-      super.copyWith((message) => updates(message as ImageMealDetectionRequest))
-          as ImageMealDetectionRequest;
-
-  @$core.override
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static ImageMealDetectionRequest create() => ImageMealDetectionRequest._();
-  @$core.override
-  ImageMealDetectionRequest createEmptyInstance() => create();
-  @$core.pragma('dart2js:noInline')
-  static ImageMealDetectionRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<ImageMealDetectionRequest>(create);
-  static ImageMealDetectionRequest? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get imageUrl => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set imageUrl($core.String value) => $_setString(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasImageUrl() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearImageUrl() => $_clearField(1);
-
-  @$pb.TagNumber(3)
-  $core.String get mimeType => $_getSZ(1);
-  @$pb.TagNumber(3)
-  set mimeType($core.String value) => $_setString(1, value);
-  @$pb.TagNumber(3)
-  $core.bool hasMimeType() => $_has(1);
-  @$pb.TagNumber(3)
-  void clearMimeType() => $_clearField(3);
-}
-
-class TextMealDetectionRequest extends $pb.GeneratedMessage {
-  factory TextMealDetectionRequest({
-    $core.String? textDescription,
-  }) {
-    final result = create();
-    if (textDescription != null) result.textDescription = textDescription;
-    return result;
-  }
-
-  TextMealDetectionRequest._();
-
-  factory TextMealDetectionRequest.fromBuffer($core.List<$core.int> data,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
-  factory TextMealDetectionRequest.fromJson($core.String json,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'TextMealDetectionRequest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
-      createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'textDescription')
-    ..hasRequiredFields = false;
-
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  TextMealDetectionRequest clone() => deepCopy();
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  TextMealDetectionRequest copyWith(
-          void Function(TextMealDetectionRequest) updates) =>
-      super.copyWith((message) => updates(message as TextMealDetectionRequest))
-          as TextMealDetectionRequest;
-
-  @$core.override
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static TextMealDetectionRequest create() => TextMealDetectionRequest._();
-  @$core.override
-  TextMealDetectionRequest createEmptyInstance() => create();
-  @$core.pragma('dart2js:noInline')
-  static TextMealDetectionRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<TextMealDetectionRequest>(create);
-  static TextMealDetectionRequest? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get textDescription => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set textDescription($core.String value) => $_setString(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasTextDescription() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearTextDescription() => $_clearField(1);
-}
-
 class MealDetectionResponse extends $pb.GeneratedMessage {
   factory MealDetectionResponse({
     MealDetectionResult? result,
-    $core.Iterable<Variation>? variations,
   }) {
     final result$ = create();
     if (result != null) result$.result = result;
-    if (variations != null) result$.variations.addAll(variations);
     return result$;
   }
 
@@ -477,8 +216,6 @@ class MealDetectionResponse extends $pb.GeneratedMessage {
       createEmptyInstance: create)
     ..aOM<MealDetectionResult>(1, _omitFieldNames ? '' : 'result',
         subBuilder: MealDetectionResult.create)
-    ..pPM<Variation>(2, _omitFieldNames ? '' : 'variations',
-        subBuilder: Variation.create)
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -511,9 +248,6 @@ class MealDetectionResponse extends $pb.GeneratedMessage {
   void clearResult() => $_clearField(1);
   @$pb.TagNumber(1)
   MealDetectionResult ensureResult() => $_ensure(0);
-
-  @$pb.TagNumber(2)
-  $pb.PbList<Variation> get variations => $_getList(1);
 }
 
 const $core.bool _omitFieldNames =

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "packVersion": "starter-2026-08-v1",
-  "datasetVersion": "2025-12-18",
+  "datasetVersion": "usda-2025-12-18",
   "createdAtEpochMs": 1787337000000,
   "signingKeyId": "calorify-local-nutrition-2026-v1",
   "objectPrefix": "local-nutrition",

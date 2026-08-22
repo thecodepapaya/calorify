@@ -24,24 +24,6 @@ class WearOsPhoneChannel {
     }
   }
 
-  /// Handle message from watch (called by Kotlin code)
-  static Future<Map<String, dynamic>?> handleWatchMessage({
-    required String path,
-    required Map<String, dynamic> data,
-  }) async {
-    try {
-      final result = await _channel.invokeMethod<Map<Object?, Object?>>(
-        'handleWatchMessage',
-        {'path': path, 'data': data},
-      );
-      if (result == null) return null;
-      return Map<String, dynamic>.from(result);
-    } on PlatformException catch (e) {
-      debugPrint('Failed to handle watch message: ${e.message}');
-      return null;
-    }
-  }
-
   /// Check if watch app is connected
   static Future<bool> isWatchConnected() async {
     try {

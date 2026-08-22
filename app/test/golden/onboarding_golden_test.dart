@@ -53,7 +53,6 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(false);
     when(() => mockHealthService.canReadTotalCalories).thenReturn(false);
     when(() => mockHealthService.canWriteNutrition).thenReturn(false);
     when(() => mockHealthService.hasAnyHealthPermission).thenReturn(false);

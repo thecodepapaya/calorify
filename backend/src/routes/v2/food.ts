@@ -17,6 +17,7 @@ import {
   MEAL_TYPES,
   reanalyzeMeal,
   resumeMealAnalysis,
+  type IngredientProposal,
   type PipelineEvent,
 } from '../../services/nutritionEngineV2.js';
 import { createErrorResponse } from '../../utils/errors.js';
@@ -40,7 +41,6 @@ import {
   InterpretationOrigin,
   MealAnalysisFallbackReason,
   PortionKind,
-  type IngredientProposalV1,
 } from '../../protos/calorify/meal_analysis_pipeline.js';
 import {
   getApiResultSchema,
@@ -650,7 +650,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       await streamEvents(
         reply,
         request.headers.accept,
-        analyzeIngredientProposal(parsed.proposal as IngredientProposalV1, {
+        analyzeIngredientProposal(parsed.proposal as IngredientProposal, {
           analysisId: parsed.analysisId,
           localAttempted: true,
           localAttemptId: parsed.localAttemptId,

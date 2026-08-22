@@ -14,6 +14,7 @@ import 'package:calorify/features/profile/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fixnum/fixnum.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -21,7 +22,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../../helpers/test_helpers.dart';
 import '../../setup/all_tests.dart';
 
-class _MockDatabase extends Mock implements DatabaseInterface {}
+class _MockDatabase extends Mock implements DatabaseInterface {
+  @override
+  Future<ThemeMode> getThemeMode() async => ThemeMode.system;
+}
 
 class _MockLocalInferenceService extends Mock
     implements LocalInferenceService {}
@@ -48,7 +52,6 @@ LocalInferenceAvailability _availability({
       canDownload: supported && canDownload,
       structuredOutputSupported: supported,
       textSupported: supported,
-      imageSupported: false,
     ),
     policy: LocalInferenceCapabilityPolicy(
       policyVersion: 'local-beta-v1',
@@ -375,7 +378,7 @@ void main() {
     verify(() => database.setOfflineNutritionEnabled(true)).called(1);
   });
 
-  testWidgets('developer screen exposes Phase 4 one-off and failure checks', (
+  testWidgets('developer screen exposes local and Phase 4 one-off checks', (
     tester,
   ) async {
     final localService = _MockLocalInferenceService();
@@ -397,11 +400,12 @@ void main() {
     expect(find.text('Known/missing lookup'), findsOneWidget);
     expect(find.text('Invalid signature'), findsOneWidget);
     await tester.scrollUntilVisible(
-      find.text('Battery quota'),
-      400,
+      find.text('Run local'),
+      300,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.text('Battery quota'), findsOneWidget);
+    expect(find.text('Run local'), findsOneWidget);
+    expect(find.text('Simulated failure modes'), findsNothing);
   });
 
   testWidgets('review sheet returns edits with user provenance', (
@@ -654,4 +658,49 @@ void main() {
       expect(find.textContaining('FDC 169910'), findsOneWidget);
     },
   );
+
+  testWidgets('local-only results do not offer backend feedback', (
+    tester,
+  ) async {
+    final pipelineContext = MealAnalysisPipelineSessionContext(
+      result: PipelineResultData(
+        analysisId: 'client-only-analysis',
+        mealName: 'Banana',
+        quantity: '118 g total',
+        mealType: MealType.SNACK,
+        macros: PipelineMacros(calories: 105),
+        receipt: MealAnalysisReceipt(
+          schemaVersion: 1,
+          calculationOrigin:
+              CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC,
+        ),
+      ),
+      textDescription: 'banana',
+    );
+    await tester.pumpWidget(
+      wrapWithProviders(
+        Builder(
+          builder:
+              (context) => TextButton(
+                onPressed:
+                    () => showMealTip(
+                      context: context,
+                      purpose: MealDetailsSheetPurpose.mealAddition,
+                      mealDetectionResult:
+                          pipelineContext.toMealDetectionResult(),
+                      pipelineContext: pipelineContext,
+                      previewOnly: true,
+                    ),
+                child: const Text('Open'),
+              ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+
+    expect(find.byIcon(LucideIcons.thumbsUp), findsNothing);
+    expect(find.byIcon(LucideIcons.thumbsDown), findsNothing);
+  });
 }

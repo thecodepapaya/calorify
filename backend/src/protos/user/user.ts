@@ -72,7 +72,7 @@ export interface UserProfile {
   gender?:
     | Gender
     | undefined;
-  /** ISO 8601 format (e.g., "2024-01-15T10:30:00.000Z") */
+  /** ISO calendar date (e.g., "1990-01-15") */
   dateOfBirth?: string | undefined;
   weightGoal?: WeightGoal | undefined;
   activityLevel?: ActivityLevel | undefined;

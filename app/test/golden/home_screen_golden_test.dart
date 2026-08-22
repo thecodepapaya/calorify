@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/features/home/home_screen.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -33,7 +34,6 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(true);
     when(
       () => mockHealthService.initializationState,
     ).thenReturn(HealthServiceInitializationState.ready);

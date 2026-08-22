@@ -18,7 +18,7 @@ const canonicalizeWithUsda = mock.fn(async (hint: string) => {
       fiber_per_100g: 2.6,
       dataset_version: 'fdc-test-1',
     },
-    matchType: hint === 'banana' ? 'alias' : 'fuzzy',
+    matchType: hint.startsWith('banana') ? 'alias' : 'fuzzy',
     score: 0.91,
     confidenceMargin: 0.2,
   };
@@ -39,7 +39,7 @@ test('resolver returns authoritative rows and keeps misses explicit', async () =
   assert.equal(response.analysisId, 'analysis-1');
   assert.deepEqual(response.unresolvedRowIds, ['row-2']);
   assert.equal(response.records.length, 1);
-  assert.deepEqual(response.records[0]!.lookupKeys, ['banana', 'bananas raw']);
+  assert.deepEqual(response.records[0]!.lookupKeys, ['banana raw', 'bananas raw']);
 });
 
 test('fuzzy resolution does not bind the probabilistic input as a cache alias', async () => {
@@ -47,4 +47,23 @@ test('fuzzy resolution does not bind the probabilistic input as a cache alias', 
     { rowId: 'row-1', canonicalHint: 'yellow fruit', preparation: '' },
   ]);
   assert.deepEqual(response.records[0]!.lookupKeys, ['bananas raw']);
+});
+
+test('preparation is included in USDA resolution and cache identity', async () => {
+  canonicalizeWithUsda.mock.resetCalls();
+  const response = await resolveLocalNutritionLookups('analysis-3', [
+    { rowId: 'row-1', canonicalHint: 'banana', preparation: 'cooked' },
+  ]);
+
+  assert.equal(canonicalizeWithUsda.mock.calls[0]?.arguments[0], 'banana cooked');
+  assert.deepEqual(response.records[0]!.lookupKeys, ['banana cooked', 'bananas raw']);
+});
+
+test('preparation already present in the hint is not duplicated', async () => {
+  canonicalizeWithUsda.mock.resetCalls();
+  await resolveLocalNutritionLookups('analysis-4', [
+    { rowId: 'row-1', canonicalHint: 'banana raw', preparation: 'raw' },
+  ]);
+
+  assert.equal(canonicalizeWithUsda.mock.calls[0]?.arguments[0], 'banana raw');
 });

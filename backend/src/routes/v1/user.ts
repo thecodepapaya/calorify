@@ -13,19 +13,34 @@ import { safeErrorMetadata } from '../../utils/safeError.js';
 // - DOB: ISO calendar date (legacy offset-bearing timestamps remain accepted).
 // All fields are optional in both write modes: POST patches the stored profile,
 // while PUT treats omitted fields as explicitly cleared in a full snapshot.
+function normalizeDateOfBirth(value: string): string | null {
+  const match = /^(\d{4}-\d{2}-\d{2})(?:$|[T ])/.exec(value.trim());
+  if (!match) return null;
+
+  const calendarDate = match[1]!;
+  const parsedDate = new Date(`${calendarDate}T00:00:00.000Z`);
+  if (
+    Number.isNaN(parsedDate.getTime()) ||
+    parsedDate.toISOString().slice(0, 10) !== calendarDate
+  ) {
+    return null;
+  }
+
+  if (value.trim() !== calendarDate && !Number.isFinite(Date.parse(value))) {
+    return null;
+  }
+  return calendarDate;
+}
+
 const userProfileBodySchema = z.object({
   height: z.number().finite().positive().max(400).optional(),
   weight: z.number().finite().positive().max(1000).optional(),
   targetWeight: z.number().finite().positive().max(1000).optional(),
   gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
-  dateOfBirth: z.string().refine((value) => {
-    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-      const parsed = new Date(`${value}T00:00:00.000Z`);
-      return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
-    }
-    return /^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/i.test(value) &&
-      Number.isFinite(Date.parse(value));
-  }, 'must be an ISO calendar date').optional(),
+  dateOfBirth: z.string().refine(
+    (value) => normalizeDateOfBirth(value) != null,
+    'must be an ISO calendar date'
+  ).optional(),
   weightGoal: z.enum(['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT']).optional(),
   activityLevel: z
     .enum(['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'])
@@ -64,12 +79,6 @@ const replaceProfileAssignments = `
   weight_unit = EXCLUDED.weight_unit,
   daily_calorie_goal = EXCLUDED.daily_calorie_goal,
   updated_at = EXCLUDED.updated_at`;
-
-function normalizeDateOfBirth(value: string): string {
-  return /^\d{4}-\d{2}-\d{2}$/.test(value)
-    ? value
-    : new Date(value).toISOString().slice(0, 10);
-}
 
 export async function userRoutes(fastify: FastifyInstance): Promise<void> {
   /**
@@ -184,7 +193,7 @@ export async function userRoutes(fastify: FastifyInstance): Promise<void> {
         } = parsed;
 
         const normalizedDateOfBirth = dateOfBirth
-          ? normalizeDateOfBirth(dateOfBirth)
+          ? normalizeDateOfBirth(dateOfBirth) ?? undefined
           : undefined;
         const today = calendarDateInTimeZone(
           new Date(),

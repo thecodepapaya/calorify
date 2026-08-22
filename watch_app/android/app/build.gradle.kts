@@ -56,11 +56,6 @@ android {
             }
         }
     }
-
-
-    sourceSets["main"].java.srcDir(
-        rootProject.file("../../shared_packages/models/generated/kotlin")
-    )
 }
 
 dependencies {
@@ -72,7 +67,6 @@ dependencies {
     // Kotlin coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
-    implementation("com.google.protobuf:protobuf-kotlin-lite:4.27.3")
 }
 
 flutter {

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/history_providers.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -27,7 +28,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with WidgetsBindingObserver {
-  int _healthConnectRefreshTrigger = 0;
   int _healthRefreshGeneration = 0;
   DateTime _dashboardDay = _dateOnly(DateTime.now());
   Duration _dashboardTimeZoneOffset = DateTime.now().timeZoneOffset;
@@ -83,7 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   void _refreshCaloriesBurned() {
     if (!mounted) return;
     ref.invalidate(caloriesBurnedProvider);
-    setState(() => _healthConnectRefreshTrigger++);
+    setState(() {});
   }
 
   Future<void> _refreshHealthConnectStatus({
@@ -147,9 +147,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   ),
                 ],
                 const SizedBox(height: 10),
-                SetDailyGoal(
-                  healthConnectRefreshTrigger: _healthConnectRefreshTrigger,
-                ),
+                const SetDailyGoal(),
                 const SizedBox(height: 20),
                 const DailySummaryCard(),
                 const SizedBox(height: 20),

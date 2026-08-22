@@ -1,4 +1,5 @@
 import 'package:calorify/core/db/database_interface.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_service.dart';
@@ -29,7 +30,6 @@ void main() {
     when(
       () => healthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => healthService.isAuthorized).thenReturn(true);
     when(
       () => healthService.initializationState,
     ).thenReturn(HealthServiceInitializationState.ready);

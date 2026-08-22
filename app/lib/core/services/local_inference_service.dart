@@ -19,7 +19,6 @@ class LocalInferenceCapabilities {
     required this.canDownload,
     required this.structuredOutputSupported,
     required this.textSupported,
-    required this.imageSupported,
     this.modelName,
     this.modelVersion,
   });
@@ -31,7 +30,6 @@ class LocalInferenceCapabilities {
       canDownload = false,
       structuredOutputSupported = false,
       textSupported = false,
-      imageSupported = false,
       modelName = null,
       modelVersion = null;
 
@@ -41,12 +39,10 @@ class LocalInferenceCapabilities {
   final bool canDownload;
   final bool structuredOutputSupported;
   final bool textSupported;
-  final bool imageSupported;
   final String? modelName;
   final String? modelVersion;
 
   bool get canRunText => ready && structuredOutputSupported && textSupported;
-  bool get canRunImage => ready && structuredOutputSupported && imageSupported;
 
   factory LocalInferenceCapabilities.fromMap(Map<String, Object?> map) {
     final statusName = map['featureStatus'] as String? ?? 'unavailable';
@@ -60,7 +56,6 @@ class LocalInferenceCapabilities {
       canDownload: map['canDownload'] == true,
       structuredOutputSupported: map['structuredOutputSupported'] == true,
       textSupported: map['textSupported'] == true,
-      imageSupported: map['imageSupported'] == true,
       modelName: map['modelName'] as String?,
       modelVersion: map['modelVersion'] as String?,
     );
@@ -105,10 +100,7 @@ abstract interface class LocalInferenceService {
     String text, {
     String? requestId,
     Duration timeout = const Duration(seconds: 20),
-    String? debugFailure,
   });
-
-  Future<void> cancel(String requestId);
 }
 
 class MethodChannelLocalInferenceService implements LocalInferenceService {
@@ -172,7 +164,6 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
     String text, {
     String? requestId,
     Duration timeout = const Duration(seconds: 20),
-    String? debugFailure,
   }) {
     final trimmed = text.trim();
     if (trimmed.isEmpty) {
@@ -190,7 +181,6 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
       expectedModality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
       requestId: requestId,
       timeout: timeout,
-      debugFailure: debugFailure,
     );
   }
 
@@ -200,7 +190,6 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
     required AnalysisModality expectedModality,
     required String? requestId,
     required Duration timeout,
-    required String? debugFailure,
   }) async {
     _ensureAndroid();
     final resolvedRequestId = requestId ?? const Uuid().v4();
@@ -210,7 +199,6 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
           ...arguments,
           'requestId': resolvedRequestId,
           'timeoutMs': timeout.inMilliseconds,
-          if (debugFailure != null) 'debugFailure': debugFailure,
         }),
       );
       final responseRequestId = raw.remove('requestId');
@@ -251,12 +239,6 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
                 .MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT,
       );
     }
-  }
-
-  @override
-  Future<void> cancel(String requestId) async {
-    if (!_isSupportedPlatform || requestId.isEmpty) return;
-    await _channel.invokeMethod<void>('cancel', {'requestId': requestId});
   }
 
   void _ensureAndroid() {

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';

@@ -5,9 +5,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/config/env_config.dart';
 import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/db/database_interface.dart';
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    hide databaseInterfaceProvider;
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/local_inference_providers.dart';
-import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/providers/theme_provider.dart';
 import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/router/app_router.dart';
@@ -112,7 +113,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                             EditProfileRoute(userProfile: userProfile),
                           );
                           ref.invalidate(userProfileProvider);
-                          ref.invalidate(savedDailyCalorieGoalProvider);
+                          ref.invalidate(dailyCalorieGoalProvider);
                         }
                         : null,
               ),
@@ -891,8 +892,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
           if (updatedProfile != null) {
             await ref
-                .read(profileActionsProvider)
-                .updateProfile(updatedProfile);
+                .read(profileRepositoryProvider)
+                .saveUserProfile(updatedProfile);
             ref.invalidate(userProfileProvider);
           }
         },
@@ -980,8 +981,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
           if (updatedProfile != null) {
             await ref
-                .read(profileActionsProvider)
-                .updateProfile(updatedProfile);
+                .read(profileRepositoryProvider)
+                .saveUserProfile(updatedProfile);
             ref.invalidate(userProfileProvider);
           }
         },
@@ -1007,7 +1008,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
             TextButton(
               onPressed: () async {
-                await ref.read(profileActionsProvider).clearAllData();
+                await ref.read(databaseInterfaceProvider).clearAllData();
                 await NotificationService.instance.clearMealReminders();
                 if (!context.mounted) return;
                 Navigator.pop(context);

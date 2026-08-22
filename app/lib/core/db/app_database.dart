@@ -1077,11 +1077,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<void> clearHealthConnectSyncQueue() async {
-    await delete(healthConnectSyncQueueTable).go();
-  }
-
-  @override
   Future<int> countPendingHealthConnectDeletes() async {
     final count = healthConnectSyncQueueTable.id.count();
     final query =

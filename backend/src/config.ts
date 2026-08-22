@@ -31,8 +31,6 @@ interface Config {
     readonly LOKI_URL: string | null;
     /** Trust X-Forwarded-* headers for client IP (set true when behind a proxy/load balancer). */
     readonly TRUST_PROXY: boolean;
-    readonly USDA_AUTO_REFRESH_ENABLED: boolean;
-    readonly USDA_REFRESH_CRON: string;
     readonly USDA_DATA_DIR: string;
     readonly USDA_DATASET_VERSION: string | null;
     readonly USDA_SOURCE_RELEASE_DATE: string | null;
@@ -163,8 +161,6 @@ const config: Config = {
     ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar('ORACLE_BUCKET_DOWNLOAD_URL', ''),
     LOKI_URL: getEnvVarOptional('LOKI_URL'),
     TRUST_PROXY: getEnvVarBoolean('TRUST_PROXY', false),
-    USDA_AUTO_REFRESH_ENABLED: getEnvVarBoolean('USDA_AUTO_REFRESH_ENABLED', false),
-    USDA_REFRESH_CRON: getEnvVar('USDA_REFRESH_CRON', '0 3 1 * *'),
     USDA_DATA_DIR: getEnvVar('USDA_DATA_DIR', join(process.cwd(), 'data', 'usda')),
     USDA_DATASET_VERSION: getEnvVarOptional('USDA_DATASET_VERSION'),
     USDA_SOURCE_RELEASE_DATE: getEnvVarOptional('USDA_SOURCE_RELEASE_DATE'),

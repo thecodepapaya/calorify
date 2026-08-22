@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/meal_log_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/services/analytics.dart';

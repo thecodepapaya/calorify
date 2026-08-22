@@ -5,28 +5,13 @@
 // source: protos/calorify/meal_detection.proto
 
 /* eslint-disable */
-import type { CalorieConfidence, Meal, MealMacro } from "../meal/meal";
+import type { CalorieConfidence, Meal } from "../meal/meal";
 
 export const protobufPackage = "calorify";
-
-export interface Variation {
-  /** The question to ask the user (e.g., "What does the white bowl contain?") */
-  question: string;
-  /** List of options with their expected macros */
-  options: Variation_Option[];
-}
-
-export interface Variation_Option {
-  /** The option text (e.g., "curd", "labaan") */
-  option: string;
-  /** Expected macros diff if this option is selected */
-  macroDiff?: MealMacro | undefined;
-}
 
 export interface MealMetadata {
   imageUrl?: string | undefined;
   mealDescription?: string | undefined;
-  selectedVariations: Variation[];
 }
 
 export interface MealDetectionResult {
@@ -37,16 +22,6 @@ export interface MealDetectionResult {
   metadata?: MealMetadata | undefined;
 }
 
-export interface ImageMealDetectionRequest {
-  imageUrl: string;
-  mimeType?: string | undefined;
-}
-
-export interface TextMealDetectionRequest {
-  textDescription: string;
-}
-
 export interface MealDetectionResponse {
   result?: MealDetectionResult | undefined;
-  variations: Variation[];
 }

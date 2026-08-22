@@ -95,7 +95,11 @@ class AuthService {
       }
 
       final credential = GoogleAuthProvider.credential(idToken: idToken);
-      final result = await _firebaseAuth.signInWithCredential(credential);
+      final currentUser = _firebaseAuth.currentUser;
+      final result =
+          currentUser?.isAnonymous == true
+              ? await currentUser!.linkWithCredential(credential)
+              : await _firebaseAuth.signInWithCredential(credential);
       await resolveAuthToken();
       return result;
     } catch (e, st) {

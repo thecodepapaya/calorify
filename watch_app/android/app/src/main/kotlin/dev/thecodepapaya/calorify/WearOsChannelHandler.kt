@@ -1,497 +1,237 @@
 package dev.thecodepapaya.calorify
 
+import android.content.Context
 import android.util.Log
-import com.google.android.gms.wearable.*
-import dev.thecodepapaya.calorify.protocol.WearEnvelope
-import dev.thecodepapaya.calorify.protocol.WearError
-import dev.thecodepapaya.calorify.protocol.WearErrorCode
-import dev.thecodepapaya.calorify.protocol.WearOperation
-import dev.thecodepapaya.calorify.protocol.WearResponse
+import com.google.android.gms.wearable.MessageClient
+import com.google.android.gms.wearable.MessageEvent
+import com.google.android.gms.wearable.Node
+import com.google.android.gms.wearable.Wearable
 import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
+import org.json.JSONArray
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
-import java.util.concurrent.ConcurrentHashMap
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 class WearOsChannelHandler(
-    private val context: android.content.Context,
-    private val flutterEngine: FlutterEngine,
-    private val coroutineScope: CoroutineScope
+    private val context: Context,
+    flutterEngine: FlutterEngine,
+    private val coroutineScope: CoroutineScope,
 ) : MessageClient.OnMessageReceivedListener {
-
-    private val methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "dev.thecodepapaya.calorify/wear_os")
-    private val eventChannel = EventChannel(flutterEngine.dartExecutor.binaryMessenger, "dev.thecodepapaya.calorify/wear_os_messages")
-    
-    private var wearableDataClient: DataClient? = null
+    private val methodChannel = MethodChannel(
+        flutterEngine.dartExecutor.binaryMessenger,
+        "dev.thecodepapaya.calorify/wear_os",
+    )
     private var wearableMessageClient: MessageClient? = null
     private var isInitialized = false
-    private var eventSink: EventChannel.EventSink? = null
-    private val pendingResponses = ConcurrentHashMap<String, CompletableDeferred<Map<String, Any>?>>()
-    private val pendingProtocolResponses = ConcurrentHashMap<String, CompletableDeferred<ByteArray?>>()
-    
-    private val TAG = "WearOsChannelHandler"
-    private val watchProtocolPath = "/calorify_watch/protocol"
-    private val phoneProtocolPath = "/calorify_phone/protocol"
-    private val protocolVersion = 2
+    private var disposed = false
+    private val pendingResponses =
+        ConcurrentHashMap<String, CompletableDeferred<Map<String, Any>?>>()
 
     init {
         setupMethodChannel()
-        setupEventChannel()
     }
 
     private fun setupMethodChannel() {
         methodChannel.setMethodCallHandler { call, result ->
             when (call.method) {
-                "initialize" -> {
-                    coroutineScope.launch {
-                        try {
-                            result.success(initializeWearOs())
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Initialization failed: type=${e.javaClass.simpleName}")
-                            result.error("INIT_ERROR", "Wear OS initialization failed", null)
-                        }
+                "initialize" -> coroutineScope.launch {
+                    try {
+                        result.success(initializeWearOs())
+                    } catch (error: Exception) {
+                        Log.e(TAG, "Initialization failed: type=${error.javaClass.simpleName}")
+                        result.error("INIT_ERROR", "Wear OS initialization failed", null)
                     }
                 }
-                "sendMessage" -> {
-                    coroutineScope.launch {
-                        try {
-                            val path = call.argument<String>("path") ?: ""
-                            val data = call.argument<Map<String, Any>>("data") ?: emptyMap()
-                            val response = sendMessageToPhone(path, data)
-                            result.success(response)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Send message failed: type=${e.javaClass.simpleName}")
-                            result.error("SEND_ERROR", "Wear transport failed", null)
-                        }
+                "sendMessage" -> coroutineScope.launch {
+                    try {
+                        val path = call.argument<String>("path") ?: ""
+                        val data = call.argument<Map<String, Any>>("data") ?: emptyMap()
+                        result.success(sendMessageToPhone(path, data))
+                    } catch (error: Exception) {
+                        Log.e(TAG, "Send failed: type=${error.javaClass.simpleName}")
+                        result.error("SEND_ERROR", "Wear transport failed", null)
                     }
                 }
-                "sendProtocolMessage" -> {
-                    coroutineScope.launch {
-                        try {
-                            val data = call.arguments as? ByteArray
-                            if (data == null) {
-                                result.error(
-                                    "INVALID_PROTOCOL_PAYLOAD",
-                                    "Wear protocol payload is required",
-                                    null
-                                )
-                            } else {
-                                val response = sendProtocolMessageToPhone(data)
-                                if (response == null) {
-                                    // A connected old phone ignores the generated protocol
-                                    // path. Preserve that transport provenance so Dart can
-                                    // probe the one-version legacy compatibility path.
-                                    result.error(
-                                        "PROTOCOL_NO_RESPONSE",
-                                        "Phone did not answer the generated protocol request",
-                                        null
-                                    )
-                                } else {
-                                    result.success(response)
-                                }
-                            }
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Protocol send failed: type=${e.javaClass.simpleName}")
-                            result.error("PROTOCOL_SEND_ERROR", "Protocol transport failed", null)
-                        }
-                    }
+                "isPhoneConnected" -> coroutineScope.launch {
+                    result.success(isPhoneConnected())
                 }
-                "isPhoneConnected" -> {
-                    coroutineScope.launch {
-                        val connected = isPhoneConnected()
-                        result.success(connected)
-                    }
-                }
-                else -> {
-                    result.notImplemented()
-                }
+                else -> result.notImplemented()
             }
         }
-    }
-
-    private fun setupEventChannel() {
-        eventChannel.setStreamHandler(object : EventChannel.StreamHandler {
-            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-                eventSink = events
-            }
-
-            override fun onCancel(arguments: Any?) {
-                eventSink = null
-            }
-        })
     }
 
     private suspend fun initializeWearOs(): Boolean = withContext(Dispatchers.Main) {
+        if (disposed) return@withContext false
         if (isInitialized) return@withContext true
         try {
-            Log.d(TAG, "Initializing Wear OS...")
-            wearableDataClient = Wearable.getDataClient(context)
-            wearableMessageClient = Wearable.getMessageClient(context)
-            
-            Log.d(TAG, "Registering message listener...")
-            // Register message listener - await the task
-            wearableMessageClient?.addListener(this@WearOsChannelHandler)?.await()
-            isInitialized = wearableMessageClient != null
-            
-            Log.d(TAG, "Wear OS initialized successfully")
-            
-            // Log connected nodes for debugging
+            val client = Wearable.getMessageClient(context)
+            client.addListener(this@WearOsChannelHandler).await()
+            if (disposed) {
+                client.removeListener(this@WearOsChannelHandler).await()
+                return@withContext false
+            }
+            wearableMessageClient = client
+            isInitialized = true
             checkConnectedNodes()
-            return@withContext isInitialized
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to initialize Wear OS", e)
+            Log.d(TAG, "Wear OS channel initialized")
+            true
+        } catch (error: Exception) {
+            Log.e(TAG, "Failed to initialize Wear OS: type=${error.javaClass.simpleName}")
             isInitialized = false
-            return@withContext false
+            false
         }
     }
-    
+
     private suspend fun checkConnectedNodes() {
-        try {
-            val nodes = getConnectedNodes()
-            val nearbyCount = nodes.count { it.isNearby }
-            Log.d(TAG, "Connected nodes: count=${nodes.size}, nearby=$nearbyCount")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error checking connected nodes", e)
-        }
+        val nodes = getConnectedNodes()
+        val nearbyCount = nodes.count { it.isNearby }
+        Log.d(TAG, "Connected nodes: count=${nodes.size}, nearby=$nearbyCount")
     }
 
-    private suspend fun sendMessageToPhone(path: String, data: Map<String, Any>): Map<String, Any>? = withContext(Dispatchers.IO) {
-        try {
-            Log.d(TAG, "Attempting to send message to phone: path=$path")
-            val nodes = getConnectedNodes()
-            Log.d(TAG, "Found ${nodes.size} connected node(s)")
-            if (nodes.isEmpty()) {
-                Log.w(TAG, "No connected nodes found - cannot send message")
-                return@withContext mapOf(
-                    "success" to false,
-                    "error" to "No connected phone",
-                    "errorCode" to "disconnected"
-                )
-            }
-            val messageClient = wearableMessageClient
-                ?: return@withContext mapOf(
-                    "success" to false,
-                    "error" to "Wear OS channel unavailable",
-                    "errorCode" to "unavailable"
-                )
-
-            val requestId = UUID.randomUUID().toString()
-            val jsonData = JSONObject(data).put("_requestId", requestId).toString()
-            val payload = jsonData.toByteArray(StandardCharsets.UTF_8)
-            val responsePath = "/calorify_phone$path"
-            val responseDeferred = CompletableDeferred<Map<String, Any>?>()
-            pendingResponses[requestId] = responseDeferred
-            
-            // Use MessageClient for request-response pattern
-            val messagePath = "/calorify_watch$path"
-            try {
-                val targetNode = nodes.first()
-                Log.d(TAG, "Sending message to connected phone: path=$messagePath")
-                messageClient.sendMessage(
-                    targetNode.id,
-                    messagePath,
-                    payload
-                ).await()
-                
-                Log.d(TAG, "Message sent successfully to phone: $messagePath")
-
-                // Phone-side text detection includes a backend AI request and
-                // routinely needs longer than the low-latency sync operations.
-                // Keep the request correlated instead of misclassifying normal
-                // analysis latency as an unsupported protocol.
-                val responseTimeoutMillis = if (
-                    path == "/analysis/detect-text"
-                ) 45_000L else 5_000L
-                val response = withTimeoutOrNull(responseTimeoutMillis) {
-                    responseDeferred.await()
-                }
-
-                return@withContext response
-                    ?: mapOf(
-                        "success" to false,
-                        "error" to "Response timed out",
-                        "errorCode" to "timeout"
-                    )
-            } catch (e: Exception) {
-                Log.e(TAG, "Failed to send message: type=${e.javaClass.simpleName}")
-                return@withContext mapOf(
-                    "success" to false,
-                    "error" to "Message transport failed",
-                    "errorCode" to "platform"
-                )
-            } finally {
-                pendingResponses.remove(requestId)
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error sending message: type=${e.javaClass.simpleName}")
-            return@withContext mapOf(
-                "success" to false,
-                "error" to "Message transport failed",
-                "errorCode" to "platform"
+    private suspend fun sendMessageToPhone(
+        path: String,
+        data: Map<String, Any>,
+    ): Map<String, Any>? = withContext(Dispatchers.IO) {
+        val nodes = getConnectedNodes()
+        if (nodes.isEmpty()) {
+            return@withContext transportError(
+                message = "No connected phone",
+                code = "disconnected",
             )
         }
-    }
+        val messageClient = wearableMessageClient
+            ?: return@withContext transportError(
+                message = "Wear OS channel unavailable",
+                code = "unavailable",
+            )
 
-    private suspend fun sendProtocolMessageToPhone(data: ByteArray): ByteArray? = withContext(Dispatchers.IO) {
-        val request = try {
-            WearEnvelope.parseFrom(data)
+        val requestId = UUID.randomUUID().toString()
+        val payload = JSONObject(data)
+            .put(REQUEST_ID_KEY, requestId)
+            .toString()
+            .toByteArray(StandardCharsets.UTF_8)
+        val response = CompletableDeferred<Map<String, Any>?>()
+        pendingResponses[requestId] = response
+
+        try {
+            messageClient.sendMessage(
+                nodes.first().id,
+                "/calorify_watch$path",
+                payload,
+            ).await()
+
+            val timeoutMillis = if (path == DETECT_TEXT_PATH) 45_000L else 5_000L
+            withTimeoutOrNull(timeoutMillis) { response.await() }
+                ?: transportError("Response timed out", "timeout")
         } catch (error: Exception) {
-            return@withContext protocolError(
-                null,
-                WearErrorCode.WEAR_ERROR_CODE_INVALID_PAYLOAD,
-                "Malformed Wear protocol envelope"
-            )
-        }
-        if (request.version != protocolVersion) {
-            return@withContext protocolError(
-                request,
-                WearErrorCode.WEAR_ERROR_CODE_INVALID_VERSION,
-                "Unsupported Wear protocol version ${request.version}"
-            )
-        }
-        if (request.bodyCase != WearEnvelope.BodyCase.REQUEST || request.requestId.isBlank()) {
-            return@withContext protocolError(
-                request,
-                WearErrorCode.WEAR_ERROR_CODE_INVALID_PAYLOAD,
-                "Invalid Wear protocol request"
-            )
-        }
-        if (request.operation == WearOperation.UNRECOGNIZED ||
-            request.operation == WearOperation.WEAR_OPERATION_UNSPECIFIED ||
-            request.operation == WearOperation.WEAR_OPERATION_DATA_CHANGED
-        ) {
-            return@withContext protocolError(
-                request,
-                WearErrorCode.WEAR_ERROR_CODE_UNKNOWN_OPERATION,
-                "Unknown Wear operation"
-            )
-        }
-
-        try {
-            val messageClient = wearableMessageClient
-                ?: return@withContext protocolError(
-                    request,
-                    WearErrorCode.WEAR_ERROR_CODE_UNAVAILABLE,
-                    "Wear OS message client is unavailable",
-                    retryable = true
-                )
-            val nodes = try {
-                Wearable.getNodeClient(context).connectedNodes.await()
-            } catch (error: Exception) {
-                Log.e(TAG, "Failed to query connected nodes", error)
-                return@withContext protocolError(
-                    request,
-                    WearErrorCode.WEAR_ERROR_CODE_PLATFORM,
-                    "Failed to query connected phone",
-                    retryable = true
-                )
-            }
-            if (nodes.isEmpty()) {
-                return@withContext protocolError(
-                    request,
-                    WearErrorCode.WEAR_ERROR_CODE_DISCONNECTED,
-                    "No connected phone",
-                    retryable = true
-                )
-            }
-
-            val responseDeferred = CompletableDeferred<ByteArray?>()
-            pendingProtocolResponses[request.requestId] = responseDeferred
-            try {
-                messageClient.sendMessage(
-                    nodes.first().id,
-                    watchProtocolPath,
-                    data
-                ).await()
-                // Text detection includes a backend AI request and must not be
-                // mistaken for an unsupported peer while normal work is still
-                // running on the phone.
-                val responseTimeoutMillis = if (
-                    request.operation == WearOperation.WEAR_OPERATION_DETECT_TEXT
-                ) 45_000L else 5_000L
-                val response = withTimeoutOrNull(responseTimeoutMillis) {
-                    responseDeferred.await()
-                }
-                return@withContext response
-            } finally {
-                pendingProtocolResponses.remove(request.requestId)
-            }
-        } catch (error: Exception) {
-            Log.e(TAG, "Failed to send Wear protocol request: type=${error.javaClass.simpleName}")
-            return@withContext protocolError(
-                request,
-                WearErrorCode.WEAR_ERROR_CODE_PLATFORM,
-                "Wear protocol transport failed",
-                retryable = true
-            )
+            Log.e(TAG, "Message transport failed: type=${error.javaClass.simpleName}")
+            transportError("Message transport failed", "platform")
+        } finally {
+            pendingResponses.remove(requestId)
         }
     }
 
-    private suspend fun getConnectedNodes(): List<Node> {
-        return try {
-            Wearable.getNodeClient(context).connectedNodes.await()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error getting connected nodes", e)
-            emptyList()
-        }
+    private suspend fun getConnectedNodes(): List<Node> = try {
+        Wearable.getNodeClient(context).connectedNodes.await()
+    } catch (error: Exception) {
+        Log.e(TAG, "Error getting connected nodes: type=${error.javaClass.simpleName}")
+        emptyList()
     }
 
     private suspend fun isPhoneConnected(): Boolean = withContext(Dispatchers.IO) {
-        try {
-            val nodes = getConnectedNodes()
-            return@withContext nodes.isNotEmpty()
-        } catch (e: Exception) {
-            Log.e(TAG, "Error checking connection", e)
-            return@withContext false
-        }
+        getConnectedNodes().isNotEmpty()
     }
 
     override fun onMessageReceived(messageEvent: MessageEvent) {
-        Log.d(TAG, "onMessageReceived: path=${messageEvent.path}")
-        coroutineScope.launch {
-            if (messageEvent.path == phoneProtocolPath) {
-                handleProtocolMessage(messageEvent.data)
-            } else if (messageEvent.path.startsWith("/calorify_phone/")) {
-                try {
-                    val data = String(messageEvent.data, StandardCharsets.UTF_8)
-                    val jsonObject = JSONObject(data)
-                    val payloadMap = jsonObjectToMap(jsonObject).toMutableMap()
-                    val requestId = payloadMap.remove("_requestId") as? String
-
-                    // Include the logical path so the Flutter side can display it
-                    val logicalPath = messageEvent.path.removePrefix("/calorify_phone")
-                    val message = mutableMapOf<String, Any>("path" to logicalPath)
-                    message.putAll(payloadMap)
-
-                    Log.d(TAG, "Received message from phone: path=$logicalPath")
-                    if (requestId != null) {
-                        val pendingResponse = pendingResponses.remove(requestId)
-                        if (pendingResponse != null) {
-                            pendingResponse.complete(payloadMap)
-                        } else {
-                            Log.w(TAG, "Dropping late response for path=$logicalPath")
-                        }
-                    } else {
-                        eventSink?.success(message)
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error parsing message: type=${e.javaClass.simpleName}")
-                }
-            } else {
-                Log.d(TAG, "Ignoring message with path: ${messageEvent.path}")
-            }
-        }
-    }
-
-    private fun handleProtocolMessage(data: ByteArray) {
-        val envelope = try {
-            WearEnvelope.parseFrom(data)
-        } catch (error: Exception) {
-            Log.w(TAG, "Ignoring malformed Wear protocol message", error)
+        if (!messageEvent.path.startsWith(PHONE_PATH_PREFIX)) {
+            Log.d(TAG, "Ignoring message with path: ${messageEvent.path}")
             return
         }
 
-        when (envelope.bodyCase) {
-            WearEnvelope.BodyCase.RESPONSE -> {
-                val pending = pendingProtocolResponses.remove(envelope.requestId)
-                if (envelope.requestId.isNotBlank() && pending != null) {
-                    pending.complete(data)
-                } else {
-                    Log.w(TAG, "Dropping late or uncorrelated Wear protocol response")
+        coroutineScope.launch {
+            val logicalPath = messageEvent.path.removePrefix("/calorify_phone")
+            try {
+                val payload = JSONObject(
+                    String(messageEvent.data, StandardCharsets.UTF_8),
+                ).toMap().toMutableMap()
+                val requestId = payload.remove(REQUEST_ID_KEY) as? String
+                if (requestId == null) {
+                    Log.w(TAG, "Dropping uncorrelated phone message: path=$logicalPath")
+                    return@launch
                 }
-            }
-            WearEnvelope.BodyCase.EVENT -> {
-                if (envelope.requestId.isEmpty()) {
-                    eventSink?.success(data)
-                } else {
-                    Log.w(TAG, "Dropping correlated payload marked as an event")
+
+                val pending = pendingResponses.remove(requestId)
+                if (pending == null) {
+                    Log.w(TAG, "Dropping late phone response: path=$logicalPath")
+                    return@launch
                 }
-            }
-            else -> Log.w(TAG, "Ignoring unexpected Wear protocol body ${envelope.bodyCase}")
-        }
-    }
-
-    private fun protocolError(
-        request: WearEnvelope?,
-        code: WearErrorCode,
-        message: String,
-        retryable: Boolean = false
-    ): ByteArray {
-        val operation = request?.operation?.takeUnless {
-            it == WearOperation.UNRECOGNIZED
-        } ?: WearOperation.WEAR_OPERATION_UNSPECIFIED
-        return WearEnvelope.newBuilder()
-            .setVersion(protocolVersion)
-            .setRequestId(request?.requestId ?: "")
-            .setOperation(operation)
-            .setResponse(
-                WearResponse.newBuilder()
-                    .setError(
-                        WearError.newBuilder()
-                            .setCode(code)
-                            .setMessage(message)
-                            .setRetryable(retryable)
-                    )
-            )
-            .build()
-            .toByteArray()
-    }
-
-    private fun jsonObjectToMap(jsonObject: JSONObject): Map<String, Any> {
-        val map = mutableMapOf<String, Any>()
-        val keys = jsonObject.keys()
-        while (keys.hasNext()) {
-            val key = keys.next()
-            val value = jsonObject.get(key)
-            when (value) {
-                is JSONObject -> map[key] = jsonObjectToMap(value)
-                is org.json.JSONArray -> map[key] = jsonArrayToList(value)
-                else -> map[key] = value ?: ""
+                pending.complete(payload)
+                Log.d(TAG, "Received correlated phone response: path=$logicalPath")
+            } catch (error: Exception) {
+                Log.e(TAG, "Error parsing phone response: type=${error.javaClass.simpleName}")
             }
         }
-        return map
-    }
-
-    private fun jsonArrayToList(jsonArray: org.json.JSONArray): List<Any> {
-        val list = mutableListOf<Any>()
-        for (i in 0 until jsonArray.length()) {
-            val value = jsonArray.get(i)
-            when (value) {
-                is JSONObject -> list.add(jsonObjectToMap(value))
-                is org.json.JSONArray -> list.add(jsonArrayToList(value))
-                else -> list.add(value)
-            }
-        }
-        return list
-    }
-
-    private fun dataMapToMap(dataMap: DataMap): Map<String, Any> {
-        val map = mutableMapOf<String, Any>()
-        for (key in dataMap.keySet()) {
-            val value: Any? = dataMap.get(key)
-            when (value) {
-                is DataMap -> map[key] = dataMapToMap(value)
-                is ArrayList<*> -> map[key] = value
-                else -> map[key] = value ?: ""
-            }
-        }
-        return map
     }
 
     fun dispose() {
-        coroutineScope.launch {
-            try {
-                wearableMessageClient?.removeListener(this@WearOsChannelHandler)?.await()
-                isInitialized = false
-                eventSink = null
-                Log.d(TAG, "WearOsChannelHandler disposed")
-            } catch (e: Exception) {
-                Log.e(TAG, "Error disposing WearOsChannelHandler", e)
-            }
+        if (disposed) return
+        disposed = true
+        methodChannel.setMethodCallHandler(null)
+        pendingResponses.values.forEach {
+            it.complete(transportError("Wear OS channel unavailable", "unavailable"))
         }
+        pendingResponses.clear()
+        wearableMessageClient?.removeListener(this)?.addOnFailureListener { error ->
+            Log.e(TAG, "Error removing Wear listener: type=${error.javaClass.simpleName}")
+        }
+        wearableMessageClient = null
+        isInitialized = false
+    }
+
+    private fun transportError(message: String, code: String): Map<String, Any> =
+        mapOf(
+            "success" to false,
+            "error" to message,
+            "errorCode" to code,
+            TRANSPORT_ERROR_KEY to true,
+        )
+
+    private companion object {
+        const val TAG = "WearOsChannelHandler"
+        const val PHONE_PATH_PREFIX = "/calorify_phone/"
+        const val DETECT_TEXT_PATH = "/analysis/detect-text"
+        const val REQUEST_ID_KEY = "_requestId"
+        const val TRANSPORT_ERROR_KEY = "_transportError"
+    }
+}
+
+private fun JSONObject.toMap(): Map<String, Any> {
+    val map = mutableMapOf<String, Any>()
+    val keys = keys()
+    while (keys.hasNext()) {
+        val key = keys.next()
+        map[key] = when (val value = get(key)) {
+            is JSONObject -> value.toMap()
+            is JSONArray -> value.toList()
+            else -> value
+        }
+    }
+    return map
+}
+
+private fun JSONArray.toList(): List<Any> = List(length()) { index ->
+    when (val value = get(index)) {
+        is JSONObject -> value.toMap()
+        is JSONArray -> value.toList()
+        else -> value
     }
 }

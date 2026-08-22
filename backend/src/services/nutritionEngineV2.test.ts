@@ -34,14 +34,7 @@ await mock.module('./usdaLookupUtils.js', {
 
 const mockUpsertSession = mock.fn(async () => true);
 const mockAdvanceSession = mock.fn(async () => true);
-const mockClaimDecomposition = mock.fn(async () => ({
-  status: 'claimed' as const,
-  lease: {
-    stage: 'DECOMPOSING' as const,
-    token: '00000000-0000-4000-8000-000000000010',
-  },
-}));
-const mockReleaseDecomposition = mock.fn(async () => {});
+const mockCreateSession = mock.fn(async () => ({ status: 'created' as const }));
 const mockRecordClarification = mock.fn(async () => {});
 const mockRecordMealType = mock.fn(async () => {});
 const mockGetSession = mock.fn(async () => undefined);
@@ -50,16 +43,6 @@ const mockClaimClarification = mock.fn(async () => ({
   token: '00000000-0000-4000-8000-000000000011',
 }));
 const mockReleaseClarification = mock.fn(async () => {});
-const mockClaimIngredientResolution = mock.fn(async () => ({
-  stage: 'RESOLVING_INGREDIENTS' as const,
-  token: '00000000-0000-4000-8000-000000000012',
-}));
-const mockReleaseIngredientResolution = mock.fn(async () => {});
-const mockClaimFinalization = mock.fn(async () => ({
-  stage: 'FINALIZING_ANALYSIS' as const,
-  token: '00000000-0000-4000-8000-000000000013',
-}));
-const mockReleaseFinalization = mock.fn(async () => {});
 const mockClaimPresentation = mock.fn(async () => ({
   stage: 'PRESENTING' as const,
   token: '00000000-0000-4000-8000-000000000014',
@@ -70,15 +53,10 @@ await mock.module('./mealAnalysisStore.js', {
   namedExports: {
     upsertMealAnalysisSession: mockUpsertSession,
     advanceMealAnalysisSession: mockAdvanceSession,
-    claimMealAnalysisDecomposition: mockClaimDecomposition,
-    releaseMealAnalysisDecomposition: mockReleaseDecomposition,
+    createMealAnalysisSession: mockCreateSession,
     getMealAnalysisSession: mockGetSession,
     claimMealAnalysisClarification: mockClaimClarification,
     releaseMealAnalysisClarification: mockReleaseClarification,
-    claimMealAnalysisIngredientResolution: mockClaimIngredientResolution,
-    releaseMealAnalysisIngredientResolution: mockReleaseIngredientResolution,
-    claimMealAnalysisFinalization: mockClaimFinalization,
-    releaseMealAnalysisFinalization: mockReleaseFinalization,
     claimMealAnalysisPresentation: mockClaimPresentation,
     releaseMealAnalysisPresentation: mockReleasePresentation,
     recordMealAnalysisClarification: mockRecordClarification,
@@ -191,27 +169,12 @@ test.beforeEach(() => {
   clearFallbackNutritionCache();
   mockUpsertSession.mock.mockImplementation(async () => true);
   mockAdvanceSession.mock.mockImplementation(async () => true);
-  mockClaimDecomposition.mock.mockImplementation(async () => ({
-    status: 'claimed',
-    lease: {
-      stage: 'DECOMPOSING',
-      token: '00000000-0000-4000-8000-000000000010',
-    },
-  }));
-  mockReleaseDecomposition.mock.mockImplementation(async () => {});
+  mockCreateSession.mock.mockImplementation(async () => ({ status: 'created' }));
   mockGetSession.mock.mockImplementation(async () => undefined);
   mockClaimClarification.mock.mockImplementation(async () => ({
     stage: 'APPLYING_CLARIFICATION', token: '00000000-0000-4000-8000-000000000011',
   }));
   mockReleaseClarification.mock.mockImplementation(async () => {});
-  mockClaimIngredientResolution.mock.mockImplementation(async () => ({
-    stage: 'RESOLVING_INGREDIENTS', token: '00000000-0000-4000-8000-000000000012',
-  }));
-  mockReleaseIngredientResolution.mock.mockImplementation(async () => {});
-  mockClaimFinalization.mock.mockImplementation(async () => ({
-    stage: 'FINALIZING_ANALYSIS', token: '00000000-0000-4000-8000-000000000013',
-  }));
-  mockReleaseFinalization.mock.mockImplementation(async () => {});
   mockClaimPresentation.mock.mockImplementation(async () => ({
     stage: 'PRESENTING', token: '00000000-0000-4000-8000-000000000014',
   }));
@@ -331,7 +294,7 @@ function installInMemorySessionStore(): Map<string, any> {
     return true;
   });
   mockGetSession.mock.mockImplementation(async (analysisId: string) => sessions.get(analysisId));
-  mockClaimDecomposition.mock.mockImplementation(async (record: any) => {
+  mockCreateSession.mock.mockImplementation(async (record: any) => {
     const existing = sessions.get(record.analysisId);
     if (existing) {
       const identityMatches =
@@ -341,64 +304,13 @@ function installInMemorySessionStore(): Map<string, any> {
         JSON.stringify(dispatchIdentityPayload(existing.requestPayload)) ===
           JSON.stringify(dispatchIdentityPayload(record.requestPayload));
       if (!identityMatches) return { status: 'conflict' };
-      if (existing.stage !== 'PENDING_DECOMPOSITION') return { status: 'existing' };
+      return { status: 'existing' };
     }
-    const lease = nextLease('DECOMPOSING');
     sessions.set(record.analysisId, {
-      ...(existing ?? record),
-      stage: lease.stage,
-      stageLeaseToken: lease.token,
+      ...record,
+      stage: 'PENDING_DECOMPOSITION',
     });
-    return { status: 'claimed', lease };
-  });
-  mockReleaseDecomposition.mock.mockImplementation(async (analysisId: string, token: string) => {
-    const session = sessions.get(analysisId);
-    if (session?.stage === 'DECOMPOSING' && session.stageLeaseToken === token) {
-      sessions.set(analysisId, {
-        ...session,
-        stage: 'PENDING_DECOMPOSITION',
-        stageLeaseToken: undefined,
-      });
-    }
-  });
-  mockClaimIngredientResolution.mock.mockImplementation(async (analysisId: string) => {
-    const session = sessions.get(analysisId);
-    if (!session || !['DECOMPOSED', 'RESOLVING_INGREDIENTS'].includes(session.stage)) {
-      return false;
-    }
-    if (session.stage === 'RESOLVING_INGREDIENTS') return false;
-    const lease = nextLease('RESOLVING_INGREDIENTS');
-    sessions.set(analysisId, {
-      ...session,
-      stage: lease.stage,
-      stageLeaseToken: lease.token,
-    });
-    return lease;
-  });
-  mockReleaseIngredientResolution.mock.mockImplementation(async (analysisId: string, token: string) => {
-    const session = sessions.get(analysisId);
-    if (session?.stage === 'RESOLVING_INGREDIENTS' && session.stageLeaseToken === token) {
-      sessions.set(analysisId, {
-        ...session, stage: 'DECOMPOSED', stageLeaseToken: undefined,
-      });
-    }
-  });
-  mockClaimFinalization.mock.mockImplementation(async (analysisId: string) => {
-    const session = sessions.get(analysisId);
-    if (!session || session.stage !== 'INGREDIENTS_RESOLVED') return false;
-    const lease = nextLease('FINALIZING_ANALYSIS');
-    sessions.set(analysisId, {
-      ...session, stage: lease.stage, stageLeaseToken: lease.token,
-    });
-    return lease;
-  });
-  mockReleaseFinalization.mock.mockImplementation(async (analysisId: string, token: string) => {
-    const session = sessions.get(analysisId);
-    if (session?.stage === 'FINALIZING_ANALYSIS' && session.stageLeaseToken === token) {
-      sessions.set(analysisId, {
-        ...session, stage: 'INGREDIENTS_RESOLVED', stageLeaseToken: undefined,
-      });
-    }
+    return { status: 'created' };
   });
   mockClaimClarification.mock.mockImplementation(async (analysisId: string, pendingAnswers?: any) => {
     const session = sessions.get(analysisId);
@@ -610,7 +522,7 @@ test('decomposition output is durable before it is emitted or ingredient resolut
     inferred_meal_type: 'LUNCH',
     meal_type_confident: true,
   });
-  mockAdvanceSession.mock.mockImplementationOnce(async () => {
+  mockUpsertSession.mock.mockImplementationOnce(async () => {
     throw new Error('session write failed');
   });
   mockCanonicalizeWithUsda.mock.resetCalls();
@@ -624,7 +536,7 @@ test('decomposition output is durable before it is emitted or ingredient resolut
     assert.equal(events.some((event) => event.step === 'DECOMPOSITION'), false);
     assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
   } finally {
-    mockAdvanceSession.mock.mockImplementation(async () => true);
+    mockUpsertSession.mock.mockImplementation(async () => true);
   }
 });
 
@@ -1621,7 +1533,7 @@ test('analyzeImageMeal emits error event when image URL causes LLM failure', asy
 });
 
 test('analyzeImageMeal uses image source in session record', async () => {
-  mockClaimDecomposition.mock.resetCalls();
+  mockCreateSession.mock.resetCalls();
   mockChatCreate.mock.mockImplementation(async () => ({
     choices: [{
       message: {
@@ -1645,7 +1557,7 @@ test('analyzeImageMeal uses image source in session record', async () => {
     'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/test-user/curry.jpg',
     { imageObjectKey: 'test-user/curry.jpg' }
   ));
-  const firstCall = mockClaimDecomposition.mock.calls[0];
+  const firstCall = mockCreateSession.mock.calls[0];
   if (firstCall) {
     assert.equal(firstCall.arguments[0].source, 'image');
     assert.equal(
@@ -1870,7 +1782,7 @@ test('resumeMealAnalysis continues INGREDIENTS_RESOLVED without repeating resolu
   ).length, presentationCalls);
 });
 
-test('concurrent resume waits for the active resolution and replays its result', async () => {
+test('resume restarts legacy in-flight resolution from its durable decomposition', async () => {
   const sessions = installInMemorySessionStore();
   const analysisId = '00000000-0000-4000-8000-000000000203';
   const decomposition = {
@@ -1899,101 +1811,12 @@ test('concurrent resume waits for the active resolution and replays its result',
   });
   mockChatCreate.mock.resetCalls();
   mockCanonicalizeWithUsda.mock.resetCalls();
-  setTimeout(() => sessions.set(analysisId, completed), 25);
-
   const events = await collectEvents(resumeMealAnalysis(analysisId, {
     userId: 'resume-user',
   }));
   assert.equal(events.at(-1)?.step, 'RESULT');
-  assert.equal(mockChatCreate.mock.calls.length, 0);
-  assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
-});
-
-test('busy resume timeout is retryable without exposing a terminal pipeline error', async (t) => {
-  t.mock.timers.enable({ apis: ['Date'] });
-  const sessions = installInMemorySessionStore();
-  const analysisId = '00000000-0000-4000-8000-000000000209';
-  sessions.set(analysisId, {
-    analysisId,
-    userId: 'resume-user',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'rice' },
-    stage: 'DECOMPOSING',
-    stageLeaseToken: '00000000-0000-4000-8000-000000000999',
-  });
-  let reads = 0;
-  mockGetSession.mock.mockImplementation(async (id: string) => {
-    reads += 1;
-    if (reads === 3) t.mock.timers.setTime(31_000);
-    return sessions.get(id);
-  });
-  mockChatCreate.mock.resetCalls();
-
-  const events = await collectEvents(resumeMealAnalysis(analysisId, {
-    userId: 'resume-user',
-  }));
-  assert.equal(events.length, 1);
-  assert.equal(events[0]?.step, 'ERROR');
-  assert.equal(events[0]?.data.message, 'Analysis is still in progress; retry resume');
-  assert.equal(events[0]?.data.retryable, true);
-  assert.equal(mockChatCreate.mock.calls.length, 0);
-});
-
-test('stale ingredient-resolution claim can be recovered by resume', async () => {
-  const sessions = installInMemorySessionStore();
-  const analysisId = '00000000-0000-4000-8000-000000000204';
-  const decomposition = {
-    meal_name: 'Rice',
-    ingredients: [{
-      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
-      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
-      count: null, per_unit_grams: null, per_unit_min_grams: null,
-      per_unit_max_grams: null, size_specified_by_user: true,
-    }],
-    confidence: 1,
-    inferred_meal_type: 'LUNCH',
-    meal_type_confident: true,
-  };
-  mockDecompositionWithFallback(decomposition, 200);
-  sessions.set(analysisId, {
-    analysisId,
-    userId: 'resume-user',
-    source: 'text',
-    locale: 'en',
-    requestPayload: { textDescription: 'rice' },
-    stage: 'RESOLVING_INGREDIENTS',
-    decompositionData: {
-      analysisId,
-      mealName: 'Rice',
-      confidence: 1,
-      ingredients: [{
-        rowId: 'ingredient_1', rawName: 'rice', canonicalHint: 'rice cooked',
-        gramsEstimated: 100, minGrams: 100, maxGrams: 100, notes: '',
-        portionKind: 'BULK', count: null, perUnitGrams: null,
-        perUnitMinGrams: null, perUnitMaxGrams: null, sizeSpecifiedByUser: true,
-      }],
-      inferredMealType: 'LUNCH',
-      mealTypeConfident: true,
-    },
-  });
-  mockClaimIngredientResolution.mock.mockImplementationOnce(async () => {
-    const lease = {
-      stage: 'RESOLVING_INGREDIENTS',
-      token: '00000000-0000-4000-8000-000000000204',
-    };
-    sessions.set(analysisId, {
-      ...sessions.get(analysisId),
-      stageLeaseToken: lease.token,
-    });
-    return lease;
-  });
-
-  const events = await collectEvents(resumeMealAnalysis(analysisId, {
-    userId: 'resume-user',
-  }));
-  assert.ok(events.some((event) => event.step === 'RESULT'));
-  assert.equal(sessions.get(analysisId)?.stage, 'COMPLETED');
+  assert.ok(mockChatCreate.mock.calls.length > 0);
+  assert.ok(mockCanonicalizeWithUsda.mock.calls.length > 0);
 });
 
 test('resume fails safely when a legacy image session has only a bearer URL', async () => {
@@ -2662,8 +2485,8 @@ test('reanalyzeMeal preserves user-selected meal type from original session', as
 
   await collectEvents(reanalyzeMeal('sess-mt-preserve', ['extra_items']));
 
-  // The durable pre-decomposition claim carries the preserved user selection.
-  const upsertCall = mockClaimDecomposition.mock.calls.find(
+  // The durable pre-decomposition record carries the preserved user selection.
+  const upsertCall = mockCreateSession.mock.calls.find(
     (c) => c.arguments[0]?.selectedMealType === 'BREAKFAST'
   );
   assert.ok(upsertCall !== undefined);

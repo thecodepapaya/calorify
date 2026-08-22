@@ -13,16 +13,17 @@ class _FakeLocalInferenceService implements LocalInferenceService {
   final LocalInferenceException? error;
   int analyzeCalls = 0;
   String? receivedRequestId;
+  Duration? receivedTimeout;
 
   @override
   Future<LocalInferenceResult> analyzeText(
     String text, {
     String? requestId,
     Duration timeout = const Duration(seconds: 20),
-    String? debugFailure,
   }) async {
     analyzeCalls += 1;
     receivedRequestId = requestId;
+    receivedTimeout = timeout;
     final failure = error;
     if (failure != null) throw failure;
     return LocalInferenceResult(
@@ -31,9 +32,6 @@ class _FakeLocalInferenceService implements LocalInferenceService {
       elapsed: const Duration(milliseconds: 120),
     );
   }
-
-  @override
-  Future<void> cancel(String requestId) async {}
 
   @override
   Future<LocalInferenceCapabilities> downloadModel() async => _readyDevice();
@@ -52,7 +50,18 @@ LocalInferenceCapabilities _readyDevice() => const LocalInferenceCapabilities(
   canDownload: false,
   structuredOutputSupported: true,
   textSupported: true,
-  imageSupported: false,
+);
+
+LocalInferenceCapabilityPolicy _policy({
+  bool textEnabled = true,
+  bool localNutritionEnabled = false,
+}) => LocalInferenceCapabilityPolicy(
+  policyVersion: 'test-v1',
+  textEnabled: textEnabled,
+  imageEnabled: false,
+  localNutritionEnabled: localNutritionEnabled,
+  privateModesEnabled: false,
+  maxAgeSeconds: 3600,
 );
 
 IngredientProposalV1 _proposal() => IngredientProposalV1(
@@ -103,11 +112,7 @@ void main() {
     final router = TextMealAnalysisRouter(
       database: database,
       localInference: local,
-      loadEligibility:
-          () async => LocalTextEligibility(
-            device: _readyDevice(),
-            rolloutEnabled: true,
-          ),
+      loadPolicy: () async => _policy(),
     );
 
     final route = await router.prepare('dal and rice');
@@ -124,16 +129,13 @@ void main() {
         () => database.getLocalInferencePreferences(),
       ).thenAnswer((_) async => const LocalInferencePreferences.defaults());
       final local = _FakeLocalInferenceService();
-      var eligibilityCalls = 0;
+      var policyCalls = 0;
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: local,
-        loadEligibility: () async {
-          eligibilityCalls += 1;
-          return LocalTextEligibility(
-            device: _readyDevice(),
-            rolloutEnabled: true,
-          );
+        loadPolicy: () async {
+          policyCalls += 1;
+          return _policy();
         },
       );
 
@@ -142,7 +144,7 @@ void main() {
       expect(route, isA<CloudTextMealAnalysisRoute>());
       expect((route as CloudTextMealAnalysisRoute).localAttempted, isFalse);
       expect(route.fallbackReason, isNull);
-      expect(eligibilityCalls, 0);
+      expect(policyCalls, 0);
       expect(local.analyzeCalls, 0);
     },
   );
@@ -157,11 +159,7 @@ void main() {
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: local,
-        loadEligibility:
-            () async => LocalTextEligibility(
-              device: _readyDevice(),
-              rolloutEnabled: false,
-            ),
+        loadPolicy: () async => _policy(textEnabled: false),
       );
 
       final route = await router.prepare('dal and rice');
@@ -186,11 +184,7 @@ void main() {
     final router = TextMealAnalysisRouter(
       database: database,
       localInference: local,
-      loadEligibility:
-          () async => LocalTextEligibility(
-            device: _readyDevice(),
-            rolloutEnabled: true,
-          ),
+      loadPolicy: () async => _policy(),
     );
 
     final route = await router.prepare('dal and rice');
@@ -199,6 +193,7 @@ void main() {
     final localRoute = route as LocalProposalTextMealAnalysisRoute;
     expect(local.analyzeCalls, 1);
     expect(localRoute.result.requestId, local.receivedRequestId);
+    expect(local.receivedTimeout, TextMealAnalysisRouter.localAttemptTimeout);
     expect(localRoute.completedAt.isBefore(localRoute.startedAt), isFalse);
     expect(localRoute.useLocalNutrition, isFalse);
   });
@@ -215,12 +210,7 @@ void main() {
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: _FakeLocalInferenceService(),
-        loadEligibility:
-            () async => LocalTextEligibility(
-              device: _readyDevice(),
-              rolloutEnabled: true,
-              localNutritionEnabled: true,
-            ),
+        loadPolicy: () async => _policy(localNutritionEnabled: true),
       );
 
       final route = await router.prepare('dal and rice');
@@ -249,11 +239,7 @@ void main() {
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: local,
-        loadEligibility:
-            () async => LocalTextEligibility(
-              device: _readyDevice(),
-              rolloutEnabled: true,
-            ),
+        loadPolicy: () async => _policy(),
       );
 
       final route = await router.prepare('dal and rice');
@@ -280,7 +266,7 @@ void main() {
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: local,
-        loadEligibility: () async => throw StateError('policy unavailable'),
+        loadPolicy: () async => throw StateError('policy unavailable'),
       );
 
       final route = await router.prepare('dal and rice');

@@ -25,17 +25,6 @@ ROOT_DIR="$PWD"
 PROTO_DIR="${ROOT_DIR}/protos"
 DART_OUT="${ROOT_DIR}/shared_packages/models/lib/src"
 TS_OUT="${ROOT_DIR}/backend/src"
-KOTLIN_OUT="${ROOT_DIR}/shared_packages/models/generated/kotlin"
-# Native bridges only consume the Wear envelope and its domain dependencies.
-# Keep this closure explicit so unrelated backend contracts are not bundled in
-# both Android applications.
-KOTLIN_PROTO_FILES=(
-  "${PROTO_DIR}/wear/wear_protocol.proto"
-  "${PROTO_DIR}/app/meal.proto"
-  "${PROTO_DIR}/calorify/meal_detection.proto"
-  "${PROTO_DIR}/meal/meal.proto"
-  "${PROTO_DIR}/user/user.proto"
-)
 PROTOC_VERSION="27.3"
 PROTOC_PLUGIN_VERSION="24.0.0"
 TS_PROTO_VERSION="2.11.0"
@@ -149,8 +138,7 @@ prepare_output_directories() {
   STAGING_DIR=$(mktemp -d "${TMPDIR:-/tmp}/calorify-protos.XXXXXX")
   DART_STAGE="${STAGING_DIR}/dart"
   TS_STAGE="${STAGING_DIR}/typescript"
-  KOTLIN_STAGE="${STAGING_DIR}/kotlin"
-  mkdir -p "${DART_STAGE}" "${TS_STAGE}" "${KOTLIN_STAGE}"
+  mkdir -p "${DART_STAGE}" "${TS_STAGE}"
   print_success "Output directories ready"
   print_item "Staging: ${STAGING_DIR}"
 }
@@ -251,66 +239,44 @@ generate_typescript_code() {
   fi
 }
 
-generate_kotlin_code() {
-  print_step "7.5" "Generating Kotlin/JVM lite code"
-  build_include_flags
-
-  if protoc "${INCLUDE_FLAGS[@]}" \
-    --java_out="lite:${KOTLIN_STAGE}" \
-    --kotlin_out="lite:${KOTLIN_STAGE}" \
-    "${KOTLIN_PROTO_FILES[@]}" 2>&1; then
-    print_success "Kotlin/JVM lite code generated"
-  else
-    print_error "Failed to generate Kotlin/JVM lite code"
-    exit 1
-  fi
-}
-
 install_generated_code() {
   print_step "8" "Installing generated code"
 
   local staged_dart="${DART_STAGE}/protos"
   local staged_typescript="${TS_STAGE}/protos"
-  local staged_kotlin="${KOTLIN_STAGE}"
   local target_dart="${DART_OUT}/protos"
   local target_typescript="${TS_OUT}/protos"
-  local target_kotlin="${KOTLIN_OUT}"
 
-  if [ ! -d "${staged_dart}" ] || [ ! -d "${staged_typescript}" ] || \
-     [ -z "$(find "${staged_kotlin}" -type f -print -quit)" ]; then
+  if [ ! -d "${staged_dart}" ] || [ ! -d "${staged_typescript}" ]; then
     print_error "Generation did not produce all expected proto trees."
     exit 1
   fi
 
   # Copy all candidates onto the repository filesystem before touching tracked
   # outputs. Same-filesystem renames then make each swap atomic, while retained
-  # old trees let us roll the entire three-language install back on any error.
+  # old trees let us roll the complete install back on any error.
   INSTALL_DIR=$(mktemp -d "${ROOT_DIR}/.proto-install.XXXXXX")
   mkdir -p "${INSTALL_DIR}/new" "${INSTALL_DIR}/old" "${INSTALL_DIR}/failed"
   if ! cp -R "${staged_dart}" "${INSTALL_DIR}/new/dart" || \
-     ! cp -R "${staged_typescript}" "${INSTALL_DIR}/new/typescript" || \
-     ! cp -R "${staged_kotlin}" "${INSTALL_DIR}/new/kotlin"; then
+     ! cp -R "${staged_typescript}" "${INSTALL_DIR}/new/typescript"; then
     print_error "Failed to stage generated outputs on the repository filesystem."
     exit 1
   fi
 
-  local targets=("${target_dart}" "${target_typescript}" "${target_kotlin}")
+  local targets=("${target_dart}" "${target_typescript}")
   local candidates=(
     "${INSTALL_DIR}/new/dart"
     "${INSTALL_DIR}/new/typescript"
-    "${INSTALL_DIR}/new/kotlin"
   )
   local backups=(
     "${INSTALL_DIR}/old/dart"
     "${INSTALL_DIR}/old/typescript"
-    "${INSTALL_DIR}/old/kotlin"
   )
-  local had_target=(0 0 0)
+  local had_target=(0 0)
   local installed=0
   local index
 
-  mkdir -p "$(dirname "${target_kotlin}")"
-  for index in 0 1 2; do
+  for index in 0 1; do
     if [ -e "${targets[$index]}" ]; then
       if ! mv "${targets[$index]}" "${backups[$index]}"; then
         print_error "Failed to back up generated output: ${targets[$index]}"
@@ -378,7 +344,6 @@ main() {
   verify_proto_files
   generate_dart_code
   generate_typescript_code
-  generate_kotlin_code
   install_generated_code
   
   print_separator
@@ -386,7 +351,6 @@ main() {
   print_info "Generated files:"
   print_item "Dart: ${DART_OUT}"
   print_item "TypeScript: ${TS_OUT}"
-  print_item "Kotlin/JVM lite: ${KOTLIN_OUT}"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then

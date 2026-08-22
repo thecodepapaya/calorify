@@ -1,23 +1,19 @@
-import 'package:calorify/core/services/database_service.dart';
+import 'package:calorify/core/db/database_interface.dart';
 import 'package:flutter/material.dart';
 
 class ThemeService {
-  static ThemeService? _instance;
+  const ThemeService({required DatabaseInterface database})
+    : _database = database;
 
-  ThemeService._();
-
-  static ThemeService get instance {
-    _instance ??= ThemeService._();
-    return _instance!;
-  }
+  final DatabaseInterface _database;
 
   /// Get the current theme mode preference
-  Future<ThemeMode> getThemeMode() async {
-    return await DatabaseService.databaseInterface.getThemeMode();
+  Future<ThemeMode> getThemeMode() {
+    return _database.getThemeMode();
   }
 
   /// Set the theme mode preference
   Future<void> setThemeMode(ThemeMode mode) async {
-    await DatabaseService.databaseInterface.setThemeMode(mode);
+    await _database.setThemeMode(mode);
   }
 }

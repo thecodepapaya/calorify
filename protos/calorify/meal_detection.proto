@@ -4,20 +4,11 @@ package calorify;
 
 import "protos/meal/meal.proto";
 
-message Variation {
-  message Option {
-    string option = 1; // The option text (e.g., "curd", "labaan")
-    meal.MealMacro macro_diff = 2; // Expected macros diff if this option is selected
-  }
-  
-  string question = 1; // The question to ask the user (e.g., "What does the white bowl contain?")
-  repeated Option options = 2; // List of options with their expected macros
-}
-
 message MealMetadata {
   optional string image_url = 1;
   optional string meal_description = 2;
-  repeated Variation selected_variations = 3;
+  reserved 3;
+  reserved "selected_variations";
 }
 
 message MealDetectionResult {
@@ -28,17 +19,8 @@ message MealDetectionResult {
   optional MealMetadata metadata = 5;
 }
 
-message ImageMealDetectionRequest {
-  string image_url = 1; 
-  optional string mime_type = 3; 
-}
-
-message TextMealDetectionRequest {
-  string text_description = 1; 
-}
-
 message MealDetectionResponse {
   MealDetectionResult result = 1;
-  repeated Variation variations = 2; 
+  reserved 2;
+  reserved "variations";
 }
-

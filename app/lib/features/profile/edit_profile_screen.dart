@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:models/models.dart';
+import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart';
-import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -150,7 +150,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     _originalWeightUnit = _weightUnit;
     _originalDailyCalorieGoal = _dailyCalorieGoal;
     _savedGoalSubscription = ref.listenManual<AsyncValue<int?>>(
-      savedDailyCalorieGoalProvider,
+      dailyCalorieGoalProvider,
       (_, next) => next.whenData(_applySavedGoal),
       fireImmediately: true,
     );
@@ -694,7 +694,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   Widget _buildDailyCalorieGoalTile() {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    ref.watch(savedDailyCalorieGoalProvider);
+    ref.watch(dailyCalorieGoalProvider);
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(
@@ -764,13 +764,13 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       updatedData.weightUnit = _weightUnit;
 
       await ref
-          .read(profileActionsProvider)
+          .read(profileRepositoryProvider)
           .saveProfile(
             profile: updatedData,
             dailyCalorieGoal: _dailyCalorieGoal,
           );
       ref.invalidate(userProfileProvider);
-      ref.invalidate(savedDailyCalorieGoalProvider);
+      ref.invalidate(dailyCalorieGoalProvider);
 
       if (!mounted) return;
 

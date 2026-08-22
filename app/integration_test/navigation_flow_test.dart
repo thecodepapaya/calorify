@@ -79,7 +79,13 @@ void main() {
     when(
       () => mockHealthService.status,
     ).thenReturn(HealthConnectSdkStatus.sdkAvailable);
-    when(() => mockHealthService.isAuthorized).thenReturn(true);
+    when(
+      () => mockHealthService.initializationState,
+    ).thenReturn(HealthServiceInitializationState.ready);
+    when(() => mockHealthService.canReadTotalCalories).thenReturn(true);
+    when(() => mockHealthService.canWriteNutrition).thenReturn(true);
+    when(() => mockHealthService.hasAnyHealthPermission).thenReturn(true);
+    when(() => mockHealthService.hasAllHealthPermissions).thenReturn(true);
     when(() => mockHealthService.getTotalCaloriesBurned()).thenAnswer(
       (_) async => CaloriesResult(calories: 500.0, usedFallback: false),
     );

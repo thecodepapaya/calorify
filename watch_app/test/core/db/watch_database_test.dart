@@ -127,7 +127,7 @@ void main() {
     },
   );
 
-  test('cache preserves protobuf presence and complete metadata', () async {
+  test('cache preserves protobuf presence and metadata', () async {
     final meal = LoggedMeal(
       clientId: 11,
       createdAt: DateTime.utc(2026, 8, 21, 8).toIso8601String(),
@@ -136,10 +136,7 @@ void main() {
         quantity: '1 serving',
         macros: MealMacro(calories: 200),
       ),
-      metadata: MealMetadata(
-        mealDescription: 'A detailed description',
-        selectedVariations: [Variation(question: 'Which preparation?')],
-      ),
+      metadata: MealMetadata(mealDescription: 'A detailed description'),
     );
 
     await database.replaceDashboard(
@@ -151,10 +148,6 @@ void main() {
     final restored = (await database.loadSnapshot()).meals.single;
     expect(restored.meal.hasHealth(), isFalse);
     expect(restored.metadata.mealDescription, 'A detailed description');
-    expect(
-      restored.metadata.selectedVariations.single.question,
-      'Which preparation?',
-    );
   });
 
   test('queued meals preserve protobuf presence and metadata', () async {

@@ -34,19 +34,6 @@ class _LocalInferenceDebugScreenState
   String _output = 'Refresh capability status or run a one-off check.';
   LocalInferenceCapabilities? _capabilities;
 
-  static const _failureModes = <(String, String)>[
-    ('unsupported', 'Unsupported device'),
-    ('not_ready', 'Model not ready'),
-    ('busy', 'AICore busy'),
-    ('quota', 'Battery quota'),
-    ('background', 'Background blocked'),
-    ('thermal', 'Thermally limited'),
-    ('model_updating', 'Model updating'),
-    ('timeout', 'Timeout'),
-    ('cancelled', 'Cancellation'),
-    ('malformed', 'Malformed output'),
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -191,55 +178,11 @@ class _LocalInferenceDebugScreenState
                         label: const Text('Run local'),
                       ),
                       OutlinedButton.icon(
-                        onPressed: _running ? null : _runDebugSample,
-                        icon: const Icon(LucideIcons.flaskConical, size: 18),
-                        label: const Text('Validate sample bridge'),
-                      ),
-                      OutlinedButton.icon(
                         onPressed: _running ? null : _compareWithCloud,
                         icon: const Icon(LucideIcons.gitCompare, size: 18),
                         label: const Text('Compare with cloud'),
                       ),
                     ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Simulated failure modes',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Debug-only adapter failures run even when this emulator does not support Gemini Nano.',
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children:
-                        _failureModes
-                            .map(
-                              (mode) => ActionChip(
-                                label: Text(mode.$2),
-                                onPressed:
-                                    _running
-                                        ? null
-                                        : () => _runFailure(mode.$1),
-                              ),
-                            )
-                            .toList(),
                   ),
                 ],
               ),
@@ -318,18 +261,9 @@ class _LocalInferenceDebugScreenState
     return 'completed in ${elapsed.inMilliseconds} ms';
   });
 
-  Future<void> _runLocal() => _runProposal(debugFailure: null);
-
-  Future<void> _runDebugSample() => _runProposal(debugFailure: 'sample');
-
-  Future<void> _runFailure(String mode) => _runProposal(debugFailure: mode);
-
-  Future<void> _runProposal({required String? debugFailure}) {
-    return _run(debugFailure ?? 'Local proposal', () async {
-      final result = await _service.analyzeText(
-        _textController.text,
-        debugFailure: debugFailure,
-      );
+  Future<void> _runLocal() {
+    return _run('Local proposal', () async {
+      final result = await _service.analyzeText(_textController.text);
       return const JsonEncoder.withIndent('  ').convert({
         'elapsedMs': result.elapsed.inMilliseconds,
         'requestId': result.requestId,
