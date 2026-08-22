@@ -114,6 +114,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  # Keep plain `flutter run` / `flutter build` aligned with the local and CI
+  # development flavor. Release workflows explicitly select `prod`.
+  default-flavor: dev
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
