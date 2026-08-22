@@ -4,12 +4,16 @@ import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/local_inference_providers.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
+import 'package:calorify/core/services/local_nutrition_pack.dart';
+import 'package:calorify/core/services/local_nutrition_pack_service.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/local_proposal_review_sheet.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/features/debug/local_inference_debug_screen.dart';
 import 'package:calorify/features/profile/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -22,10 +26,14 @@ class _MockDatabase extends Mock implements DatabaseInterface {}
 class _MockLocalInferenceService extends Mock
     implements LocalInferenceService {}
 
+class _MockLocalNutritionPackService extends Mock
+    implements LocalNutritionPackService {}
+
 LocalInferenceAvailability _availability({
   required bool supported,
   bool ready = true,
   bool canDownload = false,
+  bool localNutritionEnabled = false,
 }) {
   return LocalInferenceAvailability(
     device: LocalInferenceCapabilities(
@@ -46,10 +54,40 @@ LocalInferenceAvailability _availability({
       policyVersion: 'local-beta-v1',
       textEnabled: true,
       imageEnabled: false,
-      localNutritionEnabled: false,
+      localNutritionEnabled: localNutritionEnabled,
       privateModesEnabled: false,
       maxAgeSeconds: 3600,
+      localNutritionManifestUrl:
+          localNutritionEnabled
+              ? 'https://object.test/n/ns/b/bucket/o/local-nutrition/manifest.json'
+              : null,
     ),
+  );
+}
+
+InstalledLocalNutritionPack _installedPack() {
+  final pack = LocalNutritionPack(
+    schemaVersion: 1,
+    packVersion: 'starter-v1',
+    datasetVersion: 'fdc-v1',
+    calculationVersion: localNutritionCalculationVersion,
+    records: const [],
+  );
+  return InstalledLocalNutritionPack(
+    manifest: LocalNutritionPackManifest(
+      schemaVersion: 1,
+      packVersion: 'starter-v1',
+      datasetVersion: 'fdc-v1',
+      objectName: 'local-nutrition/starter-v1.json',
+      sizeBytes: Int64.ONE,
+      signature: 'test',
+      signingKeyId: 'test',
+      createdAtEpochMs: Int64.ONE,
+      calculationVersion: localNutritionCalculationVersion,
+    ),
+    pack: pack,
+    byteSize: 1,
+    generation: 'starter-v1',
   );
 }
 
@@ -271,6 +309,101 @@ void main() {
     verify(() => localService.downloadModel()).called(1);
   });
 
+  testWidgets('nutrition sub-toggle installs a verified pack before enabling', (
+    tester,
+  ) async {
+    final database = _MockDatabase();
+    final packService = _MockLocalNutritionPackService();
+    when(() => packService.hasConfiguredSigningKey).thenReturn(true);
+    final manifestUri = Uri.parse(
+      'https://object.test/n/ns/b/bucket/o/local-nutrition/manifest.json',
+    );
+    when(
+      () => packService.install(manifestUri),
+    ).thenAnswer((_) async => _installedPack());
+    when(
+      () => database.setOfflineNutritionEnabled(any()),
+    ).thenAnswer((_) async {});
+
+    await tester.pumpWidget(
+      wrapWithProviders(
+        const SettingsScreen(),
+        overrides: [
+          databaseInterfaceProvider.overrideWithValue(database),
+          userProfileProvider.overrideWith((_) => UserProfile()),
+          localInferenceServiceProvider.overrideWithValue(
+            _MockLocalInferenceService(),
+          ),
+          localNutritionPackServiceProvider.overrideWithValue(packService),
+          localInferenceAvailabilityProvider.overrideWith(
+            (_) => _availability(supported: true, localNutritionEnabled: true),
+          ),
+          localInferencePreferencesProvider.overrideWith(
+            (_) => const LocalInferencePreferences(
+              enabled: true,
+              offlineNutritionEnabled: false,
+              acknowledgedPolicyVersion: 'local-beta-v1',
+            ),
+          ),
+          localNutritionStatusProvider.overrideWith(
+            (_) => const LocalNutritionStatus(
+              pack: null,
+              cacheRecords: 0,
+              cacheBytes: 0,
+            ),
+          ),
+        ],
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final title = find.text('Download nutrition data');
+    await tester.scrollUntilVisible(
+      title,
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    final tile = find.ancestor(
+      of: title,
+      matching: find.byType(SwitchListTile),
+    );
+    expect(tester.widget<SwitchListTile>(tile).onChanged, isNotNull);
+    await tester.tap(tile);
+    await tester.pumpAndSettle();
+
+    verify(() => packService.install(manifestUri)).called(1);
+    verify(() => database.setOfflineNutritionEnabled(true)).called(1);
+  });
+
+  testWidgets('developer screen exposes Phase 4 one-off and failure checks', (
+    tester,
+  ) async {
+    final localService = _MockLocalInferenceService();
+    when(
+      () => localService.getCapabilities(),
+    ).thenAnswer((_) async => _availability(supported: true).device);
+    await tester.pumpWidget(
+      wrapWithProviders(
+        const LocalInferenceDebugScreen(),
+        overrides: [
+          localInferenceServiceProvider.overrideWithValue(localService),
+        ],
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Local nutrition (Phase 4)'), findsOneWidget);
+    expect(find.text('Pack/cache status'), findsOneWidget);
+    expect(find.text('Known/missing lookup'), findsOneWidget);
+    expect(find.text('Invalid signature'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Battery quota'),
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text('Battery quota'), findsOneWidget);
+  });
+
   testWidgets('review sheet returns edits with user provenance', (
     tester,
   ) async {
@@ -450,4 +583,75 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets(
+    'result details show local nutrition and calculation provenance',
+    (tester) async {
+      final pipelineContext = MealAnalysisPipelineSessionContext(
+        result: PipelineResultData(
+          analysisId: 'analysis-local-nutrition',
+          mealName: 'Banana',
+          quantity: '118 g total',
+          mealType: MealType.SNACK,
+          macros: PipelineMacros(calories: 105),
+          ingredients: [
+            PipelineResolvedIngredient(
+              rawName: 'banana',
+              canonicalName: 'Bananas, raw',
+              source: 'local_pack',
+              nutritionOrigin: NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA,
+              fdcId: '169910',
+              usdaDatasetVersion: 'fdc-v1',
+            ),
+          ],
+          receipt: MealAnalysisReceipt(
+            schemaVersion: 1,
+            proposalSchemaVersion: 1,
+            interpretationOrigin:
+                InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
+            nutritionOrigin: NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA,
+            calculationOrigin:
+                CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC,
+            calculationVersion: 'local-macro-v1',
+            usdaDatasetVersion: 'fdc-v1',
+          ),
+        ),
+        textDescription: 'banana',
+      );
+      await tester.pumpWidget(
+        wrapWithProviders(
+          Builder(
+            builder:
+                (context) => TextButton(
+                  onPressed:
+                      () => showMealTip(
+                        context: context,
+                        purpose: MealDetailsSheetPurpose.debugPreview,
+                        mealDetectionResult:
+                            pipelineContext.toMealDetectionResult(),
+                        pipelineContext: pipelineContext,
+                        previewOnly: true,
+                      ),
+                  child: const Text('Open'),
+                ),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('How this was calculated'));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Nutrition matched from the downloaded USDA pack'),
+        findsOneWidget,
+      );
+      expect(
+        find.text('Calories and macros calculated on this device'),
+        findsOneWidget,
+      );
+      expect(find.textContaining('FDC 169910'), findsOneWidget);
+    },
+  );
 }

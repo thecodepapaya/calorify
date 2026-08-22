@@ -65,6 +65,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsNotificationsEn notifications = TranslationsNotificationsEn._(_root);
 	late final TranslationsLoginEn login = TranslationsLoginEn._(_root);
 	late final TranslationsDisclaimerEn disclaimer = TranslationsDisclaimerEn._(_root);
+	late final TranslationsLocalNutritionPhase4En localNutritionPhase4 = TranslationsLocalNutritionPhase4En._(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn._(_root);
 	late final TranslationsFeedbackRatingEn feedbackRating = TranslationsFeedbackRatingEn._(_root);
 	late final TranslationsHealthEn health = TranslationsHealthEn._(_root);
@@ -622,6 +623,102 @@ class TranslationsDisclaimerEn {
 	late final TranslationsDisclaimerWeightEstimateEn weightEstimate = TranslationsDisclaimerWeightEstimateEn._(_root);
 	late final TranslationsDisclaimerHealthMetricsEn healthMetrics = TranslationsDisclaimerHealthMetricsEn._(_root);
 	late final TranslationsDisclaimerCalorieExpenditureEn calorieExpenditure = TranslationsDisclaimerCalorieExpenditureEn._(_root);
+}
+
+// Path: localNutritionPhase4
+class TranslationsLocalNutritionPhase4En {
+	TranslationsLocalNutritionPhase4En._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Nutrition matched from the downloaded USDA pack'
+	String get nutritionBundled => 'Nutrition matched from the downloaded USDA pack';
+
+	/// en: 'Nutrition matched from the on-device USDA cache'
+	String get nutritionCached => 'Nutrition matched from the on-device USDA cache';
+
+	/// en: 'Nutrition combined from downloaded, cached, and remote USDA rows'
+	String get nutritionMixed => 'Nutrition combined from downloaded, cached, and remote USDA rows';
+
+	/// en: 'Calories and macros calculated on this device'
+	String get calculationLocal => 'Calories and macros calculated on this device';
+
+	/// en: '{ingredient}: downloaded USDA pack'
+	String ingredientBundled({required Object ingredient}) => '${ingredient}: downloaded USDA pack';
+
+	/// en: '{ingredient}: on-device USDA cache'
+	String ingredientCached({required Object ingredient}) => '${ingredient}: on-device USDA cache';
+
+	/// en: '{ingredient}: USDA row fetched through Calorify'
+	String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify';
+
+	/// en: '{ingredient}: deterministic nutrition constant'
+	String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministic nutrition constant';
+
+	/// en: 'FDC {fdcId} · dataset {datasetVersion}'
+	String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}';
+
+	/// en: 'Smaller'
+	String get portionSmaller => 'Smaller';
+
+	/// en: 'Estimated'
+	String get portionEstimated => 'Estimated';
+
+	/// en: 'Larger'
+	String get portionLarger => 'Larger';
+
+	/// en: 'Which portion was closest for {ingredient}?'
+	String portionQuestion({required Object ingredient}) => 'Which portion was closest for ${ingredient}?';
+
+	/// en: 'Which meal was this?'
+	String get mealTypeQuestion => 'Which meal was this?';
+
+	/// en: 'Calculated from verified local nutrition data.'
+	String get localNutritionTip => 'Calculated from verified local nutrition data.';
+
+	/// en: 'Download nutrition data'
+	String get offlineNutritionTitle => 'Download nutrition data';
+
+	/// en: 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.'
+	String get offlineNutritionSubtitle => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.';
+
+	/// en: 'Local nutrition data is not available for this app release.'
+	String get offlineNutritionUnavailable => 'Local nutrition data is not available for this app release.';
+
+	/// en: 'No verified nutrition pack is downloaded.'
+	String get offlineNutritionNotDownloaded => 'No verified nutrition pack is downloaded.';
+
+	/// en: 'Downloading and verifying nutrition data…'
+	String get offlineNutritionInstalling => 'Downloading and verifying nutrition data…';
+
+	/// en: 'Pack {version} · {size} · USDA {datasetVersion}'
+	String offlineNutritionStatus({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}';
+
+	/// en: '{count} cached USDA rows · {size}'
+	String offlineNutritionCacheStatus({required Object count, required Object size}) => '${count} cached USDA rows · ${size}';
+
+	/// en: 'Check for update'
+	String get offlineNutritionUpdate => 'Check for update';
+
+	/// en: 'Clear local nutrition data'
+	String get offlineNutritionClear => 'Clear local nutrition data';
+
+	/// en: 'Clear local nutrition data?'
+	String get offlineNutritionClearTitle => 'Clear local nutrition data?';
+
+	/// en: 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.'
+	String get offlineNutritionClearBody => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.';
+
+	/// en: 'Clear data'
+	String get offlineNutritionClearConfirm => 'Clear data';
+
+	/// en: 'Could not download and verify local nutrition data: {error}'
+	String offlineNutritionInstallFailed({required Object error}) => 'Could not download and verify local nutrition data: ${error}';
+
+	/// en: 'Local nutrition data cleared'
+	String get offlineNutritionCleared => 'Local nutrition data cleared';
 }
 
 // Path: common
@@ -3338,6 +3435,35 @@ extension on Translations {
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
 			_ => null,
 		} ?? switch (path) {
+			'localNutritionPhase4.nutritionBundled' => 'Nutrition matched from the downloaded USDA pack',
+			'localNutritionPhase4.nutritionCached' => 'Nutrition matched from the on-device USDA cache',
+			'localNutritionPhase4.nutritionMixed' => 'Nutrition combined from downloaded, cached, and remote USDA rows',
+			'localNutritionPhase4.calculationLocal' => 'Calories and macros calculated on this device',
+			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: downloaded USDA pack',
+			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: on-device USDA cache',
+			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify',
+			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministic nutrition constant',
+			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}',
+			'localNutritionPhase4.portionSmaller' => 'Smaller',
+			'localNutritionPhase4.portionEstimated' => 'Estimated',
+			'localNutritionPhase4.portionLarger' => 'Larger',
+			'localNutritionPhase4.portionQuestion' => ({required Object ingredient}) => 'Which portion was closest for ${ingredient}?',
+			'localNutritionPhase4.mealTypeQuestion' => 'Which meal was this?',
+			'localNutritionPhase4.localNutritionTip' => 'Calculated from verified local nutrition data.',
+			'localNutritionPhase4.offlineNutritionTitle' => 'Download nutrition data',
+			'localNutritionPhase4.offlineNutritionSubtitle' => 'Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.',
+			'localNutritionPhase4.offlineNutritionUnavailable' => 'Local nutrition data is not available for this app release.',
+			'localNutritionPhase4.offlineNutritionNotDownloaded' => 'No verified nutrition pack is downloaded.',
+			'localNutritionPhase4.offlineNutritionInstalling' => 'Downloading and verifying nutrition data…',
+			'localNutritionPhase4.offlineNutritionStatus' => ({required Object version, required Object size, required Object datasetVersion}) => 'Pack ${version} · ${size} · USDA ${datasetVersion}',
+			'localNutritionPhase4.offlineNutritionCacheStatus' => ({required Object count, required Object size}) => '${count} cached USDA rows · ${size}',
+			'localNutritionPhase4.offlineNutritionUpdate' => 'Check for update',
+			'localNutritionPhase4.offlineNutritionClear' => 'Clear local nutrition data',
+			'localNutritionPhase4.offlineNutritionClearTitle' => 'Clear local nutrition data?',
+			'localNutritionPhase4.offlineNutritionClearBody' => 'This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.',
+			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Clear data',
+			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Could not download and verify local nutrition data: ${error}',
+			'localNutritionPhase4.offlineNutritionCleared' => 'Local nutrition data cleared',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',

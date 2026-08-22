@@ -200,7 +200,37 @@ void main() {
     expect(local.analyzeCalls, 1);
     expect(localRoute.result.requestId, local.receivedRequestId);
     expect(localRoute.completedAt.isBefore(localRoute.startedAt), isFalse);
+    expect(localRoute.useLocalNutrition, isFalse);
   });
+
+  test(
+    'separate default-off nutrition preference gates local grounding',
+    () async {
+      when(() => database.getLocalInferencePreferences()).thenAnswer(
+        (_) async => const LocalInferencePreferences(
+          enabled: true,
+          offlineNutritionEnabled: true,
+        ),
+      );
+      final router = TextMealAnalysisRouter(
+        database: database,
+        localInference: _FakeLocalInferenceService(),
+        loadEligibility:
+            () async => LocalTextEligibility(
+              device: _readyDevice(),
+              rolloutEnabled: true,
+              localNutritionEnabled: true,
+            ),
+      );
+
+      final route = await router.prepare('dal and rice');
+
+      expect(
+        (route as LocalProposalTextMealAnalysisRoute).useLocalNutrition,
+        isTrue,
+      );
+    },
+  );
 
   test(
     'runtime failure records the local attempt and falls back automatically',

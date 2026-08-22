@@ -45,6 +45,24 @@ const mockReanalyzeMeal = mock.fn(function* () {
 const mockRecordMealAnalysisFeedback = mock.fn(async () => {});
 const mockConfirmMealAnalysisLogged = mock.fn(async () => {});
 const mockIsMealAnalysisSessionOwnedByUser = mock.fn(async () => true);
+const mockResolveLocalNutritionLookups = mock.fn(async (analysisId: string) => ({
+  analysisId,
+  records: [],
+  unresolvedRowIds: ['row-1'],
+}));
+
+const mockConfig = {
+  ORACLE_BUCKET_DOWNLOAD_URL:
+    'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
+  DATABASE_URL: 'postgres://mock',
+  API_V1_STR: '/api/v1',
+  DEBUG: false,
+  ENVIRONMENT: 'development',
+  LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-test-v1',
+  LOCAL_INFERENCE_TEXT_ENABLED: false,
+  LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED: false,
+  LOCAL_NUTRITION_MANIFEST_OBJECT: 'local-nutrition/manifest.json',
+};
 
 await mock.module('../../services/nutritionEngineV2.js', {
   namedExports: {
@@ -77,15 +95,12 @@ await mock.module('../../middleware/auth.js', {
 });
 
 await mock.module('../../config.js', {
-  defaultExport: {
-    ORACLE_BUCKET_DOWNLOAD_URL:
-      'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
-    DATABASE_URL: 'postgres://mock',
-    API_V1_STR: '/api/v1',
-    DEBUG: false,
-    ENVIRONMENT: 'development',
-    LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-test-v1',
-    LOCAL_INFERENCE_TEXT_ENABLED: false,
+  defaultExport: mockConfig,
+});
+
+await mock.module('../../services/localNutritionResolver.js', {
+  namedExports: {
+    resolveLocalNutritionLookups: mockResolveLocalNutritionLookups,
   },
 });
 
@@ -327,6 +342,77 @@ test('GET /local-capabilities is default-safe and versioned', async () => {
   await app.close();
 });
 
+test('POST /resolve-local-nutrition fails closed while rollout is disabled', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/resolve-local-nutrition',
+    payload: {
+      analysisId: '00000000-0000-4000-8000-000000000421',
+      lookups: [
+        { rowId: 'row-1', canonicalHint: 'banana raw', preparation: 'raw' },
+      ],
+    },
+  });
+  assert.equal(response.statusCode, 403);
+  await app.close();
+});
+
+test('enabled local nutrition advertises a manifest while private modes stay off', async () => {
+  mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = true;
+  try {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-capabilities',
+    });
+    assert.equal(response.statusCode, 200);
+    assert.deepEqual(response.json(), {
+      policyVersion: 'local-inference-test-v1',
+      textEnabled: false,
+      imageEnabled: false,
+      localNutritionEnabled: true,
+      privateModesEnabled: false,
+      maxAgeSeconds: 3600,
+      localNutritionManifestUrl:
+        'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/local-nutrition/manifest.json',
+    });
+    await app.close();
+  } finally {
+    mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = false;
+  }
+});
+
+test('enabled resolver forwards only the bounded structured lookups', async () => {
+  mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = true;
+  mockResolveLocalNutritionLookups.mock.resetCalls();
+  try {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'POST',
+      url: '/api/v2/food/resolve-local-nutrition',
+      payload: {
+        analysisId: '00000000-0000-4000-8000-000000000422',
+        lookups: [
+          { rowId: 'row-1', canonicalHint: 'banana raw', preparation: 'raw' },
+        ],
+      },
+    });
+    assert.equal(response.statusCode, 200);
+    assert.equal(mockResolveLocalNutritionLookups.mock.calls.length, 1);
+    assert.equal(
+      mockResolveLocalNutritionLookups.mock.calls[0]!.arguments[0],
+      '00000000-0000-4000-8000-000000000422'
+    );
+    assert.deepEqual(mockResolveLocalNutritionLookups.mock.calls[0]!.arguments[1], [
+      { rowId: 'row-1', canonicalHint: 'banana raw', preparation: 'raw' },
+    ]);
+    await app.close();
+  } finally {
+    mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = false;
+  }
+});
+
 test('POST /analyze-text requires complete metadata after a local attempt', async () => {
   const app = await buildTestApp();
   const response = await app.inject({
@@ -384,6 +470,7 @@ test('POST /analyze-proposal settles a strictly valid local proposal', async () 
       localAttemptId: '00000000-0000-4000-8000-000000000412',
       localAttemptStartedAtEpochMs: now - 500,
       localAttemptCompletedAtEpochMs: now - 100,
+      fallbackReason: 'MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS',
     },
   });
 
@@ -393,6 +480,10 @@ test('POST /analyze-proposal settles a strictly valid local proposal', async () 
   assert.equal(proposal.mealName, 'Dal and rice');
   assert.equal(options.analysisId, '00000000-0000-4000-8000-000000000411');
   assert.equal(options.userId, 'test-user');
+  assert.equal(
+    options.fallbackReason,
+    'MEAL_ANALYSIS_FALLBACK_REASON_LOCAL_NUTRITION_MISS'
+  );
   await app.close();
 });
 

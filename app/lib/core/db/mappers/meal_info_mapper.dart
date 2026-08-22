@@ -9,6 +9,7 @@ extension MealToCompanion on Meal {
     DateTime? timestamp,
     String? imageUrl,
     Value<String?> analysisId = const Value.absent(),
+    Value<String?> analysisSnapshotJson = const Value.absent(),
   }) {
     return MealInfoTableCompanion(
       id: clientId != null ? Value(clientId) : const Value.absent(),
@@ -36,6 +37,7 @@ extension MealToCompanion on Meal {
       // Meal protobuf snapshot. Callers opt in only when first logging a meal;
       // an absent value preserves the key during later edits.
       analysisId: analysisId,
+      analysisSnapshotJson: analysisSnapshotJson,
     );
   }
 }

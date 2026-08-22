@@ -101,6 +101,8 @@ class FoodRepository {
     required String localAttemptId,
     required DateTime localAttemptStartedAt,
     required DateTime localAttemptCompletedAt,
+    MealAnalysisFallbackReason fallbackReason =
+        MealAnalysisFallbackReason.MEAL_ANALYSIS_FALLBACK_REASON_NONE,
     NetworkRequestCancellation? cancellation,
   }) {
     return _networkClient.streamPost<MealAnalysisPipelineEvent>(
@@ -116,6 +118,7 @@ class FoodRepository {
         localAttemptCompletedAtEpochMs: Int64(
           localAttemptCompletedAt.toUtc().millisecondsSinceEpoch,
         ),
+        fallbackReason: fallbackReason,
       ),
       cancellation: cancellation,
     );
@@ -126,6 +129,21 @@ class FoodRepository {
       '/api/v2/food/local-capabilities',
       LocalInferenceCapabilityPolicy.new,
     );
+  }
+
+  Future<LocalNutritionResolveResponse> resolveLocalNutrition({
+    required String analysisId,
+    required List<LocalNutritionLookup> lookups,
+  }) {
+    return _networkClient
+        .apiCall<LocalNutritionResolveRequest, LocalNutritionResolveResponse>(
+          '/api/v2/food/resolve-local-nutrition',
+          LocalNutritionResolveResponse.new,
+          request: LocalNutritionResolveRequest(
+            analysisId: analysisId,
+            lookups: lookups,
+          ),
+        );
   }
 
   Future<Stream<MealAnalysisPipelineEvent>> clarifyV2({

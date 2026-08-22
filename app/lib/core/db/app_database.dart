@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/db/mappers/favorite_meal_mapper.dart';
 import 'package:calorify/core/db/mappers/meal_info_mapper.dart';
+import 'package:calorify/core/db/local_nutrition_cache_entry.dart';
 import 'package:calorify/core/db/mappers/user_profile_mapper.dart';
 import 'package:calorify/core/db/mock_data/favorite_meal_mock.dart';
 import 'package:calorify/core/db/mock_data/meal_info_mock.dart';
@@ -10,6 +12,7 @@ import 'package:calorify/core/db/mock_data/user_settings_mock.dart'
     hide UserProfile;
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
+import 'package:calorify/core/db/tables/local_nutrition_cache.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
 import 'package:calorify/core/db/tables/user_profile.dart';
 import 'package:drift/drift.dart';
@@ -29,6 +32,7 @@ part 'app_database.g.dart';
     UserProfileTable,
     UserPreferencesTable,
     FavoriteMealTable,
+    LocalNutritionCacheTable,
   ],
 )
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
@@ -53,7 +57,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final bool _seedDevelopmentData;
 
   @override
-  int get schemaVersion => 23;
+  int get schemaVersion => 24;
 
   @override
   MigrationStrategy get migration {
@@ -342,6 +346,42 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             );
           }
         }
+        if (from < 24) {
+          if (!await _tableExists('user_preferences_table')) {
+            await m.createTable(userPreferencesTable);
+          } else if (!await _columnExists(
+            'user_preferences_table',
+            'offline_nutrition_enabled',
+          )) {
+            await m.addColumn(
+              userPreferencesTable,
+              userPreferencesTable.offlineNutritionEnabled,
+            );
+          }
+          if (await _tableExists('meal_info_table') &&
+              !await _columnExists(
+                'meal_info_table',
+                'analysis_snapshot_json',
+              )) {
+            await m.addColumn(
+              mealInfoTable,
+              mealInfoTable.analysisSnapshotJson,
+            );
+          }
+          if (await _tableExists('favorite_meal_table') &&
+              !await _columnExists(
+                'favorite_meal_table',
+                'analysis_snapshot_json',
+              )) {
+            await m.addColumn(
+              favoriteMealTable,
+              favoriteMealTable.analysisSnapshotJson,
+            );
+          }
+          if (!await _tableExists('local_nutrition_cache_table')) {
+            await m.createTable(localNutritionCacheTable);
+          }
+        }
       },
     );
   }
@@ -519,6 +559,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     final prefs = await _getOrInitPreferences();
     return LocalInferencePreferences(
       enabled: prefs.localInferenceEnabled,
+      offlineNutritionEnabled: prefs.offlineNutritionEnabled,
       acknowledgedPolicyVersion: prefs.localInferenceAcknowledgedPolicyVersion,
     );
   }
@@ -533,6 +574,146 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         updatedAt: Value(DateTime.now().toUtc()),
       ),
     );
+  }
+
+  @override
+  Future<void> setOfflineNutritionEnabled(bool enabled) async {
+    await _getOrInitPreferences();
+    await (update(userPreferencesTable)
+      ..where((table) => table.id.equals(_userPreferencesId))).write(
+      UserPreferencesTableCompanion(
+        offlineNutritionEnabled: Value(enabled),
+        updatedAt: Value(DateTime.now().toUtc()),
+      ),
+    );
+  }
+
+  @override
+  Future<List<LocalNutritionCacheEntry>> getLocalNutritionCache() async {
+    final rows = await select(localNutritionCacheTable).get();
+    return rows.map(_cacheEntryFromRow).toList(growable: false);
+  }
+
+  LocalNutritionCacheEntry _cacheEntryFromRow(
+    LocalNutritionCacheTableData row,
+  ) {
+    final decoded = jsonDecode(row.lookupKeysJson);
+    final lookupKeys =
+        decoded is List
+            ? decoded.whereType<String>().toList(growable: false)
+            : const <String>[];
+    return LocalNutritionCacheEntry(
+      fdcId: row.fdcId,
+      datasetVersion: row.datasetVersion,
+      description: row.description,
+      normalizedName: row.normalizedName,
+      dataType: row.dataType,
+      lookupKeys: lookupKeys,
+      nutrientsPer100g: PipelineMacros(
+        calories: row.caloriesPer100g,
+        protein: row.proteinPer100g,
+        carbs: row.carbsPer100g,
+        fat: row.fatPer100g,
+        fiber: row.fiberPer100g,
+      ),
+      retrievedAt: row.retrievedAt,
+      lastAccessedAt: row.lastAccessedAt,
+      approximateBytes: row.approximateBytes,
+    );
+  }
+
+  static const int _localNutritionCacheMaxRecords = 2000;
+  static const int _localNutritionCacheMaxBytes = 20 * 1024 * 1024;
+
+  @override
+  Future<void> upsertLocalNutritionCache(
+    List<LocalNutritionCacheEntry> entries,
+  ) async {
+    if (entries.isEmpty) return;
+    await transaction(() async {
+      for (final entry in entries) {
+        await into(localNutritionCacheTable).insertOnConflictUpdate(
+          LocalNutritionCacheTableCompanion.insert(
+            fdcId: entry.fdcId,
+            datasetVersion: entry.datasetVersion,
+            description: entry.description,
+            normalizedName: entry.normalizedName,
+            dataType: entry.dataType,
+            lookupKeysJson: jsonEncode(entry.lookupKeys),
+            caloriesPer100g: entry.nutrientsPer100g.calories,
+            proteinPer100g: entry.nutrientsPer100g.protein,
+            carbsPer100g: entry.nutrientsPer100g.carbs,
+            fatPer100g: entry.nutrientsPer100g.fat,
+            fiberPer100g: entry.nutrientsPer100g.fiber,
+            retrievedAt: entry.retrievedAt.toUtc(),
+            lastAccessedAt: entry.lastAccessedAt.toUtc(),
+            approximateBytes: entry.approximateBytes,
+          ),
+        );
+      }
+      await _evictLocalNutritionCacheIfNeeded();
+    });
+  }
+
+  Future<void> _evictLocalNutritionCacheIfNeeded() async {
+    final rows =
+        await (select(localNutritionCacheTable)..orderBy([
+          (table) => OrderingTerm.asc(table.lastAccessedAt),
+          (table) => OrderingTerm.asc(table.retrievedAt),
+        ])).get();
+    var remainingRecords = rows.length;
+    var remainingBytes = rows.fold<int>(
+      0,
+      (total, row) => total + row.approximateBytes,
+    );
+    for (final row in rows) {
+      if (remainingRecords <= _localNutritionCacheMaxRecords &&
+          remainingBytes <= _localNutritionCacheMaxBytes) {
+        break;
+      }
+      await (delete(localNutritionCacheTable)..where(
+        (table) =>
+            table.fdcId.equals(row.fdcId) &
+            table.datasetVersion.equals(row.datasetVersion),
+      )).go();
+      remainingRecords--;
+      remainingBytes -= row.approximateBytes;
+    }
+  }
+
+  @override
+  Future<void> touchLocalNutritionCache(
+    Iterable<({String fdcId, String datasetVersion})> keys,
+  ) async {
+    final touchedAt = DateTime.now().toUtc();
+    await transaction(() async {
+      for (final key in keys.toSet()) {
+        await (update(localNutritionCacheTable)..where(
+          (table) =>
+              table.fdcId.equals(key.fdcId) &
+              table.datasetVersion.equals(key.datasetVersion),
+        )).write(
+          LocalNutritionCacheTableCompanion(lastAccessedAt: Value(touchedAt)),
+        );
+      }
+    });
+  }
+
+  @override
+  Future<LocalNutritionCacheStats> getLocalNutritionCacheStats() async {
+    final rows = await select(localNutritionCacheTable).get();
+    return LocalNutritionCacheStats(
+      recordCount: rows.length,
+      approximateBytes: rows.fold<int>(
+        0,
+        (total, row) => total + row.approximateBytes,
+      ),
+    );
+  }
+
+  @override
+  Future<void> clearLocalNutritionCache() async {
+    await delete(localNutritionCacheTable).go();
   }
 
   @override
@@ -612,7 +793,11 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   }
 
   @override
-  Future<void> logMeal(Meal mealInfo, {String? analysisId}) async {
+  Future<void> logMeal(
+    Meal mealInfo, {
+    String? analysisId,
+    PipelineResultData? analysisSnapshot,
+  }) async {
     final normalizedAnalysisId = analysisId?.trim();
     final idempotencyKey =
         normalizedAnalysisId == null || normalizedAnalysisId.isEmpty
@@ -621,6 +806,11 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     final companion = mealInfo.toCompanion(
       timestamp: DateTime.now(),
       analysisId: Value(idempotencyKey),
+      analysisSnapshotJson: Value(
+        analysisSnapshot == null
+            ? null
+            : jsonEncode(analysisSnapshot.toProto3Json()),
+      ),
     );
 
     if (idempotencyKey == null) {
@@ -854,6 +1044,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       await delete(userProfileTable).go();
       await delete(userPreferencesTable).go();
       await delete(favoriteMealTable).go();
+      await delete(localNutritionCacheTable).go();
     });
   }
 }

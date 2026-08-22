@@ -1,0 +1,145 @@
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { resolve, join } from 'node:path';
+
+import type { CacheableNutritionRecord } from '../protos/calorify/http_api.js';
+import {
+  LOCAL_NUTRITION_CALCULATION_VERSION,
+  LOCAL_NUTRITION_PACK_SCHEMA_VERSION,
+  signLocalNutritionManifest,
+} from '../services/localNutritionPack.js';
+import { resolveLocalNutritionLookups } from '../services/localNutritionResolver.js';
+import { normalizeUsdaTerm } from '../services/usdaLookupUtils.js';
+
+type SelectionEntry = {
+  canonicalHint: string;
+  aliases: string[];
+};
+
+type Selection = {
+  schemaVersion: number;
+  packVersion: string;
+  datasetVersion: string;
+  createdAtEpochMs: number;
+  signingKeyId: string;
+  objectPrefix: string;
+  coverageTarget: number;
+  entries: SelectionEntry[];
+};
+
+function required(value: string | undefined, name: string): string {
+  if (!value?.trim()) throw new Error(`${name} is required`);
+  return value;
+}
+
+function stableJson(value: unknown): string {
+  return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+function assertSelection(value: unknown): asserts value is Selection {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error('Selection must be an object');
+  }
+  const selection = value as Partial<Selection>;
+  if (
+    selection.schemaVersion !== 1 ||
+    !selection.packVersion ||
+    !selection.datasetVersion ||
+    !Number.isSafeInteger(selection.createdAtEpochMs) ||
+    !selection.signingKeyId ||
+    !selection.objectPrefix ||
+    typeof selection.coverageTarget !== 'number' ||
+    selection.coverageTarget <= 0 ||
+    selection.coverageTarget > 1 ||
+    !Array.isArray(selection.entries) ||
+    selection.entries.length === 0
+  ) {
+    throw new Error('Selection metadata is invalid');
+  }
+}
+
+function packRecord(record: CacheableNutritionRecord, entry: SelectionEntry) {
+  if (!record.nutrientsPer100g) throw new Error(`${entry.canonicalHint} has no nutrients`);
+  return {
+    fdcId: record.fdcId,
+    description: record.description,
+    normalizedName: record.normalizedName,
+    aliases: [...new Set([
+      ...record.lookupKeys,
+      entry.canonicalHint,
+      ...entry.aliases,
+    ].map(normalizeUsdaTerm).filter(Boolean))].sort(),
+    dataType: record.dataType,
+    nutrientsPer100g: record.nutrientsPer100g,
+    datasetVersion: record.datasetVersion,
+  };
+}
+
+async function main(): Promise<void> {
+  const selectionPath = resolve(
+    process.argv[2] ?? 'data/local_nutrition/starter-pack-selection.json'
+  );
+  const outputDirectory = resolve(
+    process.argv[3] ?? 'data/local_nutrition/build'
+  );
+  const privateKeyPath = resolve(
+    required(process.env.LOCAL_NUTRITION_SIGNING_PRIVATE_KEY_PATH, 'LOCAL_NUTRITION_SIGNING_PRIVATE_KEY_PATH')
+  );
+  const selectionJson: unknown = JSON.parse(await readFile(selectionPath, 'utf8'));
+  assertSelection(selectionJson);
+  const selection = selectionJson;
+
+  const response = await resolveLocalNutritionLookups(
+    '00000000-0000-4000-8000-000000000001',
+    selection.entries.map((entry, index) => ({
+      rowId: `starter-${index + 1}`,
+      canonicalHint: entry.canonicalHint,
+      preparation: '',
+    }))
+  );
+  if (response.unresolvedRowIds.length > 0) {
+    throw new Error(`Unresolved starter-pack rows: ${response.unresolvedRowIds.join(', ')}`);
+  }
+  const records = response.records.map((record, index) => {
+    if (record.datasetVersion !== selection.datasetVersion) {
+      throw new Error(
+        `Dataset mismatch for ${record.description}: expected ${selection.datasetVersion}, got ${record.datasetVersion}`
+      );
+    }
+    return packRecord(record, selection.entries[index]!);
+  }).sort((a, b) => a.fdcId.localeCompare(b.fdcId));
+
+  const pack = {
+    schemaVersion: LOCAL_NUTRITION_PACK_SCHEMA_VERSION,
+    packVersion: selection.packVersion,
+    datasetVersion: selection.datasetVersion,
+    calculationVersion: LOCAL_NUTRITION_CALCULATION_VERSION,
+    records,
+  };
+  const packBytes = Buffer.from(stableJson(pack), 'utf8');
+  const objectName = `${selection.objectPrefix.replace(/\/$/, '')}/${selection.packVersion}.json`;
+  const privateKey = await readFile(privateKeyPath, 'utf8');
+  const manifest = signLocalNutritionManifest(
+    {
+      schemaVersion: LOCAL_NUTRITION_PACK_SCHEMA_VERSION,
+      packVersion: selection.packVersion,
+      datasetVersion: selection.datasetVersion,
+      objectName,
+      sizeBytes: packBytes.length,
+      signingKeyId: selection.signingKeyId,
+      createdAtEpochMs: selection.createdAtEpochMs,
+      recordCount: records.length,
+      calculationVersion: LOCAL_NUTRITION_CALCULATION_VERSION,
+    },
+    packBytes,
+    privateKey
+  );
+
+  await mkdir(outputDirectory, { recursive: true });
+  await writeFile(join(outputDirectory, `${selection.packVersion}.json`), packBytes);
+  await writeFile(join(outputDirectory, 'manifest.json'), stableJson(manifest));
+  process.stdout.write(
+    `${stableJson({ pack: objectName, manifest: `${selection.objectPrefix}/manifest.json`, records: records.length })}`
+  );
+}
+
+await main();

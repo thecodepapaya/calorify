@@ -1,8 +1,11 @@
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/local_inference_providers.dart';
+import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
+import 'package:calorify/core/services/local_nutrition_meal_analysis_engine.dart';
 import 'package:calorify/core/services/text_meal_analysis_router.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/local_proposal_review_sheet.dart';
+import 'package:calorify/features/home/controllers/meal_analysis_controller.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,16 +69,37 @@ Future<bool> showRoutedTextMealAnalysisFlow({
         );
       }
 
+      final localEngine = container.read(
+        localNutritionMealAnalysisEngineProvider,
+      );
+      final executor =
+          route.useLocalNutrition
+              ? HybridLocalNutritionMealAnalysisExecutor(
+                localEngine: localEngine,
+                repository: repository,
+                proposal: reviewed,
+                localResult: route.result,
+                startedAt: route.startedAt,
+                completedAt: route.completedAt,
+              )
+              : LocalProposalMealAnalysisExecutor(
+                repository: repository,
+                proposal: reviewed,
+                localResult: route.result,
+                startedAt: route.startedAt,
+                completedAt: route.completedAt,
+              );
       return _showWithExecutor(
         context: context,
         textDescription: textDescription,
-        executor: LocalProposalMealAnalysisExecutor(
-          repository: repository,
-          proposal: reviewed,
-          localResult: route.result,
-          startedAt: route.startedAt,
-          completedAt: route.completedAt,
-        ),
+        executor: executor,
+        continuationRepository:
+            route.useLocalNutrition
+                ? _HybridLocalNutritionContinuation(
+                  localEngine: localEngine,
+                  remote: FoodRepositoryMealAnalysisContinuation(repository),
+                )
+                : null,
       );
   }
 }
@@ -84,6 +108,7 @@ Future<bool> _showWithExecutor({
   required BuildContext context,
   required String textDescription,
   required MealAnalysisExecutor executor,
+  MealAnalysisContinuationRepository? continuationRepository,
 }) {
   return showV2MealAnalysisFlow(
     context: context,
@@ -93,5 +118,64 @@ Future<bool> _showWithExecutor({
           cancellation: cancellation,
         ),
     textDescription: textDescription,
+    continuationRepository: continuationRepository,
   );
+}
+
+class _HybridLocalNutritionContinuation
+    implements MealAnalysisContinuationRepository {
+  const _HybridLocalNutritionContinuation({
+    required LocalNutritionMealAnalysisEngine localEngine,
+    required MealAnalysisContinuationRepository remote,
+  }) : _localEngine = localEngine,
+       _remote = remote;
+
+  final LocalNutritionMealAnalysisEngine _localEngine;
+  final MealAnalysisContinuationRepository _remote;
+
+  @override
+  Future<Stream<MealAnalysisPipelineEvent>> clarify({
+    required String analysisId,
+    required List<MealClarificationAnswer> answers,
+    required NetworkRequestCancellation cancellation,
+  }) {
+    if (_localEngine.hasSession(analysisId)) {
+      return _localEngine.clarify(analysisId: analysisId, answers: answers);
+    }
+    return _remote.clarify(
+      analysisId: analysisId,
+      answers: answers,
+      cancellation: cancellation,
+    );
+  }
+
+  @override
+  Future<Stream<MealAnalysisPipelineEvent>> resume({
+    required String analysisId,
+    required NetworkRequestCancellation cancellation,
+  }) {
+    if (_localEngine.hasSession(analysisId)) {
+      return _localEngine.resume(analysisId);
+    }
+    return _remote.resume(analysisId: analysisId, cancellation: cancellation);
+  }
+
+  @override
+  Future<Stream<MealAnalysisPipelineEvent>> submitMealType({
+    required String analysisId,
+    required MealType mealType,
+    required NetworkRequestCancellation cancellation,
+  }) {
+    if (_localEngine.hasSession(analysisId)) {
+      return _localEngine.submitMealType(
+        analysisId: analysisId,
+        mealType: mealType,
+      );
+    }
+    return _remote.submitMealType(
+      analysisId: analysisId,
+      mealType: mealType,
+      cancellation: cancellation,
+    );
+  }
 }
