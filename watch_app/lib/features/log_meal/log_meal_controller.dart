@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:calorify_watch/core/services/watch_speech_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart' show AppLifecycleState;
+import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 
 typedef MealTextDetector =
@@ -134,9 +135,7 @@ class LogMealController extends ChangeNotifier {
     final ready = await _initializeSpeech();
     if (_disposed || _phase != LogMealPhase.starting) return;
     if (!ready) {
-      _setIdleError(
-        'Voice input is unavailable. Check microphone permission in watch settings.',
-      );
+      _setIdleError(t.watch.voice.unavailable);
       _onFeedback?.call(LogMealFeedback.heavy);
       return;
     }
@@ -162,9 +161,7 @@ class LogMealController extends ChangeNotifier {
       );
       if (_disposed || _phase != LogMealPhase.listening) return;
       if (!accepted) {
-        _showListeningError(
-          'Voice input is unavailable. Check microphone permission in watch settings.',
-        );
+        _showListeningError(t.watch.voice.unavailable);
         return;
       }
       _startWatchdogTimer?.cancel();
@@ -173,13 +170,13 @@ class LogMealController extends ChangeNotifier {
             _phase == LogMealPhase.listening &&
             !_speech.isListening &&
             _transcript.isEmpty) {
-          _showListeningError('Microphone did not start. Tap to retry.');
+          _showListeningError(t.watch.voice.didNotStart);
         }
       });
     } catch (error) {
       if (_disposed) return;
       _showListeningError(
-        'Could not start recording. Check microphone permissions.',
+        t.watch.voice.startFailed,
         feedback: LogMealFeedback.heavy,
       );
     }
@@ -223,20 +220,14 @@ class LogMealController extends ChangeNotifier {
   void _onSpeechError(WatchSpeechErrorCode code) {
     if (_disposed || _phase != LogMealPhase.listening) return;
     final message = switch (code) {
-      WatchSpeechErrorCode.permission =>
-        'Allow microphone access to log meals by voice.',
-      WatchSpeechErrorCode.network =>
-        'Voice recognition needs a connection. Tap to retry.',
-      WatchSpeechErrorCode.audio =>
-        'The microphone is unavailable. Tap to retry.',
-      WatchSpeechErrorCode.busy =>
-        'The microphone is busy. Wait a moment and retry.',
+      WatchSpeechErrorCode.permission => t.watch.voice.allowMicrophone,
+      WatchSpeechErrorCode.network => t.watch.voice.needsConnection,
+      WatchSpeechErrorCode.audio => t.watch.voice.microphoneUnavailable,
+      WatchSpeechErrorCode.busy => t.watch.voice.microphoneBusy,
       WatchSpeechErrorCode.languageUnsupported =>
-        'Voice input does not support the watch language.',
-      WatchSpeechErrorCode.throttled =>
-        'Voice input is temporarily busy. Wait a moment and retry.',
-      WatchSpeechErrorCode.unknown =>
-        'I didn\'t catch that. Tap the mic and try again.',
+        t.watch.voice.languageUnsupported,
+      WatchSpeechErrorCode.throttled => t.watch.voice.temporarilyBusy,
+      WatchSpeechErrorCode.unknown => t.watch.voice.notRecognized,
     };
     _showListeningError(message);
   }
@@ -308,7 +299,7 @@ class LogMealController extends ChangeNotifier {
 
     final description = _transcript.trim();
     if (description.isEmpty) {
-      _setIdleError('No speech detected. Tap the mic to try again.');
+      _setIdleError(t.watch.voice.noSpeech);
       _onFeedback?.call(LogMealFeedback.medium);
       return;
     }
@@ -341,7 +332,7 @@ class LogMealController extends ChangeNotifier {
       response = await _detectText(textDescription: description);
     } catch (error) {
       if (_disposed) return;
-      _setIdleError('Analysis failed. Please try again.');
+      _setIdleError(t.watch.voice.analysisFailed);
       if (kDebugMode) {
         debugPrint('Meal analysis error: type=${error.runtimeType}');
       }
@@ -352,9 +343,7 @@ class LogMealController extends ChangeNotifier {
     if (_disposed) return;
     final result = response.result;
     if (!result.mealIdentified) {
-      _setIdleError(
-        "Couldn't identify that meal. Try describing it differently.",
-      );
+      _setIdleError(t.watch.voice.mealNotIdentified);
       _onFeedback?.call(LogMealFeedback.medium);
       return;
     }

@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Could not download and verify local nutrition data: {error}",
     "offlineNutritionCleared": "Local nutrition data cleared"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Back",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "retry": "Retry",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutrient",
+      "grams": "{label}, {value} grams",
+      "protein": "Protein",
+      "carbs": "Carbs",
+      "fat": "Fat",
+      "fiber": "Fiber"
+    },
+    "sync": {
+      "syncWithPhone": "Sync with phone",
+      "syncing": "Syncing…",
+      "synced": "Synced",
+      "syncedJustNow": "Synced just now",
+      "syncedMinutesAgo": "Synced {minutes}m ago",
+      "failed": "Sync failed",
+      "phoneDisconnected": "Phone disconnected",
+      "tapToSync": "Tap to sync",
+      "refreshFailed": "Could not refresh. Check your phone.",
+      "openPhone": "Open Calorify on your phone, then tap refresh."
+    },
+    "home": {
+      "today": "Today",
+      "calorieSummary": "{consumed} calories consumed out of {goal}. {status}.",
+      "overGoal": "{calories} over goal",
+      "remaining": "{calories} remaining",
+      "left": "{calories} left",
+      "goal": "{calories} kcal goal",
+      "logMeal": "Log a meal",
+      "todayMeals": "Today's meals",
+      "todayMealsCount": "Today's meals, {count}",
+      "viewMore": "View {count} more",
+      "viewMoreSemantics": "{count} more meals, tap to view all",
+      "noMeals": "No meals logged",
+      "noMealsSemantics": "No meals logged today",
+      "tapLog": "Tap Log to start",
+      "removedFromQueue": "Meal removed from the offline queue.",
+      "removedOffline": "Meal removed offline. It will sync when your phone reconnects.",
+      "deleteFailed": "Could not delete meal"
+    },
+    "history": {
+      "title": "Today's meals",
+      "refresh": "Refresh meals",
+      "loadFailed": "Could not load meals",
+      "syncFailed": "Could not sync",
+      "emptyTitle": "No meals yet",
+      "emptyMessage": "Log a meal from Home to see it here."
+    },
+    "favorites": {
+      "title": "Favorites",
+      "refresh": "Refresh favorites",
+      "loadFailed": "Could not load favorites",
+      "syncFailed": "Could not sync",
+      "emptyTitle": "No favorites yet",
+      "emptyMessage": "Star meals in the phone app for one-tap logging here.",
+      "mealSemantics": "{name}, {calories} calories. Tap to log.",
+      "logged": "{name} logged!",
+      "savedOffline": "{name} saved offline. It will sync when your phone reconnects.",
+      "saveFailed": "Could not save the meal. Please try again.",
+      "log": "Log"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} calories, logged at {time}.",
+      "longPressDelete": "Long press to delete.",
+      "deleteTitle": "Delete meal?"
+    },
+    "voice": {
+      "title": "Voice meal log",
+      "processing": "Checking your meal…",
+      "processingDescription": "Estimating portions and nutrition",
+      "listening": "Listening",
+      "secondsLeft": "{seconds}s",
+      "stop": "Stop recording",
+      "start": "Tap to start recording",
+      "starting": "Starting microphone…",
+      "prompt": "Tap, then describe your meal",
+      "tapToRetry": "Tap to retry",
+      "example": "Try “2 rotis with dal”",
+      "unavailable": "Voice input is unavailable. Check microphone permission in watch settings.",
+      "didNotStart": "Microphone did not start. Tap to retry.",
+      "startFailed": "Could not start recording. Check microphone permissions.",
+      "allowMicrophone": "Allow microphone access to log meals by voice.",
+      "needsConnection": "Voice recognition needs a connection. Tap to retry.",
+      "microphoneUnavailable": "The microphone is unavailable. Tap to retry.",
+      "microphoneBusy": "The microphone is busy. Wait a moment and retry.",
+      "languageUnsupported": "Voice input does not support the watch language.",
+      "temporarilyBusy": "Voice input is temporarily busy. Wait a moment and retry.",
+      "notRecognized": "I didn't catch that. Tap the mic and try again.",
+      "noSpeech": "No speech detected. Tap the mic to try again.",
+      "analysisFailed": "Analysis failed. Please try again.",
+      "mealNotIdentified": "Couldn't identify that meal. Try describing it differently."
+    },
+    "result": {
+      "title": "Meal details",
+      "savedOffline": "Saved offline",
+      "logged": "Logged!",
+      "mealFound": "Meal found",
+      "estimatedEnergy": "Estimated energy",
+      "logMeal": "Log meal",
+      "logging": "Logging…",
+      "logAnother": "Log another",
+      "goingBack": "Going back…",
+      "savedOfflineMessage": "Meal saved offline. It will sync when your phone reconnects.",
+      "saveFailed": "Could not save the meal. Please try again."
+    }
+  },
   "common": {
     "close": "Close",
     "continue": "Continue"

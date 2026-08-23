@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
 import 'package:specs/specs.dart';
+import 'package:widgets/widgets.dart';
 
 const double watchTapTarget = 44;
 
@@ -119,14 +120,15 @@ class WatchPageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final strings = Translations.of(context).watch;
     return SizedBox(
       height: watchTapTarget,
       child: Row(
         children: [
           if (onBack != null)
             WatchIconButton(
-              icon: Icons.arrow_back_rounded,
-              semanticLabel: 'Back',
+              icon: AppIcons.arrowLeft,
+              semanticLabel: strings.common.back,
               onPressed: onBack!,
             )
           else
@@ -146,7 +148,7 @@ class WatchPageHeader extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.titleSmall?.copyWith(
                       color: colors.onSurface,
-                      fontSize: 12,
+                      fontSize: watchBodyFontSize,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.1,
                     ),
@@ -170,6 +172,8 @@ class WatchListScaffold extends StatelessWidget {
     required this.onBack,
     required this.body,
     this.trailing,
+    this.safeAreaMinimum = const EdgeInsets.fromLTRB(10, 22, 10, 10),
+    this.headerPadding = const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
   });
 
   final String title;
@@ -177,6 +181,8 @@ class WatchListScaffold extends StatelessWidget {
   final VoidCallback onBack;
   final Widget body;
   final Widget? trailing;
+  final EdgeInsets safeAreaMinimum;
+  final EdgeInsets headerPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -186,11 +192,11 @@ class WatchListScaffold extends StatelessWidget {
       body: SafeArea(
         // Keep the fixed header inside the usable chord of a 192dp round
         // display. Scrollable content can still use the full center width.
-        minimum: const EdgeInsets.fromLTRB(10, 22, 10, 10),
+        minimum: safeAreaMinimum,
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: headerPadding,
               child: WatchPageHeader(
                 title: title,
                 icon: icon,
@@ -223,13 +229,17 @@ class WatchMacroBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = Translations.of(context).watch;
     return Semantics(
-      label: '${label ?? 'Nutrient'}, $value grams',
+      label: strings.nutrition.grams(
+        label: label ?? strings.nutrition.nutrient,
+        value: value,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 10, color: color.withValues(alpha: 0.85)),
+            Icon(icon, size: 12, color: color),
             const SizedBox(width: 2),
           ],
           if (label != null) ...[
@@ -237,7 +247,7 @@ class WatchMacroBadge extends StatelessWidget {
               label!,
               style: theme.textTheme.labelSmall?.copyWith(
                 color: color.withValues(alpha: 0.8),
-                fontSize: 8,
+                fontSize: watchLabelFontSize,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -247,15 +257,15 @@ class WatchMacroBadge extends StatelessWidget {
             '$value',
             style: theme.textTheme.labelSmall?.copyWith(
               color: color,
-              fontSize: 9,
+              fontSize: watchLabelFontSize,
               fontWeight: FontWeight.w800,
             ),
           ),
           Text(
-            'g',
+            strings.common.gramsShort,
             style: theme.textTheme.labelSmall?.copyWith(
-              color: color.withValues(alpha: 0.7),
-              fontSize: 7,
+              color: color.withValues(alpha: 0.85),
+              fontSize: watchLabelFontSize,
             ),
           ),
         ],
@@ -281,18 +291,19 @@ class WatchMacroMetric extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final strings = Translations.of(context).watch;
     return Semantics(
-      label: '$label, $value grams',
+      label: strings.nutrition.grams(label: label, value: value),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 13, color: color),
+          Icon(icon, size: 14, color: color),
           const SizedBox(height: 3),
           Text(
-            '${value}g',
+            '$value${strings.common.gramsShort}',
             style: theme.textTheme.labelSmall?.copyWith(
               color: color,
-              fontSize: 10,
+              fontSize: watchLabelFontSize,
               fontWeight: FontWeight.w800,
             ),
           ),
@@ -301,7 +312,7 @@ class WatchMacroMetric extends StatelessWidget {
             maxLines: 1,
             style: theme.textTheme.labelSmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
-              fontSize: 7,
+              fontSize: watchLabelFontSize,
             ),
           ),
         ],
@@ -324,6 +335,7 @@ class WatchCalorieProgressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final strings = Translations.of(context).watch;
     final progress = goal > 0 ? (totalCalories / goal) : 0.0;
     final percentage = (progress * 100).round();
     final remaining = goal - totalCalories;
@@ -331,9 +343,14 @@ class WatchCalorieProgressCard extends StatelessWidget {
     final accent = overGoal ? colors.error : colors.calorieIconColor;
 
     return Semantics(
-      label:
-          '$totalCalories calories consumed out of $goal. '
-          '${overGoal ? '${-remaining} over goal' : '$remaining remaining'}.',
+      label: strings.home.calorieSummary(
+        consumed: totalCalories,
+        goal: goal,
+        status:
+            overGoal
+                ? strings.home.overGoal(calories: -remaining)
+                : strings.home.remaining(calories: remaining),
+      ),
       child: WatchSurface(
         padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
         borderColor: accent.withValues(alpha: 0.18),
@@ -357,12 +374,12 @@ class WatchCalorieProgressCard extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(LucideIcons.flame, size: 14, color: accent),
+                      Icon(AppIcons.flame, size: 14, color: accent),
                       Text(
                         '$percentage%',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: accent,
-                          fontSize: 9,
+                          fontSize: watchLabelFontSize,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -378,10 +395,10 @@ class WatchCalorieProgressCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Today',
+                    strings.home.today,
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: colors.onSurfaceVariant,
-                      fontSize: 9,
+                      fontSize: watchLabelFontSize,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -396,16 +413,16 @@ class WatchCalorieProgressCard extends StatelessWidget {
                             text: '$totalCalories',
                             style: theme.textTheme.titleLarge?.copyWith(
                               color: accent,
-                              fontSize: 22,
+                              fontSize: watchHeadlineFontSize,
                               fontWeight: FontWeight.w900,
                               letterSpacing: -0.6,
                             ),
                           ),
                           TextSpan(
-                            text: ' kcal',
+                            text: ' ${strings.common.kcal}',
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: colors.onSurfaceVariant,
-                              fontSize: 8,
+                              fontSize: watchLabelFontSize,
                             ),
                           ),
                         ],
@@ -414,20 +431,22 @@ class WatchCalorieProgressCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 3),
                   Text(
-                    overGoal ? '${-remaining} over goal' : '$remaining left',
+                    overGoal
+                        ? strings.home.overGoal(calories: -remaining)
+                        : strings.home.left(calories: remaining),
                     maxLines: 1,
                     style: theme.textTheme.labelSmall?.copyWith(
                       color: overGoal ? colors.error : colors.primary,
-                      fontSize: 9,
+                      fontSize: watchLabelFontSize,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   Text(
-                    '$goal kcal goal',
+                    strings.home.goal(calories: goal),
                     maxLines: 1,
                     style: theme.textTheme.labelSmall?.copyWith(
-                      color: colors.onSurfaceVariant.withValues(alpha: 0.7),
-                      fontSize: 8,
+                      color: colors.onSurfaceVariant,
+                      fontSize: watchLabelFontSize,
                     ),
                   ),
                 ],
@@ -455,14 +474,15 @@ class WatchMacroSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final strings = Translations.of(context).watch;
     return WatchSurface(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         children: [
           Expanded(
             child: WatchMacroMetric(
-              icon: LucideIcons.dumbbell,
-              label: 'Protein',
+              icon: AppIcons.dumbbell,
+              label: strings.nutrition.protein,
               value: protein,
               color: colors.proteinIconColor,
             ),
@@ -470,8 +490,8 @@ class WatchMacroSummary extends StatelessWidget {
           _WatchMetricDivider(color: colors.outline),
           Expanded(
             child: WatchMacroMetric(
-              icon: LucideIcons.wheat,
-              label: 'Carbs',
+              icon: AppIcons.wheat,
+              label: strings.nutrition.carbs,
               value: carbs,
               color: colors.carbsIconColor,
             ),
@@ -479,8 +499,8 @@ class WatchMacroSummary extends StatelessWidget {
           _WatchMetricDivider(color: colors.outline),
           Expanded(
             child: WatchMacroMetric(
-              icon: LucideIcons.droplet,
-              label: 'Fat',
+              icon: AppIcons.droplet,
+              label: strings.nutrition.fat,
               value: fat,
               color: colors.fatIconColor,
             ),
@@ -568,7 +588,8 @@ class WatchPillButton extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: foreground,
-                      fontSize: primary ? 12 : 10,
+                      fontSize:
+                          primary ? watchBodyFontSize : watchLabelFontSize,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -606,27 +627,27 @@ class WatchStateView extends StatelessWidget {
     final colors = theme.colorScheme;
     final accent = tint ?? colors.primary;
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 54,
-              height: 54,
+              width: 48,
+              height: 48,
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: 25, color: accent),
+              child: Icon(icon, size: 23, color: accent),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Text(
               title,
               textAlign: TextAlign.center,
               style: theme.textTheme.titleSmall?.copyWith(
                 color: colors.onSurface,
-                fontSize: 12,
+                fontSize: watchBodyFontSize,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -637,7 +658,7 @@ class WatchStateView extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: colors.onSurfaceVariant,
-                  fontSize: 9,
+                  fontSize: watchLabelFontSize,
                   height: 1.25,
                 ),
               ),
@@ -648,7 +669,7 @@ class WatchStateView extends StatelessWidget {
                 width: 124,
                 child: WatchPillButton(
                   label: actionLabel!,
-                  icon: Icons.refresh_rounded,
+                  icon: AppIcons.refreshCw,
                   onPressed: onAction!,
                   tint: accent,
                 ),

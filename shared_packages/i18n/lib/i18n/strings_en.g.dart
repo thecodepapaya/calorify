@@ -50,30 +50,31 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	/// en: 'Calorify{env}'
 	String appLabel({required Object env}) => 'Calorify${env}';
 
-	late final TranslationsErrorsEn errors = TranslationsErrorsEn.internal(_root);
-	late final TranslationsOnboardingEn onboarding = TranslationsOnboardingEn.internal(_root);
-	late final TranslationsTabsEn tabs = TranslationsTabsEn.internal(_root);
-	late final TranslationsHomeEn home = TranslationsHomeEn.internal(_root);
-	late final TranslationsHistoryEn history = TranslationsHistoryEn.internal(_root);
-	late final TranslationsMealEn meal = TranslationsMealEn.internal(_root);
-	late final TranslationsFavoritesEn favorites = TranslationsFavoritesEn.internal(_root);
-	late final TranslationsProfileEn profile = TranslationsProfileEn.internal(_root);
-	late final TranslationsHealthScoreEn healthScore = TranslationsHealthScoreEn.internal(_root);
-	late final TranslationsEditProfileEn editProfile = TranslationsEditProfileEn.internal(_root);
-	late final TranslationsSettingsEn settings = TranslationsSettingsEn.internal(_root);
-	late final TranslationsRemindersEn reminders = TranslationsRemindersEn.internal(_root);
-	late final TranslationsNotificationsEn notifications = TranslationsNotificationsEn.internal(_root);
-	late final TranslationsLoginEn login = TranslationsLoginEn.internal(_root);
-	late final TranslationsDisclaimerEn disclaimer = TranslationsDisclaimerEn.internal(_root);
-	late final TranslationsLocalNutritionPhase4En localNutritionPhase4 = TranslationsLocalNutritionPhase4En.internal(_root);
-	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
-	late final TranslationsFeedbackRatingEn feedbackRating = TranslationsFeedbackRatingEn.internal(_root);
-	late final TranslationsHealthEn health = TranslationsHealthEn.internal(_root);
+	late final Translations$errors$en errors = Translations$errors$en.internal(_root);
+	late final Translations$onboarding$en onboarding = Translations$onboarding$en.internal(_root);
+	late final Translations$tabs$en tabs = Translations$tabs$en.internal(_root);
+	late final Translations$home$en home = Translations$home$en.internal(_root);
+	late final Translations$history$en history = Translations$history$en.internal(_root);
+	late final Translations$meal$en meal = Translations$meal$en.internal(_root);
+	late final Translations$favorites$en favorites = Translations$favorites$en.internal(_root);
+	late final Translations$profile$en profile = Translations$profile$en.internal(_root);
+	late final Translations$healthScore$en healthScore = Translations$healthScore$en.internal(_root);
+	late final Translations$editProfile$en editProfile = Translations$editProfile$en.internal(_root);
+	late final Translations$settings$en settings = Translations$settings$en.internal(_root);
+	late final Translations$reminders$en reminders = Translations$reminders$en.internal(_root);
+	late final Translations$notifications$en notifications = Translations$notifications$en.internal(_root);
+	late final Translations$login$en login = Translations$login$en.internal(_root);
+	late final Translations$disclaimer$en disclaimer = Translations$disclaimer$en.internal(_root);
+	late final Translations$localNutritionPhase4$en localNutritionPhase4 = Translations$localNutritionPhase4$en.internal(_root);
+	late final Translations$watch$en watch = Translations$watch$en.internal(_root);
+	late final Translations$common$en common = Translations$common$en.internal(_root);
+	late final Translations$feedbackRating$en feedbackRating = Translations$feedbackRating$en.internal(_root);
+	late final Translations$health$en health = Translations$health$en.internal(_root);
 }
 
 // Path: errors
-class TranslationsErrorsEn {
-	TranslationsErrorsEn.internal(this._root);
+class Translations$errors$en {
+	Translations$errors$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -99,8 +100,8 @@ class TranslationsErrorsEn {
 }
 
 // Path: onboarding
-class TranslationsOnboardingEn {
-	TranslationsOnboardingEn.internal(this._root);
+class Translations$onboarding$en {
+	Translations$onboarding$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -115,21 +116,21 @@ class TranslationsOnboardingEn {
 	/// en: 'Get Started'
 	String get getStarted => 'Get Started';
 
-	late final TranslationsOnboardingFeaturesEn features = TranslationsOnboardingFeaturesEn.internal(_root);
-	late final TranslationsOnboardingGenderEn gender = TranslationsOnboardingGenderEn.internal(_root);
-	late final TranslationsOnboardingHeightEn height = TranslationsOnboardingHeightEn.internal(_root);
-	late final TranslationsOnboardingWeightEn weight = TranslationsOnboardingWeightEn.internal(_root);
-	late final TranslationsOnboardingAgeEn age = TranslationsOnboardingAgeEn.internal(_root);
-	late final TranslationsOnboardingBmiScaleEn bmiScale = TranslationsOnboardingBmiScaleEn.internal(_root);
-	late final TranslationsOnboardingWeightGoalEn weightGoal = TranslationsOnboardingWeightGoalEn.internal(_root);
-	late final TranslationsOnboardingActivityLevelEn activityLevel = TranslationsOnboardingActivityLevelEn.internal(_root);
-	late final TranslationsOnboardingHealthConnectEn healthConnect = TranslationsOnboardingHealthConnectEn.internal(_root);
-	late final TranslationsOnboardingReinforcementEn reinforcement = TranslationsOnboardingReinforcementEn.internal(_root);
+	late final Translations$onboarding$features$en features = Translations$onboarding$features$en.internal(_root);
+	late final Translations$onboarding$gender$en gender = Translations$onboarding$gender$en.internal(_root);
+	late final Translations$onboarding$height$en height = Translations$onboarding$height$en.internal(_root);
+	late final Translations$onboarding$weight$en weight = Translations$onboarding$weight$en.internal(_root);
+	late final Translations$onboarding$age$en age = Translations$onboarding$age$en.internal(_root);
+	late final Translations$onboarding$bmiScale$en bmiScale = Translations$onboarding$bmiScale$en.internal(_root);
+	late final Translations$onboarding$weightGoal$en weightGoal = Translations$onboarding$weightGoal$en.internal(_root);
+	late final Translations$onboarding$activityLevel$en activityLevel = Translations$onboarding$activityLevel$en.internal(_root);
+	late final Translations$onboarding$healthConnect$en healthConnect = Translations$onboarding$healthConnect$en.internal(_root);
+	late final Translations$onboarding$reinforcement$en reinforcement = Translations$onboarding$reinforcement$en.internal(_root);
 }
 
 // Path: tabs
-class TranslationsTabsEn {
-	TranslationsTabsEn.internal(this._root);
+class Translations$tabs$en {
+	Translations$tabs$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -143,27 +144,27 @@ class TranslationsTabsEn {
 }
 
 // Path: home
-class TranslationsHomeEn {
-	TranslationsHomeEn.internal(this._root);
+class Translations$home$en {
+	Translations$home$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsHomeAiSummaryEn aiSummary = TranslationsHomeAiSummaryEn.internal(_root);
-	late final TranslationsHomeDailyGoalEn dailyGoal = TranslationsHomeDailyGoalEn.internal(_root);
-	late final TranslationsHomeDailySummaryEn dailySummary = TranslationsHomeDailySummaryEn.internal(_root);
-	late final TranslationsHomeIntakeProgressEn intakeProgress = TranslationsHomeIntakeProgressEn.internal(_root);
-	late final TranslationsHomeIntakeHistoryEn intakeHistory = TranslationsHomeIntakeHistoryEn.internal(_root);
-	late final TranslationsHomeMealLogEn mealLog = TranslationsHomeMealLogEn.internal(_root);
-	late final TranslationsHomeMealDescriptionEn mealDescription = TranslationsHomeMealDescriptionEn.internal(_root);
-	late final TranslationsHomeFavoriteMealsEn favoriteMeals = TranslationsHomeFavoriteMealsEn.internal(_root);
-	late final TranslationsHomeMealSnapEn mealSnap = TranslationsHomeMealSnapEn.internal(_root);
-	late final TranslationsHomeConnectHealthEn connectHealth = TranslationsHomeConnectHealthEn.internal(_root);
+	late final Translations$home$aiSummary$en aiSummary = Translations$home$aiSummary$en.internal(_root);
+	late final Translations$home$dailyGoal$en dailyGoal = Translations$home$dailyGoal$en.internal(_root);
+	late final Translations$home$dailySummary$en dailySummary = Translations$home$dailySummary$en.internal(_root);
+	late final Translations$home$intakeProgress$en intakeProgress = Translations$home$intakeProgress$en.internal(_root);
+	late final Translations$home$intakeHistory$en intakeHistory = Translations$home$intakeHistory$en.internal(_root);
+	late final Translations$home$mealLog$en mealLog = Translations$home$mealLog$en.internal(_root);
+	late final Translations$home$mealDescription$en mealDescription = Translations$home$mealDescription$en.internal(_root);
+	late final Translations$home$favoriteMeals$en favoriteMeals = Translations$home$favoriteMeals$en.internal(_root);
+	late final Translations$home$mealSnap$en mealSnap = Translations$home$mealSnap$en.internal(_root);
+	late final Translations$home$connectHealth$en connectHealth = Translations$home$connectHealth$en.internal(_root);
 }
 
 // Path: history
-class TranslationsHistoryEn {
-	TranslationsHistoryEn.internal(this._root);
+class Translations$history$en {
+	Translations$history$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -183,8 +184,8 @@ class TranslationsHistoryEn {
 }
 
 // Path: meal
-class TranslationsMealEn {
-	TranslationsMealEn.internal(this._root);
+class Translations$meal$en {
+	Translations$meal$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -232,8 +233,8 @@ class TranslationsMealEn {
 	/// en: 'Meal Type'
 	String get mealType => 'Meal Type';
 
-	late final TranslationsMealNutritionEn nutrition = TranslationsMealNutritionEn.internal(_root);
-	late final TranslationsMealDeleteConfirmationEn deleteConfirmation = TranslationsMealDeleteConfirmationEn.internal(_root);
+	late final Translations$meal$nutrition$en nutrition = Translations$meal$nutrition$en.internal(_root);
+	late final Translations$meal$deleteConfirmation$en deleteConfirmation = Translations$meal$deleteConfirmation$en.internal(_root);
 
 	/// en: 'Meal added to your log!'
 	String get addedToLog => 'Meal added to your log!';
@@ -283,15 +284,15 @@ class TranslationsMealEn {
 	/// en: 'Skip'
 	String get skip => 'Skip';
 
-	late final TranslationsMealQuestionFlowEn questionFlow = TranslationsMealQuestionFlowEn.internal(_root);
-	late final TranslationsMealAnalysisEn analysis = TranslationsMealAnalysisEn.internal(_root);
-	late final TranslationsMealLocalInferenceEn localInference = TranslationsMealLocalInferenceEn.internal(_root);
-	late final TranslationsMealFeedbackEn feedback = TranslationsMealFeedbackEn.internal(_root);
+	late final Translations$meal$questionFlow$en questionFlow = Translations$meal$questionFlow$en.internal(_root);
+	late final Translations$meal$analysis$en analysis = Translations$meal$analysis$en.internal(_root);
+	late final Translations$meal$localInference$en localInference = Translations$meal$localInference$en.internal(_root);
+	late final Translations$meal$feedback$en feedback = Translations$meal$feedback$en.internal(_root);
 }
 
 // Path: favorites
-class TranslationsFavoritesEn {
-	TranslationsFavoritesEn.internal(this._root);
+class Translations$favorites$en {
+	Translations$favorites$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -321,12 +322,12 @@ class TranslationsFavoritesEn {
 	/// en: 'Removed {name} from favorites'
 	String removed({required Object name}) => 'Removed ${name} from favorites';
 
-	late final TranslationsFavoritesSortOptionsEn sortOptions = TranslationsFavoritesSortOptionsEn.internal(_root);
+	late final Translations$favorites$sortOptions$en sortOptions = Translations$favorites$sortOptions$en.internal(_root);
 }
 
 // Path: profile
-class TranslationsProfileEn {
-	TranslationsProfileEn.internal(this._root);
+class Translations$profile$en {
+	Translations$profile$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -344,7 +345,7 @@ class TranslationsProfileEn {
 	/// en: 'View and manage your health information'
 	String get viewAndManage => 'View and manage your health information';
 
-	late final TranslationsProfileSectionsEn sections = TranslationsProfileSectionsEn.internal(_root);
+	late final Translations$profile$sections$en sections = Translations$profile$sections$en.internal(_root);
 
 	/// en: 'Gender'
 	String get gender => 'Gender';
@@ -379,12 +380,12 @@ class TranslationsProfileEn {
 	/// en: 'Profile updated successfully!'
 	String get updatedSuccessfully => 'Profile updated successfully!';
 
-	late final TranslationsProfileCalculatedValuesEn calculatedValues = TranslationsProfileCalculatedValuesEn.internal(_root);
+	late final Translations$profile$calculatedValues$en calculatedValues = Translations$profile$calculatedValues$en.internal(_root);
 }
 
 // Path: healthScore
-class TranslationsHealthScoreEn {
-	TranslationsHealthScoreEn.internal(this._root);
+class Translations$healthScore$en {
+	Translations$healthScore$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -410,8 +411,8 @@ class TranslationsHealthScoreEn {
 }
 
 // Path: editProfile
-class TranslationsEditProfileEn {
-	TranslationsEditProfileEn.internal(this._root);
+class Translations$editProfile$en {
+	Translations$editProfile$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -420,7 +421,7 @@ class TranslationsEditProfileEn {
 	/// en: 'Edit Profile'
 	String get title => 'Edit Profile';
 
-	late final TranslationsEditProfileSectionsEn sections = TranslationsEditProfileSectionsEn.internal(_root);
+	late final Translations$editProfile$sections$en sections = Translations$editProfile$sections$en.internal(_root);
 
 	/// en: 'Gender'
 	String get gender => 'Gender';
@@ -470,14 +471,14 @@ class TranslationsEditProfileEn {
 	/// en: 'Imperial (lbs)'
 	String get imperialLbs => 'Imperial (lbs)';
 
-	late final TranslationsEditProfileGendersEn genders = TranslationsEditProfileGendersEn.internal(_root);
-	late final TranslationsEditProfileWeightGoalsEn weightGoals = TranslationsEditProfileWeightGoalsEn.internal(_root);
-	late final TranslationsEditProfileActivityLevelsEn activityLevels = TranslationsEditProfileActivityLevelsEn.internal(_root);
+	late final Translations$editProfile$genders$en genders = Translations$editProfile$genders$en.internal(_root);
+	late final Translations$editProfile$weightGoals$en weightGoals = Translations$editProfile$weightGoals$en.internal(_root);
+	late final Translations$editProfile$activityLevels$en activityLevels = Translations$editProfile$activityLevels$en.internal(_root);
 }
 
 // Path: settings
-class TranslationsSettingsEn {
-	TranslationsSettingsEn.internal(this._root);
+class Translations$settings$en {
+	Translations$settings$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -486,30 +487,30 @@ class TranslationsSettingsEn {
 	/// en: 'Settings'
 	String get title => 'Settings';
 
-	late final TranslationsSettingsSectionsEn sections = TranslationsSettingsSectionsEn.internal(_root);
-	late final TranslationsSettingsEditProfileEn editProfile = TranslationsSettingsEditProfileEn.internal(_root);
-	late final TranslationsSettingsLanguageEn language = TranslationsSettingsLanguageEn.internal(_root);
-	late final TranslationsSettingsHeightUnitEn heightUnit = TranslationsSettingsHeightUnitEn.internal(_root);
-	late final TranslationsSettingsWeightUnitEn weightUnit = TranslationsSettingsWeightUnitEn.internal(_root);
-	late final TranslationsSettingsMealRemindersEn mealReminders = TranslationsSettingsMealRemindersEn.internal(_root);
-	late final TranslationsSettingsLocalInferenceEn localInference = TranslationsSettingsLocalInferenceEn.internal(_root);
-	late final TranslationsSettingsThemeEn theme = TranslationsSettingsThemeEn.internal(_root);
-	late final TranslationsSettingsSendFeedbackEn sendFeedback = TranslationsSettingsSendFeedbackEn.internal(_root);
-	late final TranslationsSettingsExportMealHistoryEn exportMealHistory = TranslationsSettingsExportMealHistoryEn.internal(_root);
-	late final TranslationsSettingsClearAllDataEn clearAllData = TranslationsSettingsClearAllDataEn.internal(_root);
-	late final TranslationsSettingsDebugOptionsEn debugOptions = TranslationsSettingsDebugOptionsEn.internal(_root);
+	late final Translations$settings$sections$en sections = Translations$settings$sections$en.internal(_root);
+	late final Translations$settings$editProfile$en editProfile = Translations$settings$editProfile$en.internal(_root);
+	late final Translations$settings$language$en language = Translations$settings$language$en.internal(_root);
+	late final Translations$settings$heightUnit$en heightUnit = Translations$settings$heightUnit$en.internal(_root);
+	late final Translations$settings$weightUnit$en weightUnit = Translations$settings$weightUnit$en.internal(_root);
+	late final Translations$settings$mealReminders$en mealReminders = Translations$settings$mealReminders$en.internal(_root);
+	late final Translations$settings$localInference$en localInference = Translations$settings$localInference$en.internal(_root);
+	late final Translations$settings$theme$en theme = Translations$settings$theme$en.internal(_root);
+	late final Translations$settings$sendFeedback$en sendFeedback = Translations$settings$sendFeedback$en.internal(_root);
+	late final Translations$settings$exportMealHistory$en exportMealHistory = Translations$settings$exportMealHistory$en.internal(_root);
+	late final Translations$settings$clearAllData$en clearAllData = Translations$settings$clearAllData$en.internal(_root);
+	late final Translations$settings$debugOptions$en debugOptions = Translations$settings$debugOptions$en.internal(_root);
 
 	/// en: 'Developer mode enabled!'
 	String get developerModeEnabled => 'Developer mode enabled!';
 
-	late final TranslationsSettingsHealthConnectEn healthConnect = TranslationsSettingsHealthConnectEn.internal(_root);
-	late final TranslationsSettingsAboutEn about = TranslationsSettingsAboutEn.internal(_root);
-	late final TranslationsSettingsAppInfoEn appInfo = TranslationsSettingsAppInfoEn.internal(_root);
+	late final Translations$settings$healthConnect$en healthConnect = Translations$settings$healthConnect$en.internal(_root);
+	late final Translations$settings$about$en about = Translations$settings$about$en.internal(_root);
+	late final Translations$settings$appInfo$en appInfo = Translations$settings$appInfo$en.internal(_root);
 }
 
 // Path: reminders
-class TranslationsRemindersEn {
-	TranslationsRemindersEn.internal(this._root);
+class Translations$reminders$en {
+	Translations$reminders$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -577,22 +578,22 @@ class TranslationsRemindersEn {
 }
 
 // Path: notifications
-class TranslationsNotificationsEn {
-	TranslationsNotificationsEn.internal(this._root);
+class Translations$notifications$en {
+	Translations$notifications$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsNotificationsBreakfastEn breakfast = TranslationsNotificationsBreakfastEn.internal(_root);
-	late final TranslationsNotificationsLunchEn lunch = TranslationsNotificationsLunchEn.internal(_root);
-	late final TranslationsNotificationsDinnerEn dinner = TranslationsNotificationsDinnerEn.internal(_root);
-	late final TranslationsNotificationsSnackEn snack = TranslationsNotificationsSnackEn.internal(_root);
-	late final TranslationsNotificationsTestEn test = TranslationsNotificationsTestEn.internal(_root);
+	late final Translations$notifications$breakfast$en breakfast = Translations$notifications$breakfast$en.internal(_root);
+	late final Translations$notifications$lunch$en lunch = Translations$notifications$lunch$en.internal(_root);
+	late final Translations$notifications$dinner$en dinner = Translations$notifications$dinner$en.internal(_root);
+	late final Translations$notifications$snack$en snack = Translations$notifications$snack$en.internal(_root);
+	late final Translations$notifications$test$en test = Translations$notifications$test$en.internal(_root);
 }
 
 // Path: login
-class TranslationsLoginEn {
-	TranslationsLoginEn.internal(this._root);
+class Translations$login$en {
+	Translations$login$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -609,8 +610,8 @@ class TranslationsLoginEn {
 }
 
 // Path: disclaimer
-class TranslationsDisclaimerEn {
-	TranslationsDisclaimerEn.internal(this._root);
+class Translations$disclaimer$en {
+	Translations$disclaimer$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -619,15 +620,15 @@ class TranslationsDisclaimerEn {
 	/// en: 'Please Note'
 	String get pleaseNote => 'Please Note';
 
-	late final TranslationsDisclaimerSnapEn snap = TranslationsDisclaimerSnapEn.internal(_root);
-	late final TranslationsDisclaimerWeightEstimateEn weightEstimate = TranslationsDisclaimerWeightEstimateEn.internal(_root);
-	late final TranslationsDisclaimerHealthMetricsEn healthMetrics = TranslationsDisclaimerHealthMetricsEn.internal(_root);
-	late final TranslationsDisclaimerCalorieExpenditureEn calorieExpenditure = TranslationsDisclaimerCalorieExpenditureEn.internal(_root);
+	late final Translations$disclaimer$snap$en snap = Translations$disclaimer$snap$en.internal(_root);
+	late final Translations$disclaimer$weightEstimate$en weightEstimate = Translations$disclaimer$weightEstimate$en.internal(_root);
+	late final Translations$disclaimer$healthMetrics$en healthMetrics = Translations$disclaimer$healthMetrics$en.internal(_root);
+	late final Translations$disclaimer$calorieExpenditure$en calorieExpenditure = Translations$disclaimer$calorieExpenditure$en.internal(_root);
 }
 
 // Path: localNutritionPhase4
-class TranslationsLocalNutritionPhase4En {
-	TranslationsLocalNutritionPhase4En.internal(this._root);
+class Translations$localNutritionPhase4$en {
+	Translations$localNutritionPhase4$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -721,9 +722,31 @@ class TranslationsLocalNutritionPhase4En {
 	String get offlineNutritionCleared => 'Local nutrition data cleared';
 }
 
+// Path: watch
+class Translations$watch$en {
+	Translations$watch$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Calorify Watch'
+	String get appTitle => 'Calorify Watch';
+
+	late final Translations$watch$common$en common = Translations$watch$common$en.internal(_root);
+	late final Translations$watch$nutrition$en nutrition = Translations$watch$nutrition$en.internal(_root);
+	late final Translations$watch$sync$en sync = Translations$watch$sync$en.internal(_root);
+	late final Translations$watch$home$en home = Translations$watch$home$en.internal(_root);
+	late final Translations$watch$history$en history = Translations$watch$history$en.internal(_root);
+	late final Translations$watch$favorites$en favorites = Translations$watch$favorites$en.internal(_root);
+	late final Translations$watch$meal$en meal = Translations$watch$meal$en.internal(_root);
+	late final Translations$watch$voice$en voice = Translations$watch$voice$en.internal(_root);
+	late final Translations$watch$result$en result = Translations$watch$result$en.internal(_root);
+}
+
 // Path: common
-class TranslationsCommonEn {
-	TranslationsCommonEn.internal(this._root);
+class Translations$common$en {
+	Translations$common$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -737,8 +760,8 @@ class TranslationsCommonEn {
 }
 
 // Path: feedbackRating
-class TranslationsFeedbackRatingEn {
-	TranslationsFeedbackRatingEn.internal(this._root);
+class Translations$feedbackRating$en {
+	Translations$feedbackRating$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -791,8 +814,8 @@ class TranslationsFeedbackRatingEn {
 }
 
 // Path: health
-class TranslationsHealthEn {
-	TranslationsHealthEn.internal(this._root);
+class Translations$health$en {
+	Translations$health$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -806,20 +829,20 @@ class TranslationsHealthEn {
 }
 
 // Path: onboarding.features
-class TranslationsOnboardingFeaturesEn {
-	TranslationsOnboardingFeaturesEn.internal(this._root);
+class Translations$onboarding$features$en {
+	Translations$onboarding$features$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsOnboardingFeaturesFoodRecognitionEn foodRecognition = TranslationsOnboardingFeaturesFoodRecognitionEn.internal(_root);
-	late final TranslationsOnboardingFeaturesAiAnalysisEn aiAnalysis = TranslationsOnboardingFeaturesAiAnalysisEn.internal(_root);
-	late final TranslationsOnboardingFeaturesHealthIntegrationEn healthIntegration = TranslationsOnboardingFeaturesHealthIntegrationEn.internal(_root);
+	late final Translations$onboarding$features$foodRecognition$en foodRecognition = Translations$onboarding$features$foodRecognition$en.internal(_root);
+	late final Translations$onboarding$features$aiAnalysis$en aiAnalysis = Translations$onboarding$features$aiAnalysis$en.internal(_root);
+	late final Translations$onboarding$features$healthIntegration$en healthIntegration = Translations$onboarding$features$healthIntegration$en.internal(_root);
 }
 
 // Path: onboarding.gender
-class TranslationsOnboardingGenderEn {
-	TranslationsOnboardingGenderEn.internal(this._root);
+class Translations$onboarding$gender$en {
+	Translations$onboarding$gender$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -836,8 +859,8 @@ class TranslationsOnboardingGenderEn {
 }
 
 // Path: onboarding.height
-class TranslationsOnboardingHeightEn {
-	TranslationsOnboardingHeightEn.internal(this._root);
+class Translations$onboarding$height$en {
+	Translations$onboarding$height$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -860,8 +883,8 @@ class TranslationsOnboardingHeightEn {
 }
 
 // Path: onboarding.weight
-class TranslationsOnboardingWeightEn {
-	TranslationsOnboardingWeightEn.internal(this._root);
+class Translations$onboarding$weight$en {
+	Translations$onboarding$weight$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -890,8 +913,8 @@ class TranslationsOnboardingWeightEn {
 }
 
 // Path: onboarding.age
-class TranslationsOnboardingAgeEn {
-	TranslationsOnboardingAgeEn.internal(this._root);
+class Translations$onboarding$age$en {
+	Translations$onboarding$age$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -908,8 +931,8 @@ class TranslationsOnboardingAgeEn {
 }
 
 // Path: onboarding.bmiScale
-class TranslationsOnboardingBmiScaleEn {
-	TranslationsOnboardingBmiScaleEn.internal(this._root);
+class Translations$onboarding$bmiScale$en {
+	Translations$onboarding$bmiScale$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -927,13 +950,13 @@ class TranslationsOnboardingBmiScaleEn {
 	/// en: 'Obese'
 	String get obese => 'Obese';
 
-	late final TranslationsOnboardingBmiScaleCategoriesEn categories = TranslationsOnboardingBmiScaleCategoriesEn.internal(_root);
-	late final TranslationsOnboardingBmiScaleMessagesEn messages = TranslationsOnboardingBmiScaleMessagesEn.internal(_root);
+	late final Translations$onboarding$bmiScale$categories$en categories = Translations$onboarding$bmiScale$categories$en.internal(_root);
+	late final Translations$onboarding$bmiScale$messages$en messages = Translations$onboarding$bmiScale$messages$en.internal(_root);
 }
 
 // Path: onboarding.weightGoal
-class TranslationsOnboardingWeightGoalEn {
-	TranslationsOnboardingWeightGoalEn.internal(this._root);
+class Translations$onboarding$weightGoal$en {
+	Translations$onboarding$weightGoal$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -947,8 +970,8 @@ class TranslationsOnboardingWeightGoalEn {
 }
 
 // Path: onboarding.activityLevel
-class TranslationsOnboardingActivityLevelEn {
-	TranslationsOnboardingActivityLevelEn.internal(this._root);
+class Translations$onboarding$activityLevel$en {
+	Translations$onboarding$activityLevel$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -962,8 +985,8 @@ class TranslationsOnboardingActivityLevelEn {
 }
 
 // Path: onboarding.healthConnect
-class TranslationsOnboardingHealthConnectEn {
-	TranslationsOnboardingHealthConnectEn.internal(this._root);
+class Translations$onboarding$healthConnect$en {
+	Translations$onboarding$healthConnect$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -978,12 +1001,12 @@ class TranslationsOnboardingHealthConnectEn {
 	/// en: 'Use calories burned in your daily goal and optionally share logged meals with Health Connect.'
 	String get overviewDescription => 'Use calories burned in your daily goal and optionally share logged meals with Health Connect.';
 
-	late final TranslationsOnboardingHealthConnectAutomaticTrackingEn automaticTracking = TranslationsOnboardingHealthConnectAutomaticTrackingEn.internal(_root);
-	late final TranslationsOnboardingHealthConnectCaloriesBurnedEn caloriesBurned = TranslationsOnboardingHealthConnectCaloriesBurnedEn.internal(_root);
-	late final TranslationsOnboardingHealthConnectProgressInsightsEn progressInsights = TranslationsOnboardingHealthConnectProgressInsightsEn.internal(_root);
-	late final TranslationsOnboardingHealthConnectShareLoggedMealsEn shareLoggedMeals = TranslationsOnboardingHealthConnectShareLoggedMealsEn.internal(_root);
-	late final TranslationsOnboardingHealthConnectSeamlessIntegrationEn seamlessIntegration = TranslationsOnboardingHealthConnectSeamlessIntegrationEn.internal(_root);
-	late final TranslationsOnboardingHealthConnectUserControlEn userControl = TranslationsOnboardingHealthConnectUserControlEn.internal(_root);
+	late final Translations$onboarding$healthConnect$automaticTracking$en automaticTracking = Translations$onboarding$healthConnect$automaticTracking$en.internal(_root);
+	late final Translations$onboarding$healthConnect$caloriesBurned$en caloriesBurned = Translations$onboarding$healthConnect$caloriesBurned$en.internal(_root);
+	late final Translations$onboarding$healthConnect$progressInsights$en progressInsights = Translations$onboarding$healthConnect$progressInsights$en.internal(_root);
+	late final Translations$onboarding$healthConnect$shareLoggedMeals$en shareLoggedMeals = Translations$onboarding$healthConnect$shareLoggedMeals$en.internal(_root);
+	late final Translations$onboarding$healthConnect$seamlessIntegration$en seamlessIntegration = Translations$onboarding$healthConnect$seamlessIntegration$en.internal(_root);
+	late final Translations$onboarding$healthConnect$userControl$en userControl = Translations$onboarding$healthConnect$userControl$en.internal(_root);
 
 	/// en: 'Health Connect Connected'
 	String get connected => 'Health Connect Connected';
@@ -1029,20 +1052,20 @@ class TranslationsOnboardingHealthConnectEn {
 }
 
 // Path: onboarding.reinforcement
-class TranslationsOnboardingReinforcementEn {
-	TranslationsOnboardingReinforcementEn.internal(this._root);
+class Translations$onboarding$reinforcement$en {
+	Translations$onboarding$reinforcement$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsOnboardingReinforcementTrackingSuccessEn trackingSuccess = TranslationsOnboardingReinforcementTrackingSuccessEn.internal(_root);
-	late final TranslationsOnboardingReinforcementHealthProfileEn healthProfile = TranslationsOnboardingReinforcementHealthProfileEn.internal(_root);
-	late final TranslationsOnboardingReinforcementGoalLifestyleEn goalLifestyle = TranslationsOnboardingReinforcementGoalLifestyleEn.internal(_root);
+	late final Translations$onboarding$reinforcement$trackingSuccess$en trackingSuccess = Translations$onboarding$reinforcement$trackingSuccess$en.internal(_root);
+	late final Translations$onboarding$reinforcement$healthProfile$en healthProfile = Translations$onboarding$reinforcement$healthProfile$en.internal(_root);
+	late final Translations$onboarding$reinforcement$goalLifestyle$en goalLifestyle = Translations$onboarding$reinforcement$goalLifestyle$en.internal(_root);
 }
 
 // Path: home.aiSummary
-class TranslationsHomeAiSummaryEn {
-	TranslationsHomeAiSummaryEn.internal(this._root);
+class Translations$home$aiSummary$en {
+	Translations$home$aiSummary$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1080,8 +1103,8 @@ class TranslationsHomeAiSummaryEn {
 }
 
 // Path: home.dailyGoal
-class TranslationsHomeDailyGoalEn {
-	TranslationsHomeDailyGoalEn.internal(this._root);
+class Translations$home$dailyGoal$en {
+	Translations$home$dailyGoal$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1131,8 +1154,8 @@ class TranslationsHomeDailyGoalEn {
 }
 
 // Path: home.dailySummary
-class TranslationsHomeDailySummaryEn {
-	TranslationsHomeDailySummaryEn.internal(this._root);
+class Translations$home$dailySummary$en {
+	Translations$home$dailySummary$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1164,8 +1187,8 @@ class TranslationsHomeDailySummaryEn {
 }
 
 // Path: home.intakeProgress
-class TranslationsHomeIntakeProgressEn {
-	TranslationsHomeIntakeProgressEn.internal(this._root);
+class Translations$home$intakeProgress$en {
+	Translations$home$intakeProgress$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1182,8 +1205,8 @@ class TranslationsHomeIntakeProgressEn {
 }
 
 // Path: home.intakeHistory
-class TranslationsHomeIntakeHistoryEn {
-	TranslationsHomeIntakeHistoryEn.internal(this._root);
+class Translations$home$intakeHistory$en {
+	Translations$home$intakeHistory$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1206,8 +1229,8 @@ class TranslationsHomeIntakeHistoryEn {
 }
 
 // Path: home.mealLog
-class TranslationsHomeMealLogEn {
-	TranslationsHomeMealLogEn.internal(this._root);
+class Translations$home$mealLog$en {
+	Translations$home$mealLog$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1227,8 +1250,8 @@ class TranslationsHomeMealLogEn {
 }
 
 // Path: home.mealDescription
-class TranslationsHomeMealDescriptionEn {
-	TranslationsHomeMealDescriptionEn.internal(this._root);
+class Translations$home$mealDescription$en {
+	Translations$home$mealDescription$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1248,8 +1271,8 @@ class TranslationsHomeMealDescriptionEn {
 }
 
 // Path: home.favoriteMeals
-class TranslationsHomeFavoriteMealsEn {
-	TranslationsHomeFavoriteMealsEn.internal(this._root);
+class Translations$home$favoriteMeals$en {
+	Translations$home$favoriteMeals$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1275,8 +1298,8 @@ class TranslationsHomeFavoriteMealsEn {
 }
 
 // Path: home.mealSnap
-class TranslationsHomeMealSnapEn {
-	TranslationsHomeMealSnapEn.internal(this._root);
+class Translations$home$mealSnap$en {
+	Translations$home$mealSnap$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1302,8 +1325,8 @@ class TranslationsHomeMealSnapEn {
 }
 
 // Path: home.connectHealth
-class TranslationsHomeConnectHealthEn {
-	TranslationsHomeConnectHealthEn.internal(this._root);
+class Translations$home$connectHealth$en {
+	Translations$home$connectHealth$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1329,8 +1352,8 @@ class TranslationsHomeConnectHealthEn {
 }
 
 // Path: meal.nutrition
-class TranslationsMealNutritionEn {
-	TranslationsMealNutritionEn.internal(this._root);
+class Translations$meal$nutrition$en {
+	Translations$meal$nutrition$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1353,8 +1376,8 @@ class TranslationsMealNutritionEn {
 }
 
 // Path: meal.deleteConfirmation
-class TranslationsMealDeleteConfirmationEn {
-	TranslationsMealDeleteConfirmationEn.internal(this._root);
+class Translations$meal$deleteConfirmation$en {
+	Translations$meal$deleteConfirmation$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1374,8 +1397,8 @@ class TranslationsMealDeleteConfirmationEn {
 }
 
 // Path: meal.questionFlow
-class TranslationsMealQuestionFlowEn {
-	TranslationsMealQuestionFlowEn.internal(this._root);
+class Translations$meal$questionFlow$en {
+	Translations$meal$questionFlow$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1395,8 +1418,8 @@ class TranslationsMealQuestionFlowEn {
 }
 
 // Path: meal.analysis
-class TranslationsMealAnalysisEn {
-	TranslationsMealAnalysisEn.internal(this._root);
+class Translations$meal$analysis$en {
+	Translations$meal$analysis$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1479,8 +1502,8 @@ class TranslationsMealAnalysisEn {
 }
 
 // Path: meal.localInference
-class TranslationsMealLocalInferenceEn {
-	TranslationsMealLocalInferenceEn.internal(this._root);
+class Translations$meal$localInference$en {
+	Translations$meal$localInference$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1542,8 +1565,8 @@ class TranslationsMealLocalInferenceEn {
 }
 
 // Path: meal.feedback
-class TranslationsMealFeedbackEn {
-	TranslationsMealFeedbackEn.internal(this._root);
+class Translations$meal$feedback$en {
+	Translations$meal$feedback$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1587,8 +1610,8 @@ class TranslationsMealFeedbackEn {
 }
 
 // Path: favorites.sortOptions
-class TranslationsFavoritesSortOptionsEn {
-	TranslationsFavoritesSortOptionsEn.internal(this._root);
+class Translations$favorites$sortOptions$en {
+	Translations$favorites$sortOptions$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1605,8 +1628,8 @@ class TranslationsFavoritesSortOptionsEn {
 }
 
 // Path: profile.sections
-class TranslationsProfileSectionsEn {
-	TranslationsProfileSectionsEn.internal(this._root);
+class Translations$profile$sections$en {
+	Translations$profile$sections$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1626,8 +1649,8 @@ class TranslationsProfileSectionsEn {
 }
 
 // Path: profile.calculatedValues
-class TranslationsProfileCalculatedValuesEn {
-	TranslationsProfileCalculatedValuesEn.internal(this._root);
+class Translations$profile$calculatedValues$en {
+	Translations$profile$calculatedValues$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1650,8 +1673,8 @@ class TranslationsProfileCalculatedValuesEn {
 }
 
 // Path: editProfile.sections
-class TranslationsEditProfileSectionsEn {
-	TranslationsEditProfileSectionsEn.internal(this._root);
+class Translations$editProfile$sections$en {
+	Translations$editProfile$sections$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1668,8 +1691,8 @@ class TranslationsEditProfileSectionsEn {
 }
 
 // Path: editProfile.genders
-class TranslationsEditProfileGendersEn {
-	TranslationsEditProfileGendersEn.internal(this._root);
+class Translations$editProfile$genders$en {
+	Translations$editProfile$genders$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1686,34 +1709,34 @@ class TranslationsEditProfileGendersEn {
 }
 
 // Path: editProfile.weightGoals
-class TranslationsEditProfileWeightGoalsEn {
-	TranslationsEditProfileWeightGoalsEn.internal(this._root);
+class Translations$editProfile$weightGoals$en {
+	Translations$editProfile$weightGoals$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsEditProfileWeightGoalsLoseWeightEn loseWeight = TranslationsEditProfileWeightGoalsLoseWeightEn.internal(_root);
-	late final TranslationsEditProfileWeightGoalsMaintainWeightEn maintainWeight = TranslationsEditProfileWeightGoalsMaintainWeightEn.internal(_root);
-	late final TranslationsEditProfileWeightGoalsGainWeightEn gainWeight = TranslationsEditProfileWeightGoalsGainWeightEn.internal(_root);
+	late final Translations$editProfile$weightGoals$loseWeight$en loseWeight = Translations$editProfile$weightGoals$loseWeight$en.internal(_root);
+	late final Translations$editProfile$weightGoals$maintainWeight$en maintainWeight = Translations$editProfile$weightGoals$maintainWeight$en.internal(_root);
+	late final Translations$editProfile$weightGoals$gainWeight$en gainWeight = Translations$editProfile$weightGoals$gainWeight$en.internal(_root);
 }
 
 // Path: editProfile.activityLevels
-class TranslationsEditProfileActivityLevelsEn {
-	TranslationsEditProfileActivityLevelsEn.internal(this._root);
+class Translations$editProfile$activityLevels$en {
+	Translations$editProfile$activityLevels$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsEditProfileActivityLevelsSedentaryEn sedentary = TranslationsEditProfileActivityLevelsSedentaryEn.internal(_root);
-	late final TranslationsEditProfileActivityLevelsLightlyActiveEn lightlyActive = TranslationsEditProfileActivityLevelsLightlyActiveEn.internal(_root);
-	late final TranslationsEditProfileActivityLevelsModeratelyActiveEn moderatelyActive = TranslationsEditProfileActivityLevelsModeratelyActiveEn.internal(_root);
-	late final TranslationsEditProfileActivityLevelsVeryActiveEn veryActive = TranslationsEditProfileActivityLevelsVeryActiveEn.internal(_root);
-	late final TranslationsEditProfileActivityLevelsExtremelyActiveEn extremelyActive = TranslationsEditProfileActivityLevelsExtremelyActiveEn.internal(_root);
+	late final Translations$editProfile$activityLevels$sedentary$en sedentary = Translations$editProfile$activityLevels$sedentary$en.internal(_root);
+	late final Translations$editProfile$activityLevels$lightlyActive$en lightlyActive = Translations$editProfile$activityLevels$lightlyActive$en.internal(_root);
+	late final Translations$editProfile$activityLevels$moderatelyActive$en moderatelyActive = Translations$editProfile$activityLevels$moderatelyActive$en.internal(_root);
+	late final Translations$editProfile$activityLevels$veryActive$en veryActive = Translations$editProfile$activityLevels$veryActive$en.internal(_root);
+	late final Translations$editProfile$activityLevels$extremelyActive$en extremelyActive = Translations$editProfile$activityLevels$extremelyActive$en.internal(_root);
 }
 
 // Path: settings.sections
-class TranslationsSettingsSectionsEn {
-	TranslationsSettingsSectionsEn.internal(this._root);
+class Translations$settings$sections$en {
+	Translations$settings$sections$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1748,8 +1771,8 @@ class TranslationsSettingsSectionsEn {
 }
 
 // Path: settings.editProfile
-class TranslationsSettingsEditProfileEn {
-	TranslationsSettingsEditProfileEn.internal(this._root);
+class Translations$settings$editProfile$en {
+	Translations$settings$editProfile$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1763,8 +1786,8 @@ class TranslationsSettingsEditProfileEn {
 }
 
 // Path: settings.language
-class TranslationsSettingsLanguageEn {
-	TranslationsSettingsLanguageEn.internal(this._root);
+class Translations$settings$language$en {
+	Translations$settings$language$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1784,8 +1807,8 @@ class TranslationsSettingsLanguageEn {
 }
 
 // Path: settings.heightUnit
-class TranslationsSettingsHeightUnitEn {
-	TranslationsSettingsHeightUnitEn.internal(this._root);
+class Translations$settings$heightUnit$en {
+	Translations$settings$heightUnit$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1796,8 +1819,8 @@ class TranslationsSettingsHeightUnitEn {
 }
 
 // Path: settings.weightUnit
-class TranslationsSettingsWeightUnitEn {
-	TranslationsSettingsWeightUnitEn.internal(this._root);
+class Translations$settings$weightUnit$en {
+	Translations$settings$weightUnit$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1808,8 +1831,8 @@ class TranslationsSettingsWeightUnitEn {
 }
 
 // Path: settings.mealReminders
-class TranslationsSettingsMealRemindersEn {
-	TranslationsSettingsMealRemindersEn.internal(this._root);
+class Translations$settings$mealReminders$en {
+	Translations$settings$mealReminders$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1823,8 +1846,8 @@ class TranslationsSettingsMealRemindersEn {
 }
 
 // Path: settings.localInference
-class TranslationsSettingsLocalInferenceEn {
-	TranslationsSettingsLocalInferenceEn.internal(this._root);
+class Translations$settings$localInference$en {
+	Translations$settings$localInference$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1877,8 +1900,8 @@ class TranslationsSettingsLocalInferenceEn {
 }
 
 // Path: settings.theme
-class TranslationsSettingsThemeEn {
-	TranslationsSettingsThemeEn.internal(this._root);
+class Translations$settings$theme$en {
+	Translations$settings$theme$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1898,8 +1921,8 @@ class TranslationsSettingsThemeEn {
 }
 
 // Path: settings.sendFeedback
-class TranslationsSettingsSendFeedbackEn {
-	TranslationsSettingsSendFeedbackEn.internal(this._root);
+class Translations$settings$sendFeedback$en {
+	Translations$settings$sendFeedback$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1931,8 +1954,8 @@ class TranslationsSettingsSendFeedbackEn {
 }
 
 // Path: settings.exportMealHistory
-class TranslationsSettingsExportMealHistoryEn {
-	TranslationsSettingsExportMealHistoryEn.internal(this._root);
+class Translations$settings$exportMealHistory$en {
+	Translations$settings$exportMealHistory$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1952,8 +1975,8 @@ class TranslationsSettingsExportMealHistoryEn {
 }
 
 // Path: settings.clearAllData
-class TranslationsSettingsClearAllDataEn {
-	TranslationsSettingsClearAllDataEn.internal(this._root);
+class Translations$settings$clearAllData$en {
+	Translations$settings$clearAllData$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1985,8 +2008,8 @@ class TranslationsSettingsClearAllDataEn {
 }
 
 // Path: settings.debugOptions
-class TranslationsSettingsDebugOptionsEn {
-	TranslationsSettingsDebugOptionsEn.internal(this._root);
+class Translations$settings$debugOptions$en {
+	Translations$settings$debugOptions$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1997,8 +2020,8 @@ class TranslationsSettingsDebugOptionsEn {
 }
 
 // Path: settings.healthConnect
-class TranslationsSettingsHealthConnectEn {
-	TranslationsSettingsHealthConnectEn.internal(this._root);
+class Translations$settings$healthConnect$en {
+	Translations$settings$healthConnect$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2010,9 +2033,9 @@ class TranslationsSettingsHealthConnectEn {
 	/// en: 'View and manage permissions'
 	String get subtitle => 'View and manage permissions';
 
-	late final TranslationsSettingsHealthConnectUnavailableEn unavailable = TranslationsSettingsHealthConnectUnavailableEn.internal(_root);
-	late final TranslationsSettingsHealthConnectUpdateRequiredEn updateRequired = TranslationsSettingsHealthConnectUpdateRequiredEn.internal(_root);
-	late final TranslationsSettingsHealthConnectPermissionsEn permissions = TranslationsSettingsHealthConnectPermissionsEn.internal(_root);
+	late final Translations$settings$healthConnect$unavailable$en unavailable = Translations$settings$healthConnect$unavailable$en.internal(_root);
+	late final Translations$settings$healthConnect$updateRequired$en updateRequired = Translations$settings$healthConnect$updateRequired$en.internal(_root);
+	late final Translations$settings$healthConnect$permissions$en permissions = Translations$settings$healthConnect$permissions$en.internal(_root);
 
 	/// en: 'Manage Permissions'
 	String get managePermissions => 'Manage Permissions';
@@ -2073,8 +2096,8 @@ class TranslationsSettingsHealthConnectEn {
 }
 
 // Path: settings.about
-class TranslationsSettingsAboutEn {
-	TranslationsSettingsAboutEn.internal(this._root);
+class Translations$settings$about$en {
+	Translations$settings$about$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2086,15 +2109,15 @@ class TranslationsSettingsAboutEn {
 	/// en: 'Fast, free, and privacy-first calorie awareness'
 	String get tagline => 'Fast, free, and privacy-first calorie awareness';
 
-	late final TranslationsSettingsAboutOurStoryEn ourStory = TranslationsSettingsAboutOurStoryEn.internal(_root);
-	late final TranslationsSettingsAboutPrivacyEn privacy = TranslationsSettingsAboutPrivacyEn.internal(_root);
-	late final TranslationsSettingsAboutDeveloperEn developer = TranslationsSettingsAboutDeveloperEn.internal(_root);
-	late final TranslationsSettingsAboutFeedbackEn feedback = TranslationsSettingsAboutFeedbackEn.internal(_root);
+	late final Translations$settings$about$ourStory$en ourStory = Translations$settings$about$ourStory$en.internal(_root);
+	late final Translations$settings$about$privacy$en privacy = Translations$settings$about$privacy$en.internal(_root);
+	late final Translations$settings$about$developer$en developer = Translations$settings$about$developer$en.internal(_root);
+	late final Translations$settings$about$feedback$en feedback = Translations$settings$about$feedback$en.internal(_root);
 }
 
 // Path: settings.appInfo
-class TranslationsSettingsAppInfoEn {
-	TranslationsSettingsAppInfoEn.internal(this._root);
+class Translations$settings$appInfo$en {
+	Translations$settings$appInfo$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2108,8 +2131,8 @@ class TranslationsSettingsAppInfoEn {
 }
 
 // Path: notifications.breakfast
-class TranslationsNotificationsBreakfastEn {
-	TranslationsNotificationsBreakfastEn.internal(this._root);
+class Translations$notifications$breakfast$en {
+	Translations$notifications$breakfast$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2123,8 +2146,8 @@ class TranslationsNotificationsBreakfastEn {
 }
 
 // Path: notifications.lunch
-class TranslationsNotificationsLunchEn {
-	TranslationsNotificationsLunchEn.internal(this._root);
+class Translations$notifications$lunch$en {
+	Translations$notifications$lunch$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2138,8 +2161,8 @@ class TranslationsNotificationsLunchEn {
 }
 
 // Path: notifications.dinner
-class TranslationsNotificationsDinnerEn {
-	TranslationsNotificationsDinnerEn.internal(this._root);
+class Translations$notifications$dinner$en {
+	Translations$notifications$dinner$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2153,8 +2176,8 @@ class TranslationsNotificationsDinnerEn {
 }
 
 // Path: notifications.snack
-class TranslationsNotificationsSnackEn {
-	TranslationsNotificationsSnackEn.internal(this._root);
+class Translations$notifications$snack$en {
+	Translations$notifications$snack$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2168,8 +2191,8 @@ class TranslationsNotificationsSnackEn {
 }
 
 // Path: notifications.test
-class TranslationsNotificationsTestEn {
-	TranslationsNotificationsTestEn.internal(this._root);
+class Translations$notifications$test$en {
+	Translations$notifications$test$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2180,8 +2203,8 @@ class TranslationsNotificationsTestEn {
 }
 
 // Path: disclaimer.snap
-class TranslationsDisclaimerSnapEn {
-	TranslationsDisclaimerSnapEn.internal(this._root);
+class Translations$disclaimer$snap$en {
+	Translations$disclaimer$snap$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2190,15 +2213,15 @@ class TranslationsDisclaimerSnapEn {
 	/// en: '{appLabel} provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.'
 	String description({required Object appLabel}) => '${appLabel} provides estimated nutritional info. Accuracy depends on your input & food variations. Use as a guide, not a definitive source. Consult a professional for personalized dietary advice.';
 
-	late final TranslationsDisclaimerSnapPortionSizeEn portionSize = TranslationsDisclaimerSnapPortionSizeEn.internal(_root);
-	late final TranslationsDisclaimerSnapPreparationMethodsEn preparationMethods = TranslationsDisclaimerSnapPreparationMethodsEn.internal(_root);
-	late final TranslationsDisclaimerSnapIngredientsEn ingredients = TranslationsDisclaimerSnapIngredientsEn.internal(_root);
-	late final TranslationsDisclaimerSnapDatabaseLimitationsEn databaseLimitations = TranslationsDisclaimerSnapDatabaseLimitationsEn.internal(_root);
+	late final Translations$disclaimer$snap$portionSize$en portionSize = Translations$disclaimer$snap$portionSize$en.internal(_root);
+	late final Translations$disclaimer$snap$preparationMethods$en preparationMethods = Translations$disclaimer$snap$preparationMethods$en.internal(_root);
+	late final Translations$disclaimer$snap$ingredients$en ingredients = Translations$disclaimer$snap$ingredients$en.internal(_root);
+	late final Translations$disclaimer$snap$databaseLimitations$en databaseLimitations = Translations$disclaimer$snap$databaseLimitations$en.internal(_root);
 }
 
 // Path: disclaimer.weightEstimate
-class TranslationsDisclaimerWeightEstimateEn {
-	TranslationsDisclaimerWeightEstimateEn.internal(this._root);
+class Translations$disclaimer$weightEstimate$en {
+	Translations$disclaimer$weightEstimate$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2210,15 +2233,15 @@ class TranslationsDisclaimerWeightEstimateEn {
 	/// en: 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.'
 	String get description => 'The projected weight change is a theoretical estimate based on the simple calorie-in vs. calorie-out model. It is intended for motivational guidance only, not as a prediction of your actual weight.';
 
-	late final TranslationsDisclaimerWeightEstimateCalorieAccuracyEn calorieAccuracy = TranslationsDisclaimerWeightEstimateCalorieAccuracyEn.internal(_root);
-	late final TranslationsDisclaimerWeightEstimateBiologicalFactorsEn biologicalFactors = TranslationsDisclaimerWeightEstimateBiologicalFactorsEn.internal(_root);
-	late final TranslationsDisclaimerWeightEstimateWaterWeightEn waterWeight = TranslationsDisclaimerWeightEstimateWaterWeightEn.internal(_root);
-	late final TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn professionalGuidance = TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn.internal(_root);
+	late final Translations$disclaimer$weightEstimate$calorieAccuracy$en calorieAccuracy = Translations$disclaimer$weightEstimate$calorieAccuracy$en.internal(_root);
+	late final Translations$disclaimer$weightEstimate$biologicalFactors$en biologicalFactors = Translations$disclaimer$weightEstimate$biologicalFactors$en.internal(_root);
+	late final Translations$disclaimer$weightEstimate$waterWeight$en waterWeight = Translations$disclaimer$weightEstimate$waterWeight$en.internal(_root);
+	late final Translations$disclaimer$weightEstimate$professionalGuidance$en professionalGuidance = Translations$disclaimer$weightEstimate$professionalGuidance$en.internal(_root);
 }
 
 // Path: disclaimer.healthMetrics
-class TranslationsDisclaimerHealthMetricsEn {
-	TranslationsDisclaimerHealthMetricsEn.internal(this._root);
+class Translations$disclaimer$healthMetrics$en {
+	Translations$disclaimer$healthMetrics$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2227,14 +2250,14 @@ class TranslationsDisclaimerHealthMetricsEn {
 	/// en: 'These metrics help you understand your body's energy needs and guide your nutrition goals.'
 	String get description => 'These metrics help you understand your body\'s energy needs and guide your nutrition goals.';
 
-	late final TranslationsDisclaimerHealthMetricsBmrEn bmr = TranslationsDisclaimerHealthMetricsBmrEn.internal(_root);
-	late final TranslationsDisclaimerHealthMetricsTdeeEn tdee = TranslationsDisclaimerHealthMetricsTdeeEn.internal(_root);
-	late final TranslationsDisclaimerHealthMetricsDailyGoalEn dailyGoal = TranslationsDisclaimerHealthMetricsDailyGoalEn.internal(_root);
+	late final Translations$disclaimer$healthMetrics$bmr$en bmr = Translations$disclaimer$healthMetrics$bmr$en.internal(_root);
+	late final Translations$disclaimer$healthMetrics$tdee$en tdee = Translations$disclaimer$healthMetrics$tdee$en.internal(_root);
+	late final Translations$disclaimer$healthMetrics$dailyGoal$en dailyGoal = Translations$disclaimer$healthMetrics$dailyGoal$en.internal(_root);
 }
 
 // Path: disclaimer.calorieExpenditure
-class TranslationsDisclaimerCalorieExpenditureEn {
-	TranslationsDisclaimerCalorieExpenditureEn.internal(this._root);
+class Translations$disclaimer$calorieExpenditure$en {
+	Translations$disclaimer$calorieExpenditure$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2246,13 +2269,376 @@ class TranslationsDisclaimerCalorieExpenditureEn {
 	/// en: 'When Health Connect data is unavailable, we estimate today's calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.'
 	String get description => 'When Health Connect data is unavailable, we estimate today\'s calories burned using your Basal Metabolic Rate (BMR) and activity level (TDEE), scaled for the portion of the day that has passed.';
 
-	late final TranslationsDisclaimerCalorieExpenditureHowCalculatedEn howCalculated = TranslationsDisclaimerCalorieExpenditureHowCalculatedEn.internal(_root);
-	late final TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn professionalGuidance = TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn.internal(_root);
+	late final Translations$disclaimer$calorieExpenditure$howCalculated$en howCalculated = Translations$disclaimer$calorieExpenditure$howCalculated$en.internal(_root);
+	late final Translations$disclaimer$calorieExpenditure$professionalGuidance$en professionalGuidance = Translations$disclaimer$calorieExpenditure$professionalGuidance$en.internal(_root);
+}
+
+// Path: watch.common
+class Translations$watch$common$en {
+	Translations$watch$common$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Back'
+	String get back => 'Back';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
+	/// en: 'Delete'
+	String get delete => 'Delete';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
+
+	/// en: 'kcal'
+	String get kcal => 'kcal';
+
+	/// en: 'g'
+	String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class Translations$watch$nutrition$en {
+	Translations$watch$nutrition$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Nutrient'
+	String get nutrient => 'Nutrient';
+
+	/// en: '{label}, {value} grams'
+	String grams({required Object label, required Object value}) => '${label}, ${value} grams';
+
+	/// en: 'Protein'
+	String get protein => 'Protein';
+
+	/// en: 'Carbs'
+	String get carbs => 'Carbs';
+
+	/// en: 'Fat'
+	String get fat => 'Fat';
+
+	/// en: 'Fiber'
+	String get fiber => 'Fiber';
+}
+
+// Path: watch.sync
+class Translations$watch$sync$en {
+	Translations$watch$sync$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Sync with phone'
+	String get syncWithPhone => 'Sync with phone';
+
+	/// en: 'Syncing…'
+	String get syncing => 'Syncing…';
+
+	/// en: 'Synced'
+	String get synced => 'Synced';
+
+	/// en: 'Synced just now'
+	String get syncedJustNow => 'Synced just now';
+
+	/// en: 'Synced {minutes}m ago'
+	String syncedMinutesAgo({required Object minutes}) => 'Synced ${minutes}m ago';
+
+	/// en: 'Sync failed'
+	String get failed => 'Sync failed';
+
+	/// en: 'Phone disconnected'
+	String get phoneDisconnected => 'Phone disconnected';
+
+	/// en: 'Tap to sync'
+	String get tapToSync => 'Tap to sync';
+
+	/// en: 'Could not refresh. Check your phone.'
+	String get refreshFailed => 'Could not refresh. Check your phone.';
+
+	/// en: 'Open Calorify on your phone, then tap refresh.'
+	String get openPhone => 'Open Calorify on your phone, then tap refresh.';
+}
+
+// Path: watch.home
+class Translations$watch$home$en {
+	Translations$watch$home$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Today'
+	String get today => 'Today';
+
+	/// en: '{consumed} calories consumed out of {goal}. {status}.'
+	String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} calories consumed out of ${goal}. ${status}.';
+
+	/// en: '{calories} over goal'
+	String overGoal({required Object calories}) => '${calories} over goal';
+
+	/// en: '{calories} remaining'
+	String remaining({required Object calories}) => '${calories} remaining';
+
+	/// en: '{calories} left'
+	String left({required Object calories}) => '${calories} left';
+
+	/// en: '{calories} kcal goal'
+	String goal({required Object calories}) => '${calories} kcal goal';
+
+	/// en: 'Log a meal'
+	String get logMeal => 'Log a meal';
+
+	/// en: 'Today's meals'
+	String get todayMeals => 'Today\'s meals';
+
+	/// en: 'Today's meals, {count}'
+	String todayMealsCount({required Object count}) => 'Today\'s meals, ${count}';
+
+	/// en: 'View {count} more'
+	String viewMore({required Object count}) => 'View ${count} more';
+
+	/// en: '{count} more meals, tap to view all'
+	String viewMoreSemantics({required Object count}) => '${count} more meals, tap to view all';
+
+	/// en: 'No meals logged'
+	String get noMeals => 'No meals logged';
+
+	/// en: 'No meals logged today'
+	String get noMealsSemantics => 'No meals logged today';
+
+	/// en: 'Tap Log to start'
+	String get tapLog => 'Tap Log to start';
+
+	/// en: 'Meal removed from the offline queue.'
+	String get removedFromQueue => 'Meal removed from the offline queue.';
+
+	/// en: 'Meal removed offline. It will sync when your phone reconnects.'
+	String get removedOffline => 'Meal removed offline. It will sync when your phone reconnects.';
+
+	/// en: 'Could not delete meal'
+	String get deleteFailed => 'Could not delete meal';
+}
+
+// Path: watch.history
+class Translations$watch$history$en {
+	Translations$watch$history$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Today's meals'
+	String get title => 'Today\'s meals';
+
+	/// en: 'Refresh meals'
+	String get refresh => 'Refresh meals';
+
+	/// en: 'Could not load meals'
+	String get loadFailed => 'Could not load meals';
+
+	/// en: 'Could not sync'
+	String get syncFailed => 'Could not sync';
+
+	/// en: 'No meals yet'
+	String get emptyTitle => 'No meals yet';
+
+	/// en: 'Log a meal from Home to see it here.'
+	String get emptyMessage => 'Log a meal from Home to see it here.';
+}
+
+// Path: watch.favorites
+class Translations$watch$favorites$en {
+	Translations$watch$favorites$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Favorites'
+	String get title => 'Favorites';
+
+	/// en: 'Refresh favorites'
+	String get refresh => 'Refresh favorites';
+
+	/// en: 'Could not load favorites'
+	String get loadFailed => 'Could not load favorites';
+
+	/// en: 'Could not sync'
+	String get syncFailed => 'Could not sync';
+
+	/// en: 'No favorites yet'
+	String get emptyTitle => 'No favorites yet';
+
+	/// en: 'Star meals in the phone app for one-tap logging here.'
+	String get emptyMessage => 'Star meals in the phone app for one-tap logging here.';
+
+	/// en: '{name}, {calories} calories. Tap to log.'
+	String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} calories. Tap to log.';
+
+	/// en: '{name} logged!'
+	String logged({required Object name}) => '${name} logged!';
+
+	/// en: '{name} saved offline. It will sync when your phone reconnects.'
+	String savedOffline({required Object name}) => '${name} saved offline. It will sync when your phone reconnects.';
+
+	/// en: 'Could not save the meal. Please try again.'
+	String get saveFailed => 'Could not save the meal. Please try again.';
+
+	/// en: 'Log'
+	String get log => 'Log';
+}
+
+// Path: watch.meal
+class Translations$watch$meal$en {
+	Translations$watch$meal$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: '{name}, {calories} calories, logged at {time}.'
+	String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calories, logged at ${time}.';
+
+	/// en: 'Long press to delete.'
+	String get longPressDelete => 'Long press to delete.';
+
+	/// en: 'Delete meal?'
+	String get deleteTitle => 'Delete meal?';
+}
+
+// Path: watch.voice
+class Translations$watch$voice$en {
+	Translations$watch$voice$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Voice meal log'
+	String get title => 'Voice meal log';
+
+	/// en: 'Checking your meal…'
+	String get processing => 'Checking your meal…';
+
+	/// en: 'Estimating portions and nutrition'
+	String get processingDescription => 'Estimating portions and nutrition';
+
+	/// en: 'Listening'
+	String get listening => 'Listening';
+
+	/// en: '{seconds}s'
+	String secondsLeft({required Object seconds}) => '${seconds}s';
+
+	/// en: 'Stop recording'
+	String get stop => 'Stop recording';
+
+	/// en: 'Tap to start recording'
+	String get start => 'Tap to start recording';
+
+	/// en: 'Starting microphone…'
+	String get starting => 'Starting microphone…';
+
+	/// en: 'Tap, then describe your meal'
+	String get prompt => 'Tap, then describe your meal';
+
+	/// en: 'Tap to retry'
+	String get tapToRetry => 'Tap to retry';
+
+	/// en: 'Try “2 rotis with dal”'
+	String get example => 'Try “2 rotis with dal”';
+
+	/// en: 'Voice input is unavailable. Check microphone permission in watch settings.'
+	String get unavailable => 'Voice input is unavailable. Check microphone permission in watch settings.';
+
+	/// en: 'Microphone did not start. Tap to retry.'
+	String get didNotStart => 'Microphone did not start. Tap to retry.';
+
+	/// en: 'Could not start recording. Check microphone permissions.'
+	String get startFailed => 'Could not start recording. Check microphone permissions.';
+
+	/// en: 'Allow microphone access to log meals by voice.'
+	String get allowMicrophone => 'Allow microphone access to log meals by voice.';
+
+	/// en: 'Voice recognition needs a connection. Tap to retry.'
+	String get needsConnection => 'Voice recognition needs a connection. Tap to retry.';
+
+	/// en: 'The microphone is unavailable. Tap to retry.'
+	String get microphoneUnavailable => 'The microphone is unavailable. Tap to retry.';
+
+	/// en: 'The microphone is busy. Wait a moment and retry.'
+	String get microphoneBusy => 'The microphone is busy. Wait a moment and retry.';
+
+	/// en: 'Voice input does not support the watch language.'
+	String get languageUnsupported => 'Voice input does not support the watch language.';
+
+	/// en: 'Voice input is temporarily busy. Wait a moment and retry.'
+	String get temporarilyBusy => 'Voice input is temporarily busy. Wait a moment and retry.';
+
+	/// en: 'I didn't catch that. Tap the mic and try again.'
+	String get notRecognized => 'I didn\'t catch that. Tap the mic and try again.';
+
+	/// en: 'No speech detected. Tap the mic to try again.'
+	String get noSpeech => 'No speech detected. Tap the mic to try again.';
+
+	/// en: 'Analysis failed. Please try again.'
+	String get analysisFailed => 'Analysis failed. Please try again.';
+
+	/// en: 'Couldn't identify that meal. Try describing it differently.'
+	String get mealNotIdentified => 'Couldn\'t identify that meal. Try describing it differently.';
+}
+
+// Path: watch.result
+class Translations$watch$result$en {
+	Translations$watch$result$en.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Meal details'
+	String get title => 'Meal details';
+
+	/// en: 'Saved offline'
+	String get savedOffline => 'Saved offline';
+
+	/// en: 'Logged!'
+	String get logged => 'Logged!';
+
+	/// en: 'Meal found'
+	String get mealFound => 'Meal found';
+
+	/// en: 'Estimated energy'
+	String get estimatedEnergy => 'Estimated energy';
+
+	/// en: 'Log meal'
+	String get logMeal => 'Log meal';
+
+	/// en: 'Logging…'
+	String get logging => 'Logging…';
+
+	/// en: 'Log another'
+	String get logAnother => 'Log another';
+
+	/// en: 'Going back…'
+	String get goingBack => 'Going back…';
+
+	/// en: 'Meal saved offline. It will sync when your phone reconnects.'
+	String get savedOfflineMessage => 'Meal saved offline. It will sync when your phone reconnects.';
+
+	/// en: 'Could not save the meal. Please try again.'
+	String get saveFailed => 'Could not save the meal. Please try again.';
 }
 
 // Path: onboarding.features.foodRecognition
-class TranslationsOnboardingFeaturesFoodRecognitionEn {
-	TranslationsOnboardingFeaturesFoodRecognitionEn.internal(this._root);
+class Translations$onboarding$features$foodRecognition$en {
+	Translations$onboarding$features$foodRecognition$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2266,8 +2652,8 @@ class TranslationsOnboardingFeaturesFoodRecognitionEn {
 }
 
 // Path: onboarding.features.aiAnalysis
-class TranslationsOnboardingFeaturesAiAnalysisEn {
-	TranslationsOnboardingFeaturesAiAnalysisEn.internal(this._root);
+class Translations$onboarding$features$aiAnalysis$en {
+	Translations$onboarding$features$aiAnalysis$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2281,8 +2667,8 @@ class TranslationsOnboardingFeaturesAiAnalysisEn {
 }
 
 // Path: onboarding.features.healthIntegration
-class TranslationsOnboardingFeaturesHealthIntegrationEn {
-	TranslationsOnboardingFeaturesHealthIntegrationEn.internal(this._root);
+class Translations$onboarding$features$healthIntegration$en {
+	Translations$onboarding$features$healthIntegration$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2296,8 +2682,8 @@ class TranslationsOnboardingFeaturesHealthIntegrationEn {
 }
 
 // Path: onboarding.bmiScale.categories
-class TranslationsOnboardingBmiScaleCategoriesEn {
-	TranslationsOnboardingBmiScaleCategoriesEn.internal(this._root);
+class Translations$onboarding$bmiScale$categories$en {
+	Translations$onboarding$bmiScale$categories$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2317,8 +2703,8 @@ class TranslationsOnboardingBmiScaleCategoriesEn {
 }
 
 // Path: onboarding.bmiScale.messages
-class TranslationsOnboardingBmiScaleMessagesEn {
-	TranslationsOnboardingBmiScaleMessagesEn.internal(this._root);
+class Translations$onboarding$bmiScale$messages$en {
+	Translations$onboarding$bmiScale$messages$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2338,8 +2724,8 @@ class TranslationsOnboardingBmiScaleMessagesEn {
 }
 
 // Path: onboarding.healthConnect.automaticTracking
-class TranslationsOnboardingHealthConnectAutomaticTrackingEn {
-	TranslationsOnboardingHealthConnectAutomaticTrackingEn.internal(this._root);
+class Translations$onboarding$healthConnect$automaticTracking$en {
+	Translations$onboarding$healthConnect$automaticTracking$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2353,8 +2739,8 @@ class TranslationsOnboardingHealthConnectAutomaticTrackingEn {
 }
 
 // Path: onboarding.healthConnect.caloriesBurned
-class TranslationsOnboardingHealthConnectCaloriesBurnedEn {
-	TranslationsOnboardingHealthConnectCaloriesBurnedEn.internal(this._root);
+class Translations$onboarding$healthConnect$caloriesBurned$en {
+	Translations$onboarding$healthConnect$caloriesBurned$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2368,8 +2754,8 @@ class TranslationsOnboardingHealthConnectCaloriesBurnedEn {
 }
 
 // Path: onboarding.healthConnect.progressInsights
-class TranslationsOnboardingHealthConnectProgressInsightsEn {
-	TranslationsOnboardingHealthConnectProgressInsightsEn.internal(this._root);
+class Translations$onboarding$healthConnect$progressInsights$en {
+	Translations$onboarding$healthConnect$progressInsights$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2383,8 +2769,8 @@ class TranslationsOnboardingHealthConnectProgressInsightsEn {
 }
 
 // Path: onboarding.healthConnect.shareLoggedMeals
-class TranslationsOnboardingHealthConnectShareLoggedMealsEn {
-	TranslationsOnboardingHealthConnectShareLoggedMealsEn.internal(this._root);
+class Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	Translations$onboarding$healthConnect$shareLoggedMeals$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2398,8 +2784,8 @@ class TranslationsOnboardingHealthConnectShareLoggedMealsEn {
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
-class TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
-	TranslationsOnboardingHealthConnectSeamlessIntegrationEn.internal(this._root);
+class Translations$onboarding$healthConnect$seamlessIntegration$en {
+	Translations$onboarding$healthConnect$seamlessIntegration$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2413,8 +2799,8 @@ class TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 }
 
 // Path: onboarding.healthConnect.userControl
-class TranslationsOnboardingHealthConnectUserControlEn {
-	TranslationsOnboardingHealthConnectUserControlEn.internal(this._root);
+class Translations$onboarding$healthConnect$userControl$en {
+	Translations$onboarding$healthConnect$userControl$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2428,8 +2814,8 @@ class TranslationsOnboardingHealthConnectUserControlEn {
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
-class TranslationsOnboardingReinforcementTrackingSuccessEn {
-	TranslationsOnboardingReinforcementTrackingSuccessEn.internal(this._root);
+class Translations$onboarding$reinforcement$trackingSuccess$en {
+	Translations$onboarding$reinforcement$trackingSuccess$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2470,8 +2856,8 @@ class TranslationsOnboardingReinforcementTrackingSuccessEn {
 }
 
 // Path: onboarding.reinforcement.healthProfile
-class TranslationsOnboardingReinforcementHealthProfileEn {
-	TranslationsOnboardingReinforcementHealthProfileEn.internal(this._root);
+class Translations$onboarding$reinforcement$healthProfile$en {
+	Translations$onboarding$reinforcement$healthProfile$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2503,8 +2889,8 @@ class TranslationsOnboardingReinforcementHealthProfileEn {
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
-class TranslationsOnboardingReinforcementGoalLifestyleEn {
-	TranslationsOnboardingReinforcementGoalLifestyleEn.internal(this._root);
+class Translations$onboarding$reinforcement$goalLifestyle$en {
+	Translations$onboarding$reinforcement$goalLifestyle$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2536,8 +2922,8 @@ class TranslationsOnboardingReinforcementGoalLifestyleEn {
 }
 
 // Path: editProfile.weightGoals.loseWeight
-class TranslationsEditProfileWeightGoalsLoseWeightEn {
-	TranslationsEditProfileWeightGoalsLoseWeightEn.internal(this._root);
+class Translations$editProfile$weightGoals$loseWeight$en {
+	Translations$editProfile$weightGoals$loseWeight$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2551,8 +2937,8 @@ class TranslationsEditProfileWeightGoalsLoseWeightEn {
 }
 
 // Path: editProfile.weightGoals.maintainWeight
-class TranslationsEditProfileWeightGoalsMaintainWeightEn {
-	TranslationsEditProfileWeightGoalsMaintainWeightEn.internal(this._root);
+class Translations$editProfile$weightGoals$maintainWeight$en {
+	Translations$editProfile$weightGoals$maintainWeight$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2566,8 +2952,8 @@ class TranslationsEditProfileWeightGoalsMaintainWeightEn {
 }
 
 // Path: editProfile.weightGoals.gainWeight
-class TranslationsEditProfileWeightGoalsGainWeightEn {
-	TranslationsEditProfileWeightGoalsGainWeightEn.internal(this._root);
+class Translations$editProfile$weightGoals$gainWeight$en {
+	Translations$editProfile$weightGoals$gainWeight$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2581,8 +2967,8 @@ class TranslationsEditProfileWeightGoalsGainWeightEn {
 }
 
 // Path: editProfile.activityLevels.sedentary
-class TranslationsEditProfileActivityLevelsSedentaryEn {
-	TranslationsEditProfileActivityLevelsSedentaryEn.internal(this._root);
+class Translations$editProfile$activityLevels$sedentary$en {
+	Translations$editProfile$activityLevels$sedentary$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2596,8 +2982,8 @@ class TranslationsEditProfileActivityLevelsSedentaryEn {
 }
 
 // Path: editProfile.activityLevels.lightlyActive
-class TranslationsEditProfileActivityLevelsLightlyActiveEn {
-	TranslationsEditProfileActivityLevelsLightlyActiveEn.internal(this._root);
+class Translations$editProfile$activityLevels$lightlyActive$en {
+	Translations$editProfile$activityLevels$lightlyActive$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2611,8 +2997,8 @@ class TranslationsEditProfileActivityLevelsLightlyActiveEn {
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
-class TranslationsEditProfileActivityLevelsModeratelyActiveEn {
-	TranslationsEditProfileActivityLevelsModeratelyActiveEn.internal(this._root);
+class Translations$editProfile$activityLevels$moderatelyActive$en {
+	Translations$editProfile$activityLevels$moderatelyActive$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2626,8 +3012,8 @@ class TranslationsEditProfileActivityLevelsModeratelyActiveEn {
 }
 
 // Path: editProfile.activityLevels.veryActive
-class TranslationsEditProfileActivityLevelsVeryActiveEn {
-	TranslationsEditProfileActivityLevelsVeryActiveEn.internal(this._root);
+class Translations$editProfile$activityLevels$veryActive$en {
+	Translations$editProfile$activityLevels$veryActive$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2641,8 +3027,8 @@ class TranslationsEditProfileActivityLevelsVeryActiveEn {
 }
 
 // Path: editProfile.activityLevels.extremelyActive
-class TranslationsEditProfileActivityLevelsExtremelyActiveEn {
-	TranslationsEditProfileActivityLevelsExtremelyActiveEn.internal(this._root);
+class Translations$editProfile$activityLevels$extremelyActive$en {
+	Translations$editProfile$activityLevels$extremelyActive$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2656,8 +3042,8 @@ class TranslationsEditProfileActivityLevelsExtremelyActiveEn {
 }
 
 // Path: settings.healthConnect.unavailable
-class TranslationsSettingsHealthConnectUnavailableEn {
-	TranslationsSettingsHealthConnectUnavailableEn.internal(this._root);
+class Translations$settings$healthConnect$unavailable$en {
+	Translations$settings$healthConnect$unavailable$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2674,8 +3060,8 @@ class TranslationsSettingsHealthConnectUnavailableEn {
 }
 
 // Path: settings.healthConnect.updateRequired
-class TranslationsSettingsHealthConnectUpdateRequiredEn {
-	TranslationsSettingsHealthConnectUpdateRequiredEn.internal(this._root);
+class Translations$settings$healthConnect$updateRequired$en {
+	Translations$settings$healthConnect$updateRequired$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2692,8 +3078,8 @@ class TranslationsSettingsHealthConnectUpdateRequiredEn {
 }
 
 // Path: settings.healthConnect.permissions
-class TranslationsSettingsHealthConnectPermissionsEn {
-	TranslationsSettingsHealthConnectPermissionsEn.internal(this._root);
+class Translations$settings$healthConnect$permissions$en {
+	Translations$settings$healthConnect$permissions$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2711,14 +3097,14 @@ class TranslationsSettingsHealthConnectPermissionsEn {
 	/// en: 'Not Granted'
 	String get notGranted => 'Not Granted';
 
-	late final TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn caloriesBurned = TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn.internal(_root);
-	late final TranslationsSettingsHealthConnectPermissionsNutritionReadEn nutritionRead = TranslationsSettingsHealthConnectPermissionsNutritionReadEn.internal(_root);
-	late final TranslationsSettingsHealthConnectPermissionsNutritionWriteEn nutritionWrite = TranslationsSettingsHealthConnectPermissionsNutritionWriteEn.internal(_root);
+	late final Translations$settings$healthConnect$permissions$caloriesBurned$en caloriesBurned = Translations$settings$healthConnect$permissions$caloriesBurned$en.internal(_root);
+	late final Translations$settings$healthConnect$permissions$nutritionRead$en nutritionRead = Translations$settings$healthConnect$permissions$nutritionRead$en.internal(_root);
+	late final Translations$settings$healthConnect$permissions$nutritionWrite$en nutritionWrite = Translations$settings$healthConnect$permissions$nutritionWrite$en.internal(_root);
 }
 
 // Path: settings.about.ourStory
-class TranslationsSettingsAboutOurStoryEn {
-	TranslationsSettingsAboutOurStoryEn.internal(this._root);
+class Translations$settings$about$ourStory$en {
+	Translations$settings$about$ourStory$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2732,8 +3118,8 @@ class TranslationsSettingsAboutOurStoryEn {
 }
 
 // Path: settings.about.privacy
-class TranslationsSettingsAboutPrivacyEn {
-	TranslationsSettingsAboutPrivacyEn.internal(this._root);
+class Translations$settings$about$privacy$en {
+	Translations$settings$about$privacy$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2768,8 +3154,8 @@ class TranslationsSettingsAboutPrivacyEn {
 }
 
 // Path: settings.about.developer
-class TranslationsSettingsAboutDeveloperEn {
-	TranslationsSettingsAboutDeveloperEn.internal(this._root);
+class Translations$settings$about$developer$en {
+	Translations$settings$about$developer$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2789,8 +3175,8 @@ class TranslationsSettingsAboutDeveloperEn {
 }
 
 // Path: settings.about.feedback
-class TranslationsSettingsAboutFeedbackEn {
-	TranslationsSettingsAboutFeedbackEn.internal(this._root);
+class Translations$settings$about$feedback$en {
+	Translations$settings$about$feedback$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2810,8 +3196,8 @@ class TranslationsSettingsAboutFeedbackEn {
 }
 
 // Path: disclaimer.snap.portionSize
-class TranslationsDisclaimerSnapPortionSizeEn {
-	TranslationsDisclaimerSnapPortionSizeEn.internal(this._root);
+class Translations$disclaimer$snap$portionSize$en {
+	Translations$disclaimer$snap$portionSize$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2825,8 +3211,8 @@ class TranslationsDisclaimerSnapPortionSizeEn {
 }
 
 // Path: disclaimer.snap.preparationMethods
-class TranslationsDisclaimerSnapPreparationMethodsEn {
-	TranslationsDisclaimerSnapPreparationMethodsEn.internal(this._root);
+class Translations$disclaimer$snap$preparationMethods$en {
+	Translations$disclaimer$snap$preparationMethods$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2840,8 +3226,8 @@ class TranslationsDisclaimerSnapPreparationMethodsEn {
 }
 
 // Path: disclaimer.snap.ingredients
-class TranslationsDisclaimerSnapIngredientsEn {
-	TranslationsDisclaimerSnapIngredientsEn.internal(this._root);
+class Translations$disclaimer$snap$ingredients$en {
+	Translations$disclaimer$snap$ingredients$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2855,8 +3241,8 @@ class TranslationsDisclaimerSnapIngredientsEn {
 }
 
 // Path: disclaimer.snap.databaseLimitations
-class TranslationsDisclaimerSnapDatabaseLimitationsEn {
-	TranslationsDisclaimerSnapDatabaseLimitationsEn.internal(this._root);
+class Translations$disclaimer$snap$databaseLimitations$en {
+	Translations$disclaimer$snap$databaseLimitations$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2870,8 +3256,8 @@ class TranslationsDisclaimerSnapDatabaseLimitationsEn {
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
-class TranslationsDisclaimerWeightEstimateCalorieAccuracyEn {
-	TranslationsDisclaimerWeightEstimateCalorieAccuracyEn.internal(this._root);
+class Translations$disclaimer$weightEstimate$calorieAccuracy$en {
+	Translations$disclaimer$weightEstimate$calorieAccuracy$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2885,8 +3271,8 @@ class TranslationsDisclaimerWeightEstimateCalorieAccuracyEn {
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
-class TranslationsDisclaimerWeightEstimateBiologicalFactorsEn {
-	TranslationsDisclaimerWeightEstimateBiologicalFactorsEn.internal(this._root);
+class Translations$disclaimer$weightEstimate$biologicalFactors$en {
+	Translations$disclaimer$weightEstimate$biologicalFactors$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2900,8 +3286,8 @@ class TranslationsDisclaimerWeightEstimateBiologicalFactorsEn {
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
-class TranslationsDisclaimerWeightEstimateWaterWeightEn {
-	TranslationsDisclaimerWeightEstimateWaterWeightEn.internal(this._root);
+class Translations$disclaimer$weightEstimate$waterWeight$en {
+	Translations$disclaimer$weightEstimate$waterWeight$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2915,8 +3301,8 @@ class TranslationsDisclaimerWeightEstimateWaterWeightEn {
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
-class TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
-	TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn.internal(this._root);
+class Translations$disclaimer$weightEstimate$professionalGuidance$en {
+	Translations$disclaimer$weightEstimate$professionalGuidance$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2930,8 +3316,8 @@ class TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
 }
 
 // Path: disclaimer.healthMetrics.bmr
-class TranslationsDisclaimerHealthMetricsBmrEn {
-	TranslationsDisclaimerHealthMetricsBmrEn.internal(this._root);
+class Translations$disclaimer$healthMetrics$bmr$en {
+	Translations$disclaimer$healthMetrics$bmr$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2945,8 +3331,8 @@ class TranslationsDisclaimerHealthMetricsBmrEn {
 }
 
 // Path: disclaimer.healthMetrics.tdee
-class TranslationsDisclaimerHealthMetricsTdeeEn {
-	TranslationsDisclaimerHealthMetricsTdeeEn.internal(this._root);
+class Translations$disclaimer$healthMetrics$tdee$en {
+	Translations$disclaimer$healthMetrics$tdee$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2960,8 +3346,8 @@ class TranslationsDisclaimerHealthMetricsTdeeEn {
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
-class TranslationsDisclaimerHealthMetricsDailyGoalEn {
-	TranslationsDisclaimerHealthMetricsDailyGoalEn.internal(this._root);
+class Translations$disclaimer$healthMetrics$dailyGoal$en {
+	Translations$disclaimer$healthMetrics$dailyGoal$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2975,8 +3361,8 @@ class TranslationsDisclaimerHealthMetricsDailyGoalEn {
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
-class TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
-	TranslationsDisclaimerCalorieExpenditureHowCalculatedEn.internal(this._root);
+class Translations$disclaimer$calorieExpenditure$howCalculated$en {
+	Translations$disclaimer$calorieExpenditure$howCalculated$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -2990,8 +3376,8 @@ class TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
-class TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
-	TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn.internal(this._root);
+class Translations$disclaimer$calorieExpenditure$professionalGuidance$en {
+	Translations$disclaimer$calorieExpenditure$professionalGuidance$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -3005,8 +3391,8 @@ class TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
-class TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
-	TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn.internal(this._root);
+class Translations$settings$healthConnect$permissions$caloriesBurned$en {
+	Translations$settings$healthConnect$permissions$caloriesBurned$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -3023,8 +3409,8 @@ class TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
-class TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
-	TranslationsSettingsHealthConnectPermissionsNutritionReadEn.internal(this._root);
+class Translations$settings$healthConnect$permissions$nutritionRead$en {
+	Translations$settings$healthConnect$permissions$nutritionRead$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -3041,8 +3427,8 @@ class TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
-class TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
-	TranslationsSettingsHealthConnectPermissionsNutritionWriteEn.internal(this._root);
+class Translations$settings$healthConnect$permissions$nutritionWrite$en {
+	Translations$settings$healthConnect$permissions$nutritionWrite$en.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -3644,6 +4030,101 @@ extension on Translations {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Clear data',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Could not download and verify local nutrition data: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Local nutrition data cleared',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Back',
+			'watch.common.cancel' => 'Cancel',
+			'watch.common.delete' => 'Delete',
+			'watch.common.retry' => 'Retry',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Nutrient',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} grams',
+			'watch.nutrition.protein' => 'Protein',
+			'watch.nutrition.carbs' => 'Carbs',
+			'watch.nutrition.fat' => 'Fat',
+			'watch.nutrition.fiber' => 'Fiber',
+			'watch.sync.syncWithPhone' => 'Sync with phone',
+			'watch.sync.syncing' => 'Syncing…',
+			'watch.sync.synced' => 'Synced',
+			'watch.sync.syncedJustNow' => 'Synced just now',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Synced ${minutes}m ago',
+			'watch.sync.failed' => 'Sync failed',
+			'watch.sync.phoneDisconnected' => 'Phone disconnected',
+			'watch.sync.tapToSync' => 'Tap to sync',
+			'watch.sync.refreshFailed' => 'Could not refresh. Check your phone.',
+			'watch.sync.openPhone' => 'Open Calorify on your phone, then tap refresh.',
+			'watch.home.today' => 'Today',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} calories consumed out of ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} over goal',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} remaining',
+			'watch.home.left' => ({required Object calories}) => '${calories} left',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal goal',
+			'watch.home.logMeal' => 'Log a meal',
+			'watch.home.todayMeals' => 'Today\'s meals',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Today\'s meals, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'View ${count} more',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} more meals, tap to view all',
+			'watch.home.noMeals' => 'No meals logged',
+			'watch.home.noMealsSemantics' => 'No meals logged today',
+			'watch.home.tapLog' => 'Tap Log to start',
+			'watch.home.removedFromQueue' => 'Meal removed from the offline queue.',
+			'watch.home.removedOffline' => 'Meal removed offline. It will sync when your phone reconnects.',
+			'watch.home.deleteFailed' => 'Could not delete meal',
+			'watch.history.title' => 'Today\'s meals',
+			'watch.history.refresh' => 'Refresh meals',
+			'watch.history.loadFailed' => 'Could not load meals',
+			'watch.history.syncFailed' => 'Could not sync',
+			'watch.history.emptyTitle' => 'No meals yet',
+			'watch.history.emptyMessage' => 'Log a meal from Home to see it here.',
+			'watch.favorites.title' => 'Favorites',
+			'watch.favorites.refresh' => 'Refresh favorites',
+			'watch.favorites.loadFailed' => 'Could not load favorites',
+			'watch.favorites.syncFailed' => 'Could not sync',
+			'watch.favorites.emptyTitle' => 'No favorites yet',
+			'watch.favorites.emptyMessage' => 'Star meals in the phone app for one-tap logging here.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} calories. Tap to log.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} logged!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} saved offline. It will sync when your phone reconnects.',
+			'watch.favorites.saveFailed' => 'Could not save the meal. Please try again.',
+			'watch.favorites.log' => 'Log',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calories, logged at ${time}.',
+			'watch.meal.longPressDelete' => 'Long press to delete.',
+			'watch.meal.deleteTitle' => 'Delete meal?',
+			'watch.voice.title' => 'Voice meal log',
+			'watch.voice.processing' => 'Checking your meal…',
+			'watch.voice.processingDescription' => 'Estimating portions and nutrition',
+			'watch.voice.listening' => 'Listening',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Stop recording',
+			'watch.voice.start' => 'Tap to start recording',
+			'watch.voice.starting' => 'Starting microphone…',
+			'watch.voice.prompt' => 'Tap, then describe your meal',
+			'watch.voice.tapToRetry' => 'Tap to retry',
+			'watch.voice.example' => 'Try “2 rotis with dal”',
+			'watch.voice.unavailable' => 'Voice input is unavailable. Check microphone permission in watch settings.',
+			'watch.voice.didNotStart' => 'Microphone did not start. Tap to retry.',
+			'watch.voice.startFailed' => 'Could not start recording. Check microphone permissions.',
+			'watch.voice.allowMicrophone' => 'Allow microphone access to log meals by voice.',
+			'watch.voice.needsConnection' => 'Voice recognition needs a connection. Tap to retry.',
+			'watch.voice.microphoneUnavailable' => 'The microphone is unavailable. Tap to retry.',
+			'watch.voice.microphoneBusy' => 'The microphone is busy. Wait a moment and retry.',
+			'watch.voice.languageUnsupported' => 'Voice input does not support the watch language.',
+			'watch.voice.temporarilyBusy' => 'Voice input is temporarily busy. Wait a moment and retry.',
+			'watch.voice.notRecognized' => 'I didn\'t catch that. Tap the mic and try again.',
+			'watch.voice.noSpeech' => 'No speech detected. Tap the mic to try again.',
+			'watch.voice.analysisFailed' => 'Analysis failed. Please try again.',
+			'watch.voice.mealNotIdentified' => 'Couldn\'t identify that meal. Try describing it differently.',
+			'watch.result.title' => 'Meal details',
+			'watch.result.savedOffline' => 'Saved offline',
+			'watch.result.logged' => 'Logged!',
+			'watch.result.mealFound' => 'Meal found',
+			'watch.result.estimatedEnergy' => 'Estimated energy',
+			'watch.result.logMeal' => 'Log meal',
+			'watch.result.logging' => 'Logging…',
+			'watch.result.logAnother' => 'Log another',
+			'watch.result.goingBack' => 'Going back…',
+			'watch.result.savedOfflineMessage' => 'Meal saved offline. It will sync when your phone reconnects.',
+			'watch.result.saveFailed' => 'Could not save the meal. Please try again.',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',

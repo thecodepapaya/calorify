@@ -40,3 +40,11 @@ final globalInnerPadding = EdgeInsets.all(12);
 final circularWatchPadding = EdgeInsets.all(16);
 final circularWatchInnerPadding = EdgeInsets.all(10);
 final circularWatchMargin = EdgeInsets.symmetric(horizontal: 8, vertical: 4);
+
+// Compact Wear OS type scale. Supporting copy stays at 10sp or above so it
+// remains readable on small round displays without each widget inventing a
+// separate size.
+const double watchLabelFontSize = 10;
+const double watchBodyFontSize = 12;
+const double watchTitleFontSize = 14;
+const double watchHeadlineFontSize = 24;

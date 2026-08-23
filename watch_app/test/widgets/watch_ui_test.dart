@@ -1,11 +1,17 @@
 import 'package:calorify_watch/app.dart';
+import 'package:calorify_watch/widgets/watch_scroll_view.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
 import 'package:specs/specs.dart';
+import 'package:widgets/widgets.dart';
 
 void main() {
+  setUpAll(() => LocaleSettings.setLocale(AppLocale.en));
+
+  Widget localized(Widget child) => TranslationProvider(child: child);
+
   Future<void> useSmallWatchSurface(WidgetTester tester) async {
     tester.view.devicePixelRatio = 1;
     tester.view.physicalSize = const Size(192, 192);
@@ -19,32 +25,34 @@ void main() {
     var primaryPressed = false;
 
     await tester.pumpWidget(
-      MaterialApp(
-        theme: AppThemes.darkTheme,
-        home: Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  WatchPageHeader(
-                    title: 'Favorites',
-                    icon: LucideIcons.star,
-                    onBack: () {},
-                    trailing: WatchIconButton(
-                      icon: LucideIcons.refreshCw,
-                      semanticLabel: 'Refresh',
-                      onPressed: () {},
+      localized(
+        MaterialApp(
+          theme: AppThemes.darkTheme,
+          home: Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    WatchPageHeader(
+                      title: 'Favorites',
+                      icon: AppIcons.star,
+                      onBack: () {},
+                      trailing: WatchIconButton(
+                        icon: AppIcons.refreshCw,
+                        semanticLabel: 'Refresh',
+                        onPressed: () {},
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  WatchPillButton(
-                    label: 'Log a meal',
-                    icon: LucideIcons.mic,
-                    primary: true,
-                    onPressed: () => primaryPressed = true,
-                  ),
-                ],
+                    const Spacer(),
+                    WatchPillButton(
+                      label: 'Log a meal',
+                      icon: AppIcons.mic,
+                      primary: true,
+                      onPressed: () => primaryPressed = true,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -67,13 +75,15 @@ void main() {
     await useSmallWatchSurface(tester);
 
     await tester.pumpWidget(
-      MaterialApp(
-        theme: AppThemes.lightTheme,
-        home: const Scaffold(
-          body: WatchStateView(
-            icon: LucideIcons.star,
-            title: 'No favorites yet',
-            message: 'Star meals in the phone app for one-tap logging here.',
+      localized(
+        MaterialApp(
+          theme: AppThemes.lightTheme,
+          home: Scaffold(
+            body: WatchStateView(
+              icon: AppIcons.star,
+              title: 'No favorites yet',
+              message: 'Star meals in the phone app for one-tap logging here.',
+            ),
           ),
         ),
       ),
@@ -88,18 +98,20 @@ void main() {
     await useSmallWatchSurface(tester);
 
     await tester.pumpWidget(
-      MaterialApp(
-        theme: AppThemes.darkTheme,
-        home: const Scaffold(
-          body: Padding(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                WatchCalorieProgressCard(totalCalories: 1240, goal: 2100),
-                SizedBox(height: 8),
-                WatchMacroSummary(protein: 72, carbs: 148, fat: 51),
-              ],
+      localized(
+        MaterialApp(
+          theme: AppThemes.darkTheme,
+          home: const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  WatchCalorieProgressCard(totalCalories: 1240, goal: 2100),
+                  SizedBox(height: 8),
+                  WatchMacroSummary(protein: 72, carbs: 148, fat: 51),
+                ],
+              ),
             ),
           ),
         ),
@@ -111,27 +123,38 @@ void main() {
     expect(find.text('Protein'), findsOneWidget);
   });
 
-  test('watch theme always uses a black app canvas', () {
-    final theme = buildWatchTheme(AppThemes.lightTheme);
+  test(
+    'watch theme uses AMOLED-black foundations and near-black elevation',
+    () {
+      final theme = buildWatchTheme(AppThemes.lightTheme);
 
-    expect(theme.scaffoldBackgroundColor, Colors.black);
-    expect(theme.canvasColor, Colors.black);
-    expect(theme.colorScheme.surface, Colors.black);
-  });
+      expect(theme.scaffoldBackgroundColor, Colors.black);
+      expect(theme.canvasColor, Colors.black);
+      expect(theme.colorScheme.surface, Colors.black);
+      expect(theme.colorScheme.surfaceDim, Colors.black);
+      expect(theme.colorScheme.surfaceContainerLowest, Colors.black);
+      expect(theme.colorScheme.surfaceContainerLow, const Color(0xFF070809));
+      expect(theme.colorScheme.surfaceContainer, const Color(0xFF0A0C0E));
+    },
+  );
 
-  testWidgets('scrollable views receive a Wear position indicator', (
+  testWidgets('scrollable views do not receive a desktop scrollbar', (
     tester,
   ) async {
     await useSmallWatchSurface(tester);
 
     await tester.pumpWidget(
-      MaterialApp(
-        scrollBehavior: const WatchScrollBehavior(),
-        home: Scaffold(body: ListView(children: const [SizedBox(height: 400)])),
+      localized(
+        MaterialApp(
+          scrollBehavior: const WatchScrollBehavior(),
+          home: Scaffold(
+            body: ListView(children: const [SizedBox(height: 400)]),
+          ),
+        ),
       ),
     );
 
-    expect(find.byType(Scrollbar), findsOneWidget);
+    expect(find.byType(Scrollbar), findsNothing);
   });
 
   testWidgets('fixed list controls stay inside a 192dp round display', (
@@ -140,18 +163,20 @@ void main() {
     await useSmallWatchSurface(tester);
 
     await tester.pumpWidget(
-      MaterialApp(
-        theme: AppThemes.darkTheme,
-        home: WatchListScaffold(
-          title: 'Favorites',
-          icon: LucideIcons.star,
-          onBack: () {},
-          trailing: WatchIconButton(
-            icon: LucideIcons.refreshCw,
-            semanticLabel: 'Refresh',
-            onPressed: () {},
+      localized(
+        MaterialApp(
+          theme: AppThemes.darkTheme,
+          home: WatchListScaffold(
+            title: 'Favorites',
+            icon: AppIcons.star,
+            onBack: () {},
+            trailing: WatchIconButton(
+              icon: AppIcons.refreshCw,
+              semanticLabel: 'Refresh',
+              onPressed: () {},
+            ),
+            body: const SizedBox.shrink(),
           ),
-          body: const SizedBox.shrink(),
         ),
       ),
     );
@@ -168,5 +193,70 @@ void main() {
         lessThanOrEqualTo(displayRadius),
       );
     }
+  });
+
+  testWidgets('first-run skeletons fit a 192dp watch without overflow', (
+    tester,
+  ) async {
+    await useSmallWatchSurface(tester);
+
+    await tester.pumpWidget(
+      localized(
+        MaterialApp(
+          theme: buildWatchTheme(AppThemes.darkTheme),
+          home: const MediaQuery(
+            data: MediaQueryData(padding: EdgeInsets.symmetric(vertical: 16)),
+            child: Scaffold(body: SafeArea(child: HomeScreenSkeleton())),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+
+    await tester.pumpWidget(
+      localized(
+        MaterialApp(
+          theme: buildWatchTheme(AppThemes.darkTheme),
+          home: WatchListScaffold(
+            title: 'Loading',
+            icon: AppIcons.listChecks,
+            onBack: () {},
+            body: const ListScreenSkeleton(),
+          ),
+        ),
+      ),
+    );
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('watch lists keep items direct and free of fade wrappers', (
+    tester,
+  ) async {
+    await useSmallWatchSurface(tester);
+
+    await tester.pumpWidget(
+      localized(
+        MaterialApp(
+          home: Scaffold(
+            body: WatchScrollView(
+              children: const [Text('One'), Text('Two'), Text('Three')],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final listView = tester.widget<ListView>(find.byType(ListView));
+    final delegate = listView.childrenDelegate as SliverChildListDelegate;
+    expect(delegate.children, everyElement(isA<Text>()));
+    expect(find.byType(Opacity), findsNothing);
+  });
+
+  test('watch supporting type never drops below 10sp', () {
+    expect(watchLabelFontSize, greaterThanOrEqualTo(10));
+    expect(watchBodyFontSize, greaterThanOrEqualTo(watchLabelFontSize));
+    expect(watchTitleFontSize, greaterThanOrEqualTo(watchBodyFontSize));
   });
 }

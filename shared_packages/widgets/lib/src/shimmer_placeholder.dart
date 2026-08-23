@@ -147,35 +147,29 @@ class HomeScreenSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShimmerScope(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const ShimmerBox(width: 70, height: 70, borderRadius: 35),
-            const SizedBox(height: 12),
-            const ShimmerBox(width: 100, height: 14, borderRadius: 7),
+            const ShimmerBox(width: 36, height: 36, borderRadius: 18),
+            const SizedBox(height: 4),
+            const ShimmerBox(width: 92, height: 8, borderRadius: 4),
+            const SizedBox(height: 3),
+            const ShimmerBox(width: 58, height: 8, borderRadius: 4),
             const SizedBox(height: 6),
-            const ShimmerBox(width: 60, height: 10, borderRadius: 5),
-            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: const [
-                ShimmerBox(width: 44, height: 44, borderRadius: 8),
-                ShimmerBox(width: 44, height: 44, borderRadius: 8),
-                ShimmerBox(width: 44, height: 44, borderRadius: 8),
+                ShimmerBox(width: 28, height: 28, borderRadius: 14),
+                ShimmerBox(width: 28, height: 28, borderRadius: 14),
+                ShimmerBox(width: 28, height: 28, borderRadius: 14),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 6),
             const ShimmerBox(
               width: double.infinity,
-              height: 44,
-              borderRadius: 8,
-            ),
-            const SizedBox(height: 8),
-            const ShimmerBox(
-              width: double.infinity,
-              height: 44,
-              borderRadius: 8,
+              height: 36,
+              borderRadius: 18,
             ),
           ],
         ),
@@ -192,21 +186,19 @@ class ListScreenSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShimmerScope(
-      child: Padding(
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Column(
-          children: List.generate(
-            itemCount,
-            (_) => const Padding(
-              padding: EdgeInsets.only(bottom: 10),
+        itemCount: itemCount,
+        itemBuilder:
+            (_, _) => const Padding(
+              padding: EdgeInsets.only(bottom: 8),
               child: ShimmerBox(
                 width: double.infinity,
-                height: 52,
-                borderRadius: 10,
+                height: 48,
+                borderRadius: 18,
               ),
             ),
-          ),
-        ),
       ),
     );
   }

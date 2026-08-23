@@ -33,14 +33,17 @@ class AppIcons {
   static IconData get chevronLeft => LucideIcons.chevronLeft;
   static IconData get chevronRight => LucideIcons.chevronRight;
   static IconData get circleAlert => LucideIcons.circleAlert;
+  static IconData get circleCheckBig => LucideIcons.circleCheckBig;
   static IconData get circleOff => LucideIcons.circleOff;
   static IconData get circleX => LucideIcons.circleX;
   static IconData get clock => LucideIcons.clock;
+  static IconData get cloudOff => LucideIcons.cloudOff;
   static IconData get code => LucideIcons.code;
   static IconData get compass => LucideIcons.compass;
   static IconData get cookie => LucideIcons.cookie;
   static IconData get database => LucideIcons.database;
   static IconData get download => LucideIcons.download;
+  static IconData get droplet => LucideIcons.droplet;
   static IconData get drumstick => LucideIcons.drumstick;
   static IconData get dumbbell => LucideIcons.dumbbell;
   static IconData get egg => LucideIcons.egg;
@@ -70,6 +73,7 @@ class AppIcons {
   static IconData get listChecks => LucideIcons.listChecks;
   static IconData get lock => LucideIcons.lock;
   static IconData get mail => LucideIcons.mail;
+  static IconData get mic => LucideIcons.mic;
   static IconData get mars => LucideIcons.mars;
   static IconData get meh => LucideIcons.meh;
   static IconData get minus => LucideIcons.minus;
@@ -81,6 +85,7 @@ class AppIcons {
   static IconData get plus => LucideIcons.plus;
   static IconData get refreshCw => LucideIcons.refreshCw;
   static IconData get repeat => LucideIcons.repeat;
+  static IconData get rotateCcw => LucideIcons.rotateCcw;
   static IconData get ruler => LucideIcons.ruler;
   static IconData get sandwich => LucideIcons.sandwich;
   static IconData get save => LucideIcons.save;
@@ -98,6 +103,7 @@ class AppIcons {
   static IconData get soup => LucideIcons.soup;
   static IconData get sparkles => LucideIcons.sparkles;
   static IconData get star => LucideIcons.star;
+  static IconData get square => LucideIcons.square;
   static IconData get sun => LucideIcons.sun;
   static IconData get sunrise => LucideIcons.sunrise;
   static IconData get table => LucideIcons.table;
@@ -120,6 +126,7 @@ class AppIcons {
   static IconData get watch => LucideIcons.watch;
   static IconData get weight => LucideIcons.weight;
   static IconData get wheat => LucideIcons.wheat;
+  static IconData get wifi => LucideIcons.wifi;
   static IconData get wifiOff => LucideIcons.wifiOff;
   static IconData get x => LucideIcons.x;
 }

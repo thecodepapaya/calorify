@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
+import 'package:calorify_watch/widgets/watch_scroll_view.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
 import 'package:widgets/widgets.dart';
@@ -54,12 +54,14 @@ class _FavoritesScreenState extends State<FavoritesScreen>
           SyncService.instance.favoriteMeals.value.isEmpty &&
           SyncService.instance.favoriteLastSyncTime.value == null &&
           (state == SyncState.error || state == SyncState.disconnected)) {
-        setState(
-          () => _error = 'Open Calorify on your phone, then tap refresh.',
-        );
+        setState(() => _error = Translations.of(context).watch.sync.openPhone);
       }
     } catch (_) {
-      if (mounted) setState(() => _error = 'Could not load favorites');
+      if (mounted) {
+        setState(
+          () => _error = Translations.of(context).watch.favorites.loadFailed,
+        );
+      }
     }
     if (mounted) setState(() => _loaded = true);
   }
@@ -91,7 +93,11 @@ class _FavoritesScreenState extends State<FavoritesScreen>
       unawaited(HapticFeedback.heavyImpact());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${fav.loggedMeal.meal.name} logged!'),
+          content: Text(
+            Translations.of(
+              context,
+            ).watch.favorites.logged(name: fav.loggedMeal.meal.name),
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -100,7 +106,9 @@ class _FavoritesScreenState extends State<FavoritesScreen>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '${fav.loggedMeal.meal.name} saved offline. It will sync when your phone reconnects.',
+            Translations.of(
+              context,
+            ).watch.favorites.savedOffline(name: fav.loggedMeal.meal.name),
           ),
           duration: const Duration(seconds: 3),
         ),
@@ -108,9 +116,9 @@ class _FavoritesScreenState extends State<FavoritesScreen>
     } else {
       unawaited(HapticFeedback.mediumImpact());
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not save the meal. Please try again.'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text(Translations.of(context).watch.favorites.saveFailed),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -119,17 +127,18 @@ class _FavoritesScreenState extends State<FavoritesScreen>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final strings = Translations.of(context).watch;
 
     return WatchListScaffold(
-      title: 'Favorites',
-      icon: LucideIcons.star,
+      title: strings.favorites.title,
+      icon: AppIcons.star,
       onBack: context.router.pop,
       trailing: ValueListenableBuilder<SyncState>(
         valueListenable: SyncService.instance.syncState,
         builder:
             (_, state, _) => WatchIconButton(
-              icon: LucideIcons.refreshCw,
-              semanticLabel: 'Refresh favorites',
+              icon: AppIcons.refreshCw,
+              semanticLabel: strings.favorites.refresh,
               onPressed: () => _load(force: true),
               busy: state == SyncState.syncing,
               color: colorScheme.tertiary,
@@ -143,19 +152,19 @@ class _FavoritesScreenState extends State<FavoritesScreen>
           }
           if (_error != null && favorites.isEmpty) {
             return WatchStateView(
-              icon: LucideIcons.cloudOff,
-              title: 'Could not sync',
+              icon: AppIcons.cloudOff,
+              title: strings.favorites.syncFailed,
               message: _error!,
-              actionLabel: 'Retry',
+              actionLabel: strings.common.retry,
               onAction: () => _load(force: true),
               tint: colorScheme.error,
             );
           }
           if (favorites.isEmpty) {
             return WatchStateView(
-              icon: LucideIcons.star,
-              title: 'No favorites yet',
-              message: 'Star meals in the phone app for one-tap logging here.',
+              icon: AppIcons.star,
+              title: strings.favorites.emptyTitle,
+              message: strings.favorites.emptyMessage,
               tint: colorScheme.tertiary,
             );
           }
@@ -163,7 +172,7 @@ class _FavoritesScreenState extends State<FavoritesScreen>
             onRefresh: () => _load(force: true),
             color: colorScheme.primary,
             backgroundColor: colorScheme.surface,
-            child: CarouselScrollView.builder(
+            child: WatchScrollView.builder(
               physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics(),
               ),
@@ -211,11 +220,15 @@ class _FavoriteItemState extends State<_FavoriteItem> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final strings = Translations.of(context).watch;
     final meal = widget.fav.loggedMeal.meal;
     final calories = meal.macros.calories;
 
     return Semantics(
-      label: '${meal.name}, $calories calories. Tap to log.',
+      label: strings.favorites.mealSemantics(
+        name: meal.name,
+        calories: calories,
+      ),
       button: true,
       child: GestureDetector(
         onTapDown: (_) => setState(() => _pressed = true),
@@ -240,7 +253,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
-                    LucideIcons.star,
+                    AppIcons.star,
                     size: 13,
                     color: colorScheme.tertiary,
                   ),
@@ -256,7 +269,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                         meal.name,
                         style: theme.textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: 11,
+                          fontSize: watchBodyFontSize,
                           color: colorScheme.onSurface,
                         ),
                         maxLines: 1,
@@ -268,19 +281,19 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                           WatchMacroBadge(
                             color: colorScheme.proteinIconColor,
                             value: meal.macros.protein,
-                            label: 'P',
+                            icon: AppIcons.dumbbell,
                           ),
                           const SizedBox(width: 5),
                           WatchMacroBadge(
                             color: colorScheme.carbsIconColor,
                             value: meal.macros.carbs,
-                            label: 'C',
+                            icon: AppIcons.wheat,
                           ),
                           const SizedBox(width: 5),
                           WatchMacroBadge(
                             color: colorScheme.fatIconColor,
                             value: meal.macros.fat,
-                            label: 'F',
+                            icon: AppIcons.droplet,
                           ),
                         ],
                       ),
@@ -297,7 +310,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          LucideIcons.flame,
+                          AppIcons.flame,
                           size: 11,
                           color: colorScheme.calorieIconColor,
                         ),
@@ -307,7 +320,7 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                           style: theme.textTheme.labelSmall?.copyWith(
                             fontWeight: FontWeight.bold,
                             color: colorScheme.calorieIconColor,
-                            fontSize: 10,
+                            fontSize: watchLabelFontSize,
                           ),
                         ),
                       ],
@@ -336,11 +349,11 @@ class _FavoriteItemState extends State<_FavoriteItem> {
                                 ),
                               )
                               : Text(
-                                'Log',
+                                strings.favorites.log,
                                 style: theme.textTheme.labelSmall?.copyWith(
                                   color: colorScheme.onPrimary,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 9,
+                                  fontSize: watchLabelFontSize,
                                 ),
                               ),
                     ),

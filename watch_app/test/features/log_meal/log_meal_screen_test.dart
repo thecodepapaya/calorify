@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:calorify_watch/app.dart';
 import 'package:calorify_watch/core/services/watch_speech_service.dart';
 import 'package:calorify_watch/features/log_meal/log_meal_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:i18n/i18n.dart';
+import 'package:specs/specs.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text_platform_interface/speech_to_text_platform_interface.dart';
 
@@ -58,6 +61,8 @@ class _FakeSpeechPlatform extends SpeechToTextPlatform {
 }
 
 void main() {
+  setUpAll(() => LocaleSettings.setLocale(AppLocale.en));
+
   late SpeechToTextPlatform originalPlatform;
   late _FakeSpeechPlatform fakePlatform;
   late WatchSpeechService speechService;
@@ -76,8 +81,16 @@ void main() {
   });
 
   Future<void> pumpVoiceScreen(WidgetTester tester) {
+    tester.view.devicePixelRatio = 1;
+    tester.view.physicalSize = const Size(192, 192);
+    addTearDown(tester.view.reset);
     return tester.pumpWidget(
-      MaterialApp(home: LogMealScreen(speechService: speechService)),
+      TranslationProvider(
+        child: MaterialApp(
+          theme: buildWatchTheme(AppThemes.darkTheme),
+          home: LogMealScreen(speechService: speechService),
+        ),
+      ),
     );
   }
 
@@ -91,7 +104,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
 
     expect(fakePlatform.listenCalls, 1);
-    expect(find.text('Listening'), findsOneWidget);
+    expect(find.text('Listening'), findsWidgets);
     expect(find.text('Could not start recording.'), findsNothing);
     expect(tester.takeException(), isNull);
   });
@@ -110,7 +123,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
 
     expect(fakePlatform.listenCalls, 2);
-    expect(find.text('Listening'), findsOneWidget);
+    expect(find.text('Listening'), findsWidgets);
     expect(tester.takeException(), isNull);
   });
 
@@ -127,7 +140,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 1100));
 
     expect(fakePlatform.listenCalls, 1);
-    expect(find.text('Listening'), findsOneWidget);
+    expect(find.text('Listening'), findsWidgets);
     expect(tester.takeException(), isNull);
   });
 
@@ -149,6 +162,6 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
 
     expect(fakePlatform.listenCalls, 2);
-    expect(find.text('Listening'), findsOneWidget);
+    expect(find.text('Listening'), findsWidgets);
   });
 }

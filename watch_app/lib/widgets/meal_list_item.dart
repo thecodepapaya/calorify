@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:i18n/i18n.dart';
 import 'package:intl/intl.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
+import 'package:widgets/widgets.dart';
 
 class MealListItem extends StatefulWidget {
   const MealListItem({
@@ -52,12 +53,13 @@ class _MealListItemState extends State<MealListItem>
     super.dispose();
   }
 
-  String _formatTime(DateTime? dt) =>
-      dt != null ? DateFormat('HH:mm').format(dt) : '--:--';
+  String _formatTime(DateTime? dt, String locale) =>
+      dt != null ? DateFormat.Hm(locale).format(dt) : '--:--';
 
   void _showDeleteConfirm(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
+    final strings = Translations.of(context).watch;
     unawaited(HapticFeedback.mediumImpact());
     showDialog<bool>(
       context: context,
@@ -71,13 +73,13 @@ class _MealListItemState extends State<MealListItem>
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(LucideIcons.trash2, size: 28, color: colorScheme.error),
+                Icon(AppIcons.trash2, size: 28, color: colorScheme.error),
                 const SizedBox(height: 10),
                 Text(
-                  'Delete meal?',
+                  strings.meal.deleteTitle,
                   style: theme.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 13,
+                    fontSize: watchTitleFontSize,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -86,7 +88,7 @@ class _MealListItemState extends State<MealListItem>
                   widget.meal.meal.name,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: colorScheme.onSurfaceVariant,
-                    fontSize: 10,
+                    fontSize: watchLabelFontSize,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -98,7 +100,7 @@ class _MealListItemState extends State<MealListItem>
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
                 child: Text(
-                  'Cancel',
+                  strings.common.cancel,
                   style: theme.textTheme.labelMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),
@@ -111,7 +113,7 @@ class _MealListItemState extends State<MealListItem>
                   widget.onDelete?.call();
                 },
                 child: Text(
-                  'Delete',
+                  strings.common.delete,
                   style: theme.textTheme.labelMedium?.copyWith(
                     color: colorScheme.error,
                     fontWeight: FontWeight.w600,
@@ -127,14 +129,18 @@ class _MealListItemState extends State<MealListItem>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final strings = Translations.of(context).watch;
     final meal = widget.meal.meal;
     final calories = meal.macros.calories;
-    final timestamp = _formatTime(widget.meal.dateTime);
+    final timestamp = _formatTime(
+      widget.meal.dateTime,
+      Localizations.localeOf(context).toLanguageTag(),
+    );
 
     return Semantics(
       label:
-          '${meal.name}, $calories calories, logged at $timestamp.'
-          '${widget.onDelete != null ? ' Long press to delete.' : ''}',
+          '${strings.meal.semantics(name: meal.name, calories: calories, time: timestamp)}'
+          '${widget.onDelete != null ? ' ${strings.meal.longPressDelete}' : ''}',
       child: FadeTransition(
         opacity: _fadeAnimation,
         child: GestureDetector(
@@ -166,7 +172,7 @@ class _MealListItemState extends State<MealListItem>
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Icon(
-                      LucideIcons.utensilsCrossed,
+                      AppIcons.utensilsCrossed,
                       size: 14,
                       color: colorScheme.primary,
                     ),
@@ -185,7 +191,7 @@ class _MealListItemState extends State<MealListItem>
                                 meal.name,
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 11,
+                                  fontSize: watchBodyFontSize,
                                   color: colorScheme.onSurface,
                                 ),
                                 maxLines: 1,
@@ -194,18 +200,16 @@ class _MealListItemState extends State<MealListItem>
                             ),
                             const SizedBox(width: 4),
                             Icon(
-                              LucideIcons.clock,
-                              size: 9,
-                              color: colorScheme.onSurfaceVariant.withValues(
-                                alpha: 0.6,
-                              ),
+                              AppIcons.clock,
+                              size: 10,
+                              color: colorScheme.onSurfaceVariant,
                             ),
                             const SizedBox(width: 2),
                             Text(
                               timestamp,
                               style: theme.textTheme.labelSmall?.copyWith(
                                 color: colorScheme.onSurfaceVariant,
-                                fontSize: 8,
+                                fontSize: watchLabelFontSize,
                               ),
                             ),
                           ],
@@ -214,19 +218,19 @@ class _MealListItemState extends State<MealListItem>
                         Row(
                           children: [
                             WatchMacroBadge(
-                              icon: LucideIcons.dumbbell,
+                              icon: AppIcons.dumbbell,
                               value: meal.macros.protein,
                               color: colorScheme.proteinIconColor,
                             ),
                             const SizedBox(width: 6),
                             WatchMacroBadge(
-                              icon: LucideIcons.wheat,
+                              icon: AppIcons.wheat,
                               value: meal.macros.carbs,
                               color: colorScheme.carbsIconColor,
                             ),
                             const SizedBox(width: 6),
                             WatchMacroBadge(
-                              icon: LucideIcons.droplet,
+                              icon: AppIcons.droplet,
                               value: meal.macros.fat,
                               color: colorScheme.fatIconColor,
                             ),
@@ -241,7 +245,7 @@ class _MealListItemState extends State<MealListItem>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        LucideIcons.flame,
+                        AppIcons.flame,
                         size: 13,
                         color: colorScheme.calorieIconColor,
                       ),
@@ -251,16 +255,16 @@ class _MealListItemState extends State<MealListItem>
                         style: theme.textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: colorScheme.calorieIconColor,
-                          fontSize: 11,
+                          fontSize: watchBodyFontSize,
                         ),
                       ),
                       Text(
-                        'kcal',
+                        strings.common.kcal,
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: colorScheme.calorieIconColor.withValues(
-                            alpha: 0.7,
+                            alpha: 0.85,
                           ),
-                          fontSize: 7,
+                          fontSize: watchLabelFontSize,
                         ),
                       ),
                     ],

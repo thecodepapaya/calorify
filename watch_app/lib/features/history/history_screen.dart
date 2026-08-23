@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
+import 'package:calorify_watch/widgets/watch_scroll_view.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:widgets/widgets.dart';
 
@@ -38,12 +38,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
           SyncService.instance.todaysMeals.value.isEmpty &&
           SyncService.instance.lastSyncTime.value == null &&
           (state == SyncState.error || state == SyncState.disconnected)) {
-        setState(
-          () => _error = 'Open Calorify on your phone, then tap refresh.',
-        );
+        setState(() => _error = Translations.of(context).watch.sync.openPhone);
       }
     } catch (_) {
-      if (mounted) setState(() => _error = 'Could not load meals');
+      if (mounted) {
+        setState(
+          () => _error = Translations.of(context).watch.history.loadFailed,
+        );
+      }
     }
     if (mounted) setState(() => _loaded = true);
   }
@@ -64,17 +66,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
         SnackBar(
           content: Text(
             mealId < 0
-                ? 'Meal removed from the offline queue.'
-                : 'Meal removed offline. It will sync when your phone reconnects.',
+                ? Translations.of(context).watch.home.removedFromQueue
+                : Translations.of(context).watch.home.removedOffline,
           ),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         ),
       );
     } else if (result == SyncRequestResult.failed) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not delete meal'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text(Translations.of(context).watch.home.deleteFailed),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -83,20 +85,21 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final strings = Translations.of(context).watch;
 
     return ValueListenableBuilder<List<LoggedMeal>>(
       valueListenable: SyncService.instance.todaysMeals,
       builder:
           (_, currentMeals, _) => WatchListScaffold(
-            title: "Today's meals · ${currentMeals.length}",
-            icon: LucideIcons.packageOpen,
+            title: strings.home.todayMealsCount(count: currentMeals.length),
+            icon: AppIcons.packageOpen,
             onBack: context.router.pop,
             trailing: ValueListenableBuilder<SyncState>(
               valueListenable: SyncService.instance.syncState,
               builder:
                   (_, state, _) => WatchIconButton(
-                    icon: LucideIcons.refreshCw,
-                    semanticLabel: 'Refresh meals',
+                    icon: AppIcons.refreshCw,
+                    semanticLabel: strings.history.refresh,
                     onPressed: _onRefresh,
                     busy: state == SyncState.syncing,
                   ),
@@ -109,26 +112,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 }
                 if (_error != null && meals.isEmpty) {
                   return WatchStateView(
-                    icon: LucideIcons.cloudOff,
-                    title: 'Could not sync',
+                    icon: AppIcons.cloudOff,
+                    title: strings.history.syncFailed,
                     message: _error!,
-                    actionLabel: 'Retry',
+                    actionLabel: strings.common.retry,
                     onAction: () => _load(force: true),
                     tint: colorScheme.error,
                   );
                 }
                 if (meals.isEmpty) {
-                  return const WatchStateView(
-                    icon: LucideIcons.listChecks,
-                    title: 'No meals yet',
-                    message: 'Log a meal from the home screen to see it here.',
+                  return WatchStateView(
+                    icon: AppIcons.listChecks,
+                    title: strings.history.emptyTitle,
+                    message: strings.history.emptyMessage,
                   );
                 }
                 return RefreshIndicator(
                   onRefresh: _onRefresh,
                   color: colorScheme.primary,
                   backgroundColor: colorScheme.surface,
-                  child: CarouselScrollView.builder(
+                  child: WatchScrollView.builder(
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
                     ),

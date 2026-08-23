@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:calorify_watch/core/services/sync_service.dart';
-import 'package:calorify_watch/widgets/carousel_scroll_view.dart';
 import 'package:calorify_watch/widgets/meal_list_item.dart';
+import 'package:calorify_watch/widgets/watch_scroll_view.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
 import 'package:widgets/widgets.dart';
@@ -66,7 +66,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       unawaited(HapticFeedback.lightImpact());
     } catch (e) {
       if (mounted) {
-        setState(() => _errorMessage = 'Could not refresh. Check your phone.');
+        setState(
+          () =>
+              _errorMessage = Translations.of(context).watch.sync.refreshFailed,
+        );
       }
       unawaited(HapticFeedback.mediumImpact());
     }
@@ -115,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   onRefresh: _refresh,
                   color: colorScheme.primary,
                   backgroundColor: colorScheme.surface,
-                  child: CarouselScrollView(
+                  child: WatchScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
                     ),
@@ -133,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             _errorMessage!,
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: colorScheme.error,
-                              fontSize: 9,
+                              fontSize: watchLabelFontSize,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -208,17 +211,17 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         SnackBar(
           content: Text(
             mealId < 0
-                ? 'Meal removed from the offline queue.'
-                : 'Meal removed offline. It will sync when your phone reconnects.',
+                ? Translations.of(context).watch.home.removedFromQueue
+                : Translations.of(context).watch.home.removedOffline,
           ),
           duration: Duration(seconds: 3),
         ),
       );
     } else if (result == SyncRequestResult.failed) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not delete meal'),
-          duration: Duration(seconds: 2),
+        SnackBar(
+          content: Text(Translations.of(context).watch.home.deleteFailed),
+          duration: const Duration(seconds: 2),
         ),
       );
     }
@@ -238,11 +241,12 @@ class _SyncStatusHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final strings = Translations.of(context).watch;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Semantics(
-        label: 'Sync with phone',
+        label: strings.sync.syncWithPhone,
         button: true,
         child: Material(
           color: Colors.transparent,
@@ -272,11 +276,10 @@ class _SyncStatusHeader extends StatelessWidget {
                                 const SizedBox(width: 4),
                                 Flexible(
                                   child: Text(
-                                    _stateLabel(state, lastSync),
+                                    _stateLabel(context, state, lastSync),
                                     style: theme.textTheme.labelSmall?.copyWith(
-                                      color: colorScheme.onSurfaceVariant
-                                          .withValues(alpha: 0.6),
-                                      fontSize: 8,
+                                      color: colorScheme.onSurfaceVariant,
+                                      fontSize: watchLabelFontSize,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -313,49 +316,48 @@ class _SyncStatusHeader extends StatelessWidget {
           ),
         );
       case SyncState.synced:
-        return Icon(
-          LucideIcons.check,
-          size: 10,
-          color: colorScheme.primary.withValues(alpha: 0.7),
-        );
+        return Icon(AppIcons.check, size: 10, color: colorScheme.primary);
       case SyncState.error:
-        return Icon(
-          LucideIcons.circleAlert,
-          size: 10,
-          color: colorScheme.error,
-        );
+        return Icon(AppIcons.circleAlert, size: 10, color: colorScheme.error);
       case SyncState.disconnected:
         return Icon(
-          LucideIcons.wifi,
+          AppIcons.wifi,
           size: 10,
-          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          color: colorScheme.onSurfaceVariant,
         );
       case SyncState.idle:
         return Icon(
-          LucideIcons.watch,
+          AppIcons.watch,
           size: 10,
-          color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          color: colorScheme.onSurfaceVariant,
         );
     }
   }
 
-  String _stateLabel(SyncState state, DateTime? lastSync) {
+  String _stateLabel(
+    BuildContext context,
+    SyncState state,
+    DateTime? lastSync,
+  ) {
+    final strings = Translations.of(context).watch.sync;
     switch (state) {
       case SyncState.syncing:
-        return 'Syncing...';
+        return strings.syncing;
       case SyncState.synced:
         if (lastSync != null) {
           final diff = DateTime.now().difference(lastSync);
-          if (diff.inMinutes < 1) return 'Synced just now';
-          if (diff.inMinutes < 60) return 'Synced ${diff.inMinutes}m ago';
+          if (diff.inMinutes < 1) return strings.syncedJustNow;
+          if (diff.inMinutes < 60) {
+            return strings.syncedMinutesAgo(minutes: diff.inMinutes);
+          }
         }
-        return 'Synced';
+        return strings.synced;
       case SyncState.error:
-        return 'Sync failed';
+        return strings.failed;
       case SyncState.disconnected:
-        return 'Phone disconnected';
+        return strings.phoneDisconnected;
       case SyncState.idle:
-        return 'Tap to sync';
+        return strings.tapToSync;
     }
   }
 }
@@ -367,13 +369,15 @@ class _SyncStatusHeader extends StatelessWidget {
 class _ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final strings = Translations.of(context).watch;
 
     return Column(
       children: [
         WatchPillButton(
-          label: 'Log a meal',
-          icon: LucideIcons.mic,
+          label: strings.home.logMeal,
+          icon: AppIcons.mic,
           primary: true,
           onPressed: () => context.router.push(LogMealRoute()),
         ),
@@ -382,8 +386,8 @@ class _ActionButtons extends StatelessWidget {
           children: [
             Expanded(
               child: WatchPillButton(
-                icon: LucideIcons.history,
-                label: 'History',
+                icon: AppIcons.listChecks,
+                label: strings.home.todayMeals,
                 tint: colorScheme.primary,
                 onPressed: () => context.router.push(const HistoryRoute()),
               ),
@@ -391,8 +395,8 @@ class _ActionButtons extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: WatchPillButton(
-                icon: LucideIcons.star,
-                label: 'Favorites',
+                icon: AppIcons.star,
+                label: strings.favorites.title,
                 tint: colorScheme.tertiary,
                 onPressed: () => context.router.push(const FavoritesRoute()),
               ),
@@ -416,21 +420,22 @@ class _MealsSectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final strings = Translations.of(context).watch;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(LucideIcons.packageOpen, size: 14, color: colorScheme.primary),
+          Icon(AppIcons.packageOpen, size: 14, color: colorScheme.primary),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
-              "Today's Meals",
+              strings.home.todayMeals,
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.3,
                 color: colorScheme.onSurface,
-                fontSize: 11,
+                fontSize: watchBodyFontSize,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -446,7 +451,7 @@ class _MealsSectionHeader extends StatelessWidget {
               '$count',
               style: theme.textTheme.labelSmall?.copyWith(
                 fontWeight: FontWeight.w700,
-                fontSize: 9,
+                fontSize: watchLabelFontSize,
                 color: colorScheme.primary,
               ),
             ),
@@ -463,37 +468,17 @@ class _ViewMoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final strings = Translations.of(context).watch.home;
     return Padding(
       padding: const EdgeInsets.only(top: 4, bottom: 12),
-      child: GestureDetector(
-        onTap: () {
-          unawaited(HapticFeedback.lightImpact());
-          context.router.push(const HistoryRoute());
-        },
-        child: Semantics(
-          label: '$extraCount more meals, tap to view all',
-          button: true,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                LucideIcons.arrowRight,
-                size: 10,
-                color: colorScheme.primary,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                'View $extraCount more',
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: colorScheme.primary,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 9,
-                ),
-              ),
-            ],
-          ),
+      child: Semantics(
+        label: strings.viewMoreSemantics(count: extraCount),
+        child: WatchPillButton(
+          label: strings.viewMore(count: extraCount),
+          icon: AppIcons.arrowRight,
+          onPressed: () => context.router.push(const HistoryRoute()),
+          tint: colorScheme.primary,
         ),
       ),
     );
@@ -507,25 +492,26 @@ class _EmptyMealsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final strings = Translations.of(context).watch.home;
     return Semantics(
-      label: 'No meals logged today',
+      label: strings.noMealsSemantics,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              LucideIcons.listChecks,
+              AppIcons.listChecks,
               size: 28,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.4),
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.75),
             ),
             const SizedBox(height: 8),
             Text(
-              'No meals logged',
+              strings.noMeals,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                color: colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w500,
-                fontSize: 10,
+                fontSize: watchBodyFontSize,
               ),
               textAlign: TextAlign.center,
             ),
@@ -533,17 +519,13 @@ class _EmptyMealsView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  LucideIcons.mic,
-                  size: 10,
-                  color: colorScheme.primary.withValues(alpha: 0.7),
-                ),
+                Icon(AppIcons.mic, size: 10, color: colorScheme.primary),
                 const SizedBox(width: 4),
                 Text(
-                  'Tap Log to start',
+                  strings.tapLog,
                   style: theme.textTheme.labelSmall?.copyWith(
-                    color: colorScheme.primary.withValues(alpha: 0.7),
-                    fontSize: 8,
+                    color: colorScheme.primary,
+                    fontSize: watchLabelFontSize,
                   ),
                 ),
               ],

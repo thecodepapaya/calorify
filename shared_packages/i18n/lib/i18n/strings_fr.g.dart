@@ -42,30 +42,30 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override String get language => 'Français';
 	@override String get flag => '🇫🇷';
 	@override String appLabel({required Object env}) => 'Calorify${env}';
-	@override late final _TranslationsErrorsFr errors = _TranslationsErrorsFr._(_root);
-	@override late final _TranslationsOnboardingFr onboarding = _TranslationsOnboardingFr._(_root);
-	@override late final _TranslationsTabsFr tabs = _TranslationsTabsFr._(_root);
-	@override late final _TranslationsHomeFr home = _TranslationsHomeFr._(_root);
-	@override late final _TranslationsHistoryFr history = _TranslationsHistoryFr._(_root);
-	@override late final _TranslationsMealFr meal = _TranslationsMealFr._(_root);
-	@override late final _TranslationsFavoritesFr favorites = _TranslationsFavoritesFr._(_root);
-	@override late final _TranslationsProfileFr profile = _TranslationsProfileFr._(_root);
-	@override late final _TranslationsHealthScoreFr healthScore = _TranslationsHealthScoreFr._(_root);
-	@override late final _TranslationsEditProfileFr editProfile = _TranslationsEditProfileFr._(_root);
-	@override late final _TranslationsSettingsFr settings = _TranslationsSettingsFr._(_root);
-	@override late final _TranslationsRemindersFr reminders = _TranslationsRemindersFr._(_root);
-	@override late final _TranslationsNotificationsFr notifications = _TranslationsNotificationsFr._(_root);
-	@override late final _TranslationsLoginFr login = _TranslationsLoginFr._(_root);
-	@override late final _TranslationsDisclaimerFr disclaimer = _TranslationsDisclaimerFr._(_root);
-	@override late final _TranslationsLocalNutritionPhase4Fr localNutritionPhase4 = _TranslationsLocalNutritionPhase4Fr._(_root);
-	@override late final _TranslationsCommonFr common = _TranslationsCommonFr._(_root);
-	@override late final _TranslationsFeedbackRatingFr feedbackRating = _TranslationsFeedbackRatingFr._(_root);
-	@override late final _TranslationsHealthFr health = _TranslationsHealthFr._(_root);
+	@override late final _Translations$errors$fr errors = _Translations$errors$fr._(_root);
+	@override late final _Translations$onboarding$fr onboarding = _Translations$onboarding$fr._(_root);
+	@override late final _Translations$tabs$fr tabs = _Translations$tabs$fr._(_root);
+	@override late final _Translations$home$fr home = _Translations$home$fr._(_root);
+	@override late final _Translations$history$fr history = _Translations$history$fr._(_root);
+	@override late final _Translations$meal$fr meal = _Translations$meal$fr._(_root);
+	@override late final _Translations$favorites$fr favorites = _Translations$favorites$fr._(_root);
+	@override late final _Translations$profile$fr profile = _Translations$profile$fr._(_root);
+	@override late final _Translations$healthScore$fr healthScore = _Translations$healthScore$fr._(_root);
+	@override late final _Translations$editProfile$fr editProfile = _Translations$editProfile$fr._(_root);
+	@override late final _Translations$settings$fr settings = _Translations$settings$fr._(_root);
+	@override late final _Translations$reminders$fr reminders = _Translations$reminders$fr._(_root);
+	@override late final _Translations$notifications$fr notifications = _Translations$notifications$fr._(_root);
+	@override late final _Translations$login$fr login = _Translations$login$fr._(_root);
+	@override late final _Translations$disclaimer$fr disclaimer = _Translations$disclaimer$fr._(_root);
+	@override late final _Translations$localNutritionPhase4$fr localNutritionPhase4 = _Translations$localNutritionPhase4$fr._(_root);
+	@override late final _Translations$common$fr common = _Translations$common$fr._(_root);
+	@override late final _Translations$feedbackRating$fr feedbackRating = _Translations$feedbackRating$fr._(_root);
+	@override late final _Translations$health$fr health = _Translations$health$fr._(_root);
 }
 
 // Path: errors
-class _TranslationsErrorsFr extends TranslationsErrorsEn {
-	_TranslationsErrorsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$errors$fr extends Translations$errors$en {
+	_Translations$errors$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -79,8 +79,8 @@ class _TranslationsErrorsFr extends TranslationsErrorsEn {
 }
 
 // Path: onboarding
-class _TranslationsOnboardingFr extends TranslationsOnboardingEn {
-	_TranslationsOnboardingFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$fr extends Translations$onboarding$en {
+	_Translations$onboarding$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -88,21 +88,21 @@ class _TranslationsOnboardingFr extends TranslationsOnboardingEn {
 	@override String welcome({required Object appLabel}) => 'Bienvenue dans ${appLabel}';
 	@override String get subtitle => 'Votre compagnon nutritionnel personnel alimenté par AI';
 	@override String get getStarted => 'Commencer';
-	@override late final _TranslationsOnboardingFeaturesFr features = _TranslationsOnboardingFeaturesFr._(_root);
-	@override late final _TranslationsOnboardingGenderFr gender = _TranslationsOnboardingGenderFr._(_root);
-	@override late final _TranslationsOnboardingHeightFr height = _TranslationsOnboardingHeightFr._(_root);
-	@override late final _TranslationsOnboardingWeightFr weight = _TranslationsOnboardingWeightFr._(_root);
-	@override late final _TranslationsOnboardingAgeFr age = _TranslationsOnboardingAgeFr._(_root);
-	@override late final _TranslationsOnboardingBmiScaleFr bmiScale = _TranslationsOnboardingBmiScaleFr._(_root);
-	@override late final _TranslationsOnboardingWeightGoalFr weightGoal = _TranslationsOnboardingWeightGoalFr._(_root);
-	@override late final _TranslationsOnboardingActivityLevelFr activityLevel = _TranslationsOnboardingActivityLevelFr._(_root);
-	@override late final _TranslationsOnboardingHealthConnectFr healthConnect = _TranslationsOnboardingHealthConnectFr._(_root);
-	@override late final _TranslationsOnboardingReinforcementFr reinforcement = _TranslationsOnboardingReinforcementFr._(_root);
+	@override late final _Translations$onboarding$features$fr features = _Translations$onboarding$features$fr._(_root);
+	@override late final _Translations$onboarding$gender$fr gender = _Translations$onboarding$gender$fr._(_root);
+	@override late final _Translations$onboarding$height$fr height = _Translations$onboarding$height$fr._(_root);
+	@override late final _Translations$onboarding$weight$fr weight = _Translations$onboarding$weight$fr._(_root);
+	@override late final _Translations$onboarding$age$fr age = _Translations$onboarding$age$fr._(_root);
+	@override late final _Translations$onboarding$bmiScale$fr bmiScale = _Translations$onboarding$bmiScale$fr._(_root);
+	@override late final _Translations$onboarding$weightGoal$fr weightGoal = _Translations$onboarding$weightGoal$fr._(_root);
+	@override late final _Translations$onboarding$activityLevel$fr activityLevel = _Translations$onboarding$activityLevel$fr._(_root);
+	@override late final _Translations$onboarding$healthConnect$fr healthConnect = _Translations$onboarding$healthConnect$fr._(_root);
+	@override late final _Translations$onboarding$reinforcement$fr reinforcement = _Translations$onboarding$reinforcement$fr._(_root);
 }
 
 // Path: tabs
-class _TranslationsTabsFr extends TranslationsTabsEn {
-	_TranslationsTabsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$tabs$fr extends Translations$tabs$en {
+	_Translations$tabs$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -112,27 +112,27 @@ class _TranslationsTabsFr extends TranslationsTabsEn {
 }
 
 // Path: home
-class _TranslationsHomeFr extends TranslationsHomeEn {
-	_TranslationsHomeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$fr extends Translations$home$en {
+	_Translations$home$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsHomeAiSummaryFr aiSummary = _TranslationsHomeAiSummaryFr._(_root);
-	@override late final _TranslationsHomeDailyGoalFr dailyGoal = _TranslationsHomeDailyGoalFr._(_root);
-	@override late final _TranslationsHomeDailySummaryFr dailySummary = _TranslationsHomeDailySummaryFr._(_root);
-	@override late final _TranslationsHomeIntakeProgressFr intakeProgress = _TranslationsHomeIntakeProgressFr._(_root);
-	@override late final _TranslationsHomeIntakeHistoryFr intakeHistory = _TranslationsHomeIntakeHistoryFr._(_root);
-	@override late final _TranslationsHomeMealLogFr mealLog = _TranslationsHomeMealLogFr._(_root);
-	@override late final _TranslationsHomeMealDescriptionFr mealDescription = _TranslationsHomeMealDescriptionFr._(_root);
-	@override late final _TranslationsHomeFavoriteMealsFr favoriteMeals = _TranslationsHomeFavoriteMealsFr._(_root);
-	@override late final _TranslationsHomeMealSnapFr mealSnap = _TranslationsHomeMealSnapFr._(_root);
-	@override late final _TranslationsHomeConnectHealthFr connectHealth = _TranslationsHomeConnectHealthFr._(_root);
+	@override late final _Translations$home$aiSummary$fr aiSummary = _Translations$home$aiSummary$fr._(_root);
+	@override late final _Translations$home$dailyGoal$fr dailyGoal = _Translations$home$dailyGoal$fr._(_root);
+	@override late final _Translations$home$dailySummary$fr dailySummary = _Translations$home$dailySummary$fr._(_root);
+	@override late final _Translations$home$intakeProgress$fr intakeProgress = _Translations$home$intakeProgress$fr._(_root);
+	@override late final _Translations$home$intakeHistory$fr intakeHistory = _Translations$home$intakeHistory$fr._(_root);
+	@override late final _Translations$home$mealLog$fr mealLog = _Translations$home$mealLog$fr._(_root);
+	@override late final _Translations$home$mealDescription$fr mealDescription = _Translations$home$mealDescription$fr._(_root);
+	@override late final _Translations$home$favoriteMeals$fr favoriteMeals = _Translations$home$favoriteMeals$fr._(_root);
+	@override late final _Translations$home$mealSnap$fr mealSnap = _Translations$home$mealSnap$fr._(_root);
+	@override late final _Translations$home$connectHealth$fr connectHealth = _Translations$home$connectHealth$fr._(_root);
 }
 
 // Path: history
-class _TranslationsHistoryFr extends TranslationsHistoryEn {
-	_TranslationsHistoryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$history$fr extends Translations$history$en {
+	_Translations$history$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -144,8 +144,8 @@ class _TranslationsHistoryFr extends TranslationsHistoryEn {
 }
 
 // Path: meal
-class _TranslationsMealFr extends TranslationsMealEn {
-	_TranslationsMealFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$fr extends Translations$meal$en {
+	_Translations$meal$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -164,8 +164,8 @@ class _TranslationsMealFr extends TranslationsMealEn {
 	@override String get timeOfMeal => 'Heure du repas';
 	@override String get timeOfMealHint => 'Sélectionnez l\'heure à laquelle vous avez mangé';
 	@override String get mealType => 'Type de repas';
-	@override late final _TranslationsMealNutritionFr nutrition = _TranslationsMealNutritionFr._(_root);
-	@override late final _TranslationsMealDeleteConfirmationFr deleteConfirmation = _TranslationsMealDeleteConfirmationFr._(_root);
+	@override late final _Translations$meal$nutrition$fr nutrition = _Translations$meal$nutrition$fr._(_root);
+	@override late final _Translations$meal$deleteConfirmation$fr deleteConfirmation = _Translations$meal$deleteConfirmation$fr._(_root);
 	@override String get addedToLog => 'Repas ajouté à votre journal !';
 	@override String couldNotAdd({required Object error}) => 'Impossible d\'ajouter le repas : ${error}';
 	@override String get savedSuccessfully => 'Repas ajouté avec succès !';
@@ -182,15 +182,15 @@ class _TranslationsMealFr extends TranslationsMealEn {
 	@override String errorCompressingImage({required Object error}) => 'Erreur lors de la compression de l\'image : ${error}';
 	@override String get failedToSave => 'Échec de l\'enregistrement des données. Veuillez réessayer.';
 	@override String get skip => 'Passer';
-	@override late final _TranslationsMealQuestionFlowFr questionFlow = _TranslationsMealQuestionFlowFr._(_root);
-	@override late final _TranslationsMealAnalysisFr analysis = _TranslationsMealAnalysisFr._(_root);
-	@override late final _TranslationsMealLocalInferenceFr localInference = _TranslationsMealLocalInferenceFr._(_root);
-	@override late final _TranslationsMealFeedbackFr feedback = _TranslationsMealFeedbackFr._(_root);
+	@override late final _Translations$meal$questionFlow$fr questionFlow = _Translations$meal$questionFlow$fr._(_root);
+	@override late final _Translations$meal$analysis$fr analysis = _Translations$meal$analysis$fr._(_root);
+	@override late final _Translations$meal$localInference$fr localInference = _Translations$meal$localInference$fr._(_root);
+	@override late final _Translations$meal$feedback$fr feedback = _Translations$meal$feedback$fr._(_root);
 }
 
 // Path: favorites
-class _TranslationsFavoritesFr extends TranslationsFavoritesEn {
-	_TranslationsFavoritesFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$favorites$fr extends Translations$favorites$en {
+	_Translations$favorites$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -203,12 +203,12 @@ class _TranslationsFavoritesFr extends TranslationsFavoritesEn {
 	@override String get sortLabel => 'Trier les favoris';
 	@override String get undo => 'Annuler';
 	@override String removed({required Object name}) => 'Retiré ${name} des favoris';
-	@override late final _TranslationsFavoritesSortOptionsFr sortOptions = _TranslationsFavoritesSortOptionsFr._(_root);
+	@override late final _Translations$favorites$sortOptions$fr sortOptions = _Translations$favorites$sortOptions$fr._(_root);
 }
 
 // Path: profile
-class _TranslationsProfileFr extends TranslationsProfileEn {
-	_TranslationsProfileFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$profile$fr extends Translations$profile$en {
+	_Translations$profile$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -217,7 +217,7 @@ class _TranslationsProfileFr extends TranslationsProfileEn {
 	@override String get noProfileData => 'Aucune donnée de profil trouvée';
 	@override String get yourProfile => 'Votre profil';
 	@override String get viewAndManage => 'Voir et gérer vos informations de santé';
-	@override late final _TranslationsProfileSectionsFr sections = _TranslationsProfileSectionsFr._(_root);
+	@override late final _Translations$profile$sections$fr sections = _Translations$profile$sections$fr._(_root);
 	@override String get gender => 'Genre';
 	@override String get height => 'Taille';
 	@override String get weight => 'Poids';
@@ -229,12 +229,12 @@ class _TranslationsProfileFr extends TranslationsProfileEn {
 	@override String get notSet => 'Non défini';
 	@override String get years => 'ans';
 	@override String get updatedSuccessfully => 'Profil mis à jour avec succès !';
-	@override late final _TranslationsProfileCalculatedValuesFr calculatedValues = _TranslationsProfileCalculatedValuesFr._(_root);
+	@override late final _Translations$profile$calculatedValues$fr calculatedValues = _Translations$profile$calculatedValues$fr._(_root);
 }
 
 // Path: healthScore
-class _TranslationsHealthScoreFr extends TranslationsHealthScoreEn {
-	_TranslationsHealthScoreFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$healthScore$fr extends Translations$healthScore$en {
+	_Translations$healthScore$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -248,14 +248,14 @@ class _TranslationsHealthScoreFr extends TranslationsHealthScoreEn {
 }
 
 // Path: editProfile
-class _TranslationsEditProfileFr extends TranslationsEditProfileEn {
-	_TranslationsEditProfileFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$fr extends Translations$editProfile$en {
+	_Translations$editProfile$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Modifier le profil';
-	@override late final _TranslationsEditProfileSectionsFr sections = _TranslationsEditProfileSectionsFr._(_root);
+	@override late final _Translations$editProfile$sections$fr sections = _Translations$editProfile$sections$fr._(_root);
 	@override String get gender => 'Genre';
 	@override String get dateOfBirth => 'Date de naissance';
 	@override String get height => 'Taille';
@@ -272,40 +272,40 @@ class _TranslationsEditProfileFr extends TranslationsEditProfileEn {
 	@override String get imperialFtIn => 'Impérial (ft/in)';
 	@override String get metricKg => 'Métrique (kg)';
 	@override String get imperialLbs => 'Impérial (lbs)';
-	@override late final _TranslationsEditProfileGendersFr genders = _TranslationsEditProfileGendersFr._(_root);
-	@override late final _TranslationsEditProfileWeightGoalsFr weightGoals = _TranslationsEditProfileWeightGoalsFr._(_root);
-	@override late final _TranslationsEditProfileActivityLevelsFr activityLevels = _TranslationsEditProfileActivityLevelsFr._(_root);
+	@override late final _Translations$editProfile$genders$fr genders = _Translations$editProfile$genders$fr._(_root);
+	@override late final _Translations$editProfile$weightGoals$fr weightGoals = _Translations$editProfile$weightGoals$fr._(_root);
+	@override late final _Translations$editProfile$activityLevels$fr activityLevels = _Translations$editProfile$activityLevels$fr._(_root);
 }
 
 // Path: settings
-class _TranslationsSettingsFr extends TranslationsSettingsEn {
-	_TranslationsSettingsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$fr extends Translations$settings$en {
+	_Translations$settings$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Paramètres';
-	@override late final _TranslationsSettingsSectionsFr sections = _TranslationsSettingsSectionsFr._(_root);
-	@override late final _TranslationsSettingsEditProfileFr editProfile = _TranslationsSettingsEditProfileFr._(_root);
-	@override late final _TranslationsSettingsLanguageFr language = _TranslationsSettingsLanguageFr._(_root);
-	@override late final _TranslationsSettingsHeightUnitFr heightUnit = _TranslationsSettingsHeightUnitFr._(_root);
-	@override late final _TranslationsSettingsWeightUnitFr weightUnit = _TranslationsSettingsWeightUnitFr._(_root);
-	@override late final _TranslationsSettingsMealRemindersFr mealReminders = _TranslationsSettingsMealRemindersFr._(_root);
-	@override late final _TranslationsSettingsLocalInferenceFr localInference = _TranslationsSettingsLocalInferenceFr._(_root);
-	@override late final _TranslationsSettingsThemeFr theme = _TranslationsSettingsThemeFr._(_root);
-	@override late final _TranslationsSettingsSendFeedbackFr sendFeedback = _TranslationsSettingsSendFeedbackFr._(_root);
-	@override late final _TranslationsSettingsExportMealHistoryFr exportMealHistory = _TranslationsSettingsExportMealHistoryFr._(_root);
-	@override late final _TranslationsSettingsClearAllDataFr clearAllData = _TranslationsSettingsClearAllDataFr._(_root);
-	@override late final _TranslationsSettingsDebugOptionsFr debugOptions = _TranslationsSettingsDebugOptionsFr._(_root);
+	@override late final _Translations$settings$sections$fr sections = _Translations$settings$sections$fr._(_root);
+	@override late final _Translations$settings$editProfile$fr editProfile = _Translations$settings$editProfile$fr._(_root);
+	@override late final _Translations$settings$language$fr language = _Translations$settings$language$fr._(_root);
+	@override late final _Translations$settings$heightUnit$fr heightUnit = _Translations$settings$heightUnit$fr._(_root);
+	@override late final _Translations$settings$weightUnit$fr weightUnit = _Translations$settings$weightUnit$fr._(_root);
+	@override late final _Translations$settings$mealReminders$fr mealReminders = _Translations$settings$mealReminders$fr._(_root);
+	@override late final _Translations$settings$localInference$fr localInference = _Translations$settings$localInference$fr._(_root);
+	@override late final _Translations$settings$theme$fr theme = _Translations$settings$theme$fr._(_root);
+	@override late final _Translations$settings$sendFeedback$fr sendFeedback = _Translations$settings$sendFeedback$fr._(_root);
+	@override late final _Translations$settings$exportMealHistory$fr exportMealHistory = _Translations$settings$exportMealHistory$fr._(_root);
+	@override late final _Translations$settings$clearAllData$fr clearAllData = _Translations$settings$clearAllData$fr._(_root);
+	@override late final _Translations$settings$debugOptions$fr debugOptions = _Translations$settings$debugOptions$fr._(_root);
 	@override String get developerModeEnabled => 'Mode développeur activé !';
-	@override late final _TranslationsSettingsHealthConnectFr healthConnect = _TranslationsSettingsHealthConnectFr._(_root);
-	@override late final _TranslationsSettingsAboutFr about = _TranslationsSettingsAboutFr._(_root);
-	@override late final _TranslationsSettingsAppInfoFr appInfo = _TranslationsSettingsAppInfoFr._(_root);
+	@override late final _Translations$settings$healthConnect$fr healthConnect = _Translations$settings$healthConnect$fr._(_root);
+	@override late final _Translations$settings$about$fr about = _Translations$settings$about$fr._(_root);
+	@override late final _Translations$settings$appInfo$fr appInfo = _Translations$settings$appInfo$fr._(_root);
 }
 
 // Path: reminders
-class _TranslationsRemindersFr extends TranslationsRemindersEn {
-	_TranslationsRemindersFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$reminders$fr extends Translations$reminders$en {
+	_Translations$reminders$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -333,22 +333,22 @@ class _TranslationsRemindersFr extends TranslationsRemindersEn {
 }
 
 // Path: notifications
-class _TranslationsNotificationsFr extends TranslationsNotificationsEn {
-	_TranslationsNotificationsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$notifications$fr extends Translations$notifications$en {
+	_Translations$notifications$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsNotificationsBreakfastFr breakfast = _TranslationsNotificationsBreakfastFr._(_root);
-	@override late final _TranslationsNotificationsLunchFr lunch = _TranslationsNotificationsLunchFr._(_root);
-	@override late final _TranslationsNotificationsDinnerFr dinner = _TranslationsNotificationsDinnerFr._(_root);
-	@override late final _TranslationsNotificationsSnackFr snack = _TranslationsNotificationsSnackFr._(_root);
-	@override late final _TranslationsNotificationsTestFr test = _TranslationsNotificationsTestFr._(_root);
+	@override late final _Translations$notifications$breakfast$fr breakfast = _Translations$notifications$breakfast$fr._(_root);
+	@override late final _Translations$notifications$lunch$fr lunch = _Translations$notifications$lunch$fr._(_root);
+	@override late final _Translations$notifications$dinner$fr dinner = _Translations$notifications$dinner$fr._(_root);
+	@override late final _Translations$notifications$snack$fr snack = _Translations$notifications$snack$fr._(_root);
+	@override late final _Translations$notifications$test$fr test = _Translations$notifications$test$fr._(_root);
 }
 
 // Path: login
-class _TranslationsLoginFr extends TranslationsLoginEn {
-	_TranslationsLoginFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$login$fr extends Translations$login$en {
+	_Translations$login$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -359,22 +359,22 @@ class _TranslationsLoginFr extends TranslationsLoginEn {
 }
 
 // Path: disclaimer
-class _TranslationsDisclaimerFr extends TranslationsDisclaimerEn {
-	_TranslationsDisclaimerFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$fr extends Translations$disclaimer$en {
+	_Translations$disclaimer$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get pleaseNote => 'Veuillez noter';
-	@override late final _TranslationsDisclaimerSnapFr snap = _TranslationsDisclaimerSnapFr._(_root);
-	@override late final _TranslationsDisclaimerWeightEstimateFr weightEstimate = _TranslationsDisclaimerWeightEstimateFr._(_root);
-	@override late final _TranslationsDisclaimerHealthMetricsFr healthMetrics = _TranslationsDisclaimerHealthMetricsFr._(_root);
-	@override late final _TranslationsDisclaimerCalorieExpenditureFr calorieExpenditure = _TranslationsDisclaimerCalorieExpenditureFr._(_root);
+	@override late final _Translations$disclaimer$snap$fr snap = _Translations$disclaimer$snap$fr._(_root);
+	@override late final _Translations$disclaimer$weightEstimate$fr weightEstimate = _Translations$disclaimer$weightEstimate$fr._(_root);
+	@override late final _Translations$disclaimer$healthMetrics$fr healthMetrics = _Translations$disclaimer$healthMetrics$fr._(_root);
+	@override late final _Translations$disclaimer$calorieExpenditure$fr calorieExpenditure = _Translations$disclaimer$calorieExpenditure$fr._(_root);
 }
 
 // Path: localNutritionPhase4
-class _TranslationsLocalNutritionPhase4Fr extends TranslationsLocalNutritionPhase4En {
-	_TranslationsLocalNutritionPhase4Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$localNutritionPhase4$fr extends Translations$localNutritionPhase4$en {
+	_Translations$localNutritionPhase4$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -411,8 +411,8 @@ class _TranslationsLocalNutritionPhase4Fr extends TranslationsLocalNutritionPhas
 }
 
 // Path: common
-class _TranslationsCommonFr extends TranslationsCommonEn {
-	_TranslationsCommonFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$common$fr extends Translations$common$en {
+	_Translations$common$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -422,8 +422,8 @@ class _TranslationsCommonFr extends TranslationsCommonEn {
 }
 
 // Path: feedbackRating
-class _TranslationsFeedbackRatingFr extends TranslationsFeedbackRatingEn {
-	_TranslationsFeedbackRatingFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$feedbackRating$fr extends Translations$feedbackRating$en {
+	_Translations$feedbackRating$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -446,8 +446,8 @@ class _TranslationsFeedbackRatingFr extends TranslationsFeedbackRatingEn {
 }
 
 // Path: health
-class _TranslationsHealthFr extends TranslationsHealthEn {
-	_TranslationsHealthFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$health$fr extends Translations$health$en {
+	_Translations$health$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -457,20 +457,20 @@ class _TranslationsHealthFr extends TranslationsHealthEn {
 }
 
 // Path: onboarding.features
-class _TranslationsOnboardingFeaturesFr extends TranslationsOnboardingFeaturesEn {
-	_TranslationsOnboardingFeaturesFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$features$fr extends Translations$onboarding$features$en {
+	_Translations$onboarding$features$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsOnboardingFeaturesFoodRecognitionFr foodRecognition = _TranslationsOnboardingFeaturesFoodRecognitionFr._(_root);
-	@override late final _TranslationsOnboardingFeaturesAiAnalysisFr aiAnalysis = _TranslationsOnboardingFeaturesAiAnalysisFr._(_root);
-	@override late final _TranslationsOnboardingFeaturesHealthIntegrationFr healthIntegration = _TranslationsOnboardingFeaturesHealthIntegrationFr._(_root);
+	@override late final _Translations$onboarding$features$foodRecognition$fr foodRecognition = _Translations$onboarding$features$foodRecognition$fr._(_root);
+	@override late final _Translations$onboarding$features$aiAnalysis$fr aiAnalysis = _Translations$onboarding$features$aiAnalysis$fr._(_root);
+	@override late final _Translations$onboarding$features$healthIntegration$fr healthIntegration = _Translations$onboarding$features$healthIntegration$fr._(_root);
 }
 
 // Path: onboarding.gender
-class _TranslationsOnboardingGenderFr extends TranslationsOnboardingGenderEn {
-	_TranslationsOnboardingGenderFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$gender$fr extends Translations$onboarding$gender$en {
+	_Translations$onboarding$gender$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -481,8 +481,8 @@ class _TranslationsOnboardingGenderFr extends TranslationsOnboardingGenderEn {
 }
 
 // Path: onboarding.height
-class _TranslationsOnboardingHeightFr extends TranslationsOnboardingHeightEn {
-	_TranslationsOnboardingHeightFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$height$fr extends Translations$onboarding$height$en {
+	_Translations$onboarding$height$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -495,8 +495,8 @@ class _TranslationsOnboardingHeightFr extends TranslationsOnboardingHeightEn {
 }
 
 // Path: onboarding.weight
-class _TranslationsOnboardingWeightFr extends TranslationsOnboardingWeightEn {
-	_TranslationsOnboardingWeightFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$weight$fr extends Translations$onboarding$weight$en {
+	_Translations$onboarding$weight$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -511,8 +511,8 @@ class _TranslationsOnboardingWeightFr extends TranslationsOnboardingWeightEn {
 }
 
 // Path: onboarding.age
-class _TranslationsOnboardingAgeFr extends TranslationsOnboardingAgeEn {
-	_TranslationsOnboardingAgeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$age$fr extends Translations$onboarding$age$en {
+	_Translations$onboarding$age$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -523,8 +523,8 @@ class _TranslationsOnboardingAgeFr extends TranslationsOnboardingAgeEn {
 }
 
 // Path: onboarding.bmiScale
-class _TranslationsOnboardingBmiScaleFr extends TranslationsOnboardingBmiScaleEn {
-	_TranslationsOnboardingBmiScaleFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$bmiScale$fr extends Translations$onboarding$bmiScale$en {
+	_Translations$onboarding$bmiScale$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -533,13 +533,13 @@ class _TranslationsOnboardingBmiScaleFr extends TranslationsOnboardingBmiScaleEn
 	@override String get healthy => 'Sain';
 	@override String get overweight => 'Surpoids';
 	@override String get obese => 'Obèse';
-	@override late final _TranslationsOnboardingBmiScaleCategoriesFr categories = _TranslationsOnboardingBmiScaleCategoriesFr._(_root);
-	@override late final _TranslationsOnboardingBmiScaleMessagesFr messages = _TranslationsOnboardingBmiScaleMessagesFr._(_root);
+	@override late final _Translations$onboarding$bmiScale$categories$fr categories = _Translations$onboarding$bmiScale$categories$fr._(_root);
+	@override late final _Translations$onboarding$bmiScale$messages$fr messages = _Translations$onboarding$bmiScale$messages$fr._(_root);
 }
 
 // Path: onboarding.weightGoal
-class _TranslationsOnboardingWeightGoalFr extends TranslationsOnboardingWeightGoalEn {
-	_TranslationsOnboardingWeightGoalFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$weightGoal$fr extends Translations$onboarding$weightGoal$en {
+	_Translations$onboarding$weightGoal$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -549,8 +549,8 @@ class _TranslationsOnboardingWeightGoalFr extends TranslationsOnboardingWeightGo
 }
 
 // Path: onboarding.activityLevel
-class _TranslationsOnboardingActivityLevelFr extends TranslationsOnboardingActivityLevelEn {
-	_TranslationsOnboardingActivityLevelFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$activityLevel$fr extends Translations$onboarding$activityLevel$en {
+	_Translations$onboarding$activityLevel$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -560,8 +560,8 @@ class _TranslationsOnboardingActivityLevelFr extends TranslationsOnboardingActiv
 }
 
 // Path: onboarding.healthConnect
-class _TranslationsOnboardingHealthConnectFr extends TranslationsOnboardingHealthConnectEn {
-	_TranslationsOnboardingHealthConnectFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$fr extends Translations$onboarding$healthConnect$en {
+	_Translations$onboarding$healthConnect$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -569,12 +569,12 @@ class _TranslationsOnboardingHealthConnectFr extends TranslationsOnboardingHealt
 	@override String get title => 'Connectez-vous à Health Connect';
 	@override String get description => 'Synchronisez vos données de santé pour de meilleurs insights et un suivi automatique des calories';
 	@override String get overviewDescription => 'Utilisez les calories brûlées dans votre objectif quotidien et partagez, si vous le souhaitez, les repas enregistrés avec Health Connect.';
-	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingFr automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingFr._(_root);
-	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedFr caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedFr._(_root);
-	@override late final _TranslationsOnboardingHealthConnectProgressInsightsFr progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsFr._(_root);
-	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsFr shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsFr._(_root);
-	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationFr seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationFr._(_root);
-	@override late final _TranslationsOnboardingHealthConnectUserControlFr userControl = _TranslationsOnboardingHealthConnectUserControlFr._(_root);
+	@override late final _Translations$onboarding$healthConnect$automaticTracking$fr automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$fr._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$fr caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$fr._(_root);
+	@override late final _Translations$onboarding$healthConnect$progressInsights$fr progressInsights = _Translations$onboarding$healthConnect$progressInsights$fr._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$fr shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$fr._(_root);
+	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$fr seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$fr._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$fr userControl = _Translations$onboarding$healthConnect$userControl$fr._(_root);
 	@override String get connected => 'Health Connect connecté';
 	@override String get notConnected => 'Health Connect non connecté';
 	@override String get setup => 'Configurer Health Connect';
@@ -592,20 +592,20 @@ class _TranslationsOnboardingHealthConnectFr extends TranslationsOnboardingHealt
 }
 
 // Path: onboarding.reinforcement
-class _TranslationsOnboardingReinforcementFr extends TranslationsOnboardingReinforcementEn {
-	_TranslationsOnboardingReinforcementFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$reinforcement$fr extends Translations$onboarding$reinforcement$en {
+	_Translations$onboarding$reinforcement$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsOnboardingReinforcementTrackingSuccessFr trackingSuccess = _TranslationsOnboardingReinforcementTrackingSuccessFr._(_root);
-	@override late final _TranslationsOnboardingReinforcementHealthProfileFr healthProfile = _TranslationsOnboardingReinforcementHealthProfileFr._(_root);
-	@override late final _TranslationsOnboardingReinforcementGoalLifestyleFr goalLifestyle = _TranslationsOnboardingReinforcementGoalLifestyleFr._(_root);
+	@override late final _Translations$onboarding$reinforcement$trackingSuccess$fr trackingSuccess = _Translations$onboarding$reinforcement$trackingSuccess$fr._(_root);
+	@override late final _Translations$onboarding$reinforcement$healthProfile$fr healthProfile = _Translations$onboarding$reinforcement$healthProfile$fr._(_root);
+	@override late final _Translations$onboarding$reinforcement$goalLifestyle$fr goalLifestyle = _Translations$onboarding$reinforcement$goalLifestyle$fr._(_root);
 }
 
 // Path: home.aiSummary
-class _TranslationsHomeAiSummaryFr extends TranslationsHomeAiSummaryEn {
-	_TranslationsHomeAiSummaryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$aiSummary$fr extends Translations$home$aiSummary$en {
+	_Translations$home$aiSummary$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -623,8 +623,8 @@ class _TranslationsHomeAiSummaryFr extends TranslationsHomeAiSummaryEn {
 }
 
 // Path: home.dailyGoal
-class _TranslationsHomeDailyGoalFr extends TranslationsHomeDailyGoalEn {
-	_TranslationsHomeDailyGoalFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$dailyGoal$fr extends Translations$home$dailyGoal$en {
+	_Translations$home$dailyGoal$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -646,8 +646,8 @@ class _TranslationsHomeDailyGoalFr extends TranslationsHomeDailyGoalEn {
 }
 
 // Path: home.dailySummary
-class _TranslationsHomeDailySummaryFr extends TranslationsHomeDailySummaryEn {
-	_TranslationsHomeDailySummaryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$dailySummary$fr extends Translations$home$dailySummary$en {
+	_Translations$home$dailySummary$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -663,8 +663,8 @@ class _TranslationsHomeDailySummaryFr extends TranslationsHomeDailySummaryEn {
 }
 
 // Path: home.intakeProgress
-class _TranslationsHomeIntakeProgressFr extends TranslationsHomeIntakeProgressEn {
-	_TranslationsHomeIntakeProgressFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$intakeProgress$fr extends Translations$home$intakeProgress$en {
+	_Translations$home$intakeProgress$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -675,8 +675,8 @@ class _TranslationsHomeIntakeProgressFr extends TranslationsHomeIntakeProgressEn
 }
 
 // Path: home.intakeHistory
-class _TranslationsHomeIntakeHistoryFr extends TranslationsHomeIntakeHistoryEn {
-	_TranslationsHomeIntakeHistoryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$intakeHistory$fr extends Translations$home$intakeHistory$en {
+	_Translations$home$intakeHistory$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -689,8 +689,8 @@ class _TranslationsHomeIntakeHistoryFr extends TranslationsHomeIntakeHistoryEn {
 }
 
 // Path: home.mealLog
-class _TranslationsHomeMealLogFr extends TranslationsHomeMealLogEn {
-	_TranslationsHomeMealLogFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$mealLog$fr extends Translations$home$mealLog$en {
+	_Translations$home$mealLog$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -702,8 +702,8 @@ class _TranslationsHomeMealLogFr extends TranslationsHomeMealLogEn {
 }
 
 // Path: home.mealDescription
-class _TranslationsHomeMealDescriptionFr extends TranslationsHomeMealDescriptionEn {
-	_TranslationsHomeMealDescriptionFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$mealDescription$fr extends Translations$home$mealDescription$en {
+	_Translations$home$mealDescription$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -715,8 +715,8 @@ class _TranslationsHomeMealDescriptionFr extends TranslationsHomeMealDescription
 }
 
 // Path: home.favoriteMeals
-class _TranslationsHomeFavoriteMealsFr extends TranslationsHomeFavoriteMealsEn {
-	_TranslationsHomeFavoriteMealsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$favoriteMeals$fr extends Translations$home$favoriteMeals$en {
+	_Translations$home$favoriteMeals$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -730,8 +730,8 @@ class _TranslationsHomeFavoriteMealsFr extends TranslationsHomeFavoriteMealsEn {
 }
 
 // Path: home.mealSnap
-class _TranslationsHomeMealSnapFr extends TranslationsHomeMealSnapEn {
-	_TranslationsHomeMealSnapFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$mealSnap$fr extends Translations$home$mealSnap$en {
+	_Translations$home$mealSnap$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -745,8 +745,8 @@ class _TranslationsHomeMealSnapFr extends TranslationsHomeMealSnapEn {
 }
 
 // Path: home.connectHealth
-class _TranslationsHomeConnectHealthFr extends TranslationsHomeConnectHealthEn {
-	_TranslationsHomeConnectHealthFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$home$connectHealth$fr extends Translations$home$connectHealth$en {
+	_Translations$home$connectHealth$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -760,8 +760,8 @@ class _TranslationsHomeConnectHealthFr extends TranslationsHomeConnectHealthEn {
 }
 
 // Path: meal.nutrition
-class _TranslationsMealNutritionFr extends TranslationsMealNutritionEn {
-	_TranslationsMealNutritionFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$nutrition$fr extends Translations$meal$nutrition$en {
+	_Translations$meal$nutrition$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -774,8 +774,8 @@ class _TranslationsMealNutritionFr extends TranslationsMealNutritionEn {
 }
 
 // Path: meal.deleteConfirmation
-class _TranslationsMealDeleteConfirmationFr extends TranslationsMealDeleteConfirmationEn {
-	_TranslationsMealDeleteConfirmationFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$deleteConfirmation$fr extends Translations$meal$deleteConfirmation$en {
+	_Translations$meal$deleteConfirmation$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -787,8 +787,8 @@ class _TranslationsMealDeleteConfirmationFr extends TranslationsMealDeleteConfir
 }
 
 // Path: meal.questionFlow
-class _TranslationsMealQuestionFlowFr extends TranslationsMealQuestionFlowEn {
-	_TranslationsMealQuestionFlowFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$questionFlow$fr extends Translations$meal$questionFlow$en {
+	_Translations$meal$questionFlow$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -800,8 +800,8 @@ class _TranslationsMealQuestionFlowFr extends TranslationsMealQuestionFlowEn {
 }
 
 // Path: meal.analysis
-class _TranslationsMealAnalysisFr extends TranslationsMealAnalysisEn {
-	_TranslationsMealAnalysisFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$analysis$fr extends Translations$meal$analysis$en {
+	_Translations$meal$analysis$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -834,8 +834,8 @@ class _TranslationsMealAnalysisFr extends TranslationsMealAnalysisEn {
 }
 
 // Path: meal.localInference
-class _TranslationsMealLocalInferenceFr extends TranslationsMealLocalInferenceEn {
-	_TranslationsMealLocalInferenceFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$localInference$fr extends Translations$meal$localInference$en {
+	_Translations$meal$localInference$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -861,8 +861,8 @@ class _TranslationsMealLocalInferenceFr extends TranslationsMealLocalInferenceEn
 }
 
 // Path: meal.feedback
-class _TranslationsMealFeedbackFr extends TranslationsMealFeedbackEn {
-	_TranslationsMealFeedbackFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$meal$feedback$fr extends Translations$meal$feedback$en {
+	_Translations$meal$feedback$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -882,8 +882,8 @@ class _TranslationsMealFeedbackFr extends TranslationsMealFeedbackEn {
 }
 
 // Path: favorites.sortOptions
-class _TranslationsFavoritesSortOptionsFr extends TranslationsFavoritesSortOptionsEn {
-	_TranslationsFavoritesSortOptionsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$favorites$sortOptions$fr extends Translations$favorites$sortOptions$en {
+	_Translations$favorites$sortOptions$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -894,8 +894,8 @@ class _TranslationsFavoritesSortOptionsFr extends TranslationsFavoritesSortOptio
 }
 
 // Path: profile.sections
-class _TranslationsProfileSectionsFr extends TranslationsProfileSectionsEn {
-	_TranslationsProfileSectionsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$profile$sections$fr extends Translations$profile$sections$en {
+	_Translations$profile$sections$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -907,8 +907,8 @@ class _TranslationsProfileSectionsFr extends TranslationsProfileSectionsEn {
 }
 
 // Path: profile.calculatedValues
-class _TranslationsProfileCalculatedValuesFr extends TranslationsProfileCalculatedValuesEn {
-	_TranslationsProfileCalculatedValuesFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$profile$calculatedValues$fr extends Translations$profile$calculatedValues$en {
+	_Translations$profile$calculatedValues$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -921,8 +921,8 @@ class _TranslationsProfileCalculatedValuesFr extends TranslationsProfileCalculat
 }
 
 // Path: editProfile.sections
-class _TranslationsEditProfileSectionsFr extends TranslationsEditProfileSectionsEn {
-	_TranslationsEditProfileSectionsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$sections$fr extends Translations$editProfile$sections$en {
+	_Translations$editProfile$sections$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -933,8 +933,8 @@ class _TranslationsEditProfileSectionsFr extends TranslationsEditProfileSections
 }
 
 // Path: editProfile.genders
-class _TranslationsEditProfileGendersFr extends TranslationsEditProfileGendersEn {
-	_TranslationsEditProfileGendersFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$genders$fr extends Translations$editProfile$genders$en {
+	_Translations$editProfile$genders$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -945,34 +945,34 @@ class _TranslationsEditProfileGendersFr extends TranslationsEditProfileGendersEn
 }
 
 // Path: editProfile.weightGoals
-class _TranslationsEditProfileWeightGoalsFr extends TranslationsEditProfileWeightGoalsEn {
-	_TranslationsEditProfileWeightGoalsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$weightGoals$fr extends Translations$editProfile$weightGoals$en {
+	_Translations$editProfile$weightGoals$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsEditProfileWeightGoalsLoseWeightFr loseWeight = _TranslationsEditProfileWeightGoalsLoseWeightFr._(_root);
-	@override late final _TranslationsEditProfileWeightGoalsMaintainWeightFr maintainWeight = _TranslationsEditProfileWeightGoalsMaintainWeightFr._(_root);
-	@override late final _TranslationsEditProfileWeightGoalsGainWeightFr gainWeight = _TranslationsEditProfileWeightGoalsGainWeightFr._(_root);
+	@override late final _Translations$editProfile$weightGoals$loseWeight$fr loseWeight = _Translations$editProfile$weightGoals$loseWeight$fr._(_root);
+	@override late final _Translations$editProfile$weightGoals$maintainWeight$fr maintainWeight = _Translations$editProfile$weightGoals$maintainWeight$fr._(_root);
+	@override late final _Translations$editProfile$weightGoals$gainWeight$fr gainWeight = _Translations$editProfile$weightGoals$gainWeight$fr._(_root);
 }
 
 // Path: editProfile.activityLevels
-class _TranslationsEditProfileActivityLevelsFr extends TranslationsEditProfileActivityLevelsEn {
-	_TranslationsEditProfileActivityLevelsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$activityLevels$fr extends Translations$editProfile$activityLevels$en {
+	_Translations$editProfile$activityLevels$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsEditProfileActivityLevelsSedentaryFr sedentary = _TranslationsEditProfileActivityLevelsSedentaryFr._(_root);
-	@override late final _TranslationsEditProfileActivityLevelsLightlyActiveFr lightlyActive = _TranslationsEditProfileActivityLevelsLightlyActiveFr._(_root);
-	@override late final _TranslationsEditProfileActivityLevelsModeratelyActiveFr moderatelyActive = _TranslationsEditProfileActivityLevelsModeratelyActiveFr._(_root);
-	@override late final _TranslationsEditProfileActivityLevelsVeryActiveFr veryActive = _TranslationsEditProfileActivityLevelsVeryActiveFr._(_root);
-	@override late final _TranslationsEditProfileActivityLevelsExtremelyActiveFr extremelyActive = _TranslationsEditProfileActivityLevelsExtremelyActiveFr._(_root);
+	@override late final _Translations$editProfile$activityLevels$sedentary$fr sedentary = _Translations$editProfile$activityLevels$sedentary$fr._(_root);
+	@override late final _Translations$editProfile$activityLevels$lightlyActive$fr lightlyActive = _Translations$editProfile$activityLevels$lightlyActive$fr._(_root);
+	@override late final _Translations$editProfile$activityLevels$moderatelyActive$fr moderatelyActive = _Translations$editProfile$activityLevels$moderatelyActive$fr._(_root);
+	@override late final _Translations$editProfile$activityLevels$veryActive$fr veryActive = _Translations$editProfile$activityLevels$veryActive$fr._(_root);
+	@override late final _Translations$editProfile$activityLevels$extremelyActive$fr extremelyActive = _Translations$editProfile$activityLevels$extremelyActive$fr._(_root);
 }
 
 // Path: settings.sections
-class _TranslationsSettingsSectionsFr extends TranslationsSettingsSectionsEn {
-	_TranslationsSettingsSectionsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$sections$fr extends Translations$settings$sections$en {
+	_Translations$settings$sections$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -989,8 +989,8 @@ class _TranslationsSettingsSectionsFr extends TranslationsSettingsSectionsEn {
 }
 
 // Path: settings.editProfile
-class _TranslationsSettingsEditProfileFr extends TranslationsSettingsEditProfileEn {
-	_TranslationsSettingsEditProfileFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$editProfile$fr extends Translations$settings$editProfile$en {
+	_Translations$settings$editProfile$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1000,8 +1000,8 @@ class _TranslationsSettingsEditProfileFr extends TranslationsSettingsEditProfile
 }
 
 // Path: settings.language
-class _TranslationsSettingsLanguageFr extends TranslationsSettingsLanguageEn {
-	_TranslationsSettingsLanguageFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$language$fr extends Translations$settings$language$en {
+	_Translations$settings$language$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1013,8 +1013,8 @@ class _TranslationsSettingsLanguageFr extends TranslationsSettingsLanguageEn {
 }
 
 // Path: settings.heightUnit
-class _TranslationsSettingsHeightUnitFr extends TranslationsSettingsHeightUnitEn {
-	_TranslationsSettingsHeightUnitFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$heightUnit$fr extends Translations$settings$heightUnit$en {
+	_Translations$settings$heightUnit$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1023,8 +1023,8 @@ class _TranslationsSettingsHeightUnitFr extends TranslationsSettingsHeightUnitEn
 }
 
 // Path: settings.weightUnit
-class _TranslationsSettingsWeightUnitFr extends TranslationsSettingsWeightUnitEn {
-	_TranslationsSettingsWeightUnitFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$weightUnit$fr extends Translations$settings$weightUnit$en {
+	_Translations$settings$weightUnit$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1033,8 +1033,8 @@ class _TranslationsSettingsWeightUnitFr extends TranslationsSettingsWeightUnitEn
 }
 
 // Path: settings.mealReminders
-class _TranslationsSettingsMealRemindersFr extends TranslationsSettingsMealRemindersEn {
-	_TranslationsSettingsMealRemindersFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$mealReminders$fr extends Translations$settings$mealReminders$en {
+	_Translations$settings$mealReminders$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1044,8 +1044,8 @@ class _TranslationsSettingsMealRemindersFr extends TranslationsSettingsMealRemin
 }
 
 // Path: settings.localInference
-class _TranslationsSettingsLocalInferenceFr extends TranslationsSettingsLocalInferenceEn {
-	_TranslationsSettingsLocalInferenceFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$localInference$fr extends Translations$settings$localInference$en {
+	_Translations$settings$localInference$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1068,8 +1068,8 @@ class _TranslationsSettingsLocalInferenceFr extends TranslationsSettingsLocalInf
 }
 
 // Path: settings.theme
-class _TranslationsSettingsThemeFr extends TranslationsSettingsThemeEn {
-	_TranslationsSettingsThemeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$theme$fr extends Translations$settings$theme$en {
+	_Translations$settings$theme$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1081,8 +1081,8 @@ class _TranslationsSettingsThemeFr extends TranslationsSettingsThemeEn {
 }
 
 // Path: settings.sendFeedback
-class _TranslationsSettingsSendFeedbackFr extends TranslationsSettingsSendFeedbackEn {
-	_TranslationsSettingsSendFeedbackFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$sendFeedback$fr extends Translations$settings$sendFeedback$en {
+	_Translations$settings$sendFeedback$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1098,8 +1098,8 @@ class _TranslationsSettingsSendFeedbackFr extends TranslationsSettingsSendFeedba
 }
 
 // Path: settings.exportMealHistory
-class _TranslationsSettingsExportMealHistoryFr extends TranslationsSettingsExportMealHistoryEn {
-	_TranslationsSettingsExportMealHistoryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$exportMealHistory$fr extends Translations$settings$exportMealHistory$en {
+	_Translations$settings$exportMealHistory$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1111,8 +1111,8 @@ class _TranslationsSettingsExportMealHistoryFr extends TranslationsSettingsExpor
 }
 
 // Path: settings.clearAllData
-class _TranslationsSettingsClearAllDataFr extends TranslationsSettingsClearAllDataEn {
-	_TranslationsSettingsClearAllDataFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$clearAllData$fr extends Translations$settings$clearAllData$en {
+	_Translations$settings$clearAllData$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1128,8 +1128,8 @@ class _TranslationsSettingsClearAllDataFr extends TranslationsSettingsClearAllDa
 }
 
 // Path: settings.debugOptions
-class _TranslationsSettingsDebugOptionsFr extends TranslationsSettingsDebugOptionsEn {
-	_TranslationsSettingsDebugOptionsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$debugOptions$fr extends Translations$settings$debugOptions$en {
+	_Translations$settings$debugOptions$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1138,17 +1138,17 @@ class _TranslationsSettingsDebugOptionsFr extends TranslationsSettingsDebugOptio
 }
 
 // Path: settings.healthConnect
-class _TranslationsSettingsHealthConnectFr extends TranslationsSettingsHealthConnectEn {
-	_TranslationsSettingsHealthConnectFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$fr extends Translations$settings$healthConnect$en {
+	_Translations$settings$healthConnect$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Voir et gérer les autorisations';
-	@override late final _TranslationsSettingsHealthConnectUnavailableFr unavailable = _TranslationsSettingsHealthConnectUnavailableFr._(_root);
-	@override late final _TranslationsSettingsHealthConnectUpdateRequiredFr updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredFr._(_root);
-	@override late final _TranslationsSettingsHealthConnectPermissionsFr permissions = _TranslationsSettingsHealthConnectPermissionsFr._(_root);
+	@override late final _Translations$settings$healthConnect$unavailable$fr unavailable = _Translations$settings$healthConnect$unavailable$fr._(_root);
+	@override late final _Translations$settings$healthConnect$updateRequired$fr updateRequired = _Translations$settings$healthConnect$updateRequired$fr._(_root);
+	@override late final _Translations$settings$healthConnect$permissions$fr permissions = _Translations$settings$healthConnect$permissions$fr._(_root);
 	@override String get managePermissions => 'Gérer les autorisations';
 	@override String get openSettings => 'Ouvrir les paramètres Health Connect';
 	@override String get disconnect => 'Déconnecter Health Connect';
@@ -1171,23 +1171,23 @@ class _TranslationsSettingsHealthConnectFr extends TranslationsSettingsHealthCon
 }
 
 // Path: settings.about
-class _TranslationsSettingsAboutFr extends TranslationsSettingsAboutEn {
-	_TranslationsSettingsAboutFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$about$fr extends Translations$settings$about$en {
+	_Translations$settings$about$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'À propos';
 	@override String get tagline => 'Rapide, gratuit et axé sur la confidentialité pour la conscience calorique';
-	@override late final _TranslationsSettingsAboutOurStoryFr ourStory = _TranslationsSettingsAboutOurStoryFr._(_root);
-	@override late final _TranslationsSettingsAboutPrivacyFr privacy = _TranslationsSettingsAboutPrivacyFr._(_root);
-	@override late final _TranslationsSettingsAboutDeveloperFr developer = _TranslationsSettingsAboutDeveloperFr._(_root);
-	@override late final _TranslationsSettingsAboutFeedbackFr feedback = _TranslationsSettingsAboutFeedbackFr._(_root);
+	@override late final _Translations$settings$about$ourStory$fr ourStory = _Translations$settings$about$ourStory$fr._(_root);
+	@override late final _Translations$settings$about$privacy$fr privacy = _Translations$settings$about$privacy$fr._(_root);
+	@override late final _Translations$settings$about$developer$fr developer = _Translations$settings$about$developer$fr._(_root);
+	@override late final _Translations$settings$about$feedback$fr feedback = _Translations$settings$about$feedback$fr._(_root);
 }
 
 // Path: settings.appInfo
-class _TranslationsSettingsAppInfoFr extends TranslationsSettingsAppInfoEn {
-	_TranslationsSettingsAppInfoFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$appInfo$fr extends Translations$settings$appInfo$en {
+	_Translations$settings$appInfo$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1197,8 +1197,8 @@ class _TranslationsSettingsAppInfoFr extends TranslationsSettingsAppInfoEn {
 }
 
 // Path: notifications.breakfast
-class _TranslationsNotificationsBreakfastFr extends TranslationsNotificationsBreakfastEn {
-	_TranslationsNotificationsBreakfastFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$notifications$breakfast$fr extends Translations$notifications$breakfast$en {
+	_Translations$notifications$breakfast$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1208,8 +1208,8 @@ class _TranslationsNotificationsBreakfastFr extends TranslationsNotificationsBre
 }
 
 // Path: notifications.lunch
-class _TranslationsNotificationsLunchFr extends TranslationsNotificationsLunchEn {
-	_TranslationsNotificationsLunchFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$notifications$lunch$fr extends Translations$notifications$lunch$en {
+	_Translations$notifications$lunch$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1219,8 +1219,8 @@ class _TranslationsNotificationsLunchFr extends TranslationsNotificationsLunchEn
 }
 
 // Path: notifications.dinner
-class _TranslationsNotificationsDinnerFr extends TranslationsNotificationsDinnerEn {
-	_TranslationsNotificationsDinnerFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$notifications$dinner$fr extends Translations$notifications$dinner$en {
+	_Translations$notifications$dinner$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1230,8 +1230,8 @@ class _TranslationsNotificationsDinnerFr extends TranslationsNotificationsDinner
 }
 
 // Path: notifications.snack
-class _TranslationsNotificationsSnackFr extends TranslationsNotificationsSnackEn {
-	_TranslationsNotificationsSnackFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$notifications$snack$fr extends Translations$notifications$snack$en {
+	_Translations$notifications$snack$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1241,8 +1241,8 @@ class _TranslationsNotificationsSnackFr extends TranslationsNotificationsSnackEn
 }
 
 // Path: notifications.test
-class _TranslationsNotificationsTestFr extends TranslationsNotificationsTestEn {
-	_TranslationsNotificationsTestFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$notifications$test$fr extends Translations$notifications$test$en {
+	_Translations$notifications$test$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1251,63 +1251,63 @@ class _TranslationsNotificationsTestFr extends TranslationsNotificationsTestEn {
 }
 
 // Path: disclaimer.snap
-class _TranslationsDisclaimerSnapFr extends TranslationsDisclaimerSnapEn {
-	_TranslationsDisclaimerSnapFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$snap$fr extends Translations$disclaimer$snap$en {
+	_Translations$disclaimer$snap$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String description({required Object appLabel}) => '${appLabel} fournit des informations nutritionnelles estimées. La précision dépend de vos saisies et des variations alimentaires. Utilisez‑les comme guide, pas comme une source définitive. Consultez un professionnel pour des conseils diététiques personnalisés.';
-	@override late final _TranslationsDisclaimerSnapPortionSizeFr portionSize = _TranslationsDisclaimerSnapPortionSizeFr._(_root);
-	@override late final _TranslationsDisclaimerSnapPreparationMethodsFr preparationMethods = _TranslationsDisclaimerSnapPreparationMethodsFr._(_root);
-	@override late final _TranslationsDisclaimerSnapIngredientsFr ingredients = _TranslationsDisclaimerSnapIngredientsFr._(_root);
-	@override late final _TranslationsDisclaimerSnapDatabaseLimitationsFr databaseLimitations = _TranslationsDisclaimerSnapDatabaseLimitationsFr._(_root);
+	@override late final _Translations$disclaimer$snap$portionSize$fr portionSize = _Translations$disclaimer$snap$portionSize$fr._(_root);
+	@override late final _Translations$disclaimer$snap$preparationMethods$fr preparationMethods = _Translations$disclaimer$snap$preparationMethods$fr._(_root);
+	@override late final _Translations$disclaimer$snap$ingredients$fr ingredients = _Translations$disclaimer$snap$ingredients$fr._(_root);
+	@override late final _Translations$disclaimer$snap$databaseLimitations$fr databaseLimitations = _Translations$disclaimer$snap$databaseLimitations$fr._(_root);
 }
 
 // Path: disclaimer.weightEstimate
-class _TranslationsDisclaimerWeightEstimateFr extends TranslationsDisclaimerWeightEstimateEn {
-	_TranslationsDisclaimerWeightEstimateFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$weightEstimate$fr extends Translations$disclaimer$weightEstimate$en {
+	_Translations$disclaimer$weightEstimate$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'À propos de l\'estimation de poids';
 	@override String get description => 'La variation de poids projetée est une estimation théorique basée sur le modèle simple calories entrantes vs calories dépensées. Elle sert uniquement de guide motivationnel et non de prédiction de votre poids réel.';
-	@override late final _TranslationsDisclaimerWeightEstimateCalorieAccuracyFr calorieAccuracy = _TranslationsDisclaimerWeightEstimateCalorieAccuracyFr._(_root);
-	@override late final _TranslationsDisclaimerWeightEstimateBiologicalFactorsFr biologicalFactors = _TranslationsDisclaimerWeightEstimateBiologicalFactorsFr._(_root);
-	@override late final _TranslationsDisclaimerWeightEstimateWaterWeightFr waterWeight = _TranslationsDisclaimerWeightEstimateWaterWeightFr._(_root);
-	@override late final _TranslationsDisclaimerWeightEstimateProfessionalGuidanceFr professionalGuidance = _TranslationsDisclaimerWeightEstimateProfessionalGuidanceFr._(_root);
+	@override late final _Translations$disclaimer$weightEstimate$calorieAccuracy$fr calorieAccuracy = _Translations$disclaimer$weightEstimate$calorieAccuracy$fr._(_root);
+	@override late final _Translations$disclaimer$weightEstimate$biologicalFactors$fr biologicalFactors = _Translations$disclaimer$weightEstimate$biologicalFactors$fr._(_root);
+	@override late final _Translations$disclaimer$weightEstimate$waterWeight$fr waterWeight = _Translations$disclaimer$weightEstimate$waterWeight$fr._(_root);
+	@override late final _Translations$disclaimer$weightEstimate$professionalGuidance$fr professionalGuidance = _Translations$disclaimer$weightEstimate$professionalGuidance$fr._(_root);
 }
 
 // Path: disclaimer.healthMetrics
-class _TranslationsDisclaimerHealthMetricsFr extends TranslationsDisclaimerHealthMetricsEn {
-	_TranslationsDisclaimerHealthMetricsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$healthMetrics$fr extends Translations$disclaimer$healthMetrics$en {
+	_Translations$disclaimer$healthMetrics$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get description => 'Ces indicateurs vous aident à comprendre les besoins énergétiques de votre corps et à guider vos objectifs nutritionnels.';
-	@override late final _TranslationsDisclaimerHealthMetricsBmrFr bmr = _TranslationsDisclaimerHealthMetricsBmrFr._(_root);
-	@override late final _TranslationsDisclaimerHealthMetricsTdeeFr tdee = _TranslationsDisclaimerHealthMetricsTdeeFr._(_root);
-	@override late final _TranslationsDisclaimerHealthMetricsDailyGoalFr dailyGoal = _TranslationsDisclaimerHealthMetricsDailyGoalFr._(_root);
+	@override late final _Translations$disclaimer$healthMetrics$bmr$fr bmr = _Translations$disclaimer$healthMetrics$bmr$fr._(_root);
+	@override late final _Translations$disclaimer$healthMetrics$tdee$fr tdee = _Translations$disclaimer$healthMetrics$tdee$fr._(_root);
+	@override late final _Translations$disclaimer$healthMetrics$dailyGoal$fr dailyGoal = _Translations$disclaimer$healthMetrics$dailyGoal$fr._(_root);
 }
 
 // Path: disclaimer.calorieExpenditure
-class _TranslationsDisclaimerCalorieExpenditureFr extends TranslationsDisclaimerCalorieExpenditureEn {
-	_TranslationsDisclaimerCalorieExpenditureFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$calorieExpenditure$fr extends Translations$disclaimer$calorieExpenditure$en {
+	_Translations$disclaimer$calorieExpenditure$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
 	@override String get title => 'Estimation de la dépense calorique';
 	@override String get description => 'Lorsque les données Health Connect ne sont pas disponibles, nous estimons les calories brûlées aujourd\'hui en utilisant votre BMR et votre niveau d\'activité (TDEE), ajustés à la fraction de la journée écoulée.';
-	@override late final _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr howCalculated = _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr._(_root);
-	@override late final _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr professionalGuidance = _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr._(_root);
+	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$fr howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$fr._(_root);
+	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$fr professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$fr._(_root);
 }
 
 // Path: onboarding.features.foodRecognition
-class _TranslationsOnboardingFeaturesFoodRecognitionFr extends TranslationsOnboardingFeaturesFoodRecognitionEn {
-	_TranslationsOnboardingFeaturesFoodRecognitionFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$features$foodRecognition$fr extends Translations$onboarding$features$foodRecognition$en {
+	_Translations$onboarding$features$foodRecognition$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1317,8 +1317,8 @@ class _TranslationsOnboardingFeaturesFoodRecognitionFr extends TranslationsOnboa
 }
 
 // Path: onboarding.features.aiAnalysis
-class _TranslationsOnboardingFeaturesAiAnalysisFr extends TranslationsOnboardingFeaturesAiAnalysisEn {
-	_TranslationsOnboardingFeaturesAiAnalysisFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$features$aiAnalysis$fr extends Translations$onboarding$features$aiAnalysis$en {
+	_Translations$onboarding$features$aiAnalysis$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1328,8 +1328,8 @@ class _TranslationsOnboardingFeaturesAiAnalysisFr extends TranslationsOnboarding
 }
 
 // Path: onboarding.features.healthIntegration
-class _TranslationsOnboardingFeaturesHealthIntegrationFr extends TranslationsOnboardingFeaturesHealthIntegrationEn {
-	_TranslationsOnboardingFeaturesHealthIntegrationFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$features$healthIntegration$fr extends Translations$onboarding$features$healthIntegration$en {
+	_Translations$onboarding$features$healthIntegration$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1339,8 +1339,8 @@ class _TranslationsOnboardingFeaturesHealthIntegrationFr extends TranslationsOnb
 }
 
 // Path: onboarding.bmiScale.categories
-class _TranslationsOnboardingBmiScaleCategoriesFr extends TranslationsOnboardingBmiScaleCategoriesEn {
-	_TranslationsOnboardingBmiScaleCategoriesFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$bmiScale$categories$fr extends Translations$onboarding$bmiScale$categories$en {
+	_Translations$onboarding$bmiScale$categories$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1352,8 +1352,8 @@ class _TranslationsOnboardingBmiScaleCategoriesFr extends TranslationsOnboarding
 }
 
 // Path: onboarding.bmiScale.messages
-class _TranslationsOnboardingBmiScaleMessagesFr extends TranslationsOnboardingBmiScaleMessagesEn {
-	_TranslationsOnboardingBmiScaleMessagesFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$bmiScale$messages$fr extends Translations$onboarding$bmiScale$messages$en {
+	_Translations$onboarding$bmiScale$messages$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1365,8 +1365,8 @@ class _TranslationsOnboardingBmiScaleMessagesFr extends TranslationsOnboardingBm
 }
 
 // Path: onboarding.healthConnect.automaticTracking
-class _TranslationsOnboardingHealthConnectAutomaticTrackingFr extends TranslationsOnboardingHealthConnectAutomaticTrackingEn {
-	_TranslationsOnboardingHealthConnectAutomaticTrackingFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$automaticTracking$fr extends Translations$onboarding$healthConnect$automaticTracking$en {
+	_Translations$onboarding$healthConnect$automaticTracking$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1376,8 +1376,8 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingFr extends Translatio
 }
 
 // Path: onboarding.healthConnect.caloriesBurned
-class _TranslationsOnboardingHealthConnectCaloriesBurnedFr extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
-	_TranslationsOnboardingHealthConnectCaloriesBurnedFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$caloriesBurned$fr extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1387,8 +1387,8 @@ class _TranslationsOnboardingHealthConnectCaloriesBurnedFr extends TranslationsO
 }
 
 // Path: onboarding.healthConnect.progressInsights
-class _TranslationsOnboardingHealthConnectProgressInsightsFr extends TranslationsOnboardingHealthConnectProgressInsightsEn {
-	_TranslationsOnboardingHealthConnectProgressInsightsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$progressInsights$fr extends Translations$onboarding$healthConnect$progressInsights$en {
+	_Translations$onboarding$healthConnect$progressInsights$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1398,8 +1398,8 @@ class _TranslationsOnboardingHealthConnectProgressInsightsFr extends Translation
 }
 
 // Path: onboarding.healthConnect.shareLoggedMeals
-class _TranslationsOnboardingHealthConnectShareLoggedMealsFr extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
-	_TranslationsOnboardingHealthConnectShareLoggedMealsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$shareLoggedMeals$fr extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1409,8 +1409,8 @@ class _TranslationsOnboardingHealthConnectShareLoggedMealsFr extends Translation
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
-class _TranslationsOnboardingHealthConnectSeamlessIntegrationFr extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
-	_TranslationsOnboardingHealthConnectSeamlessIntegrationFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$seamlessIntegration$fr extends Translations$onboarding$healthConnect$seamlessIntegration$en {
+	_Translations$onboarding$healthConnect$seamlessIntegration$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1420,8 +1420,8 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationFr extends Translat
 }
 
 // Path: onboarding.healthConnect.userControl
-class _TranslationsOnboardingHealthConnectUserControlFr extends TranslationsOnboardingHealthConnectUserControlEn {
-	_TranslationsOnboardingHealthConnectUserControlFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$healthConnect$userControl$fr extends Translations$onboarding$healthConnect$userControl$en {
+	_Translations$onboarding$healthConnect$userControl$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1431,8 +1431,8 @@ class _TranslationsOnboardingHealthConnectUserControlFr extends TranslationsOnbo
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
-class _TranslationsOnboardingReinforcementTrackingSuccessFr extends TranslationsOnboardingReinforcementTrackingSuccessEn {
-	_TranslationsOnboardingReinforcementTrackingSuccessFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$reinforcement$trackingSuccess$fr extends Translations$onboarding$reinforcement$trackingSuccess$en {
+	_Translations$onboarding$reinforcement$trackingSuccess$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1451,8 +1451,8 @@ class _TranslationsOnboardingReinforcementTrackingSuccessFr extends Translations
 }
 
 // Path: onboarding.reinforcement.healthProfile
-class _TranslationsOnboardingReinforcementHealthProfileFr extends TranslationsOnboardingReinforcementHealthProfileEn {
-	_TranslationsOnboardingReinforcementHealthProfileFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$reinforcement$healthProfile$fr extends Translations$onboarding$reinforcement$healthProfile$en {
+	_Translations$onboarding$reinforcement$healthProfile$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1468,8 +1468,8 @@ class _TranslationsOnboardingReinforcementHealthProfileFr extends TranslationsOn
 }
 
 // Path: onboarding.reinforcement.goalLifestyle
-class _TranslationsOnboardingReinforcementGoalLifestyleFr extends TranslationsOnboardingReinforcementGoalLifestyleEn {
-	_TranslationsOnboardingReinforcementGoalLifestyleFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$onboarding$reinforcement$goalLifestyle$fr extends Translations$onboarding$reinforcement$goalLifestyle$en {
+	_Translations$onboarding$reinforcement$goalLifestyle$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1485,8 +1485,8 @@ class _TranslationsOnboardingReinforcementGoalLifestyleFr extends TranslationsOn
 }
 
 // Path: editProfile.weightGoals.loseWeight
-class _TranslationsEditProfileWeightGoalsLoseWeightFr extends TranslationsEditProfileWeightGoalsLoseWeightEn {
-	_TranslationsEditProfileWeightGoalsLoseWeightFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$weightGoals$loseWeight$fr extends Translations$editProfile$weightGoals$loseWeight$en {
+	_Translations$editProfile$weightGoals$loseWeight$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1496,8 +1496,8 @@ class _TranslationsEditProfileWeightGoalsLoseWeightFr extends TranslationsEditPr
 }
 
 // Path: editProfile.weightGoals.maintainWeight
-class _TranslationsEditProfileWeightGoalsMaintainWeightFr extends TranslationsEditProfileWeightGoalsMaintainWeightEn {
-	_TranslationsEditProfileWeightGoalsMaintainWeightFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$weightGoals$maintainWeight$fr extends Translations$editProfile$weightGoals$maintainWeight$en {
+	_Translations$editProfile$weightGoals$maintainWeight$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1507,8 +1507,8 @@ class _TranslationsEditProfileWeightGoalsMaintainWeightFr extends TranslationsEd
 }
 
 // Path: editProfile.weightGoals.gainWeight
-class _TranslationsEditProfileWeightGoalsGainWeightFr extends TranslationsEditProfileWeightGoalsGainWeightEn {
-	_TranslationsEditProfileWeightGoalsGainWeightFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$weightGoals$gainWeight$fr extends Translations$editProfile$weightGoals$gainWeight$en {
+	_Translations$editProfile$weightGoals$gainWeight$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1518,8 +1518,8 @@ class _TranslationsEditProfileWeightGoalsGainWeightFr extends TranslationsEditPr
 }
 
 // Path: editProfile.activityLevels.sedentary
-class _TranslationsEditProfileActivityLevelsSedentaryFr extends TranslationsEditProfileActivityLevelsSedentaryEn {
-	_TranslationsEditProfileActivityLevelsSedentaryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$activityLevels$sedentary$fr extends Translations$editProfile$activityLevels$sedentary$en {
+	_Translations$editProfile$activityLevels$sedentary$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1529,8 +1529,8 @@ class _TranslationsEditProfileActivityLevelsSedentaryFr extends TranslationsEdit
 }
 
 // Path: editProfile.activityLevels.lightlyActive
-class _TranslationsEditProfileActivityLevelsLightlyActiveFr extends TranslationsEditProfileActivityLevelsLightlyActiveEn {
-	_TranslationsEditProfileActivityLevelsLightlyActiveFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$activityLevels$lightlyActive$fr extends Translations$editProfile$activityLevels$lightlyActive$en {
+	_Translations$editProfile$activityLevels$lightlyActive$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1540,8 +1540,8 @@ class _TranslationsEditProfileActivityLevelsLightlyActiveFr extends Translations
 }
 
 // Path: editProfile.activityLevels.moderatelyActive
-class _TranslationsEditProfileActivityLevelsModeratelyActiveFr extends TranslationsEditProfileActivityLevelsModeratelyActiveEn {
-	_TranslationsEditProfileActivityLevelsModeratelyActiveFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$activityLevels$moderatelyActive$fr extends Translations$editProfile$activityLevels$moderatelyActive$en {
+	_Translations$editProfile$activityLevels$moderatelyActive$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1551,8 +1551,8 @@ class _TranslationsEditProfileActivityLevelsModeratelyActiveFr extends Translati
 }
 
 // Path: editProfile.activityLevels.veryActive
-class _TranslationsEditProfileActivityLevelsVeryActiveFr extends TranslationsEditProfileActivityLevelsVeryActiveEn {
-	_TranslationsEditProfileActivityLevelsVeryActiveFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$activityLevels$veryActive$fr extends Translations$editProfile$activityLevels$veryActive$en {
+	_Translations$editProfile$activityLevels$veryActive$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1562,8 +1562,8 @@ class _TranslationsEditProfileActivityLevelsVeryActiveFr extends TranslationsEdi
 }
 
 // Path: editProfile.activityLevels.extremelyActive
-class _TranslationsEditProfileActivityLevelsExtremelyActiveFr extends TranslationsEditProfileActivityLevelsExtremelyActiveEn {
-	_TranslationsEditProfileActivityLevelsExtremelyActiveFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$editProfile$activityLevels$extremelyActive$fr extends Translations$editProfile$activityLevels$extremelyActive$en {
+	_Translations$editProfile$activityLevels$extremelyActive$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1573,8 +1573,8 @@ class _TranslationsEditProfileActivityLevelsExtremelyActiveFr extends Translatio
 }
 
 // Path: settings.healthConnect.unavailable
-class _TranslationsSettingsHealthConnectUnavailableFr extends TranslationsSettingsHealthConnectUnavailableEn {
-	_TranslationsSettingsHealthConnectUnavailableFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$unavailable$fr extends Translations$settings$healthConnect$unavailable$en {
+	_Translations$settings$healthConnect$unavailable$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1585,8 +1585,8 @@ class _TranslationsSettingsHealthConnectUnavailableFr extends TranslationsSettin
 }
 
 // Path: settings.healthConnect.updateRequired
-class _TranslationsSettingsHealthConnectUpdateRequiredFr extends TranslationsSettingsHealthConnectUpdateRequiredEn {
-	_TranslationsSettingsHealthConnectUpdateRequiredFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$updateRequired$fr extends Translations$settings$healthConnect$updateRequired$en {
+	_Translations$settings$healthConnect$updateRequired$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1597,8 +1597,8 @@ class _TranslationsSettingsHealthConnectUpdateRequiredFr extends TranslationsSet
 }
 
 // Path: settings.healthConnect.permissions
-class _TranslationsSettingsHealthConnectPermissionsFr extends TranslationsSettingsHealthConnectPermissionsEn {
-	_TranslationsSettingsHealthConnectPermissionsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$permissions$fr extends Translations$settings$healthConnect$permissions$en {
+	_Translations$settings$healthConnect$permissions$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1607,14 +1607,14 @@ class _TranslationsSettingsHealthConnectPermissionsFr extends TranslationsSettin
 	@override String get description => 'Les autorisations suivantes sont requises pour fournir l\'intégration Health Connect :';
 	@override String get granted => 'Accordé';
 	@override String get notGranted => 'Non accordé';
-	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr._(_root);
-	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadFr nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadFr._(_root);
-	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteFr nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteFr._(_root);
+	@override late final _Translations$settings$healthConnect$permissions$caloriesBurned$fr caloriesBurned = _Translations$settings$healthConnect$permissions$caloriesBurned$fr._(_root);
+	@override late final _Translations$settings$healthConnect$permissions$nutritionRead$fr nutritionRead = _Translations$settings$healthConnect$permissions$nutritionRead$fr._(_root);
+	@override late final _Translations$settings$healthConnect$permissions$nutritionWrite$fr nutritionWrite = _Translations$settings$healthConnect$permissions$nutritionWrite$fr._(_root);
 }
 
 // Path: settings.about.ourStory
-class _TranslationsSettingsAboutOurStoryFr extends TranslationsSettingsAboutOurStoryEn {
-	_TranslationsSettingsAboutOurStoryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$about$ourStory$fr extends Translations$settings$about$ourStory$en {
+	_Translations$settings$about$ourStory$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1624,8 +1624,8 @@ class _TranslationsSettingsAboutOurStoryFr extends TranslationsSettingsAboutOurS
 }
 
 // Path: settings.about.privacy
-class _TranslationsSettingsAboutPrivacyFr extends TranslationsSettingsAboutPrivacyEn {
-	_TranslationsSettingsAboutPrivacyFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$about$privacy$fr extends Translations$settings$about$privacy$en {
+	_Translations$settings$about$privacy$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1642,8 +1642,8 @@ class _TranslationsSettingsAboutPrivacyFr extends TranslationsSettingsAboutPriva
 }
 
 // Path: settings.about.developer
-class _TranslationsSettingsAboutDeveloperFr extends TranslationsSettingsAboutDeveloperEn {
-	_TranslationsSettingsAboutDeveloperFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$about$developer$fr extends Translations$settings$about$developer$en {
+	_Translations$settings$about$developer$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1655,8 +1655,8 @@ class _TranslationsSettingsAboutDeveloperFr extends TranslationsSettingsAboutDev
 }
 
 // Path: settings.about.feedback
-class _TranslationsSettingsAboutFeedbackFr extends TranslationsSettingsAboutFeedbackEn {
-	_TranslationsSettingsAboutFeedbackFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$about$feedback$fr extends Translations$settings$about$feedback$en {
+	_Translations$settings$about$feedback$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1668,8 +1668,8 @@ class _TranslationsSettingsAboutFeedbackFr extends TranslationsSettingsAboutFeed
 }
 
 // Path: disclaimer.snap.portionSize
-class _TranslationsDisclaimerSnapPortionSizeFr extends TranslationsDisclaimerSnapPortionSizeEn {
-	_TranslationsDisclaimerSnapPortionSizeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$snap$portionSize$fr extends Translations$disclaimer$snap$portionSize$en {
+	_Translations$disclaimer$snap$portionSize$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1679,8 +1679,8 @@ class _TranslationsDisclaimerSnapPortionSizeFr extends TranslationsDisclaimerSna
 }
 
 // Path: disclaimer.snap.preparationMethods
-class _TranslationsDisclaimerSnapPreparationMethodsFr extends TranslationsDisclaimerSnapPreparationMethodsEn {
-	_TranslationsDisclaimerSnapPreparationMethodsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$snap$preparationMethods$fr extends Translations$disclaimer$snap$preparationMethods$en {
+	_Translations$disclaimer$snap$preparationMethods$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1690,8 +1690,8 @@ class _TranslationsDisclaimerSnapPreparationMethodsFr extends TranslationsDiscla
 }
 
 // Path: disclaimer.snap.ingredients
-class _TranslationsDisclaimerSnapIngredientsFr extends TranslationsDisclaimerSnapIngredientsEn {
-	_TranslationsDisclaimerSnapIngredientsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$snap$ingredients$fr extends Translations$disclaimer$snap$ingredients$en {
+	_Translations$disclaimer$snap$ingredients$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1701,8 +1701,8 @@ class _TranslationsDisclaimerSnapIngredientsFr extends TranslationsDisclaimerSna
 }
 
 // Path: disclaimer.snap.databaseLimitations
-class _TranslationsDisclaimerSnapDatabaseLimitationsFr extends TranslationsDisclaimerSnapDatabaseLimitationsEn {
-	_TranslationsDisclaimerSnapDatabaseLimitationsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$snap$databaseLimitations$fr extends Translations$disclaimer$snap$databaseLimitations$en {
+	_Translations$disclaimer$snap$databaseLimitations$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1712,8 +1712,8 @@ class _TranslationsDisclaimerSnapDatabaseLimitationsFr extends TranslationsDiscl
 }
 
 // Path: disclaimer.weightEstimate.calorieAccuracy
-class _TranslationsDisclaimerWeightEstimateCalorieAccuracyFr extends TranslationsDisclaimerWeightEstimateCalorieAccuracyEn {
-	_TranslationsDisclaimerWeightEstimateCalorieAccuracyFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$weightEstimate$calorieAccuracy$fr extends Translations$disclaimer$weightEstimate$calorieAccuracy$en {
+	_Translations$disclaimer$weightEstimate$calorieAccuracy$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1723,8 +1723,8 @@ class _TranslationsDisclaimerWeightEstimateCalorieAccuracyFr extends Translation
 }
 
 // Path: disclaimer.weightEstimate.biologicalFactors
-class _TranslationsDisclaimerWeightEstimateBiologicalFactorsFr extends TranslationsDisclaimerWeightEstimateBiologicalFactorsEn {
-	_TranslationsDisclaimerWeightEstimateBiologicalFactorsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$weightEstimate$biologicalFactors$fr extends Translations$disclaimer$weightEstimate$biologicalFactors$en {
+	_Translations$disclaimer$weightEstimate$biologicalFactors$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1734,8 +1734,8 @@ class _TranslationsDisclaimerWeightEstimateBiologicalFactorsFr extends Translati
 }
 
 // Path: disclaimer.weightEstimate.waterWeight
-class _TranslationsDisclaimerWeightEstimateWaterWeightFr extends TranslationsDisclaimerWeightEstimateWaterWeightEn {
-	_TranslationsDisclaimerWeightEstimateWaterWeightFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$weightEstimate$waterWeight$fr extends Translations$disclaimer$weightEstimate$waterWeight$en {
+	_Translations$disclaimer$weightEstimate$waterWeight$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1745,8 +1745,8 @@ class _TranslationsDisclaimerWeightEstimateWaterWeightFr extends TranslationsDis
 }
 
 // Path: disclaimer.weightEstimate.professionalGuidance
-class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceFr extends TranslationsDisclaimerWeightEstimateProfessionalGuidanceEn {
-	_TranslationsDisclaimerWeightEstimateProfessionalGuidanceFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$weightEstimate$professionalGuidance$fr extends Translations$disclaimer$weightEstimate$professionalGuidance$en {
+	_Translations$disclaimer$weightEstimate$professionalGuidance$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1756,8 +1756,8 @@ class _TranslationsDisclaimerWeightEstimateProfessionalGuidanceFr extends Transl
 }
 
 // Path: disclaimer.healthMetrics.bmr
-class _TranslationsDisclaimerHealthMetricsBmrFr extends TranslationsDisclaimerHealthMetricsBmrEn {
-	_TranslationsDisclaimerHealthMetricsBmrFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$healthMetrics$bmr$fr extends Translations$disclaimer$healthMetrics$bmr$en {
+	_Translations$disclaimer$healthMetrics$bmr$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1767,8 +1767,8 @@ class _TranslationsDisclaimerHealthMetricsBmrFr extends TranslationsDisclaimerHe
 }
 
 // Path: disclaimer.healthMetrics.tdee
-class _TranslationsDisclaimerHealthMetricsTdeeFr extends TranslationsDisclaimerHealthMetricsTdeeEn {
-	_TranslationsDisclaimerHealthMetricsTdeeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$healthMetrics$tdee$fr extends Translations$disclaimer$healthMetrics$tdee$en {
+	_Translations$disclaimer$healthMetrics$tdee$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1778,8 +1778,8 @@ class _TranslationsDisclaimerHealthMetricsTdeeFr extends TranslationsDisclaimerH
 }
 
 // Path: disclaimer.healthMetrics.dailyGoal
-class _TranslationsDisclaimerHealthMetricsDailyGoalFr extends TranslationsDisclaimerHealthMetricsDailyGoalEn {
-	_TranslationsDisclaimerHealthMetricsDailyGoalFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$healthMetrics$dailyGoal$fr extends Translations$disclaimer$healthMetrics$dailyGoal$en {
+	_Translations$disclaimer$healthMetrics$dailyGoal$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1789,8 +1789,8 @@ class _TranslationsDisclaimerHealthMetricsDailyGoalFr extends TranslationsDiscla
 }
 
 // Path: disclaimer.calorieExpenditure.howCalculated
-class _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr extends TranslationsDisclaimerCalorieExpenditureHowCalculatedEn {
-	_TranslationsDisclaimerCalorieExpenditureHowCalculatedFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$calorieExpenditure$howCalculated$fr extends Translations$disclaimer$calorieExpenditure$howCalculated$en {
+	_Translations$disclaimer$calorieExpenditure$howCalculated$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1800,8 +1800,8 @@ class _TranslationsDisclaimerCalorieExpenditureHowCalculatedFr extends Translati
 }
 
 // Path: disclaimer.calorieExpenditure.professionalGuidance
-class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr extends TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceEn {
-	_TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$disclaimer$calorieExpenditure$professionalGuidance$fr extends Translations$disclaimer$calorieExpenditure$professionalGuidance$en {
+	_Translations$disclaimer$calorieExpenditure$professionalGuidance$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1811,8 +1811,8 @@ class _TranslationsDisclaimerCalorieExpenditureProfessionalGuidanceFr extends Tr
 }
 
 // Path: settings.healthConnect.permissions.caloriesBurned
-class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr extends TranslationsSettingsHealthConnectPermissionsCaloriesBurnedEn {
-	_TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$permissions$caloriesBurned$fr extends Translations$settings$healthConnect$permissions$caloriesBurned$en {
+	_Translations$settings$healthConnect$permissions$caloriesBurned$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1823,8 +1823,8 @@ class _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedFr extends Tran
 }
 
 // Path: settings.healthConnect.permissions.nutritionRead
-class _TranslationsSettingsHealthConnectPermissionsNutritionReadFr extends TranslationsSettingsHealthConnectPermissionsNutritionReadEn {
-	_TranslationsSettingsHealthConnectPermissionsNutritionReadFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$permissions$nutritionRead$fr extends Translations$settings$healthConnect$permissions$nutritionRead$en {
+	_Translations$settings$healthConnect$permissions$nutritionRead$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
@@ -1835,8 +1835,8 @@ class _TranslationsSettingsHealthConnectPermissionsNutritionReadFr extends Trans
 }
 
 // Path: settings.healthConnect.permissions.nutritionWrite
-class _TranslationsSettingsHealthConnectPermissionsNutritionWriteFr extends TranslationsSettingsHealthConnectPermissionsNutritionWriteEn {
-	_TranslationsSettingsHealthConnectPermissionsNutritionWriteFr._(TranslationsFr root) : this._root = root, super.internal(root);
+class _Translations$settings$healthConnect$permissions$nutritionWrite$fr extends Translations$settings$healthConnect$permissions$nutritionWrite$en {
+	_Translations$settings$healthConnect$permissions$nutritionWrite$fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 

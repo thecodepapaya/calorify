@@ -6,9 +6,10 @@ import 'package:calorify_watch/core/services/sync_service.dart';
 import 'package:calorify_watch/widgets/watch_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
 import 'package:specs/specs.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class MealResultScreen extends StatefulWidget {
@@ -54,11 +55,11 @@ class _MealResultScreenState extends State<MealResultScreen> {
       );
       if (result == SyncRequestResult.queued) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text(
-              'Meal saved offline. It will sync when your phone reconnects.',
+              Translations.of(context).watch.result.savedOfflineMessage,
             ),
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           ),
         );
       }
@@ -68,9 +69,9 @@ class _MealResultScreenState extends State<MealResultScreen> {
       setState(() => _logging = false);
       unawaited(HapticFeedback.mediumImpact());
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Could not save the meal. Please try again.'),
-          duration: Duration(seconds: 3),
+        SnackBar(
+          content: Text(Translations.of(context).watch.result.saveFailed),
+          duration: const Duration(seconds: 3),
         ),
       );
     }
@@ -81,206 +82,209 @@ class _MealResultScreenState extends State<MealResultScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final macros = _meal.macros;
+    final strings = Translations.of(context).watch;
 
-    return Scaffold(
-      backgroundColor: colorScheme.surface,
-      body: SafeArea(
-        minimum: circularWatchPadding,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Success / logged state icon
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                child:
-                    _logged
-                        ? Icon(
-                          LucideIcons.circleCheckBig,
-                          key: const ValueKey('check'),
-                          size: 28,
-                          color: colorScheme.primary,
-                        )
-                        : Icon(
-                          LucideIcons.sparkles,
-                          key: const ValueKey('sparkles'),
-                          size: 28,
-                          color: colorScheme.primary,
-                        ),
+    return WatchListScaffold(
+      title: strings.result.title,
+      icon: AppIcons.sparkles,
+      onBack: context.router.pop,
+      safeAreaMinimum: const EdgeInsets.fromLTRB(8, 6, 8, 6),
+      headerPadding: const EdgeInsets.symmetric(horizontal: 4),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Success / logged state icon
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child:
+                  _logged
+                      ? Icon(
+                        AppIcons.circleCheckBig,
+                        key: const ValueKey('check'),
+                        size: 28,
+                        color: colorScheme.primary,
+                      )
+                      : Icon(
+                        AppIcons.sparkles,
+                        key: const ValueKey('sparkles'),
+                        size: 28,
+                        color: colorScheme.primary,
+                      ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              _logged
+                  ? (_queuedOffline
+                      ? strings.result.savedOffline
+                      : strings.result.logged)
+                  : strings.result.mealFound,
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: colorScheme.primary,
+                fontWeight: FontWeight.w600,
+                fontSize: watchLabelFontSize,
+                letterSpacing: 0.5,
               ),
-              const SizedBox(height: 6),
-              Text(
-                _logged
-                    ? (_queuedOffline ? 'Saved Offline' : 'Logged!')
-                    : 'Meal Found',
-                style: theme.textTheme.labelMedium?.copyWith(
-                  color: colorScheme.primary,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 10,
-                  letterSpacing: 0.5,
-                ),
+            ),
+            const SizedBox(height: 10),
+            // Meal name
+            Text(
+              _meal.name,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: watchTitleFontSize,
+                color: colorScheme.onSurface,
               ),
-              const SizedBox(height: 10),
-              // Meal name
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            if (_meal.quantity.isNotEmpty) ...[
+              const SizedBox(height: 4),
               Text(
-                _meal.name,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                  color: colorScheme.onSurface,
+                _meal.quantity,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  fontSize: watchLabelFontSize,
+                  color: colorScheme.onSurfaceVariant,
                 ),
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              if (_meal.quantity.isNotEmpty) ...[
-                const SizedBox(height: 4),
+            ],
+            const SizedBox(height: 12),
+            Text(
+              strings.result.estimatedEnergy,
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+                fontSize: watchLabelFontSize,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 3),
+            // Calorie display
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Icon(
+                  AppIcons.flame,
+                  size: 18,
+                  color: colorScheme.calorieIconColor,
+                ),
+                const SizedBox(width: 4),
                 Text(
-                  _meal.quantity,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontSize: 10,
-                    color: colorScheme.onSurfaceVariant,
+                  '${macros.calories}',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontSize: watchHeadlineFontSize,
+                    fontWeight: FontWeight.w800,
+                    color: colorScheme.calorieIconColor,
+                    height: 1.0,
                   ),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  strings.common.kcal,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: watchLabelFontSize,
+                  ),
                 ),
               ],
-              const SizedBox(height: 12),
-              Text(
-                'Estimated energy',
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                  fontSize: 8,
-                  fontWeight: FontWeight.w600,
+            ),
+            const SizedBox(height: 10),
+            // Macros row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                WatchMacroMetric(
+                  icon: AppIcons.dumbbell,
+                  color: colorScheme.proteinIconColor,
+                  value: macros.protein,
+                  label: strings.nutrition.protein,
                 ),
-              ),
-              const SizedBox(height: 3),
-              // Calorie display
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: [
-                  Icon(
-                    LucideIcons.flame,
-                    size: 18,
-                    color: colorScheme.calorieIconColor,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${macros.calories}',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w800,
-                      color: colorScheme.calorieIconColor,
-                      height: 1.0,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    'kcal',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      fontSize: 10,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              // Macros row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  WatchMacroMetric(
-                    icon: LucideIcons.dumbbell,
-                    color: colorScheme.proteinIconColor,
-                    value: macros.protein,
-                    label: 'Protein',
-                  ),
+                const SizedBox(width: 8),
+                WatchMacroMetric(
+                  icon: AppIcons.wheat,
+                  color: colorScheme.carbsIconColor,
+                  value: macros.carbs,
+                  label: strings.nutrition.carbs,
+                ),
+                const SizedBox(width: 8),
+                WatchMacroMetric(
+                  icon: AppIcons.droplet,
+                  color: colorScheme.fatIconColor,
+                  value: macros.fat,
+                  label: strings.nutrition.fat,
+                ),
+                if (macros.fiber > 0) ...[
                   const SizedBox(width: 8),
                   WatchMacroMetric(
-                    icon: LucideIcons.wheat,
-                    color: colorScheme.carbsIconColor,
-                    value: macros.carbs,
-                    label: 'Carbs',
+                    icon: AppIcons.leaf,
+                    color: colorScheme.fiberIconColor,
+                    value: macros.fiber,
+                    label: strings.nutrition.fiber,
                   ),
-                  const SizedBox(width: 8),
-                  WatchMacroMetric(
-                    icon: LucideIcons.droplet,
-                    color: colorScheme.fatIconColor,
-                    value: macros.fat,
-                    label: 'Fat',
-                  ),
-                  if (macros.fiber > 0) ...[
-                    const SizedBox(width: 8),
-                    WatchMacroMetric(
-                      icon: LucideIcons.leaf,
-                      color: colorScheme.fiberIconColor,
-                      value: macros.fiber,
-                      label: 'Fiber',
-                    ),
-                  ],
                 ],
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Log button
+            if (!_logged) ...[
+              WatchPillButton(
+                label:
+                    _logging ? strings.result.logging : strings.result.logMeal,
+                icon: AppIcons.plus,
+                busy: _logging,
+                onPressed: _logMeal,
+                primary: true,
+                tint: colorScheme.primary,
               ),
-              const SizedBox(height: 16),
-              // Log button
-              if (!_logged) ...[
-                WatchPillButton(
-                  label: _logging ? 'Logging…' : 'Log Meal',
-                  icon: LucideIcons.plus,
-                  busy: _logging,
-                  onPressed: _logMeal,
-                  primary: true,
-                  tint: colorScheme.primary,
+              const SizedBox(height: 8),
+              // Log Another
+              WatchPillButton(
+                label: strings.result.logAnother,
+                icon: AppIcons.rotateCcw,
+                onPressed: () {
+                  unawaited(HapticFeedback.lightImpact());
+                  context.router.pop();
+                },
+              ),
+              const SizedBox(height: 4),
+              // Cancel
+              TextButton(
+                onPressed: () {
+                  unawaited(HapticFeedback.lightImpact());
+                  context.router.popUntilRouteWithName(HomeRoute.name);
+                },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(88, 44),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                const SizedBox(height: 8),
-                // Log Another
-                WatchPillButton(
-                  label: 'Log Another',
-                  icon: LucideIcons.rotateCcw,
-                  onPressed: () {
-                    unawaited(HapticFeedback.lightImpact());
-                    context.router.pop();
-                  },
-                ),
-                const SizedBox(height: 4),
-                // Cancel
-                TextButton(
-                  onPressed: () {
-                    unawaited(HapticFeedback.lightImpact());
-                    context.router.popUntilRouteWithName(HomeRoute.name);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: const Size(88, 44),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: Text(
-                    'Cancel',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant.withValues(
-                        alpha: 0.6,
-                      ),
-                      fontSize: 9,
-                    ),
+                child: Text(
+                  strings.common.cancel,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: watchLabelFontSize,
                   ),
                 ),
-              ] else
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    'Going back…',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant,
-                      fontSize: 9,
-                    ),
+              ),
+            ] else
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  strings.result.goingBack,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                    fontSize: watchLabelFontSize,
                   ),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );

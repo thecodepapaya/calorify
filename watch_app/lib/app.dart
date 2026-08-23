@@ -1,6 +1,8 @@
 import 'package:specs/specs.dart';
 import 'package:calorify_watch/core/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:i18n/i18n.dart';
 
 final _appRouter = AppRouter();
 
@@ -14,37 +16,35 @@ class WatchScrollBehavior extends MaterialScrollBehavior {
     Widget child,
     ScrollableDetails details,
   ) {
-    return Scrollbar(
-      controller: details.controller,
-      interactive: false,
-      child: child,
-    );
+    return child;
   }
 }
 
 @visibleForTesting
 ThemeData buildWatchTheme(ThemeData base) {
-  final colors = base.colorScheme.copyWith(surface: Colors.black);
+  const black = Colors.black;
+  final colors = base.colorScheme.copyWith(
+    surface: black,
+    surfaceDim: black,
+    surfaceContainerLowest: black,
+    surfaceContainerLow: const Color(0xFF070809),
+    surfaceContainer: const Color(0xFF0A0C0E),
+    surfaceContainerHigh: const Color(0xFF101318),
+    surfaceContainerHighest: const Color(0xFF171B21),
+    surfaceBright: const Color(0xFF1D2229),
+    surfaceTint: Colors.transparent,
+  );
   return base.copyWith(
     colorScheme: colors,
-    scaffoldBackgroundColor: Colors.black,
-    canvasColor: Colors.black,
+    scaffoldBackgroundColor: black,
+    canvasColor: black,
     splashFactory: InkSparkle.splashFactory,
-    scrollbarTheme: ScrollbarThemeData(
-      thumbColor: WidgetStatePropertyAll(
-        colors.onSurfaceVariant.withValues(alpha: 0.85),
-      ),
-      thickness: const WidgetStatePropertyAll(3),
-      radius: const Radius.circular(3),
-      crossAxisMargin: 4,
-      mainAxisMargin: 24,
-    ),
     snackBarTheme: SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
       backgroundColor: colors.inverseSurface,
       contentTextStyle: base.textTheme.labelSmall?.copyWith(
         color: colors.onInverseSurface,
-        fontSize: 10,
+        fontSize: watchLabelFontSize,
         fontWeight: FontWeight.w600,
       ),
       shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(18)),
@@ -61,12 +61,16 @@ class CalorifyWatchApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translations = Translations.of(context);
     return MaterialApp.router(
-      title: 'Calorify Watch',
+      title: translations.watch.appTitle,
       debugShowCheckedModeBanner: false,
       theme: buildWatchTheme(AppThemes.darkTheme),
       darkTheme: buildWatchTheme(AppThemes.darkTheme),
       themeMode: ThemeMode.dark,
+      locale: TranslationProvider.of(context).locale.flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       scrollBehavior: const WatchScrollBehavior(),
       routerConfig: _appRouter.config(),
     );
