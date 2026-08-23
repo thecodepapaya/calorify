@@ -52,11 +52,36 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: backend/package-lock.json
-      - name: Set up protoc
-        uses: arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b # v3
-        with:
-          version: "34.1"
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install protoc
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROTOC_VERSION: "34.1"
+        run: |
+          set -euo pipefail
+          case "$RUNNER_ARCH" in
+            X64)
+              asset="protoc-${PROTOC_VERSION}-linux-x86_64.zip"
+              checksum="af27ea66cd26938fe48587804ca7d4817457a08350021a1c6e23a27ccc8c6904"
+              ;;
+            ARM64)
+              asset="protoc-${PROTOC_VERSION}-linux-aarch_64.zip"
+              checksum="31c5e9e3c7bf013cf41fb97765ee255c140024a6b175b6cc9b64beddd7c23ba7"
+              ;;
+            *)
+              printf 'Unsupported runner architecture: %s\n' "$RUNNER_ARCH" >&2
+              exit 1
+              ;;
+          esac
+          archive="$RUNNER_TEMP/$asset"
+          install_dir="$RUNNER_TEMP/protoc-$PROTOC_VERSION"
+          gh release download "v$PROTOC_VERSION" \
+            --repo protocolbuffers/protobuf \
+            --pattern "$asset" \
+            --dir "$RUNNER_TEMP"
+          printf '%s  %s\n' "$checksum" "$archive" | sha256sum --check --strict
+          install -d "$install_dir"
+          unzip -q "$archive" -d "$install_dir"
+          printf '%s\n' "$install_dir/bin" >> "$GITHUB_PATH"
       - name: Install Dart protoc plugin
         run: dart pub global activate protoc_plugin 24.0.0
       - name: Install backend dependencies
