@@ -58,6 +58,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$de login = _Translations$login$de._(_root);
 	@override late final _Translations$disclaimer$de disclaimer = _Translations$disclaimer$de._(_root);
 	@override late final _Translations$localNutritionPhase4$de localNutritionPhase4 = _Translations$localNutritionPhase4$de._(_root);
+	@override late final _Translations$watch$de watch = _Translations$watch$de._(_root);
 	@override late final _Translations$common$de common = _Translations$common$de._(_root);
 	@override late final _Translations$feedbackRating$de feedbackRating = _Translations$feedbackRating$de._(_root);
 	@override late final _Translations$health$de health = _Translations$health$de._(_root);
@@ -408,6 +409,25 @@ class _Translations$localNutritionPhase4$de extends Translations$localNutritionP
 	@override String get offlineNutritionClearConfirm => 'Daten löschen';
 	@override String offlineNutritionInstallFailed({required Object error}) => 'Lokale Nährwertdaten konnten nicht heruntergeladen und überprüft werden: ${error}';
 	@override String get offlineNutritionCleared => 'Lokale Nährwertdaten gelöscht';
+}
+
+// Path: watch
+class _Translations$watch$de extends Translations$watch$en {
+	_Translations$watch$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$de common = _Translations$watch$common$de._(_root);
+	@override late final _Translations$watch$nutrition$de nutrition = _Translations$watch$nutrition$de._(_root);
+	@override late final _Translations$watch$sync$de sync = _Translations$watch$sync$de._(_root);
+	@override late final _Translations$watch$home$de home = _Translations$watch$home$de._(_root);
+	@override late final _Translations$watch$history$de history = _Translations$watch$history$de._(_root);
+	@override late final _Translations$watch$favorites$de favorites = _Translations$watch$favorites$de._(_root);
+	@override late final _Translations$watch$meal$de meal = _Translations$watch$meal$de._(_root);
+	@override late final _Translations$watch$voice$de voice = _Translations$watch$voice$de._(_root);
+	@override late final _Translations$watch$result$de result = _Translations$watch$result$de._(_root);
 }
 
 // Path: common
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$de extends Translations$discla
 	@override String get description => 'Wenn Health Connect-Daten nicht verfügbar sind, schätzen wir den heutigen Kalorienverbrauch anhand deines Ruheumsatzes (BMR) und Aktivitätsniveaus (TDEE), skaliert auf den bereits vergangenen Teil des Tages.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$de howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$de._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$de professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$de._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$de extends Translations$watch$common$en {
+	_Translations$watch$common$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Zurück';
+	@override String get cancel => 'Abbrechen';
+	@override String get delete => 'Löschen';
+	@override String get retry => 'Erneut versuchen';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$de extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Nährstoff';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} g';
+	@override String get protein => 'Eiweiß';
+	@override String get carbs => 'Kohlenhydrate';
+	@override String get fat => 'Fett';
+	@override String get fiber => 'Ballaststoffe';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$de extends Translations$watch$sync$en {
+	_Translations$watch$sync$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Mit Telefon synchronisieren';
+	@override String get syncing => 'Synchronisiere…';
+	@override String get synced => 'Synchronisiert';
+	@override String get syncedJustNow => 'Gerade synchronisiert';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Vor ${minutes} Min. synchronisiert';
+	@override String get failed => 'Synchronisierung fehlgeschlagen';
+	@override String get phoneDisconnected => 'Telefon getrennt';
+	@override String get tapToSync => 'Tippen zum Synchronisieren';
+	@override String get refreshFailed => 'Aktualisierung fehlgeschlagen. Prüfe dein Telefon.';
+	@override String get openPhone => 'Öffne Calorify auf deinem Telefon, dann tippe auf Aktualisieren.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$de extends Translations$watch$home$en {
+	_Translations$watch$home$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Heute';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kcal von ${goal} aufgenommen. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} über dem Ziel';
+	@override String remaining({required Object calories}) => '${calories} verbleibend';
+	@override String left({required Object calories}) => '${calories} übrig';
+	@override String goal({required Object calories}) => '${calories} kcal Ziel';
+	@override String get logMeal => 'Mahlzeit protokollieren';
+	@override String get todayMeals => 'Mahlzeiten heute';
+	@override String todayMealsCount({required Object count}) => 'Mahlzeiten heute, ${count}';
+	@override String viewMore({required Object count}) => 'Zeige ${count} weitere';
+	@override String viewMoreSemantics({required Object count}) => '${count} weitere Mahlzeiten, tippe, um alle anzuzeigen';
+	@override String get noMeals => 'Keine Mahlzeiten protokolliert';
+	@override String get noMealsSemantics => 'Heute keine Mahlzeiten protokolliert';
+	@override String get tapLog => 'Tippe auf ‚Protokollieren‘, um zu beginnen.';
+	@override String get removedFromQueue => 'Mahlzeit aus Offline‑Warteschlange entfernt.';
+	@override String get removedOffline => 'Mahlzeit offline entfernt. Sie wird synchronisiert, wenn dein Telefon sich wieder verbindet.';
+	@override String get deleteFailed => 'Mahlzeit konnte nicht gelöscht werden';
+}
+
+// Path: watch.history
+class _Translations$watch$history$de extends Translations$watch$history$en {
+	_Translations$watch$history$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mahlzeiten heute';
+	@override String get refresh => 'Mahlzeiten aktualisieren';
+	@override String get loadFailed => 'Mahlzeiten konnten nicht geladen werden';
+	@override String get syncFailed => 'Synchronisierung fehlgeschlagen';
+	@override String get emptyTitle => 'Noch keine Mahlzeiten';
+	@override String get emptyMessage => 'Erfasse eine Mahlzeit auf der Startseite, um sie hier zu sehen.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$de extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoriten';
+	@override String get refresh => 'Favoriten aktualisieren';
+	@override String get loadFailed => 'Favoriten konnten nicht geladen werden';
+	@override String get syncFailed => 'Synchronisierung fehlgeschlagen';
+	@override String get emptyTitle => 'Noch keine Favoriten';
+	@override String get emptyMessage => 'Markiere Mahlzeiten in der Telefon-App mit einem Stern, um sie hier mit einem Tipp zu protokollieren.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kcal. Tippe zum Protokollieren.';
+	@override String logged({required Object name}) => '${name} protokolliert!';
+	@override String savedOffline({required Object name}) => '${name} offline gespeichert. Wird synchronisiert, wenn dein Telefon sich wieder verbindet.';
+	@override String get saveFailed => 'Mahlzeit konnte nicht gespeichert werden. Bitte erneut versuchen.';
+	@override String get log => 'Protokollieren';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$de extends Translations$watch$meal$en {
+	_Translations$watch$meal$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, protokolliert um ${time}.';
+	@override String get longPressDelete => 'Lange drücken zum Löschen.';
+	@override String get deleteTitle => 'Mahlzeit löschen?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$de extends Translations$watch$voice$en {
+	_Translations$watch$voice$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sprachprotokoll für Mahlzeiten';
+	@override String get processing => 'Prüfe deine Mahlzeit…';
+	@override String get processingDescription => 'Ermittle Portionen und Nährwerte';
+	@override String get listening => 'Aufnahme läuft';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Aufnahme stoppen';
+	@override String get start => 'Tippe, um Aufnahme zu starten';
+	@override String get starting => 'Mikrofon wird gestartet…';
+	@override String get prompt => 'Tippe, dann beschreibe deine Mahlzeit';
+	@override String get tapToRetry => 'Tippe, um es erneut zu versuchen';
+	@override String get example => 'Versuche z. B. „2 Rotis mit Dal“';
+	@override String get unavailable => 'Spracheingabe ist nicht verfügbar. Prüfe die Mikrofonberechtigung in den Uhreinstellungen.';
+	@override String get didNotStart => 'Mikrofon hat nicht gestartet. Tippe, um es erneut zu versuchen.';
+	@override String get startFailed => 'Aufnahme konnte nicht gestartet werden. Prüfe die Mikrofonberechtigungen.';
+	@override String get allowMicrophone => 'Erlaube den Mikrofonzugriff, um Mahlzeiten per Sprache zu erfassen.';
+	@override String get needsConnection => 'Spracherkennung benötigt eine Verbindung. Tippe, um es erneut zu versuchen.';
+	@override String get microphoneUnavailable => 'Das Mikrofon ist nicht verfügbar. Tippe, um es erneut zu versuchen.';
+	@override String get microphoneBusy => 'Das Mikrofon ist beschäftigt. Warte kurz und versuche es erneut.';
+	@override String get languageUnsupported => 'Die Spracheingabe unterstützt die Sprache der Uhr nicht.';
+	@override String get temporarilyBusy => 'Die Spracheingabe ist vorübergehend beschäftigt. Warte kurz und versuche es erneut.';
+	@override String get notRecognized => 'Ich habe das nicht verstanden. Tippe auf das Mikrofon und versuche es erneut.';
+	@override String get noSpeech => 'Keine Sprache erkannt. Tippe auf das Mikrofon, um es erneut zu versuchen.';
+	@override String get analysisFailed => 'Analyse fehlgeschlagen. Bitte erneut versuchen.';
+	@override String get mealNotIdentified => 'Konnte die Mahlzeit nicht identifizieren. Versuche, sie anders zu beschreiben.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$de extends Translations$watch$result$en {
+	_Translations$watch$result$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mahlzeitdetails';
+	@override String get savedOffline => 'Offline gespeichert';
+	@override String get logged => 'Protokolliert!';
+	@override String get mealFound => 'Mahlzeit gefunden';
+	@override String get estimatedEnergy => 'Geschätzte Energie';
+	@override String get logMeal => 'Mahlzeit protokollieren';
+	@override String get logging => 'Protokolliere…';
+	@override String get logAnother => 'Weitere protokollieren';
+	@override String get goingBack => 'Zurück…';
+	@override String get savedOfflineMessage => 'Mahlzeit offline gespeichert. Sie wird synchronisiert, wenn dein Telefon sich wieder verbindet.';
+	@override String get saveFailed => 'Mahlzeit konnte nicht gespeichert werden. Bitte erneut versuchen.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2432,6 +2627,101 @@ extension on TranslationsDe {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Daten löschen',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Lokale Nährwertdaten konnten nicht heruntergeladen und überprüft werden: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Lokale Nährwertdaten gelöscht',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Zurück',
+			'watch.common.cancel' => 'Abbrechen',
+			'watch.common.delete' => 'Löschen',
+			'watch.common.retry' => 'Erneut versuchen',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Nährstoff',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} g',
+			'watch.nutrition.protein' => 'Eiweiß',
+			'watch.nutrition.carbs' => 'Kohlenhydrate',
+			'watch.nutrition.fat' => 'Fett',
+			'watch.nutrition.fiber' => 'Ballaststoffe',
+			'watch.sync.syncWithPhone' => 'Mit Telefon synchronisieren',
+			'watch.sync.syncing' => 'Synchronisiere…',
+			'watch.sync.synced' => 'Synchronisiert',
+			'watch.sync.syncedJustNow' => 'Gerade synchronisiert',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Vor ${minutes} Min. synchronisiert',
+			'watch.sync.failed' => 'Synchronisierung fehlgeschlagen',
+			'watch.sync.phoneDisconnected' => 'Telefon getrennt',
+			'watch.sync.tapToSync' => 'Tippen zum Synchronisieren',
+			'watch.sync.refreshFailed' => 'Aktualisierung fehlgeschlagen. Prüfe dein Telefon.',
+			'watch.sync.openPhone' => 'Öffne Calorify auf deinem Telefon, dann tippe auf Aktualisieren.',
+			'watch.home.today' => 'Heute',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kcal von ${goal} aufgenommen. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} über dem Ziel',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} verbleibend',
+			'watch.home.left' => ({required Object calories}) => '${calories} übrig',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal Ziel',
+			'watch.home.logMeal' => 'Mahlzeit protokollieren',
+			'watch.home.todayMeals' => 'Mahlzeiten heute',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Mahlzeiten heute, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Zeige ${count} weitere',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} weitere Mahlzeiten, tippe, um alle anzuzeigen',
+			'watch.home.noMeals' => 'Keine Mahlzeiten protokolliert',
+			'watch.home.noMealsSemantics' => 'Heute keine Mahlzeiten protokolliert',
+			'watch.home.tapLog' => 'Tippe auf ‚Protokollieren‘, um zu beginnen.',
+			'watch.home.removedFromQueue' => 'Mahlzeit aus Offline‑Warteschlange entfernt.',
+			'watch.home.removedOffline' => 'Mahlzeit offline entfernt. Sie wird synchronisiert, wenn dein Telefon sich wieder verbindet.',
+			'watch.home.deleteFailed' => 'Mahlzeit konnte nicht gelöscht werden',
+			'watch.history.title' => 'Mahlzeiten heute',
+			'watch.history.refresh' => 'Mahlzeiten aktualisieren',
+			'watch.history.loadFailed' => 'Mahlzeiten konnten nicht geladen werden',
+			'watch.history.syncFailed' => 'Synchronisierung fehlgeschlagen',
+			'watch.history.emptyTitle' => 'Noch keine Mahlzeiten',
+			'watch.history.emptyMessage' => 'Erfasse eine Mahlzeit auf der Startseite, um sie hier zu sehen.',
+			'watch.favorites.title' => 'Favoriten',
+			'watch.favorites.refresh' => 'Favoriten aktualisieren',
+			'watch.favorites.loadFailed' => 'Favoriten konnten nicht geladen werden',
+			'watch.favorites.syncFailed' => 'Synchronisierung fehlgeschlagen',
+			'watch.favorites.emptyTitle' => 'Noch keine Favoriten',
+			'watch.favorites.emptyMessage' => 'Markiere Mahlzeiten in der Telefon-App mit einem Stern, um sie hier mit einem Tipp zu protokollieren.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kcal. Tippe zum Protokollieren.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} protokolliert!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} offline gespeichert. Wird synchronisiert, wenn dein Telefon sich wieder verbindet.',
+			'watch.favorites.saveFailed' => 'Mahlzeit konnte nicht gespeichert werden. Bitte erneut versuchen.',
+			'watch.favorites.log' => 'Protokollieren',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, protokolliert um ${time}.',
+			'watch.meal.longPressDelete' => 'Lange drücken zum Löschen.',
+			'watch.meal.deleteTitle' => 'Mahlzeit löschen?',
+			'watch.voice.title' => 'Sprachprotokoll für Mahlzeiten',
+			'watch.voice.processing' => 'Prüfe deine Mahlzeit…',
+			'watch.voice.processingDescription' => 'Ermittle Portionen und Nährwerte',
+			'watch.voice.listening' => 'Aufnahme läuft',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Aufnahme stoppen',
+			'watch.voice.start' => 'Tippe, um Aufnahme zu starten',
+			'watch.voice.starting' => 'Mikrofon wird gestartet…',
+			'watch.voice.prompt' => 'Tippe, dann beschreibe deine Mahlzeit',
+			'watch.voice.tapToRetry' => 'Tippe, um es erneut zu versuchen',
+			'watch.voice.example' => 'Versuche z. B. „2 Rotis mit Dal“',
+			'watch.voice.unavailable' => 'Spracheingabe ist nicht verfügbar. Prüfe die Mikrofonberechtigung in den Uhreinstellungen.',
+			'watch.voice.didNotStart' => 'Mikrofon hat nicht gestartet. Tippe, um es erneut zu versuchen.',
+			'watch.voice.startFailed' => 'Aufnahme konnte nicht gestartet werden. Prüfe die Mikrofonberechtigungen.',
+			'watch.voice.allowMicrophone' => 'Erlaube den Mikrofonzugriff, um Mahlzeiten per Sprache zu erfassen.',
+			'watch.voice.needsConnection' => 'Spracherkennung benötigt eine Verbindung. Tippe, um es erneut zu versuchen.',
+			'watch.voice.microphoneUnavailable' => 'Das Mikrofon ist nicht verfügbar. Tippe, um es erneut zu versuchen.',
+			'watch.voice.microphoneBusy' => 'Das Mikrofon ist beschäftigt. Warte kurz und versuche es erneut.',
+			'watch.voice.languageUnsupported' => 'Die Spracheingabe unterstützt die Sprache der Uhr nicht.',
+			'watch.voice.temporarilyBusy' => 'Die Spracheingabe ist vorübergehend beschäftigt. Warte kurz und versuche es erneut.',
+			'watch.voice.notRecognized' => 'Ich habe das nicht verstanden. Tippe auf das Mikrofon und versuche es erneut.',
+			'watch.voice.noSpeech' => 'Keine Sprache erkannt. Tippe auf das Mikrofon, um es erneut zu versuchen.',
+			'watch.voice.analysisFailed' => 'Analyse fehlgeschlagen. Bitte erneut versuchen.',
+			'watch.voice.mealNotIdentified' => 'Konnte die Mahlzeit nicht identifizieren. Versuche, sie anders zu beschreiben.',
+			'watch.result.title' => 'Mahlzeitdetails',
+			'watch.result.savedOffline' => 'Offline gespeichert',
+			'watch.result.logged' => 'Protokolliert!',
+			'watch.result.mealFound' => 'Mahlzeit gefunden',
+			'watch.result.estimatedEnergy' => 'Geschätzte Energie',
+			'watch.result.logMeal' => 'Mahlzeit protokollieren',
+			'watch.result.logging' => 'Protokolliere…',
+			'watch.result.logAnother' => 'Weitere protokollieren',
+			'watch.result.goingBack' => 'Zurück…',
+			'watch.result.savedOfflineMessage' => 'Mahlzeit offline gespeichert. Sie wird synchronisiert, wenn dein Telefon sich wieder verbindet.',
+			'watch.result.saveFailed' => 'Mahlzeit konnte nicht gespeichert werden. Bitte erneut versuchen.',
 			'common.close' => 'Schließen',
 			'common.kContinue' => 'Weiter',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Gefällt dir ${appLabel}?',

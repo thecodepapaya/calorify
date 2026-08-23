@@ -58,6 +58,7 @@ class TranslationsCs extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$cs login = _Translations$login$cs._(_root);
 	@override late final _Translations$disclaimer$cs disclaimer = _Translations$disclaimer$cs._(_root);
 	@override late final _Translations$localNutritionPhase4$cs localNutritionPhase4 = _Translations$localNutritionPhase4$cs._(_root);
+	@override late final _Translations$watch$cs watch = _Translations$watch$cs._(_root);
 	@override late final _Translations$common$cs common = _Translations$common$cs._(_root);
 	@override late final _Translations$feedbackRating$cs feedbackRating = _Translations$feedbackRating$cs._(_root);
 	@override late final _Translations$health$cs health = _Translations$health$cs._(_root);
@@ -408,6 +409,25 @@ class _Translations$localNutritionPhase4$cs extends Translations$localNutritionP
 	@override String get offlineNutritionClearConfirm => 'Vymazat data';
 	@override String offlineNutritionInstallFailed({required Object error}) => 'Výživová data se nepodařilo stáhnout a ověřit: ${error}';
 	@override String get offlineNutritionCleared => 'Místní výživová data byla vymazána';
+}
+
+// Path: watch
+class _Translations$watch$cs extends Translations$watch$en {
+	_Translations$watch$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$cs common = _Translations$watch$common$cs._(_root);
+	@override late final _Translations$watch$nutrition$cs nutrition = _Translations$watch$nutrition$cs._(_root);
+	@override late final _Translations$watch$sync$cs sync = _Translations$watch$sync$cs._(_root);
+	@override late final _Translations$watch$home$cs home = _Translations$watch$home$cs._(_root);
+	@override late final _Translations$watch$history$cs history = _Translations$watch$history$cs._(_root);
+	@override late final _Translations$watch$favorites$cs favorites = _Translations$watch$favorites$cs._(_root);
+	@override late final _Translations$watch$meal$cs meal = _Translations$watch$meal$cs._(_root);
+	@override late final _Translations$watch$voice$cs voice = _Translations$watch$voice$cs._(_root);
+	@override late final _Translations$watch$result$cs result = _Translations$watch$result$cs._(_root);
 }
 
 // Path: common
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$cs extends Translations$discla
 	@override String get description => 'Pokud nejsou dostupná data z Health Connect, odhadujeme dnešní spálené kalorie na základě vašeho BMR a úrovně aktivity (TDEE), škálované podle části dne, která již uplynula.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$cs howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$cs._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$cs professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$cs._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$cs extends Translations$watch$common$en {
+	_Translations$watch$common$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Zpět';
+	@override String get cancel => 'Zrušit';
+	@override String get delete => 'Smazat';
+	@override String get retry => 'Zkusit znovu';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$cs extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Živina';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} gramů';
+	@override String get protein => 'Bílkoviny';
+	@override String get carbs => 'Sacharidy';
+	@override String get fat => 'Tuky';
+	@override String get fiber => 'Vláknina';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$cs extends Translations$watch$sync$en {
+	_Translations$watch$sync$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Synchronizovat s telefonem';
+	@override String get syncing => 'Synchronizuji…';
+	@override String get synced => 'Synchronizováno';
+	@override String get syncedJustNow => 'Právě synchronizováno';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Synchronizováno před ${minutes} min';
+	@override String get failed => 'Synchronizace selhala';
+	@override String get phoneDisconnected => 'Telefon odpojen';
+	@override String get tapToSync => 'Klepněte pro synchronizaci';
+	@override String get refreshFailed => 'Nepodařilo se obnovit. Zkontrolujte telefon.';
+	@override String get openPhone => 'Otevřete Calorify v telefonu a potom klepněte na obnovit.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$cs extends Translations$watch$home$en {
+	_Translations$watch$home$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Dnes';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kalorií z ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} nad cílem';
+	@override String remaining({required Object calories}) => '${calories} zbývá';
+	@override String left({required Object calories}) => '${calories} zbývá';
+	@override String goal({required Object calories}) => 'Cíl: ${calories} kcal';
+	@override String get logMeal => 'Zadat jídlo';
+	@override String get todayMeals => 'Dnešní jídla';
+	@override String todayMealsCount({required Object count}) => 'Dnešní jídla, ${count}';
+	@override String viewMore({required Object count}) => 'Zobrazit ${count} dalších';
+	@override String viewMoreSemantics({required Object count}) => '${count} dalších jídel, klepněte pro zobrazení všech';
+	@override String get noMeals => 'Žádná jídla nezaznamenána';
+	@override String get noMealsSemantics => 'Dnes žádná jídla nezaznamenána';
+	@override String get tapLog => 'Klepněte na Zadat pro začátek';
+	@override String get removedFromQueue => 'Jídlo odstraněno z offline fronty.';
+	@override String get removedOffline => 'Jídlo odstraněno offline. Synchronizuje se, až se telefon znovu připojí.';
+	@override String get deleteFailed => 'Nepodařilo se smazat jídlo';
+}
+
+// Path: watch.history
+class _Translations$watch$history$cs extends Translations$watch$history$en {
+	_Translations$watch$history$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dnešní jídla';
+	@override String get refresh => 'Obnovit jídla';
+	@override String get loadFailed => 'Nepodařilo se načíst jídla';
+	@override String get syncFailed => 'Nepodařilo se synchronizovat';
+	@override String get emptyTitle => 'Žádná jídla zatím';
+	@override String get emptyMessage => 'Zadejte jídlo na hlavní obrazovce a bude zde zobrazeno.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$cs extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Oblíbené';
+	@override String get refresh => 'Obnovit oblíbené';
+	@override String get loadFailed => 'Nepodařilo se načíst oblíbené';
+	@override String get syncFailed => 'Nepodařilo se synchronizovat';
+	@override String get emptyTitle => 'Žádné oblíbené zatím';
+	@override String get emptyMessage => 'Označte jídla hvězdičkou v aplikaci v telefonu, aby zde šla zadat jedním klepnutím.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kalorií. Klepněte pro zadání.';
+	@override String logged({required Object name}) => '${name} zadáno!';
+	@override String savedOffline({required Object name}) => '${name} uloženo offline. Synchronizuje se, až se telefon znovu připojí.';
+	@override String get saveFailed => 'Nepodařilo se uložit jídlo. Zkuste to prosím znovu.';
+	@override String get log => 'Zadat';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$cs extends Translations$watch$meal$en {
+	_Translations$watch$meal$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalorií, zaznamenáno v ${time}.';
+	@override String get longPressDelete => 'Dlouze stiskněte pro smazání.';
+	@override String get deleteTitle => 'Smazat jídlo?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$cs extends Translations$watch$voice$en {
+	_Translations$watch$voice$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hlasové zadání jídla';
+	@override String get processing => 'Zpracovávám vaše jídlo…';
+	@override String get processingDescription => 'Odhad porcí a živin';
+	@override String get listening => 'Naslouchám';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Zastavit nahrávání';
+	@override String get start => 'Klepněte pro spuštění nahrávání';
+	@override String get starting => 'Spouštím mikrofon…';
+	@override String get prompt => 'Klepněte a pak popište jídlo';
+	@override String get tapToRetry => 'Klepněte pro opakování';
+	@override String get example => 'Zkuste „2 rotis s dal“';
+	@override String get unavailable => 'Hlasový vstup není dostupný. Zkontrolujte oprávnění k mikrofonu v nastavení hodinek.';
+	@override String get didNotStart => 'Mikrofon se nespustil. Klepněte pro opakování.';
+	@override String get startFailed => 'Nepodařilo se spustit nahrávání. Zkontrolujte oprávnění mikrofonu.';
+	@override String get allowMicrophone => 'Povolte přístup k mikrofonu pro zadávání jídel hlasem.';
+	@override String get needsConnection => 'Rozpoznávání hlasu vyžaduje připojení. Klepněte pro opakování.';
+	@override String get microphoneUnavailable => 'Mikrofon není k dispozici. Klepněte pro opakování.';
+	@override String get microphoneBusy => 'Mikrofon je obsazen. Chvíli počkejte a zkuste to znovu.';
+	@override String get languageUnsupported => 'Hlasový vstup nepodporuje jazyk hodinek.';
+	@override String get temporarilyBusy => 'Hlasový vstup je dočasně vytížen. Chvíli počkejte a zkuste to znovu.';
+	@override String get notRecognized => 'Nezachytilo se to. Klepněte na mikrofon a zkuste to znovu.';
+	@override String get noSpeech => 'Nebyl zaznamenán žádný zvuk. Klepněte na mikrofon a zkuste to znovu.';
+	@override String get analysisFailed => 'Analýza selhala. Zkuste to prosím znovu.';
+	@override String get mealNotIdentified => 'Nepodařilo se identifikovat jídlo. Zkuste jej popsat jinak.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$cs extends Translations$watch$result$en {
+	_Translations$watch$result$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Podrobnosti jídla';
+	@override String get savedOffline => 'Uloženo offline';
+	@override String get logged => 'Zaznamenáno!';
+	@override String get mealFound => 'Jídlo nalezeno';
+	@override String get estimatedEnergy => 'Odhadované kalorie';
+	@override String get logMeal => 'Zadat jídlo';
+	@override String get logging => 'Zaznamenávám…';
+	@override String get logAnother => 'Zadat další';
+	@override String get goingBack => 'Vrátit se…';
+	@override String get savedOfflineMessage => 'Jídlo uloženo offline. Synchronizuje se, až se telefon znovu připojí.';
+	@override String get saveFailed => 'Nepodařilo se uložit jídlo. Zkuste to prosím znovu.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2432,6 +2627,101 @@ extension on TranslationsCs {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Vymazat data',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Výživová data se nepodařilo stáhnout a ověřit: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Místní výživová data byla vymazána',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Zpět',
+			'watch.common.cancel' => 'Zrušit',
+			'watch.common.delete' => 'Smazat',
+			'watch.common.retry' => 'Zkusit znovu',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Živina',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} gramů',
+			'watch.nutrition.protein' => 'Bílkoviny',
+			'watch.nutrition.carbs' => 'Sacharidy',
+			'watch.nutrition.fat' => 'Tuky',
+			'watch.nutrition.fiber' => 'Vláknina',
+			'watch.sync.syncWithPhone' => 'Synchronizovat s telefonem',
+			'watch.sync.syncing' => 'Synchronizuji…',
+			'watch.sync.synced' => 'Synchronizováno',
+			'watch.sync.syncedJustNow' => 'Právě synchronizováno',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Synchronizováno před ${minutes} min',
+			'watch.sync.failed' => 'Synchronizace selhala',
+			'watch.sync.phoneDisconnected' => 'Telefon odpojen',
+			'watch.sync.tapToSync' => 'Klepněte pro synchronizaci',
+			'watch.sync.refreshFailed' => 'Nepodařilo se obnovit. Zkontrolujte telefon.',
+			'watch.sync.openPhone' => 'Otevřete Calorify v telefonu a potom klepněte na obnovit.',
+			'watch.home.today' => 'Dnes',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kalorií z ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} nad cílem',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} zbývá',
+			'watch.home.left' => ({required Object calories}) => '${calories} zbývá',
+			'watch.home.goal' => ({required Object calories}) => 'Cíl: ${calories} kcal',
+			'watch.home.logMeal' => 'Zadat jídlo',
+			'watch.home.todayMeals' => 'Dnešní jídla',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Dnešní jídla, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Zobrazit ${count} dalších',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} dalších jídel, klepněte pro zobrazení všech',
+			'watch.home.noMeals' => 'Žádná jídla nezaznamenána',
+			'watch.home.noMealsSemantics' => 'Dnes žádná jídla nezaznamenána',
+			'watch.home.tapLog' => 'Klepněte na Zadat pro začátek',
+			'watch.home.removedFromQueue' => 'Jídlo odstraněno z offline fronty.',
+			'watch.home.removedOffline' => 'Jídlo odstraněno offline. Synchronizuje se, až se telefon znovu připojí.',
+			'watch.home.deleteFailed' => 'Nepodařilo se smazat jídlo',
+			'watch.history.title' => 'Dnešní jídla',
+			'watch.history.refresh' => 'Obnovit jídla',
+			'watch.history.loadFailed' => 'Nepodařilo se načíst jídla',
+			'watch.history.syncFailed' => 'Nepodařilo se synchronizovat',
+			'watch.history.emptyTitle' => 'Žádná jídla zatím',
+			'watch.history.emptyMessage' => 'Zadejte jídlo na hlavní obrazovce a bude zde zobrazeno.',
+			'watch.favorites.title' => 'Oblíbené',
+			'watch.favorites.refresh' => 'Obnovit oblíbené',
+			'watch.favorites.loadFailed' => 'Nepodařilo se načíst oblíbené',
+			'watch.favorites.syncFailed' => 'Nepodařilo se synchronizovat',
+			'watch.favorites.emptyTitle' => 'Žádné oblíbené zatím',
+			'watch.favorites.emptyMessage' => 'Označte jídla hvězdičkou v aplikaci v telefonu, aby zde šla zadat jedním klepnutím.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kalorií. Klepněte pro zadání.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} zadáno!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} uloženo offline. Synchronizuje se, až se telefon znovu připojí.',
+			'watch.favorites.saveFailed' => 'Nepodařilo se uložit jídlo. Zkuste to prosím znovu.',
+			'watch.favorites.log' => 'Zadat',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalorií, zaznamenáno v ${time}.',
+			'watch.meal.longPressDelete' => 'Dlouze stiskněte pro smazání.',
+			'watch.meal.deleteTitle' => 'Smazat jídlo?',
+			'watch.voice.title' => 'Hlasové zadání jídla',
+			'watch.voice.processing' => 'Zpracovávám vaše jídlo…',
+			'watch.voice.processingDescription' => 'Odhad porcí a živin',
+			'watch.voice.listening' => 'Naslouchám',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Zastavit nahrávání',
+			'watch.voice.start' => 'Klepněte pro spuštění nahrávání',
+			'watch.voice.starting' => 'Spouštím mikrofon…',
+			'watch.voice.prompt' => 'Klepněte a pak popište jídlo',
+			'watch.voice.tapToRetry' => 'Klepněte pro opakování',
+			'watch.voice.example' => 'Zkuste „2 rotis s dal“',
+			'watch.voice.unavailable' => 'Hlasový vstup není dostupný. Zkontrolujte oprávnění k mikrofonu v nastavení hodinek.',
+			'watch.voice.didNotStart' => 'Mikrofon se nespustil. Klepněte pro opakování.',
+			'watch.voice.startFailed' => 'Nepodařilo se spustit nahrávání. Zkontrolujte oprávnění mikrofonu.',
+			'watch.voice.allowMicrophone' => 'Povolte přístup k mikrofonu pro zadávání jídel hlasem.',
+			'watch.voice.needsConnection' => 'Rozpoznávání hlasu vyžaduje připojení. Klepněte pro opakování.',
+			'watch.voice.microphoneUnavailable' => 'Mikrofon není k dispozici. Klepněte pro opakování.',
+			'watch.voice.microphoneBusy' => 'Mikrofon je obsazen. Chvíli počkejte a zkuste to znovu.',
+			'watch.voice.languageUnsupported' => 'Hlasový vstup nepodporuje jazyk hodinek.',
+			'watch.voice.temporarilyBusy' => 'Hlasový vstup je dočasně vytížen. Chvíli počkejte a zkuste to znovu.',
+			'watch.voice.notRecognized' => 'Nezachytilo se to. Klepněte na mikrofon a zkuste to znovu.',
+			'watch.voice.noSpeech' => 'Nebyl zaznamenán žádný zvuk. Klepněte na mikrofon a zkuste to znovu.',
+			'watch.voice.analysisFailed' => 'Analýza selhala. Zkuste to prosím znovu.',
+			'watch.voice.mealNotIdentified' => 'Nepodařilo se identifikovat jídlo. Zkuste jej popsat jinak.',
+			'watch.result.title' => 'Podrobnosti jídla',
+			'watch.result.savedOffline' => 'Uloženo offline',
+			'watch.result.logged' => 'Zaznamenáno!',
+			'watch.result.mealFound' => 'Jídlo nalezeno',
+			'watch.result.estimatedEnergy' => 'Odhadované kalorie',
+			'watch.result.logMeal' => 'Zadat jídlo',
+			'watch.result.logging' => 'Zaznamenávám…',
+			'watch.result.logAnother' => 'Zadat další',
+			'watch.result.goingBack' => 'Vrátit se…',
+			'watch.result.savedOfflineMessage' => 'Jídlo uloženo offline. Synchronizuje se, až se telefon znovu připojí.',
+			'watch.result.saveFailed' => 'Nepodařilo se uložit jídlo. Zkuste to prosím znovu.',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',

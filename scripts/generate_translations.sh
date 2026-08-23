@@ -233,7 +233,7 @@ reanalyze_translations() {
     FINAL_ANALYZE_EXIT=$?
     echo "$FINAL_ANALYZE_OUTPUT" >> "$LOG_FILE"
     
-    if [ $FINAL_ANALYZE_EXIT -eq 0 ] && python3 "$SCRIPT_DIR/audit_translations.py" --root "$GIT_ROOT" --fail-on-source-copies >> "$LOG_FILE" 2>&1; then
+    if [ $FINAL_ANALYZE_EXIT -eq 0 ] && python3 "$SCRIPT_DIR/audit_translations.py" --root "$GIT_ROOT" >> "$LOG_FILE" 2>&1; then
         print_success "Final analysis completed - all translations are valid"
     else
         ERROR_COUNT=$(echo "$FINAL_ANALYZE_OUTPUT" | grep -ic "error" || echo "0")

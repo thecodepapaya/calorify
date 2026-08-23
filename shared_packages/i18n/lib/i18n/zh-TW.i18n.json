@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "連接 Health Connect",
       "description": "同步健康資料以獲得更完整的洞察與自動熱量追蹤",
+      "overviewDescription": "將已消耗的卡路里計入每日目標，並可選擇與 Health Connect 分享已記錄的餐點。",
       "automaticTracking": {
         "title": "自動熱量追蹤",
         "description": "追蹤來自您健身應用的燃燒卡路里"
+      },
+      "caloriesBurned": {
+        "title": "已消耗卡路里",
+        "description": "從 Health Connect 讀取今天消耗的總卡路里"
       },
       "progressInsights": {
         "title": "進展洞察",
         "description": "取得更詳盡的健康趨勢分析"
       },
+      "shareLoggedMeals": {
+        "title": "分享已記錄的餐點",
+        "description": "將您在 Calorify 中記錄的餐點寫入 Health Connect"
+      },
       "seamlessIntegration": {
         "title": "無縫整合",
         "description": "與您喜愛的健康應用同步資料"
+      },
+      "userControl": {
+        "title": "由您掌控",
+        "description": "選擇任一權限，並隨時變更存取設定"
       },
       "connected": "已連接 Health Connect",
       "notConnected": "未連接 Health Connect",
@@ -101,27 +114,14 @@
       "skipForNow": "暫時跳過",
       "statusConnected": "Health Connect 已連線。",
       "statusSuccess": "已成功連接 Health Connect！",
-      "statusPermissionDenied": "權限被拒。請在手機設定中為 {appLabel} 啟用 Health Connect 權限。",
-      "statusError": "設定 Health Connect 時發生錯誤：{error}",
-      "caloriesBurned": {
-        "description": "從 Health Connect 讀取今天消耗的總卡路里",
-        "title": "已消耗卡路里"
-      },
-      "installOrUpdate": "安裝或更新",
-      "manageAccess": "管理存取權",
-      "overviewDescription": "將已消耗的卡路里計入每日目標，並可選擇與 Health Connect 分享已記錄的餐點。",
-      "shareLoggedMeals": {
-        "description": "將您在 Calorify 中記錄的餐點寫入 Health Connect",
-        "title": "分享已記錄的餐點"
-      },
       "statusNotConnected": "選擇要啟用的 Health Connect 功能。",
       "statusPartial": "Health Connect 已部分連接。請啟用其餘權限以使用兩項功能。",
       "statusProviderUpdateRequired": "安裝或更新 Health Connect 以繼續。",
       "statusUnavailable": "此裝置不支援 Health Connect。",
-      "userControl": {
-        "description": "選擇任一權限，並隨時變更存取設定",
-        "title": "由您掌控"
-      }
+      "installOrUpdate": "安裝或更新",
+      "manageAccess": "管理存取權",
+      "statusPermissionDenied": "權限被拒。請在手機設定中為 {appLabel} 啟用 Health Connect 權限。",
+      "statusError": "設定 Health Connect 時發生錯誤：{error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -246,9 +246,9 @@
       "title": "與 Health Connect 同步",
       "description": "將您的營養資料與 Health Connect 同步",
       "install": "安裝",
-      "connect": "連接",
       "dataUseDescription": "將已消耗的卡路里計入目標，並分享已記錄的餐點",
-      "installOrUpdate": "安裝或更新"
+      "installOrUpdate": "安裝或更新",
+      "connect": "連接"
     }
   },
   "history": {
@@ -562,12 +562,12 @@
     "clearAllData": {
       "title": "清除所有資料",
       "subtitle": "不可逆地刪除您的所有資訊",
+      "localOnlySubtitle": "刪除此裝置上儲存的 Calorify 資料",
       "confirmationTitle": "清除所有資料？",
       "confirmationMessage": "此動作無法復原。您所有記錄的餐點、最愛與個人設定將被永久刪除。",
-      "cancel": "取消",
-      "clearEverything": "全部清除",
       "localOnlyConfirmationMessage": "這會從此裝置永久刪除已記錄的餐點、最愛和個人檔案設定。已分享至 Health Connect 的餐點與 Health Connect 存取權需在「設定 > Health Connect」中另行管理。",
-      "localOnlySubtitle": "刪除此裝置上儲存的 Calorify 資料"
+      "cancel": "取消",
+      "clearEverything": "全部清除"
     },
     "debugOptions": {
       "title": "除錯選項"
@@ -580,6 +580,11 @@
         "title": "Health Connect 無法使用",
         "description": "此裝置無法使用 Health Connect。請從 Play Store 安裝 Health Connect（Android 9+）或更新至 Android 14+。",
         "unsupportedDescription": "此裝置不支援 Health Connect。"
+      },
+      "updateRequired": {
+        "title": "Health Connect 需要處理",
+        "description": "請先安裝或更新 Health Connect，再管理存取權。",
+        "action": "安裝或更新"
       },
       "permissions": {
         "title": "權限",
@@ -604,28 +609,23 @@
       },
       "managePermissions": "管理權限",
       "openSettings": "開啟 Health Connect 設定",
+      "disconnect": "中斷 Health Connect 連線",
+      "disconnectConfirmationTitle": "中斷 Health Connect 連線？",
+      "disconnectConfirmationMessage": "Calorify 將失去 Health Connect 存取權。已寫入其中的資料不會被刪除。",
+      "disconnectConfirmationAction": "中斷連線",
+      "deleteSyncedMeals": "從 Health Connect 刪除 Calorify 餐點",
+      "deleteSyncedMealsConfirmationTitle": "刪除已同步的餐點？",
+      "deleteSyncedMealsConfirmationMessage": "要從 Health Connect 刪除此版本 Calorify 同步的餐點嗎？本機餐點紀錄不會變更。較舊的 Calorify 項目可能仍需透過 Health Connect 中的「管理資料」刪除。",
+      "deleteSyncedMealsConfirmationAction": "刪除已同步的餐點",
+      "deleteSyncedMealsSuccess": "已從 Health Connect 刪除 Calorify 餐點。",
+      "deleteSyncedMealsFailed": "無法刪除已同步的餐點，請再試一次。",
+      "connectionPartial": "部分 Health Connect 功能已啟用。",
+      "connectionComplete": "兩項 Health Connect 功能皆已啟用。",
+      "actionFailed": "無法開啟 Health Connect，請再試一次。",
       "requestPermissions": "請求權限",
       "permissionRequestCancelledOrFailed": "權限請求已取消或失敗。請再試一次或在 Health Connect 設定中手動授權。",
       "permissionRequestFailed": "無法請求權限。請再試一次或在 Health Connect 設定中手動授權。",
-      "requestingPermissions": "請求中...",
-      "actionFailed": "無法開啟 Health Connect，請再試一次。",
-      "connectionComplete": "兩項 Health Connect 功能皆已啟用。",
-      "connectionPartial": "部分 Health Connect 功能已啟用。",
-      "deleteSyncedMeals": "從 Health Connect 刪除 Calorify 餐點",
-      "deleteSyncedMealsConfirmationAction": "刪除已同步的餐點",
-      "deleteSyncedMealsConfirmationMessage": "要從 Health Connect 刪除此版本 Calorify 同步的餐點嗎？本機餐點紀錄不會變更。較舊的 Calorify 項目可能仍需透過 Health Connect 中的「管理資料」刪除。",
-      "deleteSyncedMealsConfirmationTitle": "刪除已同步的餐點？",
-      "deleteSyncedMealsFailed": "無法刪除已同步的餐點，請再試一次。",
-      "deleteSyncedMealsSuccess": "已從 Health Connect 刪除 Calorify 餐點。",
-      "disconnect": "中斷 Health Connect 連線",
-      "disconnectConfirmationAction": "中斷連線",
-      "disconnectConfirmationMessage": "Calorify 將失去 Health Connect 存取權。已寫入其中的資料不會被刪除。",
-      "disconnectConfirmationTitle": "中斷 Health Connect 連線？",
-      "updateRequired": {
-        "action": "安裝或更新",
-        "description": "請先安裝或更新 Health Connect，再管理存取權。",
-        "title": "Health Connect 需要處理"
-      }
+      "requestingPermissions": "請求中..."
     },
     "about": {
       "title": "關於",
@@ -639,11 +639,11 @@
         "description": "隱私不是事後補充，而是設計原則。以下是實際上的做法：",
         "noAccounts": "免帳號\n即可立即使用。無需註冊或身分資料。",
         "noTracking": "無行為追蹤\n{appLabel} 不會監控您的活動、建立使用者檔案，或跨應用與網站追蹤您。",
+        "analyticsDisclosure": "有限的分析與診斷\n{appLabel} 使用基本應用程式事件和當機診斷來提升可靠性。健康紀錄值不會用於廣告或出售。",
         "noAds": "無廣告設計\n{appLabel} 的設計不依賴廣告或以資料為驅動的獲利方式。",
         "noDataSelling": "不販售資料\n您的健康資料絕不會出售或分享給第三方。",
         "localStorage": "以裝置為優先的儲存\n您的資料保留在您的裝置上。",
-        "privacyPolicy": "隱私政策",
-        "analyticsDisclosure": "有限的分析與診斷\n{appLabel} 使用基本應用程式事件和當機診斷來提升可靠性。健康紀錄值不會用於廣告或出售。"
+        "privacyPolicy": "隱私政策"
       },
       "developer": {
         "title": "由單人開發者打造",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "清除資料",
     "offlineNutritionInstallFailed": "無法下載並驗證本機營養資料：{error}",
     "offlineNutritionCleared": "已清除本機營養資料"
+  },
+  "watch": {
+    "appTitle": "Calorify 手錶",
+    "common": {
+      "back": "返回",
+      "cancel": "取消",
+      "delete": "刪除",
+      "retry": "重試",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "營養素",
+      "grams": "{label}，{value} 克",
+      "protein": "蛋白質",
+      "carbs": "碳水",
+      "fat": "脂肪",
+      "fiber": "纖維"
+    },
+    "sync": {
+      "syncWithPhone": "與手機同步",
+      "syncing": "同步中…",
+      "synced": "已同步",
+      "syncedJustNow": "剛剛已同步",
+      "syncedMinutesAgo": "{minutes} 分鐘前已同步",
+      "failed": "同步失敗",
+      "phoneDisconnected": "手機已斷線",
+      "tapToSync": "輕觸以同步",
+      "refreshFailed": "無法更新。請檢查手機。",
+      "openPhone": "在手機上開啟 Calorify，然後點「更新」。"
+    },
+    "home": {
+      "today": "今天",
+      "calorieSummary": "{consumed} 已攝取，共 {goal}。{status}.",
+      "overGoal": "{calories} 超出目標",
+      "remaining": "{calories} 剩餘",
+      "left": "{calories} 剩餘",
+      "goal": "{calories} kcal 目標",
+      "logMeal": "記錄一餐",
+      "todayMeals": "今天的餐點",
+      "todayMealsCount": "今天的餐點，{count}",
+      "viewMore": "查看另外 {count} 項",
+      "viewMoreSemantics": "{count} 筆餐點，輕觸以查看全部",
+      "noMeals": "尚未記錄餐點",
+      "noMealsSemantics": "今天尚未記錄任何餐點",
+      "tapLog": "輕觸「記錄」開始",
+      "removedFromQueue": "餐點已從離線佇列移除。",
+      "removedOffline": "餐點已離線移除。手機重新連線後會同步。",
+      "deleteFailed": "無法刪除餐點"
+    },
+    "history": {
+      "title": "今天的餐點",
+      "refresh": "更新餐點",
+      "loadFailed": "無法載入餐點",
+      "syncFailed": "無法同步",
+      "emptyTitle": "尚無餐點",
+      "emptyMessage": "在首頁記錄餐點即可在這裡查看。"
+    },
+    "favorites": {
+      "title": "最愛",
+      "refresh": "更新最愛",
+      "loadFailed": "無法載入最愛",
+      "syncFailed": "無法同步",
+      "emptyTitle": "尚無最愛",
+      "emptyMessage": "在手機 App 標記餐點為星號，即可在這裡一鍵記錄。",
+      "mealSemantics": "{name}，{calories}。輕觸以記錄。",
+      "logged": "{name} 已記錄！",
+      "savedOffline": "{name} 已離線儲存。手機重新連線後會同步。",
+      "saveFailed": "無法儲存餐點。請再試一次。",
+      "log": "記錄"
+    },
+    "meal": {
+      "semantics": "{name}，{calories}，於 {time} 記錄。",
+      "longPressDelete": "長按以刪除。",
+      "deleteTitle": "要刪除餐點嗎？"
+    },
+    "voice": {
+      "title": "語音記錄餐點",
+      "processing": "正在辨識餐點…",
+      "processingDescription": "估算份量與營養",
+      "listening": "聆聽中",
+      "secondsLeft": "{seconds}秒",
+      "stop": "停止錄音",
+      "start": "輕觸開始錄音",
+      "starting": "啟動麥克風…",
+      "prompt": "輕觸，然後描述你的餐點",
+      "tapToRetry": "輕觸重試",
+      "example": "試試「2 rotis with dal」",
+      "unavailable": "語音輸入不可用。請在手錶設定中檢查麥克風權限。",
+      "didNotStart": "麥克風未啟動。輕觸以重試。",
+      "startFailed": "無法開始錄音。請檢查麥克風權限。",
+      "allowMicrophone": "允許麥克風存取以使用語音記錄餐點。",
+      "needsConnection": "語音辨識需要連線。輕觸以重試。",
+      "microphoneUnavailable": "麥克風無法使用。輕觸以重試。",
+      "microphoneBusy": "麥克風正在使用中。請稍候再重試。",
+      "languageUnsupported": "語音輸入不支援手錶語言。",
+      "temporarilyBusy": "語音輸入暫時忙碌。請稍候再重試。",
+      "notRecognized": "沒聽清楚。輕觸麥克風再試一次。",
+      "noSpeech": "未偵測到語音。輕觸麥克風再試。",
+      "analysisFailed": "分析失敗。請再試一次。",
+      "mealNotIdentified": "無法辨識該餐點。請換一種描述方式再試。"
+    },
+    "result": {
+      "title": "餐點詳情",
+      "savedOffline": "已離線儲存",
+      "logged": "已記錄！",
+      "mealFound": "找到餐點",
+      "estimatedEnergy": "估算熱量",
+      "logMeal": "記錄餐點",
+      "logging": "記錄中…",
+      "logAnother": "再記一筆",
+      "goingBack": "返回中…",
+      "savedOfflineMessage": "餐點已離線儲存。手機重新連線後會同步。",
+      "saveFailed": "無法儲存餐點。請再試一次。"
+    }
   },
   "common": {
     "close": "關閉",

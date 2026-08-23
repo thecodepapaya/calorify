@@ -560,12 +560,12 @@
       "failed": "Impossible d'exporter l'historique des repas : {error}"
     },
     "clearAllData": {
-      "localOnlySubtitle": "Supprimer les données Calorify stockées sur cet appareil",
-      "localOnlyConfirmationMessage": "Cette action supprime définitivement de cet appareil les repas enregistrés, les favoris et les paramètres du profil. Les repas déjà partagés avec Health Connect et l'accès à Health Connect sont gérés séparément dans Paramètres > Health Connect.",
       "title": "Supprimer toutes les données",
       "subtitle": "Supprimer irréversiblement toutes vos informations",
+      "localOnlySubtitle": "Supprimer les données Calorify stockées sur cet appareil",
       "confirmationTitle": "Supprimer toutes les données ?",
       "confirmationMessage": "Cette action est irréversible. Tous vos repas enregistrés, favoris et paramètres de profil seront définitivement supprimés.",
+      "localOnlyConfirmationMessage": "Cette action supprime définitivement de cet appareil les repas enregistrés, les favoris et les paramètres du profil. Les repas déjà partagés avec Health Connect et l'accès à Health Connect sont gérés séparément dans Paramètres > Health Connect.",
       "cancel": "Annuler",
       "clearEverything": "Tout supprimer"
     },
@@ -577,9 +577,9 @@
       "title": "Health Connect",
       "subtitle": "Voir et gérer les autorisations",
       "unavailable": {
-        "unsupportedDescription": "Health Connect n'est pas pris en charge sur cet appareil.",
         "title": "Health Connect indisponible",
-        "description": "Health Connect n'est pas disponible sur cet appareil. Veuillez installer Health Connect depuis le Play Store (Android 9+) ou mettre à jour vers Android 14+."
+        "description": "Health Connect n'est pas disponible sur cet appareil. Veuillez installer Health Connect depuis le Play Store (Android 9+) ou mettre à jour vers Android 14+.",
+        "unsupportedDescription": "Health Connect n'est pas pris en charge sur cet appareil."
       },
       "updateRequired": {
         "title": "Health Connect nécessite votre attention",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Effacer les données",
     "offlineNutritionInstallFailed": "Impossible de télécharger et de vérifier les données nutritionnelles locales : {error}",
     "offlineNutritionCleared": "Données nutritionnelles locales effacées"
+  },
+  "watch": {
+    "appTitle": "Calorify Montre",
+    "common": {
+      "back": "Retour",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "retry": "Réessayer",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutriment",
+      "grams": "{label}, {value} grammes",
+      "protein": "Protéines",
+      "carbs": "Glucides",
+      "fat": "Lipides",
+      "fiber": "Fibres"
+    },
+    "sync": {
+      "syncWithPhone": "Synchroniser avec le téléphone",
+      "syncing": "Synchronisation…",
+      "synced": "Synchronisé",
+      "syncedJustNow": "Synchronisé à l'instant",
+      "syncedMinutesAgo": "Synchronisé il y a {minutes}m",
+      "failed": "Échec de la synchronisation",
+      "phoneDisconnected": "Téléphone déconnecté",
+      "tapToSync": "Touchez pour synchroniser",
+      "refreshFailed": "Impossible d'actualiser. Vérifiez votre téléphone.",
+      "openPhone": "Ouvrez Calorify sur votre téléphone, puis touchez actualiser."
+    },
+    "home": {
+      "today": "Aujourd'hui",
+      "calorieSummary": "{consumed} calories consommées sur {goal}. {status}.",
+      "overGoal": "{calories} au-dessus de l'objectif",
+      "remaining": "{calories} restants",
+      "left": "{calories} restants",
+      "goal": "Objectif : {calories} kcal",
+      "logMeal": "Enregistrer un repas",
+      "todayMeals": "Repas d'aujourd'hui",
+      "todayMealsCount": "Repas d'aujourd'hui, {count}",
+      "viewMore": "Voir {count} autres",
+      "viewMoreSemantics": "{count} repas de plus, touchez pour tout voir",
+      "noMeals": "Aucun repas enregistré",
+      "noMealsSemantics": "Aucun repas enregistré aujourd'hui",
+      "tapLog": "Touchez Enregistrer pour commencer",
+      "removedFromQueue": "Repas supprimé de la file hors ligne.",
+      "removedOffline": "Repas supprimé hors ligne. Il se synchronisera quand votre téléphone se reconnectera.",
+      "deleteFailed": "Impossible de supprimer le repas"
+    },
+    "history": {
+      "title": "Repas d'aujourd'hui",
+      "refresh": "Actualiser les repas",
+      "loadFailed": "Impossible de charger les repas",
+      "syncFailed": "Impossible de synchroniser",
+      "emptyTitle": "Aucun repas pour l'instant",
+      "emptyMessage": "Enregistrez un repas depuis l'accueil pour le voir ici."
+    },
+    "favorites": {
+      "title": "Favoris",
+      "refresh": "Actualiser les favoris",
+      "loadFailed": "Impossible de charger les favoris",
+      "syncFailed": "Impossible de synchroniser",
+      "emptyTitle": "Aucun favori pour l'instant",
+      "emptyMessage": "Mettez des repas en favori dans l'application sur votre téléphone pour les enregistrer d'une touche ici.",
+      "mealSemantics": "{name}, {calories} calories. Touchez pour enregistrer.",
+      "logged": "{name} enregistré !",
+      "savedOffline": "{name} enregistré hors ligne. Il se synchronisera quand votre téléphone se reconnectera.",
+      "saveFailed": "Impossible d'enregistrer le repas. Veuillez réessayer.",
+      "log": "Enregistrer"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} calories, enregistré à {time}.",
+      "longPressDelete": "Appuyez longuement pour supprimer.",
+      "deleteTitle": "Supprimer le repas ?"
+    },
+    "voice": {
+      "title": "Enregistrement vocal du repas",
+      "processing": "Analyse de votre repas…",
+      "processingDescription": "Estimation des portions et des nutriments",
+      "listening": "Écoute",
+      "secondsLeft": "{seconds}s",
+      "stop": "Arrêter l'enregistrement",
+      "start": "Touchez pour démarrer l'enregistrement",
+      "starting": "Activation du microphone…",
+      "prompt": "Touchez, puis décrivez votre repas",
+      "tapToRetry": "Touchez pour réessayer",
+      "example": "Essayez « 2 rotis avec du dal »",
+      "unavailable": "Saisie vocale indisponible. Vérifiez l'autorisation du microphone dans les paramètres de la montre.",
+      "didNotStart": "Le microphone n'a pas démarré. Touchez pour réessayer.",
+      "startFailed": "Impossible de démarrer l'enregistrement. Vérifiez les autorisations du microphone.",
+      "allowMicrophone": "Autorisez l'accès au microphone pour enregistrer les repas par la voix.",
+      "needsConnection": "La reconnaissance vocale nécessite une connexion. Touchez pour réessayer.",
+      "microphoneUnavailable": "Le microphone est indisponible. Touchez pour réessayer.",
+      "microphoneBusy": "Le microphone est occupé. Attendez un instant puis réessayez.",
+      "languageUnsupported": "La saisie vocale ne prend pas en charge la langue de la montre.",
+      "temporarilyBusy": "La saisie vocale est temporairement occupée. Attendez un instant puis réessayez.",
+      "notRecognized": "Je n'ai pas compris. Touchez le micro et réessayez.",
+      "noSpeech": "Aucun discours détecté. Touchez le micro pour réessayer.",
+      "analysisFailed": "L'analyse a échoué. Veuillez réessayer.",
+      "mealNotIdentified": "Impossible d'identifier ce repas. Essayez de le décrire différemment."
+    },
+    "result": {
+      "title": "Détails du repas",
+      "savedOffline": "Enregistré hors ligne",
+      "logged": "Enregistré !",
+      "mealFound": "Repas trouvé",
+      "estimatedEnergy": "Énergie estimée",
+      "logMeal": "Enregistrer le repas",
+      "logging": "Enregistrement…",
+      "logAnother": "Enregistrer un autre",
+      "goingBack": "Retour en cours…",
+      "savedOfflineMessage": "Repas enregistré hors ligne. Il se synchronisera quand votre téléphone se reconnectera.",
+      "saveFailed": "Impossible d'enregistrer le repas. Veuillez réessayer."
+    }
   },
   "common": {
     "close": "Fermer",

@@ -58,6 +58,7 @@ class TranslationsTr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$tr login = _Translations$login$tr._(_root);
 	@override late final _Translations$disclaimer$tr disclaimer = _Translations$disclaimer$tr._(_root);
 	@override late final _Translations$localNutritionPhase4$tr localNutritionPhase4 = _Translations$localNutritionPhase4$tr._(_root);
+	@override late final _Translations$watch$tr watch = _Translations$watch$tr._(_root);
 	@override late final _Translations$common$tr common = _Translations$common$tr._(_root);
 	@override late final _Translations$feedbackRating$tr feedbackRating = _Translations$feedbackRating$tr._(_root);
 	@override late final _Translations$health$tr health = _Translations$health$tr._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$tr extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'Yerel besin verileri temizlendi';
 }
 
+// Path: watch
+class _Translations$watch$tr extends Translations$watch$en {
+	_Translations$watch$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Saat';
+	@override late final _Translations$watch$common$tr common = _Translations$watch$common$tr._(_root);
+	@override late final _Translations$watch$nutrition$tr nutrition = _Translations$watch$nutrition$tr._(_root);
+	@override late final _Translations$watch$sync$tr sync = _Translations$watch$sync$tr._(_root);
+	@override late final _Translations$watch$home$tr home = _Translations$watch$home$tr._(_root);
+	@override late final _Translations$watch$history$tr history = _Translations$watch$history$tr._(_root);
+	@override late final _Translations$watch$favorites$tr favorites = _Translations$watch$favorites$tr._(_root);
+	@override late final _Translations$watch$meal$tr meal = _Translations$watch$meal$tr._(_root);
+	@override late final _Translations$watch$voice$tr voice = _Translations$watch$voice$tr._(_root);
+	@override late final _Translations$watch$result$tr result = _Translations$watch$result$tr._(_root);
+}
+
 // Path: common
 class _Translations$common$tr extends Translations$common$en {
 	_Translations$common$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -568,9 +588,13 @@ class _Translations$onboarding$healthConnect$tr extends Translations$onboarding$
 	// Translations
 	@override String get title => 'Health Connect ile bağlanın';
 	@override String get description => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.';
+	@override String get overviewDescription => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$tr automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$tr._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$tr caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$tr._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$tr progressInsights = _Translations$onboarding$healthConnect$progressInsights$tr._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$tr shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$tr._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$tr seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$tr._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$tr userControl = _Translations$onboarding$healthConnect$userControl$tr._(_root);
 	@override String get connected => 'Health Connect Bağlandı';
 	@override String get notConnected => 'Health Connect Bağlı Değil';
 	@override String get setup => 'Health Connect Kurulumu';
@@ -585,10 +609,6 @@ class _Translations$onboarding$healthConnect$tr extends Translations$onboarding$
 	@override String get manageAccess => 'Erişimi yönet';
 	@override String statusPermissionDenied({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.';
 	@override String statusError({required Object error}) => 'Health Connect kurulurken hata: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$tr caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$tr._(_root);
-	@override String get overviewDescription => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$tr shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$tr._(_root);
-	@override late final _Translations$onboarding$healthConnect$userControl$tr userControl = _Translations$onboarding$healthConnect$userControl$tr._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$tr extends Translations$home$connectHealt
 	@override String get title => 'Health Connect ile Senkronize Et';
 	@override String get description => 'Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın';
 	@override String get install => 'Yükle veya güncelle';
-	@override String get connect => 'Bağla';
 	@override String get dataUseDescription => 'Hedefinizde yakılan kalorileri kullanın ve kaydedilen öğünleri paylaşın';
 	@override String get installOrUpdate => 'Yükle veya güncelle';
+	@override String get connect => 'Bağla';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$tr extends Translations$settings$clear
 	// Translations
 	@override String get title => 'Tüm Verileri Temizle';
 	@override String get subtitle => 'Bu cihazda saklanan Calorify verilerini silin';
+	@override String get localOnlySubtitle => 'Bu cihazda saklanan Calorify verilerini sil';
 	@override String get confirmationTitle => 'Tüm Veriler Temizlensin mi?';
 	@override String get confirmationMessage => 'Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.';
+	@override String get localOnlyConfirmationMessage => 'Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.';
 	@override String get cancel => 'İptal';
 	@override String get clearEverything => 'Her Şeyi Temizle';
-	@override String get localOnlyConfirmationMessage => 'Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.';
-	@override String get localOnlySubtitle => 'Bu cihazda saklanan Calorify verilerini sil';
 }
 
 // Path: settings.debugOptions
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$tr extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$tr professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$tr._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$tr extends Translations$watch$common$en {
+	_Translations$watch$common$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Geri';
+	@override String get cancel => 'İptal';
+	@override String get delete => 'Sil';
+	@override String get retry => 'Tekrar dene';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$tr extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Besin';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} gram';
+	@override String get protein => 'Protein';
+	@override String get carbs => 'Karbonhidrat';
+	@override String get fat => 'Yağ';
+	@override String get fiber => 'Lif';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$tr extends Translations$watch$sync$en {
+	_Translations$watch$sync$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Telefonla eşitle';
+	@override String get syncing => 'Eşitleniyor…';
+	@override String get synced => 'Eşitlendi';
+	@override String get syncedJustNow => 'Az önce eşitlendi';
+	@override String syncedMinutesAgo({required Object minutes}) => '${minutes}dk önce eşitlendi';
+	@override String get failed => 'Eşitleme başarısız';
+	@override String get phoneDisconnected => 'Telefon bağlantısı kesildi';
+	@override String get tapToSync => 'Eşitlemek için dokun';
+	@override String get refreshFailed => 'Yenilenemedi. Telefonunuzu kontrol edin.';
+	@override String get openPhone => 'Telefonunuzda Calorify\'i açın, ardından yenileye dokunun.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$tr extends Translations$watch$home$en {
+	_Translations$watch$home$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Bugün';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kalori tüketildi, hedef ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} hedefin üzerinde';
+	@override String remaining({required Object calories}) => '${calories} kaldı';
+	@override String left({required Object calories}) => '${calories} kaldı';
+	@override String goal({required Object calories}) => '${calories} kcal hedef';
+	@override String get logMeal => 'Yemek kaydet';
+	@override String get todayMeals => 'Bugünün yemekleri';
+	@override String todayMealsCount({required Object count}) => 'Bugünün yemekleri, ${count}';
+	@override String viewMore({required Object count}) => '${count} tane daha görüntüle';
+	@override String viewMoreSemantics({required Object count}) => '${count} yemek daha, hepsini görüntülemek için dokun';
+	@override String get noMeals => 'Yemek kaydı yok';
+	@override String get noMealsSemantics => 'Bugün yemek kaydı yok';
+	@override String get tapLog => 'Başlamak için Kaydet\'e dokun';
+	@override String get removedFromQueue => 'Yemek çevrimdışı kuyruğundan kaldırıldı.';
+	@override String get removedOffline => 'Yemek çevrimdışı olarak kaldırıldı. Telefonunuz yeniden bağlandığında eşitlenecek.';
+	@override String get deleteFailed => 'Yemek silinemedi';
+}
+
+// Path: watch.history
+class _Translations$watch$history$tr extends Translations$watch$history$en {
+	_Translations$watch$history$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bugünün yemekleri';
+	@override String get refresh => 'Yemekleri yenile';
+	@override String get loadFailed => 'Yemekler yüklenemedi';
+	@override String get syncFailed => 'Eşitlenemedi';
+	@override String get emptyTitle => 'Henüz yemek yok';
+	@override String get emptyMessage => 'Burada görmek için Ana ekrandan bir yemek kaydedin.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$tr extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoriler';
+	@override String get refresh => 'Favorileri yenile';
+	@override String get loadFailed => 'Favoriler yüklenemedi';
+	@override String get syncFailed => 'Eşitlenemedi';
+	@override String get emptyTitle => 'Henüz favori yok';
+	@override String get emptyMessage => 'Telefon uygulamasında yemekleri yıldızlayın; burada tek dokunuşla kaydedebilirsiniz.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kalori. Kaydetmek için dokun.';
+	@override String logged({required Object name}) => '${name} kaydedildi!';
+	@override String savedOffline({required Object name}) => '${name} çevrimdışı olarak kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.';
+	@override String get saveFailed => 'Yemek kaydedilemedi. Lütfen tekrar deneyin.';
+	@override String get log => 'Kaydet';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$tr extends Translations$watch$meal$en {
+	_Translations$watch$meal$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalori, ${time}\'de kaydedildi.';
+	@override String get longPressDelete => 'Silmek için uzun basın.';
+	@override String get deleteTitle => 'Yemeği sil?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$tr extends Translations$watch$voice$en {
+	_Translations$watch$voice$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sesle yemek kaydı';
+	@override String get processing => 'Yemeğiniz kontrol ediliyor…';
+	@override String get processingDescription => 'Porsiyon ve besin değerleri tahmin ediliyor';
+	@override String get listening => 'Dinliyor';
+	@override String secondsLeft({required Object seconds}) => '${seconds}sn';
+	@override String get stop => 'Kaydı durdur';
+	@override String get start => 'Kaydı başlatmak için dokun';
+	@override String get starting => 'Mikrofon başlatılıyor…';
+	@override String get prompt => 'Dokun, sonra yemeğini tarif et';
+	@override String get tapToRetry => 'Tekrar denemek için dokun';
+	@override String get example => 'Örneğin “2 roti ile dal”';
+	@override String get unavailable => 'Ses girişi kullanılamıyor. Saat ayarlarında mikrofon iznini kontrol edin.';
+	@override String get didNotStart => 'Mikrofon başlamadı. Tekrar denemek için dokun.';
+	@override String get startFailed => 'Kayıt başlatılamadı. Mikrofon izinlerini kontrol edin.';
+	@override String get allowMicrophone => 'Yemekleri sesle kaydetmek için mikrofon erişimine izin verin.';
+	@override String get needsConnection => 'Ses tanıma bağlantı gerektirir. Tekrar denemek için dokun.';
+	@override String get microphoneUnavailable => 'Mikrofon kullanılamıyor. Tekrar denemek için dokun.';
+	@override String get microphoneBusy => 'Mikrofon meşgul. Biraz bekleyip tekrar deneyin.';
+	@override String get languageUnsupported => 'Ses girişi saatinizin dilini desteklemiyor.';
+	@override String get temporarilyBusy => 'Ses girişi geçici olarak meşgul. Biraz bekleyip tekrar deneyin.';
+	@override String get notRecognized => 'Yakalayamadım. Mikrofon simgesine dokunup tekrar deneyin.';
+	@override String get noSpeech => 'Konuşma algılanmadı. Tekrar denemek için mikrofona dokunun.';
+	@override String get analysisFailed => 'Analiz başarısız oldu. Lütfen tekrar deneyin.';
+	@override String get mealNotIdentified => 'Bu yemeği tanımlayamadım. Farklı şekilde tarif etmeyi deneyin.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$tr extends Translations$watch$result$en {
+	_Translations$watch$result$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Yemek ayrıntıları';
+	@override String get savedOffline => 'Çevrimdışı kaydedildi';
+	@override String get logged => 'Kaydedildi!';
+	@override String get mealFound => 'Yemek bulundu';
+	@override String get estimatedEnergy => 'Tahmini enerji';
+	@override String get logMeal => 'Yemeği kaydet';
+	@override String get logging => 'Kaydediliyor…';
+	@override String get logAnother => 'Bir tane daha kaydet';
+	@override String get goingBack => 'Geri dönülüyor…';
+	@override String get savedOfflineMessage => 'Yemek çevrimdışı kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.';
+	@override String get saveFailed => 'Yemek kaydedilemedi. Lütfen tekrar deneyin.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$tr extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1375,6 +1570,17 @@ class _Translations$onboarding$healthConnect$automaticTracking$tr extends Transl
 	@override String get description => 'Bugün yakılan toplam kaloriyi Health Connect\'ten okuyun';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$tr extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Yakılan Kaloriler';
+	@override String get description => 'Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$tr extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1384,6 +1590,17 @@ class _Translations$onboarding$healthConnect$progressInsights$tr extends Transla
 	// Translations
 	@override String get title => 'Kaydedilen Öğünleri Paylaş';
 	@override String get description => 'Calorify\'da kaydettiğiniz öğünleri Health Connect\'e yazın';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$tr extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kaydedilen Öğünleri Paylaş';
+	@override String get description => 'Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$tr extends Tran
 	@override String get description => 'İki izinden birini seçin ve erişimi istediğiniz zaman değiştirin';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$tr extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun';
-	@override String get title => 'Yakılan Kaloriler';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$tr extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-	final TranslationsTr _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın';
-	@override String get title => 'Kaydedilen Öğünleri Paylaş';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$tr extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$tr extends Translations
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin';
 	@override String get title => 'Kontrol Sizde';
+	@override String get description => 'İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$tr extends Translations$settings$abou
 	@override String get description => 'Gizlilik sonradan düşünülmüş bir unsur değil — bir tasarım ilkesidir. Bu pratikte şu anlama gelir:';
 	@override String get noAccounts => 'Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.';
 	@override String noTracking({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama etkinliklerini ve kilitlenme tanılamasını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.';
 	@override String noAds({required Object appLabel}) => 'Reklamsız tasarım\n${appLabel} reklamlar veya veri odaklı para kazanma yöntemleri olmadan çalışacak şekilde tasarlandı.';
 	@override String get noDataSelling => 'Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.';
 	@override String get localStorage => 'Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.';
 	@override String get privacyPolicy => 'Gizlilik Politikası';
-	@override String analyticsDisclosure({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.';
 }
 
 // Path: settings.about.developer
@@ -1908,12 +2103,19 @@ extension on TranslationsTr {
 			'onboarding.activityLevel.description' => 'Bu, günlük kalori ihtiyacınızı daha doğru hesaplamamıza yardımcı olur',
 			'onboarding.healthConnect.title' => 'Health Connect ile bağlanın',
 			'onboarding.healthConnect.description' => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.',
+			'onboarding.healthConnect.overviewDescription' => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Yakılan Kaloriler',
 			'onboarding.healthConnect.automaticTracking.description' => 'Bugün yakılan toplam kaloriyi Health Connect\'ten okuyun',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Yakılan Kaloriler',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun',
 			'onboarding.healthConnect.progressInsights.title' => 'Kaydedilen Öğünleri Paylaş',
 			'onboarding.healthConnect.progressInsights.description' => 'Calorify\'da kaydettiğiniz öğünleri Health Connect\'e yazın',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Kaydedilen Öğünleri Paylaş',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Kontrol Sizde',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'İki izinden birini seçin ve erişimi istediğiniz zaman değiştirin',
+			'onboarding.healthConnect.userControl.title' => 'Kontrol Sizde',
+			'onboarding.healthConnect.userControl.description' => 'İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin',
 			'onboarding.healthConnect.connected' => 'Health Connect Bağlandı',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Bağlı Değil',
 			'onboarding.healthConnect.setup' => 'Health Connect Kurulumu',
@@ -1928,13 +2130,6 @@ extension on TranslationsTr {
 			'onboarding.healthConnect.manageAccess' => 'Erişimi yönet',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect kurulurken hata: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun',
-			'onboarding.healthConnect.caloriesBurned.title' => 'Yakılan Kaloriler',
-			'onboarding.healthConnect.overviewDescription' => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'Kaydedilen Öğünleri Paylaş',
-			'onboarding.healthConnect.userControl.description' => 'İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin',
-			'onboarding.healthConnect.userControl.title' => 'Kontrol Sizde',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Yalnız değilsiniz',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Araştırmalar gösteriyor ki, tutarlı takip uzun vadeli başarının 1 numaralı öngörücüsüdür.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age} yaşında bir ${gender} için ${goal} hedefleyenlerde, düzenli takip başarı için bir numaralı belirleyicidir.',
@@ -2027,9 +2222,9 @@ extension on TranslationsTr {
 			'home.connectHealth.title' => 'Health Connect ile Senkronize Et',
 			'home.connectHealth.description' => 'Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın',
 			'home.connectHealth.install' => 'Yükle veya güncelle',
-			'home.connectHealth.connect' => 'Bağla',
 			'home.connectHealth.dataUseDescription' => 'Hedefinizde yakılan kalorileri kullanın ve kaydedilen öğünleri paylaşın',
 			'home.connectHealth.installOrUpdate' => 'Yükle veya güncelle',
+			'home.connectHealth.connect' => 'Bağla',
 			'history.noMeals' => 'Kayıtlı öğün yok',
 			'history.emptyMessage' => 'Buraya kaydetmek için son öğününüzün fotoğrafını çekin.',
 			'history.today' => 'Bugün',
@@ -2265,12 +2460,12 @@ extension on TranslationsTr {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Öğün geçmişi dışa aktarılamadı: ${error}',
 			'settings.clearAllData.title' => 'Tüm Verileri Temizle',
 			'settings.clearAllData.subtitle' => 'Bu cihazda saklanan Calorify verilerini silin',
+			'settings.clearAllData.localOnlySubtitle' => 'Bu cihazda saklanan Calorify verilerini sil',
 			'settings.clearAllData.confirmationTitle' => 'Tüm Veriler Temizlensin mi?',
 			'settings.clearAllData.confirmationMessage' => 'Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.',
 			'settings.clearAllData.cancel' => 'İptal',
 			'settings.clearAllData.clearEverything' => 'Her Şeyi Temizle',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.',
-			'settings.clearAllData.localOnlySubtitle' => 'Bu cihazda saklanan Calorify verilerini sil',
 			'settings.debugOptions.title' => 'Hata Ayıklama Seçenekleri',
 			'settings.developerModeEnabled' => 'Geliştirici modu etkinleştirildi!',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2321,11 +2516,11 @@ extension on TranslationsTr {
 			'settings.about.privacy.description' => 'Gizlilik sonradan düşünülmüş bir unsur değil — bir tasarım ilkesidir. Bu pratikte şu anlama gelir:',
 			'settings.about.privacy.noAccounts' => 'Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama etkinliklerini ve kilitlenme tanılamasını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Reklamsız tasarım\n${appLabel} reklamlar veya veri odaklı para kazanma yöntemleri olmadan çalışacak şekilde tasarlandı.',
 			'settings.about.privacy.noDataSelling' => 'Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.',
 			'settings.about.privacy.localStorage' => 'Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.',
 			'settings.about.privacy.privacyPolicy' => 'Gizlilik Politikası',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.',
 			'settings.about.developer.title' => 'Tek Geliştirici Tarafından Yapıldı',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}, sakin, gizliliğe saygılı sağlık yazılımları yaratmaya odaklanmış tek bir geliştirici tarafından inşa edilip sürdürülmektedir.\n\nGeri bildirimler kişisel olarak okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.',
 			'settings.about.developer.website' => 'Web sitesi',
@@ -2432,6 +2627,101 @@ extension on TranslationsTr {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Verileri temizle',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Yerel besin verileri indirilemedi ve doğrulanamadı: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Yerel besin verileri temizlendi',
+			'watch.appTitle' => 'Calorify Saat',
+			'watch.common.back' => 'Geri',
+			'watch.common.cancel' => 'İptal',
+			'watch.common.delete' => 'Sil',
+			'watch.common.retry' => 'Tekrar dene',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Besin',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} gram',
+			'watch.nutrition.protein' => 'Protein',
+			'watch.nutrition.carbs' => 'Karbonhidrat',
+			'watch.nutrition.fat' => 'Yağ',
+			'watch.nutrition.fiber' => 'Lif',
+			'watch.sync.syncWithPhone' => 'Telefonla eşitle',
+			'watch.sync.syncing' => 'Eşitleniyor…',
+			'watch.sync.synced' => 'Eşitlendi',
+			'watch.sync.syncedJustNow' => 'Az önce eşitlendi',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => '${minutes}dk önce eşitlendi',
+			'watch.sync.failed' => 'Eşitleme başarısız',
+			'watch.sync.phoneDisconnected' => 'Telefon bağlantısı kesildi',
+			'watch.sync.tapToSync' => 'Eşitlemek için dokun',
+			'watch.sync.refreshFailed' => 'Yenilenemedi. Telefonunuzu kontrol edin.',
+			'watch.sync.openPhone' => 'Telefonunuzda Calorify\'i açın, ardından yenileye dokunun.',
+			'watch.home.today' => 'Bugün',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kalori tüketildi, hedef ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} hedefin üzerinde',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} kaldı',
+			'watch.home.left' => ({required Object calories}) => '${calories} kaldı',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal hedef',
+			'watch.home.logMeal' => 'Yemek kaydet',
+			'watch.home.todayMeals' => 'Bugünün yemekleri',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Bugünün yemekleri, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => '${count} tane daha görüntüle',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} yemek daha, hepsini görüntülemek için dokun',
+			'watch.home.noMeals' => 'Yemek kaydı yok',
+			'watch.home.noMealsSemantics' => 'Bugün yemek kaydı yok',
+			'watch.home.tapLog' => 'Başlamak için Kaydet\'e dokun',
+			'watch.home.removedFromQueue' => 'Yemek çevrimdışı kuyruğundan kaldırıldı.',
+			'watch.home.removedOffline' => 'Yemek çevrimdışı olarak kaldırıldı. Telefonunuz yeniden bağlandığında eşitlenecek.',
+			'watch.home.deleteFailed' => 'Yemek silinemedi',
+			'watch.history.title' => 'Bugünün yemekleri',
+			'watch.history.refresh' => 'Yemekleri yenile',
+			'watch.history.loadFailed' => 'Yemekler yüklenemedi',
+			'watch.history.syncFailed' => 'Eşitlenemedi',
+			'watch.history.emptyTitle' => 'Henüz yemek yok',
+			'watch.history.emptyMessage' => 'Burada görmek için Ana ekrandan bir yemek kaydedin.',
+			'watch.favorites.title' => 'Favoriler',
+			'watch.favorites.refresh' => 'Favorileri yenile',
+			'watch.favorites.loadFailed' => 'Favoriler yüklenemedi',
+			'watch.favorites.syncFailed' => 'Eşitlenemedi',
+			'watch.favorites.emptyTitle' => 'Henüz favori yok',
+			'watch.favorites.emptyMessage' => 'Telefon uygulamasında yemekleri yıldızlayın; burada tek dokunuşla kaydedebilirsiniz.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kalori. Kaydetmek için dokun.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} kaydedildi!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} çevrimdışı olarak kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.',
+			'watch.favorites.saveFailed' => 'Yemek kaydedilemedi. Lütfen tekrar deneyin.',
+			'watch.favorites.log' => 'Kaydet',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalori, ${time}\'de kaydedildi.',
+			'watch.meal.longPressDelete' => 'Silmek için uzun basın.',
+			'watch.meal.deleteTitle' => 'Yemeği sil?',
+			'watch.voice.title' => 'Sesle yemek kaydı',
+			'watch.voice.processing' => 'Yemeğiniz kontrol ediliyor…',
+			'watch.voice.processingDescription' => 'Porsiyon ve besin değerleri tahmin ediliyor',
+			'watch.voice.listening' => 'Dinliyor',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}sn',
+			'watch.voice.stop' => 'Kaydı durdur',
+			'watch.voice.start' => 'Kaydı başlatmak için dokun',
+			'watch.voice.starting' => 'Mikrofon başlatılıyor…',
+			'watch.voice.prompt' => 'Dokun, sonra yemeğini tarif et',
+			'watch.voice.tapToRetry' => 'Tekrar denemek için dokun',
+			'watch.voice.example' => 'Örneğin “2 roti ile dal”',
+			'watch.voice.unavailable' => 'Ses girişi kullanılamıyor. Saat ayarlarında mikrofon iznini kontrol edin.',
+			'watch.voice.didNotStart' => 'Mikrofon başlamadı. Tekrar denemek için dokun.',
+			'watch.voice.startFailed' => 'Kayıt başlatılamadı. Mikrofon izinlerini kontrol edin.',
+			'watch.voice.allowMicrophone' => 'Yemekleri sesle kaydetmek için mikrofon erişimine izin verin.',
+			'watch.voice.needsConnection' => 'Ses tanıma bağlantı gerektirir. Tekrar denemek için dokun.',
+			'watch.voice.microphoneUnavailable' => 'Mikrofon kullanılamıyor. Tekrar denemek için dokun.',
+			'watch.voice.microphoneBusy' => 'Mikrofon meşgul. Biraz bekleyip tekrar deneyin.',
+			'watch.voice.languageUnsupported' => 'Ses girişi saatinizin dilini desteklemiyor.',
+			'watch.voice.temporarilyBusy' => 'Ses girişi geçici olarak meşgul. Biraz bekleyip tekrar deneyin.',
+			'watch.voice.notRecognized' => 'Yakalayamadım. Mikrofon simgesine dokunup tekrar deneyin.',
+			'watch.voice.noSpeech' => 'Konuşma algılanmadı. Tekrar denemek için mikrofona dokunun.',
+			'watch.voice.analysisFailed' => 'Analiz başarısız oldu. Lütfen tekrar deneyin.',
+			'watch.voice.mealNotIdentified' => 'Bu yemeği tanımlayamadım. Farklı şekilde tarif etmeyi deneyin.',
+			'watch.result.title' => 'Yemek ayrıntıları',
+			'watch.result.savedOffline' => 'Çevrimdışı kaydedildi',
+			'watch.result.logged' => 'Kaydedildi!',
+			'watch.result.mealFound' => 'Yemek bulundu',
+			'watch.result.estimatedEnergy' => 'Tahmini enerji',
+			'watch.result.logMeal' => 'Yemeği kaydet',
+			'watch.result.logging' => 'Kaydediliyor…',
+			'watch.result.logAnother' => 'Bir tane daha kaydet',
+			'watch.result.goingBack' => 'Geri dönülüyor…',
+			'watch.result.savedOfflineMessage' => 'Yemek çevrimdışı kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.',
+			'watch.result.saveFailed' => 'Yemek kaydedilemedi. Lütfen tekrar deneyin.',
 			'common.close' => 'Kapat',
 			'common.kContinue' => 'Devam',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?',

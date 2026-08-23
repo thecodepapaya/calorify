@@ -84,19 +84,11 @@
       "title": "Koppel met Health Connect",
       "description": "Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.",
       "overviewDescription": "Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.",
-      "caloriesBurned": {
+      "automaticTracking": {
         "title": "Verbrande calorieën",
         "description": "Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect"
       },
-      "shareLoggedMeals": {
-        "title": "Gelogde maaltijden delen",
-        "description": "Schrijf maaltijden die je in Calorify logt naar Health Connect"
-      },
-      "userControl": {
-        "title": "Jij houdt de controle",
-        "description": "Kies een van beide machtigingen en wijzig de toegang wanneer je wilt"
-      },
-      "automaticTracking": {
+      "caloriesBurned": {
         "title": "Verbrande calorieën",
         "description": "Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect"
       },
@@ -104,7 +96,15 @@
         "title": "Geloggde maaltijden delen",
         "description": "Schrijf maaltijden die je in Calorify logt naar Health Connect"
       },
+      "shareLoggedMeals": {
+        "title": "Gelogde maaltijden delen",
+        "description": "Schrijf maaltijden die je in Calorify logt naar Health Connect"
+      },
       "seamlessIntegration": {
+        "title": "Jij houdt de controle",
+        "description": "Kies een van beide machtigingen en wijzig de toegang wanneer je wilt"
+      },
+      "userControl": {
         "title": "Jij houdt de controle",
         "description": "Kies een van beide machtigingen en wijzig de toegang wanneer je wilt"
       },
@@ -243,11 +243,11 @@
       "uploadingPhoto": "Foto uploaden…"
     },
     "connectHealth": {
-      "dataUseDescription": "Gebruik verbrande calorieën in je doel en deel gelogde maaltijden",
-      "installOrUpdate": "Installeren of bijwerken",
       "title": "Synchroniseren met Health Connect",
       "description": "Gebruik verbrande calorieën in je doel en deel gelogde maaltijden",
       "install": "Installeren of bijwerken",
+      "dataUseDescription": "Gebruik verbrande calorieën in je doel en deel gelogde maaltijden",
+      "installOrUpdate": "Installeren of bijwerken",
       "connect": "Koppelen"
     }
   },
@@ -560,12 +560,12 @@
       "failed": "Kon maaltijdgeschiedenis niet exporteren: {error}"
     },
     "clearAllData": {
-      "localOnlySubtitle": "Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen",
-      "localOnlyConfirmationMessage": "Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.",
       "title": "Alle gegevens wissen",
       "subtitle": "Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen",
+      "localOnlySubtitle": "Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen",
       "confirmationTitle": "Alle gegevens wissen?",
       "confirmationMessage": "Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect beheer je afzonderlijk via Instellingen > Health Connect.",
+      "localOnlyConfirmationMessage": "Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.",
       "cancel": "Annuleren",
       "clearEverything": "Alles wissen"
     },
@@ -577,9 +577,9 @@
       "title": "Health Connect",
       "subtitle": "Bekijk en beheer machtigingen",
       "unavailable": {
-        "unsupportedDescription": "Health Connect wordt niet ondersteund op dit apparaat.",
         "title": "Health Connect niet beschikbaar",
-        "description": "Health Connect wordt niet ondersteund op dit apparaat."
+        "description": "Health Connect wordt niet ondersteund op dit apparaat.",
+        "unsupportedDescription": "Health Connect wordt niet ondersteund op dit apparaat."
       },
       "updateRequired": {
         "title": "Health Connect vereist aandacht",
@@ -635,11 +635,11 @@
         "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-trackingapps zijn óf te ingewikkeld, vereisen constant handmatig invoer, vragen hoge abonnementskosten of schenden de privacy.\n\nAls solo-ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om inspanning te verminderen, snel en gratis blijft, en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app die ik had willen bestaan: geen accounts, geen tracking, geen advertenties — alleen heldere, praktische inzichten en jouw gezondheidsdoelen."
       },
       "privacy": {
-        "analyticsDisclosure": "Beperkte analyse en diagnostiek\n{appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.",
         "title": "Je privacy doet ertoe",
         "description": "Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:",
         "noAccounts": "Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.",
         "noTracking": "Beperkte analyses en diagnostiek\n{appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet voor advertenties gebruikt of verkocht.",
+        "analyticsDisclosure": "Beperkte analyse en diagnostiek\n{appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.",
         "noAds": "Advertentievrij bij ontwerp\n{appLabel} is gebouwd om te werken zonder advertenties of datagedreven monetisatie.",
         "noDataSelling": "Geen verkoop van gegevens\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.",
         "localStorage": "Lokaal als eerste opslag\nJe gegevens blijven op je apparaat.",
@@ -648,7 +648,7 @@
       "developer": {
         "title": "Gemaakt door een solo-ontwikkelaar",
         "description": "{appLabel} is gebouwd en wordt onderhouden door een enkele solo-ontwikkelaar die zich richt op het maken van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app vormgeven.",
-      "website": "Webpagina",
+        "website": "Webpagina",
         "email": "E-mail"
       },
       "feedback": {
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Gegevens wissen",
     "offlineNutritionInstallFailed": "Lokale voedingsgegevens konden niet worden gedownload en geverifieerd: {error}",
     "offlineNutritionCleared": "Lokale voedingsgegevens gewist"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Terug",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "retry": "Opnieuw",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Voedingsstof",
+      "grams": "{label}, {value} g",
+      "protein": "Eiwit",
+      "carbs": "Koolhydraten",
+      "fat": "Vetten",
+      "fiber": "Vezels"
+    },
+    "sync": {
+      "syncWithPhone": "Synchroniseer met telefoon",
+      "syncing": "Synchroniseren…",
+      "synced": "Gesynchroniseerd",
+      "syncedJustNow": "Zojuist gesynchroniseerd",
+      "syncedMinutesAgo": "Gesynchroniseerd {minutes}m geleden",
+      "failed": "Synchronisatie mislukt",
+      "phoneDisconnected": "Telefoon niet verbonden",
+      "tapToSync": "Tik om te synchroniseren",
+      "refreshFailed": "Vernieuwen mislukt. Controleer je telefoon.",
+      "openPhone": "Open Calorify op je telefoon en tik op vernieuwen."
+    },
+    "home": {
+      "today": "Vandaag",
+      "calorieSummary": "{consumed} calorieën geconsumeerd van {goal}. {status}.",
+      "overGoal": "{calories} boven je doel",
+      "remaining": "{calories} resterend",
+      "left": "Nog {calories}",
+      "goal": "{calories} kcal doel",
+      "logMeal": "Maaltijd loggen",
+      "todayMeals": "Maaltijden van vandaag",
+      "todayMealsCount": "Maaltijden van vandaag, {count}",
+      "viewMore": "Bekijk nog {count}",
+      "viewMoreSemantics": "{count} meer maaltijden, tik om alles te bekijken",
+      "noMeals": "Geen maaltijden geregistreerd",
+      "noMealsSemantics": "Vandaag geen maaltijden geregistreerd",
+      "tapLog": "Tik op Loggen om te beginnen",
+      "removedFromQueue": "Maaltijd verwijderd uit de offline wachtrij.",
+      "removedOffline": "Maaltijd offline verwijderd. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.",
+      "deleteFailed": "Kon maaltijd niet verwijderen"
+    },
+    "history": {
+      "title": "Maaltijden van vandaag",
+      "refresh": "Vernieuw maaltijden",
+      "loadFailed": "Kon maaltijden niet laden",
+      "syncFailed": "Kon niet synchroniseren",
+      "emptyTitle": "Nog geen maaltijden",
+      "emptyMessage": "Log een maaltijd via het beginscherm om die hier te zien."
+    },
+    "favorites": {
+      "title": "Favorieten",
+      "refresh": "Vernieuw favorieten",
+      "loadFailed": "Kon favorieten niet laden",
+      "syncFailed": "Kon niet synchroniseren",
+      "emptyTitle": "Nog geen favorieten",
+      "emptyMessage": "Markeer maaltijden met een ster in de telefoon-app zodat je ze hier met één tik kunt loggen.",
+      "mealSemantics": "{name}, {calories} calorieën. Tik om te loggen.",
+      "logged": "{name} gelogd!",
+      "savedOffline": "{name} offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.",
+      "saveFailed": "Kon de maaltijd niet opslaan. Probeer het opnieuw.",
+      "log": "Loggen"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} calorieën, gelogd om {time}.",
+      "longPressDelete": "Lang indrukken om te verwijderen.",
+      "deleteTitle": "Maaltijd verwijderen?"
+    },
+    "voice": {
+      "title": "Maaltijd loggen met spraak",
+      "processing": "Maaltijd controleren…",
+      "processingDescription": "Porties en voedingswaarden schatten",
+      "listening": "Luistert",
+      "secondsLeft": "{seconds}s",
+      "stop": "Opname stoppen",
+      "start": "Tik om opname te starten",
+      "starting": "Microfoon starten…",
+      "prompt": "Tik en beschrijf daarna je maaltijd",
+      "tapToRetry": "Tik om het opnieuw te proberen",
+      "example": "Probeer “2 rotis met dal”",
+      "unavailable": "Spraakinvoer is niet beschikbaar. Controleer de microfoonmachtiging in de instellingen van je horloge.",
+      "didNotStart": "Microfoon is niet gestart. Tik om het opnieuw te proberen.",
+      "startFailed": "Kon opname niet starten. Controleer microfoonmachtigingen.",
+      "allowMicrophone": "Sta microfoontoegang toe om maaltijden via spraak te loggen.",
+      "needsConnection": "Spraakherkenning heeft een verbinding nodig. Tik om het opnieuw te proberen.",
+      "microphoneUnavailable": "De microfoon is niet beschikbaar. Tik om het opnieuw te proberen.",
+      "microphoneBusy": "De microfoon is in gebruik. Wacht even en probeer het opnieuw.",
+      "languageUnsupported": "Spraakinvoer ondersteunt de taal van het horloge niet.",
+      "temporarilyBusy": "Spraakinvoer is tijdelijk bezet. Wacht even en probeer het opnieuw.",
+      "notRecognized": "Ik verstond dat niet. Tik op de microfoon en probeer het opnieuw.",
+      "noSpeech": "Geen spraak gedetecteerd. Tik op de microfoon om het opnieuw te proberen.",
+      "analysisFailed": "Analyse is mislukt. Probeer het opnieuw.",
+      "mealNotIdentified": "Kon die maaltijd niet identificeren. Probeer deze anders te beschrijven."
+    },
+    "result": {
+      "title": "Maaltijdgegevens",
+      "savedOffline": "Offline opgeslagen",
+      "logged": "Gelogd!",
+      "mealFound": "Maaltijd gevonden",
+      "estimatedEnergy": "Geschatte energie",
+      "logMeal": "Maaltijd loggen",
+      "logging": "Bezig met loggen…",
+      "logAnother": "Nog een loggen",
+      "goingBack": "Teruggaan…",
+      "savedOfflineMessage": "Maaltijd offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.",
+      "saveFailed": "Kon de maaltijd niet opslaan. Probeer het opnieuw."
+    }
   },
   "common": {
     "close": "Sluiten",

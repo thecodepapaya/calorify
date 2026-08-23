@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Kunne ikke downloade og verificere lokale ernæringsdata: {error}",
     "offlineNutritionCleared": "Lokale ernæringsdata er ryddet"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Tilbage",
+      "cancel": "Annuller",
+      "delete": "Slet",
+      "retry": "Prøv igen",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Næringsstof",
+      "grams": "{label}, {value} gram",
+      "protein": "Protein",
+      "carbs": "Kulhydrater",
+      "fat": "Fedt",
+      "fiber": "Fibre"
+    },
+    "sync": {
+      "syncWithPhone": "Synkroniser med telefon",
+      "syncing": "Synkroniserer…",
+      "synced": "Synkroniseret",
+      "syncedJustNow": "Synkroniseret lige nu",
+      "syncedMinutesAgo": "Synkroniseret {minutes}m siden",
+      "failed": "Synkronisering mislykkedes",
+      "phoneDisconnected": "Telefon frakoblet",
+      "tapToSync": "Tryk for at synkronisere",
+      "refreshFailed": "Kunne ikke opdatere. Tjek din telefon.",
+      "openPhone": "Åbn Calorify på din telefon, og tryk derefter på opdater."
+    },
+    "home": {
+      "today": "I dag",
+      "calorieSummary": "{consumed} kalorier indtaget ud af {goal}. {status}.",
+      "overGoal": "{calories} over målet",
+      "remaining": "{calories} tilbage",
+      "left": "{calories} tilbage",
+      "goal": "{calories} kcal mål",
+      "logMeal": "Registrer et måltid",
+      "todayMeals": "Dagens måltider",
+      "todayMealsCount": "Dagens måltider, {count}",
+      "viewMore": "Se {count} flere",
+      "viewMoreSemantics": "{count} flere måltider, tryk for at se alle",
+      "noMeals": "Ingen måltider registreret",
+      "noMealsSemantics": "Ingen måltider registreret i dag",
+      "tapLog": "Tryk på Registrer for at starte",
+      "removedFromQueue": "Måltid fjernet fra offlinekøen.",
+      "removedOffline": "Måltid fjernet offline. Det synkroniseres, når din telefon genopretter forbindelse.",
+      "deleteFailed": "Kunne ikke slette måltidet"
+    },
+    "history": {
+      "title": "Dagens måltider",
+      "refresh": "Opdater måltider",
+      "loadFailed": "Kunne ikke indlæse måltider",
+      "syncFailed": "Kunne ikke synkronisere",
+      "emptyTitle": "Ingen måltider endnu",
+      "emptyMessage": "Registrer et måltid fra Hjem for at se det her."
+    },
+    "favorites": {
+      "title": "Favoritter",
+      "refresh": "Opdater favoritter",
+      "loadFailed": "Kunne ikke indlæse favoritter",
+      "syncFailed": "Kunne ikke synkronisere",
+      "emptyTitle": "Ingen favoritter endnu",
+      "emptyMessage": "Marker måltider med stjerne i telefonappen for at få ét-tryk-registrering her.",
+      "mealSemantics": "{name}, {calories} kalorier. Tryk for at registrere.",
+      "logged": "{name} registreret!",
+      "savedOffline": "{name} gemt offline. Det synkroniseres, når din telefon genopretter forbindelsen.",
+      "saveFailed": "Kunne ikke gemme måltidet. Prøv igen.",
+      "log": "Registrer"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kalorier, registreret kl. {time}.",
+      "longPressDelete": "Hold nede for at slette.",
+      "deleteTitle": "Slet måltid?"
+    },
+    "voice": {
+      "title": "Stemmeregistrering",
+      "processing": "Tjekker dit måltid…",
+      "processingDescription": "Estimerer portioner og næringsindhold",
+      "listening": "Lytter",
+      "secondsLeft": "{seconds}s",
+      "stop": "Stop optagelse",
+      "start": "Tryk for at starte optagelse",
+      "starting": "Starter mikrofon…",
+      "prompt": "Tryk, og beskriv derefter dit måltid",
+      "tapToRetry": "Tryk for at prøve igen",
+      "example": "Prøv “2 rotis med dal”",
+      "unavailable": "Stemmeinput er ikke tilgængeligt. Tjek mikrofontilladelse i urindstillingerne.",
+      "didNotStart": "Mikrofonen startede ikke. Tryk for at prøve igen.",
+      "startFailed": "Kunne ikke starte optagelse. Tjek mikrofontilladelser.",
+      "allowMicrophone": "Giv adgang til mikrofonen for at registrere måltider med stemme.",
+      "needsConnection": "Stemmegenkendelse kræver forbindelse. Tryk for at prøve igen.",
+      "microphoneUnavailable": "Mikrofonen er ikke tilgængelig. Tryk for at prøve igen.",
+      "microphoneBusy": "Mikrofonen er optaget. Vent et øjeblik og prøv igen.",
+      "languageUnsupported": "Stemmeinput understøtter ikke ursproget.",
+      "temporarilyBusy": "Stemmeinput er midlertidigt optaget. Vent et øjeblik og prøv igen.",
+      "notRecognized": "Det fangede jeg ikke. Tryk på mikrofonen og prøv igen.",
+      "noSpeech": "Ingen tale registreret. Tryk på mikrofonen for at prøve igen.",
+      "analysisFailed": "Analysen mislykkedes. Prøv igen.",
+      "mealNotIdentified": "Kunne ikke identificere måltidet. Prøv at beskrive det anderledes."
+    },
+    "result": {
+      "title": "Måltidsdetaljer",
+      "savedOffline": "Gemt offline",
+      "logged": "Registreret!",
+      "mealFound": "Måltid fundet",
+      "estimatedEnergy": "Anslået energi",
+      "logMeal": "Registrer måltid",
+      "logging": "Registrerer…",
+      "logAnother": "Registrer et til",
+      "goingBack": "Går tilbage…",
+      "savedOfflineMessage": "Måltid gemt offline. Det synkroniseres, når din telefon genopretter forbindelsen.",
+      "saveFailed": "Kunne ikke gemme måltidet. Prøv igen."
+    }
+  },
   "common": {
     "close": "Luk",
     "continue": "Fortsæt"

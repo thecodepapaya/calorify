@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Det gick inte att ladda ned och verifiera lokala näringsdata: {error}",
     "offlineNutritionCleared": "Lokala näringsdata har rensats"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Tillbaka",
+      "cancel": "Avbryt",
+      "delete": "Ta bort",
+      "retry": "Försök igen",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Näringsämne",
+      "grams": "{label}, {value} gram",
+      "protein": "Protein",
+      "carbs": "Kolhydrater",
+      "fat": "Fett",
+      "fiber": "Fibrer"
+    },
+    "sync": {
+      "syncWithPhone": "Synkronisera med telefon",
+      "syncing": "Synkroniserar…",
+      "synced": "Synkroniserad",
+      "syncedJustNow": "Synkroniserad nyss",
+      "syncedMinutesAgo": "Synkroniserad {minutes}m sedan",
+      "failed": "Synkronisering misslyckades",
+      "phoneDisconnected": "Telefon frånkopplad",
+      "tapToSync": "Tryck för att synkronisera",
+      "refreshFailed": "Kunde inte uppdatera. Kontrollera din telefon.",
+      "openPhone": "Öppna Calorify på din telefon och tryck sedan på uppdatera."
+    },
+    "home": {
+      "today": "Idag",
+      "calorieSummary": "{consumed} kcal intagna av {goal}. {status}.",
+      "overGoal": "{calories} över målet",
+      "remaining": "{calories} återstår",
+      "left": "{calories} kvar",
+      "goal": "{calories} kcal mål",
+      "logMeal": "Logga en måltid",
+      "todayMeals": "Dagens måltider",
+      "todayMealsCount": "Dagens måltider, {count}",
+      "viewMore": "Visa {count} till",
+      "viewMoreSemantics": "{count} ytterligare måltider, tryck för att se alla",
+      "noMeals": "Inga måltider registrerade",
+      "noMealsSemantics": "Inga måltider registrerade idag",
+      "tapLog": "Tryck på Logga för att börja",
+      "removedFromQueue": "Måltid borttagen från offline-kön.",
+      "removedOffline": "Måltid borttagen offline. Den synkroniseras när din telefon kopplar upp igen.",
+      "deleteFailed": "Kunde inte ta bort måltid"
+    },
+    "history": {
+      "title": "Dagens måltider",
+      "refresh": "Uppdatera måltider",
+      "loadFailed": "Kunde inte ladda måltider",
+      "syncFailed": "Kunde inte synkronisera",
+      "emptyTitle": "Inga måltider än",
+      "emptyMessage": "Logga en måltid från Hem för att se den här."
+    },
+    "favorites": {
+      "title": "Favoriter",
+      "refresh": "Uppdatera favoriter",
+      "loadFailed": "Kunde inte ladda favoriter",
+      "syncFailed": "Kunde inte synkronisera",
+      "emptyTitle": "Inga favoriter än",
+      "emptyMessage": "Markera måltider med en stjärna i telefonappen för att logga dem här med ett tryck.",
+      "mealSemantics": "{name}, {calories} kcal. Tryck för att logga.",
+      "logged": "{name} registrerad!",
+      "savedOffline": "{name} sparad offline. Den synkroniseras när din telefon kopplar upp igen.",
+      "saveFailed": "Kunde inte spara måltiden. Försök igen.",
+      "log": "Logga"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kcal, registrerad kl {time}.",
+      "longPressDelete": "Håll ned för att ta bort.",
+      "deleteTitle": "Ta bort måltid?"
+    },
+    "voice": {
+      "title": "Röstinspelning för måltid",
+      "processing": "Analyserar din måltid…",
+      "processingDescription": "Beräknar portioner och näringsinnehåll",
+      "listening": "Lyssnar",
+      "secondsLeft": "{seconds}s",
+      "stop": "Stoppa inspelning",
+      "start": "Tryck för att starta inspelning",
+      "starting": "Startar mikrofonen…",
+      "prompt": "Tryck och beskriv sedan din måltid",
+      "tapToRetry": "Tryck för att försöka igen",
+      "example": "Försök med ”2 rotis med dal”",
+      "unavailable": "Röstinmatning är inte tillgänglig. Kontrollera mikrofonens behörighet i klockans inställningar.",
+      "didNotStart": "Mikrofonen startade inte. Tryck för att försöka igen.",
+      "startFailed": "Kunde inte starta inspelningen. Kontrollera mikrofonbehörigheter.",
+      "allowMicrophone": "Tillåt åtkomst till mikrofonen för att logga måltider med röst.",
+      "needsConnection": "Röstigenkänning kräver en anslutning. Tryck för att försöka igen.",
+      "microphoneUnavailable": "Mikrofonen är inte tillgänglig. Tryck för att försöka igen.",
+      "microphoneBusy": "Mikrofonen är upptagen. Vänta en stund och försök igen.",
+      "languageUnsupported": "Röstinmatning stöder inte klockans språk.",
+      "temporarilyBusy": "Röstinmatning är tillfälligt upptagen. Vänta en stund och försök igen.",
+      "notRecognized": "Jag uppfattade inte det. Tryck på mikrofonen och försök igen.",
+      "noSpeech": "Ingen tal upptäckt. Tryck på mikrofonen för att försöka igen.",
+      "analysisFailed": "Analys misslyckades. Försök igen.",
+      "mealNotIdentified": "Kunde inte identifiera måltiden. Försök beskriva den på ett annat sätt."
+    },
+    "result": {
+      "title": "Måltidsdetaljer",
+      "savedOffline": "Sparad offline",
+      "logged": "Registrerad!",
+      "mealFound": "Måltid hittad",
+      "estimatedEnergy": "Uppskattad energi",
+      "logMeal": "Logga måltid",
+      "logging": "Loggar…",
+      "logAnother": "Logga en till",
+      "goingBack": "Går tillbaka…",
+      "savedOfflineMessage": "Måltid sparad offline. Den synkroniseras när din telefon kopplar upp igen.",
+      "saveFailed": "Kunde inte spara måltiden. Försök igen."
+    }
+  },
   "common": {
     "close": "Stäng",
     "continue": "Fortsätt"

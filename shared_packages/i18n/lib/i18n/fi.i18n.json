@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Paikallisia ravintoarvotietoja ei voitu ladata ja varmentaa: {error}",
     "offlineNutritionCleared": "Paikalliset ravintoarvotiedot tyhjennettiin"
   },
+  "watch": {
+    "appTitle": "Calorify-kello",
+    "common": {
+      "back": "Takaisin",
+      "cancel": "Peruuta",
+      "delete": "Poista",
+      "retry": "Yritä uudelleen",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Ravintoaine",
+      "grams": "{label}, {value} g",
+      "protein": "Proteiini",
+      "carbs": "Hiilihydraatit",
+      "fat": "Rasva",
+      "fiber": "Kuitu"
+    },
+    "sync": {
+      "syncWithPhone": "Synkronoi puhelimen kanssa",
+      "syncing": "Synkronoidaan…",
+      "synced": "Synkronoitu",
+      "syncedJustNow": "Synkronoitu juuri nyt",
+      "syncedMinutesAgo": "Synkronoitu {minutes} min sitten",
+      "failed": "Synkronointi epäonnistui",
+      "phoneDisconnected": "Puhelin ei ole yhdistetty",
+      "tapToSync": "Napauta synkronoidaksesi",
+      "refreshFailed": "Päivitys epäonnistui. Tarkista puhelimesi.",
+      "openPhone": "Avaa Calorify puhelimellasi ja napauta sitten päivitä."
+    },
+    "home": {
+      "today": "Tänään",
+      "calorieSummary": "{consumed} kaloria kulutettu tavoitteesta {goal}. {status}.",
+      "overGoal": "{calories} yli tavoitteen",
+      "remaining": "{calories} jäljellä",
+      "left": "{calories} jäljellä",
+      "goal": "{calories} kcal tavoite",
+      "logMeal": "Kirjaa ateria",
+      "todayMeals": "Tämän päivän ateriat",
+      "todayMealsCount": "Tämän päivän ateriat, {count}",
+      "viewMore": "Näytä {count} lisää",
+      "viewMoreSemantics": "{count} lisää ateriaa, napauta nähdäksesi kaikki",
+      "noMeals": "Ei kirjattuja aterioita",
+      "noMealsSemantics": "Ei kirjattuja aterioita tänään",
+      "tapLog": "Napauta Kirjaa aloittaaksesi",
+      "removedFromQueue": "Ateria poistettu offline-jonosta.",
+      "removedOffline": "Ateria poistettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.",
+      "deleteFailed": "Aterian poistaminen epäonnistui"
+    },
+    "history": {
+      "title": "Tämän päivän ateriat",
+      "refresh": "Päivitä ateriat",
+      "loadFailed": "Aterioita ei voitu ladata",
+      "syncFailed": "Synkronointi epäonnistui",
+      "emptyTitle": "Ei vielä aterioita",
+      "emptyMessage": "Kirjaa ateria Kotinäkymästä nähdäksesi sen täällä."
+    },
+    "favorites": {
+      "title": "Suosikit",
+      "refresh": "Päivitä suosikit",
+      "loadFailed": "Suosikkeja ei voitu ladata",
+      "syncFailed": "Synkronointi epäonnistui",
+      "emptyTitle": "Ei vielä suosikkeja",
+      "emptyMessage": "Tähditä aterioita puhelimen sovelluksessa, niin yhden napautuksen kirjaukset näkyvät tässä.",
+      "mealSemantics": "{name}, {calories} kcal. Napauta kirjataaksesi.",
+      "logged": "{name} kirjattu!",
+      "savedOffline": "{name} tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.",
+      "saveFailed": "Aterian tallennus epäonnistui. Yritä uudelleen.",
+      "log": "Kirjaa"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kcal, kirjattu {time}.",
+      "longPressDelete": "Paina pitkään poistaaksesi.",
+      "deleteTitle": "Poistetaanko ateria?"
+    },
+    "voice": {
+      "title": "Äänikirjaus",
+      "processing": "Tarkistetaan ateriaa…",
+      "processingDescription": "Arvioidaan annoskokoja ja ravintosisältöä",
+      "listening": "Kuunnellaan",
+      "secondsLeft": "{seconds}s",
+      "stop": "Lopeta tallennus",
+      "start": "Napauta aloittaaksesi tallennuksen",
+      "starting": "Käynnistetään mikrofoni…",
+      "prompt": "Napauta ja kuvaile ateriasi",
+      "tapToRetry": "Napauta yrittääksesi uudelleen",
+      "example": "Kokeile: “2 rotia dalin kanssa”",
+      "unavailable": "Puheentunnistus ei ole käytettävissä. Tarkista mikrofonin käyttöoikeus kellon asetuksista.",
+      "didNotStart": "Mikrofoni ei käynnistynyt. Napauta yrittääksesi uudelleen.",
+      "startFailed": "Tallennuksen käynnistäminen epäonnistui. Tarkista mikrofonin käyttöoikeudet.",
+      "allowMicrophone": "Salli mikrofonin käyttö kirjauksia varten.",
+      "needsConnection": "Puheentunnistus tarvitsee yhteyden. Napauta yrittääksesi uudelleen.",
+      "microphoneUnavailable": "Mikrofoni ei ole käytettävissä. Napauta yrittääksesi uudelleen.",
+      "microphoneBusy": "Mikrofoni on varattu. Odota hetki ja yritä uudelleen.",
+      "languageUnsupported": "Puheentunnistus ei tue kellon kieltä.",
+      "temporarilyBusy": "Puheentunnistus on tilapäisesti varattu. Odota hetki ja yritä uudelleen.",
+      "notRecognized": "En kuullut kunnolla. Napauta mikrofonia ja yritä uudelleen.",
+      "noSpeech": "Puhetta ei havaittu. Napauta mikrofonia ja yritä uudelleen.",
+      "analysisFailed": "Analyysi epäonnistui. Yritä uudelleen.",
+      "mealNotIdentified": "Ateriaa ei tunnistettu. Kokeile kuvailla sitä eri tavalla."
+    },
+    "result": {
+      "title": "Aterian tiedot",
+      "savedOffline": "Tallennettu paikallisesti",
+      "logged": "Kirjattu!",
+      "mealFound": "Ateria löytyi",
+      "estimatedEnergy": "Arvioitu energiamäärä",
+      "logMeal": "Kirjaa ateria",
+      "logging": "Kirjataan…",
+      "logAnother": "Kirjaa toinen",
+      "goingBack": "Palataan…",
+      "savedOfflineMessage": "Ateria tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.",
+      "saveFailed": "Aterian tallennus epäonnistui. Yritä uudelleen."
+    }
+  },
   "common": {
     "close": "Sulje",
     "continue": "Jatka"

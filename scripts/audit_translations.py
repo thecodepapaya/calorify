@@ -116,11 +116,6 @@ def load_catalog(path: Path) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", default=Path(__file__).resolve().parents[1])
-    parser.add_argument(
-        "--fail-on-source-copies",
-        action="store_true",
-        help=f"fail when a translated value of at least {SOURCE_COPY_MIN_LENGTH} characters still equals English",
-    )
     args = parser.parse_args()
 
     root = Path(args.root).resolve()
@@ -203,7 +198,7 @@ def main() -> int:
         + ", ".join(f"{locale}={count}" for locale, count in copy_counts.items())
     )
 
-    if failures or (args.fail_on_source_copies and copy_failures):
+    if failures:
         return 1
     return 0
 

@@ -58,6 +58,7 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$id login = _Translations$login$id._(_root);
 	@override late final _Translations$disclaimer$id disclaimer = _Translations$disclaimer$id._(_root);
 	@override late final _Translations$localNutritionPhase4$id localNutritionPhase4 = _Translations$localNutritionPhase4$id._(_root);
+	@override late final _Translations$watch$id watch = _Translations$watch$id._(_root);
 	@override late final _Translations$common$id common = _Translations$common$id._(_root);
 	@override late final _Translations$feedbackRating$id feedbackRating = _Translations$feedbackRating$id._(_root);
 	@override late final _Translations$health$id health = _Translations$health$id._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$id extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'Data nutrisi lokal dihapus';
 }
 
+// Path: watch
+class _Translations$watch$id extends Translations$watch$en {
+	_Translations$watch$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$id common = _Translations$watch$common$id._(_root);
+	@override late final _Translations$watch$nutrition$id nutrition = _Translations$watch$nutrition$id._(_root);
+	@override late final _Translations$watch$sync$id sync = _Translations$watch$sync$id._(_root);
+	@override late final _Translations$watch$home$id home = _Translations$watch$home$id._(_root);
+	@override late final _Translations$watch$history$id history = _Translations$watch$history$id._(_root);
+	@override late final _Translations$watch$favorites$id favorites = _Translations$watch$favorites$id._(_root);
+	@override late final _Translations$watch$meal$id meal = _Translations$watch$meal$id._(_root);
+	@override late final _Translations$watch$voice$id voice = _Translations$watch$voice$id._(_root);
+	@override late final _Translations$watch$result$id result = _Translations$watch$result$id._(_root);
+}
+
 // Path: common
 class _Translations$common$id extends Translations$common$en {
 	_Translations$common$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -568,27 +588,27 @@ class _Translations$onboarding$healthConnect$id extends Translations$onboarding$
 	// Translations
 	@override String get title => 'Sambungkan dengan Health Connect';
 	@override String get description => 'Sinkronkan data kesehatan Anda untuk wawasan yang lebih baik dan pelacakan kalori otomatis';
+	@override String get overviewDescription => 'Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$id automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$id._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$id caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$id._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$id progressInsights = _Translations$onboarding$healthConnect$progressInsights$id._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$id shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$id._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$id seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$id._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$id userControl = _Translations$onboarding$healthConnect$userControl$id._(_root);
 	@override String get connected => 'Health Connect Terhubung';
 	@override String get notConnected => 'Health Connect Tidak Terhubung';
 	@override String get setup => 'Siapkan Health Connect';
 	@override String get skipForNow => 'Lewati sekarang';
 	@override String get statusConnected => 'Health Connect terhubung.';
 	@override String get statusSuccess => 'Health Connect berhasil dihubungkan!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.';
-	@override String statusError({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$id caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$id._(_root);
-	@override String get installOrUpdate => 'Pasang atau perbarui';
-	@override String get manageAccess => 'Kelola akses';
-	@override String get overviewDescription => 'Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$id shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$id._(_root);
 	@override String get statusNotConnected => 'Pilih fitur Health Connect yang ingin Anda aktifkan.';
 	@override String get statusPartial => 'Health Connect terhubung sebagian. Aktifkan izin yang tersisa untuk menggunakan kedua fitur.';
 	@override String get statusProviderUpdateRequired => 'Pasang atau perbarui Health Connect untuk melanjutkan.';
 	@override String get statusUnavailable => 'Health Connect tidak didukung di perangkat ini.';
-	@override late final _Translations$onboarding$healthConnect$userControl$id userControl = _Translations$onboarding$healthConnect$userControl$id._(_root);
+	@override String get installOrUpdate => 'Pasang atau perbarui';
+	@override String get manageAccess => 'Kelola akses';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.';
+	@override String statusError({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$id extends Translations$home$connectHealt
 	@override String get title => 'Sinkronkan dengan Health Connect';
 	@override String get description => 'Sinkronkan data nutrisi Anda dengan Health Connect';
 	@override String get install => 'Pasang';
-	@override String get connect => 'Sambungkan';
 	@override String get dataUseDescription => 'Gunakan kalori yang dibakar dalam target Anda dan bagikan makanan yang dicatat';
 	@override String get installOrUpdate => 'Pasang atau perbarui';
+	@override String get connect => 'Sambungkan';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$id extends Translations$settings$clear
 	// Translations
 	@override String get title => 'Hapus Semua Data';
 	@override String get subtitle => 'Hapus semua informasi Anda secara tak dapat dikembalikan';
+	@override String get localOnlySubtitle => 'Hapus data Calorify yang tersimpan di perangkat ini';
 	@override String get confirmationTitle => 'Hapus Semua Data?';
 	@override String get confirmationMessage => 'Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.';
+	@override String get localOnlyConfirmationMessage => 'Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.';
 	@override String get cancel => 'Batal';
 	@override String get clearEverything => 'Hapus Semua';
-	@override String get localOnlyConfirmationMessage => 'Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.';
-	@override String get localOnlySubtitle => 'Hapus data Calorify yang tersimpan di perangkat ini';
 }
 
 // Path: settings.debugOptions
@@ -1147,27 +1167,27 @@ class _Translations$settings$healthConnect$id extends Translations$settings$heal
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Lihat dan kelola izin';
 	@override late final _Translations$settings$healthConnect$unavailable$id unavailable = _Translations$settings$healthConnect$unavailable$id._(_root);
+	@override late final _Translations$settings$healthConnect$updateRequired$id updateRequired = _Translations$settings$healthConnect$updateRequired$id._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$id permissions = _Translations$settings$healthConnect$permissions$id._(_root);
 	@override String get managePermissions => 'Kelola Izin';
 	@override String get openSettings => 'Buka Pengaturan Health Connect';
+	@override String get disconnect => 'Putuskan Health Connect';
+	@override String get disconnectConfirmationTitle => 'Putuskan Health Connect?';
+	@override String get disconnectConfirmationMessage => 'Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.';
+	@override String get disconnectConfirmationAction => 'Putuskan';
+	@override String get deleteSyncedMeals => 'Hapus makanan Calorify dari Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Hapus makanan tersinkron?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Hapus makanan tersinkron';
+	@override String get deleteSyncedMealsSuccess => 'Makanan Calorify telah dihapus dari Health Connect.';
+	@override String get deleteSyncedMealsFailed => 'Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.';
+	@override String get connectionPartial => 'Beberapa fitur Health Connect telah diaktifkan.';
+	@override String get connectionComplete => 'Kedua fitur Health Connect telah diaktifkan.';
+	@override String get actionFailed => 'Health Connect tidak dapat dibuka. Silakan coba lagi.';
 	@override String get requestPermissions => 'Minta Izin';
 	@override String get permissionRequestCancelledOrFailed => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.';
 	@override String get permissionRequestFailed => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.';
 	@override String get requestingPermissions => 'Meminta...';
-	@override String get actionFailed => 'Health Connect tidak dapat dibuka. Silakan coba lagi.';
-	@override String get connectionComplete => 'Kedua fitur Health Connect telah diaktifkan.';
-	@override String get connectionPartial => 'Beberapa fitur Health Connect telah diaktifkan.';
-	@override String get deleteSyncedMeals => 'Hapus makanan Calorify dari Health Connect';
-	@override String get deleteSyncedMealsConfirmationAction => 'Hapus makanan tersinkron';
-	@override String get deleteSyncedMealsConfirmationMessage => 'Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.';
-	@override String get deleteSyncedMealsConfirmationTitle => 'Hapus makanan tersinkron?';
-	@override String get deleteSyncedMealsFailed => 'Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.';
-	@override String get deleteSyncedMealsSuccess => 'Makanan Calorify telah dihapus dari Health Connect.';
-	@override String get disconnect => 'Putuskan Health Connect';
-	@override String get disconnectConfirmationAction => 'Putuskan';
-	@override String get disconnectConfirmationMessage => 'Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.';
-	@override String get disconnectConfirmationTitle => 'Putuskan Health Connect?';
-	@override late final _Translations$settings$healthConnect$updateRequired$id updateRequired = _Translations$settings$healthConnect$updateRequired$id._(_root);
 }
 
 // Path: settings.about
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$id extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$id professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$id._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$id extends Translations$watch$common$en {
+	_Translations$watch$common$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Kembali';
+	@override String get cancel => 'Batal';
+	@override String get delete => 'Hapus';
+	@override String get retry => 'Coba lagi';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$id extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Nutrisi';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} gram';
+	@override String get protein => 'Protein';
+	@override String get carbs => 'Karbohidrat';
+	@override String get fat => 'Lemak';
+	@override String get fiber => 'Serat';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$id extends Translations$watch$sync$en {
+	_Translations$watch$sync$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Sinkronkan dengan ponsel';
+	@override String get syncing => 'Menyinkronkan…';
+	@override String get synced => 'Tersinkron';
+	@override String get syncedJustNow => 'Baru saja tersinkron';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Tersinkron ${minutes}m yang lalu';
+	@override String get failed => 'Gagal menyinkron';
+	@override String get phoneDisconnected => 'Ponsel terputus';
+	@override String get tapToSync => 'Ketuk untuk menyinkronkan';
+	@override String get refreshFailed => 'Tidak dapat menyegarkan. Periksa ponsel Anda.';
+	@override String get openPhone => 'Buka Calorify di ponsel Anda, lalu ketuk segarkan.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$id extends Translations$watch$home$en {
+	_Translations$watch$home$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Hari ini';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kalori dikonsumsi dari ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} melebihi target';
+	@override String remaining({required Object calories}) => '${calories} tersisa';
+	@override String left({required Object calories}) => '${calories} tersisa';
+	@override String goal({required Object calories}) => 'Target ${calories} kcal';
+	@override String get logMeal => 'Catat makanan';
+	@override String get todayMeals => 'Makanan hari ini';
+	@override String todayMealsCount({required Object count}) => 'Makanan hari ini, ${count}';
+	@override String viewMore({required Object count}) => 'Lihat ${count} lagi';
+	@override String viewMoreSemantics({required Object count}) => '${count} makanan lagi, ketuk untuk melihat semua';
+	@override String get noMeals => 'Belum ada makanan yang dicatat';
+	@override String get noMealsSemantics => 'Belum ada makanan yang dicatat hari ini';
+	@override String get tapLog => 'Ketuk Catat untuk memulai';
+	@override String get removedFromQueue => 'Makanan dihapus dari antrean offline.';
+	@override String get removedOffline => 'Makanan dihapus secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.';
+	@override String get deleteFailed => 'Tidak dapat menghapus makanan';
+}
+
+// Path: watch.history
+class _Translations$watch$history$id extends Translations$watch$history$en {
+	_Translations$watch$history$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Makanan hari ini';
+	@override String get refresh => 'Segarkan makanan';
+	@override String get loadFailed => 'Tidak dapat memuat makanan';
+	@override String get syncFailed => 'Tidak dapat menyinkronkan';
+	@override String get emptyTitle => 'Belum ada makanan';
+	@override String get emptyMessage => 'Catat makanan dari Beranda untuk melihatnya di sini.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$id extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favorit';
+	@override String get refresh => 'Segarkan favorit';
+	@override String get loadFailed => 'Tidak dapat memuat favorit';
+	@override String get syncFailed => 'Tidak dapat menyinkronkan';
+	@override String get emptyTitle => 'Belum ada favorit';
+	@override String get emptyMessage => 'Bintangi makanan di aplikasi ponsel untuk mencatat sekali ketuk di sini.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kalori. Ketuk untuk mencatat.';
+	@override String logged({required Object name}) => '${name} dicatat!';
+	@override String savedOffline({required Object name}) => '${name} disimpan secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.';
+	@override String get saveFailed => 'Tidak dapat menyimpan makanan. Silakan coba lagi.';
+	@override String get log => 'Catat';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$id extends Translations$watch$meal$en {
+	_Translations$watch$meal$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalori, dicatat pada ${time}.';
+	@override String get longPressDelete => 'Tekan lama untuk menghapus.';
+	@override String get deleteTitle => 'Hapus makanan?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$id extends Translations$watch$voice$en {
+	_Translations$watch$voice$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Catat makanan dengan suara';
+	@override String get processing => 'Memeriksa makanan Anda…';
+	@override String get processingDescription => 'Memperkirakan porsi dan nutrisi';
+	@override String get listening => 'Mendengarkan';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Hentikan perekaman';
+	@override String get start => 'Ketuk untuk mulai merekam';
+	@override String get starting => 'Memulai mikrofon…';
+	@override String get prompt => 'Ketuk, lalu jelaskan makanan Anda';
+	@override String get tapToRetry => 'Ketuk untuk mencoba lagi';
+	@override String get example => 'Coba “2 roti dengan dal”';
+	@override String get unavailable => 'Input suara tidak tersedia. Periksa izin mikrofon di pengaturan jam.';
+	@override String get didNotStart => 'Mikrofon tidak mulai. Ketuk untuk mencoba lagi.';
+	@override String get startFailed => 'Tidak dapat memulai perekaman. Periksa izin mikrofon.';
+	@override String get allowMicrophone => 'Izinkan akses mikrofon untuk mencatat makanan dengan suara.';
+	@override String get needsConnection => 'Pengenalan suara membutuhkan koneksi. Ketuk untuk mencoba lagi.';
+	@override String get microphoneUnavailable => 'Mikrofon tidak tersedia. Ketuk untuk mencoba lagi.';
+	@override String get microphoneBusy => 'Mikrofon sedang digunakan. Tunggu sebentar dan coba lagi.';
+	@override String get languageUnsupported => 'Input suara tidak mendukung bahasa jam.';
+	@override String get temporarilyBusy => 'Input suara sedang sibuk sementara. Tunggu sebentar dan coba lagi.';
+	@override String get notRecognized => 'Saya tidak menangkapnya. Ketuk mikrofon dan coba lagi.';
+	@override String get noSpeech => 'Tidak terdeteksi suara. Ketuk mikrofon untuk mencoba lagi.';
+	@override String get analysisFailed => 'Analisis gagal. Silakan coba lagi.';
+	@override String get mealNotIdentified => 'Tidak dapat mengidentifikasi makanan itu. Coba jelaskan dengan cara berbeda.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$id extends Translations$watch$result$en {
+	_Translations$watch$result$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Detail makanan';
+	@override String get savedOffline => 'Disimpan secara offline';
+	@override String get logged => 'Dicatat!';
+	@override String get mealFound => 'Makanan ditemukan';
+	@override String get estimatedEnergy => 'Perkiraan energi';
+	@override String get logMeal => 'Catat makanan';
+	@override String get logging => 'Mencatat…';
+	@override String get logAnother => 'Catat lagi';
+	@override String get goingBack => 'Kembali…';
+	@override String get savedOfflineMessage => 'Makanan disimpan secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.';
+	@override String get saveFailed => 'Tidak dapat menyimpan makanan. Silakan coba lagi.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$id extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -1375,6 +1570,17 @@ class _Translations$onboarding$healthConnect$automaticTracking$id extends Transl
 	@override String get description => 'Lacak kalori yang dibakar dari aplikasi kebugaran Anda';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$id extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kalori Terbakar';
+	@override String get description => 'Baca total kalori yang dibakar hari ini dari Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$id extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -1384,6 +1590,17 @@ class _Translations$onboarding$healthConnect$progressInsights$id extends Transla
 	// Translations
 	@override String get title => 'Wawasan Kemajuan';
 	@override String get description => 'Dapatkan wawasan rinci tentang tren kesehatan Anda';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$id extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Bagikan Makanan yang Dicatat';
+	@override String get description => 'Tulis makanan yang Anda catat di Calorify ke Health Connect';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$id extends Tran
 	@override String get description => 'Sinkronkan data dari aplikasi kesehatan favorit Anda';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$id extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Baca total kalori yang dibakar hari ini dari Health Connect';
-	@override String get title => 'Kalori Terbakar';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$id extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Tulis makanan yang Anda catat di Calorify ke Health Connect';
-	@override String get title => 'Bagikan Makanan yang Dicatat';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$id extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$id extends Translations
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Pilih salah satu izin dan ubah akses kapan saja';
 	@override String get title => 'Kendali Ada pada Anda';
+	@override String get description => 'Pilih salah satu izin dan ubah akses kapan saja';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1584,6 +1779,18 @@ class _Translations$settings$healthConnect$unavailable$id extends Translations$s
 	@override String get unsupportedDescription => 'Health Connect tidak didukung di perangkat ini.';
 }
 
+// Path: settings.healthConnect.updateRequired
+class _Translations$settings$healthConnect$updateRequired$id extends Translations$settings$healthConnect$updateRequired$en {
+	_Translations$settings$healthConnect$updateRequired$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect perlu diperhatikan';
+	@override String get description => 'Pasang atau perbarui Health Connect sebelum mengelola akses.';
+	@override String get action => 'Pasang atau perbarui';
+}
+
 // Path: settings.healthConnect.permissions
 class _Translations$settings$healthConnect$permissions$id extends Translations$settings$healthConnect$permissions$en {
 	_Translations$settings$healthConnect$permissions$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -1598,18 +1805,6 @@ class _Translations$settings$healthConnect$permissions$id extends Translations$s
 	@override late final _Translations$settings$healthConnect$permissions$caloriesBurned$id caloriesBurned = _Translations$settings$healthConnect$permissions$caloriesBurned$id._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionRead$id nutritionRead = _Translations$settings$healthConnect$permissions$nutritionRead$id._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionWrite$id nutritionWrite = _Translations$settings$healthConnect$permissions$nutritionWrite$id._(_root);
-}
-
-// Path: settings.healthConnect.updateRequired
-class _Translations$settings$healthConnect$updateRequired$id extends Translations$settings$healthConnect$updateRequired$en {
-	_Translations$settings$healthConnect$updateRequired$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get action => 'Pasang atau perbarui';
-	@override String get description => 'Pasang atau perbarui Health Connect sebelum mengelola akses.';
-	@override String get title => 'Health Connect perlu diperhatikan';
 }
 
 // Path: settings.about.ourStory
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$id extends Translations$settings$abou
 	@override String get description => 'Privasi bukan sekadar pemikiran tambahan — itu adalah prinsip desain. Berikut arti itu dalam praktik:';
 	@override String get noAccounts => 'Tanpa akun\nGunakan aplikasi langsung. Tidak perlu mendaftar, tanpa identitas.';
 	@override String noTracking({required Object appLabel}) => 'Tanpa pelacakan perilaku\n${appLabel} tidak memantau aktivitas Anda, membuat profil penggunaan, atau melacak Anda antar aplikasi atau situs web.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Analitik dan diagnostik terbatas\n${appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual.';
 	@override String noAds({required Object appLabel}) => 'Tanpa iklan secara desain\n${appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.';
 	@override String get noDataSelling => 'Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.';
 	@override String get localStorage => 'Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.';
 	@override String get privacyPolicy => 'Kebijakan Privasi';
-	@override String analyticsDisclosure({required Object appLabel}) => 'Analitik dan diagnostik terbatas\n${appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual.';
 }
 
 // Path: settings.about.developer
@@ -1908,33 +2103,33 @@ extension on TranslationsId {
 			'onboarding.activityLevel.description' => 'Ini membantu kami menghitung kebutuhan kalori harian Anda lebih akurat',
 			'onboarding.healthConnect.title' => 'Sambungkan dengan Health Connect',
 			'onboarding.healthConnect.description' => 'Sinkronkan data kesehatan Anda untuk wawasan yang lebih baik dan pelacakan kalori otomatis',
+			'onboarding.healthConnect.overviewDescription' => 'Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Pelacakan Kalori Otomatis',
 			'onboarding.healthConnect.automaticTracking.description' => 'Lacak kalori yang dibakar dari aplikasi kebugaran Anda',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Kalori Terbakar',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Baca total kalori yang dibakar hari ini dari Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Wawasan Kemajuan',
 			'onboarding.healthConnect.progressInsights.description' => 'Dapatkan wawasan rinci tentang tren kesehatan Anda',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Bagikan Makanan yang Dicatat',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Tulis makanan yang Anda catat di Calorify ke Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Integrasi Tanpa Hambatan',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Sinkronkan data dari aplikasi kesehatan favorit Anda',
+			'onboarding.healthConnect.userControl.title' => 'Kendali Ada pada Anda',
+			'onboarding.healthConnect.userControl.description' => 'Pilih salah satu izin dan ubah akses kapan saja',
 			'onboarding.healthConnect.connected' => 'Health Connect Terhubung',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Tidak Terhubung',
 			'onboarding.healthConnect.setup' => 'Siapkan Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Lewati sekarang',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect terhubung.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect berhasil dihubungkan!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Baca total kalori yang dibakar hari ini dari Health Connect',
-			'onboarding.healthConnect.caloriesBurned.title' => 'Kalori Terbakar',
-			'onboarding.healthConnect.installOrUpdate' => 'Pasang atau perbarui',
-			'onboarding.healthConnect.manageAccess' => 'Kelola akses',
-			'onboarding.healthConnect.overviewDescription' => 'Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Tulis makanan yang Anda catat di Calorify ke Health Connect',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'Bagikan Makanan yang Dicatat',
 			'onboarding.healthConnect.statusNotConnected' => 'Pilih fitur Health Connect yang ingin Anda aktifkan.',
 			'onboarding.healthConnect.statusPartial' => 'Health Connect terhubung sebagian. Aktifkan izin yang tersisa untuk menggunakan kedua fitur.',
 			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Pasang atau perbarui Health Connect untuk melanjutkan.',
 			'onboarding.healthConnect.statusUnavailable' => 'Health Connect tidak didukung di perangkat ini.',
-			'onboarding.healthConnect.userControl.description' => 'Pilih salah satu izin dan ubah akses kapan saja',
-			'onboarding.healthConnect.userControl.title' => 'Kendali Ada pada Anda',
+			'onboarding.healthConnect.installOrUpdate' => 'Pasang atau perbarui',
+			'onboarding.healthConnect.manageAccess' => 'Kelola akses',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Sendiri',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penelitian menunjukkan pelacakan konsisten adalah prediktor nomor 1 keberhasilan jangka panjang.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Untuk individu berusia ${age} tahun berjenis ${gender} yang ingin ${goal}, pelacakan konsisten adalah prediktor utama keberhasilan.',
@@ -2027,9 +2222,9 @@ extension on TranslationsId {
 			'home.connectHealth.title' => 'Sinkronkan dengan Health Connect',
 			'home.connectHealth.description' => 'Sinkronkan data nutrisi Anda dengan Health Connect',
 			'home.connectHealth.install' => 'Pasang',
-			'home.connectHealth.connect' => 'Sambungkan',
 			'home.connectHealth.dataUseDescription' => 'Gunakan kalori yang dibakar dalam target Anda dan bagikan makanan yang dicatat',
 			'home.connectHealth.installOrUpdate' => 'Pasang atau perbarui',
+			'home.connectHealth.connect' => 'Sambungkan',
 			'history.noMeals' => 'Belum ada makanan tercatat',
 			'history.emptyMessage' => 'Ambil foto makanan terakhir Anda untuk mencatat di sini.',
 			'history.today' => 'Hari ini',
@@ -2265,12 +2460,12 @@ extension on TranslationsId {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Tidak dapat mengekspor riwayat makan: ${error}',
 			'settings.clearAllData.title' => 'Hapus Semua Data',
 			'settings.clearAllData.subtitle' => 'Hapus semua informasi Anda secara tak dapat dikembalikan',
+			'settings.clearAllData.localOnlySubtitle' => 'Hapus data Calorify yang tersimpan di perangkat ini',
 			'settings.clearAllData.confirmationTitle' => 'Hapus Semua Data?',
 			'settings.clearAllData.confirmationMessage' => 'Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.',
 			'settings.clearAllData.cancel' => 'Batal',
 			'settings.clearAllData.clearEverything' => 'Hapus Semua',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.',
-			'settings.clearAllData.localOnlySubtitle' => 'Hapus data Calorify yang tersimpan di perangkat ini',
 			'settings.debugOptions.title' => 'Opsi Debug',
 			'settings.developerModeEnabled' => 'Mode pengembang diaktifkan!',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2278,6 +2473,9 @@ extension on TranslationsId {
 			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
 			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.',
 			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect tidak didukung di perangkat ini.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect perlu diperhatikan',
+			'settings.healthConnect.updateRequired.description' => 'Pasang atau perbarui Health Connect sebelum mengelola akses.',
+			'settings.healthConnect.updateRequired.action' => 'Pasang atau perbarui',
 			'settings.healthConnect.permissions.title' => 'Izin',
 			'settings.healthConnect.permissions.description' => 'Izin berikut diminta untuk menyediakan integrasi Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Diberikan',
@@ -2293,26 +2491,23 @@ extension on TranslationsId {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Izin ini memungkinkan aplikasi menyinkronkan makanan yang Anda catat ke Health Connect, sehingga data nutrisi Anda tersedia untuk aplikasi kesehatan dan kebugaran lain yang Anda gunakan.',
 			'settings.healthConnect.managePermissions' => 'Kelola Izin',
 			'settings.healthConnect.openSettings' => 'Buka Pengaturan Health Connect',
+			'settings.healthConnect.disconnect' => 'Putuskan Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Putuskan Health Connect?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Putuskan',
+			'settings.healthConnect.deleteSyncedMeals' => 'Hapus makanan Calorify dari Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Hapus makanan tersinkron?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Hapus makanan tersinkron',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Makanan Calorify telah dihapus dari Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.',
+			'settings.healthConnect.connectionPartial' => 'Beberapa fitur Health Connect telah diaktifkan.',
+			'settings.healthConnect.connectionComplete' => 'Kedua fitur Health Connect telah diaktifkan.',
+			'settings.healthConnect.actionFailed' => 'Health Connect tidak dapat dibuka. Silakan coba lagi.',
 			'settings.healthConnect.requestPermissions' => 'Minta Izin',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
 			'settings.healthConnect.requestingPermissions' => 'Meminta...',
-			'settings.healthConnect.actionFailed' => 'Health Connect tidak dapat dibuka. Silakan coba lagi.',
-			'settings.healthConnect.connectionComplete' => 'Kedua fitur Health Connect telah diaktifkan.',
-			'settings.healthConnect.connectionPartial' => 'Beberapa fitur Health Connect telah diaktifkan.',
-			'settings.healthConnect.deleteSyncedMeals' => 'Hapus makanan Calorify dari Health Connect',
-			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Hapus makanan tersinkron',
-			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.',
-			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Hapus makanan tersinkron?',
-			'settings.healthConnect.deleteSyncedMealsFailed' => 'Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.',
-			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Makanan Calorify telah dihapus dari Health Connect.',
-			'settings.healthConnect.disconnect' => 'Putuskan Health Connect',
-			'settings.healthConnect.disconnectConfirmationAction' => 'Putuskan',
-			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.',
-			'settings.healthConnect.disconnectConfirmationTitle' => 'Putuskan Health Connect?',
-			'settings.healthConnect.updateRequired.action' => 'Pasang atau perbarui',
-			'settings.healthConnect.updateRequired.description' => 'Pasang atau perbarui Health Connect sebelum mengelola akses.',
-			'settings.healthConnect.updateRequired.title' => 'Health Connect perlu diperhatikan',
 			'settings.about.title' => 'Tentang',
 			'settings.about.tagline' => 'Cepat, gratis, dan mengutamakan privasi untuk kesadaran kalori',
 			'settings.about.ourStory.title' => 'Kisah Kami',
@@ -2321,11 +2516,11 @@ extension on TranslationsId {
 			'settings.about.privacy.description' => 'Privasi bukan sekadar pemikiran tambahan — itu adalah prinsip desain. Berikut arti itu dalam praktik:',
 			'settings.about.privacy.noAccounts' => 'Tanpa akun\nGunakan aplikasi langsung. Tidak perlu mendaftar, tanpa identitas.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Tanpa pelacakan perilaku\n${appLabel} tidak memantau aktivitas Anda, membuat profil penggunaan, atau melacak Anda antar aplikasi atau situs web.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analitik dan diagnostik terbatas\n${appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Tanpa iklan secara desain\n${appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.',
 			'settings.about.privacy.noDataSelling' => 'Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.',
 			'settings.about.privacy.localStorage' => 'Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.',
 			'settings.about.privacy.privacyPolicy' => 'Kebijakan Privasi',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analitik dan diagnostik terbatas\n${appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual.',
 			'settings.about.developer.title' => 'Dibuat oleh Pengembang Solo',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} dibuat dan dipelihara oleh satu pengembang solo yang fokus pada pembuatan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nUmpan balik dibaca secara pribadi dan membantu membentuk arah aplikasi.',
 			'settings.about.developer.website' => 'Situs Web',
@@ -2432,6 +2627,101 @@ extension on TranslationsId {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Hapus data',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Tidak dapat mengunduh dan memverifikasi data nutrisi lokal: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Data nutrisi lokal dihapus',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Kembali',
+			'watch.common.cancel' => 'Batal',
+			'watch.common.delete' => 'Hapus',
+			'watch.common.retry' => 'Coba lagi',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Nutrisi',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} gram',
+			'watch.nutrition.protein' => 'Protein',
+			'watch.nutrition.carbs' => 'Karbohidrat',
+			'watch.nutrition.fat' => 'Lemak',
+			'watch.nutrition.fiber' => 'Serat',
+			'watch.sync.syncWithPhone' => 'Sinkronkan dengan ponsel',
+			'watch.sync.syncing' => 'Menyinkronkan…',
+			'watch.sync.synced' => 'Tersinkron',
+			'watch.sync.syncedJustNow' => 'Baru saja tersinkron',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Tersinkron ${minutes}m yang lalu',
+			'watch.sync.failed' => 'Gagal menyinkron',
+			'watch.sync.phoneDisconnected' => 'Ponsel terputus',
+			'watch.sync.tapToSync' => 'Ketuk untuk menyinkronkan',
+			'watch.sync.refreshFailed' => 'Tidak dapat menyegarkan. Periksa ponsel Anda.',
+			'watch.sync.openPhone' => 'Buka Calorify di ponsel Anda, lalu ketuk segarkan.',
+			'watch.home.today' => 'Hari ini',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kalori dikonsumsi dari ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} melebihi target',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} tersisa',
+			'watch.home.left' => ({required Object calories}) => '${calories} tersisa',
+			'watch.home.goal' => ({required Object calories}) => 'Target ${calories} kcal',
+			'watch.home.logMeal' => 'Catat makanan',
+			'watch.home.todayMeals' => 'Makanan hari ini',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Makanan hari ini, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Lihat ${count} lagi',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} makanan lagi, ketuk untuk melihat semua',
+			'watch.home.noMeals' => 'Belum ada makanan yang dicatat',
+			'watch.home.noMealsSemantics' => 'Belum ada makanan yang dicatat hari ini',
+			'watch.home.tapLog' => 'Ketuk Catat untuk memulai',
+			'watch.home.removedFromQueue' => 'Makanan dihapus dari antrean offline.',
+			'watch.home.removedOffline' => 'Makanan dihapus secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.',
+			'watch.home.deleteFailed' => 'Tidak dapat menghapus makanan',
+			'watch.history.title' => 'Makanan hari ini',
+			'watch.history.refresh' => 'Segarkan makanan',
+			'watch.history.loadFailed' => 'Tidak dapat memuat makanan',
+			'watch.history.syncFailed' => 'Tidak dapat menyinkronkan',
+			'watch.history.emptyTitle' => 'Belum ada makanan',
+			'watch.history.emptyMessage' => 'Catat makanan dari Beranda untuk melihatnya di sini.',
+			'watch.favorites.title' => 'Favorit',
+			'watch.favorites.refresh' => 'Segarkan favorit',
+			'watch.favorites.loadFailed' => 'Tidak dapat memuat favorit',
+			'watch.favorites.syncFailed' => 'Tidak dapat menyinkronkan',
+			'watch.favorites.emptyTitle' => 'Belum ada favorit',
+			'watch.favorites.emptyMessage' => 'Bintangi makanan di aplikasi ponsel untuk mencatat sekali ketuk di sini.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kalori. Ketuk untuk mencatat.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} dicatat!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} disimpan secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.',
+			'watch.favorites.saveFailed' => 'Tidak dapat menyimpan makanan. Silakan coba lagi.',
+			'watch.favorites.log' => 'Catat',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalori, dicatat pada ${time}.',
+			'watch.meal.longPressDelete' => 'Tekan lama untuk menghapus.',
+			'watch.meal.deleteTitle' => 'Hapus makanan?',
+			'watch.voice.title' => 'Catat makanan dengan suara',
+			'watch.voice.processing' => 'Memeriksa makanan Anda…',
+			'watch.voice.processingDescription' => 'Memperkirakan porsi dan nutrisi',
+			'watch.voice.listening' => 'Mendengarkan',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Hentikan perekaman',
+			'watch.voice.start' => 'Ketuk untuk mulai merekam',
+			'watch.voice.starting' => 'Memulai mikrofon…',
+			'watch.voice.prompt' => 'Ketuk, lalu jelaskan makanan Anda',
+			'watch.voice.tapToRetry' => 'Ketuk untuk mencoba lagi',
+			'watch.voice.example' => 'Coba “2 roti dengan dal”',
+			'watch.voice.unavailable' => 'Input suara tidak tersedia. Periksa izin mikrofon di pengaturan jam.',
+			'watch.voice.didNotStart' => 'Mikrofon tidak mulai. Ketuk untuk mencoba lagi.',
+			'watch.voice.startFailed' => 'Tidak dapat memulai perekaman. Periksa izin mikrofon.',
+			'watch.voice.allowMicrophone' => 'Izinkan akses mikrofon untuk mencatat makanan dengan suara.',
+			'watch.voice.needsConnection' => 'Pengenalan suara membutuhkan koneksi. Ketuk untuk mencoba lagi.',
+			'watch.voice.microphoneUnavailable' => 'Mikrofon tidak tersedia. Ketuk untuk mencoba lagi.',
+			'watch.voice.microphoneBusy' => 'Mikrofon sedang digunakan. Tunggu sebentar dan coba lagi.',
+			'watch.voice.languageUnsupported' => 'Input suara tidak mendukung bahasa jam.',
+			'watch.voice.temporarilyBusy' => 'Input suara sedang sibuk sementara. Tunggu sebentar dan coba lagi.',
+			'watch.voice.notRecognized' => 'Saya tidak menangkapnya. Ketuk mikrofon dan coba lagi.',
+			'watch.voice.noSpeech' => 'Tidak terdeteksi suara. Ketuk mikrofon untuk mencoba lagi.',
+			'watch.voice.analysisFailed' => 'Analisis gagal. Silakan coba lagi.',
+			'watch.voice.mealNotIdentified' => 'Tidak dapat mengidentifikasi makanan itu. Coba jelaskan dengan cara berbeda.',
+			'watch.result.title' => 'Detail makanan',
+			'watch.result.savedOffline' => 'Disimpan secara offline',
+			'watch.result.logged' => 'Dicatat!',
+			'watch.result.mealFound' => 'Makanan ditemukan',
+			'watch.result.estimatedEnergy' => 'Perkiraan energi',
+			'watch.result.logMeal' => 'Catat makanan',
+			'watch.result.logging' => 'Mencatat…',
+			'watch.result.logAnother' => 'Catat lagi',
+			'watch.result.goingBack' => 'Kembali…',
+			'watch.result.savedOfflineMessage' => 'Makanan disimpan secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.',
+			'watch.result.saveFailed' => 'Tidak dapat menyimpan makanan. Silakan coba lagi.',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Lanjutkan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',

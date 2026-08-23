@@ -58,6 +58,7 @@ class TranslationsKo extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$ko login = _Translations$login$ko._(_root);
 	@override late final _Translations$disclaimer$ko disclaimer = _Translations$disclaimer$ko._(_root);
 	@override late final _Translations$localNutritionPhase4$ko localNutritionPhase4 = _Translations$localNutritionPhase4$ko._(_root);
+	@override late final _Translations$watch$ko watch = _Translations$watch$ko._(_root);
 	@override late final _Translations$common$ko common = _Translations$common$ko._(_root);
 	@override late final _Translations$feedbackRating$ko feedbackRating = _Translations$feedbackRating$ko._(_root);
 	@override late final _Translations$health$ko health = _Translations$health$ko._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$ko extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => '로컬 영양 데이터를 지웠습니다';
 }
 
+// Path: watch
+class _Translations$watch$ko extends Translations$watch$en {
+	_Translations$watch$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$ko common = _Translations$watch$common$ko._(_root);
+	@override late final _Translations$watch$nutrition$ko nutrition = _Translations$watch$nutrition$ko._(_root);
+	@override late final _Translations$watch$sync$ko sync = _Translations$watch$sync$ko._(_root);
+	@override late final _Translations$watch$home$ko home = _Translations$watch$home$ko._(_root);
+	@override late final _Translations$watch$history$ko history = _Translations$watch$history$ko._(_root);
+	@override late final _Translations$watch$favorites$ko favorites = _Translations$watch$favorites$ko._(_root);
+	@override late final _Translations$watch$meal$ko meal = _Translations$watch$meal$ko._(_root);
+	@override late final _Translations$watch$voice$ko voice = _Translations$watch$voice$ko._(_root);
+	@override late final _Translations$watch$result$ko result = _Translations$watch$result$ko._(_root);
+}
+
 // Path: common
 class _Translations$common$ko extends Translations$common$en {
 	_Translations$common$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -568,27 +588,27 @@ class _Translations$onboarding$healthConnect$ko extends Translations$onboarding$
 	// Translations
 	@override String get title => 'Health Connect에 연결하기';
 	@override String get description => '더 나은 인사이트와 자동 칼로리 추적을 위해 건강 데이터를 동기화하세요';
+	@override String get overviewDescription => '일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$ko automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$ko._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$ko caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$ko._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$ko progressInsights = _Translations$onboarding$healthConnect$progressInsights$ko._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$ko shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$ko._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$ko seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$ko._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$ko userControl = _Translations$onboarding$healthConnect$userControl$ko._(_root);
 	@override String get connected => 'Health Connect 연결됨';
 	@override String get notConnected => 'Health Connect 연결 안 됨';
 	@override String get setup => 'Health Connect 설정';
 	@override String get skipForNow => '일단 건너뛰기';
 	@override String get statusConnected => 'Health Connect가 연결되어 있습니다.';
 	@override String get statusSuccess => 'Health Connect가 성공적으로 연결되었습니다!';
-	@override String statusPermissionDenied({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.';
-	@override String statusError({required Object error}) => 'Health Connect 설정 오류: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$ko caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$ko._(_root);
-	@override String get installOrUpdate => '설치 또는 업데이트';
-	@override String get manageAccess => '접근 권한 관리';
-	@override String get overviewDescription => '일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$ko shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$ko._(_root);
 	@override String get statusNotConnected => '사용할 Health Connect 기능을 선택하세요.';
 	@override String get statusPartial => 'Health Connect가 일부 연결되었습니다. 두 기능을 모두 사용하려면 남은 권한을 활성화하세요.';
 	@override String get statusProviderUpdateRequired => '계속하려면 Health Connect를 설치하거나 업데이트하세요.';
 	@override String get statusUnavailable => '이 기기는 Health Connect를 지원하지 않습니다.';
-	@override late final _Translations$onboarding$healthConnect$userControl$ko userControl = _Translations$onboarding$healthConnect$userControl$ko._(_root);
+	@override String get installOrUpdate => '설치 또는 업데이트';
+	@override String get manageAccess => '접근 권한 관리';
+	@override String statusPermissionDenied({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.';
+	@override String statusError({required Object error}) => 'Health Connect 설정 오류: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$ko extends Translations$home$connectHealt
 	@override String get title => 'Health Connect와 동기화';
 	@override String get description => '영양 데이터를 Health Connect와 동기화하세요';
 	@override String get install => '설치';
-	@override String get connect => '연결';
 	@override String get dataUseDescription => '목표에 소모 칼로리를 반영하고 기록한 식사를 공유합니다';
 	@override String get installOrUpdate => '설치 또는 업데이트';
+	@override String get connect => '연결';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$ko extends Translations$settings$clear
 	// Translations
 	@override String get title => '모든 데이터 삭제';
 	@override String get subtitle => '모든 정보를 되돌릴 수 없이 삭제합니다';
+	@override String get localOnlySubtitle => '이 기기에 저장된 Calorify 데이터 삭제';
 	@override String get confirmationTitle => '모든 데이터를 삭제하시겠습니까?';
 	@override String get confirmationMessage => '이 작업은 되돌릴 수 없습니다. 기록된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.';
+	@override String get localOnlyConfirmationMessage => '이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.';
 	@override String get cancel => '취소';
 	@override String get clearEverything => '모두 삭제';
-	@override String get localOnlyConfirmationMessage => '이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.';
-	@override String get localOnlySubtitle => '이 기기에 저장된 Calorify 데이터 삭제';
 }
 
 // Path: settings.debugOptions
@@ -1147,27 +1167,27 @@ class _Translations$settings$healthConnect$ko extends Translations$settings$heal
 	@override String get title => 'Health Connect';
 	@override String get subtitle => '권한 보기 및 관리';
 	@override late final _Translations$settings$healthConnect$unavailable$ko unavailable = _Translations$settings$healthConnect$unavailable$ko._(_root);
+	@override late final _Translations$settings$healthConnect$updateRequired$ko updateRequired = _Translations$settings$healthConnect$updateRequired$ko._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$ko permissions = _Translations$settings$healthConnect$permissions$ko._(_root);
 	@override String get managePermissions => '권한 관리';
 	@override String get openSettings => 'Health Connect 설정 열기';
+	@override String get disconnect => 'Health Connect 연결 해제';
+	@override String get disconnectConfirmationTitle => 'Health Connect 연결을 해제할까요?';
+	@override String get disconnectConfirmationMessage => 'Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.';
+	@override String get disconnectConfirmationAction => '연결 해제';
+	@override String get deleteSyncedMeals => 'Health Connect에서 Calorify 식사 삭제';
+	@override String get deleteSyncedMealsConfirmationTitle => '동기화된 식사를 삭제할까요?';
+	@override String get deleteSyncedMealsConfirmationMessage => '이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.';
+	@override String get deleteSyncedMealsConfirmationAction => '동기화된 식사 삭제';
+	@override String get deleteSyncedMealsSuccess => 'Health Connect에서 Calorify 식사를 삭제했습니다.';
+	@override String get deleteSyncedMealsFailed => '동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.';
+	@override String get connectionPartial => '일부 Health Connect 기능이 활성화되었습니다.';
+	@override String get connectionComplete => 'Health Connect 기능 두 개가 모두 활성화되었습니다.';
+	@override String get actionFailed => 'Health Connect를 열 수 없습니다. 다시 시도해 주세요.';
 	@override String get requestPermissions => '권한 요청';
 	@override String get permissionRequestCancelledOrFailed => '권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.';
 	@override String get permissionRequestFailed => '권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.';
 	@override String get requestingPermissions => '요청 중...';
-	@override String get actionFailed => 'Health Connect를 열 수 없습니다. 다시 시도해 주세요.';
-	@override String get connectionComplete => 'Health Connect 기능 두 개가 모두 활성화되었습니다.';
-	@override String get connectionPartial => '일부 Health Connect 기능이 활성화되었습니다.';
-	@override String get deleteSyncedMeals => 'Health Connect에서 Calorify 식사 삭제';
-	@override String get deleteSyncedMealsConfirmationAction => '동기화된 식사 삭제';
-	@override String get deleteSyncedMealsConfirmationMessage => '이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.';
-	@override String get deleteSyncedMealsConfirmationTitle => '동기화된 식사를 삭제할까요?';
-	@override String get deleteSyncedMealsFailed => '동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.';
-	@override String get deleteSyncedMealsSuccess => 'Health Connect에서 Calorify 식사를 삭제했습니다.';
-	@override String get disconnect => 'Health Connect 연결 해제';
-	@override String get disconnectConfirmationAction => '연결 해제';
-	@override String get disconnectConfirmationMessage => 'Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.';
-	@override String get disconnectConfirmationTitle => 'Health Connect 연결을 해제할까요?';
-	@override late final _Translations$settings$healthConnect$updateRequired$ko updateRequired = _Translations$settings$healthConnect$updateRequired$ko._(_root);
 }
 
 // Path: settings.about
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$ko extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$ko professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$ko._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$ko extends Translations$watch$common$en {
+	_Translations$watch$common$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => '뒤로';
+	@override String get cancel => '취소';
+	@override String get delete => '삭제';
+	@override String get retry => '다시 시도';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$ko extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => '영양소';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} g';
+	@override String get protein => '단백질';
+	@override String get carbs => '탄수화물';
+	@override String get fat => '지방';
+	@override String get fiber => '식이섬유';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$ko extends Translations$watch$sync$en {
+	_Translations$watch$sync$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => '휴대전화와 동기화';
+	@override String get syncing => '동기화 중…';
+	@override String get synced => '동기화됨';
+	@override String get syncedJustNow => '방금 동기화됨';
+	@override String syncedMinutesAgo({required Object minutes}) => '${minutes}분 전 동기화됨';
+	@override String get failed => '동기화 실패';
+	@override String get phoneDisconnected => '휴대전화 연결 끊김';
+	@override String get tapToSync => '탭하여 동기화';
+	@override String get refreshFailed => '새로고침할 수 없습니다. 휴대전화 연결을 확인하세요.';
+	@override String get openPhone => '휴대전화에서 Calorify를 열고 새로고침을 탭하세요.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$ko extends Translations$watch$home$en {
+	_Translations$watch$home$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => '오늘';
+	@override String calorieSummary({required Object goal, required Object consumed, required Object status}) => '${goal} 중 ${consumed} kcal 섭취했습니다. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} 목표 초과';
+	@override String remaining({required Object calories}) => '${calories} 남음';
+	@override String left({required Object calories}) => '${calories} 남음';
+	@override String goal({required Object calories}) => '${calories} kcal 목표';
+	@override String get logMeal => '식사 기록';
+	@override String get todayMeals => '오늘의 식사';
+	@override String todayMealsCount({required Object count}) => '오늘의 식사, ${count}';
+	@override String viewMore({required Object count}) => '${count}개 더 보기';
+	@override String viewMoreSemantics({required Object count}) => '${count}개의 식사, 모두 보려면 탭하세요';
+	@override String get noMeals => '기록된 식사가 없습니다';
+	@override String get noMealsSemantics => '오늘 기록된 식사가 없습니다';
+	@override String get tapLog => '시작하려면 \'기록\'을 탭하세요';
+	@override String get removedFromQueue => '식사가 오프라인 대기열에서 제거되었습니다.';
+	@override String get removedOffline => '식사가 오프라인에서 제거되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.';
+	@override String get deleteFailed => '식사를 삭제할 수 없습니다';
+}
+
+// Path: watch.history
+class _Translations$watch$history$ko extends Translations$watch$history$en {
+	_Translations$watch$history$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '오늘의 식사';
+	@override String get refresh => '식사 새로고침';
+	@override String get loadFailed => '식사를 불러올 수 없습니다';
+	@override String get syncFailed => '동기화할 수 없습니다';
+	@override String get emptyTitle => '아직 식사가 없습니다';
+	@override String get emptyMessage => '홈에서 식사를 기록하면 여기에 표시됩니다.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$ko extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '즐겨찾기';
+	@override String get refresh => '즐겨찾기 새로고침';
+	@override String get loadFailed => '즐겨찾기를 불러올 수 없습니다';
+	@override String get syncFailed => '동기화할 수 없습니다';
+	@override String get emptyTitle => '아직 즐겨찾기가 없습니다';
+	@override String get emptyMessage => '휴대전화 앱에서 식사를 별표로 표시하면 여기에서 원터치로 기록할 수 있습니다.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kcal. 탭하여 기록하세요.';
+	@override String logged({required Object name}) => '${name}이(가) 기록되었어요!';
+	@override String savedOffline({required Object name}) => '${name}이(가) 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.';
+	@override String get saveFailed => '식사를 저장할 수 없습니다. 다시 시도하세요.';
+	@override String get log => '기록';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$ko extends Translations$watch$meal$en {
+	_Translations$watch$meal$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, ${time}에 기록됨.';
+	@override String get longPressDelete => '삭제하려면 길게 누르세요.';
+	@override String get deleteTitle => '이 식사를 삭제하시겠어요?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$ko extends Translations$watch$voice$en {
+	_Translations$watch$voice$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '음성 식사 기록';
+	@override String get processing => '식사를 확인하는 중…';
+	@override String get processingDescription => '량과 영양성분을 추정 중입니다';
+	@override String get listening => '듣는 중';
+	@override String secondsLeft({required Object seconds}) => '${seconds}초';
+	@override String get stop => '녹음 중지';
+	@override String get start => '탭하여 녹음 시작';
+	@override String get starting => '마이크 시작 중…';
+	@override String get prompt => '탭한 후 식사를 설명하세요';
+	@override String get tapToRetry => '다시 시도하려면 탭하세요';
+	@override String get example => '예: “로티 2장과 달”';
+	@override String get unavailable => '음성 입력을 사용할 수 없습니다. 시계 설정에서 마이크 권한을 확인하세요.';
+	@override String get didNotStart => '마이크가 시작되지 않았습니다. 탭하여 다시 시도하세요.';
+	@override String get startFailed => '녹음을 시작할 수 없습니다. 마이크 권한을 확인하세요.';
+	@override String get allowMicrophone => '음성으로 식사를 기록하려면 마이크 접근을 허용하세요.';
+	@override String get needsConnection => '음성 인식에는 연결이 필요합니다. 탭하여 다시 시도하세요.';
+	@override String get microphoneUnavailable => '마이크를 사용할 수 없습니다. 탭하여 다시 시도하세요.';
+	@override String get microphoneBusy => '마이크가 사용 중입니다. 잠시 기다린 후 다시 시도하세요.';
+	@override String get languageUnsupported => '음성 입력이 시계 언어를 지원하지 않습니다.';
+	@override String get temporarilyBusy => '음성 입력이 일시적으로 바쁩니다. 잠시 기다렸다가 다시 시도하세요.';
+	@override String get notRecognized => '잘 인식되지 않았습니다. 마이크를 탭하여 다시 시도하세요.';
+	@override String get noSpeech => '음성이 감지되지 않았습니다. 마이크를 탭하여 다시 시도하세요.';
+	@override String get analysisFailed => '분석에 실패했습니다. 다시 시도하세요.';
+	@override String get mealNotIdentified => '해당 식사를 식별할 수 없습니다. 다르게 설명해 보세요.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$ko extends Translations$watch$result$en {
+	_Translations$watch$result$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '식사 세부정보';
+	@override String get savedOffline => '오프라인으로 저장됨';
+	@override String get logged => '기록되었어요!';
+	@override String get mealFound => '식사 확인됨';
+	@override String get estimatedEnergy => '추정 열량';
+	@override String get logMeal => '식사 기록';
+	@override String get logging => '기록 중…';
+	@override String get logAnother => '다른 식사 기록';
+	@override String get goingBack => '뒤로 이동 중…';
+	@override String get savedOfflineMessage => '식사가 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.';
+	@override String get saveFailed => '식사를 저장할 수 없습니다. 다시 시도하세요.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$ko extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1375,6 +1570,17 @@ class _Translations$onboarding$healthConnect$automaticTracking$ko extends Transl
 	@override String get description => '피트니스 앱에서 소모한 칼로리를 추적합니다';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$ko extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '소모 칼로리';
+	@override String get description => 'Health Connect에서 오늘의 총 소모 칼로리를 읽습니다';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$ko extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1384,6 +1590,17 @@ class _Translations$onboarding$healthConnect$progressInsights$ko extends Transla
 	// Translations
 	@override String get title => '진행 인사이트';
 	@override String get description => '건강 추세에 대한 자세한 인사이트를 제공합니다';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$ko extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '기록한 식사 공유';
+	@override String get description => 'Calorify에 기록한 식사를 Health Connect에 씁니다';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$ko extends Tran
 	@override String get description => '자주 사용하는 건강 앱의 데이터를 동기화하세요';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$ko extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$ko._(TranslationsKo root) : this._root = root, super.internal(root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Health Connect에서 오늘의 총 소모 칼로리를 읽습니다';
-	@override String get title => '소모 칼로리';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$ko extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$ko._(TranslationsKo root) : this._root = root, super.internal(root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Calorify에 기록한 식사를 Health Connect에 씁니다';
-	@override String get title => '기록한 식사 공유';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$ko extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$ko extends Translations
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요';
 	@override String get title => '사용자가 직접 관리합니다';
+	@override String get description => '원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1584,6 +1779,18 @@ class _Translations$settings$healthConnect$unavailable$ko extends Translations$s
 	@override String get unsupportedDescription => '이 기기는 Health Connect를 지원하지 않습니다.';
 }
 
+// Path: settings.healthConnect.updateRequired
+class _Translations$settings$healthConnect$updateRequired$ko extends Translations$settings$healthConnect$updateRequired$en {
+	_Translations$settings$healthConnect$updateRequired$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect 확인이 필요합니다';
+	@override String get description => '접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.';
+	@override String get action => '설치 또는 업데이트';
+}
+
 // Path: settings.healthConnect.permissions
 class _Translations$settings$healthConnect$permissions$ko extends Translations$settings$healthConnect$permissions$en {
 	_Translations$settings$healthConnect$permissions$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1598,18 +1805,6 @@ class _Translations$settings$healthConnect$permissions$ko extends Translations$s
 	@override late final _Translations$settings$healthConnect$permissions$caloriesBurned$ko caloriesBurned = _Translations$settings$healthConnect$permissions$caloriesBurned$ko._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionRead$ko nutritionRead = _Translations$settings$healthConnect$permissions$nutritionRead$ko._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionWrite$ko nutritionWrite = _Translations$settings$healthConnect$permissions$nutritionWrite$ko._(_root);
-}
-
-// Path: settings.healthConnect.updateRequired
-class _Translations$settings$healthConnect$updateRequired$ko extends Translations$settings$healthConnect$updateRequired$en {
-	_Translations$settings$healthConnect$updateRequired$ko._(TranslationsKo root) : this._root = root, super.internal(root);
-
-	final TranslationsKo _root; // ignore: unused_field
-
-	// Translations
-	@override String get action => '설치 또는 업데이트';
-	@override String get description => '접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.';
-	@override String get title => 'Health Connect 확인이 필요합니다';
 }
 
 // Path: settings.about.ourStory
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$ko extends Translations$settings$abou
 	@override String get description => '개인정보 보호는 부수적인 고려사항이 아니라 설계 원칙입니다. 실제로 이것이 의미하는 바는 다음과 같습니다:';
 	@override String get noAccounts => '계정 불필요\n바로 앱을 사용하세요. 가입이나 신원 확인이 필요 없습니다.';
 	@override String noTracking({required Object appLabel}) => '추적 없음\n${appLabel}는 활동을 모니터링하거나 사용 프로필을 만들거나 다른 앱이나 웹사이트에서 사용자를 추적하지 않습니다.';
+	@override String analyticsDisclosure({required Object appLabel}) => '제한적인 분석 및 진단\n${appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.';
 	@override String noAds({required Object appLabel}) => '광고 없음으로 설계됨\n${appLabel}는 광고나 데이터 기반 수익화 없이 작동하도록 만들어졌습니다.';
 	@override String get noDataSelling => '데이터 판매 없음\n건강 데이터는 제3자에게 판매되거나 공유되지 않습니다.';
 	@override String get localStorage => '로컬 우선 저장\n데이터는 기기에 저장됩니다.';
 	@override String get privacyPolicy => '개인정보 처리방침';
-	@override String analyticsDisclosure({required Object appLabel}) => '제한적인 분석 및 진단\n${appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.';
 }
 
 // Path: settings.about.developer
@@ -1908,33 +2103,33 @@ extension on TranslationsKo {
 			'onboarding.activityLevel.description' => '이는 일일 칼로리 필요량을 보다 정확히 계산하는 데 도움이 됩니다',
 			'onboarding.healthConnect.title' => 'Health Connect에 연결하기',
 			'onboarding.healthConnect.description' => '더 나은 인사이트와 자동 칼로리 추적을 위해 건강 데이터를 동기화하세요',
+			'onboarding.healthConnect.overviewDescription' => '일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.',
 			'onboarding.healthConnect.automaticTracking.title' => '자동 칼로리 추적',
 			'onboarding.healthConnect.automaticTracking.description' => '피트니스 앱에서 소모한 칼로리를 추적합니다',
+			'onboarding.healthConnect.caloriesBurned.title' => '소모 칼로리',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect에서 오늘의 총 소모 칼로리를 읽습니다',
 			'onboarding.healthConnect.progressInsights.title' => '진행 인사이트',
 			'onboarding.healthConnect.progressInsights.description' => '건강 추세에 대한 자세한 인사이트를 제공합니다',
+			'onboarding.healthConnect.shareLoggedMeals.title' => '기록한 식사 공유',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify에 기록한 식사를 Health Connect에 씁니다',
 			'onboarding.healthConnect.seamlessIntegration.title' => '원활한 통합',
 			'onboarding.healthConnect.seamlessIntegration.description' => '자주 사용하는 건강 앱의 데이터를 동기화하세요',
+			'onboarding.healthConnect.userControl.title' => '사용자가 직접 관리합니다',
+			'onboarding.healthConnect.userControl.description' => '원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요',
 			'onboarding.healthConnect.connected' => 'Health Connect 연결됨',
 			'onboarding.healthConnect.notConnected' => 'Health Connect 연결 안 됨',
 			'onboarding.healthConnect.setup' => 'Health Connect 설정',
 			'onboarding.healthConnect.skipForNow' => '일단 건너뛰기',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect가 연결되어 있습니다.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect가 성공적으로 연결되었습니다!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect 설정 오류: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect에서 오늘의 총 소모 칼로리를 읽습니다',
-			'onboarding.healthConnect.caloriesBurned.title' => '소모 칼로리',
-			'onboarding.healthConnect.installOrUpdate' => '설치 또는 업데이트',
-			'onboarding.healthConnect.manageAccess' => '접근 권한 관리',
-			'onboarding.healthConnect.overviewDescription' => '일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify에 기록한 식사를 Health Connect에 씁니다',
-			'onboarding.healthConnect.shareLoggedMeals.title' => '기록한 식사 공유',
 			'onboarding.healthConnect.statusNotConnected' => '사용할 Health Connect 기능을 선택하세요.',
 			'onboarding.healthConnect.statusPartial' => 'Health Connect가 일부 연결되었습니다. 두 기능을 모두 사용하려면 남은 권한을 활성화하세요.',
 			'onboarding.healthConnect.statusProviderUpdateRequired' => '계속하려면 Health Connect를 설치하거나 업데이트하세요.',
 			'onboarding.healthConnect.statusUnavailable' => '이 기기는 Health Connect를 지원하지 않습니다.',
-			'onboarding.healthConnect.userControl.description' => '원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요',
-			'onboarding.healthConnect.userControl.title' => '사용자가 직접 관리합니다',
+			'onboarding.healthConnect.installOrUpdate' => '설치 또는 업데이트',
+			'onboarding.healthConnect.manageAccess' => '접근 권한 관리',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect 설정 오류: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => '혼자가 아니에요',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '연구에 따르면 일관된 기록이 장기 성공의 가장 큰 예측 요인입니다.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}세 ${gender}가 ${goal}하려면 일관된 기록이 성공의 가장 큰 예측 요인입니다.',
@@ -2027,9 +2222,9 @@ extension on TranslationsKo {
 			'home.connectHealth.title' => 'Health Connect와 동기화',
 			'home.connectHealth.description' => '영양 데이터를 Health Connect와 동기화하세요',
 			'home.connectHealth.install' => '설치',
-			'home.connectHealth.connect' => '연결',
 			'home.connectHealth.dataUseDescription' => '목표에 소모 칼로리를 반영하고 기록한 식사를 공유합니다',
 			'home.connectHealth.installOrUpdate' => '설치 또는 업데이트',
+			'home.connectHealth.connect' => '연결',
 			'history.noMeals' => '기록된 식사가 없습니다',
 			'history.emptyMessage' => '마지막 식사를 사진으로 찍어 여기서 기록하세요.',
 			'history.today' => '오늘',
@@ -2265,12 +2460,12 @@ extension on TranslationsKo {
 			'settings.exportMealHistory.failed' => ({required Object error}) => '식사 기록을 내보낼 수 없습니다: ${error}',
 			'settings.clearAllData.title' => '모든 데이터 삭제',
 			'settings.clearAllData.subtitle' => '모든 정보를 되돌릴 수 없이 삭제합니다',
+			'settings.clearAllData.localOnlySubtitle' => '이 기기에 저장된 Calorify 데이터 삭제',
 			'settings.clearAllData.confirmationTitle' => '모든 데이터를 삭제하시겠습니까?',
 			'settings.clearAllData.confirmationMessage' => '이 작업은 되돌릴 수 없습니다. 기록된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => '이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.',
 			'settings.clearAllData.cancel' => '취소',
 			'settings.clearAllData.clearEverything' => '모두 삭제',
-			'settings.clearAllData.localOnlyConfirmationMessage' => '이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.',
-			'settings.clearAllData.localOnlySubtitle' => '이 기기에 저장된 Calorify 데이터 삭제',
 			'settings.debugOptions.title' => '디버그 옵션',
 			'settings.developerModeEnabled' => '개발자 모드가 활성화되었습니다!',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2278,6 +2473,9 @@ extension on TranslationsKo {
 			'settings.healthConnect.unavailable.title' => 'Health Connect 사용 불가',
 			'settings.healthConnect.unavailable.description' => '이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.',
 			'settings.healthConnect.unavailable.unsupportedDescription' => '이 기기는 Health Connect를 지원하지 않습니다.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect 확인이 필요합니다',
+			'settings.healthConnect.updateRequired.description' => '접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.',
+			'settings.healthConnect.updateRequired.action' => '설치 또는 업데이트',
 			'settings.healthConnect.permissions.title' => '권한',
 			'settings.healthConnect.permissions.description' => 'Health Connect 통합을 제공하기 위해 다음 권한이 요청됩니다:',
 			'settings.healthConnect.permissions.granted' => '허용됨',
@@ -2293,26 +2491,23 @@ extension on TranslationsKo {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => '이 권한은 기록한 식사를 Health Connect와 동기화하여 다른 건강 및 피트니스 앱에서도 영양 데이터를 사용할 수 있게 합니다.',
 			'settings.healthConnect.managePermissions' => '권한 관리',
 			'settings.healthConnect.openSettings' => 'Health Connect 설정 열기',
+			'settings.healthConnect.disconnect' => 'Health Connect 연결 해제',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connect 연결을 해제할까요?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.',
+			'settings.healthConnect.disconnectConfirmationAction' => '연결 해제',
+			'settings.healthConnect.deleteSyncedMeals' => 'Health Connect에서 Calorify 식사 삭제',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '동기화된 식사를 삭제할까요?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => '이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '동기화된 식사 삭제',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Health Connect에서 Calorify 식사를 삭제했습니다.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => '동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.',
+			'settings.healthConnect.connectionPartial' => '일부 Health Connect 기능이 활성화되었습니다.',
+			'settings.healthConnect.connectionComplete' => 'Health Connect 기능 두 개가 모두 활성화되었습니다.',
+			'settings.healthConnect.actionFailed' => 'Health Connect를 열 수 없습니다. 다시 시도해 주세요.',
 			'settings.healthConnect.requestPermissions' => '권한 요청',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => '권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.',
 			'settings.healthConnect.permissionRequestFailed' => '권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.',
 			'settings.healthConnect.requestingPermissions' => '요청 중...',
-			'settings.healthConnect.actionFailed' => 'Health Connect를 열 수 없습니다. 다시 시도해 주세요.',
-			'settings.healthConnect.connectionComplete' => 'Health Connect 기능 두 개가 모두 활성화되었습니다.',
-			'settings.healthConnect.connectionPartial' => '일부 Health Connect 기능이 활성화되었습니다.',
-			'settings.healthConnect.deleteSyncedMeals' => 'Health Connect에서 Calorify 식사 삭제',
-			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '동기화된 식사 삭제',
-			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => '이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.',
-			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '동기화된 식사를 삭제할까요?',
-			'settings.healthConnect.deleteSyncedMealsFailed' => '동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.',
-			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Health Connect에서 Calorify 식사를 삭제했습니다.',
-			'settings.healthConnect.disconnect' => 'Health Connect 연결 해제',
-			'settings.healthConnect.disconnectConfirmationAction' => '연결 해제',
-			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.',
-			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connect 연결을 해제할까요?',
-			'settings.healthConnect.updateRequired.action' => '설치 또는 업데이트',
-			'settings.healthConnect.updateRequired.description' => '접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.',
-			'settings.healthConnect.updateRequired.title' => 'Health Connect 확인이 필요합니다',
 			'settings.about.title' => '앱 정보',
 			'settings.about.tagline' => '빠르고 무료이며 프라이버시를 우선시하는 칼로리 인식',
 			'settings.about.ourStory.title' => '우리의 이야기',
@@ -2321,11 +2516,11 @@ extension on TranslationsKo {
 			'settings.about.privacy.description' => '개인정보 보호는 부수적인 고려사항이 아니라 설계 원칙입니다. 실제로 이것이 의미하는 바는 다음과 같습니다:',
 			'settings.about.privacy.noAccounts' => '계정 불필요\n바로 앱을 사용하세요. 가입이나 신원 확인이 필요 없습니다.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '추적 없음\n${appLabel}는 활동을 모니터링하거나 사용 프로필을 만들거나 다른 앱이나 웹사이트에서 사용자를 추적하지 않습니다.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '제한적인 분석 및 진단\n${appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => '광고 없음으로 설계됨\n${appLabel}는 광고나 데이터 기반 수익화 없이 작동하도록 만들어졌습니다.',
 			'settings.about.privacy.noDataSelling' => '데이터 판매 없음\n건강 데이터는 제3자에게 판매되거나 공유되지 않습니다.',
 			'settings.about.privacy.localStorage' => '로컬 우선 저장\n데이터는 기기에 저장됩니다.',
 			'settings.about.privacy.privacyPolicy' => '개인정보 처리방침',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '제한적인 분석 및 진단\n${appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.',
 			'settings.about.developer.title' => '단독 개발자가 제작',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}는 차분하고 프라이버시를 존중하는 건강 소프트웨어를 만드는 데 집중하는 단독 개발자가 제작 및 유지합니다.\n\n피드백은 직접 읽히며 앱의 방향을 결정하는 데 도움이 됩니다.',
 			'settings.about.developer.website' => '웹사이트',
@@ -2432,6 +2627,101 @@ extension on TranslationsKo {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => '데이터 지우기',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => '로컬 영양 데이터를 다운로드하고 검증할 수 없습니다: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => '로컬 영양 데이터를 지웠습니다',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => '뒤로',
+			'watch.common.cancel' => '취소',
+			'watch.common.delete' => '삭제',
+			'watch.common.retry' => '다시 시도',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => '영양소',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} g',
+			'watch.nutrition.protein' => '단백질',
+			'watch.nutrition.carbs' => '탄수화물',
+			'watch.nutrition.fat' => '지방',
+			'watch.nutrition.fiber' => '식이섬유',
+			'watch.sync.syncWithPhone' => '휴대전화와 동기화',
+			'watch.sync.syncing' => '동기화 중…',
+			'watch.sync.synced' => '동기화됨',
+			'watch.sync.syncedJustNow' => '방금 동기화됨',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => '${minutes}분 전 동기화됨',
+			'watch.sync.failed' => '동기화 실패',
+			'watch.sync.phoneDisconnected' => '휴대전화 연결 끊김',
+			'watch.sync.tapToSync' => '탭하여 동기화',
+			'watch.sync.refreshFailed' => '새로고침할 수 없습니다. 휴대전화 연결을 확인하세요.',
+			'watch.sync.openPhone' => '휴대전화에서 Calorify를 열고 새로고침을 탭하세요.',
+			'watch.home.today' => '오늘',
+			'watch.home.calorieSummary' => ({required Object goal, required Object consumed, required Object status}) => '${goal} 중 ${consumed} kcal 섭취했습니다. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} 목표 초과',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} 남음',
+			'watch.home.left' => ({required Object calories}) => '${calories} 남음',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal 목표',
+			'watch.home.logMeal' => '식사 기록',
+			'watch.home.todayMeals' => '오늘의 식사',
+			'watch.home.todayMealsCount' => ({required Object count}) => '오늘의 식사, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => '${count}개 더 보기',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count}개의 식사, 모두 보려면 탭하세요',
+			'watch.home.noMeals' => '기록된 식사가 없습니다',
+			'watch.home.noMealsSemantics' => '오늘 기록된 식사가 없습니다',
+			'watch.home.tapLog' => '시작하려면 \'기록\'을 탭하세요',
+			'watch.home.removedFromQueue' => '식사가 오프라인 대기열에서 제거되었습니다.',
+			'watch.home.removedOffline' => '식사가 오프라인에서 제거되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.',
+			'watch.home.deleteFailed' => '식사를 삭제할 수 없습니다',
+			'watch.history.title' => '오늘의 식사',
+			'watch.history.refresh' => '식사 새로고침',
+			'watch.history.loadFailed' => '식사를 불러올 수 없습니다',
+			'watch.history.syncFailed' => '동기화할 수 없습니다',
+			'watch.history.emptyTitle' => '아직 식사가 없습니다',
+			'watch.history.emptyMessage' => '홈에서 식사를 기록하면 여기에 표시됩니다.',
+			'watch.favorites.title' => '즐겨찾기',
+			'watch.favorites.refresh' => '즐겨찾기 새로고침',
+			'watch.favorites.loadFailed' => '즐겨찾기를 불러올 수 없습니다',
+			'watch.favorites.syncFailed' => '동기화할 수 없습니다',
+			'watch.favorites.emptyTitle' => '아직 즐겨찾기가 없습니다',
+			'watch.favorites.emptyMessage' => '휴대전화 앱에서 식사를 별표로 표시하면 여기에서 원터치로 기록할 수 있습니다.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kcal. 탭하여 기록하세요.',
+			'watch.favorites.logged' => ({required Object name}) => '${name}이(가) 기록되었어요!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name}이(가) 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.',
+			'watch.favorites.saveFailed' => '식사를 저장할 수 없습니다. 다시 시도하세요.',
+			'watch.favorites.log' => '기록',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, ${time}에 기록됨.',
+			'watch.meal.longPressDelete' => '삭제하려면 길게 누르세요.',
+			'watch.meal.deleteTitle' => '이 식사를 삭제하시겠어요?',
+			'watch.voice.title' => '음성 식사 기록',
+			'watch.voice.processing' => '식사를 확인하는 중…',
+			'watch.voice.processingDescription' => '량과 영양성분을 추정 중입니다',
+			'watch.voice.listening' => '듣는 중',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}초',
+			'watch.voice.stop' => '녹음 중지',
+			'watch.voice.start' => '탭하여 녹음 시작',
+			'watch.voice.starting' => '마이크 시작 중…',
+			'watch.voice.prompt' => '탭한 후 식사를 설명하세요',
+			'watch.voice.tapToRetry' => '다시 시도하려면 탭하세요',
+			'watch.voice.example' => '예: “로티 2장과 달”',
+			'watch.voice.unavailable' => '음성 입력을 사용할 수 없습니다. 시계 설정에서 마이크 권한을 확인하세요.',
+			'watch.voice.didNotStart' => '마이크가 시작되지 않았습니다. 탭하여 다시 시도하세요.',
+			'watch.voice.startFailed' => '녹음을 시작할 수 없습니다. 마이크 권한을 확인하세요.',
+			'watch.voice.allowMicrophone' => '음성으로 식사를 기록하려면 마이크 접근을 허용하세요.',
+			'watch.voice.needsConnection' => '음성 인식에는 연결이 필요합니다. 탭하여 다시 시도하세요.',
+			'watch.voice.microphoneUnavailable' => '마이크를 사용할 수 없습니다. 탭하여 다시 시도하세요.',
+			'watch.voice.microphoneBusy' => '마이크가 사용 중입니다. 잠시 기다린 후 다시 시도하세요.',
+			'watch.voice.languageUnsupported' => '음성 입력이 시계 언어를 지원하지 않습니다.',
+			'watch.voice.temporarilyBusy' => '음성 입력이 일시적으로 바쁩니다. 잠시 기다렸다가 다시 시도하세요.',
+			'watch.voice.notRecognized' => '잘 인식되지 않았습니다. 마이크를 탭하여 다시 시도하세요.',
+			'watch.voice.noSpeech' => '음성이 감지되지 않았습니다. 마이크를 탭하여 다시 시도하세요.',
+			'watch.voice.analysisFailed' => '분석에 실패했습니다. 다시 시도하세요.',
+			'watch.voice.mealNotIdentified' => '해당 식사를 식별할 수 없습니다. 다르게 설명해 보세요.',
+			'watch.result.title' => '식사 세부정보',
+			'watch.result.savedOffline' => '오프라인으로 저장됨',
+			'watch.result.logged' => '기록되었어요!',
+			'watch.result.mealFound' => '식사 확인됨',
+			'watch.result.estimatedEnergy' => '추정 열량',
+			'watch.result.logMeal' => '식사 기록',
+			'watch.result.logging' => '기록 중…',
+			'watch.result.logAnother' => '다른 식사 기록',
+			'watch.result.goingBack' => '뒤로 이동 중…',
+			'watch.result.savedOfflineMessage' => '식사가 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.',
+			'watch.result.saveFailed' => '식사를 저장할 수 없습니다. 다시 시도하세요.',
 			'common.close' => '닫기',
 			'common.kContinue' => '계속',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}이 마음에 드시나요?',

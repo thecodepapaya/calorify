@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Lokale Nährwertdaten konnten nicht heruntergeladen und überprüft werden: {error}",
     "offlineNutritionCleared": "Lokale Nährwertdaten gelöscht"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Zurück",
+      "cancel": "Abbrechen",
+      "delete": "Löschen",
+      "retry": "Erneut versuchen",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nährstoff",
+      "grams": "{label}, {value} g",
+      "protein": "Eiweiß",
+      "carbs": "Kohlenhydrate",
+      "fat": "Fett",
+      "fiber": "Ballaststoffe"
+    },
+    "sync": {
+      "syncWithPhone": "Mit Telefon synchronisieren",
+      "syncing": "Synchronisiere…",
+      "synced": "Synchronisiert",
+      "syncedJustNow": "Gerade synchronisiert",
+      "syncedMinutesAgo": "Vor {minutes} Min. synchronisiert",
+      "failed": "Synchronisierung fehlgeschlagen",
+      "phoneDisconnected": "Telefon getrennt",
+      "tapToSync": "Tippen zum Synchronisieren",
+      "refreshFailed": "Aktualisierung fehlgeschlagen. Prüfe dein Telefon.",
+      "openPhone": "Öffne Calorify auf deinem Telefon, dann tippe auf Aktualisieren."
+    },
+    "home": {
+      "today": "Heute",
+      "calorieSummary": "{consumed} kcal von {goal} aufgenommen. {status}.",
+      "overGoal": "{calories} über dem Ziel",
+      "remaining": "{calories} verbleibend",
+      "left": "{calories} übrig",
+      "goal": "{calories} kcal Ziel",
+      "logMeal": "Mahlzeit protokollieren",
+      "todayMeals": "Mahlzeiten heute",
+      "todayMealsCount": "Mahlzeiten heute, {count}",
+      "viewMore": "Zeige {count} weitere",
+      "viewMoreSemantics": "{count} weitere Mahlzeiten, tippe, um alle anzuzeigen",
+      "noMeals": "Keine Mahlzeiten protokolliert",
+      "noMealsSemantics": "Heute keine Mahlzeiten protokolliert",
+      "tapLog": "Tippe auf ‚Protokollieren‘, um zu beginnen.",
+      "removedFromQueue": "Mahlzeit aus Offline‑Warteschlange entfernt.",
+      "removedOffline": "Mahlzeit offline entfernt. Sie wird synchronisiert, wenn dein Telefon sich wieder verbindet.",
+      "deleteFailed": "Mahlzeit konnte nicht gelöscht werden"
+    },
+    "history": {
+      "title": "Mahlzeiten heute",
+      "refresh": "Mahlzeiten aktualisieren",
+      "loadFailed": "Mahlzeiten konnten nicht geladen werden",
+      "syncFailed": "Synchronisierung fehlgeschlagen",
+      "emptyTitle": "Noch keine Mahlzeiten",
+      "emptyMessage": "Erfasse eine Mahlzeit auf der Startseite, um sie hier zu sehen."
+    },
+    "favorites": {
+      "title": "Favoriten",
+      "refresh": "Favoriten aktualisieren",
+      "loadFailed": "Favoriten konnten nicht geladen werden",
+      "syncFailed": "Synchronisierung fehlgeschlagen",
+      "emptyTitle": "Noch keine Favoriten",
+      "emptyMessage": "Markiere Mahlzeiten in der Telefon-App mit einem Stern, um sie hier mit einem Tipp zu protokollieren.",
+      "mealSemantics": "{name}, {calories} kcal. Tippe zum Protokollieren.",
+      "logged": "{name} protokolliert!",
+      "savedOffline": "{name} offline gespeichert. Wird synchronisiert, wenn dein Telefon sich wieder verbindet.",
+      "saveFailed": "Mahlzeit konnte nicht gespeichert werden. Bitte erneut versuchen.",
+      "log": "Protokollieren"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kcal, protokolliert um {time}.",
+      "longPressDelete": "Lange drücken zum Löschen.",
+      "deleteTitle": "Mahlzeit löschen?"
+    },
+    "voice": {
+      "title": "Sprachprotokoll für Mahlzeiten",
+      "processing": "Prüfe deine Mahlzeit…",
+      "processingDescription": "Ermittle Portionen und Nährwerte",
+      "listening": "Aufnahme läuft",
+      "secondsLeft": "{seconds}s",
+      "stop": "Aufnahme stoppen",
+      "start": "Tippe, um Aufnahme zu starten",
+      "starting": "Mikrofon wird gestartet…",
+      "prompt": "Tippe, dann beschreibe deine Mahlzeit",
+      "tapToRetry": "Tippe, um es erneut zu versuchen",
+      "example": "Versuche z. B. „2 Rotis mit Dal“",
+      "unavailable": "Spracheingabe ist nicht verfügbar. Prüfe die Mikrofonberechtigung in den Uhreinstellungen.",
+      "didNotStart": "Mikrofon hat nicht gestartet. Tippe, um es erneut zu versuchen.",
+      "startFailed": "Aufnahme konnte nicht gestartet werden. Prüfe die Mikrofonberechtigungen.",
+      "allowMicrophone": "Erlaube den Mikrofonzugriff, um Mahlzeiten per Sprache zu erfassen.",
+      "needsConnection": "Spracherkennung benötigt eine Verbindung. Tippe, um es erneut zu versuchen.",
+      "microphoneUnavailable": "Das Mikrofon ist nicht verfügbar. Tippe, um es erneut zu versuchen.",
+      "microphoneBusy": "Das Mikrofon ist beschäftigt. Warte kurz und versuche es erneut.",
+      "languageUnsupported": "Die Spracheingabe unterstützt die Sprache der Uhr nicht.",
+      "temporarilyBusy": "Die Spracheingabe ist vorübergehend beschäftigt. Warte kurz und versuche es erneut.",
+      "notRecognized": "Ich habe das nicht verstanden. Tippe auf das Mikrofon und versuche es erneut.",
+      "noSpeech": "Keine Sprache erkannt. Tippe auf das Mikrofon, um es erneut zu versuchen.",
+      "analysisFailed": "Analyse fehlgeschlagen. Bitte erneut versuchen.",
+      "mealNotIdentified": "Konnte die Mahlzeit nicht identifizieren. Versuche, sie anders zu beschreiben."
+    },
+    "result": {
+      "title": "Mahlzeitdetails",
+      "savedOffline": "Offline gespeichert",
+      "logged": "Protokolliert!",
+      "mealFound": "Mahlzeit gefunden",
+      "estimatedEnergy": "Geschätzte Energie",
+      "logMeal": "Mahlzeit protokollieren",
+      "logging": "Protokolliere…",
+      "logAnother": "Weitere protokollieren",
+      "goingBack": "Zurück…",
+      "savedOfflineMessage": "Mahlzeit offline gespeichert. Sie wird synchronisiert, wenn dein Telefon sich wieder verbindet.",
+      "saveFailed": "Mahlzeit konnte nicht gespeichert werden. Bitte erneut versuchen."
+    }
+  },
   "common": {
     "close": "Schließen",
     "continue": "Weiter"

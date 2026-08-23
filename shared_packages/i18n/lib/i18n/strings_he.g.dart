@@ -58,6 +58,7 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$he login = _Translations$login$he._(_root);
 	@override late final _Translations$disclaimer$he disclaimer = _Translations$disclaimer$he._(_root);
 	@override late final _Translations$localNutritionPhase4$he localNutritionPhase4 = _Translations$localNutritionPhase4$he._(_root);
+	@override late final _Translations$watch$he watch = _Translations$watch$he._(_root);
 	@override late final _Translations$common$he common = _Translations$common$he._(_root);
 	@override late final _Translations$feedbackRating$he feedbackRating = _Translations$feedbackRating$he._(_root);
 	@override late final _Translations$health$he health = _Translations$health$he._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$he extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'נתוני התזונה המקומיים נוקו';
 }
 
+// Path: watch
+class _Translations$watch$he extends Translations$watch$en {
+	_Translations$watch$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$he common = _Translations$watch$common$he._(_root);
+	@override late final _Translations$watch$nutrition$he nutrition = _Translations$watch$nutrition$he._(_root);
+	@override late final _Translations$watch$sync$he sync = _Translations$watch$sync$he._(_root);
+	@override late final _Translations$watch$home$he home = _Translations$watch$home$he._(_root);
+	@override late final _Translations$watch$history$he history = _Translations$watch$history$he._(_root);
+	@override late final _Translations$watch$favorites$he favorites = _Translations$watch$favorites$he._(_root);
+	@override late final _Translations$watch$meal$he meal = _Translations$watch$meal$he._(_root);
+	@override late final _Translations$watch$voice$he voice = _Translations$watch$voice$he._(_root);
+	@override late final _Translations$watch$result$he result = _Translations$watch$result$he._(_root);
+}
+
 // Path: common
 class _Translations$common$he extends Translations$common$en {
 	_Translations$common$he._(TranslationsHe root) : this._root = root, super.internal(root);
@@ -753,8 +773,8 @@ class _Translations$home$connectHealth$he extends Translations$home$connectHealt
 	// Translations
 	@override String get title => 'סנכרן עם Health Connect';
 	@override String get description => 'סנכרן את נתוני התזונה שלך עם Health Connect';
-	@override String get dataUseDescription => 'השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו';
 	@override String get install => 'התקן';
+	@override String get dataUseDescription => 'השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו';
 	@override String get installOrUpdate => 'התקנה או עדכון';
 	@override String get connect => 'חבר';
 }
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$he extends Translations$discla
 	@override String get description => 'כאשר נתוני Health Connect אינם זמינים, אנו מעריכים את הקלוריות שנשרפו היום באמצעות ה-BMR שלך ורמת הפעילות (TDEE), פרופורציונלית לחלק היומי שעבר.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$he howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$he._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$he professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$he._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$he extends Translations$watch$common$en {
+	_Translations$watch$common$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'חזור';
+	@override String get cancel => 'ביטול';
+	@override String get delete => 'מחק';
+	@override String get retry => 'נסה שוב';
+	@override String get kcal => 'קק"ל';
+	@override String get gramsShort => 'ג׳';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$he extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'רכיב תזונתי';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} גרם';
+	@override String get protein => 'חלבון';
+	@override String get carbs => 'פחמימות';
+	@override String get fat => 'שומן';
+	@override String get fiber => 'סיבים תזונתיים';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$he extends Translations$watch$sync$en {
+	_Translations$watch$sync$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'סנכרן עם הטלפון';
+	@override String get syncing => 'מסנכרן…';
+	@override String get synced => 'סונכרן';
+	@override String get syncedJustNow => 'סונכרן זה עתה';
+	@override String syncedMinutesAgo({required Object minutes}) => 'סונכרן לפני ${minutes} דק׳';
+	@override String get failed => 'הסנכרון נכשל';
+	@override String get phoneDisconnected => 'הטלפון מנותק';
+	@override String get tapToSync => 'הקש לסנכרון';
+	@override String get refreshFailed => 'לא ניתן לרענן. בדוק את הטלפון שלך.';
+	@override String get openPhone => 'פתח את Calorify בטלפון שלך, ואז הקש רענן.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$he extends Translations$watch$home$en {
+	_Translations$watch$home$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'היום';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} קלוריות נצרכו מתוך ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} מעל היעד';
+	@override String remaining({required Object calories}) => '${calories} נותרו';
+	@override String left({required Object calories}) => '${calories} נותרו';
+	@override String goal({required Object calories}) => 'יעד: ${calories} קק"ל';
+	@override String get logMeal => 'תעד ארוחה';
+	@override String get todayMeals => 'הארוחות של היום';
+	@override String todayMealsCount({required Object count}) => 'הארוחות של היום, ${count}';
+	@override String viewMore({required Object count}) => 'הצג ${count} נוספות';
+	@override String viewMoreSemantics({required Object count}) => '${count} ארוחות נוספות, הקש כדי להציג את כולן';
+	@override String get noMeals => 'לא תועדו ארוחות';
+	@override String get noMealsSemantics => 'לא תועדו ארוחות היום';
+	@override String get tapLog => 'הקש \'תעד\' כדי להתחיל';
+	@override String get removedFromQueue => 'הארוחה הוסרה מהתור הלא מקוון.';
+	@override String get removedOffline => 'הארוחה הוסרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.';
+	@override String get deleteFailed => 'לא ניתן למחוק ארוחה';
+}
+
+// Path: watch.history
+class _Translations$watch$history$he extends Translations$watch$history$en {
+	_Translations$watch$history$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'הארוחות של היום';
+	@override String get refresh => 'רענן ארוחות';
+	@override String get loadFailed => 'לא ניתן לטעון ארוחות';
+	@override String get syncFailed => 'לא ניתן לסנכרן';
+	@override String get emptyTitle => 'אין ארוחות עדיין';
+	@override String get emptyMessage => 'תעד ארוחה ממסך הבית כדי לראות אותה כאן.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$he extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'מועדפים';
+	@override String get refresh => 'רענן מועדפים';
+	@override String get loadFailed => 'לא ניתן לטעון מועדפים';
+	@override String get syncFailed => 'לא ניתן לסנכרן';
+	@override String get emptyTitle => 'אין מועדפים עדיין';
+	@override String get emptyMessage => 'סמן ארוחות בכוכב באפליקציית הטלפון לתיעוד בלחיצה אחת כאן.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} קלוריות. הקש כדי לתעד.';
+	@override String logged({required Object name}) => '${name} תועדה!';
+	@override String savedOffline({required Object name}) => '${name} נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.';
+	@override String get saveFailed => 'לא ניתן לשמור את הארוחה. אנא נסה שוב.';
+	@override String get log => 'תעד';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$he extends Translations$watch$meal$en {
+	_Translations$watch$meal$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} קלוריות, תועדה ב-${time}.';
+	@override String get longPressDelete => 'לחץ לחיצה ארוכה למחיקה.';
+	@override String get deleteTitle => 'למחוק ארוחה?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$he extends Translations$watch$voice$en {
+	_Translations$watch$voice$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'תיעוד ארוחה קולי';
+	@override String get processing => 'בודק את הארוחה שלך…';
+	@override String get processingDescription => 'מעריך מנות ותזונה';
+	@override String get listening => 'מאזין';
+	@override String secondsLeft({required Object seconds}) => '${seconds} שנ׳';
+	@override String get stop => 'הפסק הקלטה';
+	@override String get start => 'הקש כדי להתחיל להקליט';
+	@override String get starting => 'מפעיל מיקרופון…';
+	@override String get prompt => 'הקש, ואז תאר את הארוחה שלך';
+	@override String get tapToRetry => 'הקש כדי לנסות שוב';
+	@override String get example => 'נסה ״2 רוטי עם דאל״';
+	@override String get unavailable => 'קלט קולי אינו זמין. בדוק את הרשאת המיקרופון בהגדרות השעון.';
+	@override String get didNotStart => 'המיקרופון לא התחיל. הקש כדי לנסות שוב.';
+	@override String get startFailed => 'לא ניתן להתחיל הקלטה. בדוק הרשאות מיקרופון.';
+	@override String get allowMicrophone => 'אפשר גישה למיקרופון כדי לתעד ארוחות בקול.';
+	@override String get needsConnection => 'זיהוי קולי דורש חיבור. הקש כדי לנסות שוב.';
+	@override String get microphoneUnavailable => 'המיקרופון אינו זמין. הקש כדי לנסות שוב.';
+	@override String get microphoneBusy => 'המיקרופון תפוס. המתן רגע ונסה שוב.';
+	@override String get languageUnsupported => 'קלט קולי אינו תומך בשפת השעון.';
+	@override String get temporarilyBusy => 'קלט קולי תפוס זמנית. המתן רגע ונסה שוב.';
+	@override String get notRecognized => 'לא קלטתי את זה. הקש על המיקרופון ונסה שוב.';
+	@override String get noSpeech => 'לא זוהתה דיבור. הקש על המיקרופון כדי לנסות שוב.';
+	@override String get analysisFailed => 'הניתוח נכשל. אנא נסה שוב.';
+	@override String get mealNotIdentified => 'לא ניתן לזהות את הארוחה הזו. נסה לתאר אותה אחרת.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$he extends Translations$watch$result$en {
+	_Translations$watch$result$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'פרטי ארוחה';
+	@override String get savedOffline => 'נשמר באופן לא מקוון';
+	@override String get logged => 'תועדה!';
+	@override String get mealFound => 'ארוחה נמצאה';
+	@override String get estimatedEnergy => 'אנרגיה מוערכת';
+	@override String get logMeal => 'תעד ארוחה';
+	@override String get logging => 'מתעד…';
+	@override String get logAnother => 'תעד ארוחה נוספת';
+	@override String get goingBack => 'חוזר אחורה…';
+	@override String get savedOfflineMessage => 'הארוחה נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.';
+	@override String get saveFailed => 'לא ניתן לשמור את הארוחה. אנא נסה שוב.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2026,8 +2221,8 @@ extension on TranslationsHe {
 			'home.mealSnap.uploadingPhoto' => 'מעלה תמונה…',
 			'home.connectHealth.title' => 'סנכרן עם Health Connect',
 			'home.connectHealth.description' => 'סנכרן את נתוני התזונה שלך עם Health Connect',
-			'home.connectHealth.dataUseDescription' => 'השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו',
 			'home.connectHealth.install' => 'התקן',
+			'home.connectHealth.dataUseDescription' => 'השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו',
 			'home.connectHealth.installOrUpdate' => 'התקנה או עדכון',
 			'home.connectHealth.connect' => 'חבר',
 			'history.noMeals' => 'אין ארוחות רשומות',
@@ -2432,6 +2627,101 @@ extension on TranslationsHe {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'ניקוי נתונים',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'לא ניתן היה להוריד ולאמת את נתוני התזונה המקומיים: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'נתוני התזונה המקומיים נוקו',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'חזור',
+			'watch.common.cancel' => 'ביטול',
+			'watch.common.delete' => 'מחק',
+			'watch.common.retry' => 'נסה שוב',
+			'watch.common.kcal' => 'קק"ל',
+			'watch.common.gramsShort' => 'ג׳',
+			'watch.nutrition.nutrient' => 'רכיב תזונתי',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} גרם',
+			'watch.nutrition.protein' => 'חלבון',
+			'watch.nutrition.carbs' => 'פחמימות',
+			'watch.nutrition.fat' => 'שומן',
+			'watch.nutrition.fiber' => 'סיבים תזונתיים',
+			'watch.sync.syncWithPhone' => 'סנכרן עם הטלפון',
+			'watch.sync.syncing' => 'מסנכרן…',
+			'watch.sync.synced' => 'סונכרן',
+			'watch.sync.syncedJustNow' => 'סונכרן זה עתה',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'סונכרן לפני ${minutes} דק׳',
+			'watch.sync.failed' => 'הסנכרון נכשל',
+			'watch.sync.phoneDisconnected' => 'הטלפון מנותק',
+			'watch.sync.tapToSync' => 'הקש לסנכרון',
+			'watch.sync.refreshFailed' => 'לא ניתן לרענן. בדוק את הטלפון שלך.',
+			'watch.sync.openPhone' => 'פתח את Calorify בטלפון שלך, ואז הקש רענן.',
+			'watch.home.today' => 'היום',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} קלוריות נצרכו מתוך ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} מעל היעד',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} נותרו',
+			'watch.home.left' => ({required Object calories}) => '${calories} נותרו',
+			'watch.home.goal' => ({required Object calories}) => 'יעד: ${calories} קק"ל',
+			'watch.home.logMeal' => 'תעד ארוחה',
+			'watch.home.todayMeals' => 'הארוחות של היום',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'הארוחות של היום, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'הצג ${count} נוספות',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} ארוחות נוספות, הקש כדי להציג את כולן',
+			'watch.home.noMeals' => 'לא תועדו ארוחות',
+			'watch.home.noMealsSemantics' => 'לא תועדו ארוחות היום',
+			'watch.home.tapLog' => 'הקש \'תעד\' כדי להתחיל',
+			'watch.home.removedFromQueue' => 'הארוחה הוסרה מהתור הלא מקוון.',
+			'watch.home.removedOffline' => 'הארוחה הוסרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.',
+			'watch.home.deleteFailed' => 'לא ניתן למחוק ארוחה',
+			'watch.history.title' => 'הארוחות של היום',
+			'watch.history.refresh' => 'רענן ארוחות',
+			'watch.history.loadFailed' => 'לא ניתן לטעון ארוחות',
+			'watch.history.syncFailed' => 'לא ניתן לסנכרן',
+			'watch.history.emptyTitle' => 'אין ארוחות עדיין',
+			'watch.history.emptyMessage' => 'תעד ארוחה ממסך הבית כדי לראות אותה כאן.',
+			'watch.favorites.title' => 'מועדפים',
+			'watch.favorites.refresh' => 'רענן מועדפים',
+			'watch.favorites.loadFailed' => 'לא ניתן לטעון מועדפים',
+			'watch.favorites.syncFailed' => 'לא ניתן לסנכרן',
+			'watch.favorites.emptyTitle' => 'אין מועדפים עדיין',
+			'watch.favorites.emptyMessage' => 'סמן ארוחות בכוכב באפליקציית הטלפון לתיעוד בלחיצה אחת כאן.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} קלוריות. הקש כדי לתעד.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} תועדה!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.',
+			'watch.favorites.saveFailed' => 'לא ניתן לשמור את הארוחה. אנא נסה שוב.',
+			'watch.favorites.log' => 'תעד',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} קלוריות, תועדה ב-${time}.',
+			'watch.meal.longPressDelete' => 'לחץ לחיצה ארוכה למחיקה.',
+			'watch.meal.deleteTitle' => 'למחוק ארוחה?',
+			'watch.voice.title' => 'תיעוד ארוחה קולי',
+			'watch.voice.processing' => 'בודק את הארוחה שלך…',
+			'watch.voice.processingDescription' => 'מעריך מנות ותזונה',
+			'watch.voice.listening' => 'מאזין',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds} שנ׳',
+			'watch.voice.stop' => 'הפסק הקלטה',
+			'watch.voice.start' => 'הקש כדי להתחיל להקליט',
+			'watch.voice.starting' => 'מפעיל מיקרופון…',
+			'watch.voice.prompt' => 'הקש, ואז תאר את הארוחה שלך',
+			'watch.voice.tapToRetry' => 'הקש כדי לנסות שוב',
+			'watch.voice.example' => 'נסה ״2 רוטי עם דאל״',
+			'watch.voice.unavailable' => 'קלט קולי אינו זמין. בדוק את הרשאת המיקרופון בהגדרות השעון.',
+			'watch.voice.didNotStart' => 'המיקרופון לא התחיל. הקש כדי לנסות שוב.',
+			'watch.voice.startFailed' => 'לא ניתן להתחיל הקלטה. בדוק הרשאות מיקרופון.',
+			'watch.voice.allowMicrophone' => 'אפשר גישה למיקרופון כדי לתעד ארוחות בקול.',
+			'watch.voice.needsConnection' => 'זיהוי קולי דורש חיבור. הקש כדי לנסות שוב.',
+			'watch.voice.microphoneUnavailable' => 'המיקרופון אינו זמין. הקש כדי לנסות שוב.',
+			'watch.voice.microphoneBusy' => 'המיקרופון תפוס. המתן רגע ונסה שוב.',
+			'watch.voice.languageUnsupported' => 'קלט קולי אינו תומך בשפת השעון.',
+			'watch.voice.temporarilyBusy' => 'קלט קולי תפוס זמנית. המתן רגע ונסה שוב.',
+			'watch.voice.notRecognized' => 'לא קלטתי את זה. הקש על המיקרופון ונסה שוב.',
+			'watch.voice.noSpeech' => 'לא זוהתה דיבור. הקש על המיקרופון כדי לנסות שוב.',
+			'watch.voice.analysisFailed' => 'הניתוח נכשל. אנא נסה שוב.',
+			'watch.voice.mealNotIdentified' => 'לא ניתן לזהות את הארוחה הזו. נסה לתאר אותה אחרת.',
+			'watch.result.title' => 'פרטי ארוחה',
+			'watch.result.savedOffline' => 'נשמר באופן לא מקוון',
+			'watch.result.logged' => 'תועדה!',
+			'watch.result.mealFound' => 'ארוחה נמצאה',
+			'watch.result.estimatedEnergy' => 'אנרגיה מוערכת',
+			'watch.result.logMeal' => 'תעד ארוחה',
+			'watch.result.logging' => 'מתעד…',
+			'watch.result.logAnother' => 'תעד ארוחה נוספת',
+			'watch.result.goingBack' => 'חוזר אחורה…',
+			'watch.result.savedOfflineMessage' => 'הארוחה נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.',
+			'watch.result.saveFailed' => 'לא ניתן לשמור את הארוחה. אנא נסה שוב.',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'המשך',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מ-${appLabel}?',

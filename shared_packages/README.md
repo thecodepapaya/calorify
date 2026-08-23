@@ -17,7 +17,7 @@ Regenerate translations through the repository script so locale files stay consi
 ./scripts/generate_translations.sh
 ./scripts/generate_translations.sh --full --jobs 3
 ./scripts/generate_translations.sh --repair-source-copies
-python3 ./scripts/audit_translations.py --fail-on-source-copies
+python3 ./scripts/audit_translations.py
 ```
 
 English (`en.i18n.json`) is the source of truth. The generator uses OpenRouter

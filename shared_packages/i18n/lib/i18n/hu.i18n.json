@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "A helyi tápértékadatokat nem sikerült letölteni és ellenőrizni: {error}",
     "offlineNutritionCleared": "A helyi tápértékadatok törölve"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Vissza",
+      "cancel": "Mégse",
+      "delete": "Törlés",
+      "retry": "Újrapróbálás",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Tápanyag",
+      "grams": "{label}, {value} gramm",
+      "protein": "Fehérje",
+      "carbs": "Szénhidrát",
+      "fat": "Zsír",
+      "fiber": "Rost"
+    },
+    "sync": {
+      "syncWithPhone": "Szinkronizálás a telefonnal",
+      "syncing": "Szinkronizálás…",
+      "synced": "Szinkronizálva",
+      "syncedJustNow": "Most szinkronizálva",
+      "syncedMinutesAgo": "{minutes} perce szinkronizálva",
+      "failed": "Szinkronizálás sikertelen",
+      "phoneDisconnected": "A telefon lecsatlakozott",
+      "tapToSync": "Érintsd a szinkronizáláshoz",
+      "refreshFailed": "Nem sikerült frissíteni. Ellenőrizd a telefonodat.",
+      "openPhone": "Nyisd meg a Calorify-t a telefonodon, majd koppints a Frissítésre."
+    },
+    "home": {
+      "today": "Ma",
+      "calorieSummary": "{consumed} kcal elfogyasztva a(z) {goal}-ból. {status}.",
+      "overGoal": "{calories} a célon felül",
+      "remaining": "{calories} maradt",
+      "left": "{calories} maradt",
+      "goal": "{calories} kcal cél",
+      "logMeal": "Étkezés rögzítése",
+      "todayMeals": "A mai étkezések",
+      "todayMealsCount": "A mai étkezések, {count}",
+      "viewMore": "Mutasd a további {count}-et",
+      "viewMoreSemantics": "{count} további étkezés, koppints az összes megtekintéséhez",
+      "noMeals": "Nincs rögzített étkezés",
+      "noMealsSemantics": "Ma nincs rögzített étkezés",
+      "tapLog": "A kezdéshez koppints a Rögzítésre",
+      "removedFromQueue": "Az étkezés eltávolítva az offline sorból.",
+      "removedOffline": "Az étkezés offline eltávolítva. Szinkronizálódik, amikor a telefon újracsatlakozik.",
+      "deleteFailed": "Nem sikerült törölni az étkezést"
+    },
+    "history": {
+      "title": "Mai étkezések",
+      "refresh": "Étkezések frissítése",
+      "loadFailed": "Nem sikerült betölteni az étkezéseket",
+      "syncFailed": "Nem sikerült szinkronizálni",
+      "emptyTitle": "Még nincs étkezés",
+      "emptyMessage": "Az itt megjelenéshez rögzíts egy étkezést a Főoldalon."
+    },
+    "favorites": {
+      "title": "Kedvencek",
+      "refresh": "Kedvencek frissítése",
+      "loadFailed": "Nem sikerült betölteni a kedvenceket",
+      "syncFailed": "Nem sikerült szinkronizálni",
+      "emptyTitle": "Még nincs kedvenc",
+      "emptyMessage": "A telefonos alkalmazásban jelöld csillaggal az étkezéseket, hogy itt egy koppintással rögzíthesd őket.",
+      "mealSemantics": "{name}, {calories} kcal. Koppints a rögzítéshez.",
+      "logged": "{name} rögzítve!",
+      "savedOffline": "{name} offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.",
+      "saveFailed": "Nem sikerült elmenteni az étkezést. Kérlek próbáld újra.",
+      "log": "Rögzítés"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kcal, rögzítve {time}-kor.",
+      "longPressDelete": "Törléshez tartsd lenyomva.",
+      "deleteTitle": "Étkezés törlése?"
+    },
+    "voice": {
+      "title": "Hangalapú étkezésrögzítés",
+      "processing": "Étkezés ellenőrzése…",
+      "processingDescription": "Adagok és tápérték becslése",
+      "listening": "Hallgatás",
+      "secondsLeft": "{seconds}s",
+      "stop": "Felvétel leállítása",
+      "start": "Koppints a felvétel indításához",
+      "starting": "Mikrofon indítása…",
+      "prompt": "Koppints, majd írd le az étkezést",
+      "tapToRetry": "Koppints az újrapróbáláshoz.",
+      "example": "Próbáld: „2 roti dal-lal”",
+      "unavailable": "A hangbevitel nem elérhető. Ellenőrizd a mikrofon engedélyét az óra beállításaiban.",
+      "didNotStart": "A mikrofon nem indult el. Koppints az újrapróbáláshoz.",
+      "startFailed": "Nem sikerült elindítani a felvételt. Ellenőrizd a mikrofon engedélyeit.",
+      "allowMicrophone": "Engedélyezd a mikrofon hozzáférését a hangalapú étkezésrögzítéshez.",
+      "needsConnection": "A beszédfelismeréshez kapcsolat szükséges. Koppints az újrapróbáláshoz.",
+      "microphoneUnavailable": "A mikrofon nem elérhető. Koppints az újrapróbáláshoz.",
+      "microphoneBusy": "A mikrofon foglalt. Várj egy pillanatot, majd próbáld újra.",
+      "languageUnsupported": "A hangbevitel nem támogatja az óra nyelvét.",
+      "temporarilyBusy": "A hangbevitel átmenetileg foglalt. Várj egy pillanatot, majd próbáld újra.",
+      "notRecognized": "Nem értettem. Koppints a mikrofonra, és próbáld újra.",
+      "noSpeech": "Nem észleltünk beszédet. Koppints a mikrofonra, és próbáld újra.",
+      "analysisFailed": "Elemzés sikertelen. Kérlek próbáld újra.",
+      "mealNotIdentified": "Az étkezést nem sikerült azonosítani. Próbáld meg másképp leírni."
+    },
+    "result": {
+      "title": "Étkezés részletei",
+      "savedOffline": "Offline mentve",
+      "logged": "Rögzítve!",
+      "mealFound": "Étkezés megtalálva",
+      "estimatedEnergy": "Becsült energia",
+      "logMeal": "Étkezés rögzítése",
+      "logging": "Rögzítés…",
+      "logAnother": "Újabb rögzítése",
+      "goingBack": "Visszalépés…",
+      "savedOfflineMessage": "Az étkezés offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.",
+      "saveFailed": "Nem sikerült elmenteni az étkezést. Kérlek próbáld újra."
+    }
+  },
   "common": {
     "close": "Bezárás",
     "continue": "Folytatás"

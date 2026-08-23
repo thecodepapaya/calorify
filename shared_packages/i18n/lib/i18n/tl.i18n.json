@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Kumonekta sa Health Connect",
       "description": "Gamitin ang calories na nasunog sa iyong pang-araw-araw na goal at, kung gusto mo, ibahagi sa Health Connect ang mga na-log na pagkain.",
+      "overviewDescription": "Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.",
       "automaticTracking": {
         "title": "Calories na Nasunog",
         "description": "Basahin mula sa Health Connect ang kabuuang calories na nasunog ngayong araw"
+      },
+      "caloriesBurned": {
+        "title": "Mga Nasunog na Calorie",
+        "description": "Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw"
       },
       "progressInsights": {
         "title": "Ibahagi ang mga Na-log na Pagkain",
         "description": "Isulat sa Health Connect ang mga pagkain na nila-log mo sa Calorify"
       },
+      "shareLoggedMeals": {
+        "title": "Ibahagi ang mga Naitalang Pagkain",
+        "description": "Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify"
+      },
       "seamlessIntegration": {
         "title": "Ikaw ang May Kontrol",
         "description": "Pumili ng alinmang permiso at baguhin ang access anumang oras"
+      },
+      "userControl": {
+        "title": "Ikaw ang May Kontrol",
+        "description": "Pumili ng alinmang pahintulot at baguhin ang access anumang oras"
       },
       "connected": "Naka-konekta ang Health Connect",
       "notConnected": "Hindi nakakonekta ang Health Connect",
@@ -108,20 +121,7 @@
       "installOrUpdate": "I-install o i-update",
       "manageAccess": "Pamahalaan ang access",
       "statusPermissionDenied": "Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa {appLabel}.",
-      "statusError": "Nagkaroon ng error sa pag-set up ng Health Connect: {error}",
-      "caloriesBurned": {
-        "description": "Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw",
-        "title": "Mga Nasunog na Calorie"
-      },
-      "overviewDescription": "Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.",
-      "shareLoggedMeals": {
-        "description": "Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify",
-        "title": "Ibahagi ang mga Naitalang Pagkain"
-      },
-      "userControl": {
-        "description": "Pumili ng alinmang pahintulot at baguhin ang access anumang oras",
-        "title": "Ikaw ang May Kontrol"
-      }
+      "statusError": "Nagkaroon ng error sa pag-set up ng Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -246,9 +246,9 @@
       "title": "I-sync sa Health Connect",
       "description": "Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain",
       "install": "I-install o i-update",
-      "connect": "Ikonekta",
       "dataUseDescription": "Gamitin sa iyong layunin ang mga nasunog na calorie at ibahagi ang mga naitalang pagkain",
-      "installOrUpdate": "Mag-install o mag-update"
+      "installOrUpdate": "Mag-install o mag-update",
+      "connect": "Ikonekta"
     }
   },
   "history": {
@@ -562,12 +562,12 @@
     "clearAllData": {
       "title": "I-clear Lahat ng Datos",
       "subtitle": "Tanggalin ang data ng Calorify na naka-store sa device na ito",
+      "localOnlySubtitle": "Burahin ang data ng Calorify na nakaimbak sa device na ito",
       "confirmationTitle": "Tanggalin Lahat ng Datos?",
       "confirmationMessage": "Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.",
-      "cancel": "Kanselahin",
-      "clearEverything": "I-clear Lahat",
       "localOnlyConfirmationMessage": "Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.",
-      "localOnlySubtitle": "Burahin ang data ng Calorify na nakaimbak sa device na ito"
+      "cancel": "Kanselahin",
+      "clearEverything": "I-clear Lahat"
     },
     "debugOptions": {
       "title": "Mga Opsyon sa Debug"
@@ -639,11 +639,11 @@
         "description": "Hindi panghuli ang privacy — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktika:",
         "noAccounts": "Hindi kailangan ng account\nGamitin agad ang app. Walang sign-up, walang identity.",
         "noTracking": "Limitadong analytics at diagnostics\nGumagamit ang {appLabel} ng mga pangunahing app event at crash diagnostics para mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga value ng health record.",
+        "analyticsDisclosure": "Limitadong analytics at diagnostic\nGumagamit ang {appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.",
         "noAds": "Walang ads ayon sa disenyo\n{appLabel} idinisenyo para gumana nang walang ads o monetization na naka-base sa data.",
         "noDataSelling": "Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.",
         "localStorage": "Local-first storage\nNananatili ang iyong data sa iyong device.",
-        "privacyPolicy": "Patakaran sa Privacy",
-        "analyticsDisclosure": "Limitadong analytics at diagnostic\nGumagamit ang {appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan."
+        "privacyPolicy": "Patakaran sa Privacy"
       },
       "developer": {
         "title": "Ginawa ng Isang Solo Developer",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "I-clear ang data",
     "offlineNutritionInstallFailed": "Hindi ma-download at ma-verify ang lokal na nutrition data: {error}",
     "offlineNutritionCleared": "Na-clear ang lokal na nutrition data"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Bumalik",
+      "cancel": "Kanselahin",
+      "delete": "Tanggalin",
+      "retry": "Subukan muli",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutriente",
+      "grams": "{label}, {value} gramo",
+      "protein": "Protina",
+      "carbs": "Karbohidrato",
+      "fat": "Taba",
+      "fiber": "Hibra"
+    },
+    "sync": {
+      "syncWithPhone": "I-sync sa telepono",
+      "syncing": "Sinusync…",
+      "synced": "Na-sync",
+      "syncedJustNow": "Katatapos lang na-sync",
+      "syncedMinutesAgo": "Na-sync {minutes}m ang nakalipas",
+      "failed": "Nabigong mag-sync",
+      "phoneDisconnected": "Hindi konektado ang telepono",
+      "tapToSync": "Pindutin para mag-sync",
+      "refreshFailed": "Hindi ma-refresh. Suriin ang iyong telepono.",
+      "openPhone": "Buksan ang Calorify sa iyong telepono, pagkatapos pindutin ang refresh."
+    },
+    "home": {
+      "today": "Ngayon",
+      "calorieSummary": "Nakonsumo na {consumed} kaloriya mula sa {goal}. {status}.",
+      "overGoal": "{calories} lampas sa target",
+      "remaining": "{calories} natitira",
+      "left": "{calories} natitira",
+      "goal": "{calories} kcal na target",
+      "logMeal": "Mag-log ng pagkain",
+      "todayMeals": "Mga pagkain ngayong araw",
+      "todayMealsCount": "Mga pagkain ngayong araw, {count}",
+      "viewMore": "Tingnan pa ang {count}",
+      "viewMoreSemantics": "{count} pang pagkain, pindutin para tingnan lahat",
+      "noMeals": "Walang na-log na pagkain",
+      "noMealsSemantics": "Walang na-log na pagkain ngayong araw",
+      "tapLog": "Pindutin ang I-log para magsimula",
+      "removedFromQueue": "Tinanggal ang pagkain mula sa offline queue.",
+      "removedOffline": "Tinanggal ang pagkain offline. Mag-sync ito kapag nag-reconnect ang iyong telepono.",
+      "deleteFailed": "Hindi natanggal ang pagkain"
+    },
+    "history": {
+      "title": "Mga pagkain ngayong araw",
+      "refresh": "I-refresh ang mga pagkain",
+      "loadFailed": "Hindi mai-load ang mga pagkain",
+      "syncFailed": "Hindi makapag-sync",
+      "emptyTitle": "Wala pang pagkain",
+      "emptyMessage": "Mag-log ng pagkain mula sa Home para makita ito rito."
+    },
+    "favorites": {
+      "title": "Mga Paborito",
+      "refresh": "I-refresh ang mga paborito",
+      "loadFailed": "Hindi mai-load ang mga paborito",
+      "syncFailed": "Hindi makapag-sync",
+      "emptyTitle": "Wala pang paborito",
+      "emptyMessage": "I-star ang mga pagkain sa phone app para ma-log dito nang isang tap.",
+      "mealSemantics": "{name}, {calories} kaloriya. Pindutin para i-log.",
+      "logged": "Na-log ang {name}!",
+      "savedOffline": "Na-save offline ang {name}. Mag-sync ito kapag nag-reconnect ang telepono.",
+      "saveFailed": "Hindi masave ang pagkain. Pakisubukang muli.",
+      "log": "I-log"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kaloriya, na-log noong {time}.",
+      "longPressDelete": "Pindutin nang matagal para magtanggal.",
+      "deleteTitle": "Tanggalin ang pagkain?"
+    },
+    "voice": {
+      "title": "Boses na pag-log ng pagkain",
+      "processing": "Sinusuri ang iyong pagkain…",
+      "processingDescription": "Tinatantya ang bahagi at nutrisyon",
+      "listening": "Nakikinig",
+      "secondsLeft": "{seconds}s",
+      "stop": "Itigil ang pag-record",
+      "start": "Pindutin para simulan ang pag-record",
+      "starting": "Sinisimulan ang mikropono…",
+      "prompt": "Pindutin, pagkatapos ilarawan ang iyong pagkain",
+      "tapToRetry": "Pindutin para subukan muli",
+      "example": "Subukan ang “2 rotis with dal”",
+      "unavailable": "Hindi available ang voice input. Suriin ang permiso ng mikropono sa settings ng relo.",
+      "didNotStart": "Hindi nagsimula ang mikropono. Pindutin para subukan muli.",
+      "startFailed": "Hindi masimulan ang pag-record. Suriin ang permiso ng mikropono.",
+      "allowMicrophone": "Pahintulutan ang access sa mikropono para mag-log ng pagkain gamit ang boses.",
+      "needsConnection": "Kailangan ng koneksyon ang voice recognition. Pindutin para subukan muli.",
+      "microphoneUnavailable": "Hindi available ang mikropono. Pindutin para subukan muli.",
+      "microphoneBusy": "Busy ang mikropono. Maghintay ng sandali at subukang muli.",
+      "languageUnsupported": "Hindi sinusuportahan ng voice input ang wika ng relo.",
+      "temporarilyBusy": "Pansamantalang busy ang voice input. Maghintay at subukang muli.",
+      "notRecognized": "Hindi ko naintindihan. Pindutin ang mic at subukang muli.",
+      "noSpeech": "Walang narinig na salita. Pindutin ang mic para subukan muli.",
+      "analysisFailed": "Nabigo ang pagsusuri. Pakisubukang muli.",
+      "mealNotIdentified": "Hindi matukoy ang pagkain. Subukang ilarawan nang iba."
+    },
+    "result": {
+      "title": "Detalye ng pagkain",
+      "savedOffline": "Na-save offline",
+      "logged": "Na-log!",
+      "mealFound": "Nahanap ang pagkain",
+      "estimatedEnergy": "Tinatayang enerhiya",
+      "logMeal": "I-log ang pagkain",
+      "logging": "Ini-log…",
+      "logAnother": "Mag-log ng isa pa",
+      "goingBack": "Babalik…",
+      "savedOfflineMessage": "Na-save ang pagkain offline. Mag-sync ito kapag nag-reconnect ang telepono.",
+      "saveFailed": "Hindi masave ang pagkain. Pakisubukang muli."
+    }
   },
   "common": {
     "close": "Isara",

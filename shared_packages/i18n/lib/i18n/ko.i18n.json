@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Health Connect에 연결하기",
       "description": "더 나은 인사이트와 자동 칼로리 추적을 위해 건강 데이터를 동기화하세요",
+      "overviewDescription": "일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.",
       "automaticTracking": {
         "title": "자동 칼로리 추적",
         "description": "피트니스 앱에서 소모한 칼로리를 추적합니다"
+      },
+      "caloriesBurned": {
+        "title": "소모 칼로리",
+        "description": "Health Connect에서 오늘의 총 소모 칼로리를 읽습니다"
       },
       "progressInsights": {
         "title": "진행 인사이트",
         "description": "건강 추세에 대한 자세한 인사이트를 제공합니다"
       },
+      "shareLoggedMeals": {
+        "title": "기록한 식사 공유",
+        "description": "Calorify에 기록한 식사를 Health Connect에 씁니다"
+      },
       "seamlessIntegration": {
         "title": "원활한 통합",
         "description": "자주 사용하는 건강 앱의 데이터를 동기화하세요"
+      },
+      "userControl": {
+        "title": "사용자가 직접 관리합니다",
+        "description": "원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요"
       },
       "connected": "Health Connect 연결됨",
       "notConnected": "Health Connect 연결 안 됨",
@@ -101,27 +114,14 @@
       "skipForNow": "일단 건너뛰기",
       "statusConnected": "Health Connect가 연결되어 있습니다.",
       "statusSuccess": "Health Connect가 성공적으로 연결되었습니다!",
-      "statusPermissionDenied": "권한이 거부되었습니다. {appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.",
-      "statusError": "Health Connect 설정 오류: {error}",
-      "caloriesBurned": {
-        "description": "Health Connect에서 오늘의 총 소모 칼로리를 읽습니다",
-        "title": "소모 칼로리"
-      },
-      "installOrUpdate": "설치 또는 업데이트",
-      "manageAccess": "접근 권한 관리",
-      "overviewDescription": "일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.",
-      "shareLoggedMeals": {
-        "description": "Calorify에 기록한 식사를 Health Connect에 씁니다",
-        "title": "기록한 식사 공유"
-      },
       "statusNotConnected": "사용할 Health Connect 기능을 선택하세요.",
       "statusPartial": "Health Connect가 일부 연결되었습니다. 두 기능을 모두 사용하려면 남은 권한을 활성화하세요.",
       "statusProviderUpdateRequired": "계속하려면 Health Connect를 설치하거나 업데이트하세요.",
       "statusUnavailable": "이 기기는 Health Connect를 지원하지 않습니다.",
-      "userControl": {
-        "description": "원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요",
-        "title": "사용자가 직접 관리합니다"
-      }
+      "installOrUpdate": "설치 또는 업데이트",
+      "manageAccess": "접근 권한 관리",
+      "statusPermissionDenied": "권한이 거부되었습니다. {appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.",
+      "statusError": "Health Connect 설정 오류: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -246,9 +246,9 @@
       "title": "Health Connect와 동기화",
       "description": "영양 데이터를 Health Connect와 동기화하세요",
       "install": "설치",
-      "connect": "연결",
       "dataUseDescription": "목표에 소모 칼로리를 반영하고 기록한 식사를 공유합니다",
-      "installOrUpdate": "설치 또는 업데이트"
+      "installOrUpdate": "설치 또는 업데이트",
+      "connect": "연결"
     }
   },
   "history": {
@@ -562,12 +562,12 @@
     "clearAllData": {
       "title": "모든 데이터 삭제",
       "subtitle": "모든 정보를 되돌릴 수 없이 삭제합니다",
+      "localOnlySubtitle": "이 기기에 저장된 Calorify 데이터 삭제",
       "confirmationTitle": "모든 데이터를 삭제하시겠습니까?",
       "confirmationMessage": "이 작업은 되돌릴 수 없습니다. 기록된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.",
-      "cancel": "취소",
-      "clearEverything": "모두 삭제",
       "localOnlyConfirmationMessage": "이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.",
-      "localOnlySubtitle": "이 기기에 저장된 Calorify 데이터 삭제"
+      "cancel": "취소",
+      "clearEverything": "모두 삭제"
     },
     "debugOptions": {
       "title": "디버그 옵션"
@@ -580,6 +580,11 @@
         "title": "Health Connect 사용 불가",
         "description": "이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.",
         "unsupportedDescription": "이 기기는 Health Connect를 지원하지 않습니다."
+      },
+      "updateRequired": {
+        "title": "Health Connect 확인이 필요합니다",
+        "description": "접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.",
+        "action": "설치 또는 업데이트"
       },
       "permissions": {
         "title": "권한",
@@ -604,28 +609,23 @@
       },
       "managePermissions": "권한 관리",
       "openSettings": "Health Connect 설정 열기",
+      "disconnect": "Health Connect 연결 해제",
+      "disconnectConfirmationTitle": "Health Connect 연결을 해제할까요?",
+      "disconnectConfirmationMessage": "Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.",
+      "disconnectConfirmationAction": "연결 해제",
+      "deleteSyncedMeals": "Health Connect에서 Calorify 식사 삭제",
+      "deleteSyncedMealsConfirmationTitle": "동기화된 식사를 삭제할까요?",
+      "deleteSyncedMealsConfirmationMessage": "이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.",
+      "deleteSyncedMealsConfirmationAction": "동기화된 식사 삭제",
+      "deleteSyncedMealsSuccess": "Health Connect에서 Calorify 식사를 삭제했습니다.",
+      "deleteSyncedMealsFailed": "동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.",
+      "connectionPartial": "일부 Health Connect 기능이 활성화되었습니다.",
+      "connectionComplete": "Health Connect 기능 두 개가 모두 활성화되었습니다.",
+      "actionFailed": "Health Connect를 열 수 없습니다. 다시 시도해 주세요.",
       "requestPermissions": "권한 요청",
       "permissionRequestCancelledOrFailed": "권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.",
       "permissionRequestFailed": "권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.",
-      "requestingPermissions": "요청 중...",
-      "actionFailed": "Health Connect를 열 수 없습니다. 다시 시도해 주세요.",
-      "connectionComplete": "Health Connect 기능 두 개가 모두 활성화되었습니다.",
-      "connectionPartial": "일부 Health Connect 기능이 활성화되었습니다.",
-      "deleteSyncedMeals": "Health Connect에서 Calorify 식사 삭제",
-      "deleteSyncedMealsConfirmationAction": "동기화된 식사 삭제",
-      "deleteSyncedMealsConfirmationMessage": "이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.",
-      "deleteSyncedMealsConfirmationTitle": "동기화된 식사를 삭제할까요?",
-      "deleteSyncedMealsFailed": "동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.",
-      "deleteSyncedMealsSuccess": "Health Connect에서 Calorify 식사를 삭제했습니다.",
-      "disconnect": "Health Connect 연결 해제",
-      "disconnectConfirmationAction": "연결 해제",
-      "disconnectConfirmationMessage": "Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.",
-      "disconnectConfirmationTitle": "Health Connect 연결을 해제할까요?",
-      "updateRequired": {
-        "action": "설치 또는 업데이트",
-        "description": "접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.",
-        "title": "Health Connect 확인이 필요합니다"
-      }
+      "requestingPermissions": "요청 중..."
     },
     "about": {
       "title": "앱 정보",
@@ -639,11 +639,11 @@
         "description": "개인정보 보호는 부수적인 고려사항이 아니라 설계 원칙입니다. 실제로 이것이 의미하는 바는 다음과 같습니다:",
         "noAccounts": "계정 불필요\n바로 앱을 사용하세요. 가입이나 신원 확인이 필요 없습니다.",
         "noTracking": "추적 없음\n{appLabel}는 활동을 모니터링하거나 사용 프로필을 만들거나 다른 앱이나 웹사이트에서 사용자를 추적하지 않습니다.",
+        "analyticsDisclosure": "제한적인 분석 및 진단\n{appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.",
         "noAds": "광고 없음으로 설계됨\n{appLabel}는 광고나 데이터 기반 수익화 없이 작동하도록 만들어졌습니다.",
         "noDataSelling": "데이터 판매 없음\n건강 데이터는 제3자에게 판매되거나 공유되지 않습니다.",
         "localStorage": "로컬 우선 저장\n데이터는 기기에 저장됩니다.",
-        "privacyPolicy": "개인정보 처리방침",
-        "analyticsDisclosure": "제한적인 분석 및 진단\n{appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다."
+        "privacyPolicy": "개인정보 처리방침"
       },
       "developer": {
         "title": "단독 개발자가 제작",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "데이터 지우기",
     "offlineNutritionInstallFailed": "로컬 영양 데이터를 다운로드하고 검증할 수 없습니다: {error}",
     "offlineNutritionCleared": "로컬 영양 데이터를 지웠습니다"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "뒤로",
+      "cancel": "취소",
+      "delete": "삭제",
+      "retry": "다시 시도",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "영양소",
+      "grams": "{label}, {value} g",
+      "protein": "단백질",
+      "carbs": "탄수화물",
+      "fat": "지방",
+      "fiber": "식이섬유"
+    },
+    "sync": {
+      "syncWithPhone": "휴대전화와 동기화",
+      "syncing": "동기화 중…",
+      "synced": "동기화됨",
+      "syncedJustNow": "방금 동기화됨",
+      "syncedMinutesAgo": "{minutes}분 전 동기화됨",
+      "failed": "동기화 실패",
+      "phoneDisconnected": "휴대전화 연결 끊김",
+      "tapToSync": "탭하여 동기화",
+      "refreshFailed": "새로고침할 수 없습니다. 휴대전화 연결을 확인하세요.",
+      "openPhone": "휴대전화에서 Calorify를 열고 새로고침을 탭하세요."
+    },
+    "home": {
+      "today": "오늘",
+      "calorieSummary": "{goal} 중 {consumed} kcal 섭취했습니다. {status}.",
+      "overGoal": "{calories} 목표 초과",
+      "remaining": "{calories} 남음",
+      "left": "{calories} 남음",
+      "goal": "{calories} kcal 목표",
+      "logMeal": "식사 기록",
+      "todayMeals": "오늘의 식사",
+      "todayMealsCount": "오늘의 식사, {count}",
+      "viewMore": "{count}개 더 보기",
+      "viewMoreSemantics": "{count}개의 식사, 모두 보려면 탭하세요",
+      "noMeals": "기록된 식사가 없습니다",
+      "noMealsSemantics": "오늘 기록된 식사가 없습니다",
+      "tapLog": "시작하려면 '기록'을 탭하세요",
+      "removedFromQueue": "식사가 오프라인 대기열에서 제거되었습니다.",
+      "removedOffline": "식사가 오프라인에서 제거되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.",
+      "deleteFailed": "식사를 삭제할 수 없습니다"
+    },
+    "history": {
+      "title": "오늘의 식사",
+      "refresh": "식사 새로고침",
+      "loadFailed": "식사를 불러올 수 없습니다",
+      "syncFailed": "동기화할 수 없습니다",
+      "emptyTitle": "아직 식사가 없습니다",
+      "emptyMessage": "홈에서 식사를 기록하면 여기에 표시됩니다."
+    },
+    "favorites": {
+      "title": "즐겨찾기",
+      "refresh": "즐겨찾기 새로고침",
+      "loadFailed": "즐겨찾기를 불러올 수 없습니다",
+      "syncFailed": "동기화할 수 없습니다",
+      "emptyTitle": "아직 즐겨찾기가 없습니다",
+      "emptyMessage": "휴대전화 앱에서 식사를 별표로 표시하면 여기에서 원터치로 기록할 수 있습니다.",
+      "mealSemantics": "{name}, {calories} kcal. 탭하여 기록하세요.",
+      "logged": "{name}이(가) 기록되었어요!",
+      "savedOffline": "{name}이(가) 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.",
+      "saveFailed": "식사를 저장할 수 없습니다. 다시 시도하세요.",
+      "log": "기록"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kcal, {time}에 기록됨.",
+      "longPressDelete": "삭제하려면 길게 누르세요.",
+      "deleteTitle": "이 식사를 삭제하시겠어요?"
+    },
+    "voice": {
+      "title": "음성 식사 기록",
+      "processing": "식사를 확인하는 중…",
+      "processingDescription": "량과 영양성분을 추정 중입니다",
+      "listening": "듣는 중",
+      "secondsLeft": "{seconds}초",
+      "stop": "녹음 중지",
+      "start": "탭하여 녹음 시작",
+      "starting": "마이크 시작 중…",
+      "prompt": "탭한 후 식사를 설명하세요",
+      "tapToRetry": "다시 시도하려면 탭하세요",
+      "example": "예: “로티 2장과 달”",
+      "unavailable": "음성 입력을 사용할 수 없습니다. 시계 설정에서 마이크 권한을 확인하세요.",
+      "didNotStart": "마이크가 시작되지 않았습니다. 탭하여 다시 시도하세요.",
+      "startFailed": "녹음을 시작할 수 없습니다. 마이크 권한을 확인하세요.",
+      "allowMicrophone": "음성으로 식사를 기록하려면 마이크 접근을 허용하세요.",
+      "needsConnection": "음성 인식에는 연결이 필요합니다. 탭하여 다시 시도하세요.",
+      "microphoneUnavailable": "마이크를 사용할 수 없습니다. 탭하여 다시 시도하세요.",
+      "microphoneBusy": "마이크가 사용 중입니다. 잠시 기다린 후 다시 시도하세요.",
+      "languageUnsupported": "음성 입력이 시계 언어를 지원하지 않습니다.",
+      "temporarilyBusy": "음성 입력이 일시적으로 바쁩니다. 잠시 기다렸다가 다시 시도하세요.",
+      "notRecognized": "잘 인식되지 않았습니다. 마이크를 탭하여 다시 시도하세요.",
+      "noSpeech": "음성이 감지되지 않았습니다. 마이크를 탭하여 다시 시도하세요.",
+      "analysisFailed": "분석에 실패했습니다. 다시 시도하세요.",
+      "mealNotIdentified": "해당 식사를 식별할 수 없습니다. 다르게 설명해 보세요."
+    },
+    "result": {
+      "title": "식사 세부정보",
+      "savedOffline": "오프라인으로 저장됨",
+      "logged": "기록되었어요!",
+      "mealFound": "식사 확인됨",
+      "estimatedEnergy": "추정 열량",
+      "logMeal": "식사 기록",
+      "logging": "기록 중…",
+      "logAnother": "다른 식사 기록",
+      "goingBack": "뒤로 이동 중…",
+      "savedOfflineMessage": "식사가 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.",
+      "saveFailed": "식사를 저장할 수 없습니다. 다시 시도하세요."
+    }
   },
   "common": {
     "close": "닫기",

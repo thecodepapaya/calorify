@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Підключіться до Health Connect",
       "description": "Синхронізуйте дані про здоров'я для кращих інсайтів і автоматичного відстеження калорій",
+      "overviewDescription": "Використовуйте спалені калорії в щоденній цілі та за бажанням діліться записаними прийомами їжі з Health Connect.",
       "automaticTracking": {
         "title": "Автоматичне відстеження калорій",
         "description": "Відстежуйте витрачені калорії з ваших фітнес‑додатків"
+      },
+      "caloriesBurned": {
+        "title": "Спалені калорії",
+        "description": "Зчитувати загальну кількість спалених сьогодні калорій із Health Connect"
       },
       "progressInsights": {
         "title": "Інсайти прогресу",
         "description": "Отримуйте детальні інсайти про тенденції вашого здоров'я"
       },
+      "shareLoggedMeals": {
+        "title": "Ділитися записаними прийомами їжі",
+        "description": "Записувати прийоми їжі з Calorify у Health Connect"
+      },
       "seamlessIntegration": {
         "title": "Безшовна інтеграція",
         "description": "Синхронізуйте дані з улюблених додатків для здоров'я"
+      },
+      "userControl": {
+        "title": "Ви все контролюєте",
+        "description": "Виберіть потрібний дозвіл і змінюйте доступ у будь-який час"
       },
       "connected": "Health Connect підключено",
       "notConnected": "Health Connect не підключено",
@@ -101,27 +114,14 @@
       "skipForNow": "Пропустити зараз",
       "statusConnected": "Health Connect підключено.",
       "statusSuccess": "Health Connect успішно підключено!",
-      "statusPermissionDenied": "Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для {appLabel}.",
-      "statusError": "Помилка налаштування Health Connect: {error}",
-      "caloriesBurned": {
-        "description": "Зчитувати загальну кількість спалених сьогодні калорій із Health Connect",
-        "title": "Спалені калорії"
-      },
-      "installOrUpdate": "Установити або оновити",
-      "manageAccess": "Керувати доступом",
-      "overviewDescription": "Використовуйте спалені калорії в щоденній цілі та за бажанням діліться записаними прийомами їжі з Health Connect.",
-      "shareLoggedMeals": {
-        "description": "Записувати прийоми їжі з Calorify у Health Connect",
-        "title": "Ділитися записаними прийомами їжі"
-      },
       "statusNotConnected": "Виберіть функції Health Connect, які потрібно ввімкнути.",
       "statusPartial": "Health Connect підключено частково. Надайте решту дозволів, щоб користуватися обома функціями.",
       "statusProviderUpdateRequired": "Установіть або оновіть Health Connect, щоб продовжити.",
       "statusUnavailable": "Health Connect не підтримується на цьому пристрої.",
-      "userControl": {
-        "description": "Виберіть потрібний дозвіл і змінюйте доступ у будь-який час",
-        "title": "Ви все контролюєте"
-      }
+      "installOrUpdate": "Установити або оновити",
+      "manageAccess": "Керувати доступом",
+      "statusPermissionDenied": "Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для {appLabel}.",
+      "statusError": "Помилка налаштування Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -246,9 +246,9 @@
       "title": "Синхронізувати з Health Connect",
       "description": "Синхронізуйте дані про харчування з Health Connect",
       "install": "Встановити",
-      "connect": "Підключити",
       "dataUseDescription": "Використовуйте спалені калорії у своїй цілі та діліться записаними прийомами їжі",
-      "installOrUpdate": "Установити або оновити"
+      "installOrUpdate": "Установити або оновити",
+      "connect": "Підключити"
     }
   },
   "history": {
@@ -562,12 +562,12 @@
     "clearAllData": {
       "title": "Видалити всі дані",
       "subtitle": "Безповоротно видалити всю вашу інформацію",
+      "localOnlySubtitle": "Видалити дані Calorify, збережені на цьому пристрої",
       "confirmationTitle": "Видалити всі дані?",
       "confirmationMessage": "Цю дію не можна скасувати. Всі ваші записані страви, улюблені та налаштування профілю будуть назавжди видалені.",
-      "cancel": "Скасувати",
-      "clearEverything": "Видалити все",
       "localOnlyConfirmationMessage": "Це назавжди видалить із пристрою записані прийоми їжі, вибране та налаштування профілю. Прийоми їжі, уже передані в Health Connect, і доступ до Health Connect керуються окремо в Налаштування > Health Connect.",
-      "localOnlySubtitle": "Видалити дані Calorify, збережені на цьому пристрої"
+      "cancel": "Скасувати",
+      "clearEverything": "Видалити все"
     },
     "debugOptions": {
       "title": "Опції відладки"
@@ -580,6 +580,11 @@
         "title": "Health Connect недоступний",
         "description": "Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.",
         "unsupportedDescription": "Health Connect не підтримується на цьому пристрої."
+      },
+      "updateRequired": {
+        "title": "Health Connect потребує уваги",
+        "description": "Установіть або оновіть Health Connect, перш ніж керувати доступом.",
+        "action": "Установити або оновити"
       },
       "permissions": {
         "title": "Дозволи",
@@ -604,28 +609,23 @@
       },
       "managePermissions": "Керувати дозволами",
       "openSettings": "Відкрити налаштування Health Connect",
+      "disconnect": "Відключити Health Connect",
+      "disconnectConfirmationTitle": "Відключити Health Connect?",
+      "disconnectConfirmationMessage": "Calorify втратить доступ до Health Connect. Дані, уже записані там, не буде видалено.",
+      "disconnectConfirmationAction": "Відключити",
+      "deleteSyncedMeals": "Видалити прийоми їжі Calorify із Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Видалити синхронізовані прийоми їжі?",
+      "deleteSyncedMealsConfirmationMessage": "Видалити з Health Connect прийоми їжі, синхронізовані цією версією Calorify? Локальний журнал не зміниться. Старіші записи Calorify, можливо, доведеться видалити через розділ керування даними в Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Видалити синхронізовані прийоми їжі",
+      "deleteSyncedMealsSuccess": "Прийоми їжі Calorify видалено з Health Connect.",
+      "deleteSyncedMealsFailed": "Не вдалося видалити синхронізовані прийоми їжі. Спробуйте ще раз.",
+      "connectionPartial": "Деякі функції Health Connect увімкнено.",
+      "connectionComplete": "Обидві функції Health Connect увімкнено.",
+      "actionFailed": "Не вдалося відкрити Health Connect. Спробуйте ще раз.",
       "requestPermissions": "Запитати дозволи",
       "permissionRequestCancelledOrFailed": "Запит дозволів був скасований або не вдався. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
       "permissionRequestFailed": "Не вдалося запитати дозволи. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
-      "requestingPermissions": "Запит…",
-      "actionFailed": "Не вдалося відкрити Health Connect. Спробуйте ще раз.",
-      "connectionComplete": "Обидві функції Health Connect увімкнено.",
-      "connectionPartial": "Деякі функції Health Connect увімкнено.",
-      "deleteSyncedMeals": "Видалити прийоми їжі Calorify із Health Connect",
-      "deleteSyncedMealsConfirmationAction": "Видалити синхронізовані прийоми їжі",
-      "deleteSyncedMealsConfirmationMessage": "Видалити з Health Connect прийоми їжі, синхронізовані цією версією Calorify? Локальний журнал не зміниться. Старіші записи Calorify, можливо, доведеться видалити через розділ керування даними в Health Connect.",
-      "deleteSyncedMealsConfirmationTitle": "Видалити синхронізовані прийоми їжі?",
-      "deleteSyncedMealsFailed": "Не вдалося видалити синхронізовані прийоми їжі. Спробуйте ще раз.",
-      "deleteSyncedMealsSuccess": "Прийоми їжі Calorify видалено з Health Connect.",
-      "disconnect": "Відключити Health Connect",
-      "disconnectConfirmationAction": "Відключити",
-      "disconnectConfirmationMessage": "Calorify втратить доступ до Health Connect. Дані, уже записані там, не буде видалено.",
-      "disconnectConfirmationTitle": "Відключити Health Connect?",
-      "updateRequired": {
-        "action": "Установити або оновити",
-        "description": "Установіть або оновіть Health Connect, перш ніж керувати доступом.",
-        "title": "Health Connect потребує уваги"
-      }
+      "requestingPermissions": "Запит…"
     },
     "about": {
       "title": "Про додаток",
@@ -639,11 +639,11 @@
         "description": "Приватність — не додатковий фактор, а принцип дизайну. Ось що це означає на практиці:",
         "noAccounts": "Без акаунтів\nВикористовуйте додаток одразу. Без реєстрації, без профілів.",
         "noTracking": "Без відстеження поведінки\n{appLabel} не відстежує вашу активність, не формує профілі використання і не стежить за вами в інших додатках чи на сайтах.",
+        "analyticsDisclosure": "Обмежена аналітика й діагностика\n{appLabel} використовує базові події застосунку та діагностику збоїв для підвищення надійності. Значення медичних записів не використовуються для реклами й не продаються.",
         "noAds": "Без реклами за дизайном\n{appLabel} створено для роботи без реклами та монетизації на основі даних.",
         "noDataSelling": "Без продажу даних\nВаші дані про здоров'я ніколи не продаються і не передаються третім сторонам.",
         "localStorage": "Переважно локальне зберігання\nВаші дані залишаються на пристрої.",
-        "privacyPolicy": "Політика приватності",
-        "analyticsDisclosure": "Обмежена аналітика й діагностика\n{appLabel} використовує базові події застосунку та діагностику збоїв для підвищення надійності. Значення медичних записів не використовуються для реклами й не продаються."
+        "privacyPolicy": "Політика приватності"
       },
       "developer": {
         "title": "Розроблено сольним розробником",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Очистити дані",
     "offlineNutritionInstallFailed": "Не вдалося завантажити й перевірити локальні дані про харчування: {error}",
     "offlineNutritionCleared": "Локальні дані про харчування очищено"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Назад",
+      "cancel": "Скасувати",
+      "delete": "Видалити",
+      "retry": "Спробувати ще раз",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Поживна речовина",
+      "grams": "{label}, {value} г",
+      "protein": "Білки",
+      "carbs": "Вуглеводи",
+      "fat": "Жири",
+      "fiber": "Клітковина"
+    },
+    "sync": {
+      "syncWithPhone": "Синхронізувати з телефоном",
+      "syncing": "Синхронізація…",
+      "synced": "Синхронізовано",
+      "syncedJustNow": "Щойно синхронізовано",
+      "syncedMinutesAgo": "Синхронізовано {minutes}хв тому",
+      "failed": "Не вдалося синхронізувати",
+      "phoneDisconnected": "Телефон відключено",
+      "tapToSync": "Торкніться, щоб синхронізувати",
+      "refreshFailed": "Не вдалось оновити. Перевірте телефон.",
+      "openPhone": "Відкрийте Calorify на телефоні, потім торкніться «Оновити»."
+    },
+    "home": {
+      "today": "Сьогодні",
+      "calorieSummary": "{consumed} калорій спожито з {goal}. {status}.",
+      "overGoal": "{calories} понад мету",
+      "remaining": "{calories} залишилось",
+      "left": "{calories} залишилось",
+      "goal": "{calories} kcal ціль",
+      "logMeal": "Додати прийом їжі",
+      "todayMeals": "Сьогоднішні прийоми їжі",
+      "todayMealsCount": "Сьогоднішні прийоми їжі, {count}",
+      "viewMore": "Показати ще {count}",
+      "viewMoreSemantics": "{count} ще прийомів їжі, торкніться, щоб побачити всі",
+      "noMeals": "Немає зареєстрованих прийомів",
+      "noMealsSemantics": "Сьогодні не зареєстровано прийомів їжі",
+      "tapLog": "Торкніться «Додати», щоб почати",
+      "removedFromQueue": "Прийом їжі видалено з черги офлайн.",
+      "removedOffline": "Прийом їжі видалено офлайн. Він синхронізується, коли телефон з'єднається.",
+      "deleteFailed": "Не вдалося видалити прийом їжі"
+    },
+    "history": {
+      "title": "Сьогоднішні прийоми їжі",
+      "refresh": "Оновити прийоми",
+      "loadFailed": "Не вдалося завантажити прийоми їжі",
+      "syncFailed": "Не вдалося синхронізувати",
+      "emptyTitle": "Ще нема прийомів",
+      "emptyMessage": "Додайте прийом їжі з Головної, щоб він відобразився тут."
+    },
+    "favorites": {
+      "title": "Вибране",
+      "refresh": "Оновити вибране",
+      "loadFailed": "Не вдалося завантажити вибране",
+      "syncFailed": "Не вдалося синхронізувати",
+      "emptyTitle": "Ще нема вибраного",
+      "emptyMessage": "Позначайте прийоми їжі зірочкою у телефонному додатку, щоб тут додавати одним дотиком.",
+      "mealSemantics": "{name}, {calories} калорій. Торкніться, щоб додати.",
+      "logged": "{name} додано!",
+      "savedOffline": "{name} збережено офлайн. Синхронізується, коли телефон з'єднається.",
+      "saveFailed": "Не вдалося зберегти прийом їжі. Спробуйте ще раз.",
+      "log": "Додати"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} калорій, додано о {time}.",
+      "longPressDelete": "Натисніть довго, щоб видалити.",
+      "deleteTitle": "Видалити прийом їжі?"
+    },
+    "voice": {
+      "title": "Голосовий запис прийому їжі",
+      "processing": "Аналізую прийом…",
+      "processingDescription": "Оцінка порцій і харчової цінності",
+      "listening": "Слухаю",
+      "secondsLeft": "{seconds}с",
+      "stop": "Зупинити запис",
+      "start": "Торкніться, щоб почати запис",
+      "starting": "Запускаю мікрофон…",
+      "prompt": "Торкніться, потім опишіть свій прийом їжі",
+      "tapToRetry": "Торкніться, щоб спробувати ще раз",
+      "example": "Спробуйте «2 роти з далом»",
+      "unavailable": "Голосовий ввід недоступний. Перевірте дозволи на мікрофон у налаштуваннях годинника.",
+      "didNotStart": "Мікрофон не запустився. Торкніться, щоб спробувати ще раз.",
+      "startFailed": "Не вдалося розпочати запис. Перевірте дозволи на мікрофон.",
+      "allowMicrophone": "Дозвольте доступ до мікрофона, щоб записувати прийоми голосом.",
+      "needsConnection": "Розпізнавання голосу потребує підключення. Торкніться, щоб спробувати ще раз.",
+      "microphoneUnavailable": "Мікрофон недоступний. Торкніться, щоб спробувати ще раз.",
+      "microphoneBusy": "Мікрофон зайнятий. Зачекайте і спробуйте ще раз.",
+      "languageUnsupported": "Голосовий ввід не підтримує мову годинника.",
+      "temporarilyBusy": "Голосовий ввід тимчасово недоступний. Зачекайте і спробуйте ще раз.",
+      "notRecognized": "Не розпізнано. Торкніться мікрофона і спробуйте ще раз.",
+      "noSpeech": "Голос не виявлено. Торкніться мікрофона, щоб спробувати ще раз.",
+      "analysisFailed": "Аналіз не вдався. Спробуйте ще раз.",
+      "mealNotIdentified": "Не вдалося визначити прийом їжі. Спробуйте описати інакше."
+    },
+    "result": {
+      "title": "Деталі прийому їжі",
+      "savedOffline": "Збережено офлайн",
+      "logged": "Додано!",
+      "mealFound": "Прийом їжі знайдено",
+      "estimatedEnergy": "Орієнтовна енергія",
+      "logMeal": "Додати прийом їжі",
+      "logging": "Збереження…",
+      "logAnother": "Додати ще один",
+      "goingBack": "Повертаюся…",
+      "savedOfflineMessage": "Прийом їжі збережено офлайн. Він синхронізується, коли телефон з'єднається.",
+      "saveFailed": "Не вдалося зберегти прийом їжі. Спробуйте ще раз."
+    }
   },
   "common": {
     "close": "Закрити",

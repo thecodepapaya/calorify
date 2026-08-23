@@ -245,8 +245,8 @@
     "connectHealth": {
       "title": "סנכרן עם Health Connect",
       "description": "סנכרן את נתוני התזונה שלך עם Health Connect",
-      "dataUseDescription": "השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו",
       "install": "התקן",
+      "dataUseDescription": "השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו",
       "installOrUpdate": "התקנה או עדכון",
       "connect": "חבר"
     }
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "ניקוי נתונים",
     "offlineNutritionInstallFailed": "לא ניתן היה להוריד ולאמת את נתוני התזונה המקומיים: {error}",
     "offlineNutritionCleared": "נתוני התזונה המקומיים נוקו"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "חזור",
+      "cancel": "ביטול",
+      "delete": "מחק",
+      "retry": "נסה שוב",
+      "kcal": "קק\"ל",
+      "gramsShort": "ג׳"
+    },
+    "nutrition": {
+      "nutrient": "רכיב תזונתי",
+      "grams": "{label}, {value} גרם",
+      "protein": "חלבון",
+      "carbs": "פחמימות",
+      "fat": "שומן",
+      "fiber": "סיבים תזונתיים"
+    },
+    "sync": {
+      "syncWithPhone": "סנכרן עם הטלפון",
+      "syncing": "מסנכרן…",
+      "synced": "סונכרן",
+      "syncedJustNow": "סונכרן זה עתה",
+      "syncedMinutesAgo": "סונכרן לפני {minutes} דק׳",
+      "failed": "הסנכרון נכשל",
+      "phoneDisconnected": "הטלפון מנותק",
+      "tapToSync": "הקש לסנכרון",
+      "refreshFailed": "לא ניתן לרענן. בדוק את הטלפון שלך.",
+      "openPhone": "פתח את Calorify בטלפון שלך, ואז הקש רענן."
+    },
+    "home": {
+      "today": "היום",
+      "calorieSummary": "{consumed} קלוריות נצרכו מתוך {goal}. {status}.",
+      "overGoal": "{calories} מעל היעד",
+      "remaining": "{calories} נותרו",
+      "left": "{calories} נותרו",
+      "goal": "יעד: {calories} קק\"ל",
+      "logMeal": "תעד ארוחה",
+      "todayMeals": "הארוחות של היום",
+      "todayMealsCount": "הארוחות של היום, {count}",
+      "viewMore": "הצג {count} נוספות",
+      "viewMoreSemantics": "{count} ארוחות נוספות, הקש כדי להציג את כולן",
+      "noMeals": "לא תועדו ארוחות",
+      "noMealsSemantics": "לא תועדו ארוחות היום",
+      "tapLog": "הקש 'תעד' כדי להתחיל",
+      "removedFromQueue": "הארוחה הוסרה מהתור הלא מקוון.",
+      "removedOffline": "הארוחה הוסרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.",
+      "deleteFailed": "לא ניתן למחוק ארוחה"
+    },
+    "history": {
+      "title": "הארוחות של היום",
+      "refresh": "רענן ארוחות",
+      "loadFailed": "לא ניתן לטעון ארוחות",
+      "syncFailed": "לא ניתן לסנכרן",
+      "emptyTitle": "אין ארוחות עדיין",
+      "emptyMessage": "תעד ארוחה ממסך הבית כדי לראות אותה כאן."
+    },
+    "favorites": {
+      "title": "מועדפים",
+      "refresh": "רענן מועדפים",
+      "loadFailed": "לא ניתן לטעון מועדפים",
+      "syncFailed": "לא ניתן לסנכרן",
+      "emptyTitle": "אין מועדפים עדיין",
+      "emptyMessage": "סמן ארוחות בכוכב באפליקציית הטלפון לתיעוד בלחיצה אחת כאן.",
+      "mealSemantics": "{name}, {calories} קלוריות. הקש כדי לתעד.",
+      "logged": "{name} תועדה!",
+      "savedOffline": "{name} נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.",
+      "saveFailed": "לא ניתן לשמור את הארוחה. אנא נסה שוב.",
+      "log": "תעד"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} קלוריות, תועדה ב-{time}.",
+      "longPressDelete": "לחץ לחיצה ארוכה למחיקה.",
+      "deleteTitle": "למחוק ארוחה?"
+    },
+    "voice": {
+      "title": "תיעוד ארוחה קולי",
+      "processing": "בודק את הארוחה שלך…",
+      "processingDescription": "מעריך מנות ותזונה",
+      "listening": "מאזין",
+      "secondsLeft": "{seconds} שנ׳",
+      "stop": "הפסק הקלטה",
+      "start": "הקש כדי להתחיל להקליט",
+      "starting": "מפעיל מיקרופון…",
+      "prompt": "הקש, ואז תאר את הארוחה שלך",
+      "tapToRetry": "הקש כדי לנסות שוב",
+      "example": "נסה ״2 רוטי עם דאל״",
+      "unavailable": "קלט קולי אינו זמין. בדוק את הרשאת המיקרופון בהגדרות השעון.",
+      "didNotStart": "המיקרופון לא התחיל. הקש כדי לנסות שוב.",
+      "startFailed": "לא ניתן להתחיל הקלטה. בדוק הרשאות מיקרופון.",
+      "allowMicrophone": "אפשר גישה למיקרופון כדי לתעד ארוחות בקול.",
+      "needsConnection": "זיהוי קולי דורש חיבור. הקש כדי לנסות שוב.",
+      "microphoneUnavailable": "המיקרופון אינו זמין. הקש כדי לנסות שוב.",
+      "microphoneBusy": "המיקרופון תפוס. המתן רגע ונסה שוב.",
+      "languageUnsupported": "קלט קולי אינו תומך בשפת השעון.",
+      "temporarilyBusy": "קלט קולי תפוס זמנית. המתן רגע ונסה שוב.",
+      "notRecognized": "לא קלטתי את זה. הקש על המיקרופון ונסה שוב.",
+      "noSpeech": "לא זוהתה דיבור. הקש על המיקרופון כדי לנסות שוב.",
+      "analysisFailed": "הניתוח נכשל. אנא נסה שוב.",
+      "mealNotIdentified": "לא ניתן לזהות את הארוחה הזו. נסה לתאר אותה אחרת."
+    },
+    "result": {
+      "title": "פרטי ארוחה",
+      "savedOffline": "נשמר באופן לא מקוון",
+      "logged": "תועדה!",
+      "mealFound": "ארוחה נמצאה",
+      "estimatedEnergy": "אנרגיה מוערכת",
+      "logMeal": "תעד ארוחה",
+      "logging": "מתעד…",
+      "logAnother": "תעד ארוחה נוספת",
+      "goingBack": "חוזר אחורה…",
+      "savedOfflineMessage": "הארוחה נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.",
+      "saveFailed": "לא ניתן לשמור את הארוחה. אנא נסה שוב."
+    }
   },
   "common": {
     "close": "סגור",

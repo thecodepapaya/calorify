@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Nie udało się pobrać i zweryfikować lokalnych danych żywieniowych: {error}",
     "offlineNutritionCleared": "Lokalne dane żywieniowe zostały wyczyszczone"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Wstecz",
+      "cancel": "Anuluj",
+      "delete": "Usuń",
+      "retry": "Ponów",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Składnik odżywczy",
+      "grams": "{label}, {value} g",
+      "protein": "Białko",
+      "carbs": "Węglowodany",
+      "fat": "Tłuszcz",
+      "fiber": "Błonnik"
+    },
+    "sync": {
+      "syncWithPhone": "Synchronizuj z telefonem",
+      "syncing": "Synchronizowanie…",
+      "synced": "Zsynchronizowano",
+      "syncedJustNow": "Zsynchronizowano właśnie",
+      "syncedMinutesAgo": "Zsynchronizowano {minutes}m temu",
+      "failed": "Synchronizacja nie powiodła się",
+      "phoneDisconnected": "Telefon odłączony",
+      "tapToSync": "Dotknij, aby zsynchronizować",
+      "refreshFailed": "Nie można odświeżyć. Sprawdź telefon.",
+      "openPhone": "Otwórz Calorify na telefonie, a następnie dotknij Odśwież."
+    },
+    "home": {
+      "today": "Dziś",
+      "calorieSummary": "Spożyto {consumed} kcal z {goal}. {status}.",
+      "overGoal": "{calories} powyżej celu",
+      "remaining": "{calories} pozostało",
+      "left": "{calories} pozostało",
+      "goal": "Cel: {calories} kcal",
+      "logMeal": "Zapisz posiłek",
+      "todayMeals": "Posiłki dzisiaj",
+      "todayMealsCount": "Posiłki dzisiaj, {count}",
+      "viewMore": "Pokaż {count} więcej",
+      "viewMoreSemantics": "{count} dodatkowych posiłków, dotknij, aby zobaczyć wszystkie",
+      "noMeals": "Brak zapisanych posiłków",
+      "noMealsSemantics": "Dzisiaj brak zapisanych posiłków",
+      "tapLog": "Dotknij Zapisz, aby zacząć",
+      "removedFromQueue": "Posiłek usunięty z kolejki offline.",
+      "removedOffline": "Posiłek usunięty offline. Zostanie zsynchronizowany po ponownym połączeniu telefonu.",
+      "deleteFailed": "Nie można usunąć posiłku"
+    },
+    "history": {
+      "title": "Posiłki dzisiaj",
+      "refresh": "Odśwież posiłki",
+      "loadFailed": "Nie można załadować posiłków",
+      "syncFailed": "Nie można zsynchronizować",
+      "emptyTitle": "Brak posiłków",
+      "emptyMessage": "Zapisz posiłek na ekranie głównym, aby zobaczyć go tutaj."
+    },
+    "favorites": {
+      "title": "Ulubione",
+      "refresh": "Odśwież ulubione",
+      "loadFailed": "Nie można załadować ulubionych",
+      "syncFailed": "Nie można zsynchronizować",
+      "emptyTitle": "Brak ulubionych",
+      "emptyMessage": "Oznacz posiłki gwiazdką w aplikacji na telefonie, aby móc je tu zapisywać jednym dotknięciem.",
+      "mealSemantics": "{name}, {calories} kcal. Dotknij, aby zapisać.",
+      "logged": "{name} zapisano!",
+      "savedOffline": "{name} zapisano offline. Zostanie zsynchronizowany po ponownym połączeniu telefonu.",
+      "saveFailed": "Nie można zapisać posiłku. Spróbuj ponownie.",
+      "log": "Zapisz"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kcal, zapisano o {time}.",
+      "longPressDelete": "Naciśnij długo, aby usunąć.",
+      "deleteTitle": "Usunąć posiłek?"
+    },
+    "voice": {
+      "title": "Zapisywanie posiłku głosem",
+      "processing": "Analizuję posiłek…",
+      "processingDescription": "Szacowanie porcji i wartości odżywczych",
+      "listening": "Słucham",
+      "secondsLeft": "{seconds}s",
+      "stop": "Zatrzymaj nagrywanie",
+      "start": "Dotknij, aby rozpocząć nagrywanie",
+      "starting": "Uruchamianie mikrofonu…",
+      "prompt": "Dotknij, a następnie opisz posiłek",
+      "tapToRetry": "Dotknij, aby spróbować ponownie",
+      "example": "Spróbuj „2 rotis z dal”",
+      "unavailable": "Wprowadzanie głosowe jest niedostępne. Sprawdź uprawnienia mikrofonu w ustawieniach zegarka.",
+      "didNotStart": "Mikrofon nie wystartował. Dotknij, aby spróbować ponownie.",
+      "startFailed": "Nie można rozpocząć nagrywania. Sprawdź uprawnienia mikrofonu.",
+      "allowMicrophone": "Zezwól na dostęp do mikrofonu, aby zapisywać posiłki głosem.",
+      "needsConnection": "Rozpoznawanie mowy wymaga połączenia. Dotknij, aby spróbować ponownie.",
+      "microphoneUnavailable": "Mikrofon niedostępny. Dotknij, aby spróbować ponownie.",
+      "microphoneBusy": "Mikrofon jest zajęty. Poczekaj chwilę i spróbuj ponownie.",
+      "languageUnsupported": "Wprowadzanie głosowe nie obsługuje języka zegarka.",
+      "temporarilyBusy": "Wprowadzanie głosowe jest chwilowo zajęte. Poczekaj i spróbuj ponownie.",
+      "notRecognized": "Nie zrozumiałem. Dotknij mikrofonu i spróbuj ponownie.",
+      "noSpeech": "Nie wykryto mowy. Dotknij mikrofonu, aby spróbować ponownie.",
+      "analysisFailed": "Analiza nie powiodła się. Spróbuj ponownie.",
+      "mealNotIdentified": "Nie rozpoznano posiłku. Spróbuj opisać go inaczej."
+    },
+    "result": {
+      "title": "Szczegóły posiłku",
+      "savedOffline": "Zapisano offline",
+      "logged": "Zapisano!",
+      "mealFound": "Znaleziono posiłek",
+      "estimatedEnergy": "Szacowana energia",
+      "logMeal": "Zapisz posiłek",
+      "logging": "Zapisywanie…",
+      "logAnother": "Zapisz kolejny",
+      "goingBack": "Powrót…",
+      "savedOfflineMessage": "Posiłek zapisano offline. Zostanie zsynchronizowany po ponownym połączeniu telefonu.",
+      "saveFailed": "Nie można zapisać posiłku. Spróbuj ponownie."
+    }
+  },
   "common": {
     "close": "Zamknij",
     "continue": "Kontynuuj"

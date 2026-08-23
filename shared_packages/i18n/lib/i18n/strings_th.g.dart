@@ -58,6 +58,7 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$th login = _Translations$login$th._(_root);
 	@override late final _Translations$disclaimer$th disclaimer = _Translations$disclaimer$th._(_root);
 	@override late final _Translations$localNutritionPhase4$th localNutritionPhase4 = _Translations$localNutritionPhase4$th._(_root);
+	@override late final _Translations$watch$th watch = _Translations$watch$th._(_root);
 	@override late final _Translations$common$th common = _Translations$common$th._(_root);
 	@override late final _Translations$feedbackRating$th feedbackRating = _Translations$feedbackRating$th._(_root);
 	@override late final _Translations$health$th health = _Translations$health$th._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$th extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'ล้างข้อมูลโภชนาการในเครื่องแล้ว';
 }
 
+// Path: watch
+class _Translations$watch$th extends Translations$watch$en {
+	_Translations$watch$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$th common = _Translations$watch$common$th._(_root);
+	@override late final _Translations$watch$nutrition$th nutrition = _Translations$watch$nutrition$th._(_root);
+	@override late final _Translations$watch$sync$th sync = _Translations$watch$sync$th._(_root);
+	@override late final _Translations$watch$home$th home = _Translations$watch$home$th._(_root);
+	@override late final _Translations$watch$history$th history = _Translations$watch$history$th._(_root);
+	@override late final _Translations$watch$favorites$th favorites = _Translations$watch$favorites$th._(_root);
+	@override late final _Translations$watch$meal$th meal = _Translations$watch$meal$th._(_root);
+	@override late final _Translations$watch$voice$th voice = _Translations$watch$voice$th._(_root);
+	@override late final _Translations$watch$result$th result = _Translations$watch$result$th._(_root);
+}
+
 // Path: common
 class _Translations$common$th extends Translations$common$en {
 	_Translations$common$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -568,9 +588,13 @@ class _Translations$onboarding$healthConnect$th extends Translations$onboarding$
 	// Translations
 	@override String get title => 'เชื่อมต่อกับ Health Connect';
 	@override String get description => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายประจำวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect';
+	@override String get overviewDescription => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$th automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$th._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$th caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$th._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$th progressInsights = _Translations$onboarding$healthConnect$progressInsights$th._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$th shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$th._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$th seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$th._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$th userControl = _Translations$onboarding$healthConnect$userControl$th._(_root);
 	@override String get connected => 'เชื่อมต่อกับ Health Connect แล้ว';
 	@override String get notConnected => 'ยังไม่ได้เชื่อมต่อกับ Health Connect';
 	@override String get setup => 'ตั้งค่า Health Connect';
@@ -585,10 +609,6 @@ class _Translations$onboarding$healthConnect$th extends Translations$onboarding$
 	@override String get manageAccess => 'จัดการการเข้าถึง';
 	@override String statusPermissionDenied({required Object appLabel}) => 'การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ ${appLabel}';
 	@override String statusError({required Object error}) => 'เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$th caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$th._(_root);
-	@override String get overviewDescription => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$th shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$th._(_root);
-	@override late final _Translations$onboarding$healthConnect$userControl$th userControl = _Translations$onboarding$healthConnect$userControl$th._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$th extends Translations$home$connectHealt
 	@override String get title => 'ซิงก์กับ Health Connect';
 	@override String get description => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้';
 	@override String get install => 'ติดตั้งหรืออัปเดต';
-	@override String get connect => 'เชื่อมต่อ';
 	@override String get dataUseDescription => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้';
 	@override String get installOrUpdate => 'ติดตั้งหรืออัปเดต';
+	@override String get connect => 'เชื่อมต่อ';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$th extends Translations$settings$clear
 	// Translations
 	@override String get title => 'ล้างข้อมูลทั้งหมด';
 	@override String get subtitle => 'ลบข้อมูล Calorify ที่จัดเก็บไว้ในอุปกรณ์นี้';
+	@override String get localOnlySubtitle => 'ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้';
 	@override String get confirmationTitle => 'ล้างข้อมูลทั้งหมด?';
 	@override String get confirmationMessage => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและการเข้าถึง Health Connect ต้องจัดการแยกต่างหากใน การตั้งค่า > Health Connect';
+	@override String get localOnlyConfirmationMessage => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect';
 	@override String get cancel => 'ยกเลิก';
 	@override String get clearEverything => 'ล้างทั้งหมด';
-	@override String get localOnlyConfirmationMessage => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect';
-	@override String get localOnlySubtitle => 'ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้';
 }
 
 // Path: settings.debugOptions
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$th extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$th professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$th._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$th extends Translations$watch$common$en {
+	_Translations$watch$common$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'ย้อนกลับ';
+	@override String get cancel => 'ยกเลิก';
+	@override String get delete => 'ลบ';
+	@override String get retry => 'ลองอีกครั้ง';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$th extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'สารอาหาร';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} กรัม';
+	@override String get protein => 'โปรตีน';
+	@override String get carbs => 'คาร์โบไฮเดรต';
+	@override String get fat => 'ไขมัน';
+	@override String get fiber => 'ใยอาหาร';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$th extends Translations$watch$sync$en {
+	_Translations$watch$sync$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'ซิงค์กับโทรศัพท์';
+	@override String get syncing => 'กำลังซิงค์…';
+	@override String get synced => 'ซิงค์แล้ว';
+	@override String get syncedJustNow => 'ซิงค์เมื่อสักครู่';
+	@override String syncedMinutesAgo({required Object minutes}) => 'ซิงค์เมื่อ ${minutes} นาทีที่แล้ว';
+	@override String get failed => 'การซิงค์ล้มเหลว';
+	@override String get phoneDisconnected => 'โทรศัพท์ไม่ได้เชื่อมต่อ';
+	@override String get tapToSync => 'แตะเพื่อซิงค์';
+	@override String get refreshFailed => 'ไม่สามารถรีเฟรชได้ ตรวจสอบโทรศัพท์ของคุณ';
+	@override String get openPhone => 'เปิด Calorify บนโทรศัพท์ของคุณ แล้วแตะรีเฟรช';
+}
+
+// Path: watch.home
+class _Translations$watch$home$th extends Translations$watch$home$en {
+	_Translations$watch$home$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'วันนี้';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => 'บริโภค ${consumed} แคลอรี่จาก ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} เกินเป้าหมาย';
+	@override String remaining({required Object calories}) => '${calories} คงเหลือ';
+	@override String left({required Object calories}) => '${calories} เหลือ';
+	@override String goal({required Object calories}) => 'เป้าหมาย ${calories} kcal';
+	@override String get logMeal => 'บันทึกมื้ออาหาร';
+	@override String get todayMeals => 'มื้ออาหารวันนี้';
+	@override String todayMealsCount({required Object count}) => 'มื้ออาหารวันนี้, ${count}';
+	@override String viewMore({required Object count}) => 'ดูเพิ่มอีก ${count}';
+	@override String viewMoreSemantics({required Object count}) => '${count} มื้อเพิ่มเติม แตะเพื่อดูทั้งหมด';
+	@override String get noMeals => 'ยังไม่มีการบันทึกมื้ออาหาร';
+	@override String get noMealsSemantics => 'วันนี้ยังไม่มีการบันทึกมื้ออาหาร';
+	@override String get tapLog => 'แตะ \'บันทึก\' เพื่อเริ่ม';
+	@override String get removedFromQueue => 'มื้ออาหารถูกลบจากคิวออฟไลน์แล้ว';
+	@override String get removedOffline => 'มื้ออาหารถูกลบแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง';
+	@override String get deleteFailed => 'ไม่สามารถลบมื้ออาหารได้';
+}
+
+// Path: watch.history
+class _Translations$watch$history$th extends Translations$watch$history$en {
+	_Translations$watch$history$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'มื้ออาหารวันนี้';
+	@override String get refresh => 'รีเฟรชมื้ออาหาร';
+	@override String get loadFailed => 'ไม่สามารถโหลดมื้ออาหารได้';
+	@override String get syncFailed => 'ไม่สามารถซิงค์ได้';
+	@override String get emptyTitle => 'ยังไม่มีมื้ออาหาร';
+	@override String get emptyMessage => 'บันทึกมื้ออาหารจากหน้าแรกเพื่อให้แสดงที่นี่';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$th extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'รายการโปรด';
+	@override String get refresh => 'รีเฟรชรายการโปรด';
+	@override String get loadFailed => 'ไม่สามารถโหลดรายการโปรดได้';
+	@override String get syncFailed => 'ไม่สามารถซิงค์ได้';
+	@override String get emptyTitle => 'ยังไม่มีรายการโปรด';
+	@override String get emptyMessage => 'กดดาวมื้ออาหารในแอปบนโทรศัพท์เพื่อบันทึกด้วยการแตะครั้งเดียวที่นี่';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} แคลอรี่ แตะเพื่อบันทึก';
+	@override String logged({required Object name}) => 'บันทึก ${name} แล้ว!';
+	@override String savedOffline({required Object name}) => '${name} ถูกบันทึกแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง';
+	@override String get saveFailed => 'ไม่สามารถบันทึกมื้ออาหารได้ กรุณาลองอีกครั้ง';
+	@override String get log => 'บันทึก';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$th extends Translations$watch$meal$en {
+	_Translations$watch$meal$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} แคลอรี่ บันทึกเวลา ${time}.';
+	@override String get longPressDelete => 'กดค้างเพื่อลบ';
+	@override String get deleteTitle => 'ลบมื้ออาหารหรือไม่?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$th extends Translations$watch$voice$en {
+	_Translations$watch$voice$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'บันทึกมื้ออาหารด้วยเสียง';
+	@override String get processing => 'กำลังวิเคราะห์มื้ออาหารของคุณ…';
+	@override String get processingDescription => 'ประเมินขนาดและสารอาหาร';
+	@override String get listening => 'กำลังฟัง';
+	@override String secondsLeft({required Object seconds}) => '${seconds}ว';
+	@override String get stop => 'หยุดบันทึก';
+	@override String get start => 'แตะเพื่อเริ่มบันทึก';
+	@override String get starting => 'กำลังเริ่มไมโครโฟน…';
+	@override String get prompt => 'แตะแล้วอธิบายมื้ออาหารของคุณ';
+	@override String get tapToRetry => 'แตะเพื่อทำซ้ำ';
+	@override String get example => 'ลอง “2 โรตี กับ แกงถั่ว”';
+	@override String get unavailable => 'การป้อนด้วยเสียงไม่พร้อมใช้งาน ตรวจสอบการอนุญาตไมโครโฟนในการตั้งค่าของนาฬิกา';
+	@override String get didNotStart => 'ไมโครโฟนไม่เริ่มทำงาน แตะเพื่อทำซ้ำ';
+	@override String get startFailed => 'ไม่สามารถเริ่มการบันทึกได้ ตรวจสอบสิทธิ์ไมโครโฟน';
+	@override String get allowMicrophone => 'อนุญาตการเข้าถึงไมโครโฟนเพื่อบันทึกมื้ออาหารด้วยเสียง';
+	@override String get needsConnection => 'การรู้จำด้วยเสียงต้องใช้การเชื่อมต่อ แตะเพื่อทำซ้ำ';
+	@override String get microphoneUnavailable => 'ไมโครโฟนไม่พร้อมใช้งาน แตะเพื่อทำซ้ำ';
+	@override String get microphoneBusy => 'ไมโครโฟนกำลังใช้งาน รอสักครู่แล้วลองอีกครั้ง';
+	@override String get languageUnsupported => 'การป้อนด้วยเสียงไม่รองรับภาษาที่ตั้งไว้ในนาฬิกา';
+	@override String get temporarilyBusy => 'การป้อนด้วยเสียงชั่วคราวไม่พร้อมใช้งาน รอสักครู่แล้วลองอีกครั้ง';
+	@override String get notRecognized => 'ไม่ได้ยินชัดนัก แตะไอคอนไมโครโฟนแล้วลองใหม่';
+	@override String get noSpeech => 'ไม่พบเสียงพูด แตะไอคอนไมโครโฟนเพื่อทดลองอีกครั้ง';
+	@override String get analysisFailed => 'การวิเคราะห์ล้มเหลว กรุณาลองอีกครั้ง';
+	@override String get mealNotIdentified => 'ไม่สามารถระบุมื้อนั้นได้ ลองอธิบายให้ต่างออกไป';
+}
+
+// Path: watch.result
+class _Translations$watch$result$th extends Translations$watch$result$en {
+	_Translations$watch$result$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'รายละเอียดมื้ออาหาร';
+	@override String get savedOffline => 'บันทึกแบบออฟไลน์';
+	@override String get logged => 'บันทึกแล้ว!';
+	@override String get mealFound => 'พบมื้ออาหาร';
+	@override String get estimatedEnergy => 'พลังงานโดยประมาณ';
+	@override String get logMeal => 'บันทึกมื้ออาหาร';
+	@override String get logging => 'กำลังบันทึก…';
+	@override String get logAnother => 'บันทึกอีกมื้อ';
+	@override String get goingBack => 'กำลังกลับ…';
+	@override String get savedOfflineMessage => 'มื้ออาหารถูกบันทึกแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง';
+	@override String get saveFailed => 'ไม่สามารถบันทึกมื้ออาหารได้ กรุณาลองอีกครั้ง';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$th extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -1375,9 +1570,31 @@ class _Translations$onboarding$healthConnect$automaticTracking$th extends Transl
 	@override String get description => 'อ่านแคลอรีทั้งหมดที่เผาผลาญวันนี้จาก Health Connect';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$th extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'แคลอรีที่เผาผลาญ';
+	@override String get description => 'อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$th extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'แชร์มื้ออาหารที่บันทึกไว้';
+	@override String get description => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$th extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$th._(TranslationsTh root) : this._root = root, super.internal(root);
 
 	final TranslationsTh _root; // ignore: unused_field
 
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$th extends Tran
 	@override String get description => 'เลือกสิทธิ์ใดก็ได้และเปลี่ยนการเข้าถึงได้ทุกเมื่อ';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$th extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-	final TranslationsTh _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect';
-	@override String get title => 'แคลอรีที่เผาผลาญ';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$th extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-	final TranslationsTh _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect';
-	@override String get title => 'แชร์มื้ออาหารที่บันทึกไว้';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$th extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$th extends Translations
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ';
 	@override String get title => 'คุณเป็นผู้ควบคุม';
+	@override String get description => 'เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$th extends Translations$settings$abou
 	@override String get description => 'ความเป็นส่วนตัวไม่ใช่เรื่องรอง — แต่เป็นหลักการออกแบบ ต่อไปนี้คือสิ่งที่หมายถึงในการใช้งานจริง:';
 	@override String get noAccounts => 'ไม่ต้องมีบัญชี\nใช้แอปได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน';
 	@override String noTracking({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย';
+	@override String analyticsDisclosure({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย';
 	@override String noAds({required Object appLabel}) => 'ออกแบบให้ไม่มีโฆษณา\n${appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องใช้โฆษณาหรือหารายได้จากข้อมูล';
 	@override String get noDataSelling => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม';
 	@override String get localStorage => 'เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ';
 	@override String get privacyPolicy => 'นโยบายความเป็นส่วนตัว';
-	@override String analyticsDisclosure({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย';
 }
 
 // Path: settings.about.developer
@@ -1908,12 +2103,19 @@ extension on TranslationsTh {
 			'onboarding.activityLevel.description' => 'ข้อมูลนี้ช่วยให้เราคำนวณความต้องการแคลอรีรายวันได้แม่นยำขึ้น',
 			'onboarding.healthConnect.title' => 'เชื่อมต่อกับ Health Connect',
 			'onboarding.healthConnect.description' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายประจำวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect',
+			'onboarding.healthConnect.overviewDescription' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect',
 			'onboarding.healthConnect.automaticTracking.title' => 'แคลอรีที่เผาผลาญ',
 			'onboarding.healthConnect.automaticTracking.description' => 'อ่านแคลอรีทั้งหมดที่เผาผลาญวันนี้จาก Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'แคลอรีที่เผาผลาญ',
+			'onboarding.healthConnect.caloriesBurned.description' => 'อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'แชร์มื้ออาหารที่บันทึกไว้',
 			'onboarding.healthConnect.progressInsights.description' => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'แชร์มื้ออาหารที่บันทึกไว้',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'คุณเป็นผู้ควบคุม',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'เลือกสิทธิ์ใดก็ได้และเปลี่ยนการเข้าถึงได้ทุกเมื่อ',
+			'onboarding.healthConnect.userControl.title' => 'คุณเป็นผู้ควบคุม',
+			'onboarding.healthConnect.userControl.description' => 'เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ',
 			'onboarding.healthConnect.connected' => 'เชื่อมต่อกับ Health Connect แล้ว',
 			'onboarding.healthConnect.notConnected' => 'ยังไม่ได้เชื่อมต่อกับ Health Connect',
 			'onboarding.healthConnect.setup' => 'ตั้งค่า Health Connect',
@@ -1928,13 +2130,6 @@ extension on TranslationsTh {
 			'onboarding.healthConnect.manageAccess' => 'จัดการการเข้าถึง',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ ${appLabel}',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect',
-			'onboarding.healthConnect.caloriesBurned.title' => 'แคลอรีที่เผาผลาญ',
-			'onboarding.healthConnect.overviewDescription' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'แชร์มื้ออาหารที่บันทึกไว้',
-			'onboarding.healthConnect.userControl.description' => 'เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ',
-			'onboarding.healthConnect.userControl.title' => 'คุณเป็นผู้ควบคุม',
 			'onboarding.reinforcement.trackingSuccess.title' => 'คุณไม่ได้อยู่คนเดียว',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'งานวิจัยแสดงให้เห็นว่าการบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายอันดับ 1 ของความสำเร็จในระยะยาว',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'สำหรับคนอายุ ${age} ปี ที่เป็น ${gender} และต้องการ ${goal} การบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายความสำเร็จอันดับ 1',
@@ -2027,9 +2222,9 @@ extension on TranslationsTh {
 			'home.connectHealth.title' => 'ซิงก์กับ Health Connect',
 			'home.connectHealth.description' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้',
 			'home.connectHealth.install' => 'ติดตั้งหรืออัปเดต',
-			'home.connectHealth.connect' => 'เชื่อมต่อ',
 			'home.connectHealth.dataUseDescription' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้',
 			'home.connectHealth.installOrUpdate' => 'ติดตั้งหรืออัปเดต',
+			'home.connectHealth.connect' => 'เชื่อมต่อ',
 			'history.noMeals' => 'ยังไม่มีมื้อบันทึก',
 			'history.emptyMessage' => 'ถ่ายรูปมื้อสุดท้ายของคุณเพื่อบันทึกที่นี่',
 			'history.today' => 'วันนี้',
@@ -2265,12 +2460,12 @@ extension on TranslationsTh {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'ไม่สามารถส่งออกประวัติการมื้ออาหารได้: ${error}',
 			'settings.clearAllData.title' => 'ล้างข้อมูลทั้งหมด',
 			'settings.clearAllData.subtitle' => 'ลบข้อมูล Calorify ที่จัดเก็บไว้ในอุปกรณ์นี้',
+			'settings.clearAllData.localOnlySubtitle' => 'ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้',
 			'settings.clearAllData.confirmationTitle' => 'ล้างข้อมูลทั้งหมด?',
 			'settings.clearAllData.confirmationMessage' => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและการเข้าถึง Health Connect ต้องจัดการแยกต่างหากใน การตั้งค่า > Health Connect',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect',
 			'settings.clearAllData.cancel' => 'ยกเลิก',
 			'settings.clearAllData.clearEverything' => 'ล้างทั้งหมด',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect',
-			'settings.clearAllData.localOnlySubtitle' => 'ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้',
 			'settings.debugOptions.title' => 'ตัวเลือกดีบัก',
 			'settings.developerModeEnabled' => 'เปิดโหมดนักพัฒนาแล้ว!',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2321,11 +2516,11 @@ extension on TranslationsTh {
 			'settings.about.privacy.description' => 'ความเป็นส่วนตัวไม่ใช่เรื่องรอง — แต่เป็นหลักการออกแบบ ต่อไปนี้คือสิ่งที่หมายถึงในการใช้งานจริง:',
 			'settings.about.privacy.noAccounts' => 'ไม่ต้องมีบัญชี\nใช้แอปได้ทันที ไม่ต้องสมัคร ไม่ต้องระบุตัวตน',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ออกแบบให้ไม่มีโฆษณา\n${appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องใช้โฆษณาหรือหารายได้จากข้อมูล',
 			'settings.about.privacy.noDataSelling' => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม',
 			'settings.about.privacy.localStorage' => 'เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ',
 			'settings.about.privacy.privacyPolicy' => 'นโยบายความเป็นส่วนตัว',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย',
 			'settings.about.developer.title' => 'สร้างโดยนักพัฒนาเดี่ยว',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาเดี่ยวที่มุ่งมั่นสร้างซอฟต์แวร์ด้านสุขภาพที่สงบและเคารพความเป็นส่วนตัว\n\nคำติชมถูกอ่านด้วยตนเองและมีส่วนช่วยกำหนดทิศทางของแอป',
 			'settings.about.developer.website' => 'เว็บไซต์',
@@ -2432,6 +2627,101 @@ extension on TranslationsTh {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'ล้างข้อมูล',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'ดาวน์โหลดและตรวจสอบข้อมูลโภชนาการในเครื่องไม่ได้: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'ล้างข้อมูลโภชนาการในเครื่องแล้ว',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'ย้อนกลับ',
+			'watch.common.cancel' => 'ยกเลิก',
+			'watch.common.delete' => 'ลบ',
+			'watch.common.retry' => 'ลองอีกครั้ง',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'สารอาหาร',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} กรัม',
+			'watch.nutrition.protein' => 'โปรตีน',
+			'watch.nutrition.carbs' => 'คาร์โบไฮเดรต',
+			'watch.nutrition.fat' => 'ไขมัน',
+			'watch.nutrition.fiber' => 'ใยอาหาร',
+			'watch.sync.syncWithPhone' => 'ซิงค์กับโทรศัพท์',
+			'watch.sync.syncing' => 'กำลังซิงค์…',
+			'watch.sync.synced' => 'ซิงค์แล้ว',
+			'watch.sync.syncedJustNow' => 'ซิงค์เมื่อสักครู่',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'ซิงค์เมื่อ ${minutes} นาทีที่แล้ว',
+			'watch.sync.failed' => 'การซิงค์ล้มเหลว',
+			'watch.sync.phoneDisconnected' => 'โทรศัพท์ไม่ได้เชื่อมต่อ',
+			'watch.sync.tapToSync' => 'แตะเพื่อซิงค์',
+			'watch.sync.refreshFailed' => 'ไม่สามารถรีเฟรชได้ ตรวจสอบโทรศัพท์ของคุณ',
+			'watch.sync.openPhone' => 'เปิด Calorify บนโทรศัพท์ของคุณ แล้วแตะรีเฟรช',
+			'watch.home.today' => 'วันนี้',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => 'บริโภค ${consumed} แคลอรี่จาก ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} เกินเป้าหมาย',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} คงเหลือ',
+			'watch.home.left' => ({required Object calories}) => '${calories} เหลือ',
+			'watch.home.goal' => ({required Object calories}) => 'เป้าหมาย ${calories} kcal',
+			'watch.home.logMeal' => 'บันทึกมื้ออาหาร',
+			'watch.home.todayMeals' => 'มื้ออาหารวันนี้',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'มื้ออาหารวันนี้, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'ดูเพิ่มอีก ${count}',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} มื้อเพิ่มเติม แตะเพื่อดูทั้งหมด',
+			'watch.home.noMeals' => 'ยังไม่มีการบันทึกมื้ออาหาร',
+			'watch.home.noMealsSemantics' => 'วันนี้ยังไม่มีการบันทึกมื้ออาหาร',
+			'watch.home.tapLog' => 'แตะ \'บันทึก\' เพื่อเริ่ม',
+			'watch.home.removedFromQueue' => 'มื้ออาหารถูกลบจากคิวออฟไลน์แล้ว',
+			'watch.home.removedOffline' => 'มื้ออาหารถูกลบแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง',
+			'watch.home.deleteFailed' => 'ไม่สามารถลบมื้ออาหารได้',
+			'watch.history.title' => 'มื้ออาหารวันนี้',
+			'watch.history.refresh' => 'รีเฟรชมื้ออาหาร',
+			'watch.history.loadFailed' => 'ไม่สามารถโหลดมื้ออาหารได้',
+			'watch.history.syncFailed' => 'ไม่สามารถซิงค์ได้',
+			'watch.history.emptyTitle' => 'ยังไม่มีมื้ออาหาร',
+			'watch.history.emptyMessage' => 'บันทึกมื้ออาหารจากหน้าแรกเพื่อให้แสดงที่นี่',
+			'watch.favorites.title' => 'รายการโปรด',
+			'watch.favorites.refresh' => 'รีเฟรชรายการโปรด',
+			'watch.favorites.loadFailed' => 'ไม่สามารถโหลดรายการโปรดได้',
+			'watch.favorites.syncFailed' => 'ไม่สามารถซิงค์ได้',
+			'watch.favorites.emptyTitle' => 'ยังไม่มีรายการโปรด',
+			'watch.favorites.emptyMessage' => 'กดดาวมื้ออาหารในแอปบนโทรศัพท์เพื่อบันทึกด้วยการแตะครั้งเดียวที่นี่',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} แคลอรี่ แตะเพื่อบันทึก',
+			'watch.favorites.logged' => ({required Object name}) => 'บันทึก ${name} แล้ว!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} ถูกบันทึกแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง',
+			'watch.favorites.saveFailed' => 'ไม่สามารถบันทึกมื้ออาหารได้ กรุณาลองอีกครั้ง',
+			'watch.favorites.log' => 'บันทึก',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} แคลอรี่ บันทึกเวลา ${time}.',
+			'watch.meal.longPressDelete' => 'กดค้างเพื่อลบ',
+			'watch.meal.deleteTitle' => 'ลบมื้ออาหารหรือไม่?',
+			'watch.voice.title' => 'บันทึกมื้ออาหารด้วยเสียง',
+			'watch.voice.processing' => 'กำลังวิเคราะห์มื้ออาหารของคุณ…',
+			'watch.voice.processingDescription' => 'ประเมินขนาดและสารอาหาร',
+			'watch.voice.listening' => 'กำลังฟัง',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}ว',
+			'watch.voice.stop' => 'หยุดบันทึก',
+			'watch.voice.start' => 'แตะเพื่อเริ่มบันทึก',
+			'watch.voice.starting' => 'กำลังเริ่มไมโครโฟน…',
+			'watch.voice.prompt' => 'แตะแล้วอธิบายมื้ออาหารของคุณ',
+			'watch.voice.tapToRetry' => 'แตะเพื่อทำซ้ำ',
+			'watch.voice.example' => 'ลอง “2 โรตี กับ แกงถั่ว”',
+			'watch.voice.unavailable' => 'การป้อนด้วยเสียงไม่พร้อมใช้งาน ตรวจสอบการอนุญาตไมโครโฟนในการตั้งค่าของนาฬิกา',
+			'watch.voice.didNotStart' => 'ไมโครโฟนไม่เริ่มทำงาน แตะเพื่อทำซ้ำ',
+			'watch.voice.startFailed' => 'ไม่สามารถเริ่มการบันทึกได้ ตรวจสอบสิทธิ์ไมโครโฟน',
+			'watch.voice.allowMicrophone' => 'อนุญาตการเข้าถึงไมโครโฟนเพื่อบันทึกมื้ออาหารด้วยเสียง',
+			'watch.voice.needsConnection' => 'การรู้จำด้วยเสียงต้องใช้การเชื่อมต่อ แตะเพื่อทำซ้ำ',
+			'watch.voice.microphoneUnavailable' => 'ไมโครโฟนไม่พร้อมใช้งาน แตะเพื่อทำซ้ำ',
+			'watch.voice.microphoneBusy' => 'ไมโครโฟนกำลังใช้งาน รอสักครู่แล้วลองอีกครั้ง',
+			'watch.voice.languageUnsupported' => 'การป้อนด้วยเสียงไม่รองรับภาษาที่ตั้งไว้ในนาฬิกา',
+			'watch.voice.temporarilyBusy' => 'การป้อนด้วยเสียงชั่วคราวไม่พร้อมใช้งาน รอสักครู่แล้วลองอีกครั้ง',
+			'watch.voice.notRecognized' => 'ไม่ได้ยินชัดนัก แตะไอคอนไมโครโฟนแล้วลองใหม่',
+			'watch.voice.noSpeech' => 'ไม่พบเสียงพูด แตะไอคอนไมโครโฟนเพื่อทดลองอีกครั้ง',
+			'watch.voice.analysisFailed' => 'การวิเคราะห์ล้มเหลว กรุณาลองอีกครั้ง',
+			'watch.voice.mealNotIdentified' => 'ไม่สามารถระบุมื้อนั้นได้ ลองอธิบายให้ต่างออกไป',
+			'watch.result.title' => 'รายละเอียดมื้ออาหาร',
+			'watch.result.savedOffline' => 'บันทึกแบบออฟไลน์',
+			'watch.result.logged' => 'บันทึกแล้ว!',
+			'watch.result.mealFound' => 'พบมื้ออาหาร',
+			'watch.result.estimatedEnergy' => 'พลังงานโดยประมาณ',
+			'watch.result.logMeal' => 'บันทึกมื้ออาหาร',
+			'watch.result.logging' => 'กำลังบันทึก…',
+			'watch.result.logAnother' => 'บันทึกอีกมื้อ',
+			'watch.result.goingBack' => 'กำลังกลับ…',
+			'watch.result.savedOfflineMessage' => 'มื้ออาหารถูกบันทึกแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง',
+			'watch.result.saveFailed' => 'ไม่สามารถบันทึกมื้ออาหารได้ กรุณาลองอีกครั้ง',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'ชอบ ${appLabel} ไหม?',

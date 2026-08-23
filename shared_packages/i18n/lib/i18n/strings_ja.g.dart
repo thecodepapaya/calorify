@@ -58,6 +58,7 @@ class TranslationsJa extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$ja login = _Translations$login$ja._(_root);
 	@override late final _Translations$disclaimer$ja disclaimer = _Translations$disclaimer$ja._(_root);
 	@override late final _Translations$localNutritionPhase4$ja localNutritionPhase4 = _Translations$localNutritionPhase4$ja._(_root);
+	@override late final _Translations$watch$ja watch = _Translations$watch$ja._(_root);
 	@override late final _Translations$common$ja common = _Translations$common$ja._(_root);
 	@override late final _Translations$feedbackRating$ja feedbackRating = _Translations$feedbackRating$ja._(_root);
 	@override late final _Translations$health$ja health = _Translations$health$ja._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$ja extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'ローカル栄養データを消去しました';
 }
 
+// Path: watch
+class _Translations$watch$ja extends Translations$watch$en {
+	_Translations$watch$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify ウォッチ';
+	@override late final _Translations$watch$common$ja common = _Translations$watch$common$ja._(_root);
+	@override late final _Translations$watch$nutrition$ja nutrition = _Translations$watch$nutrition$ja._(_root);
+	@override late final _Translations$watch$sync$ja sync = _Translations$watch$sync$ja._(_root);
+	@override late final _Translations$watch$home$ja home = _Translations$watch$home$ja._(_root);
+	@override late final _Translations$watch$history$ja history = _Translations$watch$history$ja._(_root);
+	@override late final _Translations$watch$favorites$ja favorites = _Translations$watch$favorites$ja._(_root);
+	@override late final _Translations$watch$meal$ja meal = _Translations$watch$meal$ja._(_root);
+	@override late final _Translations$watch$voice$ja voice = _Translations$watch$voice$ja._(_root);
+	@override late final _Translations$watch$result$ja result = _Translations$watch$result$ja._(_root);
+}
+
 // Path: common
 class _Translations$common$ja extends Translations$common$en {
 	_Translations$common$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -568,27 +588,27 @@ class _Translations$onboarding$healthConnect$ja extends Translations$onboarding$
 	// Translations
 	@override String get title => 'Health Connectと接続';
 	@override String get description => '健康データを同期して、より良いインサイトと自動カロリートラッキングを実現します';
+	@override String get overviewDescription => '日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$ja automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$ja._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$ja caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$ja._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$ja progressInsights = _Translations$onboarding$healthConnect$progressInsights$ja._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$ja shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$ja._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$ja seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$ja._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$ja userControl = _Translations$onboarding$healthConnect$userControl$ja._(_root);
 	@override String get connected => 'Health Connectに接続済み';
 	@override String get notConnected => 'Health Connectに未接続';
 	@override String get setup => 'Health Connectを設定';
 	@override String get skipForNow => 'とりあえずスキップ';
 	@override String get statusConnected => 'Health Connectが接続されています。';
 	@override String get statusSuccess => 'Health Connectの接続に成功しました！';
-	@override String statusPermissionDenied({required Object appLabel}) => '権限が拒否されました。${appLabel}のHealth Connect権限を端末の設定で有効にしてください。';
-	@override String statusError({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$ja caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$ja._(_root);
-	@override String get installOrUpdate => 'インストールまたは更新';
-	@override String get manageAccess => 'アクセスを管理';
-	@override String get overviewDescription => '日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$ja shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$ja._(_root);
 	@override String get statusNotConnected => '有効にするHealth Connect機能を選択してください。';
 	@override String get statusPartial => 'Health Connectの一部が接続されています。両方の機能を使うには、残りの権限を有効にしてください。';
 	@override String get statusProviderUpdateRequired => '続行するにはHealth Connectをインストールまたは更新してください。';
 	@override String get statusUnavailable => 'この端末はHealth Connectに対応していません。';
-	@override late final _Translations$onboarding$healthConnect$userControl$ja userControl = _Translations$onboarding$healthConnect$userControl$ja._(_root);
+	@override String get installOrUpdate => 'インストールまたは更新';
+	@override String get manageAccess => 'アクセスを管理';
+	@override String statusPermissionDenied({required Object appLabel}) => '権限が拒否されました。${appLabel}のHealth Connect権限を端末の設定で有効にしてください。';
+	@override String statusError({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$ja extends Translations$home$connectHealt
 	@override String get title => 'Health Connectと同期';
 	@override String get description => '栄養データをHealth Connectと同期します';
 	@override String get install => 'インストール';
-	@override String get connect => '接続';
 	@override String get dataUseDescription => '目標に消費カロリーを反映し、記録した食事を共有します';
 	@override String get installOrUpdate => 'インストールまたは更新';
+	@override String get connect => '接続';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$ja extends Translations$settings$clear
 	// Translations
 	@override String get title => 'すべてのデータを消去';
 	@override String get subtitle => 'あなたの情報を元に戻せない形で削除します';
+	@override String get localOnlySubtitle => 'この端末に保存されたCalorifyデータを削除します';
 	@override String get confirmationTitle => 'すべてのデータを消去しますか？';
 	@override String get confirmationMessage => 'この操作は元に戻せません。記録した全ての食事、お気に入り、プロフィール設定が永久に削除されます。';
+	@override String get localOnlyConfirmationMessage => 'この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。';
 	@override String get cancel => 'キャンセル';
 	@override String get clearEverything => 'すべて消去';
-	@override String get localOnlyConfirmationMessage => 'この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。';
-	@override String get localOnlySubtitle => 'この端末に保存されたCalorifyデータを削除します';
 }
 
 // Path: settings.debugOptions
@@ -1147,27 +1167,27 @@ class _Translations$settings$healthConnect$ja extends Translations$settings$heal
 	@override String get title => 'Health Connect';
 	@override String get subtitle => '権限の表示と管理';
 	@override late final _Translations$settings$healthConnect$unavailable$ja unavailable = _Translations$settings$healthConnect$unavailable$ja._(_root);
+	@override late final _Translations$settings$healthConnect$updateRequired$ja updateRequired = _Translations$settings$healthConnect$updateRequired$ja._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$ja permissions = _Translations$settings$healthConnect$permissions$ja._(_root);
 	@override String get managePermissions => '権限を管理';
 	@override String get openSettings => 'Health Connect設定を開く';
+	@override String get disconnect => 'Health Connectとの接続を解除';
+	@override String get disconnectConfirmationTitle => 'Health Connectとの接続を解除しますか？';
+	@override String get disconnectConfirmationMessage => 'CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。';
+	@override String get disconnectConfirmationAction => '接続を解除';
+	@override String get deleteSyncedMeals => 'Health ConnectからCalorifyの食事を削除';
+	@override String get deleteSyncedMealsConfirmationTitle => '同期した食事を削除しますか？';
+	@override String get deleteSyncedMealsConfirmationMessage => 'このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。';
+	@override String get deleteSyncedMealsConfirmationAction => '同期した食事を削除';
+	@override String get deleteSyncedMealsSuccess => 'Calorifyの食事をHealth Connectから削除しました。';
+	@override String get deleteSyncedMealsFailed => '同期した食事を削除できませんでした。もう一度お試しください。';
+	@override String get connectionPartial => 'Health Connectの一部の機能が有効です。';
+	@override String get connectionComplete => 'Health Connectの両方の機能が有効です。';
+	@override String get actionFailed => 'Health Connectを開けませんでした。もう一度お試しください。';
 	@override String get requestPermissions => '権限を要求';
 	@override String get permissionRequestCancelledOrFailed => '権限要求がキャンセルされたか失敗しました。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。';
 	@override String get permissionRequestFailed => '権限の要求ができませんでした。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。';
 	@override String get requestingPermissions => '要求中…';
-	@override String get actionFailed => 'Health Connectを開けませんでした。もう一度お試しください。';
-	@override String get connectionComplete => 'Health Connectの両方の機能が有効です。';
-	@override String get connectionPartial => 'Health Connectの一部の機能が有効です。';
-	@override String get deleteSyncedMeals => 'Health ConnectからCalorifyの食事を削除';
-	@override String get deleteSyncedMealsConfirmationAction => '同期した食事を削除';
-	@override String get deleteSyncedMealsConfirmationMessage => 'このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。';
-	@override String get deleteSyncedMealsConfirmationTitle => '同期した食事を削除しますか？';
-	@override String get deleteSyncedMealsFailed => '同期した食事を削除できませんでした。もう一度お試しください。';
-	@override String get deleteSyncedMealsSuccess => 'Calorifyの食事をHealth Connectから削除しました。';
-	@override String get disconnect => 'Health Connectとの接続を解除';
-	@override String get disconnectConfirmationAction => '接続を解除';
-	@override String get disconnectConfirmationMessage => 'CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。';
-	@override String get disconnectConfirmationTitle => 'Health Connectとの接続を解除しますか？';
-	@override late final _Translations$settings$healthConnect$updateRequired$ja updateRequired = _Translations$settings$healthConnect$updateRequired$ja._(_root);
 }
 
 // Path: settings.about
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$ja extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$ja professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$ja._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$ja extends Translations$watch$common$en {
+	_Translations$watch$common$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => '戻る';
+	@override String get cancel => 'キャンセル';
+	@override String get delete => '削除';
+	@override String get retry => '再試行';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$ja extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => '栄養素';
+	@override String grams({required Object label, required Object value}) => '${label}、${value} g';
+	@override String get protein => 'タンパク質';
+	@override String get carbs => '炭水化物';
+	@override String get fat => '脂質';
+	@override String get fiber => '食物繊維';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$ja extends Translations$watch$sync$en {
+	_Translations$watch$sync$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => '電話と同期';
+	@override String get syncing => '同期中…';
+	@override String get synced => '同期済み';
+	@override String get syncedJustNow => '同期したばかりです';
+	@override String syncedMinutesAgo({required Object minutes}) => '約${minutes}分前に同期しました';
+	@override String get failed => '同期に失敗しました';
+	@override String get phoneDisconnected => '電話の接続が切れました';
+	@override String get tapToSync => 'タップして同期';
+	@override String get refreshFailed => '更新できませんでした。電話を確認してください。';
+	@override String get openPhone => '電話で Calorify を開き、更新をタップしてください。';
+}
+
+// Path: watch.home
+class _Translations$watch$home$ja extends Translations$watch$home$en {
+	_Translations$watch$home$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => '今日';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kcal を ${goal} 中 消費しました。${status}。';
+	@override String overGoal({required Object calories}) => '${calories} オーバー';
+	@override String remaining({required Object calories}) => '${calories} 残り';
+	@override String left({required Object calories}) => '${calories} 残り';
+	@override String goal({required Object calories}) => '${calories} kcal 目標';
+	@override String get logMeal => '食事を記録';
+	@override String get todayMeals => '今日の食事';
+	@override String todayMealsCount({required Object count}) => '今日の食事、${count}件';
+	@override String viewMore({required Object count}) => '${count}件を表示';
+	@override String viewMoreSemantics({required Object count}) => '${count}件の追加の食事があります。タップしてすべて表示。';
+	@override String get noMeals => '記録された食事はありません';
+	@override String get noMealsSemantics => '今日の記録はありません';
+	@override String get tapLog => '開始するには「記録」をタップ';
+	@override String get removedFromQueue => 'オフラインキューから食事が削除されました。';
+	@override String get removedOffline => 'オフラインで食事を削除しました。電話が再接続されると同期されます。';
+	@override String get deleteFailed => '食事を削除できませんでした';
+}
+
+// Path: watch.history
+class _Translations$watch$history$ja extends Translations$watch$history$en {
+	_Translations$watch$history$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '今日の食事';
+	@override String get refresh => '食事を更新';
+	@override String get loadFailed => '食事を読み込めませんでした';
+	@override String get syncFailed => '同期できませんでした';
+	@override String get emptyTitle => 'まだ食事がありません';
+	@override String get emptyMessage => 'ホームで食事を記録するとここに表示されます。';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$ja extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'お気に入り';
+	@override String get refresh => 'お気に入りを更新';
+	@override String get loadFailed => 'お気に入りを読み込めませんでした';
+	@override String get syncFailed => '同期できませんでした';
+	@override String get emptyTitle => 'まだお気に入りはありません';
+	@override String get emptyMessage => '電話アプリで食事に★を付けると、ここでワンタップで記録できます。';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}、${calories}。タップして記録。';
+	@override String logged({required Object name}) => '${name} を記録しました！';
+	@override String savedOffline({required Object name}) => '${name} をオフラインで保存しました。電話が再接続されると同期されます。';
+	@override String get saveFailed => '食事を保存できませんでした。再度お試しください。';
+	@override String get log => '記録';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$ja extends Translations$watch$meal$en {
+	_Translations$watch$meal$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}、${calories}、${time} に記録済み。';
+	@override String get longPressDelete => '削除するには長押ししてください。';
+	@override String get deleteTitle => '食事を削除しますか？';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$ja extends Translations$watch$voice$en {
+	_Translations$watch$voice$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '音声で記録';
+	@override String get processing => '食事を確認しています…';
+	@override String get processingDescription => '分量と栄養を推定しています';
+	@override String get listening => '聞き取り中';
+	@override String secondsLeft({required Object seconds}) => '${seconds}秒';
+	@override String get stop => '録音を停止';
+	@override String get start => 'タップして録音を開始';
+	@override String get starting => 'マイクを起動しています…';
+	@override String get prompt => 'タップしてから食事を説明してください';
+	@override String get tapToRetry => 'タップして再試行';
+	@override String get example => '例：「ロティ2枚とダール」';
+	@override String get unavailable => '音声入力は利用できません。ウォッチの設定でマイクの権限を確認してください。';
+	@override String get didNotStart => 'マイクが起動しませんでした。タップして再試行してください。';
+	@override String get startFailed => '録音を開始できませんでした。マイクの権限を確認してください。';
+	@override String get allowMicrophone => '音声で記録するにはマイクのアクセスを許可してください。';
+	@override String get needsConnection => '音声認識には接続が必要です。タップして再試行してください。';
+	@override String get microphoneUnavailable => 'マイクが利用できません。タップして再試行してください。';
+	@override String get microphoneBusy => 'マイクが使用中です。少し待ってから再試行してください。';
+	@override String get languageUnsupported => '音声入力はこのウォッチの言語をサポートしていません。';
+	@override String get temporarilyBusy => '音声入力が一時的に混雑しています。少し待ってから再試行してください。';
+	@override String get notRecognized => '聞き取れませんでした。マイクをタップしてもう一度お試しください。';
+	@override String get noSpeech => '音声が検出されませんでした。マイクをタップして再度お試しください。';
+	@override String get analysisFailed => '解析に失敗しました。もう一度お試しください。';
+	@override String get mealNotIdentified => 'その食事を特定できませんでした。別の言い方で説明してみてください。';
+}
+
+// Path: watch.result
+class _Translations$watch$result$ja extends Translations$watch$result$en {
+	_Translations$watch$result$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '食事の詳細';
+	@override String get savedOffline => 'オフラインで保存されました';
+	@override String get logged => '記録しました！';
+	@override String get mealFound => '食事を見つけました';
+	@override String get estimatedEnergy => '推定エネルギー';
+	@override String get logMeal => '食事を記録';
+	@override String get logging => '記録中…';
+	@override String get logAnother => '別の食事を記録';
+	@override String get goingBack => '戻ります…';
+	@override String get savedOfflineMessage => '食事はオフラインで保存されました。電話が再接続されると同期されます。';
+	@override String get saveFailed => '食事を保存できませんでした。もう一度お試しください。';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$ja extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -1375,6 +1570,17 @@ class _Translations$onboarding$healthConnect$automaticTracking$ja extends Transl
 	@override String get description => 'フィットネスアプリから消費カロリーを追跡します';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$ja extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '消費カロリー';
+	@override String get description => 'Health Connectから今日の総消費カロリーを読み取ります';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$ja extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -1384,6 +1590,17 @@ class _Translations$onboarding$healthConnect$progressInsights$ja extends Transla
 	// Translations
 	@override String get title => '進捗インサイト';
 	@override String get description => '健康トレンドに関する詳細なインサイトを取得します';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$ja extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '記録した食事を共有';
+	@override String get description => 'Calorifyに記録した食事をHealth Connectへ書き込みます';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$ja extends Tran
 	@override String get description => 'お気に入りのヘルスアプリからデータを同期します';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$ja extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$ja._(TranslationsJa root) : this._root = root, super.internal(root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Health Connectから今日の総消費カロリーを読み取ります';
-	@override String get title => '消費カロリー';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$ja extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$ja._(TranslationsJa root) : this._root = root, super.internal(root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Calorifyに記録した食事をHealth Connectへ書き込みます';
-	@override String get title => '記録した食事を共有';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$ja extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$ja extends Translations
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'どちらかの権限を選び、アクセス設定をいつでも変更できます';
 	@override String get title => '設定はいつでも変更できます';
+	@override String get description => 'どちらかの権限を選び、アクセス設定をいつでも変更できます';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1584,6 +1779,18 @@ class _Translations$settings$healthConnect$unavailable$ja extends Translations$s
 	@override String get unsupportedDescription => 'この端末はHealth Connectに対応していません。';
 }
 
+// Path: settings.healthConnect.updateRequired
+class _Translations$settings$healthConnect$updateRequired$ja extends Translations$settings$healthConnect$updateRequired$en {
+	_Translations$settings$healthConnect$updateRequired$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connectの対応が必要です';
+	@override String get description => 'アクセスを管理する前にHealth Connectをインストールまたは更新してください。';
+	@override String get action => 'インストールまたは更新';
+}
+
 // Path: settings.healthConnect.permissions
 class _Translations$settings$healthConnect$permissions$ja extends Translations$settings$healthConnect$permissions$en {
 	_Translations$settings$healthConnect$permissions$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -1598,18 +1805,6 @@ class _Translations$settings$healthConnect$permissions$ja extends Translations$s
 	@override late final _Translations$settings$healthConnect$permissions$caloriesBurned$ja caloriesBurned = _Translations$settings$healthConnect$permissions$caloriesBurned$ja._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionRead$ja nutritionRead = _Translations$settings$healthConnect$permissions$nutritionRead$ja._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionWrite$ja nutritionWrite = _Translations$settings$healthConnect$permissions$nutritionWrite$ja._(_root);
-}
-
-// Path: settings.healthConnect.updateRequired
-class _Translations$settings$healthConnect$updateRequired$ja extends Translations$settings$healthConnect$updateRequired$en {
-	_Translations$settings$healthConnect$updateRequired$ja._(TranslationsJa root) : this._root = root, super.internal(root);
-
-	final TranslationsJa _root; // ignore: unused_field
-
-	// Translations
-	@override String get action => 'インストールまたは更新';
-	@override String get description => 'アクセスを管理する前にHealth Connectをインストールまたは更新してください。';
-	@override String get title => 'Health Connectの対応が必要です';
 }
 
 // Path: settings.about.ourStory
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$ja extends Translations$settings$abou
 	@override String get description => 'プライバシーは後付けではなく設計原則です。実際にどういうことかは以下の通りです：';
 	@override String get noAccounts => 'アカウント不要\nすぐにアプリを使えます。サインアップや個人情報は不要です。';
 	@override String noTracking({required Object appLabel}) => '行動トラッキングなし\n${appLabel}はあなたの行動を監視したり、使用プロファイルを構築したり、アプリやウェブを横断して追跡したりしません。';
+	@override String analyticsDisclosure({required Object appLabel}) => '限定的な分析と診断\n${appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。';
 	@override String noAds({required Object appLabel}) => '広告なしで設計\n${appLabel}は広告やデータ駆動のマネタイズなしで動作するよう作られています。';
 	@override String get noDataSelling => 'データ販売なし\nあなたの健康データが第三者に販売または共有されることはありません。';
 	@override String get localStorage => 'ローカルファーストの保存\nあなたのデータは端末に留まります。';
 	@override String get privacyPolicy => 'プライバシーポリシー';
-	@override String analyticsDisclosure({required Object appLabel}) => '限定的な分析と診断\n${appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。';
 }
 
 // Path: settings.about.developer
@@ -1908,33 +2103,33 @@ extension on TranslationsJa {
 			'onboarding.activityLevel.description' => 'これは毎日のカロリー必要量をより正確に算出するのに役立ちます',
 			'onboarding.healthConnect.title' => 'Health Connectと接続',
 			'onboarding.healthConnect.description' => '健康データを同期して、より良いインサイトと自動カロリートラッキングを実現します',
+			'onboarding.healthConnect.overviewDescription' => '日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。',
 			'onboarding.healthConnect.automaticTracking.title' => '自動カロリートラッキング',
 			'onboarding.healthConnect.automaticTracking.description' => 'フィットネスアプリから消費カロリーを追跡します',
+			'onboarding.healthConnect.caloriesBurned.title' => '消費カロリー',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connectから今日の総消費カロリーを読み取ります',
 			'onboarding.healthConnect.progressInsights.title' => '進捗インサイト',
 			'onboarding.healthConnect.progressInsights.description' => '健康トレンドに関する詳細なインサイトを取得します',
+			'onboarding.healthConnect.shareLoggedMeals.title' => '記録した食事を共有',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorifyに記録した食事をHealth Connectへ書き込みます',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'シームレスな連携',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'お気に入りのヘルスアプリからデータを同期します',
+			'onboarding.healthConnect.userControl.title' => '設定はいつでも変更できます',
+			'onboarding.healthConnect.userControl.description' => 'どちらかの権限を選び、アクセス設定をいつでも変更できます',
 			'onboarding.healthConnect.connected' => 'Health Connectに接続済み',
 			'onboarding.healthConnect.notConnected' => 'Health Connectに未接続',
 			'onboarding.healthConnect.setup' => 'Health Connectを設定',
 			'onboarding.healthConnect.skipForNow' => 'とりあえずスキップ',
 			'onboarding.healthConnect.statusConnected' => 'Health Connectが接続されています。',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connectの接続に成功しました！',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '権限が拒否されました。${appLabel}のHealth Connect権限を端末の設定で有効にしてください。',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connectから今日の総消費カロリーを読み取ります',
-			'onboarding.healthConnect.caloriesBurned.title' => '消費カロリー',
-			'onboarding.healthConnect.installOrUpdate' => 'インストールまたは更新',
-			'onboarding.healthConnect.manageAccess' => 'アクセスを管理',
-			'onboarding.healthConnect.overviewDescription' => '日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorifyに記録した食事をHealth Connectへ書き込みます',
-			'onboarding.healthConnect.shareLoggedMeals.title' => '記録した食事を共有',
 			'onboarding.healthConnect.statusNotConnected' => '有効にするHealth Connect機能を選択してください。',
 			'onboarding.healthConnect.statusPartial' => 'Health Connectの一部が接続されています。両方の機能を使うには、残りの権限を有効にしてください。',
 			'onboarding.healthConnect.statusProviderUpdateRequired' => '続行するにはHealth Connectをインストールまたは更新してください。',
 			'onboarding.healthConnect.statusUnavailable' => 'この端末はHealth Connectに対応していません。',
-			'onboarding.healthConnect.userControl.description' => 'どちらかの権限を選び、アクセス設定をいつでも変更できます',
-			'onboarding.healthConnect.userControl.title' => '設定はいつでも変更できます',
+			'onboarding.healthConnect.installOrUpdate' => 'インストールまたは更新',
+			'onboarding.healthConnect.manageAccess' => 'アクセスを管理',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '権限が拒否されました。${appLabel}のHealth Connect権限を端末の設定で有効にしてください。',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'あなたは一人じゃない',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究では、一貫した記録が長期的成功の最も重要な予測因子であることが示されています。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}で${goal}を目指す場合、一貫した記録が成功の最も重要な予測因子です。',
@@ -2027,9 +2222,9 @@ extension on TranslationsJa {
 			'home.connectHealth.title' => 'Health Connectと同期',
 			'home.connectHealth.description' => '栄養データをHealth Connectと同期します',
 			'home.connectHealth.install' => 'インストール',
-			'home.connectHealth.connect' => '接続',
 			'home.connectHealth.dataUseDescription' => '目標に消費カロリーを反映し、記録した食事を共有します',
 			'home.connectHealth.installOrUpdate' => 'インストールまたは更新',
+			'home.connectHealth.connect' => '接続',
 			'history.noMeals' => '記録された食事はありません',
 			'history.emptyMessage' => '最後の食事の写真を撮ってここに記録しましょう。',
 			'history.today' => '今日',
@@ -2265,12 +2460,12 @@ extension on TranslationsJa {
 			'settings.exportMealHistory.failed' => ({required Object error}) => '食事履歴をエクスポートできませんでした: ${error}',
 			'settings.clearAllData.title' => 'すべてのデータを消去',
 			'settings.clearAllData.subtitle' => 'あなたの情報を元に戻せない形で削除します',
+			'settings.clearAllData.localOnlySubtitle' => 'この端末に保存されたCalorifyデータを削除します',
 			'settings.clearAllData.confirmationTitle' => 'すべてのデータを消去しますか？',
 			'settings.clearAllData.confirmationMessage' => 'この操作は元に戻せません。記録した全ての食事、お気に入り、プロフィール設定が永久に削除されます。',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。',
 			'settings.clearAllData.cancel' => 'キャンセル',
 			'settings.clearAllData.clearEverything' => 'すべて消去',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。',
-			'settings.clearAllData.localOnlySubtitle' => 'この端末に保存されたCalorifyデータを削除します',
 			'settings.debugOptions.title' => 'デバッグオプション',
 			'settings.developerModeEnabled' => '開発者モードが有効になりました！',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2278,6 +2473,9 @@ extension on TranslationsJa {
 			'settings.healthConnect.unavailable.title' => 'Health Connectが利用できません',
 			'settings.healthConnect.unavailable.description' => 'この端末ではHealth Connectが利用できません。Play StoreからHealth Connectをインストールするか（Android 9+）、Androidを14+にアップデートしてください。',
 			'settings.healthConnect.unavailable.unsupportedDescription' => 'この端末はHealth Connectに対応していません。',
+			'settings.healthConnect.updateRequired.title' => 'Health Connectの対応が必要です',
+			'settings.healthConnect.updateRequired.description' => 'アクセスを管理する前にHealth Connectをインストールまたは更新してください。',
+			'settings.healthConnect.updateRequired.action' => 'インストールまたは更新',
 			'settings.healthConnect.permissions.title' => '権限',
 			'settings.healthConnect.permissions.description' => 'Health Connect連携のために次の権限が要求されます：',
 			'settings.healthConnect.permissions.granted' => '許可済み',
@@ -2293,26 +2491,23 @@ extension on TranslationsJa {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'この権限により、記録した食事をHealth Connectへ同期し、他のヘルス／フィットネスアプリでも栄養データを利用可能にします。',
 			'settings.healthConnect.managePermissions' => '権限を管理',
 			'settings.healthConnect.openSettings' => 'Health Connect設定を開く',
+			'settings.healthConnect.disconnect' => 'Health Connectとの接続を解除',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connectとの接続を解除しますか？',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。',
+			'settings.healthConnect.disconnectConfirmationAction' => '接続を解除',
+			'settings.healthConnect.deleteSyncedMeals' => 'Health ConnectからCalorifyの食事を削除',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '同期した食事を削除しますか？',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '同期した食事を削除',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Calorifyの食事をHealth Connectから削除しました。',
+			'settings.healthConnect.deleteSyncedMealsFailed' => '同期した食事を削除できませんでした。もう一度お試しください。',
+			'settings.healthConnect.connectionPartial' => 'Health Connectの一部の機能が有効です。',
+			'settings.healthConnect.connectionComplete' => 'Health Connectの両方の機能が有効です。',
+			'settings.healthConnect.actionFailed' => 'Health Connectを開けませんでした。もう一度お試しください。',
 			'settings.healthConnect.requestPermissions' => '権限を要求',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => '権限要求がキャンセルされたか失敗しました。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。',
 			'settings.healthConnect.permissionRequestFailed' => '権限の要求ができませんでした。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。',
 			'settings.healthConnect.requestingPermissions' => '要求中…',
-			'settings.healthConnect.actionFailed' => 'Health Connectを開けませんでした。もう一度お試しください。',
-			'settings.healthConnect.connectionComplete' => 'Health Connectの両方の機能が有効です。',
-			'settings.healthConnect.connectionPartial' => 'Health Connectの一部の機能が有効です。',
-			'settings.healthConnect.deleteSyncedMeals' => 'Health ConnectからCalorifyの食事を削除',
-			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '同期した食事を削除',
-			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。',
-			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '同期した食事を削除しますか？',
-			'settings.healthConnect.deleteSyncedMealsFailed' => '同期した食事を削除できませんでした。もう一度お試しください。',
-			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Calorifyの食事をHealth Connectから削除しました。',
-			'settings.healthConnect.disconnect' => 'Health Connectとの接続を解除',
-			'settings.healthConnect.disconnectConfirmationAction' => '接続を解除',
-			'settings.healthConnect.disconnectConfirmationMessage' => 'CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。',
-			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connectとの接続を解除しますか？',
-			'settings.healthConnect.updateRequired.action' => 'インストールまたは更新',
-			'settings.healthConnect.updateRequired.description' => 'アクセスを管理する前にHealth Connectをインストールまたは更新してください。',
-			'settings.healthConnect.updateRequired.title' => 'Health Connectの対応が必要です',
 			'settings.about.title' => 'このアプリについて',
 			'settings.about.tagline' => '速く、無料、プライバシー優先のカロリー意識',
 			'settings.about.ourStory.title' => '私たちのストーリー',
@@ -2321,11 +2516,11 @@ extension on TranslationsJa {
 			'settings.about.privacy.description' => 'プライバシーは後付けではなく設計原則です。実際にどういうことかは以下の通りです：',
 			'settings.about.privacy.noAccounts' => 'アカウント不要\nすぐにアプリを使えます。サインアップや個人情報は不要です。',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => '行動トラッキングなし\n${appLabel}はあなたの行動を監視したり、使用プロファイルを構築したり、アプリやウェブを横断して追跡したりしません。',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '限定的な分析と診断\n${appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => '広告なしで設計\n${appLabel}は広告やデータ駆動のマネタイズなしで動作するよう作られています。',
 			'settings.about.privacy.noDataSelling' => 'データ販売なし\nあなたの健康データが第三者に販売または共有されることはありません。',
 			'settings.about.privacy.localStorage' => 'ローカルファーストの保存\nあなたのデータは端末に留まります。',
 			'settings.about.privacy.privacyPolicy' => 'プライバシーポリシー',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '限定的な分析と診断\n${appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。',
 			'settings.about.developer.title' => 'ソロ開発者による開発',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}は、落ち着いたプライバシー重視の健康ソフトウェアを作ることに集中する単独の開発者によって作られ、維持されています。\n\nフィードバックは個人で読み、アプリの方向性を形作るのに役立ちます。',
 			'settings.about.developer.website' => 'ウェブサイト',
@@ -2432,6 +2627,101 @@ extension on TranslationsJa {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'データを消去',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'ローカル栄養データをダウンロードして検証できませんでした: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'ローカル栄養データを消去しました',
+			'watch.appTitle' => 'Calorify ウォッチ',
+			'watch.common.back' => '戻る',
+			'watch.common.cancel' => 'キャンセル',
+			'watch.common.delete' => '削除',
+			'watch.common.retry' => '再試行',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => '栄養素',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}、${value} g',
+			'watch.nutrition.protein' => 'タンパク質',
+			'watch.nutrition.carbs' => '炭水化物',
+			'watch.nutrition.fat' => '脂質',
+			'watch.nutrition.fiber' => '食物繊維',
+			'watch.sync.syncWithPhone' => '電話と同期',
+			'watch.sync.syncing' => '同期中…',
+			'watch.sync.synced' => '同期済み',
+			'watch.sync.syncedJustNow' => '同期したばかりです',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => '約${minutes}分前に同期しました',
+			'watch.sync.failed' => '同期に失敗しました',
+			'watch.sync.phoneDisconnected' => '電話の接続が切れました',
+			'watch.sync.tapToSync' => 'タップして同期',
+			'watch.sync.refreshFailed' => '更新できませんでした。電話を確認してください。',
+			'watch.sync.openPhone' => '電話で Calorify を開き、更新をタップしてください。',
+			'watch.home.today' => '今日',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kcal を ${goal} 中 消費しました。${status}。',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} オーバー',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} 残り',
+			'watch.home.left' => ({required Object calories}) => '${calories} 残り',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal 目標',
+			'watch.home.logMeal' => '食事を記録',
+			'watch.home.todayMeals' => '今日の食事',
+			'watch.home.todayMealsCount' => ({required Object count}) => '今日の食事、${count}件',
+			'watch.home.viewMore' => ({required Object count}) => '${count}件を表示',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count}件の追加の食事があります。タップしてすべて表示。',
+			'watch.home.noMeals' => '記録された食事はありません',
+			'watch.home.noMealsSemantics' => '今日の記録はありません',
+			'watch.home.tapLog' => '開始するには「記録」をタップ',
+			'watch.home.removedFromQueue' => 'オフラインキューから食事が削除されました。',
+			'watch.home.removedOffline' => 'オフラインで食事を削除しました。電話が再接続されると同期されます。',
+			'watch.home.deleteFailed' => '食事を削除できませんでした',
+			'watch.history.title' => '今日の食事',
+			'watch.history.refresh' => '食事を更新',
+			'watch.history.loadFailed' => '食事を読み込めませんでした',
+			'watch.history.syncFailed' => '同期できませんでした',
+			'watch.history.emptyTitle' => 'まだ食事がありません',
+			'watch.history.emptyMessage' => 'ホームで食事を記録するとここに表示されます。',
+			'watch.favorites.title' => 'お気に入り',
+			'watch.favorites.refresh' => 'お気に入りを更新',
+			'watch.favorites.loadFailed' => 'お気に入りを読み込めませんでした',
+			'watch.favorites.syncFailed' => '同期できませんでした',
+			'watch.favorites.emptyTitle' => 'まだお気に入りはありません',
+			'watch.favorites.emptyMessage' => '電話アプリで食事に★を付けると、ここでワンタップで記録できます。',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}、${calories}。タップして記録。',
+			'watch.favorites.logged' => ({required Object name}) => '${name} を記録しました！',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} をオフラインで保存しました。電話が再接続されると同期されます。',
+			'watch.favorites.saveFailed' => '食事を保存できませんでした。再度お試しください。',
+			'watch.favorites.log' => '記録',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}、${calories}、${time} に記録済み。',
+			'watch.meal.longPressDelete' => '削除するには長押ししてください。',
+			'watch.meal.deleteTitle' => '食事を削除しますか？',
+			'watch.voice.title' => '音声で記録',
+			'watch.voice.processing' => '食事を確認しています…',
+			'watch.voice.processingDescription' => '分量と栄養を推定しています',
+			'watch.voice.listening' => '聞き取り中',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}秒',
+			'watch.voice.stop' => '録音を停止',
+			'watch.voice.start' => 'タップして録音を開始',
+			'watch.voice.starting' => 'マイクを起動しています…',
+			'watch.voice.prompt' => 'タップしてから食事を説明してください',
+			'watch.voice.tapToRetry' => 'タップして再試行',
+			'watch.voice.example' => '例：「ロティ2枚とダール」',
+			'watch.voice.unavailable' => '音声入力は利用できません。ウォッチの設定でマイクの権限を確認してください。',
+			'watch.voice.didNotStart' => 'マイクが起動しませんでした。タップして再試行してください。',
+			'watch.voice.startFailed' => '録音を開始できませんでした。マイクの権限を確認してください。',
+			'watch.voice.allowMicrophone' => '音声で記録するにはマイクのアクセスを許可してください。',
+			'watch.voice.needsConnection' => '音声認識には接続が必要です。タップして再試行してください。',
+			'watch.voice.microphoneUnavailable' => 'マイクが利用できません。タップして再試行してください。',
+			'watch.voice.microphoneBusy' => 'マイクが使用中です。少し待ってから再試行してください。',
+			'watch.voice.languageUnsupported' => '音声入力はこのウォッチの言語をサポートしていません。',
+			'watch.voice.temporarilyBusy' => '音声入力が一時的に混雑しています。少し待ってから再試行してください。',
+			'watch.voice.notRecognized' => '聞き取れませんでした。マイクをタップしてもう一度お試しください。',
+			'watch.voice.noSpeech' => '音声が検出されませんでした。マイクをタップして再度お試しください。',
+			'watch.voice.analysisFailed' => '解析に失敗しました。もう一度お試しください。',
+			'watch.voice.mealNotIdentified' => 'その食事を特定できませんでした。別の言い方で説明してみてください。',
+			'watch.result.title' => '食事の詳細',
+			'watch.result.savedOffline' => 'オフラインで保存されました',
+			'watch.result.logged' => '記録しました！',
+			'watch.result.mealFound' => '食事を見つけました',
+			'watch.result.estimatedEnergy' => '推定エネルギー',
+			'watch.result.logMeal' => '食事を記録',
+			'watch.result.logging' => '記録中…',
+			'watch.result.logAnother' => '別の食事を記録',
+			'watch.result.goingBack' => '戻ります…',
+			'watch.result.savedOfflineMessage' => '食事はオフラインで保存されました。電話が再接続されると同期されます。',
+			'watch.result.saveFailed' => '食事を保存できませんでした。もう一度お試しください。',
 			'common.close' => '閉じる',
 			'common.kContinue' => '続ける',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}を楽しんでいますか？',

@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Health Connect ile bağlanın",
       "description": "Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.",
+      "overviewDescription": "Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.",
       "automaticTracking": {
         "title": "Yakılan Kaloriler",
         "description": "Bugün yakılan toplam kaloriyi Health Connect'ten okuyun"
+      },
+      "caloriesBurned": {
+        "title": "Yakılan Kaloriler",
+        "description": "Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun"
       },
       "progressInsights": {
         "title": "Kaydedilen Öğünleri Paylaş",
         "description": "Calorify'da kaydettiğiniz öğünleri Health Connect'e yazın"
       },
+      "shareLoggedMeals": {
+        "title": "Kaydedilen Öğünleri Paylaş",
+        "description": "Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın"
+      },
       "seamlessIntegration": {
         "title": "Kontrol Sizde",
         "description": "İki izinden birini seçin ve erişimi istediğiniz zaman değiştirin"
+      },
+      "userControl": {
+        "title": "Kontrol Sizde",
+        "description": "İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin"
       },
       "connected": "Health Connect Bağlandı",
       "notConnected": "Health Connect Bağlı Değil",
@@ -108,20 +121,7 @@
       "installOrUpdate": "Yükle veya güncelle",
       "manageAccess": "Erişimi yönet",
       "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.",
-      "statusError": "Health Connect kurulurken hata: {error}",
-      "caloriesBurned": {
-        "description": "Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun",
-        "title": "Yakılan Kaloriler"
-      },
-      "overviewDescription": "Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.",
-      "shareLoggedMeals": {
-        "description": "Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın",
-        "title": "Kaydedilen Öğünleri Paylaş"
-      },
-      "userControl": {
-        "description": "İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin",
-        "title": "Kontrol Sizde"
-      }
+      "statusError": "Health Connect kurulurken hata: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -246,9 +246,9 @@
       "title": "Health Connect ile Senkronize Et",
       "description": "Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın",
       "install": "Yükle veya güncelle",
-      "connect": "Bağla",
       "dataUseDescription": "Hedefinizde yakılan kalorileri kullanın ve kaydedilen öğünleri paylaşın",
-      "installOrUpdate": "Yükle veya güncelle"
+      "installOrUpdate": "Yükle veya güncelle",
+      "connect": "Bağla"
     }
   },
   "history": {
@@ -562,12 +562,12 @@
     "clearAllData": {
       "title": "Tüm Verileri Temizle",
       "subtitle": "Bu cihazda saklanan Calorify verilerini silin",
+      "localOnlySubtitle": "Bu cihazda saklanan Calorify verilerini sil",
       "confirmationTitle": "Tüm Veriler Temizlensin mi?",
       "confirmationMessage": "Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.",
-      "cancel": "İptal",
-      "clearEverything": "Her Şeyi Temizle",
       "localOnlyConfirmationMessage": "Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.",
-      "localOnlySubtitle": "Bu cihazda saklanan Calorify verilerini sil"
+      "cancel": "İptal",
+      "clearEverything": "Her Şeyi Temizle"
     },
     "debugOptions": {
       "title": "Hata Ayıklama Seçenekleri"
@@ -639,11 +639,11 @@
         "description": "Gizlilik sonradan düşünülmüş bir unsur değil — bir tasarım ilkesidir. Bu pratikte şu anlama gelir:",
         "noAccounts": "Hesap gerekmez\nUygulamayı hemen kullanın. Kayıt yok, kimlik yok.",
         "noTracking": "Sınırlı analiz ve tanılama\n{appLabel}, güvenilirliği artırmak için temel uygulama etkinliklerini ve kilitlenme tanılamasını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.",
+        "analyticsDisclosure": "Sınırlı analiz ve tanılama\n{appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.",
         "noAds": "Reklamsız tasarım\n{appLabel} reklamlar veya veri odaklı para kazanma yöntemleri olmadan çalışacak şekilde tasarlandı.",
         "noDataSelling": "Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.",
         "localStorage": "Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.",
-        "privacyPolicy": "Gizlilik Politikası",
-        "analyticsDisclosure": "Sınırlı analiz ve tanılama\n{appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz."
+        "privacyPolicy": "Gizlilik Politikası"
       },
       "developer": {
         "title": "Tek Geliştirici Tarafından Yapıldı",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Verileri temizle",
     "offlineNutritionInstallFailed": "Yerel besin verileri indirilemedi ve doğrulanamadı: {error}",
     "offlineNutritionCleared": "Yerel besin verileri temizlendi"
+  },
+  "watch": {
+    "appTitle": "Calorify Saat",
+    "common": {
+      "back": "Geri",
+      "cancel": "İptal",
+      "delete": "Sil",
+      "retry": "Tekrar dene",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Besin",
+      "grams": "{label}, {value} gram",
+      "protein": "Protein",
+      "carbs": "Karbonhidrat",
+      "fat": "Yağ",
+      "fiber": "Lif"
+    },
+    "sync": {
+      "syncWithPhone": "Telefonla eşitle",
+      "syncing": "Eşitleniyor…",
+      "synced": "Eşitlendi",
+      "syncedJustNow": "Az önce eşitlendi",
+      "syncedMinutesAgo": "{minutes}dk önce eşitlendi",
+      "failed": "Eşitleme başarısız",
+      "phoneDisconnected": "Telefon bağlantısı kesildi",
+      "tapToSync": "Eşitlemek için dokun",
+      "refreshFailed": "Yenilenemedi. Telefonunuzu kontrol edin.",
+      "openPhone": "Telefonunuzda Calorify'i açın, ardından yenileye dokunun."
+    },
+    "home": {
+      "today": "Bugün",
+      "calorieSummary": "{consumed} kalori tüketildi, hedef {goal}. {status}.",
+      "overGoal": "{calories} hedefin üzerinde",
+      "remaining": "{calories} kaldı",
+      "left": "{calories} kaldı",
+      "goal": "{calories} kcal hedef",
+      "logMeal": "Yemek kaydet",
+      "todayMeals": "Bugünün yemekleri",
+      "todayMealsCount": "Bugünün yemekleri, {count}",
+      "viewMore": "{count} tane daha görüntüle",
+      "viewMoreSemantics": "{count} yemek daha, hepsini görüntülemek için dokun",
+      "noMeals": "Yemek kaydı yok",
+      "noMealsSemantics": "Bugün yemek kaydı yok",
+      "tapLog": "Başlamak için Kaydet'e dokun",
+      "removedFromQueue": "Yemek çevrimdışı kuyruğundan kaldırıldı.",
+      "removedOffline": "Yemek çevrimdışı olarak kaldırıldı. Telefonunuz yeniden bağlandığında eşitlenecek.",
+      "deleteFailed": "Yemek silinemedi"
+    },
+    "history": {
+      "title": "Bugünün yemekleri",
+      "refresh": "Yemekleri yenile",
+      "loadFailed": "Yemekler yüklenemedi",
+      "syncFailed": "Eşitlenemedi",
+      "emptyTitle": "Henüz yemek yok",
+      "emptyMessage": "Burada görmek için Ana ekrandan bir yemek kaydedin."
+    },
+    "favorites": {
+      "title": "Favoriler",
+      "refresh": "Favorileri yenile",
+      "loadFailed": "Favoriler yüklenemedi",
+      "syncFailed": "Eşitlenemedi",
+      "emptyTitle": "Henüz favori yok",
+      "emptyMessage": "Telefon uygulamasında yemekleri yıldızlayın; burada tek dokunuşla kaydedebilirsiniz.",
+      "mealSemantics": "{name}, {calories} kalori. Kaydetmek için dokun.",
+      "logged": "{name} kaydedildi!",
+      "savedOffline": "{name} çevrimdışı olarak kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.",
+      "saveFailed": "Yemek kaydedilemedi. Lütfen tekrar deneyin.",
+      "log": "Kaydet"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kalori, {time}'de kaydedildi.",
+      "longPressDelete": "Silmek için uzun basın.",
+      "deleteTitle": "Yemeği sil?"
+    },
+    "voice": {
+      "title": "Sesle yemek kaydı",
+      "processing": "Yemeğiniz kontrol ediliyor…",
+      "processingDescription": "Porsiyon ve besin değerleri tahmin ediliyor",
+      "listening": "Dinliyor",
+      "secondsLeft": "{seconds}sn",
+      "stop": "Kaydı durdur",
+      "start": "Kaydı başlatmak için dokun",
+      "starting": "Mikrofon başlatılıyor…",
+      "prompt": "Dokun, sonra yemeğini tarif et",
+      "tapToRetry": "Tekrar denemek için dokun",
+      "example": "Örneğin “2 roti ile dal”",
+      "unavailable": "Ses girişi kullanılamıyor. Saat ayarlarında mikrofon iznini kontrol edin.",
+      "didNotStart": "Mikrofon başlamadı. Tekrar denemek için dokun.",
+      "startFailed": "Kayıt başlatılamadı. Mikrofon izinlerini kontrol edin.",
+      "allowMicrophone": "Yemekleri sesle kaydetmek için mikrofon erişimine izin verin.",
+      "needsConnection": "Ses tanıma bağlantı gerektirir. Tekrar denemek için dokun.",
+      "microphoneUnavailable": "Mikrofon kullanılamıyor. Tekrar denemek için dokun.",
+      "microphoneBusy": "Mikrofon meşgul. Biraz bekleyip tekrar deneyin.",
+      "languageUnsupported": "Ses girişi saatinizin dilini desteklemiyor.",
+      "temporarilyBusy": "Ses girişi geçici olarak meşgul. Biraz bekleyip tekrar deneyin.",
+      "notRecognized": "Yakalayamadım. Mikrofon simgesine dokunup tekrar deneyin.",
+      "noSpeech": "Konuşma algılanmadı. Tekrar denemek için mikrofona dokunun.",
+      "analysisFailed": "Analiz başarısız oldu. Lütfen tekrar deneyin.",
+      "mealNotIdentified": "Bu yemeği tanımlayamadım. Farklı şekilde tarif etmeyi deneyin."
+    },
+    "result": {
+      "title": "Yemek ayrıntıları",
+      "savedOffline": "Çevrimdışı kaydedildi",
+      "logged": "Kaydedildi!",
+      "mealFound": "Yemek bulundu",
+      "estimatedEnergy": "Tahmini enerji",
+      "logMeal": "Yemeği kaydet",
+      "logging": "Kaydediliyor…",
+      "logAnother": "Bir tane daha kaydet",
+      "goingBack": "Geri dönülüyor…",
+      "savedOfflineMessage": "Yemek çevrimdışı kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.",
+      "saveFailed": "Yemek kaydedilemedi. Lütfen tekrar deneyin."
+    }
   },
   "common": {
     "close": "Kapat",

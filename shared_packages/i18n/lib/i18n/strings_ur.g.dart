@@ -58,6 +58,7 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$ur login = _Translations$login$ur._(_root);
 	@override late final _Translations$disclaimer$ur disclaimer = _Translations$disclaimer$ur._(_root);
 	@override late final _Translations$localNutritionPhase4$ur localNutritionPhase4 = _Translations$localNutritionPhase4$ur._(_root);
+	@override late final _Translations$watch$ur watch = _Translations$watch$ur._(_root);
 	@override late final _Translations$common$ur common = _Translations$common$ur._(_root);
 	@override late final _Translations$feedbackRating$ur feedbackRating = _Translations$feedbackRating$ur._(_root);
 	@override late final _Translations$health$ur health = _Translations$health$ur._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$ur extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'مقامی غذائی ڈیٹا صاف کر دیا گیا';
 }
 
+// Path: watch
+class _Translations$watch$ur extends Translations$watch$en {
+	_Translations$watch$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify واچ';
+	@override late final _Translations$watch$common$ur common = _Translations$watch$common$ur._(_root);
+	@override late final _Translations$watch$nutrition$ur nutrition = _Translations$watch$nutrition$ur._(_root);
+	@override late final _Translations$watch$sync$ur sync = _Translations$watch$sync$ur._(_root);
+	@override late final _Translations$watch$home$ur home = _Translations$watch$home$ur._(_root);
+	@override late final _Translations$watch$history$ur history = _Translations$watch$history$ur._(_root);
+	@override late final _Translations$watch$favorites$ur favorites = _Translations$watch$favorites$ur._(_root);
+	@override late final _Translations$watch$meal$ur meal = _Translations$watch$meal$ur._(_root);
+	@override late final _Translations$watch$voice$ur voice = _Translations$watch$voice$ur._(_root);
+	@override late final _Translations$watch$result$ur result = _Translations$watch$result$ur._(_root);
+}
+
 // Path: common
 class _Translations$common$ur extends Translations$common$en {
 	_Translations$common$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -753,8 +773,8 @@ class _Translations$home$connectHealth$ur extends Translations$home$connectHealt
 	// Translations
 	@override String get title => 'Health Connect کے ساتھ ہم وقت کریں';
 	@override String get description => 'اپنے غذائی ڈیٹا کو Health Connect کے ساتھ ہم وقت کریں';
-	@override String get dataUseDescription => 'اپنے ہدف میں جلنے والی کیلوریز استعمال کریں اور لاگ کیے گئے کھانے شیئر کریں';
 	@override String get install => 'انسٹال کریں';
+	@override String get dataUseDescription => 'اپنے ہدف میں جلنے والی کیلوریز استعمال کریں اور لاگ کیے گئے کھانے شیئر کریں';
 	@override String get installOrUpdate => 'انسٹال یا اپ ڈیٹ کریں';
 	@override String get connect => 'کنیکٹ کریں';
 }
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$ur extends Translations$discla
 	@override String get description => 'جب Health Connect کا ڈیٹا دستیاب نہیں ہوتا تو ہم آج جلائی گئی کیلوریز کا اندازہ آپ کے BMR اور سرگرمی کی سطح (TDEE) کی بنیاد پر نکالتے ہیں، اور دن میں گزرے حصے کے تناسب کے مطابق اس کو ایڈجسٹ کرتے ہیں۔';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$ur howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$ur._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$ur professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$ur._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$ur extends Translations$watch$common$en {
+	_Translations$watch$common$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'واپس';
+	@override String get cancel => 'منسوخ کریں';
+	@override String get delete => 'حذف کریں';
+	@override String get retry => 'دوبارہ کوشش کریں';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$ur extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'مغذیات';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} گرام';
+	@override String get protein => 'پروٹین';
+	@override String get carbs => 'کاربوہائیڈریٹس';
+	@override String get fat => 'چربی';
+	@override String get fiber => 'فائبر';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$ur extends Translations$watch$sync$en {
+	_Translations$watch$sync$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'فون کے ساتھ ہم آہنگ کریں';
+	@override String get syncing => 'ہم آہنگ کیا جا رہا ہے…';
+	@override String get synced => 'ہم آہنگ ہوگیا';
+	@override String get syncedJustNow => 'ابھی ہم آہنگ ہوا';
+	@override String syncedMinutesAgo({required Object minutes}) => '${minutes} منٹ پہلے ہم آہنگ';
+	@override String get failed => 'ہم آہنگی ناکام';
+	@override String get phoneDisconnected => 'فون منقطع';
+	@override String get tapToSync => 'ہم آہنگ کرنے کے لیے ٹیپ کریں';
+	@override String get refreshFailed => 'تازہ کاری ممکن نہیں۔ فون چیک کریں۔';
+	@override String get openPhone => 'فون پر Calorify کھولیں، پھر تازہ کریں پر ٹیپ کریں۔';
+}
+
+// Path: watch.home
+class _Translations$watch$home$ur extends Translations$watch$home$en {
+	_Translations$watch$home$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'آج';
+	@override String calorieSummary({required Object goal, required Object consumed, required Object status}) => '${goal} میں سے ${consumed} کیلوریز استعمال ہوئیں۔ ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} ہدف سے زیادہ';
+	@override String remaining({required Object calories}) => '${calories} باقی';
+	@override String left({required Object calories}) => '${calories} باقی';
+	@override String goal({required Object calories}) => '${calories} kcal ہدف';
+	@override String get logMeal => 'کھانا درج کریں';
+	@override String get todayMeals => 'آج کے کھانے';
+	@override String todayMealsCount({required Object count}) => 'آج کے کھانے، ${count}';
+	@override String viewMore({required Object count}) => 'مزید ${count} دیکھیں';
+	@override String viewMoreSemantics({required Object count}) => '${count} مزید کھانے۔ تمام دیکھنے کے لیے ٹیپ کریں';
+	@override String get noMeals => 'کوئی کھانا درج نہیں';
+	@override String get noMealsSemantics => 'آج کوئی کھانا درج نہیں';
+	@override String get tapLog => 'شروع کرنے کے لیے لاگ پر ٹیپ کریں';
+	@override String get removedFromQueue => 'کھانا آف لائن قطار سے ہٹا دیا گیا۔';
+	@override String get removedOffline => 'کھانا آف لائن میں ہٹا دیا گیا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔';
+	@override String get deleteFailed => 'کھانا حذف نہیں ہو سکا';
+}
+
+// Path: watch.history
+class _Translations$watch$history$ur extends Translations$watch$history$en {
+	_Translations$watch$history$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'آج کے کھانے';
+	@override String get refresh => 'کھانوں کو تازہ کریں';
+	@override String get loadFailed => 'کھانے لوڈ نہیں ہو سکے';
+	@override String get syncFailed => 'ہم آہنگ نہیں ہو سکا';
+	@override String get emptyTitle => 'ابھی تک کوئی کھانا نہیں';
+	@override String get emptyMessage => 'یہاں دیکھنے کے لیے ہوم سے ایک کھانا درج کریں۔';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$ur extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'پسندیدہ';
+	@override String get refresh => 'پسندیدہ کو تازہ کریں';
+	@override String get loadFailed => 'پسندیدہ لوڈ نہیں ہو سکے';
+	@override String get syncFailed => 'ہم آہنگ نہیں ہو سکا';
+	@override String get emptyTitle => 'ابھی تک کوئی پسندیدہ نہیں';
+	@override String get emptyMessage => 'فون ایپ میں کھانوں کو ستارہ لگا کر یہاں ایک ٹیپ سے درج کریں۔';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}، ${calories} کیلوریز۔ درج کرنے کے لیے ٹیپ کریں۔';
+	@override String logged({required Object name}) => '${name} درج ہو گیا!';
+	@override String savedOffline({required Object name}) => '${name} آف لائن محفوظ ہوا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔';
+	@override String get saveFailed => 'کھانا محفوظ نہیں ہو سکا۔ براہِ مہربانی دوبارہ کوشش کریں۔';
+	@override String get log => 'درج کریں';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$ur extends Translations$watch$meal$en {
+	_Translations$watch$meal$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}، ${calories} کیلوریز، ${time} پر درج ہوا۔';
+	@override String get longPressDelete => 'حذف کرنے کے لیے طویل دبائیں۔';
+	@override String get deleteTitle => 'کھانا حذف کریں؟';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$ur extends Translations$watch$voice$en {
+	_Translations$watch$voice$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'آواز سے کھانا درج کریں';
+	@override String get processing => 'آپ کے کھانے کی جانچ کی جارہی ہے…';
+	@override String get processingDescription => 'حصے اور غذائیات کا اندازہ لگایا جا رہا ہے';
+	@override String get listening => 'سن رہا ہے…';
+	@override String secondsLeft({required Object seconds}) => 'باقی ${seconds}s';
+	@override String get stop => 'ریکارڈنگ روکیں';
+	@override String get start => 'ریکارڈنگ شروع کرنے کے لیے ٹیپ کریں';
+	@override String get starting => 'مائیکروفون شروع کیا جا رہا ہے…';
+	@override String get prompt => 'ٹیپ کریں، پھر اپنے کھانے کی تفصیل بتائیں';
+	@override String get tapToRetry => 'دوبارہ کوشش کرنے کے لیے ٹیپ کریں';
+	@override String get example => 'مثال: 2 روٹیاں دال کے ساتھ';
+	@override String get unavailable => 'آوازی اندراج دستیاب نہیں۔ واچ کی ترتیبات میں مائیکروفون کی اجازت چیک کریں۔';
+	@override String get didNotStart => 'مائیکروفون شروع نہیں ہوا۔ دوبارہ کوشش کرنے کے لیے ٹیپ کریں۔';
+	@override String get startFailed => 'ریکارڈنگ شروع نہیں ہو سکی۔ مائیکروفون کی اجازتیں چیک کریں۔';
+	@override String get allowMicrophone => 'آواز سے کھانے درج کرنے کے لیے مائیکروفون کی رسائی کی اجازت دیں۔';
+	@override String get needsConnection => 'آواز شناخت کے لیے کنکشن درکار ہے۔ دوبارہ کوشش کرنے کے لیے ٹیپ کریں۔';
+	@override String get microphoneUnavailable => 'مائیکروفون دستیاب نہیں ہے۔ دوبارہ کوشش کرنے کے لیے ٹیپ کریں۔';
+	@override String get microphoneBusy => 'مائیکروفون مصروف ہے۔ ذرا انتظار کریں اور دوبارہ کوشش کریں۔';
+	@override String get languageUnsupported => 'آوازی اندراج واچ کی زبان کی حمایت نہیں کرتا۔';
+	@override String get temporarilyBusy => 'آوازی اندراج عارضی طور پر مصروف ہے۔ ذرا انتظار کریں اور دوبارہ کوشش کریں۔';
+	@override String get notRecognized => 'سمجھ نہیں پایا۔ مائیک پر ٹیپ کریں اور دوبارہ کوشش کریں۔';
+	@override String get noSpeech => 'کوئی آواز شناخت نہیں ہوئی۔ دوبارہ کوشش کے لیے مائیک پر ٹیپ کریں۔';
+	@override String get analysisFailed => 'تجزیہ ناکام رہا۔ براہِ مہربانی دوبارہ کوشش کریں۔';
+	@override String get mealNotIdentified => 'اس کھانے کی شناخت نہیں ہو سکی۔ اسے مختلف طریقے سے بیان کر کے دیکھیں۔';
+}
+
+// Path: watch.result
+class _Translations$watch$result$ur extends Translations$watch$result$en {
+	_Translations$watch$result$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+	final TranslationsUr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'کھانے کی تفصیلات';
+	@override String get savedOffline => 'آف لائن محفوظ';
+	@override String get logged => 'درج ہو گیا!';
+	@override String get mealFound => 'کھانا مل گیا';
+	@override String get estimatedEnergy => 'تخمینی توانائی';
+	@override String get logMeal => 'کھانا درج کریں';
+	@override String get logging => 'درج کیا جا رہا ہے…';
+	@override String get logAnother => 'ایک اور درج کریں';
+	@override String get goingBack => 'واپس جا رہے ہیں…';
+	@override String get savedOfflineMessage => 'کھانا آف لائن محفوظ کیا گیا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔';
+	@override String get saveFailed => 'کھانا محفوظ نہیں ہو سکا۔ براہِ مہربانی دوبارہ کوشش کریں۔';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2026,8 +2221,8 @@ extension on TranslationsUr {
 			'home.mealSnap.uploadingPhoto' => 'تصویر اپ لوڈ کی جا رہی ہے…',
 			'home.connectHealth.title' => 'Health Connect کے ساتھ ہم وقت کریں',
 			'home.connectHealth.description' => 'اپنے غذائی ڈیٹا کو Health Connect کے ساتھ ہم وقت کریں',
-			'home.connectHealth.dataUseDescription' => 'اپنے ہدف میں جلنے والی کیلوریز استعمال کریں اور لاگ کیے گئے کھانے شیئر کریں',
 			'home.connectHealth.install' => 'انسٹال کریں',
+			'home.connectHealth.dataUseDescription' => 'اپنے ہدف میں جلنے والی کیلوریز استعمال کریں اور لاگ کیے گئے کھانے شیئر کریں',
 			'home.connectHealth.installOrUpdate' => 'انسٹال یا اپ ڈیٹ کریں',
 			'home.connectHealth.connect' => 'کنیکٹ کریں',
 			'history.noMeals' => 'کوئی کھانا ریکارڈ نہیں ہوا',
@@ -2432,6 +2627,101 @@ extension on TranslationsUr {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'ڈیٹا صاف کریں',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'مقامی غذائی ڈیٹا ڈاؤن لوڈ اور تصدیق نہیں کیا جا سکا: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'مقامی غذائی ڈیٹا صاف کر دیا گیا',
+			'watch.appTitle' => 'Calorify واچ',
+			'watch.common.back' => 'واپس',
+			'watch.common.cancel' => 'منسوخ کریں',
+			'watch.common.delete' => 'حذف کریں',
+			'watch.common.retry' => 'دوبارہ کوشش کریں',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'مغذیات',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} گرام',
+			'watch.nutrition.protein' => 'پروٹین',
+			'watch.nutrition.carbs' => 'کاربوہائیڈریٹس',
+			'watch.nutrition.fat' => 'چربی',
+			'watch.nutrition.fiber' => 'فائبر',
+			'watch.sync.syncWithPhone' => 'فون کے ساتھ ہم آہنگ کریں',
+			'watch.sync.syncing' => 'ہم آہنگ کیا جا رہا ہے…',
+			'watch.sync.synced' => 'ہم آہنگ ہوگیا',
+			'watch.sync.syncedJustNow' => 'ابھی ہم آہنگ ہوا',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => '${minutes} منٹ پہلے ہم آہنگ',
+			'watch.sync.failed' => 'ہم آہنگی ناکام',
+			'watch.sync.phoneDisconnected' => 'فون منقطع',
+			'watch.sync.tapToSync' => 'ہم آہنگ کرنے کے لیے ٹیپ کریں',
+			'watch.sync.refreshFailed' => 'تازہ کاری ممکن نہیں۔ فون چیک کریں۔',
+			'watch.sync.openPhone' => 'فون پر Calorify کھولیں، پھر تازہ کریں پر ٹیپ کریں۔',
+			'watch.home.today' => 'آج',
+			'watch.home.calorieSummary' => ({required Object goal, required Object consumed, required Object status}) => '${goal} میں سے ${consumed} کیلوریز استعمال ہوئیں۔ ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} ہدف سے زیادہ',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} باقی',
+			'watch.home.left' => ({required Object calories}) => '${calories} باقی',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal ہدف',
+			'watch.home.logMeal' => 'کھانا درج کریں',
+			'watch.home.todayMeals' => 'آج کے کھانے',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'آج کے کھانے، ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'مزید ${count} دیکھیں',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} مزید کھانے۔ تمام دیکھنے کے لیے ٹیپ کریں',
+			'watch.home.noMeals' => 'کوئی کھانا درج نہیں',
+			'watch.home.noMealsSemantics' => 'آج کوئی کھانا درج نہیں',
+			'watch.home.tapLog' => 'شروع کرنے کے لیے لاگ پر ٹیپ کریں',
+			'watch.home.removedFromQueue' => 'کھانا آف لائن قطار سے ہٹا دیا گیا۔',
+			'watch.home.removedOffline' => 'کھانا آف لائن میں ہٹا دیا گیا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔',
+			'watch.home.deleteFailed' => 'کھانا حذف نہیں ہو سکا',
+			'watch.history.title' => 'آج کے کھانے',
+			'watch.history.refresh' => 'کھانوں کو تازہ کریں',
+			'watch.history.loadFailed' => 'کھانے لوڈ نہیں ہو سکے',
+			'watch.history.syncFailed' => 'ہم آہنگ نہیں ہو سکا',
+			'watch.history.emptyTitle' => 'ابھی تک کوئی کھانا نہیں',
+			'watch.history.emptyMessage' => 'یہاں دیکھنے کے لیے ہوم سے ایک کھانا درج کریں۔',
+			'watch.favorites.title' => 'پسندیدہ',
+			'watch.favorites.refresh' => 'پسندیدہ کو تازہ کریں',
+			'watch.favorites.loadFailed' => 'پسندیدہ لوڈ نہیں ہو سکے',
+			'watch.favorites.syncFailed' => 'ہم آہنگ نہیں ہو سکا',
+			'watch.favorites.emptyTitle' => 'ابھی تک کوئی پسندیدہ نہیں',
+			'watch.favorites.emptyMessage' => 'فون ایپ میں کھانوں کو ستارہ لگا کر یہاں ایک ٹیپ سے درج کریں۔',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}، ${calories} کیلوریز۔ درج کرنے کے لیے ٹیپ کریں۔',
+			'watch.favorites.logged' => ({required Object name}) => '${name} درج ہو گیا!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} آف لائن محفوظ ہوا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔',
+			'watch.favorites.saveFailed' => 'کھانا محفوظ نہیں ہو سکا۔ براہِ مہربانی دوبارہ کوشش کریں۔',
+			'watch.favorites.log' => 'درج کریں',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}، ${calories} کیلوریز، ${time} پر درج ہوا۔',
+			'watch.meal.longPressDelete' => 'حذف کرنے کے لیے طویل دبائیں۔',
+			'watch.meal.deleteTitle' => 'کھانا حذف کریں؟',
+			'watch.voice.title' => 'آواز سے کھانا درج کریں',
+			'watch.voice.processing' => 'آپ کے کھانے کی جانچ کی جارہی ہے…',
+			'watch.voice.processingDescription' => 'حصے اور غذائیات کا اندازہ لگایا جا رہا ہے',
+			'watch.voice.listening' => 'سن رہا ہے…',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => 'باقی ${seconds}s',
+			'watch.voice.stop' => 'ریکارڈنگ روکیں',
+			'watch.voice.start' => 'ریکارڈنگ شروع کرنے کے لیے ٹیپ کریں',
+			'watch.voice.starting' => 'مائیکروفون شروع کیا جا رہا ہے…',
+			'watch.voice.prompt' => 'ٹیپ کریں، پھر اپنے کھانے کی تفصیل بتائیں',
+			'watch.voice.tapToRetry' => 'دوبارہ کوشش کرنے کے لیے ٹیپ کریں',
+			'watch.voice.example' => 'مثال: 2 روٹیاں دال کے ساتھ',
+			'watch.voice.unavailable' => 'آوازی اندراج دستیاب نہیں۔ واچ کی ترتیبات میں مائیکروفون کی اجازت چیک کریں۔',
+			'watch.voice.didNotStart' => 'مائیکروفون شروع نہیں ہوا۔ دوبارہ کوشش کرنے کے لیے ٹیپ کریں۔',
+			'watch.voice.startFailed' => 'ریکارڈنگ شروع نہیں ہو سکی۔ مائیکروفون کی اجازتیں چیک کریں۔',
+			'watch.voice.allowMicrophone' => 'آواز سے کھانے درج کرنے کے لیے مائیکروفون کی رسائی کی اجازت دیں۔',
+			'watch.voice.needsConnection' => 'آواز شناخت کے لیے کنکشن درکار ہے۔ دوبارہ کوشش کرنے کے لیے ٹیپ کریں۔',
+			'watch.voice.microphoneUnavailable' => 'مائیکروفون دستیاب نہیں ہے۔ دوبارہ کوشش کرنے کے لیے ٹیپ کریں۔',
+			'watch.voice.microphoneBusy' => 'مائیکروفون مصروف ہے۔ ذرا انتظار کریں اور دوبارہ کوشش کریں۔',
+			'watch.voice.languageUnsupported' => 'آوازی اندراج واچ کی زبان کی حمایت نہیں کرتا۔',
+			'watch.voice.temporarilyBusy' => 'آوازی اندراج عارضی طور پر مصروف ہے۔ ذرا انتظار کریں اور دوبارہ کوشش کریں۔',
+			'watch.voice.notRecognized' => 'سمجھ نہیں پایا۔ مائیک پر ٹیپ کریں اور دوبارہ کوشش کریں۔',
+			'watch.voice.noSpeech' => 'کوئی آواز شناخت نہیں ہوئی۔ دوبارہ کوشش کے لیے مائیک پر ٹیپ کریں۔',
+			'watch.voice.analysisFailed' => 'تجزیہ ناکام رہا۔ براہِ مہربانی دوبارہ کوشش کریں۔',
+			'watch.voice.mealNotIdentified' => 'اس کھانے کی شناخت نہیں ہو سکی۔ اسے مختلف طریقے سے بیان کر کے دیکھیں۔',
+			'watch.result.title' => 'کھانے کی تفصیلات',
+			'watch.result.savedOffline' => 'آف لائن محفوظ',
+			'watch.result.logged' => 'درج ہو گیا!',
+			'watch.result.mealFound' => 'کھانا مل گیا',
+			'watch.result.estimatedEnergy' => 'تخمینی توانائی',
+			'watch.result.logMeal' => 'کھانا درج کریں',
+			'watch.result.logging' => 'درج کیا جا رہا ہے…',
+			'watch.result.logAnother' => 'ایک اور درج کریں',
+			'watch.result.goingBack' => 'واپس جا رہے ہیں…',
+			'watch.result.savedOfflineMessage' => 'کھانا آف لائن محفوظ کیا گیا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔',
+			'watch.result.saveFailed' => 'کھانا محفوظ نہیں ہو سکا۔ براہِ مہربانی دوبارہ کوشش کریں۔',
 			'common.close' => 'بند کریں',
 			'common.kContinue' => 'جاری رکھیں',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} پسند آ رہا ہے؟',

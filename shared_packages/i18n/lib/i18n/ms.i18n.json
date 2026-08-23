@@ -83,7 +83,12 @@
     "healthConnect": {
       "title": "Sambung dengan Health Connect",
       "description": "Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.",
+      "overviewDescription": "Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.",
       "automaticTracking": {
+        "title": "Kalori Dibakar",
+        "description": "Baca jumlah kalori yang dibakar hari ini daripada Health Connect"
+      },
+      "caloriesBurned": {
         "title": "Kalori Dibakar",
         "description": "Baca jumlah kalori yang dibakar hari ini daripada Health Connect"
       },
@@ -91,7 +96,15 @@
         "title": "Kongsi Hidangan yang Direkodkan",
         "description": "Tulis hidangan yang anda rekod dalam Calorify ke Health Connect"
       },
+      "shareLoggedMeals": {
+        "title": "Kongsi Hidangan yang Direkodkan",
+        "description": "Tulis hidangan yang anda rekod dalam Calorify ke Health Connect"
+      },
       "seamlessIntegration": {
+        "title": "Anda yang Mengawal",
+        "description": "Pilih salah satu kebenaran dan ubah akses pada bila-bila masa"
+      },
+      "userControl": {
         "title": "Anda yang Mengawal",
         "description": "Pilih salah satu kebenaran dan ubah akses pada bila-bila masa"
       },
@@ -108,20 +121,7 @@
       "installOrUpdate": "Pasang atau kemas kini",
       "manageAccess": "Urus akses",
       "statusPermissionDenied": "Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon untuk {appLabel}.",
-      "statusError": "Ralat semasa menyediakan Health Connect: {error}",
-      "caloriesBurned": {
-        "description": "Baca jumlah kalori yang dibakar hari ini daripada Health Connect",
-        "title": "Kalori Dibakar"
-      },
-      "overviewDescription": "Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.",
-      "shareLoggedMeals": {
-        "description": "Tulis hidangan yang anda rekod dalam Calorify ke Health Connect",
-        "title": "Kongsi Hidangan yang Direkodkan"
-      },
-      "userControl": {
-        "description": "Pilih salah satu kebenaran dan ubah akses pada bila-bila masa",
-        "title": "Anda yang Mengawal"
-      }
+      "statusError": "Ralat semasa menyediakan Health Connect: {error}"
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -246,9 +246,9 @@
       "title": "Segerakkan dengan Health Connect",
       "description": "Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan",
       "install": "Pasang atau kemas kini",
-      "connect": "Sambung",
       "dataUseDescription": "Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan",
-      "installOrUpdate": "Pasang atau kemas kini"
+      "installOrUpdate": "Pasang atau kemas kini",
+      "connect": "Sambung"
     }
   },
   "history": {
@@ -562,12 +562,12 @@
     "clearAllData": {
       "title": "Kosongkan Semua Data",
       "subtitle": "Padam data Calorify yang disimpan pada peranti ini",
+      "localOnlySubtitle": "Padam data Calorify yang disimpan pada peranti ini",
       "confirmationTitle": "Kosongkan Semua Data?",
       "confirmationMessage": "Ini akan memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.",
-      "cancel": "Batal",
-      "clearEverything": "Padam Semua",
       "localOnlyConfirmationMessage": "Ini memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.",
-      "localOnlySubtitle": "Padam data Calorify yang disimpan pada peranti ini"
+      "cancel": "Batal",
+      "clearEverything": "Padam Semua"
     },
     "debugOptions": {
       "title": "Pilihan Debug"
@@ -639,11 +639,11 @@
         "description": "Privasi bukan selepas-fikir — ia adalah prinsip reka bentuk. Ini maksudnya dalam amalan:",
         "noAccounts": "Tiada akaun diperlukan\nGunakan aplikasi serta-merta. Tiada pendaftaran, tiada identiti.",
         "noTracking": "Analitik dan diagnostik terhad\n{appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual.",
+        "analyticsDisclosure": "Analitik dan diagnostik terhad\n{appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual.",
         "noAds": "Tiada iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau pemanfaatkan data.",
         "noDataSelling": "Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.",
         "localStorage": "Penyimpanan bermula-lokal\nData anda kekal pada peranti anda.",
-        "privacyPolicy": "Dasar Privasi",
-        "analyticsDisclosure": "Analitik dan diagnostik terhad\n{appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual."
+        "privacyPolicy": "Dasar Privasi"
       },
       "developer": {
         "title": "Dibina oleh Pembangun Solo",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Kosongkan data",
     "offlineNutritionInstallFailed": "Tidak dapat memuat turun dan mengesahkan data pemakanan tempatan: {error}",
     "offlineNutritionCleared": "Data pemakanan tempatan dikosongkan"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Kembali",
+      "cancel": "Batal",
+      "delete": "Padam",
+      "retry": "Cuba lagi",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutrien",
+      "grams": "{label}, {value} gram",
+      "protein": "Protein",
+      "carbs": "Karbohidrat",
+      "fat": "Lemak",
+      "fiber": "Serat"
+    },
+    "sync": {
+      "syncWithPhone": "Segerakkan dengan telefon",
+      "syncing": "Menyegerakkan…",
+      "synced": "Disegerakkan",
+      "syncedJustNow": "Baru sahaja disegerakkan",
+      "syncedMinutesAgo": "Disegerakkan {minutes}m lalu",
+      "failed": "Gagal menyegerakkan",
+      "phoneDisconnected": "Telefon terputus",
+      "tapToSync": "Ketuk untuk segerakkan",
+      "refreshFailed": "Tidak dapat segarkan. Periksa telefon anda.",
+      "openPhone": "Buka Calorify pada telefon anda, kemudian ketuk Segarkan."
+    },
+    "home": {
+      "today": "Hari ini",
+      "calorieSummary": "{consumed} kalori telah dimakan daripada {goal}. {status}.",
+      "overGoal": "{calories} melebihi sasaran",
+      "remaining": "{calories} baki",
+      "left": "{calories} tinggal",
+      "goal": "{calories} kcal sasaran",
+      "logMeal": "Catat makanan",
+      "todayMeals": "Makanan hari ini",
+      "todayMealsCount": "Makanan hari ini, {count}",
+      "viewMore": "Lihat {count} lagi",
+      "viewMoreSemantics": "{count} lagi makanan, ketuk untuk lihat semua",
+      "noMeals": "Tiada makanan dicatat",
+      "noMealsSemantics": "Tiada makanan dicatat hari ini",
+      "tapLog": "Ketuk Catat untuk mula",
+      "removedFromQueue": "Makanan dikeluarkan dari barisan luar talian.",
+      "removedOffline": "Makanan dialih keluar luar talian. Ia akan disegerakkan apabila telefon anda bersambung semula.",
+      "deleteFailed": "Tidak dapat memadam makanan"
+    },
+    "history": {
+      "title": "Makanan hari ini",
+      "refresh": "Segarkan makanan",
+      "loadFailed": "Tidak dapat memuatkan makanan",
+      "syncFailed": "Tidak dapat menyegerakkan",
+      "emptyTitle": "Tiada makanan lagi",
+      "emptyMessage": "Catat makanan dari Laman Utama untuk melihatnya di sini."
+    },
+    "favorites": {
+      "title": "Kegemaran",
+      "refresh": "Segarkan kegemaran",
+      "loadFailed": "Tidak dapat memuatkan kegemaran",
+      "syncFailed": "Tidak dapat menyegerakkan",
+      "emptyTitle": "Tiada kegemaran lagi",
+      "emptyMessage": "Tandakan makanan sebagai kegemaran dalam aplikasi telefon untuk log satu ketik di sini.",
+      "mealSemantics": "{name}, {calories} kalori. Ketuk untuk catat.",
+      "logged": "{name} dicatat!",
+      "savedOffline": "{name} disimpan secara luar talian. Ia akan disegerakkan apabila telefon anda bersambung semula.",
+      "saveFailed": "Tidak dapat menyimpan makanan. Sila cuba lagi.",
+      "log": "Catat"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kalori, dicatat pada {time}.",
+      "longPressDelete": "Tekan lama untuk padam.",
+      "deleteTitle": "Padam makanan?"
+    },
+    "voice": {
+      "title": "Log makanan melalui suara",
+      "processing": "Memeriksa makanan anda…",
+      "processingDescription": "Menganggarkan saiz hidangan dan nutrisi",
+      "listening": "Mendengar",
+      "secondsLeft": "{seconds}s",
+      "stop": "Hentikan rakaman",
+      "start": "Ketuk untuk mula rakaman",
+      "starting": "Mengaktifkan mikrofon…",
+      "prompt": "Ketuk, kemudian terangkan makanan anda",
+      "tapToRetry": "Ketuk untuk cuba lagi",
+      "example": "Cuba “2 roti dengan dal”",
+      "unavailable": "Input suara tidak tersedia. Semak kebenaran mikrofon dalam tetapan jam.",
+      "didNotStart": "Mikrofon tidak bermula. Ketuk untuk cuba lagi.",
+      "startFailed": "Tidak dapat memulakan rakaman. Semak kebenaran mikrofon.",
+      "allowMicrophone": "Benarkan akses mikrofon untuk mencatat makanan melalui suara.",
+      "needsConnection": "Pengecaman suara memerlukan sambungan. Ketuk untuk cuba lagi.",
+      "microphoneUnavailable": "Mikrofon tidak tersedia. Ketuk untuk cuba lagi.",
+      "microphoneBusy": "Mikrofon sedang digunakan. Tunggu sebentar dan cuba lagi.",
+      "languageUnsupported": "Input suara tidak menyokong bahasa jam.",
+      "temporarilyBusy": "Input suara sedang sibuk buat masa ini. Tunggu sebentar dan cuba lagi.",
+      "notRecognized": "Saya tidak faham. Ketuk ikon mikrofon dan cuba lagi.",
+      "noSpeech": "Tiada suara dikesan. Ketuk ikon mikrofon untuk cuba lagi.",
+      "analysisFailed": "Analisis gagal. Sila cuba lagi.",
+      "mealNotIdentified": "Tidak dapat kenal pasti makanan itu. Cuba terangkan dengan cara lain."
+    },
+    "result": {
+      "title": "Perincian makanan",
+      "savedOffline": "Disimpan secara luar talian",
+      "logged": "Dicatat!",
+      "mealFound": "Makanan ditemui",
+      "estimatedEnergy": "Anggaran tenaga",
+      "logMeal": "Catat makanan",
+      "logging": "Mencatat…",
+      "logAnother": "Catat lagi",
+      "goingBack": "Kembali…",
+      "savedOfflineMessage": "Makanan disimpan secara luar talian. Ia akan disegerakkan apabila telefon anda bersambung semula.",
+      "saveFailed": "Tidak dapat menyimpan makanan. Sila cuba lagi."
+    }
   },
   "common": {
     "close": "Tutup",

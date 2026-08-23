@@ -811,6 +811,121 @@
     "offlineNutritionInstallFailed": "Výživová data se nepodařilo stáhnout a ověřit: {error}",
     "offlineNutritionCleared": "Místní výživová data byla vymazána"
   },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Zpět",
+      "cancel": "Zrušit",
+      "delete": "Smazat",
+      "retry": "Zkusit znovu",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Živina",
+      "grams": "{label}, {value} gramů",
+      "protein": "Bílkoviny",
+      "carbs": "Sacharidy",
+      "fat": "Tuky",
+      "fiber": "Vláknina"
+    },
+    "sync": {
+      "syncWithPhone": "Synchronizovat s telefonem",
+      "syncing": "Synchronizuji…",
+      "synced": "Synchronizováno",
+      "syncedJustNow": "Právě synchronizováno",
+      "syncedMinutesAgo": "Synchronizováno před {minutes} min",
+      "failed": "Synchronizace selhala",
+      "phoneDisconnected": "Telefon odpojen",
+      "tapToSync": "Klepněte pro synchronizaci",
+      "refreshFailed": "Nepodařilo se obnovit. Zkontrolujte telefon.",
+      "openPhone": "Otevřete Calorify v telefonu a potom klepněte na obnovit."
+    },
+    "home": {
+      "today": "Dnes",
+      "calorieSummary": "{consumed} kalorií z {goal}. {status}.",
+      "overGoal": "{calories} nad cílem",
+      "remaining": "{calories} zbývá",
+      "left": "{calories} zbývá",
+      "goal": "Cíl: {calories} kcal",
+      "logMeal": "Zadat jídlo",
+      "todayMeals": "Dnešní jídla",
+      "todayMealsCount": "Dnešní jídla, {count}",
+      "viewMore": "Zobrazit {count} dalších",
+      "viewMoreSemantics": "{count} dalších jídel, klepněte pro zobrazení všech",
+      "noMeals": "Žádná jídla nezaznamenána",
+      "noMealsSemantics": "Dnes žádná jídla nezaznamenána",
+      "tapLog": "Klepněte na Zadat pro začátek",
+      "removedFromQueue": "Jídlo odstraněno z offline fronty.",
+      "removedOffline": "Jídlo odstraněno offline. Synchronizuje se, až se telefon znovu připojí.",
+      "deleteFailed": "Nepodařilo se smazat jídlo"
+    },
+    "history": {
+      "title": "Dnešní jídla",
+      "refresh": "Obnovit jídla",
+      "loadFailed": "Nepodařilo se načíst jídla",
+      "syncFailed": "Nepodařilo se synchronizovat",
+      "emptyTitle": "Žádná jídla zatím",
+      "emptyMessage": "Zadejte jídlo na hlavní obrazovce a bude zde zobrazeno."
+    },
+    "favorites": {
+      "title": "Oblíbené",
+      "refresh": "Obnovit oblíbené",
+      "loadFailed": "Nepodařilo se načíst oblíbené",
+      "syncFailed": "Nepodařilo se synchronizovat",
+      "emptyTitle": "Žádné oblíbené zatím",
+      "emptyMessage": "Označte jídla hvězdičkou v aplikaci v telefonu, aby zde šla zadat jedním klepnutím.",
+      "mealSemantics": "{name}, {calories} kalorií. Klepněte pro zadání.",
+      "logged": "{name} zadáno!",
+      "savedOffline": "{name} uloženo offline. Synchronizuje se, až se telefon znovu připojí.",
+      "saveFailed": "Nepodařilo se uložit jídlo. Zkuste to prosím znovu.",
+      "log": "Zadat"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} kalorií, zaznamenáno v {time}.",
+      "longPressDelete": "Dlouze stiskněte pro smazání.",
+      "deleteTitle": "Smazat jídlo?"
+    },
+    "voice": {
+      "title": "Hlasové zadání jídla",
+      "processing": "Zpracovávám vaše jídlo…",
+      "processingDescription": "Odhad porcí a živin",
+      "listening": "Naslouchám",
+      "secondsLeft": "{seconds}s",
+      "stop": "Zastavit nahrávání",
+      "start": "Klepněte pro spuštění nahrávání",
+      "starting": "Spouštím mikrofon…",
+      "prompt": "Klepněte a pak popište jídlo",
+      "tapToRetry": "Klepněte pro opakování",
+      "example": "Zkuste „2 rotis s dal“",
+      "unavailable": "Hlasový vstup není dostupný. Zkontrolujte oprávnění k mikrofonu v nastavení hodinek.",
+      "didNotStart": "Mikrofon se nespustil. Klepněte pro opakování.",
+      "startFailed": "Nepodařilo se spustit nahrávání. Zkontrolujte oprávnění mikrofonu.",
+      "allowMicrophone": "Povolte přístup k mikrofonu pro zadávání jídel hlasem.",
+      "needsConnection": "Rozpoznávání hlasu vyžaduje připojení. Klepněte pro opakování.",
+      "microphoneUnavailable": "Mikrofon není k dispozici. Klepněte pro opakování.",
+      "microphoneBusy": "Mikrofon je obsazen. Chvíli počkejte a zkuste to znovu.",
+      "languageUnsupported": "Hlasový vstup nepodporuje jazyk hodinek.",
+      "temporarilyBusy": "Hlasový vstup je dočasně vytížen. Chvíli počkejte a zkuste to znovu.",
+      "notRecognized": "Nezachytilo se to. Klepněte na mikrofon a zkuste to znovu.",
+      "noSpeech": "Nebyl zaznamenán žádný zvuk. Klepněte na mikrofon a zkuste to znovu.",
+      "analysisFailed": "Analýza selhala. Zkuste to prosím znovu.",
+      "mealNotIdentified": "Nepodařilo se identifikovat jídlo. Zkuste jej popsat jinak."
+    },
+    "result": {
+      "title": "Podrobnosti jídla",
+      "savedOffline": "Uloženo offline",
+      "logged": "Zaznamenáno!",
+      "mealFound": "Jídlo nalezeno",
+      "estimatedEnergy": "Odhadované kalorie",
+      "logMeal": "Zadat jídlo",
+      "logging": "Zaznamenávám…",
+      "logAnother": "Zadat další",
+      "goingBack": "Vrátit se…",
+      "savedOfflineMessage": "Jídlo uloženo offline. Synchronizuje se, až se telefon znovu připojí.",
+      "saveFailed": "Nepodařilo se uložit jídlo. Zkuste to prosím znovu."
+    }
+  },
   "common": {
     "close": "Zavřít",
     "continue": "Pokračovat"

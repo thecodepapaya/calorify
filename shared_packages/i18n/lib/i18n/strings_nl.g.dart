@@ -58,6 +58,7 @@ class TranslationsNl extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$nl login = _Translations$login$nl._(_root);
 	@override late final _Translations$disclaimer$nl disclaimer = _Translations$disclaimer$nl._(_root);
 	@override late final _Translations$localNutritionPhase4$nl localNutritionPhase4 = _Translations$localNutritionPhase4$nl._(_root);
+	@override late final _Translations$watch$nl watch = _Translations$watch$nl._(_root);
 	@override late final _Translations$common$nl common = _Translations$common$nl._(_root);
 	@override late final _Translations$feedbackRating$nl feedbackRating = _Translations$feedbackRating$nl._(_root);
 	@override late final _Translations$health$nl health = _Translations$health$nl._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$nl extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'Lokale voedingsgegevens gewist';
 }
 
+// Path: watch
+class _Translations$watch$nl extends Translations$watch$en {
+	_Translations$watch$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$nl common = _Translations$watch$common$nl._(_root);
+	@override late final _Translations$watch$nutrition$nl nutrition = _Translations$watch$nutrition$nl._(_root);
+	@override late final _Translations$watch$sync$nl sync = _Translations$watch$sync$nl._(_root);
+	@override late final _Translations$watch$home$nl home = _Translations$watch$home$nl._(_root);
+	@override late final _Translations$watch$history$nl history = _Translations$watch$history$nl._(_root);
+	@override late final _Translations$watch$favorites$nl favorites = _Translations$watch$favorites$nl._(_root);
+	@override late final _Translations$watch$meal$nl meal = _Translations$watch$meal$nl._(_root);
+	@override late final _Translations$watch$voice$nl voice = _Translations$watch$voice$nl._(_root);
+	@override late final _Translations$watch$result$nl result = _Translations$watch$result$nl._(_root);
+}
+
 // Path: common
 class _Translations$common$nl extends Translations$common$en {
 	_Translations$common$nl._(TranslationsNl root) : this._root = root, super.internal(root);
@@ -569,12 +589,12 @@ class _Translations$onboarding$healthConnect$nl extends Translations$onboarding$
 	@override String get title => 'Koppel met Health Connect';
 	@override String get description => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.';
 	@override String get overviewDescription => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$nl caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$nl._(_root);
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$nl shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$nl._(_root);
-	@override late final _Translations$onboarding$healthConnect$userControl$nl userControl = _Translations$onboarding$healthConnect$userControl$nl._(_root);
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$nl automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$nl._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$nl caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$nl._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$nl progressInsights = _Translations$onboarding$healthConnect$progressInsights$nl._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$nl shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$nl._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$nl seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$nl._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$nl userControl = _Translations$onboarding$healthConnect$userControl$nl._(_root);
 	@override String get connected => 'Health Connect verbonden';
 	@override String get notConnected => 'Health Connect niet verbonden';
 	@override String get setup => 'Health Connect instellen';
@@ -751,11 +771,11 @@ class _Translations$home$connectHealth$nl extends Translations$home$connectHealt
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get dataUseDescription => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden';
-	@override String get installOrUpdate => 'Installeren of bijwerken';
 	@override String get title => 'Synchroniseren met Health Connect';
 	@override String get description => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden';
 	@override String get install => 'Installeren of bijwerken';
+	@override String get dataUseDescription => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden';
+	@override String get installOrUpdate => 'Installeren of bijwerken';
 	@override String get connect => 'Koppelen';
 }
 
@@ -1117,12 +1137,12 @@ class _Translations$settings$clearAllData$nl extends Translations$settings$clear
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get localOnlySubtitle => 'Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen';
-	@override String get localOnlyConfirmationMessage => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.';
 	@override String get title => 'Alle gegevens wissen';
 	@override String get subtitle => 'Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen';
+	@override String get localOnlySubtitle => 'Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen';
 	@override String get confirmationTitle => 'Alle gegevens wissen?';
 	@override String get confirmationMessage => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect beheer je afzonderlijk via Instellingen > Health Connect.';
+	@override String get localOnlyConfirmationMessage => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.';
 	@override String get cancel => 'Annuleren';
 	@override String get clearEverything => 'Alles wissen';
 }
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$nl extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$nl professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$nl._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$nl extends Translations$watch$common$en {
+	_Translations$watch$common$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Terug';
+	@override String get cancel => 'Annuleren';
+	@override String get delete => 'Verwijderen';
+	@override String get retry => 'Opnieuw';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$nl extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Voedingsstof';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} g';
+	@override String get protein => 'Eiwit';
+	@override String get carbs => 'Koolhydraten';
+	@override String get fat => 'Vetten';
+	@override String get fiber => 'Vezels';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$nl extends Translations$watch$sync$en {
+	_Translations$watch$sync$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Synchroniseer met telefoon';
+	@override String get syncing => 'Synchroniseren…';
+	@override String get synced => 'Gesynchroniseerd';
+	@override String get syncedJustNow => 'Zojuist gesynchroniseerd';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Gesynchroniseerd ${minutes}m geleden';
+	@override String get failed => 'Synchronisatie mislukt';
+	@override String get phoneDisconnected => 'Telefoon niet verbonden';
+	@override String get tapToSync => 'Tik om te synchroniseren';
+	@override String get refreshFailed => 'Vernieuwen mislukt. Controleer je telefoon.';
+	@override String get openPhone => 'Open Calorify op je telefoon en tik op vernieuwen.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$nl extends Translations$watch$home$en {
+	_Translations$watch$home$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Vandaag';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} calorieën geconsumeerd van ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} boven je doel';
+	@override String remaining({required Object calories}) => '${calories} resterend';
+	@override String left({required Object calories}) => 'Nog ${calories}';
+	@override String goal({required Object calories}) => '${calories} kcal doel';
+	@override String get logMeal => 'Maaltijd loggen';
+	@override String get todayMeals => 'Maaltijden van vandaag';
+	@override String todayMealsCount({required Object count}) => 'Maaltijden van vandaag, ${count}';
+	@override String viewMore({required Object count}) => 'Bekijk nog ${count}';
+	@override String viewMoreSemantics({required Object count}) => '${count} meer maaltijden, tik om alles te bekijken';
+	@override String get noMeals => 'Geen maaltijden geregistreerd';
+	@override String get noMealsSemantics => 'Vandaag geen maaltijden geregistreerd';
+	@override String get tapLog => 'Tik op Loggen om te beginnen';
+	@override String get removedFromQueue => 'Maaltijd verwijderd uit de offline wachtrij.';
+	@override String get removedOffline => 'Maaltijd offline verwijderd. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.';
+	@override String get deleteFailed => 'Kon maaltijd niet verwijderen';
+}
+
+// Path: watch.history
+class _Translations$watch$history$nl extends Translations$watch$history$en {
+	_Translations$watch$history$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Maaltijden van vandaag';
+	@override String get refresh => 'Vernieuw maaltijden';
+	@override String get loadFailed => 'Kon maaltijden niet laden';
+	@override String get syncFailed => 'Kon niet synchroniseren';
+	@override String get emptyTitle => 'Nog geen maaltijden';
+	@override String get emptyMessage => 'Log een maaltijd via het beginscherm om die hier te zien.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$nl extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favorieten';
+	@override String get refresh => 'Vernieuw favorieten';
+	@override String get loadFailed => 'Kon favorieten niet laden';
+	@override String get syncFailed => 'Kon niet synchroniseren';
+	@override String get emptyTitle => 'Nog geen favorieten';
+	@override String get emptyMessage => 'Markeer maaltijden met een ster in de telefoon-app zodat je ze hier met één tik kunt loggen.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} calorieën. Tik om te loggen.';
+	@override String logged({required Object name}) => '${name} gelogd!';
+	@override String savedOffline({required Object name}) => '${name} offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.';
+	@override String get saveFailed => 'Kon de maaltijd niet opslaan. Probeer het opnieuw.';
+	@override String get log => 'Loggen';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$nl extends Translations$watch$meal$en {
+	_Translations$watch$meal$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calorieën, gelogd om ${time}.';
+	@override String get longPressDelete => 'Lang indrukken om te verwijderen.';
+	@override String get deleteTitle => 'Maaltijd verwijderen?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$nl extends Translations$watch$voice$en {
+	_Translations$watch$voice$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Maaltijd loggen met spraak';
+	@override String get processing => 'Maaltijd controleren…';
+	@override String get processingDescription => 'Porties en voedingswaarden schatten';
+	@override String get listening => 'Luistert';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Opname stoppen';
+	@override String get start => 'Tik om opname te starten';
+	@override String get starting => 'Microfoon starten…';
+	@override String get prompt => 'Tik en beschrijf daarna je maaltijd';
+	@override String get tapToRetry => 'Tik om het opnieuw te proberen';
+	@override String get example => 'Probeer “2 rotis met dal”';
+	@override String get unavailable => 'Spraakinvoer is niet beschikbaar. Controleer de microfoonmachtiging in de instellingen van je horloge.';
+	@override String get didNotStart => 'Microfoon is niet gestart. Tik om het opnieuw te proberen.';
+	@override String get startFailed => 'Kon opname niet starten. Controleer microfoonmachtigingen.';
+	@override String get allowMicrophone => 'Sta microfoontoegang toe om maaltijden via spraak te loggen.';
+	@override String get needsConnection => 'Spraakherkenning heeft een verbinding nodig. Tik om het opnieuw te proberen.';
+	@override String get microphoneUnavailable => 'De microfoon is niet beschikbaar. Tik om het opnieuw te proberen.';
+	@override String get microphoneBusy => 'De microfoon is in gebruik. Wacht even en probeer het opnieuw.';
+	@override String get languageUnsupported => 'Spraakinvoer ondersteunt de taal van het horloge niet.';
+	@override String get temporarilyBusy => 'Spraakinvoer is tijdelijk bezet. Wacht even en probeer het opnieuw.';
+	@override String get notRecognized => 'Ik verstond dat niet. Tik op de microfoon en probeer het opnieuw.';
+	@override String get noSpeech => 'Geen spraak gedetecteerd. Tik op de microfoon om het opnieuw te proberen.';
+	@override String get analysisFailed => 'Analyse is mislukt. Probeer het opnieuw.';
+	@override String get mealNotIdentified => 'Kon die maaltijd niet identificeren. Probeer deze anders te beschrijven.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$nl extends Translations$watch$result$en {
+	_Translations$watch$result$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Maaltijdgegevens';
+	@override String get savedOffline => 'Offline opgeslagen';
+	@override String get logged => 'Gelogd!';
+	@override String get mealFound => 'Maaltijd gevonden';
+	@override String get estimatedEnergy => 'Geschatte energie';
+	@override String get logMeal => 'Maaltijd loggen';
+	@override String get logging => 'Bezig met loggen…';
+	@override String get logAnother => 'Nog een loggen';
+	@override String get goingBack => 'Teruggaan…';
+	@override String get savedOfflineMessage => 'Maaltijd offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.';
+	@override String get saveFailed => 'Kon de maaltijd niet opslaan. Probeer het opnieuw.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$nl extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$nl._(TranslationsNl root) : this._root = root, super.internal(root);
@@ -1364,9 +1559,9 @@ class _Translations$onboarding$bmiScale$messages$nl extends Translations$onboard
 	@override String get obese => 'We zijn er om je te ondersteunen met gepersonaliseerde begeleiding en duurzame strategieën voor je gezondheidsdoelen.';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$nl extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+// Path: onboarding.healthConnect.automaticTracking
+class _Translations$onboarding$healthConnect$automaticTracking$nl extends Translations$onboarding$healthConnect$automaticTracking$en {
+	_Translations$onboarding$healthConnect$automaticTracking$nl._(TranslationsNl root) : this._root = root, super.internal(root);
 
 	final TranslationsNl _root; // ignore: unused_field
 
@@ -1375,31 +1570,9 @@ class _Translations$onboarding$healthConnect$caloriesBurned$nl extends Translati
 	@override String get description => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect';
 }
 
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$nl extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$nl._(TranslationsNl root) : this._root = root, super.internal(root);
-
-	final TranslationsNl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Gelogde maaltijden delen';
-	@override String get description => 'Schrijf maaltijden die je in Calorify logt naar Health Connect';
-}
-
-// Path: onboarding.healthConnect.userControl
-class _Translations$onboarding$healthConnect$userControl$nl extends Translations$onboarding$healthConnect$userControl$en {
-	_Translations$onboarding$healthConnect$userControl$nl._(TranslationsNl root) : this._root = root, super.internal(root);
-
-	final TranslationsNl _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Jij houdt de controle';
-	@override String get description => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt';
-}
-
-// Path: onboarding.healthConnect.automaticTracking
-class _Translations$onboarding$healthConnect$automaticTracking$nl extends Translations$onboarding$healthConnect$automaticTracking$en {
-	_Translations$onboarding$healthConnect$automaticTracking$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$nl extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$nl._(TranslationsNl root) : this._root = root, super.internal(root);
 
 	final TranslationsNl _root; // ignore: unused_field
 
@@ -1419,9 +1592,31 @@ class _Translations$onboarding$healthConnect$progressInsights$nl extends Transla
 	@override String get description => 'Schrijf maaltijden die je in Calorify logt naar Health Connect';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$nl extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gelogde maaltijden delen';
+	@override String get description => 'Schrijf maaltijden die je in Calorify logt naar Health Connect';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _Translations$onboarding$healthConnect$seamlessIntegration$nl extends Translations$onboarding$healthConnect$seamlessIntegration$en {
 	_Translations$onboarding$healthConnect$seamlessIntegration$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Jij houdt de controle';
+	@override String get description => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _Translations$onboarding$healthConnect$userControl$nl extends Translations$onboarding$healthConnect$userControl$en {
+	_Translations$onboarding$healthConnect$userControl$nl._(TranslationsNl root) : this._root = root, super.internal(root);
 
 	final TranslationsNl _root; // ignore: unused_field
 
@@ -1579,9 +1774,9 @@ class _Translations$settings$healthConnect$unavailable$nl extends Translations$s
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get unsupportedDescription => 'Health Connect wordt niet ondersteund op dit apparaat.';
 	@override String get title => 'Health Connect niet beschikbaar';
 	@override String get description => 'Health Connect wordt niet ondersteund op dit apparaat.';
+	@override String get unsupportedDescription => 'Health Connect wordt niet ondersteund op dit apparaat.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1630,11 +1825,11 @@ class _Translations$settings$about$privacy$nl extends Translations$settings$abou
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String analyticsDisclosure({required Object appLabel}) => 'Beperkte analyse en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.';
 	@override String get title => 'Je privacy doet ertoe';
 	@override String get description => 'Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:';
 	@override String get noAccounts => 'Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.';
 	@override String noTracking({required Object appLabel}) => 'Beperkte analyses en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet voor advertenties gebruikt of verkocht.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Beperkte analyse en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.';
 	@override String noAds({required Object appLabel}) => 'Advertentievrij bij ontwerp\n${appLabel} is gebouwd om te werken zonder advertenties of datagedreven monetisatie.';
 	@override String get noDataSelling => 'Geen verkoop van gegevens\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.';
 	@override String get localStorage => 'Lokaal als eerste opslag\nJe gegevens blijven op je apparaat.';
@@ -1909,18 +2104,18 @@ extension on TranslationsNl {
 			'onboarding.healthConnect.title' => 'Koppel met Health Connect',
 			'onboarding.healthConnect.description' => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.',
 			'onboarding.healthConnect.overviewDescription' => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.',
-			'onboarding.healthConnect.caloriesBurned.title' => 'Verbrande calorieën',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'Gelogde maaltijden delen',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Schrijf maaltijden die je in Calorify logt naar Health Connect',
-			'onboarding.healthConnect.userControl.title' => 'Jij houdt de controle',
-			'onboarding.healthConnect.userControl.description' => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt',
 			'onboarding.healthConnect.automaticTracking.title' => 'Verbrande calorieën',
 			'onboarding.healthConnect.automaticTracking.description' => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Verbrande calorieën',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Geloggde maaltijden delen',
 			'onboarding.healthConnect.progressInsights.description' => 'Schrijf maaltijden die je in Calorify logt naar Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Gelogde maaltijden delen',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Schrijf maaltijden die je in Calorify logt naar Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Jij houdt de controle',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt',
+			'onboarding.healthConnect.userControl.title' => 'Jij houdt de controle',
+			'onboarding.healthConnect.userControl.description' => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt',
 			'onboarding.healthConnect.connected' => 'Health Connect verbonden',
 			'onboarding.healthConnect.notConnected' => 'Health Connect niet verbonden',
 			'onboarding.healthConnect.setup' => 'Health Connect instellen',
@@ -2024,11 +2219,11 @@ extension on TranslationsNl {
 			'home.mealSnap.gallery' => 'Galerij',
 			'home.mealSnap.compressingPhoto' => 'Foto optimaliseren…',
 			'home.mealSnap.uploadingPhoto' => 'Foto uploaden…',
-			'home.connectHealth.dataUseDescription' => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden',
-			'home.connectHealth.installOrUpdate' => 'Installeren of bijwerken',
 			'home.connectHealth.title' => 'Synchroniseren met Health Connect',
 			'home.connectHealth.description' => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden',
 			'home.connectHealth.install' => 'Installeren of bijwerken',
+			'home.connectHealth.dataUseDescription' => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden',
+			'home.connectHealth.installOrUpdate' => 'Installeren of bijwerken',
 			'home.connectHealth.connect' => 'Koppelen',
 			'history.noMeals' => 'Geen geregistreerde maaltijden',
 			'history.emptyMessage' => 'Maak een foto van je laatste maaltijd om hier te registreren.',
@@ -2263,21 +2458,21 @@ extension on TranslationsNl {
 			'settings.exportMealHistory.subtitle' => 'Deel een CSV van je geregistreerde maaltijden',
 			'settings.exportMealHistory.shareText' => 'Je Calorify maaltijdgeschiedenis-export',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Kon maaltijdgeschiedenis niet exporteren: ${error}',
-			'settings.clearAllData.localOnlySubtitle' => 'Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.',
 			'settings.clearAllData.title' => 'Alle gegevens wissen',
 			'settings.clearAllData.subtitle' => 'Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen',
+			'settings.clearAllData.localOnlySubtitle' => 'Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen',
 			'settings.clearAllData.confirmationTitle' => 'Alle gegevens wissen?',
 			'settings.clearAllData.confirmationMessage' => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect beheer je afzonderlijk via Instellingen > Health Connect.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.',
 			'settings.clearAllData.cancel' => 'Annuleren',
 			'settings.clearAllData.clearEverything' => 'Alles wissen',
 			'settings.debugOptions.title' => 'Debug-opties',
 			'settings.developerModeEnabled' => 'Ontwikkelaarsmodus ingeschakeld!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Bekijk en beheer machtigingen',
-			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect wordt niet ondersteund op dit apparaat.',
 			'settings.healthConnect.unavailable.title' => 'Health Connect niet beschikbaar',
 			'settings.healthConnect.unavailable.description' => 'Health Connect wordt niet ondersteund op dit apparaat.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect wordt niet ondersteund op dit apparaat.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect vereist aandacht',
 			'settings.healthConnect.updateRequired.description' => 'Installeer of werk Health Connect bij voordat je de toegang beheert.',
 			'settings.healthConnect.updateRequired.action' => 'Installeren of bijwerken',
@@ -2317,11 +2512,11 @@ extension on TranslationsNl {
 			'settings.about.tagline' => 'Snel, gratis en privacygericht caloriebewustzijn',
 			'settings.about.ourStory.title' => 'Ons verhaal',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-trackingapps zijn óf te ingewikkeld, vereisen constant handmatig invoer, vragen hoge abonnementskosten of schenden de privacy.\n\nAls solo-ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om inspanning te verminderen, snel en gratis blijft, en je gezondheidsgegevens met respect behandelt.\n\n${appLabel} is de app die ik had willen bestaan: geen accounts, geen tracking, geen advertenties — alleen heldere, praktische inzichten en jouw gezondheidsdoelen.',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Beperkte analyse en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.',
 			'settings.about.privacy.title' => 'Je privacy doet ertoe',
 			'settings.about.privacy.description' => 'Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:',
 			'settings.about.privacy.noAccounts' => 'Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Beperkte analyses en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet voor advertenties gebruikt of verkocht.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Beperkte analyse en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Advertentievrij bij ontwerp\n${appLabel} is gebouwd om te werken zonder advertenties of datagedreven monetisatie.',
 			'settings.about.privacy.noDataSelling' => 'Geen verkoop van gegevens\nJe gezondheidsgegevens worden nooit verkocht of gedeeld met derden.',
 			'settings.about.privacy.localStorage' => 'Lokaal als eerste opslag\nJe gegevens blijven op je apparaat.',
@@ -2432,6 +2627,101 @@ extension on TranslationsNl {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Gegevens wissen',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Lokale voedingsgegevens konden niet worden gedownload en geverifieerd: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Lokale voedingsgegevens gewist',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Terug',
+			'watch.common.cancel' => 'Annuleren',
+			'watch.common.delete' => 'Verwijderen',
+			'watch.common.retry' => 'Opnieuw',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Voedingsstof',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} g',
+			'watch.nutrition.protein' => 'Eiwit',
+			'watch.nutrition.carbs' => 'Koolhydraten',
+			'watch.nutrition.fat' => 'Vetten',
+			'watch.nutrition.fiber' => 'Vezels',
+			'watch.sync.syncWithPhone' => 'Synchroniseer met telefoon',
+			'watch.sync.syncing' => 'Synchroniseren…',
+			'watch.sync.synced' => 'Gesynchroniseerd',
+			'watch.sync.syncedJustNow' => 'Zojuist gesynchroniseerd',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Gesynchroniseerd ${minutes}m geleden',
+			'watch.sync.failed' => 'Synchronisatie mislukt',
+			'watch.sync.phoneDisconnected' => 'Telefoon niet verbonden',
+			'watch.sync.tapToSync' => 'Tik om te synchroniseren',
+			'watch.sync.refreshFailed' => 'Vernieuwen mislukt. Controleer je telefoon.',
+			'watch.sync.openPhone' => 'Open Calorify op je telefoon en tik op vernieuwen.',
+			'watch.home.today' => 'Vandaag',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} calorieën geconsumeerd van ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} boven je doel',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} resterend',
+			'watch.home.left' => ({required Object calories}) => 'Nog ${calories}',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal doel',
+			'watch.home.logMeal' => 'Maaltijd loggen',
+			'watch.home.todayMeals' => 'Maaltijden van vandaag',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Maaltijden van vandaag, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Bekijk nog ${count}',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} meer maaltijden, tik om alles te bekijken',
+			'watch.home.noMeals' => 'Geen maaltijden geregistreerd',
+			'watch.home.noMealsSemantics' => 'Vandaag geen maaltijden geregistreerd',
+			'watch.home.tapLog' => 'Tik op Loggen om te beginnen',
+			'watch.home.removedFromQueue' => 'Maaltijd verwijderd uit de offline wachtrij.',
+			'watch.home.removedOffline' => 'Maaltijd offline verwijderd. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.',
+			'watch.home.deleteFailed' => 'Kon maaltijd niet verwijderen',
+			'watch.history.title' => 'Maaltijden van vandaag',
+			'watch.history.refresh' => 'Vernieuw maaltijden',
+			'watch.history.loadFailed' => 'Kon maaltijden niet laden',
+			'watch.history.syncFailed' => 'Kon niet synchroniseren',
+			'watch.history.emptyTitle' => 'Nog geen maaltijden',
+			'watch.history.emptyMessage' => 'Log een maaltijd via het beginscherm om die hier te zien.',
+			'watch.favorites.title' => 'Favorieten',
+			'watch.favorites.refresh' => 'Vernieuw favorieten',
+			'watch.favorites.loadFailed' => 'Kon favorieten niet laden',
+			'watch.favorites.syncFailed' => 'Kon niet synchroniseren',
+			'watch.favorites.emptyTitle' => 'Nog geen favorieten',
+			'watch.favorites.emptyMessage' => 'Markeer maaltijden met een ster in de telefoon-app zodat je ze hier met één tik kunt loggen.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} calorieën. Tik om te loggen.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} gelogd!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.',
+			'watch.favorites.saveFailed' => 'Kon de maaltijd niet opslaan. Probeer het opnieuw.',
+			'watch.favorites.log' => 'Loggen',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calorieën, gelogd om ${time}.',
+			'watch.meal.longPressDelete' => 'Lang indrukken om te verwijderen.',
+			'watch.meal.deleteTitle' => 'Maaltijd verwijderen?',
+			'watch.voice.title' => 'Maaltijd loggen met spraak',
+			'watch.voice.processing' => 'Maaltijd controleren…',
+			'watch.voice.processingDescription' => 'Porties en voedingswaarden schatten',
+			'watch.voice.listening' => 'Luistert',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Opname stoppen',
+			'watch.voice.start' => 'Tik om opname te starten',
+			'watch.voice.starting' => 'Microfoon starten…',
+			'watch.voice.prompt' => 'Tik en beschrijf daarna je maaltijd',
+			'watch.voice.tapToRetry' => 'Tik om het opnieuw te proberen',
+			'watch.voice.example' => 'Probeer “2 rotis met dal”',
+			'watch.voice.unavailable' => 'Spraakinvoer is niet beschikbaar. Controleer de microfoonmachtiging in de instellingen van je horloge.',
+			'watch.voice.didNotStart' => 'Microfoon is niet gestart. Tik om het opnieuw te proberen.',
+			'watch.voice.startFailed' => 'Kon opname niet starten. Controleer microfoonmachtigingen.',
+			'watch.voice.allowMicrophone' => 'Sta microfoontoegang toe om maaltijden via spraak te loggen.',
+			'watch.voice.needsConnection' => 'Spraakherkenning heeft een verbinding nodig. Tik om het opnieuw te proberen.',
+			'watch.voice.microphoneUnavailable' => 'De microfoon is niet beschikbaar. Tik om het opnieuw te proberen.',
+			'watch.voice.microphoneBusy' => 'De microfoon is in gebruik. Wacht even en probeer het opnieuw.',
+			'watch.voice.languageUnsupported' => 'Spraakinvoer ondersteunt de taal van het horloge niet.',
+			'watch.voice.temporarilyBusy' => 'Spraakinvoer is tijdelijk bezet. Wacht even en probeer het opnieuw.',
+			'watch.voice.notRecognized' => 'Ik verstond dat niet. Tik op de microfoon en probeer het opnieuw.',
+			'watch.voice.noSpeech' => 'Geen spraak gedetecteerd. Tik op de microfoon om het opnieuw te proberen.',
+			'watch.voice.analysisFailed' => 'Analyse is mislukt. Probeer het opnieuw.',
+			'watch.voice.mealNotIdentified' => 'Kon die maaltijd niet identificeren. Probeer deze anders te beschrijven.',
+			'watch.result.title' => 'Maaltijdgegevens',
+			'watch.result.savedOffline' => 'Offline opgeslagen',
+			'watch.result.logged' => 'Gelogd!',
+			'watch.result.mealFound' => 'Maaltijd gevonden',
+			'watch.result.estimatedEnergy' => 'Geschatte energie',
+			'watch.result.logMeal' => 'Maaltijd loggen',
+			'watch.result.logging' => 'Bezig met loggen…',
+			'watch.result.logAnother' => 'Nog een loggen',
+			'watch.result.goingBack' => 'Teruggaan…',
+			'watch.result.savedOfflineMessage' => 'Maaltijd offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.',
+			'watch.result.saveFailed' => 'Kon de maaltijd niet opslaan. Probeer het opnieuw.',
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',

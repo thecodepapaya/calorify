@@ -84,19 +84,11 @@
       "title": "Ligar ao Health Connect",
       "description": "Utilize as calorias queimadas no seu objetivo diário e, opcionalmente, partilhe refeições registadas com o Health Connect.",
       "overviewDescription": "Utilize as calorias queimadas no seu objetivo diário e, opcionalmente, partilhe refeições registadas com o Health Connect.",
-      "caloriesBurned": {
+      "automaticTracking": {
         "title": "Calorias queimadas",
         "description": "Leia o total de calorias queimadas hoje no Health Connect"
       },
-      "shareLoggedMeals": {
-        "title": "Partilhar refeições registadas",
-        "description": "Grave no Health Connect as refeições que regista no Calorify"
-      },
-      "userControl": {
-        "title": "O controlo é seu",
-        "description": "Escolha qualquer uma das permissões e altere o acesso a qualquer momento"
-      },
-      "automaticTracking": {
+      "caloriesBurned": {
         "title": "Calorias queimadas",
         "description": "Leia o total de calorias queimadas hoje no Health Connect"
       },
@@ -104,7 +96,15 @@
         "title": "Partilhar refeições registadas",
         "description": "Grave no Health Connect as refeições que regista no Calorify"
       },
+      "shareLoggedMeals": {
+        "title": "Partilhar refeições registadas",
+        "description": "Grave no Health Connect as refeições que regista no Calorify"
+      },
       "seamlessIntegration": {
+        "title": "O controlo é seu",
+        "description": "Escolha qualquer uma das permissões e altere o acesso a qualquer momento"
+      },
+      "userControl": {
         "title": "O controlo é seu",
         "description": "Escolha qualquer uma das permissões e altere o acesso a qualquer momento"
       },
@@ -243,11 +243,11 @@
       "uploadingPhoto": "A enviar foto…"
     },
     "connectHealth": {
-      "dataUseDescription": "Utilize as calorias queimadas no seu objetivo e partilhe as refeições registadas",
-      "installOrUpdate": "Instalar ou atualizar",
       "title": "Sincronizar com Health Connect",
       "description": "Utilize as calorias queimadas no seu objetivo e partilhe refeições registadas",
       "install": "Instalar ou atualizar",
+      "dataUseDescription": "Utilize as calorias queimadas no seu objetivo e partilhe as refeições registadas",
+      "installOrUpdate": "Instalar ou atualizar",
       "connect": "Ligar"
     }
   },
@@ -560,12 +560,12 @@
       "failed": "Não foi possível exportar o histórico de refeições: {error}"
     },
     "clearAllData": {
-      "localOnlySubtitle": "Eliminar os dados do Calorify armazenados neste dispositivo",
-      "localOnlyConfirmationMessage": "Isto elimina permanentemente deste dispositivo as refeições registadas, os favoritos e as definições de perfil. As refeições já partilhadas com o Health Connect e o acesso ao Health Connect são geridos separadamente em Definições > Health Connect.",
       "title": "Apagar Todos os Dados",
       "subtitle": "Eliminar os dados do Calorify armazenados neste dispositivo",
+      "localOnlySubtitle": "Eliminar os dados do Calorify armazenados neste dispositivo",
       "confirmationTitle": "Apagar todos os dados?",
       "confirmationMessage": "Isto elimina permanentemente deste dispositivo as refeições registadas, os favoritos e as definições de perfil. As refeições já partilhadas com o Health Connect e o acesso ao Health Connect são geridos separadamente em Definições > Health Connect.",
+      "localOnlyConfirmationMessage": "Isto elimina permanentemente deste dispositivo as refeições registadas, os favoritos e as definições de perfil. As refeições já partilhadas com o Health Connect e o acesso ao Health Connect são geridos separadamente em Definições > Health Connect.",
       "cancel": "Cancelar",
       "clearEverything": "Apagar tudo"
     },
@@ -577,9 +577,9 @@
       "title": "Health Connect",
       "subtitle": "Ver e gerir permissões",
       "unavailable": {
-        "unsupportedDescription": "O Health Connect não é suportado neste dispositivo.",
         "title": "Health Connect indisponível",
-        "description": "O Health Connect não é suportado neste dispositivo."
+        "description": "O Health Connect não é suportado neste dispositivo.",
+        "unsupportedDescription": "O Health Connect não é suportado neste dispositivo."
       },
       "updateRequired": {
         "title": "O Health Connect requer atenção",
@@ -635,11 +635,11 @@
         "content": "{appLabel} nasceu de uma frustração simples: a maioria das apps de contagem de calorias é excessivamente complicada, exige entradas manuais constantes, cobra taxas de subscrição elevadas ou compromete a privacidade.\n\nComo desenvolvedor solo, quis criar algo mais simples e justo — uma app que utilize AI para reduzir o esforço, mantenha-se rápida e gratuita de usar, e trate os seus dados de saúde com respeito.\n\n{appLabel} é a app que eu queria que existisse: sem contas, sem rastreamento, sem anúncios — apenas insights claros e práticos e os seus objetivos de saúde."
       },
       "privacy": {
-        "analyticsDisclosure": "Análises e diagnósticos limitados\n{appLabel} utiliza eventos básicos da app e diagnósticos de falhas para melhorar a fiabilidade. Os valores dos registos de saúde não são utilizados para publicidade nem vendidos.",
         "title": "A sua privacidade importa",
         "description": "A privacidade não é um elemento secundário — é um princípio de design. Eis o que isso significa na prática:",
         "noAccounts": "Sem contas\nUse a app imediatamente. Sem registos, sem identidades.",
         "noTracking": "Análises e diagnósticos limitados\n{appLabel} utiliza eventos básicos da app e diagnósticos de falhas para melhorar a fiabilidade. Os valores dos registos de saúde não são utilizados para publicidade nem vendidos.",
+        "analyticsDisclosure": "Análises e diagnósticos limitados\n{appLabel} utiliza eventos básicos da app e diagnósticos de falhas para melhorar a fiabilidade. Os valores dos registos de saúde não são utilizados para publicidade nem vendidos.",
         "noAds": "Sem anúncios por design\n{appLabel} foi concebido para funcionar sem anúncios ou monetização baseada em dados.",
         "noDataSelling": "Sem venda de dados\nOs seus dados de saúde nunca são vendidos nem partilhados com terceiros.",
         "localStorage": "Armazenamento local por defeito\nOs seus dados permanecem no seu dispositivo.",
@@ -649,7 +649,7 @@
         "title": "Desenvolvido por um único programador",
         "description": "{appLabel} é criado e mantido por um único programador focado em desenvolver software de saúde tranquilo e que respeita a privacidade.\n\nO feedback é lido pessoalmente e ajuda a orientar o rumo da app.",
         "website": "Site",
-      "email": "Correio eletrónico"
+        "email": "Correio eletrónico"
       },
       "feedback": {
         "title": "Aprecia o {appLabel}?",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Limpar dados",
     "offlineNutritionInstallFailed": "Não foi possível transferir e verificar os dados nutricionais locais: {error}",
     "offlineNutritionCleared": "Dados nutricionais locais limpos"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Voltar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "retry": "Tentar novamente",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutriente",
+      "grams": "{label}, {value} gramas",
+      "protein": "Proteína",
+      "carbs": "Hidratos de carbono",
+      "fat": "Gordura",
+      "fiber": "Fibra"
+    },
+    "sync": {
+      "syncWithPhone": "Sincronizar com o telemóvel",
+      "syncing": "A sincronizar…",
+      "synced": "Sincronizado",
+      "syncedJustNow": "Sincronizado agora",
+      "syncedMinutesAgo": "Sincronizado há {minutes}m",
+      "failed": "Sincronização falhou",
+      "phoneDisconnected": "Telemóvel desconectado",
+      "tapToSync": "Toque para sincronizar",
+      "refreshFailed": "Não foi possível atualizar. Verifique o telemóvel.",
+      "openPhone": "Abra o Calorify no telemóvel e toque em atualizar."
+    },
+    "home": {
+      "today": "Hoje",
+      "calorieSummary": "{consumed} calorias consumidas de {goal}. {status}.",
+      "overGoal": "{calories} acima da meta",
+      "remaining": "{calories} restantes",
+      "left": "{calories} restantes",
+      "goal": "Meta: {calories} kcal",
+      "logMeal": "Registar refeição",
+      "todayMeals": "Refeições de hoje",
+      "todayMealsCount": "Refeições de hoje, {count}",
+      "viewMore": "Ver mais {count}",
+      "viewMoreSemantics": "{count} refeições adicionais, toque para ver todas",
+      "noMeals": "Sem refeições registadas",
+      "noMealsSemantics": "Nenhuma refeição registada hoje",
+      "tapLog": "Toque em Registar para começar",
+      "removedFromQueue": "Refeição removida da fila offline.",
+      "removedOffline": "Refeição removida offline. Será sincronizada quando o telemóvel se reconetar.",
+      "deleteFailed": "Não foi possível eliminar a refeição"
+    },
+    "history": {
+      "title": "Refeições de hoje",
+      "refresh": "Atualizar refeições",
+      "loadFailed": "Não foi possível carregar as refeições",
+      "syncFailed": "Não foi possível sincronizar",
+      "emptyTitle": "Ainda sem refeições",
+      "emptyMessage": "Registe uma refeição a partir do ecrã Início para a ver aqui."
+    },
+    "favorites": {
+      "title": "Favoritos",
+      "refresh": "Atualizar favoritos",
+      "loadFailed": "Não foi possível carregar os favoritos",
+      "syncFailed": "Não foi possível sincronizar",
+      "emptyTitle": "Ainda sem favoritos",
+      "emptyMessage": "Assinale refeições na aplicação do telemóvel para as registar aqui com um toque.",
+      "mealSemantics": "{name}, {calories} calorias. Toque para registar.",
+      "logged": "{name} registado!",
+      "savedOffline": "{name} guardado offline. Será sincronizado quando o telemóvel se reconetar.",
+      "saveFailed": "Não foi possível guardar a refeição. Por favor, tente novamente.",
+      "log": "Registar"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} calorias, registado às {time}.",
+      "longPressDelete": "Pressione longamente para eliminar.",
+      "deleteTitle": "Eliminar refeição?"
+    },
+    "voice": {
+      "title": "Registo de refeição por voz",
+      "processing": "A analisar a sua refeição…",
+      "processingDescription": "A estimar porções e nutrientes",
+      "listening": "A escutar",
+      "secondsLeft": "{seconds}s",
+      "stop": "Parar gravação",
+      "start": "Toque para começar a gravar",
+      "starting": "A iniciar o microfone…",
+      "prompt": "Toque, depois descreva a sua refeição",
+      "tapToRetry": "Toque para tentar novamente",
+      "example": "Experimente “2 rotis com dal”",
+      "unavailable": "A entrada por voz não está disponível. Verifique a permissão do microfone nas definições do relógio.",
+      "didNotStart": "O microfone não iniciou. Toque para tentar novamente.",
+      "startFailed": "Não foi possível iniciar a gravação. Verifique as permissões do microfone.",
+      "allowMicrophone": "Permita o acesso ao microfone para registar refeições por voz.",
+      "needsConnection": "O reconhecimento de voz precisa de ligação. Toque para tentar novamente.",
+      "microphoneUnavailable": "O microfone não está disponível. Toque para tentar novamente.",
+      "microphoneBusy": "O microfone está ocupado. Aguarde um momento e tente novamente.",
+      "languageUnsupported": "A entrada por voz não suporta a língua do relógio.",
+      "temporarilyBusy": "A entrada por voz está temporariamente ocupada. Aguarde um momento e tente novamente.",
+      "notRecognized": "Não percebi. Toque no microfone e tente outra vez.",
+      "noSpeech": "Nenhuma fala detetada. Toque no microfone para tentar novamente.",
+      "analysisFailed": "Análise falhou. Por favor, tente novamente.",
+      "mealNotIdentified": "Não foi possível identificar a refeição. Tente descrevê-la de outra forma."
+    },
+    "result": {
+      "title": "Detalhes da refeição",
+      "savedOffline": "Guardado offline",
+      "logged": "Registado!",
+      "mealFound": "Refeição encontrada",
+      "estimatedEnergy": "Energia estimada",
+      "logMeal": "Registar refeição",
+      "logging": "A registar…",
+      "logAnother": "Registar outra",
+      "goingBack": "A regressar…",
+      "savedOfflineMessage": "Refeição guardada offline. Será sincronizada quando o telemóvel se reconetar.",
+      "saveFailed": "Não foi possível guardar a refeição. Por favor, tente novamente."
+    }
   },
   "common": {
     "close": "Fechar",

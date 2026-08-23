@@ -84,19 +84,11 @@
       "title": "Conectează-te la Health Connect",
       "description": "Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.",
       "overviewDescription": "Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.",
-      "caloriesBurned": {
+      "automaticTracking": {
         "title": "Calorii arse",
         "description": "Citește totalul caloriilor arse astăzi din Health Connect"
       },
-      "shareLoggedMeals": {
-        "title": "Partajează mesele înregistrate",
-        "description": "Scrie în Health Connect mesele pe care le înregistrezi în Calorify"
-      },
-      "userControl": {
-        "title": "Tu deții controlul",
-        "description": "Alege oricare dintre permisiuni și modifică accesul oricând"
-      },
-      "automaticTracking": {
+      "caloriesBurned": {
         "title": "Calorii arse",
         "description": "Citește totalul caloriilor arse astăzi din Health Connect"
       },
@@ -104,7 +96,15 @@
         "title": "Partajează mesele înregistrate",
         "description": "Scrie în Health Connect mesele pe care le înregistrezi în Calorify"
       },
+      "shareLoggedMeals": {
+        "title": "Partajează mesele înregistrate",
+        "description": "Scrie în Health Connect mesele pe care le înregistrezi în Calorify"
+      },
       "seamlessIntegration": {
+        "title": "Tu deții controlul",
+        "description": "Alege oricare dintre permisiuni și modifică accesul oricând"
+      },
+      "userControl": {
         "title": "Tu deții controlul",
         "description": "Alege oricare dintre permisiuni și modifică accesul oricând"
       },
@@ -243,11 +243,11 @@
       "uploadingPhoto": "Încărcare fotografie…"
     },
     "connectHealth": {
-      "dataUseDescription": "Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate",
-      "installOrUpdate": "Instalează sau actualizează",
       "title": "Sincronizează cu Health Connect",
       "description": "Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate",
       "install": "Instalează sau actualizează",
+      "dataUseDescription": "Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate",
+      "installOrUpdate": "Instalează sau actualizează",
       "connect": "Conectează-te"
     }
   },
@@ -560,12 +560,12 @@
       "failed": "Nu s-a putut exporta istoricul meselor: {error}"
     },
     "clearAllData": {
-      "localOnlySubtitle": "Șterge datele Calorify stocate pe acest dispozitiv",
-      "localOnlyConfirmationMessage": "Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.",
       "title": "Șterge toate datele",
       "subtitle": "Șterge datele Calorify stocate pe acest dispozitiv",
+      "localOnlySubtitle": "Șterge datele Calorify stocate pe acest dispozitiv",
       "confirmationTitle": "Ștergi toate datele?",
       "confirmationMessage": "Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.",
+      "localOnlyConfirmationMessage": "Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.",
       "cancel": "Anulează",
       "clearEverything": "Șterge totul"
     },
@@ -577,9 +577,9 @@
       "title": "Health Connect",
       "subtitle": "Vizualizează și gestionează permisiunile",
       "unavailable": {
-        "unsupportedDescription": "Health Connect nu este acceptat pe acest dispozitiv.",
         "title": "Health Connect indisponibil",
-        "description": "Health Connect nu este acceptat pe acest dispozitiv."
+        "description": "Health Connect nu este acceptat pe acest dispozitiv.",
+        "unsupportedDescription": "Health Connect nu este acceptat pe acest dispozitiv."
       },
       "updateRequired": {
         "title": "Health Connect necesită atenție",
@@ -635,11 +635,11 @@
         "content": "{appLabel} a luat naștere dintr-o frustrare simplă: majoritatea aplicațiilor de urmărire a caloriilor sunt fie prea complicate, solicită introduceri manuale constante, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să creez ceva mai simplu și mai corect — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și tratează datele tale de sănătate cu respect.\n\n{appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate."
       },
       "privacy": {
-        "analyticsDisclosure": "Analize și diagnosticare limitate\n{appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.",
         "title": "Confidențialitatea ta contează",
         "description": "Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:",
         "noAccounts": "Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.",
         "noTracking": "Analize și diagnosticare limitate\n{appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.",
+        "analyticsDisclosure": "Analize și diagnosticare limitate\n{appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.",
         "noAds": "Fără reclame prin design\n{appLabel} este construit pentru a funcționa fără reclame sau monetizare bazată pe date.",
         "noDataSelling": "Fără vânzare de date\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite terților.",
         "localStorage": "Stocare locală prioritară\nDatele tale rămân pe dispozitivul tău.",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Șterge datele",
     "offlineNutritionInstallFailed": "Datele nutriționale locale nu au putut fi descărcate și verificate: {error}",
     "offlineNutritionCleared": "Datele nutriționale locale au fost șterse"
+  },
+  "watch": {
+    "appTitle": "Calorify Watch",
+    "common": {
+      "back": "Înapoi",
+      "cancel": "Anulează",
+      "delete": "Șterge",
+      "retry": "Reîncearcă",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutrient",
+      "grams": "{label}, {value} grame",
+      "protein": "Proteine",
+      "carbs": "Carbohidrați",
+      "fat": "Grăsimi",
+      "fiber": "Fibre"
+    },
+    "sync": {
+      "syncWithPhone": "Sincronizează cu telefonul",
+      "syncing": "Sincronizare…",
+      "synced": "Sincronizat",
+      "syncedJustNow": "Sincronizat chiar acum",
+      "syncedMinutesAgo": "Sincronizat acum {minutes}m",
+      "failed": "Sincronizare eșuată",
+      "phoneDisconnected": "Telefon deconectat",
+      "tapToSync": "Atinge pentru a sincroniza",
+      "refreshFailed": "Nu s-a putut reîmprospăta. Verifică-ți telefonul.",
+      "openPhone": "Deschide Calorify pe telefon, apoi apasă reîmprospătare."
+    },
+    "home": {
+      "today": "Astăzi",
+      "calorieSummary": "{consumed} calorii consumate din {goal}. {status}.",
+      "overGoal": "{calories} peste obiectiv",
+      "remaining": "{calories} rămase",
+      "left": "{calories} rămase",
+      "goal": "{calories} kcal obiectiv",
+      "logMeal": "Înregistrează o masă",
+      "todayMeals": "Mesele de azi",
+      "todayMealsCount": "Mesele de azi, {count}",
+      "viewMore": "Vezi încă {count}",
+      "viewMoreSemantics": "{count} mese în plus, atinge pentru a le vedea pe toate",
+      "noMeals": "Nu a fost înregistrată nicio masă",
+      "noMealsSemantics": "Nicio masă înregistrată azi",
+      "tapLog": "Atinge Înregistrează pentru a începe",
+      "removedFromQueue": "Masa a fost eliminată din coada offline.",
+      "removedOffline": "Masa eliminată offline. Se va sincroniza când telefonul se reconectează.",
+      "deleteFailed": "Nu s-a putut șterge masa"
+    },
+    "history": {
+      "title": "Mesele de azi",
+      "refresh": "Reîmprospătează mesele",
+      "loadFailed": "Nu s-au putut încărca mesele",
+      "syncFailed": "Nu s-a putut sincroniza",
+      "emptyTitle": "Nicio masă încă",
+      "emptyMessage": "Înregistrează o masă din ecranul principal pentru a o vedea aici."
+    },
+    "favorites": {
+      "title": "Preferate",
+      "refresh": "Reîmprospătează preferatele",
+      "loadFailed": "Nu s-au putut încărca preferatele",
+      "syncFailed": "Nu s-a putut sincroniza",
+      "emptyTitle": "Niciun favorit încă",
+      "emptyMessage": "Favoritează mesele în aplicația de pe telefon pentru a le înregistra cu un singur tap aici.",
+      "mealSemantics": "{name}, {calories} calorii. Atinge pentru a înregistra.",
+      "logged": "{name} înregistrată!",
+      "savedOffline": "{name} salvat offline. Se va sincroniza când telefonul se reconectează.",
+      "saveFailed": "Nu s-a putut salva masa. Te rog încearcă din nou.",
+      "log": "Înregistrează"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} calorii, înregistrată la {time}.",
+      "longPressDelete": "Apăsare lungă pentru a șterge.",
+      "deleteTitle": "Ștergi masa?"
+    },
+    "voice": {
+      "title": "Înregistrare vocală a mesei",
+      "processing": "Verificăm masa…",
+      "processingDescription": "Estimăm porțiile și valorile nutriționale",
+      "listening": "Ascultând",
+      "secondsLeft": "{seconds}s",
+      "stop": "Oprește înregistrarea",
+      "start": "Atinge pentru a începe înregistrarea",
+      "starting": "Pornire microfon…",
+      "prompt": "Atinge, apoi descrie masa",
+      "tapToRetry": "Atinge pentru a reîncerca",
+      "example": "Încearcă „2 rotis cu dal”",
+      "unavailable": "Introducerea vocală nu este disponibilă. Verifică permisiunea microfonului în setările ceasului.",
+      "didNotStart": "Microfonul nu a pornit. Atinge pentru a reîncerca.",
+      "startFailed": "Nu s-a putut porni înregistrarea. Verifică permisiunile microfonului.",
+      "allowMicrophone": "Permite accesul la microfon pentru a înregistra mesele vocal.",
+      "needsConnection": "Recunoașterea vocală necesită conexiune. Atinge pentru a reîncerca.",
+      "microphoneUnavailable": "Microfonul nu este disponibil. Atinge pentru a reîncerca.",
+      "microphoneBusy": "Microfonul este ocupat. Așteaptă puțin și reîncearcă.",
+      "languageUnsupported": "Introducerea vocală nu suportă limba ceasului.",
+      "temporarilyBusy": "Introducerea vocală este temporar ocupată. Așteaptă puțin și reîncearcă.",
+      "notRecognized": "Nu am înțeles. Atinge microfonul și încearcă din nou.",
+      "noSpeech": "Nu s-a detectat vorbire. Atinge microfonul pentru a încerca din nou.",
+      "analysisFailed": "Analiza a eșuat. Te rog încearcă din nou.",
+      "mealNotIdentified": "Nu am putut identifica acea masă. Încearcă să o descrii diferit."
+    },
+    "result": {
+      "title": "Detalii masă",
+      "savedOffline": "Salvat offline",
+      "logged": "Înregistrat!",
+      "mealFound": "Masă găsită",
+      "estimatedEnergy": "Energie estimată",
+      "logMeal": "Înregistrează masa",
+      "logging": "Se înregistrează…",
+      "logAnother": "Înregistrează alta",
+      "goingBack": "Se întoarce…",
+      "savedOfflineMessage": "Masa salvată offline. Se va sincroniza când telefonul se reconectează.",
+      "saveFailed": "Nu s-a putut salva masa. Te rog încearcă din nou."
+    }
   },
   "common": {
     "close": "Închide",

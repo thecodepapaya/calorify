@@ -58,6 +58,7 @@ class TranslationsRo extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$ro login = _Translations$login$ro._(_root);
 	@override late final _Translations$disclaimer$ro disclaimer = _Translations$disclaimer$ro._(_root);
 	@override late final _Translations$localNutritionPhase4$ro localNutritionPhase4 = _Translations$localNutritionPhase4$ro._(_root);
+	@override late final _Translations$watch$ro watch = _Translations$watch$ro._(_root);
 	@override late final _Translations$common$ro common = _Translations$common$ro._(_root);
 	@override late final _Translations$feedbackRating$ro feedbackRating = _Translations$feedbackRating$ro._(_root);
 	@override late final _Translations$health$ro health = _Translations$health$ro._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$ro extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'Datele nutriționale locale au fost șterse';
 }
 
+// Path: watch
+class _Translations$watch$ro extends Translations$watch$en {
+	_Translations$watch$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$ro common = _Translations$watch$common$ro._(_root);
+	@override late final _Translations$watch$nutrition$ro nutrition = _Translations$watch$nutrition$ro._(_root);
+	@override late final _Translations$watch$sync$ro sync = _Translations$watch$sync$ro._(_root);
+	@override late final _Translations$watch$home$ro home = _Translations$watch$home$ro._(_root);
+	@override late final _Translations$watch$history$ro history = _Translations$watch$history$ro._(_root);
+	@override late final _Translations$watch$favorites$ro favorites = _Translations$watch$favorites$ro._(_root);
+	@override late final _Translations$watch$meal$ro meal = _Translations$watch$meal$ro._(_root);
+	@override late final _Translations$watch$voice$ro voice = _Translations$watch$voice$ro._(_root);
+	@override late final _Translations$watch$result$ro result = _Translations$watch$result$ro._(_root);
+}
+
 // Path: common
 class _Translations$common$ro extends Translations$common$en {
 	_Translations$common$ro._(TranslationsRo root) : this._root = root, super.internal(root);
@@ -569,12 +589,12 @@ class _Translations$onboarding$healthConnect$ro extends Translations$onboarding$
 	@override String get title => 'Conectează-te la Health Connect';
 	@override String get description => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.';
 	@override String get overviewDescription => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$ro caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$ro._(_root);
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$ro shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$ro._(_root);
-	@override late final _Translations$onboarding$healthConnect$userControl$ro userControl = _Translations$onboarding$healthConnect$userControl$ro._(_root);
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$ro automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$ro._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$ro caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$ro._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$ro progressInsights = _Translations$onboarding$healthConnect$progressInsights$ro._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$ro shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$ro._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$ro seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$ro._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$ro userControl = _Translations$onboarding$healthConnect$userControl$ro._(_root);
 	@override String get connected => 'Health Connect conectat';
 	@override String get notConnected => 'Health Connect neconectat';
 	@override String get setup => 'Configurează Health Connect';
@@ -751,11 +771,11 @@ class _Translations$home$connectHealth$ro extends Translations$home$connectHealt
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get dataUseDescription => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate';
-	@override String get installOrUpdate => 'Instalează sau actualizează';
 	@override String get title => 'Sincronizează cu Health Connect';
 	@override String get description => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate';
 	@override String get install => 'Instalează sau actualizează';
+	@override String get dataUseDescription => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate';
+	@override String get installOrUpdate => 'Instalează sau actualizează';
 	@override String get connect => 'Conectează-te';
 }
 
@@ -1117,12 +1137,12 @@ class _Translations$settings$clearAllData$ro extends Translations$settings$clear
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get localOnlySubtitle => 'Șterge datele Calorify stocate pe acest dispozitiv';
-	@override String get localOnlyConfirmationMessage => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.';
 	@override String get title => 'Șterge toate datele';
 	@override String get subtitle => 'Șterge datele Calorify stocate pe acest dispozitiv';
+	@override String get localOnlySubtitle => 'Șterge datele Calorify stocate pe acest dispozitiv';
 	@override String get confirmationTitle => 'Ștergi toate datele?';
 	@override String get confirmationMessage => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.';
+	@override String get localOnlyConfirmationMessage => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.';
 	@override String get cancel => 'Anulează';
 	@override String get clearEverything => 'Șterge totul';
 }
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$ro extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$ro professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$ro._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$ro extends Translations$watch$common$en {
+	_Translations$watch$common$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Înapoi';
+	@override String get cancel => 'Anulează';
+	@override String get delete => 'Șterge';
+	@override String get retry => 'Reîncearcă';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$ro extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Nutrient';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} grame';
+	@override String get protein => 'Proteine';
+	@override String get carbs => 'Carbohidrați';
+	@override String get fat => 'Grăsimi';
+	@override String get fiber => 'Fibre';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$ro extends Translations$watch$sync$en {
+	_Translations$watch$sync$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Sincronizează cu telefonul';
+	@override String get syncing => 'Sincronizare…';
+	@override String get synced => 'Sincronizat';
+	@override String get syncedJustNow => 'Sincronizat chiar acum';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Sincronizat acum ${minutes}m';
+	@override String get failed => 'Sincronizare eșuată';
+	@override String get phoneDisconnected => 'Telefon deconectat';
+	@override String get tapToSync => 'Atinge pentru a sincroniza';
+	@override String get refreshFailed => 'Nu s-a putut reîmprospăta. Verifică-ți telefonul.';
+	@override String get openPhone => 'Deschide Calorify pe telefon, apoi apasă reîmprospătare.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$ro extends Translations$watch$home$en {
+	_Translations$watch$home$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Astăzi';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} calorii consumate din ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} peste obiectiv';
+	@override String remaining({required Object calories}) => '${calories} rămase';
+	@override String left({required Object calories}) => '${calories} rămase';
+	@override String goal({required Object calories}) => '${calories} kcal obiectiv';
+	@override String get logMeal => 'Înregistrează o masă';
+	@override String get todayMeals => 'Mesele de azi';
+	@override String todayMealsCount({required Object count}) => 'Mesele de azi, ${count}';
+	@override String viewMore({required Object count}) => 'Vezi încă ${count}';
+	@override String viewMoreSemantics({required Object count}) => '${count} mese în plus, atinge pentru a le vedea pe toate';
+	@override String get noMeals => 'Nu a fost înregistrată nicio masă';
+	@override String get noMealsSemantics => 'Nicio masă înregistrată azi';
+	@override String get tapLog => 'Atinge Înregistrează pentru a începe';
+	@override String get removedFromQueue => 'Masa a fost eliminată din coada offline.';
+	@override String get removedOffline => 'Masa eliminată offline. Se va sincroniza când telefonul se reconectează.';
+	@override String get deleteFailed => 'Nu s-a putut șterge masa';
+}
+
+// Path: watch.history
+class _Translations$watch$history$ro extends Translations$watch$history$en {
+	_Translations$watch$history$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mesele de azi';
+	@override String get refresh => 'Reîmprospătează mesele';
+	@override String get loadFailed => 'Nu s-au putut încărca mesele';
+	@override String get syncFailed => 'Nu s-a putut sincroniza';
+	@override String get emptyTitle => 'Nicio masă încă';
+	@override String get emptyMessage => 'Înregistrează o masă din ecranul principal pentru a o vedea aici.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$ro extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Preferate';
+	@override String get refresh => 'Reîmprospătează preferatele';
+	@override String get loadFailed => 'Nu s-au putut încărca preferatele';
+	@override String get syncFailed => 'Nu s-a putut sincroniza';
+	@override String get emptyTitle => 'Niciun favorit încă';
+	@override String get emptyMessage => 'Favoritează mesele în aplicația de pe telefon pentru a le înregistra cu un singur tap aici.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} calorii. Atinge pentru a înregistra.';
+	@override String logged({required Object name}) => '${name} înregistrată!';
+	@override String savedOffline({required Object name}) => '${name} salvat offline. Se va sincroniza când telefonul se reconectează.';
+	@override String get saveFailed => 'Nu s-a putut salva masa. Te rog încearcă din nou.';
+	@override String get log => 'Înregistrează';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$ro extends Translations$watch$meal$en {
+	_Translations$watch$meal$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calorii, înregistrată la ${time}.';
+	@override String get longPressDelete => 'Apăsare lungă pentru a șterge.';
+	@override String get deleteTitle => 'Ștergi masa?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$ro extends Translations$watch$voice$en {
+	_Translations$watch$voice$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Înregistrare vocală a mesei';
+	@override String get processing => 'Verificăm masa…';
+	@override String get processingDescription => 'Estimăm porțiile și valorile nutriționale';
+	@override String get listening => 'Ascultând';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Oprește înregistrarea';
+	@override String get start => 'Atinge pentru a începe înregistrarea';
+	@override String get starting => 'Pornire microfon…';
+	@override String get prompt => 'Atinge, apoi descrie masa';
+	@override String get tapToRetry => 'Atinge pentru a reîncerca';
+	@override String get example => 'Încearcă „2 rotis cu dal”';
+	@override String get unavailable => 'Introducerea vocală nu este disponibilă. Verifică permisiunea microfonului în setările ceasului.';
+	@override String get didNotStart => 'Microfonul nu a pornit. Atinge pentru a reîncerca.';
+	@override String get startFailed => 'Nu s-a putut porni înregistrarea. Verifică permisiunile microfonului.';
+	@override String get allowMicrophone => 'Permite accesul la microfon pentru a înregistra mesele vocal.';
+	@override String get needsConnection => 'Recunoașterea vocală necesită conexiune. Atinge pentru a reîncerca.';
+	@override String get microphoneUnavailable => 'Microfonul nu este disponibil. Atinge pentru a reîncerca.';
+	@override String get microphoneBusy => 'Microfonul este ocupat. Așteaptă puțin și reîncearcă.';
+	@override String get languageUnsupported => 'Introducerea vocală nu suportă limba ceasului.';
+	@override String get temporarilyBusy => 'Introducerea vocală este temporar ocupată. Așteaptă puțin și reîncearcă.';
+	@override String get notRecognized => 'Nu am înțeles. Atinge microfonul și încearcă din nou.';
+	@override String get noSpeech => 'Nu s-a detectat vorbire. Atinge microfonul pentru a încerca din nou.';
+	@override String get analysisFailed => 'Analiza a eșuat. Te rog încearcă din nou.';
+	@override String get mealNotIdentified => 'Nu am putut identifica acea masă. Încearcă să o descrii diferit.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$ro extends Translations$watch$result$en {
+	_Translations$watch$result$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Detalii masă';
+	@override String get savedOffline => 'Salvat offline';
+	@override String get logged => 'Înregistrat!';
+	@override String get mealFound => 'Masă găsită';
+	@override String get estimatedEnergy => 'Energie estimată';
+	@override String get logMeal => 'Înregistrează masa';
+	@override String get logging => 'Se înregistrează…';
+	@override String get logAnother => 'Înregistrează alta';
+	@override String get goingBack => 'Se întoarce…';
+	@override String get savedOfflineMessage => 'Masa salvată offline. Se va sincroniza când telefonul se reconectează.';
+	@override String get saveFailed => 'Nu s-a putut salva masa. Te rog încearcă din nou.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$ro extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$ro._(TranslationsRo root) : this._root = root, super.internal(root);
@@ -1364,9 +1559,9 @@ class _Translations$onboarding$bmiScale$messages$ro extends Translations$onboard
 	@override String get obese => 'Suntem aici să te susținem cu recomandări personalizate și strategii sustenabile pentru obiectivele tale de sănătate.';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$ro extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+// Path: onboarding.healthConnect.automaticTracking
+class _Translations$onboarding$healthConnect$automaticTracking$ro extends Translations$onboarding$healthConnect$automaticTracking$en {
+	_Translations$onboarding$healthConnect$automaticTracking$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -1375,31 +1570,9 @@ class _Translations$onboarding$healthConnect$caloriesBurned$ro extends Translati
 	@override String get description => 'Citește totalul caloriilor arse astăzi din Health Connect';
 }
 
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$ro extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$ro._(TranslationsRo root) : this._root = root, super.internal(root);
-
-	final TranslationsRo _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Partajează mesele înregistrate';
-	@override String get description => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify';
-}
-
-// Path: onboarding.healthConnect.userControl
-class _Translations$onboarding$healthConnect$userControl$ro extends Translations$onboarding$healthConnect$userControl$en {
-	_Translations$onboarding$healthConnect$userControl$ro._(TranslationsRo root) : this._root = root, super.internal(root);
-
-	final TranslationsRo _root; // ignore: unused_field
-
-	// Translations
-	@override String get title => 'Tu deții controlul';
-	@override String get description => 'Alege oricare dintre permisiuni și modifică accesul oricând';
-}
-
-// Path: onboarding.healthConnect.automaticTracking
-class _Translations$onboarding$healthConnect$automaticTracking$ro extends Translations$onboarding$healthConnect$automaticTracking$en {
-	_Translations$onboarding$healthConnect$automaticTracking$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$ro extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -1419,9 +1592,31 @@ class _Translations$onboarding$healthConnect$progressInsights$ro extends Transla
 	@override String get description => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$ro extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Partajează mesele înregistrate';
+	@override String get description => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _Translations$onboarding$healthConnect$seamlessIntegration$ro extends Translations$onboarding$healthConnect$seamlessIntegration$en {
 	_Translations$onboarding$healthConnect$seamlessIntegration$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tu deții controlul';
+	@override String get description => 'Alege oricare dintre permisiuni și modifică accesul oricând';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _Translations$onboarding$healthConnect$userControl$ro extends Translations$onboarding$healthConnect$userControl$en {
+	_Translations$onboarding$healthConnect$userControl$ro._(TranslationsRo root) : this._root = root, super.internal(root);
 
 	final TranslationsRo _root; // ignore: unused_field
 
@@ -1579,9 +1774,9 @@ class _Translations$settings$healthConnect$unavailable$ro extends Translations$s
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get unsupportedDescription => 'Health Connect nu este acceptat pe acest dispozitiv.';
 	@override String get title => 'Health Connect indisponibil';
 	@override String get description => 'Health Connect nu este acceptat pe acest dispozitiv.';
+	@override String get unsupportedDescription => 'Health Connect nu este acceptat pe acest dispozitiv.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1630,11 +1825,11 @@ class _Translations$settings$about$privacy$ro extends Translations$settings$abou
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String analyticsDisclosure({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.';
 	@override String get title => 'Confidențialitatea ta contează';
 	@override String get description => 'Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:';
 	@override String get noAccounts => 'Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.';
 	@override String noTracking({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.';
 	@override String noAds({required Object appLabel}) => 'Fără reclame prin design\n${appLabel} este construit pentru a funcționa fără reclame sau monetizare bazată pe date.';
 	@override String get noDataSelling => 'Fără vânzare de date\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite terților.';
 	@override String get localStorage => 'Stocare locală prioritară\nDatele tale rămân pe dispozitivul tău.';
@@ -1909,18 +2104,18 @@ extension on TranslationsRo {
 			'onboarding.healthConnect.title' => 'Conectează-te la Health Connect',
 			'onboarding.healthConnect.description' => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.',
 			'onboarding.healthConnect.overviewDescription' => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.',
-			'onboarding.healthConnect.caloriesBurned.title' => 'Calorii arse',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Citește totalul caloriilor arse astăzi din Health Connect',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'Partajează mesele înregistrate',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify',
-			'onboarding.healthConnect.userControl.title' => 'Tu deții controlul',
-			'onboarding.healthConnect.userControl.description' => 'Alege oricare dintre permisiuni și modifică accesul oricând',
 			'onboarding.healthConnect.automaticTracking.title' => 'Calorii arse',
 			'onboarding.healthConnect.automaticTracking.description' => 'Citește totalul caloriilor arse astăzi din Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Calorii arse',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Citește totalul caloriilor arse astăzi din Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Partajează mesele înregistrate',
 			'onboarding.healthConnect.progressInsights.description' => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Partajează mesele înregistrate',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Tu deții controlul',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Alege oricare dintre permisiuni și modifică accesul oricând',
+			'onboarding.healthConnect.userControl.title' => 'Tu deții controlul',
+			'onboarding.healthConnect.userControl.description' => 'Alege oricare dintre permisiuni și modifică accesul oricând',
 			'onboarding.healthConnect.connected' => 'Health Connect conectat',
 			'onboarding.healthConnect.notConnected' => 'Health Connect neconectat',
 			'onboarding.healthConnect.setup' => 'Configurează Health Connect',
@@ -2024,11 +2219,11 @@ extension on TranslationsRo {
 			'home.mealSnap.gallery' => 'Galerie',
 			'home.mealSnap.compressingPhoto' => 'Optimizare fotografie…',
 			'home.mealSnap.uploadingPhoto' => 'Încărcare fotografie…',
-			'home.connectHealth.dataUseDescription' => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate',
-			'home.connectHealth.installOrUpdate' => 'Instalează sau actualizează',
 			'home.connectHealth.title' => 'Sincronizează cu Health Connect',
 			'home.connectHealth.description' => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate',
 			'home.connectHealth.install' => 'Instalează sau actualizează',
+			'home.connectHealth.dataUseDescription' => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate',
+			'home.connectHealth.installOrUpdate' => 'Instalează sau actualizează',
 			'home.connectHealth.connect' => 'Conectează-te',
 			'history.noMeals' => 'Nicio masă înregistrată',
 			'history.emptyMessage' => 'Fă o poză ultimei tale mese pentru a o înregistra aici.',
@@ -2263,21 +2458,21 @@ extension on TranslationsRo {
 			'settings.exportMealHistory.subtitle' => 'Partajează un CSV cu mesele înregistrate',
 			'settings.exportMealHistory.shareText' => 'Exportul istoricului meselor Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nu s-a putut exporta istoricul meselor: ${error}',
-			'settings.clearAllData.localOnlySubtitle' => 'Șterge datele Calorify stocate pe acest dispozitiv',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.',
 			'settings.clearAllData.title' => 'Șterge toate datele',
 			'settings.clearAllData.subtitle' => 'Șterge datele Calorify stocate pe acest dispozitiv',
+			'settings.clearAllData.localOnlySubtitle' => 'Șterge datele Calorify stocate pe acest dispozitiv',
 			'settings.clearAllData.confirmationTitle' => 'Ștergi toate datele?',
 			'settings.clearAllData.confirmationMessage' => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.',
 			'settings.clearAllData.cancel' => 'Anulează',
 			'settings.clearAllData.clearEverything' => 'Șterge totul',
 			'settings.debugOptions.title' => 'Opțiuni debug',
 			'settings.developerModeEnabled' => 'Mod dezvoltator activat!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Vizualizează și gestionează permisiunile',
-			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect nu este acceptat pe acest dispozitiv.',
 			'settings.healthConnect.unavailable.title' => 'Health Connect indisponibil',
 			'settings.healthConnect.unavailable.description' => 'Health Connect nu este acceptat pe acest dispozitiv.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect nu este acceptat pe acest dispozitiv.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect necesită atenție',
 			'settings.healthConnect.updateRequired.description' => 'Instalează sau actualizează Health Connect înainte de a gestiona accesul.',
 			'settings.healthConnect.updateRequired.action' => 'Instalează sau actualizează',
@@ -2317,11 +2512,11 @@ extension on TranslationsRo {
 			'settings.about.tagline' => 'Conștientizare calorică rapidă, gratuită și cu confidențialitate pe primul loc',
 			'settings.about.ourStory.title' => 'Povestea noastră',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} a luat naștere dintr-o frustrare simplă: majoritatea aplicațiilor de urmărire a caloriilor sunt fie prea complicate, solicită introduceri manuale constante, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să creez ceva mai simplu și mai corect — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și tratează datele tale de sănătate cu respect.\n\n${appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate.',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.',
 			'settings.about.privacy.title' => 'Confidențialitatea ta contează',
 			'settings.about.privacy.description' => 'Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:',
 			'settings.about.privacy.noAccounts' => 'Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Fără reclame prin design\n${appLabel} este construit pentru a funcționa fără reclame sau monetizare bazată pe date.',
 			'settings.about.privacy.noDataSelling' => 'Fără vânzare de date\nDatele tale de sănătate nu sunt niciodată vândute sau împărtășite terților.',
 			'settings.about.privacy.localStorage' => 'Stocare locală prioritară\nDatele tale rămân pe dispozitivul tău.',
@@ -2432,6 +2627,101 @@ extension on TranslationsRo {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Șterge datele',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Datele nutriționale locale nu au putut fi descărcate și verificate: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Datele nutriționale locale au fost șterse',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Înapoi',
+			'watch.common.cancel' => 'Anulează',
+			'watch.common.delete' => 'Șterge',
+			'watch.common.retry' => 'Reîncearcă',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Nutrient',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} grame',
+			'watch.nutrition.protein' => 'Proteine',
+			'watch.nutrition.carbs' => 'Carbohidrați',
+			'watch.nutrition.fat' => 'Grăsimi',
+			'watch.nutrition.fiber' => 'Fibre',
+			'watch.sync.syncWithPhone' => 'Sincronizează cu telefonul',
+			'watch.sync.syncing' => 'Sincronizare…',
+			'watch.sync.synced' => 'Sincronizat',
+			'watch.sync.syncedJustNow' => 'Sincronizat chiar acum',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Sincronizat acum ${minutes}m',
+			'watch.sync.failed' => 'Sincronizare eșuată',
+			'watch.sync.phoneDisconnected' => 'Telefon deconectat',
+			'watch.sync.tapToSync' => 'Atinge pentru a sincroniza',
+			'watch.sync.refreshFailed' => 'Nu s-a putut reîmprospăta. Verifică-ți telefonul.',
+			'watch.sync.openPhone' => 'Deschide Calorify pe telefon, apoi apasă reîmprospătare.',
+			'watch.home.today' => 'Astăzi',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} calorii consumate din ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} peste obiectiv',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} rămase',
+			'watch.home.left' => ({required Object calories}) => '${calories} rămase',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal obiectiv',
+			'watch.home.logMeal' => 'Înregistrează o masă',
+			'watch.home.todayMeals' => 'Mesele de azi',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Mesele de azi, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Vezi încă ${count}',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} mese în plus, atinge pentru a le vedea pe toate',
+			'watch.home.noMeals' => 'Nu a fost înregistrată nicio masă',
+			'watch.home.noMealsSemantics' => 'Nicio masă înregistrată azi',
+			'watch.home.tapLog' => 'Atinge Înregistrează pentru a începe',
+			'watch.home.removedFromQueue' => 'Masa a fost eliminată din coada offline.',
+			'watch.home.removedOffline' => 'Masa eliminată offline. Se va sincroniza când telefonul se reconectează.',
+			'watch.home.deleteFailed' => 'Nu s-a putut șterge masa',
+			'watch.history.title' => 'Mesele de azi',
+			'watch.history.refresh' => 'Reîmprospătează mesele',
+			'watch.history.loadFailed' => 'Nu s-au putut încărca mesele',
+			'watch.history.syncFailed' => 'Nu s-a putut sincroniza',
+			'watch.history.emptyTitle' => 'Nicio masă încă',
+			'watch.history.emptyMessage' => 'Înregistrează o masă din ecranul principal pentru a o vedea aici.',
+			'watch.favorites.title' => 'Preferate',
+			'watch.favorites.refresh' => 'Reîmprospătează preferatele',
+			'watch.favorites.loadFailed' => 'Nu s-au putut încărca preferatele',
+			'watch.favorites.syncFailed' => 'Nu s-a putut sincroniza',
+			'watch.favorites.emptyTitle' => 'Niciun favorit încă',
+			'watch.favorites.emptyMessage' => 'Favoritează mesele în aplicația de pe telefon pentru a le înregistra cu un singur tap aici.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} calorii. Atinge pentru a înregistra.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} înregistrată!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} salvat offline. Se va sincroniza când telefonul se reconectează.',
+			'watch.favorites.saveFailed' => 'Nu s-a putut salva masa. Te rog încearcă din nou.',
+			'watch.favorites.log' => 'Înregistrează',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calorii, înregistrată la ${time}.',
+			'watch.meal.longPressDelete' => 'Apăsare lungă pentru a șterge.',
+			'watch.meal.deleteTitle' => 'Ștergi masa?',
+			'watch.voice.title' => 'Înregistrare vocală a mesei',
+			'watch.voice.processing' => 'Verificăm masa…',
+			'watch.voice.processingDescription' => 'Estimăm porțiile și valorile nutriționale',
+			'watch.voice.listening' => 'Ascultând',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Oprește înregistrarea',
+			'watch.voice.start' => 'Atinge pentru a începe înregistrarea',
+			'watch.voice.starting' => 'Pornire microfon…',
+			'watch.voice.prompt' => 'Atinge, apoi descrie masa',
+			'watch.voice.tapToRetry' => 'Atinge pentru a reîncerca',
+			'watch.voice.example' => 'Încearcă „2 rotis cu dal”',
+			'watch.voice.unavailable' => 'Introducerea vocală nu este disponibilă. Verifică permisiunea microfonului în setările ceasului.',
+			'watch.voice.didNotStart' => 'Microfonul nu a pornit. Atinge pentru a reîncerca.',
+			'watch.voice.startFailed' => 'Nu s-a putut porni înregistrarea. Verifică permisiunile microfonului.',
+			'watch.voice.allowMicrophone' => 'Permite accesul la microfon pentru a înregistra mesele vocal.',
+			'watch.voice.needsConnection' => 'Recunoașterea vocală necesită conexiune. Atinge pentru a reîncerca.',
+			'watch.voice.microphoneUnavailable' => 'Microfonul nu este disponibil. Atinge pentru a reîncerca.',
+			'watch.voice.microphoneBusy' => 'Microfonul este ocupat. Așteaptă puțin și reîncearcă.',
+			'watch.voice.languageUnsupported' => 'Introducerea vocală nu suportă limba ceasului.',
+			'watch.voice.temporarilyBusy' => 'Introducerea vocală este temporar ocupată. Așteaptă puțin și reîncearcă.',
+			'watch.voice.notRecognized' => 'Nu am înțeles. Atinge microfonul și încearcă din nou.',
+			'watch.voice.noSpeech' => 'Nu s-a detectat vorbire. Atinge microfonul pentru a încerca din nou.',
+			'watch.voice.analysisFailed' => 'Analiza a eșuat. Te rog încearcă din nou.',
+			'watch.voice.mealNotIdentified' => 'Nu am putut identifica acea masă. Încearcă să o descrii diferit.',
+			'watch.result.title' => 'Detalii masă',
+			'watch.result.savedOffline' => 'Salvat offline',
+			'watch.result.logged' => 'Înregistrat!',
+			'watch.result.mealFound' => 'Masă găsită',
+			'watch.result.estimatedEnergy' => 'Energie estimată',
+			'watch.result.logMeal' => 'Înregistrează masa',
+			'watch.result.logging' => 'Se înregistrează…',
+			'watch.result.logAnother' => 'Înregistrează alta',
+			'watch.result.goingBack' => 'Se întoarce…',
+			'watch.result.savedOfflineMessage' => 'Masa salvată offline. Se va sincroniza când telefonul se reconectează.',
+			'watch.result.saveFailed' => 'Nu s-a putut salva masa. Te rog încearcă din nou.',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}?',

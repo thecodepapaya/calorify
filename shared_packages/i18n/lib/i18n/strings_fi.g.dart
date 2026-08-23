@@ -58,6 +58,7 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$fi login = _Translations$login$fi._(_root);
 	@override late final _Translations$disclaimer$fi disclaimer = _Translations$disclaimer$fi._(_root);
 	@override late final _Translations$localNutritionPhase4$fi localNutritionPhase4 = _Translations$localNutritionPhase4$fi._(_root);
+	@override late final _Translations$watch$fi watch = _Translations$watch$fi._(_root);
 	@override late final _Translations$common$fi common = _Translations$common$fi._(_root);
 	@override late final _Translations$feedbackRating$fi feedbackRating = _Translations$feedbackRating$fi._(_root);
 	@override late final _Translations$health$fi health = _Translations$health$fi._(_root);
@@ -408,6 +409,25 @@ class _Translations$localNutritionPhase4$fi extends Translations$localNutritionP
 	@override String get offlineNutritionClearConfirm => 'Tyhjennä tiedot';
 	@override String offlineNutritionInstallFailed({required Object error}) => 'Paikallisia ravintoarvotietoja ei voitu ladata ja varmentaa: ${error}';
 	@override String get offlineNutritionCleared => 'Paikalliset ravintoarvotiedot tyhjennettiin';
+}
+
+// Path: watch
+class _Translations$watch$fi extends Translations$watch$en {
+	_Translations$watch$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify-kello';
+	@override late final _Translations$watch$common$fi common = _Translations$watch$common$fi._(_root);
+	@override late final _Translations$watch$nutrition$fi nutrition = _Translations$watch$nutrition$fi._(_root);
+	@override late final _Translations$watch$sync$fi sync = _Translations$watch$sync$fi._(_root);
+	@override late final _Translations$watch$home$fi home = _Translations$watch$home$fi._(_root);
+	@override late final _Translations$watch$history$fi history = _Translations$watch$history$fi._(_root);
+	@override late final _Translations$watch$favorites$fi favorites = _Translations$watch$favorites$fi._(_root);
+	@override late final _Translations$watch$meal$fi meal = _Translations$watch$meal$fi._(_root);
+	@override late final _Translations$watch$voice$fi voice = _Translations$watch$voice$fi._(_root);
+	@override late final _Translations$watch$result$fi result = _Translations$watch$result$fi._(_root);
 }
 
 // Path: common
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$fi extends Translations$discla
 	@override String get description => 'Kun Health Connect -data ei ole saatavilla, arvioimme tämän päivän poltetut kalorit käyttäen perusaineenvaihduntaasi (BMR) ja aktiivisuustasoasi (TDEE), skaalaamalla sen kuluneen päivän osuuden mukaan.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$fi howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$fi._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$fi professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$fi._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$fi extends Translations$watch$common$en {
+	_Translations$watch$common$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Takaisin';
+	@override String get cancel => 'Peruuta';
+	@override String get delete => 'Poista';
+	@override String get retry => 'Yritä uudelleen';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$fi extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Ravintoaine';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} g';
+	@override String get protein => 'Proteiini';
+	@override String get carbs => 'Hiilihydraatit';
+	@override String get fat => 'Rasva';
+	@override String get fiber => 'Kuitu';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$fi extends Translations$watch$sync$en {
+	_Translations$watch$sync$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Synkronoi puhelimen kanssa';
+	@override String get syncing => 'Synkronoidaan…';
+	@override String get synced => 'Synkronoitu';
+	@override String get syncedJustNow => 'Synkronoitu juuri nyt';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Synkronoitu ${minutes} min sitten';
+	@override String get failed => 'Synkronointi epäonnistui';
+	@override String get phoneDisconnected => 'Puhelin ei ole yhdistetty';
+	@override String get tapToSync => 'Napauta synkronoidaksesi';
+	@override String get refreshFailed => 'Päivitys epäonnistui. Tarkista puhelimesi.';
+	@override String get openPhone => 'Avaa Calorify puhelimellasi ja napauta sitten päivitä.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$fi extends Translations$watch$home$en {
+	_Translations$watch$home$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Tänään';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kaloria kulutettu tavoitteesta ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} yli tavoitteen';
+	@override String remaining({required Object calories}) => '${calories} jäljellä';
+	@override String left({required Object calories}) => '${calories} jäljellä';
+	@override String goal({required Object calories}) => '${calories} kcal tavoite';
+	@override String get logMeal => 'Kirjaa ateria';
+	@override String get todayMeals => 'Tämän päivän ateriat';
+	@override String todayMealsCount({required Object count}) => 'Tämän päivän ateriat, ${count}';
+	@override String viewMore({required Object count}) => 'Näytä ${count} lisää';
+	@override String viewMoreSemantics({required Object count}) => '${count} lisää ateriaa, napauta nähdäksesi kaikki';
+	@override String get noMeals => 'Ei kirjattuja aterioita';
+	@override String get noMealsSemantics => 'Ei kirjattuja aterioita tänään';
+	@override String get tapLog => 'Napauta Kirjaa aloittaaksesi';
+	@override String get removedFromQueue => 'Ateria poistettu offline-jonosta.';
+	@override String get removedOffline => 'Ateria poistettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.';
+	@override String get deleteFailed => 'Aterian poistaminen epäonnistui';
+}
+
+// Path: watch.history
+class _Translations$watch$history$fi extends Translations$watch$history$en {
+	_Translations$watch$history$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tämän päivän ateriat';
+	@override String get refresh => 'Päivitä ateriat';
+	@override String get loadFailed => 'Aterioita ei voitu ladata';
+	@override String get syncFailed => 'Synkronointi epäonnistui';
+	@override String get emptyTitle => 'Ei vielä aterioita';
+	@override String get emptyMessage => 'Kirjaa ateria Kotinäkymästä nähdäksesi sen täällä.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$fi extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Suosikit';
+	@override String get refresh => 'Päivitä suosikit';
+	@override String get loadFailed => 'Suosikkeja ei voitu ladata';
+	@override String get syncFailed => 'Synkronointi epäonnistui';
+	@override String get emptyTitle => 'Ei vielä suosikkeja';
+	@override String get emptyMessage => 'Tähditä aterioita puhelimen sovelluksessa, niin yhden napautuksen kirjaukset näkyvät tässä.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kcal. Napauta kirjataaksesi.';
+	@override String logged({required Object name}) => '${name} kirjattu!';
+	@override String savedOffline({required Object name}) => '${name} tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.';
+	@override String get saveFailed => 'Aterian tallennus epäonnistui. Yritä uudelleen.';
+	@override String get log => 'Kirjaa';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$fi extends Translations$watch$meal$en {
+	_Translations$watch$meal$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, kirjattu ${time}.';
+	@override String get longPressDelete => 'Paina pitkään poistaaksesi.';
+	@override String get deleteTitle => 'Poistetaanko ateria?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$fi extends Translations$watch$voice$en {
+	_Translations$watch$voice$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Äänikirjaus';
+	@override String get processing => 'Tarkistetaan ateriaa…';
+	@override String get processingDescription => 'Arvioidaan annoskokoja ja ravintosisältöä';
+	@override String get listening => 'Kuunnellaan';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Lopeta tallennus';
+	@override String get start => 'Napauta aloittaaksesi tallennuksen';
+	@override String get starting => 'Käynnistetään mikrofoni…';
+	@override String get prompt => 'Napauta ja kuvaile ateriasi';
+	@override String get tapToRetry => 'Napauta yrittääksesi uudelleen';
+	@override String get example => 'Kokeile: “2 rotia dalin kanssa”';
+	@override String get unavailable => 'Puheentunnistus ei ole käytettävissä. Tarkista mikrofonin käyttöoikeus kellon asetuksista.';
+	@override String get didNotStart => 'Mikrofoni ei käynnistynyt. Napauta yrittääksesi uudelleen.';
+	@override String get startFailed => 'Tallennuksen käynnistäminen epäonnistui. Tarkista mikrofonin käyttöoikeudet.';
+	@override String get allowMicrophone => 'Salli mikrofonin käyttö kirjauksia varten.';
+	@override String get needsConnection => 'Puheentunnistus tarvitsee yhteyden. Napauta yrittääksesi uudelleen.';
+	@override String get microphoneUnavailable => 'Mikrofoni ei ole käytettävissä. Napauta yrittääksesi uudelleen.';
+	@override String get microphoneBusy => 'Mikrofoni on varattu. Odota hetki ja yritä uudelleen.';
+	@override String get languageUnsupported => 'Puheentunnistus ei tue kellon kieltä.';
+	@override String get temporarilyBusy => 'Puheentunnistus on tilapäisesti varattu. Odota hetki ja yritä uudelleen.';
+	@override String get notRecognized => 'En kuullut kunnolla. Napauta mikrofonia ja yritä uudelleen.';
+	@override String get noSpeech => 'Puhetta ei havaittu. Napauta mikrofonia ja yritä uudelleen.';
+	@override String get analysisFailed => 'Analyysi epäonnistui. Yritä uudelleen.';
+	@override String get mealNotIdentified => 'Ateriaa ei tunnistettu. Kokeile kuvailla sitä eri tavalla.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$fi extends Translations$watch$result$en {
+	_Translations$watch$result$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Aterian tiedot';
+	@override String get savedOffline => 'Tallennettu paikallisesti';
+	@override String get logged => 'Kirjattu!';
+	@override String get mealFound => 'Ateria löytyi';
+	@override String get estimatedEnergy => 'Arvioitu energiamäärä';
+	@override String get logMeal => 'Kirjaa ateria';
+	@override String get logging => 'Kirjataan…';
+	@override String get logAnother => 'Kirjaa toinen';
+	@override String get goingBack => 'Palataan…';
+	@override String get savedOfflineMessage => 'Ateria tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.';
+	@override String get saveFailed => 'Aterian tallennus epäonnistui. Yritä uudelleen.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2432,6 +2627,101 @@ extension on TranslationsFi {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Tyhjennä tiedot',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Paikallisia ravintoarvotietoja ei voitu ladata ja varmentaa: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Paikalliset ravintoarvotiedot tyhjennettiin',
+			'watch.appTitle' => 'Calorify-kello',
+			'watch.common.back' => 'Takaisin',
+			'watch.common.cancel' => 'Peruuta',
+			'watch.common.delete' => 'Poista',
+			'watch.common.retry' => 'Yritä uudelleen',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Ravintoaine',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} g',
+			'watch.nutrition.protein' => 'Proteiini',
+			'watch.nutrition.carbs' => 'Hiilihydraatit',
+			'watch.nutrition.fat' => 'Rasva',
+			'watch.nutrition.fiber' => 'Kuitu',
+			'watch.sync.syncWithPhone' => 'Synkronoi puhelimen kanssa',
+			'watch.sync.syncing' => 'Synkronoidaan…',
+			'watch.sync.synced' => 'Synkronoitu',
+			'watch.sync.syncedJustNow' => 'Synkronoitu juuri nyt',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Synkronoitu ${minutes} min sitten',
+			'watch.sync.failed' => 'Synkronointi epäonnistui',
+			'watch.sync.phoneDisconnected' => 'Puhelin ei ole yhdistetty',
+			'watch.sync.tapToSync' => 'Napauta synkronoidaksesi',
+			'watch.sync.refreshFailed' => 'Päivitys epäonnistui. Tarkista puhelimesi.',
+			'watch.sync.openPhone' => 'Avaa Calorify puhelimellasi ja napauta sitten päivitä.',
+			'watch.home.today' => 'Tänään',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kaloria kulutettu tavoitteesta ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} yli tavoitteen',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} jäljellä',
+			'watch.home.left' => ({required Object calories}) => '${calories} jäljellä',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal tavoite',
+			'watch.home.logMeal' => 'Kirjaa ateria',
+			'watch.home.todayMeals' => 'Tämän päivän ateriat',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Tämän päivän ateriat, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Näytä ${count} lisää',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} lisää ateriaa, napauta nähdäksesi kaikki',
+			'watch.home.noMeals' => 'Ei kirjattuja aterioita',
+			'watch.home.noMealsSemantics' => 'Ei kirjattuja aterioita tänään',
+			'watch.home.tapLog' => 'Napauta Kirjaa aloittaaksesi',
+			'watch.home.removedFromQueue' => 'Ateria poistettu offline-jonosta.',
+			'watch.home.removedOffline' => 'Ateria poistettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.',
+			'watch.home.deleteFailed' => 'Aterian poistaminen epäonnistui',
+			'watch.history.title' => 'Tämän päivän ateriat',
+			'watch.history.refresh' => 'Päivitä ateriat',
+			'watch.history.loadFailed' => 'Aterioita ei voitu ladata',
+			'watch.history.syncFailed' => 'Synkronointi epäonnistui',
+			'watch.history.emptyTitle' => 'Ei vielä aterioita',
+			'watch.history.emptyMessage' => 'Kirjaa ateria Kotinäkymästä nähdäksesi sen täällä.',
+			'watch.favorites.title' => 'Suosikit',
+			'watch.favorites.refresh' => 'Päivitä suosikit',
+			'watch.favorites.loadFailed' => 'Suosikkeja ei voitu ladata',
+			'watch.favorites.syncFailed' => 'Synkronointi epäonnistui',
+			'watch.favorites.emptyTitle' => 'Ei vielä suosikkeja',
+			'watch.favorites.emptyMessage' => 'Tähditä aterioita puhelimen sovelluksessa, niin yhden napautuksen kirjaukset näkyvät tässä.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kcal. Napauta kirjataaksesi.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} kirjattu!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.',
+			'watch.favorites.saveFailed' => 'Aterian tallennus epäonnistui. Yritä uudelleen.',
+			'watch.favorites.log' => 'Kirjaa',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, kirjattu ${time}.',
+			'watch.meal.longPressDelete' => 'Paina pitkään poistaaksesi.',
+			'watch.meal.deleteTitle' => 'Poistetaanko ateria?',
+			'watch.voice.title' => 'Äänikirjaus',
+			'watch.voice.processing' => 'Tarkistetaan ateriaa…',
+			'watch.voice.processingDescription' => 'Arvioidaan annoskokoja ja ravintosisältöä',
+			'watch.voice.listening' => 'Kuunnellaan',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Lopeta tallennus',
+			'watch.voice.start' => 'Napauta aloittaaksesi tallennuksen',
+			'watch.voice.starting' => 'Käynnistetään mikrofoni…',
+			'watch.voice.prompt' => 'Napauta ja kuvaile ateriasi',
+			'watch.voice.tapToRetry' => 'Napauta yrittääksesi uudelleen',
+			'watch.voice.example' => 'Kokeile: “2 rotia dalin kanssa”',
+			'watch.voice.unavailable' => 'Puheentunnistus ei ole käytettävissä. Tarkista mikrofonin käyttöoikeus kellon asetuksista.',
+			'watch.voice.didNotStart' => 'Mikrofoni ei käynnistynyt. Napauta yrittääksesi uudelleen.',
+			'watch.voice.startFailed' => 'Tallennuksen käynnistäminen epäonnistui. Tarkista mikrofonin käyttöoikeudet.',
+			'watch.voice.allowMicrophone' => 'Salli mikrofonin käyttö kirjauksia varten.',
+			'watch.voice.needsConnection' => 'Puheentunnistus tarvitsee yhteyden. Napauta yrittääksesi uudelleen.',
+			'watch.voice.microphoneUnavailable' => 'Mikrofoni ei ole käytettävissä. Napauta yrittääksesi uudelleen.',
+			'watch.voice.microphoneBusy' => 'Mikrofoni on varattu. Odota hetki ja yritä uudelleen.',
+			'watch.voice.languageUnsupported' => 'Puheentunnistus ei tue kellon kieltä.',
+			'watch.voice.temporarilyBusy' => 'Puheentunnistus on tilapäisesti varattu. Odota hetki ja yritä uudelleen.',
+			'watch.voice.notRecognized' => 'En kuullut kunnolla. Napauta mikrofonia ja yritä uudelleen.',
+			'watch.voice.noSpeech' => 'Puhetta ei havaittu. Napauta mikrofonia ja yritä uudelleen.',
+			'watch.voice.analysisFailed' => 'Analyysi epäonnistui. Yritä uudelleen.',
+			'watch.voice.mealNotIdentified' => 'Ateriaa ei tunnistettu. Kokeile kuvailla sitä eri tavalla.',
+			'watch.result.title' => 'Aterian tiedot',
+			'watch.result.savedOffline' => 'Tallennettu paikallisesti',
+			'watch.result.logged' => 'Kirjattu!',
+			'watch.result.mealFound' => 'Ateria löytyi',
+			'watch.result.estimatedEnergy' => 'Arvioitu energiamäärä',
+			'watch.result.logMeal' => 'Kirjaa ateria',
+			'watch.result.logging' => 'Kirjataan…',
+			'watch.result.logAnother' => 'Kirjaa toinen',
+			'watch.result.goingBack' => 'Palataan…',
+			'watch.result.savedOfflineMessage' => 'Ateria tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.',
+			'watch.result.saveFailed' => 'Aterian tallennus epäonnistui. Yritä uudelleen.',
 			'common.close' => 'Sulje',
 			'common.kContinue' => 'Jatka',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Pidätkö ${appLabel}:sta?',

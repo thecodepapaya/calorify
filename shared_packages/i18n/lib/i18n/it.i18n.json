@@ -560,12 +560,12 @@
       "failed": "Impossibile esportare la cronologia pasti: {error}"
     },
     "clearAllData": {
-      "localOnlySubtitle": "Elimina i dati di Calorify memorizzati su questo dispositivo",
-      "localOnlyConfirmationMessage": "Questa operazione elimina definitivamente dal dispositivo i pasti registrati, i preferiti e le impostazioni del profilo. I pasti già condivisi con Health Connect e l'accesso a Health Connect sono gestiti separatamente in Impostazioni > Health Connect.",
       "title": "Cancella tutti i dati",
       "subtitle": "Elimina in modo irreversibile tutte le tue informazioni",
+      "localOnlySubtitle": "Elimina i dati di Calorify memorizzati su questo dispositivo",
       "confirmationTitle": "Cancellare tutti i dati?",
       "confirmationMessage": "Questa azione non può essere annullata. Tutti i tuoi pasti registrati, preferiti e impostazioni del profilo saranno eliminati definitivamente.",
+      "localOnlyConfirmationMessage": "Questa operazione elimina definitivamente dal dispositivo i pasti registrati, i preferiti e le impostazioni del profilo. I pasti già condivisi con Health Connect e l'accesso a Health Connect sono gestiti separatamente in Impostazioni > Health Connect.",
       "cancel": "Annulla",
       "clearEverything": "Cancella tutto"
     },
@@ -577,9 +577,9 @@
       "title": "Health Connect",
       "subtitle": "Visualizza e gestisci le autorizzazioni",
       "unavailable": {
-        "unsupportedDescription": "Health Connect non è supportato su questo dispositivo.",
         "title": "Health Connect non disponibile",
-        "description": "Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) o aggiorna a Android 14+."
+        "description": "Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) o aggiorna a Android 14+.",
+        "unsupportedDescription": "Health Connect non è supportato su questo dispositivo."
       },
       "updateRequired": {
         "title": "Health Connect richiede attenzione",
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "Cancella dati",
     "offlineNutritionInstallFailed": "Impossibile scaricare e verificare i dati nutrizionali locali: {error}",
     "offlineNutritionCleared": "Dati nutrizionali locali cancellati"
+  },
+  "watch": {
+    "appTitle": "Calorify Orologio",
+    "common": {
+      "back": "Indietro",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "retry": "Riprova",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "Nutriente",
+      "grams": "{label}, {value} grammi",
+      "protein": "Proteine",
+      "carbs": "Carboidrati",
+      "fat": "Grassi",
+      "fiber": "Fibre"
+    },
+    "sync": {
+      "syncWithPhone": "Sincronizza con il telefono",
+      "syncing": "Sincronizzazione…",
+      "synced": "Sincronizzato",
+      "syncedJustNow": "Sincronizzato proprio ora",
+      "syncedMinutesAgo": "Sincronizzato {minutes}m fa",
+      "failed": "Sincronizzazione non riuscita",
+      "phoneDisconnected": "Telefono disconnesso",
+      "tapToSync": "Tocca per sincronizzare",
+      "refreshFailed": "Impossibile aggiornare. Controlla il telefono.",
+      "openPhone": "Apri Calorify sul telefono, poi tocca Aggiorna."
+    },
+    "home": {
+      "today": "Oggi",
+      "calorieSummary": "{consumed} calorie consumate su {goal}. {status}.",
+      "overGoal": "{calories} oltre l'obiettivo",
+      "remaining": "{calories} rimanenti",
+      "left": "{calories} rimasti",
+      "goal": "Obiettivo {calories} kcal",
+      "logMeal": "Registra un pasto",
+      "todayMeals": "Pasti di oggi",
+      "todayMealsCount": "Pasti di oggi, {count}",
+      "viewMore": "Visualizza altri {count}",
+      "viewMoreSemantics": "{count} pasti in più, tocca per vedere tutti",
+      "noMeals": "Nessun pasto registrato",
+      "noMealsSemantics": "Nessun pasto registrato oggi",
+      "tapLog": "Tocca Registra per iniziare",
+      "removedFromQueue": "Pasto rimosso dalla coda offline.",
+      "removedOffline": "Pasto rimosso offline. Verrà sincronizzato quando il telefono si riconnetterà.",
+      "deleteFailed": "Impossibile eliminare il pasto"
+    },
+    "history": {
+      "title": "Pasti di oggi",
+      "refresh": "Aggiorna pasti",
+      "loadFailed": "Impossibile caricare i pasti",
+      "syncFailed": "Impossibile sincronizzare",
+      "emptyTitle": "Ancora nessun pasto",
+      "emptyMessage": "Registra un pasto dalla schermata Home per vederlo qui."
+    },
+    "favorites": {
+      "title": "Preferiti",
+      "refresh": "Aggiorna preferiti",
+      "loadFailed": "Impossibile caricare i preferiti",
+      "syncFailed": "Impossibile sincronizzare",
+      "emptyTitle": "Ancora nessun preferito",
+      "emptyMessage": "Contrassegna con la stella i pasti nell'app del telefono per registrarli qui con un tocco.",
+      "mealSemantics": "{name}, {calories} calorie. Tocca per registrare.",
+      "logged": "{name} registrato!",
+      "savedOffline": "{name} salvato offline. Verrà sincronizzato quando il telefono si riconnetterà.",
+      "saveFailed": "Impossibile salvare il pasto. Riprova.",
+      "log": "Registra"
+    },
+    "meal": {
+      "semantics": "{name}, {calories} calorie, registrato alle {time}.",
+      "longPressDelete": "Premi a lungo per eliminare.",
+      "deleteTitle": "Eliminare il pasto?"
+    },
+    "voice": {
+      "title": "Registrazione vocale del pasto",
+      "processing": "Analizzando il tuo pasto…",
+      "processingDescription": "Stima delle porzioni e dei valori nutrizionali",
+      "listening": "In ascolto",
+      "secondsLeft": "{seconds}s",
+      "stop": "Interrompi registrazione",
+      "start": "Tocca per iniziare la registrazione",
+      "starting": "Avvio del microfono…",
+      "prompt": "Tocca, poi descrivi il tuo pasto",
+      "tapToRetry": "Tocca per riprovare",
+      "example": "Prova “2 rotis con dal”",
+      "unavailable": "L'input vocale non è disponibile. Controlla il permesso del microfono nelle impostazioni dell'orologio.",
+      "didNotStart": "Il microfono non si è avviato. Tocca per riprovare.",
+      "startFailed": "Impossibile avviare la registrazione. Controlla i permessi del microfono.",
+      "allowMicrophone": "Consenti l'accesso al microfono per registrare i pasti con la voce.",
+      "needsConnection": "Il riconoscimento vocale necessita di una connessione. Tocca per riprovare.",
+      "microphoneUnavailable": "Il microfono non è disponibile. Tocca per riprovare.",
+      "microphoneBusy": "Il microfono è occupato. Attendi un momento e riprova.",
+      "languageUnsupported": "L'input vocale non supporta la lingua dell'orologio.",
+      "temporarilyBusy": "L'input vocale è temporaneamente occupato. Attendi un momento e riprova.",
+      "notRecognized": "Non ho capito. Tocca il microfono e riprova.",
+      "noSpeech": "Nessun audio rilevato. Tocca il microfono per riprovare.",
+      "analysisFailed": "Analisi fallita. Per favore riprova.",
+      "mealNotIdentified": "Impossibile identificare il pasto. Prova a descriverlo diversamente."
+    },
+    "result": {
+      "title": "Dettagli del pasto",
+      "savedOffline": "Salvato offline",
+      "logged": "Registrato!",
+      "mealFound": "Pasto trovato",
+      "estimatedEnergy": "Energia stimata",
+      "logMeal": "Registra pasto",
+      "logging": "Registrazione…",
+      "logAnother": "Registra un altro",
+      "goingBack": "Tornando indietro…",
+      "savedOfflineMessage": "Pasto salvato offline. Verrà sincronizzato quando il telefono si riconnetterà.",
+      "saveFailed": "Impossibile salvare il pasto. Per favore riprova."
+    }
   },
   "common": {
     "close": "Chiudi",

@@ -58,6 +58,7 @@ class TranslationsNo extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$no login = _Translations$login$no._(_root);
 	@override late final _Translations$disclaimer$no disclaimer = _Translations$disclaimer$no._(_root);
 	@override late final _Translations$localNutritionPhase4$no localNutritionPhase4 = _Translations$localNutritionPhase4$no._(_root);
+	@override late final _Translations$watch$no watch = _Translations$watch$no._(_root);
 	@override late final _Translations$common$no common = _Translations$common$no._(_root);
 	@override late final _Translations$feedbackRating$no feedbackRating = _Translations$feedbackRating$no._(_root);
 	@override late final _Translations$health$no health = _Translations$health$no._(_root);
@@ -408,6 +409,25 @@ class _Translations$localNutritionPhase4$no extends Translations$localNutritionP
 	@override String get offlineNutritionClearConfirm => 'Tøm data';
 	@override String offlineNutritionInstallFailed({required Object error}) => 'Kunne ikke laste ned og verifisere lokale ernæringsdata: ${error}';
 	@override String get offlineNutritionCleared => 'Lokale ernæringsdata er tømt';
+}
+
+// Path: watch
+class _Translations$watch$no extends Translations$watch$en {
+	_Translations$watch$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$no common = _Translations$watch$common$no._(_root);
+	@override late final _Translations$watch$nutrition$no nutrition = _Translations$watch$nutrition$no._(_root);
+	@override late final _Translations$watch$sync$no sync = _Translations$watch$sync$no._(_root);
+	@override late final _Translations$watch$home$no home = _Translations$watch$home$no._(_root);
+	@override late final _Translations$watch$history$no history = _Translations$watch$history$no._(_root);
+	@override late final _Translations$watch$favorites$no favorites = _Translations$watch$favorites$no._(_root);
+	@override late final _Translations$watch$meal$no meal = _Translations$watch$meal$no._(_root);
+	@override late final _Translations$watch$voice$no voice = _Translations$watch$voice$no._(_root);
+	@override late final _Translations$watch$result$no result = _Translations$watch$result$no._(_root);
 }
 
 // Path: common
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$no extends Translations$discla
 	@override String get description => 'Når Health Connect-data ikke er tilgjengelig, estimerer vi dagens forbruk ved å bruke din BMR og aktivitetsnivå (TDEE), skalert etter hvor mye av dagen som har gått.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$no howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$no._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$no professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$no._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$no extends Translations$watch$common$en {
+	_Translations$watch$common$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Tilbake';
+	@override String get cancel => 'Avbryt';
+	@override String get delete => 'Slett';
+	@override String get retry => 'Prøv igjen';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$no extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Næringsstoff';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} grams';
+	@override String get protein => 'Protein';
+	@override String get carbs => 'Karbohydrater';
+	@override String get fat => 'Fett';
+	@override String get fiber => 'Fiber';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$no extends Translations$watch$sync$en {
+	_Translations$watch$sync$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Synkroniser med telefon';
+	@override String get syncing => 'Synkroniserer…';
+	@override String get synced => 'Synkronisert';
+	@override String get syncedJustNow => 'Synkronisert nå';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Synkronisert ${minutes}m siden';
+	@override String get failed => 'Synkronisering mislyktes';
+	@override String get phoneDisconnected => 'Telefon koblet fra';
+	@override String get tapToSync => 'Trykk for å synkronisere';
+	@override String get refreshFailed => 'Kunne ikke oppdatere. Sjekk telefonen din.';
+	@override String get openPhone => 'Åpne Calorify på telefonen din, og trykk Oppdater.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$no extends Translations$watch$home$en {
+	_Translations$watch$home$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'I dag';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kalorier inntatt av ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} over målet';
+	@override String remaining({required Object calories}) => '${calories} igjen';
+	@override String left({required Object calories}) => '${calories} igjen';
+	@override String goal({required Object calories}) => 'Mål: ${calories} kcal';
+	@override String get logMeal => 'Logg et måltid';
+	@override String get todayMeals => 'Dagens måltider';
+	@override String todayMealsCount({required Object count}) => 'Dagens måltider, ${count}';
+	@override String viewMore({required Object count}) => 'Se ${count} til';
+	@override String viewMoreSemantics({required Object count}) => '${count} flere måltider, trykk for å vise alle';
+	@override String get noMeals => 'Ingen måltider registrert';
+	@override String get noMealsSemantics => 'Ingen måltider registrert i dag';
+	@override String get tapLog => 'Trykk Logg for å starte';
+	@override String get removedFromQueue => 'Måltid fjernet fra offline-køen.';
+	@override String get removedOffline => 'Måltidet ble fjernet mens du var frakoblet. Det synkroniseres når telefonen kobler til igjen.';
+	@override String get deleteFailed => 'Kunne ikke slette måltidet';
+}
+
+// Path: watch.history
+class _Translations$watch$history$no extends Translations$watch$history$en {
+	_Translations$watch$history$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dagens måltider';
+	@override String get refresh => 'Oppdater måltider';
+	@override String get loadFailed => 'Kunne ikke laste måltider';
+	@override String get syncFailed => 'Kunne ikke synkronisere';
+	@override String get emptyTitle => 'Ingen måltider ennå';
+	@override String get emptyMessage => 'Registrer et måltid fra Hjem for å se det her.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$no extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Favoritter';
+	@override String get refresh => 'Oppdater favoritter';
+	@override String get loadFailed => 'Kunne ikke laste favoritter';
+	@override String get syncFailed => 'Kunne ikke synkronisere';
+	@override String get emptyTitle => 'Ingen favoritter ennå';
+	@override String get emptyMessage => 'Marker måltider som favoritter i telefonappen for å logge dem med ett trykk her.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kalorier. Trykk for å logge.';
+	@override String logged({required Object name}) => '${name} logget!';
+	@override String savedOffline({required Object name}) => '${name} lagret mens du var frakoblet. Det synkroniseres når telefonen kobler til igjen.';
+	@override String get saveFailed => 'Kunne ikke lagre måltidet. Prøv igjen.';
+	@override String get log => 'Logg';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$no extends Translations$watch$meal$en {
+	_Translations$watch$meal$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalorier, logget kl. ${time}.';
+	@override String get longPressDelete => 'Hold nede for å slette.';
+	@override String get deleteTitle => 'Slette måltid?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$no extends Translations$watch$voice$en {
+	_Translations$watch$voice$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Taleregistrering';
+	@override String get processing => 'Sjekker måltidet ditt…';
+	@override String get processingDescription => 'Beregner porsjoner og næringsinnhold';
+	@override String get listening => 'Lytter';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Stopp opptak';
+	@override String get start => 'Trykk for å starte opptak';
+	@override String get starting => 'Starter mikrofon…';
+	@override String get prompt => 'Trykk, og beskriv deretter måltidet ditt';
+	@override String get tapToRetry => 'Trykk for å prøve igjen';
+	@override String get example => 'Prøv “2 rotis med dal”';
+	@override String get unavailable => 'Taleinndata er ikke tilgjengelig. Sjekk mikrofon-tillatelse i klokkens innstillinger.';
+	@override String get didNotStart => 'Mikrofonen startet ikke. Trykk for å prøve igjen.';
+	@override String get startFailed => 'Kunne ikke starte opptak. Sjekk mikrofontillatelser.';
+	@override String get allowMicrophone => 'Gi tilgang til mikrofonen for å registrere måltider med stemme.';
+	@override String get needsConnection => 'Talegjenkjenning trenger en tilkobling. Trykk for å prøve igjen.';
+	@override String get microphoneUnavailable => 'Mikrofonen er ikke tilgjengelig. Trykk for å prøve igjen.';
+	@override String get microphoneBusy => 'Mikrofonen er opptatt. Vent et øyeblikk og prøv igjen.';
+	@override String get languageUnsupported => 'Taleinndata støtter ikke klokkens språk.';
+	@override String get temporarilyBusy => 'Taleinndata er midlertidig opptatt. Vent et øyeblikk og prøv igjen.';
+	@override String get notRecognized => 'Det hørte jeg ikke. Trykk på mikrofonen og prøv igjen.';
+	@override String get noSpeech => 'Ingen tale registrert. Trykk på mikrofonen for å prøve igjen.';
+	@override String get analysisFailed => 'Analyse mislyktes. Prøv igjen.';
+	@override String get mealNotIdentified => 'Kunne ikke identifisere måltidet. Prøv å beskrive det på en annen måte.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$no extends Translations$watch$result$en {
+	_Translations$watch$result$no._(TranslationsNo root) : this._root = root, super.internal(root);
+
+	final TranslationsNo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Måltidsdetaljer';
+	@override String get savedOffline => 'Lagret frakoblet';
+	@override String get logged => 'Logget!';
+	@override String get mealFound => 'Måltid funnet';
+	@override String get estimatedEnergy => 'Estimert energi';
+	@override String get logMeal => 'Logg måltid';
+	@override String get logging => 'Logger…';
+	@override String get logAnother => 'Logg et til';
+	@override String get goingBack => 'Går tilbake…';
+	@override String get savedOfflineMessage => 'Måltidet er lagret frakoblet. Det synkroniseres når telefonen kobler til igjen.';
+	@override String get saveFailed => 'Kunne ikke lagre måltidet. Prøv igjen.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2432,6 +2627,101 @@ extension on TranslationsNo {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Tøm data',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Kunne ikke laste ned og verifisere lokale ernæringsdata: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Lokale ernæringsdata er tømt',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Tilbake',
+			'watch.common.cancel' => 'Avbryt',
+			'watch.common.delete' => 'Slett',
+			'watch.common.retry' => 'Prøv igjen',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Næringsstoff',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} grams',
+			'watch.nutrition.protein' => 'Protein',
+			'watch.nutrition.carbs' => 'Karbohydrater',
+			'watch.nutrition.fat' => 'Fett',
+			'watch.nutrition.fiber' => 'Fiber',
+			'watch.sync.syncWithPhone' => 'Synkroniser med telefon',
+			'watch.sync.syncing' => 'Synkroniserer…',
+			'watch.sync.synced' => 'Synkronisert',
+			'watch.sync.syncedJustNow' => 'Synkronisert nå',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Synkronisert ${minutes}m siden',
+			'watch.sync.failed' => 'Synkronisering mislyktes',
+			'watch.sync.phoneDisconnected' => 'Telefon koblet fra',
+			'watch.sync.tapToSync' => 'Trykk for å synkronisere',
+			'watch.sync.refreshFailed' => 'Kunne ikke oppdatere. Sjekk telefonen din.',
+			'watch.sync.openPhone' => 'Åpne Calorify på telefonen din, og trykk Oppdater.',
+			'watch.home.today' => 'I dag',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kalorier inntatt av ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} over målet',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} igjen',
+			'watch.home.left' => ({required Object calories}) => '${calories} igjen',
+			'watch.home.goal' => ({required Object calories}) => 'Mål: ${calories} kcal',
+			'watch.home.logMeal' => 'Logg et måltid',
+			'watch.home.todayMeals' => 'Dagens måltider',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Dagens måltider, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Se ${count} til',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} flere måltider, trykk for å vise alle',
+			'watch.home.noMeals' => 'Ingen måltider registrert',
+			'watch.home.noMealsSemantics' => 'Ingen måltider registrert i dag',
+			'watch.home.tapLog' => 'Trykk Logg for å starte',
+			'watch.home.removedFromQueue' => 'Måltid fjernet fra offline-køen.',
+			'watch.home.removedOffline' => 'Måltidet ble fjernet mens du var frakoblet. Det synkroniseres når telefonen kobler til igjen.',
+			'watch.home.deleteFailed' => 'Kunne ikke slette måltidet',
+			'watch.history.title' => 'Dagens måltider',
+			'watch.history.refresh' => 'Oppdater måltider',
+			'watch.history.loadFailed' => 'Kunne ikke laste måltider',
+			'watch.history.syncFailed' => 'Kunne ikke synkronisere',
+			'watch.history.emptyTitle' => 'Ingen måltider ennå',
+			'watch.history.emptyMessage' => 'Registrer et måltid fra Hjem for å se det her.',
+			'watch.favorites.title' => 'Favoritter',
+			'watch.favorites.refresh' => 'Oppdater favoritter',
+			'watch.favorites.loadFailed' => 'Kunne ikke laste favoritter',
+			'watch.favorites.syncFailed' => 'Kunne ikke synkronisere',
+			'watch.favorites.emptyTitle' => 'Ingen favoritter ennå',
+			'watch.favorites.emptyMessage' => 'Marker måltider som favoritter i telefonappen for å logge dem med ett trykk her.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kalorier. Trykk for å logge.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} logget!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} lagret mens du var frakoblet. Det synkroniseres når telefonen kobler til igjen.',
+			'watch.favorites.saveFailed' => 'Kunne ikke lagre måltidet. Prøv igjen.',
+			'watch.favorites.log' => 'Logg',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kalorier, logget kl. ${time}.',
+			'watch.meal.longPressDelete' => 'Hold nede for å slette.',
+			'watch.meal.deleteTitle' => 'Slette måltid?',
+			'watch.voice.title' => 'Taleregistrering',
+			'watch.voice.processing' => 'Sjekker måltidet ditt…',
+			'watch.voice.processingDescription' => 'Beregner porsjoner og næringsinnhold',
+			'watch.voice.listening' => 'Lytter',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Stopp opptak',
+			'watch.voice.start' => 'Trykk for å starte opptak',
+			'watch.voice.starting' => 'Starter mikrofon…',
+			'watch.voice.prompt' => 'Trykk, og beskriv deretter måltidet ditt',
+			'watch.voice.tapToRetry' => 'Trykk for å prøve igjen',
+			'watch.voice.example' => 'Prøv “2 rotis med dal”',
+			'watch.voice.unavailable' => 'Taleinndata er ikke tilgjengelig. Sjekk mikrofon-tillatelse i klokkens innstillinger.',
+			'watch.voice.didNotStart' => 'Mikrofonen startet ikke. Trykk for å prøve igjen.',
+			'watch.voice.startFailed' => 'Kunne ikke starte opptak. Sjekk mikrofontillatelser.',
+			'watch.voice.allowMicrophone' => 'Gi tilgang til mikrofonen for å registrere måltider med stemme.',
+			'watch.voice.needsConnection' => 'Talegjenkjenning trenger en tilkobling. Trykk for å prøve igjen.',
+			'watch.voice.microphoneUnavailable' => 'Mikrofonen er ikke tilgjengelig. Trykk for å prøve igjen.',
+			'watch.voice.microphoneBusy' => 'Mikrofonen er opptatt. Vent et øyeblikk og prøv igjen.',
+			'watch.voice.languageUnsupported' => 'Taleinndata støtter ikke klokkens språk.',
+			'watch.voice.temporarilyBusy' => 'Taleinndata er midlertidig opptatt. Vent et øyeblikk og prøv igjen.',
+			'watch.voice.notRecognized' => 'Det hørte jeg ikke. Trykk på mikrofonen og prøv igjen.',
+			'watch.voice.noSpeech' => 'Ingen tale registrert. Trykk på mikrofonen for å prøve igjen.',
+			'watch.voice.analysisFailed' => 'Analyse mislyktes. Prøv igjen.',
+			'watch.voice.mealNotIdentified' => 'Kunne ikke identifisere måltidet. Prøv å beskrive det på en annen måte.',
+			'watch.result.title' => 'Måltidsdetaljer',
+			'watch.result.savedOffline' => 'Lagret frakoblet',
+			'watch.result.logged' => 'Logget!',
+			'watch.result.mealFound' => 'Måltid funnet',
+			'watch.result.estimatedEnergy' => 'Estimert energi',
+			'watch.result.logMeal' => 'Logg måltid',
+			'watch.result.logging' => 'Logger…',
+			'watch.result.logAnother' => 'Logg et til',
+			'watch.result.goingBack' => 'Går tilbake…',
+			'watch.result.savedOfflineMessage' => 'Måltidet er lagret frakoblet. Det synkroniseres når telefonen kobler til igjen.',
+			'watch.result.saveFailed' => 'Kunne ikke lagre måltidet. Prøv igjen.',
 			'common.close' => 'Lukk',
 			'common.kContinue' => 'Fortsett',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Liker du ${appLabel}?',

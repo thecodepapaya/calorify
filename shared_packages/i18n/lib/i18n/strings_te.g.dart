@@ -58,6 +58,7 @@ class TranslationsTe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$te login = _Translations$login$te._(_root);
 	@override late final _Translations$disclaimer$te disclaimer = _Translations$disclaimer$te._(_root);
 	@override late final _Translations$localNutritionPhase4$te localNutritionPhase4 = _Translations$localNutritionPhase4$te._(_root);
+	@override late final _Translations$watch$te watch = _Translations$watch$te._(_root);
 	@override late final _Translations$common$te common = _Translations$common$te._(_root);
 	@override late final _Translations$feedbackRating$te feedbackRating = _Translations$feedbackRating$te._(_root);
 	@override late final _Translations$health$te health = _Translations$health$te._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$te extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'స్థానిక పోషక డేటా తొలగించబడింది';
 }
 
+// Path: watch
+class _Translations$watch$te extends Translations$watch$en {
+	_Translations$watch$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$te common = _Translations$watch$common$te._(_root);
+	@override late final _Translations$watch$nutrition$te nutrition = _Translations$watch$nutrition$te._(_root);
+	@override late final _Translations$watch$sync$te sync = _Translations$watch$sync$te._(_root);
+	@override late final _Translations$watch$home$te home = _Translations$watch$home$te._(_root);
+	@override late final _Translations$watch$history$te history = _Translations$watch$history$te._(_root);
+	@override late final _Translations$watch$favorites$te favorites = _Translations$watch$favorites$te._(_root);
+	@override late final _Translations$watch$meal$te meal = _Translations$watch$meal$te._(_root);
+	@override late final _Translations$watch$voice$te voice = _Translations$watch$voice$te._(_root);
+	@override late final _Translations$watch$result$te result = _Translations$watch$result$te._(_root);
+}
+
 // Path: common
 class _Translations$common$te extends Translations$common$en {
 	_Translations$common$te._(TranslationsTe root) : this._root = root, super.internal(root);
@@ -753,8 +773,8 @@ class _Translations$home$connectHealth$te extends Translations$home$connectHealt
 	// Translations
 	@override String get title => 'Health Connect తో సమకాలీకరించండి';
 	@override String get description => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి';
-	@override String get dataUseDescription => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి';
 	@override String get install => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి';
+	@override String get dataUseDescription => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి';
 	@override String get installOrUpdate => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి';
 	@override String get connect => 'కనెక్ట్ చేయండి';
 }
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$te extends Translations$discla
 	@override String get description => 'Health Connect డేటా అందుబాటులో లేనప్పుడు, మీ బేసల్ మెటబాలిక్ రేట్ (BMR) మరియు కార్యాచరణ స్థాయి (TDEE) ఉపయోగించి ఈ రోజు బర్న్ చేసిన కేలరీలను మేము అంచనా వేస్తాము, రోజులో గడిచిన భాగానికి స్కేల్ చేయబడింది.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$te howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$te._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$te professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$te._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$te extends Translations$watch$common$en {
+	_Translations$watch$common$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'వెనుకకు';
+	@override String get cancel => 'రద్దు చేయి';
+	@override String get delete => 'తొలగించు';
+	@override String get retry => 'మళ్లీ ప్రయత్నించు';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'గ్రా';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$te extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'పోషకం';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} గ్రాములు';
+	@override String get protein => 'ప్రోటీన్';
+	@override String get carbs => 'కార్బోహైడ్రేట్లు';
+	@override String get fat => 'కొవ్వు';
+	@override String get fiber => 'ఫైబర్';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$te extends Translations$watch$sync$en {
+	_Translations$watch$sync$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'ఫోన్‌తో సమకాలీకరించు';
+	@override String get syncing => 'సమకాలీకరిస్తోంది…';
+	@override String get synced => 'సమకాలీకరించబడింది';
+	@override String get syncedJustNow => 'ఇప్పుడే సమకాలీకరించబడింది';
+	@override String syncedMinutesAgo({required Object minutes}) => '${minutes}నిమిషాల క్రితం సమకాలీకరించబడింది';
+	@override String get failed => 'సమకాలీకరణ విఫలమైంది';
+	@override String get phoneDisconnected => 'ఫోన్ డిస్‌కనెక్ట్ చేయబడింది';
+	@override String get tapToSync => 'సమకాలీకరించడానికి నొక్కండి';
+	@override String get refreshFailed => 'రిఫ్రెష్ చేయలేకపోయాము. మీ ఫోన్‌ను తనిఖీ చేయండి.';
+	@override String get openPhone => 'మీ ఫోన్‌లో Calorifyని తెరిచి, ఆపై రిఫ్రెష్ నొక్కండి.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$te extends Translations$watch$home$en {
+	_Translations$watch$home$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'ఈరోజు';
+	@override String calorieSummary({required Object goal, required Object consumed, required Object status}) => '${goal}లో ${consumed} కేలరీలు వినియోగించబడ్డాయి. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} లక్ష్యం కంటే ఎక్కువ';
+	@override String remaining({required Object calories}) => '${calories} మిగిలి ఉన్నాయి';
+	@override String left({required Object calories}) => '${calories} మిగిలి ఉన్నాయి';
+	@override String goal({required Object calories}) => '${calories} kcal లక్ష్యం';
+	@override String get logMeal => 'భోజనాన్ని లాగ్ చేయండి';
+	@override String get todayMeals => 'ఈరోజు భోజనాలు';
+	@override String todayMealsCount({required Object count}) => 'ఈరోజు భోజనాలు, ${count}';
+	@override String viewMore({required Object count}) => 'మరిన్ని ${count} చూడండి';
+	@override String viewMoreSemantics({required Object count}) => 'మరిన్ని ${count} భోజనాలు, అన్నింటినీ చూడటానికి నొక్కండి';
+	@override String get noMeals => 'భోజనాలు లాగ్ చేయబడలేదు';
+	@override String get noMealsSemantics => 'ఈరోజు భోజనాలు లాగ్ చేయబడలేదు';
+	@override String get tapLog => 'ప్రారంభించడానికి లాగ్ నొక్కండి';
+	@override String get removedFromQueue => 'ఆఫ్‌లైన్ క్యూ నుండి భోజనం తీసివేయబడింది.';
+	@override String get removedOffline => 'భోజనం ఆఫ్‌లైన్‌లో తీసివేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.';
+	@override String get deleteFailed => 'భోజనాన్ని తొలగించలేకపోయాము';
+}
+
+// Path: watch.history
+class _Translations$watch$history$te extends Translations$watch$history$en {
+	_Translations$watch$history$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ఈరోజు భోజనాలు';
+	@override String get refresh => 'భోజనాలను రిఫ్రెష్ చేయండి';
+	@override String get loadFailed => 'భోజనాలను లోడ్ చేయలేకపోయాము';
+	@override String get syncFailed => 'సమకాలీకరించలేకపోయాము';
+	@override String get emptyTitle => 'ఇంకా భోజనాలు లేవు';
+	@override String get emptyMessage => 'ఇక్కడ చూడటానికి హోమ్ నుండి భోజనాన్ని లాగ్ చేయండి.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$te extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ఇష్టమైనవి';
+	@override String get refresh => 'ఇష్టమైన వాటిని రిఫ్రెష్ చేయండి';
+	@override String get loadFailed => 'ఇష్టమైన వాటిని లోడ్ చేయలేకపోయాము';
+	@override String get syncFailed => 'సమకాలీకరించలేకపోయాము';
+	@override String get emptyTitle => 'ఇంకా ఇష్టమైనవి లేవు';
+	@override String get emptyMessage => 'ఇక్కడ ఒకే ట్యాప్‌తో లాగింగ్ కోసం ఫోన్ యాప్‌లో భోజనాలకు స్టార్ ఇవ్వండి.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} కేలరీలు. లాగ్ చేయడానికి నొక్కండి.';
+	@override String logged({required Object name}) => '${name} లాగ్ చేయబడింది!';
+	@override String savedOffline({required Object name}) => '${name} ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.';
+	@override String get saveFailed => 'భోజనాన్ని సేవ్ చేయలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get log => 'లాగ్ చేయి';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$te extends Translations$watch$meal$en {
+	_Translations$watch$meal$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} కేలరీలు, ${time}కి లాగ్ చేయబడింది.';
+	@override String get longPressDelete => 'తొలగించడానికి ఎక్కువసేపు నొక్కండి.';
+	@override String get deleteTitle => 'భోజనాన్ని తొలగించాలా?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$te extends Translations$watch$voice$en {
+	_Translations$watch$voice$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'వాయిస్ భోజనం లాగ్';
+	@override String get processing => 'మీ భోజనాన్ని తనిఖీ చేస్తోంది…';
+	@override String get processingDescription => 'భాగాలు మరియు పోషకాలను అంచనా వేస్తోంది';
+	@override String get listening => 'వింటోంది';
+	@override String secondsLeft({required Object seconds}) => '${seconds}సె';
+	@override String get stop => 'రికార్డింగ్ ఆపు';
+	@override String get start => 'రికార్డింగ్ ప్రారంభించడానికి నొక్కండి';
+	@override String get starting => 'మైక్రోఫోన్ ప్రారంభిస్తోంది…';
+	@override String get prompt => 'నొక్కండి, ఆపై మీ భోజనాన్ని వివరించండి';
+	@override String get tapToRetry => 'మళ్లీ ప్రయత్నించడానికి నొక్కండి';
+	@override String get example => '“2 రోటీలు పప్పుతో” అని ప్రయత్నించండి';
+	@override String get unavailable => 'వాయిస్ ఇన్‌పుట్ అందుబాటులో లేదు. వాచ్ సెట్టింగ్‌లలో మైక్రోఫోన్ అనుమతిని తనిఖీ చేయండి.';
+	@override String get didNotStart => 'మైక్రోఫోన్ ప్రారంభం కాలేదు. మళ్లీ ప్రయత్నించడానికి నొక్కండి.';
+	@override String get startFailed => 'రికార్డింగ్ ప్రారంభించలేకపోయాము. మైక్రోఫోన్ అనుమతులను తనిఖీ చేయండి.';
+	@override String get allowMicrophone => 'వాయిస్ ద్వారా భోజనాలను లాగ్ చేయడానికి మైక్రోఫోన్ యాక్సెస్‌ను అనుమతించండి.';
+	@override String get needsConnection => 'వాయిస్ రికగ్నిషన్‌కు కనెక్షన్ అవసరం. మళ్లీ ప్రయత్నించడానికి నొక్కండి.';
+	@override String get microphoneUnavailable => 'మైక్రోఫోన్ అందుబాటులో లేదు. మళ్లీ ప్రయత్నించడానికి నొక్కండి.';
+	@override String get microphoneBusy => 'మైక్రోఫోన్ బిజీగా ఉంది. కొద్దిసేపు వేచి ఉండి మళ్లీ ప్రయత్నించండి.';
+	@override String get languageUnsupported => 'వాయిస్ ఇన్‌పుట్ వాచ్ భాషకు మద్దతు ఇవ్వదు.';
+	@override String get temporarilyBusy => 'వాయిస్ ఇన్‌పుట్ తాత్కాలికంగా బిజీగా ఉంది. కొద్దిసేపు వేచి ఉండి మళ్లీ ప్రయత్నించండి.';
+	@override String get notRecognized => 'నేను దాన్ని పట్టుకోలేకపోయాను. మైక్‌ను నొక్కి మళ్లీ ప్రయత్నించండి.';
+	@override String get noSpeech => 'మాట గుర్తించబడలేదు. మళ్లీ ప్రయత్నించడానికి మైక్‌ను నొక్కండి.';
+	@override String get analysisFailed => 'విశ్లేషణ విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.';
+	@override String get mealNotIdentified => 'ఆ భోజనాన్ని గుర్తించలేకపోయాము. దాన్ని వేరే విధంగా వివరించడానికి ప్రయత్నించండి.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$te extends Translations$watch$result$en {
+	_Translations$watch$result$te._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'భోజనం వివరాలు';
+	@override String get savedOffline => 'ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది';
+	@override String get logged => 'లాగ్ చేయబడింది!';
+	@override String get mealFound => 'భోజనం కనుగొనబడింది';
+	@override String get estimatedEnergy => 'అంచనా వేసిన శక్తి';
+	@override String get logMeal => 'భోజనాన్ని లాగ్ చేయండి';
+	@override String get logging => 'లాగ్ చేస్తోంది…';
+	@override String get logAnother => 'మరొకటి లాగ్ చేయండి';
+	@override String get goingBack => 'వెనుకకు వెళ్తోంది…';
+	@override String get savedOfflineMessage => 'భోజనం ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.';
+	@override String get saveFailed => 'భోజనాన్ని సేవ్ చేయలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2026,8 +2221,8 @@ extension on TranslationsTe {
 			'home.mealSnap.uploadingPhoto' => 'ఫోటోను అప్‌లోడ్ చేస్తోంది…',
 			'home.connectHealth.title' => 'Health Connect తో సమకాలీకరించండి',
 			'home.connectHealth.description' => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి',
-			'home.connectHealth.dataUseDescription' => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి',
 			'home.connectHealth.install' => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి',
+			'home.connectHealth.dataUseDescription' => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి',
 			'home.connectHealth.installOrUpdate' => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి',
 			'home.connectHealth.connect' => 'కనెక్ట్ చేయండి',
 			'history.noMeals' => 'భోజనాలు నమోదు చేయబడలేదు',
@@ -2432,6 +2627,101 @@ extension on TranslationsTe {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'డేటాను తొలగించండి',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'స్థానిక పోషక డేటాను డౌన్‌లోడ్ చేసి ధృవీకరించలేకపోయింది: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'స్థానిక పోషక డేటా తొలగించబడింది',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'వెనుకకు',
+			'watch.common.cancel' => 'రద్దు చేయి',
+			'watch.common.delete' => 'తొలగించు',
+			'watch.common.retry' => 'మళ్లీ ప్రయత్నించు',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'గ్రా',
+			'watch.nutrition.nutrient' => 'పోషకం',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} గ్రాములు',
+			'watch.nutrition.protein' => 'ప్రోటీన్',
+			'watch.nutrition.carbs' => 'కార్బోహైడ్రేట్లు',
+			'watch.nutrition.fat' => 'కొవ్వు',
+			'watch.nutrition.fiber' => 'ఫైబర్',
+			'watch.sync.syncWithPhone' => 'ఫోన్‌తో సమకాలీకరించు',
+			'watch.sync.syncing' => 'సమకాలీకరిస్తోంది…',
+			'watch.sync.synced' => 'సమకాలీకరించబడింది',
+			'watch.sync.syncedJustNow' => 'ఇప్పుడే సమకాలీకరించబడింది',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => '${minutes}నిమిషాల క్రితం సమకాలీకరించబడింది',
+			'watch.sync.failed' => 'సమకాలీకరణ విఫలమైంది',
+			'watch.sync.phoneDisconnected' => 'ఫోన్ డిస్‌కనెక్ట్ చేయబడింది',
+			'watch.sync.tapToSync' => 'సమకాలీకరించడానికి నొక్కండి',
+			'watch.sync.refreshFailed' => 'రిఫ్రెష్ చేయలేకపోయాము. మీ ఫోన్‌ను తనిఖీ చేయండి.',
+			'watch.sync.openPhone' => 'మీ ఫోన్‌లో Calorifyని తెరిచి, ఆపై రిఫ్రెష్ నొక్కండి.',
+			'watch.home.today' => 'ఈరోజు',
+			'watch.home.calorieSummary' => ({required Object goal, required Object consumed, required Object status}) => '${goal}లో ${consumed} కేలరీలు వినియోగించబడ్డాయి. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} లక్ష్యం కంటే ఎక్కువ',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} మిగిలి ఉన్నాయి',
+			'watch.home.left' => ({required Object calories}) => '${calories} మిగిలి ఉన్నాయి',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal లక్ష్యం',
+			'watch.home.logMeal' => 'భోజనాన్ని లాగ్ చేయండి',
+			'watch.home.todayMeals' => 'ఈరోజు భోజనాలు',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'ఈరోజు భోజనాలు, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'మరిన్ని ${count} చూడండి',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => 'మరిన్ని ${count} భోజనాలు, అన్నింటినీ చూడటానికి నొక్కండి',
+			'watch.home.noMeals' => 'భోజనాలు లాగ్ చేయబడలేదు',
+			'watch.home.noMealsSemantics' => 'ఈరోజు భోజనాలు లాగ్ చేయబడలేదు',
+			'watch.home.tapLog' => 'ప్రారంభించడానికి లాగ్ నొక్కండి',
+			'watch.home.removedFromQueue' => 'ఆఫ్‌లైన్ క్యూ నుండి భోజనం తీసివేయబడింది.',
+			'watch.home.removedOffline' => 'భోజనం ఆఫ్‌లైన్‌లో తీసివేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.',
+			'watch.home.deleteFailed' => 'భోజనాన్ని తొలగించలేకపోయాము',
+			'watch.history.title' => 'ఈరోజు భోజనాలు',
+			'watch.history.refresh' => 'భోజనాలను రిఫ్రెష్ చేయండి',
+			'watch.history.loadFailed' => 'భోజనాలను లోడ్ చేయలేకపోయాము',
+			'watch.history.syncFailed' => 'సమకాలీకరించలేకపోయాము',
+			'watch.history.emptyTitle' => 'ఇంకా భోజనాలు లేవు',
+			'watch.history.emptyMessage' => 'ఇక్కడ చూడటానికి హోమ్ నుండి భోజనాన్ని లాగ్ చేయండి.',
+			'watch.favorites.title' => 'ఇష్టమైనవి',
+			'watch.favorites.refresh' => 'ఇష్టమైన వాటిని రిఫ్రెష్ చేయండి',
+			'watch.favorites.loadFailed' => 'ఇష్టమైన వాటిని లోడ్ చేయలేకపోయాము',
+			'watch.favorites.syncFailed' => 'సమకాలీకరించలేకపోయాము',
+			'watch.favorites.emptyTitle' => 'ఇంకా ఇష్టమైనవి లేవు',
+			'watch.favorites.emptyMessage' => 'ఇక్కడ ఒకే ట్యాప్‌తో లాగింగ్ కోసం ఫోన్ యాప్‌లో భోజనాలకు స్టార్ ఇవ్వండి.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} కేలరీలు. లాగ్ చేయడానికి నొక్కండి.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} లాగ్ చేయబడింది!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.',
+			'watch.favorites.saveFailed' => 'భోజనాన్ని సేవ్ చేయలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'watch.favorites.log' => 'లాగ్ చేయి',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} కేలరీలు, ${time}కి లాగ్ చేయబడింది.',
+			'watch.meal.longPressDelete' => 'తొలగించడానికి ఎక్కువసేపు నొక్కండి.',
+			'watch.meal.deleteTitle' => 'భోజనాన్ని తొలగించాలా?',
+			'watch.voice.title' => 'వాయిస్ భోజనం లాగ్',
+			'watch.voice.processing' => 'మీ భోజనాన్ని తనిఖీ చేస్తోంది…',
+			'watch.voice.processingDescription' => 'భాగాలు మరియు పోషకాలను అంచనా వేస్తోంది',
+			'watch.voice.listening' => 'వింటోంది',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}సె',
+			'watch.voice.stop' => 'రికార్డింగ్ ఆపు',
+			'watch.voice.start' => 'రికార్డింగ్ ప్రారంభించడానికి నొక్కండి',
+			'watch.voice.starting' => 'మైక్రోఫోన్ ప్రారంభిస్తోంది…',
+			'watch.voice.prompt' => 'నొక్కండి, ఆపై మీ భోజనాన్ని వివరించండి',
+			'watch.voice.tapToRetry' => 'మళ్లీ ప్రయత్నించడానికి నొక్కండి',
+			'watch.voice.example' => '“2 రోటీలు పప్పుతో” అని ప్రయత్నించండి',
+			'watch.voice.unavailable' => 'వాయిస్ ఇన్‌పుట్ అందుబాటులో లేదు. వాచ్ సెట్టింగ్‌లలో మైక్రోఫోన్ అనుమతిని తనిఖీ చేయండి.',
+			'watch.voice.didNotStart' => 'మైక్రోఫోన్ ప్రారంభం కాలేదు. మళ్లీ ప్రయత్నించడానికి నొక్కండి.',
+			'watch.voice.startFailed' => 'రికార్డింగ్ ప్రారంభించలేకపోయాము. మైక్రోఫోన్ అనుమతులను తనిఖీ చేయండి.',
+			'watch.voice.allowMicrophone' => 'వాయిస్ ద్వారా భోజనాలను లాగ్ చేయడానికి మైక్రోఫోన్ యాక్సెస్‌ను అనుమతించండి.',
+			'watch.voice.needsConnection' => 'వాయిస్ రికగ్నిషన్‌కు కనెక్షన్ అవసరం. మళ్లీ ప్రయత్నించడానికి నొక్కండి.',
+			'watch.voice.microphoneUnavailable' => 'మైక్రోఫోన్ అందుబాటులో లేదు. మళ్లీ ప్రయత్నించడానికి నొక్కండి.',
+			'watch.voice.microphoneBusy' => 'మైక్రోఫోన్ బిజీగా ఉంది. కొద్దిసేపు వేచి ఉండి మళ్లీ ప్రయత్నించండి.',
+			'watch.voice.languageUnsupported' => 'వాయిస్ ఇన్‌పుట్ వాచ్ భాషకు మద్దతు ఇవ్వదు.',
+			'watch.voice.temporarilyBusy' => 'వాయిస్ ఇన్‌పుట్ తాత్కాలికంగా బిజీగా ఉంది. కొద్దిసేపు వేచి ఉండి మళ్లీ ప్రయత్నించండి.',
+			'watch.voice.notRecognized' => 'నేను దాన్ని పట్టుకోలేకపోయాను. మైక్‌ను నొక్కి మళ్లీ ప్రయత్నించండి.',
+			'watch.voice.noSpeech' => 'మాట గుర్తించబడలేదు. మళ్లీ ప్రయత్నించడానికి మైక్‌ను నొక్కండి.',
+			'watch.voice.analysisFailed' => 'విశ్లేషణ విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'watch.voice.mealNotIdentified' => 'ఆ భోజనాన్ని గుర్తించలేకపోయాము. దాన్ని వేరే విధంగా వివరించడానికి ప్రయత్నించండి.',
+			'watch.result.title' => 'భోజనం వివరాలు',
+			'watch.result.savedOffline' => 'ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది',
+			'watch.result.logged' => 'లాగ్ చేయబడింది!',
+			'watch.result.mealFound' => 'భోజనం కనుగొనబడింది',
+			'watch.result.estimatedEnergy' => 'అంచనా వేసిన శక్తి',
+			'watch.result.logMeal' => 'భోజనాన్ని లాగ్ చేయండి',
+			'watch.result.logging' => 'లాగ్ చేస్తోంది…',
+			'watch.result.logAnother' => 'మరొకటి లాగ్ చేయండి',
+			'watch.result.goingBack' => 'వెనుకకు వెళ్తోంది…',
+			'watch.result.savedOfflineMessage' => 'భోజనం ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.',
+			'watch.result.saveFailed' => 'భోజనాన్ని సేవ్ చేయలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'common.close' => 'మూసివేయి',
 			'common.kContinue' => 'కొనసాగించు',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} ఆనందిస్తున్నారా?',

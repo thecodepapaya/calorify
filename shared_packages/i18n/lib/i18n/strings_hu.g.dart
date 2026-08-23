@@ -58,6 +58,7 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$hu login = _Translations$login$hu._(_root);
 	@override late final _Translations$disclaimer$hu disclaimer = _Translations$disclaimer$hu._(_root);
 	@override late final _Translations$localNutritionPhase4$hu localNutritionPhase4 = _Translations$localNutritionPhase4$hu._(_root);
+	@override late final _Translations$watch$hu watch = _Translations$watch$hu._(_root);
 	@override late final _Translations$common$hu common = _Translations$common$hu._(_root);
 	@override late final _Translations$feedbackRating$hu feedbackRating = _Translations$feedbackRating$hu._(_root);
 	@override late final _Translations$health$hu health = _Translations$health$hu._(_root);
@@ -408,6 +409,25 @@ class _Translations$localNutritionPhase4$hu extends Translations$localNutritionP
 	@override String get offlineNutritionClearConfirm => 'Adatok törlése';
 	@override String offlineNutritionInstallFailed({required Object error}) => 'A helyi tápértékadatokat nem sikerült letölteni és ellenőrizni: ${error}';
 	@override String get offlineNutritionCleared => 'A helyi tápértékadatok törölve';
+}
+
+// Path: watch
+class _Translations$watch$hu extends Translations$watch$en {
+	_Translations$watch$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$hu common = _Translations$watch$common$hu._(_root);
+	@override late final _Translations$watch$nutrition$hu nutrition = _Translations$watch$nutrition$hu._(_root);
+	@override late final _Translations$watch$sync$hu sync = _Translations$watch$sync$hu._(_root);
+	@override late final _Translations$watch$home$hu home = _Translations$watch$home$hu._(_root);
+	@override late final _Translations$watch$history$hu history = _Translations$watch$history$hu._(_root);
+	@override late final _Translations$watch$favorites$hu favorites = _Translations$watch$favorites$hu._(_root);
+	@override late final _Translations$watch$meal$hu meal = _Translations$watch$meal$hu._(_root);
+	@override late final _Translations$watch$voice$hu voice = _Translations$watch$voice$hu._(_root);
+	@override late final _Translations$watch$result$hu result = _Translations$watch$result$hu._(_root);
 }
 
 // Path: common
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$hu extends Translations$discla
 	@override String get description => 'Ha a Health Connect adatok nem elérhetők, a mai elégetett kalóriát a BMR és aktivitási szint (TDEE) alapján becsüljük, a nap eltelt részének arányában skálázva.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$hu howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$hu._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$hu professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$hu._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$hu extends Translations$watch$common$en {
+	_Translations$watch$common$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Vissza';
+	@override String get cancel => 'Mégse';
+	@override String get delete => 'Törlés';
+	@override String get retry => 'Újrapróbálás';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$hu extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Tápanyag';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} gramm';
+	@override String get protein => 'Fehérje';
+	@override String get carbs => 'Szénhidrát';
+	@override String get fat => 'Zsír';
+	@override String get fiber => 'Rost';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$hu extends Translations$watch$sync$en {
+	_Translations$watch$sync$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Szinkronizálás a telefonnal';
+	@override String get syncing => 'Szinkronizálás…';
+	@override String get synced => 'Szinkronizálva';
+	@override String get syncedJustNow => 'Most szinkronizálva';
+	@override String syncedMinutesAgo({required Object minutes}) => '${minutes} perce szinkronizálva';
+	@override String get failed => 'Szinkronizálás sikertelen';
+	@override String get phoneDisconnected => 'A telefon lecsatlakozott';
+	@override String get tapToSync => 'Érintsd a szinkronizáláshoz';
+	@override String get refreshFailed => 'Nem sikerült frissíteni. Ellenőrizd a telefonodat.';
+	@override String get openPhone => 'Nyisd meg a Calorify-t a telefonodon, majd koppints a Frissítésre.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$hu extends Translations$watch$home$en {
+	_Translations$watch$home$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Ma';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} kcal elfogyasztva a(z) ${goal}-ból. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} a célon felül';
+	@override String remaining({required Object calories}) => '${calories} maradt';
+	@override String left({required Object calories}) => '${calories} maradt';
+	@override String goal({required Object calories}) => '${calories} kcal cél';
+	@override String get logMeal => 'Étkezés rögzítése';
+	@override String get todayMeals => 'A mai étkezések';
+	@override String todayMealsCount({required Object count}) => 'A mai étkezések, ${count}';
+	@override String viewMore({required Object count}) => 'Mutasd a további ${count}-et';
+	@override String viewMoreSemantics({required Object count}) => '${count} további étkezés, koppints az összes megtekintéséhez';
+	@override String get noMeals => 'Nincs rögzített étkezés';
+	@override String get noMealsSemantics => 'Ma nincs rögzített étkezés';
+	@override String get tapLog => 'A kezdéshez koppints a Rögzítésre';
+	@override String get removedFromQueue => 'Az étkezés eltávolítva az offline sorból.';
+	@override String get removedOffline => 'Az étkezés offline eltávolítva. Szinkronizálódik, amikor a telefon újracsatlakozik.';
+	@override String get deleteFailed => 'Nem sikerült törölni az étkezést';
+}
+
+// Path: watch.history
+class _Translations$watch$history$hu extends Translations$watch$history$en {
+	_Translations$watch$history$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mai étkezések';
+	@override String get refresh => 'Étkezések frissítése';
+	@override String get loadFailed => 'Nem sikerült betölteni az étkezéseket';
+	@override String get syncFailed => 'Nem sikerült szinkronizálni';
+	@override String get emptyTitle => 'Még nincs étkezés';
+	@override String get emptyMessage => 'Az itt megjelenéshez rögzíts egy étkezést a Főoldalon.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$hu extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kedvencek';
+	@override String get refresh => 'Kedvencek frissítése';
+	@override String get loadFailed => 'Nem sikerült betölteni a kedvenceket';
+	@override String get syncFailed => 'Nem sikerült szinkronizálni';
+	@override String get emptyTitle => 'Még nincs kedvenc';
+	@override String get emptyMessage => 'A telefonos alkalmazásban jelöld csillaggal az étkezéseket, hogy itt egy koppintással rögzíthesd őket.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kcal. Koppints a rögzítéshez.';
+	@override String logged({required Object name}) => '${name} rögzítve!';
+	@override String savedOffline({required Object name}) => '${name} offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.';
+	@override String get saveFailed => 'Nem sikerült elmenteni az étkezést. Kérlek próbáld újra.';
+	@override String get log => 'Rögzítés';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$hu extends Translations$watch$meal$en {
+	_Translations$watch$meal$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, rögzítve ${time}-kor.';
+	@override String get longPressDelete => 'Törléshez tartsd lenyomva.';
+	@override String get deleteTitle => 'Étkezés törlése?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$hu extends Translations$watch$voice$en {
+	_Translations$watch$voice$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hangalapú étkezésrögzítés';
+	@override String get processing => 'Étkezés ellenőrzése…';
+	@override String get processingDescription => 'Adagok és tápérték becslése';
+	@override String get listening => 'Hallgatás';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Felvétel leállítása';
+	@override String get start => 'Koppints a felvétel indításához';
+	@override String get starting => 'Mikrofon indítása…';
+	@override String get prompt => 'Koppints, majd írd le az étkezést';
+	@override String get tapToRetry => 'Koppints az újrapróbáláshoz.';
+	@override String get example => 'Próbáld: „2 roti dal-lal”';
+	@override String get unavailable => 'A hangbevitel nem elérhető. Ellenőrizd a mikrofon engedélyét az óra beállításaiban.';
+	@override String get didNotStart => 'A mikrofon nem indult el. Koppints az újrapróbáláshoz.';
+	@override String get startFailed => 'Nem sikerült elindítani a felvételt. Ellenőrizd a mikrofon engedélyeit.';
+	@override String get allowMicrophone => 'Engedélyezd a mikrofon hozzáférését a hangalapú étkezésrögzítéshez.';
+	@override String get needsConnection => 'A beszédfelismeréshez kapcsolat szükséges. Koppints az újrapróbáláshoz.';
+	@override String get microphoneUnavailable => 'A mikrofon nem elérhető. Koppints az újrapróbáláshoz.';
+	@override String get microphoneBusy => 'A mikrofon foglalt. Várj egy pillanatot, majd próbáld újra.';
+	@override String get languageUnsupported => 'A hangbevitel nem támogatja az óra nyelvét.';
+	@override String get temporarilyBusy => 'A hangbevitel átmenetileg foglalt. Várj egy pillanatot, majd próbáld újra.';
+	@override String get notRecognized => 'Nem értettem. Koppints a mikrofonra, és próbáld újra.';
+	@override String get noSpeech => 'Nem észleltünk beszédet. Koppints a mikrofonra, és próbáld újra.';
+	@override String get analysisFailed => 'Elemzés sikertelen. Kérlek próbáld újra.';
+	@override String get mealNotIdentified => 'Az étkezést nem sikerült azonosítani. Próbáld meg másképp leírni.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$hu extends Translations$watch$result$en {
+	_Translations$watch$result$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Étkezés részletei';
+	@override String get savedOffline => 'Offline mentve';
+	@override String get logged => 'Rögzítve!';
+	@override String get mealFound => 'Étkezés megtalálva';
+	@override String get estimatedEnergy => 'Becsült energia';
+	@override String get logMeal => 'Étkezés rögzítése';
+	@override String get logging => 'Rögzítés…';
+	@override String get logAnother => 'Újabb rögzítése';
+	@override String get goingBack => 'Visszalépés…';
+	@override String get savedOfflineMessage => 'Az étkezés offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.';
+	@override String get saveFailed => 'Nem sikerült elmenteni az étkezést. Kérlek próbáld újra.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2432,6 +2627,101 @@ extension on TranslationsHu {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Adatok törlése',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'A helyi tápértékadatokat nem sikerült letölteni és ellenőrizni: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'A helyi tápértékadatok törölve',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Vissza',
+			'watch.common.cancel' => 'Mégse',
+			'watch.common.delete' => 'Törlés',
+			'watch.common.retry' => 'Újrapróbálás',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Tápanyag',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} gramm',
+			'watch.nutrition.protein' => 'Fehérje',
+			'watch.nutrition.carbs' => 'Szénhidrát',
+			'watch.nutrition.fat' => 'Zsír',
+			'watch.nutrition.fiber' => 'Rost',
+			'watch.sync.syncWithPhone' => 'Szinkronizálás a telefonnal',
+			'watch.sync.syncing' => 'Szinkronizálás…',
+			'watch.sync.synced' => 'Szinkronizálva',
+			'watch.sync.syncedJustNow' => 'Most szinkronizálva',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => '${minutes} perce szinkronizálva',
+			'watch.sync.failed' => 'Szinkronizálás sikertelen',
+			'watch.sync.phoneDisconnected' => 'A telefon lecsatlakozott',
+			'watch.sync.tapToSync' => 'Érintsd a szinkronizáláshoz',
+			'watch.sync.refreshFailed' => 'Nem sikerült frissíteni. Ellenőrizd a telefonodat.',
+			'watch.sync.openPhone' => 'Nyisd meg a Calorify-t a telefonodon, majd koppints a Frissítésre.',
+			'watch.home.today' => 'Ma',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} kcal elfogyasztva a(z) ${goal}-ból. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} a célon felül',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} maradt',
+			'watch.home.left' => ({required Object calories}) => '${calories} maradt',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal cél',
+			'watch.home.logMeal' => 'Étkezés rögzítése',
+			'watch.home.todayMeals' => 'A mai étkezések',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'A mai étkezések, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Mutasd a további ${count}-et',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} további étkezés, koppints az összes megtekintéséhez',
+			'watch.home.noMeals' => 'Nincs rögzített étkezés',
+			'watch.home.noMealsSemantics' => 'Ma nincs rögzített étkezés',
+			'watch.home.tapLog' => 'A kezdéshez koppints a Rögzítésre',
+			'watch.home.removedFromQueue' => 'Az étkezés eltávolítva az offline sorból.',
+			'watch.home.removedOffline' => 'Az étkezés offline eltávolítva. Szinkronizálódik, amikor a telefon újracsatlakozik.',
+			'watch.home.deleteFailed' => 'Nem sikerült törölni az étkezést',
+			'watch.history.title' => 'Mai étkezések',
+			'watch.history.refresh' => 'Étkezések frissítése',
+			'watch.history.loadFailed' => 'Nem sikerült betölteni az étkezéseket',
+			'watch.history.syncFailed' => 'Nem sikerült szinkronizálni',
+			'watch.history.emptyTitle' => 'Még nincs étkezés',
+			'watch.history.emptyMessage' => 'Az itt megjelenéshez rögzíts egy étkezést a Főoldalon.',
+			'watch.favorites.title' => 'Kedvencek',
+			'watch.favorites.refresh' => 'Kedvencek frissítése',
+			'watch.favorites.loadFailed' => 'Nem sikerült betölteni a kedvenceket',
+			'watch.favorites.syncFailed' => 'Nem sikerült szinkronizálni',
+			'watch.favorites.emptyTitle' => 'Még nincs kedvenc',
+			'watch.favorites.emptyMessage' => 'A telefonos alkalmazásban jelöld csillaggal az étkezéseket, hogy itt egy koppintással rögzíthesd őket.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kcal. Koppints a rögzítéshez.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} rögzítve!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.',
+			'watch.favorites.saveFailed' => 'Nem sikerült elmenteni az étkezést. Kérlek próbáld újra.',
+			'watch.favorites.log' => 'Rögzítés',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kcal, rögzítve ${time}-kor.',
+			'watch.meal.longPressDelete' => 'Törléshez tartsd lenyomva.',
+			'watch.meal.deleteTitle' => 'Étkezés törlése?',
+			'watch.voice.title' => 'Hangalapú étkezésrögzítés',
+			'watch.voice.processing' => 'Étkezés ellenőrzése…',
+			'watch.voice.processingDescription' => 'Adagok és tápérték becslése',
+			'watch.voice.listening' => 'Hallgatás',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Felvétel leállítása',
+			'watch.voice.start' => 'Koppints a felvétel indításához',
+			'watch.voice.starting' => 'Mikrofon indítása…',
+			'watch.voice.prompt' => 'Koppints, majd írd le az étkezést',
+			'watch.voice.tapToRetry' => 'Koppints az újrapróbáláshoz.',
+			'watch.voice.example' => 'Próbáld: „2 roti dal-lal”',
+			'watch.voice.unavailable' => 'A hangbevitel nem elérhető. Ellenőrizd a mikrofon engedélyét az óra beállításaiban.',
+			'watch.voice.didNotStart' => 'A mikrofon nem indult el. Koppints az újrapróbáláshoz.',
+			'watch.voice.startFailed' => 'Nem sikerült elindítani a felvételt. Ellenőrizd a mikrofon engedélyeit.',
+			'watch.voice.allowMicrophone' => 'Engedélyezd a mikrofon hozzáférését a hangalapú étkezésrögzítéshez.',
+			'watch.voice.needsConnection' => 'A beszédfelismeréshez kapcsolat szükséges. Koppints az újrapróbáláshoz.',
+			'watch.voice.microphoneUnavailable' => 'A mikrofon nem elérhető. Koppints az újrapróbáláshoz.',
+			'watch.voice.microphoneBusy' => 'A mikrofon foglalt. Várj egy pillanatot, majd próbáld újra.',
+			'watch.voice.languageUnsupported' => 'A hangbevitel nem támogatja az óra nyelvét.',
+			'watch.voice.temporarilyBusy' => 'A hangbevitel átmenetileg foglalt. Várj egy pillanatot, majd próbáld újra.',
+			'watch.voice.notRecognized' => 'Nem értettem. Koppints a mikrofonra, és próbáld újra.',
+			'watch.voice.noSpeech' => 'Nem észleltünk beszédet. Koppints a mikrofonra, és próbáld újra.',
+			'watch.voice.analysisFailed' => 'Elemzés sikertelen. Kérlek próbáld újra.',
+			'watch.voice.mealNotIdentified' => 'Az étkezést nem sikerült azonosítani. Próbáld meg másképp leírni.',
+			'watch.result.title' => 'Étkezés részletei',
+			'watch.result.savedOffline' => 'Offline mentve',
+			'watch.result.logged' => 'Rögzítve!',
+			'watch.result.mealFound' => 'Étkezés megtalálva',
+			'watch.result.estimatedEnergy' => 'Becsült energia',
+			'watch.result.logMeal' => 'Étkezés rögzítése',
+			'watch.result.logging' => 'Rögzítés…',
+			'watch.result.logAnother' => 'Újabb rögzítése',
+			'watch.result.goingBack' => 'Visszalépés…',
+			'watch.result.savedOfflineMessage' => 'Az étkezés offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.',
+			'watch.result.saveFailed' => 'Nem sikerült elmenteni az étkezést. Kérlek próbáld újra.',
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Folytatás',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}?',

@@ -245,8 +245,8 @@
     "connectHealth": {
       "title": "زامِن مع Health Connect",
       "description": "استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة",
-      "dataUseDescription": "استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة",
       "install": "تثبيت أو تحديث",
+      "dataUseDescription": "استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة",
       "installOrUpdate": "تثبيت أو تحديث",
       "connect": "اتصال"
     }
@@ -810,6 +810,121 @@
     "offlineNutritionClearConfirm": "مسح البيانات",
     "offlineNutritionInstallFailed": "تعذّر تنزيل بيانات التغذية المحلية والتحقق منها: {error}",
     "offlineNutritionCleared": "تم مسح بيانات التغذية المحلية"
+  },
+  "watch": {
+    "appTitle": "Calorify للساعة",
+    "common": {
+      "back": "رجوع",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "retry": "إعادة المحاولة",
+      "kcal": "kcal",
+      "gramsShort": "g"
+    },
+    "nutrition": {
+      "nutrient": "عنصر غذائي",
+      "grams": "{label}، {value} غرام",
+      "protein": "بروتين",
+      "carbs": "كربوهيدرات",
+      "fat": "دهون",
+      "fiber": "ألياف"
+    },
+    "sync": {
+      "syncWithPhone": "مزامنة مع الهاتف",
+      "syncing": "جاري المزامنة…",
+      "synced": "تمت المزامنة",
+      "syncedJustNow": "تمت المزامنة للتو",
+      "syncedMinutesAgo": "تمت المزامنة منذ {minutes}د",
+      "failed": "فشل في المزامنة",
+      "phoneDisconnected": "انقطع اتصال الهاتف",
+      "tapToSync": "اضغط للمزامنة",
+      "refreshFailed": "تعذّر التحديث. تحقق من هاتفك.",
+      "openPhone": "افتح Calorify على هاتفك ثم اضغط تحديث."
+    },
+    "home": {
+      "today": "اليوم",
+      "calorieSummary": "{consumed} سعرات مستهلكة من {goal}. {status}.",
+      "overGoal": "{calories} فوق الهدف",
+      "remaining": "{calories} متبقي",
+      "left": "{calories} متبقٍ",
+      "goal": "الهدف {calories} kcal",
+      "logMeal": "سجل وجبة",
+      "todayMeals": "وجبات اليوم",
+      "todayMealsCount": "وجبات اليوم، {count}",
+      "viewMore": "عرض {count} المزيد",
+      "viewMoreSemantics": "{count} وجبات إضافية، اضغط لعرض الكل",
+      "noMeals": "لا توجد وجبات مسجلة",
+      "noMealsSemantics": "لم تُسجّل أي وجبات اليوم",
+      "tapLog": "اضغط سجل للبدء",
+      "removedFromQueue": "تمت إزالة الوجبة من قائمة الانتظار غير المتصلة.",
+      "removedOffline": "تمت إزالة الوجبة في وضع عدم الاتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.",
+      "deleteFailed": "تعذّر حذف الوجبة"
+    },
+    "history": {
+      "title": "وجبات اليوم",
+      "refresh": "تحديث الوجبات",
+      "loadFailed": "تعذّر تحميل الوجبات",
+      "syncFailed": "تعذّر المزامنة",
+      "emptyTitle": "لا توجد وجبات بعد",
+      "emptyMessage": "سجل وجبة من الصفحة الرئيسية لتظهر هنا."
+    },
+    "favorites": {
+      "title": "المفضلات",
+      "refresh": "تحديث المفضلات",
+      "loadFailed": "تعذّر تحميل المفضلات",
+      "syncFailed": "تعذّر المزامنة",
+      "emptyTitle": "لا توجد مفضلات بعد",
+      "emptyMessage": "علّم الوجبات بنجمة في تطبيق الهاتف لتتمكن من تسجيلها بنقرة واحدة هنا.",
+      "mealSemantics": "{name}، {calories} سعرات. اضغط لتسجيلها.",
+      "logged": "تم تسجيل {name}!",
+      "savedOffline": "تم حفظ {name} في وضع عدم الاتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.",
+      "saveFailed": "تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى.",
+      "log": "سجل"
+    },
+    "meal": {
+      "semantics": "{name}، {calories} سعرات، سُجّلت في {time}.",
+      "longPressDelete": "اضغط مطوّلاً للحذف.",
+      "deleteTitle": "حذف الوجبة؟"
+    },
+    "voice": {
+      "title": "تسجيل الوجبة بالصوت",
+      "processing": "جارٍ تحليل وجبتك…",
+      "processingDescription": "تقدير الحصص والقيم الغذائية",
+      "listening": "يستمع",
+      "secondsLeft": "{seconds}ث",
+      "stop": "أوقف التسجيل",
+      "start": "اضغط للبدء بالتسجيل",
+      "starting": "جارٍ تشغيل الميكروفون…",
+      "prompt": "اضغط ثم صف وجبتك",
+      "tapToRetry": "اضغط لإعادة المحاولة",
+      "example": "جرّب «2 rotis مع dal»",
+      "unavailable": "إدخال الصوت غير متاح. تحقق من إذن الميكروفون في إعدادات الساعة.",
+      "didNotStart": "لم يعمل الميكروفون. اضغط لإعادة المحاولة.",
+      "startFailed": "تعذّر بدء التسجيل. تحقق من أذونات الميكروفون.",
+      "allowMicrophone": "اسمح بالوصول إلى الميكروفون لتسجيل الوجبات بالصوت.",
+      "needsConnection": "التعرّف الصوتي يحتاج اتصالًا. اضغط لإعادة المحاولة.",
+      "microphoneUnavailable": "الميكروفون غير متاح. اضغط لإعادة المحاولة.",
+      "microphoneBusy": "الميكروفون مشغول. انتظر لحظة ثم أعد المحاولة.",
+      "languageUnsupported": "إدخال الصوت لا يدعم لغة الساعة.",
+      "temporarilyBusy": "إدخال الصوت مشغول مؤقتًا. انتظر لحظة ثم أعد المحاولة.",
+      "notRecognized": "لم أفهم ذلك. اضغط على المايك وحاول مرة أخرى.",
+      "noSpeech": "لم يُكتشف كلام. اضغط على المايك وحاول مرة أخرى.",
+      "analysisFailed": "فشل التحليل. الرجاء المحاولة مرة أخرى.",
+      "mealNotIdentified": "لم أتمكن من تحديد تلك الوجبة. جرّب وصفها بطريقة مختلفة."
+    },
+    "result": {
+      "title": "تفاصيل الوجبة",
+      "savedOffline": "محفوظ دون اتصال",
+      "logged": "تم التسجيل!",
+      "mealFound": "تم العثور على الوجبة",
+      "estimatedEnergy": "الطاقة المقدرة",
+      "logMeal": "سجل الوجبة",
+      "logging": "جارٍ التسجيل…",
+      "logAnother": "سجل وجبة أخرى",
+      "goingBack": "العودة…",
+      "savedOfflineMessage": "تم حفظ الوجبة دون اتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.",
+      "saveFailed": "تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى."
+    }
   },
   "common": {
     "close": "إغلاق",

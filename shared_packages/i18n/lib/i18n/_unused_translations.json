@@ -87,18 +87,31 @@
       },
       "healthConnect": {
         "title": "Connect with Health Connect",
-        "description": "Sync your health data for better insights and automatic calorie tracking",
+        "description": "Use calories burned in your daily goal and optionally share logged meals with Health Connect.",
+        "overviewDescription": "Use calories burned in your daily goal and optionally share logged meals with Health Connect.",
         "automaticTracking": {
-          "title": "Automatic Calorie Tracking",
-          "description": "Track calories burned from your fitness apps"
+          "title": "Calories Burned",
+          "description": "Read today's total calories burned from Health Connect"
+        },
+        "caloriesBurned": {
+          "title": "Calories Burned",
+          "description": "Read today's total calories burned from Health Connect"
         },
         "progressInsights": {
-          "title": "Progress Insights",
-          "description": "Get detailed insights into your health trends"
+          "title": "Share Logged Meals",
+          "description": "Write meals you log in Calorify to Health Connect"
+        },
+        "shareLoggedMeals": {
+          "title": "Share Logged Meals",
+          "description": "Write meals you log in Calorify to Health Connect"
         },
         "seamlessIntegration": {
-          "title": "Seamless Integration",
-          "description": "Sync data from your favorite health apps"
+          "title": "You're in Control",
+          "description": "Choose either permission and change access at any time"
+        },
+        "userControl": {
+          "title": "You're in Control",
+          "description": "Choose either permission and change access at any time"
         },
         "connected": "Health Connect Connected",
         "notConnected": "Health Connect Not Connected",
@@ -106,6 +119,12 @@
         "skipForNow": "Skip for now",
         "statusConnected": "Health Connect is connected.",
         "statusSuccess": "Health Connect has been successfully connected!",
+        "statusNotConnected": "Choose the Health Connect features you want to enable.",
+        "statusPartial": "Health Connect is partially connected. Enable the remaining permission to use both features.",
+        "statusProviderUpdateRequired": "Install or update Health Connect to continue.",
+        "statusUnavailable": "Health Connect is not supported on this device.",
+        "installOrUpdate": "Install or update",
+        "manageAccess": "Manage access",
         "statusPermissionDenied": "Permission denied. Please enable Health Connect permissions from your phone settings for {appLabel}.",
         "statusError": "Error setting up Health Connect: {error}"
       },
@@ -230,8 +249,10 @@
       },
       "connectHealth": {
         "title": "Sync with Health Connect",
-        "description": "Sync your nutrition data with Health Connect",
-        "install": "Install",
+        "description": "Use calories burned in your goal and share logged meals",
+        "install": "Install or update",
+        "dataUseDescription": "Use calories burned in your goal and share logged meals",
+        "installOrUpdate": "Install or update",
         "connect": "Connect"
       }
     },
@@ -545,9 +566,11 @@
       },
       "clearAllData": {
         "title": "Clear All Data",
-        "subtitle": "Irreversibly delete all your information",
+        "subtitle": "Delete Calorify data stored on this device",
+        "localOnlySubtitle": "Delete Calorify data stored on this device",
         "confirmationTitle": "Clear All Data?",
-        "confirmationMessage": "This action cannot be undone. All your logged meals, favorites, and profile settings will be permanently deleted.",
+        "confirmationMessage": "This permanently deletes logged meals, favorites, and profile settings from this device. Meals already shared to Health Connect and Health Connect access are managed separately in Settings > Health Connect.",
+        "localOnlyConfirmationMessage": "This permanently deletes logged meals, favorites, and profile settings from this device. Meals already shared to Health Connect and Health Connect access are managed separately in Settings > Health Connect.",
         "cancel": "Cancel",
         "clearEverything": "Clear Everything"
       },
@@ -560,7 +583,13 @@
         "subtitle": "View and manage permissions",
         "unavailable": {
           "title": "Health Connect Unavailable",
-          "description": "Health Connect is not available on this device. Please install Health Connect from the Play Store (Android 9+) or update to Android 14+."
+          "description": "Health Connect is not supported on this device.",
+          "unsupportedDescription": "Health Connect is not supported on this device."
+        },
+        "updateRequired": {
+          "title": "Health Connect needs attention",
+          "description": "Install or update Health Connect before managing access.",
+          "action": "Install or update"
         },
         "permissions": {
           "title": "Permissions",
@@ -585,6 +614,19 @@
         },
         "managePermissions": "Manage Permissions",
         "openSettings": "Open Health Connect Settings",
+        "disconnect": "Disconnect Health Connect",
+        "disconnectConfirmationTitle": "Disconnect Health Connect?",
+        "disconnectConfirmationMessage": "Calorify will lose access to Health Connect. Data already written there is not deleted.",
+        "disconnectConfirmationAction": "Disconnect",
+        "deleteSyncedMeals": "Delete Calorify meals from Health Connect",
+        "deleteSyncedMealsConfirmationTitle": "Delete synced meals?",
+        "deleteSyncedMealsConfirmationMessage": "Delete meals synchronized by this version of Calorify from Health Connect? Your local meal log will not change. Older Calorify entries may still need to be removed using Manage Data in Health Connect.",
+        "deleteSyncedMealsConfirmationAction": "Delete synced meals",
+        "deleteSyncedMealsSuccess": "Calorify meals were deleted from Health Connect.",
+        "deleteSyncedMealsFailed": "Synced meals could not be deleted. Please try again.",
+        "connectionPartial": "Some Health Connect features are enabled.",
+        "connectionComplete": "Both Health Connect features are enabled.",
+        "actionFailed": "Health Connect could not be opened. Please try again.",
         "requestPermissions": "Request Permissions",
         "permissionRequestCancelledOrFailed": "Permission request was cancelled or failed. Please try again or grant permissions manually in Health Connect settings.",
         "permissionRequestFailed": "Unable to request permissions. Please try again or grant permissions manually in Health Connect settings.",
@@ -601,7 +643,8 @@
           "title": "Your Privacy Matters",
           "description": "Privacy isn't an afterthought — it's a design principle. Here's what that means in practice:",
           "noAccounts": "No accounts required\nUse the app immediately. No sign-ups, no identities.",
-          "noTracking": "No behavioral tracking\n{appLabel} does not monitor your activity, build usage profiles, or track you across apps or websites.",
+          "noTracking": "Limited analytics and diagnostics\n{appLabel} uses basic app events and crash diagnostics to improve reliability. Health record values are not used for advertising or sold.",
+          "analyticsDisclosure": "Limited analytics and diagnostics\n{appLabel} uses basic app events and crash diagnostics to improve reliability. Health record values are not used for advertising or sold.",
           "noAds": "Ad-free by design\n{appLabel} is built to work without ads or data-driven monetization.",
           "noDataSelling": "No data selling\nYour health data is never sold or shared with third parties.",
           "localStorage": "Local-first storage\nYour data stays on your device.",
@@ -740,6 +783,152 @@
           "title": "Professional Guidance",
           "description": "Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice."
         }
+      }
+    },
+    "localNutritionPhase4": {
+      "nutritionBundled": "Nutrition matched from the downloaded USDA pack",
+      "nutritionCached": "Nutrition matched from the on-device USDA cache",
+      "nutritionMixed": "Nutrition combined from downloaded, cached, and remote USDA rows",
+      "calculationLocal": "Calories and macros calculated on this device",
+      "ingredientBundled": "{ingredient}: downloaded USDA pack",
+      "ingredientCached": "{ingredient}: on-device USDA cache",
+      "ingredientRemote": "{ingredient}: USDA row fetched through Calorify",
+      "ingredientDeterministic": "{ingredient}: deterministic nutrition constant",
+      "ingredientReference": "FDC {fdcId} · dataset {datasetVersion}",
+      "portionSmaller": "Smaller",
+      "portionEstimated": "Estimated",
+      "portionLarger": "Larger",
+      "portionQuestion": "Which portion was closest for {ingredient}?",
+      "mealTypeQuestion": "Which meal was this?",
+      "localNutritionTip": "Calculated from verified local nutrition data.",
+      "offlineNutritionTitle": "Download nutrition data",
+      "offlineNutritionSubtitle": "Use verified USDA rows and deterministic calculation on this device when every ingredient is covered.",
+      "offlineNutritionUnavailable": "Local nutrition data is not available for this app release.",
+      "offlineNutritionNotDownloaded": "No verified nutrition pack is downloaded.",
+      "offlineNutritionInstalling": "Downloading and verifying nutrition data…",
+      "offlineNutritionStatus": "Pack {version} · {size} · USDA {datasetVersion}",
+      "offlineNutritionCacheStatus": "{count} cached USDA rows · {size}",
+      "offlineNutritionUpdate": "Check for update",
+      "offlineNutritionClear": "Clear local nutrition data",
+      "offlineNutritionClearTitle": "Clear local nutrition data?",
+      "offlineNutritionClearBody": "This removes the downloaded USDA pack and lookup cache. Logged meals keep the exact nutrition snapshot used when they were saved.",
+      "offlineNutritionClearConfirm": "Clear data",
+      "offlineNutritionInstallFailed": "Could not download and verify local nutrition data: {error}",
+      "offlineNutritionCleared": "Local nutrition data cleared"
+    },
+    "watch": {
+      "appTitle": "Calorify Watch",
+      "common": {
+        "back": "Back",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "retry": "Retry",
+        "kcal": "kcal",
+        "gramsShort": "g"
+      },
+      "nutrition": {
+        "nutrient": "Nutrient",
+        "grams": "{label}, {value} grams",
+        "protein": "Protein",
+        "carbs": "Carbs",
+        "fat": "Fat",
+        "fiber": "Fiber"
+      },
+      "sync": {
+        "syncWithPhone": "Sync with phone",
+        "syncing": "Syncing…",
+        "synced": "Synced",
+        "syncedJustNow": "Synced just now",
+        "syncedMinutesAgo": "Synced {minutes}m ago",
+        "failed": "Sync failed",
+        "phoneDisconnected": "Phone disconnected",
+        "tapToSync": "Tap to sync",
+        "refreshFailed": "Could not refresh. Check your phone.",
+        "openPhone": "Open Calorify on your phone, then tap refresh."
+      },
+      "home": {
+        "today": "Today",
+        "calorieSummary": "{consumed} calories consumed out of {goal}. {status}.",
+        "overGoal": "{calories} over goal",
+        "remaining": "{calories} remaining",
+        "left": "{calories} left",
+        "goal": "{calories} kcal goal",
+        "logMeal": "Log a meal",
+        "todayMeals": "Today's meals",
+        "todayMealsCount": "Today's meals, {count}",
+        "viewMore": "View {count} more",
+        "viewMoreSemantics": "{count} more meals, tap to view all",
+        "noMeals": "No meals logged",
+        "noMealsSemantics": "No meals logged today",
+        "tapLog": "Tap Log to start",
+        "removedFromQueue": "Meal removed from the offline queue.",
+        "removedOffline": "Meal removed offline. It will sync when your phone reconnects.",
+        "deleteFailed": "Could not delete meal"
+      },
+      "history": {
+        "title": "Today's meals",
+        "refresh": "Refresh meals",
+        "loadFailed": "Could not load meals",
+        "syncFailed": "Could not sync",
+        "emptyTitle": "No meals yet",
+        "emptyMessage": "Log a meal from Home to see it here."
+      },
+      "favorites": {
+        "title": "Favorites",
+        "refresh": "Refresh favorites",
+        "loadFailed": "Could not load favorites",
+        "syncFailed": "Could not sync",
+        "emptyTitle": "No favorites yet",
+        "emptyMessage": "Star meals in the phone app for one-tap logging here.",
+        "mealSemantics": "{name}, {calories} calories. Tap to log.",
+        "logged": "{name} logged!",
+        "savedOffline": "{name} saved offline. It will sync when your phone reconnects.",
+        "saveFailed": "Could not save the meal. Please try again.",
+        "log": "Log"
+      },
+      "meal": {
+        "semantics": "{name}, {calories} calories, logged at {time}.",
+        "longPressDelete": "Long press to delete.",
+        "deleteTitle": "Delete meal?"
+      },
+      "voice": {
+        "title": "Voice meal log",
+        "processing": "Checking your meal…",
+        "processingDescription": "Estimating portions and nutrition",
+        "listening": "Listening",
+        "secondsLeft": "{seconds}s",
+        "stop": "Stop recording",
+        "start": "Tap to start recording",
+        "starting": "Starting microphone…",
+        "prompt": "Tap, then describe your meal",
+        "tapToRetry": "Tap to retry",
+        "example": "Try “2 rotis with dal”",
+        "unavailable": "Voice input is unavailable. Check microphone permission in watch settings.",
+        "didNotStart": "Microphone did not start. Tap to retry.",
+        "startFailed": "Could not start recording. Check microphone permissions.",
+        "allowMicrophone": "Allow microphone access to log meals by voice.",
+        "needsConnection": "Voice recognition needs a connection. Tap to retry.",
+        "microphoneUnavailable": "The microphone is unavailable. Tap to retry.",
+        "microphoneBusy": "The microphone is busy. Wait a moment and retry.",
+        "languageUnsupported": "Voice input does not support the watch language.",
+        "temporarilyBusy": "Voice input is temporarily busy. Wait a moment and retry.",
+        "notRecognized": "I didn't catch that. Tap the mic and try again.",
+        "noSpeech": "No speech detected. Tap the mic to try again.",
+        "analysisFailed": "Analysis failed. Please try again.",
+        "mealNotIdentified": "Couldn't identify that meal. Try describing it differently."
+      },
+      "result": {
+        "title": "Meal details",
+        "savedOffline": "Saved offline",
+        "logged": "Logged!",
+        "mealFound": "Meal found",
+        "estimatedEnergy": "Estimated energy",
+        "logMeal": "Log meal",
+        "logging": "Logging…",
+        "logAnother": "Log another",
+        "goingBack": "Going back…",
+        "savedOfflineMessage": "Meal saved offline. It will sync when your phone reconnects.",
+        "saveFailed": "Could not save the meal. Please try again."
       }
     },
     "common": {

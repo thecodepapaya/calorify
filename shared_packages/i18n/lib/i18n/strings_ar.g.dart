@@ -58,6 +58,7 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$ar login = _Translations$login$ar._(_root);
 	@override late final _Translations$disclaimer$ar disclaimer = _Translations$disclaimer$ar._(_root);
 	@override late final _Translations$localNutritionPhase4$ar localNutritionPhase4 = _Translations$localNutritionPhase4$ar._(_root);
+	@override late final _Translations$watch$ar watch = _Translations$watch$ar._(_root);
 	@override late final _Translations$common$ar common = _Translations$common$ar._(_root);
 	@override late final _Translations$feedbackRating$ar feedbackRating = _Translations$feedbackRating$ar._(_root);
 	@override late final _Translations$health$ar health = _Translations$health$ar._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$ar extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'تم مسح بيانات التغذية المحلية';
 }
 
+// Path: watch
+class _Translations$watch$ar extends Translations$watch$en {
+	_Translations$watch$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify للساعة';
+	@override late final _Translations$watch$common$ar common = _Translations$watch$common$ar._(_root);
+	@override late final _Translations$watch$nutrition$ar nutrition = _Translations$watch$nutrition$ar._(_root);
+	@override late final _Translations$watch$sync$ar sync = _Translations$watch$sync$ar._(_root);
+	@override late final _Translations$watch$home$ar home = _Translations$watch$home$ar._(_root);
+	@override late final _Translations$watch$history$ar history = _Translations$watch$history$ar._(_root);
+	@override late final _Translations$watch$favorites$ar favorites = _Translations$watch$favorites$ar._(_root);
+	@override late final _Translations$watch$meal$ar meal = _Translations$watch$meal$ar._(_root);
+	@override late final _Translations$watch$voice$ar voice = _Translations$watch$voice$ar._(_root);
+	@override late final _Translations$watch$result$ar result = _Translations$watch$result$ar._(_root);
+}
+
 // Path: common
 class _Translations$common$ar extends Translations$common$en {
 	_Translations$common$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -753,8 +773,8 @@ class _Translations$home$connectHealth$ar extends Translations$home$connectHealt
 	// Translations
 	@override String get title => 'زامِن مع Health Connect';
 	@override String get description => 'استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة';
-	@override String get dataUseDescription => 'استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة';
 	@override String get install => 'تثبيت أو تحديث';
+	@override String get dataUseDescription => 'استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة';
 	@override String get installOrUpdate => 'تثبيت أو تحديث';
 	@override String get connect => 'اتصال';
 }
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$ar extends Translations$discla
 	@override String get description => 'عندما تتعذّر بيانات Health Connect، نقدر سعرات اليوم المحروقة باستخدام معدل الأيض الأساسي (BMR) ومستوى النشاط (TDEE)، مع تعديل بالنسبة لجزء اليوم الذي مضى.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$ar howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$ar._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$ar professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$ar._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$ar extends Translations$watch$common$en {
+	_Translations$watch$common$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'رجوع';
+	@override String get cancel => 'إلغاء';
+	@override String get delete => 'حذف';
+	@override String get retry => 'إعادة المحاولة';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$ar extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'عنصر غذائي';
+	@override String grams({required Object label, required Object value}) => '${label}، ${value} غرام';
+	@override String get protein => 'بروتين';
+	@override String get carbs => 'كربوهيدرات';
+	@override String get fat => 'دهون';
+	@override String get fiber => 'ألياف';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$ar extends Translations$watch$sync$en {
+	_Translations$watch$sync$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'مزامنة مع الهاتف';
+	@override String get syncing => 'جاري المزامنة…';
+	@override String get synced => 'تمت المزامنة';
+	@override String get syncedJustNow => 'تمت المزامنة للتو';
+	@override String syncedMinutesAgo({required Object minutes}) => 'تمت المزامنة منذ ${minutes}د';
+	@override String get failed => 'فشل في المزامنة';
+	@override String get phoneDisconnected => 'انقطع اتصال الهاتف';
+	@override String get tapToSync => 'اضغط للمزامنة';
+	@override String get refreshFailed => 'تعذّر التحديث. تحقق من هاتفك.';
+	@override String get openPhone => 'افتح Calorify على هاتفك ثم اضغط تحديث.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$ar extends Translations$watch$home$en {
+	_Translations$watch$home$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'اليوم';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} سعرات مستهلكة من ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} فوق الهدف';
+	@override String remaining({required Object calories}) => '${calories} متبقي';
+	@override String left({required Object calories}) => '${calories} متبقٍ';
+	@override String goal({required Object calories}) => 'الهدف ${calories} kcal';
+	@override String get logMeal => 'سجل وجبة';
+	@override String get todayMeals => 'وجبات اليوم';
+	@override String todayMealsCount({required Object count}) => 'وجبات اليوم، ${count}';
+	@override String viewMore({required Object count}) => 'عرض ${count} المزيد';
+	@override String viewMoreSemantics({required Object count}) => '${count} وجبات إضافية، اضغط لعرض الكل';
+	@override String get noMeals => 'لا توجد وجبات مسجلة';
+	@override String get noMealsSemantics => 'لم تُسجّل أي وجبات اليوم';
+	@override String get tapLog => 'اضغط سجل للبدء';
+	@override String get removedFromQueue => 'تمت إزالة الوجبة من قائمة الانتظار غير المتصلة.';
+	@override String get removedOffline => 'تمت إزالة الوجبة في وضع عدم الاتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.';
+	@override String get deleteFailed => 'تعذّر حذف الوجبة';
+}
+
+// Path: watch.history
+class _Translations$watch$history$ar extends Translations$watch$history$en {
+	_Translations$watch$history$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'وجبات اليوم';
+	@override String get refresh => 'تحديث الوجبات';
+	@override String get loadFailed => 'تعذّر تحميل الوجبات';
+	@override String get syncFailed => 'تعذّر المزامنة';
+	@override String get emptyTitle => 'لا توجد وجبات بعد';
+	@override String get emptyMessage => 'سجل وجبة من الصفحة الرئيسية لتظهر هنا.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$ar extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'المفضلات';
+	@override String get refresh => 'تحديث المفضلات';
+	@override String get loadFailed => 'تعذّر تحميل المفضلات';
+	@override String get syncFailed => 'تعذّر المزامنة';
+	@override String get emptyTitle => 'لا توجد مفضلات بعد';
+	@override String get emptyMessage => 'علّم الوجبات بنجمة في تطبيق الهاتف لتتمكن من تسجيلها بنقرة واحدة هنا.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}، ${calories} سعرات. اضغط لتسجيلها.';
+	@override String logged({required Object name}) => 'تم تسجيل ${name}!';
+	@override String savedOffline({required Object name}) => 'تم حفظ ${name} في وضع عدم الاتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.';
+	@override String get saveFailed => 'تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى.';
+	@override String get log => 'سجل';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$ar extends Translations$watch$meal$en {
+	_Translations$watch$meal$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}، ${calories} سعرات، سُجّلت في ${time}.';
+	@override String get longPressDelete => 'اضغط مطوّلاً للحذف.';
+	@override String get deleteTitle => 'حذف الوجبة؟';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$ar extends Translations$watch$voice$en {
+	_Translations$watch$voice$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تسجيل الوجبة بالصوت';
+	@override String get processing => 'جارٍ تحليل وجبتك…';
+	@override String get processingDescription => 'تقدير الحصص والقيم الغذائية';
+	@override String get listening => 'يستمع';
+	@override String secondsLeft({required Object seconds}) => '${seconds}ث';
+	@override String get stop => 'أوقف التسجيل';
+	@override String get start => 'اضغط للبدء بالتسجيل';
+	@override String get starting => 'جارٍ تشغيل الميكروفون…';
+	@override String get prompt => 'اضغط ثم صف وجبتك';
+	@override String get tapToRetry => 'اضغط لإعادة المحاولة';
+	@override String get example => 'جرّب «2 rotis مع dal»';
+	@override String get unavailable => 'إدخال الصوت غير متاح. تحقق من إذن الميكروفون في إعدادات الساعة.';
+	@override String get didNotStart => 'لم يعمل الميكروفون. اضغط لإعادة المحاولة.';
+	@override String get startFailed => 'تعذّر بدء التسجيل. تحقق من أذونات الميكروفون.';
+	@override String get allowMicrophone => 'اسمح بالوصول إلى الميكروفون لتسجيل الوجبات بالصوت.';
+	@override String get needsConnection => 'التعرّف الصوتي يحتاج اتصالًا. اضغط لإعادة المحاولة.';
+	@override String get microphoneUnavailable => 'الميكروفون غير متاح. اضغط لإعادة المحاولة.';
+	@override String get microphoneBusy => 'الميكروفون مشغول. انتظر لحظة ثم أعد المحاولة.';
+	@override String get languageUnsupported => 'إدخال الصوت لا يدعم لغة الساعة.';
+	@override String get temporarilyBusy => 'إدخال الصوت مشغول مؤقتًا. انتظر لحظة ثم أعد المحاولة.';
+	@override String get notRecognized => 'لم أفهم ذلك. اضغط على المايك وحاول مرة أخرى.';
+	@override String get noSpeech => 'لم يُكتشف كلام. اضغط على المايك وحاول مرة أخرى.';
+	@override String get analysisFailed => 'فشل التحليل. الرجاء المحاولة مرة أخرى.';
+	@override String get mealNotIdentified => 'لم أتمكن من تحديد تلك الوجبة. جرّب وصفها بطريقة مختلفة.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$ar extends Translations$watch$result$en {
+	_Translations$watch$result$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+	final TranslationsAr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'تفاصيل الوجبة';
+	@override String get savedOffline => 'محفوظ دون اتصال';
+	@override String get logged => 'تم التسجيل!';
+	@override String get mealFound => 'تم العثور على الوجبة';
+	@override String get estimatedEnergy => 'الطاقة المقدرة';
+	@override String get logMeal => 'سجل الوجبة';
+	@override String get logging => 'جارٍ التسجيل…';
+	@override String get logAnother => 'سجل وجبة أخرى';
+	@override String get goingBack => 'العودة…';
+	@override String get savedOfflineMessage => 'تم حفظ الوجبة دون اتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.';
+	@override String get saveFailed => 'تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -2026,8 +2221,8 @@ extension on TranslationsAr {
 			'home.mealSnap.uploadingPhoto' => 'جارٍ رفع الصورة…',
 			'home.connectHealth.title' => 'زامِن مع Health Connect',
 			'home.connectHealth.description' => 'استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة',
-			'home.connectHealth.dataUseDescription' => 'استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة',
 			'home.connectHealth.install' => 'تثبيت أو تحديث',
+			'home.connectHealth.dataUseDescription' => 'استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة',
 			'home.connectHealth.installOrUpdate' => 'تثبيت أو تحديث',
 			'home.connectHealth.connect' => 'اتصال',
 			'history.noMeals' => 'لا توجد وجبات مسجلة',
@@ -2432,6 +2627,101 @@ extension on TranslationsAr {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'مسح البيانات',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'تعذّر تنزيل بيانات التغذية المحلية والتحقق منها: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'تم مسح بيانات التغذية المحلية',
+			'watch.appTitle' => 'Calorify للساعة',
+			'watch.common.back' => 'رجوع',
+			'watch.common.cancel' => 'إلغاء',
+			'watch.common.delete' => 'حذف',
+			'watch.common.retry' => 'إعادة المحاولة',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'عنصر غذائي',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}، ${value} غرام',
+			'watch.nutrition.protein' => 'بروتين',
+			'watch.nutrition.carbs' => 'كربوهيدرات',
+			'watch.nutrition.fat' => 'دهون',
+			'watch.nutrition.fiber' => 'ألياف',
+			'watch.sync.syncWithPhone' => 'مزامنة مع الهاتف',
+			'watch.sync.syncing' => 'جاري المزامنة…',
+			'watch.sync.synced' => 'تمت المزامنة',
+			'watch.sync.syncedJustNow' => 'تمت المزامنة للتو',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'تمت المزامنة منذ ${minutes}د',
+			'watch.sync.failed' => 'فشل في المزامنة',
+			'watch.sync.phoneDisconnected' => 'انقطع اتصال الهاتف',
+			'watch.sync.tapToSync' => 'اضغط للمزامنة',
+			'watch.sync.refreshFailed' => 'تعذّر التحديث. تحقق من هاتفك.',
+			'watch.sync.openPhone' => 'افتح Calorify على هاتفك ثم اضغط تحديث.',
+			'watch.home.today' => 'اليوم',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} سعرات مستهلكة من ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} فوق الهدف',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} متبقي',
+			'watch.home.left' => ({required Object calories}) => '${calories} متبقٍ',
+			'watch.home.goal' => ({required Object calories}) => 'الهدف ${calories} kcal',
+			'watch.home.logMeal' => 'سجل وجبة',
+			'watch.home.todayMeals' => 'وجبات اليوم',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'وجبات اليوم، ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'عرض ${count} المزيد',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} وجبات إضافية، اضغط لعرض الكل',
+			'watch.home.noMeals' => 'لا توجد وجبات مسجلة',
+			'watch.home.noMealsSemantics' => 'لم تُسجّل أي وجبات اليوم',
+			'watch.home.tapLog' => 'اضغط سجل للبدء',
+			'watch.home.removedFromQueue' => 'تمت إزالة الوجبة من قائمة الانتظار غير المتصلة.',
+			'watch.home.removedOffline' => 'تمت إزالة الوجبة في وضع عدم الاتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.',
+			'watch.home.deleteFailed' => 'تعذّر حذف الوجبة',
+			'watch.history.title' => 'وجبات اليوم',
+			'watch.history.refresh' => 'تحديث الوجبات',
+			'watch.history.loadFailed' => 'تعذّر تحميل الوجبات',
+			'watch.history.syncFailed' => 'تعذّر المزامنة',
+			'watch.history.emptyTitle' => 'لا توجد وجبات بعد',
+			'watch.history.emptyMessage' => 'سجل وجبة من الصفحة الرئيسية لتظهر هنا.',
+			'watch.favorites.title' => 'المفضلات',
+			'watch.favorites.refresh' => 'تحديث المفضلات',
+			'watch.favorites.loadFailed' => 'تعذّر تحميل المفضلات',
+			'watch.favorites.syncFailed' => 'تعذّر المزامنة',
+			'watch.favorites.emptyTitle' => 'لا توجد مفضلات بعد',
+			'watch.favorites.emptyMessage' => 'علّم الوجبات بنجمة في تطبيق الهاتف لتتمكن من تسجيلها بنقرة واحدة هنا.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}، ${calories} سعرات. اضغط لتسجيلها.',
+			'watch.favorites.logged' => ({required Object name}) => 'تم تسجيل ${name}!',
+			'watch.favorites.savedOffline' => ({required Object name}) => 'تم حفظ ${name} في وضع عدم الاتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.',
+			'watch.favorites.saveFailed' => 'تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى.',
+			'watch.favorites.log' => 'سجل',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}، ${calories} سعرات، سُجّلت في ${time}.',
+			'watch.meal.longPressDelete' => 'اضغط مطوّلاً للحذف.',
+			'watch.meal.deleteTitle' => 'حذف الوجبة؟',
+			'watch.voice.title' => 'تسجيل الوجبة بالصوت',
+			'watch.voice.processing' => 'جارٍ تحليل وجبتك…',
+			'watch.voice.processingDescription' => 'تقدير الحصص والقيم الغذائية',
+			'watch.voice.listening' => 'يستمع',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}ث',
+			'watch.voice.stop' => 'أوقف التسجيل',
+			'watch.voice.start' => 'اضغط للبدء بالتسجيل',
+			'watch.voice.starting' => 'جارٍ تشغيل الميكروفون…',
+			'watch.voice.prompt' => 'اضغط ثم صف وجبتك',
+			'watch.voice.tapToRetry' => 'اضغط لإعادة المحاولة',
+			'watch.voice.example' => 'جرّب «2 rotis مع dal»',
+			'watch.voice.unavailable' => 'إدخال الصوت غير متاح. تحقق من إذن الميكروفون في إعدادات الساعة.',
+			'watch.voice.didNotStart' => 'لم يعمل الميكروفون. اضغط لإعادة المحاولة.',
+			'watch.voice.startFailed' => 'تعذّر بدء التسجيل. تحقق من أذونات الميكروفون.',
+			'watch.voice.allowMicrophone' => 'اسمح بالوصول إلى الميكروفون لتسجيل الوجبات بالصوت.',
+			'watch.voice.needsConnection' => 'التعرّف الصوتي يحتاج اتصالًا. اضغط لإعادة المحاولة.',
+			'watch.voice.microphoneUnavailable' => 'الميكروفون غير متاح. اضغط لإعادة المحاولة.',
+			'watch.voice.microphoneBusy' => 'الميكروفون مشغول. انتظر لحظة ثم أعد المحاولة.',
+			'watch.voice.languageUnsupported' => 'إدخال الصوت لا يدعم لغة الساعة.',
+			'watch.voice.temporarilyBusy' => 'إدخال الصوت مشغول مؤقتًا. انتظر لحظة ثم أعد المحاولة.',
+			'watch.voice.notRecognized' => 'لم أفهم ذلك. اضغط على المايك وحاول مرة أخرى.',
+			'watch.voice.noSpeech' => 'لم يُكتشف كلام. اضغط على المايك وحاول مرة أخرى.',
+			'watch.voice.analysisFailed' => 'فشل التحليل. الرجاء المحاولة مرة أخرى.',
+			'watch.voice.mealNotIdentified' => 'لم أتمكن من تحديد تلك الوجبة. جرّب وصفها بطريقة مختلفة.',
+			'watch.result.title' => 'تفاصيل الوجبة',
+			'watch.result.savedOffline' => 'محفوظ دون اتصال',
+			'watch.result.logged' => 'تم التسجيل!',
+			'watch.result.mealFound' => 'تم العثور على الوجبة',
+			'watch.result.estimatedEnergy' => 'الطاقة المقدرة',
+			'watch.result.logMeal' => 'سجل الوجبة',
+			'watch.result.logging' => 'جارٍ التسجيل…',
+			'watch.result.logAnother' => 'سجل وجبة أخرى',
+			'watch.result.goingBack' => 'العودة…',
+			'watch.result.savedOfflineMessage' => 'تم حفظ الوجبة دون اتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.',
+			'watch.result.saveFailed' => 'تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى.',
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع بـ ${appLabel}؟',

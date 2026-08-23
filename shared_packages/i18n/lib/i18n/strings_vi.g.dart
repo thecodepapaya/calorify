@@ -58,6 +58,7 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$vi login = _Translations$login$vi._(_root);
 	@override late final _Translations$disclaimer$vi disclaimer = _Translations$disclaimer$vi._(_root);
 	@override late final _Translations$localNutritionPhase4$vi localNutritionPhase4 = _Translations$localNutritionPhase4$vi._(_root);
+	@override late final _Translations$watch$vi watch = _Translations$watch$vi._(_root);
 	@override late final _Translations$common$vi common = _Translations$common$vi._(_root);
 	@override late final _Translations$feedbackRating$vi feedbackRating = _Translations$feedbackRating$vi._(_root);
 	@override late final _Translations$health$vi health = _Translations$health$vi._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$vi extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'Đã xóa dữ liệu dinh dưỡng cục bộ';
 }
 
+// Path: watch
+class _Translations$watch$vi extends Translations$watch$en {
+	_Translations$watch$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$vi common = _Translations$watch$common$vi._(_root);
+	@override late final _Translations$watch$nutrition$vi nutrition = _Translations$watch$nutrition$vi._(_root);
+	@override late final _Translations$watch$sync$vi sync = _Translations$watch$sync$vi._(_root);
+	@override late final _Translations$watch$home$vi home = _Translations$watch$home$vi._(_root);
+	@override late final _Translations$watch$history$vi history = _Translations$watch$history$vi._(_root);
+	@override late final _Translations$watch$favorites$vi favorites = _Translations$watch$favorites$vi._(_root);
+	@override late final _Translations$watch$meal$vi meal = _Translations$watch$meal$vi._(_root);
+	@override late final _Translations$watch$voice$vi voice = _Translations$watch$voice$vi._(_root);
+	@override late final _Translations$watch$result$vi result = _Translations$watch$result$vi._(_root);
+}
+
 // Path: common
 class _Translations$common$vi extends Translations$common$en {
 	_Translations$common$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -568,27 +588,27 @@ class _Translations$onboarding$healthConnect$vi extends Translations$onboarding$
 	// Translations
 	@override String get title => 'Kết nối với Health Connect';
 	@override String get description => 'Đồng bộ dữ liệu sức khỏe để có cái nhìn tốt hơn và theo dõi calo tự động';
+	@override String get overviewDescription => 'Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$vi automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$vi._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$vi caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$vi._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$vi progressInsights = _Translations$onboarding$healthConnect$progressInsights$vi._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$vi shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$vi._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$vi seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$vi._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$vi userControl = _Translations$onboarding$healthConnect$userControl$vi._(_root);
 	@override String get connected => 'Đã kết nối Health Connect';
 	@override String get notConnected => 'Chưa kết nối Health Connect';
 	@override String get setup => 'Thiết lập Health Connect';
 	@override String get skipForNow => 'Bỏ qua trước';
 	@override String get statusConnected => 'Health Connect đã được kết nối.';
 	@override String get statusSuccess => 'Đã kết nối Health Connect thành công!';
-	@override String statusPermissionDenied({required Object appLabel}) => 'Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho ${appLabel}.';
-	@override String statusError({required Object error}) => 'Lỗi khi thiết lập Health Connect: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$vi caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$vi._(_root);
-	@override String get installOrUpdate => 'Cài đặt hoặc cập nhật';
-	@override String get manageAccess => 'Quản lý quyền truy cập';
-	@override String get overviewDescription => 'Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$vi shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$vi._(_root);
 	@override String get statusNotConnected => 'Chọn các tính năng Health Connect bạn muốn bật.';
 	@override String get statusPartial => 'Health Connect đã kết nối một phần. Hãy bật quyền còn lại để dùng cả hai tính năng.';
 	@override String get statusProviderUpdateRequired => 'Cài đặt hoặc cập nhật Health Connect để tiếp tục.';
 	@override String get statusUnavailable => 'Thiết bị này không hỗ trợ Health Connect.';
-	@override late final _Translations$onboarding$healthConnect$userControl$vi userControl = _Translations$onboarding$healthConnect$userControl$vi._(_root);
+	@override String get installOrUpdate => 'Cài đặt hoặc cập nhật';
+	@override String get manageAccess => 'Quản lý quyền truy cập';
+	@override String statusPermissionDenied({required Object appLabel}) => 'Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho ${appLabel}.';
+	@override String statusError({required Object error}) => 'Lỗi khi thiết lập Health Connect: ${error}';
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$vi extends Translations$home$connectHealt
 	@override String get title => 'Đồng bộ với Health Connect';
 	@override String get description => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect';
 	@override String get install => 'Cài đặt';
-	@override String get connect => 'Kết nối';
 	@override String get dataUseDescription => 'Dùng lượng calo đã đốt cháy trong mục tiêu và chia sẻ các bữa ăn đã ghi';
 	@override String get installOrUpdate => 'Cài đặt hoặc cập nhật';
+	@override String get connect => 'Kết nối';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$vi extends Translations$settings$clear
 	// Translations
 	@override String get title => 'Xóa tất cả dữ liệu';
 	@override String get subtitle => 'Xóa vĩnh viễn mọi thông tin của bạn';
+	@override String get localOnlySubtitle => 'Xóa dữ liệu Calorify lưu trên thiết bị này';
 	@override String get confirmationTitle => 'Xóa tất cả dữ liệu?';
 	@override String get confirmationMessage => 'Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.';
+	@override String get localOnlyConfirmationMessage => 'Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.';
 	@override String get cancel => 'Hủy';
 	@override String get clearEverything => 'Xóa hết';
-	@override String get localOnlyConfirmationMessage => 'Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.';
-	@override String get localOnlySubtitle => 'Xóa dữ liệu Calorify lưu trên thiết bị này';
 }
 
 // Path: settings.debugOptions
@@ -1147,27 +1167,27 @@ class _Translations$settings$healthConnect$vi extends Translations$settings$heal
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Xem và quản lý quyền';
 	@override late final _Translations$settings$healthConnect$unavailable$vi unavailable = _Translations$settings$healthConnect$unavailable$vi._(_root);
+	@override late final _Translations$settings$healthConnect$updateRequired$vi updateRequired = _Translations$settings$healthConnect$updateRequired$vi._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$vi permissions = _Translations$settings$healthConnect$permissions$vi._(_root);
 	@override String get managePermissions => 'Quản lý quyền';
 	@override String get openSettings => 'Mở cài đặt Health Connect';
+	@override String get disconnect => 'Ngắt kết nối Health Connect';
+	@override String get disconnectConfirmationTitle => 'Ngắt kết nối Health Connect?';
+	@override String get disconnectConfirmationMessage => 'Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.';
+	@override String get disconnectConfirmationAction => 'Ngắt kết nối';
+	@override String get deleteSyncedMeals => 'Xóa bữa ăn Calorify khỏi Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Xóa bữa ăn đã đồng bộ?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Xóa bữa ăn đã đồng bộ';
+	@override String get deleteSyncedMealsSuccess => 'Đã xóa các bữa ăn Calorify khỏi Health Connect.';
+	@override String get deleteSyncedMealsFailed => 'Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.';
+	@override String get connectionPartial => 'Một số tính năng Health Connect đã được bật.';
+	@override String get connectionComplete => 'Cả hai tính năng Health Connect đã được bật.';
+	@override String get actionFailed => 'Không thể mở Health Connect. Vui lòng thử lại.';
 	@override String get requestPermissions => 'Yêu cầu quyền';
 	@override String get permissionRequestCancelledOrFailed => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
 	@override String get permissionRequestFailed => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
 	@override String get requestingPermissions => 'Đang yêu cầu...';
-	@override String get actionFailed => 'Không thể mở Health Connect. Vui lòng thử lại.';
-	@override String get connectionComplete => 'Cả hai tính năng Health Connect đã được bật.';
-	@override String get connectionPartial => 'Một số tính năng Health Connect đã được bật.';
-	@override String get deleteSyncedMeals => 'Xóa bữa ăn Calorify khỏi Health Connect';
-	@override String get deleteSyncedMealsConfirmationAction => 'Xóa bữa ăn đã đồng bộ';
-	@override String get deleteSyncedMealsConfirmationMessage => 'Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.';
-	@override String get deleteSyncedMealsConfirmationTitle => 'Xóa bữa ăn đã đồng bộ?';
-	@override String get deleteSyncedMealsFailed => 'Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.';
-	@override String get deleteSyncedMealsSuccess => 'Đã xóa các bữa ăn Calorify khỏi Health Connect.';
-	@override String get disconnect => 'Ngắt kết nối Health Connect';
-	@override String get disconnectConfirmationAction => 'Ngắt kết nối';
-	@override String get disconnectConfirmationMessage => 'Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.';
-	@override String get disconnectConfirmationTitle => 'Ngắt kết nối Health Connect?';
-	@override late final _Translations$settings$healthConnect$updateRequired$vi updateRequired = _Translations$settings$healthConnect$updateRequired$vi._(_root);
 }
 
 // Path: settings.about
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$vi extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$vi professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$vi._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$vi extends Translations$watch$common$en {
+	_Translations$watch$common$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Quay lại';
+	@override String get cancel => 'Hủy';
+	@override String get delete => 'Xóa';
+	@override String get retry => 'Thử lại';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$vi extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Chất dinh dưỡng';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} g';
+	@override String get protein => 'Protein';
+	@override String get carbs => 'Tinh bột';
+	@override String get fat => 'Chất béo';
+	@override String get fiber => 'Chất xơ';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$vi extends Translations$watch$sync$en {
+	_Translations$watch$sync$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Đồng bộ với điện thoại';
+	@override String get syncing => 'Đang đồng bộ…';
+	@override String get synced => 'Đã đồng bộ';
+	@override String get syncedJustNow => 'Vừa đồng bộ';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Đã đồng bộ ${minutes} phút trước';
+	@override String get failed => 'Đồng bộ thất bại';
+	@override String get phoneDisconnected => 'Điện thoại đã ngắt kết nối';
+	@override String get tapToSync => 'Chạm để đồng bộ';
+	@override String get refreshFailed => 'Không thể làm mới. Kiểm tra điện thoại của bạn.';
+	@override String get openPhone => 'Mở Calorify trên điện thoại, sau đó chạm làm mới.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$vi extends Translations$watch$home$en {
+	_Translations$watch$home$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Hôm nay';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} calo đã tiêu thụ trên tổng ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} vượt quá mục tiêu';
+	@override String remaining({required Object calories}) => 'Còn lại ${calories}';
+	@override String left({required Object calories}) => '${calories} còn lại';
+	@override String goal({required Object calories}) => 'Mục tiêu ${calories} kcal';
+	@override String get logMeal => 'Ghi bữa ăn';
+	@override String get todayMeals => 'Các bữa hôm nay';
+	@override String todayMealsCount({required Object count}) => 'Các bữa hôm nay, ${count}';
+	@override String viewMore({required Object count}) => 'Xem thêm ${count}';
+	@override String viewMoreSemantics({required Object count}) => '${count} bữa nữa, chạm để xem tất cả';
+	@override String get noMeals => 'Chưa ghi bữa nào';
+	@override String get noMealsSemantics => 'Hôm nay chưa ghi bữa nào';
+	@override String get tapLog => 'Chạm Ghi để bắt đầu';
+	@override String get removedFromQueue => 'Bữa ăn đã được gỡ khỏi hàng đợi ngoại tuyến.';
+	@override String get removedOffline => 'Bữa ăn đã xóa ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.';
+	@override String get deleteFailed => 'Không thể xóa bữa ăn';
+}
+
+// Path: watch.history
+class _Translations$watch$history$vi extends Translations$watch$history$en {
+	_Translations$watch$history$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Các bữa hôm nay';
+	@override String get refresh => 'Làm mới danh sách bữa';
+	@override String get loadFailed => 'Không thể tải bữa ăn';
+	@override String get syncFailed => 'Không thể đồng bộ';
+	@override String get emptyTitle => 'Chưa có bữa ăn';
+	@override String get emptyMessage => 'Ghi một bữa từ Màn hình chính để xem ở đây.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$vi extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Yêu thích';
+	@override String get refresh => 'Làm mới mục yêu thích';
+	@override String get loadFailed => 'Không thể tải mục yêu thích';
+	@override String get syncFailed => 'Không thể đồng bộ';
+	@override String get emptyTitle => 'Chưa có mục yêu thích';
+	@override String get emptyMessage => 'Đánh dấu sao các bữa ăn trong ứng dụng điện thoại để ghi một chạm ở đây.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} calo. Chạm để ghi.';
+	@override String logged({required Object name}) => '${name} đã được ghi!';
+	@override String savedOffline({required Object name}) => '${name} đã lưu ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.';
+	@override String get saveFailed => 'Không thể lưu bữa ăn. Vui lòng thử lại.';
+	@override String get log => 'Ghi';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$vi extends Translations$watch$meal$en {
+	_Translations$watch$meal$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calo, đã ghi lúc ${time}.';
+	@override String get longPressDelete => 'Nhấn giữ để xóa.';
+	@override String get deleteTitle => 'Xóa bữa ăn?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$vi extends Translations$watch$voice$en {
+	_Translations$watch$voice$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ghi bữa bằng giọng nói';
+	@override String get processing => 'Đang kiểm tra bữa ăn…';
+	@override String get processingDescription => 'Ước tính khẩu phần và dinh dưỡng';
+	@override String get listening => 'Đang nghe';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Dừng ghi âm';
+	@override String get start => 'Chạm để bắt đầu ghi';
+	@override String get starting => 'Khởi động micro…';
+	@override String get prompt => 'Chạm, sau đó mô tả bữa ăn';
+	@override String get tapToRetry => 'Chạm để thử lại';
+	@override String get example => 'Thử “2 rotis với dal”';
+	@override String get unavailable => 'Nhập bằng giọng nói không khả dụng. Kiểm tra quyền micro trong cài đặt đồng hồ.';
+	@override String get didNotStart => 'Micro không khởi động. Chạm để thử lại.';
+	@override String get startFailed => 'Không thể bắt đầu ghi âm. Kiểm tra quyền micro.';
+	@override String get allowMicrophone => 'Cho phép truy cập micro để ghi bữa bằng giọng nói.';
+	@override String get needsConnection => 'Nhận dạng giọng nói cần kết nối. Chạm để thử lại.';
+	@override String get microphoneUnavailable => 'Micro không khả dụng. Chạm để thử lại.';
+	@override String get microphoneBusy => 'Micro đang bận. Chờ một lát rồi thử lại.';
+	@override String get languageUnsupported => 'Nhập giọng nói không hỗ trợ ngôn ngữ đồng hồ.';
+	@override String get temporarilyBusy => 'Nhập giọng nói đang bận tạm thời. Chờ một lát rồi thử lại.';
+	@override String get notRecognized => 'Không nghe rõ. Chạm mic và thử lại.';
+	@override String get noSpeech => 'Không phát hiện giọng nói. Chạm mic để thử lại.';
+	@override String get analysisFailed => 'Phân tích thất bại. Vui lòng thử lại.';
+	@override String get mealNotIdentified => 'Không xác định được bữa ăn. Thử mô tả khác.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$vi extends Translations$watch$result$en {
+	_Translations$watch$result$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Chi tiết bữa ăn';
+	@override String get savedOffline => 'Đã lưu ngoại tuyến';
+	@override String get logged => 'Đã ghi!';
+	@override String get mealFound => 'Tìm thấy bữa ăn';
+	@override String get estimatedEnergy => 'Năng lượng ước tính';
+	@override String get logMeal => 'Ghi bữa';
+	@override String get logging => 'Đang ghi…';
+	@override String get logAnother => 'Ghi thêm';
+	@override String get goingBack => 'Đang quay lại…';
+	@override String get savedOfflineMessage => 'Bữa ăn đã lưu ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.';
+	@override String get saveFailed => 'Không thể lưu bữa ăn. Vui lòng thử lại.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$vi extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -1375,6 +1570,17 @@ class _Translations$onboarding$healthConnect$automaticTracking$vi extends Transl
 	@override String get description => 'Ghi nhận calo đã tiêu hao từ các app thể dục của bạn';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$vi extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Calo đã đốt cháy';
+	@override String get description => 'Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$vi extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -1384,6 +1590,17 @@ class _Translations$onboarding$healthConnect$progressInsights$vi extends Transla
 	// Translations
 	@override String get title => 'Thông tin tiến trình';
 	@override String get description => 'Nhận thông tin chi tiết về xu hướng sức khỏe của bạn';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$vi extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Chia sẻ bữa ăn đã ghi';
+	@override String get description => 'Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$vi extends Tran
 	@override String get description => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$vi extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect';
-	@override String get title => 'Calo đã đốt cháy';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$vi extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect';
-	@override String get title => 'Chia sẻ bữa ăn đã ghi';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$vi extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$vi extends Translations
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào';
 	@override String get title => 'Bạn là người kiểm soát';
+	@override String get description => 'Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1584,6 +1779,18 @@ class _Translations$settings$healthConnect$unavailable$vi extends Translations$s
 	@override String get unsupportedDescription => 'Thiết bị này không hỗ trợ Health Connect.';
 }
 
+// Path: settings.healthConnect.updateRequired
+class _Translations$settings$healthConnect$updateRequired$vi extends Translations$settings$healthConnect$updateRequired$en {
+	_Translations$settings$healthConnect$updateRequired$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect cần được xử lý';
+	@override String get description => 'Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.';
+	@override String get action => 'Cài đặt hoặc cập nhật';
+}
+
 // Path: settings.healthConnect.permissions
 class _Translations$settings$healthConnect$permissions$vi extends Translations$settings$healthConnect$permissions$en {
 	_Translations$settings$healthConnect$permissions$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -1598,18 +1805,6 @@ class _Translations$settings$healthConnect$permissions$vi extends Translations$s
 	@override late final _Translations$settings$healthConnect$permissions$caloriesBurned$vi caloriesBurned = _Translations$settings$healthConnect$permissions$caloriesBurned$vi._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionRead$vi nutritionRead = _Translations$settings$healthConnect$permissions$nutritionRead$vi._(_root);
 	@override late final _Translations$settings$healthConnect$permissions$nutritionWrite$vi nutritionWrite = _Translations$settings$healthConnect$permissions$nutritionWrite$vi._(_root);
-}
-
-// Path: settings.healthConnect.updateRequired
-class _Translations$settings$healthConnect$updateRequired$vi extends Translations$settings$healthConnect$updateRequired$en {
-	_Translations$settings$healthConnect$updateRequired$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-	final TranslationsVi _root; // ignore: unused_field
-
-	// Translations
-	@override String get action => 'Cài đặt hoặc cập nhật';
-	@override String get description => 'Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.';
-	@override String get title => 'Health Connect cần được xử lý';
 }
 
 // Path: settings.about.ourStory
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$vi extends Translations$settings$abou
 	@override String get description => 'Quyền riêng tư không phải là phần thêm vào — đó là nguyên tắc thiết kế. Điều này có nghĩa là:';
 	@override String get noAccounts => 'Không cần tài khoản\nSử dụng app ngay lập tức. Không đăng ký, không danh tính.';
 	@override String noTracking({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không theo dõi hoạt động của bạn, không tạo hồ sơ sử dụng, và không theo dõi bạn qua các app hay trang web.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Phân tích và chẩn đoán có giới hạn\n${appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán.';
 	@override String noAds({required Object appLabel}) => 'Không quảng cáo theo thiết kế\n${appLabel} được xây dựng để hoạt động không cần quảng cáo hoặc kiếm tiền dựa trên dữ liệu.';
 	@override String get noDataSelling => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ với bên thứ ba.';
 	@override String get localStorage => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị của bạn.';
 	@override String get privacyPolicy => 'Chính sách quyền riêng tư';
-	@override String analyticsDisclosure({required Object appLabel}) => 'Phân tích và chẩn đoán có giới hạn\n${appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán.';
 }
 
 // Path: settings.about.developer
@@ -1908,33 +2103,33 @@ extension on TranslationsVi {
 			'onboarding.activityLevel.description' => 'Điều này giúp chúng tôi tính nhu cầu calo hàng ngày chính xác hơn',
 			'onboarding.healthConnect.title' => 'Kết nối với Health Connect',
 			'onboarding.healthConnect.description' => 'Đồng bộ dữ liệu sức khỏe để có cái nhìn tốt hơn và theo dõi calo tự động',
+			'onboarding.healthConnect.overviewDescription' => 'Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Theo dõi calo tự động',
 			'onboarding.healthConnect.automaticTracking.description' => 'Ghi nhận calo đã tiêu hao từ các app thể dục của bạn',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Calo đã đốt cháy',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Thông tin tiến trình',
 			'onboarding.healthConnect.progressInsights.description' => 'Nhận thông tin chi tiết về xu hướng sức khỏe của bạn',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Chia sẻ bữa ăn đã ghi',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Tích hợp liền mạch',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn',
+			'onboarding.healthConnect.userControl.title' => 'Bạn là người kiểm soát',
+			'onboarding.healthConnect.userControl.description' => 'Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào',
 			'onboarding.healthConnect.connected' => 'Đã kết nối Health Connect',
 			'onboarding.healthConnect.notConnected' => 'Chưa kết nối Health Connect',
 			'onboarding.healthConnect.setup' => 'Thiết lập Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Bỏ qua trước',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect đã được kết nối.',
 			'onboarding.healthConnect.statusSuccess' => 'Đã kết nối Health Connect thành công!',
-			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho ${appLabel}.',
-			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Lỗi khi thiết lập Health Connect: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect',
-			'onboarding.healthConnect.caloriesBurned.title' => 'Calo đã đốt cháy',
-			'onboarding.healthConnect.installOrUpdate' => 'Cài đặt hoặc cập nhật',
-			'onboarding.healthConnect.manageAccess' => 'Quản lý quyền truy cập',
-			'onboarding.healthConnect.overviewDescription' => 'Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'Chia sẻ bữa ăn đã ghi',
 			'onboarding.healthConnect.statusNotConnected' => 'Chọn các tính năng Health Connect bạn muốn bật.',
 			'onboarding.healthConnect.statusPartial' => 'Health Connect đã kết nối một phần. Hãy bật quyền còn lại để dùng cả hai tính năng.',
 			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Cài đặt hoặc cập nhật Health Connect để tiếp tục.',
 			'onboarding.healthConnect.statusUnavailable' => 'Thiết bị này không hỗ trợ Health Connect.',
-			'onboarding.healthConnect.userControl.description' => 'Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào',
-			'onboarding.healthConnect.userControl.title' => 'Bạn là người kiểm soát',
+			'onboarding.healthConnect.installOrUpdate' => 'Cài đặt hoặc cập nhật',
+			'onboarding.healthConnect.manageAccess' => 'Quản lý quyền truy cập',
+			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho ${appLabel}.',
+			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Lỗi khi thiết lập Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Bạn không đơn độc',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Nghiên cứu cho thấy theo dõi đều đặn là yếu tố tiên đoán số 1 của thành công lâu dài.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Đối với một ${age} tuổi ${gender} muốn ${goal}, theo dõi đều đặn là yếu tố tiên đoán số 1 của thành công.',
@@ -2027,9 +2222,9 @@ extension on TranslationsVi {
 			'home.connectHealth.title' => 'Đồng bộ với Health Connect',
 			'home.connectHealth.description' => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect',
 			'home.connectHealth.install' => 'Cài đặt',
-			'home.connectHealth.connect' => 'Kết nối',
 			'home.connectHealth.dataUseDescription' => 'Dùng lượng calo đã đốt cháy trong mục tiêu và chia sẻ các bữa ăn đã ghi',
 			'home.connectHealth.installOrUpdate' => 'Cài đặt hoặc cập nhật',
+			'home.connectHealth.connect' => 'Kết nối',
 			'history.noMeals' => 'Chưa có bữa ăn được ghi',
 			'history.emptyMessage' => 'Chụp ảnh bữa ăn gần nhất để ghi vào đây.',
 			'history.today' => 'Hôm nay',
@@ -2265,12 +2460,12 @@ extension on TranslationsVi {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Không thể xuất lịch sử bữa ăn: ${error}',
 			'settings.clearAllData.title' => 'Xóa tất cả dữ liệu',
 			'settings.clearAllData.subtitle' => 'Xóa vĩnh viễn mọi thông tin của bạn',
+			'settings.clearAllData.localOnlySubtitle' => 'Xóa dữ liệu Calorify lưu trên thiết bị này',
 			'settings.clearAllData.confirmationTitle' => 'Xóa tất cả dữ liệu?',
 			'settings.clearAllData.confirmationMessage' => 'Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.',
 			'settings.clearAllData.cancel' => 'Hủy',
 			'settings.clearAllData.clearEverything' => 'Xóa hết',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.',
-			'settings.clearAllData.localOnlySubtitle' => 'Xóa dữ liệu Calorify lưu trên thiết bị này',
 			'settings.debugOptions.title' => 'Tùy chọn gỡ lỗi',
 			'settings.developerModeEnabled' => 'Đã bật chế độ nhà phát triển!',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2278,6 +2473,9 @@ extension on TranslationsVi {
 			'settings.healthConnect.unavailable.title' => 'Health Connect không khả dụng',
 			'settings.healthConnect.unavailable.description' => 'Health Connect không có trên thiết bị này. Vui lòng cài Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+.',
 			'settings.healthConnect.unavailable.unsupportedDescription' => 'Thiết bị này không hỗ trợ Health Connect.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect cần được xử lý',
+			'settings.healthConnect.updateRequired.description' => 'Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.',
+			'settings.healthConnect.updateRequired.action' => 'Cài đặt hoặc cập nhật',
 			'settings.healthConnect.permissions.title' => 'Quyền',
 			'settings.healthConnect.permissions.description' => 'Các quyền sau được yêu cầu để cung cấp tích hợp Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Đã cấp',
@@ -2293,26 +2491,23 @@ extension on TranslationsVi {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Quyền này cho phép app đồng bộ các bữa ăn bạn ghi vào Health Connect, giúp dữ liệu dinh dưỡng của bạn có sẵn cho các app sức khỏe và thể hình khác.',
 			'settings.healthConnect.managePermissions' => 'Quản lý quyền',
 			'settings.healthConnect.openSettings' => 'Mở cài đặt Health Connect',
+			'settings.healthConnect.disconnect' => 'Ngắt kết nối Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Ngắt kết nối Health Connect?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Ngắt kết nối',
+			'settings.healthConnect.deleteSyncedMeals' => 'Xóa bữa ăn Calorify khỏi Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Xóa bữa ăn đã đồng bộ?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Xóa bữa ăn đã đồng bộ',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Đã xóa các bữa ăn Calorify khỏi Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.',
+			'settings.healthConnect.connectionPartial' => 'Một số tính năng Health Connect đã được bật.',
+			'settings.healthConnect.connectionComplete' => 'Cả hai tính năng Health Connect đã được bật.',
+			'settings.healthConnect.actionFailed' => 'Không thể mở Health Connect. Vui lòng thử lại.',
 			'settings.healthConnect.requestPermissions' => 'Yêu cầu quyền',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
 			'settings.healthConnect.requestingPermissions' => 'Đang yêu cầu...',
-			'settings.healthConnect.actionFailed' => 'Không thể mở Health Connect. Vui lòng thử lại.',
-			'settings.healthConnect.connectionComplete' => 'Cả hai tính năng Health Connect đã được bật.',
-			'settings.healthConnect.connectionPartial' => 'Một số tính năng Health Connect đã được bật.',
-			'settings.healthConnect.deleteSyncedMeals' => 'Xóa bữa ăn Calorify khỏi Health Connect',
-			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Xóa bữa ăn đã đồng bộ',
-			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.',
-			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Xóa bữa ăn đã đồng bộ?',
-			'settings.healthConnect.deleteSyncedMealsFailed' => 'Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.',
-			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Đã xóa các bữa ăn Calorify khỏi Health Connect.',
-			'settings.healthConnect.disconnect' => 'Ngắt kết nối Health Connect',
-			'settings.healthConnect.disconnectConfirmationAction' => 'Ngắt kết nối',
-			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.',
-			'settings.healthConnect.disconnectConfirmationTitle' => 'Ngắt kết nối Health Connect?',
-			'settings.healthConnect.updateRequired.action' => 'Cài đặt hoặc cập nhật',
-			'settings.healthConnect.updateRequired.description' => 'Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.',
-			'settings.healthConnect.updateRequired.title' => 'Health Connect cần được xử lý',
 			'settings.about.title' => 'Về',
 			'settings.about.tagline' => 'Nhanh, miễn phí và ưu tiên quyền riêng tư trong nhận thức calo',
 			'settings.about.ourStory.title' => 'Câu chuyện của chúng tôi',
@@ -2321,11 +2516,11 @@ extension on TranslationsVi {
 			'settings.about.privacy.description' => 'Quyền riêng tư không phải là phần thêm vào — đó là nguyên tắc thiết kế. Điều này có nghĩa là:',
 			'settings.about.privacy.noAccounts' => 'Không cần tài khoản\nSử dụng app ngay lập tức. Không đăng ký, không danh tính.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Không theo dõi hành vi\n${appLabel} không theo dõi hoạt động của bạn, không tạo hồ sơ sử dụng, và không theo dõi bạn qua các app hay trang web.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Phân tích và chẩn đoán có giới hạn\n${appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Không quảng cáo theo thiết kế\n${appLabel} được xây dựng để hoạt động không cần quảng cáo hoặc kiếm tiền dựa trên dữ liệu.',
 			'settings.about.privacy.noDataSelling' => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ với bên thứ ba.',
 			'settings.about.privacy.localStorage' => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị của bạn.',
 			'settings.about.privacy.privacyPolicy' => 'Chính sách quyền riêng tư',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Phân tích và chẩn đoán có giới hạn\n${appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán.',
 			'settings.about.developer.title' => 'Được xây dựng bởi một nhà phát triển độc lập',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập với mục tiêu tạo phần mềm sức khỏe yên tĩnh, tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hướng phát triển ứng dụng.',
 			'settings.about.developer.website' => 'Trang web',
@@ -2432,6 +2627,101 @@ extension on TranslationsVi {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Xóa dữ liệu',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Không thể tải xuống và xác minh dữ liệu dinh dưỡng cục bộ: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Đã xóa dữ liệu dinh dưỡng cục bộ',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Quay lại',
+			'watch.common.cancel' => 'Hủy',
+			'watch.common.delete' => 'Xóa',
+			'watch.common.retry' => 'Thử lại',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Chất dinh dưỡng',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} g',
+			'watch.nutrition.protein' => 'Protein',
+			'watch.nutrition.carbs' => 'Tinh bột',
+			'watch.nutrition.fat' => 'Chất béo',
+			'watch.nutrition.fiber' => 'Chất xơ',
+			'watch.sync.syncWithPhone' => 'Đồng bộ với điện thoại',
+			'watch.sync.syncing' => 'Đang đồng bộ…',
+			'watch.sync.synced' => 'Đã đồng bộ',
+			'watch.sync.syncedJustNow' => 'Vừa đồng bộ',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Đã đồng bộ ${minutes} phút trước',
+			'watch.sync.failed' => 'Đồng bộ thất bại',
+			'watch.sync.phoneDisconnected' => 'Điện thoại đã ngắt kết nối',
+			'watch.sync.tapToSync' => 'Chạm để đồng bộ',
+			'watch.sync.refreshFailed' => 'Không thể làm mới. Kiểm tra điện thoại của bạn.',
+			'watch.sync.openPhone' => 'Mở Calorify trên điện thoại, sau đó chạm làm mới.',
+			'watch.home.today' => 'Hôm nay',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} calo đã tiêu thụ trên tổng ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} vượt quá mục tiêu',
+			'watch.home.remaining' => ({required Object calories}) => 'Còn lại ${calories}',
+			'watch.home.left' => ({required Object calories}) => '${calories} còn lại',
+			'watch.home.goal' => ({required Object calories}) => 'Mục tiêu ${calories} kcal',
+			'watch.home.logMeal' => 'Ghi bữa ăn',
+			'watch.home.todayMeals' => 'Các bữa hôm nay',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Các bữa hôm nay, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Xem thêm ${count}',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} bữa nữa, chạm để xem tất cả',
+			'watch.home.noMeals' => 'Chưa ghi bữa nào',
+			'watch.home.noMealsSemantics' => 'Hôm nay chưa ghi bữa nào',
+			'watch.home.tapLog' => 'Chạm Ghi để bắt đầu',
+			'watch.home.removedFromQueue' => 'Bữa ăn đã được gỡ khỏi hàng đợi ngoại tuyến.',
+			'watch.home.removedOffline' => 'Bữa ăn đã xóa ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.',
+			'watch.home.deleteFailed' => 'Không thể xóa bữa ăn',
+			'watch.history.title' => 'Các bữa hôm nay',
+			'watch.history.refresh' => 'Làm mới danh sách bữa',
+			'watch.history.loadFailed' => 'Không thể tải bữa ăn',
+			'watch.history.syncFailed' => 'Không thể đồng bộ',
+			'watch.history.emptyTitle' => 'Chưa có bữa ăn',
+			'watch.history.emptyMessage' => 'Ghi một bữa từ Màn hình chính để xem ở đây.',
+			'watch.favorites.title' => 'Yêu thích',
+			'watch.favorites.refresh' => 'Làm mới mục yêu thích',
+			'watch.favorites.loadFailed' => 'Không thể tải mục yêu thích',
+			'watch.favorites.syncFailed' => 'Không thể đồng bộ',
+			'watch.favorites.emptyTitle' => 'Chưa có mục yêu thích',
+			'watch.favorites.emptyMessage' => 'Đánh dấu sao các bữa ăn trong ứng dụng điện thoại để ghi một chạm ở đây.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} calo. Chạm để ghi.',
+			'watch.favorites.logged' => ({required Object name}) => '${name} đã được ghi!',
+			'watch.favorites.savedOffline' => ({required Object name}) => '${name} đã lưu ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.',
+			'watch.favorites.saveFailed' => 'Không thể lưu bữa ăn. Vui lòng thử lại.',
+			'watch.favorites.log' => 'Ghi',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} calo, đã ghi lúc ${time}.',
+			'watch.meal.longPressDelete' => 'Nhấn giữ để xóa.',
+			'watch.meal.deleteTitle' => 'Xóa bữa ăn?',
+			'watch.voice.title' => 'Ghi bữa bằng giọng nói',
+			'watch.voice.processing' => 'Đang kiểm tra bữa ăn…',
+			'watch.voice.processingDescription' => 'Ước tính khẩu phần và dinh dưỡng',
+			'watch.voice.listening' => 'Đang nghe',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Dừng ghi âm',
+			'watch.voice.start' => 'Chạm để bắt đầu ghi',
+			'watch.voice.starting' => 'Khởi động micro…',
+			'watch.voice.prompt' => 'Chạm, sau đó mô tả bữa ăn',
+			'watch.voice.tapToRetry' => 'Chạm để thử lại',
+			'watch.voice.example' => 'Thử “2 rotis với dal”',
+			'watch.voice.unavailable' => 'Nhập bằng giọng nói không khả dụng. Kiểm tra quyền micro trong cài đặt đồng hồ.',
+			'watch.voice.didNotStart' => 'Micro không khởi động. Chạm để thử lại.',
+			'watch.voice.startFailed' => 'Không thể bắt đầu ghi âm. Kiểm tra quyền micro.',
+			'watch.voice.allowMicrophone' => 'Cho phép truy cập micro để ghi bữa bằng giọng nói.',
+			'watch.voice.needsConnection' => 'Nhận dạng giọng nói cần kết nối. Chạm để thử lại.',
+			'watch.voice.microphoneUnavailable' => 'Micro không khả dụng. Chạm để thử lại.',
+			'watch.voice.microphoneBusy' => 'Micro đang bận. Chờ một lát rồi thử lại.',
+			'watch.voice.languageUnsupported' => 'Nhập giọng nói không hỗ trợ ngôn ngữ đồng hồ.',
+			'watch.voice.temporarilyBusy' => 'Nhập giọng nói đang bận tạm thời. Chờ một lát rồi thử lại.',
+			'watch.voice.notRecognized' => 'Không nghe rõ. Chạm mic và thử lại.',
+			'watch.voice.noSpeech' => 'Không phát hiện giọng nói. Chạm mic để thử lại.',
+			'watch.voice.analysisFailed' => 'Phân tích thất bại. Vui lòng thử lại.',
+			'watch.voice.mealNotIdentified' => 'Không xác định được bữa ăn. Thử mô tả khác.',
+			'watch.result.title' => 'Chi tiết bữa ăn',
+			'watch.result.savedOffline' => 'Đã lưu ngoại tuyến',
+			'watch.result.logged' => 'Đã ghi!',
+			'watch.result.mealFound' => 'Tìm thấy bữa ăn',
+			'watch.result.estimatedEnergy' => 'Năng lượng ước tính',
+			'watch.result.logMeal' => 'Ghi bữa',
+			'watch.result.logging' => 'Đang ghi…',
+			'watch.result.logAnother' => 'Ghi thêm',
+			'watch.result.goingBack' => 'Đang quay lại…',
+			'watch.result.savedOfflineMessage' => 'Bữa ăn đã lưu ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.',
+			'watch.result.saveFailed' => 'Không thể lưu bữa ăn. Vui lòng thử lại.',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',

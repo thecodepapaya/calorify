@@ -58,6 +58,7 @@ class TranslationsTl extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$tl login = _Translations$login$tl._(_root);
 	@override late final _Translations$disclaimer$tl disclaimer = _Translations$disclaimer$tl._(_root);
 	@override late final _Translations$localNutritionPhase4$tl localNutritionPhase4 = _Translations$localNutritionPhase4$tl._(_root);
+	@override late final _Translations$watch$tl watch = _Translations$watch$tl._(_root);
 	@override late final _Translations$common$tl common = _Translations$common$tl._(_root);
 	@override late final _Translations$feedbackRating$tl feedbackRating = _Translations$feedbackRating$tl._(_root);
 	@override late final _Translations$health$tl health = _Translations$health$tl._(_root);
@@ -410,6 +411,25 @@ class _Translations$localNutritionPhase4$tl extends Translations$localNutritionP
 	@override String get offlineNutritionCleared => 'Na-clear ang lokal na nutrition data';
 }
 
+// Path: watch
+class _Translations$watch$tl extends Translations$watch$en {
+	_Translations$watch$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$tl common = _Translations$watch$common$tl._(_root);
+	@override late final _Translations$watch$nutrition$tl nutrition = _Translations$watch$nutrition$tl._(_root);
+	@override late final _Translations$watch$sync$tl sync = _Translations$watch$sync$tl._(_root);
+	@override late final _Translations$watch$home$tl home = _Translations$watch$home$tl._(_root);
+	@override late final _Translations$watch$history$tl history = _Translations$watch$history$tl._(_root);
+	@override late final _Translations$watch$favorites$tl favorites = _Translations$watch$favorites$tl._(_root);
+	@override late final _Translations$watch$meal$tl meal = _Translations$watch$meal$tl._(_root);
+	@override late final _Translations$watch$voice$tl voice = _Translations$watch$voice$tl._(_root);
+	@override late final _Translations$watch$result$tl result = _Translations$watch$result$tl._(_root);
+}
+
 // Path: common
 class _Translations$common$tl extends Translations$common$en {
 	_Translations$common$tl._(TranslationsTl root) : this._root = root, super.internal(root);
@@ -568,9 +588,13 @@ class _Translations$onboarding$healthConnect$tl extends Translations$onboarding$
 	// Translations
 	@override String get title => 'Kumonekta sa Health Connect';
 	@override String get description => 'Gamitin ang calories na nasunog sa iyong pang-araw-araw na goal at, kung gusto mo, ibahagi sa Health Connect ang mga na-log na pagkain.';
+	@override String get overviewDescription => 'Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.';
 	@override late final _Translations$onboarding$healthConnect$automaticTracking$tl automaticTracking = _Translations$onboarding$healthConnect$automaticTracking$tl._(_root);
+	@override late final _Translations$onboarding$healthConnect$caloriesBurned$tl caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$tl._(_root);
 	@override late final _Translations$onboarding$healthConnect$progressInsights$tl progressInsights = _Translations$onboarding$healthConnect$progressInsights$tl._(_root);
+	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$tl shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$tl._(_root);
 	@override late final _Translations$onboarding$healthConnect$seamlessIntegration$tl seamlessIntegration = _Translations$onboarding$healthConnect$seamlessIntegration$tl._(_root);
+	@override late final _Translations$onboarding$healthConnect$userControl$tl userControl = _Translations$onboarding$healthConnect$userControl$tl._(_root);
 	@override String get connected => 'Naka-konekta ang Health Connect';
 	@override String get notConnected => 'Hindi nakakonekta ang Health Connect';
 	@override String get setup => 'I-setup ang Health Connect';
@@ -585,10 +609,6 @@ class _Translations$onboarding$healthConnect$tl extends Translations$onboarding$
 	@override String get manageAccess => 'Pamahalaan ang access';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa ${appLabel}.';
 	@override String statusError({required Object error}) => 'Nagkaroon ng error sa pag-set up ng Health Connect: ${error}';
-	@override late final _Translations$onboarding$healthConnect$caloriesBurned$tl caloriesBurned = _Translations$onboarding$healthConnect$caloriesBurned$tl._(_root);
-	@override String get overviewDescription => 'Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.';
-	@override late final _Translations$onboarding$healthConnect$shareLoggedMeals$tl shareLoggedMeals = _Translations$onboarding$healthConnect$shareLoggedMeals$tl._(_root);
-	@override late final _Translations$onboarding$healthConnect$userControl$tl userControl = _Translations$onboarding$healthConnect$userControl$tl._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -754,9 +774,9 @@ class _Translations$home$connectHealth$tl extends Translations$home$connectHealt
 	@override String get title => 'I-sync sa Health Connect';
 	@override String get description => 'Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain';
 	@override String get install => 'I-install o i-update';
-	@override String get connect => 'Ikonekta';
 	@override String get dataUseDescription => 'Gamitin sa iyong layunin ang mga nasunog na calorie at ibahagi ang mga naitalang pagkain';
 	@override String get installOrUpdate => 'Mag-install o mag-update';
+	@override String get connect => 'Ikonekta';
 }
 
 // Path: meal.nutrition
@@ -1119,12 +1139,12 @@ class _Translations$settings$clearAllData$tl extends Translations$settings$clear
 	// Translations
 	@override String get title => 'I-clear Lahat ng Datos';
 	@override String get subtitle => 'Tanggalin ang data ng Calorify na naka-store sa device na ito';
+	@override String get localOnlySubtitle => 'Burahin ang data ng Calorify na nakaimbak sa device na ito';
 	@override String get confirmationTitle => 'Tanggalin Lahat ng Datos?';
 	@override String get confirmationMessage => 'Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.';
+	@override String get localOnlyConfirmationMessage => 'Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.';
 	@override String get cancel => 'Kanselahin';
 	@override String get clearEverything => 'I-clear Lahat';
-	@override String get localOnlyConfirmationMessage => 'Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.';
-	@override String get localOnlySubtitle => 'Burahin ang data ng Calorify na nakaimbak sa device na ito';
 }
 
 // Path: settings.debugOptions
@@ -1305,6 +1325,181 @@ class _Translations$disclaimer$calorieExpenditure$tl extends Translations$discla
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$tl professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$tl._(_root);
 }
 
+// Path: watch.common
+class _Translations$watch$common$tl extends Translations$watch$common$en {
+	_Translations$watch$common$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Bumalik';
+	@override String get cancel => 'Kanselahin';
+	@override String get delete => 'Tanggalin';
+	@override String get retry => 'Subukan muli';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'g';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$tl extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Nutriente';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} gramo';
+	@override String get protein => 'Protina';
+	@override String get carbs => 'Karbohidrato';
+	@override String get fat => 'Taba';
+	@override String get fiber => 'Hibra';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$tl extends Translations$watch$sync$en {
+	_Translations$watch$sync$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'I-sync sa telepono';
+	@override String get syncing => 'Sinusync…';
+	@override String get synced => 'Na-sync';
+	@override String get syncedJustNow => 'Katatapos lang na-sync';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Na-sync ${minutes}m ang nakalipas';
+	@override String get failed => 'Nabigong mag-sync';
+	@override String get phoneDisconnected => 'Hindi konektado ang telepono';
+	@override String get tapToSync => 'Pindutin para mag-sync';
+	@override String get refreshFailed => 'Hindi ma-refresh. Suriin ang iyong telepono.';
+	@override String get openPhone => 'Buksan ang Calorify sa iyong telepono, pagkatapos pindutin ang refresh.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$tl extends Translations$watch$home$en {
+	_Translations$watch$home$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Ngayon';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => 'Nakonsumo na ${consumed} kaloriya mula sa ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} lampas sa target';
+	@override String remaining({required Object calories}) => '${calories} natitira';
+	@override String left({required Object calories}) => '${calories} natitira';
+	@override String goal({required Object calories}) => '${calories} kcal na target';
+	@override String get logMeal => 'Mag-log ng pagkain';
+	@override String get todayMeals => 'Mga pagkain ngayong araw';
+	@override String todayMealsCount({required Object count}) => 'Mga pagkain ngayong araw, ${count}';
+	@override String viewMore({required Object count}) => 'Tingnan pa ang ${count}';
+	@override String viewMoreSemantics({required Object count}) => '${count} pang pagkain, pindutin para tingnan lahat';
+	@override String get noMeals => 'Walang na-log na pagkain';
+	@override String get noMealsSemantics => 'Walang na-log na pagkain ngayong araw';
+	@override String get tapLog => 'Pindutin ang I-log para magsimula';
+	@override String get removedFromQueue => 'Tinanggal ang pagkain mula sa offline queue.';
+	@override String get removedOffline => 'Tinanggal ang pagkain offline. Mag-sync ito kapag nag-reconnect ang iyong telepono.';
+	@override String get deleteFailed => 'Hindi natanggal ang pagkain';
+}
+
+// Path: watch.history
+class _Translations$watch$history$tl extends Translations$watch$history$en {
+	_Translations$watch$history$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mga pagkain ngayong araw';
+	@override String get refresh => 'I-refresh ang mga pagkain';
+	@override String get loadFailed => 'Hindi mai-load ang mga pagkain';
+	@override String get syncFailed => 'Hindi makapag-sync';
+	@override String get emptyTitle => 'Wala pang pagkain';
+	@override String get emptyMessage => 'Mag-log ng pagkain mula sa Home para makita ito rito.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$tl extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mga Paborito';
+	@override String get refresh => 'I-refresh ang mga paborito';
+	@override String get loadFailed => 'Hindi mai-load ang mga paborito';
+	@override String get syncFailed => 'Hindi makapag-sync';
+	@override String get emptyTitle => 'Wala pang paborito';
+	@override String get emptyMessage => 'I-star ang mga pagkain sa phone app para ma-log dito nang isang tap.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} kaloriya. Pindutin para i-log.';
+	@override String logged({required Object name}) => 'Na-log ang ${name}!';
+	@override String savedOffline({required Object name}) => 'Na-save offline ang ${name}. Mag-sync ito kapag nag-reconnect ang telepono.';
+	@override String get saveFailed => 'Hindi masave ang pagkain. Pakisubukang muli.';
+	@override String get log => 'I-log';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$tl extends Translations$watch$meal$en {
+	_Translations$watch$meal$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kaloriya, na-log noong ${time}.';
+	@override String get longPressDelete => 'Pindutin nang matagal para magtanggal.';
+	@override String get deleteTitle => 'Tanggalin ang pagkain?';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$tl extends Translations$watch$voice$en {
+	_Translations$watch$voice$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Boses na pag-log ng pagkain';
+	@override String get processing => 'Sinusuri ang iyong pagkain…';
+	@override String get processingDescription => 'Tinatantya ang bahagi at nutrisyon';
+	@override String get listening => 'Nakikinig';
+	@override String secondsLeft({required Object seconds}) => '${seconds}s';
+	@override String get stop => 'Itigil ang pag-record';
+	@override String get start => 'Pindutin para simulan ang pag-record';
+	@override String get starting => 'Sinisimulan ang mikropono…';
+	@override String get prompt => 'Pindutin, pagkatapos ilarawan ang iyong pagkain';
+	@override String get tapToRetry => 'Pindutin para subukan muli';
+	@override String get example => 'Subukan ang “2 rotis with dal”';
+	@override String get unavailable => 'Hindi available ang voice input. Suriin ang permiso ng mikropono sa settings ng relo.';
+	@override String get didNotStart => 'Hindi nagsimula ang mikropono. Pindutin para subukan muli.';
+	@override String get startFailed => 'Hindi masimulan ang pag-record. Suriin ang permiso ng mikropono.';
+	@override String get allowMicrophone => 'Pahintulutan ang access sa mikropono para mag-log ng pagkain gamit ang boses.';
+	@override String get needsConnection => 'Kailangan ng koneksyon ang voice recognition. Pindutin para subukan muli.';
+	@override String get microphoneUnavailable => 'Hindi available ang mikropono. Pindutin para subukan muli.';
+	@override String get microphoneBusy => 'Busy ang mikropono. Maghintay ng sandali at subukang muli.';
+	@override String get languageUnsupported => 'Hindi sinusuportahan ng voice input ang wika ng relo.';
+	@override String get temporarilyBusy => 'Pansamantalang busy ang voice input. Maghintay at subukang muli.';
+	@override String get notRecognized => 'Hindi ko naintindihan. Pindutin ang mic at subukang muli.';
+	@override String get noSpeech => 'Walang narinig na salita. Pindutin ang mic para subukan muli.';
+	@override String get analysisFailed => 'Nabigo ang pagsusuri. Pakisubukang muli.';
+	@override String get mealNotIdentified => 'Hindi matukoy ang pagkain. Subukang ilarawan nang iba.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$tl extends Translations$watch$result$en {
+	_Translations$watch$result$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Detalye ng pagkain';
+	@override String get savedOffline => 'Na-save offline';
+	@override String get logged => 'Na-log!';
+	@override String get mealFound => 'Nahanap ang pagkain';
+	@override String get estimatedEnergy => 'Tinatayang enerhiya';
+	@override String get logMeal => 'I-log ang pagkain';
+	@override String get logging => 'Ini-log…';
+	@override String get logAnother => 'Mag-log ng isa pa';
+	@override String get goingBack => 'Babalik…';
+	@override String get savedOfflineMessage => 'Na-save ang pagkain offline. Mag-sync ito kapag nag-reconnect ang telepono.';
+	@override String get saveFailed => 'Hindi masave ang pagkain. Pakisubukang muli.';
+}
+
 // Path: onboarding.features.foodRecognition
 class _Translations$onboarding$features$foodRecognition$tl extends Translations$onboarding$features$foodRecognition$en {
 	_Translations$onboarding$features$foodRecognition$tl._(TranslationsTl root) : this._root = root, super.internal(root);
@@ -1375,6 +1570,17 @@ class _Translations$onboarding$healthConnect$automaticTracking$tl extends Transl
 	@override String get description => 'Basahin mula sa Health Connect ang kabuuang calories na nasunog ngayong araw';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _Translations$onboarding$healthConnect$caloriesBurned$tl extends Translations$onboarding$healthConnect$caloriesBurned$en {
+	_Translations$onboarding$healthConnect$caloriesBurned$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Mga Nasunog na Calorie';
+	@override String get description => 'Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _Translations$onboarding$healthConnect$progressInsights$tl extends Translations$onboarding$healthConnect$progressInsights$en {
 	_Translations$onboarding$healthConnect$progressInsights$tl._(TranslationsTl root) : this._root = root, super.internal(root);
@@ -1384,6 +1590,17 @@ class _Translations$onboarding$healthConnect$progressInsights$tl extends Transla
 	// Translations
 	@override String get title => 'Ibahagi ang mga Na-log na Pagkain';
 	@override String get description => 'Isulat sa Health Connect ang mga pagkain na nila-log mo sa Calorify';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _Translations$onboarding$healthConnect$shareLoggedMeals$tl extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
+	_Translations$onboarding$healthConnect$shareLoggedMeals$tl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ibahagi ang mga Naitalang Pagkain';
+	@override String get description => 'Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify';
 }
 
 // Path: onboarding.healthConnect.seamlessIntegration
@@ -1397,28 +1614,6 @@ class _Translations$onboarding$healthConnect$seamlessIntegration$tl extends Tran
 	@override String get description => 'Pumili ng alinmang permiso at baguhin ang access anumang oras';
 }
 
-// Path: onboarding.healthConnect.caloriesBurned
-class _Translations$onboarding$healthConnect$caloriesBurned$tl extends Translations$onboarding$healthConnect$caloriesBurned$en {
-	_Translations$onboarding$healthConnect$caloriesBurned$tl._(TranslationsTl root) : this._root = root, super.internal(root);
-
-	final TranslationsTl _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw';
-	@override String get title => 'Mga Nasunog na Calorie';
-}
-
-// Path: onboarding.healthConnect.shareLoggedMeals
-class _Translations$onboarding$healthConnect$shareLoggedMeals$tl extends Translations$onboarding$healthConnect$shareLoggedMeals$en {
-	_Translations$onboarding$healthConnect$shareLoggedMeals$tl._(TranslationsTl root) : this._root = root, super.internal(root);
-
-	final TranslationsTl _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify';
-	@override String get title => 'Ibahagi ang mga Naitalang Pagkain';
-}
-
 // Path: onboarding.healthConnect.userControl
 class _Translations$onboarding$healthConnect$userControl$tl extends Translations$onboarding$healthConnect$userControl$en {
 	_Translations$onboarding$healthConnect$userControl$tl._(TranslationsTl root) : this._root = root, super.internal(root);
@@ -1426,8 +1621,8 @@ class _Translations$onboarding$healthConnect$userControl$tl extends Translations
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Pumili ng alinmang pahintulot at baguhin ang access anumang oras';
 	@override String get title => 'Ikaw ang May Kontrol';
+	@override String get description => 'Pumili ng alinmang pahintulot at baguhin ang access anumang oras';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1634,11 +1829,11 @@ class _Translations$settings$about$privacy$tl extends Translations$settings$abou
 	@override String get description => 'Hindi panghuli ang privacy — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktika:';
 	@override String get noAccounts => 'Hindi kailangan ng account\nGamitin agad ang app. Walang sign-up, walang identity.';
 	@override String noTracking({required Object appLabel}) => 'Limitadong analytics at diagnostics\nGumagamit ang ${appLabel} ng mga pangunahing app event at crash diagnostics para mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga value ng health record.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Limitadong analytics at diagnostic\nGumagamit ang ${appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.';
 	@override String noAds({required Object appLabel}) => 'Walang ads ayon sa disenyo\n${appLabel} idinisenyo para gumana nang walang ads o monetization na naka-base sa data.';
 	@override String get noDataSelling => 'Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.';
 	@override String get localStorage => 'Local-first storage\nNananatili ang iyong data sa iyong device.';
 	@override String get privacyPolicy => 'Patakaran sa Privacy';
-	@override String analyticsDisclosure({required Object appLabel}) => 'Limitadong analytics at diagnostic\nGumagamit ang ${appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.';
 }
 
 // Path: settings.about.developer
@@ -1908,12 +2103,19 @@ extension on TranslationsTl {
 			'onboarding.activityLevel.description' => 'Nakakatulong ito para mas tumpak naming kalkulahin ang iyong pang-araw-araw na pangangailangan sa calorie',
 			'onboarding.healthConnect.title' => 'Kumonekta sa Health Connect',
 			'onboarding.healthConnect.description' => 'Gamitin ang calories na nasunog sa iyong pang-araw-araw na goal at, kung gusto mo, ibahagi sa Health Connect ang mga na-log na pagkain.',
+			'onboarding.healthConnect.overviewDescription' => 'Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Calories na Nasunog',
 			'onboarding.healthConnect.automaticTracking.description' => 'Basahin mula sa Health Connect ang kabuuang calories na nasunog ngayong araw',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Mga Nasunog na Calorie',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw',
 			'onboarding.healthConnect.progressInsights.title' => 'Ibahagi ang mga Na-log na Pagkain',
 			'onboarding.healthConnect.progressInsights.description' => 'Isulat sa Health Connect ang mga pagkain na nila-log mo sa Calorify',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Ibahagi ang mga Naitalang Pagkain',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Ikaw ang May Kontrol',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Pumili ng alinmang permiso at baguhin ang access anumang oras',
+			'onboarding.healthConnect.userControl.title' => 'Ikaw ang May Kontrol',
+			'onboarding.healthConnect.userControl.description' => 'Pumili ng alinmang pahintulot at baguhin ang access anumang oras',
 			'onboarding.healthConnect.connected' => 'Naka-konekta ang Health Connect',
 			'onboarding.healthConnect.notConnected' => 'Hindi nakakonekta ang Health Connect',
 			'onboarding.healthConnect.setup' => 'I-setup ang Health Connect',
@@ -1928,13 +2130,6 @@ extension on TranslationsTl {
 			'onboarding.healthConnect.manageAccess' => 'Pamahalaan ang access',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Nagkaroon ng error sa pag-set up ng Health Connect: ${error}',
-			'onboarding.healthConnect.caloriesBurned.description' => 'Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw',
-			'onboarding.healthConnect.caloriesBurned.title' => 'Mga Nasunog na Calorie',
-			'onboarding.healthConnect.overviewDescription' => 'Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.',
-			'onboarding.healthConnect.shareLoggedMeals.description' => 'Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify',
-			'onboarding.healthConnect.shareLoggedMeals.title' => 'Ibahagi ang mga Naitalang Pagkain',
-			'onboarding.healthConnect.userControl.description' => 'Pumili ng alinmang pahintulot at baguhin ang access anumang oras',
-			'onboarding.healthConnect.userControl.title' => 'Ikaw ang May Kontrol',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Hindi Ka Nag-iisa',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Ipinapakita ng pananaliksik na ang regular na pagsubaybay ang nangunguna sa mga palatandaan ng pangmatagalang tagumpay.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Para sa ${age}-taong gulang na ${gender} na nagnanais na ${goal}, ang regular na pagsubaybay ang pinakamahalagang tagapagpahiwatig ng tagumpay.',
@@ -2027,9 +2222,9 @@ extension on TranslationsTl {
 			'home.connectHealth.title' => 'I-sync sa Health Connect',
 			'home.connectHealth.description' => 'Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain',
 			'home.connectHealth.install' => 'I-install o i-update',
-			'home.connectHealth.connect' => 'Ikonekta',
 			'home.connectHealth.dataUseDescription' => 'Gamitin sa iyong layunin ang mga nasunog na calorie at ibahagi ang mga naitalang pagkain',
 			'home.connectHealth.installOrUpdate' => 'Mag-install o mag-update',
+			'home.connectHealth.connect' => 'Ikonekta',
 			'history.noMeals' => 'Walang naitalang pagkain',
 			'history.emptyMessage' => 'Kunan ng larawan ang huling kain mo para ma-log dito.',
 			'history.today' => 'Ngayon',
@@ -2265,12 +2460,12 @@ extension on TranslationsTl {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Hindi ma-export ang kasaysayan ng pagkain: ${error}',
 			'settings.clearAllData.title' => 'I-clear Lahat ng Datos',
 			'settings.clearAllData.subtitle' => 'Tanggalin ang data ng Calorify na naka-store sa device na ito',
+			'settings.clearAllData.localOnlySubtitle' => 'Burahin ang data ng Calorify na nakaimbak sa device na ito',
 			'settings.clearAllData.confirmationTitle' => 'Tanggalin Lahat ng Datos?',
 			'settings.clearAllData.confirmationMessage' => 'Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.',
 			'settings.clearAllData.cancel' => 'Kanselahin',
 			'settings.clearAllData.clearEverything' => 'I-clear Lahat',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.',
-			'settings.clearAllData.localOnlySubtitle' => 'Burahin ang data ng Calorify na nakaimbak sa device na ito',
 			'settings.debugOptions.title' => 'Mga Opsyon sa Debug',
 			'settings.developerModeEnabled' => 'Naka-enable ang developer mode!',
 			'settings.healthConnect.title' => 'Health Connect',
@@ -2321,11 +2516,11 @@ extension on TranslationsTl {
 			'settings.about.privacy.description' => 'Hindi panghuli ang privacy — ito ay isang prinsipyo sa disenyo. Narito kung ano ang ibig sabihin nito sa praktika:',
 			'settings.about.privacy.noAccounts' => 'Hindi kailangan ng account\nGamitin agad ang app. Walang sign-up, walang identity.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Limitadong analytics at diagnostics\nGumagamit ang ${appLabel} ng mga pangunahing app event at crash diagnostics para mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga value ng health record.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Limitadong analytics at diagnostic\nGumagamit ang ${appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Walang ads ayon sa disenyo\n${appLabel} idinisenyo para gumana nang walang ads o monetization na naka-base sa data.',
 			'settings.about.privacy.noDataSelling' => 'Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.',
 			'settings.about.privacy.localStorage' => 'Local-first storage\nNananatili ang iyong data sa iyong device.',
 			'settings.about.privacy.privacyPolicy' => 'Patakaran sa Privacy',
-			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Limitadong analytics at diagnostic\nGumagamit ang ${appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.',
 			'settings.about.developer.title' => 'Ginawa ng Isang Solo Developer',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang solo developer na nakatuon sa paggawa ng payapa, privacy-respecting na health software.\n\nPersonal na binabasa ang feedback at nakakatulong sa paghubog ng direksyon ng app.',
 			'settings.about.developer.website' => 'Website ng Developer',
@@ -2432,6 +2627,101 @@ extension on TranslationsTl {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'I-clear ang data',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Hindi ma-download at ma-verify ang lokal na nutrition data: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Na-clear ang lokal na nutrition data',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Bumalik',
+			'watch.common.cancel' => 'Kanselahin',
+			'watch.common.delete' => 'Tanggalin',
+			'watch.common.retry' => 'Subukan muli',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'g',
+			'watch.nutrition.nutrient' => 'Nutriente',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} gramo',
+			'watch.nutrition.protein' => 'Protina',
+			'watch.nutrition.carbs' => 'Karbohidrato',
+			'watch.nutrition.fat' => 'Taba',
+			'watch.nutrition.fiber' => 'Hibra',
+			'watch.sync.syncWithPhone' => 'I-sync sa telepono',
+			'watch.sync.syncing' => 'Sinusync…',
+			'watch.sync.synced' => 'Na-sync',
+			'watch.sync.syncedJustNow' => 'Katatapos lang na-sync',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Na-sync ${minutes}m ang nakalipas',
+			'watch.sync.failed' => 'Nabigong mag-sync',
+			'watch.sync.phoneDisconnected' => 'Hindi konektado ang telepono',
+			'watch.sync.tapToSync' => 'Pindutin para mag-sync',
+			'watch.sync.refreshFailed' => 'Hindi ma-refresh. Suriin ang iyong telepono.',
+			'watch.sync.openPhone' => 'Buksan ang Calorify sa iyong telepono, pagkatapos pindutin ang refresh.',
+			'watch.home.today' => 'Ngayon',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => 'Nakonsumo na ${consumed} kaloriya mula sa ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} lampas sa target',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} natitira',
+			'watch.home.left' => ({required Object calories}) => '${calories} natitira',
+			'watch.home.goal' => ({required Object calories}) => '${calories} kcal na target',
+			'watch.home.logMeal' => 'Mag-log ng pagkain',
+			'watch.home.todayMeals' => 'Mga pagkain ngayong araw',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Mga pagkain ngayong araw, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Tingnan pa ang ${count}',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} pang pagkain, pindutin para tingnan lahat',
+			'watch.home.noMeals' => 'Walang na-log na pagkain',
+			'watch.home.noMealsSemantics' => 'Walang na-log na pagkain ngayong araw',
+			'watch.home.tapLog' => 'Pindutin ang I-log para magsimula',
+			'watch.home.removedFromQueue' => 'Tinanggal ang pagkain mula sa offline queue.',
+			'watch.home.removedOffline' => 'Tinanggal ang pagkain offline. Mag-sync ito kapag nag-reconnect ang iyong telepono.',
+			'watch.home.deleteFailed' => 'Hindi natanggal ang pagkain',
+			'watch.history.title' => 'Mga pagkain ngayong araw',
+			'watch.history.refresh' => 'I-refresh ang mga pagkain',
+			'watch.history.loadFailed' => 'Hindi mai-load ang mga pagkain',
+			'watch.history.syncFailed' => 'Hindi makapag-sync',
+			'watch.history.emptyTitle' => 'Wala pang pagkain',
+			'watch.history.emptyMessage' => 'Mag-log ng pagkain mula sa Home para makita ito rito.',
+			'watch.favorites.title' => 'Mga Paborito',
+			'watch.favorites.refresh' => 'I-refresh ang mga paborito',
+			'watch.favorites.loadFailed' => 'Hindi mai-load ang mga paborito',
+			'watch.favorites.syncFailed' => 'Hindi makapag-sync',
+			'watch.favorites.emptyTitle' => 'Wala pang paborito',
+			'watch.favorites.emptyMessage' => 'I-star ang mga pagkain sa phone app para ma-log dito nang isang tap.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} kaloriya. Pindutin para i-log.',
+			'watch.favorites.logged' => ({required Object name}) => 'Na-log ang ${name}!',
+			'watch.favorites.savedOffline' => ({required Object name}) => 'Na-save offline ang ${name}. Mag-sync ito kapag nag-reconnect ang telepono.',
+			'watch.favorites.saveFailed' => 'Hindi masave ang pagkain. Pakisubukang muli.',
+			'watch.favorites.log' => 'I-log',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} kaloriya, na-log noong ${time}.',
+			'watch.meal.longPressDelete' => 'Pindutin nang matagal para magtanggal.',
+			'watch.meal.deleteTitle' => 'Tanggalin ang pagkain?',
+			'watch.voice.title' => 'Boses na pag-log ng pagkain',
+			'watch.voice.processing' => 'Sinusuri ang iyong pagkain…',
+			'watch.voice.processingDescription' => 'Tinatantya ang bahagi at nutrisyon',
+			'watch.voice.listening' => 'Nakikinig',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}s',
+			'watch.voice.stop' => 'Itigil ang pag-record',
+			'watch.voice.start' => 'Pindutin para simulan ang pag-record',
+			'watch.voice.starting' => 'Sinisimulan ang mikropono…',
+			'watch.voice.prompt' => 'Pindutin, pagkatapos ilarawan ang iyong pagkain',
+			'watch.voice.tapToRetry' => 'Pindutin para subukan muli',
+			'watch.voice.example' => 'Subukan ang “2 rotis with dal”',
+			'watch.voice.unavailable' => 'Hindi available ang voice input. Suriin ang permiso ng mikropono sa settings ng relo.',
+			'watch.voice.didNotStart' => 'Hindi nagsimula ang mikropono. Pindutin para subukan muli.',
+			'watch.voice.startFailed' => 'Hindi masimulan ang pag-record. Suriin ang permiso ng mikropono.',
+			'watch.voice.allowMicrophone' => 'Pahintulutan ang access sa mikropono para mag-log ng pagkain gamit ang boses.',
+			'watch.voice.needsConnection' => 'Kailangan ng koneksyon ang voice recognition. Pindutin para subukan muli.',
+			'watch.voice.microphoneUnavailable' => 'Hindi available ang mikropono. Pindutin para subukan muli.',
+			'watch.voice.microphoneBusy' => 'Busy ang mikropono. Maghintay ng sandali at subukang muli.',
+			'watch.voice.languageUnsupported' => 'Hindi sinusuportahan ng voice input ang wika ng relo.',
+			'watch.voice.temporarilyBusy' => 'Pansamantalang busy ang voice input. Maghintay at subukang muli.',
+			'watch.voice.notRecognized' => 'Hindi ko naintindihan. Pindutin ang mic at subukang muli.',
+			'watch.voice.noSpeech' => 'Walang narinig na salita. Pindutin ang mic para subukan muli.',
+			'watch.voice.analysisFailed' => 'Nabigo ang pagsusuri. Pakisubukang muli.',
+			'watch.voice.mealNotIdentified' => 'Hindi matukoy ang pagkain. Subukang ilarawan nang iba.',
+			'watch.result.title' => 'Detalye ng pagkain',
+			'watch.result.savedOffline' => 'Na-save offline',
+			'watch.result.logged' => 'Na-log!',
+			'watch.result.mealFound' => 'Nahanap ang pagkain',
+			'watch.result.estimatedEnergy' => 'Tinatayang enerhiya',
+			'watch.result.logMeal' => 'I-log ang pagkain',
+			'watch.result.logging' => 'Ini-log…',
+			'watch.result.logAnother' => 'Mag-log ng isa pa',
+			'watch.result.goingBack' => 'Babalik…',
+			'watch.result.savedOfflineMessage' => 'Na-save ang pagkain offline. Mag-sync ito kapag nag-reconnect ang telepono.',
+			'watch.result.saveFailed' => 'Hindi masave ang pagkain. Pakisubukang muli.',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nagugustuhan mo ba ang ${appLabel}?',

@@ -58,6 +58,7 @@ class TranslationsEl extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$login$el login = _Translations$login$el._(_root);
 	@override late final _Translations$disclaimer$el disclaimer = _Translations$disclaimer$el._(_root);
 	@override late final _Translations$localNutritionPhase4$el localNutritionPhase4 = _Translations$localNutritionPhase4$el._(_root);
+	@override late final _Translations$watch$el watch = _Translations$watch$el._(_root);
 	@override late final _Translations$common$el common = _Translations$common$el._(_root);
 	@override late final _Translations$feedbackRating$el feedbackRating = _Translations$feedbackRating$el._(_root);
 	@override late final _Translations$health$el health = _Translations$health$el._(_root);
@@ -408,6 +409,25 @@ class _Translations$localNutritionPhase4$el extends Translations$localNutritionP
 	@override String get offlineNutritionClearConfirm => 'Εκκαθάριση δεδομένων';
 	@override String offlineNutritionInstallFailed({required Object error}) => 'Δεν ήταν δυνατή η λήψη και επαλήθευση των τοπικών διατροφικών δεδομένων: ${error}';
 	@override String get offlineNutritionCleared => 'Τα τοπικά διατροφικά δεδομένα εκκαθαρίστηκαν';
+}
+
+// Path: watch
+class _Translations$watch$el extends Translations$watch$en {
+	_Translations$watch$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Calorify Watch';
+	@override late final _Translations$watch$common$el common = _Translations$watch$common$el._(_root);
+	@override late final _Translations$watch$nutrition$el nutrition = _Translations$watch$nutrition$el._(_root);
+	@override late final _Translations$watch$sync$el sync = _Translations$watch$sync$el._(_root);
+	@override late final _Translations$watch$home$el home = _Translations$watch$home$el._(_root);
+	@override late final _Translations$watch$history$el history = _Translations$watch$history$el._(_root);
+	@override late final _Translations$watch$favorites$el favorites = _Translations$watch$favorites$el._(_root);
+	@override late final _Translations$watch$meal$el meal = _Translations$watch$meal$el._(_root);
+	@override late final _Translations$watch$voice$el voice = _Translations$watch$voice$el._(_root);
+	@override late final _Translations$watch$result$el result = _Translations$watch$result$el._(_root);
 }
 
 // Path: common
@@ -1117,12 +1137,12 @@ class _Translations$settings$clearAllData$el extends Translations$settings$clear
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get localOnlySubtitle => 'Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή';
-	@override String get localOnlyConfirmationMessage => 'Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.';
 	@override String get title => 'Διαγραφή Όλων των Δεδομένων';
 	@override String get subtitle => 'Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή';
+	@override String get localOnlySubtitle => 'Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή';
 	@override String get confirmationTitle => 'Διαγραφή όλων των δεδομένων;';
 	@override String get confirmationMessage => 'Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα καταγεγραμμένα γεύματα, τα αγαπημένα και οι ρυθμίσεις προφίλ θα διαγραφούν οριστικά.';
+	@override String get localOnlyConfirmationMessage => 'Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.';
 	@override String get cancel => 'Ακύρωση';
 	@override String get clearEverything => 'Διαγραφή Όλων';
 }
@@ -1303,6 +1323,181 @@ class _Translations$disclaimer$calorieExpenditure$el extends Translations$discla
 	@override String get description => 'Όταν τα δεδομένα Health Connect δεν είναι διαθέσιμα, εκτιμούμε τις θερμίδες που κάηκαν σήμερα χρησιμοποιώντας τον BMR και το επίπεδο δραστηριότητάς σας (TDEE), κλιμακωμένα για το ποσοστό της ημέρας που έχει περάσει.';
 	@override late final _Translations$disclaimer$calorieExpenditure$howCalculated$el howCalculated = _Translations$disclaimer$calorieExpenditure$howCalculated$el._(_root);
 	@override late final _Translations$disclaimer$calorieExpenditure$professionalGuidance$el professionalGuidance = _Translations$disclaimer$calorieExpenditure$professionalGuidance$el._(_root);
+}
+
+// Path: watch.common
+class _Translations$watch$common$el extends Translations$watch$common$en {
+	_Translations$watch$common$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get back => 'Πίσω';
+	@override String get cancel => 'Ακύρωση';
+	@override String get delete => 'Διαγραφή';
+	@override String get retry => 'Επανάληψη';
+	@override String get kcal => 'kcal';
+	@override String get gramsShort => 'γρ';
+}
+
+// Path: watch.nutrition
+class _Translations$watch$nutrition$el extends Translations$watch$nutrition$en {
+	_Translations$watch$nutrition$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get nutrient => 'Θρεπτικό συστατικό';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} γραμμάρια';
+	@override String get protein => 'Πρωτεΐνη';
+	@override String get carbs => 'Υδατάνθρακες';
+	@override String get fat => 'Λιπαρά';
+	@override String get fiber => 'Φυτικές ίνες';
+}
+
+// Path: watch.sync
+class _Translations$watch$sync$el extends Translations$watch$sync$en {
+	_Translations$watch$sync$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get syncWithPhone => 'Συγχρονισμός με το τηλέφωνο';
+	@override String get syncing => 'Συγχρονισμός…';
+	@override String get synced => 'Συγχρονίστηκε';
+	@override String get syncedJustNow => 'Συγχρονίστηκε μόλις τώρα';
+	@override String syncedMinutesAgo({required Object minutes}) => 'Συγχρονίστηκε πριν από ${minutes}λ';
+	@override String get failed => 'Ο συγχρονισμός απέτυχε';
+	@override String get phoneDisconnected => 'Το τηλέφωνο αποσυνδέθηκε';
+	@override String get tapToSync => 'Πατήστε για συγχρονισμό';
+	@override String get refreshFailed => 'Δεν ήταν δυνατή η ανανέωση. Ελέγξτε το τηλέφωνό σας.';
+	@override String get openPhone => 'Ανοίξτε το Calorify στο τηλέφωνό σας και, στη συνέχεια, πατήστε ανανέωση.';
+}
+
+// Path: watch.home
+class _Translations$watch$home$el extends Translations$watch$home$en {
+	_Translations$watch$home$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get today => 'Σήμερα';
+	@override String calorieSummary({required Object consumed, required Object goal, required Object status}) => '${consumed} θερμίδες καταναλώθηκαν από ${goal}. ${status}.';
+	@override String overGoal({required Object calories}) => '${calories} πάνω από τον στόχο';
+	@override String remaining({required Object calories}) => '${calories} υπολείπονται';
+	@override String left({required Object calories}) => '${calories} απομένουν';
+	@override String goal({required Object calories}) => 'Στόχος ${calories} kcal';
+	@override String get logMeal => 'Καταγραφή γεύματος';
+	@override String get todayMeals => 'Σημερινά γεύματα';
+	@override String todayMealsCount({required Object count}) => 'Σημερινά γεύματα, ${count}';
+	@override String viewMore({required Object count}) => 'Προβολή ${count} ακόμη';
+	@override String viewMoreSemantics({required Object count}) => '${count} ακόμη γεύματα, πατήστε για προβολή όλων';
+	@override String get noMeals => 'Δεν έχουν καταγραφεί γεύματα';
+	@override String get noMealsSemantics => 'Δεν έχουν καταγραφεί γεύματα σήμερα';
+	@override String get tapLog => 'Πατήστε Καταγραφή για να ξεκινήσετε';
+	@override String get removedFromQueue => 'Το γεύμα αφαιρέθηκε από την ουρά εκτός σύνδεσης.';
+	@override String get removedOffline => 'Το γεύμα αφαιρέθηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.';
+	@override String get deleteFailed => 'Δεν ήταν δυνατή η διαγραφή του γεύματος';
+}
+
+// Path: watch.history
+class _Translations$watch$history$el extends Translations$watch$history$en {
+	_Translations$watch$history$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Σημερινά γεύματα';
+	@override String get refresh => 'Ανανέωση γευμάτων';
+	@override String get loadFailed => 'Δεν ήταν δυνατή η φόρτωση των γευμάτων';
+	@override String get syncFailed => 'Δεν ήταν δυνατός ο συγχρονισμός';
+	@override String get emptyTitle => 'Δεν υπάρχουν ακόμη γεύματα';
+	@override String get emptyMessage => 'Καταγράψτε ένα γεύμα από την Αρχική οθόνη για να το δείτε εδώ.';
+}
+
+// Path: watch.favorites
+class _Translations$watch$favorites$el extends Translations$watch$favorites$en {
+	_Translations$watch$favorites$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Αγαπημένα';
+	@override String get refresh => 'Ανανέωση αγαπημένων';
+	@override String get loadFailed => 'Δεν ήταν δυνατή η φόρτωση των αγαπημένων';
+	@override String get syncFailed => 'Δεν ήταν δυνατός ο συγχρονισμός';
+	@override String get emptyTitle => 'Δεν υπάρχουν ακόμη αγαπημένα';
+	@override String get emptyMessage => 'Προσθέστε γεύματα στα αγαπημένα στην εφαρμογή τηλεφώνου για καταγραφή με ένα πάτημα εδώ.';
+	@override String mealSemantics({required Object name, required Object calories}) => '${name}, ${calories} θερμίδες. Πατήστε για καταγραφή.';
+	@override String logged({required Object name}) => 'Το ${name} καταγράφηκε!';
+	@override String savedOffline({required Object name}) => 'Το ${name} αποθηκεύτηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.';
+	@override String get saveFailed => 'Δεν ήταν δυνατή η αποθήκευση του γεύματος. Προσπαθήστε ξανά.';
+	@override String get log => 'Καταγραφή';
+}
+
+// Path: watch.meal
+class _Translations$watch$meal$el extends Translations$watch$meal$en {
+	_Translations$watch$meal$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String semantics({required Object name, required Object calories, required Object time}) => '${name}, ${calories} θερμίδες, καταγράφηκε στις ${time}.';
+	@override String get longPressDelete => 'Πατήστε παρατεταμένα για διαγραφή.';
+	@override String get deleteTitle => 'Διαγραφή γεύματος;';
+}
+
+// Path: watch.voice
+class _Translations$watch$voice$el extends Translations$watch$voice$en {
+	_Translations$watch$voice$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Καταγραφή γεύματος με φωνή';
+	@override String get processing => 'Έλεγχος του γεύματός σας…';
+	@override String get processingDescription => 'Εκτίμηση μερίδων και διατροφής';
+	@override String get listening => 'Ακούω';
+	@override String secondsLeft({required Object seconds}) => '${seconds}δ';
+	@override String get stop => 'Διακοπή εγγραφής';
+	@override String get start => 'Πατήστε για έναρξη εγγραφής';
+	@override String get starting => 'Εκκίνηση μικροφώνου…';
+	@override String get prompt => 'Πατήστε και, στη συνέχεια, περιγράψτε το γεύμα σας';
+	@override String get tapToRetry => 'Πατήστε για επανάληψη';
+	@override String get example => 'Δοκιμάστε «2 ρότι με νταλ»';
+	@override String get unavailable => 'Η φωνητική εισαγωγή δεν είναι διαθέσιμη. Ελέγξτε την άδεια μικροφώνου στις ρυθμίσεις του ρολογιού.';
+	@override String get didNotStart => 'Το μικρόφωνο δεν ξεκίνησε. Πατήστε για επανάληψη.';
+	@override String get startFailed => 'Δεν ήταν δυνατή η έναρξη της εγγραφής. Ελέγξτε τις άδειες μικροφώνου.';
+	@override String get allowMicrophone => 'Επιτρέψτε την πρόσβαση στο μικρόφωνο για καταγραφή γευμάτων με φωνή.';
+	@override String get needsConnection => 'Η αναγνώριση φωνής χρειάζεται σύνδεση. Πατήστε για επανάληψη.';
+	@override String get microphoneUnavailable => 'Το μικρόφωνο δεν είναι διαθέσιμο. Πατήστε για επανάληψη.';
+	@override String get microphoneBusy => 'Το μικρόφωνο είναι απασχολημένο. Περιμένετε λίγο και δοκιμάστε ξανά.';
+	@override String get languageUnsupported => 'Η φωνητική εισαγωγή δεν υποστηρίζει τη γλώσσα του ρολογιού.';
+	@override String get temporarilyBusy => 'Η φωνητική εισαγωγή είναι προσωρινά απασχολημένη. Περιμένετε λίγο και δοκιμάστε ξανά.';
+	@override String get notRecognized => 'Δεν το κατάλαβα. Πατήστε το μικρόφωνο και δοκιμάστε ξανά.';
+	@override String get noSpeech => 'Δεν εντοπίστηκε ομιλία. Πατήστε το μικρόφωνο για να δοκιμάσετε ξανά.';
+	@override String get analysisFailed => 'Η ανάλυση απέτυχε. Προσπαθήστε ξανά.';
+	@override String get mealNotIdentified => 'Δεν ήταν δυνατή η αναγνώριση αυτού του γεύματος. Δοκιμάστε να το περιγράψετε διαφορετικά.';
+}
+
+// Path: watch.result
+class _Translations$watch$result$el extends Translations$watch$result$en {
+	_Translations$watch$result$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Λεπτομέρειες γεύματος';
+	@override String get savedOffline => 'Αποθηκεύτηκε εκτός σύνδεσης';
+	@override String get logged => 'Καταγράφηκε!';
+	@override String get mealFound => 'Βρέθηκε γεύμα';
+	@override String get estimatedEnergy => 'Εκτιμώμενη ενέργεια';
+	@override String get logMeal => 'Καταγραφή γεύματος';
+	@override String get logging => 'Καταγραφή…';
+	@override String get logAnother => 'Καταγραφή άλλου';
+	@override String get goingBack => 'Επιστροφή…';
+	@override String get savedOfflineMessage => 'Το γεύμα αποθηκεύτηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.';
+	@override String get saveFailed => 'Δεν ήταν δυνατή η αποθήκευση του γεύματος. Προσπαθήστε ξανά.';
 }
 
 // Path: onboarding.features.foodRecognition
@@ -1579,9 +1774,9 @@ class _Translations$settings$healthConnect$unavailable$el extends Translations$s
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get unsupportedDescription => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.';
 	@override String get title => 'Το Health Connect Δεν Διατίθεται';
 	@override String get description => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+.';
+	@override String get unsupportedDescription => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -2263,21 +2458,21 @@ extension on TranslationsEl {
 			'settings.exportMealHistory.subtitle' => 'Μοιραστείτε ένα CSV με τα καταχωρημένα γεύματά σας',
 			'settings.exportMealHistory.shareText' => 'Εξαγωγή ιστορικού γευμάτων Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Δεν ήταν δυνατή η εξαγωγή ιστορικού γευμάτων: ${error}',
-			'settings.clearAllData.localOnlySubtitle' => 'Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή',
-			'settings.clearAllData.localOnlyConfirmationMessage' => 'Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.',
 			'settings.clearAllData.title' => 'Διαγραφή Όλων των Δεδομένων',
 			'settings.clearAllData.subtitle' => 'Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή',
+			'settings.clearAllData.localOnlySubtitle' => 'Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή',
 			'settings.clearAllData.confirmationTitle' => 'Διαγραφή όλων των δεδομένων;',
 			'settings.clearAllData.confirmationMessage' => 'Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Όλα τα καταγεγραμμένα γεύματα, τα αγαπημένα και οι ρυθμίσεις προφίλ θα διαγραφούν οριστικά.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.',
 			'settings.clearAllData.cancel' => 'Ακύρωση',
 			'settings.clearAllData.clearEverything' => 'Διαγραφή Όλων',
 			'settings.debugOptions.title' => 'Επιλογές Αποσφαλμάτωσης',
 			'settings.developerModeEnabled' => 'Λειτουργία προγραμματιστή ενεργοποιήθηκε!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Προβολή και διαχείριση αδειών',
-			'settings.healthConnect.unavailable.unsupportedDescription' => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.',
 			'settings.healthConnect.unavailable.title' => 'Το Health Connect Δεν Διατίθεται',
 			'settings.healthConnect.unavailable.description' => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.',
 			'settings.healthConnect.updateRequired.title' => 'Το Health Connect χρειάζεται προσοχή',
 			'settings.healthConnect.updateRequired.description' => 'Εγκαταστήστε ή ενημερώστε το Health Connect πριν διαχειριστείτε την πρόσβαση.',
 			'settings.healthConnect.updateRequired.action' => 'Εγκατάσταση ή ενημέρωση',
@@ -2432,6 +2627,101 @@ extension on TranslationsEl {
 			'localNutritionPhase4.offlineNutritionClearConfirm' => 'Εκκαθάριση δεδομένων',
 			'localNutritionPhase4.offlineNutritionInstallFailed' => ({required Object error}) => 'Δεν ήταν δυνατή η λήψη και επαλήθευση των τοπικών διατροφικών δεδομένων: ${error}',
 			'localNutritionPhase4.offlineNutritionCleared' => 'Τα τοπικά διατροφικά δεδομένα εκκαθαρίστηκαν',
+			'watch.appTitle' => 'Calorify Watch',
+			'watch.common.back' => 'Πίσω',
+			'watch.common.cancel' => 'Ακύρωση',
+			'watch.common.delete' => 'Διαγραφή',
+			'watch.common.retry' => 'Επανάληψη',
+			'watch.common.kcal' => 'kcal',
+			'watch.common.gramsShort' => 'γρ',
+			'watch.nutrition.nutrient' => 'Θρεπτικό συστατικό',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} γραμμάρια',
+			'watch.nutrition.protein' => 'Πρωτεΐνη',
+			'watch.nutrition.carbs' => 'Υδατάνθρακες',
+			'watch.nutrition.fat' => 'Λιπαρά',
+			'watch.nutrition.fiber' => 'Φυτικές ίνες',
+			'watch.sync.syncWithPhone' => 'Συγχρονισμός με το τηλέφωνο',
+			'watch.sync.syncing' => 'Συγχρονισμός…',
+			'watch.sync.synced' => 'Συγχρονίστηκε',
+			'watch.sync.syncedJustNow' => 'Συγχρονίστηκε μόλις τώρα',
+			'watch.sync.syncedMinutesAgo' => ({required Object minutes}) => 'Συγχρονίστηκε πριν από ${minutes}λ',
+			'watch.sync.failed' => 'Ο συγχρονισμός απέτυχε',
+			'watch.sync.phoneDisconnected' => 'Το τηλέφωνο αποσυνδέθηκε',
+			'watch.sync.tapToSync' => 'Πατήστε για συγχρονισμό',
+			'watch.sync.refreshFailed' => 'Δεν ήταν δυνατή η ανανέωση. Ελέγξτε το τηλέφωνό σας.',
+			'watch.sync.openPhone' => 'Ανοίξτε το Calorify στο τηλέφωνό σας και, στη συνέχεια, πατήστε ανανέωση.',
+			'watch.home.today' => 'Σήμερα',
+			'watch.home.calorieSummary' => ({required Object consumed, required Object goal, required Object status}) => '${consumed} θερμίδες καταναλώθηκαν από ${goal}. ${status}.',
+			'watch.home.overGoal' => ({required Object calories}) => '${calories} πάνω από τον στόχο',
+			'watch.home.remaining' => ({required Object calories}) => '${calories} υπολείπονται',
+			'watch.home.left' => ({required Object calories}) => '${calories} απομένουν',
+			'watch.home.goal' => ({required Object calories}) => 'Στόχος ${calories} kcal',
+			'watch.home.logMeal' => 'Καταγραφή γεύματος',
+			'watch.home.todayMeals' => 'Σημερινά γεύματα',
+			'watch.home.todayMealsCount' => ({required Object count}) => 'Σημερινά γεύματα, ${count}',
+			'watch.home.viewMore' => ({required Object count}) => 'Προβολή ${count} ακόμη',
+			'watch.home.viewMoreSemantics' => ({required Object count}) => '${count} ακόμη γεύματα, πατήστε για προβολή όλων',
+			'watch.home.noMeals' => 'Δεν έχουν καταγραφεί γεύματα',
+			'watch.home.noMealsSemantics' => 'Δεν έχουν καταγραφεί γεύματα σήμερα',
+			'watch.home.tapLog' => 'Πατήστε Καταγραφή για να ξεκινήσετε',
+			'watch.home.removedFromQueue' => 'Το γεύμα αφαιρέθηκε από την ουρά εκτός σύνδεσης.',
+			'watch.home.removedOffline' => 'Το γεύμα αφαιρέθηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.',
+			'watch.home.deleteFailed' => 'Δεν ήταν δυνατή η διαγραφή του γεύματος',
+			'watch.history.title' => 'Σημερινά γεύματα',
+			'watch.history.refresh' => 'Ανανέωση γευμάτων',
+			'watch.history.loadFailed' => 'Δεν ήταν δυνατή η φόρτωση των γευμάτων',
+			'watch.history.syncFailed' => 'Δεν ήταν δυνατός ο συγχρονισμός',
+			'watch.history.emptyTitle' => 'Δεν υπάρχουν ακόμη γεύματα',
+			'watch.history.emptyMessage' => 'Καταγράψτε ένα γεύμα από την Αρχική οθόνη για να το δείτε εδώ.',
+			'watch.favorites.title' => 'Αγαπημένα',
+			'watch.favorites.refresh' => 'Ανανέωση αγαπημένων',
+			'watch.favorites.loadFailed' => 'Δεν ήταν δυνατή η φόρτωση των αγαπημένων',
+			'watch.favorites.syncFailed' => 'Δεν ήταν δυνατός ο συγχρονισμός',
+			'watch.favorites.emptyTitle' => 'Δεν υπάρχουν ακόμη αγαπημένα',
+			'watch.favorites.emptyMessage' => 'Προσθέστε γεύματα στα αγαπημένα στην εφαρμογή τηλεφώνου για καταγραφή με ένα πάτημα εδώ.',
+			'watch.favorites.mealSemantics' => ({required Object name, required Object calories}) => '${name}, ${calories} θερμίδες. Πατήστε για καταγραφή.',
+			'watch.favorites.logged' => ({required Object name}) => 'Το ${name} καταγράφηκε!',
+			'watch.favorites.savedOffline' => ({required Object name}) => 'Το ${name} αποθηκεύτηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.',
+			'watch.favorites.saveFailed' => 'Δεν ήταν δυνατή η αποθήκευση του γεύματος. Προσπαθήστε ξανά.',
+			'watch.favorites.log' => 'Καταγραφή',
+			'watch.meal.semantics' => ({required Object name, required Object calories, required Object time}) => '${name}, ${calories} θερμίδες, καταγράφηκε στις ${time}.',
+			'watch.meal.longPressDelete' => 'Πατήστε παρατεταμένα για διαγραφή.',
+			'watch.meal.deleteTitle' => 'Διαγραφή γεύματος;',
+			'watch.voice.title' => 'Καταγραφή γεύματος με φωνή',
+			'watch.voice.processing' => 'Έλεγχος του γεύματός σας…',
+			'watch.voice.processingDescription' => 'Εκτίμηση μερίδων και διατροφής',
+			'watch.voice.listening' => 'Ακούω',
+			'watch.voice.secondsLeft' => ({required Object seconds}) => '${seconds}δ',
+			'watch.voice.stop' => 'Διακοπή εγγραφής',
+			'watch.voice.start' => 'Πατήστε για έναρξη εγγραφής',
+			'watch.voice.starting' => 'Εκκίνηση μικροφώνου…',
+			'watch.voice.prompt' => 'Πατήστε και, στη συνέχεια, περιγράψτε το γεύμα σας',
+			'watch.voice.tapToRetry' => 'Πατήστε για επανάληψη',
+			'watch.voice.example' => 'Δοκιμάστε «2 ρότι με νταλ»',
+			'watch.voice.unavailable' => 'Η φωνητική εισαγωγή δεν είναι διαθέσιμη. Ελέγξτε την άδεια μικροφώνου στις ρυθμίσεις του ρολογιού.',
+			'watch.voice.didNotStart' => 'Το μικρόφωνο δεν ξεκίνησε. Πατήστε για επανάληψη.',
+			'watch.voice.startFailed' => 'Δεν ήταν δυνατή η έναρξη της εγγραφής. Ελέγξτε τις άδειες μικροφώνου.',
+			'watch.voice.allowMicrophone' => 'Επιτρέψτε την πρόσβαση στο μικρόφωνο για καταγραφή γευμάτων με φωνή.',
+			'watch.voice.needsConnection' => 'Η αναγνώριση φωνής χρειάζεται σύνδεση. Πατήστε για επανάληψη.',
+			'watch.voice.microphoneUnavailable' => 'Το μικρόφωνο δεν είναι διαθέσιμο. Πατήστε για επανάληψη.',
+			'watch.voice.microphoneBusy' => 'Το μικρόφωνο είναι απασχολημένο. Περιμένετε λίγο και δοκιμάστε ξανά.',
+			'watch.voice.languageUnsupported' => 'Η φωνητική εισαγωγή δεν υποστηρίζει τη γλώσσα του ρολογιού.',
+			'watch.voice.temporarilyBusy' => 'Η φωνητική εισαγωγή είναι προσωρινά απασχολημένη. Περιμένετε λίγο και δοκιμάστε ξανά.',
+			'watch.voice.notRecognized' => 'Δεν το κατάλαβα. Πατήστε το μικρόφωνο και δοκιμάστε ξανά.',
+			'watch.voice.noSpeech' => 'Δεν εντοπίστηκε ομιλία. Πατήστε το μικρόφωνο για να δοκιμάσετε ξανά.',
+			'watch.voice.analysisFailed' => 'Η ανάλυση απέτυχε. Προσπαθήστε ξανά.',
+			'watch.voice.mealNotIdentified' => 'Δεν ήταν δυνατή η αναγνώριση αυτού του γεύματος. Δοκιμάστε να το περιγράψετε διαφορετικά.',
+			'watch.result.title' => 'Λεπτομέρειες γεύματος',
+			'watch.result.savedOffline' => 'Αποθηκεύτηκε εκτός σύνδεσης',
+			'watch.result.logged' => 'Καταγράφηκε!',
+			'watch.result.mealFound' => 'Βρέθηκε γεύμα',
+			'watch.result.estimatedEnergy' => 'Εκτιμώμενη ενέργεια',
+			'watch.result.logMeal' => 'Καταγραφή γεύματος',
+			'watch.result.logging' => 'Καταγραφή…',
+			'watch.result.logAnother' => 'Καταγραφή άλλου',
+			'watch.result.goingBack' => 'Επιστροφή…',
+			'watch.result.savedOfflineMessage' => 'Το γεύμα αποθηκεύτηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.',
+			'watch.result.saveFailed' => 'Δεν ήταν δυνατή η αποθήκευση του γεύματος. Προσπαθήστε ξανά.',
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Σας αρέσει το ${appLabel};',
