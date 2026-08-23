@@ -39,6 +39,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -76,6 +77,11 @@ nav {
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
+}
+
+a:focus-visible {
+    outline: 3px solid rgba(63, 138, 224, 0.45);
+    outline-offset: 4px;
 }
 
 .logo-img {
@@ -193,6 +199,26 @@ nav {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.55rem 0.9rem;
+    color: var(--primary-dark);
+    background: rgba(63, 138, 224, 0.1);
+    border: 1px solid rgba(63, 138, 224, 0.16);
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.eyebrow svg {
+    width: 16px;
+    height: 16px;
 }
 
 .hero-content p {
@@ -640,9 +666,38 @@ nav {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     max-width: 1200px;
+    margin: 3rem auto 0;
+}
+
+.more-features-heading {
+    max-width: 720px;
     margin: 6rem auto 0;
     padding-top: 6rem;
     border-top: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.more-features-heading.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.more-features-heading h3 {
+    margin-top: 0.65rem;
+    color: var(--text-main);
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.section-kicker {
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 /* Download CTA Section */
@@ -676,6 +731,14 @@ nav {
     color: var(--text-muted);
     margin-bottom: 2.5rem;
     line-height: 1.7;
+}
+
+.download-cta .disclaimer {
+    max-width: 580px;
+    margin: 1.5rem auto 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.6;
 }
 
 .btn-primary-large {
@@ -1096,8 +1159,21 @@ footer {
         font-size: 1rem !important;
     }
 
+    header {
+        padding: 0.9rem 6%;
+    }
+
     .nav-links {
+        gap: 0;
+    }
+
+    .nav-links li:not(:last-child) {
         display: none;
+    }
+
+    .nav-links .btn-primary {
+        padding: 0.7rem 1.15rem;
+        font-size: 0.85rem;
     }
 
     .feature-showcase {
@@ -1126,5 +1202,38 @@ footer {
     .screenshots h2,
     .how-it-works h2 {
         font-size: 2.5rem;
+    }
+
+    .more-features-heading h3 {
+        font-size: 2rem;
+    }
+
+    .feature-grid-simple {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .hero-content,
+    .step-item,
+    .feature-card,
+    .feature-showcase,
+    .features-header,
+    .more-features-heading {
+        opacity: 1;
+        transform: none;
     }
 }

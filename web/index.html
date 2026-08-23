@@ -5,21 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#3F8AE0">
-    <title>Calorify - AI-Powered Calorie Tracking | Snap, Analyze, Log</title>
+    <title>Calorify — AI-Assisted Nutrition Tracking for Android &amp; Wear OS</title>
 
     <link rel="canonical" href="https://calorify.thecodepapaya.dev" />
     <link rel="preconnect" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
 
     <meta name="description"
-        content="Track calories instantly with AI. Snap a photo or describe your meal for instant nutritional analysis. Privacy-first, zero friction, no ads. Download Calorify for Android.">
+        content="Log meals from a photo or description, review USDA-grounded nutrition estimates, and track calories and macros. Free, local-first, and available for Android and Wear OS.">
 
     <meta name="keywords"
-        content="calorie tracker, AI food analysis, nutrition app, health connect, food scanner, calorify, weight loss app">
+        content="calorie tracker, AI food analysis, nutrition app, Health Connect, Wear OS, USDA nutrition, food scanner, Calorify">
     <meta name="author" content="thecodepapaya">
 
     <link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <link rel="shortcut icon" href="assets/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Calorify" />
@@ -28,23 +27,36 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://calorify.thecodepapaya.dev/">
-    <meta property="og:title" content="Calorify - Effortless AI Calorie Tracking">
+    <meta property="og:title" content="Calorify — Nutrition tracking without the busywork">
     <meta property="og:description"
-        content="Snap a photo or describe your meal for instant nutritional analysis. Privacy-first, zero friction, no ads. The smartest way to track your nutrition with AI.">
+        content="Log a meal from a photo or description, review USDA-grounded estimates, and follow your calories and macros—without an account, ads, or a subscription.">
     <meta property="og:image" content="https://calorify.thecodepapaya.dev/assets/web-app-manifest-512x512.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://calorify.thecodepapaya.dev/">
-    <meta property="twitter:title" content="Calorify - Effortless AI Calorie Tracking">
+    <meta property="twitter:title" content="Calorify — Nutrition tracking without the busywork">
     <meta property="twitter:description"
-        content="Snap a photo or describe your meal for instant nutritional analysis. Privacy-first, zero friction, no ads. The smartest way to track your nutrition with AI.">
+        content="Log a meal from a photo or description, review USDA-grounded estimates, and follow your calories and macros—without an account, ads, or a subscription.">
     <meta property="twitter:image" content="https://calorify.thecodepapaya.dev/assets/web-app-manifest-512x512.png">
 
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest" defer></script>
+    <noscript>
+        <style>
+            .hero-content,
+            .step-item,
+            .feature-card,
+            .feature-showcase,
+            .features-header,
+            .more-features-heading {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -52,19 +64,14 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Calorify",
-      "operatingSystem": "ANDROID",
+      "operatingSystem": "Android, Wear OS",
       "applicationCategory": "HealthApplication",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "reviewCount": "100"
-      },
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "AI-powered calorie tracking app with photo and text analysis, smart goal tracking, Health Connect integration, and comprehensive nutrition analytics. Privacy-first, zero friction.",
+      "description": "AI-assisted nutrition tracking with photo and text meal logging, USDA-grounded estimates, goals, favorites, Health Connect, and a Wear OS companion.",
       "downloadUrl": "https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
     }
     </script>
@@ -73,28 +80,30 @@
 <body>
     <header>
         <nav>
-            <div class="logo">
+            <a class="logo" href="#top" aria-label="Calorify home">
                 <img src="assets/web-app-manifest-192x192.png" alt="Calorify Logo" class="logo-img">
                 <span class="logo-text">Calorify</span>
-            </div>
+            </a>
             <ul class="nav-links">
                 <li><a href="#how-it-works">How it Works</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
-                        class="btn-primary" target="_blank">Download</a></li>
+                        class="btn-primary" target="_blank" rel="noopener noreferrer">Download</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
+        <section id="top" class="hero">
             <div class="hero-content">
-                <h1>Track your nutrition with the power of AI</h1>
-                <p>Snap a photo or describe your meal. Get instant nutritional analysis. Track goals, view history, and
-                    sync with Health Connect. <strong>No manual logging, no accounts, no ads.</strong></p>
+                <div class="eyebrow"><i data-lucide="sparkles"></i> Android + Wear OS</div>
+                <h1>Log meals. Understand nutrition. Keep moving.</h1>
+                <p>Photograph a meal or describe it naturally. Calorify turns it into a reviewable, USDA-grounded
+                    calorie and macro estimate, then helps you see the patterns over time. <strong>No account, ads, or
+                        subscription.</strong></p>
                 <div class="hero-btns">
                     <a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
-                        class="btn-primary" target="_blank">Get it on Google Play</a>
+                        class="btn-primary" target="_blank" rel="noopener noreferrer">Get it on Google Play</a>
                     <a href="#features" class="btn-secondary">Learn More</a>
                 </div>
             </div>
@@ -126,31 +135,31 @@
         <section id="how-it-works" class="how-it-works">
             <div class="features-header">
                 <h2>How it Works</h2>
-                <p class="subtitle">Three simple steps to effortless nutrition tracking.</p>
+                <p class="subtitle">A useful estimate in three simple, transparent steps.</p>
             </div>
             <div class="steps-container">
                 <div class="step-item">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>Snap or Describe</h3>
-                        <p>Take a photo or type a description. Our AI understands natural language—just tell it what you
-                            ate.</p>
+                        <h3>Snap or describe</h3>
+                        <p>Take a photo or type what you ate in your own words—including portions, sauces, and how it was
+                            cooked.</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>AI Analysis</h3>
-                        <p>Instant nutritional breakdown: calories, protein, carbs, fat, and fiber—calculated
-                            automatically.</p>
+                        <h3>Review and refine</h3>
+                        <p>Calorify identifies ingredients, asks a quick question when something is unclear, and lets you
+                            review the result.</p>
                     </div>
                 </div>
                 <div class="step-item">
                     <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3>Track Progress</h3>
-                        <p>Review, save, and monitor your daily goals with beautiful charts and analytics. Your data
-                            stays private.</p>
+                        <h3>See the pattern</h3>
+                        <p>Save the meal, follow daily calories and macros, revisit history, and reuse favorites whenever
+                            you need them.</p>
                     </div>
                 </div>
             </div>
@@ -159,7 +168,7 @@
         <section id="features" class="features">
             <div class="features-header">
                 <h2>Why Calorify?</h2>
-                <p class="subtitle">Built for speed, accuracy, and complete privacy.</p>
+                <p class="subtitle">Helpful detail when you want it, a fast meal log when you don't.</p>
             </div>
 
             <!-- Feature Showcases with Screenshots -->
@@ -170,15 +179,15 @@
                         <div class="feature-showcase-icon">
                             <i data-lucide="camera"></i>
                         </div>
-                        <h3>AI-Powered Analysis</h3>
-                        <p class="feature-description">Snap a photo of your meal or describe it in natural language. Our
-                            advanced AI instantly identifies ingredients, estimates portion sizes, and calculates
-                            complete nutritional breakdown—calories, protein, carbs, fat, and fiber—all automatically.
+                        <h3>Analysis you can review</h3>
+                        <p class="feature-description">Start with a photo or natural-language description. Calorify
+                            proposes ingredients and portions, resolves uncertainty with clarifying questions, and
+                            grounds nutrition estimates in USDA food data before you save.
                         </p>
                         <ul class="feature-benefits">
-                            <li><i data-lucide="check"></i> Photo or text input</li>
-                            <li><i data-lucide="check"></i> Instant nutritional analysis</li>
-                            <li><i data-lucide="check"></i> Accurate portion estimation</li>
+                            <li><i data-lucide="check"></i> Photo and text meal logging</li>
+                            <li><i data-lucide="check"></i> Calories, protein, carbs, fat, and fiber</li>
+                            <li><i data-lucide="check"></i> Clarifications for uncertain details</li>
                         </ul>
                     </div>
                     <div class="feature-showcase-screenshot">
@@ -207,14 +216,14 @@
                         <div class="feature-showcase-icon">
                             <i data-lucide="target"></i>
                         </div>
-                        <h3>Smart Tracking</h3>
-                        <p class="feature-description">Set personalized daily calorie goals and track your progress with
-                            beautiful visual charts. View your complete meal history, save favorites for quick logging,
-                            and get automatic BMR and TDEE calculations based on your profile.</p>
+                        <h3>Progress without the spreadsheet</h3>
+                        <p class="feature-description">Build a daily calorie goal from your profile, see your calorie
+                            and macro split at a glance, and follow seven-day trends. Search and sort favorites, edit
+                            previous meals, or add a regular meal again in a couple of taps.</p>
                         <ul class="feature-benefits">
-                            <li><i data-lucide="check"></i> Personalized goal setting</li>
-                            <li><i data-lucide="check"></i> Visual progress charts</li>
-                            <li><i data-lucide="check"></i> BMR & TDEE calculations</li>
+                            <li><i data-lucide="check"></i> Personalized calorie targets</li>
+                            <li><i data-lucide="check"></i> Daily summaries and seven-day trends</li>
+                            <li><i data-lucide="check"></i> History, editing, and reusable favorites</li>
                         </ul>
                     </div>
                     <div class="feature-showcase-screenshot">
@@ -244,13 +253,13 @@
                             <i data-lucide="heart"></i>
                         </div>
                         <h3>Health Connect</h3>
-                        <p class="feature-description">Seamlessly integrate with Android Health Connect to automatically
-                            sync your nutrition and activity data across all your health apps. Keep everything in one
-                            place without manual entry.</p>
+                        <p class="feature-description">Connect only the features you want. Calorify can read today's
+                            total calories burned to adjust your daily view, and can separately share meals you log with
+                            Health Connect.</p>
                         <ul class="feature-benefits">
-                            <li><i data-lucide="check"></i> Automatic data sync</li>
-                            <li><i data-lucide="check"></i> Cross-app integration</li>
-                            <li><i data-lucide="check"></i> Optional setup</li>
+                            <li><i data-lucide="check"></i> Optional calories-burned access</li>
+                            <li><i data-lucide="check"></i> Optional logged-meal sharing</li>
+                            <li><i data-lucide="check"></i> Manage either permission at any time</li>
                         </ul>
                     </div>
                     <div class="feature-showcase-screenshot">
@@ -279,14 +288,14 @@
                         <div class="feature-showcase-icon">
                             <i data-lucide="globe"></i>
                         </div>
-                        <h3>Global Ready</h3>
-                        <p class="feature-description">Multi-language support with automatic unit detection based on
-                            your locale. Fully customizable settings, meal reminders, and preferences—all tailored to
-                            your region and preferences.</p>
+                        <h3>Feels at home on your phone</h3>
+                        <p class="feature-description">Calorify supports dozens of languages, chooses sensible units
+                            from your locale, and includes light and dark themes. Tune meal reminders and analysis
+                            options from one clear settings screen.</p>
                         <ul class="feature-benefits">
-                            <li><i data-lucide="check"></i> Multi-language support</li>
-                            <li><i data-lucide="check"></i> Automatic unit detection</li>
-                            <li><i data-lucide="check"></i> Customizable settings</li>
+                            <li><i data-lucide="check"></i> Dozens of supported languages</li>
+                            <li><i data-lucide="check"></i> Automatic metric or imperial units</li>
+                            <li><i data-lucide="check"></i> Themes, reminders, and preferences</li>
                         </ul>
                     </div>
                     <div class="feature-showcase-screenshot">
@@ -310,33 +319,57 @@
                 </div>
             </div>
 
+            <div class="more-features-heading">
+                <span class="section-kicker">More ways Calorify fits your day</span>
+                <h3>Designed for real-world logging</h3>
+            </div>
+
             <!-- Simple Feature Cards (No Images) -->
             <div class="feature-grid-simple">
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
                         <i data-lucide="shield-check"></i>
                     </div>
-                    <h3>Privacy First</h3>
-                    <p>No accounts required. Your health data stays on your device and your personal cloud.</p>
+                    <h3>Local-first by default</h3>
+                    <p>No account is required. Your profile, settings, favorites, and meal history are stored on your
+                        device.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">
-                        <i data-lucide="zap"></i>
+                        <i data-lucide="cpu"></i>
                     </div>
-                    <h3>Zero Friction</h3>
-                    <p>No ads, no subscriptions, no manual logging. Just snap, analyze, and go.</p>
+                    <h3>On-device options</h3>
+                    <p>Supported Android devices can interpret text locally, with optional downloadable USDA nutrition
+                        data for covered ingredients.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i data-lucide="watch"></i>
+                    </div>
+                    <h3>Wear OS companion</h3>
+                    <p>Log with your voice, reuse favorites, check recent meals, and keep entries queued when your phone
+                        is out of reach.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">
+                        <i data-lucide="badge-dollar-sign"></i>
+                    </div>
+                    <h3>Free of friction</h3>
+                    <p>No ads or subscription. Meal reminders and quick favorites help make consistent logging easier.</p>
                 </div>
             </div>
 
             <!-- Download CTA -->
             <div class="download-cta">
                 <h3>Ready to start tracking?</h3>
-                <p>Download Calorify now and experience effortless nutrition tracking powered by AI.</p>
+                <p>Download Calorify for a simpler way to estimate, review, and remember what you eat.</p>
                 <a href="https://play.google.com/store/apps/details?id=dev.thecodepapaya.calorify"
-                    class="btn-primary btn-primary-large" target="_blank">
+                    class="btn-primary btn-primary-large" target="_blank" rel="noopener noreferrer">
                     <i data-lucide="download"></i>
                     Get it on Google Play
                 </a>
+                <p class="disclaimer">Nutrition values are estimates for informational purposes and are not medical
+                    advice.</p>
             </div>
         </section>
     </main>
@@ -344,11 +377,11 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="logo">
+                <a class="logo" href="#top" aria-label="Calorify home">
                     <img src="assets/web-app-manifest-192x192.png" alt="Calorify Logo" class="logo-img">
                     <span class="logo-text">Calorify</span>
-                </div>
-                <p>Making nutrition tracking simple and intelligent with the power of AI.</p>
+                </a>
+                <p>Friendly, reviewable nutrition estimates without the busywork.</p>
             </div>
             <div class="footer-links-grid">
                 <div class="footer-col">
@@ -370,13 +403,13 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Calorify. Built with ❤️ and AI.</p>
+            <p>&copy; <span id="current-year">2026</span> Calorify. Built with ❤️ and AI.</p>
             <p>A project by thecodepapaya</p>
         </div>
     </footer>
 
     <script>
-        window.addEventListener('load', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide icons
             const initIcons = () => {
                 if (typeof lucide !== 'undefined') {
@@ -391,29 +424,24 @@
                 rootMargin: '0px 0px -100px 0px'
             };
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                        // Re-initialize icons for newly visible content
-                        initIcons();
-                    }
-                });
-            }, observerOptions);
+            const animatedElements = document.querySelectorAll(
+                '.step-item, .feature-card, .feature-showcase, .features-header, .more-features-heading'
+            );
 
-            // Observe elements for animation
-            document.querySelectorAll('.step-item, .feature-card, .feature-showcase, .features-header').forEach(el => {
-                observer.observe(el);
-            });
+            if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate-in');
+                            observer.unobserve(entry.target);
+                            initIcons();
+                        }
+                    });
+                }, observerOptions);
 
-            // Parallax effect for hero device
-            const heroDevice = document.querySelector('.device-frame-hero');
-            if (heroDevice) {
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    const rate = scrolled * 0.3;
-                    heroDevice.style.transform = `translateY(${rate}px) rotateY(${scrolled * 0.05}deg)`;
-                });
+                animatedElements.forEach(el => observer.observe(el));
+            } else {
+                animatedElements.forEach(el => el.classList.add('animate-in'));
             }
 
             // Floating elements animation
@@ -421,6 +449,8 @@
             floatingElements.forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.5}s`;
             });
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
         });
     </script>
 </body>
