@@ -44,17 +44,29 @@ if [[ ! -f firebase-adminsdk.json ]]; then
   exit 1
 fi
 
+docker_uses_sudo=false
 if docker info >/dev/null 2>&1; then
-  docker_command=(docker)
+  :
 elif sudo -n docker info >/dev/null 2>&1; then
-  docker_command=(sudo -n docker)
+  docker_uses_sudo=true
 else
   echo "Docker is unavailable; grant this deployment user direct Docker access or passwordless sudo for Docker" >&2
   exit 1
 fi
 
 run_docker() {
-  "${docker_command[@]}" "$@"
+  if [[ "$docker_uses_sudo" == true ]]; then
+    local environment_args=(env)
+    if [[ -n "${DOCKER_CONFIG:-}" ]]; then
+      environment_args+=("DOCKER_CONFIG=$DOCKER_CONFIG")
+    fi
+    if [[ -n "${BACKEND_IMAGE:-}" ]]; then
+      environment_args+=("BACKEND_IMAGE=$BACKEND_IMAGE")
+    fi
+    sudo -n "${environment_args[@]}" docker "$@"
+  else
+    docker "$@"
+  fi
 }
 
 registry_config_dir=""
@@ -66,11 +78,7 @@ cleanup_registry_auth() {
 
 if [[ -n "${GHCR_USERNAME:-}" ]]; then
   registry_config_dir="$(mktemp -d)"
-  if [[ "${docker_command[0]}" == "sudo" ]]; then
-    docker_command=(sudo -n env "DOCKER_CONFIG=$registry_config_dir" docker)
-  else
-    export DOCKER_CONFIG="$registry_config_dir"
-  fi
+  export DOCKER_CONFIG="$registry_config_dir"
   trap cleanup_registry_auth EXIT
 
   IFS= read -r ghcr_token
