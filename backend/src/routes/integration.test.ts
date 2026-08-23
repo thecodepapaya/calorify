@@ -134,8 +134,11 @@ const { buildApp } = await import('../index.js');
 // Build the real application composition with deterministic test-only limits.
 // ---------------------------------------------------------------------------
 
-async function buildTestApp(rateLimitMax = 100): Promise<FastifyInstance> {
-  const fastify = await buildApp({ logger: false, rateLimitMax });
+async function buildTestApp(
+  rateLimitMax = 100,
+  foodRateLimitNow?: () => number
+): Promise<FastifyInstance> {
+  const fastify = await buildApp({ logger: false, rateLimitMax, foodRateLimitNow });
   await fastify.ready();
   return fastify;
 }
@@ -467,6 +470,84 @@ describe('Rate limit response format', () => {
       assert.equal((await saveProfile('valid-token')).statusCode, 200);
       assert.equal((await saveProfile('valid-token-2')).statusCode, 200);
       assert.equal((await saveProfile('valid-token')).statusCode, 429);
+    } finally {
+      await limitedApp.close();
+    }
+  });
+
+  it('keeps the 20-per-minute limit on food analysis entry points', async () => {
+    const limitedApp = await buildTestApp(1_000);
+    const analyze = () => limitedApp.inject({
+      method: 'POST',
+      url: '/api/v2/food/analyze-text',
+      headers: {
+        authorization: 'Bearer valid-token',
+        'content-type': 'application/json',
+      },
+      payload: { textDescription: 'rice and dal' },
+    });
+
+    try {
+      for (let requestNumber = 1; requestNumber <= 20; requestNumber += 1) {
+        assert.equal((await analyze()).statusCode, 200);
+      }
+      assert.equal((await analyze()).statusCode, 429);
+    } finally {
+      await limitedApp.close();
+    }
+  });
+
+  it('limits food requests by both authenticated user and IP each hour', async () => {
+    const limitedApp = await buildTestApp(1_000);
+    const requestFood = (token: string, remoteAddress: string) => limitedApp.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-capabilities',
+      headers: { authorization: `Bearer ${token}` },
+      remoteAddress,
+    });
+
+    try {
+      for (let requestNumber = 1; requestNumber <= 30; requestNumber += 1) {
+        assert.equal((await requestFood('valid-token', '192.0.2.1')).statusCode, 200);
+      }
+
+      // A different IP cannot reset the authenticated user's hourly bucket.
+      assert.equal(
+        (await requestFood('valid-token', '192.0.2.2')).statusCode,
+        429
+      );
+
+      // A different account cannot reset the original IP's hourly bucket.
+      assert.equal(
+        (await requestFood('valid-token-2', '192.0.2.1')).statusCode,
+        429
+      );
+    } finally {
+      await limitedApp.close();
+    }
+  });
+
+  it('limits food requests to 100 per day across hourly window resets', async () => {
+    let nowMs = 1_000_000;
+    const limitedApp = await buildTestApp(1_000, () => nowMs);
+    const requestFood = () => limitedApp.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-capabilities',
+      headers: { authorization: 'Bearer valid-token' },
+      remoteAddress: '192.0.2.10',
+    });
+
+    try {
+      for (const requestsThisHour of [30, 30, 30, 10]) {
+        for (let requestNumber = 1; requestNumber <= requestsThisHour; requestNumber += 1) {
+          assert.equal((await requestFood()).statusCode, 200);
+        }
+        nowMs += 60 * 60 * 1000 + 1;
+      }
+
+      const response = await requestFood();
+      assert.equal(response.statusCode, 429);
+      assert.match(response.json().message, /day rate limit/i);
     } finally {
       await limitedApp.close();
     }

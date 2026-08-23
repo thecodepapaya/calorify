@@ -8,6 +8,7 @@ import helmet from '@fastify/helmet';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
+import { createFoodRateLimitHooks } from './middleware/foodRateLimit.js';
 import { registerRoutes } from './routes/index.js';
 import { errorHandler } from './utils/errors.js';
 import { redactHeaders } from './utils/requestLog.js';
@@ -37,6 +38,7 @@ import {
 export interface BuildAppOptions {
   logger?: FastifyServerOptions['logger'];
   rateLimitMax?: number;
+  foodRateLimitNow?: () => number;
 }
 
 export async function buildApp(options: BuildAppOptions = {}) {
@@ -277,7 +279,9 @@ export async function buildApp(options: BuildAppOptions = {}) {
   );
 
   // Register routes
-  await fastify.register(registerRoutes);
+  await fastify.register(registerRoutes, {
+    foodRateLimitHooks: createFoodRateLimitHooks({ now: options.foodRateLimitNow }),
+  });
 
   // Error handler
   fastify.setErrorHandler(errorHandler);

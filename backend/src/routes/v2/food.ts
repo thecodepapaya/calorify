@@ -2,6 +2,11 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
+  FOOD_RATE_LIMITS,
+  registerFoodRateLimitHooks,
+  type FoodRateLimitHooks,
+} from '../../middleware/foodRateLimit.js';
+import {
   clearMealAnalysisLogged,
   confirmMealAnalysisLogged,
   isMealAnalysisSessionOwnedByUser,
@@ -520,11 +525,21 @@ async function streamEvents(
   }
 }
 
-export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
+export interface FoodRoutesV2Options {
+  foodRateLimitHooks?: FoodRateLimitHooks;
+}
+
+export async function foodRoutesV2(
+  fastify: FastifyInstance,
+  options: FoodRoutesV2Options = {}
+): Promise<void> {
   // Every V2 flow creates or mutates user-attributed analysis state. Requiring
   // Firebase auth here also makes rate limiting user-aware and prevents one
   // caller from continuing or confirming another caller's analysis.
   fastify.addHook('preHandler', authenticateUser);
+  if (options.foodRateLimitHooks) {
+    registerFoodRateLimitHooks(fastify, options.foodRateLimitHooks);
+  }
 
   fastify.get(
     '/local-capabilities',
@@ -559,10 +574,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     '/resolve-local-nutrition',
     {
       config: {
-        rateLimit: {
-          max: 30,
-          timeWindow: '1 minute',
-        },
+        rateLimit: FOOD_RATE_LIMITS.localNutrition,
       },
       schema: {
         description:
@@ -600,10 +612,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     '/analyze-text',
     {
       config: {
-        rateLimit: {
-          max: 20,
-          timeWindow: '1 minute',
-        },
+        rateLimit: FOOD_RATE_LIMITS.analysis,
       },
       schema: {
         description:
@@ -652,10 +661,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     '/analyze-proposal',
     {
       config: {
-        rateLimit: {
-          max: 20,
-          timeWindow: '1 minute',
-        },
+        rateLimit: FOOD_RATE_LIMITS.analysis,
       },
       schema: {
         description:
@@ -701,10 +707,7 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     '/analyze-image',
     {
       config: {
-        rateLimit: {
-          max: 20,
-          timeWindow: '1 minute',
-        },
+        rateLimit: FOOD_RATE_LIMITS.analysis,
       },
       schema: {
         description:
