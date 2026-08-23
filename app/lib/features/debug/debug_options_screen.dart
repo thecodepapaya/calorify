@@ -15,6 +15,7 @@ import 'package:calorify/features/debug/database_inspector_screen.dart';
 import 'package:calorify/features/debug/local_inference_debug_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_observability_screen.dart';
 import 'package:calorify/features/debug/meal_analysis_sheet_debug_previews.dart';
+import 'package:calorify/features/debug/widgets/debug_firebase_token_tile.dart';
 import 'package:calorify/features/debug/widgets/debug_user_id_field.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
@@ -336,15 +337,24 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
   Widget? _buildUserIdentityOptions(BuildContext context) {
     const section = 'User identity';
-    const title = 'User ID';
     final userId = AuthService.instance.currentUser?.uid;
-    if (!_matchesQuery(section, title, userId)) return null;
-    return Card(
-      child: DebugUserIdField(
-        userId: userId,
-        onCopied: () => _showSnackbar('User ID copied'),
-      ),
-    );
+    final items = <Widget>[
+      if (_matchesQuery(section, 'User ID', userId))
+        DebugUserIdField(
+          userId: userId,
+          onCopied: () => _showSnackbar('User ID copied'),
+        ),
+      if (_matchesQuery(section, 'Firebase bearer token', 'Firebase ID token'))
+        DebugFirebaseTokenTile(
+          isAuthenticated: userId != null && userId.isNotEmpty,
+          resolveToken: AuthService.instance.resolveAuthToken,
+          onCopied: () => _showSnackbar('Firebase bearer token copied'),
+          onUnavailable:
+              () => _showSnackbar('Firebase bearer token unavailable'),
+        ),
+    ];
+    if (items.isEmpty) return null;
+    return Card(child: Column(mainAxisSize: MainAxisSize.min, children: items));
   }
 
   Widget? _buildCatEasterEggOptions(BuildContext context) {
