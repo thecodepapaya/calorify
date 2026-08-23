@@ -37,7 +37,7 @@
       "title": "Wie groß bist du?",
       "description": "Deine Körpergröße hilft uns, BMI und Energiebedarf genau zu berechnen.",
       "metric": "Metrisch",
-      "imperial": "Imperial",
+      "imperial": "Imperiales System",
       "next": "Weiter"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "Welches Zielgewicht hast du?",
       "targetDescription": "Ein Zielgewicht hilft uns, deinen langfristigen Plan zu bestimmen.",
       "metric": "Metrisch",
-      "imperial": "Imperial",
+      "imperial": "Imperiales System",
       "next": "Weiter"
     },
     "age": {
@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Mit Health Connect verbinden",
       "description": "Synchronisiere deine Gesundheitsdaten für bessere Einblicke und automatische Kalorienverfolgung",
+      "overviewDescription": "Nutze verbrannte Kalorien für dein Tagesziel und teile protokollierte Mahlzeiten optional mit Health Connect.",
       "automaticTracking": {
         "title": "Automatische Kalorienverfolgung",
         "description": "Erfasste verbrannte Kalorien aus deinen Fitness-Apps verfolgen"
+      },
+      "caloriesBurned": {
+        "title": "Verbrannte Kalorien",
+        "description": "Die heute insgesamt verbrannten Kalorien aus Health Connect lesen"
       },
       "progressInsights": {
         "title": "Fortschritts-Einblicke",
         "description": "Erhalte detaillierte Einblicke in deine Gesundheitsentwicklungen"
       },
+      "shareLoggedMeals": {
+        "title": "Protokollierte Mahlzeiten teilen",
+        "description": "In Calorify protokollierte Mahlzeiten in Health Connect schreiben"
+      },
       "seamlessIntegration": {
         "title": "Nahtlose Integration",
         "description": "Synchronisiere Daten aus deinen bevorzugten Gesundheits-Apps"
+      },
+      "userControl": {
+        "title": "Du hast die Kontrolle",
+        "description": "Wähle eine beliebige Berechtigung und ändere den Zugriff jederzeit"
       },
       "connected": "Health Connect verbunden",
       "notConnected": "Health Connect nicht verbunden",
@@ -101,6 +114,12 @@
       "skipForNow": "Später überspringen",
       "statusConnected": "Health Connect ist verbunden.",
       "statusSuccess": "Health Connect wurde erfolgreich verbunden!",
+      "statusNotConnected": "Wähle die Health Connect-Funktionen aus, die du aktivieren möchtest.",
+      "statusPartial": "Health Connect ist teilweise verbunden. Aktiviere die verbleibende Berechtigung, um beide Funktionen zu nutzen.",
+      "statusProviderUpdateRequired": "Installiere oder aktualisiere Health Connect, um fortzufahren.",
+      "statusUnavailable": "Health Connect wird auf diesem Gerät nicht unterstützt.",
+      "installOrUpdate": "Installieren oder aktualisieren",
+      "manageAccess": "Zugriff verwalten",
       "statusPermissionDenied": "Berechtigung verweigert. Bitte aktiviere die Health Connect-Berechtigungen in den Einstellungen deines Telefons für {appLabel}.",
       "statusError": "Fehler bei der Einrichtung von Health Connect: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "Gewichtsauswirkung",
       "estLoss": "Geschätzter Verlust von",
       "estGain": "Geschätzter Zuwachs von",
-      "kcal": "kcal"
+      "kcal": "Kilokalorien (kcal)"
     },
     "dailySummary": {
       "title": "Tagesübersicht",
@@ -227,6 +246,8 @@
       "title": "Mit Health Connect synchronisieren",
       "description": "Synchronisiere deine Ernährungsdaten mit Health Connect",
       "install": "Installieren",
+      "dataUseDescription": "Nutze verbrannte Kalorien für dein Ziel und teile protokollierte Mahlzeiten",
+      "installOrUpdate": "Installieren oder aktualisieren",
       "connect": "Verbinden"
     }
   },
@@ -399,7 +420,7 @@
     "note": "Diese Bewertung ist eine AI‑Schätzung basierend auf erkannten Zutaten und Nährstoffdichte. Ziehe für Ernährungsberatung stets eine Fachperson zu Rate.",
     "unhealthy": "Ungesund",
     "healthy": "Gesund",
-    "neutral": "Neutral"
+    "neutral": "Neutraler Bereich"
   },
   "editProfile": {
     "title": "Profil bearbeiten",
@@ -415,15 +436,15 @@
     "weightGoal": "Gewichtsziel",
     "activityLevel": "Aktivitätslevel",
     "metric": "Metrisch",
-    "imperial": "Imperial",
+    "imperial": "Imperiales System",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "Pfund (lb)",
     "metricCm": "Metrisch (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
+    "imperialFtIn": "Imperiales System (ft/in)",
     "metricKg": "Metrisch (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "imperialLbs": "Imperiales System (lbs)",
     "genders": {
       "male": "Männlich",
       "female": "Weiblich",
@@ -472,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISIERUNG",
       "notifications": "BENACHRICHTIGUNGEN",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "ON-DEVICE-ANALYSE",
       "supportAndLegal": "SUPPORT & RECHTLICHES",
       "about": "ÜBER",
@@ -520,7 +541,7 @@
       "title": "Design",
       "light": "Hell",
       "dark": "Dunkel",
-      "system": "System"
+      "system": "Systemeinstellung"
     },
     "sendFeedback": {
       "title": "Feedback senden",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "Alle Daten löschen",
       "subtitle": "Alle deine Informationen unwiderruflich löschen",
+      "localOnlySubtitle": "Auf diesem Gerät gespeicherte Calorify-Daten löschen",
       "confirmationTitle": "Alle Daten löschen?",
       "confirmationMessage": "Dieser Vorgang kann nicht rückgängig gemacht werden. Alle protokollierten Mahlzeiten, Favoriten und Profileinstellungen werden dauerhaft gelöscht.",
+      "localOnlyConfirmationMessage": "Dadurch werden protokollierte Mahlzeiten, Favoriten und Profileinstellungen dauerhaft von diesem Gerät gelöscht. Bereits mit Health Connect geteilte Mahlzeiten und der Health Connect-Zugriff werden separat unter Einstellungen > Health Connect verwaltet.",
       "cancel": "Abbrechen",
       "clearEverything": "Alles löschen"
     },
@@ -555,7 +578,13 @@
       "subtitle": "Berechtigungen anzeigen und verwalten",
       "unavailable": {
         "title": "Health Connect nicht verfügbar",
-        "description": "Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+."
+        "description": "Health Connect ist auf diesem Gerät nicht verfügbar. Bitte installiere Health Connect aus dem Play Store (Android 9+) oder aktualisiere auf Android 14+.",
+        "unsupportedDescription": "Health Connect wird auf diesem Gerät nicht unterstützt."
+      },
+      "updateRequired": {
+        "title": "Health Connect erfordert Aufmerksamkeit",
+        "description": "Installiere oder aktualisiere Health Connect, bevor du den Zugriff verwaltest.",
+        "action": "Installieren oder aktualisieren"
       },
       "permissions": {
         "title": "Berechtigungen",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Berechtigungen verwalten",
       "openSettings": "Health Connect Einstellungen öffnen",
+      "disconnect": "Health Connect trennen",
+      "disconnectConfirmationTitle": "Health Connect trennen?",
+      "disconnectConfirmationMessage": "Calorify verliert den Zugriff auf Health Connect. Bereits dort gespeicherte Daten werden nicht gelöscht.",
+      "disconnectConfirmationAction": "Trennen",
+      "deleteSyncedMeals": "Calorify-Mahlzeiten aus Health Connect löschen",
+      "deleteSyncedMealsConfirmationTitle": "Synchronisierte Mahlzeiten löschen?",
+      "deleteSyncedMealsConfirmationMessage": "Möchtest du Mahlzeiten, die von dieser Calorify-Version synchronisiert wurden, aus Health Connect löschen? Dein lokales Mahlzeitenprotokoll bleibt unverändert. Ältere Calorify-Einträge müssen möglicherweise weiterhin über Daten verwalten in Health Connect entfernt werden.",
+      "deleteSyncedMealsConfirmationAction": "Synchronisierte Mahlzeiten löschen",
+      "deleteSyncedMealsSuccess": "Calorify-Mahlzeiten wurden aus Health Connect gelöscht.",
+      "deleteSyncedMealsFailed": "Synchronisierte Mahlzeiten konnten nicht gelöscht werden. Bitte versuche es erneut.",
+      "connectionPartial": "Einige Health Connect-Funktionen sind aktiviert.",
+      "connectionComplete": "Beide Health Connect-Funktionen sind aktiviert.",
+      "actionFailed": "Health Connect konnte nicht geöffnet werden. Bitte versuche es erneut.",
       "requestPermissions": "Berechtigungen anfordern",
       "permissionRequestCancelledOrFailed": "Die Berechtigungsanfrage wurde abgebrochen oder ist fehlgeschlagen. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect‑Einstellungen.",
       "permissionRequestFailed": "Berechtigungen konnten nicht angefragt werden. Bitte versuche es erneut oder erteile die Berechtigungen manuell in den Health Connect‑Einstellungen.",
@@ -597,6 +639,7 @@
         "description": "Datenschutz ist kein Nebengedanke, sondern ein Designprinzip. Das bedeutet in der Praxis:",
         "noAccounts": "Keine Konten erforderlich\nApp sofort nutzen. Keine Registrierung, keine Identitäten.",
         "noTracking": "Kein Verhaltens‑Tracking\n{appLabel} überwacht deine Aktivitäten nicht, erstellt keine Nutzungsprofile und verfolgt dich nicht über Apps oder Websites hinweg.",
+        "analyticsDisclosure": "Begrenzte Analysen und Diagnosen\n{appLabel} verwendet grundlegende App-Ereignisse und Absturzdiagnosen, um die Zuverlässigkeit zu verbessern. Werte aus Gesundheitsdaten werden weder für Werbung verwendet noch verkauft.",
         "noAds": "Werbefrei aus Prinzip\n{appLabel} wurde so entwickelt, dass es ohne Werbung oder datengetriebene Monetarisierung funktioniert.",
         "noDataSelling": "Kein Verkauf von Daten\nDeine Gesundheitsdaten werden niemals an Dritte verkauft oder weitergegeben.",
         "localStorage": "Lokale Speicherung\nDeine Daten bleiben auf deinem Gerät.",
@@ -605,7 +648,7 @@
       "developer": {
         "title": "Von einem Solo‑Entwickler entwickelt",
         "description": "{appLabel} wird von einem einzelnen Entwickler gebaut und gepflegt, der sich auf ruhige, datenschutzfreundliche Gesundheitssoftware konzentriert.\n\nFeedback wird persönlich gelesen und beeinflusst die Richtung der App.",
-        "website": "Website",
+        "website": "Webseite",
         "email": "E‑Mail"
       },
       "feedback": {
@@ -616,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify Version {version}",
+      "build": "Buildnummer {buildNumber}"
     }
   },
   "reminders": {
@@ -631,7 +674,7 @@
     "breakfast": "Frühstück",
     "lunch": "Mittagessen",
     "dinner": "Abendessen",
-    "snack": "Snack",
+    "snack": "Zwischenmahlzeit",
     "unknown": "Unbekannt",
     "change": "Ändern",
     "enableNotifications": "Benachrichtigungen aktivieren",

@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Kapcsolódj a Health Connecthez",
       "description": "Szinkronizáld egészségadataid a jobb elemzésekért és automatikus kalóriakövetésért",
+      "overviewDescription": "Használd fel az elégetett kalóriákat a napi célodban, és igény szerint oszd meg a naplózott étkezéseket a Health Connecttel.",
       "automaticTracking": {
         "title": "Automatikus kalóriakövetés",
         "description": "Kövesd a fitneszalkalmazásaidból származó elégetett kalóriákat"
+      },
+      "caloriesBurned": {
+        "title": "Elégetett kalóriák",
+        "description": "A mai összes elégetett kalória beolvasása a Health Connectből"
       },
       "progressInsights": {
         "title": "Haladás-elemzések",
         "description": "Részletes betekintés az egészséged trendjeibe"
       },
+      "shareLoggedMeals": {
+        "title": "Naplózott étkezések megosztása",
+        "description": "A Calorifyban naplózott étkezések írása a Health Connectbe"
+      },
       "seamlessIntegration": {
         "title": "Zökkenőmentes integráció",
         "description": "Szinkronizáld adataid a kedvenc egészségalkalmazásaiddal"
+      },
+      "userControl": {
+        "title": "Te irányítasz",
+        "description": "Válaszd ki bármelyik engedélyt, és bármikor módosítsd a hozzáférést"
       },
       "connected": "Health Connect csatlakoztatva",
       "notConnected": "Health Connect nincs csatlakoztatva",
@@ -101,6 +114,12 @@
       "skipForNow": "Most kihagyom",
       "statusConnected": "A Health Connect csatlakoztatva.",
       "statusSuccess": "A Health Connect sikeresen csatlakoztatva!",
+      "statusNotConnected": "Válaszd ki az engedélyezni kívánt Health Connect-funkciókat.",
+      "statusPartial": "A Health Connect részben csatlakozik. Mindkét funkció használatához engedélyezd a fennmaradó jogosultságot.",
+      "statusProviderUpdateRequired": "A folytatáshoz telepítsd vagy frissítsd a Health Connectet.",
+      "statusUnavailable": "A Health Connect nem támogatott ezen az eszközön.",
+      "installOrUpdate": "Telepítés vagy frissítés",
+      "manageAccess": "Hozzáférés kezelése",
       "statusPermissionDenied": "Hozzáférés megtagadva. Kérlek engedélyezd a Health Connect jogosultságokat a telefon beállításaiban a {appLabel} számára.",
       "statusError": "Hiba a Health Connect beállítása közben: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "Súlyra gyakorolt hatás",
       "estLoss": "Becsült veszteség",
       "estGain": "Becsült gyarapodás",
-      "kcal": "kcal"
+      "kcal": "kilokalória (kcal)"
     },
     "dailySummary": {
       "title": "Napi összefoglaló",
@@ -227,6 +246,8 @@
       "title": "Szinkron a Health Connecttel",
       "description": "Szinkronizáld a táplálkozási adataidat a Health Connecttel",
       "install": "Telepítés",
+      "dataUseDescription": "Használd fel az elégetett kalóriákat a célodban, és oszd meg a naplózott étkezéseket",
+      "installOrUpdate": "Telepítés vagy frissítés",
       "connect": "Csatlakozás"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "még {count}",
       "ingredientsLine": "{count} összetevő észlelve",
       "ingredientsPending": "Összetevők beolvasása…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "„{text}”",
       "offlineTip0": "Tipp: A következetesség fontosabb, mint a tökéletesség — a rendszeres naplózás mutatja meg a valódi mintákat.",
       "offlineTip1": "Tipp: Fotókhoz a természetes fény és felülnézeti fotó segít az adagpontosságban.",
       "offlineTip2": "Tipp: Említsd meg az italokat, szószokat és sütőolajat — ezek plusz kalóriát adnak, amit gyakran elfelejtenek.",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "font (lb)",
     "metricCm": "Metrikus (cm)",
     "imperialFtIn": "Imperiális (ft/in)",
     "metricKg": "Metrikus (kg)",
@@ -472,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOKALIZÁCIÓ",
       "notifications": "ÉRTESÍTÉSEK",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "KÉSZÜLÉKEN TÖRTÉNŐ ELEMZÉS",
       "supportAndLegal": "TÁMOGATÁS & JOGI",
       "about": "NÉVJEGY",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "Az összes adat törlése",
       "subtitle": "Minden információ végleges törlése",
+      "localOnlySubtitle": "Az eszközön tárolt Calorify-adatok törlése",
       "confirmationTitle": "Töröljem az összes adatot?",
       "confirmationMessage": "Ez a művelet nem visszavonható. Minden naplózott étel, kedvenc és profilbeállítás véglegesen törlődik.",
+      "localOnlyConfirmationMessage": "Ez véglegesen törli erről az eszközről a naplózott étkezéseket, a kedvenceket és a profilbeállításokat. A Health Connecttel már megosztott étkezések és a Health Connect-hozzáférés külön kezelhető a Beállítások > Health Connect menüben.",
       "cancel": "Mégse",
       "clearEverything": "Mindent törlök"
     },
@@ -555,7 +578,13 @@
       "subtitle": "Engedélyek megtekintése és kezelése",
       "unavailable": {
         "title": "Health Connect nem elérhető",
-        "description": "A Health Connect nem elérhető ezen az eszközön. Kérlek telepítsd a Health Connectet a Play Store-ból (Android 9+), vagy frissíts Android 14+-ra."
+        "description": "A Health Connect nem elérhető ezen az eszközön. Kérlek telepítsd a Health Connectet a Play Store-ból (Android 9+), vagy frissíts Android 14+-ra.",
+        "unsupportedDescription": "A Health Connect nem támogatott ezen az eszközön."
+      },
+      "updateRequired": {
+        "title": "A Health Connect figyelmet igényel",
+        "description": "A hozzáférés kezelése előtt telepítsd vagy frissítsd a Health Connectet.",
+        "action": "Telepítés vagy frissítés"
       },
       "permissions": {
         "title": "Engedélyek",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Engedélyek kezelése",
       "openSettings": "Health Connect beállítások megnyitása",
+      "disconnect": "Health Connect leválasztása",
+      "disconnectConfirmationTitle": "Leválasztod a Health Connectet?",
+      "disconnectConfirmationMessage": "A Calorify elveszíti a Health Connecthez való hozzáférést. A már oda írt adatok nem törlődnek.",
+      "disconnectConfirmationAction": "Leválasztás",
+      "deleteSyncedMeals": "Calorify-étkezések törlése a Health Connectből",
+      "deleteSyncedMealsConfirmationTitle": "Törlöd a szinkronizált étkezéseket?",
+      "deleteSyncedMealsConfirmationMessage": "Törlöd a Calorify ezen verziója által szinkronizált étkezéseket a Health Connectből? A helyi étkezési napló nem változik. Előfordulhat, hogy a régebbi Calorify-bejegyzéseket továbbra is a Health Connect Adatok kezelése funkciójával kell eltávolítani.",
+      "deleteSyncedMealsConfirmationAction": "Szinkronizált étkezések törlése",
+      "deleteSyncedMealsSuccess": "A Calorify-étkezések törölve lettek a Health Connectből.",
+      "deleteSyncedMealsFailed": "A szinkronizált étkezéseket nem sikerült törölni. Próbáld újra.",
+      "connectionPartial": "Néhány Health Connect-funkció engedélyezve van.",
+      "connectionComplete": "Mindkét Health Connect-funkció engedélyezve van.",
+      "actionFailed": "A Health Connectet nem sikerült megnyitni. Próbáld újra.",
       "requestPermissions": "Engedélyek kérése",
       "permissionRequestCancelledOrFailed": "Az engedélykérés megszakadt vagy sikertelen volt. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.",
       "permissionRequestFailed": "Nem sikerült engedélyeket kérni. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.",
@@ -597,6 +639,7 @@
         "description": "A magánszféra nem utólagos gondolat — tervezési elv. Mit jelent ez a gyakorlatban:",
         "noAccounts": "Nincs szükség fiókra\nHasználd az alkalmazást azonnal. Nincsenek regisztrációk, nincs személyazonosság-követés.",
         "noTracking": "Nincs viselkedési követés\nA {appLabel} nem figyeli a tevékenységedet, nem készít használati profilokat, és nem követ az alkalmazások vagy webhelyek között.",
+        "analyticsDisclosure": "Korlátozott elemzés és diagnosztika\nA {appLabel} alapvető alkalmazáseseményeket és összeomlási diagnosztikát használ a megbízhatóság javítására. Az egészségügyi adatok értékeit nem használjuk hirdetésre és nem értékesítjük.",
         "noAds": "Reklámmentes alapból\nA {appLabel} reklámok vagy adatvezérelt pénzszerzés nélkül működik.",
         "noDataSelling": "Nincs adateladás\nAz egészségügyi adataidat soha nem adjuk el és nem osztjuk meg harmadik féllel.",
         "localStorage": "Elsősorban helyi tárolás\nAz adataid az eszközödön maradnak.",
@@ -616,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify {version}. verzió",
+      "build": "Buildszám: {buildNumber}"
     }
   },
   "reminders": {

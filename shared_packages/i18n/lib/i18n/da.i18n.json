@@ -37,7 +37,7 @@
       "title": "Hvor høj er du?",
       "description": "Din højde hjælper os med at beregne din BMI og energibehov præcist.",
       "metric": "Metrisk",
-      "imperial": "Imperial",
+      "imperial": "Imperialt",
       "next": "Næste"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "Hvad er din målvægt?",
       "targetDescription": "At sætte en målvægt hjælper os med at bestemme din langsigtede plan.",
       "metric": "Metrisk",
-      "imperial": "Imperial",
+      "imperial": "Imperialt",
       "next": "Næste"
     },
     "age": {
@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Forbind med Health Connect",
       "description": "Synkroniser dine sundhedsdata for bedre indsigt og automatisk kaloritælling",
+      "overviewDescription": "Brug forbrændte kalorier i dit dagsmål, og del eventuelt registrerede måltider med Health Connect.",
       "automaticTracking": {
         "title": "Automatisk kaloritælling",
         "description": "Registrer forbrændte kalorier fra dine træningsapps"
+      },
+      "caloriesBurned": {
+        "title": "Forbrændte kalorier",
+        "description": "Læs dagens samlede antal forbrændte kalorier fra Health Connect"
       },
       "progressInsights": {
         "title": "Fremskridtsindsigt",
         "description": "Få detaljerede indsigter i dine sundhedstendenser"
       },
+      "shareLoggedMeals": {
+        "title": "Del registrerede måltider",
+        "description": "Skriv måltider, du registrerer i Calorify, til Health Connect"
+      },
       "seamlessIntegration": {
         "title": "Sømløs integration",
         "description": "Synkroniser data fra dine foretrukne sundhedsapps"
+      },
+      "userControl": {
+        "title": "Du har kontrollen",
+        "description": "Vælg en af tilladelserne, og ændr adgangen når som helst"
       },
       "connected": "Health Connect forbundet",
       "notConnected": "Health Connect ikke forbundet",
@@ -101,6 +114,12 @@
       "skipForNow": "Spring over for nu",
       "statusConnected": "Health Connect er forbundet.",
       "statusSuccess": "Health Connect er blevet tilsluttet!",
+      "statusNotConnected": "Vælg de Health Connect-funktioner, du vil aktivere.",
+      "statusPartial": "Health Connect er delvist forbundet. Aktivér den resterende tilladelse for at bruge begge funktioner.",
+      "statusProviderUpdateRequired": "Installer eller opdater Health Connect for at fortsætte.",
+      "statusUnavailable": "Health Connect understøttes ikke på denne enhed.",
+      "installOrUpdate": "Installer eller opdater",
+      "manageAccess": "Administrer adgang",
       "statusPermissionDenied": "Tilladelse afvist. Aktivér Health Connect-tilladelser i telefonens indstillinger for {appLabel}.",
       "statusError": "Fejl ved opsætning af Health Connect: {error}"
     },
@@ -171,13 +190,13 @@
       "weightImpact": "Vægtpåvirkning",
       "estLoss": "Ansl. tab på",
       "estGain": "Ansl. stigning på",
-      "kcal": "kcal"
+      "kcal": "kilokalorier (kcal)"
     },
     "dailySummary": {
       "title": "Dagsoversigt",
       "calories": "Kalorier",
       "carbs": "Kulhydrater",
-      "protein": "Protein",
+      "protein": "Proteiner",
       "fat": "Fedt",
       "fiber": "Fibre",
       "grams": "gram",
@@ -227,6 +246,8 @@
       "title": "Synkroniser med Health Connect",
       "description": "Synkroniser dine ernæringsdata med Health Connect",
       "install": "Installer",
+      "dataUseDescription": "Brug forbrændte kalorier i dit mål, og del registrerede måltider",
+      "installOrUpdate": "Installer eller opdater",
       "connect": "Forbind"
     }
   },
@@ -254,7 +275,7 @@
     "nutrition": {
       "calories": "Kalorier",
       "carbs": "Kulhydrater (g)",
-      "protein": "Protein (g)",
+      "protein": "Proteiner (g)",
       "fat": "Fedt (g)",
       "fiber": "Fibre (g)"
     },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} mere",
       "ingredientsLine": "{count} ingredienser registreret",
       "ingredientsPending": "Scanner ingredienser…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "»{text}«",
       "offlineTip0": "Tip: Konsistens slår perfektion—regelmæssige registreringer afslører de vigtige mønstre.",
       "offlineTip1": "Tip: Til fotos hjælper naturligt lys og et top-down-perspektiv med portionsnøjagtigheden.",
       "offlineTip2": "Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.",
@@ -399,7 +420,7 @@
     "note": "Denne score er et AI-estimat baseret på identificerede ingredienser og ernæringstætheden. Konsulter altid en professionel for kostråd.",
     "unhealthy": "Usund",
     "healthy": "Sund",
-    "neutral": "Neutral"
+    "neutral": "Neutralt"
   },
   "editProfile": {
     "title": "Rediger profil",
@@ -415,15 +436,15 @@
     "weightGoal": "Vægtmål",
     "activityLevel": "Aktivitetsniveau",
     "metric": "Metrisk",
-    "imperial": "Imperial",
+    "imperial": "Imperialt",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "pund (lb)",
     "metricCm": "Metrisk (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
+    "imperialFtIn": "Imperialt (ft/in)",
     "metricKg": "Metrisk (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "imperialLbs": "Imperialt (lbs)",
     "genders": {
       "male": "Mand",
       "female": "Kvinde",
@@ -472,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "NOTIFIKATIONER",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "ANALYSE PÅ ENHED",
       "supportAndLegal": "SUPPORT & JURA",
       "about": "OM",
@@ -520,7 +541,7 @@
       "title": "Tema",
       "light": "Lyst",
       "dark": "Mørkt",
-      "system": "System"
+      "system": "Systemstandard"
     },
     "sendFeedback": {
       "title": "Send feedback",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "Slet alle data",
       "subtitle": "Slet permanent alle dine oplysninger",
+      "localOnlySubtitle": "Slet Calorify-data, der er gemt på denne enhed",
       "confirmationTitle": "Slette alle data?",
       "confirmationMessage": "Denne handling kan ikke fortrydes. Alle dine registrerede måltider, favoritter og profilindstillinger vil blive permanent slettet.",
+      "localOnlyConfirmationMessage": "Dette sletter permanent registrerede måltider, favoritter og profilindstillinger fra denne enhed. Måltider, der allerede er delt med Health Connect, og adgangen til Health Connect administreres separat under Indstillinger > Health Connect.",
       "cancel": "Annuller",
       "clearEverything": "Slet alt"
     },
@@ -555,7 +578,13 @@
       "subtitle": "Se og administrer tilladelser",
       "unavailable": {
         "title": "Health Connect ikke tilgængelig",
-        "description": "Health Connect er ikke tilgængelig på denne enhed. Installer Health Connect fra Play Store (Android 9+) eller opdater til Android 14+."
+        "description": "Health Connect er ikke tilgængelig på denne enhed. Installer Health Connect fra Play Store (Android 9+) eller opdater til Android 14+.",
+        "unsupportedDescription": "Health Connect understøttes ikke på denne enhed."
+      },
+      "updateRequired": {
+        "title": "Health Connect kræver opmærksomhed",
+        "description": "Installer eller opdater Health Connect, før du administrerer adgang.",
+        "action": "Installer eller opdater"
       },
       "permissions": {
         "title": "Tilladelser",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Administrer tilladelser",
       "openSettings": "Åbn Health Connect-indstillinger",
+      "disconnect": "Afbryd Health Connect",
+      "disconnectConfirmationTitle": "Afbryd Health Connect?",
+      "disconnectConfirmationMessage": "Calorify mister adgangen til Health Connect. Data, der allerede er skrevet dertil, slettes ikke.",
+      "disconnectConfirmationAction": "Afbryd",
+      "deleteSyncedMeals": "Slet Calorify-måltider fra Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Slet synkroniserede måltider?",
+      "deleteSyncedMealsConfirmationMessage": "Vil du slette måltider, som denne version af Calorify har synkroniseret med Health Connect? Din lokale måltidslog ændres ikke. Ældre Calorify-poster skal muligvis stadig fjernes via Administrer data i Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Slet synkroniserede måltider",
+      "deleteSyncedMealsSuccess": "Calorify-måltider blev slettet fra Health Connect.",
+      "deleteSyncedMealsFailed": "Synkroniserede måltider kunne ikke slettes. Prøv igen.",
+      "connectionPartial": "Nogle Health Connect-funktioner er aktiveret.",
+      "connectionComplete": "Begge Health Connect-funktioner er aktiveret.",
+      "actionFailed": "Health Connect kunne ikke åbnes. Prøv igen.",
       "requestPermissions": "Anmod om tilladelser",
       "permissionRequestCancelledOrFailed": "Anmodning om tilladelser blev annulleret eller fejlede. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.",
       "permissionRequestFailed": "Kan ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.",
@@ -597,6 +639,7 @@
         "description": "Privatliv er ikke en eftertanke — det er et designprincip. Det betyder i praksis:",
         "noAccounts": "Ingen konti nødvendige\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.",
         "noTracking": "Ingen adfærds­overvågning\n{appLabel} overvåger ikke din aktivitet, opbygger ikke brugermodeller og følger dig ikke på tværs af apps eller websites.",
+        "analyticsDisclosure": "Begrænset analyse og diagnostik\n{appLabel} bruger grundlæggende apphændelser og nedbrudsdiagnostik til at forbedre pålideligheden. Værdier fra sundhedsdata bruges ikke til annoncering og sælges ikke.",
         "noAds": "Reklamefrit design\n{appLabel} er bygget til at fungere uden annoncer eller datadrevet monetarisering.",
         "noDataSelling": "Ingen salg af data\nDine sundhedsdata sælges eller deles aldrig med tredjeparter.",
         "localStorage": "Lokal lagring i første række\nDine data bliver på din enhed.",
@@ -616,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify version {version}",
+      "build": "Byggenummer {buildNumber}"
     }
   },
   "reminders": {

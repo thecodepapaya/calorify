@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Yhdistä Health Connectiin",
       "description": "Synkronoi terveystietosi parempia näkemyksiä ja automaattista kaloriseurantaa varten",
+      "overviewDescription": "Käytä kulutettuja kaloreita päivätavoitteessasi ja halutessasi jaa kirjaamasi ateriat Health Connectiin.",
       "automaticTracking": {
         "title": "Automaattinen kaloriseuranta",
         "description": "Seuraa harjoittelun polttamia kaloreita suosikkisovelluksistasi"
+      },
+      "caloriesBurned": {
+        "title": "Kulutetut kalorit",
+        "description": "Lue tämän päivän kulutettujen kalorien kokonaismäärä Health Connectista"
       },
       "progressInsights": {
         "title": "Edistymisnäkymät",
         "description": "Saat yksityiskohtaisia näkymiä terveystrendeistäsi"
       },
+      "shareLoggedMeals": {
+        "title": "Jaa kirjatut ateriat",
+        "description": "Kirjoita Calorifyyn kirjaamasi ateriat Health Connectiin"
+      },
       "seamlessIntegration": {
         "title": "Saumaton integraatio",
         "description": "Synkronoi tietoja suosikkiterveyssovelluksistasi"
+      },
+      "userControl": {
+        "title": "Sinä päätät",
+        "description": "Valitse haluamasi käyttöoikeus ja muuta pääsyä milloin tahansa"
       },
       "connected": "Health Connect yhdistetty",
       "notConnected": "Health Connect ei yhdistetty",
@@ -101,6 +114,12 @@
       "skipForNow": "Ohita nyt",
       "statusConnected": "Health Connect on yhdistetty.",
       "statusSuccess": "Health Connect on yhdistetty onnistuneesti!",
+      "statusNotConnected": "Valitse Health Connect -ominaisuudet, jotka haluat ottaa käyttöön.",
+      "statusPartial": "Health Connect on yhdistetty osittain. Ota jäljellä oleva käyttöoikeus käyttöön käyttääksesi molempia ominaisuuksia.",
+      "statusProviderUpdateRequired": "Jatka asentamalla tai päivittämällä Health Connect.",
+      "statusUnavailable": "Health Connectia ei tueta tällä laitteella.",
+      "installOrUpdate": "Asenna tai päivitä",
+      "manageAccess": "Hallitse pääsyä",
       "statusPermissionDenied": "Lupa evätty. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista {appLabel}:lle.",
       "statusError": "Virhe Health Connectin asennuksessa: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "Vaikutus painoon",
       "estLoss": "Arvioitu pudotus",
       "estGain": "Arvioitu nousu",
-      "kcal": "kcal"
+      "kcal": "kilokaloria (kcal)"
     },
     "dailySummary": {
       "title": "Päiväkohtainen yhteenveto",
@@ -227,6 +246,8 @@
       "title": "Synkronoi Health Connectiin",
       "description": "Synkronoi ravintotietosi Health Connectiin",
       "install": "Asenna",
+      "dataUseDescription": "Käytä kulutettuja kaloreita tavoitteessasi ja jaa kirjatut ateriat",
+      "installOrUpdate": "Asenna tai päivitä",
       "connect": "Yhdistä"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} lisää",
       "ingredientsLine": "{count} ainesosaa tunnistettu",
       "ingredientsPending": "Skannataan ainesosia…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "”{text}”",
       "offlineTip0": "Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.",
       "offlineTip1": "Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.",
       "offlineTip2": "Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "paunaa (lb)",
     "metricCm": "Metrinen (cm)",
     "imperialFtIn": "Imperiaalinen (ft/in)",
     "metricKg": "Metrinen (kg)",
@@ -472,7 +493,7 @@
       "profile": "PROFIILI",
       "localization": "LOKALISAATIO",
       "notifications": "ILMOITUKSET",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "LAITTEEN OMA ANALYYSI",
       "supportAndLegal": "TUKI & LAINSÄÄDÄNTÖ",
       "about": "TIETOA",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "Tyhjennä kaikki tiedot",
       "subtitle": "Poista kaikki tietosi peruuttamattomasti",
+      "localOnlySubtitle": "Poista tälle laitteelle tallennetut Calorify-tiedot",
       "confirmationTitle": "Tyhjennetäänkö kaikki tiedot?",
       "confirmationMessage": "Tätä toimenpidettä ei voi peruuttaa. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.",
+      "localOnlyConfirmationMessage": "Tämä poistaa kirjatut ateriat, suosikit ja profiiliasetukset pysyvästi tältä laitteelta. Health Connectiin jo jaettuja aterioita ja Health Connectin käyttöoikeuksia hallitaan erikseen kohdassa Asetukset > Health Connect.",
       "cancel": "Peruuta",
       "clearEverything": "Tyhjennä kaikki"
     },
@@ -555,7 +578,13 @@
       "subtitle": "Katso ja hallinnoi käyttöoikeuksia",
       "unavailable": {
         "title": "Health Connect ei saatavilla",
-        "description": "Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan."
+        "description": "Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.",
+        "unsupportedDescription": "Health Connectia ei tueta tällä laitteella."
+      },
+      "updateRequired": {
+        "title": "Health Connect vaatii huomiota",
+        "description": "Asenna tai päivitä Health Connect ennen pääsyn hallintaa.",
+        "action": "Asenna tai päivitä"
       },
       "permissions": {
         "title": "Oikeudet",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Hallitse käyttöoikeuksia",
       "openSettings": "Avaa Health Connect -asetukset",
+      "disconnect": "Katkaise Health Connect -yhteys",
+      "disconnectConfirmationTitle": "Katkaistaanko Health Connect -yhteys?",
+      "disconnectConfirmationMessage": "Calorify menettää Health Connectin käyttöoikeuden. Sinne jo kirjoitettuja tietoja ei poisteta.",
+      "disconnectConfirmationAction": "Katkaise yhteys",
+      "deleteSyncedMeals": "Poista Calorify-ateriat Health Connectista",
+      "deleteSyncedMealsConfirmationTitle": "Poistetaanko synkronoidut ateriat?",
+      "deleteSyncedMealsConfirmationMessage": "Poistetaanko tämän Calorify-version synkronoimat ateriat Health Connectista? Paikallinen aterialoki ei muutu. Vanhemmat Calorify-merkinnät on ehkä edelleen poistettava Health Connectin Hallitse tietoja -toiminnolla.",
+      "deleteSyncedMealsConfirmationAction": "Poista synkronoidut ateriat",
+      "deleteSyncedMealsSuccess": "Calorify-ateriat poistettiin Health Connectista.",
+      "deleteSyncedMealsFailed": "Synkronoituja aterioita ei voitu poistaa. Yritä uudelleen.",
+      "connectionPartial": "Jotkin Health Connect -ominaisuudet ovat käytössä.",
+      "connectionComplete": "Molemmat Health Connect -ominaisuudet ovat käytössä.",
+      "actionFailed": "Health Connectia ei voitu avata. Yritä uudelleen.",
       "requestPermissions": "Pyydä oikeuksia",
       "permissionRequestCancelledOrFailed": "Käyttöoikeuspyyntö keskeytettiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.",
       "permissionRequestFailed": "Oikeuspyyntöä ei voitu lähettää. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.",
@@ -597,6 +639,7 @@
         "description": "Yksityisyys ei ole harkinnanvarainen lisä — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:",
         "noAccounts": "Ei tilejä vaadita\nKäytä sovellusta välittömästi. Ei kirjautumisia, ei identiteettejä.",
         "noTracking": "Ei käytöksen seurantaa\n{appLabel} ei seuraa toimintaasi, rakenna käyttötottumuksia tai seuraa sinua sovellusten tai verkkosivujen välillä.",
+        "analyticsDisclosure": "Rajoitettu analytiikka ja diagnostiikka\n{appLabel} käyttää sovelluksen perustapahtumia ja kaatumisdiagnostiikkaa luotettavuuden parantamiseen. Terveystietojen arvoja ei käytetä mainontaan eikä myydä.",
         "noAds": "Mainokseton suunnittelu\n{appLabel} on rakennettu toimimaan ilman mainoksia tai dataperusteista rahastusta.",
         "noDataSelling": "Ei datan myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.",
         "localStorage": "Laitteella ensisijaisesti tallennus\nTietosi säilyvät laitteellasi.",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify-versio {version}",
       "build": "Koonti {buildNumber}"
     }
   },
