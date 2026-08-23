@@ -168,6 +168,7 @@ void main() {
       400,
       scrollable: find.byType(Scrollable).first,
     );
+    expect(find.text('Beta'), findsOneWidget);
     await tester.tap(setting);
     await tester.pumpAndSettle();
 

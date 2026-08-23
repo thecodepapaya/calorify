@@ -14,6 +14,7 @@ import 'package:calorify/core/services/notification_service.dart';
 import 'package:calorify/core/router/app_router.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/utilities/app_version.dart';
+import 'package:calorify/shared_widgets/app_tag.dart';
 import 'package:calorify/shared_widgets/easter_egg/grass.dart';
 import 'package:calorify/shared_widgets/language_picker_sheet.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
@@ -409,9 +410,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           size: 20,
         ),
       ),
-      title: Text(
-        t.settings.localInference.useLocalTitle,
-        style: const TextStyle(fontWeight: FontWeight.w600),
+      title: Row(
+        children: [
+          Expanded(
+            child: Text(
+              t.settings.localInference.useLocalTitle,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ),
+          const SizedBox(width: 8),
+          const AppTag(label: 'Beta'),
+        ],
       ),
       subtitle: Text(subtitle),
       value: enabled,
