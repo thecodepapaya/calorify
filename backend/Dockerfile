@@ -21,6 +21,7 @@ WORKDIR /app
 
 # USDA bootstrap extracts the official FoodData Central archive at runtime.
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    gosu \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -29,17 +30,19 @@ COPY --chown=node:node --from=build /app/dist ./dist
 COPY --chown=node:node package.json package-lock.json ./
 COPY --chown=node:node migrations ./migrations
 COPY --chown=node:node data/meal_analysis_tips.json ./data/meal_analysis_tips.json
+COPY --chown=root:root docker-entrypoint.sh /usr/local/bin/calorify-entrypoint
 
-RUN mkdir -p /app/data/usda && chown -R node:node /app/data
+RUN chmod 0755 /usr/local/bin/calorify-entrypoint \
+    && mkdir -p /app/data/usda \
+    && chown -R node:node /app/data
 
 ENV NODE_ENV=production
 
-USER node
-
 EXPOSE 8000
 
-# Readiness check (database + materialized USDA dataset)
+# Process liveness. The deployment script separately gates success on /ready.
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:8000/ready', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+  CMD gosu node node -e "require('http').get('http://localhost:8000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
 
+ENTRYPOINT ["/usr/local/bin/calorify-entrypoint"]
 CMD ["node", "dist/index.js"]

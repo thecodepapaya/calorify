@@ -65,7 +65,13 @@ commit.
 
 ## Rollbacks and migrations
 
-Failed health checks automatically restore the image that was running before
-the deployment. Database migrations run during backend startup and are not
-reversed by an image rollback. Keep schema changes backward-compatible with at
-least the previously deployed image.
+Docker liveness uses `GET /health`, including during rollback to an older image.
+The deployment is only successful after `GET /ready` confirms PostgreSQL and the
+active USDA dataset are ready. Failed checks automatically restore the image that
+was running before the deployment. Database migrations run during backend startup
+and are not reversed by an image rollback. Keep schema changes backward-compatible
+with at least the previously deployed image.
+
+The Firebase credential stays read-only on the VM. The container entrypoint copies
+it to a private in-container file, then drops privileges to the `node` user before
+starting the application.
