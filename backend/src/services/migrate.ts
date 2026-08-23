@@ -178,6 +178,7 @@ export async function runMigrations(options: RunMigrationsOptions = {}): Promise
           continue;
         }
         if (recordedChecksum !== checksum) {
+          console.error('Applied migration checksum mismatch:', { migration: file });
           throw new Error(`Applied migration checksum mismatch: ${file}`);
         }
         continue;
