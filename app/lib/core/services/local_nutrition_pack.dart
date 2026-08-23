@@ -124,13 +124,11 @@ class InstalledLocalNutritionPack {
     required this.manifest,
     required this.pack,
     required this.byteSize,
-    required this.generation,
   });
 
   final LocalNutritionPackManifest manifest;
   final LocalNutritionPack pack;
   final int byteSize;
-  final String generation;
 }
 
 Map<String, dynamic> _map(Object? value, String name) {

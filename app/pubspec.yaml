@@ -72,7 +72,6 @@ dependencies:
   flutter_svg: ^2.2.3
   protobuf: ^5.1.0
   fixnum: ^1.1.1
-  cryptography: ^2.9.0
 
   # Shared packages
   specs:

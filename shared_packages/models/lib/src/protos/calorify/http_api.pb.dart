@@ -725,9 +725,6 @@ class LocalNutritionPackManifest extends $pb.GeneratedMessage {
     $core.String? datasetVersion,
     $core.String? objectName,
     $fixnum.Int64? sizeBytes,
-    $core.String? signature,
-    $core.String? signingKeyId,
-    $fixnum.Int64? createdAtEpochMs,
     $core.int? recordCount,
     $core.String? calculationVersion,
   }) {
@@ -737,9 +734,6 @@ class LocalNutritionPackManifest extends $pb.GeneratedMessage {
     if (datasetVersion != null) result.datasetVersion = datasetVersion;
     if (objectName != null) result.objectName = objectName;
     if (sizeBytes != null) result.sizeBytes = sizeBytes;
-    if (signature != null) result.signature = signature;
-    if (signingKeyId != null) result.signingKeyId = signingKeyId;
-    if (createdAtEpochMs != null) result.createdAtEpochMs = createdAtEpochMs;
     if (recordCount != null) result.recordCount = recordCount;
     if (calculationVersion != null)
       result.calculationVersion = calculationVersion;
@@ -765,9 +759,6 @@ class LocalNutritionPackManifest extends $pb.GeneratedMessage {
     ..aOS(3, _omitFieldNames ? '' : 'datasetVersion')
     ..aOS(4, _omitFieldNames ? '' : 'objectName')
     ..aInt64(5, _omitFieldNames ? '' : 'sizeBytes')
-    ..aOS(7, _omitFieldNames ? '' : 'signature')
-    ..aOS(8, _omitFieldNames ? '' : 'signingKeyId')
-    ..aInt64(9, _omitFieldNames ? '' : 'createdAtEpochMs')
     ..aI(10, _omitFieldNames ? '' : 'recordCount',
         fieldType: $pb.PbFieldType.OU3)
     ..aOS(11, _omitFieldNames ? '' : 'calculationVersion')
@@ -839,48 +830,21 @@ class LocalNutritionPackManifest extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearSizeBytes() => $_clearField(5);
 
-  @$pb.TagNumber(7)
-  $core.String get signature => $_getSZ(5);
-  @$pb.TagNumber(7)
-  set signature($core.String value) => $_setString(5, value);
-  @$pb.TagNumber(7)
-  $core.bool hasSignature() => $_has(5);
-  @$pb.TagNumber(7)
-  void clearSignature() => $_clearField(7);
-
-  @$pb.TagNumber(8)
-  $core.String get signingKeyId => $_getSZ(6);
-  @$pb.TagNumber(8)
-  set signingKeyId($core.String value) => $_setString(6, value);
-  @$pb.TagNumber(8)
-  $core.bool hasSigningKeyId() => $_has(6);
-  @$pb.TagNumber(8)
-  void clearSigningKeyId() => $_clearField(8);
-
-  @$pb.TagNumber(9)
-  $fixnum.Int64 get createdAtEpochMs => $_getI64(7);
-  @$pb.TagNumber(9)
-  set createdAtEpochMs($fixnum.Int64 value) => $_setInt64(7, value);
-  @$pb.TagNumber(9)
-  $core.bool hasCreatedAtEpochMs() => $_has(7);
-  @$pb.TagNumber(9)
-  void clearCreatedAtEpochMs() => $_clearField(9);
-
   @$pb.TagNumber(10)
-  $core.int get recordCount => $_getIZ(8);
+  $core.int get recordCount => $_getIZ(5);
   @$pb.TagNumber(10)
-  set recordCount($core.int value) => $_setUnsignedInt32(8, value);
+  set recordCount($core.int value) => $_setUnsignedInt32(5, value);
   @$pb.TagNumber(10)
-  $core.bool hasRecordCount() => $_has(8);
+  $core.bool hasRecordCount() => $_has(5);
   @$pb.TagNumber(10)
   void clearRecordCount() => $_clearField(10);
 
   @$pb.TagNumber(11)
-  $core.String get calculationVersion => $_getSZ(9);
+  $core.String get calculationVersion => $_getSZ(6);
   @$pb.TagNumber(11)
-  set calculationVersion($core.String value) => $_setString(9, value);
+  set calculationVersion($core.String value) => $_setString(6, value);
   @$pb.TagNumber(11)
-  $core.bool hasCalculationVersion() => $_has(9);
+  $core.bool hasCalculationVersion() => $_has(6);
   @$pb.TagNumber(11)
   void clearCalculationVersion() => $_clearField(11);
 }

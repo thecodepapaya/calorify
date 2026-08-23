@@ -2,13 +2,11 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 
 import type { CacheableNutritionRecord } from '../protos/calorify/http_api.js';
-import {
-  LOCAL_NUTRITION_CALCULATION_VERSION,
-  LOCAL_NUTRITION_PACK_SCHEMA_VERSION,
-  signLocalNutritionManifest,
-} from '../services/localNutritionPack.js';
 import { resolveLocalNutritionLookups } from '../services/localNutritionResolver.js';
 import { normalizeUsdaTerm } from '../services/usdaLookupUtils.js';
+
+const PACK_SCHEMA_VERSION = 1;
+const CALCULATION_VERSION = 'local-macro-v1';
 
 type SelectionEntry = {
   canonicalHint: string;
@@ -19,17 +17,10 @@ type Selection = {
   schemaVersion: number;
   packVersion: string;
   datasetVersion: string;
-  createdAtEpochMs: number;
-  signingKeyId: string;
   objectPrefix: string;
   coverageTarget: number;
   entries: SelectionEntry[];
 };
-
-function required(value: string | undefined, name: string): string {
-  if (!value?.trim()) throw new Error(`${name} is required`);
-  return value;
-}
 
 function stableJson(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`;
@@ -44,8 +35,6 @@ function assertSelection(value: unknown): asserts value is Selection {
     selection.schemaVersion !== 1 ||
     !selection.packVersion ||
     !selection.datasetVersion ||
-    !Number.isSafeInteger(selection.createdAtEpochMs) ||
-    !selection.signingKeyId ||
     !selection.objectPrefix ||
     typeof selection.coverageTarget !== 'number' ||
     selection.coverageTarget <= 0 ||
@@ -81,9 +70,6 @@ async function main(): Promise<void> {
   const outputDirectory = resolve(
     process.argv[3] ?? 'data/local_nutrition/build'
   );
-  const privateKeyPath = resolve(
-    required(process.env.LOCAL_NUTRITION_SIGNING_PRIVATE_KEY_PATH, 'LOCAL_NUTRITION_SIGNING_PRIVATE_KEY_PATH')
-  );
   const selectionJson: unknown = JSON.parse(await readFile(selectionPath, 'utf8'));
   assertSelection(selectionJson);
   const selection = selectionJson;
@@ -109,30 +95,23 @@ async function main(): Promise<void> {
   }).sort((a, b) => a.fdcId.localeCompare(b.fdcId));
 
   const pack = {
-    schemaVersion: LOCAL_NUTRITION_PACK_SCHEMA_VERSION,
+    schemaVersion: PACK_SCHEMA_VERSION,
     packVersion: selection.packVersion,
     datasetVersion: selection.datasetVersion,
-    calculationVersion: LOCAL_NUTRITION_CALCULATION_VERSION,
+    calculationVersion: CALCULATION_VERSION,
     records,
   };
   const packBytes = Buffer.from(stableJson(pack), 'utf8');
   const objectName = `${selection.objectPrefix.replace(/\/$/, '')}/${selection.packVersion}.json`;
-  const privateKey = await readFile(privateKeyPath, 'utf8');
-  const manifest = signLocalNutritionManifest(
-    {
-      schemaVersion: LOCAL_NUTRITION_PACK_SCHEMA_VERSION,
-      packVersion: selection.packVersion,
-      datasetVersion: selection.datasetVersion,
-      objectName,
-      sizeBytes: packBytes.length,
-      signingKeyId: selection.signingKeyId,
-      createdAtEpochMs: selection.createdAtEpochMs,
-      recordCount: records.length,
-      calculationVersion: LOCAL_NUTRITION_CALCULATION_VERSION,
-    },
-    packBytes,
-    privateKey
-  );
+  const manifest = {
+    schemaVersion: PACK_SCHEMA_VERSION,
+    packVersion: selection.packVersion,
+    datasetVersion: selection.datasetVersion,
+    objectName,
+    sizeBytes: packBytes.length,
+    recordCount: records.length,
+    calculationVersion: CALCULATION_VERSION,
+  };
 
   await mkdir(outputDirectory, { recursive: true });
   await writeFile(join(outputDirectory, `${selection.packVersion}.json`), packBytes);
