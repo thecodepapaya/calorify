@@ -45,7 +45,7 @@ The deployment user needs:
 - outbound HTTPS access to `ghcr.io`.
 
 The VM does not need a Git checkout. Each deployment copies only the Compose
-file and deployment scripts into `CALORIFY_DEPLOY_PATH/backend`; runtime env
+file and deployment script into `CALORIFY_DEPLOY_PATH/backend`; runtime env
 files and credentials remain on the VM.
 
 No permanent registry credential is stored on the VM. Each deployment sends

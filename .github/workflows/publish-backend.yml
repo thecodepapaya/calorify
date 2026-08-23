@@ -15,7 +15,6 @@ on:
       - "backend/migrations/**"
       - "backend/data/meal_analysis_tips.json"
       - "backend/scripts/deploy-container.sh"
-      - "backend/scripts/deploy-staging.sh"
       - "protos/**"
       - ".github/workflows/backend-checks.yml"
       - ".github/workflows/publish-backend.yml"
@@ -129,9 +128,7 @@ jobs:
           printf -v ghcr_username_q '%q' "$GHCR_USERNAME"
           tar -C backend -cf - \
             docker-compose.yml \
-            scripts/deploy-container.sh \
-            scripts/deploy-production.sh \
-            scripts/deploy-staging.sh | \
+            scripts/deploy-container.sh | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
               -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               "$SSH_USER@$SSH_HOST" \
@@ -140,4 +137,4 @@ jobs:
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
               -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               "$SSH_USER@$SSH_HOST" \
-              "cd $backend_path_q && GHCR_USERNAME=$ghcr_username_q ./scripts/deploy-staging.sh $image_q"
+              "cd $backend_path_q && GHCR_USERNAME=$ghcr_username_q ./scripts/deploy-container.sh staging $image_q"
