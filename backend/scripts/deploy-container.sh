@@ -69,6 +69,19 @@ run_docker() {
   fi
 }
 
+show_container_diagnostics() {
+  echo "Diagnostics for $container_name:" >&2
+  run_docker container inspect --format \
+    'status={{.State.Status}} running={{.State.Running}} exit_code={{.State.ExitCode}} oom_killed={{.State.OOMKilled}} health={{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}} error={{json .State.Error}}' \
+    "$container_name" >&2 || true
+  echo "Recent health-check output:" >&2
+  run_docker container inspect --format \
+    '{{if .State.Health}}{{range .State.Health.Log}}{{println .End "exit_code=" .ExitCode .Output}}{{end}}{{else}}No container health check is configured.{{end}}' \
+    "$container_name" >&2 || true
+  echo "Recent application logs:" >&2
+  run_docker logs --tail 120 "$container_name" >&2 || true
+}
+
 registry_config_dir=""
 cleanup_registry_auth() {
   if [[ -n "$registry_config_dir" && -d "$registry_config_dir" ]]; then
@@ -106,6 +119,7 @@ if run_docker compose --profile "$profile" up \
 fi
 
 echo "Calorify $deployment_environment deployment failed health checks" >&2
+show_container_diagnostics
 if [[ -n "$previous_image" && "$previous_image" != "$image_ref" ]]; then
   echo "Restoring the previous backend image: $previous_image" >&2
   export BACKEND_IMAGE="$previous_image"
@@ -114,6 +128,7 @@ if [[ -n "$previous_image" && "$previous_image" != "$image_ref" ]]; then
     echo "Rollback completed successfully" >&2
   else
     echo "Rollback also failed; inspect $container_name and its dependencies immediately" >&2
+    show_container_diagnostics
   fi
 else
   echo "No distinct previous image was available for rollback" >&2
