@@ -1,4 +1,4 @@
-name: Verify backend
+name: CI / Backend
 
 on:
   workflow_call:
@@ -7,15 +7,14 @@ on:
     paths:
       - "backend/**"
       - "protos/**"
-      - ".github/workflows/backend-checks.yml"
-      - ".github/workflows/deploy-backend.yml"
-      - ".github/workflows/publish-backend.yml"
+      - ".github/workflows/ci-backend.yml"
 
 permissions:
   contents: read
 
 jobs:
-  verify:
+  verify-backend:
+    name: Verify backend
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -38,14 +37,23 @@ jobs:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 20
           cache: npm
           cache-dependency-path: backend/package-lock.json
-      - run: npm ci
-      - run: npm run type-check
-      - run: npm run lint
-      - run: npm run test:coverage
-      - run: docker build -t calorify-backend-ci .
+      - name: Install dependencies
+        run: npm ci
+      - name: Type-check
+        run: npm run type-check
+      - name: Lint
+        run: npm run lint
+      - name: Test with coverage
+        run: npm run test:coverage
+      - name: Build production container
+        run: docker build -t calorify-backend-ci .

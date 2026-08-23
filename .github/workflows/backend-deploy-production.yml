@@ -1,0 +1,23 @@
+name: Backend / Deploy production
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Published GHCR tag (sha- followed by the full 40-character commit SHA)"
+        required: true
+        type: string
+
+run-name: Backend / Deploy production (${{ inputs.image_tag }})
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  deploy-production:
+    name: Deploy production
+    uses: ./.github/workflows/backend-deploy.yml
+    with:
+      target: production
+      image_tag: ${{ inputs.image_tag }}

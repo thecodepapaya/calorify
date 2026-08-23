@@ -1,0 +1,126 @@
+name: CI / Flutter
+
+on:
+  pull_request:
+    paths:
+      - "app/**"
+      - "watch_app/**"
+      - "shared_packages/**"
+      - "protos/**"
+      - "scripts/audit_translations.py"
+      - "scripts/check_lcov_coverage.py"
+      - ".github/actions/verify-phone/**"
+      - ".github/workflows/ci-flutter.yml"
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "watch_app/**"
+      - "shared_packages/**"
+      - "protos/**"
+      - "scripts/audit_translations.py"
+      - "scripts/check_lcov_coverage.py"
+      - ".github/actions/verify-phone/**"
+      - ".github/workflows/ci-flutter.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  packages:
+    name: Verify shared packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          flutter-version: "3.41.0"
+          channel: stable
+          cache: true
+      - name: Verify shared packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          for package in i18n models services specs utils widgets; do
+            printf '::group::shared_packages/%s\n' "$package"
+            (
+              cd "shared_packages/$package"
+              flutter pub get
+              flutter analyze --no-pub
+              if [ -d test ]; then
+                flutter test --no-pub --concurrency=1
+              fi
+            )
+            printf '::endgroup::\n'
+          done
+
+  phone:
+    name: Verify phone app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Verify phone app
+        uses: ./.github/actions/verify-phone
+      - name: Set up Java
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Reclaim unused hosted-runner toolchains
+        run: >-
+          sudo rm -rf /opt/hostedtoolcache/CodeQL /usr/share/dotnet
+          /opt/ghc /usr/local/share/boost
+      - name: Reclaim test build artifacts before APK build
+        run: flutter clean
+        working-directory: app
+      - name: Restore phone dependencies
+        run: flutter pub get
+        working-directory: app
+      - name: Build phone Android debug app
+        run: flutter build apk --debug --flavor dev --no-pub
+        working-directory: app
+        timeout-minutes: 30
+
+  watch:
+    name: Verify watch app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Java
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Set up Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          flutter-version: "3.41.0"
+          channel: stable
+          cache: true
+      - name: Validate translation catalogs
+        run: python3 scripts/audit_translations.py
+      - name: Install watch dependencies
+        run: flutter pub get
+        working-directory: watch_app
+      - name: Analyze watch app
+        run: flutter analyze
+        working-directory: watch_app
+      - name: Test watch app
+        run: flutter test --coverage --concurrency=1
+        working-directory: watch_app
+      - name: Enforce watch coverage baseline
+        run: python3 scripts/check_lcov_coverage.py watch_app/coverage/lcov.info --minimum 25
+      - name: Build watch Android debug app
+        run: flutter build apk --debug --no-pub
+        working-directory: watch_app

@@ -1,0 +1,35 @@
+name: Verify phone app
+description: Run the canonical translation, analysis, test, and coverage checks for the phone app.
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Flutter
+      uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+      with:
+        flutter-version: "3.41.0"
+        channel: stable
+        cache: true
+
+    - name: Validate translation catalogs
+      shell: bash
+      run: python3 scripts/audit_translations.py
+
+    - name: Install phone dependencies
+      shell: bash
+      working-directory: app
+      run: flutter pub get
+
+    - name: Analyze phone app
+      shell: bash
+      working-directory: app
+      run: flutter analyze
+
+    - name: Test phone app
+      shell: bash
+      working-directory: app
+      run: flutter test --coverage test/unit test/widget --concurrency=1
+
+    - name: Enforce phone coverage baseline
+      shell: bash
+      run: python3 scripts/check_lcov_coverage.py app/coverage/lcov.info --minimum 25

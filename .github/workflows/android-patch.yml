@@ -1,0 +1,63 @@
+name: Android / Shorebird patch
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: Exact Shorebird release version to patch (for example, 1.2.3+45)
+        required: true
+        type: string
+
+run-name: Android / Patch ${{ inputs.release_version }}
+
+concurrency:
+  group: calorify-android-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  patch-phone:
+    name: Patch phone app
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Validate release version
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+$ ]]; then
+            printf 'release_version must use the form 1.2.3+45\n' >&2
+            exit 1
+          fi
+
+      - name: Prepare Android release
+        uses: ./.github/actions/prepare-android-release
+        with:
+          android-keystore-b64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          android-key-properties-b64: ${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}
+          oracle-bucket-upload-url: ${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+          measure-api-key: ${{ secrets.MEASURE_API_KEY }}
+          shorebird-token: ${{ secrets.SHOREBIRD_TOKEN }}
+
+      - name: Create Shorebird Android patch
+        uses: shorebirdtech/shorebird-patch@4437c3d4f9bf07ca32da005a13d95dd802ebcd22 # v1
+        env:
+          MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
+        with:
+          platform: android
+          release-version: ${{ inputs.release_version }}
+          args: >-
+            --flavor=prod
+            --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+            --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
+          working-directory: app

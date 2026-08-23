@@ -25,6 +25,7 @@ Use this page to find the document that matches the work you are doing.
 
 ## Other references
 
+- [GitHub Actions](../.github/README.md)
 - [Shared Flutter packages](../shared_packages/README.md)
 - [Wear OS audit tracker](../watch_app/AUDIT_TRACKER.md)
 - [Play Store metadata](../fastlane/metadata/README.md)

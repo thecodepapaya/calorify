@@ -1,0 +1,111 @@
+name: Android / Release to Play
+
+on:
+  workflow_dispatch:
+    inputs:
+      track:
+        description: Google Play track
+        required: true
+        default: internal
+        type: choice
+        options: [internal, beta, production]
+      release_status:
+        description: Google Play release status
+        required: true
+        default: completed
+        type: choice
+        options: [draft, completed]
+
+run-name: Android / Release to ${{ inputs.track }}
+
+concurrency:
+  group: calorify-android-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify-phone:
+    name: Verify phone app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Verify phone app
+        uses: ./.github/actions/verify-phone
+      # Golden images are generated on macOS and differ at the font rasterizer
+      # level on Linux. They remain part of the local pre-release suite.
+
+  release-phone:
+    name: Release phone app
+    needs: verify-phone
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
+      PLAY_TRACK: ${{ inputs.track }}
+      PLAY_RELEASE_STATUS: ${{ inputs.release_status }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Free disk space for Shorebird Android build
+        run: |
+          set -euo pipefail
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          docker system prune --all --force
+          df -h /
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
+        with:
+          ruby-version: "3.2.0"
+          bundler-cache: true
+
+      - name: Prepare Android release
+        uses: ./.github/actions/prepare-android-release
+        with:
+          android-keystore-b64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          android-key-properties-b64: ${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}
+          oracle-bucket-upload-url: ${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+          measure-api-key: ${{ secrets.MEASURE_API_KEY }}
+          shorebird-token: ${{ secrets.SHOREBIRD_TOKEN }}
+
+      - name: Validate Google Play credentials
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
+
+      - name: Validate Google Play version code
+        run: bundle exec fastlane android validate_version_code
+        env:
+          PLAY_PUBSPEC_PATH: ${{ github.workspace }}/app/pubspec.yaml
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+
+      - name: Build Android AppBundle with Shorebird
+        uses: shorebirdtech/shorebird-release@fb52cad53f4ed5ce39883d51a26916ead502b93d # v1
+        env:
+          MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
+        with:
+          platform: android
+          args: >-
+            --flavor=prod
+            --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
+            --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
+          working-directory: app
+          flutter-version: "3.41.0"
+
+      - name: Upload to Play Store
+        run: bundle exec fastlane android release
+        env:
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}

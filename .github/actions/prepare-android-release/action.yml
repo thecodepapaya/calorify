@@ -1,0 +1,79 @@
+name: Prepare Android release
+description: Set up Java, Android caches, signing credentials, and Shorebird for a production phone build.
+
+inputs:
+  android-keystore-b64:
+    description: Base64-encoded Android upload keystore.
+    required: true
+  android-key-properties-b64:
+    description: Base64-encoded Android signing properties.
+    required: true
+  oracle-bucket-upload-url:
+    description: Pre-authenticated upload URL embedded in the production app.
+    required: true
+  measure-api-key:
+    description: Measure API key embedded in the production app.
+    required: true
+  shorebird-token:
+    description: Shorebird authentication token.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Java
+      uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+      with:
+        distribution: temurin
+        java-version: "17"
+
+    - name: Cache Gradle dependencies
+      uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Prepare Android SDK build cache
+      shell: bash
+      run: sudo install -d -m 0777 /usr/local/lib/android/sdk/build-cache
+
+    - name: Cache Android SDK build cache
+      uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+      with:
+        path: /usr/local/lib/android/sdk/build-cache
+        key: ${{ runner.os }}-android-sdk-build-cache
+
+    - name: Validate Android release credentials
+      shell: bash
+      env:
+        ANDROID_KEYSTORE_B64: ${{ inputs.android-keystore-b64 }}
+        ANDROID_KEY_PROPERTIES_B64: ${{ inputs.android-key-properties-b64 }}
+        ORACLE_BUCKET_UPLOAD_URL: ${{ inputs.oracle-bucket-upload-url }}
+        MEASURE_API_KEY: ${{ inputs.measure-api-key }}
+        SHOREBIRD_TOKEN: ${{ inputs.shorebird-token }}
+      run: |
+        set -euo pipefail
+        : "${ANDROID_KEYSTORE_B64:?Missing ANDROID_KEYSTORE_B64}"
+        : "${ANDROID_KEY_PROPERTIES_B64:?Missing ANDROID_KEY_PROPERTIES_B64}"
+        : "${ORACLE_BUCKET_UPLOAD_URL:?Missing ORACLE_BUCKET_UPLOAD_URL}"
+        : "${MEASURE_API_KEY:?Missing MEASURE_API_KEY}"
+        : "${SHOREBIRD_TOKEN:?Missing SHOREBIRD_TOKEN}"
+
+    - name: Decode Android signing files
+      shell: bash
+      env:
+        ANDROID_KEYSTORE_B64: ${{ inputs.android-keystore-b64 }}
+        ANDROID_KEY_PROPERTIES_B64: ${{ inputs.android-key-properties-b64 }}
+      run: |
+        set -euo pipefail
+        printf '%s' "$ANDROID_KEYSTORE_B64" | base64 --decode > app/android/app/upload-keystore.jks
+        printf '%s' "$ANDROID_KEY_PROPERTIES_B64" | base64 --decode > app/android/key.properties
+
+    - name: Set up Shorebird
+      uses: shorebirdtech/setup-shorebird@4dd9d7dc2d7930bfeadb053b6e94b5110779d1e5 # v1
+      with:
+        cache: true

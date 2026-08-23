@@ -1,4 +1,4 @@
-name: Promote Phone App Release
+name: Android / Promote Play release
 
 on:
   workflow_dispatch:
@@ -26,35 +26,46 @@ on:
         type: choice
         options: [draft, completed]
 
+run-name: Android / Promote ${{ inputs.source_track }} to ${{ inputs.target_track }}
+
 concurrency:
-  group: calorify-phone-store-release
+  group: calorify-android-release
   cancel-in-progress: false
 
 permissions:
   contents: read
 
 jobs:
-  promote-android-phone-app:
+  promote-phone:
+    name: Promote phone release
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
         with:
           ruby-version: "3.2.0"
           bundler-cache: true
 
-      - name: Validate release credentials
+      - name: Validate promotion request
         env:
           GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          PLAY_SOURCE_TRACK: ${{ inputs.source_track }}
+          PLAY_TARGET_TRACK: ${{ inputs.target_track }}
         run: |
           set -euo pipefail
           : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
+          if [[ "$PLAY_SOURCE_TRACK" == "$PLAY_TARGET_TRACK" ]]; then
+            printf 'source_track and target_track must differ\n' >&2
+            exit 1
+          fi
 
-      - name: Promote tested Phone release
+      - name: Promote tested phone release
         run: bundle exec fastlane android promote_phone
         env:
           PLAY_SOURCE_TRACK: ${{ inputs.source_track }}

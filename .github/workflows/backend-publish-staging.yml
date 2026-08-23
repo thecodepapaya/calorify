@@ -1,0 +1,111 @@
+name: Backend / Publish and deploy staging
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/.dockerignore"
+      - "backend/Dockerfile"
+      - "backend/docker-compose.yml"
+      - "backend/docker-entrypoint.sh"
+      - "backend/package.json"
+      - "backend/package-lock.json"
+      - "backend/tsconfig.json"
+      - "backend/src/**"
+      - "backend/migrations/**"
+      - "backend/postgres/usda-init.sh"
+      - "backend/loki/**"
+      - "backend/data/meal_analysis_tips.json"
+      - "backend/scripts/deploy-container.sh"
+      - "protos/**"
+      - ".github/workflows/ci-backend.yml"
+      - ".github/workflows/backend-deploy.yml"
+      - ".github/workflows/backend-publish-staging.yml"
+
+concurrency:
+  group: calorify-backend-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-backend:
+    name: Verify backend
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci-backend.yml
+
+  publish-image:
+    name: Publish backend image
+    needs: verify-backend
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up ARM64 emulation
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate image metadata
+        id: metadata
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/calorify-backend
+          tags: |
+            type=sha,format=long,prefix=sha-
+            type=raw,value=latest
+          labels: |
+            org.opencontainers.image.title=Calorify Backend
+            org.opencontainers.image.description=Calorify API backend
+
+      - name: Build and publish production image
+        id: build
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7
+        with:
+          context: backend
+          file: backend/Dockerfile
+          target: production
+          platforms: linux/arm64
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+          cache-from: type=gha,scope=calorify-backend
+          cache-to: type=gha,mode=max,scope=calorify-backend
+          provenance: mode=max
+          sbom: true
+
+      - name: Summarize published image
+        env:
+          IMAGE_REPOSITORY: ghcr.io/${{ github.repository_owner }}/calorify-backend
+          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          {
+            printf '### Backend container published\n\n'
+            printf -- '- Deploy tag: `%s:sha-%s`\n' "${IMAGE_REPOSITORY,,}" "$GITHUB_SHA"
+            printf -- '- Digest: `%s`\n' "$IMAGE_DIGEST"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-staging:
+    name: Deploy staging
+    needs: publish-image
+    permissions:
+      contents: read
+      packages: read
+    uses: ./.github/workflows/backend-deploy.yml
+    with:
+      target: staging
+      image_tag: sha-${{ github.sha }}

@@ -11,7 +11,7 @@ application data and one shared, read-only USDA reference database:
 ```text
 GitHub Actions ──publish──> ghcr.io/thecodepapaya/calorify-backend
        │
-       ├──automatic latest──> backend-staging ──> db-staging
+       ├──automatic sha-*───> backend-staging ──> db-staging
        │                              └──────────> db-usda (reader)
        │
        └──manual sha-*──────> backend-prod ─────> db-prod
@@ -44,17 +44,19 @@ USDA database.
 
 The backend follows build-once, deploy-many:
 
-1. A backend-related push to `main` starts `Publish backend container`.
+1. A backend-related push to `main` starts
+   `Backend / Publish and deploy staging`.
 2. GitHub runs dependency installation, type-checking, linting, coverage tests,
    and a production Docker build.
 3. GitHub builds the VM's required `linux/arm64` image and publishes both
    `latest` and `sha-<full-commit-sha>` to GHCR.
-4. The workflow automatically deploys `latest` to staging.
-5. Production is deployed by manually running `Deploy backend to production`
+4. The workflow automatically deploys that commit's immutable `sha-*` tag to
+   staging.
+5. Production is deployed by manually running `Backend / Deploy production`
    with the exact full `sha-<40 lowercase hex characters>` tag.
 
-Production rejects moving or shortened tags. Staging intentionally tracks
-`latest`.
+Both targets reject moving or shortened tags. The publisher retains `latest`
+as a convenience tag, but deployment never consumes it.
 
 The VM never pulls source code. Each deployment transfers only:
 
@@ -69,8 +71,9 @@ credentials remain on the VM and are never copied back to GitHub.
 
 ## GitHub configuration
 
-Both workflows use the GitHub deployment environment named `production`
-because both targets use the same VM. It permits only `main` and contains:
+The shared deployment workflow uses the GitHub deployment environment named
+`production` for both targets because they use the same VM. It permits only
+`main` and contains:
 
 - `CALORIFY_SSH_HOST`
 - `CALORIFY_SSH_PORT` (optional; defaults to `22`)
