@@ -437,6 +437,7 @@ class _Translations$common$ar extends Translations$common$en {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'تجريبي';
 	@override String get close => 'إغلاق';
 	@override String get kContinue => 'استمر';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsAr {
 			'watch.result.goingBack' => 'العودة…',
 			'watch.result.savedOfflineMessage' => 'تم حفظ الوجبة دون اتصال. ستتم مزامنتها عندما يعاود هاتفك الاتصال.',
 			'watch.result.saveFailed' => 'تعذّر حفظ الوجبة. الرجاء المحاولة مرة أخرى.',
+			'common.betaTag' => 'تجريبي',
 			'common.close' => 'إغلاق',
 			'common.kContinue' => 'استمر',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'هل تستمتع بـ ${appLabel}؟',

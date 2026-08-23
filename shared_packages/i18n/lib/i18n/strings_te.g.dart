@@ -437,6 +437,7 @@ class _Translations$common$te extends Translations$common$en {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'బీటా';
 	@override String get close => 'మూసివేయి';
 	@override String get kContinue => 'కొనసాగించు';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsTe {
 			'watch.result.goingBack' => 'వెనుకకు వెళ్తోంది…',
 			'watch.result.savedOfflineMessage' => 'భోజనం ఆఫ్‌లైన్‌లో సేవ్ చేయబడింది. మీ ఫోన్ మళ్లీ కనెక్ట్ అయినప్పుడు అది సమకాలీకరించబడుతుంది.',
 			'watch.result.saveFailed' => 'భోజనాన్ని సేవ్ చేయలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.',
+			'common.betaTag' => 'బీటా',
 			'common.close' => 'మూసివేయి',
 			'common.kContinue' => 'కొనసాగించు',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} ఆనందిస్తున్నారా?',

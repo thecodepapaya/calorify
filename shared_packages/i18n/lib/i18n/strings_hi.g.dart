@@ -437,6 +437,7 @@ class _Translations$common$hi extends Translations$common$en {
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'बीटा';
 	@override String get close => 'बंद करें';
 	@override String get kContinue => 'जारी रखें';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsHi {
 			'watch.result.goingBack' => 'वापस जा रहे हैं…',
 			'watch.result.savedOfflineMessage' => 'भोजन ऑफ़लाइन सहेजा गया। यह आपके फोन के पुनः कनेक्ट होते ही सिंक हो जाएगा।',
 			'watch.result.saveFailed' => 'भोजन सहेजा नहीं जा सका। कृपया फिर से प्रयास करें।',
+			'common.betaTag' => 'बीटा',
 			'common.close' => 'बंद करें',
 			'common.kContinue' => 'जारी रखें',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} का आनंद ले रहे हैं?',

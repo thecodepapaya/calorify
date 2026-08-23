@@ -9,12 +9,12 @@ import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/meal_image.dart';
+import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/shared_widgets/base_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:i18n/i18n.dart';
 import 'package:models/models.dart';
-import 'package:utils/utils.dart';
 import 'package:widgets/widgets.dart';
 
 Future<void> showEditMealSheet(
@@ -257,7 +257,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
                         .map(
                           (type) => DropdownMenuItem(
                             value: type,
-                            child: Text(type.legacyName.capitalized),
+                            child: Text(type.displayName),
                           ),
                         )
                         .toList(),

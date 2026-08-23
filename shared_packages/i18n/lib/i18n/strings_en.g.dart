@@ -752,6 +752,9 @@ class Translations$common$en {
 
 	// Translations
 
+	/// en: 'Beta'
+	String get betaTag => 'Beta';
+
 	/// en: 'Close'
 	String get close => 'Close';
 
@@ -4125,6 +4128,7 @@ extension on Translations {
 			'watch.result.goingBack' => 'Going back…',
 			'watch.result.savedOfflineMessage' => 'Meal saved offline. It will sync when your phone reconnects.',
 			'watch.result.saveFailed' => 'Could not save the meal. Please try again.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Close',
 			'common.kContinue' => 'Continue',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Enjoying ${appLabel}?',

@@ -437,6 +437,7 @@ class _Translations$common$tr extends Translations$common$en {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Kapat';
 	@override String get kContinue => 'Devam';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsTr {
 			'watch.result.goingBack' => 'Geri dönülüyor…',
 			'watch.result.savedOfflineMessage' => 'Yemek çevrimdışı kaydedildi. Telefonunuz tekrar bağlandığında eşitlenecek.',
 			'watch.result.saveFailed' => 'Yemek kaydedilemedi. Lütfen tekrar deneyin.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Kapat',
 			'common.kContinue' => 'Devam',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} hoşunuza gidiyor mu?',

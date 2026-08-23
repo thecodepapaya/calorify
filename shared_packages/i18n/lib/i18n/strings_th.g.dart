@@ -437,6 +437,7 @@ class _Translations$common$th extends Translations$common$en {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'เบต้า';
 	@override String get close => 'ปิด';
 	@override String get kContinue => 'ดำเนินการต่อ';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsTh {
 			'watch.result.goingBack' => 'กำลังกลับ…',
 			'watch.result.savedOfflineMessage' => 'มื้ออาหารถูกบันทึกแบบออฟไลน์ จะซิงค์เมื่อโทรศัพท์ของคุณเชื่อมต่ออีกครั้ง',
 			'watch.result.saveFailed' => 'ไม่สามารถบันทึกมื้ออาหารได้ กรุณาลองอีกครั้ง',
+			'common.betaTag' => 'เบต้า',
 			'common.close' => 'ปิด',
 			'common.kContinue' => 'ดำเนินการต่อ',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'ชอบ ${appLabel} ไหม?',

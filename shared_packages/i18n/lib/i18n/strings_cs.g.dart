@@ -437,6 +437,7 @@ class _Translations$common$cs extends Translations$common$en {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Zavřít';
 	@override String get kContinue => 'Pokračovat';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsCs {
 			'watch.result.goingBack' => 'Vrátit se…',
 			'watch.result.savedOfflineMessage' => 'Jídlo uloženo offline. Synchronizuje se, až se telefon znovu připojí.',
 			'watch.result.saveFailed' => 'Nepodařilo se uložit jídlo. Zkuste to prosím znovu.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Zavřít',
 			'common.kContinue' => 'Pokračovat',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Líbí se vám ${appLabel}?',

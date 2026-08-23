@@ -419,7 +419,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
           const SizedBox(width: 8),
-          const AppTag(label: 'Beta'),
+          AppTag(label: t.common.betaTag),
         ],
       ),
       subtitle: Text(subtitle),

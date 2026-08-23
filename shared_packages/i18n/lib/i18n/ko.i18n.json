@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "베타",
     "close": "닫기",
     "continue": "계속"
   },

@@ -437,6 +437,7 @@ class _Translations$common$da extends Translations$common$en {
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Luk';
 	@override String get kContinue => 'Fortsæt';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsDa {
 			'watch.result.goingBack' => 'Går tilbage…',
 			'watch.result.savedOfflineMessage' => 'Måltid gemt offline. Det synkroniseres, når din telefon genopretter forbindelsen.',
 			'watch.result.saveFailed' => 'Kunne ikke gemme måltidet. Prøv igen.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Luk',
 			'common.kContinue' => 'Fortsæt',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nyder du ${appLabel}?',

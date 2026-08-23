@@ -437,6 +437,7 @@ class _Translations$common$el extends Translations$common$en {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Δοκιμαστική';
 	@override String get close => 'Κλείσιμο';
 	@override String get kContinue => 'Συνέχεια';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsEl {
 			'watch.result.goingBack' => 'Επιστροφή…',
 			'watch.result.savedOfflineMessage' => 'Το γεύμα αποθηκεύτηκε εκτός σύνδεσης. Θα συγχρονιστεί όταν το τηλέφωνό σας επανασυνδεθεί.',
 			'watch.result.saveFailed' => 'Δεν ήταν δυνατή η αποθήκευση του γεύματος. Προσπαθήστε ξανά.',
+			'common.betaTag' => 'Δοκιμαστική',
 			'common.close' => 'Κλείσιμο',
 			'common.kContinue' => 'Συνέχεια',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Σας αρέσει το ${appLabel};',

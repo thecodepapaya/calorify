@@ -437,6 +437,7 @@ class _Translations$common$ru extends Translations$common$en {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Бета';
 	@override String get close => 'Закрыть';
 	@override String get kContinue => 'Продолжить';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsRu {
 			'watch.result.goingBack' => 'Возврат…',
 			'watch.result.savedOfflineMessage' => 'Приём пищи сохранён локально. Он синхронизируется, когда телефон подключится.',
 			'watch.result.saveFailed' => 'Не удалось сохранить приём пищи. Попробуйте ещё раз.',
+			'common.betaTag' => 'Бета',
 			'common.close' => 'Закрыть',
 			'common.kContinue' => 'Продолжить',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Нравится ${appLabel}?',

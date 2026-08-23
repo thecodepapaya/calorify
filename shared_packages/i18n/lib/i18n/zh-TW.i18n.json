@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "測試版",
     "close": "關閉",
     "continue": "繼續"
   },

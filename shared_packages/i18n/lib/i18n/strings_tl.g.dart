@@ -437,6 +437,7 @@ class _Translations$common$tl extends Translations$common$en {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Isara';
 	@override String get kContinue => 'Magpatuloy';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsTl {
 			'watch.result.goingBack' => 'Babalik…',
 			'watch.result.savedOfflineMessage' => 'Na-save ang pagkain offline. Mag-sync ito kapag nag-reconnect ang telepono.',
 			'watch.result.saveFailed' => 'Hindi masave ang pagkain. Pakisubukang muli.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Isara',
 			'common.kContinue' => 'Magpatuloy',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Nagugustuhan mo ba ang ${appLabel}?',

@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "Béta",
     "close": "Bezárás",
     "continue": "Folytatás"
   },

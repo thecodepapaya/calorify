@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "גרסת בטא",
     "close": "סגור",
     "continue": "המשך"
   },

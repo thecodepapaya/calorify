@@ -185,7 +185,7 @@ class AppBannerShell extends ConsumerWidget {
                         await launchUrl(uri, mode: LaunchMode.externalApplication);
                       }
                     },
-                    child: const Text('Learn more'),
+                    child: Text(t.feedbackRating.aboutUsLinkLabel),
                   ),
                 ),
             ],

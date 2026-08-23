@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "Bèta",
     "close": "Sluiten",
     "continue": "Doorgaan"
   },

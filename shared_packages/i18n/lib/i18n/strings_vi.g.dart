@@ -437,6 +437,7 @@ class _Translations$common$vi extends Translations$common$en {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Bản beta';
 	@override String get close => 'Đóng';
 	@override String get kContinue => 'Tiếp tục';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsVi {
 			'watch.result.goingBack' => 'Đang quay lại…',
 			'watch.result.savedOfflineMessage' => 'Bữa ăn đã lưu ngoại tuyến. Sẽ đồng bộ khi điện thoại kết nối lại.',
 			'watch.result.saveFailed' => 'Không thể lưu bữa ăn. Vui lòng thử lại.',
+			'common.betaTag' => 'Bản beta',
 			'common.close' => 'Đóng',
 			'common.kContinue' => 'Tiếp tục',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Bạn có thích ${appLabel} không?',

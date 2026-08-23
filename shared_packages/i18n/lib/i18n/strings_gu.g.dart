@@ -437,6 +437,7 @@ class _Translations$common$gu extends Translations$common$en {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'બીટા';
 	@override String get close => 'બંધ કરો';
 	@override String get kContinue => 'ચાલુ રાખો';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsGu {
 			'watch.result.goingBack' => 'પાછળ જઈ રહ્યું છે…',
 			'watch.result.savedOfflineMessage' => 'ભોજન ઑફલાઇન સાચવવામાં આવ્યું. જ્યારે તમારો ફોન ફરીથી કનેક્ટ થશે ત્યારે તે સમન્વય થશે.',
 			'watch.result.saveFailed' => 'ભોજન સાચવી શકાયું નથી. કૃપા કરીને ફરી પ્રયાસ કરો.',
+			'common.betaTag' => 'બીટા',
 			'common.close' => 'બંધ કરો',
 			'common.kContinue' => 'ચાલુ રાખો',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} નો આનંદ માણી રહ્યા છો?',

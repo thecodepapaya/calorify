@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "Wersja beta",
     "close": "Zamknij",
     "continue": "Kontynuuj"
   },

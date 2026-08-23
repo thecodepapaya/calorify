@@ -437,6 +437,7 @@ class _Translations$common$bn extends Translations$common$en {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'বিটা';
 	@override String get close => 'বন্ধ';
 	@override String get kContinue => 'চালিয়ে যান';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsBn {
 			'watch.result.goingBack' => 'ফিরে যাচ্ছি…',
 			'watch.result.savedOfflineMessage' => 'খাবার অফলাইনে সংরক্ষণ করা হয়েছে। আপনার ফোন পুনরায় সংযোগ করলে এটি সিঙ্ক হবে।',
 			'watch.result.saveFailed' => 'খাবার সংরক্ষণ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।',
+			'common.betaTag' => 'বিটা',
 			'common.close' => 'বন্ধ',
 			'common.kContinue' => 'চালিয়ে যান',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'আপনি কি ${appLabel} উপভোগ করছেন?',

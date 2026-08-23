@@ -437,6 +437,7 @@ class _Translations$common$it extends Translations$common$en {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Chiudi';
 	@override String get kContinue => 'Continua';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsIt {
 			'watch.result.goingBack' => 'Tornando indietro…',
 			'watch.result.savedOfflineMessage' => 'Pasto salvato offline. Verrà sincronizzato quando il telefono si riconnetterà.',
 			'watch.result.saveFailed' => 'Impossibile salvare il pasto. Per favore riprova.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Chiudi',
 			'common.kContinue' => 'Continua',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Ti piace ${appLabel}?',

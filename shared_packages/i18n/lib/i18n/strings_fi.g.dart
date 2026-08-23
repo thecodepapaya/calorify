@@ -437,6 +437,7 @@ class _Translations$common$fi extends Translations$common$en {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Sulje';
 	@override String get kContinue => 'Jatka';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsFi {
 			'watch.result.goingBack' => 'Palataan…',
 			'watch.result.savedOfflineMessage' => 'Ateria tallennettu paikallisesti. Synkronoituu, kun puhelimesi yhdistyy.',
 			'watch.result.saveFailed' => 'Aterian tallennus epäonnistui. Yritä uudelleen.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Sulje',
 			'common.kContinue' => 'Jatka',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Pidätkö ${appLabel}:sta?',

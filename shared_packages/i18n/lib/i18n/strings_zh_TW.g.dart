@@ -437,6 +437,7 @@ class Translations$common$zh_TW extends Translations$common$en {
 	final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => '測試版';
 	@override String get close => '關閉';
 	@override String get kContinue => '繼續';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsZhTw {
 			'watch.result.goingBack' => '返回中…',
 			'watch.result.savedOfflineMessage' => '餐點已離線儲存。手機重新連線後會同步。',
 			'watch.result.saveFailed' => '無法儲存餐點。請再試一次。',
+			'common.betaTag' => '測試版',
 			'common.close' => '關閉',
 			'common.kContinue' => '繼續',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '喜歡 ${appLabel} 嗎？',

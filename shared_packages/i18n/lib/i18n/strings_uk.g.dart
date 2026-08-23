@@ -437,6 +437,7 @@ class _Translations$common$uk extends Translations$common$en {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Бета';
 	@override String get close => 'Закрити';
 	@override String get kContinue => 'Продовжити';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsUk {
 			'watch.result.goingBack' => 'Повертаюся…',
 			'watch.result.savedOfflineMessage' => 'Прийом їжі збережено офлайн. Він синхронізується, коли телефон з\'єднається.',
 			'watch.result.saveFailed' => 'Не вдалося зберегти прийом їжі. Спробуйте ще раз.',
+			'common.betaTag' => 'Бета',
 			'common.close' => 'Закрити',
 			'common.kContinue' => 'Продовжити',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Подобається ${appLabel}?',

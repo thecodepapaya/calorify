@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "Bêta",
     "close": "Fermer",
     "continue": "Continuer"
   },

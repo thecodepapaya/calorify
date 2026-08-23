@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "تجريبي",
     "close": "إغلاق",
     "continue": "استمر"
   },

@@ -437,6 +437,7 @@ class _Translations$common$ur extends Translations$common$en {
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'بیٹا';
 	@override String get close => 'بند کریں';
 	@override String get kContinue => 'جاری رکھیں';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsUr {
 			'watch.result.goingBack' => 'واپس جا رہے ہیں…',
 			'watch.result.savedOfflineMessage' => 'کھانا آف لائن محفوظ کیا گیا۔ جب فون دوبارہ جڑے گا تو یہ ہم آہنگ ہوگا۔',
 			'watch.result.saveFailed' => 'کھانا محفوظ نہیں ہو سکا۔ براہِ مہربانی دوبارہ کوشش کریں۔',
+			'common.betaTag' => 'بیٹا',
 			'common.close' => 'بند کریں',
 			'common.kContinue' => 'جاری رکھیں',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel} پسند آ رہا ہے؟',

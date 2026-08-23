@@ -437,6 +437,7 @@ class _Translations$common$sv extends Translations$common$en {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Stäng';
 	@override String get kContinue => 'Fortsätt';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsSv {
 			'watch.result.goingBack' => 'Går tillbaka…',
 			'watch.result.savedOfflineMessage' => 'Måltid sparad offline. Den synkroniseras när din telefon kopplar upp igen.',
 			'watch.result.saveFailed' => 'Kunde inte spara måltiden. Försök igen.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Stäng',
 			'common.kContinue' => 'Fortsätt',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Gillar du ${appLabel}?',

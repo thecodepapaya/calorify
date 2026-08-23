@@ -437,6 +437,7 @@ class _Translations$common$ko extends Translations$common$en {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => '베타';
 	@override String get close => '닫기';
 	@override String get kContinue => '계속';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsKo {
 			'watch.result.goingBack' => '뒤로 이동 중…',
 			'watch.result.savedOfflineMessage' => '식사가 오프라인으로 저장되었습니다. 휴대전화가 다시 연결되면 동기화됩니다.',
 			'watch.result.saveFailed' => '식사를 저장할 수 없습니다. 다시 시도하세요.',
+			'common.betaTag' => '베타',
 			'common.close' => '닫기',
 			'common.kContinue' => '계속',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => '${appLabel}이 마음에 드시나요?',

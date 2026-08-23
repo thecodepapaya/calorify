@@ -437,6 +437,7 @@ class _Translations$common$nl extends Translations$common$en {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Bèta';
 	@override String get close => 'Sluiten';
 	@override String get kContinue => 'Doorgaan';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsNl {
 			'watch.result.goingBack' => 'Teruggaan…',
 			'watch.result.savedOfflineMessage' => 'Maaltijd offline opgeslagen. Deze wordt gesynchroniseerd wanneer je telefoon weer verbinding maakt.',
 			'watch.result.saveFailed' => 'Kon de maaltijd niet opslaan. Probeer het opnieuw.',
+			'common.betaTag' => 'Bèta',
 			'common.close' => 'Sluiten',
 			'common.kContinue' => 'Doorgaan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',

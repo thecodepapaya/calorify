@@ -437,6 +437,7 @@ class _Translations$common$ro extends Translations$common$en {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Închide';
 	@override String get kContinue => 'Continuă';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsRo {
 			'watch.result.goingBack' => 'Se întoarce…',
 			'watch.result.savedOfflineMessage' => 'Masa salvată offline. Se va sincroniza când telefonul se reconectează.',
 			'watch.result.saveFailed' => 'Nu s-a putut salva masa. Te rog încearcă din nou.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Închide',
 			'common.kContinue' => 'Continuă',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Îți place ${appLabel}?',

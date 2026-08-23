@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "Bản beta",
     "close": "Đóng",
     "continue": "Tiếp tục"
   },

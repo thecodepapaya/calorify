@@ -437,6 +437,7 @@ class _Translations$common$id extends Translations$common$en {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Beta';
 	@override String get close => 'Tutup';
 	@override String get kContinue => 'Lanjutkan';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsId {
 			'watch.result.goingBack' => 'Kembali…',
 			'watch.result.savedOfflineMessage' => 'Makanan disimpan secara offline. Akan tersinkron saat ponsel Anda terhubung kembali.',
 			'watch.result.saveFailed' => 'Tidak dapat menyimpan makanan. Silakan coba lagi.',
+			'common.betaTag' => 'Beta',
 			'common.close' => 'Tutup',
 			'common.kContinue' => 'Lanjutkan',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',

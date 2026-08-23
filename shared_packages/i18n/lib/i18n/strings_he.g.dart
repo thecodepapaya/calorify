@@ -437,6 +437,7 @@ class _Translations$common$he extends Translations$common$en {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'גרסת בטא';
 	@override String get close => 'סגור';
 	@override String get kContinue => 'המשך';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsHe {
 			'watch.result.goingBack' => 'חוזר אחורה…',
 			'watch.result.savedOfflineMessage' => 'הארוחה נשמרה באופן לא מקוון. היא תסונכרן כשהטלפון שלך יתחבר מחדש.',
 			'watch.result.saveFailed' => 'לא ניתן לשמור את הארוחה. אנא נסה שוב.',
+			'common.betaTag' => 'גרסת בטא',
 			'common.close' => 'סגור',
 			'common.kContinue' => 'המשך',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'נהנים מ-${appLabel}?',

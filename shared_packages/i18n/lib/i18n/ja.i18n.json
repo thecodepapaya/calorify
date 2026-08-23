@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "ベータ版",
     "close": "閉じる",
     "continue": "続ける"
   },

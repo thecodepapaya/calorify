@@ -927,6 +927,7 @@
     }
   },
   "common": {
+    "betaTag": "Beta",
     "close": "Luk",
     "continue": "Fortsæt"
   },

@@ -437,6 +437,7 @@ class _Translations$common$hu extends Translations$common$en {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
+	@override String get betaTag => 'Béta';
 	@override String get close => 'Bezárás';
 	@override String get kContinue => 'Folytatás';
 }
@@ -2722,6 +2723,7 @@ extension on TranslationsHu {
 			'watch.result.goingBack' => 'Visszalépés…',
 			'watch.result.savedOfflineMessage' => 'Az étkezés offline mentve. Szinkronizálódik, amikor a telefon újracsatlakozik.',
 			'watch.result.saveFailed' => 'Nem sikerült elmenteni az étkezést. Kérlek próbáld újra.',
+			'common.betaTag' => 'Béta',
 			'common.close' => 'Bezárás',
 			'common.kContinue' => 'Folytatás',
 			'feedbackRating.enjoyingQuestion' => ({required Object appLabel}) => 'Tetszik a ${appLabel}?',
