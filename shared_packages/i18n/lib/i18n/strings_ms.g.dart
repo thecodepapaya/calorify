@@ -244,7 +244,7 @@ class _TranslationsHealthScoreMs extends TranslationsHealthScoreEn {
 	@override String get note => 'Skor ini adalah anggaran AI berdasarkan bahan yang dikenalpasti dan kepadatan nutrisi. Sentiasa rujuk profesional untuk nasihat pemakanan peribadi.';
 	@override String get unhealthy => 'Tidak sihat';
 	@override String get healthy => 'Sihat';
-	@override String get neutral => 'Neutral';
+	@override String get neutral => 'Seimbang';
 }
 
 // Path: editProfile
@@ -263,15 +263,15 @@ class _TranslationsEditProfileMs extends TranslationsEditProfileEn {
 	@override String get weightGoal => 'Matlamat Berat';
 	@override String get activityLevel => 'Tahap Aktiviti';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Sistem imperial';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'paun (lbs)';
 	@override String get metricCm => 'Metrik (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
+	@override String get imperialFtIn => 'Sistem imperial (ft/in)';
 	@override String get metricKg => 'Metrik (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get imperialLbs => 'Sistem imperial (lbs)';
 	@override late final _TranslationsEditProfileGendersMs genders = _TranslationsEditProfileGendersMs._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsMs weightGoals = _TranslationsEditProfileWeightGoalsMs._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsMs activityLevels = _TranslationsEditProfileActivityLevelsMs._(_root);
@@ -490,7 +490,7 @@ class _TranslationsOnboardingHeightMs extends TranslationsOnboardingHeightEn {
 	@override String get title => 'Berapa tinggi anda?';
 	@override String get description => 'Tinggi anda membantu kami mengira BMI dan keperluan tenaga dengan tepat.';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Sistem imperial';
 	@override String get next => 'Seterusnya';
 }
 
@@ -506,7 +506,7 @@ class _TranslationsOnboardingWeightMs extends TranslationsOnboardingWeightEn {
 	@override String get targetTitle => 'Berapa berat sasaran anda?';
 	@override String get targetDescription => 'Menetapkan berat sasaran membantu kami menentukan pelan jangka panjang anda.';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Sistem imperial';
 	@override String get next => 'Seterusnya';
 }
 
@@ -585,6 +585,10 @@ class _TranslationsOnboardingHealthConnectMs extends TranslationsOnboardingHealt
 	@override String get manageAccess => 'Urus akses';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon untuk ${appLabel}.';
 	@override String statusError({required Object error}) => 'Ralat semasa menyediakan Health Connect: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedMs caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedMs._(_root);
+	@override String get overviewDescription => 'Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsMs shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsMs._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlMs userControl = _TranslationsOnboardingHealthConnectUserControlMs._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalMs extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Kesan Berat';
 	@override String get estLoss => 'Anggaran kehilangan';
 	@override String get estGain => 'Anggaran penambahan';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalori (kcal)';
 }
 
 // Path: home.dailySummary
@@ -651,7 +655,7 @@ class _TranslationsHomeDailySummaryMs extends TranslationsHomeDailySummaryEn {
 	@override String get title => 'Ringkasan Harian';
 	@override String get calories => 'Kalori';
 	@override String get carbs => 'Karbohidrat';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Jumlah protein';
 	@override String get fat => 'Lemak';
 	@override String get fiber => 'Serat';
 	@override String get grams => 'gram';
@@ -751,6 +755,8 @@ class _TranslationsHomeConnectHealthMs extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan';
 	@override String get install => 'Pasang atau kemas kini';
 	@override String get connect => 'Sambung';
+	@override String get dataUseDescription => 'Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan';
+	@override String get installOrUpdate => 'Pasang atau kemas kini';
 }
 
 // Path: meal.nutrition
@@ -762,7 +768,7 @@ class _TranslationsMealNutritionMs extends TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Kalori';
 	@override String get carbs => 'Karbohidrat (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Protein (gram)';
 	@override String get fat => 'Lemak (g)';
 	@override String get fiber => 'Serat (g)';
 }
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisMs extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} lagi';
 	@override String ingredientsLine({required Object count}) => '${count} bahan dikesan';
 	@override String get ingredientsPending => 'Mengimbas bahan…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'Tip: Konsistensi lebih penting daripada kesempurnaan—log secara tetap mendedahkan corak yang bermakna.';
 	@override String get offlineTip1 => 'Tip: Untuk foto, cahaya semula jadi dan pandangan dari atas membantu ketepatan bahagian.';
 	@override String get offlineTip2 => 'Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.';
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsMs extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'PENENTUAN LOKAL';
 	@override String get notifications => 'PEMBERITAHUAN';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'INTEGRASI HEALTH CONNECT';
 	@override String get localInference => 'ANALISIS PADA PERANTI';
 	@override String get supportAndLegal => 'SOKONGAN & UNDANG-UNDANG';
 	@override String get about => 'TENTANG';
@@ -1117,6 +1123,8 @@ class _TranslationsSettingsClearAllDataMs extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'Ini akan memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.';
 	@override String get cancel => 'Batal';
 	@override String get clearEverything => 'Padam Semua';
+	@override String get localOnlyConfirmationMessage => 'Ini memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.';
+	@override String get localOnlySubtitle => 'Padam data Calorify yang disimpan pada peranti ini';
 }
 
 // Path: settings.debugOptions
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoMs extends TranslationsSettingsAppInfoEn {
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify versi ${version}';
 	@override String build({required Object buildNumber}) => 'Binaan ${buildNumber}';
 }
 
@@ -1389,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationMs extends Translat
 	@override String get description => 'Pilih salah satu kebenaran dan ubah akses pada bila-bila masa';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedMs extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Baca jumlah kalori yang dibakar hari ini daripada Health Connect';
+	@override String get title => 'Kalori Dibakar';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsMs extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Tulis hidangan yang anda rekod dalam Calorify ke Health Connect';
+	@override String get title => 'Kongsi Hidangan yang Direkodkan';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlMs extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+	final TranslationsMs _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Pilih salah satu kebenaran dan ubah akses pada bila-bila masa';
+	@override String get title => 'Anda yang Mengawal';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessMs extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessMs._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableMs extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect Tidak Tersedia';
 	@override String get description => 'Health Connect tidak disokong pada peranti ini.';
+	@override String get unsupportedDescription => 'Health Connect tidak disokong pada peranti ini.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1596,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyMs extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.';
 	@override String get localStorage => 'Penyimpanan bermula-lokal\nData anda kekal pada peranti anda.';
 	@override String get privacyPolicy => 'Dasar Privasi';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Analitik dan diagnostik terhad\n${appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual.';
 }
 
 // Path: settings.about.developer
@@ -1835,14 +1878,14 @@ extension on TranslationsMs {
 			'onboarding.height.title' => 'Berapa tinggi anda?',
 			'onboarding.height.description' => 'Tinggi anda membantu kami mengira BMI dan keperluan tenaga dengan tepat.',
 			'onboarding.height.metric' => 'Metrik',
-			'onboarding.height.imperial' => 'Imperial',
+			'onboarding.height.imperial' => 'Sistem imperial',
 			'onboarding.height.next' => 'Seterusnya',
 			'onboarding.weight.currentTitle' => 'Berapa berat anda sekarang?',
 			'onboarding.weight.currentDescription' => 'Berat semasa anda penting untuk menyesuaikan sasaran harian anda.',
 			'onboarding.weight.targetTitle' => 'Berapa berat sasaran anda?',
 			'onboarding.weight.targetDescription' => 'Menetapkan berat sasaran membantu kami menentukan pelan jangka panjang anda.',
 			'onboarding.weight.metric' => 'Metrik',
-			'onboarding.weight.imperial' => 'Imperial',
+			'onboarding.weight.imperial' => 'Sistem imperial',
 			'onboarding.weight.next' => 'Seterusnya',
 			'onboarding.age.title' => 'Bila tarikh lahir anda?',
 			'onboarding.age.description' => 'Umur anda membantu kami mengira keperluan kalori dengan tepat.',
@@ -1885,6 +1928,13 @@ extension on TranslationsMs {
 			'onboarding.healthConnect.manageAccess' => 'Urus akses',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon untuk ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Ralat semasa menyediakan Health Connect: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Baca jumlah kalori yang dibakar hari ini daripada Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Kalori Dibakar',
+			'onboarding.healthConnect.overviewDescription' => 'Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Tulis hidangan yang anda rekod dalam Calorify ke Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Kongsi Hidangan yang Direkodkan',
+			'onboarding.healthConnect.userControl.description' => 'Pilih salah satu kebenaran dan ubah akses pada bila-bila masa',
+			'onboarding.healthConnect.userControl.title' => 'Anda yang Mengawal',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Bersendirian',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penyelidikan menunjukkan pengesanan konsisten adalah peramal nombor 1 kejayaan jangka panjang.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Bagi seorang ${age} tahun ${gender} yang ingin ${goal}, pengesanan konsisten adalah peramal nombor 1 kejayaan.',
@@ -1937,11 +1987,11 @@ extension on TranslationsMs {
 			'home.dailyGoal.weightImpact' => 'Kesan Berat',
 			'home.dailyGoal.estLoss' => 'Anggaran kehilangan',
 			'home.dailyGoal.estGain' => 'Anggaran penambahan',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalori (kcal)',
 			'home.dailySummary.title' => 'Ringkasan Harian',
 			'home.dailySummary.calories' => 'Kalori',
 			'home.dailySummary.carbs' => 'Karbohidrat',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Jumlah protein',
 			'home.dailySummary.fat' => 'Lemak',
 			'home.dailySummary.fiber' => 'Serat',
 			'home.dailySummary.grams' => 'gram',
@@ -1978,6 +2028,8 @@ extension on TranslationsMs {
 			'home.connectHealth.description' => 'Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan',
 			'home.connectHealth.install' => 'Pasang atau kemas kini',
 			'home.connectHealth.connect' => 'Sambung',
+			'home.connectHealth.dataUseDescription' => 'Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan',
+			'home.connectHealth.installOrUpdate' => 'Pasang atau kemas kini',
 			'history.noMeals' => 'Tiada hidangan direkod',
 			'history.emptyMessage' => 'Snap gambar hidangan terakhir anda untuk direkod di sini.',
 			'history.today' => 'Hari ini',
@@ -1998,7 +2050,7 @@ extension on TranslationsMs {
 			'meal.mealType' => 'Jenis Hidangan',
 			'meal.nutrition.calories' => 'Kalori',
 			'meal.nutrition.carbs' => 'Karbohidrat (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Protein (gram)',
 			'meal.nutrition.fat' => 'Lemak (g)',
 			'meal.nutrition.fiber' => 'Serat (g)',
 			'meal.deleteConfirmation.title' => 'Padam Hidangan',
@@ -2043,7 +2095,7 @@ extension on TranslationsMs {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lagi',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} bahan dikesan',
 			'meal.analysis.ingredientsPending' => 'Mengimbas bahan…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'Tip: Konsistensi lebih penting daripada kesempurnaan—log secara tetap mendedahkan corak yang bermakna.',
 			'meal.analysis.offlineTip1' => 'Tip: Untuk foto, cahaya semula jadi dan pandangan dari atas membantu ketepatan bahagian.',
 			'meal.analysis.offlineTip2' => 'Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.',
@@ -2120,7 +2172,7 @@ extension on TranslationsMs {
 			'healthScore.note' => 'Skor ini adalah anggaran AI berdasarkan bahan yang dikenalpasti dan kepadatan nutrisi. Sentiasa rujuk profesional untuk nasihat pemakanan peribadi.',
 			'healthScore.unhealthy' => 'Tidak sihat',
 			'healthScore.healthy' => 'Sihat',
-			'healthScore.neutral' => 'Neutral',
+			'healthScore.neutral' => 'Seimbang',
 			'editProfile.title' => 'Sunting Profil',
 			'editProfile.sections.personalInformation' => 'MAKLUMAT PERIBADI',
 			'editProfile.sections.physicalMeasurements' => 'UKURAN FIZIKAL',
@@ -2132,15 +2184,15 @@ extension on TranslationsMs {
 			'editProfile.weightGoal' => 'Matlamat Berat',
 			'editProfile.activityLevel' => 'Tahap Aktiviti',
 			'editProfile.metric' => 'Metrik',
-			'editProfile.imperial' => 'Imperial',
+			'editProfile.imperial' => 'Sistem imperial',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'paun (lbs)',
 			'editProfile.metricCm' => 'Metrik (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
+			'editProfile.imperialFtIn' => 'Sistem imperial (ft/in)',
 			'editProfile.metricKg' => 'Metrik (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
+			'editProfile.imperialLbs' => 'Sistem imperial (lbs)',
 			'editProfile.genders.male' => 'Lelaki',
 			'editProfile.genders.female' => 'Perempuan',
 			'editProfile.genders.other' => 'Lain-lain',
@@ -2164,7 +2216,7 @@ extension on TranslationsMs {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'PENENTUAN LOKAL',
 			'settings.sections.notifications' => 'PEMBERITAHUAN',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'INTEGRASI HEALTH CONNECT',
 			'settings.sections.localInference' => 'ANALISIS PADA PERANTI',
 			'settings.sections.supportAndLegal' => 'SOKONGAN & UNDANG-UNDANG',
 			'settings.sections.about' => 'TENTANG',
@@ -2217,12 +2269,15 @@ extension on TranslationsMs {
 			'settings.clearAllData.confirmationMessage' => 'Ini akan memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.',
 			'settings.clearAllData.cancel' => 'Batal',
 			'settings.clearAllData.clearEverything' => 'Padam Semua',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Ini memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.',
+			'settings.clearAllData.localOnlySubtitle' => 'Padam data Calorify yang disimpan pada peranti ini',
 			'settings.debugOptions.title' => 'Pilihan Debug',
 			'settings.developerModeEnabled' => 'Mod pembangun diaktifkan!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Lihat dan urus kebenaran',
 			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
 			'settings.healthConnect.unavailable.description' => 'Health Connect tidak disokong pada peranti ini.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect tidak disokong pada peranti ini.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect memerlukan perhatian',
 			'settings.healthConnect.updateRequired.description' => 'Pasang atau kemas kini Health Connect sebelum mengurus akses.',
 			'settings.healthConnect.updateRequired.action' => 'Pasang atau kemas kini',
@@ -2270,6 +2325,7 @@ extension on TranslationsMs {
 			'settings.about.privacy.noDataSelling' => 'Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.',
 			'settings.about.privacy.localStorage' => 'Penyimpanan bermula-lokal\nData anda kekal pada peranti anda.',
 			'settings.about.privacy.privacyPolicy' => 'Dasar Privasi',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analitik dan diagnostik terhad\n${appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual.',
 			'settings.about.developer.title' => 'Dibina oleh Pembangun Solo',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} dibina dan diselenggara oleh seorang pembangun solo yang memberi tumpuan kepada mencipta perisian kesihatan yang tenang dan menghormati privasi.\n\nMaklum balas dibaca secara peribadi dan membantu membentuk hala tuju aplikasi.',
 			'settings.about.developer.website' => 'Laman Web',
@@ -2278,7 +2334,7 @@ extension on TranslationsMs {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Maklum balas anda membantu menjadikan ${appLabel} lebih baik untuk semua.',
 			'settings.about.feedback.rateApp' => 'Beri penilaian di Play Store',
 			'settings.about.feedback.sendFeedback' => 'Hantar Maklum Balas',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify versi ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Binaan ${buildNumber}',
 			'reminders.title' => 'Kekal pada landasan dengan peringatan',
 			'reminders.description' => 'Dapatkan peringatan lembut untuk log hidangan anda dan kekal konsisten dengan matlamat pemakanan anda',
@@ -2310,6 +2366,8 @@ extension on TranslationsMs {
 			'notifications.snack.body' => 'Masa untuk snek sihat',
 			'notifications.test.title' => 'Pemberitahuan Ujian',
 			'login.title' => 'Log Masuk',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Log masuk dengan Google',
 			'login.signInFailed' => 'Log Masuk Google gagal atau dibatalkan.',
 			'disclaimer.pleaseNote' => 'Sila Maklum',
@@ -2323,8 +2381,6 @@ extension on TranslationsMs {
 			'disclaimer.snap.databaseLimitations.title' => 'Had Pangkalan Data',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Pangkalan data makanan ${appLabel} luas tetapi mungkin tidak mengandungi setiap item makanan atau variasinya.',
 			'disclaimer.weightEstimate.title' => 'Mengenai Anggaran Berat',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Perubahan berat yang dijangka adalah anggaran teoretikal berdasarkan model kalori masuk vs keluar yang mudah. Ia bertujuan sebagai panduan motivasi sahaja, bukan ramalan berat sebenar anda.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Ketepatan Kalori',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Anggaran ini hanya setepat pengambilan dan perbelanjaan kalori yang anda log. Pencatatan tidak tepat akan menghasilkan unjuran yang tidak tepat.',

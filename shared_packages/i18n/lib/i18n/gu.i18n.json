@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો",
       "description": "વધુ સારી આંતરદૃષ્ટિ અને સ્વચાલિત કેલરી ટ્રેકિંગ માટે તમારા સ્વાસ્થ્ય ડેટાને સિંક કરો",
+      "overviewDescription": "દૈનિક લક્ષ્યમાં બર્ન થયેલી કેલરીનો ઉપયોગ કરો અને ઇચ્છો તો નોંધાયેલ ભોજન Health Connect સાથે શેર કરો.",
       "automaticTracking": {
         "title": "સ્વચાલિત કેલરી ટ્રેકિંગ",
         "description": "તમારી ફિટનેસ એપ્લિકેશન્સમાંથી બર્ન થયેલી કેલરી ટ્રૅક કરો"
+      },
+      "caloriesBurned": {
+        "title": "બર્ન થયેલી કેલરી",
+        "description": "Health Connectમાંથી આજની કુલ બર્ન થયેલી કેલરી વાંચો"
       },
       "progressInsights": {
         "title": "પ્રગતિ આંતરદૃષ્ટિ",
         "description": "તમારા સ્વાસ્થ્યના વલણો વિશે વિગતવાર આંતરદૃષ્ટિ મેળવો"
       },
+      "shareLoggedMeals": {
+        "title": "નોંધાયેલ ભોજન શેર કરો",
+        "description": "Calorifyમાં નોંધેલું ભોજન Health Connectમાં લખો"
+      },
       "seamlessIntegration": {
         "title": "સીમલેસ ઇન્ટિગ્રેશન",
         "description": "તમારી મનપસંદ સ્વાસ્થ્ય એપ્લિકેશન્સમાંથી ડેટા સિંક કરો"
+      },
+      "userControl": {
+        "title": "નિયંત્રણ તમારા હાથમાં છે",
+        "description": "બેમાંથી કોઈપણ પરવાનગી પસંદ કરો અને ગમે ત્યારે ઍક્સેસ બદલો"
       },
       "connected": "હેલ્થ કનેક્ટ કનેક્ટેડ",
       "notConnected": "હેલ્થ કનેક્ટ કનેક્ટેડ નથી",
@@ -101,6 +114,12 @@
       "skipForNow": "હમણાં માટે છોડો",
       "statusConnected": "હેલ્થ કનેક્ટ કનેક્ટેડ છે.",
       "statusSuccess": "હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું છે!",
+      "statusNotConnected": "તમે ચાલુ કરવા માંગતા Health Connectનાં ફીચર પસંદ કરો.",
+      "statusPartial": "Health Connect આંશિક રીતે જોડાયેલું છે. બંને ફીચર વાપરવા માટે બાકી પરવાનગી ચાલુ કરો.",
+      "statusProviderUpdateRequired": "આગળ વધવા માટે Health Connect ઇન્સ્ટોલ અથવા અપડેટ કરો.",
+      "statusUnavailable": "આ ઉપકરણ પર Health Connect સમર્થિત નથી.",
+      "installOrUpdate": "ઇન્સ્ટોલ અથવા અપડેટ કરો",
+      "manageAccess": "ઍક્સેસ મેનેજ કરો",
       "statusPermissionDenied": "પરવાનગી નકારી. કૃપા કરીને {appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્ષમ કરો.",
       "statusError": "હેલ્થ કનેક્ટ સેટઅપ કરવામાં ભૂલ: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "વજન પર અસર",
       "estLoss": "અંદાજિત ઘટાડો",
       "estGain": "અંદાજિત વધારો",
-      "kcal": "kcal"
+      "kcal": "કિલોકૅલરી"
     },
     "dailySummary": {
       "title": "દૈનિક સારાંશ",
@@ -226,7 +245,9 @@
     "connectHealth": {
       "title": "Health Connect સાથે સમન્વય કરો",
       "description": "તમારા પોષણ ડેટાને Health Connect સાથે સમન્વય કરો",
+      "dataUseDescription": "તમારા લક્ષ્યમાં બર્ન થયેલી કેલરીનો ઉપયોગ કરો અને નોંધાયેલ ભોજન શેર કરો",
       "install": "ઇન્સ્ટોલ કરો",
+      "installOrUpdate": "ઇન્સ્ટોલ અથવા અપડેટ કરો",
       "connect": "કનેક્ટ કરો"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "વધુ {count}",
       "ingredientsLine": "{count} ઘટકો મળ્યા",
       "ingredientsPending": "ઘટકો સ્કેન કરી રહ્યા છીએ…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.",
       "offlineTip1": "ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.",
       "offlineTip2": "ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.",
@@ -419,7 +440,7 @@
     "unitCm": "સેમી",
     "unitFt": "ફૂટ",
     "unitKg": "કિલો",
-    "unitLbs": "lbs",
+    "unitLbs": "પાઉન્ડ",
     "metricCm": "મેટ્રિક (સેમી)",
     "imperialFtIn": "ઈમ્પિરિયલ (ફૂટ/ઈંચ)",
     "metricKg": "મેટ્રિક (કિલો)",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "બધો ડેટા સાફ કરો",
       "subtitle": "તમારી બધી માહિતી કાયમ માટે કાઢી નાખો",
+      "localOnlySubtitle": "આ ઉપકરણમાં સંગ્રહિત Calorify ડેટા કાઢી નાખો",
       "confirmationTitle": "બધો ડેટા સાફ કરવો?",
       "confirmationMessage": "આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી. તમારા બધા લોગ કરેલા ભોજન, મનપસંદ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે.",
+      "localOnlyConfirmationMessage": "આ ઉપકરણમાંથી નોંધાયેલ ભોજન, મનપસંદ વસ્તુઓ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે. Health Connect સાથે અગાઉ શેર કરેલું ભોજન અને Health Connect ઍક્સેસ સેટિંગ્સ > Health Connectમાં અલગથી મેનેજ થાય છે.",
       "cancel": "રદ કરો",
       "clearEverything": "બધું સાફ કરો"
     },
@@ -555,7 +578,13 @@
       "subtitle": "પરવાનગીઓ જુઓ અને મેનેજ કરો",
       "unavailable": {
         "title": "હેલ્થ કનેક્ટ અનુપલબ્ધ",
-        "description": "આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store (Android 9+) પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો અથવા Android 14+ પર અપડેટ કરો."
+        "description": "આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store (Android 9+) પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો અથવા Android 14+ પર અપડેટ કરો.",
+        "unsupportedDescription": "આ ઉપકરણ પર Health Connect સમર્થિત નથી."
+      },
+      "updateRequired": {
+        "title": "Health Connect પર ધ્યાન આપવું જરૂરી છે",
+        "description": "ઍક્સેસ મેનેજ કરતાં પહેલાં Health Connect ઇન્સ્ટોલ અથવા અપડેટ કરો.",
+        "action": "ઇન્સ્ટોલ અથવા અપડેટ કરો"
       },
       "permissions": {
         "title": "પરવાનગીઓ",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "પરવાનગીઓ મેનેજ કરો",
       "openSettings": "હેલ્થ કનેક્ટ સેટિંગ્સ ખોલો",
+      "disconnect": "Health Connectનું જોડાણ તોડો",
+      "disconnectConfirmationTitle": "Health Connectનું જોડાણ તોડવું છે?",
+      "disconnectConfirmationMessage": "Calorify હવે Health Connectને ઍક્સેસ કરી શકશે નહીં. ત્યાં અગાઉ લખાયેલો ડેટા કાઢી નાખવામાં આવશે નહીં.",
+      "disconnectConfirmationAction": "જોડાણ તોડો",
+      "deleteSyncedMeals": "Health Connectમાંથી Calorifyનું ભોજન કાઢી નાખો",
+      "deleteSyncedMealsConfirmationTitle": "સિંક કરેલું ભોજન કાઢી નાખવું છે?",
+      "deleteSyncedMealsConfirmationMessage": "Calorifyના આ સંસ્કરણથી Health Connectમાં સિંક કરેલું ભોજન કાઢી નાખવું છે? તમારો સ્થાનિક ભોજન લોગ બદલાશે નહીં. Calorifyની જૂની એન્ટ્રીઓ Health Connectમાં ડેટા મેનેજ કરો વિકલ્પથી અલગથી કાઢવી પડી શકે છે.",
+      "deleteSyncedMealsConfirmationAction": "સિંક કરેલું ભોજન કાઢી નાખો",
+      "deleteSyncedMealsSuccess": "Health Connectમાંથી Calorifyનું ભોજન કાઢી નાખવામાં આવ્યું.",
+      "deleteSyncedMealsFailed": "સિંક કરેલું ભોજન કાઢી શકાયું નહીં. ફરી પ્રયાસ કરો.",
+      "connectionPartial": "Health Connectનાં કેટલાક ફીચર ચાલુ છે.",
+      "connectionComplete": "Health Connectનાં બંને ફીચર ચાલુ છે.",
+      "actionFailed": "Health Connect ખોલી શકાયું નહીં. ફરી પ્રયાસ કરો.",
       "requestPermissions": "પરવાનગીઓની વિનંતી કરો",
       "permissionRequestCancelledOrFailed": "પરવાનગી વિનંતી રદ કરવામાં આવી અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.",
       "permissionRequestFailed": "પરવાનગીઓની વિનંતી કરવામાં અસમર્થ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.",
@@ -597,6 +639,7 @@
         "description": "ગોપનીયતા એ પછીનો વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. વ્યવહારમાં તેનો અર્થ અહીં છે:",
         "noAccounts": "કોઈ એકાઉન્ટ્સની જરૂર નથી\nએપ્લિકેશનનો તરત જ ઉપયોગ કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.",
         "noTracking": "કોઈ વર્તણૂકીય ટ્રેકિંગ નહીં\n{appLabel} તમારી પ્રવૃત્તિનું નિરીક્ષણ કરતું નથી, ઉપયોગ પ્રોફાઇલ્સ બનાવતું નથી અથવા તમને એપ્લિકેશન્સ અથવા વેબસાઇટ્સ પર ટ્રૅક કરતું નથી.",
+        "analyticsDisclosure": "મર્યાદિત વિશ્લેષણ અને નિદાન\nવિશ્વસનીયતા સુધારવા માટે {appLabel} એપ્લિકેશનની મૂળભૂત ઘટનાઓ અને ક્રેશ નિદાનનો ઉપયોગ કરે છે. આરોગ્ય રેકોર્ડનાં મૂલ્યોનો જાહેરાત માટે ઉપયોગ થતો નથી કે તે વેચાતા નથી.",
         "noAds": "ડિઝાઇન દ્વારા જાહેરાત-મુક્ત\n{appLabel} જાહેરાતો અથવા ડેટા-આધારિત મુદ્રીકરણ વિના કાર્ય કરવા માટે બનાવવામાં આવ્યું છે.",
         "noDataSelling": "કોઈ ડેટા વેચાણ નહીં\nતમારો સ્વાસ્થ્ય ડેટા ક્યારેય વેચવામાં આવતો નથી અથવા તૃતીય પક્ષો સાથે શેર કરવામાં આવતો નથી.",
         "localStorage": "સ્થાનિક-પ્રથમ સ્ટોરેજ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify વર્ઝન {version}",
       "build": "બિલ્ડ {buildNumber}"
     }
   },

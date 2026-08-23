@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectZhCn extends TranslationsOnboardingHea
 	@override String get statusSuccess => '已成功连接 Health Connect！';
 	@override String statusPermissionDenied({required Object appLabel}) => '权限被拒绝。请在手机设置中为 ${appLabel} 启用 Health Connect 权限。';
 	@override String statusError({required Object error}) => '设置 Health Connect 时出错：${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedZhCn caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedZhCn._(_root);
+	@override String get installOrUpdate => '安装或更新';
+	@override String get manageAccess => '管理访问权限';
+	@override String get overviewDescription => '将已消耗的卡路里计入每日目标，并可选择与 Health Connect 共享记录的餐食。';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsZhCn shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsZhCn._(_root);
+	@override String get statusNotConnected => '选择要启用的 Health Connect 功能。';
+	@override String get statusPartial => 'Health Connect 已部分连接。请启用剩余权限以使用两项功能。';
+	@override String get statusProviderUpdateRequired => '安装或更新 Health Connect 以继续。';
+	@override String get statusUnavailable => '此设备不支持 Health Connect。';
+	@override late final _TranslationsOnboardingHealthConnectUserControlZhCn userControl = _TranslationsOnboardingHealthConnectUserControlZhCn._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthZhCn extends TranslationsHomeConnectHealthEn
 	@override String get description => '将你的营养数据同步到 Health Connect';
 	@override String get install => '安装';
 	@override String get connect => '连接';
+	@override String get dataUseDescription => '将已消耗的卡路里计入目标，并共享记录的餐食';
+	@override String get installOrUpdate => '安装或更新';
 }
 
 // Path: meal.nutrition
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataZhCn extends TranslationsSettingsClearAll
 	@override String get confirmationMessage => '此操作不可撤销。你所有的记录、收藏和个人设置将被永久删除。';
 	@override String get cancel => '取消';
 	@override String get clearEverything => '清除全部';
+	@override String get localOnlyConfirmationMessage => '这将从此设备永久删除记录的餐食、收藏和个人资料设置。已共享到 Health Connect 的餐食和 Health Connect 访问权限需在“设置 > Health Connect”中单独管理。';
+	@override String get localOnlySubtitle => '删除此设备上存储的 Calorify 数据';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectZhCn extends TranslationsSettingsHealthC
 	@override String get permissionRequestCancelledOrFailed => '权限请求已取消或失败。请重试或在 Health Connect 设置中手动授予权限。';
 	@override String get permissionRequestFailed => '无法请求权限。请重试或在 Health Connect 设置中手动授予权限。';
 	@override String get requestingPermissions => '正在请求…';
+	@override String get actionFailed => '无法打开 Health Connect，请重试。';
+	@override String get connectionComplete => '两项 Health Connect 功能均已启用。';
+	@override String get connectionPartial => '部分 Health Connect 功能已启用。';
+	@override String get deleteSyncedMeals => '从 Health Connect 删除 Calorify 餐食';
+	@override String get deleteSyncedMealsConfirmationAction => '删除已同步的餐食';
+	@override String get deleteSyncedMealsConfirmationMessage => '要从 Health Connect 删除此版本 Calorify 同步的餐食吗？本地餐食日志不会改变。较早的 Calorify 条目可能仍需通过 Health Connect 中的“管理数据”删除。';
+	@override String get deleteSyncedMealsConfirmationTitle => '删除已同步的餐食？';
+	@override String get deleteSyncedMealsFailed => '无法删除已同步的餐食，请重试。';
+	@override String get deleteSyncedMealsSuccess => '已从 Health Connect 删除 Calorify 餐食。';
+	@override String get disconnect => '断开 Health Connect';
+	@override String get disconnectConfirmationAction => '断开连接';
+	@override String get disconnectConfirmationMessage => 'Calorify 将失去 Health Connect 访问权限。已写入其中的数据不会被删除。';
+	@override String get disconnectConfirmationTitle => '断开 Health Connect？';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredZhCn updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredZhCn._(_root);
 }
 
 // Path: settings.about
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoZhCn extends TranslationsSettingsAppInfoEn {
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify 版本 ${version}';
 	@override String build({required Object buildNumber}) => '构建 ${buildNumber}';
 }
 
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationZhCn extends Transl
 	@override String get description => '从你喜欢的健康应用同步数据';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedZhCn extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedZhCn._(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '从 Health Connect 读取今天消耗的总卡路里';
+	@override String get title => '已消耗卡路里';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsZhCn extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsZhCn._(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '将你在 Calorify 中记录的餐食写入 Health Connect';
+	@override String get title => '共享记录的餐食';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlZhCn extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlZhCn._(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '选择任一权限，并随时更改访问设置';
+	@override String get title => '由你掌控';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessZhCn extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessZhCn._(TranslationsZhCn root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableZhCn extends TranslationsSett
 	// Translations
 	@override String get title => 'Health Connect 不可用';
 	@override String get description => '此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。';
+	@override String get unsupportedDescription => '此设备不支持 Health Connect。';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsZhCn extends TranslationsSett
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhCn caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhCn._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadZhCn nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadZhCn._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhCn nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhCn._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredZhCn extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredZhCn._(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+	final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => '安装或更新';
+	@override String get description => '请先安装或更新 Health Connect，再管理访问权限。';
+	@override String get title => 'Health Connect 需要处理';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyZhCn extends TranslationsSettingsAboutPri
 	@override String get noDataSelling => '不出售数据\n你的健康数据不会被出售或分享给第三方。';
 	@override String get localStorage => '本地优先存储\n你的数据保留在你的设备上。';
 	@override String get privacyPolicy => '隐私政策';
+	@override String analyticsDisclosure({required Object appLabel}) => '有限的分析与诊断\n${appLabel} 使用基本应用事件和崩溃诊断来提高可靠性。健康记录值不会用于广告或出售。';
 }
 
 // Path: settings.about.developer
@@ -1847,6 +1922,19 @@ extension on TranslationsZhCn {
 			'onboarding.healthConnect.statusSuccess' => '已成功连接 Health Connect！',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '权限被拒绝。请在手机设置中为 ${appLabel} 启用 Health Connect 权限。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => '设置 Health Connect 时出错：${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => '从 Health Connect 读取今天消耗的总卡路里',
+			'onboarding.healthConnect.caloriesBurned.title' => '已消耗卡路里',
+			'onboarding.healthConnect.installOrUpdate' => '安装或更新',
+			'onboarding.healthConnect.manageAccess' => '管理访问权限',
+			'onboarding.healthConnect.overviewDescription' => '将已消耗的卡路里计入每日目标，并可选择与 Health Connect 共享记录的餐食。',
+			'onboarding.healthConnect.shareLoggedMeals.description' => '将你在 Calorify 中记录的餐食写入 Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => '共享记录的餐食',
+			'onboarding.healthConnect.statusNotConnected' => '选择要启用的 Health Connect 功能。',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect 已部分连接。请启用剩余权限以使用两项功能。',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => '安装或更新 Health Connect 以继续。',
+			'onboarding.healthConnect.statusUnavailable' => '此设备不支持 Health Connect。',
+			'onboarding.healthConnect.userControl.description' => '选择任一权限，并随时更改访问设置',
+			'onboarding.healthConnect.userControl.title' => '由你掌控',
 			'onboarding.reinforcement.trackingSuccess.title' => '你并不孤单',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究显示，持续记录是长期成功的头号预测因素。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '对于一位 ${age} 岁的 ${gender} 希望 ${goal}，持续记录是成功的头号预测因素。',
@@ -1940,6 +2028,8 @@ extension on TranslationsZhCn {
 			'home.connectHealth.description' => '将你的营养数据同步到 Health Connect',
 			'home.connectHealth.install' => '安装',
 			'home.connectHealth.connect' => '连接',
+			'home.connectHealth.dataUseDescription' => '将已消耗的卡路里计入目标，并共享记录的餐食',
+			'home.connectHealth.installOrUpdate' => '安装或更新',
 			'history.noMeals' => '暂无记录的餐食',
 			'history.emptyMessage' => '拍下你最近的一餐照片以在此记录。',
 			'history.today' => '今天',
@@ -2179,12 +2269,15 @@ extension on TranslationsZhCn {
 			'settings.clearAllData.confirmationMessage' => '此操作不可撤销。你所有的记录、收藏和个人设置将被永久删除。',
 			'settings.clearAllData.cancel' => '取消',
 			'settings.clearAllData.clearEverything' => '清除全部',
+			'settings.clearAllData.localOnlyConfirmationMessage' => '这将从此设备永久删除记录的餐食、收藏和个人资料设置。已共享到 Health Connect 的餐食和 Health Connect 访问权限需在“设置 > Health Connect”中单独管理。',
+			'settings.clearAllData.localOnlySubtitle' => '删除此设备上存储的 Calorify 数据',
 			'settings.debugOptions.title' => '调试选项',
 			'settings.developerModeEnabled' => '开发者模式已启用！',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => '查看并管理权限',
 			'settings.healthConnect.unavailable.title' => 'Health Connect 不可用',
 			'settings.healthConnect.unavailable.description' => '此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。',
+			'settings.healthConnect.unavailable.unsupportedDescription' => '此设备不支持 Health Connect。',
 			'settings.healthConnect.permissions.title' => '权限',
 			'settings.healthConnect.permissions.description' => '为提供 Health Connect 集成功能，请求以下权限：',
 			'settings.healthConnect.permissions.granted' => '已授予',
@@ -2204,6 +2297,22 @@ extension on TranslationsZhCn {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => '权限请求已取消或失败。请重试或在 Health Connect 设置中手动授予权限。',
 			'settings.healthConnect.permissionRequestFailed' => '无法请求权限。请重试或在 Health Connect 设置中手动授予权限。',
 			'settings.healthConnect.requestingPermissions' => '正在请求…',
+			'settings.healthConnect.actionFailed' => '无法打开 Health Connect，请重试。',
+			'settings.healthConnect.connectionComplete' => '两项 Health Connect 功能均已启用。',
+			'settings.healthConnect.connectionPartial' => '部分 Health Connect 功能已启用。',
+			'settings.healthConnect.deleteSyncedMeals' => '从 Health Connect 删除 Calorify 餐食',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '删除已同步的餐食',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => '要从 Health Connect 删除此版本 Calorify 同步的餐食吗？本地餐食日志不会改变。较早的 Calorify 条目可能仍需通过 Health Connect 中的“管理数据”删除。',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '删除已同步的餐食？',
+			'settings.healthConnect.deleteSyncedMealsFailed' => '无法删除已同步的餐食，请重试。',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => '已从 Health Connect 删除 Calorify 餐食。',
+			'settings.healthConnect.disconnect' => '断开 Health Connect',
+			'settings.healthConnect.disconnectConfirmationAction' => '断开连接',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify 将失去 Health Connect 访问权限。已写入其中的数据不会被删除。',
+			'settings.healthConnect.disconnectConfirmationTitle' => '断开 Health Connect？',
+			'settings.healthConnect.updateRequired.action' => '安装或更新',
+			'settings.healthConnect.updateRequired.description' => '请先安装或更新 Health Connect，再管理访问权限。',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect 需要处理',
 			'settings.about.title' => '关于',
 			'settings.about.tagline' => '快速、免费且以隐私为先的卡路里感知工具',
 			'settings.about.ourStory.title' => '我们的故事',
@@ -2216,6 +2325,7 @@ extension on TranslationsZhCn {
 			'settings.about.privacy.noDataSelling' => '不出售数据\n你的健康数据不会被出售或分享给第三方。',
 			'settings.about.privacy.localStorage' => '本地优先存储\n你的数据保留在你的设备上。',
 			'settings.about.privacy.privacyPolicy' => '隐私政策',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '有限的分析与诊断\n${appLabel} 使用基本应用事件和崩溃诊断来提高可靠性。健康记录值不会用于广告或出售。',
 			'settings.about.developer.title' => '由独立开发者构建',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} 由一位独立开发者构建和维护，致力于创建平静、尊重隐私的健康软件。\n\n反馈由开发者本人阅读，并帮助塑造应用的方向。',
 			'settings.about.developer.website' => '网站',
@@ -2224,7 +2334,7 @@ extension on TranslationsZhCn {
 			'settings.about.feedback.description' => ({required Object appLabel}) => '你的反馈能让 ${appLabel} 变得更好，惠及所有用户。',
 			'settings.about.feedback.rateApp' => '在 Play Store 评分',
 			'settings.about.feedback.sendFeedback' => '发送反馈',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify 版本 ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => '构建 ${buildNumber}',
 			'reminders.title' => '用提醒保持进度',
 			'reminders.description' => '收到温和的提醒以记录餐食并坚持你的营养目标',
@@ -2256,6 +2366,8 @@ extension on TranslationsZhCn {
 			'notifications.snack.body' => '来点健康的加餐吧',
 			'notifications.test.title' => '测试通知',
 			'login.title' => '登录',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => '使用 Google 登录',
 			'login.signInFailed' => 'Google 登录失败或已取消。',
 			'disclaimer.pleaseNote' => '请注意',
@@ -2291,8 +2403,6 @@ extension on TranslationsZhCn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '专业指导',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => '营养信息来自已下载的 USDA 数据包',
 			'localNutritionPhase4.nutritionCached' => '营养信息来自设备上的 USDA 缓存',
 			'localNutritionPhase4.nutritionMixed' => '营养信息由已下载、已缓存和远程获取的 USDA 数据行合并而成',

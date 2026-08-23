@@ -244,7 +244,7 @@ class _TranslationsHealthScoreDa extends TranslationsHealthScoreEn {
 	@override String get note => 'Denne score er et AI-estimat baseret på identificerede ingredienser og ernæringstætheden. Konsulter altid en professionel for kostråd.';
 	@override String get unhealthy => 'Usund';
 	@override String get healthy => 'Sund';
-	@override String get neutral => 'Neutral';
+	@override String get neutral => 'Neutralt';
 }
 
 // Path: editProfile
@@ -263,15 +263,15 @@ class _TranslationsEditProfileDa extends TranslationsEditProfileEn {
 	@override String get weightGoal => 'Vægtmål';
 	@override String get activityLevel => 'Aktivitetsniveau';
 	@override String get metric => 'Metrisk';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Imperialt';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'pund (lb)';
 	@override String get metricCm => 'Metrisk (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
+	@override String get imperialFtIn => 'Imperialt (ft/in)';
 	@override String get metricKg => 'Metrisk (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get imperialLbs => 'Imperialt (lbs)';
 	@override late final _TranslationsEditProfileGendersDa genders = _TranslationsEditProfileGendersDa._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsDa weightGoals = _TranslationsEditProfileWeightGoalsDa._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsDa activityLevels = _TranslationsEditProfileActivityLevelsDa._(_root);
@@ -490,7 +490,7 @@ class _TranslationsOnboardingHeightDa extends TranslationsOnboardingHeightEn {
 	@override String get title => 'Hvor høj er du?';
 	@override String get description => 'Din højde hjælper os med at beregne din BMI og energibehov præcist.';
 	@override String get metric => 'Metrisk';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Imperialt';
 	@override String get next => 'Næste';
 }
 
@@ -506,7 +506,7 @@ class _TranslationsOnboardingWeightDa extends TranslationsOnboardingWeightEn {
 	@override String get targetTitle => 'Hvad er din målvægt?';
 	@override String get targetDescription => 'At sætte en målvægt hjælper os med at bestemme din langsigtede plan.';
 	@override String get metric => 'Metrisk';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Imperialt';
 	@override String get next => 'Næste';
 }
 
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectDa extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Forbind med Health Connect';
 	@override String get description => 'Synkroniser dine sundhedsdata for bedre indsigt og automatisk kaloritælling';
+	@override String get overviewDescription => 'Brug forbrændte kalorier i dit dagsmål, og del eventuelt registrerede måltider med Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingDa automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingDa._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedDa caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedDa._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsDa progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsDa._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsDa shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsDa._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationDa seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationDa._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlDa userControl = _TranslationsOnboardingHealthConnectUserControlDa._(_root);
 	@override String get connected => 'Health Connect forbundet';
 	@override String get notConnected => 'Health Connect ikke forbundet';
 	@override String get setup => 'Opsæt Health Connect';
 	@override String get skipForNow => 'Spring over for nu';
 	@override String get statusConnected => 'Health Connect er forbundet.';
 	@override String get statusSuccess => 'Health Connect er blevet tilsluttet!';
+	@override String get statusNotConnected => 'Vælg de Health Connect-funktioner, du vil aktivere.';
+	@override String get statusPartial => 'Health Connect er delvist forbundet. Aktivér den resterende tilladelse for at bruge begge funktioner.';
+	@override String get statusProviderUpdateRequired => 'Installer eller opdater Health Connect for at fortsætte.';
+	@override String get statusUnavailable => 'Health Connect understøttes ikke på denne enhed.';
+	@override String get installOrUpdate => 'Installer eller opdater';
+	@override String get manageAccess => 'Administrer adgang';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Tilladelse afvist. Aktivér Health Connect-tilladelser i telefonens indstillinger for ${appLabel}.';
 	@override String statusError({required Object error}) => 'Fejl ved opsætning af Health Connect: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalDa extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Vægtpåvirkning';
 	@override String get estLoss => 'Ansl. tab på';
 	@override String get estGain => 'Ansl. stigning på';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalorier (kcal)';
 }
 
 // Path: home.dailySummary
@@ -645,7 +655,7 @@ class _TranslationsHomeDailySummaryDa extends TranslationsHomeDailySummaryEn {
 	@override String get title => 'Dagsoversigt';
 	@override String get calories => 'Kalorier';
 	@override String get carbs => 'Kulhydrater';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Proteiner';
 	@override String get fat => 'Fedt';
 	@override String get fiber => 'Fibre';
 	@override String get grams => 'gram';
@@ -744,6 +754,8 @@ class _TranslationsHomeConnectHealthDa extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Synkroniser med Health Connect';
 	@override String get description => 'Synkroniser dine ernæringsdata med Health Connect';
 	@override String get install => 'Installer';
+	@override String get dataUseDescription => 'Brug forbrændte kalorier i dit mål, og del registrerede måltider';
+	@override String get installOrUpdate => 'Installer eller opdater';
 	@override String get connect => 'Forbind';
 }
 
@@ -756,7 +768,7 @@ class _TranslationsMealNutritionDa extends TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Kalorier';
 	@override String get carbs => 'Kulhydrater (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Proteiner (g)';
 	@override String get fat => 'Fedt (g)';
 	@override String get fiber => 'Fibre (g)';
 }
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisDa extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} mere';
 	@override String ingredientsLine({required Object count}) => '${count} ingredienser registreret';
 	@override String get ingredientsPending => 'Scanner ingredienser…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '»${text}«';
 	@override String get offlineTip0 => 'Tip: Konsistens slår perfektion—regelmæssige registreringer afslører de vigtige mønstre.';
 	@override String get offlineTip1 => 'Tip: Til fotos hjælper naturligt lys og et top-down-perspektiv med portionsnøjagtigheden.';
 	@override String get offlineTip2 => 'Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsDa extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALISERING';
 	@override String get notifications => 'NOTIFIKATIONER';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'ANALYSE PÅ ENHED';
 	@override String get supportAndLegal => 'SUPPORT & JURA';
 	@override String get about => 'OM';
@@ -1065,7 +1077,7 @@ class _TranslationsSettingsThemeDa extends TranslationsSettingsThemeEn {
 	@override String get title => 'Tema';
 	@override String get light => 'Lyst';
 	@override String get dark => 'Mørkt';
-	@override String get system => 'System';
+	@override String get system => 'Systemstandard';
 }
 
 // Path: settings.sendFeedback
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataDa extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'Slet alle data';
 	@override String get subtitle => 'Slet permanent alle dine oplysninger';
+	@override String get localOnlySubtitle => 'Slet Calorify-data, der er gemt på denne enhed';
 	@override String get confirmationTitle => 'Slette alle data?';
 	@override String get confirmationMessage => 'Denne handling kan ikke fortrydes. Alle dine registrerede måltider, favoritter og profilindstillinger vil blive permanent slettet.';
+	@override String get localOnlyConfirmationMessage => 'Dette sletter permanent registrerede måltider, favoritter og profilindstillinger fra denne enhed. Måltider, der allerede er delt med Health Connect, og adgangen til Health Connect administreres separat under Indstillinger > Health Connect.';
 	@override String get cancel => 'Annuller';
 	@override String get clearEverything => 'Slet alt';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectDa extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Se og administrer tilladelser';
 	@override late final _TranslationsSettingsHealthConnectUnavailableDa unavailable = _TranslationsSettingsHealthConnectUnavailableDa._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredDa updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredDa._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsDa permissions = _TranslationsSettingsHealthConnectPermissionsDa._(_root);
 	@override String get managePermissions => 'Administrer tilladelser';
 	@override String get openSettings => 'Åbn Health Connect-indstillinger';
+	@override String get disconnect => 'Afbryd Health Connect';
+	@override String get disconnectConfirmationTitle => 'Afbryd Health Connect?';
+	@override String get disconnectConfirmationMessage => 'Calorify mister adgangen til Health Connect. Data, der allerede er skrevet dertil, slettes ikke.';
+	@override String get disconnectConfirmationAction => 'Afbryd';
+	@override String get deleteSyncedMeals => 'Slet Calorify-måltider fra Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Slet synkroniserede måltider?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Vil du slette måltider, som denne version af Calorify har synkroniseret med Health Connect? Din lokale måltidslog ændres ikke. Ældre Calorify-poster skal muligvis stadig fjernes via Administrer data i Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Slet synkroniserede måltider';
+	@override String get deleteSyncedMealsSuccess => 'Calorify-måltider blev slettet fra Health Connect.';
+	@override String get deleteSyncedMealsFailed => 'Synkroniserede måltider kunne ikke slettes. Prøv igen.';
+	@override String get connectionPartial => 'Nogle Health Connect-funktioner er aktiveret.';
+	@override String get connectionComplete => 'Begge Health Connect-funktioner er aktiveret.';
+	@override String get actionFailed => 'Health Connect kunne ikke åbnes. Prøv igen.';
 	@override String get requestPermissions => 'Anmod om tilladelser';
 	@override String get permissionRequestCancelledOrFailed => 'Anmodning om tilladelser blev annulleret eller fejlede. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.';
 	@override String get permissionRequestFailed => 'Kan ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.';
@@ -1164,8 +1192,8 @@ class _TranslationsSettingsAppInfoDa extends TranslationsSettingsAppInfoEn {
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify version ${version}';
+	@override String build({required Object buildNumber}) => 'Byggenummer ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingDa extends Translatio
 	@override String get description => 'Registrer forbrændte kalorier fra dine træningsapps';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedDa extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Forbrændte kalorier';
+	@override String get description => 'Læs dagens samlede antal forbrændte kalorier fra Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsDa extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsDa._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsDa extends Translation
 	@override String get description => 'Få detaljerede indsigter i dine sundhedstendenser';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsDa extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Del registrerede måltider';
+	@override String get description => 'Skriv måltider, du registrerer i Calorify, til Health Connect';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationDa extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationDa._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationDa extends Translat
 	// Translations
 	@override String get title => 'Sømløs integration';
 	@override String get description => 'Synkroniser data fra dine foretrukne sundhedsapps';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlDa extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Du har kontrollen';
+	@override String get description => 'Vælg en af tilladelserne, og ændr adgangen når som helst';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableDa extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect ikke tilgængelig';
 	@override String get description => 'Health Connect er ikke tilgængelig på denne enhed. Installer Health Connect fra Play Store (Android 9+) eller opdater til Android 14+.';
+	@override String get unsupportedDescription => 'Health Connect understøttes ikke på denne enhed.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredDa extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredDa._(TranslationsDa root) : this._root = root, super.internal(root);
+
+	final TranslationsDa _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect kræver opmærksomhed';
+	@override String get description => 'Installer eller opdater Health Connect, før du administrerer adgang.';
+	@override String get action => 'Installer eller opdater';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyDa extends TranslationsSettingsAboutPriva
 	@override String get description => 'Privatliv er ikke en eftertanke — det er et designprincip. Det betyder i praksis:';
 	@override String get noAccounts => 'Ingen konti nødvendige\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.';
 	@override String noTracking({required Object appLabel}) => 'Ingen adfærds­overvågning\n${appLabel} overvåger ikke din aktivitet, opbygger ikke brugermodeller og følger dig ikke på tværs af apps eller websites.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Begrænset analyse og diagnostik\n${appLabel} bruger grundlæggende apphændelser og nedbrudsdiagnostik til at forbedre pålideligheden. Værdier fra sundhedsdata bruges ikke til annoncering og sælges ikke.';
 	@override String noAds({required Object appLabel}) => 'Reklamefrit design\n${appLabel} er bygget til at fungere uden annoncer eller datadrevet monetarisering.';
 	@override String get noDataSelling => 'Ingen salg af data\nDine sundhedsdata sælges eller deles aldrig med tredjeparter.';
 	@override String get localStorage => 'Lokal lagring i første række\nDine data bliver på din enhed.';
@@ -1803,14 +1878,14 @@ extension on TranslationsDa {
 			'onboarding.height.title' => 'Hvor høj er du?',
 			'onboarding.height.description' => 'Din højde hjælper os med at beregne din BMI og energibehov præcist.',
 			'onboarding.height.metric' => 'Metrisk',
-			'onboarding.height.imperial' => 'Imperial',
+			'onboarding.height.imperial' => 'Imperialt',
 			'onboarding.height.next' => 'Næste',
 			'onboarding.weight.currentTitle' => 'Hvad er din aktuelle vægt?',
 			'onboarding.weight.currentDescription' => 'Din aktuelle vægt er vigtig for at tilpasse dine daglige mål.',
 			'onboarding.weight.targetTitle' => 'Hvad er din målvægt?',
 			'onboarding.weight.targetDescription' => 'At sætte en målvægt hjælper os med at bestemme din langsigtede plan.',
 			'onboarding.weight.metric' => 'Metrisk',
-			'onboarding.weight.imperial' => 'Imperial',
+			'onboarding.weight.imperial' => 'Imperialt',
 			'onboarding.weight.next' => 'Næste',
 			'onboarding.age.title' => 'Hvornår er din fødselsdag?',
 			'onboarding.age.description' => 'Din alder hjælper os med at beregne dit kaloriebehov præcist.',
@@ -1833,18 +1908,31 @@ extension on TranslationsDa {
 			'onboarding.activityLevel.description' => 'Det hjælper os med at beregne dit daglige kaloriebehov mere præcist',
 			'onboarding.healthConnect.title' => 'Forbind med Health Connect',
 			'onboarding.healthConnect.description' => 'Synkroniser dine sundhedsdata for bedre indsigt og automatisk kaloritælling',
+			'onboarding.healthConnect.overviewDescription' => 'Brug forbrændte kalorier i dit dagsmål, og del eventuelt registrerede måltider med Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Automatisk kaloritælling',
 			'onboarding.healthConnect.automaticTracking.description' => 'Registrer forbrændte kalorier fra dine træningsapps',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Forbrændte kalorier',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Læs dagens samlede antal forbrændte kalorier fra Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Fremskridtsindsigt',
 			'onboarding.healthConnect.progressInsights.description' => 'Få detaljerede indsigter i dine sundhedstendenser',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Del registrerede måltider',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Skriv måltider, du registrerer i Calorify, til Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Sømløs integration',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Synkroniser data fra dine foretrukne sundhedsapps',
+			'onboarding.healthConnect.userControl.title' => 'Du har kontrollen',
+			'onboarding.healthConnect.userControl.description' => 'Vælg en af tilladelserne, og ændr adgangen når som helst',
 			'onboarding.healthConnect.connected' => 'Health Connect forbundet',
 			'onboarding.healthConnect.notConnected' => 'Health Connect ikke forbundet',
 			'onboarding.healthConnect.setup' => 'Opsæt Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Spring over for nu',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect er forbundet.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect er blevet tilsluttet!',
+			'onboarding.healthConnect.statusNotConnected' => 'Vælg de Health Connect-funktioner, du vil aktivere.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect er delvist forbundet. Aktivér den resterende tilladelse for at bruge begge funktioner.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Installer eller opdater Health Connect for at fortsætte.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connect understøttes ikke på denne enhed.',
+			'onboarding.healthConnect.installOrUpdate' => 'Installer eller opdater',
+			'onboarding.healthConnect.manageAccess' => 'Administrer adgang',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Tilladelse afvist. Aktivér Health Connect-tilladelser i telefonens indstillinger for ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Fejl ved opsætning af Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Du er ikke alene',
@@ -1899,11 +1987,11 @@ extension on TranslationsDa {
 			'home.dailyGoal.weightImpact' => 'Vægtpåvirkning',
 			'home.dailyGoal.estLoss' => 'Ansl. tab på',
 			'home.dailyGoal.estGain' => 'Ansl. stigning på',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalorier (kcal)',
 			'home.dailySummary.title' => 'Dagsoversigt',
 			'home.dailySummary.calories' => 'Kalorier',
 			'home.dailySummary.carbs' => 'Kulhydrater',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Proteiner',
 			'home.dailySummary.fat' => 'Fedt',
 			'home.dailySummary.fiber' => 'Fibre',
 			'home.dailySummary.grams' => 'gram',
@@ -1939,6 +2027,8 @@ extension on TranslationsDa {
 			'home.connectHealth.title' => 'Synkroniser med Health Connect',
 			'home.connectHealth.description' => 'Synkroniser dine ernæringsdata med Health Connect',
 			'home.connectHealth.install' => 'Installer',
+			'home.connectHealth.dataUseDescription' => 'Brug forbrændte kalorier i dit mål, og del registrerede måltider',
+			'home.connectHealth.installOrUpdate' => 'Installer eller opdater',
 			'home.connectHealth.connect' => 'Forbind',
 			'history.noMeals' => 'Ingen registrerede måltider',
 			'history.emptyMessage' => 'Tag et billede af dit sidste måltid for at registrere det her.',
@@ -1960,7 +2050,7 @@ extension on TranslationsDa {
 			'meal.mealType' => 'Måltidstype',
 			'meal.nutrition.calories' => 'Kalorier',
 			'meal.nutrition.carbs' => 'Kulhydrater (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Proteiner (g)',
 			'meal.nutrition.fat' => 'Fedt (g)',
 			'meal.nutrition.fiber' => 'Fibre (g)',
 			'meal.deleteConfirmation.title' => 'Slet måltid',
@@ -2005,7 +2095,7 @@ extension on TranslationsDa {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} mere',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredienser registreret',
 			'meal.analysis.ingredientsPending' => 'Scanner ingredienser…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '»${text}«',
 			'meal.analysis.offlineTip0' => 'Tip: Konsistens slår perfektion—regelmæssige registreringer afslører de vigtige mønstre.',
 			'meal.analysis.offlineTip1' => 'Tip: Til fotos hjælper naturligt lys og et top-down-perspektiv med portionsnøjagtigheden.',
 			'meal.analysis.offlineTip2' => 'Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.',
@@ -2082,7 +2172,7 @@ extension on TranslationsDa {
 			'healthScore.note' => 'Denne score er et AI-estimat baseret på identificerede ingredienser og ernæringstætheden. Konsulter altid en professionel for kostråd.',
 			'healthScore.unhealthy' => 'Usund',
 			'healthScore.healthy' => 'Sund',
-			'healthScore.neutral' => 'Neutral',
+			'healthScore.neutral' => 'Neutralt',
 			'editProfile.title' => 'Rediger profil',
 			'editProfile.sections.personalInformation' => 'PERSONLIGE OPLYSNINGER',
 			'editProfile.sections.physicalMeasurements' => 'FYSISKE MÅL',
@@ -2094,15 +2184,15 @@ extension on TranslationsDa {
 			'editProfile.weightGoal' => 'Vægtmål',
 			'editProfile.activityLevel' => 'Aktivitetsniveau',
 			'editProfile.metric' => 'Metrisk',
-			'editProfile.imperial' => 'Imperial',
+			'editProfile.imperial' => 'Imperialt',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'pund (lb)',
 			'editProfile.metricCm' => 'Metrisk (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
+			'editProfile.imperialFtIn' => 'Imperialt (ft/in)',
 			'editProfile.metricKg' => 'Metrisk (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
+			'editProfile.imperialLbs' => 'Imperialt (lbs)',
 			'editProfile.genders.male' => 'Mand',
 			'editProfile.genders.female' => 'Kvinde',
 			'editProfile.genders.other' => 'Andet',
@@ -2126,7 +2216,7 @@ extension on TranslationsDa {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISERING',
 			'settings.sections.notifications' => 'NOTIFIKATIONER',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'ANALYSE PÅ ENHED',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURA',
 			'settings.sections.about' => 'OM',
@@ -2160,7 +2250,7 @@ extension on TranslationsDa {
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Lyst',
 			'settings.theme.dark' => 'Mørkt',
-			'settings.theme.system' => 'System',
+			'settings.theme.system' => 'Systemstandard',
 			'settings.sendFeedback.title' => 'Send feedback',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Hjælp os med at forbedre ${appLabel}',
 			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} App-feedback',
@@ -2175,8 +2265,10 @@ extension on TranslationsDa {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Kunne ikke eksportere måltidshistorik: ${error}',
 			'settings.clearAllData.title' => 'Slet alle data',
 			'settings.clearAllData.subtitle' => 'Slet permanent alle dine oplysninger',
+			'settings.clearAllData.localOnlySubtitle' => 'Slet Calorify-data, der er gemt på denne enhed',
 			'settings.clearAllData.confirmationTitle' => 'Slette alle data?',
 			'settings.clearAllData.confirmationMessage' => 'Denne handling kan ikke fortrydes. Alle dine registrerede måltider, favoritter og profilindstillinger vil blive permanent slettet.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Dette sletter permanent registrerede måltider, favoritter og profilindstillinger fra denne enhed. Måltider, der allerede er delt med Health Connect, og adgangen til Health Connect administreres separat under Indstillinger > Health Connect.',
 			'settings.clearAllData.cancel' => 'Annuller',
 			'settings.clearAllData.clearEverything' => 'Slet alt',
 			'settings.debugOptions.title' => 'Fejlfindingindstillinger',
@@ -2185,6 +2277,10 @@ extension on TranslationsDa {
 			'settings.healthConnect.subtitle' => 'Se og administrer tilladelser',
 			'settings.healthConnect.unavailable.title' => 'Health Connect ikke tilgængelig',
 			'settings.healthConnect.unavailable.description' => 'Health Connect er ikke tilgængelig på denne enhed. Installer Health Connect fra Play Store (Android 9+) eller opdater til Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect understøttes ikke på denne enhed.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect kræver opmærksomhed',
+			'settings.healthConnect.updateRequired.description' => 'Installer eller opdater Health Connect, før du administrerer adgang.',
+			'settings.healthConnect.updateRequired.action' => 'Installer eller opdater',
 			'settings.healthConnect.permissions.title' => 'Tilladelser',
 			'settings.healthConnect.permissions.description' => 'Følgende tilladelser anmodes om for at give Health Connect-integration:',
 			'settings.healthConnect.permissions.granted' => 'Givet',
@@ -2200,6 +2296,19 @@ extension on TranslationsDa {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Denne tilladelse gør det muligt for appen at synkronisere dine registrerede måltider til Health Connect, så dine ernæringsdata bliver tilgængelige for andre sundheds- og træningsapps, du bruger.',
 			'settings.healthConnect.managePermissions' => 'Administrer tilladelser',
 			'settings.healthConnect.openSettings' => 'Åbn Health Connect-indstillinger',
+			'settings.healthConnect.disconnect' => 'Afbryd Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Afbryd Health Connect?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify mister adgangen til Health Connect. Data, der allerede er skrevet dertil, slettes ikke.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Afbryd',
+			'settings.healthConnect.deleteSyncedMeals' => 'Slet Calorify-måltider fra Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Slet synkroniserede måltider?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Vil du slette måltider, som denne version af Calorify har synkroniseret med Health Connect? Din lokale måltidslog ændres ikke. Ældre Calorify-poster skal muligvis stadig fjernes via Administrer data i Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Slet synkroniserede måltider',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Calorify-måltider blev slettet fra Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Synkroniserede måltider kunne ikke slettes. Prøv igen.',
+			'settings.healthConnect.connectionPartial' => 'Nogle Health Connect-funktioner er aktiveret.',
+			'settings.healthConnect.connectionComplete' => 'Begge Health Connect-funktioner er aktiveret.',
+			'settings.healthConnect.actionFailed' => 'Health Connect kunne ikke åbnes. Prøv igen.',
 			'settings.healthConnect.requestPermissions' => 'Anmod om tilladelser',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Anmodning om tilladelser blev annulleret eller fejlede. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.',
 			'settings.healthConnect.permissionRequestFailed' => 'Kan ikke anmode om tilladelser. Prøv igen eller giv tilladelser manuelt i Health Connect-indstillingerne.',
@@ -2212,6 +2321,7 @@ extension on TranslationsDa {
 			'settings.about.privacy.description' => 'Privatliv er ikke en eftertanke — det er et designprincip. Det betyder i praksis:',
 			'settings.about.privacy.noAccounts' => 'Ingen konti nødvendige\nBrug appen med det samme. Ingen tilmeldinger, ingen identiteter.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ingen adfærds­overvågning\n${appLabel} overvåger ikke din aktivitet, opbygger ikke brugermodeller og følger dig ikke på tværs af apps eller websites.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Begrænset analyse og diagnostik\n${appLabel} bruger grundlæggende apphændelser og nedbrudsdiagnostik til at forbedre pålideligheden. Værdier fra sundhedsdata bruges ikke til annoncering og sælges ikke.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Reklamefrit design\n${appLabel} er bygget til at fungere uden annoncer eller datadrevet monetarisering.',
 			'settings.about.privacy.noDataSelling' => 'Ingen salg af data\nDine sundhedsdata sælges eller deles aldrig med tredjeparter.',
 			'settings.about.privacy.localStorage' => 'Lokal lagring i første række\nDine data bliver på din enhed.',
@@ -2224,8 +2334,8 @@ extension on TranslationsDa {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Din feedback gør ${appLabel} bedre for alle.',
 			'settings.about.feedback.rateApp' => 'Giv vurdering på Play Store',
 			'settings.about.feedback.sendFeedback' => 'Send feedback',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify version ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Byggenummer ${buildNumber}',
 			'reminders.title' => 'Hold dig på sporet med påmindelser',
 			'reminders.description' => 'Få blide påmindelser om at registrere dine måltider og holde fast i dine ernæringsmål',
 			'reminders.notificationsEnabled' => 'Notifikationer aktiveret',
@@ -2256,6 +2366,8 @@ extension on TranslationsDa {
 			'notifications.snack.body' => 'Tid til en sund snack',
 			'notifications.test.title' => 'Testnotifikation',
 			'login.title' => 'Log ind',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Log ind med Google',
 			'login.signInFailed' => 'Google-login mislykkedes eller blev annulleret.',
 			'disclaimer.pleaseNote' => 'Bemærk venligst',
@@ -2291,8 +2403,6 @@ extension on TranslationsDa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beregner din TDEE (baseret på din profil) og ganger den med den passerede del af dagen (timer + minutter) / 24 for at estimere forbrændte kalorier indtil nu.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionel vejledning',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Brug ikke dette estimat til medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller registreret diætist for personlig vægtstyringsrådgivning.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Ernæringsdata matchet fra den downloadede USDA-pakke',
 			'localNutritionPhase4.nutritionCached' => 'Ernæringsdata matchet fra USDA-cachen på enheden',
 			'localNutritionPhase4.nutritionMixed' => 'Ernæringsdata kombineret fra downloadede, cachede og eksterne USDA-rækker',

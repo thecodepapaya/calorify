@@ -267,7 +267,7 @@ class _TranslationsEditProfileJa extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'ポンド（lbs）';
 	@override String get metricCm => 'メートル法（cm）';
 	@override String get imperialFtIn => 'インペリアル（ft/in）';
 	@override String get metricKg => 'メートル法（kg）';
@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectJa extends TranslationsOnboardingHealt
 	@override String get statusSuccess => 'Health Connectの接続に成功しました！';
 	@override String statusPermissionDenied({required Object appLabel}) => '権限が拒否されました。${appLabel}のHealth Connect権限を端末の設定で有効にしてください。';
 	@override String statusError({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedJa caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedJa._(_root);
+	@override String get installOrUpdate => 'インストールまたは更新';
+	@override String get manageAccess => 'アクセスを管理';
+	@override String get overviewDescription => '日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsJa shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsJa._(_root);
+	@override String get statusNotConnected => '有効にするHealth Connect機能を選択してください。';
+	@override String get statusPartial => 'Health Connectの一部が接続されています。両方の機能を使うには、残りの権限を有効にしてください。';
+	@override String get statusProviderUpdateRequired => '続行するにはHealth Connectをインストールまたは更新してください。';
+	@override String get statusUnavailable => 'この端末はHealth Connectに対応していません。';
+	@override late final _TranslationsOnboardingHealthConnectUserControlJa userControl = _TranslationsOnboardingHealthConnectUserControlJa._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalJa extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => '体重への影響';
 	@override String get estLoss => '推定減少';
 	@override String get estGain => '推定増加';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'キロカロリー（kcal）';
 }
 
 // Path: home.dailySummary
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthJa extends TranslationsHomeConnectHealthEn {
 	@override String get description => '栄養データをHealth Connectと同期します';
 	@override String get install => 'インストール';
 	@override String get connect => '接続';
+	@override String get dataUseDescription => '目標に消費カロリーを反映し、記録した食事を共有します';
+	@override String get installOrUpdate => 'インストールまたは更新';
 }
 
 // Path: meal.nutrition
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataJa extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'この操作は元に戻せません。記録した全ての食事、お気に入り、プロフィール設定が永久に削除されます。';
 	@override String get cancel => 'キャンセル';
 	@override String get clearEverything => 'すべて消去';
+	@override String get localOnlyConfirmationMessage => 'この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。';
+	@override String get localOnlySubtitle => 'この端末に保存されたCalorifyデータを削除します';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectJa extends TranslationsSettingsHealthCon
 	@override String get permissionRequestCancelledOrFailed => '権限要求がキャンセルされたか失敗しました。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。';
 	@override String get permissionRequestFailed => '権限の要求ができませんでした。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。';
 	@override String get requestingPermissions => '要求中…';
+	@override String get actionFailed => 'Health Connectを開けませんでした。もう一度お試しください。';
+	@override String get connectionComplete => 'Health Connectの両方の機能が有効です。';
+	@override String get connectionPartial => 'Health Connectの一部の機能が有効です。';
+	@override String get deleteSyncedMeals => 'Health ConnectからCalorifyの食事を削除';
+	@override String get deleteSyncedMealsConfirmationAction => '同期した食事を削除';
+	@override String get deleteSyncedMealsConfirmationMessage => 'このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。';
+	@override String get deleteSyncedMealsConfirmationTitle => '同期した食事を削除しますか？';
+	@override String get deleteSyncedMealsFailed => '同期した食事を削除できませんでした。もう一度お試しください。';
+	@override String get deleteSyncedMealsSuccess => 'Calorifyの食事をHealth Connectから削除しました。';
+	@override String get disconnect => 'Health Connectとの接続を解除';
+	@override String get disconnectConfirmationAction => '接続を解除';
+	@override String get disconnectConfirmationMessage => 'CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。';
+	@override String get disconnectConfirmationTitle => 'Health Connectとの接続を解除しますか？';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredJa updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredJa._(_root);
 }
 
 // Path: settings.about
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoJa extends TranslationsSettingsAppInfoEn {
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify バージョン${version}';
 	@override String build({required Object buildNumber}) => 'ビルド ${buildNumber}';
 }
 
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationJa extends Translat
 	@override String get description => 'お気に入りのヘルスアプリからデータを同期します';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedJa extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Health Connectから今日の総消費カロリーを読み取ります';
+	@override String get title => '消費カロリー';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsJa extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Calorifyに記録した食事をHealth Connectへ書き込みます';
+	@override String get title => '記録した食事を共有';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlJa extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'どちらかの権限を選び、アクセス設定をいつでも変更できます';
+	@override String get title => '設定はいつでも変更できます';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessJa extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessJa._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableJa extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connectが利用できません';
 	@override String get description => 'この端末ではHealth Connectが利用できません。Play StoreからHealth Connectをインストールするか（Android 9+）、Androidを14+にアップデートしてください。';
+	@override String get unsupportedDescription => 'この端末はHealth Connectに対応していません。';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsJa extends TranslationsSettin
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedJa._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadJa nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadJa._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteJa nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteJa._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredJa extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => 'インストールまたは更新';
+	@override String get description => 'アクセスを管理する前にHealth Connectをインストールまたは更新してください。';
+	@override String get title => 'Health Connectの対応が必要です';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyJa extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'データ販売なし\nあなたの健康データが第三者に販売または共有されることはありません。';
 	@override String get localStorage => 'ローカルファーストの保存\nあなたのデータは端末に留まります。';
 	@override String get privacyPolicy => 'プライバシーポリシー';
+	@override String analyticsDisclosure({required Object appLabel}) => '限定的な分析と診断\n${appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。';
 }
 
 // Path: settings.about.developer
@@ -1847,6 +1922,19 @@ extension on TranslationsJa {
 			'onboarding.healthConnect.statusSuccess' => 'Health Connectの接続に成功しました！',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '権限が拒否されました。${appLabel}のHealth Connect権限を端末の設定で有効にしてください。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connectの設定中にエラーが発生しました: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connectから今日の総消費カロリーを読み取ります',
+			'onboarding.healthConnect.caloriesBurned.title' => '消費カロリー',
+			'onboarding.healthConnect.installOrUpdate' => 'インストールまたは更新',
+			'onboarding.healthConnect.manageAccess' => 'アクセスを管理',
+			'onboarding.healthConnect.overviewDescription' => '日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorifyに記録した食事をHealth Connectへ書き込みます',
+			'onboarding.healthConnect.shareLoggedMeals.title' => '記録した食事を共有',
+			'onboarding.healthConnect.statusNotConnected' => '有効にするHealth Connect機能を選択してください。',
+			'onboarding.healthConnect.statusPartial' => 'Health Connectの一部が接続されています。両方の機能を使うには、残りの権限を有効にしてください。',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => '続行するにはHealth Connectをインストールまたは更新してください。',
+			'onboarding.healthConnect.statusUnavailable' => 'この端末はHealth Connectに対応していません。',
+			'onboarding.healthConnect.userControl.description' => 'どちらかの権限を選び、アクセス設定をいつでも変更できます',
+			'onboarding.healthConnect.userControl.title' => '設定はいつでも変更できます',
 			'onboarding.reinforcement.trackingSuccess.title' => 'あなたは一人じゃない',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究では、一貫した記録が長期的成功の最も重要な予測因子であることが示されています。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}歳の${gender}で${goal}を目指す場合、一貫した記録が成功の最も重要な予測因子です。',
@@ -1899,7 +1987,7 @@ extension on TranslationsJa {
 			'home.dailyGoal.weightImpact' => '体重への影響',
 			'home.dailyGoal.estLoss' => '推定減少',
 			'home.dailyGoal.estGain' => '推定増加',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'キロカロリー（kcal）',
 			'home.dailySummary.title' => '本日のサマリー',
 			'home.dailySummary.calories' => 'カロリー',
 			'home.dailySummary.carbs' => '炭水化物',
@@ -1940,6 +2028,8 @@ extension on TranslationsJa {
 			'home.connectHealth.description' => '栄養データをHealth Connectと同期します',
 			'home.connectHealth.install' => 'インストール',
 			'home.connectHealth.connect' => '接続',
+			'home.connectHealth.dataUseDescription' => '目標に消費カロリーを反映し、記録した食事を共有します',
+			'home.connectHealth.installOrUpdate' => 'インストールまたは更新',
 			'history.noMeals' => '記録された食事はありません',
 			'history.emptyMessage' => '最後の食事の写真を撮ってここに記録しましょう。',
 			'history.today' => '今日',
@@ -2098,7 +2188,7 @@ extension on TranslationsJa {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'ポンド（lbs）',
 			'editProfile.metricCm' => 'メートル法（cm）',
 			'editProfile.imperialFtIn' => 'インペリアル（ft/in）',
 			'editProfile.metricKg' => 'メートル法（kg）',
@@ -2179,12 +2269,15 @@ extension on TranslationsJa {
 			'settings.clearAllData.confirmationMessage' => 'この操作は元に戻せません。記録した全ての食事、お気に入り、プロフィール設定が永久に削除されます。',
 			'settings.clearAllData.cancel' => 'キャンセル',
 			'settings.clearAllData.clearEverything' => 'すべて消去',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。',
+			'settings.clearAllData.localOnlySubtitle' => 'この端末に保存されたCalorifyデータを削除します',
 			'settings.debugOptions.title' => 'デバッグオプション',
 			'settings.developerModeEnabled' => '開発者モードが有効になりました！',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => '権限の表示と管理',
 			'settings.healthConnect.unavailable.title' => 'Health Connectが利用できません',
 			'settings.healthConnect.unavailable.description' => 'この端末ではHealth Connectが利用できません。Play StoreからHealth Connectをインストールするか（Android 9+）、Androidを14+にアップデートしてください。',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'この端末はHealth Connectに対応していません。',
 			'settings.healthConnect.permissions.title' => '権限',
 			'settings.healthConnect.permissions.description' => 'Health Connect連携のために次の権限が要求されます：',
 			'settings.healthConnect.permissions.granted' => '許可済み',
@@ -2204,6 +2297,22 @@ extension on TranslationsJa {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => '権限要求がキャンセルされたか失敗しました。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。',
 			'settings.healthConnect.permissionRequestFailed' => '権限の要求ができませんでした。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。',
 			'settings.healthConnect.requestingPermissions' => '要求中…',
+			'settings.healthConnect.actionFailed' => 'Health Connectを開けませんでした。もう一度お試しください。',
+			'settings.healthConnect.connectionComplete' => 'Health Connectの両方の機能が有効です。',
+			'settings.healthConnect.connectionPartial' => 'Health Connectの一部の機能が有効です。',
+			'settings.healthConnect.deleteSyncedMeals' => 'Health ConnectからCalorifyの食事を削除',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '同期した食事を削除',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '同期した食事を削除しますか？',
+			'settings.healthConnect.deleteSyncedMealsFailed' => '同期した食事を削除できませんでした。もう一度お試しください。',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Calorifyの食事をHealth Connectから削除しました。',
+			'settings.healthConnect.disconnect' => 'Health Connectとの接続を解除',
+			'settings.healthConnect.disconnectConfirmationAction' => '接続を解除',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connectとの接続を解除しますか？',
+			'settings.healthConnect.updateRequired.action' => 'インストールまたは更新',
+			'settings.healthConnect.updateRequired.description' => 'アクセスを管理する前にHealth Connectをインストールまたは更新してください。',
+			'settings.healthConnect.updateRequired.title' => 'Health Connectの対応が必要です',
 			'settings.about.title' => 'このアプリについて',
 			'settings.about.tagline' => '速く、無料、プライバシー優先のカロリー意識',
 			'settings.about.ourStory.title' => '私たちのストーリー',
@@ -2216,6 +2325,7 @@ extension on TranslationsJa {
 			'settings.about.privacy.noDataSelling' => 'データ販売なし\nあなたの健康データが第三者に販売または共有されることはありません。',
 			'settings.about.privacy.localStorage' => 'ローカルファーストの保存\nあなたのデータは端末に留まります。',
 			'settings.about.privacy.privacyPolicy' => 'プライバシーポリシー',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '限定的な分析と診断\n${appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。',
 			'settings.about.developer.title' => 'ソロ開発者による開発',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}は、落ち着いたプライバシー重視の健康ソフトウェアを作ることに集中する単独の開発者によって作られ、維持されています。\n\nフィードバックは個人で読み、アプリの方向性を形作るのに役立ちます。',
 			'settings.about.developer.website' => 'ウェブサイト',
@@ -2224,7 +2334,7 @@ extension on TranslationsJa {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'あなたのフィードバックは${appLabel}を全員にとってより良くします。',
 			'settings.about.feedback.rateApp' => 'Play Storeで評価する',
 			'settings.about.feedback.sendFeedback' => 'フィードバックを送る',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify バージョン${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'ビルド ${buildNumber}',
 			'reminders.title' => 'リマインダーで習慣を維持',
 			'reminders.description' => '食事を記録する優しいリマインダーを受け取り、栄養目標の継続をサポートします',
@@ -2256,6 +2366,8 @@ extension on TranslationsJa {
 			'notifications.snack.body' => '健康的なおやつを記録しましょう',
 			'notifications.test.title' => 'テスト通知',
 			'login.title' => 'ログイン',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Googleでサインイン',
 			'login.signInFailed' => 'Googleサインインに失敗するか、キャンセルされました。',
 			'disclaimer.pleaseNote' => 'ご注意',
@@ -2291,8 +2403,6 @@ extension on TranslationsJa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'プロフィールに基づいてTDEEを算出し、経過した日の割合（時間＋分）/24を掛けて、これまでの消費カロリーを推定します。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '専門的な助言',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'この推定を医療上の判断に使用しないでください。個別の体重管理については医療専門家や登録栄養士に必ず相談してください。',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'ダウンロード済みのUSDAパックから栄養情報を照合しました',
 			'localNutritionPhase4.nutritionCached' => '端末内のUSDAキャッシュから栄養情報を照合しました',
 			'localNutritionPhase4.nutritionMixed' => 'ダウンロード済み、キャッシュ済み、リモートのUSDAデータから栄養情報を統合しました',

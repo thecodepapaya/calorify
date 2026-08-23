@@ -267,7 +267,7 @@ class _TranslationsEditProfileCs extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'libry (lb)';
 	@override String get metricCm => 'Metrické (cm)';
 	@override String get imperialFtIn => 'Imperiální (ft/in)';
 	@override String get metricKg => 'Metrické (kg)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectCs extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Propojte se s Health Connect';
 	@override String get description => 'Synchronizujte svá zdravotní data pro lepší přehledy a automatické sledování kalorií';
+	@override String get overviewDescription => 'Používejte spálené kalorie ve svém denním cíli a volitelně sdílejte zaznamenaná jídla s Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingCs automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingCs._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedCs caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedCs._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsCs progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsCs._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsCs shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsCs._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationCs seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationCs._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlCs userControl = _TranslationsOnboardingHealthConnectUserControlCs._(_root);
 	@override String get connected => 'Health Connect propojeno';
 	@override String get notConnected => 'Health Connect není propojen';
 	@override String get setup => 'Nastavit Health Connect';
 	@override String get skipForNow => 'Přeskočit nyní';
 	@override String get statusConnected => 'Health Connect je propojen.';
 	@override String get statusSuccess => 'Health Connect byl úspěšně propojen!';
+	@override String get statusNotConnected => 'Vyberte funkce Health Connect, které chcete povolit.';
+	@override String get statusPartial => 'Health Connect je připojen částečně. Chcete-li používat obě funkce, povolte zbývající oprávnění.';
+	@override String get statusProviderUpdateRequired => 'Chcete-li pokračovat, nainstalujte nebo aktualizujte Health Connect.';
+	@override String get statusUnavailable => 'Health Connect není na tomto zařízení podporován.';
+	@override String get installOrUpdate => 'Nainstalovat nebo aktualizovat';
+	@override String get manageAccess => 'Spravovat přístup';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Oprávnění odepřeno. Povolte prosím oprávnění Health Connect v nastavení telefonu pro ${appLabel}.';
 	@override String statusError({required Object error}) => 'Chyba při nastavování Health Connect: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalCs extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Dopad na váhu';
 	@override String get estLoss => 'Odhad. úbytek';
 	@override String get estGain => 'Odhad. přírůstek';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalorie (kcal)';
 }
 
 // Path: home.dailySummary
@@ -744,6 +754,8 @@ class _TranslationsHomeConnectHealthCs extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Synchronizovat s Health Connect';
 	@override String get description => 'Synchronizujte svá nutriční data s Health Connect';
 	@override String get install => 'Nainstalovat';
+	@override String get dataUseDescription => 'Použijte spálené kalorie ve svém cíli a sdílejte zaznamenaná jídla';
+	@override String get installOrUpdate => 'Nainstalovat nebo aktualizovat';
 	@override String get connect => 'Propojit';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisCs extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} dalších';
 	@override String ingredientsLine({required Object count}) => 'Zjištěno ${count} ingrediencí';
 	@override String get ingredientsPending => 'Skenuji ingredience…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '„${text}“';
 	@override String get offlineTip0 => 'Tip: Pravidelnost je důležitější než dokonalost — pravidelné záznamy odhalí podstatné vzorce.';
 	@override String get offlineTip1 => 'Tip: Pro fotky pomáhá přirozené světlo a pohled shora pro přesnost porcí.';
 	@override String get offlineTip2 => 'Tip: Uveďte nápoje, omáčky a olej používaný při vaření — přidávají kalorie, na které se často zapomíná.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsCs extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALIZACE';
 	@override String get notifications => 'UPOZORNĚNÍ';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'ANALÝZA V ZAŘÍZENÍ';
 	@override String get supportAndLegal => 'PODPORA & PRÁVNÍ';
 	@override String get about => 'O APLIKACI';
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataCs extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'Vymazat všechna data';
 	@override String get subtitle => 'Trvale smazat všechny vaše informace';
+	@override String get localOnlySubtitle => 'Smazat data Calorify uložená v tomto zařízení';
 	@override String get confirmationTitle => 'Vymazat všechna data?';
 	@override String get confirmationMessage => 'Tuto akci nelze vrátit zpět. Všechna vaše zaznamenaná jídla, oblíbené položky a nastavení profilu budou trvale smazány.';
+	@override String get localOnlyConfirmationMessage => 'Tímto trvale smažete zaznamenaná jídla, oblíbené položky a nastavení profilu z tohoto zařízení. Jídla již sdílená s Health Connect a přístup k Health Connect se spravují samostatně v Nastavení > Health Connect.';
 	@override String get cancel => 'Zrušit';
 	@override String get clearEverything => 'Vymazat vše';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectCs extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Prohlížet a spravovat oprávnění';
 	@override late final _TranslationsSettingsHealthConnectUnavailableCs unavailable = _TranslationsSettingsHealthConnectUnavailableCs._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredCs updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredCs._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsCs permissions = _TranslationsSettingsHealthConnectPermissionsCs._(_root);
 	@override String get managePermissions => 'Spravovat oprávnění';
 	@override String get openSettings => 'Otevřít nastavení Health Connect';
+	@override String get disconnect => 'Odpojit Health Connect';
+	@override String get disconnectConfirmationTitle => 'Odpojit Health Connect?';
+	@override String get disconnectConfirmationMessage => 'Calorify ztratí přístup k Health Connect. Data, která již byla zapsána, nebudou smazána.';
+	@override String get disconnectConfirmationAction => 'Odpojit';
+	@override String get deleteSyncedMeals => 'Smazat jídla Calorify z Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Smazat synchronizovaná jídla?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Smazat z Health Connect jídla synchronizovaná touto verzí Calorify? Místní záznam jídel se nezmění. Starší záznamy Calorify může být stále nutné odstranit pomocí možnosti Spravovat data v Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Smazat synchronizovaná jídla';
+	@override String get deleteSyncedMealsSuccess => 'Jídla Calorify byla z Health Connect smazána.';
+	@override String get deleteSyncedMealsFailed => 'Synchronizovaná jídla se nepodařilo smazat. Zkuste to znovu.';
+	@override String get connectionPartial => 'Některé funkce Health Connect jsou povoleny.';
+	@override String get connectionComplete => 'Obě funkce Health Connect jsou povoleny.';
+	@override String get actionFailed => 'Health Connect se nepodařilo otevřít. Zkuste to znovu.';
 	@override String get requestPermissions => 'Požádat o oprávnění';
 	@override String get permissionRequestCancelledOrFailed => 'Požadavek na oprávnění byl zrušen nebo selhal. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.';
 	@override String get permissionRequestFailed => 'Nelze požádat o oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.';
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoCs extends TranslationsSettingsAppInfoEn {
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify verze ${version}';
 	@override String build({required Object buildNumber}) => 'Sestavení ${buildNumber}';
 }
 
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingCs extends Translatio
 	@override String get description => 'Sledujte spálené kalorie z vašich fitness aplikací';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedCs extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Spálené kalorie';
+	@override String get description => 'Přečíst dnešní celkový počet spálených kalorií z Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsCs extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsCs._(TranslationsCs root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsCs extends Translation
 	@override String get description => 'Získejte podrobné poznatky o trendech vašeho zdraví';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsCs extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sdílet zaznamenaná jídla';
+	@override String get description => 'Zapisovat jídla zaznamenaná v Calorify do Health Connect';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationCs extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationCs._(TranslationsCs root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationCs extends Translat
 	// Translations
 	@override String get title => 'Bezproblémová integrace';
 	@override String get description => 'Synchronizujte data z vašich oblíbených zdravotních aplikací';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlCs extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Máte vše pod kontrolou';
+	@override String get description => 'Vyberte kterékoli oprávnění a přístup můžete kdykoli změnit';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableCs extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect není k dispozici';
 	@override String get description => 'Health Connect není na tomto zařízení dostupný. Nainstalujte prosím Health Connect z Play Store (Android 9+) nebo aktualizujte na Android 14+.';
+	@override String get unsupportedDescription => 'Health Connect není na tomto zařízení podporován.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredCs extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect vyžaduje pozornost';
+	@override String get description => 'Před správou přístupu nainstalujte nebo aktualizujte Health Connect.';
+	@override String get action => 'Nainstalovat nebo aktualizovat';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyCs extends TranslationsSettingsAboutPriva
 	@override String get description => 'Soukromí není dodatek — je to princip návrhu. Co to v praxi znamená:';
 	@override String get noAccounts => 'Není potřeba účet\nPoužijte aplikaci okamžitě. Žádné registrace, žádné identity.';
 	@override String noTracking({required Object appLabel}) => 'Žádné sledování chování\n${appLabel} nesleduje vaši aktivitu, netvoří uživatelské profily ani vás nesleduje napříč aplikacemi či weby.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Omezené analytické a diagnostické údaje\n${appLabel} používá základní události aplikace a diagnostiku pádů ke zvýšení spolehlivosti. Hodnoty zdravotních záznamů se nepoužívají k reklamě ani se neprodávají.';
 	@override String noAds({required Object appLabel}) => 'Bez reklam záměrně\n${appLabel} je navržen tak, aby fungoval bez reklam a monetizace založené na datech.';
 	@override String get noDataSelling => 'Žádný prodej dat\nVaše zdravotní údaje nejsou nikdy prodávány ani sdíleny s třetími stranami.';
 	@override String get localStorage => 'Primárně lokální úložiště\nVaše data zůstávají v zařízení.';
@@ -1833,18 +1908,31 @@ extension on TranslationsCs {
 			'onboarding.activityLevel.description' => 'To nám pomůže přesněji vypočítat vaši denní potřebu kalorií',
 			'onboarding.healthConnect.title' => 'Propojte se s Health Connect',
 			'onboarding.healthConnect.description' => 'Synchronizujte svá zdravotní data pro lepší přehledy a automatické sledování kalorií',
+			'onboarding.healthConnect.overviewDescription' => 'Používejte spálené kalorie ve svém denním cíli a volitelně sdílejte zaznamenaná jídla s Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Automatické sledování kalorií',
 			'onboarding.healthConnect.automaticTracking.description' => 'Sledujte spálené kalorie z vašich fitness aplikací',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Spálené kalorie',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Přečíst dnešní celkový počet spálených kalorií z Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Přehled pokroku',
 			'onboarding.healthConnect.progressInsights.description' => 'Získejte podrobné poznatky o trendech vašeho zdraví',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Sdílet zaznamenaná jídla',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Zapisovat jídla zaznamenaná v Calorify do Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Bezproblémová integrace',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Synchronizujte data z vašich oblíbených zdravotních aplikací',
+			'onboarding.healthConnect.userControl.title' => 'Máte vše pod kontrolou',
+			'onboarding.healthConnect.userControl.description' => 'Vyberte kterékoli oprávnění a přístup můžete kdykoli změnit',
 			'onboarding.healthConnect.connected' => 'Health Connect propojeno',
 			'onboarding.healthConnect.notConnected' => 'Health Connect není propojen',
 			'onboarding.healthConnect.setup' => 'Nastavit Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Přeskočit nyní',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect je propojen.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect byl úspěšně propojen!',
+			'onboarding.healthConnect.statusNotConnected' => 'Vyberte funkce Health Connect, které chcete povolit.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect je připojen částečně. Chcete-li používat obě funkce, povolte zbývající oprávnění.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Chcete-li pokračovat, nainstalujte nebo aktualizujte Health Connect.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connect není na tomto zařízení podporován.',
+			'onboarding.healthConnect.installOrUpdate' => 'Nainstalovat nebo aktualizovat',
+			'onboarding.healthConnect.manageAccess' => 'Spravovat přístup',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Oprávnění odepřeno. Povolte prosím oprávnění Health Connect v nastavení telefonu pro ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Chyba při nastavování Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Nejste na to sami',
@@ -1899,7 +1987,7 @@ extension on TranslationsCs {
 			'home.dailyGoal.weightImpact' => 'Dopad na váhu',
 			'home.dailyGoal.estLoss' => 'Odhad. úbytek',
 			'home.dailyGoal.estGain' => 'Odhad. přírůstek',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalorie (kcal)',
 			'home.dailySummary.title' => 'Denní souhrn',
 			'home.dailySummary.calories' => 'Kalorie',
 			'home.dailySummary.carbs' => 'Sacharidy',
@@ -1939,6 +2027,8 @@ extension on TranslationsCs {
 			'home.connectHealth.title' => 'Synchronizovat s Health Connect',
 			'home.connectHealth.description' => 'Synchronizujte svá nutriční data s Health Connect',
 			'home.connectHealth.install' => 'Nainstalovat',
+			'home.connectHealth.dataUseDescription' => 'Použijte spálené kalorie ve svém cíli a sdílejte zaznamenaná jídla',
+			'home.connectHealth.installOrUpdate' => 'Nainstalovat nebo aktualizovat',
 			'home.connectHealth.connect' => 'Propojit',
 			'history.noMeals' => 'Žádná zaznamenaná jídla',
 			'history.emptyMessage' => 'Vyfoťte poslední jídlo a zaznamenejte ho sem.',
@@ -2005,7 +2095,7 @@ extension on TranslationsCs {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} dalších',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Zjištěno ${count} ingrediencí',
 			'meal.analysis.ingredientsPending' => 'Skenuji ingredience…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '„${text}“',
 			'meal.analysis.offlineTip0' => 'Tip: Pravidelnost je důležitější než dokonalost — pravidelné záznamy odhalí podstatné vzorce.',
 			'meal.analysis.offlineTip1' => 'Tip: Pro fotky pomáhá přirozené světlo a pohled shora pro přesnost porcí.',
 			'meal.analysis.offlineTip2' => 'Tip: Uveďte nápoje, omáčky a olej používaný při vaření — přidávají kalorie, na které se často zapomíná.',
@@ -2098,7 +2188,7 @@ extension on TranslationsCs {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'libry (lb)',
 			'editProfile.metricCm' => 'Metrické (cm)',
 			'editProfile.imperialFtIn' => 'Imperiální (ft/in)',
 			'editProfile.metricKg' => 'Metrické (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsCs {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALIZACE',
 			'settings.sections.notifications' => 'UPOZORNĚNÍ',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'ANALÝZA V ZAŘÍZENÍ',
 			'settings.sections.supportAndLegal' => 'PODPORA & PRÁVNÍ',
 			'settings.sections.about' => 'O APLIKACI',
@@ -2175,8 +2265,10 @@ extension on TranslationsCs {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nepodařilo se exportovat historii jídel: ${error}',
 			'settings.clearAllData.title' => 'Vymazat všechna data',
 			'settings.clearAllData.subtitle' => 'Trvale smazat všechny vaše informace',
+			'settings.clearAllData.localOnlySubtitle' => 'Smazat data Calorify uložená v tomto zařízení',
 			'settings.clearAllData.confirmationTitle' => 'Vymazat všechna data?',
 			'settings.clearAllData.confirmationMessage' => 'Tuto akci nelze vrátit zpět. Všechna vaše zaznamenaná jídla, oblíbené položky a nastavení profilu budou trvale smazány.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Tímto trvale smažete zaznamenaná jídla, oblíbené položky a nastavení profilu z tohoto zařízení. Jídla již sdílená s Health Connect a přístup k Health Connect se spravují samostatně v Nastavení > Health Connect.',
 			'settings.clearAllData.cancel' => 'Zrušit',
 			'settings.clearAllData.clearEverything' => 'Vymazat vše',
 			'settings.debugOptions.title' => 'Možnosti ladění',
@@ -2185,6 +2277,10 @@ extension on TranslationsCs {
 			'settings.healthConnect.subtitle' => 'Prohlížet a spravovat oprávnění',
 			'settings.healthConnect.unavailable.title' => 'Health Connect není k dispozici',
 			'settings.healthConnect.unavailable.description' => 'Health Connect není na tomto zařízení dostupný. Nainstalujte prosím Health Connect z Play Store (Android 9+) nebo aktualizujte na Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect není na tomto zařízení podporován.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect vyžaduje pozornost',
+			'settings.healthConnect.updateRequired.description' => 'Před správou přístupu nainstalujte nebo aktualizujte Health Connect.',
+			'settings.healthConnect.updateRequired.action' => 'Nainstalovat nebo aktualizovat',
 			'settings.healthConnect.permissions.title' => 'Oprávnění',
 			'settings.healthConnect.permissions.description' => 'Následující oprávnění jsou požadována pro integraci s Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Povoleno',
@@ -2200,6 +2296,19 @@ extension on TranslationsCs {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Toto oprávnění umožňuje aplikaci synchronizovat vaše zaznamenaná jídla s Health Connect, takže vaše nutriční data budou dostupná dalším zdravotním a fitness aplikacím, které používáte.',
 			'settings.healthConnect.managePermissions' => 'Spravovat oprávnění',
 			'settings.healthConnect.openSettings' => 'Otevřít nastavení Health Connect',
+			'settings.healthConnect.disconnect' => 'Odpojit Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Odpojit Health Connect?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify ztratí přístup k Health Connect. Data, která již byla zapsána, nebudou smazána.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Odpojit',
+			'settings.healthConnect.deleteSyncedMeals' => 'Smazat jídla Calorify z Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Smazat synchronizovaná jídla?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Smazat z Health Connect jídla synchronizovaná touto verzí Calorify? Místní záznam jídel se nezmění. Starší záznamy Calorify může být stále nutné odstranit pomocí možnosti Spravovat data v Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Smazat synchronizovaná jídla',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Jídla Calorify byla z Health Connect smazána.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Synchronizovaná jídla se nepodařilo smazat. Zkuste to znovu.',
+			'settings.healthConnect.connectionPartial' => 'Některé funkce Health Connect jsou povoleny.',
+			'settings.healthConnect.connectionComplete' => 'Obě funkce Health Connect jsou povoleny.',
+			'settings.healthConnect.actionFailed' => 'Health Connect se nepodařilo otevřít. Zkuste to znovu.',
 			'settings.healthConnect.requestPermissions' => 'Požádat o oprávnění',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Požadavek na oprávnění byl zrušen nebo selhal. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Nelze požádat o oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.',
@@ -2212,6 +2321,7 @@ extension on TranslationsCs {
 			'settings.about.privacy.description' => 'Soukromí není dodatek — je to princip návrhu. Co to v praxi znamená:',
 			'settings.about.privacy.noAccounts' => 'Není potřeba účet\nPoužijte aplikaci okamžitě. Žádné registrace, žádné identity.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Žádné sledování chování\n${appLabel} nesleduje vaši aktivitu, netvoří uživatelské profily ani vás nesleduje napříč aplikacemi či weby.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Omezené analytické a diagnostické údaje\n${appLabel} používá základní události aplikace a diagnostiku pádů ke zvýšení spolehlivosti. Hodnoty zdravotních záznamů se nepoužívají k reklamě ani se neprodávají.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Bez reklam záměrně\n${appLabel} je navržen tak, aby fungoval bez reklam a monetizace založené na datech.',
 			'settings.about.privacy.noDataSelling' => 'Žádný prodej dat\nVaše zdravotní údaje nejsou nikdy prodávány ani sdíleny s třetími stranami.',
 			'settings.about.privacy.localStorage' => 'Primárně lokální úložiště\nVaše data zůstávají v zařízení.',
@@ -2224,7 +2334,7 @@ extension on TranslationsCs {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Vaše zpětná vazba pomáhá zlepšit ${appLabel} pro všechny.',
 			'settings.about.feedback.rateApp' => 'Ohodnotit v Play Store',
 			'settings.about.feedback.sendFeedback' => 'Poslat zpětnou vazbu',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify verze ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Sestavení ${buildNumber}',
 			'reminders.title' => 'Zůstaňte na cestě díky připomenutím',
 			'reminders.description' => 'Dostávejte jemná upozornění, abyste si zaznamenávali jídla a udrželi se v souladu se svými výživovými cíli',
@@ -2256,6 +2366,8 @@ extension on TranslationsCs {
 			'notifications.snack.body' => 'Čas na zdravou svačinu',
 			'notifications.test.title' => 'Testovací upozornění',
 			'login.title' => 'Přihlášení',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Přihlásit se přes Google',
 			'login.signInFailed' => 'Přihlášení přes Google selhalo nebo bylo zrušeno.',
 			'disclaimer.pleaseNote' => 'Vezměte prosím na vědomí',
@@ -2291,8 +2403,6 @@ extension on TranslationsCs {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vypočítáme váš TDEE (na základě profilu) a vynásobíme ho zlomkem uběhlého dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Odborné poradenství',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nepoužívejte tento odhad pro lékařská rozhodnutí. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem pro personalizovanou péči.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Výživové údaje nalezeny ve staženém balíčku USDA',
 			'localNutritionPhase4.nutritionCached' => 'Výživové údaje nalezeny v mezipaměti USDA v zařízení',
 			'localNutritionPhase4.nutritionMixed' => 'Výživové údaje sloučeny ze stažených, uložených a vzdálených řádků USDA',

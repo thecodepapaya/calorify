@@ -267,7 +267,7 @@ class _TranslationsEditProfileHu extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'font (lb)';
 	@override String get metricCm => 'Metrikus (cm)';
 	@override String get imperialFtIn => 'Imperiális (ft/in)';
 	@override String get metricKg => 'Metrikus (kg)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectHu extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Kapcsolódj a Health Connecthez';
 	@override String get description => 'Szinkronizáld egészségadataid a jobb elemzésekért és automatikus kalóriakövetésért';
+	@override String get overviewDescription => 'Használd fel az elégetett kalóriákat a napi célodban, és igény szerint oszd meg a naplózott étkezéseket a Health Connecttel.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingHu automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingHu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedHu caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedHu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsHu progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsHu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsHu shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsHu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationHu seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationHu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlHu userControl = _TranslationsOnboardingHealthConnectUserControlHu._(_root);
 	@override String get connected => 'Health Connect csatlakoztatva';
 	@override String get notConnected => 'Health Connect nincs csatlakoztatva';
 	@override String get setup => 'Health Connect beállítása';
 	@override String get skipForNow => 'Most kihagyom';
 	@override String get statusConnected => 'A Health Connect csatlakoztatva.';
 	@override String get statusSuccess => 'A Health Connect sikeresen csatlakoztatva!';
+	@override String get statusNotConnected => 'Válaszd ki az engedélyezni kívánt Health Connect-funkciókat.';
+	@override String get statusPartial => 'A Health Connect részben csatlakozik. Mindkét funkció használatához engedélyezd a fennmaradó jogosultságot.';
+	@override String get statusProviderUpdateRequired => 'A folytatáshoz telepítsd vagy frissítsd a Health Connectet.';
+	@override String get statusUnavailable => 'A Health Connect nem támogatott ezen az eszközön.';
+	@override String get installOrUpdate => 'Telepítés vagy frissítés';
+	@override String get manageAccess => 'Hozzáférés kezelése';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Hozzáférés megtagadva. Kérlek engedélyezd a Health Connect jogosultságokat a telefon beállításaiban a ${appLabel} számára.';
 	@override String statusError({required Object error}) => 'Hiba a Health Connect beállítása közben: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalHu extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Súlyra gyakorolt hatás';
 	@override String get estLoss => 'Becsült veszteség';
 	@override String get estGain => 'Becsült gyarapodás';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalória (kcal)';
 }
 
 // Path: home.dailySummary
@@ -744,6 +754,8 @@ class _TranslationsHomeConnectHealthHu extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Szinkron a Health Connecttel';
 	@override String get description => 'Szinkronizáld a táplálkozási adataidat a Health Connecttel';
 	@override String get install => 'Telepítés';
+	@override String get dataUseDescription => 'Használd fel az elégetett kalóriákat a célodban, és oszd meg a naplózott étkezéseket';
+	@override String get installOrUpdate => 'Telepítés vagy frissítés';
 	@override String get connect => 'Csatlakozás';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisHu extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => 'még ${count}';
 	@override String ingredientsLine({required Object count}) => '${count} összetevő észlelve';
 	@override String get ingredientsPending => 'Összetevők beolvasása…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '„${text}”';
 	@override String get offlineTip0 => 'Tipp: A következetesség fontosabb, mint a tökéletesség — a rendszeres naplózás mutatja meg a valódi mintákat.';
 	@override String get offlineTip1 => 'Tipp: Fotókhoz a természetes fény és felülnézeti fotó segít az adagpontosságban.';
 	@override String get offlineTip2 => 'Tipp: Említsd meg az italokat, szószokat és sütőolajat — ezek plusz kalóriát adnak, amit gyakran elfelejtenek.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsHu extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALIZÁCIÓ';
 	@override String get notifications => 'ÉRTESÍTÉSEK';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'KÉSZÜLÉKEN TÖRTÉNŐ ELEMZÉS';
 	@override String get supportAndLegal => 'TÁMOGATÁS & JOGI';
 	@override String get about => 'NÉVJEGY';
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataHu extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'Az összes adat törlése';
 	@override String get subtitle => 'Minden információ végleges törlése';
+	@override String get localOnlySubtitle => 'Az eszközön tárolt Calorify-adatok törlése';
 	@override String get confirmationTitle => 'Töröljem az összes adatot?';
 	@override String get confirmationMessage => 'Ez a művelet nem visszavonható. Minden naplózott étel, kedvenc és profilbeállítás véglegesen törlődik.';
+	@override String get localOnlyConfirmationMessage => 'Ez véglegesen törli erről az eszközről a naplózott étkezéseket, a kedvenceket és a profilbeállításokat. A Health Connecttel már megosztott étkezések és a Health Connect-hozzáférés külön kezelhető a Beállítások > Health Connect menüben.';
 	@override String get cancel => 'Mégse';
 	@override String get clearEverything => 'Mindent törlök';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectHu extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Engedélyek megtekintése és kezelése';
 	@override late final _TranslationsSettingsHealthConnectUnavailableHu unavailable = _TranslationsSettingsHealthConnectUnavailableHu._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredHu updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredHu._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsHu permissions = _TranslationsSettingsHealthConnectPermissionsHu._(_root);
 	@override String get managePermissions => 'Engedélyek kezelése';
 	@override String get openSettings => 'Health Connect beállítások megnyitása';
+	@override String get disconnect => 'Health Connect leválasztása';
+	@override String get disconnectConfirmationTitle => 'Leválasztod a Health Connectet?';
+	@override String get disconnectConfirmationMessage => 'A Calorify elveszíti a Health Connecthez való hozzáférést. A már oda írt adatok nem törlődnek.';
+	@override String get disconnectConfirmationAction => 'Leválasztás';
+	@override String get deleteSyncedMeals => 'Calorify-étkezések törlése a Health Connectből';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Törlöd a szinkronizált étkezéseket?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Törlöd a Calorify ezen verziója által szinkronizált étkezéseket a Health Connectből? A helyi étkezési napló nem változik. Előfordulhat, hogy a régebbi Calorify-bejegyzéseket továbbra is a Health Connect Adatok kezelése funkciójával kell eltávolítani.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Szinkronizált étkezések törlése';
+	@override String get deleteSyncedMealsSuccess => 'A Calorify-étkezések törölve lettek a Health Connectből.';
+	@override String get deleteSyncedMealsFailed => 'A szinkronizált étkezéseket nem sikerült törölni. Próbáld újra.';
+	@override String get connectionPartial => 'Néhány Health Connect-funkció engedélyezve van.';
+	@override String get connectionComplete => 'Mindkét Health Connect-funkció engedélyezve van.';
+	@override String get actionFailed => 'A Health Connectet nem sikerült megnyitni. Próbáld újra.';
 	@override String get requestPermissions => 'Engedélyek kérése';
 	@override String get permissionRequestCancelledOrFailed => 'Az engedélykérés megszakadt vagy sikertelen volt. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.';
 	@override String get permissionRequestFailed => 'Nem sikerült engedélyeket kérni. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.';
@@ -1164,8 +1192,8 @@ class _TranslationsSettingsAppInfoHu extends TranslationsSettingsAppInfoEn {
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify ${version}. verzió';
+	@override String build({required Object buildNumber}) => 'Buildszám: ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingHu extends Translatio
 	@override String get description => 'Kövesd a fitneszalkalmazásaidból származó elégetett kalóriákat';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedHu extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Elégetett kalóriák';
+	@override String get description => 'A mai összes elégetett kalória beolvasása a Health Connectből';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsHu extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsHu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsHu extends Translation
 	@override String get description => 'Részletes betekintés az egészséged trendjeibe';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsHu extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Naplózott étkezések megosztása';
+	@override String get description => 'A Calorifyban naplózott étkezések írása a Health Connectbe';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationHu extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationHu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationHu extends Translat
 	// Translations
 	@override String get title => 'Zökkenőmentes integráció';
 	@override String get description => 'Szinkronizáld adataid a kedvenc egészségalkalmazásaiddal';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlHu extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Te irányítasz';
+	@override String get description => 'Válaszd ki bármelyik engedélyt, és bármikor módosítsd a hozzáférést';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableHu extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect nem elérhető';
 	@override String get description => 'A Health Connect nem elérhető ezen az eszközön. Kérlek telepítsd a Health Connectet a Play Store-ból (Android 9+), vagy frissíts Android 14+-ra.';
+	@override String get unsupportedDescription => 'A Health Connect nem támogatott ezen az eszközön.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredHu extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A Health Connect figyelmet igényel';
+	@override String get description => 'A hozzáférés kezelése előtt telepítsd vagy frissítsd a Health Connectet.';
+	@override String get action => 'Telepítés vagy frissítés';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyHu extends TranslationsSettingsAboutPriva
 	@override String get description => 'A magánszféra nem utólagos gondolat — tervezési elv. Mit jelent ez a gyakorlatban:';
 	@override String get noAccounts => 'Nincs szükség fiókra\nHasználd az alkalmazást azonnal. Nincsenek regisztrációk, nincs személyazonosság-követés.';
 	@override String noTracking({required Object appLabel}) => 'Nincs viselkedési követés\nA ${appLabel} nem figyeli a tevékenységedet, nem készít használati profilokat, és nem követ az alkalmazások vagy webhelyek között.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Korlátozott elemzés és diagnosztika\nA ${appLabel} alapvető alkalmazáseseményeket és összeomlási diagnosztikát használ a megbízhatóság javítására. Az egészségügyi adatok értékeit nem használjuk hirdetésre és nem értékesítjük.';
 	@override String noAds({required Object appLabel}) => 'Reklámmentes alapból\nA ${appLabel} reklámok vagy adatvezérelt pénzszerzés nélkül működik.';
 	@override String get noDataSelling => 'Nincs adateladás\nAz egészségügyi adataidat soha nem adjuk el és nem osztjuk meg harmadik féllel.';
 	@override String get localStorage => 'Elsősorban helyi tárolás\nAz adataid az eszközödön maradnak.';
@@ -1833,18 +1908,31 @@ extension on TranslationsHu {
 			'onboarding.activityLevel.description' => 'Ez segít pontosabban kiszámolni a napi kalóriaszükségletedet',
 			'onboarding.healthConnect.title' => 'Kapcsolódj a Health Connecthez',
 			'onboarding.healthConnect.description' => 'Szinkronizáld egészségadataid a jobb elemzésekért és automatikus kalóriakövetésért',
+			'onboarding.healthConnect.overviewDescription' => 'Használd fel az elégetett kalóriákat a napi célodban, és igény szerint oszd meg a naplózott étkezéseket a Health Connecttel.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Automatikus kalóriakövetés',
 			'onboarding.healthConnect.automaticTracking.description' => 'Kövesd a fitneszalkalmazásaidból származó elégetett kalóriákat',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Elégetett kalóriák',
+			'onboarding.healthConnect.caloriesBurned.description' => 'A mai összes elégetett kalória beolvasása a Health Connectből',
 			'onboarding.healthConnect.progressInsights.title' => 'Haladás-elemzések',
 			'onboarding.healthConnect.progressInsights.description' => 'Részletes betekintés az egészséged trendjeibe',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Naplózott étkezések megosztása',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'A Calorifyban naplózott étkezések írása a Health Connectbe',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Zökkenőmentes integráció',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Szinkronizáld adataid a kedvenc egészségalkalmazásaiddal',
+			'onboarding.healthConnect.userControl.title' => 'Te irányítasz',
+			'onboarding.healthConnect.userControl.description' => 'Válaszd ki bármelyik engedélyt, és bármikor módosítsd a hozzáférést',
 			'onboarding.healthConnect.connected' => 'Health Connect csatlakoztatva',
 			'onboarding.healthConnect.notConnected' => 'Health Connect nincs csatlakoztatva',
 			'onboarding.healthConnect.setup' => 'Health Connect beállítása',
 			'onboarding.healthConnect.skipForNow' => 'Most kihagyom',
 			'onboarding.healthConnect.statusConnected' => 'A Health Connect csatlakoztatva.',
 			'onboarding.healthConnect.statusSuccess' => 'A Health Connect sikeresen csatlakoztatva!',
+			'onboarding.healthConnect.statusNotConnected' => 'Válaszd ki az engedélyezni kívánt Health Connect-funkciókat.',
+			'onboarding.healthConnect.statusPartial' => 'A Health Connect részben csatlakozik. Mindkét funkció használatához engedélyezd a fennmaradó jogosultságot.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'A folytatáshoz telepítsd vagy frissítsd a Health Connectet.',
+			'onboarding.healthConnect.statusUnavailable' => 'A Health Connect nem támogatott ezen az eszközön.',
+			'onboarding.healthConnect.installOrUpdate' => 'Telepítés vagy frissítés',
+			'onboarding.healthConnect.manageAccess' => 'Hozzáférés kezelése',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Hozzáférés megtagadva. Kérlek engedélyezd a Health Connect jogosultságokat a telefon beállításaiban a ${appLabel} számára.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Hiba a Health Connect beállítása közben: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Nem vagy egyedül',
@@ -1899,7 +1987,7 @@ extension on TranslationsHu {
 			'home.dailyGoal.weightImpact' => 'Súlyra gyakorolt hatás',
 			'home.dailyGoal.estLoss' => 'Becsült veszteség',
 			'home.dailyGoal.estGain' => 'Becsült gyarapodás',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalória (kcal)',
 			'home.dailySummary.title' => 'Napi összefoglaló',
 			'home.dailySummary.calories' => 'Kalória',
 			'home.dailySummary.carbs' => 'Szénhidrát',
@@ -1939,6 +2027,8 @@ extension on TranslationsHu {
 			'home.connectHealth.title' => 'Szinkron a Health Connecttel',
 			'home.connectHealth.description' => 'Szinkronizáld a táplálkozási adataidat a Health Connecttel',
 			'home.connectHealth.install' => 'Telepítés',
+			'home.connectHealth.dataUseDescription' => 'Használd fel az elégetett kalóriákat a célodban, és oszd meg a naplózott étkezéseket',
+			'home.connectHealth.installOrUpdate' => 'Telepítés vagy frissítés',
 			'home.connectHealth.connect' => 'Csatlakozás',
 			'history.noMeals' => 'Nincsenek rögzített ételek',
 			'history.emptyMessage' => 'Készíts fotót az utolsó étkezésedről, hogy itt naplózd.',
@@ -2005,7 +2095,7 @@ extension on TranslationsHu {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'még ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} összetevő észlelve',
 			'meal.analysis.ingredientsPending' => 'Összetevők beolvasása…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '„${text}”',
 			'meal.analysis.offlineTip0' => 'Tipp: A következetesség fontosabb, mint a tökéletesség — a rendszeres naplózás mutatja meg a valódi mintákat.',
 			'meal.analysis.offlineTip1' => 'Tipp: Fotókhoz a természetes fény és felülnézeti fotó segít az adagpontosságban.',
 			'meal.analysis.offlineTip2' => 'Tipp: Említsd meg az italokat, szószokat és sütőolajat — ezek plusz kalóriát adnak, amit gyakran elfelejtenek.',
@@ -2098,7 +2188,7 @@ extension on TranslationsHu {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'font (lb)',
 			'editProfile.metricCm' => 'Metrikus (cm)',
 			'editProfile.imperialFtIn' => 'Imperiális (ft/in)',
 			'editProfile.metricKg' => 'Metrikus (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsHu {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALIZÁCIÓ',
 			'settings.sections.notifications' => 'ÉRTESÍTÉSEK',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'KÉSZÜLÉKEN TÖRTÉNŐ ELEMZÉS',
 			'settings.sections.supportAndLegal' => 'TÁMOGATÁS & JOGI',
 			'settings.sections.about' => 'NÉVJEGY',
@@ -2175,8 +2265,10 @@ extension on TranslationsHu {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nem sikerült exportálni az étkezési előzményeket: ${error}',
 			'settings.clearAllData.title' => 'Az összes adat törlése',
 			'settings.clearAllData.subtitle' => 'Minden információ végleges törlése',
+			'settings.clearAllData.localOnlySubtitle' => 'Az eszközön tárolt Calorify-adatok törlése',
 			'settings.clearAllData.confirmationTitle' => 'Töröljem az összes adatot?',
 			'settings.clearAllData.confirmationMessage' => 'Ez a művelet nem visszavonható. Minden naplózott étel, kedvenc és profilbeállítás véglegesen törlődik.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Ez véglegesen törli erről az eszközről a naplózott étkezéseket, a kedvenceket és a profilbeállításokat. A Health Connecttel már megosztott étkezések és a Health Connect-hozzáférés külön kezelhető a Beállítások > Health Connect menüben.',
 			'settings.clearAllData.cancel' => 'Mégse',
 			'settings.clearAllData.clearEverything' => 'Mindent törlök',
 			'settings.debugOptions.title' => 'Hibakeresési beállítások',
@@ -2185,6 +2277,10 @@ extension on TranslationsHu {
 			'settings.healthConnect.subtitle' => 'Engedélyek megtekintése és kezelése',
 			'settings.healthConnect.unavailable.title' => 'Health Connect nem elérhető',
 			'settings.healthConnect.unavailable.description' => 'A Health Connect nem elérhető ezen az eszközön. Kérlek telepítsd a Health Connectet a Play Store-ból (Android 9+), vagy frissíts Android 14+-ra.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'A Health Connect nem támogatott ezen az eszközön.',
+			'settings.healthConnect.updateRequired.title' => 'A Health Connect figyelmet igényel',
+			'settings.healthConnect.updateRequired.description' => 'A hozzáférés kezelése előtt telepítsd vagy frissítsd a Health Connectet.',
+			'settings.healthConnect.updateRequired.action' => 'Telepítés vagy frissítés',
 			'settings.healthConnect.permissions.title' => 'Engedélyek',
 			'settings.healthConnect.permissions.description' => 'A Health Connect integrációhoz a következő engedélyekre van szükség:',
 			'settings.healthConnect.permissions.granted' => 'Engedélyezve',
@@ -2200,6 +2296,19 @@ extension on TranslationsHu {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Ezzel az engedéllyel az alkalmazás a naplózott ételeidet szinkronizálhatja a Health Connectbe, így táplálkozási adataid elérhetővé válnak más egészség- és fitneszalkalmazások számára.',
 			'settings.healthConnect.managePermissions' => 'Engedélyek kezelése',
 			'settings.healthConnect.openSettings' => 'Health Connect beállítások megnyitása',
+			'settings.healthConnect.disconnect' => 'Health Connect leválasztása',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Leválasztod a Health Connectet?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'A Calorify elveszíti a Health Connecthez való hozzáférést. A már oda írt adatok nem törlődnek.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Leválasztás',
+			'settings.healthConnect.deleteSyncedMeals' => 'Calorify-étkezések törlése a Health Connectből',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Törlöd a szinkronizált étkezéseket?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Törlöd a Calorify ezen verziója által szinkronizált étkezéseket a Health Connectből? A helyi étkezési napló nem változik. Előfordulhat, hogy a régebbi Calorify-bejegyzéseket továbbra is a Health Connect Adatok kezelése funkciójával kell eltávolítani.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Szinkronizált étkezések törlése',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'A Calorify-étkezések törölve lettek a Health Connectből.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'A szinkronizált étkezéseket nem sikerült törölni. Próbáld újra.',
+			'settings.healthConnect.connectionPartial' => 'Néhány Health Connect-funkció engedélyezve van.',
+			'settings.healthConnect.connectionComplete' => 'Mindkét Health Connect-funkció engedélyezve van.',
+			'settings.healthConnect.actionFailed' => 'A Health Connectet nem sikerült megnyitni. Próbáld újra.',
 			'settings.healthConnect.requestPermissions' => 'Engedélyek kérése',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Az engedélykérés megszakadt vagy sikertelen volt. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.',
 			'settings.healthConnect.permissionRequestFailed' => 'Nem sikerült engedélyeket kérni. Kérlek próbáld újra, vagy adj engedélyeket kézzel a Health Connect beállításaiban.',
@@ -2212,6 +2321,7 @@ extension on TranslationsHu {
 			'settings.about.privacy.description' => 'A magánszféra nem utólagos gondolat — tervezési elv. Mit jelent ez a gyakorlatban:',
 			'settings.about.privacy.noAccounts' => 'Nincs szükség fiókra\nHasználd az alkalmazást azonnal. Nincsenek regisztrációk, nincs személyazonosság-követés.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Nincs viselkedési követés\nA ${appLabel} nem figyeli a tevékenységedet, nem készít használati profilokat, és nem követ az alkalmazások vagy webhelyek között.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Korlátozott elemzés és diagnosztika\nA ${appLabel} alapvető alkalmazáseseményeket és összeomlási diagnosztikát használ a megbízhatóság javítására. Az egészségügyi adatok értékeit nem használjuk hirdetésre és nem értékesítjük.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Reklámmentes alapból\nA ${appLabel} reklámok vagy adatvezérelt pénzszerzés nélkül működik.',
 			'settings.about.privacy.noDataSelling' => 'Nincs adateladás\nAz egészségügyi adataidat soha nem adjuk el és nem osztjuk meg harmadik féllel.',
 			'settings.about.privacy.localStorage' => 'Elsősorban helyi tárolás\nAz adataid az eszközödön maradnak.',
@@ -2224,8 +2334,8 @@ extension on TranslationsHu {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'A visszajelzésed jobbá teszi a ${appLabel}-t mindenki számára.',
 			'settings.about.feedback.rateApp' => 'Értékelés a Play Store-ban',
 			'settings.about.feedback.sendFeedback' => 'Visszajelzés küldése',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify ${version}. verzió',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Buildszám: ${buildNumber}',
 			'reminders.title' => 'Maradj a pályán emlékeztetőkkel',
 			'reminders.description' => 'Gyengéd emlékeztetők, hogy naplózd az étkezéseidet és következetes maradj a táplálkozási célokkal',
 			'reminders.notificationsEnabled' => 'Értesítések engedélyezve',
@@ -2256,6 +2366,8 @@ extension on TranslationsHu {
 			'notifications.snack.body' => 'Ideje egy egészséges nassolnivalónak',
 			'notifications.test.title' => 'Teszt értesítés',
 			'login.title' => 'Bejelentkezés',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Bejelentkezés Google-lal',
 			'login.signInFailed' => 'A Google bejelentkezés sikertelen vagy megszakadt.',
 			'disclaimer.pleaseNote' => 'Kérjük vedd figyelembe',
@@ -2291,8 +2403,6 @@ extension on TranslationsHu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kiszámítjuk a TDEE-det (a profilod alapján), és megszorozzuk a nap eltelt részével (órák + percek) / 24, hogy megbecsüljük az eddig elégetett kalóriákat.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Szakmai útmutatás',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Ne használd ezt a becslést orvosi döntésekhez. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott súlykezelési tanácsért.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'A tápértékadatok a letöltött USDA-csomagból származnak',
 			'localNutritionPhase4.nutritionCached' => 'A tápértékadatok az eszköz USDA-gyorsítótárából származnak',
 			'localNutritionPhase4.nutritionMixed' => 'A tápértékadatok letöltött, gyorsítótárazott és távoli USDA-sorokból lettek egyesítve',

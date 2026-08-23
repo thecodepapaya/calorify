@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "חבר ל-Health Connect",
       "description": "סנכרן את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי",
+      "overviewDescription": "השתמשו בקלוריות שנשרפו ביעד היומי ושתפו לפי בחירה ארוחות שתועדו עם Health Connect.",
       "automaticTracking": {
         "title": "מעקב קלוריות אוטומטי",
         "description": "עקוב אחר הקלוריות שנשרפו מתוך אפליקציות הכושר שלך"
+      },
+      "caloriesBurned": {
+        "title": "קלוריות שנשרפו",
+        "description": "קראו את סך הקלוריות שנשרפו היום מ-Health Connect"
       },
       "progressInsights": {
         "title": "תובנות התקדמות",
         "description": "קבל תובנות מפורטות על מגמות הבריאות שלך"
       },
+      "shareLoggedMeals": {
+        "title": "שיתוף ארוחות שתועדו",
+        "description": "כתבו ארוחות שתועדו ב-Calorify אל Health Connect"
+      },
       "seamlessIntegration": {
         "title": "אינטגרציה חלקה",
         "description": "סנכרן נתונים מאפליקציות הבריאות האהובות עליך"
+      },
+      "userControl": {
+        "title": "השליטה בידיים שלכם",
+        "description": "בחרו באחת מההרשאות ושנו את הגישה בכל עת"
       },
       "connected": "Health Connect מחובר",
       "notConnected": "Health Connect לא מחובר",
@@ -101,6 +114,12 @@
       "skipForNow": "דלג לעכשיו",
       "statusConnected": "Health Connect מחובר.",
       "statusSuccess": "Health Connect חובר בהצלחה!",
+      "statusNotConnected": "בחרו את תכונות Health Connect שברצונכם להפעיל.",
+      "statusPartial": "Health Connect מחובר חלקית. הפעילו את ההרשאה הנותרת כדי להשתמש בשתי התכונות.",
+      "statusProviderUpdateRequired": "התקינו או עדכנו את Health Connect כדי להמשיך.",
+      "statusUnavailable": "Health Connect אינו נתמך במכשיר הזה.",
+      "installOrUpdate": "התקנה או עדכון",
+      "manageAccess": "ניהול גישה",
       "statusPermissionDenied": "הרשאה נדחתה. אנא אפשר הרשאות ל-Health Connect בהגדרות הטלפון עבור {appLabel}.",
       "statusError": "שגיאה בהגדרת Health Connect: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "השפעה על משקל",
       "estLoss": "אומד. אובדן של",
       "estGain": "אומד. עלייה של",
-      "kcal": "kcal"
+      "kcal": "קק״ל"
     },
     "dailySummary": {
       "title": "סיכום יומי",
@@ -226,7 +245,9 @@
     "connectHealth": {
       "title": "סנכרן עם Health Connect",
       "description": "סנכרן את נתוני התזונה שלך עם Health Connect",
+      "dataUseDescription": "השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו",
       "install": "התקן",
+      "installOrUpdate": "התקנה או עדכון",
       "connect": "חבר"
     }
   },
@@ -472,7 +493,7 @@
       "profile": "פרופיל",
       "localization": "מיקום שפה",
       "notifications": "התראות",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "ניתוח במכשיר",
       "supportAndLegal": "תמיכה & משפטי",
       "about": "אודות",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "נקה את כל הנתונים",
       "subtitle": "מחק ללא אפשרות שחזור את כל המידע שלך",
+      "localOnlySubtitle": "מחיקת נתוני Calorify המאוחסנים במכשיר הזה",
       "confirmationTitle": "לנקות את כל הנתונים?",
       "confirmationMessage": "פעולה זו לא ניתנת לביטול. כל הארוחות שנרשמו, המועדפים והגדרות הפרופיל ימחקו לצמיתות.",
+      "localOnlyConfirmationMessage": "פעולה זו מוחקת לצמיתות מהמכשיר הזה ארוחות שתועדו, מועדפים והגדרות פרופיל. ארוחות שכבר שותפו עם Health Connect והגישה ל-Health Connect מנוהלות בנפרד בהגדרות > Health Connect.",
       "cancel": "ביטול",
       "clearEverything": "נקה הכל"
     },
@@ -555,7 +578,13 @@
       "subtitle": "הצג ונהל הרשאות",
       "unavailable": {
         "title": "Health Connect לא זמין",
-        "description": "Health Connect אינו זמין במכשיר זה. אנא התקן את Health Connect מה-Play Store (Android 9+) או עדכן ל-Android 14+."
+        "description": "Health Connect אינו זמין במכשיר זה. אנא התקן את Health Connect מה-Play Store (Android 9+) או עדכן ל-Android 14+.",
+        "unsupportedDescription": "Health Connect אינו נתמך במכשיר הזה."
+      },
+      "updateRequired": {
+        "title": "Health Connect דורש טיפול",
+        "description": "יש להתקין או לעדכן את Health Connect לפני ניהול הגישה.",
+        "action": "התקנה או עדכון"
       },
       "permissions": {
         "title": "הרשאות",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "נהל הרשאות",
       "openSettings": "פתח הגדרות Health Connect",
+      "disconnect": "ניתוק Health Connect",
+      "disconnectConfirmationTitle": "לנתק את Health Connect?",
+      "disconnectConfirmationMessage": "ל-Calorify לא תהיה עוד גישה ל-Health Connect. נתונים שכבר נכתבו שם לא יימחקו.",
+      "disconnectConfirmationAction": "ניתוק",
+      "deleteSyncedMeals": "מחיקת ארוחות Calorify מ-Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "למחוק ארוחות מסונכרנות?",
+      "deleteSyncedMealsConfirmationMessage": "למחוק מ-Health Connect ארוחות שסונכרנו באמצעות גרסה זו של Calorify? יומן הארוחות המקומי לא ישתנה. ייתכן שיהיה צורך למחוק רשומות ישנות יותר של Calorify בנפרד באמצעות ניהול נתונים ב-Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "מחיקת ארוחות מסונכרנות",
+      "deleteSyncedMealsSuccess": "ארוחות Calorify נמחקו מ-Health Connect.",
+      "deleteSyncedMealsFailed": "לא ניתן למחוק את הארוחות המסונכרנות. נסו שוב.",
+      "connectionPartial": "חלק מתכונות Health Connect מופעלות.",
+      "connectionComplete": "שתי התכונות של Health Connect מופעלות.",
+      "actionFailed": "לא ניתן לפתוח את Health Connect. נסו שוב.",
       "requestPermissions": "בקש הרשאות",
       "permissionRequestCancelledOrFailed": "בקשת ההרשאה בוטלה או נכשלה. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.",
       "permissionRequestFailed": "לא ניתן לבקש הרשאות. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.",
@@ -597,6 +639,7 @@
         "description": "פרטיות אינה מחשבה מאוחרת — זו עקרון עיצובי. הנה מה זה אומר בפועל:",
         "noAccounts": "אין דרישות להקמת חשבונות\nהשתמש באפליקציה מיד. ללא הרשמות, ללא זיהויים.",
         "noTracking": "ללא מעקב התנהגותי\n{appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילים שימושיים, ולא עוקבת אחרי שימושך באפליקציות או אתרי אינטרנט.",
+        "analyticsDisclosure": "ניתוח ואבחון מוגבלים\n{appLabel} משתמשת באירועי אפליקציה בסיסיים ובאבחון קריסות כדי לשפר את האמינות. ערכי רשומות בריאות אינם משמשים לפרסום ואינם נמכרים.",
         "noAds": "ללא פרסומות לפי עיצוב\n{appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.",
         "noDataSelling": "אין מכירת נתונים\nנתוני הבריאות שלך אינם נמכרים או משותפים לצדדים שלישיים.",
         "localStorage": "אחסון מקומי כעיקרון\nהנתונים שלך נשארים על המכשיר שלך.",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify גרסה {version}",
       "build": "בנייה {buildNumber}"
     }
   },

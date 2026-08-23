@@ -107,7 +107,7 @@ class _TranslationsTabsTl extends TranslationsTabsEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get dashboard => 'Dashboard';
+	@override String get dashboard => 'Pangkalahatang-ideya';
 	@override String get history => 'Kasaysayan';
 }
 
@@ -213,7 +213,7 @@ class _TranslationsProfileTl extends TranslationsProfileEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Profile';
+	@override String get title => 'Personal na Profile';
 	@override String get noProfileData => 'Walang data ng profile';
 	@override String get yourProfile => 'Ang Iyong Profile';
 	@override String get viewAndManage => 'Tingnan at pamahalaan ang iyong impormasyon sa kalusugan';
@@ -244,7 +244,7 @@ class _TranslationsHealthScoreTl extends TranslationsHealthScoreEn {
 	@override String get note => 'Ang iskor na ito ay isang pagtatantiya mula sa AI batay sa mga natukoy na sangkap at nutritional density. Laging kumonsulta sa isang propesyonal para sa payong pandiyeta.';
 	@override String get unhealthy => 'Hindi Malusog';
 	@override String get healthy => 'Malusog';
-	@override String get neutral => 'Neutral';
+	@override String get neutral => 'Katamtaman';
 }
 
 // Path: editProfile
@@ -267,7 +267,7 @@ class _TranslationsEditProfileTl extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'libra (lbs)';
 	@override String get metricCm => 'Metriko (cm)';
 	@override String get imperialFtIn => 'Imperyal (ft/in)';
 	@override String get metricKg => 'Metriko (kg)';
@@ -585,6 +585,10 @@ class _TranslationsOnboardingHealthConnectTl extends TranslationsOnboardingHealt
 	@override String get manageAccess => 'Pamahalaan ang access';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa ${appLabel}.';
 	@override String statusError({required Object error}) => 'Nagkaroon ng error sa pag-set up ng Health Connect: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedTl caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedTl._(_root);
+	@override String get overviewDescription => 'Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsTl shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsTl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlTl userControl = _TranslationsOnboardingHealthConnectUserControlTl._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalTl extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Epekto sa Timbang';
 	@override String get estLoss => 'Tinatayang pagbawas ng';
 	@override String get estGain => 'Tinatayang pagtaas ng';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilocalorie (kcal)';
 }
 
 // Path: home.dailySummary
@@ -751,6 +755,8 @@ class _TranslationsHomeConnectHealthTl extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain';
 	@override String get install => 'I-install o i-update';
 	@override String get connect => 'Ikonekta';
+	@override String get dataUseDescription => 'Gamitin sa iyong layunin ang mga nasunog na calorie at ibahagi ang mga naitalang pagkain';
+	@override String get installOrUpdate => 'Mag-install o mag-update';
 }
 
 // Path: meal.nutrition
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisTl extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} pa';
 	@override String ingredientsLine({required Object count}) => '${count} na sangkap ang natukoy';
 	@override String get ingredientsPending => 'Sinusuri ang mga sangkap…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'Tip: Mas mahalaga ang pagiging regular kaysa perpeksiyon—ang regular na pag-log ang nagpapakita ng mga pattern na mahalaga.';
 	@override String get offlineTip1 => 'Tip: Para sa mga larawan, mas nakakatulong ang natural na ilaw at top-down na kuha para sa tumpak na bahagi.';
 	@override String get offlineTip2 => 'Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.';
@@ -894,7 +900,7 @@ class _TranslationsProfileSectionsTl extends TranslationsProfileSectionsEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFILE';
+	@override String get profile => 'PERSONAL NA PROFILE';
 	@override String get basicInformation => 'PANGUNAHING IMPORMASYON';
 	@override String get goalsAndActivity => 'LAYUNIN AT AKTIBIDAD';
 	@override String get calculatedValues => 'NAKALKULANG HALAGA';
@@ -910,7 +916,7 @@ class _TranslationsProfileCalculatedValuesTl extends TranslationsProfileCalculat
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'Pang-araw-araw na Layunin';
-	@override String get calPerDay => 'cal/day';
+	@override String get calPerDay => 'calorie/bawat araw';
 	@override String get notAvailable => 'N/A';
 }
 
@@ -971,15 +977,15 @@ class _TranslationsSettingsSectionsTl extends TranslationsSettingsSectionsEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get profile => 'PROFILE';
+	@override String get profile => 'PERSONAL NA PROFILE';
 	@override String get localization => 'Wika at Lokalidad';
 	@override String get notifications => 'Mga Notification';
-	@override String get healthConnect => 'HEALTH CONNECT';
-	@override String get localInference => 'ON-DEVICE ANALYSIS';
+	@override String get healthConnect => 'PAGSASAMA SA HEALTH CONNECT';
+	@override String get localInference => 'PAGSUSURI SA DEVICE';
 	@override String get supportAndLegal => 'SUPORTA & LEGAL';
 	@override String get about => 'TUNGKOL';
 	@override String get dangerZone => 'DELIKADONG ZONA';
-	@override String get developer => 'DEVELOPER';
+	@override String get developer => 'MGA DEVELOPER';
 }
 
 // Path: settings.editProfile
@@ -1117,6 +1123,8 @@ class _TranslationsSettingsClearAllDataTl extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.';
 	@override String get cancel => 'Kanselahin';
 	@override String get clearEverything => 'I-clear Lahat';
+	@override String get localOnlyConfirmationMessage => 'Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.';
+	@override String get localOnlySubtitle => 'Burahin ang data ng Calorify na nakaimbak sa device na ito';
 }
 
 // Path: settings.debugOptions
@@ -1184,8 +1192,8 @@ class _TranslationsSettingsAppInfoTl extends TranslationsSettingsAppInfoEn {
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify bersyon ${version}';
+	@override String build({required Object buildNumber}) => 'Bersyon ng build ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1389,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTl extends Translat
 	@override String get description => 'Pumili ng alinmang permiso at baguhin ang access anumang oras';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedTl extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedTl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw';
+	@override String get title => 'Mga Nasunog na Calorie';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsTl extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsTl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify';
+	@override String get title => 'Ibahagi ang mga Naitalang Pagkain';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlTl extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlTl._(TranslationsTl root) : this._root = root, super.internal(root);
+
+	final TranslationsTl _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Pumili ng alinmang pahintulot at baguhin ang access anumang oras';
+	@override String get title => 'Ikaw ang May Kontrol';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessTl extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessTl._(TranslationsTl root) : this._root = root, super.internal(root);
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableTl extends TranslationsSettin
 	// Translations
 	@override String get title => 'Hindi Available ang Health Connect';
 	@override String get description => 'Hindi sinusuportahan ang Health Connect sa device na ito.';
+	@override String get unsupportedDescription => 'Hindi sinusuportahan ng device na ito ang Health Connect.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1596,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyTl extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.';
 	@override String get localStorage => 'Local-first storage\nNananatili ang iyong data sa iyong device.';
 	@override String get privacyPolicy => 'Patakaran sa Privacy';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Limitadong analytics at diagnostic\nGumagamit ang ${appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.';
 }
 
 // Path: settings.about.developer
@@ -1607,8 +1650,8 @@ class _TranslationsSettingsAboutDeveloperTl extends TranslationsSettingsAboutDev
 	// Translations
 	@override String get title => 'Ginawa ng Isang Solo Developer';
 	@override String description({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang solo developer na nakatuon sa paggawa ng payapa, privacy-respecting na health software.\n\nPersonal na binabasa ang feedback at nakakatulong sa paghubog ng direksyon ng app.';
-	@override String get website => 'Website';
-	@override String get email => 'Email';
+	@override String get website => 'Website ng Developer';
+	@override String get email => 'Email address';
 }
 
 // Path: settings.about.feedback
@@ -1885,6 +1928,13 @@ extension on TranslationsTl {
 			'onboarding.healthConnect.manageAccess' => 'Pamahalaan ang access',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Nagkaroon ng error sa pag-set up ng Health Connect: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Mga Nasunog na Calorie',
+			'onboarding.healthConnect.overviewDescription' => 'Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Ibahagi ang mga Naitalang Pagkain',
+			'onboarding.healthConnect.userControl.description' => 'Pumili ng alinmang pahintulot at baguhin ang access anumang oras',
+			'onboarding.healthConnect.userControl.title' => 'Ikaw ang May Kontrol',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Hindi Ka Nag-iisa',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Ipinapakita ng pananaliksik na ang regular na pagsubaybay ang nangunguna sa mga palatandaan ng pangmatagalang tagumpay.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Para sa ${age}-taong gulang na ${gender} na nagnanais na ${goal}, ang regular na pagsubaybay ang pinakamahalagang tagapagpahiwatig ng tagumpay.',
@@ -1912,7 +1962,7 @@ extension on TranslationsTl {
 			'onboarding.reinforcement.goalLifestyle.button' => 'Tara na',
 			'onboarding.reinforcement.goalLifestyle.defaultGoal' => 'mga layunin mo',
 			'onboarding.reinforcement.goalLifestyle.defaultActivity' => 'aktibo',
-			'tabs.dashboard' => 'Dashboard',
+			'tabs.dashboard' => 'Pangkalahatang-ideya',
 			'tabs.history' => 'Kasaysayan',
 			'home.aiSummary.title' => 'Buod ng AI Mo',
 			'home.aiSummary.logMore' => 'Mag-log ng higit pang mga pagkain sa susunod na ilang araw para makuha ang iyong personalisadong insight mula sa AI.',
@@ -1937,7 +1987,7 @@ extension on TranslationsTl {
 			'home.dailyGoal.weightImpact' => 'Epekto sa Timbang',
 			'home.dailyGoal.estLoss' => 'Tinatayang pagbawas ng',
 			'home.dailyGoal.estGain' => 'Tinatayang pagtaas ng',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilocalorie (kcal)',
 			'home.dailySummary.title' => 'Pang-araw-araw na Buod',
 			'home.dailySummary.calories' => 'Kaloriya',
 			'home.dailySummary.carbs' => 'Carbohidrat',
@@ -1978,6 +2028,8 @@ extension on TranslationsTl {
 			'home.connectHealth.description' => 'Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain',
 			'home.connectHealth.install' => 'I-install o i-update',
 			'home.connectHealth.connect' => 'Ikonekta',
+			'home.connectHealth.dataUseDescription' => 'Gamitin sa iyong layunin ang mga nasunog na calorie at ibahagi ang mga naitalang pagkain',
+			'home.connectHealth.installOrUpdate' => 'Mag-install o mag-update',
 			'history.noMeals' => 'Walang naitalang pagkain',
 			'history.emptyMessage' => 'Kunan ng larawan ang huling kain mo para ma-log dito.',
 			'history.today' => 'Ngayon',
@@ -2043,7 +2095,7 @@ extension on TranslationsTl {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} pa',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} na sangkap ang natukoy',
 			'meal.analysis.ingredientsPending' => 'Sinusuri ang mga sangkap…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'Tip: Mas mahalaga ang pagiging regular kaysa perpeksiyon—ang regular na pag-log ang nagpapakita ng mga pattern na mahalaga.',
 			'meal.analysis.offlineTip1' => 'Tip: Para sa mga larawan, mas nakakatulong ang natural na ilaw at top-down na kuha para sa tumpak na bahagi.',
 			'meal.analysis.offlineTip2' => 'Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.',
@@ -2091,11 +2143,11 @@ extension on TranslationsTl {
 			'favorites.sortOptions.recent' => 'Kamakailan',
 			'favorites.sortOptions.calories' => 'Kaloriya',
 			'favorites.sortOptions.alphabetical' => 'A-Z',
-			'profile.title' => 'Profile',
+			'profile.title' => 'Personal na Profile',
 			'profile.noProfileData' => 'Walang data ng profile',
 			'profile.yourProfile' => 'Ang Iyong Profile',
 			'profile.viewAndManage' => 'Tingnan at pamahalaan ang iyong impormasyon sa kalusugan',
-			'profile.sections.profile' => 'PROFILE',
+			'profile.sections.profile' => 'PERSONAL NA PROFILE',
 			'profile.sections.basicInformation' => 'PANGUNAHING IMPORMASYON',
 			'profile.sections.goalsAndActivity' => 'LAYUNIN AT AKTIBIDAD',
 			'profile.sections.calculatedValues' => 'NAKALKULANG HALAGA',
@@ -2113,14 +2165,14 @@ extension on TranslationsTl {
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'Pang-araw-araw na Layunin',
-			'profile.calculatedValues.calPerDay' => 'cal/day',
+			'profile.calculatedValues.calPerDay' => 'calorie/bawat araw',
 			'profile.calculatedValues.notAvailable' => 'N/A',
 			'healthScore.title' => 'Iskor ng Kalusugan',
 			'healthScore.whyThisScore' => 'Bakit ang iskor na ito?',
 			'healthScore.note' => 'Ang iskor na ito ay isang pagtatantiya mula sa AI batay sa mga natukoy na sangkap at nutritional density. Laging kumonsulta sa isang propesyonal para sa payong pandiyeta.',
 			'healthScore.unhealthy' => 'Hindi Malusog',
 			'healthScore.healthy' => 'Malusog',
-			'healthScore.neutral' => 'Neutral',
+			'healthScore.neutral' => 'Katamtaman',
 			'editProfile.title' => 'I-edit ang Profile',
 			'editProfile.sections.personalInformation' => 'PERSONAL NA IMPORMASYON',
 			'editProfile.sections.physicalMeasurements' => 'PISIKAL NA SUKAT',
@@ -2136,7 +2188,7 @@ extension on TranslationsTl {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'libra (lbs)',
 			'editProfile.metricCm' => 'Metriko (cm)',
 			'editProfile.imperialFtIn' => 'Imperyal (ft/in)',
 			'editProfile.metricKg' => 'Metriko (kg)',
@@ -2161,15 +2213,15 @@ extension on TranslationsTl {
 			'editProfile.activityLevels.extremelyActive.name' => 'Sobrang Aktibo',
 			'editProfile.activityLevels.extremelyActive.description' => 'Napakahirap na ehersisyo, pisikal na trabaho',
 			'settings.title' => 'Mga Setting',
-			'settings.sections.profile' => 'PROFILE',
+			'settings.sections.profile' => 'PERSONAL NA PROFILE',
 			'settings.sections.localization' => 'Wika at Lokalidad',
 			'settings.sections.notifications' => 'Mga Notification',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
-			'settings.sections.localInference' => 'ON-DEVICE ANALYSIS',
+			'settings.sections.healthConnect' => 'PAGSASAMA SA HEALTH CONNECT',
+			'settings.sections.localInference' => 'PAGSUSURI SA DEVICE',
 			'settings.sections.supportAndLegal' => 'SUPORTA & LEGAL',
 			'settings.sections.about' => 'TUNGKOL',
 			'settings.sections.dangerZone' => 'DELIKADONG ZONA',
-			'settings.sections.developer' => 'DEVELOPER',
+			'settings.sections.developer' => 'MGA DEVELOPER',
 			'settings.editProfile.title' => 'I-edit ang Profile',
 			'settings.editProfile.subtitle' => 'I-update ang iyong personal na impormasyon',
 			'settings.language.title' => 'Wika',
@@ -2217,12 +2269,15 @@ extension on TranslationsTl {
 			'settings.clearAllData.confirmationMessage' => 'Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.',
 			'settings.clearAllData.cancel' => 'Kanselahin',
 			'settings.clearAllData.clearEverything' => 'I-clear Lahat',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.',
+			'settings.clearAllData.localOnlySubtitle' => 'Burahin ang data ng Calorify na nakaimbak sa device na ito',
 			'settings.debugOptions.title' => 'Mga Opsyon sa Debug',
 			'settings.developerModeEnabled' => 'Naka-enable ang developer mode!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Tingnan at pamahalaan ang mga permiso',
 			'settings.healthConnect.unavailable.title' => 'Hindi Available ang Health Connect',
 			'settings.healthConnect.unavailable.description' => 'Hindi sinusuportahan ang Health Connect sa device na ito.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Hindi sinusuportahan ng device na ito ang Health Connect.',
 			'settings.healthConnect.updateRequired.title' => 'Kailangang asikasuhin ang Health Connect',
 			'settings.healthConnect.updateRequired.description' => 'I-install o i-update ang Health Connect bago pamahalaan ang access.',
 			'settings.healthConnect.updateRequired.action' => 'I-install o i-update',
@@ -2270,16 +2325,17 @@ extension on TranslationsTl {
 			'settings.about.privacy.noDataSelling' => 'Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.',
 			'settings.about.privacy.localStorage' => 'Local-first storage\nNananatili ang iyong data sa iyong device.',
 			'settings.about.privacy.privacyPolicy' => 'Patakaran sa Privacy',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Limitadong analytics at diagnostic\nGumagamit ang ${appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan.',
 			'settings.about.developer.title' => 'Ginawa ng Isang Solo Developer',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ay binuo at pinapanatili ng isang solo developer na nakatuon sa paggawa ng payapa, privacy-respecting na health software.\n\nPersonal na binabasa ang feedback at nakakatulong sa paghubog ng direksyon ng app.',
-			'settings.about.developer.website' => 'Website',
-			'settings.about.developer.email' => 'Email',
+			'settings.about.developer.website' => 'Website ng Developer',
+			'settings.about.developer.email' => 'Email address',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Nagugustuhan mo ba ang ${appLabel}?',
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Tumutulong ang iyong feedback para gawing mas mahusay ang ${appLabel} para sa lahat.',
 			'settings.about.feedback.rateApp' => 'Mag-rate sa Play Store',
 			'settings.about.feedback.sendFeedback' => 'Magpadala ng Feedback',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify bersyon ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bersyon ng build ${buildNumber}',
 			'reminders.title' => 'Manatiling nasa landas gamit ang mga paalala',
 			'reminders.description' => 'Tumatanggap ng magagaan na paalala para mag-log ng iyong mga pagkain at manatiling consistent sa iyong mga layunin sa nutrisyon',
 			'reminders.notificationsEnabled' => 'Mga Notification Na-enable',
@@ -2310,6 +2366,8 @@ extension on TranslationsTl {
 			'notifications.snack.body' => 'Oras para sa isang malusog na meryenda',
 			'notifications.test.title' => 'Pagsubok na Abiso',
 			'login.title' => 'Mag-login',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Mag-sign in gamit ang Google',
 			'login.signInFailed' => 'Nabigo o kinansela ang Google Sign-In.',
 			'disclaimer.pleaseNote' => 'Pakitandaan',
@@ -2323,8 +2381,6 @@ extension on TranslationsTl {
 			'disclaimer.snap.databaseLimitations.title' => 'Limitasyon ng Database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito maisama ang bawat isang pagkain o baryasyon.',
 			'disclaimer.weightEstimate.title' => 'Tungkol sa Tantiya ng Timbang',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Ang inaasahang pagbabago ng timbang ay isang teoretikal na pagtatantiya batay sa simpleng calorie-in vs. calorie-out na modelo. Ito ay nilalayong magbigay ng motibasyon lamang, hindi prediksyon ng iyong aktwal na timbang.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Katumpakan ng Calorie',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Tumpak lamang ang pagtatantiyang ito kung tumpak ang iyong na-log na calorie intake at expenditure. Ang maling pag-log ay magreresulta sa maling pagtatantiya.',

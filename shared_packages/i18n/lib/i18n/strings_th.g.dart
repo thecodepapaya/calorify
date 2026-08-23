@@ -267,7 +267,7 @@ class _TranslationsEditProfileTh extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'ปอนด์ (lbs)';
 	@override String get metricCm => 'เมตริก (cm)';
 	@override String get imperialFtIn => 'อิมพีเรียล (ft/in)';
 	@override String get metricKg => 'เมตริก (kg)';
@@ -585,6 +585,10 @@ class _TranslationsOnboardingHealthConnectTh extends TranslationsOnboardingHealt
 	@override String get manageAccess => 'จัดการการเข้าถึง';
 	@override String statusPermissionDenied({required Object appLabel}) => 'การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ ${appLabel}';
 	@override String statusError({required Object error}) => 'เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedTh caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedTh._(_root);
+	@override String get overviewDescription => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsTh shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsTh._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlTh userControl = _TranslationsOnboardingHealthConnectUserControlTh._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalTh extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'ผลต่อ น้ำหนัก';
 	@override String get estLoss => 'คาดการณ์การลด';
 	@override String get estGain => 'คาดการณ์การเพิ่ม';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'กิโลแคลอรี (kcal)';
 }
 
 // Path: home.dailySummary
@@ -751,6 +755,8 @@ class _TranslationsHomeConnectHealthTh extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้';
 	@override String get install => 'ติดตั้งหรืออัปเดต';
 	@override String get connect => 'เชื่อมต่อ';
+	@override String get dataUseDescription => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้';
+	@override String get installOrUpdate => 'ติดตั้งหรืออัปเดต';
 }
 
 // Path: meal.nutrition
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisTh extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => 'มีอีก ${count}';
 	@override String ingredientsLine({required Object count}) => 'ตรวจพบ ${count} ส่วนผสม';
 	@override String get ingredientsPending => 'กำลังสแกนส่วนผสม…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ';
 	@override String get offlineTip1 => 'เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ';
 	@override String get offlineTip2 => 'เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม';
@@ -1117,6 +1123,8 @@ class _TranslationsSettingsClearAllDataTh extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและการเข้าถึง Health Connect ต้องจัดการแยกต่างหากใน การตั้งค่า > Health Connect';
 	@override String get cancel => 'ยกเลิก';
 	@override String get clearEverything => 'ล้างทั้งหมด';
+	@override String get localOnlyConfirmationMessage => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect';
+	@override String get localOnlySubtitle => 'ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้';
 }
 
 // Path: settings.debugOptions
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoTh extends TranslationsSettingsAppInfoEn {
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify เวอร์ชัน ${version}';
 	@override String build({required Object buildNumber}) => 'บิลด์ ${buildNumber}';
 }
 
@@ -1389,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTh extends Translat
 	@override String get description => 'เลือกสิทธิ์ใดก็ได้และเปลี่ยนการเข้าถึงได้ทุกเมื่อ';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedTh extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedTh._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect';
+	@override String get title => 'แคลอรีที่เผาผลาญ';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsTh extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsTh._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect';
+	@override String get title => 'แชร์มื้ออาหารที่บันทึกไว้';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlTh extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlTh._(TranslationsTh root) : this._root = root, super.internal(root);
+
+	final TranslationsTh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ';
+	@override String get title => 'คุณเป็นผู้ควบคุม';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessTh extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessTh._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableTh extends TranslationsSettin
 	// Translations
 	@override String get title => 'ไม่พบ Health Connect';
 	@override String get description => 'อุปกรณ์นี้ไม่รองรับ Health Connect';
+	@override String get unsupportedDescription => 'อุปกรณ์นี้ไม่รองรับ Health Connect';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1596,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyTh extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม';
 	@override String get localStorage => 'เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ';
 	@override String get privacyPolicy => 'นโยบายความเป็นส่วนตัว';
+	@override String analyticsDisclosure({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย';
 }
 
 // Path: settings.about.developer
@@ -1885,6 +1928,13 @@ extension on TranslationsTh {
 			'onboarding.healthConnect.manageAccess' => 'จัดการการเข้าถึง',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ ${appLabel}',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'แคลอรีที่เผาผลาญ',
+			'onboarding.healthConnect.overviewDescription' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'แชร์มื้ออาหารที่บันทึกไว้',
+			'onboarding.healthConnect.userControl.description' => 'เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ',
+			'onboarding.healthConnect.userControl.title' => 'คุณเป็นผู้ควบคุม',
 			'onboarding.reinforcement.trackingSuccess.title' => 'คุณไม่ได้อยู่คนเดียว',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'งานวิจัยแสดงให้เห็นว่าการบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายอันดับ 1 ของความสำเร็จในระยะยาว',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'สำหรับคนอายุ ${age} ปี ที่เป็น ${gender} และต้องการ ${goal} การบันทึกอย่างสม่ำเสมอเป็นปัจจัยทำนายความสำเร็จอันดับ 1',
@@ -1937,7 +1987,7 @@ extension on TranslationsTh {
 			'home.dailyGoal.weightImpact' => 'ผลต่อ น้ำหนัก',
 			'home.dailyGoal.estLoss' => 'คาดการณ์การลด',
 			'home.dailyGoal.estGain' => 'คาดการณ์การเพิ่ม',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'กิโลแคลอรี (kcal)',
 			'home.dailySummary.title' => 'สรุประหว่างวัน',
 			'home.dailySummary.calories' => 'แคลอรี',
 			'home.dailySummary.carbs' => 'คาร์โบไฮเดรต',
@@ -1978,6 +2028,8 @@ extension on TranslationsTh {
 			'home.connectHealth.description' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้',
 			'home.connectHealth.install' => 'ติดตั้งหรืออัปเดต',
 			'home.connectHealth.connect' => 'เชื่อมต่อ',
+			'home.connectHealth.dataUseDescription' => 'ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้',
+			'home.connectHealth.installOrUpdate' => 'ติดตั้งหรืออัปเดต',
 			'history.noMeals' => 'ยังไม่มีมื้อบันทึก',
 			'history.emptyMessage' => 'ถ่ายรูปมื้อสุดท้ายของคุณเพื่อบันทึกที่นี่',
 			'history.today' => 'วันนี้',
@@ -2043,7 +2095,7 @@ extension on TranslationsTh {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'มีอีก ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'ตรวจพบ ${count} ส่วนผสม',
 			'meal.analysis.ingredientsPending' => 'กำลังสแกนส่วนผสม…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ',
 			'meal.analysis.offlineTip1' => 'เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ',
 			'meal.analysis.offlineTip2' => 'เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม',
@@ -2136,7 +2188,7 @@ extension on TranslationsTh {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'ปอนด์ (lbs)',
 			'editProfile.metricCm' => 'เมตริก (cm)',
 			'editProfile.imperialFtIn' => 'อิมพีเรียล (ft/in)',
 			'editProfile.metricKg' => 'เมตริก (kg)',
@@ -2217,12 +2269,15 @@ extension on TranslationsTh {
 			'settings.clearAllData.confirmationMessage' => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและการเข้าถึง Health Connect ต้องจัดการแยกต่างหากใน การตั้งค่า > Health Connect',
 			'settings.clearAllData.cancel' => 'ยกเลิก',
 			'settings.clearAllData.clearEverything' => 'ล้างทั้งหมด',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect',
+			'settings.clearAllData.localOnlySubtitle' => 'ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้',
 			'settings.debugOptions.title' => 'ตัวเลือกดีบัก',
 			'settings.developerModeEnabled' => 'เปิดโหมดนักพัฒนาแล้ว!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'ดูและจัดการสิทธิ์',
 			'settings.healthConnect.unavailable.title' => 'ไม่พบ Health Connect',
 			'settings.healthConnect.unavailable.description' => 'อุปกรณ์นี้ไม่รองรับ Health Connect',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'อุปกรณ์นี้ไม่รองรับ Health Connect',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect ต้องได้รับการดำเนินการ',
 			'settings.healthConnect.updateRequired.description' => 'ติดตั้งหรืออัปเดต Health Connect ก่อนจัดการการเข้าถึง',
 			'settings.healthConnect.updateRequired.action' => 'ติดตั้งหรืออัปเดต',
@@ -2270,6 +2325,7 @@ extension on TranslationsTh {
 			'settings.about.privacy.noDataSelling' => 'ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม',
 			'settings.about.privacy.localStorage' => 'เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ',
 			'settings.about.privacy.privacyPolicy' => 'นโยบายความเป็นส่วนตัว',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'การวิเคราะห์และการวินิจฉัยแบบจำกัด\n${appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย',
 			'settings.about.developer.title' => 'สร้างโดยนักพัฒนาเดี่ยว',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} ถูกสร้างและดูแลโดยนักพัฒนาเดี่ยวที่มุ่งมั่นสร้างซอฟต์แวร์ด้านสุขภาพที่สงบและเคารพความเป็นส่วนตัว\n\nคำติชมถูกอ่านด้วยตนเองและมีส่วนช่วยกำหนดทิศทางของแอป',
 			'settings.about.developer.website' => 'เว็บไซต์',
@@ -2278,7 +2334,7 @@ extension on TranslationsTh {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'คำติชมของคุณช่วยให้ ${appLabel} ดีขึ้นสำหรับทุกคน',
 			'settings.about.feedback.rateApp' => 'ให้คะแนนบน Play Store',
 			'settings.about.feedback.sendFeedback' => 'ส่งคำติชม',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify เวอร์ชัน ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'บิลด์ ${buildNumber}',
 			'reminders.title' => 'เตือนให้สม่ำเสมอด้วยการแจ้งเตือน',
 			'reminders.description' => 'รับการเตือนอ่อนโยนให้บันทึกมื้อและรักษาความต่อเนื่องในเป้าหมายโภชนาการ',
@@ -2310,6 +2366,8 @@ extension on TranslationsTh {
 			'notifications.snack.body' => 'ถึงเวลาสำหรับของว่างเพื่อสุขภาพ',
 			'notifications.test.title' => 'ทดสอบการแจ้งเตือน',
 			'login.title' => 'เข้าสู่ระบบ',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'ลงชื่อเข้าใช้ด้วย Google',
 			'login.signInFailed' => 'การเข้าสู่ระบบด้วย Google ล้มเหลวหรือถูกยกเลิก',
 			'disclaimer.pleaseNote' => 'โปรดทราบ',
@@ -2323,8 +2381,6 @@ extension on TranslationsTh {
 			'disclaimer.snap.databaseLimitations.title' => 'ข้อจำกัดของฐานข้อมูล',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'ฐานข้อมูลอาหารของ ${appLabel} มีความหลากหลายแต่ไม่ครอบคลุมทุกรายการอาหารหรือความแตกต่างทั้งหมด',
 			'disclaimer.weightEstimate.title' => 'เกี่ยวกับการประเมินน้ำหนัก',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'การคาดการณ์การเปลี่ยนแปลงน้ำหนักเป็นการประมาณทางทฤษฎีโดยอิงจากโมเดลง่ายๆ ของแคลอรีเข้าเทียบกับแคลอรีออก ตั้งใจให้เป็นแนวทางให้กำลังใจ ไม่ใช่การทำนายผลน้ำหนักจริง',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'ความแม่นยำของแคลอรี',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'การประมาณนี้มีความแม่นยำขึ้นกับการบันทึกการรับและการใช้พลังงานของคุณ หากบันทึกไม่แม่นยำ การคาดการณ์ก็จะคลาดเคลื่อน',

@@ -267,7 +267,7 @@ class _TranslationsEditProfileNl extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'lb';
 	@override String get metricCm => 'Metrisch (cm)';
 	@override String get imperialFtIn => 'Imperiaal (ft/in)';
 	@override String get metricKg => 'Metrisch (kg)';
@@ -318,7 +318,7 @@ class _TranslationsRemindersNl extends TranslationsRemindersEn {
 	@override String get disabledSubtitle => 'Schakel meldingen in om maaltijdherinneringen te ontvangen';
 	@override String get mealReminders => 'Maaltijdherinneringen';
 	@override String get breakfast => 'Ontbijt';
-	@override String get lunch => 'Lunch';
+	@override String get lunch => 'Middagmaal';
 	@override String get dinner => 'Diner';
 	@override String get snack => 'Tussendoortje';
 	@override String get unknown => 'Onbekend';
@@ -568,6 +568,10 @@ class _TranslationsOnboardingHealthConnectNl extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Koppel met Health Connect';
 	@override String get description => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.';
+	@override String get overviewDescription => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedNl caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedNl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsNl shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsNl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlNl userControl = _TranslationsOnboardingHealthConnectUserControlNl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingNl automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingNl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsNl progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsNl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationNl seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationNl._(_root);
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalNl extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Gewichtsimpact';
 	@override String get estLoss => 'Gesch. verlies van';
 	@override String get estGain => 'Gesch. toename van';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilocalorieën';
 }
 
 // Path: home.dailySummary
@@ -747,6 +751,8 @@ class _TranslationsHomeConnectHealthNl extends TranslationsHomeConnectHealthEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override String get dataUseDescription => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden';
+	@override String get installOrUpdate => 'Installeren of bijwerken';
 	@override String get title => 'Synchroniseren met Health Connect';
 	@override String get description => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden';
 	@override String get install => 'Installeren of bijwerken';
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisNl extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} meer';
 	@override String ingredientsLine({required Object count}) => '${count} ingrediënten gedetecteerd';
 	@override String get ingredientsPending => 'Ingrediënten scannen…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '‘${text}’';
 	@override String get offlineTip0 => 'Tip: Consistentie is belangrijker dan perfectie—regelmatig loggen onthult de patronen die ertoe doen.';
 	@override String get offlineTip1 => 'Tip: Voor foto\'s helpen natuurlijk licht en een bovenaanzicht bij de portie-accuraatheid.';
 	@override String get offlineTip2 => 'Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.';
@@ -871,7 +877,7 @@ class _TranslationsMealFeedbackNl extends TranslationsMealFeedbackEn {
 	@override String get issueCalorieDistribution => 'Verdeling van calorieën';
 	@override String get issueMacrosWrong => 'Macro\'s kloppen niet';
 	@override String get issueMissingItems => 'Ontbrekende items';
-	@override String get issueExtraItems => 'Extra items';
+	@override String get issueExtraItems => 'Overtollige onderdelen';
 	@override String get issueOther => 'Anders';
 }
 
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsNl extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIEL';
 	@override String get localization => 'LOKALISATIE';
 	@override String get notifications => 'MELDINGEN';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'HEALTH CONNECT-KOPPELING';
 	@override String get localInference => 'ANALYSE OP APPARAAT';
 	@override String get supportAndLegal => 'ONDERSTEUNING & JURIDISCH';
 	@override String get about => 'OVER';
@@ -1111,6 +1117,8 @@ class _TranslationsSettingsClearAllDataNl extends TranslationsSettingsClearAllDa
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override String get localOnlySubtitle => 'Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen';
+	@override String get localOnlyConfirmationMessage => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.';
 	@override String get title => 'Alle gegevens wissen';
 	@override String get subtitle => 'Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen';
 	@override String get confirmationTitle => 'Alle gegevens wissen?';
@@ -1184,8 +1192,8 @@ class _TranslationsSettingsAppInfoNl extends TranslationsSettingsAppInfoEn {
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify versie ${version}';
+	@override String build({required Object buildNumber}) => 'Buildnummer ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1354,6 +1362,39 @@ class _TranslationsOnboardingBmiScaleMessagesNl extends TranslationsOnboardingBm
 	@override String get healthy => 'Goed bezig! Je zit in een gezond bereik. We helpen je je vitaliteit en energieniveau te behouden.';
 	@override String overweight({required Object appLabel}) => '${appLabel} maakt je reis eenvoudiger met AI-gestuurde tracking om je comfortabel je doel te laten bereiken.';
 	@override String get obese => 'We zijn er om je te ondersteunen met gepersonaliseerde begeleiding en duurzame strategieën voor je gezondheidsdoelen.';
+}
+
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedNl extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Verbrande calorieën';
+	@override String get description => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsNl extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Gelogde maaltijden delen';
+	@override String get description => 'Schrijf maaltijden die je in Calorify logt naar Health Connect';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlNl extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+	final TranslationsNl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Jij houdt de controle';
+	@override String get description => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1538,6 +1579,7 @@ class _TranslationsSettingsHealthConnectUnavailableNl extends TranslationsSettin
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override String get unsupportedDescription => 'Health Connect wordt niet ondersteund op dit apparaat.';
 	@override String get title => 'Health Connect niet beschikbaar';
 	@override String get description => 'Health Connect wordt niet ondersteund op dit apparaat.';
 }
@@ -1588,6 +1630,7 @@ class _TranslationsSettingsAboutPrivacyNl extends TranslationsSettingsAboutPriva
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
+	@override String analyticsDisclosure({required Object appLabel}) => 'Beperkte analyse en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.';
 	@override String get title => 'Je privacy doet ertoe';
 	@override String get description => 'Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:';
 	@override String get noAccounts => 'Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.';
@@ -1607,7 +1650,7 @@ class _TranslationsSettingsAboutDeveloperNl extends TranslationsSettingsAboutDev
 	// Translations
 	@override String get title => 'Gemaakt door een solo-ontwikkelaar';
 	@override String description({required Object appLabel}) => '${appLabel} is gebouwd en wordt onderhouden door een enkele solo-ontwikkelaar die zich richt op het maken van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app vormgeven.';
-	@override String get website => 'Website';
+	@override String get website => 'Webpagina';
 	@override String get email => 'E-mail';
 }
 
@@ -1865,6 +1908,13 @@ extension on TranslationsNl {
 			'onboarding.activityLevel.description' => 'Dit helpt ons je dagelijkse caloriebehoefte nauwkeuriger te berekenen',
 			'onboarding.healthConnect.title' => 'Koppel met Health Connect',
 			'onboarding.healthConnect.description' => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.',
+			'onboarding.healthConnect.overviewDescription' => 'Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Verbrande calorieën',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Gelogde maaltijden delen',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Schrijf maaltijden die je in Calorify logt naar Health Connect',
+			'onboarding.healthConnect.userControl.title' => 'Jij houdt de controle',
+			'onboarding.healthConnect.userControl.description' => 'Kies een van beide machtigingen en wijzig de toegang wanneer je wilt',
 			'onboarding.healthConnect.automaticTracking.title' => 'Verbrande calorieën',
 			'onboarding.healthConnect.automaticTracking.description' => 'Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Geloggde maaltijden delen',
@@ -1937,7 +1987,7 @@ extension on TranslationsNl {
 			'home.dailyGoal.weightImpact' => 'Gewichtsimpact',
 			'home.dailyGoal.estLoss' => 'Gesch. verlies van',
 			'home.dailyGoal.estGain' => 'Gesch. toename van',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilocalorieën',
 			'home.dailySummary.title' => 'Dagelijkse samenvatting',
 			'home.dailySummary.calories' => 'Calorieën',
 			'home.dailySummary.carbs' => 'Koolhydraten',
@@ -1974,6 +2024,8 @@ extension on TranslationsNl {
 			'home.mealSnap.gallery' => 'Galerij',
 			'home.mealSnap.compressingPhoto' => 'Foto optimaliseren…',
 			'home.mealSnap.uploadingPhoto' => 'Foto uploaden…',
+			'home.connectHealth.dataUseDescription' => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden',
+			'home.connectHealth.installOrUpdate' => 'Installeren of bijwerken',
 			'home.connectHealth.title' => 'Synchroniseren met Health Connect',
 			'home.connectHealth.description' => 'Gebruik verbrande calorieën in je doel en deel gelogde maaltijden',
 			'home.connectHealth.install' => 'Installeren of bijwerken',
@@ -2043,7 +2095,7 @@ extension on TranslationsNl {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} meer',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingrediënten gedetecteerd',
 			'meal.analysis.ingredientsPending' => 'Ingrediënten scannen…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '‘${text}’',
 			'meal.analysis.offlineTip0' => 'Tip: Consistentie is belangrijker dan perfectie—regelmatig loggen onthult de patronen die ertoe doen.',
 			'meal.analysis.offlineTip1' => 'Tip: Voor foto\'s helpen natuurlijk licht en een bovenaanzicht bij de portie-accuraatheid.',
 			'meal.analysis.offlineTip2' => 'Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.',
@@ -2078,7 +2130,7 @@ extension on TranslationsNl {
 			'meal.feedback.issueCalorieDistribution' => 'Verdeling van calorieën',
 			'meal.feedback.issueMacrosWrong' => 'Macro\'s kloppen niet',
 			'meal.feedback.issueMissingItems' => 'Ontbrekende items',
-			'meal.feedback.issueExtraItems' => 'Extra items',
+			'meal.feedback.issueExtraItems' => 'Overtollige onderdelen',
 			'meal.feedback.issueOther' => 'Anders',
 			'favorites.title' => 'Favorieten',
 			'favorites.empty' => 'Nog geen favoriete maaltijden.',
@@ -2136,7 +2188,7 @@ extension on TranslationsNl {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'lb',
 			'editProfile.metricCm' => 'Metrisch (cm)',
 			'editProfile.imperialFtIn' => 'Imperiaal (ft/in)',
 			'editProfile.metricKg' => 'Metrisch (kg)',
@@ -2164,7 +2216,7 @@ extension on TranslationsNl {
 			'settings.sections.profile' => 'PROFIEL',
 			'settings.sections.localization' => 'LOKALISATIE',
 			'settings.sections.notifications' => 'MELDINGEN',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT-KOPPELING',
 			'settings.sections.localInference' => 'ANALYSE OP APPARAAT',
 			'settings.sections.supportAndLegal' => 'ONDERSTEUNING & JURIDISCH',
 			'settings.sections.about' => 'OVER',
@@ -2211,6 +2263,8 @@ extension on TranslationsNl {
 			'settings.exportMealHistory.subtitle' => 'Deel een CSV van je geregistreerde maaltijden',
 			'settings.exportMealHistory.shareText' => 'Je Calorify maaltijdgeschiedenis-export',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Kon maaltijdgeschiedenis niet exporteren: ${error}',
+			'settings.clearAllData.localOnlySubtitle' => 'Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.',
 			'settings.clearAllData.title' => 'Alle gegevens wissen',
 			'settings.clearAllData.subtitle' => 'Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen',
 			'settings.clearAllData.confirmationTitle' => 'Alle gegevens wissen?',
@@ -2221,6 +2275,7 @@ extension on TranslationsNl {
 			'settings.developerModeEnabled' => 'Ontwikkelaarsmodus ingeschakeld!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Bekijk en beheer machtigingen',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect wordt niet ondersteund op dit apparaat.',
 			'settings.healthConnect.unavailable.title' => 'Health Connect niet beschikbaar',
 			'settings.healthConnect.unavailable.description' => 'Health Connect wordt niet ondersteund op dit apparaat.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect vereist aandacht',
@@ -2262,6 +2317,7 @@ extension on TranslationsNl {
 			'settings.about.tagline' => 'Snel, gratis en privacygericht caloriebewustzijn',
 			'settings.about.ourStory.title' => 'Ons verhaal',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-trackingapps zijn óf te ingewikkeld, vereisen constant handmatig invoer, vragen hoge abonnementskosten of schenden de privacy.\n\nAls solo-ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om inspanning te verminderen, snel en gratis blijft, en je gezondheidsgegevens met respect behandelt.\n\n${appLabel} is de app die ik had willen bestaan: geen accounts, geen tracking, geen advertenties — alleen heldere, praktische inzichten en jouw gezondheidsdoelen.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Beperkte analyse en diagnostiek\n${appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.',
 			'settings.about.privacy.title' => 'Je privacy doet ertoe',
 			'settings.about.privacy.description' => 'Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:',
 			'settings.about.privacy.noAccounts' => 'Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.',
@@ -2272,14 +2328,14 @@ extension on TranslationsNl {
 			'settings.about.privacy.privacyPolicy' => 'Privacybeleid',
 			'settings.about.developer.title' => 'Gemaakt door een solo-ontwikkelaar',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} is gebouwd en wordt onderhouden door een enkele solo-ontwikkelaar die zich richt op het maken van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app vormgeven.',
-			'settings.about.developer.website' => 'Website',
+			'settings.about.developer.website' => 'Webpagina',
 			'settings.about.developer.email' => 'E-mail',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Geniet je van ${appLabel}?',
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Je feedback helpt ${appLabel} beter te maken voor iedereen.',
 			'settings.about.feedback.rateApp' => 'Beoordeel in Play Store',
 			'settings.about.feedback.sendFeedback' => 'Verstuur feedback',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify versie ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Buildnummer ${buildNumber}',
 			'reminders.title' => 'Blijf op koers met herinneringen',
 			'reminders.description' => 'Ontvang vriendelijke herinneringen om je maaltijden te loggen en consistent te blijven met je voedingsdoelen',
 			'reminders.notificationsEnabled' => 'Meldingen ingeschakeld',
@@ -2288,7 +2344,7 @@ extension on TranslationsNl {
 			'reminders.disabledSubtitle' => 'Schakel meldingen in om maaltijdherinneringen te ontvangen',
 			'reminders.mealReminders' => 'Maaltijdherinneringen',
 			'reminders.breakfast' => 'Ontbijt',
-			'reminders.lunch' => 'Lunch',
+			'reminders.lunch' => 'Middagmaal',
 			'reminders.dinner' => 'Diner',
 			'reminders.snack' => 'Tussendoortje',
 			'reminders.unknown' => 'Onbekend',
@@ -2310,6 +2366,8 @@ extension on TranslationsNl {
 			'notifications.snack.body' => 'Tijd voor een gezonde snack',
 			'notifications.test.title' => 'Testmelding',
 			'login.title' => 'Inloggen',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Inloggen met Google',
 			'login.signInFailed' => 'Google-aanmelding is mislukt of geannuleerd.',
 			'disclaimer.pleaseNote' => 'Let op',
@@ -2323,8 +2381,6 @@ extension on TranslationsNl {
 			'disclaimer.snap.databaseLimitations.title' => 'Beperkingen van de database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s voedseldatabase is uitgebreid maar bevat mogelijk niet elk afzonderlijk voedingsmiddel of variant.',
 			'disclaimer.weightEstimate.title' => 'Over gewichtsschatting',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'De geschatte gewichtsverandering is een theoretische schatting gebaseerd op het eenvoudige model calorieën-in vs calorieën-uit. Het is bedoeld als motivatiegids, niet als voorspelling van je werkelijke gewicht.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Nauwkeurigheid van calorieën',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Deze schatting is slechts zo nauwkeurig als je geregistreerde calorie-inname en -verbruik. Onnauwkeurig loggen resulteert in een onnauwkeurige prognose.',

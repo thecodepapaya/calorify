@@ -267,7 +267,7 @@ class _TranslationsEditProfileEl extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'λίβρες';
 	@override String get metricCm => 'Μετρικό (cm)';
 	@override String get imperialFtIn => 'Αγγλοσαξονικό (ft/in)';
 	@override String get metricKg => 'Μετρικό (kg)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectEl extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Συνδέστε με Health Connect';
 	@override String get description => 'Συγχρονίστε τα δεδομένα υγείας σας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων';
+	@override String get overviewDescription => 'Χρησιμοποιήστε τις θερμίδες που καίτε στον ημερήσιο στόχο σας και, προαιρετικά, κοινοποιήστε τα καταγεγραμμένα γεύματα στο Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingEl automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingEl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedEl caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedEl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsEl progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsEl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsEl shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsEl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationEl seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationEl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlEl userControl = _TranslationsOnboardingHealthConnectUserControlEl._(_root);
 	@override String get connected => 'Health Connect Συνδεδεμένο';
 	@override String get notConnected => 'Health Connect Δεν Συνδεδεμένο';
 	@override String get setup => 'Ρύθμιση Health Connect';
 	@override String get skipForNow => 'Παράλειψη προς το παρόν';
 	@override String get statusConnected => 'Το Health Connect είναι συνδεδεμένο.';
 	@override String get statusSuccess => 'Το Health Connect συνδέθηκε επιτυχώς!';
+	@override String get statusNotConnected => 'Επιλέξτε τις λειτουργίες του Health Connect που θέλετε να ενεργοποιήσετε.';
+	@override String get statusPartial => 'Το Health Connect είναι μερικώς συνδεδεμένο. Ενεργοποιήστε την υπόλοιπη άδεια για να χρησιμοποιήσετε και τις δύο λειτουργίες.';
+	@override String get statusProviderUpdateRequired => 'Εγκαταστήστε ή ενημερώστε το Health Connect για να συνεχίσετε.';
+	@override String get statusUnavailable => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.';
+	@override String get installOrUpdate => 'Εγκατάσταση ή ενημέρωση';
+	@override String get manageAccess => 'Διαχείριση πρόσβασης';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Απαγορεύτηκε η άδεια. Ενεργοποιήστε τα δικαιώματα του Health Connect στις ρυθμίσεις του τηλεφώνου για ${appLabel}.';
 	@override String statusError({required Object error}) => 'Σφάλμα κατά τη ρύθμιση του Health Connect: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalEl extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Επίδραση στο βάρος';
 	@override String get estLoss => 'Προβλ. απώλεια';
 	@override String get estGain => 'Προβλ. αύξηση';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'χιλιοθερμίδες';
 }
 
 // Path: home.dailySummary
@@ -744,6 +754,8 @@ class _TranslationsHomeConnectHealthEl extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Συγχρονισμός με Health Connect';
 	@override String get description => 'Συγχρονίστε τα διατροφικά σας με το Health Connect';
 	@override String get install => 'Εγκατάσταση';
+	@override String get dataUseDescription => 'Χρησιμοποιήστε τις θερμίδες που καίτε στον στόχο σας και κοινοποιήστε τα καταγεγραμμένα γεύματα';
+	@override String get installOrUpdate => 'Εγκατάσταση ή ενημέρωση';
 	@override String get connect => 'Σύνδεση';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisEl extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} ακόμη';
 	@override String ingredientsLine({required Object count}) => 'Εντοπίστηκαν ${count} συστατικά';
 	@override String get ingredientsPending => 'Σάρωση συστατικών…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '«${text}»';
 	@override String get offlineTip0 => 'Συμβουλή: Η συνέπεια ξεπερνά την τελειότητα — οι τακτικές εγγραφές αποκαλύπτουν τα μοτίβα που έχουν σημασία.';
 	@override String get offlineTip1 => 'Συμβουλή: Για φωτογραφίες, ο φυσικός φωτισμός και η λήψη από πάνω βοηθούν στην ακρίβεια των μερίδων.';
 	@override String get offlineTip2 => 'Συμβουλή: Αναφέρετε ροφήματα, σάλτσες και λάδι μαγειρέματος — προσθέτουν θερμίδες που συχνά ξεχνιούνται.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsEl extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'ΠΡΟΦΙΛ';
 	@override String get localization => 'ΤΟΠΟΠΟΙΗΣΗ';
 	@override String get notifications => 'ΕΙΔΟΠΟΙΗΣΕΙΣ';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'ΣΥΝΔΕΣΗ HEALTH CONNECT';
 	@override String get localInference => 'ΑΝΑΛΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ';
 	@override String get supportAndLegal => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ';
 	@override String get about => 'ΠΛΗΡΟΦΟΡΙΕΣ';
@@ -1105,6 +1117,8 @@ class _TranslationsSettingsClearAllDataEl extends TranslationsSettingsClearAllDa
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
+	@override String get localOnlySubtitle => 'Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή';
+	@override String get localOnlyConfirmationMessage => 'Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.';
 	@override String get title => 'Διαγραφή Όλων των Δεδομένων';
 	@override String get subtitle => 'Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή';
 	@override String get confirmationTitle => 'Διαγραφή όλων των δεδομένων;';
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectEl extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Προβολή και διαχείριση αδειών';
 	@override late final _TranslationsSettingsHealthConnectUnavailableEl unavailable = _TranslationsSettingsHealthConnectUnavailableEl._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredEl updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredEl._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsEl permissions = _TranslationsSettingsHealthConnectPermissionsEl._(_root);
 	@override String get managePermissions => 'Διαχείριση Δικαιωμάτων';
 	@override String get openSettings => 'Άνοιγμα Ρυθμίσεων Health Connect';
+	@override String get disconnect => 'Αποσύνδεση Health Connect';
+	@override String get disconnectConfirmationTitle => 'Αποσύνδεση του Health Connect;';
+	@override String get disconnectConfirmationMessage => 'Το Calorify θα χάσει την πρόσβαση στο Health Connect. Τα δεδομένα που έχουν ήδη εγγραφεί εκεί δεν θα διαγραφούν.';
+	@override String get disconnectConfirmationAction => 'Αποσύνδεση';
+	@override String get deleteSyncedMeals => 'Διαγραφή γευμάτων Calorify από το Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Διαγραφή συγχρονισμένων γευμάτων;';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Να διαγραφούν από το Health Connect τα γεύματα που συγχρονίστηκαν από αυτή την έκδοση του Calorify; Το τοπικό αρχείο γευμάτων δεν θα αλλάξει. Οι παλαιότερες καταχωρίσεις του Calorify ίσως χρειαστεί να αφαιρεθούν μέσω της Διαχείρισης δεδομένων στο Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Διαγραφή συγχρονισμένων γευμάτων';
+	@override String get deleteSyncedMealsSuccess => 'Τα γεύματα του Calorify διαγράφηκαν από το Health Connect.';
+	@override String get deleteSyncedMealsFailed => 'Δεν ήταν δυνατή η διαγραφή των συγχρονισμένων γευμάτων. Δοκιμάστε ξανά.';
+	@override String get connectionPartial => 'Ορισμένες λειτουργίες του Health Connect είναι ενεργοποιημένες.';
+	@override String get connectionComplete => 'Και οι δύο λειτουργίες του Health Connect είναι ενεργοποιημένες.';
+	@override String get actionFailed => 'Δεν ήταν δυνατό το άνοιγμα του Health Connect. Δοκιμάστε ξανά.';
 	@override String get requestPermissions => 'Αίτηση Δικαιωμάτων';
 	@override String get permissionRequestCancelledOrFailed => 'Το αίτημα άδειας ακυρώθηκε ή απέτυχε. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.';
 	@override String get permissionRequestFailed => 'Αδυναμία αιτήματος αδειών. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.';
@@ -1164,8 +1192,8 @@ class _TranslationsSettingsAppInfoEl extends TranslationsSettingsAppInfoEn {
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify έκδ. ${version}';
+	@override String build({required Object buildNumber}) => 'Έκδοση κατασκευής ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingEl extends Translatio
 	@override String get description => 'Καταγραφή θερμίδων που κάηκαν από τις εφαρμογές fitness';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedEl extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Θερμίδες που κάηκαν';
+	@override String get description => 'Διαβάστε το σημερινό σύνολο θερμίδων που κάηκαν από το Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsEl extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsEl._(TranslationsEl root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsEl extends Translation
 	@override String get description => 'Λάβετε λεπτομερείς ενδείξεις για τις τάσεις της υγείας σας';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsEl extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Κοινοποίηση καταγεγραμμένων γευμάτων';
+	@override String get description => 'Καταγράψτε στο Health Connect τα γεύματα που προσθέτετε στο Calorify';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationEl extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationEl._(TranslationsEl root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationEl extends Translat
 	// Translations
 	@override String get title => 'Απρόσκοπτη Ενσωμάτωση';
 	@override String get description => 'Συγχρονίστε δεδομένα από τις αγαπημένες σας εφαρμογές υγείας';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlEl extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Έχετε τον έλεγχο';
+	@override String get description => 'Επιλέξτε οποιαδήποτε άδεια και αλλάξτε την πρόσβαση ανά πάσα στιγμή';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1518,8 +1579,21 @@ class _TranslationsSettingsHealthConnectUnavailableEl extends TranslationsSettin
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
+	@override String get unsupportedDescription => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.';
 	@override String get title => 'Το Health Connect Δεν Διατίθεται';
 	@override String get description => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredEl extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredEl._(TranslationsEl root) : this._root = root, super.internal(root);
+
+	final TranslationsEl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Το Health Connect χρειάζεται προσοχή';
+	@override String get description => 'Εγκαταστήστε ή ενημερώστε το Health Connect πριν διαχειριστείτε την πρόσβαση.';
+	@override String get action => 'Εγκατάσταση ή ενημέρωση';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyEl extends TranslationsSettingsAboutPriva
 	@override String get description => 'Η ιδιωτικότητα δεν είναι μετά -σκέψη — είναι αρχή σχεδιασμού. Αυτό σημαίνει στην πράξη:';
 	@override String get noAccounts => 'Χωρίς λογαριασμούς\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.';
 	@override String noTracking({required Object appLabel}) => 'Χωρίς συμπεριφορική παρακολούθηση\nΤο ${appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης ούτε σας παρακολουθεί σε εφαρμογές ή ιστοσελίδες.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Περιορισμένα αναλυτικά στοιχεία και διαγνωστικά\nΤο ${appLabel} χρησιμοποιεί βασικά συμβάντα εφαρμογής και διαγνωστικά σφαλμάτων για τη βελτίωση της αξιοπιστίας. Οι τιμές των δεδομένων υγείας δεν χρησιμοποιούνται για διαφημίσεις ούτε πωλούνται.';
 	@override String noAds({required Object appLabel}) => 'Χωρίς διαφημίσεις εξ ορισμού\nΤο ${appLabel} σχεδιάστηκε να λειτουργεί χωρίς διαφημίσεις ή εμπορικοποίηση βασισμένη σε δεδομένα.';
 	@override String get noDataSelling => 'Δεν πωλούμε δεδομένα\nΤα δεδομένα υγείας σας δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.';
 	@override String get localStorage => 'Τοπική αποθήκευση ως προτεραιότητα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.';
@@ -1833,18 +1908,31 @@ extension on TranslationsEl {
 			'onboarding.activityLevel.description' => 'Αυτό μας βοηθά να υπολογίσουμε πιο ακριβώς τις καθημερινές σας θερμιδικές ανάγκες',
 			'onboarding.healthConnect.title' => 'Συνδέστε με Health Connect',
 			'onboarding.healthConnect.description' => 'Συγχρονίστε τα δεδομένα υγείας σας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων',
+			'onboarding.healthConnect.overviewDescription' => 'Χρησιμοποιήστε τις θερμίδες που καίτε στον ημερήσιο στόχο σας και, προαιρετικά, κοινοποιήστε τα καταγεγραμμένα γεύματα στο Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Αυτόματη Καταγραφή Θερμίδων',
 			'onboarding.healthConnect.automaticTracking.description' => 'Καταγραφή θερμίδων που κάηκαν από τις εφαρμογές fitness',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Θερμίδες που κάηκαν',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Διαβάστε το σημερινό σύνολο θερμίδων που κάηκαν από το Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Ενδείξεις Προόδου',
 			'onboarding.healthConnect.progressInsights.description' => 'Λάβετε λεπτομερείς ενδείξεις για τις τάσεις της υγείας σας',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Κοινοποίηση καταγεγραμμένων γευμάτων',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Καταγράψτε στο Health Connect τα γεύματα που προσθέτετε στο Calorify',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Απρόσκοπτη Ενσωμάτωση',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Συγχρονίστε δεδομένα από τις αγαπημένες σας εφαρμογές υγείας',
+			'onboarding.healthConnect.userControl.title' => 'Έχετε τον έλεγχο',
+			'onboarding.healthConnect.userControl.description' => 'Επιλέξτε οποιαδήποτε άδεια και αλλάξτε την πρόσβαση ανά πάσα στιγμή',
 			'onboarding.healthConnect.connected' => 'Health Connect Συνδεδεμένο',
 			'onboarding.healthConnect.notConnected' => 'Health Connect Δεν Συνδεδεμένο',
 			'onboarding.healthConnect.setup' => 'Ρύθμιση Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Παράλειψη προς το παρόν',
 			'onboarding.healthConnect.statusConnected' => 'Το Health Connect είναι συνδεδεμένο.',
 			'onboarding.healthConnect.statusSuccess' => 'Το Health Connect συνδέθηκε επιτυχώς!',
+			'onboarding.healthConnect.statusNotConnected' => 'Επιλέξτε τις λειτουργίες του Health Connect που θέλετε να ενεργοποιήσετε.',
+			'onboarding.healthConnect.statusPartial' => 'Το Health Connect είναι μερικώς συνδεδεμένο. Ενεργοποιήστε την υπόλοιπη άδεια για να χρησιμοποιήσετε και τις δύο λειτουργίες.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Εγκαταστήστε ή ενημερώστε το Health Connect για να συνεχίσετε.',
+			'onboarding.healthConnect.statusUnavailable' => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.',
+			'onboarding.healthConnect.installOrUpdate' => 'Εγκατάσταση ή ενημέρωση',
+			'onboarding.healthConnect.manageAccess' => 'Διαχείριση πρόσβασης',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Απαγορεύτηκε η άδεια. Ενεργοποιήστε τα δικαιώματα του Health Connect στις ρυθμίσεις του τηλεφώνου για ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Σφάλμα κατά τη ρύθμιση του Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Δεν είστε μόνος/η',
@@ -1899,7 +1987,7 @@ extension on TranslationsEl {
 			'home.dailyGoal.weightImpact' => 'Επίδραση στο βάρος',
 			'home.dailyGoal.estLoss' => 'Προβλ. απώλεια',
 			'home.dailyGoal.estGain' => 'Προβλ. αύξηση',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'χιλιοθερμίδες',
 			'home.dailySummary.title' => 'Ημερήσια Σύνοψη',
 			'home.dailySummary.calories' => 'Θερμίδες',
 			'home.dailySummary.carbs' => 'Υδατάνθρακες',
@@ -1939,6 +2027,8 @@ extension on TranslationsEl {
 			'home.connectHealth.title' => 'Συγχρονισμός με Health Connect',
 			'home.connectHealth.description' => 'Συγχρονίστε τα διατροφικά σας με το Health Connect',
 			'home.connectHealth.install' => 'Εγκατάσταση',
+			'home.connectHealth.dataUseDescription' => 'Χρησιμοποιήστε τις θερμίδες που καίτε στον στόχο σας και κοινοποιήστε τα καταγεγραμμένα γεύματα',
+			'home.connectHealth.installOrUpdate' => 'Εγκατάσταση ή ενημέρωση',
 			'home.connectHealth.connect' => 'Σύνδεση',
 			'history.noMeals' => 'Δεν έχουν καταγραφεί γεύματα',
 			'history.emptyMessage' => 'Τραβήξτε μια φωτογραφία του τελευταίου γεύματός σας για να το καταγράψετε εδώ.',
@@ -2005,7 +2095,7 @@ extension on TranslationsEl {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} ακόμη',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Εντοπίστηκαν ${count} συστατικά',
 			'meal.analysis.ingredientsPending' => 'Σάρωση συστατικών…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '«${text}»',
 			'meal.analysis.offlineTip0' => 'Συμβουλή: Η συνέπεια ξεπερνά την τελειότητα — οι τακτικές εγγραφές αποκαλύπτουν τα μοτίβα που έχουν σημασία.',
 			'meal.analysis.offlineTip1' => 'Συμβουλή: Για φωτογραφίες, ο φυσικός φωτισμός και η λήψη από πάνω βοηθούν στην ακρίβεια των μερίδων.',
 			'meal.analysis.offlineTip2' => 'Συμβουλή: Αναφέρετε ροφήματα, σάλτσες και λάδι μαγειρέματος — προσθέτουν θερμίδες που συχνά ξεχνιούνται.',
@@ -2098,7 +2188,7 @@ extension on TranslationsEl {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'λίβρες',
 			'editProfile.metricCm' => 'Μετρικό (cm)',
 			'editProfile.imperialFtIn' => 'Αγγλοσαξονικό (ft/in)',
 			'editProfile.metricKg' => 'Μετρικό (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsEl {
 			'settings.sections.profile' => 'ΠΡΟΦΙΛ',
 			'settings.sections.localization' => 'ΤΟΠΟΠΟΙΗΣΗ',
 			'settings.sections.notifications' => 'ΕΙΔΟΠΟΙΗΣΕΙΣ',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'ΣΥΝΔΕΣΗ HEALTH CONNECT',
 			'settings.sections.localInference' => 'ΑΝΑΛΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ',
 			'settings.sections.supportAndLegal' => 'ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ',
 			'settings.sections.about' => 'ΠΛΗΡΟΦΟΡΙΕΣ',
@@ -2173,6 +2263,8 @@ extension on TranslationsEl {
 			'settings.exportMealHistory.subtitle' => 'Μοιραστείτε ένα CSV με τα καταχωρημένα γεύματά σας',
 			'settings.exportMealHistory.shareText' => 'Εξαγωγή ιστορικού γευμάτων Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Δεν ήταν δυνατή η εξαγωγή ιστορικού γευμάτων: ${error}',
+			'settings.clearAllData.localOnlySubtitle' => 'Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.',
 			'settings.clearAllData.title' => 'Διαγραφή Όλων των Δεδομένων',
 			'settings.clearAllData.subtitle' => 'Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή',
 			'settings.clearAllData.confirmationTitle' => 'Διαγραφή όλων των δεδομένων;',
@@ -2183,8 +2275,12 @@ extension on TranslationsEl {
 			'settings.developerModeEnabled' => 'Λειτουργία προγραμματιστή ενεργοποιήθηκε!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Προβολή και διαχείριση αδειών',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.',
 			'settings.healthConnect.unavailable.title' => 'Το Health Connect Δεν Διατίθεται',
 			'settings.healthConnect.unavailable.description' => 'Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+.',
+			'settings.healthConnect.updateRequired.title' => 'Το Health Connect χρειάζεται προσοχή',
+			'settings.healthConnect.updateRequired.description' => 'Εγκαταστήστε ή ενημερώστε το Health Connect πριν διαχειριστείτε την πρόσβαση.',
+			'settings.healthConnect.updateRequired.action' => 'Εγκατάσταση ή ενημέρωση',
 			'settings.healthConnect.permissions.title' => 'Δικαιώματα',
 			'settings.healthConnect.permissions.description' => 'Ζητούνται τα παρακάτω δικαιώματα για την ενσωμάτωση με το Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Επιτράπηκε',
@@ -2200,6 +2296,19 @@ extension on TranslationsEl {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Αυτό επιτρέπει στην εφαρμογή να συγχρονίζει τα καταγεγραμμένα γεύματά σας στο Health Connect, κάνοντας τα διατροφικά σας δεδομένα διαθέσιμα σε άλλες εφαρμογές υγείας και fitness που χρησιμοποιείτε.',
 			'settings.healthConnect.managePermissions' => 'Διαχείριση Δικαιωμάτων',
 			'settings.healthConnect.openSettings' => 'Άνοιγμα Ρυθμίσεων Health Connect',
+			'settings.healthConnect.disconnect' => 'Αποσύνδεση Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Αποσύνδεση του Health Connect;',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Το Calorify θα χάσει την πρόσβαση στο Health Connect. Τα δεδομένα που έχουν ήδη εγγραφεί εκεί δεν θα διαγραφούν.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Αποσύνδεση',
+			'settings.healthConnect.deleteSyncedMeals' => 'Διαγραφή γευμάτων Calorify από το Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Διαγραφή συγχρονισμένων γευμάτων;',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Να διαγραφούν από το Health Connect τα γεύματα που συγχρονίστηκαν από αυτή την έκδοση του Calorify; Το τοπικό αρχείο γευμάτων δεν θα αλλάξει. Οι παλαιότερες καταχωρίσεις του Calorify ίσως χρειαστεί να αφαιρεθούν μέσω της Διαχείρισης δεδομένων στο Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Διαγραφή συγχρονισμένων γευμάτων',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Τα γεύματα του Calorify διαγράφηκαν από το Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Δεν ήταν δυνατή η διαγραφή των συγχρονισμένων γευμάτων. Δοκιμάστε ξανά.',
+			'settings.healthConnect.connectionPartial' => 'Ορισμένες λειτουργίες του Health Connect είναι ενεργοποιημένες.',
+			'settings.healthConnect.connectionComplete' => 'Και οι δύο λειτουργίες του Health Connect είναι ενεργοποιημένες.',
+			'settings.healthConnect.actionFailed' => 'Δεν ήταν δυνατό το άνοιγμα του Health Connect. Δοκιμάστε ξανά.',
 			'settings.healthConnect.requestPermissions' => 'Αίτηση Δικαιωμάτων',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Το αίτημα άδειας ακυρώθηκε ή απέτυχε. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Αδυναμία αιτήματος αδειών. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.',
@@ -2212,6 +2321,7 @@ extension on TranslationsEl {
 			'settings.about.privacy.description' => 'Η ιδιωτικότητα δεν είναι μετά -σκέψη — είναι αρχή σχεδιασμού. Αυτό σημαίνει στην πράξη:',
 			'settings.about.privacy.noAccounts' => 'Χωρίς λογαριασμούς\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Χωρίς συμπεριφορική παρακολούθηση\nΤο ${appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης ούτε σας παρακολουθεί σε εφαρμογές ή ιστοσελίδες.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Περιορισμένα αναλυτικά στοιχεία και διαγνωστικά\nΤο ${appLabel} χρησιμοποιεί βασικά συμβάντα εφαρμογής και διαγνωστικά σφαλμάτων για τη βελτίωση της αξιοπιστίας. Οι τιμές των δεδομένων υγείας δεν χρησιμοποιούνται για διαφημίσεις ούτε πωλούνται.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Χωρίς διαφημίσεις εξ ορισμού\nΤο ${appLabel} σχεδιάστηκε να λειτουργεί χωρίς διαφημίσεις ή εμπορικοποίηση βασισμένη σε δεδομένα.',
 			'settings.about.privacy.noDataSelling' => 'Δεν πωλούμε δεδομένα\nΤα δεδομένα υγείας σας δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.',
 			'settings.about.privacy.localStorage' => 'Τοπική αποθήκευση ως προτεραιότητα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.',
@@ -2224,8 +2334,8 @@ extension on TranslationsEl {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Τα σχόλιά σας βοηθούν το ${appLabel} να γίνει καλύτερο για όλους.',
 			'settings.about.feedback.rateApp' => 'Βαθμολογήστε στο Play Store',
 			'settings.about.feedback.sendFeedback' => 'Αποστολή σχολίων',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify έκδ. ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Έκδοση κατασκευής ${buildNumber}',
 			'reminders.title' => 'Μείνετε στην πορεία με υπενθυμίσεις',
 			'reminders.description' => 'Λάβετε ήπιες υπενθυμίσεις για να καταγράφετε τα γεύματά σας και να τηρείτε τους διατροφικούς σας στόχους',
 			'reminders.notificationsEnabled' => 'Ειδοποιήσεις Ενεργοποιημένες',
@@ -2256,6 +2366,8 @@ extension on TranslationsEl {
 			'notifications.snack.body' => 'Ώρα για ένα υγιεινό σνακ',
 			'notifications.test.title' => 'Δοκιμαστική Ειδοποίηση',
 			'login.title' => 'Σύνδεση',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Σύνδεση με Google',
 			'login.signInFailed' => 'Η Σύνδεση με Google απέτυχε ή ακυρώθηκε.',
 			'disclaimer.pleaseNote' => 'Σημειώστε',
@@ -2291,8 +2403,6 @@ extension on TranslationsEl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που κάηκαν μέχρι στιγμής.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Τα διατροφικά στοιχεία αντιστοιχίστηκαν από το ληφθέν πακέτο USDA',
 			'localNutritionPhase4.nutritionCached' => 'Τα διατροφικά στοιχεία αντιστοιχίστηκαν από την προσωρινή μνήμη USDA της συσκευής',
 			'localNutritionPhase4.nutritionMixed' => 'Τα διατροφικά στοιχεία συνδυάστηκαν από ληφθείσες, αποθηκευμένες και απομακρυσμένες γραμμές USDA',

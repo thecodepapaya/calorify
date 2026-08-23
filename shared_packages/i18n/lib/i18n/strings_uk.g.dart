@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectUk extends TranslationsOnboardingHealt
 	@override String get statusSuccess => 'Health Connect успішно підключено!';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для ${appLabel}.';
 	@override String statusError({required Object error}) => 'Помилка налаштування Health Connect: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedUk caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedUk._(_root);
+	@override String get installOrUpdate => 'Установити або оновити';
+	@override String get manageAccess => 'Керувати доступом';
+	@override String get overviewDescription => 'Використовуйте спалені калорії в щоденній цілі та за бажанням діліться записаними прийомами їжі з Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsUk shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsUk._(_root);
+	@override String get statusNotConnected => 'Виберіть функції Health Connect, які потрібно ввімкнути.';
+	@override String get statusPartial => 'Health Connect підключено частково. Надайте решту дозволів, щоб користуватися обома функціями.';
+	@override String get statusProviderUpdateRequired => 'Установіть або оновіть Health Connect, щоб продовжити.';
+	@override String get statusUnavailable => 'Health Connect не підтримується на цьому пристрої.';
+	@override late final _TranslationsOnboardingHealthConnectUserControlUk userControl = _TranslationsOnboardingHealthConnectUserControlUk._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthUk extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'Синхронізуйте дані про харчування з Health Connect';
 	@override String get install => 'Встановити';
 	@override String get connect => 'Підключити';
+	@override String get dataUseDescription => 'Використовуйте спалені калорії у своїй цілі та діліться записаними прийомами їжі';
+	@override String get installOrUpdate => 'Установити або оновити';
 }
 
 // Path: meal.nutrition
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisUk extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => 'ще ${count}';
 	@override String ingredientsLine({required Object count}) => 'виявлено ${count} інгредієнтів';
 	@override String get ingredientsPending => 'Сканування інгредієнтів…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '«${text}»';
 	@override String get offlineTip0 => 'Порада: Постійність важливіша за досконалість — регулярні записи виявляють суттєві закономірності.';
 	@override String get offlineTip1 => 'Порада: Для фото природне світло і вид зверху допомагають точніше визначити порцію.';
 	@override String get offlineTip2 => 'Порада: Згадуйте напої, соуси та олію — вони додають калорії, про які часто забувають.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsUk extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'ПРОФІЛЬ';
 	@override String get localization => 'ЛОКАЛІЗАЦІЯ';
 	@override String get notifications => 'СПОВІЩЕННЯ';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'ІНТЕГРАЦІЯ HEALTH CONNECT';
 	@override String get localInference => 'АНАЛІЗ НА ПРИСТРОЇ';
 	@override String get supportAndLegal => 'ПІДТРИМКА ТА ПРАВО';
 	@override String get about => 'ПРО ДОДАТОК';
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataUk extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'Цю дію не можна скасувати. Всі ваші записані страви, улюблені та налаштування профілю будуть назавжди видалені.';
 	@override String get cancel => 'Скасувати';
 	@override String get clearEverything => 'Видалити все';
+	@override String get localOnlyConfirmationMessage => 'Це назавжди видалить із пристрою записані прийоми їжі, вибране та налаштування профілю. Прийоми їжі, уже передані в Health Connect, і доступ до Health Connect керуються окремо в Налаштування > Health Connect.';
+	@override String get localOnlySubtitle => 'Видалити дані Calorify, збережені на цьому пристрої';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectUk extends TranslationsSettingsHealthCon
 	@override String get permissionRequestCancelledOrFailed => 'Запит дозволів був скасований або не вдався. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.';
 	@override String get permissionRequestFailed => 'Не вдалося запитати дозволи. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.';
 	@override String get requestingPermissions => 'Запит…';
+	@override String get actionFailed => 'Не вдалося відкрити Health Connect. Спробуйте ще раз.';
+	@override String get connectionComplete => 'Обидві функції Health Connect увімкнено.';
+	@override String get connectionPartial => 'Деякі функції Health Connect увімкнено.';
+	@override String get deleteSyncedMeals => 'Видалити прийоми їжі Calorify із Health Connect';
+	@override String get deleteSyncedMealsConfirmationAction => 'Видалити синхронізовані прийоми їжі';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Видалити з Health Connect прийоми їжі, синхронізовані цією версією Calorify? Локальний журнал не зміниться. Старіші записи Calorify, можливо, доведеться видалити через розділ керування даними в Health Connect.';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Видалити синхронізовані прийоми їжі?';
+	@override String get deleteSyncedMealsFailed => 'Не вдалося видалити синхронізовані прийоми їжі. Спробуйте ще раз.';
+	@override String get deleteSyncedMealsSuccess => 'Прийоми їжі Calorify видалено з Health Connect.';
+	@override String get disconnect => 'Відключити Health Connect';
+	@override String get disconnectConfirmationAction => 'Відключити';
+	@override String get disconnectConfirmationMessage => 'Calorify втратить доступ до Health Connect. Дані, уже записані там, не буде видалено.';
+	@override String get disconnectConfirmationTitle => 'Відключити Health Connect?';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredUk updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredUk._(_root);
 }
 
 // Path: settings.about
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoUk extends TranslationsSettingsAppInfoEn {
 	final TranslationsUk _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify, версія ${version}';
 	@override String build({required Object buildNumber}) => 'Збірка ${buildNumber}';
 }
 
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationUk extends Translat
 	@override String get description => 'Синхронізуйте дані з улюблених додатків для здоров\'я';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedUk extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Зчитувати загальну кількість спалених сьогодні калорій із Health Connect';
+	@override String get title => 'Спалені калорії';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsUk extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Записувати прийоми їжі з Calorify у Health Connect';
+	@override String get title => 'Ділитися записаними прийомами їжі';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlUk extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Виберіть потрібний дозвіл і змінюйте доступ у будь-який час';
+	@override String get title => 'Ви все контролюєте';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessUk extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessUk._(TranslationsUk root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableUk extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect недоступний';
 	@override String get description => 'Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.';
+	@override String get unsupportedDescription => 'Health Connect не підтримується на цьому пристрої.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsUk extends TranslationsSettin
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedUk._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadUk nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadUk._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteUk nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteUk._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredUk extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+	final TranslationsUk _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => 'Установити або оновити';
+	@override String get description => 'Установіть або оновіть Health Connect, перш ніж керувати доступом.';
+	@override String get title => 'Health Connect потребує уваги';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyUk extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'Без продажу даних\nВаші дані про здоров\'я ніколи не продаються і не передаються третім сторонам.';
 	@override String get localStorage => 'Переважно локальне зберігання\nВаші дані залишаються на пристрої.';
 	@override String get privacyPolicy => 'Політика приватності';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Обмежена аналітика й діагностика\n${appLabel} використовує базові події застосунку та діагностику збоїв для підвищення надійності. Значення медичних записів не використовуються для реклами й не продаються.';
 }
 
 // Path: settings.about.developer
@@ -1847,6 +1922,19 @@ extension on TranslationsUk {
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect успішно підключено!',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Помилка налаштування Health Connect: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Зчитувати загальну кількість спалених сьогодні калорій із Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Спалені калорії',
+			'onboarding.healthConnect.installOrUpdate' => 'Установити або оновити',
+			'onboarding.healthConnect.manageAccess' => 'Керувати доступом',
+			'onboarding.healthConnect.overviewDescription' => 'Використовуйте спалені калорії в щоденній цілі та за бажанням діліться записаними прийомами їжі з Health Connect.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Записувати прийоми їжі з Calorify у Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Ділитися записаними прийомами їжі',
+			'onboarding.healthConnect.statusNotConnected' => 'Виберіть функції Health Connect, які потрібно ввімкнути.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect підключено частково. Надайте решту дозволів, щоб користуватися обома функціями.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Установіть або оновіть Health Connect, щоб продовжити.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connect не підтримується на цьому пристрої.',
+			'onboarding.healthConnect.userControl.description' => 'Виберіть потрібний дозвіл і змінюйте доступ у будь-який час',
+			'onboarding.healthConnect.userControl.title' => 'Ви все контролюєте',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Ви не самі',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Дослідження показують, що регулярне відстеження — найсильніший прогноз довгострокового успіху.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Для ${age}-річного ${gender}, який прагне ${goal}, регулярне відстеження — найкращий показник успіху.',
@@ -1940,6 +2028,8 @@ extension on TranslationsUk {
 			'home.connectHealth.description' => 'Синхронізуйте дані про харчування з Health Connect',
 			'home.connectHealth.install' => 'Встановити',
 			'home.connectHealth.connect' => 'Підключити',
+			'home.connectHealth.dataUseDescription' => 'Використовуйте спалені калорії у своїй цілі та діліться записаними прийомами їжі',
+			'home.connectHealth.installOrUpdate' => 'Установити або оновити',
 			'history.noMeals' => 'Немає записаних страв',
 			'history.emptyMessage' => 'Зробіть фото останньої страви, щоб записати її тут.',
 			'history.today' => 'Сьогодні',
@@ -2005,7 +2095,7 @@ extension on TranslationsUk {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'ще ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'виявлено ${count} інгредієнтів',
 			'meal.analysis.ingredientsPending' => 'Сканування інгредієнтів…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '«${text}»',
 			'meal.analysis.offlineTip0' => 'Порада: Постійність важливіша за досконалість — регулярні записи виявляють суттєві закономірності.',
 			'meal.analysis.offlineTip1' => 'Порада: Для фото природне світло і вид зверху допомагають точніше визначити порцію.',
 			'meal.analysis.offlineTip2' => 'Порада: Згадуйте напої, соуси та олію — вони додають калорії, про які часто забувають.',
@@ -2126,7 +2216,7 @@ extension on TranslationsUk {
 			'settings.sections.profile' => 'ПРОФІЛЬ',
 			'settings.sections.localization' => 'ЛОКАЛІЗАЦІЯ',
 			'settings.sections.notifications' => 'СПОВІЩЕННЯ',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'ІНТЕГРАЦІЯ HEALTH CONNECT',
 			'settings.sections.localInference' => 'АНАЛІЗ НА ПРИСТРОЇ',
 			'settings.sections.supportAndLegal' => 'ПІДТРИМКА ТА ПРАВО',
 			'settings.sections.about' => 'ПРО ДОДАТОК',
@@ -2179,12 +2269,15 @@ extension on TranslationsUk {
 			'settings.clearAllData.confirmationMessage' => 'Цю дію не можна скасувати. Всі ваші записані страви, улюблені та налаштування профілю будуть назавжди видалені.',
 			'settings.clearAllData.cancel' => 'Скасувати',
 			'settings.clearAllData.clearEverything' => 'Видалити все',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Це назавжди видалить із пристрою записані прийоми їжі, вибране та налаштування профілю. Прийоми їжі, уже передані в Health Connect, і доступ до Health Connect керуються окремо в Налаштування > Health Connect.',
+			'settings.clearAllData.localOnlySubtitle' => 'Видалити дані Calorify, збережені на цьому пристрої',
 			'settings.debugOptions.title' => 'Опції відладки',
 			'settings.developerModeEnabled' => 'Режим розробника увімкнено!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Перегляд та керування дозволами',
 			'settings.healthConnect.unavailable.title' => 'Health Connect недоступний',
 			'settings.healthConnect.unavailable.description' => 'Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect не підтримується на цьому пристрої.',
 			'settings.healthConnect.permissions.title' => 'Дозволи',
 			'settings.healthConnect.permissions.description' => 'Запитуються наступні дозволи для інтеграції з Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Надано',
@@ -2204,6 +2297,22 @@ extension on TranslationsUk {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Запит дозволів був скасований або не вдався. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Не вдалося запитати дозволи. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.',
 			'settings.healthConnect.requestingPermissions' => 'Запит…',
+			'settings.healthConnect.actionFailed' => 'Не вдалося відкрити Health Connect. Спробуйте ще раз.',
+			'settings.healthConnect.connectionComplete' => 'Обидві функції Health Connect увімкнено.',
+			'settings.healthConnect.connectionPartial' => 'Деякі функції Health Connect увімкнено.',
+			'settings.healthConnect.deleteSyncedMeals' => 'Видалити прийоми їжі Calorify із Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Видалити синхронізовані прийоми їжі',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Видалити з Health Connect прийоми їжі, синхронізовані цією версією Calorify? Локальний журнал не зміниться. Старіші записи Calorify, можливо, доведеться видалити через розділ керування даними в Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Видалити синхронізовані прийоми їжі?',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Не вдалося видалити синхронізовані прийоми їжі. Спробуйте ще раз.',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Прийоми їжі Calorify видалено з Health Connect.',
+			'settings.healthConnect.disconnect' => 'Відключити Health Connect',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Відключити',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify втратить доступ до Health Connect. Дані, уже записані там, не буде видалено.',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Відключити Health Connect?',
+			'settings.healthConnect.updateRequired.action' => 'Установити або оновити',
+			'settings.healthConnect.updateRequired.description' => 'Установіть або оновіть Health Connect, перш ніж керувати доступом.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect потребує уваги',
 			'settings.about.title' => 'Про додаток',
 			'settings.about.tagline' => 'Швидко, безкоштовно та з пріоритетом приватності для обізнаності про калорії',
 			'settings.about.ourStory.title' => 'Наша історія',
@@ -2216,6 +2325,7 @@ extension on TranslationsUk {
 			'settings.about.privacy.noDataSelling' => 'Без продажу даних\nВаші дані про здоров\'я ніколи не продаються і не передаються третім сторонам.',
 			'settings.about.privacy.localStorage' => 'Переважно локальне зберігання\nВаші дані залишаються на пристрої.',
 			'settings.about.privacy.privacyPolicy' => 'Політика приватності',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Обмежена аналітика й діагностика\n${appLabel} використовує базові події застосунку та діагностику збоїв для підвищення надійності. Значення медичних записів не використовуються для реклами й не продаються.',
 			'settings.about.developer.title' => 'Розроблено сольним розробником',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} створено і підтримується одним розробником, який прагне робити спокійний софт для здоров\'я, що поважає приватність.\n\nВідгуки читаються особисто і допомагають формувати напрямок розвитку додатку.',
 			'settings.about.developer.website' => 'Вебсайт',
@@ -2224,7 +2334,7 @@ extension on TranslationsUk {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваш відгук допомагає зробити ${appLabel} кращим для всіх.',
 			'settings.about.feedback.rateApp' => 'Оцінити в Play Store',
 			'settings.about.feedback.sendFeedback' => 'Надіслати відгук',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify, версія ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Збірка ${buildNumber}',
 			'reminders.title' => 'Тримайтеся плану за допомогою нагадувань',
 			'reminders.description' => 'Отримуйте м’які нагадування записувати прийоми їжі і залишатися послідовними у харчових цілях',
@@ -2256,6 +2366,8 @@ extension on TranslationsUk {
 			'notifications.snack.body' => 'Час для корисного перекусу',
 			'notifications.test.title' => 'Тестове сповіщення',
 			'login.title' => 'Увійти',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Увійти через Google',
 			'login.signInFailed' => 'Вхід через Google не вдався або був скасований.',
 			'disclaimer.pleaseNote' => 'Зверніть увагу',
@@ -2291,8 +2403,6 @@ extension on TranslationsUk {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Ми обчислюємо ваш TDEE (на основі профілю) і множимо його на частку доби, що пройшла (години + хвилини) / 24, щоб оцінити витрачені до цього моменту калорії.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Поради фахівця',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не використовуйте цю оцінку для медичних рішень. Завжди консультуйтеся з медичним фахівцем або зареєстрованим дієтологом щодо персоналізованого керування вагою.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Харчову цінність зіставлено із завантаженого пакета USDA',
 			'localNutritionPhase4.nutritionCached' => 'Харчову цінність зіставлено з кешу USDA на пристрої',
 			'localNutritionPhase4.nutritionMixed' => 'Харчову цінність об’єднано із завантажених, кешованих і віддалених рядків USDA',
