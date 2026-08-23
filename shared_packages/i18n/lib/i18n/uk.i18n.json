@@ -102,7 +102,26 @@
       "statusConnected": "Health Connect підключено.",
       "statusSuccess": "Health Connect успішно підключено!",
       "statusPermissionDenied": "Доступ заборонено. Будь ласка, увімкніть дозволи Health Connect у налаштуваннях телефону для {appLabel}.",
-      "statusError": "Помилка налаштування Health Connect: {error}"
+      "statusError": "Помилка налаштування Health Connect: {error}",
+      "caloriesBurned": {
+        "description": "Зчитувати загальну кількість спалених сьогодні калорій із Health Connect",
+        "title": "Спалені калорії"
+      },
+      "installOrUpdate": "Установити або оновити",
+      "manageAccess": "Керувати доступом",
+      "overviewDescription": "Використовуйте спалені калорії в щоденній цілі та за бажанням діліться записаними прийомами їжі з Health Connect.",
+      "shareLoggedMeals": {
+        "description": "Записувати прийоми їжі з Calorify у Health Connect",
+        "title": "Ділитися записаними прийомами їжі"
+      },
+      "statusNotConnected": "Виберіть функції Health Connect, які потрібно ввімкнути.",
+      "statusPartial": "Health Connect підключено частково. Надайте решту дозволів, щоб користуватися обома функціями.",
+      "statusProviderUpdateRequired": "Установіть або оновіть Health Connect, щоб продовжити.",
+      "statusUnavailable": "Health Connect не підтримується на цьому пристрої.",
+      "userControl": {
+        "description": "Виберіть потрібний дозвіл і змінюйте доступ у будь-який час",
+        "title": "Ви все контролюєте"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -227,7 +246,9 @@
       "title": "Синхронізувати з Health Connect",
       "description": "Синхронізуйте дані про харчування з Health Connect",
       "install": "Встановити",
-      "connect": "Підключити"
+      "connect": "Підключити",
+      "dataUseDescription": "Використовуйте спалені калорії у своїй цілі та діліться записаними прийомами їжі",
+      "installOrUpdate": "Установити або оновити"
     }
   },
   "history": {
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "ще {count}",
       "ingredientsLine": "виявлено {count} інгредієнтів",
       "ingredientsPending": "Сканування інгредієнтів…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "«{text}»",
       "offlineTip0": "Порада: Постійність важливіша за досконалість — регулярні записи виявляють суттєві закономірності.",
       "offlineTip1": "Порада: Для фото природне світло і вид зверху допомагають точніше визначити порцію.",
       "offlineTip2": "Порада: Згадуйте напої, соуси та олію — вони додають калорії, про які часто забувають.",
@@ -472,7 +493,7 @@
       "profile": "ПРОФІЛЬ",
       "localization": "ЛОКАЛІЗАЦІЯ",
       "notifications": "СПОВІЩЕННЯ",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "ІНТЕГРАЦІЯ HEALTH CONNECT",
       "localInference": "АНАЛІЗ НА ПРИСТРОЇ",
       "supportAndLegal": "ПІДТРИМКА ТА ПРАВО",
       "about": "ПРО ДОДАТОК",
@@ -544,7 +565,9 @@
       "confirmationTitle": "Видалити всі дані?",
       "confirmationMessage": "Цю дію не можна скасувати. Всі ваші записані страви, улюблені та налаштування профілю будуть назавжди видалені.",
       "cancel": "Скасувати",
-      "clearEverything": "Видалити все"
+      "clearEverything": "Видалити все",
+      "localOnlyConfirmationMessage": "Це назавжди видалить із пристрою записані прийоми їжі, вибране та налаштування профілю. Прийоми їжі, уже передані в Health Connect, і доступ до Health Connect керуються окремо в Налаштування > Health Connect.",
+      "localOnlySubtitle": "Видалити дані Calorify, збережені на цьому пристрої"
     },
     "debugOptions": {
       "title": "Опції відладки"
@@ -555,7 +578,8 @@
       "subtitle": "Перегляд та керування дозволами",
       "unavailable": {
         "title": "Health Connect недоступний",
-        "description": "Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+."
+        "description": "Health Connect недоступний на цьому пристрої. Будь ласка, встановіть Health Connect з Play Store (Android 9+) або оновіть до Android 14+.",
+        "unsupportedDescription": "Health Connect не підтримується на цьому пристрої."
       },
       "permissions": {
         "title": "Дозволи",
@@ -583,7 +607,25 @@
       "requestPermissions": "Запитати дозволи",
       "permissionRequestCancelledOrFailed": "Запит дозволів був скасований або не вдався. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
       "permissionRequestFailed": "Не вдалося запитати дозволи. Спробуйте ще раз або надайте дозволи вручну в налаштуваннях Health Connect.",
-      "requestingPermissions": "Запит…"
+      "requestingPermissions": "Запит…",
+      "actionFailed": "Не вдалося відкрити Health Connect. Спробуйте ще раз.",
+      "connectionComplete": "Обидві функції Health Connect увімкнено.",
+      "connectionPartial": "Деякі функції Health Connect увімкнено.",
+      "deleteSyncedMeals": "Видалити прийоми їжі Calorify із Health Connect",
+      "deleteSyncedMealsConfirmationAction": "Видалити синхронізовані прийоми їжі",
+      "deleteSyncedMealsConfirmationMessage": "Видалити з Health Connect прийоми їжі, синхронізовані цією версією Calorify? Локальний журнал не зміниться. Старіші записи Calorify, можливо, доведеться видалити через розділ керування даними в Health Connect.",
+      "deleteSyncedMealsConfirmationTitle": "Видалити синхронізовані прийоми їжі?",
+      "deleteSyncedMealsFailed": "Не вдалося видалити синхронізовані прийоми їжі. Спробуйте ще раз.",
+      "deleteSyncedMealsSuccess": "Прийоми їжі Calorify видалено з Health Connect.",
+      "disconnect": "Відключити Health Connect",
+      "disconnectConfirmationAction": "Відключити",
+      "disconnectConfirmationMessage": "Calorify втратить доступ до Health Connect. Дані, уже записані там, не буде видалено.",
+      "disconnectConfirmationTitle": "Відключити Health Connect?",
+      "updateRequired": {
+        "action": "Установити або оновити",
+        "description": "Установіть або оновіть Health Connect, перш ніж керувати доступом.",
+        "title": "Health Connect потребує уваги"
+      }
     },
     "about": {
       "title": "Про додаток",
@@ -600,7 +642,8 @@
         "noAds": "Без реклами за дизайном\n{appLabel} створено для роботи без реклами та монетизації на основі даних.",
         "noDataSelling": "Без продажу даних\nВаші дані про здоров'я ніколи не продаються і не передаються третім сторонам.",
         "localStorage": "Переважно локальне зберігання\nВаші дані залишаються на пристрої.",
-        "privacyPolicy": "Політика приватності"
+        "privacyPolicy": "Політика приватності",
+        "analyticsDisclosure": "Обмежена аналітика й діагностика\n{appLabel} використовує базові події застосунку та діагностику збоїв для підвищення надійності. Значення медичних записів не використовуються для реклами й не продаються."
       },
       "developer": {
         "title": "Розроблено сольним розробником",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify, версія {version}",
       "build": "Збірка {buildNumber}"
     }
   },

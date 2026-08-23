@@ -102,7 +102,26 @@
       "statusConnected": "Health Connect 已連線。",
       "statusSuccess": "已成功連接 Health Connect！",
       "statusPermissionDenied": "權限被拒。請在手機設定中為 {appLabel} 啟用 Health Connect 權限。",
-      "statusError": "設定 Health Connect 時發生錯誤：{error}"
+      "statusError": "設定 Health Connect 時發生錯誤：{error}",
+      "caloriesBurned": {
+        "description": "從 Health Connect 讀取今天消耗的總卡路里",
+        "title": "已消耗卡路里"
+      },
+      "installOrUpdate": "安裝或更新",
+      "manageAccess": "管理存取權",
+      "overviewDescription": "將已消耗的卡路里計入每日目標，並可選擇與 Health Connect 分享已記錄的餐點。",
+      "shareLoggedMeals": {
+        "description": "將您在 Calorify 中記錄的餐點寫入 Health Connect",
+        "title": "分享已記錄的餐點"
+      },
+      "statusNotConnected": "選擇要啟用的 Health Connect 功能。",
+      "statusPartial": "Health Connect 已部分連接。請啟用其餘權限以使用兩項功能。",
+      "statusProviderUpdateRequired": "安裝或更新 Health Connect 以繼續。",
+      "statusUnavailable": "此裝置不支援 Health Connect。",
+      "userControl": {
+        "description": "選擇任一權限，並隨時變更存取設定",
+        "title": "由您掌控"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -171,7 +190,7 @@
       "weightImpact": "體重影響",
       "estLoss": "預估減少",
       "estGain": "預估增加",
-      "kcal": "kcal"
+      "kcal": "千卡（kcal）"
     },
     "dailySummary": {
       "title": "每日摘要",
@@ -227,7 +246,9 @@
       "title": "與 Health Connect 同步",
       "description": "將您的營養資料與 Health Connect 同步",
       "install": "安裝",
-      "connect": "連接"
+      "connect": "連接",
+      "dataUseDescription": "將已消耗的卡路里計入目標，並分享已記錄的餐點",
+      "installOrUpdate": "安裝或更新"
     }
   },
   "history": {
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "磅（lbs）",
     "metricCm": "公制 (cm)",
     "imperialFtIn": "英制 (ft/in)",
     "metricKg": "公制 (kg)",
@@ -544,7 +565,9 @@
       "confirmationTitle": "清除所有資料？",
       "confirmationMessage": "此動作無法復原。您所有記錄的餐點、最愛與個人設定將被永久刪除。",
       "cancel": "取消",
-      "clearEverything": "全部清除"
+      "clearEverything": "全部清除",
+      "localOnlyConfirmationMessage": "這會從此裝置永久刪除已記錄的餐點、最愛和個人檔案設定。已分享至 Health Connect 的餐點與 Health Connect 存取權需在「設定 > Health Connect」中另行管理。",
+      "localOnlySubtitle": "刪除此裝置上儲存的 Calorify 資料"
     },
     "debugOptions": {
       "title": "除錯選項"
@@ -555,7 +578,8 @@
       "subtitle": "檢視並管理權限",
       "unavailable": {
         "title": "Health Connect 無法使用",
-        "description": "此裝置無法使用 Health Connect。請從 Play Store 安裝 Health Connect（Android 9+）或更新至 Android 14+。"
+        "description": "此裝置無法使用 Health Connect。請從 Play Store 安裝 Health Connect（Android 9+）或更新至 Android 14+。",
+        "unsupportedDescription": "此裝置不支援 Health Connect。"
       },
       "permissions": {
         "title": "權限",
@@ -583,7 +607,25 @@
       "requestPermissions": "請求權限",
       "permissionRequestCancelledOrFailed": "權限請求已取消或失敗。請再試一次或在 Health Connect 設定中手動授權。",
       "permissionRequestFailed": "無法請求權限。請再試一次或在 Health Connect 設定中手動授權。",
-      "requestingPermissions": "請求中..."
+      "requestingPermissions": "請求中...",
+      "actionFailed": "無法開啟 Health Connect，請再試一次。",
+      "connectionComplete": "兩項 Health Connect 功能皆已啟用。",
+      "connectionPartial": "部分 Health Connect 功能已啟用。",
+      "deleteSyncedMeals": "從 Health Connect 刪除 Calorify 餐點",
+      "deleteSyncedMealsConfirmationAction": "刪除已同步的餐點",
+      "deleteSyncedMealsConfirmationMessage": "要從 Health Connect 刪除此版本 Calorify 同步的餐點嗎？本機餐點紀錄不會變更。較舊的 Calorify 項目可能仍需透過 Health Connect 中的「管理資料」刪除。",
+      "deleteSyncedMealsConfirmationTitle": "刪除已同步的餐點？",
+      "deleteSyncedMealsFailed": "無法刪除已同步的餐點，請再試一次。",
+      "deleteSyncedMealsSuccess": "已從 Health Connect 刪除 Calorify 餐點。",
+      "disconnect": "中斷 Health Connect 連線",
+      "disconnectConfirmationAction": "中斷連線",
+      "disconnectConfirmationMessage": "Calorify 將失去 Health Connect 存取權。已寫入其中的資料不會被刪除。",
+      "disconnectConfirmationTitle": "中斷 Health Connect 連線？",
+      "updateRequired": {
+        "action": "安裝或更新",
+        "description": "請先安裝或更新 Health Connect，再管理存取權。",
+        "title": "Health Connect 需要處理"
+      }
     },
     "about": {
       "title": "關於",
@@ -600,7 +642,8 @@
         "noAds": "無廣告設計\n{appLabel} 的設計不依賴廣告或以資料為驅動的獲利方式。",
         "noDataSelling": "不販售資料\n您的健康資料絕不會出售或分享給第三方。",
         "localStorage": "以裝置為優先的儲存\n您的資料保留在您的裝置上。",
-        "privacyPolicy": "隱私政策"
+        "privacyPolicy": "隱私政策",
+        "analyticsDisclosure": "有限的分析與診斷\n{appLabel} 使用基本應用程式事件和當機診斷來提升可靠性。健康紀錄值不會用於廣告或出售。"
       },
       "developer": {
         "title": "由單人開發者打造",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify 版本 {version}",
       "build": "建置 {buildNumber}"
     }
   },

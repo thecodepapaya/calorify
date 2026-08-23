@@ -108,7 +108,20 @@
       "installOrUpdate": "ติดตั้งหรืออัปเดต",
       "manageAccess": "จัดการการเข้าถึง",
       "statusPermissionDenied": "การอนุญาตถูกปฏิเสธ โปรดเปิดสิทธิ์ Health Connect ในการตั้งค่าบนโทรศัพท์สำหรับ {appLabel}",
-      "statusError": "เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: {error}"
+      "statusError": "เกิดข้อผิดพลาดขณะตั้งค่า Health Connect: {error}",
+      "caloriesBurned": {
+        "description": "อ่านแคลอรีทั้งหมดที่เผาผลาญในวันนี้จาก Health Connect",
+        "title": "แคลอรีที่เผาผลาญ"
+      },
+      "overviewDescription": "ใช้แคลอรีที่เผาผลาญในเป้าหมายรายวัน และเลือกแชร์มื้ออาหารที่บันทึกไว้กับ Health Connect",
+      "shareLoggedMeals": {
+        "description": "เขียนมื้ออาหารที่คุณบันทึกใน Calorify ไปยัง Health Connect",
+        "title": "แชร์มื้ออาหารที่บันทึกไว้"
+      },
+      "userControl": {
+        "description": "เลือกสิทธิ์ที่ต้องการและเปลี่ยนการเข้าถึงได้ทุกเมื่อ",
+        "title": "คุณเป็นผู้ควบคุม"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -177,7 +190,7 @@
       "weightImpact": "ผลต่อ น้ำหนัก",
       "estLoss": "คาดการณ์การลด",
       "estGain": "คาดการณ์การเพิ่ม",
-      "kcal": "kcal"
+      "kcal": "กิโลแคลอรี (kcal)"
     },
     "dailySummary": {
       "title": "สรุประหว่างวัน",
@@ -233,7 +246,9 @@
       "title": "ซิงก์กับ Health Connect",
       "description": "ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้",
       "install": "ติดตั้งหรืออัปเดต",
-      "connect": "เชื่อมต่อ"
+      "connect": "เชื่อมต่อ",
+      "dataUseDescription": "ใช้แคลอรีที่เผาผลาญในเป้าหมายและแชร์มื้ออาหารที่บันทึกไว้",
+      "installOrUpdate": "ติดตั้งหรืออัปเดต"
     }
   },
   "history": {
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "มีอีก {count}",
       "ingredientsLine": "ตรวจพบ {count} ส่วนผสม",
       "ingredientsPending": "กำลังสแกนส่วนผสม…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "เคล็ดลับ: ความสม่ำเสมอกำลังกว่าความสมบูรณ์ — การบันทึกสม่ำเสมอเผยรูปแบบที่สำคัญ",
       "offlineTip1": "เคล็ดลับ: สำหรับรูป ให้ใช้แสงธรรมชาติและมุมมองจากด้านบนเพื่อความแม่นยำของปริมาณ",
       "offlineTip2": "เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม",
@@ -425,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "ปอนด์ (lbs)",
     "metricCm": "เมตริก (cm)",
     "imperialFtIn": "อิมพีเรียล (ft/in)",
     "metricKg": "เมตริก (kg)",
@@ -550,7 +565,9 @@
       "confirmationTitle": "ล้างข้อมูลทั้งหมด?",
       "confirmationMessage": "การดำเนินการนี้จะลบมื้ออาหารที่บันทึก รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและการเข้าถึง Health Connect ต้องจัดการแยกต่างหากใน การตั้งค่า > Health Connect",
       "cancel": "ยกเลิก",
-      "clearEverything": "ล้างทั้งหมด"
+      "clearEverything": "ล้างทั้งหมด",
+      "localOnlyConfirmationMessage": "การดำเนินการนี้จะลบมื้ออาหารที่บันทึกไว้ รายการโปรด และการตั้งค่าโปรไฟล์ออกจากอุปกรณ์นี้อย่างถาวร มื้ออาหารที่แชร์ไปยัง Health Connect แล้วและสิทธิ์เข้าถึง Health Connect จะจัดการแยกต่างหากใน การตั้งค่า > Health Connect",
+      "localOnlySubtitle": "ลบข้อมูล Calorify ที่จัดเก็บในอุปกรณ์นี้"
     },
     "debugOptions": {
       "title": "ตัวเลือกดีบัก"
@@ -561,7 +578,8 @@
       "subtitle": "ดูและจัดการสิทธิ์",
       "unavailable": {
         "title": "ไม่พบ Health Connect",
-        "description": "อุปกรณ์นี้ไม่รองรับ Health Connect"
+        "description": "อุปกรณ์นี้ไม่รองรับ Health Connect",
+        "unsupportedDescription": "อุปกรณ์นี้ไม่รองรับ Health Connect"
       },
       "updateRequired": {
         "title": "Health Connect ต้องได้รับการดำเนินการ",
@@ -624,7 +642,8 @@
         "noAds": "ออกแบบให้ไม่มีโฆษณา\n{appLabel} ถูกสร้างมาให้ทำงานได้โดยไม่ต้องใช้โฆษณาหรือหารายได้จากข้อมูล",
         "noDataSelling": "ไม่ขายข้อมูล\nข้อมูลสุขภาพของคุณจะไม่ถูกขายหรือแบ่งปันกับบุคคลที่สาม",
         "localStorage": "เก็บข้อมูลบนเครื่องเป็นหลัก\nข้อมูลของคุณอยู่บนอุปกรณ์ของคุณ",
-        "privacyPolicy": "นโยบายความเป็นส่วนตัว"
+        "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+        "analyticsDisclosure": "การวิเคราะห์และการวินิจฉัยแบบจำกัด\n{appLabel} ใช้เหตุการณ์พื้นฐานของแอปและข้อมูลวินิจฉัยข้อขัดข้องเพื่อปรับปรุงความน่าเชื่อถือ ค่าจากบันทึกสุขภาพจะไม่ถูกใช้เพื่อการโฆษณาหรือขาย"
       },
       "developer": {
         "title": "สร้างโดยนักพัฒนาเดี่ยว",
@@ -640,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify เวอร์ชัน {version}",
       "build": "บิลด์ {buildNumber}"
     }
   },

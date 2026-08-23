@@ -102,7 +102,26 @@
       "statusConnected": "Health Connectが接続されています。",
       "statusSuccess": "Health Connectの接続に成功しました！",
       "statusPermissionDenied": "権限が拒否されました。{appLabel}のHealth Connect権限を端末の設定で有効にしてください。",
-      "statusError": "Health Connectの設定中にエラーが発生しました: {error}"
+      "statusError": "Health Connectの設定中にエラーが発生しました: {error}",
+      "caloriesBurned": {
+        "description": "Health Connectから今日の総消費カロリーを読み取ります",
+        "title": "消費カロリー"
+      },
+      "installOrUpdate": "インストールまたは更新",
+      "manageAccess": "アクセスを管理",
+      "overviewDescription": "日次目標に消費カロリーを反映し、必要に応じて記録した食事をHealth Connectと共有します。",
+      "shareLoggedMeals": {
+        "description": "Calorifyに記録した食事をHealth Connectへ書き込みます",
+        "title": "記録した食事を共有"
+      },
+      "statusNotConnected": "有効にするHealth Connect機能を選択してください。",
+      "statusPartial": "Health Connectの一部が接続されています。両方の機能を使うには、残りの権限を有効にしてください。",
+      "statusProviderUpdateRequired": "続行するにはHealth Connectをインストールまたは更新してください。",
+      "statusUnavailable": "この端末はHealth Connectに対応していません。",
+      "userControl": {
+        "description": "どちらかの権限を選び、アクセス設定をいつでも変更できます",
+        "title": "設定はいつでも変更できます"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -171,7 +190,7 @@
       "weightImpact": "体重への影響",
       "estLoss": "推定減少",
       "estGain": "推定増加",
-      "kcal": "kcal"
+      "kcal": "キロカロリー（kcal）"
     },
     "dailySummary": {
       "title": "本日のサマリー",
@@ -227,7 +246,9 @@
       "title": "Health Connectと同期",
       "description": "栄養データをHealth Connectと同期します",
       "install": "インストール",
-      "connect": "接続"
+      "connect": "接続",
+      "dataUseDescription": "目標に消費カロリーを反映し、記録した食事を共有します",
+      "installOrUpdate": "インストールまたは更新"
     }
   },
   "history": {
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "ポンド（lbs）",
     "metricCm": "メートル法（cm）",
     "imperialFtIn": "インペリアル（ft/in）",
     "metricKg": "メートル法（kg）",
@@ -544,7 +565,9 @@
       "confirmationTitle": "すべてのデータを消去しますか？",
       "confirmationMessage": "この操作は元に戻せません。記録した全ての食事、お気に入り、プロフィール設定が永久に削除されます。",
       "cancel": "キャンセル",
-      "clearEverything": "すべて消去"
+      "clearEverything": "すべて消去",
+      "localOnlyConfirmationMessage": "この端末から、記録した食事、お気に入り、プロフィール設定を完全に削除します。Health Connectに共有済みの食事とHealth Connectへのアクセスは、設定 > Health Connectで別途管理されます。",
+      "localOnlySubtitle": "この端末に保存されたCalorifyデータを削除します"
     },
     "debugOptions": {
       "title": "デバッグオプション"
@@ -555,7 +578,8 @@
       "subtitle": "権限の表示と管理",
       "unavailable": {
         "title": "Health Connectが利用できません",
-        "description": "この端末ではHealth Connectが利用できません。Play StoreからHealth Connectをインストールするか（Android 9+）、Androidを14+にアップデートしてください。"
+        "description": "この端末ではHealth Connectが利用できません。Play StoreからHealth Connectをインストールするか（Android 9+）、Androidを14+にアップデートしてください。",
+        "unsupportedDescription": "この端末はHealth Connectに対応していません。"
       },
       "permissions": {
         "title": "権限",
@@ -583,7 +607,25 @@
       "requestPermissions": "権限を要求",
       "permissionRequestCancelledOrFailed": "権限要求がキャンセルされたか失敗しました。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。",
       "permissionRequestFailed": "権限の要求ができませんでした。もう一度お試しいただくか、Health Connectの設定で手動で権限を付与してください。",
-      "requestingPermissions": "要求中…"
+      "requestingPermissions": "要求中…",
+      "actionFailed": "Health Connectを開けませんでした。もう一度お試しください。",
+      "connectionComplete": "Health Connectの両方の機能が有効です。",
+      "connectionPartial": "Health Connectの一部の機能が有効です。",
+      "deleteSyncedMeals": "Health ConnectからCalorifyの食事を削除",
+      "deleteSyncedMealsConfirmationAction": "同期した食事を削除",
+      "deleteSyncedMealsConfirmationMessage": "このバージョンのCalorifyがHealth Connectへ同期した食事を削除しますか？端末内の食事記録は変更されません。以前のCalorifyエントリは、Health Connectの「データを管理」から削除する必要がある場合があります。",
+      "deleteSyncedMealsConfirmationTitle": "同期した食事を削除しますか？",
+      "deleteSyncedMealsFailed": "同期した食事を削除できませんでした。もう一度お試しください。",
+      "deleteSyncedMealsSuccess": "Calorifyの食事をHealth Connectから削除しました。",
+      "disconnect": "Health Connectとの接続を解除",
+      "disconnectConfirmationAction": "接続を解除",
+      "disconnectConfirmationMessage": "CalorifyはHealth Connectへのアクセスを失います。すでに書き込まれたデータは削除されません。",
+      "disconnectConfirmationTitle": "Health Connectとの接続を解除しますか？",
+      "updateRequired": {
+        "action": "インストールまたは更新",
+        "description": "アクセスを管理する前にHealth Connectをインストールまたは更新してください。",
+        "title": "Health Connectの対応が必要です"
+      }
     },
     "about": {
       "title": "このアプリについて",
@@ -600,7 +642,8 @@
         "noAds": "広告なしで設計\n{appLabel}は広告やデータ駆動のマネタイズなしで動作するよう作られています。",
         "noDataSelling": "データ販売なし\nあなたの健康データが第三者に販売または共有されることはありません。",
         "localStorage": "ローカルファーストの保存\nあなたのデータは端末に留まります。",
-        "privacyPolicy": "プライバシーポリシー"
+        "privacyPolicy": "プライバシーポリシー",
+        "analyticsDisclosure": "限定的な分析と診断\n{appLabel}は信頼性向上のため、基本的なアプリイベントとクラッシュ診断を使用します。健康記録の値を広告に使用したり、販売したりすることはありません。"
       },
       "developer": {
         "title": "ソロ開発者による開発",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify バージョン{version}",
       "build": "ビルド {buildNumber}"
     }
   },

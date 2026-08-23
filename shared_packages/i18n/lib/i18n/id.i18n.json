@@ -37,7 +37,7 @@
       "title": "Berapa tinggi Anda?",
       "description": "Tinggi Anda membantu kami menghitung BMI dan kebutuhan energi dengan tepat.",
       "metric": "Metrik",
-      "imperial": "Imperial",
+      "imperial": "Satuan imperial",
       "next": "Berikutnya"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "Berapa berat tujuan Anda?",
       "targetDescription": "Menetapkan berat tujuan membantu kami menentukan rencana jangka panjang Anda.",
       "metric": "Metrik",
-      "imperial": "Imperial",
+      "imperial": "Satuan imperial",
       "next": "Berikutnya"
     },
     "age": {
@@ -102,7 +102,26 @@
       "statusConnected": "Health Connect terhubung.",
       "statusSuccess": "Health Connect berhasil dihubungkan!",
       "statusPermissionDenied": "Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk {appLabel}.",
-      "statusError": "Terjadi kesalahan saat menyiapkan Health Connect: {error}"
+      "statusError": "Terjadi kesalahan saat menyiapkan Health Connect: {error}",
+      "caloriesBurned": {
+        "description": "Baca total kalori yang dibakar hari ini dari Health Connect",
+        "title": "Kalori Terbakar"
+      },
+      "installOrUpdate": "Pasang atau perbarui",
+      "manageAccess": "Kelola akses",
+      "overviewDescription": "Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.",
+      "shareLoggedMeals": {
+        "description": "Tulis makanan yang Anda catat di Calorify ke Health Connect",
+        "title": "Bagikan Makanan yang Dicatat"
+      },
+      "statusNotConnected": "Pilih fitur Health Connect yang ingin Anda aktifkan.",
+      "statusPartial": "Health Connect terhubung sebagian. Aktifkan izin yang tersisa untuk menggunakan kedua fitur.",
+      "statusProviderUpdateRequired": "Pasang atau perbarui Health Connect untuk melanjutkan.",
+      "statusUnavailable": "Health Connect tidak didukung di perangkat ini.",
+      "userControl": {
+        "description": "Pilih salah satu izin dan ubah akses kapan saja",
+        "title": "Kendali Ada pada Anda"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -171,13 +190,13 @@
       "weightImpact": "Dampak Berat",
       "estLoss": "Perk. penurunan",
       "estGain": "Perk. kenaikan",
-      "kcal": "kcal"
+      "kcal": "kilokalori (kcal)"
     },
     "dailySummary": {
       "title": "Ringkasan Harian",
       "calories": "Kalori",
       "carbs": "Karbohidrat",
-      "protein": "Protein",
+      "protein": "Asupan protein",
       "fat": "Lemak",
       "fiber": "Serat",
       "grams": "gram",
@@ -227,7 +246,9 @@
       "title": "Sinkronkan dengan Health Connect",
       "description": "Sinkronkan data nutrisi Anda dengan Health Connect",
       "install": "Pasang",
-      "connect": "Sambungkan"
+      "connect": "Sambungkan",
+      "dataUseDescription": "Gunakan kalori yang dibakar dalam target Anda dan bagikan makanan yang dicatat",
+      "installOrUpdate": "Pasang atau perbarui"
     }
   },
   "history": {
@@ -254,7 +275,7 @@
     "nutrition": {
       "calories": "Kalori",
       "carbs": "Karbo (g)",
-      "protein": "Protein (g)",
+      "protein": "Protein (gram)",
       "fat": "Lemak (g)",
       "fiber": "Serat (g)"
     },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} lagi",
       "ingredientsLine": "{count} bahan terdeteksi",
       "ingredientsPending": "Memindai bahan…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.",
       "offlineTip1": "Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.",
       "offlineTip2": "Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.",
@@ -415,15 +436,15 @@
     "weightGoal": "Tujuan Berat",
     "activityLevel": "Tingkat Aktivitas",
     "metric": "Metrik",
-    "imperial": "Imperial",
+    "imperial": "Satuan imperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "pon (lbs)",
     "metricCm": "Metrik (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
+    "imperialFtIn": "Satuan imperial (ft/in)",
     "metricKg": "Metrik (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "imperialLbs": "Satuan imperial (lbs)",
     "genders": {
       "male": "Pria",
       "female": "Wanita",
@@ -472,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISASI",
       "notifications": "NOTIFIKASI",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "INTEGRASI HEALTH CONNECT",
       "localInference": "ANALISIS PADA PERANGKAT",
       "supportAndLegal": "DUKUNGAN & HUKUM",
       "about": "TENTANG",
@@ -544,7 +565,9 @@
       "confirmationTitle": "Hapus Semua Data?",
       "confirmationMessage": "Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.",
       "cancel": "Batal",
-      "clearEverything": "Hapus Semua"
+      "clearEverything": "Hapus Semua",
+      "localOnlyConfirmationMessage": "Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.",
+      "localOnlySubtitle": "Hapus data Calorify yang tersimpan di perangkat ini"
     },
     "debugOptions": {
       "title": "Opsi Debug"
@@ -555,7 +578,8 @@
       "subtitle": "Lihat dan kelola izin",
       "unavailable": {
         "title": "Health Connect Tidak Tersedia",
-        "description": "Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+."
+        "description": "Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.",
+        "unsupportedDescription": "Health Connect tidak didukung di perangkat ini."
       },
       "permissions": {
         "title": "Izin",
@@ -583,7 +607,25 @@
       "requestPermissions": "Minta Izin",
       "permissionRequestCancelledOrFailed": "Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
       "permissionRequestFailed": "Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.",
-      "requestingPermissions": "Meminta..."
+      "requestingPermissions": "Meminta...",
+      "actionFailed": "Health Connect tidak dapat dibuka. Silakan coba lagi.",
+      "connectionComplete": "Kedua fitur Health Connect telah diaktifkan.",
+      "connectionPartial": "Beberapa fitur Health Connect telah diaktifkan.",
+      "deleteSyncedMeals": "Hapus makanan Calorify dari Health Connect",
+      "deleteSyncedMealsConfirmationAction": "Hapus makanan tersinkron",
+      "deleteSyncedMealsConfirmationMessage": "Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.",
+      "deleteSyncedMealsConfirmationTitle": "Hapus makanan tersinkron?",
+      "deleteSyncedMealsFailed": "Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.",
+      "deleteSyncedMealsSuccess": "Makanan Calorify telah dihapus dari Health Connect.",
+      "disconnect": "Putuskan Health Connect",
+      "disconnectConfirmationAction": "Putuskan",
+      "disconnectConfirmationMessage": "Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.",
+      "disconnectConfirmationTitle": "Putuskan Health Connect?",
+      "updateRequired": {
+        "action": "Pasang atau perbarui",
+        "description": "Pasang atau perbarui Health Connect sebelum mengelola akses.",
+        "title": "Health Connect perlu diperhatikan"
+      }
     },
     "about": {
       "title": "Tentang",
@@ -600,13 +642,14 @@
         "noAds": "Tanpa iklan secara desain\n{appLabel} dibuat untuk bekerja tanpa iklan atau monetisasi berbasis data.",
         "noDataSelling": "Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.",
         "localStorage": "Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.",
-        "privacyPolicy": "Kebijakan Privasi"
+        "privacyPolicy": "Kebijakan Privasi",
+        "analyticsDisclosure": "Analitik dan diagnostik terbatas\n{appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual."
       },
       "developer": {
         "title": "Dibuat oleh Pengembang Solo",
         "description": "{appLabel} dibuat dan dipelihara oleh satu pengembang solo yang fokus pada pembuatan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nUmpan balik dibaca secara pribadi dan membantu membentuk arah aplikasi.",
         "website": "Situs Web",
-        "email": "Email"
+        "email": "Surel"
       },
       "feedback": {
         "title": "Menikmati {appLabel}?",
@@ -616,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify versi {version}",
+      "build": "Build nomor {buildNumber}"
     }
   },
   "reminders": {

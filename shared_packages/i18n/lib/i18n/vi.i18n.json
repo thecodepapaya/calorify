@@ -102,7 +102,26 @@
       "statusConnected": "Health Connect đã được kết nối.",
       "statusSuccess": "Đã kết nối Health Connect thành công!",
       "statusPermissionDenied": "Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho {appLabel}.",
-      "statusError": "Lỗi khi thiết lập Health Connect: {error}"
+      "statusError": "Lỗi khi thiết lập Health Connect: {error}",
+      "caloriesBurned": {
+        "description": "Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect",
+        "title": "Calo đã đốt cháy"
+      },
+      "installOrUpdate": "Cài đặt hoặc cập nhật",
+      "manageAccess": "Quản lý quyền truy cập",
+      "overviewDescription": "Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.",
+      "shareLoggedMeals": {
+        "description": "Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect",
+        "title": "Chia sẻ bữa ăn đã ghi"
+      },
+      "statusNotConnected": "Chọn các tính năng Health Connect bạn muốn bật.",
+      "statusPartial": "Health Connect đã kết nối một phần. Hãy bật quyền còn lại để dùng cả hai tính năng.",
+      "statusProviderUpdateRequired": "Cài đặt hoặc cập nhật Health Connect để tiếp tục.",
+      "statusUnavailable": "Thiết bị này không hỗ trợ Health Connect.",
+      "userControl": {
+        "description": "Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào",
+        "title": "Bạn là người kiểm soát"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -171,13 +190,13 @@
       "weightImpact": "Tác động lên cân nặng",
       "estLoss": "Ước tính giảm",
       "estGain": "Ước tính tăng",
-      "kcal": "kcal"
+      "kcal": "kilocalo (kcal)"
     },
     "dailySummary": {
       "title": "Tóm tắt hàng ngày",
       "calories": "Calo",
       "carbs": "Tinh bột",
-      "protein": "Protein",
+      "protein": "Chất đạm",
       "fat": "Chất béo",
       "fiber": "Chất xơ",
       "grams": "gam",
@@ -227,7 +246,9 @@
       "title": "Đồng bộ với Health Connect",
       "description": "Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect",
       "install": "Cài đặt",
-      "connect": "Kết nối"
+      "connect": "Kết nối",
+      "dataUseDescription": "Dùng lượng calo đã đốt cháy trong mục tiêu và chia sẻ các bữa ăn đã ghi",
+      "installOrUpdate": "Cài đặt hoặc cập nhật"
     }
   },
   "history": {
@@ -254,7 +275,7 @@
     "nutrition": {
       "calories": "Calo",
       "carbs": "Tinh bột (g)",
-      "protein": "Protein (g)",
+      "protein": "Chất đạm (g)",
       "fat": "Chất béo (g)",
       "fiber": "Chất xơ (g)"
     },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} khác",
       "ingredientsLine": "Phát hiện {count} nguyên liệu",
       "ingredientsPending": "Đang quét nguyên liệu…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "Mẹo: Kiên trì còn hơn hoàn hảo—ghi chép đều đặn sẽ cho thấy các mô hình quan trọng.",
       "offlineTip1": "Mẹo: Với ảnh, ánh sáng tự nhiên và góc chụp từ trên xuống giúp xác định khẩu phần chính xác hơn.",
       "offlineTip2": "Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "pao (lbs)",
     "metricCm": "Hệ mét (cm)",
     "imperialFtIn": "Hệ Anh (ft/in)",
     "metricKg": "Hệ mét (kg)",
@@ -472,7 +493,7 @@
       "profile": "HỒ SƠ",
       "localization": "NGÔN NGỮ",
       "notifications": "THÔNG BÁO",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "TÍCH HỢP HEALTH CONNECT",
       "localInference": "PHÂN TÍCH TRÊN THIẾT BỊ",
       "supportAndLegal": "HỖ TRỢ & PHÁP LÝ",
       "about": "VỀ ỨNG DỤNG",
@@ -544,7 +565,9 @@
       "confirmationTitle": "Xóa tất cả dữ liệu?",
       "confirmationMessage": "Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.",
       "cancel": "Hủy",
-      "clearEverything": "Xóa hết"
+      "clearEverything": "Xóa hết",
+      "localOnlyConfirmationMessage": "Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.",
+      "localOnlySubtitle": "Xóa dữ liệu Calorify lưu trên thiết bị này"
     },
     "debugOptions": {
       "title": "Tùy chọn gỡ lỗi"
@@ -555,7 +578,8 @@
       "subtitle": "Xem và quản lý quyền",
       "unavailable": {
         "title": "Health Connect không khả dụng",
-        "description": "Health Connect không có trên thiết bị này. Vui lòng cài Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+."
+        "description": "Health Connect không có trên thiết bị này. Vui lòng cài Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+.",
+        "unsupportedDescription": "Thiết bị này không hỗ trợ Health Connect."
       },
       "permissions": {
         "title": "Quyền",
@@ -583,7 +607,25 @@
       "requestPermissions": "Yêu cầu quyền",
       "permissionRequestCancelledOrFailed": "Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
       "permissionRequestFailed": "Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.",
-      "requestingPermissions": "Đang yêu cầu..."
+      "requestingPermissions": "Đang yêu cầu...",
+      "actionFailed": "Không thể mở Health Connect. Vui lòng thử lại.",
+      "connectionComplete": "Cả hai tính năng Health Connect đã được bật.",
+      "connectionPartial": "Một số tính năng Health Connect đã được bật.",
+      "deleteSyncedMeals": "Xóa bữa ăn Calorify khỏi Health Connect",
+      "deleteSyncedMealsConfirmationAction": "Xóa bữa ăn đã đồng bộ",
+      "deleteSyncedMealsConfirmationMessage": "Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.",
+      "deleteSyncedMealsConfirmationTitle": "Xóa bữa ăn đã đồng bộ?",
+      "deleteSyncedMealsFailed": "Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.",
+      "deleteSyncedMealsSuccess": "Đã xóa các bữa ăn Calorify khỏi Health Connect.",
+      "disconnect": "Ngắt kết nối Health Connect",
+      "disconnectConfirmationAction": "Ngắt kết nối",
+      "disconnectConfirmationMessage": "Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.",
+      "disconnectConfirmationTitle": "Ngắt kết nối Health Connect?",
+      "updateRequired": {
+        "action": "Cài đặt hoặc cập nhật",
+        "description": "Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.",
+        "title": "Health Connect cần được xử lý"
+      }
     },
     "about": {
       "title": "Về",
@@ -600,13 +642,14 @@
         "noAds": "Không quảng cáo theo thiết kế\n{appLabel} được xây dựng để hoạt động không cần quảng cáo hoặc kiếm tiền dựa trên dữ liệu.",
         "noDataSelling": "Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ với bên thứ ba.",
         "localStorage": "Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị của bạn.",
-        "privacyPolicy": "Chính sách quyền riêng tư"
+        "privacyPolicy": "Chính sách quyền riêng tư",
+        "analyticsDisclosure": "Phân tích và chẩn đoán có giới hạn\n{appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán."
       },
       "developer": {
         "title": "Được xây dựng bởi một nhà phát triển độc lập",
         "description": "{appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập với mục tiêu tạo phần mềm sức khỏe yên tĩnh, tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hướng phát triển ứng dụng.",
         "website": "Trang web",
-        "email": "Email"
+        "email": "Thư điện tử"
       },
       "feedback": {
         "title": "Bạn thích {appLabel} chứ?",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify phiên bản {version}",
       "build": "Bản dựng {buildNumber}"
     }
   },

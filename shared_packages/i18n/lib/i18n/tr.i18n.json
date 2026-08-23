@@ -108,7 +108,20 @@
       "installOrUpdate": "Yükle veya güncelle",
       "manageAccess": "Erişimi yönet",
       "statusPermissionDenied": "İzin reddedildi. Lütfen {appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.",
-      "statusError": "Health Connect kurulurken hata: {error}"
+      "statusError": "Health Connect kurulurken hata: {error}",
+      "caloriesBurned": {
+        "description": "Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun",
+        "title": "Yakılan Kaloriler"
+      },
+      "overviewDescription": "Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.",
+      "shareLoggedMeals": {
+        "description": "Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın",
+        "title": "Kaydedilen Öğünleri Paylaş"
+      },
+      "userControl": {
+        "description": "İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin",
+        "title": "Kontrol Sizde"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -177,13 +190,13 @@
       "weightImpact": "Kilo Etkisi",
       "estLoss": "Tahmini kayıp",
       "estGain": "Tahmini kazanç",
-      "kcal": "kcal"
+      "kcal": "kilokalori (kcal)"
     },
     "dailySummary": {
       "title": "Günlük Özet",
       "calories": "Kaloriler",
       "carbs": "Karbonhidrat",
-      "protein": "Protein",
+      "protein": "Protein miktarı",
       "fat": "Yağ",
       "fiber": "Lif",
       "grams": "gram",
@@ -233,7 +246,9 @@
       "title": "Health Connect ile Senkronize Et",
       "description": "Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın",
       "install": "Yükle veya güncelle",
-      "connect": "Bağla"
+      "connect": "Bağla",
+      "dataUseDescription": "Hedefinizde yakılan kalorileri kullanın ve kaydedilen öğünleri paylaşın",
+      "installOrUpdate": "Yükle veya güncelle"
     }
   },
   "history": {
@@ -260,7 +275,7 @@
     "nutrition": {
       "calories": "Kalori",
       "carbs": "Karbonhidrat (g)",
-      "protein": "Protein (g)",
+      "protein": "Protein (gram)",
       "fat": "Yağ (g)",
       "fiber": "Lif (g)"
     },
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} daha",
       "ingredientsLine": "{count} içerik tespit edildi",
       "ingredientsPending": "İçerikler taranıyor…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.",
       "offlineTip1": "İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.",
       "offlineTip2": "İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.",
@@ -425,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "libre (lbs)",
     "metricCm": "Metrik (cm)",
     "imperialFtIn": "İmperial (ft/in)",
     "metricKg": "Metrik (kg)",
@@ -478,7 +493,7 @@
       "profile": "PROFİL",
       "localization": "LOKALİZASYON",
       "notifications": "BİLDİRİMLER",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "HEALTH CONNECT ENTEGRASYONU",
       "localInference": "CİHAZ İÇİ ANALİZ",
       "supportAndLegal": "DESTEK & YASAL",
       "about": "HAKKINDA",
@@ -550,7 +565,9 @@
       "confirmationTitle": "Tüm Veriler Temizlensin mi?",
       "confirmationMessage": "Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.",
       "cancel": "İptal",
-      "clearEverything": "Her Şeyi Temizle"
+      "clearEverything": "Her Şeyi Temizle",
+      "localOnlyConfirmationMessage": "Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.",
+      "localOnlySubtitle": "Bu cihazda saklanan Calorify verilerini sil"
     },
     "debugOptions": {
       "title": "Hata Ayıklama Seçenekleri"
@@ -561,7 +578,8 @@
       "subtitle": "İzinleri görüntüleyin ve yönetin",
       "unavailable": {
         "title": "Health Connect Kullanılamıyor",
-        "description": "Health Connect bu cihazda desteklenmiyor."
+        "description": "Health Connect bu cihazda desteklenmiyor.",
+        "unsupportedDescription": "Health Connect bu cihazda desteklenmiyor."
       },
       "updateRequired": {
         "title": "Health Connect ile ilgilenmeniz gerekiyor",
@@ -624,7 +642,8 @@
         "noAds": "Reklamsız tasarım\n{appLabel} reklamlar veya veri odaklı para kazanma yöntemleri olmadan çalışacak şekilde tasarlandı.",
         "noDataSelling": "Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.",
         "localStorage": "Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.",
-        "privacyPolicy": "Gizlilik Politikası"
+        "privacyPolicy": "Gizlilik Politikası",
+        "analyticsDisclosure": "Sınırlı analiz ve tanılama\n{appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz."
       },
       "developer": {
         "title": "Tek Geliştirici Tarafından Yapıldı",
@@ -640,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify sürüm {version}",
       "build": "Yapı {buildNumber}"
     }
   },
