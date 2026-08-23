@@ -21,7 +21,9 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: staging
+    # Staging and production share one VM, so both workflows intentionally use
+    # the existing production environment's SSH credentials.
+    environment: production
     timeout-minutes: 15
     steps:
       - name: Validate published image
@@ -39,7 +41,7 @@ jobs:
           printf 'image=%s\n' "$image" >> "$GITHUB_OUTPUT"
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}

@@ -11,14 +11,14 @@ The backend uses one build-once, deploy-many container flow:
 5. The VM pulls that image, starts it with Docker Compose, waits for readiness,
    and restores the previously running image if readiness fails.
 
-Staging and production run the same image. Their runtime configuration remains
-separate through `staging.env`, `production.env`, Compose environment values,
-database volumes, and GitHub deployment environments.
+Staging and production run the same image on the same VM. Their runtime
+configuration remains separate through `staging.env`, `production.env`,
+Compose environment values, ports, containers, and database volumes.
 
 ## GitHub configuration
 
-Create GitHub deployment environments named `staging` and `production`. Add
-these secrets to each environment, using the values for that environment's VM:
+The GitHub deployment environment is named `production`. Both deployment
+workflows use it because both targets share one VM. It contains these secrets:
 
 - `CALORIFY_SSH_HOST`
 - `CALORIFY_SSH_PORT` (optional; defaults to `22`)
@@ -27,9 +27,10 @@ these secrets to each environment, using the values for that environment's VM:
 - `CALORIFY_SSH_KNOWN_HOSTS`
 - `CALORIFY_DEPLOY_PATH` (repository root on the VM)
 
-Configure required reviewers on the `production` environment if deployment
-approval is desired. The workflows use the repository `GITHUB_TOKEN` to publish
-and inspect the package; no separate registry token is needed inside Actions.
+The environment permits only the `main` branch. Configure required reviewers if
+the repository's GitHub plan supports them and deployment approval is desired.
+The workflows use the repository `GITHUB_TOKEN` to publish and inspect the
+package; no separate registry token is needed inside Actions.
 
 ## One-time VM configuration
 
