@@ -1,4 +1,4 @@
-name: Deploy backend to production
+name: Deploy backend to staging
 
 on:
   workflow_dispatch:
@@ -8,10 +8,10 @@ on:
         required: true
         type: string
 
-run-name: Deploy backend to production (${{ inputs.image_tag }})
+run-name: Deploy backend to staging (${{ inputs.image_tag }})
 
 concurrency:
-  group: calorify-backend-production
+  group: calorify-backend-staging
   cancel-in-progress: false
 
 permissions:
@@ -21,7 +21,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: production
+    environment: staging
     timeout-minutes: 15
     steps:
       - name: Validate published image
@@ -50,7 +50,7 @@ jobs:
           IMAGE: ${{ steps.image.outputs.image }}
         run: docker manifest inspect "$IMAGE" >/dev/null
 
-      - name: Deploy on the Calorify VM
+      - name: Deploy on the Calorify staging VM
         env:
           SSH_HOST: ${{ secrets.CALORIFY_SSH_HOST }}
           SSH_PORT: ${{ secrets.CALORIFY_SSH_PORT }}
@@ -83,4 +83,4 @@ jobs:
           printf '%s\n' "$GHCR_TOKEN" | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
               "$SSH_USER@$SSH_HOST" \
-              "cd $deploy_path_q && GHCR_USERNAME=$ghcr_username_q ./backend/scripts/deploy-production.sh $image_q"
+              "cd $deploy_path_q && GHCR_USERNAME=$ghcr_username_q ./backend/scripts/deploy-staging.sh $image_q"

@@ -15,24 +15,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
-# Staging intentionally retains source and development dependencies for tsx
-# watch mode. Select this target explicitly from Docker Compose.
-FROM node:20-slim AS development
-
-WORKDIR /app
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    unzip \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY package.json package-lock.json ./
-RUN npm ci --include=dev
-COPY . .
-RUN npm run build
-
-EXPOSE 8000
-CMD ["npm", "run", "dev"]
-
 FROM node:20-slim AS production
 
 WORKDIR /app

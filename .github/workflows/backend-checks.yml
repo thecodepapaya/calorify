@@ -9,6 +9,8 @@ on:
       - "protos/**"
       - ".github/workflows/backend-checks.yml"
       - ".github/workflows/deploy-backend.yml"
+      - ".github/workflows/deploy-backend-staging.yml"
+      - ".github/workflows/publish-backend.yml"
 
 permissions:
   contents: read

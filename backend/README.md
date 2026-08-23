@@ -85,9 +85,19 @@ docker compose --profile staging up -d --build
 docker compose --profile production up -d --build
 ```
 
-The deployment workflow validates type checking, lint, tests, and an image build before connecting with GitHub environment secrets. `scripts/deploy-production.sh` performs a health-checked replacement and restores the previous backend image if startup fails.
+Local Compose builds remain available for development and infrastructure
+rehearsal. Staging and production releases use the same CI-built production
+image: pushes to `main` publish a commit-specific tag to GHCR, then separate
+manual workflows deploy that exact tag to staging or production. The deployment
+scripts pull the selected image, wait for readiness, and restore the previously
+running image if startup fails.
 
-Required GitHub deployment secrets are listed in `.github/workflows/deploy-backend.yml`. Runtime application secrets remain on the host in ignored env files.
+See [`DEPLOYMENT.md`](DEPLOYMENT.md) for GitHub environment secrets, one-time VM
+setup, release steps, and rollback constraints.
+
+Required GitHub deployment secrets and VM prerequisites are listed in
+[`DEPLOYMENT.md`](DEPLOYMENT.md). Runtime application secrets remain on the host
+in ignored env files.
 
 ## Observability
 

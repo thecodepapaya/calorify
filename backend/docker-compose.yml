@@ -82,7 +82,7 @@ services:
     build:
       context: .
       target: production
-    image: calorify-backend-prod:latest
+    image: ${BACKEND_IMAGE:-calorify-backend-prod:local}
     container_name: calorify-backend-prod
     restart: always
     profiles: ["production"]
@@ -99,8 +99,8 @@ services:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/ready', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
       timeout: 5s
-      retries: 3
-      start_period: 10s
+      retries: 12
+      start_period: 30s
     depends_on:
       db-prod:
         condition: service_healthy
@@ -134,8 +134,8 @@ services:
   backend-staging:
     build:
       context: .
-      target: development
-    image: calorify-backend-staging:latest
+      target: production
+    image: ${BACKEND_IMAGE:-calorify-backend-staging:local}
     container_name: calorify-backend-staging
     restart: always
     profiles: ["staging"]
@@ -147,15 +147,13 @@ services:
       - NODE_ENV=staging
       - LOKI_URL=http://loki:3100
     volumes:
-      - ./src:/app/src # Live reload for staging dev
       - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
-    command: npm run dev
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/ready', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
       timeout: 5s
-      retries: 3
-      start_period: 15s
+      retries: 12
+      start_period: 30s
     depends_on:
       db-staging:
         condition: service_healthy
