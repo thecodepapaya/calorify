@@ -75,7 +75,7 @@ function assertDatabaseConfigured(): void {
   }
 }
 
-function sessionWriteParams(record: MealAnalysisSessionWriteRecord): unknown[] {
+function sessionCoreWriteParams(record: MealAnalysisSessionWriteRecord): unknown[] {
   return [
     record.analysisId,
     record.parentAnalysisId ?? null,
@@ -94,6 +94,12 @@ function sessionWriteParams(record: MealAnalysisSessionWriteRecord): unknown[] {
     stringifyOptionalJson(record.resultData),
     stringifyOptionalJson(record.clarificationAnswers),
     record.stage,
+  ];
+}
+
+function sessionWriteParams(record: MealAnalysisSessionWriteRecord): unknown[] {
+  return [
+    ...sessionCoreWriteParams(record),
     stringifyOptionalJson(record.pendingClarificationAnswers),
   ];
 }
@@ -281,15 +287,15 @@ export async function advanceMealAnalysisSession(
             stage_lease_token = NULL,
             updated_at = CURRENT_TIMESTAMP
       WHERE analysis_id = $1
-        AND stage = $19
-        AND stage_lease_token = $20::uuid
+        AND stage = $18
+        AND stage_lease_token = $19::uuid
         AND (
           result_data IS NULL
           OR result_data = 'null'::jsonb
           OR $17 = 'COMPLETED'
         )
       RETURNING TRUE AS persisted`,
-    [...sessionWriteParams(record), lease.stage, lease.token]
+    [...sessionCoreWriteParams(record), lease.stage, lease.token]
   );
   return result.rows[0]?.persisted === true;
 }

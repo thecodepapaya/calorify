@@ -172,11 +172,18 @@ test('advanceMealAnalysisSession requires the exact interactive stage and lease 
   });
   assert.equal(persisted, true);
   const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
-  assert.match(sql, /stage = \$19/);
-  assert.match(sql, /stage_lease_token = \$20::uuid/);
+  assert.match(sql, /stage = \$18/);
+  assert.match(sql, /stage_lease_token = \$19::uuid/);
   assert.match(sql, /pending_clarification_answers = NULL/);
-  assert.equal(params[18], 'APPLYING_CLARIFICATION');
-  assert.equal(params[19], '00000000-0000-4000-8000-000000000099');
+  assert.equal(params[17], 'APPLYING_CLARIFICATION');
+  assert.equal(params[18], '00000000-0000-4000-8000-000000000099');
+  const placeholders = [...sql.matchAll(/\$(\d+)/g)]
+    .map((match) => Number(match[1]));
+  const uniquePlaceholders = [...new Set(placeholders)].sort((a, b) => a - b);
+  assert.deepEqual(
+    uniquePlaceholders,
+    Array.from({ length: params.length }, (_, index) => index + 1)
+  );
 });
 
 test('advanceMealAnalysisSession rejects a stale worker after its token is replaced', async () => {
@@ -190,7 +197,7 @@ test('advanceMealAnalysisSession rejects a stale worker after its token is repla
   });
   assert.equal(persisted, false);
   const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
-  assert.match(sql, /stage_lease_token = \$20::uuid/);
+  assert.match(sql, /stage_lease_token = \$19::uuid/);
 });
 
 test('createMealAnalysisSession inserts a durable pending request', async () => {
