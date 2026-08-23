@@ -71,6 +71,11 @@ jobs:
       - run: flutter test --coverage test/unit test/widget --concurrency=1
         working-directory: app
       - run: python3 scripts/check_lcov_coverage.py app/coverage/lcov.info --minimum 25
+      - name: Reclaim test build artifacts before APK build
+        run: flutter clean
+        working-directory: app
+      - run: flutter pub get
+        working-directory: app
       - name: Build phone Android debug app
         run: flutter build apk --debug --flavor dev --no-pub
         working-directory: app
