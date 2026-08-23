@@ -40,8 +40,8 @@ interface Config {
     readonly OPENROUTER_HTTP_REFERER: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
     readonly LOKI_URL: string | null;
-    /** Trust X-Forwarded-* headers for client IP (set true when behind a proxy/load balancer). */
-    readonly TRUST_PROXY: boolean;
+    /** Trusted proxy policy: false/true or the number of trusted proxy hops. */
+    readonly TRUST_PROXY: boolean | number;
     readonly USDA_DATA_DIR: string;
     readonly USDA_DATASET_VERSION: string | null;
     readonly USDA_SOURCE_RELEASE_DATE: string | null;
@@ -86,6 +86,22 @@ function getEnvVarNumber(name: string, defaultValue: number): number {
         throw new Error(`Environment variable ${name} must be a valid number, got: ${value}`);
     }
     return parsed;
+}
+
+export function parseTrustProxy(value: string | undefined): boolean | number {
+    if (value === undefined) return false;
+
+    const normalized = value.trim().toLowerCase();
+    if (normalized === 'true') return true;
+    if (normalized === 'false' || normalized === '0') return false;
+    if (/^[1-9]\d*$/.test(normalized)) {
+        const hopCount = Number(normalized);
+        if (Number.isSafeInteger(hopCount)) return hopCount;
+    }
+
+    throw new Error(
+        `Environment variable TRUST_PROXY must be true, false, or a non-negative integer, got: ${value}`
+    );
 }
 
 function validateEnvironment(env: string): 'development' | 'staging' | 'production' {
@@ -171,7 +187,7 @@ const config: Config = {
     // Pre-authenticated URLs are bearer credentials and must only come from env.
     ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar('ORACLE_BUCKET_DOWNLOAD_URL', ''),
     LOKI_URL: getEnvVarOptional('LOKI_URL'),
-    TRUST_PROXY: getEnvVarBoolean('TRUST_PROXY', false),
+    TRUST_PROXY: parseTrustProxy(process.env.TRUST_PROXY),
     USDA_DATA_DIR: getEnvVar('USDA_DATA_DIR', join(process.cwd(), 'data', 'usda')),
     USDA_DATASET_VERSION: getEnvVarOptional('USDA_DATASET_VERSION'),
     USDA_SOURCE_RELEASE_DATE: getEnvVarOptional('USDA_SOURCE_RELEASE_DATE'),

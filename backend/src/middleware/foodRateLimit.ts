@@ -4,12 +4,14 @@ export const FOOD_RATE_LIMITS = {
   allFood: [
     {
       name: 'hour',
-      max: 30,
+      userMax: 30,
+      ipMax: 300,
       timeWindowMs: 60 * 60 * 1000,
     },
     {
       name: 'day',
-      max: 100,
+      userMax: 100,
+      ipMax: 1_000,
       timeWindowMs: 24 * 60 * 60 * 1000,
     },
   ],
@@ -35,6 +37,11 @@ interface CounterResult {
   retryAfterSeconds: number;
 }
 
+interface RateLimitIdentity {
+  key: string;
+  max: number;
+}
+
 export interface FoodRateLimitHooksOptions {
   now?: () => number;
 }
@@ -48,6 +55,27 @@ class FixedWindowCounter {
     private readonly timeWindowMs: number,
     private readonly now: () => number
   ) {}
+
+  get(key: string): CounterResult {
+    const nowMs = this.now();
+    const entry = this.entries.get(key);
+
+    if (!entry || entry.startedAtMs + this.timeWindowMs <= nowMs) {
+      if (entry) this.entries.delete(key);
+      return {
+        count: 0,
+        retryAfterSeconds: Math.max(1, Math.ceil(this.timeWindowMs / 1000)),
+      };
+    }
+
+    return {
+      count: entry.count,
+      retryAfterSeconds: Math.max(
+        1,
+        Math.ceil((entry.startedAtMs + this.timeWindowMs - nowMs) / 1000)
+      ),
+    };
+  }
 
   increment(key: string): CounterResult {
     const nowMs = this.now();
@@ -88,13 +116,20 @@ class FixedWindowCounter {
   }
 }
 
-function getRateLimitKeys(request: FastifyRequest): readonly string[] {
+function getRateLimitIdentities(
+  request: FastifyRequest,
+  userMax: number,
+  ipMax: number
+): readonly RateLimitIdentity[] {
   const userId = (request as FastifyRequest & { userId?: string }).userId;
   if (!userId) {
     throw new Error('Food rate limiting must run after authentication');
   }
 
-  return [`user:${userId}`, `ip:${request.ip}`];
+  return [
+    { key: `user:${userId}`, max: userMax },
+    { key: `ip:${request.ip}`, max: ipMax },
+  ];
 }
 
 function sendRateLimitResponse(
@@ -117,20 +152,41 @@ export function createFoodRateLimitHooks(
   options: FoodRateLimitHooksOptions = {}
 ): FoodRateLimitHooks {
   const now = options.now ?? Date.now;
+  const windows = FOOD_RATE_LIMITS.allFood.map((policy) => ({
+    policy,
+    counter: new FixedWindowCounter(policy.timeWindowMs, now),
+  }));
 
-  return FOOD_RATE_LIMITS.allFood.map((policy) => {
-    const counter = new FixedWindowCounter(policy.timeWindowMs, now);
-
+  return windows.map(({ policy, counter }, windowIndex) => {
     const hook: preHandlerHookHandler = async (request, reply) => {
-      const results = getRateLimitKeys(request).map((key) => counter.increment(key));
-      const exceeded = results.filter((result) => result.count > policy.max);
-      if (exceeded.length === 0) return;
-
-      sendRateLimitResponse(
-        reply,
-        Math.max(...exceeded.map((result) => result.retryAfterSeconds)),
-        policy.name
+      const identities = getRateLimitIdentities(request, policy.userMax, policy.ipMax);
+      const results = identities.map(
+        ({ key, max }) => ({ ...counter.get(key), max })
       );
+      const exceeded = results.filter((result) => result.count >= result.max);
+      if (exceeded.length > 0) {
+        sendRateLimitResponse(
+          reply,
+          Math.max(...exceeded.map((result) => result.retryAfterSeconds)),
+          policy.name
+        );
+        return;
+      }
+
+      // Commit only after every window hook has accepted the request. This prevents
+      // retries rejected by one window from consuming another window's allowance.
+      if (windowIndex === windows.length - 1) {
+        for (const window of windows) {
+          const acceptedIdentities = getRateLimitIdentities(
+            request,
+            window.policy.userMax,
+            window.policy.ipMax
+          );
+          for (const identity of acceptedIdentities) {
+            window.counter.increment(identity.key);
+          }
+        }
+      }
     };
 
     return hook;
