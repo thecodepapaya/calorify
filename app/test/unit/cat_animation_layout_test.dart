@@ -63,9 +63,51 @@ void main() {
       ).shift(layout.hidden);
       expect(hiddenVisible.top, greaterThan(viewport.height));
       expect(layout.revealed.dx, closeTo(132, 0.001));
-      expect(layout.revealed.dy, greaterThan(viewport.height - 24 - extent));
-      expect(layout.revealed.dy, lessThan(viewport.height - 24));
+      expect(layout.revealed.dy, greaterThan(viewport.height - extent));
+      expect(layout.revealed.dy, lessThan(viewport.height));
       expect(layout.rotationDegrees, 0);
+    });
+
+    test('opposite edges use matching physical-edge reveal offsets', () {
+      const viewport = Size(400, 800);
+      const safeInsets = EdgeInsets.fromLTRB(12, 28, 18, 24);
+      final extent = CatAnimationLayout.catExtent(viewport);
+
+      for (final cat in allCats) {
+        final layouts = <Edge, CatPeekLayout>{
+          for (final edge in [Edge.bottom, Edge.top, Edge.left, Edge.right])
+            edge: CatAnimationLayout.peek(
+              viewport: viewport,
+              edge: edge,
+              cat: cat,
+              catExtent: extent,
+              axisBias: 0,
+              peekYOffset: -40,
+              safeInsets: safeInsets,
+            ),
+        };
+        Rect visibleFor(Edge edge) => CatAnimationLayout.visibleRect(
+          cat: cat,
+          catExtent: extent,
+          rotationDegrees: layouts[edge]!.rotationDegrees,
+        ).shift(layouts[edge]!.revealed);
+
+        final top = visibleFor(Edge.top);
+        final bottom = visibleFor(Edge.bottom);
+        final left = visibleFor(Edge.left);
+        final right = visibleFor(Edge.right);
+
+        expect(
+          top.bottom,
+          closeTo(viewport.height - bottom.top, 0.001),
+          reason: '${cat.displayName} on top/bottom',
+        );
+        expect(
+          left.right,
+          closeTo(viewport.width - right.left, 0.001),
+          reason: '${cat.displayName} on left/right',
+        );
+      }
     });
 
     test('all source bounds are valid and contained by their assets', () {

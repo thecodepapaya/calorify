@@ -149,15 +149,15 @@ abstract final class CatAnimationLayout {
       trailingInset: safeInsets.bottom,
     );
 
+    // Safe-area insets constrain the cross-axis positions above. The reveal
+    // itself stays anchored to the physical viewport edge so opposite edges
+    // use the same visible offset even when their system insets differ.
     return switch (edge) {
       BottomEdge() => CatPeekLayout(
         hidden: Offset(horizontal, viewport.height + 2 - visible.top),
         revealed: Offset(
           horizontal,
-          viewport.height -
-              safeInsets.bottom -
-              visible.height * reveal -
-              visible.top,
+          viewport.height - visible.height * reveal - visible.top,
         ),
         rotationDegrees: rotationDegrees,
       ),
@@ -165,14 +165,14 @@ abstract final class CatAnimationLayout {
         hidden: Offset(horizontal, -2 - visible.bottom),
         revealed: Offset(
           horizontal,
-          safeInsets.top - visible.height * (1 - reveal) - visible.top,
+          -visible.height * (1 - reveal) - visible.top,
         ),
         rotationDegrees: rotationDegrees,
       ),
       LeftEdge() => CatPeekLayout(
         hidden: Offset(-2 - visible.right, vertical),
         revealed: Offset(
-          safeInsets.left - visible.width * (1 - reveal) - visible.left,
+          -visible.width * (1 - reveal) - visible.left,
           vertical,
         ),
         rotationDegrees: rotationDegrees,
@@ -180,10 +180,7 @@ abstract final class CatAnimationLayout {
       RightEdge() => CatPeekLayout(
         hidden: Offset(viewport.width + 2 - visible.left, vertical),
         revealed: Offset(
-          viewport.width -
-              safeInsets.right -
-              visible.width * reveal -
-              visible.left,
+          viewport.width - visible.width * reveal - visible.left,
           vertical,
         ),
         rotationDegrees: rotationDegrees,
