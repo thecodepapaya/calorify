@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any
 
 
-TRANSLATION_MODEL = "openai/gpt-5.6-luna"
+TRANSLATION_MODEL = "google/gemini-2.5-flash-lite"
 ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 MAX_KEYS_PER_REQUEST = 100
 ALLOWED_SOURCE_VALUES = {
