@@ -49,14 +49,10 @@ LocalNutritionResolvedMeal _resolved(IngredientProposalV1 proposal) {
         datasetVersion: 'fdc-v1',
         objectName: 'local-nutrition/starter-v1.json',
         sizeBytes: Int64.ONE,
-        signature: 'test',
-        signingKeyId: 'test',
-        createdAtEpochMs: Int64.ONE,
         calculationVersion: localNutritionCalculationVersion,
       ),
       pack: pack,
       byteSize: 1,
-      generation: 'starter-v1',
     ),
     ingredients: [
       LocalNutritionResolvedIngredient(

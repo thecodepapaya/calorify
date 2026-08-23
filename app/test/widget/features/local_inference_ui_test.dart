@@ -83,14 +83,10 @@ InstalledLocalNutritionPack _installedPack() {
       datasetVersion: 'fdc-v1',
       objectName: 'local-nutrition/starter-v1.json',
       sizeBytes: Int64.ONE,
-      signature: 'test',
-      signingKeyId: 'test',
-      createdAtEpochMs: Int64.ONE,
       calculationVersion: localNutritionCalculationVersion,
     ),
     pack: pack,
     byteSize: 1,
-    generation: 'starter-v1',
   );
 }
 
@@ -312,12 +308,11 @@ void main() {
     verify(() => localService.downloadModel()).called(1);
   });
 
-  testWidgets('nutrition sub-toggle installs a verified pack before enabling', (
+  testWidgets('nutrition sub-toggle installs a valid pack before enabling', (
     tester,
   ) async {
     final database = _MockDatabase();
     final packService = _MockLocalNutritionPackService();
-    when(() => packService.hasConfiguredSigningKey).thenReturn(true);
     final manifestUri = Uri.parse(
       'https://object.test/n/ns/b/bucket/o/local-nutrition/manifest.json',
     );
@@ -398,7 +393,6 @@ void main() {
     expect(find.text('Local nutrition (Phase 4)'), findsOneWidget);
     expect(find.text('Pack/cache status'), findsOneWidget);
     expect(find.text('Known/missing lookup'), findsOneWidget);
-    expect(find.text('Invalid signature'), findsOneWidget);
     await tester.scrollUntilVisible(
       find.text('Run local'),
       300,
