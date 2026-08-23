@@ -150,13 +150,13 @@ class WatchSpeechService implements WatchSpeechSession {
     await _speech.listen(
       onResult: _handleResult,
       onSoundLevelChange: _handleSoundLevel,
-      listenFor: listenFor,
-      pauseFor: pauseFor,
-      localeId: _localeId,
       listenOptions: stt.SpeechListenOptions(
         listenMode: stt.ListenMode.dictation,
         cancelOnError: true,
         partialResults: true,
+        listenFor: listenFor,
+        pauseFor: pauseFor,
+        localeId: _localeId,
       ),
     );
     return _speech.isListening;

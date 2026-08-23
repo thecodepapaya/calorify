@@ -18,7 +18,7 @@ void main() {
       ),
     );
 
-    expect(find.text('User ID'), findsOneWidget);
+    expect(find.text('Firebase user ID'), findsOneWidget);
     expect(find.text('firebase-user-123'), findsOneWidget);
     expect(find.byTooltip('Copy user ID'), findsOneWidget);
 
