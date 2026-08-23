@@ -267,7 +267,7 @@ class _TranslationsEditProfileGu extends TranslationsEditProfileEn {
 	@override String get unitCm => 'સેમી';
 	@override String get unitFt => 'ફૂટ';
 	@override String get unitKg => 'કિલો';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'પાઉન્ડ';
 	@override String get metricCm => 'મેટ્રિક (સેમી)';
 	@override String get imperialFtIn => 'ઈમ્પિરિયલ (ફૂટ/ઈંચ)';
 	@override String get metricKg => 'મેટ્રિક (કિલો)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectGu extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો';
 	@override String get description => 'વધુ સારી આંતરદૃષ્ટિ અને સ્વચાલિત કેલરી ટ્રેકિંગ માટે તમારા સ્વાસ્થ્ય ડેટાને સિંક કરો';
+	@override String get overviewDescription => 'દૈનિક લક્ષ્યમાં બર્ન થયેલી કેલરીનો ઉપયોગ કરો અને ઇચ્છો તો નોંધાયેલ ભોજન Health Connect સાથે શેર કરો.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingGu automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingGu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedGu caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedGu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsGu progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsGu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsGu shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsGu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationGu seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationGu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlGu userControl = _TranslationsOnboardingHealthConnectUserControlGu._(_root);
 	@override String get connected => 'હેલ્થ કનેક્ટ કનેક્ટેડ';
 	@override String get notConnected => 'હેલ્થ કનેક્ટ કનેક્ટેડ નથી';
 	@override String get setup => 'હેલ્થ કનેક્ટ સેટઅપ કરો';
 	@override String get skipForNow => 'હમણાં માટે છોડો';
 	@override String get statusConnected => 'હેલ્થ કનેક્ટ કનેક્ટેડ છે.';
 	@override String get statusSuccess => 'હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું છે!';
+	@override String get statusNotConnected => 'તમે ચાલુ કરવા માંગતા Health Connectનાં ફીચર પસંદ કરો.';
+	@override String get statusPartial => 'Health Connect આંશિક રીતે જોડાયેલું છે. બંને ફીચર વાપરવા માટે બાકી પરવાનગી ચાલુ કરો.';
+	@override String get statusProviderUpdateRequired => 'આગળ વધવા માટે Health Connect ઇન્સ્ટોલ અથવા અપડેટ કરો.';
+	@override String get statusUnavailable => 'આ ઉપકરણ પર Health Connect સમર્થિત નથી.';
+	@override String get installOrUpdate => 'ઇન્સ્ટોલ અથવા અપડેટ કરો';
+	@override String get manageAccess => 'ઍક્સેસ મેનેજ કરો';
 	@override String statusPermissionDenied({required Object appLabel}) => 'પરવાનગી નકારી. કૃપા કરીને ${appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્ષમ કરો.';
 	@override String statusError({required Object error}) => 'હેલ્થ કનેક્ટ સેટઅપ કરવામાં ભૂલ: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalGu extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'વજન પર અસર';
 	@override String get estLoss => 'અંદાજિત ઘટાડો';
 	@override String get estGain => 'અંદાજિત વધારો';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'કિલોકૅલરી';
 }
 
 // Path: home.dailySummary
@@ -743,7 +753,9 @@ class _TranslationsHomeConnectHealthGu extends TranslationsHomeConnectHealthEn {
 	// Translations
 	@override String get title => 'Health Connect સાથે સમન્વય કરો';
 	@override String get description => 'તમારા પોષણ ડેટાને Health Connect સાથે સમન્વય કરો';
+	@override String get dataUseDescription => 'તમારા લક્ષ્યમાં બર્ન થયેલી કેલરીનો ઉપયોગ કરો અને નોંધાયેલ ભોજન શેર કરો';
 	@override String get install => 'ઇન્સ્ટોલ કરો';
+	@override String get installOrUpdate => 'ઇન્સ્ટોલ અથવા અપડેટ કરો';
 	@override String get connect => 'કનેક્ટ કરો';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisGu extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => 'વધુ ${count}';
 	@override String ingredientsLine({required Object count}) => '${count} ઘટકો મળ્યા';
 	@override String get ingredientsPending => 'ઘટકો સ્કેન કરી રહ્યા છીએ…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.';
 	@override String get offlineTip1 => 'ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.';
 	@override String get offlineTip2 => 'ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.';
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataGu extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'બધો ડેટા સાફ કરો';
 	@override String get subtitle => 'તમારી બધી માહિતી કાયમ માટે કાઢી નાખો';
+	@override String get localOnlySubtitle => 'આ ઉપકરણમાં સંગ્રહિત Calorify ડેટા કાઢી નાખો';
 	@override String get confirmationTitle => 'બધો ડેટા સાફ કરવો?';
 	@override String get confirmationMessage => 'આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી. તમારા બધા લોગ કરેલા ભોજન, મનપસંદ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે.';
+	@override String get localOnlyConfirmationMessage => 'આ ઉપકરણમાંથી નોંધાયેલ ભોજન, મનપસંદ વસ્તુઓ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે. Health Connect સાથે અગાઉ શેર કરેલું ભોજન અને Health Connect ઍક્સેસ સેટિંગ્સ > Health Connectમાં અલગથી મેનેજ થાય છે.';
 	@override String get cancel => 'રદ કરો';
 	@override String get clearEverything => 'બધું સાફ કરો';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectGu extends TranslationsSettingsHealthCon
 	@override String get title => 'હેલ્થ કનેક્ટ';
 	@override String get subtitle => 'પરવાનગીઓ જુઓ અને મેનેજ કરો';
 	@override late final _TranslationsSettingsHealthConnectUnavailableGu unavailable = _TranslationsSettingsHealthConnectUnavailableGu._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredGu updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredGu._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsGu permissions = _TranslationsSettingsHealthConnectPermissionsGu._(_root);
 	@override String get managePermissions => 'પરવાનગીઓ મેનેજ કરો';
 	@override String get openSettings => 'હેલ્થ કનેક્ટ સેટિંગ્સ ખોલો';
+	@override String get disconnect => 'Health Connectનું જોડાણ તોડો';
+	@override String get disconnectConfirmationTitle => 'Health Connectનું જોડાણ તોડવું છે?';
+	@override String get disconnectConfirmationMessage => 'Calorify હવે Health Connectને ઍક્સેસ કરી શકશે નહીં. ત્યાં અગાઉ લખાયેલો ડેટા કાઢી નાખવામાં આવશે નહીં.';
+	@override String get disconnectConfirmationAction => 'જોડાણ તોડો';
+	@override String get deleteSyncedMeals => 'Health Connectમાંથી Calorifyનું ભોજન કાઢી નાખો';
+	@override String get deleteSyncedMealsConfirmationTitle => 'સિંક કરેલું ભોજન કાઢી નાખવું છે?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Calorifyના આ સંસ્કરણથી Health Connectમાં સિંક કરેલું ભોજન કાઢી નાખવું છે? તમારો સ્થાનિક ભોજન લોગ બદલાશે નહીં. Calorifyની જૂની એન્ટ્રીઓ Health Connectમાં ડેટા મેનેજ કરો વિકલ્પથી અલગથી કાઢવી પડી શકે છે.';
+	@override String get deleteSyncedMealsConfirmationAction => 'સિંક કરેલું ભોજન કાઢી નાખો';
+	@override String get deleteSyncedMealsSuccess => 'Health Connectમાંથી Calorifyનું ભોજન કાઢી નાખવામાં આવ્યું.';
+	@override String get deleteSyncedMealsFailed => 'સિંક કરેલું ભોજન કાઢી શકાયું નહીં. ફરી પ્રયાસ કરો.';
+	@override String get connectionPartial => 'Health Connectનાં કેટલાક ફીચર ચાલુ છે.';
+	@override String get connectionComplete => 'Health Connectનાં બંને ફીચર ચાલુ છે.';
+	@override String get actionFailed => 'Health Connect ખોલી શકાયું નહીં. ફરી પ્રયાસ કરો.';
 	@override String get requestPermissions => 'પરવાનગીઓની વિનંતી કરો';
 	@override String get permissionRequestCancelledOrFailed => 'પરવાનગી વિનંતી રદ કરવામાં આવી અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.';
 	@override String get permissionRequestFailed => 'પરવાનગીઓની વિનંતી કરવામાં અસમર્થ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.';
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoGu extends TranslationsSettingsAppInfoEn {
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify વર્ઝન ${version}';
 	@override String build({required Object buildNumber}) => 'બિલ્ડ ${buildNumber}';
 }
 
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingGu extends Translatio
 	@override String get description => 'તમારી ફિટનેસ એપ્લિકેશન્સમાંથી બર્ન થયેલી કેલરી ટ્રૅક કરો';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedGu extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'બર્ન થયેલી કેલરી';
+	@override String get description => 'Health Connectમાંથી આજની કુલ બર્ન થયેલી કેલરી વાંચો';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsGu extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsGu._(TranslationsGu root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsGu extends Translation
 	@override String get description => 'તમારા સ્વાસ્થ્યના વલણો વિશે વિગતવાર આંતરદૃષ્ટિ મેળવો';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsGu extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'નોંધાયેલ ભોજન શેર કરો';
+	@override String get description => 'Calorifyમાં નોંધેલું ભોજન Health Connectમાં લખો';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationGu extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationGu._(TranslationsGu root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationGu extends Translat
 	// Translations
 	@override String get title => 'સીમલેસ ઇન્ટિગ્રેશન';
 	@override String get description => 'તમારી મનપસંદ સ્વાસ્થ્ય એપ્લિકેશન્સમાંથી ડેટા સિંક કરો';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlGu extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'નિયંત્રણ તમારા હાથમાં છે';
+	@override String get description => 'બેમાંથી કોઈપણ પરવાનગી પસંદ કરો અને ગમે ત્યારે ઍક્સેસ બદલો';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableGu extends TranslationsSettin
 	// Translations
 	@override String get title => 'હેલ્થ કનેક્ટ અનુપલબ્ધ';
 	@override String get description => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store (Android 9+) પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો અથવા Android 14+ પર અપડેટ કરો.';
+	@override String get unsupportedDescription => 'આ ઉપકરણ પર Health Connect સમર્થિત નથી.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredGu extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+	final TranslationsGu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect પર ધ્યાન આપવું જરૂરી છે';
+	@override String get description => 'ઍક્સેસ મેનેજ કરતાં પહેલાં Health Connect ઇન્સ્ટોલ અથવા અપડેટ કરો.';
+	@override String get action => 'ઇન્સ્ટોલ અથવા અપડેટ કરો';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyGu extends TranslationsSettingsAboutPriva
 	@override String get description => 'ગોપનીયતા એ પછીનો વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. વ્યવહારમાં તેનો અર્થ અહીં છે:';
 	@override String get noAccounts => 'કોઈ એકાઉન્ટ્સની જરૂર નથી\nએપ્લિકેશનનો તરત જ ઉપયોગ કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.';
 	@override String noTracking({required Object appLabel}) => 'કોઈ વર્તણૂકીય ટ્રેકિંગ નહીં\n${appLabel} તમારી પ્રવૃત્તિનું નિરીક્ષણ કરતું નથી, ઉપયોગ પ્રોફાઇલ્સ બનાવતું નથી અથવા તમને એપ્લિકેશન્સ અથવા વેબસાઇટ્સ પર ટ્રૅક કરતું નથી.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'મર્યાદિત વિશ્લેષણ અને નિદાન\nવિશ્વસનીયતા સુધારવા માટે ${appLabel} એપ્લિકેશનની મૂળભૂત ઘટનાઓ અને ક્રેશ નિદાનનો ઉપયોગ કરે છે. આરોગ્ય રેકોર્ડનાં મૂલ્યોનો જાહેરાત માટે ઉપયોગ થતો નથી કે તે વેચાતા નથી.';
 	@override String noAds({required Object appLabel}) => 'ડિઝાઇન દ્વારા જાહેરાત-મુક્ત\n${appLabel} જાહેરાતો અથવા ડેટા-આધારિત મુદ્રીકરણ વિના કાર્ય કરવા માટે બનાવવામાં આવ્યું છે.';
 	@override String get noDataSelling => 'કોઈ ડેટા વેચાણ નહીં\nતમારો સ્વાસ્થ્ય ડેટા ક્યારેય વેચવામાં આવતો નથી અથવા તૃતીય પક્ષો સાથે શેર કરવામાં આવતો નથી.';
 	@override String get localStorage => 'સ્થાનિક-પ્રથમ સ્ટોરેજ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.';
@@ -1833,18 +1908,31 @@ extension on TranslationsGu {
 			'onboarding.activityLevel.description' => 'આ અમને તમારી દૈનિક કેલરીની જરૂરિયાતોની વધુ સચોટ ગણતરી કરવામાં મદદ કરે છે',
 			'onboarding.healthConnect.title' => 'હેલ્થ કનેક્ટ સાથે કનેક્ટ કરો',
 			'onboarding.healthConnect.description' => 'વધુ સારી આંતરદૃષ્ટિ અને સ્વચાલિત કેલરી ટ્રેકિંગ માટે તમારા સ્વાસ્થ્ય ડેટાને સિંક કરો',
+			'onboarding.healthConnect.overviewDescription' => 'દૈનિક લક્ષ્યમાં બર્ન થયેલી કેલરીનો ઉપયોગ કરો અને ઇચ્છો તો નોંધાયેલ ભોજન Health Connect સાથે શેર કરો.',
 			'onboarding.healthConnect.automaticTracking.title' => 'સ્વચાલિત કેલરી ટ્રેકિંગ',
 			'onboarding.healthConnect.automaticTracking.description' => 'તમારી ફિટનેસ એપ્લિકેશન્સમાંથી બર્ન થયેલી કેલરી ટ્રૅક કરો',
+			'onboarding.healthConnect.caloriesBurned.title' => 'બર્ન થયેલી કેલરી',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connectમાંથી આજની કુલ બર્ન થયેલી કેલરી વાંચો',
 			'onboarding.healthConnect.progressInsights.title' => 'પ્રગતિ આંતરદૃષ્ટિ',
 			'onboarding.healthConnect.progressInsights.description' => 'તમારા સ્વાસ્થ્યના વલણો વિશે વિગતવાર આંતરદૃષ્ટિ મેળવો',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'નોંધાયેલ ભોજન શેર કરો',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorifyમાં નોંધેલું ભોજન Health Connectમાં લખો',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'સીમલેસ ઇન્ટિગ્રેશન',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'તમારી મનપસંદ સ્વાસ્થ્ય એપ્લિકેશન્સમાંથી ડેટા સિંક કરો',
+			'onboarding.healthConnect.userControl.title' => 'નિયંત્રણ તમારા હાથમાં છે',
+			'onboarding.healthConnect.userControl.description' => 'બેમાંથી કોઈપણ પરવાનગી પસંદ કરો અને ગમે ત્યારે ઍક્સેસ બદલો',
 			'onboarding.healthConnect.connected' => 'હેલ્થ કનેક્ટ કનેક્ટેડ',
 			'onboarding.healthConnect.notConnected' => 'હેલ્થ કનેક્ટ કનેક્ટેડ નથી',
 			'onboarding.healthConnect.setup' => 'હેલ્થ કનેક્ટ સેટઅપ કરો',
 			'onboarding.healthConnect.skipForNow' => 'હમણાં માટે છોડો',
 			'onboarding.healthConnect.statusConnected' => 'હેલ્થ કનેક્ટ કનેક્ટેડ છે.',
 			'onboarding.healthConnect.statusSuccess' => 'હેલ્થ કનેક્ટ સફળતાપૂર્વક કનેક્ટ થઈ ગયું છે!',
+			'onboarding.healthConnect.statusNotConnected' => 'તમે ચાલુ કરવા માંગતા Health Connectનાં ફીચર પસંદ કરો.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect આંશિક રીતે જોડાયેલું છે. બંને ફીચર વાપરવા માટે બાકી પરવાનગી ચાલુ કરો.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'આગળ વધવા માટે Health Connect ઇન્સ્ટોલ અથવા અપડેટ કરો.',
+			'onboarding.healthConnect.statusUnavailable' => 'આ ઉપકરણ પર Health Connect સમર્થિત નથી.',
+			'onboarding.healthConnect.installOrUpdate' => 'ઇન્સ્ટોલ અથવા અપડેટ કરો',
+			'onboarding.healthConnect.manageAccess' => 'ઍક્સેસ મેનેજ કરો',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'પરવાનગી નકારી. કૃપા કરીને ${appLabel} માટે તમારા ફોન સેટિંગ્સમાંથી હેલ્થ કનેક્ટ પરવાનગીઓ સક્ષમ કરો.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'હેલ્થ કનેક્ટ સેટઅપ કરવામાં ભૂલ: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'તમે એકલા નથી',
@@ -1899,7 +1987,7 @@ extension on TranslationsGu {
 			'home.dailyGoal.weightImpact' => 'વજન પર અસર',
 			'home.dailyGoal.estLoss' => 'અંદાજિત ઘટાડો',
 			'home.dailyGoal.estGain' => 'અંદાજિત વધારો',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'કિલોકૅલરી',
 			'home.dailySummary.title' => 'દૈનિક સારાંશ',
 			'home.dailySummary.calories' => 'કેલરી',
 			'home.dailySummary.carbs' => 'કાર્બોહાઇડ્રેટ્સ',
@@ -1938,7 +2026,9 @@ extension on TranslationsGu {
 			'home.mealSnap.uploadingPhoto' => 'ફોટો અપલોડ કરી રહ્યું છે…',
 			'home.connectHealth.title' => 'Health Connect સાથે સમન્વય કરો',
 			'home.connectHealth.description' => 'તમારા પોષણ ડેટાને Health Connect સાથે સમન્વય કરો',
+			'home.connectHealth.dataUseDescription' => 'તમારા લક્ષ્યમાં બર્ન થયેલી કેલરીનો ઉપયોગ કરો અને નોંધાયેલ ભોજન શેર કરો',
 			'home.connectHealth.install' => 'ઇન્સ્ટોલ કરો',
+			'home.connectHealth.installOrUpdate' => 'ઇન્સ્ટોલ અથવા અપડેટ કરો',
 			'home.connectHealth.connect' => 'કનેક્ટ કરો',
 			'history.noMeals' => 'કોઈ ભોજન રેકોર્ડ થયું નથી',
 			'history.emptyMessage' => 'અહીં લોગ કરવા માટે તમારા છેલ્લા ભોજનનો ફોટો લો.',
@@ -2005,7 +2095,7 @@ extension on TranslationsGu {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'વધુ ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ઘટકો મળ્યા',
 			'meal.analysis.ingredientsPending' => 'ઘટકો સ્કેન કરી રહ્યા છીએ…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'ટીપ: સુસંગતતા સંપૂર્ણતા કરતાં વધુ સારી છે—નિયમિત લોગ મહત્વપૂર્ણ પેટર્ન દર્શાવે છે.',
 			'meal.analysis.offlineTip1' => 'ટીપ: ફોટા માટે, કુદરતી પ્રકાશ અને ટોપ-ડાઉન દૃશ્ય ભાગની ચોકસાઈમાં મદદ કરે છે.',
 			'meal.analysis.offlineTip2' => 'ટીપ: પીણાં, ચટણીઓ અને રસોઈ તેલનો ઉલ્લેખ કરો—તેઓ એવી કેલરી ઉમેરે છે જે લોકો ઘણીવાર ભૂલી જાય છે.',
@@ -2098,7 +2188,7 @@ extension on TranslationsGu {
 			'editProfile.unitCm' => 'સેમી',
 			'editProfile.unitFt' => 'ફૂટ',
 			'editProfile.unitKg' => 'કિલો',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'પાઉન્ડ',
 			'editProfile.metricCm' => 'મેટ્રિક (સેમી)',
 			'editProfile.imperialFtIn' => 'ઈમ્પિરિયલ (ફૂટ/ઈંચ)',
 			'editProfile.metricKg' => 'મેટ્રિક (કિલો)',
@@ -2175,8 +2265,10 @@ extension on TranslationsGu {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'ભોજન ઇતિહાસ નિકાસ કરી શકાયો નથી: ${error}',
 			'settings.clearAllData.title' => 'બધો ડેટા સાફ કરો',
 			'settings.clearAllData.subtitle' => 'તમારી બધી માહિતી કાયમ માટે કાઢી નાખો',
+			'settings.clearAllData.localOnlySubtitle' => 'આ ઉપકરણમાં સંગ્રહિત Calorify ડેટા કાઢી નાખો',
 			'settings.clearAllData.confirmationTitle' => 'બધો ડેટા સાફ કરવો?',
 			'settings.clearAllData.confirmationMessage' => 'આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી. તમારા બધા લોગ કરેલા ભોજન, મનપસંદ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'આ ઉપકરણમાંથી નોંધાયેલ ભોજન, મનપસંદ વસ્તુઓ અને પ્રોફાઇલ સેટિંગ્સ કાયમ માટે કાઢી નાખવામાં આવશે. Health Connect સાથે અગાઉ શેર કરેલું ભોજન અને Health Connect ઍક્સેસ સેટિંગ્સ > Health Connectમાં અલગથી મેનેજ થાય છે.',
 			'settings.clearAllData.cancel' => 'રદ કરો',
 			'settings.clearAllData.clearEverything' => 'બધું સાફ કરો',
 			'settings.debugOptions.title' => 'ડીબગ વિકલ્પો',
@@ -2185,6 +2277,10 @@ extension on TranslationsGu {
 			'settings.healthConnect.subtitle' => 'પરવાનગીઓ જુઓ અને મેનેજ કરો',
 			'settings.healthConnect.unavailable.title' => 'હેલ્થ કનેક્ટ અનુપલબ્ધ',
 			'settings.healthConnect.unavailable.description' => 'આ ઉપકરણ પર હેલ્થ કનેક્ટ ઉપલબ્ધ નથી. કૃપા કરીને Play Store (Android 9+) પરથી હેલ્થ કનેક્ટ ઇન્સ્ટોલ કરો અથવા Android 14+ પર અપડેટ કરો.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'આ ઉપકરણ પર Health Connect સમર્થિત નથી.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect પર ધ્યાન આપવું જરૂરી છે',
+			'settings.healthConnect.updateRequired.description' => 'ઍક્સેસ મેનેજ કરતાં પહેલાં Health Connect ઇન્સ્ટોલ અથવા અપડેટ કરો.',
+			'settings.healthConnect.updateRequired.action' => 'ઇન્સ્ટોલ અથવા અપડેટ કરો',
 			'settings.healthConnect.permissions.title' => 'પરવાનગીઓ',
 			'settings.healthConnect.permissions.description' => 'હેલ્થ કનેક્ટ એકીકરણ પ્રદાન કરવા માટે નીચેની પરવાનગીઓની વિનંતી કરવામાં આવે છે:',
 			'settings.healthConnect.permissions.granted' => 'મંજૂર',
@@ -2200,6 +2296,19 @@ extension on TranslationsGu {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'આ પરવાનગી એપ્લિકેશનને તમારા લોગ કરેલા ભોજનને હેલ્થ કનેક્ટમાં સિંક કરવાની મંજૂરી આપે છે, જે તમારા પોષણ ડેટાને તમે ઉપયોગ કરો છો તે અન્ય આરોગ્ય અને ફિટનેસ એપ્લિકેશનો માટે ઉપલબ્ધ બનાવે છે.',
 			'settings.healthConnect.managePermissions' => 'પરવાનગીઓ મેનેજ કરો',
 			'settings.healthConnect.openSettings' => 'હેલ્થ કનેક્ટ સેટિંગ્સ ખોલો',
+			'settings.healthConnect.disconnect' => 'Health Connectનું જોડાણ તોડો',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connectનું જોડાણ તોડવું છે?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify હવે Health Connectને ઍક્સેસ કરી શકશે નહીં. ત્યાં અગાઉ લખાયેલો ડેટા કાઢી નાખવામાં આવશે નહીં.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'જોડાણ તોડો',
+			'settings.healthConnect.deleteSyncedMeals' => 'Health Connectમાંથી Calorifyનું ભોજન કાઢી નાખો',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'સિંક કરેલું ભોજન કાઢી નાખવું છે?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Calorifyના આ સંસ્કરણથી Health Connectમાં સિંક કરેલું ભોજન કાઢી નાખવું છે? તમારો સ્થાનિક ભોજન લોગ બદલાશે નહીં. Calorifyની જૂની એન્ટ્રીઓ Health Connectમાં ડેટા મેનેજ કરો વિકલ્પથી અલગથી કાઢવી પડી શકે છે.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'સિંક કરેલું ભોજન કાઢી નાખો',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Health Connectમાંથી Calorifyનું ભોજન કાઢી નાખવામાં આવ્યું.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'સિંક કરેલું ભોજન કાઢી શકાયું નહીં. ફરી પ્રયાસ કરો.',
+			'settings.healthConnect.connectionPartial' => 'Health Connectનાં કેટલાક ફીચર ચાલુ છે.',
+			'settings.healthConnect.connectionComplete' => 'Health Connectનાં બંને ફીચર ચાલુ છે.',
+			'settings.healthConnect.actionFailed' => 'Health Connect ખોલી શકાયું નહીં. ફરી પ્રયાસ કરો.',
 			'settings.healthConnect.requestPermissions' => 'પરવાનગીઓની વિનંતી કરો',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'પરવાનગી વિનંતી રદ કરવામાં આવી અથવા નિષ્ફળ ગઈ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.',
 			'settings.healthConnect.permissionRequestFailed' => 'પરવાનગીઓની વિનંતી કરવામાં અસમર્થ. કૃપા કરીને ફરી પ્રયાસ કરો અથવા હેલ્થ કનેક્ટ સેટિંગ્સમાં મેન્યુઅલી પરવાનગીઓ આપો.',
@@ -2212,6 +2321,7 @@ extension on TranslationsGu {
 			'settings.about.privacy.description' => 'ગોપનીયતા એ પછીનો વિચાર નથી — તે એક ડિઝાઇન સિદ્ધાંત છે. વ્યવહારમાં તેનો અર્થ અહીં છે:',
 			'settings.about.privacy.noAccounts' => 'કોઈ એકાઉન્ટ્સની જરૂર નથી\nએપ્લિકેશનનો તરત જ ઉપયોગ કરો. કોઈ સાઇન-અપ નહીં, કોઈ ઓળખ નહીં.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'કોઈ વર્તણૂકીય ટ્રેકિંગ નહીં\n${appLabel} તમારી પ્રવૃત્તિનું નિરીક્ષણ કરતું નથી, ઉપયોગ પ્રોફાઇલ્સ બનાવતું નથી અથવા તમને એપ્લિકેશન્સ અથવા વેબસાઇટ્સ પર ટ્રૅક કરતું નથી.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'મર્યાદિત વિશ્લેષણ અને નિદાન\nવિશ્વસનીયતા સુધારવા માટે ${appLabel} એપ્લિકેશનની મૂળભૂત ઘટનાઓ અને ક્રેશ નિદાનનો ઉપયોગ કરે છે. આરોગ્ય રેકોર્ડનાં મૂલ્યોનો જાહેરાત માટે ઉપયોગ થતો નથી કે તે વેચાતા નથી.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ડિઝાઇન દ્વારા જાહેરાત-મુક્ત\n${appLabel} જાહેરાતો અથવા ડેટા-આધારિત મુદ્રીકરણ વિના કાર્ય કરવા માટે બનાવવામાં આવ્યું છે.',
 			'settings.about.privacy.noDataSelling' => 'કોઈ ડેટા વેચાણ નહીં\nતમારો સ્વાસ્થ્ય ડેટા ક્યારેય વેચવામાં આવતો નથી અથવા તૃતીય પક્ષો સાથે શેર કરવામાં આવતો નથી.',
 			'settings.about.privacy.localStorage' => 'સ્થાનિક-પ્રથમ સ્ટોરેજ\nતમારો ડેટા તમારા ઉપકરણ પર રહે છે.',
@@ -2224,7 +2334,7 @@ extension on TranslationsGu {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'તમારો પ્રતિસાદ ${appLabel} ને દરેક માટે વધુ સારું બનાવવામાં મદદ કરે છે.',
 			'settings.about.feedback.rateApp' => 'Play Store પર રેટ કરો',
 			'settings.about.feedback.sendFeedback' => 'પ્રતિસાદ મોકલો',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify વર્ઝન ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'બિલ્ડ ${buildNumber}',
 			'reminders.title' => 'રીમાઇન્ડર્સ સાથે ટ્રેક પર રહો',
 			'reminders.description' => 'તમારા ભોજનને લોગ કરવા અને તમારા પોષણ લક્ષ્યો સાથે સુસંગત રહેવા માટે સૌમ્ય રીમાઇન્ડર્સ મેળવો',
@@ -2256,6 +2366,8 @@ extension on TranslationsGu {
 			'notifications.snack.body' => 'સ્વસ્થ નાસ્તાનો સમય',
 			'notifications.test.title' => 'પરીક્ષણ સૂચના',
 			'login.title' => 'લોગિન',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google વડે સાઇન ઇન કરો',
 			'login.signInFailed' => 'Google સાઇન-ઇન નિષ્ફળ ગયું અથવા રદ કરવામાં આવ્યું.',
 			'disclaimer.pleaseNote' => 'કૃપા કરીને નોંધ લો',
@@ -2291,8 +2403,6 @@ extension on TranslationsGu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'અમે તમારા TDEE (તમારી પ્રોફાઇલના આધારે) ની ગણતરી કરીએ છીએ અને અત્યાર સુધી બળી ગયેલી કેલરીનો અંદાજ કાઢવા માટે તેને દિવસના વીતી ગયેલા અપૂર્ણાંક (કલાકો + મિનિટ) / 24 વડે ગુણાકાર કરીએ છીએ.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગદર્શન',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'ડાઉનલોડ કરેલા USDA પૅકમાંથી પોષણ માહિતી મેળ ખાતી મળી',
 			'localNutritionPhase4.nutritionCached' => 'ડિવાઇસની USDA કૅશમાંથી પોષણ માહિતી મેળ ખાતી મળી',
 			'localNutritionPhase4.nutritionMixed' => 'ડાઉનલોડ કરેલી, કૅશ કરેલી અને રિમોટ USDA પંક્તિઓમાંથી પોષણ માહિતી જોડાઈ',

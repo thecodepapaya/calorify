@@ -244,7 +244,7 @@ class _TranslationsHealthScoreSv extends TranslationsHealthScoreEn {
 	@override String get note => 'Detta betyg är en AI‑uppskattning baserad på identifierade ingredienser och näringstäthet. Rådgör alltid med en professionell för kostråd.';
 	@override String get unhealthy => 'Ohälsosam';
 	@override String get healthy => 'Hälsosam';
-	@override String get neutral => 'Neutral';
+	@override String get neutral => 'Neutralt';
 }
 
 // Path: editProfile
@@ -267,11 +267,11 @@ class _TranslationsEditProfileSv extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'pund (lb)';
 	@override String get metricCm => 'Metriskt (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
+	@override String get imperialFtIn => 'Imperialt (ft/tum)';
 	@override String get metricKg => 'Metriskt (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get imperialLbs => 'Imperialt (lb)';
 	@override late final _TranslationsEditProfileGendersSv genders = _TranslationsEditProfileGendersSv._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsSv weightGoals = _TranslationsEditProfileWeightGoalsSv._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsSv activityLevels = _TranslationsEditProfileActivityLevelsSv._(_root);
@@ -318,7 +318,7 @@ class _TranslationsRemindersSv extends TranslationsRemindersEn {
 	@override String get disabledSubtitle => 'Aktivera meddelanden för att få måltidspåminnelser';
 	@override String get mealReminders => 'Måltidspåminnelser';
 	@override String get breakfast => 'Frukost';
-	@override String get lunch => 'Lunch';
+	@override String get lunch => 'Lunchmåltid';
 	@override String get dinner => 'Middag';
 	@override String get snack => 'Mellanmål';
 	@override String get unknown => 'Okänd';
@@ -568,9 +568,13 @@ class _TranslationsOnboardingHealthConnectSv extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Anslut till Health Connect';
 	@override String get description => 'Använd förbrända kalorier i ditt dagsmål och dela valfritt loggade måltider med Health Connect.';
+	@override String get overviewDescription => 'Använd förbrända kalorier i ditt dagsmål och dela valfritt loggade måltider med Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingSv automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingSv._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedSv caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedSv._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsSv progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsSv._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsSv shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsSv._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationSv seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationSv._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlSv userControl = _TranslationsOnboardingHealthConnectUserControlSv._(_root);
 	@override String get connected => 'Health Connect anslutet';
 	@override String get notConnected => 'Health Connect inte anslutet';
 	@override String get setup => 'Ställ in Health Connect';
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalSv extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Viktpåverkan';
 	@override String get estLoss => 'Beräknad minskning med';
 	@override String get estGain => 'Beräknad ökning med';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalorier (kcal)';
 }
 
 // Path: home.dailySummary
@@ -651,7 +655,7 @@ class _TranslationsHomeDailySummarySv extends TranslationsHomeDailySummaryEn {
 	@override String get title => 'Dagsammanfattning';
 	@override String get calories => 'Kalorier';
 	@override String get carbs => 'Kolhydrater';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Proteiner';
 	@override String get fat => 'Fett';
 	@override String get fiber => 'Fibrer';
 	@override String get grams => 'gram';
@@ -750,6 +754,8 @@ class _TranslationsHomeConnectHealthSv extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Synka med Health Connect';
 	@override String get description => 'Använd förbrända kalorier i ditt mål och dela loggade måltider';
 	@override String get install => 'Installera eller uppdatera';
+	@override String get dataUseDescription => 'Använd förbrända kalorier i ditt mål och dela loggade måltider';
+	@override String get installOrUpdate => 'Installera eller uppdatera';
 	@override String get connect => 'Anslut';
 }
 
@@ -762,7 +768,7 @@ class _TranslationsMealNutritionSv extends TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Kalorier';
 	@override String get carbs => 'Kolhydrater (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Proteiner (g)';
 	@override String get fat => 'Fett (g)';
 	@override String get fiber => 'Fibrer (g)';
 }
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisSv extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} till';
 	@override String ingredientsLine({required Object count}) => '${count} ingredienser upptäckta';
 	@override String get ingredientsPending => 'Skannar ingredienser…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '”${text}”';
 	@override String get offlineTip0 => 'Tips: Konsekvens slår perfektion — regelbunden registrering avslöjar de mönster som betyder något.';
 	@override String get offlineTip1 => 'Tips: Naturligt ljus och en överblicksbild uppifrån hjälper portionsnoggrannheten.';
 	@override String get offlineTip2 => 'Tips: Ange drycker, såser och matolja — de lägger ofta till kalorier som glöms bort.';
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsSv extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'SPRÅK';
 	@override String get notifications => 'NOTIFIKATIONER';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'ANALYS PÅ ENHETEN';
 	@override String get supportAndLegal => 'SUPPORT & JURIDIK';
 	@override String get about => 'OM';
@@ -1071,7 +1077,7 @@ class _TranslationsSettingsThemeSv extends TranslationsSettingsThemeEn {
 	@override String get title => 'Tema';
 	@override String get light => 'Ljust';
 	@override String get dark => 'Mörkt';
-	@override String get system => 'System';
+	@override String get system => 'Systemstandard';
 }
 
 // Path: settings.sendFeedback
@@ -1113,8 +1119,10 @@ class _TranslationsSettingsClearAllDataSv extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'Radera all data';
 	@override String get subtitle => 'Radera Calorify-data som lagras på den här enheten';
+	@override String get localOnlySubtitle => 'Radera Calorify-data som lagras på den här enheten';
 	@override String get confirmationTitle => 'Radera all data?';
 	@override String get confirmationMessage => 'Detta raderar loggade måltider, favoriter och profilinställningar permanent från den här enheten. Måltider som redan har delats med Health Connect och Health Connect-åtkomst hanteras separat under Inställningar > Health Connect.';
+	@override String get localOnlyConfirmationMessage => 'Detta raderar loggade måltider, favoriter och profilinställningar permanent från den här enheten. Måltider som redan har delats med Health Connect och Health Connect-åtkomst hanteras separat under Inställningar > Health Connect.';
 	@override String get cancel => 'Avbryt';
 	@override String get clearEverything => 'Radera allt';
 }
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoSv extends TranslationsSettingsAppInfoEn {
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify version ${version}';
 	@override String build({required Object buildNumber}) => 'Bygg ${buildNumber}';
 }
 
@@ -1367,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingSv extends Translatio
 	@override String get description => 'Läs dagens totala kaloriförbränning från Health Connect';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedSv extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Förbrända kalorier';
+	@override String get description => 'Läs dagens totala kaloriförbränning från Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsSv extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsSv._(TranslationsSv root) : this._root = root, super.internal(root);
@@ -1378,9 +1397,31 @@ class _TranslationsOnboardingHealthConnectProgressInsightsSv extends Translation
 	@override String get description => 'Skriv måltider som du loggar i Calorify till Health Connect';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsSv extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dela loggade måltider';
+	@override String get description => 'Skriv måltider som du loggar i Calorify till Health Connect';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationSv extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+	final TranslationsSv _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Du har kontrollen';
+	@override String get description => 'Välj valfri behörighet och ändra åtkomsten när som helst';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlSv extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlSv._(TranslationsSv root) : this._root = root, super.internal(root);
 
 	final TranslationsSv _root; // ignore: unused_field
 
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableSv extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect är otillgängligt';
 	@override String get description => 'Health Connect stöds inte på den här enheten.';
+	@override String get unsupportedDescription => 'Health Connect stöds inte på den här enheten.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1592,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacySv extends TranslationsSettingsAboutPriva
 	@override String get description => 'Integritet är inte en eftertanke — det är en designprincip. Detta innebär i praktiken:';
 	@override String get noAccounts => 'Inga konton krävs\nAnvänd appen omedelbart. Ingen registrering, inga konton.';
 	@override String noTracking({required Object appLabel}) => 'Begränsad analys och diagnostik\n${appLabel} använder grundläggande apphändelser och kraschdiagnostik för att förbättra tillförlitligheten. Värden i hälsoposter används inte för reklam och säljs inte.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Begränsad analys och diagnostik\n${appLabel} använder grundläggande apphändelser och kraschdiagnostik för att förbättra tillförlitligheten. Värden i hälsoposter används inte för reklam och säljs inte.';
 	@override String noAds({required Object appLabel}) => 'Annonsfritt av design\n${appLabel} är byggt för att fungera utan annonser eller datadriven monetisering.';
 	@override String get noDataSelling => 'Ingen försäljning av data\nDin hälsodata säljs eller delas aldrig med tredje part.';
 	@override String get localStorage => 'Lagring lokalt i första hand\nDin data stannar på din enhet.';
@@ -1865,12 +1908,19 @@ extension on TranslationsSv {
 			'onboarding.activityLevel.description' => 'Detta hjälper oss att räkna ut ditt dagliga kaloribehov mer exakt',
 			'onboarding.healthConnect.title' => 'Anslut till Health Connect',
 			'onboarding.healthConnect.description' => 'Använd förbrända kalorier i ditt dagsmål och dela valfritt loggade måltider med Health Connect.',
+			'onboarding.healthConnect.overviewDescription' => 'Använd förbrända kalorier i ditt dagsmål och dela valfritt loggade måltider med Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Förbrända kalorier',
 			'onboarding.healthConnect.automaticTracking.description' => 'Läs dagens totala kaloriförbränning från Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Förbrända kalorier',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Läs dagens totala kaloriförbränning från Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Dela loggade måltider',
 			'onboarding.healthConnect.progressInsights.description' => 'Skriv måltider som du loggar i Calorify till Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Dela loggade måltider',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Skriv måltider som du loggar i Calorify till Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Du har kontrollen',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Välj valfri behörighet och ändra åtkomsten när som helst',
+			'onboarding.healthConnect.userControl.title' => 'Du har kontrollen',
+			'onboarding.healthConnect.userControl.description' => 'Välj valfri behörighet och ändra åtkomsten när som helst',
 			'onboarding.healthConnect.connected' => 'Health Connect anslutet',
 			'onboarding.healthConnect.notConnected' => 'Health Connect inte anslutet',
 			'onboarding.healthConnect.setup' => 'Ställ in Health Connect',
@@ -1937,11 +1987,11 @@ extension on TranslationsSv {
 			'home.dailyGoal.weightImpact' => 'Viktpåverkan',
 			'home.dailyGoal.estLoss' => 'Beräknad minskning med',
 			'home.dailyGoal.estGain' => 'Beräknad ökning med',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalorier (kcal)',
 			'home.dailySummary.title' => 'Dagsammanfattning',
 			'home.dailySummary.calories' => 'Kalorier',
 			'home.dailySummary.carbs' => 'Kolhydrater',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Proteiner',
 			'home.dailySummary.fat' => 'Fett',
 			'home.dailySummary.fiber' => 'Fibrer',
 			'home.dailySummary.grams' => 'gram',
@@ -1977,6 +2027,8 @@ extension on TranslationsSv {
 			'home.connectHealth.title' => 'Synka med Health Connect',
 			'home.connectHealth.description' => 'Använd förbrända kalorier i ditt mål och dela loggade måltider',
 			'home.connectHealth.install' => 'Installera eller uppdatera',
+			'home.connectHealth.dataUseDescription' => 'Använd förbrända kalorier i ditt mål och dela loggade måltider',
+			'home.connectHealth.installOrUpdate' => 'Installera eller uppdatera',
 			'home.connectHealth.connect' => 'Anslut',
 			'history.noMeals' => 'Inga måltider registrerade',
 			'history.emptyMessage' => 'Ta ett foto av din senaste måltid för att registrera den här.',
@@ -1998,7 +2050,7 @@ extension on TranslationsSv {
 			'meal.mealType' => 'Måltidstyp',
 			'meal.nutrition.calories' => 'Kalorier',
 			'meal.nutrition.carbs' => 'Kolhydrater (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Proteiner (g)',
 			'meal.nutrition.fat' => 'Fett (g)',
 			'meal.nutrition.fiber' => 'Fibrer (g)',
 			'meal.deleteConfirmation.title' => 'Ta bort måltid',
@@ -2043,7 +2095,7 @@ extension on TranslationsSv {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} till',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredienser upptäckta',
 			'meal.analysis.ingredientsPending' => 'Skannar ingredienser…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '”${text}”',
 			'meal.analysis.offlineTip0' => 'Tips: Konsekvens slår perfektion — regelbunden registrering avslöjar de mönster som betyder något.',
 			'meal.analysis.offlineTip1' => 'Tips: Naturligt ljus och en överblicksbild uppifrån hjälper portionsnoggrannheten.',
 			'meal.analysis.offlineTip2' => 'Tips: Ange drycker, såser och matolja — de lägger ofta till kalorier som glöms bort.',
@@ -2120,7 +2172,7 @@ extension on TranslationsSv {
 			'healthScore.note' => 'Detta betyg är en AI‑uppskattning baserad på identifierade ingredienser och näringstäthet. Rådgör alltid med en professionell för kostråd.',
 			'healthScore.unhealthy' => 'Ohälsosam',
 			'healthScore.healthy' => 'Hälsosam',
-			'healthScore.neutral' => 'Neutral',
+			'healthScore.neutral' => 'Neutralt',
 			'editProfile.title' => 'Redigera profil',
 			'editProfile.sections.personalInformation' => 'PERSONUPPGIFTER',
 			'editProfile.sections.physicalMeasurements' => 'FYSISKA MÅTT',
@@ -2136,11 +2188,11 @@ extension on TranslationsSv {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'pund (lb)',
 			'editProfile.metricCm' => 'Metriskt (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
+			'editProfile.imperialFtIn' => 'Imperialt (ft/tum)',
 			'editProfile.metricKg' => 'Metriskt (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
+			'editProfile.imperialLbs' => 'Imperialt (lb)',
 			'editProfile.genders.male' => 'Man',
 			'editProfile.genders.female' => 'Kvinna',
 			'editProfile.genders.other' => 'Annat',
@@ -2164,7 +2216,7 @@ extension on TranslationsSv {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'SPRÅK',
 			'settings.sections.notifications' => 'NOTIFIKATIONER',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'ANALYS PÅ ENHETEN',
 			'settings.sections.supportAndLegal' => 'SUPPORT & JURIDIK',
 			'settings.sections.about' => 'OM',
@@ -2198,7 +2250,7 @@ extension on TranslationsSv {
 			'settings.theme.title' => 'Tema',
 			'settings.theme.light' => 'Ljust',
 			'settings.theme.dark' => 'Mörkt',
-			'settings.theme.system' => 'System',
+			'settings.theme.system' => 'Systemstandard',
 			'settings.sendFeedback.title' => 'Skicka feedback',
 			'settings.sendFeedback.subtitle' => ({required Object appLabel}) => 'Hjälp oss förbättra ${appLabel}',
 			'settings.sendFeedback.emailSubject' => ({required Object appLabel}) => '${appLabel} App-feedback',
@@ -2213,8 +2265,10 @@ extension on TranslationsSv {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Kunde inte exportera måltidshistorik: ${error}',
 			'settings.clearAllData.title' => 'Radera all data',
 			'settings.clearAllData.subtitle' => 'Radera Calorify-data som lagras på den här enheten',
+			'settings.clearAllData.localOnlySubtitle' => 'Radera Calorify-data som lagras på den här enheten',
 			'settings.clearAllData.confirmationTitle' => 'Radera all data?',
 			'settings.clearAllData.confirmationMessage' => 'Detta raderar loggade måltider, favoriter och profilinställningar permanent från den här enheten. Måltider som redan har delats med Health Connect och Health Connect-åtkomst hanteras separat under Inställningar > Health Connect.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Detta raderar loggade måltider, favoriter och profilinställningar permanent från den här enheten. Måltider som redan har delats med Health Connect och Health Connect-åtkomst hanteras separat under Inställningar > Health Connect.',
 			'settings.clearAllData.cancel' => 'Avbryt',
 			'settings.clearAllData.clearEverything' => 'Radera allt',
 			'settings.debugOptions.title' => 'Felsökningsalternativ',
@@ -2223,6 +2277,7 @@ extension on TranslationsSv {
 			'settings.healthConnect.subtitle' => 'Visa och hantera behörigheter',
 			'settings.healthConnect.unavailable.title' => 'Health Connect är otillgängligt',
 			'settings.healthConnect.unavailable.description' => 'Health Connect stöds inte på den här enheten.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect stöds inte på den här enheten.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect behöver åtgärdas',
 			'settings.healthConnect.updateRequired.description' => 'Installera eller uppdatera Health Connect innan du hanterar åtkomst.',
 			'settings.healthConnect.updateRequired.action' => 'Installera eller uppdatera',
@@ -2266,6 +2321,7 @@ extension on TranslationsSv {
 			'settings.about.privacy.description' => 'Integritet är inte en eftertanke — det är en designprincip. Detta innebär i praktiken:',
 			'settings.about.privacy.noAccounts' => 'Inga konton krävs\nAnvänd appen omedelbart. Ingen registrering, inga konton.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Begränsad analys och diagnostik\n${appLabel} använder grundläggande apphändelser och kraschdiagnostik för att förbättra tillförlitligheten. Värden i hälsoposter används inte för reklam och säljs inte.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Begränsad analys och diagnostik\n${appLabel} använder grundläggande apphändelser och kraschdiagnostik för att förbättra tillförlitligheten. Värden i hälsoposter används inte för reklam och säljs inte.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Annonsfritt av design\n${appLabel} är byggt för att fungera utan annonser eller datadriven monetisering.',
 			'settings.about.privacy.noDataSelling' => 'Ingen försäljning av data\nDin hälsodata säljs eller delas aldrig med tredje part.',
 			'settings.about.privacy.localStorage' => 'Lagring lokalt i första hand\nDin data stannar på din enhet.',
@@ -2278,7 +2334,7 @@ extension on TranslationsSv {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Din feedback hjälper göra ${appLabel} bättre för alla.',
 			'settings.about.feedback.rateApp' => 'Betygsätt på Play Store',
 			'settings.about.feedback.sendFeedback' => 'Skicka feedback',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify version ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bygg ${buildNumber}',
 			'reminders.title' => 'Håll dig på rätt spår med påminnelser',
 			'reminders.description' => 'Få mjuka påminnelser att registrera dina måltider och hålla konsekvens i dina näringsmål',
@@ -2288,7 +2344,7 @@ extension on TranslationsSv {
 			'reminders.disabledSubtitle' => 'Aktivera meddelanden för att få måltidspåminnelser',
 			'reminders.mealReminders' => 'Måltidspåminnelser',
 			'reminders.breakfast' => 'Frukost',
-			'reminders.lunch' => 'Lunch',
+			'reminders.lunch' => 'Lunchmåltid',
 			'reminders.dinner' => 'Middag',
 			'reminders.snack' => 'Mellanmål',
 			'reminders.unknown' => 'Okänd',
@@ -2310,6 +2366,8 @@ extension on TranslationsSv {
 			'notifications.snack.body' => 'Dags för ett hälsosamt mellanmål',
 			'notifications.test.title' => 'Testmeddelande',
 			'login.title' => 'Logga in',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Logga in med Google',
 			'login.signInFailed' => 'Inloggning via Google misslyckades eller avbröts.',
 			'disclaimer.pleaseNote' => 'Observera',
@@ -2323,8 +2381,6 @@ extension on TranslationsSv {
 			'disclaimer.snap.databaseLimitations.title' => 'Databasbegränsningar',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}s livsmedelsdatabas är omfattande men kanske inte innehåller varje enskild livsmedelsvara eller variant.',
 			'disclaimer.weightEstimate.title' => 'Om viktuppskattningen',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Den beräknade viktförändringen är en teoretisk uppskattning baserad på den enkla kalorier-in- vs kalorier-ut‑modellen. Den är avsedd som motivationsvägledning, inte som en prognos för din faktiska vikt.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalorinoggrannhet',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Denna uppskattning är bara så korrekt som din registrerade kalorimängd och förbrukning. Felaktig registrering ger en felaktig prognos.',

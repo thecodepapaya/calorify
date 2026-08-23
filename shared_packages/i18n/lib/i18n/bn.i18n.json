@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Health Connect-এ সংযুক্ত করুন",
       "description": "উন্নত অন্তর্দৃষ্টি ও স্বয়ংক্রিয় ক্যালোরি ট্র্যাকিং-এর জন্য আপনার স্বাস্থ্য ডেটা সিঙ্ক করুন",
+      "overviewDescription": "দৈনিক লক্ষ্যে পোড়ানো ক্যালোরি ব্যবহার করুন এবং চাইলে লগ করা খাবার Health Connect-এর সঙ্গে শেয়ার করুন।",
       "automaticTracking": {
         "title": "স্বয়ংক্রিয় ক্যালোরি ট্র্যাকিং",
         "description": "আপনার ফিটনেস অ্যাপ থেকে পোড়ানো ক্যালোরি ট্র্যাক করুন"
+      },
+      "caloriesBurned": {
+        "title": "পোড়ানো ক্যালোরি",
+        "description": "Health Connect থেকে আজকের মোট পোড়ানো ক্যালোরি পড়ুন"
       },
       "progressInsights": {
         "title": "অগ্রগতি বিশ্লেষণ",
         "description": "আপনার স্বাস্থ্য প্রবণতা সম্পর্কে বিশদ অন্তর্দৃষ্টি পান"
       },
+      "shareLoggedMeals": {
+        "title": "লগ করা খাবার শেয়ার করুন",
+        "description": "Calorify-এ লগ করা খাবার Health Connect-এ লিখুন"
+      },
       "seamlessIntegration": {
         "title": "নিরবিঘ্ন সমন্বয়",
         "description": "আপনার প্রিয় স্বাস্থ্য অ্যাপগুলো থেকে ডেটা সিঙ্ক করুন"
+      },
+      "userControl": {
+        "title": "নিয়ন্ত্রণ আপনার হাতে",
+        "description": "যেকোনো একটি অনুমতি বেছে নিন এবং যেকোনো সময় অ্যাক্সেস পরিবর্তন করুন"
       },
       "connected": "Health Connect সংযুক্ত",
       "notConnected": "Health Connect সংযুক্ত নেই",
@@ -101,6 +114,12 @@
       "skipForNow": "এখন বাদ দিন",
       "statusConnected": "Health Connect সংযুক্ত আছে।",
       "statusSuccess": "Health Connect সফলভাবে সংযুক্ত হয়েছে!",
+      "statusNotConnected": "আপনি যে Health Connect বৈশিষ্ট্যগুলো চালু করতে চান সেগুলো বেছে নিন।",
+      "statusPartial": "Health Connect আংশিকভাবে সংযুক্ত। দুটি বৈশিষ্ট্যই ব্যবহার করতে বাকি অনুমতিটি চালু করুন।",
+      "statusProviderUpdateRequired": "চালিয়ে যেতে Health Connect ইনস্টল বা আপডেট করুন।",
+      "statusUnavailable": "এই ডিভাইসে Health Connect সমর্থিত নয়।",
+      "installOrUpdate": "ইনস্টল বা আপডেট করুন",
+      "manageAccess": "অ্যাক্সেস পরিচালনা করুন",
       "statusPermissionDenied": "অনুমতি প্রত্যাখ্যান। অনুগ্রহ করে আপনার ফোন সেটিংস থেকে {appLabel}-এর জন্য Health Connect অনুমতিগুলি সক্রিয় করুন।",
       "statusError": "Health Connect সেটআপে ত্রুটি: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "ওজনের প্রভাব",
       "estLoss": "আনুমানিক হ্রাস",
       "estGain": "আনুমানিক বৃদ্ধি",
-      "kcal": "kcal"
+      "kcal": "কিলোক্যালরি"
     },
     "dailySummary": {
       "title": "দৈনিক সারাংশ",
@@ -226,7 +245,9 @@
     "connectHealth": {
       "title": "Health Connect-এর সাথে সিঙ্ক করুন",
       "description": "আপনার পুষ্টি ডেটা Health Connect-এ সিঙ্ক করুন",
+      "dataUseDescription": "আপনার লক্ষ্যে পোড়ানো ক্যালোরি ব্যবহার করুন এবং লগ করা খাবার শেয়ার করুন",
       "install": "ইনস্টল করুন",
+      "installOrUpdate": "ইনস্টল বা আপডেট করুন",
       "connect": "সংযোগ করুন"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count}টি আরও",
       "ingredientsLine": "{count}টি উপাদান শনাক্ত হয়েছে",
       "ingredientsPending": "উপাদান স্ক্যান করা হচ্ছে…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "পরামর্শ: ধারাবাহিকতা পরিপূর্ণতার চেয়ে বেশি গুরুত্বপূর্ণ—নিয়মিত লগগুলোই গুরুত্বপূর্ণ প্যাটার্ন দেখায়।",
       "offlineTip1": "পরামর্শ: ছবির জন্য প্রাকৃতিক আলো ও টপ-ডাউন ভিউ পরিমাপ নির্ভুল করতে সাহায্য করে।",
       "offlineTip2": "পরামর্শ: পানীয়, সস ও রান্নার তেল উল্লেখ করুন—এগুলো ক্যালরি বাড়ায় যা প্রায়ই ভুলে যাওয়া হয়।",
@@ -389,7 +410,7 @@
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "দৈনিক লক্ষ্য",
-      "calPerDay": "cal/day",
+      "calPerDay": "ক্যালরি/দিন",
       "notAvailable": "প্রযোজ্য নয়"
     }
   },
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "পাউন্ড",
     "metricCm": "মেট্রিক (cm)",
     "imperialFtIn": "ইম্পেরিয়াল (ft/in)",
     "metricKg": "মেট্রিক (kg)",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "সকল ডেটা মুছুন",
       "subtitle": "আপনার সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে",
+      "localOnlySubtitle": "এই ডিভাইসে সংরক্ষিত Calorify ডেটা মুছুন",
       "confirmationTitle": "সব ডেটা মুছে ফেলবেন?",
       "confirmationMessage": "এই কাজ অপরিবর্তনীয়। আপনার সব লগ করা খাবার, পছন্দসমূহ এবং প্রোফাইল সেটিংস স্থায়ভাবে মুছে যাবে।",
+      "localOnlyConfirmationMessage": "এটি এই ডিভাইস থেকে লগ করা খাবার, পছন্দের আইটেম ও প্রোফাইল সেটিংস স্থায়ীভাবে মুছে দেবে। Health Connect-এ আগে শেয়ার করা খাবার এবং Health Connect অ্যাক্সেস সেটিংস > Health Connect-এ আলাদাভাবে পরিচালিত হয়।",
       "cancel": "বাতিল",
       "clearEverything": "সবকিছু মুছুন"
     },
@@ -555,7 +578,13 @@
       "subtitle": "অনুমতি দেখুন ও পরিচালনা করুন",
       "unavailable": {
         "title": "Health Connect উপলব্ধ নয়",
-        "description": "এই ডিভাইসে Health Connect উপলব্ধ নেই। অনুগ্রহ করে Play Store থেকে Health Connect ইনস্টল করুন (Android 9+) বা Android 14+-এ আপডেট করুন।"
+        "description": "এই ডিভাইসে Health Connect উপলব্ধ নেই। অনুগ্রহ করে Play Store থেকে Health Connect ইনস্টল করুন (Android 9+) বা Android 14+-এ আপডেট করুন।",
+        "unsupportedDescription": "এই ডিভাইসে Health Connect সমর্থিত নয়।"
+      },
+      "updateRequired": {
+        "title": "Health Connect-এ নজর দেওয়া দরকার",
+        "description": "অ্যাক্সেস পরিচালনার আগে Health Connect ইনস্টল বা আপডেট করুন।",
+        "action": "ইনস্টল বা আপডেট করুন"
       },
       "permissions": {
         "title": "অনুমতিসমূহ",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "অনুমতি পরিচালনা করুন",
       "openSettings": "Health Connect সেটিংস খুলুন",
+      "disconnect": "Health Connect সংযোগ বিচ্ছিন্ন করুন",
+      "disconnectConfirmationTitle": "Health Connect সংযোগ বিচ্ছিন্ন করবেন?",
+      "disconnectConfirmationMessage": "Calorify Health Connect-এর অ্যাক্সেস হারাবে। সেখানে আগে লেখা ডেটা মুছে যাবে না।",
+      "disconnectConfirmationAction": "সংযোগ বিচ্ছিন্ন করুন",
+      "deleteSyncedMeals": "Health Connect থেকে Calorify-এর খাবার মুছুন",
+      "deleteSyncedMealsConfirmationTitle": "সিঙ্ক করা খাবার মুছবেন?",
+      "deleteSyncedMealsConfirmationMessage": "Calorify-এর এই সংস্করণ দিয়ে Health Connect-এ সিঙ্ক করা খাবার মুছবেন? আপনার স্থানীয় খাবারের লগ বদলাবে না। Calorify-এর পুরোনো এন্ট্রি Health Connect-এর ডেটা পরিচালনা বিকল্প ব্যবহার করে আলাদাভাবে মুছতে হতে পারে।",
+      "deleteSyncedMealsConfirmationAction": "সিঙ্ক করা খাবার মুছুন",
+      "deleteSyncedMealsSuccess": "Health Connect থেকে Calorify-এর খাবার মুছে ফেলা হয়েছে।",
+      "deleteSyncedMealsFailed": "সিঙ্ক করা খাবার মুছে ফেলা যায়নি। আবার চেষ্টা করুন।",
+      "connectionPartial": "Health Connect-এর কিছু বৈশিষ্ট্য চালু আছে।",
+      "connectionComplete": "Health Connect-এর দুটি বৈশিষ্ট্যই চালু আছে।",
+      "actionFailed": "Health Connect খোলা যায়নি। আবার চেষ্টা করুন।",
       "requestPermissions": "অনুমতিগুলির জন্য অনুরোধ করুন",
       "permissionRequestCancelledOrFailed": "অনুমতি অনুরোধ বাতিল হয়েছে বা ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন বা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।",
       "permissionRequestFailed": "অনুমতি অনুরোধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন বা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।",
@@ -597,6 +639,7 @@
         "description": "গোপনীয়তা কোনো পরবর্তীতে চিন্তার বিষয় নয় — এটি ডিজাইনের মূলনীতি। এর অর্থ বাস্তবে কী তা নিচে:",
         "noAccounts": "অ্যাকাউন্টের কোনো প্রয়োজন নেই\nঅ্যাপটি এখনই ব্যবহার করুন। কোনো সাইন-আপ নেই, কোনো পরিচয় প্রয়োজন নেই।",
         "noTracking": "আচরণগত ট্র্যাকিং নেই\n{appLabel} আপনার কার্যকলাপ পর্যবেক্ষণ করে না, ব্যবহার প্রোফাইল তৈরি করে না, বা অ্যাপ/ওয়েবসাইট জুড়ে আপনাকে ট্র্যাক করে না।",
+        "analyticsDisclosure": "সীমিত বিশ্লেষণ ও ডায়াগনস্টিকস\nনির্ভরযোগ্যতা উন্নত করতে {appLabel} অ্যাপের মৌলিক ইভেন্ট ও ক্র্যাশ ডায়াগনস্টিকস ব্যবহার করে। স্বাস্থ্য রেকর্ডের মান বিজ্ঞাপনের জন্য ব্যবহার বা বিক্রি করা হয় না।",
         "noAds": "ডিজাইনে বিজ্ঞাপনবিহীন\n{appLabel} বিজ্ঞাপন বা ডেটা-ভিত্তিক মনিটাইজেশন ছাড়াই কাজ করার জন্য তৈরি।",
         "noDataSelling": "ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য ডেটা কখনই তৃতীয় পক্ষের কাছে বিক্রি বা শেয়ার করা হয় না।",
         "localStorage": "স্থানীয়-প্রথম সংরক্ষণ\nআপনার ডেটা আপনার ডিভাইসেই থাকে।",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify সংস্করণ {version}",
       "build": "বিল্ড {buildNumber}"
     }
   },

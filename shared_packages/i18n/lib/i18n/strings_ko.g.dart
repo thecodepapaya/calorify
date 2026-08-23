@@ -267,7 +267,7 @@ class _TranslationsEditProfileKo extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => '파운드(lbs)';
 	@override String get metricCm => '미터법 (cm)';
 	@override String get imperialFtIn => '피트/인치 (ft/in)';
 	@override String get metricKg => '미터법 (kg)';
@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectKo extends TranslationsOnboardingHealt
 	@override String get statusSuccess => 'Health Connect가 성공적으로 연결되었습니다!';
 	@override String statusPermissionDenied({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.';
 	@override String statusError({required Object error}) => 'Health Connect 설정 오류: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedKo caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedKo._(_root);
+	@override String get installOrUpdate => '설치 또는 업데이트';
+	@override String get manageAccess => '접근 권한 관리';
+	@override String get overviewDescription => '일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsKo shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsKo._(_root);
+	@override String get statusNotConnected => '사용할 Health Connect 기능을 선택하세요.';
+	@override String get statusPartial => 'Health Connect가 일부 연결되었습니다. 두 기능을 모두 사용하려면 남은 권한을 활성화하세요.';
+	@override String get statusProviderUpdateRequired => '계속하려면 Health Connect를 설치하거나 업데이트하세요.';
+	@override String get statusUnavailable => '이 기기는 Health Connect를 지원하지 않습니다.';
+	@override late final _TranslationsOnboardingHealthConnectUserControlKo userControl = _TranslationsOnboardingHealthConnectUserControlKo._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalKo extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => '체중 영향';
 	@override String get estLoss => '예상 감소';
 	@override String get estGain => '예상 증가';
-	@override String get kcal => 'kcal';
+	@override String get kcal => '킬로칼로리(kcal)';
 }
 
 // Path: home.dailySummary
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthKo extends TranslationsHomeConnectHealthEn {
 	@override String get description => '영양 데이터를 Health Connect와 동기화하세요';
 	@override String get install => '설치';
 	@override String get connect => '연결';
+	@override String get dataUseDescription => '목표에 소모 칼로리를 반영하고 기록한 식사를 공유합니다';
+	@override String get installOrUpdate => '설치 또는 업데이트';
 }
 
 // Path: meal.nutrition
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisKo extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count}개 더';
 	@override String ingredientsLine({required Object count}) => '${count}개의 재료가 감지되었습니다';
 	@override String get ingredientsPending => '재료 스캔 중…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => '팁: 완벽함보다 꾸준함이 중요합니다—정기적인 기록이 중요한 패턴을 드러냅니다.';
 	@override String get offlineTip1 => '팁: 사진은 자연광과 위에서 내려다보는 구도가 분량 추정에 도움이 됩니다.';
 	@override String get offlineTip2 => '팁: 음료, 소스, 식용유도 칼로리를 추가하니 꼭 언급하세요.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsKo extends TranslationsSettingsSectionsEn {
 	@override String get profile => '프로필';
 	@override String get localization => '지역화';
 	@override String get notifications => '알림';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'HEALTH CONNECT 설정';
 	@override String get localInference => '기기 내 분석';
 	@override String get supportAndLegal => '지원 및 법적 고지';
 	@override String get about => '앱 정보';
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataKo extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => '이 작업은 되돌릴 수 없습니다. 기록된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.';
 	@override String get cancel => '취소';
 	@override String get clearEverything => '모두 삭제';
+	@override String get localOnlyConfirmationMessage => '이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.';
+	@override String get localOnlySubtitle => '이 기기에 저장된 Calorify 데이터 삭제';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectKo extends TranslationsSettingsHealthCon
 	@override String get permissionRequestCancelledOrFailed => '권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.';
 	@override String get permissionRequestFailed => '권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.';
 	@override String get requestingPermissions => '요청 중...';
+	@override String get actionFailed => 'Health Connect를 열 수 없습니다. 다시 시도해 주세요.';
+	@override String get connectionComplete => 'Health Connect 기능 두 개가 모두 활성화되었습니다.';
+	@override String get connectionPartial => '일부 Health Connect 기능이 활성화되었습니다.';
+	@override String get deleteSyncedMeals => 'Health Connect에서 Calorify 식사 삭제';
+	@override String get deleteSyncedMealsConfirmationAction => '동기화된 식사 삭제';
+	@override String get deleteSyncedMealsConfirmationMessage => '이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.';
+	@override String get deleteSyncedMealsConfirmationTitle => '동기화된 식사를 삭제할까요?';
+	@override String get deleteSyncedMealsFailed => '동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.';
+	@override String get deleteSyncedMealsSuccess => 'Health Connect에서 Calorify 식사를 삭제했습니다.';
+	@override String get disconnect => 'Health Connect 연결 해제';
+	@override String get disconnectConfirmationAction => '연결 해제';
+	@override String get disconnectConfirmationMessage => 'Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.';
+	@override String get disconnectConfirmationTitle => 'Health Connect 연결을 해제할까요?';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredKo updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredKo._(_root);
 }
 
 // Path: settings.about
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoKo extends TranslationsSettingsAppInfoEn {
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify 버전 ${version}';
 	@override String build({required Object buildNumber}) => '빌드 ${buildNumber}';
 }
 
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationKo extends Translat
 	@override String get description => '자주 사용하는 건강 앱의 데이터를 동기화하세요';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedKo extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Health Connect에서 오늘의 총 소모 칼로리를 읽습니다';
+	@override String get title => '소모 칼로리';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsKo extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Calorify에 기록한 식사를 Health Connect에 씁니다';
+	@override String get title => '기록한 식사 공유';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlKo extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요';
+	@override String get title => '사용자가 직접 관리합니다';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessKo extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessKo._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableKo extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect 사용 불가';
 	@override String get description => '이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.';
+	@override String get unsupportedDescription => '이 기기는 Health Connect를 지원하지 않습니다.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsKo extends TranslationsSettin
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedKo._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadKo nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadKo._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteKo nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteKo._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredKo extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredKo._(TranslationsKo root) : this._root = root, super.internal(root);
+
+	final TranslationsKo _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => '설치 또는 업데이트';
+	@override String get description => '접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.';
+	@override String get title => 'Health Connect 확인이 필요합니다';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyKo extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => '데이터 판매 없음\n건강 데이터는 제3자에게 판매되거나 공유되지 않습니다.';
 	@override String get localStorage => '로컬 우선 저장\n데이터는 기기에 저장됩니다.';
 	@override String get privacyPolicy => '개인정보 처리방침';
+	@override String analyticsDisclosure({required Object appLabel}) => '제한적인 분석 및 진단\n${appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.';
 }
 
 // Path: settings.about.developer
@@ -1847,6 +1922,19 @@ extension on TranslationsKo {
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect가 성공적으로 연결되었습니다!',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '권한이 거부되었습니다. ${appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect 설정 오류: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect에서 오늘의 총 소모 칼로리를 읽습니다',
+			'onboarding.healthConnect.caloriesBurned.title' => '소모 칼로리',
+			'onboarding.healthConnect.installOrUpdate' => '설치 또는 업데이트',
+			'onboarding.healthConnect.manageAccess' => '접근 권한 관리',
+			'onboarding.healthConnect.overviewDescription' => '일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify에 기록한 식사를 Health Connect에 씁니다',
+			'onboarding.healthConnect.shareLoggedMeals.title' => '기록한 식사 공유',
+			'onboarding.healthConnect.statusNotConnected' => '사용할 Health Connect 기능을 선택하세요.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect가 일부 연결되었습니다. 두 기능을 모두 사용하려면 남은 권한을 활성화하세요.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => '계속하려면 Health Connect를 설치하거나 업데이트하세요.',
+			'onboarding.healthConnect.statusUnavailable' => '이 기기는 Health Connect를 지원하지 않습니다.',
+			'onboarding.healthConnect.userControl.description' => '원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요',
+			'onboarding.healthConnect.userControl.title' => '사용자가 직접 관리합니다',
 			'onboarding.reinforcement.trackingSuccess.title' => '혼자가 아니에요',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '연구에 따르면 일관된 기록이 장기 성공의 가장 큰 예측 요인입니다.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age}세 ${gender}가 ${goal}하려면 일관된 기록이 성공의 가장 큰 예측 요인입니다.',
@@ -1899,7 +1987,7 @@ extension on TranslationsKo {
 			'home.dailyGoal.weightImpact' => '체중 영향',
 			'home.dailyGoal.estLoss' => '예상 감소',
 			'home.dailyGoal.estGain' => '예상 증가',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => '킬로칼로리(kcal)',
 			'home.dailySummary.title' => '오늘 요약',
 			'home.dailySummary.calories' => '칼로리',
 			'home.dailySummary.carbs' => '탄수화물',
@@ -1940,6 +2028,8 @@ extension on TranslationsKo {
 			'home.connectHealth.description' => '영양 데이터를 Health Connect와 동기화하세요',
 			'home.connectHealth.install' => '설치',
 			'home.connectHealth.connect' => '연결',
+			'home.connectHealth.dataUseDescription' => '목표에 소모 칼로리를 반영하고 기록한 식사를 공유합니다',
+			'home.connectHealth.installOrUpdate' => '설치 또는 업데이트',
 			'history.noMeals' => '기록된 식사가 없습니다',
 			'history.emptyMessage' => '마지막 식사를 사진으로 찍어 여기서 기록하세요.',
 			'history.today' => '오늘',
@@ -2005,7 +2095,7 @@ extension on TranslationsKo {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count}개 더',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count}개의 재료가 감지되었습니다',
 			'meal.analysis.ingredientsPending' => '재료 스캔 중…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => '팁: 완벽함보다 꾸준함이 중요합니다—정기적인 기록이 중요한 패턴을 드러냅니다.',
 			'meal.analysis.offlineTip1' => '팁: 사진은 자연광과 위에서 내려다보는 구도가 분량 추정에 도움이 됩니다.',
 			'meal.analysis.offlineTip2' => '팁: 음료, 소스, 식용유도 칼로리를 추가하니 꼭 언급하세요.',
@@ -2098,7 +2188,7 @@ extension on TranslationsKo {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => '파운드(lbs)',
 			'editProfile.metricCm' => '미터법 (cm)',
 			'editProfile.imperialFtIn' => '피트/인치 (ft/in)',
 			'editProfile.metricKg' => '미터법 (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsKo {
 			'settings.sections.profile' => '프로필',
 			'settings.sections.localization' => '지역화',
 			'settings.sections.notifications' => '알림',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT 설정',
 			'settings.sections.localInference' => '기기 내 분석',
 			'settings.sections.supportAndLegal' => '지원 및 법적 고지',
 			'settings.sections.about' => '앱 정보',
@@ -2179,12 +2269,15 @@ extension on TranslationsKo {
 			'settings.clearAllData.confirmationMessage' => '이 작업은 되돌릴 수 없습니다. 기록된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.',
 			'settings.clearAllData.cancel' => '취소',
 			'settings.clearAllData.clearEverything' => '모두 삭제',
+			'settings.clearAllData.localOnlyConfirmationMessage' => '이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.',
+			'settings.clearAllData.localOnlySubtitle' => '이 기기에 저장된 Calorify 데이터 삭제',
 			'settings.debugOptions.title' => '디버그 옵션',
 			'settings.developerModeEnabled' => '개발자 모드가 활성화되었습니다!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => '권한 보기 및 관리',
 			'settings.healthConnect.unavailable.title' => 'Health Connect 사용 불가',
 			'settings.healthConnect.unavailable.description' => '이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => '이 기기는 Health Connect를 지원하지 않습니다.',
 			'settings.healthConnect.permissions.title' => '권한',
 			'settings.healthConnect.permissions.description' => 'Health Connect 통합을 제공하기 위해 다음 권한이 요청됩니다:',
 			'settings.healthConnect.permissions.granted' => '허용됨',
@@ -2204,6 +2297,22 @@ extension on TranslationsKo {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => '권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.',
 			'settings.healthConnect.permissionRequestFailed' => '권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.',
 			'settings.healthConnect.requestingPermissions' => '요청 중...',
+			'settings.healthConnect.actionFailed' => 'Health Connect를 열 수 없습니다. 다시 시도해 주세요.',
+			'settings.healthConnect.connectionComplete' => 'Health Connect 기능 두 개가 모두 활성화되었습니다.',
+			'settings.healthConnect.connectionPartial' => '일부 Health Connect 기능이 활성화되었습니다.',
+			'settings.healthConnect.deleteSyncedMeals' => 'Health Connect에서 Calorify 식사 삭제',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '동기화된 식사 삭제',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => '이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '동기화된 식사를 삭제할까요?',
+			'settings.healthConnect.deleteSyncedMealsFailed' => '동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Health Connect에서 Calorify 식사를 삭제했습니다.',
+			'settings.healthConnect.disconnect' => 'Health Connect 연결 해제',
+			'settings.healthConnect.disconnectConfirmationAction' => '연결 해제',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connect 연결을 해제할까요?',
+			'settings.healthConnect.updateRequired.action' => '설치 또는 업데이트',
+			'settings.healthConnect.updateRequired.description' => '접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect 확인이 필요합니다',
 			'settings.about.title' => '앱 정보',
 			'settings.about.tagline' => '빠르고 무료이며 프라이버시를 우선시하는 칼로리 인식',
 			'settings.about.ourStory.title' => '우리의 이야기',
@@ -2216,6 +2325,7 @@ extension on TranslationsKo {
 			'settings.about.privacy.noDataSelling' => '데이터 판매 없음\n건강 데이터는 제3자에게 판매되거나 공유되지 않습니다.',
 			'settings.about.privacy.localStorage' => '로컬 우선 저장\n데이터는 기기에 저장됩니다.',
 			'settings.about.privacy.privacyPolicy' => '개인정보 처리방침',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '제한적인 분석 및 진단\n${appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다.',
 			'settings.about.developer.title' => '단독 개발자가 제작',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}는 차분하고 프라이버시를 존중하는 건강 소프트웨어를 만드는 데 집중하는 단독 개발자가 제작 및 유지합니다.\n\n피드백은 직접 읽히며 앱의 방향을 결정하는 데 도움이 됩니다.',
 			'settings.about.developer.website' => '웹사이트',
@@ -2224,7 +2334,7 @@ extension on TranslationsKo {
 			'settings.about.feedback.description' => ({required Object appLabel}) => '여러분의 피드백은 ${appLabel}을 모두에게 더 좋게 만듭니다.',
 			'settings.about.feedback.rateApp' => 'Play Store에 평가하기',
 			'settings.about.feedback.sendFeedback' => '피드백 보내기',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify 버전 ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => '빌드 ${buildNumber}',
 			'reminders.title' => '알림으로 계획을 지키세요',
 			'reminders.description' => '식사 기록을 잊지 않도록 부드러운 알림을 받아 일관된 영양 목표를 유지하세요',
@@ -2256,6 +2366,8 @@ extension on TranslationsKo {
 			'notifications.snack.body' => '건강한 간식을 기록할 시간이에요',
 			'notifications.test.title' => '테스트 알림',
 			'login.title' => '로그인',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google로 로그인',
 			'login.signInFailed' => 'Google 로그인에 실패했거나 취소되었습니다.',
 			'disclaimer.pleaseNote' => '알아두세요',
@@ -2291,8 +2403,6 @@ extension on TranslationsKo {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '프로필을 기반으로 TDEE를 계산하고 경과한 시간(시 + 분) / 24를 곱해 지금까지 소모한 칼로리를 추정합니다.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '전문가 조언',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '이 추정치를 의료 결정에 사용하지 마세요. 개인화된 체중 관리 조언은 항상 의료 전문가나 공인 영양사와 상담하세요.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => '다운로드한 USDA 팩에서 영양 정보를 일치시켰습니다',
 			'localNutritionPhase4.nutritionCached' => '기기 내 USDA 캐시에서 영양 정보를 일치시켰습니다',
 			'localNutritionPhase4.nutritionMixed' => '다운로드, 캐시 및 원격 USDA 데이터에서 영양 정보를 통합했습니다',

@@ -267,7 +267,7 @@ class _TranslationsEditProfileFi extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'paunaa (lb)';
 	@override String get metricCm => 'Metrinen (cm)';
 	@override String get imperialFtIn => 'Imperiaalinen (ft/in)';
 	@override String get metricKg => 'Metrinen (kg)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectFi extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Yhdistä Health Connectiin';
 	@override String get description => 'Synkronoi terveystietosi parempia näkemyksiä ja automaattista kaloriseurantaa varten';
+	@override String get overviewDescription => 'Käytä kulutettuja kaloreita päivätavoitteessasi ja halutessasi jaa kirjaamasi ateriat Health Connectiin.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingFi automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingFi._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedFi caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedFi._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsFi progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsFi._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsFi shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsFi._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationFi seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationFi._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlFi userControl = _TranslationsOnboardingHealthConnectUserControlFi._(_root);
 	@override String get connected => 'Health Connect yhdistetty';
 	@override String get notConnected => 'Health Connect ei yhdistetty';
 	@override String get setup => 'Aseta Health Connect';
 	@override String get skipForNow => 'Ohita nyt';
 	@override String get statusConnected => 'Health Connect on yhdistetty.';
 	@override String get statusSuccess => 'Health Connect on yhdistetty onnistuneesti!';
+	@override String get statusNotConnected => 'Valitse Health Connect -ominaisuudet, jotka haluat ottaa käyttöön.';
+	@override String get statusPartial => 'Health Connect on yhdistetty osittain. Ota jäljellä oleva käyttöoikeus käyttöön käyttääksesi molempia ominaisuuksia.';
+	@override String get statusProviderUpdateRequired => 'Jatka asentamalla tai päivittämällä Health Connect.';
+	@override String get statusUnavailable => 'Health Connectia ei tueta tällä laitteella.';
+	@override String get installOrUpdate => 'Asenna tai päivitä';
+	@override String get manageAccess => 'Hallitse pääsyä';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Lupa evätty. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista ${appLabel}:lle.';
 	@override String statusError({required Object error}) => 'Virhe Health Connectin asennuksessa: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalFi extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Vaikutus painoon';
 	@override String get estLoss => 'Arvioitu pudotus';
 	@override String get estGain => 'Arvioitu nousu';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokaloria (kcal)';
 }
 
 // Path: home.dailySummary
@@ -744,6 +754,8 @@ class _TranslationsHomeConnectHealthFi extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Synkronoi Health Connectiin';
 	@override String get description => 'Synkronoi ravintotietosi Health Connectiin';
 	@override String get install => 'Asenna';
+	@override String get dataUseDescription => 'Käytä kulutettuja kaloreita tavoitteessasi ja jaa kirjatut ateriat';
+	@override String get installOrUpdate => 'Asenna tai päivitä';
 	@override String get connect => 'Yhdistä';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisFi extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} lisää';
 	@override String ingredientsLine({required Object count}) => '${count} ainesosaa tunnistettu';
 	@override String get ingredientsPending => 'Skannataan ainesosia…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '”${text}”';
 	@override String get offlineTip0 => 'Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.';
 	@override String get offlineTip1 => 'Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.';
 	@override String get offlineTip2 => 'Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsFi extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIILI';
 	@override String get localization => 'LOKALISAATIO';
 	@override String get notifications => 'ILMOITUKSET';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'LAITTEEN OMA ANALYYSI';
 	@override String get supportAndLegal => 'TUKI & LAINSÄÄDÄNTÖ';
 	@override String get about => 'TIETOA';
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataFi extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'Tyhjennä kaikki tiedot';
 	@override String get subtitle => 'Poista kaikki tietosi peruuttamattomasti';
+	@override String get localOnlySubtitle => 'Poista tälle laitteelle tallennetut Calorify-tiedot';
 	@override String get confirmationTitle => 'Tyhjennetäänkö kaikki tiedot?';
 	@override String get confirmationMessage => 'Tätä toimenpidettä ei voi peruuttaa. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.';
+	@override String get localOnlyConfirmationMessage => 'Tämä poistaa kirjatut ateriat, suosikit ja profiiliasetukset pysyvästi tältä laitteelta. Health Connectiin jo jaettuja aterioita ja Health Connectin käyttöoikeuksia hallitaan erikseen kohdassa Asetukset > Health Connect.';
 	@override String get cancel => 'Peruuta';
 	@override String get clearEverything => 'Tyhjennä kaikki';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectFi extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Katso ja hallinnoi käyttöoikeuksia';
 	@override late final _TranslationsSettingsHealthConnectUnavailableFi unavailable = _TranslationsSettingsHealthConnectUnavailableFi._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredFi updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredFi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsFi permissions = _TranslationsSettingsHealthConnectPermissionsFi._(_root);
 	@override String get managePermissions => 'Hallitse käyttöoikeuksia';
 	@override String get openSettings => 'Avaa Health Connect -asetukset';
+	@override String get disconnect => 'Katkaise Health Connect -yhteys';
+	@override String get disconnectConfirmationTitle => 'Katkaistaanko Health Connect -yhteys?';
+	@override String get disconnectConfirmationMessage => 'Calorify menettää Health Connectin käyttöoikeuden. Sinne jo kirjoitettuja tietoja ei poisteta.';
+	@override String get disconnectConfirmationAction => 'Katkaise yhteys';
+	@override String get deleteSyncedMeals => 'Poista Calorify-ateriat Health Connectista';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Poistetaanko synkronoidut ateriat?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Poistetaanko tämän Calorify-version synkronoimat ateriat Health Connectista? Paikallinen aterialoki ei muutu. Vanhemmat Calorify-merkinnät on ehkä edelleen poistettava Health Connectin Hallitse tietoja -toiminnolla.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Poista synkronoidut ateriat';
+	@override String get deleteSyncedMealsSuccess => 'Calorify-ateriat poistettiin Health Connectista.';
+	@override String get deleteSyncedMealsFailed => 'Synkronoituja aterioita ei voitu poistaa. Yritä uudelleen.';
+	@override String get connectionPartial => 'Jotkin Health Connect -ominaisuudet ovat käytössä.';
+	@override String get connectionComplete => 'Molemmat Health Connect -ominaisuudet ovat käytössä.';
+	@override String get actionFailed => 'Health Connectia ei voitu avata. Yritä uudelleen.';
 	@override String get requestPermissions => 'Pyydä oikeuksia';
 	@override String get permissionRequestCancelledOrFailed => 'Käyttöoikeuspyyntö keskeytettiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.';
 	@override String get permissionRequestFailed => 'Oikeuspyyntöä ei voitu lähettää. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.';
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoFi extends TranslationsSettingsAppInfoEn {
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify-versio ${version}';
 	@override String build({required Object buildNumber}) => 'Koonti ${buildNumber}';
 }
 
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingFi extends Translatio
 	@override String get description => 'Seuraa harjoittelun polttamia kaloreita suosikkisovelluksistasi';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedFi extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kulutetut kalorit';
+	@override String get description => 'Lue tämän päivän kulutettujen kalorien kokonaismäärä Health Connectista';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsFi extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsFi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsFi extends Translation
 	@override String get description => 'Saat yksityiskohtaisia näkymiä terveystrendeistäsi';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsFi extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Jaa kirjatut ateriat';
+	@override String get description => 'Kirjoita Calorifyyn kirjaamasi ateriat Health Connectiin';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationFi extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationFi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationFi extends Translat
 	// Translations
 	@override String get title => 'Saumaton integraatio';
 	@override String get description => 'Synkronoi tietoja suosikkiterveyssovelluksistasi';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlFi extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Sinä päätät';
+	@override String get description => 'Valitse haluamasi käyttöoikeus ja muuta pääsyä milloin tahansa';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableFi extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect ei saatavilla';
 	@override String get description => 'Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.';
+	@override String get unsupportedDescription => 'Health Connectia ei tueta tällä laitteella.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredFi extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+	final TranslationsFi _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect vaatii huomiota';
+	@override String get description => 'Asenna tai päivitä Health Connect ennen pääsyn hallintaa.';
+	@override String get action => 'Asenna tai päivitä';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyFi extends TranslationsSettingsAboutPriva
 	@override String get description => 'Yksityisyys ei ole harkinnanvarainen lisä — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:';
 	@override String get noAccounts => 'Ei tilejä vaadita\nKäytä sovellusta välittömästi. Ei kirjautumisia, ei identiteettejä.';
 	@override String noTracking({required Object appLabel}) => 'Ei käytöksen seurantaa\n${appLabel} ei seuraa toimintaasi, rakenna käyttötottumuksia tai seuraa sinua sovellusten tai verkkosivujen välillä.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Rajoitettu analytiikka ja diagnostiikka\n${appLabel} käyttää sovelluksen perustapahtumia ja kaatumisdiagnostiikkaa luotettavuuden parantamiseen. Terveystietojen arvoja ei käytetä mainontaan eikä myydä.';
 	@override String noAds({required Object appLabel}) => 'Mainokseton suunnittelu\n${appLabel} on rakennettu toimimaan ilman mainoksia tai dataperusteista rahastusta.';
 	@override String get noDataSelling => 'Ei datan myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.';
 	@override String get localStorage => 'Laitteella ensisijaisesti tallennus\nTietosi säilyvät laitteellasi.';
@@ -1833,18 +1908,31 @@ extension on TranslationsFi {
 			'onboarding.activityLevel.description' => 'Tämä auttaa meitä laskemaan päivittäiset kaloritarpeesi tarkemmin',
 			'onboarding.healthConnect.title' => 'Yhdistä Health Connectiin',
 			'onboarding.healthConnect.description' => 'Synkronoi terveystietosi parempia näkemyksiä ja automaattista kaloriseurantaa varten',
+			'onboarding.healthConnect.overviewDescription' => 'Käytä kulutettuja kaloreita päivätavoitteessasi ja halutessasi jaa kirjaamasi ateriat Health Connectiin.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Automaattinen kaloriseuranta',
 			'onboarding.healthConnect.automaticTracking.description' => 'Seuraa harjoittelun polttamia kaloreita suosikkisovelluksistasi',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Kulutetut kalorit',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Lue tämän päivän kulutettujen kalorien kokonaismäärä Health Connectista',
 			'onboarding.healthConnect.progressInsights.title' => 'Edistymisnäkymät',
 			'onboarding.healthConnect.progressInsights.description' => 'Saat yksityiskohtaisia näkymiä terveystrendeistäsi',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Jaa kirjatut ateriat',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Kirjoita Calorifyyn kirjaamasi ateriat Health Connectiin',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Saumaton integraatio',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Synkronoi tietoja suosikkiterveyssovelluksistasi',
+			'onboarding.healthConnect.userControl.title' => 'Sinä päätät',
+			'onboarding.healthConnect.userControl.description' => 'Valitse haluamasi käyttöoikeus ja muuta pääsyä milloin tahansa',
 			'onboarding.healthConnect.connected' => 'Health Connect yhdistetty',
 			'onboarding.healthConnect.notConnected' => 'Health Connect ei yhdistetty',
 			'onboarding.healthConnect.setup' => 'Aseta Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Ohita nyt',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect on yhdistetty.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect on yhdistetty onnistuneesti!',
+			'onboarding.healthConnect.statusNotConnected' => 'Valitse Health Connect -ominaisuudet, jotka haluat ottaa käyttöön.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect on yhdistetty osittain. Ota jäljellä oleva käyttöoikeus käyttöön käyttääksesi molempia ominaisuuksia.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Jatka asentamalla tai päivittämällä Health Connect.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connectia ei tueta tällä laitteella.',
+			'onboarding.healthConnect.installOrUpdate' => 'Asenna tai päivitä',
+			'onboarding.healthConnect.manageAccess' => 'Hallitse pääsyä',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Lupa evätty. Ota käyttöön Health Connect -oikeudet puhelimesi asetuksista ${appLabel}:lle.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Virhe Health Connectin asennuksessa: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Et ole yksin',
@@ -1899,7 +1987,7 @@ extension on TranslationsFi {
 			'home.dailyGoal.weightImpact' => 'Vaikutus painoon',
 			'home.dailyGoal.estLoss' => 'Arvioitu pudotus',
 			'home.dailyGoal.estGain' => 'Arvioitu nousu',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokaloria (kcal)',
 			'home.dailySummary.title' => 'Päiväkohtainen yhteenveto',
 			'home.dailySummary.calories' => 'Kalorit',
 			'home.dailySummary.carbs' => 'Hiilihydraatit',
@@ -1939,6 +2027,8 @@ extension on TranslationsFi {
 			'home.connectHealth.title' => 'Synkronoi Health Connectiin',
 			'home.connectHealth.description' => 'Synkronoi ravintotietosi Health Connectiin',
 			'home.connectHealth.install' => 'Asenna',
+			'home.connectHealth.dataUseDescription' => 'Käytä kulutettuja kaloreita tavoitteessasi ja jaa kirjatut ateriat',
+			'home.connectHealth.installOrUpdate' => 'Asenna tai päivitä',
 			'home.connectHealth.connect' => 'Yhdistä',
 			'history.noMeals' => 'Ei kirjattuja aterioita',
 			'history.emptyMessage' => 'Ota kuva viimeisestä ateriastasi kirjataksesi sen tänne.',
@@ -2005,7 +2095,7 @@ extension on TranslationsFi {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lisää',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ainesosaa tunnistettu',
 			'meal.analysis.ingredientsPending' => 'Skannataan ainesosia…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '”${text}”',
 			'meal.analysis.offlineTip0' => 'Vinkki: Johdonmukaisuus voittaa täydellisyyden—säännölliset merkinnät paljastavat merkitykselliset kaavat.',
 			'meal.analysis.offlineTip1' => 'Vinkki: Kuvia varten luonnonvalo ja ylhäältä otettu näkymä auttavat annosarvioissa.',
 			'meal.analysis.offlineTip2' => 'Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.',
@@ -2098,7 +2188,7 @@ extension on TranslationsFi {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'paunaa (lb)',
 			'editProfile.metricCm' => 'Metrinen (cm)',
 			'editProfile.imperialFtIn' => 'Imperiaalinen (ft/in)',
 			'editProfile.metricKg' => 'Metrinen (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsFi {
 			'settings.sections.profile' => 'PROFIILI',
 			'settings.sections.localization' => 'LOKALISAATIO',
 			'settings.sections.notifications' => 'ILMOITUKSET',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'LAITTEEN OMA ANALYYSI',
 			'settings.sections.supportAndLegal' => 'TUKI & LAINSÄÄDÄNTÖ',
 			'settings.sections.about' => 'TIETOA',
@@ -2175,8 +2265,10 @@ extension on TranslationsFi {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Ateriakirjan vieminen epäonnistui: ${error}',
 			'settings.clearAllData.title' => 'Tyhjennä kaikki tiedot',
 			'settings.clearAllData.subtitle' => 'Poista kaikki tietosi peruuttamattomasti',
+			'settings.clearAllData.localOnlySubtitle' => 'Poista tälle laitteelle tallennetut Calorify-tiedot',
 			'settings.clearAllData.confirmationTitle' => 'Tyhjennetäänkö kaikki tiedot?',
 			'settings.clearAllData.confirmationMessage' => 'Tätä toimenpidettä ei voi peruuttaa. Kaikki kirjatut ateriasi, suosikit ja profiiliasetukset poistetaan pysyvästi.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Tämä poistaa kirjatut ateriat, suosikit ja profiiliasetukset pysyvästi tältä laitteelta. Health Connectiin jo jaettuja aterioita ja Health Connectin käyttöoikeuksia hallitaan erikseen kohdassa Asetukset > Health Connect.',
 			'settings.clearAllData.cancel' => 'Peruuta',
 			'settings.clearAllData.clearEverything' => 'Tyhjennä kaikki',
 			'settings.debugOptions.title' => 'Debug-asetukset',
@@ -2185,6 +2277,10 @@ extension on TranslationsFi {
 			'settings.healthConnect.subtitle' => 'Katso ja hallinnoi käyttöoikeuksia',
 			'settings.healthConnect.unavailable.title' => 'Health Connect ei saatavilla',
 			'settings.healthConnect.unavailable.description' => 'Health Connect ei ole käytettävissä tällä laitteella. Asenna Health Connect Play Storesta (Android 9+) tai päivitä Android 14+:aan.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connectia ei tueta tällä laitteella.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect vaatii huomiota',
+			'settings.healthConnect.updateRequired.description' => 'Asenna tai päivitä Health Connect ennen pääsyn hallintaa.',
+			'settings.healthConnect.updateRequired.action' => 'Asenna tai päivitä',
 			'settings.healthConnect.permissions.title' => 'Oikeudet',
 			'settings.healthConnect.permissions.description' => 'Seuraavia oikeuksia pyydetään tarjotaksemme Health Connect -integraation:',
 			'settings.healthConnect.permissions.granted' => 'Myönnetty',
@@ -2200,6 +2296,19 @@ extension on TranslationsFi {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Tämä oikeus sallii sovelluksen synkronoida kirjauksesi Health Connectiin, jolloin ravintotietosi ovat muiden käyttämiesi terveys- ja kuntoilussovellusten saatavilla.',
 			'settings.healthConnect.managePermissions' => 'Hallitse käyttöoikeuksia',
 			'settings.healthConnect.openSettings' => 'Avaa Health Connect -asetukset',
+			'settings.healthConnect.disconnect' => 'Katkaise Health Connect -yhteys',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Katkaistaanko Health Connect -yhteys?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify menettää Health Connectin käyttöoikeuden. Sinne jo kirjoitettuja tietoja ei poisteta.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Katkaise yhteys',
+			'settings.healthConnect.deleteSyncedMeals' => 'Poista Calorify-ateriat Health Connectista',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Poistetaanko synkronoidut ateriat?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Poistetaanko tämän Calorify-version synkronoimat ateriat Health Connectista? Paikallinen aterialoki ei muutu. Vanhemmat Calorify-merkinnät on ehkä edelleen poistettava Health Connectin Hallitse tietoja -toiminnolla.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Poista synkronoidut ateriat',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Calorify-ateriat poistettiin Health Connectista.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Synkronoituja aterioita ei voitu poistaa. Yritä uudelleen.',
+			'settings.healthConnect.connectionPartial' => 'Jotkin Health Connect -ominaisuudet ovat käytössä.',
+			'settings.healthConnect.connectionComplete' => 'Molemmat Health Connect -ominaisuudet ovat käytössä.',
+			'settings.healthConnect.actionFailed' => 'Health Connectia ei voitu avata. Yritä uudelleen.',
 			'settings.healthConnect.requestPermissions' => 'Pyydä oikeuksia',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Käyttöoikeuspyyntö keskeytettiin tai epäonnistui. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.',
 			'settings.healthConnect.permissionRequestFailed' => 'Oikeuspyyntöä ei voitu lähettää. Yritä uudelleen tai myönnä oikeudet manuaalisesti Health Connectin asetuksista.',
@@ -2212,6 +2321,7 @@ extension on TranslationsFi {
 			'settings.about.privacy.description' => 'Yksityisyys ei ole harkinnanvarainen lisä — se on suunnitteluperiaate. Tässä, mitä se tarkoittaa käytännössä:',
 			'settings.about.privacy.noAccounts' => 'Ei tilejä vaadita\nKäytä sovellusta välittömästi. Ei kirjautumisia, ei identiteettejä.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ei käytöksen seurantaa\n${appLabel} ei seuraa toimintaasi, rakenna käyttötottumuksia tai seuraa sinua sovellusten tai verkkosivujen välillä.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Rajoitettu analytiikka ja diagnostiikka\n${appLabel} käyttää sovelluksen perustapahtumia ja kaatumisdiagnostiikkaa luotettavuuden parantamiseen. Terveystietojen arvoja ei käytetä mainontaan eikä myydä.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Mainokseton suunnittelu\n${appLabel} on rakennettu toimimaan ilman mainoksia tai dataperusteista rahastusta.',
 			'settings.about.privacy.noDataSelling' => 'Ei datan myyntiä\nTerveystietojasi ei koskaan myydä tai jaeta kolmansille osapuolille.',
 			'settings.about.privacy.localStorage' => 'Laitteella ensisijaisesti tallennus\nTietosi säilyvät laitteellasi.',
@@ -2224,7 +2334,7 @@ extension on TranslationsFi {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Palautteesi auttaa tekemään ${appLabel}:sta parempaa kaikille.',
 			'settings.about.feedback.rateApp' => 'Arvostele Play Storessa',
 			'settings.about.feedback.sendFeedback' => 'Lähetä palaute',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify-versio ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Koonti ${buildNumber}',
 			'reminders.title' => 'Pysy raiteilla muistutuksilla',
 			'reminders.description' => 'Saat lempeitä muistutuksia kirjataksesi ateriasi ja pysyäksesi johdonmukaisena ravintotavoissasi',
@@ -2256,6 +2366,8 @@ extension on TranslationsFi {
 			'notifications.snack.body' => 'Aika terveelliselle välipalalle',
 			'notifications.test.title' => 'Testi-ilmoitus',
 			'login.title' => 'Kirjaudu',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Kirjaudu Googlella',
 			'login.signInFailed' => 'Google-kirjautuminen epäonnistui tai peruttiin.',
 			'disclaimer.pleaseNote' => 'Huomioithan',
@@ -2291,8 +2403,6 @@ extension on TranslationsFi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Laskemme TDEE:si (profiilisi perusteella) ja kerromme sen kuluneen päivän osuudella (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ammatillinen ohjaus',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Ravintoarvot haettiin ladatusta USDA-paketista',
 			'localNutritionPhase4.nutritionCached' => 'Ravintoarvot haettiin laitteen USDA-välimuistista',
 			'localNutritionPhase4.nutritionMixed' => 'Ravintoarvot yhdistettiin ladatuista, välimuistiin tallennetuista ja etänä haetuista USDA-riveistä',

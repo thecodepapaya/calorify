@@ -262,16 +262,16 @@ class _TranslationsEditProfileRo extends TranslationsEditProfileEn {
 	@override String get weight => 'Greutate';
 	@override String get weightGoal => 'Obiectiv greutate';
 	@override String get activityLevel => 'Nivel de activitate';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
+	@override String get metric => 'Sistem metric';
+	@override String get imperial => 'Sistem imperial';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
-	@override String get metricCm => 'Metric (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
-	@override String get metricKg => 'Metric (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get unitLbs => 'lb';
+	@override String get metricCm => 'Sistem metric (cm)';
+	@override String get imperialFtIn => 'Sistem imperial (ft/in)';
+	@override String get metricKg => 'Sistem metric (kg)';
+	@override String get imperialLbs => 'Sistem imperial (lb)';
 	@override late final _TranslationsEditProfileGendersRo genders = _TranslationsEditProfileGendersRo._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsRo weightGoals = _TranslationsEditProfileWeightGoalsRo._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsRo activityLevels = _TranslationsEditProfileActivityLevelsRo._(_root);
@@ -489,8 +489,8 @@ class _TranslationsOnboardingHeightRo extends TranslationsOnboardingHeightEn {
 	// Translations
 	@override String get title => 'Cât de înalt ești?';
 	@override String get description => 'Înălțimea te ajută să calculăm BMI și nevoile energetice cu acuratețe.';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
+	@override String get metric => 'Sistem metric';
+	@override String get imperial => 'Sistem imperial';
 	@override String get next => 'Următorul';
 }
 
@@ -505,8 +505,8 @@ class _TranslationsOnboardingWeightRo extends TranslationsOnboardingWeightEn {
 	@override String get currentDescription => 'Greutatea actuală este esențială pentru personalizarea obiectivelor zilnice.';
 	@override String get targetTitle => 'Care este greutatea ta țintă?';
 	@override String get targetDescription => 'Stabilirea unei greutăți țintă ne ajută să determinăm planul pe termen lung.';
-	@override String get metric => 'Metric';
-	@override String get imperial => 'Imperial';
+	@override String get metric => 'Sistem metric';
+	@override String get imperial => 'Sistem imperial';
 	@override String get next => 'Următorul';
 }
 
@@ -568,6 +568,10 @@ class _TranslationsOnboardingHealthConnectRo extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Conectează-te la Health Connect';
 	@override String get description => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.';
+	@override String get overviewDescription => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedRo caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedRo._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsRo shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsRo._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlRo userControl = _TranslationsOnboardingHealthConnectUserControlRo._(_root);
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingRo automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingRo._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsRo progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsRo._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationRo seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationRo._(_root);
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalRo extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Impact asupra greutății';
 	@override String get estLoss => 'Estim. pierdere de';
 	@override String get estGain => 'Estim. câștig de';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilocalorii';
 }
 
 // Path: home.dailySummary
@@ -747,6 +751,8 @@ class _TranslationsHomeConnectHealthRo extends TranslationsHomeConnectHealthEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override String get dataUseDescription => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate';
+	@override String get installOrUpdate => 'Instalează sau actualizează';
 	@override String get title => 'Sincronizează cu Health Connect';
 	@override String get description => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate';
 	@override String get install => 'Instalează sau actualizează';
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisRo extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} în plus';
 	@override String ingredientsLine({required Object count}) => '${count} ingrediente detectate';
 	@override String get ingredientsPending => 'Scanare ingrediente…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '„${text}”';
 	@override String get offlineTip0 => 'Sfat: Consistența bate perfecțiunea—înregistrările regulate dezvăluie tiparele care contează.';
 	@override String get offlineTip1 => 'Sfat: Pentru fotografii, lumina naturală și o vedere de sus ajută la acuratețea porțiilor.';
 	@override String get offlineTip2 => 'Sfat: Menționează băuturile, sosurile și uleiul de gătit—ele adaugă calorii pe care oamenii le uită des.';
@@ -837,7 +843,7 @@ class _TranslationsMealLocalInferenceRo extends TranslationsMealLocalInferenceEn
 	@override String get reviewTitle => 'Revizuiește ingredientele detectate';
 	@override String get reviewSubtitle => 'Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.';
 	@override String get mealName => 'Numele mesei';
-	@override String get ingredient => 'Ingredient';
+	@override String get ingredient => 'Component alimentar';
 	@override String get grams => 'Grame estimate';
 	@override String get removeIngredient => 'Elimină ingredientul';
 	@override String get continueLabel => 'Continuă';
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsRo extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOCALIZARE';
 	@override String get notifications => 'NOTIFICĂRI';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'CONECTARE HEALTH CONNECT';
 	@override String get localInference => 'ANALIZĂ PE DISPOZITIV';
 	@override String get supportAndLegal => 'SUPORT & LEGAL';
 	@override String get about => 'DESPRE';
@@ -1111,6 +1117,8 @@ class _TranslationsSettingsClearAllDataRo extends TranslationsSettingsClearAllDa
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override String get localOnlySubtitle => 'Șterge datele Calorify stocate pe acest dispozitiv';
+	@override String get localOnlyConfirmationMessage => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.';
 	@override String get title => 'Șterge toate datele';
 	@override String get subtitle => 'Șterge datele Calorify stocate pe acest dispozitiv';
 	@override String get confirmationTitle => 'Ștergi toate datele?';
@@ -1184,8 +1192,8 @@ class _TranslationsSettingsAppInfoRo extends TranslationsSettingsAppInfoEn {
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify versiunea ${version}';
+	@override String build({required Object buildNumber}) => 'Compilarea ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1354,6 +1362,39 @@ class _TranslationsOnboardingBmiScaleMessagesRo extends TranslationsOnboardingBm
 	@override String get healthy => 'Felicitări! Te încadrezi într-un interval sănătos. Te vom ajuta să-ți menții vitalitatea și nivelul de energie.';
 	@override String overweight({required Object appLabel}) => '${appLabel} îți va simplifica parcursul cu urmărire asistată de AI pentru a te ajuta să-ți atingi ținta confortabil.';
 	@override String get obese => 'Suntem aici să te susținem cu recomandări personalizate și strategii sustenabile pentru obiectivele tale de sănătate.';
+}
+
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedRo extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Calorii arse';
+	@override String get description => 'Citește totalul caloriilor arse astăzi din Health Connect';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsRo extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Partajează mesele înregistrate';
+	@override String get description => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlRo extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlRo._(TranslationsRo root) : this._root = root, super.internal(root);
+
+	final TranslationsRo _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tu deții controlul';
+	@override String get description => 'Alege oricare dintre permisiuni și modifică accesul oricând';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1538,6 +1579,7 @@ class _TranslationsSettingsHealthConnectUnavailableRo extends TranslationsSettin
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override String get unsupportedDescription => 'Health Connect nu este acceptat pe acest dispozitiv.';
 	@override String get title => 'Health Connect indisponibil';
 	@override String get description => 'Health Connect nu este acceptat pe acest dispozitiv.';
 }
@@ -1588,6 +1630,7 @@ class _TranslationsSettingsAboutPrivacyRo extends TranslationsSettingsAboutPriva
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
+	@override String analyticsDisclosure({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.';
 	@override String get title => 'Confidențialitatea ta contează';
 	@override String get description => 'Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:';
 	@override String get noAccounts => 'Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.';
@@ -1834,15 +1877,15 @@ extension on TranslationsRo {
 			'onboarding.gender.next' => 'Următorul',
 			'onboarding.height.title' => 'Cât de înalt ești?',
 			'onboarding.height.description' => 'Înălțimea te ajută să calculăm BMI și nevoile energetice cu acuratețe.',
-			'onboarding.height.metric' => 'Metric',
-			'onboarding.height.imperial' => 'Imperial',
+			'onboarding.height.metric' => 'Sistem metric',
+			'onboarding.height.imperial' => 'Sistem imperial',
 			'onboarding.height.next' => 'Următorul',
 			'onboarding.weight.currentTitle' => 'Care este greutatea ta actuală?',
 			'onboarding.weight.currentDescription' => 'Greutatea actuală este esențială pentru personalizarea obiectivelor zilnice.',
 			'onboarding.weight.targetTitle' => 'Care este greutatea ta țintă?',
 			'onboarding.weight.targetDescription' => 'Stabilirea unei greutăți țintă ne ajută să determinăm planul pe termen lung.',
-			'onboarding.weight.metric' => 'Metric',
-			'onboarding.weight.imperial' => 'Imperial',
+			'onboarding.weight.metric' => 'Sistem metric',
+			'onboarding.weight.imperial' => 'Sistem imperial',
 			'onboarding.weight.next' => 'Următorul',
 			'onboarding.age.title' => 'Când e ziua ta de naștere?',
 			'onboarding.age.description' => 'Vârsta te ajută să calculăm cu acuratețe necesarul tău caloric.',
@@ -1865,6 +1908,13 @@ extension on TranslationsRo {
 			'onboarding.activityLevel.description' => 'Acest lucru ne ajută să calculăm mai precis necesarul tău caloric zilnic',
 			'onboarding.healthConnect.title' => 'Conectează-te la Health Connect',
 			'onboarding.healthConnect.description' => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.',
+			'onboarding.healthConnect.overviewDescription' => 'Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Calorii arse',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Citește totalul caloriilor arse astăzi din Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Partajează mesele înregistrate',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Scrie în Health Connect mesele pe care le înregistrezi în Calorify',
+			'onboarding.healthConnect.userControl.title' => 'Tu deții controlul',
+			'onboarding.healthConnect.userControl.description' => 'Alege oricare dintre permisiuni și modifică accesul oricând',
 			'onboarding.healthConnect.automaticTracking.title' => 'Calorii arse',
 			'onboarding.healthConnect.automaticTracking.description' => 'Citește totalul caloriilor arse astăzi din Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Partajează mesele înregistrate',
@@ -1937,7 +1987,7 @@ extension on TranslationsRo {
 			'home.dailyGoal.weightImpact' => 'Impact asupra greutății',
 			'home.dailyGoal.estLoss' => 'Estim. pierdere de',
 			'home.dailyGoal.estGain' => 'Estim. câștig de',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilocalorii',
 			'home.dailySummary.title' => 'Rezumat zilnic',
 			'home.dailySummary.calories' => 'Calorii',
 			'home.dailySummary.carbs' => 'Carbohidrați',
@@ -1974,6 +2024,8 @@ extension on TranslationsRo {
 			'home.mealSnap.gallery' => 'Galerie',
 			'home.mealSnap.compressingPhoto' => 'Optimizare fotografie…',
 			'home.mealSnap.uploadingPhoto' => 'Încărcare fotografie…',
+			'home.connectHealth.dataUseDescription' => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate',
+			'home.connectHealth.installOrUpdate' => 'Instalează sau actualizează',
 			'home.connectHealth.title' => 'Sincronizează cu Health Connect',
 			'home.connectHealth.description' => 'Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate',
 			'home.connectHealth.install' => 'Instalează sau actualizează',
@@ -2043,7 +2095,7 @@ extension on TranslationsRo {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} în plus',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingrediente detectate',
 			'meal.analysis.ingredientsPending' => 'Scanare ingrediente…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '„${text}”',
 			'meal.analysis.offlineTip0' => 'Sfat: Consistența bate perfecțiunea—înregistrările regulate dezvăluie tiparele care contează.',
 			'meal.analysis.offlineTip1' => 'Sfat: Pentru fotografii, lumina naturală și o vedere de sus ajută la acuratețea porțiilor.',
 			'meal.analysis.offlineTip2' => 'Sfat: Menționează băuturile, sosurile și uleiul de gătit—ele adaugă calorii pe care oamenii le uită des.',
@@ -2053,7 +2105,7 @@ extension on TranslationsRo {
 			'meal.localInference.reviewTitle' => 'Revizuiește ingredientele detectate',
 			'meal.localInference.reviewSubtitle' => 'Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.',
 			'meal.localInference.mealName' => 'Numele mesei',
-			'meal.localInference.ingredient' => 'Ingredient',
+			'meal.localInference.ingredient' => 'Component alimentar',
 			'meal.localInference.grams' => 'Grame estimate',
 			'meal.localInference.removeIngredient' => 'Elimină ingredientul',
 			'meal.localInference.continueLabel' => 'Continuă',
@@ -2131,16 +2183,16 @@ extension on TranslationsRo {
 			'editProfile.weight' => 'Greutate',
 			'editProfile.weightGoal' => 'Obiectiv greutate',
 			'editProfile.activityLevel' => 'Nivel de activitate',
-			'editProfile.metric' => 'Metric',
-			'editProfile.imperial' => 'Imperial',
+			'editProfile.metric' => 'Sistem metric',
+			'editProfile.imperial' => 'Sistem imperial',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
-			'editProfile.metricCm' => 'Metric (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
-			'editProfile.metricKg' => 'Metric (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
+			'editProfile.unitLbs' => 'lb',
+			'editProfile.metricCm' => 'Sistem metric (cm)',
+			'editProfile.imperialFtIn' => 'Sistem imperial (ft/in)',
+			'editProfile.metricKg' => 'Sistem metric (kg)',
+			'editProfile.imperialLbs' => 'Sistem imperial (lb)',
 			'editProfile.genders.male' => 'Bărbat',
 			'editProfile.genders.female' => 'Femeie',
 			'editProfile.genders.other' => 'Altul',
@@ -2164,7 +2216,7 @@ extension on TranslationsRo {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOCALIZARE',
 			'settings.sections.notifications' => 'NOTIFICĂRI',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'CONECTARE HEALTH CONNECT',
 			'settings.sections.localInference' => 'ANALIZĂ PE DISPOZITIV',
 			'settings.sections.supportAndLegal' => 'SUPORT & LEGAL',
 			'settings.sections.about' => 'DESPRE',
@@ -2211,6 +2263,8 @@ extension on TranslationsRo {
 			'settings.exportMealHistory.subtitle' => 'Partajează un CSV cu mesele înregistrate',
 			'settings.exportMealHistory.shareText' => 'Exportul istoricului meselor Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nu s-a putut exporta istoricul meselor: ${error}',
+			'settings.clearAllData.localOnlySubtitle' => 'Șterge datele Calorify stocate pe acest dispozitiv',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.',
 			'settings.clearAllData.title' => 'Șterge toate datele',
 			'settings.clearAllData.subtitle' => 'Șterge datele Calorify stocate pe acest dispozitiv',
 			'settings.clearAllData.confirmationTitle' => 'Ștergi toate datele?',
@@ -2221,6 +2275,7 @@ extension on TranslationsRo {
 			'settings.developerModeEnabled' => 'Mod dezvoltator activat!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Vizualizează și gestionează permisiunile',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect nu este acceptat pe acest dispozitiv.',
 			'settings.healthConnect.unavailable.title' => 'Health Connect indisponibil',
 			'settings.healthConnect.unavailable.description' => 'Health Connect nu este acceptat pe acest dispozitiv.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect necesită atenție',
@@ -2262,6 +2317,7 @@ extension on TranslationsRo {
 			'settings.about.tagline' => 'Conștientizare calorică rapidă, gratuită și cu confidențialitate pe primul loc',
 			'settings.about.ourStory.title' => 'Povestea noastră',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} a luat naștere dintr-o frustrare simplă: majoritatea aplicațiilor de urmărire a caloriilor sunt fie prea complicate, solicită introduceri manuale constante, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să creez ceva mai simplu și mai corect — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și tratează datele tale de sănătate cu respect.\n\n${appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analize și diagnosticare limitate\n${appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.',
 			'settings.about.privacy.title' => 'Confidențialitatea ta contează',
 			'settings.about.privacy.description' => 'Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:',
 			'settings.about.privacy.noAccounts' => 'Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.',
@@ -2278,8 +2334,8 @@ extension on TranslationsRo {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Feedback-ul tău ajută la îmbunătățirea ${appLabel} pentru toată lumea.',
 			'settings.about.feedback.rateApp' => 'Evaluează în Play Store',
 			'settings.about.feedback.sendFeedback' => 'Trimite feedback',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify versiunea ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Compilarea ${buildNumber}',
 			'reminders.title' => 'Rămâi pe drumul cel bun cu mementouri',
 			'reminders.description' => 'Primește mementouri blânde pentru a-ți înregistra mesele și a rămâne consecvent cu obiectivele nutriționale',
 			'reminders.notificationsEnabled' => 'Notificări activate',
@@ -2310,6 +2366,8 @@ extension on TranslationsRo {
 			'notifications.snack.body' => 'E timpul pentru o gustare sănătoasă',
 			'notifications.test.title' => 'Notificare de test',
 			'login.title' => 'Autentificare',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Autentifică-te cu Google',
 			'login.signInFailed' => 'Autentificarea cu Google a eșuat sau a fost anulată.',
 			'disclaimer.pleaseNote' => 'Te rugăm să reții',
@@ -2323,8 +2381,6 @@ extension on TranslationsRo {
 			'disclaimer.snap.databaseLimitations.title' => 'Limitări ale bazei de date',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza de date de alimente a ${appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație.',
 			'disclaimer.weightEstimate.title' => 'Despre estimarea greutății',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Schimbarea proiectată a greutății este o estimare teoretică bazată pe modelul simplu calorii-in vs calorii-out. Este destinat doar ca ghid motivațional, nu ca o predicție a greutății tale reale.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Acuratețea caloriilor',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Această estimare este la fel de precisă ca înregistrările tale de aport și cheltuieli calorice. Înregistrările inexacte vor conduce la proiecții inexacte.',

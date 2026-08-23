@@ -568,9 +568,13 @@ class _TranslationsOnboardingHealthConnectTe extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Health Connectతో కనెక్ట్ అవ్వండి';
 	@override String get description => 'మీ రోజువారీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు కావాలనుకుంటే లాగ్ చేసిన భోజనాలను Health Connectతో పంచుకోండి.';
+	@override String get overviewDescription => 'మీ రోజువారీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు కావాలనుకుంటే లాగ్ చేసిన భోజనాలను Health Connectతో పంచుకోండి.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingTe automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingTe._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedTe caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedTe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsTe progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsTe._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsTe shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsTe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationTe seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationTe._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlTe userControl = _TranslationsOnboardingHealthConnectUserControlTe._(_root);
 	@override String get connected => 'Health Connect కనెక్ట్ చేయబడింది';
 	@override String get notConnected => 'Health Connect కనెక్ట్ చేయబడలేదు';
 	@override String get setup => 'Health Connectను సెటప్ చేయండి';
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalTe extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'బరువు ప్రభావం';
 	@override String get estLoss => 'అంచనా నష్టం';
 	@override String get estGain => 'అంచనా లాభం';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'కిలోకేలరీలు';
 }
 
 // Path: home.dailySummary
@@ -749,7 +753,9 @@ class _TranslationsHomeConnectHealthTe extends TranslationsHomeConnectHealthEn {
 	// Translations
 	@override String get title => 'Health Connect తో సమకాలీకరించండి';
 	@override String get description => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి';
+	@override String get dataUseDescription => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి';
 	@override String get install => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి';
+	@override String get installOrUpdate => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి';
 	@override String get connect => 'కనెక్ట్ చేయండి';
 }
 
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisTe extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => 'మరిన్ని ${count}';
 	@override String ingredientsLine({required Object count}) => '${count} పదార్థాలు గుర్తించబడ్డాయి';
 	@override String get ingredientsPending => 'పదార్థాలను స్కాన్ చేస్తోంది…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'చిట్కా: స్థిరత్వం పరిపూర్ణతను అధిగమిస్తుంది—సాధారణ లాగ్‌లు ముఖ్యమైన నమూనాలను వెల్లడిస్తాయి.';
 	@override String get offlineTip1 => 'చిట్కా: ఫోటోల కోసం, సహజ కాంతి మరియు పై నుండి వీక్షణ భాగం ఖచ్చితత్వానికి సహాయపడతాయి.';
 	@override String get offlineTip2 => 'చిట్కా: పానీయాలు, సాస్‌లు మరియు వంట నూనెను పేర్కొనండి—అవి ప్రజలు తరచుగా మరచిపోయే కేలరీలను జోడిస్తాయి.';
@@ -1113,8 +1119,10 @@ class _TranslationsSettingsClearAllDataTe extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'అన్ని డేటాను క్లియర్ చేయండి';
 	@override String get subtitle => 'ఈ పరికరంలో నిల్వ చేసిన Calorify డేటాను తొలగించండి';
+	@override String get localOnlySubtitle => 'ఈ పరికరంలో నిల్వ చేసిన Calorify డేటాను తొలగించండి';
 	@override String get confirmationTitle => 'అన్ని డేటాను క్లియర్ చేయాలా?';
 	@override String get confirmationMessage => 'ఇది ఈ పరికరం నుండి లాగ్ చేసిన భోజనాలు, ఇష్టమైనవి మరియు ప్రొఫైల్ సెట్టింగ్‌లను శాశ్వతంగా తొలగిస్తుంది. Health Connectకు ఇప్పటికే పంచుకున్న భోజనాలు మరియు Health Connect యాక్సెస్‌ను సెట్టింగ్‌లు > Health Connectలో విడిగా నిర్వహించాలి.';
+	@override String get localOnlyConfirmationMessage => 'ఇది ఈ పరికరం నుండి లాగ్ చేసిన భోజనాలు, ఇష్టమైనవి మరియు ప్రొఫైల్ సెట్టింగ్‌లను శాశ్వతంగా తొలగిస్తుంది. Health Connectకు ఇప్పటికే పంచుకున్న భోజనాలు మరియు Health Connect యాక్సెస్‌ను సెట్టింగ్‌లు > Health Connectలో విడిగా నిర్వహించాలి.';
 	@override String get cancel => 'రద్దు చేయండి';
 	@override String get clearEverything => 'అన్నీ క్లియర్ చేయండి';
 }
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoTe extends TranslationsSettingsAppInfoEn {
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify వెర్షన్ ${version}';
 	@override String build({required Object buildNumber}) => 'బిల్డ్ ${buildNumber}';
 }
 
@@ -1367,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingTe extends Translatio
 	@override String get description => 'Health Connect నుండి ఈ రోజు బర్న్ అయిన మొత్తం కేలరీలను చదవండి';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedTe extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedTe._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'బర్న్ అయిన కేలరీలు';
+	@override String get description => 'Health Connect నుండి ఈ రోజు బర్న్ అయిన మొత్తం కేలరీలను చదవండి';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsTe extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsTe._(TranslationsTe root) : this._root = root, super.internal(root);
@@ -1378,9 +1397,31 @@ class _TranslationsOnboardingHealthConnectProgressInsightsTe extends Translation
 	@override String get description => 'Calorifyలో మీరు లాగ్ చేసిన భోజనాలను Health Connectకు రాయండి';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsTe extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsTe._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'లాగ్ చేసిన భోజనాలను పంచుకోండి';
+	@override String get description => 'Calorifyలో మీరు లాగ్ చేసిన భోజనాలను Health Connectకు రాయండి';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationTe extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationTe._(TranslationsTe root) : this._root = root, super.internal(root);
+
+	final TranslationsTe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'నియంత్రణ మీ చేతుల్లోనే';
+	@override String get description => 'రెండు అనుమతుల్లో మీకు కావలసినదాన్ని ఎంచుకుని, ఎప్పుడైనా యాక్సెస్‌ను మార్చండి';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlTe extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlTe._(TranslationsTe root) : this._root = root, super.internal(root);
 
 	final TranslationsTe _root; // ignore: unused_field
 
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableTe extends TranslationsSettin
 	// Translations
 	@override String get title => 'హెల్త్ కనెక్ట్ అందుబాటులో లేదు';
 	@override String get description => 'ఈ పరికరంలో Health Connectకు మద్దతు లేదు.';
+	@override String get unsupportedDescription => 'ఈ పరికరంలో Health Connectకు మద్దతు లేదు.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1592,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyTe extends TranslationsSettingsAboutPriva
 	@override String get description => 'గోప్యత అనేది ఒక ఆలోచన కాదు — ఇది ఒక డిజైన్ సూత్రం. ఆచరణలో దాని అర్థం ఇక్కడ ఉంది:';
 	@override String get noAccounts => 'ఖాతాలు అవసరం లేదు\nయాప్‌ను వెంటనే ఉపయోగించండి. సైన్-అప్‌లు లేవు, గుర్తింపులు లేవు.';
 	@override String noTracking({required Object appLabel}) => 'పరిమిత విశ్లేషణలు మరియు డయాగ్నస్టిక్స్\nవిశ్వసనీయతను మెరుగుపరచడానికి ${appLabel} ప్రాథమిక యాప్ ఈవెంట్‌లు మరియు క్రాష్ డయాగ్నస్టిక్స్‌ను ఉపయోగిస్తుంది. ఆరోగ్య రికార్డ్ విలువలను ప్రకటనల కోసం ఉపయోగించరు లేదా విక్రయించరు.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'పరిమిత విశ్లేషణలు మరియు డయాగ్నస్టిక్స్\nవిశ్వసనీయతను మెరుగుపరచడానికి ${appLabel} ప్రాథమిక యాప్ ఈవెంట్‌లు మరియు క్రాష్ డయాగ్నస్టిక్స్‌ను ఉపయోగిస్తుంది. ఆరోగ్య రికార్డ్ విలువలను ప్రకటనల కోసం ఉపయోగించరు లేదా విక్రయించరు.';
 	@override String noAds({required Object appLabel}) => 'డిజైన్ ద్వారా ప్రకటనలు లేవు\n${appLabel} ప్రకటనలు లేదా డేటా-ఆధారిత మానిటైజేషన్ లేకుండా పని చేయడానికి నిర్మించబడింది.';
 	@override String get noDataSelling => 'డేటా అమ్మకం లేదు\nమీ ఆరోగ్య డేటా ఎప్పుడూ విక్రయించబడదు లేదా మూడవ పక్షాలతో భాగస్వామ్యం చేయబడదు.';
 	@override String get localStorage => 'స్థానికంగా-మొదటి నిల్వ\nమీ డేటా మీ పరికరంలోనే ఉంటుంది.';
@@ -1865,12 +1908,19 @@ extension on TranslationsTe {
 			'onboarding.activityLevel.description' => 'ఇది మీ రోజువారీ కేలరీల అవసరాలను మరింత ఖచ్చితంగా లెక్కించడానికి మాకు సహాయపడుతుంది',
 			'onboarding.healthConnect.title' => 'Health Connectతో కనెక్ట్ అవ్వండి',
 			'onboarding.healthConnect.description' => 'మీ రోజువారీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు కావాలనుకుంటే లాగ్ చేసిన భోజనాలను Health Connectతో పంచుకోండి.',
+			'onboarding.healthConnect.overviewDescription' => 'మీ రోజువారీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు కావాలనుకుంటే లాగ్ చేసిన భోజనాలను Health Connectతో పంచుకోండి.',
 			'onboarding.healthConnect.automaticTracking.title' => 'బర్న్ అయిన కేలరీలు',
 			'onboarding.healthConnect.automaticTracking.description' => 'Health Connect నుండి ఈ రోజు బర్న్ అయిన మొత్తం కేలరీలను చదవండి',
+			'onboarding.healthConnect.caloriesBurned.title' => 'బర్న్ అయిన కేలరీలు',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect నుండి ఈ రోజు బర్న్ అయిన మొత్తం కేలరీలను చదవండి',
 			'onboarding.healthConnect.progressInsights.title' => 'లాగ్ చేసిన భోజనాలను పంచుకోండి',
 			'onboarding.healthConnect.progressInsights.description' => 'Calorifyలో మీరు లాగ్ చేసిన భోజనాలను Health Connectకు రాయండి',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'లాగ్ చేసిన భోజనాలను పంచుకోండి',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorifyలో మీరు లాగ్ చేసిన భోజనాలను Health Connectకు రాయండి',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'నియంత్రణ మీ చేతుల్లోనే',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'రెండు అనుమతుల్లో మీకు కావలసినదాన్ని ఎంచుకుని, ఎప్పుడైనా యాక్సెస్‌ను మార్చండి',
+			'onboarding.healthConnect.userControl.title' => 'నియంత్రణ మీ చేతుల్లోనే',
+			'onboarding.healthConnect.userControl.description' => 'రెండు అనుమతుల్లో మీకు కావలసినదాన్ని ఎంచుకుని, ఎప్పుడైనా యాక్సెస్‌ను మార్చండి',
 			'onboarding.healthConnect.connected' => 'Health Connect కనెక్ట్ చేయబడింది',
 			'onboarding.healthConnect.notConnected' => 'Health Connect కనెక్ట్ చేయబడలేదు',
 			'onboarding.healthConnect.setup' => 'Health Connectను సెటప్ చేయండి',
@@ -1937,7 +1987,7 @@ extension on TranslationsTe {
 			'home.dailyGoal.weightImpact' => 'బరువు ప్రభావం',
 			'home.dailyGoal.estLoss' => 'అంచనా నష్టం',
 			'home.dailyGoal.estGain' => 'అంచనా లాభం',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'కిలోకేలరీలు',
 			'home.dailySummary.title' => 'రోజువారీ సారాంశం',
 			'home.dailySummary.calories' => 'కేలరీలు',
 			'home.dailySummary.carbs' => 'కార్బోహైడ్రేట్లు',
@@ -1976,7 +2026,9 @@ extension on TranslationsTe {
 			'home.mealSnap.uploadingPhoto' => 'ఫోటోను అప్‌లోడ్ చేస్తోంది…',
 			'home.connectHealth.title' => 'Health Connect తో సమకాలీకరించండి',
 			'home.connectHealth.description' => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి',
+			'home.connectHealth.dataUseDescription' => 'మీ లక్ష్యంలో బర్న్ అయిన కేలరీలను ఉపయోగించండి మరియు లాగ్ చేసిన భోజనాలను పంచుకోండి',
 			'home.connectHealth.install' => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి',
+			'home.connectHealth.installOrUpdate' => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి',
 			'home.connectHealth.connect' => 'కనెక్ట్ చేయండి',
 			'history.noMeals' => 'భోజనాలు నమోదు చేయబడలేదు',
 			'history.emptyMessage' => 'ఇక్కడ లాగ్ చేయడానికి మీ చివరి భోజనం చిత్రాన్ని తీయండి.',
@@ -2043,7 +2095,7 @@ extension on TranslationsTe {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'మరిన్ని ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} పదార్థాలు గుర్తించబడ్డాయి',
 			'meal.analysis.ingredientsPending' => 'పదార్థాలను స్కాన్ చేస్తోంది…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'చిట్కా: స్థిరత్వం పరిపూర్ణతను అధిగమిస్తుంది—సాధారణ లాగ్‌లు ముఖ్యమైన నమూనాలను వెల్లడిస్తాయి.',
 			'meal.analysis.offlineTip1' => 'చిట్కా: ఫోటోల కోసం, సహజ కాంతి మరియు పై నుండి వీక్షణ భాగం ఖచ్చితత్వానికి సహాయపడతాయి.',
 			'meal.analysis.offlineTip2' => 'చిట్కా: పానీయాలు, సాస్‌లు మరియు వంట నూనెను పేర్కొనండి—అవి ప్రజలు తరచుగా మరచిపోయే కేలరీలను జోడిస్తాయి.',
@@ -2213,8 +2265,10 @@ extension on TranslationsTe {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'భోజన చరిత్రను ఎగుమతి చేయలేకపోయింది: ${error}',
 			'settings.clearAllData.title' => 'అన్ని డేటాను క్లియర్ చేయండి',
 			'settings.clearAllData.subtitle' => 'ఈ పరికరంలో నిల్వ చేసిన Calorify డేటాను తొలగించండి',
+			'settings.clearAllData.localOnlySubtitle' => 'ఈ పరికరంలో నిల్వ చేసిన Calorify డేటాను తొలగించండి',
 			'settings.clearAllData.confirmationTitle' => 'అన్ని డేటాను క్లియర్ చేయాలా?',
 			'settings.clearAllData.confirmationMessage' => 'ఇది ఈ పరికరం నుండి లాగ్ చేసిన భోజనాలు, ఇష్టమైనవి మరియు ప్రొఫైల్ సెట్టింగ్‌లను శాశ్వతంగా తొలగిస్తుంది. Health Connectకు ఇప్పటికే పంచుకున్న భోజనాలు మరియు Health Connect యాక్సెస్‌ను సెట్టింగ్‌లు > Health Connectలో విడిగా నిర్వహించాలి.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'ఇది ఈ పరికరం నుండి లాగ్ చేసిన భోజనాలు, ఇష్టమైనవి మరియు ప్రొఫైల్ సెట్టింగ్‌లను శాశ్వతంగా తొలగిస్తుంది. Health Connectకు ఇప్పటికే పంచుకున్న భోజనాలు మరియు Health Connect యాక్సెస్‌ను సెట్టింగ్‌లు > Health Connectలో విడిగా నిర్వహించాలి.',
 			'settings.clearAllData.cancel' => 'రద్దు చేయండి',
 			'settings.clearAllData.clearEverything' => 'అన్నీ క్లియర్ చేయండి',
 			'settings.debugOptions.title' => 'డీబగ్ ఎంపికలు',
@@ -2223,6 +2277,7 @@ extension on TranslationsTe {
 			'settings.healthConnect.subtitle' => 'అనుమతులను వీక్షించండి మరియు నిర్వహించండి',
 			'settings.healthConnect.unavailable.title' => 'హెల్త్ కనెక్ట్ అందుబాటులో లేదు',
 			'settings.healthConnect.unavailable.description' => 'ఈ పరికరంలో Health Connectకు మద్దతు లేదు.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'ఈ పరికరంలో Health Connectకు మద్దతు లేదు.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connectపై శ్రద్ధ అవసరం',
 			'settings.healthConnect.updateRequired.description' => 'యాక్సెస్‌ను నిర్వహించే ముందు Health Connectను ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి.',
 			'settings.healthConnect.updateRequired.action' => 'ఇన్‌స్టాల్ చేయండి లేదా అప్‌డేట్ చేయండి',
@@ -2266,6 +2321,7 @@ extension on TranslationsTe {
 			'settings.about.privacy.description' => 'గోప్యత అనేది ఒక ఆలోచన కాదు — ఇది ఒక డిజైన్ సూత్రం. ఆచరణలో దాని అర్థం ఇక్కడ ఉంది:',
 			'settings.about.privacy.noAccounts' => 'ఖాతాలు అవసరం లేదు\nయాప్‌ను వెంటనే ఉపయోగించండి. సైన్-అప్‌లు లేవు, గుర్తింపులు లేవు.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'పరిమిత విశ్లేషణలు మరియు డయాగ్నస్టిక్స్\nవిశ్వసనీయతను మెరుగుపరచడానికి ${appLabel} ప్రాథమిక యాప్ ఈవెంట్‌లు మరియు క్రాష్ డయాగ్నస్టిక్స్‌ను ఉపయోగిస్తుంది. ఆరోగ్య రికార్డ్ విలువలను ప్రకటనల కోసం ఉపయోగించరు లేదా విక్రయించరు.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'పరిమిత విశ్లేషణలు మరియు డయాగ్నస్టిక్స్\nవిశ్వసనీయతను మెరుగుపరచడానికి ${appLabel} ప్రాథమిక యాప్ ఈవెంట్‌లు మరియు క్రాష్ డయాగ్నస్టిక్స్‌ను ఉపయోగిస్తుంది. ఆరోగ్య రికార్డ్ విలువలను ప్రకటనల కోసం ఉపయోగించరు లేదా విక్రయించరు.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'డిజైన్ ద్వారా ప్రకటనలు లేవు\n${appLabel} ప్రకటనలు లేదా డేటా-ఆధారిత మానిటైజేషన్ లేకుండా పని చేయడానికి నిర్మించబడింది.',
 			'settings.about.privacy.noDataSelling' => 'డేటా అమ్మకం లేదు\nమీ ఆరోగ్య డేటా ఎప్పుడూ విక్రయించబడదు లేదా మూడవ పక్షాలతో భాగస్వామ్యం చేయబడదు.',
 			'settings.about.privacy.localStorage' => 'స్థానికంగా-మొదటి నిల్వ\nమీ డేటా మీ పరికరంలోనే ఉంటుంది.',
@@ -2278,7 +2334,7 @@ extension on TranslationsTe {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'మీ అభిప్రాయం ${appLabel} అందరికీ మెరుగ్గా ఉండటానికి సహాయపడుతుంది.',
 			'settings.about.feedback.rateApp' => 'ప్లే స్టోర్‌లో రేట్ చేయండి',
 			'settings.about.feedback.sendFeedback' => 'అభిప్రాయాన్ని పంపండి',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify వెర్షన్ ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'బిల్డ్ ${buildNumber}',
 			'reminders.title' => 'రిమైండర్‌లతో ట్రాక్‌లో ఉండండి',
 			'reminders.description' => 'మీ భోజనాన్ని లాగ్ చేయడానికి మరియు మీ పోషకాహార లక్ష్యాలతో స్థిరంగా ఉండటానికి సున్నితమైన రిమైండర్‌లను పొందండి',
@@ -2310,6 +2366,8 @@ extension on TranslationsTe {
 			'notifications.snack.body' => 'ఆరోగ్యకరమైన చిరుతిండికి సమయం',
 			'notifications.test.title' => 'పరీక్ష నోటిఫికేషన్',
 			'login.title' => 'లాగిన్',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Googleతో సైన్ ఇన్ చేయండి',
 			'login.signInFailed' => 'Google సైన్-ఇన్ విఫలమైంది లేదా రద్దు చేయబడింది.',
 			'disclaimer.pleaseNote' => 'దయచేసి గమనించండి',
@@ -2323,8 +2381,6 @@ extension on TranslationsTe {
 			'disclaimer.snap.databaseLimitations.title' => 'డేటాబేస్ పరిమితులు',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} యొక్క ఆహార డేటాబేస్ విస్తృతమైనది కానీ ప్రతి ఒక్క ఆహార వస్తువు లేదా వైవిధ్యాన్ని కలిగి ఉండకపోవచ్చు.',
 			'disclaimer.weightEstimate.title' => 'బరువు అంచనా గురించి',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'అంచనా వేసిన బరువు మార్పు అనేది సాధారణ క్యాలరీ-ఇన్ వర్సెస్ క్యాలరీ-అవుట్ మోడల్ ఆధారంగా ఒక సైద్ధాంతిక అంచనా. ఇది ప్రేరణాత్మక మార్గదర్శకత్వం కోసం మాత్రమే ఉద్దేశించబడింది, మీ వాస్తవ బరువు యొక్క అంచనాగా కాదు.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'క్యాలరీ ఖచ్చితత్వం',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'ఈ అంచనా మీ ట్రాక్ చేయబడిన క్యాలరీ తీసుకోవడం మరియు ఖర్చు చేసినంత ఖచ్చితమైనది. తప్పు లాగింగ్ తప్పు అంచనాకు దారి తీస్తుంది.',

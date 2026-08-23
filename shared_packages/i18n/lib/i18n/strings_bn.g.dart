@@ -267,7 +267,7 @@ class _TranslationsEditProfileBn extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'পাউন্ড';
 	@override String get metricCm => 'মেট্রিক (cm)';
 	@override String get imperialFtIn => 'ইম্পেরিয়াল (ft/in)';
 	@override String get metricKg => 'মেট্রিক (kg)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectBn extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Health Connect-এ সংযুক্ত করুন';
 	@override String get description => 'উন্নত অন্তর্দৃষ্টি ও স্বয়ংক্রিয় ক্যালোরি ট্র্যাকিং-এর জন্য আপনার স্বাস্থ্য ডেটা সিঙ্ক করুন';
+	@override String get overviewDescription => 'দৈনিক লক্ষ্যে পোড়ানো ক্যালোরি ব্যবহার করুন এবং চাইলে লগ করা খাবার Health Connect-এর সঙ্গে শেয়ার করুন।';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingBn automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingBn._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedBn caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedBn._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsBn progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsBn._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsBn shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsBn._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationBn seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationBn._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlBn userControl = _TranslationsOnboardingHealthConnectUserControlBn._(_root);
 	@override String get connected => 'Health Connect সংযুক্ত';
 	@override String get notConnected => 'Health Connect সংযুক্ত নেই';
 	@override String get setup => 'Health Connect সেটআপ করুন';
 	@override String get skipForNow => 'এখন বাদ দিন';
 	@override String get statusConnected => 'Health Connect সংযুক্ত আছে।';
 	@override String get statusSuccess => 'Health Connect সফলভাবে সংযুক্ত হয়েছে!';
+	@override String get statusNotConnected => 'আপনি যে Health Connect বৈশিষ্ট্যগুলো চালু করতে চান সেগুলো বেছে নিন।';
+	@override String get statusPartial => 'Health Connect আংশিকভাবে সংযুক্ত। দুটি বৈশিষ্ট্যই ব্যবহার করতে বাকি অনুমতিটি চালু করুন।';
+	@override String get statusProviderUpdateRequired => 'চালিয়ে যেতে Health Connect ইনস্টল বা আপডেট করুন।';
+	@override String get statusUnavailable => 'এই ডিভাইসে Health Connect সমর্থিত নয়।';
+	@override String get installOrUpdate => 'ইনস্টল বা আপডেট করুন';
+	@override String get manageAccess => 'অ্যাক্সেস পরিচালনা করুন';
 	@override String statusPermissionDenied({required Object appLabel}) => 'অনুমতি প্রত্যাখ্যান। অনুগ্রহ করে আপনার ফোন সেটিংস থেকে ${appLabel}-এর জন্য Health Connect অনুমতিগুলি সক্রিয় করুন।';
 	@override String statusError({required Object error}) => 'Health Connect সেটআপে ত্রুটি: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalBn extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'ওজনের প্রভাব';
 	@override String get estLoss => 'আনুমানিক হ্রাস';
 	@override String get estGain => 'আনুমানিক বৃদ্ধি';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'কিলোক্যালরি';
 }
 
 // Path: home.dailySummary
@@ -743,7 +753,9 @@ class _TranslationsHomeConnectHealthBn extends TranslationsHomeConnectHealthEn {
 	// Translations
 	@override String get title => 'Health Connect-এর সাথে সিঙ্ক করুন';
 	@override String get description => 'আপনার পুষ্টি ডেটা Health Connect-এ সিঙ্ক করুন';
+	@override String get dataUseDescription => 'আপনার লক্ষ্যে পোড়ানো ক্যালোরি ব্যবহার করুন এবং লগ করা খাবার শেয়ার করুন';
 	@override String get install => 'ইনস্টল করুন';
+	@override String get installOrUpdate => 'ইনস্টল বা আপডেট করুন';
 	@override String get connect => 'সংযোগ করুন';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisBn extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count}টি আরও';
 	@override String ingredientsLine({required Object count}) => '${count}টি উপাদান শনাক্ত হয়েছে';
 	@override String get ingredientsPending => 'উপাদান স্ক্যান করা হচ্ছে…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'পরামর্শ: ধারাবাহিকতা পরিপূর্ণতার চেয়ে বেশি গুরুত্বপূর্ণ—নিয়মিত লগগুলোই গুরুত্বপূর্ণ প্যাটার্ন দেখায়।';
 	@override String get offlineTip1 => 'পরামর্শ: ছবির জন্য প্রাকৃতিক আলো ও টপ-ডাউন ভিউ পরিমাপ নির্ভুল করতে সাহায্য করে।';
 	@override String get offlineTip2 => 'পরামর্শ: পানীয়, সস ও রান্নার তেল উল্লেখ করুন—এগুলো ক্যালরি বাড়ায় যা প্রায়ই ভুলে যাওয়া হয়।';
@@ -904,7 +916,7 @@ class _TranslationsProfileCalculatedValuesBn extends TranslationsProfileCalculat
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'দৈনিক লক্ষ্য';
-	@override String get calPerDay => 'cal/day';
+	@override String get calPerDay => 'ক্যালরি/দিন';
 	@override String get notAvailable => 'প্রযোজ্য নয়';
 }
 
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataBn extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'সকল ডেটা মুছুন';
 	@override String get subtitle => 'আপনার সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে';
+	@override String get localOnlySubtitle => 'এই ডিভাইসে সংরক্ষিত Calorify ডেটা মুছুন';
 	@override String get confirmationTitle => 'সব ডেটা মুছে ফেলবেন?';
 	@override String get confirmationMessage => 'এই কাজ অপরিবর্তনীয়। আপনার সব লগ করা খাবার, পছন্দসমূহ এবং প্রোফাইল সেটিংস স্থায়ভাবে মুছে যাবে।';
+	@override String get localOnlyConfirmationMessage => 'এটি এই ডিভাইস থেকে লগ করা খাবার, পছন্দের আইটেম ও প্রোফাইল সেটিংস স্থায়ীভাবে মুছে দেবে। Health Connect-এ আগে শেয়ার করা খাবার এবং Health Connect অ্যাক্সেস সেটিংস > Health Connect-এ আলাদাভাবে পরিচালিত হয়।';
 	@override String get cancel => 'বাতিল';
 	@override String get clearEverything => 'সবকিছু মুছুন';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectBn extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'অনুমতি দেখুন ও পরিচালনা করুন';
 	@override late final _TranslationsSettingsHealthConnectUnavailableBn unavailable = _TranslationsSettingsHealthConnectUnavailableBn._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredBn updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredBn._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsBn permissions = _TranslationsSettingsHealthConnectPermissionsBn._(_root);
 	@override String get managePermissions => 'অনুমতি পরিচালনা করুন';
 	@override String get openSettings => 'Health Connect সেটিংস খুলুন';
+	@override String get disconnect => 'Health Connect সংযোগ বিচ্ছিন্ন করুন';
+	@override String get disconnectConfirmationTitle => 'Health Connect সংযোগ বিচ্ছিন্ন করবেন?';
+	@override String get disconnectConfirmationMessage => 'Calorify Health Connect-এর অ্যাক্সেস হারাবে। সেখানে আগে লেখা ডেটা মুছে যাবে না।';
+	@override String get disconnectConfirmationAction => 'সংযোগ বিচ্ছিন্ন করুন';
+	@override String get deleteSyncedMeals => 'Health Connect থেকে Calorify-এর খাবার মুছুন';
+	@override String get deleteSyncedMealsConfirmationTitle => 'সিঙ্ক করা খাবার মুছবেন?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Calorify-এর এই সংস্করণ দিয়ে Health Connect-এ সিঙ্ক করা খাবার মুছবেন? আপনার স্থানীয় খাবারের লগ বদলাবে না। Calorify-এর পুরোনো এন্ট্রি Health Connect-এর ডেটা পরিচালনা বিকল্প ব্যবহার করে আলাদাভাবে মুছতে হতে পারে।';
+	@override String get deleteSyncedMealsConfirmationAction => 'সিঙ্ক করা খাবার মুছুন';
+	@override String get deleteSyncedMealsSuccess => 'Health Connect থেকে Calorify-এর খাবার মুছে ফেলা হয়েছে।';
+	@override String get deleteSyncedMealsFailed => 'সিঙ্ক করা খাবার মুছে ফেলা যায়নি। আবার চেষ্টা করুন।';
+	@override String get connectionPartial => 'Health Connect-এর কিছু বৈশিষ্ট্য চালু আছে।';
+	@override String get connectionComplete => 'Health Connect-এর দুটি বৈশিষ্ট্যই চালু আছে।';
+	@override String get actionFailed => 'Health Connect খোলা যায়নি। আবার চেষ্টা করুন।';
 	@override String get requestPermissions => 'অনুমতিগুলির জন্য অনুরোধ করুন';
 	@override String get permissionRequestCancelledOrFailed => 'অনুমতি অনুরোধ বাতিল হয়েছে বা ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন বা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।';
 	@override String get permissionRequestFailed => 'অনুমতি অনুরোধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন বা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।';
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoBn extends TranslationsSettingsAppInfoEn {
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify সংস্করণ ${version}';
 	@override String build({required Object buildNumber}) => 'বিল্ড ${buildNumber}';
 }
 
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingBn extends Translatio
 	@override String get description => 'আপনার ফিটনেস অ্যাপ থেকে পোড়ানো ক্যালোরি ট্র্যাক করুন';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedBn extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedBn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'পোড়ানো ক্যালোরি';
+	@override String get description => 'Health Connect থেকে আজকের মোট পোড়ানো ক্যালোরি পড়ুন';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsBn extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsBn._(TranslationsBn root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsBn extends Translation
 	@override String get description => 'আপনার স্বাস্থ্য প্রবণতা সম্পর্কে বিশদ অন্তর্দৃষ্টি পান';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsBn extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsBn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'লগ করা খাবার শেয়ার করুন';
+	@override String get description => 'Calorify-এ লগ করা খাবার Health Connect-এ লিখুন';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationBn extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationBn._(TranslationsBn root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationBn extends Translat
 	// Translations
 	@override String get title => 'নিরবিঘ্ন সমন্বয়';
 	@override String get description => 'আপনার প্রিয় স্বাস্থ্য অ্যাপগুলো থেকে ডেটা সিঙ্ক করুন';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlBn extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlBn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'নিয়ন্ত্রণ আপনার হাতে';
+	@override String get description => 'যেকোনো একটি অনুমতি বেছে নিন এবং যেকোনো সময় অ্যাক্সেস পরিবর্তন করুন';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableBn extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect উপলব্ধ নয়';
 	@override String get description => 'এই ডিভাইসে Health Connect উপলব্ধ নেই। অনুগ্রহ করে Play Store থেকে Health Connect ইনস্টল করুন (Android 9+) বা Android 14+-এ আপডেট করুন।';
+	@override String get unsupportedDescription => 'এই ডিভাইসে Health Connect সমর্থিত নয়।';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredBn extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredBn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+	final TranslationsBn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect-এ নজর দেওয়া দরকার';
+	@override String get description => 'অ্যাক্সেস পরিচালনার আগে Health Connect ইনস্টল বা আপডেট করুন।';
+	@override String get action => 'ইনস্টল বা আপডেট করুন';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyBn extends TranslationsSettingsAboutPriva
 	@override String get description => 'গোপনীয়তা কোনো পরবর্তীতে চিন্তার বিষয় নয় — এটি ডিজাইনের মূলনীতি। এর অর্থ বাস্তবে কী তা নিচে:';
 	@override String get noAccounts => 'অ্যাকাউন্টের কোনো প্রয়োজন নেই\nঅ্যাপটি এখনই ব্যবহার করুন। কোনো সাইন-আপ নেই, কোনো পরিচয় প্রয়োজন নেই।';
 	@override String noTracking({required Object appLabel}) => 'আচরণগত ট্র্যাকিং নেই\n${appLabel} আপনার কার্যকলাপ পর্যবেক্ষণ করে না, ব্যবহার প্রোফাইল তৈরি করে না, বা অ্যাপ/ওয়েবসাইট জুড়ে আপনাকে ট্র্যাক করে না।';
+	@override String analyticsDisclosure({required Object appLabel}) => 'সীমিত বিশ্লেষণ ও ডায়াগনস্টিকস\nনির্ভরযোগ্যতা উন্নত করতে ${appLabel} অ্যাপের মৌলিক ইভেন্ট ও ক্র্যাশ ডায়াগনস্টিকস ব্যবহার করে। স্বাস্থ্য রেকর্ডের মান বিজ্ঞাপনের জন্য ব্যবহার বা বিক্রি করা হয় না।';
 	@override String noAds({required Object appLabel}) => 'ডিজাইনে বিজ্ঞাপনবিহীন\n${appLabel} বিজ্ঞাপন বা ডেটা-ভিত্তিক মনিটাইজেশন ছাড়াই কাজ করার জন্য তৈরি।';
 	@override String get noDataSelling => 'ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য ডেটা কখনই তৃতীয় পক্ষের কাছে বিক্রি বা শেয়ার করা হয় না।';
 	@override String get localStorage => 'স্থানীয়-প্রথম সংরক্ষণ\nআপনার ডেটা আপনার ডিভাইসেই থাকে।';
@@ -1833,18 +1908,31 @@ extension on TranslationsBn {
 			'onboarding.activityLevel.description' => 'এটি আমাদেরকে আপনার দৈনিক ক্যালোরি চাহিদা আরও সঠিকভাবে হিসাব করতে সাহায্য করে',
 			'onboarding.healthConnect.title' => 'Health Connect-এ সংযুক্ত করুন',
 			'onboarding.healthConnect.description' => 'উন্নত অন্তর্দৃষ্টি ও স্বয়ংক্রিয় ক্যালোরি ট্র্যাকিং-এর জন্য আপনার স্বাস্থ্য ডেটা সিঙ্ক করুন',
+			'onboarding.healthConnect.overviewDescription' => 'দৈনিক লক্ষ্যে পোড়ানো ক্যালোরি ব্যবহার করুন এবং চাইলে লগ করা খাবার Health Connect-এর সঙ্গে শেয়ার করুন।',
 			'onboarding.healthConnect.automaticTracking.title' => 'স্বয়ংক্রিয় ক্যালোরি ট্র্যাকিং',
 			'onboarding.healthConnect.automaticTracking.description' => 'আপনার ফিটনেস অ্যাপ থেকে পোড়ানো ক্যালোরি ট্র্যাক করুন',
+			'onboarding.healthConnect.caloriesBurned.title' => 'পোড়ানো ক্যালোরি',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect থেকে আজকের মোট পোড়ানো ক্যালোরি পড়ুন',
 			'onboarding.healthConnect.progressInsights.title' => 'অগ্রগতি বিশ্লেষণ',
 			'onboarding.healthConnect.progressInsights.description' => 'আপনার স্বাস্থ্য প্রবণতা সম্পর্কে বিশদ অন্তর্দৃষ্টি পান',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'লগ করা খাবার শেয়ার করুন',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify-এ লগ করা খাবার Health Connect-এ লিখুন',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'নিরবিঘ্ন সমন্বয়',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'আপনার প্রিয় স্বাস্থ্য অ্যাপগুলো থেকে ডেটা সিঙ্ক করুন',
+			'onboarding.healthConnect.userControl.title' => 'নিয়ন্ত্রণ আপনার হাতে',
+			'onboarding.healthConnect.userControl.description' => 'যেকোনো একটি অনুমতি বেছে নিন এবং যেকোনো সময় অ্যাক্সেস পরিবর্তন করুন',
 			'onboarding.healthConnect.connected' => 'Health Connect সংযুক্ত',
 			'onboarding.healthConnect.notConnected' => 'Health Connect সংযুক্ত নেই',
 			'onboarding.healthConnect.setup' => 'Health Connect সেটআপ করুন',
 			'onboarding.healthConnect.skipForNow' => 'এখন বাদ দিন',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect সংযুক্ত আছে।',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect সফলভাবে সংযুক্ত হয়েছে!',
+			'onboarding.healthConnect.statusNotConnected' => 'আপনি যে Health Connect বৈশিষ্ট্যগুলো চালু করতে চান সেগুলো বেছে নিন।',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect আংশিকভাবে সংযুক্ত। দুটি বৈশিষ্ট্যই ব্যবহার করতে বাকি অনুমতিটি চালু করুন।',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'চালিয়ে যেতে Health Connect ইনস্টল বা আপডেট করুন।',
+			'onboarding.healthConnect.statusUnavailable' => 'এই ডিভাইসে Health Connect সমর্থিত নয়।',
+			'onboarding.healthConnect.installOrUpdate' => 'ইনস্টল বা আপডেট করুন',
+			'onboarding.healthConnect.manageAccess' => 'অ্যাক্সেস পরিচালনা করুন',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'অনুমতি প্রত্যাখ্যান। অনুগ্রহ করে আপনার ফোন সেটিংস থেকে ${appLabel}-এর জন্য Health Connect অনুমতিগুলি সক্রিয় করুন।',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect সেটআপে ত্রুটি: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'আপনি একা নন',
@@ -1899,7 +1987,7 @@ extension on TranslationsBn {
 			'home.dailyGoal.weightImpact' => 'ওজনের প্রভাব',
 			'home.dailyGoal.estLoss' => 'আনুমানিক হ্রাস',
 			'home.dailyGoal.estGain' => 'আনুমানিক বৃদ্ধি',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'কিলোক্যালরি',
 			'home.dailySummary.title' => 'দৈনিক সারাংশ',
 			'home.dailySummary.calories' => 'ক্যালোরি',
 			'home.dailySummary.carbs' => 'কার্বস',
@@ -1938,7 +2026,9 @@ extension on TranslationsBn {
 			'home.mealSnap.uploadingPhoto' => 'ছবি আপলোড করা হচ্ছে…',
 			'home.connectHealth.title' => 'Health Connect-এর সাথে সিঙ্ক করুন',
 			'home.connectHealth.description' => 'আপনার পুষ্টি ডেটা Health Connect-এ সিঙ্ক করুন',
+			'home.connectHealth.dataUseDescription' => 'আপনার লক্ষ্যে পোড়ানো ক্যালোরি ব্যবহার করুন এবং লগ করা খাবার শেয়ার করুন',
 			'home.connectHealth.install' => 'ইনস্টল করুন',
+			'home.connectHealth.installOrUpdate' => 'ইনস্টল বা আপডেট করুন',
 			'home.connectHealth.connect' => 'সংযোগ করুন',
 			'history.noMeals' => 'কোনো খাবার রেকর্ড নেই',
 			'history.emptyMessage' => 'এখানে লগ করতে আপনার শেষ খাবারের একটি ছবি তুলুন।',
@@ -2005,7 +2095,7 @@ extension on TranslationsBn {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count}টি আরও',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count}টি উপাদান শনাক্ত হয়েছে',
 			'meal.analysis.ingredientsPending' => 'উপাদান স্ক্যান করা হচ্ছে…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'পরামর্শ: ধারাবাহিকতা পরিপূর্ণতার চেয়ে বেশি গুরুত্বপূর্ণ—নিয়মিত লগগুলোই গুরুত্বপূর্ণ প্যাটার্ন দেখায়।',
 			'meal.analysis.offlineTip1' => 'পরামর্শ: ছবির জন্য প্রাকৃতিক আলো ও টপ-ডাউন ভিউ পরিমাপ নির্ভুল করতে সাহায্য করে।',
 			'meal.analysis.offlineTip2' => 'পরামর্শ: পানীয়, সস ও রান্নার তেল উল্লেখ করুন—এগুলো ক্যালরি বাড়ায় যা প্রায়ই ভুলে যাওয়া হয়।',
@@ -2075,7 +2165,7 @@ extension on TranslationsBn {
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'দৈনিক লক্ষ্য',
-			'profile.calculatedValues.calPerDay' => 'cal/day',
+			'profile.calculatedValues.calPerDay' => 'ক্যালরি/দিন',
 			'profile.calculatedValues.notAvailable' => 'প্রযোজ্য নয়',
 			'healthScore.title' => 'স্বাস্থ্য স্কোর',
 			'healthScore.whyThisScore' => 'এই স্কোর কেন?',
@@ -2098,7 +2188,7 @@ extension on TranslationsBn {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'পাউন্ড',
 			'editProfile.metricCm' => 'মেট্রিক (cm)',
 			'editProfile.imperialFtIn' => 'ইম্পেরিয়াল (ft/in)',
 			'editProfile.metricKg' => 'মেট্রিক (kg)',
@@ -2175,8 +2265,10 @@ extension on TranslationsBn {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'খাবারের ইতিহাস এক্সপোর্ট করা যায়নি: ${error}',
 			'settings.clearAllData.title' => 'সকল ডেটা মুছুন',
 			'settings.clearAllData.subtitle' => 'আপনার সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে',
+			'settings.clearAllData.localOnlySubtitle' => 'এই ডিভাইসে সংরক্ষিত Calorify ডেটা মুছুন',
 			'settings.clearAllData.confirmationTitle' => 'সব ডেটা মুছে ফেলবেন?',
 			'settings.clearAllData.confirmationMessage' => 'এই কাজ অপরিবর্তনীয়। আপনার সব লগ করা খাবার, পছন্দসমূহ এবং প্রোফাইল সেটিংস স্থায়ভাবে মুছে যাবে।',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'এটি এই ডিভাইস থেকে লগ করা খাবার, পছন্দের আইটেম ও প্রোফাইল সেটিংস স্থায়ীভাবে মুছে দেবে। Health Connect-এ আগে শেয়ার করা খাবার এবং Health Connect অ্যাক্সেস সেটিংস > Health Connect-এ আলাদাভাবে পরিচালিত হয়।',
 			'settings.clearAllData.cancel' => 'বাতিল',
 			'settings.clearAllData.clearEverything' => 'সবকিছু মুছুন',
 			'settings.debugOptions.title' => 'ডিবাগ অপশন',
@@ -2185,6 +2277,10 @@ extension on TranslationsBn {
 			'settings.healthConnect.subtitle' => 'অনুমতি দেখুন ও পরিচালনা করুন',
 			'settings.healthConnect.unavailable.title' => 'Health Connect উপলব্ধ নয়',
 			'settings.healthConnect.unavailable.description' => 'এই ডিভাইসে Health Connect উপলব্ধ নেই। অনুগ্রহ করে Play Store থেকে Health Connect ইনস্টল করুন (Android 9+) বা Android 14+-এ আপডেট করুন।',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'এই ডিভাইসে Health Connect সমর্থিত নয়।',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect-এ নজর দেওয়া দরকার',
+			'settings.healthConnect.updateRequired.description' => 'অ্যাক্সেস পরিচালনার আগে Health Connect ইনস্টল বা আপডেট করুন।',
+			'settings.healthConnect.updateRequired.action' => 'ইনস্টল বা আপডেট করুন',
 			'settings.healthConnect.permissions.title' => 'অনুমতিসমূহ',
 			'settings.healthConnect.permissions.description' => 'Health Connect ইন্টিগ্রেশন প্রদানের জন্য নিম্নোক্ত অনুমতিগুলি চাওয়া হচ্ছে:',
 			'settings.healthConnect.permissions.granted' => 'অনুমোদিত',
@@ -2200,6 +2296,19 @@ extension on TranslationsBn {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'এই অনুমতি অ্যাপকে আপনার লগ করা খাবারগুলো Health Connect-এ সিঙ্ক করতে দেয়, ফলে আপনার পুষ্টি ডেটা অন্য স্বাস্থ্য ও ফিটনেস অ্যাপগুলোতেও উপলব্ধ হবে।',
 			'settings.healthConnect.managePermissions' => 'অনুমতি পরিচালনা করুন',
 			'settings.healthConnect.openSettings' => 'Health Connect সেটিংস খুলুন',
+			'settings.healthConnect.disconnect' => 'Health Connect সংযোগ বিচ্ছিন্ন করুন',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Health Connect সংযোগ বিচ্ছিন্ন করবেন?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify Health Connect-এর অ্যাক্সেস হারাবে। সেখানে আগে লেখা ডেটা মুছে যাবে না।',
+			'settings.healthConnect.disconnectConfirmationAction' => 'সংযোগ বিচ্ছিন্ন করুন',
+			'settings.healthConnect.deleteSyncedMeals' => 'Health Connect থেকে Calorify-এর খাবার মুছুন',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'সিঙ্ক করা খাবার মুছবেন?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Calorify-এর এই সংস্করণ দিয়ে Health Connect-এ সিঙ্ক করা খাবার মুছবেন? আপনার স্থানীয় খাবারের লগ বদলাবে না। Calorify-এর পুরোনো এন্ট্রি Health Connect-এর ডেটা পরিচালনা বিকল্প ব্যবহার করে আলাদাভাবে মুছতে হতে পারে।',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'সিঙ্ক করা খাবার মুছুন',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Health Connect থেকে Calorify-এর খাবার মুছে ফেলা হয়েছে।',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'সিঙ্ক করা খাবার মুছে ফেলা যায়নি। আবার চেষ্টা করুন।',
+			'settings.healthConnect.connectionPartial' => 'Health Connect-এর কিছু বৈশিষ্ট্য চালু আছে।',
+			'settings.healthConnect.connectionComplete' => 'Health Connect-এর দুটি বৈশিষ্ট্যই চালু আছে।',
+			'settings.healthConnect.actionFailed' => 'Health Connect খোলা যায়নি। আবার চেষ্টা করুন।',
 			'settings.healthConnect.requestPermissions' => 'অনুমতিগুলির জন্য অনুরোধ করুন',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'অনুমতি অনুরোধ বাতিল হয়েছে বা ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন বা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।',
 			'settings.healthConnect.permissionRequestFailed' => 'অনুমতি অনুরোধ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন বা Health Connect সেটিংসে ম্যানুয়ালি অনুমতি দিন।',
@@ -2212,6 +2321,7 @@ extension on TranslationsBn {
 			'settings.about.privacy.description' => 'গোপনীয়তা কোনো পরবর্তীতে চিন্তার বিষয় নয় — এটি ডিজাইনের মূলনীতি। এর অর্থ বাস্তবে কী তা নিচে:',
 			'settings.about.privacy.noAccounts' => 'অ্যাকাউন্টের কোনো প্রয়োজন নেই\nঅ্যাপটি এখনই ব্যবহার করুন। কোনো সাইন-আপ নেই, কোনো পরিচয় প্রয়োজন নেই।',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'আচরণগত ট্র্যাকিং নেই\n${appLabel} আপনার কার্যকলাপ পর্যবেক্ষণ করে না, ব্যবহার প্রোফাইল তৈরি করে না, বা অ্যাপ/ওয়েবসাইট জুড়ে আপনাকে ট্র্যাক করে না।',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'সীমিত বিশ্লেষণ ও ডায়াগনস্টিকস\nনির্ভরযোগ্যতা উন্নত করতে ${appLabel} অ্যাপের মৌলিক ইভেন্ট ও ক্র্যাশ ডায়াগনস্টিকস ব্যবহার করে। স্বাস্থ্য রেকর্ডের মান বিজ্ঞাপনের জন্য ব্যবহার বা বিক্রি করা হয় না।',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ডিজাইনে বিজ্ঞাপনবিহীন\n${appLabel} বিজ্ঞাপন বা ডেটা-ভিত্তিক মনিটাইজেশন ছাড়াই কাজ করার জন্য তৈরি।',
 			'settings.about.privacy.noDataSelling' => 'ডেটা বিক্রি নেই\nআপনার স্বাস্থ্য ডেটা কখনই তৃতীয় পক্ষের কাছে বিক্রি বা শেয়ার করা হয় না।',
 			'settings.about.privacy.localStorage' => 'স্থানীয়-প্রথম সংরক্ষণ\nআপনার ডেটা আপনার ডিভাইসেই থাকে।',
@@ -2224,7 +2334,7 @@ extension on TranslationsBn {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'আপনার প্রতিক্রিয়াই ${appLabel} সবার জন্য আরও ভালো করে তোলে।',
 			'settings.about.feedback.rateApp' => 'Play Store-এ রেট করুন',
 			'settings.about.feedback.sendFeedback' => 'প্রতিক্রিয়া পাঠান',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify সংস্করণ ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'বিল্ড ${buildNumber}',
 			'reminders.title' => 'রিমাইন্ডার দিয়ে লক্ষ্য বজায় রাখুন',
 			'reminders.description' => 'আপনার খাবারের লগ করার জন্য মৃদু রিমাইন্ডার পান এবং পুষ্টিগত লক্ষ্যগুলোতে ধারাবাহিক থাকুন',
@@ -2256,6 +2366,8 @@ extension on TranslationsBn {
 			'notifications.snack.body' => 'একটি স্বাস্থ্যকর নাস্তার সময়',
 			'notifications.test.title' => 'পরীক্ষা নোটিফিকেশন',
 			'login.title' => 'লগইন',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google দিয়ে সাইন ইন করুন',
 			'login.signInFailed' => 'Google Sign-In ব্যর্থ হয়েছে অথবা বাতিল করা হয়েছে।',
 			'disclaimer.pleaseNote' => 'দ্রষ্টব্য',
@@ -2291,8 +2403,6 @@ extension on TranslationsBn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'আমরা আপনার প্রোফাইল ভিত্তিক TDEE হিসাব করি এবং দিনের কত অংশ পেরোয় (ঘণ্টা + মিনিট) / 24 অনুপাতে গুণ করে এ পর্যন্ত জ্বালানো ক্যালোরি অনুমান করি।',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'পেশাদার পরামর্শ',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'চিকিৎসাসংক্রান্ত সিদ্ধান্ত নিতে এই আনুমানিকতাকে ব্যবহার করবেন না। ব্যক্তিগতকৃত ওজন ব্যবস্থাপনার পরামর্শের জন্য সবসময় একজন স্বাস্থ্যের পেশাদার বা নিবন্ধিত ডায়েটিশিয়ানের সঙ্গে পরামর্শ করুন।',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'ডাউনলোড করা USDA প্যাক থেকে পুষ্টির তথ্য মেলানো হয়েছে',
 			'localNutritionPhase4.nutritionCached' => 'ডিভাইসের USDA ক্যাশ থেকে পুষ্টির তথ্য মেলানো হয়েছে',
 			'localNutritionPhase4.nutritionMixed' => 'ডাউনলোড করা, ক্যাশে রাখা এবং দূরবর্তী USDA সারি থেকে পুষ্টির তথ্য একত্র করা হয়েছে',

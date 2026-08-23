@@ -267,7 +267,7 @@ class _TranslationsEditProfileZhTw extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => '磅（lbs）';
 	@override String get metricCm => '公制 (cm)';
 	@override String get imperialFtIn => '英制 (ft/in)';
 	@override String get metricKg => '公制 (kg)';
@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectZhTw extends TranslationsOnboardingHea
 	@override String get statusSuccess => '已成功連接 Health Connect！';
 	@override String statusPermissionDenied({required Object appLabel}) => '權限被拒。請在手機設定中為 ${appLabel} 啟用 Health Connect 權限。';
 	@override String statusError({required Object error}) => '設定 Health Connect 時發生錯誤：${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedZhTw caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedZhTw._(_root);
+	@override String get installOrUpdate => '安裝或更新';
+	@override String get manageAccess => '管理存取權';
+	@override String get overviewDescription => '將已消耗的卡路里計入每日目標，並可選擇與 Health Connect 分享已記錄的餐點。';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsZhTw shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsZhTw._(_root);
+	@override String get statusNotConnected => '選擇要啟用的 Health Connect 功能。';
+	@override String get statusPartial => 'Health Connect 已部分連接。請啟用其餘權限以使用兩項功能。';
+	@override String get statusProviderUpdateRequired => '安裝或更新 Health Connect 以繼續。';
+	@override String get statusUnavailable => '此裝置不支援 Health Connect。';
+	@override late final _TranslationsOnboardingHealthConnectUserControlZhTw userControl = _TranslationsOnboardingHealthConnectUserControlZhTw._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalZhTw extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => '體重影響';
 	@override String get estLoss => '預估減少';
 	@override String get estGain => '預估增加';
-	@override String get kcal => 'kcal';
+	@override String get kcal => '千卡（kcal）';
 }
 
 // Path: home.dailySummary
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthZhTw extends TranslationsHomeConnectHealthEn
 	@override String get description => '將您的營養資料與 Health Connect 同步';
 	@override String get install => '安裝';
 	@override String get connect => '連接';
+	@override String get dataUseDescription => '將已消耗的卡路里計入目標，並分享已記錄的餐點';
+	@override String get installOrUpdate => '安裝或更新';
 }
 
 // Path: meal.nutrition
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataZhTw extends TranslationsSettingsClearAll
 	@override String get confirmationMessage => '此動作無法復原。您所有記錄的餐點、最愛與個人設定將被永久刪除。';
 	@override String get cancel => '取消';
 	@override String get clearEverything => '全部清除';
+	@override String get localOnlyConfirmationMessage => '這會從此裝置永久刪除已記錄的餐點、最愛和個人檔案設定。已分享至 Health Connect 的餐點與 Health Connect 存取權需在「設定 > Health Connect」中另行管理。';
+	@override String get localOnlySubtitle => '刪除此裝置上儲存的 Calorify 資料';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectZhTw extends TranslationsSettingsHealthC
 	@override String get permissionRequestCancelledOrFailed => '權限請求已取消或失敗。請再試一次或在 Health Connect 設定中手動授權。';
 	@override String get permissionRequestFailed => '無法請求權限。請再試一次或在 Health Connect 設定中手動授權。';
 	@override String get requestingPermissions => '請求中...';
+	@override String get actionFailed => '無法開啟 Health Connect，請再試一次。';
+	@override String get connectionComplete => '兩項 Health Connect 功能皆已啟用。';
+	@override String get connectionPartial => '部分 Health Connect 功能已啟用。';
+	@override String get deleteSyncedMeals => '從 Health Connect 刪除 Calorify 餐點';
+	@override String get deleteSyncedMealsConfirmationAction => '刪除已同步的餐點';
+	@override String get deleteSyncedMealsConfirmationMessage => '要從 Health Connect 刪除此版本 Calorify 同步的餐點嗎？本機餐點紀錄不會變更。較舊的 Calorify 項目可能仍需透過 Health Connect 中的「管理資料」刪除。';
+	@override String get deleteSyncedMealsConfirmationTitle => '刪除已同步的餐點？';
+	@override String get deleteSyncedMealsFailed => '無法刪除已同步的餐點，請再試一次。';
+	@override String get deleteSyncedMealsSuccess => '已從 Health Connect 刪除 Calorify 餐點。';
+	@override String get disconnect => '中斷 Health Connect 連線';
+	@override String get disconnectConfirmationAction => '中斷連線';
+	@override String get disconnectConfirmationMessage => 'Calorify 將失去 Health Connect 存取權。已寫入其中的資料不會被刪除。';
+	@override String get disconnectConfirmationTitle => '中斷 Health Connect 連線？';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredZhTw updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredZhTw._(_root);
 }
 
 // Path: settings.about
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoZhTw extends TranslationsSettingsAppInfoEn {
 	final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify 版本 ${version}';
 	@override String build({required Object buildNumber}) => '建置 ${buildNumber}';
 }
 
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationZhTw extends Transl
 	@override String get description => '與您喜愛的健康應用同步資料';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedZhTw extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '從 Health Connect 讀取今天消耗的總卡路里';
+	@override String get title => '已消耗卡路里';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsZhTw extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '將您在 Calorify 中記錄的餐點寫入 Health Connect';
+	@override String get title => '分享已記錄的餐點';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlZhTw extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '選擇任一權限，並隨時變更存取設定';
+	@override String get title => '由您掌控';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessZhTw extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableZhTw extends TranslationsSett
 	// Translations
 	@override String get title => 'Health Connect 無法使用';
 	@override String get description => '此裝置無法使用 Health Connect。請從 Play Store 安裝 Health Connect（Android 9+）或更新至 Android 14+。';
+	@override String get unsupportedDescription => '此裝置不支援 Health Connect。';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsZhTw extends TranslationsSett
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedZhTw._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadZhTw nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadZhTw._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhTw nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteZhTw._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredZhTw extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+	final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => '安裝或更新';
+	@override String get description => '請先安裝或更新 Health Connect，再管理存取權。';
+	@override String get title => 'Health Connect 需要處理';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyZhTw extends TranslationsSettingsAboutPri
 	@override String get noDataSelling => '不販售資料\n您的健康資料絕不會出售或分享給第三方。';
 	@override String get localStorage => '以裝置為優先的儲存\n您的資料保留在您的裝置上。';
 	@override String get privacyPolicy => '隱私政策';
+	@override String analyticsDisclosure({required Object appLabel}) => '有限的分析與診斷\n${appLabel} 使用基本應用程式事件和當機診斷來提升可靠性。健康紀錄值不會用於廣告或出售。';
 }
 
 // Path: settings.about.developer
@@ -1847,6 +1922,19 @@ extension on TranslationsZhTw {
 			'onboarding.healthConnect.statusSuccess' => '已成功連接 Health Connect！',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => '權限被拒。請在手機設定中為 ${appLabel} 啟用 Health Connect 權限。',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => '設定 Health Connect 時發生錯誤：${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => '從 Health Connect 讀取今天消耗的總卡路里',
+			'onboarding.healthConnect.caloriesBurned.title' => '已消耗卡路里',
+			'onboarding.healthConnect.installOrUpdate' => '安裝或更新',
+			'onboarding.healthConnect.manageAccess' => '管理存取權',
+			'onboarding.healthConnect.overviewDescription' => '將已消耗的卡路里計入每日目標，並可選擇與 Health Connect 分享已記錄的餐點。',
+			'onboarding.healthConnect.shareLoggedMeals.description' => '將您在 Calorify 中記錄的餐點寫入 Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => '分享已記錄的餐點',
+			'onboarding.healthConnect.statusNotConnected' => '選擇要啟用的 Health Connect 功能。',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect 已部分連接。請啟用其餘權限以使用兩項功能。',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => '安裝或更新 Health Connect 以繼續。',
+			'onboarding.healthConnect.statusUnavailable' => '此裝置不支援 Health Connect。',
+			'onboarding.healthConnect.userControl.description' => '選擇任一權限，並隨時變更存取設定',
+			'onboarding.healthConnect.userControl.title' => '由您掌控',
 			'onboarding.reinforcement.trackingSuccess.title' => '你並非獨自一人',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => '研究顯示，一致性的紀錄是長期成功的首要預測因子。',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '對於 ${age} 歲的 ${gender} 想要 ${goal} 的人來說，一致的紀錄是成功的首要預測因子。',
@@ -1899,7 +1987,7 @@ extension on TranslationsZhTw {
 			'home.dailyGoal.weightImpact' => '體重影響',
 			'home.dailyGoal.estLoss' => '預估減少',
 			'home.dailyGoal.estGain' => '預估增加',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => '千卡（kcal）',
 			'home.dailySummary.title' => '每日摘要',
 			'home.dailySummary.calories' => '卡路里',
 			'home.dailySummary.carbs' => '碳水化合物',
@@ -1940,6 +2028,8 @@ extension on TranslationsZhTw {
 			'home.connectHealth.description' => '將您的營養資料與 Health Connect 同步',
 			'home.connectHealth.install' => '安裝',
 			'home.connectHealth.connect' => '連接',
+			'home.connectHealth.dataUseDescription' => '將已消耗的卡路里計入目標，並分享已記錄的餐點',
+			'home.connectHealth.installOrUpdate' => '安裝或更新',
 			'history.noMeals' => '尚未記錄任何餐點',
 			'history.emptyMessage' => '拍張您剛吃的餐點照片，這裡就會顯示。',
 			'history.today' => '今天',
@@ -2098,7 +2188,7 @@ extension on TranslationsZhTw {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => '磅（lbs）',
 			'editProfile.metricCm' => '公制 (cm)',
 			'editProfile.imperialFtIn' => '英制 (ft/in)',
 			'editProfile.metricKg' => '公制 (kg)',
@@ -2179,12 +2269,15 @@ extension on TranslationsZhTw {
 			'settings.clearAllData.confirmationMessage' => '此動作無法復原。您所有記錄的餐點、最愛與個人設定將被永久刪除。',
 			'settings.clearAllData.cancel' => '取消',
 			'settings.clearAllData.clearEverything' => '全部清除',
+			'settings.clearAllData.localOnlyConfirmationMessage' => '這會從此裝置永久刪除已記錄的餐點、最愛和個人檔案設定。已分享至 Health Connect 的餐點與 Health Connect 存取權需在「設定 > Health Connect」中另行管理。',
+			'settings.clearAllData.localOnlySubtitle' => '刪除此裝置上儲存的 Calorify 資料',
 			'settings.debugOptions.title' => '除錯選項',
 			'settings.developerModeEnabled' => '已啟用開發者模式！',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => '檢視並管理權限',
 			'settings.healthConnect.unavailable.title' => 'Health Connect 無法使用',
 			'settings.healthConnect.unavailable.description' => '此裝置無法使用 Health Connect。請從 Play Store 安裝 Health Connect（Android 9+）或更新至 Android 14+。',
+			'settings.healthConnect.unavailable.unsupportedDescription' => '此裝置不支援 Health Connect。',
 			'settings.healthConnect.permissions.title' => '權限',
 			'settings.healthConnect.permissions.description' => '為了提供 Health Connect 整合，會請求以下權限：',
 			'settings.healthConnect.permissions.granted' => '已授權',
@@ -2204,6 +2297,22 @@ extension on TranslationsZhTw {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => '權限請求已取消或失敗。請再試一次或在 Health Connect 設定中手動授權。',
 			'settings.healthConnect.permissionRequestFailed' => '無法請求權限。請再試一次或在 Health Connect 設定中手動授權。',
 			'settings.healthConnect.requestingPermissions' => '請求中...',
+			'settings.healthConnect.actionFailed' => '無法開啟 Health Connect，請再試一次。',
+			'settings.healthConnect.connectionComplete' => '兩項 Health Connect 功能皆已啟用。',
+			'settings.healthConnect.connectionPartial' => '部分 Health Connect 功能已啟用。',
+			'settings.healthConnect.deleteSyncedMeals' => '從 Health Connect 刪除 Calorify 餐點',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => '刪除已同步的餐點',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => '要從 Health Connect 刪除此版本 Calorify 同步的餐點嗎？本機餐點紀錄不會變更。較舊的 Calorify 項目可能仍需透過 Health Connect 中的「管理資料」刪除。',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => '刪除已同步的餐點？',
+			'settings.healthConnect.deleteSyncedMealsFailed' => '無法刪除已同步的餐點，請再試一次。',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => '已從 Health Connect 刪除 Calorify 餐點。',
+			'settings.healthConnect.disconnect' => '中斷 Health Connect 連線',
+			'settings.healthConnect.disconnectConfirmationAction' => '中斷連線',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify 將失去 Health Connect 存取權。已寫入其中的資料不會被刪除。',
+			'settings.healthConnect.disconnectConfirmationTitle' => '中斷 Health Connect 連線？',
+			'settings.healthConnect.updateRequired.action' => '安裝或更新',
+			'settings.healthConnect.updateRequired.description' => '請先安裝或更新 Health Connect，再管理存取權。',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect 需要處理',
 			'settings.about.title' => '關於',
 			'settings.about.tagline' => '快速、免費且以隱私為先的卡路里意識工具',
 			'settings.about.ourStory.title' => '我們的故事',
@@ -2216,6 +2325,7 @@ extension on TranslationsZhTw {
 			'settings.about.privacy.noDataSelling' => '不販售資料\n您的健康資料絕不會出售或分享給第三方。',
 			'settings.about.privacy.localStorage' => '以裝置為優先的儲存\n您的資料保留在您的裝置上。',
 			'settings.about.privacy.privacyPolicy' => '隱私政策',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => '有限的分析與診斷\n${appLabel} 使用基本應用程式事件和當機診斷來提升可靠性。健康紀錄值不會用於廣告或出售。',
 			'settings.about.developer.title' => '由單人開發者打造',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} 由一位獨立開發者建立與維護，致力於打造冷靜且尊重隱私的健康軟體。\n\n回饋會由我親自閱讀，並幫助塑造應用的未來方向。',
 			'settings.about.developer.website' => '網站',
@@ -2224,7 +2334,7 @@ extension on TranslationsZhTw {
 			'settings.about.feedback.description' => ({required Object appLabel}) => '您的回饋能讓 ${appLabel} 對每個人更好。',
 			'settings.about.feedback.rateApp' => '在 Play Store 評分',
 			'settings.about.feedback.sendFeedback' => '傳送回饋',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify 版本 ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => '建置 ${buildNumber}',
 			'reminders.title' => '用提醒幫助您保持進度',
 			'reminders.description' => '收到溫和的提醒以記錄餐點並維持營養紀律',
@@ -2256,6 +2366,8 @@ extension on TranslationsZhTw {
 			'notifications.snack.body' => '該吃個健康點心了',
 			'notifications.test.title' => '測試通知',
 			'login.title' => '登入',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => '使用 Google 登入',
 			'login.signInFailed' => 'Google 登入失敗或已取消。',
 			'disclaimer.pleaseNote' => '請注意',
@@ -2291,8 +2403,6 @@ extension on TranslationsZhTw {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '我們會計算您的 TDEE（根據個人檔案），並乘以當日已過的比例（小時 + 分鐘）/ 24，以估算目前為止燃燒的卡路里。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '專業指導',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '請勿以此估算作為醫療決策。若需個人化體重管理建議，務必諮詢醫療或註冊營養師。',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => '營養資訊來自已下載的 USDA 資料包',
 			'localNutritionPhase4.nutritionCached' => '營養資訊來自裝置上的 USDA 快取',
 			'localNutritionPhase4.nutritionMixed' => '營養資訊由已下載、已快取和遠端取得的 USDA 資料列合併而成',

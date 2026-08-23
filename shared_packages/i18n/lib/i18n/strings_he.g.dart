@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectHe extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'חבר ל-Health Connect';
 	@override String get description => 'סנכרן את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי';
+	@override String get overviewDescription => 'השתמשו בקלוריות שנשרפו ביעד היומי ושתפו לפי בחירה ארוחות שתועדו עם Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingHe automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingHe._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedHe caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedHe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsHe progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsHe._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsHe shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsHe._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationHe seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationHe._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlHe userControl = _TranslationsOnboardingHealthConnectUserControlHe._(_root);
 	@override String get connected => 'Health Connect מחובר';
 	@override String get notConnected => 'Health Connect לא מחובר';
 	@override String get setup => 'הגדר Health Connect';
 	@override String get skipForNow => 'דלג לעכשיו';
 	@override String get statusConnected => 'Health Connect מחובר.';
 	@override String get statusSuccess => 'Health Connect חובר בהצלחה!';
+	@override String get statusNotConnected => 'בחרו את תכונות Health Connect שברצונכם להפעיל.';
+	@override String get statusPartial => 'Health Connect מחובר חלקית. הפעילו את ההרשאה הנותרת כדי להשתמש בשתי התכונות.';
+	@override String get statusProviderUpdateRequired => 'התקינו או עדכנו את Health Connect כדי להמשיך.';
+	@override String get statusUnavailable => 'Health Connect אינו נתמך במכשיר הזה.';
+	@override String get installOrUpdate => 'התקנה או עדכון';
+	@override String get manageAccess => 'ניהול גישה';
 	@override String statusPermissionDenied({required Object appLabel}) => 'הרשאה נדחתה. אנא אפשר הרשאות ל-Health Connect בהגדרות הטלפון עבור ${appLabel}.';
 	@override String statusError({required Object error}) => 'שגיאה בהגדרת Health Connect: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalHe extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'השפעה על משקל';
 	@override String get estLoss => 'אומד. אובדן של';
 	@override String get estGain => 'אומד. עלייה של';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'קק״ל';
 }
 
 // Path: home.dailySummary
@@ -743,7 +753,9 @@ class _TranslationsHomeConnectHealthHe extends TranslationsHomeConnectHealthEn {
 	// Translations
 	@override String get title => 'סנכרן עם Health Connect';
 	@override String get description => 'סנכרן את נתוני התזונה שלך עם Health Connect';
+	@override String get dataUseDescription => 'השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו';
 	@override String get install => 'התקן';
+	@override String get installOrUpdate => 'התקנה או עדכון';
 	@override String get connect => 'חבר';
 }
 
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsHe extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'פרופיל';
 	@override String get localization => 'מיקום שפה';
 	@override String get notifications => 'התראות';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'ניתוח במכשיר';
 	@override String get supportAndLegal => 'תמיכה & משפטי';
 	@override String get about => 'אודות';
@@ -1107,8 +1119,10 @@ class _TranslationsSettingsClearAllDataHe extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'נקה את כל הנתונים';
 	@override String get subtitle => 'מחק ללא אפשרות שחזור את כל המידע שלך';
+	@override String get localOnlySubtitle => 'מחיקת נתוני Calorify המאוחסנים במכשיר הזה';
 	@override String get confirmationTitle => 'לנקות את כל הנתונים?';
 	@override String get confirmationMessage => 'פעולה זו לא ניתנת לביטול. כל הארוחות שנרשמו, המועדפים והגדרות הפרופיל ימחקו לצמיתות.';
+	@override String get localOnlyConfirmationMessage => 'פעולה זו מוחקת לצמיתות מהמכשיר הזה ארוחות שתועדו, מועדפים והגדרות פרופיל. ארוחות שכבר שותפו עם Health Connect והגישה ל-Health Connect מנוהלות בנפרד בהגדרות > Health Connect.';
 	@override String get cancel => 'ביטול';
 	@override String get clearEverything => 'נקה הכל';
 }
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectHe extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'הצג ונהל הרשאות';
 	@override late final _TranslationsSettingsHealthConnectUnavailableHe unavailable = _TranslationsSettingsHealthConnectUnavailableHe._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredHe updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredHe._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsHe permissions = _TranslationsSettingsHealthConnectPermissionsHe._(_root);
 	@override String get managePermissions => 'נהל הרשאות';
 	@override String get openSettings => 'פתח הגדרות Health Connect';
+	@override String get disconnect => 'ניתוק Health Connect';
+	@override String get disconnectConfirmationTitle => 'לנתק את Health Connect?';
+	@override String get disconnectConfirmationMessage => 'ל-Calorify לא תהיה עוד גישה ל-Health Connect. נתונים שכבר נכתבו שם לא יימחקו.';
+	@override String get disconnectConfirmationAction => 'ניתוק';
+	@override String get deleteSyncedMeals => 'מחיקת ארוחות Calorify מ-Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'למחוק ארוחות מסונכרנות?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'למחוק מ-Health Connect ארוחות שסונכרנו באמצעות גרסה זו של Calorify? יומן הארוחות המקומי לא ישתנה. ייתכן שיהיה צורך למחוק רשומות ישנות יותר של Calorify בנפרד באמצעות ניהול נתונים ב-Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'מחיקת ארוחות מסונכרנות';
+	@override String get deleteSyncedMealsSuccess => 'ארוחות Calorify נמחקו מ-Health Connect.';
+	@override String get deleteSyncedMealsFailed => 'לא ניתן למחוק את הארוחות המסונכרנות. נסו שוב.';
+	@override String get connectionPartial => 'חלק מתכונות Health Connect מופעלות.';
+	@override String get connectionComplete => 'שתי התכונות של Health Connect מופעלות.';
+	@override String get actionFailed => 'לא ניתן לפתוח את Health Connect. נסו שוב.';
 	@override String get requestPermissions => 'בקש הרשאות';
 	@override String get permissionRequestCancelledOrFailed => 'בקשת ההרשאה בוטלה או נכשלה. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.';
 	@override String get permissionRequestFailed => 'לא ניתן לבקש הרשאות. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.';
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoHe extends TranslationsSettingsAppInfoEn {
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify גרסה ${version}';
 	@override String build({required Object buildNumber}) => 'בנייה ${buildNumber}';
 }
 
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingHe extends Translatio
 	@override String get description => 'עקוב אחר הקלוריות שנשרפו מתוך אפליקציות הכושר שלך';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedHe extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedHe._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'קלוריות שנשרפו';
+	@override String get description => 'קראו את סך הקלוריות שנשרפו היום מ-Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsHe extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsHe._(TranslationsHe root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsHe extends Translation
 	@override String get description => 'קבל תובנות מפורטות על מגמות הבריאות שלך';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsHe extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsHe._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'שיתוף ארוחות שתועדו';
+	@override String get description => 'כתבו ארוחות שתועדו ב-Calorify אל Health Connect';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationHe extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationHe._(TranslationsHe root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationHe extends Translat
 	// Translations
 	@override String get title => 'אינטגרציה חלקה';
 	@override String get description => 'סנכרן נתונים מאפליקציות הבריאות האהובות עליך';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlHe extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlHe._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'השליטה בידיים שלכם';
+	@override String get description => 'בחרו באחת מההרשאות ושנו את הגישה בכל עת';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1520,6 +1581,19 @@ class _TranslationsSettingsHealthConnectUnavailableHe extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect לא זמין';
 	@override String get description => 'Health Connect אינו זמין במכשיר זה. אנא התקן את Health Connect מה-Play Store (Android 9+) או עדכן ל-Android 14+.';
+	@override String get unsupportedDescription => 'Health Connect אינו נתמך במכשיר הזה.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredHe extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredHe._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect דורש טיפול';
+	@override String get description => 'יש להתקין או לעדכן את Health Connect לפני ניהול הגישה.';
+	@override String get action => 'התקנה או עדכון';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyHe extends TranslationsSettingsAboutPriva
 	@override String get description => 'פרטיות אינה מחשבה מאוחרת — זו עקרון עיצובי. הנה מה זה אומר בפועל:';
 	@override String get noAccounts => 'אין דרישות להקמת חשבונות\nהשתמש באפליקציה מיד. ללא הרשמות, ללא זיהויים.';
 	@override String noTracking({required Object appLabel}) => 'ללא מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילים שימושיים, ולא עוקבת אחרי שימושך באפליקציות או אתרי אינטרנט.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'ניתוח ואבחון מוגבלים\n${appLabel} משתמשת באירועי אפליקציה בסיסיים ובאבחון קריסות כדי לשפר את האמינות. ערכי רשומות בריאות אינם משמשים לפרסום ואינם נמכרים.';
 	@override String noAds({required Object appLabel}) => 'ללא פרסומות לפי עיצוב\n${appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.';
 	@override String get noDataSelling => 'אין מכירת נתונים\nנתוני הבריאות שלך אינם נמכרים או משותפים לצדדים שלישיים.';
 	@override String get localStorage => 'אחסון מקומי כעיקרון\nהנתונים שלך נשארים על המכשיר שלך.';
@@ -1833,18 +1908,31 @@ extension on TranslationsHe {
 			'onboarding.activityLevel.description' => 'זה עוזר לנו לחשב במדויק יותר את צרכי הקלוריות היומיים שלך',
 			'onboarding.healthConnect.title' => 'חבר ל-Health Connect',
 			'onboarding.healthConnect.description' => 'סנכרן את נתוני הבריאות שלך לתובנות טובות יותר ומעקב קלוריות אוטומטי',
+			'onboarding.healthConnect.overviewDescription' => 'השתמשו בקלוריות שנשרפו ביעד היומי ושתפו לפי בחירה ארוחות שתועדו עם Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'מעקב קלוריות אוטומטי',
 			'onboarding.healthConnect.automaticTracking.description' => 'עקוב אחר הקלוריות שנשרפו מתוך אפליקציות הכושר שלך',
+			'onboarding.healthConnect.caloriesBurned.title' => 'קלוריות שנשרפו',
+			'onboarding.healthConnect.caloriesBurned.description' => 'קראו את סך הקלוריות שנשרפו היום מ-Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'תובנות התקדמות',
 			'onboarding.healthConnect.progressInsights.description' => 'קבל תובנות מפורטות על מגמות הבריאות שלך',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'שיתוף ארוחות שתועדו',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'כתבו ארוחות שתועדו ב-Calorify אל Health Connect',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'אינטגרציה חלקה',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'סנכרן נתונים מאפליקציות הבריאות האהובות עליך',
+			'onboarding.healthConnect.userControl.title' => 'השליטה בידיים שלכם',
+			'onboarding.healthConnect.userControl.description' => 'בחרו באחת מההרשאות ושנו את הגישה בכל עת',
 			'onboarding.healthConnect.connected' => 'Health Connect מחובר',
 			'onboarding.healthConnect.notConnected' => 'Health Connect לא מחובר',
 			'onboarding.healthConnect.setup' => 'הגדר Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'דלג לעכשיו',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect מחובר.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect חובר בהצלחה!',
+			'onboarding.healthConnect.statusNotConnected' => 'בחרו את תכונות Health Connect שברצונכם להפעיל.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect מחובר חלקית. הפעילו את ההרשאה הנותרת כדי להשתמש בשתי התכונות.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'התקינו או עדכנו את Health Connect כדי להמשיך.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connect אינו נתמך במכשיר הזה.',
+			'onboarding.healthConnect.installOrUpdate' => 'התקנה או עדכון',
+			'onboarding.healthConnect.manageAccess' => 'ניהול גישה',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'הרשאה נדחתה. אנא אפשר הרשאות ל-Health Connect בהגדרות הטלפון עבור ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'שגיאה בהגדרת Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'אתה לא לבד',
@@ -1899,7 +1987,7 @@ extension on TranslationsHe {
 			'home.dailyGoal.weightImpact' => 'השפעה על משקל',
 			'home.dailyGoal.estLoss' => 'אומד. אובדן של',
 			'home.dailyGoal.estGain' => 'אומד. עלייה של',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'קק״ל',
 			'home.dailySummary.title' => 'סיכום יומי',
 			'home.dailySummary.calories' => 'קלוריות',
 			'home.dailySummary.carbs' => 'פחמימות',
@@ -1938,7 +2026,9 @@ extension on TranslationsHe {
 			'home.mealSnap.uploadingPhoto' => 'מעלה תמונה…',
 			'home.connectHealth.title' => 'סנכרן עם Health Connect',
 			'home.connectHealth.description' => 'סנכרן את נתוני התזונה שלך עם Health Connect',
+			'home.connectHealth.dataUseDescription' => 'השתמשו בקלוריות שנשרפו ביעד ושתפו ארוחות שתועדו',
 			'home.connectHealth.install' => 'התקן',
+			'home.connectHealth.installOrUpdate' => 'התקנה או עדכון',
 			'home.connectHealth.connect' => 'חבר',
 			'history.noMeals' => 'אין ארוחות רשומות',
 			'history.emptyMessage' => 'צלם תמונה של הארוחה האחרונה שלך כדי לרשום כאן.',
@@ -2126,7 +2216,7 @@ extension on TranslationsHe {
 			'settings.sections.profile' => 'פרופיל',
 			'settings.sections.localization' => 'מיקום שפה',
 			'settings.sections.notifications' => 'התראות',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'ניתוח במכשיר',
 			'settings.sections.supportAndLegal' => 'תמיכה & משפטי',
 			'settings.sections.about' => 'אודות',
@@ -2175,8 +2265,10 @@ extension on TranslationsHe {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'לא ניתן לייצא היסטוריית הארוחות: ${error}',
 			'settings.clearAllData.title' => 'נקה את כל הנתונים',
 			'settings.clearAllData.subtitle' => 'מחק ללא אפשרות שחזור את כל המידע שלך',
+			'settings.clearAllData.localOnlySubtitle' => 'מחיקת נתוני Calorify המאוחסנים במכשיר הזה',
 			'settings.clearAllData.confirmationTitle' => 'לנקות את כל הנתונים?',
 			'settings.clearAllData.confirmationMessage' => 'פעולה זו לא ניתנת לביטול. כל הארוחות שנרשמו, המועדפים והגדרות הפרופיל ימחקו לצמיתות.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'פעולה זו מוחקת לצמיתות מהמכשיר הזה ארוחות שתועדו, מועדפים והגדרות פרופיל. ארוחות שכבר שותפו עם Health Connect והגישה ל-Health Connect מנוהלות בנפרד בהגדרות > Health Connect.',
 			'settings.clearAllData.cancel' => 'ביטול',
 			'settings.clearAllData.clearEverything' => 'נקה הכל',
 			'settings.debugOptions.title' => 'אפשרויות דיבוג',
@@ -2185,6 +2277,10 @@ extension on TranslationsHe {
 			'settings.healthConnect.subtitle' => 'הצג ונהל הרשאות',
 			'settings.healthConnect.unavailable.title' => 'Health Connect לא זמין',
 			'settings.healthConnect.unavailable.description' => 'Health Connect אינו זמין במכשיר זה. אנא התקן את Health Connect מה-Play Store (Android 9+) או עדכן ל-Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect אינו נתמך במכשיר הזה.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect דורש טיפול',
+			'settings.healthConnect.updateRequired.description' => 'יש להתקין או לעדכן את Health Connect לפני ניהול הגישה.',
+			'settings.healthConnect.updateRequired.action' => 'התקנה או עדכון',
 			'settings.healthConnect.permissions.title' => 'הרשאות',
 			'settings.healthConnect.permissions.description' => 'מבוקשות ההרשאות הבאות כדי לאפשר אינטגרציה עם Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'הוענקו',
@@ -2200,6 +2296,19 @@ extension on TranslationsHe {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'הרשאה זו מאפשרת לאפליקציה לסנכרן את הארוחות שרשמת ל-Health Connect, ולהפוך את נתוני התזונה הזמינים לאפליקציות בריאות וכושר אחרות שבהן אתה משתמש.',
 			'settings.healthConnect.managePermissions' => 'נהל הרשאות',
 			'settings.healthConnect.openSettings' => 'פתח הגדרות Health Connect',
+			'settings.healthConnect.disconnect' => 'ניתוק Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'לנתק את Health Connect?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'ל-Calorify לא תהיה עוד גישה ל-Health Connect. נתונים שכבר נכתבו שם לא יימחקו.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'ניתוק',
+			'settings.healthConnect.deleteSyncedMeals' => 'מחיקת ארוחות Calorify מ-Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'למחוק ארוחות מסונכרנות?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'למחוק מ-Health Connect ארוחות שסונכרנו באמצעות גרסה זו של Calorify? יומן הארוחות המקומי לא ישתנה. ייתכן שיהיה צורך למחוק רשומות ישנות יותר של Calorify בנפרד באמצעות ניהול נתונים ב-Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'מחיקת ארוחות מסונכרנות',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'ארוחות Calorify נמחקו מ-Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'לא ניתן למחוק את הארוחות המסונכרנות. נסו שוב.',
+			'settings.healthConnect.connectionPartial' => 'חלק מתכונות Health Connect מופעלות.',
+			'settings.healthConnect.connectionComplete' => 'שתי התכונות של Health Connect מופעלות.',
+			'settings.healthConnect.actionFailed' => 'לא ניתן לפתוח את Health Connect. נסו שוב.',
 			'settings.healthConnect.requestPermissions' => 'בקש הרשאות',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'בקשת ההרשאה בוטלה או נכשלה. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'לא ניתן לבקש הרשאות. אנא נסה שוב או אפשר הרשאות באופן ידני בהגדרות Health Connect.',
@@ -2212,6 +2321,7 @@ extension on TranslationsHe {
 			'settings.about.privacy.description' => 'פרטיות אינה מחשבה מאוחרת — זו עקרון עיצובי. הנה מה זה אומר בפועל:',
 			'settings.about.privacy.noAccounts' => 'אין דרישות להקמת חשבונות\nהשתמש באפליקציה מיד. ללא הרשמות, ללא זיהויים.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'ללא מעקב התנהגותי\n${appLabel} אינה עוקבת אחרי הפעילות שלך, אינה בונה פרופילים שימושיים, ולא עוקבת אחרי שימושך באפליקציות או אתרי אינטרנט.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'ניתוח ואבחון מוגבלים\n${appLabel} משתמשת באירועי אפליקציה בסיסיים ובאבחון קריסות כדי לשפר את האמינות. ערכי רשומות בריאות אינם משמשים לפרסום ואינם נמכרים.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'ללא פרסומות לפי עיצוב\n${appLabel} נבנתה לפעול ללא פרסומות או מונטיזציה מבוססת נתונים.',
 			'settings.about.privacy.noDataSelling' => 'אין מכירת נתונים\nנתוני הבריאות שלך אינם נמכרים או משותפים לצדדים שלישיים.',
 			'settings.about.privacy.localStorage' => 'אחסון מקומי כעיקרון\nהנתונים שלך נשארים על המכשיר שלך.',
@@ -2224,7 +2334,7 @@ extension on TranslationsHe {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'המשוב שלך עוזר לשפר את ${appLabel} עבור כולם.',
 			'settings.about.feedback.rateApp' => 'דרג ב-Play Store',
 			'settings.about.feedback.sendFeedback' => 'שלח משוב',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify גרסה ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'בנייה ${buildNumber}',
 			'reminders.title' => 'הישארו על המסלול עם תזכורות',
 			'reminders.description' => 'קבל תזכורות עדינות לרישום הארוחות והישאר עקבי עם יעדי התזונה שלך',
@@ -2256,6 +2366,8 @@ extension on TranslationsHe {
 			'notifications.snack.body' => 'הגיע הזמן לנשנוש בריא',
 			'notifications.test.title' => 'התראת בדיקה',
 			'login.title' => 'התחבר',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'התחבר עם Google',
 			'login.signInFailed' => 'ההתחברות עם Google נכשלה או בוטלה.',
 			'disclaimer.pleaseNote' => 'שים/י לב',
@@ -2291,8 +2403,6 @@ extension on TranslationsHe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'אנו מחשבים את ה-TDEE שלך (בהתבסס על הפרופיל) ומכפילים אותו בחלק של היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'הנחיה מקצועית',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'אל תשתמש/י באומדן זה לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'נתוני התזונה הותאמו מחבילת USDA שהורדה',
 			'localNutritionPhase4.nutritionCached' => 'נתוני התזונה הותאמו ממטמון USDA במכשיר',
 			'localNutritionPhase4.nutritionMixed' => 'נתוני התזונה שולבו משורות USDA שהורדו, נשמרו במטמון ונשלפו מרחוק',

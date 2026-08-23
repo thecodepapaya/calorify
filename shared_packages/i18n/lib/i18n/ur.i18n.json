@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Health Connect سے جڑیں",
       "description": "بہتر بصیرت اور خودکار کیلوری ٹریکنگ کے لیے اپنے صحت کے ڈیٹا کو ہم وقت کریں",
+      "overviewDescription": "اپنے روزانہ ہدف میں جلنے والی کیلوریز استعمال کریں اور چاہیں تو لاگ کیے گئے کھانے Health Connect کے ساتھ شیئر کریں۔",
       "automaticTracking": {
         "title": "خودکار کیلوری ٹریکنگ",
         "description": "اپنی فٹنس ایپس سے جلائی گئی کیلوریز کو ٹریک کریں"
+      },
+      "caloriesBurned": {
+        "title": "جلنے والی کیلوریز",
+        "description": "Health Connect سے آج جلنے والی کل کیلوریز پڑھیں"
       },
       "progressInsights": {
         "title": "پیش رفت کی بصیرت",
         "description": "اپنی صحت کے رجحانات کے مفصل تجزیے حاصل کریں"
       },
+      "shareLoggedMeals": {
+        "title": "لاگ کیے گئے کھانے شیئر کریں",
+        "description": "Calorify میں لاگ کیے گئے کھانے Health Connect میں لکھیں"
+      },
       "seamlessIntegration": {
         "title": "بلا رکاوٹ انضمام",
         "description": "اپنی پسندیدہ صحت کی ایپس سے ڈیٹا ہم وقت کریں"
+      },
+      "userControl": {
+        "title": "اختیار آپ کے ہاتھ میں ہے",
+        "description": "دونوں میں سے کوئی بھی اجازت منتخب کریں اور کسی بھی وقت رسائی تبدیل کریں"
       },
       "connected": "Health Connect مربوط ہے",
       "notConnected": "Health Connect مربوط نہیں ہے",
@@ -101,6 +114,12 @@
       "skipForNow": "اسے ابھی چھوڑ دیں",
       "statusConnected": "Health Connect مربوط ہو چکا ہے۔",
       "statusSuccess": "Health Connect کامیابی سے مربوط ہو گیا!",
+      "statusNotConnected": "Health Connect کی وہ خصوصیات منتخب کریں جنہیں آپ فعال کرنا چاہتے ہیں۔",
+      "statusPartial": "Health Connect جزوی طور پر منسلک ہے۔ دونوں خصوصیات استعمال کرنے کے لیے باقی اجازت فعال کریں۔",
+      "statusProviderUpdateRequired": "جاری رکھنے کے لیے Health Connect انسٹال یا اپ ڈیٹ کریں۔",
+      "statusUnavailable": "اس ڈیوائس پر Health Connect معاون نہیں ہے۔",
+      "installOrUpdate": "انسٹال یا اپ ڈیٹ کریں",
+      "manageAccess": "رسائی کا نظم کریں",
       "statusPermissionDenied": "اجازت نامنظور۔ براہِ کرم {appLabel} کے لیے Health Connect کی اجازتیں اپنے فون کی سیٹنگز میں فعال کریں۔",
       "statusError": "Health Connect سیٹ کرنے میں خرابی: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "وزن پر اثر",
       "estLoss": "تخمینی کمی",
       "estGain": "تخمینی اضافہ",
-      "kcal": "kcal"
+      "kcal": "کلو کیلوری"
     },
     "dailySummary": {
       "title": "روزانہ کا خلاصہ",
@@ -226,7 +245,9 @@
     "connectHealth": {
       "title": "Health Connect کے ساتھ ہم وقت کریں",
       "description": "اپنے غذائی ڈیٹا کو Health Connect کے ساتھ ہم وقت کریں",
+      "dataUseDescription": "اپنے ہدف میں جلنے والی کیلوریز استعمال کریں اور لاگ کیے گئے کھانے شیئر کریں",
       "install": "انسٹال کریں",
+      "installOrUpdate": "انسٹال یا اپ ڈیٹ کریں",
       "connect": "کنیکٹ کریں"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} مزید",
       "ingredientsLine": "{count} اجزاء معلوم ہوئے",
       "ingredientsPending": "اجزاء اسکین کیے جا رہے ہیں…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "”{text}“",
       "offlineTip0": "ٹپ: استقامت کمالیت پر غالب ہے — باقاعدہ لاگ وہ پیٹرن ظاہر کرتے ہیں جو اہم ہیں۔",
       "offlineTip1": "ٹپ: تصویروں کے لیے قدرتی روشنی اور اوپر سے منظر حصوں کی درستگی میں مدد دیتی ہے۔",
       "offlineTip2": "ٹپ: مشروبات، ساسز اور پکانے کا تیل ضرور بتائیں — یہ کیلوریز میں اضافہ کرتے ہیں جو اکثر بھول جاتے ہیں۔",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "پاؤنڈ",
     "metricCm": "میٹرک (cm)",
     "imperialFtIn": "امپیریل (ft/in)",
     "metricKg": "میٹرک (kg)",
@@ -472,7 +493,7 @@
       "profile": "پروفائل",
       "localization": "لوکلائزیشن",
       "notifications": "اطلاعات",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "آن-ڈیوائس تجزیہ",
       "supportAndLegal": "سپورٹ اور قانونی",
       "about": "ایپ کے بارے میں",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "تمام ڈیٹا صاف کریں",
       "subtitle": "آپ کی تمام معلومات کو ناقابلِ واپسی طور پر حذف کریں",
+      "localOnlySubtitle": "اس ڈیوائس پر محفوظ Calorify ڈیٹا حذف کریں",
       "confirmationTitle": "تمام ڈیٹا صاف کر دوں؟",
       "confirmationMessage": "یہ عمل واپس نہیں کیا جا سکتا۔ آپ کے تمام لاگ کیے گئے کھانے، پسندیدہ اور پروفائل سیٹنگز مستقل طور پر حذف ہو جائیں گے۔",
+      "localOnlyConfirmationMessage": "یہ اس ڈیوائس سے لاگ کیے گئے کھانے، پسندیدہ اشیا اور پروفائل سیٹنگز مستقل طور پر حذف کر دے گا۔ Health Connect میں پہلے شیئر کیے گئے کھانے اور Health Connect کی رسائی کو سیٹنگز > Health Connect میں الگ سے منظم کیا جاتا ہے۔",
       "cancel": "منسوخ کریں",
       "clearEverything": "سب کچھ صاف کریں"
     },
@@ -555,7 +578,13 @@
       "subtitle": "اجازتیں دیکھیں اور منظم کریں",
       "unavailable": {
         "title": "Health Connect دستیاب نہیں",
-        "description": "اس ڈیوائس پر Health Connect دستیاب نہیں ہے۔ براہِ کرم Play Store سے Health Connect انسٹال کریں (Android 9+) یا Android 14+ پر اپ ڈیٹ کریں۔"
+        "description": "اس ڈیوائس پر Health Connect دستیاب نہیں ہے۔ براہِ کرم Play Store سے Health Connect انسٹال کریں (Android 9+) یا Android 14+ پر اپ ڈیٹ کریں۔",
+        "unsupportedDescription": "اس ڈیوائس پر Health Connect معاون نہیں ہے۔"
+      },
+      "updateRequired": {
+        "title": "Health Connect پر توجہ درکار ہے",
+        "description": "رسائی کا نظم کرنے سے پہلے Health Connect انسٹال یا اپ ڈیٹ کریں۔",
+        "action": "انسٹال یا اپ ڈیٹ کریں"
       },
       "permissions": {
         "title": "اجازتیں",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "اجازتیں منظم کریں",
       "openSettings": "Health Connect سیٹنگز کھولیں",
+      "disconnect": "Health Connect کا رابطہ منقطع کریں",
+      "disconnectConfirmationTitle": "Health Connect کا رابطہ منقطع کریں؟",
+      "disconnectConfirmationMessage": "Calorify کی Health Connect تک رسائی ختم ہو جائے گی۔ وہاں پہلے سے لکھا گیا ڈیٹا حذف نہیں ہوگا۔",
+      "disconnectConfirmationAction": "رابطہ منقطع کریں",
+      "deleteSyncedMeals": "Health Connect سے Calorify کے کھانے حذف کریں",
+      "deleteSyncedMealsConfirmationTitle": "ہم وقت کیے گئے کھانے حذف کریں؟",
+      "deleteSyncedMealsConfirmationMessage": "Calorify کے اس ورژن سے Health Connect میں ہم وقت کیے گئے کھانے حذف کریں؟ آپ کا مقامی کھانوں کا ریکارڈ تبدیل نہیں ہوگا۔ Calorify کی پرانی اندراجات کو Health Connect میں ڈیٹا کا نظم کریں کے ذریعے الگ سے حذف کرنا پڑ سکتا ہے۔",
+      "deleteSyncedMealsConfirmationAction": "ہم وقت کیے گئے کھانے حذف کریں",
+      "deleteSyncedMealsSuccess": "Health Connect سے Calorify کے کھانے حذف کر دیے گئے۔",
+      "deleteSyncedMealsFailed": "ہم وقت کیے گئے کھانے حذف نہیں ہو سکے۔ دوبارہ کوشش کریں۔",
+      "connectionPartial": "Health Connect کی کچھ خصوصیات فعال ہیں۔",
+      "connectionComplete": "Health Connect کی دونوں خصوصیات فعال ہیں۔",
+      "actionFailed": "Health Connect نہیں کھولا جا سکا۔ دوبارہ کوشش کریں۔",
       "requestPermissions": "اجازتیں درخواست کریں",
       "permissionRequestCancelledOrFailed": "اجازت کی درخواست منسوخ یا ناکام ہو گئی۔ براہِ کرم دوبارہ کوشش کریں یا Health Connect سیٹنگز میں دستی طور پر اجازتیں دیں۔",
       "permissionRequestFailed": "اجازتیں درخواست کرنے میں ناکامی۔ براہِ کرم دوبارہ کوشش کریں یا Health Connect کی سیٹنگز میں دستی طور پر اجازت دیں۔",
@@ -597,6 +639,7 @@
         "description": "رازداری کوئی ثانوی خیال نہیں — یہ ڈیزائن کا اصول ہے۔ عملی طور پر اس کا مطلب یہ ہے:",
         "noAccounts": "اکاؤنٹس درکار نہیں\nفوراً ایپ استعمال کریں۔ کوئی سائن اپ، کوئی شناختی ریکارڈ نہیں۔",
         "noTracking": "کوئی رویّہ ٹریکنگ نہیں\n{appLabel} آپ کی سرگرمی کی نگرانی نہیں کرتا، استعمال کے پروفائلز نہیں بناتا، اور آپ کو ایپس یا ویب سائٹس کے درمیان ٹریک نہیں کرتا۔",
+        "analyticsDisclosure": "محدود تجزیات اور تشخیص\nقابلِ اعتماد کارکردگی بہتر بنانے کے لیے {appLabel} ایپ کے بنیادی واقعات اور کریش تشخیص استعمال کرتا ہے۔ صحت کے ریکارڈ کی اقدار اشتہارات کے لیے استعمال یا فروخت نہیں کی جاتیں۔",
         "noAds": "اشتہارات سے پاک ڈیزائن\n{appLabel} بغیر اشتہارات یا ڈیٹا پر مبنی منافع کے کام کرنے کے لیے بنایا گیا ہے۔",
         "noDataSelling": "کوئی ڈیٹا فروخت نہیں\nآپ کا صحت کا ڈیٹا کسی تیسرے فریق کو فروخت یا شیئر نہیں کیا جاتا۔",
         "localStorage": "لوکل-فرسٹ اسٹوریج\nآپ کا ڈیٹا آپ کے ڈیوائس پر ہی رہتا ہے۔",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify ورژن {version}",
       "build": "بلڈ {buildNumber}"
     }
   },

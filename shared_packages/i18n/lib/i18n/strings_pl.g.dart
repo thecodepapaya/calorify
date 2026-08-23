@@ -267,7 +267,7 @@ class _TranslationsEditProfilePl extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'funty (lb)';
 	@override String get metricCm => 'Metryczne (cm)';
 	@override String get imperialFtIn => 'Imperialne (ft/in)';
 	@override String get metricKg => 'Metryczne (kg)';
@@ -568,9 +568,13 @@ class _TranslationsOnboardingHealthConnectPl extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Połącz z Health Connect';
 	@override String get description => 'Wykorzystuj spalone kalorie w swoim dziennym celu i opcjonalnie udostępniaj zapisane posiłki w Health Connect.';
+	@override String get overviewDescription => 'Wykorzystuj spalone kalorie w swoim dziennym celu i opcjonalnie udostępniaj zapisane posiłki w Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingPl automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingPl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedPl caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedPl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsPl progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsPl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsPl shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsPl._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationPl seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationPl._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlPl userControl = _TranslationsOnboardingHealthConnectUserControlPl._(_root);
 	@override String get connected => 'Health Connect połączony';
 	@override String get notConnected => 'Health Connect niepołączony';
 	@override String get setup => 'Skonfiguruj Health Connect';
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalPl extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Wpływ na wagę';
 	@override String get estLoss => 'Szac. utrata';
 	@override String get estGain => 'Szac. przyrost';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalorie (kcal)';
 }
 
 // Path: home.dailySummary
@@ -750,6 +754,8 @@ class _TranslationsHomeConnectHealthPl extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Synchronizuj z Health Connect';
 	@override String get description => 'Wykorzystuj spalone kalorie w swoim celu i udostępniaj zapisane posiłki';
 	@override String get install => 'Zainstaluj lub zaktualizuj';
+	@override String get dataUseDescription => 'Wykorzystuj spalone kalorie w swoim celu i udostępniaj zapisane posiłki';
+	@override String get installOrUpdate => 'Zainstaluj lub zaktualizuj';
 	@override String get connect => 'Połącz';
 }
 
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisPl extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} więcej';
 	@override String ingredientsLine({required Object count}) => 'Wykryto ${count} składników';
 	@override String get ingredientsPending => 'Skanowanie składników…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '„${text}”';
 	@override String get offlineTip0 => 'Wskazówka: Konsekwencja jest ważniejsza niż perfekcja — regularne zapisy ujawniają istotne wzorce.';
 	@override String get offlineTip1 => 'Wskazówka: Do zdjęć najlepiej naturalne światło i ujęcie z góry — pomagają w ocenie porcji.';
 	@override String get offlineTip2 => 'Wskazówka: Wspomnij o napojach, sosach i oleju do smażenia — to kalorie, które często są pomijane.';
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsPl extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALIZACJA';
 	@override String get notifications => 'POWIADOMIENIA';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'Health Connect';
 	@override String get localInference => 'ANALIZA NA URZĄDZENIU';
 	@override String get supportAndLegal => 'POMOC I DANE PRAWNE';
 	@override String get about => 'O APLIKACJI';
@@ -1113,8 +1119,10 @@ class _TranslationsSettingsClearAllDataPl extends TranslationsSettingsClearAllDa
 	// Translations
 	@override String get title => 'Wyczyść wszystkie dane';
 	@override String get subtitle => 'Usuń dane Calorify zapisane na tym urządzeniu';
+	@override String get localOnlySubtitle => 'Usuń dane Calorify zapisane na tym urządzeniu';
 	@override String get confirmationTitle => 'Wyczyścić wszystkie dane?';
 	@override String get confirmationMessage => 'Spowoduje to trwałe usunięcie zapisanych posiłków, ulubionych i ustawień profilu z tego urządzenia. Posiłkami udostępnionymi już w Health Connect i dostępem do Health Connect zarządza się osobno w Ustawienia > Health Connect.';
+	@override String get localOnlyConfirmationMessage => 'Spowoduje to trwałe usunięcie zapisanych posiłków, ulubionych i ustawień profilu z tego urządzenia. Posiłkami udostępnionymi już w Health Connect i dostępem do Health Connect zarządza się osobno w Ustawienia > Health Connect.';
 	@override String get cancel => 'Anuluj';
 	@override String get clearEverything => 'Wyczyść wszystko';
 }
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoPl extends TranslationsSettingsAppInfoEn {
 	final TranslationsPl _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify, wersja ${version}';
 	@override String build({required Object buildNumber}) => 'Kompilacja ${buildNumber}';
 }
 
@@ -1367,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingPl extends Translatio
 	@override String get description => 'Odczytuj dzisiejszą całkowitą liczbę spalonych kalorii z Health Connect';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedPl extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedPl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Spalone kalorie';
+	@override String get description => 'Odczytuj dzisiejszą całkowitą liczbę spalonych kalorii z Health Connect';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsPl extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsPl._(TranslationsPl root) : this._root = root, super.internal(root);
@@ -1378,9 +1397,31 @@ class _TranslationsOnboardingHealthConnectProgressInsightsPl extends Translation
 	@override String get description => 'Zapisuj w Health Connect posiłki zarejestrowane w Calorify';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsPl extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsPl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Udostępniaj zapisane posiłki';
+	@override String get description => 'Zapisuj w Health Connect posiłki zarejestrowane w Calorify';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationPl extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationPl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+	final TranslationsPl _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Masz kontrolę';
+	@override String get description => 'Wybierz dowolne uprawnienie i zmieniaj dostęp w każdej chwili';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlPl extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlPl._(TranslationsPl root) : this._root = root, super.internal(root);
 
 	final TranslationsPl _root; // ignore: unused_field
 
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailablePl extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect niedostępny';
 	@override String get description => 'Health Connect nie jest obsługiwany na tym urządzeniu.';
+	@override String get unsupportedDescription => 'Health Connect nie jest obsługiwany na tym urządzeniu.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1592,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyPl extends TranslationsSettingsAboutPriva
 	@override String get description => 'Prywatność to nie dodatek — to zasada projektowa. Oto, co to oznacza w praktyce:';
 	@override String get noAccounts => 'Brak wymaganych kont\nKorzystaj z aplikacji od razu. Bez rejestracji, bez tworzenia tożsamości.';
 	@override String noTracking({required Object appLabel}) => 'Ograniczona analityka i diagnostyka\n${appLabel} wykorzystuje podstawowe zdarzenia w aplikacji i diagnostykę awarii, aby zwiększać niezawodność. Wartości danych zdrowotnych nie są wykorzystywane do reklam ani sprzedawane.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Ograniczona analityka i diagnostyka\n${appLabel} wykorzystuje podstawowe zdarzenia w aplikacji i diagnostykę awarii, aby zwiększać niezawodność. Wartości danych zdrowotnych nie są wykorzystywane do reklam ani sprzedawane.';
 	@override String noAds({required Object appLabel}) => 'Brak reklam z założenia\n${appLabel} działa bez reklam i monetyzacji opartej na danych.';
 	@override String get noDataSelling => 'Brak sprzedaży danych\nTwoje dane zdrowotne nigdy nie są sprzedawane ani udostępniane stronom trzecim.';
 	@override String get localStorage => 'Priorytet lokalny\nTwoje dane pozostają na urządzeniu.';
@@ -1865,12 +1908,19 @@ extension on TranslationsPl {
 			'onboarding.activityLevel.description' => 'To pomaga nam dokładniej obliczyć Twoje dzienne zapotrzebowanie kaloryczne',
 			'onboarding.healthConnect.title' => 'Połącz z Health Connect',
 			'onboarding.healthConnect.description' => 'Wykorzystuj spalone kalorie w swoim dziennym celu i opcjonalnie udostępniaj zapisane posiłki w Health Connect.',
+			'onboarding.healthConnect.overviewDescription' => 'Wykorzystuj spalone kalorie w swoim dziennym celu i opcjonalnie udostępniaj zapisane posiłki w Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Spalone kalorie',
 			'onboarding.healthConnect.automaticTracking.description' => 'Odczytuj dzisiejszą całkowitą liczbę spalonych kalorii z Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Spalone kalorie',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Odczytuj dzisiejszą całkowitą liczbę spalonych kalorii z Health Connect',
 			'onboarding.healthConnect.progressInsights.title' => 'Udostępniaj zapisane posiłki',
 			'onboarding.healthConnect.progressInsights.description' => 'Zapisuj w Health Connect posiłki zarejestrowane w Calorify',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Udostępniaj zapisane posiłki',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Zapisuj w Health Connect posiłki zarejestrowane w Calorify',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Masz kontrolę',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Wybierz dowolne uprawnienie i zmieniaj dostęp w każdej chwili',
+			'onboarding.healthConnect.userControl.title' => 'Masz kontrolę',
+			'onboarding.healthConnect.userControl.description' => 'Wybierz dowolne uprawnienie i zmieniaj dostęp w każdej chwili',
 			'onboarding.healthConnect.connected' => 'Health Connect połączony',
 			'onboarding.healthConnect.notConnected' => 'Health Connect niepołączony',
 			'onboarding.healthConnect.setup' => 'Skonfiguruj Health Connect',
@@ -1937,7 +1987,7 @@ extension on TranslationsPl {
 			'home.dailyGoal.weightImpact' => 'Wpływ na wagę',
 			'home.dailyGoal.estLoss' => 'Szac. utrata',
 			'home.dailyGoal.estGain' => 'Szac. przyrost',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalorie (kcal)',
 			'home.dailySummary.title' => 'Codzienne podsumowanie',
 			'home.dailySummary.calories' => 'Kalorie',
 			'home.dailySummary.carbs' => 'Węglowodany',
@@ -1977,6 +2027,8 @@ extension on TranslationsPl {
 			'home.connectHealth.title' => 'Synchronizuj z Health Connect',
 			'home.connectHealth.description' => 'Wykorzystuj spalone kalorie w swoim celu i udostępniaj zapisane posiłki',
 			'home.connectHealth.install' => 'Zainstaluj lub zaktualizuj',
+			'home.connectHealth.dataUseDescription' => 'Wykorzystuj spalone kalorie w swoim celu i udostępniaj zapisane posiłki',
+			'home.connectHealth.installOrUpdate' => 'Zainstaluj lub zaktualizuj',
 			'home.connectHealth.connect' => 'Połącz',
 			'history.noMeals' => 'Brak zarejestrowanych posiłków',
 			'history.emptyMessage' => 'Zrób zdjęcie ostatniego posiłku, aby zapisać je tutaj.',
@@ -2043,7 +2095,7 @@ extension on TranslationsPl {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} więcej',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Wykryto ${count} składników',
 			'meal.analysis.ingredientsPending' => 'Skanowanie składników…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '„${text}”',
 			'meal.analysis.offlineTip0' => 'Wskazówka: Konsekwencja jest ważniejsza niż perfekcja — regularne zapisy ujawniają istotne wzorce.',
 			'meal.analysis.offlineTip1' => 'Wskazówka: Do zdjęć najlepiej naturalne światło i ujęcie z góry — pomagają w ocenie porcji.',
 			'meal.analysis.offlineTip2' => 'Wskazówka: Wspomnij o napojach, sosach i oleju do smażenia — to kalorie, które często są pomijane.',
@@ -2136,7 +2188,7 @@ extension on TranslationsPl {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'funty (lb)',
 			'editProfile.metricCm' => 'Metryczne (cm)',
 			'editProfile.imperialFtIn' => 'Imperialne (ft/in)',
 			'editProfile.metricKg' => 'Metryczne (kg)',
@@ -2164,7 +2216,7 @@ extension on TranslationsPl {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALIZACJA',
 			'settings.sections.notifications' => 'POWIADOMIENIA',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'Health Connect',
 			'settings.sections.localInference' => 'ANALIZA NA URZĄDZENIU',
 			'settings.sections.supportAndLegal' => 'POMOC I DANE PRAWNE',
 			'settings.sections.about' => 'O APLIKACJI',
@@ -2213,8 +2265,10 @@ extension on TranslationsPl {
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Nie można wyeksportować historii posiłków: ${error}',
 			'settings.clearAllData.title' => 'Wyczyść wszystkie dane',
 			'settings.clearAllData.subtitle' => 'Usuń dane Calorify zapisane na tym urządzeniu',
+			'settings.clearAllData.localOnlySubtitle' => 'Usuń dane Calorify zapisane na tym urządzeniu',
 			'settings.clearAllData.confirmationTitle' => 'Wyczyścić wszystkie dane?',
 			'settings.clearAllData.confirmationMessage' => 'Spowoduje to trwałe usunięcie zapisanych posiłków, ulubionych i ustawień profilu z tego urządzenia. Posiłkami udostępnionymi już w Health Connect i dostępem do Health Connect zarządza się osobno w Ustawienia > Health Connect.',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Spowoduje to trwałe usunięcie zapisanych posiłków, ulubionych i ustawień profilu z tego urządzenia. Posiłkami udostępnionymi już w Health Connect i dostępem do Health Connect zarządza się osobno w Ustawienia > Health Connect.',
 			'settings.clearAllData.cancel' => 'Anuluj',
 			'settings.clearAllData.clearEverything' => 'Wyczyść wszystko',
 			'settings.debugOptions.title' => 'Opcje debugowania',
@@ -2223,6 +2277,7 @@ extension on TranslationsPl {
 			'settings.healthConnect.subtitle' => 'Wyświetl i zarządzaj uprawnieniami',
 			'settings.healthConnect.unavailable.title' => 'Health Connect niedostępny',
 			'settings.healthConnect.unavailable.description' => 'Health Connect nie jest obsługiwany na tym urządzeniu.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect nie jest obsługiwany na tym urządzeniu.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect wymaga uwagi',
 			'settings.healthConnect.updateRequired.description' => 'Zainstaluj lub zaktualizuj Health Connect przed zarządzaniem dostępem.',
 			'settings.healthConnect.updateRequired.action' => 'Zainstaluj lub zaktualizuj',
@@ -2266,6 +2321,7 @@ extension on TranslationsPl {
 			'settings.about.privacy.description' => 'Prywatność to nie dodatek — to zasada projektowa. Oto, co to oznacza w praktyce:',
 			'settings.about.privacy.noAccounts' => 'Brak wymaganych kont\nKorzystaj z aplikacji od razu. Bez rejestracji, bez tworzenia tożsamości.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Ograniczona analityka i diagnostyka\n${appLabel} wykorzystuje podstawowe zdarzenia w aplikacji i diagnostykę awarii, aby zwiększać niezawodność. Wartości danych zdrowotnych nie są wykorzystywane do reklam ani sprzedawane.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Ograniczona analityka i diagnostyka\n${appLabel} wykorzystuje podstawowe zdarzenia w aplikacji i diagnostykę awarii, aby zwiększać niezawodność. Wartości danych zdrowotnych nie są wykorzystywane do reklam ani sprzedawane.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Brak reklam z założenia\n${appLabel} działa bez reklam i monetyzacji opartej na danych.',
 			'settings.about.privacy.noDataSelling' => 'Brak sprzedaży danych\nTwoje dane zdrowotne nigdy nie są sprzedawane ani udostępniane stronom trzecim.',
 			'settings.about.privacy.localStorage' => 'Priorytet lokalny\nTwoje dane pozostają na urządzeniu.',
@@ -2278,7 +2334,7 @@ extension on TranslationsPl {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Twoja opinia pomaga uczynić ${appLabel} lepszym dla wszystkich.',
 			'settings.about.feedback.rateApp' => 'Oceń w Play Store',
 			'settings.about.feedback.sendFeedback' => 'Wyślij opinię',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify, wersja ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Kompilacja ${buildNumber}',
 			'reminders.title' => 'Pozostań na kursie dzięki przypomnieniom',
 			'reminders.description' => 'Otrzymuj delikatne przypomnienia o zapisywaniu posiłków i utrzymaniu spójności w celach żywieniowych',
@@ -2310,6 +2366,8 @@ extension on TranslationsPl {
 			'notifications.snack.body' => 'Czas na zdrową przekąskę',
 			'notifications.test.title' => 'Powiadomienie testowe',
 			'login.title' => 'Logowanie',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Zaloguj się przez Google',
 			'login.signInFailed' => 'Logowanie przez Google nie powiodło się lub zostało anulowane.',
 			'disclaimer.pleaseNote' => 'Uwaga',
@@ -2323,8 +2381,6 @@ extension on TranslationsPl {
 			'disclaimer.snap.databaseLimitations.title' => 'Ograniczenia bazy danych',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza produktów ${appLabel} jest obszerna, ale może nie zawierać każdego produktu lub wariantu.',
 			'disclaimer.weightEstimate.title' => 'O szacowanej zmianie wagi',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Przewidywana zmiana wagi to teoretyczne oszacowanie oparte na prostym modelu kalorie w vs kalorie out. Ma charakter motywacyjny, a nie prognozę rzeczywistej wagi.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Dokładność kalorii',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'To oszacowanie jest tak dokładne, jak dokładne są Twoje zarejestrowane kalorie i wydatki. Błędne zapisy spowodują niedokładne prognozy.',

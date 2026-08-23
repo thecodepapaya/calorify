@@ -267,7 +267,7 @@ class _TranslationsEditProfileVi extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'pao (lbs)';
 	@override String get metricCm => 'Hệ mét (cm)';
 	@override String get imperialFtIn => 'Hệ Anh (ft/in)';
 	@override String get metricKg => 'Hệ mét (kg)';
@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectVi extends TranslationsOnboardingHealt
 	@override String get statusSuccess => 'Đã kết nối Health Connect thành công!';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho ${appLabel}.';
 	@override String statusError({required Object error}) => 'Lỗi khi thiết lập Health Connect: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedVi caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedVi._(_root);
+	@override String get installOrUpdate => 'Cài đặt hoặc cập nhật';
+	@override String get manageAccess => 'Quản lý quyền truy cập';
+	@override String get overviewDescription => 'Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsVi shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsVi._(_root);
+	@override String get statusNotConnected => 'Chọn các tính năng Health Connect bạn muốn bật.';
+	@override String get statusPartial => 'Health Connect đã kết nối một phần. Hãy bật quyền còn lại để dùng cả hai tính năng.';
+	@override String get statusProviderUpdateRequired => 'Cài đặt hoặc cập nhật Health Connect để tiếp tục.';
+	@override String get statusUnavailable => 'Thiết bị này không hỗ trợ Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectUserControlVi userControl = _TranslationsOnboardingHealthConnectUserControlVi._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalVi extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Tác động lên cân nặng';
 	@override String get estLoss => 'Ước tính giảm';
 	@override String get estGain => 'Ước tính tăng';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilocalo (kcal)';
 }
 
 // Path: home.dailySummary
@@ -645,7 +655,7 @@ class _TranslationsHomeDailySummaryVi extends TranslationsHomeDailySummaryEn {
 	@override String get title => 'Tóm tắt hàng ngày';
 	@override String get calories => 'Calo';
 	@override String get carbs => 'Tinh bột';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Chất đạm';
 	@override String get fat => 'Chất béo';
 	@override String get fiber => 'Chất xơ';
 	@override String get grams => 'gam';
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthVi extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect';
 	@override String get install => 'Cài đặt';
 	@override String get connect => 'Kết nối';
+	@override String get dataUseDescription => 'Dùng lượng calo đã đốt cháy trong mục tiêu và chia sẻ các bữa ăn đã ghi';
+	@override String get installOrUpdate => 'Cài đặt hoặc cập nhật';
 }
 
 // Path: meal.nutrition
@@ -756,7 +768,7 @@ class _TranslationsMealNutritionVi extends TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Calo';
 	@override String get carbs => 'Tinh bột (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Chất đạm (g)';
 	@override String get fat => 'Chất béo (g)';
 	@override String get fiber => 'Chất xơ (g)';
 }
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisVi extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} khác';
 	@override String ingredientsLine({required Object count}) => 'Phát hiện ${count} nguyên liệu';
 	@override String get ingredientsPending => 'Đang quét nguyên liệu…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'Mẹo: Kiên trì còn hơn hoàn hảo—ghi chép đều đặn sẽ cho thấy các mô hình quan trọng.';
 	@override String get offlineTip1 => 'Mẹo: Với ảnh, ánh sáng tự nhiên và góc chụp từ trên xuống giúp xác định khẩu phần chính xác hơn.';
 	@override String get offlineTip2 => 'Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsVi extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'HỒ SƠ';
 	@override String get localization => 'NGÔN NGỮ';
 	@override String get notifications => 'THÔNG BÁO';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'TÍCH HỢP HEALTH CONNECT';
 	@override String get localInference => 'PHÂN TÍCH TRÊN THIẾT BỊ';
 	@override String get supportAndLegal => 'HỖ TRỢ & PHÁP LÝ';
 	@override String get about => 'VỀ ỨNG DỤNG';
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataVi extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.';
 	@override String get cancel => 'Hủy';
 	@override String get clearEverything => 'Xóa hết';
+	@override String get localOnlyConfirmationMessage => 'Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.';
+	@override String get localOnlySubtitle => 'Xóa dữ liệu Calorify lưu trên thiết bị này';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectVi extends TranslationsSettingsHealthCon
 	@override String get permissionRequestCancelledOrFailed => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
 	@override String get permissionRequestFailed => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.';
 	@override String get requestingPermissions => 'Đang yêu cầu...';
+	@override String get actionFailed => 'Không thể mở Health Connect. Vui lòng thử lại.';
+	@override String get connectionComplete => 'Cả hai tính năng Health Connect đã được bật.';
+	@override String get connectionPartial => 'Một số tính năng Health Connect đã được bật.';
+	@override String get deleteSyncedMeals => 'Xóa bữa ăn Calorify khỏi Health Connect';
+	@override String get deleteSyncedMealsConfirmationAction => 'Xóa bữa ăn đã đồng bộ';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Xóa bữa ăn đã đồng bộ?';
+	@override String get deleteSyncedMealsFailed => 'Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.';
+	@override String get deleteSyncedMealsSuccess => 'Đã xóa các bữa ăn Calorify khỏi Health Connect.';
+	@override String get disconnect => 'Ngắt kết nối Health Connect';
+	@override String get disconnectConfirmationAction => 'Ngắt kết nối';
+	@override String get disconnectConfirmationMessage => 'Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.';
+	@override String get disconnectConfirmationTitle => 'Ngắt kết nối Health Connect?';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredVi updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredVi._(_root);
 }
 
 // Path: settings.about
@@ -1164,7 +1192,7 @@ class _TranslationsSettingsAppInfoVi extends TranslationsSettingsAppInfoEn {
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify phiên bản ${version}';
 	@override String build({required Object buildNumber}) => 'Bản dựng ${buildNumber}';
 }
 
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationVi extends Translat
 	@override String get description => 'Đồng bộ dữ liệu từ các ứng dụng sức khỏe yêu thích của bạn';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedVi extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect';
+	@override String get title => 'Calo đã đốt cháy';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsVi extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect';
+	@override String get title => 'Chia sẻ bữa ăn đã ghi';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlVi extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào';
+	@override String get title => 'Bạn là người kiểm soát';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessVi extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessVi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableVi extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect không khả dụng';
 	@override String get description => 'Health Connect không có trên thiết bị này. Vui lòng cài Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+.';
+	@override String get unsupportedDescription => 'Thiết bị này không hỗ trợ Health Connect.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsVi extends TranslationsSettin
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedVi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadVi nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadVi._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteVi nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteVi._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredVi extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => 'Cài đặt hoặc cập nhật';
+	@override String get description => 'Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.';
+	@override String get title => 'Health Connect cần được xử lý';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyVi extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ với bên thứ ba.';
 	@override String get localStorage => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị của bạn.';
 	@override String get privacyPolicy => 'Chính sách quyền riêng tư';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Phân tích và chẩn đoán có giới hạn\n${appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán.';
 }
 
 // Path: settings.about.developer
@@ -1576,7 +1651,7 @@ class _TranslationsSettingsAboutDeveloperVi extends TranslationsSettingsAboutDev
 	@override String get title => 'Được xây dựng bởi một nhà phát triển độc lập';
 	@override String description({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập với mục tiêu tạo phần mềm sức khỏe yên tĩnh, tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hướng phát triển ứng dụng.';
 	@override String get website => 'Trang web';
-	@override String get email => 'Email';
+	@override String get email => 'Thư điện tử';
 }
 
 // Path: settings.about.feedback
@@ -1847,6 +1922,19 @@ extension on TranslationsVi {
 			'onboarding.healthConnect.statusSuccess' => 'Đã kết nối Health Connect thành công!',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Từ chối quyền. Vui lòng bật quyền Health Connect trong cài đặt điện thoại cho ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Lỗi khi thiết lập Health Connect: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Đọc tổng lượng calo đã đốt cháy hôm nay từ Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Calo đã đốt cháy',
+			'onboarding.healthConnect.installOrUpdate' => 'Cài đặt hoặc cập nhật',
+			'onboarding.healthConnect.manageAccess' => 'Quản lý quyền truy cập',
+			'onboarding.healthConnect.overviewDescription' => 'Dùng lượng calo đã đốt cháy trong mục tiêu hằng ngày và tùy chọn chia sẻ các bữa ăn đã ghi với Health Connect.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Ghi các bữa ăn bạn nhập trong Calorify vào Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Chia sẻ bữa ăn đã ghi',
+			'onboarding.healthConnect.statusNotConnected' => 'Chọn các tính năng Health Connect bạn muốn bật.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect đã kết nối một phần. Hãy bật quyền còn lại để dùng cả hai tính năng.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Cài đặt hoặc cập nhật Health Connect để tiếp tục.',
+			'onboarding.healthConnect.statusUnavailable' => 'Thiết bị này không hỗ trợ Health Connect.',
+			'onboarding.healthConnect.userControl.description' => 'Chọn một trong hai quyền và thay đổi quyền truy cập bất cứ lúc nào',
+			'onboarding.healthConnect.userControl.title' => 'Bạn là người kiểm soát',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Bạn không đơn độc',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Nghiên cứu cho thấy theo dõi đều đặn là yếu tố tiên đoán số 1 của thành công lâu dài.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Đối với một ${age} tuổi ${gender} muốn ${goal}, theo dõi đều đặn là yếu tố tiên đoán số 1 của thành công.',
@@ -1899,11 +1987,11 @@ extension on TranslationsVi {
 			'home.dailyGoal.weightImpact' => 'Tác động lên cân nặng',
 			'home.dailyGoal.estLoss' => 'Ước tính giảm',
 			'home.dailyGoal.estGain' => 'Ước tính tăng',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilocalo (kcal)',
 			'home.dailySummary.title' => 'Tóm tắt hàng ngày',
 			'home.dailySummary.calories' => 'Calo',
 			'home.dailySummary.carbs' => 'Tinh bột',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Chất đạm',
 			'home.dailySummary.fat' => 'Chất béo',
 			'home.dailySummary.fiber' => 'Chất xơ',
 			'home.dailySummary.grams' => 'gam',
@@ -1940,6 +2028,8 @@ extension on TranslationsVi {
 			'home.connectHealth.description' => 'Đồng bộ dữ liệu dinh dưỡng của bạn với Health Connect',
 			'home.connectHealth.install' => 'Cài đặt',
 			'home.connectHealth.connect' => 'Kết nối',
+			'home.connectHealth.dataUseDescription' => 'Dùng lượng calo đã đốt cháy trong mục tiêu và chia sẻ các bữa ăn đã ghi',
+			'home.connectHealth.installOrUpdate' => 'Cài đặt hoặc cập nhật',
 			'history.noMeals' => 'Chưa có bữa ăn được ghi',
 			'history.emptyMessage' => 'Chụp ảnh bữa ăn gần nhất để ghi vào đây.',
 			'history.today' => 'Hôm nay',
@@ -1960,7 +2050,7 @@ extension on TranslationsVi {
 			'meal.mealType' => 'Loại bữa ăn',
 			'meal.nutrition.calories' => 'Calo',
 			'meal.nutrition.carbs' => 'Tinh bột (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Chất đạm (g)',
 			'meal.nutrition.fat' => 'Chất béo (g)',
 			'meal.nutrition.fiber' => 'Chất xơ (g)',
 			'meal.deleteConfirmation.title' => 'Xóa bữa ăn',
@@ -2005,7 +2095,7 @@ extension on TranslationsVi {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} khác',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Phát hiện ${count} nguyên liệu',
 			'meal.analysis.ingredientsPending' => 'Đang quét nguyên liệu…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'Mẹo: Kiên trì còn hơn hoàn hảo—ghi chép đều đặn sẽ cho thấy các mô hình quan trọng.',
 			'meal.analysis.offlineTip1' => 'Mẹo: Với ảnh, ánh sáng tự nhiên và góc chụp từ trên xuống giúp xác định khẩu phần chính xác hơn.',
 			'meal.analysis.offlineTip2' => 'Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.',
@@ -2098,7 +2188,7 @@ extension on TranslationsVi {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'pao (lbs)',
 			'editProfile.metricCm' => 'Hệ mét (cm)',
 			'editProfile.imperialFtIn' => 'Hệ Anh (ft/in)',
 			'editProfile.metricKg' => 'Hệ mét (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsVi {
 			'settings.sections.profile' => 'HỒ SƠ',
 			'settings.sections.localization' => 'NGÔN NGỮ',
 			'settings.sections.notifications' => 'THÔNG BÁO',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'TÍCH HỢP HEALTH CONNECT',
 			'settings.sections.localInference' => 'PHÂN TÍCH TRÊN THIẾT BỊ',
 			'settings.sections.supportAndLegal' => 'HỖ TRỢ & PHÁP LÝ',
 			'settings.sections.about' => 'VỀ ỨNG DỤNG',
@@ -2179,12 +2269,15 @@ extension on TranslationsVi {
 			'settings.clearAllData.confirmationMessage' => 'Hành động này không thể hoàn tác. Tất cả bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ của bạn sẽ bị xóa vĩnh viễn.',
 			'settings.clearAllData.cancel' => 'Hủy',
 			'settings.clearAllData.clearEverything' => 'Xóa hết',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Thao tác này xóa vĩnh viễn các bữa ăn đã ghi, mục yêu thích và cài đặt hồ sơ khỏi thiết bị. Các bữa ăn đã chia sẻ với Health Connect và quyền truy cập Health Connect được quản lý riêng tại Cài đặt > Health Connect.',
+			'settings.clearAllData.localOnlySubtitle' => 'Xóa dữ liệu Calorify lưu trên thiết bị này',
 			'settings.debugOptions.title' => 'Tùy chọn gỡ lỗi',
 			'settings.developerModeEnabled' => 'Đã bật chế độ nhà phát triển!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Xem và quản lý quyền',
 			'settings.healthConnect.unavailable.title' => 'Health Connect không khả dụng',
 			'settings.healthConnect.unavailable.description' => 'Health Connect không có trên thiết bị này. Vui lòng cài Health Connect từ Play Store (Android 9+) hoặc cập nhật lên Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Thiết bị này không hỗ trợ Health Connect.',
 			'settings.healthConnect.permissions.title' => 'Quyền',
 			'settings.healthConnect.permissions.description' => 'Các quyền sau được yêu cầu để cung cấp tích hợp Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Đã cấp',
@@ -2204,6 +2297,22 @@ extension on TranslationsVi {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Yêu cầu quyền đã bị hủy hoặc thất bại. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Không thể yêu cầu quyền. Vui lòng thử lại hoặc cấp quyền thủ công trong cài đặt Health Connect.',
 			'settings.healthConnect.requestingPermissions' => 'Đang yêu cầu...',
+			'settings.healthConnect.actionFailed' => 'Không thể mở Health Connect. Vui lòng thử lại.',
+			'settings.healthConnect.connectionComplete' => 'Cả hai tính năng Health Connect đã được bật.',
+			'settings.healthConnect.connectionPartial' => 'Một số tính năng Health Connect đã được bật.',
+			'settings.healthConnect.deleteSyncedMeals' => 'Xóa bữa ăn Calorify khỏi Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Xóa bữa ăn đã đồng bộ',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Xóa khỏi Health Connect các bữa ăn được phiên bản Calorify này đồng bộ? Nhật ký bữa ăn cục bộ sẽ không thay đổi. Các mục Calorify cũ hơn có thể vẫn cần được xóa qua Quản lý dữ liệu trong Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Xóa bữa ăn đã đồng bộ?',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Không thể xóa bữa ăn đã đồng bộ. Vui lòng thử lại.',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Đã xóa các bữa ăn Calorify khỏi Health Connect.',
+			'settings.healthConnect.disconnect' => 'Ngắt kết nối Health Connect',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Ngắt kết nối',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify sẽ mất quyền truy cập Health Connect. Dữ liệu đã ghi tại đó sẽ không bị xóa.',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Ngắt kết nối Health Connect?',
+			'settings.healthConnect.updateRequired.action' => 'Cài đặt hoặc cập nhật',
+			'settings.healthConnect.updateRequired.description' => 'Cài đặt hoặc cập nhật Health Connect trước khi quản lý quyền truy cập.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect cần được xử lý',
 			'settings.about.title' => 'Về',
 			'settings.about.tagline' => 'Nhanh, miễn phí và ưu tiên quyền riêng tư trong nhận thức calo',
 			'settings.about.ourStory.title' => 'Câu chuyện của chúng tôi',
@@ -2216,15 +2325,16 @@ extension on TranslationsVi {
 			'settings.about.privacy.noDataSelling' => 'Không bán dữ liệu\nDữ liệu sức khỏe của bạn không bao giờ bị bán hoặc chia sẻ với bên thứ ba.',
 			'settings.about.privacy.localStorage' => 'Lưu trữ ưu tiên cục bộ\nDữ liệu của bạn ở lại trên thiết bị của bạn.',
 			'settings.about.privacy.privacyPolicy' => 'Chính sách quyền riêng tư',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Phân tích và chẩn đoán có giới hạn\n${appLabel} sử dụng các sự kiện cơ bản của ứng dụng và dữ liệu chẩn đoán sự cố để cải thiện độ tin cậy. Giá trị hồ sơ sức khỏe không được dùng cho quảng cáo hoặc bán.',
 			'settings.about.developer.title' => 'Được xây dựng bởi một nhà phát triển độc lập',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} được xây dựng và duy trì bởi một nhà phát triển độc lập với mục tiêu tạo phần mềm sức khỏe yên tĩnh, tôn trọng quyền riêng tư.\n\nPhản hồi được đọc cá nhân và giúp định hướng phát triển ứng dụng.',
 			'settings.about.developer.website' => 'Trang web',
-			'settings.about.developer.email' => 'Email',
+			'settings.about.developer.email' => 'Thư điện tử',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Bạn thích ${appLabel} chứ?',
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Phản hồi của bạn giúp ${appLabel} tốt hơn cho mọi người.',
 			'settings.about.feedback.rateApp' => 'Đánh giá trên Play Store',
 			'settings.about.feedback.sendFeedback' => 'Gửi phản hồi',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify phiên bản ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Bản dựng ${buildNumber}',
 			'reminders.title' => 'Giữ đúng lịch với nhắc nhở',
 			'reminders.description' => 'Nhận nhắc nhẹ để ghi bữa ăn và duy trì mục tiêu dinh dưỡng',
@@ -2256,6 +2366,8 @@ extension on TranslationsVi {
 			'notifications.snack.body' => 'Thời gian cho một bữa ăn nhẹ lành mạnh',
 			'notifications.test.title' => 'Thông báo thử nghiệm',
 			'login.title' => 'Đăng nhập',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Đăng nhập bằng Google',
 			'login.signInFailed' => 'Đăng nhập Google thất bại hoặc đã bị hủy.',
 			'disclaimer.pleaseNote' => 'Vui lòng lưu ý',
@@ -2291,8 +2403,6 @@ extension on TranslationsVi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính calo đã tiêu hao cho đến nay.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Hướng dẫn chuyên môn',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Đừng dùng ước tính này để đưa ra quyết định y tế. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng để được tư vấn quản lý cân nặng cá nhân.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Dinh dưỡng được đối chiếu từ gói USDA đã tải xuống',
 			'localNutritionPhase4.nutritionCached' => 'Dinh dưỡng được đối chiếu từ bộ nhớ đệm USDA trên thiết bị',
 			'localNutritionPhase4.nutritionMixed' => 'Dinh dưỡng được tổng hợp từ các hàng USDA đã tải xuống, lưu đệm và từ xa',

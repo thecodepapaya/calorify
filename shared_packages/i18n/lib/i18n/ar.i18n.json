@@ -83,7 +83,12 @@
     "healthConnect": {
       "title": "الاتصال بـ Health Connect",
       "description": "استخدم السعرات المحروقة ضمن هدفك اليومي وشارك وجباتك المسجّلة اختياريًا مع Health Connect.",
+      "overviewDescription": "استخدم السعرات المحروقة ضمن هدفك اليومي وشارك وجباتك المسجّلة اختياريًا مع Health Connect.",
       "automaticTracking": {
+        "title": "السعرات المحروقة",
+        "description": "اقرأ إجمالي السعرات المحروقة اليوم من Health Connect"
+      },
+      "caloriesBurned": {
         "title": "السعرات المحروقة",
         "description": "اقرأ إجمالي السعرات المحروقة اليوم من Health Connect"
       },
@@ -91,7 +96,15 @@
         "title": "مشاركة الوجبات المسجّلة",
         "description": "اكتب الوجبات التي تسجّلها في Calorify إلى Health Connect"
       },
+      "shareLoggedMeals": {
+        "title": "مشاركة الوجبات المسجّلة",
+        "description": "اكتب الوجبات التي تسجّلها في Calorify إلى Health Connect"
+      },
       "seamlessIntegration": {
+        "title": "أنت المتحكّم",
+        "description": "اختر أيًا من الإذنين وغيّر الوصول في أي وقت"
+      },
+      "userControl": {
         "title": "أنت المتحكّم",
         "description": "اختر أيًا من الإذنين وغيّر الوصول في أي وقت"
       },
@@ -177,7 +190,7 @@
       "weightImpact": "تأثير على الوزن",
       "estLoss": "المقدّر فقدان",
       "estGain": "المقدّر زيادة",
-      "kcal": "kcal"
+      "kcal": "كيلوكالوري"
     },
     "dailySummary": {
       "title": "الملخّص اليومي",
@@ -232,7 +245,9 @@
     "connectHealth": {
       "title": "زامِن مع Health Connect",
       "description": "استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة",
+      "dataUseDescription": "استخدم السعرات المحروقة في هدفك وشارك وجباتك المسجّلة",
       "install": "تثبيت أو تحديث",
+      "installOrUpdate": "تثبيت أو تحديث",
       "connect": "اتصال"
     }
   },
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} أكثر",
       "ingredientsLine": "تم اكتشاف {count} مكونات",
       "ingredientsPending": "جارٍ مسح المكونات…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "«{text}»",
       "offlineTip0": "نصيحة: الاستمرارية أفضل من الكمال—التسجيل المنتظم يكشف الأنماط المهمة.",
       "offlineTip1": "نصيحة: للصور، الضوء الطبيعي والمنظور العلوي يساعدان على دقة تقدير الحصص.",
       "offlineTip2": "نصيحة: اذكر المشروبات والصلصات وزيت الطهي—إضافات سعرات تُنسَى غالبًا.",
@@ -425,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "رطل",
     "metricCm": "متري (cm)",
     "imperialFtIn": "إمبراطوري (ft/in)",
     "metricKg": "متري (kg)",
@@ -478,7 +493,7 @@
       "profile": "الملف",
       "localization": "اللغة",
       "notifications": "الإشعارات",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "التحليل على الجهاز",
       "supportAndLegal": "الدعم والقانونية",
       "about": "حول",
@@ -547,8 +562,10 @@
     "clearAllData": {
       "title": "مسح جميع البيانات",
       "subtitle": "حذف بيانات Calorify المخزّنة على هذا الجهاز",
+      "localOnlySubtitle": "حذف بيانات Calorify المخزّنة على هذا الجهاز",
       "confirmationTitle": "مسح جميع البيانات؟",
       "confirmationMessage": "يؤدي هذا إلى حذف الوجبات المسجّلة والمفضلات وإعدادات الملف الشخصي نهائيًا من هذا الجهاز. تتم إدارة الوجبات التي سبق مشاركتها مع Health Connect وإمكانية الوصول إليه بشكل منفصل في الإعدادات > Health Connect.",
+      "localOnlyConfirmationMessage": "يؤدي هذا إلى حذف الوجبات المسجّلة والمفضلات وإعدادات الملف الشخصي نهائيًا من هذا الجهاز. تتم إدارة الوجبات التي سبق مشاركتها مع Health Connect وإمكانية الوصول إليه بشكل منفصل في الإعدادات > Health Connect.",
       "cancel": "إلغاء",
       "clearEverything": "امسح الكل"
     },
@@ -561,7 +578,8 @@
       "subtitle": "عرض وإدارة الأذونات",
       "unavailable": {
         "title": "Health Connect غير متاح",
-        "description": "Health Connect غير مدعوم على هذا الجهاز."
+        "description": "Health Connect غير مدعوم على هذا الجهاز.",
+        "unsupportedDescription": "Health Connect غير مدعوم على هذا الجهاز."
       },
       "updateRequired": {
         "title": "يحتاج Health Connect إلى اهتمامك",
@@ -621,6 +639,7 @@
         "description": "الخصوصية ليست فكرة لاحقة — إنها مبدأ تصميم. هذا ما يعنيه ذلك عمليًا:",
         "noAccounts": "لا حاجة لحسابات\nاستخدم التطبيق فورًا. لا تسجيل، لا هويات.",
         "noTracking": "تحليلات وتشخيصات محدودة\nيستخدم {appLabel} أحداث التطبيق الأساسية وتشخيصات الأعطال لتحسين الموثوقية. لا تُستخدم قيم السجلات الصحية للإعلانات ولا يتم بيعها.",
+        "analyticsDisclosure": "تحليلات وتشخيصات محدودة\nيستخدم {appLabel} أحداث التطبيق الأساسية وتشخيصات الأعطال لتحسين الموثوقية. لا تُستخدم قيم السجلات الصحية للإعلانات ولا يتم بيعها.",
         "noAds": "خالي من الإعلانات بطبيعته\n{appLabel} مصمم للعمل بدون إعلانات أو تحقيق ربح عبر بيانات المستخدم.",
         "noDataSelling": "لا بيع للبيانات\nلا تُباع أو تُشارك بياناتك الصحية مع أطراف ثالثة.",
         "localStorage": "تخزين محلي أولًا\nتظل بياناتك على جهازك.",
@@ -640,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify الإصدار {version}",
       "build": "بناء {buildNumber}"
     }
   },

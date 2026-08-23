@@ -267,7 +267,7 @@ class _TranslationsEditProfileIt extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'lb';
 	@override String get metricCm => 'Metrico (cm)';
 	@override String get imperialFtIn => 'Imperiale (ft/in)';
 	@override String get metricKg => 'Metrico (kg)';
@@ -568,15 +568,25 @@ class _TranslationsOnboardingHealthConnectIt extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Collega Health Connect';
 	@override String get description => 'Sincronizza i tuoi dati di salute per approfondimenti migliori e tracciamento automatico delle calorie';
+	@override String get overviewDescription => 'Usa le calorie bruciate nel tuo obiettivo giornaliero e, se vuoi, condividi i pasti registrati con Health Connect.';
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingIt automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingIt._(_root);
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedIt caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedIt._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsIt progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsIt._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsIt shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsIt._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationIt seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationIt._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlIt userControl = _TranslationsOnboardingHealthConnectUserControlIt._(_root);
 	@override String get connected => 'Health Connect collegato';
 	@override String get notConnected => 'Health Connect non collegato';
 	@override String get setup => 'Configura Health Connect';
 	@override String get skipForNow => 'Salta per ora';
 	@override String get statusConnected => 'Health Connect è collegato.';
 	@override String get statusSuccess => 'Health Connect è stato collegato con successo!';
+	@override String get statusNotConnected => 'Scegli le funzioni di Health Connect che vuoi attivare.';
+	@override String get statusPartial => 'Health Connect è collegato parzialmente. Concedi l\'autorizzazione rimanente per usare entrambe le funzioni.';
+	@override String get statusProviderUpdateRequired => 'Installa o aggiorna Health Connect per continuare.';
+	@override String get statusUnavailable => 'Health Connect non è supportato su questo dispositivo.';
+	@override String get installOrUpdate => 'Installa o aggiorna';
+	@override String get manageAccess => 'Gestisci l\'accesso';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Autorizzazione negata. Abilita i permessi di Health Connect dalle impostazioni del telefono per ${appLabel}.';
 	@override String statusError({required Object error}) => 'Errore durante la configurazione di Health Connect: ${error}';
 }
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalIt extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Impatto sul peso';
 	@override String get estLoss => 'Perdita stimata di';
 	@override String get estGain => 'Aumento stimato di';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'chilocalorie';
 }
 
 // Path: home.dailySummary
@@ -744,6 +754,8 @@ class _TranslationsHomeConnectHealthIt extends TranslationsHomeConnectHealthEn {
 	@override String get title => 'Sincronizza con Health Connect';
 	@override String get description => 'Sincronizza i tuoi dati nutrizionali con Health Connect';
 	@override String get install => 'Installa';
+	@override String get dataUseDescription => 'Usa le calorie bruciate nel tuo obiettivo e condividi i pasti registrati';
+	@override String get installOrUpdate => 'Installa o aggiorna';
 	@override String get connect => 'Connetti';
 }
 
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisIt extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} in più';
 	@override String ingredientsLine({required Object count}) => '${count} ingredienti rilevati';
 	@override String get ingredientsPending => 'Scansione ingredienti…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '«${text}»';
 	@override String get offlineTip0 => 'Suggerimento: La costanza batte la perfezione—registrazioni regolari rivelano i modelli che contano.';
 	@override String get offlineTip1 => 'Suggerimento: Per le foto, la luce naturale e una visuale dall\'alto aiutano a stimare meglio le porzioni.';
 	@override String get offlineTip2 => 'Suggerimento: Segnala bevande, salse e olio da cucina—aggiungono calorie che spesso si dimenticano.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsIt extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFILO';
 	@override String get localization => 'LOCALIZZAZIONE';
 	@override String get notifications => 'NOTIFICHE';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'CONNESSIONE HEALTH CONNECT';
 	@override String get localInference => 'ANALISI SUL DISPOSITIVO';
 	@override String get supportAndLegal => 'SUPPORTO & LEGALE';
 	@override String get about => 'INFORMAZIONI';
@@ -1105,6 +1117,8 @@ class _TranslationsSettingsClearAllDataIt extends TranslationsSettingsClearAllDa
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get localOnlySubtitle => 'Elimina i dati di Calorify memorizzati su questo dispositivo';
+	@override String get localOnlyConfirmationMessage => 'Questa operazione elimina definitivamente dal dispositivo i pasti registrati, i preferiti e le impostazioni del profilo. I pasti già condivisi con Health Connect e l\'accesso a Health Connect sono gestiti separatamente in Impostazioni > Health Connect.';
 	@override String get title => 'Cancella tutti i dati';
 	@override String get subtitle => 'Elimina in modo irreversibile tutte le tue informazioni';
 	@override String get confirmationTitle => 'Cancellare tutti i dati?';
@@ -1133,9 +1147,23 @@ class _TranslationsSettingsHealthConnectIt extends TranslationsSettingsHealthCon
 	@override String get title => 'Health Connect';
 	@override String get subtitle => 'Visualizza e gestisci le autorizzazioni';
 	@override late final _TranslationsSettingsHealthConnectUnavailableIt unavailable = _TranslationsSettingsHealthConnectUnavailableIt._(_root);
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredIt updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredIt._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsIt permissions = _TranslationsSettingsHealthConnectPermissionsIt._(_root);
 	@override String get managePermissions => 'Gestisci autorizzazioni';
 	@override String get openSettings => 'Apri impostazioni Health Connect';
+	@override String get disconnect => 'Disconnetti Health Connect';
+	@override String get disconnectConfirmationTitle => 'Disconnettere Health Connect?';
+	@override String get disconnectConfirmationMessage => 'Calorify perderà l\'accesso a Health Connect. I dati già scritti al suo interno non verranno eliminati.';
+	@override String get disconnectConfirmationAction => 'Disconnetti';
+	@override String get deleteSyncedMeals => 'Elimina i pasti di Calorify da Health Connect';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Eliminare i pasti sincronizzati?';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Eliminare da Health Connect i pasti sincronizzati da questa versione di Calorify? Il registro locale dei pasti non cambierà. Potrebbe essere ancora necessario rimuovere le voci Calorify meno recenti tramite Gestisci dati in Health Connect.';
+	@override String get deleteSyncedMealsConfirmationAction => 'Elimina i pasti sincronizzati';
+	@override String get deleteSyncedMealsSuccess => 'I pasti di Calorify sono stati eliminati da Health Connect.';
+	@override String get deleteSyncedMealsFailed => 'Impossibile eliminare i pasti sincronizzati. Riprova.';
+	@override String get connectionPartial => 'Alcune funzioni di Health Connect sono attive.';
+	@override String get connectionComplete => 'Entrambe le funzioni di Health Connect sono attive.';
+	@override String get actionFailed => 'Impossibile aprire Health Connect. Riprova.';
 	@override String get requestPermissions => 'Richiedi autorizzazioni';
 	@override String get permissionRequestCancelledOrFailed => 'La richiesta di autorizzazioni è stata annullata o non riuscita. Riprova o concedi i permessi manualmente nelle impostazioni di Health Connect.';
 	@override String get permissionRequestFailed => 'Impossibile richiedere le autorizzazioni. Riprova o concedi i permessi manualmente nelle impostazioni di Health Connect.';
@@ -1164,8 +1192,8 @@ class _TranslationsSettingsAppInfoIt extends TranslationsSettingsAppInfoEn {
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify versione ${version}';
+	@override String build({required Object buildNumber}) => 'Revisione ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1347,6 +1375,17 @@ class _TranslationsOnboardingHealthConnectAutomaticTrackingIt extends Translatio
 	@override String get description => 'Registra le calorie bruciate dalle tue app fitness';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedIt extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Calorie bruciate';
+	@override String get description => 'Leggi da Health Connect il totale delle calorie bruciate oggi';
+}
+
 // Path: onboarding.healthConnect.progressInsights
 class _TranslationsOnboardingHealthConnectProgressInsightsIt extends TranslationsOnboardingHealthConnectProgressInsightsEn {
 	_TranslationsOnboardingHealthConnectProgressInsightsIt._(TranslationsIt root) : this._root = root, super.internal(root);
@@ -1358,6 +1397,17 @@ class _TranslationsOnboardingHealthConnectProgressInsightsIt extends Translation
 	@override String get description => 'Ricevi approfondimenti dettagliati sulle tendenze della tua salute';
 }
 
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsIt extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Condividi i pasti registrati';
+	@override String get description => 'Scrivi su Health Connect i pasti che registri in Calorify';
+}
+
 // Path: onboarding.healthConnect.seamlessIntegration
 class _TranslationsOnboardingHealthConnectSeamlessIntegrationIt extends TranslationsOnboardingHealthConnectSeamlessIntegrationEn {
 	_TranslationsOnboardingHealthConnectSeamlessIntegrationIt._(TranslationsIt root) : this._root = root, super.internal(root);
@@ -1367,6 +1417,17 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationIt extends Translat
 	// Translations
 	@override String get title => 'Integrazione senza soluzione di continuità';
 	@override String get description => 'Sincronizza i dati dalle tue app di salute preferite';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlIt extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hai tu il controllo';
+	@override String get description => 'Scegli una delle due autorizzazioni e modifica l\'accesso in qualsiasi momento';
 }
 
 // Path: onboarding.reinforcement.trackingSuccess
@@ -1518,8 +1579,21 @@ class _TranslationsSettingsHealthConnectUnavailableIt extends TranslationsSettin
 	final TranslationsIt _root; // ignore: unused_field
 
 	// Translations
+	@override String get unsupportedDescription => 'Health Connect non è supportato su questo dispositivo.';
 	@override String get title => 'Health Connect non disponibile';
 	@override String get description => 'Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) o aggiorna a Android 14+.';
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredIt extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredIt._(TranslationsIt root) : this._root = root, super.internal(root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Health Connect richiede attenzione';
+	@override String get description => 'Installa o aggiorna Health Connect prima di gestire l\'accesso.';
+	@override String get action => 'Installa o aggiorna';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1560,6 +1634,7 @@ class _TranslationsSettingsAboutPrivacyIt extends TranslationsSettingsAboutPriva
 	@override String get description => 'La privacy non è un ripensamento — è un principio di design. Ecco cosa significa nella pratica:';
 	@override String get noAccounts => 'Nessun account richiesto\nUsa l\'app immediatamente. Nessuna registrazione, nessuna identità.';
 	@override String noTracking({required Object appLabel}) => 'Nessun tracciamento comportamentale\n${appLabel} non monitora la tua attività, non crea profili di utilizzo e non ti traccia attraverso app o siti web.';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Analisi e diagnostica limitate\n${appLabel} usa eventi di base dell\'app e diagnostica degli arresti anomali per migliorare l\'affidabilità. I valori dei dati sanitari non vengono usati per la pubblicità né venduti.';
 	@override String noAds({required Object appLabel}) => 'Senza pubblicità per progettazione\n${appLabel} è costruito per funzionare senza pubblicità o monetizzazione basata sui dati.';
 	@override String get noDataSelling => 'Nessuna vendita di dati\nI tuoi dati sulla salute non vengono mai venduti o condivisi con terze parti.';
 	@override String get localStorage => 'Archiviazione local-first\nI tuoi dati restano sul tuo dispositivo.';
@@ -1833,18 +1908,31 @@ extension on TranslationsIt {
 			'onboarding.activityLevel.description' => 'Questo ci aiuta a calcolare più precisamente il tuo fabbisogno calorico giornaliero',
 			'onboarding.healthConnect.title' => 'Collega Health Connect',
 			'onboarding.healthConnect.description' => 'Sincronizza i tuoi dati di salute per approfondimenti migliori e tracciamento automatico delle calorie',
+			'onboarding.healthConnect.overviewDescription' => 'Usa le calorie bruciate nel tuo obiettivo giornaliero e, se vuoi, condividi i pasti registrati con Health Connect.',
 			'onboarding.healthConnect.automaticTracking.title' => 'Tracciamento automatico delle calorie',
 			'onboarding.healthConnect.automaticTracking.description' => 'Registra le calorie bruciate dalle tue app fitness',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Calorie bruciate',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Leggi da Health Connect il totale delle calorie bruciate oggi',
 			'onboarding.healthConnect.progressInsights.title' => 'Approfondimenti sul progresso',
 			'onboarding.healthConnect.progressInsights.description' => 'Ricevi approfondimenti dettagliati sulle tendenze della tua salute',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Condividi i pasti registrati',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Scrivi su Health Connect i pasti che registri in Calorify',
 			'onboarding.healthConnect.seamlessIntegration.title' => 'Integrazione senza soluzione di continuità',
 			'onboarding.healthConnect.seamlessIntegration.description' => 'Sincronizza i dati dalle tue app di salute preferite',
+			'onboarding.healthConnect.userControl.title' => 'Hai tu il controllo',
+			'onboarding.healthConnect.userControl.description' => 'Scegli una delle due autorizzazioni e modifica l\'accesso in qualsiasi momento',
 			'onboarding.healthConnect.connected' => 'Health Connect collegato',
 			'onboarding.healthConnect.notConnected' => 'Health Connect non collegato',
 			'onboarding.healthConnect.setup' => 'Configura Health Connect',
 			'onboarding.healthConnect.skipForNow' => 'Salta per ora',
 			'onboarding.healthConnect.statusConnected' => 'Health Connect è collegato.',
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect è stato collegato con successo!',
+			'onboarding.healthConnect.statusNotConnected' => 'Scegli le funzioni di Health Connect che vuoi attivare.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect è collegato parzialmente. Concedi l\'autorizzazione rimanente per usare entrambe le funzioni.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Installa o aggiorna Health Connect per continuare.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connect non è supportato su questo dispositivo.',
+			'onboarding.healthConnect.installOrUpdate' => 'Installa o aggiorna',
+			'onboarding.healthConnect.manageAccess' => 'Gestisci l\'accesso',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Autorizzazione negata. Abilita i permessi di Health Connect dalle impostazioni del telefono per ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Errore durante la configurazione di Health Connect: ${error}',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Non sei solo',
@@ -1899,7 +1987,7 @@ extension on TranslationsIt {
 			'home.dailyGoal.weightImpact' => 'Impatto sul peso',
 			'home.dailyGoal.estLoss' => 'Perdita stimata di',
 			'home.dailyGoal.estGain' => 'Aumento stimato di',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'chilocalorie',
 			'home.dailySummary.title' => 'Riepilogo giornaliero',
 			'home.dailySummary.calories' => 'Calorie',
 			'home.dailySummary.carbs' => 'Carboidrati',
@@ -1939,6 +2027,8 @@ extension on TranslationsIt {
 			'home.connectHealth.title' => 'Sincronizza con Health Connect',
 			'home.connectHealth.description' => 'Sincronizza i tuoi dati nutrizionali con Health Connect',
 			'home.connectHealth.install' => 'Installa',
+			'home.connectHealth.dataUseDescription' => 'Usa le calorie bruciate nel tuo obiettivo e condividi i pasti registrati',
+			'home.connectHealth.installOrUpdate' => 'Installa o aggiorna',
 			'home.connectHealth.connect' => 'Connetti',
 			'history.noMeals' => 'Nessun pasto registrato',
 			'history.emptyMessage' => 'Scatta una foto del tuo ultimo pasto per registrarlo qui.',
@@ -2005,7 +2095,7 @@ extension on TranslationsIt {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} in più',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} ingredienti rilevati',
 			'meal.analysis.ingredientsPending' => 'Scansione ingredienti…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '«${text}»',
 			'meal.analysis.offlineTip0' => 'Suggerimento: La costanza batte la perfezione—registrazioni regolari rivelano i modelli che contano.',
 			'meal.analysis.offlineTip1' => 'Suggerimento: Per le foto, la luce naturale e una visuale dall\'alto aiutano a stimare meglio le porzioni.',
 			'meal.analysis.offlineTip2' => 'Suggerimento: Segnala bevande, salse e olio da cucina—aggiungono calorie che spesso si dimenticano.',
@@ -2098,7 +2188,7 @@ extension on TranslationsIt {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'lb',
 			'editProfile.metricCm' => 'Metrico (cm)',
 			'editProfile.imperialFtIn' => 'Imperiale (ft/in)',
 			'editProfile.metricKg' => 'Metrico (kg)',
@@ -2126,7 +2216,7 @@ extension on TranslationsIt {
 			'settings.sections.profile' => 'PROFILO',
 			'settings.sections.localization' => 'LOCALIZZAZIONE',
 			'settings.sections.notifications' => 'NOTIFICHE',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'CONNESSIONE HEALTH CONNECT',
 			'settings.sections.localInference' => 'ANALISI SUL DISPOSITIVO',
 			'settings.sections.supportAndLegal' => 'SUPPORTO & LEGALE',
 			'settings.sections.about' => 'INFORMAZIONI',
@@ -2173,6 +2263,8 @@ extension on TranslationsIt {
 			'settings.exportMealHistory.subtitle' => 'Condividi un CSV dei tuoi pasti registrati',
 			'settings.exportMealHistory.shareText' => 'Esportazione cronologia pasti Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Impossibile esportare la cronologia pasti: ${error}',
+			'settings.clearAllData.localOnlySubtitle' => 'Elimina i dati di Calorify memorizzati su questo dispositivo',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Questa operazione elimina definitivamente dal dispositivo i pasti registrati, i preferiti e le impostazioni del profilo. I pasti già condivisi con Health Connect e l\'accesso a Health Connect sono gestiti separatamente in Impostazioni > Health Connect.',
 			'settings.clearAllData.title' => 'Cancella tutti i dati',
 			'settings.clearAllData.subtitle' => 'Elimina in modo irreversibile tutte le tue informazioni',
 			'settings.clearAllData.confirmationTitle' => 'Cancellare tutti i dati?',
@@ -2183,8 +2275,12 @@ extension on TranslationsIt {
 			'settings.developerModeEnabled' => 'Modalità sviluppatore abilitata!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Visualizza e gestisci le autorizzazioni',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect non è supportato su questo dispositivo.',
 			'settings.healthConnect.unavailable.title' => 'Health Connect non disponibile',
 			'settings.healthConnect.unavailable.description' => 'Health Connect non è disponibile su questo dispositivo. Installa Health Connect dal Play Store (Android 9+) o aggiorna a Android 14+.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect richiede attenzione',
+			'settings.healthConnect.updateRequired.description' => 'Installa o aggiorna Health Connect prima di gestire l\'accesso.',
+			'settings.healthConnect.updateRequired.action' => 'Installa o aggiorna',
 			'settings.healthConnect.permissions.title' => 'Autorizzazioni',
 			'settings.healthConnect.permissions.description' => 'Le seguenti autorizzazioni vengono richieste per fornire l\'integrazione con Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Concesso',
@@ -2200,6 +2296,19 @@ extension on TranslationsIt {
 			'settings.healthConnect.permissions.nutritionWrite.usage' => 'Questa autorizzazione consente all\'app di sincronizzare i pasti registrati su Health Connect, rendendo i tuoi dati nutrizionali disponibili ad altre app di salute e fitness che usi.',
 			'settings.healthConnect.managePermissions' => 'Gestisci autorizzazioni',
 			'settings.healthConnect.openSettings' => 'Apri impostazioni Health Connect',
+			'settings.healthConnect.disconnect' => 'Disconnetti Health Connect',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Disconnettere Health Connect?',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify perderà l\'accesso a Health Connect. I dati già scritti al suo interno non verranno eliminati.',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Disconnetti',
+			'settings.healthConnect.deleteSyncedMeals' => 'Elimina i pasti di Calorify da Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Eliminare i pasti sincronizzati?',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Eliminare da Health Connect i pasti sincronizzati da questa versione di Calorify? Il registro locale dei pasti non cambierà. Potrebbe essere ancora necessario rimuovere le voci Calorify meno recenti tramite Gestisci dati in Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Elimina i pasti sincronizzati',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'I pasti di Calorify sono stati eliminati da Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Impossibile eliminare i pasti sincronizzati. Riprova.',
+			'settings.healthConnect.connectionPartial' => 'Alcune funzioni di Health Connect sono attive.',
+			'settings.healthConnect.connectionComplete' => 'Entrambe le funzioni di Health Connect sono attive.',
+			'settings.healthConnect.actionFailed' => 'Impossibile aprire Health Connect. Riprova.',
 			'settings.healthConnect.requestPermissions' => 'Richiedi autorizzazioni',
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'La richiesta di autorizzazioni è stata annullata o non riuscita. Riprova o concedi i permessi manualmente nelle impostazioni di Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Impossibile richiedere le autorizzazioni. Riprova o concedi i permessi manualmente nelle impostazioni di Health Connect.',
@@ -2212,6 +2321,7 @@ extension on TranslationsIt {
 			'settings.about.privacy.description' => 'La privacy non è un ripensamento — è un principio di design. Ecco cosa significa nella pratica:',
 			'settings.about.privacy.noAccounts' => 'Nessun account richiesto\nUsa l\'app immediatamente. Nessuna registrazione, nessuna identità.',
 			'settings.about.privacy.noTracking' => ({required Object appLabel}) => 'Nessun tracciamento comportamentale\n${appLabel} non monitora la tua attività, non crea profili di utilizzo e non ti traccia attraverso app o siti web.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analisi e diagnostica limitate\n${appLabel} usa eventi di base dell\'app e diagnostica degli arresti anomali per migliorare l\'affidabilità. I valori dei dati sanitari non vengono usati per la pubblicità né venduti.',
 			'settings.about.privacy.noAds' => ({required Object appLabel}) => 'Senza pubblicità per progettazione\n${appLabel} è costruito per funzionare senza pubblicità o monetizzazione basata sui dati.',
 			'settings.about.privacy.noDataSelling' => 'Nessuna vendita di dati\nI tuoi dati sulla salute non vengono mai venduti o condivisi con terze parti.',
 			'settings.about.privacy.localStorage' => 'Archiviazione local-first\nI tuoi dati restano sul tuo dispositivo.',
@@ -2224,8 +2334,8 @@ extension on TranslationsIt {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Il tuo feedback aiuta a rendere ${appLabel} migliore per tutti.',
 			'settings.about.feedback.rateApp' => 'Valuta su Play Store',
 			'settings.about.feedback.sendFeedback' => 'Invia feedback',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify versione ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Revisione ${buildNumber}',
 			'reminders.title' => 'Rimani in carreggiata con i promemoria',
 			'reminders.description' => 'Ricevi promemoria gentili per registrare i tuoi pasti e mantenere la costanza nei tuoi obiettivi nutrizionali',
 			'reminders.notificationsEnabled' => 'Notifiche abilitate',
@@ -2256,6 +2366,8 @@ extension on TranslationsIt {
 			'notifications.snack.body' => 'È il momento di uno spuntino salutare',
 			'notifications.test.title' => 'Notifica di prova',
 			'login.title' => 'Accesso',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Accedi con Google',
 			'login.signInFailed' => 'Accesso con Google non riuscito o annullato.',
 			'disclaimer.pleaseNote' => 'Nota bene',
@@ -2291,8 +2403,6 @@ extension on TranslationsIt {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calcoliamo il tuo TDEE (basato sul profilo) e lo moltiplichiamo per la frazione della giornata trascorsa (ore + minuti) / 24 per stimare le calorie bruciate finora.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Indicazioni professionali',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Non usare questa stima per decisioni mediche. Consulta sempre un professionista sanitario o un dietista registrato per consigli personalizzati sulla gestione del peso.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Valori nutrizionali abbinati dal pacchetto USDA scaricato',
 			'localNutritionPhase4.nutritionCached' => 'Valori nutrizionali abbinati dalla cache USDA sul dispositivo',
 			'localNutritionPhase4.nutritionMixed' => 'Valori nutrizionali combinati da righe USDA scaricate, memorizzate nella cache e remote',

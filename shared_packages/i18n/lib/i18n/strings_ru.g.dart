@@ -267,7 +267,7 @@ class _TranslationsEditProfileRu extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'фунты';
 	@override String get metricCm => 'Метрическая (cm)';
 	@override String get imperialFtIn => 'Имперская (ft/in)';
 	@override String get metricKg => 'Метрическая (kg)';
@@ -568,6 +568,10 @@ class _TranslationsOnboardingHealthConnectRu extends TranslationsOnboardingHealt
 	// Translations
 	@override String get title => 'Подключитесь к Health Connect';
 	@override String get description => 'Используйте сожжённые калории в дневной цели и при желании делитесь записанными приёмами пищи с Health Connect.';
+	@override String get overviewDescription => 'Используйте сожжённые калории в дневной цели и при желании делитесь записанными приёмами пищи с Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedRu caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedRu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsRu shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsRu._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlRu userControl = _TranslationsOnboardingHealthConnectUserControlRu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectAutomaticTrackingRu automaticTracking = _TranslationsOnboardingHealthConnectAutomaticTrackingRu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectProgressInsightsRu progressInsights = _TranslationsOnboardingHealthConnectProgressInsightsRu._(_root);
 	@override late final _TranslationsOnboardingHealthConnectSeamlessIntegrationRu seamlessIntegration = _TranslationsOnboardingHealthConnectSeamlessIntegrationRu._(_root);
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalRu extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Влияние на вес';
 	@override String get estLoss => 'Прогноз. потеря';
 	@override String get estGain => 'Прогноз. набор';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'ккал';
 }
 
 // Path: home.dailySummary
@@ -747,6 +751,8 @@ class _TranslationsHomeConnectHealthRu extends TranslationsHomeConnectHealthEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get dataUseDescription => 'Используйте сожжённые калории в своей цели и делитесь записями о питании';
+	@override String get installOrUpdate => 'Установить или обновить';
 	@override String get title => 'Синхронизировать с Health Connect';
 	@override String get description => 'Используйте сожжённые калории в своей цели и делитесь записями о питании';
 	@override String get install => 'Установить или обновить';
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisRu extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => 'ещё ${count}';
 	@override String ingredientsLine({required Object count}) => 'Найдено ${count} ингредиентов';
 	@override String get ingredientsPending => 'Сканирование ингредиентов…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '«${text}»';
 	@override String get offlineTip0 => 'Совет: регулярность важнее идеала — регулярные записи показывают полезные закономерности.';
 	@override String get offlineTip1 => 'Совет: для фото используйте естественный свет и вид сверху — это помогает точнее оценить порции.';
 	@override String get offlineTip2 => 'Совет: указывайте напитки, соусы и масло для жарки — они часто добавляют калории, которые забывают учесть.';
@@ -910,7 +916,7 @@ class _TranslationsProfileCalculatedValuesRu extends TranslationsProfileCalculat
 	@override String get bmr => 'BMR';
 	@override String get tdee => 'TDEE';
 	@override String get dailyGoal => 'Суточная цель';
-	@override String get calPerDay => 'cal/day';
+	@override String get calPerDay => 'кал/день';
 	@override String get notAvailable => 'Н/Д';
 }
 
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsRu extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'ПРОФИЛЬ';
 	@override String get localization => 'ЛОКАЛИЗАЦИЯ';
 	@override String get notifications => 'УВЕДОМЛЕНИЯ';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'ПОДКЛЮЧЕНИЕ HEALTH CONNECT';
 	@override String get localInference => 'АНАЛИЗ НА УСТРОЙСТВЕ';
 	@override String get supportAndLegal => 'ПОДДЕРЖКА И ЮРИДИЧЕСКОЕ';
 	@override String get about => 'О ПРОГРАММЕ';
@@ -1111,6 +1117,8 @@ class _TranslationsSettingsClearAllDataRu extends TranslationsSettingsClearAllDa
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get localOnlySubtitle => 'Удалить данные Calorify, сохранённые на этом устройстве';
+	@override String get localOnlyConfirmationMessage => 'Записи о питании, избранное и настройки профиля будут безвозвратно удалены с этого устройства. Приёмы пищи, уже отправленные в Health Connect, и доступ к Health Connect управляются отдельно в разделе Настройки > Health Connect.';
 	@override String get title => 'Удалить все данные';
 	@override String get subtitle => 'Удалить данные Calorify, сохранённые на этом устройстве';
 	@override String get confirmationTitle => 'Удалить все данные?';
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoRu extends TranslationsSettingsAppInfoEn {
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify, версия ${version}';
 	@override String build({required Object buildNumber}) => 'Сборка ${buildNumber}';
 }
 
@@ -1354,6 +1362,39 @@ class _TranslationsOnboardingBmiScaleMessagesRu extends TranslationsOnboardingBm
 	@override String get healthy => 'Отлично! Вы в здоровом диапазоне. Мы поможем сохранить вашу энергию и самочувствие.';
 	@override String overweight({required Object appLabel}) => '${appLabel} упростит ваше путешествие с помощью AI‑отслеживания, чтобы вы комфортно дошли до цели.';
 	@override String get obese => 'Мы поддержим вас персональными рекомендациями и устойчивыми стратегиями для ваших целей по здоровью.';
+}
+
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedRu extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Сожжённые калории';
+	@override String get description => 'Считывайте из Health Connect общее количество сожжённых сегодня калорий';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsRu extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Делитесь записями о питании';
+	@override String get description => 'Записывайте в Health Connect приёмы пищи, добавленные в Calorify';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlRu extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Всё под вашим контролем';
+	@override String get description => 'Выберите любое из разрешений и меняйте доступ в любое время';
 }
 
 // Path: onboarding.healthConnect.automaticTracking
@@ -1538,6 +1579,7 @@ class _TranslationsSettingsHealthConnectUnavailableRu extends TranslationsSettin
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String get unsupportedDescription => 'Health Connect не поддерживается на этом устройстве.';
 	@override String get title => 'Health Connect недоступен';
 	@override String get description => 'Health Connect не поддерживается на этом устройстве.';
 }
@@ -1588,6 +1630,7 @@ class _TranslationsSettingsAboutPrivacyRu extends TranslationsSettingsAboutPriva
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override String analyticsDisclosure({required Object appLabel}) => 'Ограниченная аналитика и диагностика\n${appLabel} использует основные события приложения и диагностику сбоев для повышения надёжности. Значения показателей здоровья не используются для рекламы и не продаются.';
 	@override String get title => 'Ваша приватность важна';
 	@override String get description => 'Приватность — не второстепенная мысль, а принцип проектирования. Это означает следующее:';
 	@override String get noAccounts => 'Без аккаунтов\nИспользуйте приложение сразу. Никаких регистрации и идентичностей.';
@@ -1865,6 +1908,13 @@ extension on TranslationsRu {
 			'onboarding.activityLevel.description' => 'Это помогает точнее рассчитать ваши ежедневные потребности в калориях',
 			'onboarding.healthConnect.title' => 'Подключитесь к Health Connect',
 			'onboarding.healthConnect.description' => 'Используйте сожжённые калории в дневной цели и при желании делитесь записанными приёмами пищи с Health Connect.',
+			'onboarding.healthConnect.overviewDescription' => 'Используйте сожжённые калории в дневной цели и при желании делитесь записанными приёмами пищи с Health Connect.',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Сожжённые калории',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Считывайте из Health Connect общее количество сожжённых сегодня калорий',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Делитесь записями о питании',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Записывайте в Health Connect приёмы пищи, добавленные в Calorify',
+			'onboarding.healthConnect.userControl.title' => 'Всё под вашим контролем',
+			'onboarding.healthConnect.userControl.description' => 'Выберите любое из разрешений и меняйте доступ в любое время',
 			'onboarding.healthConnect.automaticTracking.title' => 'Сожжённые калории',
 			'onboarding.healthConnect.automaticTracking.description' => 'Считывайте из Health Connect общее количество сожжённых сегодня калорий',
 			'onboarding.healthConnect.progressInsights.title' => 'Делитесь записями о питании',
@@ -1937,7 +1987,7 @@ extension on TranslationsRu {
 			'home.dailyGoal.weightImpact' => 'Влияние на вес',
 			'home.dailyGoal.estLoss' => 'Прогноз. потеря',
 			'home.dailyGoal.estGain' => 'Прогноз. набор',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'ккал',
 			'home.dailySummary.title' => 'Ежедневная сводка',
 			'home.dailySummary.calories' => 'Калории',
 			'home.dailySummary.carbs' => 'Углеводы',
@@ -1974,6 +2024,8 @@ extension on TranslationsRu {
 			'home.mealSnap.gallery' => 'Галерея',
 			'home.mealSnap.compressingPhoto' => 'Оптимизация фото…',
 			'home.mealSnap.uploadingPhoto' => 'Загрузка фото…',
+			'home.connectHealth.dataUseDescription' => 'Используйте сожжённые калории в своей цели и делитесь записями о питании',
+			'home.connectHealth.installOrUpdate' => 'Установить или обновить',
 			'home.connectHealth.title' => 'Синхронизировать с Health Connect',
 			'home.connectHealth.description' => 'Используйте сожжённые калории в своей цели и делитесь записями о питании',
 			'home.connectHealth.install' => 'Установить или обновить',
@@ -2043,7 +2095,7 @@ extension on TranslationsRu {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => 'ещё ${count}',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => 'Найдено ${count} ингредиентов',
 			'meal.analysis.ingredientsPending' => 'Сканирование ингредиентов…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '«${text}»',
 			'meal.analysis.offlineTip0' => 'Совет: регулярность важнее идеала — регулярные записи показывают полезные закономерности.',
 			'meal.analysis.offlineTip1' => 'Совет: для фото используйте естественный свет и вид сверху — это помогает точнее оценить порции.',
 			'meal.analysis.offlineTip2' => 'Совет: указывайте напитки, соусы и масло для жарки — они часто добавляют калории, которые забывают учесть.',
@@ -2113,7 +2165,7 @@ extension on TranslationsRu {
 			'profile.calculatedValues.bmr' => 'BMR',
 			'profile.calculatedValues.tdee' => 'TDEE',
 			'profile.calculatedValues.dailyGoal' => 'Суточная цель',
-			'profile.calculatedValues.calPerDay' => 'cal/day',
+			'profile.calculatedValues.calPerDay' => 'кал/день',
 			'profile.calculatedValues.notAvailable' => 'Н/Д',
 			'healthScore.title' => 'Индекс здоровья',
 			'healthScore.whyThisScore' => 'Почему такой балл?',
@@ -2136,7 +2188,7 @@ extension on TranslationsRu {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'фунты',
 			'editProfile.metricCm' => 'Метрическая (cm)',
 			'editProfile.imperialFtIn' => 'Имперская (ft/in)',
 			'editProfile.metricKg' => 'Метрическая (kg)',
@@ -2164,7 +2216,7 @@ extension on TranslationsRu {
 			'settings.sections.profile' => 'ПРОФИЛЬ',
 			'settings.sections.localization' => 'ЛОКАЛИЗАЦИЯ',
 			'settings.sections.notifications' => 'УВЕДОМЛЕНИЯ',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'ПОДКЛЮЧЕНИЕ HEALTH CONNECT',
 			'settings.sections.localInference' => 'АНАЛИЗ НА УСТРОЙСТВЕ',
 			'settings.sections.supportAndLegal' => 'ПОДДЕРЖКА И ЮРИДИЧЕСКОЕ',
 			'settings.sections.about' => 'О ПРОГРАММЕ',
@@ -2211,6 +2263,8 @@ extension on TranslationsRu {
 			'settings.exportMealHistory.subtitle' => 'Поделиться CSV с вашими записями',
 			'settings.exportMealHistory.shareText' => 'Экспорт истории приёмов пищи Calorify',
 			'settings.exportMealHistory.failed' => ({required Object error}) => 'Не удалось экспортировать историю: ${error}',
+			'settings.clearAllData.localOnlySubtitle' => 'Удалить данные Calorify, сохранённые на этом устройстве',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Записи о питании, избранное и настройки профиля будут безвозвратно удалены с этого устройства. Приёмы пищи, уже отправленные в Health Connect, и доступ к Health Connect управляются отдельно в разделе Настройки > Health Connect.',
 			'settings.clearAllData.title' => 'Удалить все данные',
 			'settings.clearAllData.subtitle' => 'Удалить данные Calorify, сохранённые на этом устройстве',
 			'settings.clearAllData.confirmationTitle' => 'Удалить все данные?',
@@ -2221,6 +2275,7 @@ extension on TranslationsRu {
 			'settings.developerModeEnabled' => 'Режим разработчика включён!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Просмотр и управление разрешениями',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect не поддерживается на этом устройстве.',
 			'settings.healthConnect.unavailable.title' => 'Health Connect недоступен',
 			'settings.healthConnect.unavailable.description' => 'Health Connect не поддерживается на этом устройстве.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect требует внимания',
@@ -2262,6 +2317,7 @@ extension on TranslationsRu {
 			'settings.about.tagline' => 'Быстро, бесплатно и с приоритетом приватности',
 			'settings.about.ourStory.title' => 'Наша история',
 			'settings.about.ourStory.content' => ({required Object appLabel}) => '${appLabel} родился из простой фрустрации: большинство приложений для подсчёта калорий либо слишком сложны, требуют постоянного ручного ввода, берут высокую плату за подписку, либо нарушают приватность.\n\nКак одиночный разработчик, я хотел создать что‑то проще и честнее — приложение, которое использует AI, чтобы снизить усилия, остаётся быстрым и бесплатным, и уважительно относится к вашим данным о здоровье.\n\n${appLabel} — это приложение, которого мне хотелось бы: без аккаунтов, без отслеживания, без рекламы — только понятные, практичные выводы и ваши цели по здоровью.',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Ограниченная аналитика и диагностика\n${appLabel} использует основные события приложения и диагностику сбоев для повышения надёжности. Значения показателей здоровья не используются для рекламы и не продаются.',
 			'settings.about.privacy.title' => 'Ваша приватность важна',
 			'settings.about.privacy.description' => 'Приватность — не второстепенная мысль, а принцип проектирования. Это означает следующее:',
 			'settings.about.privacy.noAccounts' => 'Без аккаунтов\nИспользуйте приложение сразу. Никаких регистрации и идентичностей.',
@@ -2278,7 +2334,7 @@ extension on TranslationsRu {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Ваш отзыв помогает сделать ${appLabel} лучше для всех.',
 			'settings.about.feedback.rateApp' => 'Оценить в Play Store',
 			'settings.about.feedback.sendFeedback' => 'Отправить отзыв',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify, версия ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Сборка ${buildNumber}',
 			'reminders.title' => 'Оставайтесь в графике с напоминаниями',
 			'reminders.description' => 'Получайте мягкие напоминания записывать приёмы пищи и поддерживать последовательность в достижении целей по питанию',
@@ -2310,6 +2366,8 @@ extension on TranslationsRu {
 			'notifications.snack.body' => 'Пора для полезного перекуса',
 			'notifications.test.title' => 'Тестовое уведомление',
 			'login.title' => 'Вход',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Войти через Google',
 			'login.signInFailed' => 'Вход через Google не удался или был отменён.',
 			'disclaimer.pleaseNote' => 'Обратите внимание',
@@ -2323,8 +2381,6 @@ extension on TranslationsRu {
 			'disclaimer.snap.databaseLimitations.title' => 'Ограничения базы данных',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктов ${appLabel} обширна, но может не содержать каждой отдельной позиции или её вариаций.',
 			'disclaimer.weightEstimate.title' => 'Оценка изменения веса',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Прогноз изменения веса — теоретическая оценка, основанная на простой модели «калории внутрь vs калории наружу». Он предназначен для мотивации, а не как предсказание реального веса.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Точность калорий',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Эта оценка точна лишь настолько, насколько точны ваши записи о потреблении и расходе калорий. Неточные записи дадут неточный прогноз.',

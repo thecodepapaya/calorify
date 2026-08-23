@@ -267,7 +267,7 @@ class _TranslationsEditProfileTr extends TranslationsEditProfileEn {
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'libre (lbs)';
 	@override String get metricCm => 'Metrik (cm)';
 	@override String get imperialFtIn => 'İmperial (ft/in)';
 	@override String get metricKg => 'Metrik (kg)';
@@ -585,6 +585,10 @@ class _TranslationsOnboardingHealthConnectTr extends TranslationsOnboardingHealt
 	@override String get manageAccess => 'Erişimi yönet';
 	@override String statusPermissionDenied({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.';
 	@override String statusError({required Object error}) => 'Health Connect kurulurken hata: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedTr caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedTr._(_root);
+	@override String get overviewDescription => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsTr shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsTr._(_root);
+	@override late final _TranslationsOnboardingHealthConnectUserControlTr userControl = _TranslationsOnboardingHealthConnectUserControlTr._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -638,7 +642,7 @@ class _TranslationsHomeDailyGoalTr extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Kilo Etkisi';
 	@override String get estLoss => 'Tahmini kayıp';
 	@override String get estGain => 'Tahmini kazanç';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalori (kcal)';
 }
 
 // Path: home.dailySummary
@@ -651,7 +655,7 @@ class _TranslationsHomeDailySummaryTr extends TranslationsHomeDailySummaryEn {
 	@override String get title => 'Günlük Özet';
 	@override String get calories => 'Kaloriler';
 	@override String get carbs => 'Karbonhidrat';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Protein miktarı';
 	@override String get fat => 'Yağ';
 	@override String get fiber => 'Lif';
 	@override String get grams => 'gram';
@@ -751,6 +755,8 @@ class _TranslationsHomeConnectHealthTr extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın';
 	@override String get install => 'Yükle veya güncelle';
 	@override String get connect => 'Bağla';
+	@override String get dataUseDescription => 'Hedefinizde yakılan kalorileri kullanın ve kaydedilen öğünleri paylaşın';
+	@override String get installOrUpdate => 'Yükle veya güncelle';
 }
 
 // Path: meal.nutrition
@@ -762,7 +768,7 @@ class _TranslationsMealNutritionTr extends TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Kalori';
 	@override String get carbs => 'Karbonhidrat (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Protein (gram)';
 	@override String get fat => 'Yağ (g)';
 	@override String get fiber => 'Lif (g)';
 }
@@ -818,7 +824,7 @@ class _TranslationsMealAnalysisTr extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} daha';
 	@override String ingredientsLine({required Object count}) => '${count} içerik tespit edildi';
 	@override String get ingredientsPending => 'İçerikler taranıyor…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.';
 	@override String get offlineTip1 => 'İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.';
 	@override String get offlineTip2 => 'İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.';
@@ -974,7 +980,7 @@ class _TranslationsSettingsSectionsTr extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFİL';
 	@override String get localization => 'LOKALİZASYON';
 	@override String get notifications => 'BİLDİRİMLER';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'HEALTH CONNECT ENTEGRASYONU';
 	@override String get localInference => 'CİHAZ İÇİ ANALİZ';
 	@override String get supportAndLegal => 'DESTEK & YASAL';
 	@override String get about => 'HAKKINDA';
@@ -1117,6 +1123,8 @@ class _TranslationsSettingsClearAllDataTr extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.';
 	@override String get cancel => 'İptal';
 	@override String get clearEverything => 'Her Şeyi Temizle';
+	@override String get localOnlyConfirmationMessage => 'Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.';
+	@override String get localOnlySubtitle => 'Bu cihazda saklanan Calorify verilerini sil';
 }
 
 // Path: settings.debugOptions
@@ -1184,7 +1192,7 @@ class _TranslationsSettingsAppInfoTr extends TranslationsSettingsAppInfoEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
+	@override String version({required Object version}) => 'Calorify sürüm ${version}';
 	@override String build({required Object buildNumber}) => 'Yapı ${buildNumber}';
 }
 
@@ -1389,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationTr extends Translat
 	@override String get description => 'İki izinden birini seçin ve erişimi istediğiniz zaman değiştirin';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedTr extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun';
+	@override String get title => 'Yakılan Kaloriler';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsTr extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın';
+	@override String get title => 'Kaydedilen Öğünleri Paylaş';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlTr extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin';
+	@override String get title => 'Kontrol Sizde';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessTr extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessTr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1540,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableTr extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect Kullanılamıyor';
 	@override String get description => 'Health Connect bu cihazda desteklenmiyor.';
+	@override String get unsupportedDescription => 'Health Connect bu cihazda desteklenmiyor.';
 }
 
 // Path: settings.healthConnect.updateRequired
@@ -1596,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyTr extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.';
 	@override String get localStorage => 'Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.';
 	@override String get privacyPolicy => 'Gizlilik Politikası';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.';
 }
 
 // Path: settings.about.developer
@@ -1885,6 +1928,13 @@ extension on TranslationsTr {
 			'onboarding.healthConnect.manageAccess' => 'Erişimi yönet',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'İzin reddedildi. Lütfen ${appLabel} için Health Connect izinlerini telefon ayarlarından etkinleştirin.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Health Connect kurulurken hata: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Health Connect üzerinden bugün yakılan toplam kaloriyi okuyun',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Yakılan Kaloriler',
+			'onboarding.healthConnect.overviewDescription' => 'Günlük hedefinizde yakılan kalorileri kullanın ve isterseniz kaydettiğiniz öğünleri Health Connect ile paylaşın.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Calorify uygulamasında kaydettiğiniz öğünleri Health Connect sistemine yazın',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Kaydedilen Öğünleri Paylaş',
+			'onboarding.healthConnect.userControl.description' => 'İstediğiniz izni seçin ve erişimi dilediğiniz zaman değiştirin',
+			'onboarding.healthConnect.userControl.title' => 'Kontrol Sizde',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Yalnız değilsiniz',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Araştırmalar gösteriyor ki, tutarlı takip uzun vadeli başarının 1 numaralı öngörücüsüdür.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => '${age} yaşında bir ${gender} için ${goal} hedefleyenlerde, düzenli takip başarı için bir numaralı belirleyicidir.',
@@ -1937,11 +1987,11 @@ extension on TranslationsTr {
 			'home.dailyGoal.weightImpact' => 'Kilo Etkisi',
 			'home.dailyGoal.estLoss' => 'Tahmini kayıp',
 			'home.dailyGoal.estGain' => 'Tahmini kazanç',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalori (kcal)',
 			'home.dailySummary.title' => 'Günlük Özet',
 			'home.dailySummary.calories' => 'Kaloriler',
 			'home.dailySummary.carbs' => 'Karbonhidrat',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Protein miktarı',
 			'home.dailySummary.fat' => 'Yağ',
 			'home.dailySummary.fiber' => 'Lif',
 			'home.dailySummary.grams' => 'gram',
@@ -1978,6 +2028,8 @@ extension on TranslationsTr {
 			'home.connectHealth.description' => 'Hedefinizde yakılan kalorileri kullanın ve kaydettiğiniz öğünleri paylaşın',
 			'home.connectHealth.install' => 'Yükle veya güncelle',
 			'home.connectHealth.connect' => 'Bağla',
+			'home.connectHealth.dataUseDescription' => 'Hedefinizde yakılan kalorileri kullanın ve kaydedilen öğünleri paylaşın',
+			'home.connectHealth.installOrUpdate' => 'Yükle veya güncelle',
 			'history.noMeals' => 'Kayıtlı öğün yok',
 			'history.emptyMessage' => 'Buraya kaydetmek için son öğününüzün fotoğrafını çekin.',
 			'history.today' => 'Bugün',
@@ -1998,7 +2050,7 @@ extension on TranslationsTr {
 			'meal.mealType' => 'Öğün Türü',
 			'meal.nutrition.calories' => 'Kalori',
 			'meal.nutrition.carbs' => 'Karbonhidrat (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Protein (gram)',
 			'meal.nutrition.fat' => 'Yağ (g)',
 			'meal.nutrition.fiber' => 'Lif (g)',
 			'meal.deleteConfirmation.title' => 'Öğünü Sil',
@@ -2043,7 +2095,7 @@ extension on TranslationsTr {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} daha',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} içerik tespit edildi',
 			'meal.analysis.ingredientsPending' => 'İçerikler taranıyor…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'İpucu: Tutarlılık mükemmellikten daha önemlidir—düzenli kayıtlar önemli kalıpları ortaya çıkarır.',
 			'meal.analysis.offlineTip1' => 'İpucu: Fotoğraflar için doğal ışık ve üstten çekim porsiyon doğruluğuna yardımcı olur.',
 			'meal.analysis.offlineTip2' => 'İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.',
@@ -2136,7 +2188,7 @@ extension on TranslationsTr {
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'libre (lbs)',
 			'editProfile.metricCm' => 'Metrik (cm)',
 			'editProfile.imperialFtIn' => 'İmperial (ft/in)',
 			'editProfile.metricKg' => 'Metrik (kg)',
@@ -2164,7 +2216,7 @@ extension on TranslationsTr {
 			'settings.sections.profile' => 'PROFİL',
 			'settings.sections.localization' => 'LOKALİZASYON',
 			'settings.sections.notifications' => 'BİLDİRİMLER',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'HEALTH CONNECT ENTEGRASYONU',
 			'settings.sections.localInference' => 'CİHAZ İÇİ ANALİZ',
 			'settings.sections.supportAndLegal' => 'DESTEK & YASAL',
 			'settings.sections.about' => 'HAKKINDA',
@@ -2217,12 +2269,15 @@ extension on TranslationsTr {
 			'settings.clearAllData.confirmationMessage' => 'Bu işlem kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile önceden paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.',
 			'settings.clearAllData.cancel' => 'İptal',
 			'settings.clearAllData.clearEverything' => 'Her Şeyi Temizle',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Bu işlem, kaydedilen öğünleri, favorileri ve profil ayarlarını bu cihazdan kalıcı olarak siler. Health Connect ile paylaşılmış öğünler ve Health Connect erişimi Ayarlar > Health Connect bölümünde ayrı olarak yönetilir.',
+			'settings.clearAllData.localOnlySubtitle' => 'Bu cihazda saklanan Calorify verilerini sil',
 			'settings.debugOptions.title' => 'Hata Ayıklama Seçenekleri',
 			'settings.developerModeEnabled' => 'Geliştirici modu etkinleştirildi!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'İzinleri görüntüleyin ve yönetin',
 			'settings.healthConnect.unavailable.title' => 'Health Connect Kullanılamıyor',
 			'settings.healthConnect.unavailable.description' => 'Health Connect bu cihazda desteklenmiyor.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect bu cihazda desteklenmiyor.',
 			'settings.healthConnect.updateRequired.title' => 'Health Connect ile ilgilenmeniz gerekiyor',
 			'settings.healthConnect.updateRequired.description' => 'Erişimi yönetmeden önce Health Connect\'i yükleyin veya güncelleyin.',
 			'settings.healthConnect.updateRequired.action' => 'Yükle veya güncelle',
@@ -2270,6 +2325,7 @@ extension on TranslationsTr {
 			'settings.about.privacy.noDataSelling' => 'Veri satışı yok\nSağlık verileriniz üçüncü taraflara asla satılmaz veya paylaşılmaz.',
 			'settings.about.privacy.localStorage' => 'Yerel öncelikli depolama\nVerileriniz cihazınızda kalır.',
 			'settings.about.privacy.privacyPolicy' => 'Gizlilik Politikası',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Sınırlı analiz ve tanılama\n${appLabel}, güvenilirliği artırmak için temel uygulama olaylarını ve çökme tanılamalarını kullanır. Sağlık kaydı değerleri reklam için kullanılmaz veya satılmaz.',
 			'settings.about.developer.title' => 'Tek Geliştirici Tarafından Yapıldı',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel}, sakin, gizliliğe saygılı sağlık yazılımları yaratmaya odaklanmış tek bir geliştirici tarafından inşa edilip sürdürülmektedir.\n\nGeri bildirimler kişisel olarak okunur ve uygulamanın yönünü şekillendirmeye yardımcı olur.',
 			'settings.about.developer.website' => 'Web sitesi',
@@ -2278,7 +2334,7 @@ extension on TranslationsTr {
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Geri bildiriminiz ${appLabel}\'i herkes için daha iyi hale getirmeye yardımcı olur.',
 			'settings.about.feedback.rateApp' => 'Play Store\'da oy verin',
 			'settings.about.feedback.sendFeedback' => 'Geri Bildirim Gönder',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify sürüm ${version}',
 			'settings.appInfo.build' => ({required Object buildNumber}) => 'Yapı ${buildNumber}',
 			'reminders.title' => 'Hatırlatıcılarla yolda kalın',
 			'reminders.description' => 'Öğünlerinizi kaydetmeniz için nazik hatırlatmalar alın ve beslenme hedeflerinize bağlı kalın',
@@ -2310,6 +2366,8 @@ extension on TranslationsTr {
 			'notifications.snack.body' => 'Sağlıklı bir ara öğün zamanı',
 			'notifications.test.title' => 'Test Bildirimi',
 			'login.title' => 'Giriş',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google ile giriş yap',
 			'login.signInFailed' => 'Google ile giriş başarısız oldu veya iptal edildi.',
 			'disclaimer.pleaseNote' => 'Lütfen Dikkat',
@@ -2323,8 +2381,6 @@ extension on TranslationsTr {
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'in gıda veritabanı kapsamlıdır ancak her bir yiyecek öğesini veya varyasyonunu içermeyebilir.',
 			'disclaimer.weightEstimate.title' => 'Kilo Tahmini Hakkında',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.weightEstimate.description' => 'Projeksiyon olarak verilen kilo değişimi basit kalori içeriği vs harcama modeli üzerine kurulu teorik bir tahmindir. Motivasyon kaynağı olarak düşünülmelidir, gerçek ağırlığın bir tahmini değildir.',
 			'disclaimer.weightEstimate.calorieAccuracy.title' => 'Kalori Doğruluğu',
 			'disclaimer.weightEstimate.calorieAccuracy.description' => 'Bu tahmin, izlediğiniz kalori alımı ve harcamasının doğruluğuna bağlıdır. Hatalı kayıtlar tahminin yanlış olmasına neden olur.',

@@ -263,15 +263,15 @@ class _TranslationsEditProfileId extends TranslationsEditProfileEn {
 	@override String get weightGoal => 'Tujuan Berat';
 	@override String get activityLevel => 'Tingkat Aktivitas';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Satuan imperial';
 	@override String get unitCm => 'cm';
 	@override String get unitFt => 'ft';
 	@override String get unitKg => 'kg';
-	@override String get unitLbs => 'lbs';
+	@override String get unitLbs => 'pon (lbs)';
 	@override String get metricCm => 'Metrik (cm)';
-	@override String get imperialFtIn => 'Imperial (ft/in)';
+	@override String get imperialFtIn => 'Satuan imperial (ft/in)';
 	@override String get metricKg => 'Metrik (kg)';
-	@override String get imperialLbs => 'Imperial (lbs)';
+	@override String get imperialLbs => 'Satuan imperial (lbs)';
 	@override late final _TranslationsEditProfileGendersId genders = _TranslationsEditProfileGendersId._(_root);
 	@override late final _TranslationsEditProfileWeightGoalsId weightGoals = _TranslationsEditProfileWeightGoalsId._(_root);
 	@override late final _TranslationsEditProfileActivityLevelsId activityLevels = _TranslationsEditProfileActivityLevelsId._(_root);
@@ -490,7 +490,7 @@ class _TranslationsOnboardingHeightId extends TranslationsOnboardingHeightEn {
 	@override String get title => 'Berapa tinggi Anda?';
 	@override String get description => 'Tinggi Anda membantu kami menghitung BMI dan kebutuhan energi dengan tepat.';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Satuan imperial';
 	@override String get next => 'Berikutnya';
 }
 
@@ -506,7 +506,7 @@ class _TranslationsOnboardingWeightId extends TranslationsOnboardingWeightEn {
 	@override String get targetTitle => 'Berapa berat tujuan Anda?';
 	@override String get targetDescription => 'Menetapkan berat tujuan membantu kami menentukan rencana jangka panjang Anda.';
 	@override String get metric => 'Metrik';
-	@override String get imperial => 'Imperial';
+	@override String get imperial => 'Satuan imperial';
 	@override String get next => 'Berikutnya';
 }
 
@@ -579,6 +579,16 @@ class _TranslationsOnboardingHealthConnectId extends TranslationsOnboardingHealt
 	@override String get statusSuccess => 'Health Connect berhasil dihubungkan!';
 	@override String statusPermissionDenied({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.';
 	@override String statusError({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}';
+	@override late final _TranslationsOnboardingHealthConnectCaloriesBurnedId caloriesBurned = _TranslationsOnboardingHealthConnectCaloriesBurnedId._(_root);
+	@override String get installOrUpdate => 'Pasang atau perbarui';
+	@override String get manageAccess => 'Kelola akses';
+	@override String get overviewDescription => 'Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.';
+	@override late final _TranslationsOnboardingHealthConnectShareLoggedMealsId shareLoggedMeals = _TranslationsOnboardingHealthConnectShareLoggedMealsId._(_root);
+	@override String get statusNotConnected => 'Pilih fitur Health Connect yang ingin Anda aktifkan.';
+	@override String get statusPartial => 'Health Connect terhubung sebagian. Aktifkan izin yang tersisa untuk menggunakan kedua fitur.';
+	@override String get statusProviderUpdateRequired => 'Pasang atau perbarui Health Connect untuk melanjutkan.';
+	@override String get statusUnavailable => 'Health Connect tidak didukung di perangkat ini.';
+	@override late final _TranslationsOnboardingHealthConnectUserControlId userControl = _TranslationsOnboardingHealthConnectUserControlId._(_root);
 }
 
 // Path: onboarding.reinforcement
@@ -632,7 +642,7 @@ class _TranslationsHomeDailyGoalId extends TranslationsHomeDailyGoalEn {
 	@override String get weightImpact => 'Dampak Berat';
 	@override String get estLoss => 'Perk. penurunan';
 	@override String get estGain => 'Perk. kenaikan';
-	@override String get kcal => 'kcal';
+	@override String get kcal => 'kilokalori (kcal)';
 }
 
 // Path: home.dailySummary
@@ -645,7 +655,7 @@ class _TranslationsHomeDailySummaryId extends TranslationsHomeDailySummaryEn {
 	@override String get title => 'Ringkasan Harian';
 	@override String get calories => 'Kalori';
 	@override String get carbs => 'Karbohidrat';
-	@override String get protein => 'Protein';
+	@override String get protein => 'Asupan protein';
 	@override String get fat => 'Lemak';
 	@override String get fiber => 'Serat';
 	@override String get grams => 'gram';
@@ -745,6 +755,8 @@ class _TranslationsHomeConnectHealthId extends TranslationsHomeConnectHealthEn {
 	@override String get description => 'Sinkronkan data nutrisi Anda dengan Health Connect';
 	@override String get install => 'Pasang';
 	@override String get connect => 'Sambungkan';
+	@override String get dataUseDescription => 'Gunakan kalori yang dibakar dalam target Anda dan bagikan makanan yang dicatat';
+	@override String get installOrUpdate => 'Pasang atau perbarui';
 }
 
 // Path: meal.nutrition
@@ -756,7 +768,7 @@ class _TranslationsMealNutritionId extends TranslationsMealNutritionEn {
 	// Translations
 	@override String get calories => 'Kalori';
 	@override String get carbs => 'Karbo (g)';
-	@override String get protein => 'Protein (g)';
+	@override String get protein => 'Protein (gram)';
 	@override String get fat => 'Lemak (g)';
 	@override String get fiber => 'Serat (g)';
 }
@@ -812,7 +824,7 @@ class _TranslationsMealAnalysisId extends TranslationsMealAnalysisEn {
 	@override String ingredientsOverflow({required Object count}) => '${count} lagi';
 	@override String ingredientsLine({required Object count}) => '${count} bahan terdeteksi';
 	@override String get ingredientsPending => 'Memindai bahan…';
-	@override String mealPreviewDescription({required Object text}) => '"${text}"';
+	@override String mealPreviewDescription({required Object text}) => '“${text}”';
 	@override String get offlineTip0 => 'Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.';
 	@override String get offlineTip1 => 'Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.';
 	@override String get offlineTip2 => 'Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.';
@@ -968,7 +980,7 @@ class _TranslationsSettingsSectionsId extends TranslationsSettingsSectionsEn {
 	@override String get profile => 'PROFIL';
 	@override String get localization => 'LOKALISASI';
 	@override String get notifications => 'NOTIFIKASI';
-	@override String get healthConnect => 'HEALTH CONNECT';
+	@override String get healthConnect => 'INTEGRASI HEALTH CONNECT';
 	@override String get localInference => 'ANALISIS PADA PERANGKAT';
 	@override String get supportAndLegal => 'DUKUNGAN & HUKUM';
 	@override String get about => 'TENTANG';
@@ -1111,6 +1123,8 @@ class _TranslationsSettingsClearAllDataId extends TranslationsSettingsClearAllDa
 	@override String get confirmationMessage => 'Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.';
 	@override String get cancel => 'Batal';
 	@override String get clearEverything => 'Hapus Semua';
+	@override String get localOnlyConfirmationMessage => 'Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.';
+	@override String get localOnlySubtitle => 'Hapus data Calorify yang tersimpan di perangkat ini';
 }
 
 // Path: settings.debugOptions
@@ -1140,6 +1154,20 @@ class _TranslationsSettingsHealthConnectId extends TranslationsSettingsHealthCon
 	@override String get permissionRequestCancelledOrFailed => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.';
 	@override String get permissionRequestFailed => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.';
 	@override String get requestingPermissions => 'Meminta...';
+	@override String get actionFailed => 'Health Connect tidak dapat dibuka. Silakan coba lagi.';
+	@override String get connectionComplete => 'Kedua fitur Health Connect telah diaktifkan.';
+	@override String get connectionPartial => 'Beberapa fitur Health Connect telah diaktifkan.';
+	@override String get deleteSyncedMeals => 'Hapus makanan Calorify dari Health Connect';
+	@override String get deleteSyncedMealsConfirmationAction => 'Hapus makanan tersinkron';
+	@override String get deleteSyncedMealsConfirmationMessage => 'Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.';
+	@override String get deleteSyncedMealsConfirmationTitle => 'Hapus makanan tersinkron?';
+	@override String get deleteSyncedMealsFailed => 'Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.';
+	@override String get deleteSyncedMealsSuccess => 'Makanan Calorify telah dihapus dari Health Connect.';
+	@override String get disconnect => 'Putuskan Health Connect';
+	@override String get disconnectConfirmationAction => 'Putuskan';
+	@override String get disconnectConfirmationMessage => 'Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.';
+	@override String get disconnectConfirmationTitle => 'Putuskan Health Connect?';
+	@override late final _TranslationsSettingsHealthConnectUpdateRequiredId updateRequired = _TranslationsSettingsHealthConnectUpdateRequiredId._(_root);
 }
 
 // Path: settings.about
@@ -1164,8 +1192,8 @@ class _TranslationsSettingsAppInfoId extends TranslationsSettingsAppInfoEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String version({required Object version}) => 'Calorify v${version}';
-	@override String build({required Object buildNumber}) => 'Build ${buildNumber}';
+	@override String version({required Object version}) => 'Calorify versi ${version}';
+	@override String build({required Object buildNumber}) => 'Build nomor ${buildNumber}';
 }
 
 // Path: notifications.breakfast
@@ -1369,6 +1397,39 @@ class _TranslationsOnboardingHealthConnectSeamlessIntegrationId extends Translat
 	@override String get description => 'Sinkronkan data dari aplikasi kesehatan favorit Anda';
 }
 
+// Path: onboarding.healthConnect.caloriesBurned
+class _TranslationsOnboardingHealthConnectCaloriesBurnedId extends TranslationsOnboardingHealthConnectCaloriesBurnedEn {
+	_TranslationsOnboardingHealthConnectCaloriesBurnedId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Baca total kalori yang dibakar hari ini dari Health Connect';
+	@override String get title => 'Kalori Terbakar';
+}
+
+// Path: onboarding.healthConnect.shareLoggedMeals
+class _TranslationsOnboardingHealthConnectShareLoggedMealsId extends TranslationsOnboardingHealthConnectShareLoggedMealsEn {
+	_TranslationsOnboardingHealthConnectShareLoggedMealsId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Tulis makanan yang Anda catat di Calorify ke Health Connect';
+	@override String get title => 'Bagikan Makanan yang Dicatat';
+}
+
+// Path: onboarding.healthConnect.userControl
+class _TranslationsOnboardingHealthConnectUserControlId extends TranslationsOnboardingHealthConnectUserControlEn {
+	_TranslationsOnboardingHealthConnectUserControlId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Pilih salah satu izin dan ubah akses kapan saja';
+	@override String get title => 'Kendali Ada pada Anda';
+}
+
 // Path: onboarding.reinforcement.trackingSuccess
 class _TranslationsOnboardingReinforcementTrackingSuccessId extends TranslationsOnboardingReinforcementTrackingSuccessEn {
 	_TranslationsOnboardingReinforcementTrackingSuccessId._(TranslationsId root) : this._root = root, super.internal(root);
@@ -1520,6 +1581,7 @@ class _TranslationsSettingsHealthConnectUnavailableId extends TranslationsSettin
 	// Translations
 	@override String get title => 'Health Connect Tidak Tersedia';
 	@override String get description => 'Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.';
+	@override String get unsupportedDescription => 'Health Connect tidak didukung di perangkat ini.';
 }
 
 // Path: settings.healthConnect.permissions
@@ -1536,6 +1598,18 @@ class _TranslationsSettingsHealthConnectPermissionsId extends TranslationsSettin
 	@override late final _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId caloriesBurned = _TranslationsSettingsHealthConnectPermissionsCaloriesBurnedId._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionReadId nutritionRead = _TranslationsSettingsHealthConnectPermissionsNutritionReadId._(_root);
 	@override late final _TranslationsSettingsHealthConnectPermissionsNutritionWriteId nutritionWrite = _TranslationsSettingsHealthConnectPermissionsNutritionWriteId._(_root);
+}
+
+// Path: settings.healthConnect.updateRequired
+class _TranslationsSettingsHealthConnectUpdateRequiredId extends TranslationsSettingsHealthConnectUpdateRequiredEn {
+	_TranslationsSettingsHealthConnectUpdateRequiredId._(TranslationsId root) : this._root = root, super.internal(root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get action => 'Pasang atau perbarui';
+	@override String get description => 'Pasang atau perbarui Health Connect sebelum mengelola akses.';
+	@override String get title => 'Health Connect perlu diperhatikan';
 }
 
 // Path: settings.about.ourStory
@@ -1564,6 +1638,7 @@ class _TranslationsSettingsAboutPrivacyId extends TranslationsSettingsAboutPriva
 	@override String get noDataSelling => 'Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.';
 	@override String get localStorage => 'Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.';
 	@override String get privacyPolicy => 'Kebijakan Privasi';
+	@override String analyticsDisclosure({required Object appLabel}) => 'Analitik dan diagnostik terbatas\n${appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual.';
 }
 
 // Path: settings.about.developer
@@ -1576,7 +1651,7 @@ class _TranslationsSettingsAboutDeveloperId extends TranslationsSettingsAboutDev
 	@override String get title => 'Dibuat oleh Pengembang Solo';
 	@override String description({required Object appLabel}) => '${appLabel} dibuat dan dipelihara oleh satu pengembang solo yang fokus pada pembuatan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nUmpan balik dibaca secara pribadi dan membantu membentuk arah aplikasi.';
 	@override String get website => 'Situs Web';
-	@override String get email => 'Email';
+	@override String get email => 'Surel';
 }
 
 // Path: settings.about.feedback
@@ -1803,14 +1878,14 @@ extension on TranslationsId {
 			'onboarding.height.title' => 'Berapa tinggi Anda?',
 			'onboarding.height.description' => 'Tinggi Anda membantu kami menghitung BMI dan kebutuhan energi dengan tepat.',
 			'onboarding.height.metric' => 'Metrik',
-			'onboarding.height.imperial' => 'Imperial',
+			'onboarding.height.imperial' => 'Satuan imperial',
 			'onboarding.height.next' => 'Berikutnya',
 			'onboarding.weight.currentTitle' => 'Berapa berat Anda saat ini?',
 			'onboarding.weight.currentDescription' => 'Berat Anda saat ini penting untuk mempersonalisasi target harian Anda.',
 			'onboarding.weight.targetTitle' => 'Berapa berat tujuan Anda?',
 			'onboarding.weight.targetDescription' => 'Menetapkan berat tujuan membantu kami menentukan rencana jangka panjang Anda.',
 			'onboarding.weight.metric' => 'Metrik',
-			'onboarding.weight.imperial' => 'Imperial',
+			'onboarding.weight.imperial' => 'Satuan imperial',
 			'onboarding.weight.next' => 'Berikutnya',
 			'onboarding.age.title' => 'Kapan ulang tahun Anda?',
 			'onboarding.age.description' => 'Usia Anda membantu kami menghitung kebutuhan kalori dengan akurat.',
@@ -1847,6 +1922,19 @@ extension on TranslationsId {
 			'onboarding.healthConnect.statusSuccess' => 'Health Connect berhasil dihubungkan!',
 			'onboarding.healthConnect.statusPermissionDenied' => ({required Object appLabel}) => 'Izin ditolak. Silakan aktifkan izin Health Connect dari pengaturan ponsel untuk ${appLabel}.',
 			'onboarding.healthConnect.statusError' => ({required Object error}) => 'Terjadi kesalahan saat menyiapkan Health Connect: ${error}',
+			'onboarding.healthConnect.caloriesBurned.description' => 'Baca total kalori yang dibakar hari ini dari Health Connect',
+			'onboarding.healthConnect.caloriesBurned.title' => 'Kalori Terbakar',
+			'onboarding.healthConnect.installOrUpdate' => 'Pasang atau perbarui',
+			'onboarding.healthConnect.manageAccess' => 'Kelola akses',
+			'onboarding.healthConnect.overviewDescription' => 'Gunakan kalori yang dibakar dalam target harian Anda dan, jika diinginkan, bagikan makanan yang dicatat dengan Health Connect.',
+			'onboarding.healthConnect.shareLoggedMeals.description' => 'Tulis makanan yang Anda catat di Calorify ke Health Connect',
+			'onboarding.healthConnect.shareLoggedMeals.title' => 'Bagikan Makanan yang Dicatat',
+			'onboarding.healthConnect.statusNotConnected' => 'Pilih fitur Health Connect yang ingin Anda aktifkan.',
+			'onboarding.healthConnect.statusPartial' => 'Health Connect terhubung sebagian. Aktifkan izin yang tersisa untuk menggunakan kedua fitur.',
+			'onboarding.healthConnect.statusProviderUpdateRequired' => 'Pasang atau perbarui Health Connect untuk melanjutkan.',
+			'onboarding.healthConnect.statusUnavailable' => 'Health Connect tidak didukung di perangkat ini.',
+			'onboarding.healthConnect.userControl.description' => 'Pilih salah satu izin dan ubah akses kapan saja',
+			'onboarding.healthConnect.userControl.title' => 'Kendali Ada pada Anda',
 			'onboarding.reinforcement.trackingSuccess.title' => 'Anda Tidak Sendiri',
 			'onboarding.reinforcement.trackingSuccess.genericMessage' => 'Penelitian menunjukkan pelacakan konsisten adalah prediktor nomor 1 keberhasilan jangka panjang.',
 			'onboarding.reinforcement.trackingSuccess.personalizedMessage' => ({required Object age, required Object gender, required Object goal}) => 'Untuk individu berusia ${age} tahun berjenis ${gender} yang ingin ${goal}, pelacakan konsisten adalah prediktor utama keberhasilan.',
@@ -1899,11 +1987,11 @@ extension on TranslationsId {
 			'home.dailyGoal.weightImpact' => 'Dampak Berat',
 			'home.dailyGoal.estLoss' => 'Perk. penurunan',
 			'home.dailyGoal.estGain' => 'Perk. kenaikan',
-			'home.dailyGoal.kcal' => 'kcal',
+			'home.dailyGoal.kcal' => 'kilokalori (kcal)',
 			'home.dailySummary.title' => 'Ringkasan Harian',
 			'home.dailySummary.calories' => 'Kalori',
 			'home.dailySummary.carbs' => 'Karbohidrat',
-			'home.dailySummary.protein' => 'Protein',
+			'home.dailySummary.protein' => 'Asupan protein',
 			'home.dailySummary.fat' => 'Lemak',
 			'home.dailySummary.fiber' => 'Serat',
 			'home.dailySummary.grams' => 'gram',
@@ -1940,6 +2028,8 @@ extension on TranslationsId {
 			'home.connectHealth.description' => 'Sinkronkan data nutrisi Anda dengan Health Connect',
 			'home.connectHealth.install' => 'Pasang',
 			'home.connectHealth.connect' => 'Sambungkan',
+			'home.connectHealth.dataUseDescription' => 'Gunakan kalori yang dibakar dalam target Anda dan bagikan makanan yang dicatat',
+			'home.connectHealth.installOrUpdate' => 'Pasang atau perbarui',
 			'history.noMeals' => 'Belum ada makanan tercatat',
 			'history.emptyMessage' => 'Ambil foto makanan terakhir Anda untuk mencatat di sini.',
 			'history.today' => 'Hari ini',
@@ -1960,7 +2050,7 @@ extension on TranslationsId {
 			'meal.mealType' => 'Jenis Makanan',
 			'meal.nutrition.calories' => 'Kalori',
 			'meal.nutrition.carbs' => 'Karbo (g)',
-			'meal.nutrition.protein' => 'Protein (g)',
+			'meal.nutrition.protein' => 'Protein (gram)',
 			'meal.nutrition.fat' => 'Lemak (g)',
 			'meal.nutrition.fiber' => 'Serat (g)',
 			'meal.deleteConfirmation.title' => 'Hapus Makanan',
@@ -2005,7 +2095,7 @@ extension on TranslationsId {
 			'meal.analysis.ingredientsOverflow' => ({required Object count}) => '${count} lagi',
 			'meal.analysis.ingredientsLine' => ({required Object count}) => '${count} bahan terdeteksi',
 			'meal.analysis.ingredientsPending' => 'Memindai bahan…',
-			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '"${text}"',
+			'meal.analysis.mealPreviewDescription' => ({required Object text}) => '“${text}”',
 			'meal.analysis.offlineTip0' => 'Tip: Konsistensi lebih penting daripada kesempurnaan—catatan rutin mengungkap pola yang berarti.',
 			'meal.analysis.offlineTip1' => 'Tip: Untuk foto, cahaya alami dan sudut atas membantu akurasi porsi.',
 			'meal.analysis.offlineTip2' => 'Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.',
@@ -2094,15 +2184,15 @@ extension on TranslationsId {
 			'editProfile.weightGoal' => 'Tujuan Berat',
 			'editProfile.activityLevel' => 'Tingkat Aktivitas',
 			'editProfile.metric' => 'Metrik',
-			'editProfile.imperial' => 'Imperial',
+			'editProfile.imperial' => 'Satuan imperial',
 			'editProfile.unitCm' => 'cm',
 			'editProfile.unitFt' => 'ft',
 			'editProfile.unitKg' => 'kg',
-			'editProfile.unitLbs' => 'lbs',
+			'editProfile.unitLbs' => 'pon (lbs)',
 			'editProfile.metricCm' => 'Metrik (cm)',
-			'editProfile.imperialFtIn' => 'Imperial (ft/in)',
+			'editProfile.imperialFtIn' => 'Satuan imperial (ft/in)',
 			'editProfile.metricKg' => 'Metrik (kg)',
-			'editProfile.imperialLbs' => 'Imperial (lbs)',
+			'editProfile.imperialLbs' => 'Satuan imperial (lbs)',
 			'editProfile.genders.male' => 'Pria',
 			'editProfile.genders.female' => 'Wanita',
 			'editProfile.genders.other' => 'Lainnya',
@@ -2126,7 +2216,7 @@ extension on TranslationsId {
 			'settings.sections.profile' => 'PROFIL',
 			'settings.sections.localization' => 'LOKALISASI',
 			'settings.sections.notifications' => 'NOTIFIKASI',
-			'settings.sections.healthConnect' => 'HEALTH CONNECT',
+			'settings.sections.healthConnect' => 'INTEGRASI HEALTH CONNECT',
 			'settings.sections.localInference' => 'ANALISIS PADA PERANGKAT',
 			'settings.sections.supportAndLegal' => 'DUKUNGAN & HUKUM',
 			'settings.sections.about' => 'TENTANG',
@@ -2179,12 +2269,15 @@ extension on TranslationsId {
 			'settings.clearAllData.confirmationMessage' => 'Tindakan ini tidak dapat dibatalkan. Semua catatan makanan, favorit, dan pengaturan profil Anda akan dihapus secara permanen.',
 			'settings.clearAllData.cancel' => 'Batal',
 			'settings.clearAllData.clearEverything' => 'Hapus Semua',
+			'settings.clearAllData.localOnlyConfirmationMessage' => 'Tindakan ini menghapus secara permanen makanan yang dicatat, favorit, dan pengaturan profil dari perangkat ini. Makanan yang telah dibagikan ke Health Connect dan akses Health Connect dikelola secara terpisah di Pengaturan > Health Connect.',
+			'settings.clearAllData.localOnlySubtitle' => 'Hapus data Calorify yang tersimpan di perangkat ini',
 			'settings.debugOptions.title' => 'Opsi Debug',
 			'settings.developerModeEnabled' => 'Mode pengembang diaktifkan!',
 			'settings.healthConnect.title' => 'Health Connect',
 			'settings.healthConnect.subtitle' => 'Lihat dan kelola izin',
 			'settings.healthConnect.unavailable.title' => 'Health Connect Tidak Tersedia',
 			'settings.healthConnect.unavailable.description' => 'Health Connect tidak tersedia di perangkat ini. Silakan pasang Health Connect dari Play Store (Android 9+) atau perbarui ke Android 14+.',
+			'settings.healthConnect.unavailable.unsupportedDescription' => 'Health Connect tidak didukung di perangkat ini.',
 			'settings.healthConnect.permissions.title' => 'Izin',
 			'settings.healthConnect.permissions.description' => 'Izin berikut diminta untuk menyediakan integrasi Health Connect:',
 			'settings.healthConnect.permissions.granted' => 'Diberikan',
@@ -2204,6 +2297,22 @@ extension on TranslationsId {
 			'settings.healthConnect.permissionRequestCancelledOrFailed' => 'Permintaan izin dibatalkan atau gagal. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
 			'settings.healthConnect.permissionRequestFailed' => 'Tidak dapat meminta izin. Silakan coba lagi atau berikan izin secara manual di pengaturan Health Connect.',
 			'settings.healthConnect.requestingPermissions' => 'Meminta...',
+			'settings.healthConnect.actionFailed' => 'Health Connect tidak dapat dibuka. Silakan coba lagi.',
+			'settings.healthConnect.connectionComplete' => 'Kedua fitur Health Connect telah diaktifkan.',
+			'settings.healthConnect.connectionPartial' => 'Beberapa fitur Health Connect telah diaktifkan.',
+			'settings.healthConnect.deleteSyncedMeals' => 'Hapus makanan Calorify dari Health Connect',
+			'settings.healthConnect.deleteSyncedMealsConfirmationAction' => 'Hapus makanan tersinkron',
+			'settings.healthConnect.deleteSyncedMealsConfirmationMessage' => 'Hapus makanan yang disinkronkan oleh versi Calorify ini dari Health Connect? Catatan makanan lokal Anda tidak akan berubah. Entri Calorify yang lebih lama mungkin masih perlu dihapus melalui Kelola Data di Health Connect.',
+			'settings.healthConnect.deleteSyncedMealsConfirmationTitle' => 'Hapus makanan tersinkron?',
+			'settings.healthConnect.deleteSyncedMealsFailed' => 'Makanan tersinkron tidak dapat dihapus. Silakan coba lagi.',
+			'settings.healthConnect.deleteSyncedMealsSuccess' => 'Makanan Calorify telah dihapus dari Health Connect.',
+			'settings.healthConnect.disconnect' => 'Putuskan Health Connect',
+			'settings.healthConnect.disconnectConfirmationAction' => 'Putuskan',
+			'settings.healthConnect.disconnectConfirmationMessage' => 'Calorify akan kehilangan akses ke Health Connect. Data yang sudah ditulis di sana tidak akan dihapus.',
+			'settings.healthConnect.disconnectConfirmationTitle' => 'Putuskan Health Connect?',
+			'settings.healthConnect.updateRequired.action' => 'Pasang atau perbarui',
+			'settings.healthConnect.updateRequired.description' => 'Pasang atau perbarui Health Connect sebelum mengelola akses.',
+			'settings.healthConnect.updateRequired.title' => 'Health Connect perlu diperhatikan',
 			'settings.about.title' => 'Tentang',
 			'settings.about.tagline' => 'Cepat, gratis, dan mengutamakan privasi untuk kesadaran kalori',
 			'settings.about.ourStory.title' => 'Kisah Kami',
@@ -2216,16 +2325,17 @@ extension on TranslationsId {
 			'settings.about.privacy.noDataSelling' => 'Tidak menjual data\nData kesehatan Anda tidak pernah dijual atau dibagikan dengan pihak ketiga.',
 			'settings.about.privacy.localStorage' => 'Penyimpanan lokal-pertama\nData Anda tetap di perangkat Anda.',
 			'settings.about.privacy.privacyPolicy' => 'Kebijakan Privasi',
+			'settings.about.privacy.analyticsDisclosure' => ({required Object appLabel}) => 'Analitik dan diagnostik terbatas\n${appLabel} menggunakan peristiwa dasar aplikasi dan diagnostik kerusakan untuk meningkatkan keandalan. Nilai catatan kesehatan tidak digunakan untuk iklan atau dijual.',
 			'settings.about.developer.title' => 'Dibuat oleh Pengembang Solo',
 			'settings.about.developer.description' => ({required Object appLabel}) => '${appLabel} dibuat dan dipelihara oleh satu pengembang solo yang fokus pada pembuatan perangkat lunak kesehatan yang tenang dan menghormati privasi.\n\nUmpan balik dibaca secara pribadi dan membantu membentuk arah aplikasi.',
 			'settings.about.developer.website' => 'Situs Web',
-			'settings.about.developer.email' => 'Email',
+			'settings.about.developer.email' => 'Surel',
 			'settings.about.feedback.title' => ({required Object appLabel}) => 'Menikmati ${appLabel}?',
 			'settings.about.feedback.description' => ({required Object appLabel}) => 'Umpan balik Anda membantu membuat ${appLabel} lebih baik untuk semua orang.',
 			'settings.about.feedback.rateApp' => 'Beri rating di Play Store',
 			'settings.about.feedback.sendFeedback' => 'Kirim Umpan Balik',
-			'settings.appInfo.version' => ({required Object version}) => 'Calorify v${version}',
-			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build ${buildNumber}',
+			'settings.appInfo.version' => ({required Object version}) => 'Calorify versi ${version}',
+			'settings.appInfo.build' => ({required Object buildNumber}) => 'Build nomor ${buildNumber}',
 			'reminders.title' => 'Tetap pada jalur dengan pengingat',
 			'reminders.description' => 'Dapatkan pengingat lembut untuk mencatat makanan Anda dan tetap konsisten dengan tujuan nutrisi',
 			'reminders.notificationsEnabled' => 'Notifikasi Diaktifkan',
@@ -2256,6 +2366,8 @@ extension on TranslationsId {
 			'notifications.snack.body' => 'Waktunya cemilan sehat',
 			'notifications.test.title' => 'Notifikasi Tes',
 			'login.title' => 'Masuk',
+			_ => null,
+		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Masuk dengan Google',
 			'login.signInFailed' => 'Google Sign-In gagal atau dibatalkan.',
 			'disclaimer.pleaseNote' => 'Harap Diperhatikan',
@@ -2291,8 +2403,6 @@ extension on TranslationsId {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami menghitung TDEE Anda (berdasarkan profil Anda) dan mengalikannya dengan fraksi hari yang telah berlalu (jam + menit) / 24 untuk memperkirakan kalori yang terbakar sejauh ini.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Panduan Profesional',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan perkiraan ini untuk membuat keputusan medis. Selalu konsultasikan profesional kesehatan atau ahli diet terdaftar untuk saran manajemen berat personal.',
-			_ => null,
-		} ?? switch (path) {
 			'localNutritionPhase4.nutritionBundled' => 'Nutrisi dicocokkan dari paket USDA yang diunduh',
 			'localNutritionPhase4.nutritionCached' => 'Nutrisi dicocokkan dari cache USDA di perangkat',
 			'localNutritionPhase4.nutritionMixed' => 'Nutrisi digabungkan dari baris USDA yang diunduh, di-cache, dan diakses dari jarak jauh',
