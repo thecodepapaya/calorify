@@ -37,7 +37,7 @@
       "title": "Berapa tinggi anda?",
       "description": "Tinggi anda membantu kami mengira BMI dan keperluan tenaga dengan tepat.",
       "metric": "Metrik",
-      "imperial": "Imperial",
+      "imperial": "Sistem imperial",
       "next": "Seterusnya"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "Berapa berat sasaran anda?",
       "targetDescription": "Menetapkan berat sasaran membantu kami menentukan pelan jangka panjang anda.",
       "metric": "Metrik",
-      "imperial": "Imperial",
+      "imperial": "Sistem imperial",
       "next": "Seterusnya"
     },
     "age": {
@@ -108,7 +108,20 @@
       "installOrUpdate": "Pasang atau kemas kini",
       "manageAccess": "Urus akses",
       "statusPermissionDenied": "Kebenaran ditolak. Sila aktifkan kebenaran Health Connect dari tetapan telefon untuk {appLabel}.",
-      "statusError": "Ralat semasa menyediakan Health Connect: {error}"
+      "statusError": "Ralat semasa menyediakan Health Connect: {error}",
+      "caloriesBurned": {
+        "description": "Baca jumlah kalori yang dibakar hari ini daripada Health Connect",
+        "title": "Kalori Dibakar"
+      },
+      "overviewDescription": "Gunakan kalori yang dibakar dalam matlamat harian anda dan, jika mahu, kongsi hidangan yang direkodkan dengan Health Connect.",
+      "shareLoggedMeals": {
+        "description": "Tulis hidangan yang anda rekod dalam Calorify ke Health Connect",
+        "title": "Kongsi Hidangan yang Direkodkan"
+      },
+      "userControl": {
+        "description": "Pilih salah satu kebenaran dan ubah akses pada bila-bila masa",
+        "title": "Anda yang Mengawal"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -177,13 +190,13 @@
       "weightImpact": "Kesan Berat",
       "estLoss": "Anggaran kehilangan",
       "estGain": "Anggaran penambahan",
-      "kcal": "kcal"
+      "kcal": "kilokalori (kcal)"
     },
     "dailySummary": {
       "title": "Ringkasan Harian",
       "calories": "Kalori",
       "carbs": "Karbohidrat",
-      "protein": "Protein",
+      "protein": "Jumlah protein",
       "fat": "Lemak",
       "fiber": "Serat",
       "grams": "gram",
@@ -233,7 +246,9 @@
       "title": "Segerakkan dengan Health Connect",
       "description": "Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan",
       "install": "Pasang atau kemas kini",
-      "connect": "Sambung"
+      "connect": "Sambung",
+      "dataUseDescription": "Gunakan kalori yang dibakar dalam matlamat anda dan kongsi hidangan yang direkodkan",
+      "installOrUpdate": "Pasang atau kemas kini"
     }
   },
   "history": {
@@ -260,7 +275,7 @@
     "nutrition": {
       "calories": "Kalori",
       "carbs": "Karbohidrat (g)",
-      "protein": "Protein (g)",
+      "protein": "Protein (gram)",
       "fat": "Lemak (g)",
       "fiber": "Serat (g)"
     },
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} lagi",
       "ingredientsLine": "{count} bahan dikesan",
       "ingredientsPending": "Mengimbas bahan…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "Tip: Konsistensi lebih penting daripada kesempurnaan—log secara tetap mendedahkan corak yang bermakna.",
       "offlineTip1": "Tip: Untuk foto, cahaya semula jadi dan pandangan dari atas membantu ketepatan bahagian.",
       "offlineTip2": "Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.",
@@ -405,7 +420,7 @@
     "note": "Skor ini adalah anggaran AI berdasarkan bahan yang dikenalpasti dan kepadatan nutrisi. Sentiasa rujuk profesional untuk nasihat pemakanan peribadi.",
     "unhealthy": "Tidak sihat",
     "healthy": "Sihat",
-    "neutral": "Neutral"
+    "neutral": "Seimbang"
   },
   "editProfile": {
     "title": "Sunting Profil",
@@ -421,15 +436,15 @@
     "weightGoal": "Matlamat Berat",
     "activityLevel": "Tahap Aktiviti",
     "metric": "Metrik",
-    "imperial": "Imperial",
+    "imperial": "Sistem imperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "paun (lbs)",
     "metricCm": "Metrik (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
+    "imperialFtIn": "Sistem imperial (ft/in)",
     "metricKg": "Metrik (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "imperialLbs": "Sistem imperial (lbs)",
     "genders": {
       "male": "Lelaki",
       "female": "Perempuan",
@@ -478,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "PENENTUAN LOKAL",
       "notifications": "PEMBERITAHUAN",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "INTEGRASI HEALTH CONNECT",
       "localInference": "ANALISIS PADA PERANTI",
       "supportAndLegal": "SOKONGAN & UNDANG-UNDANG",
       "about": "TENTANG",
@@ -550,7 +565,9 @@
       "confirmationTitle": "Kosongkan Semua Data?",
       "confirmationMessage": "Ini akan memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.",
       "cancel": "Batal",
-      "clearEverything": "Padam Semua"
+      "clearEverything": "Padam Semua",
+      "localOnlyConfirmationMessage": "Ini memadamkan secara kekal hidangan yang direkodkan, kegemaran dan tetapan profil daripada peranti ini. Hidangan yang telah dikongsi ke Health Connect dan akses Health Connect diurus secara berasingan dalam Tetapan > Health Connect.",
+      "localOnlySubtitle": "Padam data Calorify yang disimpan pada peranti ini"
     },
     "debugOptions": {
       "title": "Pilihan Debug"
@@ -561,7 +578,8 @@
       "subtitle": "Lihat dan urus kebenaran",
       "unavailable": {
         "title": "Health Connect Tidak Tersedia",
-        "description": "Health Connect tidak disokong pada peranti ini."
+        "description": "Health Connect tidak disokong pada peranti ini.",
+        "unsupportedDescription": "Health Connect tidak disokong pada peranti ini."
       },
       "updateRequired": {
         "title": "Health Connect memerlukan perhatian",
@@ -624,7 +642,8 @@
         "noAds": "Tiada iklan secara reka bentuk\n{appLabel} dibina untuk berfungsi tanpa iklan atau pemanfaatkan data.",
         "noDataSelling": "Tiada penjualan data\nData kesihatan anda tidak pernah dijual atau dikongsi dengan pihak ketiga.",
         "localStorage": "Penyimpanan bermula-lokal\nData anda kekal pada peranti anda.",
-        "privacyPolicy": "Dasar Privasi"
+        "privacyPolicy": "Dasar Privasi",
+        "analyticsDisclosure": "Analitik dan diagnostik terhad\n{appLabel} menggunakan peristiwa asas aplikasi dan diagnostik ranap untuk meningkatkan kebolehpercayaan. Nilai rekod kesihatan tidak digunakan untuk pengiklanan atau dijual."
       },
       "developer": {
         "title": "Dibina oleh Pembangun Solo",
@@ -640,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify versi {version}",
       "build": "Binaan {buildNumber}"
     }
   },

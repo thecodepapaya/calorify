@@ -108,7 +108,20 @@
       "installOrUpdate": "I-install o i-update",
       "manageAccess": "Pamahalaan ang access",
       "statusPermissionDenied": "Tinanggihan ang pahintulot. I-enable ang mga pahintulot ng Health Connect sa settings ng iyong telepono para sa {appLabel}.",
-      "statusError": "Nagkaroon ng error sa pag-set up ng Health Connect: {error}"
+      "statusError": "Nagkaroon ng error sa pag-set up ng Health Connect: {error}",
+      "caloriesBurned": {
+        "description": "Basahin sa Health Connect ang kabuuang calorie na nasunog ngayong araw",
+        "title": "Mga Nasunog na Calorie"
+      },
+      "overviewDescription": "Gamitin sa araw-araw na layunin ang mga nasunog na calorie at, kung nais, ibahagi sa Health Connect ang mga naitalang pagkain.",
+      "shareLoggedMeals": {
+        "description": "Isulat sa Health Connect ang mga pagkaing itinala mo sa Calorify",
+        "title": "Ibahagi ang mga Naitalang Pagkain"
+      },
+      "userControl": {
+        "description": "Pumili ng alinmang pahintulot at baguhin ang access anumang oras",
+        "title": "Ikaw ang May Kontrol"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -147,7 +160,7 @@
     }
   },
   "tabs": {
-    "dashboard": "Dashboard",
+    "dashboard": "Pangkalahatang-ideya",
     "history": "Kasaysayan"
   },
   "home": {
@@ -177,7 +190,7 @@
       "weightImpact": "Epekto sa Timbang",
       "estLoss": "Tinatayang pagbawas ng",
       "estGain": "Tinatayang pagtaas ng",
-      "kcal": "kcal"
+      "kcal": "kilocalorie (kcal)"
     },
     "dailySummary": {
       "title": "Pang-araw-araw na Buod",
@@ -233,7 +246,9 @@
       "title": "I-sync sa Health Connect",
       "description": "Gamitin ang calories na nasunog sa iyong goal at ibahagi ang mga na-log na pagkain",
       "install": "I-install o i-update",
-      "connect": "Ikonekta"
+      "connect": "Ikonekta",
+      "dataUseDescription": "Gamitin sa iyong layunin ang mga nasunog na calorie at ibahagi ang mga naitalang pagkain",
+      "installOrUpdate": "Mag-install o mag-update"
     }
   },
   "history": {
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} pa",
       "ingredientsLine": "{count} na sangkap ang natukoy",
       "ingredientsPending": "Sinusuri ang mga sangkap…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "Tip: Mas mahalaga ang pagiging regular kaysa perpeksiyon—ang regular na pag-log ang nagpapakita ng mga pattern na mahalaga.",
       "offlineTip1": "Tip: Para sa mga larawan, mas nakakatulong ang natural na ilaw at top-down na kuha para sa tumpak na bahagi.",
       "offlineTip2": "Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.",
@@ -370,12 +385,12 @@
     }
   },
   "profile": {
-    "title": "Profile",
+    "title": "Personal na Profile",
     "noProfileData": "Walang data ng profile",
     "yourProfile": "Ang Iyong Profile",
     "viewAndManage": "Tingnan at pamahalaan ang iyong impormasyon sa kalusugan",
     "sections": {
-      "profile": "PROFILE",
+      "profile": "PERSONAL NA PROFILE",
       "basicInformation": "PANGUNAHING IMPORMASYON",
       "goalsAndActivity": "LAYUNIN AT AKTIBIDAD",
       "calculatedValues": "NAKALKULANG HALAGA"
@@ -395,7 +410,7 @@
       "bmr": "BMR",
       "tdee": "TDEE",
       "dailyGoal": "Pang-araw-araw na Layunin",
-      "calPerDay": "cal/day",
+      "calPerDay": "calorie/bawat araw",
       "notAvailable": "N/A"
     }
   },
@@ -405,7 +420,7 @@
     "note": "Ang iskor na ito ay isang pagtatantiya mula sa AI batay sa mga natukoy na sangkap at nutritional density. Laging kumonsulta sa isang propesyonal para sa payong pandiyeta.",
     "unhealthy": "Hindi Malusog",
     "healthy": "Malusog",
-    "neutral": "Neutral"
+    "neutral": "Katamtaman"
   },
   "editProfile": {
     "title": "I-edit ang Profile",
@@ -425,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "libra (lbs)",
     "metricCm": "Metriko (cm)",
     "imperialFtIn": "Imperyal (ft/in)",
     "metricKg": "Metriko (kg)",
@@ -475,15 +490,15 @@
   "settings": {
     "title": "Mga Setting",
     "sections": {
-      "profile": "PROFILE",
+      "profile": "PERSONAL NA PROFILE",
       "localization": "Wika at Lokalidad",
       "notifications": "Mga Notification",
-      "healthConnect": "HEALTH CONNECT",
-      "localInference": "ON-DEVICE ANALYSIS",
+      "healthConnect": "PAGSASAMA SA HEALTH CONNECT",
+      "localInference": "PAGSUSURI SA DEVICE",
       "supportAndLegal": "SUPORTA & LEGAL",
       "about": "TUNGKOL",
       "dangerZone": "DELIKADONG ZONA",
-      "developer": "DEVELOPER"
+      "developer": "MGA DEVELOPER"
     },
     "editProfile": {
       "title": "I-edit ang Profile",
@@ -550,7 +565,9 @@
       "confirmationTitle": "Tanggalin Lahat ng Datos?",
       "confirmationMessage": "Permanente nitong tatanggalin sa device na ito ang mga na-log na pagkain, paborito, at mga setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access sa Health Connect.",
       "cancel": "Kanselahin",
-      "clearEverything": "I-clear Lahat"
+      "clearEverything": "I-clear Lahat",
+      "localOnlyConfirmationMessage": "Permanente nitong buburahin sa device na ito ang mga naitalang pagkain, paborito, at setting ng profile. Hiwalay na pinamamahalaan sa Mga Setting > Health Connect ang mga pagkaing naibahagi na sa Health Connect at ang access dito.",
+      "localOnlySubtitle": "Burahin ang data ng Calorify na nakaimbak sa device na ito"
     },
     "debugOptions": {
       "title": "Mga Opsyon sa Debug"
@@ -561,7 +578,8 @@
       "subtitle": "Tingnan at pamahalaan ang mga permiso",
       "unavailable": {
         "title": "Hindi Available ang Health Connect",
-        "description": "Hindi sinusuportahan ang Health Connect sa device na ito."
+        "description": "Hindi sinusuportahan ang Health Connect sa device na ito.",
+        "unsupportedDescription": "Hindi sinusuportahan ng device na ito ang Health Connect."
       },
       "updateRequired": {
         "title": "Kailangang asikasuhin ang Health Connect",
@@ -624,13 +642,14 @@
         "noAds": "Walang ads ayon sa disenyo\n{appLabel} idinisenyo para gumana nang walang ads o monetization na naka-base sa data.",
         "noDataSelling": "Walang pagbebenta ng data\nHindi kailanman ibinebenta o ibinabahagi ang iyong health data sa third parties.",
         "localStorage": "Local-first storage\nNananatili ang iyong data sa iyong device.",
-        "privacyPolicy": "Patakaran sa Privacy"
+        "privacyPolicy": "Patakaran sa Privacy",
+        "analyticsDisclosure": "Limitadong analytics at diagnostic\nGumagamit ang {appLabel} ng mga pangunahing kaganapan sa app at crash diagnostic upang mapahusay ang pagiging maaasahan. Hindi ginagamit sa pag-advertise o ibinebenta ang mga halaga ng rekord ng kalusugan."
       },
       "developer": {
         "title": "Ginawa ng Isang Solo Developer",
         "description": "{appLabel} ay binuo at pinapanatili ng isang solo developer na nakatuon sa paggawa ng payapa, privacy-respecting na health software.\n\nPersonal na binabasa ang feedback at nakakatulong sa paghubog ng direksyon ng app.",
-        "website": "Website",
-        "email": "Email"
+        "website": "Website ng Developer",
+        "email": "Email address"
       },
       "feedback": {
         "title": "Nagugustuhan mo ba ang {appLabel}?",
@@ -640,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify bersyon {version}",
+      "build": "Bersyon ng build {buildNumber}"
     }
   },
   "reminders": {

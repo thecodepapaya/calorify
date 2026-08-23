@@ -102,7 +102,26 @@
       "statusConnected": "Health Connect 已连接。",
       "statusSuccess": "已成功连接 Health Connect！",
       "statusPermissionDenied": "权限被拒绝。请在手机设置中为 {appLabel} 启用 Health Connect 权限。",
-      "statusError": "设置 Health Connect 时出错：{error}"
+      "statusError": "设置 Health Connect 时出错：{error}",
+      "caloriesBurned": {
+        "description": "从 Health Connect 读取今天消耗的总卡路里",
+        "title": "已消耗卡路里"
+      },
+      "installOrUpdate": "安装或更新",
+      "manageAccess": "管理访问权限",
+      "overviewDescription": "将已消耗的卡路里计入每日目标，并可选择与 Health Connect 共享记录的餐食。",
+      "shareLoggedMeals": {
+        "description": "将你在 Calorify 中记录的餐食写入 Health Connect",
+        "title": "共享记录的餐食"
+      },
+      "statusNotConnected": "选择要启用的 Health Connect 功能。",
+      "statusPartial": "Health Connect 已部分连接。请启用剩余权限以使用两项功能。",
+      "statusProviderUpdateRequired": "安装或更新 Health Connect 以继续。",
+      "statusUnavailable": "此设备不支持 Health Connect。",
+      "userControl": {
+        "description": "选择任一权限，并随时更改访问设置",
+        "title": "由你掌控"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -227,7 +246,9 @@
       "title": "与 Health Connect 同步",
       "description": "将你的营养数据同步到 Health Connect",
       "install": "安装",
-      "connect": "连接"
+      "connect": "连接",
+      "dataUseDescription": "将已消耗的卡路里计入目标，并共享记录的餐食",
+      "installOrUpdate": "安装或更新"
     }
   },
   "history": {
@@ -544,7 +565,9 @@
       "confirmationTitle": "清除所有数据？",
       "confirmationMessage": "此操作不可撤销。你所有的记录、收藏和个人设置将被永久删除。",
       "cancel": "取消",
-      "clearEverything": "清除全部"
+      "clearEverything": "清除全部",
+      "localOnlyConfirmationMessage": "这将从此设备永久删除记录的餐食、收藏和个人资料设置。已共享到 Health Connect 的餐食和 Health Connect 访问权限需在“设置 > Health Connect”中单独管理。",
+      "localOnlySubtitle": "删除此设备上存储的 Calorify 数据"
     },
     "debugOptions": {
       "title": "调试选项"
@@ -555,7 +578,8 @@
       "subtitle": "查看并管理权限",
       "unavailable": {
         "title": "Health Connect 不可用",
-        "description": "此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。"
+        "description": "此设备上无法使用 Health Connect。请从 Play Store 安装 Health Connect（Android 9+）或更新到 Android 14+。",
+        "unsupportedDescription": "此设备不支持 Health Connect。"
       },
       "permissions": {
         "title": "权限",
@@ -583,7 +607,25 @@
       "requestPermissions": "请求权限",
       "permissionRequestCancelledOrFailed": "权限请求已取消或失败。请重试或在 Health Connect 设置中手动授予权限。",
       "permissionRequestFailed": "无法请求权限。请重试或在 Health Connect 设置中手动授予权限。",
-      "requestingPermissions": "正在请求…"
+      "requestingPermissions": "正在请求…",
+      "actionFailed": "无法打开 Health Connect，请重试。",
+      "connectionComplete": "两项 Health Connect 功能均已启用。",
+      "connectionPartial": "部分 Health Connect 功能已启用。",
+      "deleteSyncedMeals": "从 Health Connect 删除 Calorify 餐食",
+      "deleteSyncedMealsConfirmationAction": "删除已同步的餐食",
+      "deleteSyncedMealsConfirmationMessage": "要从 Health Connect 删除此版本 Calorify 同步的餐食吗？本地餐食日志不会改变。较早的 Calorify 条目可能仍需通过 Health Connect 中的“管理数据”删除。",
+      "deleteSyncedMealsConfirmationTitle": "删除已同步的餐食？",
+      "deleteSyncedMealsFailed": "无法删除已同步的餐食，请重试。",
+      "deleteSyncedMealsSuccess": "已从 Health Connect 删除 Calorify 餐食。",
+      "disconnect": "断开 Health Connect",
+      "disconnectConfirmationAction": "断开连接",
+      "disconnectConfirmationMessage": "Calorify 将失去 Health Connect 访问权限。已写入其中的数据不会被删除。",
+      "disconnectConfirmationTitle": "断开 Health Connect？",
+      "updateRequired": {
+        "action": "安装或更新",
+        "description": "请先安装或更新 Health Connect，再管理访问权限。",
+        "title": "Health Connect 需要处理"
+      }
     },
     "about": {
       "title": "关于",
@@ -600,7 +642,8 @@
         "noAds": "内建无广告\n{appLabel} 旨在无需广告或基于数据的变现运行。",
         "noDataSelling": "不出售数据\n你的健康数据不会被出售或分享给第三方。",
         "localStorage": "本地优先存储\n你的数据保留在你的设备上。",
-        "privacyPolicy": "隐私政策"
+        "privacyPolicy": "隐私政策",
+        "analyticsDisclosure": "有限的分析与诊断\n{appLabel} 使用基本应用事件和崩溃诊断来提高可靠性。健康记录值不会用于广告或出售。"
       },
       "developer": {
         "title": "由独立开发者构建",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify 版本 {version}",
       "build": "构建 {buildNumber}"
     }
   },

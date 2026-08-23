@@ -102,7 +102,26 @@
       "statusConnected": "Health Connect가 연결되어 있습니다.",
       "statusSuccess": "Health Connect가 성공적으로 연결되었습니다!",
       "statusPermissionDenied": "권한이 거부되었습니다. {appLabel}에 대한 Health Connect 권한을 휴대폰 설정에서 활성화해주세요.",
-      "statusError": "Health Connect 설정 오류: {error}"
+      "statusError": "Health Connect 설정 오류: {error}",
+      "caloriesBurned": {
+        "description": "Health Connect에서 오늘의 총 소모 칼로리를 읽습니다",
+        "title": "소모 칼로리"
+      },
+      "installOrUpdate": "설치 또는 업데이트",
+      "manageAccess": "접근 권한 관리",
+      "overviewDescription": "일일 목표에 소모 칼로리를 반영하고 원하는 경우 기록한 식사를 Health Connect와 공유합니다.",
+      "shareLoggedMeals": {
+        "description": "Calorify에 기록한 식사를 Health Connect에 씁니다",
+        "title": "기록한 식사 공유"
+      },
+      "statusNotConnected": "사용할 Health Connect 기능을 선택하세요.",
+      "statusPartial": "Health Connect가 일부 연결되었습니다. 두 기능을 모두 사용하려면 남은 권한을 활성화하세요.",
+      "statusProviderUpdateRequired": "계속하려면 Health Connect를 설치하거나 업데이트하세요.",
+      "statusUnavailable": "이 기기는 Health Connect를 지원하지 않습니다.",
+      "userControl": {
+        "description": "원하는 권한을 선택하고 언제든지 접근 설정을 변경하세요",
+        "title": "사용자가 직접 관리합니다"
+      }
     },
     "reinforcement": {
       "trackingSuccess": {
@@ -171,7 +190,7 @@
       "weightImpact": "체중 영향",
       "estLoss": "예상 감소",
       "estGain": "예상 증가",
-      "kcal": "kcal"
+      "kcal": "킬로칼로리(kcal)"
     },
     "dailySummary": {
       "title": "오늘 요약",
@@ -227,7 +246,9 @@
       "title": "Health Connect와 동기화",
       "description": "영양 데이터를 Health Connect와 동기화하세요",
       "install": "설치",
-      "connect": "연결"
+      "connect": "연결",
+      "dataUseDescription": "목표에 소모 칼로리를 반영하고 기록한 식사를 공유합니다",
+      "installOrUpdate": "설치 또는 업데이트"
     }
   },
   "history": {
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count}개 더",
       "ingredientsLine": "{count}개의 재료가 감지되었습니다",
       "ingredientsPending": "재료 스캔 중…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "“{text}”",
       "offlineTip0": "팁: 완벽함보다 꾸준함이 중요합니다—정기적인 기록이 중요한 패턴을 드러냅니다.",
       "offlineTip1": "팁: 사진은 자연광과 위에서 내려다보는 구도가 분량 추정에 도움이 됩니다.",
       "offlineTip2": "팁: 음료, 소스, 식용유도 칼로리를 추가하니 꼭 언급하세요.",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "파운드(lbs)",
     "metricCm": "미터법 (cm)",
     "imperialFtIn": "피트/인치 (ft/in)",
     "metricKg": "미터법 (kg)",
@@ -472,7 +493,7 @@
       "profile": "프로필",
       "localization": "지역화",
       "notifications": "알림",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "HEALTH CONNECT 설정",
       "localInference": "기기 내 분석",
       "supportAndLegal": "지원 및 법적 고지",
       "about": "앱 정보",
@@ -544,7 +565,9 @@
       "confirmationTitle": "모든 데이터를 삭제하시겠습니까?",
       "confirmationMessage": "이 작업은 되돌릴 수 없습니다. 기록된 모든 식사, 즐겨찾기 및 프로필 설정이 영구적으로 삭제됩니다.",
       "cancel": "취소",
-      "clearEverything": "모두 삭제"
+      "clearEverything": "모두 삭제",
+      "localOnlyConfirmationMessage": "이 기기에서 기록한 식사, 즐겨찾기 및 프로필 설정을 영구적으로 삭제합니다. Health Connect에 이미 공유한 식사와 Health Connect 접근 권한은 설정 > Health Connect에서 별도로 관리됩니다.",
+      "localOnlySubtitle": "이 기기에 저장된 Calorify 데이터 삭제"
     },
     "debugOptions": {
       "title": "디버그 옵션"
@@ -555,7 +578,8 @@
       "subtitle": "권한 보기 및 관리",
       "unavailable": {
         "title": "Health Connect 사용 불가",
-        "description": "이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요."
+        "description": "이 기기에서는 Health Connect를 사용할 수 없습니다. Android 9 이상에서는 Play Store에서 Health Connect를 설치하거나 Android 14 이상으로 업데이트하세요.",
+        "unsupportedDescription": "이 기기는 Health Connect를 지원하지 않습니다."
       },
       "permissions": {
         "title": "권한",
@@ -583,7 +607,25 @@
       "requestPermissions": "권한 요청",
       "permissionRequestCancelledOrFailed": "권한 요청이 취소되었거나 실패했습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.",
       "permissionRequestFailed": "권한을 요청할 수 없습니다. 다시 시도하거나 Health Connect 설정에서 수동으로 권한을 허용하세요.",
-      "requestingPermissions": "요청 중..."
+      "requestingPermissions": "요청 중...",
+      "actionFailed": "Health Connect를 열 수 없습니다. 다시 시도해 주세요.",
+      "connectionComplete": "Health Connect 기능 두 개가 모두 활성화되었습니다.",
+      "connectionPartial": "일부 Health Connect 기능이 활성화되었습니다.",
+      "deleteSyncedMeals": "Health Connect에서 Calorify 식사 삭제",
+      "deleteSyncedMealsConfirmationAction": "동기화된 식사 삭제",
+      "deleteSyncedMealsConfirmationMessage": "이 버전의 Calorify가 Health Connect에 동기화한 식사를 삭제할까요? 기기의 식사 기록은 변경되지 않습니다. 이전 Calorify 항목은 Health Connect의 데이터 관리에서 별도로 삭제해야 할 수 있습니다.",
+      "deleteSyncedMealsConfirmationTitle": "동기화된 식사를 삭제할까요?",
+      "deleteSyncedMealsFailed": "동기화된 식사를 삭제하지 못했습니다. 다시 시도해 주세요.",
+      "deleteSyncedMealsSuccess": "Health Connect에서 Calorify 식사를 삭제했습니다.",
+      "disconnect": "Health Connect 연결 해제",
+      "disconnectConfirmationAction": "연결 해제",
+      "disconnectConfirmationMessage": "Calorify의 Health Connect 접근 권한이 해제됩니다. 이미 기록된 데이터는 삭제되지 않습니다.",
+      "disconnectConfirmationTitle": "Health Connect 연결을 해제할까요?",
+      "updateRequired": {
+        "action": "설치 또는 업데이트",
+        "description": "접근 권한을 관리하기 전에 Health Connect를 설치하거나 업데이트하세요.",
+        "title": "Health Connect 확인이 필요합니다"
+      }
     },
     "about": {
       "title": "앱 정보",
@@ -600,7 +642,8 @@
         "noAds": "광고 없음으로 설계됨\n{appLabel}는 광고나 데이터 기반 수익화 없이 작동하도록 만들어졌습니다.",
         "noDataSelling": "데이터 판매 없음\n건강 데이터는 제3자에게 판매되거나 공유되지 않습니다.",
         "localStorage": "로컬 우선 저장\n데이터는 기기에 저장됩니다.",
-        "privacyPolicy": "개인정보 처리방침"
+        "privacyPolicy": "개인정보 처리방침",
+        "analyticsDisclosure": "제한적인 분석 및 진단\n{appLabel}은 안정성 향상을 위해 기본 앱 이벤트와 충돌 진단을 사용합니다. 건강 기록 값은 광고에 사용되거나 판매되지 않습니다."
       },
       "developer": {
         "title": "단독 개발자가 제작",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify 버전 {version}",
       "build": "빌드 {buildNumber}"
     }
   },
