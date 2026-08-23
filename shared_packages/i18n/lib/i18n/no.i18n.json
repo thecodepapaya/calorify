@@ -37,7 +37,7 @@
       "title": "Hvor høy er du?",
       "description": "Høyden din hjelper oss å beregne BMI og energibehov nøyaktig.",
       "metric": "Metrisk",
-      "imperial": "Imperial",
+      "imperial": "Britisk-amerikansk",
       "next": "Neste"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "Hva er din målsatte vekt?",
       "targetDescription": "Å sette en målvekt hjelper oss å planlegge langsiktig for deg.",
       "metric": "Metrisk",
-      "imperial": "Imperial",
+      "imperial": "Britisk-amerikansk",
       "next": "Neste"
     },
     "age": {
@@ -83,7 +83,12 @@
     "healthConnect": {
       "title": "Koble til Health Connect",
       "description": "Bruk forbrente kalorier i dagsmålet ditt, og del loggførte måltider med Health Connect hvis du vil.",
+      "overviewDescription": "Bruk forbrente kalorier i dagsmålet ditt, og del loggførte måltider med Health Connect hvis du vil.",
       "automaticTracking": {
+        "title": "Forbrente kalorier",
+        "description": "Les dagens totale kaloriforbrenning fra Health Connect"
+      },
+      "caloriesBurned": {
         "title": "Forbrente kalorier",
         "description": "Les dagens totale kaloriforbrenning fra Health Connect"
       },
@@ -91,7 +96,15 @@
         "title": "Del loggførte måltider",
         "description": "Skriv måltider du logger i Calorify, til Health Connect"
       },
+      "shareLoggedMeals": {
+        "title": "Del loggførte måltider",
+        "description": "Skriv måltider du logger i Calorify, til Health Connect"
+      },
       "seamlessIntegration": {
+        "title": "Du har kontrollen",
+        "description": "Velg én eller begge tillatelser, og endre tilgangen når som helst"
+      },
+      "userControl": {
         "title": "Du har kontrollen",
         "description": "Velg én eller begge tillatelser, og endre tilgangen når som helst"
       },
@@ -177,15 +190,15 @@
       "weightImpact": "Vektpåvirkning",
       "estLoss": "Estimert tap på",
       "estGain": "Estimert økning på",
-      "kcal": "kcal"
+      "kcal": "kilokalorier (kcal)"
     },
     "dailySummary": {
       "title": "Dagsoversikt",
       "calories": "Kalorier",
       "carbs": "Karbohydrater",
-      "protein": "Protein",
+      "protein": "Proteiner",
       "fat": "Fett",
-      "fiber": "Fiber",
+      "fiber": "Kostfiber",
       "grams": "gram",
       "chartAccessibilityLabel": "Makrodiagram"
     },
@@ -233,6 +246,8 @@
       "title": "Synk med Health Connect",
       "description": "Bruk forbrente kalorier i målet ditt, og del loggførte måltider",
       "install": "Installer eller oppdater",
+      "dataUseDescription": "Bruk forbrente kalorier i målet ditt, og del loggførte måltider",
+      "installOrUpdate": "Installer eller oppdater",
       "connect": "Koble til"
     }
   },
@@ -260,9 +275,9 @@
     "nutrition": {
       "calories": "Kalorier",
       "carbs": "Karbohydrater (g)",
-      "protein": "Protein (g)",
+      "protein": "Proteiner (g)",
       "fat": "Fett (g)",
-      "fiber": "Fiber (g)"
+      "fiber": "Kostfiber (g)"
     },
     "deleteConfirmation": {
       "title": "Slett måltid",
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} til",
       "ingredientsLine": "{count} ingredienser oppdaget",
       "ingredientsPending": "Skanner ingredienser…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "«{text}»",
       "offlineTip0": "Tips: Konsistens slår perfeksjon—jevn logging avdekker mønstrene som betyr noe.",
       "offlineTip1": "Tips: Naturlig lys og et bilde ovenfra hjelper med porsjonsnøyaktighet.",
       "offlineTip2": "Tips: Nevn drikker, sauser og matolje—de tilfører ofte kalorier folk glemmer.",
@@ -421,15 +436,15 @@
     "weightGoal": "Vektmål",
     "activityLevel": "Aktivitetsnivå",
     "metric": "Metrisk",
-    "imperial": "Imperial",
+    "imperial": "Britisk-amerikansk",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "pund (lb)",
     "metricCm": "Metrisk (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
+    "imperialFtIn": "Britisk-amerikansk (ft/in)",
     "metricKg": "Metrisk (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "imperialLbs": "Britisk-amerikansk (lbs)",
     "genders": {
       "male": "Mann",
       "female": "Kvinne",
@@ -478,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOKALISERING",
       "notifications": "MELDINGER",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "ANALYSE PÅ ENHETEN",
       "supportAndLegal": "SUPPORT & JURIDISK",
       "about": "OM",
@@ -526,7 +541,7 @@
       "title": "Tema",
       "light": "Lyst",
       "dark": "Mørkt",
-      "system": "System"
+      "system": "Systemstandard"
     },
     "sendFeedback": {
       "title": "Send tilbakemelding",
@@ -547,8 +562,10 @@
     "clearAllData": {
       "title": "Slett alle data",
       "subtitle": "Slett Calorify-data som er lagret på denne enheten",
+      "localOnlySubtitle": "Slett Calorify-data som er lagret på denne enheten",
       "confirmationTitle": "Slette alle data?",
       "confirmationMessage": "Dette sletter loggførte måltider, favoritter og profilinnstillinger permanent fra denne enheten. Måltider som allerede er delt med Health Connect, og Health Connect-tilgang administreres separat under Innstillinger > Health Connect.",
+      "localOnlyConfirmationMessage": "Dette sletter loggførte måltider, favoritter og profilinnstillinger permanent fra denne enheten. Måltider som allerede er delt med Health Connect, og Health Connect-tilgang administreres separat under Innstillinger > Health Connect.",
       "cancel": "Avbryt",
       "clearEverything": "Slett alt"
     },
@@ -561,7 +578,8 @@
       "subtitle": "Se og administrer tillatelser",
       "unavailable": {
         "title": "Health Connect utilgjengelig",
-        "description": "Health Connect støttes ikke på denne enheten."
+        "description": "Health Connect støttes ikke på denne enheten.",
+        "unsupportedDescription": "Health Connect støttes ikke på denne enheten."
       },
       "updateRequired": {
         "title": "Health Connect krever oppmerksomhet",
@@ -621,6 +639,7 @@
         "description": "Personvern er ikke en ettertanke — det er et designprinsipp. Her er hva det betyr i praksis:",
         "noAccounts": "Ingen kontoer nødvendig\nBruk appen med en gang. Ingen registrering, ingen identiteter.",
         "noTracking": "Begrenset analyse og diagnostikk\n{appLabel} bruker grunnleggende apphendelser og krasjdiagnostikk for å forbedre påliteligheten. Verdier i helseoppføringer brukes ikke til annonsering eller salg.",
+        "analyticsDisclosure": "Begrenset analyse og diagnostikk\n{appLabel} bruker grunnleggende apphendelser og krasjdiagnostikk for å forbedre påliteligheten. Verdier i helseoppføringer brukes ikke til annonsering eller salg.",
         "noAds": "Annonsefri etter design\n{appLabel} er bygget for å fungere uten annonser eller datadrevet inntektsmodell.",
         "noDataSelling": "Ingen videresalg av data\nDine helsedata blir aldri solgt eller delt med tredjepart.",
         "localStorage": "Lokal-først lagring\nDine data blir værende på enheten din.",
@@ -640,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify versjon {version}",
       "build": "Bygg {buildNumber}"
     }
   },

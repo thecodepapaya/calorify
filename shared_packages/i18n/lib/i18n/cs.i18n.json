@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Propojte se s Health Connect",
       "description": "Synchronizujte svá zdravotní data pro lepší přehledy a automatické sledování kalorií",
+      "overviewDescription": "Používejte spálené kalorie ve svém denním cíli a volitelně sdílejte zaznamenaná jídla s Health Connect.",
       "automaticTracking": {
         "title": "Automatické sledování kalorií",
         "description": "Sledujte spálené kalorie z vašich fitness aplikací"
+      },
+      "caloriesBurned": {
+        "title": "Spálené kalorie",
+        "description": "Přečíst dnešní celkový počet spálených kalorií z Health Connect"
       },
       "progressInsights": {
         "title": "Přehled pokroku",
         "description": "Získejte podrobné poznatky o trendech vašeho zdraví"
       },
+      "shareLoggedMeals": {
+        "title": "Sdílet zaznamenaná jídla",
+        "description": "Zapisovat jídla zaznamenaná v Calorify do Health Connect"
+      },
       "seamlessIntegration": {
         "title": "Bezproblémová integrace",
         "description": "Synchronizujte data z vašich oblíbených zdravotních aplikací"
+      },
+      "userControl": {
+        "title": "Máte vše pod kontrolou",
+        "description": "Vyberte kterékoli oprávnění a přístup můžete kdykoli změnit"
       },
       "connected": "Health Connect propojeno",
       "notConnected": "Health Connect není propojen",
@@ -101,6 +114,12 @@
       "skipForNow": "Přeskočit nyní",
       "statusConnected": "Health Connect je propojen.",
       "statusSuccess": "Health Connect byl úspěšně propojen!",
+      "statusNotConnected": "Vyberte funkce Health Connect, které chcete povolit.",
+      "statusPartial": "Health Connect je připojen částečně. Chcete-li používat obě funkce, povolte zbývající oprávnění.",
+      "statusProviderUpdateRequired": "Chcete-li pokračovat, nainstalujte nebo aktualizujte Health Connect.",
+      "statusUnavailable": "Health Connect není na tomto zařízení podporován.",
+      "installOrUpdate": "Nainstalovat nebo aktualizovat",
+      "manageAccess": "Spravovat přístup",
       "statusPermissionDenied": "Oprávnění odepřeno. Povolte prosím oprávnění Health Connect v nastavení telefonu pro {appLabel}.",
       "statusError": "Chyba při nastavování Health Connect: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "Dopad na váhu",
       "estLoss": "Odhad. úbytek",
       "estGain": "Odhad. přírůstek",
-      "kcal": "kcal"
+      "kcal": "kilokalorie (kcal)"
     },
     "dailySummary": {
       "title": "Denní souhrn",
@@ -227,6 +246,8 @@
       "title": "Synchronizovat s Health Connect",
       "description": "Synchronizujte svá nutriční data s Health Connect",
       "install": "Nainstalovat",
+      "dataUseDescription": "Použijte spálené kalorie ve svém cíli a sdílejte zaznamenaná jídla",
+      "installOrUpdate": "Nainstalovat nebo aktualizovat",
       "connect": "Propojit"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} dalších",
       "ingredientsLine": "Zjištěno {count} ingrediencí",
       "ingredientsPending": "Skenuji ingredience…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "„{text}“",
       "offlineTip0": "Tip: Pravidelnost je důležitější než dokonalost — pravidelné záznamy odhalí podstatné vzorce.",
       "offlineTip1": "Tip: Pro fotky pomáhá přirozené světlo a pohled shora pro přesnost porcí.",
       "offlineTip2": "Tip: Uveďte nápoje, omáčky a olej používaný při vaření — přidávají kalorie, na které se často zapomíná.",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "libry (lb)",
     "metricCm": "Metrické (cm)",
     "imperialFtIn": "Imperiální (ft/in)",
     "metricKg": "Metrické (kg)",
@@ -472,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOKALIZACE",
       "notifications": "UPOZORNĚNÍ",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "Health Connect",
       "localInference": "ANALÝZA V ZAŘÍZENÍ",
       "supportAndLegal": "PODPORA & PRÁVNÍ",
       "about": "O APLIKACI",
@@ -541,8 +562,10 @@
     "clearAllData": {
       "title": "Vymazat všechna data",
       "subtitle": "Trvale smazat všechny vaše informace",
+      "localOnlySubtitle": "Smazat data Calorify uložená v tomto zařízení",
       "confirmationTitle": "Vymazat všechna data?",
       "confirmationMessage": "Tuto akci nelze vrátit zpět. Všechna vaše zaznamenaná jídla, oblíbené položky a nastavení profilu budou trvale smazány.",
+      "localOnlyConfirmationMessage": "Tímto trvale smažete zaznamenaná jídla, oblíbené položky a nastavení profilu z tohoto zařízení. Jídla již sdílená s Health Connect a přístup k Health Connect se spravují samostatně v Nastavení > Health Connect.",
       "cancel": "Zrušit",
       "clearEverything": "Vymazat vše"
     },
@@ -555,7 +578,13 @@
       "subtitle": "Prohlížet a spravovat oprávnění",
       "unavailable": {
         "title": "Health Connect není k dispozici",
-        "description": "Health Connect není na tomto zařízení dostupný. Nainstalujte prosím Health Connect z Play Store (Android 9+) nebo aktualizujte na Android 14+."
+        "description": "Health Connect není na tomto zařízení dostupný. Nainstalujte prosím Health Connect z Play Store (Android 9+) nebo aktualizujte na Android 14+.",
+        "unsupportedDescription": "Health Connect není na tomto zařízení podporován."
+      },
+      "updateRequired": {
+        "title": "Health Connect vyžaduje pozornost",
+        "description": "Před správou přístupu nainstalujte nebo aktualizujte Health Connect.",
+        "action": "Nainstalovat nebo aktualizovat"
       },
       "permissions": {
         "title": "Oprávnění",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Spravovat oprávnění",
       "openSettings": "Otevřít nastavení Health Connect",
+      "disconnect": "Odpojit Health Connect",
+      "disconnectConfirmationTitle": "Odpojit Health Connect?",
+      "disconnectConfirmationMessage": "Calorify ztratí přístup k Health Connect. Data, která již byla zapsána, nebudou smazána.",
+      "disconnectConfirmationAction": "Odpojit",
+      "deleteSyncedMeals": "Smazat jídla Calorify z Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Smazat synchronizovaná jídla?",
+      "deleteSyncedMealsConfirmationMessage": "Smazat z Health Connect jídla synchronizovaná touto verzí Calorify? Místní záznam jídel se nezmění. Starší záznamy Calorify může být stále nutné odstranit pomocí možnosti Spravovat data v Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Smazat synchronizovaná jídla",
+      "deleteSyncedMealsSuccess": "Jídla Calorify byla z Health Connect smazána.",
+      "deleteSyncedMealsFailed": "Synchronizovaná jídla se nepodařilo smazat. Zkuste to znovu.",
+      "connectionPartial": "Některé funkce Health Connect jsou povoleny.",
+      "connectionComplete": "Obě funkce Health Connect jsou povoleny.",
+      "actionFailed": "Health Connect se nepodařilo otevřít. Zkuste to znovu.",
       "requestPermissions": "Požádat o oprávnění",
       "permissionRequestCancelledOrFailed": "Požadavek na oprávnění byl zrušen nebo selhal. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
       "permissionRequestFailed": "Nelze požádat o oprávnění. Zkuste to prosím znovu nebo udělte oprávnění ručně v nastavení Health Connect.",
@@ -597,6 +639,7 @@
         "description": "Soukromí není dodatek — je to princip návrhu. Co to v praxi znamená:",
         "noAccounts": "Není potřeba účet\nPoužijte aplikaci okamžitě. Žádné registrace, žádné identity.",
         "noTracking": "Žádné sledování chování\n{appLabel} nesleduje vaši aktivitu, netvoří uživatelské profily ani vás nesleduje napříč aplikacemi či weby.",
+        "analyticsDisclosure": "Omezené analytické a diagnostické údaje\n{appLabel} používá základní události aplikace a diagnostiku pádů ke zvýšení spolehlivosti. Hodnoty zdravotních záznamů se nepoužívají k reklamě ani se neprodávají.",
         "noAds": "Bez reklam záměrně\n{appLabel} je navržen tak, aby fungoval bez reklam a monetizace založené na datech.",
         "noDataSelling": "Žádný prodej dat\nVaše zdravotní údaje nejsou nikdy prodávány ani sdíleny s třetími stranami.",
         "localStorage": "Primárně lokální úložiště\nVaše data zůstávají v zařízení.",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify verze {version}",
       "build": "Sestavení {buildNumber}"
     }
   },
