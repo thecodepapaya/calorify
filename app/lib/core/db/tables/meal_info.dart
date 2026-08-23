@@ -33,4 +33,12 @@ class MealInfoTable extends Table {
   /// Version sent with [healthConnectRecordId] for idempotent updates.
   IntColumn get healthConnectRecordVersion =>
       integer().withDefault(const Constant(0))();
+
+  /// Local mutation version mirrored onto the owning V2 analysis session.
+  IntColumn get mealLogSyncVersion =>
+      integer().withDefault(const Constant(0))();
+
+  /// Last version acknowledged by the backend.
+  IntColumn get mealLogSyncedVersion =>
+      integer().withDefault(const Constant(0))();
 }

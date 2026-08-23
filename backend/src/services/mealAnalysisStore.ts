@@ -9,10 +9,15 @@ import {
 export type MealAnalysisSource = 'text' | 'image';
 export type FeedbackSignal = 'UP' | 'DOWN';
 export type MealTypeSource = 'model' | 'user';
-export type MealAnalysisInteractionStage = 'APPLYING_CLARIFICATION' | 'PRESENTING';
+export type MealAnalysisLeasedStage =
+  | 'DECOMPOSING'
+  | 'RESOLVING_INGREDIENTS'
+  | 'FINALIZING_ANALYSIS'
+  | 'APPLYING_CLARIFICATION'
+  | 'PRESENTING';
 
-export interface MealAnalysisInteractionLease {
-  stage: MealAnalysisInteractionStage;
+export interface MealAnalysisStageLease {
+  stage: MealAnalysisLeasedStage;
   token: string;
 }
 
@@ -224,6 +229,9 @@ export async function upsertMealAnalysisSession(
         AND (
           meal_analysis_session.stage IS NULL
           OR meal_analysis_session.stage NOT IN (
+            'DECOMPOSING',
+            'RESOLVING_INGREDIENTS',
+            'FINALIZING_ANALYSIS',
             'APPLYING_CLARIFICATION',
             'PRESENTING',
             'COMPLETED'
@@ -261,7 +269,7 @@ export async function upsertMealAnalysisSession(
  */
 export async function advanceMealAnalysisSession(
   record: MealAnalysisSessionWriteRecord,
-  lease: MealAnalysisInteractionLease
+  lease: MealAnalysisStageLease
 ): Promise<boolean> {
   assertDatabaseConfigured();
 
@@ -298,6 +306,64 @@ export async function advanceMealAnalysisSession(
     [...sessionCoreWriteParams(record), lease.stage, lease.token]
   );
   return result.rows[0]?.persisted === true;
+}
+
+const AUTOMATIC_STAGE_TRANSITIONS = {
+  DECOMPOSING: 'PENDING_DECOMPOSITION',
+  RESOLVING_INGREDIENTS: 'DECOMPOSED',
+  FINALIZING_ANALYSIS: 'INGREDIENTS_RESOLVED',
+} as const;
+
+export type MealAnalysisAutomaticStage = keyof typeof AUTOMATIC_STAGE_TRANSITIONS;
+
+/** Claims one automatic checkpoint, reclaiming only an abandoned five-minute lease. */
+export async function claimMealAnalysisAutomaticStage(
+  analysisId: string,
+  stage: MealAnalysisAutomaticStage
+): Promise<MealAnalysisStageLease | undefined> {
+  assertDatabaseConfigured();
+  const expectedStage = AUTOMATIC_STAGE_TRANSITIONS[stage];
+  const token = randomUUID();
+  const result = await query<{ claimed: boolean }>(
+    `UPDATE meal_analysis_session
+        SET stage = $2,
+            stage_lease_token = $3::uuid,
+            updated_at = CURRENT_TIMESTAMP
+      WHERE analysis_id = $1
+        AND (result_data IS NULL OR result_data = 'null'::jsonb)
+        AND (
+          stage = $4
+          OR (
+            stage = $2
+            AND updated_at < CURRENT_TIMESTAMP - INTERVAL '5 minutes'
+          )
+        )
+      RETURNING TRUE AS claimed`,
+    [analysisId, stage, token, expectedStage]
+  );
+  return result.rows[0]?.claimed === true ? { stage, token } : undefined;
+}
+
+export async function releaseMealAnalysisAutomaticStage(
+  analysisId: string,
+  lease: MealAnalysisStageLease
+): Promise<void> {
+  const resumeStage = AUTOMATIC_STAGE_TRANSITIONS[
+    lease.stage as MealAnalysisAutomaticStage
+  ];
+  if (!resumeStage) return;
+  assertDatabaseConfigured();
+  await query(
+    `UPDATE meal_analysis_session
+        SET stage = $2,
+            stage_lease_token = NULL,
+            updated_at = CURRENT_TIMESTAMP
+      WHERE analysis_id = $1
+        AND stage = $3
+        AND stage_lease_token = $4::uuid
+        AND (result_data IS NULL OR result_data = 'null'::jsonb)`,
+    [analysisId, resumeStage, lease.stage, lease.token]
+  );
 }
 
 export async function getMealAnalysisSession(
@@ -389,7 +455,7 @@ export async function claimMealAnalysisPresentation(
   selectedMealType: string,
   selectedMealTypeSource: MealTypeSource,
   allowLegacyMissingStage: boolean = false
-): Promise<MealAnalysisInteractionLease | undefined> {
+): Promise<MealAnalysisStageLease | undefined> {
   assertDatabaseConfigured();
   const token = randomUUID();
   const result = await query<{ claimed: boolean }>(
@@ -428,7 +494,7 @@ export async function claimMealAnalysisClarification(
   analysisId: string,
   pendingAnswers?: unknown,
   allowLegacyMissingStage: boolean = false
-): Promise<MealAnalysisInteractionLease | undefined> {
+): Promise<MealAnalysisStageLease | undefined> {
   assertDatabaseConfigured();
   const token = randomUUID();
   const result = await query<{ claimed: boolean }>(
@@ -585,10 +651,10 @@ export interface MealLogConfirmationRecord {
 
 export async function confirmMealAnalysisLogged(
   record: MealLogConfirmationRecord
-): Promise<void> {
+): Promise<boolean> {
   assertDatabaseConfigured();
 
-  await query(
+  const result = await query(
     `UPDATE meal_analysis_session
         SET logged_at        = $2,
             logged_meal_name = $3,
@@ -601,7 +667,8 @@ export async function confirmMealAnalysisLogged(
             logged_quantity  = $10,
             time_zone        = COALESCE($11, time_zone),
             updated_at       = CURRENT_TIMESTAMP
-      WHERE analysis_id = $1`,
+      WHERE analysis_id = $1
+        AND stage = 'COMPLETED'`,
     [
       record.analysisId,
       record.loggedAt,
@@ -616,4 +683,29 @@ export async function confirmMealAnalysisLogged(
       record.timeZone ?? null,
     ]
   );
+  return result.rowCount === 1;
+}
+
+export async function clearMealAnalysisLogged(
+  analysisId: string
+): Promise<boolean> {
+  assertDatabaseConfigured();
+
+  const result = await query(
+    `UPDATE meal_analysis_session
+        SET logged_at        = NULL,
+            logged_meal_name = NULL,
+            logged_calories  = NULL,
+            logged_protein   = NULL,
+            logged_carbs     = NULL,
+            logged_fat       = NULL,
+            logged_fiber     = NULL,
+            logged_meal_type = NULL,
+            logged_quantity  = NULL,
+            updated_at       = CURRENT_TIMESTAMP
+      WHERE analysis_id = $1
+        AND stage = 'COMPLETED'`,
+    [analysisId]
+  );
+  return result.rowCount === 1;
 }

@@ -512,6 +512,7 @@ const MealAnalysisConfirmLogRequest$json = {
     {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
     {'1': 'logged_at', '3': 2, '4': 1, '5': 9, '10': 'loggedAt'},
     {'1': 'meal', '3': 3, '4': 1, '5': 11, '6': '.meal.Meal', '10': 'meal'},
+    {'1': 'deleted', '3': 4, '4': 1, '5': 8, '10': 'deleted'},
   ],
 };
 
@@ -520,7 +521,7 @@ final $typed_data.Uint8List mealAnalysisConfirmLogRequestDescriptor =
     $convert.base64Decode(
         'Ch1NZWFsQW5hbHlzaXNDb25maXJtTG9nUmVxdWVzdBIfCgthbmFseXNpc19pZBgBIAEoCVIKYW'
         '5hbHlzaXNJZBIbCglsb2dnZWRfYXQYAiABKAlSCGxvZ2dlZEF0Eh4KBG1lYWwYAyABKAsyCi5t'
-        'ZWFsLk1lYWxSBG1lYWw=');
+        'ZWFsLk1lYWxSBG1lYWwSGAoHZGVsZXRlZBgEIAEoCFIHZGVsZXRlZA==');
 
 @$core.Deprecated('Use mealClarificationAnswerDescriptor instead')
 const MealClarificationAnswer$json = {

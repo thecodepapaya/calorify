@@ -2,11 +2,13 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
+  clearMealAnalysisLogged,
   confirmMealAnalysisLogged,
   isMealAnalysisSessionOwnedByUser,
   recordMealAnalysisFeedback,
   type MealLogConfirmationRecord,
 } from '../../services/mealAnalysisStore.js';
+import { safeErrorMetadata } from '../../utils/safeError.js';
 import {
   analyzeImageMeal,
   analyzeIngredientProposal,
@@ -305,7 +307,7 @@ const clarifyAnswerItemSchema = z.preprocess((raw) => {
 }));
 
 const clarifyBodySchema = z.object({
-  analysisId: nonEmptyString.max(128),
+  analysisId: z.string().uuid(),
   answers: z
     .array(clarifyAnswerItemSchema)
     .min(1, 'must contain at least one answer')
@@ -314,24 +316,24 @@ const clarifyBodySchema = z.object({
 type ClarifyBody = z.infer<typeof clarifyBodySchema>;
 
 const resumeBodySchema: z.ZodType<MealAnalysisResumeRequest> = z.object({
-  analysisId: nonEmptyString.max(128),
+  analysisId: z.string().uuid(),
 });
 type ResumeBody = MealAnalysisResumeRequest;
 
 const feedbackBodySchema = z.object({
-  analysisId: nonEmptyString.max(128),
+  analysisId: z.string().uuid(),
   signal: z.enum([MealAnalysisFeedbackSignal.UP, MealAnalysisFeedbackSignal.DOWN]),
 });
 type FeedbackBody = z.infer<typeof feedbackBodySchema>;
 
 const mealTypeBodySchema = z.object({
-  analysisId: nonEmptyString.max(128),
+  analysisId: z.string().uuid(),
   mealType: z.enum(MEAL_TYPES),
 });
 type MealTypeBody = z.infer<typeof mealTypeBodySchema>;
 
 const reanalyzeBodySchema = z.object({
-  analysisId: nonEmptyString.max(128),
+  analysisId: z.string().uuid(),
   newAnalysisId: z.string().uuid().optional(),
   issues: z
     .array(z.enum(FEEDBACK_ISSUES))
@@ -359,12 +361,20 @@ const confirmLogMealSchema = z.object({
 });
 
 const confirmLogBodySchema = z.object({
-  analysisId: nonEmptyString.max(128),
+  analysisId: z.string().uuid(),
+  deleted: z.boolean().optional(),
   loggedAt: z.string().datetime({ offset: true }).refine(
     (value) => Date.parse(value) <= Date.now() + 5 * 60 * 1000,
     'must not be more than 5 minutes in the future'
-  ),
-  meal: confirmLogMealSchema,
+  ).optional(),
+  meal: confirmLogMealSchema.optional(),
+}).superRefine((body, ctx) => {
+  if (!body.deleted && body.loggedAt == null) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['loggedAt'], message: 'is required' });
+  }
+  if (!body.deleted && body.meal == null) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['meal'], message: 'is required' });
+  }
 });
 type ConfirmLogBody = z.infer<typeof confirmLogBodySchema>;
 
@@ -372,7 +382,10 @@ function confirmLogBodyToStoreRecord(
   body: ConfirmLogBody,
   timeZone?: string
 ): MealLogConfirmationRecord {
-  const { meal: m } = body;
+  const m = body.meal;
+  if (body.loggedAt == null || m == null) {
+    throw new Error('A non-deleted meal log requires loggedAt and meal');
+  }
   return {
     analysisId: body.analysisId,
     loggedAt: new Date(body.loggedAt).toISOString(),
@@ -438,7 +451,8 @@ function writeEvent(reply: FastifyReply, format: StreamFormat, event: PipelineEv
 async function streamEvents(
   reply: FastifyReply,
   acceptHeader: string | undefined,
-  stream: AsyncGenerator<PipelineEvent>
+  stream: AsyncGenerator<PipelineEvent>,
+  requestedAnalysisId?: string
 ): Promise<void> {
   const format = getStreamFormat(acceptHeader);
   const streamMeta: StreamResponseMeta = {
@@ -447,6 +461,7 @@ async function streamEvents(
     firstSteps: [],
     hasErrorEvent: false,
   };
+  let analysisId = requestedAnalysisId ?? 'unknown';
   (reply.request as any).streamResponseMeta = streamMeta;
 
   reply.hijack();
@@ -460,6 +475,7 @@ async function streamEvents(
 
   try {
     for await (const event of stream) {
+      if (event.data.analysisId) analysisId = event.data.analysisId;
       streamMeta.eventCount += 1;
       streamMeta.lastStep = event.step;
       if (streamMeta.firstSteps.length < 5) {
@@ -474,14 +490,21 @@ async function streamEvents(
         break;
       }
     }
-  } catch {
+  } catch (error) {
     streamMeta.hasErrorEvent = true;
+    reply.request.log.error(
+      {
+        analysisId,
+        ...safeErrorMetadata(error, 'meal_analysis_stream_failed'),
+      },
+      'Meal analysis stream failed'
+    );
     writeEvent(reply, format, {
       step: 'ERROR',
       data: {
-        analysisId: 'unknown',
+        analysisId,
         message: 'Pipeline failed',
-        retryable: false,
+        retryable: analysisId !== 'unknown',
       },
     });
   } finally {
@@ -614,7 +637,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           localAttemptCompletedAtEpochMs: parsed.localAttemptCompletedAtEpochMs,
           fallbackReason: parsed.fallbackReason,
           logger: request.log,
-        })
+        }),
+        parsed.analysisId
       );
     }
   );
@@ -662,7 +686,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           timeZone: getTimeZoneFromRequest(request),
           userId: getCurrentUserId(request),
           logger: request.log,
-        })
+        }),
+        parsed.analysisId
       );
     }
   );
@@ -717,7 +742,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
           userId,
           imageObjectKey: imageObject.objectKey,
           logger: request.log,
-        })
+        }),
+        parsed.analysisId
       );
     }
   );
@@ -759,7 +785,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
             userId,
             logger: request.log,
           }
-        )
+        ),
+        parsed.analysisId
       );
     }
   );
@@ -791,7 +818,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         resumeMealAnalysis(parsed.analysisId, {
           userId,
           logger: request.log,
-        })
+        }),
+        parsed.analysisId
       );
     }
   );
@@ -869,7 +897,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         continueMealAnalysisWithMealType(parsed.analysisId, parsed.mealType, {
           userId,
           logger: request.log,
-        })
+        }),
+        parsed.analysisId
       );
     }
   );
@@ -919,7 +948,8 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         reanalyzeMeal(parsed.analysisId, parsed.issues, parsed.otherText, userId, {
           analysisId: parsed.newAnalysisId,
           logger: request.log,
-        })
+        }),
+        parsed.newAnalysisId
       );
     }
   );
@@ -929,14 +959,14 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
     {
       schema: {
         description:
-          'Confirm that the user saved a V2 meal analysis result to their log. ' +
-          'Stamps logged_at and the final meal data on the analysis session row.',
+          'Synchronize save, edit, or delete of a V2 analysis result in the meal log.',
         tags: ['Food', 'V2'],
         body: {
           type: 'object',
-          required: ['analysisId', 'loggedAt', 'meal'],
+          required: ['analysisId'],
           properties: {
-            analysisId: { type: 'string' },
+            analysisId: { type: 'string', format: 'uuid' },
+            deleted: { type: 'boolean' },
             loggedAt: { type: 'string' },
             meal: {
               type: 'object',
@@ -975,9 +1005,15 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       const userId = getCurrentUserId(request);
       if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
 
-      await confirmMealAnalysisLogged(
-        confirmLogBodyToStoreRecord(parsed, getTimeZoneFromRequest(request))
-      );
+      const updated = parsed.deleted
+        ? await clearMealAnalysisLogged(parsed.analysisId)
+        : await confirmMealAnalysisLogged(
+            confirmLogBodyToStoreRecord(parsed, getTimeZoneFromRequest(request))
+          );
+      if (!updated) {
+        reply.status(409).send(createErrorResponse('Analysis is not completed'));
+        return;
+      }
       const ok: ApiResult = { ok: true, message: '' };
       reply.send(ok);
     }

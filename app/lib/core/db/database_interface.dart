@@ -6,6 +6,28 @@ enum DataSourceType { real, mock }
 
 enum HealthConnectSyncOperation { upsert, delete }
 
+enum MealLogSyncOperation { upsert, delete }
+
+class PendingMealLogSync {
+  const PendingMealLogSync({
+    required this.id,
+    required this.analysisId,
+    required this.operation,
+    required this.version,
+    required this.attempts,
+    this.meal,
+    this.loggedAt,
+  });
+
+  final int id;
+  final String analysisId;
+  final MealLogSyncOperation operation;
+  final int version;
+  final int attempts;
+  final Meal? meal;
+  final DateTime? loggedAt;
+}
+
 class PendingHealthConnectSync {
   const PendingHealthConnectSync({
     required this.id,
@@ -77,6 +99,16 @@ abstract class DatabaseInterface {
 
   /// Get a meal by id (local database id)
   Future<LoggedMeal?> getMealById(int mealId);
+
+  /// Restores any analyzed meal mutations that were committed before an app
+  /// restart but do not yet have an outbox row.
+  Future<void> preparePendingMealLogSyncs();
+
+  Future<List<PendingMealLogSync>> getPendingMealLogSyncs({int limit = 50});
+
+  Future<void> markMealLogSyncCompleted(int id, int version);
+
+  Future<void> markMealLogSyncFailed(int id, int version, Object error);
 
   /// Durable Health Connect work waiting for permission/connectivity.
   Future<List<PendingHealthConnectSync>> getPendingHealthConnectSyncs({

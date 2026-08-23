@@ -194,6 +194,28 @@ class $MealInfoTableTable extends MealInfoTable
         requiredDuringInsert: false,
         defaultValue: const Constant(0),
       );
+  static const VerificationMeta _mealLogSyncVersionMeta =
+      const VerificationMeta('mealLogSyncVersion');
+  @override
+  late final GeneratedColumn<int> mealLogSyncVersion = GeneratedColumn<int>(
+    'meal_log_sync_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _mealLogSyncedVersionMeta =
+      const VerificationMeta('mealLogSyncedVersion');
+  @override
+  late final GeneratedColumn<int> mealLogSyncedVersion = GeneratedColumn<int>(
+    'meal_log_synced_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -213,6 +235,8 @@ class $MealInfoTableTable extends MealInfoTable
     analysisSnapshotJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
+    mealLogSyncVersion,
+    mealLogSyncedVersion,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -361,6 +385,24 @@ class $MealInfoTableTable extends MealInfoTable
         ),
       );
     }
+    if (data.containsKey('meal_log_sync_version')) {
+      context.handle(
+        _mealLogSyncVersionMeta,
+        mealLogSyncVersion.isAcceptableOrUnknown(
+          data['meal_log_sync_version']!,
+          _mealLogSyncVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('meal_log_synced_version')) {
+      context.handle(
+        _mealLogSyncedVersionMeta,
+        mealLogSyncedVersion.isAcceptableOrUnknown(
+          data['meal_log_synced_version']!,
+          _mealLogSyncedVersionMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -449,6 +491,16 @@ class $MealInfoTableTable extends MealInfoTable
             DriftSqlType.int,
             data['${effectivePrefix}health_connect_record_version'],
           )!,
+      mealLogSyncVersion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}meal_log_sync_version'],
+          )!,
+      mealLogSyncedVersion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}meal_log_synced_version'],
+          )!,
     );
   }
 
@@ -481,6 +533,12 @@ class MealInfoTableData extends DataClass
 
   /// Version sent with [healthConnectRecordId] for idempotent updates.
   final int healthConnectRecordVersion;
+
+  /// Local mutation version mirrored onto the owning V2 analysis session.
+  final int mealLogSyncVersion;
+
+  /// Last version acknowledged by the backend.
+  final int mealLogSyncedVersion;
   const MealInfoTableData({
     required this.id,
     required this.mealName,
@@ -499,6 +557,8 @@ class MealInfoTableData extends DataClass
     this.analysisSnapshotJson,
     this.healthConnectRecordId,
     required this.healthConnectRecordVersion,
+    required this.mealLogSyncVersion,
+    required this.mealLogSyncedVersion,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -534,6 +594,8 @@ class MealInfoTableData extends DataClass
     map['health_connect_record_version'] = Variable<int>(
       healthConnectRecordVersion,
     );
+    map['meal_log_sync_version'] = Variable<int>(mealLogSyncVersion);
+    map['meal_log_synced_version'] = Variable<int>(mealLogSyncedVersion);
     return map;
   }
 
@@ -574,6 +636,8 @@ class MealInfoTableData extends DataClass
               ? const Value.absent()
               : Value(healthConnectRecordId),
       healthConnectRecordVersion: Value(healthConnectRecordVersion),
+      mealLogSyncVersion: Value(mealLogSyncVersion),
+      mealLogSyncedVersion: Value(mealLogSyncedVersion),
     );
   }
 
@@ -608,6 +672,10 @@ class MealInfoTableData extends DataClass
       healthConnectRecordVersion: serializer.fromJson<int>(
         json['healthConnectRecordVersion'],
       ),
+      mealLogSyncVersion: serializer.fromJson<int>(json['mealLogSyncVersion']),
+      mealLogSyncedVersion: serializer.fromJson<int>(
+        json['mealLogSyncedVersion'],
+      ),
     );
   }
   @override
@@ -635,6 +703,8 @@ class MealInfoTableData extends DataClass
       'healthConnectRecordVersion': serializer.toJson<int>(
         healthConnectRecordVersion,
       ),
+      'mealLogSyncVersion': serializer.toJson<int>(mealLogSyncVersion),
+      'mealLogSyncedVersion': serializer.toJson<int>(mealLogSyncedVersion),
     };
   }
 
@@ -656,6 +726,8 @@ class MealInfoTableData extends DataClass
     Value<String?> analysisSnapshotJson = const Value.absent(),
     Value<String?> healthConnectRecordId = const Value.absent(),
     int? healthConnectRecordVersion,
+    int? mealLogSyncVersion,
+    int? mealLogSyncedVersion,
   }) => MealInfoTableData(
     id: id ?? this.id,
     mealName: mealName ?? this.mealName,
@@ -684,6 +756,8 @@ class MealInfoTableData extends DataClass
             : this.healthConnectRecordId,
     healthConnectRecordVersion:
         healthConnectRecordVersion ?? this.healthConnectRecordVersion,
+    mealLogSyncVersion: mealLogSyncVersion ?? this.mealLogSyncVersion,
+    mealLogSyncedVersion: mealLogSyncedVersion ?? this.mealLogSyncedVersion,
   );
   MealInfoTableData copyWithCompanion(MealInfoTableCompanion data) {
     return MealInfoTableData(
@@ -721,6 +795,14 @@ class MealInfoTableData extends DataClass
           data.healthConnectRecordVersion.present
               ? data.healthConnectRecordVersion.value
               : this.healthConnectRecordVersion,
+      mealLogSyncVersion:
+          data.mealLogSyncVersion.present
+              ? data.mealLogSyncVersion.value
+              : this.mealLogSyncVersion,
+      mealLogSyncedVersion:
+          data.mealLogSyncedVersion.present
+              ? data.mealLogSyncedVersion.value
+              : this.mealLogSyncedVersion,
     );
   }
 
@@ -743,7 +825,9 @@ class MealInfoTableData extends DataClass
           ..write('analysisId: $analysisId, ')
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
-          ..write('healthConnectRecordVersion: $healthConnectRecordVersion')
+          ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
+          ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
+          ..write('mealLogSyncedVersion: $mealLogSyncedVersion')
           ..write(')'))
         .toString();
   }
@@ -767,6 +851,8 @@ class MealInfoTableData extends DataClass
     analysisSnapshotJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
+    mealLogSyncVersion,
+    mealLogSyncedVersion,
   );
   @override
   bool operator ==(Object other) =>
@@ -788,7 +874,9 @@ class MealInfoTableData extends DataClass
           other.analysisId == this.analysisId &&
           other.analysisSnapshotJson == this.analysisSnapshotJson &&
           other.healthConnectRecordId == this.healthConnectRecordId &&
-          other.healthConnectRecordVersion == this.healthConnectRecordVersion);
+          other.healthConnectRecordVersion == this.healthConnectRecordVersion &&
+          other.mealLogSyncVersion == this.mealLogSyncVersion &&
+          other.mealLogSyncedVersion == this.mealLogSyncedVersion);
 }
 
 class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
@@ -809,6 +897,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
   final Value<String?> analysisSnapshotJson;
   final Value<String?> healthConnectRecordId;
   final Value<int> healthConnectRecordVersion;
+  final Value<int> mealLogSyncVersion;
+  final Value<int> mealLogSyncedVersion;
   const MealInfoTableCompanion({
     this.id = const Value.absent(),
     this.mealName = const Value.absent(),
@@ -827,6 +917,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.analysisSnapshotJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
+    this.mealLogSyncVersion = const Value.absent(),
+    this.mealLogSyncedVersion = const Value.absent(),
   });
   MealInfoTableCompanion.insert({
     this.id = const Value.absent(),
@@ -846,6 +938,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     this.analysisSnapshotJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
+    this.mealLogSyncVersion = const Value.absent(),
+    this.mealLogSyncedVersion = const Value.absent(),
   }) : mealName = Value(mealName),
        mealQuantity = Value(mealQuantity),
        mealType = Value(mealType),
@@ -873,6 +967,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Expression<String>? analysisSnapshotJson,
     Expression<String>? healthConnectRecordId,
     Expression<int>? healthConnectRecordVersion,
+    Expression<int>? mealLogSyncVersion,
+    Expression<int>? mealLogSyncedVersion,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -895,6 +991,10 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
         'health_connect_record_id': healthConnectRecordId,
       if (healthConnectRecordVersion != null)
         'health_connect_record_version': healthConnectRecordVersion,
+      if (mealLogSyncVersion != null)
+        'meal_log_sync_version': mealLogSyncVersion,
+      if (mealLogSyncedVersion != null)
+        'meal_log_synced_version': mealLogSyncedVersion,
     });
   }
 
@@ -916,6 +1016,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
     Value<String?>? analysisSnapshotJson,
     Value<String?>? healthConnectRecordId,
     Value<int>? healthConnectRecordVersion,
+    Value<int>? mealLogSyncVersion,
+    Value<int>? mealLogSyncedVersion,
   }) {
     return MealInfoTableCompanion(
       id: id ?? this.id,
@@ -937,6 +1039,8 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           healthConnectRecordId ?? this.healthConnectRecordId,
       healthConnectRecordVersion:
           healthConnectRecordVersion ?? this.healthConnectRecordVersion,
+      mealLogSyncVersion: mealLogSyncVersion ?? this.mealLogSyncVersion,
+      mealLogSyncedVersion: mealLogSyncedVersion ?? this.mealLogSyncedVersion,
     );
   }
 
@@ -1000,6 +1104,14 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
         healthConnectRecordVersion.value,
       );
     }
+    if (mealLogSyncVersion.present) {
+      map['meal_log_sync_version'] = Variable<int>(mealLogSyncVersion.value);
+    }
+    if (mealLogSyncedVersion.present) {
+      map['meal_log_synced_version'] = Variable<int>(
+        mealLogSyncedVersion.value,
+      );
+    }
     return map;
   }
 
@@ -1022,7 +1134,9 @@ class MealInfoTableCompanion extends UpdateCompanion<MealInfoTableData> {
           ..write('analysisId: $analysisId, ')
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
-          ..write('healthConnectRecordVersion: $healthConnectRecordVersion')
+          ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
+          ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
+          ..write('mealLogSyncedVersion: $mealLogSyncedVersion')
           ..write(')'))
         .toString();
   }
@@ -2989,6 +3103,28 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         requiredDuringInsert: false,
         defaultValue: const Constant(0),
       );
+  static const VerificationMeta _mealLogSyncVersionMeta =
+      const VerificationMeta('mealLogSyncVersion');
+  @override
+  late final GeneratedColumn<int> mealLogSyncVersion = GeneratedColumn<int>(
+    'meal_log_sync_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _mealLogSyncedVersionMeta =
+      const VerificationMeta('mealLogSyncedVersion');
+  @override
+  late final GeneratedColumn<int> mealLogSyncedVersion = GeneratedColumn<int>(
+    'meal_log_synced_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
   static const VerificationMeta _sourceMealIdMeta = const VerificationMeta(
     'sourceMealId',
   );
@@ -3043,6 +3179,8 @@ class $FavoriteMealTableTable extends FavoriteMealTable
     analysisSnapshotJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
+    mealLogSyncVersion,
+    mealLogSyncedVersion,
     sourceMealId,
     createdAt,
     lastUsedAt,
@@ -3194,6 +3332,24 @@ class $FavoriteMealTableTable extends FavoriteMealTable
         ),
       );
     }
+    if (data.containsKey('meal_log_sync_version')) {
+      context.handle(
+        _mealLogSyncVersionMeta,
+        mealLogSyncVersion.isAcceptableOrUnknown(
+          data['meal_log_sync_version']!,
+          _mealLogSyncVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('meal_log_synced_version')) {
+      context.handle(
+        _mealLogSyncedVersionMeta,
+        mealLogSyncedVersion.isAcceptableOrUnknown(
+          data['meal_log_synced_version']!,
+          _mealLogSyncedVersionMeta,
+        ),
+      );
+    }
     if (data.containsKey('source_meal_id')) {
       context.handle(
         _sourceMealIdMeta,
@@ -3306,6 +3462,16 @@ class $FavoriteMealTableTable extends FavoriteMealTable
             DriftSqlType.int,
             data['${effectivePrefix}health_connect_record_version'],
           )!,
+      mealLogSyncVersion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}meal_log_sync_version'],
+          )!,
+      mealLogSyncedVersion:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}meal_log_synced_version'],
+          )!,
       sourceMealId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}source_meal_id'],
@@ -3351,6 +3517,12 @@ class FavoriteMealTableData extends DataClass
 
   /// Version sent with [healthConnectRecordId] for idempotent updates.
   final int healthConnectRecordVersion;
+
+  /// Local mutation version mirrored onto the owning V2 analysis session.
+  final int mealLogSyncVersion;
+
+  /// Last version acknowledged by the backend.
+  final int mealLogSyncedVersion;
   final int? sourceMealId;
   final DateTime createdAt;
   final DateTime? lastUsedAt;
@@ -3372,6 +3544,8 @@ class FavoriteMealTableData extends DataClass
     this.analysisSnapshotJson,
     this.healthConnectRecordId,
     required this.healthConnectRecordVersion,
+    required this.mealLogSyncVersion,
+    required this.mealLogSyncedVersion,
     this.sourceMealId,
     required this.createdAt,
     this.lastUsedAt,
@@ -3410,6 +3584,8 @@ class FavoriteMealTableData extends DataClass
     map['health_connect_record_version'] = Variable<int>(
       healthConnectRecordVersion,
     );
+    map['meal_log_sync_version'] = Variable<int>(mealLogSyncVersion);
+    map['meal_log_synced_version'] = Variable<int>(mealLogSyncedVersion);
     if (!nullToAbsent || sourceMealId != null) {
       map['source_meal_id'] = Variable<int>(sourceMealId);
     }
@@ -3457,6 +3633,8 @@ class FavoriteMealTableData extends DataClass
               ? const Value.absent()
               : Value(healthConnectRecordId),
       healthConnectRecordVersion: Value(healthConnectRecordVersion),
+      mealLogSyncVersion: Value(mealLogSyncVersion),
+      mealLogSyncedVersion: Value(mealLogSyncedVersion),
       sourceMealId:
           sourceMealId == null && nullToAbsent
               ? const Value.absent()
@@ -3500,6 +3678,10 @@ class FavoriteMealTableData extends DataClass
       healthConnectRecordVersion: serializer.fromJson<int>(
         json['healthConnectRecordVersion'],
       ),
+      mealLogSyncVersion: serializer.fromJson<int>(json['mealLogSyncVersion']),
+      mealLogSyncedVersion: serializer.fromJson<int>(
+        json['mealLogSyncedVersion'],
+      ),
       sourceMealId: serializer.fromJson<int?>(json['sourceMealId']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
       lastUsedAt: serializer.fromJson<DateTime?>(json['lastUsedAt']),
@@ -3530,6 +3712,8 @@ class FavoriteMealTableData extends DataClass
       'healthConnectRecordVersion': serializer.toJson<int>(
         healthConnectRecordVersion,
       ),
+      'mealLogSyncVersion': serializer.toJson<int>(mealLogSyncVersion),
+      'mealLogSyncedVersion': serializer.toJson<int>(mealLogSyncedVersion),
       'sourceMealId': serializer.toJson<int?>(sourceMealId),
       'createdAt': serializer.toJson<DateTime>(createdAt),
       'lastUsedAt': serializer.toJson<DateTime?>(lastUsedAt),
@@ -3554,6 +3738,8 @@ class FavoriteMealTableData extends DataClass
     Value<String?> analysisSnapshotJson = const Value.absent(),
     Value<String?> healthConnectRecordId = const Value.absent(),
     int? healthConnectRecordVersion,
+    int? mealLogSyncVersion,
+    int? mealLogSyncedVersion,
     Value<int?> sourceMealId = const Value.absent(),
     DateTime? createdAt,
     Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -3585,6 +3771,8 @@ class FavoriteMealTableData extends DataClass
             : this.healthConnectRecordId,
     healthConnectRecordVersion:
         healthConnectRecordVersion ?? this.healthConnectRecordVersion,
+    mealLogSyncVersion: mealLogSyncVersion ?? this.mealLogSyncVersion,
+    mealLogSyncedVersion: mealLogSyncedVersion ?? this.mealLogSyncedVersion,
     sourceMealId: sourceMealId.present ? sourceMealId.value : this.sourceMealId,
     createdAt: createdAt ?? this.createdAt,
     lastUsedAt: lastUsedAt.present ? lastUsedAt.value : this.lastUsedAt,
@@ -3625,6 +3813,14 @@ class FavoriteMealTableData extends DataClass
           data.healthConnectRecordVersion.present
               ? data.healthConnectRecordVersion.value
               : this.healthConnectRecordVersion,
+      mealLogSyncVersion:
+          data.mealLogSyncVersion.present
+              ? data.mealLogSyncVersion.value
+              : this.mealLogSyncVersion,
+      mealLogSyncedVersion:
+          data.mealLogSyncedVersion.present
+              ? data.mealLogSyncedVersion.value
+              : this.mealLogSyncedVersion,
       sourceMealId:
           data.sourceMealId.present
               ? data.sourceMealId.value
@@ -3655,6 +3851,8 @@ class FavoriteMealTableData extends DataClass
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
           ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
+          ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
+          ..write('mealLogSyncedVersion: $mealLogSyncedVersion, ')
           ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
@@ -3663,7 +3861,7 @@ class FavoriteMealTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(
+  int get hashCode => Object.hashAll([
     id,
     mealName,
     mealQuantity,
@@ -3681,10 +3879,12 @@ class FavoriteMealTableData extends DataClass
     analysisSnapshotJson,
     healthConnectRecordId,
     healthConnectRecordVersion,
+    mealLogSyncVersion,
+    mealLogSyncedVersion,
     sourceMealId,
     createdAt,
     lastUsedAt,
-  );
+  ]);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3706,6 +3906,8 @@ class FavoriteMealTableData extends DataClass
           other.analysisSnapshotJson == this.analysisSnapshotJson &&
           other.healthConnectRecordId == this.healthConnectRecordId &&
           other.healthConnectRecordVersion == this.healthConnectRecordVersion &&
+          other.mealLogSyncVersion == this.mealLogSyncVersion &&
+          other.mealLogSyncedVersion == this.mealLogSyncedVersion &&
           other.sourceMealId == this.sourceMealId &&
           other.createdAt == this.createdAt &&
           other.lastUsedAt == this.lastUsedAt);
@@ -3730,6 +3932,8 @@ class FavoriteMealTableCompanion
   final Value<String?> analysisSnapshotJson;
   final Value<String?> healthConnectRecordId;
   final Value<int> healthConnectRecordVersion;
+  final Value<int> mealLogSyncVersion;
+  final Value<int> mealLogSyncedVersion;
   final Value<int?> sourceMealId;
   final Value<DateTime> createdAt;
   final Value<DateTime?> lastUsedAt;
@@ -3751,6 +3955,8 @@ class FavoriteMealTableCompanion
     this.analysisSnapshotJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
+    this.mealLogSyncVersion = const Value.absent(),
+    this.mealLogSyncedVersion = const Value.absent(),
     this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
@@ -3773,6 +3979,8 @@ class FavoriteMealTableCompanion
     this.analysisSnapshotJson = const Value.absent(),
     this.healthConnectRecordId = const Value.absent(),
     this.healthConnectRecordVersion = const Value.absent(),
+    this.mealLogSyncVersion = const Value.absent(),
+    this.mealLogSyncedVersion = const Value.absent(),
     this.sourceMealId = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.lastUsedAt = const Value.absent(),
@@ -3803,6 +4011,8 @@ class FavoriteMealTableCompanion
     Expression<String>? analysisSnapshotJson,
     Expression<String>? healthConnectRecordId,
     Expression<int>? healthConnectRecordVersion,
+    Expression<int>? mealLogSyncVersion,
+    Expression<int>? mealLogSyncedVersion,
     Expression<int>? sourceMealId,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? lastUsedAt,
@@ -3828,6 +4038,10 @@ class FavoriteMealTableCompanion
         'health_connect_record_id': healthConnectRecordId,
       if (healthConnectRecordVersion != null)
         'health_connect_record_version': healthConnectRecordVersion,
+      if (mealLogSyncVersion != null)
+        'meal_log_sync_version': mealLogSyncVersion,
+      if (mealLogSyncedVersion != null)
+        'meal_log_synced_version': mealLogSyncedVersion,
       if (sourceMealId != null) 'source_meal_id': sourceMealId,
       if (createdAt != null) 'created_at': createdAt,
       if (lastUsedAt != null) 'last_used_at': lastUsedAt,
@@ -3852,6 +4066,8 @@ class FavoriteMealTableCompanion
     Value<String?>? analysisSnapshotJson,
     Value<String?>? healthConnectRecordId,
     Value<int>? healthConnectRecordVersion,
+    Value<int>? mealLogSyncVersion,
+    Value<int>? mealLogSyncedVersion,
     Value<int?>? sourceMealId,
     Value<DateTime>? createdAt,
     Value<DateTime?>? lastUsedAt,
@@ -3876,6 +4092,8 @@ class FavoriteMealTableCompanion
           healthConnectRecordId ?? this.healthConnectRecordId,
       healthConnectRecordVersion:
           healthConnectRecordVersion ?? this.healthConnectRecordVersion,
+      mealLogSyncVersion: mealLogSyncVersion ?? this.mealLogSyncVersion,
+      mealLogSyncedVersion: mealLogSyncedVersion ?? this.mealLogSyncedVersion,
       sourceMealId: sourceMealId ?? this.sourceMealId,
       createdAt: createdAt ?? this.createdAt,
       lastUsedAt: lastUsedAt ?? this.lastUsedAt,
@@ -3942,6 +4160,14 @@ class FavoriteMealTableCompanion
         healthConnectRecordVersion.value,
       );
     }
+    if (mealLogSyncVersion.present) {
+      map['meal_log_sync_version'] = Variable<int>(mealLogSyncVersion.value);
+    }
+    if (mealLogSyncedVersion.present) {
+      map['meal_log_synced_version'] = Variable<int>(
+        mealLogSyncedVersion.value,
+      );
+    }
     if (sourceMealId.present) {
       map['source_meal_id'] = Variable<int>(sourceMealId.value);
     }
@@ -3974,6 +4200,8 @@ class FavoriteMealTableCompanion
           ..write('analysisSnapshotJson: $analysisSnapshotJson, ')
           ..write('healthConnectRecordId: $healthConnectRecordId, ')
           ..write('healthConnectRecordVersion: $healthConnectRecordVersion, ')
+          ..write('mealLogSyncVersion: $mealLogSyncVersion, ')
+          ..write('mealLogSyncedVersion: $mealLogSyncedVersion, ')
           ..write('sourceMealId: $sourceMealId, ')
           ..write('createdAt: $createdAt, ')
           ..write('lastUsedAt: $lastUsedAt')
@@ -5465,6 +5693,572 @@ class HealthConnectSyncQueueTableCompanion
   }
 }
 
+class $MealLogSyncQueueTableTable extends MealLogSyncQueueTable
+    with TableInfo<$MealLogSyncQueueTableTable, MealLogSyncQueueTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MealLogSyncQueueTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _analysisIdMeta = const VerificationMeta(
+    'analysisId',
+  );
+  @override
+  late final GeneratedColumn<String> analysisId = GeneratedColumn<String>(
+    'analysis_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _operationMeta = const VerificationMeta(
+    'operation',
+  );
+  @override
+  late final GeneratedColumn<String> operation = GeneratedColumn<String>(
+    'operation',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mealJsonMeta = const VerificationMeta(
+    'mealJson',
+  );
+  @override
+  late final GeneratedColumn<String> mealJson = GeneratedColumn<String>(
+    'meal_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _loggedAtMeta = const VerificationMeta(
+    'loggedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> loggedAt = GeneratedColumn<DateTime>(
+    'logged_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _attemptsMeta = const VerificationMeta(
+    'attempts',
+  );
+  @override
+  late final GeneratedColumn<int> attempts = GeneratedColumn<int>(
+    'attempts',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lastErrorMeta = const VerificationMeta(
+    'lastError',
+  );
+  @override
+  late final GeneratedColumn<String> lastError = GeneratedColumn<String>(
+    'last_error',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta(
+    'updatedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+    defaultValue: currentDateAndTime,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    analysisId,
+    operation,
+    version,
+    mealJson,
+    loggedAt,
+    attempts,
+    lastError,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'meal_log_sync_queue_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<MealLogSyncQueueTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('analysis_id')) {
+      context.handle(
+        _analysisIdMeta,
+        analysisId.isAcceptableOrUnknown(data['analysis_id']!, _analysisIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_analysisIdMeta);
+    }
+    if (data.containsKey('operation')) {
+      context.handle(
+        _operationMeta,
+        operation.isAcceptableOrUnknown(data['operation']!, _operationMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_operationMeta);
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_versionMeta);
+    }
+    if (data.containsKey('meal_json')) {
+      context.handle(
+        _mealJsonMeta,
+        mealJson.isAcceptableOrUnknown(data['meal_json']!, _mealJsonMeta),
+      );
+    }
+    if (data.containsKey('logged_at')) {
+      context.handle(
+        _loggedAtMeta,
+        loggedAt.isAcceptableOrUnknown(data['logged_at']!, _loggedAtMeta),
+      );
+    }
+    if (data.containsKey('attempts')) {
+      context.handle(
+        _attemptsMeta,
+        attempts.isAcceptableOrUnknown(data['attempts']!, _attemptsMeta),
+      );
+    }
+    if (data.containsKey('last_error')) {
+      context.handle(
+        _lastErrorMeta,
+        lastError.isAcceptableOrUnknown(data['last_error']!, _lastErrorMeta),
+      );
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MealLogSyncQueueTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MealLogSyncQueueTableData(
+      id:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      analysisId:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}analysis_id'],
+          )!,
+      operation:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}operation'],
+          )!,
+      version:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}version'],
+          )!,
+      mealJson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}meal_json'],
+      ),
+      loggedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}logged_at'],
+      ),
+      attempts:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.int,
+            data['${effectivePrefix}attempts'],
+          )!,
+      lastError: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}last_error'],
+      ),
+      updatedAt:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.dateTime,
+            data['${effectivePrefix}updated_at'],
+          )!,
+    );
+  }
+
+  @override
+  $MealLogSyncQueueTableTable createAlias(String alias) {
+    return $MealLogSyncQueueTableTable(attachedDatabase, alias);
+  }
+}
+
+class MealLogSyncQueueTableData extends DataClass
+    implements Insertable<MealLogSyncQueueTableData> {
+  final int id;
+  final String analysisId;
+  final String operation;
+  final int version;
+  final String? mealJson;
+  final DateTime? loggedAt;
+  final int attempts;
+  final String? lastError;
+  final DateTime updatedAt;
+  const MealLogSyncQueueTableData({
+    required this.id,
+    required this.analysisId,
+    required this.operation,
+    required this.version,
+    this.mealJson,
+    this.loggedAt,
+    required this.attempts,
+    this.lastError,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['analysis_id'] = Variable<String>(analysisId);
+    map['operation'] = Variable<String>(operation);
+    map['version'] = Variable<int>(version);
+    if (!nullToAbsent || mealJson != null) {
+      map['meal_json'] = Variable<String>(mealJson);
+    }
+    if (!nullToAbsent || loggedAt != null) {
+      map['logged_at'] = Variable<DateTime>(loggedAt);
+    }
+    map['attempts'] = Variable<int>(attempts);
+    if (!nullToAbsent || lastError != null) {
+      map['last_error'] = Variable<String>(lastError);
+    }
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  MealLogSyncQueueTableCompanion toCompanion(bool nullToAbsent) {
+    return MealLogSyncQueueTableCompanion(
+      id: Value(id),
+      analysisId: Value(analysisId),
+      operation: Value(operation),
+      version: Value(version),
+      mealJson:
+          mealJson == null && nullToAbsent
+              ? const Value.absent()
+              : Value(mealJson),
+      loggedAt:
+          loggedAt == null && nullToAbsent
+              ? const Value.absent()
+              : Value(loggedAt),
+      attempts: Value(attempts),
+      lastError:
+          lastError == null && nullToAbsent
+              ? const Value.absent()
+              : Value(lastError),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory MealLogSyncQueueTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MealLogSyncQueueTableData(
+      id: serializer.fromJson<int>(json['id']),
+      analysisId: serializer.fromJson<String>(json['analysisId']),
+      operation: serializer.fromJson<String>(json['operation']),
+      version: serializer.fromJson<int>(json['version']),
+      mealJson: serializer.fromJson<String?>(json['mealJson']),
+      loggedAt: serializer.fromJson<DateTime?>(json['loggedAt']),
+      attempts: serializer.fromJson<int>(json['attempts']),
+      lastError: serializer.fromJson<String?>(json['lastError']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'analysisId': serializer.toJson<String>(analysisId),
+      'operation': serializer.toJson<String>(operation),
+      'version': serializer.toJson<int>(version),
+      'mealJson': serializer.toJson<String?>(mealJson),
+      'loggedAt': serializer.toJson<DateTime?>(loggedAt),
+      'attempts': serializer.toJson<int>(attempts),
+      'lastError': serializer.toJson<String?>(lastError),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  MealLogSyncQueueTableData copyWith({
+    int? id,
+    String? analysisId,
+    String? operation,
+    int? version,
+    Value<String?> mealJson = const Value.absent(),
+    Value<DateTime?> loggedAt = const Value.absent(),
+    int? attempts,
+    Value<String?> lastError = const Value.absent(),
+    DateTime? updatedAt,
+  }) => MealLogSyncQueueTableData(
+    id: id ?? this.id,
+    analysisId: analysisId ?? this.analysisId,
+    operation: operation ?? this.operation,
+    version: version ?? this.version,
+    mealJson: mealJson.present ? mealJson.value : this.mealJson,
+    loggedAt: loggedAt.present ? loggedAt.value : this.loggedAt,
+    attempts: attempts ?? this.attempts,
+    lastError: lastError.present ? lastError.value : this.lastError,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  MealLogSyncQueueTableData copyWithCompanion(
+    MealLogSyncQueueTableCompanion data,
+  ) {
+    return MealLogSyncQueueTableData(
+      id: data.id.present ? data.id.value : this.id,
+      analysisId:
+          data.analysisId.present ? data.analysisId.value : this.analysisId,
+      operation: data.operation.present ? data.operation.value : this.operation,
+      version: data.version.present ? data.version.value : this.version,
+      mealJson: data.mealJson.present ? data.mealJson.value : this.mealJson,
+      loggedAt: data.loggedAt.present ? data.loggedAt.value : this.loggedAt,
+      attempts: data.attempts.present ? data.attempts.value : this.attempts,
+      lastError: data.lastError.present ? data.lastError.value : this.lastError,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MealLogSyncQueueTableData(')
+          ..write('id: $id, ')
+          ..write('analysisId: $analysisId, ')
+          ..write('operation: $operation, ')
+          ..write('version: $version, ')
+          ..write('mealJson: $mealJson, ')
+          ..write('loggedAt: $loggedAt, ')
+          ..write('attempts: $attempts, ')
+          ..write('lastError: $lastError, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    analysisId,
+    operation,
+    version,
+    mealJson,
+    loggedAt,
+    attempts,
+    lastError,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MealLogSyncQueueTableData &&
+          other.id == this.id &&
+          other.analysisId == this.analysisId &&
+          other.operation == this.operation &&
+          other.version == this.version &&
+          other.mealJson == this.mealJson &&
+          other.loggedAt == this.loggedAt &&
+          other.attempts == this.attempts &&
+          other.lastError == this.lastError &&
+          other.updatedAt == this.updatedAt);
+}
+
+class MealLogSyncQueueTableCompanion
+    extends UpdateCompanion<MealLogSyncQueueTableData> {
+  final Value<int> id;
+  final Value<String> analysisId;
+  final Value<String> operation;
+  final Value<int> version;
+  final Value<String?> mealJson;
+  final Value<DateTime?> loggedAt;
+  final Value<int> attempts;
+  final Value<String?> lastError;
+  final Value<DateTime> updatedAt;
+  const MealLogSyncQueueTableCompanion({
+    this.id = const Value.absent(),
+    this.analysisId = const Value.absent(),
+    this.operation = const Value.absent(),
+    this.version = const Value.absent(),
+    this.mealJson = const Value.absent(),
+    this.loggedAt = const Value.absent(),
+    this.attempts = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  MealLogSyncQueueTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String analysisId,
+    required String operation,
+    required int version,
+    this.mealJson = const Value.absent(),
+    this.loggedAt = const Value.absent(),
+    this.attempts = const Value.absent(),
+    this.lastError = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  }) : analysisId = Value(analysisId),
+       operation = Value(operation),
+       version = Value(version);
+  static Insertable<MealLogSyncQueueTableData> custom({
+    Expression<int>? id,
+    Expression<String>? analysisId,
+    Expression<String>? operation,
+    Expression<int>? version,
+    Expression<String>? mealJson,
+    Expression<DateTime>? loggedAt,
+    Expression<int>? attempts,
+    Expression<String>? lastError,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (analysisId != null) 'analysis_id': analysisId,
+      if (operation != null) 'operation': operation,
+      if (version != null) 'version': version,
+      if (mealJson != null) 'meal_json': mealJson,
+      if (loggedAt != null) 'logged_at': loggedAt,
+      if (attempts != null) 'attempts': attempts,
+      if (lastError != null) 'last_error': lastError,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  MealLogSyncQueueTableCompanion copyWith({
+    Value<int>? id,
+    Value<String>? analysisId,
+    Value<String>? operation,
+    Value<int>? version,
+    Value<String?>? mealJson,
+    Value<DateTime?>? loggedAt,
+    Value<int>? attempts,
+    Value<String?>? lastError,
+    Value<DateTime>? updatedAt,
+  }) {
+    return MealLogSyncQueueTableCompanion(
+      id: id ?? this.id,
+      analysisId: analysisId ?? this.analysisId,
+      operation: operation ?? this.operation,
+      version: version ?? this.version,
+      mealJson: mealJson ?? this.mealJson,
+      loggedAt: loggedAt ?? this.loggedAt,
+      attempts: attempts ?? this.attempts,
+      lastError: lastError ?? this.lastError,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (analysisId.present) {
+      map['analysis_id'] = Variable<String>(analysisId.value);
+    }
+    if (operation.present) {
+      map['operation'] = Variable<String>(operation.value);
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (mealJson.present) {
+      map['meal_json'] = Variable<String>(mealJson.value);
+    }
+    if (loggedAt.present) {
+      map['logged_at'] = Variable<DateTime>(loggedAt.value);
+    }
+    if (attempts.present) {
+      map['attempts'] = Variable<int>(attempts.value);
+    }
+    if (lastError.present) {
+      map['last_error'] = Variable<String>(lastError.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MealLogSyncQueueTableCompanion(')
+          ..write('id: $id, ')
+          ..write('analysisId: $analysisId, ')
+          ..write('operation: $operation, ')
+          ..write('version: $version, ')
+          ..write('mealJson: $mealJson, ')
+          ..write('loggedAt: $loggedAt, ')
+          ..write('attempts: $attempts, ')
+          ..write('lastError: $lastError, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -5480,6 +6274,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $LocalNutritionCacheTableTable(this);
   late final $HealthConnectSyncQueueTableTable healthConnectSyncQueueTable =
       $HealthConnectSyncQueueTableTable(this);
+  late final $MealLogSyncQueueTableTable mealLogSyncQueueTable =
+      $MealLogSyncQueueTableTable(this);
   late final Index mealInfoAnalysisIdUnique = Index(
     'meal_info_analysis_id_unique',
     'CREATE UNIQUE INDEX meal_info_analysis_id_unique ON meal_info_table (analysis_id)',
@@ -5487,6 +6283,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final Index healthConnectSyncClientRecordUnique = Index(
     'health_connect_sync_client_record_unique',
     'CREATE UNIQUE INDEX health_connect_sync_client_record_unique ON health_connect_sync_queue_table (client_record_id)',
+  );
+  late final Index mealLogSyncAnalysisIdUnique = Index(
+    'meal_log_sync_analysis_id_unique',
+    'CREATE UNIQUE INDEX meal_log_sync_analysis_id_unique ON meal_log_sync_queue_table (analysis_id)',
   );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -5499,8 +6299,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     favoriteMealTable,
     localNutritionCacheTable,
     healthConnectSyncQueueTable,
+    mealLogSyncQueueTable,
     mealInfoAnalysisIdUnique,
     healthConnectSyncClientRecordUnique,
+    mealLogSyncAnalysisIdUnique,
   ];
 }
 
@@ -5523,6 +6325,8 @@ typedef $$MealInfoTableTableCreateCompanionBuilder =
       Value<String?> analysisSnapshotJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
+      Value<int> mealLogSyncVersion,
+      Value<int> mealLogSyncedVersion,
     });
 typedef $$MealInfoTableTableUpdateCompanionBuilder =
     MealInfoTableCompanion Function({
@@ -5543,6 +6347,8 @@ typedef $$MealInfoTableTableUpdateCompanionBuilder =
       Value<String?> analysisSnapshotJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
+      Value<int> mealLogSyncVersion,
+      Value<int> mealLogSyncedVersion,
     });
 
 class $$MealInfoTableTableFilterComposer
@@ -5636,6 +6442,16 @@ class $$MealInfoTableTableFilterComposer
 
   ColumnFilters<int> get healthConnectRecordVersion => $composableBuilder(
     column: $table.healthConnectRecordVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get mealLogSyncVersion => $composableBuilder(
+    column: $table.mealLogSyncVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get mealLogSyncedVersion => $composableBuilder(
+    column: $table.mealLogSyncedVersion,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -5733,6 +6549,16 @@ class $$MealInfoTableTableOrderingComposer
     column: $table.healthConnectRecordVersion,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<int> get mealLogSyncVersion => $composableBuilder(
+    column: $table.mealLogSyncVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get mealLogSyncedVersion => $composableBuilder(
+    column: $table.mealLogSyncedVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$MealInfoTableTableAnnotationComposer
@@ -5808,6 +6634,16 @@ class $$MealInfoTableTableAnnotationComposer
     column: $table.healthConnectRecordVersion,
     builder: (column) => column,
   );
+
+  GeneratedColumn<int> get mealLogSyncVersion => $composableBuilder(
+    column: $table.mealLogSyncVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get mealLogSyncedVersion => $composableBuilder(
+    column: $table.mealLogSyncedVersion,
+    builder: (column) => column,
+  );
 }
 
 class $$MealInfoTableTableTableManager
@@ -5866,6 +6702,8 @@ class $$MealInfoTableTableTableManager
                 Value<String?> analysisSnapshotJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
+                Value<int> mealLogSyncVersion = const Value.absent(),
+                Value<int> mealLogSyncedVersion = const Value.absent(),
               }) => MealInfoTableCompanion(
                 id: id,
                 mealName: mealName,
@@ -5884,6 +6722,8 @@ class $$MealInfoTableTableTableManager
                 analysisSnapshotJson: analysisSnapshotJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
+                mealLogSyncVersion: mealLogSyncVersion,
+                mealLogSyncedVersion: mealLogSyncedVersion,
               ),
           createCompanionCallback:
               ({
@@ -5904,6 +6744,8 @@ class $$MealInfoTableTableTableManager
                 Value<String?> analysisSnapshotJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
+                Value<int> mealLogSyncVersion = const Value.absent(),
+                Value<int> mealLogSyncedVersion = const Value.absent(),
               }) => MealInfoTableCompanion.insert(
                 id: id,
                 mealName: mealName,
@@ -5922,6 +6764,8 @@ class $$MealInfoTableTableTableManager
                 analysisSnapshotJson: analysisSnapshotJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
+                mealLogSyncVersion: mealLogSyncVersion,
+                mealLogSyncedVersion: mealLogSyncedVersion,
               ),
           withReferenceMapper:
               (p0) =>
@@ -6785,6 +7629,8 @@ typedef $$FavoriteMealTableTableCreateCompanionBuilder =
       Value<String?> analysisSnapshotJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
+      Value<int> mealLogSyncVersion,
+      Value<int> mealLogSyncedVersion,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
@@ -6808,6 +7654,8 @@ typedef $$FavoriteMealTableTableUpdateCompanionBuilder =
       Value<String?> analysisSnapshotJson,
       Value<String?> healthConnectRecordId,
       Value<int> healthConnectRecordVersion,
+      Value<int> mealLogSyncVersion,
+      Value<int> mealLogSyncedVersion,
       Value<int?> sourceMealId,
       Value<DateTime> createdAt,
       Value<DateTime?> lastUsedAt,
@@ -6904,6 +7752,16 @@ class $$FavoriteMealTableTableFilterComposer
 
   ColumnFilters<int> get healthConnectRecordVersion => $composableBuilder(
     column: $table.healthConnectRecordVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get mealLogSyncVersion => $composableBuilder(
+    column: $table.mealLogSyncVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get mealLogSyncedVersion => $composableBuilder(
+    column: $table.mealLogSyncedVersion,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -7017,6 +7875,16 @@ class $$FavoriteMealTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get mealLogSyncVersion => $composableBuilder(
+    column: $table.mealLogSyncVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get mealLogSyncedVersion => $composableBuilder(
+    column: $table.mealLogSyncedVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<int> get sourceMealId => $composableBuilder(
     column: $table.sourceMealId,
     builder: (column) => ColumnOrderings(column),
@@ -7107,6 +7975,16 @@ class $$FavoriteMealTableTableAnnotationComposer
     builder: (column) => column,
   );
 
+  GeneratedColumn<int> get mealLogSyncVersion => $composableBuilder(
+    column: $table.mealLogSyncVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get mealLogSyncedVersion => $composableBuilder(
+    column: $table.mealLogSyncedVersion,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<int> get sourceMealId => $composableBuilder(
     column: $table.sourceMealId,
     builder: (column) => column,
@@ -7184,6 +8062,8 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> analysisSnapshotJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
+                Value<int> mealLogSyncVersion = const Value.absent(),
+                Value<int> mealLogSyncedVersion = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -7205,6 +8085,8 @@ class $$FavoriteMealTableTableTableManager
                 analysisSnapshotJson: analysisSnapshotJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
+                mealLogSyncVersion: mealLogSyncVersion,
+                mealLogSyncedVersion: mealLogSyncedVersion,
                 sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
@@ -7228,6 +8110,8 @@ class $$FavoriteMealTableTableTableManager
                 Value<String?> analysisSnapshotJson = const Value.absent(),
                 Value<String?> healthConnectRecordId = const Value.absent(),
                 Value<int> healthConnectRecordVersion = const Value.absent(),
+                Value<int> mealLogSyncVersion = const Value.absent(),
+                Value<int> mealLogSyncedVersion = const Value.absent(),
                 Value<int?> sourceMealId = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
                 Value<DateTime?> lastUsedAt = const Value.absent(),
@@ -7249,6 +8133,8 @@ class $$FavoriteMealTableTableTableManager
                 analysisSnapshotJson: analysisSnapshotJson,
                 healthConnectRecordId: healthConnectRecordId,
                 healthConnectRecordVersion: healthConnectRecordVersion,
+                mealLogSyncVersion: mealLogSyncVersion,
+                mealLogSyncedVersion: mealLogSyncedVersion,
                 sourceMealId: sourceMealId,
                 createdAt: createdAt,
                 lastUsedAt: lastUsedAt,
@@ -8010,6 +8896,304 @@ typedef $$HealthConnectSyncQueueTableTableProcessedTableManager =
       HealthConnectSyncQueueTableData,
       PrefetchHooks Function()
     >;
+typedef $$MealLogSyncQueueTableTableCreateCompanionBuilder =
+    MealLogSyncQueueTableCompanion Function({
+      Value<int> id,
+      required String analysisId,
+      required String operation,
+      required int version,
+      Value<String?> mealJson,
+      Value<DateTime?> loggedAt,
+      Value<int> attempts,
+      Value<String?> lastError,
+      Value<DateTime> updatedAt,
+    });
+typedef $$MealLogSyncQueueTableTableUpdateCompanionBuilder =
+    MealLogSyncQueueTableCompanion Function({
+      Value<int> id,
+      Value<String> analysisId,
+      Value<String> operation,
+      Value<int> version,
+      Value<String?> mealJson,
+      Value<DateTime?> loggedAt,
+      Value<int> attempts,
+      Value<String?> lastError,
+      Value<DateTime> updatedAt,
+    });
+
+class $$MealLogSyncQueueTableTableFilterComposer
+    extends Composer<_$AppDatabase, $MealLogSyncQueueTableTable> {
+  $$MealLogSyncQueueTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get operation => $composableBuilder(
+    column: $table.operation,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get mealJson => $composableBuilder(
+    column: $table.mealJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get loggedAt => $composableBuilder(
+    column: $table.loggedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get attempts => $composableBuilder(
+    column: $table.attempts,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$MealLogSyncQueueTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $MealLogSyncQueueTableTable> {
+  $$MealLogSyncQueueTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get operation => $composableBuilder(
+    column: $table.operation,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get mealJson => $composableBuilder(
+    column: $table.mealJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get loggedAt => $composableBuilder(
+    column: $table.loggedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get attempts => $composableBuilder(
+    column: $table.attempts,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lastError => $composableBuilder(
+    column: $table.lastError,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$MealLogSyncQueueTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $MealLogSyncQueueTableTable> {
+  $$MealLogSyncQueueTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get analysisId => $composableBuilder(
+    column: $table.analysisId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get operation =>
+      $composableBuilder(column: $table.operation, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumn<String> get mealJson =>
+      $composableBuilder(column: $table.mealJson, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get loggedAt =>
+      $composableBuilder(column: $table.loggedAt, builder: (column) => column);
+
+  GeneratedColumn<int> get attempts =>
+      $composableBuilder(column: $table.attempts, builder: (column) => column);
+
+  GeneratedColumn<String> get lastError =>
+      $composableBuilder(column: $table.lastError, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$MealLogSyncQueueTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $MealLogSyncQueueTableTable,
+          MealLogSyncQueueTableData,
+          $$MealLogSyncQueueTableTableFilterComposer,
+          $$MealLogSyncQueueTableTableOrderingComposer,
+          $$MealLogSyncQueueTableTableAnnotationComposer,
+          $$MealLogSyncQueueTableTableCreateCompanionBuilder,
+          $$MealLogSyncQueueTableTableUpdateCompanionBuilder,
+          (
+            MealLogSyncQueueTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $MealLogSyncQueueTableTable,
+              MealLogSyncQueueTableData
+            >,
+          ),
+          MealLogSyncQueueTableData,
+          PrefetchHooks Function()
+        > {
+  $$MealLogSyncQueueTableTableTableManager(
+    _$AppDatabase db,
+    $MealLogSyncQueueTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$MealLogSyncQueueTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$MealLogSyncQueueTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$MealLogSyncQueueTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> analysisId = const Value.absent(),
+                Value<String> operation = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<String?> mealJson = const Value.absent(),
+                Value<DateTime?> loggedAt = const Value.absent(),
+                Value<int> attempts = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => MealLogSyncQueueTableCompanion(
+                id: id,
+                analysisId: analysisId,
+                operation: operation,
+                version: version,
+                mealJson: mealJson,
+                loggedAt: loggedAt,
+                attempts: attempts,
+                lastError: lastError,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String analysisId,
+                required String operation,
+                required int version,
+                Value<String?> mealJson = const Value.absent(),
+                Value<DateTime?> loggedAt = const Value.absent(),
+                Value<int> attempts = const Value.absent(),
+                Value<String?> lastError = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => MealLogSyncQueueTableCompanion.insert(
+                id: id,
+                analysisId: analysisId,
+                operation: operation,
+                version: version,
+                mealJson: mealJson,
+                loggedAt: loggedAt,
+                attempts: attempts,
+                lastError: lastError,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$MealLogSyncQueueTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $MealLogSyncQueueTableTable,
+      MealLogSyncQueueTableData,
+      $$MealLogSyncQueueTableTableFilterComposer,
+      $$MealLogSyncQueueTableTableOrderingComposer,
+      $$MealLogSyncQueueTableTableAnnotationComposer,
+      $$MealLogSyncQueueTableTableCreateCompanionBuilder,
+      $$MealLogSyncQueueTableTableUpdateCompanionBuilder,
+      (
+        MealLogSyncQueueTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $MealLogSyncQueueTableTable,
+          MealLogSyncQueueTableData
+        >,
+      ),
+      MealLogSyncQueueTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -8033,4 +9217,6 @@ class $AppDatabaseManager {
         _db,
         _db.healthConnectSyncQueueTable,
       );
+  $$MealLogSyncQueueTableTableTableManager get mealLogSyncQueueTable =>
+      $$MealLogSyncQueueTableTableTableManager(_db, _db.mealLogSyncQueueTable);
 }

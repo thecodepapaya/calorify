@@ -1310,11 +1310,13 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
     $core.String? analysisId,
     $core.String? loggedAt,
     $1.Meal? meal,
+    $core.bool? deleted,
   }) {
     final result = create();
     if (analysisId != null) result.analysisId = analysisId;
     if (loggedAt != null) result.loggedAt = loggedAt;
     if (meal != null) result.meal = meal;
+    if (deleted != null) result.deleted = deleted;
     return result;
   }
 
@@ -1334,6 +1336,7 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
     ..aOS(2, _omitFieldNames ? '' : 'loggedAt')
     ..aOM<$1.Meal>(3, _omitFieldNames ? '' : 'meal', subBuilder: $1.Meal.create)
+    ..aOB(4, _omitFieldNames ? '' : 'deleted')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1386,6 +1389,17 @@ class MealAnalysisConfirmLogRequest extends $pb.GeneratedMessage {
   void clearMeal() => $_clearField(3);
   @$pb.TagNumber(3)
   $1.Meal ensureMeal() => $_ensure(2);
+
+  /// Reuses the confirmation endpoint for the inverse local mutation. When
+  /// true, logged_at and meal are intentionally omitted.
+  @$pb.TagNumber(4)
+  $core.bool get deleted => $_getBF(3);
+  @$pb.TagNumber(4)
+  set deleted($core.bool value) => $_setBool(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasDeleted() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDeleted() => $_clearField(4);
 }
 
 class MealClarificationAnswer extends $pb.GeneratedMessage {

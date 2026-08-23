@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:calorify/core/providers/app_dependencies.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    show mealLogSyncServiceProvider;
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
@@ -468,6 +470,15 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
       } else {
         await database.upsertMeal(mealInfo);
         unawaited(() async {
+          try {
+            await ref.read(mealLogSyncServiceProvider).syncPending();
+          } catch (error, stackTrace) {
+            log(
+              'Meal log sync after an edit could not start',
+              error: error,
+              stackTrace: stackTrace,
+            );
+          }
           try {
             await ref.read(healthConnectSyncServiceProvider).syncPending();
           } catch (error, stackTrace) {

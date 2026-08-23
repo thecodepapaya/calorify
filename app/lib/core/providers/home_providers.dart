@@ -2,6 +2,7 @@ import 'package:calorify/core/providers/app_dependencies.dart'
     as app_dependencies;
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/core/services/health_service.dart';
+import 'package:calorify/core/services/meal_log_sync_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/models.dart';
 
@@ -12,6 +13,13 @@ final databaseInterfaceProvider = app_dependencies.databaseInterfaceProvider;
 
 final foodRepositoryProvider = Provider<FoodRepository>((ref) {
   return FoodRepository();
+});
+
+final mealLogSyncServiceProvider = Provider<MealLogSyncService>((ref) {
+  return MealLogSyncService(
+    database: ref.watch(databaseInterfaceProvider),
+    foodRepository: ref.watch(foodRepositoryProvider),
+  );
 });
 
 final todaysMealsProvider = StreamProvider.autoDispose<List<LoggedMeal>>((ref) {

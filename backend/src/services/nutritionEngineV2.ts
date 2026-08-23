@@ -19,6 +19,7 @@ import { dishTemplateGramBounds, missingDishTemplateComponents } from './dishTem
 import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
 import {
   advanceMealAnalysisSession,
+  claimMealAnalysisAutomaticStage,
   claimMealAnalysisClarification,
   claimMealAnalysisPresentation,
   createMealAnalysisSession,
@@ -26,8 +27,10 @@ import {
   recordMealAnalysisClarification,
   recordMealAnalysisMealType,
   releaseMealAnalysisClarification,
+  releaseMealAnalysisAutomaticStage,
   releaseMealAnalysisPresentation,
-  type MealAnalysisInteractionLease,
+  type MealAnalysisAutomaticStage,
+  type MealAnalysisStageLease,
   type MealAnalysisSessionRecord,
   type MealTypeSource,
   upsertMealAnalysisSession,
@@ -1495,6 +1498,17 @@ function publicMealAnalysisError(error: unknown, fallback: string): string {
   return fallback;
 }
 
+function isRetryableMealAnalysisError(error: unknown): boolean {
+  if (error instanceof MealAnalysisInteractionBusyError) return true;
+  if (error instanceof InvalidMealAnalysisSnapshotError) return false;
+  if (error instanceof Error && SAFE_PUBLIC_ANALYSIS_ERRORS.has(error.message)) {
+    return false;
+  }
+  // Durable checkpoints make unexpected database, provider, and worker
+  // failures safe to resume. The phone caps automatic resume attempts.
+  return true;
+}
+
 function mealAnalysisErrorKind(error: unknown, fallback: string): string {
   if (error instanceof MealAnalysisInteractionBusyError) return 'stage_busy';
   if (error instanceof InvalidMealAnalysisSnapshotError) return 'invalid_snapshot';
@@ -2053,7 +2067,7 @@ async function persistSessionSnapshot(
     mealTypeQuestionData?: unknown;
     resultData?: unknown;
     clarificationAnswers?: MealClarificationAnswer[];
-    interactionLease?: MealAnalysisInteractionLease;
+    interactionLease?: MealAnalysisStageLease;
   }
 ): Promise<void> {
   const record = {
@@ -2090,7 +2104,7 @@ interface PostResolutionOptions {
   incomingAnswers?: MealClarificationAnswer[];
   accumulatedAnswers?: MealClarificationAnswer[];
   emitUpdatedIngredients?: boolean;
-  interactionLease?: MealAnalysisInteractionLease;
+  interactionLease?: MealAnalysisStageLease;
 }
 
 async function recordClarificationAudit(
@@ -2198,6 +2212,38 @@ class MealAnalysisInteractionBusyError extends Error {
   }
 }
 
+async function claimAutomaticStage(
+  context: PipelineRunContext,
+  stage: MealAnalysisAutomaticStage
+): Promise<MealAnalysisStageLease> {
+  const lease = await traceAsync(
+    context.trace,
+    'db',
+    'claim_automatic_stage',
+    { analysisId: context.analysisId, stage },
+    () => claimMealAnalysisAutomaticStage(context.analysisId, stage)
+  );
+  if (!lease) throw new MealAnalysisInteractionBusyError(stage);
+  return lease;
+}
+
+async function releaseAutomaticStage(
+  context: PipelineRunContext,
+  lease: MealAnalysisStageLease
+): Promise<void> {
+  try {
+    await releaseMealAnalysisAutomaticStage(context.analysisId, lease);
+  } catch (error) {
+    // The completed checkpoint is authoritative. A failed best-effort release
+    // must not replace a successful result with a trailing ERROR event.
+    logAnalysis(context.logger, 'error', 'automatic_stage_release_failed', {
+      analysisId: context.analysisId,
+      stage: lease.stage,
+      ...safeErrorMetadata(error, 'automatic_stage_release_failed'),
+    });
+  }
+}
+
 async function* runPresentationStage(
   client: MealAnalysisLlmClient,
   decomposition: NormalizedDecomposition,
@@ -2208,7 +2254,7 @@ async function* runPresentationStage(
   expectedStage: PresentationResumeStage,
   clarificationAnswers: MealClarificationAnswer[] | undefined,
   allowLegacyMissingStage: boolean = false,
-  preclaimedLease?: MealAnalysisInteractionLease
+  preclaimedLease?: MealAnalysisStageLease
 ): AsyncGenerator<PipelineEvent> {
   const finalMealType = context.selectedMealType;
   const mealTypeSource = context.selectedMealTypeSource;
@@ -2237,7 +2283,7 @@ async function* runPresentationStage(
       yield completed;
       return;
     }
-    throw new Error('Analysis presentation is already in progress or its stage changed');
+    throw new MealAnalysisInteractionBusyError('PRESENTING');
   }
 
   try {
@@ -2563,39 +2609,45 @@ async function resolveAndPersistIngredientsStage(
   decomposition: NormalizedDecomposition,
   context: PipelineRunContext
 ): Promise<ResolvedIngredient[]> {
-  const resolved = await traceAsync(
-    context.trace,
-    'pipeline',
-    'resolve_ingredients',
-    {
-      analysisId: context.analysisId,
-      source: context.source,
-      ingredientCount: decomposition.ingredients.length,
-    },
-    () => resolveIngredients(
-      client,
-      decomposition,
-      context.logger,
-      context.analysisId,
-      context.trace
-    )
-  );
-  await traceAsync(
-    context.trace,
-    'db',
-    'persist_session_snapshot',
-    { analysisId: context.analysisId, stage: 'INGREDIENTS_RESOLVED' },
-    () => persistSessionSnapshot(context, {
-      stage: 'INGREDIENTS_RESOLVED',
-      decompositionData: buildDecompositionEvent(context, decomposition).data,
-      ingredientsData: toResolvedIngredientsSnapshot(
+  const lease = await claimAutomaticStage(context, 'RESOLVING_INGREDIENTS');
+  try {
+    const resolved = await traceAsync(
+      context.trace,
+      'pipeline',
+      'resolve_ingredients',
+      {
+        analysisId: context.analysisId,
+        source: context.source,
+        ingredientCount: decomposition.ingredients.length,
+      },
+      () => resolveIngredients(
+        client,
+        decomposition,
+        context.logger,
         context.analysisId,
-        decomposition.mealName,
-        resolved
-      ),
-    })
-  );
-  return resolved;
+        context.trace
+      )
+    );
+    await traceAsync(
+      context.trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'INGREDIENTS_RESOLVED' },
+      () => persistSessionSnapshot(context, {
+        stage: 'INGREDIENTS_RESOLVED',
+        decompositionData: buildDecompositionEvent(context, decomposition).data,
+        ingredientsData: toResolvedIngredientsSnapshot(
+          context.analysisId,
+          decomposition.mealName,
+          resolved
+        ),
+        interactionLease: lease,
+      })
+    );
+    return resolved;
+  } finally {
+    await releaseAutomaticStage(context, lease);
+  }
 }
 
 async function* runFinalizationStage(
@@ -2604,13 +2656,21 @@ async function* runFinalizationStage(
   resolved: ResolvedIngredient[],
   context: PipelineRunContext
 ): AsyncGenerator<PipelineEvent> {
-  yield* runPostResolutionPipeline(client, decomposition, resolved, context);
+  const lease = await claimAutomaticStage(context, 'FINALIZING_ANALYSIS');
+  try {
+    yield* runPostResolutionPipeline(client, decomposition, resolved, context, {
+      interactionLease: lease,
+    });
+  } finally {
+    await releaseAutomaticStage(context, lease);
+  }
 }
 
 async function* runPipelineFromDecomposition(
   client: MealAnalysisLlmClient,
   decomposition: LLMDecomposition,
-  context: PipelineRunContext
+  context: PipelineRunContext,
+  decompositionLease: MealAnalysisStageLease
 ): AsyncGenerator<PipelineEvent> {
   const startedAt = Date.now();
   const normalizedDecomposition = normalizeDecomposition(
@@ -2640,6 +2700,7 @@ async function* runPipelineFromDecomposition(
     () => persistSessionSnapshot(context, {
       stage: 'DECOMPOSED',
       decompositionData: decompositionEvent.data,
+      interactionLease: decompositionLease,
     })
   );
   yield decompositionEvent;
@@ -2924,9 +2985,19 @@ async function* runDecomposition(
 ): AsyncGenerator<PipelineEvent> {
   // The ID and request are durable before STARTED.
   yield { step: 'STARTED', data: { analysisId: context.analysisId } };
-  const client = getMealAnalysisClient(context.trace);
-  const decomposition = await decomposeFromContext(client, context);
-  yield* runPipelineFromDecomposition(client, decomposition, context);
+  const lease = await claimAutomaticStage(context, 'DECOMPOSING');
+  try {
+    const client = getMealAnalysisClient(context.trace);
+    const decomposition = await decomposeFromContext(client, context);
+    yield* runPipelineFromDecomposition(
+      client,
+      decomposition,
+      context,
+      lease
+    );
+  } finally {
+    await releaseAutomaticStage(context, lease);
+  }
 }
 
 export async function* analyzeTextMeal(
@@ -2997,7 +3068,8 @@ export async function* analyzeTextMeal(
     });
     yield buildErrorEvent(
       analysisId,
-      publicMealAnalysisError(error, 'Meal analysis failed')
+      publicMealAnalysisError(error, 'Meal analysis failed'),
+      isRetryableMealAnalysisError(error)
     );
   }
 }
@@ -3065,12 +3137,18 @@ export async function* analyzeIngredientProposal(
       return;
     }
     yield { step: 'STARTED', data: { analysisId } };
-    const client = getMealAnalysisClient(trace);
-    yield* runPipelineFromDecomposition(
-      client,
-      decomposition,
-      context
-    );
+    const lease = await claimAutomaticStage(context, 'DECOMPOSING');
+    try {
+      const client = getMealAnalysisClient(trace);
+      yield* runPipelineFromDecomposition(
+        client,
+        decomposition,
+        context,
+        lease
+      );
+    } finally {
+      await releaseAutomaticStage(context, lease);
+    }
   } catch (error) {
     logAnalysis(options.logger, 'error', 'local_proposal_analysis_failed', {
       analysisId,
@@ -3080,7 +3158,8 @@ export async function* analyzeIngredientProposal(
     });
     yield buildErrorEvent(
       analysisId,
-      publicMealAnalysisError(error, 'Meal proposal analysis failed')
+      publicMealAnalysisError(error, 'Meal proposal analysis failed'),
+      isRetryableMealAnalysisError(error)
     );
   }
 }
@@ -3158,7 +3237,8 @@ export async function* analyzeImageMeal(
     });
     yield buildErrorEvent(
       analysisId,
-      publicMealAnalysisError(error, 'Image analysis failed')
+      publicMealAnalysisError(error, 'Image analysis failed'),
+      isRetryableMealAnalysisError(error)
     );
   }
 }
@@ -3319,7 +3399,6 @@ export async function* resumeMealAnalysis(
       presentationLease
     );
   } catch (error) {
-    const retryable = error instanceof MealAnalysisInteractionBusyError;
     logAnalysis(options.logger, 'error', 'analysis_resume_failed', {
       analysisId,
       errorKind: mealAnalysisErrorKind(error, 'analysis_resume_failed'),
@@ -3328,7 +3407,7 @@ export async function* resumeMealAnalysis(
     yield buildErrorEvent(
       analysisId,
       publicMealAnalysisError(error, 'Analysis resume failed'),
-      retryable
+      isRetryableMealAnalysisError(error)
     );
   }
 }
@@ -3339,7 +3418,7 @@ export async function* continueMealAnalysis(
   options: AnalysisRequestOptions = {}
 ): AsyncGenerator<PipelineEvent> {
   const trace = options.trace ?? createAnalysisTrace();
-  let clarificationLease: MealAnalysisInteractionLease | undefined;
+  let clarificationLease: MealAnalysisStageLease | undefined;
   try {
     logAnalysis(options.logger, 'info', 'clarification_resume_started', {
       analysisId,
@@ -3439,7 +3518,7 @@ export async function* continueMealAnalysis(
         yield result;
         return;
       }
-      throw new Error('Analysis clarification is already being applied or its stage changed');
+      throw new MealAnalysisInteractionBusyError('APPLYING_CLARIFICATION');
     }
     yield* runPostResolutionPipeline(client, decomposition, resolved, context, {
       incomingAnswers: answers,
@@ -3455,7 +3534,8 @@ export async function* continueMealAnalysis(
     });
     yield buildErrorEvent(
       analysisId,
-      publicMealAnalysisError(error, 'Clarification failed')
+      publicMealAnalysisError(error, 'Clarification failed'),
+      isRetryableMealAnalysisError(error)
     );
   } finally {
     if (clarificationLease) {
@@ -3552,7 +3632,8 @@ export async function* continueMealAnalysisWithMealType(
     });
     yield buildErrorEvent(
       analysisId,
-      publicMealAnalysisError(error, 'Meal type continuation failed')
+      publicMealAnalysisError(error, 'Meal type continuation failed'),
+      isRetryableMealAnalysisError(error)
     );
   }
 }
@@ -3632,7 +3713,8 @@ export async function* reanalyzeMeal(
     });
     yield buildErrorEvent(
       analysisId,
-      publicMealAnalysisError(error, 'Reanalysis failed')
+      publicMealAnalysisError(error, 'Reanalysis failed'),
+      isRetryableMealAnalysisError(error)
     );
   }
 }

@@ -43,7 +43,8 @@ const mockReanalyzeMeal = mock.fn(function* () {
 });
 
 const mockRecordMealAnalysisFeedback = mock.fn(async () => {});
-const mockConfirmMealAnalysisLogged = mock.fn(async () => {});
+const mockConfirmMealAnalysisLogged = mock.fn(async () => true);
+const mockClearMealAnalysisLogged = mock.fn(async () => true);
 const mockIsMealAnalysisSessionOwnedByUser = mock.fn(async () => true);
 const mockResolveLocalNutritionLookups = mock.fn(async (analysisId: string) => ({
   analysisId,
@@ -80,6 +81,7 @@ await mock.module('../../services/nutritionEngineV2.js', {
 
 await mock.module('../../services/mealAnalysisStore.js', {
   namedExports: {
+    clearMealAnalysisLogged: mockClearMealAnalysisLogged,
     confirmMealAnalysisLogged: mockConfirmMealAnalysisLogged,
     isMealAnalysisSessionOwnedByUser: mockIsMealAnalysisSessionOwnedByUser,
     recordMealAnalysisFeedback: mockRecordMealAnalysisFeedback,
@@ -182,6 +184,8 @@ function validLocalProposal() {
   };
 }
 
+const VALID_ANALYSIS_ID = '00000000-0000-4000-8000-000000000401';
+
 // ---------------------------------------------------------------------------
 // POST /api/v2/food/analyze-text
 // ---------------------------------------------------------------------------
@@ -237,7 +241,7 @@ test('POST /analyze-text redacts unexpected stream exceptions', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/analyze-text',
-    payload: { textDescription: 'private meal' },
+    payload: { analysisId: VALID_ANALYSIS_ID, textDescription: 'private meal' },
   });
 
   assert.equal(response.statusCode, 200);
@@ -245,9 +249,9 @@ test('POST /analyze-text redacts unexpected stream exceptions', async () => {
   assert.deepEqual(events, [{
     step: 'ERROR',
     data: {
-      analysisId: 'unknown',
+      analysisId: VALID_ANALYSIS_ID,
       message: 'Pipeline failed',
-      retryable: false,
+      retryable: true,
     },
   }]);
   assert.doesNotMatch(response.body, new RegExp(secret));
@@ -698,7 +702,7 @@ test('POST /clarify returns 400 when answers is empty array', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/clarify',
-    payload: { analysisId: 'some-id', answers: [] },
+    payload: { analysisId: VALID_ANALYSIS_ID, answers: [] },
   });
   assert.equal(response.statusCode, 400);
   assertClientError(response.json(), 'answers');
@@ -710,7 +714,7 @@ test('POST /clarify returns 400 when answers is missing', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/clarify',
-    payload: { analysisId: 'some-id' },
+    payload: { analysisId: VALID_ANALYSIS_ID },
   });
   assert.equal(response.statusCode, 400);
   await app.close();
@@ -722,7 +726,7 @@ test('POST /clarify streams events for valid payload', async () => {
     method: 'POST',
     url: '/api/v2/food/clarify',
     payload: {
-      analysisId: 'valid-analysis-id',
+      analysisId: VALID_ANALYSIS_ID,
       answers: [{ clarification_id: 'clr-rice', selected_option_id: 'regular' }],
     },
   });
@@ -738,7 +742,7 @@ test('POST /clarify accepts proto3 camelCase answer keys', async () => {
     method: 'POST',
     url: '/api/v2/food/clarify',
     payload: {
-      analysisId: 'valid-analysis-id',
+      analysisId: VALID_ANALYSIS_ID,
       answers: [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }],
     },
   });
@@ -754,7 +758,7 @@ test('POST /clarify does not apply the reanalysis UUID schema', async () => {
     method: 'POST',
     url: '/api/v2/food/clarify',
     payload: {
-      analysisId: 'valid-analysis-id',
+      analysisId: VALID_ANALYSIS_ID,
       newAnalysisId: 'not-a-uuid',
       answers: [{ clarificationId: 'clr-rice', selectedOptionId: 'regular' }],
     },
@@ -777,11 +781,11 @@ test('POST /clarify calls continueMealAnalysis with correct args', async () => {
   await app.inject({
     method: 'POST',
     url: '/api/v2/food/clarify',
-    payload: { analysisId: 'clarify-test-id', answers },
+    payload: { analysisId: VALID_ANALYSIS_ID, answers },
   });
   assert.equal(mockContinueMealAnalysis.mock.calls.length, 1);
   const args = mockContinueMealAnalysis.mock.calls[0]!.arguments;
-  assert.equal(args[0], 'clarify-test-id');
+  assert.equal(args[0], VALID_ANALYSIS_ID);
   assert.deepEqual(args[1], expectedDto);
   await app.close();
 });
@@ -809,7 +813,7 @@ test('POST /resume enforces ownership before streaming', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/resume',
-    payload: { analysisId: 'someone-elses-analysis' },
+    payload: { analysisId: VALID_ANALYSIS_ID },
   });
   assert.equal(response.statusCode, 404);
   assert.equal(mockResumeMealAnalysis.mock.calls.length, 0);
@@ -822,12 +826,12 @@ test('POST /resume forwards the owned analysis and authenticated user', async ()
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/resume',
-    payload: { analysisId: 'resume-me' },
+    payload: { analysisId: VALID_ANALYSIS_ID },
   });
   assert.equal(response.statusCode, 200);
   assert.equal(parseNdjson(response.body)[0]?.step, 'RESULT');
   const args = mockResumeMealAnalysis.mock.calls[0]!.arguments;
-  assert.equal(args[0], 'resume-me');
+  assert.equal(args[0], VALID_ANALYSIS_ID);
   assert.equal(args[1].userId, 'test-user');
   await app.close();
 });
@@ -853,7 +857,7 @@ test('POST /feedback returns 400 when signal is invalid', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'fb-id', signal: 'maybe' },
+    payload: { analysisId: VALID_ANALYSIS_ID, signal: 'maybe' },
   });
   assert.equal(response.statusCode, 400);
   assertClientError(response.json(), 'signal');
@@ -866,7 +870,7 @@ test('POST /feedback returns { ok: true } for valid positive feedback', async ()
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'fb-analysis', signal: 'UP' },
+    payload: { analysisId: VALID_ANALYSIS_ID, signal: 'UP' },
   });
   assert.equal(response.statusCode, 200);
   assert.deepEqual(response.json(), { ok: true, message: '' });
@@ -879,11 +883,11 @@ test('POST /feedback calls recordMealAnalysisFeedback with UP signal', async () 
   await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'fb-test-id', signal: 'UP' },
+    payload: { analysisId: VALID_ANALYSIS_ID, signal: 'UP' },
   });
   assert.equal(mockRecordMealAnalysisFeedback.mock.calls.length, 1);
   const args = mockRecordMealAnalysisFeedback.mock.calls[0]!.arguments[0];
-  assert.equal(args.analysisId, 'fb-test-id');
+  assert.equal(args.analysisId, VALID_ANALYSIS_ID);
   assert.equal(args.signal, 'UP');
   await app.close();
 });
@@ -897,7 +901,7 @@ test('POST /feedback hides an analysis owned by another user', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/feedback',
-    payload: { analysisId: 'someone-elses-analysis', signal: 'UP' },
+    payload: { analysisId: VALID_ANALYSIS_ID, signal: 'UP' },
   });
 
   assert.equal(response.statusCode, 404);
@@ -927,7 +931,7 @@ test('POST /meal-type returns 400 when mealType is invalid', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/meal-type',
-    payload: { analysisId: 'mt-id', mealType: 'BRUNCH' },
+    payload: { analysisId: VALID_ANALYSIS_ID, mealType: 'BRUNCH' },
   });
   assert.equal(response.statusCode, 400);
   assertClientError(response.json(), 'mealType');
@@ -939,7 +943,7 @@ test('POST /meal-type returns 400 when mealType is missing', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/meal-type',
-    payload: { analysisId: 'mt-id' },
+    payload: { analysisId: VALID_ANALYSIS_ID },
   });
   assert.equal(response.statusCode, 400);
   await app.close();
@@ -950,7 +954,7 @@ test('POST /meal-type streams events for BREAKFAST', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/meal-type',
-    payload: { analysisId: 'mt-valid-id', mealType: 'BREAKFAST' },
+    payload: { analysisId: VALID_ANALYSIS_ID, mealType: 'BREAKFAST' },
   });
   assert.equal(response.statusCode, 200);
   const events = parseNdjson(response.body);
@@ -964,7 +968,7 @@ test('POST /meal-type accepts all four valid meal types', async () => {
     const response = await app.inject({
       method: 'POST',
       url: '/api/v2/food/meal-type',
-      payload: { analysisId: 'mt-id', mealType },
+      payload: { analysisId: VALID_ANALYSIS_ID, mealType },
     });
     assert.equal(response.statusCode, 200, `Failed for mealType: ${mealType}`);
   }
@@ -977,11 +981,11 @@ test('POST /meal-type calls continueMealAnalysisWithMealType with correct args',
   await app.inject({
     method: 'POST',
     url: '/api/v2/food/meal-type',
-    payload: { analysisId: 'mt-call-id', mealType: 'DINNER' },
+    payload: { analysisId: VALID_ANALYSIS_ID, mealType: 'DINNER' },
   });
   assert.equal(mockContinueMealAnalysisWithMealType.mock.calls.length, 1);
   const args = mockContinueMealAnalysisWithMealType.mock.calls[0]!.arguments;
-  assert.equal(args[0], 'mt-call-id');
+  assert.equal(args[0], VALID_ANALYSIS_ID);
   assert.equal(args[1], 'DINNER');
   await app.close();
 });
@@ -1007,7 +1011,7 @@ test('POST /reanalyze returns 400 when issues is empty array', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/reanalyze',
-    payload: { analysisId: 'ra-id', issues: [] },
+    payload: { analysisId: VALID_ANALYSIS_ID, issues: [] },
   });
   assert.equal(response.statusCode, 400);
   assertClientError(response.json(), 'issues');
@@ -1019,7 +1023,7 @@ test('POST /reanalyze returns 400 for unsupported issue type', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/reanalyze',
-    payload: { analysisId: 'ra-id', issues: ['unknown_issue'] },
+    payload: { analysisId: VALID_ANALYSIS_ID, issues: ['unknown_issue'] },
   });
   assert.equal(response.statusCode, 400);
   assertClientError(response.json(), 'allowed values');
@@ -1031,7 +1035,7 @@ test('POST /reanalyze streams events for valid feedback', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/reanalyze',
-    payload: { analysisId: 'ra-valid-id', issues: ['PORTION_SIZE'] },
+    payload: { analysisId: VALID_ANALYSIS_ID, issues: ['PORTION_SIZE'] },
   });
   assert.equal(response.statusCode, 200);
   const events = parseNdjson(response.body);
@@ -1046,7 +1050,7 @@ test('POST /reanalyze forwards the client-generated new analysis ID', async () =
   await app.inject({
     method: 'POST', url: '/api/v2/food/reanalyze',
     payload: {
-      analysisId: 'ra-original',
+      analysisId: VALID_ANALYSIS_ID,
       newAnalysisId,
       issues: ['PORTION_SIZE'],
     },
@@ -1061,7 +1065,7 @@ test('POST /reanalyze rejects a malformed new analysis ID', async () => {
     method: 'POST',
     url: '/api/v2/food/reanalyze',
     payload: {
-      analysisId: 'ra-original',
+      analysisId: VALID_ANALYSIS_ID,
       newAnalysisId: 'not-a-uuid',
       issues: ['PORTION_SIZE'],
     },
@@ -1077,7 +1081,7 @@ test('POST /reanalyze records feedback before streaming', async () => {
     method: 'POST',
     url: '/api/v2/food/reanalyze',
     payload: {
-      analysisId: 'ra-feedback-id',
+      analysisId: VALID_ANALYSIS_ID,
       issues: ['FOOD_IDENTIFICATION', 'MACROS_WRONG'],
       otherText: 'The food was completely wrong',
     },
@@ -1099,7 +1103,7 @@ test('POST /reanalyze accepts all valid FEEDBACK_ISSUES', async () => {
   const response = await app.inject({
     method: 'POST',
     url: '/api/v2/food/reanalyze',
-    payload: { analysisId: 'all-issues-id', issues: allIssues },
+    payload: { analysisId: VALID_ANALYSIS_ID, issues: allIssues },
   });
   assert.equal(response.statusCode, 200);
   await app.close();
@@ -1136,7 +1140,7 @@ test('POST /confirm-log returns { ok: true } for valid payload', async () => {
     method: 'POST',
     url: '/api/v2/food/confirm-log',
     payload: {
-      analysisId: 'log-analysis-id',
+      analysisId: VALID_ANALYSIS_ID,
       loggedAt: '2024-01-15T12:00:00Z',
       meal: {
         name: 'Dal Rice',
@@ -1157,7 +1161,7 @@ test('POST /confirm-log rejects timestamps without an explicit timezone', async 
     method: 'POST',
     url: '/api/v2/food/confirm-log',
     payload: {
-      analysisId: 'ambiguous-log-time',
+      analysisId: VALID_ANALYSIS_ID,
       loggedAt: '2024-01-15T12:00:00',
       meal: {
         name: 'Dal Rice',
@@ -1177,7 +1181,7 @@ test('POST /confirm-log rejects timestamps more than five minutes in the future'
     method: 'POST',
     url: '/api/v2/food/confirm-log',
     payload: {
-      analysisId: 'future-log-time',
+      analysisId: VALID_ANALYSIS_ID,
       loggedAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
       meal: {
         name: 'Dal Rice',
@@ -1195,7 +1199,7 @@ test('POST /confirm-log calls confirmMealAnalysisLogged with full record', async
   mockConfirmMealAnalysisLogged.mock.resetCalls();
   const app = await buildTestApp();
   const payload = {
-    analysisId: 'log-call-id',
+    analysisId: VALID_ANALYSIS_ID,
     loggedAt: '2024-01-15T19:00:00Z',
     meal: {
       name: 'Chicken Curry',
@@ -1211,11 +1215,73 @@ test('POST /confirm-log calls confirmMealAnalysisLogged with full record', async
   });
   assert.equal(mockConfirmMealAnalysisLogged.mock.calls.length, 1);
   const arg = mockConfirmMealAnalysisLogged.mock.calls[0]!.arguments[0];
-  assert.equal(arg.analysisId, 'log-call-id');
+  assert.equal(arg.analysisId, VALID_ANALYSIS_ID);
   assert.equal(arg.mealName, 'Chicken Curry');
   assert.equal(arg.calories, 520);
   assert.equal(arg.mealType, 'DINNER');
   assert.equal(arg.timeZone, 'Asia/Kolkata');
+  await app.close();
+});
+
+test('POST /confirm-log clears a deleted analyzed meal', async () => {
+  mockClearMealAnalysisLogged.mock.resetCalls();
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/confirm-log',
+    payload: { analysisId: VALID_ANALYSIS_ID, deleted: true },
+  });
+  assert.equal(response.statusCode, 200);
+  assert.equal(mockClearMealAnalysisLogged.mock.calls.length, 1);
+  assert.equal(
+    mockClearMealAnalysisLogged.mock.calls[0]!.arguments[0],
+    VALID_ANALYSIS_ID
+  );
+  await app.close();
+});
+
+test('POST /confirm-log rejects a session that is not completed', async () => {
+  mockConfirmMealAnalysisLogged.mock.mockImplementationOnce(async () => false);
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/confirm-log',
+    payload: {
+      analysisId: VALID_ANALYSIS_ID,
+      loggedAt: '2024-01-15T12:00:00Z',
+      meal: {
+        name: 'Banana',
+        quantity: '1 serving',
+        type: 'SNACK',
+        macros: { calories: 107, protein: 1, carbs: 27, fat: 0, fiber: 3 },
+      },
+    },
+  });
+  assert.equal(response.statusCode, 409);
+  await app.close();
+});
+
+test('continuation and confirmation endpoints reject non-UUID analysis IDs', async () => {
+  const app = await buildTestApp();
+  const requests = [
+    ['/resume', { analysisId: 'not-a-uuid' }],
+    ['/clarify', {
+      analysisId: 'not-a-uuid',
+      answers: [{ clarificationId: 'portion', selectedOptionId: 'small' }],
+    }],
+    ['/feedback', { analysisId: 'not-a-uuid', signal: 'UP' }],
+    ['/meal-type', { analysisId: 'not-a-uuid', mealType: 'LUNCH' }],
+    ['/reanalyze', { analysisId: 'not-a-uuid', issues: ['PORTION_SIZE'] }],
+    ['/confirm-log', { analysisId: 'not-a-uuid', deleted: true }],
+  ] as const;
+  for (const [path, payload] of requests) {
+    const response = await app.inject({
+      method: 'POST',
+      url: `/api/v2/food${path}`,
+      payload,
+    });
+    assert.equal(response.statusCode, 400, path);
+  }
   await app.close();
 });
 

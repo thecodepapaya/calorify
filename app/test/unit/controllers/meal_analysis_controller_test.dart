@@ -321,6 +321,25 @@ void main() {
     );
   });
 
+  test(
+    'unknown stream error does not discard the durable analysis id',
+    () async {
+      repository.resumeStarter = (_, _) async => Stream.value(_result());
+      final controller = createController(
+        (_, _) async => Stream.fromIterable([
+          _started(),
+          _retryableError(analysisId: 'unknown'),
+        ]),
+      );
+
+      controller.start();
+      await _waitForState<MealAnalysisCompleted>(controller);
+
+      expect(repository.resumeCalls, 1);
+      expect(repository.lastAnalysisId, 'analysis-1');
+    },
+  );
+
   test('retryable backend recovery is capped', () async {
     repository.resumeStarter = (_, _) async => Stream.value(_retryableError());
     final controller = createController(

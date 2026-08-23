@@ -136,6 +136,76 @@ void main() {
   });
 
   test(
+    'analyzed meal save, edit, and delete share one durable outbox row',
+    () async {
+      const analysisId = '00000000-0000-4000-8000-000000000501';
+      final loggedAt = DateTime(2026, 8, 24, 12);
+      await database.logMeal(
+        _meal('Banana'),
+        analysisId: analysisId,
+        loggedAt: loggedAt,
+      );
+
+      var pending = await database.getPendingMealLogSyncs();
+      expect(pending, hasLength(1));
+      expect(pending.single.operation, MealLogSyncOperation.upsert);
+      expect(pending.single.version, 1);
+      expect(pending.single.meal?.name, 'Banana');
+
+      final stored = (await database.paginatedMealsHistory(offset: 0)).single;
+      await database.upsertMeal(
+        LoggedMeal(
+          clientId: stored.clientId,
+          meal: _meal('Edited banana'),
+          createdAt: stored.createdAt,
+        ),
+      );
+      pending = await database.getPendingMealLogSyncs();
+      expect(pending, hasLength(1));
+      expect(pending.single.version, 2);
+      expect(pending.single.meal?.name, 'Edited banana');
+
+      await database.deleteMeal(stored.clientId);
+      pending = await database.getPendingMealLogSyncs();
+      expect(pending, hasLength(1));
+      expect(pending.single.operation, MealLogSyncOperation.delete);
+      expect(pending.single.version, 3);
+      expect(pending.single.meal, isNull);
+    },
+  );
+
+  test(
+    'local deterministic analyses stay outside the backend session mirror',
+    () async {
+      const analysisId = '00000000-0000-4000-8000-000000000502';
+      await database.logMeal(
+        _meal('Local banana'),
+        analysisId: analysisId,
+        analysisSnapshot: PipelineResultData(
+          analysisId: analysisId,
+          receipt: MealAnalysisReceipt(
+            calculationOrigin:
+                CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC,
+          ),
+        ),
+      );
+
+      expect(await database.getPendingMealLogSyncs(), isEmpty);
+    },
+  );
+
+  test('acknowledged meal-log versions are not requeued at startup', () async {
+    const analysisId = '00000000-0000-4000-8000-000000000503';
+    await database.logMeal(_meal('Banana'), analysisId: analysisId);
+
+    final operation = (await database.getPendingMealLogSyncs()).single;
+    await database.markMealLogSyncCompleted(operation.id, operation.version);
+    await database.preparePendingMealLogSyncs();
+
+    expect(await database.getPendingMealLogSyncs(), isEmpty);
+  });
+
+  test(
     'meal mutations maintain a durable versioned Health Connect outbox',
     () async {
       final loggedAt = DateTime(2026, 8, 22, 9, 30);

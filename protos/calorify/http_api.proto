@@ -134,6 +134,9 @@ message MealAnalysisConfirmLogRequest {
   string analysis_id = 1;
   string logged_at = 2;
   meal.Meal meal = 3;
+  // Reuses the confirmation endpoint for the inverse local mutation. When
+  // true, logged_at and meal are intentionally omitted.
+  bool deleted = 4;
 }
 
 

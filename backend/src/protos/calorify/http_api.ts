@@ -155,7 +155,14 @@ export interface MealAnalysisFeedbackRequest {
 export interface MealAnalysisConfirmLogRequest {
   analysisId: string;
   loggedAt: string;
-  meal?: Meal | undefined;
+  meal?:
+    | Meal
+    | undefined;
+  /**
+   * Reuses the confirmation endpoint for the inverse local mutation. When
+   * true, logged_at and meal are intentionally omitted.
+   */
+  deleted: boolean;
 }
 
 export interface MealClarificationAnswer {

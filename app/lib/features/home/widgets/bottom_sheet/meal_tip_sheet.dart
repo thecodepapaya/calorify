@@ -792,6 +792,13 @@ class _MealTipState extends State<_MealTip> {
                     .deleteMeal(mealId);
                 try {
                   await container
+                      .read(mealLogSyncServiceProvider)
+                      .syncPending();
+                } catch (_) {
+                  // The analysis-log tombstone stays queued for startup retry.
+                }
+                try {
+                  await container
                       .read(healthConnectSyncServiceProvider)
                       .syncPending();
                 } catch (_) {

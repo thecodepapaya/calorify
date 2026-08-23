@@ -30,6 +30,8 @@ const {
   advanceMealAnalysisSession,
   createMealAnalysisSession,
   getMealAnalysisSession,
+  claimMealAnalysisAutomaticStage,
+  releaseMealAnalysisAutomaticStage,
   claimMealAnalysisClarification,
   releaseMealAnalysisClarification,
   claimMealAnalysisPresentation,
@@ -39,13 +41,16 @@ const {
   recordMealAnalysisMealType,
   recordMealAnalysisFeedback,
   confirmMealAnalysisLogged,
+  clearMealAnalysisLogged,
 } = await import('./mealAnalysisStore.js');
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
-function resetQuery(returnValue: { rows: unknown[] } = { rows: [] }) {
+function resetQuery(
+  returnValue: { rows: unknown[]; rowCount?: number } = { rows: [] }
+) {
   mockQuery.mock.resetCalls();
   mockQuery.mock.mockImplementation(async () => returnValue);
 }
@@ -421,6 +426,39 @@ test('clarification claim serializes application across processes', async () => 
   assert.equal(releaseParams[1], lease!.token);
 });
 
+test('automatic stage claim is fenced and only reclaims an abandoned lease', async () => {
+  resetQuery({ rows: [{ claimed: true }] });
+  const lease = await claimMealAnalysisAutomaticStage(
+    'automatic-session',
+    'RESOLVING_INGREDIENTS'
+  );
+  assert.equal(lease?.stage, 'RESOLVING_INGREDIENTS');
+  const [claimSql, claimParams] = mockQuery.mock.calls[0]!.arguments as [
+    string,
+    unknown[],
+  ];
+  assert.match(claimSql, /stage = \$4/);
+  assert.match(claimSql, /updated_at < CURRENT_TIMESTAMP - INTERVAL '5 minutes'/);
+  assert.deepEqual(claimParams.slice(0, 2), [
+    'automatic-session',
+    'RESOLVING_INGREDIENTS',
+  ]);
+  assert.equal(claimParams[3], 'DECOMPOSED');
+
+  resetQuery();
+  await releaseMealAnalysisAutomaticStage('automatic-session', lease!);
+  const [releaseSql, releaseParams] = mockQuery.mock.calls[0]!.arguments as [
+    string,
+    unknown[],
+  ];
+  assert.match(releaseSql, /stage_lease_token = \$4::uuid/);
+  assert.deepEqual(releaseParams.slice(0, 3), [
+    'automatic-session',
+    'DECOMPOSED',
+    'RESOLVING_INGREDIENTS',
+  ]);
+});
+
 test('getMealAnalysisSession uses LIMIT 1', async () => {
   resetQuery({ rows: [] });
   await getMealAnalysisSession('any-id');
@@ -554,8 +592,8 @@ test('recordMealAnalysisFeedback uses null otherText when not provided', async (
 // ---------------------------------------------------------------------------
 
 test('confirmMealAnalysisLogged updates meal_analysis_session with all logged fields', async () => {
-  resetQuery();
-  await confirmMealAnalysisLogged({
+  resetQuery({ rows: [], rowCount: 1 });
+  const updated = await confirmMealAnalysisLogged({
     analysisId: 'log-1',
     loggedAt: '2024-01-15T12:00:00Z',
     mealName: 'Dal Rice',
@@ -568,6 +606,7 @@ test('confirmMealAnalysisLogged updates meal_analysis_session with all logged fi
     quantity: '1 bowl',
     timeZone: 'Asia/Kolkata',
   });
+  assert.equal(updated, true);
   const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
   assert.ok(sql.includes('UPDATE meal_analysis_session'));
   assert.ok(sql.includes('logged_at'));
@@ -585,6 +624,7 @@ test('confirmMealAnalysisLogged updates meal_analysis_session with all logged fi
   assert.equal(params[9], '1 bowl');
   assert.equal(params[10], 'Asia/Kolkata');
   assert.ok(sql.includes('time_zone'));
+  assert.match(sql, /stage = 'COMPLETED'/);
 });
 
 test('confirmMealAnalysisLogged sets updated_at to CURRENT_TIMESTAMP', async () => {
@@ -603,4 +643,14 @@ test('confirmMealAnalysisLogged sets updated_at to CURRENT_TIMESTAMP', async () 
   });
   const [sql] = mockQuery.mock.calls[0]!.arguments as [string];
   assert.ok(sql.includes('CURRENT_TIMESTAMP'));
+});
+
+test('clearMealAnalysisLogged removes the mirrored meal only after completion', async () => {
+  resetQuery({ rows: [], rowCount: 1 });
+  assert.equal(await clearMealAnalysisLogged('log-3'), true);
+  const [sql, params] = mockQuery.mock.calls[0]!.arguments as [string, unknown[]];
+  assert.match(sql, /logged_at\s+= NULL/);
+  assert.match(sql, /logged_meal_name = NULL/);
+  assert.match(sql, /stage = 'COMPLETED'/);
+  assert.deepEqual(params, ['log-3']);
 });

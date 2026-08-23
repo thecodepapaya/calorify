@@ -13,6 +13,7 @@ import 'package:calorify/core/db/mock_data/user_settings_mock.dart'
 import 'package:calorify/core/db/tables/favorite_meal.dart';
 import 'package:calorify/core/db/tables/health_connect_sync_queue.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
+import 'package:calorify/core/db/tables/meal_log_sync_queue.dart';
 import 'package:calorify/core/db/tables/local_nutrition_cache.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
 import 'package:calorify/core/db/tables/user_profile.dart';
@@ -35,6 +36,7 @@ part 'app_database.g.dart';
     FavoriteMealTable,
     LocalNutritionCacheTable,
     HealthConnectSyncQueueTable,
+    MealLogSyncQueueTable,
   ],
 )
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
@@ -59,7 +61,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final bool _seedDevelopmentData;
 
   @override
-  int get schemaVersion => 26;
+  int get schemaVersion => 27;
 
   @override
   MigrationStrategy get migration {
@@ -449,6 +451,51 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             userPreferencesTable,
             userPreferencesTable.healthConnectPromptDismissed,
           );
+        }
+        if (from < 27) {
+          if (await _tableExists('meal_info_table')) {
+            if (!await _columnExists(
+              'meal_info_table',
+              'meal_log_sync_version',
+            )) {
+              await m.addColumn(
+                mealInfoTable,
+                mealInfoTable.mealLogSyncVersion,
+              );
+            }
+            if (!await _columnExists(
+              'meal_info_table',
+              'meal_log_synced_version',
+            )) {
+              await m.addColumn(
+                mealInfoTable,
+                mealInfoTable.mealLogSyncedVersion,
+              );
+            }
+          }
+          if (await _tableExists('favorite_meal_table')) {
+            if (!await _columnExists(
+              'favorite_meal_table',
+              'meal_log_sync_version',
+            )) {
+              await m.addColumn(
+                favoriteMealTable,
+                favoriteMealTable.mealLogSyncVersion,
+              );
+            }
+            if (!await _columnExists(
+              'favorite_meal_table',
+              'meal_log_synced_version',
+            )) {
+              await m.addColumn(
+                favoriteMealTable,
+                favoriteMealTable.mealLogSyncedVersion,
+              );
+            }
+          }
+          if (!await _tableExists('meal_log_sync_queue_table')) {
+            await m.createTable(mealLogSyncQueueTable);
+          }
         }
       },
     );
@@ -916,6 +963,10 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             ? null
             : normalizedAnalysisId;
     final timestamp = loggedAt ?? DateTime.now();
+    final syncAnalysisLog = _isRemoteMealAnalysis(
+      idempotencyKey,
+      analysisSnapshot,
+    );
 
     await transaction(() async {
       if (idempotencyKey != null) {
@@ -941,6 +992,8 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             recordId == null ? const Value.absent() : Value(recordId),
         healthConnectRecordVersion:
             recordId == null ? const Value.absent() : const Value(1),
+        mealLogSyncVersion:
+            syncAnalysisLog ? const Value(1) : const Value.absent(),
       );
 
       if (idempotencyKey == null) {
@@ -962,6 +1015,15 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           clientRecordVersion: 1,
         );
       }
+      if (syncAnalysisLog) {
+        await _enqueueMealLogSync(
+          analysisId: idempotencyKey!,
+          operation: MealLogSyncOperation.upsert,
+          version: 1,
+          meal: mealInfo,
+          loggedAt: timestamp,
+        );
+      }
     });
   }
 
@@ -979,11 +1041,28 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           mealInfo.hasCreatedAt()
               ? iso8601StringToDateTime(mealInfo.createdAt) ?? DateTime.now()
               : DateTime.now();
+      final syncAnalysisLog = _isRemoteMealAnalysisRow(existing);
+      final mealLogSyncVersion =
+          syncAnalysisLog ? existing!.mealLogSyncVersion + 1 : 0;
 
       if (!syncEnabled) {
-        await into(
-          mealInfoTable,
-        ).insertOnConflictUpdate(mealInfo.toCompanion());
+        await into(mealInfoTable).insertOnConflictUpdate(
+          mealInfo.toCompanion().copyWith(
+            mealLogSyncVersion:
+                syncAnalysisLog
+                    ? Value(mealLogSyncVersion)
+                    : const Value.absent(),
+          ),
+        );
+        if (syncAnalysisLog) {
+          await _enqueueMealLogSync(
+            analysisId: existing!.analysisId!,
+            operation: MealLogSyncOperation.upsert,
+            version: mealLogSyncVersion,
+            meal: mealInfo.meal,
+            loggedAt: loggedAt,
+          );
+        }
         return;
       }
 
@@ -996,6 +1075,10 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         mealInfo.toCompanion().copyWith(
           healthConnectRecordId: Value(recordId),
           healthConnectRecordVersion: Value(recordVersion),
+          mealLogSyncVersion:
+              syncAnalysisLog
+                  ? Value(mealLogSyncVersion)
+                  : const Value.absent(),
         ),
       );
       await _enqueueHealthConnectUpsert(
@@ -1004,6 +1087,15 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
         clientRecordId: recordId,
         clientRecordVersion: recordVersion,
       );
+      if (syncAnalysisLog) {
+        await _enqueueMealLogSync(
+          analysisId: existing!.analysisId!,
+          operation: MealLogSyncOperation.upsert,
+          version: mealLogSyncVersion,
+          meal: mealInfo.meal,
+          loggedAt: loggedAt,
+        );
+      }
     });
   }
 
@@ -1019,6 +1111,13 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           clientRecordVersion: existing.healthConnectRecordVersion + 1,
         );
       }
+      if (_isRemoteMealAnalysisRow(existing)) {
+        await _enqueueMealLogSync(
+          analysisId: existing!.analysisId!,
+          operation: MealLogSyncOperation.delete,
+          version: existing.mealLogSyncVersion + 1,
+        );
+      }
       await (delete(mealInfoTable)
         ..where((table) => table.id.equals(mealId))).go();
     });
@@ -1031,6 +1130,168 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           ..where((tbl) => tbl.id.equals(mealId))).getSingleOrNull();
     if (row == null) return null;
     return MealInfoMapper.fromRow(row);
+  }
+
+  static final RegExp _uuidPattern = RegExp(
+    r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$',
+  );
+
+  bool _isRemoteMealAnalysis(String? analysisId, PipelineResultData? snapshot) {
+    if (analysisId == null || !_uuidPattern.hasMatch(analysisId)) return false;
+    return !(snapshot?.hasReceipt() == true &&
+        snapshot!.receipt.calculationOrigin ==
+            CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC);
+  }
+
+  bool _isRemoteMealAnalysisRow(MealInfoTableData? row) {
+    if (row == null || row.analysisId == null) return false;
+    PipelineResultData? snapshot;
+    if (row.analysisSnapshotJson != null) {
+      try {
+        final json = jsonDecode(row.analysisSnapshotJson!);
+        snapshot =
+            PipelineResultData()
+              ..mergeFromProto3Json(Map<String, dynamic>.from(json as Map));
+      } on Object {
+        // A valid remote analysis ID remains the authoritative ownership key.
+      }
+    }
+    return _isRemoteMealAnalysis(row.analysisId, snapshot);
+  }
+
+  @override
+  Future<void> preparePendingMealLogSyncs() async {
+    await transaction(() async {
+      final rows =
+          await (select(mealInfoTable)
+            ..where((table) => table.analysisId.isNotNull())).get();
+      for (final row in rows) {
+        if (!_isRemoteMealAnalysisRow(row)) continue;
+        final version = row.mealLogSyncVersion > 0 ? row.mealLogSyncVersion : 1;
+        if (row.mealLogSyncVersion == 0) {
+          await (update(mealInfoTable)..where(
+            (table) => table.id.equals(row.id),
+          )).write(MealInfoTableCompanion(mealLogSyncVersion: Value(version)));
+        }
+        if (version <= row.mealLogSyncedVersion) continue;
+        await _enqueueMealLogSync(
+          analysisId: row.analysisId!,
+          operation: MealLogSyncOperation.upsert,
+          version: version,
+          meal: MealInfoMapper.fromRow(row).meal,
+          loggedAt: row.timestamp,
+        );
+      }
+    });
+  }
+
+  @override
+  Future<List<PendingMealLogSync>> getPendingMealLogSyncs({
+    int limit = 50,
+  }) async {
+    final rows =
+        await (select(mealLogSyncQueueTable)
+              ..orderBy([(table) => OrderingTerm.asc(table.updatedAt)])
+              ..limit(limit))
+            .get();
+    return rows
+        .map((row) {
+          Meal? meal;
+          if (row.mealJson != null) {
+            final json = jsonDecode(row.mealJson!);
+            meal =
+                Meal()
+                  ..mergeFromProto3Json(Map<String, dynamic>.from(json as Map));
+          }
+          return PendingMealLogSync(
+            id: row.id,
+            analysisId: row.analysisId,
+            operation: MealLogSyncOperation.values.byName(row.operation),
+            version: row.version,
+            attempts: row.attempts,
+            meal: meal,
+            loggedAt: row.loggedAt,
+          );
+        })
+        .toList(growable: false);
+  }
+
+  @override
+  Future<void> markMealLogSyncCompleted(int id, int version) async {
+    await transaction(() async {
+      final operation =
+          await (select(mealLogSyncQueueTable)..where(
+            (table) => table.id.equals(id) & table.version.equals(version),
+          )).getSingleOrNull();
+      if (operation == null) return;
+      await (delete(mealLogSyncQueueTable)..where(
+        (table) => table.id.equals(id) & table.version.equals(version),
+      )).go();
+      if (operation.operation == MealLogSyncOperation.upsert.name) {
+        await (update(mealInfoTable)..where(
+          (table) =>
+              table.analysisId.equals(operation.analysisId) &
+              table.mealLogSyncVersion.equals(version),
+        )).write(MealInfoTableCompanion(mealLogSyncedVersion: Value(version)));
+      }
+    });
+  }
+
+  @override
+  Future<void> markMealLogSyncFailed(int id, int version, Object error) async {
+    final row =
+        await (select(mealLogSyncQueueTable)..where(
+          (table) => table.id.equals(id) & table.version.equals(version),
+        )).getSingleOrNull();
+    if (row == null) return;
+    final message = error.toString();
+    await (update(mealLogSyncQueueTable)..where(
+      (table) => table.id.equals(id) & table.version.equals(version),
+    )).write(
+      MealLogSyncQueueTableCompanion(
+        attempts: Value(row.attempts + 1),
+        lastError: Value(
+          message.length <= 500 ? message : message.substring(0, 500),
+        ),
+        updatedAt: Value(DateTime.now()),
+      ),
+    );
+  }
+
+  Future<void> _enqueueMealLogSync({
+    required String analysisId,
+    required MealLogSyncOperation operation,
+    required int version,
+    Meal? meal,
+    DateTime? loggedAt,
+  }) async {
+    final values = MealLogSyncQueueTableCompanion.insert(
+      analysisId: analysisId,
+      operation: operation.name,
+      version: version,
+      mealJson: Value(meal == null ? null : jsonEncode(meal.toProto3Json())),
+      loggedAt: Value(loggedAt),
+      attempts: const Value(0),
+      lastError: const Value(null),
+      updatedAt: Value(DateTime.now()),
+    );
+    await into(mealLogSyncQueueTable).insert(
+      values,
+      onConflict: DoUpdate(
+        (_) => MealLogSyncQueueTableCompanion(
+          operation: Value(operation.name),
+          version: Value(version),
+          mealJson: Value(
+            meal == null ? null : jsonEncode(meal.toProto3Json()),
+          ),
+          loggedAt: Value(loggedAt),
+          attempts: const Value(0),
+          lastError: const Value(null),
+          updatedAt: Value(DateTime.now()),
+        ),
+        target: [mealLogSyncQueueTable.analysisId],
+      ),
+    );
   }
 
   @override
@@ -1427,6 +1688,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       await delete(favoriteMealTable).go();
       await delete(localNutritionCacheTable).go();
       await delete(healthConnectSyncQueueTable).go();
+      await delete(mealLogSyncQueueTable).go();
     });
   }
 }

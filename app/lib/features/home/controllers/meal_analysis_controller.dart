@@ -387,7 +387,9 @@ class MealAnalysisController extends ChangeNotifier {
     if (!_isActive(epoch)) return;
     _roundSawEvent = true;
     final analysisId = event.analysisId.trim();
-    if (analysisId.isNotEmpty) _roundAnalysisId = analysisId;
+    if (analysisId.isNotEmpty && analysisId != 'unknown') {
+      _roundAnalysisId = analysisId;
+    }
     _lastEvent = event;
     _updateMealName(event);
     _updateIngredientAccumulator(event);

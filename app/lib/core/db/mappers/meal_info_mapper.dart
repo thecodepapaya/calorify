@@ -12,6 +12,8 @@ extension MealToCompanion on Meal {
     Value<String?> analysisSnapshotJson = const Value.absent(),
     Value<String?> healthConnectRecordId = const Value.absent(),
     Value<int> healthConnectRecordVersion = const Value.absent(),
+    Value<int> mealLogSyncVersion = const Value.absent(),
+    Value<int> mealLogSyncedVersion = const Value.absent(),
   }) {
     return MealInfoTableCompanion(
       id: clientId != null ? Value(clientId) : const Value.absent(),
@@ -42,6 +44,8 @@ extension MealToCompanion on Meal {
       analysisSnapshotJson: analysisSnapshotJson,
       healthConnectRecordId: healthConnectRecordId,
       healthConnectRecordVersion: healthConnectRecordVersion,
+      mealLogSyncVersion: mealLogSyncVersion,
+      mealLogSyncedVersion: mealLogSyncedVersion,
     );
   }
 }

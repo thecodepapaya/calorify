@@ -217,6 +217,17 @@ class FoodRepository {
     );
   }
 
+  Future<void> deleteMealLogV2({required String analysisId}) async {
+    await _networkClient.apiCall<MealAnalysisConfirmLogRequest, ApiResult>(
+      '/api/v2/food/confirm-log',
+      ApiResult.new,
+      request: MealAnalysisConfirmLogRequest(
+        analysisId: analysisId,
+        deleted: true,
+      ),
+    );
+  }
+
   Future<Stream<MealAnalysisPipelineEvent>> reanalyzeV2({
     required String analysisId,
     required String newAnalysisId,

@@ -239,6 +239,41 @@ void main() {
     expect(adapter.lastRequest?.data, {'analysisId': 'analysis-7'});
   });
 
+  test('confirmMealLogV2 sends the complete current meal snapshot', () async {
+    adapter.respondWithJson({'ok': true, 'message': ''});
+    final loggedAt = DateTime.utc(2026, 8, 24, 12);
+    await repository.confirmMealLogV2(
+      analysisId: '00000000-0000-4000-8000-000000000701',
+      meal: Meal(
+        name: 'Banana',
+        quantity: '1 serving',
+        type: MealType.SNACK,
+        macros: MealMacro(calories: 107, protein: 1, carbs: 27, fiber: 3),
+      ),
+      loggedAt: loggedAt,
+    );
+
+    expect(adapter.lastRequest?.path, '/api/v2/food/confirm-log');
+    final payload = adapter.lastRequest?.data as Map<String, dynamic>;
+    expect(payload['analysisId'], '00000000-0000-4000-8000-000000000701');
+    expect(payload['loggedAt'], loggedAt.toIso8601String());
+    expect((payload['meal'] as Map<String, dynamic>)['name'], 'Banana');
+    expect(payload, isNot(contains('deleted')));
+  });
+
+  test('deleteMealLogV2 reuses confirm-log with a tombstone', () async {
+    adapter.respondWithJson({'ok': true, 'message': ''});
+    await repository.deleteMealLogV2(
+      analysisId: '00000000-0000-4000-8000-000000000702',
+    );
+
+    expect(adapter.lastRequest?.path, '/api/v2/food/confirm-log');
+    expect(adapter.lastRequest?.data, {
+      'analysisId': '00000000-0000-4000-8000-000000000702',
+      'deleted': true,
+    });
+  });
+
   test('reanalyzeV2 sends a distinct idempotent child analysis id', () async {
     adapter.respondWithText(
       '${jsonEncode({

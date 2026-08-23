@@ -38,6 +38,11 @@ const mockCreateSession = mock.fn(async () => ({ status: 'created' as const }));
 const mockRecordClarification = mock.fn(async () => {});
 const mockRecordMealType = mock.fn(async () => {});
 const mockGetSession = mock.fn(async () => undefined);
+const mockClaimAutomatic = mock.fn(async (_analysisId: string, stage: string) => ({
+  stage,
+  token: '00000000-0000-4000-8000-000000000010',
+}));
+const mockReleaseAutomatic = mock.fn(async () => {});
 const mockClaimClarification = mock.fn(async () => ({
   stage: 'APPLYING_CLARIFICATION' as const,
   token: '00000000-0000-4000-8000-000000000011',
@@ -55,6 +60,8 @@ await mock.module('./mealAnalysisStore.js', {
     advanceMealAnalysisSession: mockAdvanceSession,
     createMealAnalysisSession: mockCreateSession,
     getMealAnalysisSession: mockGetSession,
+    claimMealAnalysisAutomaticStage: mockClaimAutomatic,
+    releaseMealAnalysisAutomaticStage: mockReleaseAutomatic,
     claimMealAnalysisClarification: mockClaimClarification,
     releaseMealAnalysisClarification: mockReleaseClarification,
     claimMealAnalysisPresentation: mockClaimPresentation,
@@ -171,6 +178,11 @@ test.beforeEach(() => {
   mockAdvanceSession.mock.mockImplementation(async () => true);
   mockCreateSession.mock.mockImplementation(async () => ({ status: 'created' }));
   mockGetSession.mock.mockImplementation(async () => undefined);
+  mockClaimAutomatic.mock.mockImplementation(async (_analysisId, stage) => ({
+    stage,
+    token: '00000000-0000-4000-8000-000000000010',
+  }));
+  mockReleaseAutomatic.mock.mockImplementation(async () => {});
   mockClaimClarification.mock.mockImplementation(async () => ({
     stage: 'APPLYING_CLARIFICATION', token: '00000000-0000-4000-8000-000000000011',
   }));
@@ -311,6 +323,42 @@ function installInMemorySessionStore(): Map<string, any> {
       stage: 'PENDING_DECOMPOSITION',
     });
     return { status: 'created' };
+  });
+  const automaticResumeStage: Record<string, string> = {
+    DECOMPOSING: 'PENDING_DECOMPOSITION',
+    RESOLVING_INGREDIENTS: 'DECOMPOSED',
+    FINALIZING_ANALYSIS: 'INGREDIENTS_RESOLVED',
+  };
+  mockClaimAutomatic.mock.mockImplementation(async (
+    analysisId: string,
+    stage: string
+  ) => {
+    const session = sessions.get(analysisId);
+    const staleLease = session?.stage === stage &&
+      Date.parse(session.updatedAt ?? '') < Date.now() - 5 * 60 * 1000;
+    if (!session || (session.stage !== automaticResumeStage[stage] && !staleLease)) {
+      return undefined;
+    }
+    const lease = nextLease(stage);
+    sessions.set(analysisId, {
+      ...session,
+      stage,
+      stageLeaseToken: lease.token,
+    });
+    return lease;
+  });
+  mockReleaseAutomatic.mock.mockImplementation(async (
+    analysisId: string,
+    lease: { stage: string; token: string }
+  ) => {
+    const session = sessions.get(analysisId);
+    if (session?.stage === lease.stage && session.stageLeaseToken === lease.token) {
+      sessions.set(analysisId, {
+        ...session,
+        stage: automaticResumeStage[lease.stage],
+        stageLeaseToken: undefined,
+      });
+    }
   });
   mockClaimClarification.mock.mockImplementation(async (analysisId: string, pendingAnswers?: any) => {
     const session = sessions.get(analysisId);
@@ -522,7 +570,7 @@ test('decomposition output is durable before it is emitted or ingredient resolut
     inferred_meal_type: 'LUNCH',
     meal_type_confident: true,
   });
-  mockUpsertSession.mock.mockImplementationOnce(async () => {
+  mockAdvanceSession.mock.mockImplementationOnce(async () => {
     throw new Error('session write failed');
   });
   mockCanonicalizeWithUsda.mock.resetCalls();
@@ -536,7 +584,7 @@ test('decomposition output is durable before it is emitted or ingredient resolut
     assert.equal(events.some((event) => event.step === 'DECOMPOSITION'), false);
     assert.equal(mockCanonicalizeWithUsda.mock.calls.length, 0);
   } finally {
-    mockUpsertSession.mock.mockImplementation(async () => true);
+    mockAdvanceSession.mock.mockImplementation(async () => true);
   }
 });
 
@@ -926,6 +974,15 @@ test('analyzeTextMeal emits result event when no clarification needed', async ()
   assert.ok('calories' in result.data.macros);
 });
 
+test('automatic lease cleanup failure cannot replace a successful result', async () => {
+  mockReleaseAutomatic.mock.mockImplementation(async () => {
+    throw new Error('release unavailable');
+  });
+  const events = await collectEvents(analyzeTextMeal('rice'));
+  assert.ok(events.some((event) => event.step === 'RESULT'));
+  assert.equal(events.some((event) => event.step === 'ERROR'), false);
+});
+
 test('accepted local proposal produces authoritative provenance and receipt', async () => {
   const decomposition = {
     meal_name: 'Dal',
@@ -1075,6 +1132,7 @@ test('analyzeTextMeal redacts provider failures from events, logs, and traces', 
   const err = events.find((e) => e.step === 'ERROR');
   assert.ok(err !== undefined);
   assert.equal(err.data.message, 'Meal analysis failed');
+  assert.equal(err.data.retryable, true);
   assert.equal(trace.llmAttempts[0]?.errorKind, 'provider_error');
   assert.ok(trace.steps.some((step) => step.meta?.errorKind === 'llm_step_failed'));
   assert.doesNotMatch(
@@ -1622,6 +1680,65 @@ test('closing after STARTED resumes its durable request with one decomposition',
   assert.equal(sessions.get(analysisId)?.stage, 'COMPLETED');
 });
 
+test('resume does not duplicate an active decomposition worker', async () => {
+  installInMemorySessionStore();
+  const analysisId = '00000000-0000-4000-8000-000000000209';
+  const decomposition = {
+    meal_name: 'Rice',
+    ingredients: [{
+      raw_name: 'rice', canonical_hint: 'rice cooked', grams_estimated: 100,
+      min_grams: 100, max_grams: 100, notes: '', portion_kind: 'BULK',
+      count: null, per_unit_grams: null, per_unit_min_grams: null,
+      per_unit_max_grams: null, size_specified_by_user: true,
+    }],
+    confidence: 1,
+    inferred_meal_type: 'LUNCH',
+    meal_type_confident: true,
+  };
+  let releaseDecomposition!: () => void;
+  let decompositionStarted!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    releaseDecomposition = resolve;
+  });
+  const started = new Promise<void>((resolve) => {
+    decompositionStarted = resolve;
+  });
+  let decompositionCalls = 0;
+  mockChatCreate.mock.mockImplementation(async (options: any) => {
+    const schemaName = options?.response_format?.json_schema?.name;
+    if (schemaName === 'meal_decomposition') {
+      decompositionCalls++;
+      decompositionStarted();
+      await gate;
+      return { choices: [{ message: { content: JSON.stringify(decomposition) } }] };
+    }
+    if (schemaName === 'macro_fallback') {
+      return { choices: [{ message: { content: JSON.stringify({
+        ingredients: [{
+          request_id: 'ingredient_1', name: 'rice cooked', kcal_per_100g: 200,
+          protein_per_100g: 4, carbs_per_100g: 45, fat_per_100g: 1,
+          fiber_per_100g: 1,
+        }],
+      }) } }] };
+    }
+    return { choices: [{ message: { content: JSON.stringify({
+      meal_name: 'Rice', quantity: '1 serving', meal_type: 'LUNCH',
+      meal_type_confident: true, tip: 'Balanced', health: null,
+    }) } }] };
+  });
+
+  const first = collectEvents(analyzeTextMeal('rice', { analysisId }));
+  await started;
+  const resumed = await collectEvents(resumeMealAnalysis(analysisId));
+  assert.equal(resumed.at(-1)?.step, 'ERROR');
+  assert.equal(resumed.at(-1)?.data.retryable, true);
+  assert.equal(decompositionCalls, 1);
+
+  releaseDecomposition();
+  assert.ok((await first).some((event) => event.step === 'RESULT'));
+  assert.equal(decompositionCalls, 1);
+});
+
 test('retrying an initial request with the same analysis ID replays without decomposition', async () => {
   installInMemorySessionStore();
   const analysisId = '00000000-0000-4000-8000-000000000206';
@@ -1807,6 +1924,7 @@ test('resume restarts legacy in-flight resolution from its durable decomposition
     locale: 'en',
     requestPayload: { textDescription: 'rice' },
     stage: 'RESOLVING_INGREDIENTS',
+    updatedAt: new Date(Date.now() - 6 * 60 * 1000).toISOString(),
     decompositionData: completed.decompositionData,
   });
   mockChatCreate.mock.resetCalls();
@@ -2246,8 +2364,9 @@ test('concurrent meal-type continuations claim one presentation attempt', async 
   assert.ok(firstEvents.some((event) => event.step === 'RESULT'));
   assert.equal(
     second.find((event) => event.step === 'ERROR')?.data.message,
-    'Meal type continuation failed'
+    'Analysis is still in progress; retry resume'
   );
+  assert.equal(second.find((event) => event.step === 'ERROR')?.data.retryable, true);
   assert.equal(mockChatCreate.mock.calls.length, 1);
 });
 

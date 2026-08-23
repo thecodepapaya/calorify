@@ -112,7 +112,8 @@ await mock.module('../services/mealAnalysisStore.js', {
     recordMealAnalysisClarification: mock.fn(async () => {}),
     recordMealAnalysisMealType: mock.fn(async () => {}),
     recordMealAnalysisFeedback: mock.fn(async () => {}),
-    confirmMealAnalysisLogged: mock.fn(async () => {}),
+    confirmMealAnalysisLogged: mock.fn(async () => true),
+    clearMealAnalysisLogged: mock.fn(async () => true),
     isMealAnalysisSessionOwnedByUser: mock.fn(async () => true),
   },
 });

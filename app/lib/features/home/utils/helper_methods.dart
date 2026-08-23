@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:calorify/core/providers/app_dependencies.dart';
 import 'package:calorify/core/providers/home_providers.dart'
@@ -22,7 +23,6 @@ Future<void> logMeal(
   final loggedAt = DateTime.now();
   final container = ProviderScope.containerOf(context, listen: false);
   final database = container.read(databaseInterfaceProvider);
-  final foodRepository = container.read(foodRepositoryProvider);
 
   await database.logMeal(
     mealInfo,
@@ -31,23 +31,19 @@ Future<void> logMeal(
     loggedAt: loggedAt,
   );
 
-  // Best-effort confirmation to the backend for V2 meals.
-  // Never blocks the UI — failures are silently ignored.
-  final wasCalculatedLocally =
-      analysisSnapshot?.hasReceipt() == true &&
-      analysisSnapshot!.receipt.calculationOrigin ==
-          CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC;
-  if (analysisId != null && analysisId.isNotEmpty && !wasCalculatedLocally) {
-    unawaited(
-      foodRepository
-          .confirmMealLogV2(
-            analysisId: analysisId,
-            meal: mealInfo,
-            loggedAt: loggedAt,
-          )
-          .catchError((_) {}),
-    );
-  }
+  // The database committed this mutation together with a durable outbox row.
+  // Try immediately; connectivity failures remain queued for startup retry.
+  unawaited(() async {
+    try {
+      await container.read(mealLogSyncServiceProvider).syncPending();
+    } on Object catch (error, stackTrace) {
+      log(
+        'Unable to start meal log synchronization',
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }());
 
   if (!context.mounted) return;
   await _syncDataToHealthConnect(context);
