@@ -16,17 +16,7 @@ from pathlib import Path
 from typing import Any
 
 
-DEFAULT_MODEL = "openai/gpt-5-mini"
-CONFIGURED_MODEL = os.environ.get("OPENROUTER_TRANSLATION_MODEL", "").strip()
-LOCALE_MODEL_OVERRIDES = {
-    # The default model produced mixed-script or materially unnatural output
-    # for these catalogs during manual review.
-    "bn": "google/gemini-2.5-flash",
-    "el": "google/gemini-2.5-flash",
-    "gu": "google/gemini-2.5-flash",
-    "he": "google/gemini-2.5-flash",
-    "te": "google/gemini-2.5-flash",
-}
+TRANSLATION_MODEL = "openai/gpt-5.6-luna"
 ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 MAX_KEYS_PER_REQUEST = 100
 ALLOWED_SOURCE_VALUES = {
@@ -205,7 +195,7 @@ def request_translation(api_key: str, locale: str, source: dict[str, Any]) -> tu
         "Do not add explanations. Return only one valid JSON object."
     )
     body = {
-        "model": CONFIGURED_MODEL or LOCALE_MODEL_OVERRIDES.get(locale, DEFAULT_MODEL),
+        "model": TRANSLATION_MODEL,
         "messages": [
             {"role": "system", "content": system},
             {"role": "user", "content": json.dumps(source, ensure_ascii=False)},
@@ -346,7 +336,7 @@ def main() -> int:
     os.replace(temporary_path, target_path)
 
     print(f"{len(paths)} new translations")
-    print(f"Model: {CONFIGURED_MODEL or LOCALE_MODEL_OVERRIDES.get(args.locale, DEFAULT_MODEL)}")
+    print(f"Model: {TRANSLATION_MODEL}")
     print(f"Total requests: {requests}")
     print(f"Input tokens: {total_usage['prompt_tokens']}")
     print(f"Output tokens: {total_usage['completion_tokens']}")
