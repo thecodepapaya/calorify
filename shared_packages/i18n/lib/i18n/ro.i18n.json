@@ -36,8 +36,8 @@
     "height": {
       "title": "Cât de înalt ești?",
       "description": "Înălțimea te ajută să calculăm BMI și nevoile energetice cu acuratețe.",
-      "metric": "Metric",
-      "imperial": "Imperial",
+      "metric": "Sistem metric",
+      "imperial": "Sistem imperial",
       "next": "Următorul"
     },
     "weight": {
@@ -45,8 +45,8 @@
       "currentDescription": "Greutatea actuală este esențială pentru personalizarea obiectivelor zilnice.",
       "targetTitle": "Care este greutatea ta țintă?",
       "targetDescription": "Stabilirea unei greutăți țintă ne ajută să determinăm planul pe termen lung.",
-      "metric": "Metric",
-      "imperial": "Imperial",
+      "metric": "Sistem metric",
+      "imperial": "Sistem imperial",
       "next": "Următorul"
     },
     "age": {
@@ -83,6 +83,19 @@
     "healthConnect": {
       "title": "Conectează-te la Health Connect",
       "description": "Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.",
+      "overviewDescription": "Folosește caloriile arse în obiectivul tău zilnic și, opțional, partajează mesele înregistrate cu Health Connect.",
+      "caloriesBurned": {
+        "title": "Calorii arse",
+        "description": "Citește totalul caloriilor arse astăzi din Health Connect"
+      },
+      "shareLoggedMeals": {
+        "title": "Partajează mesele înregistrate",
+        "description": "Scrie în Health Connect mesele pe care le înregistrezi în Calorify"
+      },
+      "userControl": {
+        "title": "Tu deții controlul",
+        "description": "Alege oricare dintre permisiuni și modifică accesul oricând"
+      },
       "automaticTracking": {
         "title": "Calorii arse",
         "description": "Citește totalul caloriilor arse astăzi din Health Connect"
@@ -177,7 +190,7 @@
       "weightImpact": "Impact asupra greutății",
       "estLoss": "Estim. pierdere de",
       "estGain": "Estim. câștig de",
-      "kcal": "kcal"
+      "kcal": "kilocalorii"
     },
     "dailySummary": {
       "title": "Rezumat zilnic",
@@ -230,6 +243,8 @@
       "uploadingPhoto": "Încărcare fotografie…"
     },
     "connectHealth": {
+      "dataUseDescription": "Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate",
+      "installOrUpdate": "Instalează sau actualizează",
       "title": "Sincronizează cu Health Connect",
       "description": "Folosește caloriile arse în obiectivul tău și partajează mesele înregistrate",
       "install": "Instalează sau actualizează",
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} în plus",
       "ingredientsLine": "{count} ingrediente detectate",
       "ingredientsPending": "Scanare ingrediente…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "„{text}”",
       "offlineTip0": "Sfat: Consistența bate perfecțiunea—înregistrările regulate dezvăluie tiparele care contează.",
       "offlineTip1": "Sfat: Pentru fotografii, lumina naturală și o vedere de sus ajută la acuratețea porțiilor.",
       "offlineTip2": "Sfat: Menționează băuturile, sosurile și uleiul de gătit—ele adaugă calorii pe care oamenii le uită des.",
@@ -323,7 +338,7 @@
       "reviewTitle": "Revizuiește ingredientele detectate",
       "reviewSubtitle": "Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.",
       "mealName": "Numele mesei",
-      "ingredient": "Ingredient",
+      "ingredient": "Component alimentar",
       "grams": "Grame estimate",
       "removeIngredient": "Elimină ingredientul",
       "continueLabel": "Continuă",
@@ -420,16 +435,16 @@
     "weight": "Greutate",
     "weightGoal": "Obiectiv greutate",
     "activityLevel": "Nivel de activitate",
-    "metric": "Metric",
-    "imperial": "Imperial",
+    "metric": "Sistem metric",
+    "imperial": "Sistem imperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
-    "metricCm": "Metric (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
-    "metricKg": "Metric (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "unitLbs": "lb",
+    "metricCm": "Sistem metric (cm)",
+    "imperialFtIn": "Sistem imperial (ft/in)",
+    "metricKg": "Sistem metric (kg)",
+    "imperialLbs": "Sistem imperial (lb)",
     "genders": {
       "male": "Bărbat",
       "female": "Femeie",
@@ -478,7 +493,7 @@
       "profile": "PROFIL",
       "localization": "LOCALIZARE",
       "notifications": "NOTIFICĂRI",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "CONECTARE HEALTH CONNECT",
       "localInference": "ANALIZĂ PE DISPOZITIV",
       "supportAndLegal": "SUPORT & LEGAL",
       "about": "DESPRE",
@@ -545,6 +560,8 @@
       "failed": "Nu s-a putut exporta istoricul meselor: {error}"
     },
     "clearAllData": {
+      "localOnlySubtitle": "Șterge datele Calorify stocate pe acest dispozitiv",
+      "localOnlyConfirmationMessage": "Aceasta șterge definitiv de pe acest dispozitiv mesele înregistrate, favoritele și setările profilului. Mesele deja partajate cu Health Connect și accesul la Health Connect sunt gestionate separat în Setări > Health Connect.",
       "title": "Șterge toate datele",
       "subtitle": "Șterge datele Calorify stocate pe acest dispozitiv",
       "confirmationTitle": "Ștergi toate datele?",
@@ -560,6 +577,7 @@
       "title": "Health Connect",
       "subtitle": "Vizualizează și gestionează permisiunile",
       "unavailable": {
+        "unsupportedDescription": "Health Connect nu este acceptat pe acest dispozitiv.",
         "title": "Health Connect indisponibil",
         "description": "Health Connect nu este acceptat pe acest dispozitiv."
       },
@@ -617,6 +635,7 @@
         "content": "{appLabel} a luat naștere dintr-o frustrare simplă: majoritatea aplicațiilor de urmărire a caloriilor sunt fie prea complicate, solicită introduceri manuale constante, percep taxe mari de abonament sau compromit confidențialitatea.\n\nCa dezvoltator solo, am vrut să creez ceva mai simplu și mai corect — o aplicație care folosește AI pentru a reduce efortul, rămâne rapidă și gratuită și tratează datele tale de sănătate cu respect.\n\n{appLabel} este aplicația pe care mi-aș fi dorit să existe: fără conturi, fără urmărire, fără reclame — doar informații clare, practice și obiectivele tale de sănătate."
       },
       "privacy": {
+        "analyticsDisclosure": "Analize și diagnosticare limitate\n{appLabel} folosește evenimente de bază din aplicație și diagnosticarea blocărilor pentru a îmbunătăți fiabilitatea. Valorile din înregistrările de sănătate nu sunt folosite pentru publicitate și nu sunt vândute.",
         "title": "Confidențialitatea ta contează",
         "description": "Confidențialitatea nu este un detaliu — este un principiu de design. Iată ce înseamnă asta în practică:",
         "noAccounts": "Fără conturi necesare\nFolosește aplicația imediat. Fără înregistrări, fără identități.",
@@ -640,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify versiunea {version}",
+      "build": "Compilarea {buildNumber}"
     }
   },
   "reminders": {

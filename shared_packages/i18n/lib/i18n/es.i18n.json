@@ -37,7 +37,7 @@
       "title": "¿Cuánto mides?",
       "description": "Tu altura nos ayuda a calcular tu BMI y tus necesidades energéticas con precisión.",
       "metric": "Métrico",
-      "imperial": "Imperial",
+      "imperial": "Sistema imperial",
       "next": "Siguiente"
     },
     "weight": {
@@ -46,7 +46,7 @@
       "targetTitle": "¿Cuál es tu peso objetivo?",
       "targetDescription": "Establecer un peso objetivo nos ayuda a determinar tu plan a largo plazo.",
       "metric": "Métrico",
-      "imperial": "Imperial",
+      "imperial": "Sistema imperial",
       "next": "Siguiente"
     },
     "age": {
@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Conéctate con Health Connect",
       "description": "Sincroniza tus datos de salud para obtener mejores insights y seguimiento automático de calorías",
+      "overviewDescription": "Usa las calorías quemadas en tu objetivo diario y, si quieres, comparte las comidas registradas con Health Connect.",
       "automaticTracking": {
         "title": "Seguimiento automático de calorías",
         "description": "Registra las calorías quemadas desde tus apps de fitness"
+      },
+      "caloriesBurned": {
+        "title": "Calorías quemadas",
+        "description": "Lee el total de calorías quemadas hoy desde Health Connect"
       },
       "progressInsights": {
         "title": "Insights de progreso",
         "description": "Obtén insights detallados sobre tus tendencias de salud"
       },
+      "shareLoggedMeals": {
+        "title": "Compartir comidas registradas",
+        "description": "Guarda en Health Connect las comidas que registras en Calorify"
+      },
       "seamlessIntegration": {
         "title": "Integración sin complicaciones",
         "description": "Sincroniza datos desde tus apps de salud favoritas"
+      },
+      "userControl": {
+        "title": "Tú tienes el control",
+        "description": "Elige cualquiera de los permisos y cambia el acceso cuando quieras"
       },
       "connected": "Health Connect conectado",
       "notConnected": "Health Connect no conectado",
@@ -101,6 +114,12 @@
       "skipForNow": "Saltar por ahora",
       "statusConnected": "Health Connect está conectado.",
       "statusSuccess": "¡Health Connect se ha conectado correctamente!",
+      "statusNotConnected": "Elige las funciones de Health Connect que quieres activar.",
+      "statusPartial": "Health Connect está conectado parcialmente. Activa el permiso restante para usar ambas funciones.",
+      "statusProviderUpdateRequired": "Instala o actualiza Health Connect para continuar.",
+      "statusUnavailable": "Health Connect no es compatible con este dispositivo.",
+      "installOrUpdate": "Instalar o actualizar",
+      "manageAccess": "Administrar acceso",
       "statusPermissionDenied": "Permiso denegado. Por favor, habilita los permisos de Health Connect desde los ajustes de tu teléfono para {appLabel}.",
       "statusError": "Error al configurar Health Connect: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "Impacto en el peso",
       "estLoss": "Pérdida estimada de",
       "estGain": "Ganancia estimada de",
-      "kcal": "kcal"
+      "kcal": "kilocalorías"
     },
     "dailySummary": {
       "title": "Resumen diario",
@@ -227,6 +246,8 @@
       "title": "Sincronizar con Health Connect",
       "description": "Sincroniza tus datos de nutrición con Health Connect",
       "install": "Instalar",
+      "dataUseDescription": "Usa las calorías quemadas en tu objetivo y comparte las comidas registradas",
+      "installOrUpdate": "Instalar o actualizar",
       "connect": "Conectar"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} más",
       "ingredientsLine": "{count} ingredientes detectados",
       "ingredientsPending": "Escaneando ingredientes…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "«{text}»",
       "offlineTip0": "Consejo: La consistencia supera a la perfección — los registros regulares revelan los patrones que importan.",
       "offlineTip1": "Consejo: Para fotos, la luz natural y una vista cenital ayudan con la precisión de la porción.",
       "offlineTip2": "Consejo: Menciona bebidas, salsas y aceite de cocina—añaden calorías que a menudo se olvidan.",
@@ -399,7 +420,7 @@
     "note": "Esta puntuación es una estimación por AI basada en los ingredientes identificados y la densidad nutricional. Consulta siempre a un profesional para asesoramiento dietético.",
     "unhealthy": "Poco saludable",
     "healthy": "Saludable",
-    "neutral": "Neutral"
+    "neutral": "Equilibrado"
   },
   "editProfile": {
     "title": "Editar perfil",
@@ -415,15 +436,15 @@
     "weightGoal": "Objetivo de peso",
     "activityLevel": "Nivel de actividad",
     "metric": "Métrico",
-    "imperial": "Imperial",
+    "imperial": "Sistema imperial",
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "lb",
     "metricCm": "Métrico (cm)",
-    "imperialFtIn": "Imperial (ft/in)",
+    "imperialFtIn": "Sistema imperial (pies/pulg)",
     "metricKg": "Métrico (kg)",
-    "imperialLbs": "Imperial (lbs)",
+    "imperialLbs": "Sistema imperial (lb)",
     "genders": {
       "male": "Masculino",
       "female": "Femenino",
@@ -472,7 +493,7 @@
       "profile": "PERFIL",
       "localization": "LOCALIZACIÓN",
       "notifications": "NOTIFICACIONES",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "CONEXIÓN CON HEALTH CONNECT",
       "localInference": "ANÁLISIS EN EL DISPOSITIVO",
       "supportAndLegal": "SOPORTE Y LEGAL",
       "about": "ACERCA DE",
@@ -539,6 +560,8 @@
       "failed": "No se pudo exportar el historial de comidas: {error}"
     },
     "clearAllData": {
+      "localOnlySubtitle": "Eliminar los datos de Calorify guardados en este dispositivo",
+      "localOnlyConfirmationMessage": "Esto elimina permanentemente de este dispositivo las comidas registradas, los favoritos y los ajustes del perfil. Las comidas ya compartidas con Health Connect y el acceso a Health Connect se administran por separado en Ajustes > Health Connect.",
       "title": "Borrar todos los datos",
       "subtitle": "Eliminar irreversiblemente toda tu información",
       "confirmationTitle": "¿Borrar todos los datos?",
@@ -554,8 +577,14 @@
       "title": "Health Connect",
       "subtitle": "Ver y administrar permisos",
       "unavailable": {
+        "unsupportedDescription": "Health Connect no es compatible con este dispositivo.",
         "title": "Health Connect no disponible",
         "description": "Health Connect no está disponible en este dispositivo. Por favor, instala Health Connect desde Play Store (Android 9+) o actualiza a Android 14+."
+      },
+      "updateRequired": {
+        "title": "Health Connect requiere atención",
+        "description": "Instala o actualiza Health Connect antes de administrar el acceso.",
+        "action": "Instalar o actualizar"
       },
       "permissions": {
         "title": "Permisos",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Administrar permisos",
       "openSettings": "Abrir ajustes de Health Connect",
+      "disconnect": "Desconectar Health Connect",
+      "disconnectConfirmationTitle": "¿Desconectar Health Connect?",
+      "disconnectConfirmationMessage": "Calorify perderá el acceso a Health Connect. Los datos que ya estén guardados allí no se eliminarán.",
+      "disconnectConfirmationAction": "Desconectar",
+      "deleteSyncedMeals": "Eliminar las comidas de Calorify de Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "¿Eliminar las comidas sincronizadas?",
+      "deleteSyncedMealsConfirmationMessage": "¿Quieres eliminar de Health Connect las comidas sincronizadas por esta versión de Calorify? Tu registro local de comidas no cambiará. Es posible que las entradas anteriores de Calorify aún deban eliminarse mediante Administrar datos en Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Eliminar comidas sincronizadas",
+      "deleteSyncedMealsSuccess": "Las comidas de Calorify se eliminaron de Health Connect.",
+      "deleteSyncedMealsFailed": "No se pudieron eliminar las comidas sincronizadas. Inténtalo de nuevo.",
+      "connectionPartial": "Algunas funciones de Health Connect están activadas.",
+      "connectionComplete": "Las dos funciones de Health Connect están activadas.",
+      "actionFailed": "No se pudo abrir Health Connect. Inténtalo de nuevo.",
       "requestPermissions": "Solicitar permisos",
       "permissionRequestCancelledOrFailed": "La solicitud de permisos fue cancelada o falló. Por favor, inténtalo de nuevo o concede los permisos manualmente en los ajustes de Health Connect.",
       "permissionRequestFailed": "No se pudo solicitar permisos. Por favor, inténtalo de nuevo o concede los permisos manualmente en los ajustes de Health Connect.",
@@ -597,6 +639,7 @@
         "description": "La privacidad no es una idea secundaria — es un principio de diseño. Esto es lo que significa en la práctica:",
         "noAccounts": "Sin cuentas requeridas\nUsa la app de inmediato. Sin registros, sin identidades.",
         "noTracking": "Sin seguimiento de comportamiento\n{appLabel} no monitorea tu actividad, no crea perfiles de uso ni te rastrea entre apps o sitios web.",
+        "analyticsDisclosure": "Análisis y diagnósticos limitados\n{appLabel} usa eventos básicos de la aplicación y diagnósticos de fallos para mejorar la fiabilidad. Los valores de los registros de salud no se usan para publicidad ni se venden.",
         "noAds": "Sin anuncios por diseño\n{appLabel} está construido para funcionar sin anuncios ni monetización basada en datos.",
         "noDataSelling": "Sin venta de datos\nTus datos de salud nunca se venden ni se comparten con terceros.",
         "localStorage": "Almacenamiento local primero\nTus datos permanecen en tu dispositivo.",
@@ -616,7 +659,7 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
+      "version": "Calorify versión {version}",
       "build": "Compilación {buildNumber}"
     }
   },

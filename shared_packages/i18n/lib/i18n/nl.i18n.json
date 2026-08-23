@@ -83,6 +83,19 @@
     "healthConnect": {
       "title": "Koppel met Health Connect",
       "description": "Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.",
+      "overviewDescription": "Gebruik verbrande calorieën in je dagelijkse doel en deel desgewenst gelogde maaltijden met Health Connect.",
+      "caloriesBurned": {
+        "title": "Verbrande calorieën",
+        "description": "Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect"
+      },
+      "shareLoggedMeals": {
+        "title": "Gelogde maaltijden delen",
+        "description": "Schrijf maaltijden die je in Calorify logt naar Health Connect"
+      },
+      "userControl": {
+        "title": "Jij houdt de controle",
+        "description": "Kies een van beide machtigingen en wijzig de toegang wanneer je wilt"
+      },
       "automaticTracking": {
         "title": "Verbrande calorieën",
         "description": "Lees het totale aantal calorieën dat vandaag is verbrand via Health Connect"
@@ -177,7 +190,7 @@
       "weightImpact": "Gewichtsimpact",
       "estLoss": "Gesch. verlies van",
       "estGain": "Gesch. toename van",
-      "kcal": "kcal"
+      "kcal": "kilocalorieën"
     },
     "dailySummary": {
       "title": "Dagelijkse samenvatting",
@@ -230,6 +243,8 @@
       "uploadingPhoto": "Foto uploaden…"
     },
     "connectHealth": {
+      "dataUseDescription": "Gebruik verbrande calorieën in je doel en deel gelogde maaltijden",
+      "installOrUpdate": "Installeren of bijwerken",
       "title": "Synchroniseren met Health Connect",
       "description": "Gebruik verbrande calorieën in je doel en deel gelogde maaltijden",
       "install": "Installeren of bijwerken",
@@ -311,7 +326,7 @@
       "ingredientsOverflow": "{count} meer",
       "ingredientsLine": "{count} ingrediënten gedetecteerd",
       "ingredientsPending": "Ingrediënten scannen…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "‘{text}’",
       "offlineTip0": "Tip: Consistentie is belangrijker dan perfectie—regelmatig loggen onthult de patronen die ertoe doen.",
       "offlineTip1": "Tip: Voor foto's helpen natuurlijk licht en een bovenaanzicht bij de portie-accuraatheid.",
       "offlineTip2": "Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.",
@@ -350,7 +365,7 @@
       "issueCalorieDistribution": "Verdeling van calorieën",
       "issueMacrosWrong": "Macro's kloppen niet",
       "issueMissingItems": "Ontbrekende items",
-      "issueExtraItems": "Extra items",
+      "issueExtraItems": "Overtollige onderdelen",
       "issueOther": "Anders"
     }
   },
@@ -425,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "lb",
     "metricCm": "Metrisch (cm)",
     "imperialFtIn": "Imperiaal (ft/in)",
     "metricKg": "Metrisch (kg)",
@@ -478,7 +493,7 @@
       "profile": "PROFIEL",
       "localization": "LOKALISATIE",
       "notifications": "MELDINGEN",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "HEALTH CONNECT-KOPPELING",
       "localInference": "ANALYSE OP APPARAAT",
       "supportAndLegal": "ONDERSTEUNING & JURIDISCH",
       "about": "OVER",
@@ -545,6 +560,8 @@
       "failed": "Kon maaltijdgeschiedenis niet exporteren: {error}"
     },
     "clearAllData": {
+      "localOnlySubtitle": "Calorify-gegevens verwijderen die op dit apparaat zijn opgeslagen",
+      "localOnlyConfirmationMessage": "Hiermee worden gelogde maaltijden, favorieten en profielinstellingen permanent van dit apparaat verwijderd. Maaltijden die al met Health Connect zijn gedeeld en de toegang tot Health Connect worden afzonderlijk beheerd via Instellingen > Health Connect.",
       "title": "Alle gegevens wissen",
       "subtitle": "Verwijder Calorify-gegevens die op dit apparaat zijn opgeslagen",
       "confirmationTitle": "Alle gegevens wissen?",
@@ -560,6 +577,7 @@
       "title": "Health Connect",
       "subtitle": "Bekijk en beheer machtigingen",
       "unavailable": {
+        "unsupportedDescription": "Health Connect wordt niet ondersteund op dit apparaat.",
         "title": "Health Connect niet beschikbaar",
         "description": "Health Connect wordt niet ondersteund op dit apparaat."
       },
@@ -617,6 +635,7 @@
         "content": "{appLabel} is ontstaan uit een eenvoudige frustratie: de meeste calorie-trackingapps zijn óf te ingewikkeld, vereisen constant handmatig invoer, vragen hoge abonnementskosten of schenden de privacy.\n\nAls solo-ontwikkelaar wilde ik iets eenvoudigers en eerlijkers bouwen — een app die AI gebruikt om inspanning te verminderen, snel en gratis blijft, en je gezondheidsgegevens met respect behandelt.\n\n{appLabel} is de app die ik had willen bestaan: geen accounts, geen tracking, geen advertenties — alleen heldere, praktische inzichten en jouw gezondheidsdoelen."
       },
       "privacy": {
+        "analyticsDisclosure": "Beperkte analyse en diagnostiek\n{appLabel} gebruikt basis-appgebeurtenissen en crashdiagnostiek om de betrouwbaarheid te verbeteren. Waarden uit gezondheidsgegevens worden niet gebruikt voor advertenties en niet verkocht.",
         "title": "Je privacy doet ertoe",
         "description": "Privacy is geen bijzaak — het is een ontwerpprincipe. Dit betekent het in de praktijk:",
         "noAccounts": "Geen accounts nodig\nGebruik de app direct. Geen aanmeldingen, geen identificaties.",
@@ -629,7 +648,7 @@
       "developer": {
         "title": "Gemaakt door een solo-ontwikkelaar",
         "description": "{appLabel} is gebouwd en wordt onderhouden door een enkele solo-ontwikkelaar die zich richt op het maken van rustige, privacy-respecterende gezondheidssoftware.\n\nFeedback wordt persoonlijk gelezen en helpt de richting van de app vormgeven.",
-        "website": "Website",
+      "website": "Webpagina",
         "email": "E-mail"
       },
       "feedback": {
@@ -640,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify versie {version}",
+      "build": "Buildnummer {buildNumber}"
     }
   },
   "reminders": {
@@ -653,7 +672,7 @@
     "disabledSubtitle": "Schakel meldingen in om maaltijdherinneringen te ontvangen",
     "mealReminders": "Maaltijdherinneringen",
     "breakfast": "Ontbijt",
-    "lunch": "Lunch",
+    "lunch": "Middagmaal",
     "dinner": "Diner",
     "snack": "Tussendoortje",
     "unknown": "Onbekend",

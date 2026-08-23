@@ -83,17 +83,30 @@
     "healthConnect": {
       "title": "Συνδέστε με Health Connect",
       "description": "Συγχρονίστε τα δεδομένα υγείας σας για καλύτερες πληροφορίες και αυτόματη καταγραφή θερμίδων",
+      "overviewDescription": "Χρησιμοποιήστε τις θερμίδες που καίτε στον ημερήσιο στόχο σας και, προαιρετικά, κοινοποιήστε τα καταγεγραμμένα γεύματα στο Health Connect.",
       "automaticTracking": {
         "title": "Αυτόματη Καταγραφή Θερμίδων",
         "description": "Καταγραφή θερμίδων που κάηκαν από τις εφαρμογές fitness"
+      },
+      "caloriesBurned": {
+        "title": "Θερμίδες που κάηκαν",
+        "description": "Διαβάστε το σημερινό σύνολο θερμίδων που κάηκαν από το Health Connect"
       },
       "progressInsights": {
         "title": "Ενδείξεις Προόδου",
         "description": "Λάβετε λεπτομερείς ενδείξεις για τις τάσεις της υγείας σας"
       },
+      "shareLoggedMeals": {
+        "title": "Κοινοποίηση καταγεγραμμένων γευμάτων",
+        "description": "Καταγράψτε στο Health Connect τα γεύματα που προσθέτετε στο Calorify"
+      },
       "seamlessIntegration": {
         "title": "Απρόσκοπτη Ενσωμάτωση",
         "description": "Συγχρονίστε δεδομένα από τις αγαπημένες σας εφαρμογές υγείας"
+      },
+      "userControl": {
+        "title": "Έχετε τον έλεγχο",
+        "description": "Επιλέξτε οποιαδήποτε άδεια και αλλάξτε την πρόσβαση ανά πάσα στιγμή"
       },
       "connected": "Health Connect Συνδεδεμένο",
       "notConnected": "Health Connect Δεν Συνδεδεμένο",
@@ -101,6 +114,12 @@
       "skipForNow": "Παράλειψη προς το παρόν",
       "statusConnected": "Το Health Connect είναι συνδεδεμένο.",
       "statusSuccess": "Το Health Connect συνδέθηκε επιτυχώς!",
+      "statusNotConnected": "Επιλέξτε τις λειτουργίες του Health Connect που θέλετε να ενεργοποιήσετε.",
+      "statusPartial": "Το Health Connect είναι μερικώς συνδεδεμένο. Ενεργοποιήστε την υπόλοιπη άδεια για να χρησιμοποιήσετε και τις δύο λειτουργίες.",
+      "statusProviderUpdateRequired": "Εγκαταστήστε ή ενημερώστε το Health Connect για να συνεχίσετε.",
+      "statusUnavailable": "Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.",
+      "installOrUpdate": "Εγκατάσταση ή ενημέρωση",
+      "manageAccess": "Διαχείριση πρόσβασης",
       "statusPermissionDenied": "Απαγορεύτηκε η άδεια. Ενεργοποιήστε τα δικαιώματα του Health Connect στις ρυθμίσεις του τηλεφώνου για {appLabel}.",
       "statusError": "Σφάλμα κατά τη ρύθμιση του Health Connect: {error}"
     },
@@ -171,7 +190,7 @@
       "weightImpact": "Επίδραση στο βάρος",
       "estLoss": "Προβλ. απώλεια",
       "estGain": "Προβλ. αύξηση",
-      "kcal": "kcal"
+      "kcal": "χιλιοθερμίδες"
     },
     "dailySummary": {
       "title": "Ημερήσια Σύνοψη",
@@ -227,6 +246,8 @@
       "title": "Συγχρονισμός με Health Connect",
       "description": "Συγχρονίστε τα διατροφικά σας με το Health Connect",
       "install": "Εγκατάσταση",
+      "dataUseDescription": "Χρησιμοποιήστε τις θερμίδες που καίτε στον στόχο σας και κοινοποιήστε τα καταγεγραμμένα γεύματα",
+      "installOrUpdate": "Εγκατάσταση ή ενημέρωση",
       "connect": "Σύνδεση"
     }
   },
@@ -305,7 +326,7 @@
       "ingredientsOverflow": "{count} ακόμη",
       "ingredientsLine": "Εντοπίστηκαν {count} συστατικά",
       "ingredientsPending": "Σάρωση συστατικών…",
-      "mealPreviewDescription": "\"{text}\"",
+      "mealPreviewDescription": "«{text}»",
       "offlineTip0": "Συμβουλή: Η συνέπεια ξεπερνά την τελειότητα — οι τακτικές εγγραφές αποκαλύπτουν τα μοτίβα που έχουν σημασία.",
       "offlineTip1": "Συμβουλή: Για φωτογραφίες, ο φυσικός φωτισμός και η λήψη από πάνω βοηθούν στην ακρίβεια των μερίδων.",
       "offlineTip2": "Συμβουλή: Αναφέρετε ροφήματα, σάλτσες και λάδι μαγειρέματος — προσθέτουν θερμίδες που συχνά ξεχνιούνται.",
@@ -419,7 +440,7 @@
     "unitCm": "cm",
     "unitFt": "ft",
     "unitKg": "kg",
-    "unitLbs": "lbs",
+    "unitLbs": "λίβρες",
     "metricCm": "Μετρικό (cm)",
     "imperialFtIn": "Αγγλοσαξονικό (ft/in)",
     "metricKg": "Μετρικό (kg)",
@@ -472,7 +493,7 @@
       "profile": "ΠΡΟΦΙΛ",
       "localization": "ΤΟΠΟΠΟΙΗΣΗ",
       "notifications": "ΕΙΔΟΠΟΙΗΣΕΙΣ",
-      "healthConnect": "HEALTH CONNECT",
+      "healthConnect": "ΣΥΝΔΕΣΗ HEALTH CONNECT",
       "localInference": "ΑΝΑΛΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ",
       "supportAndLegal": "ΥΠΟΣΤΗΡΙΞΗ & ΝΟΜΙΚΑ",
       "about": "ΠΛΗΡΟΦΟΡΙΕΣ",
@@ -539,6 +560,8 @@
       "failed": "Δεν ήταν δυνατή η εξαγωγή ιστορικού γευμάτων: {error}"
     },
     "clearAllData": {
+      "localOnlySubtitle": "Διαγραφή των δεδομένων του Calorify που είναι αποθηκευμένα σε αυτή τη συσκευή",
+      "localOnlyConfirmationMessage": "Αυτό διαγράφει οριστικά από τη συσκευή τα καταγεγραμμένα γεύματα, τα αγαπημένα και τις ρυθμίσεις προφίλ. Τα γεύματα που έχουν ήδη κοινοποιηθεί στο Health Connect και η πρόσβαση στο Health Connect διαχειρίζονται ξεχωριστά στις Ρυθμίσεις > Health Connect.",
       "title": "Διαγραφή Όλων των Δεδομένων",
       "subtitle": "Διαγραφή όλων των πληροφοριών σας χωρίς επιστροφή",
       "confirmationTitle": "Διαγραφή όλων των δεδομένων;",
@@ -554,8 +577,14 @@
       "title": "Health Connect",
       "subtitle": "Προβολή και διαχείριση αδειών",
       "unavailable": {
+        "unsupportedDescription": "Το Health Connect δεν υποστηρίζεται σε αυτή τη συσκευή.",
         "title": "Το Health Connect Δεν Διατίθεται",
         "description": "Το Health Connect δεν είναι διαθέσιμο σε αυτή τη συσκευή. Εγκαταστήστε το Health Connect από το Play Store (Android 9+) ή αναβαθμίστε σε Android 14+."
+      },
+      "updateRequired": {
+        "title": "Το Health Connect χρειάζεται προσοχή",
+        "description": "Εγκαταστήστε ή ενημερώστε το Health Connect πριν διαχειριστείτε την πρόσβαση.",
+        "action": "Εγκατάσταση ή ενημέρωση"
       },
       "permissions": {
         "title": "Δικαιώματα",
@@ -580,6 +609,19 @@
       },
       "managePermissions": "Διαχείριση Δικαιωμάτων",
       "openSettings": "Άνοιγμα Ρυθμίσεων Health Connect",
+      "disconnect": "Αποσύνδεση Health Connect",
+      "disconnectConfirmationTitle": "Αποσύνδεση του Health Connect;",
+      "disconnectConfirmationMessage": "Το Calorify θα χάσει την πρόσβαση στο Health Connect. Τα δεδομένα που έχουν ήδη εγγραφεί εκεί δεν θα διαγραφούν.",
+      "disconnectConfirmationAction": "Αποσύνδεση",
+      "deleteSyncedMeals": "Διαγραφή γευμάτων Calorify από το Health Connect",
+      "deleteSyncedMealsConfirmationTitle": "Διαγραφή συγχρονισμένων γευμάτων;",
+      "deleteSyncedMealsConfirmationMessage": "Να διαγραφούν από το Health Connect τα γεύματα που συγχρονίστηκαν από αυτή την έκδοση του Calorify; Το τοπικό αρχείο γευμάτων δεν θα αλλάξει. Οι παλαιότερες καταχωρίσεις του Calorify ίσως χρειαστεί να αφαιρεθούν μέσω της Διαχείρισης δεδομένων στο Health Connect.",
+      "deleteSyncedMealsConfirmationAction": "Διαγραφή συγχρονισμένων γευμάτων",
+      "deleteSyncedMealsSuccess": "Τα γεύματα του Calorify διαγράφηκαν από το Health Connect.",
+      "deleteSyncedMealsFailed": "Δεν ήταν δυνατή η διαγραφή των συγχρονισμένων γευμάτων. Δοκιμάστε ξανά.",
+      "connectionPartial": "Ορισμένες λειτουργίες του Health Connect είναι ενεργοποιημένες.",
+      "connectionComplete": "Και οι δύο λειτουργίες του Health Connect είναι ενεργοποιημένες.",
+      "actionFailed": "Δεν ήταν δυνατό το άνοιγμα του Health Connect. Δοκιμάστε ξανά.",
       "requestPermissions": "Αίτηση Δικαιωμάτων",
       "permissionRequestCancelledOrFailed": "Το αίτημα άδειας ακυρώθηκε ή απέτυχε. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.",
       "permissionRequestFailed": "Αδυναμία αιτήματος αδειών. Παρακαλώ δοκιμάστε ξανά ή δώστε άδειες χειροκίνητα στις ρυθμίσεις του Health Connect.",
@@ -597,6 +639,7 @@
         "description": "Η ιδιωτικότητα δεν είναι μετά -σκέψη — είναι αρχή σχεδιασμού. Αυτό σημαίνει στην πράξη:",
         "noAccounts": "Χωρίς λογαριασμούς\nΧρησιμοποιήστε την εφαρμογή αμέσως. Χωρίς εγγραφές, χωρίς ταυτότητες.",
         "noTracking": "Χωρίς συμπεριφορική παρακολούθηση\nΤο {appLabel} δεν παρακολουθεί τη δραστηριότητά σας, δεν δημιουργεί προφίλ χρήσης ούτε σας παρακολουθεί σε εφαρμογές ή ιστοσελίδες.",
+        "analyticsDisclosure": "Περιορισμένα αναλυτικά στοιχεία και διαγνωστικά\nΤο {appLabel} χρησιμοποιεί βασικά συμβάντα εφαρμογής και διαγνωστικά σφαλμάτων για τη βελτίωση της αξιοπιστίας. Οι τιμές των δεδομένων υγείας δεν χρησιμοποιούνται για διαφημίσεις ούτε πωλούνται.",
         "noAds": "Χωρίς διαφημίσεις εξ ορισμού\nΤο {appLabel} σχεδιάστηκε να λειτουργεί χωρίς διαφημίσεις ή εμπορικοποίηση βασισμένη σε δεδομένα.",
         "noDataSelling": "Δεν πωλούμε δεδομένα\nΤα δεδομένα υγείας σας δεν πωλούνται ούτε κοινοποιούνται σε τρίτους.",
         "localStorage": "Τοπική αποθήκευση ως προτεραιότητα\nΤα δεδομένα σας παραμένουν στη συσκευή σας.",
@@ -616,8 +659,8 @@
       }
     },
     "appInfo": {
-      "version": "Calorify v{version}",
-      "build": "Build {buildNumber}"
+      "version": "Calorify έκδ. {version}",
+      "build": "Έκδοση κατασκευής {buildNumber}"
     }
   },
   "reminders": {
