@@ -93,7 +93,7 @@ class AppThemes {
     required Brightness brightness,
     required ColorScheme colorScheme,
   }) {
-    final buttonShape = RoundedRectangleBorder(borderRadius: buttonRadius);
+    final buttonShape = RoundedSuperellipseBorder(borderRadius: buttonRadius);
     final elevated = ElevatedButton.styleFrom(
       minimumSize: Size(64, appButtonMinHeight),
       padding: appButtonFilledPadding,
@@ -124,7 +124,7 @@ class AppThemes {
       outlinedButtonTheme: OutlinedButtonThemeData(style: outlined),
       textButtonTheme: TextButtonThemeData(style: text),
       popupMenuTheme: PopupMenuThemeData(
-        shape: RoundedRectangleBorder(borderRadius: globalRadius),
+        shape: RoundedSuperellipseBorder(borderRadius: globalRadius),
       ),
     );
   }

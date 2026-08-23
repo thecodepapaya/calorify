@@ -353,7 +353,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         ),
         Card(
           elevation: 0,
-          shape: RoundedRectangleBorder(
+          shape: RoundedSuperellipseBorder(
             borderRadius: BorderRadius.circular(20),
             side: BorderSide(
               color: colorScheme.outlineVariant.withValues(alpha: 0.5),

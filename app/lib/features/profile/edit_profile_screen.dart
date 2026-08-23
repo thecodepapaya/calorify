@@ -324,7 +324,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         ),
         Card(
           elevation: 0,
-          shape: RoundedRectangleBorder(
+          shape: RoundedSuperellipseBorder(
             borderRadius: BorderRadius.circular(_cardBorderRadius),
             side: BorderSide(
               color: colorScheme.outlineVariant.withValues(

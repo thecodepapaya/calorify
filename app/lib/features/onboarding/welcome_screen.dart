@@ -181,7 +181,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           context,
         ).colorScheme.primaryContainer.withValues(alpha: 0.4),
         side: BorderSide.none,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
       ),
     );
   }

@@ -47,11 +47,11 @@ ThemeData buildWatchTheme(ThemeData base) {
         fontSize: 10,
         fontWeight: FontWeight.w600,
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(18)),
       insetPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
     ),
     dialogTheme: base.dialogTheme.copyWith(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(24)),
     ),
   );
 }

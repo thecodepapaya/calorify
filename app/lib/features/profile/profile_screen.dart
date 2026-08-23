@@ -136,7 +136,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ),
         Card(
           elevation: 0,
-          shape: RoundedRectangleBorder(
+          shape: RoundedSuperellipseBorder(
             borderRadius: BorderRadius.circular(20),
             side: BorderSide(
               color: colorScheme.outlineVariant.withValues(alpha: 0.5),

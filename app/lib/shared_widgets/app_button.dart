@@ -97,7 +97,7 @@ class AppButton extends StatelessWidget {
           return baseStyle?.copyWith(color: colorScheme.onPrimary);
         }),
         shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(borderRadius: buttonRadius),
+          RoundedSuperellipseBorder(borderRadius: buttonRadius),
         ),
       ),
       child: Row(
@@ -125,7 +125,7 @@ class AppButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           minimumSize:
               minimumSize ?? const Size(double.infinity, appButtonMinHeight),
-          shape: RoundedRectangleBorder(borderRadius: buttonRadius),
+          shape: RoundedSuperellipseBorder(borderRadius: buttonRadius),
           padding: padding ?? appButtonSecondaryPadding,
         ),
         child: Row(
@@ -155,7 +155,7 @@ class AppButton extends StatelessWidget {
           minimumSize:
               minimumSize ?? const Size(double.infinity, appButtonMinHeight),
           padding: padding ?? appButtonFilledPadding,
-          shape: RoundedRectangleBorder(borderRadius: buttonRadius),
+          shape: RoundedSuperellipseBorder(borderRadius: buttonRadius),
         ),
         child:
             isLoading
@@ -177,7 +177,7 @@ class AppButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         minimumSize: minimumSize ?? const Size(0, appButtonMinHeight),
         padding: padding ?? appButtonOutlinedPadding,
-        shape: RoundedRectangleBorder(borderRadius: buttonRadius),
+        shape: RoundedSuperellipseBorder(borderRadius: buttonRadius),
       ),
       child: _buildCompactContent(iconSize: 18),
     );

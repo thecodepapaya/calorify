@@ -339,7 +339,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
             child: OutlinedButton(
               onPressed: isLoading ? null : onSecondary,
               style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: buttonRadius),
+                shape: RoundedSuperellipseBorder(borderRadius: buttonRadius),
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 side: BorderSide(
                   color: colorScheme.outline.withValues(alpha: 0.6),
@@ -371,7 +371,7 @@ class _FeedbackRatingSheetState extends State<_FeedbackRatingSheet>
             child: ElevatedButton(
               onPressed: isLoading ? null : onPrimary,
               style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(borderRadius: buttonRadius),
+                shape: RoundedSuperellipseBorder(borderRadius: buttonRadius),
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 backgroundColor: colorScheme.primary,
                 foregroundColor: colorScheme.onPrimary,

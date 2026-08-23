@@ -42,6 +42,10 @@ class DebugOptionsScreen extends ConsumerStatefulWidget {
 class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
   String _searchQuery = '';
   bool? _isFeedbackEligible;
+  bool _isCheckingBackendHealth = false;
+  bool? _isBackendHealthy;
+  String? _backendHealthDialogTitle;
+  String? _backendHealthDetails;
 
   bool _matchesQuery(String a, [String? b, String? c]) {
     if (_searchQuery.trim().isEmpty) return true;
@@ -55,6 +59,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
   void initState() {
     super.initState();
     _loadFeedbackEligibility();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkBackendHealth());
   }
 
   Future<void> _loadFeedbackEligibility() async {
@@ -91,6 +96,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final backendOptions = _buildBackendOptions(context);
     final notificationOptions = _buildNotificationOptions(context);
     final userIdentityOptions = _buildUserIdentityOptions(context);
     final healthConnectOptions = _buildHealthConnectOptions(context);
@@ -136,6 +142,11 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
                 onChanged: (value) => setState(() => _searchQuery = value),
               ),
             ),
+            if (backendOptions != null) ...[
+              _buildSectionTitle(context, 'Backend'),
+              backendOptions,
+              const SizedBox(height: 24),
+            ],
             if (userIdentityOptions != null) ...[
               _buildSectionTitle(context, 'User identity'),
               userIdentityOptions,
@@ -215,6 +226,112 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
         ),
       ),
     );
+  }
+
+  Widget? _buildBackendOptions(BuildContext context) {
+    const section = 'Backend';
+    const title = 'Check backend health';
+    final subtitle =
+        Uri.parse(NetworkClient.instance.client.options.baseUrl).host;
+    if (!_matchesQuery(section, title, subtitle)) return null;
+    final statusColor = switch (_isBackendHealthy) {
+      true => Colors.green,
+      false => Theme.of(context).colorScheme.error,
+      null => Theme.of(context).colorScheme.outline,
+    };
+
+    return Card(
+      child: ListTile(
+        leading: Icon(LucideIcons.heartPulse, color: statusColor),
+        title: const Text(title),
+        subtitle: Text(subtitle),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 9,
+              height: 9,
+              decoration: BoxDecoration(
+                color: statusColor,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 4),
+            IconButton(
+              tooltip: 'Refresh backend health',
+              onPressed:
+                  _isCheckingBackendHealth
+                      ? null
+                      : () => _checkBackendHealth(showDialog: true),
+              icon:
+                  _isCheckingBackendHealth
+                      ? const SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                      : const Icon(LucideIcons.refreshCw, size: 18),
+            ),
+          ],
+        ),
+        onTap: _showCurrentBackendHealth,
+      ),
+    );
+  }
+
+  void _showCurrentBackendHealth() {
+    _showDataDialog(
+      _backendHealthDialogTitle ?? 'Checking backend health',
+      _backendHealthDetails ?? 'Waiting for the backend to respond.',
+    );
+  }
+
+  Future<void> _checkBackendHealth({bool showDialog = false}) async {
+    if (_isCheckingBackendHealth || !mounted) return;
+    setState(() => _isCheckingBackendHealth = true);
+    final stopwatch = Stopwatch()..start();
+    final client = NetworkClient.instance.client;
+    late final bool isHealthy;
+    late final String dialogTitle;
+    late final String details;
+
+    try {
+      final response = await client.get<Object?>('/');
+      stopwatch.stop();
+      isHealthy = true;
+      dialogTitle = 'Backend is healthy';
+      details =
+          'URL: ${response.realUri}\n'
+          'Status: ${response.statusCode ?? 'Unknown'}\n'
+          'Response time: ${stopwatch.elapsedMilliseconds} ms';
+    } on DioException catch (error) {
+      stopwatch.stop();
+      final status = error.response?.statusCode;
+      isHealthy = false;
+      dialogTitle = 'Backend health check failed';
+      details =
+          'URL: ${error.requestOptions.uri}\n'
+          'Status: ${status?.toString() ?? 'No response'}\n'
+          'Response time: ${stopwatch.elapsedMilliseconds} ms\n'
+          'Error: ${error.message ?? error.type.name}';
+    } catch (error) {
+      stopwatch.stop();
+      isHealthy = false;
+      dialogTitle = 'Backend health check failed';
+      details =
+          'URL: ${client.options.baseUrl}/\n'
+          'Status: No response\n'
+          'Response time: ${stopwatch.elapsedMilliseconds} ms\n'
+          'Error: $error';
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _isCheckingBackendHealth = false;
+      _isBackendHealthy = isHealthy;
+      _backendHealthDialogTitle = dialogTitle;
+      _backendHealthDetails = details;
+    });
+    if (showDialog) _showDataDialog(dialogTitle, details);
   }
 
   Widget? _buildUserIdentityOptions(BuildContext context) {

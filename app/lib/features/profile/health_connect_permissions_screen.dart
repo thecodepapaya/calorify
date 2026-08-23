@@ -547,7 +547,7 @@ class _HealthConnectPermissionsScreenState
 
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(
+      shape: RoundedSuperellipseBorder(
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(
           color:
@@ -755,7 +755,7 @@ class _HealthConnectPermissionsScreenState
                 onPressed: onPressed,
                 style: FilledButton.styleFrom(
                   padding: appButtonOutlinedPadding,
-                  shape: RoundedRectangleBorder(
+                  shape: RoundedSuperellipseBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
@@ -766,7 +766,7 @@ class _HealthConnectPermissionsScreenState
                 style: OutlinedButton.styleFrom(
                   foregroundColor: isDestructive ? colorScheme.error : null,
                   padding: appButtonOutlinedPadding,
-                  shape: RoundedRectangleBorder(
+                  shape: RoundedSuperellipseBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),

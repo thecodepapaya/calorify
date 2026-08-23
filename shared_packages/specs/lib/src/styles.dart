@@ -30,7 +30,7 @@ const EdgeInsets appButtonCompactPadding = EdgeInsets.symmetric(
   vertical: 6,
 );
 
-final globalRadius = BorderRadius.circular(12);
+final globalRadius = BorderRadius.circular(20);
 final buttonRadius = BorderRadius.circular(100);
 final globalMargin = EdgeInsets.symmetric(horizontal: 12);
 final globalSheetPadding = EdgeInsets.symmetric(horizontal: 16);

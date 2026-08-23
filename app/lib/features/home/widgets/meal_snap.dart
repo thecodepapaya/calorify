@@ -222,7 +222,7 @@ class _MealSnapState extends State<MealSnap> {
       style: OutlinedButton.styleFrom(
         padding: appButtonOutlinedPadding,
         side: BorderSide(color: colorScheme.outline),
-        shape: RoundedRectangleBorder(borderRadius: buttonRadius),
+        shape: RoundedSuperellipseBorder(borderRadius: buttonRadius),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

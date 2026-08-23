@@ -141,7 +141,7 @@ class AboutScreen extends StatelessWidget {
 
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(
+      shape: RoundedSuperellipseBorder(
         borderRadius: BorderRadius.circular(20),
         side: BorderSide(
           color: colorScheme.outlineVariant.withValues(alpha: 0.5),
@@ -426,7 +426,9 @@ class AboutScreen extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         minimumSize: Size(double.infinity, appButtonMinHeight),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         side: BorderSide(
           color: colorScheme.outlineVariant.withValues(alpha: 0.5),
         ),

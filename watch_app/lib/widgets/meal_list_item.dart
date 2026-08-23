@@ -64,7 +64,7 @@ class _MealListItemState extends State<MealListItem>
       builder:
           (_) => AlertDialog(
             backgroundColor: colorScheme.surface,
-            shape: RoundedRectangleBorder(
+            shape: RoundedSuperellipseBorder(
               borderRadius: BorderRadius.circular(16),
             ),
             contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
