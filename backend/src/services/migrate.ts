@@ -190,6 +190,10 @@ export async function runMigrations(options: RunMigrationsOptions = {}): Promise
           await runTransactionalMigration(client, file, sql, checksum);
         }
       } catch (error) {
+        console.error('Migration execution failed:', {
+          migration: file,
+          ...safeErrorMetadata(error, 'migration_failed'),
+        });
         throw new Error(
           `${file}: ${error instanceof Error ? error.message : String(error)}`
         );

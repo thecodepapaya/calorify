@@ -4,6 +4,7 @@ import { safeErrorKind, safeErrorMetadata } from './safeError.js';
 
 test('safeErrorKind exposes only allow-listed codes and bounded statuses', () => {
   assert.equal(safeErrorKind({ code: 'ETIMEDOUT' }), 'timeout');
+  assert.equal(safeErrorKind({ code: '22007' }), 'database_invalid_datetime');
   assert.equal(safeErrorKind({ status: 429 }), 'http_429');
   assert.deepEqual(
     safeErrorMetadata({ statusCode: 503 }, 'provider_error'),

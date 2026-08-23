@@ -1,4 +1,9 @@
 const SAFE_ERROR_CODES: Readonly<Record<string, string>> = {
+  '0A000': 'database_feature_not_supported',
+  '22007': 'database_invalid_datetime',
+  '42501': 'database_insufficient_privilege',
+  '42804': 'database_datatype_mismatch',
+  '42P01': 'database_undefined_table',
   ABORT_ERR: 'aborted',
   ECONNABORTED: 'connection_aborted',
   ECONNREFUSED: 'connection_refused',
