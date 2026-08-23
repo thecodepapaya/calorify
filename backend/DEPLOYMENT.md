@@ -49,9 +49,8 @@ the workflow's short-lived, package-read `GITHUB_TOKEN` through SSH on standard
 input. The deployment script uses an isolated Docker credential directory and
 removes it when the deployment finishes.
 
-The published image currently targets `linux/amd64`. Confirm each VM reports an
-x86-64 architecture (`uname -m` normally prints `x86_64`) before the first
-deployment. Add an ARM64 build target before deploying to an ARM VM.
+The published image supports both `linux/amd64` and `linux/arm64`, so the same
+commit-specific tag can be deployed to either VM architecture.
 
 ## Releasing
 
