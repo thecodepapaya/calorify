@@ -13,5 +13,6 @@ fi
 umask 077
 install -d -o node -g node -m 0700 "$credential_directory"
 install -o node -g node -m 0400 "$credential_source" "$credential_target"
+export FIREBASE_SERVICE_ACCOUNT_PATH="$credential_target"
 
 exec gosu node "$@"

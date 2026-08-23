@@ -9,12 +9,16 @@ case "$deployment_environment" in
     profile="production"
     service="backend-prod"
     container_name="calorify-backend-prod"
+    database_container_name="calorify-db-prod"
+    database_name="calorify_prod"
     runtime_env_file="production.env"
     ;;
   staging)
     profile="staging"
     service="backend-staging"
     container_name="calorify-backend-staging"
+    database_container_name="calorify-db-staging"
+    database_name="calorify_staging"
     runtime_env_file="staging.env"
     ;;
   *)
@@ -23,10 +27,20 @@ case "$deployment_environment" in
     ;;
 esac
 
-if [[ ! "$image_ref" =~ ^ghcr\.io/[a-z0-9][a-z0-9._-]*/calorify-backend:sha-[0-9a-f]{40}$ ]]; then
-  echo "Image must be a Calorify GHCR image with a full commit-specific tag (sha- plus 40 lowercase hex characters)" >&2
-  exit 2
-fi
+case "$deployment_environment" in
+  production)
+    if [[ ! "$image_ref" =~ ^ghcr\.io/[a-z0-9][a-z0-9._-]*/calorify-backend:sha-[0-9a-f]{40}$ ]]; then
+      echo "Production requires a Calorify GHCR image tagged with sha- plus 40 lowercase hex characters" >&2
+      exit 2
+    fi
+    ;;
+  staging)
+    if [[ ! "$image_ref" =~ ^ghcr\.io/[a-z0-9][a-z0-9._-]*/calorify-backend:latest$ ]]; then
+      echo "Staging requires the Calorify GHCR latest tag" >&2
+      exit 2
+    fi
+    ;;
+esac
 
 backend_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$backend_dir"
@@ -63,6 +77,9 @@ run_docker() {
     if [[ -n "${BACKEND_IMAGE:-}" ]]; then
       environment_args+=("BACKEND_IMAGE=$BACKEND_IMAGE")
     fi
+    if [[ -n "${FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE:-}" ]]; then
+      environment_args+=("FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE=$FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE")
+    fi
     sudo -n "${environment_args[@]}" docker "$@"
   else
     docker "$@"
@@ -80,6 +97,11 @@ show_container_diagnostics() {
     "$container_name" >&2 || true
   echo "Recent application logs:" >&2
   run_docker logs --tail 120 "$container_name" >&2 || true
+  echo "Recorded database migrations (checksum_set does not expose checksum values):" >&2
+  run_docker exec "$database_container_name" psql \
+    --username calorify --dbname "$database_name" --tuples-only --no-align \
+    --command "SELECT name, checksum IS NOT NULL AS checksum_set FROM schema_migrations ORDER BY name" \
+    >&2 || true
 }
 
 wait_for_readiness() {
@@ -119,24 +141,31 @@ fi
 
 export BACKEND_IMAGE="$image_ref"
 run_docker compose --profile "$profile" config --quiet
-run_docker pull "$image_ref"
 
-previous_image="$(
-  run_docker container inspect --format '{{.Config.Image}}' "$container_name" 2>/dev/null || true
+previous_image_id="$(
+  run_docker container inspect --format '{{.Image}}' "$container_name" 2>/dev/null || true
 )"
+rollback_image="calorify-backend-$deployment_environment:rollback"
+if [[ -n "$previous_image_id" ]]; then
+  run_docker image tag "$previous_image_id" "$rollback_image"
+fi
+
+run_docker pull "$image_ref"
 
 if run_docker compose --profile "$profile" up \
   -d --no-build --force-recreate --wait --wait-timeout 180 "$service" \
   && wait_for_readiness; then
   echo "Calorify $deployment_environment backend deployed successfully: $image_ref"
+  run_docker image prune --force >/dev/null
   exit 0
 fi
 
 echo "Calorify $deployment_environment deployment failed health checks" >&2
 show_container_diagnostics
-if [[ -n "$previous_image" && "$previous_image" != "$image_ref" ]]; then
-  echo "Restoring the previous backend image: $previous_image" >&2
-  export BACKEND_IMAGE="$previous_image"
+if [[ -n "$previous_image_id" ]]; then
+  echo "Restoring the previous backend image: $rollback_image" >&2
+  export BACKEND_IMAGE="$rollback_image"
+  export FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE="/app/firebase-service-account.json"
   if run_docker compose --profile "$profile" up \
     -d --no-build --force-recreate --wait --wait-timeout 180 "$service"; then
     echo "Rollback completed successfully" >&2

@@ -5,10 +5,11 @@ The backend uses one build-once, deploy-many container flow:
 1. A backend-related push to `main` runs all backend checks.
 2. GitHub Actions builds the Dockerfile's `production` target.
 3. The image is published to GitHub Container Registry with both
-   `sha-<full-commit-sha>` and the moving convenience tag `main`.
-4. A manual staging or production workflow deploys an explicitly selected
+   `sha-<full-commit-sha>` and the moving tag `latest`.
+4. The same workflow automatically deploys `latest` to staging.
+5. Production is deployed manually with an explicitly selected immutable
    `sha-<full-commit-sha>` tag.
-5. The VM pulls that image, starts it with Docker Compose, waits for readiness,
+6. The VM pulls that image, starts it with Docker Compose, waits for readiness,
    and restores the previously running image if readiness fails.
 
 Staging and production run the same image on the same VM. Their runtime
@@ -25,7 +26,7 @@ workflows use it because both targets share one VM. It contains these secrets:
 - `CALORIFY_SSH_USER`
 - `CALORIFY_SSH_PRIVATE_KEY`
 - `CALORIFY_SSH_KNOWN_HOSTS`
-- `CALORIFY_DEPLOY_PATH` (repository root on the VM)
+- `CALORIFY_DEPLOY_PATH` (parent of the VM's `backend` runtime directory)
 
 The environment permits only the `main` branch. Configure required reviewers if
 the repository's GitHub plan supports them and deployment approval is desired.
@@ -36,13 +37,16 @@ package; no separate registry token is needed inside Actions.
 
 The deployment user needs:
 
-- access to the repository checkout at `CALORIFY_DEPLOY_PATH`;
 - direct Docker access, or passwordless `sudo docker` access;
 - Docker Compose v2;
 - `backend/.env` with the Compose database and logging values;
 - `backend/staging.env` or `backend/production.env` as applicable;
 - `backend/firebase-adminsdk.json`;
 - outbound HTTPS access to `ghcr.io`.
+
+The VM does not need a Git checkout. Each deployment copies only the Compose
+file and deployment scripts into `CALORIFY_DEPLOY_PATH/backend`; runtime env
+files and credentials remain on the VM.
 
 No permanent registry credential is stored on the VM. Each deployment sends
 the workflow's short-lived, package-read `GITHUB_TOKEN` through SSH on standard
@@ -54,14 +58,10 @@ commit-specific tag can be deployed to either VM architecture.
 
 ## Releasing
 
-After the `Publish backend container` workflow succeeds, copy the deploy tag
-from its workflow summary. Run `Deploy backend to staging` with that exact tag.
-After staging verification, run `Deploy backend to production` with the same
-tag.
-
-The `main` image tag is intentionally not accepted by deployment scripts. It is
-useful for inspection only; release deployments must identify a specific source
-commit.
+Every successful `Publish backend container` run deploys `latest` to staging.
+After staging verification, run `Deploy backend to production` with the exact
+`sha-<full-commit-sha>` tag shown in the publish summary. Production rejects
+moving tags.
 
 ## Rollbacks and migrations
 

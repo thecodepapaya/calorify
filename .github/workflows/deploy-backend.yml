@@ -24,6 +24,9 @@ jobs:
     environment: production
     timeout-minutes: 15
     steps:
+      - name: Checkout deployment files
+        uses: actions/checkout@v6
+
       - name: Validate published image
         id: image
         env:
@@ -72,15 +75,19 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/calorify_deploy_key
           printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/calorify_deploy_key
-          chmod 600 ~/.ssh/known_hosts
-          printf -v deploy_path_q '%q' "$DEPLOY_PATH"
+          chmod 600 ~/.ssh/calorify_deploy_key ~/.ssh/known_hosts
+          printf -v backend_path_q '%q' "$DEPLOY_PATH/backend"
           printf -v image_q '%q' "$IMAGE"
           printf -v ghcr_username_q '%q' "$GHCR_USERNAME"
-          ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
-            "$SSH_USER@$SSH_HOST" \
-            "cd $deploy_path_q && git fetch origin main && git switch main && git pull --ff-only origin main"
+          tar -C backend -cf - \
+            docker-compose.yml \
+            scripts/deploy-container.sh \
+            scripts/deploy-production.sh \
+            scripts/deploy-staging.sh | \
+            ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
+              "$SSH_USER@$SSH_HOST" \
+              "install -d -m 0755 $backend_path_q/scripts && tar -xf - -C $backend_path_q"
           printf '%s\n' "$GHCR_TOKEN" | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
               "$SSH_USER@$SSH_HOST" \
-              "cd $deploy_path_q && GHCR_USERNAME=$ghcr_username_q ./backend/scripts/deploy-production.sh $image_q"
+              "cd $backend_path_q && GHCR_USERNAME=$ghcr_username_q ./scripts/deploy-production.sh $image_q"

@@ -6,6 +6,7 @@ on:
     paths:
       - "backend/.dockerignore"
       - "backend/Dockerfile"
+      - "backend/docker-compose.yml"
       - "backend/docker-entrypoint.sh"
       - "backend/package.json"
       - "backend/package-lock.json"
@@ -13,6 +14,8 @@ on:
       - "backend/src/**"
       - "backend/migrations/**"
       - "backend/data/meal_analysis_tips.json"
+      - "backend/scripts/deploy-container.sh"
+      - "backend/scripts/deploy-staging.sh"
       - "protos/**"
       - ".github/workflows/backend-checks.yml"
       - ".github/workflows/publish-backend.yml"
@@ -57,7 +60,7 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/calorify-backend
           tags: |
             type=sha,format=long,prefix=sha-
-            type=raw,value=main
+            type=raw,value=latest
           labels: |
             org.opencontainers.image.title=Calorify Backend
             org.opencontainers.image.description=Calorify API backend
@@ -88,3 +91,51 @@ jobs:
             printf -- '- Deploy tag: `%s:sha-%s`\n' "${IMAGE_REPOSITORY,,}" "$GITHUB_SHA"
             printf -- '- Digest: `%s`\n' "$IMAGE_DIGEST"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy-staging:
+    needs: publish
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - name: Checkout deployment files
+        uses: actions/checkout@v6
+
+      - name: Deploy latest image to staging
+        env:
+          SSH_HOST: ${{ secrets.CALORIFY_SSH_HOST }}
+          SSH_PORT: ${{ secrets.CALORIFY_SSH_PORT }}
+          SSH_USER: ${{ secrets.CALORIFY_SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.CALORIFY_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.CALORIFY_SSH_KNOWN_HOSTS }}
+          DEPLOY_PATH: ${{ secrets.CALORIFY_DEPLOY_PATH }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_USERNAME: ${{ github.actor }}
+          IMAGE: ghcr.io/${{ github.repository_owner }}/calorify-backend:latest
+        run: |
+          set -euo pipefail
+          : "${SSH_HOST:?Missing CALORIFY_SSH_HOST}"
+          : "${SSH_USER:?Missing CALORIFY_SSH_USER}"
+          : "${SSH_PRIVATE_KEY:?Missing CALORIFY_SSH_PRIVATE_KEY}"
+          : "${SSH_KNOWN_HOSTS:?Missing CALORIFY_SSH_KNOWN_HOSTS}"
+          : "${DEPLOY_PATH:?Missing CALORIFY_DEPLOY_PATH}"
+          SSH_PORT="${SSH_PORT:-22}"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/calorify_deploy_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/calorify_deploy_key ~/.ssh/known_hosts
+          printf -v backend_path_q '%q' "$DEPLOY_PATH/backend"
+          printf -v image_q '%q' "${IMAGE,,}"
+          printf -v ghcr_username_q '%q' "$GHCR_USERNAME"
+          tar -C backend -cf - \
+            docker-compose.yml \
+            scripts/deploy-container.sh \
+            scripts/deploy-production.sh \
+            scripts/deploy-staging.sh | \
+            ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
+              "$SSH_USER@$SSH_HOST" \
+              "install -d -m 0755 $backend_path_q/scripts && tar -xf - -C $backend_path_q"
+          printf '%s\n' "$GHCR_TOKEN" | \
+            ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
+              "$SSH_USER@$SSH_HOST" \
+              "cd $backend_path_q && GHCR_USERNAME=$ghcr_username_q ./scripts/deploy-staging.sh $image_q"

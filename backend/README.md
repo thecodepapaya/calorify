@@ -87,10 +87,10 @@ docker compose --profile production up -d --build
 
 Local Compose builds remain available for development and infrastructure
 rehearsal. Staging and production releases use the same CI-built production
-image: pushes to `main` publish a commit-specific tag to GHCR, then separate
-manual workflows deploy that exact tag to staging or production. The deployment
-scripts pull the selected image, wait for readiness, and restore the previously
-running image if startup fails.
+image: pushes to `main` publish `latest` plus a commit-specific tag to GHCR and
+automatically deploy `latest` to staging. Production is a manual deployment of
+the selected commit-specific tag. The VM does not pull source code; Actions copy
+only the small deployment files before pulling the image.
 
 See [`DEPLOYMENT.md`](DEPLOYMENT.md) for GitHub environment secrets, one-time VM
 setup, release steps, and rollback constraints.
