@@ -1,6 +1,6 @@
-# Screenshots Directory
+# Screenshots directory
 
-Place your app screenshots here with the following filenames:
+Place app screenshots here with these filenames:
 
 - `hero-home.png` - Hero section home screen
 - `ai-analysis.png` - AI Analysis feature screenshot
@@ -8,5 +8,5 @@ Place your app screenshots here with the following filenames:
 - `health-connect.png` - Health Connect feature screenshot
 - `global-ready.png` - Global Ready/Settings screenshot
 
-See `IMAGE_GUIDELINES.md` in the web directory for detailed specifications.
-
+See [`../../IMAGE_GUIDELINES.md`](../../IMAGE_GUIDELINES.md) for dimensions, format,
+content, and capture guidance.

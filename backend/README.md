@@ -94,6 +94,8 @@ the shared USDA database, observability, rollback, and storage maintenance.
 - `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
 - `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
 - `DEPLOYMENT.md` — Loki/Grafana runtime and troubleshooting commands.
+- [`docs/README.md`](docs/README.md) — backend design notes, release evidence,
+  metrics, and evaluation references.
 
 ## Contracts
 

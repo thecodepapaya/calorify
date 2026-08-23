@@ -37,6 +37,7 @@ Add your local backend settings to `backend/.env`, then follow the setup notes i
 
 ## Learn more
 
+- [Documentation index](docs/README.md)
 - [Backend setup and development](backend/README.md)
 - [Backend deployment and operations](backend/DEPLOYMENT.md)
 - [Security guidance](SECURITY.md)
