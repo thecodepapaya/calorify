@@ -19,12 +19,12 @@ sequences live in reusable workflows or local composite actions.
 | `Android / Promote Play release` | Manual | Promote a tested Google Play release between tracks. |
 | `Android / Shorebird patch` | Manual | Patch an explicitly selected Shorebird release. |
 
-`Reusable / Backend deployment` is called by both backend entry workflows. It
-serializes staging and production deployment because they share one VM and one
-runtime configuration directory.
-
 ## Shared actions
 
+- [`actions/deploy-backend/action.yml`](actions/deploy-backend/action.yml) owns
+  image validation, GHCR authentication, and VM deployment for both backend
+  targets. The caller jobs retain the `production` environment so its secrets
+  are resolved before entering the action.
 - [`actions/verify-phone/action.yml`](actions/verify-phone/action.yml) is the
   canonical phone translation, analysis, test, and coverage sequence.
 - [`actions/prepare-android-release/action.yml`](actions/prepare-android-release/action.yml)

@@ -71,9 +71,10 @@ credentials remain on the VM and are never copied back to GitHub.
 
 ## GitHub configuration
 
-The shared deployment workflow uses the GitHub deployment environment named
-`production` for both targets because they use the same VM. It permits only
-`main` and contains:
+Both deployment jobs use the GitHub deployment environment named `production`
+because both targets use the same VM. They share one local deployment action,
+and the environment secrets are resolved in each calling job. The environment
+permits only `main` and contains:
 
 - `CALORIFY_SSH_HOST`
 - `CALORIFY_SSH_PORT` (optional; defaults to `22`)

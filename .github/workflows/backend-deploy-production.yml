@@ -17,7 +17,26 @@ permissions:
 jobs:
   deploy-production:
     name: Deploy production
-    uses: ./.github/workflows/backend-deploy.yml
-    with:
-      target: production
-      image_tag: ${{ inputs.image_tag }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 40
+    concurrency:
+      group: calorify-backend-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Check out deployment files
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Deploy production
+        uses: ./.github/actions/deploy-backend
+        with:
+          target: production
+          image-tag: ${{ inputs.image_tag }}
+          ssh-host: ${{ secrets.CALORIFY_SSH_HOST }}
+          ssh-port: ${{ secrets.CALORIFY_SSH_PORT }}
+          ssh-user: ${{ secrets.CALORIFY_SSH_USER }}
+          ssh-private-key: ${{ secrets.CALORIFY_SSH_PRIVATE_KEY }}
+          ssh-known-hosts: ${{ secrets.CALORIFY_SSH_KNOWN_HOSTS }}
+          deploy-path: ${{ secrets.CALORIFY_DEPLOY_PATH }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
