@@ -81,9 +81,6 @@ run_docker() {
     if [[ -n "${BACKEND_IMAGE:-}" ]]; then
       environment_args+=("BACKEND_IMAGE=$BACKEND_IMAGE")
     fi
-    if [[ -n "${FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE:-}" ]]; then
-      environment_args+=("FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE=$FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE")
-    fi
     sudo -n "${environment_args[@]}" docker "$@"
   else
     docker "$@"
@@ -172,7 +169,6 @@ show_container_diagnostics
 if [[ -n "$previous_image_id" ]]; then
   echo "Restoring the previous backend image: $rollback_image" >&2
   export BACKEND_IMAGE="$rollback_image"
-  export FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE="/app/firebase-service-account.json"
   if run_docker compose --profile "$profile" up \
     -d --no-build --force-recreate --wait --wait-timeout 180 "$service"; then
     echo "Rollback completed successfully" >&2

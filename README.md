@@ -99,7 +99,9 @@ See [SECURITY.md](SECURITY.md) for reporting and credential-response guidance.
 
 ## Deployment
 
-Pushes affecting `backend/` on `main` run backend checks and the production deployment workflow. VM connection data is stored as GitHub environment secrets; runtime secrets stay in ignored files on the host. The deployment script waits for container health checks and rolls back the backend image on failure.
+Backend releases, VM configuration, the staging/production topology, shared USDA
+database operations, observability, rollback, and storage maintenance are
+documented only in [backend/DEPLOYMENT.md](backend/DEPLOYMENT.md).
 
 The phone and Shorebird workflows are manually dispatched and read signing credentials from GitHub Actions secrets. New phone bundles go to the internal track; after device testing, `promote-app.yml` promotes a specified existing version code without rebuilding it.
 

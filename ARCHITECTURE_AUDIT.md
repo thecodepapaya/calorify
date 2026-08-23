@@ -408,14 +408,13 @@ counted as open code remediations.
   restrict backups, WAL archives, replicas, and historical logs that can still
   contain the old signed image URLs; a live-table migration cannot revoke or
   erase copied credentials.
-- [ ] **Verify production secret-file permissions.** The production container
-  now runs as the non-root `node` user, so the bind-mounted Firebase service
-  account must be readable by that UID without becoming broadly readable on
-  the host.
-- [ ] **Run the container and migration rehearsal in deployment infrastructure.**
-  Compose configuration is valid and CI now builds the image, but this machine
-  has neither a Docker daemon nor PostgreSQL tools. Rehearse all migrations on
-  a recent staging snapshot before production deployment.
+- [x] **Verify production secret-file permissions.** The read-only Firebase
+  mount is copied to a private in-container path before the entrypoint drops to
+  the non-root `node` user.
+- [x] **Run the container and migration rehearsal in deployment infrastructure.**
+  CI builds the production image, staging deploys it automatically, production
+  uses an immutable tag, and the shared USDA migration was verified on the live
+  VM before duplicate app-database data was removed.
 - [ ] **Review and approve golden-image changes.** Functional unit/widget tests
   are green, but visual baselines should be reapproved by design rather than
   automatically overwritten during an architectural cleanup.

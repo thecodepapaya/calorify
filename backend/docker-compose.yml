@@ -1,7 +1,6 @@
 services:
   # --- LOGGING INFRASTRUCTURE (shared across environments) ---
-  # Note: Logging services have no profiles - they're always available
-  # Start them separately: docker-compose up -d loki grafana promtail
+  # Logging services have no profiles and are shared by both API environments.
   loki:
     image: grafana/loki:2.9.2
     container_name: calorify-loki
@@ -101,9 +100,6 @@ services:
       - calorify-network
 
   backend-prod:
-    build:
-      context: .
-      target: production
     image: ${BACKEND_IMAGE:-calorify-backend-prod:local}
     container_name: calorify-backend-prod
     restart: always
@@ -115,11 +111,9 @@ services:
     environment:
       - NODE_ENV=production
       - LOKI_URL=http://loki:3100
-      - FIREBASE_SERVICE_ACCOUNT_PATH=${FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE:-/app/runtime-secrets/firebase-service-account.json}
       - USDA_DATABASE_URL=postgresql://calorify_usda_reader:${USDA_READER_PASSWORD:?Set USDA_READER_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
     volumes:
       - ./firebase-adminsdk.json:/run/secrets/firebase-service-account.json:ro
-      - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
@@ -159,9 +153,6 @@ services:
       - calorify-network
 
   backend-staging:
-    build:
-      context: .
-      target: production
     image: ${BACKEND_IMAGE:-calorify-backend-staging:local}
     container_name: calorify-backend-staging
     restart: always
@@ -173,11 +164,9 @@ services:
     environment:
       - NODE_ENV=staging
       - LOKI_URL=http://loki:3100
-      - FIREBASE_SERVICE_ACCOUNT_PATH=${FIREBASE_SERVICE_ACCOUNT_PATH_OVERRIDE:-/app/runtime-secrets/firebase-service-account.json}
       - USDA_DATABASE_URL=postgresql://calorify_usda_reader:${USDA_READER_PASSWORD:?Set USDA_READER_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
     volumes:
       - ./firebase-adminsdk.json:/run/secrets/firebase-service-account.json:ro
-      - ./firebase-adminsdk.json:/app/firebase-service-account.json:ro
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:8000/health', (r) => { process.exit(r.statusCode === 200 ? 0 : 1) })"]
       interval: 10s
@@ -198,14 +187,12 @@ services:
   # API containers never receive these owner credentials.
   usda-maintenance:
     image: ${BACKEND_IMAGE:-calorify-backend-prod:local}
-    container_name: calorify-usda-maintenance
     profiles: ["maintenance"]
+    user: node
+    entrypoint: []
     command: ["node", "dist/scripts/usda-bootstrap.js"]
     environment:
-      - DATABASE_URL=postgresql://calorify_usda_owner:${POSTGRES_USDA_PASSWORD:?Set POSTGRES_USDA_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
       - USDA_DATABASE_URL=postgresql://calorify_usda_owner:${POSTGRES_USDA_PASSWORD:?Set POSTGRES_USDA_PASSWORD in backend/.env}@db-usda:5432/calorify_usda
-    volumes:
-      - ./firebase-adminsdk.json:/run/secrets/firebase-service-account.json:ro
     depends_on:
       db-usda:
         condition: service_healthy

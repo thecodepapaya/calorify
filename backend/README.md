@@ -65,7 +65,7 @@ USDA FoodData Central CSV data is imported into a shared PostgreSQL reference da
 
 The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
 
-The API reports ready only when PostgreSQL is reachable and one active USDA dataset has been fully materialized. A new deployment with no usable dataset therefore remains out of load-balancer rotation until bootstrap completes; an atomic refresh keeps the previous active dataset usable until the replacement is complete.
+The API reports ready only when its application database and the shared USDA database are reachable and one active USDA dataset has been fully materialized. A missing dataset is restored through the maintenance container; ordinary API startup never imports USDA data. An atomic refresh keeps the previous active dataset usable until the replacement is complete.
 
 ## Configuration
 
@@ -73,31 +73,17 @@ The API reports ready only when PostgreSQL is reachable and one active USDA data
 
 - Never commit `.env`, `production.env`, `staging.env`, service accounts, signing keys, or pre-authenticated URLs.
 - Keep `POSTGRES_PROD_PASSWORD` and `POSTGRES_STAGING_PASSWORD` consistent with their environment-specific `DATABASE_URL` values.
+- Keep the USDA owner and reader passwords in the VM's ignored Compose environment only; API containers receive the reader URL, never the owner URL.
 - `DEBUG` must be `false` in production.
 - `ORACLE_BUCKET_DOWNLOAD_URL` is a bearer credential and is required in production.
 - Request and response bodies are never written to application logs because payloads contain health data.
 - After deploying the legacy image-URL scrub migration, rotate the Oracle pre-authenticated request; application migrations cannot remove the old credential from existing backups or archived WAL.
 
-## Docker and deployment
+## Deployment and operations
 
-```bash
-docker compose --profile staging up -d --build
-docker compose --profile production up -d --build
-```
-
-Local Compose builds remain available for development and infrastructure
-rehearsal. Staging and production releases use the same CI-built production
-image: pushes to `main` publish `latest` plus a commit-specific tag to GHCR and
-automatically deploy `latest` to staging. Production is a manual deployment of
-the selected commit-specific tag. The VM does not pull source code; Actions copy
-only the small deployment files before pulling the image.
-
-See [`DEPLOYMENT.md`](DEPLOYMENT.md) for GitHub environment secrets, one-time VM
-setup, release steps, and rollback constraints.
-
-Required GitHub deployment secrets and VM prerequisites are listed in
-[`DEPLOYMENT.md`](DEPLOYMENT.md). Runtime application secrets remain on the host
-in ignored env files.
+[`DEPLOYMENT.md`](DEPLOYMENT.md) is the single backend runbook. It covers the
+GHCR release flow, VM runtime contract, Compose services, staging and production,
+the shared USDA database, observability, rollback, and storage maintenance.
 
 ## Observability
 
@@ -107,7 +93,7 @@ in ignored env files.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
 - `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
-- `loki/README.md` — local Loki/Grafana setup.
+- `DEPLOYMENT.md` — Loki/Grafana runtime and troubleshooting commands.
 
 ## Contracts
 

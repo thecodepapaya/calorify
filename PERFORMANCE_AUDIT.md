@@ -128,9 +128,12 @@ Production Measure configuration samples all error-free sessions, journeys, and 
 
 HTTP and AI metrics exist, but PostgreSQL query duration, pool wait time, active/idle connections, migration duration, and cron workload size are not exposed. Instrument named query classes rather than raw SQL, add pool saturation gauges, and alert on wait time and slow-query percentiles. Validate proposed indexes using production-like `EXPLAIN (ANALYZE, BUFFERS)` rather than index count alone.
 
-#### 13. Build a production-only backend image
+#### 13. Production-only backend image — completed
 
-The current Docker image installs build tools and dev dependencies and is also reused for staging hot reload. Create separate multi-stage targets: a development target for staging and a runtime target containing compiled output, production dependencies, migrations, and required data only. This primarily improves image transfer, deploy/restart time, storage, and attack surface rather than request latency.
+The backend now uses a multi-stage production target containing compiled output,
+production dependencies, migrations, and required runtime data only. GitHub
+builds it once for ARM64 and AMD64; staging and production pull the same image
+instead of building or hot-reloading source on the VM.
 
 ### P3 — monitor; optimize only with evidence
 

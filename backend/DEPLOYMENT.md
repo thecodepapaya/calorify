@@ -1,92 +1,155 @@
-# Backend container deployment
+# Backend deployment and operations
 
-The backend uses one build-once, deploy-many container flow:
+This is the canonical runbook for the Calorify backend deployment. Other
+READMEs link here instead of duplicating release or VM instructions.
 
-1. A backend-related push to `main` runs all backend checks.
-2. GitHub Actions builds the Dockerfile's `production` target.
-3. The image is published to GitHub Container Registry with both
-   `sha-<full-commit-sha>` and the moving tag `latest`.
-4. The same workflow automatically deploys `latest` to staging.
-5. Production is deployed manually with an explicitly selected immutable
-   `sha-<full-commit-sha>` tag.
-6. The VM pulls that image, starts it with Docker Compose, waits for readiness,
-   and restores the previously running image if readiness fails.
+## Current topology
 
-Staging and production run the same image on the same VM. Their user and
-application data remain isolated in `calorify_staging` and `calorify_prod`.
-Both APIs read the same imported reference rows from `calorify_usda` through a
-database role that cannot write. A separate owner role is available only to the
-one-off USDA maintenance container.
+Staging and production run the same container image on one VM, with isolated
+application data and one shared, read-only USDA reference database:
+
+```text
+GitHub Actions ──publish──> ghcr.io/thecodepapaya/calorify-backend
+       │
+       ├──automatic latest──> backend-staging ──> db-staging
+       │                              └──────────> db-usda (reader)
+       │
+       └──manual sha-*──────> backend-prod ─────> db-prod
+                                      └──────────> db-usda (reader)
+
+USDA maintenance container ─────────────────────> db-usda (owner)
+```
+
+| Service | Purpose | Host exposure | Persistent volume |
+| --- | --- | --- | --- |
+| `backend-prod` | Production API | `8000` | None |
+| `backend-staging` | Staging API | `8001` | None |
+| `db-prod` | Production application and user data | None | `postgres_data_prod` |
+| `db-staging` | Staging application and user data | `127.0.0.1:5433` | `postgres_data_staging` |
+| `db-usda` | Shared USDA reference data | None | `postgres_data_usda` |
+| `loki` | Shared log storage | `127.0.0.1:3100` | `loki_data` |
+| `promtail` | Docker log collection | None | None |
+| `grafana` | Log dashboards | `127.0.0.1:3000` | `grafana_data` |
+
+All services use the private `calorify-network` Compose network. The two API
+containers receive separate `DATABASE_URL` values and the same
+`USDA_DATABASE_URL`. PostgreSQL grants the API role USDA `SELECT` access only.
+The USDA owner credential is passed only to the one-off maintenance container.
+
+Application migrations live directly under `migrations/`. USDA-only migrations
+live under `migrations/usda/`; API startup never migrates or imports the shared
+USDA database.
+
+## Release flow
+
+The backend follows build-once, deploy-many:
+
+1. A backend-related push to `main` starts `Publish backend container`.
+2. GitHub runs dependency installation, type-checking, linting, coverage tests,
+   and a production Docker build.
+3. GitHub builds `linux/amd64` and `linux/arm64` images and publishes both
+   `latest` and `sha-<full-commit-sha>` to GHCR.
+4. The workflow automatically deploys `latest` to staging.
+5. Production is deployed by manually running `Deploy backend to production`
+   with the exact full `sha-<40 lowercase hex characters>` tag.
+
+Production rejects moving or shortened tags. Staging intentionally tracks
+`latest`.
+
+The VM never pulls source code. Each deployment transfers only:
+
+- `docker-compose.yml`;
+- `scripts/deploy-container.sh`;
+- `postgres/usda-init.sh`;
+- the `loki/` runtime configuration.
+
+The VM then pulls the selected image from GHCR and starts it with
+`docker compose --no-build`. Runtime env files, database volumes, and
+credentials remain on the VM and are never copied back to GitHub.
 
 ## GitHub configuration
 
-The GitHub deployment environment is named `production`. Both deployment
-workflows use it because both targets share one VM. It contains these secrets:
+Both workflows use the GitHub deployment environment named `production`
+because both targets use the same VM. It permits only `main` and contains:
 
 - `CALORIFY_SSH_HOST`
 - `CALORIFY_SSH_PORT` (optional; defaults to `22`)
 - `CALORIFY_SSH_USER`
 - `CALORIFY_SSH_PRIVATE_KEY`
 - `CALORIFY_SSH_KNOWN_HOSTS`
-- `CALORIFY_DEPLOY_PATH` (parent of the VM's `backend` runtime directory)
+- `CALORIFY_DEPLOY_PATH` (the parent of the VM's `backend` directory)
 
-The environment permits only the `main` branch. Configure required reviewers if
-the repository's GitHub plan supports them and deployment approval is desired.
-The workflows use the repository `GITHUB_TOKEN` to publish and inspect the
-package; no separate registry token is needed inside Actions.
+The workflow's short-lived `GITHUB_TOKEN` publishes and reads GHCR images. It
+is streamed through SSH for `docker login`, stored in a temporary Docker config,
+and removed when deployment finishes. The VM has no permanent GHCR credential.
 
-## One-time VM configuration
+## VM runtime contract
 
-The deployment user needs:
+The deployment user needs Docker Compose v2 plus direct Docker access or
+passwordless `sudo docker`. The runtime directory contains configuration, not a
+Git checkout:
 
-- direct Docker access, or passwordless `sudo docker` access;
-- Docker Compose v2;
-- `backend/.env` with the Compose database and logging values;
-- `backend/staging.env` or `backend/production.env` as applicable;
-- `backend/firebase-adminsdk.json`;
-- outbound HTTPS access to `ghcr.io`.
+```text
+backend/
+├── .env
+├── production.env
+├── staging.env
+├── firebase-adminsdk.json
+├── docker-compose.yml
+├── scripts/deploy-container.sh
+├── postgres/usda-init.sh
+└── loki/...
+```
 
-The VM does not need a Git checkout. Each deployment copies only the Compose
-file and deployment script into `CALORIFY_DEPLOY_PATH/backend`; runtime env
-files and credentials remain on the VM.
+The ignored `.env` contains Compose-level values, including database passwords,
+the USDA owner/reader passwords, and Grafana credentials. `production.env` and
+`staging.env` contain environment-specific application settings and their own
+application `DATABASE_URL`. The shared USDA URL is constructed by Compose.
 
-No permanent registry credential is stored on the VM. Each deployment sends
-the workflow's short-lived, package-read `GITHUB_TOKEN` through SSH on standard
-input. The deployment script uses an isolated Docker credential directory and
-removes it when the deployment finishes.
+The Firebase service account is mounted read-only at `/run/secrets`. The image
+entrypoint copies it to a private in-container path, exports that path, and then
+drops from root to the `node` user. The USDA maintenance service runs directly
+as `node` and does not receive Firebase credentials.
 
-The published image supports both `linux/amd64` and `linux/arm64`, so the same
-commit-specific tag can be deployed to either VM architecture.
+Never commit or print env files, service-account JSON, database passwords,
+provider keys, SSH keys, or pre-authenticated storage URLs.
 
-`backend/.env` also contains `POSTGRES_USDA_PASSWORD` for the maintenance owner
-and `USDA_READER_PASSWORD` for the API reader. Compose constructs
-`USDA_DATABASE_URL` for each API; owner credentials are never passed to the API
-containers.
+## Deployment and rollback mechanics
 
-## Releasing
+`deploy-container.sh` performs the following guarded sequence:
 
-Every successful `Publish backend container` run deploys `latest` to staging.
-After staging verification, run `Deploy backend to production` with the exact
-`sha-<full-commit-sha>` tag shown in the publish summary. Production rejects
-moving tags.
+1. Validate the environment and image-tag policy.
+2. Validate required runtime files and Compose configuration.
+3. Authenticate temporarily to GHCR and pull the image.
+4. Tag the currently running image as the environment rollback image.
+5. Recreate only the selected API service and required dependencies without a
+   local build.
+6. Wait for container health and then `GET /ready`.
+7. If readiness fails, restore the previous image and emit container, health,
+   application-log, and migration diagnostics.
 
-## Rollbacks and migrations
+`GET /health` proves process liveness. `GET /ready` additionally requires the
+environment application database and a complete active USDA snapshot.
 
-Docker liveness uses `GET /health`, including during rollback to an older image.
-The deployment is only successful after `GET /ready` confirms PostgreSQL and the
-active USDA dataset are ready. Failed checks automatically restore the image that
-was running before the deployment. Database migrations run during backend startup
-and are not reversed by an image rollback. Keep schema changes backward-compatible
-with at least the previously deployed image.
+Application migrations run during API startup and are not reversed by an image
+rollback. Keep migrations backward-compatible with at least the previously
+deployed image. An automated failed-deployment rollback uses the local rollback
+tag immediately; an older manual rollback should use an immutable GHCR `sha-*`
+tag.
 
 ## USDA database lifecycle
 
-USDA schema migrations live under `migrations/usda`; ordinary application
-migrations do not create USDA tables in the staging or production databases.
-Application startup checks the shared dataset but never imports or changes it.
+`db-usda` is the only database containing USDA rows. Production and staging app
+databases must not contain `usda_foods` or `usda_dataset_version`.
 
-To bootstrap or move to a new FoodData Central release, run the maintenance
-container with an immutable published image and the release metadata:
+The first database initialization creates:
+
+- `calorify_usda_owner`, used for schema migrations and imports;
+- `calorify_usda_reader`, granted connection, schema usage, and table `SELECT`
+  only, with `default_transaction_read_only` enabled.
+
+To bootstrap or activate a new FoodData Central release, run the maintenance
+container from the VM runtime directory with an immutable backend image:
 
 ```bash
 BACKEND_IMAGE=ghcr.io/thecodepapaya/calorify-backend:sha-<full-commit-sha> \
@@ -97,10 +160,61 @@ docker compose --profile maintenance run --rm \
   usda-maintenance
 ```
 
-The importer downloads and materializes a release only when that requested
-version is not already active. Replacement remains atomic, so API readers see
-either the complete old snapshot or the complete new snapshot.
+Use the VM's normal Docker privilege mechanism if it requires `sudo`. The
+maintenance command applies only USDA migrations. It skips download/import when
+the requested version is already active; otherwise it downloads and stages the
+CSV release in a temporary workspace and atomically replaces the snapshot.
+Readers therefore see either the complete old release or the complete new one.
 
-The Firebase credential stays read-only on the VM. The container entrypoint copies
-it to a private in-container file, then drops privileges to the `node` user before
-starting the application.
+Verify the active snapshot without exposing credentials:
+
+```bash
+docker exec calorify-db-usda psql \
+  -U calorify_usda_owner -d calorify_usda -At \
+  -c "SELECT dataset_version, checksum, row_count FROM usda_dataset_version WHERE is_active AND is_materialized"
+```
+
+## Observability
+
+Loki, Promtail, and Grafana are shared by both environments. Their runtime
+configuration is transferred by every relevant deployment.
+
+```bash
+docker compose up -d loki grafana promtail
+docker compose ps
+docker compose logs -f loki grafana promtail
+```
+
+Grafana and Loki bind only to loopback. Use an authenticated reverse proxy for
+remote access; do not expose either port directly. The provisioned dashboard
+covers request rate, status codes, response latency, recent requests, errors,
+and endpoint volume. Request and response bodies remain excluded from logs
+because they can contain health data.
+
+## Routine verification and storage maintenance
+
+From the VM:
+
+```bash
+curl --fail http://127.0.0.1:8000/ready
+curl --fail http://127.0.0.1:8001/ready
+
+docker inspect --format \
+  '{{.Name}} image={{.Config.Image}} state={{.State.Status}} health={{.State.Health.Status}}' \
+  calorify-backend-prod calorify-backend-staging calorify-db-usda
+
+docker compose --profile production config --quiet
+docker compose --profile staging config --quiet
+docker compose --profile maintenance config --quiet
+```
+
+The VM root crontab removes unused Docker images older than seven days every
+Sunday at 03:00 in the VM timezone:
+
+```cron
+0 3 * * 0 /usr/bin/docker image prune -a -f --filter until=168h >/var/log/calorify-docker-prune.log 2>&1
+```
+
+Running containers and their images are not pruned. Old immutable images can be
+pulled from GHCR again when needed. Do not use broad volume pruning: PostgreSQL,
+Loki, Grafana, and rollback state live in named Docker volumes.

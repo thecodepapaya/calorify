@@ -81,6 +81,7 @@ jobs:
           printf -v ghcr_username_q '%q' "$GHCR_USERNAME"
           tar -C backend -cf - \
             docker-compose.yml \
+            loki \
             postgres/usda-init.sh \
             scripts/deploy-container.sh | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
