@@ -59,7 +59,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final bool _seedDevelopmentData;
 
   @override
-  int get schemaVersion => 25;
+  int get schemaVersion => 26;
 
   @override
   MigrationStrategy get migration {
@@ -439,6 +439,17 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             await m.createTable(healthConnectSyncQueueTable);
           }
         }
+        if (from < 26 &&
+            await _tableExists('user_preferences_table') &&
+            !await _columnExists(
+              'user_preferences_table',
+              'health_connect_prompt_dismissed',
+            )) {
+          await m.addColumn(
+            userPreferencesTable,
+            userPreferencesTable.healthConnectPromptDismissed,
+          );
+        }
       },
     );
   }
@@ -805,6 +816,24 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       ..where((table) => table.id.equals(_userPreferencesId))).write(
       UserPreferencesTableCompanion(
         healthConnectNutritionSyncEnabled: Value(enabled),
+        updatedAt: Value(DateTime.now().toUtc()),
+      ),
+    );
+  }
+
+  @override
+  Future<bool> isHealthConnectPromptDismissed() async {
+    final preferences = await _getOrInitPreferences();
+    return preferences.healthConnectPromptDismissed;
+  }
+
+  @override
+  Future<void> setHealthConnectPromptDismissed() async {
+    await _getOrInitPreferences();
+    await (update(userPreferencesTable)
+      ..where((table) => table.id.equals(_userPreferencesId))).write(
+      UserPreferencesTableCompanion(
+        healthConnectPromptDismissed: const Value(true),
         updatedAt: Value(DateTime.now().toUtc()),
       ),
     );

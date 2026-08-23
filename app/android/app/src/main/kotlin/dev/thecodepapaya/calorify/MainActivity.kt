@@ -52,9 +52,16 @@ class MainActivity : FlutterFragmentActivity() {
                 putExtra(Intent.EXTRA_PACKAGE_NAME, packageName)
             }
             if (tryStartActivity(permissionsIntent)) return true
+
+            if (tryStartActivity(Intent(HEALTH_CONNECT_HOME_SETTINGS_ACTION))) {
+                return true
+            }
         }
 
-        if (tryStartActivity(Intent(LEGACY_HEALTH_CONNECT_SETTINGS_ACTION))) {
+        val legacySettingsIntent = Intent(LEGACY_HEALTH_CONNECT_SETTINGS_ACTION).apply {
+            setPackage(HEALTH_CONNECT_PROVIDER_PACKAGE)
+        }
+        if (tryStartActivity(legacySettingsIntent)) {
             return true
         }
 
@@ -99,6 +106,8 @@ class MainActivity : FlutterFragmentActivity() {
             "openHealthConnectSettings"
         const val MANAGE_HEALTH_PERMISSIONS_ACTION =
             "android.health.connect.action.MANAGE_HEALTH_PERMISSIONS"
+        const val HEALTH_CONNECT_HOME_SETTINGS_ACTION =
+            "android.health.connect.action.HEALTH_HOME_SETTINGS"
         const val LEGACY_HEALTH_CONNECT_SETTINGS_ACTION =
             "androidx.health.ACTION_HEALTH_CONNECT_SETTINGS"
         const val HEALTH_CONNECT_PROVIDER_PACKAGE =

@@ -103,6 +103,10 @@ abstract class DatabaseInterface {
 
   Future<void> setHealthConnectNutritionSyncEnabled(bool enabled);
 
+  Future<bool> isHealthConnectPromptDismissed();
+
+  Future<void> setHealthConnectPromptDismissed();
+
   /// Requeues only meals that were previously linked to Health Connect.
   Future<void> enqueueLinkedHealthConnectUpserts();
 

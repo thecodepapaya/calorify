@@ -374,11 +374,11 @@ class _HealthConnectPermissionsScreenState
             ),
           ] else ...[
             _buildConnectionSummary(theme, colorScheme),
-            _verticalSpacing(24),
-            _buildSectionHeader(theme, colorScheme),
-            _verticalSpacing(24),
+            _verticalSpacing(16),
+            _buildSectionHeader(theme),
+            _verticalSpacing(12),
             ..._buildPermissionCards(context),
-            _verticalSpacing(24),
+            _verticalSpacing(20),
             if (!_areAllPermissionsGranted()) ...[
               _buildActionButton(
                 onPressed:
@@ -392,31 +392,7 @@ class _HealthConnectPermissionsScreenState
               ),
               _verticalSpacing(12),
             ],
-            _buildActionButton(
-              onPressed: _isRequestingPermissions ? null : _openSettings,
-              icon: LucideIcons.settings,
-              label: t.settings.healthConnect.openSettings,
-            ),
-            if (_permissionStatus[HealthDataType.NUTRITION]?[HealthDataAccess
-                    .WRITE] ??
-                false) ...[
-              _verticalSpacing(12),
-              _buildActionButton(
-                onPressed: _isRequestingPermissions ? null : _deleteSyncedMeals,
-                icon: LucideIcons.trash2,
-                label: t.settings.healthConnect.deleteSyncedMeals,
-                isDestructive: true,
-              ),
-            ],
-            if (_hasAnyPermission()) ...[
-              _verticalSpacing(12),
-              _buildActionButton(
-                onPressed: _isRequestingPermissions ? null : _disconnect,
-                icon: LucideIcons.unplug,
-                label: t.settings.healthConnect.disconnect,
-                isDestructive: true,
-              ),
-            ],
+            _buildManagementActions(colorScheme),
           ],
           _verticalSpacing(32),
         ],
@@ -424,24 +400,10 @@ class _HealthConnectPermissionsScreenState
     );
   }
 
-  Widget _buildSectionHeader(ThemeData theme, ColorScheme colorScheme) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          t.settings.healthConnect.permissions.title,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        _verticalSpacing(8),
-        Text(
-          t.settings.healthConnect.permissions.description,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: colorScheme.onSurfaceVariant,
-          ),
-        ),
-      ],
+  Widget _buildSectionHeader(ThemeData theme) {
+    return Text(
+      t.settings.healthConnect.permissions.title,
+      style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
     );
   }
 
@@ -453,7 +415,7 @@ class _HealthConnectPermissionsScreenState
         title: t.settings.healthConnect.permissions.caloriesBurned.title,
         description:
             t.settings.healthConnect.permissions.caloriesBurned.description,
-        usage: t.settings.healthConnect.permissions.caloriesBurned.usage,
+        icon: LucideIcons.flame,
       ),
       (
         type: HealthDataType.NUTRITION,
@@ -461,22 +423,30 @@ class _HealthConnectPermissionsScreenState
         title: t.settings.healthConnect.permissions.nutritionWrite.title,
         description:
             t.settings.healthConnect.permissions.nutritionWrite.description,
-        usage: t.settings.healthConnect.permissions.nutritionWrite.usage,
+        icon: LucideIcons.utensils,
       ),
     ];
 
     return [
-      for (var i = 0; i < permissions.length; i++) ...[
-        _buildPermissionCard(
-          context,
-          type: permissions[i].type,
-          access: permissions[i].access,
-          title: permissions[i].title,
-          description: permissions[i].description,
-          usage: permissions[i].usage,
+      Card(
+        elevation: 0,
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: [
+            for (var i = 0; i < permissions.length; i++) ...[
+              _buildPermissionTile(
+                context,
+                type: permissions[i].type,
+                access: permissions[i].access,
+                title: permissions[i].title,
+                description: permissions[i].description,
+                icon: permissions[i].icon,
+              ),
+              if (i < permissions.length - 1) const Divider(height: 1),
+            ],
+          ],
         ),
-        if (i < permissions.length - 1) _verticalSpacing(16),
-      ],
+      ),
     ];
   }
 
@@ -533,63 +503,47 @@ class _HealthConnectPermissionsScreenState
     );
   }
 
-  Widget _buildPermissionCard(
+  Widget _buildPermissionTile(
     BuildContext context, {
     required HealthDataType type,
     required HealthDataAccess access,
     required String title,
     required String description,
-    required String usage,
+    required IconData icon,
   }) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isGranted = _permissionStatus[type]?[access] ?? false;
 
-    return Card(
-      elevation: 0,
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(
+    return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      leading: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
           color:
               isGranted
-                  ? colorScheme.success.withValues(alpha: 0.3)
-                  : colorScheme.outline.withValues(alpha: 0.2),
+                  ? colorScheme.successContainer
+                  : colorScheme.surfaceContainerHighest,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          icon,
+          size: 18,
+          color:
+              isGranted
+                  ? colorScheme.onSuccessContainer
+                  : colorScheme.onSurfaceVariant,
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildPermissionHeader(theme, colorScheme, isGranted, title),
-            _verticalSpacing(8),
-            _buildDescription(theme, colorScheme, description),
-            _verticalSpacing(12),
-            _buildUsageInfo(theme, colorScheme, usage),
-          ],
+      title: Text(
+        title,
+        style: theme.textTheme.titleSmall?.copyWith(
+          fontWeight: FontWeight.w600,
         ),
       ),
-    );
-  }
-
-  Widget _buildPermissionHeader(
-    ThemeData theme,
-    ColorScheme colorScheme,
-    bool isGranted,
-    String title,
-  ) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(
-            title,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-        _buildStatusBadge(theme, colorScheme, isGranted),
-      ],
+      subtitle: Text(description),
+      trailing: _buildStatusBadge(theme, colorScheme, isGranted),
     );
   }
 
@@ -599,7 +553,7 @@ class _HealthConnectPermissionsScreenState
     bool isGranted,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color:
             isGranted
@@ -629,48 +583,6 @@ class _HealthConnectPermissionsScreenState
                       ? colorScheme.onSuccessContainer
                       : colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDescription(
-    ThemeData theme,
-    ColorScheme colorScheme,
-    String text,
-  ) {
-    return Text(
-      text,
-      style: theme.textTheme.bodyMedium?.copyWith(
-        color: colorScheme.onSurfaceVariant,
-      ),
-    );
-  }
-
-  Widget _buildUsageInfo(
-    ThemeData theme,
-    ColorScheme colorScheme,
-    String text,
-  ) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: colorScheme.primaryContainer.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(LucideIcons.info, size: 16, color: colorScheme.primary),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: colorScheme.onPrimaryContainer,
-              ),
             ),
           ),
         ],
@@ -723,14 +635,56 @@ class _HealthConnectPermissionsScreenState
     );
   }
 
+  Widget _buildManagementActions(ColorScheme colorScheme) {
+    final canWriteNutrition =
+        _permissionStatus[HealthDataType.NUTRITION]?[HealthDataAccess.WRITE] ??
+        false;
+    final hasAnyPermission = _hasAnyPermission();
+
+    return Card(
+      elevation: 0,
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        children: [
+          ListTile(
+            leading: const Icon(LucideIcons.settings),
+            title: Text(t.settings.healthConnect.openSettings),
+            trailing: const Icon(LucideIcons.externalLink, size: 18),
+            onTap: _isRequestingPermissions ? null : _openSettings,
+          ),
+          if (canWriteNutrition) ...[
+            const Divider(height: 1, indent: 56),
+            ListTile(
+              leading: Icon(LucideIcons.trash2, color: colorScheme.error),
+              title: Text(
+                t.settings.healthConnect.deleteSyncedMeals,
+                style: TextStyle(color: colorScheme.error),
+              ),
+              onTap: _isRequestingPermissions ? null : _deleteSyncedMeals,
+            ),
+          ],
+          if (hasAnyPermission) ...[
+            const Divider(height: 1, indent: 56),
+            ListTile(
+              leading: Icon(LucideIcons.unplug, color: colorScheme.error),
+              title: Text(
+                t.settings.healthConnect.disconnect,
+                style: TextStyle(color: colorScheme.error),
+              ),
+              onTap: _isRequestingPermissions ? null : _disconnect,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
   Widget _buildActionButton({
     required VoidCallback? onPressed,
     required IconData icon,
     required String label,
     bool isPrimary = false,
-    bool isDestructive = false,
   }) {
-    final colorScheme = Theme.of(context).colorScheme;
     final child = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -764,7 +718,6 @@ class _HealthConnectPermissionsScreenState
               : OutlinedButton(
                 onPressed: onPressed,
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: isDestructive ? colorScheme.error : null,
                   padding: appButtonOutlinedPadding,
                   shape: RoundedSuperellipseBorder(
                     borderRadius: BorderRadius.circular(12),

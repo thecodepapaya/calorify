@@ -395,6 +395,14 @@ void main() {
     expect(await database.hasCompletedOnboarding(), isTrue);
   });
 
+  test('persists Health Connect prompt dismissal', () async {
+    expect(await database.isHealthConnectPromptDismissed(), isFalse);
+
+    await database.setHealthConnectPromptDismissed();
+
+    expect(await database.isHealthConnectPromptDismissed(), isTrue);
+  });
+
   test(
     'local inference preference is off by default and persists consent',
     () async {
@@ -449,6 +457,7 @@ void main() {
       expect(columns, contains('local_inference_acknowledged_policy_version'));
       expect(columns, contains('offline_nutrition_enabled'));
       expect(columns, contains('health_connect_nutrition_sync_enabled'));
+      expect(columns, contains('health_connect_prompt_dismissed'));
       expect(preferences.enabled, isFalse);
       expect(preferences.offlineNutritionEnabled, isFalse);
       expect(preferences.acknowledgedPolicyVersion, isNull);

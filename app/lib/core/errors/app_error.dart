@@ -92,6 +92,7 @@ sealed class AppError implements Exception {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.transformTimeout:
       case DioExceptionType.connectionError:
         return NetworkError(
           message: 'Network error. Please check your internet connection.',

@@ -132,6 +132,7 @@ class _SetDailyGoalState extends ConsumerState<SetDailyGoal> {
                           caloriesGoal: goal,
                           caloriesBurned: caloriesBurned,
                           caloriesConsumed: caloriesConsumed,
+                          showHealthMetrics: healthService.canReadTotalCalories,
                           onEdit: () => setState(() => _isEditing = true),
                         );
                   },
@@ -162,12 +163,14 @@ class _ShowGoal extends ConsumerWidget {
     required this.onEdit,
     required this.caloriesBurned,
     required this.caloriesConsumed,
+    required this.showHealthMetrics,
   });
 
   final int caloriesGoal;
   final VoidCallback onEdit;
   final int caloriesBurned;
   final int caloriesConsumed;
+  final bool showHealthMetrics;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -237,7 +240,7 @@ class _ShowGoal extends ConsumerWidget {
           ],
         ),
         // Burned Calories (if tracked)
-        if (caloriesBurned > 0) ...[
+        if (showHealthMetrics && caloriesBurned > 0) ...[
           SizedBox(height: 12),
           Divider(height: 1),
           SizedBox(height: 12),

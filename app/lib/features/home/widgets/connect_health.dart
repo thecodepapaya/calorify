@@ -1,9 +1,9 @@
 import 'package:calorify/core/constants/analytics_events.dart';
 import 'package:calorify/core/constants/styles.dart';
+import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:i18n/i18n.dart';
-import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:health/health.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -12,10 +12,12 @@ class HealthConnectPromptCard extends StatefulWidget {
   const HealthConnectPromptCard({
     required this.healthService,
     super.key,
+    this.onDismiss,
     this.onSetupComplete,
   });
 
   final HealthService healthService;
+  final VoidCallback? onDismiss;
   final Future<void> Function({required bool enableNutritionSync})?
   onSetupComplete;
 
@@ -32,6 +34,7 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
     bool isInstallRequired,
   ) async {
     if (_isWorking) return;
+    Analytics.instance.logEvent(AnalyticsEvent.connectHealth);
     setState(() => _isWorking = true);
     var enableNutritionSync = false;
 
@@ -80,64 +83,85 @@ class _HealthConnectPromptCardState extends State<HealthConnectPromptCard> {
     final isInstallRequired =
         widget.healthService.status ==
         HealthConnectSdkStatus.sdkUnavailableProviderUpdateRequired;
-    final isRetryRequired =
-        widget.healthService.initializationState ==
-        HealthServiceInitializationState.failed;
-    final isPartiallyConnected =
-        widget.healthService.hasAnyHealthPermission &&
-        !widget.healthService.hasAllHealthPermissions;
-
-    return Container(
-      margin: globalMargin,
-      padding: globalInnerPadding,
-      decoration: BoxDecoration(
-        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.3)),
-        borderRadius: globalRadius,
+    return Padding(
+      padding: globalMargin,
+      child: Material(
         color: colorScheme.surfaceTint.withValues(alpha: 0.1),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(LucideIcons.link, size: 20, color: colorScheme.primary),
-          SizedBox(width: 8),
-          Expanded(
-            child: Column(
+        shape: RoundedRectangleBorder(
+          borderRadius: globalRadius,
+          side: BorderSide(color: colorScheme.primary.withValues(alpha: 0.3)),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          key: const Key('healthConnectPromptAction'),
+          onTap:
+              _isWorking
+                  ? null
+                  : () => _onConnectPressed(context, isInstallRequired),
+          child: Padding(
+            padding: globalInnerPadding,
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  t.home.connectHealth.title,
-                  style: textTheme.titleMedium?.copyWith(
+                Padding(
+                  padding: const EdgeInsets.only(top: 2),
+                  child: Icon(
+                    LucideIcons.link,
+                    size: 20,
                     color: colorScheme.primary,
                   ),
                 ),
-                SizedBox(height: 4),
-                Text(
-                  t.home.connectHealth.dataUseDescription,
-                  style: textTheme.bodyMedium,
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        t.home.connectHealth.title,
+                        style: textTheme.titleMedium?.copyWith(
+                          color: colorScheme.primary,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        t.home.connectHealth.dataUseDescription,
+                        style: textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
+                const SizedBox(width: 8),
+                if (_isWorking)
+                  const Padding(
+                    padding: EdgeInsets.only(top: 9),
+                    child: SizedBox.square(
+                      dimension: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                if (widget.onDismiss != null) ...[
+                  const SizedBox(width: 4),
+                  IconButton(
+                    key: const Key('healthConnectPromptDismiss'),
+                    tooltip:
+                        MaterialLocalizations.of(context).closeButtonTooltip,
+                    onPressed: widget.onDismiss,
+                    visualDensity: VisualDensity.compact,
+                    constraints: const BoxConstraints(
+                      minWidth: 36,
+                      minHeight: 36,
+                    ),
+                    icon: Icon(
+                      LucideIcons.x,
+                      size: 18,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
-          SizedBox(width: 8),
-          AppButton(
-            variant: AppButtonVariant.primary,
-            analyticsEvent: AnalyticsEvent.connectHealth,
-            onPressed:
-                _isWorking
-                    ? null
-                    : () => _onConnectPressed(context, isInstallRequired),
-            isLoading: _isWorking,
-            text:
-                isInstallRequired
-                    ? t.home.connectHealth.installOrUpdate
-                    : isRetryRequired
-                    ? t.errors.retry
-                    : isPartiallyConnected
-                    ? t.settings.healthConnect.requestPermissions
-                    : t.home.connectHealth.connect,
-            minimumSize: Size(40, 40),
-          ),
-        ],
+        ),
       ),
     );
   }

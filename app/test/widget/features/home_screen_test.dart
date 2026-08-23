@@ -77,6 +77,12 @@ void main() {
     when(
       () => mockDatabaseInterface.watchAllMealsForLast7Days(),
     ).thenAnswer((_) => Stream.value([]));
+    when(
+      () => mockDatabaseInterface.isHealthConnectPromptDismissed(),
+    ).thenAnswer((_) async => false);
+    when(
+      () => mockDatabaseInterface.setHealthConnectPromptDismissed(),
+    ).thenAnswer((_) async {});
   });
 
   group('HomeScreen Widget', () {
@@ -195,14 +201,46 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('Connect'));
+      final promptAction = find.byKey(const Key('healthConnectPromptAction'));
+      await tester.tap(promptAction);
       await tester.pump();
-      await tester.tap(find.text('Connect'));
+      await tester.tap(promptAction);
       await tester.pump();
 
       verify(() => mockHealthService.requestAuthorization()).called(1);
       authorization.complete(true);
       await tester.pump();
+    });
+
+    testWidgets('persists Health Connect prompt dismissal', (
+      WidgetTester tester,
+    ) async {
+      when(() => mockHealthService.canReadTotalCalories).thenReturn(false);
+      when(() => mockHealthService.canWriteNutrition).thenReturn(false);
+      when(() => mockHealthService.hasAnyHealthPermission).thenReturn(false);
+      when(() => mockHealthService.hasAllHealthPermissions).thenReturn(false);
+
+      await tester.pumpWidget(
+        wrapWithProviders(
+          const HomeScreen(),
+          overrides: [
+            healthServiceProvider.overrideWithValue(mockHealthService),
+            healthConnectSyncServiceProvider.overrideWithValue(
+              mockHealthConnectSyncService,
+            ),
+            aiSummaryProvider.overrideWith((ref) => null),
+          ],
+        ),
+      );
+      await tester.pump();
+
+      await tester.tap(find.byKey(const Key('healthConnectPromptDismiss')));
+      await tester.pump();
+
+      expect(find.byType(HealthConnectPromptCard), findsNothing);
+      verify(
+        () => mockDatabaseInterface.setHealthConnectPromptDismissed(),
+      ).called(1);
     });
 
     testWidgets('shows skeleton cards while dashboard data is loading', (

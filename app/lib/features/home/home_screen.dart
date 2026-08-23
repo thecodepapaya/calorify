@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:calorify/core/providers/app_dependencies.dart';
-import 'package:calorify/core/providers/home_providers.dart';
+import 'package:calorify/core/providers/home_providers.dart'
+    hide databaseInterfaceProvider;
 import 'package:calorify/core/providers/history_providers.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:auto_route/auto_route.dart';
@@ -29,6 +30,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen>
     with WidgetsBindingObserver {
   int _healthRefreshGeneration = 0;
+  bool? _isHealthConnectPromptDismissed;
   DateTime _dashboardDay = _dateOnly(DateTime.now());
   Duration _dashboardTimeZoneOffset = DateTime.now().timeZoneOffset;
   Timer? _dashboardRefreshTimer;
@@ -37,6 +39,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    unawaited(_loadHealthConnectPromptPreference());
     unawaited(_refreshHealthConnectStatus(syncPendingMeals: true));
     _dashboardRefreshTimer = Timer.periodic(const Duration(minutes: 15), (_) {
       if (!mounted) return;
@@ -65,6 +68,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   static DateTime _dateOnly(DateTime value) =>
       DateTime(value.year, value.month, value.day);
+
+  Future<void> _loadHealthConnectPromptPreference() async {
+    var isDismissed = false;
+    try {
+      isDismissed =
+          await ref
+              .read(databaseInterfaceProvider)
+              .isHealthConnectPromptDismissed();
+    } catch (_) {
+      // A preference read failure should not permanently suppress setup.
+    }
+    if (mounted) setState(() => _isHealthConnectPromptDismissed = isDismissed);
+  }
+
+  Future<void> _dismissHealthConnectPrompt() async {
+    setState(() => _isHealthConnectPromptDismissed = true);
+    try {
+      await ref
+          .read(databaseInterfaceProvider)
+          .setHealthConnectPromptDismissed();
+    } catch (error) {
+      debugPrint('Failed to persist Health Connect prompt dismissal: $error');
+    }
+  }
 
   void _refreshDateSensitiveData() {
     final today = _dateOnly(DateTime.now());
@@ -134,10 +161,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 const SizedBox(height: 10),
                 const AiSummaryCard(),
                 if (!isHealthConnectUnsupported &&
-                    !hasAnyHealthConnectPermission) ...[
+                    !hasAnyHealthConnectPermission &&
+                    _isHealthConnectPromptDismissed == false) ...[
                   const SizedBox(height: 10),
                   HealthConnectPromptCard(
                     healthService: healthService,
+                    onDismiss: _dismissHealthConnectPrompt,
                     onSetupComplete:
                         ({required enableNutritionSync}) =>
                             _refreshHealthConnectStatus(

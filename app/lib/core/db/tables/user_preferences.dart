@@ -16,5 +16,7 @@ class UserPreferencesTable extends Table {
   // Null lets upgrades adopt an already-granted Health Connect permission
   // once. Thereafter the explicit in-app sync choice is persisted.
   BoolColumn get healthConnectNutritionSyncEnabled => boolean().nullable()();
+  BoolColumn get healthConnectPromptDismissed =>
+      boolean().withDefault(const Constant(false))();
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }

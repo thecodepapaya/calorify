@@ -2046,6 +2046,21 @@ class $UserPreferencesTableTable extends UserPreferencesTable
           'CHECK ("health_connect_nutrition_sync_enabled" IN (0, 1))',
         ),
       );
+  static const VerificationMeta _healthConnectPromptDismissedMeta =
+      const VerificationMeta('healthConnectPromptDismissed');
+  @override
+  late final GeneratedColumn<bool> healthConnectPromptDismissed =
+      GeneratedColumn<bool>(
+        'health_connect_prompt_dismissed',
+        aliasedName,
+        false,
+        type: DriftSqlType.bool,
+        requiredDuringInsert: false,
+        defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("health_connect_prompt_dismissed" IN (0, 1))',
+        ),
+        defaultValue: const Constant(false),
+      );
   static const VerificationMeta _updatedAtMeta = const VerificationMeta(
     'updatedAt',
   );
@@ -2070,6 +2085,7 @@ class $UserPreferencesTableTable extends UserPreferencesTable
     offlineNutritionEnabled,
     localInferenceAcknowledgedPolicyVersion,
     healthConnectNutritionSyncEnabled,
+    healthConnectPromptDismissed,
     updatedAt,
   ];
   @override
@@ -2165,6 +2181,15 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         ),
       );
     }
+    if (data.containsKey('health_connect_prompt_dismissed')) {
+      context.handle(
+        _healthConnectPromptDismissedMeta,
+        healthConnectPromptDismissed.isAcceptableOrUnknown(
+          data['health_connect_prompt_dismissed']!,
+          _healthConnectPromptDismissedMeta,
+        ),
+      );
+    }
     if (data.containsKey('updated_at')) {
       context.handle(
         _updatedAtMeta,
@@ -2226,6 +2251,11 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         DriftSqlType.bool,
         data['${effectivePrefix}health_connect_nutrition_sync_enabled'],
       ),
+      healthConnectPromptDismissed:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.bool,
+            data['${effectivePrefix}health_connect_prompt_dismissed'],
+          )!,
       updatedAt:
           attachedDatabase.typeMapping.read(
             DriftSqlType.dateTime,
@@ -2252,6 +2282,7 @@ class UserPreferencesTableData extends DataClass
   final bool offlineNutritionEnabled;
   final String? localInferenceAcknowledgedPolicyVersion;
   final bool? healthConnectNutritionSyncEnabled;
+  final bool healthConnectPromptDismissed;
   final DateTime updatedAt;
   const UserPreferencesTableData({
     required this.id,
@@ -2264,6 +2295,7 @@ class UserPreferencesTableData extends DataClass
     required this.offlineNutritionEnabled,
     this.localInferenceAcknowledgedPolicyVersion,
     this.healthConnectNutritionSyncEnabled,
+    required this.healthConnectPromptDismissed,
     required this.updatedAt,
   });
   @override
@@ -2299,6 +2331,9 @@ class UserPreferencesTableData extends DataClass
         healthConnectNutritionSyncEnabled,
       );
     }
+    map['health_connect_prompt_dismissed'] = Variable<bool>(
+      healthConnectPromptDismissed,
+    );
     map['updated_at'] = Variable<DateTime>(updatedAt);
     return map;
   }
@@ -2334,6 +2369,7 @@ class UserPreferencesTableData extends DataClass
           healthConnectNutritionSyncEnabled == null && nullToAbsent
               ? const Value.absent()
               : Value(healthConnectNutritionSyncEnabled),
+      healthConnectPromptDismissed: Value(healthConnectPromptDismissed),
       updatedAt: Value(updatedAt),
     );
   }
@@ -2368,6 +2404,9 @@ class UserPreferencesTableData extends DataClass
       healthConnectNutritionSyncEnabled: serializer.fromJson<bool?>(
         json['healthConnectNutritionSyncEnabled'],
       ),
+      healthConnectPromptDismissed: serializer.fromJson<bool>(
+        json['healthConnectPromptDismissed'],
+      ),
       updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
     );
   }
@@ -2395,6 +2434,9 @@ class UserPreferencesTableData extends DataClass
       'healthConnectNutritionSyncEnabled': serializer.toJson<bool?>(
         healthConnectNutritionSyncEnabled,
       ),
+      'healthConnectPromptDismissed': serializer.toJson<bool>(
+        healthConnectPromptDismissed,
+      ),
       'updatedAt': serializer.toJson<DateTime>(updatedAt),
     };
   }
@@ -2411,6 +2453,7 @@ class UserPreferencesTableData extends DataClass
     Value<String?> localInferenceAcknowledgedPolicyVersion =
         const Value.absent(),
     Value<bool?> healthConnectNutritionSyncEnabled = const Value.absent(),
+    bool? healthConnectPromptDismissed,
     DateTime? updatedAt,
   }) => UserPreferencesTableData(
     id: id ?? this.id,
@@ -2439,6 +2482,8 @@ class UserPreferencesTableData extends DataClass
         healthConnectNutritionSyncEnabled.present
             ? healthConnectNutritionSyncEnabled.value
             : this.healthConnectNutritionSyncEnabled,
+    healthConnectPromptDismissed:
+        healthConnectPromptDismissed ?? this.healthConnectPromptDismissed,
     updatedAt: updatedAt ?? this.updatedAt,
   );
   UserPreferencesTableData copyWithCompanion(
@@ -2479,6 +2524,10 @@ class UserPreferencesTableData extends DataClass
           data.healthConnectNutritionSyncEnabled.present
               ? data.healthConnectNutritionSyncEnabled.value
               : this.healthConnectNutritionSyncEnabled,
+      healthConnectPromptDismissed:
+          data.healthConnectPromptDismissed.present
+              ? data.healthConnectPromptDismissed.value
+              : this.healthConnectPromptDismissed,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
@@ -2500,6 +2549,9 @@ class UserPreferencesTableData extends DataClass
           ..write(
             'healthConnectNutritionSyncEnabled: $healthConnectNutritionSyncEnabled, ',
           )
+          ..write(
+            'healthConnectPromptDismissed: $healthConnectPromptDismissed, ',
+          )
           ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
@@ -2517,6 +2569,7 @@ class UserPreferencesTableData extends DataClass
     offlineNutritionEnabled,
     localInferenceAcknowledgedPolicyVersion,
     healthConnectNutritionSyncEnabled,
+    healthConnectPromptDismissed,
     updatedAt,
   );
   @override
@@ -2535,6 +2588,8 @@ class UserPreferencesTableData extends DataClass
               this.localInferenceAcknowledgedPolicyVersion &&
           other.healthConnectNutritionSyncEnabled ==
               this.healthConnectNutritionSyncEnabled &&
+          other.healthConnectPromptDismissed ==
+              this.healthConnectPromptDismissed &&
           other.updatedAt == this.updatedAt);
 }
 
@@ -2550,6 +2605,7 @@ class UserPreferencesTableCompanion
   final Value<bool> offlineNutritionEnabled;
   final Value<String?> localInferenceAcknowledgedPolicyVersion;
   final Value<bool?> healthConnectNutritionSyncEnabled;
+  final Value<bool> healthConnectPromptDismissed;
   final Value<DateTime> updatedAt;
   const UserPreferencesTableCompanion({
     this.id = const Value.absent(),
@@ -2562,6 +2618,7 @@ class UserPreferencesTableCompanion
     this.offlineNutritionEnabled = const Value.absent(),
     this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.healthConnectNutritionSyncEnabled = const Value.absent(),
+    this.healthConnectPromptDismissed = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   UserPreferencesTableCompanion.insert({
@@ -2575,6 +2632,7 @@ class UserPreferencesTableCompanion
     this.offlineNutritionEnabled = const Value.absent(),
     this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.healthConnectNutritionSyncEnabled = const Value.absent(),
+    this.healthConnectPromptDismissed = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
   static Insertable<UserPreferencesTableData> custom({
@@ -2588,6 +2646,7 @@ class UserPreferencesTableCompanion
     Expression<bool>? offlineNutritionEnabled,
     Expression<String>? localInferenceAcknowledgedPolicyVersion,
     Expression<bool>? healthConnectNutritionSyncEnabled,
+    Expression<bool>? healthConnectPromptDismissed,
     Expression<DateTime>? updatedAt,
   }) {
     return RawValuesInsertable({
@@ -2610,6 +2669,8 @@ class UserPreferencesTableCompanion
       if (healthConnectNutritionSyncEnabled != null)
         'health_connect_nutrition_sync_enabled':
             healthConnectNutritionSyncEnabled,
+      if (healthConnectPromptDismissed != null)
+        'health_connect_prompt_dismissed': healthConnectPromptDismissed,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
@@ -2625,6 +2686,7 @@ class UserPreferencesTableCompanion
     Value<bool>? offlineNutritionEnabled,
     Value<String?>? localInferenceAcknowledgedPolicyVersion,
     Value<bool?>? healthConnectNutritionSyncEnabled,
+    Value<bool>? healthConnectPromptDismissed,
     Value<DateTime>? updatedAt,
   }) {
     return UserPreferencesTableCompanion(
@@ -2646,6 +2708,8 @@ class UserPreferencesTableCompanion
       healthConnectNutritionSyncEnabled:
           healthConnectNutritionSyncEnabled ??
           this.healthConnectNutritionSyncEnabled,
+      healthConnectPromptDismissed:
+          healthConnectPromptDismissed ?? this.healthConnectPromptDismissed,
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
@@ -2697,6 +2761,11 @@ class UserPreferencesTableCompanion
         healthConnectNutritionSyncEnabled.value,
       );
     }
+    if (healthConnectPromptDismissed.present) {
+      map['health_connect_prompt_dismissed'] = Variable<bool>(
+        healthConnectPromptDismissed.value,
+      );
+    }
     if (updatedAt.present) {
       map['updated_at'] = Variable<DateTime>(updatedAt.value);
     }
@@ -2719,6 +2788,9 @@ class UserPreferencesTableCompanion
           )
           ..write(
             'healthConnectNutritionSyncEnabled: $healthConnectNutritionSyncEnabled, ',
+          )
+          ..write(
+            'healthConnectPromptDismissed: $healthConnectPromptDismissed, ',
           )
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -6321,6 +6393,7 @@ typedef $$UserPreferencesTableTableCreateCompanionBuilder =
       Value<bool> offlineNutritionEnabled,
       Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<bool?> healthConnectNutritionSyncEnabled,
+      Value<bool> healthConnectPromptDismissed,
       Value<DateTime> updatedAt,
     });
 typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
@@ -6335,6 +6408,7 @@ typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
       Value<bool> offlineNutritionEnabled,
       Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<bool?> healthConnectNutritionSyncEnabled,
+      Value<bool> healthConnectPromptDismissed,
       Value<DateTime> updatedAt,
     });
 
@@ -6398,6 +6472,11 @@ class $$UserPreferencesTableTableFilterComposer
         column: $table.healthConnectNutritionSyncEnabled,
         builder: (column) => ColumnFilters(column),
       );
+
+  ColumnFilters<bool> get healthConnectPromptDismissed => $composableBuilder(
+    column: $table.healthConnectPromptDismissed,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
@@ -6466,6 +6545,11 @@ class $$UserPreferencesTableTableOrderingComposer
         builder: (column) => ColumnOrderings(column),
       );
 
+  ColumnOrderings<bool> get healthConnectPromptDismissed => $composableBuilder(
+    column: $table.healthConnectPromptDismissed,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
     column: $table.updatedAt,
     builder: (column) => ColumnOrderings(column),
@@ -6529,6 +6613,11 @@ class $$UserPreferencesTableTableAnnotationComposer
         builder: (column) => column,
       );
 
+  GeneratedColumn<bool> get healthConnectPromptDismissed => $composableBuilder(
+    column: $table.healthConnectPromptDismissed,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<DateTime> get updatedAt =>
       $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
@@ -6591,6 +6680,7 @@ class $$UserPreferencesTableTableTableManager
                     const Value.absent(),
                 Value<bool?> healthConnectNutritionSyncEnabled =
                     const Value.absent(),
+                Value<bool> healthConnectPromptDismissed = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserPreferencesTableCompanion(
                 id: id,
@@ -6605,6 +6695,7 @@ class $$UserPreferencesTableTableTableManager
                     localInferenceAcknowledgedPolicyVersion,
                 healthConnectNutritionSyncEnabled:
                     healthConnectNutritionSyncEnabled,
+                healthConnectPromptDismissed: healthConnectPromptDismissed,
                 updatedAt: updatedAt,
               ),
           createCompanionCallback:
@@ -6621,6 +6712,7 @@ class $$UserPreferencesTableTableTableManager
                     const Value.absent(),
                 Value<bool?> healthConnectNutritionSyncEnabled =
                     const Value.absent(),
+                Value<bool> healthConnectPromptDismissed = const Value.absent(),
                 Value<DateTime> updatedAt = const Value.absent(),
               }) => UserPreferencesTableCompanion.insert(
                 id: id,
@@ -6635,6 +6727,7 @@ class $$UserPreferencesTableTableTableManager
                     localInferenceAcknowledgedPolicyVersion,
                 healthConnectNutritionSyncEnabled:
                     healthConnectNutritionSyncEnabled,
+                healthConnectPromptDismissed: healthConnectPromptDismissed,
                 updatedAt: updatedAt,
               ),
           withReferenceMapper:
