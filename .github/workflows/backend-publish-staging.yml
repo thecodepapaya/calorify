@@ -95,8 +95,8 @@ jobs:
         run: |
           {
             printf '### Backend container published\n\n'
-            printf -- '- Deploy tag: `%s:sha-%s`\n' "${IMAGE_REPOSITORY,,}" "$GITHUB_SHA"
-            printf -- '- Digest: `%s`\n' "$IMAGE_DIGEST"
+            printf -- "- Deploy tag: \`%s:sha-%s\`\n" "${IMAGE_REPOSITORY,,}" "$GITHUB_SHA"
+            printf -- "- Digest: \`%s\`\n" "$IMAGE_DIGEST"
           } >> "$GITHUB_STEP_SUMMARY"
 
   deploy-staging:
