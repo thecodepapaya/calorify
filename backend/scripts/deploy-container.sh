@@ -106,14 +106,14 @@ show_container_diagnostics() {
 
 wait_for_readiness() {
   local attempt
-  for attempt in {1..30}; do
+  for attempt in {1..120}; do
     if run_docker exec --user node "$container_name" node -e \
       "fetch('http://localhost:8000/ready', { signal: AbortSignal.timeout(4000) }).then((response) => process.exit(response.status === 200 ? 0 : 1)).catch(() => process.exit(1))"; then
       return 0
     fi
     sleep 5
   done
-  echo "$container_name did not become ready within 150 seconds" >&2
+  echo "$container_name did not become ready within 600 seconds" >&2
   return 1
 }
 
