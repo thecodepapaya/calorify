@@ -6,6 +6,8 @@
   — workflow foundation through the hybrid text beta.
 - [Local inference Phase 4 release candidate](local-inference-phase-4-release-candidate.md)
   — local USDA data, calculation, and release gates.
+- [Meal-analysis state machine](meal-analysis-state-machine.md) — durable
+  stages, leases, stream events, resume behavior, and log confirmation.
 - [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
   names and example Grafana queries.
 
