@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/providers/home_providers.dart';
@@ -7,10 +6,6 @@ import 'package:calorify/core/providers/local_inference_providers.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
 import 'package:calorify/core/services/local_nutrition_calculator.dart';
 import 'package:calorify/core/services/local_nutrition_pack.dart';
-import 'package:calorify/core/services/local_nutrition_pack_service.dart';
-import 'package:cryptography/cryptography.dart';
-import 'package:dio/dio.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -109,7 +104,7 @@ class _LocalInferenceDebugScreenState
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'One-off checks for pack activation, matching, remote cache fill, deterministic math, and signature failures.',
+                    'One-off checks for pack activation, matching, remote cache fill, and deterministic math.',
                     style: theme.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 12),
@@ -136,10 +131,6 @@ class _LocalInferenceDebugScreenState
                       OutlinedButton(
                         onPressed: _running ? null : _testCalculator,
                         child: const Text('Calculator sample'),
-                      ),
-                      OutlinedButton(
-                        onPressed: _running ? null : _testInvalidSignature,
-                        child: const Text('Invalid signature'),
                       ),
                       OutlinedButton(
                         onPressed: _running ? null : _clearNutritionCache,
@@ -313,8 +304,6 @@ class _LocalInferenceDebugScreenState
     final cache =
         await ref.read(databaseInterfaceProvider).getLocalNutritionCacheStats();
     return const JsonEncoder.withIndent('  ').convert({
-      'configuredSigningKey':
-          ref.read(localNutritionPackServiceProvider).hasConfiguredSigningKey,
       'activePack': pack?.pack.packVersion,
       'datasetVersion': pack?.pack.datasetVersion,
       'records': pack?.pack.records.length ?? 0,
@@ -337,7 +326,7 @@ class _LocalInferenceDebugScreenState
           .read(localNutritionPackServiceProvider)
           .install(Uri.parse(policy.localNutritionManifestUrl));
       ref.invalidate(localNutritionStatusProvider);
-      return 'verified ${installed.pack.packVersion} · '
+      return 'installed ${installed.pack.packVersion} · '
           '${installed.pack.records.length} rows · ${installed.byteSize} bytes';
     },
   );
@@ -346,7 +335,7 @@ class _LocalInferenceDebugScreenState
     final installed =
         await ref.read(localNutritionPackServiceProvider).loadActive();
     if (installed == null || installed.pack.records.isEmpty) {
-      throw StateError('Install a verified pack first.');
+      throw StateError('Install a pack first.');
     }
     final record = installed.pack.records.first;
     final known = normalizeLocalNutritionTerm(record.lookupKeys.first);
@@ -415,72 +404,6 @@ class _LocalInferenceDebugScreenState
       'total': calculator.sum([banana, yogurt]).toProto3Json(),
     });
   });
-
-  Future<void> _testInvalidSignature() => _run(
-    'Invalid signature simulation',
-    () async {
-      final algorithm = Ed25519();
-      final keyPair = await algorithm.newKeyPair();
-      final publicKey = await keyPair.extractPublicKey();
-      final packBytes = utf8.encode(
-        jsonEncode({
-          'schemaVersion': 1,
-          'packVersion': 'debug-v1',
-          'datasetVersion': 'debug-dataset',
-          'calculationVersion': localNutritionCalculationVersion,
-          'records': [
-            {
-              'fdcId': '1',
-              'description': 'Debug banana',
-              'normalizedName': 'debug banana',
-              'aliases': ['debug banana'],
-              'dataType': 'debug',
-              'nutrientsPer100g': {
-                'calories': 89,
-                'protein': 1.1,
-                'carbs': 22.8,
-                'fat': 0.3,
-                'fiber': 2.6,
-              },
-              'datasetVersion': 'debug-dataset',
-            },
-          ],
-        }),
-      );
-      final manifest = LocalNutritionPackManifest(
-        schemaVersion: 1,
-        packVersion: 'debug-v1',
-        datasetVersion: 'debug-dataset',
-        objectName: 'local-nutrition/debug-v1.json',
-        sizeBytes: Int64(packBytes.length),
-        signingKeyId: 'debug-key',
-        createdAtEpochMs: Int64(DateTime.now().millisecondsSinceEpoch),
-        recordCount: 1,
-        calculationVersion: localNutritionCalculationVersion,
-      );
-      final signature = await algorithm.sign([
-        ...utf8.encode(
-          '${LocalNutritionPackService.manifestMetadata(manifest)}\n--PACK--\n',
-        ),
-        ...packBytes,
-      ], keyPair: keyPair);
-      manifest.signature = base64Encode(signature.bytes);
-      final verifier = LocalNutritionPackService(
-        dio: Dio(),
-        trustedPublicKeys: {'debug-key': publicKey.bytes},
-      );
-      await verifier.verifyAndParse(manifest, packBytes);
-      final corrupted = Uint8List.fromList(packBytes);
-      corrupted[packBytes.length - 1] = corrupted.last ^ 1;
-      try {
-        await verifier.verifyAndParse(manifest, corrupted);
-      } on LocalNutritionPackException catch (error) {
-        return 'valid signature accepted; corrupted bytes rejected '
-            'with code=${error.code}';
-      }
-      throw StateError('Corrupted pack was unexpectedly accepted.');
-    },
-  );
 
   Future<void> _clearNutritionCache() =>
       _run('Clear nutrition cache', () async {

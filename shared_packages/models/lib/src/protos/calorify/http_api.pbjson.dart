@@ -339,15 +339,6 @@ const LocalNutritionPackManifest$json = {
     {'1': 'dataset_version', '3': 3, '4': 1, '5': 9, '10': 'datasetVersion'},
     {'1': 'object_name', '3': 4, '4': 1, '5': 9, '10': 'objectName'},
     {'1': 'size_bytes', '3': 5, '4': 1, '5': 3, '10': 'sizeBytes'},
-    {'1': 'signature', '3': 7, '4': 1, '5': 9, '10': 'signature'},
-    {'1': 'signing_key_id', '3': 8, '4': 1, '5': 9, '10': 'signingKeyId'},
-    {
-      '1': 'created_at_epoch_ms',
-      '3': 9,
-      '4': 1,
-      '5': 3,
-      '10': 'createdAtEpochMs'
-    },
     {'1': 'record_count', '3': 10, '4': 1, '5': 13, '10': 'recordCount'},
     {
       '1': 'calculation_version',
@@ -359,7 +350,11 @@ const LocalNutritionPackManifest$json = {
   ],
   '9': [
     {'1': 6, '2': 7},
+    {'1': 7, '2': 8},
+    {'1': 8, '2': 9},
+    {'1': 9, '2': 10},
   ],
+  '10': ['signature', 'signing_key_id', 'created_at_epoch_ms'],
 };
 
 /// Descriptor for `LocalNutritionPackManifest`. Decode as a `google.protobuf.DescriptorProto`.
@@ -367,11 +362,10 @@ final $typed_data.Uint8List localNutritionPackManifestDescriptor = $convert.base
     'ChpMb2NhbE51dHJpdGlvblBhY2tNYW5pZmVzdBIlCg5zY2hlbWFfdmVyc2lvbhgBIAEoDVINc2'
     'NoZW1hVmVyc2lvbhIhCgxwYWNrX3ZlcnNpb24YAiABKAlSC3BhY2tWZXJzaW9uEicKD2RhdGFz'
     'ZXRfdmVyc2lvbhgDIAEoCVIOZGF0YXNldFZlcnNpb24SHwoLb2JqZWN0X25hbWUYBCABKAlSCm'
-    '9iamVjdE5hbWUSHQoKc2l6ZV9ieXRlcxgFIAEoA1IJc2l6ZUJ5dGVzEhwKCXNpZ25hdHVyZRgH'
-    'IAEoCVIJc2lnbmF0dXJlEiQKDnNpZ25pbmdfa2V5X2lkGAggASgJUgxzaWduaW5nS2V5SWQSLQ'
-    'oTY3JlYXRlZF9hdF9lcG9jaF9tcxgJIAEoA1IQY3JlYXRlZEF0RXBvY2hNcxIhCgxyZWNvcmRf'
-    'Y291bnQYCiABKA1SC3JlY29yZENvdW50Ei8KE2NhbGN1bGF0aW9uX3ZlcnNpb24YCyABKAlSEm'
-    'NhbGN1bGF0aW9uVmVyc2lvbkoECAYQBw==');
+    '9iamVjdE5hbWUSHQoKc2l6ZV9ieXRlcxgFIAEoA1IJc2l6ZUJ5dGVzEiEKDHJlY29yZF9jb3Vu'
+    'dBgKIAEoDVILcmVjb3JkQ291bnQSLwoTY2FsY3VsYXRpb25fdmVyc2lvbhgLIAEoCVISY2FsY3'
+    'VsYXRpb25WZXJzaW9uSgQIBhAHSgQIBxAISgQICBAJSgQICRAKUglzaWduYXR1cmVSDnNpZ25p'
+    'bmdfa2V5X2lkUhNjcmVhdGVkX2F0X2Vwb2NoX21z');
 
 @$core.Deprecated('Use localNutritionLookupDescriptor instead')
 const LocalNutritionLookup$json = {

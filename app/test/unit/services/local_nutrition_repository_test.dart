@@ -68,15 +68,11 @@ InstalledLocalNutritionPack _installed() {
       datasetVersion: 'fdc-v1',
       objectName: 'local-nutrition/starter-v1.json',
       sizeBytes: Int64.ONE,
-      signature: 'signature',
-      signingKeyId: 'key',
-      createdAtEpochMs: Int64.ONE,
       recordCount: 1,
       calculationVersion: localNutritionCalculationVersion,
     ),
     pack: pack,
     byteSize: 1,
-    generation: 'starter-v1',
   );
 }
 

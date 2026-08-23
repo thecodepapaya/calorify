@@ -121,16 +121,12 @@ jobs:
           ORACLE_BUCKET_UPLOAD_URL: ${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
           MEASURE_API_KEY: ${{ secrets.MEASURE_API_KEY }}
           SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
-          LOCAL_NUTRITION_SIGNING_KEY_ID: ${{ secrets.LOCAL_NUTRITION_SIGNING_KEY_ID }}
-          LOCAL_NUTRITION_SIGNING_PUBLIC_KEY_BASE64: ${{ secrets.LOCAL_NUTRITION_SIGNING_PUBLIC_KEY_BASE64 }}
         run: |
           set -euo pipefail
           : "${GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:?Missing GOOGLE_PLAY_SERVICE_ACCOUNT_JSON}"
           : "${ORACLE_BUCKET_UPLOAD_URL:?Missing ORACLE_BUCKET_UPLOAD_URL}"
           : "${MEASURE_API_KEY:?Missing MEASURE_API_KEY}"
           : "${SHOREBIRD_TOKEN:?Missing SHOREBIRD_TOKEN}"
-          : "${LOCAL_NUTRITION_SIGNING_KEY_ID:?Missing LOCAL_NUTRITION_SIGNING_KEY_ID}"
-          : "${LOCAL_NUTRITION_SIGNING_PUBLIC_KEY_BASE64:?Missing LOCAL_NUTRITION_SIGNING_PUBLIC_KEY_BASE64}"
 
       - name: Install Ruby dependencies
         run: bundle install
@@ -162,8 +158,6 @@ jobs:
             --flavor=prod
             --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
             --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
-            --dart-define=LOCAL_NUTRITION_SIGNING_KEY_ID=${{ secrets.LOCAL_NUTRITION_SIGNING_KEY_ID }}
-            --dart-define=LOCAL_NUTRITION_SIGNING_PUBLIC_KEY_BASE64=${{ secrets.LOCAL_NUTRITION_SIGNING_PUBLIC_KEY_BASE64 }}
           working-directory: app
           flutter-version: "3.41.0"
 

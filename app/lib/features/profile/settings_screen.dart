@@ -447,12 +447,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       _ => null,
     };
     final policy = availability?.policy;
-    final packService = ref.read(localNutritionPackServiceProvider);
     final available =
         preferences?.enabled == true &&
         policy?.localNutritionEnabled == true &&
-        policy?.hasLocalNutritionManifestUrl() == true &&
-        packService.hasConfiguredSigningKey;
+        policy?.hasLocalNutritionManifestUrl() == true;
     final enabled = preferences?.offlineNutritionEnabled ?? false;
     final pack = status?.pack;
     final copy = t.localNutritionPhase4;

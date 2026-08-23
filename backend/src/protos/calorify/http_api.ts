@@ -112,9 +112,6 @@ export interface LocalNutritionPackManifest {
   datasetVersion: string;
   objectName: string;
   sizeBytes: number;
-  signature: string;
-  signingKeyId: string;
-  createdAtEpochMs: number;
   recordCount: number;
   calculationVersion: string;
 }
