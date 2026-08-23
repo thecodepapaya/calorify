@@ -33,24 +33,18 @@ class DebugUserIdField extends StatelessWidget {
     final authenticated = value != null && value.isNotEmpty;
     return KeyedSubtree(
       key: const ValueKey('debug-user-id-field'),
-      child: TextFormField(
+      child: ListTile(
         key: ValueKey('debug-user-id-value-${value ?? 'signed-out'}'),
-        initialValue: authenticated ? value : 'Not authenticated',
-        readOnly: true,
-        enableInteractiveSelection: authenticated,
-        decoration: InputDecoration(
-          labelText: 'User ID',
-          helperText:
-              authenticated
-                  ? 'Firebase UID used by backend diagnostic tools'
-                  : 'Sign in to obtain a Firebase UID',
-          prefixIcon: const Icon(LucideIcons.userRound),
-          suffixIcon: IconButton(
-            tooltip: authenticated ? 'Copy user ID' : 'No user ID to copy',
-            onPressed: authenticated ? _copy : null,
-            icon: const Icon(LucideIcons.copy),
-          ),
-          border: const OutlineInputBorder(),
+        leading: const Icon(LucideIcons.userRound),
+        title: const Text('Firebase user ID'),
+        subtitle: SelectableText(
+          authenticated ? value : 'Not authenticated',
+          maxLines: 2,
+        ),
+        trailing: IconButton(
+          tooltip: authenticated ? 'Copy user ID' : 'No user ID to copy',
+          onPressed: authenticated ? _copy : null,
+          icon: const Icon(LucideIcons.copy),
         ),
       ),
     );

@@ -57,100 +57,87 @@ class _LocalInferenceDebugScreenState
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          _buildSectionTitle(context, 'Gemini Nano capability'),
           Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Gemini Nano capability',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(LucideIcons.cpu),
+                  title: const Text('Capability status'),
+                  subtitle: Text(
+                    _capabilitySummary(),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 8),
-                  Text(_capabilitySummary()),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      OutlinedButton.icon(
-                        onPressed: _running ? null : _refreshCapabilities,
-                        icon: const Icon(LucideIcons.refreshCw, size: 18),
-                        label: const Text('Refresh'),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _running ? null : _downloadModel,
-                        icon: const Icon(LucideIcons.download, size: 18),
-                        label: const Text('Download model'),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _running ? null : _warmUp,
-                        icon: const Icon(LucideIcons.flame, size: 18),
-                        label: const Text('Warm up'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                const Divider(height: 1),
+                _buildActionTile(
+                  icon: LucideIcons.refreshCw,
+                  title: 'Refresh',
+                  description: 'Check whether Gemini Nano is ready to use',
+                  onTap: _running ? null : _refreshCapabilities,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.download,
+                  title: 'Download model',
+                  description: 'Install the on-device Gemini Nano model',
+                  onTap: _running ? null : _downloadModel,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.flame,
+                  title: 'Warm up',
+                  description: 'Prepare the model for a faster first request',
+                  onTap: _running ? null : _warmUp,
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'Local nutrition (Phase 4)'),
           Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Local nutrition (Phase 4)',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'One-off checks for pack activation, matching, remote cache fill, and deterministic math.',
-                    style: theme.textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      OutlinedButton(
-                        onPressed: _running ? null : _nutritionStatus,
-                        child: const Text('Pack/cache status'),
-                      ),
-                      OutlinedButton(
-                        onPressed: _running ? null : _installNutritionPack,
-                        child: const Text('Download + verify'),
-                      ),
-                      OutlinedButton(
-                        onPressed: _running ? null : _testLocalPackLookup,
-                        child: const Text('Known/missing lookup'),
-                      ),
-                      OutlinedButton(
-                        onPressed: _running ? null : _testRemoteResolver,
-                        child: const Text('Remote cache fill'),
-                      ),
-                      OutlinedButton(
-                        onPressed: _running ? null : _testCalculator,
-                        child: const Text('Calculator sample'),
-                      ),
-                      OutlinedButton(
-                        onPressed: _running ? null : _clearNutritionCache,
-                        child: const Text('Clear lookup cache'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                _buildActionTile(
+                  icon: LucideIcons.database,
+                  title: 'Pack/cache status',
+                  description: 'Inspect installed data and cached lookups',
+                  onTap: _running ? null : _nutritionStatus,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.download,
+                  title: 'Download + verify',
+                  description: 'Download the nutrition pack and validate it',
+                  onTap: _running ? null : _installNutritionPack,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.search,
+                  title: 'Known/missing lookup',
+                  description: 'Test local matches and unknown ingredients',
+                  onTap: _running ? null : _testLocalPackLookup,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.cloud,
+                  title: 'Remote cache fill',
+                  description: 'Test resolving and caching a remote ingredient',
+                  onTap: _running ? null : _testRemoteResolver,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.calculator,
+                  title: 'Calculator sample',
+                  description: 'Run deterministic nutrition calculations',
+                  onTap: _running ? null : _testCalculator,
+                ),
+                _buildActionTile(
+                  icon: LucideIcons.trash2,
+                  title: 'Clear lookup cache',
+                  description: 'Remove cached nutrition lookup results',
+                  onTap: _running ? null : _clearNutritionCache,
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'Meal analysis'),
           Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -167,21 +154,18 @@ class _LocalInferenceDebugScreenState
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      FilledButton.icon(
-                        onPressed: _running ? null : _runLocal,
-                        icon: const Icon(LucideIcons.cpu, size: 18),
-                        label: const Text('Run local'),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _running ? null : _compareWithCloud,
-                        icon: const Icon(LucideIcons.gitCompare, size: 18),
-                        label: const Text('Compare with cloud'),
-                      ),
-                    ],
+                  const SizedBox(height: 8),
+                  _buildActionTile(
+                    icon: LucideIcons.cpu,
+                    title: 'Run local',
+                    description: 'Analyze the meal using the on-device model',
+                    onTap: _running ? null : _runLocal,
+                  ),
+                  _buildActionTile(
+                    icon: LucideIcons.gitCompare,
+                    title: 'Compare with cloud',
+                    description: 'Compare local results with the cloud model',
+                    onTap: _running ? null : _compareWithCloud,
                   ),
                   const Divider(height: 24),
                   if (_imageBytes != null) ...[
@@ -210,18 +194,17 @@ class _LocalInferenceDebugScreenState
                     icon: LucideIcons.scanSearch,
                     title: 'Run image locally',
                     description: 'Analyze the selected image using Gemini Nano',
-                    onTap: _running || _imageBytes == null
-                        ? null
-                        : _runLocalImage,
+                    onTap:
+                        _running || _imageBytes == null ? null : _runLocalImage,
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 24),
+          _buildSectionTitle(context, 'Result'),
           Card(
             key: _resultKey,
-            color: theme.colorScheme.surfaceContainerLow,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -229,8 +212,14 @@ class _LocalInferenceDebugScreenState
                 children: [
                   Row(
                     children: [
+                      Icon(
+                        LucideIcons.fileText,
+                        size: 20,
+                        color: theme.colorScheme.primary,
+                      ),
+                      const SizedBox(width: 8),
                       Text(
-                        'Result',
+                        _running ? 'Running check…' : 'Latest output',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -245,11 +234,22 @@ class _LocalInferenceDebugScreenState
                       ],
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  SelectableText(
-                    _output,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontFamily: 'monospace',
+                  const SizedBox(height: 12),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: theme.colorScheme.outline),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: SelectableText(
+                        _output,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          fontFamily: 'monospace',
+                          height: 1.4,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -257,6 +257,18 @@ class _LocalInferenceDebugScreenState
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(
+        title,
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -372,9 +384,10 @@ class _LocalInferenceDebugScreenState
       cloudDecomposition ??= event.decomposition;
     }
     cloudWatch.stop();
-    final localNames = local.proposal.ingredients
-        .map((ingredient) => ingredient.rawName)
-        .toList();
+    final localNames =
+        local.proposal.ingredients
+            .map((ingredient) => ingredient.rawName)
+            .toList();
     final cloudNames =
         cloudDecomposition?.ingredients
             .map((ingredient) => ingredient.rawName)
@@ -390,9 +403,8 @@ class _LocalInferenceDebugScreenState
 
   Future<void> _nutritionStatus() => _run('Pack/cache status', () async {
     final pack = await ref.read(localNutritionPackServiceProvider).loadActive();
-    final cache = await ref
-        .read(databaseInterfaceProvider)
-        .getLocalNutritionCacheStats();
+    final cache =
+        await ref.read(databaseInterfaceProvider).getLocalNutritionCacheStats();
     return const JsonEncoder.withIndent('  ').convert({
       'activePack': pack?.pack.packVersion,
       'datasetVersion': pack?.pack.datasetVersion,
@@ -406,9 +418,8 @@ class _LocalInferenceDebugScreenState
   Future<void> _installNutritionPack() => _run(
     'Nutrition pack install',
     () async {
-      final policy = await ref
-          .read(foodRepositoryProvider)
-          .getLocalInferencePolicy();
+      final policy =
+          await ref.read(foodRepositoryProvider).getLocalInferencePolicy();
       if (!policy.localNutritionEnabled ||
           !policy.hasLocalNutritionManifestUrl()) {
         throw StateError('Backend local-nutrition capability is disabled.');
@@ -423,9 +434,8 @@ class _LocalInferenceDebugScreenState
   );
 
   Future<void> _testLocalPackLookup() => _run('Local pack lookup', () async {
-    final installed = await ref
-        .read(localNutritionPackServiceProvider)
-        .loadActive();
+    final installed =
+        await ref.read(localNutritionPackServiceProvider).loadActive();
     if (installed == null || installed.pack.records.isEmpty) {
       throw StateError('Install a pack first.');
     }
@@ -463,8 +473,9 @@ class _LocalInferenceDebugScreenState
                 ),
               ],
             );
-        return const JsonEncoder.withIndent('  ')
-            .convert(response.toProto3Json());
+        return const JsonEncoder.withIndent(
+          '  ',
+        ).convert(response.toProto3Json());
       });
 
   Future<void> _testCalculator() => _run('Calculator sample', () async {
@@ -539,9 +550,10 @@ class _LocalInferenceDebugScreenState
       developer.log('$label succeeded', name: 'LOCAL_INFERENCE_DEBUG');
       if (mounted) setState(() => _output = '$label\n$value');
     } on LocalInferenceException catch (error) {
-      final nativeDetails = error.nativeDetails == null
-          ? ''
-          : '\nnative=${const JsonEncoder.withIndent('  ').convert(error.nativeDetails)}';
+      final nativeDetails =
+          error.nativeDetails == null
+              ? ''
+              : '\nnative=${const JsonEncoder.withIndent('  ').convert(error.nativeDetails)}';
       developer.log(
         '$label failed: code=${error.code} message=${error.message}$nativeDetails',
         name: 'LOCAL_INFERENCE_DEBUG',
@@ -549,8 +561,9 @@ class _LocalInferenceDebugScreenState
       );
       if (mounted) {
         setState(
-          () => _output =
-              '$label\ncode=${error.code}\nfallback=${error.fallbackReason.name}\nmessage=${error.message}$nativeDetails',
+          () =>
+              _output =
+                  '$label\ncode=${error.code}\nfallback=${error.fallbackReason.name}\nmessage=${error.message}$nativeDetails',
         );
       }
     } on Object catch (error, stackTrace) {

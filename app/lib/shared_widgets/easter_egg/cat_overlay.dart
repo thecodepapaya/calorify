@@ -33,8 +33,11 @@ class CatOverlayState extends State<CatOverlay> {
     // both their spacing and their motion look broken.
     if (_activeCatEntry != null) return;
 
-    // Resolve edge: use hint or pick random via [Edge.auto].
-    final edge = edgeHint ?? Edge.auto;
+    final edge = _resolveEdge(
+      edgeHint: edgeHint,
+      preferredAnimation: preferredAnimation,
+      overrideSide: overrides?.sideHint,
+    );
 
     final forEdge = edge.eligibleAnimations;
     final pool =
@@ -105,6 +108,24 @@ class CatOverlayState extends State<CatOverlay> {
     if (overlay == null) return;
     _activeCatEntry = entryRef;
     overlay.insert(entryRef);
+  }
+
+  Edge _resolveEdge({
+    required Edge? edgeHint,
+    required CatAnimationType? preferredAnimation,
+    required Edge? overrideSide,
+  }) {
+    if (edgeHint != null) return edgeHint;
+
+    if (preferredAnimation == CatAnimationType.sidePeek) {
+      if (overrideSide is LeftEdge || overrideSide is RightEdge) {
+        return overrideSide!;
+      }
+      return _random.nextBool() ? Edge.left : Edge.right;
+    }
+    if (preferredAnimation == CatAnimationType.topPeek) return Edge.top;
+    if (preferredAnimation == CatAnimationType.doublePeek) return Edge.bottom;
+    return Edge.auto;
   }
 
   @override

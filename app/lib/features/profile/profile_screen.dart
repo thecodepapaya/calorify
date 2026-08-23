@@ -2,11 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
-import 'package:calorify/core/services/auth_service.dart';
 import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
 import 'package:calorify/features/home/widgets/disclaimer_button.dart';
-import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getHealthMetricsDisclaimer;
 import 'package:calorify/shared_widgets/error_view.dart';
@@ -27,8 +25,6 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  bool _isSigningIn = false;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -77,7 +73,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 _buildCardSection(context, t.profile.sections.profile, [
                   _buildProfileHeader(context),
-                  _buildAccountTile(context),
                 ]),
                 const SizedBox(height: 16),
                 _buildCardSection(
@@ -174,49 +169,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       ),
       subtitle: Text(t.profile.viewAndManage, style: TextStyle(fontSize: 13)),
     );
-  }
-
-  Widget _buildAccountTile(BuildContext context) {
-    final user = AuthService.instance.currentUser;
-    final isAnonymous = user == null || user.isAnonymous;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: colorScheme.primaryContainer.withValues(alpha: 0.4),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(LucideIcons.logIn, color: colorScheme.primary, size: 20),
-      ),
-      title: Text(
-        t.login.signInWithGoogle,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
-      subtitle: isAnonymous || user.email == null ? null : Text(user.email!),
-      trailing:
-          _isSigningIn
-              ? const SizedBox.square(
-                dimension: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-              : isAnonymous
-              ? const Icon(Icons.chevron_right)
-              : const Icon(Icons.check),
-      onTap: isAnonymous && !_isSigningIn ? _signInWithGoogle : null,
-    );
-  }
-
-  Future<void> _signInWithGoogle() async {
-    setState(() => _isSigningIn = true);
-    final credential = await AuthService.instance.signInWithGoogle();
-    if (!mounted) return;
-    setState(() => _isSigningIn = false);
-    if (credential == null) {
-      showFlushbar(t.login.signInFailed, context: context);
-    }
   }
 
   Widget _buildPersonalDetailsTile(

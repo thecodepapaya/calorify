@@ -35,13 +35,6 @@ class CatAnimationWidget extends StatelessWidget {
           peekEdge: o?.peekEdge ?? Edge.bottom,
           peekOffset: (o?.peekOffset ?? 0.0).clamp(-1.0, 1.0),
         );
-      case CatAnimationType.jumpAtYou:
-        return _JumpAtYouAnimation(
-          cat: cat,
-          jump: cat as JumpAtYouAnimation,
-          onComplete: onComplete,
-          horizontalBias: o?.horizontalBias ?? 0,
-        );
       case CatAnimationType.sidePeek:
         return _PeekAnimation(
           cat: cat,
@@ -234,6 +227,7 @@ class _PeekAnimationState extends State<_PeekAnimation>
         final layout = CatAnimationLayout.peek(
           viewport: viewport,
           edge: widget.peekEdge,
+          cat: widget.cat,
           catExtent: extent,
           axisBias: widget.peekOffset,
           peekYOffset: widget.peek.peekYOffset,
@@ -263,98 +257,6 @@ class _PeekAnimationState extends State<_PeekAnimation>
             extent: extent,
             rotationDegrees: layout.rotationDegrees,
           ),
-        );
-      },
-    );
-  }
-}
-
-// pounce animation removed
-
-class _JumpAtYouAnimation extends StatefulWidget {
-  const _JumpAtYouAnimation({
-    required this.cat,
-    required this.jump,
-    required this.onComplete,
-    required this.horizontalBias,
-  });
-
-  final Cat cat;
-  final JumpAtYouAnimation jump;
-  final VoidCallback onComplete;
-  final double horizontalBias;
-
-  @override
-  State<_JumpAtYouAnimation> createState() => _JumpAtYouAnimationState();
-}
-
-class _JumpAtYouAnimationState extends State<_JumpAtYouAnimation>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: widget.jump.leapDuration,
-      vsync: this,
-    )..addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        widget.onComplete();
-      }
-    });
-
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final viewport = Size(constraints.maxWidth, constraints.maxHeight);
-        final extent = CatAnimationLayout.catExtent(viewport);
-        final safeInsets = MediaQuery.paddingOf(context);
-        final left = CatAnimationLayout.axisPosition(
-          viewportExtent: viewport.width,
-          catExtent: extent,
-          bias: widget.horizontalBias,
-          leadingInset: safeInsets.left,
-          trailingInset: safeInsets.right,
-        );
-        final hiddenY = viewport.height + 2;
-        final jumpDistance =
-            safeInsets.bottom + extent * 0.86 + widget.jump.leapHeight * 0.35;
-
-        return AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) {
-            final t = Curves.easeInOutSine.transform(
-              _clampT(_controller.value),
-            );
-            final arc = math.sin(t * math.pi);
-            final dy = hiddenY - arc * jumpDistance;
-            final scale = 0.9 + 0.32 * arc;
-            final rotation = 0.08 * math.sin(t * math.pi * 2);
-
-            return _positionedCat(
-              Offset(left, dy),
-              Transform.rotate(
-                angle: rotation,
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.bottomCenter,
-                  child: child,
-                ),
-              ),
-            );
-          },
-          child: _CatImage(widget.cat, extent: extent),
         );
       },
     );
@@ -413,6 +315,7 @@ class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
         final firstLayout = CatAnimationLayout.peek(
           viewport: viewport,
           edge: Edge.bottom,
+          cat: widget.cat,
           catExtent: extent,
           axisBias: widget.horizontalBias,
           peekYOffset: widget.doublePeek.peekYOffset,
@@ -421,6 +324,7 @@ class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
         final secondLayout = CatAnimationLayout.peek(
           viewport: viewport,
           edge: Edge.bottom,
+          cat: widget.cat,
           catExtent: extent,
           axisBias: -widget.horizontalBias * 0.55,
           peekYOffset: widget.doublePeek.peekYOffset,
@@ -462,7 +366,11 @@ class _DoublePeekAnimationState extends State<_DoublePeekAnimation>
                 t < 0.5 ? firstLayout.revealed.dx : secondLayout.revealed.dx;
             return _positionedCat(Offset(x, y), child!);
           },
-          child: _CatImage(widget.cat, extent: extent),
+          child: _CatImage(
+            widget.cat,
+            extent: extent,
+            rotationDegrees: firstLayout.rotationDegrees,
+          ),
         );
       },
     );

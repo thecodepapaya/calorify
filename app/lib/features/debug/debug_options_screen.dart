@@ -223,12 +223,9 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     final userId = AuthService.instance.currentUser?.uid;
     if (!_matchesQuery(section, title, userId)) return null;
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: DebugUserIdField(
-          userId: userId,
-          onCopied: () => _showSnackbar('User ID copied'),
-        ),
+      child: DebugUserIdField(
+        userId: userId,
+        onCopied: () => _showSnackbar('User ID copied'),
       ),
     );
   }
@@ -311,9 +308,9 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
             ),
       ),
       CatTrigger(
-        preferredCat: PartyHatCat(),
+        preferredCat: PartyCat(),
         animationHint: CatAnimationType.sidePeek,
-        edgeHint: Edge.right,
+        // edgeHint: Edge.right,
         child: ListTile(
           leading: const Icon(LucideIcons.hand),
           title: const Text('CatTrigger demo (tap this row)'),

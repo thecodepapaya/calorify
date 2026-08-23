@@ -20,11 +20,10 @@ class DatabaseService {
   /// Initialize the database service
   static void initialize() {
     if (!_initialized) {
-      if (DataSourceConfig.isMockDataEnabled) {
-        _database = AppDatabase.inMemory();
-      } else {
-        _database = AppDatabase();
-      }
+      _database =
+          DataSourceConfig.isMockDataEnabled
+              ? AppDatabase.inMemory()
+              : AppDatabase();
       _databaseInterface = _database;
       _initialized = true;
     }

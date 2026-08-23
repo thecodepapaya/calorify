@@ -43,25 +43,107 @@ abstract final class CatAnimationLayout {
   static double revealFraction(double peekYOffset) =>
       (0.64 + (-peekYOffset / 150) * 0.14).clamp(0.62, 0.72);
 
+  static Rect visibleRect({
+    required Cat cat,
+    required double catExtent,
+    required double rotationDegrees,
+  }) {
+    final bounds = cat.visibleBounds;
+    final scale =
+        catExtent *
+        CatEasterEggConfig.visibleScaleWithinExtent /
+        bounds.longestSide;
+    final visibleWidth = bounds.width * scale;
+    final visibleHeight = bounds.height * scale;
+    final unrotated = Rect.fromLTWH(
+      (catExtent - visibleWidth) / 2,
+      catExtent - visibleHeight,
+      visibleWidth,
+      visibleHeight,
+    );
+    if (rotationDegrees % 360 == 0) return unrotated;
+
+    final center = Offset(catExtent / 2, catExtent / 2);
+    final radians = rotationDegrees * math.pi / 180;
+    final cosine = math.cos(radians);
+    final sine = math.sin(radians);
+    Offset rotate(Offset point) {
+      final translated = point - center;
+      return Offset(
+            translated.dx * cosine - translated.dy * sine,
+            translated.dx * sine + translated.dy * cosine,
+          ) +
+          center;
+    }
+
+    final corners = [
+      rotate(unrotated.topLeft),
+      rotate(unrotated.topRight),
+      rotate(unrotated.bottomLeft),
+      rotate(unrotated.bottomRight),
+    ];
+    final left = corners.map((point) => point.dx).reduce(math.min);
+    final top = corners.map((point) => point.dy).reduce(math.min);
+    final right = corners.map((point) => point.dx).reduce(math.max);
+    final bottom = corners.map((point) => point.dy).reduce(math.max);
+    return Rect.fromLTRB(left, top, right, bottom);
+  }
+
+  static double _visibleAxisPosition({
+    required double viewportExtent,
+    required double visibleLeading,
+    required double visibleTrailing,
+    required double bias,
+    required double leadingInset,
+    required double trailingInset,
+  }) {
+    final minimum =
+        leadingInset + CatEasterEggConfig.edgePadding - visibleLeading;
+    final maximum = math.max(
+      minimum,
+      viewportExtent -
+          trailingInset -
+          CatEasterEggConfig.edgePadding -
+          visibleTrailing,
+    );
+    final normalized = ((bias.clamp(-1.0, 1.0) + 1) / 2).toDouble();
+    return minimum + (maximum - minimum) * normalized;
+  }
+
   static CatPeekLayout peek({
     required Size viewport,
     required Edge edge,
+    required Cat cat,
     required double catExtent,
     required double axisBias,
     required double peekYOffset,
     EdgeInsets safeInsets = EdgeInsets.zero,
   }) {
     final reveal = revealFraction(peekYOffset);
-    final horizontal = axisPosition(
-      viewportExtent: viewport.width,
+    final edgeRotation = switch (edge) {
+      BottomEdge() => 0.0,
+      TopEdge() => 180.0,
+      LeftEdge() => 90.0,
+      RightEdge() => -90.0,
+    };
+    final rotationDegrees = edgeRotation + cat.rotationOffsetDegrees;
+    final visible = visibleRect(
+      cat: cat,
       catExtent: catExtent,
+      rotationDegrees: rotationDegrees,
+    );
+    final horizontal = _visibleAxisPosition(
+      viewportExtent: viewport.width,
+      visibleLeading: visible.left,
+      visibleTrailing: visible.right,
       bias: axisBias,
       leadingInset: safeInsets.left,
       trailingInset: safeInsets.right,
     );
-    final vertical = axisPosition(
+    final vertical = _visibleAxisPosition(
       viewportExtent: viewport.height,
-      catExtent: catExtent,
+      visibleLeading: visible.top,
+      visibleTrailing: visible.bottom,
       bias: axisBias,
       leadingInset: safeInsets.top,
       trailingInset: safeInsets.bottom,
@@ -69,30 +151,42 @@ abstract final class CatAnimationLayout {
 
     return switch (edge) {
       BottomEdge() => CatPeekLayout(
-        hidden: Offset(horizontal, viewport.height + 2),
+        hidden: Offset(horizontal, viewport.height + 2 - visible.top),
         revealed: Offset(
           horizontal,
-          viewport.height - safeInsets.bottom - catExtent * reveal,
+          viewport.height -
+              safeInsets.bottom -
+              visible.height * reveal -
+              visible.top,
         ),
-        rotationDegrees: 0,
+        rotationDegrees: rotationDegrees,
       ),
       TopEdge() => CatPeekLayout(
-        hidden: Offset(horizontal, -catExtent - 2),
-        revealed: Offset(horizontal, safeInsets.top - catExtent * (1 - reveal)),
-        rotationDegrees: 180,
+        hidden: Offset(horizontal, -2 - visible.bottom),
+        revealed: Offset(
+          horizontal,
+          safeInsets.top - visible.height * (1 - reveal) - visible.top,
+        ),
+        rotationDegrees: rotationDegrees,
       ),
       LeftEdge() => CatPeekLayout(
-        hidden: Offset(-catExtent - 2, vertical),
-        revealed: Offset(safeInsets.left - catExtent * (1 - reveal), vertical),
-        rotationDegrees: 90,
-      ),
-      RightEdge() => CatPeekLayout(
-        hidden: Offset(viewport.width + 2, vertical),
+        hidden: Offset(-2 - visible.right, vertical),
         revealed: Offset(
-          viewport.width - safeInsets.right - catExtent * reveal,
+          safeInsets.left - visible.width * (1 - reveal) - visible.left,
           vertical,
         ),
-        rotationDegrees: -90,
+        rotationDegrees: rotationDegrees,
+      ),
+      RightEdge() => CatPeekLayout(
+        hidden: Offset(viewport.width + 2 - visible.left, vertical),
+        revealed: Offset(
+          viewport.width -
+              safeInsets.right -
+              visible.width * reveal -
+              visible.left,
+          vertical,
+        ),
+        rotationDegrees: rotationDegrees,
       ),
     };
   }

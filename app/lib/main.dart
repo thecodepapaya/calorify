@@ -40,15 +40,13 @@ Future<void> main() async {
     config: const MeasureConfig(
       traceSamplingRate: 1,
       samplingRateForErrorFreeSessions: 1,
-      trackHttpHeaders: false,
-      trackHttpBody: false,
+      trackHttpHeaders: true,
+      trackHttpBody: true,
       journeySamplingRate: 1,
       hotLaunchSamplingRate: 1,
       coldLaunchSamplingRate: 1,
       warmLaunchSamplingRate: 1,
-      // Health-derived UI can be visible during a crash. Keep diagnostics to
-      // structured traces rather than capturing potentially sensitive pixels.
-      trackScreenshotOnCrash: false,
+      trackScreenshotOnCrash: true,
       maxDiskUsageInMb: 30,
     ),
     clientInfo: ClientInfo(

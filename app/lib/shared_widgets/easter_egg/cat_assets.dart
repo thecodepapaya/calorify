@@ -2,100 +2,118 @@ import 'dart:math' as math;
 
 /// Cat asset paths. Kept as a separate enum for asset definition.
 enum CatAsset {
-  acrobatFlip(
-    'assets/images/cat_acrobat_flip.webp',
+  acrobat(
+    'Acrobat',
+    'assets/images/cat_acrobat.webp',
     CatVisualBounds(70, 93, 430, 392),
+    90,
   ),
-  blepCurious(
-    'assets/images/cat_blep_curious.webp',
+  curiousBlep(
+    'Curious Blep',
+    'assets/images/cat_curious_blep.webp',
     CatVisualBounds(38, 49, 438, 462),
   ),
   calicoWave(
+    'Calico Wave',
     'assets/images/cat_calico_wave.webp',
     CatVisualBounds(100, 50, 410, 454),
   ),
-  fallingSiamese(
-    'assets/images/cat_falling_siamese.webp',
+  flyingSiamese(
+    'Flying Siamese',
+    'assets/images/cat_flying_siamese.webp',
     CatVisualBounds(70, 92, 430, 392),
+    90,
   ),
-  foilHat(
-    'assets/images/cat_foil_hat.webp',
+  conspiracy(
+    'Conspiracy Cat',
+    'assets/images/cat_conspiracy.webp',
     CatVisualBounds(72, 113, 317, 475),
   ),
-  leapingStretch(
-    'assets/images/cat_leaping_stretch.webp',
-    CatVisualBounds(41, 59, 465, 414),
-  ),
-  leapingTabby(
-    'assets/images/cat_leaping_tabby.webp',
+  springyTabby(
+    'Springy Tabby',
+    'assets/images/cat_springy_tabby.webp',
     CatVisualBounds(78, 28, 420, 471),
   ),
-  partyHat(
-    'assets/images/cat_party_hat.webp',
+  party(
+    'Party Cat',
+    'assets/images/cat_party.webp',
     CatVisualBounds(134, 69, 368, 459),
   ),
-  peekyTongue(
-    'assets/images/cat_peeky_tongue.webp',
+  peekabooBlep(
+    'Peekaboo Blep',
+    'assets/images/cat_peekaboo_blep.webp',
     CatVisualBounds(41, 43, 431, 462),
   ),
-  pickle('assets/images/cat_pickle.webp', CatVisualBounds(0, 19, 490, 491)),
-  pilotGoggles(
-    'assets/images/cat_pilot_goggles.webp',
+  aviator(
+    'Aviator Cat',
+    'assets/images/cat_aviator.webp',
     CatVisualBounds(89, 96, 374, 357),
+    -90,
   ),
-  siamesePounce(
-    'assets/images/cat_siamese_pounce.webp',
+  playfulSiamese(
+    'Playful Siamese',
+    'assets/images/cat_playful_siamese.webp',
     CatVisualBounds(121, 38, 403, 474),
   ),
-  singerMic(
-    'assets/images/cat_singer_mic.webp',
+  rockstar(
+    'Rockstar Cat',
+    'assets/images/cat_rockstar.webp',
     CatVisualBounds(69, 79, 464, 424),
   ),
-  surpriseBoo(
-    'assets/images/cat_surprise_boo.webp',
+  boo(
+    'Boo Cat',
+    'assets/images/cat_boo.webp',
     CatVisualBounds(112, 96, 390, 398),
   ),
-  surprisedTabby(
-    'assets/images/cat_surprised_tabby.webp',
+  startledTabby(
+    'Startled Tabby',
+    'assets/images/cat_startled_tabby.webp',
     CatVisualBounds(131, 13, 387, 496),
   ),
   wavingVoid(
+    'Waving Void',
     'assets/images/cat_waving_void.webp',
     CatVisualBounds(100, 51, 410, 454),
   ),
-  wednesdayWave(
-    'assets/images/cat_wednesday_wave.webp',
+  wednesday(
+    'Wednesday Cat',
+    'assets/images/cat_wednesday.webp',
     CatVisualBounds(76, 61, 424, 435),
   );
 
-  const CatAsset(this.path, this.visibleBounds);
+  const CatAsset(
+    this.displayName,
+    this.path,
+    this.visibleBounds, [
+    this.rotationOffsetDegrees = 0,
+  ]);
+  final String displayName;
   final String path;
   final CatVisualBounds visibleBounds;
+  final double rotationOffsetDegrees;
   Cat toCat() {
     return switch (this) {
-      CatAsset.acrobatFlip => AcrobatFlipCat(),
-      CatAsset.blepCurious => BlepCuriousCat(),
+      CatAsset.acrobat => AcrobatCat(),
+      CatAsset.curiousBlep => CuriousBlepCat(),
       CatAsset.calicoWave => CalicoWaveCat(),
-      CatAsset.fallingSiamese => FallingSiameseCat(),
-      CatAsset.foilHat => FoilHatCat(),
-      CatAsset.leapingStretch => LeapingStretchCat(),
-      CatAsset.leapingTabby => LeapingTabbyCat(),
-      CatAsset.partyHat => PartyHatCat(),
-      CatAsset.peekyTongue => PeekyTongueCat(),
-      CatAsset.pickle => PickleCat(),
-      CatAsset.pilotGoggles => PilotGogglesCat(),
-      CatAsset.siamesePounce => SiamesePounceCat(),
-      CatAsset.singerMic => SingerMicCat(),
-      CatAsset.surpriseBoo => SurpriseBooCat(),
-      CatAsset.surprisedTabby => SurprisedTabbyCat(),
+      CatAsset.flyingSiamese => FlyingSiameseCat(),
+      CatAsset.conspiracy => ConspiracyCat(),
+      CatAsset.springyTabby => SpringyTabbyCat(),
+      CatAsset.party => PartyCat(),
+      CatAsset.peekabooBlep => PeekabooBlepCat(),
+      CatAsset.aviator => AviatorCat(),
+      CatAsset.playfulSiamese => PlayfulSiameseCat(),
+      CatAsset.rockstar => RockstarCat(),
+      CatAsset.boo => BooCat(),
+      CatAsset.startledTabby => StartledTabbyCat(),
       CatAsset.wavingVoid => WavingVoidCat(),
-      CatAsset.wednesdayWave => WednesdayWaveCat(),
+      CatAsset.wednesday => WednesdayCat(),
     };
   }
 }
 
 /// Animation types used by the cat easter egg (for switch / overlay).
-enum CatAnimationType { peek, jumpAtYou, sidePeek, topPeek, doublePeek }
+enum CatAnimationType { peek, sidePeek, topPeek, doublePeek }
 
 /// Edge hints for where cats can appear from. Each edge declares which
 /// [CatAnimationType]s are eligible (like cats implementing animation interfaces).
@@ -117,7 +135,6 @@ final class BottomEdge extends Edge {
   @override
   List<CatAnimationType> get eligibleAnimations => [
     CatAnimationType.peek,
-    CatAnimationType.jumpAtYou,
     CatAnimationType.doublePeek,
   ];
 }
@@ -194,12 +211,6 @@ abstract interface class PeekAnimation extends CatAnimation {
 
 // pounce animation interface removed
 
-/// Getters for the jump-at-you animation.
-abstract interface class JumpAtYouAnimation extends CatAnimation {
-  Duration get leapDuration;
-  double get leapHeight;
-}
-
 // wiggle & bounce animation interfaces removed
 
 /// Getters for the double-peek animation. Reuses peek-style getters.
@@ -216,7 +227,9 @@ sealed class Cat {
   final CatAsset _asset;
 
   String get path => _asset.path;
+  String get displayName => _asset.displayName;
   CatVisualBounds get visibleBounds => _asset.visibleBounds;
+  double get rotationOffsetDegrees => _asset.rotationOffsetDegrees;
 
   /// Build the [Cat] for the given asset. Iterate over [CatAsset.values] and call this to get all cats.
   static Cat fromAsset(CatAsset asset) {
@@ -229,15 +242,20 @@ List<Cat> get allCats => CatAsset.values.map(Cat.fromAsset).toList();
 
 // --- Concrete cats with interface implementations ---
 
-final class AcrobatFlipCat extends Cat {
-  AcrobatFlipCat() : super(CatAsset.acrobatFlip);
+final class AcrobatCat extends Cat implements PeekAnimation {
+  AcrobatCat() : super(CatAsset.acrobat);
 
+  @override
+  Duration get peekDuration => const Duration(milliseconds: 1800);
+  @override
+  double get peekYOffset => -40;
+  @override
   double get horizontalBias => 120;
 }
 
-final class BlepCuriousCat extends Cat
+final class CuriousBlepCat extends Cat
     implements PeekAnimation, DoublePeekAnimation {
-  BlepCuriousCat() : super(CatAsset.blepCurious);
+  CuriousBlepCat() : super(CatAsset.curiousBlep);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 1800);
@@ -258,19 +276,19 @@ final class CalicoWaveCat extends Cat implements PeekAnimation {
   double get horizontalBias => 80;
 }
 
-final class FallingSiameseCat extends Cat implements JumpAtYouAnimation {
-  FallingSiameseCat() : super(CatAsset.fallingSiamese);
+final class FlyingSiameseCat extends Cat implements PeekAnimation {
+  FlyingSiameseCat() : super(CatAsset.flyingSiamese);
 
   @override
-  Duration get leapDuration => const Duration(milliseconds: 1500);
+  Duration get peekDuration => const Duration(milliseconds: 1800);
   @override
-  double get leapHeight => 110;
+  double get peekYOffset => -40;
   @override
   double get horizontalBias => 140;
 }
 
-final class FoilHatCat extends Cat implements PeekAnimation {
-  FoilHatCat() : super(CatAsset.foilHat);
+final class ConspiracyCat extends Cat implements PeekAnimation {
+  ConspiracyCat() : super(CatAsset.conspiracy);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 2000);
@@ -280,30 +298,19 @@ final class FoilHatCat extends Cat implements PeekAnimation {
   double get horizontalBias => 40;
 }
 
-final class LeapingStretchCat extends Cat implements JumpAtYouAnimation {
-  LeapingStretchCat() : super(CatAsset.leapingStretch);
+final class SpringyTabbyCat extends Cat implements PeekAnimation {
+  SpringyTabbyCat() : super(CatAsset.springyTabby);
 
   @override
-  Duration get leapDuration => const Duration(milliseconds: 1400);
+  Duration get peekDuration => const Duration(milliseconds: 2000);
   @override
-  double get leapHeight => 120;
-  @override
-  double get horizontalBias => 140;
-}
-
-final class LeapingTabbyCat extends Cat implements JumpAtYouAnimation {
-  LeapingTabbyCat() : super(CatAsset.leapingTabby);
-
-  @override
-  Duration get leapDuration => const Duration(milliseconds: 1600);
-  @override
-  double get leapHeight => 100;
+  double get peekYOffset => -40;
   @override
   double get horizontalBias => 120;
 }
 
-final class PartyHatCat extends Cat implements PeekAnimation {
-  PartyHatCat() : super(CatAsset.partyHat);
+final class PartyCat extends Cat implements PeekAnimation {
+  PartyCat() : super(CatAsset.party);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 2100);
@@ -313,9 +320,9 @@ final class PartyHatCat extends Cat implements PeekAnimation {
   double get horizontalBias => 80;
 }
 
-final class PeekyTongueCat extends Cat
+final class PeekabooBlepCat extends Cat
     implements PeekAnimation, DoublePeekAnimation {
-  PeekyTongueCat() : super(CatAsset.peekyTongue);
+  PeekabooBlepCat() : super(CatAsset.peekabooBlep);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 2000);
@@ -325,31 +332,19 @@ final class PeekyTongueCat extends Cat
   double get horizontalBias => 40;
 }
 
-final class PickleCat extends Cat implements JumpAtYouAnimation {
-  PickleCat() : super(CatAsset.pickle);
+final class AviatorCat extends Cat implements PeekAnimation {
+  AviatorCat() : super(CatAsset.aviator);
 
   @override
-  Duration get leapDuration => const Duration(milliseconds: 1500);
+  Duration get peekDuration => const Duration(milliseconds: 1800);
   @override
-  double get leapHeight => 130;
-  @override
-  double get horizontalBias => 140;
-}
-
-final class PilotGogglesCat extends Cat implements JumpAtYouAnimation {
-  PilotGogglesCat() : super(CatAsset.pilotGoggles);
-
-  @override
-  Duration get leapDuration => const Duration(milliseconds: 1500);
-  @override
-  double get leapHeight => 110;
+  double get peekYOffset => -40;
   @override
   double get horizontalBias => 120;
 }
 
-final class SiamesePounceCat extends Cat
-    implements PeekAnimation, JumpAtYouAnimation {
-  SiamesePounceCat() : super(CatAsset.siamesePounce);
+final class PlayfulSiameseCat extends Cat implements PeekAnimation {
+  PlayfulSiameseCat() : super(CatAsset.playfulSiamese);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 1800);
@@ -357,14 +352,10 @@ final class SiamesePounceCat extends Cat
   double get peekYOffset => -40;
   @override
   double get horizontalBias => 100;
-  @override
-  Duration get leapDuration => const Duration(milliseconds: 1600);
-  @override
-  double get leapHeight => 80;
 }
 
-final class SingerMicCat extends Cat implements PeekAnimation {
-  SingerMicCat() : super(CatAsset.singerMic);
+final class RockstarCat extends Cat implements PeekAnimation {
+  RockstarCat() : super(CatAsset.rockstar);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 2000);
@@ -374,9 +365,8 @@ final class SingerMicCat extends Cat implements PeekAnimation {
   double get horizontalBias => 80;
 }
 
-final class SurpriseBooCat extends Cat
-    implements PeekAnimation, JumpAtYouAnimation, DoublePeekAnimation {
-  SurpriseBooCat() : super(CatAsset.surpriseBoo);
+final class BooCat extends Cat implements PeekAnimation, DoublePeekAnimation {
+  BooCat() : super(CatAsset.boo);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 1600);
@@ -384,14 +374,10 @@ final class SurpriseBooCat extends Cat
   double get peekYOffset => -40;
   @override
   double get horizontalBias => 100;
-  @override
-  Duration get leapDuration => const Duration(milliseconds: 1700);
-  @override
-  double get leapHeight => 80;
 }
 
-final class SurprisedTabbyCat extends Cat implements PeekAnimation {
-  SurprisedTabbyCat() : super(CatAsset.surprisedTabby);
+final class StartledTabbyCat extends Cat implements PeekAnimation {
+  StartledTabbyCat() : super(CatAsset.startledTabby);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 2000);
@@ -412,9 +398,9 @@ final class WavingVoidCat extends Cat implements PeekAnimation {
   double get horizontalBias => 80;
 }
 
-final class WednesdayWaveCat extends Cat
+final class WednesdayCat extends Cat
     implements PeekAnimation, DoublePeekAnimation {
-  WednesdayWaveCat() : super(CatAsset.wednesdayWave);
+  WednesdayCat() : super(CatAsset.wednesday);
 
   @override
   Duration get peekDuration => const Duration(milliseconds: 2000);
@@ -446,8 +432,6 @@ List<Cat> eligibleCatsForAnimation(CatAnimationType type) {
     case CatAnimationType.topPeek:
       return allCats.whereType<PeekAnimation>().cast<Cat>().toList();
 
-    case CatAnimationType.jumpAtYou:
-      return allCats.whereType<JumpAtYouAnimation>().cast<Cat>().toList();
     case CatAnimationType.doublePeek:
       return allCats.whereType<DoublePeekAnimation>().cast<Cat>().toList();
   }
@@ -460,8 +444,6 @@ bool catSupportsAnimation(Cat cat, CatAnimationType type) {
     case CatAnimationType.sidePeek:
     case CatAnimationType.topPeek:
       return cat is PeekAnimation;
-    case CatAnimationType.jumpAtYou:
-      return cat is JumpAtYouAnimation;
     case CatAnimationType.doublePeek:
       return cat is DoublePeekAnimation;
     // all enum cases handled above

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:calorify/shared_widgets/easter_egg/cat_assets.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:flutter/material.dart';
@@ -13,27 +15,18 @@ class CatEasterEggTestScreen extends StatefulWidget {
 }
 
 class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
+  late final List<Cat> _cats;
   late Cat _selectedCat;
 
   @override
   void initState() {
     super.initState();
-    assert(allCats.isNotEmpty, 'allCats must not be empty');
-    _selectedCat = allCats.first;
+    _cats = allCats;
+    assert(_cats.isNotEmpty, 'allCats must not be empty');
+    _selectedCat = _cats.first;
   }
 
-  static String _catLabel(Cat cat) {
-    final name = cat.runtimeType.toString();
-    return name
-        .replaceAll(RegExp(r'Cat$'), '')
-        .split(RegExp(r'(?=[A-Z])'))
-        .where((s) => s.isNotEmpty)
-        .map(
-          (s) =>
-              '${s[0].toUpperCase()}${s.length > 1 ? s.substring(1).toLowerCase() : ''}',
-        )
-        .join(' ');
-  }
+  static String _catLabel(Cat cat) => cat.displayName;
 
   static String _animationLabel(CatAnimationType type) {
     final name = type.name;
@@ -55,7 +48,6 @@ class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
       case CatAnimationType.sidePeek:
         return Edge.left;
       case CatAnimationType.peek:
-      case CatAnimationType.jumpAtYou:
       case CatAnimationType.doublePeek:
         return Edge.bottom;
     }
@@ -63,7 +55,6 @@ class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cats = allCats;
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -78,66 +69,119 @@ class _CatEasterEggTestScreenState extends State<CatEasterEggTestScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Select cat', style: theme.textTheme.titleSmall),
-                  const SizedBox(height: 8),
-                  DropdownButton<Cat>(
-                    value: _selectedCat,
-                    isExpanded: true,
-                    items:
-                        cats.map((c) {
-                          return DropdownMenuItem<Cat>(
-                            value: c,
-                            child: Text(_catLabel(c)),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 3,
+                    children:
+                        _cats.map((cat) {
+                          return ChoiceChip(
+                            avatar: _CatThumbnail(cat: cat),
+                            label: Text(_catLabel(cat)),
+                            labelStyle: theme.textTheme.bodyMedium,
+                            labelPadding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                            ),
+                            showCheckmark: false,
+                            selected: identical(cat, _selectedCat),
+                            onSelected:
+                                (_) => setState(() => _selectedCat = cat),
                           );
                         }).toList(),
-                    onChanged: (Cat? value) {
-                      if (value != null) setState(() => _selectedCat = value);
-                    },
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          Text('Animations', style: theme.textTheme.titleMedium),
-          const SizedBox(height: 8),
-          ...CatAnimationType.values.map((type) {
-            final supported = catSupportsAnimation(_selectedCat, type);
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Card(
-                child: ListTile(
-                  leading: Icon(
-                    supported ? LucideIcons.play : LucideIcons.minus,
-                    color:
-                        supported
-                            ? theme.colorScheme.primary
-                            : theme.disabledColor,
-                  ),
-                  title: Text(_animationLabel(type)),
-                  subtitle: Text(
-                    supported ? 'Tap to play' : 'Not supported for this cat',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: supported ? null : theme.disabledColor,
-                    ),
-                  ),
-                  trailing:
-                      supported
-                          ? FilledButton.tonal(
-                            onPressed: () {
-                              CatOverlay.of(context)?.showCat(
+          const SizedBox(height: 10),
+          Text(
+            'Animations · ${_catLabel(_selectedCat)}',
+            style: theme.textTheme.titleMedium,
+          ),
+          const SizedBox(height: 4),
+          Card(
+            child: Column(
+              children:
+                  CatAnimationType.values.map((type) {
+                    final supported = catSupportsAnimation(_selectedCat, type);
+                    return ListTile(
+                      leading: Icon(
+                        supported ? LucideIcons.play : LucideIcons.minus,
+                        size: 22,
+                        color:
+                            supported
+                                ? theme.colorScheme.primary
+                                : theme.disabledColor,
+                      ),
+                      title: Text(_animationLabel(type)),
+                      subtitle: Text(
+                        supported ? 'Tap to play' : 'Unavailable',
+                        maxLines: 1,
+                      ),
+                      trailing:
+                          supported
+                              ? const Icon(LucideIcons.chevronRight, size: 18)
+                              : null,
+                      enabled: supported,
+                      onTap:
+                          supported
+                              ? () => CatOverlay.of(context)?.showCat(
                                 preferredCat: _selectedCat,
                                 preferredAnimation: type,
                                 edgeHint: _edgeForAnimation(type),
-                              );
-                            },
-                            child: const Text('Play'),
-                          )
-                          : null,
+                              )
+                              : null,
+                    );
+                  }).toList(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CatThumbnail extends StatelessWidget {
+  const _CatThumbnail({required this.cat});
+
+  final Cat cat;
+
+  @override
+  Widget build(BuildContext context) {
+    const extent = 24.0;
+    final bounds = cat.visibleBounds;
+    final scale = extent * 0.9 / bounds.longestSide;
+    final sourceExtent = CatEasterEggConfig.sourceAssetExtent * scale;
+    final visibleWidth = bounds.width * scale;
+    final visibleHeight = bounds.height * scale;
+    final imageLeft = (extent - visibleWidth) / 2 - bounds.left * scale;
+    final imageTop = (extent - visibleHeight) / 2 - bounds.top * scale;
+
+    return ClipRect(
+      child: Transform.rotate(
+        angle: cat.rotationOffsetDegrees * math.pi / 180,
+        child: SizedBox.square(
+          dimension: extent,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned(
+                left: imageLeft,
+                top: imageTop,
+                width: sourceExtent,
+                height: sourceExtent,
+                child: Image.asset(
+                  cat.path,
+                  fit: BoxFit.contain,
+                  gaplessPlayback: true,
+                  errorBuilder:
+                      (context, error, stackTrace) =>
+                          const Icon(LucideIcons.cat, size: 16),
                 ),
               ),
-            );
-          }),
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }

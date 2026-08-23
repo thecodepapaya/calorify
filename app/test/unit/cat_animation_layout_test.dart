@@ -45,16 +45,23 @@ void main() {
       const viewport = Size(400, 800);
       const extent = 136.0;
       const safeInsets = EdgeInsets.only(bottom: 24);
+      final cat = CuriousBlepCat();
       final layout = CatAnimationLayout.peek(
         viewport: viewport,
         edge: Edge.bottom,
+        cat: cat,
         catExtent: extent,
         axisBias: 0,
         peekYOffset: -40,
         safeInsets: safeInsets,
       );
 
-      expect(layout.hidden.dy, greaterThan(viewport.height));
+      final hiddenVisible = CatAnimationLayout.visibleRect(
+        cat: cat,
+        catExtent: extent,
+        rotationDegrees: layout.rotationDegrees,
+      ).shift(layout.hidden);
+      expect(hiddenVisible.top, greaterThan(viewport.height));
       expect(layout.revealed.dx, closeTo(132, 0.001));
       expect(layout.revealed.dy, greaterThan(viewport.height - 24 - extent));
       expect(layout.revealed.dy, lessThan(viewport.height - 24));
@@ -78,6 +85,45 @@ void main() {
         );
         expect(bounds.width, greaterThan(0), reason: asset.name);
         expect(bounds.height, greaterThan(0), reason: asset.name);
+      }
+    });
+
+    test('visible artwork respects safe-area padding on every edge', () {
+      const viewport = Size(400, 800);
+      const safeInsets = EdgeInsets.fromLTRB(12, 28, 18, 24);
+      final extent = CatAnimationLayout.catExtent(viewport);
+
+      for (final cat in allCats) {
+        for (final edge in [Edge.bottom, Edge.top, Edge.left, Edge.right]) {
+          final layout = CatAnimationLayout.peek(
+            viewport: viewport,
+            edge: edge,
+            cat: cat,
+            catExtent: extent,
+            axisBias: -1,
+            peekYOffset: -40,
+            safeInsets: safeInsets,
+          );
+          final visible = CatAnimationLayout.visibleRect(
+            cat: cat,
+            catExtent: extent,
+            rotationDegrees: layout.rotationDegrees,
+          ).shift(layout.revealed);
+
+          if (edge is BottomEdge || edge is TopEdge) {
+            expect(
+              visible.left,
+              closeTo(safeInsets.left + CatEasterEggConfig.edgePadding, 0.001),
+              reason: '${cat.displayName} on $edge',
+            );
+          } else {
+            expect(
+              visible.top,
+              closeTo(safeInsets.top + CatEasterEggConfig.edgePadding, 0.001),
+              reason: '${cat.displayName} on $edge',
+            );
+          }
+        }
       }
     });
   });
