@@ -7,10 +7,13 @@ const _channel = MethodChannel(
   'dev.thecodepapaya.calorify/local_inference_test',
 );
 
-Map<String, Object?> _proposalJson({bool includeNutrition = false}) => {
+Map<String, Object?> _proposalJson({
+  bool includeNutrition = false,
+  String modality = 'ANALYSIS_MODALITY_TEXT',
+}) => {
   'schemaVersion': 1,
   'proposalId': 'proposal-1',
-  'modality': 'ANALYSIS_MODALITY_TEXT',
+  'modality': modality,
   'mealName': 'Oatmeal with banana',
   'inferredMealType': 'BREAKFAST',
   'mealTypeConfident': true,
@@ -44,6 +47,39 @@ Map<String, Object?> _proposalJson({bool includeNutrition = false}) => {
   'interpretationOrigin': 'INTERPRETATION_ORIGIN_LOCAL_NANO',
   'requestId': 'request-1',
   'elapsedMs': 42,
+};
+
+Map<String, Object?> _countProposalWithoutPerUnitJson() => {
+  ..._proposalJson(),
+  'ingredients': [
+    {
+      'rowId': 'ingredient-1',
+      'rawName': 'banana',
+      'canonicalHint': 'banana raw',
+      'preparation': 'raw',
+      'gramsEstimated': 240.0,
+      'minGrams': 180.0,
+      'maxGrams': 300.0,
+      'notes': '',
+      'portionKind': 'COUNT',
+      'count': 2.0,
+      'perUnitGrams': null,
+      'perUnitMinGrams': null,
+      'perUnitMaxGrams': null,
+      'sizeSpecifiedByUser': false,
+      'confidence': 0.9,
+      'fieldProvenance': [
+        {
+          'fieldName': 'identity',
+          'origin': 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
+        },
+        {
+          'fieldName': 'portion',
+          'origin': 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
+        },
+      ],
+    },
+  ],
 };
 
 IngredientProposalV1 _validProposal() => IngredientProposalV1(
@@ -121,6 +157,80 @@ void main() {
     },
   );
 
+  test('derives missing per-unit weights for counted ingredients', () async {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          _channel,
+          (_) async => _countProposalWithoutPerUnitJson(),
+        );
+    final service = MethodChannelLocalInferenceService(
+      channel: _channel,
+      platformSupportedForTesting: true,
+    );
+
+    final result = await service.analyzeText(
+      'two bananas',
+      requestId: 'request-1',
+    );
+
+    final ingredient = result.proposal.ingredients.single;
+    expect(ingredient.count, 2);
+    expect(ingredient.perUnitGrams, 120);
+    expect(ingredient.perUnitMinGrams, 90);
+    expect(ingredient.perUnitMaxGrams, 150);
+  });
+
+  test('sends image bytes and accepts a local image proposal', () async {
+    final imageBytes = Uint8List.fromList([1, 2, 3, 4]);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(_channel, (call) async {
+          expect(call.method, 'analyzeImage');
+          final arguments = call.arguments as Map<Object?, Object?>;
+          expect(arguments['imageBytes'], imageBytes);
+          expect(arguments['timeoutMs'], 45000);
+          return _proposalJson(modality: 'ANALYSIS_MODALITY_IMAGE');
+        });
+    final service = MethodChannelLocalInferenceService(
+      channel: _channel,
+      platformSupportedForTesting: true,
+    );
+
+    final result = await service.analyzeImage(
+      imageBytes,
+      requestId: 'request-1',
+    );
+
+    expect(result.proposal.modality, AnalysisModality.ANALYSIS_MODALITY_IMAGE);
+  });
+
+  test('removes count fields from a bulk image ingredient', () async {
+    final response = _proposalJson(modality: 'ANALYSIS_MODALITY_IMAGE');
+    final ingredient = (response['ingredients'] as List).single as Map;
+    ingredient
+      ..['count'] = 1.0
+      ..['perUnitGrams'] = 240.0
+      ..['perUnitMinGrams'] = 200.0
+      ..['perUnitMaxGrams'] = 280.0;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(_channel, (_) async => response);
+    final service = MethodChannelLocalInferenceService(
+      channel: _channel,
+      platformSupportedForTesting: true,
+    );
+
+    final result = await service.analyzeImage(
+      Uint8List.fromList([1, 2, 3]),
+      requestId: 'request-1',
+    );
+
+    final normalized = result.proposal.ingredients.single;
+    expect(normalized.portionKind, PortionKind.BULK);
+    expect(normalized.count, 0);
+    expect(normalized.perUnitGrams, 0);
+    expect(normalized.perUnitMinGrams, 0);
+    expect(normalized.perUnitMaxGrams, 0);
+  });
+
   test('method channel rejects any model-returned nutrition fields', () async {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
@@ -173,7 +283,15 @@ void main() {
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
           .setMockMethodCallHandler(
             _channel,
-            (_) async => throw PlatformException(code: 'quota_limited'),
+            (_) async =>
+                throw PlatformException(
+                  code: 'quota_limited',
+                  details: const {
+                    'nativeType':
+                        'com.google.mlkit.genai.common.GenAiException',
+                    'nativeErrorCode': 27,
+                  },
+                ),
           );
       final service = MethodChannelLocalInferenceService(
         channel: _channel,
@@ -183,12 +301,17 @@ void main() {
       await expectLater(
         service.analyzeText('oatmeal'),
         throwsA(
-          isA<LocalInferenceException>().having(
-            (error) => error.fallbackReason,
-            'fallbackReason',
-            MealAnalysisFallbackReason
-                .MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED,
-          ),
+          isA<LocalInferenceException>()
+              .having(
+                (error) => error.fallbackReason,
+                'fallbackReason',
+                MealAnalysisFallbackReason
+                    .MEAL_ANALYSIS_FALLBACK_REASON_QUOTA_LIMITED,
+              )
+              .having((error) => error.nativeDetails, 'nativeDetails', const {
+                'nativeType': 'com.google.mlkit.genai.common.GenAiException',
+                'nativeErrorCode': 27,
+              }),
         ),
       );
     },

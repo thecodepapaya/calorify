@@ -6,6 +6,7 @@ import com.google.mlkit.genai.common.FeatureStatus
 import com.google.mlkit.genai.common.GenAiException
 import com.google.mlkit.genai.prompt.GenerateContentRequest
 import com.google.mlkit.genai.prompt.Generation
+import com.google.mlkit.genai.prompt.ImagePart
 import com.google.mlkit.genai.prompt.TextPart
 import com.google.mlkit.genai.prompt.generateTypedContentRequest
 import io.flutter.embedding.engine.FlutterEngine
@@ -53,6 +54,7 @@ class LocalInferenceChannel(
             "downloadModel" -> launchResult(result) { downloadModel() }
             "warmUp" -> launchResult(result) { warmUp() }
             "analyzeText" -> startAnalysis(call, result)
+            "analyzeImage" -> startImageAnalysis(call, result)
             else -> result.notImplemented()
         }
     }
@@ -82,16 +84,55 @@ class LocalInferenceChannel(
             result.error("invalid_input", "Meal text is required", null)
             return
         }
+        startInference(
+            requestId = requestId,
+            timeoutMs = timeoutMs,
+            modality = "ANALYSIS_MODALITY_TEXT",
+            result = result,
+        ) {
+            inferText(text)
+        }
+    }
+
+    private fun startImageAnalysis(
+        call: MethodCall,
+        result: MethodChannel.Result,
+    ) {
+        val requestId = call.argument<String>("requestId") ?: UUID.randomUUID().toString()
+        val imageBytes = call.argument<ByteArray>("imageBytes")
+        val timeoutMs = (call.argument<Number>("timeoutMs")?.toLong() ?: MAX_TIMEOUT_MS)
+            .coerceIn(1_000L, MAX_TIMEOUT_MS)
+        if (imageBytes == null || imageBytes.isEmpty()) {
+            result.error("invalid_input_image", "A meal image is required", null)
+            return
+        }
+        startInference(
+            requestId = requestId,
+            timeoutMs = timeoutMs,
+            modality = "ANALYSIS_MODALITY_IMAGE",
+            result = result,
+        ) {
+            inferImage(imageBytes)
+        }
+    }
+
+    private fun startInference(
+        requestId: String,
+        timeoutMs: Long,
+        modality: String,
+        result: MethodChannel.Result,
+        inference: suspend () -> LocalMealProposalOutput,
+    ) {
         val job = scope.launch(start = CoroutineStart.LAZY) {
             try {
                 val startedAt = SystemClock.elapsedRealtime()
                 ensureReady()
                 val output = withTimeout(timeoutMs) {
-                    inferText(text)
+                    inference()
                 }
                 val elapsedMs = SystemClock.elapsedRealtime() - startedAt
                 val modelName = runCatching { model.getBaseModelName() }.getOrNull()
-                result.success(output.toPayload(requestId, elapsedMs, modelName))
+                result.success(output.toPayload(requestId, elapsedMs, modelName, modality))
             } catch (error: Throwable) {
                 completeError(result, error)
             } finally {
@@ -186,20 +227,49 @@ class LocalInferenceChannel(
             Decompose the user's meal into atomic editable ingredients and realistic total gram ranges.
             ## Rules
             Preserve explicit counts and sizes. Distinguish raw/cooked/fried states. Use generic USDA-friendly names.
-            Set count and per-unit fields to 0 for BULK or PINCH items. Keep min <= estimate <= max.
+            For COUNT, set count above 0 and set each per-unit gram value to its matching total gram value divided by count.
+            Set count and all per-unit fields to 0 for BULK or PINCH items. Keep min <= estimate <= max.
+            Treat prepared dishes as cooked when implied by the meal wording. Use raw only when explicitly stated; otherwise leave preparation empty.
+            Do not invent sizes or notes that the user did not provide.
             Do not provide calories, macros, nutrient facts, health advice, or presentation copy.
             ## Meal
             <meal>${text.take(MAX_TEXT_LENGTH)}</meal>
         """.trimIndent()
-        return generate(prompt)
-    }
-
-    private suspend fun generate(prompt: String): LocalMealProposalOutput {
         val request = GenerateContentRequest.Builder(TextPart(prompt)).apply {
             temperature = 0.2f
             candidateCount = 1
             maxOutputTokens = 2048
         }.build()
+        return generate(request)
+    }
+
+    private suspend fun inferImage(imageBytes: ByteArray): LocalMealProposalOutput {
+        val prompt = """
+            ## Task
+            Identify the visible meal and decompose it into atomic editable ingredients with realistic total gram ranges.
+            ## Rules
+            Include only edible foods reasonably visible in the image. Do not invent hidden ingredients.
+            Never include plates, bowls, cups, cutlery, chopsticks, napkins, packaging, tables, or other non-food objects.
+            Distinguish raw, cooked, fried, and baked states from visual evidence. Use generic USDA-friendly names.
+            For COUNT, set count above 0 and set each per-unit gram value to its matching total gram value divided by count.
+            Set count and all per-unit fields to 0 for BULK or PINCH items. Keep min <= estimate <= max.
+            Leave preparation or notes empty when the image does not support them.
+            Do not provide calories, macros, nutrient facts, health advice, or presentation copy.
+        """.trimIndent()
+        val image = try {
+            ImagePart(imageBytes)
+        } catch (error: IllegalArgumentException) {
+            throw AdapterException("invalid_input_image", "The selected image could not be decoded")
+        }
+        val request = GenerateContentRequest.Builder(image, TextPart(prompt)).apply {
+            temperature = 0.2f
+            candidateCount = 1
+            maxOutputTokens = 2048
+        }.build()
+        return generate(request)
+    }
+
+    private suspend fun generate(request: GenerateContentRequest): LocalMealProposalOutput {
         val typedRequest = generateTypedContentRequest(
             generateContentRequest = request,
             outputClass = LocalMealProposalOutput::class,
@@ -214,8 +284,19 @@ class LocalInferenceChannel(
         result.error(
             mapped.first,
             mapped.second,
-            mapOf("nativeType" to error.javaClass.simpleName),
+            errorDetails(error),
         )
+    }
+
+    private fun errorDetails(error: Throwable): Map<String, Any?> = buildMap {
+        put("nativeType", error.javaClass.name)
+        put("nativeMessage", error.message)
+        if (error is GenAiException) put("nativeErrorCode", error.errorCode)
+        error.cause?.let { cause ->
+            put("causeType", cause.javaClass.name)
+            put("causeMessage", cause.message)
+        }
+        put("nativeStackTrace", error.stackTraceToString())
     }
 
     private fun mapError(error: Throwable): Pair<String, String> = when (error) {
@@ -255,11 +336,12 @@ class LocalInferenceChannel(
         requestId: String,
         elapsedMs: Long,
         modelName: String?,
+        modality: String,
     ): Map<String, Any?> = mapOf(
         "schemaVersion" to 1,
         "proposalId" to UUID.randomUUID().toString(),
         "requestId" to requestId,
-        "modality" to "ANALYSIS_MODALITY_TEXT",
+        "modality" to modality,
         "mealName" to mealName.trim(),
         "inferredMealType" to inferredMealType,
         "mealTypeConfident" to mealTypeConfident,
@@ -275,10 +357,10 @@ class LocalInferenceChannel(
                 "maxGrams" to ingredient.maxGrams,
                 "notes" to ingredient.notes.trim(),
                 "portionKind" to ingredient.portionKind,
-                "count" to ingredient.count.takeIf { it > 0 },
-                "perUnitGrams" to ingredient.perUnitGrams.takeIf { it > 0 },
-                "perUnitMinGrams" to ingredient.perUnitMinGrams.takeIf { it > 0 },
-                "perUnitMaxGrams" to ingredient.perUnitMaxGrams.takeIf { it > 0 },
+                "count" to ingredient.count.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
+                "perUnitGrams" to ingredient.perUnitGrams.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
+                "perUnitMinGrams" to ingredient.perUnitMinGrams.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
+                "perUnitMaxGrams" to ingredient.perUnitMaxGrams.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
                 "sizeSpecifiedByUser" to ingredient.sizeSpecifiedByUser,
                 "confidence" to ingredient.confidence,
                 "fieldProvenance" to listOf(

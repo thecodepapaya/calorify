@@ -1,5 +1,8 @@
+import 'dart:convert';
+import 'dart:developer' as developer;
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
@@ -79,11 +82,13 @@ class LocalInferenceException implements Exception {
     required this.code,
     required this.message,
     required this.fallbackReason,
+    this.nativeDetails,
   });
 
   final String code;
   final String message;
   final MealAnalysisFallbackReason fallbackReason;
+  final Object? nativeDetails;
 
   @override
   String toString() => message;
@@ -100,6 +105,12 @@ abstract interface class LocalInferenceService {
     String text, {
     String? requestId,
     Duration timeout = const Duration(seconds: 20),
+  });
+
+  Future<LocalInferenceResult> analyzeImage(
+    Uint8List imageBytes, {
+    String? requestId,
+    Duration timeout = const Duration(seconds: 45),
   });
 }
 
@@ -120,15 +131,25 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
 
   @override
   Future<LocalInferenceCapabilities> getCapabilities() async {
+    _logGenAi('capabilities.request');
     if (!_isSupportedPlatform) {
+      _logGenAi('capabilities.response', data: {'platformSupported': false});
       return const LocalInferenceCapabilities.unsupported();
     }
     try {
       final result = await _channel.invokeMethod<Object?>('getCapabilities');
-      return LocalInferenceCapabilities.fromMap(_stringKeyedMap(result));
-    } on MissingPluginException {
+      final raw = _stringKeyedMap(result);
+      _logGenAi('capabilities.response', data: raw);
+      return LocalInferenceCapabilities.fromMap(raw);
+    } on MissingPluginException catch (error, stackTrace) {
+      _logGenAi(
+        'capabilities.missing_plugin',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return const LocalInferenceCapabilities.unsupported();
-    } on PlatformException catch (error) {
+    } on PlatformException catch (error, stackTrace) {
+      _logPlatformError('capabilities.error', error, stackTrace);
       throw _fromPlatformException(error);
     }
   }
@@ -136,10 +157,14 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
   @override
   Future<LocalInferenceCapabilities> downloadModel() async {
     _ensureAndroid();
+    _logGenAi('download.request');
     try {
       final result = await _channel.invokeMethod<Object?>('downloadModel');
-      return LocalInferenceCapabilities.fromMap(_stringKeyedMap(result));
-    } on PlatformException catch (error) {
+      final raw = _stringKeyedMap(result);
+      _logGenAi('download.response', data: raw);
+      return LocalInferenceCapabilities.fromMap(raw);
+    } on PlatformException catch (error, stackTrace) {
+      _logPlatformError('download.error', error, stackTrace);
       throw _fromPlatformException(error);
     }
   }
@@ -147,14 +172,17 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
   @override
   Future<Duration> warmUp() async {
     _ensureAndroid();
+    _logGenAi('warmup.request');
     try {
       final result = _stringKeyedMap(
         await _channel.invokeMethod<Object?>('warmUp'),
       );
+      _logGenAi('warmup.response', data: result);
       return Duration(
         milliseconds: (result['elapsedMs'] as num?)?.toInt() ?? 0,
       );
-    } on PlatformException catch (error) {
+    } on PlatformException catch (error, stackTrace) {
+      _logPlatformError('warmup.error', error, stackTrace);
       throw _fromPlatformException(error);
     }
   }
@@ -167,6 +195,7 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
   }) {
     final trimmed = text.trim();
     if (trimmed.isEmpty) {
+      _logGenAi('analyze.rejected', data: {'reason': 'empty_input'});
       throw const LocalInferenceException(
         code: 'invalid_input',
         message: 'Meal text is required.',
@@ -184,6 +213,34 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
     );
   }
 
+  @override
+  Future<LocalInferenceResult> analyzeImage(
+    Uint8List imageBytes, {
+    String? requestId,
+    Duration timeout = const Duration(seconds: 45),
+  }) {
+    if (imageBytes.isEmpty || imageBytes.length > _maxImageBytes) {
+      _logGenAi(
+        'analyzeImage.rejected',
+        data: {'imageBytes': imageBytes.length},
+      );
+      throw const LocalInferenceException(
+        code: 'invalid_input_image',
+        message: 'Choose a valid meal image smaller than 10 MB.',
+        fallbackReason:
+            MealAnalysisFallbackReason
+                .MEAL_ANALYSIS_FALLBACK_REASON_INVALID_OUTPUT,
+      );
+    }
+    return _analyze(
+      method: 'analyzeImage',
+      arguments: {'imageBytes': imageBytes},
+      expectedModality: AnalysisModality.ANALYSIS_MODALITY_IMAGE,
+      requestId: requestId,
+      timeout: timeout,
+    );
+  }
+
   Future<LocalInferenceResult> _analyze({
     required String method,
     required Map<String, Object?> arguments,
@@ -193,14 +250,20 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
   }) async {
     _ensureAndroid();
     final resolvedRequestId = requestId ?? const Uuid().v4();
+    final request = {
+      ...arguments,
+      'requestId': resolvedRequestId,
+      'timeoutMs': timeout.inMilliseconds,
+    };
+    _logGenAi('$method.request', data: _redactBinaryData(request));
     try {
       final raw = _stringKeyedMap(
-        await _channel.invokeMethod<Object?>(method, {
-          ...arguments,
-          'requestId': resolvedRequestId,
-          'timeoutMs': timeout.inMilliseconds,
-        }),
+        await _channel.invokeMethod<Object?>(method, request),
       );
+      _logGenAi('$method.response', data: raw);
+      if (_normalizeCountPortions(raw)) {
+        _logGenAi('$method.normalized', data: raw);
+      }
       final responseRequestId = raw.remove('requestId');
       if (responseRequestId is! String ||
           responseRequestId != resolvedRequestId) {
@@ -220,16 +283,31 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
         proposal,
         expectedModality: expectedModality,
       );
+      _logGenAi(
+        '$method.validated',
+        data: {
+          'requestId': responseRequestId,
+          'elapsedMs': elapsedMs,
+          'proposal': proposal.toProto3Json(),
+        },
+      );
       return LocalInferenceResult(
         proposal: proposal,
         requestId: responseRequestId,
         elapsed: Duration(milliseconds: elapsedMs),
       );
-    } on PlatformException catch (error) {
+    } on PlatformException catch (error, stackTrace) {
+      _logPlatformError('$method.error', error, stackTrace);
       throw _fromPlatformException(error);
-    } on LocalInferenceException {
+    } on LocalInferenceException catch (error, stackTrace) {
+      _logGenAi('$method.rejected', error: error, stackTrace: stackTrace);
       rethrow;
-    } on Object catch (error) {
+    } on Object catch (error, stackTrace) {
+      _logGenAi(
+        '$method.invalid_response',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw LocalInferenceException(
         code: 'invalid_output',
         message:
@@ -251,6 +329,109 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
               .MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE,
     );
   }
+
+  static const _maxImageBytes = 10 * 1024 * 1024;
+}
+
+const _genAiLogName = 'GEN_AI';
+
+void _logGenAi(
+  String event, {
+  Object? data,
+  Object? error,
+  StackTrace? stackTrace,
+}) {
+  if (!kDebugMode) return;
+  final payload = data == null ? '' : ' ${_encodeLogData(data)}';
+  developer.log(
+    '$event$payload',
+    name: _genAiLogName,
+    error: error,
+    stackTrace: stackTrace,
+  );
+}
+
+void _logPlatformError(
+  String event,
+  PlatformException error,
+  StackTrace stackTrace,
+) {
+  _logGenAi(
+    event,
+    data: {
+      'code': error.code,
+      'message': error.message,
+      'details': error.details,
+    },
+    error: error,
+    stackTrace: stackTrace,
+  );
+}
+
+String _encodeLogData(Object data) {
+  try {
+    return jsonEncode(data);
+  } on Object {
+    return data.toString();
+  }
+}
+
+Object? _redactBinaryData(Object? value) {
+  if (value is Uint8List) return '<${value.length} bytes>';
+  if (value is Map) {
+    return value.map(
+      (key, nested) => MapEntry(key.toString(), _redactBinaryData(nested)),
+    );
+  }
+  if (value is List) return value.map(_redactBinaryData).toList();
+  return value;
+}
+
+bool _normalizeCountPortions(Map<String, Object?> response) {
+  final ingredients = response['ingredients'];
+  if (ingredients is! List) return false;
+
+  var changed = false;
+  for (final value in ingredients) {
+    if (value is! Map) continue;
+    if (value['portionKind'] != 'COUNT') {
+      for (final field in const [
+        'count',
+        'perUnitGrams',
+        'perUnitMinGrams',
+        'perUnitMaxGrams',
+      ]) {
+        if (value.remove(field) != null) changed = true;
+      }
+      continue;
+    }
+    final count = (value['count'] as num?)?.toDouble();
+    if (count == null || !count.isFinite || count <= 0) continue;
+
+    changed =
+        _derivePerUnit(value, 'perUnitGrams', 'gramsEstimated', count) ||
+        changed;
+    changed =
+        _derivePerUnit(value, 'perUnitMinGrams', 'minGrams', count) || changed;
+    changed =
+        _derivePerUnit(value, 'perUnitMaxGrams', 'maxGrams', count) || changed;
+  }
+  return changed;
+}
+
+bool _derivePerUnit(
+  Map<dynamic, dynamic> ingredient,
+  String perUnitField,
+  String totalField,
+  double count,
+) {
+  final total = (ingredient[totalField] as num?)?.toDouble();
+  if (total == null || !total.isFinite) return false;
+  final derived = total / count;
+  final current = (ingredient[perUnitField] as num?)?.toDouble();
+  if (current == derived) return false;
+  ingredient[perUnitField] = derived;
+  return true;
 }
 
 abstract final class IngredientProposalValidator {
@@ -459,6 +640,7 @@ LocalInferenceException _fromPlatformException(PlatformException error) {
   return LocalInferenceException(
     code: error.code,
     message: error.message ?? 'On-device meal analysis could not finish.',
+    nativeDetails: error.details,
     fallbackReason: switch (error.code) {
       'unsupported_device' || 'structured_output_unavailable' =>
         MealAnalysisFallbackReason

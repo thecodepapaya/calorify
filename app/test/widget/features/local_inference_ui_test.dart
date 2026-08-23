@@ -399,6 +399,8 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('Run local'), findsOneWidget);
+    expect(find.text('Choose meal image'), findsOneWidget);
+    expect(find.text('Run image locally'), findsOneWidget);
     expect(find.text('Simulated failure modes'), findsNothing);
   });
 

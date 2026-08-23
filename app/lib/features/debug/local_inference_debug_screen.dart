@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:calorify/core/network/network_request_cancellation.dart';
 import 'package:calorify/core/providers/home_providers.dart';
@@ -8,8 +11,10 @@ import 'package:calorify/core/services/local_nutrition_calculator.dart';
 import 'package:calorify/core/services/local_nutrition_pack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
+import 'package:services/services.dart';
 import 'package:uuid/uuid.dart';
 
 class LocalInferenceDebugScreen extends ConsumerStatefulWidget {
@@ -25,6 +30,9 @@ class _LocalInferenceDebugScreenState
   final _textController = TextEditingController(
     text: 'For breakfast I had a bowl of oatmeal with one banana.',
   );
+  final _resultKey = GlobalKey();
+  Uint8List? _imageBytes;
+  String? _imageName;
   bool _running = false;
   String _output = 'Refresh capability status or run a one-off check.';
   LocalInferenceCapabilities? _capabilities;
@@ -175,12 +183,44 @@ class _LocalInferenceDebugScreenState
                       ),
                     ],
                   ),
+                  const Divider(height: 24),
+                  if (_imageBytes != null) ...[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.memory(
+                        _imageBytes!,
+                        height: 180,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${_imageName ?? 'Selected image'} · ${_formatBytes(_imageBytes!.length)}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                  _buildActionTile(
+                    icon: LucideIcons.imagePlus,
+                    title: 'Choose meal image',
+                    description:
+                        'Select and compress an image for local testing',
+                    onTap: _running ? null : _pickMealImage,
+                  ),
+                  _buildActionTile(
+                    icon: LucideIcons.scanSearch,
+                    title: 'Run image locally',
+                    description: 'Analyze the selected image using Gemini Nano',
+                    onTap: _running || _imageBytes == null
+                        ? null
+                        : _runLocalImage,
+                  ),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 12),
           Card(
+            key: _resultKey,
             color: theme.colorScheme.surfaceContainerLow,
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -221,6 +261,21 @@ class _LocalInferenceDebugScreenState
     );
   }
 
+  Widget _buildActionTile({
+    required IconData icon,
+    required String title,
+    required String description,
+    required VoidCallback? onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      subtitle: Text(description, maxLines: 1, overflow: TextOverflow.ellipsis),
+      trailing: const Icon(LucideIcons.chevronRight, size: 18),
+      onTap: onTap,
+    );
+  }
+
   LocalInferenceService get _service => ref.read(localInferenceServiceProvider);
 
   String _capabilitySummary() {
@@ -236,7 +291,12 @@ class _LocalInferenceDebugScreenState
   }
 
   Future<void> _refreshCapabilities() => _run('Capability check', () async {
-    final capabilities = await _service.getCapabilities();
+    // Capability probing crosses the Android method channel and can hang if
+    // the platform model service is unavailable. Keep a stuck probe from
+    // disabling every debug action indefinitely.
+    final capabilities = await _service.getCapabilities().timeout(
+      const Duration(seconds: 10),
+    );
     if (mounted) setState(() => _capabilities = capabilities);
     return _capabilitySummary();
   });
@@ -263,6 +323,36 @@ class _LocalInferenceDebugScreenState
     });
   }
 
+  Future<void> _pickMealImage() => _run('Choose meal image', () async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return 'selection cancelled';
+    final bytes = await ImageCompressionService.instance.compressImage(
+      File(image.path),
+    );
+    if (bytes.isEmpty) throw StateError('The selected image is empty.');
+    if (mounted) {
+      setState(() {
+        _imageBytes = bytes;
+        _imageName = image.name;
+      });
+    }
+    return 'selected ${image.name} · ${_formatBytes(bytes.length)}';
+  });
+
+  Future<void> _runLocalImage() {
+    final imageBytes = _imageBytes;
+    if (imageBytes == null) return Future.value();
+    return _run('Local image proposal', () async {
+      final result = await _service.analyzeImage(imageBytes);
+      return const JsonEncoder.withIndent('  ').convert({
+        'elapsedMs': result.elapsed.inMilliseconds,
+        'requestId': result.requestId,
+        'image': _imageName,
+        'proposal': result.proposal.toProto3Json(),
+      });
+    });
+  }
+
   Future<void> _compareWithCloud() => _run('Local/cloud comparison', () async {
     final localWatch = Stopwatch()..start();
     final local = await _service.analyzeText(_textController.text);
@@ -282,10 +372,9 @@ class _LocalInferenceDebugScreenState
       cloudDecomposition ??= event.decomposition;
     }
     cloudWatch.stop();
-    final localNames =
-        local.proposal.ingredients
-            .map((ingredient) => ingredient.rawName)
-            .toList();
+    final localNames = local.proposal.ingredients
+        .map((ingredient) => ingredient.rawName)
+        .toList();
     final cloudNames =
         cloudDecomposition?.ingredients
             .map((ingredient) => ingredient.rawName)
@@ -301,8 +390,9 @@ class _LocalInferenceDebugScreenState
 
   Future<void> _nutritionStatus() => _run('Pack/cache status', () async {
     final pack = await ref.read(localNutritionPackServiceProvider).loadActive();
-    final cache =
-        await ref.read(databaseInterfaceProvider).getLocalNutritionCacheStats();
+    final cache = await ref
+        .read(databaseInterfaceProvider)
+        .getLocalNutritionCacheStats();
     return const JsonEncoder.withIndent('  ').convert({
       'activePack': pack?.pack.packVersion,
       'datasetVersion': pack?.pack.datasetVersion,
@@ -316,8 +406,9 @@ class _LocalInferenceDebugScreenState
   Future<void> _installNutritionPack() => _run(
     'Nutrition pack install',
     () async {
-      final policy =
-          await ref.read(foodRepositoryProvider).getLocalInferencePolicy();
+      final policy = await ref
+          .read(foodRepositoryProvider)
+          .getLocalInferencePolicy();
       if (!policy.localNutritionEnabled ||
           !policy.hasLocalNutritionManifestUrl()) {
         throw StateError('Backend local-nutrition capability is disabled.');
@@ -332,8 +423,9 @@ class _LocalInferenceDebugScreenState
   );
 
   Future<void> _testLocalPackLookup() => _run('Local pack lookup', () async {
-    final installed =
-        await ref.read(localNutritionPackServiceProvider).loadActive();
+    final installed = await ref
+        .read(localNutritionPackServiceProvider)
+        .loadActive();
     if (installed == null || installed.pack.records.isEmpty) {
       throw StateError('Install a pack first.');
     }
@@ -371,9 +463,8 @@ class _LocalInferenceDebugScreenState
                 ),
               ],
             );
-        return const JsonEncoder.withIndent(
-          '  ',
-        ).convert(response.toProto3Json());
+        return const JsonEncoder.withIndent('  ')
+            .convert(response.toProto3Json());
       });
 
   Future<void> _testCalculator() => _run('Calculator sample', () async {
@@ -412,26 +503,66 @@ class _LocalInferenceDebugScreenState
         return 'lookup cache cleared; downloaded pack retained';
       });
 
+  static String _formatBytes(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    final kilobytes = bytes / 1024;
+    if (kilobytes < 1024) return '${kilobytes.toStringAsFixed(1)} KB';
+    return '${(kilobytes / 1024).toStringAsFixed(1)} MB';
+  }
+
   Future<void> _run(String label, Future<String> Function() action) async {
-    if (_running) return;
+    if (_running) {
+      developer.log(
+        '$label ignored because another check is running',
+        name: 'LOCAL_INFERENCE_DEBUG',
+      );
+      return;
+    }
+    developer.log('$label started', name: 'LOCAL_INFERENCE_DEBUG');
     setState(() {
       _running = true;
       _output = '$label running…';
     });
-    try {
-      final value = await action();
-      if (mounted) setState(() => _output = '$label\n$value');
-    } on LocalInferenceException catch (error) {
-      if (mounted) {
-        setState(
-          () =>
-              _output =
-                  '$label\ncode=${error.code}\nfallback=${error.fallbackReason.name}\nmessage=${error.message}',
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final resultContext = _resultKey.currentContext;
+      if (resultContext != null) {
+        Scrollable.ensureVisible(
+          resultContext,
+          duration: const Duration(milliseconds: 250),
+          alignment: 0.1,
         );
       }
-    } on Object catch (error) {
+    });
+    try {
+      final value = await action();
+      developer.log('$label succeeded', name: 'LOCAL_INFERENCE_DEBUG');
+      if (mounted) setState(() => _output = '$label\n$value');
+    } on LocalInferenceException catch (error) {
+      final nativeDetails = error.nativeDetails == null
+          ? ''
+          : '\nnative=${const JsonEncoder.withIndent('  ').convert(error.nativeDetails)}';
+      developer.log(
+        '$label failed: code=${error.code} message=${error.message}$nativeDetails',
+        name: 'LOCAL_INFERENCE_DEBUG',
+        error: error,
+      );
+      if (mounted) {
+        setState(
+          () => _output =
+              '$label\ncode=${error.code}\nfallback=${error.fallbackReason.name}\nmessage=${error.message}$nativeDetails',
+        );
+      }
+    } on Object catch (error, stackTrace) {
+      developer.log(
+        '$label failed',
+        name: 'LOCAL_INFERENCE_DEBUG',
+        error: error,
+        stackTrace: stackTrace,
+      );
       if (mounted) setState(() => _output = '$label\n$error');
     } finally {
+      developer.log('$label finished', name: 'LOCAL_INFERENCE_DEBUG');
       if (mounted) setState(() => _running = false);
     }
   }

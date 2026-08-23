@@ -26,7 +26,9 @@ data class LocalMealIngredientOutput(
     val rawName: String,
     @param:Guide(description = "Concise generic food name suitable for USDA matching")
     val canonicalHint: String,
-    @param:Guide(description = "Preparation state such as raw, cooked, fried, or baked; empty if unknown")
+    @param:Guide(
+        description = "Preparation state such as cooked, fried, or baked. Use raw only when the user says raw or uncooked; empty if unknown",
+    )
     val preparation: String,
     @param:Guide(description = "Best total gram estimate", minimum = 1.0, maximum = 5000.0)
     val gramsEstimated: Double,
@@ -39,17 +41,17 @@ data class LocalMealIngredientOutput(
         enumValues = ["COUNT", "BULK", "PINCH"],
     )
     val portionKind: String,
-    @param:Guide(description = "Number of discrete items, or 0 when not a count", minimum = 0.0, maximum = 20.0)
+    @param:Guide(description = "Number of discrete items for COUNT, or 0 for BULK and PINCH", minimum = 0.0, maximum = 20.0)
     val count: Double,
-    @param:Guide(description = "Estimated grams per item, or 0 when not a count", minimum = 0.0, maximum = 2000.0)
+    @param:Guide(description = "For COUNT, gramsEstimated divided by count; otherwise 0", minimum = 0.0, maximum = 2000.0)
     val perUnitGrams: Double,
-    @param:Guide(description = "Minimum grams per item, or 0 when not a count", minimum = 0.0, maximum = 2000.0)
+    @param:Guide(description = "For COUNT, minGrams divided by count; otherwise 0", minimum = 0.0, maximum = 2000.0)
     val perUnitMinGrams: Double,
-    @param:Guide(description = "Maximum grams per item, or 0 when not a count", minimum = 0.0, maximum = 2000.0)
+    @param:Guide(description = "For COUNT, maxGrams divided by count; otherwise 0", minimum = 0.0, maximum = 2000.0)
     val perUnitMaxGrams: Double,
     @param:Guide(description = "True only when the user explicitly supplied a size")
     val sizeSpecifiedByUser: Boolean,
-    @param:Guide(description = "Short non-nutrition note; empty when unnecessary")
+    @param:Guide(description = "Short non-nutrition note grounded in the user input; never invent a size; empty when unnecessary")
     val notes: String,
     @param:Guide(description = "Ingredient identity and portion confidence from 0 to 1", minimum = 0.0, maximum = 1.0)
     val confidence: Double,

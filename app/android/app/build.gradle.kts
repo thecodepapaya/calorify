@@ -98,8 +98,10 @@ dependencies {
     // Wear OS Data Layer API (for communication with watch app)
     implementation("com.google.android.gms:play-services-wearable:18.1.0")
     // Kotlin coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    // genai-prompt 1.0.0-beta4 invokes coroutine APIs introduced in 1.11.0.
+    // Keep this explicit until ML Kit publishes the minimum in its metadata.
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.11.0")
     implementation("com.google.mlkit:genai-prompt:1.0.0-beta4")
     implementation("com.google.mlkit:genai-schema:1.0.0-alpha1")
     ksp("com.google.mlkit:genai-schema-compiler:1.0.0-alpha1")

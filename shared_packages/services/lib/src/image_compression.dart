@@ -4,6 +4,8 @@ import 'dart:typed_data';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
+const imageCompressionTargetDimension = 1536;
+
 /// Service for compressing images
 class ImageCompressionService {
   ImageCompressionService._();
@@ -23,8 +25,8 @@ class ImageCompressionService {
         filePath,
         quality: quality,
         format: CompressFormat.webp,
-        minWidth: 512,
-        minHeight: 512,
+        minWidth: imageCompressionTargetDimension,
+        minHeight: imageCompressionTargetDimension,
       );
 
       if (compressed == null || compressed.isEmpty) {

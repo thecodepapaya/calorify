@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:calorify/core/db/database_interface.dart';
 import 'package:calorify/core/services/local_inference_service.dart';
 import 'package:calorify/core/services/text_meal_analysis_router.dart';
@@ -38,6 +40,13 @@ class _FakeLocalInferenceService implements LocalInferenceService {
 
   @override
   Future<LocalInferenceCapabilities> getCapabilities() async => _readyDevice();
+
+  @override
+  Future<LocalInferenceResult> analyzeImage(
+    Uint8List imageBytes, {
+    String? requestId,
+    Duration timeout = const Duration(seconds: 45),
+  }) => throw UnimplementedError();
 
   @override
   Future<Duration> warmUp() async => Duration.zero;
