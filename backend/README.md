@@ -4,7 +4,7 @@ Fastify and TypeScript API for authenticated nutrition analysis, USDA-grounded m
 
 ## Architecture
 
-- PostgreSQL stores application data, analysis sessions, feedback, and imported USDA rows.
+- PostgreSQL stores application data, analysis sessions, and feedback. A separate shared PostgreSQL database stores imported USDA reference rows.
 - Firebase Admin verifies client identity.
 - OpenRouter is the primary meal-decomposition provider.
 - OpenRouter's free router is the first fallback; direct OpenAI is the final fallback.
@@ -18,7 +18,7 @@ npm ci
 cp env.example .env
 ```
 
-Populate `.env` with local-only values. At minimum, a complete environment normally includes `DATABASE_URL`, the relevant AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
+Populate `.env` with local-only values. At minimum, a complete environment normally includes `DATABASE_URL`, the relevant AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. `USDA_DATABASE_URL` selects a separate reference database; it falls back to `DATABASE_URL` for local development. Firebase authentication requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
 
 Start PostgreSQL and the API:
 
@@ -61,7 +61,7 @@ Network errors, rate limits, quota exhaustion, malformed JSON, and schema-invali
 
 ## USDA grounding
 
-USDA FoodData Central CSV data is imported into PostgreSQL. Lookup combines semantic aliases, exact normalized names, and indexed trigram candidates while preserving preparation state such as raw, cooked, or dry. Calories and macros are scaled from the selected per-100-g reference row.
+USDA FoodData Central CSV data is imported into a shared PostgreSQL reference database. Deployed APIs connect with a read-only role; a one-off maintenance container owns migrations and imports. Lookup combines semantic aliases, exact normalized names, and indexed trigram candidates while preserving preparation state such as raw, cooked, or dry. Calories and macros are scaled from the selected per-100-g reference row.
 
 The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
 

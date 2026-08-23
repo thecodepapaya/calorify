@@ -9,7 +9,7 @@ import { mock } from 'node:test';
 const mockQuery = mock.fn(async (_sql: string, _params?: unknown[]) => ({ rows: [] }));
 
 await mock.module('./database.js', {
-  namedExports: { query: mockQuery },
+  namedExports: { usdaQuery: mockQuery },
 });
 
 const { findUsdaExact, findUsdaCandidates, canonicalizeWithUsda, clearUsdaLookupCache } = await import('./usdaLookup.js');

@@ -1,14 +1,23 @@
 import config from '../config.js';
-import { closeDatabase, initializeDatabase } from '../services/database.js';
+import { join } from 'node:path';
+import {
+  closeDatabase,
+  getUsdaClient,
+  initializeDatabase,
+} from '../services/database.js';
 import { runMigrations } from '../services/migrate.js';
 import { runUsdaImport } from '../services/usdaImport.js';
 
 async function main(): Promise<void> {
-  if (!config.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not set');
+  if (!config.USDA_DATABASE_URL && !config.DATABASE_URL) {
+    throw new Error('USDA_DATABASE_URL or DATABASE_URL must be set');
   }
   initializeDatabase();
-  await runMigrations();
+  await runMigrations({
+    migrationsDir: join(process.cwd(), 'migrations', 'usda'),
+    clientFactory: getUsdaClient,
+    lockName: 'calorify:usda-schema-migrations',
+  });
   const datasetVersion = config.USDA_DATASET_VERSION ?? `manual-${new Date().toISOString().slice(0, 10)}`;
   const result = await runUsdaImport({
     datasetVersion,
@@ -27,4 +36,3 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-

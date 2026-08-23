@@ -45,9 +45,14 @@ await mock.module('../services/firebase.js', {
 await mock.module('../services/database.js', {
   namedExports: {
     query: mock.fn(async () => ({ rows: [] })),
+    usdaQuery: mock.fn(async () => ({ rows: [] })),
     initializeDatabase: mock.fn(() => {}),
     closeDatabase: mock.fn(async () => {}),
     getClient: mock.fn(async () => ({
+      query: mock.fn(async () => ({ rows: [], rowCount: 0 })),
+      release: mock.fn(() => {}),
+    })),
+    getUsdaClient: mock.fn(async () => ({
       query: mock.fn(async () => ({ rows: [], rowCount: 0 })),
       release: mock.fn(() => {}),
     })),

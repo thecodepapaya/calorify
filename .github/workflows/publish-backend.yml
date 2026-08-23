@@ -13,6 +13,7 @@ on:
       - "backend/tsconfig.json"
       - "backend/src/**"
       - "backend/migrations/**"
+      - "backend/postgres/usda-init.sh"
       - "backend/data/meal_analysis_tips.json"
       - "backend/scripts/deploy-container.sh"
       - "protos/**"
@@ -128,11 +129,12 @@ jobs:
           printf -v ghcr_username_q '%q' "$GHCR_USERNAME"
           tar -C backend -cf - \
             docker-compose.yml \
+            postgres/usda-init.sh \
             scripts/deploy-container.sh | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
               -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               "$SSH_USER@$SSH_HOST" \
-              "install -d -m 0755 $backend_path_q/scripts && tar -xf - -C $backend_path_q"
+              "install -d -m 0755 $backend_path_q/scripts $backend_path_q/postgres && tar -xf - -C $backend_path_q"
           printf '%s\n' "$GHCR_TOKEN" | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
               -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \

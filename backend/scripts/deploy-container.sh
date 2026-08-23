@@ -57,6 +57,10 @@ if [[ ! -f firebase-adminsdk.json ]]; then
   echo "firebase-adminsdk.json is missing in $backend_dir" >&2
   exit 1
 fi
+if [[ ! -r postgres/usda-init.sh ]]; then
+  echo "postgres/usda-init.sh is missing in $backend_dir" >&2
+  exit 1
+fi
 
 docker_uses_sudo=false
 if docker info >/dev/null 2>&1; then

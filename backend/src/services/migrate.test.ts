@@ -87,6 +87,26 @@ test('transactional migration executes and records its checksum atomically under
   }
 });
 
+test('a separate database can supply its own client and advisory lock', async () => {
+  resetState();
+  const dir = await migrationDir({ '001_reference.sql': 'CREATE TABLE reference_data (id INTEGER);' });
+  const clientFactory = mock.fn(async () => client);
+  try {
+    await runMigrations({
+      migrationsDir: dir,
+      clientFactory,
+      lockName: 'calorify:reference-migrations',
+    });
+    assert.equal(clientFactory.mock.calls.length, 1);
+    const lockCall = calls.find((call) => call.sql.includes('pg_advisory_lock'));
+    const unlockCall = calls.find((call) => call.sql.includes('pg_advisory_unlock'));
+    assert.deepEqual(lockCall?.params, ['calorify:reference-migrations']);
+    assert.deepEqual(unlockCall?.params, ['calorify:reference-migrations']);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
 test('CREATE INDEX CONCURRENTLY stays outside a transaction and is recorded', async () => {
   resetState();
   const sql = 'CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_example ON example(id);';

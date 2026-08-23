@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import type { FastifyServerOptions } from 'fastify';
 import { randomUUID } from 'node:crypto';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
@@ -12,7 +13,11 @@ import { errorHandler } from './utils/errors.js';
 import { redactHeaders } from './utils/requestLog.js';
 import { safeErrorMetadata } from './utils/safeError.js';
 import config from './config.js';
-import { closeDatabase, initializeDatabase } from './services/database.js';
+import {
+  closeDatabase,
+  getUsdaClient,
+  initializeDatabase,
+} from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
 import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
@@ -294,17 +299,24 @@ async function start() {
         initializeDatabase();
         console.log('✅ Database connection initialized');
         await runMigrations();
-        bootstrapUsdaIfNeeded({
-          zipUrl: config.USDA_ZIP_URL,
-          datasetVersion: config.USDA_DATASET_VERSION ?? 'usda-2025-12-18',
-          sourceReleaseDate: config.USDA_SOURCE_RELEASE_DATE ?? '2025-12-18',
-          dataDir: config.USDA_DATA_DIR,
-        }).catch((err) =>
-          console.error(
-            '[usda:bootstrap] startup failed:',
-            safeErrorMetadata(err, 'usda_bootstrap_failed')
-          )
-        );
+        if (!config.USDA_DATABASE_URL || config.USDA_DATABASE_URL === config.DATABASE_URL) {
+          await runMigrations({
+            migrationsDir: join(process.cwd(), 'migrations', 'usda'),
+            clientFactory: getUsdaClient,
+            lockName: 'calorify:usda-schema-migrations',
+          });
+          bootstrapUsdaIfNeeded({
+            zipUrl: config.USDA_ZIP_URL,
+            datasetVersion: config.USDA_DATASET_VERSION ?? 'usda-2025-12-18',
+            sourceReleaseDate: config.USDA_SOURCE_RELEASE_DATE ?? '2025-12-18',
+            dataDir: config.USDA_DATA_DIR,
+          }).catch((err) =>
+            console.error(
+              '[usda:bootstrap] startup failed:',
+              safeErrorMetadata(err, 'usda_bootstrap_failed')
+            )
+          );
+        }
       } else {
         console.warn('⚠️  DATABASE_URL not set, database features will be unavailable');
       }

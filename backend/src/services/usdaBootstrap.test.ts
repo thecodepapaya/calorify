@@ -16,8 +16,8 @@ const mockQuery = mock.fn(async () => ({ rows: [{ count: '0' }] }));
 
 await mock.module('./database.js', {
   namedExports: {
-    query: mockQuery,
-    getClient: mock.fn(async () => {
+    usdaQuery: mockQuery,
+    getUsdaClient: mock.fn(async () => {
       throw new Error('unexpected real USDA import');
     }),
   },

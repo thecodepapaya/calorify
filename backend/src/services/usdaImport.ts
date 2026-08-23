@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { createReadStream } from 'node:fs';
 import { join } from 'node:path';
 import { parse } from 'csv-parse';
-import { getClient } from './database.js';
+import { getUsdaClient } from './database.js';
 import { assessUsdaNutritionQuality } from './usdaLookupUtils.js';
 import { clearUsdaLookupCache } from './usdaLookup.js';
 
@@ -250,7 +250,7 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
   const macros = await loadFoodNutrients(foodNutrientCsv, nutrientMap);
   const checksum = await calculateChecksum(foods, macros);
 
-  const client = await getClient();
+  const client = await getUsdaClient();
   try {
     await client.query('BEGIN');
     // Imports may be started by bootstrap, cron, and an operator script. A

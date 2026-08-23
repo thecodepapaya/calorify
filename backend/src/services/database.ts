@@ -3,33 +3,42 @@ import config from '../config.js';
 import { safeErrorMetadata } from '../utils/safeError.js';
 
 let pool: Pool | null = null;
+let usdaPool: Pool | null = null;
+
+function createPool(connectionString: string, label: 'application' | 'USDA', max: number): Pool {
+  const created = new Pool({
+    connectionString,
+    max,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 2000,
+  });
+  created.on('error', (err: Error) => {
+    console.error(
+      `Unexpected error on idle ${label} database client`,
+      safeErrorMetadata(err, `${label.toLowerCase()}_database_idle_client_error`)
+    );
+  });
+  return created;
+}
 
 /**
  * Initialize PostgreSQL connection pool
  */
 export function initializeDatabase(): void {
-  if (pool) {
-    return;
+  if (!pool && config.DATABASE_URL) {
+    pool = createPool(config.DATABASE_URL, 'application', 20);
   }
 
-  if (!config.DATABASE_URL) {
-    throw new Error('DATABASE_URL is not set in environment variables');
+  const usdaConnectionString = config.USDA_DATABASE_URL ?? config.DATABASE_URL;
+  if (!usdaPool && usdaConnectionString) {
+    usdaPool = pool && usdaConnectionString === config.DATABASE_URL
+      ? pool
+      : createPool(usdaConnectionString, 'USDA', 10);
   }
 
-  pool = new Pool({
-    connectionString: config.DATABASE_URL,
-    max: 20, // Maximum number of clients in the pool
-    idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
-    connectionTimeoutMillis: 2000, // Return an error after 2 seconds if connection cannot be established
-  });
-
-  // Handle pool errors
-  pool.on('error', (err: Error) => {
-    console.error(
-      'Unexpected error on idle database client',
-      safeErrorMetadata(err, 'database_idle_client_error')
-    );
-  });
+  if (!pool && !usdaPool) {
+    throw new Error('DATABASE_URL or USDA_DATABASE_URL must be set');
+  }
 }
 
 /**
@@ -40,6 +49,14 @@ export async function getClient(): Promise<PoolClient> {
     throw new Error('Database pool not initialized. Call initializeDatabase() first.');
   }
   return pool.connect();
+}
+
+/** Get a client from the shared USDA reference database. */
+export async function getUsdaClient(): Promise<PoolClient> {
+  if (!usdaPool) {
+    throw new Error('USDA database pool not initialized. Call initializeDatabase() first.');
+  }
+  return usdaPool.connect();
 }
 
 /**
@@ -53,6 +70,21 @@ export async function query<T extends QueryResultRow = QueryResultRow>(
     throw new Error('Database pool not initialized. Call initializeDatabase() first.');
   }
   const result = await pool.query<T>(text, params);
+  return {
+    rows: result.rows,
+    rowCount: result.rowCount ?? 0,
+  };
+}
+
+/** Execute a query against the shared USDA reference database. */
+export async function usdaQuery<T extends QueryResultRow = QueryResultRow>(
+  text: string,
+  params?: unknown[]
+): Promise<{ rows: T[]; rowCount: number }> {
+  if (!usdaPool) {
+    throw new Error('USDA database pool not initialized. Call initializeDatabase() first.');
+  }
+  const result = await usdaPool.query<T>(text, params);
   return {
     rows: result.rows,
     rowCount: result.rowCount ?? 0,
@@ -96,10 +128,13 @@ export async function withTransaction<T>(
  * Close the database connection pool
  */
 export async function closeDatabase(): Promise<void> {
-  if (pool) {
-    await pool.end();
-    pool = null;
-  }
+  const applicationPool = pool;
+  const referencePool = usdaPool;
+  pool = null;
+  usdaPool = null;
+
+  if (referencePool && referencePool !== applicationPool) await referencePool.end();
+  if (applicationPool) await applicationPool.end();
 }
 
 /**
@@ -135,8 +170,10 @@ export async function readinessCheck(): Promise<ReadinessStatus> {
     return { database: false, usdaDataset: false };
   }
 
+  if (!usdaPool) return { database: true, usdaDataset: false };
+
   try {
-    const result = await pool.query<{ usda_ready: boolean }>(
+    const result = await usdaPool.query<{ usda_ready: boolean }>(
       `SELECT EXISTS (
          SELECT 1
            FROM usda_dataset_version

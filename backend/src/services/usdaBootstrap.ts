@@ -6,7 +6,7 @@ import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { promisify } from 'node:util';
 import { execFile } from 'node:child_process';
-import { query } from './database.js';
+import { usdaQuery } from './database.js';
 import { runUsdaImport } from './usdaImport.js';
 
 const execFileAsync = promisify(execFile);
@@ -27,12 +27,14 @@ export interface UsdaBootstrapDependencies {
   ) => ReturnType<typeof runUsdaImport>;
 }
 
-async function hasActiveDataset(): Promise<boolean> {
-  const result = await query<{ count: string }>(
+async function hasActiveDataset(datasetVersion: string): Promise<boolean> {
+  const result = await usdaQuery<{ count: string }>(
     `SELECT COUNT(*) AS count
        FROM usda_dataset_version
-      WHERE is_active = TRUE
-        AND is_materialized = TRUE`
+      WHERE dataset_version = $1
+        AND is_active = TRUE
+        AND is_materialized = TRUE`,
+    [datasetVersion]
   );
   return Number(result.rows[0]?.count ?? 0) > 0;
 }
@@ -99,8 +101,8 @@ export async function bootstrapUsdaIfNeeded(
   options: UsdaBootstrapOptions,
   dependencies: UsdaBootstrapDependencies = {}
 ): Promise<void> {
-  if (await hasActiveDataset()) {
-    console.log('[usda:bootstrap] active dataset already present, skipping');
+  if (await hasActiveDataset(options.datasetVersion)) {
+    console.log('[usda:bootstrap] requested dataset already active, skipping');
     return;
   }
 

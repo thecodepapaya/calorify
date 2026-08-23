@@ -15,6 +15,8 @@ interface AppliedMigration {
 
 export interface RunMigrationsOptions {
   migrationsDir?: string;
+  clientFactory?: () => Promise<PoolClient>;
+  lockName?: string;
 }
 
 function migrationChecksum(sql: string): string {
@@ -148,10 +150,11 @@ async function runConcurrentIndexMigration(
  * by PostgreSQL requirement and must be restart-safe.
  */
 export async function runMigrations(options: RunMigrationsOptions = {}): Promise<void> {
-  const client = await getClient();
+  const client = await (options.clientFactory ?? getClient)();
+  const lockName = options.lockName ?? MIGRATION_LOCK_NAME;
   let lockAcquired = false;
   try {
-    await client.query('SELECT pg_advisory_lock(hashtext($1))', [MIGRATION_LOCK_NAME]);
+    await client.query('SELECT pg_advisory_lock(hashtext($1))', [lockName]);
     lockAcquired = true;
     await ensureMigrationsTable(client);
     const applied = await getAppliedMigrations(client);
@@ -208,7 +211,7 @@ export async function runMigrations(options: RunMigrationsOptions = {}): Promise
   } finally {
     if (lockAcquired) {
       try {
-        await client.query('SELECT pg_advisory_unlock(hashtext($1))', [MIGRATION_LOCK_NAME]);
+        await client.query('SELECT pg_advisory_unlock(hashtext($1))', [lockName]);
       } catch (error) {
         console.error(
           'Failed to release schema migration advisory lock:',

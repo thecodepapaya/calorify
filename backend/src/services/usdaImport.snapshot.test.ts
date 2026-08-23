@@ -51,12 +51,12 @@ function createClient() {
   };
 }
 
-const getClient = mock.fn(async () => createClient());
+const getUsdaClient = mock.fn(async () => createClient());
 
 await mock.module('./database.js', {
   namedExports: {
-    getClient,
-    query: mock.fn(async () => ({ rows: [], rowCount: 0 })),
+    getUsdaClient,
+    usdaQuery: mock.fn(async () => ({ rows: [], rowCount: 0 })),
   },
 });
 
@@ -85,7 +85,7 @@ test('USDA refresh serializes concurrent imports and atomically replaces stale r
   statements.length = 0;
   versionState = undefined;
   lockTail = Promise.resolve();
-  getClient.mock.resetCalls();
+  getUsdaClient.mock.resetCalls();
   const dataDir = await createUsdaFixture();
 
   try {

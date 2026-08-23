@@ -12,9 +12,11 @@ The backend uses one build-once, deploy-many container flow:
 6. The VM pulls that image, starts it with Docker Compose, waits for readiness,
    and restores the previously running image if readiness fails.
 
-Staging and production run the same image on the same VM. Their runtime
-configuration remains separate through `staging.env`, `production.env`,
-Compose environment values, ports, containers, and database volumes.
+Staging and production run the same image on the same VM. Their user and
+application data remain isolated in `calorify_staging` and `calorify_prod`.
+Both APIs read the same imported reference rows from `calorify_usda` through a
+database role that cannot write. A separate owner role is available only to the
+one-off USDA maintenance container.
 
 ## GitHub configuration
 
@@ -56,6 +58,11 @@ removes it when the deployment finishes.
 The published image supports both `linux/amd64` and `linux/arm64`, so the same
 commit-specific tag can be deployed to either VM architecture.
 
+`backend/.env` also contains `POSTGRES_USDA_PASSWORD` for the maintenance owner
+and `USDA_READER_PASSWORD` for the API reader. Compose constructs
+`USDA_DATABASE_URL` for each API; owner credentials are never passed to the API
+containers.
+
 ## Releasing
 
 Every successful `Publish backend container` run deploys `latest` to staging.
@@ -71,6 +78,28 @@ active USDA dataset are ready. Failed checks automatically restore the image tha
 was running before the deployment. Database migrations run during backend startup
 and are not reversed by an image rollback. Keep schema changes backward-compatible
 with at least the previously deployed image.
+
+## USDA database lifecycle
+
+USDA schema migrations live under `migrations/usda`; ordinary application
+migrations do not create USDA tables in the staging or production databases.
+Application startup checks the shared dataset but never imports or changes it.
+
+To bootstrap or move to a new FoodData Central release, run the maintenance
+container with an immutable published image and the release metadata:
+
+```bash
+BACKEND_IMAGE=ghcr.io/thecodepapaya/calorify-backend:sha-<full-commit-sha> \
+docker compose --profile maintenance run --rm \
+  -e USDA_DATASET_VERSION=usda-YYYY-MM-DD \
+  -e USDA_SOURCE_RELEASE_DATE=YYYY-MM-DD \
+  -e USDA_ZIP_URL=https://fdc.nal.usda.gov/path/to/release.zip \
+  usda-maintenance
+```
+
+The importer downloads and materializes a release only when that requested
+version is not already active. Replacement remains atomic, so API readers see
+either the complete old snapshot or the complete new snapshot.
 
 The Firebase credential stays read-only on the VM. The container entrypoint copies
 it to a private in-container file, then drops privileges to the `node` user before

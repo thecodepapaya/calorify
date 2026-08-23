@@ -19,7 +19,7 @@ FROM node:20-slim AS production
 
 WORKDIR /app
 
-# USDA bootstrap extracts the official FoodData Central archive at runtime.
+# The one-off USDA maintenance command extracts official FoodData Central archives.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gosu \
     unzip \
