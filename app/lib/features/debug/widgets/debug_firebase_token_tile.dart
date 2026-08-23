@@ -4,6 +4,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 typedef DebugTokenResolver = Future<String?> Function();
 typedef DebugTokenCopyText = Future<void> Function(String value);
+typedef DebugTokenPrinter = void Function(String value);
 
 class DebugFirebaseTokenTile extends StatefulWidget {
   const DebugFirebaseTokenTile({
@@ -12,6 +13,7 @@ class DebugFirebaseTokenTile extends StatefulWidget {
     this.onCopied,
     this.onUnavailable,
     this.copyText,
+    this.printToken,
     super.key,
   });
 
@@ -20,6 +22,7 @@ class DebugFirebaseTokenTile extends StatefulWidget {
   final VoidCallback? onCopied;
   final VoidCallback? onUnavailable;
   final DebugTokenCopyText? copyText;
+  final DebugTokenPrinter? printToken;
 
   @override
   State<DebugFirebaseTokenTile> createState() => _DebugFirebaseTokenTileState();
@@ -38,6 +41,7 @@ class _DebugFirebaseTokenTileState extends State<DebugFirebaseTokenTile> {
         widget.onUnavailable?.call();
         return;
       }
+      (widget.printToken ?? debugPrint)('Firebase bearer token: $token');
       await (widget.copyText ?? _copyToClipboard)(token);
       widget.onCopied?.call();
     } on Object {

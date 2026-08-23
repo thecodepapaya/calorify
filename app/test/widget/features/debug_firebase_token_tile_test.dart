@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('resolves a fresh token and copies it', (tester) async {
     String? copied;
+    String? printed;
     var copiedCallbackCount = 0;
     var resolverCallCount = 0;
     await tester.pumpWidget(
@@ -19,6 +20,7 @@ void main() {
               return 'firebase-token-123';
             },
             copyText: (value) async => copied = value,
+            printToken: (value) => printed = value,
             onCopied: () => copiedCallbackCount++,
           ),
         ),
@@ -33,6 +35,7 @@ void main() {
 
     expect(resolverCallCount, 1);
     expect(copied, 'firebase-token-123');
+    expect(printed, 'Firebase bearer token: firebase-token-123');
     expect(copiedCallbackCount, 1);
   });
 
@@ -71,6 +74,7 @@ void main() {
               return token.future;
             },
             copyText: (_) async {},
+            printToken: (_) {},
           ),
         ),
       ),

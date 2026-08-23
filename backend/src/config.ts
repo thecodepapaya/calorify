@@ -16,6 +16,7 @@ interface Config {
     readonly APP_VERSION: string;
     readonly DEBUG: boolean;
     readonly API_V1_STR: string;
+    readonly API_V2_STR: string;
     readonly DATABASE_URL: string | null;
     /** Shared USDA reference database. Falls back to DATABASE_URL for local development. */
     readonly USDA_DATABASE_URL: string | null;
@@ -138,6 +139,7 @@ const config: Config = {
     APP_VERSION: getAppVersion(),
     DEBUG: getEnvVarBoolean('DEBUG', true),
     API_V1_STR: getEnvVar('API_V1_STR', '/api/v1'),
+    API_V2_STR: getEnvVar('API_V2_STR', '/api/v2'),
     DATABASE_URL: getEnvVarOptional('DATABASE_URL'),
     USDA_DATABASE_URL: getEnvVarOptional('USDA_DATABASE_URL'),
     FIREBASE_SERVICE_ACCOUNT_PATH: validateFirebaseServiceAccount(

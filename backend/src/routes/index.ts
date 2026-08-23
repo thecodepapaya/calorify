@@ -14,5 +14,5 @@ export async function registerRoutes(fastify: FastifyInstance): Promise<void> {
   await fastify.register(userRoutes, { prefix: `${config.API_V1_STR}/user` });
 
   // API v2 routes (streamed nutrition engine)
-  await fastify.register(foodRoutesV2, { prefix: '/api/v2/food' });
+  await fastify.register(foodRoutesV2, { prefix: `${config.API_V2_STR}/food` });
 }

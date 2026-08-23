@@ -12,6 +12,7 @@ await mock.module('../config.js', {
   defaultExport: {
     APP_VERSION: '1.0.0-test',
     API_V1_STR: '/api/v1',
+    API_V2_STR: '/api/v2',
     DATABASE_URL: 'postgres://mock',
     OPENAI_API_KEY: 'sk-test',
     DEBUG: false,

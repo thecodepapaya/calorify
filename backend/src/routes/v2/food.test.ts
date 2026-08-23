@@ -57,6 +57,7 @@ const mockConfig = {
     'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
   DATABASE_URL: 'postgres://mock',
   API_V1_STR: '/api/v1',
+  API_V2_STR: '/api/v2',
   DEBUG: false,
   ENVIRONMENT: 'development',
   LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-test-v1',
