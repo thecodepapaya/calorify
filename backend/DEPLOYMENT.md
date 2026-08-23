@@ -47,7 +47,7 @@ The backend follows build-once, deploy-many:
 1. A backend-related push to `main` starts `Publish backend container`.
 2. GitHub runs dependency installation, type-checking, linting, coverage tests,
    and a production Docker build.
-3. GitHub builds `linux/amd64` and `linux/arm64` images and publishes both
+3. GitHub builds the VM's required `linux/arm64` image and publishes both
    `latest` and `sha-<full-commit-sha>` to GHCR.
 4. The workflow automatically deploys `latest` to staging.
 5. Production is deployed by manually running `Deploy backend to production`

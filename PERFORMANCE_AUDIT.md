@@ -132,7 +132,7 @@ HTTP and AI metrics exist, but PostgreSQL query duration, pool wait time, active
 
 The backend now uses a multi-stage production target containing compiled output,
 production dependencies, migrations, and required runtime data only. GitHub
-builds it once for ARM64 and AMD64; staging and production pull the same image
+builds it once for the ARM64 deployment VM; staging and production pull the same image
 instead of building or hot-reloading source on the VM.
 
 ### P3 — monitor; optimize only with evidence
