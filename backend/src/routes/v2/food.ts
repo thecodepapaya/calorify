@@ -56,6 +56,14 @@ import { resolveLocalNutritionLookups } from '../../services/localNutritionResol
 
 const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 
+function isLocalInferenceReleaseEnabled(request: FastifyRequest): boolean {
+  const appBuild = request.headers['x-calorify-app-build'];
+  if (typeof appBuild !== 'string' || !/^\d+$/.test(appBuild.trim())) return false;
+  const buildNumber = Number(appBuild.trim());
+  return Number.isSafeInteger(buildNumber) &&
+    buildNumber >= config.LOCAL_INFERENCE.minimumAppBuild;
+}
+
 // -----------------------------------------------------------------------------
 // Zod: bounded checks on top of proto-shaped bodies (protos/calorify/*.proto).
 // -----------------------------------------------------------------------------
@@ -526,28 +534,22 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
         tags: ['Food', 'V2'],
       },
     },
-    async () => {
+    async (request) => {
+      const rollout = config.LOCAL_INFERENCE;
+      const releaseEnabled = isLocalInferenceReleaseEnabled(request);
       let localNutritionManifestUrl: string | undefined;
-      if (config.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED) {
+      if (releaseEnabled && rollout.localNutritionManifestObject) {
         try {
           localNutritionManifestUrl = buildOracleDownloadUrl(
-            config.LOCAL_NUTRITION_MANIFEST_OBJECT
+            rollout.localNutritionManifestObject
           );
         } catch {
           // A malformed/missing object-storage URL must fail closed rather than
           // advertise a download the client cannot integrity-check.
         }
       }
-      const localNutritionEnabled = localNutritionManifestUrl != null;
       return {
-        policyVersion: config.LOCAL_INFERENCE_POLICY_VERSION,
-        textEnabled: config.LOCAL_INFERENCE_TEXT_ENABLED,
-        imageEnabled: false,
-        localNutritionEnabled,
-        // Phase 5 private/offline routing is deliberately not advertised by
-        // this Phase 4 release.
-        privateModesEnabled: false,
-        maxAgeSeconds: 3600,
+        textEnabled: releaseEnabled && rollout.textEnabled,
         localNutritionManifestUrl,
       };
     }
@@ -576,7 +578,10 @@ export async function foodRoutesV2(fastify: FastifyInstance): Promise<void> {
       request: FastifyRequest<{ Body: LocalNutritionResolveBody }>,
       reply: FastifyReply
     ) => {
-      if (!config.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED) {
+      if (
+        !config.LOCAL_INFERENCE.localNutritionManifestObject ||
+        !isLocalInferenceReleaseEnabled(request)
+      ) {
         return reply
           .status(403)
           .send(createErrorResponse('Local nutrition resolution is disabled'));

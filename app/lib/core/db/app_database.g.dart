@@ -2135,17 +2135,6 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         ),
         defaultValue: const Constant(false),
       );
-  static const VerificationMeta _localInferenceAcknowledgedPolicyVersionMeta =
-      const VerificationMeta('localInferenceAcknowledgedPolicyVersion');
-  @override
-  late final GeneratedColumn<String> localInferenceAcknowledgedPolicyVersion =
-      GeneratedColumn<String>(
-        'local_inference_acknowledged_policy_version',
-        aliasedName,
-        true,
-        type: DriftSqlType.string,
-        requiredDuringInsert: false,
-      );
   static const VerificationMeta _healthConnectNutritionSyncEnabledMeta =
       const VerificationMeta('healthConnectNutritionSyncEnabled');
   @override
@@ -2197,7 +2186,6 @@ class $UserPreferencesTableTable extends UserPreferencesTable
     onboardingCompletedAt,
     localInferenceEnabled,
     offlineNutritionEnabled,
-    localInferenceAcknowledgedPolicyVersion,
     healthConnectNutritionSyncEnabled,
     healthConnectPromptDismissed,
     updatedAt,
@@ -2277,15 +2265,6 @@ class $UserPreferencesTableTable extends UserPreferencesTable
         ),
       );
     }
-    if (data.containsKey('local_inference_acknowledged_policy_version')) {
-      context.handle(
-        _localInferenceAcknowledgedPolicyVersionMeta,
-        localInferenceAcknowledgedPolicyVersion.isAcceptableOrUnknown(
-          data['local_inference_acknowledged_policy_version']!,
-          _localInferenceAcknowledgedPolicyVersionMeta,
-        ),
-      );
-    }
     if (data.containsKey('health_connect_nutrition_sync_enabled')) {
       context.handle(
         _healthConnectNutritionSyncEnabledMeta,
@@ -2357,10 +2336,6 @@ class $UserPreferencesTableTable extends UserPreferencesTable
             DriftSqlType.bool,
             data['${effectivePrefix}offline_nutrition_enabled'],
           )!,
-      localInferenceAcknowledgedPolicyVersion: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}local_inference_acknowledged_policy_version'],
-      ),
       healthConnectNutritionSyncEnabled: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}health_connect_nutrition_sync_enabled'],
@@ -2394,7 +2369,6 @@ class UserPreferencesTableData extends DataClass
   final DateTime? onboardingCompletedAt;
   final bool localInferenceEnabled;
   final bool offlineNutritionEnabled;
-  final String? localInferenceAcknowledgedPolicyVersion;
   final bool? healthConnectNutritionSyncEnabled;
   final bool healthConnectPromptDismissed;
   final DateTime updatedAt;
@@ -2407,7 +2381,6 @@ class UserPreferencesTableData extends DataClass
     this.onboardingCompletedAt,
     required this.localInferenceEnabled,
     required this.offlineNutritionEnabled,
-    this.localInferenceAcknowledgedPolicyVersion,
     this.healthConnectNutritionSyncEnabled,
     required this.healthConnectPromptDismissed,
     required this.updatedAt,
@@ -2435,11 +2408,6 @@ class UserPreferencesTableData extends DataClass
     }
     map['local_inference_enabled'] = Variable<bool>(localInferenceEnabled);
     map['offline_nutrition_enabled'] = Variable<bool>(offlineNutritionEnabled);
-    if (!nullToAbsent || localInferenceAcknowledgedPolicyVersion != null) {
-      map['local_inference_acknowledged_policy_version'] = Variable<String>(
-        localInferenceAcknowledgedPolicyVersion,
-      );
-    }
     if (!nullToAbsent || healthConnectNutritionSyncEnabled != null) {
       map['health_connect_nutrition_sync_enabled'] = Variable<bool>(
         healthConnectNutritionSyncEnabled,
@@ -2475,10 +2443,6 @@ class UserPreferencesTableData extends DataClass
               : Value(onboardingCompletedAt),
       localInferenceEnabled: Value(localInferenceEnabled),
       offlineNutritionEnabled: Value(offlineNutritionEnabled),
-      localInferenceAcknowledgedPolicyVersion:
-          localInferenceAcknowledgedPolicyVersion == null && nullToAbsent
-              ? const Value.absent()
-              : Value(localInferenceAcknowledgedPolicyVersion),
       healthConnectNutritionSyncEnabled:
           healthConnectNutritionSyncEnabled == null && nullToAbsent
               ? const Value.absent()
@@ -2512,9 +2476,6 @@ class UserPreferencesTableData extends DataClass
       offlineNutritionEnabled: serializer.fromJson<bool>(
         json['offlineNutritionEnabled'],
       ),
-      localInferenceAcknowledgedPolicyVersion: serializer.fromJson<String?>(
-        json['localInferenceAcknowledgedPolicyVersion'],
-      ),
       healthConnectNutritionSyncEnabled: serializer.fromJson<bool?>(
         json['healthConnectNutritionSyncEnabled'],
       ),
@@ -2542,9 +2503,6 @@ class UserPreferencesTableData extends DataClass
       'offlineNutritionEnabled': serializer.toJson<bool>(
         offlineNutritionEnabled,
       ),
-      'localInferenceAcknowledgedPolicyVersion': serializer.toJson<String?>(
-        localInferenceAcknowledgedPolicyVersion,
-      ),
       'healthConnectNutritionSyncEnabled': serializer.toJson<bool?>(
         healthConnectNutritionSyncEnabled,
       ),
@@ -2564,8 +2522,6 @@ class UserPreferencesTableData extends DataClass
     Value<DateTime?> onboardingCompletedAt = const Value.absent(),
     bool? localInferenceEnabled,
     bool? offlineNutritionEnabled,
-    Value<String?> localInferenceAcknowledgedPolicyVersion =
-        const Value.absent(),
     Value<bool?> healthConnectNutritionSyncEnabled = const Value.absent(),
     bool? healthConnectPromptDismissed,
     DateTime? updatedAt,
@@ -2588,10 +2544,6 @@ class UserPreferencesTableData extends DataClass
     localInferenceEnabled: localInferenceEnabled ?? this.localInferenceEnabled,
     offlineNutritionEnabled:
         offlineNutritionEnabled ?? this.offlineNutritionEnabled,
-    localInferenceAcknowledgedPolicyVersion:
-        localInferenceAcknowledgedPolicyVersion.present
-            ? localInferenceAcknowledgedPolicyVersion.value
-            : this.localInferenceAcknowledgedPolicyVersion,
     healthConnectNutritionSyncEnabled:
         healthConnectNutritionSyncEnabled.present
             ? healthConnectNutritionSyncEnabled.value
@@ -2630,10 +2582,6 @@ class UserPreferencesTableData extends DataClass
           data.offlineNutritionEnabled.present
               ? data.offlineNutritionEnabled.value
               : this.offlineNutritionEnabled,
-      localInferenceAcknowledgedPolicyVersion:
-          data.localInferenceAcknowledgedPolicyVersion.present
-              ? data.localInferenceAcknowledgedPolicyVersion.value
-              : this.localInferenceAcknowledgedPolicyVersion,
       healthConnectNutritionSyncEnabled:
           data.healthConnectNutritionSyncEnabled.present
               ? data.healthConnectNutritionSyncEnabled.value
@@ -2658,9 +2606,6 @@ class UserPreferencesTableData extends DataClass
           ..write('localInferenceEnabled: $localInferenceEnabled, ')
           ..write('offlineNutritionEnabled: $offlineNutritionEnabled, ')
           ..write(
-            'localInferenceAcknowledgedPolicyVersion: $localInferenceAcknowledgedPolicyVersion, ',
-          )
-          ..write(
             'healthConnectNutritionSyncEnabled: $healthConnectNutritionSyncEnabled, ',
           )
           ..write(
@@ -2681,7 +2626,6 @@ class UserPreferencesTableData extends DataClass
     onboardingCompletedAt,
     localInferenceEnabled,
     offlineNutritionEnabled,
-    localInferenceAcknowledgedPolicyVersion,
     healthConnectNutritionSyncEnabled,
     healthConnectPromptDismissed,
     updatedAt,
@@ -2698,8 +2642,6 @@ class UserPreferencesTableData extends DataClass
           other.onboardingCompletedAt == this.onboardingCompletedAt &&
           other.localInferenceEnabled == this.localInferenceEnabled &&
           other.offlineNutritionEnabled == this.offlineNutritionEnabled &&
-          other.localInferenceAcknowledgedPolicyVersion ==
-              this.localInferenceAcknowledgedPolicyVersion &&
           other.healthConnectNutritionSyncEnabled ==
               this.healthConnectNutritionSyncEnabled &&
           other.healthConnectPromptDismissed ==
@@ -2717,7 +2659,6 @@ class UserPreferencesTableCompanion
   final Value<DateTime?> onboardingCompletedAt;
   final Value<bool> localInferenceEnabled;
   final Value<bool> offlineNutritionEnabled;
-  final Value<String?> localInferenceAcknowledgedPolicyVersion;
   final Value<bool?> healthConnectNutritionSyncEnabled;
   final Value<bool> healthConnectPromptDismissed;
   final Value<DateTime> updatedAt;
@@ -2730,7 +2671,6 @@ class UserPreferencesTableCompanion
     this.onboardingCompletedAt = const Value.absent(),
     this.localInferenceEnabled = const Value.absent(),
     this.offlineNutritionEnabled = const Value.absent(),
-    this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.healthConnectNutritionSyncEnabled = const Value.absent(),
     this.healthConnectPromptDismissed = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -2744,7 +2684,6 @@ class UserPreferencesTableCompanion
     this.onboardingCompletedAt = const Value.absent(),
     this.localInferenceEnabled = const Value.absent(),
     this.offlineNutritionEnabled = const Value.absent(),
-    this.localInferenceAcknowledgedPolicyVersion = const Value.absent(),
     this.healthConnectNutritionSyncEnabled = const Value.absent(),
     this.healthConnectPromptDismissed = const Value.absent(),
     this.updatedAt = const Value.absent(),
@@ -2758,7 +2697,6 @@ class UserPreferencesTableCompanion
     Expression<DateTime>? onboardingCompletedAt,
     Expression<bool>? localInferenceEnabled,
     Expression<bool>? offlineNutritionEnabled,
-    Expression<String>? localInferenceAcknowledgedPolicyVersion,
     Expression<bool>? healthConnectNutritionSyncEnabled,
     Expression<bool>? healthConnectPromptDismissed,
     Expression<DateTime>? updatedAt,
@@ -2777,9 +2715,6 @@ class UserPreferencesTableCompanion
         'local_inference_enabled': localInferenceEnabled,
       if (offlineNutritionEnabled != null)
         'offline_nutrition_enabled': offlineNutritionEnabled,
-      if (localInferenceAcknowledgedPolicyVersion != null)
-        'local_inference_acknowledged_policy_version':
-            localInferenceAcknowledgedPolicyVersion,
       if (healthConnectNutritionSyncEnabled != null)
         'health_connect_nutrition_sync_enabled':
             healthConnectNutritionSyncEnabled,
@@ -2798,7 +2733,6 @@ class UserPreferencesTableCompanion
     Value<DateTime?>? onboardingCompletedAt,
     Value<bool>? localInferenceEnabled,
     Value<bool>? offlineNutritionEnabled,
-    Value<String?>? localInferenceAcknowledgedPolicyVersion,
     Value<bool?>? healthConnectNutritionSyncEnabled,
     Value<bool>? healthConnectPromptDismissed,
     Value<DateTime>? updatedAt,
@@ -2816,9 +2750,6 @@ class UserPreferencesTableCompanion
           localInferenceEnabled ?? this.localInferenceEnabled,
       offlineNutritionEnabled:
           offlineNutritionEnabled ?? this.offlineNutritionEnabled,
-      localInferenceAcknowledgedPolicyVersion:
-          localInferenceAcknowledgedPolicyVersion ??
-          this.localInferenceAcknowledgedPolicyVersion,
       healthConnectNutritionSyncEnabled:
           healthConnectNutritionSyncEnabled ??
           this.healthConnectNutritionSyncEnabled,
@@ -2865,11 +2796,6 @@ class UserPreferencesTableCompanion
         offlineNutritionEnabled.value,
       );
     }
-    if (localInferenceAcknowledgedPolicyVersion.present) {
-      map['local_inference_acknowledged_policy_version'] = Variable<String>(
-        localInferenceAcknowledgedPolicyVersion.value,
-      );
-    }
     if (healthConnectNutritionSyncEnabled.present) {
       map['health_connect_nutrition_sync_enabled'] = Variable<bool>(
         healthConnectNutritionSyncEnabled.value,
@@ -2897,9 +2823,6 @@ class UserPreferencesTableCompanion
           ..write('onboardingCompletedAt: $onboardingCompletedAt, ')
           ..write('localInferenceEnabled: $localInferenceEnabled, ')
           ..write('offlineNutritionEnabled: $offlineNutritionEnabled, ')
-          ..write(
-            'localInferenceAcknowledgedPolicyVersion: $localInferenceAcknowledgedPolicyVersion, ',
-          )
           ..write(
             'healthConnectNutritionSyncEnabled: $healthConnectNutritionSyncEnabled, ',
           )
@@ -7235,7 +7158,6 @@ typedef $$UserPreferencesTableTableCreateCompanionBuilder =
       Value<DateTime?> onboardingCompletedAt,
       Value<bool> localInferenceEnabled,
       Value<bool> offlineNutritionEnabled,
-      Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<bool?> healthConnectNutritionSyncEnabled,
       Value<bool> healthConnectPromptDismissed,
       Value<DateTime> updatedAt,
@@ -7250,7 +7172,6 @@ typedef $$UserPreferencesTableTableUpdateCompanionBuilder =
       Value<DateTime?> onboardingCompletedAt,
       Value<bool> localInferenceEnabled,
       Value<bool> offlineNutritionEnabled,
-      Value<String?> localInferenceAcknowledgedPolicyVersion,
       Value<bool?> healthConnectNutritionSyncEnabled,
       Value<bool> healthConnectPromptDismissed,
       Value<DateTime> updatedAt,
@@ -7304,12 +7225,6 @@ class $$UserPreferencesTableTableFilterComposer
     column: $table.offlineNutritionEnabled,
     builder: (column) => ColumnFilters(column),
   );
-
-  ColumnFilters<String> get localInferenceAcknowledgedPolicyVersion =>
-      $composableBuilder(
-        column: $table.localInferenceAcknowledgedPolicyVersion,
-        builder: (column) => ColumnFilters(column),
-      );
 
   ColumnFilters<bool> get healthConnectNutritionSyncEnabled =>
       $composableBuilder(
@@ -7377,12 +7292,6 @@ class $$UserPreferencesTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get localInferenceAcknowledgedPolicyVersion =>
-      $composableBuilder(
-        column: $table.localInferenceAcknowledgedPolicyVersion,
-        builder: (column) => ColumnOrderings(column),
-      );
-
   ColumnOrderings<bool> get healthConnectNutritionSyncEnabled =>
       $composableBuilder(
         column: $table.healthConnectNutritionSyncEnabled,
@@ -7444,12 +7353,6 @@ class $$UserPreferencesTableTableAnnotationComposer
     column: $table.offlineNutritionEnabled,
     builder: (column) => column,
   );
-
-  GeneratedColumn<String> get localInferenceAcknowledgedPolicyVersion =>
-      $composableBuilder(
-        column: $table.localInferenceAcknowledgedPolicyVersion,
-        builder: (column) => column,
-      );
 
   GeneratedColumn<bool> get healthConnectNutritionSyncEnabled =>
       $composableBuilder(
@@ -7520,8 +7423,6 @@ class $$UserPreferencesTableTableTableManager
                 Value<DateTime?> onboardingCompletedAt = const Value.absent(),
                 Value<bool> localInferenceEnabled = const Value.absent(),
                 Value<bool> offlineNutritionEnabled = const Value.absent(),
-                Value<String?> localInferenceAcknowledgedPolicyVersion =
-                    const Value.absent(),
                 Value<bool?> healthConnectNutritionSyncEnabled =
                     const Value.absent(),
                 Value<bool> healthConnectPromptDismissed = const Value.absent(),
@@ -7535,8 +7436,6 @@ class $$UserPreferencesTableTableTableManager
                 onboardingCompletedAt: onboardingCompletedAt,
                 localInferenceEnabled: localInferenceEnabled,
                 offlineNutritionEnabled: offlineNutritionEnabled,
-                localInferenceAcknowledgedPolicyVersion:
-                    localInferenceAcknowledgedPolicyVersion,
                 healthConnectNutritionSyncEnabled:
                     healthConnectNutritionSyncEnabled,
                 healthConnectPromptDismissed: healthConnectPromptDismissed,
@@ -7552,8 +7451,6 @@ class $$UserPreferencesTableTableTableManager
                 Value<DateTime?> onboardingCompletedAt = const Value.absent(),
                 Value<bool> localInferenceEnabled = const Value.absent(),
                 Value<bool> offlineNutritionEnabled = const Value.absent(),
-                Value<String?> localInferenceAcknowledgedPolicyVersion =
-                    const Value.absent(),
                 Value<bool?> healthConnectNutritionSyncEnabled =
                     const Value.absent(),
                 Value<bool> healthConnectPromptDismissed = const Value.absent(),
@@ -7567,8 +7464,6 @@ class $$UserPreferencesTableTableTableManager
                 onboardingCompletedAt: onboardingCompletedAt,
                 localInferenceEnabled: localInferenceEnabled,
                 offlineNutritionEnabled: offlineNutritionEnabled,
-                localInferenceAcknowledgedPolicyVersion:
-                    localInferenceAcknowledgedPolicyVersion,
                 healthConnectNutritionSyncEnabled:
                     healthConnectNutritionSyncEnabled,
                 healthConnectPromptDismissed: healthConnectPromptDismissed,

@@ -60,6 +60,8 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final DataSourceType _dataSourceType;
   final bool _seedDevelopmentData;
 
+  // v27 stops mapping the obsolete disclosure-version column. Existing
+  // SQLite files may retain it harmlessly, as with earlier removed columns.
   @override
   int get schemaVersion => 27;
 
@@ -338,15 +340,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
             await m.addColumn(
               userPreferencesTable,
               userPreferencesTable.localInferenceEnabled,
-            );
-          }
-          if (!await _columnExists(
-            'user_preferences_table',
-            'local_inference_acknowledged_policy_version',
-          )) {
-            await m.addColumn(
-              userPreferencesTable,
-              userPreferencesTable.localInferenceAcknowledgedPolicyVersion,
             );
           }
         }
@@ -675,7 +668,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
     return LocalInferencePreferences(
       enabled: prefs.localInferenceEnabled,
       offlineNutritionEnabled: prefs.offlineNutritionEnabled,
-      acknowledgedPolicyVersion: prefs.localInferenceAcknowledgedPolicyVersion,
     );
   }
 
@@ -829,18 +821,6 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   @override
   Future<void> clearLocalNutritionCache() async {
     await delete(localNutritionCacheTable).go();
-  }
-
-  @override
-  Future<void> acknowledgeLocalInferencePolicy(String policyVersion) async {
-    await _getOrInitPreferences();
-    await (update(userPreferencesTable)
-      ..where((table) => table.id.equals(_userPreferencesId))).write(
-      UserPreferencesTableCompanion(
-        localInferenceAcknowledgedPolicyVersion: Value(policyVersion),
-        updatedAt: Value(DateTime.now().toUtc()),
-      ),
-    );
   }
 
   @override

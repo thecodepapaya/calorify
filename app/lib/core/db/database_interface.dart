@@ -52,17 +52,14 @@ class LocalInferencePreferences {
   const LocalInferencePreferences({
     required this.enabled,
     this.offlineNutritionEnabled = false,
-    this.acknowledgedPolicyVersion,
   });
 
   const LocalInferencePreferences.defaults()
     : enabled = false,
-      offlineNutritionEnabled = false,
-      acknowledgedPolicyVersion = null;
+      offlineNutritionEnabled = false;
 
   final bool enabled;
   final bool offlineNutritionEnabled;
-  final String? acknowledgedPolicyVersion;
 }
 
 class PendingProfileSync {
@@ -233,8 +230,6 @@ abstract class DatabaseInterface {
   Future<void> setLocalInferenceEnabled(bool enabled);
 
   Future<void> setOfflineNutritionEnabled(bool enabled);
-
-  Future<void> acknowledgeLocalInferencePolicy(String policyVersion);
 
   Future<List<LocalNutritionCacheEntry>> getLocalNutritionCache();
 

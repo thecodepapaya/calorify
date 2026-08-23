@@ -37,31 +37,23 @@ LocalInferenceAvailability _availability({
   required bool supported,
   bool ready = true,
   bool canDownload = false,
-  bool localNutritionEnabled = false,
+  bool withNutritionManifest = false,
 }) {
   return LocalInferenceAvailability(
     device: LocalInferenceCapabilities(
-      platformSupported: supported,
-      featureStatus:
+      state:
           canDownload
-              ? LocalInferenceFeatureStatus.downloadable
+              ? LocalInferenceState.downloadable
               : supported
-              ? LocalInferenceFeatureStatus.available
-              : LocalInferenceFeatureStatus.unavailable,
-      ready: supported && ready,
-      canDownload: supported && canDownload,
-      structuredOutputSupported: supported,
-      textSupported: supported,
+              ? ready
+                  ? LocalInferenceState.ready
+                  : LocalInferenceState.downloading
+              : LocalInferenceState.unsupported,
     ),
     policy: LocalInferenceCapabilityPolicy(
-      policyVersion: 'local-beta-v1',
       textEnabled: true,
-      imageEnabled: false,
-      localNutritionEnabled: localNutritionEnabled,
-      privateModesEnabled: false,
-      maxAgeSeconds: 3600,
       localNutritionManifestUrl:
-          localNutritionEnabled
+          withNutritionManifest
               ? 'https://object.test/n/ns/b/bucket/o/local-nutrition/manifest.json'
               : null,
     ),
@@ -143,73 +135,64 @@ void main() {
     );
   });
 
-  testWidgets(
-    'supported default-off setting requires versioned acknowledgement',
-    (tester) async {
-      final database = _MockDatabase();
-      final localService = _MockLocalInferenceService();
-      when(
-        () => database.acknowledgeLocalInferencePolicy(any()),
-      ).thenAnswer((_) async {});
-      when(
-        () => database.setLocalInferenceEnabled(any()),
-      ).thenAnswer((_) async {});
+  testWidgets('supported default-off setting requires acknowledgement', (
+    tester,
+  ) async {
+    final database = _MockDatabase();
+    final localService = _MockLocalInferenceService();
+    when(
+      () => database.setLocalInferenceEnabled(any()),
+    ).thenAnswer((_) async {});
 
-      await tester.pumpWidget(
-        wrapWithProviders(
-          const SettingsScreen(),
-          overrides: [
-            databaseInterfaceProvider.overrideWithValue(database),
-            userProfileProvider.overrideWith((_) => UserProfile()),
-            localInferenceServiceProvider.overrideWithValue(localService),
-            localInferenceAvailabilityProvider.overrideWith(
-              (_) => _availability(supported: true),
-            ),
-            localInferencePreferencesProvider.overrideWith(
-              (_) => const LocalInferencePreferences.defaults(),
-            ),
-          ],
-        ),
-      );
-      await tester.pumpAndSettle();
+    await tester.pumpWidget(
+      wrapWithProviders(
+        const SettingsScreen(),
+        overrides: [
+          databaseInterfaceProvider.overrideWithValue(database),
+          userProfileProvider.overrideWith((_) => UserProfile()),
+          localInferenceServiceProvider.overrideWithValue(localService),
+          localInferenceAvailabilityProvider.overrideWith(
+            (_) => _availability(supported: true),
+          ),
+          localInferencePreferencesProvider.overrideWith(
+            (_) => const LocalInferencePreferences.defaults(),
+          ),
+        ],
+      ),
+    );
+    await tester.pumpAndSettle();
 
-      final setting = find.byType(SwitchListTile);
-      await tester.scrollUntilVisible(
-        setting,
-        400,
-        scrollable: find.byType(Scrollable).first,
-      );
-      await tester.tap(setting);
-      await tester.pumpAndSettle();
+    final setting = find.byType(SwitchListTile);
+    await tester.scrollUntilVisible(
+      setting,
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(setting);
+    await tester.pumpAndSettle();
 
-      expect(find.text('Before you enable on-device analysis'), findsOneWidget);
-      expect(
-        find.textContaining(
-          'automatically sends your original meal description',
-        ),
-        findsOneWidget,
-      );
-      final enable = tester.widget<FilledButton>(
-        find.widgetWithText(FilledButton, 'Acknowledge and enable'),
-      );
-      expect(enable.onPressed, isNull);
+    expect(find.text('Before you enable on-device analysis'), findsOneWidget);
+    expect(
+      find.textContaining('automatically sends your original meal description'),
+      findsOneWidget,
+    );
+    final enable = tester.widget<FilledButton>(
+      find.widgetWithText(FilledButton, 'Acknowledge and enable'),
+    );
+    expect(enable.onPressed, isNull);
 
-      await tester.tap(find.byType(CheckboxListTile));
-      await tester.pump();
-      await tester.scrollUntilVisible(
-        find.text('Acknowledge and enable'),
-        200,
-        scrollable: find.byType(Scrollable).last,
-      );
-      await tester.tap(find.text('Acknowledge and enable'));
-      await tester.pumpAndSettle();
+    await tester.tap(find.byType(CheckboxListTile));
+    await tester.pump();
+    await tester.scrollUntilVisible(
+      find.text('Acknowledge and enable'),
+      200,
+      scrollable: find.byType(Scrollable).last,
+    );
+    await tester.tap(find.text('Acknowledge and enable'));
+    await tester.pumpAndSettle();
 
-      verify(
-        () => database.acknowledgeLocalInferencePolicy('local-beta-v1'),
-      ).called(1);
-      verify(() => database.setLocalInferenceEnabled(true)).called(1);
-    },
-  );
+    verify(() => database.setLocalInferenceEnabled(true)).called(1);
+  });
 
   testWidgets('unsupported capability keeps the setting disabled', (
     tester,
@@ -251,9 +234,6 @@ void main() {
   ) async {
     final database = _MockDatabase();
     final localService = _MockLocalInferenceService();
-    when(
-      () => database.acknowledgeLocalInferencePolicy(any()),
-    ).thenAnswer((_) async {});
     when(
       () => database.setLocalInferenceEnabled(any()),
     ).thenAnswer((_) async {});
@@ -334,13 +314,12 @@ void main() {
           ),
           localNutritionPackServiceProvider.overrideWithValue(packService),
           localInferenceAvailabilityProvider.overrideWith(
-            (_) => _availability(supported: true, localNutritionEnabled: true),
+            (_) => _availability(supported: true, withNutritionManifest: true),
           ),
           localInferencePreferencesProvider.overrideWith(
             (_) => const LocalInferencePreferences(
               enabled: true,
               offlineNutritionEnabled: false,
-              acknowledgedPolicyVersion: 'local-beta-v1',
             ),
           ),
           localNutritionStatusProvider.overrideWith(

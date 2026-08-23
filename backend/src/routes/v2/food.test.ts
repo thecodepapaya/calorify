@@ -60,10 +60,11 @@ const mockConfig = {
   API_V2_STR: '/api/v2',
   DEBUG: false,
   ENVIRONMENT: 'development',
-  LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-test-v1',
-  LOCAL_INFERENCE_TEXT_ENABLED: false,
-  LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED: false,
-  LOCAL_NUTRITION_MANIFEST_OBJECT: 'local-nutrition/manifest.json',
+  LOCAL_INFERENCE: {
+    minimumAppBuild: 48,
+    textEnabled: true,
+    localNutritionManifestObject: '',
+  },
 };
 
 await mock.module('../../services/nutritionEngineV2.js', {
@@ -328,7 +329,7 @@ test('POST /analyze-text rejects a malformed analysis ID', async () => {
   await app.close();
 });
 
-test('GET /local-capabilities is default-safe and versioned', async () => {
+test('GET /local-capabilities is default-safe without a build header', async () => {
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'GET',
@@ -337,13 +338,57 @@ test('GET /local-capabilities is default-safe and versioned', async () => {
 
   assert.equal(response.statusCode, 200);
   assert.deepEqual(response.json(), {
-    policyVersion: 'local-inference-test-v1',
     textEnabled: false,
-    imageEnabled: false,
-    localNutritionEnabled: false,
-    privateModesEnabled: false,
-    maxAgeSeconds: 3600,
   });
+  await app.close();
+});
+
+test('GET /local-capabilities enables text only for an allowed app release', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v2/food/local-capabilities',
+    headers: {
+      'x-calorify-app-version': '1.2.16',
+      'x-calorify-app-build': '48',
+    },
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.equal(response.json().textEnabled, true);
+  await app.close();
+});
+
+test('GET /local-capabilities remains enabled for newer app builds', async () => {
+  const app = await buildTestApp();
+  for (const headers of [
+    { 'x-calorify-app-version': '1.0.0', 'x-calorify-app-build': '49' },
+    { 'x-calorify-app-version': '2.0.0', 'x-calorify-app-build': '100' },
+    { 'x-calorify-app-build': '50' },
+  ]) {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-capabilities',
+      headers,
+    });
+    assert.equal(response.json().textEnabled, true);
+  }
+  await app.close();
+});
+
+test('GET /local-capabilities stays disabled for older or malformed app builds', async () => {
+  const app = await buildTestApp();
+  for (const headers of [
+    { 'x-calorify-app-version': '9.0.0', 'x-calorify-app-build': '47' },
+    { 'x-calorify-app-version': '1.2.16', 'x-calorify-app-build': 'forty-eight' },
+  ]) {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-capabilities',
+      headers,
+    });
+    assert.equal(response.json().textEnabled, false);
+  }
   await app.close();
 });
 
@@ -363,39 +408,44 @@ test('POST /resolve-local-nutrition fails closed while rollout is disabled', asy
   await app.close();
 });
 
-test('enabled local nutrition advertises a manifest while private modes stay off', async () => {
-  mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = true;
+test('configured local nutrition advertises a manifest', async () => {
+  mockConfig.LOCAL_INFERENCE.localNutritionManifestObject =
+    'local-nutrition/manifest.json';
   try {
     const app = await buildTestApp();
     const response = await app.inject({
       method: 'GET',
       url: '/api/v2/food/local-capabilities',
+      headers: {
+        'x-calorify-app-version': '1.2.16',
+        'x-calorify-app-build': '48',
+      },
     });
     assert.equal(response.statusCode, 200);
     assert.deepEqual(response.json(), {
-      policyVersion: 'local-inference-test-v1',
-      textEnabled: false,
-      imageEnabled: false,
-      localNutritionEnabled: true,
-      privateModesEnabled: false,
-      maxAgeSeconds: 3600,
+      textEnabled: true,
       localNutritionManifestUrl:
         'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/local-nutrition/manifest.json',
     });
     await app.close();
   } finally {
-    mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = false;
+    mockConfig.LOCAL_INFERENCE.localNutritionManifestObject = '';
   }
 });
 
 test('enabled resolver forwards only the bounded structured lookups', async () => {
-  mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = true;
+  mockConfig.LOCAL_INFERENCE.localNutritionManifestObject =
+    'local-nutrition/manifest.json';
   mockResolveLocalNutritionLookups.mock.resetCalls();
   try {
     const app = await buildTestApp();
     const response = await app.inject({
       method: 'POST',
       url: '/api/v2/food/resolve-local-nutrition',
+      headers: {
+        'x-calorify-app-version': '1.2.16',
+        'x-calorify-app-build': '48',
+      },
       payload: {
         analysisId: '00000000-0000-4000-8000-000000000422',
         lookups: [
@@ -414,7 +464,7 @@ test('enabled resolver forwards only the bounded structured lookups', async () =
     ]);
     await app.close();
   } finally {
-    mockConfig.LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED = false;
+    mockConfig.LOCAL_INFERENCE.localNutritionManifestObject = '';
   }
 });
 

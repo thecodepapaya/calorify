@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:i18n/i18n.dart';
 import 'package:measure_dio/measure_dio.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:protobuf/protobuf.dart';
 
@@ -26,6 +27,7 @@ class NetworkClient {
   final Dio _dio;
 
   static final NetworkClient instance = NetworkClient._(_buildDio());
+  static final Future<PackageInfo> _packageInfo = PackageInfo.fromPlatform();
 
   Dio get client => _dio;
 
@@ -53,6 +55,14 @@ class NetworkClient {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           if (_isApiRequest(options)) {
+            try {
+              final packageInfo = await _packageInfo;
+              options.headers['X-Calorify-App-Version'] = packageInfo.version;
+              options.headers['X-Calorify-App-Build'] = packageInfo.buildNumber;
+            } on Object {
+              // Keep the API usable if native package metadata is unavailable.
+              // Version-gated backend capabilities will safely remain off.
+            }
             final token = await AuthService.instance.resolveAuthToken();
             if (token != null) {
               options.headers['Authorization'] = 'Bearer $token';

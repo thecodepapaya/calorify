@@ -294,10 +294,7 @@ class _LocalInferenceDebugScreenState
     final capabilities = _capabilities;
     if (capabilities == null) return 'Status not loaded.';
     return [
-      'status=${capabilities.featureStatus.name}',
-      'ready=${capabilities.ready}',
-      'structured=${capabilities.structuredOutputSupported}',
-      'text=${capabilities.textSupported}',
+      'state=${capabilities.state.name}',
       'model=${capabilities.modelName ?? 'unknown'}',
     ].join(' · ');
   }
@@ -420,8 +417,7 @@ class _LocalInferenceDebugScreenState
     () async {
       final policy =
           await ref.read(foodRepositoryProvider).getLocalInferencePolicy();
-      if (!policy.localNutritionEnabled ||
-          !policy.hasLocalNutritionManifestUrl()) {
+      if (!policy.hasLocalNutritionManifestUrl()) {
         throw StateError('Backend local-nutrition capability is disabled.');
       }
       final installed = await ref

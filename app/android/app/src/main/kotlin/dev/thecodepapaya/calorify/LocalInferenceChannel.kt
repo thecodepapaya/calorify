@@ -159,15 +159,15 @@ class LocalInferenceChannel(
         } else {
             null
         }
+        val state = when (status) {
+            FeatureStatus.AVAILABLE -> if (structuredOutput) "ready" else "unsupported"
+            FeatureStatus.DOWNLOADABLE -> "downloadable"
+            FeatureStatus.DOWNLOADING -> "downloading"
+            else -> "unsupported"
+        }
         return mapOf(
-            "platformSupported" to true,
-            "featureStatus" to statusName(status),
-            "ready" to (status == FeatureStatus.AVAILABLE && structuredOutput),
-            "canDownload" to (status == FeatureStatus.DOWNLOADABLE),
-            "structuredOutputSupported" to structuredOutput,
-            "textSupported" to (status != FeatureStatus.UNAVAILABLE),
+            "state" to state,
             "modelName" to modelName,
-            "modelVersion" to null,
         )
     }
 
@@ -323,13 +323,6 @@ class LocalInferenceChannel(
         requests.values.forEach(Job::cancel)
         requests.clear()
         model.close()
-    }
-
-    private fun statusName(status: Int): String = when (status) {
-        FeatureStatus.AVAILABLE -> "available"
-        FeatureStatus.DOWNLOADABLE -> "downloadable"
-        FeatureStatus.DOWNLOADING -> "downloading"
-        else -> "unavailable"
     }
 
     private fun LocalMealProposalOutput.toPayload(

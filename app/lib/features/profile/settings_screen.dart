@@ -383,14 +383,11 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final enabled = preferences?.enabled ?? false;
     final device = availability?.device;
     final rolloutEnabled = availability?.policy.textEnabled == true;
-    final canEnable =
-        device?.platformSupported == true &&
-        device?.textSupported == true &&
-        rolloutEnabled;
+    final canEnable = device?.supported == true && rolloutEnabled;
     final subtitle =
         availability == null
             ? t.settings.localInference.subtitle
-            : device?.platformSupported != true || device?.textSupported != true
+            : device?.supported != true
             ? t.settings.localInference.unavailable
             : !rolloutEnabled
             ? t.settings.localInference.rolloutUnavailable
@@ -423,7 +420,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ? null
               : (value) => _setLocalInferenceEnabled(
                 value: value,
-                preferences: preferences,
                 availability: availability,
               ),
     );
@@ -449,7 +445,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final policy = availability?.policy;
     final available =
         preferences?.enabled == true &&
-        policy?.localNutritionEnabled == true &&
         policy?.hasLocalNutritionManifestUrl() == true;
     final enabled = preferences?.offlineNutritionEnabled ?? false;
     final pack = status?.pack;
@@ -537,8 +532,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     LocalInferenceAvailability availability,
   ) async {
     final policy = availability.policy;
-    if (!policy.localNutritionEnabled ||
-        !policy.hasLocalNutritionManifestUrl()) {
+    if (!policy.hasLocalNutritionManifestUrl()) {
       return;
     }
     final manifestUri = Uri.tryParse(policy.localNutritionManifestUrl);
@@ -609,7 +603,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
 
   Future<void> _setLocalInferenceEnabled({
     required bool value,
-    required LocalInferencePreferences preferences,
     required LocalInferenceAvailability? availability,
   }) async {
     final database = ref.read(databaseInterfaceProvider);
@@ -619,12 +612,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       return;
     }
     if (availability == null || !availability.policy.textEnabled) return;
-    final policyVersion = availability.policy.policyVersion;
-    if (preferences.acknowledgedPolicyVersion != policyVersion) {
-      final acknowledged = await _showLocalInferenceDisclosure();
-      if (acknowledged != true || !mounted) return;
-      await database.acknowledgeLocalInferencePolicy(policyVersion);
-    }
+    final acknowledged = await _showLocalInferenceDisclosure();
+    if (acknowledged != true || !mounted) return;
     await database.setLocalInferenceEnabled(true);
     ref.invalidate(localInferencePreferencesProvider);
 

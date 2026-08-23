@@ -7,60 +7,30 @@ import 'package:flutter/services.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
 
-enum LocalInferenceFeatureStatus {
-  available,
-  downloadable,
-  downloading,
-  unavailable,
-}
+enum LocalInferenceState { ready, downloadable, downloading, unsupported }
 
 class LocalInferenceCapabilities {
-  const LocalInferenceCapabilities({
-    required this.platformSupported,
-    required this.featureStatus,
-    required this.ready,
-    required this.canDownload,
-    required this.structuredOutputSupported,
-    required this.textSupported,
-    this.modelName,
-    this.modelVersion,
-  });
+  const LocalInferenceCapabilities({required this.state, this.modelName});
 
   const LocalInferenceCapabilities.unsupported()
-    : platformSupported = false,
-      featureStatus = LocalInferenceFeatureStatus.unavailable,
-      ready = false,
-      canDownload = false,
-      structuredOutputSupported = false,
-      textSupported = false,
-      modelName = null,
-      modelVersion = null;
+    : state = LocalInferenceState.unsupported,
+      modelName = null;
 
-  final bool platformSupported;
-  final LocalInferenceFeatureStatus featureStatus;
-  final bool ready;
-  final bool canDownload;
-  final bool structuredOutputSupported;
-  final bool textSupported;
+  final LocalInferenceState state;
   final String? modelName;
-  final String? modelVersion;
 
-  bool get canRunText => ready && structuredOutputSupported && textSupported;
+  bool get supported => state != LocalInferenceState.unsupported;
+  bool get ready => state == LocalInferenceState.ready;
+  bool get canDownload => state == LocalInferenceState.downloadable;
 
   factory LocalInferenceCapabilities.fromMap(Map<String, Object?> map) {
-    final statusName = map['featureStatus'] as String? ?? 'unavailable';
+    final stateName = map['state'] as String? ?? 'unsupported';
     return LocalInferenceCapabilities(
-      platformSupported: map['platformSupported'] == true,
-      featureStatus: LocalInferenceFeatureStatus.values.firstWhere(
-        (value) => value.name == statusName,
-        orElse: () => LocalInferenceFeatureStatus.unavailable,
+      state: LocalInferenceState.values.firstWhere(
+        (value) => value.name == stateName,
+        orElse: () => LocalInferenceState.unsupported,
       ),
-      ready: map['ready'] == true,
-      canDownload: map['canDownload'] == true,
-      structuredOutputSupported: map['structuredOutputSupported'] == true,
-      textSupported: map['textSupported'] == true,
       modelName: map['modelName'] as String?,
-      modelVersion: map['modelVersion'] as String?,
     );
   }
 }
@@ -133,7 +103,7 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
   Future<LocalInferenceCapabilities> getCapabilities() async {
     _logGenAi('capabilities.request');
     if (!_isSupportedPlatform) {
-      _logGenAi('capabilities.response', data: {'platformSupported': false});
+      _logGenAi('capabilities.response', data: {'state': 'unsupported'});
       return const LocalInferenceCapabilities.unsupported();
     }
     try {

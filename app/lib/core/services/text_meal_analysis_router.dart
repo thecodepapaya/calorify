@@ -108,7 +108,8 @@ class TextMealAnalysisRouter {
         startedAt: startedAt,
         completedAt: completedAt,
         useLocalNutrition:
-            preferences.offlineNutritionEnabled && policy.localNutritionEnabled,
+            preferences.offlineNutritionEnabled &&
+            policy.hasLocalNutritionManifestUrl(),
       );
     } on LocalInferenceException catch (error) {
       return CloudTextMealAnalysisRoute(
@@ -139,11 +140,11 @@ MealAnalysisFallbackReason? _ineligibleReason(
     return MealAnalysisFallbackReason
         .MEAL_ANALYSIS_FALLBACK_REASON_ROLLOUT_DISABLED;
   }
-  if (!device.platformSupported || !device.textSupported) {
+  if (!device.supported) {
     return MealAnalysisFallbackReason
         .MEAL_ANALYSIS_FALLBACK_REASON_UNSUPPORTED_DEVICE;
   }
-  if (!device.ready || !device.structuredOutputSupported) {
+  if (!device.ready) {
     return MealAnalysisFallbackReason
         .MEAL_ANALYSIS_FALLBACK_REASON_MODEL_NOT_READY;
   }

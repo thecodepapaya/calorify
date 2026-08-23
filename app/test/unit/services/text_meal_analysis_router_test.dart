@@ -52,25 +52,16 @@ class _FakeLocalInferenceService implements LocalInferenceService {
   Future<Duration> warmUp() async => Duration.zero;
 }
 
-LocalInferenceCapabilities _readyDevice() => const LocalInferenceCapabilities(
-  platformSupported: true,
-  featureStatus: LocalInferenceFeatureStatus.available,
-  ready: true,
-  canDownload: false,
-  structuredOutputSupported: true,
-  textSupported: true,
-);
+LocalInferenceCapabilities _readyDevice() =>
+    const LocalInferenceCapabilities(state: LocalInferenceState.ready);
 
 LocalInferenceCapabilityPolicy _policy({
   bool textEnabled = true,
-  bool localNutritionEnabled = false,
+  bool withNutritionManifest = false,
 }) => LocalInferenceCapabilityPolicy(
-  policyVersion: 'test-v1',
   textEnabled: textEnabled,
-  imageEnabled: false,
-  localNutritionEnabled: localNutritionEnabled,
-  privateModesEnabled: false,
-  maxAgeSeconds: 3600,
+  localNutritionManifestUrl:
+      withNutritionManifest ? 'https://object.test/manifest.json' : null,
 );
 
 IngredientProposalV1 _proposal() => IngredientProposalV1(
@@ -219,7 +210,7 @@ void main() {
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: _FakeLocalInferenceService(),
-        loadPolicy: () async => _policy(localNutritionEnabled: true),
+        loadPolicy: () async => _policy(withNutritionManifest: true),
       );
 
       final route = await router.prepare('dal and rice');

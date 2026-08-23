@@ -473,35 +473,13 @@ void main() {
     expect(await database.isHealthConnectPromptDismissed(), isTrue);
   });
 
-  test(
-    'local inference preference is off by default and persists consent',
-    () async {
-      expect(
-        await database.getLocalInferencePreferences(),
-        isA<LocalInferencePreferences>()
-            .having((value) => value.enabled, 'enabled', isFalse)
-            .having(
-              (value) => value.acknowledgedPolicyVersion,
-              'acknowledgedPolicyVersion',
-              isNull,
-            ),
-      );
+  test('local inference preference is off by default and persists', () async {
+    expect((await database.getLocalInferencePreferences()).enabled, isFalse);
 
-      await database.acknowledgeLocalInferencePolicy('policy-v1');
-      await database.setLocalInferenceEnabled(true);
+    await database.setLocalInferenceEnabled(true);
 
-      expect(
-        await database.getLocalInferencePreferences(),
-        isA<LocalInferencePreferences>()
-            .having((value) => value.enabled, 'enabled', isTrue)
-            .having(
-              (value) => value.acknowledgedPolicyVersion,
-              'acknowledgedPolicyVersion',
-              'policy-v1',
-            ),
-      );
-    },
-  );
+    expect((await database.getLocalInferencePreferences()).enabled, isTrue);
+  });
 
   test(
     'v22 upgrade adds default-off local inference and nutrition data',
@@ -524,13 +502,15 @@ void main() {
       final columns = await _columnNames(database, 'user_preferences_table');
 
       expect(columns, contains('local_inference_enabled'));
-      expect(columns, contains('local_inference_acknowledged_policy_version'));
+      expect(
+        columns,
+        isNot(contains('local_inference_acknowledged_policy_version')),
+      );
       expect(columns, contains('offline_nutrition_enabled'));
       expect(columns, contains('health_connect_nutrition_sync_enabled'));
       expect(columns, contains('health_connect_prompt_dismissed'));
       expect(preferences.enabled, isFalse);
       expect(preferences.offlineNutritionEnabled, isFalse);
-      expect(preferences.acknowledgedPolicyVersion, isNull);
       expect(
         await _tableExists(database, 'local_nutrition_cache_table'),
         isTrue,

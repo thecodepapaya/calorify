@@ -588,23 +588,11 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
 
 class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
   factory LocalInferenceCapabilityPolicy({
-    $core.String? policyVersion,
     $core.bool? textEnabled,
-    $core.bool? imageEnabled,
-    $core.bool? localNutritionEnabled,
-    $core.bool? privateModesEnabled,
-    $core.int? maxAgeSeconds,
     $core.String? localNutritionManifestUrl,
   }) {
     final result = create();
-    if (policyVersion != null) result.policyVersion = policyVersion;
     if (textEnabled != null) result.textEnabled = textEnabled;
-    if (imageEnabled != null) result.imageEnabled = imageEnabled;
-    if (localNutritionEnabled != null)
-      result.localNutritionEnabled = localNutritionEnabled;
-    if (privateModesEnabled != null)
-      result.privateModesEnabled = privateModesEnabled;
-    if (maxAgeSeconds != null) result.maxAgeSeconds = maxAgeSeconds;
     if (localNutritionManifestUrl != null)
       result.localNutritionManifestUrl = localNutritionManifestUrl;
     return result;
@@ -623,12 +611,7 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'LocalInferenceCapabilityPolicy',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'policyVersion')
     ..aOB(2, _omitFieldNames ? '' : 'textEnabled')
-    ..aOB(3, _omitFieldNames ? '' : 'imageEnabled')
-    ..aOB(4, _omitFieldNames ? '' : 'localNutritionEnabled')
-    ..aOB(5, _omitFieldNames ? '' : 'privateModesEnabled')
-    ..aI(6, _omitFieldNames ? '' : 'maxAgeSeconds')
     ..aOS(7, _omitFieldNames ? '' : 'localNutritionManifestUrl')
     ..hasRequiredFields = false;
 
@@ -654,66 +637,21 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
       $pb.GeneratedMessage.$_defaultFor<LocalInferenceCapabilityPolicy>(create);
   static LocalInferenceCapabilityPolicy? _defaultInstance;
 
-  @$pb.TagNumber(1)
-  $core.String get policyVersion => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set policyVersion($core.String value) => $_setString(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasPolicyVersion() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearPolicyVersion() => $_clearField(1);
-
   @$pb.TagNumber(2)
-  $core.bool get textEnabled => $_getBF(1);
+  $core.bool get textEnabled => $_getBF(0);
   @$pb.TagNumber(2)
-  set textEnabled($core.bool value) => $_setBool(1, value);
+  set textEnabled($core.bool value) => $_setBool(0, value);
   @$pb.TagNumber(2)
-  $core.bool hasTextEnabled() => $_has(1);
+  $core.bool hasTextEnabled() => $_has(0);
   @$pb.TagNumber(2)
   void clearTextEnabled() => $_clearField(2);
 
-  @$pb.TagNumber(3)
-  $core.bool get imageEnabled => $_getBF(2);
-  @$pb.TagNumber(3)
-  set imageEnabled($core.bool value) => $_setBool(2, value);
-  @$pb.TagNumber(3)
-  $core.bool hasImageEnabled() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearImageEnabled() => $_clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.bool get localNutritionEnabled => $_getBF(3);
-  @$pb.TagNumber(4)
-  set localNutritionEnabled($core.bool value) => $_setBool(3, value);
-  @$pb.TagNumber(4)
-  $core.bool hasLocalNutritionEnabled() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearLocalNutritionEnabled() => $_clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.bool get privateModesEnabled => $_getBF(4);
-  @$pb.TagNumber(5)
-  set privateModesEnabled($core.bool value) => $_setBool(4, value);
-  @$pb.TagNumber(5)
-  $core.bool hasPrivateModesEnabled() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearPrivateModesEnabled() => $_clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.int get maxAgeSeconds => $_getIZ(5);
-  @$pb.TagNumber(6)
-  set maxAgeSeconds($core.int value) => $_setSignedInt32(5, value);
-  @$pb.TagNumber(6)
-  $core.bool hasMaxAgeSeconds() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearMaxAgeSeconds() => $_clearField(6);
-
   @$pb.TagNumber(7)
-  $core.String get localNutritionManifestUrl => $_getSZ(6);
+  $core.String get localNutritionManifestUrl => $_getSZ(1);
   @$pb.TagNumber(7)
-  set localNutritionManifestUrl($core.String value) => $_setString(6, value);
+  set localNutritionManifestUrl($core.String value) => $_setString(1, value);
   @$pb.TagNumber(7)
-  $core.bool hasLocalNutritionManifestUrl() => $_has(6);
+  $core.bool hasLocalNutritionManifestUrl() => $_has(1);
   @$pb.TagNumber(7)
   void clearLocalNutritionManifestUrl() => $_clearField(7);
 }

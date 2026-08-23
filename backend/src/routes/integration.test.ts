@@ -22,10 +22,11 @@ await mock.module('../config.js', {
     USDA_DATA_DIR: '/tmp/usda',
     USDA_DATASET_VERSION: null,
     USDA_SOURCE_RELEASE_DATE: null,
-    LOCAL_INFERENCE_POLICY_VERSION: 'local-inference-disabled-v1',
-    LOCAL_INFERENCE_TEXT_ENABLED: false,
-    LOCAL_INFERENCE_LOCAL_NUTRITION_ENABLED: false,
-    LOCAL_NUTRITION_MANIFEST_OBJECT: 'local-nutrition/manifest.json',
+    LOCAL_INFERENCE: {
+      minimumAppBuild: 48,
+      textEnabled: false,
+      localNutritionManifestObject: '',
+    },
     ORACLE_BUCKET_DOWNLOAD_URL:
       'https://objectstorage.example.com/n/ns/b/bucket/o/',
   },

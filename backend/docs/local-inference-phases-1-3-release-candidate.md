@@ -86,7 +86,6 @@ handoffs and remains the nutrition and persistence authority.
 Backend defaults:
 
 ```text
-LOCAL_INFERENCE_POLICY_VERSION=local-inference-disabled-v1
 LOCAL_INFERENCE_TEXT_ENABLED=false
 ```
 

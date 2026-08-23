@@ -48,7 +48,7 @@ jobs:
           cache-dependency-path: backend/package-lock.json
       - uses: arduino/setup-protoc@v3
         with:
-          version: "27.3"
+          version: "34.1"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: dart pub global activate protoc_plugin 24.0.0
       - run: npm ci --prefix backend

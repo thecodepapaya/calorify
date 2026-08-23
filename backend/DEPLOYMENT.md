@@ -106,6 +106,14 @@ the USDA owner/reader passwords, and Grafana credentials. `production.env` and
 `staging.env` contain environment-specific application settings and their own
 application `DATABASE_URL`. The shared USDA URL is constructed by Compose.
 
+On-device meal-analysis rollout settings are defined together in the
+`LOCAL_INFERENCE` section of `src/config.ts` and may be overridden by the
+corresponding `LOCAL_INFERENCE_*` values in each runtime env file. Capability
+responses fail closed unless the request's `X-Calorify-App-Build` header is at
+least the build configured by
+`LOCAL_INFERENCE_MIN_APP_BUILD`. The version header is informational and is not
+used for rollout eligibility.
+
 The Firebase service account is mounted read-only at `/run/secrets`. The image
 entrypoint copies it to a private in-container path, exports that path, and then
 drops from root to the `node` user. The USDA maintenance service runs directly

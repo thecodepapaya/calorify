@@ -203,23 +203,13 @@ void main() {
   test(
     'local capability policy fails closed through typed proto defaults',
     () async {
-      adapter.respondWithJson({
-        'policyVersion': 'local-beta-v1',
-        'textEnabled': true,
-        'imageEnabled': false,
-        'localNutritionEnabled': false,
-        'privateModesEnabled': false,
-        'maxAgeSeconds': 3600,
-      });
+      adapter.respondWithJson({'textEnabled': true});
 
       final policy = await repository.getLocalInferencePolicy();
 
       expect(adapter.lastRequest?.path, '/api/v2/food/local-capabilities');
-      expect(policy.policyVersion, 'local-beta-v1');
       expect(policy.textEnabled, isTrue);
-      expect(policy.imageEnabled, isFalse);
-      expect(policy.localNutritionEnabled, isFalse);
-      expect(policy.privateModesEnabled, isFalse);
+      expect(policy.hasLocalNutritionManifestUrl(), isFalse);
     },
   );
 

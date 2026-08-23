@@ -286,24 +286,7 @@ final $typed_data.Uint8List mealAnalysisProposalRequestDescriptor = $convert.bas
 const LocalInferenceCapabilityPolicy$json = {
   '1': 'LocalInferenceCapabilityPolicy',
   '2': [
-    {'1': 'policy_version', '3': 1, '4': 1, '5': 9, '10': 'policyVersion'},
     {'1': 'text_enabled', '3': 2, '4': 1, '5': 8, '10': 'textEnabled'},
-    {'1': 'image_enabled', '3': 3, '4': 1, '5': 8, '10': 'imageEnabled'},
-    {
-      '1': 'local_nutrition_enabled',
-      '3': 4,
-      '4': 1,
-      '5': 8,
-      '10': 'localNutritionEnabled'
-    },
-    {
-      '1': 'private_modes_enabled',
-      '3': 5,
-      '4': 1,
-      '5': 8,
-      '10': 'privateModesEnabled'
-    },
-    {'1': 'max_age_seconds', '3': 6, '4': 1, '5': 5, '10': 'maxAgeSeconds'},
     {
       '1': 'local_nutrition_manifest_url',
       '3': 7,
@@ -317,18 +300,30 @@ const LocalInferenceCapabilityPolicy$json = {
   '8': [
     {'1': '_local_nutrition_manifest_url'},
   ],
+  '9': [
+    {'1': 1, '2': 2},
+    {'1': 3, '2': 4},
+    {'1': 4, '2': 5},
+    {'1': 5, '2': 6},
+    {'1': 6, '2': 7},
+  ],
+  '10': [
+    'policy_version',
+    'image_enabled',
+    'local_nutrition_enabled',
+    'private_modes_enabled',
+    'max_age_seconds'
+  ],
 };
 
 /// Descriptor for `LocalInferenceCapabilityPolicy`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List localInferenceCapabilityPolicyDescriptor = $convert.base64Decode(
-    'Ch5Mb2NhbEluZmVyZW5jZUNhcGFiaWxpdHlQb2xpY3kSJQoOcG9saWN5X3ZlcnNpb24YASABKA'
-    'lSDXBvbGljeVZlcnNpb24SIQoMdGV4dF9lbmFibGVkGAIgASgIUgt0ZXh0RW5hYmxlZBIjCg1p'
-    'bWFnZV9lbmFibGVkGAMgASgIUgxpbWFnZUVuYWJsZWQSNgoXbG9jYWxfbnV0cml0aW9uX2VuYW'
-    'JsZWQYBCABKAhSFWxvY2FsTnV0cml0aW9uRW5hYmxlZBIyChVwcml2YXRlX21vZGVzX2VuYWJs'
-    'ZWQYBSABKAhSE3ByaXZhdGVNb2Rlc0VuYWJsZWQSJgoPbWF4X2FnZV9zZWNvbmRzGAYgASgFUg'
-    '1tYXhBZ2VTZWNvbmRzEkQKHGxvY2FsX251dHJpdGlvbl9tYW5pZmVzdF91cmwYByABKAlIAFIZ'
-    'bG9jYWxOdXRyaXRpb25NYW5pZmVzdFVybIgBAUIfCh1fbG9jYWxfbnV0cml0aW9uX21hbmlmZX'
-    'N0X3VybA==');
+    'Ch5Mb2NhbEluZmVyZW5jZUNhcGFiaWxpdHlQb2xpY3kSIQoMdGV4dF9lbmFibGVkGAIgASgIUg'
+    't0ZXh0RW5hYmxlZBJEChxsb2NhbF9udXRyaXRpb25fbWFuaWZlc3RfdXJsGAcgASgJSABSGWxv'
+    'Y2FsTnV0cml0aW9uTWFuaWZlc3RVcmyIAQFCHwodX2xvY2FsX251dHJpdGlvbl9tYW5pZmVzdF'
+    '91cmxKBAgBEAJKBAgDEARKBAgEEAVKBAgFEAZKBAgGEAdSDnBvbGljeV92ZXJzaW9uUg1pbWFn'
+    'ZV9lbmFibGVkUhdsb2NhbF9udXRyaXRpb25fZW5hYmxlZFIVcHJpdmF0ZV9tb2Rlc19lbmFibG'
+    'VkUg9tYXhfYWdlX3NlY29uZHM=');
 
 @$core.Deprecated('Use localNutritionPackManifestDescriptor instead')
 const LocalNutritionPackManifest$json = {

@@ -21,8 +21,6 @@ class LocalInferenceAvailability {
 
   final LocalInferenceCapabilities device;
   final LocalInferenceCapabilityPolicy policy;
-
-  bool get textAvailable => device.canRunText && policy.textEnabled;
 }
 
 class LocalNutritionStatus {
@@ -35,8 +33,6 @@ class LocalNutritionStatus {
   final InstalledLocalNutritionPack? pack;
   final int cacheRecords;
   final int cacheBytes;
-
-  int get totalBytes => (pack?.byteSize ?? 0) + cacheBytes;
 }
 
 final localInferenceServiceProvider = Provider<LocalInferenceService>((ref) {
@@ -108,14 +104,7 @@ final localInferenceAvailabilityProvider =
         policy =
             await ref.watch(foodRepositoryProvider).getLocalInferencePolicy();
       } on Object {
-        policy = LocalInferenceCapabilityPolicy(
-          policyVersion: 'unavailable',
-          textEnabled: false,
-          imageEnabled: false,
-          localNutritionEnabled: false,
-          privateModesEnabled: false,
-          maxAgeSeconds: 0,
-        );
+        policy = LocalInferenceCapabilityPolicy(textEnabled: false);
       }
       return LocalInferenceAvailability(device: device, policy: policy);
     });
