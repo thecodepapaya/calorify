@@ -85,9 +85,11 @@ jobs:
             scripts/deploy-production.sh \
             scripts/deploy-staging.sh | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
+              -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               "$SSH_USER@$SSH_HOST" \
               "install -d -m 0755 $backend_path_q/scripts && tar -xf - -C $backend_path_q"
           printf '%s\n' "$GHCR_TOKEN" | \
             ssh -i ~/.ssh/calorify_deploy_key -p "$SSH_PORT" \
+              -o ServerAliveInterval=30 -o ServerAliveCountMax=20 \
               "$SSH_USER@$SSH_HOST" \
               "cd $backend_path_q && GHCR_USERNAME=$ghcr_username_q ./scripts/deploy-production.sh $image_q"
