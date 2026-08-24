@@ -1,7 +1,7 @@
 # Local inference for meal analysis
 
 Status: Phase 4 engineering-complete release candidate; default off and not released  
-Last reviewed: 2026-08-22
+Last reviewed: 2026-08-25
 
 ## Decision summary
 
@@ -67,6 +67,28 @@ phone-assisted backend path. Image analysis is unchanged.
 
 Implementation evidence is recorded in the [phases 1–3 release candidate](../../backend/docs/local-inference-phases-1-3-release-candidate.md)
 and [Phase 4 release candidate](../../backend/docs/local-inference-phase-4-release-candidate.md).
+
+## Current tracking plan
+
+- [x] Send app version and build headers with API requests.
+- [x] Gate local inference by minimum build number from centralized backend
+  configuration; newer builds remain eligible.
+- [x] Bump the app release and enable local text inference for the release.
+- [x] Review and simplify Phases 1–4 while keeping local image inference
+  deferred.
+- [x] Add the reusable, localized Beta tag.
+- [x] Implement the single-JSON USDA pack endpoint, datetime revalidation, and
+  atomic app replacement.
+- [x] Restrict pack output to USDA rows and document pack curation.
+- [ ] Build and inspect the real pack against the dedicated USDA database.
+- [ ] Replace `local-nutrition/pack.json` in object storage, configure the
+  deployed object key, and verify the staging endpoint.
+- [ ] Run physical-device pack install/update, local-hit, remote-miss fallback,
+  clear, parity, and rollback checks.
+- [ ] Commit the current pack endpoint, app lifecycle, generated contract,
+  tests, and documentation changes.
+- [ ] Discuss and finalize the local-AI onboarding flow without implementing
+  new product features.
 
 ## Phase 4 scope
 
