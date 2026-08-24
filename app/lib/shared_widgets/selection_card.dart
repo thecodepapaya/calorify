@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:specs/specs.dart';
 
 class SelectionCard<T> extends StatelessWidget {
   final String title;
@@ -40,7 +41,7 @@ class SelectionCard<T> extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: globalInnerPadding,
               decoration: BoxDecoration(
                 color:
                     isSelected

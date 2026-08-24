@@ -121,12 +121,10 @@ class LocalNutritionPack {
 
 class InstalledLocalNutritionPack {
   const InstalledLocalNutritionPack({
-    required this.manifest,
     required this.pack,
     required this.byteSize,
   });
 
-  final LocalNutritionPackManifest manifest;
   final LocalNutritionPack pack;
   final int byteSize;
 }

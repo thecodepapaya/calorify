@@ -3,7 +3,6 @@ import 'package:calorify/core/services/local_nutrition_calculator.dart';
 import 'package:calorify/core/services/local_nutrition_meal_analysis_engine.dart';
 import 'package:calorify/core/services/local_nutrition_pack.dart';
 import 'package:calorify/core/services/local_nutrition_repository.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
@@ -42,18 +41,7 @@ LocalNutritionResolvedMeal _resolved(IngredientProposalV1 proposal) {
     records: const [],
   );
   return LocalNutritionResolvedMeal(
-    pack: InstalledLocalNutritionPack(
-      manifest: LocalNutritionPackManifest(
-        schemaVersion: 1,
-        packVersion: 'starter-v1',
-        datasetVersion: 'fdc-v1',
-        objectName: 'local-nutrition/starter-v1.json',
-        sizeBytes: Int64.ONE,
-        calculationVersion: localNutritionCalculationVersion,
-      ),
-      pack: pack,
-      byteSize: 1,
-    ),
+    pack: InstalledLocalNutritionPack(pack: pack, byteSize: 1),
     ingredients: [
       LocalNutritionResolvedIngredient(
         proposal: proposal.ingredients.single,

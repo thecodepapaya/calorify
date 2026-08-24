@@ -4,6 +4,7 @@ import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:drift/drift.dart' show OrderingMode, OrderingTerm;
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:specs/specs.dart';
 
 class DatabaseInspectorScreen extends StatefulWidget {
   const DatabaseInspectorScreen({super.key});
@@ -276,7 +277,7 @@ class _DatabaseInspectorScreenState extends State<DatabaseInspectorScreen> {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: globalInnerPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -109,7 +109,7 @@ class TextMealAnalysisRouter {
         completedAt: completedAt,
         useLocalNutrition:
             preferences.offlineNutritionEnabled &&
-            policy.hasLocalNutritionManifestUrl(),
+            policy.hasLocalNutritionPackUrl(),
       );
     } on LocalInferenceException catch (error) {
       return CloudTextMealAnalysisRoute(

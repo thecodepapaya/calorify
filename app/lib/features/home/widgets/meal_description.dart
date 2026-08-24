@@ -32,7 +32,7 @@ class _DescribeMealState extends State<DescribeMeal> {
       children: [
         Container(
           margin: globalMargin,
-          padding: EdgeInsets.all(12),
+          padding: globalInnerPadding,
           decoration: BoxDecoration(
             borderRadius: globalRadius,
             border: Border.all(color: colorScheme.outline),

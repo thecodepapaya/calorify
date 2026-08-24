@@ -13,7 +13,6 @@ import 'package:calorify/features/debug/local_inference_debug_screen.dart';
 import 'package:calorify/features/profile/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:models/models.dart';
@@ -37,7 +36,7 @@ LocalInferenceAvailability _availability({
   required bool supported,
   bool ready = true,
   bool canDownload = false,
-  bool withNutritionManifest = false,
+  bool withNutritionPack = false,
 }) {
   return LocalInferenceAvailability(
     device: LocalInferenceCapabilities(
@@ -52,10 +51,8 @@ LocalInferenceAvailability _availability({
     ),
     policy: LocalInferenceCapabilityPolicy(
       textEnabled: true,
-      localNutritionManifestUrl:
-          withNutritionManifest
-              ? 'https://object.test/n/ns/b/bucket/o/local-nutrition/manifest.json'
-              : null,
+      localNutritionPackUrl:
+          withNutritionPack ? '/api/v2/food/local-nutrition-pack' : null,
     ),
   );
 }
@@ -68,18 +65,7 @@ InstalledLocalNutritionPack _installedPack() {
     calculationVersion: localNutritionCalculationVersion,
     records: const [],
   );
-  return InstalledLocalNutritionPack(
-    manifest: LocalNutritionPackManifest(
-      schemaVersion: 1,
-      packVersion: 'starter-v1',
-      datasetVersion: 'fdc-v1',
-      objectName: 'local-nutrition/starter-v1.json',
-      sizeBytes: Int64.ONE,
-      calculationVersion: localNutritionCalculationVersion,
-    ),
-    pack: pack,
-    byteSize: 1,
-  );
+  return InstalledLocalNutritionPack(pack: pack, byteSize: 1);
 }
 
 IngredientProposalV1 _proposal() => IngredientProposalV1(
@@ -294,11 +280,9 @@ void main() {
   ) async {
     final database = _MockDatabase();
     final packService = _MockLocalNutritionPackService();
-    final manifestUri = Uri.parse(
-      'https://object.test/n/ns/b/bucket/o/local-nutrition/manifest.json',
-    );
+    final packUri = Uri.parse('/api/v2/food/local-nutrition-pack');
     when(
-      () => packService.install(manifestUri),
+      () => packService.install(packUri),
     ).thenAnswer((_) async => _installedPack());
     when(
       () => database.setOfflineNutritionEnabled(any()),
@@ -315,7 +299,7 @@ void main() {
           ),
           localNutritionPackServiceProvider.overrideWithValue(packService),
           localInferenceAvailabilityProvider.overrideWith(
-            (_) => _availability(supported: true, withNutritionManifest: true),
+            (_) => _availability(supported: true, withNutritionPack: true),
           ),
           localInferencePreferencesProvider.overrideWith(
             (_) => const LocalInferencePreferences(
@@ -349,7 +333,7 @@ void main() {
     await tester.tap(tile);
     await tester.pumpAndSettle();
 
-    verify(() => packService.install(manifestUri)).called(1);
+    verify(() => packService.install(packUri)).called(1);
     verify(() => database.setOfflineNutritionEnabled(true)).called(1);
   });
 

@@ -1,5 +1,6 @@
 import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:flutter/material.dart';
+import 'package:specs/specs.dart';
 
 /// Shared header widget for reinforcement screens
 class ReinforcementHeader extends StatelessWidget {
@@ -20,7 +21,7 @@ class ReinforcementHeader extends StatelessWidget {
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(12),
+          padding: globalInnerPadding,
           decoration: BoxDecoration(
             color: colorScheme.primaryContainer.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(16),
@@ -60,7 +61,7 @@ class ReinforcementFeatureItem extends StatelessWidget {
     return Row(
       children: [
         Container(
-          padding: const EdgeInsets.all(12),
+          padding: globalInnerPadding,
           decoration: BoxDecoration(
             color: colorScheme.primaryContainer.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(16),

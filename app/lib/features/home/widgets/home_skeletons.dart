@@ -149,10 +149,7 @@ class MealLogSkeleton extends StatelessWidget {
 }
 
 class _HomeCardSkeleton extends StatelessWidget {
-  const _HomeCardSkeleton({
-    required this.body,
-    this.titleWidth = 144,
-  });
+  const _HomeCardSkeleton({required this.body, this.titleWidth = 144});
 
   final Widget body;
   final double titleWidth;
@@ -195,7 +192,7 @@ class _MetricTileSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: globalInnerPadding,
       decoration: BoxDecoration(
         borderRadius: globalRadius,
         color: Theme.of(

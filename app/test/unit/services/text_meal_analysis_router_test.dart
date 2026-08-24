@@ -57,11 +57,11 @@ LocalInferenceCapabilities _readyDevice() =>
 
 LocalInferenceCapabilityPolicy _policy({
   bool textEnabled = true,
-  bool withNutritionManifest = false,
+  bool withNutritionPack = false,
 }) => LocalInferenceCapabilityPolicy(
   textEnabled: textEnabled,
-  localNutritionManifestUrl:
-      withNutritionManifest ? 'https://object.test/manifest.json' : null,
+  localNutritionPackUrl:
+      withNutritionPack ? '/api/v2/food/local-nutrition-pack' : null,
 );
 
 IngredientProposalV1 _proposal() => IngredientProposalV1(
@@ -210,7 +210,7 @@ void main() {
       final router = TextMealAnalysisRouter(
         database: database,
         localInference: _FakeLocalInferenceService(),
-        loadPolicy: () async => _policy(withNutritionManifest: true),
+        loadPolicy: () async => _policy(withNutritionPack: true),
       );
 
       final route = await router.prepare('dal and rice');

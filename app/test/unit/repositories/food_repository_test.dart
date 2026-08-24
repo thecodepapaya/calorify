@@ -209,7 +209,7 @@ void main() {
 
       expect(adapter.lastRequest?.path, '/api/v2/food/local-capabilities');
       expect(policy.textEnabled, isTrue);
-      expect(policy.hasLocalNutritionManifestUrl(), isFalse);
+      expect(policy.hasLocalNutritionPackUrl(), isFalse);
     },
   );
 

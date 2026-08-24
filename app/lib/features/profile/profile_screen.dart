@@ -2,19 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/providers/profile_providers.dart';
 import 'package:calorify/core/router/app_router.dart';
-import 'package:utils/utils.dart';
 import 'package:calorify/core/utilities/profile_localization.dart';
-import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/disclaimer_sheet.dart'
     show getHealthMetricsDisclaimer;
+import 'package:calorify/features/home/widgets/disclaimer_button.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
-import 'package:i18n/i18n.dart';
-import 'package:widgets/widgets.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
-import 'package:calorify/shared_widgets/responsive_layout.dart';
+import 'package:specs/specs.dart';
+import 'package:utils/utils.dart';
+import 'package:widgets/widgets.dart';
 
 @RoutePage()
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -156,7 +157,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       leading: Container(
-        padding: const EdgeInsets.all(12),
+        padding: globalInnerPadding,
         decoration: BoxDecoration(
           color: colorScheme.primaryContainer.withValues(alpha: 0.4),
           shape: BoxShape.circle,

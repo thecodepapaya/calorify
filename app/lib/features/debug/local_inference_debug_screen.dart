@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:services/services.dart';
+import 'package:specs/specs.dart';
 import 'package:uuid/uuid.dart';
 
 class LocalInferenceDebugScreen extends ConsumerStatefulWidget {
@@ -242,7 +243,7 @@ class _LocalInferenceDebugScreenState
                       border: Border.all(color: theme.colorScheme.outline),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: globalInnerPadding,
                       child: SelectableText(
                         _output,
                         style: theme.textTheme.bodySmall?.copyWith(
@@ -417,12 +418,12 @@ class _LocalInferenceDebugScreenState
     () async {
       final policy =
           await ref.read(foodRepositoryProvider).getLocalInferencePolicy();
-      if (!policy.hasLocalNutritionManifestUrl()) {
+      if (!policy.hasLocalNutritionPackUrl()) {
         throw StateError('Backend local-nutrition capability is disabled.');
       }
       final installed = await ref
           .read(localNutritionPackServiceProvider)
-          .install(Uri.parse(policy.localNutritionManifestUrl));
+          .install(Uri.parse(policy.localNutritionPackUrl));
       ref.invalidate(localNutritionStatusProvider);
       return 'installed ${installed.pack.packVersion} · '
           '${installed.pack.records.length} rows · ${installed.byteSize} bytes';

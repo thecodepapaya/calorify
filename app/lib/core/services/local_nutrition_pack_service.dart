@@ -1,23 +1,31 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:calorify/core/services/local_nutrition_pack.dart';
 import 'package:dio/dio.dart';
-import 'package:fixnum/fixnum.dart';
-import 'package:models/models.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 typedef LocalNutritionDirectoryProvider = Future<Directory> Function();
-typedef LocalNutritionDownloader = Future<Uint8List> Function(Uri uri);
+typedef LocalNutritionDownloader =
+    Future<LocalNutritionDownload> Function(Uri uri, DateTime? ifModifiedSince);
+
+class LocalNutritionDownload {
+  const LocalNutritionDownload.modified(this.bytes, {this.lastModified})
+    : notModified = false;
+  const LocalNutritionDownload.notModified({this.lastModified})
+    : notModified = true,
+      bytes = null;
+
+  final bool notModified;
+  final Uint8List? bytes;
+  final DateTime? lastModified;
+}
 
 class LocalNutritionPackException implements Exception {
   const LocalNutritionPackException(this.code, this.message);
-
   final String code;
   final String message;
-
   @override
   String toString() => message;
 }
@@ -28,142 +36,116 @@ class LocalNutritionPackService {
     LocalNutritionDirectoryProvider? directoryProvider,
     LocalNutritionDownloader? downloader,
   }) : _dio = dio,
-       _directoryProvider =
-           directoryProvider ?? _defaultLocalNutritionDirectory,
+       _directoryProvider = directoryProvider ?? _defaultDirectory,
        _downloader = downloader;
 
-  static const int _maxManifestBytes = 64 * 1024;
-  static const int _maxPackBytes = 25 * 1024 * 1024;
-  static const String _manifestFile = 'manifest.json';
-  static const String _packFile = 'pack.json';
-
+  static const _maxPackBytes = 25 * 1024 * 1024;
+  static const _packFile = 'pack.json';
   final Dio _dio;
   final LocalNutritionDirectoryProvider _directoryProvider;
   final LocalNutritionDownloader? _downloader;
 
-  Future<InstalledLocalNutritionPack> install(Uri manifestUri) async {
-    final manifestBytes = await _download(manifestUri);
-    if (manifestBytes.length > _maxManifestBytes) {
+  Future<InstalledLocalNutritionPack> install(Uri packUri) async {
+    final root = await _root();
+    final file = File(p.join(root.path, _packFile));
+    final installedAt =
+        await file.exists() ? (await file.lastModified()).toUtc() : null;
+    var download = await _download(packUri, installedAt);
+    if (download.notModified) {
+      final active = await loadActive();
+      if (active != null) return active;
+      download = await _download(packUri, null);
+    }
+    final bytes = download.bytes;
+    if (bytes == null) {
       throw const LocalNutritionPackException(
-        'manifest_too_large',
-        'The local nutrition manifest is too large.',
+        'empty_download',
+        'The local nutrition download was empty.',
       );
     }
-    final manifest = _parseManifest(manifestBytes);
-    final packUri = _objectUri(manifestUri, manifest.objectName);
-    final packBytes = await _download(packUri);
-    final parsed = await validateAndParse(manifest, packBytes);
-
-    final root = await _root();
-    await _replaceFile(File(p.join(root.path, _packFile)), packBytes);
-    await _replaceFile(File(p.join(root.path, _manifestFile)), manifestBytes);
+    final parsed = validateAndParse(bytes);
+    await _replaceFile(file, bytes);
+    if (download.lastModified != null) {
+      await file.setLastModified(download.lastModified!.toUtc());
+    }
     return parsed;
   }
 
   Future<InstalledLocalNutritionPack?> loadActive() async {
-    final root = await _root();
-    final manifestFile = File(p.join(root.path, _manifestFile));
-    final packFile = File(p.join(root.path, _packFile));
-    if (!await manifestFile.exists() || !await packFile.exists()) return null;
+    final file = File(p.join((await _root()).path, _packFile));
+    if (!await file.exists()) return null;
     try {
-      return await validateAndParse(
-        _parseManifest(await manifestFile.readAsBytes()),
-        await packFile.readAsBytes(),
-      );
+      return validateAndParse(await file.readAsBytes());
     } on Object {
       return null;
     }
   }
 
-  Future<InstalledLocalNutritionPack> validateAndParse(
-    LocalNutritionPackManifest manifest,
-    List<int> packBytes,
-  ) async {
-    _validateManifest(manifest, packBytes.length);
+  InstalledLocalNutritionPack validateAndParse(List<int> bytes) {
+    if (bytes.isEmpty || bytes.length > _maxPackBytes) {
+      throw const LocalNutritionPackException(
+        'invalid_pack',
+        'The local nutrition pack has an invalid size.',
+      );
+    }
     late final LocalNutritionPack pack;
     try {
-      pack = LocalNutritionPack.fromBytes(packBytes);
+      pack = LocalNutritionPack.fromBytes(bytes);
     } on Object catch (error) {
       throw LocalNutritionPackException(
         'invalid_pack',
         'The local nutrition pack is invalid: $error',
       );
     }
-    if (pack.schemaVersion != manifest.schemaVersion ||
-        pack.packVersion != manifest.packVersion ||
-        pack.datasetVersion != manifest.datasetVersion ||
-        pack.calculationVersion != manifest.calculationVersion ||
-        pack.records.length != manifest.recordCount) {
+    if (pack.schemaVersion != localNutritionPackSchemaVersion ||
+        pack.calculationVersion != localNutritionCalculationVersion ||
+        pack.records.isEmpty) {
       throw const LocalNutritionPackException(
         'incompatible_pack',
-        'The local nutrition pack does not match its manifest.',
+        'This app cannot use the local nutrition pack version.',
       );
     }
-    return InstalledLocalNutritionPack(
-      manifest: manifest,
-      pack: pack,
-      byteSize: packBytes.length,
-    );
+    return InstalledLocalNutritionPack(pack: pack, byteSize: bytes.length);
   }
 
   Future<void> clear() async {
     final root = await _root();
-    if (await root.exists()) {
-      await root.delete(recursive: true);
-    }
+    if (await root.exists()) await root.delete(recursive: true);
   }
 
-  void _validateManifest(LocalNutritionPackManifest manifest, int byteLength) {
-    if (manifest.schemaVersion != localNutritionPackSchemaVersion ||
-        manifest.calculationVersion != localNutritionCalculationVersion) {
-      throw const LocalNutritionPackException(
-        'incompatible_manifest',
-        'This app cannot use the local nutrition pack version.',
-      );
-    }
-    if (manifest.packVersion.trim().isEmpty ||
-        manifest.datasetVersion.trim().isEmpty ||
-        manifest.objectName.trim().isEmpty ||
-        manifest.recordCount <= 0 ||
-        manifest.sizeBytes <= Int64.ZERO ||
-        manifest.sizeBytes.toInt() != byteLength ||
-        byteLength > _maxPackBytes) {
-      throw const LocalNutritionPackException(
-        'invalid_manifest',
-        'The local nutrition manifest is invalid.',
-      );
-    }
-  }
-
-  LocalNutritionPackManifest _parseManifest(List<int> bytes) {
-    try {
-      final value = jsonDecode(utf8.decode(bytes));
-      if (value is! Map) {
-        throw const FormatException('manifest is not an object');
-      }
-      return LocalNutritionPackManifest()
-        ..mergeFromProto3Json(value.cast<String, dynamic>());
-    } on Object catch (error) {
-      throw LocalNutritionPackException(
-        'invalid_manifest',
-        'The local nutrition manifest is invalid: $error',
-      );
-    }
-  }
-
-  Future<Uint8List> _download(Uri uri) async {
-    if (uri.scheme != 'https' || !uri.hasAuthority) {
+  Future<LocalNutritionDownload> _download(
+    Uri uri,
+    DateTime? ifModifiedSince,
+  ) async {
+    final backendPath =
+        !uri.hasScheme && !uri.hasAuthority && uri.path.startsWith('/api/');
+    if (!backendPath && (uri.scheme != 'https' || !uri.hasAuthority)) {
       throw const LocalNutritionPackException(
         'invalid_url',
         'The local nutrition download URL is invalid.',
       );
     }
     try {
-      if (_downloader != null) return await _downloader(uri);
+      if (_downloader != null) return await _downloader(uri, ifModifiedSince);
       final response = await _dio.get<List<int>>(
         uri.toString(),
-        options: Options(responseType: ResponseType.bytes),
+        options: Options(
+          responseType: ResponseType.bytes,
+          headers:
+              ifModifiedSince == null
+                  ? null
+                  : {
+                    'If-Modified-Since': HttpDate.format(
+                      ifModifiedSince.toUtc(),
+                    ),
+                  },
+          validateStatus: (status) => status == 200 || status == 304,
+        ),
       );
+      final lastModified = _httpDate(response.headers.value('last-modified'));
+      if (response.statusCode == 304) {
+        return LocalNutritionDownload.notModified(lastModified: lastModified);
+      }
       final bytes = response.data;
       if (bytes == null) {
         throw const LocalNutritionPackException(
@@ -171,7 +153,10 @@ class LocalNutritionPackService {
           'The local nutrition download was empty.',
         );
       }
-      return Uint8List.fromList(bytes);
+      return LocalNutritionDownload.modified(
+        Uint8List.fromList(bytes),
+        lastModified: lastModified,
+      );
     } on LocalNutritionPackException {
       rethrow;
     } on Object {
@@ -182,35 +167,13 @@ class LocalNutritionPackService {
     }
   }
 
-  Uri _objectUri(Uri manifestUri, String objectName) {
-    final objectSegments =
-        objectName.split('/').where((segment) => segment.isNotEmpty).toList();
-    if (objectSegments.length < 2 ||
-        objectSegments.any(
-          (segment) =>
-              segment == '.' ||
-              segment == '..' ||
-              segment.contains('\\') ||
-              segment.contains('\u0000'),
-        )) {
-      throw const LocalNutritionPackException(
-        'invalid_object_name',
-        'The local nutrition object name is invalid.',
-      );
+  DateTime? _httpDate(String? value) {
+    if (value == null) return null;
+    try {
+      return HttpDate.parse(value).toUtc();
+    } on Object {
+      return null;
     }
-    final marker = manifestUri.pathSegments.lastIndexOf('o');
-    if (marker < 0) {
-      throw const LocalNutritionPackException(
-        'invalid_url',
-        'The local nutrition object-storage URL is invalid.',
-      );
-    }
-    return manifestUri.replace(
-      pathSegments: [
-        ...manifestUri.pathSegments.take(marker + 1),
-        ...objectSegments,
-      ],
-    );
   }
 
   Future<Directory> _root() async {
@@ -225,7 +188,7 @@ class LocalNutritionPackService {
     await temporary.rename(destination.path);
   }
 
-  static Future<Directory> _defaultLocalNutritionDirectory() async {
+  static Future<Directory> _defaultDirectory() async {
     final support = await getApplicationSupportDirectory();
     return Directory(p.join(support.path, 'local_nutrition'));
   }

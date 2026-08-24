@@ -454,7 +454,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final policy = availability?.policy;
     final available =
         preferences?.enabled == true &&
-        policy?.hasLocalNutritionManifestUrl() == true;
+        policy?.hasLocalNutritionPackUrl() == true;
     final enabled = preferences?.offlineNutritionEnabled ?? false;
     final pack = status?.pack;
     final copy = t.localNutritionPhase4;
@@ -541,14 +541,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     LocalInferenceAvailability availability,
   ) async {
     final policy = availability.policy;
-    if (!policy.hasLocalNutritionManifestUrl()) {
+    if (!policy.hasLocalNutritionPackUrl()) {
       return;
     }
-    final manifestUri = Uri.tryParse(policy.localNutritionManifestUrl);
-    if (manifestUri == null) return;
+    final packUri = Uri.tryParse(policy.localNutritionPackUrl);
+    if (packUri == null) return;
     setState(() => _isInstallingNutrition = true);
     try {
-      await ref.read(localNutritionPackServiceProvider).install(manifestUri);
+      await ref.read(localNutritionPackServiceProvider).install(packUri);
       await ref
           .read(databaseInterfaceProvider)
           .setOfflineNutritionEnabled(true);

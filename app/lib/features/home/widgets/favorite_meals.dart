@@ -8,10 +8,10 @@ import 'package:calorify/core/services/analytics.dart';
 import 'package:calorify/features/edit_meal/edit_meal_screen.dart';
 import 'package:calorify/features/home/utils/helper_methods.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_tip_sheet.dart';
+import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/app_card.dart';
 import 'package:calorify/shared_widgets/empty_state_widget.dart';
 import 'package:calorify/shared_widgets/error_view.dart';
-import 'package:calorify/shared_widgets/app_button.dart';
 import 'package:calorify/shared_widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +28,7 @@ class FavoriteMeals extends ConsumerWidget {
     final favoriteMealsAsync = ref.watch(lastUsedFavoriteMealsProvider);
 
     return AppCard(
-      padding: const EdgeInsets.all(12),
+      padding: globalInnerPadding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

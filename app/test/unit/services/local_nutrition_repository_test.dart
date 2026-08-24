@@ -61,19 +61,7 @@ InstalledLocalNutritionPack _installed() {
       ),
     ],
   );
-  return InstalledLocalNutritionPack(
-    manifest: LocalNutritionPackManifest(
-      schemaVersion: 1,
-      packVersion: 'starter-v1',
-      datasetVersion: 'fdc-v1',
-      objectName: 'local-nutrition/starter-v1.json',
-      sizeBytes: Int64.ONE,
-      recordCount: 1,
-      calculationVersion: localNutritionCalculationVersion,
-    ),
-    pack: pack,
-    byteSize: 1,
-  );
+  return InstalledLocalNutritionPack(pack: pack, byteSize: 1);
 }
 
 void main() {

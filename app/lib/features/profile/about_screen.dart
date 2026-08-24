@@ -4,8 +4,8 @@ import 'package:calorify/core/constants/app_constants.dart';
 import 'package:calorify/core/constants/styles.dart';
 import 'package:calorify/core/utilities/app_version.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
-import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -148,7 +148,7 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: globalInnerPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

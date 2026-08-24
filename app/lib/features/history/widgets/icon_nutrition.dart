@@ -1,5 +1,5 @@
-import 'package:calorify/core/constants/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:specs/specs.dart';
 
 class NutrientIconWithValue extends StatelessWidget {
   final IconData icon;
@@ -25,7 +25,7 @@ class NutrientIconWithValue extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: iconColor.withValues(alpha: 0.1),
-        borderRadius: globalRadius,
+        borderRadius: globalInnerRadius,
         border: Border.all(color: iconColor.withValues(alpha: 0.2)),
       ),
       child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:specs/specs.dart';
 
 typedef DebugTokenResolver = Future<String?> Function();
 typedef DebugTokenCopyText = Future<void> Function(String value);
@@ -69,8 +70,8 @@ class _DebugFirebaseTokenTileState extends State<DebugFirebaseTokenTile> {
         ),
         trailing:
             _isCopying
-                ? const Padding(
-                  padding: EdgeInsets.all(12),
+                ? Padding(
+                  padding: globalInnerPadding,
                   child: SizedBox.square(
                     dimension: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),

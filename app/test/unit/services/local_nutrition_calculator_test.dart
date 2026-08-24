@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:calorify/core/services/local_nutrition_calculator.dart';
 import 'package:calorify/core/services/local_nutrition_pack.dart';
 import 'package:calorify/core/services/local_nutrition_repository.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
 
@@ -77,18 +76,7 @@ void main() {
     );
     final calculation = const LocalNutritionCalculator().calculate(
       LocalNutritionResolvedMeal(
-        pack: InstalledLocalNutritionPack(
-          manifest: LocalNutritionPackManifest(
-            schemaVersion: 1,
-            packVersion: 'golden-pack',
-            datasetVersion: 'golden-v1',
-            objectName: 'local-nutrition/golden.json',
-            sizeBytes: Int64.ONE,
-            calculationVersion: localNutritionCalculationVersion,
-          ),
-          pack: pack,
-          byteSize: 1,
-        ),
+        pack: InstalledLocalNutritionPack(pack: pack, byteSize: 1),
         ingredients: resolutions,
       ),
     );

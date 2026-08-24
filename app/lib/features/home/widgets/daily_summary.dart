@@ -128,7 +128,7 @@ class NutrientTile extends StatelessWidget {
 
     return Container(
       constraints: width == null ? null : BoxConstraints(minWidth: width!),
-      padding: const EdgeInsets.all(12),
+      padding: globalInnerPadding,
       decoration: BoxDecoration(
         color: iconColor.withValues(alpha: 0.1),
         borderRadius: globalRadius,
