@@ -21,19 +21,19 @@ sequences live in reusable workflows or local composite actions.
 
 ## Shared actions
 
-- [`actions/deploy-backend/action.yml`](actions/deploy-backend/action.yml) owns
+- [`actions/deploy-backend/action.yml`](../.github/actions/deploy-backend/action.yml) owns
   image validation, GHCR authentication, and VM deployment for both backend
   targets. The caller jobs retain the `production` environment so its secrets
   are resolved before entering the action.
-- [`actions/verify-phone/action.yml`](actions/verify-phone/action.yml) is the
+- [`actions/verify-phone/action.yml`](../.github/actions/verify-phone/action.yml) is the
   canonical phone translation, analysis, test, and coverage sequence.
-- [`actions/prepare-android-release/action.yml`](actions/prepare-android-release/action.yml)
+- [`actions/prepare-android-release/action.yml`](../.github/actions/prepare-android-release/action.yml)
   owns Java setup, Android caches, signing-file preparation, credential checks,
   and Shorebird setup for releases and patches.
 
 External actions are pinned to full commit SHAs. The trailing version comments
 are retained so Dependabot can update the pins through the weekly
-`github-actions` configuration in [`dependabot.yml`](dependabot.yml).
+`github-actions` configuration in [`dependabot.yml`](../.github/dependabot.yml).
 
 ## Required checks
 
