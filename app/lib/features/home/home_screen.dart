@@ -159,7 +159,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                const AiSummaryCard(),
+                // const AiSummaryCard(),
                 if (!isHealthConnectUnsupported &&
                     !hasAnyHealthConnectPermission &&
                     _isHealthConnectPromptDismissed == false) ...[
