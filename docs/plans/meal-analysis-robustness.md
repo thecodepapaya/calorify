@@ -24,6 +24,9 @@ This work is intentionally bounded:
   contract, and Flutter controller rather than replacing them.
 - Reuse the existing engine entry points, validation contracts, and pipeline
   event types from the HTTP routes and local CLI.
+- Keep one canonical schema per boundary: Zod for backend-only decomposition and
+  durable snapshot validation, and protobuf for backend-to-client events. Use
+  explicit mapping tests instead of introducing a universal schema generator.
 - Add no new service, queue, general workflow framework, provider abstraction,
   or nutrition database.
 - Add no table solely for non-food results, USDA matches, CLI runs, or user
@@ -88,6 +91,20 @@ and the existing evaluator is
 12. Replace or clean inaccurate CLI behavior and documentation. Add one
     text-only full-flow local CLI that calls the same application functions used
     by the actual endpoints.
+13. Use short localized `raw_name` values as client-visible ingredient names.
+    USDA lookup proposals remain backend-only.
+14. Remove row-level USDA match metadata from persisted analysis snapshots,
+    generated client results, meal-analysis logs, and audit payloads. USDA
+    database and local nutrition-cache identifiers remain internal.
+15. Remove the hardcoded USDA semantic alias map and its alias-specific match
+    path. Use the LLM's ordered canonical-name and alias proposals with the
+    existing exact/fuzzy matcher instead.
+16. Prompt positively to inventory the primary meal and relevant candidates;
+    do not enumerate example ingredient categories or use negative scene-listing
+    instructions.
+17. Reuse the existing unidentified-meal configuration in the configurable meal
+    tip sheet for no-food results. Do not introduce a separate no-food screen or
+    sheet layout.
 
 ## Target state-machine change
 
@@ -135,6 +152,18 @@ type DecompositionInputContext = {
 The time of day is supporting evidence for `inferred_meal_type`. Explicit user
 text and strong food evidence take precedence over the clock.
 
+### Inventory direction
+
+Use neutral, positive prompt language:
+
+> Inventory the primary meal shown or described. Identify the relevant
+> candidate items, decide whether each item belongs to the food being analyzed,
+> and estimate portions only for items classified as food.
+
+Do not provide an illustrative list of ingredient categories. Such a list can
+be misread as exhaustive and cause omitted meal components. The prompt also
+does not ask the model to inventory the entire scene.
+
 ## Decomposition structured output
 
 The property order is deliberate. Explanations appear before their associated
@@ -166,6 +195,7 @@ type DecompositionOutput = {
 };
 
 type FoodItem = {
+  // Short, localized, and suitable for direct display to the user.
   raw_name: string;
 
   is_food: true;
@@ -232,6 +262,14 @@ These rules must be enforced by one canonical runtime schema. The provider JSON
 Schema and TypeScript type are derived from it, and persisted decomposition is
 decoded with it. Provider-only validation is insufficient.
 
+The backend-only schema should use the repository's existing Zod validation
+approach and a contained JSON-Schema conversion step. The generated pipeline
+protobuf remains the cross-language wire source of truth. Do not attempt to make
+one new IDL generate provider JSON Schema, runtime refinements, database
+snapshots, TypeScript, and Dart; protobuf cannot express the required runtime
+constraints, while Zod/JSON Schema does not supply protobuf field compatibility.
+Contract tests cover the explicit mapping between these two boundaries.
+
 The `is_food` boolean, rather than a new hardcoded threshold over
 `is_food_confidence`, controls whether an item enters nutrition resolution. The
 confidence remains available for quality evaluation and future decisions.
@@ -243,8 +281,18 @@ nutrition values.
 
 - Try `proposed_canonical_name` first, then the ordered aliases.
 - Normalize and deduplicate lookup terms before querying.
+- Run the existing exact/fuzzy matcher for each ordered term and stop at the
+  first result accepted by its existing thresholds.
 - Keep each term atomic; do not place comma-separated or `or`-joined alternatives
   in one string.
+- Remove the hardcoded `ALIASES` map, `resolveAlias`, alias-only match type, and
+  alias-specific tests from `usdaLookup.ts`.
+- Do not replace the removed map with an alias JSON file or database table.
+- For local proposal settlement, try its existing `canonical_hint` combined with
+  preparation, then `canonical_hint`. Local matching receives no new alias
+  contract as part of this work.
+- Retain dish and portion templates. They constrain decomposition and quantity;
+  they are not the USDA semantic alias system being removed.
 - Do not persist or expose the selected FDC ID, USDA matched description, match
   score, candidate rows, or similar row-level match metadata.
 - Do not add those values to analysis logs or audit payloads. Aggregate matching
@@ -253,6 +301,25 @@ nutrition values.
   calculated ingredient macros needed for durable resume and result replay.
 - USDA database and local nutrition-pack internals are outside this persistence
   decision; this plan concerns cloud meal-analysis sessions and client results.
+
+The resolved ingredient sent to the client uses `raw_name` directly:
+
+```ts
+type ClientResolvedIngredient = {
+  row_id: string;
+  raw_name: string;
+  grams: number;
+  macros: PipelineMacros;
+  portion_kind: 'COUNT' | 'BULK' | 'PINCH';
+  count: number | null;
+  per_unit_grams: number | null;
+};
+```
+
+It does not include canonical name, match type, FDC ID, USDA dataset version,
+matched nutrients per 100 grams, or matched description. The same generated
+client result shape applies to cloud and local results; the local nutrition pack
+may continue using FDC IDs internally for cache identity and refreshes.
 
 ## Presentation without a second image pass
 
@@ -346,16 +413,12 @@ Add a generated `NO_FOOD` pipeline step and payload. The Flutter controller
 creates a terminal no-food state containing the analysis ID, reason, and
 confidence.
 
-The UI should:
-
-- show a neutral message that no food was detected;
-- offer a new text/photo attempt;
-- avoid presenting it as a backend error;
-- avoid showing nutrition, clarification, meal type, or log controls; and
-- render a replayed `NO_FOOD` event identically after resume.
-
-Final copy and visual treatment should be discussed before implementation if
-they require more than the existing result/loading/error components.
+The existing configurable meal tip sheet already renders its unidentified-meal
+branch when `MealDetectionResult.meal_identified` is false. Route the terminal
+no-food state into that branch with a localized generic tip and the existing
+image metadata. Do not show the model's raw `outcome_reason`, and do not add a
+new screen, sheet layout, nutrition controls, log controls, or retry control.
+A replayed `NO_FOOD` event renders through the same branch.
 
 ## Automatic stage migration
 
@@ -472,8 +535,12 @@ At minimum, implementation needs tests for:
   logs/results;
 - no persisted or client-visible FDC ID, selected USDA description, or match
   score;
+- ordered LLM lookup terms using exact/fuzzy matching with no curated USDA alias
+  map or alias match type;
+- local proposal lookup after removal of the curated alias path;
 - null-stage migration and PostgreSQL automatic claims;
-- client terminal no-food rendering; and
+- client terminal no-food rendering through the existing unidentified-meal tip
+  sheet configuration; and
 - CLI start, clarification, meal type, resume, completed replay, no-food replay,
   and JSON output using shared pipeline types.
 
