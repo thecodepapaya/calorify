@@ -8,6 +8,7 @@ import 'package:calorify/core/router/route_names.dart';
 import 'package:calorify/core/services/auth_service.dart';
 import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/notification_service.dart';
+import 'package:calorify/core/services/picker_service.dart';
 import 'package:calorify/core/services/wear_os_channel.dart';
 import 'package:calorify/core/services/wear_os_message_log.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/feedback_rating_sheet.dart';
@@ -764,6 +765,18 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     const section = 'Food API Tests';
     const titleSubtitle = [
       (
+        'Check image upload URL',
+        'Show the build-time Oracle endpoint, PAR token, namespace, and bucket',
+      ),
+      (
+        'Check image compression',
+        'Choose a gallery image and report its compressed WebP size',
+      ),
+      (
+        'Test image upload',
+        'Choose, compress, and upload a gallery image without starting analysis',
+      ),
+      (
         'Test Analyze Image (V2)',
         'Upload + POST /api/v2/food/analyze-image (SSE) → sheet → tip / log',
       ),
@@ -773,6 +786,30 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       ),
     ];
     final items = <Widget>[
+      ListTile(
+        leading: const Icon(LucideIcons.keyRound),
+        title: const Text('Check image upload URL'),
+        subtitle: const Text(
+          'Show the build-time Oracle endpoint, PAR token, namespace, and bucket',
+        ),
+        onTap: _checkImageUploadUrl,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.minimize2),
+        title: const Text('Check image compression'),
+        subtitle: const Text(
+          'Choose a gallery image and report its compressed WebP size',
+        ),
+        onTap: _checkImageCompression,
+      ),
+      ListTile(
+        leading: const Icon(LucideIcons.upload),
+        title: const Text('Test image upload'),
+        subtitle: const Text(
+          'Choose, compress, and upload a gallery image without starting analysis',
+        ),
+        onTap: _testImageUpload,
+      ),
       ListTile(
         leading: const Icon(LucideIcons.scanSearch),
         title: const Text('Test Analyze Image (V2)'),
@@ -797,6 +834,123 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     }
     if (filtered.isEmpty) return null;
     return Card(child: Column(children: filtered));
+  }
+
+  Future<void> _checkImageUploadUrl() async {
+    if (!ImageConfig.oracleBucketUploadUrl.isNotEmpty) {
+      _showDataDialog(
+        'Image upload URL',
+        'Not configured. Set oracle upload url in env.',
+      );
+      return;
+    }
+    final uploadUrl = ImageConfig.oracleBucketUploadUrl;
+
+    final uri = Uri.tryParse(uploadUrl);
+    if (uri == null || uri.scheme != 'https') {
+      _showDataDialog(
+        'Image upload URL',
+        'Configured, but the URL is not a valid HTTPS URL.',
+      );
+      return;
+    }
+
+    final segments = uri.pathSegments;
+    final parIndex = segments.indexOf('p');
+    final namespaceIndex = segments.indexOf('n');
+    final bucketIndex = segments.indexOf('b');
+    final parToken =
+        parIndex >= 0 && parIndex + 1 < segments.length
+            ? segments[parIndex + 1]
+            : 'unavailable';
+    final namespace =
+        namespaceIndex >= 0 && namespaceIndex + 1 < segments.length
+            ? segments[namespaceIndex + 1]
+            : 'unavailable';
+    final bucket =
+        bucketIndex >= 0 && bucketIndex + 1 < segments.length
+            ? segments[bucketIndex + 1]
+            : 'unavailable';
+    _showDataDialog(
+      'Image upload URL',
+      'Configured at build time.\n'
+          'Origin: ${uri.origin}\n'
+          'PAR token: $parToken\n'
+          'Namespace: $namespace\n'
+          'Bucket: $bucket',
+    );
+  }
+
+  Future<void> _checkImageCompression() async {
+    try {
+      final image = await ImagePickerService().pickImageFromGallery();
+      if (image == null) return;
+
+      final originalBytes = await image.length();
+      final compressedBytes = await ImageCompressionService.instance
+          .compressImage(image);
+      if (!mounted) return;
+
+      final savedBytes = originalBytes - compressedBytes.length;
+      final savedPercent =
+          originalBytes == 0 ? 0 : (savedBytes / originalBytes * 100).round();
+      _showDataDialog(
+        'Image compression',
+        'Source: ${image.path.split('/').last}\n'
+            'Original: ${_formatBytes(originalBytes)}\n'
+            'Compressed: ${_formatBytes(compressedBytes.length)}\n'
+            'Change: ${savedPercent >= 0 ? '-' : '+'}${savedPercent.abs()}%',
+      );
+    } catch (error) {
+      if (!mounted) return;
+      _showSnackbar('Image compression failed: $error');
+    }
+  }
+
+  Future<void> _testImageUpload() async {
+    File? compressedFile;
+    try {
+      final image = await ImagePickerService().pickImageFromGallery();
+      if (image == null) return;
+
+      _showSnackbar('Compressing image...');
+      final compressedBytes = await ImageCompressionService.instance
+          .compressImage(image);
+      compressedFile = File(
+        '${Directory.systemTemp.path}/debug_upload_${DateTime.now().millisecondsSinceEpoch}.webp',
+      );
+      await compressedFile.writeAsBytes(compressedBytes);
+
+      if (!mounted) return;
+      _showSnackbar('Uploading compressed image...');
+      final uploadUrl = await FoodRepository().uploadMealImage(compressedFile);
+      if (!mounted) return;
+
+      final objectKey = Uri.tryParse(
+        uploadUrl,
+      )?.pathSegments.skipWhile((segment) => segment != 'o').skip(1).join('/');
+      _showDataDialog(
+        'Image upload succeeded',
+        'Uploaded: ${_formatBytes(compressedBytes.length)}\n'
+            'Object key: ${objectKey?.isNotEmpty == true ? objectKey : 'unavailable'}\n'
+            'Upload URL: redacted',
+      );
+    } catch (error) {
+      if (!mounted) return;
+      _showSnackbar('Image upload failed: $error');
+    } finally {
+      if (compressedFile != null) {
+        try {
+          await compressedFile.delete();
+        } catch (_) {}
+      }
+    }
+  }
+
+  String _formatBytes(int bytes) {
+    if (bytes < 1024) return '$bytes B';
+    if (bytes < 1024 * 1024) return '${(bytes / 1024).toStringAsFixed(1)} KiB';
+    return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MiB';
   }
 
   Widget? _buildLocalInferenceOptions(BuildContext context) {

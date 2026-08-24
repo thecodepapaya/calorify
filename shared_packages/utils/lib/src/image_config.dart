@@ -2,11 +2,12 @@
 class ImageConfig {
   ImageConfig._();
 
-  /// Oracle Object Storage pre-authenticated upload URL supplied at build time.
-  /// This removes the credential from source control, but client-side bearer URLs
-  /// are still extractable from a built app and should be narrowly scoped/rotated.
+  /// Paste a local Oracle Object Storage pre-authenticated upload URL here.
+  /// A build-time value still overrides this placeholder for CI releases.
   static const String oracleBucketUploadUrl = String.fromEnvironment(
     'ORACLE_BUCKET_UPLOAD_URL',
+    defaultValue:
+        'https://objectstorage.ap-mumbai-1.oraclecloud.com/p/JuuGhjzfYa32bsU6HJXgSpQYZQ7TlxIZY9e8uWPbg9tMkn9EhY2UEmCMtgHcUO3I/n/bmm3s6m8sdi5/b/calorify-images/o/',
   );
 
   /// Allowed image file extensions
