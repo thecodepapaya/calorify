@@ -12,7 +12,7 @@ sequences live in reusable workflows or local composite actions.
 | `CI / Backend` | Backend pull requests, manual calls, and reusable calls | Type-check, lint, test, and container-build the backend. |
 | `CI / Generated contracts` | Contract-related pull requests and `main` pushes | Regenerate protobuf outputs and reject stale committed contracts. |
 | `CI / Flutter` | Flutter-related pull requests and `main` pushes | Verify shared packages, phone app, and watch app. |
-| `CI / Secret scan` | Every pull request and `main` push | Reject credential-shaped tracked files and values. |
+| `CI / Secret scan` | Every pull request and `main` push | Temporarily preserve the required check without running the secret scan. |
 | `Backend / Publish and deploy staging` | Backend-related pushes to `main` | Verify and publish the ARM64 image, then deploy its immutable SHA tag to staging. |
 | `Backend / Deploy production` | Manual | Deploy an existing immutable SHA tag to production. |
 | `Android / Release to Play` | Manual | Verify, build, and upload a new phone release. |

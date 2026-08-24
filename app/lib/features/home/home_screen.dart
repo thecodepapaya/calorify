@@ -1,12 +1,11 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:calorify/core/providers/app_dependencies.dart';
+import 'package:calorify/core/providers/history_providers.dart';
 import 'package:calorify/core/providers/home_providers.dart'
     hide databaseInterfaceProvider;
-import 'package:calorify/core/providers/history_providers.dart';
 import 'package:calorify/core/services/health_service.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:calorify/features/home/widgets/ai_summary_card.dart';
 import 'package:calorify/features/home/widgets/connect_health.dart';
 import 'package:calorify/features/home/widgets/daily_goal.dart';
 import 'package:calorify/features/home/widgets/daily_summary.dart';
@@ -14,10 +13,10 @@ import 'package:calorify/features/home/widgets/home_skeletons.dart';
 import 'package:calorify/features/home/widgets/intake_history_bar_chart.dart';
 import 'package:calorify/features/home/widgets/macro_split.dart';
 import 'package:calorify/features/home/widgets/meal_log.dart';
+import 'package:calorify/shared_widgets/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
-import 'package:calorify/shared_widgets/responsive_layout.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {
