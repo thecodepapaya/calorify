@@ -14,6 +14,7 @@ Use this page to find the document that matches the work you are doing.
 
 - [Local meal analysis](plans/local-inference-meal-analysis.md) — current scope, trust boundaries, rollout phases, and open decisions.
 - [Meal-analysis robustness](plans/meal-analysis-robustness.md) — no-food handling, structured decomposition, presentation context, migration, client behavior, and local CLI scope.
+- [AI-summary simplification and reliability](plans/ai-summary-reliability.md) — current data flow, assessment findings, deterministic replacement, and retirement or hardening phases.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
 - [Calorie-estimation reliability](../backend/docs/calorie-estimation-reliability-plan.md) — measurement and quality-improvement plan.
 
