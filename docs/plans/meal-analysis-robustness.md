@@ -79,8 +79,9 @@ and the existing evaluator is
 5. Do not maintain a closed list of non-food or exclusion categories. The
    explanation is bounded free text and is never used for control flow.
 6. Give the LLM an ordered USDA lookup proposal consisting of a concise
-   canonical name, aliases, and a separate preparation state. Actual database
-   match identifiers and descriptions are not part of the persisted contract.
+   canonical name, aliases, and separate atomic preparation states. Actual
+   database match identifiers and descriptions are not part of the persisted
+   contract.
 7. Capture the user's local date and time when the analysis session is created
    and provide it to decomposition as context for meal-type inference.
 8. Keep the current meal-level `tip` semantics. The tip is generated during
@@ -114,8 +115,9 @@ and the existing evaluator is
     do not write a custom schema converter.
 20. Replace the local `IngredientProposalV1` semantic core with a versioned V2
     core aligned with cloud decomposition. Both cores include food
-    classification, the USDA canonical name, ordered aliases, and a separate
-    preparation state, and every schema field has an explicit description.
+    classification, the USDA canonical name, ordered aliases, and separate
+    atomic preparation states, and every schema field has an explicit
+    description.
 
 ## Target state-machine change
 
@@ -216,7 +218,7 @@ type FoodItem = {
   usda_lookup: {
     proposed_canonical_name: string;
     aliases: string[];
-    preparation_state: string | null;
+    preparation_states: string[];
   };
 
   portion: {
@@ -256,33 +258,33 @@ description. Descriptions are contract text, not prompt-only comments.
 
 | Field path | Required meaning |
 | --- | --- |
-| `schema_version` | Version of the decomposition proposal contract. |
-| `outcome` | Whether the input contains food that can continue through nutrition analysis. |
-| `outcome_reason` | Concise input-grounded evidence supporting the outcome. |
-| `outcome_confidence` | Confidence in the overall food/no-food outcome from 0 through 1. |
-| `meal_name` | Short localized name for the whole meal; null when no food is detected. |
-| `items` | Relevant candidate items inventoried from the described or visible meal. |
-| `inferred_meal_type` | Meal occasion inferred using the meal and supplied local date-time context. |
-| `meal_type_reason` | Concise evidence supporting the inferred meal occasion. |
-| `meal_type_confident` | Whether the inferred meal occasion is sufficiently supported. |
-| `items[].raw_name` | Short localized item name suitable for display to the user. |
-| `items[].is_food` | Whether this candidate belongs to the food being analyzed. |
-| `items[].is_food_reason` | Concise input-grounded evidence supporting the item classification. |
-| `items[].is_food_confidence` | Confidence in the item classification from 0 through 1. |
-| `items[].usda_lookup` | Proposed USDA retrieval input for food; null for a non-food item. |
-| `items[].usda_lookup.proposed_canonical_name` | Concise generic English food identity intended to maximize database retrieval. |
-| `items[].usda_lookup.aliases` | Ordered alternative English or commonly used identity terms for the same food. |
-| `items[].usda_lookup.preparation_state` | Concise nutrition-relevant physical or cooking state, such as raw, boiled, or fried; null when unknown. |
-| `items[].portion` | Estimated consumed portion for food; null for a non-food item. |
-| `items[].portion.kind` | Whether the portion is counted pieces, bulk food, or a trace/pinch amount. |
-| `items[].portion.grams_estimated` | Best estimate of total consumed grams. |
-| `items[].portion.min_grams` | Plausible lower bound for total consumed grams. |
-| `items[].portion.max_grams` | Plausible upper bound for total consumed grams. |
-| `items[].portion.count` | Number of discrete pieces for a counted portion; otherwise null. |
-| `items[].portion.per_unit_grams` | Best estimated grams per piece for a counted portion; otherwise null. |
-| `items[].portion.per_unit_min_grams` | Plausible lower-bound grams per piece for a counted portion; otherwise null. |
-| `items[].portion.per_unit_max_grams` | Plausible upper-bound grams per piece for a counted portion; otherwise null. |
-| `items[].portion.size_specified_by_user` | Whether the user explicitly supplied the portion size. |
+| `schema_version` | Version of this cloud/local decomposition proposal contract; emit the exact supported version. |
+| `outcome` | Workflow-controlling result: `FOOD` when at least one item belongs to the meal being analyzed, otherwise terminal `NO_FOOD`. |
+| `outcome_reason` | Concise input-grounded evidence for `outcome`, expressed as bounded free text without a closed exclusion-category vocabulary or internal reasoning. |
+| `outcome_confidence` | Confidence in the overall food/no-food outcome from 0 through 1, produced after `outcome_reason`; it does not replace `outcome` as the control value. |
+| `meal_name` | Localized, preferably two-to-six-word name for the whole meal, suitable for display and no longer than 60 characters; null for `NO_FOOD`. |
+| `items` | Relevant candidate items that make up or may belong to the primary meal shown or described. |
+| `inferred_meal_type` | Meal occasion inferred from the meal plus the server-supplied user-local date, time, timezone, and locale context. |
+| `meal_type_reason` | Concise evidence for the meal occasion, produced before `meal_type_confident` and without exposing internal reasoning. |
+| `meal_type_confident` | Whether the inferred meal occasion is sufficiently supported; false with `UNKNOWN` for `NO_FOOD`. |
+| `items[].raw_name` | Short localized item name displayed to the user; it is not a USDA query, canonical database name, or matched description. |
+| `items[].is_food` | Workflow-controlling classification of whether the candidate belongs to the primary food or meal being analyzed, not merely whether it is visible. |
+| `items[].is_food_reason` | Concise input-grounded evidence for `is_food`; use bounded free text rather than a closed exclusion-reason list. |
+| `items[].is_food_confidence` | Confidence in `is_food` from 0 through 1, produced after `is_food_reason`; no new hardcoded threshold overrides the boolean. |
+| `items[].usda_lookup` | LLM-proposed retrieval input for a food item; null for non-food and never populated with an actual USDA match ID, score, or description. |
+| `items[].usda_lookup.proposed_canonical_name` | Short generic English food identity optimized for a high chance of database retrieval, kept separate from preparation and any actual matched USDA description. |
+| `items[].usda_lookup.aliases` | Ordered, unique alternative lookup identities for the same food; exclude the canonical name, different ingredients, preparation states, and joined alternatives. |
+| `items[].usda_lookup.preparation_states` | Unique atomic nutrition-relevant states used separately for candidate ranking; use values such as `raw`, `boiled`, or `fried`, use the most specific nonredundant state, and emit an empty array when unknown. |
+| `items[].portion` | Estimated total consumed portion for a food item; null for a non-food item. |
+| `items[].portion.kind` | Portion representation: counted discrete pieces, bulk/continuous food, or a trace/pinch amount. |
+| `items[].portion.grams_estimated` | Best estimate of total consumed grams across the entire item row, not grams per piece. |
+| `items[].portion.min_grams` | Plausible lower bound for total consumed grams, no greater than `grams_estimated`. |
+| `items[].portion.max_grams` | Plausible upper bound for total consumed grams, no less than `grams_estimated`. |
+| `items[].portion.count` | Number of discrete pieces for `COUNT`; null for `BULK` and `PINCH`. |
+| `items[].portion.per_unit_grams` | Best estimated grams per piece for `COUNT`; null for `BULK` and `PINCH`. |
+| `items[].portion.per_unit_min_grams` | Plausible lower-bound grams per piece for `COUNT`; null for `BULK` and `PINCH`. |
+| `items[].portion.per_unit_max_grams` | Plausible upper-bound grams per piece for `COUNT`; null for `BULK` and `PINCH`. |
+| `items[].portion.size_specified_by_user` | Whether the user explicitly supplied the portion size; never infer this flag merely from a model estimate. |
 
 ### Schema constraints
 
@@ -301,8 +303,12 @@ description. Descriptions are contract text, not prompt-only comments.
 - A lookup proposal has at most five unique aliases. The aliases do not repeat
   the proposed canonical name, refer to the same food identity, and do not
   represent alternative ingredients or preparation states.
-- `preparation_state` is null or a concise string between 1 and 80 characters.
-  It remains separate from the canonical name and aliases.
+- `preparation_states` contains at most five unique atomic strings, each between
+  1 and 40 characters. It is empty when preparation is unknown, never contains
+  comma-delimited combined values, and remains separate from the canonical name
+  and aliases. Prefer the most specific nonredundant value: use `["boiled"]`,
+  not `["cooked", "boiled"]`; include multiple values only for independently
+  meaningful states or sequential methods.
 - `grams_estimated` is greater than zero and at most 5,000 grams.
 - `min_grams` and `max_grams` are between zero and 5,000 grams, with
   `min_grams <= grams_estimated <= max_grams`.
@@ -342,9 +348,9 @@ nutrition values.
 
 - Try the concise `proposed_canonical_name` first, then the ordered aliases.
 - Normalize and deduplicate identity terms before querying.
-- Retrieve exact/fuzzy candidates using each short identity term. Use
-  `preparation_state` separately while ranking candidates; do not turn a verbose
-  identity-plus-preparation string into the primary trigram query.
+- Retrieve exact/fuzzy candidates using each short identity term. Use the
+  atomic `preparation_states` separately while ranking candidates; do not turn
+  a verbose identity-plus-preparation string into the primary trigram query.
 - A preparation conflict must not be accepted merely because the food identity
   is an exact lexical match. Preparation helps choose among rows for the same
   food but never establishes food identity by itself.
@@ -472,6 +478,20 @@ type PresentationOutput = {
 };
 ```
 
+Every presentation-output property must also have a provider-schema
+description:
+
+| Field path | Required meaning |
+| --- | --- |
+| `quantity` | Concise user-facing summary of the resolved total meal quantity, grounded only in persisted portion data. |
+| `tip` | One short practical observation about the analyzed food, subtly informed by supplied context when useful; never mention the personal context, explain personalization, diagnose, or turn the tip into an ingredient note. |
+| `health` | Optional food-level health assessment grounded in resolved ingredients and macros; null when it cannot be supported. |
+| `health.health_score_reason` | Concise food-and-macro evidence for the assessment, produced before `health_score` and without referring to hidden profile context. |
+| `health.health_score` | Overall food-level classification corresponding to `health_score_reason`. |
+
+Descriptions must not instruct the model to discuss BMI, weight, age, gender,
+or goals. Those values appear only as ordinary presentation input context.
+
 The reason precedes the health score. Presentation no longer returns meal name
 or meal type because both are already durable and authoritative.
 
@@ -596,7 +616,7 @@ At minimum, implementation needs tests for:
 - bounds, required fields, unknown fields, gram ordering, and food/non-food
   discriminated variants;
 - non-empty descriptions for every generated cloud and local schema field, with
-  canonical-name, alias, and preparation-state contract parity;
+  canonical-name, alias, and preparation-states contract parity;
 - text containing no food reaching `NO_FOOD_DETECTED`;
 - an image containing food plus background objects resolving only food items;
 - a non-food image skipping USDA, presentation, clarification, and logging;
@@ -608,7 +628,7 @@ At minimum, implementation needs tests for:
   score;
 - ordered LLM lookup terms using exact/fuzzy matching with no curated USDA alias
   map or alias match type;
-- local V2 proposal lookup using ordered aliases and separate
+- local V2 proposal lookup using ordered aliases and separate atomic
   preparation-aware ranking after removal of the curated alias path;
 - null-stage migration and PostgreSQL automatic claims;
 - client terminal no-food rendering through the existing unidentified-meal tip
