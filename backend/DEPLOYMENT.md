@@ -48,15 +48,15 @@ The backend follows build-once, deploy-many:
    `Backend / Publish and deploy staging`.
 2. GitHub runs dependency installation, type-checking, linting, coverage tests,
    and a production Docker build.
-3. GitHub builds the VM's required `linux/arm64` image and publishes both
-   `latest` and `sha-<full-commit-sha>` to GHCR.
+3. GitHub builds the VM's required `linux/arm64` image and publishes it as
+   `sha-<full-commit-sha>` in GHCR.
 4. The workflow automatically deploys that commit's immutable `sha-*` tag to
    staging.
 5. Production is deployed by manually running `Backend / Deploy production`
    with the exact full `sha-<40 lowercase hex characters>` tag.
 
-Both targets reject moving or shortened tags. The publisher retains `latest`
-as a convenience tag, but deployment never consumes it.
+Both targets reject moving or shortened tags. The publisher does not create a
+mutable `latest` tag.
 
 The VM never pulls source code. Each deployment transfers only:
 

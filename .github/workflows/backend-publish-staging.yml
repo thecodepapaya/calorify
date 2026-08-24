@@ -67,7 +67,6 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/calorify-backend
           tags: |
             type=sha,format=long,prefix=sha-
-            type=raw,value=latest
           labels: |
             org.opencontainers.image.title=Calorify Backend
             org.opencontainers.image.description=Calorify API backend

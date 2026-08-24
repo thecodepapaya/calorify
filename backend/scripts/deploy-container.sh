@@ -27,20 +27,10 @@ case "$deployment_environment" in
     ;;
 esac
 
-case "$deployment_environment" in
-  production)
-    if [[ ! "$image_ref" =~ ^ghcr\.io/[a-z0-9][a-z0-9._-]*/calorify-backend:sha-[0-9a-f]{40}$ ]]; then
-      echo "Production requires a Calorify GHCR image tagged with sha- plus 40 lowercase hex characters" >&2
-      exit 2
-    fi
-    ;;
-  staging)
-    if [[ ! "$image_ref" =~ ^ghcr\.io/[a-z0-9][a-z0-9._-]*/calorify-backend:latest$ ]]; then
-      echo "Staging requires the Calorify GHCR latest tag" >&2
-      exit 2
-    fi
-    ;;
-esac
+if [[ ! "$image_ref" =~ ^ghcr\.io/[a-z0-9][a-z0-9._-]*/calorify-backend:sha-[0-9a-f]{40}$ ]]; then
+  echo "${deployment_environment^} requires a Calorify GHCR image tagged with sha- plus 40 lowercase hex characters" >&2
+  exit 2
+fi
 
 backend_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$backend_dir"
