@@ -113,11 +113,24 @@ and the existing evaluator is
     description." as the generic no-food tip.
 19. A small maintained Zod-to-JSON-Schema conversion dependency is acceptable;
     do not write a custom schema converter.
-20. Replace the local `IngredientProposalV1` semantic core with a versioned V2
-    core aligned with cloud decomposition. Both cores include food
-    classification, the USDA canonical name, ordered aliases, and separate
-    atomic preparation states, and every schema field has an explicit
-    description.
+20. Cut every active meal-decomposition proposal producer and consumer over to
+    V2: cloud text, cloud image, on-device text, on-device image, protobuf,
+    Kotlin, Dart, backend TypeScript, HTTP payloads, generated bindings, tests,
+    fixtures, and current documentation. Delete the V1 proposal definitions and
+    paths instead of retaining compatibility types, adapters, dual parsing, or
+    fallback behavior.
+21. Use the same V2 semantic core for both on-device modalities. The local CLI
+    remains text-only, but the existing on-device image producer must not remain
+    on V1 or use a parallel schema.
+22. Evaluate the canonical USDA identity and every alias, then select the best
+    accepted preparation-aware candidate across all terms. Proposal order is a
+    deterministic tie-breaker, not an early-stop rule.
+23. Treat non-food candidates as transient provider output. Discard them after
+    validation and outcome classification; do not persist, log, audit, resolve,
+    clarify, or return their item details.
+24. Have the application inject `schema_version`, proposal IDs, row IDs, and
+    other transport/execution metadata. Do not ask cloud or on-device models to
+    generate constant versions or identifiers.
 
 ## Target state-machine change
 
@@ -177,16 +190,14 @@ Do not provide an illustrative list of ingredient categories. Such a list can
 be misread as exhaustive and cause omitted meal components. The prompt also
 does not ask the model to inventory the entire scene.
 
-## Decomposition structured output
+## Decomposition structured output and V2 envelope
 
 The property order is deliberate. Explanations appear before their associated
 confidence values so the model produces the concise evidence first and scores
 it second.
 
 ```ts
-type DecompositionOutput = {
-  schema_version: 2;
-
+type GeneratedDecompositionOutputV2 = {
   outcome: 'FOOD' | 'NO_FOOD';
   outcome_reason: string;
   outcome_confidence: number;
@@ -205,6 +216,12 @@ type DecompositionOutput = {
     | 'UNKNOWN';
   meal_type_reason: string;
   meal_type_confident: boolean;
+};
+
+// Created by application code after generated-output validation and
+// normalization. This metadata is not part of either provider schema.
+type DecompositionProposalV2 = GeneratedDecompositionOutputV2 & {
+  schema_version: 2;
 };
 
 type FoodItem = {
@@ -254,11 +271,13 @@ type NonFoodItem = {
 Every property in both generated-output schemas must carry a description. The
 backend Zod descriptions must survive JSON-Schema conversion, and every local
 Kotlin generated-output property must carry the equivalent ML Kit `Guide`
-description. Descriptions are contract text, not prompt-only comments.
+description. Application-injected envelope and transport fields must carry the
+same documentation in their runtime/protobuf contracts. Descriptions are
+contract text, not prompt-only comments.
 
 | Field path | Required meaning |
 | --- | --- |
-| `schema_version` | Version of this cloud/local decomposition proposal contract; emit the exact supported version. |
+| `schema_version` | Application-injected V2 proposal-contract version; this field is absent from cloud and on-device generated-output schemas. |
 | `outcome` | Workflow-controlling result: `FOOD` when at least one item belongs to the meal being analyzed, otherwise terminal `NO_FOOD`. |
 | `outcome_reason` | Concise input-grounded evidence for `outcome`, expressed as bounded free text without a closed exclusion-category vocabulary or internal reasoning. |
 | `outcome_confidence` | Confidence in the overall food/no-food outcome from 0 through 1, produced after `outcome_reason`; it does not replace `outcome` as the control value. |
@@ -317,18 +336,20 @@ description. Descriptions are contract text, not prompt-only comments.
 - Non-food items always have null USDA lookup and portion data.
 - Unknown fields are rejected.
 
-These rules must be enforced by one canonical runtime schema. The provider JSON
-Schema and TypeScript type are derived from it, and persisted decomposition is
-decoded with it. Provider-only validation is insufficient.
+These rules must be enforced by one canonical runtime schema for the generated
+core. The provider JSON Schema and TypeScript type are derived from it. After
+validation, application code filters transient non-food items, injects V2
+metadata, and validates the normalized durable proposal before persistence.
+Provider-only validation is insufficient.
 
 The backend-only schema should use the repository's existing Zod validation
 approach and a contained, maintained JSON-Schema conversion dependency. The
 generated pipeline protobuf remains the cross-language wire source of truth.
 The local V2 protobuf/Kotlin proposal uses the same semantic field paths,
 descriptions, nullability, enums, ordering requirements, and bounds as the Zod
-decomposition core. Transport-only metadata such as proposal IDs, modality,
-model identity, execution origin, row IDs, or provenance may wrap the common
-core or be added after generation; it must not change the core's meaning.
+decomposition core. Transport-only metadata such as schema version, proposal
+IDs, modality, model identity, execution origin, row IDs, or provenance is
+injected after generation; it must not change the core's meaning.
 
 Do not attempt to make one new IDL generate provider JSON Schema, runtime
 refinements, database snapshots, TypeScript, Kotlin, and Dart; protobuf cannot
@@ -340,6 +361,24 @@ local semantic contracts drift.
 The `is_food` boolean, rather than a new hardcoded threshold over
 `is_food_confidence`, controls whether an item enters nutrition resolution. The
 confidence remains available for quality evaluation and future decisions.
+
+### Normalization before persistence
+
+Both cloud and on-device generated outputs may contain `NonFoodItem` values so
+the classification is explicit and testable at the provider boundary. Once the
+generated core is validated:
+
+- derive and verify `outcome` from the classified items;
+- discard every `NonFoodItem` and its reason/confidence from durable data;
+- for `FOOD`, persist only normalized `FoodItem` values;
+- for `NO_FOOD`, persist only the terminal outcome, reason, confidence, and
+  required session metadata, with no candidate-item details; and
+- inject the V2 schema version and application-owned identifiers.
+
+Excluded candidates never reach USDA lookup, clarification, presentation,
+client events, logs, traces, or audit payloads. This avoids retaining incidental
+background-object details while preserving the classification guard at the
+model boundary.
 
 ## USDA lookup and persistence
 
@@ -354,8 +393,12 @@ nutrition values.
 - A preparation conflict must not be accepted merely because the food identity
   is an exact lexical match. Preparation helps choose among rows for the same
   food but never establishes food identity by itself.
-- Stop at the first ordered identity term whose best candidate satisfies the
-  matcher's acceptance thresholds after preparation-aware ranking.
+- Evaluate candidates from the canonical identity and every alias before
+  selecting a result. Deduplicate identical USDA rows, apply the existing
+  quality and preparation-aware scoring, and choose the highest-scoring
+  candidate that satisfies the matcher's acceptance thresholds.
+- Break an equal-score tie by preferring the canonical identity, then earlier
+  alias order, then the matcher's existing stable row ordering.
 - Keep each term atomic; do not place comma-separated or `or`-joined alternatives
   in one string.
 - Remove the hardcoded `ALIASES` map, `resolveAlias`, alias-only match type, and
@@ -363,16 +406,16 @@ nutrition values.
 - Do not replace the removed map with an alias JSON file or database table.
 - Local proposal settlement consumes the same nested `usda_lookup` structure
   and uses the same canonical-name, alias, and preparation-aware candidate
-  strategy. Remove the V1-only `canonical_hint` plus `preparation` concatenation
-  behavior when the local proposal moves to V2.
+  strategy.
 - Retain dish and portion templates. They constrain decomposition and quantity;
   they are not the USDA semantic alias system being removed.
 - Do not persist or expose the selected FDC ID, USDA matched description, match
   score, candidate rows, or similar row-level match metadata.
 - Do not add those values to analysis logs or audit payloads. Aggregate matching
   metrics remain acceptable.
-- Persist the LLM-proposed lookup terms as part of decomposition and the
-  calculated ingredient macros needed for durable resume and result replay.
+- Persist the food items' LLM-proposed lookup terms as part of decomposition
+  and the calculated ingredient macros needed for durable resume and result
+  replay.
 - USDA database and local nutrition-pack internals are outside this persistence
   decision; this plan concerns cloud meal-analysis sessions and client results.
 
@@ -590,18 +633,24 @@ latency work.
 
 Implementation should proceed as small, reviewable changes:
 
-1. Add the canonical decomposition runtime schema and generated types/schema.
-2. Extend generated pipeline contracts with the no-food event and result
+1. Add the canonical V2 generated core, application-injected envelope, field
+   descriptions, and shared contract fixtures.
+2. Replace the V1 proposal across protobuf, Kotlin, Dart, TypeScript, HTTP,
+   local text/image producers, generated bindings, tests, and fixtures; remove
+   all active V1 compatibility paths.
+3. Extend generated pipeline contracts with the no-food event and result
    variant.
-3. Add the terminal state and automatic migration.
-4. Route no-food decomposition before USDA resolution and filter non-food
-   candidates from the food path.
-5. Remove image input from presentation, preserve the first-pass meal name, and
+4. Add the terminal state and automatic migration.
+5. Normalize generated output by discarding non-food candidates, injecting V2
+   metadata, and routing no-food before USDA resolution.
+6. Update USDA lookup to evaluate all canonical/alias candidates and rank with
+   separate preparation states.
+7. Remove image input from presentation, preserve the first-pass meal name, and
    add transient profile context.
-6. Add the Flutter terminal state and minimal no-food UI.
-7. Add the thin local text CLI and clean the old evaluation surface.
-8. Update the canonical state-machine and evaluator documentation to match the
-   implemented behavior.
+8. Add the Flutter terminal state and minimal no-food UI.
+9. Add the thin local text CLI and clean the old evaluation surface.
+10. Update or condense current state-machine, local-inference, evaluator, and
+    component documentation so no active guidance describes a V1 proposal.
 
 If any step requires a new table, service, generalized state-machine framework,
 large cross-repository refactor, or change to the explicitly deferred behavior,
@@ -617,17 +666,25 @@ At minimum, implementation needs tests for:
   discriminated variants;
 - non-empty descriptions for every generated cloud and local schema field, with
   canonical-name, alias, and preparation-states contract parity;
+- schema version and application-owned identifiers absent from both model
+  output schemas and injected before durable V2 validation;
+- cloud text/image and on-device text/image all producing the same V2 semantic
+  core, with no active V1 proposal definition, parser, adapter, fixture, or
+  documentation path remaining;
 - text containing no food reaching `NO_FOOD_DETECTED`;
 - an image containing food plus background objects resolving only food items;
 - a non-food image skipping USDA, presentation, clarification, and logging;
+- non-food candidate item details absent from snapshots, client events, logs,
+  traces, and audit payloads;
 - durable no-food replay from `/resume`;
 - short first-pass meal names and no image in presentation messages;
 - profile normalization, null handling, BMI/age derivation, and absence from
   logs/results;
 - no persisted or client-visible FDC ID, selected USDA description, or match
   score;
-- ordered LLM lookup terms using exact/fuzzy matching with no curated USDA alias
-  map or alias match type;
+- all LLM-proposed canonical/alias terms evaluated before selecting the best
+  accepted exact/fuzzy candidate, with no curated USDA alias map or alias match
+  type;
 - local V2 proposal lookup using ordered aliases and separate atomic
   preparation-aware ranking after removal of the curated alias path;
 - null-stage migration and PostgreSQL automatic claims;
