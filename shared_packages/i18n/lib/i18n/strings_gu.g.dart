@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$gu extends Translations$localNutritionP
 	final TranslationsGu _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'ડાઉનલોડ કરેલા USDA પૅકમાંથી પોષણ માહિતી મેળ ખાતી મળી';
-	@override String get nutritionCached => 'ડિવાઇસની USDA કૅશમાંથી પોષણ માહિતી મેળ ખાતી મળી';
-	@override String get nutritionMixed => 'ડાઉનલોડ કરેલી, કૅશ કરેલી અને રિમોટ USDA પંક્તિઓમાંથી પોષણ માહિતી જોડાઈ';
-	@override String get calculationLocal => 'આ ડિવાઇસ પર કૅલરી અને મૅક્રોની ગણતરી થઈ';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ડાઉનલોડ કરેલું USDA પૅક';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: ડિવાઇસની USDA કૅશ';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify દ્વારા મેળવેલી USDA પંક્તિ';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: નિર્ધારિત પોષણ સ્થિરાંક';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ડેટાસેટ ${datasetVersion}';
 	@override String get portionSmaller => 'નાનું';
 	@override String get portionEstimated => 'અંદાજિત';
 	@override String get portionLarger => 'મોટું';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$gu extends Translations$meal$localInfere
 	@override String get continueLabel => 'આગળ વધો';
 	@override String get invalidProposal => 'ઓછામાં ઓછો એક ઘટક ઉમેરો અને ગ્રામની સકારાત્મક રકમનો ઉપયોગ કરો.';
 	@override String get localUnavailable => 'ઓન-ડિવાઇસ વિશ્લેષણ અત્યારે ઉપલબ્ધ નથી.';
-	@override String get calculationDetails => 'આની ગણતરી કેવી રીતે કરવામાં આવી';
-	@override String get interpretationLocal => 'આ ઉપકરણ પર સમજવામાં આવેલા ઘટકો';
-	@override String get interpretationCloud => 'ક્લાઉડમાં સમજવામાં આવેલા ઘટકો';
-	@override String get interpretationManual => 'તમારા દ્વારા સમીક્ષા કરાયેલા અથવા સંપાદિત કરાયેલા ઘટકો';
-	@override String get nutritionRemote => 'Calorify દ્વારા USDA માંથી મેળવેલ પોષણ';
-	@override String get nutritionFallback => 'કેટલીક પોષણ કિંમતો રિમોટલી અંદાજિત કરવામાં આવી હતી';
-	@override String get calculationServer => 'કેલરી અને મેક્રોઝની ગણતરી Calorify દ્વારા કરવામાં આવી છે';
-	@override String get fallbackUsed => 'સ્થાનિક વિશ્લેષણ ક્લાઉડ પ્રોસેસિંગ પર સ્વિચ થયું';
-	@override String get noRawContent => 'ડાયગ્નોસ્ટિક રસીદોમાં તમારા જમવાની ટેક્સ્ટ અથવા ફોટો શામેલ નથી.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsGu {
 			'meal.localInference.continueLabel' => 'આગળ વધો',
 			'meal.localInference.invalidProposal' => 'ઓછામાં ઓછો એક ઘટક ઉમેરો અને ગ્રામની સકારાત્મક રકમનો ઉપયોગ કરો.',
 			'meal.localInference.localUnavailable' => 'ઓન-ડિવાઇસ વિશ્લેષણ અત્યારે ઉપલબ્ધ નથી.',
-			'meal.localInference.calculationDetails' => 'આની ગણતરી કેવી રીતે કરવામાં આવી',
-			'meal.localInference.interpretationLocal' => 'આ ઉપકરણ પર સમજવામાં આવેલા ઘટકો',
-			'meal.localInference.interpretationCloud' => 'ક્લાઉડમાં સમજવામાં આવેલા ઘટકો',
-			'meal.localInference.interpretationManual' => 'તમારા દ્વારા સમીક્ષા કરાયેલા અથવા સંપાદિત કરાયેલા ઘટકો',
-			'meal.localInference.nutritionRemote' => 'Calorify દ્વારા USDA માંથી મેળવેલ પોષણ',
-			'meal.localInference.nutritionFallback' => 'કેટલીક પોષણ કિંમતો રિમોટલી અંદાજિત કરવામાં આવી હતી',
-			'meal.localInference.calculationServer' => 'કેલરી અને મેક્રોઝની ગણતરી Calorify દ્વારા કરવામાં આવી છે',
-			'meal.localInference.fallbackUsed' => 'સ્થાનિક વિશ્લેષણ ક્લાઉડ પ્રોસેસિંગ પર સ્વિચ થયું',
-			'meal.localInference.noRawContent' => 'ડાયગ્નોસ્ટિક રસીદોમાં તમારા જમવાની ટેક્સ્ટ અથવા ફોટો શામેલ નથી.',
 			'meal.feedback.title' => 'શું ખોટું લાગે છે?',
 			'meal.feedback.subtitle' => 'એક અથવા વધુ સમસ્યાઓ પસંદ કરીને વિશ્લેષણને સુધારવામાં અમારી સહાય કરો.',
 			'meal.feedback.tellUsMore' => 'વધુ કહો',
@@ -2562,8 +2535,6 @@ extension on TranslationsGu {
 			'notifications.snack.body' => 'સ્વસ્થ નાસ્તાનો સમય',
 			'notifications.test.title' => 'પરીક્ષણ સૂચના',
 			'login.title' => 'લોગિન',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google વડે સાઇન ઇન કરો',
 			'login.signInFailed' => 'Google સાઇન-ઇન નિષ્ફળ ગયું અથવા રદ કરવામાં આવ્યું.',
 			'disclaimer.pleaseNote' => 'કૃપા કરીને નોંધ લો',
@@ -2573,6 +2544,8 @@ extension on TranslationsGu {
 			'disclaimer.snap.preparationMethods.title' => 'તૈયારી પદ્ધતિઓ',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.',
 			'disclaimer.snap.ingredients.title' => 'ઘટકો',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'ઘણા છુપાયેલા ઘટકોવાળી જટિલ વાનગીઓ ઓછા સચોટ અંદાજો તરફ દોરી શકે છે.',
 			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેઝ મર્યાદાઓ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેઝ વ્યાપક છે પરંતુ તેમાં દરેક એક ખાદ્ય વસ્તુ અથવા ભિન્નતા શામેલ ન હોઈ શકે.',
@@ -2599,15 +2572,6 @@ extension on TranslationsGu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'અમે તમારા TDEE (તમારી પ્રોફાઇલના આધારે) ની ગણતરી કરીએ છીએ અને અત્યાર સુધી બળી ગયેલી કેલરીનો અંદાજ કાઢવા માટે તેને દિવસના વીતી ગયેલા અપૂર્ણાંક (કલાકો + મિનિટ) / 24 વડે ગુણાકાર કરીએ છીએ.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'વ્યાવસાયિક માર્ગદર્શન',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'તબીબી નિર્ણયો લેવા માટે આ અંદાજનો ઉપયોગ કરશો નહીં. વ્યક્તિગત વજન વ્યવસ્થાપન સલાહ માટે હંમેશા આરોગ્યસંભાળ વ્યાવસાયિક અથવા નોંધાયેલ આહાર નિષ્ણાતની સલાહ લો.',
-			'localNutritionPhase4.nutritionBundled' => 'ડાઉનલોડ કરેલા USDA પૅકમાંથી પોષણ માહિતી મેળ ખાતી મળી',
-			'localNutritionPhase4.nutritionCached' => 'ડિવાઇસની USDA કૅશમાંથી પોષણ માહિતી મેળ ખાતી મળી',
-			'localNutritionPhase4.nutritionMixed' => 'ડાઉનલોડ કરેલી, કૅશ કરેલી અને રિમોટ USDA પંક્તિઓમાંથી પોષણ માહિતી જોડાઈ',
-			'localNutritionPhase4.calculationLocal' => 'આ ડિવાઇસ પર કૅલરી અને મૅક્રોની ગણતરી થઈ',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ડાઉનલોડ કરેલું USDA પૅક',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: ડિવાઇસની USDA કૅશ',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify દ્વારા મેળવેલી USDA પંક્તિ',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: નિર્ધારિત પોષણ સ્થિરાંક',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ડેટાસેટ ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'નાનું',
 			'localNutritionPhase4.portionEstimated' => 'અંદાજિત',
 			'localNutritionPhase4.portionLarger' => 'મોટું',

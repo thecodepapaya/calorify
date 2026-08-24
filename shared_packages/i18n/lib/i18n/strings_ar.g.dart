@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ar extends Translations$localNutritionP
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'تمت مطابقة بيانات التغذية مع حزمة USDA التي تم تنزيلها';
-	@override String get nutritionCached => 'تمت مطابقة بيانات التغذية مع ذاكرة USDA المؤقتة على الجهاز';
-	@override String get nutritionMixed => 'تم دمج بيانات التغذية من صفوف USDA المنزّلة والمخزنة مؤقتًا والبعيدة';
-	@override String get calculationLocal => 'حُسبت السعرات والمغذيات الكبرى على هذا الجهاز';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: حزمة USDA المنزّلة';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: ذاكرة USDA المؤقتة على الجهاز';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: صف USDA جُلب عبر Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: ثابت تغذية حتمي';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · مجموعة البيانات ${datasetVersion}';
 	@override String get portionSmaller => 'أصغر';
 	@override String get portionEstimated => 'تقديرية';
 	@override String get portionLarger => 'أكبر';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ar extends Translations$meal$localInfere
 	@override String get continueLabel => 'متابعة';
 	@override String get invalidProposal => 'يرجى إضافة مكون واحد على الأقل واستخدام كمية جرامات موجبة.';
 	@override String get localUnavailable => 'التحليل على الجهاز غير متاح حالياً.';
-	@override String get calculationDetails => 'كيفية حساب هذه القيم';
-	@override String get interpretationLocal => 'مكونات تم تحليلها على هذا الجهاز';
-	@override String get interpretationCloud => 'مكونات تم تحليلها في السحابة';
-	@override String get interpretationManual => 'مكونات تمت مراجعتها أو تعديلها بواسطتك';
-	@override String get nutritionRemote => 'تم جلب القيم الغذائية من USDA عبر Calorify';
-	@override String get nutritionFallback => 'تم تقدير بعض القيم الغذائية عن بُعد';
-	@override String get calculationServer => 'تم حساب السعرات الحرارية والمغذيات الكبرى بواسطة Calorify';
-	@override String get fallbackUsed => 'تم الانتقال من التحليل المحلي إلى المعالجة السحابية';
-	@override String get noRawContent => 'إيصالات التشخيص لا تتضمن نص الوجبة أو صورتها.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsAr {
 			'meal.localInference.continueLabel' => 'متابعة',
 			'meal.localInference.invalidProposal' => 'يرجى إضافة مكون واحد على الأقل واستخدام كمية جرامات موجبة.',
 			'meal.localInference.localUnavailable' => 'التحليل على الجهاز غير متاح حالياً.',
-			'meal.localInference.calculationDetails' => 'كيفية حساب هذه القيم',
-			'meal.localInference.interpretationLocal' => 'مكونات تم تحليلها على هذا الجهاز',
-			'meal.localInference.interpretationCloud' => 'مكونات تم تحليلها في السحابة',
-			'meal.localInference.interpretationManual' => 'مكونات تمت مراجعتها أو تعديلها بواسطتك',
-			'meal.localInference.nutritionRemote' => 'تم جلب القيم الغذائية من USDA عبر Calorify',
-			'meal.localInference.nutritionFallback' => 'تم تقدير بعض القيم الغذائية عن بُعد',
-			'meal.localInference.calculationServer' => 'تم حساب السعرات الحرارية والمغذيات الكبرى بواسطة Calorify',
-			'meal.localInference.fallbackUsed' => 'تم الانتقال من التحليل المحلي إلى المعالجة السحابية',
-			'meal.localInference.noRawContent' => 'إيصالات التشخيص لا تتضمن نص الوجبة أو صورتها.',
 			'meal.feedback.title' => 'ما الخطأ في التقدير؟',
 			'meal.feedback.subtitle' => 'ساعدنا في تحسين التحليل باختيار مشكلة أو أكثر.',
 			'meal.feedback.tellUsMore' => 'أخبرنا المزيد',
@@ -2562,8 +2535,6 @@ extension on TranslationsAr {
 			'notifications.snack.body' => 'حان وقت وجبة خفيفة صحية',
 			'notifications.test.title' => 'إشعار تجريبي',
 			'login.title' => 'تسجيل الدخول',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'تسجيل الدخول عبر Google',
 			'login.signInFailed' => 'فشل تسجيل الدخول عبر Google أو تم الإلغاء.',
 			'disclaimer.pleaseNote' => 'يرجى الملاحظة',
@@ -2573,6 +2544,8 @@ extension on TranslationsAr {
 			'disclaimer.snap.preparationMethods.title' => 'طرق التحضير',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'يمكن لطرق الطهي أن تغيّر محتوى الغذاء بشكل كبير. قد لا تأخذ تقديرات ${appLabel} هذه الاختلافات في الحسبان دائمًا.',
 			'disclaimer.snap.ingredients.title' => 'المكونات',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'الأطباق المعقدة ذات المكونات المخفية قد تؤدي إلى تقديرات أقل دقة.',
 			'disclaimer.snap.databaseLimitations.title' => 'حدود قاعدة البيانات',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'قاعدة بيانات الأطعمة لدى ${appLabel} واسعة لكنها قد لا تتضمن كل صنف طعام أو اختلاف.',
@@ -2599,15 +2572,6 @@ extension on TranslationsAr {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'نحسب TDEE (بناءً على ملفك) ونضربه في نسبة اليوم المنقضي (الساعات + الدقائق) / 24 لتقدير السعرات المحروقة حتى الآن.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'إرشاد مهني',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'لا تستخدم هذا التقدير لاتخاذ قرارات طبية. استشر دائمًا مختص رعاية صحية أو أخصائي تغذية مسجل لإدارة الوزن بشكل شخصي.',
-			'localNutritionPhase4.nutritionBundled' => 'تمت مطابقة بيانات التغذية مع حزمة USDA التي تم تنزيلها',
-			'localNutritionPhase4.nutritionCached' => 'تمت مطابقة بيانات التغذية مع ذاكرة USDA المؤقتة على الجهاز',
-			'localNutritionPhase4.nutritionMixed' => 'تم دمج بيانات التغذية من صفوف USDA المنزّلة والمخزنة مؤقتًا والبعيدة',
-			'localNutritionPhase4.calculationLocal' => 'حُسبت السعرات والمغذيات الكبرى على هذا الجهاز',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: حزمة USDA المنزّلة',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: ذاكرة USDA المؤقتة على الجهاز',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: صف USDA جُلب عبر Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: ثابت تغذية حتمي',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · مجموعة البيانات ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'أصغر',
 			'localNutritionPhase4.portionEstimated' => 'تقديرية',
 			'localNutritionPhase4.portionLarger' => 'أكبر',

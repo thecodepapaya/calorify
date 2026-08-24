@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$hu extends Translations$localNutritionP
 	final TranslationsHu _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'A tápértékadatok a letöltött USDA-csomagból származnak';
-	@override String get nutritionCached => 'A tápértékadatok az eszköz USDA-gyorsítótárából származnak';
-	@override String get nutritionMixed => 'A tápértékadatok letöltött, gyorsítótárazott és távoli USDA-sorokból lettek egyesítve';
-	@override String get calculationLocal => 'A kalóriák és makrotápanyagok kiszámítása ezen az eszközön történt';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: letöltött USDA-csomag';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: az eszköz USDA-gyorsítótára';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorifyn keresztül lekért USDA-sor';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: determinisztikus tápértékállandó';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · adatkészlet ${datasetVersion}';
 	@override String get portionSmaller => 'Kisebb';
 	@override String get portionEstimated => 'Becsült';
 	@override String get portionLarger => 'Nagyobb';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$hu extends Translations$meal$localInfere
 	@override String get continueLabel => 'Folytatás';
 	@override String get invalidProposal => 'Adjon hozzá legalább egy összetevőt, és adjon meg egy pozitív grammsúlyt.';
 	@override String get localUnavailable => 'A készüléken történő elemzés jelenleg nem érhető el.';
-	@override String get calculationDetails => 'A számítás módja';
-	@override String get interpretationLocal => 'A készüléken elemezett összetevők';
-	@override String get interpretationCloud => 'Felhőben elemezett összetevők';
-	@override String get interpretationManual => 'Általad ellenőrzött vagy szerkesztett összetevők';
-	@override String get nutritionRemote => 'USDA tápértékadatok a Calorify-on keresztül';
-	@override String get nutritionFallback => 'Néhány tápértékadatot távolról becsültük';
-	@override String get calculationServer => 'Kalóriákat és makrókat a Calorify számolta';
-	@override String get fallbackUsed => 'A helyi elemzés helyett felhőalapú feldolgozást használtunk';
-	@override String get noRawContent => 'A diagnosztikai nyugtások nem tartalmazzák az étel leírását vagy fotóját.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsHu {
 			'meal.localInference.continueLabel' => 'Folytatás',
 			'meal.localInference.invalidProposal' => 'Adjon hozzá legalább egy összetevőt, és adjon meg egy pozitív grammsúlyt.',
 			'meal.localInference.localUnavailable' => 'A készüléken történő elemzés jelenleg nem érhető el.',
-			'meal.localInference.calculationDetails' => 'A számítás módja',
-			'meal.localInference.interpretationLocal' => 'A készüléken elemezett összetevők',
-			'meal.localInference.interpretationCloud' => 'Felhőben elemezett összetevők',
-			'meal.localInference.interpretationManual' => 'Általad ellenőrzött vagy szerkesztett összetevők',
-			'meal.localInference.nutritionRemote' => 'USDA tápértékadatok a Calorify-on keresztül',
-			'meal.localInference.nutritionFallback' => 'Néhány tápértékadatot távolról becsültük',
-			'meal.localInference.calculationServer' => 'Kalóriákat és makrókat a Calorify számolta',
-			'meal.localInference.fallbackUsed' => 'A helyi elemzés helyett felhőalapú feldolgozást használtunk',
-			'meal.localInference.noRawContent' => 'A diagnosztikai nyugtások nem tartalmazzák az étel leírását vagy fotóját.',
 			'meal.feedback.title' => 'Mi tűnik hibásnak?',
 			'meal.feedback.subtitle' => 'Segíts javítani az elemzést egy vagy több probléma kiválasztásával.',
 			'meal.feedback.tellUsMore' => 'Mesélj részletesebben',
@@ -2562,8 +2535,6 @@ extension on TranslationsHu {
 			'notifications.snack.body' => 'Ideje egy egészséges nassolnivalónak',
 			'notifications.test.title' => 'Teszt értesítés',
 			'login.title' => 'Bejelentkezés',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Bejelentkezés Google-lal',
 			'login.signInFailed' => 'A Google bejelentkezés sikertelen vagy megszakadt.',
 			'disclaimer.pleaseNote' => 'Kérjük vedd figyelembe',
@@ -2573,6 +2544,8 @@ extension on TranslationsHu {
 			'disclaimer.snap.preparationMethods.title' => 'Elkészítési módok',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módok jelentősen megváltoztathatják az étel tápanyagtartalmát. A ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
 			'disclaimer.snap.ingredients.title' => 'Összetevők',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Az összetett ételek sok rejtett összetevője pontatlansághoz vezethet.',
 			'disclaimer.snap.databaseLimitations.title' => 'Adatbázis korlátok',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'A ${appLabel} ételadatbázisa kiterjedt, de előfordulhat, hogy nem tartalmaz minden egyes élelmiszert vagy variánst.',
@@ -2599,15 +2572,6 @@ extension on TranslationsHu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kiszámítjuk a TDEE-det (a profilod alapján), és megszorozzuk a nap eltelt részével (órák + percek) / 24, hogy megbecsüljük az eddig elégetett kalóriákat.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Szakmai útmutatás',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Ne használd ezt a becslést orvosi döntésekhez. Mindig konzultálj egészségügyi szakemberrel vagy regisztrált dietetikussal személyre szabott súlykezelési tanácsért.',
-			'localNutritionPhase4.nutritionBundled' => 'A tápértékadatok a letöltött USDA-csomagból származnak',
-			'localNutritionPhase4.nutritionCached' => 'A tápértékadatok az eszköz USDA-gyorsítótárából származnak',
-			'localNutritionPhase4.nutritionMixed' => 'A tápértékadatok letöltött, gyorsítótárazott és távoli USDA-sorokból lettek egyesítve',
-			'localNutritionPhase4.calculationLocal' => 'A kalóriák és makrotápanyagok kiszámítása ezen az eszközön történt',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: letöltött USDA-csomag',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: az eszköz USDA-gyorsítótára',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorifyn keresztül lekért USDA-sor',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: determinisztikus tápértékállandó',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · adatkészlet ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Kisebb',
 			'localNutritionPhase4.portionEstimated' => 'Becsült',
 			'localNutritionPhase4.portionLarger' => 'Nagyobb',

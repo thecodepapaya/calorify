@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$cs extends Translations$localNutritionP
 	final TranslationsCs _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Výživové údaje nalezeny ve staženém balíčku USDA';
-	@override String get nutritionCached => 'Výživové údaje nalezeny v mezipaměti USDA v zařízení';
-	@override String get nutritionMixed => 'Výživové údaje sloučeny ze stažených, uložených a vzdálených řádků USDA';
-	@override String get calculationLocal => 'Kalorie a makroživiny vypočítány v tomto zařízení';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: stažený balíček USDA';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: mezipaměť USDA v zařízení';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: řádek USDA načtený přes Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministická nutriční konstanta';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datová sada ${datasetVersion}';
 	@override String get portionSmaller => 'Menší';
 	@override String get portionEstimated => 'Odhadovaná';
 	@override String get portionLarger => 'Větší';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$cs extends Translations$meal$localInfere
 	@override String get continueLabel => 'Pokračovat';
 	@override String get invalidProposal => 'Přidejte alespoň jednu ingredienci a zadejte kladný počet gramů.';
 	@override String get localUnavailable => 'Analýza v zařízení momentálně není k dispozici.';
-	@override String get calculationDetails => 'Jak bylo vypočítáno';
-	@override String get interpretationLocal => 'Ingredience interpretované v tomto zařízení';
-	@override String get interpretationCloud => 'Ingredience interpretované v cloudu';
-	@override String get interpretationManual => 'Ingredience zkontrolované nebo upravené vámi';
-	@override String get nutritionRemote => 'Výživové hodnoty staženy z USDA prostřednictvím Calorify';
-	@override String get nutritionFallback => 'Některé výživové hodnoty byly odhadnuty vzdáleně';
-	@override String get calculationServer => 'Kalorie a makroživiny vypočítány aplikací Calorify';
-	@override String get fallbackUsed => 'Lokální analýza byla nahrazena zpracováním v cloudu';
-	@override String get noRawContent => 'Diagnostické účtenky neobsahují text ani fotografii vašeho jídla.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsCs {
 			'meal.localInference.continueLabel' => 'Pokračovat',
 			'meal.localInference.invalidProposal' => 'Přidejte alespoň jednu ingredienci a zadejte kladný počet gramů.',
 			'meal.localInference.localUnavailable' => 'Analýza v zařízení momentálně není k dispozici.',
-			'meal.localInference.calculationDetails' => 'Jak bylo vypočítáno',
-			'meal.localInference.interpretationLocal' => 'Ingredience interpretované v tomto zařízení',
-			'meal.localInference.interpretationCloud' => 'Ingredience interpretované v cloudu',
-			'meal.localInference.interpretationManual' => 'Ingredience zkontrolované nebo upravené vámi',
-			'meal.localInference.nutritionRemote' => 'Výživové hodnoty staženy z USDA prostřednictvím Calorify',
-			'meal.localInference.nutritionFallback' => 'Některé výživové hodnoty byly odhadnuty vzdáleně',
-			'meal.localInference.calculationServer' => 'Kalorie a makroživiny vypočítány aplikací Calorify',
-			'meal.localInference.fallbackUsed' => 'Lokální analýza byla nahrazena zpracováním v cloudu',
-			'meal.localInference.noRawContent' => 'Diagnostické účtenky neobsahují text ani fotografii vašeho jídla.',
 			'meal.feedback.title' => 'Co vypadá špatně?',
 			'meal.feedback.subtitle' => 'Označte jednu nebo více chyb a pomozte nám zlepšit analýzu.',
 			'meal.feedback.tellUsMore' => 'Řekněte více',
@@ -2562,8 +2535,6 @@ extension on TranslationsCs {
 			'notifications.snack.body' => 'Čas na zdravou svačinu',
 			'notifications.test.title' => 'Testovací upozornění',
 			'login.title' => 'Přihlášení',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Přihlásit se přes Google',
 			'login.signInFailed' => 'Přihlášení přes Google selhalo nebo bylo zrušeno.',
 			'disclaimer.pleaseNote' => 'Vezměte prosím na vědomí',
@@ -2573,6 +2544,8 @@ extension on TranslationsCs {
 			'disclaimer.snap.preparationMethods.title' => 'Způsoby přípravy',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Způsoby vaření mohou výrazně měnit nutriční hodnotu jídla. Odhady ${appLabel} nemusí tyto rozdíly vždy zohlednit.',
 			'disclaimer.snap.ingredients.title' => 'Ingredience',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Složité pokrmy s mnoha skrytými ingrediencemi mohou vést k méně přesným odhadům.',
 			'disclaimer.snap.databaseLimitations.title' => 'Omezení databáze',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Databáze potravin v ${appLabel} je rozsáhlá, ale nemusí obsahovat každou potravinu nebo variantu.',
@@ -2599,15 +2572,6 @@ extension on TranslationsCs {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vypočítáme váš TDEE (na základě profilu) a vynásobíme ho zlomkem uběhlého dne (hodiny + minuty) / 24, abychom odhadli dosud spálené kalorie.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Odborné poradenství',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nepoužívejte tento odhad pro lékařská rozhodnutí. Vždy se poraďte se zdravotnickým odborníkem nebo registrovaným dietologem pro personalizovanou péči.',
-			'localNutritionPhase4.nutritionBundled' => 'Výživové údaje nalezeny ve staženém balíčku USDA',
-			'localNutritionPhase4.nutritionCached' => 'Výživové údaje nalezeny v mezipaměti USDA v zařízení',
-			'localNutritionPhase4.nutritionMixed' => 'Výživové údaje sloučeny ze stažených, uložených a vzdálených řádků USDA',
-			'localNutritionPhase4.calculationLocal' => 'Kalorie a makroživiny vypočítány v tomto zařízení',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: stažený balíček USDA',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: mezipaměť USDA v zařízení',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: řádek USDA načtený přes Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministická nutriční konstanta',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datová sada ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Menší',
 			'localNutritionPhase4.portionEstimated' => 'Odhadovaná',
 			'localNutritionPhase4.portionLarger' => 'Větší',

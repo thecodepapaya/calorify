@@ -343,16 +343,7 @@
       "removeIngredient": "食材を削除",
       "continueLabel": "次へ",
       "invalidProposal": "少なくとも1つの食材を追加し、正の数値を入力してください。",
-      "localUnavailable": "現在、デバイス上での解析は利用できません。",
-      "calculationDetails": "計算方法の詳細",
-      "interpretationLocal": "このデバイスで解析された食材",
-      "interpretationCloud": "クラウドで解析された食材",
-      "interpretationManual": "ユーザーによって確認または編集された食材",
-      "nutritionRemote": "Calorifyを通じてUSDAから取得した栄養価",
-      "nutritionFallback": "一部の栄養価はリモートで推定されました",
-      "calculationServer": "カロリーとマクロ栄養素はCalorifyによって計算されました",
-      "fallbackUsed": "ローカル解析からクラウド処理に切り替わりました",
-      "noRawContent": "診断用レシートに食事のテキストや写真は含まれません。"
+      "localUnavailable": "現在、デバイス上での解析は利用できません。"
     },
     "feedback": {
       "title": "どこが違いますか？",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "ダウンロード済みのUSDAパックから栄養情報を照合しました",
-    "nutritionCached": "端末内のUSDAキャッシュから栄養情報を照合しました",
-    "nutritionMixed": "ダウンロード済み、キャッシュ済み、リモートのUSDAデータから栄養情報を統合しました",
-    "calculationLocal": "この端末でカロリーとマクロ栄養素を計算しました",
-    "ingredientBundled": "{ingredient}: ダウンロード済みUSDAパック",
-    "ingredientCached": "{ingredient}: 端末内USDAキャッシュ",
-    "ingredientRemote": "{ingredient}: Calorify経由で取得したUSDAデータ",
-    "ingredientDeterministic": "{ingredient}: 決定論的な栄養定数",
-    "ingredientReference": "FDC {fdcId} · データセット {datasetVersion}",
     "portionSmaller": "少なめ",
     "portionEstimated": "推定量",
     "portionLarger": "多め",

@@ -26,11 +26,7 @@ class MealTypeIndicator extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          color: colorScheme.onSurfaceVariant,
-          size: 12,
-        ),
+        Icon(icon, color: colorScheme.onSurfaceVariant, size: 12),
         SizedBox(width: 4),
         Text(
           type.displayName,

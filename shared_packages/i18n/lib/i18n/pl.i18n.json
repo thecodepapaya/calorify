@@ -343,16 +343,7 @@
       "removeIngredient": "Usuń składnik",
       "continueLabel": "Kontynuuj",
       "invalidProposal": "Dodaj co najmniej jeden składnik i podaj dodatnią wartość gramów.",
-      "localUnavailable": "Analiza na urządzeniu jest obecnie niedostępna.",
-      "calculationDetails": "Jak to zostało obliczone",
-      "interpretationLocal": "Składniki zinterpretowane na tym urządzeniu",
-      "interpretationCloud": "Składniki zinterpretowane w chmurze",
-      "interpretationManual": "Składniki sprawdzone lub edytowane przez Ciebie",
-      "nutritionRemote": "Wartości odżywcze pobrane z USDA przez Calorify",
-      "nutritionFallback": "Niektóre wartości odżywcze zostały oszacowane zdalnie",
-      "calculationServer": "Kalorie i makroskładniki obliczone przez Calorify",
-      "fallbackUsed": "Analiza lokalna została zastąpiona przetwarzaniem w chmurze",
-      "noRawContent": "Paragony diagnostyczne nie zawierają tekstu ani zdjęcia Twojego posiłku."
+      "localUnavailable": "Analiza na urządzeniu jest obecnie niedostępna."
     },
     "feedback": {
       "title": "Co wygląda nie tak?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Wartości odżywcze dopasowano z pobranego pakietu USDA",
-    "nutritionCached": "Wartości odżywcze dopasowano z pamięci podręcznej USDA na urządzeniu",
-    "nutritionMixed": "Wartości odżywcze połączono z pobranych, zapisanych w pamięci podręcznej i zdalnych wierszy USDA",
-    "calculationLocal": "Kalorie i makroskładniki obliczono na tym urządzeniu",
-    "ingredientBundled": "{ingredient}: pobrany pakiet USDA",
-    "ingredientCached": "{ingredient}: pamięć podręczna USDA na urządzeniu",
-    "ingredientRemote": "{ingredient}: wiersz USDA pobrany przez Calorify",
-    "ingredientDeterministic": "{ingredient}: deterministyczna stała żywieniowa",
-    "ingredientReference": "FDC {fdcId} · zestaw danych {datasetVersion}",
     "portionSmaller": "Mniejsza",
     "portionEstimated": "Szacowana",
     "portionLarger": "Większa",

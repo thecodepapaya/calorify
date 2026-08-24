@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ms extends Translations$localNutritionP
 	final TranslationsMs _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Pemakanan dipadankan daripada pek USDA yang dimuat turun';
-	@override String get nutritionCached => 'Pemakanan dipadankan daripada cache USDA pada peranti';
-	@override String get nutritionMixed => 'Pemakanan digabungkan daripada baris USDA yang dimuat turun, dicache dan jauh';
-	@override String get calculationLocal => 'Kalori dan makro dikira pada peranti ini';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: pek USDA yang dimuat turun';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: cache USDA pada peranti';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: baris USDA yang diambil melalui Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: pemalar pemakanan deterministik';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · set data ${datasetVersion}';
 	@override String get portionSmaller => 'Lebih kecil';
 	@override String get portionEstimated => 'Anggaran';
 	@override String get portionLarger => 'Lebih besar';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ms extends Translations$meal$localInfere
 	@override String get continueLabel => 'Teruskan';
 	@override String get invalidProposal => 'Tambah sekurang-kurangnya satu ramuan dan gunakan jumlah gram yang positif.';
 	@override String get localUnavailable => 'Analisis pada peranti tidak tersedia buat masa ini.';
-	@override String get calculationDetails => 'Bagaimana ini dikira';
-	@override String get interpretationLocal => 'Ramuan ditafsirkan pada peranti ini';
-	@override String get interpretationCloud => 'Ramuan ditafsirkan di awan';
-	@override String get interpretationManual => 'Ramuan disemak atau diedit oleh anda';
-	@override String get nutritionRemote => 'Maklumat pemakanan diambil daripada USDA melalui Calorify';
-	@override String get nutritionFallback => 'Beberapa nilai pemakanan dianggar secara jarak jauh';
-	@override String get calculationServer => 'Kalori dan makro dikira oleh Calorify';
-	@override String get fallbackUsed => 'Analisis tempatan beralih kepada pemprosesan awan';
-	@override String get noRawContent => 'Resit diagnostik tidak termasuk teks atau foto hidangan anda.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsMs {
 			'meal.localInference.continueLabel' => 'Teruskan',
 			'meal.localInference.invalidProposal' => 'Tambah sekurang-kurangnya satu ramuan dan gunakan jumlah gram yang positif.',
 			'meal.localInference.localUnavailable' => 'Analisis pada peranti tidak tersedia buat masa ini.',
-			'meal.localInference.calculationDetails' => 'Bagaimana ini dikira',
-			'meal.localInference.interpretationLocal' => 'Ramuan ditafsirkan pada peranti ini',
-			'meal.localInference.interpretationCloud' => 'Ramuan ditafsirkan di awan',
-			'meal.localInference.interpretationManual' => 'Ramuan disemak atau diedit oleh anda',
-			'meal.localInference.nutritionRemote' => 'Maklumat pemakanan diambil daripada USDA melalui Calorify',
-			'meal.localInference.nutritionFallback' => 'Beberapa nilai pemakanan dianggar secara jarak jauh',
-			'meal.localInference.calculationServer' => 'Kalori dan makro dikira oleh Calorify',
-			'meal.localInference.fallbackUsed' => 'Analisis tempatan beralih kepada pemprosesan awan',
-			'meal.localInference.noRawContent' => 'Resit diagnostik tidak termasuk teks atau foto hidangan anda.',
 			'meal.feedback.title' => 'Apa yang kelihatan salah?',
 			'meal.feedback.subtitle' => 'Bantu kami memperbaiki analisis dengan memilih satu atau lebih isu.',
 			'meal.feedback.tellUsMore' => 'Beritahu kami lebih lanjut',
@@ -2562,8 +2535,6 @@ extension on TranslationsMs {
 			'notifications.snack.body' => 'Masa untuk snek sihat',
 			'notifications.test.title' => 'Pemberitahuan Ujian',
 			'login.title' => 'Log Masuk',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Log masuk dengan Google',
 			'login.signInFailed' => 'Log Masuk Google gagal atau dibatalkan.',
 			'disclaimer.pleaseNote' => 'Sila Maklum',
@@ -2573,6 +2544,8 @@ extension on TranslationsMs {
 			'disclaimer.snap.preparationMethods.title' => 'Kaedah Penyediaan',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Kaedah memasak boleh mengubah kandungan pemakanan makanan dengan ketara. Anggaran ${appLabel} mungkin tidak sentiasa mengambil kira variasi ini.',
 			'disclaimer.snap.ingredients.title' => 'Bahan',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Hidangan kompleks dengan banyak bahan tersembunyi mungkin menghasilkan anggaran kurang tepat.',
 			'disclaimer.snap.databaseLimitations.title' => 'Had Pangkalan Data',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Pangkalan data makanan ${appLabel} luas tetapi mungkin tidak mengandungi setiap item makanan atau variasinya.',
@@ -2599,15 +2572,6 @@ extension on TranslationsMs {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kami mengira TDEE anda (berdasarkan profil anda) dan mendarabkannya dengan pecahan hari yang telah berlalu (jam + minit) / 24 untuk menganggarkan kalori yang dibakar setakat ini.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Panduan Profesional',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Jangan gunakan anggaran ini untuk membuat keputusan perubatan. Sentiasa rujuk profesional kesihatan atau pakar diet berdaftar untuk nasihat pengurusan berat peribadi.',
-			'localNutritionPhase4.nutritionBundled' => 'Pemakanan dipadankan daripada pek USDA yang dimuat turun',
-			'localNutritionPhase4.nutritionCached' => 'Pemakanan dipadankan daripada cache USDA pada peranti',
-			'localNutritionPhase4.nutritionMixed' => 'Pemakanan digabungkan daripada baris USDA yang dimuat turun, dicache dan jauh',
-			'localNutritionPhase4.calculationLocal' => 'Kalori dan makro dikira pada peranti ini',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: pek USDA yang dimuat turun',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: cache USDA pada peranti',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: baris USDA yang diambil melalui Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: pemalar pemakanan deterministik',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · set data ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Lebih kecil',
 			'localNutritionPhase4.portionEstimated' => 'Anggaran',
 			'localNutritionPhase4.portionLarger' => 'Lebih besar',

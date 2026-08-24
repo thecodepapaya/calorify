@@ -343,16 +343,7 @@
       "removeIngredient": "Supprimer l'ingrédient",
       "continueLabel": "Continuer",
       "invalidProposal": "Ajoutez au moins un ingrédient et utilisez une quantité de grammes positive.",
-      "localUnavailable": "L'analyse sur l'appareil est actuellement indisponible.",
-      "calculationDetails": "Comment ceci a été calculé",
-      "interpretationLocal": "Ingrédients interprétés sur cet appareil",
-      "interpretationCloud": "Ingrédients interprétés dans le cloud",
-      "interpretationManual": "Ingrédients vérifiés ou modifiés par vous",
-      "nutritionRemote": "Valeurs nutritionnelles récupérées de l'USDA via Calorify",
-      "nutritionFallback": "Certaines valeurs nutritionnelles ont été estimées à distance",
-      "calculationServer": "Calories et macros calculées par Calorify",
-      "fallbackUsed": "L'analyse locale a été remplacée par un traitement cloud",
-      "noRawContent": "Les reçus de diagnostic n'incluent pas le texte ou la photo de votre repas."
+      "localUnavailable": "L'analyse sur l'appareil est actuellement indisponible."
     },
     "feedback": {
       "title": "Qu'est‑ce qui cloche ?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Valeurs nutritionnelles trouvées dans le pack USDA téléchargé",
-    "nutritionCached": "Valeurs nutritionnelles trouvées dans le cache USDA de l’appareil",
-    "nutritionMixed": "Valeurs nutritionnelles combinées à partir des lignes USDA téléchargées, mises en cache et distantes",
-    "calculationLocal": "Calories et macronutriments calculés sur cet appareil",
-    "ingredientBundled": "{ingredient} : pack USDA téléchargé",
-    "ingredientCached": "{ingredient} : cache USDA de l’appareil",
-    "ingredientRemote": "{ingredient} : ligne USDA récupérée via Calorify",
-    "ingredientDeterministic": "{ingredient} : constante nutritionnelle déterministe",
-    "ingredientReference": "FDC {fdcId} · jeu de données {datasetVersion}",
     "portionSmaller": "Plus petite",
     "portionEstimated": "Estimée",
     "portionLarger": "Plus grande",

@@ -53,7 +53,7 @@ class LogScreen extends StatelessWidget {
               const DescribeMeal(),
               const SizedBox(height: 24),
               const FavoriteMeals(),
-              const SizedBox(height: 120),
+              const SizedBox(height: 140),
             ],
           ),
         ),

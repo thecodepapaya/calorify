@@ -343,16 +343,7 @@
       "removeIngredient": "Alisin ang sangkap",
       "continueLabel": "Magpatuloy",
       "invalidProposal": "Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.",
-      "localUnavailable": "Hindi available ang on-device analysis sa ngayon.",
-      "calculationDetails": "Paano ito kinalkula",
-      "interpretationLocal": "Mga sangkap na binigyang-kahulugan sa device na ito",
-      "interpretationCloud": "Mga sangkap na binigyang-kahulugan sa cloud",
-      "interpretationManual": "Mga sangkap na sinuri o inedit mo",
-      "nutritionRemote": "Nutrisyon na nakuha mula sa USDA sa pamamagitan ng Calorify",
-      "nutritionFallback": "Ang ilang halaga ng nutrisyon ay tinaya nang remote",
-      "calculationServer": "Calories at macros na kinalkula ng Calorify",
-      "fallbackUsed": "Ang local analysis ay lumipat sa cloud processing",
-      "noRawContent": "Ang mga diagnostic receipt ay hindi kasama ang text o larawan ng iyong pagkain."
+      "localUnavailable": "Hindi available ang on-device analysis sa ngayon."
     },
     "feedback": {
       "title": "Ano ang mali?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Itinugma ang nutrisyon mula sa na-download na USDA pack",
-    "nutritionCached": "Itinugma ang nutrisyon mula sa USDA cache sa device",
-    "nutritionMixed": "Pinagsama ang nutrisyon mula sa na-download, naka-cache, at remote na mga row ng USDA",
-    "calculationLocal": "Kinuwenta sa device na ito ang calories at macros",
-    "ingredientBundled": "{ingredient}: na-download na USDA pack",
-    "ingredientCached": "{ingredient}: USDA cache sa device",
-    "ingredientRemote": "{ingredient}: row ng USDA na kinuha sa pamamagitan ng Calorify",
-    "ingredientDeterministic": "{ingredient}: deterministikong nutrition constant",
-    "ingredientReference": "FDC {fdcId} · set ng data {datasetVersion}",
     "portionSmaller": "Mas kaunti",
     "portionEstimated": "Tinataya",
     "portionLarger": "Mas marami",

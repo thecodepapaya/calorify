@@ -343,16 +343,7 @@
       "removeIngredient": "Fjern ingrediens",
       "continueLabel": "Fortsæt",
       "invalidProposal": "Tilføj mindst én ingrediens og brug et positivt antal gram.",
-      "localUnavailable": "Analyse på enheden er ikke tilgængelig lige nu.",
-      "calculationDetails": "Sådan blev dette beregnet",
-      "interpretationLocal": "Ingredienser fortolket på denne enhed",
-      "interpretationCloud": "Ingredienser fortolket i skyen",
-      "interpretationManual": "Ingredienser gennemset eller redigeret af dig",
-      "nutritionRemote": "Næringsindhold hentet fra USDA via Calorify",
-      "nutritionFallback": "Nogle næringsværdier blev estimeret eksternt",
-      "calculationServer": "Kalorier og makronæringsstoffer beregnet af Calorify",
-      "fallbackUsed": "Lokal analyse skiftede til cloud-behandling",
-      "noRawContent": "Diagnostiske kvitteringer indeholder ikke din måltidstekst eller dit foto."
+      "localUnavailable": "Analyse på enheden er ikke tilgængelig lige nu."
     },
     "feedback": {
       "title": "Hvad ser forkert ud?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Ernæringsdata matchet fra den downloadede USDA-pakke",
-    "nutritionCached": "Ernæringsdata matchet fra USDA-cachen på enheden",
-    "nutritionMixed": "Ernæringsdata kombineret fra downloadede, cachede og eksterne USDA-rækker",
-    "calculationLocal": "Kalorier og makroer beregnet på denne enhed",
-    "ingredientBundled": "{ingredient}: downloadet USDA-pakke",
-    "ingredientCached": "{ingredient}: USDA-cache på enheden",
-    "ingredientRemote": "{ingredient}: USDA-række hentet via Calorify",
-    "ingredientDeterministic": "{ingredient}: deterministisk ernæringskonstant",
-    "ingredientReference": "FDC {fdcId} · datasæt {datasetVersion}",
     "portionSmaller": "Mindre",
     "portionEstimated": "Anslået",
     "portionLarger": "Større",

@@ -343,16 +343,7 @@
       "removeIngredient": "इंग्रीडिएंट हटाएँ",
       "continueLabel": "जारी रखें",
       "invalidProposal": "कम से कम एक इंग्रीडिएंट जोड़ें और ग्राम की मात्रा सकारात्मक रखें।",
-      "localUnavailable": "ऑन-डिवाइस विश्लेषण अभी उपलब्ध नहीं है।",
-      "calculationDetails": "इसकी गणना कैसे की गई",
-      "interpretationLocal": "इस डिवाइस पर इंटरप्रेट किए गए इंग्रीडिएंट्स",
-      "interpretationCloud": "क्लाउड में इंटरप्रेट किए गए इंग्रीडिएंट्स",
-      "interpretationManual": "आपके द्वारा समीक्षा किए गए या संपादित किए गए इंग्रीडिएंट्स",
-      "nutritionRemote": "Calorify के माध्यम से USDA से प्राप्त पोषण",
-      "nutritionFallback": "कुछ पोषण मूल्यों का अनुमान रिमोटली लगाया गया था",
-      "calculationServer": "कैलोरी और मैक्रोज़ की गणना Calorify द्वारा की गई",
-      "fallbackUsed": "लोकल विश्लेषण क्लाउड प्रोसेसिंग पर स्विच हो गया",
-      "noRawContent": "डायग्नोस्टिक रसीदों में आपके भोजन का टेक्स्ट या फोटो शामिल नहीं होता है।"
+      "localUnavailable": "ऑन-डिवाइस विश्लेषण अभी उपलब्ध नहीं है।"
     },
     "feedback": {
       "title": "क्या गलत दिख रहा है?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "पोषण जानकारी डाउनलोड किए गए USDA पैक से मिली",
-    "nutritionCached": "पोषण जानकारी डिवाइस की USDA कैश से मिली",
-    "nutritionMixed": "पोषण जानकारी डाउनलोड की गई, कैश की गई और रिमोट USDA पंक्तियों से जोड़ी गई",
-    "calculationLocal": "कैलोरी और मैक्रो की गणना इस डिवाइस पर की गई",
-    "ingredientBundled": "{ingredient}: डाउनलोड किया गया USDA पैक",
-    "ingredientCached": "{ingredient}: डिवाइस की USDA कैश",
-    "ingredientRemote": "{ingredient}: Calorify के ज़रिए प्राप्त USDA पंक्ति",
-    "ingredientDeterministic": "{ingredient}: नियत पोषण स्थिरांक",
-    "ingredientReference": "FDC {fdcId} · डेटासेट {datasetVersion}",
     "portionSmaller": "छोटी",
     "portionEstimated": "अनुमानित",
     "portionLarger": "बड़ी",

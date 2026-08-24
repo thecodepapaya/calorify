@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ur extends Translations$localNutritionP
 	final TranslationsUr _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'غذائیت ڈاؤن لوڈ کیے گئے USDA پیک سے ملائی گئی';
-	@override String get nutritionCached => 'غذائیت ڈیوائس کی USDA کیش سے ملائی گئی';
-	@override String get nutritionMixed => 'غذائیت ڈاؤن لوڈ، کیش شدہ اور ریموٹ USDA قطاروں سے یکجا کی گئی';
-	@override String get calculationLocal => 'اس ڈیوائس پر کیلوریز اور میکروز کا حساب لگایا گیا';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ڈاؤن لوڈ کیا گیا USDA پیک';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: ڈیوائس کی USDA کیش';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify کے ذریعے حاصل کی گئی USDA قطار';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: متعین غذائی مستقل';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ڈیٹاسیٹ ${datasetVersion}';
 	@override String get portionSmaller => 'کم';
 	@override String get portionEstimated => 'تخمینی';
 	@override String get portionLarger => 'زیادہ';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ur extends Translations$meal$localInfere
 	@override String get continueLabel => 'جاری رکھیں';
 	@override String get invalidProposal => 'کم از کم ایک جزو شامل کریں اور گرام کی مثبت مقدار استعمال کریں۔';
 	@override String get localUnavailable => 'آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔';
-	@override String get calculationDetails => 'اس کا حساب کیسے لگایا گیا';
-	@override String get interpretationLocal => 'اس ڈیوائس پر ترتیب دیے گئے اجزاء';
-	@override String get interpretationCloud => 'کلاؤڈ میں ترتیب دیے گئے اجزاء';
-	@override String get interpretationManual => 'آپ کے ذریعے جائزہ لیے گئے یا تبدیل کیے گئے اجزاء';
-	@override String get nutritionRemote => 'USDA سے Calorify کے ذریعے حاصل کردہ غذائیت';
-	@override String get nutritionFallback => 'کچھ غذائی اقدار کا تخمینہ ریموٹلی لگایا گیا';
-	@override String get calculationServer => 'کیلوریز اور میکروز کا حساب Calorify نے لگایا';
-	@override String get fallbackUsed => 'مقامی تجزیہ کلاؤڈ پروسیسنگ پر منتقل ہو گیا';
-	@override String get noRawContent => 'تشخیصی رسیدوں میں آپ کے کھانے کی تحریر یا تصویر شامل نہیں ہوتی۔';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsUr {
 			'meal.localInference.continueLabel' => 'جاری رکھیں',
 			'meal.localInference.invalidProposal' => 'کم از کم ایک جزو شامل کریں اور گرام کی مثبت مقدار استعمال کریں۔',
 			'meal.localInference.localUnavailable' => 'آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔',
-			'meal.localInference.calculationDetails' => 'اس کا حساب کیسے لگایا گیا',
-			'meal.localInference.interpretationLocal' => 'اس ڈیوائس پر ترتیب دیے گئے اجزاء',
-			'meal.localInference.interpretationCloud' => 'کلاؤڈ میں ترتیب دیے گئے اجزاء',
-			'meal.localInference.interpretationManual' => 'آپ کے ذریعے جائزہ لیے گئے یا تبدیل کیے گئے اجزاء',
-			'meal.localInference.nutritionRemote' => 'USDA سے Calorify کے ذریعے حاصل کردہ غذائیت',
-			'meal.localInference.nutritionFallback' => 'کچھ غذائی اقدار کا تخمینہ ریموٹلی لگایا گیا',
-			'meal.localInference.calculationServer' => 'کیلوریز اور میکروز کا حساب Calorify نے لگایا',
-			'meal.localInference.fallbackUsed' => 'مقامی تجزیہ کلاؤڈ پروسیسنگ پر منتقل ہو گیا',
-			'meal.localInference.noRawContent' => 'تشخیصی رسیدوں میں آپ کے کھانے کی تحریر یا تصویر شامل نہیں ہوتی۔',
 			'meal.feedback.title' => 'کون سی بات غلط لگی؟',
 			'meal.feedback.subtitle' => 'کئی مسائل میں سے ایک یا زیادہ منتخب کر کے تجزیے کو بہتر بنانے میں ہماری مدد کریں۔',
 			'meal.feedback.tellUsMore' => 'ہمیں مزید بتائیں',
@@ -2562,8 +2535,6 @@ extension on TranslationsUr {
 			'notifications.snack.body' => 'صحت مند سنیک لینے کا وقت ہے',
 			'notifications.test.title' => 'ٹیسٹ نوٹیفیکیشن',
 			'login.title' => 'لاگ ان',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google سے سائن ان کریں',
 			'login.signInFailed' => 'Google سائن ان ناکام ہوا یا منسوخ کر دیا گیا۔',
 			'disclaimer.pleaseNote' => 'براہِ کرم نوٹ کریں',
@@ -2573,6 +2544,8 @@ extension on TranslationsUr {
 			'disclaimer.snap.preparationMethods.title' => 'تیاری کے طریقے',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'پکانے کے طریقے غذائی مواد کو نمایاں طور پر بدل سکتے ہیں۔ ${appLabel} کے اندازے ہمیشہ ان تبدیلیوں کو مدِ نظر نہیں رکھ سکتے۔',
 			'disclaimer.snap.ingredients.title' => 'اجزاء',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوں، کم درست اندازوں کا باعث بن سکتے ہیں۔',
 			'disclaimer.snap.databaseLimitations.title' => 'ڈیٹا بیس کی حدود',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} کا فوڈ ڈیٹا بیس وسیع ہے مگر ہو سکتا ہے ہر خوراک یا ویرینٹ شامل نہ ہو۔',
@@ -2599,15 +2572,6 @@ extension on TranslationsUr {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'ہم آپ کا TDEE (آپ کے پروفائل کی بنیاد پر) حساب کرتے ہیں اور دن کے گزرے ہوئے حصے (گھنٹے + منٹ) / 24 سے ضرب دے کر آج تک جلائی گئی کیلوریز کا اندازہ لگاتے ہیں۔',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'پیشہ ورانہ رہنمائی',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'اس اندازے کو طبی فیصلوں کے لیے استعمال نہ کریں۔ ذاتی وزن انتظام کے مشورے کے لیے ہمیشہ کسی ہیلتھ پروفیشنل یا رجسٹرڈ ڈائیٹیشن سے رجوع کریں۔',
-			'localNutritionPhase4.nutritionBundled' => 'غذائیت ڈاؤن لوڈ کیے گئے USDA پیک سے ملائی گئی',
-			'localNutritionPhase4.nutritionCached' => 'غذائیت ڈیوائس کی USDA کیش سے ملائی گئی',
-			'localNutritionPhase4.nutritionMixed' => 'غذائیت ڈاؤن لوڈ، کیش شدہ اور ریموٹ USDA قطاروں سے یکجا کی گئی',
-			'localNutritionPhase4.calculationLocal' => 'اس ڈیوائس پر کیلوریز اور میکروز کا حساب لگایا گیا',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ڈاؤن لوڈ کیا گیا USDA پیک',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: ڈیوائس کی USDA کیش',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify کے ذریعے حاصل کی گئی USDA قطار',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: متعین غذائی مستقل',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ڈیٹاسیٹ ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'کم',
 			'localNutritionPhase4.portionEstimated' => 'تخمینی',
 			'localNutritionPhase4.portionLarger' => 'زیادہ',

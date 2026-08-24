@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$el extends Translations$localNutritionP
 	final TranslationsEl _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Τα διατροφικά στοιχεία αντιστοιχίστηκαν από το ληφθέν πακέτο USDA';
-	@override String get nutritionCached => 'Τα διατροφικά στοιχεία αντιστοιχίστηκαν από την προσωρινή μνήμη USDA της συσκευής';
-	@override String get nutritionMixed => 'Τα διατροφικά στοιχεία συνδυάστηκαν από ληφθείσες, αποθηκευμένες και απομακρυσμένες γραμμές USDA';
-	@override String get calculationLocal => 'Οι θερμίδες και τα μακροθρεπτικά υπολογίστηκαν σε αυτή τη συσκευή';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ληφθέν πακέτο USDA';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: προσωρινή μνήμη USDA στη συσκευή';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: γραμμή USDA που ανακτήθηκε μέσω Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: ντετερμινιστική διατροφική σταθερά';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · σύνολο δεδομένων ${datasetVersion}';
 	@override String get portionSmaller => 'Μικρότερη';
 	@override String get portionEstimated => 'Εκτιμώμενη';
 	@override String get portionLarger => 'Μεγαλύτερη';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$el extends Translations$meal$localInfere
 	@override String get continueLabel => 'Συνέχεια';
 	@override String get invalidProposal => 'Προσθέστε τουλάχιστον ένα συστατικό και χρησιμοποιήστε μια θετική ποσότητα γραμμαρίων.';
 	@override String get localUnavailable => 'Η ανάλυση στη συσκευή δεν είναι διαθέσιμη αυτή τη στιγμή.';
-	@override String get calculationDetails => 'Πώς υπολογίστηκε αυτό';
-	@override String get interpretationLocal => 'Συστατικά που ερμηνεύτηκαν σε αυτή τη συσκευή';
-	@override String get interpretationCloud => 'Συστατικά που ερμηνεύτηκαν στο cloud';
-	@override String get interpretationManual => 'Συστατικά που ελέγξατε ή επεξεργαστήκατε εσείς';
-	@override String get nutritionRemote => 'Θρεπτικά στοιχεία από το USDA μέσω του Calorify';
-	@override String get nutritionFallback => 'Ορισμένες θρεπτικές τιμές εκτιμήθηκαν απομακρυσμένα';
-	@override String get calculationServer => 'Θερμίδες και μακροθρεπτικά υπολογίστηκαν από το Calorify';
-	@override String get fallbackUsed => 'Η τοπική ανάλυση μεταφέρθηκε σε επεξεργασία cloud';
-	@override String get noRawContent => 'Οι διαγνωστικές αποδείξεις δεν περιλαμβάνουν το κείμενο ή τη φωτογραφία του γεύματός σας.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsEl {
 			'meal.localInference.continueLabel' => 'Συνέχεια',
 			'meal.localInference.invalidProposal' => 'Προσθέστε τουλάχιστον ένα συστατικό και χρησιμοποιήστε μια θετική ποσότητα γραμμαρίων.',
 			'meal.localInference.localUnavailable' => 'Η ανάλυση στη συσκευή δεν είναι διαθέσιμη αυτή τη στιγμή.',
-			'meal.localInference.calculationDetails' => 'Πώς υπολογίστηκε αυτό',
-			'meal.localInference.interpretationLocal' => 'Συστατικά που ερμηνεύτηκαν σε αυτή τη συσκευή',
-			'meal.localInference.interpretationCloud' => 'Συστατικά που ερμηνεύτηκαν στο cloud',
-			'meal.localInference.interpretationManual' => 'Συστατικά που ελέγξατε ή επεξεργαστήκατε εσείς',
-			'meal.localInference.nutritionRemote' => 'Θρεπτικά στοιχεία από το USDA μέσω του Calorify',
-			'meal.localInference.nutritionFallback' => 'Ορισμένες θρεπτικές τιμές εκτιμήθηκαν απομακρυσμένα',
-			'meal.localInference.calculationServer' => 'Θερμίδες και μακροθρεπτικά υπολογίστηκαν από το Calorify',
-			'meal.localInference.fallbackUsed' => 'Η τοπική ανάλυση μεταφέρθηκε σε επεξεργασία cloud',
-			'meal.localInference.noRawContent' => 'Οι διαγνωστικές αποδείξεις δεν περιλαμβάνουν το κείμενο ή τη φωτογραφία του γεύματός σας.',
 			'meal.feedback.title' => 'Τι φαίνεται λανθασμένο;',
 			'meal.feedback.subtitle' => 'Βοηθήστε μας να βελτιώσουμε την ανάλυση επιλέγοντας ένα ή περισσότερα ζητήματα.',
 			'meal.feedback.tellUsMore' => 'Πείτε μας περισσότερα',
@@ -2562,8 +2535,6 @@ extension on TranslationsEl {
 			'notifications.snack.body' => 'Ώρα για ένα υγιεινό σνακ',
 			'notifications.test.title' => 'Δοκιμαστική Ειδοποίηση',
 			'login.title' => 'Σύνδεση',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Σύνδεση με Google',
 			'login.signInFailed' => 'Η Σύνδεση με Google απέτυχε ή ακυρώθηκε.',
 			'disclaimer.pleaseNote' => 'Σημειώστε',
@@ -2573,6 +2544,8 @@ extension on TranslationsEl {
 			'disclaimer.snap.preparationMethods.title' => 'Τρόποι Προετοιμασίας',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το διατροφικό περιεχόμενο. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.',
 			'disclaimer.snap.ingredients.title' => 'Συστατικά',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Τα σύνθετα πιάτα με πολλά κρυφά συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.',
 			'disclaimer.snap.databaseLimitations.title' => 'Περιορισμοί Βάσης Δεδομένων',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτεταμένη αλλά ενδέχεται να μην περιλαμβάνει κάθε είδος ή παραλλαγή.',
@@ -2599,15 +2572,6 @@ extension on TranslationsEl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Υπολογίζουμε το TDEE σας (βάσει του προφίλ σας) και το πολλαπλασιάζουμε με το κλάσμα της ημέρας που έχει περάσει (ώρες + λεπτά) / 24 για να εκτιμήσουμε τις θερμίδες που κάηκαν μέχρι στιγμής.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Επαγγελματική Καθοδήγηση',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Μην χρησιμοποιείτε αυτή την εκτίμηση για ιατρικές αποφάσεις. Συμβουλευτείτε πάντα έναν επαγγελματία υγείας ή έναν διαιτολόγο για εξατομικευμένη διαχείριση βάρους.',
-			'localNutritionPhase4.nutritionBundled' => 'Τα διατροφικά στοιχεία αντιστοιχίστηκαν από το ληφθέν πακέτο USDA',
-			'localNutritionPhase4.nutritionCached' => 'Τα διατροφικά στοιχεία αντιστοιχίστηκαν από την προσωρινή μνήμη USDA της συσκευής',
-			'localNutritionPhase4.nutritionMixed' => 'Τα διατροφικά στοιχεία συνδυάστηκαν από ληφθείσες, αποθηκευμένες και απομακρυσμένες γραμμές USDA',
-			'localNutritionPhase4.calculationLocal' => 'Οι θερμίδες και τα μακροθρεπτικά υπολογίστηκαν σε αυτή τη συσκευή',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ληφθέν πακέτο USDA',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: προσωρινή μνήμη USDA στη συσκευή',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: γραμμή USDA που ανακτήθηκε μέσω Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: ντετερμινιστική διατροφική σταθερά',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · σύνολο δεδομένων ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Μικρότερη',
 			'localNutritionPhase4.portionEstimated' => 'Εκτιμώμενη',
 			'localNutritionPhase4.portionLarger' => 'Μεγαλύτερη',

@@ -343,16 +343,7 @@
       "removeIngredient": "اجزاء ہٹائیں",
       "continueLabel": "جاری رکھیں",
       "invalidProposal": "کم از کم ایک جزو شامل کریں اور گرام کی مثبت مقدار استعمال کریں۔",
-      "localUnavailable": "آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔",
-      "calculationDetails": "اس کا حساب کیسے لگایا گیا",
-      "interpretationLocal": "اس ڈیوائس پر ترتیب دیے گئے اجزاء",
-      "interpretationCloud": "کلاؤڈ میں ترتیب دیے گئے اجزاء",
-      "interpretationManual": "آپ کے ذریعے جائزہ لیے گئے یا تبدیل کیے گئے اجزاء",
-      "nutritionRemote": "USDA سے Calorify کے ذریعے حاصل کردہ غذائیت",
-      "nutritionFallback": "کچھ غذائی اقدار کا تخمینہ ریموٹلی لگایا گیا",
-      "calculationServer": "کیلوریز اور میکروز کا حساب Calorify نے لگایا",
-      "fallbackUsed": "مقامی تجزیہ کلاؤڈ پروسیسنگ پر منتقل ہو گیا",
-      "noRawContent": "تشخیصی رسیدوں میں آپ کے کھانے کی تحریر یا تصویر شامل نہیں ہوتی۔"
+      "localUnavailable": "آن-ڈیوائس تجزیہ اس وقت دستیاب نہیں ہے۔"
     },
     "feedback": {
       "title": "کون سی بات غلط لگی؟",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "غذائیت ڈاؤن لوڈ کیے گئے USDA پیک سے ملائی گئی",
-    "nutritionCached": "غذائیت ڈیوائس کی USDA کیش سے ملائی گئی",
-    "nutritionMixed": "غذائیت ڈاؤن لوڈ، کیش شدہ اور ریموٹ USDA قطاروں سے یکجا کی گئی",
-    "calculationLocal": "اس ڈیوائس پر کیلوریز اور میکروز کا حساب لگایا گیا",
-    "ingredientBundled": "{ingredient}: ڈاؤن لوڈ کیا گیا USDA پیک",
-    "ingredientCached": "{ingredient}: ڈیوائس کی USDA کیش",
-    "ingredientRemote": "{ingredient}: Calorify کے ذریعے حاصل کی گئی USDA قطار",
-    "ingredientDeterministic": "{ingredient}: متعین غذائی مستقل",
-    "ingredientReference": "FDC {fdcId} · ڈیٹاسیٹ {datasetVersion}",
     "portionSmaller": "کم",
     "portionEstimated": "تخمینی",
     "portionLarger": "زیادہ",

@@ -343,16 +343,7 @@
       "removeIngredient": "Poista ainesosa",
       "continueLabel": "Jatka",
       "invalidProposal": "Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.",
-      "localUnavailable": "Laitteen oma analyysi ei ole tällä hetkellä käytettävissä.",
-      "calculationDetails": "Näin tämä laskettiin",
-      "interpretationLocal": "Ainesosat tulkittu tällä laitteella",
-      "interpretationCloud": "Ainesosat tulkittu pilvipalvelussa",
-      "interpretationManual": "Ainesosat tarkistettu tai muokattu käyttäjän toimesta",
-      "nutritionRemote": "Ravintoarvot haettu USDA:sta Calorifyn kautta",
-      "nutritionFallback": "Osa ravintoarvoista arvioitiin etänä",
-      "calculationServer": "Kalorit ja makroravinteet laskettu Calorifyn toimesta",
-      "fallbackUsed": "Paikallinen analyysi siirtyi pilvikäsittelyyn",
-      "noRawContent": "Diagnostiikkakuittaukset eivät sisällä ateriatekstiäsi tai valokuvaasi."
+      "localUnavailable": "Laitteen oma analyysi ei ole tällä hetkellä käytettävissä."
     },
     "feedback": {
       "title": "Mikä näyttää väärältä?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Ravintoarvot haettiin ladatusta USDA-paketista",
-    "nutritionCached": "Ravintoarvot haettiin laitteen USDA-välimuistista",
-    "nutritionMixed": "Ravintoarvot yhdistettiin ladatuista, välimuistiin tallennetuista ja etänä haetuista USDA-riveistä",
-    "calculationLocal": "Kalorit ja makrot laskettiin tällä laitteella",
-    "ingredientBundled": "{ingredient}: ladattu USDA-paketti",
-    "ingredientCached": "{ingredient}: laitteen USDA-välimuisti",
-    "ingredientRemote": "{ingredient}: Calorifyn kautta haettu USDA-rivi",
-    "ingredientDeterministic": "{ingredient}: deterministinen ravintoarvovakio",
-    "ingredientReference": "FDC {fdcId} · tietoaineisto {datasetVersion}",
     "portionSmaller": "Pienempi",
     "portionEstimated": "Arvioitu",
     "portionLarger": "Suurempi",

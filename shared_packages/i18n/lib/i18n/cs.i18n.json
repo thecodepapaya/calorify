@@ -343,16 +343,7 @@
       "removeIngredient": "Odebrat ingredienci",
       "continueLabel": "Pokračovat",
       "invalidProposal": "Přidejte alespoň jednu ingredienci a zadejte kladný počet gramů.",
-      "localUnavailable": "Analýza v zařízení momentálně není k dispozici.",
-      "calculationDetails": "Jak bylo vypočítáno",
-      "interpretationLocal": "Ingredience interpretované v tomto zařízení",
-      "interpretationCloud": "Ingredience interpretované v cloudu",
-      "interpretationManual": "Ingredience zkontrolované nebo upravené vámi",
-      "nutritionRemote": "Výživové hodnoty staženy z USDA prostřednictvím Calorify",
-      "nutritionFallback": "Některé výživové hodnoty byly odhadnuty vzdáleně",
-      "calculationServer": "Kalorie a makroživiny vypočítány aplikací Calorify",
-      "fallbackUsed": "Lokální analýza byla nahrazena zpracováním v cloudu",
-      "noRawContent": "Diagnostické účtenky neobsahují text ani fotografii vašeho jídla."
+      "localUnavailable": "Analýza v zařízení momentálně není k dispozici."
     },
     "feedback": {
       "title": "Co vypadá špatně?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Výživové údaje nalezeny ve staženém balíčku USDA",
-    "nutritionCached": "Výživové údaje nalezeny v mezipaměti USDA v zařízení",
-    "nutritionMixed": "Výživové údaje sloučeny ze stažených, uložených a vzdálených řádků USDA",
-    "calculationLocal": "Kalorie a makroživiny vypočítány v tomto zařízení",
-    "ingredientBundled": "{ingredient}: stažený balíček USDA",
-    "ingredientCached": "{ingredient}: mezipaměť USDA v zařízení",
-    "ingredientRemote": "{ingredient}: řádek USDA načtený přes Calorify",
-    "ingredientDeterministic": "{ingredient}: deterministická nutriční konstanta",
-    "ingredientReference": "FDC {fdcId} · datová sada {datasetVersion}",
     "portionSmaller": "Menší",
     "portionEstimated": "Odhadovaná",
     "portionLarger": "Větší",

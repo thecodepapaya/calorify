@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$hi extends Translations$localNutritionP
 	final TranslationsHi _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'पोषण जानकारी डाउनलोड किए गए USDA पैक से मिली';
-	@override String get nutritionCached => 'पोषण जानकारी डिवाइस की USDA कैश से मिली';
-	@override String get nutritionMixed => 'पोषण जानकारी डाउनलोड की गई, कैश की गई और रिमोट USDA पंक्तियों से जोड़ी गई';
-	@override String get calculationLocal => 'कैलोरी और मैक्रो की गणना इस डिवाइस पर की गई';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: डाउनलोड किया गया USDA पैक';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: डिवाइस की USDA कैश';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify के ज़रिए प्राप्त USDA पंक्ति';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: नियत पोषण स्थिरांक';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · डेटासेट ${datasetVersion}';
 	@override String get portionSmaller => 'छोटी';
 	@override String get portionEstimated => 'अनुमानित';
 	@override String get portionLarger => 'बड़ी';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$hi extends Translations$meal$localInfere
 	@override String get continueLabel => 'जारी रखें';
 	@override String get invalidProposal => 'कम से कम एक इंग्रीडिएंट जोड़ें और ग्राम की मात्रा सकारात्मक रखें।';
 	@override String get localUnavailable => 'ऑन-डिवाइस विश्लेषण अभी उपलब्ध नहीं है।';
-	@override String get calculationDetails => 'इसकी गणना कैसे की गई';
-	@override String get interpretationLocal => 'इस डिवाइस पर इंटरप्रेट किए गए इंग्रीडिएंट्स';
-	@override String get interpretationCloud => 'क्लाउड में इंटरप्रेट किए गए इंग्रीडिएंट्स';
-	@override String get interpretationManual => 'आपके द्वारा समीक्षा किए गए या संपादित किए गए इंग्रीडिएंट्स';
-	@override String get nutritionRemote => 'Calorify के माध्यम से USDA से प्राप्त पोषण';
-	@override String get nutritionFallback => 'कुछ पोषण मूल्यों का अनुमान रिमोटली लगाया गया था';
-	@override String get calculationServer => 'कैलोरी और मैक्रोज़ की गणना Calorify द्वारा की गई';
-	@override String get fallbackUsed => 'लोकल विश्लेषण क्लाउड प्रोसेसिंग पर स्विच हो गया';
-	@override String get noRawContent => 'डायग्नोस्टिक रसीदों में आपके भोजन का टेक्स्ट या फोटो शामिल नहीं होता है।';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsHi {
 			'meal.localInference.continueLabel' => 'जारी रखें',
 			'meal.localInference.invalidProposal' => 'कम से कम एक इंग्रीडिएंट जोड़ें और ग्राम की मात्रा सकारात्मक रखें।',
 			'meal.localInference.localUnavailable' => 'ऑन-डिवाइस विश्लेषण अभी उपलब्ध नहीं है।',
-			'meal.localInference.calculationDetails' => 'इसकी गणना कैसे की गई',
-			'meal.localInference.interpretationLocal' => 'इस डिवाइस पर इंटरप्रेट किए गए इंग्रीडिएंट्स',
-			'meal.localInference.interpretationCloud' => 'क्लाउड में इंटरप्रेट किए गए इंग्रीडिएंट्स',
-			'meal.localInference.interpretationManual' => 'आपके द्वारा समीक्षा किए गए या संपादित किए गए इंग्रीडिएंट्स',
-			'meal.localInference.nutritionRemote' => 'Calorify के माध्यम से USDA से प्राप्त पोषण',
-			'meal.localInference.nutritionFallback' => 'कुछ पोषण मूल्यों का अनुमान रिमोटली लगाया गया था',
-			'meal.localInference.calculationServer' => 'कैलोरी और मैक्रोज़ की गणना Calorify द्वारा की गई',
-			'meal.localInference.fallbackUsed' => 'लोकल विश्लेषण क्लाउड प्रोसेसिंग पर स्विच हो गया',
-			'meal.localInference.noRawContent' => 'डायग्नोस्टिक रसीदों में आपके भोजन का टेक्स्ट या फोटो शामिल नहीं होता है।',
 			'meal.feedback.title' => 'क्या गलत दिख रहा है?',
 			'meal.feedback.subtitle' => 'कृपया एक या अधिक समस्याओं का चयन करके हमें विश्लेषण सुधारने में मदद करें।',
 			'meal.feedback.tellUsMore' => 'हमें और बताएं',
@@ -2562,8 +2535,6 @@ extension on TranslationsHi {
 			'notifications.snack.body' => 'एक स्वस्थ नाश्ता करने का समय है',
 			'notifications.test.title' => 'टेस्ट नोटिफिकेशन',
 			'login.title' => 'लॉगिन',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google के साथ साइन इन करें',
 			'login.signInFailed' => 'Google साइन-इन विफल हुआ या रद्द कर दिया गया।',
 			'disclaimer.pleaseNote' => 'कृपया ध्यान दें',
@@ -2573,6 +2544,8 @@ extension on TranslationsHi {
 			'disclaimer.snap.preparationMethods.title' => 'तैयारी की विधियाँ',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाना पकाने की विधियाँ खाद्य के पोषण सामग्री को काफी बदल सकती हैं। ${appLabel} के अनुमान हमेशा इन परिवर्तनों को ध्यान में नहीं रख सकते हैं।',
 			'disclaimer.snap.ingredients.title' => 'सामग्री',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'कई छिपी हुई सामग्रियों वाले जटिल व्यंजन कम सटीक अनुमान दे सकते हैं।',
 			'disclaimer.snap.databaseLimitations.title' => 'डेटाबेस सीमाएँ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} का फ़ूड डेटाबेस व्यापक है परन्तु हर एक खाद्य आइटम या विविधता शामिल न हो सकती है।',
@@ -2599,15 +2572,6 @@ extension on TranslationsHi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'हम आपका TDEE (आपकी प्रोफ़ाइल के आधार पर) गणना करते हैं और दिन के बीते हिस्से (घंटे + मिनट) / 24 से गुणा करके अब तक जलाए गए कैलोरी का अनुमान लगाते हैं।',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'पेशेवर मार्गदर्शन',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'इस अनुमान का उपयोग चिकित्सा निर्णय लेने के लिए न करें। व्यक्तिगत वजन प्रबंधन सलाह के लिए हमेशा किसी स्वास्थ्य पेशेवर या पंजीकृत आहार विशेषज्ञ से परामर्श करें।',
-			'localNutritionPhase4.nutritionBundled' => 'पोषण जानकारी डाउनलोड किए गए USDA पैक से मिली',
-			'localNutritionPhase4.nutritionCached' => 'पोषण जानकारी डिवाइस की USDA कैश से मिली',
-			'localNutritionPhase4.nutritionMixed' => 'पोषण जानकारी डाउनलोड की गई, कैश की गई और रिमोट USDA पंक्तियों से जोड़ी गई',
-			'localNutritionPhase4.calculationLocal' => 'कैलोरी और मैक्रो की गणना इस डिवाइस पर की गई',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: डाउनलोड किया गया USDA पैक',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: डिवाइस की USDA कैश',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify के ज़रिए प्राप्त USDA पंक्ति',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: नियत पोषण स्थिरांक',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · डेटासेट ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'छोटी',
 			'localNutritionPhase4.portionEstimated' => 'अनुमानित',
 			'localNutritionPhase4.portionLarger' => 'बड़ी',

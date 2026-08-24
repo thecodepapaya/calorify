@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$da extends Translations$localNutritionP
 	final TranslationsDa _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Ernæringsdata matchet fra den downloadede USDA-pakke';
-	@override String get nutritionCached => 'Ernæringsdata matchet fra USDA-cachen på enheden';
-	@override String get nutritionMixed => 'Ernæringsdata kombineret fra downloadede, cachede og eksterne USDA-rækker';
-	@override String get calculationLocal => 'Kalorier og makroer beregnet på denne enhed';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: downloadet USDA-pakke';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: USDA-cache på enheden';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA-række hentet via Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministisk ernæringskonstant';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datasæt ${datasetVersion}';
 	@override String get portionSmaller => 'Mindre';
 	@override String get portionEstimated => 'Anslået';
 	@override String get portionLarger => 'Større';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$da extends Translations$meal$localInfere
 	@override String get continueLabel => 'Fortsæt';
 	@override String get invalidProposal => 'Tilføj mindst én ingrediens og brug et positivt antal gram.';
 	@override String get localUnavailable => 'Analyse på enheden er ikke tilgængelig lige nu.';
-	@override String get calculationDetails => 'Sådan blev dette beregnet';
-	@override String get interpretationLocal => 'Ingredienser fortolket på denne enhed';
-	@override String get interpretationCloud => 'Ingredienser fortolket i skyen';
-	@override String get interpretationManual => 'Ingredienser gennemset eller redigeret af dig';
-	@override String get nutritionRemote => 'Næringsindhold hentet fra USDA via Calorify';
-	@override String get nutritionFallback => 'Nogle næringsværdier blev estimeret eksternt';
-	@override String get calculationServer => 'Kalorier og makronæringsstoffer beregnet af Calorify';
-	@override String get fallbackUsed => 'Lokal analyse skiftede til cloud-behandling';
-	@override String get noRawContent => 'Diagnostiske kvitteringer indeholder ikke din måltidstekst eller dit foto.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsDa {
 			'meal.localInference.continueLabel' => 'Fortsæt',
 			'meal.localInference.invalidProposal' => 'Tilføj mindst én ingrediens og brug et positivt antal gram.',
 			'meal.localInference.localUnavailable' => 'Analyse på enheden er ikke tilgængelig lige nu.',
-			'meal.localInference.calculationDetails' => 'Sådan blev dette beregnet',
-			'meal.localInference.interpretationLocal' => 'Ingredienser fortolket på denne enhed',
-			'meal.localInference.interpretationCloud' => 'Ingredienser fortolket i skyen',
-			'meal.localInference.interpretationManual' => 'Ingredienser gennemset eller redigeret af dig',
-			'meal.localInference.nutritionRemote' => 'Næringsindhold hentet fra USDA via Calorify',
-			'meal.localInference.nutritionFallback' => 'Nogle næringsværdier blev estimeret eksternt',
-			'meal.localInference.calculationServer' => 'Kalorier og makronæringsstoffer beregnet af Calorify',
-			'meal.localInference.fallbackUsed' => 'Lokal analyse skiftede til cloud-behandling',
-			'meal.localInference.noRawContent' => 'Diagnostiske kvitteringer indeholder ikke din måltidstekst eller dit foto.',
 			'meal.feedback.title' => 'Hvad ser forkert ud?',
 			'meal.feedback.subtitle' => 'Hjælp os med at forbedre analysen ved at vælge ét eller flere problemer.',
 			'meal.feedback.tellUsMore' => 'Fortæl os mere',
@@ -2562,8 +2535,6 @@ extension on TranslationsDa {
 			'notifications.snack.body' => 'Tid til en sund snack',
 			'notifications.test.title' => 'Testnotifikation',
 			'login.title' => 'Log ind',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Log ind med Google',
 			'login.signInFailed' => 'Google-login mislykkedes eller blev annulleret.',
 			'disclaimer.pleaseNote' => 'Bemærk venligst',
@@ -2573,6 +2544,8 @@ extension on TranslationsDa {
 			'disclaimer.snap.preparationMethods.title' => 'Tilberedningsmetoder',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tilberedningsmetoder kan ændre madens næringsindhold betydeligt. ${appLabel}\'s estimater tager ikke altid højde for disse variationer.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Komplekse retter med mange skjulte ingredienser kan give mindre nøjagtige estimater.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasebegrænsninger',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s fødevaredatabase er omfattende, men indeholder muligvis ikke alle fødevarer eller variationer.',
@@ -2599,15 +2572,6 @@ extension on TranslationsDa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beregner din TDEE (baseret på din profil) og ganger den med den passerede del af dagen (timer + minutter) / 24 for at estimere forbrændte kalorier indtil nu.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionel vejledning',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Brug ikke dette estimat til medicinske beslutninger. Kontakt altid en sundhedsprofessionel eller registreret diætist for personlig vægtstyringsrådgivning.',
-			'localNutritionPhase4.nutritionBundled' => 'Ernæringsdata matchet fra den downloadede USDA-pakke',
-			'localNutritionPhase4.nutritionCached' => 'Ernæringsdata matchet fra USDA-cachen på enheden',
-			'localNutritionPhase4.nutritionMixed' => 'Ernæringsdata kombineret fra downloadede, cachede og eksterne USDA-rækker',
-			'localNutritionPhase4.calculationLocal' => 'Kalorier og makroer beregnet på denne enhed',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: downloadet USDA-pakke',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: USDA-cache på enheden',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA-række hentet via Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministisk ernæringskonstant',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datasæt ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Mindre',
 			'localNutritionPhase4.portionEstimated' => 'Anslået',
 			'localNutritionPhase4.portionLarger' => 'Større',

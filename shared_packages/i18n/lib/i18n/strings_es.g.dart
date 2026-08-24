@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$es extends Translations$localNutritionP
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Nutrición obtenida del paquete USDA descargado';
-	@override String get nutritionCached => 'Nutrición obtenida de la caché USDA del dispositivo';
-	@override String get nutritionMixed => 'Nutrición combinada de registros USDA descargados, almacenados en caché y remotos';
-	@override String get calculationLocal => 'Calorías y macros calculados en este dispositivo';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: paquete USDA descargado';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: caché USDA del dispositivo';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: registro USDA obtenido mediante Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: constante nutricional determinista';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · conjunto de datos ${datasetVersion}';
 	@override String get portionSmaller => 'Más pequeña';
 	@override String get portionEstimated => 'Estimada';
 	@override String get portionLarger => 'Más grande';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$es extends Translations$meal$localInfere
 	@override String get continueLabel => 'Continuar';
 	@override String get invalidProposal => 'Añade al menos un ingrediente y usa una cantidad de gramos positiva.';
 	@override String get localUnavailable => 'El análisis en el dispositivo no está disponible en este momento.';
-	@override String get calculationDetails => 'Cómo se calculó esto';
-	@override String get interpretationLocal => 'Ingredientes interpretados en este dispositivo';
-	@override String get interpretationCloud => 'Ingredientes interpretados en la nube';
-	@override String get interpretationManual => 'Ingredientes revisados o editados por ti';
-	@override String get nutritionRemote => 'Nutrición obtenida de USDA a través de Calorify';
-	@override String get nutritionFallback => 'Algunos valores nutricionales se estimaron remotamente';
-	@override String get calculationServer => 'Calorías y macros calculados por Calorify';
-	@override String get fallbackUsed => 'El análisis local recurrió al procesamiento en la nube';
-	@override String get noRawContent => 'Los recibos de diagnóstico no incluyen el texto ni la foto de tu comida.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsEs {
 			'meal.localInference.continueLabel' => 'Continuar',
 			'meal.localInference.invalidProposal' => 'Añade al menos un ingrediente y usa una cantidad de gramos positiva.',
 			'meal.localInference.localUnavailable' => 'El análisis en el dispositivo no está disponible en este momento.',
-			'meal.localInference.calculationDetails' => 'Cómo se calculó esto',
-			'meal.localInference.interpretationLocal' => 'Ingredientes interpretados en este dispositivo',
-			'meal.localInference.interpretationCloud' => 'Ingredientes interpretados en la nube',
-			'meal.localInference.interpretationManual' => 'Ingredientes revisados o editados por ti',
-			'meal.localInference.nutritionRemote' => 'Nutrición obtenida de USDA a través de Calorify',
-			'meal.localInference.nutritionFallback' => 'Algunos valores nutricionales se estimaron remotamente',
-			'meal.localInference.calculationServer' => 'Calorías y macros calculados por Calorify',
-			'meal.localInference.fallbackUsed' => 'El análisis local recurrió al procesamiento en la nube',
-			'meal.localInference.noRawContent' => 'Los recibos de diagnóstico no incluyen el texto ni la foto de tu comida.',
 			'meal.feedback.title' => '¿Qué está mal?',
 			'meal.feedback.subtitle' => 'Ayúdanos a mejorar el análisis seleccionando uno o más problemas.',
 			'meal.feedback.tellUsMore' => 'Cuéntanos más',
@@ -2562,8 +2535,6 @@ extension on TranslationsEs {
 			'notifications.snack.body' => 'Hora de un snack saludable',
 			'notifications.test.title' => 'Notificación de prueba',
 			'login.title' => 'Iniciar sesión',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Iniciar sesión con Google',
 			'login.signInFailed' => 'El inicio de sesión con Google falló o fue cancelado.',
 			'disclaimer.pleaseNote' => 'Por favor ten en cuenta',
@@ -2573,6 +2544,8 @@ extension on TranslationsEs {
 			'disclaimer.snap.preparationMethods.title' => 'Métodos de preparación',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Los métodos de cocción pueden alterar significativamente el contenido nutricional de los alimentos. Las estimaciones de ${appLabel} pueden no tener en cuenta siempre estas variaciones.',
 			'disclaimer.snap.ingredients.title' => 'Ingredientes',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Platos complejos con muchos ingredientes ocultos pueden conducir a estimaciones menos precisas.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitaciones de la base de datos',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'La base de datos de alimentos de ${appLabel} es extensa pero puede no incluir todos los alimentos o variaciones.',
@@ -2599,15 +2572,6 @@ extension on TranslationsEs {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calculamos tu TDEE (basado en tu perfil) y lo multiplicamos por la fracción del día transcurrida (horas + minutos) / 24 para estimar las calorías quemadas hasta ahora.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Orientación profesional',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'No uses esta estimación para tomar decisiones médicas. Consulta siempre a un profesional de la salud o a un dietista registrado para consejos personalizados de manejo de peso.',
-			'localNutritionPhase4.nutritionBundled' => 'Nutrición obtenida del paquete USDA descargado',
-			'localNutritionPhase4.nutritionCached' => 'Nutrición obtenida de la caché USDA del dispositivo',
-			'localNutritionPhase4.nutritionMixed' => 'Nutrición combinada de registros USDA descargados, almacenados en caché y remotos',
-			'localNutritionPhase4.calculationLocal' => 'Calorías y macros calculados en este dispositivo',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: paquete USDA descargado',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: caché USDA del dispositivo',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: registro USDA obtenido mediante Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: constante nutricional determinista',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · conjunto de datos ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Más pequeña',
 			'localNutritionPhase4.portionEstimated' => 'Estimada',
 			'localNutritionPhase4.portionLarger' => 'Más grande',

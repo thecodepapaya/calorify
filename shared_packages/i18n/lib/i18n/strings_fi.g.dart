@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$fi extends Translations$localNutritionP
 	final TranslationsFi _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Ravintoarvot haettiin ladatusta USDA-paketista';
-	@override String get nutritionCached => 'Ravintoarvot haettiin laitteen USDA-välimuistista';
-	@override String get nutritionMixed => 'Ravintoarvot yhdistettiin ladatuista, välimuistiin tallennetuista ja etänä haetuista USDA-riveistä';
-	@override String get calculationLocal => 'Kalorit ja makrot laskettiin tällä laitteella';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ladattu USDA-paketti';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: laitteen USDA-välimuisti';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorifyn kautta haettu USDA-rivi';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministinen ravintoarvovakio';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · tietoaineisto ${datasetVersion}';
 	@override String get portionSmaller => 'Pienempi';
 	@override String get portionEstimated => 'Arvioitu';
 	@override String get portionLarger => 'Suurempi';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$fi extends Translations$meal$localInfere
 	@override String get continueLabel => 'Jatka';
 	@override String get invalidProposal => 'Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.';
 	@override String get localUnavailable => 'Laitteen oma analyysi ei ole tällä hetkellä käytettävissä.';
-	@override String get calculationDetails => 'Näin tämä laskettiin';
-	@override String get interpretationLocal => 'Ainesosat tulkittu tällä laitteella';
-	@override String get interpretationCloud => 'Ainesosat tulkittu pilvipalvelussa';
-	@override String get interpretationManual => 'Ainesosat tarkistettu tai muokattu käyttäjän toimesta';
-	@override String get nutritionRemote => 'Ravintoarvot haettu USDA:sta Calorifyn kautta';
-	@override String get nutritionFallback => 'Osa ravintoarvoista arvioitiin etänä';
-	@override String get calculationServer => 'Kalorit ja makroravinteet laskettu Calorifyn toimesta';
-	@override String get fallbackUsed => 'Paikallinen analyysi siirtyi pilvikäsittelyyn';
-	@override String get noRawContent => 'Diagnostiikkakuittaukset eivät sisällä ateriatekstiäsi tai valokuvaasi.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsFi {
 			'meal.localInference.continueLabel' => 'Jatka',
 			'meal.localInference.invalidProposal' => 'Lisää vähintään yksi ainesosa ja käytä positiivista grammamäärää.',
 			'meal.localInference.localUnavailable' => 'Laitteen oma analyysi ei ole tällä hetkellä käytettävissä.',
-			'meal.localInference.calculationDetails' => 'Näin tämä laskettiin',
-			'meal.localInference.interpretationLocal' => 'Ainesosat tulkittu tällä laitteella',
-			'meal.localInference.interpretationCloud' => 'Ainesosat tulkittu pilvipalvelussa',
-			'meal.localInference.interpretationManual' => 'Ainesosat tarkistettu tai muokattu käyttäjän toimesta',
-			'meal.localInference.nutritionRemote' => 'Ravintoarvot haettu USDA:sta Calorifyn kautta',
-			'meal.localInference.nutritionFallback' => 'Osa ravintoarvoista arvioitiin etänä',
-			'meal.localInference.calculationServer' => 'Kalorit ja makroravinteet laskettu Calorifyn toimesta',
-			'meal.localInference.fallbackUsed' => 'Paikallinen analyysi siirtyi pilvikäsittelyyn',
-			'meal.localInference.noRawContent' => 'Diagnostiikkakuittaukset eivät sisällä ateriatekstiäsi tai valokuvaasi.',
 			'meal.feedback.title' => 'Mikä näyttää väärältä?',
 			'meal.feedback.subtitle' => 'Auttaaksesi parantamaan analyysiä, valitse yksi tai useampi ongelma.',
 			'meal.feedback.tellUsMore' => 'Kerro lisää',
@@ -2562,8 +2535,6 @@ extension on TranslationsFi {
 			'notifications.snack.body' => 'Aika terveelliselle välipalalle',
 			'notifications.test.title' => 'Testi-ilmoitus',
 			'login.title' => 'Kirjaudu',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Kirjaudu Googlella',
 			'login.signInFailed' => 'Google-kirjautuminen epäonnistui tai peruttiin.',
 			'disclaimer.pleaseNote' => 'Huomioithan',
@@ -2573,6 +2544,8 @@ extension on TranslationsFi {
 			'disclaimer.snap.preparationMethods.title' => 'Valmistustavat',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Ruokien valmistustavat voivat merkittävästi muuttaa ravintoarvoja. ${appLabel}in arviot eivät aina huomioi näitä eroja.',
 			'disclaimer.snap.ingredients.title' => 'Ainesosat',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Monimutkaiset ruoat, joissa on paljon piilotettuja ainesosia, saattavat johtaa epätarkempiin arvioihin.',
 			'disclaimer.snap.databaseLimitations.title' => 'Tietokantaan liittyvät rajoitukset',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota.',
@@ -2599,15 +2572,6 @@ extension on TranslationsFi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Laskemme TDEE:si (profiilisi perusteella) ja kerromme sen kuluneen päivän osuudella (tunnit + minuutit) / 24 arvioidaksemme tähän mennessä poltetut kalorit.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ammatillinen ohjaus',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Älä käytä tätä arviota lääketieteellisten päätösten tekemiseen. Kysy aina terveydenhuollon ammattilaiselta tai rekisteröidyltä ravitsemusterapeutilta henkilökohtaista painonhallintaohjeistusta.',
-			'localNutritionPhase4.nutritionBundled' => 'Ravintoarvot haettiin ladatusta USDA-paketista',
-			'localNutritionPhase4.nutritionCached' => 'Ravintoarvot haettiin laitteen USDA-välimuistista',
-			'localNutritionPhase4.nutritionMixed' => 'Ravintoarvot yhdistettiin ladatuista, välimuistiin tallennetuista ja etänä haetuista USDA-riveistä',
-			'localNutritionPhase4.calculationLocal' => 'Kalorit ja makrot laskettiin tällä laitteella',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ladattu USDA-paketti',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: laitteen USDA-välimuisti',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorifyn kautta haettu USDA-rivi',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministinen ravintoarvovakio',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · tietoaineisto ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Pienempi',
 			'localNutritionPhase4.portionEstimated' => 'Arvioitu',
 			'localNutritionPhase4.portionLarger' => 'Suurempi',

@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$he extends Translations$localNutritionP
 	final TranslationsHe _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'נתוני התזונה הותאמו מחבילת USDA שהורדה';
-	@override String get nutritionCached => 'נתוני התזונה הותאמו ממטמון USDA במכשיר';
-	@override String get nutritionMixed => 'נתוני התזונה שולבו משורות USDA שהורדו, נשמרו במטמון ונשלפו מרחוק';
-	@override String get calculationLocal => 'הקלוריות והמאקרו חושבו במכשיר הזה';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: חבילת USDA שהורדה';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: מטמון USDA במכשיר';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: שורת USDA שנשלפה דרך Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: קבוע תזונתי דטרמיניסטי';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · מערך נתונים ${datasetVersion}';
 	@override String get portionSmaller => 'קטנה יותר';
 	@override String get portionEstimated => 'משוערת';
 	@override String get portionLarger => 'גדולה יותר';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$he extends Translations$meal$localInfere
 	@override String get continueLabel => 'המשך';
 	@override String get invalidProposal => 'הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.';
 	@override String get localUnavailable => 'ניתוח מקומי במכשיר אינו זמין כעת.';
-	@override String get calculationDetails => 'כיצד זה חושב';
-	@override String get interpretationLocal => 'רכיבים שפוענחו במכשיר זה';
-	@override String get interpretationCloud => 'רכיבים שפוענחו בענן';
-	@override String get interpretationManual => 'רכיבים שנבדקו או נערכו על ידיך';
-	@override String get nutritionRemote => 'ערכים תזונתיים נשלפו מ-USDA באמצעות Calorify';
-	@override String get nutritionFallback => 'חלק מהערכים התזונתיים הוערכו מרחוק';
-	@override String get calculationServer => 'קלוריות ומקרוס חושבו על ידי Calorify';
-	@override String get fallbackUsed => 'הניתוח המקומי עבר לעיבוד בענן';
-	@override String get noRawContent => 'קבצי אבחון אינם כוללים את טקסט הארוחה או התמונה שלך.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsHe {
 			'meal.localInference.continueLabel' => 'המשך',
 			'meal.localInference.invalidProposal' => 'הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.',
 			'meal.localInference.localUnavailable' => 'ניתוח מקומי במכשיר אינו זמין כעת.',
-			'meal.localInference.calculationDetails' => 'כיצד זה חושב',
-			'meal.localInference.interpretationLocal' => 'רכיבים שפוענחו במכשיר זה',
-			'meal.localInference.interpretationCloud' => 'רכיבים שפוענחו בענן',
-			'meal.localInference.interpretationManual' => 'רכיבים שנבדקו או נערכו על ידיך',
-			'meal.localInference.nutritionRemote' => 'ערכים תזונתיים נשלפו מ-USDA באמצעות Calorify',
-			'meal.localInference.nutritionFallback' => 'חלק מהערכים התזונתיים הוערכו מרחוק',
-			'meal.localInference.calculationServer' => 'קלוריות ומקרוס חושבו על ידי Calorify',
-			'meal.localInference.fallbackUsed' => 'הניתוח המקומי עבר לעיבוד בענן',
-			'meal.localInference.noRawContent' => 'קבצי אבחון אינם כוללים את טקסט הארוחה או התמונה שלך.',
 			'meal.feedback.title' => 'מה לא נראה נכון?',
 			'meal.feedback.subtitle' => 'עזור לנו לשפר את הניתוח על ידי בחירת אחת או יותר מהבעיות.',
 			'meal.feedback.tellUsMore' => 'ספר לנו עוד',
@@ -2562,8 +2535,6 @@ extension on TranslationsHe {
 			'notifications.snack.body' => 'הגיע הזמן לנשנוש בריא',
 			'notifications.test.title' => 'התראת בדיקה',
 			'login.title' => 'התחבר',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'התחבר עם Google',
 			'login.signInFailed' => 'ההתחברות עם Google נכשלה או בוטלה.',
 			'disclaimer.pleaseNote' => 'שים/י לב',
@@ -2573,6 +2544,8 @@ extension on TranslationsHe {
 			'disclaimer.snap.preparationMethods.title' => 'שיטות הכנה',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.',
 			'disclaimer.snap.ingredients.title' => 'מרכיבים',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם מרכיבים נסתרים רבים עלולות להוביל להערכות פחות מדויקות.',
 			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר הנתונים',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'מאגר המזונות של ${appLabel} הוא רחב אך עשוי שלא לכלול כל פריט או וריאציה.',
@@ -2599,15 +2572,6 @@ extension on TranslationsHe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'אנו מחשבים את ה-TDEE שלך (בהתבסס על הפרופיל) ומכפילים אותו בחלק של היום שעבר (שעות + דקות) / 24 כדי להעריך את הקלוריות שנשרפו עד כה.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'הנחיה מקצועית',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'אל תשתמש/י באומדן זה לקבלת החלטות רפואיות. תמיד התייעץ/י עם איש מקצוע בתחום הבריאות או דיאטן מוסמך לקבלת ייעוץ מותאם.',
-			'localNutritionPhase4.nutritionBundled' => 'נתוני התזונה הותאמו מחבילת USDA שהורדה',
-			'localNutritionPhase4.nutritionCached' => 'נתוני התזונה הותאמו ממטמון USDA במכשיר',
-			'localNutritionPhase4.nutritionMixed' => 'נתוני התזונה שולבו משורות USDA שהורדו, נשמרו במטמון ונשלפו מרחוק',
-			'localNutritionPhase4.calculationLocal' => 'הקלוריות והמאקרו חושבו במכשיר הזה',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: חבילת USDA שהורדה',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: מטמון USDA במכשיר',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: שורת USDA שנשלפה דרך Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: קבוע תזונתי דטרמיניסטי',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · מערך נתונים ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'קטנה יותר',
 			'localNutritionPhase4.portionEstimated' => 'משוערת',
 			'localNutritionPhase4.portionLarger' => 'גדולה יותר',

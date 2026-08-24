@@ -343,16 +343,7 @@
       "removeIngredient": "పదార్థాన్ని తొలగించు",
       "continueLabel": "కొనసాగించు",
       "invalidProposal": "కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.",
-      "localUnavailable": "ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.",
-      "calculationDetails": "ఇది ఎలా లెక్కించబడింది",
-      "interpretationLocal": "ఈ పరికరంలో విశ్లేషించబడిన పదార్థాలు",
-      "interpretationCloud": "క్లౌడ్‌లో విశ్లేషించబడిన పదార్థాలు",
-      "interpretationManual": "మీరు సమీక్షించిన లేదా సవరించిన పదార్థాలు",
-      "nutritionRemote": "Calorify ద్వారా USDA నుండి సేకరించిన పోషక విలువలు",
-      "nutritionFallback": "కొన్ని పోషక విలువలు రిమోట్‌గా అంచనా వేయబడ్డాయి",
-      "calculationServer": "క్యాలరీలు మరియు మాక్రోలు Calorify ద్వారా లెక్కించబడ్డాయి",
-      "fallbackUsed": "స్థానిక విశ్లేషణ విఫలమై క్లౌడ్ ప్రాసెసింగ్‌కు మారింది",
-      "noRawContent": "డయాగ్నోస్టిక్ రసీదులలో మీ భోజనం టెక్స్ట్ లేదా ఫోటో ఉండవు."
+      "localUnavailable": "ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు."
     },
     "feedback": {
       "title": "ఏమి తప్పుగా కనిపిస్తుంది?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "డౌన్‌లోడ్ చేసిన USDA ప్యాక్ నుంచి పోషక విలువలు సరిపోల్చబడ్డాయి",
-    "nutritionCached": "పరికరంలోని USDA క్యాష్ నుంచి పోషక విలువలు సరిపోల్చబడ్డాయి",
-    "nutritionMixed": "డౌన్‌లోడ్ చేసిన, క్యాష్ చేసిన మరియు రిమోట్ USDA వరుసల నుంచి పోషక విలువలు కలపబడ్డాయి",
-    "calculationLocal": "ఈ పరికరంలో కేలరీలు మరియు మాక్రోలు లెక్కించబడ్డాయి",
-    "ingredientBundled": "{ingredient}: డౌన్‌లోడ్ చేసిన USDA ప్యాక్",
-    "ingredientCached": "{ingredient}: పరికరంలోని USDA క్యాష్",
-    "ingredientRemote": "{ingredient}: Calorify ద్వారా పొందిన USDA వరుస",
-    "ingredientDeterministic": "{ingredient}: నిర్ధారిత పోషక స్థిరాంకం",
-    "ingredientReference": "FDC {fdcId} · డేటాసెట్ {datasetVersion}",
     "portionSmaller": "చిన్నది",
     "portionEstimated": "అంచనా",
     "portionLarger": "పెద్దది",

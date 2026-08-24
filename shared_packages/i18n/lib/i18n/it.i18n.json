@@ -343,16 +343,7 @@
       "removeIngredient": "Rimuovi ingrediente",
       "continueLabel": "Continua",
       "invalidProposal": "Aggiungi almeno un ingrediente e inserisci una quantità di grammi positiva.",
-      "localUnavailable": "L'analisi sul dispositivo non è disponibile al momento.",
-      "calculationDetails": "Come è stato calcolato",
-      "interpretationLocal": "Ingredienti interpretati su questo dispositivo",
-      "interpretationCloud": "Ingredienti interpretati nel cloud",
-      "interpretationManual": "Ingredienti revisionati o modificati da te",
-      "nutritionRemote": "Valori nutrizionali USDA recuperati tramite Calorify",
-      "nutritionFallback": "Alcuni valori nutrizionali sono stati stimati remotamente",
-      "calculationServer": "Calorie e macro calcolate da Calorify",
-      "fallbackUsed": "L'analisi locale è passata all'elaborazione in cloud",
-      "noRawContent": "Le ricevute diagnostiche non includono il testo o la foto del tuo pasto."
+      "localUnavailable": "L'analisi sul dispositivo non è disponibile al momento."
     },
     "feedback": {
       "title": "Cosa non va?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Valori nutrizionali abbinati dal pacchetto USDA scaricato",
-    "nutritionCached": "Valori nutrizionali abbinati dalla cache USDA sul dispositivo",
-    "nutritionMixed": "Valori nutrizionali combinati da righe USDA scaricate, memorizzate nella cache e remote",
-    "calculationLocal": "Calorie e macronutrienti calcolati su questo dispositivo",
-    "ingredientBundled": "{ingredient}: pacchetto USDA scaricato",
-    "ingredientCached": "{ingredient}: cache USDA sul dispositivo",
-    "ingredientRemote": "{ingredient}: riga USDA recuperata tramite Calorify",
-    "ingredientDeterministic": "{ingredient}: costante nutrizionale deterministica",
-    "ingredientReference": "FDC {fdcId} · set di dati {datasetVersion}",
     "portionSmaller": "Più piccola",
     "portionEstimated": "Stimata",
     "portionLarger": "Più grande",

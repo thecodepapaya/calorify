@@ -343,16 +343,7 @@
       "removeIngredient": "Ingrediënt verwijderen",
       "continueLabel": "Doorgaan",
       "invalidProposal": "Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.",
-      "localUnavailable": "Analyse op het apparaat is momenteel niet beschikbaar.",
-      "calculationDetails": "Hoe dit is berekend",
-      "interpretationLocal": "Ingrediënten geïnterpreteerd op dit apparaat",
-      "interpretationCloud": "Ingrediënten geïnterpreteerd in de cloud",
-      "interpretationManual": "Ingrediënten gecontroleerd of bewerkt door jou",
-      "nutritionRemote": "Voedingswaarde opgehaald uit USDA via Calorify",
-      "nutritionFallback": "Sommige voedingswaarden zijn op afstand geschat",
-      "calculationServer": "Calorieën en macro's berekend door Calorify",
-      "fallbackUsed": "Lokale analyse is teruggevallen op cloudverwerking",
-      "noRawContent": "Diagnostische bonnen bevatten geen maaltijdtekst of foto."
+      "localUnavailable": "Analyse op het apparaat is momenteel niet beschikbaar."
     },
     "feedback": {
       "title": "Wat klopt er niet?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Voedingswaarden gekoppeld uit het gedownloade USDA-pakket",
-    "nutritionCached": "Voedingswaarden gekoppeld uit de USDA-cache op het apparaat",
-    "nutritionMixed": "Voedingswaarden gecombineerd uit gedownloade, gecachte en externe USDA-rijen",
-    "calculationLocal": "Calorieën en macro’s berekend op dit apparaat",
-    "ingredientBundled": "{ingredient}: gedownload USDA-pakket",
-    "ingredientCached": "{ingredient}: USDA-cache op het apparaat",
-    "ingredientRemote": "{ingredient}: USDA-rij opgehaald via Calorify",
-    "ingredientDeterministic": "{ingredient}: deterministische voedingsconstante",
-    "ingredientReference": "FDC {fdcId} · gegevensset {datasetVersion}",
     "portionSmaller": "Kleiner",
     "portionEstimated": "Geschat",
     "portionLarger": "Groter",

@@ -343,16 +343,7 @@
       "removeIngredient": "Zutat entfernen",
       "continueLabel": "Weiter",
       "invalidProposal": "Fügen Sie mindestens eine Zutat hinzu und geben Sie eine positive Grammzahl an.",
-      "localUnavailable": "Die On-Device-Analyse ist derzeit nicht verfügbar.",
-      "calculationDetails": "Berechnungsgrundlagen",
-      "interpretationLocal": "Zutaten auf diesem Gerät interpretiert",
-      "interpretationCloud": "Zutaten in der Cloud interpretiert",
-      "interpretationManual": "Zutaten von Ihnen geprüft oder bearbeitet",
-      "nutritionRemote": "Nährwerte über Calorify von der USDA bezogen",
-      "nutritionFallback": "Einige Nährwerte wurden remote geschätzt",
-      "calculationServer": "Kalorien und Makros von Calorify berechnet",
-      "fallbackUsed": "Lokale Analyse auf Cloud-Verarbeitung zurückgegriffen",
-      "noRawContent": "Diagnosebelege enthalten weder Ihren Mahlzeitentext noch Ihr Foto."
+      "localUnavailable": "Die On-Device-Analyse ist derzeit nicht verfügbar."
     },
     "feedback": {
       "title": "Was stimmt hier nicht?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Nährwerte aus dem heruntergeladenen USDA-Paket zugeordnet",
-    "nutritionCached": "Nährwerte aus dem USDA-Gerätecache zugeordnet",
-    "nutritionMixed": "Nährwerte aus heruntergeladenen, zwischengespeicherten und entfernten USDA-Datensätzen kombiniert",
-    "calculationLocal": "Kalorien und Makronährstoffe auf diesem Gerät berechnet",
-    "ingredientBundled": "{ingredient}: heruntergeladenes USDA-Paket",
-    "ingredientCached": "{ingredient}: USDA-Gerätecache",
-    "ingredientRemote": "{ingredient}: über Calorify abgerufener USDA-Datensatz",
-    "ingredientDeterministic": "{ingredient}: deterministische Nährwertkonstante",
-    "ingredientReference": "FDC {fdcId} · Datensatz {datasetVersion}",
     "portionSmaller": "Kleiner",
     "portionEstimated": "Geschätzt",
     "portionLarger": "Größer",

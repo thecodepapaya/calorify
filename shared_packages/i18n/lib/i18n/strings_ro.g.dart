@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ro extends Translations$localNutritionP
 	final TranslationsRo _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Date nutriționale potrivite din pachetul USDA descărcat';
-	@override String get nutritionCached => 'Date nutriționale potrivite din memoria cache USDA a dispozitivului';
-	@override String get nutritionMixed => 'Date nutriționale combinate din rânduri USDA descărcate, memorate în cache și la distanță';
-	@override String get calculationLocal => 'Calorii și macronutrienți calculați pe acest dispozitiv';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: pachet USDA descărcat';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: memoria cache USDA a dispozitivului';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: rând USDA preluat prin Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: constantă nutrițională deterministă';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · set de date ${datasetVersion}';
 	@override String get portionSmaller => 'Mai mică';
 	@override String get portionEstimated => 'Estimată';
 	@override String get portionLarger => 'Mai mare';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ro extends Translations$meal$localInfere
 	@override String get continueLabel => 'Continuă';
 	@override String get invalidProposal => 'Adaugă cel puțin un ingredient și folosește o cantitate pozitivă de grame.';
 	@override String get localUnavailable => 'Analiza pe dispozitiv nu este disponibilă în acest moment.';
-	@override String get calculationDetails => 'Cum a fost calculat';
-	@override String get interpretationLocal => 'Ingrediente interpretate pe acest dispozitiv';
-	@override String get interpretationCloud => 'Ingrediente interpretate în cloud';
-	@override String get interpretationManual => 'Ingrediente revizuite sau editate de tine';
-	@override String get nutritionRemote => 'Nutriția preluată din USDA prin Calorify';
-	@override String get nutritionFallback => 'Unele valori nutriționale au fost estimate de la distanță';
-	@override String get calculationServer => 'Calorii și macronutrienți calculați de Calorify';
-	@override String get fallbackUsed => 'Analiza locală a revenit la procesarea în cloud';
-	@override String get noRawContent => 'Bonurile de diagnostic nu includ textul sau fotografia mesei tale.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsRo {
 			'meal.localInference.continueLabel' => 'Continuă',
 			'meal.localInference.invalidProposal' => 'Adaugă cel puțin un ingredient și folosește o cantitate pozitivă de grame.',
 			'meal.localInference.localUnavailable' => 'Analiza pe dispozitiv nu este disponibilă în acest moment.',
-			'meal.localInference.calculationDetails' => 'Cum a fost calculat',
-			'meal.localInference.interpretationLocal' => 'Ingrediente interpretate pe acest dispozitiv',
-			'meal.localInference.interpretationCloud' => 'Ingrediente interpretate în cloud',
-			'meal.localInference.interpretationManual' => 'Ingrediente revizuite sau editate de tine',
-			'meal.localInference.nutritionRemote' => 'Nutriția preluată din USDA prin Calorify',
-			'meal.localInference.nutritionFallback' => 'Unele valori nutriționale au fost estimate de la distanță',
-			'meal.localInference.calculationServer' => 'Calorii și macronutrienți calculați de Calorify',
-			'meal.localInference.fallbackUsed' => 'Analiza locală a revenit la procesarea în cloud',
-			'meal.localInference.noRawContent' => 'Bonurile de diagnostic nu includ textul sau fotografia mesei tale.',
 			'meal.feedback.title' => 'Ce pare greșit?',
 			'meal.feedback.subtitle' => 'Ajută-ne să îmbunătățim analiza selectând una sau mai multe probleme.',
 			'meal.feedback.tellUsMore' => 'Spune-ne mai mult',
@@ -2562,8 +2535,6 @@ extension on TranslationsRo {
 			'notifications.snack.body' => 'E timpul pentru o gustare sănătoasă',
 			'notifications.test.title' => 'Notificare de test',
 			'login.title' => 'Autentificare',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Autentifică-te cu Google',
 			'login.signInFailed' => 'Autentificarea cu Google a eșuat sau a fost anulată.',
 			'disclaimer.pleaseNote' => 'Te rugăm să reții',
@@ -2573,6 +2544,8 @@ extension on TranslationsRo {
 			'disclaimer.snap.preparationMethods.title' => 'Metode de preparare',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional. Estimările ${appLabel} pot să nu ia întotdeauna în calcul aceste variații.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediente',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Preparatele complexe cu multe ingrediente ascunse pot duce la estimări mai puțin exacte.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitări ale bazei de date',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza de date de alimente a ${appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație.',
@@ -2599,15 +2572,6 @@ extension on TranslationsRo {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Calculăm TDEE-ul tău (pe baza profilului) și îl înmulțim cu fracțiunea zilei trecute (ore + minute) / 24 pentru a estima caloriile arse până acum.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Ghidare profesională',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Nu folosi această estimare pentru decizii medicale. Consultă întotdeauna un profesionist în sănătate sau un dietetician înregistrat pentru sfaturi personalizate privind gestionarea greutății.',
-			'localNutritionPhase4.nutritionBundled' => 'Date nutriționale potrivite din pachetul USDA descărcat',
-			'localNutritionPhase4.nutritionCached' => 'Date nutriționale potrivite din memoria cache USDA a dispozitivului',
-			'localNutritionPhase4.nutritionMixed' => 'Date nutriționale combinate din rânduri USDA descărcate, memorate în cache și la distanță',
-			'localNutritionPhase4.calculationLocal' => 'Calorii și macronutrienți calculați pe acest dispozitiv',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: pachet USDA descărcat',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: memoria cache USDA a dispozitivului',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: rând USDA preluat prin Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: constantă nutrițională deterministă',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · set de date ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Mai mică',
 			'localNutritionPhase4.portionEstimated' => 'Estimată',
 			'localNutritionPhase4.portionLarger' => 'Mai mare',

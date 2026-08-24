@@ -343,16 +343,7 @@
       "removeIngredient": "Elimină ingredientul",
       "continueLabel": "Continuă",
       "invalidProposal": "Adaugă cel puțin un ingredient și folosește o cantitate pozitivă de grame.",
-      "localUnavailable": "Analiza pe dispozitiv nu este disponibilă în acest moment.",
-      "calculationDetails": "Cum a fost calculat",
-      "interpretationLocal": "Ingrediente interpretate pe acest dispozitiv",
-      "interpretationCloud": "Ingrediente interpretate în cloud",
-      "interpretationManual": "Ingrediente revizuite sau editate de tine",
-      "nutritionRemote": "Nutriția preluată din USDA prin Calorify",
-      "nutritionFallback": "Unele valori nutriționale au fost estimate de la distanță",
-      "calculationServer": "Calorii și macronutrienți calculați de Calorify",
-      "fallbackUsed": "Analiza locală a revenit la procesarea în cloud",
-      "noRawContent": "Bonurile de diagnostic nu includ textul sau fotografia mesei tale."
+      "localUnavailable": "Analiza pe dispozitiv nu este disponibilă în acest moment."
     },
     "feedback": {
       "title": "Ce pare greșit?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Date nutriționale potrivite din pachetul USDA descărcat",
-    "nutritionCached": "Date nutriționale potrivite din memoria cache USDA a dispozitivului",
-    "nutritionMixed": "Date nutriționale combinate din rânduri USDA descărcate, memorate în cache și la distanță",
-    "calculationLocal": "Calorii și macronutrienți calculați pe acest dispozitiv",
-    "ingredientBundled": "{ingredient}: pachet USDA descărcat",
-    "ingredientCached": "{ingredient}: memoria cache USDA a dispozitivului",
-    "ingredientRemote": "{ingredient}: rând USDA preluat prin Calorify",
-    "ingredientDeterministic": "{ingredient}: constantă nutrițională deterministă",
-    "ingredientReference": "FDC {fdcId} · set de date {datasetVersion}",
     "portionSmaller": "Mai mică",
     "portionEstimated": "Estimată",
     "portionLarger": "Mai mare",

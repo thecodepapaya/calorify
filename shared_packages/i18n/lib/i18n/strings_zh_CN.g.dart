@@ -380,15 +380,6 @@ class Translations$localNutritionPhase4$zh_CN extends Translations$localNutritio
 	final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => '营养信息来自已下载的 USDA 数据包';
-	@override String get nutritionCached => '营养信息来自设备上的 USDA 缓存';
-	@override String get nutritionMixed => '营养信息由已下载、已缓存和远程获取的 USDA 数据行合并而成';
-	@override String get calculationLocal => '已在此设备上计算热量和宏量营养素';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}：已下载的 USDA 数据包';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}：设备上的 USDA 缓存';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}：通过 Calorify 获取的 USDA 数据行';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}：确定性营养常量';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · 数据集 ${datasetVersion}';
 	@override String get portionSmaller => '较小';
 	@override String get portionEstimated => '估算';
 	@override String get portionLarger => '较大';
@@ -870,15 +861,6 @@ class Translations$meal$localInference$zh_CN extends Translations$meal$localInfe
 	@override String get continueLabel => '继续';
 	@override String get invalidProposal => '请至少添加一种食材，并输入正数的克数。';
 	@override String get localUnavailable => '目前无法使用设备端分析。';
-	@override String get calculationDetails => '计算详情';
-	@override String get interpretationLocal => '由本设备解析的食材';
-	@override String get interpretationCloud => '由云端解析的食材';
-	@override String get interpretationManual => '由您核对或编辑的食材';
-	@override String get nutritionRemote => '营养数据通过 Calorify 从 USDA 获取';
-	@override String get nutritionFallback => '部分营养数值为远程估算';
-	@override String get calculationServer => '卡路里和宏量营养素由 Calorify 计算';
-	@override String get fallbackUsed => '本地分析已回退至云端处理';
-	@override String get noRawContent => '诊断收据不包含您的餐食文本或照片。';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsZhCn {
 			'meal.localInference.continueLabel' => '继续',
 			'meal.localInference.invalidProposal' => '请至少添加一种食材，并输入正数的克数。',
 			'meal.localInference.localUnavailable' => '目前无法使用设备端分析。',
-			'meal.localInference.calculationDetails' => '计算详情',
-			'meal.localInference.interpretationLocal' => '由本设备解析的食材',
-			'meal.localInference.interpretationCloud' => '由云端解析的食材',
-			'meal.localInference.interpretationManual' => '由您核对或编辑的食材',
-			'meal.localInference.nutritionRemote' => '营养数据通过 Calorify 从 USDA 获取',
-			'meal.localInference.nutritionFallback' => '部分营养数值为远程估算',
-			'meal.localInference.calculationServer' => '卡路里和宏量营养素由 Calorify 计算',
-			'meal.localInference.fallbackUsed' => '本地分析已回退至云端处理',
-			'meal.localInference.noRawContent' => '诊断收据不包含您的餐食文本或照片。',
 			'meal.feedback.title' => '哪里看起来不对？',
 			'meal.feedback.subtitle' => '通过选择一个或多个问题来帮助我们改进分析。',
 			'meal.feedback.tellUsMore' => '告诉我们更多信息',
@@ -2562,8 +2535,6 @@ extension on TranslationsZhCn {
 			'notifications.snack.body' => '来点健康的加餐吧',
 			'notifications.test.title' => '测试通知',
 			'login.title' => '登录',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => '使用 Google 登录',
 			'login.signInFailed' => 'Google 登录失败或已取消。',
 			'disclaimer.pleaseNote' => '请注意',
@@ -2573,6 +2544,8 @@ extension on TranslationsZhCn {
 			'disclaimer.snap.preparationMethods.title' => '烹饪方式',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。',
 			'disclaimer.snap.ingredients.title' => '食材',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '复杂菜肴中存在许多隐含成分可能导致估算不够准确。',
 			'disclaimer.snap.databaseLimitations.title' => '数据库限制',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。',
@@ -2599,15 +2572,6 @@ extension on TranslationsZhCn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '我们基于你的档案计算 TDEE，并乘以当天已过时间的比例 (小时 + 分钟) / 24，以估算目前为止已消耗的卡路里。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '专业指导',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '不要用此估算做出医疗决策。有关个性化体重管理建议，请始终咨询医疗专业人士或注册营养师。',
-			'localNutritionPhase4.nutritionBundled' => '营养信息来自已下载的 USDA 数据包',
-			'localNutritionPhase4.nutritionCached' => '营养信息来自设备上的 USDA 缓存',
-			'localNutritionPhase4.nutritionMixed' => '营养信息由已下载、已缓存和远程获取的 USDA 数据行合并而成',
-			'localNutritionPhase4.calculationLocal' => '已在此设备上计算热量和宏量营养素',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}：已下载的 USDA 数据包',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}：设备上的 USDA 缓存',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}：通过 Calorify 获取的 USDA 数据行',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}：确定性营养常量',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · 数据集 ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => '较小',
 			'localNutritionPhase4.portionEstimated' => '估算',
 			'localNutritionPhase4.portionLarger' => '较大',

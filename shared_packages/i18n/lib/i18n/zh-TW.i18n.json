@@ -343,16 +343,7 @@
       "removeIngredient": "移除食材",
       "continueLabel": "繼續",
       "invalidProposal": "請至少新增一項食材，且克數必須為正數。",
-      "localUnavailable": "目前無法使用裝置端分析。",
-      "calculationDetails": "計算方式",
-      "interpretationLocal": "由本裝置解析的食材",
-      "interpretationCloud": "由雲端解析的食材",
-      "interpretationManual": "由您審核或編輯的食材",
-      "nutritionRemote": "營養數據由 Calorify 透過 USDA 獲取",
-      "nutritionFallback": "部分營養數值為遠端預估",
-      "calculationServer": "卡路里與營養素由 Calorify 計算",
-      "fallbackUsed": "本地分析已切換至雲端處理",
-      "noRawContent": "診斷收據不包含您的餐點文字或照片。"
+      "localUnavailable": "目前無法使用裝置端分析。"
     },
     "feedback": {
       "title": "哪裡看起來不對？",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "營養資訊來自已下載的 USDA 資料包",
-    "nutritionCached": "營養資訊來自裝置上的 USDA 快取",
-    "nutritionMixed": "營養資訊由已下載、已快取和遠端取得的 USDA 資料列合併而成",
-    "calculationLocal": "已在此裝置上計算熱量和巨量營養素",
-    "ingredientBundled": "{ingredient}：已下載的 USDA 資料包",
-    "ingredientCached": "{ingredient}：裝置上的 USDA 快取",
-    "ingredientRemote": "{ingredient}：透過 Calorify 取得的 USDA 資料列",
-    "ingredientDeterministic": "{ingredient}：確定性營養常數",
-    "ingredientReference": "FDC {fdcId} · 資料集 {datasetVersion}",
     "portionSmaller": "較小",
     "portionEstimated": "估算",
     "portionLarger": "較大",

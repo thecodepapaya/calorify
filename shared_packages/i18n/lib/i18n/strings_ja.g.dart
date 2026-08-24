@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ja extends Translations$localNutritionP
 	final TranslationsJa _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'ダウンロード済みのUSDAパックから栄養情報を照合しました';
-	@override String get nutritionCached => '端末内のUSDAキャッシュから栄養情報を照合しました';
-	@override String get nutritionMixed => 'ダウンロード済み、キャッシュ済み、リモートのUSDAデータから栄養情報を統合しました';
-	@override String get calculationLocal => 'この端末でカロリーとマクロ栄養素を計算しました';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ダウンロード済みUSDAパック';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: 端末内USDAキャッシュ';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify経由で取得したUSDAデータ';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: 決定論的な栄養定数';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · データセット ${datasetVersion}';
 	@override String get portionSmaller => '少なめ';
 	@override String get portionEstimated => '推定量';
 	@override String get portionLarger => '多め';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ja extends Translations$meal$localInfere
 	@override String get continueLabel => '次へ';
 	@override String get invalidProposal => '少なくとも1つの食材を追加し、正の数値を入力してください。';
 	@override String get localUnavailable => '現在、デバイス上での解析は利用できません。';
-	@override String get calculationDetails => '計算方法の詳細';
-	@override String get interpretationLocal => 'このデバイスで解析された食材';
-	@override String get interpretationCloud => 'クラウドで解析された食材';
-	@override String get interpretationManual => 'ユーザーによって確認または編集された食材';
-	@override String get nutritionRemote => 'Calorifyを通じてUSDAから取得した栄養価';
-	@override String get nutritionFallback => '一部の栄養価はリモートで推定されました';
-	@override String get calculationServer => 'カロリーとマクロ栄養素はCalorifyによって計算されました';
-	@override String get fallbackUsed => 'ローカル解析からクラウド処理に切り替わりました';
-	@override String get noRawContent => '診断用レシートに食事のテキストや写真は含まれません。';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsJa {
 			'meal.localInference.continueLabel' => '次へ',
 			'meal.localInference.invalidProposal' => '少なくとも1つの食材を追加し、正の数値を入力してください。',
 			'meal.localInference.localUnavailable' => '現在、デバイス上での解析は利用できません。',
-			'meal.localInference.calculationDetails' => '計算方法の詳細',
-			'meal.localInference.interpretationLocal' => 'このデバイスで解析された食材',
-			'meal.localInference.interpretationCloud' => 'クラウドで解析された食材',
-			'meal.localInference.interpretationManual' => 'ユーザーによって確認または編集された食材',
-			'meal.localInference.nutritionRemote' => 'Calorifyを通じてUSDAから取得した栄養価',
-			'meal.localInference.nutritionFallback' => '一部の栄養価はリモートで推定されました',
-			'meal.localInference.calculationServer' => 'カロリーとマクロ栄養素はCalorifyによって計算されました',
-			'meal.localInference.fallbackUsed' => 'ローカル解析からクラウド処理に切り替わりました',
-			'meal.localInference.noRawContent' => '診断用レシートに食事のテキストや写真は含まれません。',
 			'meal.feedback.title' => 'どこが違いますか？',
 			'meal.feedback.subtitle' => '分析の改善のために、1つ以上の問題を選んでください。',
 			'meal.feedback.tellUsMore' => '詳しく教えてください',
@@ -2562,8 +2535,6 @@ extension on TranslationsJa {
 			'notifications.snack.body' => '健康的なおやつを記録しましょう',
 			'notifications.test.title' => 'テスト通知',
 			'login.title' => 'ログイン',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Googleでサインイン',
 			'login.signInFailed' => 'Googleサインインに失敗するか、キャンセルされました。',
 			'disclaimer.pleaseNote' => 'ご注意',
@@ -2573,6 +2544,8 @@ extension on TranslationsJa {
 			'disclaimer.snap.preparationMethods.title' => '調理方法',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '調理方法は栄養成分を大きく変える可能性があります。${appLabel}の推定が必ずしもこれらを考慮しているとは限りません。',
 			'disclaimer.snap.ingredients.title' => '材料',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '材料が複雑で隠れた材料が多い料理は、推定精度が低くなる可能性があります。',
 			'disclaimer.snap.databaseLimitations.title' => 'データベースの制限',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}の食品データベースは豊富ですが、すべての食品やバリエーションを網羅しているわけではありません。',
@@ -2599,15 +2572,6 @@ extension on TranslationsJa {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'プロフィールに基づいてTDEEを算出し、経過した日の割合（時間＋分）/24を掛けて、これまでの消費カロリーを推定します。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '専門的な助言',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'この推定を医療上の判断に使用しないでください。個別の体重管理については医療専門家や登録栄養士に必ず相談してください。',
-			'localNutritionPhase4.nutritionBundled' => 'ダウンロード済みのUSDAパックから栄養情報を照合しました',
-			'localNutritionPhase4.nutritionCached' => '端末内のUSDAキャッシュから栄養情報を照合しました',
-			'localNutritionPhase4.nutritionMixed' => 'ダウンロード済み、キャッシュ済み、リモートのUSDAデータから栄養情報を統合しました',
-			'localNutritionPhase4.calculationLocal' => 'この端末でカロリーとマクロ栄養素を計算しました',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ダウンロード済みUSDAパック',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: 端末内USDAキャッシュ',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify経由で取得したUSDAデータ',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: 決定論的な栄養定数',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · データセット ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => '少なめ',
 			'localNutritionPhase4.portionEstimated' => '推定量',
 			'localNutritionPhase4.portionLarger' => '多め',

@@ -343,16 +343,7 @@
       "removeIngredient": "Malzemeyi kaldır",
       "continueLabel": "Devam et",
       "invalidProposal": "Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.",
-      "localUnavailable": "Cihaz içi analiz şu anda kullanılamıyor.",
-      "calculationDetails": "Bu nasıl hesaplandı",
-      "interpretationLocal": "Bu cihazda yorumlanan malzemeler",
-      "interpretationCloud": "Bulutta yorumlanan malzemeler",
-      "interpretationManual": "Tarafınızca gözden geçirilen veya düzenlenen malzemeler",
-      "nutritionRemote": "Besin değerleri Calorify aracılığıyla USDA'dan alındı",
-      "nutritionFallback": "Bazı besin değerleri uzaktan tahmin edildi",
-      "calculationServer": "Kaloriler ve makrolar Calorify tarafından hesaplandı",
-      "fallbackUsed": "Yerel analiz, bulut işlemeye yönlendirildi",
-      "noRawContent": "Tanılama makbuzları, öğün metninizi veya fotoğrafınızı içermez."
+      "localUnavailable": "Cihaz içi analiz şu anda kullanılamıyor."
     },
     "feedback": {
       "title": "Neresi yanlış görünüyor?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Besin bilgileri indirilen USDA paketinden eşleştirildi",
-    "nutritionCached": "Besin bilgileri cihazdaki USDA önbelleğinden eşleştirildi",
-    "nutritionMixed": "Besin bilgileri indirilen, önbelleğe alınan ve uzaktaki USDA satırlarından birleştirildi",
-    "calculationLocal": "Kaloriler ve makrolar bu cihazda hesaplandı",
-    "ingredientBundled": "{ingredient}: indirilen USDA paketi",
-    "ingredientCached": "{ingredient}: cihazdaki USDA önbelleği",
-    "ingredientRemote": "{ingredient}: Calorify üzerinden alınan USDA satırı",
-    "ingredientDeterministic": "{ingredient}: deterministik besin sabiti",
-    "ingredientReference": "FDC {fdcId} · veri kümesi {datasetVersion}",
     "portionSmaller": "Daha küçük",
     "portionEstimated": "Tahmini",
     "portionLarger": "Daha büyük",

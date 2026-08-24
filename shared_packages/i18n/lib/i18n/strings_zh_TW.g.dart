@@ -380,15 +380,6 @@ class Translations$localNutritionPhase4$zh_TW extends Translations$localNutritio
 	final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => '營養資訊來自已下載的 USDA 資料包';
-	@override String get nutritionCached => '營養資訊來自裝置上的 USDA 快取';
-	@override String get nutritionMixed => '營養資訊由已下載、已快取和遠端取得的 USDA 資料列合併而成';
-	@override String get calculationLocal => '已在此裝置上計算熱量和巨量營養素';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}：已下載的 USDA 資料包';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}：裝置上的 USDA 快取';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}：透過 Calorify 取得的 USDA 資料列';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}：確定性營養常數';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · 資料集 ${datasetVersion}';
 	@override String get portionSmaller => '較小';
 	@override String get portionEstimated => '估算';
 	@override String get portionLarger => '較大';
@@ -870,15 +861,6 @@ class Translations$meal$localInference$zh_TW extends Translations$meal$localInfe
 	@override String get continueLabel => '繼續';
 	@override String get invalidProposal => '請至少新增一項食材，且克數必須為正數。';
 	@override String get localUnavailable => '目前無法使用裝置端分析。';
-	@override String get calculationDetails => '計算方式';
-	@override String get interpretationLocal => '由本裝置解析的食材';
-	@override String get interpretationCloud => '由雲端解析的食材';
-	@override String get interpretationManual => '由您審核或編輯的食材';
-	@override String get nutritionRemote => '營養數據由 Calorify 透過 USDA 獲取';
-	@override String get nutritionFallback => '部分營養數值為遠端預估';
-	@override String get calculationServer => '卡路里與營養素由 Calorify 計算';
-	@override String get fallbackUsed => '本地分析已切換至雲端處理';
-	@override String get noRawContent => '診斷收據不包含您的餐點文字或照片。';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsZhTw {
 			'meal.localInference.continueLabel' => '繼續',
 			'meal.localInference.invalidProposal' => '請至少新增一項食材，且克數必須為正數。',
 			'meal.localInference.localUnavailable' => '目前無法使用裝置端分析。',
-			'meal.localInference.calculationDetails' => '計算方式',
-			'meal.localInference.interpretationLocal' => '由本裝置解析的食材',
-			'meal.localInference.interpretationCloud' => '由雲端解析的食材',
-			'meal.localInference.interpretationManual' => '由您審核或編輯的食材',
-			'meal.localInference.nutritionRemote' => '營養數據由 Calorify 透過 USDA 獲取',
-			'meal.localInference.nutritionFallback' => '部分營養數值為遠端預估',
-			'meal.localInference.calculationServer' => '卡路里與營養素由 Calorify 計算',
-			'meal.localInference.fallbackUsed' => '本地分析已切換至雲端處理',
-			'meal.localInference.noRawContent' => '診斷收據不包含您的餐點文字或照片。',
 			'meal.feedback.title' => '哪裡看起來不對？',
 			'meal.feedback.subtitle' => '請選擇一項或多項問題，幫助我們改進分析結果。',
 			'meal.feedback.tellUsMore' => '告訴我們更多',
@@ -2562,8 +2535,6 @@ extension on TranslationsZhTw {
 			'notifications.snack.body' => '該吃個健康點心了',
 			'notifications.test.title' => '測試通知',
 			'login.title' => '登入',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => '使用 Google 登入',
 			'login.signInFailed' => 'Google 登入失敗或已取消。',
 			'disclaimer.pleaseNote' => '請注意',
@@ -2573,6 +2544,8 @@ extension on TranslationsZhTw {
 			'disclaimer.snap.preparationMethods.title' => '烹調方式',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹調方式會顯著改變食物的營養成分。${appLabel} 的估算可能無法涵蓋所有變化。',
 			'disclaimer.snap.ingredients.title' => '成分',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '成分複雜且含多種隱藏食材的菜餚可能降低估算準確度。',
 			'disclaimer.snap.databaseLimitations.title' => '資料庫限制',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物資料庫相當完整，但可能不包含每一種食材或變體。',
@@ -2599,15 +2572,6 @@ extension on TranslationsZhTw {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '我們會計算您的 TDEE（根據個人檔案），並乘以當日已過的比例（小時 + 分鐘）/ 24，以估算目前為止燃燒的卡路里。',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '專業指導',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '請勿以此估算作為醫療決策。若需個人化體重管理建議，務必諮詢醫療或註冊營養師。',
-			'localNutritionPhase4.nutritionBundled' => '營養資訊來自已下載的 USDA 資料包',
-			'localNutritionPhase4.nutritionCached' => '營養資訊來自裝置上的 USDA 快取',
-			'localNutritionPhase4.nutritionMixed' => '營養資訊由已下載、已快取和遠端取得的 USDA 資料列合併而成',
-			'localNutritionPhase4.calculationLocal' => '已在此裝置上計算熱量和巨量營養素',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}：已下載的 USDA 資料包',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}：裝置上的 USDA 快取',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}：透過 Calorify 取得的 USDA 資料列',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}：確定性營養常數',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · 資料集 ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => '較小',
 			'localNutritionPhase4.portionEstimated' => '估算',
 			'localNutritionPhase4.portionLarger' => '較大',

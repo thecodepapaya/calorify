@@ -343,16 +343,7 @@
       "removeIngredient": "Удалить ингредиент",
       "continueLabel": "Продолжить",
       "invalidProposal": "Добавьте хотя бы один ингредиент и укажите положительное значение веса.",
-      "localUnavailable": "Анализ на устройстве сейчас недоступен.",
-      "calculationDetails": "Как производился расчет",
-      "interpretationLocal": "Ингредиенты распознаны на этом устройстве",
-      "interpretationCloud": "Ингредиенты распознаны в облаке",
-      "interpretationManual": "Ингредиенты проверены или отредактированы вами",
-      "nutritionRemote": "Данные о питании получены из USDA через Calorify",
-      "nutritionFallback": "Некоторые значения питательной ценности были рассчитаны удаленно",
-      "calculationServer": "Калории и макронутриенты рассчитаны Calorify",
-      "fallbackUsed": "Локальный анализ был заменен облачной обработкой",
-      "noRawContent": "Диагностические чеки не содержат текст вашего блюда или фото."
+      "localUnavailable": "Анализ на устройстве сейчас недоступен."
     },
     "feedback": {
       "title": "Что не так?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Пищевая ценность сопоставлена по загруженному пакету USDA",
-    "nutritionCached": "Пищевая ценность сопоставлена по кэшу USDA на устройстве",
-    "nutritionMixed": "Пищевая ценность объединена из загруженных, кэшированных и удалённых строк USDA",
-    "calculationLocal": "Калории и макронутриенты рассчитаны на этом устройстве",
-    "ingredientBundled": "{ingredient}: загруженный пакет USDA",
-    "ingredientCached": "{ingredient}: кэш USDA на устройстве",
-    "ingredientRemote": "{ingredient}: строка USDA, полученная через Calorify",
-    "ingredientDeterministic": "{ingredient}: детерминированная пищевая константа",
-    "ingredientReference": "FDC {fdcId} · набор данных {datasetVersion}",
     "portionSmaller": "Меньше",
     "portionEstimated": "Расчётная",
     "portionLarger": "Больше",

@@ -343,16 +343,7 @@
       "removeIngredient": "ลบส่วนผสม",
       "continueLabel": "ดำเนินการต่อ",
       "invalidProposal": "โปรดเพิ่มส่วนผสมอย่างน้อยหนึ่งรายการและระบุปริมาณกรัมเป็นค่าบวก",
-      "localUnavailable": "ไม่สามารถใช้งานการวิเคราะห์บนอุปกรณ์ได้ในขณะนี้",
-      "calculationDetails": "วิธีการคำนวณ",
-      "interpretationLocal": "ส่วนผสมที่วิเคราะห์บนอุปกรณ์นี้",
-      "interpretationCloud": "ส่วนผสมที่วิเคราะห์ผ่านคลาวด์",
-      "interpretationManual": "ส่วนผสมที่คุณตรวจสอบหรือแก้ไข",
-      "nutritionRemote": "ข้อมูลโภชนาการดึงมาจาก USDA ผ่าน Calorify",
-      "nutritionFallback": "ค่าโภชนาการบางส่วนถูกประมาณการผ่านระบบรีโมท",
-      "calculationServer": "แคลอรีและสารอาหารหลักคำนวณโดย Calorify",
-      "fallbackUsed": "การวิเคราะห์บนอุปกรณ์เปลี่ยนไปใช้การประมวลผลผ่านคลาวด์",
-      "noRawContent": "ใบเสร็จเพื่อการวินิจฉัยจะไม่รวมข้อความหรือรูปภาพมื้ออาหารของคุณ"
+      "localUnavailable": "ไม่สามารถใช้งานการวิเคราะห์บนอุปกรณ์ได้ในขณะนี้"
     },
     "feedback": {
       "title": "อะไรที่ดูผิดพลาด?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "ข้อมูลโภชนาการตรงกับแพ็ก USDA ที่ดาวน์โหลด",
-    "nutritionCached": "ข้อมูลโภชนาการตรงกับแคช USDA ในอุปกรณ์",
-    "nutritionMixed": "รวมข้อมูลโภชนาการจากแถว USDA ที่ดาวน์โหลด แคชไว้ และดึงจากระยะไกล",
-    "calculationLocal": "คำนวณแคลอรีและสารอาหารหลักบนอุปกรณ์นี้",
-    "ingredientBundled": "{ingredient}: แพ็ก USDA ที่ดาวน์โหลด",
-    "ingredientCached": "{ingredient}: แคช USDA ในอุปกรณ์",
-    "ingredientRemote": "{ingredient}: แถว USDA ที่ดึงผ่าน Calorify",
-    "ingredientDeterministic": "{ingredient}: ค่าคงที่โภชนาการแบบกำหนดแน่นอน",
-    "ingredientReference": "FDC {fdcId} · ชุดข้อมูล {datasetVersion}",
     "portionSmaller": "น้อยกว่า",
     "portionEstimated": "โดยประมาณ",
     "portionLarger": "มากกว่า",

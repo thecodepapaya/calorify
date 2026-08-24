@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$bn extends Translations$localNutritionP
 	final TranslationsBn _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'ডাউনলোড করা USDA প্যাক থেকে পুষ্টির তথ্য মেলানো হয়েছে';
-	@override String get nutritionCached => 'ডিভাইসের USDA ক্যাশ থেকে পুষ্টির তথ্য মেলানো হয়েছে';
-	@override String get nutritionMixed => 'ডাউনলোড করা, ক্যাশে রাখা এবং দূরবর্তী USDA সারি থেকে পুষ্টির তথ্য একত্র করা হয়েছে';
-	@override String get calculationLocal => 'এই ডিভাইসে ক্যালোরি ও ম্যাক্রো হিসাব করা হয়েছে';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: ডাউনলোড করা USDA প্যাক';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: ডিভাইসের USDA ক্যাশ';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify-এর মাধ্যমে আনা USDA সারি';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: নির্ধারিত পুষ্টি ধ্রুবক';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ডেটাসেট ${datasetVersion}';
 	@override String get portionSmaller => 'ছোট';
 	@override String get portionEstimated => 'আনুমানিক';
 	@override String get portionLarger => 'বড়';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$bn extends Translations$meal$localInfere
 	@override String get continueLabel => 'চালিয়ে যান';
 	@override String get invalidProposal => 'অন্তত একটি উপাদান যোগ করুন এবং গ্রামের পরিমাণ ধনাত্মক সংখ্যায় লিখুন।';
 	@override String get localUnavailable => 'অন-ডিভাইস বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই।';
-	@override String get calculationDetails => 'এটি যেভাবে গণনা করা হয়েছে';
-	@override String get interpretationLocal => 'এই ডিভাইসে বিশ্লেষণ করা উপাদান';
-	@override String get interpretationCloud => 'ক্লাউডে বিশ্লেষণ করা উপাদান';
-	@override String get interpretationManual => 'আপনার দ্বারা যাচাই বা সম্পাদিত উপাদান';
-	@override String get nutritionRemote => 'Calorify-এর মাধ্যমে USDA থেকে পুষ্টির তথ্য সংগ্রহ করা হয়েছে';
-	@override String get nutritionFallback => 'কিছু পুষ্টির মান রিমোটলি অনুমান করা হয়েছে';
-	@override String get calculationServer => 'ক্যালোরি এবং ম্যাক্রোস Calorify দ্বারা গণনা করা হয়েছে';
-	@override String get fallbackUsed => 'লোকাল অ্যানালাইসিসের পরিবর্তে ক্লাউড প্রসেসিং ব্যবহার করা হয়েছে';
-	@override String get noRawContent => 'ডায়াগনস্টিক রসিদে আপনার খাবারের টেক্সট বা ফটো অন্তর্ভুক্ত নেই।';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsBn {
 			'meal.localInference.continueLabel' => 'চালিয়ে যান',
 			'meal.localInference.invalidProposal' => 'অন্তত একটি উপাদান যোগ করুন এবং গ্রামের পরিমাণ ধনাত্মক সংখ্যায় লিখুন।',
 			'meal.localInference.localUnavailable' => 'অন-ডিভাইস বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই।',
-			'meal.localInference.calculationDetails' => 'এটি যেভাবে গণনা করা হয়েছে',
-			'meal.localInference.interpretationLocal' => 'এই ডিভাইসে বিশ্লেষণ করা উপাদান',
-			'meal.localInference.interpretationCloud' => 'ক্লাউডে বিশ্লেষণ করা উপাদান',
-			'meal.localInference.interpretationManual' => 'আপনার দ্বারা যাচাই বা সম্পাদিত উপাদান',
-			'meal.localInference.nutritionRemote' => 'Calorify-এর মাধ্যমে USDA থেকে পুষ্টির তথ্য সংগ্রহ করা হয়েছে',
-			'meal.localInference.nutritionFallback' => 'কিছু পুষ্টির মান রিমোটলি অনুমান করা হয়েছে',
-			'meal.localInference.calculationServer' => 'ক্যালোরি এবং ম্যাক্রোস Calorify দ্বারা গণনা করা হয়েছে',
-			'meal.localInference.fallbackUsed' => 'লোকাল অ্যানালাইসিসের পরিবর্তে ক্লাউড প্রসেসিং ব্যবহার করা হয়েছে',
-			'meal.localInference.noRawContent' => 'ডায়াগনস্টিক রসিদে আপনার খাবারের টেক্সট বা ফটো অন্তর্ভুক্ত নেই।',
 			'meal.feedback.title' => 'কোন অংশটি ভুল দেখাচ্ছে?',
 			'meal.feedback.subtitle' => 'এক বা একাধিক সমস্যা নির্বাচন করে বিশ্লেষণ উন্নত করতে সাহায্য করুন।',
 			'meal.feedback.tellUsMore' => 'আরও বলুন',
@@ -2562,8 +2535,6 @@ extension on TranslationsBn {
 			'notifications.snack.body' => 'একটি স্বাস্থ্যকর নাস্তার সময়',
 			'notifications.test.title' => 'পরীক্ষা নোটিফিকেশন',
 			'login.title' => 'লগইন',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google দিয়ে সাইন ইন করুন',
 			'login.signInFailed' => 'Google Sign-In ব্যর্থ হয়েছে অথবা বাতিল করা হয়েছে।',
 			'disclaimer.pleaseNote' => 'দ্রষ্টব্য',
@@ -2573,6 +2544,8 @@ extension on TranslationsBn {
 			'disclaimer.snap.preparationMethods.title' => 'প্রস্তুত করার উপায়',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'রান্নার পদ্ধতি খাবারের পুষ্টিগুণ ব্যাপকভাবে বদলে দিতে পারে। ${appLabel}-এর আনুমানিক ফলাফল সবসময় এই পরিবর্তনগুলোকে বিবেচনা নাও করতে পারে।',
 			'disclaimer.snap.ingredients.title' => 'উপকরণ',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'বহু লুকানো উপকরণসহ জটিল ডিশগুলোর জন্য আনুমানিকতা কম নির্ভুল হতে পারে।',
 			'disclaimer.snap.databaseLimitations.title' => 'ডাটাবেস সীমাবদ্ধতা',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}-এর খাদ্য ডাটাবেস বিস্তৃত হলেও এটি প্রতিটি খাদ্য আইটেম বা ভ্যারিয়েশন অন্তর্ভুক্ত নাও থাকতে পারে।',
@@ -2599,15 +2572,6 @@ extension on TranslationsBn {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'আমরা আপনার প্রোফাইল ভিত্তিক TDEE হিসাব করি এবং দিনের কত অংশ পেরোয় (ঘণ্টা + মিনিট) / 24 অনুপাতে গুণ করে এ পর্যন্ত জ্বালানো ক্যালোরি অনুমান করি।',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'পেশাদার পরামর্শ',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'চিকিৎসাসংক্রান্ত সিদ্ধান্ত নিতে এই আনুমানিকতাকে ব্যবহার করবেন না। ব্যক্তিগতকৃত ওজন ব্যবস্থাপনার পরামর্শের জন্য সবসময় একজন স্বাস্থ্যের পেশাদার বা নিবন্ধিত ডায়েটিশিয়ানের সঙ্গে পরামর্শ করুন।',
-			'localNutritionPhase4.nutritionBundled' => 'ডাউনলোড করা USDA প্যাক থেকে পুষ্টির তথ্য মেলানো হয়েছে',
-			'localNutritionPhase4.nutritionCached' => 'ডিভাইসের USDA ক্যাশ থেকে পুষ্টির তথ্য মেলানো হয়েছে',
-			'localNutritionPhase4.nutritionMixed' => 'ডাউনলোড করা, ক্যাশে রাখা এবং দূরবর্তী USDA সারি থেকে পুষ্টির তথ্য একত্র করা হয়েছে',
-			'localNutritionPhase4.calculationLocal' => 'এই ডিভাইসে ক্যালোরি ও ম্যাক্রো হিসাব করা হয়েছে',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: ডাউনলোড করা USDA প্যাক',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: ডিভাইসের USDA ক্যাশ',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify-এর মাধ্যমে আনা USDA সারি',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: নির্ধারিত পুষ্টি ধ্রুবক',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ডেটাসেট ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'ছোট',
 			'localNutritionPhase4.portionEstimated' => 'আনুমানিক',
 			'localNutritionPhase4.portionLarger' => 'বড়',

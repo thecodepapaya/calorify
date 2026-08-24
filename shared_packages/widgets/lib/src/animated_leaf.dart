@@ -36,8 +36,8 @@ class _AnimatedLeafState extends State<AnimatedLeaf>
     final double maxRotationRadians = 10 * (pi / 180);
 
     _animation = Tween<double>(
-      begin: -maxRotationRadians,
-      end: maxRotationRadians,
+      begin: maxRotationRadians,
+      end: -maxRotationRadians,
     ).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine),
     );

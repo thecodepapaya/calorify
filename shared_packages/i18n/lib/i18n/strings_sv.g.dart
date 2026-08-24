@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$sv extends Translations$localNutritionP
 	final TranslationsSv _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Näringsdata matchades från det nedladdade USDA-paketet';
-	@override String get nutritionCached => 'Näringsdata matchades från USDA-cachen på enheten';
-	@override String get nutritionMixed => 'Näringsdata kombinerades från nedladdade, cachade och fjärrhämtade USDA-rader';
-	@override String get calculationLocal => 'Kalorier och makron beräknades på den här enheten';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: nedladdat USDA-paket';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: USDA-cache på enheten';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA-rad hämtad via Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministisk näringskonstant';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datauppsättning ${datasetVersion}';
 	@override String get portionSmaller => 'Mindre';
 	@override String get portionEstimated => 'Uppskattad';
 	@override String get portionLarger => 'Större';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$sv extends Translations$meal$localInfere
 	@override String get continueLabel => 'Fortsätt';
 	@override String get invalidProposal => 'Lägg till minst en ingrediens och använd ett positivt antal gram.';
 	@override String get localUnavailable => 'Analys på enheten är inte tillgänglig just nu.';
-	@override String get calculationDetails => 'Hur detta beräknades';
-	@override String get interpretationLocal => 'Ingredienser tolkade på denna enhet';
-	@override String get interpretationCloud => 'Ingredienser tolkade i molnet';
-	@override String get interpretationManual => 'Ingredienser granskade eller redigerade av dig';
-	@override String get nutritionRemote => 'Näringsvärden hämtade från USDA via Calorify';
-	@override String get nutritionFallback => 'Vissa näringsvärden uppskattades via molnet';
-	@override String get calculationServer => 'Kalorier och makronutrienter beräknade av Calorify';
-	@override String get fallbackUsed => 'Lokal analys föll tillbaka på molnbaserad bearbetning';
-	@override String get noRawContent => 'Diagnostiska kvitton inkluderar inte din måltidstext eller bild.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsSv {
 			'meal.localInference.continueLabel' => 'Fortsätt',
 			'meal.localInference.invalidProposal' => 'Lägg till minst en ingrediens och använd ett positivt antal gram.',
 			'meal.localInference.localUnavailable' => 'Analys på enheten är inte tillgänglig just nu.',
-			'meal.localInference.calculationDetails' => 'Hur detta beräknades',
-			'meal.localInference.interpretationLocal' => 'Ingredienser tolkade på denna enhet',
-			'meal.localInference.interpretationCloud' => 'Ingredienser tolkade i molnet',
-			'meal.localInference.interpretationManual' => 'Ingredienser granskade eller redigerade av dig',
-			'meal.localInference.nutritionRemote' => 'Näringsvärden hämtade från USDA via Calorify',
-			'meal.localInference.nutritionFallback' => 'Vissa näringsvärden uppskattades via molnet',
-			'meal.localInference.calculationServer' => 'Kalorier och makronutrienter beräknade av Calorify',
-			'meal.localInference.fallbackUsed' => 'Lokal analys föll tillbaka på molnbaserad bearbetning',
-			'meal.localInference.noRawContent' => 'Diagnostiska kvitton inkluderar inte din måltidstext eller bild.',
 			'meal.feedback.title' => 'Vad ser fel ut?',
 			'meal.feedback.subtitle' => 'Hjälp oss förbättra analysen genom att välja ett eller flera problem.',
 			'meal.feedback.tellUsMore' => 'Berätta mer',
@@ -2562,8 +2535,6 @@ extension on TranslationsSv {
 			'notifications.snack.body' => 'Dags för ett hälsosamt mellanmål',
 			'notifications.test.title' => 'Testmeddelande',
 			'login.title' => 'Logga in',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Logga in med Google',
 			'login.signInFailed' => 'Inloggning via Google misslyckades eller avbröts.',
 			'disclaimer.pleaseNote' => 'Observera',
@@ -2573,6 +2544,8 @@ extension on TranslationsSv {
 			'disclaimer.snap.preparationMethods.title' => 'Tillagningsmetoder',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tillagningsmetoder kan avsevärt ändra näringsinnehållet. ${appLabel}s uppskattningar tar inte alltid hänsyn till dessa variationer.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Komplexa rätter med många dolda ingredienser kan leda till mindre precisa uppskattningar.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasbegränsningar',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}s livsmedelsdatabas är omfattande men kanske inte innehåller varje enskild livsmedelsvara eller variant.',
@@ -2599,15 +2572,6 @@ extension on TranslationsSv {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Vi beräknar din TDEE (baserat på din profil) och multiplicerar den med den andel av dagen som förflutit (timmar + minuter) / 24 för att uppskatta hur många kalorier som förbrukats hittills.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionell vägledning',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Använd inte denna uppskattning för medicinska beslut. Rådgör alltid med en vårdprofessionell eller legitimerad dietist för personliga råd.',
-			'localNutritionPhase4.nutritionBundled' => 'Näringsdata matchades från det nedladdade USDA-paketet',
-			'localNutritionPhase4.nutritionCached' => 'Näringsdata matchades från USDA-cachen på enheten',
-			'localNutritionPhase4.nutritionMixed' => 'Näringsdata kombinerades från nedladdade, cachade och fjärrhämtade USDA-rader',
-			'localNutritionPhase4.calculationLocal' => 'Kalorier och makron beräknades på den här enheten',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: nedladdat USDA-paket',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: USDA-cache på enheten',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA-rad hämtad via Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministisk näringskonstant',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · datauppsättning ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Mindre',
 			'localNutritionPhase4.portionEstimated' => 'Uppskattad',
 			'localNutritionPhase4.portionLarger' => 'Större',

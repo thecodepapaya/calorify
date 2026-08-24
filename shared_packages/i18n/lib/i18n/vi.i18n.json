@@ -343,16 +343,7 @@
       "removeIngredient": "Xóa thành phần",
       "continueLabel": "Tiếp tục",
       "invalidProposal": "Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.",
-      "localUnavailable": "Tính năng phân tích trên thiết bị hiện không khả dụng.",
-      "calculationDetails": "Cách tính toán",
-      "interpretationLocal": "Thành phần được phân tích trên thiết bị này",
-      "interpretationCloud": "Thành phần được phân tích trên đám mây",
-      "interpretationManual": "Thành phần do bạn xem lại hoặc chỉnh sửa",
-      "nutritionRemote": "Dữ liệu dinh dưỡng được lấy từ USDA thông qua Calorify",
-      "nutritionFallback": "Một số giá trị dinh dưỡng được ước tính từ xa",
-      "calculationServer": "Calo và macro được tính toán bởi Calorify",
-      "fallbackUsed": "Phân tích cục bộ đã chuyển sang xử lý trên đám mây",
-      "noRawContent": "Biên lai chẩn đoán không bao gồm văn bản hoặc ảnh bữa ăn của bạn."
+      "localUnavailable": "Tính năng phân tích trên thiết bị hiện không khả dụng."
     },
     "feedback": {
       "title": "Có gì sai?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Dinh dưỡng được đối chiếu từ gói USDA đã tải xuống",
-    "nutritionCached": "Dinh dưỡng được đối chiếu từ bộ nhớ đệm USDA trên thiết bị",
-    "nutritionMixed": "Dinh dưỡng được tổng hợp từ các hàng USDA đã tải xuống, lưu đệm và từ xa",
-    "calculationLocal": "Calo và chất dinh dưỡng đa lượng được tính trên thiết bị này",
-    "ingredientBundled": "{ingredient}: gói USDA đã tải xuống",
-    "ingredientCached": "{ingredient}: bộ nhớ đệm USDA trên thiết bị",
-    "ingredientRemote": "{ingredient}: hàng USDA được lấy qua Calorify",
-    "ingredientDeterministic": "{ingredient}: hằng số dinh dưỡng xác định",
-    "ingredientReference": "FDC {fdcId} · tập dữ liệu {datasetVersion}",
     "portionSmaller": "Nhỏ hơn",
     "portionEstimated": "Ước tính",
     "portionLarger": "Lớn hơn",

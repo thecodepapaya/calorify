@@ -343,16 +343,7 @@
       "removeIngredient": "Összetevő törlése",
       "continueLabel": "Folytatás",
       "invalidProposal": "Adjon hozzá legalább egy összetevőt, és adjon meg egy pozitív grammsúlyt.",
-      "localUnavailable": "A készüléken történő elemzés jelenleg nem érhető el.",
-      "calculationDetails": "A számítás módja",
-      "interpretationLocal": "A készüléken elemezett összetevők",
-      "interpretationCloud": "Felhőben elemezett összetevők",
-      "interpretationManual": "Általad ellenőrzött vagy szerkesztett összetevők",
-      "nutritionRemote": "USDA tápértékadatok a Calorify-on keresztül",
-      "nutritionFallback": "Néhány tápértékadatot távolról becsültük",
-      "calculationServer": "Kalóriákat és makrókat a Calorify számolta",
-      "fallbackUsed": "A helyi elemzés helyett felhőalapú feldolgozást használtunk",
-      "noRawContent": "A diagnosztikai nyugtások nem tartalmazzák az étel leírását vagy fotóját."
+      "localUnavailable": "A készüléken történő elemzés jelenleg nem érhető el."
     },
     "feedback": {
       "title": "Mi tűnik hibásnak?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "A tápértékadatok a letöltött USDA-csomagból származnak",
-    "nutritionCached": "A tápértékadatok az eszköz USDA-gyorsítótárából származnak",
-    "nutritionMixed": "A tápértékadatok letöltött, gyorsítótárazott és távoli USDA-sorokból lettek egyesítve",
-    "calculationLocal": "A kalóriák és makrotápanyagok kiszámítása ezen az eszközön történt",
-    "ingredientBundled": "{ingredient}: letöltött USDA-csomag",
-    "ingredientCached": "{ingredient}: az eszköz USDA-gyorsítótára",
-    "ingredientRemote": "{ingredient}: Calorifyn keresztül lekért USDA-sor",
-    "ingredientDeterministic": "{ingredient}: determinisztikus tápértékállandó",
-    "ingredientReference": "FDC {fdcId} · adatkészlet {datasetVersion}",
     "portionSmaller": "Kisebb",
     "portionEstimated": "Becsült",
     "portionLarger": "Nagyobb",

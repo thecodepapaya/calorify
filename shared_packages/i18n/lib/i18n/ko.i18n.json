@@ -343,16 +343,7 @@
       "removeIngredient": "식재료 삭제",
       "continueLabel": "계속하기",
       "invalidProposal": "최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.",
-      "localUnavailable": "현재 기기 내 분석을 사용할 수 없습니다.",
-      "calculationDetails": "계산 방식",
-      "interpretationLocal": "기기에서 분석한 식재료",
-      "interpretationCloud": "클라우드에서 분석한 식재료",
-      "interpretationManual": "사용자가 확인하거나 수정한 식재료",
-      "nutritionRemote": "Calorify를 통해 USDA에서 가져온 영양 정보",
-      "nutritionFallback": "일부 영양 수치는 원격으로 추정되었습니다",
-      "calculationServer": "Calorify에서 계산한 칼로리 및 매크로",
-      "fallbackUsed": "기기 내 분석 실패로 클라우드 처리를 사용했습니다",
-      "noRawContent": "진단 영수증에는 식사 텍스트나 사진이 포함되지 않습니다."
+      "localUnavailable": "현재 기기 내 분석을 사용할 수 없습니다."
     },
     "feedback": {
       "title": "어떤 점이 잘못되었나요?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "다운로드한 USDA 팩에서 영양 정보를 일치시켰습니다",
-    "nutritionCached": "기기 내 USDA 캐시에서 영양 정보를 일치시켰습니다",
-    "nutritionMixed": "다운로드, 캐시 및 원격 USDA 데이터에서 영양 정보를 통합했습니다",
-    "calculationLocal": "이 기기에서 칼로리와 매크로 영양소를 계산했습니다",
-    "ingredientBundled": "{ingredient}: 다운로드한 USDA 팩",
-    "ingredientCached": "{ingredient}: 기기 내 USDA 캐시",
-    "ingredientRemote": "{ingredient}: Calorify를 통해 가져온 USDA 데이터",
-    "ingredientDeterministic": "{ingredient}: 결정론적 영양 상수",
-    "ingredientReference": "FDC {fdcId} · 데이터세트 {datasetVersion}",
     "portionSmaller": "더 적게",
     "portionEstimated": "추정량",
     "portionLarger": "더 많이",

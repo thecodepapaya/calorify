@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ru extends Translations$localNutritionP
 	final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Пищевая ценность сопоставлена по загруженному пакету USDA';
-	@override String get nutritionCached => 'Пищевая ценность сопоставлена по кэшу USDA на устройстве';
-	@override String get nutritionMixed => 'Пищевая ценность объединена из загруженных, кэшированных и удалённых строк USDA';
-	@override String get calculationLocal => 'Калории и макронутриенты рассчитаны на этом устройстве';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: загруженный пакет USDA';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: кэш USDA на устройстве';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: строка USDA, полученная через Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: детерминированная пищевая константа';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · набор данных ${datasetVersion}';
 	@override String get portionSmaller => 'Меньше';
 	@override String get portionEstimated => 'Расчётная';
 	@override String get portionLarger => 'Больше';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ru extends Translations$meal$localInfere
 	@override String get continueLabel => 'Продолжить';
 	@override String get invalidProposal => 'Добавьте хотя бы один ингредиент и укажите положительное значение веса.';
 	@override String get localUnavailable => 'Анализ на устройстве сейчас недоступен.';
-	@override String get calculationDetails => 'Как производился расчет';
-	@override String get interpretationLocal => 'Ингредиенты распознаны на этом устройстве';
-	@override String get interpretationCloud => 'Ингредиенты распознаны в облаке';
-	@override String get interpretationManual => 'Ингредиенты проверены или отредактированы вами';
-	@override String get nutritionRemote => 'Данные о питании получены из USDA через Calorify';
-	@override String get nutritionFallback => 'Некоторые значения питательной ценности были рассчитаны удаленно';
-	@override String get calculationServer => 'Калории и макронутриенты рассчитаны Calorify';
-	@override String get fallbackUsed => 'Локальный анализ был заменен облачной обработкой';
-	@override String get noRawContent => 'Диагностические чеки не содержат текст вашего блюда или фото.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsRu {
 			'meal.localInference.continueLabel' => 'Продолжить',
 			'meal.localInference.invalidProposal' => 'Добавьте хотя бы один ингредиент и укажите положительное значение веса.',
 			'meal.localInference.localUnavailable' => 'Анализ на устройстве сейчас недоступен.',
-			'meal.localInference.calculationDetails' => 'Как производился расчет',
-			'meal.localInference.interpretationLocal' => 'Ингредиенты распознаны на этом устройстве',
-			'meal.localInference.interpretationCloud' => 'Ингредиенты распознаны в облаке',
-			'meal.localInference.interpretationManual' => 'Ингредиенты проверены или отредактированы вами',
-			'meal.localInference.nutritionRemote' => 'Данные о питании получены из USDA через Calorify',
-			'meal.localInference.nutritionFallback' => 'Некоторые значения питательной ценности были рассчитаны удаленно',
-			'meal.localInference.calculationServer' => 'Калории и макронутриенты рассчитаны Calorify',
-			'meal.localInference.fallbackUsed' => 'Локальный анализ был заменен облачной обработкой',
-			'meal.localInference.noRawContent' => 'Диагностические чеки не содержат текст вашего блюда или фото.',
 			'meal.feedback.title' => 'Что не так?',
 			'meal.feedback.subtitle' => 'Помогите улучшить анализ — отметьте один или несколько пунктов.',
 			'meal.feedback.tellUsMore' => 'Расскажите подробнее',
@@ -2562,8 +2535,6 @@ extension on TranslationsRu {
 			'notifications.snack.body' => 'Пора для полезного перекуса',
 			'notifications.test.title' => 'Тестовое уведомление',
 			'login.title' => 'Вход',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Войти через Google',
 			'login.signInFailed' => 'Вход через Google не удался или был отменён.',
 			'disclaimer.pleaseNote' => 'Обратите внимание',
@@ -2573,6 +2544,8 @@ extension on TranslationsRu {
 			'disclaimer.snap.preparationMethods.title' => 'Методы приготовления',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Методы приготовления могут существенно менять питательную ценность. Оценки ${appLabel} не всегда учитывают все эти вариации.',
 			'disclaimer.snap.ingredients.title' => 'Ингредиенты',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Сложные блюда с множеством скрытых ингредиентов могут давать менее точные оценки.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ограничения базы данных',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктов ${appLabel} обширна, но может не содержать каждой отдельной позиции или её вариаций.',
@@ -2599,15 +2572,6 @@ extension on TranslationsRu {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Мы вычисляем ваш TDEE (на основе профиля) и умножаем на долю прошедшего дня (часы + минуты) / 24, чтобы оценить, сколько калорий вы сожгли на данный момент.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Профессиональная консультация',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Не используйте эту оценку для медицинских решений. Всегда консультируйтесь с врачом или диетологом для персональных рекомендаций по управлению весом.',
-			'localNutritionPhase4.nutritionBundled' => 'Пищевая ценность сопоставлена по загруженному пакету USDA',
-			'localNutritionPhase4.nutritionCached' => 'Пищевая ценность сопоставлена по кэшу USDA на устройстве',
-			'localNutritionPhase4.nutritionMixed' => 'Пищевая ценность объединена из загруженных, кэшированных и удалённых строк USDA',
-			'localNutritionPhase4.calculationLocal' => 'Калории и макронутриенты рассчитаны на этом устройстве',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: загруженный пакет USDA',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: кэш USDA на устройстве',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: строка USDA, полученная через Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: детерминированная пищевая константа',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · набор данных ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Меньше',
 			'localNutritionPhase4.portionEstimated' => 'Расчётная',
 			'localNutritionPhase4.portionLarger' => 'Больше',

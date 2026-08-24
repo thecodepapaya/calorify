@@ -343,16 +343,7 @@
       "removeIngredient": "Remove ingredient",
       "continueLabel": "Continue",
       "invalidProposal": "Add at least one ingredient and use a positive gram amount.",
-      "localUnavailable": "On-device analysis is unavailable right now.",
-      "calculationDetails": "How this was calculated",
-      "interpretationLocal": "Ingredients interpreted on this device",
-      "interpretationCloud": "Ingredients interpreted in the cloud",
-      "interpretationManual": "Ingredients reviewed or edited by you",
-      "nutritionRemote": "Nutrition fetched from USDA through Calorify",
-      "nutritionFallback": "Some nutrition values were estimated remotely",
-      "calculationServer": "Calories and macros calculated by Calorify",
-      "fallbackUsed": "Local analysis fell back to cloud processing",
-      "noRawContent": "Diagnostic receipts do not include your meal text or photo."
+      "localUnavailable": "On-device analysis is unavailable right now."
     },
     "feedback": {
       "title": "What looks wrong?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Nutrition matched from the downloaded USDA pack",
-    "nutritionCached": "Nutrition matched from the on-device USDA cache",
-    "nutritionMixed": "Nutrition combined from downloaded, cached, and remote USDA rows",
-    "calculationLocal": "Calories and macros calculated on this device",
-    "ingredientBundled": "{ingredient}: downloaded USDA pack",
-    "ingredientCached": "{ingredient}: on-device USDA cache",
-    "ingredientRemote": "{ingredient}: USDA row fetched through Calorify",
-    "ingredientDeterministic": "{ingredient}: deterministic nutrition constant",
-    "ingredientReference": "FDC {fdcId} · dataset {datasetVersion}",
     "portionSmaller": "Smaller",
     "portionEstimated": "Estimated",
     "portionLarger": "Larger",

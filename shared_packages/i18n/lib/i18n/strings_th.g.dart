@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$th extends Translations$localNutritionP
 	final TranslationsTh _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'ข้อมูลโภชนาการตรงกับแพ็ก USDA ที่ดาวน์โหลด';
-	@override String get nutritionCached => 'ข้อมูลโภชนาการตรงกับแคช USDA ในอุปกรณ์';
-	@override String get nutritionMixed => 'รวมข้อมูลโภชนาการจากแถว USDA ที่ดาวน์โหลด แคชไว้ และดึงจากระยะไกล';
-	@override String get calculationLocal => 'คำนวณแคลอรีและสารอาหารหลักบนอุปกรณ์นี้';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: แพ็ก USDA ที่ดาวน์โหลด';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: แคช USDA ในอุปกรณ์';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: แถว USDA ที่ดึงผ่าน Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: ค่าคงที่โภชนาการแบบกำหนดแน่นอน';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ชุดข้อมูล ${datasetVersion}';
 	@override String get portionSmaller => 'น้อยกว่า';
 	@override String get portionEstimated => 'โดยประมาณ';
 	@override String get portionLarger => 'มากกว่า';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$th extends Translations$meal$localInfere
 	@override String get continueLabel => 'ดำเนินการต่อ';
 	@override String get invalidProposal => 'โปรดเพิ่มส่วนผสมอย่างน้อยหนึ่งรายการและระบุปริมาณกรัมเป็นค่าบวก';
 	@override String get localUnavailable => 'ไม่สามารถใช้งานการวิเคราะห์บนอุปกรณ์ได้ในขณะนี้';
-	@override String get calculationDetails => 'วิธีการคำนวณ';
-	@override String get interpretationLocal => 'ส่วนผสมที่วิเคราะห์บนอุปกรณ์นี้';
-	@override String get interpretationCloud => 'ส่วนผสมที่วิเคราะห์ผ่านคลาวด์';
-	@override String get interpretationManual => 'ส่วนผสมที่คุณตรวจสอบหรือแก้ไข';
-	@override String get nutritionRemote => 'ข้อมูลโภชนาการดึงมาจาก USDA ผ่าน Calorify';
-	@override String get nutritionFallback => 'ค่าโภชนาการบางส่วนถูกประมาณการผ่านระบบรีโมท';
-	@override String get calculationServer => 'แคลอรีและสารอาหารหลักคำนวณโดย Calorify';
-	@override String get fallbackUsed => 'การวิเคราะห์บนอุปกรณ์เปลี่ยนไปใช้การประมวลผลผ่านคลาวด์';
-	@override String get noRawContent => 'ใบเสร็จเพื่อการวินิจฉัยจะไม่รวมข้อความหรือรูปภาพมื้ออาหารของคุณ';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsTh {
 			'meal.localInference.continueLabel' => 'ดำเนินการต่อ',
 			'meal.localInference.invalidProposal' => 'โปรดเพิ่มส่วนผสมอย่างน้อยหนึ่งรายการและระบุปริมาณกรัมเป็นค่าบวก',
 			'meal.localInference.localUnavailable' => 'ไม่สามารถใช้งานการวิเคราะห์บนอุปกรณ์ได้ในขณะนี้',
-			'meal.localInference.calculationDetails' => 'วิธีการคำนวณ',
-			'meal.localInference.interpretationLocal' => 'ส่วนผสมที่วิเคราะห์บนอุปกรณ์นี้',
-			'meal.localInference.interpretationCloud' => 'ส่วนผสมที่วิเคราะห์ผ่านคลาวด์',
-			'meal.localInference.interpretationManual' => 'ส่วนผสมที่คุณตรวจสอบหรือแก้ไข',
-			'meal.localInference.nutritionRemote' => 'ข้อมูลโภชนาการดึงมาจาก USDA ผ่าน Calorify',
-			'meal.localInference.nutritionFallback' => 'ค่าโภชนาการบางส่วนถูกประมาณการผ่านระบบรีโมท',
-			'meal.localInference.calculationServer' => 'แคลอรีและสารอาหารหลักคำนวณโดย Calorify',
-			'meal.localInference.fallbackUsed' => 'การวิเคราะห์บนอุปกรณ์เปลี่ยนไปใช้การประมวลผลผ่านคลาวด์',
-			'meal.localInference.noRawContent' => 'ใบเสร็จเพื่อการวินิจฉัยจะไม่รวมข้อความหรือรูปภาพมื้ออาหารของคุณ',
 			'meal.feedback.title' => 'อะไรที่ดูผิดพลาด?',
 			'meal.feedback.subtitle' => 'ช่วยเราปรับปรุงการวิเคราะห์โดยเลือกปัญหาหนึ่งข้อหรือหลายข้อ',
 			'meal.feedback.tellUsMore' => 'บอกเพิ่มเติม',
@@ -2562,8 +2535,6 @@ extension on TranslationsTh {
 			'notifications.snack.body' => 'ถึงเวลาสำหรับของว่างเพื่อสุขภาพ',
 			'notifications.test.title' => 'ทดสอบการแจ้งเตือน',
 			'login.title' => 'เข้าสู่ระบบ',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'ลงชื่อเข้าใช้ด้วย Google',
 			'login.signInFailed' => 'การเข้าสู่ระบบด้วย Google ล้มเหลวหรือถูกยกเลิก',
 			'disclaimer.pleaseNote' => 'โปรดทราบ',
@@ -2573,6 +2544,8 @@ extension on TranslationsTh {
 			'disclaimer.snap.preparationMethods.title' => 'วิธีการปรุง',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'วิธีการปรุงอาหารสามารถเปลี่ยนปริมาณโภชนาการได้อย่างมาก การประมาณของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป',
 			'disclaimer.snap.ingredients.title' => 'ส่วนผสม',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'จานที่ซับซ้อนมีส่วนผสมแฝงหลายชนิด อาจทำให้การประมาณมีความแม่นยำน้อยลง',
 			'disclaimer.snap.databaseLimitations.title' => 'ข้อจำกัดของฐานข้อมูล',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'ฐานข้อมูลอาหารของ ${appLabel} มีความหลากหลายแต่ไม่ครอบคลุมทุกรายการอาหารหรือความแตกต่างทั้งหมด',
@@ -2599,15 +2572,6 @@ extension on TranslationsTh {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'เราคำนวณ TDEE (จากโปรไฟล์ของคุณ) แล้วคูณด้วยสัดส่วนของวันที่ผ่านไป (ชั่วโมง + นาที) / 24 เพื่อประมาณแคลอรีที่เผาผลาญไปแล้ว',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'คำแนะนำจากผู้เชี่ยวชาญ',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'อย่าใช้การประมาณนี้เพื่อการตัดสินใจทางการแพทย์ โปรดปรึกษาผู้เชี่ยวชาญด้านสุขภาพหรือนักโภชนาการที่ลงทะเบียนสำหรับคำแนะนำเฉพาะบุคคล',
-			'localNutritionPhase4.nutritionBundled' => 'ข้อมูลโภชนาการตรงกับแพ็ก USDA ที่ดาวน์โหลด',
-			'localNutritionPhase4.nutritionCached' => 'ข้อมูลโภชนาการตรงกับแคช USDA ในอุปกรณ์',
-			'localNutritionPhase4.nutritionMixed' => 'รวมข้อมูลโภชนาการจากแถว USDA ที่ดาวน์โหลด แคชไว้ และดึงจากระยะไกล',
-			'localNutritionPhase4.calculationLocal' => 'คำนวณแคลอรีและสารอาหารหลักบนอุปกรณ์นี้',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: แพ็ก USDA ที่ดาวน์โหลด',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: แคช USDA ในอุปกรณ์',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: แถว USDA ที่ดึงผ่าน Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: ค่าคงที่โภชนาการแบบกำหนดแน่นอน',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · ชุดข้อมูล ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'น้อยกว่า',
 			'localNutritionPhase4.portionEstimated' => 'โดยประมาณ',
 			'localNutritionPhase4.portionLarger' => 'มากกว่า',

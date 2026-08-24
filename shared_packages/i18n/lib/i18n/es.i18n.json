@@ -343,16 +343,7 @@
       "removeIngredient": "Eliminar ingrediente",
       "continueLabel": "Continuar",
       "invalidProposal": "Añade al menos un ingrediente y usa una cantidad de gramos positiva.",
-      "localUnavailable": "El análisis en el dispositivo no está disponible en este momento.",
-      "calculationDetails": "Cómo se calculó esto",
-      "interpretationLocal": "Ingredientes interpretados en este dispositivo",
-      "interpretationCloud": "Ingredientes interpretados en la nube",
-      "interpretationManual": "Ingredientes revisados o editados por ti",
-      "nutritionRemote": "Nutrición obtenida de USDA a través de Calorify",
-      "nutritionFallback": "Algunos valores nutricionales se estimaron remotamente",
-      "calculationServer": "Calorías y macros calculados por Calorify",
-      "fallbackUsed": "El análisis local recurrió al procesamiento en la nube",
-      "noRawContent": "Los recibos de diagnóstico no incluyen el texto ni la foto de tu comida."
+      "localUnavailable": "El análisis en el dispositivo no está disponible en este momento."
     },
     "feedback": {
       "title": "¿Qué está mal?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Nutrición obtenida del paquete USDA descargado",
-    "nutritionCached": "Nutrición obtenida de la caché USDA del dispositivo",
-    "nutritionMixed": "Nutrición combinada de registros USDA descargados, almacenados en caché y remotos",
-    "calculationLocal": "Calorías y macros calculados en este dispositivo",
-    "ingredientBundled": "{ingredient}: paquete USDA descargado",
-    "ingredientCached": "{ingredient}: caché USDA del dispositivo",
-    "ingredientRemote": "{ingredient}: registro USDA obtenido mediante Calorify",
-    "ingredientDeterministic": "{ingredient}: constante nutricional determinista",
-    "ingredientReference": "FDC {fdcId} · conjunto de datos {datasetVersion}",
     "portionSmaller": "Más pequeña",
     "portionEstimated": "Estimada",
     "portionLarger": "Más grande",

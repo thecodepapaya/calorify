@@ -634,33 +634,6 @@ class Translations$localNutritionPhase4$en {
 
 	// Translations
 
-	/// en: 'Nutrition matched from the downloaded USDA pack'
-	String get nutritionBundled => 'Nutrition matched from the downloaded USDA pack';
-
-	/// en: 'Nutrition matched from the on-device USDA cache'
-	String get nutritionCached => 'Nutrition matched from the on-device USDA cache';
-
-	/// en: 'Nutrition combined from downloaded, cached, and remote USDA rows'
-	String get nutritionMixed => 'Nutrition combined from downloaded, cached, and remote USDA rows';
-
-	/// en: 'Calories and macros calculated on this device'
-	String get calculationLocal => 'Calories and macros calculated on this device';
-
-	/// en: '{ingredient}: downloaded USDA pack'
-	String ingredientBundled({required Object ingredient}) => '${ingredient}: downloaded USDA pack';
-
-	/// en: '{ingredient}: on-device USDA cache'
-	String ingredientCached({required Object ingredient}) => '${ingredient}: on-device USDA cache';
-
-	/// en: '{ingredient}: USDA row fetched through Calorify'
-	String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify';
-
-	/// en: '{ingredient}: deterministic nutrition constant'
-	String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministic nutrition constant';
-
-	/// en: 'FDC {fdcId} · dataset {datasetVersion}'
-	String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}';
-
 	/// en: 'Smaller'
 	String get portionSmaller => 'Smaller';
 
@@ -1538,33 +1511,6 @@ class Translations$meal$localInference$en {
 
 	/// en: 'On-device analysis is unavailable right now.'
 	String get localUnavailable => 'On-device analysis is unavailable right now.';
-
-	/// en: 'How this was calculated'
-	String get calculationDetails => 'How this was calculated';
-
-	/// en: 'Ingredients interpreted on this device'
-	String get interpretationLocal => 'Ingredients interpreted on this device';
-
-	/// en: 'Ingredients interpreted in the cloud'
-	String get interpretationCloud => 'Ingredients interpreted in the cloud';
-
-	/// en: 'Ingredients reviewed or edited by you'
-	String get interpretationManual => 'Ingredients reviewed or edited by you';
-
-	/// en: 'Nutrition fetched from USDA through Calorify'
-	String get nutritionRemote => 'Nutrition fetched from USDA through Calorify';
-
-	/// en: 'Some nutrition values were estimated remotely'
-	String get nutritionFallback => 'Some nutrition values were estimated remotely';
-
-	/// en: 'Calories and macros calculated by Calorify'
-	String get calculationServer => 'Calories and macros calculated by Calorify';
-
-	/// en: 'Local analysis fell back to cloud processing'
-	String get fallbackUsed => 'Local analysis fell back to cloud processing';
-
-	/// en: 'Diagnostic receipts do not include your meal text or photo.'
-	String get noRawContent => 'Diagnostic receipts do not include your meal text or photo.';
 }
 
 // Path: meal.feedback
@@ -3712,15 +3658,6 @@ extension on Translations {
 			'meal.localInference.continueLabel' => 'Continue',
 			'meal.localInference.invalidProposal' => 'Add at least one ingredient and use a positive gram amount.',
 			'meal.localInference.localUnavailable' => 'On-device analysis is unavailable right now.',
-			'meal.localInference.calculationDetails' => 'How this was calculated',
-			'meal.localInference.interpretationLocal' => 'Ingredients interpreted on this device',
-			'meal.localInference.interpretationCloud' => 'Ingredients interpreted in the cloud',
-			'meal.localInference.interpretationManual' => 'Ingredients reviewed or edited by you',
-			'meal.localInference.nutritionRemote' => 'Nutrition fetched from USDA through Calorify',
-			'meal.localInference.nutritionFallback' => 'Some nutrition values were estimated remotely',
-			'meal.localInference.calculationServer' => 'Calories and macros calculated by Calorify',
-			'meal.localInference.fallbackUsed' => 'Local analysis fell back to cloud processing',
-			'meal.localInference.noRawContent' => 'Diagnostic receipts do not include your meal text or photo.',
 			'meal.feedback.title' => 'What looks wrong?',
 			'meal.feedback.subtitle' => 'Help us improve the analysis by selecting one or more issues.',
 			'meal.feedback.tellUsMore' => 'Tell us more',
@@ -3967,8 +3904,6 @@ extension on Translations {
 			'notifications.snack.body' => 'Time for a healthy snack',
 			'notifications.test.title' => 'Test Notification',
 			'login.title' => 'Login',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Sign in with Google',
 			'login.signInFailed' => 'Google Sign-In failed or was cancelled.',
 			'disclaimer.pleaseNote' => 'Please Note',
@@ -3978,6 +3913,8 @@ extension on Translations {
 			'disclaimer.snap.preparationMethods.title' => 'Preparation Methods',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cooking methods can significantly alter the nutritional content of food. ${appLabel}\'s estimates may not always account for these variations.',
 			'disclaimer.snap.ingredients.title' => 'Ingredients',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.',
 			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s food database is extensive but may not include every single food item or variation.',
@@ -4004,15 +3941,6 @@ extension on Translations {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'We compute your TDEE (based on your profile) and multiply it by the fraction of the day elapsed (hours + minutes) / 24 to estimate calories burned so far.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professional Guidance',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Do not use this estimate to make medical decisions. Always consult a healthcare professional or registered dietitian for personalized weight management advice.',
-			'localNutritionPhase4.nutritionBundled' => 'Nutrition matched from the downloaded USDA pack',
-			'localNutritionPhase4.nutritionCached' => 'Nutrition matched from the on-device USDA cache',
-			'localNutritionPhase4.nutritionMixed' => 'Nutrition combined from downloaded, cached, and remote USDA rows',
-			'localNutritionPhase4.calculationLocal' => 'Calories and macros calculated on this device',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: downloaded USDA pack',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: on-device USDA cache',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA row fetched through Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministic nutrition constant',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · dataset ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Smaller',
 			'localNutritionPhase4.portionEstimated' => 'Estimated',
 			'localNutritionPhase4.portionLarger' => 'Larger',

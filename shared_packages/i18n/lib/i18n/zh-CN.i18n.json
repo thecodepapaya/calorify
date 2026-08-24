@@ -343,16 +343,7 @@
       "removeIngredient": "移除食材",
       "continueLabel": "继续",
       "invalidProposal": "请至少添加一种食材，并输入正数的克数。",
-      "localUnavailable": "目前无法使用设备端分析。",
-      "calculationDetails": "计算详情",
-      "interpretationLocal": "由本设备解析的食材",
-      "interpretationCloud": "由云端解析的食材",
-      "interpretationManual": "由您核对或编辑的食材",
-      "nutritionRemote": "营养数据通过 Calorify 从 USDA 获取",
-      "nutritionFallback": "部分营养数值为远程估算",
-      "calculationServer": "卡路里和宏量营养素由 Calorify 计算",
-      "fallbackUsed": "本地分析已回退至云端处理",
-      "noRawContent": "诊断收据不包含您的餐食文本或照片。"
+      "localUnavailable": "目前无法使用设备端分析。"
     },
     "feedback": {
       "title": "哪里看起来不对？",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "营养信息来自已下载的 USDA 数据包",
-    "nutritionCached": "营养信息来自设备上的 USDA 缓存",
-    "nutritionMixed": "营养信息由已下载、已缓存和远程获取的 USDA 数据行合并而成",
-    "calculationLocal": "已在此设备上计算热量和宏量营养素",
-    "ingredientBundled": "{ingredient}：已下载的 USDA 数据包",
-    "ingredientCached": "{ingredient}：设备上的 USDA 缓存",
-    "ingredientRemote": "{ingredient}：通过 Calorify 获取的 USDA 数据行",
-    "ingredientDeterministic": "{ingredient}：确定性营养常量",
-    "ingredientReference": "FDC {fdcId} · 数据集 {datasetVersion}",
     "portionSmaller": "较小",
     "portionEstimated": "估算",
     "portionLarger": "较大",

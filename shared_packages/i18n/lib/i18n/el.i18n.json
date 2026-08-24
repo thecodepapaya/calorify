@@ -343,16 +343,7 @@
       "removeIngredient": "Αφαίρεση συστατικού",
       "continueLabel": "Συνέχεια",
       "invalidProposal": "Προσθέστε τουλάχιστον ένα συστατικό και χρησιμοποιήστε μια θετική ποσότητα γραμμαρίων.",
-      "localUnavailable": "Η ανάλυση στη συσκευή δεν είναι διαθέσιμη αυτή τη στιγμή.",
-      "calculationDetails": "Πώς υπολογίστηκε αυτό",
-      "interpretationLocal": "Συστατικά που ερμηνεύτηκαν σε αυτή τη συσκευή",
-      "interpretationCloud": "Συστατικά που ερμηνεύτηκαν στο cloud",
-      "interpretationManual": "Συστατικά που ελέγξατε ή επεξεργαστήκατε εσείς",
-      "nutritionRemote": "Θρεπτικά στοιχεία από το USDA μέσω του Calorify",
-      "nutritionFallback": "Ορισμένες θρεπτικές τιμές εκτιμήθηκαν απομακρυσμένα",
-      "calculationServer": "Θερμίδες και μακροθρεπτικά υπολογίστηκαν από το Calorify",
-      "fallbackUsed": "Η τοπική ανάλυση μεταφέρθηκε σε επεξεργασία cloud",
-      "noRawContent": "Οι διαγνωστικές αποδείξεις δεν περιλαμβάνουν το κείμενο ή τη φωτογραφία του γεύματός σας."
+      "localUnavailable": "Η ανάλυση στη συσκευή δεν είναι διαθέσιμη αυτή τη στιγμή."
     },
     "feedback": {
       "title": "Τι φαίνεται λανθασμένο;",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Τα διατροφικά στοιχεία αντιστοιχίστηκαν από το ληφθέν πακέτο USDA",
-    "nutritionCached": "Τα διατροφικά στοιχεία αντιστοιχίστηκαν από την προσωρινή μνήμη USDA της συσκευής",
-    "nutritionMixed": "Τα διατροφικά στοιχεία συνδυάστηκαν από ληφθείσες, αποθηκευμένες και απομακρυσμένες γραμμές USDA",
-    "calculationLocal": "Οι θερμίδες και τα μακροθρεπτικά υπολογίστηκαν σε αυτή τη συσκευή",
-    "ingredientBundled": "{ingredient}: ληφθέν πακέτο USDA",
-    "ingredientCached": "{ingredient}: προσωρινή μνήμη USDA στη συσκευή",
-    "ingredientRemote": "{ingredient}: γραμμή USDA που ανακτήθηκε μέσω Calorify",
-    "ingredientDeterministic": "{ingredient}: ντετερμινιστική διατροφική σταθερά",
-    "ingredientReference": "FDC {fdcId} · σύνολο δεδομένων {datasetVersion}",
     "portionSmaller": "Μικρότερη",
     "portionEstimated": "Εκτιμώμενη",
     "portionLarger": "Μεγαλύτερη",

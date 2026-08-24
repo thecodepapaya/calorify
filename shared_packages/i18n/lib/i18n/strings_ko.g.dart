@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$ko extends Translations$localNutritionP
 	final TranslationsKo _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => '다운로드한 USDA 팩에서 영양 정보를 일치시켰습니다';
-	@override String get nutritionCached => '기기 내 USDA 캐시에서 영양 정보를 일치시켰습니다';
-	@override String get nutritionMixed => '다운로드, 캐시 및 원격 USDA 데이터에서 영양 정보를 통합했습니다';
-	@override String get calculationLocal => '이 기기에서 칼로리와 매크로 영양소를 계산했습니다';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: 다운로드한 USDA 팩';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: 기기 내 USDA 캐시';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify를 통해 가져온 USDA 데이터';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: 결정론적 영양 상수';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · 데이터세트 ${datasetVersion}';
 	@override String get portionSmaller => '더 적게';
 	@override String get portionEstimated => '추정량';
 	@override String get portionLarger => '더 많이';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$ko extends Translations$meal$localInfere
 	@override String get continueLabel => '계속하기';
 	@override String get invalidProposal => '최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.';
 	@override String get localUnavailable => '현재 기기 내 분석을 사용할 수 없습니다.';
-	@override String get calculationDetails => '계산 방식';
-	@override String get interpretationLocal => '기기에서 분석한 식재료';
-	@override String get interpretationCloud => '클라우드에서 분석한 식재료';
-	@override String get interpretationManual => '사용자가 확인하거나 수정한 식재료';
-	@override String get nutritionRemote => 'Calorify를 통해 USDA에서 가져온 영양 정보';
-	@override String get nutritionFallback => '일부 영양 수치는 원격으로 추정되었습니다';
-	@override String get calculationServer => 'Calorify에서 계산한 칼로리 및 매크로';
-	@override String get fallbackUsed => '기기 내 분석 실패로 클라우드 처리를 사용했습니다';
-	@override String get noRawContent => '진단 영수증에는 식사 텍스트나 사진이 포함되지 않습니다.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsKo {
 			'meal.localInference.continueLabel' => '계속하기',
 			'meal.localInference.invalidProposal' => '최소 하나 이상의 식재료를 추가하고, 양을 양수로 입력해 주세요.',
 			'meal.localInference.localUnavailable' => '현재 기기 내 분석을 사용할 수 없습니다.',
-			'meal.localInference.calculationDetails' => '계산 방식',
-			'meal.localInference.interpretationLocal' => '기기에서 분석한 식재료',
-			'meal.localInference.interpretationCloud' => '클라우드에서 분석한 식재료',
-			'meal.localInference.interpretationManual' => '사용자가 확인하거나 수정한 식재료',
-			'meal.localInference.nutritionRemote' => 'Calorify를 통해 USDA에서 가져온 영양 정보',
-			'meal.localInference.nutritionFallback' => '일부 영양 수치는 원격으로 추정되었습니다',
-			'meal.localInference.calculationServer' => 'Calorify에서 계산한 칼로리 및 매크로',
-			'meal.localInference.fallbackUsed' => '기기 내 분석 실패로 클라우드 처리를 사용했습니다',
-			'meal.localInference.noRawContent' => '진단 영수증에는 식사 텍스트나 사진이 포함되지 않습니다.',
 			'meal.feedback.title' => '어떤 점이 잘못되었나요?',
 			'meal.feedback.subtitle' => '분석 개선을 위해 한 가지 이상 문제를 선택해주세요.',
 			'meal.feedback.tellUsMore' => '자세히 알려주세요',
@@ -2562,8 +2535,6 @@ extension on TranslationsKo {
 			'notifications.snack.body' => '건강한 간식을 기록할 시간이에요',
 			'notifications.test.title' => '테스트 알림',
 			'login.title' => '로그인',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google로 로그인',
 			'login.signInFailed' => 'Google 로그인에 실패했거나 취소되었습니다.',
 			'disclaimer.pleaseNote' => '알아두세요',
@@ -2573,6 +2544,8 @@ extension on TranslationsKo {
 			'disclaimer.snap.preparationMethods.title' => '조리 방법',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '조리 방법은 음식의 영양 성분을 크게 바꿀 수 있습니다. ${appLabel}의 추정치는 항상 이러한 변이를 모두 반영하지 않을 수 있습니다.',
 			'disclaimer.snap.ingredients.title' => '재료',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '숨겨진 재료가 많은 복잡한 요리는 정확도가 떨어질 수 있습니다.',
 			'disclaimer.snap.databaseLimitations.title' => '데이터베이스 한계',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}의 음식 데이터베이스는 광범위하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다.',
@@ -2599,15 +2572,6 @@ extension on TranslationsKo {
 			'disclaimer.calorieExpenditure.howCalculated.description' => '프로필을 기반으로 TDEE를 계산하고 경과한 시간(시 + 분) / 24를 곱해 지금까지 소모한 칼로리를 추정합니다.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => '전문가 조언',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => '이 추정치를 의료 결정에 사용하지 마세요. 개인화된 체중 관리 조언은 항상 의료 전문가나 공인 영양사와 상담하세요.',
-			'localNutritionPhase4.nutritionBundled' => '다운로드한 USDA 팩에서 영양 정보를 일치시켰습니다',
-			'localNutritionPhase4.nutritionCached' => '기기 내 USDA 캐시에서 영양 정보를 일치시켰습니다',
-			'localNutritionPhase4.nutritionMixed' => '다운로드, 캐시 및 원격 USDA 데이터에서 영양 정보를 통합했습니다',
-			'localNutritionPhase4.calculationLocal' => '이 기기에서 칼로리와 매크로 영양소를 계산했습니다',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: 다운로드한 USDA 팩',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: 기기 내 USDA 캐시',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify를 통해 가져온 USDA 데이터',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: 결정론적 영양 상수',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · 데이터세트 ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => '더 적게',
 			'localNutritionPhase4.portionEstimated' => '추정량',
 			'localNutritionPhase4.portionLarger' => '더 많이',

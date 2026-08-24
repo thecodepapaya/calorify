@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$tl extends Translations$localNutritionP
 	final TranslationsTl _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Itinugma ang nutrisyon mula sa na-download na USDA pack';
-	@override String get nutritionCached => 'Itinugma ang nutrisyon mula sa USDA cache sa device';
-	@override String get nutritionMixed => 'Pinagsama ang nutrisyon mula sa na-download, naka-cache, at remote na mga row ng USDA';
-	@override String get calculationLocal => 'Kinuwenta sa device na ito ang calories at macros';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: na-download na USDA pack';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: USDA cache sa device';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: row ng USDA na kinuha sa pamamagitan ng Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministikong nutrition constant';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · set ng data ${datasetVersion}';
 	@override String get portionSmaller => 'Mas kaunti';
 	@override String get portionEstimated => 'Tinataya';
 	@override String get portionLarger => 'Mas marami';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$tl extends Translations$meal$localInfere
 	@override String get continueLabel => 'Magpatuloy';
 	@override String get invalidProposal => 'Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.';
 	@override String get localUnavailable => 'Hindi available ang on-device analysis sa ngayon.';
-	@override String get calculationDetails => 'Paano ito kinalkula';
-	@override String get interpretationLocal => 'Mga sangkap na binigyang-kahulugan sa device na ito';
-	@override String get interpretationCloud => 'Mga sangkap na binigyang-kahulugan sa cloud';
-	@override String get interpretationManual => 'Mga sangkap na sinuri o inedit mo';
-	@override String get nutritionRemote => 'Nutrisyon na nakuha mula sa USDA sa pamamagitan ng Calorify';
-	@override String get nutritionFallback => 'Ang ilang halaga ng nutrisyon ay tinaya nang remote';
-	@override String get calculationServer => 'Calories at macros na kinalkula ng Calorify';
-	@override String get fallbackUsed => 'Ang local analysis ay lumipat sa cloud processing';
-	@override String get noRawContent => 'Ang mga diagnostic receipt ay hindi kasama ang text o larawan ng iyong pagkain.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsTl {
 			'meal.localInference.continueLabel' => 'Magpatuloy',
 			'meal.localInference.invalidProposal' => 'Magdagdag ng kahit isang sangkap at gumamit ng positibong halaga ng gramo.',
 			'meal.localInference.localUnavailable' => 'Hindi available ang on-device analysis sa ngayon.',
-			'meal.localInference.calculationDetails' => 'Paano ito kinalkula',
-			'meal.localInference.interpretationLocal' => 'Mga sangkap na binigyang-kahulugan sa device na ito',
-			'meal.localInference.interpretationCloud' => 'Mga sangkap na binigyang-kahulugan sa cloud',
-			'meal.localInference.interpretationManual' => 'Mga sangkap na sinuri o inedit mo',
-			'meal.localInference.nutritionRemote' => 'Nutrisyon na nakuha mula sa USDA sa pamamagitan ng Calorify',
-			'meal.localInference.nutritionFallback' => 'Ang ilang halaga ng nutrisyon ay tinaya nang remote',
-			'meal.localInference.calculationServer' => 'Calories at macros na kinalkula ng Calorify',
-			'meal.localInference.fallbackUsed' => 'Ang local analysis ay lumipat sa cloud processing',
-			'meal.localInference.noRawContent' => 'Ang mga diagnostic receipt ay hindi kasama ang text o larawan ng iyong pagkain.',
 			'meal.feedback.title' => 'Ano ang mali?',
 			'meal.feedback.subtitle' => 'Tulungan kaming pagbutihin ang pagsusuri sa pamamagitan ng pagpili ng isa o higit pang isyu.',
 			'meal.feedback.tellUsMore' => 'Sabihin pa',
@@ -2562,8 +2535,6 @@ extension on TranslationsTl {
 			'notifications.snack.body' => 'Oras para sa isang malusog na meryenda',
 			'notifications.test.title' => 'Pagsubok na Abiso',
 			'login.title' => 'Mag-login',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Mag-sign in gamit ang Google',
 			'login.signInFailed' => 'Nabigo o kinansela ang Google Sign-In.',
 			'disclaimer.pleaseNote' => 'Pakitandaan',
@@ -2573,6 +2544,8 @@ extension on TranslationsTl {
 			'disclaimer.snap.preparationMethods.title' => 'Paraan ng Pagluluto',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Malaki ang naiaambag ng paraan ng pagluluto sa pagbabago ng nilalamang nutrisyon ng pagkain. Maaaring hindi palaging nasasaalang-alang ng mga pagtatantya ng ${appLabel} ang mga pagkakaibang ito.',
 			'disclaimer.snap.ingredients.title' => 'Mga Sangkap',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Ang mga komplikadong putahe na may maraming nakatagong sangkap ay maaaring magresulta sa hindi gaanong tumpak na pagtatantiya.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitasyon ng Database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito maisama ang bawat isang pagkain o baryasyon.',
@@ -2599,15 +2572,6 @@ extension on TranslationsTl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Kinukuwenta namin ang iyong TDEE (batay sa iyong profile) at minumultiply ito sa fraction ng araw na lumipas (oras + minuto) / 24 upang tantiyahin ang calories na nasunog hanggang ngayon.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Propesyonal na Gabay',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Huwag gamitin ang pagtatantiyang ito para gumawa ng medikal na desisyon. Laging kumunsulta sa isang healthcare professional o rehistradong dietitian para sa personalisadong payo sa pamamahala ng timbang.',
-			'localNutritionPhase4.nutritionBundled' => 'Itinugma ang nutrisyon mula sa na-download na USDA pack',
-			'localNutritionPhase4.nutritionCached' => 'Itinugma ang nutrisyon mula sa USDA cache sa device',
-			'localNutritionPhase4.nutritionMixed' => 'Pinagsama ang nutrisyon mula sa na-download, naka-cache, at remote na mga row ng USDA',
-			'localNutritionPhase4.calculationLocal' => 'Kinuwenta sa device na ito ang calories at macros',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: na-download na USDA pack',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: USDA cache sa device',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: row ng USDA na kinuha sa pamamagitan ng Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministikong nutrition constant',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · set ng data ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Mas kaunti',
 			'localNutritionPhase4.portionEstimated' => 'Tinataya',
 			'localNutritionPhase4.portionLarger' => 'Mas marami',

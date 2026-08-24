@@ -343,16 +343,7 @@
       "removeIngredient": "إزالة المكون",
       "continueLabel": "متابعة",
       "invalidProposal": "يرجى إضافة مكون واحد على الأقل واستخدام كمية جرامات موجبة.",
-      "localUnavailable": "التحليل على الجهاز غير متاح حالياً.",
-      "calculationDetails": "كيفية حساب هذه القيم",
-      "interpretationLocal": "مكونات تم تحليلها على هذا الجهاز",
-      "interpretationCloud": "مكونات تم تحليلها في السحابة",
-      "interpretationManual": "مكونات تمت مراجعتها أو تعديلها بواسطتك",
-      "nutritionRemote": "تم جلب القيم الغذائية من USDA عبر Calorify",
-      "nutritionFallback": "تم تقدير بعض القيم الغذائية عن بُعد",
-      "calculationServer": "تم حساب السعرات الحرارية والمغذيات الكبرى بواسطة Calorify",
-      "fallbackUsed": "تم الانتقال من التحليل المحلي إلى المعالجة السحابية",
-      "noRawContent": "إيصالات التشخيص لا تتضمن نص الوجبة أو صورتها."
+      "localUnavailable": "التحليل على الجهاز غير متاح حالياً."
     },
     "feedback": {
       "title": "ما الخطأ في التقدير؟",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "تمت مطابقة بيانات التغذية مع حزمة USDA التي تم تنزيلها",
-    "nutritionCached": "تمت مطابقة بيانات التغذية مع ذاكرة USDA المؤقتة على الجهاز",
-    "nutritionMixed": "تم دمج بيانات التغذية من صفوف USDA المنزّلة والمخزنة مؤقتًا والبعيدة",
-    "calculationLocal": "حُسبت السعرات والمغذيات الكبرى على هذا الجهاز",
-    "ingredientBundled": "{ingredient}: حزمة USDA المنزّلة",
-    "ingredientCached": "{ingredient}: ذاكرة USDA المؤقتة على الجهاز",
-    "ingredientRemote": "{ingredient}: صف USDA جُلب عبر Calorify",
-    "ingredientDeterministic": "{ingredient}: ثابت تغذية حتمي",
-    "ingredientReference": "FDC {fdcId} · مجموعة البيانات {datasetVersion}",
     "portionSmaller": "أصغر",
     "portionEstimated": "تقديرية",
     "portionLarger": "أكبر",

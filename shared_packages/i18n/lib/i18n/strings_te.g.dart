@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$te extends Translations$localNutritionP
 	final TranslationsTe _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'డౌన్‌లోడ్ చేసిన USDA ప్యాక్ నుంచి పోషక విలువలు సరిపోల్చబడ్డాయి';
-	@override String get nutritionCached => 'పరికరంలోని USDA క్యాష్ నుంచి పోషక విలువలు సరిపోల్చబడ్డాయి';
-	@override String get nutritionMixed => 'డౌన్‌లోడ్ చేసిన, క్యాష్ చేసిన మరియు రిమోట్ USDA వరుసల నుంచి పోషక విలువలు కలపబడ్డాయి';
-	@override String get calculationLocal => 'ఈ పరికరంలో కేలరీలు మరియు మాక్రోలు లెక్కించబడ్డాయి';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: డౌన్‌లోడ్ చేసిన USDA ప్యాక్';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: పరికరంలోని USDA క్యాష్';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify ద్వారా పొందిన USDA వరుస';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: నిర్ధారిత పోషక స్థిరాంకం';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · డేటాసెట్ ${datasetVersion}';
 	@override String get portionSmaller => 'చిన్నది';
 	@override String get portionEstimated => 'అంచనా';
 	@override String get portionLarger => 'పెద్దది';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$te extends Translations$meal$localInfere
 	@override String get continueLabel => 'కొనసాగించు';
 	@override String get invalidProposal => 'కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.';
 	@override String get localUnavailable => 'ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.';
-	@override String get calculationDetails => 'ఇది ఎలా లెక్కించబడింది';
-	@override String get interpretationLocal => 'ఈ పరికరంలో విశ్లేషించబడిన పదార్థాలు';
-	@override String get interpretationCloud => 'క్లౌడ్‌లో విశ్లేషించబడిన పదార్థాలు';
-	@override String get interpretationManual => 'మీరు సమీక్షించిన లేదా సవరించిన పదార్థాలు';
-	@override String get nutritionRemote => 'Calorify ద్వారా USDA నుండి సేకరించిన పోషక విలువలు';
-	@override String get nutritionFallback => 'కొన్ని పోషక విలువలు రిమోట్‌గా అంచనా వేయబడ్డాయి';
-	@override String get calculationServer => 'క్యాలరీలు మరియు మాక్రోలు Calorify ద్వారా లెక్కించబడ్డాయి';
-	@override String get fallbackUsed => 'స్థానిక విశ్లేషణ విఫలమై క్లౌడ్ ప్రాసెసింగ్‌కు మారింది';
-	@override String get noRawContent => 'డయాగ్నోస్టిక్ రసీదులలో మీ భోజనం టెక్స్ట్ లేదా ఫోటో ఉండవు.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsTe {
 			'meal.localInference.continueLabel' => 'కొనసాగించు',
 			'meal.localInference.invalidProposal' => 'కనీసం ఒక పదార్థాన్ని జోడించండి మరియు సరైన గ్రాముల పరిమాణాన్ని ఉపయోగించండి.',
 			'meal.localInference.localUnavailable' => 'ఆన్-డివైస్ విశ్లేషణ ప్రస్తుతం అందుబాటులో లేదు.',
-			'meal.localInference.calculationDetails' => 'ఇది ఎలా లెక్కించబడింది',
-			'meal.localInference.interpretationLocal' => 'ఈ పరికరంలో విశ్లేషించబడిన పదార్థాలు',
-			'meal.localInference.interpretationCloud' => 'క్లౌడ్‌లో విశ్లేషించబడిన పదార్థాలు',
-			'meal.localInference.interpretationManual' => 'మీరు సమీక్షించిన లేదా సవరించిన పదార్థాలు',
-			'meal.localInference.nutritionRemote' => 'Calorify ద్వారా USDA నుండి సేకరించిన పోషక విలువలు',
-			'meal.localInference.nutritionFallback' => 'కొన్ని పోషక విలువలు రిమోట్‌గా అంచనా వేయబడ్డాయి',
-			'meal.localInference.calculationServer' => 'క్యాలరీలు మరియు మాక్రోలు Calorify ద్వారా లెక్కించబడ్డాయి',
-			'meal.localInference.fallbackUsed' => 'స్థానిక విశ్లేషణ విఫలమై క్లౌడ్ ప్రాసెసింగ్‌కు మారింది',
-			'meal.localInference.noRawContent' => 'డయాగ్నోస్టిక్ రసీదులలో మీ భోజనం టెక్స్ట్ లేదా ఫోటో ఉండవు.',
 			'meal.feedback.title' => 'ఏమి తప్పుగా కనిపిస్తుంది?',
 			'meal.feedback.subtitle' => 'ఒకటి లేదా అంతకంటే ఎక్కువ సమస్యలను ఎంచుకోవడం ద్వారా విశ్లేషణను మెరుగుపరచడంలో మాకు సహాయపడండి.',
 			'meal.feedback.tellUsMore' => 'మరింత చెప్పండి',
@@ -2562,8 +2535,6 @@ extension on TranslationsTe {
 			'notifications.snack.body' => 'ఆరోగ్యకరమైన చిరుతిండికి సమయం',
 			'notifications.test.title' => 'పరీక్ష నోటిఫికేషన్',
 			'login.title' => 'లాగిన్',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Googleతో సైన్ ఇన్ చేయండి',
 			'login.signInFailed' => 'Google సైన్-ఇన్ విఫలమైంది లేదా రద్దు చేయబడింది.',
 			'disclaimer.pleaseNote' => 'దయచేసి గమనించండి',
@@ -2573,6 +2544,8 @@ extension on TranslationsTe {
 			'disclaimer.snap.preparationMethods.title' => 'తయారీ పద్ధతులు',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'వంట పద్ధతులు ఆహారం యొక్క పోషక కంటెంట్‌ను గణనీయంగా మార్చగలవు. ${appLabel} అంచనాలు ఈ వైవిధ్యాలను ఎల్లప్పుడూ పరిగణనలోకి తీసుకోకపోవచ్చు.',
 			'disclaimer.snap.ingredients.title' => 'పదార్థాలు',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'అనేక దాచిన పదార్థాలతో కూడిన సంక్లిష్ట వంటకాలు తక్కువ ఖచ్చితమైన అంచనాలకు దారితీయవచ్చు.',
 			'disclaimer.snap.databaseLimitations.title' => 'డేటాబేస్ పరిమితులు',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} యొక్క ఆహార డేటాబేస్ విస్తృతమైనది కానీ ప్రతి ఒక్క ఆహార వస్తువు లేదా వైవిధ్యాన్ని కలిగి ఉండకపోవచ్చు.',
@@ -2599,15 +2572,6 @@ extension on TranslationsTe {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'మేము మీ TDEE (మీ ప్రొఫైల్ ఆధారంగా)ని లెక్కిస్తాము మరియు ఇప్పటివరకు బర్న్ చేసిన కేలరీలను అంచనా వేయడానికి గడిచిన రోజులో (గంటలు + నిమిషాలు) / 24 భిన్నంతో గుణిస్తాము.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'వృత్తిపరమైన మార్గదర్శకత్వం',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'వైద్య నిర్ణయాలు తీసుకోవడానికి ఈ అంచనాను ఉపయోగించవద్దు. వ్యక్తిగతీకరించిన బరువు నిర్వహణ సలహా కోసం ఎల్లప్పుడూ ఆరోగ్య సంరక్షణ నిపుణుడిని లేదా రిజిస్టర్డ్ డైటీషియన్‌ను సంప్రదించండి.',
-			'localNutritionPhase4.nutritionBundled' => 'డౌన్‌లోడ్ చేసిన USDA ప్యాక్ నుంచి పోషక విలువలు సరిపోల్చబడ్డాయి',
-			'localNutritionPhase4.nutritionCached' => 'పరికరంలోని USDA క్యాష్ నుంచి పోషక విలువలు సరిపోల్చబడ్డాయి',
-			'localNutritionPhase4.nutritionMixed' => 'డౌన్‌లోడ్ చేసిన, క్యాష్ చేసిన మరియు రిమోట్ USDA వరుసల నుంచి పోషక విలువలు కలపబడ్డాయి',
-			'localNutritionPhase4.calculationLocal' => 'ఈ పరికరంలో కేలరీలు మరియు మాక్రోలు లెక్కించబడ్డాయి',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: డౌన్‌లోడ్ చేసిన USDA ప్యాక్',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: పరికరంలోని USDA క్యాష్',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify ద్వారా పొందిన USDA వరుస',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: నిర్ధారిత పోషక స్థిరాంకం',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · డేటాసెట్ ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'చిన్నది',
 			'localNutritionPhase4.portionEstimated' => 'అంచనా',
 			'localNutritionPhase4.portionLarger' => 'పెద్దది',

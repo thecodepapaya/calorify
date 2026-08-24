@@ -343,16 +343,7 @@
       "removeIngredient": "Remover ingrediente",
       "continueLabel": "Continuar",
       "invalidProposal": "Adicione pelo menos um ingrediente e utilize uma quantidade de gramas positiva.",
-      "localUnavailable": "A análise no dispositivo não está disponível de momento.",
-      "calculationDetails": "Como isto foi calculado",
-      "interpretationLocal": "Ingredientes interpretados neste dispositivo",
-      "interpretationCloud": "Ingredientes interpretados na nuvem",
-      "interpretationManual": "Ingredientes revistos ou editados por si",
-      "nutritionRemote": "Nutrição obtida do USDA através do Calorify",
-      "nutritionFallback": "Alguns valores nutricionais foram estimados remotamente",
-      "calculationServer": "Calorias e macros calculadas pelo Calorify",
-      "fallbackUsed": "A análise local recorreu ao processamento na nuvem",
-      "noRawContent": "Os recibos de diagnóstico não incluem o texto ou a foto da sua refeição."
+      "localUnavailable": "A análise no dispositivo não está disponível de momento."
     },
     "feedback": {
       "title": "O que está errado?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Dados nutricionais correspondidos a partir do pacote USDA transferido",
-    "nutritionCached": "Dados nutricionais correspondidos a partir da cache USDA no dispositivo",
-    "nutritionMixed": "Dados nutricionais combinados de linhas USDA transferidas, em cache e remotas",
-    "calculationLocal": "Calorias e macronutrientes calculados neste dispositivo",
-    "ingredientBundled": "{ingredient}: pacote USDA transferido",
-    "ingredientCached": "{ingredient}: cache USDA no dispositivo",
-    "ingredientRemote": "{ingredient}: linha USDA obtida através do Calorify",
-    "ingredientDeterministic": "{ingredient}: constante nutricional determinística",
-    "ingredientReference": "FDC {fdcId} · conjunto de dados {datasetVersion}",
     "portionSmaller": "Menor",
     "portionEstimated": "Estimada",
     "portionLarger": "Maior",

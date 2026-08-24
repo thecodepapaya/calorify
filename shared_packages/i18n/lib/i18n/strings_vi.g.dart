@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$vi extends Translations$localNutritionP
 	final TranslationsVi _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Dinh dưỡng được đối chiếu từ gói USDA đã tải xuống';
-	@override String get nutritionCached => 'Dinh dưỡng được đối chiếu từ bộ nhớ đệm USDA trên thiết bị';
-	@override String get nutritionMixed => 'Dinh dưỡng được tổng hợp từ các hàng USDA đã tải xuống, lưu đệm và từ xa';
-	@override String get calculationLocal => 'Calo và chất dinh dưỡng đa lượng được tính trên thiết bị này';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: gói USDA đã tải xuống';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: bộ nhớ đệm USDA trên thiết bị';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: hàng USDA được lấy qua Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: hằng số dinh dưỡng xác định';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · tập dữ liệu ${datasetVersion}';
 	@override String get portionSmaller => 'Nhỏ hơn';
 	@override String get portionEstimated => 'Ước tính';
 	@override String get portionLarger => 'Lớn hơn';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$vi extends Translations$meal$localInfere
 	@override String get continueLabel => 'Tiếp tục';
 	@override String get invalidProposal => 'Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.';
 	@override String get localUnavailable => 'Tính năng phân tích trên thiết bị hiện không khả dụng.';
-	@override String get calculationDetails => 'Cách tính toán';
-	@override String get interpretationLocal => 'Thành phần được phân tích trên thiết bị này';
-	@override String get interpretationCloud => 'Thành phần được phân tích trên đám mây';
-	@override String get interpretationManual => 'Thành phần do bạn xem lại hoặc chỉnh sửa';
-	@override String get nutritionRemote => 'Dữ liệu dinh dưỡng được lấy từ USDA thông qua Calorify';
-	@override String get nutritionFallback => 'Một số giá trị dinh dưỡng được ước tính từ xa';
-	@override String get calculationServer => 'Calo và macro được tính toán bởi Calorify';
-	@override String get fallbackUsed => 'Phân tích cục bộ đã chuyển sang xử lý trên đám mây';
-	@override String get noRawContent => 'Biên lai chẩn đoán không bao gồm văn bản hoặc ảnh bữa ăn của bạn.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsVi {
 			'meal.localInference.continueLabel' => 'Tiếp tục',
 			'meal.localInference.invalidProposal' => 'Vui lòng thêm ít nhất một thành phần và nhập số gam là số dương.',
 			'meal.localInference.localUnavailable' => 'Tính năng phân tích trên thiết bị hiện không khả dụng.',
-			'meal.localInference.calculationDetails' => 'Cách tính toán',
-			'meal.localInference.interpretationLocal' => 'Thành phần được phân tích trên thiết bị này',
-			'meal.localInference.interpretationCloud' => 'Thành phần được phân tích trên đám mây',
-			'meal.localInference.interpretationManual' => 'Thành phần do bạn xem lại hoặc chỉnh sửa',
-			'meal.localInference.nutritionRemote' => 'Dữ liệu dinh dưỡng được lấy từ USDA thông qua Calorify',
-			'meal.localInference.nutritionFallback' => 'Một số giá trị dinh dưỡng được ước tính từ xa',
-			'meal.localInference.calculationServer' => 'Calo và macro được tính toán bởi Calorify',
-			'meal.localInference.fallbackUsed' => 'Phân tích cục bộ đã chuyển sang xử lý trên đám mây',
-			'meal.localInference.noRawContent' => 'Biên lai chẩn đoán không bao gồm văn bản hoặc ảnh bữa ăn của bạn.',
 			'meal.feedback.title' => 'Có gì sai?',
 			'meal.feedback.subtitle' => 'Giúp chúng tôi cải thiện phân tích bằng cách chọn một hoặc nhiều vấn đề.',
 			'meal.feedback.tellUsMore' => 'Nói thêm cho chúng tôi',
@@ -2562,8 +2535,6 @@ extension on TranslationsVi {
 			'notifications.snack.body' => 'Thời gian cho một bữa ăn nhẹ lành mạnh',
 			'notifications.test.title' => 'Thông báo thử nghiệm',
 			'login.title' => 'Đăng nhập',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Đăng nhập bằng Google',
 			'login.signInFailed' => 'Đăng nhập Google thất bại hoặc đã bị hủy.',
 			'disclaimer.pleaseNote' => 'Vui lòng lưu ý',
@@ -2573,6 +2544,8 @@ extension on TranslationsVi {
 			'disclaimer.snap.preparationMethods.title' => 'Phương pháp chế biến',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cách nấu có thể thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của ${appLabel} có thể không luôn tính đến những thay đổi này.',
 			'disclaimer.snap.ingredients.title' => 'Nguyên liệu',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Các món phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác hơn.',
 			'disclaimer.snap.databaseLimitations.title' => 'Hạn chế cơ sở dữ liệu',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất rộng nhưng có thể không bao gồm mọi món hoặc biến thể.',
@@ -2599,15 +2572,6 @@ extension on TranslationsVi {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'Chúng tôi tính TDEE của bạn (dựa trên hồ sơ) và nhân với tỷ lệ phần ngày đã trôi qua (giờ + phút) / 24 để ước tính calo đã tiêu hao cho đến nay.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Hướng dẫn chuyên môn',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Đừng dùng ước tính này để đưa ra quyết định y tế. Luôn tham khảo chuyên gia y tế hoặc chuyên gia dinh dưỡng để được tư vấn quản lý cân nặng cá nhân.',
-			'localNutritionPhase4.nutritionBundled' => 'Dinh dưỡng được đối chiếu từ gói USDA đã tải xuống',
-			'localNutritionPhase4.nutritionCached' => 'Dinh dưỡng được đối chiếu từ bộ nhớ đệm USDA trên thiết bị',
-			'localNutritionPhase4.nutritionMixed' => 'Dinh dưỡng được tổng hợp từ các hàng USDA đã tải xuống, lưu đệm và từ xa',
-			'localNutritionPhase4.calculationLocal' => 'Calo và chất dinh dưỡng đa lượng được tính trên thiết bị này',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: gói USDA đã tải xuống',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: bộ nhớ đệm USDA trên thiết bị',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: hàng USDA được lấy qua Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: hằng số dinh dưỡng xác định',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · tập dữ liệu ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Nhỏ hơn',
 			'localNutritionPhase4.portionEstimated' => 'Ước tính',
 			'localNutritionPhase4.portionLarger' => 'Lớn hơn',

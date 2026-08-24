@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$nl extends Translations$localNutritionP
 	final TranslationsNl _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Voedingswaarden gekoppeld uit het gedownloade USDA-pakket';
-	@override String get nutritionCached => 'Voedingswaarden gekoppeld uit de USDA-cache op het apparaat';
-	@override String get nutritionMixed => 'Voedingswaarden gecombineerd uit gedownloade, gecachte en externe USDA-rijen';
-	@override String get calculationLocal => 'Calorieën en macro’s berekend op dit apparaat';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: gedownload USDA-pakket';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: USDA-cache op het apparaat';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: USDA-rij opgehaald via Calorify';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministische voedingsconstante';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · gegevensset ${datasetVersion}';
 	@override String get portionSmaller => 'Kleiner';
 	@override String get portionEstimated => 'Geschat';
 	@override String get portionLarger => 'Groter';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$nl extends Translations$meal$localInfere
 	@override String get continueLabel => 'Doorgaan';
 	@override String get invalidProposal => 'Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.';
 	@override String get localUnavailable => 'Analyse op het apparaat is momenteel niet beschikbaar.';
-	@override String get calculationDetails => 'Hoe dit is berekend';
-	@override String get interpretationLocal => 'Ingrediënten geïnterpreteerd op dit apparaat';
-	@override String get interpretationCloud => 'Ingrediënten geïnterpreteerd in de cloud';
-	@override String get interpretationManual => 'Ingrediënten gecontroleerd of bewerkt door jou';
-	@override String get nutritionRemote => 'Voedingswaarde opgehaald uit USDA via Calorify';
-	@override String get nutritionFallback => 'Sommige voedingswaarden zijn op afstand geschat';
-	@override String get calculationServer => 'Calorieën en macro\'s berekend door Calorify';
-	@override String get fallbackUsed => 'Lokale analyse is teruggevallen op cloudverwerking';
-	@override String get noRawContent => 'Diagnostische bonnen bevatten geen maaltijdtekst of foto.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsNl {
 			'meal.localInference.continueLabel' => 'Doorgaan',
 			'meal.localInference.invalidProposal' => 'Voeg minstens één ingrediënt toe en gebruik een positief aantal grammen.',
 			'meal.localInference.localUnavailable' => 'Analyse op het apparaat is momenteel niet beschikbaar.',
-			'meal.localInference.calculationDetails' => 'Hoe dit is berekend',
-			'meal.localInference.interpretationLocal' => 'Ingrediënten geïnterpreteerd op dit apparaat',
-			'meal.localInference.interpretationCloud' => 'Ingrediënten geïnterpreteerd in de cloud',
-			'meal.localInference.interpretationManual' => 'Ingrediënten gecontroleerd of bewerkt door jou',
-			'meal.localInference.nutritionRemote' => 'Voedingswaarde opgehaald uit USDA via Calorify',
-			'meal.localInference.nutritionFallback' => 'Sommige voedingswaarden zijn op afstand geschat',
-			'meal.localInference.calculationServer' => 'Calorieën en macro\'s berekend door Calorify',
-			'meal.localInference.fallbackUsed' => 'Lokale analyse is teruggevallen op cloudverwerking',
-			'meal.localInference.noRawContent' => 'Diagnostische bonnen bevatten geen maaltijdtekst of foto.',
 			'meal.feedback.title' => 'Wat klopt er niet?',
 			'meal.feedback.subtitle' => 'Help ons de analyse te verbeteren door één of meer problemen te selecteren.',
 			'meal.feedback.tellUsMore' => 'Vertel ons meer',
@@ -2562,8 +2535,6 @@ extension on TranslationsNl {
 			'notifications.snack.body' => 'Tijd voor een gezonde snack',
 			'notifications.test.title' => 'Testmelding',
 			'login.title' => 'Inloggen',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Inloggen met Google',
 			'login.signInFailed' => 'Google-aanmelding is mislukt of geannuleerd.',
 			'disclaimer.pleaseNote' => 'Let op',
@@ -2573,6 +2544,8 @@ extension on TranslationsNl {
 			'disclaimer.snap.preparationMethods.title' => 'Bereidingsmethoden',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Bereidingsmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van ${appLabel} houden mogelijk niet altijd rekening met deze variaties.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediënten',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Complexe gerechten met veel verborgen ingrediënten kunnen leiden tot minder nauwkeurige schattingen.',
 			'disclaimer.snap.databaseLimitations.title' => 'Beperkingen van de database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s voedseldatabase is uitgebreid maar bevat mogelijk niet elk afzonderlijk voedingsmiddel of variant.',
@@ -2599,15 +2572,6 @@ extension on TranslationsNl {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'We berekenen je TDEE (op basis van je profiel) en vermenigvuldigen het met het aandeel van de dag dat verstreken is (uren + minuten) / 24 om de tot nu toe verbrande calorieën te schatten.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Professionele begeleiding',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Gebruik deze schatting niet voor medische beslissingen. Raadpleeg altijd een zorgprofessional of geregistreerde diëtist voor persoonlijk gewichtsadvies.',
-			'localNutritionPhase4.nutritionBundled' => 'Voedingswaarden gekoppeld uit het gedownloade USDA-pakket',
-			'localNutritionPhase4.nutritionCached' => 'Voedingswaarden gekoppeld uit de USDA-cache op het apparaat',
-			'localNutritionPhase4.nutritionMixed' => 'Voedingswaarden gecombineerd uit gedownloade, gecachte en externe USDA-rijen',
-			'localNutritionPhase4.calculationLocal' => 'Calorieën en macro’s berekend op dit apparaat',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: gedownload USDA-pakket',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: USDA-cache op het apparaat',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: USDA-rij opgehaald via Calorify',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministische voedingsconstante',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · gegevensset ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Kleiner',
 			'localNutritionPhase4.portionEstimated' => 'Geschat',
 			'localNutritionPhase4.portionLarger' => 'Groter',

@@ -343,16 +343,7 @@
       "removeIngredient": "הסר רכיב",
       "continueLabel": "המשך",
       "invalidProposal": "הוסף רכיב אחד לפחות והזן כמות גרמים חיובית.",
-      "localUnavailable": "ניתוח מקומי במכשיר אינו זמין כעת.",
-      "calculationDetails": "כיצד זה חושב",
-      "interpretationLocal": "רכיבים שפוענחו במכשיר זה",
-      "interpretationCloud": "רכיבים שפוענחו בענן",
-      "interpretationManual": "רכיבים שנבדקו או נערכו על ידיך",
-      "nutritionRemote": "ערכים תזונתיים נשלפו מ-USDA באמצעות Calorify",
-      "nutritionFallback": "חלק מהערכים התזונתיים הוערכו מרחוק",
-      "calculationServer": "קלוריות ומקרוס חושבו על ידי Calorify",
-      "fallbackUsed": "הניתוח המקומי עבר לעיבוד בענן",
-      "noRawContent": "קבצי אבחון אינם כוללים את טקסט הארוחה או התמונה שלך."
+      "localUnavailable": "ניתוח מקומי במכשיר אינו זמין כעת."
     },
     "feedback": {
       "title": "מה לא נראה נכון?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "נתוני התזונה הותאמו מחבילת USDA שהורדה",
-    "nutritionCached": "נתוני התזונה הותאמו ממטמון USDA במכשיר",
-    "nutritionMixed": "נתוני התזונה שולבו משורות USDA שהורדו, נשמרו במטמון ונשלפו מרחוק",
-    "calculationLocal": "הקלוריות והמאקרו חושבו במכשיר הזה",
-    "ingredientBundled": "{ingredient}: חבילת USDA שהורדה",
-    "ingredientCached": "{ingredient}: מטמון USDA במכשיר",
-    "ingredientRemote": "{ingredient}: שורת USDA שנשלפה דרך Calorify",
-    "ingredientDeterministic": "{ingredient}: קבוע תזונתי דטרמיניסטי",
-    "ingredientReference": "FDC {fdcId} · מערך נתונים {datasetVersion}",
     "portionSmaller": "קטנה יותר",
     "portionEstimated": "משוערת",
     "portionLarger": "גדולה יותר",

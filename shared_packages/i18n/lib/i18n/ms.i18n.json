@@ -343,16 +343,7 @@
       "removeIngredient": "Alih keluar ramuan",
       "continueLabel": "Teruskan",
       "invalidProposal": "Tambah sekurang-kurangnya satu ramuan dan gunakan jumlah gram yang positif.",
-      "localUnavailable": "Analisis pada peranti tidak tersedia buat masa ini.",
-      "calculationDetails": "Bagaimana ini dikira",
-      "interpretationLocal": "Ramuan ditafsirkan pada peranti ini",
-      "interpretationCloud": "Ramuan ditafsirkan di awan",
-      "interpretationManual": "Ramuan disemak atau diedit oleh anda",
-      "nutritionRemote": "Maklumat pemakanan diambil daripada USDA melalui Calorify",
-      "nutritionFallback": "Beberapa nilai pemakanan dianggar secara jarak jauh",
-      "calculationServer": "Kalori dan makro dikira oleh Calorify",
-      "fallbackUsed": "Analisis tempatan beralih kepada pemprosesan awan",
-      "noRawContent": "Resit diagnostik tidak termasuk teks atau foto hidangan anda."
+      "localUnavailable": "Analisis pada peranti tidak tersedia buat masa ini."
     },
     "feedback": {
       "title": "Apa yang kelihatan salah?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Pemakanan dipadankan daripada pek USDA yang dimuat turun",
-    "nutritionCached": "Pemakanan dipadankan daripada cache USDA pada peranti",
-    "nutritionMixed": "Pemakanan digabungkan daripada baris USDA yang dimuat turun, dicache dan jauh",
-    "calculationLocal": "Kalori dan makro dikira pada peranti ini",
-    "ingredientBundled": "{ingredient}: pek USDA yang dimuat turun",
-    "ingredientCached": "{ingredient}: cache USDA pada peranti",
-    "ingredientRemote": "{ingredient}: baris USDA yang diambil melalui Calorify",
-    "ingredientDeterministic": "{ingredient}: pemalar pemakanan deterministik",
-    "ingredientReference": "FDC {fdcId} · set data {datasetVersion}",
     "portionSmaller": "Lebih kecil",
     "portionEstimated": "Anggaran",
     "portionLarger": "Lebih besar",

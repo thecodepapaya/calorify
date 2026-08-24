@@ -343,16 +343,7 @@
       "removeIngredient": "Видалити інгредієнт",
       "continueLabel": "Продовжити",
       "invalidProposal": "Додайте принаймні один інгредієнт і вкажіть додатню кількість грамів.",
-      "localUnavailable": "Аналіз на пристрої наразі недоступний.",
-      "calculationDetails": "Як це було розраховано",
-      "interpretationLocal": "Інгредієнти визначено на цьому пристрої",
-      "interpretationCloud": "Інгредієнти визначено у хмарі",
-      "interpretationManual": "Інгредієнти перевірені або відредаговані вами",
-      "nutritionRemote": "Дані про поживність отримано з USDA через Calorify",
-      "nutritionFallback": "Деякі значення поживності були оцінені віддалено",
-      "calculationServer": "Калорії та макронутрієнти розраховані Calorify",
-      "fallbackUsed": "Локальний аналіз було замінено хмарною обробкою",
-      "noRawContent": "Діагностичні чеки не містять тексту вашої страви або фото."
+      "localUnavailable": "Аналіз на пристрої наразі недоступний."
     },
     "feedback": {
       "title": "Що виглядає неправильно?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "Харчову цінність зіставлено із завантаженого пакета USDA",
-    "nutritionCached": "Харчову цінність зіставлено з кешу USDA на пристрої",
-    "nutritionMixed": "Харчову цінність об’єднано із завантажених, кешованих і віддалених рядків USDA",
-    "calculationLocal": "Калорії та макронутрієнти розраховано на цьому пристрої",
-    "ingredientBundled": "{ingredient}: завантажений пакет USDA",
-    "ingredientCached": "{ingredient}: кеш USDA на пристрої",
-    "ingredientRemote": "{ingredient}: рядок USDA, отриманий через Calorify",
-    "ingredientDeterministic": "{ingredient}: детермінована харчова константа",
-    "ingredientReference": "FDC {fdcId} · набір даних {datasetVersion}",
     "portionSmaller": "Менша",
     "portionEstimated": "Орієнтовна",
     "portionLarger": "Більша",

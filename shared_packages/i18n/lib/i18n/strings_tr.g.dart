@@ -380,15 +380,6 @@ class _Translations$localNutritionPhase4$tr extends Translations$localNutritionP
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get nutritionBundled => 'Besin bilgileri indirilen USDA paketinden eşleştirildi';
-	@override String get nutritionCached => 'Besin bilgileri cihazdaki USDA önbelleğinden eşleştirildi';
-	@override String get nutritionMixed => 'Besin bilgileri indirilen, önbelleğe alınan ve uzaktaki USDA satırlarından birleştirildi';
-	@override String get calculationLocal => 'Kaloriler ve makrolar bu cihazda hesaplandı';
-	@override String ingredientBundled({required Object ingredient}) => '${ingredient}: indirilen USDA paketi';
-	@override String ingredientCached({required Object ingredient}) => '${ingredient}: cihazdaki USDA önbelleği';
-	@override String ingredientRemote({required Object ingredient}) => '${ingredient}: Calorify üzerinden alınan USDA satırı';
-	@override String ingredientDeterministic({required Object ingredient}) => '${ingredient}: deterministik besin sabiti';
-	@override String ingredientReference({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · veri kümesi ${datasetVersion}';
 	@override String get portionSmaller => 'Daha küçük';
 	@override String get portionEstimated => 'Tahmini';
 	@override String get portionLarger => 'Daha büyük';
@@ -870,15 +861,6 @@ class _Translations$meal$localInference$tr extends Translations$meal$localInfere
 	@override String get continueLabel => 'Devam et';
 	@override String get invalidProposal => 'Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.';
 	@override String get localUnavailable => 'Cihaz içi analiz şu anda kullanılamıyor.';
-	@override String get calculationDetails => 'Bu nasıl hesaplandı';
-	@override String get interpretationLocal => 'Bu cihazda yorumlanan malzemeler';
-	@override String get interpretationCloud => 'Bulutta yorumlanan malzemeler';
-	@override String get interpretationManual => 'Tarafınızca gözden geçirilen veya düzenlenen malzemeler';
-	@override String get nutritionRemote => 'Besin değerleri Calorify aracılığıyla USDA\'dan alındı';
-	@override String get nutritionFallback => 'Bazı besin değerleri uzaktan tahmin edildi';
-	@override String get calculationServer => 'Kaloriler ve makrolar Calorify tarafından hesaplandı';
-	@override String get fallbackUsed => 'Yerel analiz, bulut işlemeye yönlendirildi';
-	@override String get noRawContent => 'Tanılama makbuzları, öğün metninizi veya fotoğrafınızı içermez.';
 }
 
 // Path: meal.feedback
@@ -2307,15 +2289,6 @@ extension on TranslationsTr {
 			'meal.localInference.continueLabel' => 'Devam et',
 			'meal.localInference.invalidProposal' => 'Lütfen en az bir malzeme ekleyin ve pozitif bir gram miktarı girin.',
 			'meal.localInference.localUnavailable' => 'Cihaz içi analiz şu anda kullanılamıyor.',
-			'meal.localInference.calculationDetails' => 'Bu nasıl hesaplandı',
-			'meal.localInference.interpretationLocal' => 'Bu cihazda yorumlanan malzemeler',
-			'meal.localInference.interpretationCloud' => 'Bulutta yorumlanan malzemeler',
-			'meal.localInference.interpretationManual' => 'Tarafınızca gözden geçirilen veya düzenlenen malzemeler',
-			'meal.localInference.nutritionRemote' => 'Besin değerleri Calorify aracılığıyla USDA\'dan alındı',
-			'meal.localInference.nutritionFallback' => 'Bazı besin değerleri uzaktan tahmin edildi',
-			'meal.localInference.calculationServer' => 'Kaloriler ve makrolar Calorify tarafından hesaplandı',
-			'meal.localInference.fallbackUsed' => 'Yerel analiz, bulut işlemeye yönlendirildi',
-			'meal.localInference.noRawContent' => 'Tanılama makbuzları, öğün metninizi veya fotoğrafınızı içermez.',
 			'meal.feedback.title' => 'Neresi yanlış görünüyor?',
 			'meal.feedback.subtitle' => 'Analizi geliştirmemize yardımcı olmak için bir veya birden fazla sorun seçin.',
 			'meal.feedback.tellUsMore' => 'Daha fazla anlatın',
@@ -2562,8 +2535,6 @@ extension on TranslationsTr {
 			'notifications.snack.body' => 'Sağlıklı bir ara öğün zamanı',
 			'notifications.test.title' => 'Test Bildirimi',
 			'login.title' => 'Giriş',
-			_ => null,
-		} ?? switch (path) {
 			'login.signInWithGoogle' => 'Google ile giriş yap',
 			'login.signInFailed' => 'Google ile giriş başarısız oldu veya iptal edildi.',
 			'disclaimer.pleaseNote' => 'Lütfen Dikkat',
@@ -2573,6 +2544,8 @@ extension on TranslationsTr {
 			'disclaimer.snap.preparationMethods.title' => 'Hazırlama Yöntemleri',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri yiyeceğin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel} tahminleri her zaman bu farklılıkları hesaba katmayabilir.',
 			'disclaimer.snap.ingredients.title' => 'İçerikler',
+			_ => null,
+		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Birçok gizli içeriğe sahip karmaşık yemekler daha az doğru tahminlere yol açabilir.',
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'in gıda veritabanı kapsamlıdır ancak her bir yiyecek öğesini veya varyasyonunu içermeyebilir.',
@@ -2599,15 +2572,6 @@ extension on TranslationsTr {
 			'disclaimer.calorieExpenditure.howCalculated.description' => 'TDEE\'nizi (profilinize göre) hesaplıyoruz ve günün geçen kısmının kesriyle (saat + dakika) / 24 çarparak şu ana kadar yakılan kalorileri tahmin ediyoruz.',
 			'disclaimer.calorieExpenditure.professionalGuidance.title' => 'Uzman Rehberliği',
 			'disclaimer.calorieExpenditure.professionalGuidance.description' => 'Tıbbi kararlar için bu tahmini kullanmayın. Kişiselleştirilmiş kilo yönetimi tavsiyesi için her zaman bir sağlık uzmanına veya kayıtlı diyetisyene danışın.',
-			'localNutritionPhase4.nutritionBundled' => 'Besin bilgileri indirilen USDA paketinden eşleştirildi',
-			'localNutritionPhase4.nutritionCached' => 'Besin bilgileri cihazdaki USDA önbelleğinden eşleştirildi',
-			'localNutritionPhase4.nutritionMixed' => 'Besin bilgileri indirilen, önbelleğe alınan ve uzaktaki USDA satırlarından birleştirildi',
-			'localNutritionPhase4.calculationLocal' => 'Kaloriler ve makrolar bu cihazda hesaplandı',
-			'localNutritionPhase4.ingredientBundled' => ({required Object ingredient}) => '${ingredient}: indirilen USDA paketi',
-			'localNutritionPhase4.ingredientCached' => ({required Object ingredient}) => '${ingredient}: cihazdaki USDA önbelleği',
-			'localNutritionPhase4.ingredientRemote' => ({required Object ingredient}) => '${ingredient}: Calorify üzerinden alınan USDA satırı',
-			'localNutritionPhase4.ingredientDeterministic' => ({required Object ingredient}) => '${ingredient}: deterministik besin sabiti',
-			'localNutritionPhase4.ingredientReference' => ({required Object fdcId, required Object datasetVersion}) => 'FDC ${fdcId} · veri kümesi ${datasetVersion}',
 			'localNutritionPhase4.portionSmaller' => 'Daha küçük',
 			'localNutritionPhase4.portionEstimated' => 'Tahmini',
 			'localNutritionPhase4.portionLarger' => 'Daha büyük',

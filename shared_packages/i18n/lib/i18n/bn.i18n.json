@@ -343,16 +343,7 @@
       "removeIngredient": "উপাদান সরিয়ে ফেলুন",
       "continueLabel": "চালিয়ে যান",
       "invalidProposal": "অন্তত একটি উপাদান যোগ করুন এবং গ্রামের পরিমাণ ধনাত্মক সংখ্যায় লিখুন।",
-      "localUnavailable": "অন-ডিভাইস বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই।",
-      "calculationDetails": "এটি যেভাবে গণনা করা হয়েছে",
-      "interpretationLocal": "এই ডিভাইসে বিশ্লেষণ করা উপাদান",
-      "interpretationCloud": "ক্লাউডে বিশ্লেষণ করা উপাদান",
-      "interpretationManual": "আপনার দ্বারা যাচাই বা সম্পাদিত উপাদান",
-      "nutritionRemote": "Calorify-এর মাধ্যমে USDA থেকে পুষ্টির তথ্য সংগ্রহ করা হয়েছে",
-      "nutritionFallback": "কিছু পুষ্টির মান রিমোটলি অনুমান করা হয়েছে",
-      "calculationServer": "ক্যালোরি এবং ম্যাক্রোস Calorify দ্বারা গণনা করা হয়েছে",
-      "fallbackUsed": "লোকাল অ্যানালাইসিসের পরিবর্তে ক্লাউড প্রসেসিং ব্যবহার করা হয়েছে",
-      "noRawContent": "ডায়াগনস্টিক রসিদে আপনার খাবারের টেক্সট বা ফটো অন্তর্ভুক্ত নেই।"
+      "localUnavailable": "অন-ডিভাইস বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই।"
     },
     "feedback": {
       "title": "কোন অংশটি ভুল দেখাচ্ছে?",
@@ -781,15 +772,6 @@
     }
   },
   "localNutritionPhase4": {
-    "nutritionBundled": "ডাউনলোড করা USDA প্যাক থেকে পুষ্টির তথ্য মেলানো হয়েছে",
-    "nutritionCached": "ডিভাইসের USDA ক্যাশ থেকে পুষ্টির তথ্য মেলানো হয়েছে",
-    "nutritionMixed": "ডাউনলোড করা, ক্যাশে রাখা এবং দূরবর্তী USDA সারি থেকে পুষ্টির তথ্য একত্র করা হয়েছে",
-    "calculationLocal": "এই ডিভাইসে ক্যালোরি ও ম্যাক্রো হিসাব করা হয়েছে",
-    "ingredientBundled": "{ingredient}: ডাউনলোড করা USDA প্যাক",
-    "ingredientCached": "{ingredient}: ডিভাইসের USDA ক্যাশ",
-    "ingredientRemote": "{ingredient}: Calorify-এর মাধ্যমে আনা USDA সারি",
-    "ingredientDeterministic": "{ingredient}: নির্ধারিত পুষ্টি ধ্রুবক",
-    "ingredientReference": "FDC {fdcId} · ডেটাসেট {datasetVersion}",
     "portionSmaller": "ছোট",
     "portionEstimated": "আনুমানিক",
     "portionLarger": "বড়",
