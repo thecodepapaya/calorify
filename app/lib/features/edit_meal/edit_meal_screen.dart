@@ -78,6 +78,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
   late int _fiber;
   late MealType _mealType;
   late TextEditingController _mealQuantityController;
+  late FocusNode _mealTypeFocusNode;
   int? _clientId;
   bool _isSaving = false;
 
@@ -132,6 +133,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
     }
     _dateController = TextEditingController();
     _timeController = TextEditingController();
+    _mealTypeFocusNode = FocusNode()..addListener(_refreshMealTypeField);
   }
 
   @override
@@ -149,7 +151,14 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
     _dateController.dispose();
     _timeController.dispose();
     _mealQuantityController.dispose();
+    _mealTypeFocusNode
+      ..removeListener(_refreshMealTypeField)
+      ..dispose();
     super.dispose();
+  }
+
+  void _refreshMealTypeField() {
+    if (mounted) setState(() {});
   }
 
   @override
@@ -245,27 +254,37 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
                   }
                 },
               );
-              final mealTypeField = DropdownButtonFormField<MealType>(
-                initialValue: _mealType,
+              final mealTypeField = InputDecorator(
                 decoration: _inputDecoration(
                   context,
                   label: t.meal.mealType,
                   icon: AppIcons.utensilsCrossed,
                 ),
-                items:
-                    mealTypeValues
-                        .map(
-                          (type) => DropdownMenuItem(
-                            value: type,
-                            child: Text(type.displayName),
-                          ),
-                        )
-                        .toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() => _mealType = value);
-                  }
-                },
+                isEmpty: false,
+                isFocused: _mealTypeFocusNode.hasFocus,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<MealType>(
+                    value: _mealType,
+                    focusNode: _mealTypeFocusNode,
+                    isDense: true,
+                    isExpanded: true,
+                    menuWidth: _mealTypeMenuWidth(context),
+                    items:
+                        mealTypeValues
+                            .map(
+                              (type) => DropdownMenuItem(
+                                value: type,
+                                child: Text(type.displayName),
+                              ),
+                            )
+                            .toList(),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() => _mealType = value);
+                      }
+                    },
+                  ),
+                ),
               );
 
               if (constraints.maxWidth < 600) {
@@ -319,53 +338,60 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
         const spacing = 10.0;
         final tileWidth = (constraints.maxWidth - spacing) / 2;
 
-        return Wrap(
-          spacing: spacing,
-          runSpacing: spacing,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildMacroCard(
-              width: tileWidth,
+              width: constraints.maxWidth,
               label: t.meal.nutrition.calories,
               value: _calories,
               min: 0,
               max: 1500,
+              divisions: 150,
               onChanged: (value) => setState(() => _calories = value),
             ),
-            _buildMacroCard(
-              width: tileWidth,
-              label: _stripTrailingUnit(t.meal.nutrition.carbs),
-              value: _carbs,
-              min: 0,
-              max: 240,
-              unit: 'g',
-              onChanged: (value) => setState(() => _carbs = value),
-            ),
-            _buildMacroCard(
-              width: tileWidth,
-              label: _stripTrailingUnit(t.meal.nutrition.protein),
-              value: _protein,
-              min: 0,
-              max: 120,
-              unit: 'g',
-              onChanged: (value) => setState(() => _protein = value),
-            ),
-            _buildMacroCard(
-              width: tileWidth,
-              label: _stripTrailingUnit(t.meal.nutrition.fat),
-              value: _fat,
-              min: 0,
-              max: 100,
-              unit: 'g',
-              onChanged: (value) => setState(() => _fat = value),
-            ),
-            _buildMacroCard(
-              width: tileWidth,
-              label: _stripTrailingUnit(t.meal.nutrition.fiber),
-              value: _fiber,
-              min: 0,
-              max: 40,
-              unit: 'g',
-              onChanged: (value) => setState(() => _fiber = value),
+            const SizedBox(height: spacing),
+            Wrap(
+              spacing: spacing,
+              runSpacing: spacing,
+              children: [
+                _buildMacroCard(
+                  width: tileWidth,
+                  label: _stripTrailingUnit(t.meal.nutrition.carbs),
+                  value: _carbs,
+                  min: 0,
+                  max: 240,
+                  unit: 'g',
+                  onChanged: (value) => setState(() => _carbs = value),
+                ),
+                _buildMacroCard(
+                  width: tileWidth,
+                  label: _stripTrailingUnit(t.meal.nutrition.protein),
+                  value: _protein,
+                  min: 0,
+                  max: 120,
+                  unit: 'g',
+                  onChanged: (value) => setState(() => _protein = value),
+                ),
+                _buildMacroCard(
+                  width: tileWidth,
+                  label: _stripTrailingUnit(t.meal.nutrition.fat),
+                  value: _fat,
+                  min: 0,
+                  max: 100,
+                  unit: 'g',
+                  onChanged: (value) => setState(() => _fat = value),
+                ),
+                _buildMacroCard(
+                  width: tileWidth,
+                  label: _stripTrailingUnit(t.meal.nutrition.fiber),
+                  value: _fiber,
+                  min: 0,
+                  max: 40,
+                  unit: 'g',
+                  onChanged: (value) => setState(() => _fiber = value),
+                ),
+              ],
             ),
           ],
         );
@@ -408,6 +434,27 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
         borderSide: BorderSide(color: colorScheme.primary, width: 1.4),
       ),
     );
+  }
+
+  double _mealTypeMenuWidth(BuildContext context) {
+    final style = Theme.of(context).textTheme.titleMedium;
+    final textDirection = Directionality.of(context);
+    final textScaler = MediaQuery.textScalerOf(context);
+    var widestOption = 0.0;
+
+    for (final type in mealTypeValues) {
+      final painter = TextPainter(
+        text: TextSpan(text: type.displayName, style: style),
+        textDirection: textDirection,
+        textScaler: textScaler,
+        maxLines: 1,
+      )..layout();
+      if (painter.width > widestOption) widestOption = painter.width;
+      painter.dispose();
+    }
+
+    // Dropdown menu items use 16 logical pixels of padding on each side.
+    return widestOption.ceilToDouble() + 32;
   }
 
   bool _hasImage() {
@@ -516,6 +563,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
     required int value,
     required int min,
     required int max,
+    int? divisions,
     String? unit,
     required ValueChanged<int> onChanged,
   }) {
@@ -573,7 +621,7 @@ class EditMealScreenState extends ConsumerState<EditMealScreen> {
                 value: value.toDouble(),
                 min: min.toDouble(),
                 max: max.toDouble(),
-                divisions: max - min,
+                divisions: divisions ?? max - min,
                 label: value.toString(),
                 onChanged: (value) => onChanged(value.toInt()),
               ),

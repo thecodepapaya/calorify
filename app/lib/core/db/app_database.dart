@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:calorify/core/db/database_interface.dart';
@@ -60,10 +61,10 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   final DataSourceType _dataSourceType;
   final bool _seedDevelopmentData;
 
-  // v27 stops mapping the obsolete disclosure-version column. Existing
+  // v28 stops mapping the obsolete disclosure-version column. Existing
   // SQLite files may retain it harmlessly, as with earlier removed columns.
   @override
-  int get schemaVersion => 27;
+  int get schemaVersion => 28;
 
   @override
   MigrationStrategy get migration {
@@ -489,6 +490,31 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
           if (!await _tableExists('meal_log_sync_queue_table')) {
             await m.createTable(mealLogSyncQueueTable);
           }
+        }
+        if (from < 28 && await _tableExists('meal_log_sync_queue_table')) {
+          // Some v27 databases received the outbox table before its generated
+          // unique index. Keep the most recently updated operation for each
+          // analysis before restoring the invariant required by the upsert.
+          await customStatement('''
+            DELETE FROM meal_log_sync_queue_table AS stale
+            WHERE EXISTS (
+              SELECT 1
+              FROM meal_log_sync_queue_table AS newer
+              WHERE newer.analysis_id = stale.analysis_id
+                AND (
+                  newer.updated_at > stale.updated_at
+                  OR (
+                    newer.updated_at = stale.updated_at
+                    AND newer.id > stale.id
+                  )
+                )
+            )
+          ''');
+          await customStatement('''
+            CREATE UNIQUE INDEX IF NOT EXISTS
+              meal_log_sync_analysis_id_unique
+            ON meal_log_sync_queue_table(analysis_id)
+          ''');
         }
       },
     );
@@ -948,63 +974,73 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       analysisSnapshot,
     );
 
-    await transaction(() async {
-      if (idempotencyKey != null) {
-        final existing =
-            await (select(mealInfoTable)..where(
-              (table) => table.analysisId.equals(idempotencyKey),
-            )).getSingleOrNull();
-        if (existing != null) return;
-      }
+    try {
+      await transaction(() async {
+        if (idempotencyKey != null) {
+          final existing =
+              await (select(mealInfoTable)..where(
+                (table) => table.analysisId.equals(idempotencyKey),
+              )).getSingleOrNull();
+          if (existing != null) return;
+        }
 
-      final syncEnabled = await _isHealthConnectNutritionSyncEnabled();
-      final recordId =
-          syncEnabled ? 'calorify-meal-${const Uuid().v4()}' : null;
-      final companion = mealInfo.toCompanion(
-        timestamp: timestamp,
-        analysisId: Value(idempotencyKey),
-        analysisSnapshotJson: Value(
-          analysisSnapshot == null
-              ? null
-              : jsonEncode(analysisSnapshot.toProto3Json()),
-        ),
-        healthConnectRecordId:
-            recordId == null ? const Value.absent() : Value(recordId),
-        healthConnectRecordVersion:
-            recordId == null ? const Value.absent() : const Value(1),
-        mealLogSyncVersion:
-            syncAnalysisLog ? const Value(1) : const Value.absent(),
+        final syncEnabled = await _isHealthConnectNutritionSyncEnabled();
+        final recordId =
+            syncEnabled ? 'calorify-meal-${const Uuid().v4()}' : null;
+        final companion = mealInfo.toCompanion(
+          timestamp: timestamp,
+          analysisId: Value(idempotencyKey),
+          analysisSnapshotJson: Value(
+            analysisSnapshot == null
+                ? null
+                : jsonEncode(analysisSnapshot.toProto3Json()),
+          ),
+          healthConnectRecordId:
+              recordId == null ? const Value.absent() : Value(recordId),
+          healthConnectRecordVersion:
+              recordId == null ? const Value.absent() : const Value(1),
+          mealLogSyncVersion:
+              syncAnalysisLog ? const Value(1) : const Value.absent(),
+        );
+
+        if (idempotencyKey == null) {
+          await into(mealInfoTable).insert(companion);
+        } else {
+          // The unique index remains the final atomic boundary if two callers
+          // race before either transaction observes the other row.
+          final inserted = await into(
+            mealInfoTable,
+          ).insert(companion, mode: InsertMode.insertOrIgnore);
+          if (inserted <= 0) return;
+        }
+
+        if (recordId != null) {
+          await _enqueueHealthConnectUpsert(
+            mealInfo,
+            loggedAt: timestamp,
+            clientRecordId: recordId,
+            clientRecordVersion: 1,
+          );
+        }
+        if (syncAnalysisLog) {
+          await _enqueueMealLogSync(
+            analysisId: idempotencyKey!,
+            operation: MealLogSyncOperation.upsert,
+            version: 1,
+            meal: mealInfo,
+            loggedAt: timestamp,
+          );
+        }
+      });
+    } on Object catch (error, stackTrace) {
+      developer.log(
+        'Failed to log meal to the local database',
+        name: 'AppDatabase',
+        error: error,
+        stackTrace: stackTrace,
       );
-
-      if (idempotencyKey == null) {
-        await into(mealInfoTable).insert(companion);
-      } else {
-        // The unique index remains the final atomic boundary if two callers
-        // race before either transaction observes the other row.
-        final inserted = await into(
-          mealInfoTable,
-        ).insert(companion, mode: InsertMode.insertOrIgnore);
-        if (inserted <= 0) return;
-      }
-
-      if (recordId != null) {
-        await _enqueueHealthConnectUpsert(
-          mealInfo,
-          loggedAt: timestamp,
-          clientRecordId: recordId,
-          clientRecordVersion: 1,
-        );
-      }
-      if (syncAnalysisLog) {
-        await _enqueueMealLogSync(
-          analysisId: idempotencyKey!,
-          operation: MealLogSyncOperation.upsert,
-          version: 1,
-          meal: mealInfo,
-          loggedAt: timestamp,
-        );
-      }
-    });
+      rethrow;
+    }
   }
 
   @override

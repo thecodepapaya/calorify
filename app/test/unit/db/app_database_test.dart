@@ -110,6 +110,20 @@ const _v19ProfileTableSql = '''
   )
 ''';
 
+const _v27MealLogSyncQueueTableSql = '''
+  CREATE TABLE meal_log_sync_queue_table (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    analysis_id TEXT NOT NULL,
+    operation TEXT NOT NULL,
+    version INTEGER NOT NULL,
+    meal_json TEXT,
+    logged_at INTEGER,
+    attempts INTEGER NOT NULL DEFAULT 0,
+    last_error TEXT,
+    updated_at INTEGER NOT NULL
+  )
+''';
+
 Meal _meal(String name) => Meal(
   name: name,
   quantity: '1 serving',
@@ -710,6 +724,43 @@ void main() {
     expect(pending, isNotNull);
     expect(pending?.revision, isNotEmpty);
     expect(pending?.profile.weight, 70);
+  });
+
+  test('v28 upgrade restores the meal-log outbox unique index', () async {
+    await database.close();
+    database = AppDatabase.forTesting(
+      NativeDatabase.memory(
+        setup: (rawDatabase) {
+          rawDatabase.execute(_v27MealLogSyncQueueTableSql);
+          rawDatabase.execute('''
+            INSERT INTO meal_log_sync_queue_table (
+              analysis_id, operation, version, meal_json, logged_at,
+              attempts, last_error, updated_at
+            ) VALUES
+              ('analysis-1', 'upsert', 1, '{}', 1, 0, NULL, 100),
+              ('analysis-1', 'delete', 2, NULL, 2, 0, NULL, 200)
+          ''');
+          rawDatabase.execute('PRAGMA user_version = 27');
+        },
+      ),
+    );
+
+    final rows =
+        await database
+            .customSelect(
+              'SELECT operation, version FROM meal_log_sync_queue_table',
+            )
+            .get();
+    expect(rows, hasLength(1));
+    expect(rows.single.read<String>('operation'), 'delete');
+    expect(rows.single.read<int>('version'), 2);
+
+    final indexes =
+        await database.customSelect('''
+      SELECT name FROM sqlite_master
+      WHERE type = 'index' AND name = 'meal_log_sync_analysis_id_unique'
+    ''').get();
+    expect(indexes, hasLength(1));
   });
 
   test(

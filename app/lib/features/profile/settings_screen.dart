@@ -410,15 +410,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           size: 20,
         ),
       ),
-      title: Row(
+      title: Wrap(
+        spacing: 8,
+        runSpacing: 4,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Expanded(
-            child: Text(
-              t.settings.localInference.useLocalTitle,
-              style: const TextStyle(fontWeight: FontWeight.w600),
-            ),
+          Text(
+            t.settings.localInference.useLocalTitle,
+            style: const TextStyle(fontWeight: FontWeight.w600),
           ),
-          const SizedBox(width: 8),
           AppTag(label: t.common.betaTag),
         ],
       ),
