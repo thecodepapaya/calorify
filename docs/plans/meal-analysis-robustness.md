@@ -25,8 +25,11 @@ This work is intentionally bounded:
 - Reuse the existing engine entry points, validation contracts, and pipeline
   event types from the HTTP routes and local CLI.
 - Keep one canonical schema per boundary: Zod for backend-only decomposition and
-  durable snapshot validation, and protobuf for backend-to-client events. Use
-  explicit mapping tests instead of introducing a universal schema generator.
+  durable snapshot validation, Kotlin/ML Kit annotations for on-device
+  structured generation, and protobuf for cross-language transport. Keep the
+  cloud and local decomposition cores semantically aligned through identical
+  field names, descriptions, constraints, and shared contract fixtures rather
+  than introducing a universal schema generator.
 - Add no new service, queue, general workflow framework, provider abstraction,
   or nutrition database.
 - Add no table solely for non-food results, USDA matches, CLI runs, or user
@@ -75,9 +78,9 @@ and the existing evaluator is
    structured-output order.
 5. Do not maintain a closed list of non-food or exclusion categories. The
    explanation is bounded free text and is never used for control flow.
-6. Give the LLM an ordered USDA lookup proposal consisting of a canonical name
-   and aliases. Actual database match identifiers and descriptions are not part
-   of the persisted contract.
+6. Give the LLM an ordered USDA lookup proposal consisting of a concise
+   canonical name, aliases, and a separate preparation state. Actual database
+   match identifiers and descriptions are not part of the persisted contract.
 7. Capture the user's local date and time when the analysis session is created
    and provide it to decomposition as context for meal-type inference.
 8. Keep the current meal-level `tip` semantics. The tip is generated during
@@ -105,6 +108,14 @@ and the existing evaluator is
 17. Reuse the existing unidentified-meal configuration in the configurable meal
     tip sheet for no-food results. Do not introduce a separate no-food screen or
     sheet layout.
+18. Use the localized equivalent of "No food was detected. Try another photo or
+    description." as the generic no-food tip.
+19. A small maintained Zod-to-JSON-Schema conversion dependency is acceptable;
+    do not write a custom schema converter.
+20. Replace the local `IngredientProposalV1` semantic core with a versioned V2
+    core aligned with cloud decomposition. Both cores include food
+    classification, the USDA canonical name, ordered aliases, and a separate
+    preparation state, and every schema field has an explicit description.
 
 ## Target state-machine change
 
@@ -205,6 +216,7 @@ type FoodItem = {
   usda_lookup: {
     proposed_canonical_name: string;
     aliases: string[];
+    preparation_state: string | null;
   };
 
   portion: {
@@ -235,6 +247,43 @@ type NonFoodItem = {
 };
 ```
 
+### Required field descriptions
+
+Every property in both generated-output schemas must carry a description. The
+backend Zod descriptions must survive JSON-Schema conversion, and every local
+Kotlin generated-output property must carry the equivalent ML Kit `Guide`
+description. Descriptions are contract text, not prompt-only comments.
+
+| Field path | Required meaning |
+| --- | --- |
+| `schema_version` | Version of the decomposition proposal contract. |
+| `outcome` | Whether the input contains food that can continue through nutrition analysis. |
+| `outcome_reason` | Concise input-grounded evidence supporting the outcome. |
+| `outcome_confidence` | Confidence in the overall food/no-food outcome from 0 through 1. |
+| `meal_name` | Short localized name for the whole meal; null when no food is detected. |
+| `items` | Relevant candidate items inventoried from the described or visible meal. |
+| `inferred_meal_type` | Meal occasion inferred using the meal and supplied local date-time context. |
+| `meal_type_reason` | Concise evidence supporting the inferred meal occasion. |
+| `meal_type_confident` | Whether the inferred meal occasion is sufficiently supported. |
+| `items[].raw_name` | Short localized item name suitable for display to the user. |
+| `items[].is_food` | Whether this candidate belongs to the food being analyzed. |
+| `items[].is_food_reason` | Concise input-grounded evidence supporting the item classification. |
+| `items[].is_food_confidence` | Confidence in the item classification from 0 through 1. |
+| `items[].usda_lookup` | Proposed USDA retrieval input for food; null for a non-food item. |
+| `items[].usda_lookup.proposed_canonical_name` | Concise generic English food identity intended to maximize database retrieval. |
+| `items[].usda_lookup.aliases` | Ordered alternative English or commonly used identity terms for the same food. |
+| `items[].usda_lookup.preparation_state` | Concise nutrition-relevant physical or cooking state, such as raw, boiled, or fried; null when unknown. |
+| `items[].portion` | Estimated consumed portion for food; null for a non-food item. |
+| `items[].portion.kind` | Whether the portion is counted pieces, bulk food, or a trace/pinch amount. |
+| `items[].portion.grams_estimated` | Best estimate of total consumed grams. |
+| `items[].portion.min_grams` | Plausible lower bound for total consumed grams. |
+| `items[].portion.max_grams` | Plausible upper bound for total consumed grams. |
+| `items[].portion.count` | Number of discrete pieces for a counted portion; otherwise null. |
+| `items[].portion.per_unit_grams` | Best estimated grams per piece for a counted portion; otherwise null. |
+| `items[].portion.per_unit_min_grams` | Plausible lower-bound grams per piece for a counted portion; otherwise null. |
+| `items[].portion.per_unit_max_grams` | Plausible upper-bound grams per piece for a counted portion; otherwise null. |
+| `items[].portion.size_specified_by_user` | Whether the user explicitly supplied the portion size. |
+
 ### Schema constraints
 
 - `outcome_reason`, `is_food_reason`, and `meal_type_reason` are concise evidence
@@ -246,10 +295,14 @@ type NonFoodItem = {
 - A food outcome contains at least one `FoodItem`.
 - A no-food outcome contains no `FoodItem`, has `meal_name: null`, infers
   `UNKNOWN`, and sets `meal_type_confident: false`.
-- `proposed_canonical_name` and every alias are atomic English food lookup terms
-  that preserve nutritionally relevant preparation state.
+- `proposed_canonical_name` is a concise, generic English food identity chosen
+  for high-recall database retrieval, not an attempted reproduction of a long
+  USDA row description.
 - A lookup proposal has at most five unique aliases. The aliases do not repeat
-  the proposed canonical name.
+  the proposed canonical name, refer to the same food identity, and do not
+  represent alternative ingredients or preparation states.
+- `preparation_state` is null or a concise string between 1 and 80 characters.
+  It remains separate from the canonical name and aliases.
 - `grams_estimated` is greater than zero and at most 5,000 grams.
 - `min_grams` and `max_grams` are between zero and 5,000 grams, with
   `min_grams <= grams_estimated <= max_grams`.
@@ -263,12 +316,20 @@ Schema and TypeScript type are derived from it, and persisted decomposition is
 decoded with it. Provider-only validation is insufficient.
 
 The backend-only schema should use the repository's existing Zod validation
-approach and a contained JSON-Schema conversion step. The generated pipeline
-protobuf remains the cross-language wire source of truth. Do not attempt to make
-one new IDL generate provider JSON Schema, runtime refinements, database
-snapshots, TypeScript, and Dart; protobuf cannot express the required runtime
-constraints, while Zod/JSON Schema does not supply protobuf field compatibility.
-Contract tests cover the explicit mapping between these two boundaries.
+approach and a contained, maintained JSON-Schema conversion dependency. The
+generated pipeline protobuf remains the cross-language wire source of truth.
+The local V2 protobuf/Kotlin proposal uses the same semantic field paths,
+descriptions, nullability, enums, ordering requirements, and bounds as the Zod
+decomposition core. Transport-only metadata such as proposal IDs, modality,
+model identity, execution origin, row IDs, or provenance may wrap the common
+core or be added after generation; it must not change the core's meaning.
+
+Do not attempt to make one new IDL generate provider JSON Schema, runtime
+refinements, database snapshots, TypeScript, Kotlin, and Dart; protobuf cannot
+express the required runtime constraints, while Zod/JSON Schema does not supply
+protobuf or ML Kit compatibility. A shared set of valid and invalid JSON
+fixtures, plus generated-schema snapshots, must fail tests when the cloud and
+local semantic contracts drift.
 
 The `is_food` boolean, rather than a new hardcoded threshold over
 `is_food_confidence`, controls whether an item enters nutrition resolution. The
@@ -279,18 +340,25 @@ confidence remains available for quality evaluation and future decisions.
 The LLM proposes search language; the database remains authoritative for
 nutrition values.
 
-- Try `proposed_canonical_name` first, then the ordered aliases.
-- Normalize and deduplicate lookup terms before querying.
-- Run the existing exact/fuzzy matcher for each ordered term and stop at the
-  first result accepted by its existing thresholds.
+- Try the concise `proposed_canonical_name` first, then the ordered aliases.
+- Normalize and deduplicate identity terms before querying.
+- Retrieve exact/fuzzy candidates using each short identity term. Use
+  `preparation_state` separately while ranking candidates; do not turn a verbose
+  identity-plus-preparation string into the primary trigram query.
+- A preparation conflict must not be accepted merely because the food identity
+  is an exact lexical match. Preparation helps choose among rows for the same
+  food but never establishes food identity by itself.
+- Stop at the first ordered identity term whose best candidate satisfies the
+  matcher's acceptance thresholds after preparation-aware ranking.
 - Keep each term atomic; do not place comma-separated or `or`-joined alternatives
   in one string.
 - Remove the hardcoded `ALIASES` map, `resolveAlias`, alias-only match type, and
   alias-specific tests from `usdaLookup.ts`.
 - Do not replace the removed map with an alias JSON file or database table.
-- For local proposal settlement, try its existing `canonical_hint` combined with
-  preparation, then `canonical_hint`. Local matching receives no new alias
-  contract as part of this work.
+- Local proposal settlement consumes the same nested `usda_lookup` structure
+  and uses the same canonical-name, alias, and preparation-aware candidate
+  strategy. Remove the V1-only `canonical_hint` plus `preparation` concatenation
+  behavior when the local proposal moves to V2.
 - Retain dish and portion templates. They constrain decomposition and quantity;
   they are not the USDA semantic alias system being removed.
 - Do not persist or expose the selected FDC ID, USDA matched description, match
@@ -415,10 +483,11 @@ confidence.
 
 The existing configurable meal tip sheet already renders its unidentified-meal
 branch when `MealDetectionResult.meal_identified` is false. Route the terminal
-no-food state into that branch with a localized generic tip and the existing
-image metadata. Do not show the model's raw `outcome_reason`, and do not add a
-new screen, sheet layout, nutrition controls, log controls, or retry control.
-A replayed `NO_FOOD` event renders through the same branch.
+no-food state into that branch with the localized equivalent of "No food was
+detected. Try another photo or description." and the existing image metadata.
+Do not show the model's raw `outcome_reason`, and do not add a new screen, sheet
+layout, nutrition controls, log controls, or retry control. A replayed `NO_FOOD`
+event renders through the same branch.
 
 ## Automatic stage migration
 
@@ -526,6 +595,8 @@ At minimum, implementation needs tests for:
 - reason-before-confidence property ordering in the provider schema;
 - bounds, required fields, unknown fields, gram ordering, and food/non-food
   discriminated variants;
+- non-empty descriptions for every generated cloud and local schema field, with
+  canonical-name, alias, and preparation-state contract parity;
 - text containing no food reaching `NO_FOOD_DETECTED`;
 - an image containing food plus background objects resolving only food items;
 - a non-food image skipping USDA, presentation, clarification, and logging;
@@ -537,7 +608,8 @@ At minimum, implementation needs tests for:
   score;
 - ordered LLM lookup terms using exact/fuzzy matching with no curated USDA alias
   map or alias match type;
-- local proposal lookup after removal of the curated alias path;
+- local V2 proposal lookup using ordered aliases and separate
+  preparation-aware ranking after removal of the curated alias path;
 - null-stage migration and PostgreSQL automatic claims;
 - client terminal no-food rendering through the existing unidentified-meal tip
   sheet configuration; and
