@@ -98,17 +98,7 @@ export interface MealAnalysisProposalRequest {
 
 export interface LocalInferenceCapabilityPolicy {
   textEnabled: boolean;
-  localNutritionManifestUrl?: string | undefined;
-}
-
-export interface LocalNutritionPackManifest {
-  schemaVersion: number;
-  packVersion: string;
-  datasetVersion: string;
-  objectName: string;
-  sizeBytes: number;
-  recordCount: number;
-  calculationVersion: string;
+  localNutritionPackUrl?: string | undefined;
 }
 
 export interface LocalNutritionLookup {

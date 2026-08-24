@@ -54,10 +54,10 @@ import {
   getErrorResponseSchema,
 } from '../../utils/schema-generator.js';
 import {
-  buildOracleDownloadUrl,
   resolveOwnedImageObject,
 } from '../../services/oracleObjectStorage.js';
 import { resolveLocalNutritionLookups } from '../../services/localNutritionResolver.js';
+import { downloadLocalNutritionPack } from '../../services/localNutritionPackDownload.js';
 
 const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 
@@ -552,21 +552,57 @@ export async function foodRoutesV2(
     async (request) => {
       const rollout = config.LOCAL_INFERENCE;
       const releaseEnabled = isLocalInferenceReleaseEnabled(request);
-      let localNutritionManifestUrl: string | undefined;
-      if (releaseEnabled && rollout.localNutritionManifestObject) {
-        try {
-          localNutritionManifestUrl = buildOracleDownloadUrl(
-            rollout.localNutritionManifestObject
-          );
-        } catch {
-          // A malformed/missing object-storage URL must fail closed rather than
-          // advertise a download the client cannot integrity-check.
-        }
-      }
       return {
         textEnabled: releaseEnabled && rollout.textEnabled,
-        localNutritionManifestUrl,
+        localNutritionPackUrl:
+          releaseEnabled && rollout.localNutritionPackObject
+            ? `${config.API_V2_STR}/food/local-nutrition-pack`
+            : undefined,
       };
+    }
+  );
+
+  fastify.get(
+    '/local-nutrition-pack',
+    {
+      config: { rateLimit: FOOD_RATE_LIMITS.localNutrition },
+      schema: {
+        description:
+          'Download the current USDA nutrition pack. Supports If-Modified-Since and returns 304 when unchanged.',
+        tags: ['Food', 'V2'],
+      },
+    },
+    async (request, reply) => {
+      if (
+        !isLocalInferenceReleaseEnabled(request) ||
+        !config.LOCAL_INFERENCE.localNutritionPackObject
+      ) {
+        return reply
+          .status(403)
+          .send(createErrorResponse('Local nutrition download is disabled'));
+      }
+      try {
+        const rawHeader = request.headers['if-modified-since'];
+        const result = await downloadLocalNutritionPack(
+          typeof rawHeader === 'string' ? rawHeader : undefined
+        );
+        reply
+          .header('last-modified', result.lastModified)
+          .header('cache-control', 'private, no-cache');
+        if (result.status === 304) return reply.status(304).send();
+        return reply
+          .type('application/json; charset=utf-8')
+          .header('content-length', result.body.length)
+          .send(result.body);
+      } catch (error) {
+        request.log.error(
+          { operation: 'download_local_nutrition_pack', ...safeErrorMetadata(error) },
+          'Local nutrition pack download failed'
+        );
+        return reply
+          .status(503)
+          .send(createErrorResponse('Local nutrition pack is unavailable'));
+      }
     }
   );
 
@@ -591,7 +627,7 @@ export async function foodRoutesV2(
       reply: FastifyReply
     ) => {
       if (
-        !config.LOCAL_INFERENCE.localNutritionManifestObject ||
+        !config.LOCAL_INFERENCE.localNutritionPackObject ||
         !isLocalInferenceReleaseEnabled(request)
       ) {
         return reply

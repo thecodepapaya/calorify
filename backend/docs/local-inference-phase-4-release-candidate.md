@@ -20,8 +20,9 @@ mode, and no durable offline partial-meal drafts in this release candidate.
 
 - A reproducible, reviewed 32-concept USDA starter-pack selection and build
   command with a recorded 0.80 coverage target and dataset version.
-- A plain, replaceable JSON nutrition pack with manifest compatibility checks.
-- A simple local file replacement after download and compatibility validation.
+- One plain, replaceable JSON nutrition pack with schema compatibility checks.
+- Conditional download using `Last-Modified`, followed by validated atomic file
+  replacement when the object changes.
 - A Drift cache bounded to 2,000 rows and 20 MB with least-recently-used
   eviction, dataset compatibility, explicit clearing, and USDA-only writes.
 - A strict structured backend resolver for one to twenty unique lookups, with
@@ -50,7 +51,7 @@ mode, and no durable offline partial-meal drafts in this release candidate.
   whole-meal fallback rather than a silent zero or model estimate.
 - Pack download and local nutrition are independently gated by backend policy,
   runtime capability, and a saved user opt-in.
-- Backend rollout defaults off and fails closed when object-storage manifest
+- Backend rollout defaults off and fails closed when object-storage pack
   configuration is absent or invalid.
 
 ## Verification record
@@ -68,9 +69,9 @@ Engineering completion does not enable a production cohort. Release owners
 must still:
 
 1. Build the reviewed pack from the intended USDA source, inspect the
-   coverage report, and upload the pack plus manifest to existing Oracle object
-   storage.
-2. Configure the backend manifest object and rollout flag for an internal
+   coverage report, and replace `local-nutrition/pack.json` in Oracle Object
+   Storage.
+2. Configure the backend pack object and rollout flag for an internal
    cohort; keep the global and Phase 3 rollback controls available.
 3. Validate download, update, local completion, remote miss fallback, and clear
    behavior on supported physical Gemini Nano

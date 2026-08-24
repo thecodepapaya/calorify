@@ -166,7 +166,15 @@ export async function buildApp(options: BuildAppOptions = {}) {
     origin: true, // Allow all origins (use true instead of '*' for credentials)
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept-Language'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'Accept-Language',
+      'If-Modified-Since',
+      'X-Calorify-App-Version',
+      'X-Calorify-App-Build',
+    ],
   });
 
   // Register rate limiting

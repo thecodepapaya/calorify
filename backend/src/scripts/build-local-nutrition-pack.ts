@@ -2,22 +2,20 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 
 import type { CacheableNutritionRecord } from '../protos/calorify/http_api.js';
+import { closeDatabase, initializeDatabase } from '../services/database.js';
 import { resolveLocalNutritionLookups } from '../services/localNutritionResolver.js';
-import { normalizeUsdaTerm } from '../services/usdaLookupUtils.js';
 
 const PACK_SCHEMA_VERSION = 1;
 const CALCULATION_VERSION = 'local-macro-v1';
 
 type SelectionEntry = {
   canonicalHint: string;
-  aliases: string[];
 };
 
 type Selection = {
   schemaVersion: number;
   packVersion: string;
   datasetVersion: string;
-  objectPrefix: string;
   coverageTarget: number;
   entries: SelectionEntry[];
 };
@@ -35,7 +33,6 @@ function assertSelection(value: unknown): asserts value is Selection {
     selection.schemaVersion !== 1 ||
     !selection.packVersion ||
     !selection.datasetVersion ||
-    !selection.objectPrefix ||
     typeof selection.coverageTarget !== 'number' ||
     selection.coverageTarget <= 0 ||
     selection.coverageTarget > 1 ||
@@ -46,17 +43,13 @@ function assertSelection(value: unknown): asserts value is Selection {
   }
 }
 
-function packRecord(record: CacheableNutritionRecord, entry: SelectionEntry) {
-  if (!record.nutrientsPer100g) throw new Error(`${entry.canonicalHint} has no nutrients`);
+function packRecord(record: CacheableNutritionRecord) {
+  if (!record.nutrientsPer100g) throw new Error(`${record.description} has no nutrients`);
   return {
     fdcId: record.fdcId,
     description: record.description,
     normalizedName: record.normalizedName,
-    aliases: [...new Set([
-      ...record.lookupKeys,
-      entry.canonicalHint,
-      ...entry.aliases,
-    ].map(normalizeUsdaTerm).filter(Boolean))].sort(),
+    aliases: [],
     dataType: record.dataType,
     nutrientsPer100g: record.nutrientsPer100g,
     datasetVersion: record.datasetVersion,
@@ -64,6 +57,8 @@ function packRecord(record: CacheableNutritionRecord, entry: SelectionEntry) {
 }
 
 async function main(): Promise<void> {
+  initializeDatabase();
+  try {
   const selectionPath = resolve(
     process.argv[2] ?? 'data/local_nutrition/starter-pack-selection.json'
   );
@@ -85,13 +80,13 @@ async function main(): Promise<void> {
   if (response.unresolvedRowIds.length > 0) {
     throw new Error(`Unresolved starter-pack rows: ${response.unresolvedRowIds.join(', ')}`);
   }
-  const records = response.records.map((record, index) => {
+  const records = response.records.map((record) => {
     if (record.datasetVersion !== selection.datasetVersion) {
       throw new Error(
         `Dataset mismatch for ${record.description}: expected ${selection.datasetVersion}, got ${record.datasetVersion}`
       );
     }
-    return packRecord(record, selection.entries[index]!);
+    return packRecord(record);
   }).sort((a, b) => a.fdcId.localeCompare(b.fdcId));
 
   const pack = {
@@ -102,23 +97,14 @@ async function main(): Promise<void> {
     records,
   };
   const packBytes = Buffer.from(stableJson(pack), 'utf8');
-  const objectName = `${selection.objectPrefix.replace(/\/$/, '')}/${selection.packVersion}.json`;
-  const manifest = {
-    schemaVersion: PACK_SCHEMA_VERSION,
-    packVersion: selection.packVersion,
-    datasetVersion: selection.datasetVersion,
-    objectName,
-    sizeBytes: packBytes.length,
-    recordCount: records.length,
-    calculationVersion: CALCULATION_VERSION,
-  };
-
   await mkdir(outputDirectory, { recursive: true });
-  await writeFile(join(outputDirectory, `${selection.packVersion}.json`), packBytes);
-  await writeFile(join(outputDirectory, 'manifest.json'), stableJson(manifest));
+  await writeFile(join(outputDirectory, 'pack.json'), packBytes);
   process.stdout.write(
-    `${stableJson({ pack: objectName, manifest: `${selection.objectPrefix}/manifest.json`, records: records.length })}`
+    `${stableJson({ pack: 'pack.json', records: records.length, bytes: packBytes.length })}`
   );
+  } finally {
+    await closeDatabase();
+  }
 }
 
 await main();

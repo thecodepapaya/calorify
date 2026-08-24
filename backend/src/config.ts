@@ -14,8 +14,8 @@ interface LocalInferenceConfig {
     /** Oldest app build allowed to receive local-inference capabilities. */
     readonly minimumAppBuild: number;
     readonly textEnabled: boolean;
-    /** Empty disables both manifest advertisement and remote resolution. */
-    readonly localNutritionManifestObject: string;
+    /** Empty disables both pack download and remote resolution. */
+    readonly localNutritionPackObject: string;
 }
 
 interface Config {
@@ -199,9 +199,9 @@ const config: Config = {
     LOCAL_INFERENCE: {
         minimumAppBuild: getEnvVarNumber('LOCAL_INFERENCE_MIN_APP_BUILD', 48),
         textEnabled: getEnvVarBoolean('LOCAL_INFERENCE_TEXT_ENABLED', true),
-        localNutritionManifestObject: getEnvVar(
-            'LOCAL_NUTRITION_MANIFEST_OBJECT',
-            'local-nutrition/manifest.json'
+        localNutritionPackObject: getEnvVar(
+            'LOCAL_NUTRITION_PACK_OBJECT',
+            'local-nutrition/pack.json'
         ),
     },
 } as const;

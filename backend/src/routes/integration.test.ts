@@ -25,7 +25,7 @@ await mock.module('../config.js', {
     LOCAL_INFERENCE: {
       minimumAppBuild: 48,
       textEnabled: false,
-      localNutritionManifestObject: '',
+      localNutritionPackObject: '',
     },
     ORACLE_BUCKET_DOWNLOAD_URL:
       'https://objectstorage.example.com/n/ns/b/bucket/o/',

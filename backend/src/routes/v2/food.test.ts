@@ -51,6 +51,11 @@ const mockResolveLocalNutritionLookups = mock.fn(async (analysisId: string) => (
   records: [],
   unresolvedRowIds: ['row-1'],
 }));
+const mockDownloadLocalNutritionPack = mock.fn(async () => ({
+  status: 200 as const,
+  lastModified: 'Mon, 24 Aug 2026 00:00:00 GMT',
+  body: Buffer.from('{"schemaVersion":1}'),
+}));
 
 const mockConfig = {
   ORACLE_BUCKET_DOWNLOAD_URL:
@@ -63,7 +68,7 @@ const mockConfig = {
   LOCAL_INFERENCE: {
     minimumAppBuild: 48,
     textEnabled: true,
-    localNutritionManifestObject: '',
+    localNutritionPackObject: '',
   },
 };
 
@@ -106,6 +111,10 @@ await mock.module('../../services/localNutritionResolver.js', {
   namedExports: {
     resolveLocalNutritionLookups: mockResolveLocalNutritionLookups,
   },
+});
+
+await mock.module('../../services/localNutritionPackDownload.js', {
+  namedExports: { downloadLocalNutritionPack: mockDownloadLocalNutritionPack },
 });
 
 await mock.module('../../utils/locale.js', {
@@ -408,9 +417,9 @@ test('POST /resolve-local-nutrition fails closed while rollout is disabled', asy
   await app.close();
 });
 
-test('configured local nutrition advertises a manifest', async () => {
-  mockConfig.LOCAL_INFERENCE.localNutritionManifestObject =
-    'local-nutrition/manifest.json';
+test('configured local nutrition advertises the pack endpoint', async () => {
+  mockConfig.LOCAL_INFERENCE.localNutritionPackObject =
+    'local-nutrition/pack.json';
   try {
     const app = await buildTestApp();
     const response = await app.inject({
@@ -424,18 +433,69 @@ test('configured local nutrition advertises a manifest', async () => {
     assert.equal(response.statusCode, 200);
     assert.deepEqual(response.json(), {
       textEnabled: true,
-      localNutritionManifestUrl:
-        'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/local-nutrition/manifest.json',
+      localNutritionPackUrl: '/api/v2/food/local-nutrition-pack',
     });
     await app.close();
   } finally {
-    mockConfig.LOCAL_INFERENCE.localNutritionManifestObject = '';
+    mockConfig.LOCAL_INFERENCE.localNutritionPackObject = '';
+  }
+});
+
+test('GET /local-nutrition-pack returns the canonical JSON with freshness metadata', async () => {
+  mockConfig.LOCAL_INFERENCE.localNutritionPackObject = 'local-nutrition/pack.json';
+  mockDownloadLocalNutritionPack.mock.resetCalls();
+  try {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-nutrition-pack',
+      headers: {
+        'x-calorify-app-version': '1.2.16',
+        'x-calorify-app-build': '48',
+        'if-modified-since': 'Sun, 23 Aug 2026 00:00:00 GMT',
+      },
+    });
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.headers['last-modified'], 'Mon, 24 Aug 2026 00:00:00 GMT');
+    assert.equal(response.headers['cache-control'], 'private, no-cache');
+    assert.deepEqual(response.json(), { schemaVersion: 1 });
+    assert.equal(
+      mockDownloadLocalNutritionPack.mock.calls[0]!.arguments[0],
+      'Sun, 23 Aug 2026 00:00:00 GMT'
+    );
+    await app.close();
+  } finally {
+    mockConfig.LOCAL_INFERENCE.localNutritionPackObject = '';
+  }
+});
+
+test('GET /local-nutrition-pack returns 304 when the pack is unchanged', async () => {
+  mockConfig.LOCAL_INFERENCE.localNutritionPackObject = 'local-nutrition/pack.json';
+  mockDownloadLocalNutritionPack.mock.mockImplementationOnce(async () => ({
+    status: 304 as const,
+    lastModified: 'Mon, 24 Aug 2026 00:00:00 GMT',
+  }));
+  try {
+    const app = await buildTestApp();
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/v2/food/local-nutrition-pack',
+      headers: {
+        'x-calorify-app-build': '48',
+        'if-modified-since': 'Mon, 24 Aug 2026 00:00:00 GMT',
+      },
+    });
+    assert.equal(response.statusCode, 304);
+    assert.equal(response.body, '');
+    await app.close();
+  } finally {
+    mockConfig.LOCAL_INFERENCE.localNutritionPackObject = '';
   }
 });
 
 test('enabled resolver forwards only the bounded structured lookups', async () => {
-  mockConfig.LOCAL_INFERENCE.localNutritionManifestObject =
-    'local-nutrition/manifest.json';
+  mockConfig.LOCAL_INFERENCE.localNutritionPackObject =
+    'local-nutrition/pack.json';
   mockResolveLocalNutritionLookups.mock.resetCalls();
   try {
     const app = await buildTestApp();
@@ -464,7 +524,7 @@ test('enabled resolver forwards only the bounded structured lookups', async () =
     ]);
     await app.close();
   } finally {
-    mockConfig.LOCAL_INFERENCE.localNutritionManifestObject = '';
+    mockConfig.LOCAL_INFERENCE.localNutritionPackObject = '';
   }
 });
 

@@ -70,7 +70,7 @@ and [Phase 4 release candidate](../../backend/docs/local-inference-phase-4-relea
 
 ## Phase 4 scope
 
-The local nutrition path may use a signed, versioned USDA starter pack, an
+The local nutrition path may use a replaceable USDA starter pack, an
 app-private bounded authoritative-row cache, and structured cache fill for
 missing rows when cloud fallback is allowed. Cache entries include FDC ID,
 food/preparation identity, nutrients, dataset version, schema version,
@@ -86,8 +86,8 @@ immutable across pack updates.
 
 Before a limited beta, complete the following in order:
 
-1. Finish the signing-key ceremony and publish the reviewed pack and manifest.
-2. Configure the trusted public key and enable only the intended capability/cohort.
+1. Publish the reviewed pack to the canonical object key.
+2. Configure the pack object and enable only the intended capability/cohort.
 3. Run holdout accuracy, cold/warm latency, pack lifecycle, compatibility, and
    rollback checks on every supported physical device/model cohort.
 4. Verify backend compatibility, cache fill, data rollback, and the global kill
