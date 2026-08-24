@@ -589,12 +589,12 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
 class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
   factory LocalInferenceCapabilityPolicy({
     $core.bool? textEnabled,
-    $core.String? localNutritionManifestUrl,
+    $core.String? localNutritionPackUrl,
   }) {
     final result = create();
     if (textEnabled != null) result.textEnabled = textEnabled;
-    if (localNutritionManifestUrl != null)
-      result.localNutritionManifestUrl = localNutritionManifestUrl;
+    if (localNutritionPackUrl != null)
+      result.localNutritionPackUrl = localNutritionPackUrl;
     return result;
   }
 
@@ -612,7 +612,7 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOB(2, _omitFieldNames ? '' : 'textEnabled')
-    ..aOS(7, _omitFieldNames ? '' : 'localNutritionManifestUrl')
+    ..aOS(7, _omitFieldNames ? '' : 'localNutritionPackUrl')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -647,144 +647,13 @@ class LocalInferenceCapabilityPolicy extends $pb.GeneratedMessage {
   void clearTextEnabled() => $_clearField(2);
 
   @$pb.TagNumber(7)
-  $core.String get localNutritionManifestUrl => $_getSZ(1);
+  $core.String get localNutritionPackUrl => $_getSZ(1);
   @$pb.TagNumber(7)
-  set localNutritionManifestUrl($core.String value) => $_setString(1, value);
+  set localNutritionPackUrl($core.String value) => $_setString(1, value);
   @$pb.TagNumber(7)
-  $core.bool hasLocalNutritionManifestUrl() => $_has(1);
+  $core.bool hasLocalNutritionPackUrl() => $_has(1);
   @$pb.TagNumber(7)
-  void clearLocalNutritionManifestUrl() => $_clearField(7);
-}
-
-class LocalNutritionPackManifest extends $pb.GeneratedMessage {
-  factory LocalNutritionPackManifest({
-    $core.int? schemaVersion,
-    $core.String? packVersion,
-    $core.String? datasetVersion,
-    $core.String? objectName,
-    $fixnum.Int64? sizeBytes,
-    $core.int? recordCount,
-    $core.String? calculationVersion,
-  }) {
-    final result = create();
-    if (schemaVersion != null) result.schemaVersion = schemaVersion;
-    if (packVersion != null) result.packVersion = packVersion;
-    if (datasetVersion != null) result.datasetVersion = datasetVersion;
-    if (objectName != null) result.objectName = objectName;
-    if (sizeBytes != null) result.sizeBytes = sizeBytes;
-    if (recordCount != null) result.recordCount = recordCount;
-    if (calculationVersion != null)
-      result.calculationVersion = calculationVersion;
-    return result;
-  }
-
-  LocalNutritionPackManifest._();
-
-  factory LocalNutritionPackManifest.fromBuffer($core.List<$core.int> data,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromBuffer(data, registry);
-  factory LocalNutritionPackManifest.fromJson($core.String json,
-          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
-      create()..mergeFromJson(json, registry);
-
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'LocalNutritionPackManifest',
-      package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
-      createEmptyInstance: create)
-    ..aI(1, _omitFieldNames ? '' : 'schemaVersion',
-        fieldType: $pb.PbFieldType.OU3)
-    ..aOS(2, _omitFieldNames ? '' : 'packVersion')
-    ..aOS(3, _omitFieldNames ? '' : 'datasetVersion')
-    ..aOS(4, _omitFieldNames ? '' : 'objectName')
-    ..aInt64(5, _omitFieldNames ? '' : 'sizeBytes')
-    ..aI(10, _omitFieldNames ? '' : 'recordCount',
-        fieldType: $pb.PbFieldType.OU3)
-    ..aOS(11, _omitFieldNames ? '' : 'calculationVersion')
-    ..hasRequiredFields = false;
-
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  LocalNutritionPackManifest clone() => deepCopy();
-  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
-  LocalNutritionPackManifest copyWith(
-          void Function(LocalNutritionPackManifest) updates) =>
-      super.copyWith(
-              (message) => updates(message as LocalNutritionPackManifest))
-          as LocalNutritionPackManifest;
-
-  @$core.override
-  $pb.BuilderInfo get info_ => _i;
-
-  @$core.pragma('dart2js:noInline')
-  static LocalNutritionPackManifest create() => LocalNutritionPackManifest._();
-  @$core.override
-  LocalNutritionPackManifest createEmptyInstance() => create();
-  @$core.pragma('dart2js:noInline')
-  static LocalNutritionPackManifest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<LocalNutritionPackManifest>(create);
-  static LocalNutritionPackManifest? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get schemaVersion => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set schemaVersion($core.int value) => $_setUnsignedInt32(0, value);
-  @$pb.TagNumber(1)
-  $core.bool hasSchemaVersion() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSchemaVersion() => $_clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.String get packVersion => $_getSZ(1);
-  @$pb.TagNumber(2)
-  set packVersion($core.String value) => $_setString(1, value);
-  @$pb.TagNumber(2)
-  $core.bool hasPackVersion() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearPackVersion() => $_clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get datasetVersion => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set datasetVersion($core.String value) => $_setString(2, value);
-  @$pb.TagNumber(3)
-  $core.bool hasDatasetVersion() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearDatasetVersion() => $_clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get objectName => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set objectName($core.String value) => $_setString(3, value);
-  @$pb.TagNumber(4)
-  $core.bool hasObjectName() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearObjectName() => $_clearField(4);
-
-  @$pb.TagNumber(5)
-  $fixnum.Int64 get sizeBytes => $_getI64(4);
-  @$pb.TagNumber(5)
-  set sizeBytes($fixnum.Int64 value) => $_setInt64(4, value);
-  @$pb.TagNumber(5)
-  $core.bool hasSizeBytes() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearSizeBytes() => $_clearField(5);
-
-  @$pb.TagNumber(10)
-  $core.int get recordCount => $_getIZ(5);
-  @$pb.TagNumber(10)
-  set recordCount($core.int value) => $_setUnsignedInt32(5, value);
-  @$pb.TagNumber(10)
-  $core.bool hasRecordCount() => $_has(5);
-  @$pb.TagNumber(10)
-  void clearRecordCount() => $_clearField(10);
-
-  @$pb.TagNumber(11)
-  $core.String get calculationVersion => $_getSZ(6);
-  @$pb.TagNumber(11)
-  set calculationVersion($core.String value) => $_setString(6, value);
-  @$pb.TagNumber(11)
-  $core.bool hasCalculationVersion() => $_has(6);
-  @$pb.TagNumber(11)
-  void clearCalculationVersion() => $_clearField(11);
+  void clearLocalNutritionPackUrl() => $_clearField(7);
 }
 
 class LocalNutritionLookup extends $pb.GeneratedMessage {

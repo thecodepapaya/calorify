@@ -31,10 +31,11 @@ const EdgeInsets appButtonCompactPadding = EdgeInsets.symmetric(
 );
 
 final globalRadius = BorderRadius.circular(20);
-final buttonRadius = BorderRadius.circular(100);
+final globalInnerRadius = BorderRadius.circular(12);
+final buttonRadius = BorderRadius.circular(12);
 final globalMargin = EdgeInsets.symmetric(horizontal: 12);
 final globalSheetPadding = EdgeInsets.symmetric(horizontal: 16);
-final globalInnerPadding = EdgeInsets.all(12);
+final globalInnerPadding = const EdgeInsets.all(12);
 
 // Circular watch-specific padding to avoid content being clipped in corners
 final circularWatchPadding = EdgeInsets.all(16);

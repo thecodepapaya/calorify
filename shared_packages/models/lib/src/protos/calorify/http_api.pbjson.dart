@@ -288,17 +288,17 @@ const LocalInferenceCapabilityPolicy$json = {
   '2': [
     {'1': 'text_enabled', '3': 2, '4': 1, '5': 8, '10': 'textEnabled'},
     {
-      '1': 'local_nutrition_manifest_url',
+      '1': 'local_nutrition_pack_url',
       '3': 7,
       '4': 1,
       '5': 9,
       '9': 0,
-      '10': 'localNutritionManifestUrl',
+      '10': 'localNutritionPackUrl',
       '17': true
     },
   ],
   '8': [
-    {'1': '_local_nutrition_manifest_url'},
+    {'1': '_local_nutrition_pack_url'},
   ],
   '9': [
     {'1': 1, '2': 2},
@@ -319,48 +319,11 @@ const LocalInferenceCapabilityPolicy$json = {
 /// Descriptor for `LocalInferenceCapabilityPolicy`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List localInferenceCapabilityPolicyDescriptor = $convert.base64Decode(
     'Ch5Mb2NhbEluZmVyZW5jZUNhcGFiaWxpdHlQb2xpY3kSIQoMdGV4dF9lbmFibGVkGAIgASgIUg'
-    't0ZXh0RW5hYmxlZBJEChxsb2NhbF9udXRyaXRpb25fbWFuaWZlc3RfdXJsGAcgASgJSABSGWxv'
-    'Y2FsTnV0cml0aW9uTWFuaWZlc3RVcmyIAQFCHwodX2xvY2FsX251dHJpdGlvbl9tYW5pZmVzdF'
-    '91cmxKBAgBEAJKBAgDEARKBAgEEAVKBAgFEAZKBAgGEAdSDnBvbGljeV92ZXJzaW9uUg1pbWFn'
-    'ZV9lbmFibGVkUhdsb2NhbF9udXRyaXRpb25fZW5hYmxlZFIVcHJpdmF0ZV9tb2Rlc19lbmFibG'
-    'VkUg9tYXhfYWdlX3NlY29uZHM=');
-
-@$core.Deprecated('Use localNutritionPackManifestDescriptor instead')
-const LocalNutritionPackManifest$json = {
-  '1': 'LocalNutritionPackManifest',
-  '2': [
-    {'1': 'schema_version', '3': 1, '4': 1, '5': 13, '10': 'schemaVersion'},
-    {'1': 'pack_version', '3': 2, '4': 1, '5': 9, '10': 'packVersion'},
-    {'1': 'dataset_version', '3': 3, '4': 1, '5': 9, '10': 'datasetVersion'},
-    {'1': 'object_name', '3': 4, '4': 1, '5': 9, '10': 'objectName'},
-    {'1': 'size_bytes', '3': 5, '4': 1, '5': 3, '10': 'sizeBytes'},
-    {'1': 'record_count', '3': 10, '4': 1, '5': 13, '10': 'recordCount'},
-    {
-      '1': 'calculation_version',
-      '3': 11,
-      '4': 1,
-      '5': 9,
-      '10': 'calculationVersion'
-    },
-  ],
-  '9': [
-    {'1': 6, '2': 7},
-    {'1': 7, '2': 8},
-    {'1': 8, '2': 9},
-    {'1': 9, '2': 10},
-  ],
-  '10': ['signature', 'signing_key_id', 'created_at_epoch_ms'],
-};
-
-/// Descriptor for `LocalNutritionPackManifest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List localNutritionPackManifestDescriptor = $convert.base64Decode(
-    'ChpMb2NhbE51dHJpdGlvblBhY2tNYW5pZmVzdBIlCg5zY2hlbWFfdmVyc2lvbhgBIAEoDVINc2'
-    'NoZW1hVmVyc2lvbhIhCgxwYWNrX3ZlcnNpb24YAiABKAlSC3BhY2tWZXJzaW9uEicKD2RhdGFz'
-    'ZXRfdmVyc2lvbhgDIAEoCVIOZGF0YXNldFZlcnNpb24SHwoLb2JqZWN0X25hbWUYBCABKAlSCm'
-    '9iamVjdE5hbWUSHQoKc2l6ZV9ieXRlcxgFIAEoA1IJc2l6ZUJ5dGVzEiEKDHJlY29yZF9jb3Vu'
-    'dBgKIAEoDVILcmVjb3JkQ291bnQSLwoTY2FsY3VsYXRpb25fdmVyc2lvbhgLIAEoCVISY2FsY3'
-    'VsYXRpb25WZXJzaW9uSgQIBhAHSgQIBxAISgQICBAJSgQICRAKUglzaWduYXR1cmVSDnNpZ25p'
-    'bmdfa2V5X2lkUhNjcmVhdGVkX2F0X2Vwb2NoX21z');
+    't0ZXh0RW5hYmxlZBI8Chhsb2NhbF9udXRyaXRpb25fcGFja191cmwYByABKAlIAFIVbG9jYWxO'
+    'dXRyaXRpb25QYWNrVXJsiAEBQhsKGV9sb2NhbF9udXRyaXRpb25fcGFja191cmxKBAgBEAJKBA'
+    'gDEARKBAgEEAVKBAgFEAZKBAgGEAdSDnBvbGljeV92ZXJzaW9uUg1pbWFnZV9lbmFibGVkUhds'
+    'b2NhbF9udXRyaXRpb25fZW5hYmxlZFIVcHJpdmF0ZV9tb2Rlc19lbmFibGVkUg9tYXhfYWdlX3'
+    'NlY29uZHM=');
 
 @$core.Deprecated('Use localNutritionLookupDescriptor instead')
 const LocalNutritionLookup$json = {
