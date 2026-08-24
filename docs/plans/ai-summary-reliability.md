@@ -1,6 +1,6 @@
 # AI-summary simplification and reliability
 
-Status: Assessment complete; product direction pending
+Status: Sequenced after meal-analysis robustness; product direction pending
 
 Last reviewed: 2026-08-25
 
@@ -15,9 +15,41 @@ failure modes.
 This is the canonical tracking plan for the AI-summary assessment and any
 follow-up work. It does not change production behavior by itself.
 
-## Current behavior
+## Sequencing and ownership boundary
 
-The current feature is a backend-generated summary of remotely synchronized
+The [meal-analysis robustness plan](meal-analysis-robustness.md) is a hard
+prerequisite and is assumed to be implemented before this plan begins. Its V2
+cutover becomes the baseline; this work must not preserve a V1 compatibility
+path or reopen decisions already owned by that plan.
+
+| Concern | Owning plan | Rule for this plan |
+| --- | --- | --- |
+| Decomposition schemas, prompts, validation, and V2 envelopes | Meal-analysis robustness | Do not change or wrap them for summary needs. |
+| `NO_FOOD`, stages, resume, clarification, and meal-type flow | Meal-analysis robustness | Treat them as analysis-only behavior. A terminal no-food result is not a meal. |
+| USDA lookup, localized `raw_name`, presentation, and tips | Meal-analysis robustness | Do not read their internal metadata or reuse their display text as summary taxonomy. |
+| On-device post-LLM resolution and persistence | Deferred by meal-analysis robustness | Do not complete it here. Include an on-device result only after another flow saves a canonical local meal. |
+| Aggregation of final saved meals and the home snapshot | This plan | Consume the existing local meal read model without changing analysis contracts. |
+| Legacy AI-summary cron, API, provider, and storage | This plan | Retire or harden only summary-owned surfaces after client migration. |
+
+The summary input boundary is the final locally persisted meal, after any
+analysis, clarification, nutrition resolution, user edit, or manual save. Use
+the saved meal's stable identity, timestamp, calories, and macros. Never consume
+in-progress analysis sessions, V2 proposals, excluded candidates, no-food
+payloads, lookup terms, confidence/reason fields, presentation profile context,
+or provider metadata.
+
+At Phase 0 kickoff, re-read the implemented final-meal model and stream after
+the prerequisite lands. If its shape changed, adapt inside the summary/home
+read layer. Do not add fields to the meal-analysis protobuf, durable snapshot,
+state machine, or provider schema to serve this feature. The existing AI card
+remains hidden until the replacement snapshot passes the Phase 2 exit criteria.
+
+## Assessed pre-prerequisite behavior
+
+The feature behavior recorded during this assessment predates the
+meal-analysis robustness implementation. Revalidate file names and data paths
+after that prerequisite; do not assume its cutover retains these internals.
+The assessed feature is a backend-generated summary of remotely synchronized
 meal-analysis results:
 
 1. Completed cloud meal analyses are mirrored into `meal_analysis_session`.
@@ -72,7 +104,8 @@ flow rather than the app's complete local meal log.
   prose and accept the server path's additional controls.
 - [ ] **Correct meal coverage.** The current card can omit manual, favorite,
   deterministic, and on-device meals while presenting itself as a summary of
-  the user's recent meals.
+  the user's recent meals. Coverage means every final saved meal, not every
+  analysis attempt; pending and terminal no-food analyses remain excluded.
 - [ ] **Align disclosure and consent.** Model generation happens automatically,
   while user-facing privacy text and local-analysis messaging do not clearly
   describe the provider upload and retention path. Review
@@ -97,8 +130,10 @@ flow rather than the app's complete local meal log.
   is opaque, not personalized, and can award a perfect score from one meal.
   Prefer explicit observed macro percentages; compare with user targets only
   when those targets exist and the comparison is clearly labeled.
-- [ ] **Normalize or omit top foods.** Current name aggregation is case-sensitive
-  and reflects logged labels rather than nutritionally meaningful food groups.
+- [ ] **Remove top foods.** The meal-analysis plan intentionally makes
+  `raw_name` localized display text and keeps USDA identities internal.
+  Aggregating display labels would be locale-dependent, while reaching into
+  lookup metadata would violate that ownership boundary.
 - [ ] **Distinguish states.** The client must separately represent loading,
   insufficient data, stale data, generation pending, generation failed, and a
   valid snapshot. A provider failure must not look like an empty history.
@@ -139,21 +174,22 @@ NutritionSnapshot
   observedCarbPercent
   observedFatPercent
   calorieTrend: UP | DOWN | STEADY | INSUFFICIENT_DATA
-  topLoggedFoods: optional normalized list
 ```
 
 Recommended defaults, subject to product confirmation:
 
 - Use seven local calendar days, not a rolling 72-hour server window.
-- Include cloud, local-inference, manual, edited, and favorite-based meals.
+- Include every final saved meal exactly once, regardless of whether it came
+  from cloud analysis, a completed local flow, manual entry, editing, or a
+  favorite. Do not treat analysis sessions or events as meals.
 - Show meal and logged-day coverage so absence is not interpreted as intake.
 - Require at least three logged days in both comparison windows before showing
   a trend. Otherwise return `INSUFFICIENT_DATA`.
 - Generate any explanatory sentence from localized templates and measured
   fields. Do not infer health outcomes or goals from incomplete logs.
 - Show observed macro percentages instead of a synthetic score.
-- Normalize food labels case-insensitively and trim whitespace, or omit the
-  ranking if names cannot be made trustworthy.
+- Omit top-food ranking. Localized/user-edited display names are not stable food
+  identities, and provider/USDA lookup terms remain analysis-internal.
 - Recompute when the local meal stream changes. Do not persist a snapshot unless
   profiling proves recomputation too expensive.
 - Rename the card from “AI Summary” to “Nutrition Snapshot” so its label matches
@@ -165,18 +201,31 @@ Recommended defaults, subject to product confirmation:
 
 ### Phase 0: decide and specify
 
+- [ ] Confirm the meal-analysis robustness rollout and migrations are complete,
+  supported clients use V2, and no active V1 compatibility path remains.
+- [ ] Re-read the implemented final saved-meal model and identify the existing
+  local stream/repository boundary the calculator will consume.
+- [ ] Confirm the work requires no changes to analysis stages, prompts, V2
+  schemas, generated analysis bindings, clarification, USDA resolution,
+  presentation, or no-food UI.
 - [ ] Confirm local deterministic or retained model direction.
 - [ ] Confirm the window, minimum day/meal coverage, comparison definition, and
-  whether top foods remain.
+  treatment of edited and deleted meals.
 - [ ] Record the user-visible data-source and freshness language.
 - [ ] Define analytics that measure usefulness without collecting meal content.
 
-Exit criterion: one approved snapshot contract and explicit insufficient-data
-rules.
+Exit criterion: the prerequisite is the accepted baseline, one existing
+final-meal read boundary is named, and the snapshot contract and
+insufficient-data rules are approved without meal-analysis contract changes.
 
 ### Phase 1: build the deterministic snapshot
 
-- [ ] Add a pure calculator over the app's canonical local meal model.
+- [ ] Add a pure calculator over the app's canonical final saved-meal model.
+- [ ] Keep the adapter and calculator in the summary/home read layer. Do not
+  import proposal, analysis-stage, clarification, USDA, or presentation types.
+- [ ] Exclude unfinished analyses and terminal no-food outcomes by consuming
+  only saved meals; do not add special analysis-state filtering to the
+  calculator.
 - [ ] Use timezone-aware local calendar boundaries and stable decimal handling.
 - [ ] Add localized factual templates and rename the card.
 - [ ] Render distinct loading, insufficient-data, and valid states.
@@ -190,13 +239,17 @@ stream and works offline.
 
 - [ ] Unit-test zero meals, one meal, missing comparison periods, timezone and
   daylight-saving boundaries, edited/deleted meals, zero or missing macros,
-  extreme values, label normalization, and deterministic output.
-- [ ] Integration-test every meal-entry path and clear-all-data behavior.
+  extreme values, duplicate stable IDs, and deterministic output.
+- [ ] Integration-test the canonical saved-meal stream, every completed
+  meal-entry path, terminal no-food absence, and clear-all-data behavior. Use
+  saved-meal fixtures rather than invoking or duplicating decomposition.
 - [ ] Test all card states and locale fallback behavior.
 - [ ] Compare old and new results internally using synthetic fixtures; never
   upload new meal data solely for comparison.
 - [ ] Roll out with a reversible client flag or release boundary and monitor
   render errors, insufficient-data frequency, and computation latency.
+- [ ] Keep the old AI card hidden until these checks pass; reveal only the new
+  Nutrition Snapshot rather than temporarily restoring the old card.
 
 Exit criterion: tests pass, observed metrics meet agreed thresholds, and the
 old response is no longer needed by supported clients.
@@ -209,20 +262,27 @@ If the local snapshot is selected:
 - [ ] Remove the home API dependency and unused provider/configuration paths.
 - [ ] Define a recoverable migration and retention period for existing summary
   and batch rows; do not drop data in the first cleanup change.
-- [ ] Remove obsolete operational commands, tests, generated contracts, copy,
-  and disclosure only after supported clients have migrated.
+- [ ] Remove obsolete summary operational commands, tests, AI-summary API
+  contracts, copy, and disclosure only after supported clients have migrated.
+- [ ] Do not delete or reshape `meal_analysis_session`, V2 proposals, generated
+  meal-analysis contracts, state-machine data, or analysis migrations as part
+  of summary retirement, even if the old cron formerly read those rows.
 
 If model generation is retained instead, complete every P0/P1 server and model
 boundary item above, add `dataAsOf` and explicit state to the API, implement
 catch-up and retention, and ship a deterministic fallback before expanding the
-feature.
+feature. Build a summary-owned input projection from final saved meals; do not
+repurpose analysis snapshots or add summary fields to the V2 proposal.
 
 Exit criterion: there is one supported summary path, one data contract, and no
 orphaned scheduler, API, storage, or localization surface.
 
 ## Acceptance criteria
 
-- Every locally visible meal in the selected window contributes exactly once.
+- Every final locally saved meal in the selected window contributes exactly
+  once, using its latest saved values and stable identity.
+- Pending, failed, and terminal no-food analyses contribute nothing without the
+  calculator depending on analysis-state types.
 - Sparse or one-sided histories return `INSUFFICIENT_DATA`, never a fabricated
   steady trend.
 - The card shows its source window and data freshness accurately.
@@ -231,6 +291,9 @@ orphaned scheduler, API, storage, or localization surface.
   a remote batch.
 - No opaque score is presented as personalized guidance.
 - The local direction sends no summary data to an AI provider.
+- The implementation changes no decomposition/clarification schema, analysis
+  state transition, USDA contract, presentation output, or on-device post-LLM
+  workflow owned or deferred by the prerequisite plan.
 - If the model direction is retained, consent/disclosure, minimization,
   retention, fallback, evaluation, and observability requirements are verified
   before release.
@@ -240,6 +303,9 @@ orphaned scheduler, API, storage, or localization surface.
 - Medical or diagnostic advice.
 - New nutrition-target policy or adaptive target recommendations.
 - Cross-device synchronization of meals that are currently local-only.
+- Meal decomposition V2, no-food routing, USDA matching, clarification,
+  presentation/tips, and generated meal-analysis contracts.
+- Completing the on-device workflow after its validated V2 LLM output.
 - A general-purpose workflow, provider, or analytics framework.
 
 ## Open decisions
@@ -247,6 +313,5 @@ orphaned scheduler, API, storage, or localization surface.
 - [ ] Is seven local calendar days the right window?
 - [ ] Is three logged days per trend period sufficient, or should the threshold
   also require a minimum meal count?
-- [ ] Should top logged foods be normalized and retained, or removed?
 - [ ] Should existing server summaries expire immediately when the new client
   ships, or remain readable through a bounded compatibility period?
