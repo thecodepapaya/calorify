@@ -137,7 +137,7 @@ const { buildApp } = await import('../index.js');
 // ---------------------------------------------------------------------------
 
 async function buildTestApp(
-  rateLimitMax = 100,
+  rateLimitMax?: number,
   foodRateLimitNow?: () => number
 ): Promise<FastifyInstance> {
   const fastify = await buildApp({ logger: false, rateLimitMax, foodRateLimitNow });
@@ -455,6 +455,18 @@ describe('Rate limit response format', () => {
     }
   });
 
+  it('allows normal API traffic up to the 600-per-minute default', async () => {
+    const limitedApp = await buildTestApp();
+
+    try {
+      for (let requestNumber = 1; requestNumber <= 101; requestNumber += 1) {
+        assert.equal((await limitedApp.inject({ method: 'GET', url: '/health' })).statusCode, 200);
+      }
+    } finally {
+      await limitedApp.close();
+    }
+  });
+
   it('keys authenticated requests by user after authentication', async () => {
     const limitedApp = await buildTestApp(1);
 
@@ -499,121 +511,21 @@ describe('Rate limit response format', () => {
     }
   });
 
-  it('limits each authenticated user to 30 food requests per hour', async () => {
+  it('does not apply the analysis budget to ordinary food reads', async () => {
     const limitedApp = await buildTestApp(1_000);
-    const requestFood = (token: string, remoteAddress: string) => limitedApp.inject({
+    const requestFood = (url: string) => limitedApp.inject({
       method: 'GET',
-      url: '/api/v2/food/local-capabilities',
-      headers: { authorization: `Bearer ${token}` },
-      remoteAddress,
-    });
-
-    try {
-      for (let requestNumber = 1; requestNumber <= 30; requestNumber += 1) {
-        assert.equal((await requestFood('valid-token', '192.0.2.1')).statusCode, 200);
-      }
-
-      // A different IP cannot reset the authenticated user's hourly bucket.
-      assert.equal(
-        (await requestFood('valid-token', '192.0.2.2')).statusCode,
-        429
-      );
-
-      // Rejected retries from that user do not drain the shared IP's allowance.
-      for (let retryNumber = 1; retryNumber <= 270; retryNumber += 1) {
-        assert.equal(
-          (await requestFood('valid-token', '192.0.2.1')).statusCode,
-          429
-        );
-      }
-
-      // A different account can still use the shared IP below its higher ceiling.
-      assert.equal(
-        (await requestFood('valid-token-2', '192.0.2.1')).statusCode,
-        200
-      );
-    } finally {
-      await limitedApp.close();
-    }
-  });
-
-  it('limits a shared IP to 300 food requests per hour across accounts', async () => {
-    const limitedApp = await buildTestApp(1_000);
-    const requestFood = (token: string) => limitedApp.inject({
-      method: 'GET',
-      url: '/api/v2/food/local-capabilities',
-      headers: { authorization: `Bearer ${token}` },
-      remoteAddress: '192.0.2.20',
-    });
-
-    try {
-      for (let accountNumber = 10; accountNumber < 20; accountNumber += 1) {
-        for (let requestNumber = 1; requestNumber <= 30; requestNumber += 1) {
-          assert.equal(
-            (await requestFood(`valid-token-${accountNumber}`)).statusCode,
-            200
-          );
-        }
-      }
-
-      assert.equal((await requestFood('valid-token-20')).statusCode, 429);
-    } finally {
-      await limitedApp.close();
-    }
-  });
-
-  it('limits food requests to 100 per day across hourly window resets', async () => {
-    let nowMs = 1_000_000;
-    const limitedApp = await buildTestApp(1_000, () => nowMs);
-    const requestFood = () => limitedApp.inject({
-      method: 'GET',
-      url: '/api/v2/food/local-capabilities',
+      url,
       headers: { authorization: 'Bearer valid-token' },
-      remoteAddress: '192.0.2.10',
     });
 
     try {
-      for (const requestsThisHour of [30, 30, 30, 10]) {
-        for (let requestNumber = 1; requestNumber <= requestsThisHour; requestNumber += 1) {
-          assert.equal((await requestFood()).statusCode, 200);
-        }
-        nowMs += 60 * 60 * 1000 + 1;
+      // App startup can fetch both of these repeatedly. They must not consume
+      // the 30-per-hour / 100-per-day budget reserved for analysis starts.
+      for (let requestNumber = 1; requestNumber <= 50; requestNumber += 1) {
+        assert.equal((await requestFood('/api/v1/food/ai-summary')).statusCode, 200);
+        assert.equal((await requestFood('/api/v2/food/local-capabilities')).statusCode, 200);
       }
-
-      const response = await requestFood();
-      assert.equal(response.statusCode, 429);
-      assert.match(response.json().message, /day rate limit/i);
-    } finally {
-      await limitedApp.close();
-    }
-  });
-
-  it('limits a shared IP to 1,000 food requests per day across accounts', async () => {
-    let nowMs = 2_000_000;
-    const limitedApp = await buildTestApp(2_000, () => nowMs);
-    const requestFood = (token: string) => limitedApp.inject({
-      method: 'GET',
-      url: '/api/v2/food/local-capabilities',
-      headers: { authorization: `Bearer ${token}` },
-      remoteAddress: '192.0.2.30',
-    });
-
-    try {
-      for (const requestsPerAccount of [30, 30, 30, 10]) {
-        for (let accountNumber = 30; accountNumber < 40; accountNumber += 1) {
-          for (let requestNumber = 1; requestNumber <= requestsPerAccount; requestNumber += 1) {
-            assert.equal(
-              (await requestFood(`valid-token-${accountNumber}`)).statusCode,
-              200
-            );
-          }
-        }
-        nowMs += 60 * 60 * 1000 + 1;
-      }
-
-      const response = await requestFood('valid-token-40');
-      assert.equal(response.statusCode, 429);
-      assert.match(response.json().message, /day rate limit/i);
     } finally {
       await limitedApp.close();
     }

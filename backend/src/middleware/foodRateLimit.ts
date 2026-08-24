@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest, preHandlerHookHandler } from 'fastify';
 
 export const FOOD_RATE_LIMITS = {
-  allFood: [
+  analysisBudget: [
     {
       name: 'hour',
       userMax: 30,
@@ -46,7 +46,7 @@ export interface FoodRateLimitHooksOptions {
   now?: () => number;
 }
 
-export type FoodRateLimitHooks = readonly preHandlerHookHandler[];
+export type FoodRateLimitHooks = preHandlerHookHandler[];
 
 class FixedWindowCounter {
   private readonly entries = new Map<string, CounterEntry>();
@@ -152,7 +152,7 @@ export function createFoodRateLimitHooks(
   options: FoodRateLimitHooksOptions = {}
 ): FoodRateLimitHooks {
   const now = options.now ?? Date.now;
-  const windows = FOOD_RATE_LIMITS.allFood.map((policy) => ({
+  const windows = FOOD_RATE_LIMITS.analysisBudget.map((policy) => ({
     policy,
     counter: new FixedWindowCounter(policy.timeWindowMs, now),
   }));

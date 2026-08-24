@@ -3,7 +3,6 @@ import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
   FOOD_RATE_LIMITS,
-  registerFoodRateLimitHooks,
   type FoodRateLimitHooks,
 } from '../../middleware/foodRateLimit.js';
 import {
@@ -534,12 +533,9 @@ export async function foodRoutesV2(
   options: FoodRoutesV2Options = {}
 ): Promise<void> {
   // Every V2 flow creates or mutates user-attributed analysis state. Requiring
-  // Firebase auth here also makes rate limiting user-aware and prevents one
-  // caller from continuing or confirming another caller's analysis.
+  // Firebase auth here also makes route-specific analysis limits user-aware and
+  // prevents one caller from continuing or confirming another caller's analysis.
   fastify.addHook('preHandler', authenticateUser);
-  if (options.foodRateLimitHooks) {
-    registerFoodRateLimitHooks(fastify, options.foodRateLimitHooks);
-  }
 
   fastify.get(
     '/local-capabilities',
@@ -650,6 +646,7 @@ export async function foodRoutesV2(
       config: {
         rateLimit: FOOD_RATE_LIMITS.analysis,
       },
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description:
           'Analyze a meal from text description. Streams V2 pipeline events as NDJSON or SSE.',
@@ -699,6 +696,7 @@ export async function foodRoutesV2(
       config: {
         rateLimit: FOOD_RATE_LIMITS.analysis,
       },
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description:
           'Settle a strictly validated on-device ingredient proposal using the authoritative nutrition pipeline.',
@@ -745,6 +743,7 @@ export async function foodRoutesV2(
       config: {
         rateLimit: FOOD_RATE_LIMITS.analysis,
       },
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description:
           'Analyze a meal from image URL. Streams V2 pipeline events as NDJSON or SSE.',
@@ -795,6 +794,7 @@ export async function foodRoutesV2(
   fastify.post<{ Body: ClarifyBody }>(
     '/clarify',
     {
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description: 'Resume a V2 meal analysis after the user answers clarification prompts.',
         tags: ['Food', 'V2'],
@@ -838,6 +838,7 @@ export async function foodRoutesV2(
   fastify.post<{ Body: ResumeBody }>(
     '/resume',
     {
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description: 'Resume a V2 meal analysis from its last durable stage.',
         tags: ['Food', 'V2'],
@@ -871,6 +872,7 @@ export async function foodRoutesV2(
   fastify.post<{ Body: FeedbackBody }>(
     '/feedback',
     {
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description: 'Persist positive feedback for a completed V2 meal analysis.',
         tags: ['Food', 'V2'],
@@ -913,6 +915,7 @@ export async function foodRoutesV2(
   fastify.post<{ Body: MealTypeBody }>(
     '/meal-type',
     {
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description: 'Resume a V2 meal analysis after the user explicitly selects meal type.',
         tags: ['Food', 'V2'],
@@ -950,6 +953,7 @@ export async function foodRoutesV2(
   fastify.post<{ Body: ReanalyzeBody }>(
     '/reanalyze',
     {
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description: 'Reanalyze a completed V2 meal analysis using structured negative feedback.',
         tags: ['Food', 'V2'],
@@ -1001,6 +1005,7 @@ export async function foodRoutesV2(
   fastify.post<{ Body: ConfirmLogBody }>(
     '/confirm-log',
     {
+      preHandler: options.foodRateLimitHooks,
       schema: {
         description:
           'Synchronize save, edit, or delete of a V2 analysis result in the meal log.',

@@ -24,10 +24,7 @@ export async function registerRoutes(
   await fastify.register(healthRoutes);
 
   // API v1 routes
-  await fastify.register(foodRoutes, {
-    prefix: `${config.API_V1_STR}/food`,
-    foodRateLimitHooks,
-  });
+  await fastify.register(foodRoutes, { prefix: `${config.API_V1_STR}/food` });
   await fastify.register(userRoutes, { prefix: `${config.API_V1_STR}/user` });
 
   // API v2 routes (streamed nutrition engine)

@@ -17,10 +17,6 @@ import {
   type AiSummaryStats,
 } from '../../services/aiSummaryStats.js';
 import { safeErrorMetadata } from '../../utils/safeError.js';
-import {
-  registerFoodRateLimitHooks,
-  type FoodRateLimitHooks,
-} from '../../middleware/foodRateLimit.js';
 // Manually maintained OpenAPI helpers for the legacy proto-shaped HTTP API.
 // Route and integration tests enforce the runtime contract.
 import {
@@ -123,18 +119,10 @@ function sendUnexpectedFoodError(
   reply.status(500).send(createErrorResponse(foodFailureMessages[operation]));
 }
 
-export interface FoodRoutesOptions {
-  foodRateLimitHooks?: FoodRateLimitHooks;
-}
-
 export async function foodRoutes(
-  fastify: FastifyInstance,
-  options: FoodRoutesOptions = {}
+  fastify: FastifyInstance
 ): Promise<void> {
   fastify.addHook('preHandler', authenticateUser);
-  if (options.foodRateLimitHooks) {
-    registerFoodRateLimitHooks(fastify, options.foodRateLimitHooks);
-  }
 
   /**
    * GET /api/v1/food/ai-summary

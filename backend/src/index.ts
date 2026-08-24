@@ -180,7 +180,10 @@ export async function buildApp(options: BuildAppOptions = {}) {
   // Register rate limiting
   await fastify.register(rateLimit, {
     global: true,
-    max: options.rateLimitMax ?? 100,
+    // Standard authenticated endpoints are inexpensive reads and writes. Keep
+    // this comfortably above normal app lifecycle traffic; expensive meal
+    // analysis has its own, much stricter route-specific limits.
+    max: options.rateLimitMax ?? 600,
     timeWindow: '1 minute',
     // @fastify/rate-limit appends its route hook after route-level
     // preHandlers. Authenticated routes therefore have request.userId before
