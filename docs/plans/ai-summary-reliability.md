@@ -1,338 +1,602 @@
 # AI-summary simplification and reliability
 
-Status: Meal-analysis baseline landed; product direction pending
+Status: Direction confirmed; telemetry guard applied; feature implementation not started
 
 Last reviewed: 2026-08-25
 
 ## Objective
 
-Make the home nutrition summary complete, current, explainable, private by
-default, and reliable when meal history is sparse. Prefer a deterministic local
-snapshot over model-generated prose unless model generation demonstrates a
-clear product benefit that justifies its additional data, operations, and
-failure modes.
+Generate at most one nutrition summary per local day from the meals that are
+actually saved on the phone. This includes manual meals and meals logged from a
+favorite, even when they have no backend analysis session.
 
-This is the canonical tracking plan for the AI-summary assessment and any
-follow-up work. It does not change production behavior by itself.
+The app will try to catch up only while it is in the foreground. It will send a
+small, explicit snapshot to an authenticated backend endpoint. The backend will
+generate the prose through OpenRouter, preserve the existing
+`AiMealSummaryResponse`, and retain the validated request beside the generated
+summary for user-scoped diagnostics.
 
-## Sequencing and ownership boundary
+This plan replaces the current hourly cron and OpenAI Batch flow. It does not
+add general meal synchronization.
 
-The [meal-analysis robustness plan](meal-analysis-robustness.md) has been
-implemented on `main`. Its V2 cutover is now the baseline; this work must not
-preserve a V1 compatibility path or reopen decisions already owned by that
-plan. Its remaining Android-device smoke test and direct CLI-adapter tests stay
-owned by that plan and are not duplicated or absorbed here.
+## Final vision
 
-| Concern | Owning plan | Rule for this plan |
-| --- | --- | --- |
-| Decomposition schemas, prompts, validation, and V2 envelopes | Meal-analysis robustness | Do not change or wrap them for summary needs. |
-| `NO_FOOD`, stages, resume, clarification, and meal-type flow | Meal-analysis robustness | Treat them as analysis-only behavior. A terminal no-food result is not a meal. |
-| USDA lookup, localized `raw_name`, presentation, and tips | Meal-analysis robustness | Do not read their internal metadata or reuse their display text as summary taxonomy. |
-| On-device post-LLM resolution and persistence | Deferred by meal-analysis robustness | Do not complete it here. Include an on-device result only after another flow saves a canonical local meal. |
-| Aggregation of final saved meals and the home snapshot | This plan | Consume the existing local meal read model without changing analysis contracts. |
-| Legacy AI-summary cron, API, provider, and storage | This plan | Retire or harden only summary-owned surfaces after client migration. |
-
-The summary input boundary is the final locally persisted meal, after any
-analysis, clarification, nutrition resolution, user edit, or manual save. Use
-the saved meal's stable identity, timestamp, calories, and macros. Never consume
-in-progress analysis sessions, V2 proposals, excluded candidates, no-food
-payloads, lookup terms, confidence/reason fields, presentation profile context,
-or provider metadata.
-
-The implemented summary input boundary is
-[`last7DaysMealsProvider`](../../app/lib/core/providers/home_providers.dart),
-which delegates to
-[`DatabaseInterface.watchAllMealsForLast7Days`](../../app/lib/core/db/database_interface.dart)
-and its [Drift implementation](../../app/lib/core/db/app_database.dart). It
-emits final [`LoggedMeal`](../../protos/app/meal.proto) rows containing a stable
-`client_id`, `created_at`, and the saved
-[`Meal`](../../protos/meal/meal.proto). The target snapshot needs only
-`client_id`, `created_at`, `meal.macros.calories`, `meal.macros.protein`,
-`meal.macros.carbs`, and `meal.macros.fat`. It intentionally ignores
-meal-analysis metadata, meal name, quantity, type, fiber, health labels, and
-provider output.
-
-No new meal query, ingestion adapter, or analysis field is needed. Derive the
-snapshot from the existing provider and keep any calculator in the summary/home
-read layer. Do not add fields to the meal-analysis protobuf, durable snapshot,
-state machine, or provider schema to serve this feature. The existing AI card
-remains hidden until the replacement snapshot passes the Phase 2 exit criteria.
-
-## Legacy summary behavior after the V2 landing
-
-The meal-analysis implementation did not replace the legacy summary pipeline.
-It remains a backend-generated summary of remotely synchronized meal-analysis
-results:
-
-1. Completed cloud meal analyses are mirrored into `meal_analysis_session`.
-2. An hourly cron finds users whose local time is near 03:00 and collects a
-   rolling 72-hour meal window.
-3. Eligible user inputs are submitted to an OpenAI Batch request using
-   `gpt-5-mini`.
-4. The model returns short JSON prose. The backend separately calculates meal
-   count, top foods, a macro-balance score, and a calorie trend.
-5. The completed summary and statistics snapshot are stored. The API returns
-   the latest stored row, and the Flutter home card displays it.
-
-The main implementation is split across the
-[cron job](../../backend/src/jobs/aiSummaryCron.ts),
-[provider and persistence service](../../backend/src/services/aiSummaryService.ts),
-[statistics calculator](../../backend/src/services/aiSummaryStats.ts),
-[food route](../../backend/src/routes/v1/food.ts), and
-[Flutter card](../../app/lib/features/home/widgets/ai_summary_card.dart).
-The [backend README](../../backend/README.md) documents the manual run and
-inspection commands.
-
-The batch implementation already has useful operational foundations: a durable
-batch record, an advisory job lock, request metadata checks, idempotent summary
-saves, local-time scheduling, safe error metadata, and an immutable statistics
-snapshot. Preserve these principles if any server workflow remains.
-
-## Data currently ingested
-
-| Data | Sent to the model | Used by backend statistics | Notes |
-| --- | --- | --- | --- |
-| Meal timestamp | Local calendar date | Trend-window assignment | Time of day is discarded in model input. |
-| Meal type | Yes | No | Supplied as a short code. |
-| Meal name | First 40 characters | Full value for top foods | Free text can contain prompt-like content. |
-| Calories | Yes | Yes | Used in a per-meal trend, not a daily-intake trend. |
-| Protein, carbs, and fat | No | Yes | Used only by the fixed macro score. |
-| Fiber | No | No | Selected from storage but not used. |
-| Locale and timezone | Prompt language and local date | Scheduling/window logic | Locale handling is not a validated supported-language contract. |
-| Internal user ID | No | Internal batching and storage | Model requests use generated request IDs. |
-
-The summary does **not** ingest locally created manual meals, favorite-based
-meals, deterministic local analysis results, on-device inference results,
-quantity, user profile, nutrition targets, weight goal, or health-platform
-data. The gap exists because the backend source is the remote analysis-session
-flow rather than the app's complete local meal log.
-
-## Assessment findings
-
-### P0: product and trust contract
-
-- [ ] **Choose the feature direction.** Adopt the deterministic local Nutrition
-  Snapshot described below, or record the specific benefit that requires model
-  prose and accept the server path's additional controls.
-- [ ] **Correct meal coverage.** The current card can omit manual, favorite,
-  deterministic, and on-device meals while presenting itself as a summary of
-  the user's recent meals. Coverage means every final saved meal, not every
-  analysis attempt; pending and terminal no-food analyses remain excluded.
-- [ ] **Align disclosure and consent.** Model generation happens automatically,
-  while user-facing privacy text and local-analysis messaging do not clearly
-  describe the provider upload and retention path. Review
-  [web privacy copy](../../web/privacy.html) and in-app copy before retaining
-  model generation.
-- [ ] **Define deletion and retention.** Existing summaries, provider batch
-  files, and batch metadata have no feature-specific expiry or verified
-  deletion workflow.
-
-### P1: correctness and reliability
-
-- [ ] **Represent freshness honestly.** `generatedAt` reflects when a delayed
-  batch result is saved, not when its source data ended. Add `dataAsOf`, window
-  bounds, and an expiry policy if a stored server result remains.
-- [ ] **Require enough evidence.** Empty, one-meal, and partial-period histories
-  must not produce confident trend or balance language.
-- [ ] **Replace the calorie trend definition.** It currently compares average
-  calories per meal in the latest 24 hours with the prior 48 hours. This changes
-  with meal frequency and reports `STEADY` when either comparison period is
-  absent. Prefer local-day total calories with minimum day coverage.
-- [ ] **Remove or redefine the macro-balance score.** Its fixed 50/20/30 target
-  is opaque, not personalized, and can award a perfect score from one meal.
-  Prefer explicit observed macro percentages; compare with user targets only
-  when those targets exist and the comparison is clearly labeled.
-- [ ] **Remove top foods.** The meal-analysis plan intentionally makes
-  `raw_name` localized display text and keeps USDA identities internal.
-  Aggregating display labels would be locale-dependent, while reaching into
-  lookup metadata would violate that ownership boundary.
-- [ ] **Distinguish states.** The client must separately represent loading,
-  insufficient data, stale data, generation pending, generation failed, and a
-  valid snapshot. A provider failure must not look like an empty history.
-- [ ] **Recover missed schedules.** The near-03:00 eligibility window has no
-  durable per-user catch-up marker when a run is missed.
-- [ ] **Make server generation explicitly configurable.** Validate provider
-  configuration only when the feature is enabled, rather than requiring an API
-  key through eager construction on unrelated backend paths.
-
-### P1: model boundary, if retained
-
-- [ ] Treat meal names as untrusted data and separate them structurally from
-  instructions.
-- [ ] Use strict structured output and validate length, language, prohibited
-  claims, grounding, and schema before persistence.
-- [ ] Define a supported-locale allowlist and a deterministic fallback.
-- [ ] Upload aggregated, minimized facts rather than row-level meal text where
-  possible.
-- [ ] Add provider timeout, failure, and malformed-output metrics without
-  logging meal text or identifiers.
-- [ ] Build a small multilingual evaluation set covering sparse logs, extreme
-  values, repeated meals, adversarial names, and incomplete comparison windows.
-
-## Recommended target: local Nutrition Snapshot
-
-Compute the card from the existing on-device meal stream, using all meal entry
-paths and no provider request. Keep the contract small and factual:
-
-```text
-NutritionSnapshot
-  windowStartLocalDate
-  windowEndLocalDate
-  dataAsOf
-  loggedMealCount
-  loggedDayCount
-  averageLoggedCaloriesPerDay
-  observedProteinPercent
-  observedCarbPercent
-  observedFatPercent
-  calorieTrend: UP | DOWN | STEADY | INSUFFICIENT_DATA
+```mermaid
+flowchart LR
+    A[App starts or resumes] --> B[Daily summary coordinator]
+    B --> C[Completed local meals]
+    B --> D[Local profile and goals]
+    C --> E[AiSummarySnapshot]
+    D --> E
+    E -->|eligible and not cached| F[AiSummaryGenerator]
+    F --> G[Backend adapter]
+    G --> H[Authenticated generate endpoint]
+    H --> I[OpenRouter]
+    H --> J[Request and result history]
+    G --> K[Local daily summary cache]
+    K --> L[AI summary card when restored]
 ```
 
-Recommended defaults, subject to product confirmation:
+The coordinator, snapshot, response, and cache do not know which model runs the
+generation. Initially, `BackendAiSummaryGenerator` calls the backend, which
+uses OpenRouter. Later, `GeminiNanoAiSummaryGenerator` can consume the same
+snapshot and return the same response without changing collection, caching, or
+the UI. Firebase authentication belongs to the backend adapter, not the
+coordinator or local cache, so a future Nano adapter can run without a network
+identity.
 
-- Use seven local calendar days, not a rolling 72-hour server window.
-- Include every final saved meal exactly once, regardless of whether it came
-  from cloud analysis, a completed local flow, manual entry, editing, or a
-  favorite restoration. A favorite template by itself is not a logged meal.
-  Do not treat analysis sessions or events as meals.
-- Show meal and logged-day coverage so absence is not interpreted as intake.
-- Require at least three logged days in both comparison windows before showing
-  a trend. Otherwise return `INSUFFICIENT_DATA`.
-- Generate any explanatory sentence from localized templates and measured
-  fields. Do not infer health outcomes or goals from incomplete logs.
-- Show observed macro percentages instead of a synthetic score.
-- Omit top-food ranking. Localized/user-edited display names are not stable food
-  identities, and provider/USDA lookup terms remain analysis-internal.
-- Recompute when the local meal stream changes. Do not persist a snapshot unless
-  profiling proves recomputation too expensive.
-- Rename the card from “AI Summary” to “Nutrition Snapshot” so its label matches
-  its behavior. Update the canonical English source in
-  [the shared i18n package](../../shared_packages/i18n/lib/i18n/en.i18n.json)
-  and regenerate translations through the repository translation workflow.
+There is deliberately no WorkManager task. If the app is not opened or resumed,
+no summary is generated that day. The next foreground opportunity considers
+only its current local date; it does not backfill missed dates. This trades
+background freshness for a much smaller and more reliable implementation.
 
-## Implementation phases
+## Confirmed product decisions
 
-### Phase 0: decide and specify
+- Run a non-blocking catch-up after normal app initialization and whenever the
+  app resumes. The lifecycle observer lives at app scope, above the router,
+  rather than inside the home screen. The coordinator itself depends only on
+  local initialization; Firebase availability is an adapter concern.
+- Do not use WorkManager, a headless isolate, exact-time scheduling, or
+  background retries.
+- Generate no more than one completed summary for an authenticated user and
+  local date.
+- Allow at most three remote provider attempts for that user/date, separated by
+  a 15-minute cooldown. Recover an abandoned processing claim after two
+  minutes.
+- Summarize the seven completed local calendar days ending at the start of
+  today. Never include today's partial data.
+- Generate only when yesterday has at least two meals, or the last four
+  completed days have at least three meals.
+- A meal logged from a favorite counts after it is saved to the normal meal
+  table. A favorite template that was not consumed does not count.
+- Edits made after today's summary completes appear in tomorrow's overlapping
+  window. There is no same-day regeneration.
+- Send only saved meal nutrition, locale/timezone, and the allowlisted profile
+  and goal fields defined below.
+- Do not include calories burned or any other Health Connect data.
+- Use OpenRouter for remote generation. Do not fall back to direct OpenAI.
+- Keep the current `AiMealSummaryResponse` fields and wire format.
+- Store each accepted daily request and its result in the backend's summary
+  history with timestamps.
+- Keep normal application retention. Do not add feature-specific consent,
+  deletion, or retention workflows.
+- Treat this as a single-device feature. Cross-device merge and conflict
+  handling are out of scope.
+- Keep the home AI-summary card hidden until the new path is ready.
 
-- [x] Confirm the meal-analysis robustness implementation is on `main` and no
-  active V1 proposal definition or compatibility path remains.
-- [x] Identify `last7DaysMealsProvider` and
-  `DatabaseInterface.watchAllMealsForLast7Days` as the existing final saved-meal
-  boundary. No new repository or backend projection is required.
-- [x] Confirm the work requires no changes to analysis stages, prompts, V2
-  schemas, generated analysis bindings, clarification, USDA resolution,
-  presentation, or no-food UI.
-- [x] Confirm the legacy AI card remains hidden while this plan is pending.
-- [ ] Confirm local deterministic or retained model direction.
-- [ ] Confirm the window, minimum day/meal coverage, comparison definition, and
-  treatment of edited and deleted meals.
-- [ ] Record the user-visible data-source and freshness language.
-- [ ] Define analytics that measure usefulness without collecting meal content.
+## Boundary with meal analysis and favorites
 
-Exit criterion: the landed V2 implementation is the accepted baseline and the
-snapshot contract and insufficient-data rules are approved without changing
-the named final-meal read boundary or any meal-analysis contract.
+The [meal-analysis robustness plan](meal-analysis-robustness.md) has landed on
+`main` and is the baseline. This work must not change its V2 envelopes,
+decomposition, USDA resolution, clarification, no-food, retry, or presentation
+decisions.
 
-### Phase 1: build the deterministic snapshot
+The summary input boundary is the final locally persisted `LoggedMeal`.
+Pending or failed analyses and no-food results contribute nothing because they
+have not produced a saved meal. How the meal was created is irrelevant after it
+reaches that table:
 
-- [ ] Add a pure calculator or derived provider over
-  `last7DaysMealsProvider`; do not add a second database query or repository.
-- [ ] Keep the adapter and calculator in the summary/home read layer. Do not
-  import proposal, analysis-stage, clarification, USDA, or presentation types.
-- [ ] Exclude unfinished analyses and terminal no-food outcomes by consuming
-  only saved meals; do not add special analysis-state filtering to the
-  calculator.
-- [ ] Use timezone-aware local calendar boundaries and stable decimal handling.
-  Apply both lower and upper window bounds in the calculator so future-dated
-  rows are excluded even though the existing database stream has only a lower
-  bound. Do not depend on database row order; use `created_at` and `client_id`
-  for deterministic grouping or ordering.
-- [ ] Add localized factual templates and rename the card.
-- [ ] Render distinct loading, insufficient-data, and valid states.
-- [ ] Keep the existing server response behind a temporary migration boundary;
-  do not combine local and server values in one snapshot.
+- remote or local analysis;
+- manual entry;
+- an edited meal;
+- quick-add or restoration from a favorite.
 
-Exit criterion: the home card is derived entirely from the complete local meal
-stream and works offline.
+Favorite templates remain in their own table and are never uploaded merely
+because they are favorites. The normal favorite logging path already writes a
+consumed copy into the final meal table, so no favorite-specific backend sync is
+needed.
 
-### Phase 2: verify and roll out
+Do not widen
+[`MealLogSyncService`](../../app/lib/core/services/meal_log_sync_service.dart).
+Its analysis-session synchronization is unrelated to this bounded summary
+request.
 
-- [ ] Unit-test zero meals, one meal, missing comparison periods, timezone and
-  daylight-saving boundaries, edited/deleted meals, zero or missing macros,
-  extreme values, duplicate stable IDs, and deterministic output.
-- [ ] Integration-test the canonical saved-meal stream, every completed
-  meal-entry path, and clear-all-data behavior. Use saved-meal fixtures rather
-  than invoking or duplicating decomposition; no-food pipeline coverage remains
-  in the meal-analysis test suite.
-- [ ] Test all card states and locale fallback behavior.
-- [ ] Compare old and new results internally using synthetic fixtures; never
-  upload new meal data solely for comparison.
-- [ ] Roll out with a reversible client flag or release boundary and monitor
-  render errors, insufficient-data frequency, and computation latency.
-- [ ] Keep the old AI card hidden until these checks pass; reveal only the new
-  Nutrition Snapshot rather than temporarily restoring the old card.
+## Current flow and why it is being removed
 
-Exit criterion: tests pass, observed metrics meet agreed thresholds, and the
-old response is no longer needed by supported clients.
+The current backend flow:
 
-### Phase 3: retire or harden the server path
+1. Reads meals represented by `meal_analysis_session`.
+2. An hourly cron selects users near a local 03:00 window.
+3. It submits an OpenAI Batch job and later polls the batch.
+4. It stores prose in `ai_summaries` and batch state in
+   `ai_summary_batches`.
+5. `GET /api/v1/food/ai-summary` returns the latest stored summary and may
+   re-read analysis sessions to reconstruct missing statistics.
 
-If the local snapshot is selected:
+This misses manual, favorite-based, and other local-only meals. It also adds a
+cron clock, provider batch lifecycle, polling, reconciliation, and stale-data
+fallbacks to a once-daily feature.
 
-- [ ] Stop new cron submissions before removing reads.
-- [ ] Remove the home API dependency and unused provider/configuration paths.
-- [ ] Define a recoverable migration and retention period for existing summary
-  and batch rows; do not drop data in the first cleanup change.
-- [ ] Remove obsolete summary operational commands, tests, AI-summary API
-  contracts, copy, and disclosure only after supported clients have migrated.
-- [ ] Do not delete or reshape `meal_analysis_session`, V2 proposals, generated
-  meal-analysis contracts, state-machine data, or analysis migrations as part
-  of summary retirement, even if the old cron formerly read those rows.
+Relevant legacy surfaces are the
+[cron](../../backend/src/jobs/aiSummaryCron.ts),
+[generation service](../../backend/src/services/aiSummaryService.ts),
+[statistics calculator](../../backend/src/services/aiSummaryStats.ts),
+[V1 route](../../backend/src/routes/v1/food.ts), and
+[observability service](../../backend/src/services/userObservability.ts).
 
-If model generation is retained instead, complete every P0/P1 server and model
-boundary item above, add `dataAsOf` and explicit state to the API, implement
-catch-up and retention, and ship a deterministic fallback before expanding the
-feature. Build a summary-owned input projection from final saved meals; do not
-repurpose analysis snapshots or add summary fields to the V2 proposal.
+## Input contract
 
-Exit criterion: there is one supported summary path, one data contract, and no
-orphaned scheduler, API, storage, or localization surface.
+### Local meal query
+
+Add one database method:
+
+```dart
+Future<List<LoggedMeal>> getMealsBetween(
+  DateTime startInclusive,
+  DateTime endExclusive,
+);
+```
+
+For a summary date `D`, query `[D - 7 days, D)` in the device's current
+timezone. Apply both bounds and order by timestamp, then local row ID for stable
+processing. The row ID is only a local tie-breaker and is not uploaded.
+
+Do not reuse
+[`watchAllMealsForLast7Days`](../../app/lib/core/db/app_database.dart) as-is.
+It is a stream, starts six days before today, includes today, and has no upper
+bound. The summary needs a one-shot query over seven completed calendar days.
+
+Reject the attempt locally if the window contains more than 100 meals. Do not
+silently truncate it. The backend enforces the same cap.
+
+### Snapshot sent to the generator
+
+`AiSummarySnapshot` contains:
+
+```json
+{
+  "summaryLocalDate": "2026-08-25",
+  "timezone": "Asia/Kolkata",
+  "locale": "en-IN",
+  "meals": [
+    {
+      "loggedAt": "2026-08-24T13:10:00+05:30",
+      "name": "Vegetable pulao",
+      "mealType": "LUNCH",
+      "calories": 510,
+      "protein": 14,
+      "carbs": 82,
+      "fat": 14,
+      "fiber": 8
+    }
+  ],
+  "context": {
+    "weightGoal": "MAINTAIN_WEIGHT",
+    "activityLevel": "MODERATELY_ACTIVE",
+    "dailyCalorieGoal": 2100
+  }
+}
+```
+
+Rules:
+
+- `summaryLocalDate`, IANA timezone, and locale are required.
+- `loggedAt` is the saved meal instant serialized as RFC 3339.
+- Meal name, type, calories, protein, carbs, fat, and fiber come from the final
+  saved meal. Nutrients are finite, non-negative integers.
+- The three context fields are independently optional. Omit a value when it is
+  not set instead of inventing a default.
+- Do not send local IDs, analysis IDs, favorite IDs, quantities, images,
+  health-score labels, raw profile measurements, or Health Connect data.
+- Do not add client hashes, schema versions, window timestamps, sync metadata,
+  or a generic metadata bag. The server can derive the seven-day window from
+  the local date and timezone.
+
+The exact validated JSON request is what the backend stores for diagnostics.
+
+## Sparse-data and edit behavior
+
+Before any network request, count meals in the snapshot using the same
+calendar-day boundaries:
+
+```text
+yesterdayMealCount >= 2
+OR
+lastFourCompletedDaysMealCount >= 3
+```
+
+If the threshold is not met, stop quietly. Do not create a completed cache row
+and do not call the backend. A later resume on the same day may reevaluate,
+which allows a newly added backdated meal to make the snapshot eligible without
+maintaining hashes or special insufficient-data state.
+
+The backend repeats the threshold check before calling OpenRouter. This protects
+the cost boundary from malformed or older clients.
+
+Once a completed row exists for the local date, every later foreground trigger
+is a no-op. Changes to a completed date are intentionally reflected only in the
+next day's window.
+
+## App implementation
+
+### Generator boundary
+
+```dart
+abstract interface class AiSummaryGenerator {
+  Future<AiMealSummaryResponse> generate(AiSummarySnapshot snapshot);
+}
+```
+
+- `BackendAiSummaryGenerator` serializes the snapshot and calls the new
+  backend endpoint. It alone resolves Firebase authentication and reports an
+  unavailable generator when no authenticated user exists.
+- A future `GeminiNanoAiSummaryGenerator` will use the same input and output
+  types and will not require Firebase authentication.
+- Do not make summary generation a meal-analysis method on
+  [`LocalInferenceService`](../../app/lib/core/services/local_inference_service.dart).
+  The existing Gemini Nano runtime/channel can be reused later, but meal
+  analysis and daily summaries are separate capabilities.
+- Keep deterministic statistics inside each adapter's implementation boundary.
+  The backend computes them initially. If Nano is added, port the small pure
+  calculator and its fixtures then; do not build cross-language
+  canonicalization infrastructure now.
+
+### Minimal local cache
+
+Add a `local_ai_summaries` Drift table keyed by:
+
+```text
+summary_local_date
+```
+
+Store only the serialized `AiMealSummaryResponse`; its existing `generatedAt`
+field carries the generation timestamp. Do not persist the request locally.
+Include this table in the existing local `clearAllData()` transaction. After a
+clear, the empty completed-day window is ineligible, so the backend's retained
+row is not fetched back into the app; newly logged meals enter a later summary
+date under the normal window policy.
+
+This row is both the completion gate and the eventual UI source. It replaces a
+separate sync-state table, input hashes, and backend-only reads. This matches
+the current database, whose meals and profile are device-local rather than
+account-partitioned. Backend idempotency remains scoped by authenticated UID
+and local date.
+
+When the card is restored, it should read the current-date local row. It must
+not silently present an old backend summary as today's result. For
+`UNSPECIFIED` trend, omit the trend chip rather than labeling it steady.
+
+### Foreground coordinator
+
+On app startup and every lifecycle resume:
+
+1. Wait until the local database is ready.
+2. Capture the current local date, timezone, and locale once for the attempt.
+3. If the local cache already contains that date, stop.
+4. Read the seven completed local days and enforce the 100-meal cap.
+5. Apply the sparse-data threshold.
+6. Read the optional local profile/goal fields and build the snapshot.
+7. Immediately before generation, capture the date and timezone again. If
+   either changed, discard the snapshot and rebuild once for the new date.
+8. Call the injected generator without blocking initial home rendering. The
+   backend adapter stops quietly when Firebase authentication is unavailable;
+   a future Nano adapter can continue locally.
+9. Persist the returned response in the local daily cache.
+
+Use one in-memory single-flight guard so startup and resume cannot run the
+coordinator concurrently. Keep the latest transient-failure time in memory and
+do not retry for 15 minutes. Do not add persistent app retry state. A transport
+or provider failure leaves no completed local row, so a later startup/resume
+may retry. The backend enforces the cooldown and attempt cap across app
+restarts, and daily idempotency handles a lost response after a successful
+provider call. Honor server `Retry-After` values for active/cooling-down rows.
+Generator unavailability before a provider attempt, including missing Firebase
+authentication, does not start the failure cooldown or consume an attempt.
+
+## Backend implementation
+
+### Direct endpoint
+
+Add:
+
+```text
+POST /api/v1/food/ai-summary/generate
+```
+
+The endpoint:
+
+1. Authenticates the Firebase user and never accepts `userId` from the body.
+2. Validates the snapshot, field bounds, meal timestamps, seven-day window, and
+   100-meal cap. The supplied summary date must equal the current calendar date
+   derived from server time in the supplied IANA timezone.
+3. Rechecks the sparse-data threshold.
+4. Atomically claims the user's local date in `ai_summaries`.
+5. Computes deterministic response statistics.
+6. Calls OpenRouter only for bounded summary prose.
+7. Validates the model output, completes the stored row, and returns the
+   unchanged `AiMealSummaryResponse`.
+
+If that UID/date is already complete, return its stored response without
+calling OpenRouter. Claim all other attempts atomically using the same daily
+row:
+
+- A `processing` row younger than two minutes returns `202 Accepted` with
+  `Retry-After`; the app does not poll it.
+- A `processing` row at least two minutes old is stale and may be reclaimed.
+- A `failed` row may be reclaimed only when its last attempt is at least 15
+  minutes old and fewer than three provider attempts have been made.
+- A row that has reached three failed provider attempts returns `429` with a
+  retry time at the next local date. It never calls OpenRouter again that day.
+
+Increment the attempt count only when a request successfully claims the row and
+is about to call OpenRouter. Validation, sparse-data rejection, an active claim,
+or missing authentication do not consume an attempt. The two-minute stale
+threshold must remain longer than the configured OpenRouter request timeout.
+This row is the only durable retry/concurrency mechanism needed.
+
+If the server rejects a request because midnight passed between snapshot
+capture and receipt, return a machine-readable `summary_date_changed` conflict
+before claiming the row. While still foregrounded, the app rebuilds once using
+the new date and timezone; if either changes again, it stops until the next
+resume. This does not backfill the previous date.
+
+### OpenRouter generation
+
+Use the existing OpenAI-compatible Node client with:
+
+- `OPENROUTER_API_KEY`;
+- `OPENROUTER_BASE_URL`;
+- a new required `OPENROUTER_AI_SUMMARY_MODEL` model slug;
+- `POST /api/v1/chat/completions`;
+- `stream: false`;
+- strict JSON Schema structured output containing only a bounded, non-empty
+  `summary` string;
+- `provider.require_parameters: true`, so only endpoints supporting the
+  requested structured-output parameters are selected;
+- `provider.data_collection: "deny"`, while retaining OpenRouter's normal
+  provider fallback for the configured model.
+
+Do not add direct OpenAI or free-router fallback attempts for summaries. Do not
+send the Firebase UID, local IDs, or other user identifiers to OpenRouter. Keep
+OpenRouter prompt/completion logging and data-use opt-ins disabled.
+
+Serialize meal names as untrusted data and explicitly instruct the model never
+to follow instructions found inside them. Validate the returned summary for the
+schema and length before persistence even when structured output succeeds.
+
+`store: false` is not part of this request. It is an OpenAI Responses API
+option meaning “do not save this response for later retrieval through the
+OpenAI API.” It does not control Calorify's database and is not the privacy
+control for an OpenRouter Chat Completions request. OpenRouter routing and
+account privacy settings are used instead.
+
+The configured OpenRouter model must advertise structured-output support before
+deployment. Model selection remains deployment configuration, not application
+branching logic.
+
+### Deterministic response fields
+
+OpenRouter generates only `summary`. The backend owns:
+
+- `generatedAt`: completion timestamp;
+- `mealCount`: number of validated meals;
+- `topFoods`: top three names after trimming, collapsing whitespace, and
+  case-insensitive grouping;
+- `macroBalanceScore`: preserve the existing fixed 50% carbohydrate, 20%
+  protein, and 30% fat compatibility calculation, clamped to 0–100;
+- `trend`: compare average daily logged calories in the latest three completed
+  days with the preceding three completed days.
+
+For trend, require meals on at least two distinct days in each three-day period.
+Use `UP` for a change of at least +10%, `DOWN` for at most -10%, and
+`STEADY` otherwise. Return the existing `UNSPECIFIED` value when either
+period lacks enough coverage. The prose prompt must not claim a calorie trend
+when trend is `UNSPECIFIED`.
+
+### Summary history and diagnostics
+
+Reshape the existing `ai_summaries` table instead of adding a parallel
+history system. New daily rows need:
+
+- `user_id`;
+- nullable `summary_local_date` for legacy-row compatibility, required for
+  new rows;
+- `status` (`processing`, `completed`, or `failed`);
+- `request_snapshot JSONB`;
+- `requested_at` and `generated_at`;
+- existing summary/statistic fields, with `summary` and `generated_at` nullable
+  until the row is completed;
+- `provider`, `model`, and provider request ID when available;
+- `attempt_count`, a bounded last error code, and processing start time.
+
+Add a partial unique index on `(user_id, summary_local_date)` where the date is
+not null. A retry updates the same daily row; a completed row is immutable.
+Keep the exact validated request that produced the completed summary. Do not
+duplicate the response into another JSON snapshot when the existing summary and
+statistics fields already contain it. Migrate legacy rows as completed while
+leaving their unavailable request snapshot and local date null.
+
+When a failed or stale row is claimed again, replace `request_snapshot` and
+`requested_at` with that validated attempt. The completed row therefore retains
+the exact request that produced its summary rather than the first failed input.
+
+Extend the existing user-inspection/observability output to list these rows for
+an explicitly selected user, including timestamps, request snapshot, result,
+provider/model, and bounded failure metadata. Do not include request bodies or
+meal names in general logs or metrics.
+
+## Legacy cleanup and rollout
+
+Use a short global transition, not per-user adoption markers or a permanent
+dual flow:
+
+1. Add the direct endpoint, daily summary schema, and OpenRouter implementation.
+2. Stop the cron from submitting new legacy batches.
+3. Let already-submitted batches reach a terminal state, then remove their
+   poller/reconciliation code.
+4. Release the foreground coordinator and local cache while the card remains
+   hidden.
+5. Remove `aiSummaryCron`, batch generation/polling services and tests,
+   `ai_summary_batches`, the summary CLI, and startup registration.
+6. Remove every AI-summary read of `meal_analysis_session`, including GET
+   fallback statistics.
+7. Switch the card/provider to the local cache before restoring the card, then
+   remove the legacy GET repository/provider/route when unused.
+8. Remove summary-only OpenAI model constants and configuration.
+9. Remove the home screen's legacy 15-minute `aiSummaryProvider` invalidation
+   and its resume-time invalidation. Keep unrelated dashboard and Health Connect
+   refresh behavior.
+
+Old completed `ai_summaries` rows may remain as history with a null local
+date. They must not participate in new daily idempotency or local-card reads.
+
+## Deliberately omitted complexity
+
+- WorkManager, alarms, background isolates, and platform scheduling.
+- Missed-day backfill.
+- Client input hashes or cross-language canonical JSON.
+- Insufficient-data cache rows.
+- A separate local sync-state table.
+- Same-day regeneration and hash-conflict handling.
+- Per-user migration/adoption markers.
+- A second stored response snapshot.
+- Generic meal synchronization.
+- Multi-device conflict resolution.
+- Feature-specific consent, deletion, or retention policy.
+- Health Connect and calories-burned inputs.
+- A local Nano implementation in this phase.
+- A custom provider fallback graph; OpenRouter routes the one configured model.
+
+## Gap audit
+
+| Risk or edge case | Simple handling |
+| --- | --- |
+| App never opens that day | Accepted foreground-only tradeoff; generate only on a later current-day opportunity. |
+| Startup and resume overlap | One in-memory single-flight guard. |
+| Provider succeeds but response is lost | Backend UID/date uniqueness returns the completed row on retry. |
+| Provider repeatedly fails | Enforce a 15-minute cooldown and at most three provider attempts per UID/date in the existing daily row. |
+| Backend dies while processing | Atomically reclaim a processing row after two minutes. |
+| Sparse data changes during the day | Reevaluate on each foreground opportunity until a summary completes. |
+| Meal is edited after completion | Include the edit in tomorrow's overlapping window. |
+| Favorite is never consumed | Template is excluded; only final logged meals count. |
+| Future-dated or today's meal leaks in | One-shot query and backend validation enforce `[D - 7 days, D)`. |
+| Very large local history | Reject above 100 meals; never truncate silently. |
+| Missing profile field | Omit it; meal eligibility is independent of profile completeness. |
+| Weak trend coverage | Return `UNSPECIFIED` and hide the trend chip. |
+| Firebase auth is unavailable | The backend adapter stops; a future Nano adapter remains usable because the coordinator/cache do not require auth. |
+| Auth identity changes | The device-local cache remains aligned with the device-local meal database; backend rows remain UID-scoped. |
+| Local clear-all | Delete the local summary cache in the same transaction; the now-empty completed-day window prevents re-fetch. |
+| Timezone or DST changes | Capture one IANA timezone/local date per attempt and use calendar boundaries, not rolling hours. |
+| Midnight occurs during catch-up | Rebuild once for the new current date before any provider call; never backfill the old date. |
+| OpenRouter endpoint ignores schema | Set `require_parameters: true` and validate the returned JSON again. |
+| Provider may retain/train on data | Set `data_collection: "deny"` and keep OpenRouter content logging/data-use opt-ins off. |
+| Meal payload appears in telemetry | Measure HTTP-body capture is disabled; backend logs remain metadata-only. |
+| Nano is added later | Replace the generator adapter; keep snapshot, cache, coordinator, and response unchanged. |
+| Legacy batch is already in flight | Stop submissions first, drain terminal batches, then remove polling and table. |
+
+No remaining architecture decision blocks implementation. Deployment must choose
+one explicit OpenRouter summary model that supports strict structured output.
+
+## Implementation checklist
+
+### App
+
+- [ ] Add the completed-day `getMealsBetween` query to the database interface
+  and Drift implementation.
+- [ ] Add `AiSummarySnapshot`, its narrow mapper, and validation.
+- [ ] Add the date-scoped local summary cache migration and include it in
+  `clearAllData()`.
+- [ ] Add `AiSummaryGenerator` and `BackendAiSummaryGenerator`.
+- [ ] Add the app-scoped foreground startup/resume coordinator, single-flight
+  guard, 15-minute in-memory failure cooldown, and one-time date-change rebuild.
+- [ ] Keep the existing card commented out.
+- [ ] Change the hidden card/provider to use the local cache before restoration.
+- [x] Set Measure `trackHttpBody` to `false`.
+
+### Backend
+
+- [ ] Add the authenticated direct-generation request schema and route.
+- [ ] Reshape `ai_summaries` for daily idempotency, request history, and
+  processing recovery.
+- [ ] Implement the three-attempt daily cap, 15-minute failed-attempt cooldown,
+  two-minute stale-processing recovery, and machine-readable retry responses.
+- [ ] Add the deterministic stats implementation and sparse-data validation.
+- [ ] Add the OpenRouter-only structured-output client and required model
+  configuration.
+- [ ] Extend user-scoped diagnostics with request/result history.
+- [ ] Add redacted outcome/duration metrics without payloads or user IDs.
+
+### Cleanup
+
+- [ ] Stop new legacy batch submissions.
+- [ ] Drain already-submitted batches.
+- [ ] Remove cron startup, batch/poller/reconciliation code, batch table, and
+  summary CLI.
+- [ ] Remove analysis-session summary input and fallback statistics.
+- [ ] Remove the unused backend GET and app network-read path after the local
+  cache is the sole card source.
+- [ ] Remove the home screen's periodic and resume-time legacy AI-summary
+  invalidations without removing unrelated refreshes.
+- [ ] Remove summary-only direct-OpenAI constants and configuration.
+
+### Verification during implementation
+
+- [ ] Query boundaries cover seven completed local days across DST changes.
+- [ ] Manual, edited, local-analysis, remote-analysis, and consumed-favorite
+  meals produce the same input shape.
+- [ ] Favorite templates, today's meals, future meals, images, IDs, Health
+  Connect data, and unallowlisted profile data are excluded.
+- [ ] Sparse thresholds cover both qualifying branches and just-below cases.
+- [ ] Multiple foreground triggers and concurrent POSTs cause one provider call.
+- [ ] Failed attempts respect cooldown/cap, a stale processing row can recover,
+  and a completed row cannot regenerate.
+- [ ] A midnight or timezone change rebuilds at most once and never generates
+  for the previous date.
+- [ ] Local clear-all removes the cached summary and cannot immediately
+  rehydrate it from the retained backend row.
+- [ ] A fake local generator can complete and cache a summary without Firebase
+  authentication, demonstrating the Nano boundary.
+- [ ] Invalid OpenRouter JSON, timeouts, and provider errors remain retryable
+  without corrupting local or backend state.
+- [ ] Stored diagnostics reproduce the exact validated request and typed result.
+- [ ] The response remains wire-compatible with current clients.
+- [ ] The restored card hides `UNSPECIFIED` trend and never shows an old row as
+  today's summary.
 
 ## Acceptance criteria
 
-- Every final locally saved meal in the selected window contributes exactly
-  once, using its latest saved values and stable identity.
-- Pending, failed, and terminal no-food analyses contribute nothing without the
-  calculator depending on analysis-state types.
-- Sparse or one-sided histories return `INSUFFICIENT_DATA`, never a fabricated
-  steady trend.
-- The card shows its source window and data freshness accurately.
-- Identical meal inputs, locale, and timezone produce identical output.
-- Manual edits, deletions, and clear-all-data are reflected without waiting for
-  a remote batch.
-- No opaque score is presented as personalized guidance.
-- The local direction sends no summary data to an AI provider.
-- The implementation changes no decomposition/clarification schema, analysis
-  state transition, USDA contract, presentation output, or on-device post-LLM
-  workflow owned or deferred by the prerequisite plan.
-- If the model direction is retained, consent/disclosure, minimization,
-  retention, fallback, evaluation, and observability requirements are verified
-  before release.
+- Every final saved local meal in the completed seven-day window is eligible,
+  including consumed favorites and manual meals.
+- No summary uses `meal_analysis_session` as an input.
+- An eligible foreground catch-up produces at most one completed summary per UID
+  and local date.
+- Ineligible snapshots do not call OpenRouter.
+- Remote generation goes through OpenRouter only and returns the unchanged
+  `AiMealSummaryResponse`.
+- The app stores the result locally, and the backend stores the validated
+  request and generated result with timestamps.
+- A future Gemini Nano adapter can replace the backend adapter without changing
+  collection, coordination, cache schema, or UI consumption, and without
+  requiring Firebase authentication.
+- Legacy cron, batch, polling, CLI, and analysis-session summary code are
+  removed after the short global transition.
+- HTTP request bodies containing meal/profile context are not captured by
+  Measure telemetry.
 
-## Out of scope
+## References
 
-- Medical or diagnostic advice.
-- New nutrition-target policy or adaptive target recommendations.
-- Cross-device synchronization of meals that are currently local-only.
-- Meal decomposition V2, no-food routing, USDA matching, clarification,
-  presentation/tips, and generated meal-analysis contracts.
-- Completing the on-device workflow after its validated V2 LLM output.
-- A general-purpose workflow, provider, or analytics framework.
-
-## Open decisions
-
-- [ ] Is seven local calendar days the right window?
-- [ ] Is three logged days per trend period sufficient, or should the threshold
-  also require a minimum meal count?
-- [ ] Should existing server summaries expire immediately when the new client
-  ships, or remain readable through a bounded compatibility period?
+- [OpenRouter Chat Completions quickstart](https://openrouter.ai/docs/quickstart)
+- [OpenRouter structured outputs](https://openrouter.ai/docs/guides/features/structured-outputs)
+- [OpenRouter provider routing and data policy](https://openrouter.ai/docs/guides/routing/provider-selection)
+- [OpenRouter data collection](https://openrouter.ai/docs/guides/privacy/data-collection)
+- [OpenAI Responses `store` parameter](https://developers.openai.com/api/reference/cli/resources/responses/methods/create)

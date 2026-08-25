@@ -41,7 +41,7 @@ Future<void> main() async {
       traceSamplingRate: 1,
       samplingRateForErrorFreeSessions: 1,
       trackHttpHeaders: true,
-      trackHttpBody: true,
+      trackHttpBody: false,
       journeySamplingRate: 1,
       hotLaunchSamplingRate: 1,
       coldLaunchSamplingRate: 1,
