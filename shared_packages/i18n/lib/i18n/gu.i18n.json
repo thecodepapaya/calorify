@@ -299,6 +299,7 @@
     "failedToProcess": "પ્રક્રિયા કરવામાં નિષ્ફળ: {error}",
     "failedToProcessImage": "છબી પર પ્રક્રિયા કરવામાં નિષ્ફળ: {error}",
     "errorCompressingImage": "છબી સંકુચિત કરવામાં ભૂલ: {error}",
+    "imageTooLarge": "આ ફોટો સંકોચન કર્યા પછી પણ 1 MB કરતા મોટો છે. કૃપા કરીને બીજો ફોટો પસંદ કરો.",
     "failedToSave": "ડેટા સાચવવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો.",
     "skip": "છોડો",
     "questionFlow": {

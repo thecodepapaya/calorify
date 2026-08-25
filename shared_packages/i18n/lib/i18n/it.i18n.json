@@ -299,6 +299,7 @@
     "failedToProcess": "Elaborazione non riuscita: {error}",
     "failedToProcessImage": "Elaborazione immagine non riuscita: {error}",
     "errorCompressingImage": "Errore nella compressione dell'immagine: {error}",
+    "imageTooLarge": "La foto supera ancora 1 MB dopo la compressione. Per favore, scegli un'altra foto.",
     "failedToSave": "Impossibile salvare i dati. Riprova.",
     "skip": "Salta",
     "questionFlow": {

@@ -299,6 +299,7 @@
     "failedToProcess": "فشل المعالجة: {error}",
     "failedToProcessImage": "فشل معالجة الصورة: {error}",
     "errorCompressingImage": "خطأ في ضغط الصورة: {error}",
+    "imageTooLarge": "حجم هذه الصورة لا يزال أكبر من 1 ميجابايت بعد الضغط. الرجاء اختيار صورة مختلفة.",
     "failedToSave": "فشل حفظ البيانات. حاول مرة أخرى.",
     "skip": "تخطٍّ",
     "questionFlow": {

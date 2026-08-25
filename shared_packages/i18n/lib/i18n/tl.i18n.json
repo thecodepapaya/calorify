@@ -299,6 +299,7 @@
     "failedToProcess": "Nabigong iproseso: {error}",
     "failedToProcessImage": "Nabigong iproseso ang larawan: {error}",
     "errorCompressingImage": "Error sa pag-compress ng larawan: {error}",
+    "imageTooLarge": "Mas malaki pa rin sa 1 MB ang larawang ito matapos i-compress. Pumili ng ibang larawan.",
     "failedToSave": "Nabigong i-save ang datos. Pakisubukang muli.",
     "skip": "Laktawan",
     "questionFlow": {

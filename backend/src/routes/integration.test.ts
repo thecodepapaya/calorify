@@ -29,6 +29,8 @@ await mock.module('../config.js', {
     },
     ORACLE_BUCKET_DOWNLOAD_URL:
       'https://objectstorage.example.com/n/ns/b/bucket/o/',
+    ORACLE_BUCKET_UPLOAD_URL:
+      'https://objectstorage.example.com/p/upload-token/n/ns/b/bucket/o/',
   },
 });
 
@@ -331,6 +333,16 @@ describe('Route registration', () => {
       method: 'POST',
       url: '/api/v2/food/analyze-text',
       payload: { textDescription: 'dal rice' },
+    });
+    assert.equal(res.statusCode, 401);
+  });
+
+  it('POST /api/v2/food/image-upload authenticates before parsing the binary body', async () => {
+    const res = await app.inject({
+      method: 'POST',
+      url: '/api/v2/food/image-upload',
+      headers: { 'content-type': 'application/octet-stream' },
+      payload: Buffer.from('unauthenticated-body'),
     });
     assert.equal(res.statusCode, 401);
   });

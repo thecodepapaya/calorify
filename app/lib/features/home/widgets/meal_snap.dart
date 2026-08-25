@@ -259,6 +259,11 @@ class _MealSnapState extends State<MealSnap> {
       compressedImageByte = await ImageCompressionService.instance
           .compressImage(image);
       if (!mounted) return;
+    } on MealImageTooLargeException {
+      if (!mounted) return;
+      showFlushbar(t.meal.imageTooLarge, context: context);
+      _reset();
+      return;
     } on Exception catch (e) {
       if (!mounted) return;
       showFlushbar(t.meal.errorCompressingImage(error: e), context: context);
@@ -277,19 +282,24 @@ class _MealSnapState extends State<MealSnap> {
       try {
         final repository = container.read(foodRepositoryProvider);
         setState(() => _isUploadingImage = true);
-        final uploadUrl = await repository.uploadMealImage(compressedFile);
+        final imageUrl = await repository.uploadMealImage(compressedFile);
         if (!mounted) return;
         await showV2MealAnalysisFlow(
           context: context,
           startAnalysis:
               (cancellation, analysisId) => repository.analyzeImageFromUrlV2(
                 analysisId: analysisId,
-                imageUrl: uploadUrl,
+                imageUrl: imageUrl,
                 cancellation: cancellation,
               ),
           imageBytes: compressedImageByte,
-          imageUrl: uploadUrl,
+          imageUrl: imageUrl,
         );
+      } on MealImageTooLargeException {
+        Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
+        if (!mounted) return;
+        showFlushbar(t.meal.imageTooLarge, context: context);
+        return;
       } on Exception catch (e) {
         Analytics.instance.logEvent(AnalyticsEvent.mealDetectionFailure);
         if (!mounted) return;

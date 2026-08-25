@@ -181,6 +181,7 @@ class _Translations$meal$ko extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => '처리 실패: ${error}';
 	@override String failedToProcessImage({required Object error}) => '이미지 처리 실패: ${error}';
 	@override String errorCompressingImage({required Object error}) => '이미지 압축 오류: ${error}';
+	@override String get imageTooLarge => '이 사진은 압축한 후에도 여전히 1 MB를 초과합니다. 다른 사진을 선택해 주세요.';
 	@override String get failedToSave => '데이터 저장 실패. 다시 시도해주세요.';
 	@override String get skip => '건너뛰기';
 	@override late final _Translations$meal$questionFlow$ko questionFlow = _Translations$meal$questionFlow$ko._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsKo {
 			'meal.failedToProcess' => ({required Object error}) => '처리 실패: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '이미지 처리 실패: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '이미지 압축 오류: ${error}',
+			'meal.imageTooLarge' => '이 사진은 압축한 후에도 여전히 1 MB를 초과합니다. 다른 사진을 선택해 주세요.',
 			'meal.failedToSave' => '데이터 저장 실패. 다시 시도해주세요.',
 			'meal.skip' => '건너뛰기',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '질문 ${current} / ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsKo {
 			'reminders.errorCompletingSetup' => ({required Object error}) => '설정 완료 오류: ${error}',
 			'notifications.breakfast.title' => '아침 시간이에요! 🍳',
 			'notifications.breakfast.body' => '아침 기록하는 것을 잊지 마세요',
-			'notifications.lunch.title' => '점심 시간이에요! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => '점심 시간이에요! 🥗',
 			'notifications.lunch.body' => '점심을 기록할 시간이에요',
 			'notifications.dinner.title' => '저녁 시간이에요! 🍽️',
 			'notifications.dinner.body' => '저녁 기록하는 것을 잊지 마세요',

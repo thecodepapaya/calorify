@@ -181,6 +181,7 @@ class _Translations$meal$ru extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Не удалось обработать: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Не удалось обработать изображение: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Ошибка сжатия изображения: ${error}';
+	@override String get imageTooLarge => 'Это фото всё ещё превышает 1 МБ даже после сжатия. Пожалуйста, выберите другое фото.';
 	@override String get failedToSave => 'Не удалось сохранить данные. Пожалуйста, попробуйте снова.';
 	@override String get skip => 'Пропустить';
 	@override late final _Translations$meal$questionFlow$ru questionFlow = _Translations$meal$questionFlow$ru._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsRu {
 			'meal.failedToProcess' => ({required Object error}) => 'Не удалось обработать: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не удалось обработать изображение: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ошибка сжатия изображения: ${error}',
+			'meal.imageTooLarge' => 'Это фото всё ещё превышает 1 МБ даже после сжатия. Пожалуйста, выберите другое фото.',
 			'meal.failedToSave' => 'Не удалось сохранить данные. Пожалуйста, попробуйте снова.',
 			'meal.skip' => 'Пропустить',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Вопрос ${current} из ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsRu {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Ошибка при завершении настройки: ${error}',
 			'notifications.breakfast.title' => 'Время завтрака! 🍳',
 			'notifications.breakfast.body' => 'Не забудьте зафиксировать завтрак',
-			'notifications.lunch.title' => 'Время обеда! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Время обеда! 🥗',
 			'notifications.lunch.body' => 'Пора зафиксировать обед',
 			'notifications.dinner.title' => 'Время ужина! 🍽️',
 			'notifications.dinner.body' => 'Не забудьте зафиксировать ужин',

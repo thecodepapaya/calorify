@@ -299,6 +299,7 @@
     "failedToProcess": "Échec du traitement : {error}",
     "failedToProcessImage": "Échec du traitement de l'image : {error}",
     "errorCompressingImage": "Erreur lors de la compression de l'image : {error}",
+    "imageTooLarge": "La photo dépasse toujours 1 Mo après compression. Veuillez choisir une autre photo.",
     "failedToSave": "Échec de l'enregistrement des données. Veuillez réessayer.",
     "skip": "Passer",
     "questionFlow": {

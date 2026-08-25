@@ -8,9 +8,6 @@ inputs:
   android-key-properties-b64:
     description: Base64-encoded Android signing properties.
     required: true
-  oracle-bucket-upload-url:
-    description: Pre-authenticated upload URL embedded in the production app.
-    required: true
   measure-api-key:
     description: Measure API key embedded in the production app.
     required: true
@@ -52,14 +49,12 @@ runs:
       env:
         ANDROID_KEYSTORE_B64: ${{ inputs.android-keystore-b64 }}
         ANDROID_KEY_PROPERTIES_B64: ${{ inputs.android-key-properties-b64 }}
-        ORACLE_BUCKET_UPLOAD_URL: ${{ inputs.oracle-bucket-upload-url }}
         MEASURE_API_KEY: ${{ inputs.measure-api-key }}
         SHOREBIRD_TOKEN: ${{ inputs.shorebird-token }}
       run: |
         set -euo pipefail
         : "${ANDROID_KEYSTORE_B64:?Missing ANDROID_KEYSTORE_B64}"
         : "${ANDROID_KEY_PROPERTIES_B64:?Missing ANDROID_KEY_PROPERTIES_B64}"
-        : "${ORACLE_BUCKET_UPLOAD_URL:?Missing ORACLE_BUCKET_UPLOAD_URL}"
         : "${MEASURE_API_KEY:?Missing MEASURE_API_KEY}"
         : "${SHOREBIRD_TOKEN:?Missing SHOREBIRD_TOKEN}"
 

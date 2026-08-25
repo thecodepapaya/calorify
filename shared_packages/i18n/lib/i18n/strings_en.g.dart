@@ -278,6 +278,9 @@ class Translations$meal$en {
 	/// en: 'Error compressing image: {error}'
 	String errorCompressingImage({required Object error}) => 'Error compressing image: ${error}';
 
+	/// en: 'This photo is still over 1 MB after compression. Choose a different photo.'
+	String get imageTooLarge => 'This photo is still over 1 MB after compression. Choose a different photo.';
+
 	/// en: 'Failed to save data. Please try again.'
 	String get failedToSave => 'Failed to save data. Please try again.';
 
@@ -3666,6 +3669,7 @@ extension on Translations {
 			'meal.failedToProcess' => ({required Object error}) => 'Failed to process: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Failed to process image: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error compressing image: ${error}',
+			'meal.imageTooLarge' => 'This photo is still over 1 MB after compression. Choose a different photo.',
 			'meal.failedToSave' => 'Failed to save data. Please try again.',
 			'meal.skip' => 'Skip',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Question ${current} of ${total}',
@@ -3960,9 +3964,9 @@ extension on Translations {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error completing setup: ${error}',
 			'notifications.breakfast.title' => 'Breakfast Time! 🍳',
 			'notifications.breakfast.body' => 'Don\'t forget to log your breakfast',
-			'notifications.lunch.title' => 'Lunch Time! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Lunch Time! 🥗',
 			'notifications.lunch.body' => 'Time to log your lunch',
 			'notifications.dinner.title' => 'Dinner Time! 🍽️',
 			'notifications.dinner.body' => 'Don\'t forget to log your dinner',

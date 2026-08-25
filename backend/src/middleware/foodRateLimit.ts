@@ -1,4 +1,9 @@
-import type { FastifyReply, FastifyRequest, preHandlerHookHandler } from 'fastify';
+import type {
+  FastifyReply,
+  FastifyRequest,
+  onRequestHookHandler,
+  preHandlerHookHandler,
+} from 'fastify';
 
 export const FOOD_RATE_LIMITS = {
   analysisBudget: [
@@ -23,6 +28,11 @@ export const FOOD_RATE_LIMITS = {
     max: 30,
     timeWindow: '1 minute',
   },
+  imageUpload: {
+    userMax: 10,
+    ipMax: 60,
+    timeWindowMs: 60 * 1000,
+  },
 } as const;
 
 const MAX_TRACKED_IDENTITIES = 10_000;
@@ -45,6 +55,8 @@ interface RateLimitIdentity {
 export interface FoodRateLimitHooksOptions {
   now?: () => number;
 }
+
+export type ImageUploadRateLimitHook = onRequestHookHandler;
 
 export type FoodRateLimitHooks = preHandlerHookHandler[];
 
@@ -114,6 +126,38 @@ class FixedWindowCounter {
       this.entries.delete(oldestKey);
     }
   }
+}
+
+export function createImageUploadRateLimitHook(
+  options: FoodRateLimitHooksOptions = {}
+): ImageUploadRateLimitHook {
+  const now = options.now ?? Date.now;
+  const counter = new FixedWindowCounter(
+    FOOD_RATE_LIMITS.imageUpload.timeWindowMs,
+    now
+  );
+
+  return async (request, reply) => {
+    const identities = getRateLimitIdentities(
+      request,
+      FOOD_RATE_LIMITS.imageUpload.userMax,
+      FOOD_RATE_LIMITS.imageUpload.ipMax
+    );
+    const results = identities.map((identity) => ({
+      ...counter.get(identity.key),
+      ...identity,
+    }));
+    const exceeded = results.filter((result) => result.count >= result.max);
+    if (exceeded.length > 0) {
+      sendRateLimitResponse(
+        reply,
+        Math.max(...exceeded.map((result) => result.retryAfterSeconds)),
+        'image upload'
+      );
+      return;
+    }
+    for (const identity of identities) counter.increment(identity.key);
+  };
 }
 
 function getRateLimitIdentities(

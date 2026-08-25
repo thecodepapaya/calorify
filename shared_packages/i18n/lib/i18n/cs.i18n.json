@@ -299,6 +299,7 @@
     "failedToProcess": "Zpracování selhalo: {error}",
     "failedToProcessImage": "Zpracování obrázku selhalo: {error}",
     "errorCompressingImage": "Chyba při kompresi obrázku: {error}",
+    "imageTooLarge": "Tato fotografie je po kompresi stále větší než 1 MB. Vyberte prosím jinou fotografii.",
     "failedToSave": "Nepodařilo se uložit data. Zkuste to prosím znovu.",
     "skip": "Přeskočit",
     "questionFlow": {

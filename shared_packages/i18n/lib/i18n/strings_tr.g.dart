@@ -181,6 +181,7 @@ class _Translations$meal$tr extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'İşlenemedi: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Görüntü işlenemedi: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Görüntü sıkıştırılırken hata: ${error}';
+	@override String get imageTooLarge => 'Bu fotoğraf sıkıştırıldıktan sonra hâlâ 1 MB\'den büyük. Lütfen farklı bir fotoğraf seçin.';
 	@override String get failedToSave => 'Veri kaydedilemedi. Lütfen tekrar deneyin.';
 	@override String get skip => 'Atla';
 	@override late final _Translations$meal$questionFlow$tr questionFlow = _Translations$meal$questionFlow$tr._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsTr {
 			'meal.failedToProcess' => ({required Object error}) => 'İşlenemedi: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Görüntü işlenemedi: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Görüntü sıkıştırılırken hata: ${error}',
+			'meal.imageTooLarge' => 'Bu fotoğraf sıkıştırıldıktan sonra hâlâ 1 MB\'den büyük. Lütfen farklı bir fotoğraf seçin.',
 			'meal.failedToSave' => 'Veri kaydedilemedi. Lütfen tekrar deneyin.',
 			'meal.skip' => 'Atla',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Soru ${current} / ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsTr {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kurulum tamamlanırken hata: ${error}',
 			'notifications.breakfast.title' => 'Kahvaltı Zamanı! 🍳',
 			'notifications.breakfast.body' => 'Kahvaltınızı kaydetmeyi unutmayın',
-			'notifications.lunch.title' => 'Öğle Vakti! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Öğle Vakti! 🥗',
 			'notifications.lunch.body' => 'Öğlen yemeğinizi kaydetme zamanı',
 			'notifications.dinner.title' => 'Akşam Yemeği Zamanı! 🍽️',
 			'notifications.dinner.body' => 'Akşam yemeğinizi kaydetmeyi unutmayın',

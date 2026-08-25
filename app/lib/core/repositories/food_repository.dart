@@ -4,20 +4,19 @@ import 'package:fixnum/fixnum.dart';
 import 'package:models/models.dart';
 import 'package:calorify/core/network/network_client.dart';
 import 'package:calorify/core/network/network_request_cancellation.dart';
-import 'package:calorify/core/services/auth_service.dart';
 import 'package:dio/dio.dart';
+import 'package:services/services.dart';
 import 'package:uuid/uuid.dart';
-import 'package:utils/utils.dart';
 
 class V2ImageAnalysisHandle {
   const V2ImageAnalysisHandle({
     required this.analysisId,
-    required this.uploadedImageUrl,
+    required this.imageUrl,
     required this.events,
   });
 
   final String analysisId;
-  final String uploadedImageUrl;
+  final String imageUrl;
   final Stream<MealAnalysisPipelineEvent> events;
 }
 
@@ -59,10 +58,10 @@ class FoodRepository {
     );
   }
 
-  /// Uploads a local meal image and returns the authenticated object URL used by the V2 API.
+  /// Uploads a WebP meal image through the authenticated backend and returns its read URL.
   Future<String> uploadMealImage(File imageFile) => _uploadImage(imageFile);
 
-  /// Streams analysis events for an image already stored at [imageUrl] (upload URL from [uploadMealImage]).
+  /// Streams analysis events for an image already stored at [imageUrl].
   Future<Stream<MealAnalysisPipelineEvent>> analyzeImageFromUrlV2({
     required String analysisId,
     required String imageUrl,
@@ -83,14 +82,14 @@ class FoodRepository {
     required File imageFile,
   }) async {
     final analysisId = const Uuid().v4();
-    final uploadUrl = await _uploadImage(imageFile);
+    final imageUrl = await _uploadImage(imageFile);
     final events = await analyzeImageFromUrlV2(
       analysisId: analysisId,
-      imageUrl: uploadUrl,
+      imageUrl: imageUrl,
     );
     return V2ImageAnalysisHandle(
       analysisId: analysisId,
-      uploadedImageUrl: uploadUrl,
+      imageUrl: imageUrl,
       events: events,
     );
   }
@@ -249,40 +248,21 @@ class FoodRepository {
   }
 
   Future<String> _uploadImage(File imageFile) async {
-    if (ImageConfig.oracleBucketUploadUrl.isEmpty) {
-      throw StateError(
-        'Image upload is not configured. Set ORACLE_BUCKET_UPLOAD_URL at build time.',
-      );
-    }
-    final fileExtension = imageFile.path.split('.').last.toLowerCase();
-    if (!ImageConfig.isAllowedImageExtension(fileExtension)) {
-      throw ArgumentError(
-        'Image format not supported. Allowed formats: ${ImageConfig.allowedImageExtensions.join(", ")}',
-      );
-    }
-
-    final folder = AuthService.instance.currentUser?.uid ?? 'anonymous';
-    const uuid = Uuid();
-    final isoTimestamp = DateTime.now().toUtc().toIso8601String();
-    final fileName = '${isoTimestamp}_${uuid.v4()}.$fileExtension';
-    final objectKey =
-        '${Uri.encodeComponent(folder)}/${Uri.encodeComponent(fileName)}';
-    final uploadUrl = '${ImageConfig.oracleBucketUploadUrl}$objectKey';
-    final contentType = ImageConfig.getMimeType(fileExtension);
-    final fileLength = await imageFile.length();
-
-    await _networkClient.client.put(
-      uploadUrl,
-      data: imageFile.openRead(),
+    final imageBytes = await imageFile.readAsBytes();
+    validateMealImageUploadSize(imageBytes);
+    final response = await _networkClient.client.post<Map<String, dynamic>>(
+      '/api/v2/food/image-upload',
+      data: imageBytes,
       options: Options(
-        headers: {
-          'Content-Type': contentType,
-          Headers.contentLengthHeader: fileLength,
-        },
+        contentType: 'image/webp',
+        headers: {Headers.contentLengthHeader: imageBytes.length},
       ),
     );
-
-    return uploadUrl;
+    final imageUrl = response.data?['imageUrl'];
+    if (imageUrl is! String || imageUrl.isEmpty) {
+      throw const FormatException('Image upload response is missing imageUrl');
+    }
+    return imageUrl;
   }
 
   /// Server-driven tips for the meal-analysis loading UI (no app update needed to change copy).

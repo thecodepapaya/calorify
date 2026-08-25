@@ -299,6 +299,7 @@
     "failedToProcess": "Не вдалося обробити: {error}",
     "failedToProcessImage": "Не вдалося обробити зображення: {error}",
     "errorCompressingImage": "Помилка стиснення зображення: {error}",
+    "imageTooLarge": "Ця фотографія після стиснення все ще перевищує 1 МБ. Будь ласка, виберіть іншу фотографію.",
     "failedToSave": "Не вдалося зберегти дані. Спробуйте ще раз.",
     "skip": "Пропустити",
     "questionFlow": {

@@ -181,6 +181,7 @@ class _Translations$meal$nl extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Verwerking mislukt: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Verwerking afbeelding mislukt: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fout bij comprimeren van afbeelding: ${error}';
+	@override String get imageTooLarge => 'Deze foto is na compressie nog steeds groter dan 1 MB. Kies een andere foto.';
 	@override String get failedToSave => 'Gegevens opslaan mislukt. Probeer het opnieuw.';
 	@override String get skip => 'Overslaan';
 	@override late final _Translations$meal$questionFlow$nl questionFlow = _Translations$meal$questionFlow$nl._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsNl {
 			'meal.failedToProcess' => ({required Object error}) => 'Verwerking mislukt: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Verwerking afbeelding mislukt: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fout bij comprimeren van afbeelding: ${error}',
+			'meal.imageTooLarge' => 'Deze foto is na compressie nog steeds groter dan 1 MB. Kies een andere foto.',
 			'meal.failedToSave' => 'Gegevens opslaan mislukt. Probeer het opnieuw.',
 			'meal.skip' => 'Overslaan',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Vraag ${current} van ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsNl {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Fout bij voltooien van installatie: ${error}',
 			'notifications.breakfast.title' => 'Tijd voor ontbijt! 🍳',
 			'notifications.breakfast.body' => 'Vergeet niet je ontbijt te registreren',
-			'notifications.lunch.title' => 'Tijd voor lunch! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Tijd voor lunch! 🥗',
 			'notifications.lunch.body' => 'Tijd om je lunch te registreren',
 			'notifications.dinner.title' => 'Tijd voor diner! 🍽️',
 			'notifications.dinner.body' => 'Vergeet niet je diner te registreren',

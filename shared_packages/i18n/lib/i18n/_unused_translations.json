@@ -304,6 +304,7 @@
       "failedToProcess": "Failed to process: {error}",
       "failedToProcessImage": "Failed to process image: {error}",
       "errorCompressingImage": "Error compressing image: {error}",
+      "imageTooLarge": "This photo is still over 1 MB after compression. Choose a different photo.",
       "failedToSave": "Failed to save data. Please try again.",
       "skip": "Skip",
       "questionFlow": {

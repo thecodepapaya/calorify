@@ -299,6 +299,7 @@
     "failedToProcess": "Xử lý thất bại: {error}",
     "failedToProcessImage": "Xử lý ảnh thất bại: {error}",
     "errorCompressingImage": "Lỗi nén ảnh: {error}",
+    "imageTooLarge": "Ảnh này sau khi nén vẫn vượt quá 1 MB. Vui lòng chọn ảnh khác.",
     "failedToSave": "Lưu dữ liệu thất bại. Vui lòng thử lại.",
     "skip": "Bỏ qua",
     "questionFlow": {

@@ -299,6 +299,7 @@
     "failedToProcess": "Verwerking mislukt: {error}",
     "failedToProcessImage": "Verwerking afbeelding mislukt: {error}",
     "errorCompressingImage": "Fout bij comprimeren van afbeelding: {error}",
+    "imageTooLarge": "Deze foto is na compressie nog steeds groter dan 1 MB. Kies een andere foto.",
     "failedToSave": "Gegevens opslaan mislukt. Probeer het opnieuw.",
     "skip": "Overslaan",
     "questionFlow": {

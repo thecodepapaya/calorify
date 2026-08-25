@@ -299,6 +299,7 @@
     "failedToProcess": "Feldolgozás sikertelen: {error}",
     "failedToProcessImage": "A képfeldolgozás sikertelen: {error}",
     "errorCompressingImage": "Hiba a kép tömörítése közben: {error}",
+    "imageTooLarge": "Ez a fotó a tömörítés után is több mint 1 MB. Kérlek, válassz egy másik fotót.",
     "failedToSave": "Az adatok mentése sikertelen. Kérlek próbáld újra.",
     "skip": "Kihagyás",
     "questionFlow": {

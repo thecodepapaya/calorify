@@ -299,6 +299,7 @@
     "failedToProcess": "Misslyckades att bearbeta: {error}",
     "failedToProcessImage": "Kunde inte bearbeta bild: {error}",
     "errorCompressingImage": "Fel vid komprimering av bild: {error}",
+    "imageTooLarge": "Det här fotot är fortfarande över 1 MB efter komprimering. Välj ett annat foto.",
     "failedToSave": "Misslyckades med att spara data. Försök igen.",
     "skip": "Hoppa över",
     "questionFlow": {

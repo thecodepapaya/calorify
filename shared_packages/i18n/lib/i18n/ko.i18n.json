@@ -299,6 +299,7 @@
     "failedToProcess": "처리 실패: {error}",
     "failedToProcessImage": "이미지 처리 실패: {error}",
     "errorCompressingImage": "이미지 압축 오류: {error}",
+    "imageTooLarge": "이 사진은 압축한 후에도 여전히 1 MB를 초과합니다. 다른 사진을 선택해 주세요.",
     "failedToSave": "데이터 저장 실패. 다시 시도해주세요.",
     "skip": "건너뛰기",
     "questionFlow": {

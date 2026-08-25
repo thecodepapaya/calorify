@@ -181,6 +181,7 @@ class _Translations$meal$ar extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'فشل المعالجة: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'فشل معالجة الصورة: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'خطأ في ضغط الصورة: ${error}';
+	@override String get imageTooLarge => 'حجم هذه الصورة لا يزال أكبر من 1 ميجابايت بعد الضغط. الرجاء اختيار صورة مختلفة.';
 	@override String get failedToSave => 'فشل حفظ البيانات. حاول مرة أخرى.';
 	@override String get skip => 'تخطٍّ';
 	@override late final _Translations$meal$questionFlow$ar questionFlow = _Translations$meal$questionFlow$ar._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsAr {
 			'meal.failedToProcess' => ({required Object error}) => 'فشل المعالجة: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'فشل معالجة الصورة: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'خطأ في ضغط الصورة: ${error}',
+			'meal.imageTooLarge' => 'حجم هذه الصورة لا يزال أكبر من 1 ميجابايت بعد الضغط. الرجاء اختيار صورة مختلفة.',
 			'meal.failedToSave' => 'فشل حفظ البيانات. حاول مرة أخرى.',
 			'meal.skip' => 'تخطٍّ',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'السؤال ${current} من ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsAr {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'خطأ في إكمال الإعداد: ${error}',
 			'notifications.breakfast.title' => 'حان وقت الإفطار! 🍳',
 			'notifications.breakfast.body' => 'لا تنسَ تسجيل إفطارك',
-			'notifications.lunch.title' => 'حان وقت الغداء! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'حان وقت الغداء! 🥗',
 			'notifications.lunch.body' => 'حان وقت تسجيل غدائك',
 			'notifications.dinner.title' => 'حان وقت العشاء! 🍽️',
 			'notifications.dinner.body' => 'لا تنسَ تسجيل عشاءك',

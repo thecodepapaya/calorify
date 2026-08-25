@@ -75,7 +75,6 @@ jobs:
         with:
           android-keystore-b64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
           android-key-properties-b64: ${{ secrets.ANDROID_KEY_PROPERTIES_B64 }}
-          oracle-bucket-upload-url: ${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
           measure-api-key: ${{ secrets.MEASURE_API_KEY }}
           shorebird-token: ${{ secrets.SHOREBIRD_TOKEN }}
 
@@ -100,7 +99,6 @@ jobs:
           platform: android
           args: >-
             --flavor=prod
-            --dart-define=ORACLE_BUCKET_UPLOAD_URL=${{ secrets.ORACLE_BUCKET_UPLOAD_URL }}
             --dart-define=MEASURE_API_KEY=${{ secrets.MEASURE_API_KEY }}
           working-directory: app
           flutter-version: "3.41.0"

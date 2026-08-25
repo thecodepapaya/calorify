@@ -181,6 +181,7 @@ class _Translations$meal$fi extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Käsittely epäonnistui: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}';
+	@override String get imageTooLarge => 'Tämän kuvan koko on pakkaamisen jälkeenkin yli 1 Mt. Valitse toinen kuva.';
 	@override String get failedToSave => 'Tietojen tallennus epäonnistui. Yritä uudelleen.';
 	@override String get skip => 'Ohita';
 	@override late final _Translations$meal$questionFlow$fi questionFlow = _Translations$meal$questionFlow$fi._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsFi {
 			'meal.failedToProcess' => ({required Object error}) => 'Käsittely epäonnistui: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kuvan käsittely epäonnistui: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Virhe kuvan pakkaamisessa: ${error}',
+			'meal.imageTooLarge' => 'Tämän kuvan koko on pakkaamisen jälkeenkin yli 1 Mt. Valitse toinen kuva.',
 			'meal.failedToSave' => 'Tietojen tallennus epäonnistui. Yritä uudelleen.',
 			'meal.skip' => 'Ohita',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Kysymys ${current} / ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsFi {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Virhe asetusten viimeistelyssä: ${error}',
 			'notifications.breakfast.title' => 'Aamupala-aika! 🍳',
 			'notifications.breakfast.body' => 'Muista kirjata aamiaisesi',
-			'notifications.lunch.title' => 'Lounasaika! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Lounasaika! 🥗',
 			'notifications.lunch.body' => 'On aika kirjata lounas',
 			'notifications.dinner.title' => 'Päivällisaika! 🍽️',
 			'notifications.dinner.body' => 'Muista kirjata päivällisesi',

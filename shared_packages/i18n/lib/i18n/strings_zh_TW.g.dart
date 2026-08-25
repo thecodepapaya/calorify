@@ -181,6 +181,7 @@ class Translations$meal$zh_TW extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => '處理失敗：${error}';
 	@override String failedToProcessImage({required Object error}) => '處理影像失敗：${error}';
 	@override String errorCompressingImage({required Object error}) => '壓縮影像時發生錯誤：${error}';
+	@override String get imageTooLarge => '此照片壓縮後仍超過 1 MB。請選擇其他照片。';
 	@override String get failedToSave => '儲存資料失敗。請再試一次。';
 	@override String get skip => '跳過';
 	@override late final Translations$meal$questionFlow$zh_TW questionFlow = Translations$meal$questionFlow$zh_TW.internal(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsZhTw {
 			'meal.failedToProcess' => ({required Object error}) => '處理失敗：${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '處理影像失敗：${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '壓縮影像時發生錯誤：${error}',
+			'meal.imageTooLarge' => '此照片壓縮後仍超過 1 MB。請選擇其他照片。',
 			'meal.failedToSave' => '儲存資料失敗。請再試一次。',
 			'meal.skip' => '跳過',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '問題 ${current} / ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsZhTw {
 			'reminders.errorCompletingSetup' => ({required Object error}) => '完成設定時發生錯誤：${error}',
 			'notifications.breakfast.title' => '該吃早餐囉！ 🍳',
 			'notifications.breakfast.body' => '別忘了記錄您的早餐',
-			'notifications.lunch.title' => '午餐時間！ 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => '午餐時間！ 🥗',
 			'notifications.lunch.body' => '該記錄午餐了',
 			'notifications.dinner.title' => '晚餐時間！ 🍽️',
 			'notifications.dinner.body' => '別忘了記錄您的晚餐',

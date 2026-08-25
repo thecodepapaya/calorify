@@ -181,6 +181,7 @@ class _Translations$meal$ms extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Gagal memproses: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Gagal memproses imej: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Ralat memampatkan imej: ${error}';
+	@override String get imageTooLarge => 'Foto ini masih melebihi 1 MB selepas dimampatkan. Sila pilih foto lain.';
 	@override String get failedToSave => 'Gagal menyimpan data. Sila cuba lagi.';
 	@override String get skip => 'Langkau';
 	@override late final _Translations$meal$questionFlow$ms questionFlow = _Translations$meal$questionFlow$ms._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsMs {
 			'meal.failedToProcess' => ({required Object error}) => 'Gagal memproses: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Gagal memproses imej: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Ralat memampatkan imej: ${error}',
+			'meal.imageTooLarge' => 'Foto ini masih melebihi 1 MB selepas dimampatkan. Sila pilih foto lain.',
 			'meal.failedToSave' => 'Gagal menyimpan data. Sila cuba lagi.',
 			'meal.skip' => 'Langkau',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Soalan ${current} dari ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsMs {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Ralat melengkapkan persediaan: ${error}',
 			'notifications.breakfast.title' => 'Masa Sarapan! 🍳',
 			'notifications.breakfast.body' => 'Jangan lupa log sarapan anda',
-			'notifications.lunch.title' => 'Masa Makan Tengah Hari! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Masa Makan Tengah Hari! 🥗',
 			'notifications.lunch.body' => 'Masa untuk log makan tengah hari anda',
 			'notifications.dinner.title' => 'Masa Makan Malam! 🍽️',
 			'notifications.dinner.body' => 'Jangan lupa log makan malam anda',

@@ -58,6 +58,8 @@ const mockDownloadLocalNutritionPack = mock.fn(async () => ({
 }));
 
 const mockConfig = {
+  ORACLE_BUCKET_UPLOAD_URL:
+    'https://objectstorage.example.com/p/upload-token/n/ns/b/bucket/o/',
   ORACLE_BUCKET_DOWNLOAD_URL:
     'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
   DATABASE_URL: 'postgres://mock',
@@ -98,7 +100,9 @@ await mock.module('../../services/mealAnalysisStore.js', {
 await mock.module('../../middleware/auth.js', {
   namedExports: {
     getOptionalUserId: mock.fn(async () => undefined),
-    authenticateUser: mock.fn(async () => {}),
+    authenticateUser: mock.fn(async (request: { userId?: string }) => {
+      request.userId = 'test-user';
+    }),
     getCurrentUserId: mock.fn(() => 'test-user'),
   },
 });
@@ -194,6 +198,134 @@ function validLocalProposal() {
 }
 
 const VALID_ANALYSIS_ID = '00000000-0000-4000-8000-000000000401';
+
+function validLosslessWebp(width = 16, height = 12): Buffer {
+  const frame = Buffer.alloc(5);
+  frame[0] = 0x2f;
+  frame.writeUInt32LE((width - 1) | ((height - 1) << 14), 1);
+  const chunk = Buffer.alloc(8 + frame.length + 1);
+  chunk.write('VP8L', 0, 'ascii');
+  chunk.writeUInt32LE(frame.length, 4);
+  frame.copy(chunk, 8);
+  const image = Buffer.alloc(12 + chunk.length);
+  image.write('RIFF', 0, 'ascii');
+  image.writeUInt32LE(image.length - 8, 4);
+  image.write('WEBP', 8, 'ascii');
+  chunk.copy(image, 12);
+  return image;
+}
+
+// ---------------------------------------------------------------------------
+// POST /api/v2/food/image-upload
+// ---------------------------------------------------------------------------
+
+test('POST /image-upload stores a WebP under the authenticated UID and server timestamp', async (t) => {
+  let putUrl = '';
+  t.mock.method(globalThis, 'fetch', async (input) => {
+    putUrl = String(input);
+    return new Response(null, { status: 200, headers: { etag: 'image-etag' } });
+  });
+  const app = await buildTestApp();
+  const image = validLosslessWebp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/image-upload',
+    headers: {
+      'content-type': 'image/webp',
+      'content-length': String(image.length),
+    },
+    payload: image,
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.match(putUrl, /\/o\/test-user\/\d{8}T\d{9}Z\.webp$/);
+  assert.match(
+    response.json().imageUrl,
+    /\/p\/download-token\/n\/ns\/b\/bucket\/o\/test-user\/\d{8}T\d{9}Z\.webp$/
+  );
+  await app.close();
+});
+
+test('POST /image-upload rejects bytes that are not a WebP', async () => {
+  const app = await buildTestApp();
+  const image = Buffer.from('not-a-webp');
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/image-upload',
+    headers: {
+      'content-type': 'image/webp',
+      'content-length': String(image.length),
+    },
+    payload: image,
+  });
+
+  assert.equal(response.statusCode, 400);
+  assertClientError(response.json(), 'WebP');
+  await app.close();
+});
+
+test('POST /image-upload rejects a body over 1 MiB', async () => {
+  const app = await buildTestApp();
+  const image = Buffer.alloc(1024 * 1024 + 1);
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/image-upload',
+    headers: {
+      'content-type': 'image/webp',
+      'content-length': String(image.length),
+    },
+    payload: image,
+  });
+
+  assert.equal(response.statusCode, 413);
+  await app.close();
+});
+
+test('POST /image-upload returns a redacted 503 when Oracle rejects the PUT', async (t) => {
+  t.mock.method(
+    globalThis,
+    'fetch',
+    async () => new Response('provider-secret-detail', { status: 503 })
+  );
+  const app = await buildTestApp();
+  const image = validLosslessWebp();
+  const response = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/image-upload',
+    headers: {
+      'content-type': 'image/webp',
+      'content-length': String(image.length),
+    },
+    payload: image,
+  });
+
+  assert.equal(response.statusCode, 503);
+  assert.match(response.body, /Image storage is unavailable/);
+  assert.doesNotMatch(response.body, /provider-secret-detail/);
+  await app.close();
+});
+
+test('POST /image-upload rate-limits a UID before parsing the eleventh body', async () => {
+  const app = await buildTestApp();
+  for (let index = 0; index < 10; index += 1) {
+    const response = await app.inject({
+      method: 'POST',
+      url: '/api/v2/food/image-upload',
+      headers: { 'content-type': 'application/octet-stream' },
+      payload: Buffer.from('invalid-content-type'),
+    });
+    assert.equal(response.statusCode, 415);
+  }
+
+  const limited = await app.inject({
+    method: 'POST',
+    url: '/api/v2/food/image-upload',
+    headers: { 'content-type': 'application/octet-stream' },
+    payload: Buffer.from('not-parsed'),
+  });
+  assert.equal(limited.statusCode, 429);
+  await app.close();
+});
 
 // ---------------------------------------------------------------------------
 // POST /api/v2/food/analyze-text

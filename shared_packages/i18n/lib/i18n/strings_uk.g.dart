@@ -181,6 +181,7 @@ class _Translations$meal$uk extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Не вдалося обробити: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Не вдалося обробити зображення: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Помилка стиснення зображення: ${error}';
+	@override String get imageTooLarge => 'Ця фотографія після стиснення все ще перевищує 1 МБ. Будь ласка, виберіть іншу фотографію.';
 	@override String get failedToSave => 'Не вдалося зберегти дані. Спробуйте ще раз.';
 	@override String get skip => 'Пропустити';
 	@override late final _Translations$meal$questionFlow$uk questionFlow = _Translations$meal$questionFlow$uk._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsUk {
 			'meal.failedToProcess' => ({required Object error}) => 'Не вдалося обробити: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Не вдалося обробити зображення: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Помилка стиснення зображення: ${error}',
+			'meal.imageTooLarge' => 'Ця фотографія після стиснення все ще перевищує 1 МБ. Будь ласка, виберіть іншу фотографію.',
 			'meal.failedToSave' => 'Не вдалося зберегти дані. Спробуйте ще раз.',
 			'meal.skip' => 'Пропустити',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Питання ${current} з ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsUk {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Помилка завершення налаштування: ${error}',
 			'notifications.breakfast.title' => 'Час сніданку! 🍳',
 			'notifications.breakfast.body' => 'Не забудьте записати сніданок',
-			'notifications.lunch.title' => 'Час обіду! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Час обіду! 🥗',
 			'notifications.lunch.body' => 'Час записати обід',
 			'notifications.dinner.title' => 'Час вечері! 🍽️',
 			'notifications.dinner.body' => 'Не забудьте записати вечерю',

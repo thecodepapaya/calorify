@@ -299,6 +299,7 @@
     "failedToProcess": "İşlenemedi: {error}",
     "failedToProcessImage": "Görüntü işlenemedi: {error}",
     "errorCompressingImage": "Görüntü sıkıştırılırken hata: {error}",
+    "imageTooLarge": "Bu fotoğraf sıkıştırıldıktan sonra hâlâ 1 MB'den büyük. Lütfen farklı bir fotoğraf seçin.",
     "failedToSave": "Veri kaydedilemedi. Lütfen tekrar deneyin.",
     "skip": "Atla",
     "questionFlow": {

@@ -181,6 +181,7 @@ class _Translations$meal$ro extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Procesare eșuată: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Procesare imagine eșuată: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Eroare la comprimarea imaginii: ${error}';
+	@override String get imageTooLarge => 'Această fotografie depășește în continuare 1 MB după comprimare. Te rugăm alege o altă fotografie.';
 	@override String get failedToSave => 'Salvarea datelor a eșuat. Te rugăm încearcă din nou.';
 	@override String get skip => 'Sari';
 	@override late final _Translations$meal$questionFlow$ro questionFlow = _Translations$meal$questionFlow$ro._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsRo {
 			'meal.failedToProcess' => ({required Object error}) => 'Procesare eșuată: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Procesare imagine eșuată: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Eroare la comprimarea imaginii: ${error}',
+			'meal.imageTooLarge' => 'Această fotografie depășește în continuare 1 MB după comprimare. Te rugăm alege o altă fotografie.',
 			'meal.failedToSave' => 'Salvarea datelor a eșuat. Te rugăm încearcă din nou.',
 			'meal.skip' => 'Sari',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Întrebare ${current} din ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsRo {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Eroare la finalizarea configurării: ${error}',
 			'notifications.breakfast.title' => 'Mic dejun! 🍳',
 			'notifications.breakfast.body' => 'Nu uita să-ți înregistrezi micul dejun',
-			'notifications.lunch.title' => 'Prânz! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Prânz! 🥗',
 			'notifications.lunch.body' => 'E timpul să notezi prânzul',
 			'notifications.dinner.title' => 'Cină! 🍽️',
 			'notifications.dinner.body' => 'Nu uita să-ți înregistrezi cina',

@@ -299,6 +299,7 @@
     "failedToProcess": "Käsittely epäonnistui: {error}",
     "failedToProcessImage": "Kuvan käsittely epäonnistui: {error}",
     "errorCompressingImage": "Virhe kuvan pakkaamisessa: {error}",
+    "imageTooLarge": "Tämän kuvan koko on pakkaamisen jälkeenkin yli 1 Mt. Valitse toinen kuva.",
     "failedToSave": "Tietojen tallennus epäonnistui. Yritä uudelleen.",
     "skip": "Ohita",
     "questionFlow": {

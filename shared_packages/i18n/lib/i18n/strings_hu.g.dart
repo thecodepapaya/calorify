@@ -181,6 +181,7 @@ class _Translations$meal$hu extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Feldolgozás sikertelen: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'A képfeldolgozás sikertelen: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Hiba a kép tömörítése közben: ${error}';
+	@override String get imageTooLarge => 'Ez a fotó a tömörítés után is több mint 1 MB. Kérlek, válassz egy másik fotót.';
 	@override String get failedToSave => 'Az adatok mentése sikertelen. Kérlek próbáld újra.';
 	@override String get skip => 'Kihagyás';
 	@override late final _Translations$meal$questionFlow$hu questionFlow = _Translations$meal$questionFlow$hu._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsHu {
 			'meal.failedToProcess' => ({required Object error}) => 'Feldolgozás sikertelen: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'A képfeldolgozás sikertelen: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Hiba a kép tömörítése közben: ${error}',
+			'meal.imageTooLarge' => 'Ez a fotó a tömörítés után is több mint 1 MB. Kérlek, válassz egy másik fotót.',
 			'meal.failedToSave' => 'Az adatok mentése sikertelen. Kérlek próbáld újra.',
 			'meal.skip' => 'Kihagyás',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Kérdés ${current} / ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsHu {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Hiba a beállítás befejezésekor: ${error}',
 			'notifications.breakfast.title' => 'Ideje reggelizni! 🍳',
 			'notifications.breakfast.body' => 'Ne felejtsd el naplózni a reggelidet',
-			'notifications.lunch.title' => 'Ebédidő! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Ebédidő! 🥗',
 			'notifications.lunch.body' => 'Ideje naplózni az ebéded',
 			'notifications.dinner.title' => 'Vacsoraidő! 🍽️',
 			'notifications.dinner.body' => 'Ne felejtsd el naplózni a vacsorádat',

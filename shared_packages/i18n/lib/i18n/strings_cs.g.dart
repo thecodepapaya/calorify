@@ -181,6 +181,7 @@ class _Translations$meal$cs extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Zpracování selhalo: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Zpracování obrázku selhalo: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Chyba při kompresi obrázku: ${error}';
+	@override String get imageTooLarge => 'Tato fotografie je po kompresi stále větší než 1 MB. Vyberte prosím jinou fotografii.';
 	@override String get failedToSave => 'Nepodařilo se uložit data. Zkuste to prosím znovu.';
 	@override String get skip => 'Přeskočit';
 	@override late final _Translations$meal$questionFlow$cs questionFlow = _Translations$meal$questionFlow$cs._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsCs {
 			'meal.failedToProcess' => ({required Object error}) => 'Zpracování selhalo: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Zpracování obrázku selhalo: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Chyba při kompresi obrázku: ${error}',
+			'meal.imageTooLarge' => 'Tato fotografie je po kompresi stále větší než 1 MB. Vyberte prosím jinou fotografii.',
 			'meal.failedToSave' => 'Nepodařilo se uložit data. Zkuste to prosím znovu.',
 			'meal.skip' => 'Přeskočit',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Otázka ${current} z ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsCs {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Chyba při dokončování nastavení: ${error}',
 			'notifications.breakfast.title' => 'Čas na snídani! 🍳',
 			'notifications.breakfast.body' => 'Nezapomeňte zaznamenat snídani',
-			'notifications.lunch.title' => 'Čas na oběd! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Čas na oběd! 🥗',
 			'notifications.lunch.body' => 'Je čas zaznamenat oběd',
 			'notifications.dinner.title' => 'Čas na večeři! 🍽️',
 			'notifications.dinner.body' => 'Nezapomeňte zaznamenat večeři',

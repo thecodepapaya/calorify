@@ -181,6 +181,7 @@ class _Translations$meal$id extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Gagal memproses: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Gagal memproses gambar: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Kesalahan mengompresi gambar: ${error}';
+	@override String get imageTooLarge => 'Foto ini masih berukuran lebih dari 1 MB setelah dikompresi. Silakan pilih foto lain.';
 	@override String get failedToSave => 'Gagal menyimpan data. Silakan coba lagi.';
 	@override String get skip => 'Lewati';
 	@override late final _Translations$meal$questionFlow$id questionFlow = _Translations$meal$questionFlow$id._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsId {
 			'meal.failedToProcess' => ({required Object error}) => 'Gagal memproses: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Gagal memproses gambar: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Kesalahan mengompresi gambar: ${error}',
+			'meal.imageTooLarge' => 'Foto ini masih berukuran lebih dari 1 MB setelah dikompresi. Silakan pilih foto lain.',
 			'meal.failedToSave' => 'Gagal menyimpan data. Silakan coba lagi.',
 			'meal.skip' => 'Lewati',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Pertanyaan ${current} dari ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsId {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Kesalahan menyelesaikan pengaturan: ${error}',
 			'notifications.breakfast.title' => 'Waktunya Sarapan! 🍳',
 			'notifications.breakfast.body' => 'Jangan lupa mencatat sarapan Anda',
-			'notifications.lunch.title' => 'Waktunya Makan Siang! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Waktunya Makan Siang! 🥗',
 			'notifications.lunch.body' => 'Saatnya mencatat makan siang Anda',
 			'notifications.dinner.title' => 'Waktunya Makan Malam! 🍽️',
 			'notifications.dinner.body' => 'Jangan lupa mencatat makan malam Anda',

@@ -20,7 +20,8 @@ cp env.example .env
 
 Populate `.env` with local-only values. A complete local environment includes
 separate `DATABASE_URL` and read-only `USDA_DATABASE_URL` values, the relevant
-AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication
+AI provider keys, `ORACLE_BUCKET_UPLOAD_URL`, and
+`ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication
 requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
 
 Start the separate application and USDA databases:
@@ -132,9 +133,10 @@ The API reports ready only when its application database and the shared USDA dat
 - Keep `POSTGRES_PROD_PASSWORD` and `POSTGRES_STAGING_PASSWORD` consistent with their environment-specific `DATABASE_URL` values.
 - Keep the USDA owner and reader passwords in the VM's ignored Compose environment only; API containers receive the reader URL, never the owner URL.
 - `DEBUG` must be `false` in production.
-- `ORACLE_BUCKET_DOWNLOAD_URL` is a bearer credential and is required in production.
+- `ORACLE_BUCKET_UPLOAD_URL` is a backend-only bearer credential and is required in production.
+- `ORACLE_BUCKET_DOWNLOAD_URL` is the far-future, read-only PAR base returned for meal-history images; listing must remain disabled and it is required in production.
 - Request and response bodies are never written to application logs because payloads contain health data.
-- After deploying the legacy image-URL scrub migration, rotate the Oracle pre-authenticated request; application migrations cannot remove the old credential from existing backups or archived WAL.
+- After deploying the backend upload flow, revoke the legacy app-exposed upload PAR; application migrations cannot remove the old credential from existing backups or archived WAL.
 
 ## Deployment and operations
 

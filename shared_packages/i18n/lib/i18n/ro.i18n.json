@@ -299,6 +299,7 @@
     "failedToProcess": "Procesare eșuată: {error}",
     "failedToProcessImage": "Procesare imagine eșuată: {error}",
     "errorCompressingImage": "Eroare la comprimarea imaginii: {error}",
+    "imageTooLarge": "Această fotografie depășește în continuare 1 MB după comprimare. Te rugăm alege o altă fotografie.",
     "failedToSave": "Salvarea datelor a eșuat. Te rugăm încearcă din nou.",
     "skip": "Sari",
     "questionFlow": {

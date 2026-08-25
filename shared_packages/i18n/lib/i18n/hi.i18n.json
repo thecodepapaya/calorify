@@ -299,6 +299,7 @@
     "failedToProcess": "प्रोसेस करने में विफल: {error}",
     "failedToProcessImage": "इमेज प्रोसेस करने में विफल: {error}",
     "errorCompressingImage": "इमेज संकुचित करते समय त्रुटि: {error}",
+    "imageTooLarge": "यह फोटो संपीड़न के बाद भी 1 MB से बड़ी है। कृपया कोई दूसरी फोटो चुनें।",
     "failedToSave": "डेटा सहेजने में विफल। कृपया पुनः प्रयास करें।",
     "skip": "अनदेखा करें",
     "questionFlow": {

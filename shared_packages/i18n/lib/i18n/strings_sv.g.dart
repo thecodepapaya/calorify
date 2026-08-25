@@ -181,6 +181,7 @@ class _Translations$meal$sv extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Misslyckades att bearbeta: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kunde inte bearbeta bild: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fel vid komprimering av bild: ${error}';
+	@override String get imageTooLarge => 'Det här fotot är fortfarande över 1 MB efter komprimering. Välj ett annat foto.';
 	@override String get failedToSave => 'Misslyckades med att spara data. Försök igen.';
 	@override String get skip => 'Hoppa över';
 	@override late final _Translations$meal$questionFlow$sv questionFlow = _Translations$meal$questionFlow$sv._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsSv {
 			'meal.failedToProcess' => ({required Object error}) => 'Misslyckades att bearbeta: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kunde inte bearbeta bild: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fel vid komprimering av bild: ${error}',
+			'meal.imageTooLarge' => 'Det här fotot är fortfarande över 1 MB efter komprimering. Välj ett annat foto.',
 			'meal.failedToSave' => 'Misslyckades med att spara data. Försök igen.',
 			'meal.skip' => 'Hoppa över',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Fråga ${current} av ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsSv {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Fel vid slutförande av inställning: ${error}',
 			'notifications.breakfast.title' => 'Frukostdags! 🍳',
 			'notifications.breakfast.body' => 'Glöm inte att registrera din frukost',
-			'notifications.lunch.title' => 'Lunchdags! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Lunchdags! 🥗',
 			'notifications.lunch.body' => 'Dags att registrera din lunch',
 			'notifications.dinner.title' => 'Middagsdags! 🍽️',
 			'notifications.dinner.body' => 'Glöm inte att registrera din middag',

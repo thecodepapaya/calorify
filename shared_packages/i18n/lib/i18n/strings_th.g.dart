@@ -181,6 +181,7 @@ class _Translations$meal$th extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'ไม่สามารถประมวลผลได้: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'ไม่สามารถประมวลผลรูปได้: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดรูป: ${error}';
+	@override String get imageTooLarge => 'ภาพนี้ยังมีขนาดเกิน 1 MB หลังจากบีบอัดแล้ว กรุณาเลือกรูปภาพอื่น';
 	@override String get failedToSave => 'ไม่สามารถบันทึกข้อมูลได้ โปรดลองอีกครั้ง';
 	@override String get skip => 'ข้าม';
 	@override late final _Translations$meal$questionFlow$th questionFlow = _Translations$meal$questionFlow$th._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsTh {
 			'meal.failedToProcess' => ({required Object error}) => 'ไม่สามารถประมวลผลได้: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'ไม่สามารถประมวลผลรูปได้: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'เกิดข้อผิดพลาดในการบีบอัดรูป: ${error}',
+			'meal.imageTooLarge' => 'ภาพนี้ยังมีขนาดเกิน 1 MB หลังจากบีบอัดแล้ว กรุณาเลือกรูปภาพอื่น',
 			'meal.failedToSave' => 'ไม่สามารถบันทึกข้อมูลได้ โปรดลองอีกครั้ง',
 			'meal.skip' => 'ข้าม',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'คำถาม ${current} จาก ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsTh {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'เกิดข้อผิดพลาดขณะทำการตั้งค่าให้เสร็จ: ${error}',
 			'notifications.breakfast.title' => 'เวลาอาหารเช้า! 🍳',
 			'notifications.breakfast.body' => 'อย่าลืมบันทึกมื้อเช้าของคุณ',
-			'notifications.lunch.title' => 'เวลาอาหารกลางวัน! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'เวลาอาหารกลางวัน! 🥗',
 			'notifications.lunch.body' => 'ถึงเวลาบันทึกมื้อกลางวันแล้ว',
 			'notifications.dinner.title' => 'เวลามื้อเย็น! 🍽️',
 			'notifications.dinner.body' => 'อย่าลืมบันทึกมื้อเย็นของคุณ',

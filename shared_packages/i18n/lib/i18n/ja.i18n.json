@@ -299,6 +299,7 @@
     "failedToProcess": "処理に失敗しました: {error}",
     "failedToProcessImage": "画像の処理に失敗しました: {error}",
     "errorCompressingImage": "画像圧縮中にエラーが発生しました: {error}",
+    "imageTooLarge": "この写真は圧縮してもまだ1MBを超えています。別の写真を選んでください。",
     "failedToSave": "データの保存に失敗しました。もう一度お試しください。",
     "skip": "スキップ",
     "questionFlow": {

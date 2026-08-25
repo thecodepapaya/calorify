@@ -181,6 +181,7 @@ class _Translations$meal$te extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'ప్రాసెస్ చేయడంలో విఫలమైంది: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'చిత్రాన్ని ప్రాసెస్ చేయడంలో విఫలమైంది: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'చిత్రాన్ని కుదించడంలో లోపం: ${error}';
+	@override String get imageTooLarge => 'ఈ ఫోటోను కంప్రెస్ చేసిన తర్వాత కూడా పరిమాణం 1 MB కన్నా ఎక్కువగా ఉంది. దయచేసి మరొక ఫోటోను ఎంచుకోండి.';
 	@override String get failedToSave => 'డేటాను సేవ్ చేయడంలో విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.';
 	@override String get skip => 'దాటవేయి';
 	@override late final _Translations$meal$questionFlow$te questionFlow = _Translations$meal$questionFlow$te._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsTe {
 			'meal.failedToProcess' => ({required Object error}) => 'ప్రాసెస్ చేయడంలో విఫలమైంది: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'చిత్రాన్ని ప్రాసెస్ చేయడంలో విఫలమైంది: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'చిత్రాన్ని కుదించడంలో లోపం: ${error}',
+			'meal.imageTooLarge' => 'ఈ ఫోటోను కంప్రెస్ చేసిన తర్వాత కూడా పరిమాణం 1 MB కన్నా ఎక్కువగా ఉంది. దయచేసి మరొక ఫోటోను ఎంచుకోండి.',
 			'meal.failedToSave' => 'డేటాను సేవ్ చేయడంలో విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.',
 			'meal.skip' => 'దాటవేయి',
 			'meal.questionFlow.progress' => ({required Object total, required Object current}) => '${total}లో ప్రశ్న ${current}',
@@ -2559,9 +2561,9 @@ extension on TranslationsTe {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'సెటప్‌ను పూర్తి చేయడంలో లోపం: ${error}',
 			'notifications.breakfast.title' => 'అల్పాహారం సమయం! 🍳',
 			'notifications.breakfast.body' => 'మీ అల్పాహారాన్ని లాగ్ చేయడం మర్చిపోవద్దు',
-			'notifications.lunch.title' => 'మధ్యాహ్న భోజనం సమయం! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'మధ్యాహ్న భోజనం సమయం! 🥗',
 			'notifications.lunch.body' => 'మీ మధ్యాహ్న భోజనాన్ని లాగ్ చేయడానికి సమయం',
 			'notifications.dinner.title' => 'రాత్రి భోజనం సమయం! 🍽️',
 			'notifications.dinner.body' => 'మీ రాత్రి భోజనాన్ని లాగ్ చేయడం మర్చిపోవద్దు',

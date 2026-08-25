@@ -5,6 +5,54 @@ import 'dart:typed_data';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 const imageCompressionTargetDimension = 1536;
+const maxMealImageUploadBytes = 1024 * 1024;
+
+class ImageCompressionException implements Exception {
+  const ImageCompressionException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => 'ImageCompressionException: $message';
+}
+
+class MealImageTooLargeException extends ImageCompressionException {
+  const MealImageTooLargeException()
+    : super('Compressed meal image exceeds 1 MiB');
+}
+
+bool hasWebpSignature(Uint8List bytes) {
+  return bytes.length >= 12 &&
+      bytes[0] == 0x52 &&
+      bytes[1] == 0x49 &&
+      bytes[2] == 0x46 &&
+      bytes[3] == 0x46 &&
+      bytes[8] == 0x57 &&
+      bytes[9] == 0x45 &&
+      bytes[10] == 0x42 &&
+      bytes[11] == 0x50;
+}
+
+Uint8List requireWebpCompressionOutput(Uint8List? bytes) {
+  if (bytes == null || bytes.isEmpty) {
+    throw const ImageCompressionException(
+      'WebP encoder returned no image data',
+    );
+  }
+  if (!hasWebpSignature(bytes)) {
+    throw const ImageCompressionException(
+      'WebP encoder returned data in an unexpected format',
+    );
+  }
+  validateMealImageUploadSize(bytes);
+  return bytes;
+}
+
+void validateMealImageUploadSize(Uint8List bytes) {
+  if (bytes.length > maxMealImageUploadBytes) {
+    throw const MealImageTooLargeException();
+  }
+}
 
 /// Service for compressing images
 class ImageCompressionService {
@@ -29,23 +77,17 @@ class ImageCompressionService {
         minHeight: imageCompressionTargetDimension,
       );
 
-      if (compressed == null || compressed.isEmpty) {
-        developer.log('Compression failed, returning original');
-        return original;
-      }
+      final webp = requireWebpCompressionOutput(compressed);
 
-      // Verify compression actually reduced size
-      if (compressed.length >= original.length) {
+      if (webp.length >= original.length) {
         developer.log(
-          'Compression did not reduce size (${compressed.length} >= ${original.length}), using original',
+          'WebP is not smaller (${webp.length} >= ${original.length}); keeping WebP to preserve the upload contract',
         );
-        return original;
       }
 
       // Log compression statistics with appropriate units
       final percentage =
-          ((original.length - compressed.length) / original.length * 100)
-              .floor();
+          ((original.length - webp.length) / original.length * 100).floor();
 
       String formatSize(int bytes) {
         const kib = 1024;
@@ -61,18 +103,25 @@ class ImageCompressionService {
       }
 
       final originalSize = formatSize(original.length);
-      final compSize = formatSize(compressed.length);
+      final compSize = formatSize(webp.length);
 
       developer.log('Compression: $percentage% [$originalSize -> $compSize]');
 
-      return compressed;
-    } catch (e, stackTrace) {
+      return webp;
+    } on ImageCompressionException catch (e, stackTrace) {
       developer.log(
-        'Error during compression: $e',
+        'Image compression failed: $e',
         error: e,
         stackTrace: stackTrace,
       );
-      return original; // Return original on error
+      rethrow;
+    } catch (e, stackTrace) {
+      developer.log(
+        'Image compression failed: $e',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      throw ImageCompressionException(e.toString());
     }
   }
 
@@ -81,7 +130,7 @@ class ImageCompressionService {
   /// [image] - The image file to compress
   /// [quality] - Compression quality (0-100), default is 85
   ///
-  /// Returns compressed image bytes, or original if compression fails
+  /// Returns WebP bytes; throws [ImageCompressionException] on failure.
   /// Note: Compression runs on main isolate as flutter_image_compress
   /// doesn't support isolates on all platforms
   Future<Uint8List> compressImage(File image, {int quality = 85}) async {
@@ -94,7 +143,7 @@ class ImageCompressionService {
   /// [imageBytes] - The image bytes to compress
   /// [quality] - Compression quality (0-100), default is 85
   ///
-  /// Returns compressed image bytes, or original if compression fails
+  /// Returns WebP bytes; throws [ImageCompressionException] on failure.
   /// Note: Compression runs on main isolate as flutter_image_compress
   /// doesn't support isolates on all platforms
   Future<Uint8List> compressImageBytes(

@@ -2,8 +2,10 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import {
+  createImageUploadRateLimitHook,
   FOOD_RATE_LIMITS,
   type FoodRateLimitHooks,
+  type ImageUploadRateLimitHook,
 } from '../../middleware/foodRateLimit.js';
 import {
   clearMealAnalysisLogged,
@@ -53,10 +55,16 @@ import {
   getErrorResponseSchema,
 } from '../../utils/schema-generator.js';
 import {
+  uploadMealImageToOracle,
   resolveOwnedImageObject,
 } from '../../services/oracleObjectStorage.js';
 import { resolveLocalNutritionLookups } from '../../services/localNutritionResolver.js';
 import { downloadLocalNutritionPack } from '../../services/localNutritionPackDownload.js';
+import {
+  InvalidWebpError,
+  MAX_MEAL_IMAGE_BYTES,
+  validateStaticWebp,
+} from '../../services/webpValidation.js';
 
 const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 
@@ -519,16 +527,24 @@ async function streamEvents(
 
 export interface FoodRoutesV2Options {
   foodRateLimitHooks?: FoodRateLimitHooks;
+  imageUploadRateLimitHook?: ImageUploadRateLimitHook;
 }
 
 export async function foodRoutesV2(
   fastify: FastifyInstance,
   options: FoodRoutesV2Options = {}
 ): Promise<void> {
+  const imageUploadRateLimitHook =
+    options.imageUploadRateLimitHook ?? createImageUploadRateLimitHook();
   // Every V2 flow creates or mutates user-attributed analysis state. Requiring
   // Firebase auth here also makes route-specific analysis limits user-aware and
   // prevents one caller from continuing or confirming another caller's analysis.
-  fastify.addHook('preHandler', authenticateUser);
+  fastify.addHook('onRequest', authenticateUser);
+  fastify.addContentTypeParser(
+    'image/webp',
+    { parseAs: 'buffer', bodyLimit: MAX_MEAL_IMAGE_BYTES },
+    (_request, body, done) => done(null, body)
+  );
 
   fastify.get(
     '/local-capabilities',
@@ -548,6 +564,67 @@ export async function foodRoutesV2(
             ? `${config.API_V2_STR}/food/local-nutrition-pack`
             : undefined,
       };
+    }
+  );
+
+  fastify.post<{ Body: Buffer }>(
+    '/image-upload',
+    {
+      onRequest: imageUploadRateLimitHook,
+      schema: {
+        description: 'Validate and upload one WebP meal image through the backend.',
+        tags: ['Food', 'V2'],
+        response: {
+          200: {
+            type: 'object',
+            required: ['imageUrl'],
+            properties: { imageUrl: { type: 'string', format: 'uri' } },
+          },
+          400: { description: 'Invalid WebP image', ...getErrorResponseSchema() },
+          413: { description: 'Image exceeds 1 MiB', ...getErrorResponseSchema() },
+          415: { description: 'Unsupported media type', ...getErrorResponseSchema() },
+          429: { description: 'Upload rate limit exceeded', ...getErrorResponseSchema() },
+          503: { description: 'Image storage unavailable', ...getErrorResponseSchema() },
+        },
+      } as any,
+    },
+    async (request, reply) => {
+      const declaredLength = Number(request.headers['content-length']);
+      if (!Number.isSafeInteger(declaredLength) || declaredLength <= 0) {
+        reply.status(400).send(createErrorResponse('Content-Length is required'));
+        return;
+      }
+      if (!Buffer.isBuffer(request.body) || request.body.length !== declaredLength) {
+        reply.status(400).send(createErrorResponse('Image body length does not match Content-Length'));
+        return;
+      }
+
+      try {
+        validateStaticWebp(request.body);
+      } catch (error) {
+        if (error instanceof InvalidWebpError) {
+          reply.status(400).send(createErrorResponse(error.message));
+          return;
+        }
+        throw error;
+      }
+
+      try {
+        const uploaded = await uploadMealImageToOracle(
+          request.body,
+          getCurrentUserId(request)
+        );
+        reply.send({ imageUrl: uploaded.downloadUrl });
+      } catch (error) {
+        request.log.error(
+          {
+            operation: 'upload_meal_image',
+            ...safeErrorMetadata(error, 'oracle_image_upload_failed'),
+          },
+          'Meal image upload failed'
+        );
+        reply.status(503).send(createErrorResponse('Image storage is unavailable'));
+      }
     }
   );
 

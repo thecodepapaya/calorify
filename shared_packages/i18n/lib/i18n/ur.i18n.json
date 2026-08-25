@@ -299,6 +299,7 @@
     "failedToProcess": "عمل کرنے میں ناکامی: {error}",
     "failedToProcessImage": "تصویر پروسس کرنے میں ناکامی: {error}",
     "errorCompressingImage": "تصویر کمپریس کرنے میں خرابی: {error}",
+    "imageTooLarge": "کمپریشن کے بعد بھی یہ تصویر 1 MB سے بڑی ہے۔ براہِ کرم کوئی دوسری تصویر منتخب کریں۔",
     "failedToSave": "ڈیٹا محفوظ کرنے میں ناکامی۔ براہِ کرم دوبارہ کوشش کریں۔",
     "skip": "اسکِپ کریں",
     "questionFlow": {

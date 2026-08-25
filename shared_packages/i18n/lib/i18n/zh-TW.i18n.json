@@ -299,6 +299,7 @@
     "failedToProcess": "處理失敗：{error}",
     "failedToProcessImage": "處理影像失敗：{error}",
     "errorCompressingImage": "壓縮影像時發生錯誤：{error}",
+    "imageTooLarge": "此照片壓縮後仍超過 1 MB。請選擇其他照片。",
     "failedToSave": "儲存資料失敗。請再試一次。",
     "skip": "跳過",
     "questionFlow": {

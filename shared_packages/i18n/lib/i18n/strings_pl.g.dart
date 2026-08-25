@@ -181,6 +181,7 @@ class _Translations$meal$pl extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Nie udało się przetworzyć: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Nie udało się przetworzyć obrazu: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Błąd kompresji obrazu: ${error}';
+	@override String get imageTooLarge => 'To zdjęcie nadal ma ponad 1 MB po kompresji. Wybierz inne zdjęcie.';
 	@override String get failedToSave => 'Nie udało się zapisać danych. Spróbuj ponownie.';
 	@override String get skip => 'Pomiń';
 	@override late final _Translations$meal$questionFlow$pl questionFlow = _Translations$meal$questionFlow$pl._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsPl {
 			'meal.failedToProcess' => ({required Object error}) => 'Nie udało się przetworzyć: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nie udało się przetworzyć obrazu: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Błąd kompresji obrazu: ${error}',
+			'meal.imageTooLarge' => 'To zdjęcie nadal ma ponad 1 MB po kompresji. Wybierz inne zdjęcie.',
 			'meal.failedToSave' => 'Nie udało się zapisać danych. Spróbuj ponownie.',
 			'meal.skip' => 'Pomiń',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Pytanie ${current} z ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsPl {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Błąd podczas kończenia konfiguracji: ${error}',
 			'notifications.breakfast.title' => 'Czas na śniadanie! 🍳',
 			'notifications.breakfast.body' => 'Nie zapomnij zapisać swojego śniadania',
-			'notifications.lunch.title' => 'Czas na lunch! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Czas na lunch! 🥗',
 			'notifications.lunch.body' => 'Czas zapisać obiad',
 			'notifications.dinner.title' => 'Czas na kolację! 🍽️',
 			'notifications.dinner.body' => 'Nie zapomnij zapisać kolacji',

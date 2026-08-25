@@ -299,6 +299,7 @@
     "failedToProcess": "Falha ao processar: {error}",
     "failedToProcessImage": "Falha ao processar imagem: {error}",
     "errorCompressingImage": "Erro ao comprimir a imagem: {error}",
+    "imageTooLarge": "Esta foto ainda tem mais de 1 MB após a compressão. Escolha uma foto diferente.",
     "failedToSave": "Falha ao guardar os dados. Por favor, tente novamente.",
     "skip": "Ignorar",
     "questionFlow": {

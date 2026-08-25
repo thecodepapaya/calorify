@@ -181,6 +181,7 @@ class _Translations$meal$hi extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'प्रोसेस करने में विफल: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'इमेज प्रोसेस करने में विफल: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'इमेज संकुचित करते समय त्रुटि: ${error}';
+	@override String get imageTooLarge => 'यह फोटो संपीड़न के बाद भी 1 MB से बड़ी है। कृपया कोई दूसरी फोटो चुनें।';
 	@override String get failedToSave => 'डेटा सहेजने में विफल। कृपया पुनः प्रयास करें।';
 	@override String get skip => 'अनदेखा करें';
 	@override late final _Translations$meal$questionFlow$hi questionFlow = _Translations$meal$questionFlow$hi._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsHi {
 			'meal.failedToProcess' => ({required Object error}) => 'प्रोसेस करने में विफल: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'इमेज प्रोसेस करने में विफल: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'इमेज संकुचित करते समय त्रुटि: ${error}',
+			'meal.imageTooLarge' => 'यह फोटो संपीड़न के बाद भी 1 MB से बड़ी है। कृपया कोई दूसरी फोटो चुनें।',
 			'meal.failedToSave' => 'डेटा सहेजने में विफल। कृपया पुनः प्रयास करें।',
 			'meal.skip' => 'अनदेखा करें',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'प्रश्न ${current} / ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsHi {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'सेटअप पूरा करने में त्रुटि: ${error}',
 			'notifications.breakfast.title' => 'नाश्ते का समय! 🍳',
 			'notifications.breakfast.body' => 'अपने नाश्ते को लॉग करना न भूलें',
-			'notifications.lunch.title' => 'लंच समय! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'लंच समय! 🥗',
 			'notifications.lunch.body' => 'अपने लंच को लॉग करने का समय है',
 			'notifications.dinner.title' => 'डिनर का समय! 🍽️',
 			'notifications.dinner.body' => 'अपने डिनर को लॉग करना न भूलें',

@@ -299,6 +299,7 @@
     "failedToProcess": "ไม่สามารถประมวลผลได้: {error}",
     "failedToProcessImage": "ไม่สามารถประมวลผลรูปได้: {error}",
     "errorCompressingImage": "เกิดข้อผิดพลาดในการบีบอัดรูป: {error}",
+    "imageTooLarge": "ภาพนี้ยังมีขนาดเกิน 1 MB หลังจากบีบอัดแล้ว กรุณาเลือกรูปภาพอื่น",
     "failedToSave": "ไม่สามารถบันทึกข้อมูลได้ โปรดลองอีกครั้ง",
     "skip": "ข้าม",
     "questionFlow": {

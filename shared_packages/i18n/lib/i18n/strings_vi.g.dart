@@ -181,6 +181,7 @@ class _Translations$meal$vi extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Xử lý thất bại: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Xử lý ảnh thất bại: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Lỗi nén ảnh: ${error}';
+	@override String get imageTooLarge => 'Ảnh này sau khi nén vẫn vượt quá 1 MB. Vui lòng chọn ảnh khác.';
 	@override String get failedToSave => 'Lưu dữ liệu thất bại. Vui lòng thử lại.';
 	@override String get skip => 'Bỏ qua';
 	@override late final _Translations$meal$questionFlow$vi questionFlow = _Translations$meal$questionFlow$vi._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsVi {
 			'meal.failedToProcess' => ({required Object error}) => 'Xử lý thất bại: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Xử lý ảnh thất bại: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Lỗi nén ảnh: ${error}',
+			'meal.imageTooLarge' => 'Ảnh này sau khi nén vẫn vượt quá 1 MB. Vui lòng chọn ảnh khác.',
 			'meal.failedToSave' => 'Lưu dữ liệu thất bại. Vui lòng thử lại.',
 			'meal.skip' => 'Bỏ qua',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Câu hỏi ${current} trên ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsVi {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Lỗi khi hoàn tất thiết lập: ${error}',
 			'notifications.breakfast.title' => 'Đến giờ ăn sáng! 🍳',
 			'notifications.breakfast.body' => 'Đừng quên ghi bữa sáng của bạn',
-			'notifications.lunch.title' => 'Đến giờ ăn trưa! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Đến giờ ăn trưa! 🥗',
 			'notifications.lunch.body' => 'Đã đến lúc ghi bữa trưa',
 			'notifications.dinner.title' => 'Đến giờ ăn tối! 🍽️',
 			'notifications.dinner.body' => 'Đừng quên ghi bữa tối của bạn',

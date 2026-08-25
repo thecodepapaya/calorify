@@ -299,6 +299,7 @@
     "failedToProcess": "Gagal memproses: {error}",
     "failedToProcessImage": "Gagal memproses gambar: {error}",
     "errorCompressingImage": "Kesalahan mengompresi gambar: {error}",
+    "imageTooLarge": "Foto ini masih berukuran lebih dari 1 MB setelah dikompresi. Silakan pilih foto lain.",
     "failedToSave": "Gagal menyimpan data. Silakan coba lagi.",
     "skip": "Lewati",
     "questionFlow": {

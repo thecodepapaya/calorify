@@ -181,6 +181,7 @@ class _Translations$meal$ur extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'عمل کرنے میں ناکامی: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'تصویر پروسس کرنے میں ناکامی: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}';
+	@override String get imageTooLarge => 'کمپریشن کے بعد بھی یہ تصویر 1 MB سے بڑی ہے۔ براہِ کرم کوئی دوسری تصویر منتخب کریں۔';
 	@override String get failedToSave => 'ڈیٹا محفوظ کرنے میں ناکامی۔ براہِ کرم دوبارہ کوشش کریں۔';
 	@override String get skip => 'اسکِپ کریں';
 	@override late final _Translations$meal$questionFlow$ur questionFlow = _Translations$meal$questionFlow$ur._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsUr {
 			'meal.failedToProcess' => ({required Object error}) => 'عمل کرنے میں ناکامی: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'تصویر پروسس کرنے میں ناکامی: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'تصویر کمپریس کرنے میں خرابی: ${error}',
+			'meal.imageTooLarge' => 'کمپریشن کے بعد بھی یہ تصویر 1 MB سے بڑی ہے۔ براہِ کرم کوئی دوسری تصویر منتخب کریں۔',
 			'meal.failedToSave' => 'ڈیٹا محفوظ کرنے میں ناکامی۔ براہِ کرم دوبارہ کوشش کریں۔',
 			'meal.skip' => 'اسکِپ کریں',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'سوال ${current} از ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsUr {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'سیٹ اپ مکمل کرنے میں خرابی: ${error}',
 			'notifications.breakfast.title' => 'ناشتے کا وقت! 🍳',
 			'notifications.breakfast.body' => 'اپنا ناشتہ لاگ کرنا نہ بھولیں',
-			'notifications.lunch.title' => 'دوپہر کے کھانے کا وقت! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'دوپہر کے کھانے کا وقت! 🥗',
 			'notifications.lunch.body' => 'اپنا دوپہر کا کھانا لاگ کرنے کا وقت ہے',
 			'notifications.dinner.title' => 'رات کے کھانے کا وقت! 🍽️',
 			'notifications.dinner.body' => 'اپنا رات کا کھانا لاگ کرنا نہ بھولیں',

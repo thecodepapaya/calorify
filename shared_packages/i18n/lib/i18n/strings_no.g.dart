@@ -181,6 +181,7 @@ class _Translations$meal$no extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Kunne ikke behandle: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kunne ikke behandle bildet: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Feil ved komprimering av bilde: ${error}';
+	@override String get imageTooLarge => 'Dette bildet er fortsatt over 1 MB etter komprimering. Velg et annet bilde.';
 	@override String get failedToSave => 'Kunne ikke lagre data. Prøv igjen.';
 	@override String get skip => 'Hopp over';
 	@override late final _Translations$meal$questionFlow$no questionFlow = _Translations$meal$questionFlow$no._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsNo {
 			'meal.failedToProcess' => ({required Object error}) => 'Kunne ikke behandle: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kunne ikke behandle bildet: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Feil ved komprimering av bilde: ${error}',
+			'meal.imageTooLarge' => 'Dette bildet er fortsatt over 1 MB etter komprimering. Velg et annet bilde.',
 			'meal.failedToSave' => 'Kunne ikke lagre data. Prøv igjen.',
 			'meal.skip' => 'Hopp over',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Spørsmål ${current} av ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsNo {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Feil ved fullføring av oppsett: ${error}',
 			'notifications.breakfast.title' => 'Frokosttid! 🍳',
 			'notifications.breakfast.body' => 'Ikke glem å logge frokosten din',
-			'notifications.lunch.title' => 'Lunsjtid! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Lunsjtid! 🥗',
 			'notifications.lunch.body' => 'Det er på tide å logge lunsjen din',
 			'notifications.dinner.title' => 'Middagstid! 🍽️',
 			'notifications.dinner.body' => 'Ikke glem å logge middagen din',

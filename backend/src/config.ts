@@ -39,6 +39,7 @@ interface Config {
     readonly OPENROUTER_AI_SUMMARY_MODEL: string;
     readonly OPENROUTER_FREE_MODEL: string;
     readonly OPENROUTER_HTTP_REFERER: string | null;
+    readonly ORACLE_BUCKET_UPLOAD_URL: string;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
     readonly LOKI_URL: string | null;
     /** Trusted proxy policy: false/true or the number of trusted proxy hops. */
@@ -190,7 +191,8 @@ const config: Config = {
     // request's capabilities (vision / structured output where required).
     OPENROUTER_FREE_MODEL: getEnvVar('OPENROUTER_FREE_MODEL', 'openrouter/free'),
     OPENROUTER_HTTP_REFERER: getEnvVarOptional('OPENROUTER_HTTP_REFERER'),
-    // Pre-authenticated URLs are bearer credentials and must only come from env.
+    // PAR bases come from env. The upload URL is secret; the read URL is returned to clients.
+    ORACLE_BUCKET_UPLOAD_URL: getEnvVar('ORACLE_BUCKET_UPLOAD_URL', ''),
     ORACLE_BUCKET_DOWNLOAD_URL: getEnvVar('ORACLE_BUCKET_DOWNLOAD_URL', ''),
     LOKI_URL: getEnvVarOptional('LOKI_URL'),
     TRUST_PROXY: parseTrustProxy(process.env.TRUST_PROXY),
@@ -222,6 +224,9 @@ if (config.ENVIRONMENT === 'production') {
     }
     if (!config.ORACLE_BUCKET_DOWNLOAD_URL) {
         throw new Error('ORACLE_BUCKET_DOWNLOAD_URL must be set in production');
+    }
+    if (!config.ORACLE_BUCKET_UPLOAD_URL) {
+        throw new Error('ORACLE_BUCKET_UPLOAD_URL must be set in production');
     }
     if (!config.OPENROUTER_API_KEY || !config.OPENROUTER_AI_SUMMARY_MODEL) {
         throw new Error(

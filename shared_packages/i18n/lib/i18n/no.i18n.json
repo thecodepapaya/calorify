@@ -299,6 +299,7 @@
     "failedToProcess": "Kunne ikke behandle: {error}",
     "failedToProcessImage": "Kunne ikke behandle bildet: {error}",
     "errorCompressingImage": "Feil ved komprimering av bilde: {error}",
+    "imageTooLarge": "Dette bildet er fortsatt over 1 MB etter komprimering. Velg et annet bilde.",
     "failedToSave": "Kunne ikke lagre data. Prøv igjen.",
     "skip": "Hopp over",
     "questionFlow": {

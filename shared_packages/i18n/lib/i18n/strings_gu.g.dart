@@ -181,6 +181,7 @@ class _Translations$meal$gu extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'છબી પર પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'છબી સંકુચિત કરવામાં ભૂલ: ${error}';
+	@override String get imageTooLarge => 'આ ફોટો સંકોચન કર્યા પછી પણ 1 MB કરતા મોટો છે. કૃપા કરીને બીજો ફોટો પસંદ કરો.';
 	@override String get failedToSave => 'ડેટા સાચવવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો.';
 	@override String get skip => 'છોડો';
 	@override late final _Translations$meal$questionFlow$gu questionFlow = _Translations$meal$questionFlow$gu._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsGu {
 			'meal.failedToProcess' => ({required Object error}) => 'પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'છબી પર પ્રક્રિયા કરવામાં નિષ્ફળ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'છબી સંકુચિત કરવામાં ભૂલ: ${error}',
+			'meal.imageTooLarge' => 'આ ફોટો સંકોચન કર્યા પછી પણ 1 MB કરતા મોટો છે. કૃપા કરીને બીજો ફોટો પસંદ કરો.',
 			'meal.failedToSave' => 'ડેટા સાચવવામાં નિષ્ફળ. કૃપા કરીને ફરી પ્રયાસ કરો.',
 			'meal.skip' => 'છોડો',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'પ્રશ્ન ${current} માંથી ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsGu {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'સેટઅપ પૂર્ણ કરવામાં ભૂલ: ${error}',
 			'notifications.breakfast.title' => 'નાસ્તાનો સમય! 🍳',
 			'notifications.breakfast.body' => 'તમારો નાસ્તો લોગ કરવાનું ભૂલશો નહીં',
-			'notifications.lunch.title' => 'બપોરના ભોજનનો સમય! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'બપોરના ભોજનનો સમય! 🥗',
 			'notifications.lunch.body' => 'તમારું બપોરનું ભોજન લોગ કરવાનો સમય',
 			'notifications.dinner.title' => 'રાત્રિભોજનનો સમય! 🍽️',
 			'notifications.dinner.body' => 'તમારું રાત્રિભોજન લોગ કરવાનું ભૂલશો નહીં',

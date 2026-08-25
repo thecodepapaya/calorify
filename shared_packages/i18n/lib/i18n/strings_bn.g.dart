@@ -181,6 +181,7 @@ class _Translations$meal$bn extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'প্রক্রিয়াকরণ ব্যর্থ: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'ছবি প্রক্রিয়াকরণে ব্যর্থ: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'ছবি সংকোচনে ত্রুটি: ${error}';
+	@override String get imageTooLarge => 'সংকোচনের পরেও এই ছবিটির আকার এখনও 1 MB-এর বেশি। অনুগ্রহ করে অন্য একটি ছবি বেছে নিন।';
 	@override String get failedToSave => 'ডেটা সংরক্ষণ ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।';
 	@override String get skip => 'ছাড়ুন';
 	@override late final _Translations$meal$questionFlow$bn questionFlow = _Translations$meal$questionFlow$bn._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsBn {
 			'meal.failedToProcess' => ({required Object error}) => 'প্রক্রিয়াকরণ ব্যর্থ: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'ছবি প্রক্রিয়াকরণে ব্যর্থ: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'ছবি সংকোচনে ত্রুটি: ${error}',
+			'meal.imageTooLarge' => 'সংকোচনের পরেও এই ছবিটির আকার এখনও 1 MB-এর বেশি। অনুগ্রহ করে অন্য একটি ছবি বেছে নিন।',
 			'meal.failedToSave' => 'ডেটা সংরক্ষণ ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।',
 			'meal.skip' => 'ছাড়ুন',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '${current} / ${total} প্রশ্ন',
@@ -2559,9 +2561,9 @@ extension on TranslationsBn {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'সেটআপ সম্পন্ন করতে ত্রুটি: ${error}',
 			'notifications.breakfast.title' => 'প্রাতঃরাশের সময়! 🍳',
 			'notifications.breakfast.body' => 'প্রাতঃরাশ লগ করতে ভুলবেন না',
-			'notifications.lunch.title' => 'দুপুরের খাবারের সময়! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'দুপুরের খাবারের সময়! 🥗',
 			'notifications.lunch.body' => 'দুপুরের খাবার লগ করার সময়',
 			'notifications.dinner.title' => 'রাতের খাবারের সময়! 🍽️',
 			'notifications.dinner.body' => 'রাতের খাবার লগ করতে ভুলবেন না',

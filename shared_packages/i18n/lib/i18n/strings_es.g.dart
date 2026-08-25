@@ -181,6 +181,7 @@ class _Translations$meal$es extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Error al procesar: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Error al procesar la imagen: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Error al comprimir la imagen: ${error}';
+	@override String get imageTooLarge => 'Esta foto sigue superando los 1 MB después de la compresión. Por favor, elige otra foto.';
 	@override String get failedToSave => 'Error al guardar los datos. Por favor, inténtalo de nuevo.';
 	@override String get skip => 'Omitir';
 	@override late final _Translations$meal$questionFlow$es questionFlow = _Translations$meal$questionFlow$es._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsEs {
 			'meal.failedToProcess' => ({required Object error}) => 'Error al procesar: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Error al procesar la imagen: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error al comprimir la imagen: ${error}',
+			'meal.imageTooLarge' => 'Esta foto sigue superando los 1 MB después de la compresión. Por favor, elige otra foto.',
 			'meal.failedToSave' => 'Error al guardar los datos. Por favor, inténtalo de nuevo.',
 			'meal.skip' => 'Omitir',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Pregunta ${current} de ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsEs {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error al completar la configuración: ${error}',
 			'notifications.breakfast.title' => '¡Hora del desayuno! 🍳',
 			'notifications.breakfast.body' => 'No te olvides de registrar tu desayuno',
-			'notifications.lunch.title' => '¡Hora del almuerzo! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => '¡Hora del almuerzo! 🥗',
 			'notifications.lunch.body' => 'Es hora de registrar tu almuerzo',
 			'notifications.dinner.title' => '¡Hora de la cena! 🍽️',
 			'notifications.dinner.body' => 'No te olvides de registrar tu cena',

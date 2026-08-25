@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:calorify/core/network/network_client.dart';
@@ -8,6 +9,7 @@ import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
+import 'package:services/services.dart';
 
 void main() {
   late _RecordingAdapter adapter;
@@ -305,6 +307,45 @@ void main() {
       'analysisId': 'analysis-image',
       'imageUrl': 'https://storage.example.test/owned-image',
     });
+  });
+
+  test(
+    'uploadMealImage sends raw WebP bytes to the authenticated backend',
+    () async {
+      const imageUrl = 'https://storage.example.test/read/uid/time.webp';
+      adapter.respondWithJson({'imageUrl': imageUrl});
+      final directory = await Directory.systemTemp.createTemp(
+        'meal-upload-test-',
+      );
+      final file = File('${directory.path}/meal.webp');
+      final bytes = Uint8List.fromList(<int>[0x52, 0x49, 0x46, 0x46]);
+      await file.writeAsBytes(bytes);
+      addTearDown(() => directory.delete(recursive: true));
+
+      expect(await repository.uploadMealImage(file), imageUrl);
+      expect(adapter.lastRequest?.path, '/api/v2/food/image-upload');
+      expect(adapter.lastRequest?.data, bytes);
+      expect(adapter.lastRequest?.contentType, 'image/webp');
+      expect(
+        adapter.lastRequest?.headers[Headers.contentLengthHeader],
+        bytes.length.toString(),
+      );
+    },
+  );
+
+  test('uploadMealImage rejects a file over 1 MiB before HTTP', () async {
+    final directory = await Directory.systemTemp.createTemp(
+      'meal-upload-large-test-',
+    );
+    final file = File('${directory.path}/meal.webp');
+    await file.writeAsBytes(Uint8List(maxMealImageUploadBytes + 1));
+    addTearDown(() => directory.delete(recursive: true));
+
+    await expectLater(
+      repository.uploadMealImage(file),
+      throwsA(isA<MealImageTooLargeException>()),
+    );
+    expect(adapter.lastRequest, isNull);
   });
 
   test('stream cancellation aborts a request waiting for headers', () async {

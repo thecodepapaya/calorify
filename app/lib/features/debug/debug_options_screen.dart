@@ -765,10 +765,6 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     const section = 'Food API Tests';
     const titleSubtitle = [
       (
-        'Check image upload URL',
-        'Show the build-time Oracle endpoint, PAR token, namespace, and bucket',
-      ),
-      (
         'Check image compression',
         'Choose a gallery image and report its compressed WebP size',
       ),
@@ -786,14 +782,6 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       ),
     ];
     final items = <Widget>[
-      ListTile(
-        leading: const Icon(LucideIcons.keyRound),
-        title: const Text('Check image upload URL'),
-        subtitle: const Text(
-          'Show the build-time Oracle endpoint, PAR token, namespace, and bucket',
-        ),
-        onTap: _checkImageUploadUrl,
-      ),
       ListTile(
         leading: const Icon(LucideIcons.minimize2),
         title: const Text('Check image compression'),
@@ -834,51 +822,6 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
     }
     if (filtered.isEmpty) return null;
     return Card(child: Column(children: filtered));
-  }
-
-  Future<void> _checkImageUploadUrl() async {
-    if (!ImageConfig.oracleBucketUploadUrl.isNotEmpty) {
-      _showDataDialog(
-        'Image upload URL',
-        'Not configured. Set oracle upload url in env.',
-      );
-      return;
-    }
-    final uploadUrl = ImageConfig.oracleBucketUploadUrl;
-
-    final uri = Uri.tryParse(uploadUrl);
-    if (uri == null || uri.scheme != 'https') {
-      _showDataDialog(
-        'Image upload URL',
-        'Configured, but the URL is not a valid HTTPS URL.',
-      );
-      return;
-    }
-
-    final segments = uri.pathSegments;
-    final parIndex = segments.indexOf('p');
-    final namespaceIndex = segments.indexOf('n');
-    final bucketIndex = segments.indexOf('b');
-    final parToken =
-        parIndex >= 0 && parIndex + 1 < segments.length
-            ? segments[parIndex + 1]
-            : 'unavailable';
-    final namespace =
-        namespaceIndex >= 0 && namespaceIndex + 1 < segments.length
-            ? segments[namespaceIndex + 1]
-            : 'unavailable';
-    final bucket =
-        bucketIndex >= 0 && bucketIndex + 1 < segments.length
-            ? segments[bucketIndex + 1]
-            : 'unavailable';
-    _showDataDialog(
-      'Image upload URL',
-      'Configured at build time.\n'
-          'Origin: ${uri.origin}\n'
-          'PAR token: $parToken\n'
-          'Namespace: $namespace\n'
-          'Bucket: $bucket',
-    );
   }
 
   Future<void> _checkImageCompression() async {
@@ -923,17 +866,13 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
 
       if (!mounted) return;
       _showSnackbar('Uploading compressed image...');
-      final uploadUrl = await FoodRepository().uploadMealImage(compressedFile);
+      final imageUrl = await FoodRepository().uploadMealImage(compressedFile);
       if (!mounted) return;
 
-      final objectKey = Uri.tryParse(
-        uploadUrl,
-      )?.pathSegments.skipWhile((segment) => segment != 'o').skip(1).join('/');
       _showDataDialog(
         'Image upload succeeded',
         'Uploaded: ${_formatBytes(compressedBytes.length)}\n'
-            'Object key: ${objectKey?.isNotEmpty == true ? objectKey : 'unavailable'}\n'
-            'Upload URL: redacted',
+            'Historical image URL received: ${imageUrl.isNotEmpty ? 'yes' : 'no'}',
       );
     } catch (error) {
       if (!mounted) return;
@@ -1161,7 +1100,7 @@ class _DebugOptionsScreenState extends ConsumerState<DebugOptionsScreen> {
       await showV2MealAnalysisFlow(
         context: context,
         imageBytes: bytes,
-        imageUrl: handle.uploadedImageUrl,
+        imageUrl: handle.imageUrl,
         startAnalysis: (_, _) async => handle.events,
       );
     } catch (e) {

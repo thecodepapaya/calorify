@@ -181,6 +181,7 @@ class _Translations$meal$ja extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => '処理に失敗しました: ${error}';
 	@override String failedToProcessImage({required Object error}) => '画像の処理に失敗しました: ${error}';
 	@override String errorCompressingImage({required Object error}) => '画像圧縮中にエラーが発生しました: ${error}';
+	@override String get imageTooLarge => 'この写真は圧縮してもまだ1MBを超えています。別の写真を選んでください。';
 	@override String get failedToSave => 'データの保存に失敗しました。もう一度お試しください。';
 	@override String get skip => 'スキップ';
 	@override late final _Translations$meal$questionFlow$ja questionFlow = _Translations$meal$questionFlow$ja._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsJa {
 			'meal.failedToProcess' => ({required Object error}) => '処理に失敗しました: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => '画像の処理に失敗しました: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => '画像圧縮中にエラーが発生しました: ${error}',
+			'meal.imageTooLarge' => 'この写真は圧縮してもまだ1MBを超えています。別の写真を選んでください。',
 			'meal.failedToSave' => 'データの保存に失敗しました。もう一度お試しください。',
 			'meal.skip' => 'スキップ',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => '質問 ${current}/${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsJa {
 			'reminders.errorCompletingSetup' => ({required Object error}) => '設定の完了中にエラーが発生しました: ${error}',
 			'notifications.breakfast.title' => '朝ごはんの時間です！ 🍳',
 			'notifications.breakfast.body' => '朝食を記録するのを忘れずに',
-			'notifications.lunch.title' => 'お昼の時間です！ 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'お昼の時間です！ 🥗',
 			'notifications.lunch.body' => '昼食を記録しましょう',
 			'notifications.dinner.title' => '夕食の時間です！ 🍽️',
 			'notifications.dinner.body' => '夕食を記録するのを忘れずに',

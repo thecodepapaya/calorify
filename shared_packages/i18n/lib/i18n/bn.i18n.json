@@ -299,6 +299,7 @@
     "failedToProcess": "প্রক্রিয়াকরণ ব্যর্থ: {error}",
     "failedToProcessImage": "ছবি প্রক্রিয়াকরণে ব্যর্থ: {error}",
     "errorCompressingImage": "ছবি সংকোচনে ত্রুটি: {error}",
+    "imageTooLarge": "সংকোচনের পরেও এই ছবিটির আকার এখনও 1 MB-এর বেশি। অনুগ্রহ করে অন্য একটি ছবি বেছে নিন।",
     "failedToSave": "ডেটা সংরক্ষণ ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
     "skip": "ছাড়ুন",
     "questionFlow": {

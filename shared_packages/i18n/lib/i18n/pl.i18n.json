@@ -299,6 +299,7 @@
     "failedToProcess": "Nie udało się przetworzyć: {error}",
     "failedToProcessImage": "Nie udało się przetworzyć obrazu: {error}",
     "errorCompressingImage": "Błąd kompresji obrazu: {error}",
+    "imageTooLarge": "To zdjęcie nadal ma ponad 1 MB po kompresji. Wybierz inne zdjęcie.",
     "failedToSave": "Nie udało się zapisać danych. Spróbuj ponownie.",
     "skip": "Pomiń",
     "questionFlow": {

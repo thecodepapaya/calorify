@@ -181,6 +181,7 @@ class _Translations$meal$el extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Αποτυχία επεξεργασίας: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Σφάλμα κατά τη συμπίεση εικόνας: ${error}';
+	@override String get imageTooLarge => 'Αυτή η φωτογραφία εξακολουθεί να είναι πάνω από 1 MB μετά τη συμπίεση. Επιλέξτε άλλη φωτογραφία.';
 	@override String get failedToSave => 'Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκιμάστε ξανά.';
 	@override String get skip => 'Παράλειψη';
 	@override late final _Translations$meal$questionFlow$el questionFlow = _Translations$meal$questionFlow$el._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsEl {
 			'meal.failedToProcess' => ({required Object error}) => 'Αποτυχία επεξεργασίας: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Αποτυχία επεξεργασίας εικόνας: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Σφάλμα κατά τη συμπίεση εικόνας: ${error}',
+			'meal.imageTooLarge' => 'Αυτή η φωτογραφία εξακολουθεί να είναι πάνω από 1 MB μετά τη συμπίεση. Επιλέξτε άλλη φωτογραφία.',
 			'meal.failedToSave' => 'Αποτυχία αποθήκευσης δεδομένων. Παρακαλώ δοκιμάστε ξανά.',
 			'meal.skip' => 'Παράλειψη',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Ερώτηση ${current} από ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsEl {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Σφάλμα κατά την ολοκλήρωση της ρύθμισης: ${error}',
 			'notifications.breakfast.title' => 'Ώρα για Πρωινό! 🍳',
 			'notifications.breakfast.body' => 'Μην ξεχάσετε να καταγράψετε το πρωινό σας',
-			'notifications.lunch.title' => 'Ώρα για Μεσημεριανό! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Ώρα για Μεσημεριανό! 🥗',
 			'notifications.lunch.body' => 'Ώρα να καταγράψετε το μεσημεριανό σας',
 			'notifications.dinner.title' => 'Ώρα για Βραδινό! 🍽️',
 			'notifications.dinner.body' => 'Μην ξεχάσετε να καταγράψετε το βραδινό σας',

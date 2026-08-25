@@ -181,6 +181,7 @@ class _Translations$meal$da extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Kunne ikke behandle: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Kunne ikke behandle billede: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Fejl ved komprimering af billede: ${error}';
+	@override String get imageTooLarge => 'Dette billede er stadig over 1 MB efter komprimering. Vælg et andet billede.';
 	@override String get failedToSave => 'Kunne ikke gemme data. Prøv igen.';
 	@override String get skip => 'Spring over';
 	@override late final _Translations$meal$questionFlow$da questionFlow = _Translations$meal$questionFlow$da._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsDa {
 			'meal.failedToProcess' => ({required Object error}) => 'Kunne ikke behandle: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Kunne ikke behandle billede: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Fejl ved komprimering af billede: ${error}',
+			'meal.imageTooLarge' => 'Dette billede er stadig over 1 MB efter komprimering. Vælg et andet billede.',
 			'meal.failedToSave' => 'Kunne ikke gemme data. Prøv igen.',
 			'meal.skip' => 'Spring over',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Spørgsmål ${current} af ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsDa {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Fejl ved fuldførelse af opsætning: ${error}',
 			'notifications.breakfast.title' => 'Morgenmadstid! 🍳',
 			'notifications.breakfast.body' => 'Glem ikke at registrere din morgenmad',
-			'notifications.lunch.title' => 'Frokosttid! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Frokosttid! 🥗',
 			'notifications.lunch.body' => 'Tid til at registrere din frokost',
 			'notifications.dinner.title' => 'Aftensmadstid! 🍽️',
 			'notifications.dinner.body' => 'Glem ikke at registrere din aftensmad',

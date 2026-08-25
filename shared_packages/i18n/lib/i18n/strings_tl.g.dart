@@ -181,6 +181,7 @@ class _Translations$meal$tl extends Translations$meal$en {
 	@override String failedToProcess({required Object error}) => 'Nabigong iproseso: ${error}';
 	@override String failedToProcessImage({required Object error}) => 'Nabigong iproseso ang larawan: ${error}';
 	@override String errorCompressingImage({required Object error}) => 'Error sa pag-compress ng larawan: ${error}';
+	@override String get imageTooLarge => 'Mas malaki pa rin sa 1 MB ang larawang ito matapos i-compress. Pumili ng ibang larawan.';
 	@override String get failedToSave => 'Nabigong i-save ang datos. Pakisubukang muli.';
 	@override String get skip => 'Laktawan';
 	@override late final _Translations$meal$questionFlow$tl questionFlow = _Translations$meal$questionFlow$tl._(_root);
@@ -2265,6 +2266,7 @@ extension on TranslationsTl {
 			'meal.failedToProcess' => ({required Object error}) => 'Nabigong iproseso: ${error}',
 			'meal.failedToProcessImage' => ({required Object error}) => 'Nabigong iproseso ang larawan: ${error}',
 			'meal.errorCompressingImage' => ({required Object error}) => 'Error sa pag-compress ng larawan: ${error}',
+			'meal.imageTooLarge' => 'Mas malaki pa rin sa 1 MB ang larawang ito matapos i-compress. Pumili ng ibang larawan.',
 			'meal.failedToSave' => 'Nabigong i-save ang datos. Pakisubukang muli.',
 			'meal.skip' => 'Laktawan',
 			'meal.questionFlow.progress' => ({required Object current, required Object total}) => 'Tanong ${current} ng ${total}',
@@ -2559,9 +2561,9 @@ extension on TranslationsTl {
 			'reminders.errorCompletingSetup' => ({required Object error}) => 'Error sa pagkompleto ng setup: ${error}',
 			'notifications.breakfast.title' => 'Oras na para sa Almusal! 🍳',
 			'notifications.breakfast.body' => 'Huwag kalimutan i-log ang iyong almusal',
-			'notifications.lunch.title' => 'Oras na para sa Tanghalian! 🥗',
 			_ => null,
 		} ?? switch (path) {
+			'notifications.lunch.title' => 'Oras na para sa Tanghalian! 🥗',
 			'notifications.lunch.body' => 'Oras na para i-log ang iyong tanghalian',
 			'notifications.dinner.title' => 'Oras na para sa Hapunan! 🍽️',
 			'notifications.dinner.body' => 'Huwag kalimutan i-log ang iyong hapunan',

@@ -5,6 +5,10 @@ export interface OwnedImageObject {
   downloadUrl: string;
 }
 
+export interface UploadedImageObject extends OwnedImageObject {
+  etag?: string;
+}
+
 type OracleObjectPath = {
   namespace: string;
   bucket: string;
@@ -69,8 +73,30 @@ function configuredDownloadBase(): URL {
   return url;
 }
 
-export function buildOracleDownloadUrl(objectKey: string): string {
-  const base = configuredDownloadBase();
+function configuredUploadBase(): URL {
+  let url: URL;
+  try {
+    url = new URL(config.ORACLE_BUCKET_UPLOAD_URL);
+  } catch {
+    throw new Error('Oracle image upload URL is not configured');
+  }
+  if (url.protocol !== 'https:') {
+    throw new Error('Oracle image upload URL must use HTTPS');
+  }
+  const uploadPath = parseOracleObjectPath(url);
+  const downloadBase = configuredDownloadBase();
+  const downloadPath = parseOracleObjectPath(downloadBase);
+  if (
+    url.origin !== downloadBase.origin ||
+    uploadPath.namespace !== downloadPath.namespace ||
+    uploadPath.bucket !== downloadPath.bucket
+  ) {
+    throw new Error('Oracle image upload and download URLs must target the same bucket');
+  }
+  return url;
+}
+
+function buildOracleObjectUrl(base: URL, objectKey: string): string {
   const basePath = parseOracleObjectPath(base);
   const objectSegments = objectKey.split('/').map(decodePathSegment);
   if (objectSegments.length < 2) throw invalidObjectUrl();
@@ -81,6 +107,57 @@ export function buildOracleDownloadUrl(objectKey: string): string {
     .slice(0, basePath.objectMarkerIndex + 1)
     .join('/')}/${encodedKey}`;
   return base.toString();
+}
+
+export function buildOracleDownloadUrl(objectKey: string): string {
+  return buildOracleObjectUrl(configuredDownloadBase(), objectKey);
+}
+
+function imageTimestamp(now: Date): string {
+  return now.toISOString().replace(/[-:.]/g, '');
+}
+
+function validateFirebaseUidSegment(userId: string): string {
+  if (userId.length > 128) {
+    throw new Error('Authenticated user ID cannot be used as an image path segment');
+  }
+  try {
+    decodePathSegment(userId);
+  } catch {
+    throw new Error('Authenticated user ID cannot be used as an image path segment');
+  }
+  return userId;
+}
+
+export function buildMealImageObjectKey(userId: string, now: Date = new Date()): string {
+  return `${validateFirebaseUidSegment(userId)}/${imageTimestamp(now)}.webp`;
+}
+
+export async function uploadMealImageToOracle(
+  image: Buffer,
+  userId: string,
+  now: Date = new Date()
+): Promise<UploadedImageObject> {
+  const objectKey = buildMealImageObjectKey(userId, now);
+  const uploadUrl = buildOracleObjectUrl(configuredUploadBase(), objectKey);
+  const response = await fetch(uploadUrl, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'image/webp',
+      'Content-Length': String(image.length),
+      'Cache-Control': 'public, max-age=31536000, immutable',
+    },
+    body: Uint8Array.from(image),
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!response.ok) {
+    throw new Error(`Oracle image upload failed with status ${response.status}`);
+  }
+  return {
+    objectKey,
+    downloadUrl: buildOracleDownloadUrl(objectKey),
+    etag: response.headers.get('etag') ?? undefined,
+  };
 }
 
 export function resolveOwnedImageObject(imageUrl: string, userId: string): OwnedImageObject {
