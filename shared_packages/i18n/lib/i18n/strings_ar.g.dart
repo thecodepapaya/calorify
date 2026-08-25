@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ar extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'قاربنا على الانتهاء...';
 	@override String get stepResult => 'إنهاء النتيجة...';
 	@override String get stepError => 'حدث خطأ ما';
+	@override String get noFoodTip => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.';
 	@override String get stepDefault => 'جارٍ تحليل وجبتك…';
 	@override String get progressUnderstand => 'فهم الوجبة';
 	@override String get progressMatch => 'البحث عن تغذية المكونات';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ar extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.';
 	@override String get offlineTip4 => 'نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.';
 	@override String get offlineTip5 => 'نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).';
-	@override String get noFoodTip => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsAr {
 			'meal.analysis.stepMealTypeQuestion' => 'قاربنا على الانتهاء...',
 			'meal.analysis.stepResult' => 'إنهاء النتيجة...',
 			'meal.analysis.stepError' => 'حدث خطأ ما',
+			'meal.analysis.noFoodTip' => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.',
 			'meal.analysis.stepDefault' => 'جارٍ تحليل وجبتك…',
 			'meal.analysis.progressUnderstand' => 'فهم الوجبة',
 			'meal.analysis.progressMatch' => 'البحث عن تغذية المكونات',
@@ -2311,7 +2312,6 @@ extension on TranslationsAr {
 			'meal.analysis.offlineTip3' => 'نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.',
 			'meal.analysis.offlineTip4' => 'نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.',
 			'meal.analysis.offlineTip5' => 'نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).',
-			'meal.analysis.noFoodTip' => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.',
 			'meal.localInference.reviewTitle' => 'مراجعة المكونات المكتشفة',
 			'meal.localInference.reviewSubtitle' => 'تم تحليل هذه البيانات على جهازك. يرجى تصحيح الأسماء أو الكميات قبل حساب القيم الغذائية.',
 			'meal.localInference.mealName' => 'اسم الوجبة',

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$pt extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Quase lá…';
 	@override String get stepResult => 'A finalizar o resultado…';
 	@override String get stepError => 'Algo correu mal';
+	@override String get noFoodTip => 'Não foi detetado nenhum alimento. Tente outra foto ou descrição.';
 	@override String get stepDefault => 'A analisar a sua refeição…';
 	@override String get progressUnderstand => 'A compreender a sua refeição';
 	@override String get progressMatch => 'A procurar a nutrição dos ingredientes';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$pt extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Dica: Uma nota rápida da porção (1 taça, café grande) torna as estimativas muito mais precisas.';
 	@override String get offlineTip4 => 'Dica: Registar depois da refeição também cria o hábito; a perfeição é opcional.';
 	@override String get offlineTip5 => 'Dica: Indique como foi cozinhado quando altera muito as calorias (frito vs assado).';
-	@override String get noFoodTip => 'Não foi detetado nenhum alimento. Tente outra foto ou descrição.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsPt {
 			'meal.analysis.stepMealTypeQuestion' => 'Quase lá…',
 			'meal.analysis.stepResult' => 'A finalizar o resultado…',
 			'meal.analysis.stepError' => 'Algo correu mal',
+			'meal.analysis.noFoodTip' => 'Não foi detetado nenhum alimento. Tente outra foto ou descrição.',
 			'meal.analysis.stepDefault' => 'A analisar a sua refeição…',
 			'meal.analysis.progressUnderstand' => 'A compreender a sua refeição',
 			'meal.analysis.progressMatch' => 'A procurar a nutrição dos ingredientes',
@@ -2311,7 +2312,6 @@ extension on TranslationsPt {
 			'meal.analysis.offlineTip3' => 'Dica: Uma nota rápida da porção (1 taça, café grande) torna as estimativas muito mais precisas.',
 			'meal.analysis.offlineTip4' => 'Dica: Registar depois da refeição também cria o hábito; a perfeição é opcional.',
 			'meal.analysis.offlineTip5' => 'Dica: Indique como foi cozinhado quando altera muito as calorias (frito vs assado).',
-			'meal.analysis.noFoodTip' => 'Não foi detetado nenhum alimento. Tente outra foto ou descrição.',
 			'meal.localInference.reviewTitle' => 'Rever ingredientes detetados',
 			'meal.localInference.reviewSubtitle' => 'Isto foi interpretado no seu dispositivo. Corrija os nomes ou as porções antes de a nutrição ser calculada.',
 			'meal.localInference.mealName' => 'Nome da refeição',

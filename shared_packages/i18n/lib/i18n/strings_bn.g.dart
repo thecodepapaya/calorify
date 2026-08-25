@@ -841,6 +841,7 @@ class _Translations$meal$analysis$bn extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'প্রায় শেষ…';
 	@override String get stepResult => 'ফল চূড়ান্ত করা হচ্ছে…';
 	@override String get stepError => 'কিছু ভুল হয়েছে';
+	@override String get noFoodTip => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।';
 	@override String get stepDefault => 'আপনার খাবার বিশ্লেষণ করা হচ্ছে…';
 	@override String get progressUnderstand => 'আপনার খাবার বোঝা হচ্ছে';
 	@override String get progressMatch => 'উপাদানের পুষ্টি খোঁজা হচ্ছে';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$bn extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'পরামর্শ: একটি দ্রুত পরিমাণ নোট (১ বাটি, বড় কফি) অনুমান অনেক উন্নত করে।';
 	@override String get offlineTip4 => 'পরামর্শ: খাবারের পরে লগ করলেও অভ্যাস তৈরি হয়; পরিপূর্ণতা বাধ্যতামূলক নয়।';
 	@override String get offlineTip5 => 'পরামর্শ: যদি রান্নার পদ্ধতি ক্যালরি অনেক পরিবর্তন করে (ভাজা বনাম বেকড), সেক্ষেত্রে রান্নার ধরন জানান।';
-	@override String get noFoodTip => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsBn {
 			'meal.analysis.stepMealTypeQuestion' => 'প্রায় শেষ…',
 			'meal.analysis.stepResult' => 'ফল চূড়ান্ত করা হচ্ছে…',
 			'meal.analysis.stepError' => 'কিছু ভুল হয়েছে',
+			'meal.analysis.noFoodTip' => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।',
 			'meal.analysis.stepDefault' => 'আপনার খাবার বিশ্লেষণ করা হচ্ছে…',
 			'meal.analysis.progressUnderstand' => 'আপনার খাবার বোঝা হচ্ছে',
 			'meal.analysis.progressMatch' => 'উপাদানের পুষ্টি খোঁজা হচ্ছে',
@@ -2311,7 +2312,6 @@ extension on TranslationsBn {
 			'meal.analysis.offlineTip3' => 'পরামর্শ: একটি দ্রুত পরিমাণ নোট (১ বাটি, বড় কফি) অনুমান অনেক উন্নত করে।',
 			'meal.analysis.offlineTip4' => 'পরামর্শ: খাবারের পরে লগ করলেও অভ্যাস তৈরি হয়; পরিপূর্ণতা বাধ্যতামূলক নয়।',
 			'meal.analysis.offlineTip5' => 'পরামর্শ: যদি রান্নার পদ্ধতি ক্যালরি অনেক পরিবর্তন করে (ভাজা বনাম বেকড), সেক্ষেত্রে রান্নার ধরন জানান।',
-			'meal.analysis.noFoodTip' => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।',
 			'meal.localInference.reviewTitle' => 'শনাক্ত করা উপাদানগুলো যাচাই করুন',
 			'meal.localInference.reviewSubtitle' => 'এটি আপনার ডিভাইসে বিশ্লেষণ করা হয়েছে। পুষ্টির হিসাব করার আগে নাম বা পরিমাণ সংশোধন করুন।',
 			'meal.localInference.mealName' => 'খাবারের নাম',

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$fr extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Presque fini…';
 	@override String get stepResult => 'Finalisation du résultat…';
 	@override String get stepError => 'Une erreur est survenue';
+	@override String get noFoodTip => 'Aucune nourriture détectée. Essayez une autre photo ou description.';
 	@override String get stepDefault => 'Analyse de votre repas…';
 	@override String get progressUnderstand => 'Compréhension du repas';
 	@override String get progressMatch => 'Recherche des valeurs nutritionnelles des ingrédients';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$fr extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.';
 	@override String get offlineTip4 => 'Astuce : Enregistrer après le repas aide aussi à créer l\'habitude ; la perfection est optionnelle.';
 	@override String get offlineTip5 => 'Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four).';
-	@override String get noFoodTip => 'Aucune nourriture détectée. Essayez une autre photo ou description.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsFr {
 			'meal.analysis.stepMealTypeQuestion' => 'Presque fini…',
 			'meal.analysis.stepResult' => 'Finalisation du résultat…',
 			'meal.analysis.stepError' => 'Une erreur est survenue',
+			'meal.analysis.noFoodTip' => 'Aucune nourriture détectée. Essayez une autre photo ou description.',
 			'meal.analysis.stepDefault' => 'Analyse de votre repas…',
 			'meal.analysis.progressUnderstand' => 'Compréhension du repas',
 			'meal.analysis.progressMatch' => 'Recherche des valeurs nutritionnelles des ingrédients',
@@ -2311,7 +2312,6 @@ extension on TranslationsFr {
 			'meal.analysis.offlineTip3' => 'Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.',
 			'meal.analysis.offlineTip4' => 'Astuce : Enregistrer après le repas aide aussi à créer l\'habitude ; la perfection est optionnelle.',
 			'meal.analysis.offlineTip5' => 'Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four).',
-			'meal.analysis.noFoodTip' => 'Aucune nourriture détectée. Essayez une autre photo ou description.',
 			'meal.localInference.reviewTitle' => 'Vérifier les ingrédients détectés',
 			'meal.localInference.reviewSubtitle' => 'Ceci a été interprété sur votre appareil. Corrigez les noms ou les portions avant le calcul nutritionnel.',
 			'meal.localInference.mealName' => 'Nom du repas',

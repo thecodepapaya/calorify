@@ -67,7 +67,7 @@ The script refuses to overwrite existing changelog files unless `--overwrite` is
 bundle exec fastlane android release
 ```
 
-The script resolves the API key via `scripts/resolve_openai_api_key.py`: `OPENAI_API_KEY` first, then optional one-line `scripts/.openai_api_key` (gitignored), then `API_KEY` in `scripts/generate_translations.sh` (tolerant parsing, not regex-fragile).
+The script resolves the API key via `scripts/resolve_openai_api_key.py`: `OPENAI_API_KEY` first, then the optional one-line `scripts/.openai_api_key` file (gitignored).
 
 ### Automated From Provided Text
 

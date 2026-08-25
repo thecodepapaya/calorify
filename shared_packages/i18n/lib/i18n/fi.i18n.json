@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Melkein valmis…",
       "stepResult": "Viimeistellään tulosta…",
       "stepError": "Jotain meni pieleen",
+      "noFoodTip": "Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.",
       "stepDefault": "Analysoidaan ateriaasi…",
       "progressUnderstand": "Ymmärretään ateria",
       "progressMatch": "Haetaan ainesosien ravintoarvoja",
@@ -347,8 +348,7 @@
       "offlineTip2": "Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.",
       "offlineTip3": "Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.",
       "offlineTip4": "Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.",
-      "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).",
-      "noFoodTip": "Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta."
+      "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa)."
     },
     "localInference": {
       "reviewTitle": "Tarkista tunnistetut ainesosat",

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$da extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Næsten færdig…';
 	@override String get stepResult => 'Færdiggør resultatet…';
 	@override String get stepError => 'Noget gik galt';
+	@override String get noFoodTip => 'Ingen mad blev registreret. Prøv et andet billede eller en anden beskrivelse.';
 	@override String get stepDefault => 'Analysere dit måltid…';
 	@override String get progressUnderstand => 'Forståelse af måltid';
 	@override String get progressMatch => 'Slår ingrediensers næring op';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$da extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.';
 	@override String get offlineTip4 => 'Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.';
 	@override String get offlineTip5 => 'Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).';
-	@override String get noFoodTip => 'Ingen mad blev registreret. Prøv et andet billede eller en anden beskrivelse.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsDa {
 			'meal.analysis.stepMealTypeQuestion' => 'Næsten færdig…',
 			'meal.analysis.stepResult' => 'Færdiggør resultatet…',
 			'meal.analysis.stepError' => 'Noget gik galt',
+			'meal.analysis.noFoodTip' => 'Ingen mad blev registreret. Prøv et andet billede eller en anden beskrivelse.',
 			'meal.analysis.stepDefault' => 'Analysere dit måltid…',
 			'meal.analysis.progressUnderstand' => 'Forståelse af måltid',
 			'meal.analysis.progressMatch' => 'Slår ingrediensers næring op',
@@ -2311,7 +2312,6 @@ extension on TranslationsDa {
 			'meal.analysis.offlineTip3' => 'Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.',
 			'meal.analysis.offlineTip4' => 'Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.',
 			'meal.analysis.offlineTip5' => 'Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).',
-			'meal.analysis.noFoodTip' => 'Ingen mad blev registreret. Prøv et andet billede eller en anden beskrivelse.',
 			'meal.localInference.reviewTitle' => 'Gennemse detekterede ingredienser',
 			'meal.localInference.reviewSubtitle' => 'Dette blev fortolket på din enhed. Ret navne eller portioner, før næringsindholdet beregnes.',
 			'meal.localInference.mealName' => 'Måltidets navn',

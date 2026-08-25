@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Hampir selesai…",
       "stepResult": "Menyelesaikan hasil Anda…",
       "stepError": "Terjadi kesalahan",
+      "noFoodTip": "Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.",
       "stepDefault": "Menganalisis makanan Anda…",
       "progressUnderstand": "Memahami makanan Anda",
       "progressMatch": "Mencari nutrisi bahan",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.",
       "offlineTip3": "Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.",
       "offlineTip4": "Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.",
-      "offlineTip5": "Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).",
-      "noFoodTip": "Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain."
+      "offlineTip5": "Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang)."
     },
     "localInference": {
       "reviewTitle": "Tinjau bahan yang terdeteksi",

@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Hampir siap…",
       "stepResult": "Memfinalkan keputusan anda…",
       "stepError": "Ada yang tidak kena",
+      "noFoodTip": "Tiada makanan dikesan. Cuba gambar atau penerangan lain.",
       "stepDefault": "Menganalisis hidangan anda…",
       "progressUnderstand": "Memahami hidangan anda",
       "progressMatch": "Mencari nutrisi bahan",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.",
       "offlineTip3": "Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.",
       "offlineTip4": "Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.",
-      "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar).",
-      "noFoodTip": "Tiada makanan dikesan. Cuba gambar atau penerangan lain."
+      "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar)."
     },
     "localInference": {
       "reviewTitle": "Semak ramuan yang dikesan",

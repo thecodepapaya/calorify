@@ -841,6 +841,7 @@ class _Translations$meal$analysis$te extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'దాదాపు పూర్తయింది…';
 	@override String get stepResult => 'మీ ఫలితాన్ని ఖరారు చేస్తోంది…';
 	@override String get stepError => 'ఏదో తప్పు జరిగింది';
+	@override String get noFoodTip => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.';
 	@override String get stepDefault => 'మీ భోజనాన్ని విశ్లేషిస్తోంది…';
 	@override String get progressUnderstand => 'మీ భోజనాన్ని అర్థం చేసుకుంటోంది';
 	@override String get progressMatch => 'పదార్థాల పోషకాహారాన్ని వెతుకుతోంది';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$te extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.';
 	@override String get offlineTip4 => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.';
 	@override String get offlineTip5 => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.';
-	@override String get noFoodTip => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsTe {
 			'meal.analysis.stepMealTypeQuestion' => 'దాదాపు పూర్తయింది…',
 			'meal.analysis.stepResult' => 'మీ ఫలితాన్ని ఖరారు చేస్తోంది…',
 			'meal.analysis.stepError' => 'ఏదో తప్పు జరిగింది',
+			'meal.analysis.noFoodTip' => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.',
 			'meal.analysis.stepDefault' => 'మీ భోజనాన్ని విశ్లేషిస్తోంది…',
 			'meal.analysis.progressUnderstand' => 'మీ భోజనాన్ని అర్థం చేసుకుంటోంది',
 			'meal.analysis.progressMatch' => 'పదార్థాల పోషకాహారాన్ని వెతుకుతోంది',
@@ -2311,7 +2312,6 @@ extension on TranslationsTe {
 			'meal.analysis.offlineTip3' => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.',
 			'meal.analysis.offlineTip4' => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.',
 			'meal.analysis.offlineTip5' => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.',
-			'meal.analysis.noFoodTip' => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.',
 			'meal.localInference.reviewTitle' => 'గుర్తించిన పదార్థాలను సమీక్షించండి',
 			'meal.localInference.reviewSubtitle' => 'ఇది మీ పరికరంలో విశ్లేషించబడింది. పోషక విలువలు లెక్కించే ముందు పేర్లను లేదా పరిమాణాలను సరిచేసుకోండి.',
 			'meal.localInference.mealName' => 'భోజనం పేరు',

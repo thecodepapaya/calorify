@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Majdnem kész…",
       "stepResult": "Eredmény véglegesítése…",
       "stepError": "Valami hiba történt",
+      "noFoodTip": "Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.",
       "stepDefault": "Étel elemzése…",
       "progressUnderstand": "Az étel megértése",
       "progressMatch": "Hozzávalók tápanyagainak keresése",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tipp: Említsd meg az italokat, szószokat és sütőolajat — ezek plusz kalóriát adnak, amit gyakran elfelejtenek.",
       "offlineTip3": "Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.",
       "offlineTip4": "Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.",
-      "offlineTip5": "Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).",
-      "noFoodTip": "Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással."
+      "offlineTip5": "Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben)."
     },
     "localInference": {
       "reviewTitle": "Élelmiszerek ellenőrzése",

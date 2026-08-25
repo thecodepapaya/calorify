@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ko extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => '거의 완료되었습니다…';
 	@override String get stepResult => '결과 정리 중…';
 	@override String get stepError => '문제가 발생했습니다';
+	@override String get noFoodTip => '음식이 감지되지 않았습니다. 다른 사진이나 설명을 시도해 보세요.';
 	@override String get stepDefault => '식사 분석 중…';
 	@override String get progressUnderstand => '식사 파악 중';
 	@override String get progressMatch => '재료 영양 조회 중';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ko extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.';
 	@override String get offlineTip4 => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.';
 	@override String get offlineTip5 => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.';
-	@override String get noFoodTip => '음식이 감지되지 않았습니다. 다른 사진이나 설명을 시도해 보세요.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsKo {
 			'meal.analysis.stepMealTypeQuestion' => '거의 완료되었습니다…',
 			'meal.analysis.stepResult' => '결과 정리 중…',
 			'meal.analysis.stepError' => '문제가 발생했습니다',
+			'meal.analysis.noFoodTip' => '음식이 감지되지 않았습니다. 다른 사진이나 설명을 시도해 보세요.',
 			'meal.analysis.stepDefault' => '식사 분석 중…',
 			'meal.analysis.progressUnderstand' => '식사 파악 중',
 			'meal.analysis.progressMatch' => '재료 영양 조회 중',
@@ -2311,7 +2312,6 @@ extension on TranslationsKo {
 			'meal.analysis.offlineTip3' => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.',
 			'meal.analysis.offlineTip4' => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.',
 			'meal.analysis.offlineTip5' => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.',
-			'meal.analysis.noFoodTip' => '음식이 감지되지 않았습니다. 다른 사진이나 설명을 시도해 보세요.',
 			'meal.localInference.reviewTitle' => '감지된 식재료 확인',
 			'meal.localInference.reviewSubtitle' => '기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.',
 			'meal.localInference.mealName' => '식사 이름',

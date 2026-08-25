@@ -841,6 +841,7 @@ class _Translations$meal$analysis$de extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Fast fertig…';
 	@override String get stepResult => 'Ergebnis wird abgeschlossen…';
 	@override String get stepError => 'Etwas ist schiefgelaufen';
+	@override String get noFoodTip => 'Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung.';
 	@override String get stepDefault => 'Mahlzeit wird analysiert…';
 	@override String get progressUnderstand => 'Mahlzeit erfassen';
 	@override String get progressMatch => 'Nährwerte der Zutaten suchen';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$de extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.';
 	@override String get offlineTip4 => 'Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.';
 	@override String get offlineTip5 => 'Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).';
-	@override String get noFoodTip => 'Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsDe {
 			'meal.analysis.stepMealTypeQuestion' => 'Fast fertig…',
 			'meal.analysis.stepResult' => 'Ergebnis wird abgeschlossen…',
 			'meal.analysis.stepError' => 'Etwas ist schiefgelaufen',
+			'meal.analysis.noFoodTip' => 'Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung.',
 			'meal.analysis.stepDefault' => 'Mahlzeit wird analysiert…',
 			'meal.analysis.progressUnderstand' => 'Mahlzeit erfassen',
 			'meal.analysis.progressMatch' => 'Nährwerte der Zutaten suchen',
@@ -2311,7 +2312,6 @@ extension on TranslationsDe {
 			'meal.analysis.offlineTip3' => 'Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.',
 			'meal.analysis.offlineTip4' => 'Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.',
 			'meal.analysis.offlineTip5' => 'Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).',
-			'meal.analysis.noFoodTip' => 'Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung.',
 			'meal.localInference.reviewTitle' => 'Erkannte Zutaten prüfen',
 			'meal.localInference.reviewSubtitle' => 'Dies wurde auf Ihrem Gerät interpretiert. Bitte korrigieren Sie Namen oder Mengen, bevor die Nährwerte berechnet werden.',
 			'meal.localInference.mealName' => 'Mahlzeitenname',

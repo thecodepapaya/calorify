@@ -841,6 +841,7 @@ class _Translations$meal$analysis$nl extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Bijna klaar…';
 	@override String get stepResult => 'Resultaat finaliseren…';
 	@override String get stepError => 'Er is iets misgegaan';
+	@override String get noFoodTip => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.';
 	@override String get stepDefault => 'Maaltijd analyseren…';
 	@override String get progressUnderstand => 'Je maaltijd begrijpen';
 	@override String get progressMatch => 'Voedingswaarden opzoeken voor ingrediënten';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$nl extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.';
 	@override String get offlineTip4 => 'Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.';
 	@override String get offlineTip5 => 'Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).';
-	@override String get noFoodTip => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsNl {
 			'meal.analysis.stepMealTypeQuestion' => 'Bijna klaar…',
 			'meal.analysis.stepResult' => 'Resultaat finaliseren…',
 			'meal.analysis.stepError' => 'Er is iets misgegaan',
+			'meal.analysis.noFoodTip' => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.',
 			'meal.analysis.stepDefault' => 'Maaltijd analyseren…',
 			'meal.analysis.progressUnderstand' => 'Je maaltijd begrijpen',
 			'meal.analysis.progressMatch' => 'Voedingswaarden opzoeken voor ingrediënten',
@@ -2311,7 +2312,6 @@ extension on TranslationsNl {
 			'meal.analysis.offlineTip3' => 'Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.',
 			'meal.analysis.offlineTip4' => 'Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.',
 			'meal.analysis.offlineTip5' => 'Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).',
-			'meal.analysis.noFoodTip' => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.',
 			'meal.localInference.reviewTitle' => 'Gedetecteerde ingrediënten controleren',
 			'meal.localInference.reviewSubtitle' => 'Dit is op je apparaat geïnterpreteerd. Corrigeer namen of porties voordat de voedingswaarde wordt berekend.',
 			'meal.localInference.mealName' => 'Maaltijdnaam',

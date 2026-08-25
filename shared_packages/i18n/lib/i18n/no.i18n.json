@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Nesten ferdig…",
       "stepResult": "Ferdigstiller resultatet…",
       "stepError": "Noe gikk galt",
+      "noFoodTip": "Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.",
       "stepDefault": "Analyserer måltidet ditt…",
       "progressUnderstand": "Forstår måltidet ditt",
       "progressMatch": "Slår opp ingrediensnæring",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tips: Nevn drikker, sauser og matolje—de tilfører ofte kalorier folk glemmer.",
       "offlineTip3": "Tips: En kort porsjonsbeskrivelse (1 bolle, stor kaffe) gjør estimatene mye mer presise.",
       "offlineTip4": "Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.",
-      "offlineTip5": "Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt).",
-      "noFoodTip": "Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse."
+      "offlineTip5": "Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt)."
     },
     "localInference": {
       "reviewTitle": "Se over gjenkjente ingredienser",

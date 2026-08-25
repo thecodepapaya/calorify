@@ -841,6 +841,7 @@ class _Translations$meal$analysis$th extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'เกือบเสร็จแล้ว…';
 	@override String get stepResult => 'สรุปผล…';
 	@override String get stepError => 'เกิดข้อผิดพลาดบางอย่าง';
+	@override String get noFoodTip => 'ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่';
 	@override String get stepDefault => 'กำลังวิเคราะห์มื้อของคุณ…';
 	@override String get progressUnderstand => 'กำลังทำความเข้าใจมื้อ';
 	@override String get progressMatch => 'กำลังค้นหาข้อมูลโภชนาการของส่วนผสม';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$th extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น';
 	@override String get offlineTip4 => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น';
 	@override String get offlineTip5 => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)';
-	@override String get noFoodTip => 'ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsTh {
 			'meal.analysis.stepMealTypeQuestion' => 'เกือบเสร็จแล้ว…',
 			'meal.analysis.stepResult' => 'สรุปผล…',
 			'meal.analysis.stepError' => 'เกิดข้อผิดพลาดบางอย่าง',
+			'meal.analysis.noFoodTip' => 'ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่',
 			'meal.analysis.stepDefault' => 'กำลังวิเคราะห์มื้อของคุณ…',
 			'meal.analysis.progressUnderstand' => 'กำลังทำความเข้าใจมื้อ',
 			'meal.analysis.progressMatch' => 'กำลังค้นหาข้อมูลโภชนาการของส่วนผสม',
@@ -2311,7 +2312,6 @@ extension on TranslationsTh {
 			'meal.analysis.offlineTip3' => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น',
 			'meal.analysis.offlineTip4' => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น',
 			'meal.analysis.offlineTip5' => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)',
-			'meal.analysis.noFoodTip' => 'ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่',
 			'meal.localInference.reviewTitle' => 'ตรวจสอบส่วนผสมที่ตรวจพบ',
 			'meal.localInference.reviewSubtitle' => 'ข้อมูลนี้ถูกวิเคราะห์บนอุปกรณ์ของคุณ โปรดแก้ไขชื่อหรือปริมาณก่อนคำนวณคุณค่าทางโภชนาการ',
 			'meal.localInference.mealName' => 'ชื่อมื้ออาหาร',

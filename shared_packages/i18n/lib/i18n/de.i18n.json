@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Fast fertig…",
       "stepResult": "Ergebnis wird abgeschlossen…",
       "stepError": "Etwas ist schiefgelaufen",
+      "noFoodTip": "Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung.",
       "stepDefault": "Mahlzeit wird analysiert…",
       "progressUnderstand": "Mahlzeit erfassen",
       "progressMatch": "Nährwerte der Zutaten suchen",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.",
       "offlineTip3": "Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.",
       "offlineTip4": "Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.",
-      "offlineTip5": "Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).",
-      "noFoodTip": "Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung."
+      "offlineTip5": "Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken)."
     },
     "localInference": {
       "reviewTitle": "Erkannte Zutaten prüfen",

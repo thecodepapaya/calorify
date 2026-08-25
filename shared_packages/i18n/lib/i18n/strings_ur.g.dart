@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ur extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'جلد ہی مکمل…';
 	@override String get stepResult => 'نتیجہ حتمی شکل دے رہے ہیں…';
 	@override String get stepError => 'کچھ غلط ہو گیا';
+	@override String get noFoodTip => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔';
 	@override String get stepDefault => 'آپ کے کھانے کا تجزیہ…';
 	@override String get progressUnderstand => 'آپ کے کھانے کو سمجھنا';
 	@override String get progressMatch => 'اجزاء کی غذائیت تلاش کی جا رہی ہے';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ur extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔';
 	@override String get offlineTip4 => 'ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔';
 	@override String get offlineTip5 => 'ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔';
-	@override String get noFoodTip => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsUr {
 			'meal.analysis.stepMealTypeQuestion' => 'جلد ہی مکمل…',
 			'meal.analysis.stepResult' => 'نتیجہ حتمی شکل دے رہے ہیں…',
 			'meal.analysis.stepError' => 'کچھ غلط ہو گیا',
+			'meal.analysis.noFoodTip' => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔',
 			'meal.analysis.stepDefault' => 'آپ کے کھانے کا تجزیہ…',
 			'meal.analysis.progressUnderstand' => 'آپ کے کھانے کو سمجھنا',
 			'meal.analysis.progressMatch' => 'اجزاء کی غذائیت تلاش کی جا رہی ہے',
@@ -2311,7 +2312,6 @@ extension on TranslationsUr {
 			'meal.analysis.offlineTip3' => 'ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔',
 			'meal.analysis.offlineTip4' => 'ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔',
 			'meal.analysis.offlineTip5' => 'ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔',
-			'meal.analysis.noFoodTip' => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔',
 			'meal.localInference.reviewTitle' => 'جائزہ شدہ اجزاء دیکھیں',
 			'meal.localInference.reviewSubtitle' => 'یہ آپ کے ڈیوائس پر ترتیب دیا گیا تھا۔ غذائیت کے حساب سے پہلے ناموں یا مقدار کی تصحیح کریں۔',
 			'meal.localInference.mealName' => 'کھانے کا نام',

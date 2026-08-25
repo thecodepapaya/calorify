@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Skoro hotovo…",
       "stepResult": "Dokončuji výsledek…",
       "stepError": "Něco se pokazilo",
+      "noFoodTip": "Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.",
       "stepDefault": "Analyzuji vaše jídlo…",
       "progressUnderstand": "Porozumění jídlu",
       "progressMatch": "Vyhledávání nutričních údajů ingrediencí",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tip: Uveďte nápoje, omáčky a olej používaný při vaření — přidávají kalorie, na které se často zapomíná.",
       "offlineTip3": "Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.",
       "offlineTip4": "Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.",
-      "offlineTip5": "Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).",
-      "noFoodTip": "Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis."
+      "offlineTip5": "Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené)."
     },
     "localInference": {
       "reviewTitle": "Zkontrolujte detekované ingredience",

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$tr extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Çok az kaldı…';
 	@override String get stepResult => 'Sonuç finalize ediliyor…';
 	@override String get stepError => 'Bir şeyler yolunda gitmedi';
+	@override String get noFoodTip => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.';
 	@override String get stepDefault => 'Öğününüz analiz ediliyor…';
 	@override String get progressUnderstand => 'Öğününüz anlaşılıyor';
 	@override String get progressMatch => 'İçeriklerin besin bilgileri aranıyor';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$tr extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.';
 	@override String get offlineTip4 => 'İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.';
 	@override String get offlineTip5 => 'İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).';
-	@override String get noFoodTip => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsTr {
 			'meal.analysis.stepMealTypeQuestion' => 'Çok az kaldı…',
 			'meal.analysis.stepResult' => 'Sonuç finalize ediliyor…',
 			'meal.analysis.stepError' => 'Bir şeyler yolunda gitmedi',
+			'meal.analysis.noFoodTip' => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.',
 			'meal.analysis.stepDefault' => 'Öğününüz analiz ediliyor…',
 			'meal.analysis.progressUnderstand' => 'Öğününüz anlaşılıyor',
 			'meal.analysis.progressMatch' => 'İçeriklerin besin bilgileri aranıyor',
@@ -2311,7 +2312,6 @@ extension on TranslationsTr {
 			'meal.analysis.offlineTip3' => 'İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.',
 			'meal.analysis.offlineTip4' => 'İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.',
 			'meal.analysis.offlineTip5' => 'İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).',
-			'meal.analysis.noFoodTip' => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.',
 			'meal.localInference.reviewTitle' => 'Tespit edilen malzemeleri gözden geçir',
 			'meal.localInference.reviewSubtitle' => 'Bu işlem cihazınızda gerçekleştirildi. Besin değerleri hesaplanmadan önce isimleri veya porsiyonları düzeltin.',
 			'meal.localInference.mealName' => 'Öğün adı',

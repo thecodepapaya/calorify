@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Quasi pronto…",
       "stepResult": "Finalizzazione del risultato…",
       "stepError": "Si è verificato un problema",
+      "noFoodTip": "Nessun cibo rilevato. Prova un'altra foto o descrizione.",
       "stepDefault": "Analisi del pasto in corso…",
       "progressUnderstand": "Comprensione del pasto",
       "progressMatch": "Ricerca delle informazioni nutrizionali degli ingredienti",
@@ -347,8 +348,7 @@
       "offlineTip2": "Suggerimento: Segnala bevande, salse e olio da cucina—aggiungono calorie che spesso si dimenticano.",
       "offlineTip3": "Suggerimento: Una rapida indicazione della porzione (1 ciotola, caffè grande) rende le stime molto più precise.",
       "offlineTip4": "Suggerimento: Registrare dopo il pasto aiuta comunque a costruire l'abitudine; la perfezione è opzionale.",
-      "offlineTip5": "Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno).",
-      "noFoodTip": "Nessun cibo rilevato. Prova un'altra foto o descrizione."
+      "offlineTip5": "Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno)."
     },
     "localInference": {
       "reviewTitle": "Revisione ingredienti rilevati",

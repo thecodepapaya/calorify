@@ -841,6 +841,7 @@ class _Translations$meal$analysis$he extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'עוד מעט…';
 	@override String get stepResult => 'מסיימים את התוצאה…';
 	@override String get stepError => 'משהו השתבש';
+	@override String get noFoodTip => 'לא זוהה מזון. נסה תמונה או תיאור אחר.';
 	@override String get stepDefault => 'מנתחים את הארוחה שלך…';
 	@override String get progressUnderstand => 'מנסים להבין את הארוחה';
 	@override String get progressMatch => 'מחפשים ערכי תזונה לרכיבים';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$he extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.';
 	@override String get offlineTip4 => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.';
 	@override String get offlineTip5 => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).';
-	@override String get noFoodTip => 'לא זוהה מזון. נסה תמונה או תיאור אחר.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsHe {
 			'meal.analysis.stepMealTypeQuestion' => 'עוד מעט…',
 			'meal.analysis.stepResult' => 'מסיימים את התוצאה…',
 			'meal.analysis.stepError' => 'משהו השתבש',
+			'meal.analysis.noFoodTip' => 'לא זוהה מזון. נסה תמונה או תיאור אחר.',
 			'meal.analysis.stepDefault' => 'מנתחים את הארוחה שלך…',
 			'meal.analysis.progressUnderstand' => 'מנסים להבין את הארוחה',
 			'meal.analysis.progressMatch' => 'מחפשים ערכי תזונה לרכיבים',
@@ -2311,7 +2312,6 @@ extension on TranslationsHe {
 			'meal.analysis.offlineTip3' => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.',
 			'meal.analysis.offlineTip4' => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.',
 			'meal.analysis.offlineTip5' => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).',
-			'meal.analysis.noFoodTip' => 'לא זוהה מזון. נסה תמונה או תיאור אחר.',
 			'meal.localInference.reviewTitle' => 'בדיקת רכיבים שזוהו',
 			'meal.localInference.reviewSubtitle' => 'המידע פוענח במכשיר שלך. תקן שמות או כמויות לפני חישוב הערכים התזונתיים.',
 			'meal.localInference.mealName' => 'שם הארוחה',

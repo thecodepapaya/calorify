@@ -841,6 +841,7 @@ class _Translations$meal$analysis$uk extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Майже готово…';
 	@override String get stepResult => 'Завершення аналізу…';
 	@override String get stepError => 'Щось пішло не так';
+	@override String get noFoodTip => 'Їжа не виявлена. Спробуйте інше фото або опис.';
 	@override String get stepDefault => 'Аналізуємо вашу страву…';
 	@override String get progressUnderstand => 'Розуміння страви';
 	@override String get progressMatch => 'Пошук поживності інгредієнтів';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$uk extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.';
 	@override String get offlineTip4 => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.';
 	@override String get offlineTip5 => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).';
-	@override String get noFoodTip => 'Їжа не виявлена. Спробуйте інше фото або опис.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsUk {
 			'meal.analysis.stepMealTypeQuestion' => 'Майже готово…',
 			'meal.analysis.stepResult' => 'Завершення аналізу…',
 			'meal.analysis.stepError' => 'Щось пішло не так',
+			'meal.analysis.noFoodTip' => 'Їжа не виявлена. Спробуйте інше фото або опис.',
 			'meal.analysis.stepDefault' => 'Аналізуємо вашу страву…',
 			'meal.analysis.progressUnderstand' => 'Розуміння страви',
 			'meal.analysis.progressMatch' => 'Пошук поживності інгредієнтів',
@@ -2311,7 +2312,6 @@ extension on TranslationsUk {
 			'meal.analysis.offlineTip3' => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.',
 			'meal.analysis.offlineTip4' => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.',
 			'meal.analysis.offlineTip5' => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).',
-			'meal.analysis.noFoodTip' => 'Їжа не виявлена. Спробуйте інше фото або опис.',
 			'meal.localInference.reviewTitle' => 'Перевірте виявлені інгредієнти',
 			'meal.localInference.reviewSubtitle' => 'Ці дані були оброблені на вашому пристрої. Виправте назви або порції перед розрахунком харчової цінності.',
 			'meal.localInference.mealName' => 'Назва страви',

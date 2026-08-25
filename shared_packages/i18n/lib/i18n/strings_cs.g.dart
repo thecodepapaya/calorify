@@ -841,6 +841,7 @@ class _Translations$meal$analysis$cs extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Skoro hotovo…';
 	@override String get stepResult => 'Dokončuji výsledek…';
 	@override String get stepError => 'Něco se pokazilo';
+	@override String get noFoodTip => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.';
 	@override String get stepDefault => 'Analyzuji vaše jídlo…';
 	@override String get progressUnderstand => 'Porozumění jídlu';
 	@override String get progressMatch => 'Vyhledávání nutričních údajů ingrediencí';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$cs extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.';
 	@override String get offlineTip4 => 'Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.';
 	@override String get offlineTip5 => 'Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).';
-	@override String get noFoodTip => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsCs {
 			'meal.analysis.stepMealTypeQuestion' => 'Skoro hotovo…',
 			'meal.analysis.stepResult' => 'Dokončuji výsledek…',
 			'meal.analysis.stepError' => 'Něco se pokazilo',
+			'meal.analysis.noFoodTip' => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.',
 			'meal.analysis.stepDefault' => 'Analyzuji vaše jídlo…',
 			'meal.analysis.progressUnderstand' => 'Porozumění jídlu',
 			'meal.analysis.progressMatch' => 'Vyhledávání nutričních údajů ingrediencí',
@@ -2311,7 +2312,6 @@ extension on TranslationsCs {
 			'meal.analysis.offlineTip3' => 'Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.',
 			'meal.analysis.offlineTip4' => 'Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.',
 			'meal.analysis.offlineTip5' => 'Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).',
-			'meal.analysis.noFoodTip' => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.',
 			'meal.localInference.reviewTitle' => 'Zkontrolujte detekované ingredience',
 			'meal.localInference.reviewSubtitle' => 'Tento text byl interpretován ve vašem zařízení. Před výpočtem výživových hodnot opravte názvy nebo porce.',
 			'meal.localInference.mealName' => 'Název jídla',

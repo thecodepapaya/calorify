@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ja extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'もう少しで完了です…';
 	@override String get stepResult => '結果を最終化しています…';
 	@override String get stepError => '問題が発生しました';
+	@override String get noFoodTip => '食品が検出されませんでした。別の写真または説明をお試しください。';
 	@override String get stepDefault => '食事を分析しています…';
 	@override String get progressUnderstand => '食事を理解中';
 	@override String get progressMatch => '材料の栄養を照合中';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ja extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。';
 	@override String get offlineTip4 => 'ヒント：食後に記録しても習慣化になります。完璧である必要はありません。';
 	@override String get offlineTip5 => 'ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。';
-	@override String get noFoodTip => '食品が検出されませんでした。別の写真または説明をお試しください。';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsJa {
 			'meal.analysis.stepMealTypeQuestion' => 'もう少しで完了です…',
 			'meal.analysis.stepResult' => '結果を最終化しています…',
 			'meal.analysis.stepError' => '問題が発生しました',
+			'meal.analysis.noFoodTip' => '食品が検出されませんでした。別の写真または説明をお試しください。',
 			'meal.analysis.stepDefault' => '食事を分析しています…',
 			'meal.analysis.progressUnderstand' => '食事を理解中',
 			'meal.analysis.progressMatch' => '材料の栄養を照合中',
@@ -2311,7 +2312,6 @@ extension on TranslationsJa {
 			'meal.analysis.offlineTip3' => 'ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。',
 			'meal.analysis.offlineTip4' => 'ヒント：食後に記録しても習慣化になります。完璧である必要はありません。',
 			'meal.analysis.offlineTip5' => 'ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。',
-			'meal.analysis.noFoodTip' => '食品が検出されませんでした。別の写真または説明をお試しください。',
 			'meal.localInference.reviewTitle' => '検出された食材を確認',
 			'meal.localInference.reviewSubtitle' => 'これはデバイス上で解析されました。栄養計算の前に、名称や分量を修正してください。',
 			'meal.localInference.mealName' => '食事名',

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ro extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Mai aproape…';
 	@override String get stepResult => 'Finalizăm rezultatul…';
 	@override String get stepError => 'Ceva nu a mers bine';
+	@override String get noFoodTip => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.';
 	@override String get stepDefault => 'Se analizează masa ta…';
 	@override String get progressUnderstand => 'Înțelegerea mesei';
 	@override String get progressMatch => 'Căutarea informațiilor nutriționale pentru ingrediente';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ro extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.';
 	@override String get offlineTip4 => 'Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.';
 	@override String get offlineTip5 => 'Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).';
-	@override String get noFoodTip => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsRo {
 			'meal.analysis.stepMealTypeQuestion' => 'Mai aproape…',
 			'meal.analysis.stepResult' => 'Finalizăm rezultatul…',
 			'meal.analysis.stepError' => 'Ceva nu a mers bine',
+			'meal.analysis.noFoodTip' => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.',
 			'meal.analysis.stepDefault' => 'Se analizează masa ta…',
 			'meal.analysis.progressUnderstand' => 'Înțelegerea mesei',
 			'meal.analysis.progressMatch' => 'Căutarea informațiilor nutriționale pentru ingrediente',
@@ -2311,7 +2312,6 @@ extension on TranslationsRo {
 			'meal.analysis.offlineTip3' => 'Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.',
 			'meal.analysis.offlineTip4' => 'Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.',
 			'meal.analysis.offlineTip5' => 'Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).',
-			'meal.analysis.noFoodTip' => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.',
 			'meal.localInference.reviewTitle' => 'Revizuiește ingredientele detectate',
 			'meal.localInference.reviewSubtitle' => 'Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.',
 			'meal.localInference.mealName' => 'Numele mesei',

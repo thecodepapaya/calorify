@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "快完成了…",
       "stepResult": "完成結果…",
       "stepError": "發生錯誤",
+      "noFoodTip": "未偵測到食物。請嘗試其他相片或說明。",
       "stepDefault": "分析您的餐點…",
       "progressUnderstand": "理解餐點內容",
       "progressMatch": "查找成分營養資料",
@@ -347,8 +348,7 @@
       "offlineTip2": "提示：記得提到飲料、醬汁與烹調用油——這些通常會額外增加熱量。",
       "offlineTip3": "提示：簡單的份量說明（1 碗、大杯咖啡）會讓估算更準確。",
       "offlineTip4": "提示：餐後紀錄仍能建立習慣；不必追求完美。",
-      "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。",
-      "noFoodTip": "未偵測到食物。請嘗試其他相片或說明。"
+      "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。"
     },
     "localInference": {
       "reviewTitle": "確認偵測到的食材",

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$fi extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Melkein valmis…';
 	@override String get stepResult => 'Viimeistellään tulosta…';
 	@override String get stepError => 'Jotain meni pieleen';
+	@override String get noFoodTip => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.';
 	@override String get stepDefault => 'Analysoidaan ateriaasi…';
 	@override String get progressUnderstand => 'Ymmärretään ateria';
 	@override String get progressMatch => 'Haetaan ainesosien ravintoarvoja';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$fi extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.';
 	@override String get offlineTip4 => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.';
 	@override String get offlineTip5 => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).';
-	@override String get noFoodTip => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsFi {
 			'meal.analysis.stepMealTypeQuestion' => 'Melkein valmis…',
 			'meal.analysis.stepResult' => 'Viimeistellään tulosta…',
 			'meal.analysis.stepError' => 'Jotain meni pieleen',
+			'meal.analysis.noFoodTip' => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.',
 			'meal.analysis.stepDefault' => 'Analysoidaan ateriaasi…',
 			'meal.analysis.progressUnderstand' => 'Ymmärretään ateria',
 			'meal.analysis.progressMatch' => 'Haetaan ainesosien ravintoarvoja',
@@ -2311,7 +2312,6 @@ extension on TranslationsFi {
 			'meal.analysis.offlineTip3' => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.',
 			'meal.analysis.offlineTip4' => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.',
 			'meal.analysis.offlineTip5' => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).',
-			'meal.analysis.noFoodTip' => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.',
 			'meal.localInference.reviewTitle' => 'Tarkista tunnistetut ainesosat',
 			'meal.localInference.reviewSubtitle' => 'Tämä tulkittiin laitteellasi. Korjaa nimet tai annoskoot ennen ravintoarvojen laskemista.',
 			'meal.localInference.mealName' => 'Aterian nimi',

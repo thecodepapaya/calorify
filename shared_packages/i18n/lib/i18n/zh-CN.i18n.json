@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "快好了…",
       "stepResult": "最终结果生成中…",
       "stepError": "出现问题",
+      "noFoodTip": "未检测到食物。请尝试其他照片或描述。",
       "stepDefault": "正在分析你的餐食…",
       "progressUnderstand": "理解你的餐食",
       "progressMatch": "查找食材营养信息",
@@ -347,8 +348,7 @@
       "offlineTip2": "提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。",
       "offlineTip3": "提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。",
       "offlineTip4": "提示：饭后记录同样能培养习惯；不必追求完美。",
-      "offlineTip5": "提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。",
-      "noFoodTip": "未检测到食物。请尝试其他照片或描述。"
+      "offlineTip5": "提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。"
     },
     "localInference": {
       "reviewTitle": "核对检测到的食材",

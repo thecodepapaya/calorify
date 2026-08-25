@@ -841,6 +841,7 @@ class _Translations$meal$analysis$gu extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'લગભગ થઈ ગયું…';
 	@override String get stepResult => 'તમારા પરિણામને અંતિમ સ્વરૂપ આપી રહ્યા છીએ…';
 	@override String get stepError => 'કંઈક ખોટું થયું';
+	@override String get noFoodTip => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.';
 	@override String get stepDefault => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ…';
 	@override String get progressUnderstand => 'તમારા ભોજનને સમજવું';
 	@override String get progressMatch => 'ઘટક પોષણ શોધી રહ્યા છીએ';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$gu extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.';
 	@override String get offlineTip4 => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.';
 	@override String get offlineTip5 => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).';
-	@override String get noFoodTip => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsGu {
 			'meal.analysis.stepMealTypeQuestion' => 'લગભગ થઈ ગયું…',
 			'meal.analysis.stepResult' => 'તમારા પરિણામને અંતિમ સ્વરૂપ આપી રહ્યા છીએ…',
 			'meal.analysis.stepError' => 'કંઈક ખોટું થયું',
+			'meal.analysis.noFoodTip' => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.',
 			'meal.analysis.stepDefault' => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ…',
 			'meal.analysis.progressUnderstand' => 'તમારા ભોજનને સમજવું',
 			'meal.analysis.progressMatch' => 'ઘટક પોષણ શોધી રહ્યા છીએ',
@@ -2311,7 +2312,6 @@ extension on TranslationsGu {
 			'meal.analysis.offlineTip3' => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.',
 			'meal.analysis.offlineTip4' => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.',
 			'meal.analysis.offlineTip5' => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).',
-			'meal.analysis.noFoodTip' => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.',
 			'meal.localInference.reviewTitle' => 'શોધાયેલ ઘટકોની સમીક્ષા કરો',
 			'meal.localInference.reviewSubtitle' => 'આ તમારા ઉપકરણ પર સમજવામાં આવ્યું છે. પોષણની ગણતરી કરતા પહેલા નામ અથવા ભાગો સુધારો.',
 			'meal.localInference.mealName' => 'જમવાનું નામ',

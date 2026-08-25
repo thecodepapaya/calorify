@@ -841,6 +841,7 @@ class _Translations$meal$analysis$el extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Λίγο ακόμα…';
 	@override String get stepResult => 'Ολοκλήρωση αποτελέσματος…';
 	@override String get stepError => 'Κάτι πήγε στραβά';
+	@override String get noFoodTip => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.';
 	@override String get stepDefault => 'Ανάλυση του γεύματός σας…';
 	@override String get progressUnderstand => 'Κατανόηση του γεύματος';
 	@override String get progressMatch => 'Αναζήτηση διατροφικών στοιχείων συστατικών';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$el extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.';
 	@override String get offlineTip4 => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.';
 	@override String get offlineTip5 => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).';
-	@override String get noFoodTip => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsEl {
 			'meal.analysis.stepMealTypeQuestion' => 'Λίγο ακόμα…',
 			'meal.analysis.stepResult' => 'Ολοκλήρωση αποτελέσματος…',
 			'meal.analysis.stepError' => 'Κάτι πήγε στραβά',
+			'meal.analysis.noFoodTip' => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.',
 			'meal.analysis.stepDefault' => 'Ανάλυση του γεύματός σας…',
 			'meal.analysis.progressUnderstand' => 'Κατανόηση του γεύματος',
 			'meal.analysis.progressMatch' => 'Αναζήτηση διατροφικών στοιχείων συστατικών',
@@ -2311,7 +2312,6 @@ extension on TranslationsEl {
 			'meal.analysis.offlineTip3' => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.',
 			'meal.analysis.offlineTip4' => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.',
 			'meal.analysis.offlineTip5' => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).',
-			'meal.analysis.noFoodTip' => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.',
 			'meal.localInference.reviewTitle' => 'Ελεγχος ανιχνευμένων συστατικών',
 			'meal.localInference.reviewSubtitle' => 'Αυτό ερμηνεύτηκε στη συσκευή σας. Διορθώστε τα ονόματα ή τις ποσότητες πριν υπολογιστεί η θρεπτική αξία.',
 			'meal.localInference.mealName' => 'Όνομα γεύματος',

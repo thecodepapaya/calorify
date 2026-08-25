@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Bijna klaar…",
       "stepResult": "Resultaat finaliseren…",
       "stepError": "Er is iets misgegaan",
+      "noFoodTip": "Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.",
       "stepDefault": "Maaltijd analyseren…",
       "progressUnderstand": "Je maaltijd begrijpen",
       "progressMatch": "Voedingswaarden opzoeken voor ingrediënten",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.",
       "offlineTip3": "Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.",
       "offlineTip4": "Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.",
-      "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).",
-      "noFoodTip": "Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving."
+      "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken)."
     },
     "localInference": {
       "reviewTitle": "Gedetecteerde ingrediënten controleren",

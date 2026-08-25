@@ -841,6 +841,7 @@ class _Translations$meal$analysis$es extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Casi listo…';
 	@override String get stepResult => 'Finalizando tu resultado…';
 	@override String get stepError => 'Algo salió mal';
+	@override String get noFoodTip => 'No se detectó comida. Intenta con otra foto o descripción.';
 	@override String get stepDefault => 'Analizando tu comida…';
 	@override String get progressUnderstand => 'Entendiendo tu comida';
 	@override String get progressMatch => 'Buscando nutrición de ingredientes';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$es extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.';
 	@override String get offlineTip4 => 'Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.';
 	@override String get offlineTip5 => 'Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado).';
-	@override String get noFoodTip => 'No se detectó comida. Intenta con otra foto o descripción.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsEs {
 			'meal.analysis.stepMealTypeQuestion' => 'Casi listo…',
 			'meal.analysis.stepResult' => 'Finalizando tu resultado…',
 			'meal.analysis.stepError' => 'Algo salió mal',
+			'meal.analysis.noFoodTip' => 'No se detectó comida. Intenta con otra foto o descripción.',
 			'meal.analysis.stepDefault' => 'Analizando tu comida…',
 			'meal.analysis.progressUnderstand' => 'Entendiendo tu comida',
 			'meal.analysis.progressMatch' => 'Buscando nutrición de ingredientes',
@@ -2311,7 +2312,6 @@ extension on TranslationsEs {
 			'meal.analysis.offlineTip3' => 'Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.',
 			'meal.analysis.offlineTip4' => 'Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.',
 			'meal.analysis.offlineTip5' => 'Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado).',
-			'meal.analysis.noFoodTip' => 'No se detectó comida. Intenta con otra foto o descripción.',
 			'meal.localInference.reviewTitle' => 'Revisar ingredientes detectados',
 			'meal.localInference.reviewSubtitle' => 'Esto fue interpretado en tu dispositivo. Corrige los nombres o las porciones antes de calcular la nutrición.',
 			'meal.localInference.mealName' => 'Nombre de la comida',

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$tl extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Halos tapos…';
 	@override String get stepResult => 'Pinapinal ang resulta…';
 	@override String get stepError => 'May nangyaring mali';
+	@override String get noFoodTip => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.';
 	@override String get stepDefault => 'Sinusuri ang iyong pagkain…';
 	@override String get progressUnderstand => 'Pag-unawa sa iyong pagkain';
 	@override String get progressMatch => 'Hinahanap ang nutrisyon ng sangkap';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$tl extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.';
 	@override String get offlineTip4 => 'Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.';
 	@override String get offlineTip5 => 'Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).';
-	@override String get noFoodTip => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsTl {
 			'meal.analysis.stepMealTypeQuestion' => 'Halos tapos…',
 			'meal.analysis.stepResult' => 'Pinapinal ang resulta…',
 			'meal.analysis.stepError' => 'May nangyaring mali',
+			'meal.analysis.noFoodTip' => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.',
 			'meal.analysis.stepDefault' => 'Sinusuri ang iyong pagkain…',
 			'meal.analysis.progressUnderstand' => 'Pag-unawa sa iyong pagkain',
 			'meal.analysis.progressMatch' => 'Hinahanap ang nutrisyon ng sangkap',
@@ -2311,7 +2312,6 @@ extension on TranslationsTl {
 			'meal.analysis.offlineTip3' => 'Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.',
 			'meal.analysis.offlineTip4' => 'Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.',
 			'meal.analysis.offlineTip5' => 'Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).',
-			'meal.analysis.noFoodTip' => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.',
 			'meal.localInference.reviewTitle' => 'Suriin ang mga nakitang sangkap',
 			'meal.localInference.reviewSubtitle' => 'Binigyang-kahulugan ito sa iyong device. Itama ang mga pangalan o dami bago kalkulahin ang nutrisyon.',
 			'meal.localInference.mealName' => 'Pangalan ng pagkain',

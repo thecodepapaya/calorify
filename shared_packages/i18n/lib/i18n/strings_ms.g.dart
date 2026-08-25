@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ms extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Hampir siap…';
 	@override String get stepResult => 'Memfinalkan keputusan anda…';
 	@override String get stepError => 'Ada yang tidak kena';
+	@override String get noFoodTip => 'Tiada makanan dikesan. Cuba gambar atau penerangan lain.';
 	@override String get stepDefault => 'Menganalisis hidangan anda…';
 	@override String get progressUnderstand => 'Memahami hidangan anda';
 	@override String get progressMatch => 'Mencari nutrisi bahan';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ms extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.';
 	@override String get offlineTip4 => 'Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.';
 	@override String get offlineTip5 => 'Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar).';
-	@override String get noFoodTip => 'Tiada makanan dikesan. Cuba gambar atau penerangan lain.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsMs {
 			'meal.analysis.stepMealTypeQuestion' => 'Hampir siap…',
 			'meal.analysis.stepResult' => 'Memfinalkan keputusan anda…',
 			'meal.analysis.stepError' => 'Ada yang tidak kena',
+			'meal.analysis.noFoodTip' => 'Tiada makanan dikesan. Cuba gambar atau penerangan lain.',
 			'meal.analysis.stepDefault' => 'Menganalisis hidangan anda…',
 			'meal.analysis.progressUnderstand' => 'Memahami hidangan anda',
 			'meal.analysis.progressMatch' => 'Mencari nutrisi bahan',
@@ -2311,7 +2312,6 @@ extension on TranslationsMs {
 			'meal.analysis.offlineTip3' => 'Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.',
 			'meal.analysis.offlineTip4' => 'Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.',
 			'meal.analysis.offlineTip5' => 'Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar).',
-			'meal.analysis.noFoodTip' => 'Tiada makanan dikesan. Cuba gambar atau penerangan lain.',
 			'meal.localInference.reviewTitle' => 'Semak ramuan yang dikesan',
 			'meal.localInference.reviewSubtitle' => 'Ini ditafsirkan pada peranti anda. Betulkan nama atau bahagian sebelum pemakanan dikira.',
 			'meal.localInference.mealName' => 'Nama hidangan',

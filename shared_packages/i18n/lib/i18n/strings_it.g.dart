@@ -841,6 +841,7 @@ class _Translations$meal$analysis$it extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Quasi pronto…';
 	@override String get stepResult => 'Finalizzazione del risultato…';
 	@override String get stepError => 'Si è verificato un problema';
+	@override String get noFoodTip => 'Nessun cibo rilevato. Prova un\'altra foto o descrizione.';
 	@override String get stepDefault => 'Analisi del pasto in corso…';
 	@override String get progressUnderstand => 'Comprensione del pasto';
 	@override String get progressMatch => 'Ricerca delle informazioni nutrizionali degli ingredienti';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$it extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Suggerimento: Una rapida indicazione della porzione (1 ciotola, caffè grande) rende le stime molto più precise.';
 	@override String get offlineTip4 => 'Suggerimento: Registrare dopo il pasto aiuta comunque a costruire l\'abitudine; la perfezione è opzionale.';
 	@override String get offlineTip5 => 'Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno).';
-	@override String get noFoodTip => 'Nessun cibo rilevato. Prova un\'altra foto o descrizione.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsIt {
 			'meal.analysis.stepMealTypeQuestion' => 'Quasi pronto…',
 			'meal.analysis.stepResult' => 'Finalizzazione del risultato…',
 			'meal.analysis.stepError' => 'Si è verificato un problema',
+			'meal.analysis.noFoodTip' => 'Nessun cibo rilevato. Prova un\'altra foto o descrizione.',
 			'meal.analysis.stepDefault' => 'Analisi del pasto in corso…',
 			'meal.analysis.progressUnderstand' => 'Comprensione del pasto',
 			'meal.analysis.progressMatch' => 'Ricerca delle informazioni nutrizionali degli ingredienti',
@@ -2311,7 +2312,6 @@ extension on TranslationsIt {
 			'meal.analysis.offlineTip3' => 'Suggerimento: Una rapida indicazione della porzione (1 ciotola, caffè grande) rende le stime molto più precise.',
 			'meal.analysis.offlineTip4' => 'Suggerimento: Registrare dopo il pasto aiuta comunque a costruire l\'abitudine; la perfezione è opzionale.',
 			'meal.analysis.offlineTip5' => 'Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno).',
-			'meal.analysis.noFoodTip' => 'Nessun cibo rilevato. Prova un\'altra foto o descrizione.',
 			'meal.localInference.reviewTitle' => 'Revisione ingredienti rilevati',
 			'meal.localInference.reviewSubtitle' => 'L\'interpretazione è avvenuta sul tuo dispositivo. Correggi nomi o porzioni prima del calcolo nutrizionale.',
 			'meal.localInference.mealName' => 'Nome pasto',

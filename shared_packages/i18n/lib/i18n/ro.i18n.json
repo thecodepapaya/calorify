@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Mai aproape…",
       "stepResult": "Finalizăm rezultatul…",
       "stepError": "Ceva nu a mers bine",
+      "noFoodTip": "Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.",
       "stepDefault": "Se analizează masa ta…",
       "progressUnderstand": "Înțelegerea mesei",
       "progressMatch": "Căutarea informațiilor nutriționale pentru ingrediente",
@@ -347,8 +348,7 @@
       "offlineTip2": "Sfat: Menționează băuturile, sosurile și uleiul de gătit—ele adaugă calorii pe care oamenii le uită des.",
       "offlineTip3": "Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.",
       "offlineTip4": "Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.",
-      "offlineTip5": "Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).",
-      "noFoodTip": "Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere."
+      "offlineTip5": "Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt)."
     },
     "localInference": {
       "reviewTitle": "Revizuiește ingredientele detectate",

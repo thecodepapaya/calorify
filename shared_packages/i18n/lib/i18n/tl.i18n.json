@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Halos tapos…",
       "stepResult": "Pinapinal ang resulta…",
       "stepError": "May nangyaring mali",
+      "noFoodTip": "Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.",
       "stepDefault": "Sinusuri ang iyong pagkain…",
       "progressUnderstand": "Pag-unawa sa iyong pagkain",
       "progressMatch": "Hinahanap ang nutrisyon ng sangkap",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.",
       "offlineTip3": "Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.",
       "offlineTip4": "Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.",
-      "offlineTip5": "Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).",
-      "noFoodTip": "Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan."
+      "offlineTip5": "Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno)."
     },
     "localInference": {
       "reviewTitle": "Suriin ang mga nakitang sangkap",

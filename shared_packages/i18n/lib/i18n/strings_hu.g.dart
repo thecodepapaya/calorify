@@ -841,6 +841,7 @@ class _Translations$meal$analysis$hu extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Majdnem kész…';
 	@override String get stepResult => 'Eredmény véglegesítése…';
 	@override String get stepError => 'Valami hiba történt';
+	@override String get noFoodTip => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.';
 	@override String get stepDefault => 'Étel elemzése…';
 	@override String get progressUnderstand => 'Az étel megértése';
 	@override String get progressMatch => 'Hozzávalók tápanyagainak keresése';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$hu extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.';
 	@override String get offlineTip4 => 'Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.';
 	@override String get offlineTip5 => 'Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).';
-	@override String get noFoodTip => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsHu {
 			'meal.analysis.stepMealTypeQuestion' => 'Majdnem kész…',
 			'meal.analysis.stepResult' => 'Eredmény véglegesítése…',
 			'meal.analysis.stepError' => 'Valami hiba történt',
+			'meal.analysis.noFoodTip' => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.',
 			'meal.analysis.stepDefault' => 'Étel elemzése…',
 			'meal.analysis.progressUnderstand' => 'Az étel megértése',
 			'meal.analysis.progressMatch' => 'Hozzávalók tápanyagainak keresése',
@@ -2311,7 +2312,6 @@ extension on TranslationsHu {
 			'meal.analysis.offlineTip3' => 'Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.',
 			'meal.analysis.offlineTip4' => 'Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.',
 			'meal.analysis.offlineTip5' => 'Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).',
-			'meal.analysis.noFoodTip' => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.',
 			'meal.localInference.reviewTitle' => 'Élelmiszerek ellenőrzése',
 			'meal.localInference.reviewSubtitle' => 'Ezt a készüléked elemezte. Kérjük, javítsd a neveket vagy az adagokat a tápérték számítása előtt.',
 			'meal.localInference.mealName' => 'Étel neve',

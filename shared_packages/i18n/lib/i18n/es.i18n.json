@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Casi listo…",
       "stepResult": "Finalizando tu resultado…",
       "stepError": "Algo salió mal",
+      "noFoodTip": "No se detectó comida. Intenta con otra foto o descripción.",
       "stepDefault": "Analizando tu comida…",
       "progressUnderstand": "Entendiendo tu comida",
       "progressMatch": "Buscando nutrición de ingredientes",
@@ -347,8 +348,7 @@
       "offlineTip2": "Consejo: Menciona bebidas, salsas y aceite de cocina—añaden calorías que a menudo se olvidan.",
       "offlineTip3": "Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.",
       "offlineTip4": "Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.",
-      "offlineTip5": "Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado).",
-      "noFoodTip": "No se detectó comida. Intenta con otra foto o descripción."
+      "offlineTip5": "Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado)."
     },
     "localInference": {
       "reviewTitle": "Revisar ingredientes detectados",

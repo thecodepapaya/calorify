@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Nästan klart…",
       "stepResult": "Slutför resultatet…",
       "stepError": "Något gick fel",
+      "noFoodTip": "Ingen mat upptäcktes. Prova en annan bild eller beskrivning.",
       "stepDefault": "Analyserar din måltid…",
       "progressUnderstand": "Förstår din måltid",
       "progressMatch": "Söker upp näring för ingredienser",
@@ -347,8 +348,7 @@
       "offlineTip2": "Tips: Ange drycker, såser och matolja — de lägger ofta till kalorier som glöms bort.",
       "offlineTip3": "Tips: En snabb portionsanteckning (1 skål, stor kaffe) gör uppskattningarna mycket skarpare.",
       "offlineTip4": "Tips: Att registrera efter måltiden bygger fortfarande vana; perfektion är inte nödvändig.",
-      "offlineTip5": "Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad).",
-      "noFoodTip": "Ingen mat upptäcktes. Prova en annan bild eller beskrivning."
+      "offlineTip5": "Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad)."
     },
     "localInference": {
       "reviewTitle": "Granska identifierade ingredienser",

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$pl extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Już prawie…';
 	@override String get stepResult => 'Finalizowanie wyniku…';
 	@override String get stepError => 'Coś poszło nie tak';
+	@override String get noFoodTip => 'Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.';
 	@override String get stepDefault => 'Analizowanie posiłku…';
 	@override String get progressUnderstand => 'Rozpoznawanie posiłku';
 	@override String get progressMatch => 'Wyszukiwanie wartości odżywczych składników';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$pl extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Wskazówka: Krótka informacja o porcji (1 miska, duża kawa) znacznie poprawia dokładność.';
 	@override String get offlineTip4 => 'Wskazówka: Zapis po posiłku też buduje nawyk; perfekcja nie jest obowiązkowa.';
 	@override String get offlineTip5 => 'Wskazówka: Powiedz, jak jedzenie było przygotowane, jeśli to znacząco zmienia kalorie (smażone vs pieczone).';
-	@override String get noFoodTip => 'Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsPl {
 			'meal.analysis.stepMealTypeQuestion' => 'Już prawie…',
 			'meal.analysis.stepResult' => 'Finalizowanie wyniku…',
 			'meal.analysis.stepError' => 'Coś poszło nie tak',
+			'meal.analysis.noFoodTip' => 'Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.',
 			'meal.analysis.stepDefault' => 'Analizowanie posiłku…',
 			'meal.analysis.progressUnderstand' => 'Rozpoznawanie posiłku',
 			'meal.analysis.progressMatch' => 'Wyszukiwanie wartości odżywczych składników',
@@ -2311,7 +2312,6 @@ extension on TranslationsPl {
 			'meal.analysis.offlineTip3' => 'Wskazówka: Krótka informacja o porcji (1 miska, duża kawa) znacznie poprawia dokładność.',
 			'meal.analysis.offlineTip4' => 'Wskazówka: Zapis po posiłku też buduje nawyk; perfekcja nie jest obowiązkowa.',
 			'meal.analysis.offlineTip5' => 'Wskazówka: Powiedz, jak jedzenie było przygotowane, jeśli to znacząco zmienia kalorie (smażone vs pieczone).',
-			'meal.analysis.noFoodTip' => 'Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.',
 			'meal.localInference.reviewTitle' => 'Sprawdź wykryte składniki',
 			'meal.localInference.reviewSubtitle' => 'Dane zostały zinterpretowane na Twoim urządzeniu. Popraw nazwy lub porcje przed obliczeniem wartości odżywczych.',
 			'meal.localInference.mealName' => 'Nazwa posiłku',

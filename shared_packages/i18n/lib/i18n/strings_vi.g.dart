@@ -841,6 +841,7 @@ class _Translations$meal$analysis$vi extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Sắp xong…';
 	@override String get stepResult => 'Hoàn tất kết quả…';
 	@override String get stepError => 'Đã xảy ra lỗi';
+	@override String get noFoodTip => 'Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.';
 	@override String get stepDefault => 'Đang phân tích bữa ăn của bạn…';
 	@override String get progressUnderstand => 'Đang hiểu bữa ăn';
 	@override String get progressMatch => 'Tìm dinh dưỡng của nguyên liệu';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$vi extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.';
 	@override String get offlineTip4 => 'Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.';
 	@override String get offlineTip5 => 'Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).';
-	@override String get noFoodTip => 'Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsVi {
 			'meal.analysis.stepMealTypeQuestion' => 'Sắp xong…',
 			'meal.analysis.stepResult' => 'Hoàn tất kết quả…',
 			'meal.analysis.stepError' => 'Đã xảy ra lỗi',
+			'meal.analysis.noFoodTip' => 'Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.',
 			'meal.analysis.stepDefault' => 'Đang phân tích bữa ăn của bạn…',
 			'meal.analysis.progressUnderstand' => 'Đang hiểu bữa ăn',
 			'meal.analysis.progressMatch' => 'Tìm dinh dưỡng của nguyên liệu',
@@ -2311,7 +2312,6 @@ extension on TranslationsVi {
 			'meal.analysis.offlineTip3' => 'Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.',
 			'meal.analysis.offlineTip4' => 'Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.',
 			'meal.analysis.offlineTip5' => 'Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).',
-			'meal.analysis.noFoodTip' => 'Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.',
 			'meal.localInference.reviewTitle' => 'Xem lại các thành phần đã nhận diện',
 			'meal.localInference.reviewSubtitle' => 'Nội dung này được phân tích trên thiết bị của bạn. Hãy chỉnh sửa tên hoặc định lượng trước khi tính toán dinh dưỡng.',
 			'meal.localInference.mealName' => 'Tên bữa ăn',

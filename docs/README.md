@@ -31,6 +31,7 @@ Use this page to find the document that matches the work you are doing.
 
 - [GitHub Actions](github-actions.md)
 - [Shared Flutter packages](../shared_packages/README.md)
+- [Translation regeneration](../shared_packages/i18n/README.md)
 - [Wear OS audit tracker](../watch_app/AUDIT_TRACKER.md)
 - [Play Store metadata](../fastlane/metadata/README.md)
 - [Website screenshot guidelines](../web/IMAGE_GUIDELINES.md)

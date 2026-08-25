@@ -841,6 +841,7 @@ class Translations$meal$analysis$zh_CN extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => '快好了…';
 	@override String get stepResult => '最终结果生成中…';
 	@override String get stepError => '出现问题';
+	@override String get noFoodTip => '未检测到食物。请尝试其他照片或描述。';
 	@override String get stepDefault => '正在分析你的餐食…';
 	@override String get progressUnderstand => '理解你的餐食';
 	@override String get progressMatch => '查找食材营养信息';
@@ -858,7 +859,6 @@ class Translations$meal$analysis$zh_CN extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。';
 	@override String get offlineTip4 => '提示：饭后记录同样能培养习惯；不必追求完美。';
 	@override String get offlineTip5 => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。';
-	@override String get noFoodTip => '未检测到食物。请尝试其他照片或描述。';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsZhCn {
 			'meal.analysis.stepMealTypeQuestion' => '快好了…',
 			'meal.analysis.stepResult' => '最终结果生成中…',
 			'meal.analysis.stepError' => '出现问题',
+			'meal.analysis.noFoodTip' => '未检测到食物。请尝试其他照片或描述。',
 			'meal.analysis.stepDefault' => '正在分析你的餐食…',
 			'meal.analysis.progressUnderstand' => '理解你的餐食',
 			'meal.analysis.progressMatch' => '查找食材营养信息',
@@ -2311,7 +2312,6 @@ extension on TranslationsZhCn {
 			'meal.analysis.offlineTip3' => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。',
 			'meal.analysis.offlineTip4' => '提示：饭后记录同样能培养习惯；不必追求完美。',
 			'meal.analysis.offlineTip5' => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。',
-			'meal.analysis.noFoodTip' => '未检测到食物。请尝试其他照片或描述。',
 			'meal.localInference.reviewTitle' => '核对检测到的食材',
 			'meal.localInference.reviewSubtitle' => '此内容由您的设备解析。在计算营养成分前，请修正名称或分量。',
 			'meal.localInference.mealName' => '餐食名称',

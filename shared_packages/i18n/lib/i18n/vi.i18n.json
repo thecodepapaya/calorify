@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Sắp xong…",
       "stepResult": "Hoàn tất kết quả…",
       "stepError": "Đã xảy ra lỗi",
+      "noFoodTip": "Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.",
       "stepDefault": "Đang phân tích bữa ăn của bạn…",
       "progressUnderstand": "Đang hiểu bữa ăn",
       "progressMatch": "Tìm dinh dưỡng của nguyên liệu",
@@ -347,8 +348,7 @@
       "offlineTip2": "Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.",
       "offlineTip3": "Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.",
       "offlineTip4": "Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.",
-      "offlineTip5": "Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).",
-      "noFoodTip": "Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác."
+      "offlineTip5": "Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng)."
     },
     "localInference": {
       "reviewTitle": "Xem lại các thành phần đã nhận diện",

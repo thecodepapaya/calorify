@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Już prawie…",
       "stepResult": "Finalizowanie wyniku…",
       "stepError": "Coś poszło nie tak",
+      "noFoodTip": "Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis.",
       "stepDefault": "Analizowanie posiłku…",
       "progressUnderstand": "Rozpoznawanie posiłku",
       "progressMatch": "Wyszukiwanie wartości odżywczych składników",
@@ -347,8 +348,7 @@
       "offlineTip2": "Wskazówka: Wspomnij o napojach, sosach i oleju do smażenia — to kalorie, które często są pomijane.",
       "offlineTip3": "Wskazówka: Krótka informacja o porcji (1 miska, duża kawa) znacznie poprawia dokładność.",
       "offlineTip4": "Wskazówka: Zapis po posiłku też buduje nawyk; perfekcja nie jest obowiązkowa.",
-      "offlineTip5": "Wskazówka: Powiedz, jak jedzenie było przygotowane, jeśli to znacząco zmienia kalorie (smażone vs pieczone).",
-      "noFoodTip": "Nie wykryto jedzenia. Spróbuj zrobić inne zdjęcie lub podać inny opis."
+      "offlineTip5": "Wskazówka: Powiedz, jak jedzenie było przygotowane, jeśli to znacząco zmienia kalorie (smażone vs pieczone)."
     },
     "localInference": {
       "reviewTitle": "Sprawdź wykryte składniki",

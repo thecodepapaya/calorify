@@ -841,6 +841,7 @@ class _Translations$meal$analysis$no extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Nesten ferdig…';
 	@override String get stepResult => 'Ferdigstiller resultatet…';
 	@override String get stepError => 'Noe gikk galt';
+	@override String get noFoodTip => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.';
 	@override String get stepDefault => 'Analyserer måltidet ditt…';
 	@override String get progressUnderstand => 'Forstår måltidet ditt';
 	@override String get progressMatch => 'Slår opp ingrediensnæring';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$no extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tips: En kort porsjonsbeskrivelse (1 bolle, stor kaffe) gjør estimatene mye mer presise.';
 	@override String get offlineTip4 => 'Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.';
 	@override String get offlineTip5 => 'Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt).';
-	@override String get noFoodTip => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsNo {
 			'meal.analysis.stepMealTypeQuestion' => 'Nesten ferdig…',
 			'meal.analysis.stepResult' => 'Ferdigstiller resultatet…',
 			'meal.analysis.stepError' => 'Noe gikk galt',
+			'meal.analysis.noFoodTip' => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.',
 			'meal.analysis.stepDefault' => 'Analyserer måltidet ditt…',
 			'meal.analysis.progressUnderstand' => 'Forstår måltidet ditt',
 			'meal.analysis.progressMatch' => 'Slår opp ingrediensnæring',
@@ -2311,7 +2312,6 @@ extension on TranslationsNo {
 			'meal.analysis.offlineTip3' => 'Tips: En kort porsjonsbeskrivelse (1 bolle, stor kaffe) gjør estimatene mye mer presise.',
 			'meal.analysis.offlineTip4' => 'Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.',
 			'meal.analysis.offlineTip5' => 'Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt).',
-			'meal.analysis.noFoodTip' => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.',
 			'meal.localInference.reviewTitle' => 'Se over gjenkjente ingredienser',
 			'meal.localInference.reviewSubtitle' => 'Dette ble tolket på enheten din. Korriger navn eller porsjoner før næringsinnholdet beregnes.',
 			'meal.localInference.mealName' => 'Måltidnavn',

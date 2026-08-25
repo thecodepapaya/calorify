@@ -841,6 +841,7 @@ class _Translations$meal$analysis$ru extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Почти готово…';
 	@override String get stepResult => 'Формируем результат…';
 	@override String get stepError => 'Что‑то пошло не так';
+	@override String get noFoodTip => 'Еда не обнаружена. Попробуйте другое фото или описание.';
 	@override String get stepDefault => 'Анализируем ваше блюдо…';
 	@override String get progressUnderstand => 'Понимание блюда';
 	@override String get progressMatch => 'Поиск питания ингредиентов';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$ru extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Совет: быстрая заметка о порции (1 миска, большой кофе) делает оценки значительно точнее.';
 	@override String get offlineTip4 => 'Совет: запись после еды всё ещё формирует привычку; совершенство не обязательно.';
 	@override String get offlineTip5 => 'Совет: указывайте способ приготовления, когда он сильно влияет на калории (жареное vs запечённое).';
-	@override String get noFoodTip => 'Еда не обнаружена. Попробуйте другое фото или описание.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsRu {
 			'meal.analysis.stepMealTypeQuestion' => 'Почти готово…',
 			'meal.analysis.stepResult' => 'Формируем результат…',
 			'meal.analysis.stepError' => 'Что‑то пошло не так',
+			'meal.analysis.noFoodTip' => 'Еда не обнаружена. Попробуйте другое фото или описание.',
 			'meal.analysis.stepDefault' => 'Анализируем ваше блюдо…',
 			'meal.analysis.progressUnderstand' => 'Понимание блюда',
 			'meal.analysis.progressMatch' => 'Поиск питания ингредиентов',
@@ -2311,7 +2312,6 @@ extension on TranslationsRu {
 			'meal.analysis.offlineTip3' => 'Совет: быстрая заметка о порции (1 миска, большой кофе) делает оценки значительно точнее.',
 			'meal.analysis.offlineTip4' => 'Совет: запись после еды всё ещё формирует привычку; совершенство не обязательно.',
 			'meal.analysis.offlineTip5' => 'Совет: указывайте способ приготовления, когда он сильно влияет на калории (жареное vs запечённое).',
-			'meal.analysis.noFoodTip' => 'Еда не обнаружена. Попробуйте другое фото или описание.',
 			'meal.localInference.reviewTitle' => 'Проверка распознанных ингредиентов',
 			'meal.localInference.reviewSubtitle' => 'Данные были обработаны на вашем устройстве. Исправьте названия или порции перед расчетом питательной ценности.',
 			'meal.localInference.mealName' => 'Название блюда',

@@ -841,6 +841,7 @@ class _Translations$meal$analysis$id extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'Hampir selesai…';
 	@override String get stepResult => 'Menyelesaikan hasil Anda…';
 	@override String get stepError => 'Terjadi kesalahan';
+	@override String get noFoodTip => 'Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.';
 	@override String get stepDefault => 'Menganalisis makanan Anda…';
 	@override String get progressUnderstand => 'Memahami makanan Anda';
 	@override String get progressMatch => 'Mencari nutrisi bahan';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$id extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.';
 	@override String get offlineTip4 => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.';
 	@override String get offlineTip5 => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).';
-	@override String get noFoodTip => 'Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsId {
 			'meal.analysis.stepMealTypeQuestion' => 'Hampir selesai…',
 			'meal.analysis.stepResult' => 'Menyelesaikan hasil Anda…',
 			'meal.analysis.stepError' => 'Terjadi kesalahan',
+			'meal.analysis.noFoodTip' => 'Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.',
 			'meal.analysis.stepDefault' => 'Menganalisis makanan Anda…',
 			'meal.analysis.progressUnderstand' => 'Memahami makanan Anda',
 			'meal.analysis.progressMatch' => 'Mencari nutrisi bahan',
@@ -2311,7 +2312,6 @@ extension on TranslationsId {
 			'meal.analysis.offlineTip3' => 'Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.',
 			'meal.analysis.offlineTip4' => 'Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.',
 			'meal.analysis.offlineTip5' => 'Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).',
-			'meal.analysis.noFoodTip' => 'Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain.',
 			'meal.localInference.reviewTitle' => 'Tinjau bahan yang terdeteksi',
 			'meal.localInference.reviewSubtitle' => 'Ini diinterpretasikan pada perangkat Anda. Perbaiki nama atau porsi sebelum nutrisi dihitung.',
 			'meal.localInference.mealName' => 'Nama makanan',

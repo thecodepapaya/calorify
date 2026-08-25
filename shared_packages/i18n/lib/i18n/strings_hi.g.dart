@@ -841,6 +841,7 @@ class _Translations$meal$analysis$hi extends Translations$meal$analysis$en {
 	@override String get stepMealTypeQuestion => 'लगभग पूरा…';
 	@override String get stepResult => 'आपका परिणाम अंतिम रूप दे रहे हैं…';
 	@override String get stepError => 'कुछ गलत हुआ';
+	@override String get noFoodTip => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।';
 	@override String get stepDefault => 'आपके भोजन का विश्लेषण किया जा रहा है…';
 	@override String get progressUnderstand => 'आपके भोजन को समझना';
 	@override String get progressMatch => 'सामग्री का पोषण देखना';
@@ -858,7 +859,6 @@ class _Translations$meal$analysis$hi extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'सूचना: एक त्वरित भाग नोट (1 कटोरा, बड़ा कॉफ़ी) अनुमान को काफी तीक्ष्ण बनाता है।';
 	@override String get offlineTip4 => 'सूचना: भोजन के बाद लॉग करना भी आदत बनाता है; पूर्णता वैकल्पिक है।';
 	@override String get offlineTip5 => 'सूचना: जब कैलोरीज़ बहुत बदलती हों तो बताएं कि भोजन कैसे पकाया गया था (तला हुआ बनाम बेक्ड)।';
-	@override String get noFoodTip => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।';
 }
 
 // Path: meal.localInference
@@ -2294,6 +2294,7 @@ extension on TranslationsHi {
 			'meal.analysis.stepMealTypeQuestion' => 'लगभग पूरा…',
 			'meal.analysis.stepResult' => 'आपका परिणाम अंतिम रूप दे रहे हैं…',
 			'meal.analysis.stepError' => 'कुछ गलत हुआ',
+			'meal.analysis.noFoodTip' => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।',
 			'meal.analysis.stepDefault' => 'आपके भोजन का विश्लेषण किया जा रहा है…',
 			'meal.analysis.progressUnderstand' => 'आपके भोजन को समझना',
 			'meal.analysis.progressMatch' => 'सामग्री का पोषण देखना',
@@ -2311,7 +2312,6 @@ extension on TranslationsHi {
 			'meal.analysis.offlineTip3' => 'सूचना: एक त्वरित भाग नोट (1 कटोरा, बड़ा कॉफ़ी) अनुमान को काफी तीक्ष्ण बनाता है।',
 			'meal.analysis.offlineTip4' => 'सूचना: भोजन के बाद लॉग करना भी आदत बनाता है; पूर्णता वैकल्पिक है।',
 			'meal.analysis.offlineTip5' => 'सूचना: जब कैलोरीज़ बहुत बदलती हों तो बताएं कि भोजन कैसे पकाया गया था (तला हुआ बनाम बेक्ड)।',
-			'meal.analysis.noFoodTip' => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।',
 			'meal.localInference.reviewTitle' => 'पहचाने गए इंग्रीडिएंट्स की समीक्षा करें',
 			'meal.localInference.reviewSubtitle' => 'यह आपके डिवाइस पर इंटरप्रेट किया गया था। पोषण की गणना से पहले नाम या मात्रा को सही करें।',
 			'meal.localInference.mealName' => 'भोजन का नाम',

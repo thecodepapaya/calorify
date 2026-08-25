@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Presque fini…",
       "stepResult": "Finalisation du résultat…",
       "stepError": "Une erreur est survenue",
+      "noFoodTip": "Aucune nourriture détectée. Essayez une autre photo ou description.",
       "stepDefault": "Analyse de votre repas…",
       "progressUnderstand": "Compréhension du repas",
       "progressMatch": "Recherche des valeurs nutritionnelles des ingrédients",
@@ -347,8 +348,7 @@
       "offlineTip2": "Astuce : Mentionnez les boissons, sauces et huiles de cuisson—elles ajoutent souvent des calories oubliées.",
       "offlineTip3": "Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.",
       "offlineTip4": "Astuce : Enregistrer après le repas aide aussi à créer l'habitude ; la perfection est optionnelle.",
-      "offlineTip5": "Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four).",
-      "noFoodTip": "Aucune nourriture détectée. Essayez une autre photo ou description."
+      "offlineTip5": "Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four)."
     },
     "localInference": {
       "reviewTitle": "Vérifier les ingrédients détectés",

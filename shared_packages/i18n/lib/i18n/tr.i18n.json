@@ -331,6 +331,7 @@
       "stepMealTypeQuestion": "Çok az kaldı…",
       "stepResult": "Sonuç finalize ediliyor…",
       "stepError": "Bir şeyler yolunda gitmedi",
+      "noFoodTip": "Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.",
       "stepDefault": "Öğününüz analiz ediliyor…",
       "progressUnderstand": "Öğününüz anlaşılıyor",
       "progressMatch": "İçeriklerin besin bilgileri aranıyor",
@@ -347,8 +348,7 @@
       "offlineTip2": "İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.",
       "offlineTip3": "İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.",
       "offlineTip4": "İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.",
-      "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).",
-      "noFoodTip": "Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin."
+      "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama)."
     },
     "localInference": {
       "reviewTitle": "Tespit edilen malzemeleri gözden geçir",
