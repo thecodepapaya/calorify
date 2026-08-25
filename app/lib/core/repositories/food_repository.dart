@@ -285,18 +285,6 @@ class FoodRepository {
     return uploadUrl;
   }
 
-  Future<AiMealSummaryResponse?> getAiSummary() async {
-    final proto = await _networkClient
-        .apiCall<ApiResult, AiMealSummaryResponse>(
-          '/api/v1/food/ai-summary',
-          AiMealSummaryResponse.new,
-        );
-    if (!proto.hasSummary() || !proto.hasGeneratedAt()) {
-      return null;
-    }
-    return proto;
-  }
-
   /// Server-driven tips for the meal-analysis loading UI (no app update needed to change copy).
   /// Returns an empty list on failure; callers should fall back to bundled tips.
   ///

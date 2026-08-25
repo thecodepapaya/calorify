@@ -21,7 +21,6 @@ import {
 } from './services/database.js';
 import { initializeFirebase } from './services/firebase.js';
 import { runMigrations } from './services/migrate.js';
-import { startAiSummaryCron } from './jobs/aiSummaryCron.js';
 import { bootstrapUsdaIfNeeded } from './services/usdaBootstrap.js';
 import {
   createShutdownCoordinator,
@@ -352,13 +351,6 @@ async function start() {
         port: config.PORT,
         host: '0.0.0.0',
       });
-
-      // Timers are created only after the server is accepting connections. If
-      // either scheduler throws, the handle already created is retained for
-      // startup cleanup.
-      if (config.DATABASE_URL) {
-        cronTasks.push(startAiSummaryCron());
-      }
 
       const shutdown = createShutdownCoordinator({
         cronTasks,

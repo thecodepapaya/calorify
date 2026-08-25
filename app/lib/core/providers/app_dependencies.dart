@@ -6,6 +6,9 @@ import 'package:calorify/core/services/database_service.dart';
 import 'package:calorify/core/services/health_connect_sync_service.dart';
 import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/onboarding_service.dart';
+import 'package:calorify/core/ai_summary/ai_summary_coordinator.dart';
+import 'package:calorify/core/ai_summary/ai_summary_models.dart';
+import 'package:calorify/core/ai_summary/backend_ai_summary_generator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Composition root for profile, onboarding, and health dependencies.
@@ -48,5 +51,18 @@ final healthConnectSyncServiceProvider = Provider<HealthConnectSyncService>((
   return HealthConnectSyncService(
     database: ref.watch(databaseInterfaceProvider),
     healthService: ref.watch(healthServiceProvider),
+  );
+});
+
+final aiSummaryGeneratorProvider = Provider<AiSummaryGenerator>((ref) {
+  return BackendAiSummaryGenerator(
+    networkClient: ref.watch(networkClientProvider),
+  );
+});
+
+final aiSummaryCoordinatorProvider = Provider<AiSummaryCoordinator>((ref) {
+  return AiSummaryCoordinator(
+    database: ref.watch(databaseInterfaceProvider),
+    generator: ref.watch(aiSummaryGeneratorProvider),
   );
 });

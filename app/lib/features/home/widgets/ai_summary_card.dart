@@ -95,7 +95,11 @@ class _SummaryCardContent extends StatelessWidget {
                 score: summary.macroBalanceScore,
               ),
             ),
-            _MetricChip(icon: trend.displayIcon, label: trend.displayLabel(t)),
+            if (trend != AiMealSummaryTrend.UNSPECIFIED)
+              _MetricChip(
+                icon: trend.displayIcon,
+                label: trend.displayLabel(t),
+              ),
           ],
         ),
         const SizedBox(height: 14),

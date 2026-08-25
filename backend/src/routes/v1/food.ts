@@ -1,4 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import { z } from 'zod';
 import { createErrorResponse } from '../../utils/errors.js';
 import { getLocaleFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
@@ -9,13 +10,8 @@ import {
   MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX,
   pickRandomTips,
 } from '../../services/mealAnalysisTips.js';
-import type { AiMealSummaryResponse, MealAnalysisTipsResponse } from '../../protos/calorify/http_api.js';
-import { AiMealSummaryTrend } from '../../protos/calorify/ai_meal_summary_trend.js';
-import {
-  computeAiSummaryStats,
-  type AiSummaryMealRow,
-  type AiSummaryStats,
-} from '../../services/aiSummaryStats.js';
+import type { MealAnalysisTipsResponse } from '../../protos/calorify/http_api.js';
+import { AiSummaryRequestError, generateAiSummary } from '../../services/aiSummaryService.js';
 import { safeErrorMetadata } from '../../utils/safeError.js';
 // Manually maintained OpenAPI helpers for the legacy proto-shaped HTTP API.
 // Route and integration tests enforce the runtime contract.
@@ -52,13 +48,16 @@ function parseMealAnalysisTipsQueryCount(
   return { ok: true, limit: n };
 }
 
-interface AiSummaryRow {
-  summary: string;
-  generated_at: Date;
-  stats_snapshot: AiSummaryStats | null;
+interface RecentMealRow {
+  logged_at: Date | string;
+  logged_meal_name: string | null;
+  logged_meal_type: string | null;
+  logged_calories: number | null;
+  logged_protein: number | null;
+  logged_carbs: number | null;
+  logged_fat: number | null;
+  logged_fiber: number | null;
 }
-
-type RecentMealRow = AiSummaryMealRow;
 
 function csvEscape(value: string | number | null | undefined): string {
   const stringValue = value == null ? '' : String(value);
@@ -99,7 +98,7 @@ function buildMealHistoryCsv(meals: RecentMealRow[]): string {
 }
 
 const foodFailureMessages = {
-  load_ai_summary: 'Failed to load AI meal summary',
+  generate_ai_summary: 'Failed to generate AI meal summary',
   load_meal_analysis_tips: 'Failed to load meal analysis tips',
   export_meal_history: 'Failed to export meal history',
 } as const;
@@ -124,20 +123,16 @@ export async function foodRoutes(
 ): Promise<void> {
   fastify.addHook('preHandler', authenticateUser);
 
-  /**
-   * GET /api/v1/food/ai-summary
-   * Returns the latest AI-generated nutritional summary for the authenticated user.
-   */
-  fastify.get(
-    '/ai-summary',
+  fastify.post(
+    '/ai-summary/generate',
     {
       schema: {
-        description: 'Get the latest AI-generated meal summary for the authenticated user.',
+        description: 'Generate or return today\'s idempotent meal summary.',
         tags: ['Food'],
         security: [{ bearerAuth: [] }],
         response: {
           200: {
-            description: 'Latest summary and trailing stats (calorify.AiMealSummaryResponse)',
+            description: 'Daily summary (calorify.AiMealSummaryResponse)',
             ...getAiMealSummaryResponseSchema(),
           },
         },
@@ -145,78 +140,24 @@ export async function foodRoutes(
     },
     async (request: FastifyRequest, reply: FastifyReply) => {
       try {
-        if (!config.DATABASE_URL) {
-          const body: AiMealSummaryResponse = {
-            mealCount: 0,
-            topFoods: [],
-            macroBalanceScore: 0,
-            trend: AiMealSummaryTrend.STEADY,
-          };
-          reply.send(body);
-          return;
-        }
-
-        const userId = getCurrentUserId(request);
-        const { rows } = await query<AiSummaryRow>(
-          `SELECT summary, generated_at, stats_snapshot
-             FROM ai_summaries
-            WHERE user_id = $1
-            ORDER BY generated_at DESC
-            LIMIT 1`,
-          [userId]
-        );
-
-        const row = rows[0];
-        if (!row) {
-          const body: AiMealSummaryResponse = {
-            mealCount: 0,
-            topFoods: [],
-            macroBalanceScore: 0,
-            trend: AiMealSummaryTrend.STEADY,
-          };
-          reply.send(body);
-          return;
-        }
-
-        let stats = row.stats_snapshot;
-        if (!stats) {
-          // Legacy summaries predate snapshot persistence. Keep the old fallback
-          // until those rows naturally age out of the latest-summary position.
-          const { rows: recentMeals } = await query<RecentMealRow>(
-            `SELECT
-                logged_at,
-                logged_meal_name,
-                logged_meal_type,
-                logged_calories,
-                logged_protein,
-                logged_carbs,
-                logged_fat,
-                logged_fiber
-               FROM meal_analysis_session
-              WHERE user_id = $1
-                AND logged_at >= NOW() - INTERVAL '3 days'
-                AND logged_at <= NOW() + INTERVAL '5 minutes'
-              ORDER BY logged_at DESC`,
-            [userId]
-          );
-          stats = computeAiSummaryStats(recentMeals);
-        }
-
-        const body: AiMealSummaryResponse = {
-          summary: row.summary,
-          generatedAt: toIsoString(row.generated_at),
-          mealCount: stats.mealCount,
-          topFoods: stats.topFoods,
-          macroBalanceScore: stats.macroBalanceScore,
-          trend: stats.trend,
-        };
-        reply.send(body);
+        if (!config.DATABASE_URL) throw new Error('DATABASE_URL is not set');
+        const result = await generateAiSummary(getCurrentUserId(request), request.body);
+        reply.header('Content-Language', result.locale).send(result.response);
       } catch (error) {
+        if (error instanceof z.ZodError) {
+          reply.status(400).send({ code: 'invalid_summary_snapshot', message: 'Invalid AI summary snapshot' });
+          return;
+        }
+        if (error instanceof AiSummaryRequestError) {
+          if (error.retryAfter) reply.header('Retry-After', String(error.retryAfter));
+          reply.status(error.statusCode).send({ code: error.code, message: error.message });
+          return;
+        }
         sendUnexpectedFoodError(
           request,
           reply,
           error,
-          'load_ai_summary'
+          'generate_ai_summary'
         );
       }
     }

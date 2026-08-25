@@ -26,7 +26,7 @@ export function getErrorResponseSchema() {
   return getApiResultSchema();
 }
 
-/** GET /api/v1/food/ai-summary (calorify.AiMealSummaryResponse JSON) */
+/** POST /api/v1/food/ai-summary/generate (calorify.AiMealSummaryResponse JSON) */
 export function getAiMealSummaryResponseSchema() {
   return {
     type: 'object',

@@ -149,6 +149,14 @@ deployed image. An automated failed-deployment rollback uses the local rollback
 tag immediately; an older manual rollback should use an immutable GHCR `sha-*`
 tag.
 
+The direct daily AI-summary release is a coordinated exception because
+`z20260825b_drop_ai_summary_batches.sql` removes the retired batch table. Before
+deploying that image, stop the legacy summary cron and confirm every previously
+submitted OpenAI batch is terminal. Then configure
+`OPENROUTER_AI_SUMMARY_MODEL` with a model that supports strict structured
+output. Do not deploy the cleanup migration while a legacy batch still needs
+polling or reconciliation.
+
 ## USDA database lifecycle
 
 `db-usda` is the only database containing USDA rows. Production and staging app

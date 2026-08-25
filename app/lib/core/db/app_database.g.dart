@@ -6182,6 +6182,306 @@ class MealLogSyncQueueTableCompanion
   }
 }
 
+class $LocalAiSummaryTableTable extends LocalAiSummaryTable
+    with TableInfo<$LocalAiSummaryTableTable, LocalAiSummaryTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LocalAiSummaryTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _summaryLocalDateMeta = const VerificationMeta(
+    'summaryLocalDate',
+  );
+  @override
+  late final GeneratedColumn<String> summaryLocalDate = GeneratedColumn<String>(
+    'summary_local_date',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _responseJsonMeta = const VerificationMeta(
+    'responseJson',
+  );
+  @override
+  late final GeneratedColumn<String> responseJson = GeneratedColumn<String>(
+    'response_json',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _resolvedLocaleMeta = const VerificationMeta(
+    'resolvedLocale',
+  );
+  @override
+  late final GeneratedColumn<String> resolvedLocale = GeneratedColumn<String>(
+    'resolved_locale',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    summaryLocalDate,
+    responseJson,
+    resolvedLocale,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'local_ai_summary_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<LocalAiSummaryTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('summary_local_date')) {
+      context.handle(
+        _summaryLocalDateMeta,
+        summaryLocalDate.isAcceptableOrUnknown(
+          data['summary_local_date']!,
+          _summaryLocalDateMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_summaryLocalDateMeta);
+    }
+    if (data.containsKey('response_json')) {
+      context.handle(
+        _responseJsonMeta,
+        responseJson.isAcceptableOrUnknown(
+          data['response_json']!,
+          _responseJsonMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_responseJsonMeta);
+    }
+    if (data.containsKey('resolved_locale')) {
+      context.handle(
+        _resolvedLocaleMeta,
+        resolvedLocale.isAcceptableOrUnknown(
+          data['resolved_locale']!,
+          _resolvedLocaleMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_resolvedLocaleMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {summaryLocalDate};
+  @override
+  LocalAiSummaryTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LocalAiSummaryTableData(
+      summaryLocalDate:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}summary_local_date'],
+          )!,
+      responseJson:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}response_json'],
+          )!,
+      resolvedLocale:
+          attachedDatabase.typeMapping.read(
+            DriftSqlType.string,
+            data['${effectivePrefix}resolved_locale'],
+          )!,
+    );
+  }
+
+  @override
+  $LocalAiSummaryTableTable createAlias(String alias) {
+    return $LocalAiSummaryTableTable(attachedDatabase, alias);
+  }
+}
+
+class LocalAiSummaryTableData extends DataClass
+    implements Insertable<LocalAiSummaryTableData> {
+  final String summaryLocalDate;
+  final String responseJson;
+  final String resolvedLocale;
+  const LocalAiSummaryTableData({
+    required this.summaryLocalDate,
+    required this.responseJson,
+    required this.resolvedLocale,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['summary_local_date'] = Variable<String>(summaryLocalDate);
+    map['response_json'] = Variable<String>(responseJson);
+    map['resolved_locale'] = Variable<String>(resolvedLocale);
+    return map;
+  }
+
+  LocalAiSummaryTableCompanion toCompanion(bool nullToAbsent) {
+    return LocalAiSummaryTableCompanion(
+      summaryLocalDate: Value(summaryLocalDate),
+      responseJson: Value(responseJson),
+      resolvedLocale: Value(resolvedLocale),
+    );
+  }
+
+  factory LocalAiSummaryTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LocalAiSummaryTableData(
+      summaryLocalDate: serializer.fromJson<String>(json['summaryLocalDate']),
+      responseJson: serializer.fromJson<String>(json['responseJson']),
+      resolvedLocale: serializer.fromJson<String>(json['resolvedLocale']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'summaryLocalDate': serializer.toJson<String>(summaryLocalDate),
+      'responseJson': serializer.toJson<String>(responseJson),
+      'resolvedLocale': serializer.toJson<String>(resolvedLocale),
+    };
+  }
+
+  LocalAiSummaryTableData copyWith({
+    String? summaryLocalDate,
+    String? responseJson,
+    String? resolvedLocale,
+  }) => LocalAiSummaryTableData(
+    summaryLocalDate: summaryLocalDate ?? this.summaryLocalDate,
+    responseJson: responseJson ?? this.responseJson,
+    resolvedLocale: resolvedLocale ?? this.resolvedLocale,
+  );
+  LocalAiSummaryTableData copyWithCompanion(LocalAiSummaryTableCompanion data) {
+    return LocalAiSummaryTableData(
+      summaryLocalDate:
+          data.summaryLocalDate.present
+              ? data.summaryLocalDate.value
+              : this.summaryLocalDate,
+      responseJson:
+          data.responseJson.present
+              ? data.responseJson.value
+              : this.responseJson,
+      resolvedLocale:
+          data.resolvedLocale.present
+              ? data.resolvedLocale.value
+              : this.resolvedLocale,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LocalAiSummaryTableData(')
+          ..write('summaryLocalDate: $summaryLocalDate, ')
+          ..write('responseJson: $responseJson, ')
+          ..write('resolvedLocale: $resolvedLocale')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(summaryLocalDate, responseJson, resolvedLocale);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LocalAiSummaryTableData &&
+          other.summaryLocalDate == this.summaryLocalDate &&
+          other.responseJson == this.responseJson &&
+          other.resolvedLocale == this.resolvedLocale);
+}
+
+class LocalAiSummaryTableCompanion
+    extends UpdateCompanion<LocalAiSummaryTableData> {
+  final Value<String> summaryLocalDate;
+  final Value<String> responseJson;
+  final Value<String> resolvedLocale;
+  final Value<int> rowid;
+  const LocalAiSummaryTableCompanion({
+    this.summaryLocalDate = const Value.absent(),
+    this.responseJson = const Value.absent(),
+    this.resolvedLocale = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LocalAiSummaryTableCompanion.insert({
+    required String summaryLocalDate,
+    required String responseJson,
+    required String resolvedLocale,
+    this.rowid = const Value.absent(),
+  }) : summaryLocalDate = Value(summaryLocalDate),
+       responseJson = Value(responseJson),
+       resolvedLocale = Value(resolvedLocale);
+  static Insertable<LocalAiSummaryTableData> custom({
+    Expression<String>? summaryLocalDate,
+    Expression<String>? responseJson,
+    Expression<String>? resolvedLocale,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (summaryLocalDate != null) 'summary_local_date': summaryLocalDate,
+      if (responseJson != null) 'response_json': responseJson,
+      if (resolvedLocale != null) 'resolved_locale': resolvedLocale,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LocalAiSummaryTableCompanion copyWith({
+    Value<String>? summaryLocalDate,
+    Value<String>? responseJson,
+    Value<String>? resolvedLocale,
+    Value<int>? rowid,
+  }) {
+    return LocalAiSummaryTableCompanion(
+      summaryLocalDate: summaryLocalDate ?? this.summaryLocalDate,
+      responseJson: responseJson ?? this.responseJson,
+      resolvedLocale: resolvedLocale ?? this.resolvedLocale,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (summaryLocalDate.present) {
+      map['summary_local_date'] = Variable<String>(summaryLocalDate.value);
+    }
+    if (responseJson.present) {
+      map['response_json'] = Variable<String>(responseJson.value);
+    }
+    if (resolvedLocale.present) {
+      map['resolved_locale'] = Variable<String>(resolvedLocale.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LocalAiSummaryTableCompanion(')
+          ..write('summaryLocalDate: $summaryLocalDate, ')
+          ..write('responseJson: $responseJson, ')
+          ..write('resolvedLocale: $resolvedLocale, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -6199,6 +6499,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $HealthConnectSyncQueueTableTable(this);
   late final $MealLogSyncQueueTableTable mealLogSyncQueueTable =
       $MealLogSyncQueueTableTable(this);
+  late final $LocalAiSummaryTableTable localAiSummaryTable =
+      $LocalAiSummaryTableTable(this);
   late final Index mealInfoAnalysisIdUnique = Index(
     'meal_info_analysis_id_unique',
     'CREATE UNIQUE INDEX meal_info_analysis_id_unique ON meal_info_table (analysis_id)',
@@ -6223,6 +6525,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     localNutritionCacheTable,
     healthConnectSyncQueueTable,
     mealLogSyncQueueTable,
+    localAiSummaryTable,
     mealInfoAnalysisIdUnique,
     healthConnectSyncClientRecordUnique,
     mealLogSyncAnalysisIdUnique,
@@ -9089,6 +9392,200 @@ typedef $$MealLogSyncQueueTableTableProcessedTableManager =
       MealLogSyncQueueTableData,
       PrefetchHooks Function()
     >;
+typedef $$LocalAiSummaryTableTableCreateCompanionBuilder =
+    LocalAiSummaryTableCompanion Function({
+      required String summaryLocalDate,
+      required String responseJson,
+      required String resolvedLocale,
+      Value<int> rowid,
+    });
+typedef $$LocalAiSummaryTableTableUpdateCompanionBuilder =
+    LocalAiSummaryTableCompanion Function({
+      Value<String> summaryLocalDate,
+      Value<String> responseJson,
+      Value<String> resolvedLocale,
+      Value<int> rowid,
+    });
+
+class $$LocalAiSummaryTableTableFilterComposer
+    extends Composer<_$AppDatabase, $LocalAiSummaryTableTable> {
+  $$LocalAiSummaryTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get summaryLocalDate => $composableBuilder(
+    column: $table.summaryLocalDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get responseJson => $composableBuilder(
+    column: $table.responseJson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get resolvedLocale => $composableBuilder(
+    column: $table.resolvedLocale,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$LocalAiSummaryTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $LocalAiSummaryTableTable> {
+  $$LocalAiSummaryTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get summaryLocalDate => $composableBuilder(
+    column: $table.summaryLocalDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get responseJson => $composableBuilder(
+    column: $table.responseJson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get resolvedLocale => $composableBuilder(
+    column: $table.resolvedLocale,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$LocalAiSummaryTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $LocalAiSummaryTableTable> {
+  $$LocalAiSummaryTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get summaryLocalDate => $composableBuilder(
+    column: $table.summaryLocalDate,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get responseJson => $composableBuilder(
+    column: $table.responseJson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get resolvedLocale => $composableBuilder(
+    column: $table.resolvedLocale,
+    builder: (column) => column,
+  );
+}
+
+class $$LocalAiSummaryTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $LocalAiSummaryTableTable,
+          LocalAiSummaryTableData,
+          $$LocalAiSummaryTableTableFilterComposer,
+          $$LocalAiSummaryTableTableOrderingComposer,
+          $$LocalAiSummaryTableTableAnnotationComposer,
+          $$LocalAiSummaryTableTableCreateCompanionBuilder,
+          $$LocalAiSummaryTableTableUpdateCompanionBuilder,
+          (
+            LocalAiSummaryTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $LocalAiSummaryTableTable,
+              LocalAiSummaryTableData
+            >,
+          ),
+          LocalAiSummaryTableData,
+          PrefetchHooks Function()
+        > {
+  $$LocalAiSummaryTableTableTableManager(
+    _$AppDatabase db,
+    $LocalAiSummaryTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer:
+              () => $$LocalAiSummaryTableTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer:
+              () => $$LocalAiSummaryTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer:
+              () => $$LocalAiSummaryTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> summaryLocalDate = const Value.absent(),
+                Value<String> responseJson = const Value.absent(),
+                Value<String> resolvedLocale = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => LocalAiSummaryTableCompanion(
+                summaryLocalDate: summaryLocalDate,
+                responseJson: responseJson,
+                resolvedLocale: resolvedLocale,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String summaryLocalDate,
+                required String responseJson,
+                required String resolvedLocale,
+                Value<int> rowid = const Value.absent(),
+              }) => LocalAiSummaryTableCompanion.insert(
+                summaryLocalDate: summaryLocalDate,
+                responseJson: responseJson,
+                resolvedLocale: resolvedLocale,
+                rowid: rowid,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$LocalAiSummaryTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $LocalAiSummaryTableTable,
+      LocalAiSummaryTableData,
+      $$LocalAiSummaryTableTableFilterComposer,
+      $$LocalAiSummaryTableTableOrderingComposer,
+      $$LocalAiSummaryTableTableAnnotationComposer,
+      $$LocalAiSummaryTableTableCreateCompanionBuilder,
+      $$LocalAiSummaryTableTableUpdateCompanionBuilder,
+      (
+        LocalAiSummaryTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $LocalAiSummaryTableTable,
+          LocalAiSummaryTableData
+        >,
+      ),
+      LocalAiSummaryTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -9114,4 +9611,6 @@ class $AppDatabaseManager {
       );
   $$MealLogSyncQueueTableTableTableManager get mealLogSyncQueueTable =>
       $$MealLogSyncQueueTableTableTableManager(_db, _db.mealLogSyncQueueTable);
+  $$LocalAiSummaryTableTableTableManager get localAiSummaryTable =>
+      $$LocalAiSummaryTableTableTableManager(_db, _db.localAiSummaryTable);
 }

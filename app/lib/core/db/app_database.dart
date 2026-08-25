@@ -16,6 +16,8 @@ import 'package:calorify/core/db/tables/health_connect_sync_queue.dart';
 import 'package:calorify/core/db/tables/meal_info.dart';
 import 'package:calorify/core/db/tables/meal_log_sync_queue.dart';
 import 'package:calorify/core/db/tables/local_nutrition_cache.dart';
+import 'package:calorify/core/db/tables/local_ai_summary.dart';
+import 'package:calorify/core/ai_summary/ai_summary_models.dart';
 import 'package:calorify/core/db/tables/user_preferences.dart';
 import 'package:calorify/core/db/tables/user_profile.dart';
 import 'package:drift/drift.dart';
@@ -38,6 +40,7 @@ part 'app_database.g.dart';
     LocalNutritionCacheTable,
     HealthConnectSyncQueueTable,
     MealLogSyncQueueTable,
+    LocalAiSummaryTable,
   ],
 )
 class AppDatabase extends _$AppDatabase implements DatabaseInterface {
@@ -64,7 +67,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
   // v28 stops mapping the obsolete disclosure-version column. Existing
   // SQLite files may retain it harmlessly, as with earlier removed columns.
   @override
-  int get schemaVersion => 28;
+  int get schemaVersion => 29;
 
   @override
   MigrationStrategy get migration {
@@ -343,6 +346,9 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
               userPreferencesTable.localInferenceEnabled,
             );
           }
+        }
+        if (from < 29) {
+          await m.createTable(localAiSummaryTable);
         }
         if (from < 24) {
           if (!await _tableExists('user_preferences_table')) {
@@ -953,6 +959,62 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       (tbl) => tbl.timestamp.isBiggerOrEqualValue(startOfSevenDaysAgo),
     )).watch().map(
       (rows) => rows.map((row) => MealInfoMapper.fromRow(row)).toList(),
+    );
+  }
+
+  @override
+  Future<List<LoggedMeal>> getMealsBetween(
+    DateTime startInclusive,
+    DateTime endExclusive,
+  ) {
+    return (select(mealInfoTable)
+          ..where(
+            (table) =>
+                table.timestamp.isBiggerOrEqualValue(startInclusive) &
+                table.timestamp.isSmallerThanValue(endExclusive),
+          )
+          ..orderBy([
+            (table) => OrderingTerm(expression: table.timestamp),
+            (table) => OrderingTerm(expression: table.id),
+          ]))
+        .get()
+        .then((rows) => rows.map(MealInfoMapper.fromRow).toList());
+  }
+
+  LocalAiSummary _localSummaryFromRow(LocalAiSummaryTableData row) =>
+      LocalAiSummary(
+        summaryLocalDate: row.summaryLocalDate,
+        response:
+            AiMealSummaryResponse()
+              ..mergeFromProto3Json(jsonDecode(row.responseJson)),
+        resolvedLocale: row.resolvedLocale,
+      );
+
+  @override
+  Future<LocalAiSummary?> getLocalAiSummary(String summaryLocalDate) async {
+    final row =
+        await (select(localAiSummaryTable)..where(
+          (table) => table.summaryLocalDate.equals(summaryLocalDate),
+        )).getSingleOrNull();
+    return row == null ? null : _localSummaryFromRow(row);
+  }
+
+  @override
+  Stream<LocalAiSummary?> watchLocalAiSummary(String summaryLocalDate) {
+    return (select(localAiSummaryTable)
+          ..where((table) => table.summaryLocalDate.equals(summaryLocalDate)))
+        .watchSingleOrNull()
+        .map((row) => row == null ? null : _localSummaryFromRow(row));
+  }
+
+  @override
+  Future<void> saveLocalAiSummary(LocalAiSummary summary) {
+    return into(localAiSummaryTable).insertOnConflictUpdate(
+      LocalAiSummaryTableCompanion.insert(
+        summaryLocalDate: summary.summaryLocalDate,
+        responseJson: jsonEncode(summary.response.toProto3Json()),
+        resolvedLocale: summary.resolvedLocale,
+      ),
     );
   }
 
@@ -1705,6 +1767,7 @@ class AppDatabase extends _$AppDatabase implements DatabaseInterface {
       await delete(localNutritionCacheTable).go();
       await delete(healthConnectSyncQueueTable).go();
       await delete(mealLogSyncQueueTable).go();
+      await delete(localAiSummaryTable).go();
     });
   }
 }

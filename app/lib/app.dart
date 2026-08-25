@@ -12,6 +12,7 @@ import 'package:i18n/i18n.dart';
 import 'package:calorify/shared_widgets/app_banner_shell.dart';
 import 'package:calorify/shared_widgets/easter_egg/cat_overlay.dart';
 import 'package:calorify/shared_widgets/responsive_layout.dart';
+import 'package:calorify/core/ai_summary/ai_summary_lifecycle.dart';
 
 final appRouterProvider = Provider<AppRouter>((ref) {
   final router = AppRouter(
@@ -31,30 +32,34 @@ class CalorifyApp extends ConsumerWidget {
     final t = Translations.of(context);
 
     final flushbarBuilder = FlashyFlushbarProvider.init();
-    return MaterialApp.router(
-      title: t.appLabel(env: EnvConfig.instance.envSuffix),
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: themeMode,
-      locale: TranslationProvider.of(context).locale.flutterLocale,
-      supportedLocales: AppLocaleUtils.supportedLocales,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      builder:
-          (context, child) => FoldAwareAppViewport(
-            child: CatOverlay(
-              child: Builder(
-                builder: (ctx) {
-                  final stacked = AppBannerShell(
-                    child: child ?? const SizedBox.shrink(),
-                  );
-                  return flushbarBuilder != null
-                      ? flushbarBuilder(ctx, stacked)
-                      : stacked;
-                },
+    return AiSummaryLifecycle(
+      child: MaterialApp.router(
+        title: t.appLabel(env: EnvConfig.instance.envSuffix),
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: themeMode,
+        locale: TranslationProvider.of(context).locale.flutterLocale,
+        supportedLocales: AppLocaleUtils.supportedLocales,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        builder:
+            (context, child) => FoldAwareAppViewport(
+              child: CatOverlay(
+                child: Builder(
+                  builder: (ctx) {
+                    final stacked = AppBannerShell(
+                      child: child ?? const SizedBox.shrink(),
+                    );
+                    return flushbarBuilder != null
+                        ? flushbarBuilder(ctx, stacked)
+                        : stacked;
+                  },
+                ),
               ),
             ),
-          ),
-      routerConfig: appRouter.config(navigatorObservers: () => [RouteLogger()]),
+        routerConfig: appRouter.config(
+          navigatorObservers: () => [RouteLogger()],
+        ),
+      ),
     );
   }
 }

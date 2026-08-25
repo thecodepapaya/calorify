@@ -36,6 +36,7 @@ interface Config {
     readonly OPENROUTER_API_KEY: string | null;
     readonly OPENROUTER_BASE_URL: string;
     readonly OPENROUTER_MEAL_MODEL: string;
+    readonly OPENROUTER_AI_SUMMARY_MODEL: string;
     readonly OPENROUTER_FREE_MODEL: string;
     readonly OPENROUTER_HTTP_REFERER: string | null;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
@@ -180,6 +181,10 @@ const config: Config = {
         'OPENROUTER_MEAL_MODEL',
         'openai/gpt-4.1-nano'
     ),
+    OPENROUTER_AI_SUMMARY_MODEL: getEnvVar(
+        'OPENROUTER_AI_SUMMARY_MODEL',
+        ''
+    ),
     // OpenRouter selects a currently available free model that supports the
     // request's capabilities (vision / structured output where required).
     OPENROUTER_FREE_MODEL: getEnvVar('OPENROUTER_FREE_MODEL', 'openrouter/free'),
@@ -216,6 +221,11 @@ if (config.ENVIRONMENT === 'production') {
     }
     if (!config.ORACLE_BUCKET_DOWNLOAD_URL) {
         throw new Error('ORACLE_BUCKET_DOWNLOAD_URL must be set in production');
+    }
+    if (!config.OPENROUTER_API_KEY || !config.OPENROUTER_AI_SUMMARY_MODEL) {
+        throw new Error(
+            'OPENROUTER_API_KEY and OPENROUTER_AI_SUMMARY_MODEL must be set in production'
+        );
     }
 }
 

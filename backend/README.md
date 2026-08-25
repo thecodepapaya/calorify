@@ -75,7 +75,7 @@ npm run usda:refresh
 
 `calories:eval` exercises the deployed HTTP streaming flow, follows controlled clarification choices, and checks calorie ranges, semantic ingredient coverage, completion, stability, and latency. Set `CALORIE_EVAL_AUTH_TOKEN` for authenticated routes. Add `--verbose` for per-case pipeline paths or `--output report.json` to retain a complete artifact. Dataset cases, thresholds, and detailed usage live in `evals/`.
 
-`user:inspect` is a read-only, user-scoped diagnostic report. It shows the profile and locale, the same three-day stats returned with the AI summary, the exact next CSV input used by the summary job, stored summary history, matching batch statuses/errors, recent meal-analysis results, logged values, and feedback. Add `--json` for decomposition, uncertainty, clarification, and complete result objects, or `--limit 25` to expand each history section. The tool deliberately excludes tokens, uploaded-image URLs, and raw request payloads.
+`user:inspect` is a read-only, user-scoped diagnostic report. It shows the profile and locale, daily summary request/result history, bounded provider failure metadata, recent meal-analysis results, logged values, and feedback. Add `--json` for complete stored snapshots and result objects, or `--limit 25` to expand each history section. The tool deliberately excludes tokens and uploaded-image URLs.
 
 ## Model routing
 
@@ -85,7 +85,32 @@ Meal analysis attempts:
 2. `OPENROUTER_FREE_MODEL` via OpenRouter (`openrouter/free` by default).
 3. `OPENAI_MEAL_ANALYSIS_MODEL` via direct OpenAI.
 
-Network errors, rate limits, quota exhaustion, malformed JSON, and schema-invalid responses all advance to the next provider. AI summaries use direct OpenAI separately.
+Network errors, rate limits, quota exhaustion, malformed JSON, and schema-invalid responses all advance to the next provider for meal analysis. Daily AI summaries use only the configured `OPENROUTER_AI_SUMMARY_MODEL`, require strict structured output, and do not fall back to direct OpenAI.
+
+## Daily AI summaries
+
+The phone starts a non-blocking catch-up when the app opens or resumes. It
+builds a bounded snapshot from the previous seven completed local calendar
+days, applies the sparse-data threshold locally, and calls the authenticated
+`POST /api/v1/food/ai-summary/generate` endpoint only when today's local cache
+is empty. The endpoint validates the same boundaries, computes deterministic
+statistics, and asks OpenRouter only for the prose. A completed row is replayed
+for the same Firebase UID and local date without another provider call.
+
+`ai_summaries` is also the retry and concurrency record. Active claims return
+`202` with `Retry-After`, failed claims cool down for 15 minutes, stale claims
+may be recovered after two minutes, and each UID/date is capped at three
+provider attempts. Completion and failure writes include the claimed attempt
+number, preventing a stale worker from modifying a newer claim. The phone
+honors `Retry-After`; an unavailable Firebase token stops before any request and
+does not start its failure cooldown.
+
+The validated request, resolved locale, deterministic statistics, bounded
+failure metadata, provider/model, and generated result remain available through
+`npm run user:inspect -- --user-id FIREBASE_UID`. General logs and metrics do
+not contain the meal snapshot. Product scope and implementation decisions are
+recorded in the
+[AI-summary reliability plan](../docs/plans/ai-summary-reliability.md).
 
 The canonical meal-analysis flow, persistence boundaries, terminal behavior,
 and resume rules are documented in

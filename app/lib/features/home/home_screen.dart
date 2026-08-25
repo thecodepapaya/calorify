@@ -42,7 +42,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     unawaited(_refreshHealthConnectStatus(syncPendingMeals: true));
     _dashboardRefreshTimer = Timer.periodic(const Duration(minutes: 15), (_) {
       if (!mounted) return;
-      ref.invalidate(aiSummaryProvider);
       _refreshCaloriesBurned();
     });
   }
@@ -58,8 +57,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      // A provider batch can finish at any point during the same calendar day.
-      ref.invalidate(aiSummaryProvider);
       _refreshDateSensitiveData();
       unawaited(_refreshHealthConnectStatus(syncPendingMeals: true));
     }

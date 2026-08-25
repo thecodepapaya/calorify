@@ -1,51 +1,26 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { computeAiSummaryStats } from './aiSummaryStats.js';
+import { computeAiSummaryStats, isAiSummaryEligible, type AiSummaryMeal } from './aiSummaryStats.js';
 
-test('computeAiSummaryStats returns the API empty state', () => {
-  assert.deepEqual(computeAiSummaryStats([]), {
-    mealCount: 0,
-    topFoods: [],
-    macroBalanceScore: 0,
-    trend: 'STEADY',
-  });
+function meal(date: string, name = ' Dal   Rice ', calories = 500): AiSummaryMeal {
+  return { loggedAt: `${date}T12:00:00+05:30`, name, mealType: 'LUNCH', calories, protein: 20, carbs: 60, fat: 15, fiber: 8 };
+}
+
+test('sparse eligibility supports both thresholds and rejects just-below cases', () => {
+  assert.equal(isAiSummaryEligible([meal('2026-08-24'), meal('2026-08-24')], '2026-08-25', 'Asia/Kolkata'), true);
+  assert.equal(isAiSummaryEligible([meal('2026-08-24'), meal('2026-08-23'), meal('2026-08-22')], '2026-08-25', 'Asia/Kolkata'), true);
+  assert.equal(isAiSummaryEligible([meal('2026-08-24'), meal('2026-08-23')], '2026-08-25', 'Asia/Kolkata'), false);
 });
 
-test('computeAiSummaryStats ranks foods and calculates a bounded score', () => {
-  const now = new Date();
-  const stats = computeAiSummaryStats([
-    {
-      logged_at: now,
-      logged_meal_name: 'Dal rice',
-      logged_meal_type: 'LUNCH',
-      logged_calories: 450,
-      logged_protein: 20,
-      logged_carbs: 65,
-      logged_fat: 12,
-      logged_fiber: 8,
-    },
-    {
-      logged_at: now,
-      logged_meal_name: 'Dal rice',
-      logged_meal_type: 'DINNER',
-      logged_calories: 420,
-      logged_protein: 18,
-      logged_carbs: 62,
-      logged_fat: 11,
-      logged_fiber: 7,
-    },
-    {
-      logged_at: now,
-      logged_meal_name: 'Oats',
-      logged_meal_type: 'BREAKFAST',
-      logged_calories: 300,
-      logged_protein: 12,
-      logged_carbs: 48,
-      logged_fat: 7,
-      logged_fiber: 6,
-    },
-  ]);
-  assert.equal(stats.mealCount, 3);
-  assert.deepEqual(stats.topFoods, ['Dal rice', 'Oats']);
-  assert.ok(stats.macroBalanceScore >= 0 && stats.macroBalanceScore <= 100);
+test('statistics group food names case-insensitively and require trend coverage', () => {
+  const meals = [
+    meal('2026-08-24'), meal('2026-08-23', 'dal rice'),
+    meal('2026-08-22', 'Soup', 600), meal('2026-08-21', 'Soup', 300),
+    meal('2026-08-20', 'Salad', 300),
+  ];
+  const stats = computeAiSummaryStats(meals, '2026-08-25', 'Asia/Kolkata');
+  assert.deepEqual(stats.topFoods, ['Dal Rice', 'Soup', 'Salad']);
+  assert.equal(stats.mealCount, 5);
+  assert.equal(stats.trend, 'UP');
+  assert.equal(computeAiSummaryStats([meal('2026-08-24')], '2026-08-25', 'Asia/Kolkata').trend, 'UNSPECIFIED');
 });

@@ -5,6 +5,7 @@ import 'package:calorify/core/services/health_service.dart';
 import 'package:calorify/core/services/meal_log_sync_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:models/models.dart';
+import 'package:i18n/i18n.dart';
 
 // local-inference consumers are intentionally outside this change and still
 // import this library for database access. Keep object identity while avoiding
@@ -36,10 +37,26 @@ final dailyCalorieGoalProvider = StreamProvider.autoDispose<int?>((ref) {
   return ref.watch(databaseInterfaceProvider).watchDailyCalorieGoal();
 });
 
+final activeAppLocaleProvider = StreamProvider<AppLocale>((ref) async* {
+  yield LocaleSettings.currentLocale;
+  yield* LocaleSettings.getLocaleStream();
+});
+
 final aiSummaryProvider = FutureProvider.autoDispose<AiMealSummaryResponse?>((
   ref,
-) {
-  return ref.watch(foodRepositoryProvider).getAiSummary();
+) async {
+  final now = DateTime.now();
+  final date =
+      '${now.year.toString().padLeft(4, '0')}-'
+      '${now.month.toString().padLeft(2, '0')}-'
+      '${now.day.toString().padLeft(2, '0')}';
+  final locale =
+      ref.watch(activeAppLocaleProvider).value?.flutterLocale.toLanguageTag() ??
+      LocaleSettings.currentLocale.flutterLocale.toLanguageTag();
+  final row = await ref
+      .watch(databaseInterfaceProvider)
+      .getLocalAiSummary(date);
+  return row?.resolvedLocale == locale ? row?.response : null;
 });
 
 final userProfileProvider = FutureProvider.autoDispose<UserProfile?>((ref) {

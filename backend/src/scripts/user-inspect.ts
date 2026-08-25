@@ -28,23 +28,14 @@ export function formatUserObservabilityReport(report: UserObservabilityReport): 
   lines.push('');
   lines.push('AI summary');
   lines.push(`Model: ${report.aiSummary.model}`);
-  lines.push(`API stats: ${pretty(report.aiSummary.apiStats)}`);
   lines.push(
     report.aiSummary.latest
-      ? `Latest (${report.aiSummary.latest.generatedAt}, ${report.aiSummary.latest.mealCount} meals): ${report.aiSummary.latest.summary}`
+      ? `Latest (${report.aiSummary.latest.generatedAt}, ${report.aiSummary.latest.status}): ${report.aiSummary.latest.summary}`
       : 'Latest: no stored summary'
   );
-  lines.push(`Stored summaries: ${report.aiSummary.history.length}; matching batches: ${report.aiSummary.batches.length}`);
-  for (const batch of report.aiSummary.batches) {
-    lines.push(`  ${batch.batchId} | ${batch.status} | submitted ${batch.submittedAt}${batch.error ? ` | error: ${batch.error}` : ''}`);
-  }
-  lines.push('');
-  lines.push('Exact next summary input (same 3-day collector used by the job)');
-  if (report.aiSummary.nextModelInput.eligible) {
-    lines.push(`Locale: ${report.aiSummary.nextModelInput.locale}; meals: ${report.aiSummary.nextModelInput.mealCount}`);
-    lines.push(report.aiSummary.nextModelInput.csv);
-  } else {
-    lines.push('Not eligible: no qualifying logged meals');
+  lines.push(`Stored summaries: ${report.aiSummary.history.length}`);
+  for (const summary of report.aiSummary.history) {
+    lines.push(`  ${summary.summaryLocalDate ?? 'legacy'} | ${summary.status} | attempts ${summary.attemptCount}${summary.lastErrorCode ? ` | error: ${summary.lastErrorCode}` : ''}`);
   }
   lines.push('');
   lines.push('Meal analysis');

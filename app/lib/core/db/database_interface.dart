@@ -1,6 +1,7 @@
 import 'package:models/models.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 import 'package:calorify/core/db/local_nutrition_cache_entry.dart';
+import 'package:calorify/core/ai_summary/ai_summary_models.dart';
 
 enum DataSourceType { real, mock }
 
@@ -166,6 +167,17 @@ abstract class DatabaseInterface {
 
   /// Watch all meals for last 7 days (stream) - only works with real database
   Stream<List<LoggedMeal>> watchAllMealsForLast7Days();
+
+  Future<List<LoggedMeal>> getMealsBetween(
+    DateTime startInclusive,
+    DateTime endExclusive,
+  );
+
+  Future<LocalAiSummary?> getLocalAiSummary(String summaryLocalDate);
+
+  Stream<LocalAiSummary?> watchLocalAiSummary(String summaryLocalDate);
+
+  Future<void> saveLocalAiSummary(LocalAiSummary summary);
 
   /// Watch all favorite meals (stream) - only works with real database
   Stream<List<FavoriteMeal>> watchAllFavoriteMeals();

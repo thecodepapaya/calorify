@@ -193,10 +193,11 @@ describe('Health routes', () => {
 // ---------------------------------------------------------------------------
 
 describe('Route registration', () => {
-  it('GET /api/v1/food/ai-summary without auth returns 401', async () => {
+  it('POST /api/v1/food/ai-summary/generate without auth returns 401', async () => {
     const res = await app.inject({
-      method: 'GET',
-      url: '/api/v1/food/ai-summary',
+      method: 'POST',
+      url: '/api/v1/food/ai-summary/generate',
+      payload: {},
     });
     assert.equal(res.statusCode, 401);
   });
@@ -523,7 +524,7 @@ describe('Rate limit response format', () => {
       // App startup can fetch both of these repeatedly. They must not consume
       // the 30-per-hour / 100-per-day budget reserved for analysis starts.
       for (let requestNumber = 1; requestNumber <= 50; requestNumber += 1) {
-        assert.equal((await requestFood('/api/v1/food/ai-summary')).statusCode, 200);
+        assert.equal((await requestFood('/api/v1/food/meal-analysis-tips')).statusCode, 200);
         assert.equal((await requestFood('/api/v2/food/local-capabilities')).statusCode, 200);
       }
     } finally {

@@ -1,14 +1,15 @@
 import { AiMealSummaryTrend } from '../protos/calorify/ai_meal_summary_trend.js';
+import { calendarDateInTimeZone } from '../utils/timezone.js';
 
-export interface AiSummaryMealRow {
-  logged_at: Date | string;
-  logged_meal_name: string | null;
-  logged_meal_type: string | null;
-  logged_calories: number | null;
-  logged_protein: number | null;
-  logged_carbs: number | null;
-  logged_fat: number | null;
-  logged_fiber: number | null;
+export interface AiSummaryMeal {
+  loggedAt: string;
+  name: string;
+  mealType: 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK';
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
 }
 
 export interface AiSummaryStats {
@@ -18,83 +19,88 @@ export interface AiSummaryStats {
   trend: AiMealSummaryTrend;
 }
 
-function toMillis(value: Date | string): number {
-  return value instanceof Date ? value.getTime() : new Date(value).getTime();
+function addDays(date: string, days: number): string {
+  const value = new Date(`${date}T12:00:00Z`);
+  value.setUTCDate(value.getUTCDate() + days);
+  return value.toISOString().slice(0, 10);
 }
 
-export function computeAiSummaryStats(meals: AiSummaryMealRow[]): AiSummaryStats {
-  if (meals.length === 0) {
-    return {
-      mealCount: 0,
-      topFoods: [] as string[],
-      macroBalanceScore: 0,
-      trend: AiMealSummaryTrend.STEADY,
-    };
+function averageDailyCalories(meals: AiSummaryMeal[], dates: Set<string>, timeZone: string) {
+  const totals = new Map<string, number>();
+  for (const meal of meals) {
+    const date = calendarDateInTimeZone(new Date(meal.loggedAt), timeZone);
+    if (dates.has(date)) totals.set(date, (totals.get(date) ?? 0) + meal.calories);
   }
+  const values = [...totals.values()];
+  return {
+    average: values.reduce((a, b) => a + b, 0) / 3,
+    coveredDays: values.length,
+  };
+}
 
-  const foodCounts = new Map<string, number>();
+export function computeAiSummaryStats(
+  meals: AiSummaryMeal[],
+  summaryLocalDate: string,
+  timeZone: string
+): AiSummaryStats {
+  const foods = new Map<string, { name: string; count: number }>();
   let proteinCalories = 0;
   let carbCalories = 0;
   let fatCalories = 0;
-
-  const previousMeals = meals.filter(
-    (meal) => Date.now() - toMillis(meal.logged_at) > 24 * 60 * 60 * 1000
-  );
-  const latestMeals = meals.filter(
-    (meal) => Date.now() - toMillis(meal.logged_at) <= 24 * 60 * 60 * 1000
-  );
-
   for (const meal of meals) {
-    const name = meal.logged_meal_name?.trim();
+    const name = meal.name.trim().replace(/\s+/g, ' ');
     if (name) {
-      foodCounts.set(name, (foodCounts.get(name) ?? 0) + 1);
+      const key = name.toLocaleLowerCase('en');
+      const current = foods.get(key);
+      foods.set(key, { name: current?.name ?? name, count: (current?.count ?? 0) + 1 });
     }
-    proteinCalories += (meal.logged_protein ?? 0) * 4;
-    carbCalories += (meal.logged_carbs ?? 0) * 4;
-    fatCalories += (meal.logged_fat ?? 0) * 9;
+    proteinCalories += meal.protein * 4;
+    carbCalories += meal.carbs * 4;
+    fatCalories += meal.fat * 9;
   }
-
-  const topFoods = [...foodCounts.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  const topFoods = [...foods.values()]
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
     .slice(0, 3)
-    .map(([name]) => name);
+    .map((food) => food.name);
+  const total = proteinCalories + carbCalories + fatCalories;
+  const deviation = total === 0 ? 1 :
+    Math.abs(carbCalories / total - 0.5) +
+    Math.abs(proteinCalories / total - 0.2) +
+    Math.abs(fatCalories / total - 0.3);
+  const macroBalanceScore = total === 0
+    ? 0
+    : Math.max(0, Math.min(100, Math.round(100 - deviation * 120)));
 
-  const totalMacroCalories = proteinCalories + carbCalories + fatCalories;
-  let macroBalanceScore = 0;
-  if (totalMacroCalories > 0) {
-    const carbRatio = carbCalories / totalMacroCalories;
-    const proteinRatio = proteinCalories / totalMacroCalories;
-    const fatRatio = fatCalories / totalMacroCalories;
-    const deviation =
-      Math.abs(carbRatio - 0.5) +
-      Math.abs(proteinRatio - 0.2) +
-      Math.abs(fatRatio - 0.3);
-    macroBalanceScore = Math.max(0, Math.min(100, Math.round(100 - deviation * 120)));
+  const latestDates = new Set([-1, -2, -3].map((days) => addDays(summaryLocalDate, days)));
+  const previousDates = new Set([-4, -5, -6].map((days) => addDays(summaryLocalDate, days)));
+  const latest = averageDailyCalories(meals, latestDates, timeZone);
+  const previous = averageDailyCalories(meals, previousDates, timeZone);
+  let trend: AiMealSummaryTrend = AiMealSummaryTrend.UNSPECIFIED;
+  if (latest.coveredDays >= 2 && previous.coveredDays >= 2 && previous.average > 0) {
+    const change = (latest.average - previous.average) / previous.average;
+    trend = change >= 0.1 ? AiMealSummaryTrend.UP
+      : change <= -0.1 ? AiMealSummaryTrend.DOWN : AiMealSummaryTrend.STEADY;
   }
+  return { mealCount: meals.length, topFoods, macroBalanceScore, trend };
+}
 
-  const averageCalories = (items: AiSummaryMealRow[]) => {
-    if (items.length === 0) return 0;
-    return (
-      items.reduce((sum, item) => sum + (item.logged_calories ?? 0), 0) / items.length
-    );
-  };
-
-  const previousAverage = averageCalories(previousMeals);
-  const latestAverage = averageCalories(latestMeals);
-  let trend: AiMealSummaryTrend = AiMealSummaryTrend.STEADY;
-  if (previousAverage > 0 && latestAverage > 0) {
-    const change = (latestAverage - previousAverage) / previousAverage;
-    if (change >= 0.1) {
-      trend = AiMealSummaryTrend.UP;
-    } else if (change <= -0.1) {
-      trend = AiMealSummaryTrend.DOWN;
-    }
+export function isAiSummaryEligible(
+  meals: AiSummaryMeal[],
+  summaryLocalDate: string,
+  timeZone: string
+): boolean {
+  const yesterday = addDays(summaryLocalDate, -1);
+  const lastFour = new Set([-1, -2, -3, -4].map((days) => addDays(summaryLocalDate, days)));
+  let yesterdayCount = 0;
+  let lastFourCount = 0;
+  for (const meal of meals) {
+    const date = calendarDateInTimeZone(new Date(meal.loggedAt), timeZone);
+    if (date === yesterday) yesterdayCount++;
+    if (lastFour.has(date)) lastFourCount++;
   }
+  return yesterdayCount >= 2 || lastFourCount >= 3;
+}
 
-  return {
-    mealCount: meals.length,
-    topFoods,
-    macroBalanceScore,
-    trend,
-  };
+export function summaryWindowDates(summaryLocalDate: string) {
+  return { start: addDays(summaryLocalDate, -7), end: summaryLocalDate };
 }

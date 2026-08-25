@@ -1,8 +1,5 @@
-import { OPENAI_AI_SUMMARY_MODEL } from '../openaiModels.js';
-import { collectMealDataForUser } from './aiSummaryService.js';
-import { computeAiSummaryStats, type AiSummaryMealRow } from './aiSummaryStats.js';
+import config from '../config.js';
 import { query } from './database.js';
-import { resolveTimeZone } from '../utils/timezone.js';
 
 interface UserProfileRow {
   height: string | number | null;
@@ -53,20 +50,21 @@ interface AnalysisRow {
 }
 
 interface SummaryRow {
-  summary: string;
-  locale: string;
-  meal_count: number;
-  generated_at: Date | string;
-}
-
-interface BatchRow {
-  openai_batch_id: string;
+  summary: string | null;
+  summary_local_date: Date | string | null;
   status: string;
-  request_count: number;
-  user_meta: unknown;
-  submitted_at: Date | string;
-  completed_at: Date | string | null;
-  error: string | null;
+  request_snapshot: unknown;
+  requested_locale: string | null;
+  locale: string;
+  stats_snapshot: unknown;
+  requested_at: Date | string | null;
+  generated_at: Date | string | null;
+  provider: string | null;
+  model: string | null;
+  provider_request_id: string | null;
+  attempt_count: number;
+  last_error_code: string | null;
+  processing_started_at: Date | string | null;
 }
 
 interface FeedbackRow {
@@ -130,17 +128,6 @@ export async function inspectUser(
     [normalizedUserId]
   );
 
-  const { rows: summaryMeals } = await query<AiSummaryMealRow>(
-    `SELECT logged_at, logged_meal_name, logged_meal_type, logged_calories,
-            logged_protein, logged_carbs, logged_fat, logged_fiber
-       FROM meal_analysis_session
-      WHERE user_id = $1
-        AND logged_at >= NOW() - INTERVAL '3 days'
-        AND logged_at IS NOT NULL
-      ORDER BY logged_at DESC`,
-    [normalizedUserId]
-  );
-
   const { rows: analyses } = await query<AnalysisRow>(
     `SELECT analysis_id, parent_analysis_id, source, locale, country_code, time_zone,
             selected_meal_type, selected_meal_type_source,
@@ -157,34 +144,13 @@ export async function inspectUser(
   );
 
   const { rows: summaries } = await query<SummaryRow>(
-    `SELECT summary, locale, meal_count, generated_at
+    `SELECT summary, summary_local_date, status, request_snapshot,
+            requested_locale, locale, stats_snapshot, requested_at, generated_at,
+            provider, model, provider_request_id, attempt_count, last_error_code,
+            processing_started_at
        FROM ai_summaries
       WHERE user_id = $1
-      ORDER BY generated_at DESC
-      LIMIT $2`,
-    [normalizedUserId, limit]
-  );
-
-  const { rows: batches } = await query<BatchRow>(
-    `SELECT openai_batch_id, status, request_count,
-            COALESCE(
-              user_data -> $1,
-              (
-                SELECT batch_user.metadata
-                  FROM jsonb_each(user_data) AS batch_user(_custom_id, metadata)
-                 WHERE batch_user.metadata ->> 'userId' = $1
-                 LIMIT 1
-              )
-            ) AS user_meta,
-            submitted_at, completed_at, error
-       FROM ai_summary_batches
-      WHERE user_data ? $1
-         OR EXISTS (
-              SELECT 1
-                FROM jsonb_each(user_data) AS batch_user(_custom_id, metadata)
-               WHERE batch_user.metadata ->> 'userId' = $1
-            )
-      ORDER BY submitted_at DESC
+      ORDER BY COALESCE(requested_at, generated_at) DESC
       LIMIT $2`,
     [normalizedUserId, limit]
   );
@@ -203,18 +169,12 @@ export async function inspectUser(
   );
 
   const locale = analyses[0]?.locale ?? summaries[0]?.locale ?? 'en';
-  const timeZone = resolveTimeZone(
-    analyses[0]?.time_zone ?? undefined,
-    analyses[0]?.country_code ?? undefined
-  );
-  const modelInput = await collectMealDataForUser(normalizedUserId, locale, timeZone);
   const profile = profiles[0];
   const overview = overviewRows[0];
   const sources = [
     profile ? 'profile' : null,
     Number(overview?.analysis_count ?? 0) > 0 ? 'meal_analysis' : null,
     summaries.length > 0 ? 'ai_summary' : null,
-    batches.length > 0 ? 'ai_summary_batch' : null,
     feedback.length > 0 ? 'feedback' : null,
   ].filter((source): source is string => source != null);
 
@@ -243,34 +203,32 @@ export async function inspectUser(
         : null,
     },
     aiSummary: {
-      model: OPENAI_AI_SUMMARY_MODEL,
-      windowDays: 3,
-      apiStats: computeAiSummaryStats(summaryMeals),
-      nextModelInput: modelInput
-        ? { eligible: true, locale: modelInput.locale, mealCount: modelInput.mealCount, csv: modelInput.csv }
-        : { eligible: false, locale, mealCount: 0, csv: '' },
+      model: config.OPENROUTER_AI_SUMMARY_MODEL,
+      windowDays: 7,
       latest: summaries[0]
         ? {
             summary: summaries[0].summary,
             locale: summaries[0].locale,
-            mealCount: summaries[0].meal_count,
+            status: summaries[0].status,
+            statistics: summaries[0].stats_snapshot,
             generatedAt: iso(summaries[0].generated_at),
           }
         : null,
       history: summaries.map((row) => ({
-        summary: row.summary,
-        locale: row.locale,
-        mealCount: row.meal_count,
-        generatedAt: iso(row.generated_at),
-      })),
-      batches: batches.map((row) => ({
-        batchId: row.openai_batch_id,
+        summaryLocalDate: calendarDate(row.summary_local_date),
         status: row.status,
-        requestCount: row.request_count,
-        userMetadata: row.user_meta,
-        submittedAt: iso(row.submitted_at),
-        completedAt: iso(row.completed_at),
-        error: row.error,
+        requestSnapshot: row.request_snapshot,
+        result: row.summary ? { summary: row.summary, statistics: row.stats_snapshot } : null,
+        requestedLocale: row.requested_locale,
+        resolvedLocale: row.locale,
+        requestedAt: iso(row.requested_at),
+        generatedAt: iso(row.generated_at),
+        provider: row.provider,
+        model: row.model,
+        providerRequestId: row.provider_request_id,
+        attemptCount: row.attempt_count,
+        lastErrorCode: row.last_error_code,
+        processingStartedAt: iso(row.processing_started_at),
       })),
     },
     mealAnalysis: {

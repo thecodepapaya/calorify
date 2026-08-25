@@ -15,7 +15,6 @@
         "calories:eval": "tsx src/scripts/calorie-estimation-eval.ts",
         "meal-analysis": "tsx src/scripts/meal-analysis-cli.ts",
         "push-banner": "tsx src/scripts/push-banner.ts",
-        "ai-summary:run": "tsx src/scripts/ai-summary-run.ts",
         "user:inspect": "tsx src/scripts/user-inspect.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
         "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",
@@ -39,7 +38,6 @@
         "dotenv": "^16.4.5",
         "fastify": "^4.26.2",
         "firebase-admin": "^12.6.0",
-        "node-cron": "^4.2.1",
         "openai": "^4.28.0",
         "pg": "^8.11.3",
         "prom-client": "^15.1.3",
@@ -48,7 +46,6 @@
     },
     "devDependencies": {
         "@types/node": "^20.14.12",
-        "@types/node-cron": "^3.0.11",
         "@types/pg": "^8.11.0",
         "@typescript-eslint/eslint-plugin": "^7.15.0",
         "@typescript-eslint/parser": "^7.15.0",

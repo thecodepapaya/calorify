@@ -3,6 +3,7 @@ import 'package:calorify/core/db/database_interface.dart';
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:models/models.dart';
+import 'package:calorify/core/ai_summary/ai_summary_models.dart';
 
 String _legacyMealTableSql(
   String tableName, {
@@ -147,6 +148,47 @@ void main() {
 
     final meals = await database.paginatedMealsHistory(offset: 0);
     expect(meals, hasLength(1));
+  });
+
+  test('completed-day query applies both bounds and stable ordering', () async {
+    final start = DateTime(2026, 8, 18);
+    final end = DateTime(2026, 8, 25);
+    await database.logMeal(
+      _meal('before'),
+      loggedAt: start.subtract(const Duration(minutes: 1)),
+    );
+    await database.logMeal(_meal('first'), loggedAt: start);
+    await database.logMeal(
+      _meal('last'),
+      loggedAt: end.subtract(const Duration(minutes: 1)),
+    );
+    await database.logMeal(_meal('today'), loggedAt: end);
+
+    final meals = await database.getMealsBetween(start, end);
+    expect(meals.map((meal) => meal.meal.name), ['first', 'last']);
+  });
+
+  test('local AI summary cache round-trips and clear-all removes it', () async {
+    final cached = LocalAiSummary(
+      summaryLocalDate: '2026-08-25',
+      resolvedLocale: 'hi',
+      response: AiMealSummaryResponse(
+        summary: 'सारांश',
+        generatedAt: '2026-08-25T10:00:00Z',
+        mealCount: 3,
+        topFoods: ['Dal'],
+        macroBalanceScore: 80,
+        trend: AiMealSummaryTrend.UNSPECIFIED,
+      ),
+    );
+    await database.saveLocalAiSummary(cached);
+    expect(
+      (await database.getLocalAiSummary('2026-08-25'))?.response.summary,
+      'सारांश',
+    );
+
+    await database.clearAllData();
+    expect(await database.getLocalAiSummary('2026-08-25'), isNull);
   });
 
   test(
@@ -761,6 +803,20 @@ void main() {
       WHERE type = 'index' AND name = 'meal_log_sync_analysis_id_unique'
     ''').get();
     expect(indexes, hasLength(1));
+  });
+
+  test('v28 upgrade creates the local AI summary cache', () async {
+    await database.close();
+    database = AppDatabase.forTesting(
+      NativeDatabase.memory(
+        setup: (rawDatabase) {
+          rawDatabase.execute('PRAGMA user_version = 28');
+        },
+      ),
+    );
+
+    await database.customSelect('SELECT 1').get();
+    expect(await _tableExists(database, 'local_ai_summary_table'), isTrue);
   });
 
   test(

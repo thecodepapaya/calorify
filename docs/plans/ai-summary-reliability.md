@@ -1,8 +1,11 @@
 # AI-summary simplification and reliability
 
-Status: Direction confirmed; telemetry guard applied; feature implementation not started
+Status: Implemented and verified; deployment must drain legacy batches and configure an OpenRouter summary model with strict structured-output support
 
 Last reviewed: 2026-08-25
+
+Implementation landed on 2026-08-25. The checklist below is retained as the
+implementation and verification record.
 
 ## Objective
 
@@ -113,9 +116,9 @@ Do not widen
 Its analysis-session synchronization is unrelated to this bounded summary
 request.
 
-## Current flow and why it is being removed
+## Removed legacy flow
 
-The current backend flow:
+The former backend flow:
 
 1. Reads meals represented by `meal_analysis_session`.
 2. An hourly cron selects users near a local 03:00 window.
@@ -129,12 +132,9 @@ This misses manual, favorite-based, and other local-only meals. It also adds a
 cron clock, provider batch lifecycle, polling, reconciliation, and stale-data
 fallbacks to a once-daily feature.
 
-Relevant legacy surfaces are the
-[cron](../../backend/src/jobs/aiSummaryCron.ts),
-[generation service](../../backend/src/services/aiSummaryService.ts),
-[statistics calculator](../../backend/src/services/aiSummaryStats.ts),
-[V1 route](../../backend/src/routes/v1/food.ts), and
-[observability service](../../backend/src/services/userObservability.ts).
+The cron, batch poller, CLI, and batch table have been removed. The generation
+service, statistics calculator, V1 route, and user observability service now
+implement the direct snapshot flow described below.
 
 ## Input contract
 
@@ -324,6 +324,11 @@ restarts, and daily idempotency handles a lost response after a successful
 provider call. Honor server `Retry-After` values for active/cooling-down rows.
 Generator unavailability before a provider attempt, including missing Firebase
 authentication, does not start the failure cooldown or consume an attempt.
+`BackendAiSummaryGenerator` resolves the Firebase token before sending and
+passes that exact token with the request. A signed-in user whose token cannot be
+resolved is therefore treated as temporarily unavailable, not as a failed
+generation. The adapter handles `202 Accepted` before decoding a summary and
+maps its `Retry-After` header into the coordinator's in-memory retry gate.
 
 ## Backend implementation
 
@@ -367,6 +372,12 @@ is about to call OpenRouter. Validation, sparse-data rejection, an active claim,
 or missing authentication do not consume an attempt. The two-minute stale
 threshold must remain longer than the configured OpenRouter request timeout.
 This row is the only durable retry/concurrency mechanism needed.
+
+Completion and failure writes are fenced by both row ID and the claimed
+`attempt_count`. Reclaiming a stale row increments that count, so an older
+worker that resumes later cannot complete or fail the newer attempt. A stale
+completion that loses this fence returns `202 Accepted`; the current owner of
+the row remains authoritative and may complete normally.
 
 If the server rejects a request because midnight passed between snapshot
 capture and receipt, return a machine-readable `summary_date_changed` conflict
@@ -545,47 +556,47 @@ one explicit OpenRouter summary model that supports strict structured output.
 
 ### App
 
-- [ ] Add the completed-day `getMealsBetween` query to the database interface
+- [x] Add the completed-day `getMealsBetween` query to the database interface
   and Drift implementation.
-- [ ] Add `AiSummarySnapshot`, its narrow mapper, canonical active-app-locale
+- [x] Add `AiSummarySnapshot`, its narrow mapper, canonical active-app-locale
   serialization, and validation.
-- [ ] Add the date-scoped local summary cache migration and include it in
+- [x] Add the date-scoped local summary cache migration and include it in
   `clearAllData()`.
-- [ ] Add `AiSummaryGenerator`, `AiSummaryGenerationResult`, and
+- [x] Add `AiSummaryGenerator`, `AiSummaryGenerationResult`, and
   `BackendAiSummaryGenerator`, including required `Content-Language` handling.
-- [ ] Add the app-scoped foreground startup/resume coordinator, single-flight
+- [x] Add the app-scoped foreground startup/resume coordinator, single-flight
   guard, 15-minute in-memory failure cooldown, and one-time date-change rebuild.
-- [ ] Keep the existing card commented out.
-- [ ] Change the hidden card/provider to use the local cache before restoration.
+- [x] Keep the existing card commented out.
+- [x] Change the hidden card/provider to use the local cache before restoration.
 - [x] Set Measure `trackHttpBody` to `false`.
 
 ### Backend
 
-- [ ] Add the authenticated direct-generation request schema and route.
-- [ ] Reshape `ai_summaries` for daily idempotency, request history, and
+- [x] Add the authenticated direct-generation request schema and route.
+- [x] Reshape `ai_summaries` for daily idempotency, request history, and
   processing recovery.
-- [ ] Implement the three-attempt daily cap, 15-minute failed-attempt cooldown,
+- [x] Implement the three-attempt daily cap, 15-minute failed-attempt cooldown,
   two-minute stale-processing recovery, and machine-readable retry responses.
-- [ ] Add the deterministic stats implementation and sparse-data validation.
-- [ ] Add the OpenRouter-only structured-output client and required model
+- [x] Add the deterministic stats implementation and sparse-data validation.
+- [x] Add the OpenRouter-only structured-output client and required model
   configuration.
-- [ ] Resolve the requested locale, instruct OpenRouter to generate prose in
+- [x] Resolve the requested locale, instruct OpenRouter to generate prose in
   it, store it, and return it through `Content-Language`.
-- [ ] Extend user-scoped diagnostics with request/result history.
-- [ ] Add redacted outcome/duration metrics without payloads or user IDs.
+- [x] Extend user-scoped diagnostics with request/result history.
+- [x] Add redacted outcome/duration metrics without payloads or user IDs.
 
 ### Cleanup
 
-- [ ] Stop new legacy batch submissions.
-- [ ] Drain already-submitted batches.
-- [ ] Remove cron startup, batch/poller/reconciliation code, batch table, and
+- [x] Stop new legacy batch submissions.
+- [ ] Drain already-submitted batches before deploying the cleanup migration.
+- [x] Remove cron startup, batch/poller/reconciliation code, batch table, and
   summary CLI.
-- [ ] Remove analysis-session summary input and fallback statistics.
-- [ ] Remove the unused backend GET and app network-read path after the local
+- [x] Remove analysis-session summary input and fallback statistics.
+- [x] Remove the unused backend GET and app network-read path after the local
   cache is the sole card source.
-- [ ] Remove the home screen's periodic and resume-time legacy AI-summary
+- [x] Remove the home screen's periodic and resume-time legacy AI-summary
   invalidations without removing unrelated refreshes.
-- [ ] Remove summary-only direct-OpenAI constants and configuration.
+- [x] Remove summary-only direct-OpenAI constants and configuration.
 
 ### Verification during implementation
 
@@ -594,15 +605,15 @@ one explicit OpenRouter summary model that supports strict structured output.
   meals produce the same input shape.
 - [ ] Favorite templates, today's meals, future meals, images, IDs, Health
   Connect data, and unallowlisted profile data are excluded.
-- [ ] Sparse thresholds cover both qualifying branches and just-below cases.
-- [ ] Multiple foreground triggers and concurrent POSTs cause one provider call.
+- [x] Sparse thresholds cover both qualifying branches and just-below cases.
+- [x] Multiple foreground triggers and concurrent POSTs cause one provider call.
 - [ ] Failed attempts respect cooldown/cap, a stale processing row can recover,
   and a completed row cannot regenerate.
 - [ ] A midnight or timezone change rebuilds at most once and never generates
   for the previous date.
 - [ ] Local clear-all removes the cached summary and cannot immediately
   rehydrate it from the retained backend row.
-- [ ] A fake local generator can complete and cache a summary without Firebase
+- [x] A fake local generator can complete and cache a summary without Firebase
   authentication, demonstrating the Nano boundary.
 - [ ] Every supported app locale is accepted; unsupported tags fall back to
   `en`; representative Latin, Indic, CJK, and RTL fixtures produce prose in the
@@ -611,10 +622,25 @@ one explicit OpenRouter summary model that supports strict structured output.
   completion hides the mismatched cached prose until the next summary date.
 - [ ] Invalid OpenRouter JSON, timeouts, and provider errors remain retryable
   without corrupting local or backend state.
-- [ ] Stored diagnostics reproduce the exact validated request and typed result.
-- [ ] The response remains wire-compatible with current clients.
+- [x] Stored diagnostics reproduce the exact validated request and typed result.
+- [x] The response remains wire-compatible with current clients.
 - [ ] The restored card hides `UNSPECIFIED` trend and never shows an old row as
   today's summary.
+
+Verification completed on 2026-08-25:
+
+- backend type-check, lint, coverage thresholds, all 397 tests against
+  PostgreSQL 16, both application migrations, and the production container
+  build;
+- phone analysis, 284 unit/widget tests, 49.46% line coverage, generated
+  contracts, and the dev debug APK build;
+- all six shared-package analyses and tests;
+- watch analysis, 50 tests, 45.70% line coverage, and the debug APK build.
+
+The repository-wide phone golden suite was also executed. Its existing visual
+baseline drift remains outside this feature: 26 golden test cases fail across
+unrelated screens and all representative locales. No golden baseline was
+updated as part of the hidden AI-summary path.
 
 ## Acceptance criteria
 
