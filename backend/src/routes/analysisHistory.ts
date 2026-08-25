@@ -255,7 +255,7 @@ function auditSection(entry: AnalysisHistoryEntry): string {
   return `<section class="audit-section"><div class="section-title"><span>User actions & durable audit</span><small>Clarifications, corrections, selections, and logging</small></div><div class="audit-grid">${items.map((item) => `<article><strong>${escapeHtml(item.label)}</strong>${jsonDetails('View details', item.value)}</article>`).join('')}</div></section>`;
 }
 
-function entryCard(entry: AnalysisHistoryEntry, index: number): string {
+function entryCard(entry: AnalysisHistoryEntry): string {
   const request = entry.requestPayload && typeof entry.requestPayload === 'object'
     ? entry.requestPayload as Record<string, unknown>
     : {};
@@ -361,7 +361,7 @@ function entryCard(entry: AnalysisHistoryEntry, index: number): string {
   ];
   const tone = sessionTone(entry);
   const elapsed = durationLabel(entry);
-  return `<details class="session"${index === 0 ? ' open' : ''}>
+  return `<details class="session">
     <summary class="session-summary">
       <div class="summary-main"><div class="summary-badges"><span class="source ${entry.source}">${entry.source}</span><span class="status ${tone}">${escapeHtml(humanStage(entry.stage))}</span></div><h2>${escapeHtml(sessionTitle(entry))}</h2><p>${escapeHtml(responseSummary(entry))}</p></div>
       <div class="summary-time"><time datetime="${escapeHtml(entry.createdAt)}">${escapeHtml(formatTimestamp(entry.createdAt))}</time><span>IST${elapsed ? ` · ${escapeHtml(elapsed)}` : ''}</span></div>

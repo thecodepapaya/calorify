@@ -132,6 +132,7 @@ test('renderAnalysisHistory explains generated, skipped, and next pipeline steps
   }
   assert.match(html, /No durable data was generated for this step/);
   assert.match(html, /<span>Next<\/span>The model interpreted the meal/);
+  assert.doesNotMatch(html, /<details class="session" open>/);
 });
 
 test('renderAnalysisHistory makes a pending clarification state explicit', () => {
