@@ -1,9 +1,10 @@
 # Local meal-analysis CLI
 
-The local meal-analysis CLI exercises the real backend text-analysis flow
-without starting the HTTP server. It uses the same application operations,
-PostgreSQL session state, AI-provider routing, USDA lookup, clarification,
-meal-type selection, resume behavior, and terminal results as the V2 API.
+The local meal-analysis CLI exercises the real backend text-analysis flow from
+a separate terminal while the local HTTP server is running. It uses the same
+application operations, PostgreSQL session state, AI-provider routing, USDA
+lookup, clarification, meal-type selection, resume behavior, and terminal
+results as the V2 API.
 
 It is a development diagnostic, not the Flutter on-device inference flow. It
 supports text input only and does not log the result as a saved meal.
@@ -16,10 +17,11 @@ overrides local-only values. Local runs can therefore use the configured
 staging provider credentials without copying them into `.env`.
 
 1. Install Node.js 20 or newer and backend dependencies with `npm ci`.
-2. Start PostgreSQL. The repository staging database can be started with:
+2. Start the separate application and USDA PostgreSQL services:
 
    ```bash
-   docker compose --profile staging up -d db-staging
+   docker compose -f docker-compose.yml -f docker-compose.local.yml \
+     --profile staging up -d --wait db-staging db-usda
    ```
 
 3. In the ignored `backend/.env`, set a host-reachable `DATABASE_URL`. For the
@@ -32,12 +34,9 @@ staging provider credentials without copying them into `.env`.
 4. Configure at least one meal-analysis provider with
    `OPENROUTER_API_KEY` or `OPENAI_API_KEY`. If both are present, the normal
    OpenRouter-first fallback order is used.
-5. Make USDA reference data available for food cases. `USDA_DATABASE_URL` may
-   point to a separate shared reference database; if it is omitted, USDA tables
-   live in `DATABASE_URL`, so a second local database is not required. A new
-   local database can be populated with `npm run usda:bootstrap` after setting
-   the USDA source configuration described in `env.example`. A terminal
-   non-food case does not reach USDA lookup.
+5. Set `USDA_DATABASE_URL` to the local USDA reader on port `5434`. Populate a
+   new USDA database through the owner-only maintenance command documented in
+   the backend README. A terminal non-food case does not reach USDA lookup.
 
 The CLI initializes its database connections, applies pending application
 migrations, and closes its pools when the run finishes. It does not download

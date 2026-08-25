@@ -103,7 +103,6 @@
                 "ENVIRONMENT": "development"
             },
             "envFile": "${workspaceFolder}/backend/.env",
-            "preLaunchTask": "start-db-staging",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "skipFiles": [

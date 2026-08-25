@@ -18,16 +18,41 @@ npm ci
 cp env.example .env
 ```
 
-Populate `.env` with local-only values. At minimum, a complete environment normally includes `DATABASE_URL`, the relevant AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. `USDA_DATABASE_URL` selects a separate reference database; it falls back to `DATABASE_URL` for local development. Firebase authentication requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
+Populate `.env` with local-only values. A complete local environment includes
+separate `DATABASE_URL` and read-only `USDA_DATABASE_URL` values, the relevant
+AI provider keys, and `ORACLE_BUCKET_DOWNLOAD_URL`. Firebase authentication
+requires an ignored service-account JSON and `FIREBASE_SERVICE_ACCOUNT_PATH`.
 
-Start PostgreSQL and the API:
+Start the separate application and USDA databases:
 
 ```bash
-docker compose --profile staging up -d db-staging
+docker compose -f docker-compose.yml -f docker-compose.local.yml \
+  --profile staging up -d --wait db-staging db-usda
+```
+
+On the first run, build the maintenance image and populate the USDA database
+through its owner-only maintenance flow:
+
+```bash
+docker build -t calorify-backend-local:latest .
+docker compose -f docker-compose.yml -f docker-compose.local.yml \
+  --profile maintenance run --rm usda-maintenance
+```
+
+Then start the host backend:
+
+```bash
 npm run dev
 ```
 
-When the API runs on the host, use `localhost:5433` in `DATABASE_URL`. When it runs inside Compose, use `db-staging:5432`.
+For the host backend, `DATABASE_URL` uses `localhost:5433` and
+`USDA_DATABASE_URL` uses the read-only USDA role on `localhost:5434`. The
+local Compose override only exposes that USDA port to the host; the base
+staging and production topology remains unchanged.
+
+In VS Code, start the local dependencies first and then use `Backend: Dev`.
+Run the meal-analysis CLI manually from a separate terminal while the backend
+is running.
 
 ## Commands
 
