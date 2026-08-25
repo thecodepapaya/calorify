@@ -3,6 +3,7 @@ import { healthRoutes } from './health.js';
 import { foodRoutes } from './v1/food.js';
 import { foodRoutesV2 } from './v2/food.js';
 import { userRoutes } from './v1/user.js';
+import { analysisHistoryRoutes } from './analysisHistory.js';
 import config from '../config.js';
 import {
   createFoodRateLimitHooks,
@@ -22,6 +23,7 @@ export async function registerRoutes(
 
   // Health check route
   await fastify.register(healthRoutes);
+  await fastify.register(analysisHistoryRoutes);
 
   // API v1 routes
   await fastify.register(foodRoutes, { prefix: `${config.API_V1_STR}/food` });

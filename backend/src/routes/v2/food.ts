@@ -21,11 +21,13 @@ import {
   analyzeTextMeal,
   continueMealAnalysis,
   continueMealAnalysisWithMealType,
+  createAnalysisTrace,
   FEEDBACK_ISSUES,
   MEAL_TYPES,
   reanalyzeMeal,
   resumeMealAnalysis,
   type IngredientProposal,
+  type AnalysisTrace,
   type PipelineEvent,
 } from '../../services/nutritionEngineV2.js';
 import { createErrorResponse } from '../../utils/errors.js';
@@ -60,6 +62,10 @@ import {
 } from '../../services/oracleObjectStorage.js';
 import { resolveLocalNutritionLookups } from '../../services/localNutritionResolver.js';
 import { downloadLocalNutritionPack } from '../../services/localNutritionPackDownload.js';
+import {
+  recordAnalysisLastResponse,
+  recordAnalysisObservation,
+} from '../../services/analysisHistoryStore.js';
 import {
   InvalidWebpError,
   MAX_MEAL_IMAGE_BYTES,
@@ -465,7 +471,8 @@ async function streamEvents(
   reply: FastifyReply,
   acceptHeader: string | undefined,
   stream: AsyncGenerator<PipelineEvent>,
-  requestedAnalysisId?: string
+  requestedAnalysisId: string | undefined,
+  observation: { action: string; trace: AnalysisTrace }
 ): Promise<void> {
   const format = getStreamFormat(acceptHeader);
   const streamMeta: StreamResponseMeta = {
@@ -475,6 +482,8 @@ async function streamEvents(
     hasErrorEvent: false,
   };
   let analysisId = requestedAnalysisId ?? 'unknown';
+  let lastEvent: PipelineEvent | undefined;
+  const eventSequence: Array<{ step: string; elapsedMs: number }> = [];
   (reply.request as any).streamResponseMeta = streamMeta;
 
   reply.hijack();
@@ -497,8 +506,13 @@ async function streamEvents(
       if (event.step === 'ERROR') {
         streamMeta.hasErrorEvent = true;
       }
+      eventSequence.push({
+        step: event.step,
+        elapsedMs: Math.max(0, Date.now() - observation.trace.startedAt),
+      });
 
       writeEvent(reply, format, event);
+      lastEvent = event;
       if (event.step === 'ERROR') {
         break;
       }
@@ -512,15 +526,47 @@ async function streamEvents(
       },
       'Meal analysis stream failed'
     );
-    writeEvent(reply, format, {
+    lastEvent = {
       step: 'ERROR',
       data: {
         analysisId,
         message: 'Pipeline failed',
         retryable: analysisId !== 'unknown',
       },
+    };
+    eventSequence.push({
+      step: lastEvent.step,
+      elapsedMs: Math.max(0, Date.now() - observation.trace.startedAt),
     });
+    writeEvent(reply, format, lastEvent);
   } finally {
+    if (lastEvent && analysisId !== 'unknown') {
+      try {
+        const completedAt = Date.now();
+        await Promise.all([
+          recordAnalysisLastResponse(analysisId, lastEvent.step, lastEvent.data),
+          recordAnalysisObservation({
+            analysisId,
+            requestId: String(reply.request.id),
+            action: observation.action,
+            streamFormat: format,
+            eventSequence,
+            trace: observation.trace,
+            lastStep: lastEvent.step,
+            hadError: streamMeta.hasErrorEvent,
+            completedAt,
+          }),
+        ]);
+      } catch (error) {
+        reply.request.log.error(
+          {
+            analysisId,
+            ...safeErrorMetadata(error, 'meal_analysis_response_persist_failed'),
+          },
+          'Meal analysis response persistence failed'
+        );
+      }
+    }
     reply.raw.end();
   }
 }
@@ -739,6 +785,7 @@ export async function foodRoutesV2(
       if (!parsed) return;
 
       const userId = getCurrentUserId(request);
+      const trace = createAnalysisTrace();
       await streamEvents(
         reply,
         request.headers.accept,
@@ -754,8 +801,10 @@ export async function foodRoutesV2(
           localAttemptCompletedAtEpochMs: parsed.localAttemptCompletedAtEpochMs,
           fallbackReason: parsed.fallbackReason,
           logger: request.log,
+          trace,
         }),
-        parsed.analysisId
+        parsed.analysisId,
+        { action: 'analyze_text', trace }
       );
     }
   );
@@ -786,6 +835,7 @@ export async function foodRoutesV2(
     async (request: FastifyRequest<{ Body: AnalyzeProposalBody }>, reply: FastifyReply) => {
       const parsed = parseBody(analyzeProposalBodySchema, request.body, reply);
       if (!parsed) return;
+      const trace = createAnalysisTrace();
       await streamEvents(
         reply,
         request.headers.accept,
@@ -801,8 +851,10 @@ export async function foodRoutesV2(
           timeZone: getTimeZoneFromRequest(request),
           userId: getCurrentUserId(request),
           logger: request.log,
+          trace,
         }),
-        parsed.analysisId
+        parsed.analysisId,
+        { action: 'analyze_proposal', trace }
       );
     }
   );
@@ -836,6 +888,7 @@ export async function foodRoutesV2(
       if (!parsed) return;
 
       const userId = getCurrentUserId(request);
+      const trace = createAnalysisTrace();
       let imageObject: ReturnType<typeof resolveOwnedImageObject>;
       try {
         imageObject = resolveOwnedImageObject(parsed.imageUrl, userId);
@@ -855,8 +908,10 @@ export async function foodRoutesV2(
           userId,
           imageObjectKey: imageObject.objectKey,
           logger: request.log,
+          trace,
         }),
-        parsed.analysisId
+        parsed.analysisId,
+        { action: 'analyze_image', trace }
       );
     }
   );
@@ -888,6 +943,7 @@ export async function foodRoutesV2(
       if (!parsed) return;
       const userId = getCurrentUserId(request);
       if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
+      const trace = createAnalysisTrace();
 
       await streamEvents(
         reply,
@@ -898,9 +954,11 @@ export async function foodRoutesV2(
           {
             userId,
             logger: request.log,
+            trace,
           }
         ),
-        parsed.analysisId
+        parsed.analysisId,
+        { action: 'clarify', trace }
       );
     }
   );
@@ -926,6 +984,7 @@ export async function foodRoutesV2(
       if (!parsed) return;
       const userId = getCurrentUserId(request);
       if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
+      const trace = createAnalysisTrace();
 
       await streamEvents(
         reply,
@@ -933,8 +992,10 @@ export async function foodRoutesV2(
         resumeMealAnalysis(parsed.analysisId, {
           userId,
           logger: request.log,
+          trace,
         }),
-        parsed.analysisId
+        parsed.analysisId,
+        { action: 'resume', trace }
       );
     }
   );
@@ -1007,6 +1068,7 @@ export async function foodRoutesV2(
       if (!parsed) return;
       const userId = getCurrentUserId(request);
       if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
+      const trace = createAnalysisTrace();
 
       await streamEvents(
         reply,
@@ -1014,8 +1076,10 @@ export async function foodRoutesV2(
         continueMealAnalysisWithMealType(parsed.analysisId, parsed.mealType, {
           userId,
           logger: request.log,
+          trace,
         }),
-        parsed.analysisId
+        parsed.analysisId,
+        { action: 'meal_type', trace }
       );
     }
   );
@@ -1051,6 +1115,7 @@ export async function foodRoutesV2(
 
       const userId = getCurrentUserId(request);
       if (!(await requireOwnedAnalysis(parsed.analysisId, userId, reply))) return;
+      const trace = createAnalysisTrace();
       await recordMealAnalysisFeedback({
         analysisId: parsed.analysisId,
         userId,
@@ -1066,8 +1131,10 @@ export async function foodRoutesV2(
         reanalyzeMeal(parsed.analysisId, parsed.issues, parsed.otherText, userId, {
           analysisId: parsed.newAnalysisId,
           logger: request.log,
+          trace,
         }),
-        parsed.newAnalysisId
+        parsed.newAnalysisId,
+        { action: 'reanalyze', trace }
       );
     }
   );

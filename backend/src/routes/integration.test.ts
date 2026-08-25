@@ -68,6 +68,10 @@ await mock.module('../services/database.js', {
 
 await mock.module('../services/nutritionEngineV2.js', {
   namedExports: {
+    createAnalysisTrace: mock.fn(() => ({
+      startedAt: Date.now(), steps: [], artifacts: [], llmAttempts: [],
+      llmCallCount: 0, usdaLookupCount: 0, dbWriteCount: 0,
+    })),
     analyzeTextMeal: mock.fn(async function* () {
       yield {
         step: 'RESULT',

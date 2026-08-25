@@ -203,12 +203,21 @@ export interface TraceStep {
   category: TraceStepCategory;
   name: string;
   durationMs: number;
+  startedAtOffsetMs: number;
   meta?: Record<string, unknown>;
+}
+
+export interface AnalysisTraceArtifact {
+  name: 'decomposition_model_output' | 'nutrition_match' |
+    'llm_nutrition_fallback' | 'presentation_input' | 'presentation_output';
+  capturedAtOffsetMs: number;
+  data: unknown;
 }
 
 export interface AnalysisTrace {
   startedAt: number;
   steps: TraceStep[];
+  artifacts: AnalysisTraceArtifact[];
   llmAttempts: MealAnalysisLlmAttempt[];
   llmCallCount: number;
   usdaLookupCount: number;
@@ -1220,6 +1229,7 @@ export function createAnalysisTrace(): AnalysisTrace {
   return {
     startedAt: Date.now(),
     steps: [],
+    artifacts: [],
     llmAttempts: [],
     llmCallCount: 0,
     usdaLookupCount: 0,
@@ -1254,7 +1264,13 @@ async function traceAsync<T>(
     const durationMs = Date.now() - startedAt;
     mealAnalysisTraceStepSeconds.labels(category, name).observe(durationMs / 1000);
     if (trace) {
-      trace.steps.push({ category, name, durationMs, meta });
+      trace.steps.push({
+        category,
+        name,
+        durationMs,
+        startedAtOffsetMs: Math.max(0, startedAt - trace.startedAt),
+        meta,
+      });
       if (category === 'llm') trace.llmCallCount += 1;
       if (category === 'usda') trace.usdaLookupCount += 1;
       if (category === 'db') trace.dbWriteCount += 1;
@@ -1268,6 +1284,7 @@ async function traceAsync<T>(
         category,
         name,
         durationMs,
+        startedAtOffsetMs: Math.max(0, startedAt - trace.startedAt),
         meta: {
           ...meta,
           ok: false,
@@ -1280,6 +1297,19 @@ async function traceAsync<T>(
     }
     throw error;
   }
+}
+
+function recordTraceArtifact(
+  trace: AnalysisTrace | undefined,
+  name: AnalysisTraceArtifact['name'],
+  data: unknown
+): void {
+  if (!trace) return;
+  trace.artifacts.push({
+    name,
+    capturedAtOffsetMs: Math.max(0, Date.now() - trace.startedAt),
+    data,
+  });
 }
 
 function summarizeResolvedSources(resolved: ResolvedIngredient[]): {
@@ -1586,6 +1616,36 @@ async function resolveIngredients(
     const ingredient = decomposition.ingredients[i]!;
     const usdaMatch = usdaMatches[i]!;
     const deterministicWater = isPlainWater(ingredient);
+    recordTraceArtifact(trace, 'nutrition_match', {
+      ingredientIndex: i,
+      rowId: ingredient.rowId,
+      rawName: ingredient.rawName,
+      canonicalHint: ingredient.canonicalHint,
+      lookupAliases: ingredient.lookupAliases,
+      preparationStates: ingredient.preparationStates,
+      matchType: deterministicWater ? 'deterministic' : usdaMatch.matchType,
+      score: deterministicWater ? 1 : usdaMatch.score,
+      confidenceMargin: usdaMatch.confidenceMargin,
+      selected: deterministicWater ? {
+        id: 'deterministic:water',
+        description: 'Water',
+        source: 'physical_invariant',
+        per100g: { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 },
+      } : usdaMatch.row ? {
+        fdcId: String(usdaMatch.row.fdc_id),
+        description: usdaMatch.row.description,
+        normalizedName: usdaMatch.row.normalized_name,
+        dataType: usdaMatch.row.data_type,
+        datasetVersion: usdaMatch.row.dataset_version,
+        per100g: {
+          calories: usdaMatch.row.kcal_per_100g,
+          protein: usdaMatch.row.protein_per_100g,
+          carbs: usdaMatch.row.carbs_per_100g,
+          fat: usdaMatch.row.fat_per_100g,
+          fiber: usdaMatch.row.fiber_per_100g,
+        },
+      } : null,
+    });
     const match: CanonicalMatch = deterministicWater
       ? {
           foodId: 'deterministic:water',
@@ -1676,6 +1736,19 @@ async function resolveIngredients(
       );
       for (const { index, ingredient } of unmatched) {
         const entry = fallbackMap.get(normalize(ingredient.canonicalHint));
+        recordTraceArtifact(trace, 'llm_nutrition_fallback', {
+          ingredientIndex: index,
+          rowId: ingredient.rowId,
+          canonicalHint: ingredient.canonicalHint,
+          outcome: entry ? 'matched' : 'unresolved',
+          per100g: entry ? {
+            calories: entry.kcal_per_100g,
+            protein: entry.protein_per_100g,
+            carbs: entry.carbs_per_100g,
+            fat: entry.fat_per_100g,
+            fiber: entry.fiber_per_100g,
+          } : null,
+        });
         if (!entry) continue;
         const current = resolved[index];
         current.macros = calcMacrosFromPer100g(entry, ingredient.gramsEstimated);
@@ -1911,8 +1984,25 @@ async function enrichPresentation(
 
   const correctionContext = buildCorrectionContext(context.feedbackIssues, context.otherText);
   const userContext = await loadPresentationUserContext(context.userId);
-
-  return enrichPresentationFromText(
+  recordTraceArtifact(context.trace, 'presentation_input', {
+    originalDescription: String(context.requestPayload.textDescription ?? ''),
+    mealName: mealNameHint,
+    selectedMealType: context.selectedMealType,
+    selectedMealTypeSource: context.selectedMealTypeSource,
+    totalMacros,
+    ingredients: resolved.map((ingredient) => ({
+      rowId: ingredient.rowId,
+      rawName: ingredient.rawName,
+      canonicalName: ingredient.match.canonicalName,
+      grams: ingredient.grams,
+      macros: ingredient.macros,
+      nutritionSource: ingredient.source,
+    })),
+    feedbackIssues: context.feedbackIssues ?? [],
+    feedbackNote: context.otherText ?? null,
+    userContext,
+  });
+  const presentation = await enrichPresentationFromText(
     client,
     context,
     resolved,
@@ -1921,6 +2011,8 @@ async function enrichPresentation(
     mealNameHint,
     userContext
   );
+  recordTraceArtifact(context.trace, 'presentation_output', presentation);
+  return presentation;
 }
 
 async function persistSessionSnapshot(
@@ -2877,7 +2969,7 @@ async function decomposeFromContext(
         'text request is missing textDescription'
       );
     }
-    return traceAsync(
+    const decomposition = await traceAsync(
       context.trace,
       'llm',
       'decompose_text',
@@ -2888,6 +2980,8 @@ async function decomposeFromContext(
       },
       () => decomposeFromText(client, input, decompositionInputContext(context), correctionContext)
     );
+    recordTraceArtifact(context.trace, 'decomposition_model_output', decomposition);
+    return decomposition;
   }
 
   if (!context.imageUrl) {
@@ -2895,7 +2989,7 @@ async function decomposeFromContext(
       'image request is missing an image object key'
     );
   }
-  return traceAsync(
+  const decomposition = await traceAsync(
     context.trace,
     'llm',
     'decompose_image',
@@ -2906,6 +3000,8 @@ async function decomposeFromContext(
     },
     () => decomposeFromImage(client, context.imageUrl!, decompositionInputContext(context), correctionContext)
   );
+  recordTraceArtifact(context.trace, 'decomposition_model_output', decomposition);
+  return decomposition;
 }
 
 async function* runDecomposition(

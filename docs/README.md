@@ -29,6 +29,9 @@ Use this page to find the document that matches the work you are doing.
 - [Local meal-analysis CLI](../backend/docs/meal-analysis-cli.md) — run the
   backend text flow interactively or as newline-delimited JSON.
 - [Calorie-estimation evals](../backend/evals/README.md)
+- [Meal-analysis history page](../backend/docs/analysis-history.md) — protected
+  text/image pipeline inspection, provider and USDA provenance, presentation
+  enrichment, exact streamed-response capture, and deployment guidance.
 
 ## Other references
 

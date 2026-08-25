@@ -15,6 +15,9 @@
   and scripted text runs, resume/replay testing, and troubleshooting.
 - [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
   names and example Grafana queries.
+- [Meal-analysis history page](analysis-history.md) — protected visual
+  inspection of text/image layers, provider attempts, USDA matches,
+  presentation enrichment, audit actions, and final responses.
 
 The product-level local-inference decision record is in
 [`docs/plans/local-inference-meal-analysis.md`](../../docs/plans/local-inference-meal-analysis.md).

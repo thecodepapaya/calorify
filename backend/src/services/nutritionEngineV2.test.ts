@@ -584,6 +584,13 @@ test('meal analysis telemetry omits ingredient and free-text health data', async
   const events = await collectEvents(analyzeTextMeal(input, { trace, logger }));
 
   assert.ok(events.some((event) => event.step === 'RESULT'));
+  assert.deepEqual(new Set(trace.artifacts.map((artifact) => artifact.name)), new Set([
+    'decomposition_model_output',
+    'nutrition_match',
+    'llm_nutrition_fallback',
+    'presentation_input',
+    'presentation_output',
+  ]));
   const telemetry = JSON.stringify({ logEntries, trace: summarizeAnalysisTrace(trace) });
   for (const marker of [mealName, ingredientName, canonicalHint, input]) {
     assert.doesNotMatch(telemetry, new RegExp(marker));

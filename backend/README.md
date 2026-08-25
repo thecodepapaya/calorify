@@ -149,6 +149,9 @@ the shared USDA database, observability, rollback, and storage maintenance.
 - `GET /health` — process liveness only; it does not check dependencies.
 - `GET /ready` — readiness; requires PostgreSQL and an active, materialized USDA dataset.
 - `GET /metrics` — Prometheus exposition.
+- `GET /analysis-history` — password-protected visual history of durable meal
+  layers, provider attempts, USDA grounding, presentation enrichment, audit
+  actions, and final responses; disabled unless `ANALYSIS_HISTORY_PASSWORD` is set.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
 - `npm run meal-analysis -- --text "dal and rice"` — local text full-flow pipeline diagnostics.

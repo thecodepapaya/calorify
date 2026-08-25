@@ -43,6 +43,8 @@ const mockReanalyzeMeal = mock.fn(function* () {
 });
 
 const mockRecordMealAnalysisFeedback = mock.fn(async () => {});
+const mockRecordAnalysisLastResponse = mock.fn(async () => {});
+const mockRecordAnalysisObservation = mock.fn(async () => {});
 const mockConfirmMealAnalysisLogged = mock.fn(async () => true);
 const mockClearMealAnalysisLogged = mock.fn(async () => true);
 const mockIsMealAnalysisSessionOwnedByUser = mock.fn(async () => true);
@@ -76,6 +78,10 @@ const mockConfig = {
 
 await mock.module('../../services/nutritionEngineV2.js', {
   namedExports: {
+    createAnalysisTrace: mock.fn(() => ({
+      startedAt: Date.now(), steps: [], artifacts: [], llmAttempts: [],
+      llmCallCount: 0, usdaLookupCount: 0, dbWriteCount: 0,
+    })),
     analyzeTextMeal: mockAnalyzeTextMeal,
     analyzeImageMeal: mockAnalyzeImageMeal,
     analyzeIngredientProposal: mockAnalyzeIngredientProposal,
@@ -94,6 +100,13 @@ await mock.module('../../services/mealAnalysisStore.js', {
     confirmMealAnalysisLogged: mockConfirmMealAnalysisLogged,
     isMealAnalysisSessionOwnedByUser: mockIsMealAnalysisSessionOwnedByUser,
     recordMealAnalysisFeedback: mockRecordMealAnalysisFeedback,
+  },
+});
+
+await mock.module('../../services/analysisHistoryStore.js', {
+  namedExports: {
+    recordAnalysisLastResponse: mockRecordAnalysisLastResponse,
+    recordAnalysisObservation: mockRecordAnalysisObservation,
   },
 });
 
@@ -355,6 +368,8 @@ test('POST /analyze-text returns 400 when textDescription is whitespace only', a
 });
 
 test('POST /analyze-text streams NDJSON events for valid input', async () => {
+  mockRecordAnalysisLastResponse.mock.resetCalls();
+  mockRecordAnalysisObservation.mock.resetCalls();
   const app = await buildTestApp();
   const response = await app.inject({
     method: 'POST',
@@ -370,6 +385,14 @@ test('POST /analyze-text streams NDJSON events for valid input', async () => {
   assert.equal(events[0]!.step, 'STARTED');
   const steps = events.map((e) => e.step);
   assert.ok(steps.includes('DECOMPOSITION'));
+  const persisted = mockRecordAnalysisLastResponse.mock.calls[0]?.arguments;
+  assert.equal(persisted?.[0], 'mock-id');
+  assert.equal(persisted?.[1], 'RESULT');
+  assert.deepEqual(persisted?.[2], events.at(-1)?.data);
+  const observation = mockRecordAnalysisObservation.mock.calls[0]?.arguments[0];
+  assert.equal(observation?.action, 'analyze_text');
+  assert.equal(observation?.lastStep, 'RESULT');
+  assert.deepEqual(observation?.eventSequence.map((event: { step: string }) => event.step), steps);
   await app.close();
 });
 

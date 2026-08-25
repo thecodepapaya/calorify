@@ -130,6 +130,10 @@ as `node` and does not receive Firebase credentials.
 Never commit or print env files, service-account JSON, database passwords,
 provider keys, SSH keys, or pre-authenticated storage URLs.
 
+The visual meal-analysis inspector at `/analysis-history` is disabled until
+`ANALYSIS_HISTORY_PASSWORD` is set in the target runtime env file. Use a unique,
+long password and access it only through HTTPS with Basic username `calorify`.
+
 ## Deployment and rollback mechanics
 
 `deploy-container.sh` performs the following guarded sequence:
