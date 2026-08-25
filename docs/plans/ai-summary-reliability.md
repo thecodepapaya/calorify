@@ -1,6 +1,6 @@
 # AI-summary simplification and reliability
 
-Status: Sequenced after meal-analysis robustness; product direction pending
+Status: Meal-analysis baseline landed; product direction pending
 
 Last reviewed: 2026-08-25
 
@@ -17,10 +17,11 @@ follow-up work. It does not change production behavior by itself.
 
 ## Sequencing and ownership boundary
 
-The [meal-analysis robustness plan](meal-analysis-robustness.md) is a hard
-prerequisite and is assumed to be implemented before this plan begins. Its V2
-cutover becomes the baseline; this work must not preserve a V1 compatibility
-path or reopen decisions already owned by that plan.
+The [meal-analysis robustness plan](meal-analysis-robustness.md) has been
+implemented on `main`. Its V2 cutover is now the baseline; this work must not
+preserve a V1 compatibility path or reopen decisions already owned by that
+plan. Its remaining Android-device smoke test and direct CLI-adapter tests stay
+owned by that plan and are not duplicated or absorbed here.
 
 | Concern | Owning plan | Rule for this plan |
 | --- | --- | --- |
@@ -38,19 +39,30 @@ in-progress analysis sessions, V2 proposals, excluded candidates, no-food
 payloads, lookup terms, confidence/reason fields, presentation profile context,
 or provider metadata.
 
-At Phase 0 kickoff, re-read the implemented final-meal model and stream after
-the prerequisite lands. If its shape changed, adapt inside the summary/home
+The implemented summary input boundary is
+[`last7DaysMealsProvider`](../../app/lib/core/providers/home_providers.dart),
+which delegates to
+[`DatabaseInterface.watchAllMealsForLast7Days`](../../app/lib/core/db/database_interface.dart)
+and its [Drift implementation](../../app/lib/core/db/app_database.dart). It
+emits final [`LoggedMeal`](../../protos/app/meal.proto) rows containing a stable
+`client_id`, `created_at`, and the saved
+[`Meal`](../../protos/meal/meal.proto). The target snapshot needs only
+`client_id`, `created_at`, `meal.macros.calories`, `meal.macros.protein`,
+`meal.macros.carbs`, and `meal.macros.fat`. It intentionally ignores
+meal-analysis metadata, meal name, quantity, type, fiber, health labels, and
+provider output.
+
+No new meal query, ingestion adapter, or analysis field is needed. Derive the
+snapshot from the existing provider and keep any calculator in the summary/home
 read layer. Do not add fields to the meal-analysis protobuf, durable snapshot,
 state machine, or provider schema to serve this feature. The existing AI card
 remains hidden until the replacement snapshot passes the Phase 2 exit criteria.
 
-## Assessed pre-prerequisite behavior
+## Legacy summary behavior after the V2 landing
 
-The feature behavior recorded during this assessment predates the
-meal-analysis robustness implementation. Revalidate file names and data paths
-after that prerequisite; do not assume its cutover retains these internals.
-The assessed feature is a backend-generated summary of remotely synchronized
-meal-analysis results:
+The meal-analysis implementation did not replace the legacy summary pipeline.
+It remains a backend-generated summary of remotely synchronized meal-analysis
+results:
 
 1. Completed cloud meal analyses are mirrored into `meal_analysis_session`.
 2. An hourly cron finds users whose local time is near 03:00 and collects a
@@ -181,7 +193,8 @@ Recommended defaults, subject to product confirmation:
 - Use seven local calendar days, not a rolling 72-hour server window.
 - Include every final saved meal exactly once, regardless of whether it came
   from cloud analysis, a completed local flow, manual entry, editing, or a
-  favorite. Do not treat analysis sessions or events as meals.
+  favorite restoration. A favorite template by itself is not a logged meal.
+  Do not treat analysis sessions or events as meals.
 - Show meal and logged-day coverage so absence is not interpreted as intake.
 - Require at least three logged days in both comparison windows before showing
   a trend. Otherwise return `INSUFFICIENT_DATA`.
@@ -201,32 +214,39 @@ Recommended defaults, subject to product confirmation:
 
 ### Phase 0: decide and specify
 
-- [ ] Confirm the meal-analysis robustness rollout and migrations are complete,
-  supported clients use V2, and no active V1 compatibility path remains.
-- [ ] Re-read the implemented final saved-meal model and identify the existing
-  local stream/repository boundary the calculator will consume.
-- [ ] Confirm the work requires no changes to analysis stages, prompts, V2
+- [x] Confirm the meal-analysis robustness implementation is on `main` and no
+  active V1 proposal definition or compatibility path remains.
+- [x] Identify `last7DaysMealsProvider` and
+  `DatabaseInterface.watchAllMealsForLast7Days` as the existing final saved-meal
+  boundary. No new repository or backend projection is required.
+- [x] Confirm the work requires no changes to analysis stages, prompts, V2
   schemas, generated analysis bindings, clarification, USDA resolution,
   presentation, or no-food UI.
+- [x] Confirm the legacy AI card remains hidden while this plan is pending.
 - [ ] Confirm local deterministic or retained model direction.
 - [ ] Confirm the window, minimum day/meal coverage, comparison definition, and
   treatment of edited and deleted meals.
 - [ ] Record the user-visible data-source and freshness language.
 - [ ] Define analytics that measure usefulness without collecting meal content.
 
-Exit criterion: the prerequisite is the accepted baseline, one existing
-final-meal read boundary is named, and the snapshot contract and
-insufficient-data rules are approved without meal-analysis contract changes.
+Exit criterion: the landed V2 implementation is the accepted baseline and the
+snapshot contract and insufficient-data rules are approved without changing
+the named final-meal read boundary or any meal-analysis contract.
 
 ### Phase 1: build the deterministic snapshot
 
-- [ ] Add a pure calculator over the app's canonical final saved-meal model.
+- [ ] Add a pure calculator or derived provider over
+  `last7DaysMealsProvider`; do not add a second database query or repository.
 - [ ] Keep the adapter and calculator in the summary/home read layer. Do not
   import proposal, analysis-stage, clarification, USDA, or presentation types.
 - [ ] Exclude unfinished analyses and terminal no-food outcomes by consuming
   only saved meals; do not add special analysis-state filtering to the
   calculator.
 - [ ] Use timezone-aware local calendar boundaries and stable decimal handling.
+  Apply both lower and upper window bounds in the calculator so future-dated
+  rows are excluded even though the existing database stream has only a lower
+  bound. Do not depend on database row order; use `created_at` and `client_id`
+  for deterministic grouping or ordering.
 - [ ] Add localized factual templates and rename the card.
 - [ ] Render distinct loading, insufficient-data, and valid states.
 - [ ] Keep the existing server response behind a temporary migration boundary;
@@ -241,8 +261,9 @@ stream and works offline.
   daylight-saving boundaries, edited/deleted meals, zero or missing macros,
   extreme values, duplicate stable IDs, and deterministic output.
 - [ ] Integration-test the canonical saved-meal stream, every completed
-  meal-entry path, terminal no-food absence, and clear-all-data behavior. Use
-  saved-meal fixtures rather than invoking or duplicating decomposition.
+  meal-entry path, and clear-all-data behavior. Use saved-meal fixtures rather
+  than invoking or duplicating decomposition; no-food pipeline coverage remains
+  in the meal-analysis test suite.
 - [ ] Test all card states and locale fallback behavior.
 - [ ] Compare old and new results internally using synthetic fixtures; never
   upload new meal data solely for comparison.
