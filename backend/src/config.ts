@@ -20,7 +20,7 @@ interface LocalInferenceConfig {
 
 interface Config {
     readonly APP_NAME: string;
-    /** Version returned at GET /. Set APP_VERSION in env, or falls back to package.json version. */
+    /** Version returned at GET /, read from the package bundled in the image. */
     readonly APP_VERSION: string;
     readonly DEBUG: boolean;
     readonly API_V1_STR: string;
@@ -147,14 +147,15 @@ function validateFirebaseServiceAccount(path: string | null): string | null {
 const port = getEnvVarNumber('PORT', 8000);
 
 function getAppVersion(): string {
-    const fromEnv = getEnvVarOptional('APP_VERSION');
-    if (fromEnv) return fromEnv;
     try {
         const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8'));
-        return typeof pkg.version === 'string' ? pkg.version : '1.0.0';
+        if (typeof pkg.version === 'string' && pkg.version.trim() !== '') {
+            return pkg.version;
+        }
     } catch {
-        return '1.0.0';
+        throw new Error('Unable to read backend version from package.json');
     }
+    throw new Error('Backend package.json must contain a non-empty version');
 }
 
 const config: Config = {

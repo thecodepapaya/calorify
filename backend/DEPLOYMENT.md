@@ -69,6 +69,10 @@ The VM then pulls the selected image from GHCR and starts it with
 `docker compose --no-build`. Runtime env files, database volumes, and
 credentials remain on the VM and are never copied back to GitHub.
 
+The API version reported by `GET /` comes only from `backend/package.json`
+bundled in the immutable image. Runtime env files must not define a separate
+application version.
+
 ## GitHub configuration
 
 Both deployment jobs use the GitHub deployment environment named `production`
