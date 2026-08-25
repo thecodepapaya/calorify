@@ -12,14 +12,23 @@ Use this page to find the document that matches the work you are doing.
 
 ## Plans and decisions
 
+- [Meal-analysis reliability](plans/meal-analysis-reliability.md) — confirmed
+  staging failures, root causes, containment, contract redesign, clarification,
+  USDA grounding, presentation integrity, and release gates.
 - [Local meal analysis](plans/local-inference-meal-analysis.md) — current scope, trust boundaries, rollout phases, and open decisions.
-- [Meal-analysis robustness](plans/meal-analysis-robustness.md) — no-food handling, structured decomposition, presentation context, migration, client behavior, and local CLI scope.
-- [AI-summary simplification and reliability](plans/ai-summary-reliability.md) — foreground local-input generation, sparse-data and edit policy, OpenRouter diagnostics, future Gemini Nano compatibility, and legacy cron/batch cleanup.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
-- [Backend-proxied image uploads](plans/backend-proxied-image-uploads.md) —
-  authenticated bounded in-memory uploads, Oracle storage handoff, and migration away
-  from the shared client credential.
-- [Calorie-estimation reliability](../backend/docs/calorie-estimation-reliability-plan.md) — measurement and quality-improvement plan.
+
+## Implemented workflows
+
+- [Daily AI summaries](ai-summary.md) — foreground generation, bounded local
+  snapshots, OpenRouter prose, daily idempotency, caching, and diagnostics.
+- [Meal-image uploads](meal-image-uploads.md) — authenticated backend upload,
+  bounded WebP validation, Oracle handoff, visibility, and lifecycle limits.
+- [Meal-analysis state machine](../backend/docs/meal-analysis-state-machine.md)
+  — durable V2 checkpoints, terminal outcomes, leases, stream events, and
+  resume behavior.
+- [Meal-analysis history page](../backend/docs/analysis-history.md) — protected
+  inspection of durable layers, structured observations, and final responses.
 
 ## Backend references
 
@@ -29,9 +38,6 @@ Use this page to find the document that matches the work you are doing.
 - [Local meal-analysis CLI](../backend/docs/meal-analysis-cli.md) — run the
   backend text flow interactively or as newline-delimited JSON.
 - [Calorie-estimation evals](../backend/evals/README.md)
-- [Meal-analysis history page](../backend/docs/analysis-history.md) — protected
-  text/image pipeline inspection, provider and USDA provenance, presentation
-  enrichment, exact streamed-response capture, and deployment guidance.
 
 ## Other references
 

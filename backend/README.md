@@ -109,9 +109,8 @@ does not start its failure cooldown.
 The validated request, resolved locale, deterministic statistics, bounded
 failure metadata, provider/model, and generated result remain available through
 `npm run user:inspect -- --user-id FIREBASE_UID`. General logs and metrics do
-not contain the meal snapshot. Product scope and implementation decisions are
-recorded in the
-[AI-summary reliability plan](../docs/plans/ai-summary-reliability.md).
+not contain the meal snapshot. The complete cross-component workflow is
+documented in [Daily AI summaries](../docs/ai-summary.md).
 
 The canonical meal-analysis flow, persistence boundaries, terminal behavior,
 and resume rules are documented in
