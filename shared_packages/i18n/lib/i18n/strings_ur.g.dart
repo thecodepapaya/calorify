@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ur extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'کوئی سوال دستیاب نہیں';
 	@override String get next => 'اگلا';
 	@override String get continueLabel => 'جاری رکھیں';
+	@override String get countQuestion => 'مقدار منتخب کریں';
+	@override String get itemSizeQuestion => 'آئٹم کا سائز منتخب کریں';
+	@override String get portionSizeQuestion => 'حصے کا سائز منتخب کریں';
+	@override String get option6plus => '6 یا زیادہ';
+	@override String get optionSmall => 'چھوٹا';
+	@override String get optionRegular => 'عام';
+	@override String get optionLarge => 'بڑا';
+	@override String get optionThin => 'پتلا';
+	@override String get optionThick => 'موٹا';
+	@override String get optionMini => 'منی';
+	@override String get optionStuffed => 'بھرا ہوا';
+	@override String get optionHeavy => 'بھاری';
+	@override String get optionSmaller => 'چھوٹا';
+	@override String get optionTypical => 'عام';
+	@override String get optionLarger => 'بڑا';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ur extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔';
 	@override String get offlineTip4 => 'ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔';
 	@override String get offlineTip5 => 'ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔';
+	@override String get noFoodTip => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsUr {
 			'meal.questionFlow.noQuestionsAvailable' => 'کوئی سوال دستیاب نہیں',
 			'meal.questionFlow.next' => 'اگلا',
 			'meal.questionFlow.continueLabel' => 'جاری رکھیں',
+			'meal.questionFlow.countQuestion' => 'مقدار منتخب کریں',
+			'meal.questionFlow.itemSizeQuestion' => 'آئٹم کا سائز منتخب کریں',
+			'meal.questionFlow.portionSizeQuestion' => 'حصے کا سائز منتخب کریں',
+			'meal.questionFlow.option6plus' => '6 یا زیادہ',
+			'meal.questionFlow.optionSmall' => 'چھوٹا',
+			'meal.questionFlow.optionRegular' => 'عام',
+			'meal.questionFlow.optionLarge' => 'بڑا',
+			'meal.questionFlow.optionThin' => 'پتلا',
+			'meal.questionFlow.optionThick' => 'موٹا',
+			'meal.questionFlow.optionMini' => 'منی',
+			'meal.questionFlow.optionStuffed' => 'بھرا ہوا',
+			'meal.questionFlow.optionHeavy' => 'بھاری',
+			'meal.questionFlow.optionSmaller' => 'چھوٹا',
+			'meal.questionFlow.optionTypical' => 'عام',
+			'meal.questionFlow.optionLarger' => 'بڑا',
 			'meal.analysis.title' => 'آپ کے کھانے کا تجزیہ ہو رہا ہے',
 			'meal.analysis.stepStarted' => 'شروع کیا جا رہا ہے…',
 			'meal.analysis.stepDecomposition' => 'آپ کے کھانے کو سمجھا جا رہا ہے…',
@@ -2280,6 +2311,7 @@ extension on TranslationsUr {
 			'meal.analysis.offlineTip3' => 'ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔',
 			'meal.analysis.offlineTip4' => 'ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔',
 			'meal.analysis.offlineTip5' => 'ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔',
+			'meal.analysis.noFoodTip' => 'کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔',
 			'meal.localInference.reviewTitle' => 'جائزہ شدہ اجزاء دیکھیں',
 			'meal.localInference.reviewSubtitle' => 'یہ آپ کے ڈیوائس پر ترتیب دیا گیا تھا۔ غذائیت کے حساب سے پہلے ناموں یا مقدار کی تصحیح کریں۔',
 			'meal.localInference.mealName' => 'کھانے کا نام',
@@ -2528,6 +2560,8 @@ extension on TranslationsUr {
 			'notifications.breakfast.title' => 'ناشتے کا وقت! 🍳',
 			'notifications.breakfast.body' => 'اپنا ناشتہ لاگ کرنا نہ بھولیں',
 			'notifications.lunch.title' => 'دوپہر کے کھانے کا وقت! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'اپنا دوپہر کا کھانا لاگ کرنے کا وقت ہے',
 			'notifications.dinner.title' => 'رات کے کھانے کا وقت! 🍽️',
 			'notifications.dinner.body' => 'اپنا رات کا کھانا لاگ کرنا نہ بھولیں',
@@ -2544,8 +2578,6 @@ extension on TranslationsUr {
 			'disclaimer.snap.preparationMethods.title' => 'تیاری کے طریقے',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'پکانے کے طریقے غذائی مواد کو نمایاں طور پر بدل سکتے ہیں۔ ${appLabel} کے اندازے ہمیشہ ان تبدیلیوں کو مدِ نظر نہیں رکھ سکتے۔',
 			'disclaimer.snap.ingredients.title' => 'اجزاء',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'پیچیدہ پکوان جن میں بہت سے پوشیدہ اجزاء ہوں، کم درست اندازوں کا باعث بن سکتے ہیں۔',
 			'disclaimer.snap.databaseLimitations.title' => 'ڈیٹا بیس کی حدود',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} کا فوڈ ڈیٹا بیس وسیع ہے مگر ہو سکتا ہے ہر خوراک یا ویرینٹ شامل نہ ہو۔',

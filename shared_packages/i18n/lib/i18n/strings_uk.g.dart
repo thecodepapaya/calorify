@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$uk extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Питань немає';
 	@override String get next => 'Далі';
 	@override String get continueLabel => 'Продовжити';
+	@override String get countQuestion => 'Виберіть кількість';
+	@override String get itemSizeQuestion => 'Виберіть розмір страви';
+	@override String get portionSizeQuestion => 'Виберіть розмір порції';
+	@override String get option6plus => '6 або більше';
+	@override String get optionSmall => 'Маленький';
+	@override String get optionRegular => 'Звичайний';
+	@override String get optionLarge => 'Великий';
+	@override String get optionThin => 'Тонкий';
+	@override String get optionThick => 'Товстий';
+	@override String get optionMini => 'Міні';
+	@override String get optionStuffed => 'З начинкою';
+	@override String get optionHeavy => 'Важкий';
+	@override String get optionSmaller => 'Менший';
+	@override String get optionTypical => 'Типовий';
+	@override String get optionLarger => 'Більший';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$uk extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.';
 	@override String get offlineTip4 => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.';
 	@override String get offlineTip5 => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).';
+	@override String get noFoodTip => 'Їжа не виявлена. Спробуйте інше фото або опис.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsUk {
 			'meal.questionFlow.noQuestionsAvailable' => 'Питань немає',
 			'meal.questionFlow.next' => 'Далі',
 			'meal.questionFlow.continueLabel' => 'Продовжити',
+			'meal.questionFlow.countQuestion' => 'Виберіть кількість',
+			'meal.questionFlow.itemSizeQuestion' => 'Виберіть розмір страви',
+			'meal.questionFlow.portionSizeQuestion' => 'Виберіть розмір порції',
+			'meal.questionFlow.option6plus' => '6 або більше',
+			'meal.questionFlow.optionSmall' => 'Маленький',
+			'meal.questionFlow.optionRegular' => 'Звичайний',
+			'meal.questionFlow.optionLarge' => 'Великий',
+			'meal.questionFlow.optionThin' => 'Тонкий',
+			'meal.questionFlow.optionThick' => 'Товстий',
+			'meal.questionFlow.optionMini' => 'Міні',
+			'meal.questionFlow.optionStuffed' => 'З начинкою',
+			'meal.questionFlow.optionHeavy' => 'Важкий',
+			'meal.questionFlow.optionSmaller' => 'Менший',
+			'meal.questionFlow.optionTypical' => 'Типовий',
+			'meal.questionFlow.optionLarger' => 'Більший',
 			'meal.analysis.title' => 'Аналізуємо вашу страву',
 			'meal.analysis.stepStarted' => 'Початок…',
 			'meal.analysis.stepDecomposition' => 'Аналіз страви…',
@@ -2280,6 +2311,7 @@ extension on TranslationsUk {
 			'meal.analysis.offlineTip3' => 'Порада: Коротка примітка про порцію (1 миска, велика кава) значно покращує оцінки.',
 			'meal.analysis.offlineTip4' => 'Порада: Запис після їжі все одно формує звичку; досконалість не обов\'язкова.',
 			'meal.analysis.offlineTip5' => 'Порада: Вказуйте спосіб приготування, якщо він сильно впливає на калорії (смажене проти запеченого).',
+			'meal.analysis.noFoodTip' => 'Їжа не виявлена. Спробуйте інше фото або опис.',
 			'meal.localInference.reviewTitle' => 'Перевірте виявлені інгредієнти',
 			'meal.localInference.reviewSubtitle' => 'Ці дані були оброблені на вашому пристрої. Виправте назви або порції перед розрахунком харчової цінності.',
 			'meal.localInference.mealName' => 'Назва страви',
@@ -2528,6 +2560,8 @@ extension on TranslationsUk {
 			'notifications.breakfast.title' => 'Час сніданку! 🍳',
 			'notifications.breakfast.body' => 'Не забудьте записати сніданок',
 			'notifications.lunch.title' => 'Час обіду! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Час записати обід',
 			'notifications.dinner.title' => 'Час вечері! 🍽️',
 			'notifications.dinner.body' => 'Не забудьте записати вечерю',
@@ -2544,8 +2578,6 @@ extension on TranslationsUk {
 			'disclaimer.snap.preparationMethods.title' => 'Способи приготування',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Спосіб приготування може істотно змінювати поживний склад їжі. Оцінки ${appLabel} не завжди враховують ці відмінності.',
 			'disclaimer.snap.ingredients.title' => 'Інгредієнти',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Складні страви з багатьма прихованими інгредієнтами можуть призводити до менш точних оцінок.',
 			'disclaimer.snap.databaseLimitations.title' => 'Обмеження бази даних',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктів ${appLabel} обширна, але може не містити кожен окремий продукт чи варіацію.',

@@ -15,27 +15,32 @@ import {
 import type { MealAnalysisSessionRecord } from './mealAnalysisStore.js';
 import { InvalidMealAnalysisSnapshotError } from './mealAnalysisStage.js';
 
-const RESOLVED_INGREDIENT_SNAPSHOT_VERSION = 1;
+const RESOLVED_INGREDIENT_SNAPSHOT_VERSION = 2;
 
 /**
- * The public INGREDIENTS event intentionally stays compact. Continuations need
- * the complete resolution band and match identity, so persistence uses this
- * richer versioned snapshot instead of reconstructing nutrition via USDA/LLM.
+ * Keep only the calculated values needed to resume. Match identities and USDA
+ * references are backend lookup details, not durable row metadata.
  */
 export function toResolvedIngredientsSnapshot(
   analysisId: string,
   mealName: string,
   resolved: ResolvedIngredient[]
 ): Record<string, unknown> {
+  const datasetVersions = new Set(
+    resolved
+      .map((ingredient) => ingredient.nutritionReference?.datasetVersion)
+      .filter((value): value is string => Boolean(value))
+  );
   return {
     snapshotVersion: RESOLVED_INGREDIENT_SNAPSHOT_VERSION,
     analysisId,
     mealName,
+    usdaDatasetVersion: datasetVersions.size === 1
+      ? datasetVersions.values().next().value
+      : undefined,
     ingredients: resolved.map((ingredient) => ({
       rowId: ingredient.rowId,
       rawName: ingredient.rawName,
-      canonicalHint: ingredient.canonicalHint,
-      match: ingredient.match,
       grams: ingredient.grams,
       minGrams: ingredient.minGrams,
       maxGrams: ingredient.maxGrams,
@@ -49,9 +54,18 @@ export function toResolvedIngredientsSnapshot(
       perUnitMinGrams: ingredient.perUnitMinGrams,
       perUnitMaxGrams: ingredient.perUnitMaxGrams,
       sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
-      nutritionReference: ingredient.nutritionReference,
     })),
   };
+}
+
+export function sessionUsdaDatasetVersion(
+  session: MealAnalysisSessionRecord
+): string | undefined {
+  if (session.ingredientsData == null) return undefined;
+  const raw = snapshotRecord(session.ingredientsData, 'resolved ingredients data');
+  return raw.usdaDatasetVersion == null
+    ? undefined
+    : snapshotString(raw.usdaDatasetVersion, 'USDA dataset version');
 }
 
 export function snapshotRecord(
@@ -191,6 +205,12 @@ export function sessionToNormalizedDecomposition(
           ingredient.canonicalHint ?? ingredient.canonical_hint,
           `${rowId}.canonicalHint`
         ),
+        lookupAliases: Array.isArray(ingredient.lookupAliases)
+          ? ingredient.lookupAliases.map((value, aliasIndex) => snapshotString(value, `${rowId}.lookupAliases[${aliasIndex}]`))
+          : [],
+        preparationStates: Array.isArray(ingredient.preparationStates)
+          ? ingredient.preparationStates.map((value, stateIndex) => snapshotString(value, `${rowId}.preparationStates[${stateIndex}]`))
+          : [],
         gramsEstimated,
         minGrams,
         maxGrams,
@@ -251,7 +271,6 @@ function snapshotMatchType(
 ): CanonicalMatch['matchType'] {
   const values: CanonicalMatch['matchType'][] = [
     'exact',
-    'alias',
     'fuzzy',
     'deterministic',
     'llm_fallback',
@@ -282,7 +301,8 @@ function snapshotSource(
 
 function parseFullResolvedIngredient(
   value: unknown,
-  index: number
+  index: number,
+  decomposition: NormalizedIngredient
 ): ResolvedIngredient {
   const raw = snapshotRecord(value, `resolved ingredient ${index}`);
   const rowId = snapshotString(
@@ -297,47 +317,20 @@ function parseFullResolvedIngredient(
       `${rowId} has an unordered resolved gram band`
     );
   }
-  const match = snapshotRecord(raw.match, `${rowId}.match`);
-  const nutritionReference = raw.nutritionReference == null
-    ? undefined
-    : (() => {
-        const reference = snapshotRecord(
-          raw.nutritionReference,
-          `${rowId}.nutritionReference`
-        );
-        return {
-          fdcId: snapshotString(
-            reference.fdcId,
-            `${rowId}.nutritionReference.fdcId`
-          ),
-          datasetVersion: reference.datasetVersion == null
-            ? undefined
-            : snapshotString(
-                reference.datasetVersion,
-                `${rowId}.nutritionReference.datasetVersion`
-              ),
-          per100g: snapshotMacros(
-            reference.per100g,
-            `${rowId}.nutritionReference.per100g`
-          ),
-        };
-      })();
+  const source = snapshotSource(raw.source, `${rowId}.source`);
   return {
     rowId,
     rawName: snapshotString(raw.rawName, `${rowId}.rawName`),
-    canonicalHint: snapshotString(raw.canonicalHint, `${rowId}.canonicalHint`),
+    canonicalHint: decomposition.canonicalHint,
     match: {
-      foodId: snapshotString(match.foodId, `${rowId}.match.foodId`, true),
-      canonicalName: snapshotString(
-        match.canonicalName,
-        `${rowId}.match.canonicalName`,
-        true
-      ),
-      score: snapshotNumber(match.score, `${rowId}.match.score`),
-      matchType: snapshotMatchType(
-        match.matchType,
-        `${rowId}.match.matchType`
-      ),
+      foodId: '',
+      canonicalName: decomposition.canonicalHint,
+      score: 0,
+      matchType: source === 'db'
+        ? 'exact'
+        : source === 'deterministic'
+          ? 'deterministic'
+          : 'llm_fallback',
     },
     grams,
     minGrams,
@@ -345,7 +338,7 @@ function parseFullResolvedIngredient(
     macros: snapshotMacros(raw.macros, `${rowId}.macros`),
     minMacros: snapshotMacros(raw.minMacros, `${rowId}.minMacros`),
     maxMacros: snapshotMacros(raw.maxMacros, `${rowId}.maxMacros`),
-    source: snapshotSource(raw.source, `${rowId}.source`),
+    source,
     portionKind: snapshotPortionKind(raw.portionKind, `${rowId}.portionKind`),
     count: snapshotOptionalNumber(raw.count, `${rowId}.count`),
     perUnitGrams: snapshotOptionalNumber(
@@ -361,7 +354,6 @@ function parseFullResolvedIngredient(
       `${rowId}.perUnitMaxGrams`
     ),
     sizeSpecifiedByUser: raw.sizeSpecifiedByUser === true,
-    nutritionReference,
   };
 }
 
@@ -489,7 +481,7 @@ export function sessionToResolvedIngredients(
     }
     seen.add(rowId);
     const ingredient = isFullSnapshot
-      ? parseFullResolvedIngredient(record, index)
+      ? parseFullResolvedIngredient(record, index, decomposed)
       : legacyResolvedIngredient(record, index, decomposed, session);
     if (
       ingredient.rawName !== decomposed.rawName ||

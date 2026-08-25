@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$th extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'ไม่มีคำถาม';
 	@override String get next => 'ถัดไป';
 	@override String get continueLabel => 'ดำเนินการต่อ';
+	@override String get countQuestion => 'เลือกจำนวน';
+	@override String get itemSizeQuestion => 'เลือกขนาด';
+	@override String get portionSizeQuestion => 'เลือกขนาดส่วน';
+	@override String get option6plus => '6 ชิ้นขึ้นไป';
+	@override String get optionSmall => 'เล็ก';
+	@override String get optionRegular => 'ปกติ';
+	@override String get optionLarge => 'ใหญ่';
+	@override String get optionThin => 'บาง';
+	@override String get optionThick => 'หนา';
+	@override String get optionMini => 'จิ๋ว';
+	@override String get optionStuffed => 'ยัดไส้';
+	@override String get optionHeavy => 'หนัก';
+	@override String get optionSmaller => 'เล็กกว่า';
+	@override String get optionTypical => 'ทั่วไป';
+	@override String get optionLarger => 'ใหญ่กว่า';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$th extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น';
 	@override String get offlineTip4 => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น';
 	@override String get offlineTip5 => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)';
+	@override String get noFoodTip => 'ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsTh {
 			'meal.questionFlow.noQuestionsAvailable' => 'ไม่มีคำถาม',
 			'meal.questionFlow.next' => 'ถัดไป',
 			'meal.questionFlow.continueLabel' => 'ดำเนินการต่อ',
+			'meal.questionFlow.countQuestion' => 'เลือกจำนวน',
+			'meal.questionFlow.itemSizeQuestion' => 'เลือกขนาด',
+			'meal.questionFlow.portionSizeQuestion' => 'เลือกขนาดส่วน',
+			'meal.questionFlow.option6plus' => '6 ชิ้นขึ้นไป',
+			'meal.questionFlow.optionSmall' => 'เล็ก',
+			'meal.questionFlow.optionRegular' => 'ปกติ',
+			'meal.questionFlow.optionLarge' => 'ใหญ่',
+			'meal.questionFlow.optionThin' => 'บาง',
+			'meal.questionFlow.optionThick' => 'หนา',
+			'meal.questionFlow.optionMini' => 'จิ๋ว',
+			'meal.questionFlow.optionStuffed' => 'ยัดไส้',
+			'meal.questionFlow.optionHeavy' => 'หนัก',
+			'meal.questionFlow.optionSmaller' => 'เล็กกว่า',
+			'meal.questionFlow.optionTypical' => 'ทั่วไป',
+			'meal.questionFlow.optionLarger' => 'ใหญ่กว่า',
 			'meal.analysis.title' => 'กำลังวิเคราะห์มื้อของคุณ',
 			'meal.analysis.stepStarted' => 'เริ่มต้น…',
 			'meal.analysis.stepDecomposition' => 'กำลังทำความเข้าใจมื้อ…',
@@ -2280,6 +2311,7 @@ extension on TranslationsTh {
 			'meal.analysis.offlineTip3' => 'เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น',
 			'meal.analysis.offlineTip4' => 'เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น',
 			'meal.analysis.offlineTip5' => 'เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)',
+			'meal.analysis.noFoodTip' => 'ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่',
 			'meal.localInference.reviewTitle' => 'ตรวจสอบส่วนผสมที่ตรวจพบ',
 			'meal.localInference.reviewSubtitle' => 'ข้อมูลนี้ถูกวิเคราะห์บนอุปกรณ์ของคุณ โปรดแก้ไขชื่อหรือปริมาณก่อนคำนวณคุณค่าทางโภชนาการ',
 			'meal.localInference.mealName' => 'ชื่อมื้ออาหาร',
@@ -2528,6 +2560,8 @@ extension on TranslationsTh {
 			'notifications.breakfast.title' => 'เวลาอาหารเช้า! 🍳',
 			'notifications.breakfast.body' => 'อย่าลืมบันทึกมื้อเช้าของคุณ',
 			'notifications.lunch.title' => 'เวลาอาหารกลางวัน! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'ถึงเวลาบันทึกมื้อกลางวันแล้ว',
 			'notifications.dinner.title' => 'เวลามื้อเย็น! 🍽️',
 			'notifications.dinner.body' => 'อย่าลืมบันทึกมื้อเย็นของคุณ',
@@ -2544,8 +2578,6 @@ extension on TranslationsTh {
 			'disclaimer.snap.preparationMethods.title' => 'วิธีการปรุง',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'วิธีการปรุงอาหารสามารถเปลี่ยนปริมาณโภชนาการได้อย่างมาก การประมาณของ ${appLabel} อาจไม่ครอบคลุมความแตกต่างเหล่านี้เสมอไป',
 			'disclaimer.snap.ingredients.title' => 'ส่วนผสม',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'จานที่ซับซ้อนมีส่วนผสมแฝงหลายชนิด อาจทำให้การประมาณมีความแม่นยำน้อยลง',
 			'disclaimer.snap.databaseLimitations.title' => 'ข้อจำกัดของฐานข้อมูล',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'ฐานข้อมูลอาหารของ ${appLabel} มีความหลากหลายแต่ไม่ครอบคลุมทุกรายการอาหารหรือความแตกต่างทั้งหมด',

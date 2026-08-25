@@ -15,24 +15,31 @@ class _MockPackService extends Mock implements LocalNutritionPackService {}
 
 class _MockFoodRepository extends Mock implements FoodRepository {}
 
-IngredientProposalV1 _proposal(String hint) => IngredientProposalV1(
-  schemaVersion: 1,
+IngredientProposalV2 _proposal(String hint) => IngredientProposalV2(
+  schemaVersion: 2,
   proposalId: 'proposal-1',
   modality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
   mealName: 'Test meal',
+  outcome: DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD,
+  outcomeReason: 'The input contains food.',
+  outcomeConfidence: 0.9,
   inferredMealType: MealType.LUNCH,
+  mealTypeReason: 'The context supports lunch.',
   mealTypeConfident: true,
-  confidence: 0.9,
   interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
-  ingredients: [
-    IngredientProposalItemV1(
+  items: [
+    IngredientProposalItemV2(
       rowId: 'row-1',
       rawName: hint,
-      canonicalHint: hint,
-      gramsEstimated: 100,
-      minGrams: 90,
-      maxGrams: 110,
-      portionKind: PortionKind.BULK,
+      isFoodReason: 'The item belongs to the meal.',
+      isFoodConfidence: 0.9,
+      usdaLookup: UsdaLookupProposalV2(proposedCanonicalName: hint),
+      portion: PortionProposalV2(
+        kind: PortionKind.BULK,
+        gramsEstimated: 100,
+        minGrams: 90,
+        maxGrams: 110,
+      ),
     ),
   ],
 );

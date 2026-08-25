@@ -6,41 +6,39 @@ import 'package:models/models.dart';
 const _channel = MethodChannel(
   'dev.thecodepapaya.calorify/local_inference_test',
 );
+const _timezoneChannel = MethodChannel('flutter_timezone');
 
 Map<String, Object?> _proposalJson({
   bool includeNutrition = false,
   String modality = 'ANALYSIS_MODALITY_TEXT',
 }) => {
-  'schemaVersion': 1,
+  'schemaVersion': 2,
   'proposalId': 'proposal-1',
   'modality': modality,
   'mealName': 'Oatmeal with banana',
+  'outcome': 'DECOMPOSITION_OUTCOME_FOOD',
+  'outcomeReason': 'The input contains food.',
+  'outcomeConfidence': 0.9,
   'inferredMealType': 'BREAKFAST',
+  'mealTypeReason': 'The context supports breakfast.',
   'mealTypeConfident': true,
-  'confidence': 0.9,
-  'ingredients': [
+  'items': [
     {
       'rowId': 'ingredient-1',
       'rawName': 'oatmeal',
-      'canonicalHint': 'oatmeal cooked with water',
-      'preparation': 'cooked',
-      'gramsEstimated': 240.0,
-      'minGrams': 200.0,
-      'maxGrams': 280.0,
-      'notes': '',
-      'portionKind': 'BULK',
-      'sizeSpecifiedByUser': false,
-      'confidence': 0.9,
-      'fieldProvenance': [
-        {
-          'fieldName': 'identity',
-          'origin': 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
-        },
-        {
-          'fieldName': 'portion',
-          'origin': 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
-        },
-      ],
+      'isFoodReason': 'Oatmeal belongs to the meal.',
+      'isFoodConfidence': 0.9,
+      'usdaLookup': {
+        'proposedCanonicalName': 'oatmeal',
+        'preparationStates': ['cooked'],
+      },
+      'portion': {
+        'kind': 'BULK',
+        'gramsEstimated': 240.0,
+        'minGrams': 200.0,
+        'maxGrams': 280.0,
+        'sizeSpecifiedByUser': false,
+      },
       if (includeNutrition) 'calories': 300,
     },
   ],
@@ -51,69 +49,59 @@ Map<String, Object?> _proposalJson({
 
 Map<String, Object?> _countProposalWithoutPerUnitJson() => {
   ..._proposalJson(),
-  'ingredients': [
+  'items': [
     {
       'rowId': 'ingredient-1',
       'rawName': 'banana',
-      'canonicalHint': 'banana raw',
-      'preparation': 'raw',
-      'gramsEstimated': 240.0,
-      'minGrams': 180.0,
-      'maxGrams': 300.0,
-      'notes': '',
-      'portionKind': 'COUNT',
-      'count': 2.0,
-      'perUnitGrams': null,
-      'perUnitMinGrams': null,
-      'perUnitMaxGrams': null,
-      'sizeSpecifiedByUser': false,
-      'confidence': 0.9,
-      'fieldProvenance': [
-        {
-          'fieldName': 'identity',
-          'origin': 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
-        },
-        {
-          'fieldName': 'portion',
-          'origin': 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
-        },
-      ],
+      'isFoodReason': 'Banana belongs to the meal.',
+      'isFoodConfidence': 0.9,
+      'usdaLookup': {
+        'proposedCanonicalName': 'banana',
+        'preparationStates': ['raw'],
+      },
+      'portion': {
+        'kind': 'COUNT',
+        'gramsEstimated': 240.0,
+        'minGrams': 180.0,
+        'maxGrams': 300.0,
+        'count': 2.0,
+        'perUnitGrams': null,
+        'perUnitMinGrams': null,
+        'perUnitMaxGrams': null,
+        'sizeSpecifiedByUser': false,
+      },
     },
   ],
 };
 
-IngredientProposalV1 _validProposal() => IngredientProposalV1(
-  schemaVersion: 1,
+IngredientProposalV2 _validProposal() => IngredientProposalV2(
+  schemaVersion: 2,
   proposalId: 'proposal-1',
   modality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
   mealName: 'Oatmeal',
+  outcome: DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD,
+  outcomeReason: 'The input contains oatmeal.',
+  outcomeConfidence: 0.9,
   inferredMealType: MealType.BREAKFAST,
+  mealTypeReason: 'The context supports breakfast.',
   mealTypeConfident: true,
-  confidence: 0.9,
   interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
-  ingredients: [
-    IngredientProposalItemV1(
+  items: [
+    IngredientProposalItemV2(
       rowId: 'ingredient-1',
       rawName: 'oatmeal',
-      canonicalHint: 'oatmeal cooked with water',
-      preparation: 'cooked',
-      gramsEstimated: 240,
-      minGrams: 200,
-      maxGrams: 280,
-      notes: '',
-      portionKind: PortionKind.BULK,
-      sizeSpecifiedByUser: false,
-      confidence: 0.9,
-      fieldProvenance: [
-        IngredientFieldProvenance(
-          fieldName: 'identity',
-          origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-        ),
-        IngredientFieldProvenance(
-          fieldName: 'portion',
-          origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-        ),
-      ],
+      isFoodReason: 'Oatmeal belongs to the meal.',
+      isFoodConfidence: 0.9,
+      usdaLookup: UsdaLookupProposalV2(
+        proposedCanonicalName: 'oatmeal',
+        preparationStates: ['cooked'],
+      ),
+      portion: PortionProposalV2(
+        kind: PortionKind.BULK,
+        gramsEstimated: 240,
+        minGrams: 200,
+        maxGrams: 280,
+      ),
     ),
   ],
 );
@@ -121,9 +109,19 @@ IngredientProposalV1 _validProposal() => IngredientProposalV1(
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  setUp(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          _timezoneChannel,
+          (_) async => 'Asia/Kolkata',
+        );
+  });
+
   tearDown(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(_channel, null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(_timezoneChannel, null);
   });
 
   test(
@@ -153,7 +151,7 @@ void main() {
       expect(result.requestId, 'request-1');
       expect(result.elapsed, const Duration(milliseconds: 42));
       expect(result.proposal.mealName, 'Oatmeal with banana');
-      expect(result.proposal.ingredients.single.rawName, 'oatmeal');
+      expect(result.proposal.items.single.rawName, 'oatmeal');
     },
   );
 
@@ -173,11 +171,11 @@ void main() {
       requestId: 'request-1',
     );
 
-    final ingredient = result.proposal.ingredients.single;
-    expect(ingredient.count, 2);
-    expect(ingredient.perUnitGrams, 120);
-    expect(ingredient.perUnitMinGrams, 90);
-    expect(ingredient.perUnitMaxGrams, 150);
+    final ingredient = result.proposal.items.single;
+    expect(ingredient.portion.count, 2);
+    expect(ingredient.portion.perUnitGrams, 120);
+    expect(ingredient.portion.perUnitMinGrams, 90);
+    expect(ingredient.portion.perUnitMaxGrams, 150);
   });
 
   test('sends image bytes and accepts a local image proposal', () async {
@@ -205,8 +203,9 @@ void main() {
 
   test('removes count fields from a bulk image ingredient', () async {
     final response = _proposalJson(modality: 'ANALYSIS_MODALITY_IMAGE');
-    final ingredient = (response['ingredients'] as List).single as Map;
-    ingredient
+    final ingredient = (response['items'] as List).single as Map;
+    final portion = ingredient['portion'] as Map;
+    portion
       ..['count'] = 1.0
       ..['perUnitGrams'] = 240.0
       ..['perUnitMinGrams'] = 200.0
@@ -223,12 +222,12 @@ void main() {
       requestId: 'request-1',
     );
 
-    final normalized = result.proposal.ingredients.single;
-    expect(normalized.portionKind, PortionKind.BULK);
-    expect(normalized.count, 0);
-    expect(normalized.perUnitGrams, 0);
-    expect(normalized.perUnitMinGrams, 0);
-    expect(normalized.perUnitMaxGrams, 0);
+    final normalized = result.proposal.items.single;
+    expect(normalized.portion.kind, PortionKind.BULK);
+    expect(normalized.portion.count, 0);
+    expect(normalized.portion.perUnitGrams, 0);
+    expect(normalized.portion.perUnitMinGrams, 0);
+    expect(normalized.portion.perUnitMaxGrams, 0);
   });
 
   test('method channel rejects any model-returned nutrition fields', () async {
@@ -319,7 +318,7 @@ void main() {
 
   test('validator rejects duplicate rows and inconsistent portions', () {
     final proposal = _validProposal();
-    proposal.ingredients.add(proposal.ingredients.single.deepCopy());
+    proposal.items.add(proposal.items.single.deepCopy());
 
     expect(
       () => IngredientProposalValidator.validate(
@@ -329,7 +328,7 @@ void main() {
       throwsA(isA<LocalInferenceException>()),
     );
 
-    final invalidRange = _validProposal()..ingredients.single.minGrams = 300;
+    final invalidRange = _validProposal()..items.single.portion.minGrams = 300;
     expect(
       () => IngredientProposalValidator.validate(
         invalidRange,
@@ -339,11 +338,9 @@ void main() {
     );
   });
 
-  test('validator requires identity and portion provenance', () {
+  test('validator requires USDA lookup and portion data', () {
     final proposal = _validProposal();
-    proposal.ingredients.single.fieldProvenance.removeWhere(
-      (item) => item.fieldName == 'portion',
-    );
+    proposal.items.single.clearPortion();
 
     expect(
       () => IngredientProposalValidator.validate(

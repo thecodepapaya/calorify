@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$es extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'No hay preguntas disponibles';
 	@override String get next => 'Siguiente';
 	@override String get continueLabel => 'Continuar';
+	@override String get countQuestion => 'Elige la cantidad';
+	@override String get itemSizeQuestion => 'Elige el tamaño del artículo';
+	@override String get portionSizeQuestion => 'Elige el tamaño de la porción';
+	@override String get option6plus => '6 o más';
+	@override String get optionSmall => 'Pequeño';
+	@override String get optionRegular => 'Normal';
+	@override String get optionLarge => 'Grande';
+	@override String get optionThin => 'Fino';
+	@override String get optionThick => 'Grueso';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Relleno';
+	@override String get optionHeavy => 'Pesado';
+	@override String get optionSmaller => 'Más pequeño';
+	@override String get optionTypical => 'Típico';
+	@override String get optionLarger => 'Más grande';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$es extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.';
 	@override String get offlineTip4 => 'Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.';
 	@override String get offlineTip5 => 'Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado).';
+	@override String get noFoodTip => 'No se detectó comida. Intenta con otra foto o descripción.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsEs {
 			'meal.questionFlow.noQuestionsAvailable' => 'No hay preguntas disponibles',
 			'meal.questionFlow.next' => 'Siguiente',
 			'meal.questionFlow.continueLabel' => 'Continuar',
+			'meal.questionFlow.countQuestion' => 'Elige la cantidad',
+			'meal.questionFlow.itemSizeQuestion' => 'Elige el tamaño del artículo',
+			'meal.questionFlow.portionSizeQuestion' => 'Elige el tamaño de la porción',
+			'meal.questionFlow.option6plus' => '6 o más',
+			'meal.questionFlow.optionSmall' => 'Pequeño',
+			'meal.questionFlow.optionRegular' => 'Normal',
+			'meal.questionFlow.optionLarge' => 'Grande',
+			'meal.questionFlow.optionThin' => 'Fino',
+			'meal.questionFlow.optionThick' => 'Grueso',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Relleno',
+			'meal.questionFlow.optionHeavy' => 'Pesado',
+			'meal.questionFlow.optionSmaller' => 'Más pequeño',
+			'meal.questionFlow.optionTypical' => 'Típico',
+			'meal.questionFlow.optionLarger' => 'Más grande',
 			'meal.analysis.title' => 'Analizando tu comida',
 			'meal.analysis.stepStarted' => 'Iniciando…',
 			'meal.analysis.stepDecomposition' => 'Entendiendo tu comida…',
@@ -2280,6 +2311,7 @@ extension on TranslationsEs {
 			'meal.analysis.offlineTip3' => 'Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.',
 			'meal.analysis.offlineTip4' => 'Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.',
 			'meal.analysis.offlineTip5' => 'Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado).',
+			'meal.analysis.noFoodTip' => 'No se detectó comida. Intenta con otra foto o descripción.',
 			'meal.localInference.reviewTitle' => 'Revisar ingredientes detectados',
 			'meal.localInference.reviewSubtitle' => 'Esto fue interpretado en tu dispositivo. Corrige los nombres o las porciones antes de calcular la nutrición.',
 			'meal.localInference.mealName' => 'Nombre de la comida',
@@ -2528,6 +2560,8 @@ extension on TranslationsEs {
 			'notifications.breakfast.title' => '¡Hora del desayuno! 🍳',
 			'notifications.breakfast.body' => 'No te olvides de registrar tu desayuno',
 			'notifications.lunch.title' => '¡Hora del almuerzo! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Es hora de registrar tu almuerzo',
 			'notifications.dinner.title' => '¡Hora de la cena! 🍽️',
 			'notifications.dinner.body' => 'No te olvides de registrar tu cena',
@@ -2544,8 +2578,6 @@ extension on TranslationsEs {
 			'disclaimer.snap.preparationMethods.title' => 'Métodos de preparación',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Los métodos de cocción pueden alterar significativamente el contenido nutricional de los alimentos. Las estimaciones de ${appLabel} pueden no tener en cuenta siempre estas variaciones.',
 			'disclaimer.snap.ingredients.title' => 'Ingredientes',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Platos complejos con muchos ingredientes ocultos pueden conducir a estimaciones menos precisas.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitaciones de la base de datos',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'La base de datos de alimentos de ${appLabel} es extensa pero puede no incluir todos los alimentos o variaciones.',

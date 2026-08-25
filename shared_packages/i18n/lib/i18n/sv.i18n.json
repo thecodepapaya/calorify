@@ -305,7 +305,22 @@
       "progress": "Fråga {current} av {total}",
       "noQuestionsAvailable": "Inga frågor tillgängliga",
       "next": "Nästa",
-      "continueLabel": "Fortsätt"
+      "continueLabel": "Fortsätt",
+      "countQuestion": "Välj antal",
+      "itemSizeQuestion": "Välj storlek",
+      "portionSizeQuestion": "Välj portionsstorlek",
+      "option6plus": "6 eller fler",
+      "optionSmall": "Liten",
+      "optionRegular": "Normal",
+      "optionLarge": "Stor",
+      "optionThin": "Tunn",
+      "optionThick": "Tjock",
+      "optionMini": "Mini",
+      "optionStuffed": "Fylld",
+      "optionHeavy": "Tung",
+      "optionSmaller": "Mindre",
+      "optionTypical": "Typisk",
+      "optionLarger": "Större"
     },
     "analysis": {
       "title": "Analyserar din måltid",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tips: Ange drycker, såser och matolja — de lägger ofta till kalorier som glöms bort.",
       "offlineTip3": "Tips: En snabb portionsanteckning (1 skål, stor kaffe) gör uppskattningarna mycket skarpare.",
       "offlineTip4": "Tips: Att registrera efter måltiden bygger fortfarande vana; perfektion är inte nödvändig.",
-      "offlineTip5": "Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad)."
+      "offlineTip5": "Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad).",
+      "noFoodTip": "Ingen mat upptäcktes. Prova en annan bild eller beskrivning."
     },
     "localInference": {
       "reviewTitle": "Granska identifierade ingredienser",

@@ -305,7 +305,22 @@
       "progress": "Kérdés {current} / {total}",
       "noQuestionsAvailable": "Nincsenek elérhető kérdések",
       "next": "Következő",
-      "continueLabel": "Folytatás"
+      "continueLabel": "Folytatás",
+      "countQuestion": "Válaszd ki a mennyiséget",
+      "itemSizeQuestion": "Válaszd ki a méretet",
+      "portionSizeQuestion": "Válaszd ki az adag méretét",
+      "option6plus": "6 vagy több",
+      "optionSmall": "Kicsi",
+      "optionRegular": "Normál",
+      "optionLarge": "Nagy",
+      "optionThin": "Vékony",
+      "optionThick": "Vastag",
+      "optionMini": "Mini",
+      "optionStuffed": "Töltött",
+      "optionHeavy": "Nehéz",
+      "optionSmaller": "Kisebb",
+      "optionTypical": "Tipikus",
+      "optionLarger": "Nagyobb"
     },
     "analysis": {
       "title": "Étel elemzése",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tipp: Említsd meg az italokat, szószokat és sütőolajat — ezek plusz kalóriát adnak, amit gyakran elfelejtenek.",
       "offlineTip3": "Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.",
       "offlineTip4": "Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.",
-      "offlineTip5": "Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben)."
+      "offlineTip5": "Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).",
+      "noFoodTip": "Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással."
     },
     "localInference": {
       "reviewTitle": "Élelmiszerek ellenőrzése",

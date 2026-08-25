@@ -26,6 +26,7 @@ const PipelineStep$json = {
     {'1': 'MEAL_TYPE_QUESTION', '2': 5},
     {'1': 'RESULT', '2': 6},
     {'1': 'ERROR', '2': 7},
+    {'1': 'NO_FOOD', '2': 8},
   ],
 };
 
@@ -33,7 +34,8 @@ const PipelineStep$json = {
 final $typed_data.Uint8List pipelineStepDescriptor = $convert.base64Decode(
     'CgxQaXBlbGluZVN0ZXASHQoZUElQRUxJTkVfU1RFUF9VTlNQRUNJRklFRBAAEgsKB1NUQVJURU'
     'QQARIRCg1ERUNPTVBPU0lUSU9OEAISDwoLSU5HUkVESUVOVFMQAxIPCgtVTkNFUlRBSU5UWRAE'
-    'EhYKEk1FQUxfVFlQRV9RVUVTVElPThAFEgoKBlJFU1VMVBAGEgkKBUVSUk9SEAc=');
+    'EhYKEk1FQUxfVFlQRV9RVUVTVElPThAFEgoKBlJFU1VMVBAGEgkKBUVSUk9SEAcSCwoHTk9fRk'
+    '9PRBAI');
 
 @$core.Deprecated('Use portionKindDescriptor instead')
 const PortionKind$json = {
@@ -66,6 +68,22 @@ const AnalysisModality$json = {
 final $typed_data.Uint8List analysisModalityDescriptor = $convert.base64Decode(
     'ChBBbmFseXNpc01vZGFsaXR5EiEKHUFOQUxZU0lTX01PREFMSVRZX1VOU1BFQ0lGSUVEEAASGg'
     'oWQU5BTFlTSVNfTU9EQUxJVFlfVEVYVBABEhsKF0FOQUxZU0lTX01PREFMSVRZX0lNQUdFEAI=');
+
+@$core.Deprecated('Use decompositionOutcomeDescriptor instead')
+const DecompositionOutcome$json = {
+  '1': 'DecompositionOutcome',
+  '2': [
+    {'1': 'DECOMPOSITION_OUTCOME_UNSPECIFIED', '2': 0},
+    {'1': 'DECOMPOSITION_OUTCOME_FOOD', '2': 1},
+    {'1': 'DECOMPOSITION_OUTCOME_NO_FOOD', '2': 2},
+  ],
+};
+
+/// Descriptor for `DecompositionOutcome`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List decompositionOutcomeDescriptor = $convert.base64Decode(
+    'ChREZWNvbXBvc2l0aW9uT3V0Y29tZRIlCiFERUNPTVBPU0lUSU9OX09VVENPTUVfVU5TUEVDSU'
+    'ZJRUQQABIeChpERUNPTVBPU0lUSU9OX09VVENPTUVfRk9PRBABEiEKHURFQ09NUE9TSVRJT05f'
+    'T1VUQ09NRV9OT19GT09EEAI=');
 
 @$core.Deprecated('Use interpretationOriginDescriptor instead')
 const InterpretationOrigin$json = {
@@ -264,30 +282,53 @@ final $typed_data.Uint8List ingredientFieldProvenanceDescriptor = $convert.base6
     'FtZRI3CgZvcmlnaW4YAiABKA4yHy5jYWxvcmlmeS5JbmdyZWRpZW50RmllbGRPcmlnaW5SBm9y'
     'aWdpbg==');
 
-@$core.Deprecated('Use ingredientProposalItemV1Descriptor instead')
-const IngredientProposalItemV1$json = {
-  '1': 'IngredientProposalItemV1',
+@$core.Deprecated('Use usdaLookupProposalV2Descriptor instead')
+const UsdaLookupProposalV2$json = {
+  '1': 'UsdaLookupProposalV2',
   '2': [
-    {'1': 'row_id', '3': 1, '4': 1, '5': 9, '10': 'rowId'},
-    {'1': 'raw_name', '3': 2, '4': 1, '5': 9, '10': 'rawName'},
-    {'1': 'canonical_hint', '3': 3, '4': 1, '5': 9, '10': 'canonicalHint'},
-    {'1': 'preparation', '3': 4, '4': 1, '5': 9, '10': 'preparation'},
-    {'1': 'grams_estimated', '3': 5, '4': 1, '5': 1, '10': 'gramsEstimated'},
-    {'1': 'min_grams', '3': 6, '4': 1, '5': 1, '10': 'minGrams'},
-    {'1': 'max_grams', '3': 7, '4': 1, '5': 1, '10': 'maxGrams'},
-    {'1': 'notes', '3': 8, '4': 1, '5': 9, '10': 'notes'},
     {
-      '1': 'portion_kind',
-      '3': 9,
+      '1': 'proposed_canonical_name',
+      '3': 1,
+      '4': 1,
+      '5': 9,
+      '10': 'proposedCanonicalName'
+    },
+    {'1': 'aliases', '3': 2, '4': 3, '5': 9, '10': 'aliases'},
+    {
+      '1': 'preparation_states',
+      '3': 3,
+      '4': 3,
+      '5': 9,
+      '10': 'preparationStates'
+    },
+  ],
+};
+
+/// Descriptor for `UsdaLookupProposalV2`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List usdaLookupProposalV2Descriptor = $convert.base64Decode(
+    'ChRVc2RhTG9va3VwUHJvcG9zYWxWMhI2Chdwcm9wb3NlZF9jYW5vbmljYWxfbmFtZRgBIAEoCV'
+    'IVcHJvcG9zZWRDYW5vbmljYWxOYW1lEhgKB2FsaWFzZXMYAiADKAlSB2FsaWFzZXMSLQoScHJl'
+    'cGFyYXRpb25fc3RhdGVzGAMgAygJUhFwcmVwYXJhdGlvblN0YXRlcw==');
+
+@$core.Deprecated('Use portionProposalV2Descriptor instead')
+const PortionProposalV2$json = {
+  '1': 'PortionProposalV2',
+  '2': [
+    {
+      '1': 'kind',
+      '3': 1,
       '4': 1,
       '5': 14,
       '6': '.calorify.PortionKind',
-      '10': 'portionKind'
+      '10': 'kind'
     },
-    {'1': 'count', '3': 10, '4': 1, '5': 1, '9': 0, '10': 'count', '17': true},
+    {'1': 'grams_estimated', '3': 2, '4': 1, '5': 1, '10': 'gramsEstimated'},
+    {'1': 'min_grams', '3': 3, '4': 1, '5': 1, '10': 'minGrams'},
+    {'1': 'max_grams', '3': 4, '4': 1, '5': 1, '10': 'maxGrams'},
+    {'1': 'count', '3': 5, '4': 1, '5': 1, '9': 0, '10': 'count', '17': true},
     {
       '1': 'per_unit_grams',
-      '3': 11,
+      '3': 6,
       '4': 1,
       '5': 1,
       '9': 1,
@@ -296,7 +337,7 @@ const IngredientProposalItemV1$json = {
     },
     {
       '1': 'per_unit_min_grams',
-      '3': 12,
+      '3': 7,
       '4': 1,
       '5': 1,
       '9': 2,
@@ -305,7 +346,7 @@ const IngredientProposalItemV1$json = {
     },
     {
       '1': 'per_unit_max_grams',
-      '3': 13,
+      '3': 8,
       '4': 1,
       '5': 1,
       '9': 3,
@@ -314,19 +355,10 @@ const IngredientProposalItemV1$json = {
     },
     {
       '1': 'size_specified_by_user',
-      '3': 14,
+      '3': 9,
       '4': 1,
       '5': 8,
       '10': 'sizeSpecifiedByUser'
-    },
-    {'1': 'confidence', '3': 15, '4': 1, '5': 1, '10': 'confidence'},
-    {
-      '1': 'field_provenance',
-      '3': 16,
-      '4': 3,
-      '5': 11,
-      '6': '.calorify.IngredientFieldProvenance',
-      '10': 'fieldProvenance'
     },
   ],
   '8': [
@@ -337,26 +369,63 @@ const IngredientProposalItemV1$json = {
   ],
 };
 
-/// Descriptor for `IngredientProposalItemV1`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List ingredientProposalItemV1Descriptor = $convert.base64Decode(
-    'ChhJbmdyZWRpZW50UHJvcG9zYWxJdGVtVjESFQoGcm93X2lkGAEgASgJUgVyb3dJZBIZCghyYX'
-    'dfbmFtZRgCIAEoCVIHcmF3TmFtZRIlCg5jYW5vbmljYWxfaGludBgDIAEoCVINY2Fub25pY2Fs'
-    'SGludBIgCgtwcmVwYXJhdGlvbhgEIAEoCVILcHJlcGFyYXRpb24SJwoPZ3JhbXNfZXN0aW1hdG'
-    'VkGAUgASgBUg5ncmFtc0VzdGltYXRlZBIbCgltaW5fZ3JhbXMYBiABKAFSCG1pbkdyYW1zEhsK'
-    'CW1heF9ncmFtcxgHIAEoAVIIbWF4R3JhbXMSFAoFbm90ZXMYCCABKAlSBW5vdGVzEjgKDHBvcn'
-    'Rpb25fa2luZBgJIAEoDjIVLmNhbG9yaWZ5LlBvcnRpb25LaW5kUgtwb3J0aW9uS2luZBIZCgVj'
-    'b3VudBgKIAEoAUgAUgVjb3VudIgBARIpCg5wZXJfdW5pdF9ncmFtcxgLIAEoAUgBUgxwZXJVbm'
-    'l0R3JhbXOIAQESMAoScGVyX3VuaXRfbWluX2dyYW1zGAwgASgBSAJSD3BlclVuaXRNaW5HcmFt'
-    'c4gBARIwChJwZXJfdW5pdF9tYXhfZ3JhbXMYDSABKAFIA1IPcGVyVW5pdE1heEdyYW1ziAEBEj'
-    'MKFnNpemVfc3BlY2lmaWVkX2J5X3VzZXIYDiABKAhSE3NpemVTcGVjaWZpZWRCeVVzZXISHgoK'
-    'Y29uZmlkZW5jZRgPIAEoAVIKY29uZmlkZW5jZRJOChBmaWVsZF9wcm92ZW5hbmNlGBAgAygLMi'
-    'MuY2Fsb3JpZnkuSW5ncmVkaWVudEZpZWxkUHJvdmVuYW5jZVIPZmllbGRQcm92ZW5hbmNlQggK'
-    'Bl9jb3VudEIRCg9fcGVyX3VuaXRfZ3JhbXNCFQoTX3Blcl91bml0X21pbl9ncmFtc0IVChNfcG'
-    'VyX3VuaXRfbWF4X2dyYW1z');
+/// Descriptor for `PortionProposalV2`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List portionProposalV2Descriptor = $convert.base64Decode(
+    'ChFQb3J0aW9uUHJvcG9zYWxWMhIpCgRraW5kGAEgASgOMhUuY2Fsb3JpZnkuUG9ydGlvbktpbm'
+    'RSBGtpbmQSJwoPZ3JhbXNfZXN0aW1hdGVkGAIgASgBUg5ncmFtc0VzdGltYXRlZBIbCgltaW5f'
+    'Z3JhbXMYAyABKAFSCG1pbkdyYW1zEhsKCW1heF9ncmFtcxgEIAEoAVIIbWF4R3JhbXMSGQoFY2'
+    '91bnQYBSABKAFIAFIFY291bnSIAQESKQoOcGVyX3VuaXRfZ3JhbXMYBiABKAFIAVIMcGVyVW5p'
+    'dEdyYW1ziAEBEjAKEnBlcl91bml0X21pbl9ncmFtcxgHIAEoAUgCUg9wZXJVbml0TWluR3JhbX'
+    'OIAQESMAoScGVyX3VuaXRfbWF4X2dyYW1zGAggASgBSANSD3BlclVuaXRNYXhHcmFtc4gBARIz'
+    'ChZzaXplX3NwZWNpZmllZF9ieV91c2VyGAkgASgIUhNzaXplU3BlY2lmaWVkQnlVc2VyQggKBl'
+    '9jb3VudEIRCg9fcGVyX3VuaXRfZ3JhbXNCFQoTX3Blcl91bml0X21pbl9ncmFtc0IVChNfcGVy'
+    'X3VuaXRfbWF4X2dyYW1z');
 
-@$core.Deprecated('Use ingredientProposalV1Descriptor instead')
-const IngredientProposalV1$json = {
-  '1': 'IngredientProposalV1',
+@$core.Deprecated('Use ingredientProposalItemV2Descriptor instead')
+const IngredientProposalItemV2$json = {
+  '1': 'IngredientProposalItemV2',
+  '2': [
+    {'1': 'row_id', '3': 1, '4': 1, '5': 9, '10': 'rowId'},
+    {'1': 'raw_name', '3': 2, '4': 1, '5': 9, '10': 'rawName'},
+    {'1': 'is_food_reason', '3': 3, '4': 1, '5': 9, '10': 'isFoodReason'},
+    {
+      '1': 'is_food_confidence',
+      '3': 4,
+      '4': 1,
+      '5': 1,
+      '10': 'isFoodConfidence'
+    },
+    {
+      '1': 'usda_lookup',
+      '3': 5,
+      '4': 1,
+      '5': 11,
+      '6': '.calorify.UsdaLookupProposalV2',
+      '10': 'usdaLookup'
+    },
+    {
+      '1': 'portion',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.calorify.PortionProposalV2',
+      '10': 'portion'
+    },
+  ],
+};
+
+/// Descriptor for `IngredientProposalItemV2`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List ingredientProposalItemV2Descriptor = $convert.base64Decode(
+    'ChhJbmdyZWRpZW50UHJvcG9zYWxJdGVtVjISFQoGcm93X2lkGAEgASgJUgVyb3dJZBIZCghyYX'
+    'dfbmFtZRgCIAEoCVIHcmF3TmFtZRIkCg5pc19mb29kX3JlYXNvbhgDIAEoCVIMaXNGb29kUmVh'
+    'c29uEiwKEmlzX2Zvb2RfY29uZmlkZW5jZRgEIAEoAVIQaXNGb29kQ29uZmlkZW5jZRI/Cgt1c2'
+    'RhX2xvb2t1cBgFIAEoCzIeLmNhbG9yaWZ5LlVzZGFMb29rdXBQcm9wb3NhbFYyUgp1c2RhTG9v'
+    'a3VwEjUKB3BvcnRpb24YBiABKAsyGy5jYWxvcmlmeS5Qb3J0aW9uUHJvcG9zYWxWMlIHcG9ydG'
+    'lvbg==');
+
+@$core.Deprecated('Use ingredientProposalV2Descriptor instead')
+const IngredientProposalV2$json = {
+  '1': 'IngredientProposalV2',
   '2': [
     {'1': 'schema_version', '3': 1, '4': 1, '5': 13, '10': 'schemaVersion'},
     {'1': 'proposal_id', '3': 2, '4': 1, '5': 9, '10': 'proposalId'},
@@ -370,32 +439,48 @@ const IngredientProposalV1$json = {
     },
     {'1': 'meal_name', '3': 4, '4': 1, '5': 9, '10': 'mealName'},
     {
+      '1': 'outcome',
+      '3': 14,
+      '4': 1,
+      '5': 14,
+      '6': '.calorify.DecompositionOutcome',
+      '10': 'outcome'
+    },
+    {'1': 'outcome_reason', '3': 5, '4': 1, '5': 9, '10': 'outcomeReason'},
+    {
+      '1': 'outcome_confidence',
+      '3': 6,
+      '4': 1,
+      '5': 1,
+      '10': 'outcomeConfidence'
+    },
+    {
       '1': 'inferred_meal_type',
-      '3': 5,
+      '3': 7,
       '4': 1,
       '5': 14,
       '6': '.meal.MealType',
       '10': 'inferredMealType'
     },
+    {'1': 'meal_type_reason', '3': 8, '4': 1, '5': 9, '10': 'mealTypeReason'},
     {
       '1': 'meal_type_confident',
-      '3': 6,
+      '3': 9,
       '4': 1,
       '5': 8,
       '10': 'mealTypeConfident'
     },
-    {'1': 'confidence', '3': 7, '4': 1, '5': 1, '10': 'confidence'},
     {
-      '1': 'ingredients',
-      '3': 8,
+      '1': 'items',
+      '3': 10,
       '4': 3,
       '5': 11,
-      '6': '.calorify.IngredientProposalItemV1',
-      '10': 'ingredients'
+      '6': '.calorify.IngredientProposalItemV2',
+      '10': 'items'
     },
     {
       '1': 'interpretation_origin',
-      '3': 9,
+      '3': 11,
       '4': 1,
       '5': 14,
       '6': '.calorify.InterpretationOrigin',
@@ -403,7 +488,7 @@ const IngredientProposalV1$json = {
     },
     {
       '1': 'model_name',
-      '3': 10,
+      '3': 12,
       '4': 1,
       '5': 9,
       '9': 0,
@@ -412,7 +497,7 @@ const IngredientProposalV1$json = {
     },
     {
       '1': 'model_version',
-      '3': 11,
+      '3': 13,
       '4': 1,
       '5': 9,
       '9': 1,
@@ -426,19 +511,22 @@ const IngredientProposalV1$json = {
   ],
 };
 
-/// Descriptor for `IngredientProposalV1`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List ingredientProposalV1Descriptor = $convert.base64Decode(
-    'ChRJbmdyZWRpZW50UHJvcG9zYWxWMRIlCg5zY2hlbWFfdmVyc2lvbhgBIAEoDVINc2NoZW1hVm'
+/// Descriptor for `IngredientProposalV2`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List ingredientProposalV2Descriptor = $convert.base64Decode(
+    'ChRJbmdyZWRpZW50UHJvcG9zYWxWMhIlCg5zY2hlbWFfdmVyc2lvbhgBIAEoDVINc2NoZW1hVm'
     'Vyc2lvbhIfCgtwcm9wb3NhbF9pZBgCIAEoCVIKcHJvcG9zYWxJZBI2Cghtb2RhbGl0eRgDIAEo'
     'DjIaLmNhbG9yaWZ5LkFuYWx5c2lzTW9kYWxpdHlSCG1vZGFsaXR5EhsKCW1lYWxfbmFtZRgEIA'
-    'EoCVIIbWVhbE5hbWUSPAoSaW5mZXJyZWRfbWVhbF90eXBlGAUgASgOMg4ubWVhbC5NZWFsVHlw'
-    'ZVIQaW5mZXJyZWRNZWFsVHlwZRIuChNtZWFsX3R5cGVfY29uZmlkZW50GAYgASgIUhFtZWFsVH'
-    'lwZUNvbmZpZGVudBIeCgpjb25maWRlbmNlGAcgASgBUgpjb25maWRlbmNlEkQKC2luZ3JlZGll'
-    'bnRzGAggAygLMiIuY2Fsb3JpZnkuSW5ncmVkaWVudFByb3Bvc2FsSXRlbVYxUgtpbmdyZWRpZW'
-    '50cxJTChVpbnRlcnByZXRhdGlvbl9vcmlnaW4YCSABKA4yHi5jYWxvcmlmeS5JbnRlcnByZXRh'
-    'dGlvbk9yaWdpblIUaW50ZXJwcmV0YXRpb25PcmlnaW4SIgoKbW9kZWxfbmFtZRgKIAEoCUgAUg'
-    'ltb2RlbE5hbWWIAQESKAoNbW9kZWxfdmVyc2lvbhgLIAEoCUgBUgxtb2RlbFZlcnNpb26IAQFC'
-    'DQoLX21vZGVsX25hbWVCEAoOX21vZGVsX3ZlcnNpb24=');
+    'EoCVIIbWVhbE5hbWUSOAoHb3V0Y29tZRgOIAEoDjIeLmNhbG9yaWZ5LkRlY29tcG9zaXRpb25P'
+    'dXRjb21lUgdvdXRjb21lEiUKDm91dGNvbWVfcmVhc29uGAUgASgJUg1vdXRjb21lUmVhc29uEi'
+    '0KEm91dGNvbWVfY29uZmlkZW5jZRgGIAEoAVIRb3V0Y29tZUNvbmZpZGVuY2USPAoSaW5mZXJy'
+    'ZWRfbWVhbF90eXBlGAcgASgOMg4ubWVhbC5NZWFsVHlwZVIQaW5mZXJyZWRNZWFsVHlwZRIoCh'
+    'BtZWFsX3R5cGVfcmVhc29uGAggASgJUg5tZWFsVHlwZVJlYXNvbhIuChNtZWFsX3R5cGVfY29u'
+    'ZmlkZW50GAkgASgIUhFtZWFsVHlwZUNvbmZpZGVudBI4CgVpdGVtcxgKIAMoCzIiLmNhbG9yaW'
+    'Z5LkluZ3JlZGllbnRQcm9wb3NhbEl0ZW1WMlIFaXRlbXMSUwoVaW50ZXJwcmV0YXRpb25fb3Jp'
+    'Z2luGAsgASgOMh4uY2Fsb3JpZnkuSW50ZXJwcmV0YXRpb25PcmlnaW5SFGludGVycHJldGF0aW'
+    '9uT3JpZ2luEiIKCm1vZGVsX25hbWUYDCABKAlIAFIJbW9kZWxOYW1liAEBEigKDW1vZGVsX3Zl'
+    'cnNpb24YDSABKAlIAVIMbW9kZWxWZXJzaW9uiAEBQg0KC19tb2RlbF9uYW1lQhAKDl9tb2RlbF'
+    '92ZXJzaW9u');
 
 @$core.Deprecated('Use analysisAttemptReceiptDescriptor instead')
 const AnalysisAttemptReceipt$json = {
@@ -626,11 +714,9 @@ const PipelineDecomposedIngredient$json = {
   '2': [
     {'1': 'row_id', '3': 1, '4': 1, '5': 9, '10': 'rowId'},
     {'1': 'raw_name', '3': 2, '4': 1, '5': 9, '10': 'rawName'},
-    {'1': 'canonical_hint', '3': 3, '4': 1, '5': 9, '10': 'canonicalHint'},
     {'1': 'grams_estimated', '3': 4, '4': 1, '5': 1, '10': 'gramsEstimated'},
     {'1': 'min_grams', '3': 5, '4': 1, '5': 1, '10': 'minGrams'},
     {'1': 'max_grams', '3': 6, '4': 1, '5': 1, '10': 'maxGrams'},
-    {'1': 'notes', '3': 7, '4': 1, '5': 9, '10': 'notes'},
     {
       '1': 'portion_kind',
       '3': 8,
@@ -681,21 +767,24 @@ const PipelineDecomposedIngredient$json = {
     {'1': '_per_unit_min_grams'},
     {'1': '_per_unit_max_grams'},
   ],
+  '9': [
+    {'1': 3, '2': 4},
+    {'1': 7, '2': 8},
+  ],
 };
 
 /// Descriptor for `PipelineDecomposedIngredient`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pipelineDecomposedIngredientDescriptor = $convert.base64Decode(
     'ChxQaXBlbGluZURlY29tcG9zZWRJbmdyZWRpZW50EhUKBnJvd19pZBgBIAEoCVIFcm93SWQSGQ'
-    'oIcmF3X25hbWUYAiABKAlSB3Jhd05hbWUSJQoOY2Fub25pY2FsX2hpbnQYAyABKAlSDWNhbm9u'
-    'aWNhbEhpbnQSJwoPZ3JhbXNfZXN0aW1hdGVkGAQgASgBUg5ncmFtc0VzdGltYXRlZBIbCgltaW'
-    '5fZ3JhbXMYBSABKAFSCG1pbkdyYW1zEhsKCW1heF9ncmFtcxgGIAEoAVIIbWF4R3JhbXMSFAoF'
-    'bm90ZXMYByABKAlSBW5vdGVzEjgKDHBvcnRpb25fa2luZBgIIAEoDjIVLmNhbG9yaWZ5LlBvcn'
-    'Rpb25LaW5kUgtwb3J0aW9uS2luZBIZCgVjb3VudBgJIAEoAUgAUgVjb3VudIgBARIpCg5wZXJf'
-    'dW5pdF9ncmFtcxgKIAEoAUgBUgxwZXJVbml0R3JhbXOIAQESMAoScGVyX3VuaXRfbWluX2dyYW'
-    '1zGAsgASgBSAJSD3BlclVuaXRNaW5HcmFtc4gBARIwChJwZXJfdW5pdF9tYXhfZ3JhbXMYDCAB'
-    'KAFIA1IPcGVyVW5pdE1heEdyYW1ziAEBEjMKFnNpemVfc3BlY2lmaWVkX2J5X3VzZXIYDSABKA'
-    'hSE3NpemVTcGVjaWZpZWRCeVVzZXJCCAoGX2NvdW50QhEKD19wZXJfdW5pdF9ncmFtc0IVChNf'
-    'cGVyX3VuaXRfbWluX2dyYW1zQhUKE19wZXJfdW5pdF9tYXhfZ3JhbXM=');
+    'oIcmF3X25hbWUYAiABKAlSB3Jhd05hbWUSJwoPZ3JhbXNfZXN0aW1hdGVkGAQgASgBUg5ncmFt'
+    'c0VzdGltYXRlZBIbCgltaW5fZ3JhbXMYBSABKAFSCG1pbkdyYW1zEhsKCW1heF9ncmFtcxgGIA'
+    'EoAVIIbWF4R3JhbXMSOAoMcG9ydGlvbl9raW5kGAggASgOMhUuY2Fsb3JpZnkuUG9ydGlvbktp'
+    'bmRSC3BvcnRpb25LaW5kEhkKBWNvdW50GAkgASgBSABSBWNvdW50iAEBEikKDnBlcl91bml0X2'
+    'dyYW1zGAogASgBSAFSDHBlclVuaXRHcmFtc4gBARIwChJwZXJfdW5pdF9taW5fZ3JhbXMYCyAB'
+    'KAFIAlIPcGVyVW5pdE1pbkdyYW1ziAEBEjAKEnBlcl91bml0X21heF9ncmFtcxgMIAEoAUgDUg'
+    '9wZXJVbml0TWF4R3JhbXOIAQESMwoWc2l6ZV9zcGVjaWZpZWRfYnlfdXNlchgNIAEoCFITc2l6'
+    'ZVNwZWNpZmllZEJ5VXNlckIICgZfY291bnRCEQoPX3Blcl91bml0X2dyYW1zQhUKE19wZXJfdW'
+    '5pdF9taW5fZ3JhbXNCFQoTX3Blcl91bml0X21heF9ncmFtc0oECAMQBEoECAcQCA==');
 
 @$core.Deprecated('Use pipelineResolvedIngredientDescriptor instead')
 const PipelineResolvedIngredient$json = {
@@ -703,8 +792,6 @@ const PipelineResolvedIngredient$json = {
   '2': [
     {'1': 'row_id', '3': 1, '4': 1, '5': 9, '10': 'rowId'},
     {'1': 'raw_name', '3': 2, '4': 1, '5': 9, '10': 'rawName'},
-    {'1': 'canonical_name', '3': 3, '4': 1, '5': 9, '10': 'canonicalName'},
-    {'1': 'match_type', '3': 4, '4': 1, '5': 9, '10': 'matchType'},
     {'1': 'grams', '3': 5, '4': 1, '5': 1, '10': 'grams'},
     {
       '1': 'macros',
@@ -714,7 +801,6 @@ const PipelineResolvedIngredient$json = {
       '6': '.calorify.PipelineMacros',
       '10': 'macros'
     },
-    {'1': 'source', '3': 7, '4': 1, '5': 9, '10': 'source'},
     {
       '1': 'portion_kind',
       '3': 8,
@@ -733,90 +819,53 @@ const PipelineResolvedIngredient$json = {
       '10': 'perUnitGrams',
       '17': true
     },
-    {
-      '1': 'nutrition_origin',
-      '3': 11,
-      '4': 1,
-      '5': 14,
-      '6': '.calorify.NutritionOrigin',
-      '10': 'nutritionOrigin'
-    },
-    {'1': 'fdc_id', '3': 12, '4': 1, '5': 9, '9': 2, '10': 'fdcId', '17': true},
-    {
-      '1': 'usda_dataset_version',
-      '3': 13,
-      '4': 1,
-      '5': 9,
-      '9': 3,
-      '10': 'usdaDatasetVersion',
-      '17': true
-    },
-    {
-      '1': 'nutrients_per_100g',
-      '3': 14,
-      '4': 1,
-      '5': 11,
-      '6': '.calorify.PipelineMacros',
-      '9': 4,
-      '10': 'nutrientsPer100g',
-      '17': true
-    },
-    {
-      '1': 'field_provenance',
-      '3': 15,
-      '4': 3,
-      '5': 11,
-      '6': '.calorify.IngredientFieldProvenance',
-      '10': 'fieldProvenance'
-    },
   ],
   '8': [
     {'1': '_count'},
     {'1': '_per_unit_grams'},
-    {'1': '_fdc_id'},
-    {'1': '_usda_dataset_version'},
-    {'1': '_nutrients_per_100g'},
+  ],
+  '9': [
+    {'1': 3, '2': 4},
+    {'1': 4, '2': 5},
+    {'1': 7, '2': 8},
+    {'1': 11, '2': 12},
+    {'1': 12, '2': 13},
+    {'1': 13, '2': 14},
+    {'1': 14, '2': 15},
+    {'1': 15, '2': 16},
   ],
 };
 
 /// Descriptor for `PipelineResolvedIngredient`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pipelineResolvedIngredientDescriptor = $convert.base64Decode(
     'ChpQaXBlbGluZVJlc29sdmVkSW5ncmVkaWVudBIVCgZyb3dfaWQYASABKAlSBXJvd0lkEhkKCH'
-    'Jhd19uYW1lGAIgASgJUgdyYXdOYW1lEiUKDmNhbm9uaWNhbF9uYW1lGAMgASgJUg1jYW5vbmlj'
-    'YWxOYW1lEh0KCm1hdGNoX3R5cGUYBCABKAlSCW1hdGNoVHlwZRIUCgVncmFtcxgFIAEoAVIFZ3'
-    'JhbXMSMAoGbWFjcm9zGAYgASgLMhguY2Fsb3JpZnkuUGlwZWxpbmVNYWNyb3NSBm1hY3JvcxIW'
-    'CgZzb3VyY2UYByABKAlSBnNvdXJjZRI4Cgxwb3J0aW9uX2tpbmQYCCABKA4yFS5jYWxvcmlmeS'
-    '5Qb3J0aW9uS2luZFILcG9ydGlvbktpbmQSGQoFY291bnQYCSABKAFIAFIFY291bnSIAQESKQoO'
-    'cGVyX3VuaXRfZ3JhbXMYCiABKAFIAVIMcGVyVW5pdEdyYW1ziAEBEkQKEG51dHJpdGlvbl9vcm'
-    'lnaW4YCyABKA4yGS5jYWxvcmlmeS5OdXRyaXRpb25PcmlnaW5SD251dHJpdGlvbk9yaWdpbhIa'
-    'CgZmZGNfaWQYDCABKAlIAlIFZmRjSWSIAQESNQoUdXNkYV9kYXRhc2V0X3ZlcnNpb24YDSABKA'
-    'lIA1ISdXNkYURhdGFzZXRWZXJzaW9uiAEBEksKEm51dHJpZW50c19wZXJfMTAwZxgOIAEoCzIY'
-    'LmNhbG9yaWZ5LlBpcGVsaW5lTWFjcm9zSARSEG51dHJpZW50c1BlcjEwMGeIAQESTgoQZmllbG'
-    'RfcHJvdmVuYW5jZRgPIAMoCzIjLmNhbG9yaWZ5LkluZ3JlZGllbnRGaWVsZFByb3ZlbmFuY2VS'
-    'D2ZpZWxkUHJvdmVuYW5jZUIICgZfY291bnRCEQoPX3Blcl91bml0X2dyYW1zQgkKB19mZGNfaW'
-    'RCFwoVX3VzZGFfZGF0YXNldF92ZXJzaW9uQhUKE19udXRyaWVudHNfcGVyXzEwMGc=');
+    'Jhd19uYW1lGAIgASgJUgdyYXdOYW1lEhQKBWdyYW1zGAUgASgBUgVncmFtcxIwCgZtYWNyb3MY'
+    'BiABKAsyGC5jYWxvcmlmeS5QaXBlbGluZU1hY3Jvc1IGbWFjcm9zEjgKDHBvcnRpb25fa2luZB'
+    'gIIAEoDjIVLmNhbG9yaWZ5LlBvcnRpb25LaW5kUgtwb3J0aW9uS2luZBIZCgVjb3VudBgJIAEo'
+    'AUgAUgVjb3VudIgBARIpCg5wZXJfdW5pdF9ncmFtcxgKIAEoAUgBUgxwZXJVbml0R3JhbXOIAQ'
+    'FCCAoGX2NvdW50QhEKD19wZXJfdW5pdF9ncmFtc0oECAMQBEoECAQQBUoECAcQCEoECAsQDEoE'
+    'CAwQDUoECA0QDkoECA4QD0oECA8QEA==');
 
 @$core.Deprecated('Use pipelineClarificationOptionDescriptor instead')
 const PipelineClarificationOption$json = {
   '1': 'PipelineClarificationOption',
   '2': [
     {'1': 'option_id', '3': 1, '4': 1, '5': 9, '10': 'optionId'},
-    {'1': 'label', '3': 2, '4': 1, '5': 9, '10': 'label'},
-    {'1': 'detail', '3': 3, '4': 1, '5': 9, '9': 0, '10': 'detail', '17': true},
     {'1': 'grams', '3': 4, '4': 1, '5': 1, '10': 'grams'},
     {'1': 'calorie_delta', '3': 5, '4': 1, '5': 5, '10': 'calorieDelta'},
   ],
-  '8': [
-    {'1': '_detail'},
+  '9': [
+    {'1': 2, '2': 3},
+    {'1': 3, '2': 4},
   ],
 };
 
 /// Descriptor for `PipelineClarificationOption`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List pipelineClarificationOptionDescriptor = $convert.base64Decode(
-    'ChtQaXBlbGluZUNsYXJpZmljYXRpb25PcHRpb24SGwoJb3B0aW9uX2lkGAEgASgJUghvcHRpb2'
-    '5JZBIUCgVsYWJlbBgCIAEoCVIFbGFiZWwSGwoGZGV0YWlsGAMgASgJSABSBmRldGFpbIgBARIU'
-    'CgVncmFtcxgEIAEoAVIFZ3JhbXMSIwoNY2Fsb3JpZV9kZWx0YRgFIAEoBVIMY2Fsb3JpZURlbH'
-    'RhQgkKB19kZXRhaWw=');
+final $typed_data.Uint8List pipelineClarificationOptionDescriptor =
+    $convert.base64Decode(
+        'ChtQaXBlbGluZUNsYXJpZmljYXRpb25PcHRpb24SGwoJb3B0aW9uX2lkGAEgASgJUghvcHRpb2'
+        '5JZBIUCgVncmFtcxgEIAEoAVIFZ3JhbXMSIwoNY2Fsb3JpZV9kZWx0YRgFIAEoBVIMY2Fsb3Jp'
+        'ZURlbHRhSgQIAhADSgQIAxAE');
 
 @$core.Deprecated('Use pipelineClarificationDescriptor instead')
 const PipelineClarification$json = {
@@ -833,7 +882,6 @@ const PipelineClarification$json = {
       '6': '.calorify.PortionKind',
       '10': 'portionKind'
     },
-    {'1': 'question', '3': 5, '4': 1, '5': 9, '10': 'question'},
     {
       '1': 'options',
       '3': 6,
@@ -844,6 +892,9 @@ const PipelineClarification$json = {
     },
     {'1': 'default_option_id', '3': 7, '4': 1, '5': 9, '10': 'defaultOptionId'},
   ],
+  '9': [
+    {'1': 5, '2': 6},
+  ],
 };
 
 /// Descriptor for `PipelineClarification`. Decode as a `google.protobuf.DescriptorProto`.
@@ -851,9 +902,9 @@ final $typed_data.Uint8List pipelineClarificationDescriptor = $convert.base64Dec
     'ChVQaXBlbGluZUNsYXJpZmljYXRpb24SKQoQY2xhcmlmaWNhdGlvbl9pZBgBIAEoCVIPY2xhcm'
     'lmaWNhdGlvbklkEhUKBnJvd19pZBgCIAEoCVIFcm93SWQSJwoPaW5ncmVkaWVudF9uYW1lGAMg'
     'ASgJUg5pbmdyZWRpZW50TmFtZRI4Cgxwb3J0aW9uX2tpbmQYBCABKA4yFS5jYWxvcmlmeS5Qb3'
-    'J0aW9uS2luZFILcG9ydGlvbktpbmQSGgoIcXVlc3Rpb24YBSABKAlSCHF1ZXN0aW9uEj8KB29w'
-    'dGlvbnMYBiADKAsyJS5jYWxvcmlmeS5QaXBlbGluZUNsYXJpZmljYXRpb25PcHRpb25SB29wdG'
-    'lvbnMSKgoRZGVmYXVsdF9vcHRpb25faWQYByABKAlSD2RlZmF1bHRPcHRpb25JZA==');
+    'J0aW9uS2luZFILcG9ydGlvbktpbmQSPwoHb3B0aW9ucxgGIAMoCzIlLmNhbG9yaWZ5LlBpcGVs'
+    'aW5lQ2xhcmlmaWNhdGlvbk9wdGlvblIHb3B0aW9ucxIqChFkZWZhdWx0X29wdGlvbl9pZBgHIA'
+    'EoCVIPZGVmYXVsdE9wdGlvbklkSgQIBRAG');
 
 @$core.Deprecated('Use pipelineStartedDataDescriptor instead')
 const PipelineStartedData$json = {
@@ -905,19 +956,9 @@ const PipelineDecompositionData$json = {
       '6': '.calorify.InterpretationOrigin',
       '10': 'interpretationOrigin'
     },
-    {
-      '1': 'proposal',
-      '3': 8,
-      '4': 1,
-      '5': 11,
-      '6': '.calorify.IngredientProposalV1',
-      '9': 0,
-      '10': 'proposal',
-      '17': true
-    },
   ],
-  '8': [
-    {'1': '_proposal'},
+  '9': [
+    {'1': 8, '2': 9},
   ],
 };
 
@@ -930,8 +971,7 @@ final $typed_data.Uint8List pipelineDecompositionDataDescriptor = $convert.base6
     'DjIOLm1lYWwuTWVhbFR5cGVSEGluZmVycmVkTWVhbFR5cGUSLgoTbWVhbF90eXBlX2NvbmZpZG'
     'VudBgGIAEoCFIRbWVhbFR5cGVDb25maWRlbnQSUwoVaW50ZXJwcmV0YXRpb25fb3JpZ2luGAcg'
     'ASgOMh4uY2Fsb3JpZnkuSW50ZXJwcmV0YXRpb25PcmlnaW5SFGludGVycHJldGF0aW9uT3JpZ2'
-    'luEj8KCHByb3Bvc2FsGAggASgLMh4uY2Fsb3JpZnkuSW5ncmVkaWVudFByb3Bvc2FsVjFIAFII'
-    'cHJvcG9zYWyIAQFCCwoJX3Byb3Bvc2Fs');
+    'luSgQICBAJ');
 
 @$core.Deprecated('Use pipelineIngredientsDataDescriptor instead')
 const PipelineIngredientsData$json = {
@@ -1004,7 +1044,6 @@ const PipelineMealTypeQuestionData$json = {
   '2': [
     {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
     {'1': 'meal_name', '3': 2, '4': 1, '5': 9, '10': 'mealName'},
-    {'1': 'question', '3': 3, '4': 1, '5': 9, '10': 'question'},
     {
       '1': 'options',
       '3': 4,
@@ -1022,15 +1061,17 @@ const PipelineMealTypeQuestionData$json = {
       '10': 'inferredMealType'
     },
   ],
+  '9': [
+    {'1': 3, '2': 4},
+  ],
 };
 
 /// Descriptor for `PipelineMealTypeQuestionData`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List pipelineMealTypeQuestionDataDescriptor = $convert.base64Decode(
     'ChxQaXBlbGluZU1lYWxUeXBlUXVlc3Rpb25EYXRhEh8KC2FuYWx5c2lzX2lkGAEgASgJUgphbm'
-    'FseXNpc0lkEhsKCW1lYWxfbmFtZRgCIAEoCVIIbWVhbE5hbWUSGgoIcXVlc3Rpb24YAyABKAlS'
-    'CHF1ZXN0aW9uEigKB29wdGlvbnMYBCADKA4yDi5tZWFsLk1lYWxUeXBlUgdvcHRpb25zEjwKEm'
-    'luZmVycmVkX21lYWxfdHlwZRgFIAEoDjIOLm1lYWwuTWVhbFR5cGVSEGluZmVycmVkTWVhbFR5'
-    'cGU=');
+    'FseXNpc0lkEhsKCW1lYWxfbmFtZRgCIAEoCVIIbWVhbE5hbWUSKAoHb3B0aW9ucxgEIAMoDjIO'
+    'Lm1lYWwuTWVhbFR5cGVSB29wdGlvbnMSPAoSaW5mZXJyZWRfbWVhbF90eXBlGAUgASgOMg4ubW'
+    'VhbC5NZWFsVHlwZVIQaW5mZXJyZWRNZWFsVHlwZUoECAMQBA==');
 
 @$core.Deprecated('Use pipelineResultDataDescriptor instead')
 const PipelineResultData$json = {
@@ -1145,6 +1186,28 @@ final $typed_data.Uint8List pipelineErrorDataDescriptor = $convert.base64Decode(
     'ChFQaXBlbGluZUVycm9yRGF0YRIfCgthbmFseXNpc19pZBgBIAEoCVIKYW5hbHlzaXNJZBIYCg'
     'dtZXNzYWdlGAIgASgJUgdtZXNzYWdlEhwKCXJldHJ5YWJsZRgDIAEoCFIJcmV0cnlhYmxl');
 
+@$core.Deprecated('Use pipelineNoFoodDataDescriptor instead')
+const PipelineNoFoodData$json = {
+  '1': 'PipelineNoFoodData',
+  '2': [
+    {'1': 'analysis_id', '3': 1, '4': 1, '5': 9, '10': 'analysisId'},
+    {'1': 'outcome_reason', '3': 2, '4': 1, '5': 9, '10': 'outcomeReason'},
+    {
+      '1': 'outcome_confidence',
+      '3': 3,
+      '4': 1,
+      '5': 1,
+      '10': 'outcomeConfidence'
+    },
+  ],
+};
+
+/// Descriptor for `PipelineNoFoodData`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List pipelineNoFoodDataDescriptor = $convert.base64Decode(
+    'ChJQaXBlbGluZU5vRm9vZERhdGESHwoLYW5hbHlzaXNfaWQYASABKAlSCmFuYWx5c2lzSWQSJQ'
+    'oOb3V0Y29tZV9yZWFzb24YAiABKAlSDW91dGNvbWVSZWFzb24SLQoSb3V0Y29tZV9jb25maWRl'
+    'bmNlGAMgASgBUhFvdXRjb21lQ29uZmlkZW5jZQ==');
+
 @$core.Deprecated('Use mealAnalysisPipelineSessionContextDescriptor instead')
 const MealAnalysisPipelineSessionContext$json = {
   '1': 'MealAnalysisPipelineSessionContext',
@@ -1185,11 +1248,22 @@ const MealAnalysisPipelineSessionContext$json = {
       '17': true
     },
     {'1': 'is_revised', '3': 5, '4': 1, '5': 8, '10': 'isRevised'},
+    {
+      '1': 'no_food',
+      '3': 6,
+      '4': 1,
+      '5': 11,
+      '6': '.calorify.PipelineNoFoodData',
+      '9': 3,
+      '10': 'noFood',
+      '17': true
+    },
   ],
   '8': [
     {'1': '_image_bytes'},
     {'1': '_image_url'},
     {'1': '_text_description'},
+    {'1': '_no_food'},
   ],
 };
 
@@ -1199,5 +1273,6 @@ final $typed_data.Uint8List mealAnalysisPipelineSessionContextDescriptor = $conv
     'NhbG9yaWZ5LlBpcGVsaW5lUmVzdWx0RGF0YVIGcmVzdWx0EiQKC2ltYWdlX2J5dGVzGAIgASgM'
     'SABSCmltYWdlQnl0ZXOIAQESIAoJaW1hZ2VfdXJsGAMgASgJSAFSCGltYWdlVXJsiAEBEi4KEH'
     'RleHRfZGVzY3JpcHRpb24YBCABKAlIAlIPdGV4dERlc2NyaXB0aW9uiAEBEh0KCmlzX3Jldmlz'
-    'ZWQYBSABKAhSCWlzUmV2aXNlZEIOCgxfaW1hZ2VfYnl0ZXNCDAoKX2ltYWdlX3VybEITChFfdG'
-    'V4dF9kZXNjcmlwdGlvbg==');
+    'ZWQYBSABKAhSCWlzUmV2aXNlZBI6Cgdub19mb29kGAYgASgLMhwuY2Fsb3JpZnkuUGlwZWxpbm'
+    'VOb0Zvb2REYXRhSANSBm5vRm9vZIgBAUIOCgxfaW1hZ2VfYnl0ZXNCDAoKX2ltYWdlX3VybEIT'
+    'ChFfdGV4dF9kZXNjcmlwdGlvbkIKCghfbm9fZm9vZA==');

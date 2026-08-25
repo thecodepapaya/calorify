@@ -43,4 +43,20 @@ void main() {
     expect(event.step, PipelineStep.ERROR);
     expect(event.retryable, isTrue);
   });
+
+  test('NO_FOOD parses its typed terminal payload', () {
+    final event = MealAnalysisPipelineEvent.fromJson({
+      'step': 'NO_FOOD',
+      'data': {
+        'analysisId': 'analysis-2',
+        'outcomeReason': 'No meal was detected.',
+        'outcomeConfidence': 0.96,
+      },
+    });
+
+    expect(event.step, PipelineStep.NO_FOOD);
+    expect(event.noFood?.analysisId, 'analysis-2');
+    expect(event.noFood?.outcomeReason, 'No meal was detected.');
+    expect(event.noFood?.outcomeConfidence, 0.96);
+  });
 }

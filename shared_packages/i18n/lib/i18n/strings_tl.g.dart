@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$tl extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Walang mga tanong na available';
 	@override String get next => 'Susunod';
 	@override String get continueLabel => 'Magpatuloy';
+	@override String get countQuestion => 'Pumili ng dami';
+	@override String get itemSizeQuestion => 'Pumili ng laki ng item';
+	@override String get portionSizeQuestion => 'Pumili ng laki ng bahagi';
+	@override String get option6plus => '6 o higit pa';
+	@override String get optionSmall => 'Maliit';
+	@override String get optionRegular => 'Karaniwan';
+	@override String get optionLarge => 'Malaki';
+	@override String get optionThin => 'Manipis';
+	@override String get optionThick => 'Makapal';
+	@override String get optionMini => 'Maliit';
+	@override String get optionStuffed => 'Puno';
+	@override String get optionHeavy => 'Mabigat';
+	@override String get optionSmaller => 'Mas maliit';
+	@override String get optionTypical => 'Karaniwan';
+	@override String get optionLarger => 'Mas malaki';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$tl extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.';
 	@override String get offlineTip4 => 'Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.';
 	@override String get offlineTip5 => 'Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).';
+	@override String get noFoodTip => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsTl {
 			'meal.questionFlow.noQuestionsAvailable' => 'Walang mga tanong na available',
 			'meal.questionFlow.next' => 'Susunod',
 			'meal.questionFlow.continueLabel' => 'Magpatuloy',
+			'meal.questionFlow.countQuestion' => 'Pumili ng dami',
+			'meal.questionFlow.itemSizeQuestion' => 'Pumili ng laki ng item',
+			'meal.questionFlow.portionSizeQuestion' => 'Pumili ng laki ng bahagi',
+			'meal.questionFlow.option6plus' => '6 o higit pa',
+			'meal.questionFlow.optionSmall' => 'Maliit',
+			'meal.questionFlow.optionRegular' => 'Karaniwan',
+			'meal.questionFlow.optionLarge' => 'Malaki',
+			'meal.questionFlow.optionThin' => 'Manipis',
+			'meal.questionFlow.optionThick' => 'Makapal',
+			'meal.questionFlow.optionMini' => 'Maliit',
+			'meal.questionFlow.optionStuffed' => 'Puno',
+			'meal.questionFlow.optionHeavy' => 'Mabigat',
+			'meal.questionFlow.optionSmaller' => 'Mas maliit',
+			'meal.questionFlow.optionTypical' => 'Karaniwan',
+			'meal.questionFlow.optionLarger' => 'Mas malaki',
 			'meal.analysis.title' => 'Sinusuri ang iyong pagkain',
 			'meal.analysis.stepStarted' => 'Nagsisimula…',
 			'meal.analysis.stepDecomposition' => 'Iniintindi ang iyong pagkain…',
@@ -2280,6 +2311,7 @@ extension on TranslationsTl {
 			'meal.analysis.offlineTip3' => 'Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.',
 			'meal.analysis.offlineTip4' => 'Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.',
 			'meal.analysis.offlineTip5' => 'Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).',
+			'meal.analysis.noFoodTip' => 'Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan.',
 			'meal.localInference.reviewTitle' => 'Suriin ang mga nakitang sangkap',
 			'meal.localInference.reviewSubtitle' => 'Binigyang-kahulugan ito sa iyong device. Itama ang mga pangalan o dami bago kalkulahin ang nutrisyon.',
 			'meal.localInference.mealName' => 'Pangalan ng pagkain',
@@ -2528,6 +2560,8 @@ extension on TranslationsTl {
 			'notifications.breakfast.title' => 'Oras na para sa Almusal! 🍳',
 			'notifications.breakfast.body' => 'Huwag kalimutan i-log ang iyong almusal',
 			'notifications.lunch.title' => 'Oras na para sa Tanghalian! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Oras na para i-log ang iyong tanghalian',
 			'notifications.dinner.title' => 'Oras na para sa Hapunan! 🍽️',
 			'notifications.dinner.body' => 'Huwag kalimutan i-log ang iyong hapunan',
@@ -2544,8 +2578,6 @@ extension on TranslationsTl {
 			'disclaimer.snap.preparationMethods.title' => 'Paraan ng Pagluluto',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Malaki ang naiaambag ng paraan ng pagluluto sa pagbabago ng nilalamang nutrisyon ng pagkain. Maaaring hindi palaging nasasaalang-alang ng mga pagtatantya ng ${appLabel} ang mga pagkakaibang ito.',
 			'disclaimer.snap.ingredients.title' => 'Mga Sangkap',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Ang mga komplikadong putahe na may maraming nakatagong sangkap ay maaaring magresulta sa hindi gaanong tumpak na pagtatantiya.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitasyon ng Database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Malawak ang food database ng ${appLabel} ngunit maaaring hindi nito maisama ang bawat isang pagkain o baryasyon.',

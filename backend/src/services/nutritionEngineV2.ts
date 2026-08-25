@@ -5,6 +5,7 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import { query } from './database.js';
 import { OPENAI_MEAL_ANALYSIS_MODEL } from '../openaiModels.js';
 import { safeErrorKind, safeErrorMetadata } from '../utils/safeError.js';
 import { getFoodAnalysisSystemPrompt } from './foodAnalysisSystemPrompt.js';
@@ -13,7 +14,7 @@ import {
   type MealAnalysisLlmClient,
   type MealAnalysisLlmAttempt,
 } from './mealAnalysisLlm.js';
-import { canonicalizeWithUsda } from './usdaLookup.js';
+import { canonicalizeUsdaProposal } from './usdaLookup.js';
 import { extractExplicitQuantityAnchors } from './explicitQuantityParser.js';
 import { dishTemplateGramBounds, missingDishTemplateComponents } from './dishTemplates.js';
 import { assessUsdaNutritionQuality, calcMacrosFromUsdaRow } from './usdaLookupUtils.js';
@@ -50,12 +51,10 @@ import {
   AnalysisModality,
   AnalysisAttemptStatus,
   CalculationOrigin,
-  IngredientFieldOrigin,
   InterpretationOrigin,
   MealAnalysisFallbackReason,
   NutritionOrigin,
   PortionKind,
-  type IngredientFieldProvenance,
   type MealAnalysisReceipt,
 } from '../protos/calorify/meal_analysis_pipeline.js';
 import {
@@ -63,14 +62,6 @@ import {
   synthesizeFallbackTemplate,
   type PortionTemplate,
 } from './portionTemplates.js';
-import {
-  localizeOptionLabel,
-  localizeFallbackOptionLabel,
-  localizeOptionDetail,
-  localizeSizeQuestion,
-  localizeCountQuestion,
-  localizeCountOptionLabel,
-} from './portionLabels.js';
 import { buildOracleDownloadUrl } from './oracleObjectStorage.js';
 import {
   MEAL_TYPES,
@@ -92,6 +83,7 @@ import {
   pendingClarificationAnswersFromSession,
   sessionToNormalizedDecomposition,
   sessionToResolvedIngredients,
+  sessionUsdaDatasetVersion,
   snapshotMacros,
   snapshotMealType,
   snapshotNumber,
@@ -108,6 +100,10 @@ import {
   PRESENTATION_SCHEMA,
   PRESENTATION_SYSTEM_PROMPT,
 } from './mealAnalysisPrompts.js';
+import {
+  parseGeneratedDecompositionOutput,
+  type GeneratedDecompositionOutputV2,
+} from './mealDecompositionSchema.js';
 
 export { MEAL_TYPES } from './mealAnalysisDomain.js';
 export type { Macros, MealTypeValue } from './mealAnalysisDomain.js';
@@ -115,20 +111,24 @@ export type { Macros, MealTypeValue } from './mealAnalysisDomain.js';
 export interface IngredientProposalItem {
   rowId: string;
   rawName: string;
-  canonicalHint: string;
-  preparation: string;
-  gramsEstimated: number;
-  minGrams: number;
-  maxGrams: number;
-  notes: string;
-  portionKind: PortionKind;
-  count?: number;
-  perUnitGrams?: number;
-  perUnitMinGrams?: number;
-  perUnitMaxGrams?: number;
-  sizeSpecifiedByUser: boolean;
-  confidence: number;
-  fieldProvenance: IngredientFieldProvenance[];
+  isFoodReason: string;
+  isFoodConfidence: number;
+  usdaLookup: {
+    proposedCanonicalName: string;
+    aliases: string[];
+    preparationStates: string[];
+  };
+  portion: {
+    kind: PortionKind;
+    gramsEstimated: number;
+    minGrams: number;
+    maxGrams: number;
+    count?: number;
+    perUnitGrams?: number;
+    perUnitMinGrams?: number;
+    perUnitMaxGrams?: number;
+    sizeSpecifiedByUser: boolean;
+  };
 }
 
 export interface IngredientProposal {
@@ -136,39 +136,19 @@ export interface IngredientProposal {
   proposalId: string;
   modality: AnalysisModality;
   mealName: string;
+  outcome: 'DECOMPOSITION_OUTCOME_FOOD' | 'DECOMPOSITION_OUTCOME_NO_FOOD';
+  outcomeReason: string;
+  outcomeConfidence: number;
   inferredMealType: MealTypeValue;
+  mealTypeReason: string;
   mealTypeConfident: boolean;
-  confidence: number;
-  ingredients: IngredientProposalItem[];
+  items: IngredientProposalItem[];
   interpretationOrigin: InterpretationOrigin;
   modelName?: string;
   modelVersion?: string;
 }
 
-interface LLMIngredient {
-  row_id?: string;
-  rowId?: string;
-  raw_name: string;
-  canonical_hint: string;
-  grams_estimated: number;
-  min_grams: number;
-  max_grams: number;
-  notes: string;
-  portion_kind?: PortionKindValue;
-  count?: number | null;
-  per_unit_grams?: number | null;
-  per_unit_min_grams?: number | null;
-  per_unit_max_grams?: number | null;
-  size_specified_by_user?: boolean;
-}
-
-interface LLMDecomposition {
-  meal_name: string;
-  ingredients: LLMIngredient[];
-  confidence: number;
-  inferred_meal_type: MealTypeValue;
-  meal_type_confident: boolean;
-}
+type LLMDecomposition = GeneratedDecompositionOutputV2;
 
 interface LLMFallbackEntry {
   name: string;
@@ -251,11 +231,9 @@ export type HealthScoreValue = 'HEALTHY' | 'NEUTRAL' | 'UNHEALTHY';
 export interface PipelineDecomposedIngredient {
   rowId: string;
   rawName: string;
-  canonicalHint: string;
   gramsEstimated: number;
   minGrams: number;
   maxGrams: number;
-  notes: string;
   portionKind: PortionKindValue;
   count?: number;
   perUnitGrams?: number;
@@ -267,25 +245,15 @@ export interface PipelineDecomposedIngredient {
 export interface PipelineResolvedIngredient {
   rowId: string;
   rawName: string;
-  canonicalName: string;
-  matchType: string;
   grams: number;
   macros: Macros;
-  source: 'db' | 'deterministic' | 'llm_fallback';
   portionKind: PortionKindValue;
   count?: number;
   perUnitGrams?: number;
-  nutritionOrigin: NutritionOrigin;
-  fdcId?: string;
-  usdaDatasetVersion?: string;
-  nutrientsPer100g?: Macros;
-  fieldProvenance: IngredientFieldProvenance[];
 }
 
 export interface ClarificationOptionDTO {
   option_id: string;
-  label: string;
-  detail?: string;
   grams: number;
   calorie_delta: number;
 }
@@ -295,13 +263,11 @@ export interface ClarificationDTO {
   row_id: string;
   ingredient_name: string;
   portion_kind: PortionKindValue;
-  question: string;
   options: ClarificationOptionDTO[];
   default_option_id: string;
 }
 
 export interface MealTypeQuestionDTO {
-  question: string;
   options: MealTypeValue[];
   inferred_meal_type?: MealTypeValue;
 }
@@ -312,18 +278,37 @@ export interface MealHealthDTO {
 }
 
 interface PresentationResult {
-  meal_name: string;
   quantity: string;
-  meal_type: MealTypeValue;
-  meal_type_confident: boolean;
   tip: string;
   health: MealHealthDTO | null;
 }
 
+export interface PresentationUserContext {
+  age_years: number | null;
+  gender: 'MALE' | 'FEMALE' | 'OTHER' | null;
+  current_weight_kg: number | null;
+  target_weight_kg: number | null;
+  bmi: number | null;
+  weight_goal: 'LOSE_WEIGHT' | 'MAINTAIN_WEIGHT' | 'GAIN_WEIGHT' | null;
+  activity_level: 'SEDENTARY' | 'LIGHTLY_ACTIVE' | 'MODERATELY_ACTIVE' | 'VERY_ACTIVE' | 'EXTREMELY_ACTIVE' | null;
+  daily_calorie_goal_kcal: number | null;
+}
+
+export interface PresentationUserProfileRow {
+  height: number | string | null;
+  weight: number | string | null;
+  target_weight: number | string | null;
+  gender: string | null;
+  date_of_birth: Date | string | null;
+  weight_goal: string | null;
+  activity_level: string | null;
+  height_unit: string | null;
+  weight_unit: string | null;
+  daily_calorie_goal: number | null;
+}
+
 export interface PipelineClarificationOptionWire {
   optionId: string;
-  label: string;
-  detail?: string;
   grams: number;
   calorieDelta: number;
 }
@@ -333,7 +318,6 @@ export interface PipelineClarificationWire {
   rowId: string;
   ingredientName: string;
   portionKind: PortionKindValue;
-  question: string;
   options: PipelineClarificationOptionWire[];
   defaultOptionId: string;
 }
@@ -356,7 +340,6 @@ export type PipelineEvent =
         inferredMealType: MealTypeValue;
         mealTypeConfident: boolean;
         interpretationOrigin: InterpretationOrigin;
-        proposal: IngredientProposal;
       };
     }
   | {
@@ -377,7 +360,6 @@ export type PipelineEvent =
       step: 'MEAL_TYPE_QUESTION';
       data: PipelineEventBase & {
         mealName: string;
-        question: string;
         options: MealTypeValue[];
         inferredMealType?: MealTypeValue;
       };
@@ -398,6 +380,10 @@ export type PipelineEvent =
         ingredients: PipelineResolvedIngredient[];
         receipt: MealAnalysisReceipt;
       };
+    }
+  | {
+      step: 'NO_FOOD';
+      data: PipelineEventBase & { outcomeReason: string; outcomeConfidence: number };
     }
   | {
       step: 'ERROR';
@@ -505,136 +491,45 @@ function proposalToDecomposition(proposal: IngredientProposal): LLMDecomposition
     throw new Error('Proposal modality is invalid');
   }
   const mealName = proposal.mealName.trim();
-  if (!mealName || mealName.length > 200) {
-    throw new Error('Proposal meal name is invalid');
-  }
-  if (
-    !Number.isFinite(proposal.confidence) ||
-    proposal.confidence < 0 ||
-    proposal.confidence > 1
-  ) {
-    throw new Error('Proposal confidence is invalid');
-  }
-  if (proposal.ingredients.length === 0 || proposal.ingredients.length > 30) {
-    throw new Error('Proposal ingredient count is invalid');
-  }
   const rowIds = new Set<string>();
-  const ingredients = proposal.ingredients.map((ingredient) => {
+  const items = proposal.items.map((ingredient) => {
     const rowId = ingredient.rowId.trim();
     const rawName = ingredient.rawName.trim();
-    const canonicalHint = ingredient.canonicalHint.trim();
-    if (
-      !rowId || rowIds.has(rowId) || rowId.length > 128 ||
-      !rawName || rawName.length > 200 ||
-      !canonicalHint || canonicalHint.length > 200
-    ) {
-      throw new Error('Proposal ingredient identity is invalid');
-    }
+    if (!rowId || rowIds.has(rowId)) throw new Error('Proposal row IDs must be unique');
     rowIds.add(rowId);
-    const gramValues = [
-      ingredient.minGrams,
-      ingredient.gramsEstimated,
-      ingredient.maxGrams,
-    ];
-    if (
-      gramValues.some((value) => !Number.isFinite(value) || value <= 0 || value > 5000) ||
-      ingredient.minGrams > ingredient.gramsEstimated ||
-      ingredient.gramsEstimated > ingredient.maxGrams
-    ) {
-      throw new Error('Proposal ingredient portion is invalid');
-    }
-    const portionKind = asPortionKind(ingredient.portionKind);
-    if (
-      ingredient.portionKind === PortionKind.PORTION_KIND_UNSPECIFIED ||
-      ingredient.portionKind === PortionKind.UNRECOGNIZED
-    ) {
-      throw new Error('Proposal ingredient portion kind is invalid');
-    }
-    if (
-      ingredient.confidence < 0 ||
-      ingredient.confidence > 1 ||
-      !Number.isFinite(ingredient.confidence)
-    ) {
-      throw new Error('Proposal ingredient confidence is invalid');
-    }
-    const provenanceFields = new Set(
-      ingredient.fieldProvenance.map((provenance) => provenance.fieldName)
-    );
-    if (!provenanceFields.has('identity') || !provenanceFields.has('portion')) {
-      throw new Error('Proposal ingredient provenance is incomplete');
-    }
-    const count = ingredient.count;
-    if (
-      portionKind === 'COUNT' &&
-      (count == null || !Number.isFinite(count) || count <= 0 || count > 20)
-    ) {
-      throw new Error('Count proposal requires a plausible count');
-    }
-    if (portionKind === 'COUNT') {
-      const perUnitValues = [
-        ingredient.perUnitMinGrams,
-        ingredient.perUnitGrams,
-        ingredient.perUnitMaxGrams,
-      ];
-      if (
-        perUnitValues.some(
-          (value) => value == null || !Number.isFinite(value) || value <= 0 || value > 2000
-        ) ||
-        ingredient.perUnitMinGrams! > ingredient.perUnitGrams! ||
-        ingredient.perUnitGrams! > ingredient.perUnitMaxGrams! ||
-        Math.abs(ingredient.gramsEstimated - count! * ingredient.perUnitGrams!) >
-          Math.abs(count! * ingredient.perUnitGrams!) * 0.1 + 0.5
-      ) {
-        throw new Error('Count proposal per-unit values are invalid');
-      }
-    } else if (
-      ingredient.count != null ||
-      ingredient.perUnitGrams != null ||
-      ingredient.perUnitMinGrams != null ||
-      ingredient.perUnitMaxGrams != null
-    ) {
-      throw new Error('Non-count proposal contains count values');
-    }
-    const preparation = ingredient.preparation.trim();
-    const notes = ingredient.notes.trim();
     return {
-      row_id: rowId,
       raw_name: rawName,
-      canonical_hint: canonicalHint,
-      grams_estimated: ingredient.gramsEstimated,
-      min_grams: ingredient.minGrams,
-      max_grams: ingredient.maxGrams,
-      notes: [preparation, notes].filter(Boolean).join('; '),
-      portion_kind: portionKind,
-      count: ingredient.count,
-      per_unit_grams: ingredient.perUnitGrams,
-      per_unit_min_grams: ingredient.perUnitMinGrams,
-      per_unit_max_grams: ingredient.perUnitMaxGrams,
-      size_specified_by_user: ingredient.sizeSpecifiedByUser,
-    } satisfies LLMIngredient;
+      is_food: true as const,
+      is_food_reason: ingredient.isFoodReason,
+      is_food_confidence: ingredient.isFoodConfidence,
+      usda_lookup: {
+        proposed_canonical_name: ingredient.usdaLookup.proposedCanonicalName,
+        aliases: ingredient.usdaLookup.aliases,
+        preparation_states: ingredient.usdaLookup.preparationStates,
+      },
+      portion: {
+        kind: asPortionKind(ingredient.portion.kind) as 'COUNT' | 'BULK' | 'PINCH',
+        grams_estimated: ingredient.portion.gramsEstimated,
+        min_grams: ingredient.portion.minGrams,
+        max_grams: ingredient.portion.maxGrams,
+        count: ingredient.portion.count ?? null,
+        per_unit_grams: ingredient.portion.perUnitGrams ?? null,
+        per_unit_min_grams: ingredient.portion.perUnitMinGrams ?? null,
+        per_unit_max_grams: ingredient.portion.perUnitMaxGrams ?? null,
+        size_specified_by_user: ingredient.portion.sizeSpecifiedByUser,
+      },
+    };
   });
-  if (!MEAL_TYPES.includes(proposal.inferredMealType as (typeof MEAL_TYPES)[number]) &&
-      proposal.inferredMealType !== 'UNKNOWN') {
-    throw new Error('Proposal meal type is invalid');
-  }
-  return {
-    meal_name: mealName,
-    ingredients,
-    confidence: proposal.confidence,
+  return parseGeneratedDecompositionOutput({
+    outcome: proposal.outcome === 'DECOMPOSITION_OUTCOME_NO_FOOD' ? 'NO_FOOD' : 'FOOD',
+    outcome_reason: proposal.outcomeReason,
+    outcome_confidence: proposal.outcomeConfidence,
+    meal_name: proposal.outcome === 'DECOMPOSITION_OUTCOME_NO_FOOD' ? null : mealName,
+    items,
     inferred_meal_type: proposal.inferredMealType as MealTypeValue,
+    meal_type_reason: proposal.mealTypeReason,
     meal_type_confident: proposal.mealTypeConfident,
-  };
-}
-
-function finiteNumber(value: unknown, fallback: number): number {
-  const next = Number(value);
-  return Number.isFinite(next) ? next : fallback;
-}
-
-function finiteOptionalNumber(value: unknown): number | null {
-  if (value == null) return null;
-  const next = Number(value);
-  return Number.isFinite(next) ? next : null;
+  });
 }
 
 function cleanMealName(value: string): string {
@@ -758,22 +653,22 @@ function normalizeDecomposition(
   analysisId?: string,
   sourceText: string = ''
 ): NormalizedDecomposition {
-  const ingredients = decomposition.ingredients.map((ingredient) => {
+  const ingredients = decomposition.items.filter((item) => item.is_food).map((ingredient) => {
     const rawName = String(ingredient.raw_name ?? '').trim();
-    const notes = String(ingredient.notes ?? '');
+    const notes = '';
     const canonicalHint = refineCanonicalHint(
       rawName,
-      String(ingredient.canonical_hint ?? rawName).trim(),
+      ingredient.usda_lookup.proposed_canonical_name,
       notes,
       sourceText
     );
-    const gramsEstimated = finiteNumber(ingredient.grams_estimated, 0);
-    const minGrams = finiteNumber(ingredient.min_grams, gramsEstimated);
-    const maxGrams = finiteNumber(ingredient.max_grams, gramsEstimated);
-    const rowId = String(ingredient.rowId ?? ingredient.row_id ?? randomUUID());
-    const portionKind = asPortionKind(ingredient.portion_kind);
-    const count = finiteOptionalNumber(ingredient.count);
-    const sizeSpecifiedByUser = Boolean(ingredient.size_specified_by_user);
+    const gramsEstimated = ingredient.portion.grams_estimated;
+    const minGrams = ingredient.portion.min_grams;
+    const maxGrams = ingredient.portion.max_grams;
+    const rowId = randomUUID();
+    const portionKind = ingredient.portion.kind;
+    const count = ingredient.portion.count;
+    const sizeSpecifiedByUser = ingredient.portion.size_specified_by_user;
 
     if (portionKind === 'COUNT' && count != null && count > 0) {
       const portionTemplate = lookupTemplate(canonicalHint, rawName);
@@ -781,13 +676,13 @@ function normalizeDecomposition(
         ? explicitTemplateGrams(sourceText, rawName, canonicalHint, notes, portionTemplate)
         : undefined;
       const perUnitGrams = explicitPerUnitGrams ??
-        finiteOptionalNumber(ingredient.per_unit_grams) ?? gramsEstimated / count;
+        ingredient.portion.per_unit_grams ?? gramsEstimated / count;
       const collapsedPerUnitMin = sizeSpecifiedByUser
         ? perUnitGrams
-        : finiteOptionalNumber(ingredient.per_unit_min_grams) ?? minGrams / count;
+        : ingredient.portion.per_unit_min_grams ?? minGrams / count;
       const collapsedPerUnitMax = sizeSpecifiedByUser
         ? perUnitGrams
-        : finiteOptionalNumber(ingredient.per_unit_max_grams) ?? maxGrams / count;
+        : ingredient.portion.per_unit_max_grams ?? maxGrams / count;
       const perUnitBand = orderedBand(collapsedPerUnitMin, perUnitGrams, collapsedPerUnitMax);
       const totalMax = count * perUnitBand.max;
 
@@ -815,6 +710,8 @@ function normalizeDecomposition(
           perUnitMinGrams: null,
           perUnitMaxGrams: null,
           sizeSpecifiedByUser: false,
+          lookupAliases: ingredient.usda_lookup.aliases,
+          preparationStates: ingredient.usda_lookup.preparation_states,
         };
       }
 
@@ -832,6 +729,8 @@ function normalizeDecomposition(
         perUnitMinGrams: perUnitBand.min,
         perUnitMaxGrams: perUnitBand.max,
         sizeSpecifiedByUser,
+        lookupAliases: ingredient.usda_lookup.aliases,
+        preparationStates: ingredient.usda_lookup.preparation_states,
       };
     }
 
@@ -846,10 +745,12 @@ function normalizeDecomposition(
       notes,
       portionKind,
       count: null,
-      perUnitGrams: finiteOptionalNumber(ingredient.per_unit_grams),
-      perUnitMinGrams: finiteOptionalNumber(ingredient.per_unit_min_grams),
-      perUnitMaxGrams: finiteOptionalNumber(ingredient.per_unit_max_grams),
+      perUnitGrams: ingredient.portion.per_unit_grams,
+      perUnitMinGrams: ingredient.portion.per_unit_min_grams,
+      perUnitMaxGrams: ingredient.portion.per_unit_max_grams,
       sizeSpecifiedByUser,
+      lookupAliases: ingredient.usda_lookup.aliases,
+      preparationStates: ingredient.usda_lookup.preparation_states,
     };
   });
 
@@ -920,6 +821,8 @@ function normalizeDecomposition(
       perUnitMinGrams: null,
       perUnitMaxGrams: null,
       sizeSpecifiedByUser: false,
+      lookupAliases: [],
+      preparationStates: [],
     });
   }
 
@@ -937,7 +840,7 @@ function normalizeDecomposition(
   return {
     mealName: cleanMealName(decomposition.meal_name ?? ''),
     ingredients,
-    confidence: finiteNumber(decomposition.confidence, 0),
+    confidence: decomposition.outcome_confidence,
     inferredMealType: decomposition.inferred_meal_type ?? 'UNKNOWN',
     mealTypeConfident: Boolean(decomposition.meal_type_confident),
   };
@@ -976,7 +879,7 @@ function maybeLogDroppedCounts(
   });
 }
 
-function buildCountQuestion(ingredient: ResolvedIngredient, locale: string): ClarificationDTO {
+function buildCountQuestion(ingredient: ResolvedIngredient, _locale: string): ClarificationDTO {
   const perUnitGrams = ingredient.perUnitGrams ?? (ingredient.grams || 35);
   const optionCounts = [
     { optionId: '1', count: 1 },
@@ -991,12 +894,10 @@ function buildCountQuestion(ingredient: ResolvedIngredient, locale: string): Cla
     row_id: ingredient.rowId,
     ingredient_name: ingredient.rawName,
     portion_kind: 'COUNT_QUESTION',
-    question: localizeCountQuestion(ingredient.rawName, locale),
     options: optionCounts.map((option) => {
       const grams = roundGram(option.count * perUnitGrams);
       return {
         option_id: option.optionId,
-        label: localizeCountOptionLabel(option.optionId, locale),
         grams,
         calorie_delta: scaleMacros(ingredient.macros, ingredient.grams, grams).calories - ingredient.macros.calories,
       };
@@ -1008,31 +909,20 @@ function buildCountQuestion(ingredient: ResolvedIngredient, locale: string): Cla
 function buildSizeQuestion(
   ingredient: ResolvedIngredient,
   template: PortionTemplate,
-  locale: string,
-  isFallback: boolean
+  _locale: string,
+  _isFallback: boolean
 ): ClarificationDTO {
   const count = ingredient.portionKind === 'COUNT' ? ingredient.count ?? 1 : 1;
-  const wirePortionKind = toWirePortionKind(ingredient.portionKind);
 
   return {
     clarification_id: `clr_${ingredient.rowId}`,
     row_id: ingredient.rowId,
     ingredient_name: ingredient.rawName,
     portion_kind: ingredient.portionKind,
-    question: localizeSizeQuestion(
-      ingredient.rawName,
-      ingredient.portionKind === 'COUNT' ? count : null,
-      wirePortionKind,
-      locale,
-    ),
     options: template.options.map((option) => {
       const grams = roundGram((ingredient.portionKind === 'COUNT' ? count : 1) * option.perUnitGrams);
       return {
         option_id: option.optionId,
-        label: isFallback
-          ? localizeFallbackOptionLabel(option.optionId, wirePortionKind, locale)
-          : localizeOptionLabel(template.templateKey, option.optionId, locale),
-        detail: localizeOptionDetail(option.perUnitGrams, wirePortionKind, locale),
         grams,
         calorie_delta: scaleMacros(ingredient.macros, ingredient.grams, grams).calories - ingredient.macros.calories,
       };
@@ -1135,11 +1025,8 @@ function clarificationsToWire(clarifications: ClarificationDTO[]): PipelineClari
     rowId: c.row_id,
     ingredientName: c.ingredient_name,
     portionKind: c.portion_kind,
-    question: c.question,
     options: c.options.map((o) => ({
       optionId: o.option_id,
-      label: o.label,
-      detail: o.detail,
       grams: o.grams,
       calorieDelta: o.calorie_delta,
     })),
@@ -1151,11 +1038,9 @@ function toDecompositionWire(decomposition: NormalizedDecomposition): PipelineDe
   return decomposition.ingredients.map((ingredient) => ({
     rowId: ingredient.rowId,
     rawName: ingredient.rawName,
-    canonicalHint: ingredient.canonicalHint,
     gramsEstimated: ingredient.gramsEstimated,
     minGrams: ingredient.minGrams,
     maxGrams: ingredient.maxGrams,
-    notes: ingredient.notes,
     portionKind: ingredient.portionKind,
     count: ingredient.count ?? undefined,
     perUnitGrams: ingredient.perUnitGrams ?? undefined,
@@ -1165,7 +1050,7 @@ function toDecompositionWire(decomposition: NormalizedDecomposition): PipelineDe
   }));
 }
 
-const INGREDIENT_PROPOSAL_SCHEMA_VERSION = 1;
+const INGREDIENT_PROPOSAL_SCHEMA_VERSION = 2;
 const ANALYSIS_RECEIPT_SCHEMA_VERSION = 1;
 const CALCULATION_VERSION = 'nutrition-engine-v2';
 
@@ -1174,39 +1059,40 @@ function proposalForDecomposition(
   decomposition: NormalizedDecomposition
 ): IngredientProposal {
   if (context.acceptedProposal) return context.acceptedProposal;
-  const fieldOrigin = context.interpretationOrigin === InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
-    ? IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL
-    : IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL;
   return {
     schemaVersion: INGREDIENT_PROPOSAL_SCHEMA_VERSION,
-    proposalId: `${context.analysisId}:proposal-v1`,
+    proposalId: `${context.analysisId}:proposal-v2`,
     modality: context.source === 'image'
       ? AnalysisModality.ANALYSIS_MODALITY_IMAGE
       : AnalysisModality.ANALYSIS_MODALITY_TEXT,
     mealName: decomposition.mealName,
+    outcome: 'DECOMPOSITION_OUTCOME_FOOD',
+    outcomeReason: 'At least one item belongs to the analyzed meal.',
+    outcomeConfidence: decomposition.confidence,
     inferredMealType: decomposition.inferredMealType,
+    mealTypeReason: 'Inferred from the meal and supplied local context.',
     mealTypeConfident: decomposition.mealTypeConfident,
-    confidence: decomposition.confidence,
-    ingredients: decomposition.ingredients.map((ingredient) => ({
+    items: decomposition.ingredients.map((ingredient) => ({
       rowId: ingredient.rowId,
       rawName: ingredient.rawName,
-      canonicalHint: ingredient.canonicalHint,
-      preparation: '',
-      gramsEstimated: ingredient.gramsEstimated,
-      minGrams: ingredient.minGrams,
-      maxGrams: ingredient.maxGrams,
-      notes: ingredient.notes,
-      portionKind: toWirePortionKind(ingredient.portionKind),
-      count: ingredient.count ?? undefined,
-      perUnitGrams: ingredient.perUnitGrams ?? undefined,
-      perUnitMinGrams: ingredient.perUnitMinGrams ?? undefined,
-      perUnitMaxGrams: ingredient.perUnitMaxGrams ?? undefined,
-      sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
-      confidence: decomposition.confidence,
-      fieldProvenance: [
-        { fieldName: 'identity', origin: fieldOrigin },
-        { fieldName: 'portion', origin: fieldOrigin },
-      ],
+      isFoodReason: 'The item belongs to the analyzed meal.',
+      isFoodConfidence: decomposition.confidence,
+      usdaLookup: {
+        proposedCanonicalName: ingredient.canonicalHint,
+        aliases: ingredient.lookupAliases,
+        preparationStates: ingredient.preparationStates,
+      },
+      portion: {
+        kind: toWirePortionKind(ingredient.portionKind),
+        gramsEstimated: ingredient.gramsEstimated,
+        minGrams: ingredient.minGrams,
+        maxGrams: ingredient.maxGrams,
+        count: ingredient.count ?? undefined,
+        perUnitGrams: ingredient.perUnitGrams ?? undefined,
+        perUnitMinGrams: ingredient.perUnitMinGrams ?? undefined,
+        perUnitMaxGrams: ingredient.perUnitMaxGrams ?? undefined,
+        sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
+      },
     })),
     interpretationOrigin: context.interpretationOrigin,
     modelName: context.interpretationOrigin === InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL
@@ -1242,7 +1128,8 @@ function aggregateNutritionOrigin(resolved: ResolvedIngredient[]): NutritionOrig
 
 function buildAnalysisReceipt(
   context: PipelineRunContext,
-  resolved: ResolvedIngredient[]
+  resolved: ResolvedIngredient[],
+  persistedUsdaDatasetVersion?: string
 ): MealAnalysisReceipt {
   const completedAt = Date.now();
   const attempts = [];
@@ -1290,7 +1177,7 @@ function buildAnalysisReceipt(
     calculationOrigin: CalculationOrigin.CALCULATION_ORIGIN_SERVER_DETERMINISTIC,
     usdaDatasetVersion: datasetVersions.size === 1
       ? datasetVersions.values().next().value
-      : undefined,
+      : persistedUsdaDatasetVersion,
     calculationVersion: CALCULATION_VERSION,
     attempts,
     fallbackReason: context.fallbackReason,
@@ -1298,38 +1185,17 @@ function buildAnalysisReceipt(
 }
 
 function toResolvedIngredientWire(
-  context: PipelineRunContext,
+  _context: PipelineRunContext,
   resolved: ResolvedIngredient[]
 ): PipelineResolvedIngredient[] {
-  const proposalByRowId = new Map(
-    context.acceptedProposal?.ingredients.map((ingredient) => [
-      ingredient.rowId,
-      ingredient,
-    ]) ?? []
-  );
-  const defaultFieldOrigin = context.interpretationOrigin ===
-      InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
-    ? IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL
-    : IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL;
   return resolved.map((ingredient) => ({
     rowId: ingredient.rowId,
     rawName: ingredient.rawName,
-    canonicalName: ingredient.match.canonicalName,
-    matchType: ingredient.match.matchType,
     grams: ingredient.grams,
     macros: ingredient.macros,
-    source: ingredient.source,
     portionKind: ingredient.portionKind,
     count: ingredient.count ?? undefined,
     perUnitGrams: ingredient.perUnitGrams ?? undefined,
-    nutritionOrigin: nutritionOriginForIngredient(ingredient),
-    fdcId: ingredient.nutritionReference?.fdcId,
-    usdaDatasetVersion: ingredient.nutritionReference?.datasetVersion,
-    nutrientsPer100g: ingredient.nutritionReference?.per100g,
-    fieldProvenance: proposalByRowId.get(ingredient.rowId)?.fieldProvenance ?? [
-      { fieldName: 'identity', origin: defaultFieldOrigin },
-      { fieldName: 'portion', origin: defaultFieldOrigin },
-    ],
   }));
 }
 
@@ -1565,9 +1431,10 @@ function formatIngredientSummary(resolved: ResolvedIngredient[]): string {
 async function decomposeFromText(
   client: MealAnalysisLlmClient,
   input: string,
+  inputContext: string,
   correctionContext?: string
 ): Promise<LLMDecomposition> {
-  const userContent = correctionContext ? `${input}\n\n${correctionContext}` : input;
+  const userContent = [inputContext, input, correctionContext].filter(Boolean).join('\n\n');
   const response = await client.chat.completions.create({
     model: OPENAI_MEAL_ANALYSIS_MODEL,
     messages: [
@@ -1582,12 +1449,13 @@ async function decomposeFromText(
   }, { operation: 'decompose_text' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
-  return JSON.parse(raw) as LLMDecomposition;
+  return parseGeneratedDecompositionOutput(JSON.parse(raw));
 }
 
 async function decomposeFromImage(
   client: MealAnalysisLlmClient,
   imageUrl: string,
+  inputContext: string,
   correctionContext?: string
 ): Promise<LLMDecomposition> {
   const response = await client.chat.completions.create({
@@ -1599,9 +1467,8 @@ async function decomposeFromImage(
         content: [
           {
             type: 'text',
-            text: correctionContext
-              ? `Analyze this meal image.\n\n${correctionContext}`
-              : 'Analyze this meal image.',
+            text: [inputContext, 'Analyze this meal image.', correctionContext]
+              .filter(Boolean).join('\n\n'),
           },
           { type: 'image_url', image_url: { url: imageUrl } },
         ],
@@ -1615,7 +1482,7 @@ async function decomposeFromImage(
   }, { operation: 'decompose_image' });
   const raw = response.choices[0]?.message?.content;
   if (!raw) throw new Error('Empty LLM response');
-  return JSON.parse(raw) as LLMDecomposition;
+  return parseGeneratedDecompositionOutput(JSON.parse(raw));
 }
 
 async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string[]): Promise<Map<string, LLMFallbackEntry>> {
@@ -1706,7 +1573,11 @@ async function resolveIngredients(
           analysisId,
           ingredientIndex,
         },
-        () => canonicalizeWithUsda(ingredient.canonicalHint)
+        () => canonicalizeUsdaProposal(
+          ingredient.canonicalHint,
+          ingredient.lookupAliases,
+          ingredient.preparationStates
+        )
       )
     )
   );
@@ -1942,20 +1813,18 @@ async function enrichPresentationFromText(
   resolved: ResolvedIngredient[],
   totalMacros: Macros,
   correctionContext: string,
-  mealNameHint: string
+  mealNameHint: string,
+  userContext: PresentationUserContext | null
 ): Promise<PresentationResult> {
   const textDescription = String(context.requestPayload.textDescription ?? '');
   const userPrompt = [
     `Original meal description: ${textDescription}`,
-    mealNameHint
-      ? `Canonical meal name hint: Use "${mealNameHint}" as the meal name unless the original evidence clearly supports a better, more specific title.`
-      : '',
+    mealNameHint ? `Persisted meal name: ${mealNameHint}` : '',
     correctionContext,
     `Total macros: ${totalMacros.calories} kcal, ${totalMacros.protein}g protein, ${totalMacros.carbs}g carbs, ${totalMacros.fat}g fat, ${totalMacros.fiber}g fiber`,
     `Ingredients:\n${formatIngredientSummary(resolved)}`,
-    context.selectedMealType
-      ? `The user explicitly selected meal type ${context.selectedMealType}. You must use that as meal_type and treat meal_type_confident as true.`
-      : '',
+    context.selectedMealType ? `Final meal type: ${context.selectedMealType}` : '',
+    userContext ? `User context: ${JSON.stringify(userContext)}` : '',
   ]
     .filter(Boolean)
     .join('\n\n');
@@ -1980,54 +1849,51 @@ async function enrichPresentationFromText(
   return JSON.parse(raw) as PresentationResult;
 }
 
-async function enrichPresentationFromImage(
-  client: MealAnalysisLlmClient,
-  context: PipelineRunContext,
-  resolved: ResolvedIngredient[],
-  totalMacros: Macros,
-  correctionContext: string,
-  mealNameHint: string
-): Promise<PresentationResult> {
-  const imageUrl = context.imageUrl;
-  if (!imageUrl) throw new Error('Image analysis session is missing an image object key');
-  const prompt = [
-    mealNameHint
-      ? `Canonical meal name hint: Use "${mealNameHint}" as the meal name unless the image clearly supports a better, more specific title.`
-      : '',
-    correctionContext,
-    `Total macros: ${totalMacros.calories} kcal, ${totalMacros.protein}g protein, ${totalMacros.carbs}g carbs, ${totalMacros.fat}g fat, ${totalMacros.fiber}g fiber`,
-    `Ingredients:\n${formatIngredientSummary(resolved)}`,
-    context.selectedMealType
-      ? `The user explicitly selected meal type ${context.selectedMealType}. You must use that as meal_type and treat meal_type_confident as true.`
-      : '',
-  ]
-    .filter(Boolean)
-    .join('\n\n');
+async function loadPresentationUserContext(
+  userId: string | undefined
+): Promise<PresentationUserContext | null> {
+  if (!userId) return null;
+  const { rows } = await query<PresentationUserProfileRow>(
+    `SELECT height, weight, target_weight, gender, date_of_birth, weight_goal,
+             activity_level, height_unit, weight_unit, daily_calorie_goal
+        FROM user_profile WHERE user_id = $1 LIMIT 1`, [userId]);
+  const profile = rows[0];
+  return profile ? normalizePresentationUserContext(profile) : null;
+}
 
-  const response = await client.chat.completions.create({
-    model: OPENAI_MEAL_ANALYSIS_MODEL,
-    messages: [
-      {
-        role: 'system',
-        content: `${getFoodAnalysisSystemPrompt(context.locale, context.countryCode)}\n${PRESENTATION_SYSTEM_PROMPT}`,
-      },
-      {
-        role: 'user',
-        content: [
-          { type: 'text', text: `Build the final meal summary from this image and the grounded nutrition details.\n\n${prompt}` },
-          { type: 'image_url', image_url: { url: imageUrl } },
-        ],
-      },
-    ],
-    response_format: {
-      type: 'json_schema',
-      json_schema: { name: 'meal_presentation', schema: PRESENTATION_SCHEMA, strict: true },
-    },
-    max_completion_tokens: 800,
-  }, { operation: 'enrich_presentation' });
-  const raw = response.choices[0]?.message?.content;
-  if (!raw) throw new Error('Empty presentation response');
-  return JSON.parse(raw) as PresentationResult;
+export function normalizePresentationUserContext(
+  profile: PresentationUserProfileRow,
+  nowEpochMs: number = Date.now()
+): PresentationUserContext {
+  const finite = (value: unknown): number | null => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+  };
+  const height = finite(profile.height);
+  const weight = finite(profile.weight);
+  const targetWeight = finite(profile.target_weight);
+  const heightCm = height == null ? null : profile.height_unit === 'IMPERIAL' ? height * 2.54 : height;
+  const weightKg = weight == null ? null : profile.weight_unit === 'IMPERIAL' ? weight * 0.45359237 : weight;
+  const targetWeightKg = targetWeight == null ? null : profile.weight_unit === 'IMPERIAL'
+    ? targetWeight * 0.45359237
+    : targetWeight;
+  const birthDate = profile.date_of_birth == null ? null : new Date(profile.date_of_birth);
+  const age = birthDate && !Number.isNaN(birthDate.getTime())
+    ? Math.max(0, Math.floor((nowEpochMs - birthDate.getTime()) / 31_556_952_000))
+    : null;
+  const bmi = heightCm && weightKg ? +(weightKg / ((heightCm / 100) ** 2)).toFixed(1) : null;
+  const oneOf = <T extends string>(value: string | null, allowed: readonly T[]): T | null =>
+    value != null && (allowed as readonly string[]).includes(value) ? value as T : null;
+  return {
+    age_years: age,
+    gender: oneOf(profile.gender, ['MALE', 'FEMALE', 'OTHER'] as const),
+    current_weight_kg: weightKg == null ? null : +weightKg.toFixed(1),
+    target_weight_kg: targetWeightKg == null ? null : +targetWeightKg.toFixed(1),
+    bmi,
+    weight_goal: oneOf(profile.weight_goal, ['LOSE_WEIGHT', 'MAINTAIN_WEIGHT', 'GAIN_WEIGHT'] as const),
+    activity_level: oneOf(profile.activity_level, ['SEDENTARY', 'LIGHTLY_ACTIVE', 'MODERATELY_ACTIVE', 'VERY_ACTIVE', 'EXTREMELY_ACTIVE'] as const),
+    daily_calorie_goal_kcal: finite(profile.daily_calorie_goal),
+  };
 }
 
 async function enrichPresentation(
@@ -2044,17 +1910,17 @@ async function enrichPresentation(
   }
 
   const correctionContext = buildCorrectionContext(context.feedbackIssues, context.otherText);
+  const userContext = await loadPresentationUserContext(context.userId);
 
-  const enriched =
-    context.source === 'image'
-      ? await enrichPresentationFromImage(client, context, resolved, totalMacros, correctionContext, mealNameHint)
-      : await enrichPresentationFromText(client, context, resolved, totalMacros, correctionContext, mealNameHint);
-
-  return {
-    ...enriched,
-    meal_type: context.selectedMealType,
-    meal_type_confident: true,
-  };
+  return enrichPresentationFromText(
+    client,
+    context,
+    resolved,
+    totalMacros,
+    correctionContext,
+    mealNameHint,
+    userContext
+  );
 }
 
 async function persistSessionSnapshot(
@@ -2105,6 +1971,7 @@ interface PostResolutionOptions {
   accumulatedAnswers?: MealClarificationAnswer[];
   emitUpdatedIngredients?: boolean;
   interactionLease?: MealAnalysisStageLease;
+  usdaDatasetVersion?: string;
 }
 
 async function recordClarificationAudit(
@@ -2145,8 +2012,23 @@ function buildDecompositionEvent(
       inferredMealType: decomposition.inferredMealType,
       mealTypeConfident: decomposition.mealTypeConfident,
       interpretationOrigin: context.interpretationOrigin,
-      proposal: proposalForDecomposition(context, decomposition),
     },
+  };
+}
+
+function decompositionSnapshot(
+  context: PipelineRunContext,
+  decomposition: NormalizedDecomposition
+): Record<string, unknown> {
+  return {
+    ...buildDecompositionEvent(context, decomposition).data,
+    proposal: proposalForDecomposition(context, decomposition),
+    ingredients: decomposition.ingredients.map((ingredient) => ({
+      ...toDecompositionWire({ ...decomposition, ingredients: [ingredient] })[0],
+      canonicalHint: ingredient.canonicalHint,
+      lookupAliases: ingredient.lookupAliases,
+      preparationStates: ingredient.preparationStates,
+    })),
   };
 }
 
@@ -2196,7 +2078,6 @@ function buildMealTypeQuestionEvent(
     data: {
       analysisId: context.analysisId,
       mealName: decomposition.mealName,
-      question: 'Which meal is this?',
       options: [...MEAL_TYPES],
       inferredMealType: decomposition.inferredMealType !== 'UNKNOWN'
         ? decomposition.inferredMealType
@@ -2254,7 +2135,8 @@ async function* runPresentationStage(
   expectedStage: PresentationResumeStage,
   clarificationAnswers: MealClarificationAnswer[] | undefined,
   allowLegacyMissingStage: boolean = false,
-  preclaimedLease?: MealAnalysisStageLease
+  preclaimedLease?: MealAnalysisStageLease,
+  usdaDatasetVersion?: string
 ): AsyncGenerator<PipelineEvent> {
   const finalMealType = context.selectedMealType;
   const mealTypeSource = context.selectedMealTypeSource;
@@ -2311,7 +2193,7 @@ async function* runPresentationStage(
       step: 'RESULT',
       data: {
         analysisId: context.analysisId,
-        mealName: presentation.meal_name,
+        mealName: decomposition.mealName,
         quantity: presentation.quantity,
         mealType: finalMealType,
         mealTypeSource,
@@ -2342,7 +2224,7 @@ async function* runPresentationStage(
           max: uncertainty.maxTotal.calories,
         },
         ingredients: toResolvedIngredientWire(context, resolved),
-        receipt: buildAnalysisReceipt(context, resolved),
+        receipt: buildAnalysisReceipt(context, resolved, usdaDatasetVersion),
       },
     };
 
@@ -2353,7 +2235,7 @@ async function* runPresentationStage(
       { analysisId: context.analysisId, stage: 'COMPLETED' },
       () => persistSessionSnapshot(context, {
         stage: 'COMPLETED',
-        decompositionData: buildDecompositionEvent(context, decomposition).data,
+        decompositionData: decompositionSnapshot(context, decomposition),
         ingredientsData: toResolvedIngredientsSnapshot(
           context.analysisId,
           decomposition.mealName,
@@ -2487,7 +2369,7 @@ async function* runPostResolutionPipeline(
     decomposition.mealName,
     resolved
   );
-  const decompositionData = buildDecompositionEvent(context, decomposition).data;
+  const decompositionData = decompositionSnapshot(context, decomposition);
 
   if (clarifications.length > 0) {
     await traceAsync(
@@ -2600,7 +2482,10 @@ async function* runPostResolutionPipeline(
     uncertaintyEvent,
     presentationContext,
     'READY_FOR_PRESENTATION',
-    clarificationAnswers.length > 0 ? clarificationAnswers : undefined
+    clarificationAnswers.length > 0 ? clarificationAnswers : undefined,
+    false,
+    undefined,
+    options.usdaDatasetVersion
   );
 }
 
@@ -2635,7 +2520,7 @@ async function resolveAndPersistIngredientsStage(
       { analysisId: context.analysisId, stage: 'INGREDIENTS_RESOLVED' },
       () => persistSessionSnapshot(context, {
         stage: 'INGREDIENTS_RESOLVED',
-        decompositionData: buildDecompositionEvent(context, decomposition).data,
+        decompositionData: decompositionSnapshot(context, decomposition),
         ingredientsData: toResolvedIngredientsSnapshot(
           context.analysisId,
           decomposition.mealName,
@@ -2673,6 +2558,34 @@ async function* runPipelineFromDecomposition(
   decompositionLease: MealAnalysisStageLease
 ): AsyncGenerator<PipelineEvent> {
   const startedAt = Date.now();
+  if (decomposition.outcome === 'NO_FOOD') {
+    const resultData = {
+      result_kind: 'NO_FOOD',
+      analysis_id: context.analysisId,
+      outcome_reason: decomposition.outcome_reason,
+      outcome_confidence: decomposition.outcome_confidence,
+    } as const;
+    await traceAsync(
+      context.trace,
+      'db',
+      'persist_session_snapshot',
+      { analysisId: context.analysisId, stage: 'NO_FOOD_DETECTED' },
+      () => persistSessionSnapshot(context, {
+        stage: 'NO_FOOD_DETECTED',
+        resultData,
+        interactionLease: decompositionLease,
+      })
+    );
+    yield {
+      step: 'NO_FOOD',
+      data: {
+        analysisId: context.analysisId,
+        outcomeReason: decomposition.outcome_reason,
+        outcomeConfidence: decomposition.outcome_confidence,
+      },
+    };
+    return;
+  }
   const normalizedDecomposition = normalizeDecomposition(
     decomposition,
     context.logger,
@@ -2699,7 +2612,7 @@ async function* runPipelineFromDecomposition(
     { analysisId: context.analysisId, stage: 'DECOMPOSED' },
     () => persistSessionSnapshot(context, {
       stage: 'DECOMPOSED',
-      decompositionData: decompositionEvent.data,
+      decompositionData: decompositionSnapshot(context, normalizedDecomposition),
       interactionLease: decompositionLease,
     })
   );
@@ -2912,9 +2825,24 @@ function durableAnalysisContext(
     locale,
     countryCode: options.countryCode ?? null,
     timeZone: options.timeZone ?? null,
+    analysisLocalDatetime: new Date().toISOString(),
     selectedMealType: options.selectedMealType ?? null,
     selectedMealTypeSource: options.selectedMealTypeSource ?? null,
   };
+}
+
+function decompositionInputContext(context: PipelineRunContext): string {
+  const analysisContext = context.requestPayload.analysisContext;
+  const persisted = analysisContext && typeof analysisContext === 'object'
+    ? analysisContext as Record<string, unknown>
+    : {};
+  return `Analysis context (application supplied): ${JSON.stringify({
+    source: context.source.toUpperCase(),
+    analysis_local_datetime: persisted.analysisLocalDatetime,
+    time_zone: context.timeZone ?? null,
+    locale: context.locale,
+    country_code: context.countryCode ?? null,
+  })}`;
 }
 
 function executionContext(
@@ -2958,7 +2886,7 @@ async function decomposeFromContext(
         model: OPENAI_MEAL_ANALYSIS_MODEL,
         source: 'text',
       },
-      () => decomposeFromText(client, input, correctionContext)
+      () => decomposeFromText(client, input, decompositionInputContext(context), correctionContext)
     );
   }
 
@@ -2976,7 +2904,7 @@ async function decomposeFromContext(
       model: OPENAI_MEAL_ANALYSIS_MODEL,
       source: 'image',
     },
-    () => decomposeFromImage(client, context.imageUrl!, correctionContext)
+    () => decomposeFromImage(client, context.imageUrl!, decompositionInputContext(context), correctionContext)
   );
 }
 
@@ -3260,6 +3188,21 @@ export async function* resumeMealAnalysis(
     }
 
     const stage = resolveMealAnalysisStage(session);
+    if (stage === 'NO_FOOD_DETECTED') {
+      const result = snapshotRecord(session.resultData, 'no-food result data');
+      if (result.result_kind !== 'NO_FOOD') {
+        throw new InvalidMealAnalysisSnapshotError('NO_FOOD_DETECTED has no valid result');
+      }
+      yield {
+        step: 'NO_FOOD',
+        data: {
+          analysisId,
+          outcomeReason: snapshotString(result.outcome_reason, 'no-food outcome reason'),
+          outcomeConfidence: snapshotNumber(result.outcome_confidence, 'no-food outcome confidence'),
+        },
+      };
+      return;
+    }
     if (stage === 'COMPLETED') {
       const result = sessionToResultEvent(session);
       if (!result) {
@@ -3340,6 +3283,7 @@ export async function* resumeMealAnalysis(
           incomingAnswers: pendingClarificationAnswers,
           accumulatedAnswers: clarificationAnswersFromSession(session),
           interactionLease,
+          usdaDatasetVersion: sessionUsdaDatasetVersion(session),
         });
         return;
       } finally {
@@ -3396,7 +3340,8 @@ export async function* resumeMealAnalysis(
       'READY_FOR_PRESENTATION',
       clarificationAnswersFromSession(session),
       session.stage == null,
-      presentationLease
+      presentationLease,
+      sessionUsdaDatasetVersion(session)
     );
   } catch (error) {
     logAnalysis(options.logger, 'error', 'analysis_resume_failed', {
@@ -3490,7 +3435,9 @@ export async function* continueMealAnalysis(
         context,
         'READY_FOR_PRESENTATION',
         priorAnswers.length > 0 ? priorAnswers : undefined,
-        session.stage == null
+        session.stage == null,
+        undefined,
+        sessionUsdaDatasetVersion(session)
       );
       return;
     }
@@ -3525,6 +3472,7 @@ export async function* continueMealAnalysis(
       accumulatedAnswers: priorAnswers,
       emitUpdatedIngredients: true,
       interactionLease: clarificationLease,
+      usdaDatasetVersion: sessionUsdaDatasetVersion(session),
     });
   } catch (error) {
     logAnalysis(options.logger, 'error', 'clarification_resume_failed', {
@@ -3621,7 +3569,9 @@ export async function* continueMealAnalysisWithMealType(
       context,
       'AWAITING_MEAL_TYPE',
       clarificationAnswersFromSession(session),
-      session.stage == null
+      session.stage == null,
+      undefined,
+      sessionUsdaDatasetVersion(session)
     );
   } catch (error) {
     logAnalysis(options.logger, 'error', 'meal_type_resume_failed', {

@@ -7,11 +7,11 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
 
-Future<IngredientProposalV1?> showLocalProposalReviewSheet({
+Future<IngredientProposalV2?> showLocalProposalReviewSheet({
   required BuildContext context,
-  required IngredientProposalV1 proposal,
+  required IngredientProposalV2 proposal,
 }) {
-  return showModalBottomSheet<IngredientProposalV1>(
+  return showModalBottomSheet<IngredientProposalV2>(
     context: context,
     useRootNavigator: true,
     isScrollControlled: true,
@@ -23,7 +23,7 @@ Future<IngredientProposalV1?> showLocalProposalReviewSheet({
 class _LocalProposalReviewSheet extends StatefulWidget {
   const _LocalProposalReviewSheet({required this.proposal});
 
-  final IngredientProposalV1 proposal;
+  final IngredientProposalV2 proposal;
 
   @override
   State<_LocalProposalReviewSheet> createState() =>
@@ -42,9 +42,7 @@ class _LocalProposalReviewSheetState extends State<_LocalProposalReviewSheet> {
     _mealNameController = TextEditingController(text: widget.proposal.mealName);
     _mealType = widget.proposal.inferredMealType;
     _ingredients =
-        widget.proposal.ingredients
-            .map(_EditableIngredient.fromProposal)
-            .toList();
+        widget.proposal.items.map(_EditableIngredient.fromProposal).toList();
   }
 
   @override
@@ -245,8 +243,8 @@ class _LocalProposalReviewSheetState extends State<_LocalProposalReviewSheet> {
           ..mealName = _mealNameController.text.trim()
           ..inferredMealType = _mealType
           ..mealTypeConfident = _mealType != MealType.UNKNOWN;
-    proposal.ingredients.clear();
-    proposal.ingredients.addAll(
+    proposal.items.clear();
+    proposal.items.addAll(
       _ingredients.map((ingredient) => ingredient.toProposal()),
     );
     Navigator.of(context).pop(proposal);
@@ -261,75 +259,68 @@ class _EditableIngredient {
   }) : nameController = TextEditingController(text: name),
        gramsController = TextEditingController(text: _formatGrams(grams));
 
-  factory _EditableIngredient.fromProposal(IngredientProposalItemV1 source) {
+  factory _EditableIngredient.fromProposal(IngredientProposalItemV2 source) {
     return _EditableIngredient(
       source: source.deepCopy(),
       name:
           source.rawName.trim().isNotEmpty
               ? source.rawName
-              : source.canonicalHint,
-      grams: source.gramsEstimated,
+              : source.usdaLookup.proposedCanonicalName,
+      grams: source.portion.gramsEstimated,
     );
   }
 
   factory _EditableIngredient.newManual() {
     return _EditableIngredient(
-      source: IngredientProposalItemV1(
+      source: IngredientProposalItemV2(
         rowId: const Uuid().v4(),
         rawName: 'Ingredient',
-        canonicalHint: 'ingredient',
-        gramsEstimated: 100,
-        minGrams: 80,
-        maxGrams: 120,
-        portionKind: PortionKind.BULK,
-        sizeSpecifiedByUser: true,
-        confidence: 1,
-        fieldProvenance: [
-          IngredientFieldProvenance(
-            fieldName: 'identity',
-            origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
-          ),
-          IngredientFieldProvenance(
-            fieldName: 'portion',
-            origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
-          ),
-        ],
+        isFoodReason: 'Added by the user',
+        isFoodConfidence: 1,
+        usdaLookup: UsdaLookupProposalV2(proposedCanonicalName: 'ingredient'),
+        portion: PortionProposalV2(
+          kind: PortionKind.BULK,
+          gramsEstimated: 100,
+          minGrams: 80,
+          maxGrams: 120,
+          sizeSpecifiedByUser: true,
+        ),
       ),
       name: '',
       grams: 100,
     );
   }
 
-  final IngredientProposalItemV1 source;
+  final IngredientProposalItemV2 source;
   final TextEditingController nameController;
   final TextEditingController gramsController;
 
-  IngredientProposalItemV1 toProposal() {
+  IngredientProposalItemV2 toProposal() {
     final name = nameController.text.trim();
     final grams = double.parse(gramsController.text);
     final identityChanged = name != source.rawName.trim();
-    final portionChanged = grams != source.gramsEstimated;
+    final portionChanged = grams != source.portion.gramsEstimated;
     final result = source.deepCopy()..rawName = name;
 
     if (identityChanged) {
-      result.canonicalHint = name.toLowerCase();
-      _setUserEditProvenance(result, 'identity');
+      result.usdaLookup.proposedCanonicalName = name.toLowerCase();
     }
     if (portionChanged) {
       result
-        ..gramsEstimated = grams
-        ..minGrams = grams * 0.8
-        ..maxGrams = grams * 1.2
-        ..sizeSpecifiedByUser = true;
-      if (result.portionKind == PortionKind.COUNT &&
-          result.hasCount() &&
-          result.count > 0) {
+        ..portion.gramsEstimated = grams
+        ..portion.minGrams = grams * 0.8
+        ..portion.maxGrams = grams * 1.2
+        ..portion.sizeSpecifiedByUser = true;
+      if (result.portion.kind == PortionKind.COUNT &&
+          result.portion.hasCount() &&
+          result.portion.count > 0) {
         result
-          ..perUnitGrams = grams / result.count
-          ..perUnitMinGrams = result.minGrams / result.count
-          ..perUnitMaxGrams = result.maxGrams / result.count;
+          ..portion.perUnitGrams = grams / result.portion.count
+          ..portion.perUnitMinGrams =
+              result.portion.minGrams / result.portion.count
+          ..portion.perUnitMaxGrams =
+              result.portion.maxGrams / result.portion.count;
       }
-      _setUserEditProvenance(result, 'portion');
     }
     return result;
   }
@@ -338,21 +329,6 @@ class _EditableIngredient {
     nameController.dispose();
     gramsController.dispose();
   }
-}
-
-void _setUserEditProvenance(
-  IngredientProposalItemV1 ingredient,
-  String fieldName,
-) {
-  ingredient.fieldProvenance.removeWhere(
-    (provenance) => provenance.fieldName == fieldName,
-  );
-  ingredient.fieldProvenance.add(
-    IngredientFieldProvenance(
-      fieldName: fieldName,
-      origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
-    ),
-  );
 }
 
 String _formatGrams(double grams) {

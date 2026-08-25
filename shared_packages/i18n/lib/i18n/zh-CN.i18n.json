@@ -305,7 +305,22 @@
       "progress": "问题 {current} / {total}",
       "noQuestionsAvailable": "暂无可用问题",
       "next": "下一步",
-      "continueLabel": "继续"
+      "continueLabel": "继续",
+      "countQuestion": "选择数量",
+      "itemSizeQuestion": "选择食材大小",
+      "portionSizeQuestion": "选择份量大小",
+      "option6plus": "6个或更多",
+      "optionSmall": "小份",
+      "optionRegular": "标准份",
+      "optionLarge": "大份",
+      "optionThin": "薄",
+      "optionThick": "厚",
+      "optionMini": "迷你份",
+      "optionStuffed": "馅料足",
+      "optionHeavy": "重份",
+      "optionSmaller": "偏小份",
+      "optionTypical": "常规份",
+      "optionLarger": "偏大份"
     },
     "analysis": {
       "title": "正在分析你的餐食",
@@ -332,7 +347,8 @@
       "offlineTip2": "提示：记得说明饮料、酱汁和食用油——这些常被忽略但会增加热量。",
       "offlineTip3": "提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。",
       "offlineTip4": "提示：饭后记录同样能培养习惯；不必追求完美。",
-      "offlineTip5": "提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。"
+      "offlineTip5": "提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。",
+      "noFoodTip": "未检测到食物。请尝试其他照片或描述。"
     },
     "localInference": {
       "reviewTitle": "核对检测到的食材",

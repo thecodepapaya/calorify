@@ -36,14 +36,20 @@ void main() {
         fat: (per100g['fat'] as num).toDouble(),
         fiber: (per100g['fiber'] as num).toDouble(),
       );
-      final proposal = IngredientProposalItemV1(
+      final proposal = IngredientProposalItemV2(
         rowId: value['id'] as String,
         rawName: value['id'] as String,
-        canonicalHint: value['id'] as String,
-        gramsEstimated: (value['grams'] as num).toDouble(),
-        minGrams: (value['minGrams'] as num).toDouble(),
-        maxGrams: (value['maxGrams'] as num).toDouble(),
-        portionKind: PortionKind.BULK,
+        isFoodReason: 'The item belongs to the meal.',
+        isFoodConfidence: 1,
+        usdaLookup: UsdaLookupProposalV2(
+          proposedCanonicalName: value['id'] as String,
+        ),
+        portion: PortionProposalV2(
+          kind: PortionKind.BULK,
+          gramsEstimated: (value['grams'] as num).toDouble(),
+          minGrams: (value['minGrams'] as num).toDouble(),
+          maxGrams: (value['maxGrams'] as num).toDouble(),
+        ),
       );
       resolutions.add(
         LocalNutritionResolvedIngredient(
@@ -60,7 +66,7 @@ void main() {
         _macros(
           const LocalNutritionCalculator().scale(
             nutrients,
-            proposal.gramsEstimated,
+            proposal.portion.gramsEstimated,
           ),
         ),
         expected,

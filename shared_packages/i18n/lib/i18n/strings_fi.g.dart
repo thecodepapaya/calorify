@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$fi extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Ei saatavilla olevia kysymyksiä';
 	@override String get next => 'Seuraava';
 	@override String get continueLabel => 'Jatka';
+	@override String get countQuestion => 'Valitse määrä';
+	@override String get itemSizeQuestion => 'Valitse tuotteen koko';
+	@override String get portionSizeQuestion => 'Valitse annoksen koko';
+	@override String get option6plus => '6 tai enemmän';
+	@override String get optionSmall => 'Pieni';
+	@override String get optionRegular => 'Normaali';
+	@override String get optionLarge => 'Suuri';
+	@override String get optionThin => 'Ohut';
+	@override String get optionThick => 'Paksu';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Täytetty';
+	@override String get optionHeavy => 'Painava';
+	@override String get optionSmaller => 'Pienempi';
+	@override String get optionTypical => 'Tyypillinen';
+	@override String get optionLarger => 'Suurempi';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$fi extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.';
 	@override String get offlineTip4 => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.';
 	@override String get offlineTip5 => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).';
+	@override String get noFoodTip => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsFi {
 			'meal.questionFlow.noQuestionsAvailable' => 'Ei saatavilla olevia kysymyksiä',
 			'meal.questionFlow.next' => 'Seuraava',
 			'meal.questionFlow.continueLabel' => 'Jatka',
+			'meal.questionFlow.countQuestion' => 'Valitse määrä',
+			'meal.questionFlow.itemSizeQuestion' => 'Valitse tuotteen koko',
+			'meal.questionFlow.portionSizeQuestion' => 'Valitse annoksen koko',
+			'meal.questionFlow.option6plus' => '6 tai enemmän',
+			'meal.questionFlow.optionSmall' => 'Pieni',
+			'meal.questionFlow.optionRegular' => 'Normaali',
+			'meal.questionFlow.optionLarge' => 'Suuri',
+			'meal.questionFlow.optionThin' => 'Ohut',
+			'meal.questionFlow.optionThick' => 'Paksu',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Täytetty',
+			'meal.questionFlow.optionHeavy' => 'Painava',
+			'meal.questionFlow.optionSmaller' => 'Pienempi',
+			'meal.questionFlow.optionTypical' => 'Tyypillinen',
+			'meal.questionFlow.optionLarger' => 'Suurempi',
 			'meal.analysis.title' => 'Analysoidaan ateriaasi',
 			'meal.analysis.stepStarted' => 'Aloitetaan…',
 			'meal.analysis.stepDecomposition' => 'Ymmärretään ateriaasi…',
@@ -2280,6 +2311,7 @@ extension on TranslationsFi {
 			'meal.analysis.offlineTip3' => 'Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.',
 			'meal.analysis.offlineTip4' => 'Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.',
 			'meal.analysis.offlineTip5' => 'Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).',
+			'meal.analysis.noFoodTip' => 'Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta.',
 			'meal.localInference.reviewTitle' => 'Tarkista tunnistetut ainesosat',
 			'meal.localInference.reviewSubtitle' => 'Tämä tulkittiin laitteellasi. Korjaa nimet tai annoskoot ennen ravintoarvojen laskemista.',
 			'meal.localInference.mealName' => 'Aterian nimi',
@@ -2528,6 +2560,8 @@ extension on TranslationsFi {
 			'notifications.breakfast.title' => 'Aamupala-aika! 🍳',
 			'notifications.breakfast.body' => 'Muista kirjata aamiaisesi',
 			'notifications.lunch.title' => 'Lounasaika! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'On aika kirjata lounas',
 			'notifications.dinner.title' => 'Päivällisaika! 🍽️',
 			'notifications.dinner.body' => 'Muista kirjata päivällisesi',
@@ -2544,8 +2578,6 @@ extension on TranslationsFi {
 			'disclaimer.snap.preparationMethods.title' => 'Valmistustavat',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Ruokien valmistustavat voivat merkittävästi muuttaa ravintoarvoja. ${appLabel}in arviot eivät aina huomioi näitä eroja.',
 			'disclaimer.snap.ingredients.title' => 'Ainesosat',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Monimutkaiset ruoat, joissa on paljon piilotettuja ainesosia, saattavat johtaa epätarkempiin arvioihin.',
 			'disclaimer.snap.databaseLimitations.title' => 'Tietokantaan liittyvät rajoitukset',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}in ruokarekisteri on laaja, mutta se ei välttämättä sisällä jokaista mahdollista ruokaa tai variaatiota.',

@@ -80,7 +80,19 @@ MealAnalysisPipelineEvent _result({String analysisId = 'analysis-1'}) {
       mealName: 'Vegetable bowl',
       quantity: '1 bowl',
       mealType: MealType.LUNCH,
-      ingredients: [PipelineResolvedIngredient(canonicalName: 'Vegetables')],
+      ingredients: [PipelineResolvedIngredient(rawName: 'Vegetables')],
+    ),
+  );
+}
+
+MealAnalysisPipelineEvent _noFood({String analysisId = 'analysis-1'}) {
+  return MealAnalysisPipelineEvent(
+    step: PipelineStep.NO_FOOD,
+    analysisId: analysisId,
+    noFood: PipelineNoFoodData(
+      analysisId: analysisId,
+      outcomeReason: 'The input does not contain a meal.',
+      outcomeConfidence: 0.97,
     ),
   );
 }
@@ -105,7 +117,7 @@ MealAnalysisPipelineEvent _clarification({String analysisId = 'analysis-1'}) {
       clarifications: [
         PipelineClarification(
           clarificationId: 'portion',
-          question: 'How large was it?',
+          portionKind: PortionKind.BULK,
         ),
       ],
     ),
@@ -121,7 +133,6 @@ MealAnalysisPipelineEvent _mealTypeQuestion({
     mealTypeQuestion: PipelineMealTypeQuestionData(
       analysisId: analysisId,
       mealName: 'Vegetable bowl',
-      question: 'Which meal was this?',
       options: [MealType.LUNCH, MealType.DINNER],
     ),
   );
@@ -193,6 +204,20 @@ void main() {
     expect(completed.resultContext.textDescription, 'vegetable bowl');
     expect(completed.view.ingredientNames, ['Vegetables']);
     expect(analytics.events, contains(AnalyticsEvent.mealAnalysisV2Completed));
+  });
+
+  test('no-food event completes as a successful terminal state', () async {
+    final controller = createController(
+      (_, _) async => Stream.fromIterable([_started(), _noFood()]),
+    );
+
+    expect(controller.start(), isTrue);
+    final completed = await _waitForState<MealAnalysisNoFood>(controller);
+
+    expect(completed.analysisId, 'analysis-1');
+    expect(completed.reason, 'The input does not contain a meal.');
+    expect(completed.confidence, 0.97);
+    expect(controller.state, isA<MealAnalysisNoFood>());
   });
 
   test(

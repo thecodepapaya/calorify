@@ -305,7 +305,22 @@
       "progress": "Kysymys {current} / {total}",
       "noQuestionsAvailable": "Ei saatavilla olevia kysymyksiä",
       "next": "Seuraava",
-      "continueLabel": "Jatka"
+      "continueLabel": "Jatka",
+      "countQuestion": "Valitse määrä",
+      "itemSizeQuestion": "Valitse tuotteen koko",
+      "portionSizeQuestion": "Valitse annoksen koko",
+      "option6plus": "6 tai enemmän",
+      "optionSmall": "Pieni",
+      "optionRegular": "Normaali",
+      "optionLarge": "Suuri",
+      "optionThin": "Ohut",
+      "optionThick": "Paksu",
+      "optionMini": "Mini",
+      "optionStuffed": "Täytetty",
+      "optionHeavy": "Painava",
+      "optionSmaller": "Pienempi",
+      "optionTypical": "Tyypillinen",
+      "optionLarger": "Suurempi"
     },
     "analysis": {
       "title": "Analysoidaan ateriaasi",
@@ -332,7 +347,8 @@
       "offlineTip2": "Vinkki: Mainitse juomat, kastikkeet ja paistorasva—ne lisäävät kaloreita, jotka usein unohdetaan.",
       "offlineTip3": "Vinkki: Pikainen annosmerkintä (1 kulho, iso kahvi) tekee arvioista tarkempia.",
       "offlineTip4": "Vinkki: Aterian jälkeinen kirjaaminen rakentaa silti tapaa; täydellisyyttä ei vaadita.",
-      "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa)."
+      "offlineTip5": "Vinkki: Kerro, miten ruoka on valmistettu, jos se muuttaa kaloreita paljon (paistettu vs. uunissa).",
+      "noFoodTip": "Ruokaa ei tunnistettu. Kokeile toista kuvaa tai kuvausta."
     },
     "localInference": {
       "reviewTitle": "Tarkista tunnistetut ainesosat",

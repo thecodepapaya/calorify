@@ -50,7 +50,7 @@ message MealAnalysisImageRequest {
 
 message MealAnalysisProposalRequest {
   string analysis_id = 1;
-  IngredientProposalV1 proposal = 2;
+  IngredientProposalV2 proposal = 2;
   string local_attempt_id = 3;
   int64 local_attempt_started_at_epoch_ms = 4;
   int64 local_attempt_completed_at_epoch_ms = 5;

@@ -97,7 +97,7 @@ class FoodRepository {
 
   Future<Stream<MealAnalysisPipelineEvent>> analyzeProposalV2({
     required String analysisId,
-    required IngredientProposalV1 proposal,
+    required IngredientProposalV2 proposal,
     required String localAttemptId,
     required DateTime localAttemptStartedAt,
     required DateTime localAttemptCompletedAt,

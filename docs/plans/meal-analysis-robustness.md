@@ -1,6 +1,6 @@
 # Meal-analysis robustness
 
-Status: Design recorded; implementation not started
+Status: Implemented; follow-up verification pending
 
 Last reviewed: 2026-08-25
 
@@ -13,8 +13,7 @@ without redesigning the existing pipeline.
 The current durable workflow remains documented in the
 [meal-analysis state machine](../../backend/docs/meal-analysis-state-machine.md).
 This plan is the canonical decision record for the robustness changes described
-below. The state-machine document continues to describe production behavior
-until implementation lands.
+below. The state-machine document describes the implemented durable behavior.
 
 ## Scope and change guardrails
 
@@ -45,7 +44,7 @@ This work is intentionally bounded:
 Backward compatibility with old in-progress analysis snapshots is not a
 requirement. Completed meal records must remain untouched.
 
-## Current problems
+## Problems addressed
 
 The current decomposition contract and durable snapshot decoder disagree. The
 LLM schema allows values such as an empty ingredient array or out-of-range
@@ -745,6 +744,27 @@ The existing
 continues to own broader calorie accuracy, matching quality, fallback, and
 latency work.
 
+## Post-implementation attention
+
+The production flow and contracts described by this plan are implemented. The
+following verification and release-hygiene work remains:
+
+- Run one text and one image ML Kit structured-output smoke test on a compatible
+  Android device. All three Kotlin build flavors compile with JDK 21, but no
+  compatible Android device was available for the runtime check.
+- Add direct CLI-adapter tests for interactive clarification, meal-type choice,
+  retryable resume, completed/no-food replay, and JSON output. The shared engine
+  paths are covered, but the thin terminal adapter itself is not yet exercised
+  end to end.
+
+Supported locale values have been regenerated through the canonical translation
+script. The opt-in PostgreSQL contract suite also passes against an isolated
+PostgreSQL 15 database, including null-stage repair, the non-null constraint,
+and automatic claims after backfill.
+
+These items do not require a new architecture or a change to the implemented
+runtime contract.
+
 ## Bounded implementation sequence
 
 Implementation should proceed as small, reviewable changes:
@@ -823,5 +843,5 @@ At minimum, implementation needs tests for:
 - CLI start, clarification, meal type, resume, completed replay, no-food replay,
   and JSON output using shared pipeline types.
 
-No implementation should begin until this document is reviewed as the agreed
-scope.
+This document remains the agreed boundary for maintenance of the implemented
+flow; broader changes stay in the deferred work listed above.

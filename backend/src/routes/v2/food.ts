@@ -43,7 +43,7 @@ import {
 } from '../../protos/calorify/http_api.js';
 import {
   AnalysisModality,
-  IngredientFieldOrigin,
+  DecompositionOutcome,
   InterpretationOrigin,
   MealAnalysisFallbackReason,
   PortionKind,
@@ -165,100 +165,79 @@ const analyzeImageBodySchema = z.object({
 });
 type AnalyzeImageBody = z.infer<typeof analyzeImageBodySchema>;
 
-const proposalFieldProvenanceSchema = z.object({
-  fieldName: nonEmptyString.max(64),
-  origin: z.enum([
-    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_INPUT,
-    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
-    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_DETERMINISTIC,
-  ]),
-}).strict();
-
 function approximatelyEqual(actual: number, expected: number): boolean {
   return Math.abs(actual - expected) <= Math.abs(expected) * 0.1 + 0.5;
 }
 
 const proposalIngredientSchema = z.object({
   rowId: nonEmptyString.max(128),
-  rawName: nonEmptyString.max(160),
-  canonicalHint: nonEmptyString.max(160),
-  preparation: z.string().trim().max(80).optional().default(''),
-  gramsEstimated: z.number().finite().positive().max(5000),
-  minGrams: z.number().finite().positive().max(5000),
-  maxGrams: z.number().finite().positive().max(5000),
-  notes: z.string().trim().max(240).optional().default(''),
-  portionKind: z.enum([
-    PortionKind.COUNT,
-    PortionKind.BULK,
-    PortionKind.PINCH,
-  ]),
-  count: z.number().finite().positive().max(20).optional(),
-  perUnitGrams: z.number().finite().positive().max(2000).optional(),
-  perUnitMinGrams: z.number().finite().positive().max(2000).optional(),
-  perUnitMaxGrams: z.number().finite().positive().max(2000).optional(),
-  sizeSpecifiedByUser: z.boolean().optional().default(false),
-  confidence: z.number().finite().min(0).max(1),
-  fieldProvenance: z.array(proposalFieldProvenanceSchema).min(2).max(20),
+  rawName: nonEmptyString.max(120),
+  isFoodReason: nonEmptyString.max(240),
+  isFoodConfidence: z.number().finite().min(0).max(1),
+  usdaLookup: z.object({
+    proposedCanonicalName: nonEmptyString.max(120),
+    aliases: z.array(nonEmptyString.max(120)).max(5),
+    preparationStates: z.array(nonEmptyString.max(40)).max(5),
+  }).strict(),
+  portion: z.object({
+    kind: z.enum([PortionKind.COUNT, PortionKind.BULK, PortionKind.PINCH]),
+    gramsEstimated: z.number().finite().positive().max(5000),
+    minGrams: z.number().finite().min(0).max(5000),
+    maxGrams: z.number().finite().min(0).max(5000),
+    count: z.number().finite().positive().max(20).optional(),
+    perUnitGrams: z.number().finite().positive().max(5000).optional(),
+    perUnitMinGrams: z.number().finite().positive().max(5000).optional(),
+    perUnitMaxGrams: z.number().finite().positive().max(5000).optional(),
+    sizeSpecifiedByUser: z.boolean(),
+  }).strict(),
 }).strict().superRefine((ingredient, ctx) => {
-  const provenanceFields = new Set(
-    ingredient.fieldProvenance.map((provenance) => provenance.fieldName)
-  );
-  if (!provenanceFields.has('identity') || !provenanceFields.has('portion')) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'identity and portion provenance are required',
-    });
-  }
+  const portion = ingredient.portion;
   if (
-    ingredient.minGrams > ingredient.gramsEstimated ||
-    ingredient.gramsEstimated > ingredient.maxGrams
+    portion.minGrams > portion.gramsEstimated ||
+    portion.gramsEstimated > portion.maxGrams
   ) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'gram range must be ordered' });
   }
-  if (ingredient.portionKind === PortionKind.COUNT && ingredient.count == null) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'count is required for count portions' });
-  }
   if (
-    ingredient.portionKind === PortionKind.COUNT &&
+    portion.kind === PortionKind.COUNT &&
     (
-      ingredient.perUnitGrams == null ||
-      ingredient.perUnitMinGrams == null ||
-      ingredient.perUnitMaxGrams == null
+      portion.perUnitGrams == null ||
+      portion.perUnitMinGrams == null ||
+      portion.perUnitMaxGrams == null
     )
   ) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'per-unit gram range is required for count portions' });
   }
   if (
-    ingredient.portionKind === PortionKind.COUNT &&
-    ingredient.perUnitMinGrams != null &&
-    ingredient.perUnitGrams != null &&
-    ingredient.perUnitMaxGrams != null &&
+    portion.kind === PortionKind.COUNT &&
+    portion.perUnitMinGrams != null &&
+    portion.perUnitGrams != null &&
+    portion.perUnitMaxGrams != null &&
     (
-      ingredient.perUnitMinGrams > ingredient.perUnitGrams ||
-      ingredient.perUnitGrams > ingredient.perUnitMaxGrams
+      portion.perUnitMinGrams > portion.perUnitGrams ||
+      portion.perUnitGrams > portion.perUnitMaxGrams
     )
   ) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'per-unit gram range must be ordered' });
   }
   if (
-    ingredient.portionKind === PortionKind.COUNT &&
-    ingredient.count != null &&
-    ingredient.perUnitGrams != null &&
+    portion.kind === PortionKind.COUNT &&
+    portion.count != null &&
+    portion.perUnitGrams != null &&
     !approximatelyEqual(
-      ingredient.gramsEstimated,
-      ingredient.count * ingredient.perUnitGrams
+      portion.gramsEstimated,
+      portion.count * portion.perUnitGrams
     )
   ) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'count and total grams must be consistent' });
   }
   if (
-    ingredient.portionKind !== PortionKind.COUNT &&
+    portion.kind !== PortionKind.COUNT &&
     (
-      ingredient.count != null ||
-      ingredient.perUnitGrams != null ||
-      ingredient.perUnitMinGrams != null ||
-      ingredient.perUnitMaxGrams != null
+      portion.count != null ||
+      portion.perUnitGrams != null ||
+      portion.perUnitMinGrams != null ||
+      portion.perUnitMaxGrams != null
     )
   ) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'non-count portions cannot contain count values' });
@@ -266,23 +245,37 @@ const proposalIngredientSchema = z.object({
 });
 
 const ingredientProposalSchema = z.object({
-  schemaVersion: z.literal(1),
+  schemaVersion: z.literal(2),
   proposalId: nonEmptyString.max(128),
   modality: z.literal(AnalysisModality.ANALYSIS_MODALITY_TEXT),
-  mealName: nonEmptyString.max(160),
+  mealName: z.string().trim().max(60),
+  outcome: z.enum([
+    DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD,
+    DecompositionOutcome.DECOMPOSITION_OUTCOME_NO_FOOD,
+  ]),
+  outcomeReason: nonEmptyString.max(240),
+  outcomeConfidence: z.number().finite().min(0).max(1),
   inferredMealType: z.enum(MEAL_TYPE_VALUES),
+  mealTypeReason: nonEmptyString.max(240),
   mealTypeConfident: z.boolean().optional().default(false),
-  confidence: z.number().finite().min(0).max(1),
-  ingredients: z.array(proposalIngredientSchema).min(1).max(20),
+  items: z.array(proposalIngredientSchema).max(20),
   interpretationOrigin: z.literal(
     InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO
   ),
   modelName: z.string().trim().max(100).optional(),
   modelVersion: z.string().trim().max(100).optional(),
 }).strict().superRefine((proposal, ctx) => {
-  const rowIds = proposal.ingredients.map((ingredient) => ingredient.rowId);
+  const rowIds = proposal.items.map((ingredient) => ingredient.rowId);
   if (new Set(rowIds).size !== rowIds.length) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'ingredient row IDs must be unique' });
+  }
+  const noFood = proposal.outcome === DecompositionOutcome.DECOMPOSITION_OUTCOME_NO_FOOD;
+  if (noFood && (proposal.mealName !== '' || proposal.items.length !== 0 ||
+      proposal.inferredMealType !== 'UNKNOWN' || proposal.mealTypeConfident)) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'no-food proposal is inconsistent' });
+  }
+  if (!noFood && (proposal.mealName === '' || proposal.items.length === 0)) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'food proposal requires a meal name and items' });
   }
 });
 

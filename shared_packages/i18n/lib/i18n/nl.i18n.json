@@ -305,7 +305,22 @@
       "progress": "Vraag {current} van {total}",
       "noQuestionsAvailable": "Geen vragen beschikbaar",
       "next": "Volgende",
-      "continueLabel": "Doorgaan"
+      "continueLabel": "Doorgaan",
+      "countQuestion": "Kies het aantal",
+      "itemSizeQuestion": "Kies de afmeting",
+      "portionSizeQuestion": "Kies de portiegrootte",
+      "option6plus": "6 of meer",
+      "optionSmall": "Klein",
+      "optionRegular": "Normaal",
+      "optionLarge": "Groot",
+      "optionThin": "Dun",
+      "optionThick": "Dik",
+      "optionMini": "Mini",
+      "optionStuffed": "Gevuld",
+      "optionHeavy": "Zwaar",
+      "optionSmaller": "Kleiner",
+      "optionTypical": "Typisch",
+      "optionLarger": "Groter"
     },
     "analysis": {
       "title": "Je maaltijd wordt geanalyseerd",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tip: Noem drankjes, sauzen en bakolie—ze voegen vaak vergeten calorieën toe.",
       "offlineTip3": "Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.",
       "offlineTip4": "Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.",
-      "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken)."
+      "offlineTip5": "Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).",
+      "noFoodTip": "Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving."
     },
     "localInference": {
       "reviewTitle": "Gedetecteerde ingrediënten controleren",

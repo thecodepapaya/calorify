@@ -9,7 +9,10 @@
 - [Local nutrition pack build and curation](../data/local_nutrition/README.md)
   — build, publish, freshness, and pure-USDA item selection.
 - [Meal-analysis state machine](meal-analysis-state-machine.md) — durable
-  stages, leases, stream events, resume behavior, and log confirmation.
+  end-to-end V2 flow, data boundaries, no-food termination, leases, stream
+  events, resume behavior, and log confirmation.
+- [Local meal-analysis CLI](meal-analysis-cli.md) — prerequisites, interactive
+  and scripted text runs, resume/replay testing, and troubleshooting.
 - [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
   names and example Grafana queries.
 

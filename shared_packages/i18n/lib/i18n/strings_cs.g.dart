@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$cs extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Žádné otázky nejsou k dispozici';
 	@override String get next => 'Další';
 	@override String get continueLabel => 'Pokračovat';
+	@override String get countQuestion => 'Zvolte množství';
+	@override String get itemSizeQuestion => 'Zvolte velikost položky';
+	@override String get portionSizeQuestion => 'Zvolte velikost porce';
+	@override String get option6plus => '6 nebo více';
+	@override String get optionSmall => 'Malá';
+	@override String get optionRegular => 'Běžná';
+	@override String get optionLarge => 'Velká';
+	@override String get optionThin => 'Tenká';
+	@override String get optionThick => 'Silná';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Plněná';
+	@override String get optionHeavy => 'Těžká';
+	@override String get optionSmaller => 'Menší';
+	@override String get optionTypical => 'Typická';
+	@override String get optionLarger => 'Větší';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$cs extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.';
 	@override String get offlineTip4 => 'Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.';
 	@override String get offlineTip5 => 'Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).';
+	@override String get noFoodTip => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsCs {
 			'meal.questionFlow.noQuestionsAvailable' => 'Žádné otázky nejsou k dispozici',
 			'meal.questionFlow.next' => 'Další',
 			'meal.questionFlow.continueLabel' => 'Pokračovat',
+			'meal.questionFlow.countQuestion' => 'Zvolte množství',
+			'meal.questionFlow.itemSizeQuestion' => 'Zvolte velikost položky',
+			'meal.questionFlow.portionSizeQuestion' => 'Zvolte velikost porce',
+			'meal.questionFlow.option6plus' => '6 nebo více',
+			'meal.questionFlow.optionSmall' => 'Malá',
+			'meal.questionFlow.optionRegular' => 'Běžná',
+			'meal.questionFlow.optionLarge' => 'Velká',
+			'meal.questionFlow.optionThin' => 'Tenká',
+			'meal.questionFlow.optionThick' => 'Silná',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Plněná',
+			'meal.questionFlow.optionHeavy' => 'Těžká',
+			'meal.questionFlow.optionSmaller' => 'Menší',
+			'meal.questionFlow.optionTypical' => 'Typická',
+			'meal.questionFlow.optionLarger' => 'Větší',
 			'meal.analysis.title' => 'Analyzuji vaše jídlo',
 			'meal.analysis.stepStarted' => 'Začínám…',
 			'meal.analysis.stepDecomposition' => 'Porozumění jídlu…',
@@ -2280,6 +2311,7 @@ extension on TranslationsCs {
 			'meal.analysis.offlineTip3' => 'Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.',
 			'meal.analysis.offlineTip4' => 'Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.',
 			'meal.analysis.offlineTip5' => 'Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).',
+			'meal.analysis.noFoodTip' => 'Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis.',
 			'meal.localInference.reviewTitle' => 'Zkontrolujte detekované ingredience',
 			'meal.localInference.reviewSubtitle' => 'Tento text byl interpretován ve vašem zařízení. Před výpočtem výživových hodnot opravte názvy nebo porce.',
 			'meal.localInference.mealName' => 'Název jídla',
@@ -2528,6 +2560,8 @@ extension on TranslationsCs {
 			'notifications.breakfast.title' => 'Čas na snídani! 🍳',
 			'notifications.breakfast.body' => 'Nezapomeňte zaznamenat snídani',
 			'notifications.lunch.title' => 'Čas na oběd! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Je čas zaznamenat oběd',
 			'notifications.dinner.title' => 'Čas na večeři! 🍽️',
 			'notifications.dinner.body' => 'Nezapomeňte zaznamenat večeři',
@@ -2544,8 +2578,6 @@ extension on TranslationsCs {
 			'disclaimer.snap.preparationMethods.title' => 'Způsoby přípravy',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Způsoby vaření mohou výrazně měnit nutriční hodnotu jídla. Odhady ${appLabel} nemusí tyto rozdíly vždy zohlednit.',
 			'disclaimer.snap.ingredients.title' => 'Ingredience',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Složité pokrmy s mnoha skrytými ingrediencemi mohou vést k méně přesným odhadům.',
 			'disclaimer.snap.databaseLimitations.title' => 'Omezení databáze',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Databáze potravin v ${appLabel} je rozsáhlá, ale nemusí obsahovat každou potravinu nebo variantu.',

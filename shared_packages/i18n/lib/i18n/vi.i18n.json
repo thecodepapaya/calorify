@@ -305,7 +305,22 @@
       "progress": "Câu hỏi {current} trên {total}",
       "noQuestionsAvailable": "Không có câu hỏi",
       "next": "Tiếp theo",
-      "continueLabel": "Tiếp tục"
+      "continueLabel": "Tiếp tục",
+      "countQuestion": "Chọn số lượng",
+      "itemSizeQuestion": "Chọn kích cỡ món ăn",
+      "portionSizeQuestion": "Chọn khẩu phần ăn",
+      "option6plus": "6 hoặc nhiều hơn",
+      "optionSmall": "Nhỏ",
+      "optionRegular": "Thông thường",
+      "optionLarge": "Lớn",
+      "optionThin": "Mỏng",
+      "optionThick": "Dày",
+      "optionMini": "Rất nhỏ",
+      "optionStuffed": "Đầy",
+      "optionHeavy": "Nặng",
+      "optionSmaller": "Nhỏ hơn",
+      "optionTypical": "Điển hình",
+      "optionLarger": "Lớn hơn"
     },
     "analysis": {
       "title": "Đang phân tích bữa ăn của bạn",
@@ -332,7 +347,8 @@
       "offlineTip2": "Mẹo: Nhắc đến đồ uống, nước sốt và dầu ăn—chúng thêm calo mà thường bị quên.",
       "offlineTip3": "Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.",
       "offlineTip4": "Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.",
-      "offlineTip5": "Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng)."
+      "offlineTip5": "Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).",
+      "noFoodTip": "Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác."
     },
     "localInference": {
       "reviewTitle": "Xem lại các thành phần đã nhận diện",

@@ -305,7 +305,22 @@
       "progress": "Pregunta {current} de {total}",
       "noQuestionsAvailable": "No hay preguntas disponibles",
       "next": "Siguiente",
-      "continueLabel": "Continuar"
+      "continueLabel": "Continuar",
+      "countQuestion": "Elige la cantidad",
+      "itemSizeQuestion": "Elige el tamaño del artículo",
+      "portionSizeQuestion": "Elige el tamaño de la porción",
+      "option6plus": "6 o más",
+      "optionSmall": "Pequeño",
+      "optionRegular": "Normal",
+      "optionLarge": "Grande",
+      "optionThin": "Fino",
+      "optionThick": "Grueso",
+      "optionMini": "Mini",
+      "optionStuffed": "Relleno",
+      "optionHeavy": "Pesado",
+      "optionSmaller": "Más pequeño",
+      "optionTypical": "Típico",
+      "optionLarger": "Más grande"
     },
     "analysis": {
       "title": "Analizando tu comida",
@@ -332,7 +347,8 @@
       "offlineTip2": "Consejo: Menciona bebidas, salsas y aceite de cocina—añaden calorías que a menudo se olvidan.",
       "offlineTip3": "Consejo: Una nota rápida de porción (1 bol, café grande) afina mucho las estimaciones.",
       "offlineTip4": "Consejo: Registrar después de la comida aún crea el hábito; la perfección es opcional.",
-      "offlineTip5": "Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado)."
+      "offlineTip5": "Consejo: Di cómo se cocinó la comida cuando cambia mucho las calorías (frito vs horneado).",
+      "noFoodTip": "No se detectó comida. Intenta con otra foto o descripción."
     },
     "localInference": {
       "reviewTitle": "Revisar ingredientes detectados",

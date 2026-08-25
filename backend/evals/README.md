@@ -1,6 +1,6 @@
 # Calorie estimation evals
 
-The evaluator exercises the deployed HTTP streaming flow and complete resumable pipeline.
+The evaluator exercises the deployed HTTP streaming flow and resumable pipeline.
 
 ## Run the regression suite
 
@@ -20,9 +20,14 @@ npm run calories:eval -- --split all --repeats 3 --output calorie-eval-report.js
 npm run calories:eval -- --split holdout --repeats 3 --json
 ```
 
-The runner calls the configured API origin, records the event path and analysis ID, accepts default portion clarifications, uses each dataset case's declared meal type, and reports confidence, ingredient grounding, stability, completion, accuracy, and latency. Set `CALORIE_EVAL_BASE_URL`, `CALORIE_EVAL_DATASET`, or `CALORIE_EVAL_REPEATS` to change defaults.
+The runner calls the configured API origin, records the event path and analysis ID, accepts default portion clarifications, uses each dataset case's declared meal type, and reports confidence, ingredient grounding, stability, completion, accuracy, and latency. Set `CALORIE_EVAL_AUTH_TOKEN` (or pass `--auth-token`) for authenticated routes. `CALORIE_EVAL_BASE_URL`, `CALORIE_EVAL_DATASET`, and `CALORIE_EVAL_REPEATS` change the other defaults.
 
 Live-provider evals are intentionally not ordinary pull-request unit tests. Deterministic matching, quantity parsing, and macro arithmetic stay covered by unit tests; run the full suite against a protected local or staging environment before a release.
+
+For a single local full-flow text run, including terminal no-food handling and
+durable continuation, use `npm run meal-analysis -- --text "..."`. It calls the
+application pipeline directly; this regression evaluator remains the tool for
+dataset-level deployed HTTP accuracy and stability checks.
 
 ## Historical grounding lessons
 

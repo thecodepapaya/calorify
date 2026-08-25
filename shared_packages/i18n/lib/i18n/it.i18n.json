@@ -305,7 +305,22 @@
       "progress": "Domanda {current} di {total}",
       "noQuestionsAvailable": "Nessuna domanda disponibile",
       "next": "Avanti",
-      "continueLabel": "Continua"
+      "continueLabel": "Continua",
+      "countQuestion": "Scegli la quantità",
+      "itemSizeQuestion": "Scegli la dimensione dell'articolo",
+      "portionSizeQuestion": "Scegli la dimensione della porzione",
+      "option6plus": "6 o più",
+      "optionSmall": "Piccolo",
+      "optionRegular": "Regolare",
+      "optionLarge": "Grande",
+      "optionThin": "Sottile",
+      "optionThick": "Spesso",
+      "optionMini": "Mini",
+      "optionStuffed": "Ripieno",
+      "optionHeavy": "Pesante",
+      "optionSmaller": "Più piccolo",
+      "optionTypical": "Tipico",
+      "optionLarger": "Più grande"
     },
     "analysis": {
       "title": "Analisi del tuo pasto",
@@ -332,7 +347,8 @@
       "offlineTip2": "Suggerimento: Segnala bevande, salse e olio da cucina—aggiungono calorie che spesso si dimenticano.",
       "offlineTip3": "Suggerimento: Una rapida indicazione della porzione (1 ciotola, caffè grande) rende le stime molto più precise.",
       "offlineTip4": "Suggerimento: Registrare dopo il pasto aiuta comunque a costruire l'abitudine; la perfezione è opzionale.",
-      "offlineTip5": "Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno)."
+      "offlineTip5": "Suggerimento: Indica come è stato cucinato il cibo quando influisce molto sulle calorie (fritto vs al forno).",
+      "noFoodTip": "Nessun cibo rilevato. Prova un'altra foto o descrizione."
     },
     "localInference": {
       "reviewTitle": "Revisione ingredienti rilevati",

@@ -7,7 +7,7 @@
 /* eslint-disable */
 import type { Meal, MealType } from "../meal/meal";
 import type { AiMealSummaryTrend } from "./ai_meal_summary_trend";
-import type { IngredientProposalV1, MealAnalysisFallbackReason, PipelineMacros } from "./meal_analysis_pipeline";
+import type { IngredientProposalV2, MealAnalysisFallbackReason, PipelineMacros } from "./meal_analysis_pipeline";
 
 export const protobufPackage = "calorify";
 
@@ -89,7 +89,7 @@ export interface MealAnalysisImageRequest {
 
 export interface MealAnalysisProposalRequest {
   analysisId: string;
-  proposal?: IngredientProposalV1 | undefined;
+  proposal?: IngredientProposalV2 | undefined;
   localAttemptId: string;
   localAttemptStartedAtEpochMs: number;
   localAttemptCompletedAtEpochMs: number;

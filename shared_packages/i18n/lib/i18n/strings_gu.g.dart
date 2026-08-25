@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$gu extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'કોઈ પ્રશ્નો ઉપલબ્ધ નથી';
 	@override String get next => 'આગળ';
 	@override String get continueLabel => 'ચાલુ રાખો';
+	@override String get countQuestion => 'જથ્થો પસંદ કરો';
+	@override String get itemSizeQuestion => 'આઇટમનું કદ પસંદ કરો';
+	@override String get portionSizeQuestion => 'ભાગનું કદ પસંદ કરો';
+	@override String get option6plus => '6 કે તેથી વધુ';
+	@override String get optionSmall => 'નાનું';
+	@override String get optionRegular => 'સામાન્ય';
+	@override String get optionLarge => 'મોટું';
+	@override String get optionThin => 'પાતળું';
+	@override String get optionThick => 'જાડું';
+	@override String get optionMini => 'નાનું';
+	@override String get optionStuffed => 'ભરેલું';
+	@override String get optionHeavy => 'ભારે';
+	@override String get optionSmaller => 'નાનું';
+	@override String get optionTypical => 'સામાન્ય';
+	@override String get optionLarger => 'મોટું';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$gu extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.';
 	@override String get offlineTip4 => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.';
 	@override String get offlineTip5 => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).';
+	@override String get noFoodTip => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsGu {
 			'meal.questionFlow.noQuestionsAvailable' => 'કોઈ પ્રશ્નો ઉપલબ્ધ નથી',
 			'meal.questionFlow.next' => 'આગળ',
 			'meal.questionFlow.continueLabel' => 'ચાલુ રાખો',
+			'meal.questionFlow.countQuestion' => 'જથ્થો પસંદ કરો',
+			'meal.questionFlow.itemSizeQuestion' => 'આઇટમનું કદ પસંદ કરો',
+			'meal.questionFlow.portionSizeQuestion' => 'ભાગનું કદ પસંદ કરો',
+			'meal.questionFlow.option6plus' => '6 કે તેથી વધુ',
+			'meal.questionFlow.optionSmall' => 'નાનું',
+			'meal.questionFlow.optionRegular' => 'સામાન્ય',
+			'meal.questionFlow.optionLarge' => 'મોટું',
+			'meal.questionFlow.optionThin' => 'પાતળું',
+			'meal.questionFlow.optionThick' => 'જાડું',
+			'meal.questionFlow.optionMini' => 'નાનું',
+			'meal.questionFlow.optionStuffed' => 'ભરેલું',
+			'meal.questionFlow.optionHeavy' => 'ભારે',
+			'meal.questionFlow.optionSmaller' => 'નાનું',
+			'meal.questionFlow.optionTypical' => 'સામાન્ય',
+			'meal.questionFlow.optionLarger' => 'મોટું',
 			'meal.analysis.title' => 'તમારા ભોજનનું વિશ્લેષણ કરી રહ્યા છીએ',
 			'meal.analysis.stepStarted' => 'શરૂઆત કરી રહ્યા છીએ…',
 			'meal.analysis.stepDecomposition' => 'તમારા ભોજનને સમજી રહ્યા છીએ…',
@@ -2280,6 +2311,7 @@ extension on TranslationsGu {
 			'meal.analysis.offlineTip3' => 'ટીપ: એક ઝડપી ભાગ નોંધ (1 વાટકી, મોટી કોફી) અંદાજોને વધુ તીવ્ર બનાવે છે.',
 			'meal.analysis.offlineTip4' => 'ટીપ: ભોજન પછી લોગિંગ હજુ પણ આદત બનાવે છે; સંપૂર્ણતા વૈકલ્પિક છે.',
 			'meal.analysis.offlineTip5' => 'ટીપ: જ્યારે કેલરીમાં ઘણો ફેરફાર થાય ત્યારે ખોરાક કેવી રીતે રાંધવામાં આવ્યો તે કહો (તળેલું વિરુદ્ધ શેકેલું).',
+			'meal.analysis.noFoodTip' => 'કોઈ ખોરાક મળ્યો નથી. બીજો ફોટો અથવા વર્ણન અજમાવો.',
 			'meal.localInference.reviewTitle' => 'શોધાયેલ ઘટકોની સમીક્ષા કરો',
 			'meal.localInference.reviewSubtitle' => 'આ તમારા ઉપકરણ પર સમજવામાં આવ્યું છે. પોષણની ગણતરી કરતા પહેલા નામ અથવા ભાગો સુધારો.',
 			'meal.localInference.mealName' => 'જમવાનું નામ',
@@ -2528,6 +2560,8 @@ extension on TranslationsGu {
 			'notifications.breakfast.title' => 'નાસ્તાનો સમય! 🍳',
 			'notifications.breakfast.body' => 'તમારો નાસ્તો લોગ કરવાનું ભૂલશો નહીં',
 			'notifications.lunch.title' => 'બપોરના ભોજનનો સમય! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'તમારું બપોરનું ભોજન લોગ કરવાનો સમય',
 			'notifications.dinner.title' => 'રાત્રિભોજનનો સમય! 🍽️',
 			'notifications.dinner.body' => 'તમારું રાત્રિભોજન લોગ કરવાનું ભૂલશો નહીં',
@@ -2544,8 +2578,6 @@ extension on TranslationsGu {
 			'disclaimer.snap.preparationMethods.title' => 'તૈયારી પદ્ધતિઓ',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'રસોઈ પદ્ધતિઓ ખોરાકની પોષક સામગ્રીને નોંધપાત્ર રીતે બદલી શકે છે. ${appLabel} ના અંદાજો હંમેશા આ ભિન્નતાઓને ધ્યાનમાં લઈ શકતા નથી.',
 			'disclaimer.snap.ingredients.title' => 'ઘટકો',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'ઘણા છુપાયેલા ઘટકોવાળી જટિલ વાનગીઓ ઓછા સચોટ અંદાજો તરફ દોરી શકે છે.',
 			'disclaimer.snap.databaseLimitations.title' => 'ડેટાબેઝ મર્યાદાઓ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} નો ફૂડ ડેટાબેઝ વ્યાપક છે પરંતુ તેમાં દરેક એક ખાદ્ય વસ્તુ અથવા ભિન્નતા શામેલ ન હોઈ શકે.',

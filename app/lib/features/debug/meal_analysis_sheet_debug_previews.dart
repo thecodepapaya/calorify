@@ -97,18 +97,9 @@ Future<void> previewMealAnalysisSheetIngredients(BuildContext context) {
             ingredientsStep: PipelineIngredientsData(
               analysisId: _kMockAnalysisId,
               ingredients: [
-                PipelineResolvedIngredient(
-                  rawName: 'chicken thigh',
-                  canonicalName: 'Chicken, thigh, grilled',
-                ),
-                PipelineResolvedIngredient(
-                  rawName: 'basmati',
-                  canonicalName: 'Rice, white, cooked',
-                ),
-                PipelineResolvedIngredient(
-                  rawName: 'raita',
-                  canonicalName: 'Yogurt dip',
-                ),
+                PipelineResolvedIngredient(rawName: 'chicken thigh'),
+                PipelineResolvedIngredient(rawName: 'basmati'),
+                PipelineResolvedIngredient(rawName: 'raita'),
               ],
             ),
           ),
@@ -146,14 +137,8 @@ Future<void> previewMealAnalysisSheetProgressStep3(BuildContext context) {
             ingredientsStep: PipelineIngredientsData(
               analysisId: _kMockAnalysisId,
               ingredients: [
-                PipelineResolvedIngredient(
-                  rawName: 'tofu',
-                  canonicalName: 'Tofu, firm, grilled',
-                ),
-                PipelineResolvedIngredient(
-                  rawName: 'greens',
-                  canonicalName: 'Lettuce, mixed',
-                ),
+                PipelineResolvedIngredient(rawName: 'tofu'),
+                PipelineResolvedIngredient(rawName: 'greens'),
               ],
             ),
           ),
@@ -219,14 +204,8 @@ Future<void> previewMealAnalysisSheetWithImageBanner(
             ingredientsStep: PipelineIngredientsData(
               analysisId: _kMockAnalysisId,
               ingredients: [
-                PipelineResolvedIngredient(
-                  rawName: 'greens',
-                  canonicalName: 'Mixed salad greens',
-                ),
-                PipelineResolvedIngredient(
-                  rawName: 'tomatoes',
-                  canonicalName: 'Tomatoes, cherry',
-                ),
+                PipelineResolvedIngredient(rawName: 'greens'),
+                PipelineResolvedIngredient(rawName: 'tomatoes'),
               ],
             ),
           ),

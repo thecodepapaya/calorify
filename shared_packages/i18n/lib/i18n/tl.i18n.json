@@ -305,7 +305,22 @@
       "progress": "Tanong {current} ng {total}",
       "noQuestionsAvailable": "Walang mga tanong na available",
       "next": "Susunod",
-      "continueLabel": "Magpatuloy"
+      "continueLabel": "Magpatuloy",
+      "countQuestion": "Pumili ng dami",
+      "itemSizeQuestion": "Pumili ng laki ng item",
+      "portionSizeQuestion": "Pumili ng laki ng bahagi",
+      "option6plus": "6 o higit pa",
+      "optionSmall": "Maliit",
+      "optionRegular": "Karaniwan",
+      "optionLarge": "Malaki",
+      "optionThin": "Manipis",
+      "optionThick": "Makapal",
+      "optionMini": "Maliit",
+      "optionStuffed": "Puno",
+      "optionHeavy": "Mabigat",
+      "optionSmaller": "Mas maliit",
+      "optionTypical": "Karaniwan",
+      "optionLarger": "Mas malaki"
     },
     "analysis": {
       "title": "Sinusuri ang iyong pagkain",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tip: Banggitin ang inumin, sarsa, at mantika sa pagluluto—nagdaragdag sila ng calories na madalas nakakaligtaan.",
       "offlineTip3": "Tip: Ang mabilis na tala ng bahagi (1 mangkok, malaking kape) ay nagpapalinaw ng pagtataya.",
       "offlineTip4": "Tip: Ang pag-log pagkatapos kumain ay nakakatulong pa ring bumuo ng gawi; hindi kailangan perpekto.",
-      "offlineTip5": "Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno)."
+      "offlineTip5": "Tip: Sabihin kung paano niluto ang pagkain kapag malaki ang epekto sa calories (prito vs inihurno).",
+      "noFoodTip": "Walang nakitang pagkain. Subukan muli gamit ang ibang litrato o paglalarawan."
     },
     "localInference": {
       "reviewTitle": "Suriin ang mga nakitang sangkap",

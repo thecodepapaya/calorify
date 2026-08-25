@@ -80,6 +80,7 @@ class LocalInferenceChannel(
         val text = call.argument<String>("text")?.trim().orEmpty()
         val timeoutMs = (call.argument<Number>("timeoutMs")?.toLong() ?: DEFAULT_TIMEOUT_MS)
             .coerceIn(1_000L, MAX_TIMEOUT_MS)
+        val analysisContext = call.argument<Map<String, Any?>>("analysisContext").orEmpty()
         if (text.isEmpty()) {
             result.error("invalid_input", "Meal text is required", null)
             return
@@ -90,7 +91,7 @@ class LocalInferenceChannel(
             modality = "ANALYSIS_MODALITY_TEXT",
             result = result,
         ) {
-            inferText(text)
+            inferText(text, analysisContext)
         }
     }
 
@@ -102,6 +103,7 @@ class LocalInferenceChannel(
         val imageBytes = call.argument<ByteArray>("imageBytes")
         val timeoutMs = (call.argument<Number>("timeoutMs")?.toLong() ?: MAX_TIMEOUT_MS)
             .coerceIn(1_000L, MAX_TIMEOUT_MS)
+        val analysisContext = call.argument<Map<String, Any?>>("analysisContext").orEmpty()
         if (imageBytes == null || imageBytes.isEmpty()) {
             result.error("invalid_input_image", "A meal image is required", null)
             return
@@ -112,7 +114,7 @@ class LocalInferenceChannel(
             modality = "ANALYSIS_MODALITY_IMAGE",
             result = result,
         ) {
-            inferImage(imageBytes)
+            inferImage(imageBytes, analysisContext)
         }
     }
 
@@ -132,6 +134,7 @@ class LocalInferenceChannel(
                 }
                 val elapsedMs = SystemClock.elapsedRealtime() - startedAt
                 val modelName = runCatching { model.getBaseModelName() }.getOrNull()
+                output.validateGeneratedCore()
                 result.success(output.toPayload(requestId, elapsedMs, modelName, modality))
             } catch (error: Throwable) {
                 completeError(result, error)
@@ -221,16 +224,15 @@ class LocalInferenceChannel(
         }
     }
 
-    private suspend fun inferText(text: String): LocalMealProposalOutput {
+    private suspend fun inferText(text: String, analysisContext: Map<String, Any?>): LocalMealProposalOutput {
         val prompt = """
             ## Task
-            Decompose the user's meal into atomic editable ingredients and realistic total gram ranges.
+            Inventory the primary meal described, classify each relevant candidate with isFood, and estimate portions only for food items.
             ## Rules
-            Preserve explicit counts and sizes. Distinguish raw/cooked/fried states. Use generic USDA-friendly names.
+            Use this application-supplied local context for language and meal-time inference: $analysisContext
+            Preserve explicit counts and sizes. Keep localized raw names separate from English lookup names and atomic preparation states.
             For COUNT, set count above 0 and set each per-unit gram value to its matching total gram value divided by count.
-            Set count and all per-unit fields to 0 for BULK or PINCH items. Keep min <= estimate <= max.
-            Treat prepared dishes as cooked when implied by the meal wording. Use raw only when explicitly stated; otherwise leave preparation empty.
-            Do not invent sizes or notes that the user did not provide.
+            Set count and all per-unit fields to null for BULK or PINCH items. Keep min <= estimate <= max.
             Do not provide calories, macros, nutrient facts, health advice, or presentation copy.
             ## Meal
             <meal>${text.take(MAX_TEXT_LENGTH)}</meal>
@@ -243,17 +245,15 @@ class LocalInferenceChannel(
         return generate(request)
     }
 
-    private suspend fun inferImage(imageBytes: ByteArray): LocalMealProposalOutput {
+    private suspend fun inferImage(imageBytes: ByteArray, analysisContext: Map<String, Any?>): LocalMealProposalOutput {
         val prompt = """
             ## Task
-            Identify the visible meal and decompose it into atomic editable ingredients with realistic total gram ranges.
+            Inventory the primary meal shown, classify each relevant candidate with isFood, and estimate portions only for food items.
             ## Rules
-            Include only edible foods reasonably visible in the image. Do not invent hidden ingredients.
-            Never include plates, bowls, cups, cutlery, chopsticks, napkins, packaging, tables, or other non-food objects.
-            Distinguish raw, cooked, fried, and baked states from visual evidence. Use generic USDA-friendly names.
+            Use this application-supplied local context for language and meal-time inference: $analysisContext
+            Keep localized raw names separate from English lookup names and atomic preparation states.
             For COUNT, set count above 0 and set each per-unit gram value to its matching total gram value divided by count.
-            Set count and all per-unit fields to 0 for BULK or PINCH items. Keep min <= estimate <= max.
-            Leave preparation or notes empty when the image does not support them.
+            Set count and all per-unit fields to null for BULK or PINCH items. Keep min <= estimate <= max.
             Do not provide calories, macros, nutrient facts, health advice, or presentation copy.
         """.trimIndent()
         val image = try {
@@ -331,40 +331,40 @@ class LocalInferenceChannel(
         modelName: String?,
         modality: String,
     ): Map<String, Any?> = mapOf(
-        "schemaVersion" to 1,
+        "schemaVersion" to 2,
         "proposalId" to UUID.randomUUID().toString(),
         "requestId" to requestId,
         "modality" to modality,
-        "mealName" to mealName.trim(),
+        "mealName" to mealName?.trim().orEmpty(),
+        "outcome" to "DECOMPOSITION_OUTCOME_${outcome}",
+        "outcomeReason" to outcomeReason.trim(),
+        "outcomeConfidence" to outcomeConfidence,
         "inferredMealType" to inferredMealType,
         "mealTypeConfident" to mealTypeConfident,
-        "confidence" to confidence,
-        "ingredients" to ingredients.map { ingredient ->
+        "mealTypeReason" to mealTypeReason.trim(),
+        "items" to items.filter { it.isFood }.map { ingredient ->
+            val lookup = requireNotNull(ingredient.usdaLookup)
+            val portion = requireNotNull(ingredient.portion)
             mapOf(
                 "rowId" to UUID.randomUUID().toString(),
                 "rawName" to ingredient.rawName.trim(),
-                "canonicalHint" to ingredient.canonicalHint.trim(),
-                "preparation" to ingredient.preparation.trim(),
-                "gramsEstimated" to ingredient.gramsEstimated,
-                "minGrams" to ingredient.minGrams,
-                "maxGrams" to ingredient.maxGrams,
-                "notes" to ingredient.notes.trim(),
-                "portionKind" to ingredient.portionKind,
-                "count" to ingredient.count.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
-                "perUnitGrams" to ingredient.perUnitGrams.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
-                "perUnitMinGrams" to ingredient.perUnitMinGrams.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
-                "perUnitMaxGrams" to ingredient.perUnitMaxGrams.takeIf { ingredient.portionKind == "COUNT" && it > 0 },
-                "sizeSpecifiedByUser" to ingredient.sizeSpecifiedByUser,
-                "confidence" to ingredient.confidence,
-                "fieldProvenance" to listOf(
-                    mapOf(
-                        "fieldName" to "identity",
-                        "origin" to "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
-                    ),
-                    mapOf(
-                        "fieldName" to "portion",
-                        "origin" to "INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL",
-                    ),
+                "isFoodReason" to ingredient.isFoodReason.trim(),
+                "isFoodConfidence" to ingredient.isFoodConfidence,
+                "usdaLookup" to mapOf(
+                    "proposedCanonicalName" to lookup.proposedCanonicalName.trim(),
+                    "aliases" to lookup.aliases,
+                    "preparationStates" to lookup.preparationStates,
+                ),
+                "portion" to mapOf(
+                    "kind" to portion.kind,
+                    "gramsEstimated" to portion.gramsEstimated,
+                    "minGrams" to portion.minGrams,
+                    "maxGrams" to portion.maxGrams,
+                    "count" to portion.count,
+                    "perUnitGrams" to portion.perUnitGrams,
+                    "perUnitMinGrams" to portion.perUnitMinGrams,
+                    "perUnitMaxGrams" to portion.perUnitMaxGrams,
+                    "sizeSpecifiedByUser" to portion.sizeSpecifiedByUser,
                 ),
             )
         },
@@ -373,6 +373,68 @@ class LocalInferenceChannel(
         "modelVersion" to null,
         "elapsedMs" to elapsedMs,
     )
+
+    private fun LocalMealProposalOutput.validateGeneratedCore() {
+        fun validText(value: String, max: Int) = value.trim().isNotEmpty() && value.length <= max
+        fun validConfidence(value: Double) = value.isFinite() && value in 0.0..1.0
+        if (!validText(outcomeReason, 240) || !validConfidence(outcomeConfidence) ||
+            !validText(mealTypeReason, 240) || items.size > 20
+        ) throw AdapterException("invalid_output", "Local decomposition fields are invalid")
+
+        val foodItems = items.filter { it.isFood }
+        val noFood = outcome == "NO_FOOD"
+        if (outcome !in setOf("FOOD", "NO_FOOD") ||
+            (!noFood && (foodItems.isEmpty() || mealName.isNullOrBlank())) ||
+            (noFood && (foodItems.isNotEmpty() || mealName != null ||
+                inferredMealType != "UNKNOWN" || mealTypeConfident))
+        ) throw AdapterException("invalid_output", "Local decomposition outcome is inconsistent")
+
+        items.forEach { item ->
+            if (!validText(item.rawName, 120) || !validText(item.isFoodReason, 240) ||
+                !validConfidence(item.isFoodConfidence)
+            ) throw AdapterException("invalid_output", "Local item classification is invalid")
+            if (!item.isFood) {
+                if (item.usdaLookup != null || item.portion != null) {
+                    throw AdapterException("invalid_output", "Non-food items cannot have lookup or portion data")
+                }
+                return@forEach
+            }
+            val lookup = item.usdaLookup
+                ?: throw AdapterException("invalid_output", "Food items require lookup data")
+            val portion = item.portion
+                ?: throw AdapterException("invalid_output", "Food items require portion data")
+            if (!validText(lookup.proposedCanonicalName, 120) ||
+                lookup.aliases.size > 5 || lookup.preparationStates.size > 5
+            ) throw AdapterException("invalid_output", "Local USDA lookup proposal is invalid")
+            val aliases = lookup.aliases.map { it.trim().lowercase() }
+            val states = lookup.preparationStates.map { it.trim().lowercase() }
+            if (aliases.any { it.isEmpty() || it.length > 120 } || aliases.toSet().size != aliases.size ||
+                aliases.contains(lookup.proposedCanonicalName.trim().lowercase()) ||
+                states.any { it.isEmpty() || it.length > 40 || it.contains(',') || Regex("\\bor\\b").containsMatchIn(it) } ||
+                states.toSet().size != states.size
+            ) throw AdapterException("invalid_output", "Local lookup aliases or preparation states are invalid")
+            if (!portion.gramsEstimated.isFinite() || portion.gramsEstimated !in 0.001..5000.0 ||
+                portion.minGrams !in 0.0..portion.gramsEstimated ||
+                portion.maxGrams !in portion.gramsEstimated..5000.0
+            ) throw AdapterException("invalid_output", "Local portion bounds are invalid")
+            val unitValues = listOf(portion.perUnitGrams, portion.perUnitMinGrams, portion.perUnitMaxGrams)
+            if (portion.kind == "COUNT") {
+                if (unitValues.any { it == null || it <= 0.0 } ||
+                    (portion.count != null && (portion.count <= 0.0 || portion.count > 20.0))
+                ) throw AdapterException("invalid_output", "COUNT portion fields are invalid")
+                if (portion.count != null) {
+                    val count = portion.count
+                    val close = { left: Double, right: Double -> kotlin.math.abs(left - right) < 0.051 }
+                    if (!close(portion.gramsEstimated, count * portion.perUnitGrams!!) ||
+                        !close(portion.minGrams, count * portion.perUnitMinGrams!!) ||
+                        !close(portion.maxGrams, count * portion.perUnitMaxGrams!!)
+                    ) throw AdapterException("invalid_output", "COUNT totals are inconsistent")
+                }
+            } else if (portion.kind !in setOf("BULK", "PINCH") ||
+                portion.count != null || unitValues.any { it != null }
+            ) throw AdapterException("invalid_output", "Non-count portion fields are invalid")
+        }
+    }
 
     private class AdapterException(
         val code: String,

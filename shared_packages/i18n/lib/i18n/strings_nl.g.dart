@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$nl extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Geen vragen beschikbaar';
 	@override String get next => 'Volgende';
 	@override String get continueLabel => 'Doorgaan';
+	@override String get countQuestion => 'Kies het aantal';
+	@override String get itemSizeQuestion => 'Kies de afmeting';
+	@override String get portionSizeQuestion => 'Kies de portiegrootte';
+	@override String get option6plus => '6 of meer';
+	@override String get optionSmall => 'Klein';
+	@override String get optionRegular => 'Normaal';
+	@override String get optionLarge => 'Groot';
+	@override String get optionThin => 'Dun';
+	@override String get optionThick => 'Dik';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Gevuld';
+	@override String get optionHeavy => 'Zwaar';
+	@override String get optionSmaller => 'Kleiner';
+	@override String get optionTypical => 'Typisch';
+	@override String get optionLarger => 'Groter';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$nl extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.';
 	@override String get offlineTip4 => 'Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.';
 	@override String get offlineTip5 => 'Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).';
+	@override String get noFoodTip => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsNl {
 			'meal.questionFlow.noQuestionsAvailable' => 'Geen vragen beschikbaar',
 			'meal.questionFlow.next' => 'Volgende',
 			'meal.questionFlow.continueLabel' => 'Doorgaan',
+			'meal.questionFlow.countQuestion' => 'Kies het aantal',
+			'meal.questionFlow.itemSizeQuestion' => 'Kies de afmeting',
+			'meal.questionFlow.portionSizeQuestion' => 'Kies de portiegrootte',
+			'meal.questionFlow.option6plus' => '6 of meer',
+			'meal.questionFlow.optionSmall' => 'Klein',
+			'meal.questionFlow.optionRegular' => 'Normaal',
+			'meal.questionFlow.optionLarge' => 'Groot',
+			'meal.questionFlow.optionThin' => 'Dun',
+			'meal.questionFlow.optionThick' => 'Dik',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Gevuld',
+			'meal.questionFlow.optionHeavy' => 'Zwaar',
+			'meal.questionFlow.optionSmaller' => 'Kleiner',
+			'meal.questionFlow.optionTypical' => 'Typisch',
+			'meal.questionFlow.optionLarger' => 'Groter',
 			'meal.analysis.title' => 'Je maaltijd wordt geanalyseerd',
 			'meal.analysis.stepStarted' => 'Bezig met starten…',
 			'meal.analysis.stepDecomposition' => 'Begrijpen van je maaltijd…',
@@ -2280,6 +2311,7 @@ extension on TranslationsNl {
 			'meal.analysis.offlineTip3' => 'Tip: Een korte portie-opmerking (1 kom, grote koffie) maakt schattingen veel nauwkeuriger.',
 			'meal.analysis.offlineTip4' => 'Tip: Loggen na de maaltijd bouwt nog steeds de gewoonte op; perfectie is niet verplicht.',
 			'meal.analysis.offlineTip5' => 'Tip: Vermeld hoe het eten is bereid wanneer dit veel calorieën verandert (gefrituurd vs. gebakken).',
+			'meal.analysis.noFoodTip' => 'Er is geen voedsel gedetecteerd. Probeer een andere foto of beschrijving.',
 			'meal.localInference.reviewTitle' => 'Gedetecteerde ingrediënten controleren',
 			'meal.localInference.reviewSubtitle' => 'Dit is op je apparaat geïnterpreteerd. Corrigeer namen of porties voordat de voedingswaarde wordt berekend.',
 			'meal.localInference.mealName' => 'Maaltijdnaam',
@@ -2528,6 +2560,8 @@ extension on TranslationsNl {
 			'notifications.breakfast.title' => 'Tijd voor ontbijt! 🍳',
 			'notifications.breakfast.body' => 'Vergeet niet je ontbijt te registreren',
 			'notifications.lunch.title' => 'Tijd voor lunch! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Tijd om je lunch te registreren',
 			'notifications.dinner.title' => 'Tijd voor diner! 🍽️',
 			'notifications.dinner.body' => 'Vergeet niet je diner te registreren',
@@ -2544,8 +2578,6 @@ extension on TranslationsNl {
 			'disclaimer.snap.preparationMethods.title' => 'Bereidingsmethoden',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Bereidingsmethoden kunnen de voedingswaarde aanzienlijk veranderen. De schattingen van ${appLabel} houden mogelijk niet altijd rekening met deze variaties.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediënten',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Complexe gerechten met veel verborgen ingrediënten kunnen leiden tot minder nauwkeurige schattingen.',
 			'disclaimer.snap.databaseLimitations.title' => 'Beperkingen van de database',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s voedseldatabase is uitgebreid maar bevat mogelijk niet elk afzonderlijk voedingsmiddel of variant.',

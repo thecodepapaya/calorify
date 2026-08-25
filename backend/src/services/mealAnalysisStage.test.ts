@@ -29,7 +29,7 @@ test('legacy rows infer their last durable stage from payloads', () => {
     decompositionData,
     ingredientsData,
     uncertaintyData: noClarification,
-    mealTypeQuestionData: { question: 'Which meal?' },
+    mealTypeQuestionData: { options: ['BREAKFAST'] },
   }), 'AWAITING_MEAL_TYPE');
   assert.equal(inferMealAnalysisStage({
     decompositionData,
@@ -70,7 +70,7 @@ test('unknown markers and inconsistent snapshots are rejected', () => {
     decompositionData,
     ingredientsData,
     uncertaintyData: pendingClarification,
-    mealTypeQuestionData: { question: 'Which meal?' },
+    mealTypeQuestionData: { options: ['BREAKFAST'] },
   }), /still requires clarification/);
   assert.throws(() => resolveMealAnalysisStage({
     stage: 'AWAITING_CLARIFICATION',

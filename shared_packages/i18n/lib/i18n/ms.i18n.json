@@ -305,7 +305,22 @@
       "progress": "Soalan {current} dari {total}",
       "noQuestionsAvailable": "Tiada soalan tersedia",
       "next": "Seterusnya",
-      "continueLabel": "Teruskan"
+      "continueLabel": "Teruskan",
+      "countQuestion": "Pilih kuantiti",
+      "itemSizeQuestion": "Pilih saiz item",
+      "portionSizeQuestion": "Pilih saiz hidangan",
+      "option6plus": "6 atau lebih",
+      "optionSmall": "Kecil",
+      "optionRegular": "Biasa",
+      "optionLarge": "Besar",
+      "optionThin": "Nipis",
+      "optionThick": "Tebal",
+      "optionMini": "Mini",
+      "optionStuffed": "Berinti",
+      "optionHeavy": "Berat",
+      "optionSmaller": "Lebih kecil",
+      "optionTypical": "Biasa",
+      "optionLarger": "Lebih besar"
     },
     "analysis": {
       "title": "Menganalisis hidangan anda",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tip: Nyatakan minuman, sos, dan minyak masak—mereka menambah kalori yang sering terlupa.",
       "offlineTip3": "Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.",
       "offlineTip4": "Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.",
-      "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar)."
+      "offlineTip5": "Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar).",
+      "noFoodTip": "Tiada makanan dikesan. Cuba gambar atau penerangan lain."
     },
     "localInference": {
       "reviewTitle": "Semak ramuan yang dikesan",

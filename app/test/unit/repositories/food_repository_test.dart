@@ -97,38 +97,35 @@ void main() {
         })}\n',
         contentType: 'application/x-ndjson',
       );
-      final proposal = IngredientProposalV1(
-        schemaVersion: 1,
+      final proposal = IngredientProposalV2(
+        schemaVersion: 2,
         proposalId: 'proposal-1',
         modality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
         mealName: 'Dal and rice',
+        outcome: DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD,
+        outcomeReason: 'The input contains food.',
+        outcomeConfidence: 0.9,
         inferredMealType: MealType.LUNCH,
+        mealTypeReason: 'The context supports lunch.',
         mealTypeConfident: true,
-        confidence: 0.9,
         interpretationOrigin:
             InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
-        ingredients: [
-          IngredientProposalItemV1(
+        items: [
+          IngredientProposalItemV2(
             rowId: 'ingredient-1',
             rawName: 'dal',
-            canonicalHint: 'lentils cooked',
-            gramsEstimated: 200,
-            minGrams: 170,
-            maxGrams: 230,
-            portionKind: PortionKind.BULK,
-            confidence: 0.9,
-            fieldProvenance: [
-              IngredientFieldProvenance(
-                fieldName: 'identity',
-                origin:
-                    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-              ),
-              IngredientFieldProvenance(
-                fieldName: 'portion',
-                origin:
-                    IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-              ),
-            ],
+            isFoodReason: 'Dal belongs to the meal.',
+            isFoodConfidence: 0.9,
+            usdaLookup: UsdaLookupProposalV2(
+              proposedCanonicalName: 'lentils',
+              preparationStates: ['cooked'],
+            ),
+            portion: PortionProposalV2(
+              kind: PortionKind.BULK,
+              gramsEstimated: 200,
+              minGrams: 170,
+              maxGrams: 230,
+            ),
           ),
         ],
       );
@@ -151,7 +148,7 @@ void main() {
       expect(proposalPayload['mealName'], 'Dal and rice');
       expect(proposalPayload, isNot(contains('calories')));
       expect(
-        (proposalPayload['ingredients'] as List).single,
+        (proposalPayload['items'] as List).single,
         isNot(contains('macros')),
       );
       expect(payload['fallbackReason'], 'MEAL_ANALYSIS_FALLBACK_REASON_NONE');

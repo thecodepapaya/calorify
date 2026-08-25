@@ -305,7 +305,22 @@
       "progress": "Otázka {current} z {total}",
       "noQuestionsAvailable": "Žádné otázky nejsou k dispozici",
       "next": "Další",
-      "continueLabel": "Pokračovat"
+      "continueLabel": "Pokračovat",
+      "countQuestion": "Zvolte množství",
+      "itemSizeQuestion": "Zvolte velikost položky",
+      "portionSizeQuestion": "Zvolte velikost porce",
+      "option6plus": "6 nebo více",
+      "optionSmall": "Malá",
+      "optionRegular": "Běžná",
+      "optionLarge": "Velká",
+      "optionThin": "Tenká",
+      "optionThick": "Silná",
+      "optionMini": "Mini",
+      "optionStuffed": "Plněná",
+      "optionHeavy": "Těžká",
+      "optionSmaller": "Menší",
+      "optionTypical": "Typická",
+      "optionLarger": "Větší"
     },
     "analysis": {
       "title": "Analyzuji vaše jídlo",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tip: Uveďte nápoje, omáčky a olej používaný při vaření — přidávají kalorie, na které se často zapomíná.",
       "offlineTip3": "Tip: Krátká poznámka o porci (1 miska, velká káva) výrazně zpřesní odhady.",
       "offlineTip4": "Tip: Záznam po jídle stále buduje návyk; dokonalost není nutná.",
-      "offlineTip5": "Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené)."
+      "offlineTip5": "Tip: Uveďte způsob přípravy, pokud zásadně mění kalorickou hodnotu (smažené vs pečené).",
+      "noFoodTip": "Nebylo rozpoznáno žádné jídlo. Zkuste jinou fotku nebo popis."
     },
     "localInference": {
       "reviewTitle": "Zkontrolujte detekované ingredience",

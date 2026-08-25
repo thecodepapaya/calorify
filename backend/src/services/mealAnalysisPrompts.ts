@@ -1,115 +1,18 @@
-export const DECOMPOSITION_SYSTEM_PROMPT = `You are a food decomposition AI. Your ONLY job is to break down a meal description into individual atomic ingredients with gram and portion estimates. Inputs may be in any language; handle all world cuisines.
+export { DECOMPOSITION_SCHEMA } from './mealDecompositionSchema.js';
+
+export const DECOMPOSITION_SYSTEM_PROMPT = `You analyze whether an input contains a meal and, when it does, decompose it into food items and portions. Inputs may be in any language; handle all world cuisines.
 
 RULES:
-1. NEVER generate calorie or macro nutritional values. You ONLY estimate grams.
-2. Decompose composite dishes into atomic ingredients, but preserve the user's named dish context in raw_name or notes.
-3. For each ingredient provide: raw_name, canonical_hint, grams_estimated, min_grams, max_grams, notes, portion_kind, count, per_unit_grams, per_unit_min_grams, per_unit_max_grams, size_specified_by_user.
-4. Prefer cooked weights for cooked dishes.
-5. Include ALL ingredients — oils, butter, ghee, salt, spices.
-6. confidence: 0-1 reflecting how confident you are overall.
-7. inferred_meal_type: one of BREAKFAST, LUNCH, DINNER, SNACK, or UNKNOWN.
-   - Use UNKNOWN when the description/image does not clearly imply a single meal context.
-   - Strong signals: explicit keywords ("breakfast", "lunch", "dinner"), classic dishes with fixed meal context (pancakes/cereal → BREAKFAST; ramen/curry-rice → LUNCH/DINNER), tiny portions/sweets → SNACK.
-8. meal_type_confident: true ONLY when the meal_name or visible context strongly implies a single meal type. When in doubt, set false so the user is asked.
-9. Set portion_kind to COUNT for foods that come in discrete units (roti, chapati, bread slice, egg, idli, dosa, samosa, banana, piece). Set BULK for spoon/cup/bowl foods (rice, dal, sabzi, curry, sauces, milk, oil). Set PINCH for trace amounts (salt, spices, garnishes).
-10. For COUNT, emit count when the user's words imply it. Fractional counts are allowed (0.5 = half). Also emit per_unit_grams, per_unit_min_grams, and per_unit_max_grams. The server will recompute total grams as count × per_unit.
-11. If the user states the size of a unit ("4 large rotis"), set size_specified_by_user=true and collapse per_unit_min_grams/per_unit_grams/per_unit_max_grams to that one size.
-12. If the user mentions different sizes within the same food ("2 small + 2 large rotis"), emit separate ingredient rows instead of averaging.
-13. canonical_hint MUST be a simple, single English food-database lookup term for one atomic ingredient, regardless of the input language. Preserve preparation state whenever it changes nutrition: use "lentils mature seeds cooked boiled without salt" for cooked dal, "rice white cooked" for cooked rice, and explicit "raw" or "dry" terms when the user means uncooked food. NEVER use slugs, paths, underscores, role labels, or compound alternatives with "or", "and", commas, or parentheses. When a dish admits multiple proteins, pick the single most traditional one. One lookup term per row.
-14. Preserve defining components of named dishes. Masala dosa includes its potato filling; idli-sambar includes both idli and sambar. Do not silently reduce a named dish to only its wrapper, base, or garnish.
-14. For named composite dishes, do not emit a duplicate generic row for the dish itself. "paneer sabzi" is one dish context; emit its likely atomic ingredients under that context rather than adding a separate "sabzi" or "vegetable curry" row.
-15. For roti/chapati, preserve the user's count exactly on the whole-wheat-flour row. Add separate small rows for salt and oil/ghee/butter when appropriate; do not replace roti with synthetic raw-ingredient labels.
-
-Portion references: 1 chapati/roti ≈ 30g whole wheat flour + 0-3g ghee/oil + a pinch of salt; 1 cup cooked rice ≈ 185g; 1 cup cooked dal ≈ 210g; 1 tbsp oil/ghee ≈ 14g; 1 medium egg ≈ 50g; 1 cup milk ≈ 245g; 1 medium banana ≈ 120g; 1 slice bread ≈ 30g; 1 cup noodles cooked ≈ 160g; 1 tbsp soy sauce ≈ 15g; 1 medium tortilla ≈ 30g.
-
-Example — "2 rotis with paneer sabzi" → meal_name "Roti with paneer sabzi", inferred_meal_type UNKNOWN:
-- raw_name "roti (whole wheat flour)", canonical_hint "whole wheat flour", portion_kind COUNT, count 2, per_unit_grams 30, grams_estimated 60, min_grams 50, max_grams 70.
-- raw_name "roti (ghee)", canonical_hint "ghee", portion_kind BULK, grams_estimated 3, min_grams 0, max_grams 6.
-- raw_name "roti (salt)", canonical_hint "salt", portion_kind PINCH, grams_estimated 1, min_grams 0, max_grams 2.
-- raw_name "paneer sabzi (paneer)", canonical_hint "paneer", portion_kind BULK, grams_estimated 80, min_grams 60, max_grams 100.
-- raw_name "paneer sabzi (onion)", canonical_hint "onion", portion_kind BULK, grams_estimated 40, min_grams 30, max_grams 60.
-- raw_name "paneer sabzi (tomato)", canonical_hint "tomato", portion_kind BULK, grams_estimated 50, min_grams 30, max_grams 70.
-- raw_name "paneer sabzi (oil)", canonical_hint "vegetable oil", portion_kind BULK, grams_estimated 10, min_grams 5, max_grams 15.
-- raw_name "paneer sabzi (spices)", canonical_hint "curry powder", portion_kind PINCH, grams_estimated 2, min_grams 1, max_grams 3.`;
-
-export const DECOMPOSITION_SCHEMA = {
-  type: 'object' as const,
-  properties: {
-    meal_name: { type: 'string' as const },
-    ingredients: {
-      type: 'array' as const,
-      items: {
-        type: 'object' as const,
-        properties: {
-          raw_name: { type: 'string' as const },
-          canonical_hint: { type: 'string' as const },
-          grams_estimated: { type: 'number' as const },
-          min_grams: { type: 'number' as const },
-          max_grams: { type: 'number' as const },
-          notes: { type: 'string' as const },
-          portion_kind: {
-            type: 'string' as const,
-            enum: ['COUNT', 'BULK', 'PINCH'],
-          },
-          count: {
-            anyOf: [
-              { type: 'number' as const },
-              { type: 'null' as const },
-            ],
-          },
-          per_unit_grams: {
-            anyOf: [
-              { type: 'number' as const },
-              { type: 'null' as const },
-            ],
-          },
-          per_unit_min_grams: {
-            anyOf: [
-              { type: 'number' as const },
-              { type: 'null' as const },
-            ],
-          },
-          per_unit_max_grams: {
-            anyOf: [
-              { type: 'number' as const },
-              { type: 'null' as const },
-            ],
-          },
-          size_specified_by_user: { type: 'boolean' as const },
-        },
-        required: [
-          'raw_name',
-          'canonical_hint',
-          'grams_estimated',
-          'min_grams',
-          'max_grams',
-          'notes',
-          'portion_kind',
-          'count',
-          'per_unit_grams',
-          'per_unit_min_grams',
-          'per_unit_max_grams',
-          'size_specified_by_user',
-        ] as const,
-        additionalProperties: false,
-      },
-    },
-    confidence: { type: 'number' as const },
-    inferred_meal_type: {
-      type: 'string' as const,
-      enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-    },
-    meal_type_confident: { type: 'boolean' as const },
-  },
-  required: [
-    'meal_name',
-    'ingredients',
-    'confidence',
-    'inferred_meal_type',
-    'meal_type_confident',
-  ] as const,
-  additionalProperties: false,
-};
+1. Inventory the primary meal shown or described. Identify relevant candidate items, decide whether each belongs to the food being analyzed, and estimate portions only for items classified as food.
+2. NEVER generate calorie, macro, database-row, or nutrient values. Estimate portions only.
+3. outcome is FOOD when at least one candidate belongs to the meal; otherwise use NO_FOOD. is_food controls each item; do not override it with a confidence threshold.
+4. Keep reasons concise and grounded in the input. Do not expose internal reasoning or use a closed exclusion-category vocabulary.
+5. Use the supplied locale and country for localized display names. Preserve explicit names from text input. For images, generate a short localized meal_name, preferably 2-6 words.
+6. Keep proposed_canonical_name and aliases as short English food identities for database lookup. Put preparation states in their separate atomic array, never inside identity terms.
+7. Decompose composite meals into relevant food items and preserve their named-dish context in raw_name. Prefer cooked weights for cooked dishes.
+8. For COUNT portions, emit per-unit values and the count when supplied. Count may be null so the application can clarify it. BULK and PINCH use null count and per-unit values.
+9. size_specified_by_user is true only when the user explicitly supplied a size.
+10. Use the supplied local date/time only as supporting evidence for inferred_meal_type. Explicit wording and strong food evidence take precedence. For NO_FOOD use UNKNOWN and meal_type_confident=false.`;
 
 export const FALLBACK_SYSTEM_PROMPT = `You are a nutritional database. For each ingredient provided, return its macronutrient values per 100 grams. Use values consistent with USDA FoodData Central where possible.
 
@@ -152,49 +55,35 @@ export const PRESENTATION_SYSTEM_PROMPT = `You turn a grounded meal analysis int
 
 RULES:
 1. Keep all user-facing text in the requested locale.
-2. Return a short meal_name, a natural quantity string, a short helpful tip, meal_type, meal_type_confident, and optional health summary.
-3. Use UNKNOWN for meal_type when the evidence is not strong enough.
-4. Set meal_type_confident=false when the user should be asked explicitly.
-5. Do not invent macros; use the provided numeric summary as context only.
-6. quantity should be a short serving description such as "1 bowl", "2 slices", or "1 serving".
-7. health_score should be one of HEALTHY, NEUTRAL, UNHEALTHY when health is present.`;
+2. Return a natural quantity string, one concise practical tip, and an optional food-level health summary.
+3. Do not invent macros; use the provided grounded numeric summary only.
+4. Do not mention personal context or explain personalization. Do not diagnose.
+5. Do not regenerate or replace the persisted meal name or meal type.`;
 
 export const PRESENTATION_SCHEMA = {
   type: 'object' as const,
   properties: {
-    meal_name: { type: 'string' as const },
-    quantity: { type: 'string' as const },
-    meal_type: {
-      type: 'string' as const,
-      enum: ['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK', 'UNKNOWN'],
-    },
-    meal_type_confident: { type: 'boolean' as const },
-    tip: { type: 'string' as const },
+    quantity: { type: 'string' as const, description: 'Concise localized summary of the resolved total meal quantity, grounded only in persisted portion data.' },
+    tip: { type: 'string' as const, description: 'One short practical observation about the analyzed food; never mention personal context, explain personalization, or diagnose.' },
     health: {
       anyOf: [
         {
           type: 'object' as const,
           properties: {
+            health_score_reason: { type: 'string' as const, description: 'Concise food-and-macro evidence for the assessment, without referring to hidden profile context.' },
             health_score: {
               type: 'string' as const,
               enum: ['HEALTHY', 'NEUTRAL', 'UNHEALTHY'],
+              description: 'Overall food-level classification corresponding to health_score_reason.',
             },
-            health_score_reason: { type: 'string' as const },
           },
-          required: ['health_score', 'health_score_reason'] as const,
+          required: ['health_score_reason', 'health_score'] as const,
           additionalProperties: false,
         },
         { type: 'null' as const },
       ],
     },
   },
-  required: [
-    'meal_name',
-    'quantity',
-    'meal_type',
-    'meal_type_confident',
-    'tip',
-    'health',
-  ] as const,
+  required: ['quantity', 'tip', 'health'] as const,
   additionalProperties: false,
 };

@@ -305,7 +305,22 @@
       "progress": "שאלה {current} מתוך {total}",
       "noQuestionsAvailable": "אין שאלות זמינות",
       "next": "הבא",
-      "continueLabel": "המשך"
+      "continueLabel": "המשך",
+      "countQuestion": "בחר כמות",
+      "itemSizeQuestion": "בחר גודל פריט",
+      "portionSizeQuestion": "בחר גודל מנה",
+      "option6plus": "6 או יותר",
+      "optionSmall": "קטן",
+      "optionRegular": "רגיל",
+      "optionLarge": "גדול",
+      "optionThin": "דק",
+      "optionThick": "עבה",
+      "optionMini": "מיני",
+      "optionStuffed": "ממולא",
+      "optionHeavy": "כבד",
+      "optionSmaller": "קטן יותר",
+      "optionTypical": "טיפוסי",
+      "optionLarger": "גדול יותר"
     },
     "analysis": {
       "title": "מנתחים את הארוחה שלך",
@@ -332,7 +347,8 @@
       "offlineTip2": "טיפ: ציין משקאות, רטבים ושמן בישול — הם מוסיפים קלוריות שאנשים שוכחים לעתים קרובות.",
       "offlineTip3": "טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.",
       "offlineTip4": "טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.",
-      "offlineTip5": "טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי)."
+      "offlineTip5": "טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).",
+      "noFoodTip": "לא זוהה מזון. נסה תמונה או תיאור אחר."
     },
     "localInference": {
       "reviewTitle": "בדיקת רכיבים שזוהו",

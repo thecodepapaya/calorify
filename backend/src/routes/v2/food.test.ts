@@ -160,35 +160,33 @@ function parseNdjson(body: string): any[] {
 
 function validLocalProposal() {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     proposalId: 'proposal-1',
     modality: 'ANALYSIS_MODALITY_TEXT',
     mealName: 'Dal and rice',
+    outcome: 'DECOMPOSITION_OUTCOME_FOOD',
+    outcomeReason: 'The input contains food.',
+    outcomeConfidence: 0.9,
     inferredMealType: 'LUNCH',
+    mealTypeReason: 'The context supports lunch.',
     mealTypeConfident: true,
-    confidence: 0.9,
-    ingredients: [{
+    items: [{
       rowId: 'ingredient-1',
       rawName: 'dal',
-      canonicalHint: 'lentils cooked',
-      preparation: 'cooked',
-      gramsEstimated: 200,
-      minGrams: 170,
-      maxGrams: 230,
-      notes: '',
-      portionKind: 'BULK',
-      sizeSpecifiedByUser: false,
-      confidence: 0.9,
-      fieldProvenance: [
-        {
-          fieldName: 'identity',
-          origin: 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
-        },
-        {
-          fieldName: 'portion',
-          origin: 'INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL',
-        },
-      ],
+      isFoodReason: 'Dal belongs to the meal.',
+      isFoodConfidence: 0.9,
+      usdaLookup: {
+        proposedCanonicalName: 'lentils',
+        aliases: ['dal'],
+        preparationStates: ['cooked'],
+      },
+      portion: {
+        kind: 'BULK',
+        gramsEstimated: 200,
+        minGrams: 170,
+        maxGrams: 230,
+        sizeSpecifiedByUser: false,
+      },
     }],
     interpretationOrigin: 'INTERPRETATION_ORIGIN_LOCAL_NANO',
     modelName: 'gemini-nano',
@@ -606,7 +604,7 @@ test('POST /analyze-proposal rejects model-returned nutrition values', async () 
   mockAnalyzeIngredientProposal.mock.resetCalls();
   const app = await buildTestApp();
   const proposal = validLocalProposal();
-  Object.assign(proposal.ingredients[0]!, { calories: 450 });
+  Object.assign(proposal.items[0]!, { calories: 450 });
   const now = Date.now();
   const response = await app.inject({
     method: 'POST',
@@ -628,7 +626,7 @@ test('POST /analyze-proposal rejects model-returned nutrition values', async () 
 test('POST /analyze-proposal rejects count values on bulk portions', async () => {
   const app = await buildTestApp();
   const proposal = validLocalProposal();
-  Object.assign(proposal.ingredients[0]!, { count: 1 });
+  Object.assign(proposal.items[0]!.portion, { count: 1 });
   const now = Date.now();
   const response = await app.inject({
     method: 'POST',
@@ -646,11 +644,10 @@ test('POST /analyze-proposal rejects count values on bulk portions', async () =>
   await app.close();
 });
 
-test('POST /analyze-proposal requires identity and portion provenance', async () => {
+test('POST /analyze-proposal requires lookup and portion data', async () => {
   const app = await buildTestApp();
   const proposal = validLocalProposal();
-  proposal.ingredients[0]!.fieldProvenance = proposal.ingredients[0]!
-    .fieldProvenance.filter((entry) => entry.fieldName === 'identity');
+  delete (proposal.items[0] as { portion?: unknown }).portion;
   const now = Date.now();
   const response = await app.inject({
     method: 'POST',

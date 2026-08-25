@@ -305,7 +305,22 @@
       "progress": "問題 {current} / {total}",
       "noQuestionsAvailable": "沒有可用問題",
       "next": "下一步",
-      "continueLabel": "繼續"
+      "continueLabel": "繼續",
+      "countQuestion": "選擇數量",
+      "itemSizeQuestion": "選擇項目大小",
+      "portionSizeQuestion": "選擇份量大小",
+      "option6plus": "6 個或以上",
+      "optionSmall": "小",
+      "optionRegular": "標準",
+      "optionLarge": "大",
+      "optionThin": "薄",
+      "optionThick": "厚",
+      "optionMini": "迷你",
+      "optionStuffed": "夾餡",
+      "optionHeavy": "重",
+      "optionSmaller": "較小",
+      "optionTypical": "典型",
+      "optionLarger": "較大"
     },
     "analysis": {
       "title": "正在分析您的餐點",
@@ -332,7 +347,8 @@
       "offlineTip2": "提示：記得提到飲料、醬汁與烹調用油——這些通常會額外增加熱量。",
       "offlineTip3": "提示：簡單的份量說明（1 碗、大杯咖啡）會讓估算更準確。",
       "offlineTip4": "提示：餐後紀錄仍能建立習慣；不必追求完美。",
-      "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。"
+      "offlineTip5": "提示：當烹調方式差異會顯著影響熱量時，請說明烹調方式（油炸 vs 烘烤）。",
+      "noFoodTip": "未偵測到食物。請嘗試其他相片或說明。"
     },
     "localInference": {
       "reviewTitle": "確認偵測到的食材",

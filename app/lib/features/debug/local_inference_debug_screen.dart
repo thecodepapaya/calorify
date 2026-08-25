@@ -383,9 +383,7 @@ class _LocalInferenceDebugScreenState
     }
     cloudWatch.stop();
     final localNames =
-        local.proposal.ingredients
-            .map((ingredient) => ingredient.rawName)
-            .toList();
+        local.proposal.items.map((ingredient) => ingredient.rawName).toList();
     final cloudNames =
         cloudDecomposition?.ingredients
             .map((ingredient) => ingredient.rawName)

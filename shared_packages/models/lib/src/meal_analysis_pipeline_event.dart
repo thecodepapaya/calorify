@@ -9,6 +9,7 @@ PipelineStep _pipelineStepFromNdjson(String raw) {
     'MEAL_TYPE_QUESTION' => PipelineStep.MEAL_TYPE_QUESTION,
     'RESULT' => PipelineStep.RESULT,
     'ERROR' => PipelineStep.ERROR,
+    'NO_FOOD' => PipelineStep.NO_FOOD,
     _ => PipelineStep.ERROR,
   };
 }
@@ -23,6 +24,7 @@ class MealAnalysisPipelineEvent {
     this.uncertainty,
     this.mealTypeQuestion,
     this.result,
+    this.noFood,
     this.errorMessage,
     this.retryable = false,
   });
@@ -83,6 +85,14 @@ class MealAnalysisPipelineEvent {
           analysisId: m.analysisId,
           result: m,
         );
+      case PipelineStep.NO_FOOD:
+        final m = PipelineNoFoodData()
+          ..mergeFromProto3Json(data, ignoreUnknownFields: true);
+        return MealAnalysisPipelineEvent(
+          step: step,
+          analysisId: m.analysisId,
+          noFood: m,
+        );
       case PipelineStep.ERROR:
         final m =
             PipelineErrorData()
@@ -109,6 +119,7 @@ class MealAnalysisPipelineEvent {
   final PipelineUncertaintyData? uncertainty;
   final PipelineMealTypeQuestionData? mealTypeQuestion;
   final PipelineResultData? result;
+  final PipelineNoFoodData? noFood;
   final String? errorMessage;
   final bool retryable;
 

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:i18n/i18n.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:models/models.dart';
+import 'package:intl/intl.dart';
 
 /// Collects answers for the clarification steps emitted by the V2 meal pipeline.
 Future<List<MealClarificationAnswer>?> showMealQuestionFlowFromPipeline({
@@ -58,18 +59,47 @@ class _MealQuestionFlowSheetState extends State<MealQuestionFlowSheet>
     _steps = widget.clarifications
         .map(
           (clarification) => MealQuestionFlowUiStep(
-            question: clarification.question,
+            question: _questionFor(clarification.portionKind),
             optionLabels: clarification.options
-                .map((option) => option.label)
+                .map((option) => _labelFor(option.optionId))
                 .toList(growable: false),
             optionDetails: clarification.options
-                .map((option) => option.hasDetail() ? option.detail : null)
+                .map(
+                  (option) =>
+                      '${NumberFormat.decimalPattern().format(option.grams)} g',
+                )
                 .toList(growable: false),
           ),
         )
         .toList(growable: false);
     _fadeController.forward();
     Analytics.instance.logEvent(AnalyticsEvent.mealQuestionFlowShown);
+  }
+
+  String _questionFor(PortionKind kind) => switch (kind) {
+    PortionKind.COUNT_QUESTION => t.meal.questionFlow.countQuestion,
+    PortionKind.COUNT => t.meal.questionFlow.itemSizeQuestion,
+    _ => t.meal.questionFlow.portionSizeQuestion,
+  };
+
+  String _labelFor(String optionId) {
+    final numeric = int.tryParse(optionId);
+    if (numeric != null) return NumberFormat.decimalPattern().format(numeric);
+    return switch (optionId) {
+      '6plus' => t.meal.questionFlow.option6plus,
+      'small' => t.meal.questionFlow.optionSmall,
+      'regular' => t.meal.questionFlow.optionRegular,
+      'large' => t.meal.questionFlow.optionLarge,
+      'thin' => t.meal.questionFlow.optionThin,
+      'thick' => t.meal.questionFlow.optionThick,
+      'mini' => t.meal.questionFlow.optionMini,
+      'stuffed' => t.meal.questionFlow.optionStuffed,
+      'heavy' => t.meal.questionFlow.optionHeavy,
+      'smaller' => t.meal.questionFlow.optionSmaller,
+      'typical' => t.meal.questionFlow.optionTypical,
+      'larger' => t.meal.questionFlow.optionLarger,
+      _ => optionId,
+    };
   }
 
   @override

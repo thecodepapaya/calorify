@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$hu extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Nincsenek elérhető kérdések';
 	@override String get next => 'Következő';
 	@override String get continueLabel => 'Folytatás';
+	@override String get countQuestion => 'Válaszd ki a mennyiséget';
+	@override String get itemSizeQuestion => 'Válaszd ki a méretet';
+	@override String get portionSizeQuestion => 'Válaszd ki az adag méretét';
+	@override String get option6plus => '6 vagy több';
+	@override String get optionSmall => 'Kicsi';
+	@override String get optionRegular => 'Normál';
+	@override String get optionLarge => 'Nagy';
+	@override String get optionThin => 'Vékony';
+	@override String get optionThick => 'Vastag';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Töltött';
+	@override String get optionHeavy => 'Nehéz';
+	@override String get optionSmaller => 'Kisebb';
+	@override String get optionTypical => 'Tipikus';
+	@override String get optionLarger => 'Nagyobb';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$hu extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.';
 	@override String get offlineTip4 => 'Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.';
 	@override String get offlineTip5 => 'Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).';
+	@override String get noFoodTip => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsHu {
 			'meal.questionFlow.noQuestionsAvailable' => 'Nincsenek elérhető kérdések',
 			'meal.questionFlow.next' => 'Következő',
 			'meal.questionFlow.continueLabel' => 'Folytatás',
+			'meal.questionFlow.countQuestion' => 'Válaszd ki a mennyiséget',
+			'meal.questionFlow.itemSizeQuestion' => 'Válaszd ki a méretet',
+			'meal.questionFlow.portionSizeQuestion' => 'Válaszd ki az adag méretét',
+			'meal.questionFlow.option6plus' => '6 vagy több',
+			'meal.questionFlow.optionSmall' => 'Kicsi',
+			'meal.questionFlow.optionRegular' => 'Normál',
+			'meal.questionFlow.optionLarge' => 'Nagy',
+			'meal.questionFlow.optionThin' => 'Vékony',
+			'meal.questionFlow.optionThick' => 'Vastag',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Töltött',
+			'meal.questionFlow.optionHeavy' => 'Nehéz',
+			'meal.questionFlow.optionSmaller' => 'Kisebb',
+			'meal.questionFlow.optionTypical' => 'Tipikus',
+			'meal.questionFlow.optionLarger' => 'Nagyobb',
 			'meal.analysis.title' => 'Étel elemzése',
 			'meal.analysis.stepStarted' => 'Elindulás…',
 			'meal.analysis.stepDecomposition' => 'Az étel megértése…',
@@ -2280,6 +2311,7 @@ extension on TranslationsHu {
 			'meal.analysis.offlineTip3' => 'Tipp: Egy gyors adagmegjegyzés (1 tál, nagy kávé) sokkal pontosabb becslést ad.',
 			'meal.analysis.offlineTip4' => 'Tipp: Az étkezés utáni naplózás is segít kialakítani a szokást; a tökéletesség nem kötelező.',
 			'meal.analysis.offlineTip5' => 'Tipp: Mondd el, hogyan volt elkészítve az étel, ha nagyban változtatja a kalóriát (sütve vs. sütőben).',
+			'meal.analysis.noFoodTip' => 'Nem észleltünk ételt. Próbálkozz egy másik fotóval vagy leírással.',
 			'meal.localInference.reviewTitle' => 'Élelmiszerek ellenőrzése',
 			'meal.localInference.reviewSubtitle' => 'Ezt a készüléked elemezte. Kérjük, javítsd a neveket vagy az adagokat a tápérték számítása előtt.',
 			'meal.localInference.mealName' => 'Étel neve',
@@ -2528,6 +2560,8 @@ extension on TranslationsHu {
 			'notifications.breakfast.title' => 'Ideje reggelizni! 🍳',
 			'notifications.breakfast.body' => 'Ne felejtsd el naplózni a reggelidet',
 			'notifications.lunch.title' => 'Ebédidő! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Ideje naplózni az ebéded',
 			'notifications.dinner.title' => 'Vacsoraidő! 🍽️',
 			'notifications.dinner.body' => 'Ne felejtsd el naplózni a vacsorádat',
@@ -2544,8 +2578,6 @@ extension on TranslationsHu {
 			'disclaimer.snap.preparationMethods.title' => 'Elkészítési módok',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'A főzési módok jelentősen megváltoztathatják az étel tápanyagtartalmát. A ${appLabel} becslései nem mindig veszik figyelembe ezeket a változásokat.',
 			'disclaimer.snap.ingredients.title' => 'Összetevők',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Az összetett ételek sok rejtett összetevője pontatlansághoz vezethet.',
 			'disclaimer.snap.databaseLimitations.title' => 'Adatbázis korlátok',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'A ${appLabel} ételadatbázisa kiterjedt, de előfordulhat, hogy nem tartalmaz minden egyes élelmiszert vagy variánst.',

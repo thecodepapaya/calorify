@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ja extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => '利用可能な質問はありません';
 	@override String get next => '次へ';
 	@override String get continueLabel => '続ける';
+	@override String get countQuestion => '数量を選択';
+	@override String get itemSizeQuestion => 'サイズを選択';
+	@override String get portionSizeQuestion => 'ポーションサイズを選択';
+	@override String get option6plus => '6個以上';
+	@override String get optionSmall => '小';
+	@override String get optionRegular => '普通';
+	@override String get optionLarge => '大';
+	@override String get optionThin => '薄い';
+	@override String get optionThick => '厚い';
+	@override String get optionMini => 'ミニ';
+	@override String get optionStuffed => '詰め物入り';
+	@override String get optionHeavy => 'ヘビー';
+	@override String get optionSmaller => '小さい';
+	@override String get optionTypical => '標準';
+	@override String get optionLarger => '大きい';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ja extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。';
 	@override String get offlineTip4 => 'ヒント：食後に記録しても習慣化になります。完璧である必要はありません。';
 	@override String get offlineTip5 => 'ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。';
+	@override String get noFoodTip => '食品が検出されませんでした。別の写真または説明をお試しください。';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsJa {
 			'meal.questionFlow.noQuestionsAvailable' => '利用可能な質問はありません',
 			'meal.questionFlow.next' => '次へ',
 			'meal.questionFlow.continueLabel' => '続ける',
+			'meal.questionFlow.countQuestion' => '数量を選択',
+			'meal.questionFlow.itemSizeQuestion' => 'サイズを選択',
+			'meal.questionFlow.portionSizeQuestion' => 'ポーションサイズを選択',
+			'meal.questionFlow.option6plus' => '6個以上',
+			'meal.questionFlow.optionSmall' => '小',
+			'meal.questionFlow.optionRegular' => '普通',
+			'meal.questionFlow.optionLarge' => '大',
+			'meal.questionFlow.optionThin' => '薄い',
+			'meal.questionFlow.optionThick' => '厚い',
+			'meal.questionFlow.optionMini' => 'ミニ',
+			'meal.questionFlow.optionStuffed' => '詰め物入り',
+			'meal.questionFlow.optionHeavy' => 'ヘビー',
+			'meal.questionFlow.optionSmaller' => '小さい',
+			'meal.questionFlow.optionTypical' => '標準',
+			'meal.questionFlow.optionLarger' => '大きい',
 			'meal.analysis.title' => '食事を分析中',
 			'meal.analysis.stepStarted' => '開始しています…',
 			'meal.analysis.stepDecomposition' => '食事を理解しています…',
@@ -2280,6 +2311,7 @@ extension on TranslationsJa {
 			'meal.analysis.offlineTip3' => 'ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。',
 			'meal.analysis.offlineTip4' => 'ヒント：食後に記録しても習慣化になります。完璧である必要はありません。',
 			'meal.analysis.offlineTip5' => 'ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。',
+			'meal.analysis.noFoodTip' => '食品が検出されませんでした。別の写真または説明をお試しください。',
 			'meal.localInference.reviewTitle' => '検出された食材を確認',
 			'meal.localInference.reviewSubtitle' => 'これはデバイス上で解析されました。栄養計算の前に、名称や分量を修正してください。',
 			'meal.localInference.mealName' => '食事名',
@@ -2528,6 +2560,8 @@ extension on TranslationsJa {
 			'notifications.breakfast.title' => '朝ごはんの時間です！ 🍳',
 			'notifications.breakfast.body' => '朝食を記録するのを忘れずに',
 			'notifications.lunch.title' => 'お昼の時間です！ 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => '昼食を記録しましょう',
 			'notifications.dinner.title' => '夕食の時間です！ 🍽️',
 			'notifications.dinner.body' => '夕食を記録するのを忘れずに',
@@ -2544,8 +2578,6 @@ extension on TranslationsJa {
 			'disclaimer.snap.preparationMethods.title' => '調理方法',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '調理方法は栄養成分を大きく変える可能性があります。${appLabel}の推定が必ずしもこれらを考慮しているとは限りません。',
 			'disclaimer.snap.ingredients.title' => '材料',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '材料が複雑で隠れた材料が多い料理は、推定精度が低くなる可能性があります。',
 			'disclaimer.snap.databaseLimitations.title' => 'データベースの制限',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}の食品データベースは豊富ですが、すべての食品やバリエーションを網羅しているわけではありません。',

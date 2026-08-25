@@ -305,7 +305,22 @@
       "progress": "السؤال {current} من {total}",
       "noQuestionsAvailable": "لا توجد أسئلة متاحة",
       "next": "التالي",
-      "continueLabel": "استمر"
+      "continueLabel": "استمر",
+      "countQuestion": "اختر الكمية",
+      "itemSizeQuestion": "اختر حجم العنصر",
+      "portionSizeQuestion": "اختر حجم الحصة",
+      "option6plus": "6 أو أكثر",
+      "optionSmall": "صغير",
+      "optionRegular": "عادي",
+      "optionLarge": "كبير",
+      "optionThin": "رفيع",
+      "optionThick": "سميك",
+      "optionMini": "صغير جدًا",
+      "optionStuffed": "محشو",
+      "optionHeavy": "ثقيل",
+      "optionSmaller": "أصغر",
+      "optionTypical": "نموذجي",
+      "optionLarger": "أكبر"
     },
     "analysis": {
       "title": "جارٍ تحليل وجبتك",
@@ -332,7 +347,8 @@
       "offlineTip2": "نصيحة: اذكر المشروبات والصلصات وزيت الطهي—إضافات سعرات تُنسَى غالبًا.",
       "offlineTip3": "نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.",
       "offlineTip4": "نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.",
-      "offlineTip5": "نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز)."
+      "offlineTip5": "نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).",
+      "noFoodTip": "لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر."
     },
     "localInference": {
       "reviewTitle": "مراجعة المكونات المكتشفة",

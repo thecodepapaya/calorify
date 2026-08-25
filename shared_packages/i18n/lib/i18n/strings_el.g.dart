@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$el extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Δεν υπάρχουν διαθέσιμες ερωτήσεις';
 	@override String get next => 'Επόμενο';
 	@override String get continueLabel => 'Συνέχεια';
+	@override String get countQuestion => 'Επιλέξτε ποσότητα';
+	@override String get itemSizeQuestion => 'Επιλέξτε μέγεθος αντικειμένου';
+	@override String get portionSizeQuestion => 'Επιλέξτε μέγεθος μερίδας';
+	@override String get option6plus => '6 ή περισσότερα';
+	@override String get optionSmall => 'Μικρό';
+	@override String get optionRegular => 'Κανονικό';
+	@override String get optionLarge => 'Μεγάλο';
+	@override String get optionThin => 'Λεπτό';
+	@override String get optionThick => 'Παχύ';
+	@override String get optionMini => 'Μίνι';
+	@override String get optionStuffed => 'Γεμιστό';
+	@override String get optionHeavy => 'Βαρύ';
+	@override String get optionSmaller => 'Μικρότερο';
+	@override String get optionTypical => 'Τυπικό';
+	@override String get optionLarger => 'Μεγαλύτερο';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$el extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.';
 	@override String get offlineTip4 => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.';
 	@override String get offlineTip5 => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).';
+	@override String get noFoodTip => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsEl {
 			'meal.questionFlow.noQuestionsAvailable' => 'Δεν υπάρχουν διαθέσιμες ερωτήσεις',
 			'meal.questionFlow.next' => 'Επόμενο',
 			'meal.questionFlow.continueLabel' => 'Συνέχεια',
+			'meal.questionFlow.countQuestion' => 'Επιλέξτε ποσότητα',
+			'meal.questionFlow.itemSizeQuestion' => 'Επιλέξτε μέγεθος αντικειμένου',
+			'meal.questionFlow.portionSizeQuestion' => 'Επιλέξτε μέγεθος μερίδας',
+			'meal.questionFlow.option6plus' => '6 ή περισσότερα',
+			'meal.questionFlow.optionSmall' => 'Μικρό',
+			'meal.questionFlow.optionRegular' => 'Κανονικό',
+			'meal.questionFlow.optionLarge' => 'Μεγάλο',
+			'meal.questionFlow.optionThin' => 'Λεπτό',
+			'meal.questionFlow.optionThick' => 'Παχύ',
+			'meal.questionFlow.optionMini' => 'Μίνι',
+			'meal.questionFlow.optionStuffed' => 'Γεμιστό',
+			'meal.questionFlow.optionHeavy' => 'Βαρύ',
+			'meal.questionFlow.optionSmaller' => 'Μικρότερο',
+			'meal.questionFlow.optionTypical' => 'Τυπικό',
+			'meal.questionFlow.optionLarger' => 'Μεγαλύτερο',
 			'meal.analysis.title' => 'Ανάλυση του γεύματός σας',
 			'meal.analysis.stepStarted' => 'Εκκίνηση…',
 			'meal.analysis.stepDecomposition' => 'Κατανόηση του γεύματος…',
@@ -2280,6 +2311,7 @@ extension on TranslationsEl {
 			'meal.analysis.offlineTip3' => 'Συμβουλή: Μια σύντομη σημείωση μερίδας (1 μπολ, μεγάλο καφέ) βελτιώνει σημαντικά τις εκτιμήσεις.',
 			'meal.analysis.offlineTip4' => 'Συμβουλή: Η καταγραφή μετά το γεύμα χτίζει ακόμη τη συνήθεια· η τελειότητα δεν είναι υποχρεωτική.',
 			'meal.analysis.offlineTip5' => 'Συμβουλή: Πείτε πώς μαγειρεύτηκε το φαγητό όταν αλλάζει πολύ τις θερμίδες (τηγανητό vs ψητό).',
+			'meal.analysis.noFoodTip' => 'Δεν ανιχνεύθηκε τροφή. Δοκιμάστε άλλη φωτογραφία ή περιγραφή.',
 			'meal.localInference.reviewTitle' => 'Ελεγχος ανιχνευμένων συστατικών',
 			'meal.localInference.reviewSubtitle' => 'Αυτό ερμηνεύτηκε στη συσκευή σας. Διορθώστε τα ονόματα ή τις ποσότητες πριν υπολογιστεί η θρεπτική αξία.',
 			'meal.localInference.mealName' => 'Όνομα γεύματος',
@@ -2528,6 +2560,8 @@ extension on TranslationsEl {
 			'notifications.breakfast.title' => 'Ώρα για Πρωινό! 🍳',
 			'notifications.breakfast.body' => 'Μην ξεχάσετε να καταγράψετε το πρωινό σας',
 			'notifications.lunch.title' => 'Ώρα για Μεσημεριανό! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Ώρα να καταγράψετε το μεσημεριανό σας',
 			'notifications.dinner.title' => 'Ώρα για Βραδινό! 🍽️',
 			'notifications.dinner.body' => 'Μην ξεχάσετε να καταγράψετε το βραδινό σας',
@@ -2544,8 +2578,6 @@ extension on TranslationsEl {
 			'disclaimer.snap.preparationMethods.title' => 'Τρόποι Προετοιμασίας',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Οι μέθοδοι μαγειρέματος μπορούν να αλλάξουν σημαντικά το διατροφικό περιεχόμενο. Οι εκτιμήσεις του ${appLabel} ενδέχεται να μην λαμβάνουν πάντα υπόψη αυτές τις παραλλαγές.',
 			'disclaimer.snap.ingredients.title' => 'Συστατικά',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Τα σύνθετα πιάτα με πολλά κρυφά συστατικά μπορεί να οδηγήσουν σε λιγότερο ακριβείς εκτιμήσεις.',
 			'disclaimer.snap.databaseLimitations.title' => 'Περιορισμοί Βάσης Δεδομένων',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Η βάση δεδομένων τροφίμων του ${appLabel} είναι εκτεταμένη αλλά ενδέχεται να μην περιλαμβάνει κάθε είδος ή παραλλαγή.',

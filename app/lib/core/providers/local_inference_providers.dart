@@ -89,7 +89,6 @@ final localNutritionMealAnalysisEngineProvider =
               (ingredient) => t.localNutritionPhase4.portionQuestion(
                 ingredient: ingredient,
               ),
-          mealTypeQuestion: t.localNutritionPhase4.mealTypeQuestion,
           localTip: t.localNutritionPhase4.localNutritionTip,
         ),
       );

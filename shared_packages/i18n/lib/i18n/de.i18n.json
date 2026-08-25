@@ -305,7 +305,22 @@
       "progress": "Frage {current} von {total}",
       "noQuestionsAvailable": "Keine Fragen verfügbar",
       "next": "Weiter",
-      "continueLabel": "Weiter"
+      "continueLabel": "Weiter",
+      "countQuestion": "Menge wählen",
+      "itemSizeQuestion": "Größe wählen",
+      "portionSizeQuestion": "Portionsgröße wählen",
+      "option6plus": "6 oder mehr",
+      "optionSmall": "Klein",
+      "optionRegular": "Normal",
+      "optionLarge": "Groß",
+      "optionThin": "Dünn",
+      "optionThick": "Dick",
+      "optionMini": "Mini",
+      "optionStuffed": "Gefüllt",
+      "optionHeavy": "Reichlich",
+      "optionSmaller": "Kleiner",
+      "optionTypical": "Typisch",
+      "optionLarger": "Größer"
     },
     "analysis": {
       "title": "Wir analysieren deine Mahlzeit",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tipp: Erwähne Getränke, Soßen und Öl – sie liefern oft vergessene Kalorien.",
       "offlineTip3": "Tipp: Eine kurze Mengenangabe (z. B. 1 Schale, großer Kaffee) macht Schätzungen präziser.",
       "offlineTip4": "Tipp: Auch nachträgliches Eintragen stärkt die Gewohnheit; Perfektion ist optional.",
-      "offlineTip5": "Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken)."
+      "offlineTip5": "Tipp: Gib an, wie etwas zubereitet wurde, wenn das viele Kalorien ausmacht (gebraten vs. gebacken).",
+      "noFoodTip": "Keine Lebensmittel erkannt. Versuchen Sie es mit einem anderen Foto oder einer anderen Beschreibung."
     },
     "localInference": {
       "reviewTitle": "Erkannte Zutaten prüfen",

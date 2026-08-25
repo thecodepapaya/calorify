@@ -13,7 +13,6 @@ class LocalNutritionAnalysisCopy {
     required this.estimated,
     required this.larger,
     required this.portionQuestion,
-    required this.mealTypeQuestion,
     required this.localTip,
   });
 
@@ -23,7 +22,6 @@ class LocalNutritionAnalysisCopy {
     larger: 'Larger',
     portionQuestion:
         (ingredient) => 'Which portion was closest for $ingredient?',
-    mealTypeQuestion: 'Which meal was this?',
     localTip: 'Calculated from verified local nutrition data.',
   );
 
@@ -31,7 +29,6 @@ class LocalNutritionAnalysisCopy {
   final String estimated;
   final String larger;
   final String Function(String ingredient) portionQuestion;
-  final String mealTypeQuestion;
   final String localTip;
 }
 
@@ -53,7 +50,7 @@ class LocalNutritionMealAnalysisEngine {
 
   Future<Stream<MealAnalysisPipelineEvent>> start({
     required String analysisId,
-    required IngredientProposalV1 proposal,
+    required IngredientProposalV2 proposal,
     required LocalInferenceResult localResult,
     required DateTime startedAt,
     required DateTime completedAt,
@@ -136,35 +133,33 @@ class LocalNutritionMealAnalysisEngine {
         decomposition: PipelineDecompositionData(
           analysisId: session.analysisId,
           mealName: proposal.mealName,
-          confidence: proposal.confidence,
-          ingredients: proposal.ingredients
+          confidence: proposal.outcomeConfidence,
+          ingredients: proposal.items
               .map(
                 (ingredient) => PipelineDecomposedIngredient(
                   rowId: ingredient.rowId,
                   rawName: ingredient.rawName,
-                  canonicalHint: ingredient.canonicalHint,
-                  gramsEstimated: ingredient.gramsEstimated,
-                  minGrams: ingredient.minGrams,
-                  maxGrams: ingredient.maxGrams,
-                  notes: [
-                    ingredient.preparation,
-                    ingredient.notes,
-                  ].where((value) => value.trim().isNotEmpty).join('; '),
-                  portionKind: ingredient.portionKind,
-                  count: ingredient.hasCount() ? ingredient.count : null,
+                  gramsEstimated: ingredient.portion.gramsEstimated,
+                  minGrams: ingredient.portion.minGrams,
+                  maxGrams: ingredient.portion.maxGrams,
+                  portionKind: ingredient.portion.kind,
+                  count:
+                      ingredient.portion.hasCount()
+                          ? ingredient.portion.count
+                          : null,
                   perUnitGrams:
-                      ingredient.hasPerUnitGrams()
-                          ? ingredient.perUnitGrams
+                      ingredient.portion.hasPerUnitGrams()
+                          ? ingredient.portion.perUnitGrams
                           : null,
                   perUnitMinGrams:
-                      ingredient.hasPerUnitMinGrams()
-                          ? ingredient.perUnitMinGrams
+                      ingredient.portion.hasPerUnitMinGrams()
+                          ? ingredient.portion.perUnitMinGrams
                           : null,
                   perUnitMaxGrams:
-                      ingredient.hasPerUnitMaxGrams()
-                          ? ingredient.perUnitMaxGrams
+                      ingredient.portion.hasPerUnitMaxGrams()
+                          ? ingredient.portion.perUnitMaxGrams
                           : null,
-                  sizeSpecifiedByUser: ingredient.sizeSpecifiedByUser,
+                  sizeSpecifiedByUser: ingredient.portion.sizeSpecifiedByUser,
                 ),
               )
               .toList(growable: false),
@@ -172,7 +167,6 @@ class LocalNutritionMealAnalysisEngine {
           mealTypeConfident: proposal.mealTypeConfident,
           interpretationOrigin:
               InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
-          proposal: proposal,
         ),
       ),
       ..._calculationEvents(session),
@@ -231,7 +225,6 @@ class LocalNutritionMealAnalysisEngine {
         mealTypeQuestion: PipelineMealTypeQuestionData(
           analysisId: session.analysisId,
           mealName: session.proposal.mealName,
-          question: _copy.mealTypeQuestion,
           options: const [
             MealType.BREAKFAST,
             MealType.LUNCH,
@@ -266,8 +259,8 @@ class LocalNutritionMealAnalysisEngine {
     final result = <PipelineClarification>[];
     for (final ingredient in calculation.ingredients) {
       final proposal = ingredient.resolution.proposal;
-      if (proposal.portionKind == PortionKind.PINCH ||
-          proposal.sizeSpecifiedByUser ||
+      if (proposal.portion.kind == PortionKind.PINCH ||
+          proposal.portion.sizeSpecifiedByUser ||
           ingredient.maxMacros.calories - ingredient.minMacros.calories <
               threshold) {
         continue;
@@ -285,8 +278,6 @@ class LocalNutritionMealAnalysisEngine {
         options.add(
           PipelineClarificationOption(
             optionId: value.$1,
-            label: value.$2,
-            detail: '≈ ${_formatGrams(grams)} g',
             grams: grams,
             calorieDelta:
                 _calculator
@@ -303,8 +294,7 @@ class LocalNutritionMealAnalysisEngine {
           clarificationId: 'local_${proposal.rowId}_portion',
           rowId: proposal.rowId,
           ingredientName: proposal.rawName,
-          portionKind: proposal.portionKind,
-          question: _copy.portionQuestion(proposal.rawName),
+          portionKind: proposal.portion.kind,
           options: options,
           defaultOptionId:
               options.any((option) => option.optionId == 'estimated')
@@ -401,7 +391,7 @@ class _LocalAnalysisSession {
   });
 
   final String analysisId;
-  final IngredientProposalV1 proposal;
+  final IngredientProposalV2 proposal;
   final LocalNutritionResolvedMeal resolution;
   final String localAttemptId;
   final DateTime startedAt;

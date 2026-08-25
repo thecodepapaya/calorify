@@ -305,7 +305,22 @@
       "progress": "Question {current} sur {total}",
       "noQuestionsAvailable": "Aucune question disponible",
       "next": "Suivant",
-      "continueLabel": "Continuer"
+      "continueLabel": "Continuer",
+      "countQuestion": "Choisissez la quantité",
+      "itemSizeQuestion": "Choisissez la taille de l'article",
+      "portionSizeQuestion": "Choisissez la taille de la portion",
+      "option6plus": "6 ou plus",
+      "optionSmall": "Petit",
+      "optionRegular": "Normal",
+      "optionLarge": "Grand",
+      "optionThin": "Fin",
+      "optionThick": "Épais",
+      "optionMini": "Mini",
+      "optionStuffed": "Farcis",
+      "optionHeavy": "Lourd",
+      "optionSmaller": "Plus petit",
+      "optionTypical": "Typique",
+      "optionLarger": "Plus grand"
     },
     "analysis": {
       "title": "Analyse de votre repas",
@@ -332,7 +347,8 @@
       "offlineTip2": "Astuce : Mentionnez les boissons, sauces et huiles de cuisson—elles ajoutent souvent des calories oubliées.",
       "offlineTip3": "Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.",
       "offlineTip4": "Astuce : Enregistrer après le repas aide aussi à créer l'habitude ; la perfection est optionnelle.",
-      "offlineTip5": "Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four)."
+      "offlineTip5": "Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four).",
+      "noFoodTip": "Aucune nourriture détectée. Essayez une autre photo ou description."
     },
     "localInference": {
       "reviewTitle": "Vérifier les ingrédients détectés",

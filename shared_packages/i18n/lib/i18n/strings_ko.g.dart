@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ko extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => '사용 가능한 질문이 없습니다';
 	@override String get next => '다음';
 	@override String get continueLabel => '계속';
+	@override String get countQuestion => '수량 선택';
+	@override String get itemSizeQuestion => '크기 선택';
+	@override String get portionSizeQuestion => '분량 선택';
+	@override String get option6plus => '6개 이상';
+	@override String get optionSmall => '작음';
+	@override String get optionRegular => '보통';
+	@override String get optionLarge => '큼';
+	@override String get optionThin => '얇음';
+	@override String get optionThick => '두꺼움';
+	@override String get optionMini => '미니';
+	@override String get optionStuffed => '속 채움';
+	@override String get optionHeavy => '무거움';
+	@override String get optionSmaller => '더 작게';
+	@override String get optionTypical => '일반';
+	@override String get optionLarger => '더 크게';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ko extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.';
 	@override String get offlineTip4 => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.';
 	@override String get offlineTip5 => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.';
+	@override String get noFoodTip => '음식이 감지되지 않았습니다. 다른 사진이나 설명을 시도해 보세요.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsKo {
 			'meal.questionFlow.noQuestionsAvailable' => '사용 가능한 질문이 없습니다',
 			'meal.questionFlow.next' => '다음',
 			'meal.questionFlow.continueLabel' => '계속',
+			'meal.questionFlow.countQuestion' => '수량 선택',
+			'meal.questionFlow.itemSizeQuestion' => '크기 선택',
+			'meal.questionFlow.portionSizeQuestion' => '분량 선택',
+			'meal.questionFlow.option6plus' => '6개 이상',
+			'meal.questionFlow.optionSmall' => '작음',
+			'meal.questionFlow.optionRegular' => '보통',
+			'meal.questionFlow.optionLarge' => '큼',
+			'meal.questionFlow.optionThin' => '얇음',
+			'meal.questionFlow.optionThick' => '두꺼움',
+			'meal.questionFlow.optionMini' => '미니',
+			'meal.questionFlow.optionStuffed' => '속 채움',
+			'meal.questionFlow.optionHeavy' => '무거움',
+			'meal.questionFlow.optionSmaller' => '더 작게',
+			'meal.questionFlow.optionTypical' => '일반',
+			'meal.questionFlow.optionLarger' => '더 크게',
 			'meal.analysis.title' => '식사 분석 중',
 			'meal.analysis.stepStarted' => '시작 중…',
 			'meal.analysis.stepDecomposition' => '식사 파악 중…',
@@ -2280,6 +2311,7 @@ extension on TranslationsKo {
 			'meal.analysis.offlineTip3' => '팁: 빠른 분량 표시(예: 1그릇, 큰 커피)는 추정을 훨씬 정확하게 만듭니다.',
 			'meal.analysis.offlineTip4' => '팁: 식사 후 기록해도 습관을 기르는 데 도움이 됩니다; 완벽할 필요는 없습니다.',
 			'meal.analysis.offlineTip5' => '팁: 조리 방식(튀김 vs 구이 등)에 따라 칼로리가 많이 달라지면 조리법을 알려주세요.',
+			'meal.analysis.noFoodTip' => '음식이 감지되지 않았습니다. 다른 사진이나 설명을 시도해 보세요.',
 			'meal.localInference.reviewTitle' => '감지된 식재료 확인',
 			'meal.localInference.reviewSubtitle' => '기기에서 분석한 내용입니다. 영양 성분을 계산하기 전에 이름이나 양을 수정해 주세요.',
 			'meal.localInference.mealName' => '식사 이름',
@@ -2528,6 +2560,8 @@ extension on TranslationsKo {
 			'notifications.breakfast.title' => '아침 시간이에요! 🍳',
 			'notifications.breakfast.body' => '아침 기록하는 것을 잊지 마세요',
 			'notifications.lunch.title' => '점심 시간이에요! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => '점심을 기록할 시간이에요',
 			'notifications.dinner.title' => '저녁 시간이에요! 🍽️',
 			'notifications.dinner.body' => '저녁 기록하는 것을 잊지 마세요',
@@ -2544,8 +2578,6 @@ extension on TranslationsKo {
 			'disclaimer.snap.preparationMethods.title' => '조리 방법',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '조리 방법은 음식의 영양 성분을 크게 바꿀 수 있습니다. ${appLabel}의 추정치는 항상 이러한 변이를 모두 반영하지 않을 수 있습니다.',
 			'disclaimer.snap.ingredients.title' => '재료',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '숨겨진 재료가 많은 복잡한 요리는 정확도가 떨어질 수 있습니다.',
 			'disclaimer.snap.databaseLimitations.title' => '데이터베이스 한계',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}의 음식 데이터베이스는 광범위하지만 모든 음식 항목이나 변형을 포함하지 않을 수 있습니다.',

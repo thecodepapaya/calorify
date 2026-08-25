@@ -157,10 +157,19 @@ def placeholders(value: Any) -> list[str]:
 
 def extract_json(content: str) -> dict[str, Any]:
     stripped = content.strip()
-    if stripped.startswith("```"):
-        stripped = re.sub(r"^```(?:json)?\s*", "", stripped)
-        stripped = re.sub(r"\s*```$", "", stripped)
-    parsed = json.loads(stripped)
+    decoder = json.JSONDecoder()
+    start = stripped.find("{")
+    if start < 0:
+        raise ValueError("model response contains no JSON object")
+    prefix = re.sub(
+        r"```|json:?",
+        "",
+        stripped[:start],
+        flags=re.IGNORECASE,
+    ).strip()
+    if prefix:
+        raise ValueError("model response contains unexpected text before JSON")
+    parsed, _ = decoder.raw_decode(stripped, start)
     if not isinstance(parsed, dict):
         raise ValueError("model response is not a JSON object")
     return parsed

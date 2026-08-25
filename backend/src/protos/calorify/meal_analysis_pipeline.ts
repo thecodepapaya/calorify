@@ -18,6 +18,7 @@ export const PipelineStep = {
   MEAL_TYPE_QUESTION: "MEAL_TYPE_QUESTION",
   RESULT: "RESULT",
   ERROR: "ERROR",
+  NO_FOOD: "NO_FOOD",
   UNRECOGNIZED: "UNRECOGNIZED",
 } as const;
 
@@ -32,6 +33,7 @@ export namespace PipelineStep {
   export type MEAL_TYPE_QUESTION = typeof PipelineStep.MEAL_TYPE_QUESTION;
   export type RESULT = typeof PipelineStep.RESULT;
   export type ERROR = typeof PipelineStep.ERROR;
+  export type NO_FOOD = typeof PipelineStep.NO_FOOD;
   export type UNRECOGNIZED = typeof PipelineStep.UNRECOGNIZED;
 }
 
@@ -73,6 +75,22 @@ export namespace AnalysisModality {
   export type ANALYSIS_MODALITY_TEXT = typeof AnalysisModality.ANALYSIS_MODALITY_TEXT;
   export type ANALYSIS_MODALITY_IMAGE = typeof AnalysisModality.ANALYSIS_MODALITY_IMAGE;
   export type UNRECOGNIZED = typeof AnalysisModality.UNRECOGNIZED;
+}
+
+export const DecompositionOutcome = {
+  DECOMPOSITION_OUTCOME_UNSPECIFIED: "DECOMPOSITION_OUTCOME_UNSPECIFIED",
+  DECOMPOSITION_OUTCOME_FOOD: "DECOMPOSITION_OUTCOME_FOOD",
+  DECOMPOSITION_OUTCOME_NO_FOOD: "DECOMPOSITION_OUTCOME_NO_FOOD",
+  UNRECOGNIZED: "UNRECOGNIZED",
+} as const;
+
+export type DecompositionOutcome = typeof DecompositionOutcome[keyof typeof DecompositionOutcome];
+
+export namespace DecompositionOutcome {
+  export type DECOMPOSITION_OUTCOME_UNSPECIFIED = typeof DecompositionOutcome.DECOMPOSITION_OUTCOME_UNSPECIFIED;
+  export type DECOMPOSITION_OUTCOME_FOOD = typeof DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD;
+  export type DECOMPOSITION_OUTCOME_NO_FOOD = typeof DecompositionOutcome.DECOMPOSITION_OUTCOME_NO_FOOD;
+  export type UNRECOGNIZED = typeof DecompositionOutcome.UNRECOGNIZED;
 }
 
 export const InterpretationOrigin = {
@@ -263,34 +281,45 @@ export interface IngredientFieldProvenance {
  * Models may propose identity and portion information only. Nutrient values
  * intentionally do not exist in this contract.
  */
-export interface IngredientProposalItemV1 {
-  rowId: string;
-  rawName: string;
-  canonicalHint: string;
-  preparation: string;
+export interface UsdaLookupProposalV2 {
+  proposedCanonicalName: string;
+  aliases: string[];
+  preparationStates: string[];
+}
+
+export interface PortionProposalV2 {
+  kind: PortionKind;
   gramsEstimated: number;
   minGrams: number;
   maxGrams: number;
-  notes: string;
-  portionKind: PortionKind;
   count?: number | undefined;
   perUnitGrams?: number | undefined;
   perUnitMinGrams?: number | undefined;
   perUnitMaxGrams?: number | undefined;
   sizeSpecifiedByUser: boolean;
-  confidence: number;
-  fieldProvenance: IngredientFieldProvenance[];
 }
 
-export interface IngredientProposalV1 {
+export interface IngredientProposalItemV2 {
+  rowId: string;
+  rawName: string;
+  isFoodReason: string;
+  isFoodConfidence: number;
+  usdaLookup?: UsdaLookupProposalV2 | undefined;
+  portion?: PortionProposalV2 | undefined;
+}
+
+export interface IngredientProposalV2 {
   schemaVersion: number;
   proposalId: string;
   modality: AnalysisModality;
   mealName: string;
+  outcome: DecompositionOutcome;
+  outcomeReason: string;
+  outcomeConfidence: number;
   inferredMealType: MealType;
+  mealTypeReason: string;
   mealTypeConfident: boolean;
-  confidence: number;
-  ingredients: IngredientProposalItemV1[];
+  items: IngredientProposalItemV2[];
   interpretationOrigin: InterpretationOrigin;
   modelName?: string | undefined;
   modelVersion?: string | undefined;
@@ -327,7 +356,6 @@ export interface PipelineDecomposedIngredient {
   /** stable id per row; survives clarify replays */
   rowId: string;
   rawName: string;
-  canonicalHint: string;
   /**
    * Total grams used downstream for macro math. Server enforces:
    *   if portion_kind == COUNT: grams_estimated = count * per_unit_grams
@@ -335,7 +363,6 @@ export interface PipelineDecomposedIngredient {
   gramsEstimated: number;
   minGrams: number;
   maxGrams: number;
-  notes: string;
   portionKind: PortionKind;
   /** fractional ok; null if not extracted */
   count?: number | undefined;
@@ -348,30 +375,16 @@ export interface PipelineDecomposedIngredient {
 export interface PipelineResolvedIngredient {
   rowId: string;
   rawName: string;
-  canonicalName: string;
-  matchType: string;
   grams: number;
   macros?: PipelineMacros | undefined;
-  source: string;
   portionKind: PortionKind;
   count?: number | undefined;
   perUnitGrams?: number | undefined;
-  nutritionOrigin: NutritionOrigin;
-  fdcId?: string | undefined;
-  usdaDatasetVersion?: string | undefined;
-  nutrientsPer100g?: PipelineMacros | undefined;
-  fieldProvenance: IngredientFieldProvenance[];
 }
 
 export interface PipelineClarificationOption {
   /** stable; matcher key */
   optionId: string;
-  /** user-facing copy, no grams */
-  label: string;
-  /** optional fine print, e.g. "≈ 35g each" */
-  detail?:
-    | string
-    | undefined;
   /** total grams this option resolves to (count baked in) */
   grams: number;
   calorieDelta: number;
@@ -386,7 +399,6 @@ export interface PipelineClarification {
   ingredientName: string;
   /** drives icon / copy variant */
   portionKind: PortionKind;
-  question: string;
   options: PipelineClarificationOption[];
   defaultOptionId: string;
 }
@@ -403,7 +415,6 @@ export interface PipelineDecompositionData {
   inferredMealType: MealType;
   mealTypeConfident: boolean;
   interpretationOrigin: InterpretationOrigin;
-  proposal?: IngredientProposalV1 | undefined;
 }
 
 export interface PipelineIngredientsData {
@@ -425,7 +436,6 @@ export interface PipelineUncertaintyData {
 export interface PipelineMealTypeQuestionData {
   analysisId: string;
   mealName: string;
-  question: string;
   options: MealType[];
   inferredMealType: MealType;
 }
@@ -452,10 +462,17 @@ export interface PipelineErrorData {
   retryable: boolean;
 }
 
+export interface PipelineNoFoodData {
+  analysisId: string;
+  outcomeReason: string;
+  outcomeConfidence: number;
+}
+
 export interface MealAnalysisPipelineSessionContext {
   result?: PipelineResultData | undefined;
   imageBytes?: Uint8Array | undefined;
   imageUrl?: string | undefined;
   textDescription?: string | undefined;
   isRevised: boolean;
+  noFood?: PipelineNoFoodData | undefined;
 }

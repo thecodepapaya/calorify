@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import type { PipelineEvent } from '../services/nutritionEngineV2.js';
 import {
   evaluateCalorieCase,
   summarizeCalorieEval,
@@ -8,7 +9,6 @@ import {
   type CalorieEvalCaseResult,
   type CalorieEvalDataset,
   type CalorieEvalObservation,
-  type EvaluatedIngredient,
 } from '../evals/calorieEstimationEval.js';
 
 type Args = {
@@ -22,19 +22,7 @@ type Args = {
   timeoutMs: number;
   repeats: number;
   split: 'development' | 'holdout' | 'all';
-};
-
-type PipelineEvent = {
-  step: string;
-  data?: Record<string, unknown>;
-};
-
-type ResultData = {
-  macros?: { calories?: number };
-  ingredients?: EvaluatedIngredient[];
-  calorieConfidence?: string;
-  confidenceReasons?: string[];
-  calorieBand?: { min: number; max: number };
+  authToken?: string;
 };
 
 const DEFAULT_DATASET = 'evals/calorie-estimation.cases.json';
@@ -56,6 +44,7 @@ function parseArgs(argv: string[]): Args {
     timeoutMs: 90_000,
     repeats: parsePositiveInteger(process.env.CALORIE_EVAL_REPEATS ?? '1', 'CALORIE_EVAL_REPEATS'),
     split: 'development',
+    authToken: process.env.CALORIE_EVAL_AUTH_TOKEN,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -72,6 +61,9 @@ function parseArgs(argv: string[]): Args {
       index += 1;
     } else if (arg === '--timeout-ms' && next) {
       args.timeoutMs = parsePositiveInteger(next, '--timeout-ms');
+      index += 1;
+    } else if (arg === '--auth-token' && next) {
+      args.authToken = next;
       index += 1;
     } else if (arg === '--repeats' && next) {
       args.repeats = parsePositiveInteger(next, '--repeats');
@@ -101,6 +93,7 @@ Options:
   --dataset <path>    Dataset JSON (default: ${DEFAULT_DATASET})
   --case <ids>        Comma-separated case IDs
   --timeout-ms <ms>   Per-request timeout (default: 90000)
+  --auth-token <jwt>  API bearer token (default: CALORIE_EVAL_AUTH_TOKEN)
   --repeats <count>   Runs per case for stability measurement (default: 1)
   --split <name>      development, holdout, or all (default: development)
   --json              Print machine-readable output
@@ -133,23 +126,45 @@ async function readDataset(path: string): Promise<CalorieEvalDataset> {
   return parsed;
 }
 
+function parsePipelineEvent(value: unknown): PipelineEvent {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error('Pipeline event is not an object');
+  }
+  const event = value as Record<string, unknown>;
+  const steps = new Set<PipelineEvent['step']>([
+    'STARTED', 'DECOMPOSITION', 'INGREDIENTS', 'UNCERTAINTY',
+    'MEAL_TYPE_QUESTION', 'RESULT', 'NO_FOOD', 'ERROR',
+  ]);
+  if (!steps.has(event.step as PipelineEvent['step']) ||
+      event.data == null || typeof event.data !== 'object' ||
+      typeof (event.data as Record<string, unknown>).analysisId !== 'string') {
+    throw new Error('Pipeline event has an invalid envelope');
+  }
+  return event as unknown as PipelineEvent;
+}
+
 function parseNdjson(body: string): PipelineEvent[] {
   return body
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean)
-    .map((line) => JSON.parse(line) as PipelineEvent);
+    .map((line) => parsePipelineEvent(JSON.parse(line)));
 }
 
 async function postEvents(
   baseUrl: string,
   endpoint: string,
   payload: object,
-  timeoutMs: number
+  timeoutMs: number,
+  authToken?: string
 ): Promise<PipelineEvent[]> {
   const response = await fetch(`${baseUrl}${endpoint}`, {
     method: 'POST',
-    headers: { accept: 'application/x-ndjson', 'content-type': 'application/json' },
+    headers: {
+      accept: 'application/x-ndjson',
+      'content-type': 'application/json',
+      ...(authToken ? { authorization: `Bearer ${authToken}` } : {}),
+    },
     body: JSON.stringify(payload),
     signal: AbortSignal.timeout(timeoutMs),
   });
@@ -181,7 +196,8 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
       args.baseUrl,
       '/api/v2/food/analyze-text',
       { textDescription: evalCase.description },
-      args.timeoutMs
+      args.timeoutMs,
+      args.authToken
     );
     eventSteps.push(...events.map((event) => event.step));
     analysisId = analysisIdFrom(events);
@@ -195,9 +211,7 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
       if (!terminal || !analysisId || terminal.step === 'RESULT' || terminal.step === 'ERROR') break;
 
       if (terminal.step === 'UNCERTAINTY' && terminal.data?.needsClarification === true) {
-        const clarifications = Array.isArray(terminal.data.clarifications)
-          ? terminal.data.clarifications as Array<Record<string, unknown>>
-          : [];
+        const clarifications = terminal.data.clarifications;
         const answers = clarifications.map((clarification) => ({
           clarificationId: clarification.clarificationId,
           selectedOptionId: clarification.defaultOptionId,
@@ -208,7 +222,8 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
           args.baseUrl,
           '/api/v2/food/clarify',
           { analysisId, answers },
-          args.timeoutMs
+          args.timeoutMs,
+          args.authToken
         );
         eventSteps.push(...events.map((event) => event.step));
         continue;
@@ -220,7 +235,8 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
           args.baseUrl,
           '/api/v2/food/meal-type',
           { analysisId, mealType: evalCase.mealType },
-          args.timeoutMs
+          args.timeoutMs,
+          args.authToken
         );
         eventSteps.push(...events.map((event) => event.step));
         continue;
@@ -229,8 +245,11 @@ async function runPipeline(evalCase: CalorieEvalCase, args: Args): Promise<Calor
     }
 
     const terminal = lastEvent(events);
-    const result = [...events].reverse().find((event) => event.step === 'RESULT');
-    const data = result?.data as ResultData | undefined;
+    const result = [...events].reverse().find(
+      (event): event is Extract<PipelineEvent, { step: 'RESULT' }> =>
+        event.step === 'RESULT'
+    );
+    const data = result?.data;
     const calories = data?.macros?.calories;
     return {
       analysisId,

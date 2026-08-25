@@ -233,7 +233,11 @@ test('createMealAnalysisSession inserts a durable pending request', async () => 
   assert.match(insertSql, /RETURNING TRUE AS inserted/);
   assert.match(
     identitySql,
-    /\(request_payload - 'execution'\) = \(\$5::jsonb - 'execution'\)/
+    /\(request_payload - 'execution'\) #- '\{analysisContext,analysisLocalDatetime\}'/
+  );
+  assert.match(
+    identitySql,
+    /\(\$5::jsonb - 'execution'\) #- '\{analysisContext,analysisLocalDatetime\}'/
   );
   assert.match(identitySql, /FOR UPDATE/);
   const [, identityParams] = mockQuery.mock.calls[1]!.arguments as [string, unknown[]];

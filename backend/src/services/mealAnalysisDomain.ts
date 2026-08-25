@@ -21,6 +21,8 @@ export interface NormalizedIngredient {
   rowId: string;
   rawName: string;
   canonicalHint: string;
+  lookupAliases: string[];
+  preparationStates: string[];
   gramsEstimated: number;
   minGrams: number;
   maxGrams: number;
@@ -45,7 +47,7 @@ export interface CanonicalMatch {
   foodId: string;
   canonicalName: string;
   score: number;
-  matchType: 'exact' | 'alias' | 'fuzzy' | 'deterministic' | 'llm_fallback' | 'unmatched';
+  matchType: 'exact' | 'fuzzy' | 'deterministic' | 'llm_fallback' | 'unmatched';
 }
 
 export interface ResolvedIngredient {

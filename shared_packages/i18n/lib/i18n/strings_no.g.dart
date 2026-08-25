@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$no extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Ingen spørsmål tilgjengelig';
 	@override String get next => 'Neste';
 	@override String get continueLabel => 'Fortsett';
+	@override String get countQuestion => 'Velg antall';
+	@override String get itemSizeQuestion => 'Velg størrelse';
+	@override String get portionSizeQuestion => 'Velg porsjonsstørrelse';
+	@override String get option6plus => '6 eller flere';
+	@override String get optionSmall => 'Liten';
+	@override String get optionRegular => 'Vanlig';
+	@override String get optionLarge => 'Stor';
+	@override String get optionThin => 'Tynn';
+	@override String get optionThick => 'Tykk';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Fylt';
+	@override String get optionHeavy => 'Tung';
+	@override String get optionSmaller => 'Mindre';
+	@override String get optionTypical => 'Typisk';
+	@override String get optionLarger => 'Større';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$no extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tips: En kort porsjonsbeskrivelse (1 bolle, stor kaffe) gjør estimatene mye mer presise.';
 	@override String get offlineTip4 => 'Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.';
 	@override String get offlineTip5 => 'Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt).';
+	@override String get noFoodTip => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsNo {
 			'meal.questionFlow.noQuestionsAvailable' => 'Ingen spørsmål tilgjengelig',
 			'meal.questionFlow.next' => 'Neste',
 			'meal.questionFlow.continueLabel' => 'Fortsett',
+			'meal.questionFlow.countQuestion' => 'Velg antall',
+			'meal.questionFlow.itemSizeQuestion' => 'Velg størrelse',
+			'meal.questionFlow.portionSizeQuestion' => 'Velg porsjonsstørrelse',
+			'meal.questionFlow.option6plus' => '6 eller flere',
+			'meal.questionFlow.optionSmall' => 'Liten',
+			'meal.questionFlow.optionRegular' => 'Vanlig',
+			'meal.questionFlow.optionLarge' => 'Stor',
+			'meal.questionFlow.optionThin' => 'Tynn',
+			'meal.questionFlow.optionThick' => 'Tykk',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Fylt',
+			'meal.questionFlow.optionHeavy' => 'Tung',
+			'meal.questionFlow.optionSmaller' => 'Mindre',
+			'meal.questionFlow.optionTypical' => 'Typisk',
+			'meal.questionFlow.optionLarger' => 'Større',
 			'meal.analysis.title' => 'Analyserer måltidet ditt',
 			'meal.analysis.stepStarted' => 'Kommer i gang…',
 			'meal.analysis.stepDecomposition' => 'Forstår måltidet ditt…',
@@ -2280,6 +2311,7 @@ extension on TranslationsNo {
 			'meal.analysis.offlineTip3' => 'Tips: En kort porsjonsbeskrivelse (1 bolle, stor kaffe) gjør estimatene mye mer presise.',
 			'meal.analysis.offlineTip4' => 'Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.',
 			'meal.analysis.offlineTip5' => 'Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt).',
+			'meal.analysis.noFoodTip' => 'Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse.',
 			'meal.localInference.reviewTitle' => 'Se over gjenkjente ingredienser',
 			'meal.localInference.reviewSubtitle' => 'Dette ble tolket på enheten din. Korriger navn eller porsjoner før næringsinnholdet beregnes.',
 			'meal.localInference.mealName' => 'Måltidnavn',
@@ -2528,6 +2560,8 @@ extension on TranslationsNo {
 			'notifications.breakfast.title' => 'Frokosttid! 🍳',
 			'notifications.breakfast.body' => 'Ikke glem å logge frokosten din',
 			'notifications.lunch.title' => 'Lunsjtid! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Det er på tide å logge lunsjen din',
 			'notifications.dinner.title' => 'Middagstid! 🍽️',
 			'notifications.dinner.body' => 'Ikke glem å logge middagen din',
@@ -2544,8 +2578,6 @@ extension on TranslationsNo {
 			'disclaimer.snap.preparationMethods.title' => 'Tilberedningsmetoder',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tilberedningsmetoder kan endre næringsinnholdet betydelig. ${appLabel}s estimater tar ikke alltid høyde for disse variasjonene.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Komplekse retter med mange skjulte ingredienser kan gi mindre nøyaktige estimater.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasebegrensninger',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}s matdatabase er omfattende, men kan ikke inneholde hvert enkelt matvarealternativ eller variasjon.',

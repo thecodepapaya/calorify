@@ -305,7 +305,22 @@
       "progress": "سوال {current} از {total}",
       "noQuestionsAvailable": "کوئی سوال دستیاب نہیں",
       "next": "اگلا",
-      "continueLabel": "جاری رکھیں"
+      "continueLabel": "جاری رکھیں",
+      "countQuestion": "مقدار منتخب کریں",
+      "itemSizeQuestion": "آئٹم کا سائز منتخب کریں",
+      "portionSizeQuestion": "حصے کا سائز منتخب کریں",
+      "option6plus": "6 یا زیادہ",
+      "optionSmall": "چھوٹا",
+      "optionRegular": "عام",
+      "optionLarge": "بڑا",
+      "optionThin": "پتلا",
+      "optionThick": "موٹا",
+      "optionMini": "منی",
+      "optionStuffed": "بھرا ہوا",
+      "optionHeavy": "بھاری",
+      "optionSmaller": "چھوٹا",
+      "optionTypical": "عام",
+      "optionLarger": "بڑا"
     },
     "analysis": {
       "title": "آپ کے کھانے کا تجزیہ ہو رہا ہے",
@@ -332,7 +347,8 @@
       "offlineTip2": "ٹپ: مشروبات، ساسز اور پکانے کا تیل ضرور بتائیں — یہ کیلوریز میں اضافہ کرتے ہیں جو اکثر بھول جاتے ہیں۔",
       "offlineTip3": "ٹپ: ایک مختصر حصہ نوٹ (مثلاً 1 پیالہ، بڑا کافی) اندازوں کو بہت بہتر بناتا ہے۔",
       "offlineTip4": "ٹپ: کھانے کے بعد لاگ کرنا بھی عادت بناتا ہے؛ کمال ضروری نہیں۔",
-      "offlineTip5": "ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔"
+      "offlineTip5": "ٹپ: جب پکانے کا طریقہ کیلوریز پر بہت اثر ڈالے تو بتائیں (تلّا ہوا بمقابلہ بیک کیا ہوا)۔",
+      "noFoodTip": "کوئی کھانا دریافت نہیں ہوا۔ دوسری تصویر یا تفصیل آزمائیں۔"
     },
     "localInference": {
       "reviewTitle": "جائزہ شدہ اجزاء دیکھیں",

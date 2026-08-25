@@ -39,13 +39,16 @@ npm test
 npm run build
 npm start
 
+npm run meal-analysis -- --text "dal and rice"
 npm run calories:eval -- --base-url http://127.0.0.1:8000
 npm run user:inspect -- --user-id FIREBASE_UID
 npm run usda:bootstrap
 npm run usda:refresh
 ```
 
-`calories:eval` exercises the deployed HTTP streaming flow, follows controlled clarification choices, and checks calorie ranges, semantic ingredient coverage, completion, stability, and latency. Add `--verbose` for per-case pipeline paths or `--output report.json` to retain a complete artifact. Dataset cases, thresholds, and detailed usage live in `evals/`.
+`meal-analysis` runs the text pipeline through the same application functions as the API, including durable resume, clarification, meal-type selection, and no-food outcomes. Pass `--json` for non-interactive defaults, or omit `--text` for a prompt. See the [local meal-analysis CLI guide](docs/meal-analysis-cli.md) for database and provider setup, arguments, test cases, and replay behavior.
+
+`calories:eval` exercises the deployed HTTP streaming flow, follows controlled clarification choices, and checks calorie ranges, semantic ingredient coverage, completion, stability, and latency. Set `CALORIE_EVAL_AUTH_TOKEN` for authenticated routes. Add `--verbose` for per-case pipeline paths or `--output report.json` to retain a complete artifact. Dataset cases, thresholds, and detailed usage live in `evals/`.
 
 `user:inspect` is a read-only, user-scoped diagnostic report. It shows the profile and locale, the same three-day stats returned with the AI summary, the exact next CSV input used by the summary job, stored summary history, matching batch statuses/errors, recent meal-analysis results, logged values, and feedback. Add `--json` for decomposition, uncertainty, clarification, and complete result objects, or `--limit 25` to expand each history section. The tool deliberately excludes tokens, uploaded-image URLs, and raw request payloads.
 
@@ -59,9 +62,13 @@ Meal analysis attempts:
 
 Network errors, rate limits, quota exhaustion, malformed JSON, and schema-invalid responses all advance to the next provider. AI summaries use direct OpenAI separately.
 
+The canonical meal-analysis flow, persistence boundaries, terminal behavior,
+and resume rules are documented in
+[`docs/meal-analysis-state-machine.md`](docs/meal-analysis-state-machine.md).
+
 ## USDA grounding
 
-USDA FoodData Central CSV data is imported into a shared PostgreSQL reference database. Deployed APIs connect with a read-only role; a one-off maintenance container owns migrations and imports. Lookup combines semantic aliases, exact normalized names, and indexed trigram candidates while preserving preparation state such as raw, cooked, or dry. Calories and macros are scaled from the selected per-100-g reference row.
+USDA FoodData Central CSV data is imported into a shared PostgreSQL reference database. Deployed APIs connect with a read-only role; a one-off maintenance container owns migrations and imports. Lookup evaluates the model's ordered canonical identity and aliases with exact normalized names and indexed trigram candidates, then uses separate preparation states when ranking accepted matches. Calories and macros are scaled from the selected per-100-g reference row.
 
 The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
 
@@ -92,6 +99,7 @@ the shared USDA database, observability, rollback, and storage maintenance.
 - `GET /metrics` — Prometheus exposition.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
+- `npm run meal-analysis -- --text "dal and rice"` — local text full-flow pipeline diagnostics.
 - `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
 - `DEPLOYMENT.md` — Loki/Grafana runtime and troubleshooting commands.
 - [`docs/README.md`](docs/README.md) — backend design notes, release evidence,

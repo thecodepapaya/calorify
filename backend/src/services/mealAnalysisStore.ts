@@ -112,7 +112,8 @@ function sessionWriteParams(record: MealAnalysisSessionWriteRecord): unknown[] {
 /**
  * Inserts the client-chosen analysis ID before any external work. Reusing an
  * ID is idempotent only for the same owner, source, parent, request payload and
- * analysis context.
+ * caller-supplied analysis context. The server-captured start time is excluded
+ * so a retry can resume the value persisted by the first request.
  */
 export async function createMealAnalysisSession(
   record: Omit<MealAnalysisSessionWriteRecord, 'stage'>
@@ -149,7 +150,11 @@ export async function createMealAnalysisSession(
           user_id IS NOT DISTINCT FROM $2
           AND parent_analysis_id IS NOT DISTINCT FROM $3
           AND source = $4
-          AND (request_payload - 'execution') = ($5::jsonb - 'execution')
+          AND (
+            (request_payload - 'execution') #- '{analysisContext,analysisLocalDatetime}'
+          ) = (
+            ($5::jsonb - 'execution') #- '{analysisContext,analysisLocalDatetime}'
+          )
         ) AS identity_matches
          FROM meal_analysis_session
         WHERE analysis_id = $1

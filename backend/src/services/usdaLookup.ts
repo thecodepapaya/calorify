@@ -16,7 +16,7 @@ export interface UsdaFoodRow {
 
 export interface UsdaMatch {
   row: UsdaFoodRow | null;
-  matchType: 'exact' | 'alias' | 'fuzzy' | 'unmatched';
+  matchType: 'exact' | 'fuzzy' | 'unmatched';
   score: number;
   confidenceMargin: number;
 }
@@ -36,163 +36,6 @@ const inFlightLookups = new Map<string, Promise<UsdaMatch>>();
 // Aliases remain intentionally focused on semantic translations and preparation state.
 // pg_trgm handles harmless wording/order differences; aliases handle terms where a lexical
 // match alone cannot know the correct food or whether its nutritional state is cooked/dry.
-const ALIASES: Record<string, string> = {
-  roti: 'whole wheat flour',
-  chapati: 'whole wheat flour',
-  phulka: 'whole wheat flour',
-  atta: 'whole wheat flour',
-  naan: 'naan',
-  maida: 'wheat flour',
-  aloo: 'potato boiled',
-  potato: 'potato boiled',
-  bhindi: 'okra cooked',
-  okra: 'okra cooked',
-  baingan: 'eggplant cooked',
-  eggplant: 'eggplant cooked',
-  palak: 'spinach cooked',
-  spinach: 'spinach cooked',
-  gobhi: 'cauliflower cooked',
-  cauliflower: 'cauliflower cooked',
-  gajar: 'carrot raw',
-  carrot: 'carrot raw',
-  matar: 'green peas cooked',
-  peas: 'green peas cooked',
-  tamatar: 'tomatoes red ripe raw year round average',
-  tomato: 'tomatoes red ripe raw year round average',
-  pyaaz: 'onions raw',
-  onion: 'onions raw',
-  cucumber: 'cucumber raw',
-  dahi: 'yogurt plain',
-  curd: 'yogurt plain',
-  yogurt: 'yogurt plain',
-  chawal: 'rice white cooked',
-  rice: 'rice white cooked',
-  'white rice': 'rice white cooked',
-  'brown rice': 'rice brown cooked',
-  dal: 'lentils mature seeds cooked boiled without salt',
-  'toor dal': 'lentils mature seeds cooked boiled without salt',
-  'arhar dal': 'lentils mature seeds cooked boiled without salt',
-  'moong dal': 'mung beans cooked',
-  moong: 'mung beans cooked',
-  'chana dal': 'chickpeas cooked',
-  'masoor dal': 'lentils red cooked',
-  masoor: 'lentils red cooked',
-  'red lentils': 'lentils red cooked',
-  rajma: 'kidney beans cooked',
-  'kidney beans': 'kidney beans cooked',
-  chole: 'chickpeas cooked',
-  chickpeas: 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt',
-  'chickpeas cooked': 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt',
-  'chickpeas cooked boiled without salt': 'chickpeas garbanzo beans bengal gram mature seeds cooked boiled without salt',
-  'idli': 'idli',
-  'steamed idli': 'idli',
-  'sambar': 'sambar vegetable stew',
-  'sambar cooked': 'sambar vegetable stew',
-  dosa: 'dosa plain',
-  'plain dosa': 'dosa plain',
-  'masala dosa': 'dosa with filling',
-  makhan: 'butter',
-  tel: 'vegetable oil',
-  'oil vegetable': 'vegetable oil',
-  'cooking oil': 'vegetable oil',
-  'vegetable oil': 'vegetable oil',
-  'olive oil': 'oil olive salad or cooking',
-  'coconut oil': 'oil coconut',
-  'mustard oil': 'oil mustard',
-  namak: 'salt',
-  cheeni: 'sugar',
-  sugar: 'sugar',
-  gur: 'jaggery',
-  shahad: 'honey',
-  paneer: 'paneer',
-  ghee: 'ghee',
-  chicken: 'chicken breast cooked',
-  'chicken breast': 'chicken breast cooked',
-  'chicken thigh': 'chicken thigh cooked',
-  egg: 'egg whole cooked',
-  eggs: 'egg whole cooked',
-  salmon: 'salmon cooked',
-  lamb: 'lamb cooked',
-  'lamb meat': 'lamb cooked',
-  shrimp: 'shrimp cooked',
-  tofu: 'tofu firm',
-  oats: 'oats',
-  pasta: 'pasta cooked',
-  avocado: 'avocado',
-  banana: 'bananas raw',
-  bananas: 'bananas raw',
-  apple: 'apple raw',
-  apples: 'apple raw',
-  mango: 'mango',
-  garlic: 'garlic',
-  ginger: 'ginger',
-  adrak: 'ginger',
-  lahsun: 'garlic',
-  haldi: 'turmeric powder',
-  turmeric: 'turmeric powder',
-  jeera: 'cumin seeds',
-  cumin: 'cumin seeds',
-  cabbage: 'cabbage cooked',
-  'patta gobhi': 'cabbage cooked',
-  broccoli: 'broccoli cooked',
-  almond: 'almond',
-  almonds: 'almond',
-  badam: 'almond',
-  'peanut butter': 'peanut butter',
-  bread: 'bread white',
-  'white bread': 'bread white',
-  'bread slice': 'bread white',
-  'whole wheat bread': 'bread whole wheat',
-  milk: 'milk whole',
-  'whole milk': 'milk whole',
-  'skim milk': 'milk skim',
-  cheese: 'cheddar cheese',
-  cheddar: 'cheddar cheese',
-  cream: 'heavy cream',
-  coconut: 'coconut fresh',
-  'coconut milk': 'coconut milk',
-  'bell pepper': 'peppers',
-  'red bell pepper': 'peppers',
-  'green bell pepper': 'peppers',
-  'sweet pepper': 'peppers',
-  'chilli flakes': 'crushed red pepper',
-  'chili flakes': 'crushed red pepper',
-  'red pepper flakes': 'crushed red pepper',
-  'fish cake': 'fish cakes',
-  'black pudding': 'blood sausage',
-  anchovy: 'anchovies',
-  'anchovy fish paste': 'anchovies',
-  noodles: 'noodles cooked',
-  'yellow noodles': 'egg noodles',
-  maize: 'corn',
-  'corn maize': 'corn',
-  'cornmeal bread': 'cornmeal',
-  grits: 'corn grits',
-  'red chili paste': 'gochujang',
-  hogao: 'sofrito',
-  'hogao colombian sauce': 'sofrito',
-  'green onion': 'onion raw',
-  'spring onion': 'onion raw',
-  scallion: 'onion raw',
-  scallions: 'onion raw',
-  labneh: 'yogurt plain',
-  'strained yogurt': 'yogurt plain',
-  'plain curd': 'yogurt plain',
-  'curd plain': 'yogurt plain',
-  'milk curd plain': 'yogurt plain',
-};
-
-function resolveAlias(normalizedHint: string): string | undefined {
-  const mentionsOats = /\b(?:oat|oats)\b/.test(normalizedHint);
-  const explicitlyDry = /\b(?:dry|raw|uncooked|rolled)\b/.test(normalizedHint);
-  const explicitlyPrepared = /\b(?:cooked|prepared|boiled|water)\b/.test(normalizedHint);
-  if (mentionsOats && explicitlyDry && !explicitlyPrepared) return 'oats';
-  if (/\beggs?\b/.test(normalizedHint)) {
-    if (/\bfried\b/.test(normalizedHint)) return 'egg whole cooked fried';
-    return 'egg whole cooked ns as to cooking method';
-  }
-  return ALIASES[normalizedHint];
-}
 
 /**
  * A previous importer accepted both USDA kcal and kilojoule Energy rows. Repair
@@ -384,21 +227,8 @@ export async function findUsdaCandidates(term: string, limit = CANDIDATE_LIMIT):
   return result.rows.map(normalizeEnergyUnit);
 }
 
-async function lookupTerm(
-  term: string
-): Promise<{ row: UsdaFoodRow; score: number; confidenceMargin: number } | null> {
-  const exact = await findUsdaExact(term);
-  if (exact) return { row: exact, score: 1, confidenceMargin: 1 };
-  return bestCandidate(term, await findUsdaCandidates(term));
-}
-
 async function canonicalizeUncached(hint: string): Promise<UsdaMatch> {
   const normalizedHint = normalizeUsdaTerm(hint);
-  const alias = resolveAlias(normalizedHint);
-  if (alias) {
-    const match = await lookupTerm(normalizeUsdaTerm(alias));
-    if (match) return { row: match.row, matchType: 'alias', score: match.score, confidenceMargin: match.confidenceMargin };
-  }
 
   const exact = await findUsdaExact(normalizedHint);
   if (exact) return { row: exact, matchType: 'exact', score: 1, confidenceMargin: 1 };
@@ -415,6 +245,42 @@ async function canonicalizeUncached(hint: string): Promise<UsdaMatch> {
   const best = bestCandidate(normalizedHint, candidates);
   if (best) return { row: best.row, matchType: 'fuzzy', score: best.score, confidenceMargin: best.confidenceMargin };
   return { row: null, matchType: 'unmatched', score: 0, confidenceMargin: 0 };
+}
+
+export async function canonicalizeUsdaProposal(
+  canonicalName: string,
+  aliases: string[],
+  preparationStates: string[]
+): Promise<UsdaMatch> {
+  const terms = [canonicalName, ...aliases]
+    .map((value) => normalizeUsdaTerm(value))
+    .filter((value, index, values) => value !== '' && values.indexOf(value) === index);
+  const candidates = await Promise.all(terms.map(async (term, termIndex) => {
+    const [exact, fuzzy] = await Promise.all([
+      findUsdaExact(term),
+      findUsdaCandidates(term),
+    ]);
+    const rows = [exact, ...fuzzy]
+      .filter((row): row is UsdaFoodRow => row != null)
+      .filter((row, index, values) =>
+        values.findIndex((candidate) => candidate.fdc_id === row.fdc_id) === index
+      );
+    const ranked = bestCandidate([term, ...preparationStates].join(' '), rows);
+    const matchType = ranked && normalizeUsdaTerm(ranked.row.normalized_name) === term
+      ? 'exact' as const
+      : 'fuzzy' as const;
+    return {
+      termIndex,
+      match: ranked
+        ? { row: ranked.row, matchType, score: ranked.score, confidenceMargin: ranked.confidenceMargin }
+        : { row: null, matchType: 'unmatched' as const, score: 0, confidenceMargin: 0 },
+    };
+  }));
+  return candidates
+    .filter((candidate) => candidate.match.row !== null)
+    .sort((left, right) =>
+      right.match.score - left.match.score || left.termIndex - right.termIndex
+    )[0]?.match ?? { row: null, matchType: 'unmatched', score: 0, confidenceMargin: 0 };
 }
 
 export function clearUsdaLookupCache(): void {

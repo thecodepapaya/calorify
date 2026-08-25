@@ -17,6 +17,7 @@ export interface RunMigrationsOptions {
   migrationsDir?: string;
   clientFactory?: () => Promise<PoolClient>;
   lockName?: string;
+  quiet?: boolean;
 }
 
 function migrationChecksum(sql: string): string {
@@ -202,7 +203,7 @@ export async function runMigrations(options: RunMigrationsOptions = {}): Promise
           `${file}: ${error instanceof Error ? error.message : String(error)}`
         );
       }
-      console.log(`✅ Migration applied: ${file}`);
+      if (!options.quiet) console.log(`✅ Migration applied: ${file}`);
     }
   } catch (error) {
     throw new Error(

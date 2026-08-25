@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:calorify/core/providers/home_providers.dart';
 import 'package:calorify/core/repositories/food_repository.dart';
 import 'package:calorify/features/home/widgets/bottom_sheet/meal_analysis_sheet.dart';
+import 'package:calorify/features/home/widgets/bottom_sheet/meal_type_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:i18n/i18n.dart';
@@ -90,8 +91,8 @@ void main() {
             analysisId: 'analysis-1',
             mealName: 'Paneer with roti',
             ingredients: [
-              PipelineResolvedIngredient(canonicalName: 'Paneer curry'),
-              PipelineResolvedIngredient(canonicalName: 'Whole wheat roti'),
+              PipelineResolvedIngredient(rawName: 'Paneer curry'),
+              PipelineResolvedIngredient(rawName: 'Whole wheat roti'),
             ],
           ),
         ),
@@ -143,8 +144,8 @@ void main() {
             analysisId: 'analysis-3',
             mealName: 'Paneer with roti',
             ingredients: [
-              PipelineResolvedIngredient(canonicalName: 'Paneer'),
-              PipelineResolvedIngredient(canonicalName: 'Roti'),
+              PipelineResolvedIngredient(rawName: 'Paneer'),
+              PipelineResolvedIngredient(rawName: 'Roti'),
             ],
           ),
         ),
@@ -167,9 +168,9 @@ void main() {
             analysisId: 'analysis-3',
             mealName: 'Paneer with roti',
             ingredients: [
-              PipelineResolvedIngredient(canonicalName: 'Paneer (refined)'),
-              PipelineResolvedIngredient(canonicalName: 'Whole wheat roti'),
-              PipelineResolvedIngredient(canonicalName: 'Ghee'),
+              PipelineResolvedIngredient(rawName: 'Paneer (refined)'),
+              PipelineResolvedIngredient(rawName: 'Whole wheat roti'),
+              PipelineResolvedIngredient(rawName: 'Ghee'),
             ],
           ),
         ),
@@ -201,9 +202,7 @@ void main() {
         analysisId: 'analysis-2',
         ingredientsStep: PipelineIngredientsData(
           analysisId: 'analysis-2',
-          ingredients: [
-            PipelineResolvedIngredient(canonicalName: 'Paneer curry'),
-          ],
+          ingredients: [PipelineResolvedIngredient(rawName: 'Paneer curry')],
         ),
       ),
     );
@@ -213,6 +212,32 @@ void main() {
     expect(find.text('Paneer curry'), findsOneWidget);
 
     await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('meal type prompt is localized by the app', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Builder(
+          builder:
+              (context) => ElevatedButton(
+                onPressed:
+                    () => showV2MealTypeSheet(
+                      context: context,
+                      question: PipelineMealTypeQuestionData(
+                        analysisId: 'analysis-meal-type',
+                        mealName: 'Rice bowl',
+                        options: [MealType.LUNCH, MealType.DINNER],
+                      ),
+                    ),
+                child: const Text('Open'),
+              ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('Open'));
+    await tester.pumpAndSettle();
+
+    expect(find.text(t.localNutritionPhase4.mealTypeQuestion), findsOneWidget);
   });
 
   testWidgets('dismissing the sheet ignores late pipeline events', (

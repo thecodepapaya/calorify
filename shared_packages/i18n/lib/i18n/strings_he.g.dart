@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$he extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'אין שאלות זמינות';
 	@override String get next => 'הבא';
 	@override String get continueLabel => 'המשך';
+	@override String get countQuestion => 'בחר כמות';
+	@override String get itemSizeQuestion => 'בחר גודל פריט';
+	@override String get portionSizeQuestion => 'בחר גודל מנה';
+	@override String get option6plus => '6 או יותר';
+	@override String get optionSmall => 'קטן';
+	@override String get optionRegular => 'רגיל';
+	@override String get optionLarge => 'גדול';
+	@override String get optionThin => 'דק';
+	@override String get optionThick => 'עבה';
+	@override String get optionMini => 'מיני';
+	@override String get optionStuffed => 'ממולא';
+	@override String get optionHeavy => 'כבד';
+	@override String get optionSmaller => 'קטן יותר';
+	@override String get optionTypical => 'טיפוסי';
+	@override String get optionLarger => 'גדול יותר';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$he extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.';
 	@override String get offlineTip4 => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.';
 	@override String get offlineTip5 => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).';
+	@override String get noFoodTip => 'לא זוהה מזון. נסה תמונה או תיאור אחר.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsHe {
 			'meal.questionFlow.noQuestionsAvailable' => 'אין שאלות זמינות',
 			'meal.questionFlow.next' => 'הבא',
 			'meal.questionFlow.continueLabel' => 'המשך',
+			'meal.questionFlow.countQuestion' => 'בחר כמות',
+			'meal.questionFlow.itemSizeQuestion' => 'בחר גודל פריט',
+			'meal.questionFlow.portionSizeQuestion' => 'בחר גודל מנה',
+			'meal.questionFlow.option6plus' => '6 או יותר',
+			'meal.questionFlow.optionSmall' => 'קטן',
+			'meal.questionFlow.optionRegular' => 'רגיל',
+			'meal.questionFlow.optionLarge' => 'גדול',
+			'meal.questionFlow.optionThin' => 'דק',
+			'meal.questionFlow.optionThick' => 'עבה',
+			'meal.questionFlow.optionMini' => 'מיני',
+			'meal.questionFlow.optionStuffed' => 'ממולא',
+			'meal.questionFlow.optionHeavy' => 'כבד',
+			'meal.questionFlow.optionSmaller' => 'קטן יותר',
+			'meal.questionFlow.optionTypical' => 'טיפוסי',
+			'meal.questionFlow.optionLarger' => 'גדול יותר',
 			'meal.analysis.title' => 'מנתחים את הארוחה שלך',
 			'meal.analysis.stepStarted' => 'מתחילים…',
 			'meal.analysis.stepDecomposition' => 'מנתחים את הארוחה…',
@@ -2280,6 +2311,7 @@ extension on TranslationsHe {
 			'meal.analysis.offlineTip3' => 'טיפ: הערת כמות קצרה (קערה אחת, קפה גדול) משפרת משמעותית את ההערכות.',
 			'meal.analysis.offlineTip4' => 'טיפ: רישום אחרי הארוחה עדיין בונה הרגל; שלמות אינה חובה.',
 			'meal.analysis.offlineTip5' => 'טיפ: ציין איך הוכן האוכל כששיטה משנה קלוריות רבות (מטוגן לעומת אפוי).',
+			'meal.analysis.noFoodTip' => 'לא זוהה מזון. נסה תמונה או תיאור אחר.',
 			'meal.localInference.reviewTitle' => 'בדיקת רכיבים שזוהו',
 			'meal.localInference.reviewSubtitle' => 'המידע פוענח במכשיר שלך. תקן שמות או כמויות לפני חישוב הערכים התזונתיים.',
 			'meal.localInference.mealName' => 'שם הארוחה',
@@ -2528,6 +2560,8 @@ extension on TranslationsHe {
 			'notifications.breakfast.title' => 'זמן ארוחת בוקר! 🍳',
 			'notifications.breakfast.body' => 'אל תשכח/י לרשום את ארוחת הבוקר שלך',
 			'notifications.lunch.title' => 'זמן ארוחת צהריים! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'הגיע הזמן לרשום את ארוחת הצהריים',
 			'notifications.dinner.title' => 'זמן ארוחת ערב! 🍽️',
 			'notifications.dinner.body' => 'אל תשכח/י לרשום את ארוחת הערב שלך',
@@ -2544,8 +2578,6 @@ extension on TranslationsHe {
 			'disclaimer.snap.preparationMethods.title' => 'שיטות הכנה',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'שיטות בישול יכולות לשנות משמעותית את התוכן התזונתי. ההערכות של ${appLabel} עשויות שלא תמיד להתחשב בכל השינויים האלו.',
 			'disclaimer.snap.ingredients.title' => 'מרכיבים',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'מנות מורכבות עם מרכיבים נסתרים רבים עלולות להוביל להערכות פחות מדויקות.',
 			'disclaimer.snap.databaseLimitations.title' => 'מגבלות מאגר הנתונים',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'מאגר המזונות של ${appLabel} הוא רחב אך עשוי שלא לכלול כל פריט או וריאציה.',

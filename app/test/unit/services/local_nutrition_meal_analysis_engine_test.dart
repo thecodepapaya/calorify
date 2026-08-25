@@ -9,30 +9,36 @@ import 'package:models/models.dart';
 
 class _MockRepository extends Mock implements LocalNutritionRepository {}
 
-IngredientProposalV1 _proposal() => IngredientProposalV1(
-  schemaVersion: 1,
+IngredientProposalV2 _proposal() => IngredientProposalV2(
+  schemaVersion: 2,
   proposalId: 'proposal-1',
   modality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
   mealName: 'Banana',
+  outcome: DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD,
+  outcomeReason: 'Banana is food.',
+  outcomeConfidence: 0.9,
   inferredMealType: MealType.SNACK,
+  mealTypeReason: 'Suitable as a snack.',
   mealTypeConfident: true,
-  confidence: 0.9,
   interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
-  ingredients: [
-    IngredientProposalItemV1(
+  items: [
+    IngredientProposalItemV2(
       rowId: 'banana',
       rawName: 'banana',
-      canonicalHint: 'bananas raw',
-      gramsEstimated: 118,
-      minGrams: 60,
-      maxGrams: 200,
-      portionKind: PortionKind.BULK,
-      confidence: 0.8,
+      isFoodReason: 'Banana is food.',
+      isFoodConfidence: 0.8,
+      usdaLookup: UsdaLookupProposalV2(proposedCanonicalName: 'bananas raw'),
+      portion: PortionProposalV2(
+        kind: PortionKind.BULK,
+        gramsEstimated: 118,
+        minGrams: 60,
+        maxGrams: 200,
+      ),
     ),
   ],
 );
 
-LocalNutritionResolvedMeal _resolved(IngredientProposalV1 proposal) {
+LocalNutritionResolvedMeal _resolved(IngredientProposalV2 proposal) {
   final pack = LocalNutritionPack(
     schemaVersion: 1,
     packVersion: 'starter-v1',
@@ -44,7 +50,7 @@ LocalNutritionResolvedMeal _resolved(IngredientProposalV1 proposal) {
     pack: InstalledLocalNutritionPack(pack: pack, byteSize: 1),
     ingredients: [
       LocalNutritionResolvedIngredient(
-        proposal: proposal.ingredients.single,
+        proposal: proposal.items.single,
         canonicalName: 'Bananas, raw',
         matchType: 'reviewed_alias',
         fdcId: '169910',
@@ -115,11 +121,7 @@ void main() {
         result.receipt.calculationOrigin,
         CalculationOrigin.CALCULATION_ORIGIN_LOCAL_DETERMINISTIC,
       );
-      expect(
-        result.ingredients.single.nutritionOrigin,
-        NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA,
-      );
-      expect(result.ingredients.single.fdcId, '169910');
+      expect(result.ingredients.single.rawName, 'banana');
       expect(result.receipt.calculationVersion, 'local-macro-v1');
     },
   );

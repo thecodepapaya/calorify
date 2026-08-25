@@ -1391,6 +1391,51 @@ class Translations$meal$questionFlow$en {
 
 	/// en: 'Continue'
 	String get continueLabel => 'Continue';
+
+	/// en: 'Choose quantity'
+	String get countQuestion => 'Choose quantity';
+
+	/// en: 'Choose item size'
+	String get itemSizeQuestion => 'Choose item size';
+
+	/// en: 'Choose portion size'
+	String get portionSizeQuestion => 'Choose portion size';
+
+	/// en: '6 or more'
+	String get option6plus => '6 or more';
+
+	/// en: 'Small'
+	String get optionSmall => 'Small';
+
+	/// en: 'Regular'
+	String get optionRegular => 'Regular';
+
+	/// en: 'Large'
+	String get optionLarge => 'Large';
+
+	/// en: 'Thin'
+	String get optionThin => 'Thin';
+
+	/// en: 'Thick'
+	String get optionThick => 'Thick';
+
+	/// en: 'Mini'
+	String get optionMini => 'Mini';
+
+	/// en: 'Stuffed'
+	String get optionStuffed => 'Stuffed';
+
+	/// en: 'Heavy'
+	String get optionHeavy => 'Heavy';
+
+	/// en: 'Smaller'
+	String get optionSmaller => 'Smaller';
+
+	/// en: 'Typical'
+	String get optionTypical => 'Typical';
+
+	/// en: 'Larger'
+	String get optionLarger => 'Larger';
 }
 
 // Path: meal.analysis
@@ -1424,6 +1469,9 @@ class Translations$meal$analysis$en {
 
 	/// en: 'Something went wrong'
 	String get stepError => 'Something went wrong';
+
+	/// en: 'No food was detected. Try another photo or description.'
+	String get noFoodTip => 'No food was detected. Try another photo or description.';
 
 	/// en: 'Analyzing your meal…'
 	String get stepDefault => 'Analyzing your meal…';
@@ -3624,6 +3672,21 @@ extension on Translations {
 			'meal.questionFlow.noQuestionsAvailable' => 'No questions available',
 			'meal.questionFlow.next' => 'Next',
 			'meal.questionFlow.continueLabel' => 'Continue',
+			'meal.questionFlow.countQuestion' => 'Choose quantity',
+			'meal.questionFlow.itemSizeQuestion' => 'Choose item size',
+			'meal.questionFlow.portionSizeQuestion' => 'Choose portion size',
+			'meal.questionFlow.option6plus' => '6 or more',
+			'meal.questionFlow.optionSmall' => 'Small',
+			'meal.questionFlow.optionRegular' => 'Regular',
+			'meal.questionFlow.optionLarge' => 'Large',
+			'meal.questionFlow.optionThin' => 'Thin',
+			'meal.questionFlow.optionThick' => 'Thick',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Stuffed',
+			'meal.questionFlow.optionHeavy' => 'Heavy',
+			'meal.questionFlow.optionSmaller' => 'Smaller',
+			'meal.questionFlow.optionTypical' => 'Typical',
+			'meal.questionFlow.optionLarger' => 'Larger',
 			'meal.analysis.title' => 'Analyzing your meal',
 			'meal.analysis.stepStarted' => 'Getting started…',
 			'meal.analysis.stepDecomposition' => 'Understanding your meal…',
@@ -3632,6 +3695,7 @@ extension on Translations {
 			'meal.analysis.stepMealTypeQuestion' => 'Almost there…',
 			'meal.analysis.stepResult' => 'Finalizing your result…',
 			'meal.analysis.stepError' => 'Something went wrong',
+			'meal.analysis.noFoodTip' => 'No food was detected. Try another photo or description.',
 			'meal.analysis.stepDefault' => 'Analyzing your meal…',
 			'meal.analysis.progressUnderstand' => 'Understanding your meal',
 			'meal.analysis.progressMatch' => 'Looking up ingredient nutrition',
@@ -3897,6 +3961,8 @@ extension on Translations {
 			'notifications.breakfast.title' => 'Breakfast Time! 🍳',
 			'notifications.breakfast.body' => 'Don\'t forget to log your breakfast',
 			'notifications.lunch.title' => 'Lunch Time! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Time to log your lunch',
 			'notifications.dinner.title' => 'Dinner Time! 🍽️',
 			'notifications.dinner.body' => 'Don\'t forget to log your dinner',
@@ -3913,8 +3979,6 @@ extension on Translations {
 			'disclaimer.snap.preparationMethods.title' => 'Preparation Methods',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cooking methods can significantly alter the nutritional content of food. ${appLabel}\'s estimates may not always account for these variations.',
 			'disclaimer.snap.ingredients.title' => 'Ingredients',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Complex dishes with many hidden ingredients may lead to less accurate estimations.',
 			'disclaimer.snap.databaseLimitations.title' => 'Database Limitations',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'s food database is extensive but may not include every single food item or variation.',

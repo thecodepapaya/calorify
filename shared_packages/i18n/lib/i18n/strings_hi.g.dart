@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$hi extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'कोई प्रश्न उपलब्ध नहीं';
 	@override String get next => 'अगला';
 	@override String get continueLabel => 'जारी रखें';
+	@override String get countQuestion => 'मात्रा चुनें';
+	@override String get itemSizeQuestion => 'आइटम का आकार चुनें';
+	@override String get portionSizeQuestion => 'भाग का आकार चुनें';
+	@override String get option6plus => '6 या अधिक';
+	@override String get optionSmall => 'छोटा';
+	@override String get optionRegular => 'नियमित';
+	@override String get optionLarge => 'बड़ा';
+	@override String get optionThin => 'पतला';
+	@override String get optionThick => 'मोटा';
+	@override String get optionMini => 'मिनी';
+	@override String get optionStuffed => 'भरा हुआ';
+	@override String get optionHeavy => 'भारी';
+	@override String get optionSmaller => 'छोटा';
+	@override String get optionTypical => 'विशिष्ट';
+	@override String get optionLarger => 'बड़ा';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$hi extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'सूचना: एक त्वरित भाग नोट (1 कटोरा, बड़ा कॉफ़ी) अनुमान को काफी तीक्ष्ण बनाता है।';
 	@override String get offlineTip4 => 'सूचना: भोजन के बाद लॉग करना भी आदत बनाता है; पूर्णता वैकल्पिक है।';
 	@override String get offlineTip5 => 'सूचना: जब कैलोरीज़ बहुत बदलती हों तो बताएं कि भोजन कैसे पकाया गया था (तला हुआ बनाम बेक्ड)।';
+	@override String get noFoodTip => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsHi {
 			'meal.questionFlow.noQuestionsAvailable' => 'कोई प्रश्न उपलब्ध नहीं',
 			'meal.questionFlow.next' => 'अगला',
 			'meal.questionFlow.continueLabel' => 'जारी रखें',
+			'meal.questionFlow.countQuestion' => 'मात्रा चुनें',
+			'meal.questionFlow.itemSizeQuestion' => 'आइटम का आकार चुनें',
+			'meal.questionFlow.portionSizeQuestion' => 'भाग का आकार चुनें',
+			'meal.questionFlow.option6plus' => '6 या अधिक',
+			'meal.questionFlow.optionSmall' => 'छोटा',
+			'meal.questionFlow.optionRegular' => 'नियमित',
+			'meal.questionFlow.optionLarge' => 'बड़ा',
+			'meal.questionFlow.optionThin' => 'पतला',
+			'meal.questionFlow.optionThick' => 'मोटा',
+			'meal.questionFlow.optionMini' => 'मिनी',
+			'meal.questionFlow.optionStuffed' => 'भरा हुआ',
+			'meal.questionFlow.optionHeavy' => 'भारी',
+			'meal.questionFlow.optionSmaller' => 'छोटा',
+			'meal.questionFlow.optionTypical' => 'विशिष्ट',
+			'meal.questionFlow.optionLarger' => 'बड़ा',
 			'meal.analysis.title' => 'आपके भोजन का विश्लेषण किया जा रहा है',
 			'meal.analysis.stepStarted' => 'शुरू किया जा रहा है…',
 			'meal.analysis.stepDecomposition' => 'आपके भोजन को समझना…',
@@ -2280,6 +2311,7 @@ extension on TranslationsHi {
 			'meal.analysis.offlineTip3' => 'सूचना: एक त्वरित भाग नोट (1 कटोरा, बड़ा कॉफ़ी) अनुमान को काफी तीक्ष्ण बनाता है।',
 			'meal.analysis.offlineTip4' => 'सूचना: भोजन के बाद लॉग करना भी आदत बनाता है; पूर्णता वैकल्पिक है।',
 			'meal.analysis.offlineTip5' => 'सूचना: जब कैलोरीज़ बहुत बदलती हों तो बताएं कि भोजन कैसे पकाया गया था (तला हुआ बनाम बेक्ड)।',
+			'meal.analysis.noFoodTip' => 'कोई भोजन नहीं मिला। कोई दूसरी तस्वीर या विवरण आज़माएँ।',
 			'meal.localInference.reviewTitle' => 'पहचाने गए इंग्रीडिएंट्स की समीक्षा करें',
 			'meal.localInference.reviewSubtitle' => 'यह आपके डिवाइस पर इंटरप्रेट किया गया था। पोषण की गणना से पहले नाम या मात्रा को सही करें।',
 			'meal.localInference.mealName' => 'भोजन का नाम',
@@ -2528,6 +2560,8 @@ extension on TranslationsHi {
 			'notifications.breakfast.title' => 'नाश्ते का समय! 🍳',
 			'notifications.breakfast.body' => 'अपने नाश्ते को लॉग करना न भूलें',
 			'notifications.lunch.title' => 'लंच समय! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'अपने लंच को लॉग करने का समय है',
 			'notifications.dinner.title' => 'डिनर का समय! 🍽️',
 			'notifications.dinner.body' => 'अपने डिनर को लॉग करना न भूलें',
@@ -2544,8 +2578,6 @@ extension on TranslationsHi {
 			'disclaimer.snap.preparationMethods.title' => 'तैयारी की विधियाँ',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'खाना पकाने की विधियाँ खाद्य के पोषण सामग्री को काफी बदल सकती हैं। ${appLabel} के अनुमान हमेशा इन परिवर्तनों को ध्यान में नहीं रख सकते हैं।',
 			'disclaimer.snap.ingredients.title' => 'सामग्री',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'कई छिपी हुई सामग्रियों वाले जटिल व्यंजन कम सटीक अनुमान दे सकते हैं।',
 			'disclaimer.snap.databaseLimitations.title' => 'डेटाबेस सीमाएँ',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} का फ़ूड डेटाबेस व्यापक है परन्तु हर एक खाद्य आइटम या विविधता शामिल न हो सकती है।',

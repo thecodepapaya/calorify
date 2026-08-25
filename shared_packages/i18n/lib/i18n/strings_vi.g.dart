@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$vi extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Không có câu hỏi';
 	@override String get next => 'Tiếp theo';
 	@override String get continueLabel => 'Tiếp tục';
+	@override String get countQuestion => 'Chọn số lượng';
+	@override String get itemSizeQuestion => 'Chọn kích cỡ món ăn';
+	@override String get portionSizeQuestion => 'Chọn khẩu phần ăn';
+	@override String get option6plus => '6 hoặc nhiều hơn';
+	@override String get optionSmall => 'Nhỏ';
+	@override String get optionRegular => 'Thông thường';
+	@override String get optionLarge => 'Lớn';
+	@override String get optionThin => 'Mỏng';
+	@override String get optionThick => 'Dày';
+	@override String get optionMini => 'Rất nhỏ';
+	@override String get optionStuffed => 'Đầy';
+	@override String get optionHeavy => 'Nặng';
+	@override String get optionSmaller => 'Nhỏ hơn';
+	@override String get optionTypical => 'Điển hình';
+	@override String get optionLarger => 'Lớn hơn';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$vi extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.';
 	@override String get offlineTip4 => 'Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.';
 	@override String get offlineTip5 => 'Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).';
+	@override String get noFoodTip => 'Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsVi {
 			'meal.questionFlow.noQuestionsAvailable' => 'Không có câu hỏi',
 			'meal.questionFlow.next' => 'Tiếp theo',
 			'meal.questionFlow.continueLabel' => 'Tiếp tục',
+			'meal.questionFlow.countQuestion' => 'Chọn số lượng',
+			'meal.questionFlow.itemSizeQuestion' => 'Chọn kích cỡ món ăn',
+			'meal.questionFlow.portionSizeQuestion' => 'Chọn khẩu phần ăn',
+			'meal.questionFlow.option6plus' => '6 hoặc nhiều hơn',
+			'meal.questionFlow.optionSmall' => 'Nhỏ',
+			'meal.questionFlow.optionRegular' => 'Thông thường',
+			'meal.questionFlow.optionLarge' => 'Lớn',
+			'meal.questionFlow.optionThin' => 'Mỏng',
+			'meal.questionFlow.optionThick' => 'Dày',
+			'meal.questionFlow.optionMini' => 'Rất nhỏ',
+			'meal.questionFlow.optionStuffed' => 'Đầy',
+			'meal.questionFlow.optionHeavy' => 'Nặng',
+			'meal.questionFlow.optionSmaller' => 'Nhỏ hơn',
+			'meal.questionFlow.optionTypical' => 'Điển hình',
+			'meal.questionFlow.optionLarger' => 'Lớn hơn',
 			'meal.analysis.title' => 'Đang phân tích bữa ăn của bạn',
 			'meal.analysis.stepStarted' => 'Bắt đầu…',
 			'meal.analysis.stepDecomposition' => 'Hiểu bữa ăn của bạn…',
@@ -2280,6 +2311,7 @@ extension on TranslationsVi {
 			'meal.analysis.offlineTip3' => 'Mẹo: Ghi nhanh kích thước khẩu phần (1 bát, cà phê lớn) sẽ làm ước tính chính xác hơn nhiều.',
 			'meal.analysis.offlineTip4' => 'Mẹo: Ghi sau bữa ăn vẫn giúp xây thói quen; không cần hoàn hảo.',
 			'meal.analysis.offlineTip5' => 'Mẹo: Nói cách thức nấu khi làm thay đổi nhiều calo (chiên vs nướng).',
+			'meal.analysis.noFoodTip' => 'Không phát hiện thấy thức ăn. Hãy thử một ảnh hoặc mô tả khác.',
 			'meal.localInference.reviewTitle' => 'Xem lại các thành phần đã nhận diện',
 			'meal.localInference.reviewSubtitle' => 'Nội dung này được phân tích trên thiết bị của bạn. Hãy chỉnh sửa tên hoặc định lượng trước khi tính toán dinh dưỡng.',
 			'meal.localInference.mealName' => 'Tên bữa ăn',
@@ -2528,6 +2560,8 @@ extension on TranslationsVi {
 			'notifications.breakfast.title' => 'Đến giờ ăn sáng! 🍳',
 			'notifications.breakfast.body' => 'Đừng quên ghi bữa sáng của bạn',
 			'notifications.lunch.title' => 'Đến giờ ăn trưa! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Đã đến lúc ghi bữa trưa',
 			'notifications.dinner.title' => 'Đến giờ ăn tối! 🍽️',
 			'notifications.dinner.body' => 'Đừng quên ghi bữa tối của bạn',
@@ -2544,8 +2578,6 @@ extension on TranslationsVi {
 			'disclaimer.snap.preparationMethods.title' => 'Phương pháp chế biến',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Cách nấu có thể thay đổi đáng kể hàm lượng dinh dưỡng. Ước tính của ${appLabel} có thể không luôn tính đến những thay đổi này.',
 			'disclaimer.snap.ingredients.title' => 'Nguyên liệu',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Các món phức tạp với nhiều nguyên liệu ẩn có thể dẫn đến ước tính kém chính xác hơn.',
 			'disclaimer.snap.databaseLimitations.title' => 'Hạn chế cơ sở dữ liệu',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Cơ sở dữ liệu thực phẩm của ${appLabel} rất rộng nhưng có thể không bao gồm mọi món hoặc biến thể.',

@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$sv extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Inga frågor tillgängliga';
 	@override String get next => 'Nästa';
 	@override String get continueLabel => 'Fortsätt';
+	@override String get countQuestion => 'Välj antal';
+	@override String get itemSizeQuestion => 'Välj storlek';
+	@override String get portionSizeQuestion => 'Välj portionsstorlek';
+	@override String get option6plus => '6 eller fler';
+	@override String get optionSmall => 'Liten';
+	@override String get optionRegular => 'Normal';
+	@override String get optionLarge => 'Stor';
+	@override String get optionThin => 'Tunn';
+	@override String get optionThick => 'Tjock';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Fylld';
+	@override String get optionHeavy => 'Tung';
+	@override String get optionSmaller => 'Mindre';
+	@override String get optionTypical => 'Typisk';
+	@override String get optionLarger => 'Större';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$sv extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tips: En snabb portionsanteckning (1 skål, stor kaffe) gör uppskattningarna mycket skarpare.';
 	@override String get offlineTip4 => 'Tips: Att registrera efter måltiden bygger fortfarande vana; perfektion är inte nödvändig.';
 	@override String get offlineTip5 => 'Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad).';
+	@override String get noFoodTip => 'Ingen mat upptäcktes. Prova en annan bild eller beskrivning.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsSv {
 			'meal.questionFlow.noQuestionsAvailable' => 'Inga frågor tillgängliga',
 			'meal.questionFlow.next' => 'Nästa',
 			'meal.questionFlow.continueLabel' => 'Fortsätt',
+			'meal.questionFlow.countQuestion' => 'Välj antal',
+			'meal.questionFlow.itemSizeQuestion' => 'Välj storlek',
+			'meal.questionFlow.portionSizeQuestion' => 'Välj portionsstorlek',
+			'meal.questionFlow.option6plus' => '6 eller fler',
+			'meal.questionFlow.optionSmall' => 'Liten',
+			'meal.questionFlow.optionRegular' => 'Normal',
+			'meal.questionFlow.optionLarge' => 'Stor',
+			'meal.questionFlow.optionThin' => 'Tunn',
+			'meal.questionFlow.optionThick' => 'Tjock',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Fylld',
+			'meal.questionFlow.optionHeavy' => 'Tung',
+			'meal.questionFlow.optionSmaller' => 'Mindre',
+			'meal.questionFlow.optionTypical' => 'Typisk',
+			'meal.questionFlow.optionLarger' => 'Större',
 			'meal.analysis.title' => 'Analyserar din måltid',
 			'meal.analysis.stepStarted' => 'Börjar…',
 			'meal.analysis.stepDecomposition' => 'Förstår din måltid…',
@@ -2280,6 +2311,7 @@ extension on TranslationsSv {
 			'meal.analysis.offlineTip3' => 'Tips: En snabb portionsanteckning (1 skål, stor kaffe) gör uppskattningarna mycket skarpare.',
 			'meal.analysis.offlineTip4' => 'Tips: Att registrera efter måltiden bygger fortfarande vana; perfektion är inte nödvändig.',
 			'meal.analysis.offlineTip5' => 'Tips: Ange hur maten tillagats när det påverkar kalorierna mycket (stekt vs. ugnsbakad).',
+			'meal.analysis.noFoodTip' => 'Ingen mat upptäcktes. Prova en annan bild eller beskrivning.',
 			'meal.localInference.reviewTitle' => 'Granska identifierade ingredienser',
 			'meal.localInference.reviewSubtitle' => 'Detta tolkades på din enhet. Korrigera namn eller portioner innan näringsvärdet beräknas.',
 			'meal.localInference.mealName' => 'Måltidsnamn',
@@ -2528,6 +2560,8 @@ extension on TranslationsSv {
 			'notifications.breakfast.title' => 'Frukostdags! 🍳',
 			'notifications.breakfast.body' => 'Glöm inte att registrera din frukost',
 			'notifications.lunch.title' => 'Lunchdags! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Dags att registrera din lunch',
 			'notifications.dinner.title' => 'Middagsdags! 🍽️',
 			'notifications.dinner.body' => 'Glöm inte att registrera din middag',
@@ -2544,8 +2578,6 @@ extension on TranslationsSv {
 			'disclaimer.snap.preparationMethods.title' => 'Tillagningsmetoder',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Tillagningsmetoder kan avsevärt ändra näringsinnehållet. ${appLabel}s uppskattningar tar inte alltid hänsyn till dessa variationer.',
 			'disclaimer.snap.ingredients.title' => 'Ingredienser',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Komplexa rätter med många dolda ingredienser kan leda till mindre precisa uppskattningar.',
 			'disclaimer.snap.databaseLimitations.title' => 'Databasbegränsningar',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}s livsmedelsdatabas är omfattande men kanske inte innehåller varje enskild livsmedelsvara eller variant.',

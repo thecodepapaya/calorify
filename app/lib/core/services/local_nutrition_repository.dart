@@ -51,7 +51,7 @@ class LocalNutritionResolvedIngredient {
     required this.origin,
   });
 
-  final IngredientProposalItemV1 proposal;
+  final IngredientProposalItemV2 proposal;
   final String canonicalName;
   final String matchType;
   final String fdcId;
@@ -85,7 +85,7 @@ class LocalNutritionRepository {
 
   Future<LocalNutritionResolvedMeal> resolveProposal({
     required String analysisId,
-    required IngredientProposalV1 proposal,
+    required IngredientProposalV2 proposal,
   }) async {
     final installed = await _packService.loadActive();
     if (installed == null) {
@@ -101,9 +101,9 @@ class LocalNutritionRepository {
     final cacheIndex = _uniqueCacheIndex(cache);
     final resolved = <String, LocalNutritionResolvedIngredient>{};
     final touched = <({String fdcId, String datasetVersion})>{};
-    final misses = <IngredientProposalItemV1>[];
+    final misses = <IngredientProposalItemV2>[];
 
-    for (final ingredient in proposal.ingredients) {
+    for (final ingredient in proposal.items) {
       if (_isPlainWater(ingredient)) {
         resolved[ingredient.rowId] = LocalNutritionResolvedIngredient(
           proposal: ingredient,
@@ -165,7 +165,7 @@ class LocalNutritionRepository {
     }
 
     final ordered = <LocalNutritionResolvedIngredient>[];
-    for (final ingredient in proposal.ingredients) {
+    for (final ingredient in proposal.items) {
       final value = resolved[ingredient.rowId];
       if (value == null) throw const LocalNutritionResolutionException.miss();
       ordered.add(value);
@@ -175,7 +175,7 @@ class LocalNutritionRepository {
 
   Future<void> _resolveRemoteMisses({
     required String analysisId,
-    required List<IngredientProposalItemV1> misses,
+    required List<IngredientProposalItemV2> misses,
     required String datasetVersion,
     required Map<String, LocalNutritionResolvedIngredient> resolved,
   }) async {
@@ -187,8 +187,8 @@ class LocalNutritionRepository {
             .map(
               (ingredient) => LocalNutritionLookup(
                 rowId: ingredient.rowId,
-                canonicalHint: ingredient.canonicalHint,
-                preparation: ingredient.preparation,
+                canonicalHint: ingredient.usdaLookup.proposedCanonicalName,
+                preparation: ingredient.usdaLookup.preparationStates.join(' '),
               ),
             )
             .toList(growable: false),
@@ -311,12 +311,13 @@ class LocalNutritionRepository {
     return null;
   }
 
-  static List<String> _candidateKeys(IngredientProposalItemV1 ingredient) {
-    final preparation = ingredient.preparation.trim();
+  static List<String> _candidateKeys(IngredientProposalItemV2 ingredient) {
+    final preparation =
+        ingredient.usdaLookup.preparationStates.join(' ').trim();
     return <String>[
           if (preparation.isNotEmpty)
-            '${ingredient.canonicalHint} $preparation',
-          ingredient.canonicalHint,
+            '${ingredient.usdaLookup.proposedCanonicalName} $preparation',
+          ingredient.usdaLookup.proposedCanonicalName,
           if (preparation.isNotEmpty) '${ingredient.rawName} $preparation',
           ingredient.rawName,
         ]
@@ -326,10 +327,10 @@ class LocalNutritionRepository {
         .toList(growable: false);
   }
 
-  static bool _isPlainWater(IngredientProposalItemV1 ingredient) {
+  static bool _isPlainWater(IngredientProposalItemV2 ingredient) {
     final values = [
       ingredient.rawName,
-      ingredient.canonicalHint,
+      ingredient.usdaLookup.proposedCanonicalName,
     ].map(normalizeLocalNutritionTerm);
     return values.any(
       (value) => const {

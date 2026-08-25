@@ -70,7 +70,7 @@ class _V2MealTypeSheetState extends State<_V2MealTypeSheet> {
           ),
           const SizedBox(height: 8),
           Text(
-            widget.question.question,
+            t.localNutritionPhase4.mealTypeQuestion,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurface.withValues(alpha: 0.75),
             ),

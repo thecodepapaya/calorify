@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$te extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'ప్రశ్నలు అందుబాటులో లేవు';
 	@override String get next => 'తరువాత';
 	@override String get continueLabel => 'కొనసాగించు';
+	@override String get countQuestion => 'పరిమాణాన్ని ఎంచుకోండి';
+	@override String get itemSizeQuestion => 'వస్తువు పరిమాణాన్ని ఎంచుకోండి';
+	@override String get portionSizeQuestion => 'భాగాన్ని ఎంచుకోండి';
+	@override String get option6plus => '6 లేదా అంతకంటే ఎక్కువ';
+	@override String get optionSmall => 'చిన్నది';
+	@override String get optionRegular => 'సాధారణ';
+	@override String get optionLarge => 'పెద్దది';
+	@override String get optionThin => 'పల్చని';
+	@override String get optionThick => 'మందపాటి';
+	@override String get optionMini => 'చిన్నది';
+	@override String get optionStuffed => 'నింపిన';
+	@override String get optionHeavy => 'భారీ';
+	@override String get optionSmaller => 'చిన్నది';
+	@override String get optionTypical => 'సాధారణ';
+	@override String get optionLarger => 'పెద్దది';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$te extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.';
 	@override String get offlineTip4 => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.';
 	@override String get offlineTip5 => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.';
+	@override String get noFoodTip => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsTe {
 			'meal.questionFlow.noQuestionsAvailable' => 'ప్రశ్నలు అందుబాటులో లేవు',
 			'meal.questionFlow.next' => 'తరువాత',
 			'meal.questionFlow.continueLabel' => 'కొనసాగించు',
+			'meal.questionFlow.countQuestion' => 'పరిమాణాన్ని ఎంచుకోండి',
+			'meal.questionFlow.itemSizeQuestion' => 'వస్తువు పరిమాణాన్ని ఎంచుకోండి',
+			'meal.questionFlow.portionSizeQuestion' => 'భాగాన్ని ఎంచుకోండి',
+			'meal.questionFlow.option6plus' => '6 లేదా అంతకంటే ఎక్కువ',
+			'meal.questionFlow.optionSmall' => 'చిన్నది',
+			'meal.questionFlow.optionRegular' => 'సాధారణ',
+			'meal.questionFlow.optionLarge' => 'పెద్దది',
+			'meal.questionFlow.optionThin' => 'పల్చని',
+			'meal.questionFlow.optionThick' => 'మందపాటి',
+			'meal.questionFlow.optionMini' => 'చిన్నది',
+			'meal.questionFlow.optionStuffed' => 'నింపిన',
+			'meal.questionFlow.optionHeavy' => 'భారీ',
+			'meal.questionFlow.optionSmaller' => 'చిన్నది',
+			'meal.questionFlow.optionTypical' => 'సాధారణ',
+			'meal.questionFlow.optionLarger' => 'పెద్దది',
 			'meal.analysis.title' => 'మీ భోజనాన్ని విశ్లేషిస్తోంది',
 			'meal.analysis.stepStarted' => 'ప్రారంభిస్తోంది…',
 			'meal.analysis.stepDecomposition' => 'మీ భోజనాన్ని అర్థం చేసుకుంటోంది…',
@@ -2280,6 +2311,7 @@ extension on TranslationsTe {
 			'meal.analysis.offlineTip3' => 'చిట్కా: త్వరిత భాగం గమనిక (1 గిన్నె, పెద్ద కాఫీ) అంచనాలను చాలా పదునుగా చేస్తుంది.',
 			'meal.analysis.offlineTip4' => 'చిట్కా: భోజనం తర్వాత లాగింగ్ చేయడం అలవాటును ఇంకా పెంచుతుంది; పరిపూర్ణత ఐచ్ఛికం.',
 			'meal.analysis.offlineTip5' => 'చిట్కా: కేలరీలు చాలా మారినప్పుడు (వేయించినవి vs కాల్చినవి) ఆహారాన్ని ఎలా వండారో చెప్పండి.',
+			'meal.analysis.noFoodTip' => 'ఆహారం కనుగొనబడలేదు. వేరే ఫోటో లేదా వివరణను ప్రయత్నించండి.',
 			'meal.localInference.reviewTitle' => 'గుర్తించిన పదార్థాలను సమీక్షించండి',
 			'meal.localInference.reviewSubtitle' => 'ఇది మీ పరికరంలో విశ్లేషించబడింది. పోషక విలువలు లెక్కించే ముందు పేర్లను లేదా పరిమాణాలను సరిచేసుకోండి.',
 			'meal.localInference.mealName' => 'భోజనం పేరు',
@@ -2528,6 +2560,8 @@ extension on TranslationsTe {
 			'notifications.breakfast.title' => 'అల్పాహారం సమయం! 🍳',
 			'notifications.breakfast.body' => 'మీ అల్పాహారాన్ని లాగ్ చేయడం మర్చిపోవద్దు',
 			'notifications.lunch.title' => 'మధ్యాహ్న భోజనం సమయం! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'మీ మధ్యాహ్న భోజనాన్ని లాగ్ చేయడానికి సమయం',
 			'notifications.dinner.title' => 'రాత్రి భోజనం సమయం! 🍽️',
 			'notifications.dinner.body' => 'మీ రాత్రి భోజనాన్ని లాగ్ చేయడం మర్చిపోవద్దు',
@@ -2544,8 +2578,6 @@ extension on TranslationsTe {
 			'disclaimer.snap.preparationMethods.title' => 'తయారీ పద్ధతులు',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'వంట పద్ధతులు ఆహారం యొక్క పోషక కంటెంట్‌ను గణనీయంగా మార్చగలవు. ${appLabel} అంచనాలు ఈ వైవిధ్యాలను ఎల్లప్పుడూ పరిగణనలోకి తీసుకోకపోవచ్చు.',
 			'disclaimer.snap.ingredients.title' => 'పదార్థాలు',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'అనేక దాచిన పదార్థాలతో కూడిన సంక్లిష్ట వంటకాలు తక్కువ ఖచ్చితమైన అంచనాలకు దారితీయవచ్చు.',
 			'disclaimer.snap.databaseLimitations.title' => 'డేటాబేస్ పరిమితులు',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} యొక్క ఆహార డేటాబేస్ విస్తృతమైనది కానీ ప్రతి ఒక్క ఆహార వస్తువు లేదా వైవిధ్యాన్ని కలిగి ఉండకపోవచ్చు.',

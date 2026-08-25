@@ -23,6 +23,8 @@ Use this page to find the document that matches the work you are doing.
 - [Local inference phases 1–3 release candidate](../backend/docs/local-inference-phases-1-3-release-candidate.md)
 - [Local inference Phase 4 release candidate](../backend/docs/local-inference-phase-4-release-candidate.md)
 - [Meal-analysis Prometheus metrics](../backend/docs/meal-analysis-prometheus.md)
+- [Local meal-analysis CLI](../backend/docs/meal-analysis-cli.md) — run the
+  backend text flow interactively or as newline-delimited JSON.
 - [Calorie-estimation evals](../backend/evals/README.md)
 
 ## Other references

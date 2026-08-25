@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$fr extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Aucune question disponible';
 	@override String get next => 'Suivant';
 	@override String get continueLabel => 'Continuer';
+	@override String get countQuestion => 'Choisissez la quantité';
+	@override String get itemSizeQuestion => 'Choisissez la taille de l\'article';
+	@override String get portionSizeQuestion => 'Choisissez la taille de la portion';
+	@override String get option6plus => '6 ou plus';
+	@override String get optionSmall => 'Petit';
+	@override String get optionRegular => 'Normal';
+	@override String get optionLarge => 'Grand';
+	@override String get optionThin => 'Fin';
+	@override String get optionThick => 'Épais';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Farcis';
+	@override String get optionHeavy => 'Lourd';
+	@override String get optionSmaller => 'Plus petit';
+	@override String get optionTypical => 'Typique';
+	@override String get optionLarger => 'Plus grand';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$fr extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.';
 	@override String get offlineTip4 => 'Astuce : Enregistrer après le repas aide aussi à créer l\'habitude ; la perfection est optionnelle.';
 	@override String get offlineTip5 => 'Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four).';
+	@override String get noFoodTip => 'Aucune nourriture détectée. Essayez une autre photo ou description.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsFr {
 			'meal.questionFlow.noQuestionsAvailable' => 'Aucune question disponible',
 			'meal.questionFlow.next' => 'Suivant',
 			'meal.questionFlow.continueLabel' => 'Continuer',
+			'meal.questionFlow.countQuestion' => 'Choisissez la quantité',
+			'meal.questionFlow.itemSizeQuestion' => 'Choisissez la taille de l\'article',
+			'meal.questionFlow.portionSizeQuestion' => 'Choisissez la taille de la portion',
+			'meal.questionFlow.option6plus' => '6 ou plus',
+			'meal.questionFlow.optionSmall' => 'Petit',
+			'meal.questionFlow.optionRegular' => 'Normal',
+			'meal.questionFlow.optionLarge' => 'Grand',
+			'meal.questionFlow.optionThin' => 'Fin',
+			'meal.questionFlow.optionThick' => 'Épais',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Farcis',
+			'meal.questionFlow.optionHeavy' => 'Lourd',
+			'meal.questionFlow.optionSmaller' => 'Plus petit',
+			'meal.questionFlow.optionTypical' => 'Typique',
+			'meal.questionFlow.optionLarger' => 'Plus grand',
 			'meal.analysis.title' => 'Analyse de votre repas',
 			'meal.analysis.stepStarted' => 'Démarrage…',
 			'meal.analysis.stepDecomposition' => 'Compréhension de votre repas…',
@@ -2280,6 +2311,7 @@ extension on TranslationsFr {
 			'meal.analysis.offlineTip3' => 'Astuce : Une brève indication de portion (1 bol, grand café) améliore nettement les estimations.',
 			'meal.analysis.offlineTip4' => 'Astuce : Enregistrer après le repas aide aussi à créer l\'habitude ; la perfection est optionnelle.',
 			'meal.analysis.offlineTip5' => 'Astuce : Indiquez le mode de cuisson lorsque cela change beaucoup les calories (frit vs cuit au four).',
+			'meal.analysis.noFoodTip' => 'Aucune nourriture détectée. Essayez une autre photo ou description.',
 			'meal.localInference.reviewTitle' => 'Vérifier les ingrédients détectés',
 			'meal.localInference.reviewSubtitle' => 'Ceci a été interprété sur votre appareil. Corrigez les noms ou les portions avant le calcul nutritionnel.',
 			'meal.localInference.mealName' => 'Nom du repas',
@@ -2528,6 +2560,8 @@ extension on TranslationsFr {
 			'notifications.breakfast.title' => 'C\'est l\'heure du petit‑déjeuner ! 🍳',
 			'notifications.breakfast.body' => 'N\'oubliez pas d\'enregistrer votre petit‑déjeuner',
 			'notifications.lunch.title' => 'C\'est l\'heure du déjeuner ! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Il est temps d\'enregistrer votre déjeuner',
 			'notifications.dinner.title' => 'C\'est l\'heure du dîner ! 🍽️',
 			'notifications.dinner.body' => 'N\'oubliez pas d\'enregistrer votre dîner',
@@ -2544,8 +2578,6 @@ extension on TranslationsFr {
 			'disclaimer.snap.preparationMethods.title' => 'Méthodes de préparation',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Les modes de cuisson peuvent modifier significativement la valeur nutritionnelle des aliments. Les estimations de ${appLabel} peuvent ne pas toujours prendre en compte ces variations.',
 			'disclaimer.snap.ingredients.title' => 'Ingrédients',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Les plats complexes avec de nombreux ingrédients cachés peuvent conduire à des estimations moins précises.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limites de la base de données',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'La base de données d\'aliments de ${appLabel} est étendue mais peut ne pas inclure chaque ingrédient ou variation.',

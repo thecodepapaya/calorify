@@ -24,7 +24,7 @@ fallback mode, offline draft, or local image inference in this candidate.
 
 - Added versioned proposal, attempt, fallback, receipt, and provenance protobuf
   contracts and regenerated Dart, TypeScript, and Kotlin bindings.
-- Kept nutrient fields out of `IngredientProposalV1` and made the backend reject
+- Kept nutrient fields out of `IngredientProposalV2` and made the backend reject
   unknown or nutrition-like proposal fields.
 - Added replay-safe attempt/handoff metadata and preserved the original
   execution receipt across retries.
@@ -69,7 +69,7 @@ Text input
   -> saved preference (default off)
   -> backend rollout policy + device capability
        -> ineligible/failure: existing cloud text executor
-       -> eligible: Gemini Nano structured IngredientProposalV1
+       -> eligible: Gemini Nano structured IngredientProposalV2
             -> strict validator
             -> user review/edit
             -> POST /api/v2/food/analyze-proposal

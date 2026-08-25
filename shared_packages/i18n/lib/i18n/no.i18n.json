@@ -305,7 +305,22 @@
       "progress": "Spørsmål {current} av {total}",
       "noQuestionsAvailable": "Ingen spørsmål tilgjengelig",
       "next": "Neste",
-      "continueLabel": "Fortsett"
+      "continueLabel": "Fortsett",
+      "countQuestion": "Velg antall",
+      "itemSizeQuestion": "Velg størrelse",
+      "portionSizeQuestion": "Velg porsjonsstørrelse",
+      "option6plus": "6 eller flere",
+      "optionSmall": "Liten",
+      "optionRegular": "Vanlig",
+      "optionLarge": "Stor",
+      "optionThin": "Tynn",
+      "optionThick": "Tykk",
+      "optionMini": "Mini",
+      "optionStuffed": "Fylt",
+      "optionHeavy": "Tung",
+      "optionSmaller": "Mindre",
+      "optionTypical": "Typisk",
+      "optionLarger": "Større"
     },
     "analysis": {
       "title": "Analyserer måltidet ditt",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tips: Nevn drikker, sauser og matolje—de tilfører ofte kalorier folk glemmer.",
       "offlineTip3": "Tips: En kort porsjonsbeskrivelse (1 bolle, stor kaffe) gjør estimatene mye mer presise.",
       "offlineTip4": "Tips: Å logge etter måltidet bygger fortsatt vanen; perfeksjon er valgfritt.",
-      "offlineTip5": "Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt)."
+      "offlineTip5": "Tips: Si hvordan maten er tilberedt når det påvirker kalorier mye (stekt vs bakt).",
+      "noFoodTip": "Ingen mat ble oppdaget. Prøv et annet bilde eller en annen beskrivelse."
     },
     "localInference": {
       "reviewTitle": "Se over gjenkjente ingredienser",

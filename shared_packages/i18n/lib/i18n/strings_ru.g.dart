@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ru extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Вопросов нет';
 	@override String get next => 'Далее';
 	@override String get continueLabel => 'Продолжить';
+	@override String get countQuestion => 'Выберите количество';
+	@override String get itemSizeQuestion => 'Выберите размер продукта';
+	@override String get portionSizeQuestion => 'Выберите размер порции';
+	@override String get option6plus => '6 или больше';
+	@override String get optionSmall => 'Маленький';
+	@override String get optionRegular => 'Обычный';
+	@override String get optionLarge => 'Большой';
+	@override String get optionThin => 'Тонкий';
+	@override String get optionThick => 'Толстый';
+	@override String get optionMini => 'Мини';
+	@override String get optionStuffed => 'С начинкой';
+	@override String get optionHeavy => 'Тяжелый';
+	@override String get optionSmaller => 'Меньше';
+	@override String get optionTypical => 'Типичный';
+	@override String get optionLarger => 'Больше';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ru extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Совет: быстрая заметка о порции (1 миска, большой кофе) делает оценки значительно точнее.';
 	@override String get offlineTip4 => 'Совет: запись после еды всё ещё формирует привычку; совершенство не обязательно.';
 	@override String get offlineTip5 => 'Совет: указывайте способ приготовления, когда он сильно влияет на калории (жареное vs запечённое).';
+	@override String get noFoodTip => 'Еда не обнаружена. Попробуйте другое фото или описание.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsRu {
 			'meal.questionFlow.noQuestionsAvailable' => 'Вопросов нет',
 			'meal.questionFlow.next' => 'Далее',
 			'meal.questionFlow.continueLabel' => 'Продолжить',
+			'meal.questionFlow.countQuestion' => 'Выберите количество',
+			'meal.questionFlow.itemSizeQuestion' => 'Выберите размер продукта',
+			'meal.questionFlow.portionSizeQuestion' => 'Выберите размер порции',
+			'meal.questionFlow.option6plus' => '6 или больше',
+			'meal.questionFlow.optionSmall' => 'Маленький',
+			'meal.questionFlow.optionRegular' => 'Обычный',
+			'meal.questionFlow.optionLarge' => 'Большой',
+			'meal.questionFlow.optionThin' => 'Тонкий',
+			'meal.questionFlow.optionThick' => 'Толстый',
+			'meal.questionFlow.optionMini' => 'Мини',
+			'meal.questionFlow.optionStuffed' => 'С начинкой',
+			'meal.questionFlow.optionHeavy' => 'Тяжелый',
+			'meal.questionFlow.optionSmaller' => 'Меньше',
+			'meal.questionFlow.optionTypical' => 'Типичный',
+			'meal.questionFlow.optionLarger' => 'Больше',
 			'meal.analysis.title' => 'Анализируем ваше блюдо',
 			'meal.analysis.stepStarted' => 'Начинаем…',
 			'meal.analysis.stepDecomposition' => 'Разбираем блюдо…',
@@ -2280,6 +2311,7 @@ extension on TranslationsRu {
 			'meal.analysis.offlineTip3' => 'Совет: быстрая заметка о порции (1 миска, большой кофе) делает оценки значительно точнее.',
 			'meal.analysis.offlineTip4' => 'Совет: запись после еды всё ещё формирует привычку; совершенство не обязательно.',
 			'meal.analysis.offlineTip5' => 'Совет: указывайте способ приготовления, когда он сильно влияет на калории (жареное vs запечённое).',
+			'meal.analysis.noFoodTip' => 'Еда не обнаружена. Попробуйте другое фото или описание.',
 			'meal.localInference.reviewTitle' => 'Проверка распознанных ингредиентов',
 			'meal.localInference.reviewSubtitle' => 'Данные были обработаны на вашем устройстве. Исправьте названия или порции перед расчетом питательной ценности.',
 			'meal.localInference.mealName' => 'Название блюда',
@@ -2528,6 +2560,8 @@ extension on TranslationsRu {
 			'notifications.breakfast.title' => 'Время завтрака! 🍳',
 			'notifications.breakfast.body' => 'Не забудьте зафиксировать завтрак',
 			'notifications.lunch.title' => 'Время обеда! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Пора зафиксировать обед',
 			'notifications.dinner.title' => 'Время ужина! 🍽️',
 			'notifications.dinner.body' => 'Не забудьте зафиксировать ужин',
@@ -2544,8 +2578,6 @@ extension on TranslationsRu {
 			'disclaimer.snap.preparationMethods.title' => 'Методы приготовления',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Методы приготовления могут существенно менять питательную ценность. Оценки ${appLabel} не всегда учитывают все эти вариации.',
 			'disclaimer.snap.ingredients.title' => 'Ингредиенты',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Сложные блюда с множеством скрытых ингредиентов могут давать менее точные оценки.',
 			'disclaimer.snap.databaseLimitations.title' => 'Ограничения базы данных',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'База продуктов ${appLabel} обширна, но может не содержать каждой отдельной позиции или её вариаций.',

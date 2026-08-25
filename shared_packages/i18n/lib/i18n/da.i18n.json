@@ -305,7 +305,22 @@
       "progress": "Spørgsmål {current} af {total}",
       "noQuestionsAvailable": "Ingen spørgsmål tilgængelige",
       "next": "Næste",
-      "continueLabel": "Fortsæt"
+      "continueLabel": "Fortsæt",
+      "countQuestion": "Vælg antal",
+      "itemSizeQuestion": "Vælg elementstørrelse",
+      "portionSizeQuestion": "Vælg portionsstørrelse",
+      "option6plus": "6 eller flere",
+      "optionSmall": "Lille",
+      "optionRegular": "Normal",
+      "optionLarge": "Stor",
+      "optionThin": "Tynd",
+      "optionThick": "Tykk",
+      "optionMini": "Mini",
+      "optionStuffed": "Fyldt",
+      "optionHeavy": "Tung",
+      "optionSmaller": "Mindre",
+      "optionTypical": "Typisk",
+      "optionLarger": "Større"
     },
     "analysis": {
       "title": "Analyserer dit måltid",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tip: Angiv drikkevarer, saucer og madolie—de tilføjer kalorier, som mange glemmer.",
       "offlineTip3": "Tip: En hurtig portionsnote (1 skål, stor kaffe) gør estimaterne meget skarpere.",
       "offlineTip4": "Tip: At registrere efter måltidet bygger stadig vanen; perfektion er valgfrit.",
-      "offlineTip5": "Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt)."
+      "offlineTip5": "Tip: Angiv, hvordan maden er tilberedt, når det ændrer kalorier meget (stegt vs. bagt).",
+      "noFoodTip": "Ingen mad blev registreret. Prøv et andet billede eller en anden beskrivelse."
     },
     "localInference": {
       "reviewTitle": "Gennemse detekterede ingredienser",

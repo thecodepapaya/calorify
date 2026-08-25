@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$bn extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'কোন প্রশ্ন নেই';
 	@override String get next => 'পরবর্তী';
 	@override String get continueLabel => 'চালিয়ে যান';
+	@override String get countQuestion => 'পরিমাণ নির্বাচন করুন';
+	@override String get itemSizeQuestion => 'আইটেমের আকার নির্বাচন করুন';
+	@override String get portionSizeQuestion => 'পরিবেশনের আকার নির্বাচন করুন';
+	@override String get option6plus => '৬ বা তার বেশি';
+	@override String get optionSmall => 'ছোট';
+	@override String get optionRegular => 'সাধারণ';
+	@override String get optionLarge => 'বড়';
+	@override String get optionThin => 'পাতলা';
+	@override String get optionThick => 'মোটা';
+	@override String get optionMini => 'ছোট';
+	@override String get optionStuffed => 'ভরা';
+	@override String get optionHeavy => 'ভারী';
+	@override String get optionSmaller => 'ছোট';
+	@override String get optionTypical => 'সাধারণ';
+	@override String get optionLarger => 'বড়';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$bn extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'পরামর্শ: একটি দ্রুত পরিমাণ নোট (১ বাটি, বড় কফি) অনুমান অনেক উন্নত করে।';
 	@override String get offlineTip4 => 'পরামর্শ: খাবারের পরে লগ করলেও অভ্যাস তৈরি হয়; পরিপূর্ণতা বাধ্যতামূলক নয়।';
 	@override String get offlineTip5 => 'পরামর্শ: যদি রান্নার পদ্ধতি ক্যালরি অনেক পরিবর্তন করে (ভাজা বনাম বেকড), সেক্ষেত্রে রান্নার ধরন জানান।';
+	@override String get noFoodTip => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsBn {
 			'meal.questionFlow.noQuestionsAvailable' => 'কোন প্রশ্ন নেই',
 			'meal.questionFlow.next' => 'পরবর্তী',
 			'meal.questionFlow.continueLabel' => 'চালিয়ে যান',
+			'meal.questionFlow.countQuestion' => 'পরিমাণ নির্বাচন করুন',
+			'meal.questionFlow.itemSizeQuestion' => 'আইটেমের আকার নির্বাচন করুন',
+			'meal.questionFlow.portionSizeQuestion' => 'পরিবেশনের আকার নির্বাচন করুন',
+			'meal.questionFlow.option6plus' => '৬ বা তার বেশি',
+			'meal.questionFlow.optionSmall' => 'ছোট',
+			'meal.questionFlow.optionRegular' => 'সাধারণ',
+			'meal.questionFlow.optionLarge' => 'বড়',
+			'meal.questionFlow.optionThin' => 'পাতলা',
+			'meal.questionFlow.optionThick' => 'মোটা',
+			'meal.questionFlow.optionMini' => 'ছোট',
+			'meal.questionFlow.optionStuffed' => 'ভরা',
+			'meal.questionFlow.optionHeavy' => 'ভারী',
+			'meal.questionFlow.optionSmaller' => 'ছোট',
+			'meal.questionFlow.optionTypical' => 'সাধারণ',
+			'meal.questionFlow.optionLarger' => 'বড়',
 			'meal.analysis.title' => 'আপনার খাবার বিশ্লেষণ করা হচ্ছে',
 			'meal.analysis.stepStarted' => 'শুরু করা হচ্ছে…',
 			'meal.analysis.stepDecomposition' => 'আপনার খাবার বোঝা হচ্ছে…',
@@ -2280,6 +2311,7 @@ extension on TranslationsBn {
 			'meal.analysis.offlineTip3' => 'পরামর্শ: একটি দ্রুত পরিমাণ নোট (১ বাটি, বড় কফি) অনুমান অনেক উন্নত করে।',
 			'meal.analysis.offlineTip4' => 'পরামর্শ: খাবারের পরে লগ করলেও অভ্যাস তৈরি হয়; পরিপূর্ণতা বাধ্যতামূলক নয়।',
 			'meal.analysis.offlineTip5' => 'পরামর্শ: যদি রান্নার পদ্ধতি ক্যালরি অনেক পরিবর্তন করে (ভাজা বনাম বেকড), সেক্ষেত্রে রান্নার ধরন জানান।',
+			'meal.analysis.noFoodTip' => 'কোন খাবার সনাক্ত করা যায়নি। অন্য একটি ছবি বা বিবরণ চেষ্টা করুন।',
 			'meal.localInference.reviewTitle' => 'শনাক্ত করা উপাদানগুলো যাচাই করুন',
 			'meal.localInference.reviewSubtitle' => 'এটি আপনার ডিভাইসে বিশ্লেষণ করা হয়েছে। পুষ্টির হিসাব করার আগে নাম বা পরিমাণ সংশোধন করুন।',
 			'meal.localInference.mealName' => 'খাবারের নাম',
@@ -2528,6 +2560,8 @@ extension on TranslationsBn {
 			'notifications.breakfast.title' => 'প্রাতঃরাশের সময়! 🍳',
 			'notifications.breakfast.body' => 'প্রাতঃরাশ লগ করতে ভুলবেন না',
 			'notifications.lunch.title' => 'দুপুরের খাবারের সময়! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'দুপুরের খাবার লগ করার সময়',
 			'notifications.dinner.title' => 'রাতের খাবারের সময়! 🍽️',
 			'notifications.dinner.body' => 'রাতের খাবার লগ করতে ভুলবেন না',
@@ -2544,8 +2578,6 @@ extension on TranslationsBn {
 			'disclaimer.snap.preparationMethods.title' => 'প্রস্তুত করার উপায়',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'রান্নার পদ্ধতি খাবারের পুষ্টিগুণ ব্যাপকভাবে বদলে দিতে পারে। ${appLabel}-এর আনুমানিক ফলাফল সবসময় এই পরিবর্তনগুলোকে বিবেচনা নাও করতে পারে।',
 			'disclaimer.snap.ingredients.title' => 'উপকরণ',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'বহু লুকানো উপকরণসহ জটিল ডিশগুলোর জন্য আনুমানিকতা কম নির্ভুল হতে পারে।',
 			'disclaimer.snap.databaseLimitations.title' => 'ডাটাবেস সীমাবদ্ধতা',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}-এর খাদ্য ডাটাবেস বিস্তৃত হলেও এটি প্রতিটি খাদ্য আইটেম বা ভ্যারিয়েশন অন্তর্ভুক্ত নাও থাকতে পারে।',

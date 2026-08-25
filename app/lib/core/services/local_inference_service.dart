@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:models/models.dart';
 import 'package:uuid/uuid.dart';
 
@@ -42,7 +43,7 @@ class LocalInferenceResult {
     required this.elapsed,
   });
 
-  final IngredientProposalV1 proposal;
+  final IngredientProposalV2 proposal;
   final String requestId;
   final Duration elapsed;
 }
@@ -224,6 +225,12 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
       ...arguments,
       'requestId': resolvedRequestId,
       'timeoutMs': timeout.inMilliseconds,
+      'analysisContext': {
+        'analysisLocalDatetime': DateTime.now().toIso8601String(),
+        'timeZone': (await FlutterTimezone.getLocalTimezone()).identifier,
+        'locale': Platform.localeName.replaceAll('_', '-'),
+        'countryCode': Platform.localeName.split('_').elementAtOrNull(1),
+      },
     };
     _logGenAi('$method.request', data: _redactBinaryData(request));
     try {
@@ -248,7 +255,7 @@ class MethodChannelLocalInferenceService implements LocalInferenceService {
       final elapsedMs = (raw.remove('elapsedMs') as num?)?.toInt() ?? 0;
       _rejectNutritionFields(raw);
       final proposal =
-          IngredientProposalV1()..mergeFromProto3Json(_withoutNullValues(raw));
+          IngredientProposalV2()..mergeFromProto3Json(_withoutNullValues(raw));
       IngredientProposalValidator.validate(
         proposal,
         expectedModality: expectedModality,
@@ -358,33 +365,37 @@ Object? _redactBinaryData(Object? value) {
 }
 
 bool _normalizeCountPortions(Map<String, Object?> response) {
-  final ingredients = response['ingredients'];
+  final ingredients = response['items'];
   if (ingredients is! List) return false;
 
   var changed = false;
   for (final value in ingredients) {
     if (value is! Map) continue;
-    if (value['portionKind'] != 'COUNT') {
+    final portion = value['portion'];
+    if (portion is! Map) continue;
+    if (portion['kind'] != 'COUNT') {
       for (final field in const [
         'count',
         'perUnitGrams',
         'perUnitMinGrams',
         'perUnitMaxGrams',
       ]) {
-        if (value.remove(field) != null) changed = true;
+        if (portion.remove(field) != null) changed = true;
       }
       continue;
     }
-    final count = (value['count'] as num?)?.toDouble();
+    final count = (portion['count'] as num?)?.toDouble();
     if (count == null || !count.isFinite || count <= 0) continue;
 
     changed =
-        _derivePerUnit(value, 'perUnitGrams', 'gramsEstimated', count) ||
+        _derivePerUnit(portion, 'perUnitGrams', 'gramsEstimated', count) ||
         changed;
     changed =
-        _derivePerUnit(value, 'perUnitMinGrams', 'minGrams', count) || changed;
+        _derivePerUnit(portion, 'perUnitMinGrams', 'minGrams', count) ||
+        changed;
     changed =
-        _derivePerUnit(value, 'perUnitMaxGrams', 'maxGrams', count) || changed;
+        _derivePerUnit(portion, 'perUnitMaxGrams', 'maxGrams', count) ||
+        changed;
   }
   return changed;
 }
@@ -406,10 +417,10 @@ bool _derivePerUnit(
 
 abstract final class IngredientProposalValidator {
   static void validate(
-    IngredientProposalV1 proposal, {
+    IngredientProposalV2 proposal, {
     required AnalysisModality expectedModality,
   }) {
-    if (proposal.schemaVersion != 1) _invalid('Unsupported proposal version.');
+    if (proposal.schemaVersion != 2) _invalid('Unsupported proposal version.');
     if (proposal.proposalId.trim().isEmpty ||
         proposal.proposalId.length > 128) {
       _invalid('Proposal ID is missing.');
@@ -421,87 +432,93 @@ abstract final class IngredientProposalValidator {
         InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO) {
       _invalid('Proposal origin is not local inference.');
     }
-    _boundedText(proposal.mealName, 'Meal name', max: 160);
+    final noFood =
+        proposal.outcome == DecompositionOutcome.DECOMPOSITION_OUTCOME_NO_FOOD;
+    if (!noFood) _boundedText(proposal.mealName, 'Meal name', max: 60);
+    _boundedText(proposal.outcomeReason, 'Outcome reason', max: 240);
+    _boundedText(proposal.mealTypeReason, 'Meal type reason', max: 240);
     _optionalText(proposal.modelName, 'Model name', max: 100);
     _optionalText(proposal.modelVersion, 'Model version', max: 100);
-    _probability(proposal.confidence, 'Meal confidence');
-    if (proposal.ingredients.isEmpty || proposal.ingredients.length > 20) {
-      _invalid('A proposal must contain between 1 and 20 ingredients.');
+    _probability(proposal.outcomeConfidence, 'Outcome confidence');
+    if (proposal.items.length > 20 || (!noFood && proposal.items.isEmpty)) {
+      _invalid('A food proposal must contain between 1 and 20 items.');
+    }
+    if (noFood &&
+        (proposal.mealName.isNotEmpty ||
+            proposal.items.isNotEmpty ||
+            proposal.inferredMealType != MealType.UNKNOWN ||
+            proposal.mealTypeConfident)) {
+      _invalid('No-food proposal fields are inconsistent.');
     }
 
     final rowIds = <String>{};
-    for (final ingredient in proposal.ingredients) {
+    for (final ingredient in proposal.items) {
       _boundedText(ingredient.rowId, 'Ingredient row ID', max: 128);
       if (!rowIds.add(ingredient.rowId)) {
         _invalid('Ingredient row IDs must be unique.');
       }
-      _boundedText(ingredient.rawName, 'Ingredient name', max: 160);
+      _boundedText(ingredient.rawName, 'Ingredient name', max: 120);
       _boundedText(
-        ingredient.canonicalHint,
-        'Canonical ingredient name',
-        max: 160,
+        ingredient.isFoodReason,
+        'Food classification reason',
+        max: 240,
       );
-      _optionalText(ingredient.preparation, 'Preparation', max: 80);
-      _optionalText(ingredient.notes, 'Ingredient notes', max: 240);
-      _finiteRange(ingredient.gramsEstimated, 'Estimated grams', 1, 5000);
-      _finiteRange(ingredient.minGrams, 'Minimum grams', 1, 5000);
-      _finiteRange(ingredient.maxGrams, 'Maximum grams', 1, 5000);
-      if (ingredient.minGrams > ingredient.gramsEstimated ||
-          ingredient.gramsEstimated > ingredient.maxGrams) {
+      _probability(
+        ingredient.isFoodConfidence,
+        'Food classification confidence',
+      );
+      _boundedText(
+        ingredient.usdaLookup.proposedCanonicalName,
+        'Canonical ingredient name',
+        max: 120,
+      );
+      if (ingredient.usdaLookup.aliases.length > 5 ||
+          ingredient.usdaLookup.preparationStates.length > 5) {
+        _invalid('Too many lookup aliases or preparation states.');
+      }
+      final portion = ingredient.portion;
+      _finiteRange(portion.gramsEstimated, 'Estimated grams', 0.1, 5000);
+      _finiteRange(portion.minGrams, 'Minimum grams', 0, 5000);
+      _finiteRange(portion.maxGrams, 'Maximum grams', 0, 5000);
+      if (portion.minGrams > portion.gramsEstimated ||
+          portion.gramsEstimated > portion.maxGrams) {
         _invalid('Ingredient gram ranges are inconsistent.');
       }
-      _probability(ingredient.confidence, 'Ingredient confidence');
-      if (ingredient.portionKind == PortionKind.PORTION_KIND_UNSPECIFIED ||
-          ingredient.portionKind == PortionKind.COUNT_QUESTION) {
+      if (portion.kind == PortionKind.PORTION_KIND_UNSPECIFIED ||
+          portion.kind == PortionKind.COUNT_QUESTION) {
         _invalid('Ingredient portion kind is unsupported.');
       }
-      if (ingredient.portionKind == PortionKind.COUNT) {
-        _finiteRange(ingredient.count, 'Count', 0.1, 20);
-        _finiteRange(ingredient.perUnitGrams, 'Per-unit grams', 0.1, 2000);
+      if (portion.kind == PortionKind.COUNT) {
+        if (portion.hasCount()) _finiteRange(portion.count, 'Count', 0.1, 20);
+        _finiteRange(portion.perUnitGrams, 'Per-unit grams', 0.1, 5000);
         _finiteRange(
-          ingredient.perUnitMinGrams,
+          portion.perUnitMinGrams,
           'Minimum per-unit grams',
           0.1,
-          2000,
+          5000,
         );
         _finiteRange(
-          ingredient.perUnitMaxGrams,
+          portion.perUnitMaxGrams,
           'Maximum per-unit grams',
           0.1,
-          2000,
+          5000,
         );
-        if (ingredient.perUnitMinGrams > ingredient.perUnitGrams ||
-            ingredient.perUnitGrams > ingredient.perUnitMaxGrams) {
+        if (portion.perUnitMinGrams > portion.perUnitGrams ||
+            portion.perUnitGrams > portion.perUnitMaxGrams) {
           _invalid('Per-unit gram ranges are inconsistent.');
         }
         _approximatelyEqual(
-          ingredient.gramsEstimated,
-          ingredient.count * ingredient.perUnitGrams,
+          portion.gramsEstimated,
+          portion.hasCount()
+              ? portion.count * portion.perUnitGrams
+              : portion.gramsEstimated,
           'Count and total grams are inconsistent.',
         );
-      } else if (ingredient.count != 0 ||
-          ingredient.perUnitGrams != 0 ||
-          ingredient.perUnitMinGrams != 0 ||
-          ingredient.perUnitMaxGrams != 0) {
+      } else if (portion.hasCount() ||
+          portion.hasPerUnitGrams() ||
+          portion.hasPerUnitMinGrams() ||
+          portion.hasPerUnitMaxGrams()) {
         _invalid('Bulk and pinch portions cannot contain count values.');
-      }
-      if (ingredient.fieldProvenance.length > 20) {
-        _invalid('Too many ingredient provenance entries.');
-      }
-      final provenanceFields = <String>{};
-      for (final provenance in ingredient.fieldProvenance) {
-        _boundedText(provenance.fieldName, 'Provenance field', max: 64);
-        provenanceFields.add(provenance.fieldName);
-        if (provenance.origin ==
-                IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_UNSPECIFIED ||
-            provenance.origin ==
-                IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_CLOUD_MODEL) {
-          _invalid('Ingredient provenance origin is invalid.');
-        }
-      }
-      if (!provenanceFields.contains('identity') ||
-          !provenanceFields.contains('portion')) {
-        _invalid('Ingredient identity and portion provenance are required.');
       }
     }
   }

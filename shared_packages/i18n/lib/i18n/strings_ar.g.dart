@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ar extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'لا توجد أسئلة متاحة';
 	@override String get next => 'التالي';
 	@override String get continueLabel => 'استمر';
+	@override String get countQuestion => 'اختر الكمية';
+	@override String get itemSizeQuestion => 'اختر حجم العنصر';
+	@override String get portionSizeQuestion => 'اختر حجم الحصة';
+	@override String get option6plus => '6 أو أكثر';
+	@override String get optionSmall => 'صغير';
+	@override String get optionRegular => 'عادي';
+	@override String get optionLarge => 'كبير';
+	@override String get optionThin => 'رفيع';
+	@override String get optionThick => 'سميك';
+	@override String get optionMini => 'صغير جدًا';
+	@override String get optionStuffed => 'محشو';
+	@override String get optionHeavy => 'ثقيل';
+	@override String get optionSmaller => 'أصغر';
+	@override String get optionTypical => 'نموذجي';
+	@override String get optionLarger => 'أكبر';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ar extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.';
 	@override String get offlineTip4 => 'نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.';
 	@override String get offlineTip5 => 'نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).';
+	@override String get noFoodTip => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsAr {
 			'meal.questionFlow.noQuestionsAvailable' => 'لا توجد أسئلة متاحة',
 			'meal.questionFlow.next' => 'التالي',
 			'meal.questionFlow.continueLabel' => 'استمر',
+			'meal.questionFlow.countQuestion' => 'اختر الكمية',
+			'meal.questionFlow.itemSizeQuestion' => 'اختر حجم العنصر',
+			'meal.questionFlow.portionSizeQuestion' => 'اختر حجم الحصة',
+			'meal.questionFlow.option6plus' => '6 أو أكثر',
+			'meal.questionFlow.optionSmall' => 'صغير',
+			'meal.questionFlow.optionRegular' => 'عادي',
+			'meal.questionFlow.optionLarge' => 'كبير',
+			'meal.questionFlow.optionThin' => 'رفيع',
+			'meal.questionFlow.optionThick' => 'سميك',
+			'meal.questionFlow.optionMini' => 'صغير جدًا',
+			'meal.questionFlow.optionStuffed' => 'محشو',
+			'meal.questionFlow.optionHeavy' => 'ثقيل',
+			'meal.questionFlow.optionSmaller' => 'أصغر',
+			'meal.questionFlow.optionTypical' => 'نموذجي',
+			'meal.questionFlow.optionLarger' => 'أكبر',
 			'meal.analysis.title' => 'جارٍ تحليل وجبتك',
 			'meal.analysis.stepStarted' => 'بدء...',
 			'meal.analysis.stepDecomposition' => 'فهم الوجبة...',
@@ -2280,6 +2311,7 @@ extension on TranslationsAr {
 			'meal.analysis.offlineTip3' => 'نصيحة: ملاحظة سريعة عن الحصة (وعاء واحد، قهوة كبيرة) تجعل التقديرات أدق.',
 			'meal.analysis.offlineTip4' => 'نصيحة: التسجيل بعد الوجبة ما زال يبني العادة؛ الكمال اختياري.',
 			'meal.analysis.offlineTip5' => 'نصيحة: اذكر طريقة الطهي عندما تؤثر كثيرًا على السعرات (مقلي مقابل مخبوز).',
+			'meal.analysis.noFoodTip' => 'لم يتم اكتشاف أي طعام. جرب صورة أو وصفًا آخر.',
 			'meal.localInference.reviewTitle' => 'مراجعة المكونات المكتشفة',
 			'meal.localInference.reviewSubtitle' => 'تم تحليل هذه البيانات على جهازك. يرجى تصحيح الأسماء أو الكميات قبل حساب القيم الغذائية.',
 			'meal.localInference.mealName' => 'اسم الوجبة',
@@ -2528,6 +2560,8 @@ extension on TranslationsAr {
 			'notifications.breakfast.title' => 'حان وقت الإفطار! 🍳',
 			'notifications.breakfast.body' => 'لا تنسَ تسجيل إفطارك',
 			'notifications.lunch.title' => 'حان وقت الغداء! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'حان وقت تسجيل غدائك',
 			'notifications.dinner.title' => 'حان وقت العشاء! 🍽️',
 			'notifications.dinner.body' => 'لا تنسَ تسجيل عشاءك',
@@ -2544,8 +2578,6 @@ extension on TranslationsAr {
 			'disclaimer.snap.preparationMethods.title' => 'طرق التحضير',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'يمكن لطرق الطهي أن تغيّر محتوى الغذاء بشكل كبير. قد لا تأخذ تقديرات ${appLabel} هذه الاختلافات في الحسبان دائمًا.',
 			'disclaimer.snap.ingredients.title' => 'المكونات',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'الأطباق المعقدة ذات المكونات المخفية قد تؤدي إلى تقديرات أقل دقة.',
 			'disclaimer.snap.databaseLimitations.title' => 'حدود قاعدة البيانات',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'قاعدة بيانات الأطعمة لدى ${appLabel} واسعة لكنها قد لا تتضمن كل صنف طعام أو اختلاف.',

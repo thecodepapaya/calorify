@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ms extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Tiada soalan tersedia';
 	@override String get next => 'Seterusnya';
 	@override String get continueLabel => 'Teruskan';
+	@override String get countQuestion => 'Pilih kuantiti';
+	@override String get itemSizeQuestion => 'Pilih saiz item';
+	@override String get portionSizeQuestion => 'Pilih saiz hidangan';
+	@override String get option6plus => '6 atau lebih';
+	@override String get optionSmall => 'Kecil';
+	@override String get optionRegular => 'Biasa';
+	@override String get optionLarge => 'Besar';
+	@override String get optionThin => 'Nipis';
+	@override String get optionThick => 'Tebal';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Berinti';
+	@override String get optionHeavy => 'Berat';
+	@override String get optionSmaller => 'Lebih kecil';
+	@override String get optionTypical => 'Biasa';
+	@override String get optionLarger => 'Lebih besar';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ms extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.';
 	@override String get offlineTip4 => 'Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.';
 	@override String get offlineTip5 => 'Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar).';
+	@override String get noFoodTip => 'Tiada makanan dikesan. Cuba gambar atau penerangan lain.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsMs {
 			'meal.questionFlow.noQuestionsAvailable' => 'Tiada soalan tersedia',
 			'meal.questionFlow.next' => 'Seterusnya',
 			'meal.questionFlow.continueLabel' => 'Teruskan',
+			'meal.questionFlow.countQuestion' => 'Pilih kuantiti',
+			'meal.questionFlow.itemSizeQuestion' => 'Pilih saiz item',
+			'meal.questionFlow.portionSizeQuestion' => 'Pilih saiz hidangan',
+			'meal.questionFlow.option6plus' => '6 atau lebih',
+			'meal.questionFlow.optionSmall' => 'Kecil',
+			'meal.questionFlow.optionRegular' => 'Biasa',
+			'meal.questionFlow.optionLarge' => 'Besar',
+			'meal.questionFlow.optionThin' => 'Nipis',
+			'meal.questionFlow.optionThick' => 'Tebal',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Berinti',
+			'meal.questionFlow.optionHeavy' => 'Berat',
+			'meal.questionFlow.optionSmaller' => 'Lebih kecil',
+			'meal.questionFlow.optionTypical' => 'Biasa',
+			'meal.questionFlow.optionLarger' => 'Lebih besar',
 			'meal.analysis.title' => 'Menganalisis hidangan anda',
 			'meal.analysis.stepStarted' => 'Bermula…',
 			'meal.analysis.stepDecomposition' => 'Memahami hidangan anda…',
@@ -2280,6 +2311,7 @@ extension on TranslationsMs {
 			'meal.analysis.offlineTip3' => 'Tip: Nota bahagian ringkas (1 mangkuk, kopi besar) menjadikan anggaran lebih tepat.',
 			'meal.analysis.offlineTip4' => 'Tip: Log selepas makan masih membina tabiat; kesempurnaan bukan wajib.',
 			'meal.analysis.offlineTip5' => 'Tip: Beritahu cara penyediaan jika ia menukar kalori dengan banyak (goreng vs bakar).',
+			'meal.analysis.noFoodTip' => 'Tiada makanan dikesan. Cuba gambar atau penerangan lain.',
 			'meal.localInference.reviewTitle' => 'Semak ramuan yang dikesan',
 			'meal.localInference.reviewSubtitle' => 'Ini ditafsirkan pada peranti anda. Betulkan nama atau bahagian sebelum pemakanan dikira.',
 			'meal.localInference.mealName' => 'Nama hidangan',
@@ -2528,6 +2560,8 @@ extension on TranslationsMs {
 			'notifications.breakfast.title' => 'Masa Sarapan! 🍳',
 			'notifications.breakfast.body' => 'Jangan lupa log sarapan anda',
 			'notifications.lunch.title' => 'Masa Makan Tengah Hari! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Masa untuk log makan tengah hari anda',
 			'notifications.dinner.title' => 'Masa Makan Malam! 🍽️',
 			'notifications.dinner.body' => 'Jangan lupa log makan malam anda',
@@ -2544,8 +2578,6 @@ extension on TranslationsMs {
 			'disclaimer.snap.preparationMethods.title' => 'Kaedah Penyediaan',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Kaedah memasak boleh mengubah kandungan pemakanan makanan dengan ketara. Anggaran ${appLabel} mungkin tidak sentiasa mengambil kira variasi ini.',
 			'disclaimer.snap.ingredients.title' => 'Bahan',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Hidangan kompleks dengan banyak bahan tersembunyi mungkin menghasilkan anggaran kurang tepat.',
 			'disclaimer.snap.databaseLimitations.title' => 'Had Pangkalan Data',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Pangkalan data makanan ${appLabel} luas tetapi mungkin tidak mengandungi setiap item makanan atau variasinya.',

@@ -14,6 +14,7 @@ enum PipelineStep {
   MEAL_TYPE_QUESTION = 5;
   RESULT = 6;
   ERROR = 7;
+  NO_FOOD = 8;
 }
 
 enum PortionKind {
@@ -28,6 +29,12 @@ enum AnalysisModality {
   ANALYSIS_MODALITY_UNSPECIFIED = 0;
   ANALYSIS_MODALITY_TEXT = 1;
   ANALYSIS_MODALITY_IMAGE = 2;
+}
+
+enum DecompositionOutcome {
+  DECOMPOSITION_OUTCOME_UNSPECIFIED = 0;
+  DECOMPOSITION_OUTCOME_FOOD = 1;
+  DECOMPOSITION_OUTCOME_NO_FOOD = 2;
 }
 
 enum InterpretationOrigin {
@@ -113,37 +120,48 @@ message IngredientFieldProvenance {
 
 // Models may propose identity and portion information only. Nutrient values
 // intentionally do not exist in this contract.
-message IngredientProposalItemV1 {
-  string row_id = 1;
-  string raw_name = 2;
-  string canonical_hint = 3;
-  string preparation = 4;
-  double grams_estimated = 5;
-  double min_grams = 6;
-  double max_grams = 7;
-  string notes = 8;
-  PortionKind portion_kind = 9;
-  optional double count = 10;
-  optional double per_unit_grams = 11;
-  optional double per_unit_min_grams = 12;
-  optional double per_unit_max_grams = 13;
-  bool size_specified_by_user = 14;
-  double confidence = 15;
-  repeated IngredientFieldProvenance field_provenance = 16;
+message UsdaLookupProposalV2 {
+  string proposed_canonical_name = 1;
+  repeated string aliases = 2;
+  repeated string preparation_states = 3;
 }
 
-message IngredientProposalV1 {
+message PortionProposalV2 {
+  PortionKind kind = 1;
+  double grams_estimated = 2;
+  double min_grams = 3;
+  double max_grams = 4;
+  optional double count = 5;
+  optional double per_unit_grams = 6;
+  optional double per_unit_min_grams = 7;
+  optional double per_unit_max_grams = 8;
+  bool size_specified_by_user = 9;
+}
+
+message IngredientProposalItemV2 {
+  string row_id = 1;
+  string raw_name = 2;
+  string is_food_reason = 3;
+  double is_food_confidence = 4;
+  UsdaLookupProposalV2 usda_lookup = 5;
+  PortionProposalV2 portion = 6;
+}
+
+message IngredientProposalV2 {
   uint32 schema_version = 1;
   string proposal_id = 2;
   AnalysisModality modality = 3;
   string meal_name = 4;
-  meal.MealType inferred_meal_type = 5;
-  bool meal_type_confident = 6;
-  double confidence = 7;
-  repeated IngredientProposalItemV1 ingredients = 8;
-  InterpretationOrigin interpretation_origin = 9;
-  optional string model_name = 10;
-  optional string model_version = 11;
+  DecompositionOutcome outcome = 14;
+  string outcome_reason = 5;
+  double outcome_confidence = 6;
+  meal.MealType inferred_meal_type = 7;
+  string meal_type_reason = 8;
+  bool meal_type_confident = 9;
+  repeated IngredientProposalItemV2 items = 10;
+  InterpretationOrigin interpretation_origin = 11;
+  optional string model_name = 12;
+  optional string model_version = 13;
 }
 
 message AnalysisAttemptReceipt {
@@ -176,7 +194,7 @@ message PipelineMealHealth {
 message PipelineDecomposedIngredient {
   string row_id = 1;          // stable id per row; survives clarify replays
   string raw_name = 2;
-  string canonical_hint = 3;
+  reserved 3;
 
   // Total grams used downstream for macro math. Server enforces:
   //   if portion_kind == COUNT: grams_estimated = count * per_unit_grams
@@ -184,7 +202,7 @@ message PipelineDecomposedIngredient {
   double min_grams = 5;
   double max_grams = 6;
 
-  string notes = 7;
+  reserved 7;
 
   PortionKind portion_kind = 8;
   optional double count = 9;            // fractional ok; null if not extracted
@@ -197,25 +215,19 @@ message PipelineDecomposedIngredient {
 message PipelineResolvedIngredient {
   string row_id = 1;
   string raw_name = 2;
-  string canonical_name = 3;
-  string match_type = 4;
+  reserved 3, 4;
   double grams = 5;
   PipelineMacros macros = 6;
-  string source = 7;
+  reserved 7;
   PortionKind portion_kind = 8;
   optional double count = 9;
   optional double per_unit_grams = 10;
-  NutritionOrigin nutrition_origin = 11;
-  optional string fdc_id = 12;
-  optional string usda_dataset_version = 13;
-  optional PipelineMacros nutrients_per_100g = 14;
-  repeated IngredientFieldProvenance field_provenance = 15;
+  reserved 11, 12, 13, 14, 15;
 }
 
 message PipelineClarificationOption {
   string option_id = 1;       // stable; matcher key
-  string label = 2;           // user-facing copy, no grams
-  optional string detail = 3; // optional fine print, e.g. "≈ 35g each"
+  reserved 2, 3;
   double grams = 4;           // total grams this option resolves to (count baked in)
   int32 calorie_delta = 5;
 }
@@ -225,7 +237,7 @@ message PipelineClarification {
   string row_id = 2;           // links to PipelineDecomposedIngredient.row_id
   string ingredient_name = 3;  // display only
   PortionKind portion_kind = 4; // drives icon / copy variant
-  string question = 5;
+  reserved 5;
   repeated PipelineClarificationOption options = 6;
   string default_option_id = 7;
 }
@@ -242,7 +254,7 @@ message PipelineDecompositionData {
   meal.MealType inferred_meal_type = 5;
   bool meal_type_confident = 6;
   InterpretationOrigin interpretation_origin = 7;
-  optional IngredientProposalV1 proposal = 8;
+  reserved 8;
 }
 
 message PipelineIngredientsData {
@@ -263,7 +275,7 @@ message PipelineUncertaintyData {
 message PipelineMealTypeQuestionData {
   string analysis_id = 1;
   string meal_name = 2;
-  string question = 3;
+  reserved 3;
   repeated meal.MealType options = 4;
   meal.MealType inferred_meal_type = 5;
 }
@@ -290,6 +302,12 @@ message PipelineErrorData {
   bool retryable = 3;
 }
 
+message PipelineNoFoodData {
+  string analysis_id = 1;
+  string outcome_reason = 2;
+  double outcome_confidence = 3;
+}
+
 
 message MealAnalysisPipelineSessionContext {
   PipelineResultData result = 1;
@@ -297,4 +315,5 @@ message MealAnalysisPipelineSessionContext {
   optional string image_url = 3;
   optional string text_description = 4;
   bool is_revised = 5;
+  optional PipelineNoFoodData no_food = 6;
 }

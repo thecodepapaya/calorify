@@ -48,13 +48,12 @@ void main() {
           rowId: 'roti',
           ingredientName: 'roti',
           portionKind: PortionKind.COUNT_QUESTION,
-          question: 'How many rotis?',
           defaultOptionId: '2',
           options: [
-            PipelineClarificationOption(optionId: '1', label: '1'),
-            PipelineClarificationOption(optionId: '2', label: '2'),
-            PipelineClarificationOption(optionId: '3', label: '3'),
-            PipelineClarificationOption(optionId: '4', label: '4'),
+            PipelineClarificationOption(optionId: '1', grams: 35),
+            PipelineClarificationOption(optionId: '2', grams: 70),
+            PipelineClarificationOption(optionId: '3', grams: 105),
+            PipelineClarificationOption(optionId: '4', grams: 140),
           ],
         ),
         PipelineClarification(
@@ -62,24 +61,11 @@ void main() {
           rowId: 'roti',
           ingredientName: 'roti',
           portionKind: PortionKind.COUNT,
-          question: 'How big were each of your 4 rotis?',
           defaultOptionId: 'regular',
           options: [
-            PipelineClarificationOption(
-              optionId: 'thin',
-              label: 'Thin',
-              detail: '~ 25g each',
-            ),
-            PipelineClarificationOption(
-              optionId: 'regular',
-              label: 'Regular',
-              detail: '~ 35g each',
-            ),
-            PipelineClarificationOption(
-              optionId: 'thick',
-              label: 'Thick',
-              detail: '~ 45g each',
-            ),
+            PipelineClarificationOption(optionId: 'thin', grams: 100),
+            PipelineClarificationOption(optionId: 'regular', grams: 140),
+            PipelineClarificationOption(optionId: 'thick', grams: 180),
           ],
         ),
       ];
@@ -91,7 +77,7 @@ void main() {
         (future) => answersFuture = future,
       );
 
-      expect(find.text('How many rotis?'), findsOneWidget);
+      expect(find.text('Choose quantity'), findsOneWidget);
       await tester.ensureVisible(find.byType(MealQuestionOptionTile).at(3));
       await tester.tap(find.byType(MealQuestionOptionTile).at(3));
       await tester.pump();
@@ -107,8 +93,8 @@ void main() {
       // the .then microtask, then settle.
       await tester.pumpAndSettle();
 
-      expect(find.text('How big were each of your 4 rotis?'), findsOneWidget);
-      expect(find.text('~ 35g each'), findsOneWidget);
+      expect(find.text('Choose item size'), findsOneWidget);
+      expect(find.text('140 g'), findsOneWidget);
       await tester.ensureVisible(find.byType(MealQuestionOptionTile).at(2));
       await tester.tap(find.byType(MealQuestionOptionTile).at(2));
       await tester.pump();

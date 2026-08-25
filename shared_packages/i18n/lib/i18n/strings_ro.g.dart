@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$ro extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Nu există întrebări disponibile';
 	@override String get next => 'Următorul';
 	@override String get continueLabel => 'Continuă';
+	@override String get countQuestion => 'Alege cantitatea';
+	@override String get itemSizeQuestion => 'Alege dimensiunea articolului';
+	@override String get portionSizeQuestion => 'Alege dimensiunea porției';
+	@override String get option6plus => '6 sau mai multe';
+	@override String get optionSmall => 'Mică';
+	@override String get optionRegular => 'Normală';
+	@override String get optionLarge => 'Mare';
+	@override String get optionThin => 'Subțire';
+	@override String get optionThick => 'Gros';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Umplut';
+	@override String get optionHeavy => 'Greu';
+	@override String get optionSmaller => 'Mai mică';
+	@override String get optionTypical => 'Tipică';
+	@override String get optionLarger => 'Mai mare';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$ro extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.';
 	@override String get offlineTip4 => 'Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.';
 	@override String get offlineTip5 => 'Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).';
+	@override String get noFoodTip => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsRo {
 			'meal.questionFlow.noQuestionsAvailable' => 'Nu există întrebări disponibile',
 			'meal.questionFlow.next' => 'Următorul',
 			'meal.questionFlow.continueLabel' => 'Continuă',
+			'meal.questionFlow.countQuestion' => 'Alege cantitatea',
+			'meal.questionFlow.itemSizeQuestion' => 'Alege dimensiunea articolului',
+			'meal.questionFlow.portionSizeQuestion' => 'Alege dimensiunea porției',
+			'meal.questionFlow.option6plus' => '6 sau mai multe',
+			'meal.questionFlow.optionSmall' => 'Mică',
+			'meal.questionFlow.optionRegular' => 'Normală',
+			'meal.questionFlow.optionLarge' => 'Mare',
+			'meal.questionFlow.optionThin' => 'Subțire',
+			'meal.questionFlow.optionThick' => 'Gros',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Umplut',
+			'meal.questionFlow.optionHeavy' => 'Greu',
+			'meal.questionFlow.optionSmaller' => 'Mai mică',
+			'meal.questionFlow.optionTypical' => 'Tipică',
+			'meal.questionFlow.optionLarger' => 'Mai mare',
 			'meal.analysis.title' => 'Se analizează masa ta',
 			'meal.analysis.stepStarted' => 'Începem…',
 			'meal.analysis.stepDecomposition' => 'Înțelegem masa…',
@@ -2280,6 +2311,7 @@ extension on TranslationsRo {
 			'meal.analysis.offlineTip3' => 'Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.',
 			'meal.analysis.offlineTip4' => 'Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.',
 			'meal.analysis.offlineTip5' => 'Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).',
+			'meal.analysis.noFoodTip' => 'Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere.',
 			'meal.localInference.reviewTitle' => 'Revizuiește ingredientele detectate',
 			'meal.localInference.reviewSubtitle' => 'Acestea au fost interpretate pe dispozitivul tău. Corectează numele sau porțiile înainte de calculul nutrițional.',
 			'meal.localInference.mealName' => 'Numele mesei',
@@ -2528,6 +2560,8 @@ extension on TranslationsRo {
 			'notifications.breakfast.title' => 'Mic dejun! 🍳',
 			'notifications.breakfast.body' => 'Nu uita să-ți înregistrezi micul dejun',
 			'notifications.lunch.title' => 'Prânz! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'E timpul să notezi prânzul',
 			'notifications.dinner.title' => 'Cină! 🍽️',
 			'notifications.dinner.body' => 'Nu uita să-ți înregistrezi cina',
@@ -2544,8 +2578,6 @@ extension on TranslationsRo {
 			'disclaimer.snap.preparationMethods.title' => 'Metode de preparare',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Metodele de gătit pot altera semnificativ conținutul nutrițional. Estimările ${appLabel} pot să nu ia întotdeauna în calcul aceste variații.',
 			'disclaimer.snap.ingredients.title' => 'Ingrediente',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Preparatele complexe cu multe ingrediente ascunse pot duce la estimări mai puțin exacte.',
 			'disclaimer.snap.databaseLimitations.title' => 'Limitări ale bazei de date',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => 'Baza de date de alimente a ${appLabel} este extinsă, dar s-ar putea să nu includă fiecare aliment sau variație.',

@@ -809,6 +809,21 @@ class _Translations$meal$questionFlow$tr extends Translations$meal$questionFlow$
 	@override String get noQuestionsAvailable => 'Kullanılabilir soru yok';
 	@override String get next => 'İleri';
 	@override String get continueLabel => 'Devam';
+	@override String get countQuestion => 'Miktarı seçin';
+	@override String get itemSizeQuestion => 'Ürün boyutunu seçin';
+	@override String get portionSizeQuestion => 'Porsiyon boyutunu seçin';
+	@override String get option6plus => '6 veya daha fazla';
+	@override String get optionSmall => 'Küçük';
+	@override String get optionRegular => 'Normal';
+	@override String get optionLarge => 'Büyük';
+	@override String get optionThin => 'İnce';
+	@override String get optionThick => 'Kalın';
+	@override String get optionMini => 'Mini';
+	@override String get optionStuffed => 'Doldurulmuş';
+	@override String get optionHeavy => 'Ağır';
+	@override String get optionSmaller => 'Daha küçük';
+	@override String get optionTypical => 'Tipik';
+	@override String get optionLarger => 'Daha büyük';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class _Translations$meal$analysis$tr extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => 'İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.';
 	@override String get offlineTip4 => 'İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.';
 	@override String get offlineTip5 => 'İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).';
+	@override String get noFoodTip => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsTr {
 			'meal.questionFlow.noQuestionsAvailable' => 'Kullanılabilir soru yok',
 			'meal.questionFlow.next' => 'İleri',
 			'meal.questionFlow.continueLabel' => 'Devam',
+			'meal.questionFlow.countQuestion' => 'Miktarı seçin',
+			'meal.questionFlow.itemSizeQuestion' => 'Ürün boyutunu seçin',
+			'meal.questionFlow.portionSizeQuestion' => 'Porsiyon boyutunu seçin',
+			'meal.questionFlow.option6plus' => '6 veya daha fazla',
+			'meal.questionFlow.optionSmall' => 'Küçük',
+			'meal.questionFlow.optionRegular' => 'Normal',
+			'meal.questionFlow.optionLarge' => 'Büyük',
+			'meal.questionFlow.optionThin' => 'İnce',
+			'meal.questionFlow.optionThick' => 'Kalın',
+			'meal.questionFlow.optionMini' => 'Mini',
+			'meal.questionFlow.optionStuffed' => 'Doldurulmuş',
+			'meal.questionFlow.optionHeavy' => 'Ağır',
+			'meal.questionFlow.optionSmaller' => 'Daha küçük',
+			'meal.questionFlow.optionTypical' => 'Tipik',
+			'meal.questionFlow.optionLarger' => 'Daha büyük',
 			'meal.analysis.title' => 'Öğününüz analiz ediliyor',
 			'meal.analysis.stepStarted' => 'Başlanıyor…',
 			'meal.analysis.stepDecomposition' => 'Öğününüz anlaşılıyor…',
@@ -2280,6 +2311,7 @@ extension on TranslationsTr {
 			'meal.analysis.offlineTip3' => 'İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.',
 			'meal.analysis.offlineTip4' => 'İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.',
 			'meal.analysis.offlineTip5' => 'İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).',
+			'meal.analysis.noFoodTip' => 'Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin.',
 			'meal.localInference.reviewTitle' => 'Tespit edilen malzemeleri gözden geçir',
 			'meal.localInference.reviewSubtitle' => 'Bu işlem cihazınızda gerçekleştirildi. Besin değerleri hesaplanmadan önce isimleri veya porsiyonları düzeltin.',
 			'meal.localInference.mealName' => 'Öğün adı',
@@ -2528,6 +2560,8 @@ extension on TranslationsTr {
 			'notifications.breakfast.title' => 'Kahvaltı Zamanı! 🍳',
 			'notifications.breakfast.body' => 'Kahvaltınızı kaydetmeyi unutmayın',
 			'notifications.lunch.title' => 'Öğle Vakti! 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => 'Öğlen yemeğinizi kaydetme zamanı',
 			'notifications.dinner.title' => 'Akşam Yemeği Zamanı! 🍽️',
 			'notifications.dinner.body' => 'Akşam yemeğinizi kaydetmeyi unutmayın',
@@ -2544,8 +2578,6 @@ extension on TranslationsTr {
 			'disclaimer.snap.preparationMethods.title' => 'Hazırlama Yöntemleri',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => 'Pişirme yöntemleri yiyeceğin besin içeriğini önemli ölçüde değiştirebilir. ${appLabel} tahminleri her zaman bu farklılıkları hesaba katmayabilir.',
 			'disclaimer.snap.ingredients.title' => 'İçerikler',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => 'Birçok gizli içeriğe sahip karmaşık yemekler daha az doğru tahminlere yol açabilir.',
 			'disclaimer.snap.databaseLimitations.title' => 'Veritabanı Sınırlamaları',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel}\'in gıda veritabanı kapsamlıdır ancak her bir yiyecek öğesini veya varyasyonunu içermeyebilir.',

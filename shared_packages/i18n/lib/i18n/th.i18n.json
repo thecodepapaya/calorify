@@ -305,7 +305,22 @@
       "progress": "คำถาม {current} จาก {total}",
       "noQuestionsAvailable": "ไม่มีคำถาม",
       "next": "ถัดไป",
-      "continueLabel": "ดำเนินการต่อ"
+      "continueLabel": "ดำเนินการต่อ",
+      "countQuestion": "เลือกจำนวน",
+      "itemSizeQuestion": "เลือกขนาด",
+      "portionSizeQuestion": "เลือกขนาดส่วน",
+      "option6plus": "6 ชิ้นขึ้นไป",
+      "optionSmall": "เล็ก",
+      "optionRegular": "ปกติ",
+      "optionLarge": "ใหญ่",
+      "optionThin": "บาง",
+      "optionThick": "หนา",
+      "optionMini": "จิ๋ว",
+      "optionStuffed": "ยัดไส้",
+      "optionHeavy": "หนัก",
+      "optionSmaller": "เล็กกว่า",
+      "optionTypical": "ทั่วไป",
+      "optionLarger": "ใหญ่กว่า"
     },
     "analysis": {
       "title": "กำลังวิเคราะห์มื้อของคุณ",
@@ -332,7 +347,8 @@
       "offlineTip2": "เคล็ดลับ: ระบุเครื่องดื่ม น้ำจิ้ม และน้ำมันที่ใช้ปรุง — สิ่งเหล่านี้เพิ่มแคลอรีที่คนมักลืม",
       "offlineTip3": "เคล็ดลับ: ระบุขนาดคร่าวๆ (1 ถ้วย, กาแฟแก้วใหญ่) จะช่วยให้การประเมินคมชัดขึ้น",
       "offlineTip4": "เคล็ดลับ: บันทึกหลังมื้อยังช่วยสร้างนิสัยได้ ความสมบูรณ์ไม่จำเป็น",
-      "offlineTip5": "เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)"
+      "offlineTip5": "เคล็ดลับ: ระบุวิธีการปรุงเมื่อส่งผลต่อแคลอรีมาก (ทอด vs อบ)",
+      "noFoodTip": "ไม่พบอาหาร ลองถ่ายรูปหรือพิมพ์คำอธิบายใหม่"
     },
     "localInference": {
       "reviewTitle": "ตรวจสอบส่วนผสมที่ตรวจพบ",

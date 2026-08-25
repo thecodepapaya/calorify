@@ -305,7 +305,22 @@
       "progress": "Întrebare {current} din {total}",
       "noQuestionsAvailable": "Nu există întrebări disponibile",
       "next": "Următorul",
-      "continueLabel": "Continuă"
+      "continueLabel": "Continuă",
+      "countQuestion": "Alege cantitatea",
+      "itemSizeQuestion": "Alege dimensiunea articolului",
+      "portionSizeQuestion": "Alege dimensiunea porției",
+      "option6plus": "6 sau mai multe",
+      "optionSmall": "Mică",
+      "optionRegular": "Normală",
+      "optionLarge": "Mare",
+      "optionThin": "Subțire",
+      "optionThick": "Gros",
+      "optionMini": "Mini",
+      "optionStuffed": "Umplut",
+      "optionHeavy": "Greu",
+      "optionSmaller": "Mai mică",
+      "optionTypical": "Tipică",
+      "optionLarger": "Mai mare"
     },
     "analysis": {
       "title": "Se analizează masa ta",
@@ -332,7 +347,8 @@
       "offlineTip2": "Sfat: Menționează băuturile, sosurile și uleiul de gătit—ele adaugă calorii pe care oamenii le uită des.",
       "offlineTip3": "Sfat: O scurtă notă despre porție (1 bol, cafea mare) face estimările mult mai precise.",
       "offlineTip4": "Sfat: Înregistrarea după masă tot construiește obiceiul; perfecțiunea e opțională.",
-      "offlineTip5": "Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt)."
+      "offlineTip5": "Sfat: Spune cum a fost gătit când afectează mult caloriile (prăjit vs copt).",
+      "noFoodTip": "Nu a fost detectată nicio mâncare. Încearcă o altă fotografie sau descriere."
     },
     "localInference": {
       "reviewTitle": "Revizuiește ingredientele detectate",

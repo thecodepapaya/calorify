@@ -163,6 +163,21 @@ final class MealAnalysisCompleted extends MealAnalysisState {
   final MealAnalysisPipelineSessionContext resultContext;
 }
 
+final class MealAnalysisNoFood extends MealAnalysisState {
+  const MealAnalysisNoFood({
+    required MealAnalysisViewData view,
+    required this.analysisId,
+    required this.reason,
+    required this.confidence,
+    required this.resultContext,
+  }) : super(view);
+
+  final String analysisId;
+  final String reason;
+  final double confidence;
+  final MealAnalysisPipelineSessionContext resultContext;
+}
+
 enum MealAnalysisFailureKind {
   backend,
   stream,
@@ -309,7 +324,11 @@ class MealAnalysisController extends ChangeNotifier {
 
   void cancel() {
     if (_disposed || _state is MealAnalysisCancelled) return;
-    if (_state is MealAnalysisCompleted || _state is MealAnalysisFailed) return;
+    if (_state is MealAnalysisCompleted ||
+        _state is MealAnalysisNoFood ||
+        _state is MealAnalysisFailed) {
+      return;
+    }
     _invalidateActiveRun();
     _state = MealAnalysisCancelled(_buildView());
     notifyListeners();
@@ -406,6 +425,27 @@ class MealAnalysisController extends ChangeNotifier {
           backendMessage: message.isEmpty ? null : message,
         ),
         view: view,
+      );
+      return;
+    }
+
+    final noFood = event.noFood;
+    if (noFood != null) {
+      _flowStopwatch.stop();
+      _finishRound(
+        epoch,
+        MealAnalysisNoFood(
+          view: view,
+          analysisId: noFood.analysisId,
+          reason: noFood.outcomeReason,
+          confidence: noFood.outcomeConfidence,
+          resultContext: MealAnalysisPipelineSessionContext(
+            imageBytes: _imageBytes,
+            imageUrl: _imageUrl,
+            textDescription: _textDescription,
+            noFood: noFood,
+          ),
+        ),
       );
       return;
     }
@@ -605,10 +645,7 @@ class MealAnalysisController extends ChangeNotifier {
     if (ingredients == null || ingredients.isEmpty) return const [];
     return ingredients
         .map((ingredient) {
-          final canonicalName = ingredient.canonicalName.trim();
-          return canonicalName.isNotEmpty
-              ? canonicalName
-              : ingredient.rawName.trim();
+          return ingredient.rawName.trim();
         })
         .where((name) => name.isNotEmpty)
         .toList(growable: false);
@@ -620,7 +657,7 @@ class MealAnalysisController extends ChangeNotifier {
     return ingredients
         .map((ingredient) {
           final rawName = ingredient.rawName.trim();
-          return rawName.isNotEmpty ? rawName : ingredient.canonicalHint.trim();
+          return rawName;
         })
         .where((name) => name.isNotEmpty)
         .toList(growable: false);
@@ -659,7 +696,7 @@ class MealAnalysisController extends ChangeNotifier {
       PipelineStep.DECOMPOSITION => 0,
       PipelineStep.INGREDIENTS => 1,
       PipelineStep.UNCERTAINTY || PipelineStep.MEAL_TYPE_QUESTION => 2,
-      PipelineStep.RESULT => 3,
+      PipelineStep.RESULT || PipelineStep.NO_FOOD => 3,
       _ => null,
     };
   }

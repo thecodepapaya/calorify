@@ -809,6 +809,21 @@ class Translations$meal$questionFlow$zh_CN extends Translations$meal$questionFlo
 	@override String get noQuestionsAvailable => '暂无可用问题';
 	@override String get next => '下一步';
 	@override String get continueLabel => '继续';
+	@override String get countQuestion => '选择数量';
+	@override String get itemSizeQuestion => '选择食材大小';
+	@override String get portionSizeQuestion => '选择份量大小';
+	@override String get option6plus => '6个或更多';
+	@override String get optionSmall => '小份';
+	@override String get optionRegular => '标准份';
+	@override String get optionLarge => '大份';
+	@override String get optionThin => '薄';
+	@override String get optionThick => '厚';
+	@override String get optionMini => '迷你份';
+	@override String get optionStuffed => '馅料足';
+	@override String get optionHeavy => '重份';
+	@override String get optionSmaller => '偏小份';
+	@override String get optionTypical => '常规份';
+	@override String get optionLarger => '偏大份';
 }
 
 // Path: meal.analysis
@@ -843,6 +858,7 @@ class Translations$meal$analysis$zh_CN extends Translations$meal$analysis$en {
 	@override String get offlineTip3 => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。';
 	@override String get offlineTip4 => '提示：饭后记录同样能培养习惯；不必追求完美。';
 	@override String get offlineTip5 => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。';
+	@override String get noFoodTip => '未检测到食物。请尝试其他照片或描述。';
 }
 
 // Path: meal.localInference
@@ -2255,6 +2271,21 @@ extension on TranslationsZhCn {
 			'meal.questionFlow.noQuestionsAvailable' => '暂无可用问题',
 			'meal.questionFlow.next' => '下一步',
 			'meal.questionFlow.continueLabel' => '继续',
+			'meal.questionFlow.countQuestion' => '选择数量',
+			'meal.questionFlow.itemSizeQuestion' => '选择食材大小',
+			'meal.questionFlow.portionSizeQuestion' => '选择份量大小',
+			'meal.questionFlow.option6plus' => '6个或更多',
+			'meal.questionFlow.optionSmall' => '小份',
+			'meal.questionFlow.optionRegular' => '标准份',
+			'meal.questionFlow.optionLarge' => '大份',
+			'meal.questionFlow.optionThin' => '薄',
+			'meal.questionFlow.optionThick' => '厚',
+			'meal.questionFlow.optionMini' => '迷你份',
+			'meal.questionFlow.optionStuffed' => '馅料足',
+			'meal.questionFlow.optionHeavy' => '重份',
+			'meal.questionFlow.optionSmaller' => '偏小份',
+			'meal.questionFlow.optionTypical' => '常规份',
+			'meal.questionFlow.optionLarger' => '偏大份',
 			'meal.analysis.title' => '正在分析你的餐食',
 			'meal.analysis.stepStarted' => '开始处理…',
 			'meal.analysis.stepDecomposition' => '理解你的餐食…',
@@ -2280,6 +2311,7 @@ extension on TranslationsZhCn {
 			'meal.analysis.offlineTip3' => '提示：简短的分量说明（1 碗、大杯咖啡）会让估算更精确。',
 			'meal.analysis.offlineTip4' => '提示：饭后记录同样能培养习惯；不必追求完美。',
 			'meal.analysis.offlineTip5' => '提示：烹饪方式会大幅影响热量（煎 vs 烤），说明烹饪方法有助于准确估算。',
+			'meal.analysis.noFoodTip' => '未检测到食物。请尝试其他照片或描述。',
 			'meal.localInference.reviewTitle' => '核对检测到的食材',
 			'meal.localInference.reviewSubtitle' => '此内容由您的设备解析。在计算营养成分前，请修正名称或分量。',
 			'meal.localInference.mealName' => '餐食名称',
@@ -2528,6 +2560,8 @@ extension on TranslationsZhCn {
 			'notifications.breakfast.title' => '早餐时间！ 🍳',
 			'notifications.breakfast.body' => '别忘了记录你的早餐',
 			'notifications.lunch.title' => '午餐时间！ 🥗',
+			_ => null,
+		} ?? switch (path) {
 			'notifications.lunch.body' => '是时候记录午餐了',
 			'notifications.dinner.title' => '晚餐时间！ 🍽️',
 			'notifications.dinner.body' => '别忘了记录你的晚餐',
@@ -2544,8 +2578,6 @@ extension on TranslationsZhCn {
 			'disclaimer.snap.preparationMethods.title' => '烹饪方式',
 			'disclaimer.snap.preparationMethods.description' => ({required Object appLabel}) => '烹饪方法会显著改变食物的营养成分。${appLabel} 的估算可能无法始终考虑这些差异。',
 			'disclaimer.snap.ingredients.title' => '食材',
-			_ => null,
-		} ?? switch (path) {
 			'disclaimer.snap.ingredients.description' => '复杂菜肴中存在许多隐含成分可能导致估算不够准确。',
 			'disclaimer.snap.databaseLimitations.title' => '数据库限制',
 			'disclaimer.snap.databaseLimitations.description' => ({required Object appLabel}) => '${appLabel} 的食物数据库虽然很广泛，但可能不包含每一种食物或所有变体。',

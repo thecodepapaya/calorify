@@ -10,6 +10,7 @@ export const MEAL_ANALYSIS_STAGES = [
   'AWAITING_MEAL_TYPE',
   'READY_FOR_PRESENTATION',
   'PRESENTING',
+  'NO_FOOD_DETECTED',
   'COMPLETED',
 ] as const;
 
@@ -54,6 +55,9 @@ export function parseMealAnalysisStage(value: unknown): MealAnalysisStage | unde
 export function inferMealAnalysisStage(
   snapshot: MealAnalysisStageSnapshot
 ): MealAnalysisStage {
+  if (isRecord(snapshot.resultData) && snapshot.resultData.result_kind === 'NO_FOOD') {
+    return 'NO_FOOD_DETECTED';
+  }
   if (snapshot.resultData != null) return 'COMPLETED';
   if (snapshot.mealTypeQuestionData != null) return 'AWAITING_MEAL_TYPE';
 
@@ -91,6 +95,13 @@ export function resolveMealAnalysisStage(
   snapshot: MealAnalysisStageSnapshot
 ): MealAnalysisStage {
   const stage = parseMealAnalysisStage(snapshot.stage) ?? inferMealAnalysisStage(snapshot);
+  if (stage === 'NO_FOOD_DETECTED') {
+    const result = requireRecord(snapshot.resultData, 'no-food result data');
+    if (result.result_kind !== 'NO_FOOD') {
+      throw new InvalidMealAnalysisSnapshotError('NO_FOOD_DETECTED has no no-food result');
+    }
+    return stage;
+  }
   if (stage === 'PENDING_DECOMPOSITION' || stage === 'DECOMPOSING') {
     if (
       snapshot.decompositionData != null ||

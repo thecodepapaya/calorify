@@ -107,6 +107,19 @@ test('a separate database can supply its own client and advisory lock', async ()
   }
 });
 
+test('quiet migrations do not write successful migration notices', async () => {
+  resetState();
+  const dir = await migrationDir({ '001_quiet.sql': 'CREATE TABLE quiet_example (id INTEGER);' });
+  const log = mock.method(console, 'log', () => {});
+  try {
+    await runMigrations({ migrationsDir: dir, quiet: true });
+    assert.equal(log.mock.calls.length, 0);
+  } finally {
+    log.mock.restore();
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
 test('CREATE INDEX CONCURRENTLY stays outside a transaction and is recorded', async () => {
   resetState();
   const sql = 'CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_example ON example(id);';

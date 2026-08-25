@@ -463,7 +463,7 @@ class MealAnalysisImageRequest extends $pb.GeneratedMessage {
 class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
   factory MealAnalysisProposalRequest({
     $core.String? analysisId,
-    $0.IngredientProposalV1? proposal,
+    $0.IngredientProposalV2? proposal,
     $core.String? localAttemptId,
     $fixnum.Int64? localAttemptStartedAtEpochMs,
     $fixnum.Int64? localAttemptCompletedAtEpochMs,
@@ -495,8 +495,8 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
       package: const $pb.PackageName(_omitMessageNames ? '' : 'calorify'),
       createEmptyInstance: create)
     ..aOS(1, _omitFieldNames ? '' : 'analysisId')
-    ..aOM<$0.IngredientProposalV1>(2, _omitFieldNames ? '' : 'proposal',
-        subBuilder: $0.IngredientProposalV1.create)
+    ..aOM<$0.IngredientProposalV2>(2, _omitFieldNames ? '' : 'proposal',
+        subBuilder: $0.IngredientProposalV2.create)
     ..aOS(3, _omitFieldNames ? '' : 'localAttemptId')
     ..aInt64(4, _omitFieldNames ? '' : 'localAttemptStartedAtEpochMs')
     ..aInt64(5, _omitFieldNames ? '' : 'localAttemptCompletedAtEpochMs')
@@ -537,15 +537,15 @@ class MealAnalysisProposalRequest extends $pb.GeneratedMessage {
   void clearAnalysisId() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $0.IngredientProposalV1 get proposal => $_getN(1);
+  $0.IngredientProposalV2 get proposal => $_getN(1);
   @$pb.TagNumber(2)
-  set proposal($0.IngredientProposalV1 value) => $_setField(2, value);
+  set proposal($0.IngredientProposalV2 value) => $_setField(2, value);
   @$pb.TagNumber(2)
   $core.bool hasProposal() => $_has(1);
   @$pb.TagNumber(2)
   void clearProposal() => $_clearField(2);
   @$pb.TagNumber(2)
-  $0.IngredientProposalV1 ensureProposal() => $_ensure(1);
+  $0.IngredientProposalV2 ensureProposal() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.String get localAttemptId => $_getSZ(2);

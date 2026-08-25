@@ -45,7 +45,21 @@ Future<bool> showV2MealAnalysisFlow({
         finalContext.hasImageBytes() && finalContext.imageBytes.isNotEmpty
             ? Uint8List.fromList(finalContext.imageBytes)
             : null,
-    mealDetectionResult: finalContext.toMealDetectionResult(),
+    mealDetectionResult:
+        finalContext.hasNoFood()
+            ? MealDetectionResult(
+              mealIdentified: false,
+              tip: t.meal.analysis.noFoodTip,
+              metadata: MealMetadata(
+                imageUrl:
+                    finalContext.hasImageUrl() ? finalContext.imageUrl : null,
+                mealDescription:
+                    finalContext.hasTextDescription()
+                        ? finalContext.textDescription
+                        : null,
+              ),
+            )
+            : finalContext.toMealDetectionResult(),
     pipelineContext: finalContext,
   );
   return true;
@@ -84,6 +98,8 @@ Future<MealAnalysisPipelineSessionContext?> resolveV2MealAnalysisFlow({
 
       switch (controller.state) {
         case MealAnalysisCompleted(:final resultContext):
+          return resultContext;
+        case MealAnalysisNoFood(:final resultContext):
           return resultContext;
         case MealAnalysisNeedsClarification(:final clarifications):
           final answers = await showMealQuestionFlowFromPipeline(

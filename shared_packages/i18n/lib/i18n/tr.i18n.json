@@ -305,7 +305,22 @@
       "progress": "Soru {current} / {total}",
       "noQuestionsAvailable": "Kullanılabilir soru yok",
       "next": "İleri",
-      "continueLabel": "Devam"
+      "continueLabel": "Devam",
+      "countQuestion": "Miktarı seçin",
+      "itemSizeQuestion": "Ürün boyutunu seçin",
+      "portionSizeQuestion": "Porsiyon boyutunu seçin",
+      "option6plus": "6 veya daha fazla",
+      "optionSmall": "Küçük",
+      "optionRegular": "Normal",
+      "optionLarge": "Büyük",
+      "optionThin": "İnce",
+      "optionThick": "Kalın",
+      "optionMini": "Mini",
+      "optionStuffed": "Doldurulmuş",
+      "optionHeavy": "Ağır",
+      "optionSmaller": "Daha küçük",
+      "optionTypical": "Tipik",
+      "optionLarger": "Daha büyük"
     },
     "analysis": {
       "title": "Öğününüz analiz ediliyor",
@@ -332,7 +347,8 @@
       "offlineTip2": "İpucu: İçecekler, soslar ve pişirme yağını belirtin—bunlar genellikle unutulan kalorileri ekler.",
       "offlineTip3": "İpucu: Hızlı bir porsiyon notu (1 kase, büyük kahve) tahminleri çok daha isabetli yapar.",
       "offlineTip4": "İpucu: Öğünden sonra kayıt yapmak da alışkanlık kazandırır; mükemmellik zorunlu değildir.",
-      "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama)."
+      "offlineTip5": "İpucu: Kalorileri çok değiştiren pişirme şeklini belirtin (kızartma vs fırınlama).",
+      "noFoodTip": "Hiçbir yiyecek algılanmadı. Başka bir fotoğraf veya açıklama deneyin."
     },
     "localInference": {
       "reviewTitle": "Tespit edilen malzemeleri gözden geçir",

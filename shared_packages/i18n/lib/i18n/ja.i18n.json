@@ -305,7 +305,22 @@
       "progress": "質問 {current}/{total}",
       "noQuestionsAvailable": "利用可能な質問はありません",
       "next": "次へ",
-      "continueLabel": "続ける"
+      "continueLabel": "続ける",
+      "countQuestion": "数量を選択",
+      "itemSizeQuestion": "サイズを選択",
+      "portionSizeQuestion": "ポーションサイズを選択",
+      "option6plus": "6個以上",
+      "optionSmall": "小",
+      "optionRegular": "普通",
+      "optionLarge": "大",
+      "optionThin": "薄い",
+      "optionThick": "厚い",
+      "optionMini": "ミニ",
+      "optionStuffed": "詰め物入り",
+      "optionHeavy": "ヘビー",
+      "optionSmaller": "小さい",
+      "optionTypical": "標準",
+      "optionLarger": "大きい"
     },
     "analysis": {
       "title": "食事を分析中",
@@ -332,7 +347,8 @@
       "offlineTip2": "ヒント：飲み物、ソース、調理油も伝えてください—見落としがちなカロリーが含まれます。",
       "offlineTip3": "ヒント：分量の簡単なメモ（例：1杯、大きめのコーヒー）が推定を大きく改善します。",
       "offlineTip4": "ヒント：食後に記録しても習慣化になります。完璧である必要はありません。",
-      "offlineTip5": "ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。"
+      "offlineTip5": "ヒント：調理方法（揚げる・焼くなど）を伝えるとカロリー推定がより正確になります。",
+      "noFoodTip": "食品が検出されませんでした。別の写真または説明をお試しください。"
     },
     "localInference": {
       "reviewTitle": "検出された食材を確認",

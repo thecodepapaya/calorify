@@ -25,26 +25,14 @@ class LocalCalculatedIngredient {
     return PipelineResolvedIngredient(
       rowId: proposal.rowId,
       rawName: proposal.rawName,
-      canonicalName: resolution.canonicalName,
-      matchType: resolution.matchType,
       grams: grams,
       macros: macros,
-      source: switch (resolution.origin) {
-        NutritionOrigin.NUTRITION_ORIGIN_BUNDLED_USDA => 'local_pack',
-        NutritionOrigin.NUTRITION_ORIGIN_CACHED_USDA => 'local_cache',
-        NutritionOrigin.NUTRITION_ORIGIN_REMOTE_USDA => 'remote_usda',
-        NutritionOrigin.NUTRITION_ORIGIN_DETERMINISTIC_CONSTANT =>
-          'deterministic',
-        _ => 'unresolved',
-      },
-      portionKind: proposal.portionKind,
-      count: proposal.hasCount() ? proposal.count : null,
-      perUnitGrams: proposal.hasPerUnitGrams() ? proposal.perUnitGrams : null,
-      nutritionOrigin: resolution.origin,
-      fdcId: resolution.fdcId,
-      usdaDatasetVersion: resolution.datasetVersion,
-      nutrientsPer100g: resolution.nutrientsPer100g,
-      fieldProvenance: proposal.fieldProvenance,
+      portionKind: proposal.portion.kind,
+      count: proposal.portion.hasCount() ? proposal.portion.count : null,
+      perUnitGrams:
+          proposal.portion.hasPerUnitGrams()
+              ? proposal.portion.perUnitGrams
+              : null,
     );
   }
 }
@@ -80,9 +68,9 @@ class LocalNutritionCalculator {
     for (final resolution in meal.ingredients) {
       final proposal = resolution.proposal;
       final selected = selectedGrams[proposal.rowId];
-      final grams = selected ?? proposal.gramsEstimated;
-      final minGrams = selected ?? proposal.minGrams;
-      final maxGrams = selected ?? proposal.maxGrams;
+      final grams = selected ?? proposal.portion.gramsEstimated;
+      final minGrams = selected ?? proposal.portion.minGrams;
+      final maxGrams = selected ?? proposal.portion.maxGrams;
       calculated.add(
         LocalCalculatedIngredient(
           resolution: resolution,

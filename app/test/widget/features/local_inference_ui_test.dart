@@ -68,36 +68,34 @@ InstalledLocalNutritionPack _installedPack() {
   return InstalledLocalNutritionPack(pack: pack, byteSize: 1);
 }
 
-IngredientProposalV1 _proposal() => IngredientProposalV1(
-  schemaVersion: 1,
+IngredientProposalV2 _proposal() => IngredientProposalV2(
+  schemaVersion: 2,
   proposalId: 'proposal-1',
   modality: AnalysisModality.ANALYSIS_MODALITY_TEXT,
   mealName: 'Dal',
+  outcome: DecompositionOutcome.DECOMPOSITION_OUTCOME_FOOD,
+  outcomeReason: 'The input contains dal.',
+  outcomeConfidence: 0.9,
   inferredMealType: MealType.LUNCH,
+  mealTypeReason: 'The context supports lunch.',
   mealTypeConfident: true,
-  confidence: 0.9,
   interpretationOrigin: InterpretationOrigin.INTERPRETATION_ORIGIN_LOCAL_NANO,
-  ingredients: [
-    IngredientProposalItemV1(
+  items: [
+    IngredientProposalItemV2(
       rowId: 'ingredient-1',
       rawName: 'dal',
-      canonicalHint: 'lentils cooked',
-      preparation: 'cooked',
-      gramsEstimated: 200,
-      minGrams: 170,
-      maxGrams: 230,
-      portionKind: PortionKind.BULK,
-      confidence: 0.9,
-      fieldProvenance: [
-        IngredientFieldProvenance(
-          fieldName: 'identity',
-          origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-        ),
-        IngredientFieldProvenance(
-          fieldName: 'portion',
-          origin: IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_LOCAL_MODEL,
-        ),
-      ],
+      isFoodReason: 'Dal belongs to the meal.',
+      isFoodConfidence: 0.9,
+      usdaLookup: UsdaLookupProposalV2(
+        proposedCanonicalName: 'lentils',
+        preparationStates: ['cooked'],
+      ),
+      portion: PortionProposalV2(
+        kind: PortionKind.BULK,
+        gramsEstimated: 200,
+        minGrams: 170,
+        maxGrams: 230,
+      ),
     ),
   ],
 );
@@ -371,7 +369,7 @@ void main() {
   testWidgets('review sheet returns edits with user provenance', (
     tester,
   ) async {
-    IngredientProposalV1? reviewed;
+    IngredientProposalV2? reviewed;
     await tester.pumpWidget(
       wrapWithProviders(
         Builder(
@@ -404,17 +402,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(reviewed, isNotNull);
-    expect(reviewed!.ingredients.single.rawName, 'lentil curry');
-    expect(reviewed!.ingredients.single.gramsEstimated, 220);
-    final provenance = {
-      for (final item in reviewed!.ingredients.single.fieldProvenance)
-        item.fieldName: item.origin,
-    };
-    expect(provenance, {
-      'identity': IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
-      'portion': IngredientFieldOrigin.INGREDIENT_FIELD_ORIGIN_USER_EDIT,
-    });
-    expect(reviewed!.ingredients.single.fieldProvenance, hasLength(2));
+    expect(reviewed!.items.single.rawName, 'lentil curry');
+    expect(reviewed!.items.single.portion.gramsEstimated, 220);
   });
 
   testWidgets('review sheet preserves untouched values and unknown meal type', (
@@ -424,10 +413,10 @@ void main() {
         _proposal()
           ..inferredMealType = MealType.UNKNOWN
           ..mealTypeConfident = false
-          ..ingredients.single.gramsEstimated = 200.5
-          ..ingredients.single.minGrams = 175.25
-          ..ingredients.single.maxGrams = 241.75;
-    IngredientProposalV1? reviewed;
+          ..items.single.portion.gramsEstimated = 200.5
+          ..items.single.portion.minGrams = 175.25
+          ..items.single.portion.maxGrams = 241.75;
+    IngredientProposalV2? reviewed;
     await tester.pumpWidget(
       wrapWithProviders(
         Builder(
@@ -458,14 +447,10 @@ void main() {
     expect(reviewed, isNotNull);
     expect(reviewed!.inferredMealType, MealType.UNKNOWN);
     expect(reviewed!.mealTypeConfident, isFalse);
-    expect(reviewed!.ingredients.single.canonicalHint, 'lentils cooked');
-    expect(reviewed!.ingredients.single.gramsEstimated, 200.5);
-    expect(reviewed!.ingredients.single.minGrams, 175.25);
-    expect(reviewed!.ingredients.single.maxGrams, 241.75);
-    expect(
-      reviewed!.ingredients.single.fieldProvenance,
-      orderedEquals(proposal.ingredients.single.fieldProvenance),
-    );
+    expect(reviewed!.items.single.usdaLookup.proposedCanonicalName, 'lentils');
+    expect(reviewed!.items.single.portion.gramsEstimated, 200.5);
+    expect(reviewed!.items.single.portion.minGrams, 175.25);
+    expect(reviewed!.items.single.portion.maxGrams, 241.75);
   });
 
   testWidgets('local-only results do not offer backend feedback', (

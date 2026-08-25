@@ -305,7 +305,22 @@
       "progress": "Pertanyaan {current} dari {total}",
       "noQuestionsAvailable": "Tidak ada pertanyaan tersedia",
       "next": "Berikutnya",
-      "continueLabel": "Lanjutkan"
+      "continueLabel": "Lanjutkan",
+      "countQuestion": "Pilih jumlah",
+      "itemSizeQuestion": "Pilih ukuran item",
+      "portionSizeQuestion": "Pilih ukuran porsi",
+      "option6plus": "6 atau lebih",
+      "optionSmall": "Kecil",
+      "optionRegular": "Biasa",
+      "optionLarge": "Besar",
+      "optionThin": "Tipis",
+      "optionThick": "Tebal",
+      "optionMini": "Mini",
+      "optionStuffed": "Isian",
+      "optionHeavy": "Berat",
+      "optionSmaller": "Lebih kecil",
+      "optionTypical": "Tipikal",
+      "optionLarger": "Lebih besar"
     },
     "analysis": {
       "title": "Menganalisis makanan Anda",
@@ -332,7 +347,8 @@
       "offlineTip2": "Tip: Sebutkan minuman, saus, dan minyak masak—mereka menambah kalori yang sering terlupakan.",
       "offlineTip3": "Tip: Catatan porsi singkat (1 mangkuk, kopi besar) membuat perkiraan menjadi lebih tajam.",
       "offlineTip4": "Tip: Mencatat setelah makan tetap membangun kebiasaan; kesempurnaan tidak wajib.",
-      "offlineTip5": "Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang)."
+      "offlineTip5": "Tip: Sebutkan cara memasak ketika mengubah kalori signifikan (digoreng vs dipanggang).",
+      "noFoodTip": "Tidak ada makanan terdeteksi. Coba foto atau deskripsi lain."
     },
     "localInference": {
       "reviewTitle": "Tinjau bahan yang terdeteksi",

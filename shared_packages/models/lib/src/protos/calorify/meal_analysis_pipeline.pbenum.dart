@@ -31,6 +31,8 @@ class PipelineStep extends $pb.ProtobufEnum {
       PipelineStep._(6, _omitEnumNames ? '' : 'RESULT');
   static const PipelineStep ERROR =
       PipelineStep._(7, _omitEnumNames ? '' : 'ERROR');
+  static const PipelineStep NO_FOOD =
+      PipelineStep._(8, _omitEnumNames ? '' : 'NO_FOOD');
 
   static const $core.List<PipelineStep> values = <PipelineStep>[
     PIPELINE_STEP_UNSPECIFIED,
@@ -41,10 +43,11 @@ class PipelineStep extends $pb.ProtobufEnum {
     MEAL_TYPE_QUESTION,
     RESULT,
     ERROR,
+    NO_FOOD,
   ];
 
   static final $core.List<PipelineStep?> _byValue =
-      $pb.ProtobufEnum.$_initByValueList(values, 7);
+      $pb.ProtobufEnum.$_initByValueList(values, 8);
   static PipelineStep? valueOf($core.int value) =>
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 
@@ -100,6 +103,31 @@ class AnalysisModality extends $pb.ProtobufEnum {
       value < 0 || value >= _byValue.length ? null : _byValue[value];
 
   const AnalysisModality._(super.value, super.name);
+}
+
+class DecompositionOutcome extends $pb.ProtobufEnum {
+  static const DecompositionOutcome DECOMPOSITION_OUTCOME_UNSPECIFIED =
+      DecompositionOutcome._(
+          0, _omitEnumNames ? '' : 'DECOMPOSITION_OUTCOME_UNSPECIFIED');
+  static const DecompositionOutcome DECOMPOSITION_OUTCOME_FOOD =
+      DecompositionOutcome._(
+          1, _omitEnumNames ? '' : 'DECOMPOSITION_OUTCOME_FOOD');
+  static const DecompositionOutcome DECOMPOSITION_OUTCOME_NO_FOOD =
+      DecompositionOutcome._(
+          2, _omitEnumNames ? '' : 'DECOMPOSITION_OUTCOME_NO_FOOD');
+
+  static const $core.List<DecompositionOutcome> values = <DecompositionOutcome>[
+    DECOMPOSITION_OUTCOME_UNSPECIFIED,
+    DECOMPOSITION_OUTCOME_FOOD,
+    DECOMPOSITION_OUTCOME_NO_FOOD,
+  ];
+
+  static final $core.List<DecompositionOutcome?> _byValue =
+      $pb.ProtobufEnum.$_initByValueList(values, 2);
+  static DecompositionOutcome? valueOf($core.int value) =>
+      value < 0 || value >= _byValue.length ? null : _byValue[value];
+
+  const DecompositionOutcome._(super.value, super.name);
 }
 
 class InterpretationOrigin extends $pb.ProtobufEnum {

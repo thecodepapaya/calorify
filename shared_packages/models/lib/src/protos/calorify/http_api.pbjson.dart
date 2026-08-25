@@ -242,7 +242,7 @@ const MealAnalysisProposalRequest$json = {
       '3': 2,
       '4': 1,
       '5': 11,
-      '6': '.calorify.IngredientProposalV1',
+      '6': '.calorify.IngredientProposalV2',
       '10': 'proposal'
     },
     {'1': 'local_attempt_id', '3': 3, '4': 1, '5': 9, '10': 'localAttemptId'},
@@ -275,7 +275,7 @@ const MealAnalysisProposalRequest$json = {
 final $typed_data.Uint8List mealAnalysisProposalRequestDescriptor = $convert.base64Decode(
     'ChtNZWFsQW5hbHlzaXNQcm9wb3NhbFJlcXVlc3QSHwoLYW5hbHlzaXNfaWQYASABKAlSCmFuYW'
     'x5c2lzSWQSOgoIcHJvcG9zYWwYAiABKAsyHi5jYWxvcmlmeS5JbmdyZWRpZW50UHJvcG9zYWxW'
-    'MVIIcHJvcG9zYWwSKAoQbG9jYWxfYXR0ZW1wdF9pZBgDIAEoCVIObG9jYWxBdHRlbXB0SWQSRw'
+    'MlIIcHJvcG9zYWwSKAoQbG9jYWxfYXR0ZW1wdF9pZBgDIAEoCVIObG9jYWxBdHRlbXB0SWQSRw'
     'ohbG9jYWxfYXR0ZW1wdF9zdGFydGVkX2F0X2Vwb2NoX21zGAQgASgDUhxsb2NhbEF0dGVtcHRT'
     'dGFydGVkQXRFcG9jaE1zEksKI2xvY2FsX2F0dGVtcHRfY29tcGxldGVkX2F0X2Vwb2NoX21zGA'
     'UgASgDUh5sb2NhbEF0dGVtcHRDb21wbGV0ZWRBdEVwb2NoTXMSTQoPZmFsbGJhY2tfcmVhc29u'
