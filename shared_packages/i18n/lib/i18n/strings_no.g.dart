@@ -1347,7 +1347,7 @@ class _Translations$watch$nutrition$no extends Translations$watch$nutrition$en {
 
 	// Translations
 	@override String get nutrient => 'Næringsstoff';
-	@override String grams({required Object label, required Object value}) => '${label}, ${value} grams';
+	@override String grams({required Object label, required Object value}) => '${label}, ${value} gram';
 	@override String get protein => 'Protein';
 	@override String get carbs => 'Karbohydrater';
 	@override String get fat => 'Fett';
@@ -2632,7 +2632,7 @@ extension on TranslationsNo {
 			'watch.common.kcal' => 'kcal',
 			'watch.common.gramsShort' => 'g',
 			'watch.nutrition.nutrient' => 'Næringsstoff',
-			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} grams',
+			'watch.nutrition.grams' => ({required Object label, required Object value}) => '${label}, ${value} gram',
 			'watch.nutrition.protein' => 'Protein',
 			'watch.nutrition.carbs' => 'Karbohydrater',
 			'watch.nutrition.fat' => 'Fett',

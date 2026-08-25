@@ -821,7 +821,7 @@
     },
     "nutrition": {
       "nutrient": "Næringsstoff",
-      "grams": "{label}, {value} grams",
+      "grams": "{label}, {value} gram",
       "protein": "Protein",
       "carbs": "Karbohydrater",
       "fat": "Fett",
