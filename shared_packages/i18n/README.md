@@ -27,7 +27,8 @@ the same command again. `slang_gpt` skips keys already present.
 
 ## Verify
 
-The generator performs structural and language-script audits. Afterward,
+The generator checks catalog structure, placeholders, and mixed-script
+corruption. Afterward,
 inspect the affected locale values and run:
 
 ```bash

@@ -14,33 +14,7 @@ from typing import Any
 
 SOURCE_COPY_MIN_LENGTH = 20
 PLACEHOLDER_RE = re.compile(r"\{[^{}]+\}")
-ALLOWED_SOURCE_VALUES = {
-    "AI", "Android", "BMI", "BMR", "CSV", "Calorify", "Gemini Nano",
-    "Google", "Google Play Store", "Health Connect", "TDEE", "UID", "USDA",
-}
-ALLOWED_SOURCE_PATHS = {
-    ("language",), ("flag",), ("appLabel",),
-    ("watch", "appTitle"), ("watch", "common", "kcal"),
-}
-ALLOWED_SOURCE_COPIES_BY_LOCALE = {
-    ("common", "betaTag"): {
-        "cs", "da", "de", "es", "fi", "id", "it", "ms", "no", "pt",
-        "ro", "sv", "tl", "tr", "zh-CN",
-    },
-    ("meal", "questionFlow", "optionMini"): {
-        "cs", "da", "de", "es", "fi", "fr", "hu", "id", "it", "ms",
-        "nl", "no", "pl", "pt", "ro", "sv", "tr",
-    },
-    ("watch", "nutrition", "fiber"): {"no"},
-    ("watch", "nutrition", "nutrient"): {"ro"},
-    ("watch", "nutrition", "protein"): {"da", "id", "ms", "no", "sv", "tr", "vi"},
-    ("watch", "voice", "secondsLeft"): {
-        "bn", "cs", "da", "de", "es", "fi", "fr", "gu", "hi", "hu",
-        "id", "it", "ms", "nl", "no", "pl", "pt", "ro", "ru", "sv",
-        "tl", "vi",
-    },
-}
-LOCALE_NAMES = {
+EXPECTED_LOCALE_METADATA = {
     "ar": ("العربية", "🇸🇦"), "bn": ("বাংলা", "🇧🇩"), "cs": ("Čeština", "🇨🇿"),
     "da": ("Dansk", "🇩🇰"), "de": ("Deutsch", "🇩🇪"), "el": ("Ελληνικά", "🇬🇷"),
     "es": ("Español", "🇪🇸"), "fi": ("Suomi", "🇫🇮"), "fr": ("Français", "🇫🇷"),
@@ -89,16 +63,6 @@ def flatten(value: dict[str, Any], prefix: tuple[str, ...] = ()) -> dict[tuple[s
 
 def placeholders(value: Any) -> list[str]:
     return sorted(PLACEHOLDER_RE.findall(str(value)))
-
-
-def source_copy_is_allowed(locale: str, path: tuple[str, ...], value: str) -> bool:
-    if (
-        path in ALLOWED_SOURCE_PATHS
-        or value in ALLOWED_SOURCE_VALUES
-        or locale in ALLOWED_SOURCE_COPIES_BY_LOCALE.get(path, set())
-    ):
-        return True
-    return not re.search(r"[A-Za-z]{3,}", value)
 
 
 def character_script(character: str) -> str | None:
@@ -183,7 +147,7 @@ def main() -> int:
         for path in i18n_dir.glob("*.i18n.json")
         if path.name != "en.i18n.json" and not path.name.startswith("_")
     }
-    expected_locales = set(LOCALE_NAMES)
+    expected_locales = set(EXPECTED_LOCALE_METADATA)
     if args.locale:
         if args.locale not in expected_locales:
             print(f"Unsupported locale: {args.locale}", file=sys.stderr)
@@ -198,8 +162,7 @@ def main() -> int:
                 f"extra={sorted(actual_locales - expected_locales)}"
             )
 
-    copy_failures: list[str] = []
-    copy_counts: dict[str, int] = {}
+    english_copy_failures: list[str] = []
     for locale in sorted(locales):
         path = i18n_dir / f"{locale}.i18n.json"
         try:
@@ -216,13 +179,12 @@ def main() -> int:
         if extra:
             failures.append(f"{locale}: extra keys: {', '.join('.'.join(item) for item in sorted(extra))}")
 
-        expected_language, expected_flag = LOCALE_NAMES[locale]
+        expected_language, expected_flag = EXPECTED_LOCALE_METADATA[locale]
         if catalog.get("language") != expected_language:
             failures.append(f"{locale}: language metadata must be {expected_language!r}")
         if catalog.get("flag") != expected_flag:
-            failures.append(f"{locale}: flag metadata must be {expected_flag!r}")
+            failures.append(f"{locale}: flag metadata mismatch")
 
-        copies = 0
         for key_path in sorted(source_flat.keys() & catalog_flat.keys()):
             source_value = source_flat[key_path]
             translated_value = catalog_flat[key_path]
@@ -236,32 +198,26 @@ def main() -> int:
                 failures.append(f"{locale}.{dotted_path}: placeholder mismatch")
             for error in script_errors(locale, translated_value):
                 failures.append(f"{locale}.{dotted_path}: {error}")
-            if translated_value == source_value and not source_copy_is_allowed(
-                locale, key_path, str(source_value)
+            if (
+                translated_value == source_value
+                and len(str(source_value)) >= SOURCE_COPY_MIN_LENGTH
             ):
-                copies += 1
-                if len(str(source_value)) >= SOURCE_COPY_MIN_LENGTH:
-                    copy_failures.append(f"{locale}.{dotted_path}: {source_value!r}")
-        copy_counts[locale] = copies
+                english_copy_failures.append(f"{locale}.{dotted_path}: {source_value!r}")
 
     if failures:
         print("Translation catalog errors:", file=sys.stderr)
         for failure in failures:
             print(f"- {failure}", file=sys.stderr)
-    if copy_failures:
+    if english_copy_failures:
         print("Long values still identical to English:", file=sys.stderr)
-        for failure in copy_failures:
+        for failure in english_copy_failures:
             print(f"- {failure}", file=sys.stderr)
 
     print(f"English source keys: {len(source_flat)}")
-    print(f"Validated locales: {len(locales)}")
-    nonzero_copy_counts = {locale: count for locale, count in copy_counts.items() if count}
-    copy_summary = ", ".join(
-        f"{locale}={count}" for locale, count in sorted(nonzero_copy_counts.items())
-    ) or "none"
-    print(f"Non-allowlisted English-identical values: {copy_summary}")
-    if failures or copy_failures:
+    print(f"Checked locales: {len(locales)}")
+    if failures or english_copy_failures:
         return 1
+    print("Translation audit passed")
     return 0
 
 

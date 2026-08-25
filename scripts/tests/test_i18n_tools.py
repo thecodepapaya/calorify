@@ -28,27 +28,15 @@ resolver = load_module("resolve_openai_api_key", RESOLVER_SCRIPT)
 
 
 class TranslationAuditTest(unittest.TestCase):
-    def test_allows_shared_words_only_for_known_locale_and_key_pairs(self) -> None:
-        self.assertTrue(
-            audit.source_copy_is_allowed("da", ("watch", "nutrition", "protein"), "Protein")
-        )
-        self.assertTrue(
-            audit.source_copy_is_allowed("ro", ("watch", "nutrition", "nutrient"), "Nutrient")
-        )
-        self.assertFalse(
-            audit.source_copy_is_allowed("de", ("watch", "nutrition", "protein"), "Protein")
-        )
-        self.assertFalse(
-            audit.source_copy_is_allowed("de", ("watch", "nutrition", "nutrient"), "Nutrient")
-        )
+    def test_detects_mixed_script_corruption(self) -> None:
+        errors = audit.script_errors("he", "\u05de\u05d8abolism")
 
-    def test_allows_product_names_and_units_by_key(self) -> None:
-        self.assertTrue(
-            audit.source_copy_is_allowed("de", ("watch", "appTitle"), "Calorify Watch")
-        )
-        self.assertTrue(
-            audit.source_copy_is_allowed("de", ("watch", "common", "kcal"), "kcal")
-        )
+        self.assertTrue(any("mixed-script word" in error for error in errors))
+
+    def test_detects_an_unexpected_script(self) -> None:
+        cyrillic_text = "\u041f\u0440\u0438\u0432\u0435\u0442"
+
+        self.assertEqual(audit.script_errors("de", cyrillic_text), ["unexpected script(s): CYRILLIC"])
 
 
 class GeneratorOutputTest(unittest.TestCase):
@@ -87,20 +75,27 @@ class ResolveOpenAiApiKeyTest(unittest.TestCase):
 
 
 class TranslationAuditCliTest(unittest.TestCase):
-    def make_catalogs(self, root: Path, translated_text: str | None) -> None:
+    def make_catalogs(
+        self,
+        root: Path,
+        translated_text: str | None,
+        source_text: str = "This sentence should have been translated.",
+    ) -> Path:
         i18n_dir = root / "shared_packages" / "i18n" / "lib" / "i18n"
         i18n_dir.mkdir(parents=True)
         source = {
             "language": "English",
             "flag": "🇺🇸",
             "appLabel": "Calorify",
-            "message": "This sentence should have been translated.",
+            "message": source_text,
         }
         target = {"language": "Deutsch", "flag": "🇩🇪", "appLabel": "Calorify"}
         if translated_text is not None:
             target["message"] = translated_text
         (i18n_dir / "en.i18n.json").write_text(json.dumps(source), encoding="utf-8")
-        (i18n_dir / "de.i18n.json").write_text(json.dumps(target), encoding="utf-8")
+        target_path = i18n_dir / "de.i18n.json"
+        target_path.write_text(json.dumps(target), encoding="utf-8")
+        return target_path
 
     def run_audit(self, root: Path, *arguments: str) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
@@ -128,6 +123,64 @@ class TranslationAuditCliTest(unittest.TestCase):
             strict_result = self.run_audit(root)
             self.assertEqual(strict_result.returncode, 1)
             self.assertIn("Long values still identical to English", strict_result.stderr)
+
+    def test_allows_short_identical_words(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.make_catalogs(root, "Protein", source_text="Protein")
+
+            result = self.run_audit(root)
+
+            self.assertEqual(result.returncode, 0)
+            self.assertIn("Translation audit passed", result.stdout)
+            self.assertNotIn("Non-allowlisted", result.stdout)
+
+    def test_rejects_placeholder_mismatches(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.make_catalogs(root, "Hallo", source_text="Hello {name}")
+
+            result = self.run_audit(root)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("placeholder mismatch", result.stderr)
+
+    def test_rejects_extra_keys(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target_path = self.make_catalogs(root, "Uebersetzt")
+            target = json.loads(target_path.read_text(encoding="utf-8"))
+            target["extra"] = "Extra"
+            target_path.write_text(json.dumps(target), encoding="utf-8")
+
+            result = self.run_audit(root)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("extra keys: extra", result.stderr)
+
+    def test_rejects_invalid_json(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target_path = self.make_catalogs(root, "Uebersetzt")
+            target_path.write_text("{", encoding="utf-8")
+
+            result = self.run_audit(root)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("invalid JSON", result.stderr)
+
+    def test_rejects_invalid_locale_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target_path = self.make_catalogs(root, "Uebersetzt")
+            target = json.loads(target_path.read_text(encoding="utf-8"))
+            target["language"] = "German"
+            target_path.write_text(json.dumps(target), encoding="utf-8")
+
+            result = self.run_audit(root)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("language metadata", result.stderr)
 
 
 if __name__ == "__main__":
