@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$cs extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Podporovaný hardware byl nalezen, ale tato funkce není pro tuto verzi aplikace aktivní';
 	@override String get modelSetup => 'Před aktivací musí Gemini Nano dokončit stahování';
 	@override String get useLocalTitle => 'Používat analýzu v zařízení';
-	@override String get useLocalSubtitle => 'Volitelné, ve výchozím nastavení vypnuto. Výsledky mohou být u složitých jídel méně spolehlivé.';
+	@override String get useLocalSubtitle => 'U složitějších jídel mohou být výsledky méně spolehlivé.';
 	@override String get disclosureTitle => 'Než zapnete analýzu v zařízení';
 	@override String get disclosureBody => 'Gemini Nano dokáže identifikovat ingredience a odhadnout porce na podporovaných zařízeních Android. Váš zkontrolovaný návrh ingrediencí je odeslán do Calorify za účelem ověření výživových hodnot USDA a výpočtu.';
 	@override String get disclosureLimit1 => 'Složitá jídla, skryté ingredience a velikosti porcí mohou být identifikovány nesprávně.';
@@ -2439,7 +2439,7 @@ extension on TranslationsCs {
 			'settings.localInference.rolloutUnavailable' => 'Podporovaný hardware byl nalezen, ale tato funkce není pro tuto verzi aplikace aktivní',
 			'settings.localInference.modelSetup' => 'Před aktivací musí Gemini Nano dokončit stahování',
 			'settings.localInference.useLocalTitle' => 'Používat analýzu v zařízení',
-			'settings.localInference.useLocalSubtitle' => 'Volitelné, ve výchozím nastavení vypnuto. Výsledky mohou být u složitých jídel méně spolehlivé.',
+			'settings.localInference.useLocalSubtitle' => 'U složitějších jídel mohou být výsledky méně spolehlivé.',
 			'settings.localInference.disclosureTitle' => 'Než zapnete analýzu v zařízení',
 			'settings.localInference.disclosureBody' => 'Gemini Nano dokáže identifikovat ingredience a odhadnout porce na podporovaných zařízeních Android. Váš zkontrolovaný návrh ingrediencí je odeslán do Calorify za účelem ověření výživových hodnot USDA a výpočtu.',
 			'settings.localInference.disclosureLimit1' => 'Složitá jídla, skryté ingredience a velikosti porcí mohou být identifikovány nesprávně.',

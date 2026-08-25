@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$da extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version';
 	@override String get modelSetup => 'Gemini Nano skal færdiggøre download, før dette kan aktiveres';
 	@override String get useLocalTitle => 'Brug analyse på enheden';
-	@override String get useLocalSubtitle => 'Valgfrit og deaktiveret som standard. Resultaterne kan være mindre pålidelige for komplekse måltider.';
+	@override String get useLocalSubtitle => 'Resultaterne kan være mindre pålidelige for komplekse måltider.';
 	@override String get disclosureTitle => 'Før du aktiverer analyse på enheden';
 	@override String get disclosureBody => 'Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.';
 	@override String get disclosureLimit1 => 'Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.';
@@ -2439,7 +2439,7 @@ extension on TranslationsDa {
 			'settings.localInference.rolloutUnavailable' => 'Understøttet hardware fundet, men denne funktion er ikke aktiveret for denne app-version',
 			'settings.localInference.modelSetup' => 'Gemini Nano skal færdiggøre download, før dette kan aktiveres',
 			'settings.localInference.useLocalTitle' => 'Brug analyse på enheden',
-			'settings.localInference.useLocalSubtitle' => 'Valgfrit og deaktiveret som standard. Resultaterne kan være mindre pålidelige for komplekse måltider.',
+			'settings.localInference.useLocalSubtitle' => 'Resultaterne kan være mindre pålidelige for komplekse måltider.',
 			'settings.localInference.disclosureTitle' => 'Før du aktiverer analyse på enheden',
 			'settings.localInference.disclosureBody' => 'Gemini Nano kan identificere ingredienser og estimere portioner på understøttede Android-enheder. Dit gennemsete forslag til ingredienser sendes til Calorify for USDA-næringsvalidering og beregning.',
 			'settings.localInference.disclosureLimit1' => 'Komplekse retter, skjulte ingredienser og portionsstørrelser kan blive identificeret forkert.',

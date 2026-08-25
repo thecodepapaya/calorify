@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này",
       "modelSetup": "Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này",
       "useLocalTitle": "Sử dụng phân tích trên thiết bị",
-      "useLocalSubtitle": "Tùy chọn và mặc định là tắt. Kết quả có thể kém chính xác hơn đối với các bữa ăn phức tạp.",
+      "useLocalSubtitle": "Kết quả có thể ít đáng tin cậy hơn đối với các bữa ăn phức tạp.",
       "disclosureTitle": "Trước khi bạn bật phân tích trên thiết bị",
       "disclosureBody": "Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.",
       "disclosureLimit1": "Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.",

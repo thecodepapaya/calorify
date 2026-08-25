@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$el extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Βρέθηκε συμβατό υλικό, αλλά αυτή η λειτουργία δεν είναι ενεργοποιημένη για αυτή την έκδοση της εφαρμογής';
 	@override String get modelSetup => 'Το Gemini Nano πρέπει να ολοκληρώσει τη λήψη πριν ενεργοποιηθεί αυτή η λειτουργία';
 	@override String get useLocalTitle => 'Χρήση ανάλυσης στη συσκευή';
-	@override String get useLocalSubtitle => 'Προαιρετικό και απενεργοποιημένο από προεπιλογή. Τα αποτελέσματα ενδέχεται να είναι λιγότερο αξιόπιστα για σύνθετα γεύματα.';
+	@override String get useLocalSubtitle => 'Τα αποτελέσματα ενδέχεται να είναι λιγότερο αξιόπιστα για πολύπλοκα γεύματα.';
 	@override String get disclosureTitle => 'Πριν ενεργοποιήσετε την ανάλυση στη συσκευή';
 	@override String get disclosureBody => 'Το Gemini Nano μπορεί να αναγνωρίσει συστατικά και να εκτιμήσει μερίδες σε υποστηριζόμενες συσκευές Android. Η πρόταση συστατικών που ελέγξατε αποστέλλεται στο Calorify για τεκμηρίωση θρεπτικών στοιχείων από το USDA και υπολογισμό.';
 	@override String get disclosureLimit1 => 'Σύνθετα πιάτα, κρυμμένα συστατικά και μεγέθη μερίδων ενδέχεται να αναγνωριστούν λανθασμένα.';
@@ -2439,7 +2439,7 @@ extension on TranslationsEl {
 			'settings.localInference.rolloutUnavailable' => 'Βρέθηκε συμβατό υλικό, αλλά αυτή η λειτουργία δεν είναι ενεργοποιημένη για αυτή την έκδοση της εφαρμογής',
 			'settings.localInference.modelSetup' => 'Το Gemini Nano πρέπει να ολοκληρώσει τη λήψη πριν ενεργοποιηθεί αυτή η λειτουργία',
 			'settings.localInference.useLocalTitle' => 'Χρήση ανάλυσης στη συσκευή',
-			'settings.localInference.useLocalSubtitle' => 'Προαιρετικό και απενεργοποιημένο από προεπιλογή. Τα αποτελέσματα ενδέχεται να είναι λιγότερο αξιόπιστα για σύνθετα γεύματα.',
+			'settings.localInference.useLocalSubtitle' => 'Τα αποτελέσματα ενδέχεται να είναι λιγότερο αξιόπιστα για πολύπλοκα γεύματα.',
 			'settings.localInference.disclosureTitle' => 'Πριν ενεργοποιήσετε την ανάλυση στη συσκευή',
 			'settings.localInference.disclosureBody' => 'Το Gemini Nano μπορεί να αναγνωρίσει συστατικά και να εκτιμήσει μερίδες σε υποστηριζόμενες συσκευές Android. Η πρόταση συστατικών που ελέγξατε αποστέλλεται στο Calorify για τεκμηρίωση θρεπτικών στοιχείων από το USDA και υπολογισμό.',
 			'settings.localInference.disclosureLimit1' => 'Σύνθετα πιάτα, κρυμμένα συστατικά και μεγέθη μερίδων ενδέχεται να αναγνωριστούν λανθασμένα.',

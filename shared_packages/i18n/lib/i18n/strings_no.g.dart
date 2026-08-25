@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$no extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Støttet maskinvare funnet, men denne funksjonen er ikke aktivert for denne app-versjonen';
 	@override String get modelSetup => 'Gemini Nano må fullføre nedlastingen før dette kan aktiveres';
 	@override String get useLocalTitle => 'Bruk analyse på enheten';
-	@override String get useLocalSubtitle => 'Valgfritt og avslått som standard. Resultatene kan være mindre pålitelige for komplekse måltider.';
+	@override String get useLocalSubtitle => 'Resultatene kan være mindre pålitelige for komplekse måltider.';
 	@override String get disclosureTitle => 'Før du aktiverer analyse på enheten';
 	@override String get disclosureBody => 'Gemini Nano kan identifisere ingredienser og estimere porsjoner på støttede Android-enheter. Ditt gjennomgåtte forslag til ingredienser sendes til Calorify for USDA-næringsgrunnlag og beregning.';
 	@override String get disclosureLimit1 => 'Komplekse retter, skjulte ingredienser og porsjonsstørrelser kan bli identifisert feil.';
@@ -2439,7 +2439,7 @@ extension on TranslationsNo {
 			'settings.localInference.rolloutUnavailable' => 'Støttet maskinvare funnet, men denne funksjonen er ikke aktivert for denne app-versjonen',
 			'settings.localInference.modelSetup' => 'Gemini Nano må fullføre nedlastingen før dette kan aktiveres',
 			'settings.localInference.useLocalTitle' => 'Bruk analyse på enheten',
-			'settings.localInference.useLocalSubtitle' => 'Valgfritt og avslått som standard. Resultatene kan være mindre pålitelige for komplekse måltider.',
+			'settings.localInference.useLocalSubtitle' => 'Resultatene kan være mindre pålitelige for komplekse måltider.',
 			'settings.localInference.disclosureTitle' => 'Før du aktiverer analyse på enheten',
 			'settings.localInference.disclosureBody' => 'Gemini Nano kan identifisere ingredienser og estimere porsjoner på støttede Android-enheter. Ditt gjennomgåtte forslag til ingredienser sendes til Calorify for USDA-næringsgrunnlag og beregning.',
 			'settings.localInference.disclosureLimit1' => 'Komplekse retter, skjulte ingredienser og porsjonsstørrelser kan bli identifisert feil.',

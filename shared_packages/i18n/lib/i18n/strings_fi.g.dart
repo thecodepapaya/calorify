@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$fi extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa';
 	@override String get modelSetup => 'Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön';
 	@override String get useLocalTitle => 'Käytä paikallista analyysia';
-	@override String get useLocalSubtitle => 'Valinnainen ja oletuksena pois päältä. Tulokset voivat olla epätarkempia monimutkaisten aterioiden kohdalla.';
+	@override String get useLocalSubtitle => 'Tulokset saattavat olla vähemmän luotettavia monimutkaisissa aterioissa.';
 	@override String get disclosureTitle => 'Ennen paikallisen analyysin käyttöönottoa';
 	@override String get disclosureBody => 'Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.';
 	@override String get disclosureLimit1 => 'Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.';
@@ -2439,7 +2439,7 @@ extension on TranslationsFi {
 			'settings.localInference.rolloutUnavailable' => 'Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa',
 			'settings.localInference.modelSetup' => 'Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön',
 			'settings.localInference.useLocalTitle' => 'Käytä paikallista analyysia',
-			'settings.localInference.useLocalSubtitle' => 'Valinnainen ja oletuksena pois päältä. Tulokset voivat olla epätarkempia monimutkaisten aterioiden kohdalla.',
+			'settings.localInference.useLocalSubtitle' => 'Tulokset saattavat olla vähemmän luotettavia monimutkaisissa aterioissa.',
 			'settings.localInference.disclosureTitle' => 'Ennen paikallisen analyysin käyttöönottoa',
 			'settings.localInference.disclosureBody' => 'Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.',
 			'settings.localInference.disclosureLimit1' => 'Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.',

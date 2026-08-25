@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$ur extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'مطابقہ ہارڈ ویئر مل گیا، لیکن یہ فیچر اس ایپ ریلیز کے لیے فعال نہیں ہے';
 	@override String get modelSetup => 'اسے فعال کرنے سے پہلے Gemini Nano کا ڈاؤن لوڈ مکمل ہونا ضروری ہے';
 	@override String get useLocalTitle => 'آن-ڈیوائس تجزیہ استعمال کریں';
-	@override String get useLocalSubtitle => 'اختیاری اور ڈیفالٹ طور پر بند۔ پیچیدہ کھانوں کے لیے نتائج کم قابل اعتماد ہو سکتے ہیں۔';
+	@override String get useLocalSubtitle => 'پیچیدہ کھانوں کے لیے نتائج کم قابلِ اعتماد ہو سکتے ہیں۔';
 	@override String get disclosureTitle => 'آن-ڈیوائس تجزیہ فعال کرنے سے پہلے';
 	@override String get disclosureBody => 'Gemini Nano معاون Android ڈیوائسز پر اجزاء کی شناخت اور مقدار کا تخمینہ لگا سکتا ہے۔ آپ کا جائزہ لیا گیا تجویز کردہ جزو USDA غذائی بنیاد اور حساب کے لیے Calorify کو بھیجا جاتا ہے۔';
 	@override String get disclosureLimit1 => 'پیچیدہ پکوان، چھپے ہوئے اجزاء، اور مقدار کی شناخت غلط ہو سکتی ہے۔';
@@ -2439,7 +2439,7 @@ extension on TranslationsUr {
 			'settings.localInference.rolloutUnavailable' => 'مطابقہ ہارڈ ویئر مل گیا، لیکن یہ فیچر اس ایپ ریلیز کے لیے فعال نہیں ہے',
 			'settings.localInference.modelSetup' => 'اسے فعال کرنے سے پہلے Gemini Nano کا ڈاؤن لوڈ مکمل ہونا ضروری ہے',
 			'settings.localInference.useLocalTitle' => 'آن-ڈیوائس تجزیہ استعمال کریں',
-			'settings.localInference.useLocalSubtitle' => 'اختیاری اور ڈیفالٹ طور پر بند۔ پیچیدہ کھانوں کے لیے نتائج کم قابل اعتماد ہو سکتے ہیں۔',
+			'settings.localInference.useLocalSubtitle' => 'پیچیدہ کھانوں کے لیے نتائج کم قابلِ اعتماد ہو سکتے ہیں۔',
 			'settings.localInference.disclosureTitle' => 'آن-ڈیوائس تجزیہ فعال کرنے سے پہلے',
 			'settings.localInference.disclosureBody' => 'Gemini Nano معاون Android ڈیوائسز پر اجزاء کی شناخت اور مقدار کا تخمینہ لگا سکتا ہے۔ آپ کا جائزہ لیا گیا تجویز کردہ جزو USDA غذائی بنیاد اور حساب کے لیے Calorify کو بھیجا جاتا ہے۔',
 			'settings.localInference.disclosureLimit1' => 'پیچیدہ پکوان، چھپے ہوئے اجزاء، اور مقدار کی شناخت غلط ہو سکتی ہے۔',

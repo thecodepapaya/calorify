@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$ms extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Perkakasan yang tersedia ditemui, tetapi ciri ini tidak didayakan untuk versi aplikasi ini';
 	@override String get modelSetup => 'Gemini Nano perlu selesai dimuat turun sebelum ini boleh didayakan';
 	@override String get useLocalTitle => 'Gunakan analisis pada peranti';
-	@override String get useLocalSubtitle => 'Pilihan dan dimatikan secara lalai. Keputusan mungkin kurang tepat untuk hidangan yang kompleks.';
+	@override String get useLocalSubtitle => 'Keputusan mungkin kurang boleh dipercayai untuk hidangan yang kompleks.';
 	@override String get disclosureTitle => 'Sebelum anda mendayakan analisis pada peranti';
 	@override String get disclosureBody => 'Gemini Nano boleh mengenal pasti ramuan dan menganggar bahagian pada peranti Android yang disokong. Cadangan ramuan yang anda semak akan dihantar ke Calorify untuk pengesahan pemakanan USDA dan pengiraan.';
 	@override String get disclosureLimit1 => 'Hidangan kompleks, ramuan tersembunyi, dan saiz bahagian mungkin dikenal pasti secara tidak tepat.';
@@ -2439,7 +2439,7 @@ extension on TranslationsMs {
 			'settings.localInference.rolloutUnavailable' => 'Perkakasan yang tersedia ditemui, tetapi ciri ini tidak didayakan untuk versi aplikasi ini',
 			'settings.localInference.modelSetup' => 'Gemini Nano perlu selesai dimuat turun sebelum ini boleh didayakan',
 			'settings.localInference.useLocalTitle' => 'Gunakan analisis pada peranti',
-			'settings.localInference.useLocalSubtitle' => 'Pilihan dan dimatikan secara lalai. Keputusan mungkin kurang tepat untuk hidangan yang kompleks.',
+			'settings.localInference.useLocalSubtitle' => 'Keputusan mungkin kurang boleh dipercayai untuk hidangan yang kompleks.',
 			'settings.localInference.disclosureTitle' => 'Sebelum anda mendayakan analisis pada peranti',
 			'settings.localInference.disclosureBody' => 'Gemini Nano boleh mengenal pasti ramuan dan menganggar bahagian pada peranti Android yang disokong. Cadangan ramuan yang anda semak akan dihantar ke Calorify untuk pengesahan pemakanan USDA dan pengiraan.',
 			'settings.localInference.disclosureLimit1' => 'Hidangan kompleks, ramuan tersembunyi, dan saiz bahagian mungkin dikenal pasti secara tidak tepat.',

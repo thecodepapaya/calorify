@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$ja extends Translations$settings$loc
 	@override String get rolloutUnavailable => '対応ハードウェアは見つかりましたが、このアプリのバージョンでは機能が有効になっていません';
 	@override String get modelSetup => '有効にする前にGemini Nanoのダウンロードを完了させる必要があります';
 	@override String get useLocalTitle => 'デバイス上での解析を使用';
-	@override String get useLocalSubtitle => 'オプションであり、デフォルトではオフになっています。複雑な食事の場合、結果の信頼性が低くなることがあります。';
+	@override String get useLocalSubtitle => '複雑な食事では、結果の精度が低くなる場合があります。';
 	@override String get disclosureTitle => 'デバイス上での解析を有効にする前に';
 	@override String get disclosureBody => 'Gemini Nanoは、対応するAndroidデバイスで食材の特定と分量の推定が可能です。確認済みの食材案は、USDAの栄養データに基づいた計算のためCalorifyに送信されます。';
 	@override String get disclosureLimit1 => '複雑な料理、隠れた食材、分量の特定が正しく行われない場合があります。';
@@ -2439,7 +2439,7 @@ extension on TranslationsJa {
 			'settings.localInference.rolloutUnavailable' => '対応ハードウェアは見つかりましたが、このアプリのバージョンでは機能が有効になっていません',
 			'settings.localInference.modelSetup' => '有効にする前にGemini Nanoのダウンロードを完了させる必要があります',
 			'settings.localInference.useLocalTitle' => 'デバイス上での解析を使用',
-			'settings.localInference.useLocalSubtitle' => 'オプションであり、デフォルトではオフになっています。複雑な食事の場合、結果の信頼性が低くなることがあります。',
+			'settings.localInference.useLocalSubtitle' => '複雑な食事では、結果の精度が低くなる場合があります。',
 			'settings.localInference.disclosureTitle' => 'デバイス上での解析を有効にする前に',
 			'settings.localInference.disclosureBody' => 'Gemini Nanoは、対応するAndroidデバイスで食材の特定と分量の推定が可能です。確認済みの食材案は、USDAの栄養データに基づいた計算のためCalorifyに送信されます。',
 			'settings.localInference.disclosureLimit1' => '複雑な料理、隠れた食材、分量の特定が正しく行われない場合があります。',

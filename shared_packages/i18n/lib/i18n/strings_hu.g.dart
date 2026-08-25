@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$hu extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Megfelelő hardver található, de ez a funkció nem aktív a jelenlegi applikációs verzióban';
 	@override String get modelSetup => 'A Gemini Nano letöltése be kell fejeznie, mielőtt ez engedhetővé válna';
 	@override String get useLocalTitle => 'Készüléken történő elemzés használata';
-	@override String get useLocalSubtitle => 'Opcionális, alapértelmezetten ki van kapcsolva. A komplex ételeknél az eredmények kevésbé megbízhatóak lehetnek.';
+	@override String get useLocalSubtitle => 'Bonyolultabb ételeknél az eredmények kevésbé megbízhatóak lehetnek.';
 	@override String get disclosureTitle => 'Mielőtt engedélyezné a készüléken történő elemzést';
 	@override String get disclosureBody => 'A Gemini Nano képes az összetevők azonosítására és az adagok becslésére a támogatott Android készülékeken. Az ellenőrzött összetevő-javaslatot a Calorify-nak küldjük a USDA tápértékadatok alapú számításhoz.';
 	@override String get disclosureLimit1 => 'A komplex ételek, a rejtett összetevők és az adagméretek esetleg hibásan kerülhetnek azonosításra.';
@@ -2439,7 +2439,7 @@ extension on TranslationsHu {
 			'settings.localInference.rolloutUnavailable' => 'Megfelelő hardver található, de ez a funkció nem aktív a jelenlegi applikációs verzióban',
 			'settings.localInference.modelSetup' => 'A Gemini Nano letöltése be kell fejeznie, mielőtt ez engedhetővé válna',
 			'settings.localInference.useLocalTitle' => 'Készüléken történő elemzés használata',
-			'settings.localInference.useLocalSubtitle' => 'Opcionális, alapértelmezetten ki van kapcsolva. A komplex ételeknél az eredmények kevésbé megbízhatóak lehetnek.',
+			'settings.localInference.useLocalSubtitle' => 'Bonyolultabb ételeknél az eredmények kevésbé megbízhatóak lehetnek.',
 			'settings.localInference.disclosureTitle' => 'Mielőtt engedélyezné a készüléken történő elemzést',
 			'settings.localInference.disclosureBody' => 'A Gemini Nano képes az összetevők azonosítására és az adagok becslésére a támogatott Android készülékeken. Az ellenőrzött összetevő-javaslatot a Calorify-nak küldjük a USDA tápértékadatok alapú számításhoz.',
 			'settings.localInference.disclosureLimit1' => 'A komplex ételek, a rejtett összetevők és az adagméretek esetleg hibásan kerülhetnek azonosításra.',

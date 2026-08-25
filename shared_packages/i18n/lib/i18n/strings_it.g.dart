@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$it extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Hardware compatibile trovato, ma questa funzione non è abilitata per questa versione dell\'app';
 	@override String get modelSetup => 'Gemini Nano deve completare il download prima di poter essere abilitato';
 	@override String get useLocalTitle => 'Usa l\'analisi sul dispositivo';
-	@override String get useLocalSubtitle => 'Opzionale e disattivata per impostazione predefinita. I risultati potrebbero essere meno affidabili per pasti complessi.';
+	@override String get useLocalSubtitle => 'I risultati potrebbero essere meno affidabili per pasti complessi.';
 	@override String get disclosureTitle => 'Prima di abilitare l\'analisi sul dispositivo';
 	@override String get disclosureBody => 'Gemini Nano può identificare gli ingredienti e stimare le porzioni su dispositivi Android supportati. La proposta di ingredienti revisionata viene inviata a Calorify per il riscontro nutrizionale USDA e il calcolo.';
 	@override String get disclosureLimit1 => 'Piatti complessi, ingredienti nascosti e dimensioni delle porzioni potrebbero essere identificati in modo errato.';
@@ -2439,7 +2439,7 @@ extension on TranslationsIt {
 			'settings.localInference.rolloutUnavailable' => 'Hardware compatibile trovato, ma questa funzione non è abilitata per questa versione dell\'app',
 			'settings.localInference.modelSetup' => 'Gemini Nano deve completare il download prima di poter essere abilitato',
 			'settings.localInference.useLocalTitle' => 'Usa l\'analisi sul dispositivo',
-			'settings.localInference.useLocalSubtitle' => 'Opzionale e disattivata per impostazione predefinita. I risultati potrebbero essere meno affidabili per pasti complessi.',
+			'settings.localInference.useLocalSubtitle' => 'I risultati potrebbero essere meno affidabili per pasti complessi.',
 			'settings.localInference.disclosureTitle' => 'Prima di abilitare l\'analisi sul dispositivo',
 			'settings.localInference.disclosureBody' => 'Gemini Nano può identificare gli ingredienti e stimare le porzioni su dispositivi Android supportati. La proposta di ingredienti revisionata viene inviata a Calorify per il riscontro nutrizionale USDA e il calcolo.',
 			'settings.localInference.disclosureLimit1' => 'Piatti complessi, ingredienti nascosti e dimensioni delle porzioni potrebbero essere identificati in modo errato.',

@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$pt extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Hardware compatível encontrado, mas esta funcionalidade não está ativada para esta versão da app';
 	@override String get modelSetup => 'O Gemini Nano precisa de terminar o download antes de isto poder ser ativado';
 	@override String get useLocalTitle => 'Utilizar análise no dispositivo';
-	@override String get useLocalSubtitle => 'Opcional e desativado por predefinição. Os resultados podem ser menos fiáveis para refeições complexas.';
+	@override String get useLocalSubtitle => 'Os resultados podem ser menos confiáveis para refeições complexas.';
 	@override String get disclosureTitle => 'Antes de ativar a análise no dispositivo';
 	@override String get disclosureBody => 'O Gemini Nano pode identificar ingredientes e estimar porções em dispositivos Android suportados. A proposta de ingredientes revista é enviada para o Calorify para a fundamentação nutricional do USDA e cálculo.';
 	@override String get disclosureLimit1 => 'Pratos complexos, ingredientes ocultos e tamanhos de porções podem ser identificados incorretamente.';
@@ -2439,7 +2439,7 @@ extension on TranslationsPt {
 			'settings.localInference.rolloutUnavailable' => 'Hardware compatível encontrado, mas esta funcionalidade não está ativada para esta versão da app',
 			'settings.localInference.modelSetup' => 'O Gemini Nano precisa de terminar o download antes de isto poder ser ativado',
 			'settings.localInference.useLocalTitle' => 'Utilizar análise no dispositivo',
-			'settings.localInference.useLocalSubtitle' => 'Opcional e desativado por predefinição. Os resultados podem ser menos fiáveis para refeições complexas.',
+			'settings.localInference.useLocalSubtitle' => 'Os resultados podem ser menos confiáveis para refeições complexas.',
 			'settings.localInference.disclosureTitle' => 'Antes de ativar a análise no dispositivo',
 			'settings.localInference.disclosureBody' => 'O Gemini Nano pode identificar ingredientes e estimar porções em dispositivos Android suportados. A proposta de ingredientes revista é enviada para o Calorify para a fundamentação nutricional do USDA e cálculo.',
 			'settings.localInference.disclosureLimit1' => 'Pratos complexos, ingredientes ocultos e tamanhos de porções podem ser identificados incorretamente.',

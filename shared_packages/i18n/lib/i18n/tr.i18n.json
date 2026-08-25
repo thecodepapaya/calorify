@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi",
       "modelSetup": "Bu özelliğin etkinleştirilebilmesi için Gemini Nano'nun indirme işlemini tamamlaması gerekiyor",
       "useLocalTitle": "Cihaz içi analizi kullan",
-      "useLocalSubtitle": "İsteğe bağlıdır ve varsayılan olarak kapalıdır. Karmaşık öğünler için sonuçlar daha az güvenilir olabilir.",
+      "useLocalSubtitle": "Karmaşık öğünlerde sonuçlar daha az güvenilir olabilir.",
       "disclosureTitle": "Cihaz içi analizi etkinleştirmeden önce",
       "disclosureBody": "Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify'a gönderilir.",
       "disclosureLimit1": "Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.",

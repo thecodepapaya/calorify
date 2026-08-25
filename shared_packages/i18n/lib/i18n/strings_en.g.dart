@@ -1868,8 +1868,8 @@ class Translations$settings$localInference$en {
 	/// en: 'Use on-device analysis'
 	String get useLocalTitle => 'Use on-device analysis';
 
-	/// en: 'Optional and off by default. Results may be less reliable for complex meals.'
-	String get useLocalSubtitle => 'Optional and off by default. Results may be less reliable for complex meals.';
+	/// en: 'Results may be less reliable for complex meals.'
+	String get useLocalSubtitle => 'Results may be less reliable for complex meals.';
 
 	/// en: 'Before you enable on-device analysis'
 	String get disclosureTitle => 'Before you enable on-device analysis';
@@ -3840,7 +3840,7 @@ extension on Translations {
 			'settings.localInference.rolloutUnavailable' => 'Available hardware found, but this feature is not enabled for this app release',
 			'settings.localInference.modelSetup' => 'Gemini Nano needs to finish downloading before this can be enabled',
 			'settings.localInference.useLocalTitle' => 'Use on-device analysis',
-			'settings.localInference.useLocalSubtitle' => 'Optional and off by default. Results may be less reliable for complex meals.',
+			'settings.localInference.useLocalSubtitle' => 'Results may be less reliable for complex meals.',
 			'settings.localInference.disclosureTitle' => 'Before you enable on-device analysis',
 			'settings.localInference.disclosureBody' => 'Gemini Nano can identify ingredients and estimate portions on supported Android devices. Your reviewed ingredient proposal is sent to Calorify for USDA nutrition grounding and calculation.',
 			'settings.localInference.disclosureLimit1' => 'Complex dishes, hidden ingredients, and portion sizes may be identified incorrectly.',

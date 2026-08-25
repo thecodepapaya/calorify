@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$hi extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'उपयुक्त हार्डवेयर मिला, लेकिन यह सुविधा इस ऐप रिलीज़ के लिए सक्षम नहीं है';
 	@override String get modelSetup => 'इसे सक्षम करने से पहले Gemini Nano का डाउनलोड पूरा होना आवश्यक है';
 	@override String get useLocalTitle => 'ऑन-डिवाइस विश्लेषण का उपयोग करें';
-	@override String get useLocalSubtitle => 'वैकल्पिक और डिफ़ॉल्ट रूप से बंद। जटिल भोजन के लिए परिणाम कम विश्वसनीय हो सकते हैं।';
+	@override String get useLocalSubtitle => 'जटिल भोजन के लिए परिणाम कम विश्वसनीय हो सकते हैं।';
 	@override String get disclosureTitle => 'ऑन-डिवाइस विश्लेषण सक्षम करने से पहले';
 	@override String get disclosureBody => 'Gemini Nano समर्थित Android डिवाइसों पर इंग्रीडिएंट्स की पहचान कर सकता है और मात्रा का अनुमान लगा सकता है। आपके द्वारा समीक्षा किया गया इंग्रीडिएंट प्रस्ताव USDA पोषण ग्राउंडिंग और गणना के लिए Calorify को भेजा जाता है।';
 	@override String get disclosureLimit1 => 'जटिल व्यंजन, छिपे हुए इंग्रीडिएंट्स और मात्रा का आकार गलत पहचाना जा सकता है।';
@@ -2439,7 +2439,7 @@ extension on TranslationsHi {
 			'settings.localInference.rolloutUnavailable' => 'उपयुक्त हार्डवेयर मिला, लेकिन यह सुविधा इस ऐप रिलीज़ के लिए सक्षम नहीं है',
 			'settings.localInference.modelSetup' => 'इसे सक्षम करने से पहले Gemini Nano का डाउनलोड पूरा होना आवश्यक है',
 			'settings.localInference.useLocalTitle' => 'ऑन-डिवाइस विश्लेषण का उपयोग करें',
-			'settings.localInference.useLocalSubtitle' => 'वैकल्पिक और डिफ़ॉल्ट रूप से बंद। जटिल भोजन के लिए परिणाम कम विश्वसनीय हो सकते हैं।',
+			'settings.localInference.useLocalSubtitle' => 'जटिल भोजन के लिए परिणाम कम विश्वसनीय हो सकते हैं।',
 			'settings.localInference.disclosureTitle' => 'ऑन-डिवाइस विश्लेषण सक्षम करने से पहले',
 			'settings.localInference.disclosureBody' => 'Gemini Nano समर्थित Android डिवाइसों पर इंग्रीडिएंट्स की पहचान कर सकता है और मात्रा का अनुमान लगा सकता है। आपके द्वारा समीक्षा किया गया इंग्रीडिएंट प्रस्ताव USDA पोषण ग्राउंडिंग और गणना के लिए Calorify को भेजा जाता है।',
 			'settings.localInference.disclosureLimit1' => 'जटिल व्यंजन, छिपे हुए इंग्रीडिएंट्स और मात्रा का आकार गलत पहचाना जा सकता है।',

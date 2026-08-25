@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$bn extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'উপযুক্ত হার্ডওয়্যার পাওয়া গেছে, তবে এই অ্যাপ রিলিজের জন্য এই ফিচারটি সক্রিয় করা হয়নি';
 	@override String get modelSetup => 'এটি সক্রিয় করার আগে Gemini Nano ডাউনলোড শেষ হওয়া প্রয়োজন';
 	@override String get useLocalTitle => 'অন-ডিভাইস বিশ্লেষণ ব্যবহার করুন';
-	@override String get useLocalSubtitle => 'ঐচ্ছিক এবং ডিফল্টভাবে বন্ধ থাকে। জটিল খাবারের ক্ষেত্রে ফলাফল কম নির্ভরযোগ্য হতে পারে।';
+	@override String get useLocalSubtitle => 'জটিল খাবারের ক্ষেত্রে ফলাফলগুলো কিছুটা কম নির্ভরযোগ্য হতে পারে।';
 	@override String get disclosureTitle => 'অন-ডিভাইস বিশ্লেষণ সক্রিয় করার আগে';
 	@override String get disclosureBody => 'Gemini Nano সমর্থিত Android ডিভাইসে উপাদান শনাক্ত করতে এবং পরিমাণের অনুমান করতে পারে। আপনার যাচাই করা উপাদানের প্রস্তাবটি USDA পুষ্টির ভিত্তি এবং গণনার জন্য Calorify-এ পাঠানো হয়।';
 	@override String get disclosureLimit1 => 'জটিল খাবার, লুকানো উপাদান এবং পরিমাণের আকার ভুলভাবে শনাক্ত হতে পারে।';
@@ -2439,7 +2439,7 @@ extension on TranslationsBn {
 			'settings.localInference.rolloutUnavailable' => 'উপযুক্ত হার্ডওয়্যার পাওয়া গেছে, তবে এই অ্যাপ রিলিজের জন্য এই ফিচারটি সক্রিয় করা হয়নি',
 			'settings.localInference.modelSetup' => 'এটি সক্রিয় করার আগে Gemini Nano ডাউনলোড শেষ হওয়া প্রয়োজন',
 			'settings.localInference.useLocalTitle' => 'অন-ডিভাইস বিশ্লেষণ ব্যবহার করুন',
-			'settings.localInference.useLocalSubtitle' => 'ঐচ্ছিক এবং ডিফল্টভাবে বন্ধ থাকে। জটিল খাবারের ক্ষেত্রে ফলাফল কম নির্ভরযোগ্য হতে পারে।',
+			'settings.localInference.useLocalSubtitle' => 'জটিল খাবারের ক্ষেত্রে ফলাফলগুলো কিছুটা কম নির্ভরযোগ্য হতে পারে।',
 			'settings.localInference.disclosureTitle' => 'অন-ডিভাইস বিশ্লেষণ সক্রিয় করার আগে',
 			'settings.localInference.disclosureBody' => 'Gemini Nano সমর্থিত Android ডিভাইসে উপাদান শনাক্ত করতে এবং পরিমাণের অনুমান করতে পারে। আপনার যাচাই করা উপাদানের প্রস্তাবটি USDA পুষ্টির ভিত্তি এবং গণনার জন্য Calorify-এ পাঠানো হয়।',
 			'settings.localInference.disclosureLimit1' => 'জটিল খাবার, লুকানো উপাদান এবং পরিমাণের আকার ভুলভাবে শনাক্ত হতে পারে।',

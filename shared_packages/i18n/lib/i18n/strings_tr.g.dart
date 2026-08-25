@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$tr extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi';
 	@override String get modelSetup => 'Bu özelliğin etkinleştirilebilmesi için Gemini Nano\'nun indirme işlemini tamamlaması gerekiyor';
 	@override String get useLocalTitle => 'Cihaz içi analizi kullan';
-	@override String get useLocalSubtitle => 'İsteğe bağlıdır ve varsayılan olarak kapalıdır. Karmaşık öğünler için sonuçlar daha az güvenilir olabilir.';
+	@override String get useLocalSubtitle => 'Karmaşık öğünlerde sonuçlar daha az güvenilir olabilir.';
 	@override String get disclosureTitle => 'Cihaz içi analizi etkinleştirmeden önce';
 	@override String get disclosureBody => 'Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify\'a gönderilir.';
 	@override String get disclosureLimit1 => 'Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.';
@@ -2439,7 +2439,7 @@ extension on TranslationsTr {
 			'settings.localInference.rolloutUnavailable' => 'Uygun donanım bulundu ancak bu özellik bu uygulama sürümü için etkinleştirilmedi',
 			'settings.localInference.modelSetup' => 'Bu özelliğin etkinleştirilebilmesi için Gemini Nano\'nun indirme işlemini tamamlaması gerekiyor',
 			'settings.localInference.useLocalTitle' => 'Cihaz içi analizi kullan',
-			'settings.localInference.useLocalSubtitle' => 'İsteğe bağlıdır ve varsayılan olarak kapalıdır. Karmaşık öğünler için sonuçlar daha az güvenilir olabilir.',
+			'settings.localInference.useLocalSubtitle' => 'Karmaşık öğünlerde sonuçlar daha az güvenilir olabilir.',
 			'settings.localInference.disclosureTitle' => 'Cihaz içi analizi etkinleştirmeden önce',
 			'settings.localInference.disclosureBody' => 'Gemini Nano, desteklenen Android cihazlarda malzemeleri tanımlayabilir ve porsiyonları tahmin edebilir. Gözden geçirdiğiniz malzeme önerisi, USDA besin temellendirmesi ve hesaplama için Calorify\'a gönderilir.',
 			'settings.localInference.disclosureLimit1' => 'Karmaşık yemekler, gizli malzemeler ve porsiyon boyutları yanlış tanımlanabilir.',

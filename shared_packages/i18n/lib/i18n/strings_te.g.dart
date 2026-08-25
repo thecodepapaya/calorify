@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$te extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'మద్దతు ఉన్న హార్డ్‌వేర్ ఉంది, కానీ ఈ యాప్ వెర్షన్‌లో ఈ ఫీచర్ ఎనేబుల్ చేయబడలేదు';
 	@override String get modelSetup => 'దీనిని ఎనేబుల్ చేయడానికి ముందు Gemini Nano డౌన్‌లోడ్ పూర్తి కావాలి';
 	@override String get useLocalTitle => 'ఆన్-డివైస్ విశ్లేషణను ఉపయోగించు';
-	@override String get useLocalSubtitle => 'ఇది ఐచ్ఛికం మరియు డిఫాల్ట్‌గా ఆఫ్ చేయబడి ఉంటుంది. సంక్లిష్టమైన భోజనాలకు ఫలితాలు తక్కువ ఖచ్చితత్వంతో ఉండవచ్చు.';
+	@override String get useLocalSubtitle => 'జటిలమైన వంటకాల కోసం ఫలితాలు కొంతమేర తక్కువ విశ్వాసయోగ్యంగా ఉండొచ్చు.';
 	@override String get disclosureTitle => 'ఆన్-డివైస్ విశ్లేషణను ఎనేబుల్ చేసే ముందు';
 	@override String get disclosureBody => 'మద్దతు ఉన్న Android పరికరాలలో Gemini Nano పదార్థాలను గుర్తించగలదు మరియు పరిమాణాలను అంచనా వేయగలదు. మీరు సమీక్షించిన పదార్థాల ప్రతిపాదన USDA పోషక విశ్లేషణ మరియు గణన కోసం Calorifyకి పంపబడుతుంది.';
 	@override String get disclosureLimit1 => 'సంక్లిష్టమైన వంటకాలు, దాగి ఉన్న పదార్థాలు మరియు పరిమాణాలు తప్పుగా గుర్తించబడవచ్చు.';
@@ -2439,7 +2439,7 @@ extension on TranslationsTe {
 			'settings.localInference.rolloutUnavailable' => 'మద్దతు ఉన్న హార్డ్‌వేర్ ఉంది, కానీ ఈ యాప్ వెర్షన్‌లో ఈ ఫీచర్ ఎనేబుల్ చేయబడలేదు',
 			'settings.localInference.modelSetup' => 'దీనిని ఎనేబుల్ చేయడానికి ముందు Gemini Nano డౌన్‌లోడ్ పూర్తి కావాలి',
 			'settings.localInference.useLocalTitle' => 'ఆన్-డివైస్ విశ్లేషణను ఉపయోగించు',
-			'settings.localInference.useLocalSubtitle' => 'ఇది ఐచ్ఛికం మరియు డిఫాల్ట్‌గా ఆఫ్ చేయబడి ఉంటుంది. సంక్లిష్టమైన భోజనాలకు ఫలితాలు తక్కువ ఖచ్చితత్వంతో ఉండవచ్చు.',
+			'settings.localInference.useLocalSubtitle' => 'జటిలమైన వంటకాల కోసం ఫలితాలు కొంతమేర తక్కువ విశ్వాసయోగ్యంగా ఉండొచ్చు.',
 			'settings.localInference.disclosureTitle' => 'ఆన్-డివైస్ విశ్లేషణను ఎనేబుల్ చేసే ముందు',
 			'settings.localInference.disclosureBody' => 'మద్దతు ఉన్న Android పరికరాలలో Gemini Nano పదార్థాలను గుర్తించగలదు మరియు పరిమాణాలను అంచనా వేయగలదు. మీరు సమీక్షించిన పదార్థాల ప్రతిపాదన USDA పోషక విశ్లేషణ మరియు గణన కోసం Calorifyకి పంపబడుతుంది.',
 			'settings.localInference.disclosureLimit1' => 'సంక్లిష్టమైన వంటకాలు, దాగి ఉన్న పదార్థాలు మరియు పరిమాణాలు తప్పుగా గుర్తించబడవచ్చు.',

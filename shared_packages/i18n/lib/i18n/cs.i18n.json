@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Podporovaný hardware byl nalezen, ale tato funkce není pro tuto verzi aplikace aktivní",
       "modelSetup": "Před aktivací musí Gemini Nano dokončit stahování",
       "useLocalTitle": "Používat analýzu v zařízení",
-      "useLocalSubtitle": "Volitelné, ve výchozím nastavení vypnuto. Výsledky mohou být u složitých jídel méně spolehlivé.",
+      "useLocalSubtitle": "U složitějších jídel mohou být výsledky méně spolehlivé.",
       "disclosureTitle": "Než zapnete analýzu v zařízení",
       "disclosureBody": "Gemini Nano dokáže identifikovat ingredience a odhadnout porce na podporovaných zařízeních Android. Váš zkontrolovaný návrh ingrediencí je odeslán do Calorify za účelem ověření výživových hodnot USDA a výpočtu.",
       "disclosureLimit1": "Složitá jídla, skryté ingredience a velikosti porcí mohou být identifikovány nesprávně.",

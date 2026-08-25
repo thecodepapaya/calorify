@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$ro extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Hardware compatibil găsit, dar această funcție nu este activată pentru această versiune a aplicației';
 	@override String get modelSetup => 'Gemini Nano trebuie să finalizeze descărcarea înainte de a putea fi activat';
 	@override String get useLocalTitle => 'Folosește analiza pe dispozitiv';
-	@override String get useLocalSubtitle => 'Opțional și dezactivat implicit. Rezultatele pot fi mai puțin sigure pentru mese complexe.';
+	@override String get useLocalSubtitle => 'Rezultatele pot fi mai puțin fiabile pentru mesele complexe.';
 	@override String get disclosureTitle => 'Înainte de a activa analiza pe dispozitiv';
 	@override String get disclosureBody => 'Gemini Nano poate identifica ingredientele și poate estima porțiile pe dispozitivele Android suportate. Propunerea de ingrediente revizuită este trimisă către Calorify pentru fundamentarea nutrițională USDA și calcul.';
 	@override String get disclosureLimit1 => 'Felurile de mâncare complexe, ingredientele ascunse și dimensiunile porțiilor pot fi identificate incorect.';
@@ -2439,7 +2439,7 @@ extension on TranslationsRo {
 			'settings.localInference.rolloutUnavailable' => 'Hardware compatibil găsit, dar această funcție nu este activată pentru această versiune a aplicației',
 			'settings.localInference.modelSetup' => 'Gemini Nano trebuie să finalizeze descărcarea înainte de a putea fi activat',
 			'settings.localInference.useLocalTitle' => 'Folosește analiza pe dispozitiv',
-			'settings.localInference.useLocalSubtitle' => 'Opțional și dezactivat implicit. Rezultatele pot fi mai puțin sigure pentru mese complexe.',
+			'settings.localInference.useLocalSubtitle' => 'Rezultatele pot fi mai puțin fiabile pentru mesele complexe.',
 			'settings.localInference.disclosureTitle' => 'Înainte de a activa analiza pe dispozitiv',
 			'settings.localInference.disclosureBody' => 'Gemini Nano poate identifica ingredientele și poate estima porțiile pe dispozitivele Android suportate. Propunerea de ingrediente revizuită este trimisă către Calorify pentru fundamentarea nutrițională USDA și calcul.',
 			'settings.localInference.disclosureLimit1' => 'Felurile de mâncare complexe, ingredientele ascunse și dimensiunile porțiilor pot fi identificate incorect.',

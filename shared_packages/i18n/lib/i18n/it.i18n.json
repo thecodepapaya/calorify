@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Hardware compatibile trovato, ma questa funzione non è abilitata per questa versione dell'app",
       "modelSetup": "Gemini Nano deve completare il download prima di poter essere abilitato",
       "useLocalTitle": "Usa l'analisi sul dispositivo",
-      "useLocalSubtitle": "Opzionale e disattivata per impostazione predefinita. I risultati potrebbero essere meno affidabili per pasti complessi.",
+      "useLocalSubtitle": "I risultati potrebbero essere meno affidabili per pasti complessi.",
       "disclosureTitle": "Prima di abilitare l'analisi sul dispositivo",
       "disclosureBody": "Gemini Nano può identificare gli ingredienti e stimare le porzioni su dispositivi Android supportati. La proposta di ingredienti revisionata viene inviata a Calorify per il riscontro nutrizionale USDA e il calcolo.",
       "disclosureLimit1": "Piatti complessi, ingredienti nascosti e dimensioni delle porzioni potrebbero essere identificati in modo errato.",

@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$de extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Kompatible Hardware gefunden, aber diese Funktion ist für diese App-Version nicht aktiviert';
 	@override String get modelSetup => 'Gemini Nano muss den Download abschließen, bevor dies aktiviert werden kann';
 	@override String get useLocalTitle => 'On-Device-Analyse verwenden';
-	@override String get useLocalSubtitle => 'Optional und standardmäßig deaktiviert. Ergebnisse bei komplexen Mahlzeiten können weniger zuverlässig sein.';
+	@override String get useLocalSubtitle => 'Bei komplexen Mahlzeiten können die Ergebnisse weniger zuverlässig sein.';
 	@override String get disclosureTitle => 'Bevor Sie die On-Device-Analyse aktivieren';
 	@override String get disclosureBody => 'Gemini Nano kann Zutaten identifizieren und Portionen auf unterstützten Android-Geräten schätzen. Ihr geprüfter Zutatenvorschlag wird an Calorify zur USDA-Nährwertprüfung und Berechnung gesendet.';
 	@override String get disclosureLimit1 => 'Komplexe Gerichte, versteckte Zutaten und Portionsgrößen können falsch identifiziert werden.';
@@ -2439,7 +2439,7 @@ extension on TranslationsDe {
 			'settings.localInference.rolloutUnavailable' => 'Kompatible Hardware gefunden, aber diese Funktion ist für diese App-Version nicht aktiviert',
 			'settings.localInference.modelSetup' => 'Gemini Nano muss den Download abschließen, bevor dies aktiviert werden kann',
 			'settings.localInference.useLocalTitle' => 'On-Device-Analyse verwenden',
-			'settings.localInference.useLocalSubtitle' => 'Optional und standardmäßig deaktiviert. Ergebnisse bei komplexen Mahlzeiten können weniger zuverlässig sein.',
+			'settings.localInference.useLocalSubtitle' => 'Bei komplexen Mahlzeiten können die Ergebnisse weniger zuverlässig sein.',
 			'settings.localInference.disclosureTitle' => 'Bevor Sie die On-Device-Analyse aktivieren',
 			'settings.localInference.disclosureBody' => 'Gemini Nano kann Zutaten identifizieren und Portionen auf unterstützten Android-Geräten schätzen. Ihr geprüfter Zutatenvorschlag wird an Calorify zur USDA-Nährwertprüfung und Berechnung gesendet.',
 			'settings.localInference.disclosureLimit1' => 'Komplexe Gerichte, versteckte Zutaten und Portionsgrößen können falsch identifiziert werden.',

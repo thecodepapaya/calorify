@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$ar extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'تم العثور على الأجهزة المتوافقة، ولكن هذه الميزة غير مفعلة في هذا الإصدار من التطبيق';
 	@override String get modelSetup => 'يجب أن ينتهي تحميل Gemini Nano قبل تفعيل هذه الميزة';
 	@override String get useLocalTitle => 'استخدام التحليل على الجهاز';
-	@override String get useLocalSubtitle => 'اختياري ومعطل افتراضياً. قد تكون النتائج أقل دقة للوجبات المعقدة.';
+	@override String get useLocalSubtitle => 'قد تكون النتائج أقل موثوقية بالنسبة للوجبات المعقّدة.';
 	@override String get disclosureTitle => 'قبل تفعيل التحليل على الجهاز';
 	@override String get disclosureBody => 'يمكن لـ Gemini Nano تحديد المكونات وتقدير الكميات على أجهزة Android المدعومة. يتم إرسال مقترح المكونات الذي تراجعه إلى Calorify لربطه بالقيم الغذائية من USDA وحسابها.';
 	@override String get disclosureLimit1 => 'قد يتم تحديد الأطباق المعقدة، والمكونات المخفية، وأحجام الحصص بشكل غير صحيح.';
@@ -2439,7 +2439,7 @@ extension on TranslationsAr {
 			'settings.localInference.rolloutUnavailable' => 'تم العثور على الأجهزة المتوافقة، ولكن هذه الميزة غير مفعلة في هذا الإصدار من التطبيق',
 			'settings.localInference.modelSetup' => 'يجب أن ينتهي تحميل Gemini Nano قبل تفعيل هذه الميزة',
 			'settings.localInference.useLocalTitle' => 'استخدام التحليل على الجهاز',
-			'settings.localInference.useLocalSubtitle' => 'اختياري ومعطل افتراضياً. قد تكون النتائج أقل دقة للوجبات المعقدة.',
+			'settings.localInference.useLocalSubtitle' => 'قد تكون النتائج أقل موثوقية بالنسبة للوجبات المعقّدة.',
 			'settings.localInference.disclosureTitle' => 'قبل تفعيل التحليل على الجهاز',
 			'settings.localInference.disclosureBody' => 'يمكن لـ Gemini Nano تحديد المكونات وتقدير الكميات على أجهزة Android المدعومة. يتم إرسال مقترح المكونات الذي تراجعه إلى Calorify لربطه بالقيم الغذائية من USDA وحسابها.',
 			'settings.localInference.disclosureLimit1' => 'قد يتم تحديد الأطباق المعقدة، والمكونات المخفية، وأحجام الحصص بشكل غير صحيح.',

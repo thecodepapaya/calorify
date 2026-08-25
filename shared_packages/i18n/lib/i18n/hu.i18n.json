@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Megfelelő hardver található, de ez a funkció nem aktív a jelenlegi applikációs verzióban",
       "modelSetup": "A Gemini Nano letöltése be kell fejeznie, mielőtt ez engedhetővé válna",
       "useLocalTitle": "Készüléken történő elemzés használata",
-      "useLocalSubtitle": "Opcionális, alapértelmezetten ki van kapcsolva. A komplex ételeknél az eredmények kevésbé megbízhatóak lehetnek.",
+      "useLocalSubtitle": "Bonyolultabb ételeknél az eredmények kevésbé megbízhatóak lehetnek.",
       "disclosureTitle": "Mielőtt engedélyezné a készüléken történő elemzést",
       "disclosureBody": "A Gemini Nano képes az összetevők azonosítására és az adagok becslésére a támogatott Android készülékeken. Az ellenőrzött összetevő-javaslatot a Calorify-nak küldjük a USDA tápértékadatok alapú számításhoz.",
       "disclosureLimit1": "A komplex ételek, a rejtett összetevők és az adagméretek esetleg hibásan kerülhetnek azonosításra.",

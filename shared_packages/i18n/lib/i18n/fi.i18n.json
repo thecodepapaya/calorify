@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Yhteensopiva laitteisto löytyi, mutta tämä ominaisuus ei ole käytössä tässä sovellusversiossa",
       "modelSetup": "Gemini Nanon latauksen on valmistuttava ennen kuin tämä voidaan ottaa käyttöön",
       "useLocalTitle": "Käytä paikallista analyysia",
-      "useLocalSubtitle": "Valinnainen ja oletuksena pois päältä. Tulokset voivat olla epätarkempia monimutkaisten aterioiden kohdalla.",
+      "useLocalSubtitle": "Tulokset saattavat olla vähemmän luotettavia monimutkaisissa aterioissa.",
       "disclosureTitle": "Ennen paikallisen analyysin käyttöönottoa",
       "disclosureBody": "Gemini Nano voi tunnistaa ainesosia ja arvioida annoskokoja tuetuilla Android-laitteilla. Tarkistamasi ainesosaehdotus lähetetään Calorifylle USDA-ravintoarvojen vahvistusta ja laskentaa varten.",
       "disclosureLimit1": "Monimutkaiset annokset, piilotetut ainesosat ja annoskoot saatetaan tunnistaa väärin.",

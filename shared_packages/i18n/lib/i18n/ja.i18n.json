@@ -534,7 +534,7 @@
       "rolloutUnavailable": "対応ハードウェアは見つかりましたが、このアプリのバージョンでは機能が有効になっていません",
       "modelSetup": "有効にする前にGemini Nanoのダウンロードを完了させる必要があります",
       "useLocalTitle": "デバイス上での解析を使用",
-      "useLocalSubtitle": "オプションであり、デフォルトではオフになっています。複雑な食事の場合、結果の信頼性が低くなることがあります。",
+      "useLocalSubtitle": "複雑な食事では、結果の精度が低くなる場合があります。",
       "disclosureTitle": "デバイス上での解析を有効にする前に",
       "disclosureBody": "Gemini Nanoは、対応するAndroidデバイスで食材の特定と分量の推定が可能です。確認済みの食材案は、USDAの栄養データに基づいた計算のためCalorifyに送信されます。",
       "disclosureLimit1": "複雑な料理、隠れた食材、分量の特定が正しく行われない場合があります。",

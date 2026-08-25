@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie",
       "modelSetup": "Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld",
       "useLocalTitle": "Analyse op apparaat gebruiken",
-      "useLocalSubtitle": "Optioneel en standaard uitgeschakeld. Resultaten kunnen minder betrouwbaar zijn voor complexe maaltijden.",
+      "useLocalSubtitle": "Bij complexe maaltijden kunnen de resultaten minder betrouwbaar zijn.",
       "disclosureTitle": "Voordat je analyse op apparaat inschakelt",
       "disclosureBody": "Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.",
       "disclosureLimit1": "Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.",

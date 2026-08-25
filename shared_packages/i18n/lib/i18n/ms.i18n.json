@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Perkakasan yang tersedia ditemui, tetapi ciri ini tidak didayakan untuk versi aplikasi ini",
       "modelSetup": "Gemini Nano perlu selesai dimuat turun sebelum ini boleh didayakan",
       "useLocalTitle": "Gunakan analisis pada peranti",
-      "useLocalSubtitle": "Pilihan dan dimatikan secara lalai. Keputusan mungkin kurang tepat untuk hidangan yang kompleks.",
+      "useLocalSubtitle": "Keputusan mungkin kurang boleh dipercayai untuk hidangan yang kompleks.",
       "disclosureTitle": "Sebelum anda mendayakan analisis pada peranti",
       "disclosureBody": "Gemini Nano boleh mengenal pasti ramuan dan menganggar bahagian pada peranti Android yang disokong. Cadangan ramuan yang anda semak akan dihantar ke Calorify untuk pengesahan pemakanan USDA dan pengiraan.",
       "disclosureLimit1": "Hidangan kompleks, ramuan tersembunyi, dan saiz bahagian mungkin dikenal pasti secara tidak tepat.",

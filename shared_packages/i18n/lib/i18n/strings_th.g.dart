@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$th extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'พบฮาร์ดแวร์ที่รองรับ แต่ฟีเจอร์นี้ยังไม่เปิดใช้งานสำหรับแอปเวอร์ชันนี้';
 	@override String get modelSetup => 'Gemini Nano จำเป็นต้องดาวน์โหลดให้เสร็จสิ้นก่อนจึงจะเปิดใช้งานได้';
 	@override String get useLocalTitle => 'ใช้การวิเคราะห์บนอุปกรณ์';
-	@override String get useLocalSubtitle => 'ตัวเลือกเสริมและปิดไว้เป็นค่าเริ่มต้น ผลลัพธ์อาจมีความแม่นยำน้อยลงสำหรับมื้ออาหารที่ซับซ้อน';
+	@override String get useLocalSubtitle => 'ผลลัพธ์อาจมีความแม่นยำน้อยลงสำหรับมื้ออาหารที่ซับซ้อน';
 	@override String get disclosureTitle => 'ก่อนเปิดใช้งานการวิเคราะห์บนอุปกรณ์';
 	@override String get disclosureBody => 'Gemini Nano สามารถระบุส่วนผสมและประมาณปริมาณบนอุปกรณ์ Android ที่รองรับ โดยรายการส่วนผสมที่คุณตรวจสอบแล้วจะถูกส่งไปยัง Calorify เพื่ออ้างอิงข้อมูลโภชนาการจาก USDA และคำนวณผล';
 	@override String get disclosureLimit1 => 'อาหารที่ซับซ้อน ส่วนผสมที่ซ่อนอยู่ และขนาดของส่วนแบ่งอาจถูกระบุไม่ถูกต้อง';
@@ -2439,7 +2439,7 @@ extension on TranslationsTh {
 			'settings.localInference.rolloutUnavailable' => 'พบฮาร์ดแวร์ที่รองรับ แต่ฟีเจอร์นี้ยังไม่เปิดใช้งานสำหรับแอปเวอร์ชันนี้',
 			'settings.localInference.modelSetup' => 'Gemini Nano จำเป็นต้องดาวน์โหลดให้เสร็จสิ้นก่อนจึงจะเปิดใช้งานได้',
 			'settings.localInference.useLocalTitle' => 'ใช้การวิเคราะห์บนอุปกรณ์',
-			'settings.localInference.useLocalSubtitle' => 'ตัวเลือกเสริมและปิดไว้เป็นค่าเริ่มต้น ผลลัพธ์อาจมีความแม่นยำน้อยลงสำหรับมื้ออาหารที่ซับซ้อน',
+			'settings.localInference.useLocalSubtitle' => 'ผลลัพธ์อาจมีความแม่นยำน้อยลงสำหรับมื้ออาหารที่ซับซ้อน',
 			'settings.localInference.disclosureTitle' => 'ก่อนเปิดใช้งานการวิเคราะห์บนอุปกรณ์',
 			'settings.localInference.disclosureBody' => 'Gemini Nano สามารถระบุส่วนผสมและประมาณปริมาณบนอุปกรณ์ Android ที่รองรับ โดยรายการส่วนผสมที่คุณตรวจสอบแล้วจะถูกส่งไปยัง Calorify เพื่ออ้างอิงข้อมูลโภชนาการจาก USDA และคำนวณผล',
 			'settings.localInference.disclosureLimit1' => 'อาหารที่ซับซ้อน ส่วนผสมที่ซ่อนอยู่ และขนาดของส่วนแบ่งอาจถูกระบุไม่ถูกต้อง',

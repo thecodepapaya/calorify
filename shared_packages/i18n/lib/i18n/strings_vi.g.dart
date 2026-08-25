@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$vi extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này';
 	@override String get modelSetup => 'Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này';
 	@override String get useLocalTitle => 'Sử dụng phân tích trên thiết bị';
-	@override String get useLocalSubtitle => 'Tùy chọn và mặc định là tắt. Kết quả có thể kém chính xác hơn đối với các bữa ăn phức tạp.';
+	@override String get useLocalSubtitle => 'Kết quả có thể ít đáng tin cậy hơn đối với các bữa ăn phức tạp.';
 	@override String get disclosureTitle => 'Trước khi bạn bật phân tích trên thiết bị';
 	@override String get disclosureBody => 'Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.';
 	@override String get disclosureLimit1 => 'Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.';
@@ -2439,7 +2439,7 @@ extension on TranslationsVi {
 			'settings.localInference.rolloutUnavailable' => 'Tìm thấy phần cứng tương thích, nhưng tính năng này chưa được kích hoạt cho phiên bản ứng dụng này',
 			'settings.localInference.modelSetup' => 'Gemini Nano cần hoàn tất tải xuống trước khi có thể kích hoạt tính năng này',
 			'settings.localInference.useLocalTitle' => 'Sử dụng phân tích trên thiết bị',
-			'settings.localInference.useLocalSubtitle' => 'Tùy chọn và mặc định là tắt. Kết quả có thể kém chính xác hơn đối với các bữa ăn phức tạp.',
+			'settings.localInference.useLocalSubtitle' => 'Kết quả có thể ít đáng tin cậy hơn đối với các bữa ăn phức tạp.',
 			'settings.localInference.disclosureTitle' => 'Trước khi bạn bật phân tích trên thiết bị',
 			'settings.localInference.disclosureBody' => 'Gemini Nano có thể nhận diện thành phần và ước tính định lượng trên các thiết bị Android được hỗ trợ. Đề xuất thành phần sau khi bạn xem lại sẽ được gửi đến Calorify để đối chiếu dữ liệu dinh dưỡng USDA và tính toán.',
 			'settings.localInference.disclosureLimit1' => 'Các món ăn phức tạp, thành phần ẩn và kích thước phần ăn có thể bị nhận diện sai.',

@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Wykryto odpowiedni sprzęt, ale ta funkcja nie jest włączona w tej wersji aplikacji",
       "modelSetup": "Gemini Nano musi zakończyć pobieranie, zanim będzie można to włączyć",
       "useLocalTitle": "Używaj analizy na urządzeniu",
-      "useLocalSubtitle": "Opcjonalnie, domyślnie wyłączone. Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.",
+      "useLocalSubtitle": "Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.",
       "disclosureTitle": "Zanim włączysz analizę na urządzeniu",
       "disclosureBody": "Gemini Nano potrafi identyfikować składniki i szacować porcje na obsługiwanych urządzeniach Android. Twoja zweryfikowana propozycja składników jest wysyłana do Calorify w celu weryfikacji wartości odżywczych USDA i obliczeń.",
       "disclosureLimit1": "Złożone dania, ukryte składniki i wielkość porcji mogą zostać błędnie zidentyfikowane.",

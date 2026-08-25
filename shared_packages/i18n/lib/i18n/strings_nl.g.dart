@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$nl extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie';
 	@override String get modelSetup => 'Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld';
 	@override String get useLocalTitle => 'Analyse op apparaat gebruiken';
-	@override String get useLocalSubtitle => 'Optioneel en standaard uitgeschakeld. Resultaten kunnen minder betrouwbaar zijn voor complexe maaltijden.';
+	@override String get useLocalSubtitle => 'Bij complexe maaltijden kunnen de resultaten minder betrouwbaar zijn.';
 	@override String get disclosureTitle => 'Voordat je analyse op apparaat inschakelt';
 	@override String get disclosureBody => 'Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.';
 	@override String get disclosureLimit1 => 'Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.';
@@ -2439,7 +2439,7 @@ extension on TranslationsNl {
 			'settings.localInference.rolloutUnavailable' => 'Geschikte hardware gevonden, maar deze functie is niet ingeschakeld voor deze app-versie',
 			'settings.localInference.modelSetup' => 'Gemini Nano moet eerst volledig worden gedownload voordat dit kan worden ingeschakeld',
 			'settings.localInference.useLocalTitle' => 'Analyse op apparaat gebruiken',
-			'settings.localInference.useLocalSubtitle' => 'Optioneel en standaard uitgeschakeld. Resultaten kunnen minder betrouwbaar zijn voor complexe maaltijden.',
+			'settings.localInference.useLocalSubtitle' => 'Bij complexe maaltijden kunnen de resultaten minder betrouwbaar zijn.',
 			'settings.localInference.disclosureTitle' => 'Voordat je analyse op apparaat inschakelt',
 			'settings.localInference.disclosureBody' => 'Gemini Nano kan ingrediënten identificeren en porties schatten op ondersteunde Android-apparaten. Je gecontroleerde ingrediëntenvoorstel wordt naar Calorify gestuurd voor USDA-voedingsonderbouwing en berekening.',
 			'settings.localInference.disclosureLimit1' => 'Complexe gerechten, verborgen ingrediënten en portiegroottes kunnen onjuist worden geïdentificeerd.',

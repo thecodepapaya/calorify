@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$sv extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Lämplig hårdvara hittades, men funktionen är inte aktiverad för denna appversion';
 	@override String get modelSetup => 'Gemini Nano måste slutföra nedladdningen innan detta kan aktiveras';
 	@override String get useLocalTitle => 'Använd analys på enheten';
-	@override String get useLocalSubtitle => 'Valfritt och avstängt som standard. Resultaten kan vara mindre tillförlitliga för komplexa måltider.';
+	@override String get useLocalSubtitle => 'Resultaten kan vara mindre tillförlitliga för komplexa måltider.';
 	@override String get disclosureTitle => 'Innan du aktiverar analys på enheten';
 	@override String get disclosureBody => 'Gemini Nano kan identifiera ingredienser och uppskatta portioner på stödda Android-enheter. Ditt granskade ingrediensförslag skickas till Calorify för USDA-baserad näringsinformation och beräkning.';
 	@override String get disclosureLimit1 => 'Komplexa rätter, dolda ingredienser och portionsstorlekar kan identifieras felaktigt.';
@@ -2439,7 +2439,7 @@ extension on TranslationsSv {
 			'settings.localInference.rolloutUnavailable' => 'Lämplig hårdvara hittades, men funktionen är inte aktiverad för denna appversion',
 			'settings.localInference.modelSetup' => 'Gemini Nano måste slutföra nedladdningen innan detta kan aktiveras',
 			'settings.localInference.useLocalTitle' => 'Använd analys på enheten',
-			'settings.localInference.useLocalSubtitle' => 'Valfritt och avstängt som standard. Resultaten kan vara mindre tillförlitliga för komplexa måltider.',
+			'settings.localInference.useLocalSubtitle' => 'Resultaten kan vara mindre tillförlitliga för komplexa måltider.',
 			'settings.localInference.disclosureTitle' => 'Innan du aktiverar analys på enheten',
 			'settings.localInference.disclosureBody' => 'Gemini Nano kan identifiera ingredienser och uppskatta portioner på stödda Android-enheter. Ditt granskade ingrediensförslag skickas till Calorify för USDA-baserad näringsinformation och beräkning.',
 			'settings.localInference.disclosureLimit1' => 'Komplexa rätter, dolda ingredienser och portionsstorlekar kan identifieras felaktigt.',

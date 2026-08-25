@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$he extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'חומרה תומכת נמצאה, אך תכונה זו אינה זמינה בגרסה זו של האפליקציה';
 	@override String get modelSetup => 'Gemini Nano צריך לסיים את ההורדה לפני שניתן יהיה להפעיל זאת';
 	@override String get useLocalTitle => 'השתמש בניתוח במכשיר';
-	@override String get useLocalSubtitle => 'אופציונלי וכבוי כברירת מחדל. התוצאות עשויות להיות פחות אמינות עבור ארוחות מורכבות.';
+	@override String get useLocalSubtitle => 'ייתכנו תוצאות פחות מדויקות עבור ארוחות מורכבות.';
 	@override String get disclosureTitle => 'לפני הפעלת הניתוח במכשיר';
 	@override String get disclosureBody => 'Gemini Nano יכול לזהות רכיבים ולהעריך כמויות במכשירי Android נתמכים. הצעת הרכיבים שבדקת נשלחת ל-Calorify לצורך ביסוס ערכים תזונתיים מ-USDA וחישוב.';
 	@override String get disclosureLimit1 => 'מנות מורכבות, רכיבים נסתרים וגדלי מנות עשויים להיות מזוהים באופן שגוי.';
@@ -2439,7 +2439,7 @@ extension on TranslationsHe {
 			'settings.localInference.rolloutUnavailable' => 'חומרה תומכת נמצאה, אך תכונה זו אינה זמינה בגרסה זו של האפליקציה',
 			'settings.localInference.modelSetup' => 'Gemini Nano צריך לסיים את ההורדה לפני שניתן יהיה להפעיל זאת',
 			'settings.localInference.useLocalTitle' => 'השתמש בניתוח במכשיר',
-			'settings.localInference.useLocalSubtitle' => 'אופציונלי וכבוי כברירת מחדל. התוצאות עשויות להיות פחות אמינות עבור ארוחות מורכבות.',
+			'settings.localInference.useLocalSubtitle' => 'ייתכנו תוצאות פחות מדויקות עבור ארוחות מורכבות.',
 			'settings.localInference.disclosureTitle' => 'לפני הפעלת הניתוח במכשיר',
 			'settings.localInference.disclosureBody' => 'Gemini Nano יכול לזהות רכיבים ולהעריך כמויות במכשירי Android נתמכים. הצעת הרכיבים שבדקת נשלחת ל-Calorify לצורך ביסוס ערכים תזונתיים מ-USDA וחישוב.',
 			'settings.localInference.disclosureLimit1' => 'מנות מורכבות, רכיבים נסתרים וגדלי מנות עשויים להיות מזוהים באופן שגוי.',

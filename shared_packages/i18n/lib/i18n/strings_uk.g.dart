@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$uk extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Відповідне обладнання знайдено, але ця функція не активована для цієї версії програми';
 	@override String get modelSetup => 'Gemini Nano має завершити завантаження, перш ніж цю функцію можна буде увімкнути';
 	@override String get useLocalTitle => 'Використовувати аналіз на пристрої';
-	@override String get useLocalSubtitle => 'Додатково, вимкнено за замовчуванням. Результати можуть бути менш точними для складних страв.';
+	@override String get useLocalSubtitle => 'Результати можуть бути менш точними для складних страв.';
 	@override String get disclosureTitle => 'Перш ніж увімкнути аналіз на пристрої';
 	@override String get disclosureBody => 'Gemini Nano може ідентифікувати інгредієнти та оцінювати порції на підтримуваних пристроях Android. Ваші перевірені пропозиції інгредієнтів надсилаються до Calorify для уточнення даних USDA та розрахунків.';
 	@override String get disclosureLimit1 => 'Складні страви, приховані інгредієнти та розміри порцій можуть бути визначені неправильно.';
@@ -2439,7 +2439,7 @@ extension on TranslationsUk {
 			'settings.localInference.rolloutUnavailable' => 'Відповідне обладнання знайдено, але ця функція не активована для цієї версії програми',
 			'settings.localInference.modelSetup' => 'Gemini Nano має завершити завантаження, перш ніж цю функцію можна буде увімкнути',
 			'settings.localInference.useLocalTitle' => 'Використовувати аналіз на пристрої',
-			'settings.localInference.useLocalSubtitle' => 'Додатково, вимкнено за замовчуванням. Результати можуть бути менш точними для складних страв.',
+			'settings.localInference.useLocalSubtitle' => 'Результати можуть бути менш точними для складних страв.',
 			'settings.localInference.disclosureTitle' => 'Перш ніж увімкнути аналіз на пристрої',
 			'settings.localInference.disclosureBody' => 'Gemini Nano може ідентифікувати інгредієнти та оцінювати порції на підтримуваних пристроях Android. Ваші перевірені пропозиції інгредієнтів надсилаються до Calorify для уточнення даних USDA та розрахунків.',
 			'settings.localInference.disclosureLimit1' => 'Складні страви, приховані інгредієнти та розміри порцій можуть бути визначені неправильно.',

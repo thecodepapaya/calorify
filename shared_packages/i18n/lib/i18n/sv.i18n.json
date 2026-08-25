@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Lämplig hårdvara hittades, men funktionen är inte aktiverad för denna appversion",
       "modelSetup": "Gemini Nano måste slutföra nedladdningen innan detta kan aktiveras",
       "useLocalTitle": "Använd analys på enheten",
-      "useLocalSubtitle": "Valfritt och avstängt som standard. Resultaten kan vara mindre tillförlitliga för komplexa måltider.",
+      "useLocalSubtitle": "Resultaten kan vara mindre tillförlitliga för komplexa måltider.",
       "disclosureTitle": "Innan du aktiverar analys på enheten",
       "disclosureBody": "Gemini Nano kan identifiera ingredienser och uppskatta portioner på stödda Android-enheter. Ditt granskade ingrediensförslag skickas till Calorify för USDA-baserad näringsinformation och beräkning.",
       "disclosureLimit1": "Komplexa rätter, dolda ingredienser och portionsstorlekar kan identifieras felaktigt.",

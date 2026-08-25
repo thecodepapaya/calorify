@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$id extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini';
 	@override String get modelSetup => 'Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan';
 	@override String get useLocalTitle => 'Gunakan analisis pada perangkat';
-	@override String get useLocalSubtitle => 'Opsional dan nonaktif secara default. Hasil mungkin kurang akurat untuk makanan yang kompleks.';
+	@override String get useLocalSubtitle => 'Hasil mungkin kurang dapat diandalkan untuk makanan yang kompleks.';
 	@override String get disclosureTitle => 'Sebelum Anda mengaktifkan analisis pada perangkat';
 	@override String get disclosureBody => 'Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.';
 	@override String get disclosureLimit1 => 'Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.';
@@ -2439,7 +2439,7 @@ extension on TranslationsId {
 			'settings.localInference.rolloutUnavailable' => 'Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini',
 			'settings.localInference.modelSetup' => 'Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan',
 			'settings.localInference.useLocalTitle' => 'Gunakan analisis pada perangkat',
-			'settings.localInference.useLocalSubtitle' => 'Opsional dan nonaktif secara default. Hasil mungkin kurang akurat untuk makanan yang kompleks.',
+			'settings.localInference.useLocalSubtitle' => 'Hasil mungkin kurang dapat diandalkan untuk makanan yang kompleks.',
 			'settings.localInference.disclosureTitle' => 'Sebelum Anda mengaktifkan analisis pada perangkat',
 			'settings.localInference.disclosureBody' => 'Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.',
 			'settings.localInference.disclosureLimit1' => 'Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.',

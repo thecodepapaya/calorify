@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$tl extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'May nakitang compatible na hardware, ngunit ang feature na ito ay hindi enabled para sa release na ito ng app';
 	@override String get modelSetup => 'Kailangang matapos muna ang pag-download ng Gemini Nano bago ito ma-enable';
 	@override String get useLocalTitle => 'Gamitin ang on-device analysis';
-	@override String get useLocalSubtitle => 'Opsyonal at naka-off by default. Maaaring hindi gaanong maaasahan ang mga resulta para sa mga komplikadong pagkain.';
+	@override String get useLocalSubtitle => 'Maaaring hindi gaanong tumpak ang mga resulta para sa mga kumplikadong pagkain.';
 	@override String get disclosureTitle => 'Bago i-enable ang on-device analysis';
 	@override String get disclosureBody => 'Kayang tukuyin ng Gemini Nano ang mga sangkap at tantyahin ang mga bahagi sa mga suportadong Android device. Ang iyong sinuring mungkahi ng sangkap ay ipapadala sa Calorify para sa USDA nutrition grounding at kalkulasyon.';
 	@override String get disclosureLimit1 => 'Ang mga komplikadong putahe, nakatagong sangkap, at laki ng bahagi ay maaaring matukoy nang mali.';
@@ -2439,7 +2439,7 @@ extension on TranslationsTl {
 			'settings.localInference.rolloutUnavailable' => 'May nakitang compatible na hardware, ngunit ang feature na ito ay hindi enabled para sa release na ito ng app',
 			'settings.localInference.modelSetup' => 'Kailangang matapos muna ang pag-download ng Gemini Nano bago ito ma-enable',
 			'settings.localInference.useLocalTitle' => 'Gamitin ang on-device analysis',
-			'settings.localInference.useLocalSubtitle' => 'Opsyonal at naka-off by default. Maaaring hindi gaanong maaasahan ang mga resulta para sa mga komplikadong pagkain.',
+			'settings.localInference.useLocalSubtitle' => 'Maaaring hindi gaanong tumpak ang mga resulta para sa mga kumplikadong pagkain.',
 			'settings.localInference.disclosureTitle' => 'Bago i-enable ang on-device analysis',
 			'settings.localInference.disclosureBody' => 'Kayang tukuyin ng Gemini Nano ang mga sangkap at tantyahin ang mga bahagi sa mga suportadong Android device. Ang iyong sinuring mungkahi ng sangkap ay ipapadala sa Calorify para sa USDA nutrition grounding at kalkulasyon.',
 			'settings.localInference.disclosureLimit1' => 'Ang mga komplikadong putahe, nakatagong sangkap, at laki ng bahagi ay maaaring matukoy nang mali.',

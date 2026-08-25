@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$gu extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'સમર્થિત હાર્ડવેર મળ્યું છે, પરંતુ આ સુવિધા આ એપ રિલીઝ માટે સક્ષમ નથી';
 	@override String get modelSetup => 'આને સક્ષમ કરતા પહેલા Gemini Nano ડાઉનલોડ પૂર્ણ કરવું જરૂરી છે';
 	@override String get useLocalTitle => 'ઓન-ડિવાઇસ વિશ્લેષણનો ઉપયોગ કરો';
-	@override String get useLocalSubtitle => 'વૈકલ્પિક અને ડિફોલ્ટ રીતે બંધ. જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય હોઈ શકે છે.';
+	@override String get useLocalSubtitle => 'જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય થઈ શકે છે.';
 	@override String get disclosureTitle => 'ઓન-ડિવાઇસ વિશ્લેષણને સક્ષમ કરતા પહેલા';
 	@override String get disclosureBody => 'Gemini Nano સમર્થિત Android ઉપકરણો પર ઘટકોને ઓળખી શકે છે અને ભાગોનો અંદાજ લગાવી શકે છે. તમારી સમીક્ષા કરેલી ઘટક દરખાસ્ત USDA પોષણ ગ્રાઉન્ડિંગ અને ગણતરી માટે Calorify ને મોકલવામાં આવે છે.';
 	@override String get disclosureLimit1 => 'જટિલ વાનગીઓ, છુપાયેલા ઘટકો અને ભાગના કદ ખોટી રીતે ઓળખાઈ શકે છે.';
@@ -2439,7 +2439,7 @@ extension on TranslationsGu {
 			'settings.localInference.rolloutUnavailable' => 'સમર્થિત હાર્ડવેર મળ્યું છે, પરંતુ આ સુવિધા આ એપ રિલીઝ માટે સક્ષમ નથી',
 			'settings.localInference.modelSetup' => 'આને સક્ષમ કરતા પહેલા Gemini Nano ડાઉનલોડ પૂર્ણ કરવું જરૂરી છે',
 			'settings.localInference.useLocalTitle' => 'ઓન-ડિવાઇસ વિશ્લેષણનો ઉપયોગ કરો',
-			'settings.localInference.useLocalSubtitle' => 'વૈકલ્પિક અને ડિફોલ્ટ રીતે બંધ. જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય હોઈ શકે છે.',
+			'settings.localInference.useLocalSubtitle' => 'જટિલ ભોજન માટે પરિણામો ઓછા વિશ્વસનીય થઈ શકે છે.',
 			'settings.localInference.disclosureTitle' => 'ઓન-ડિવાઇસ વિશ્લેષણને સક્ષમ કરતા પહેલા',
 			'settings.localInference.disclosureBody' => 'Gemini Nano સમર્થિત Android ઉપકરણો પર ઘટકોને ઓળખી શકે છે અને ભાગોનો અંદાજ લગાવી શકે છે. તમારી સમીક્ષા કરેલી ઘટક દરખાસ્ત USDA પોષણ ગ્રાઉન્ડિંગ અને ગણતરી માટે Calorify ને મોકલવામાં આવે છે.',
 			'settings.localInference.disclosureLimit1' => 'જટિલ વાનગીઓ, છુપાયેલા ઘટકો અને ભાગના કદ ખોટી રીતે ઓળખાઈ શકે છે.',

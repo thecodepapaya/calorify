@@ -1075,7 +1075,7 @@ class Translations$settings$localInference$zh_CN extends Translations$settings$l
 	@override String get rolloutUnavailable => '检测到可用硬件，但此功能在当前应用版本中尚未启用';
 	@override String get modelSetup => 'Gemini Nano 需要完成下载后才能启用此功能';
 	@override String get useLocalTitle => '使用设备端分析';
-	@override String get useLocalSubtitle => '可选功能，默认关闭。对于复杂餐食，结果的可靠性可能较低。';
+	@override String get useLocalSubtitle => '对于复杂的餐食，结果可能不太可靠。';
 	@override String get disclosureTitle => '在启用设备端分析之前';
 	@override String get disclosureBody => 'Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。';
 	@override String get disclosureLimit1 => '复杂菜肴、隐藏食材和分量大小可能会被错误识别。';
@@ -2439,7 +2439,7 @@ extension on TranslationsZhCn {
 			'settings.localInference.rolloutUnavailable' => '检测到可用硬件，但此功能在当前应用版本中尚未启用',
 			'settings.localInference.modelSetup' => 'Gemini Nano 需要完成下载后才能启用此功能',
 			'settings.localInference.useLocalTitle' => '使用设备端分析',
-			'settings.localInference.useLocalSubtitle' => '可选功能，默认关闭。对于复杂餐食，结果的可靠性可能较低。',
+			'settings.localInference.useLocalSubtitle' => '对于复杂的餐食，结果可能不太可靠。',
 			'settings.localInference.disclosureTitle' => '在启用设备端分析之前',
 			'settings.localInference.disclosureBody' => 'Gemini Nano 可以在支持的 Android 设备上识别食材并估算分量。您核对后的食材方案将发送至 Calorify，以便进行 USDA 营养数据比对和计算。',
 			'settings.localInference.disclosureLimit1' => '复杂菜肴、隐藏食材和分量大小可能会被错误识别。',

@@ -534,7 +534,7 @@
       "rolloutUnavailable": "Perangkat keras yang kompatibel ditemukan, tetapi fitur ini belum diaktifkan untuk rilis aplikasi ini",
       "modelSetup": "Gemini Nano perlu menyelesaikan pengunduhan sebelum fitur ini dapat diaktifkan",
       "useLocalTitle": "Gunakan analisis pada perangkat",
-      "useLocalSubtitle": "Opsional dan nonaktif secara default. Hasil mungkin kurang akurat untuk makanan yang kompleks.",
+      "useLocalSubtitle": "Hasil mungkin kurang dapat diandalkan untuk makanan yang kompleks.",
       "disclosureTitle": "Sebelum Anda mengaktifkan analisis pada perangkat",
       "disclosureBody": "Gemini Nano dapat mengidentifikasi bahan dan mengestimasi porsi pada perangkat Android yang didukung. Proposal bahan yang Anda tinjau akan dikirim ke Calorify untuk dasar nutrisi USDA dan perhitungan.",
       "disclosureLimit1": "Hidangan kompleks, bahan tersembunyi, dan ukuran porsi mungkin teridentifikasi secara tidak tepat.",

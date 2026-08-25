@@ -1075,7 +1075,7 @@ class _Translations$settings$localInference$pl extends Translations$settings$loc
 	@override String get rolloutUnavailable => 'Wykryto odpowiedni sprzęt, ale ta funkcja nie jest włączona w tej wersji aplikacji';
 	@override String get modelSetup => 'Gemini Nano musi zakończyć pobieranie, zanim będzie można to włączyć';
 	@override String get useLocalTitle => 'Używaj analizy na urządzeniu';
-	@override String get useLocalSubtitle => 'Opcjonalnie, domyślnie wyłączone. Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.';
+	@override String get useLocalSubtitle => 'Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.';
 	@override String get disclosureTitle => 'Zanim włączysz analizę na urządzeniu';
 	@override String get disclosureBody => 'Gemini Nano potrafi identyfikować składniki i szacować porcje na obsługiwanych urządzeniach Android. Twoja zweryfikowana propozycja składników jest wysyłana do Calorify w celu weryfikacji wartości odżywczych USDA i obliczeń.';
 	@override String get disclosureLimit1 => 'Złożone dania, ukryte składniki i wielkość porcji mogą zostać błędnie zidentyfikowane.';
@@ -2439,7 +2439,7 @@ extension on TranslationsPl {
 			'settings.localInference.rolloutUnavailable' => 'Wykryto odpowiedni sprzęt, ale ta funkcja nie jest włączona w tej wersji aplikacji',
 			'settings.localInference.modelSetup' => 'Gemini Nano musi zakończyć pobieranie, zanim będzie można to włączyć',
 			'settings.localInference.useLocalTitle' => 'Używaj analizy na urządzeniu',
-			'settings.localInference.useLocalSubtitle' => 'Opcjonalnie, domyślnie wyłączone. Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.',
+			'settings.localInference.useLocalSubtitle' => 'Wyniki mogą być mniej wiarygodne w przypadku złożonych posiłków.',
 			'settings.localInference.disclosureTitle' => 'Zanim włączysz analizę na urządzeniu',
 			'settings.localInference.disclosureBody' => 'Gemini Nano potrafi identyfikować składniki i szacować porcje na obsługiwanych urządzeniach Android. Twoja zweryfikowana propozycja składników jest wysyłana do Calorify w celu weryfikacji wartości odżywczych USDA i obliczeń.',
 			'settings.localInference.disclosureLimit1' => 'Złożone dania, ukryte składniki i wielkość porcji mogą zostać błędnie zidentyfikowane.',
