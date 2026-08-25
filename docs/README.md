@@ -16,6 +16,9 @@ Use this page to find the document that matches the work you are doing.
 - [Meal-analysis robustness](plans/meal-analysis-robustness.md) — no-food handling, structured decomposition, presentation context, migration, client behavior, and local CLI scope.
 - [AI-summary simplification and reliability](plans/ai-summary-reliability.md) — foreground local-input generation, sparse-data and edit policy, OpenRouter diagnostics, future Gemini Nano compatibility, and legacy cron/batch cleanup.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
+- [Backend-proxied image uploads](plans/backend-proxied-image-uploads.md) —
+  authenticated bounded in-memory uploads, Oracle storage handoff, and migration away
+  from the shared client credential.
 - [Calorie-estimation reliability](../backend/docs/calorie-estimation-reliability-plan.md) — measurement and quality-improvement plan.
 
 ## Backend references
