@@ -73,6 +73,8 @@ background freshness for a much smaller and more reliable implementation.
   window. There is no same-day regeneration.
 - Send only saved meal nutrition, locale/timezone, and the allowlisted profile
   and goal fields defined below.
+- Use the active app locale as generation context and require the summary prose
+  in that locale. Do not infer output language from meal names.
 - Do not include calories burned or any other Health Connect data.
 - Use OpenRouter for remote generation. Do not fall back to direct OpenAI.
 - Keep the current `AiMealSummaryResponse` fields and wire format.
@@ -167,7 +169,7 @@ silently truncate it. The backend enforces the same cap.
 {
   "summaryLocalDate": "2026-08-25",
   "timezone": "Asia/Kolkata",
-  "locale": "en-IN",
+  "locale": "hi",
   "meals": [
     {
       "loggedAt": "2026-08-24T13:10:00+05:30",
@@ -191,6 +193,12 @@ silently truncate it. The backend enforces the same cap.
 Rules:
 
 - `summaryLocalDate`, IANA timezone, and locale are required.
+- The app serializes `LocaleSettings.currentLocale` as its canonical BCP-47
+  language tag, including the region for variants such as `zh-CN` and `zh-TW`.
+  Do not send the raw device locale when the user selected another app locale.
+- The backend normalizes the tag against the app's supported `AppLocale` set.
+  Unsupported tags resolve to `en`; the original requested tag remains in the
+  stored request snapshot and the resolved tag is stored separately.
 - `loggedAt` is the saved meal instant serialized as RFC 3339.
 - Meal name, type, calories, protein, carbs, fat, and fiber come from the final
   saved meal. Nutrients are finite, non-negative integers.
@@ -233,15 +241,23 @@ next day's window.
 
 ```dart
 abstract interface class AiSummaryGenerator {
-  Future<AiMealSummaryResponse> generate(AiSummarySnapshot snapshot);
+  Future<AiSummaryGenerationResult> generate(AiSummarySnapshot snapshot);
 }
 ```
 
+`AiSummaryGenerationResult` contains the unchanged `AiMealSummaryResponse` and
+the resolved locale tag used to generate its prose. This is app-internal and
+does not change the backend response body.
+
 - `BackendAiSummaryGenerator` serializes the snapshot and calls the new
   backend endpoint. It alone resolves Firebase authentication and reports an
-  unavailable generator when no authenticated user exists.
+  unavailable generator when no authenticated user exists. It reads the
+  backend's required `Content-Language` response header into the generation
+  result.
 - A future `GeminiNanoAiSummaryGenerator` will use the same input and output
-  types and will not require Firebase authentication.
+  types, return the locale it actually used, and will not require Firebase
+  authentication. It must satisfy the same resolved-locale contract before it
+  replaces the backend generator for that locale.
 - Do not make summary generation a meal-analysis method on
   [`LocalInferenceService`](../../app/lib/core/services/local_inference_service.dart).
   The existing Gemini Nano runtime/channel can be reused later, but meal
@@ -259,8 +275,9 @@ Add a `local_ai_summaries` Drift table keyed by:
 summary_local_date
 ```
 
-Store only the serialized `AiMealSummaryResponse`; its existing `generatedAt`
-field carries the generation timestamp. Do not persist the request locally.
+Store the serialized `AiMealSummaryResponse` and resolved locale; the response's
+existing `generatedAt` field carries the generation timestamp. Do not persist
+the request locally.
 Include this table in the existing local `clearAllData()` transaction. After a
 clear, the empty completed-day window is ineligible, so the backend's retained
 row is not fetched back into the app; newly logged meals enter a later summary
@@ -272,9 +289,12 @@ the current database, whose meals and profile are device-local rather than
 account-partitioned. Backend idempotency remains scoped by authenticated UID
 and local date.
 
-When the card is restored, it should read the current-date local row. It must
-not silently present an old backend summary as today's result. For
-`UNSPECIFIED` trend, omit the trend chip rather than labeling it steady.
+When the card is restored, it should read the current-date local row only when
+its resolved locale matches the active app locale. A locale change after a
+summary completes does not regenerate it that day; hide the mismatched prose
+and generate in the new locale on the next summary date. It must not silently
+present an old backend summary as today's result. For `UNSPECIFIED` trend, omit
+the trend chip rather than labeling it steady.
 
 ### Foreground coordinator
 
@@ -286,8 +306,10 @@ On app startup and every lifecycle resume:
 4. Read the seven completed local days and enforce the 100-meal cap.
 5. Apply the sparse-data threshold.
 6. Read the optional local profile/goal fields and build the snapshot.
-7. Immediately before generation, capture the date and timezone again. If
-   either changed, discard the snapshot and rebuild once for the new date.
+7. Immediately before generation, capture the date, timezone, and active app
+   locale again. If any changed, discard the snapshot and rebuild once using
+   the new context. If any changes again during that rebuild, stop until the
+   next foreground opportunity.
 8. Call the injected generator without blocking initial home rendering. The
    backend adapter stops quietly when Firebase authentication is unavailable;
    a future Nano adapter can continue locally.
@@ -319,12 +341,14 @@ The endpoint:
 2. Validates the snapshot, field bounds, meal timestamps, seven-day window, and
    100-meal cap. The supplied summary date must equal the current calendar date
    derived from server time in the supplied IANA timezone.
-3. Rechecks the sparse-data threshold.
+3. Resolves the requested locale to a supported app locale, falling back to
+   `en`, then rechecks the sparse-data threshold.
 4. Atomically claims the user's local date in `ai_summaries`.
 5. Computes deterministic response statistics.
 6. Calls OpenRouter only for bounded summary prose.
 7. Validates the model output, completes the stored row, and returns the
-   unchanged `AiMealSummaryResponse`.
+   unchanged `AiMealSummaryResponse` with `Content-Language` set to the stored
+   resolved locale.
 
 If that UID/date is already complete, return its stored response without
 calling OpenRouter. Claim all other attempts atomically using the same daily
@@ -374,6 +398,12 @@ Serialize meal names as untrusted data and explicitly instruct the model never
 to follow instructions found inside them. Validate the returned summary for the
 schema and length before persistence even when structured output succeeds.
 
+Pass the resolved locale as explicit instruction context, including both its
+BCP-47 tag and language name, and require every generated sentence to use that
+language. Meal names may be written in another language and must not override
+the output locale. Do not add runtime language detection for short summaries;
+verify locale adherence with fixed multilingual generation fixtures instead.
+
 `store: false` is not part of this request. It is an OpenAI Responses API
 option meaning “do not save this response for later retrieval through the
 OpenAI API.” It does not control Calorify's database and is not the privacy
@@ -414,6 +444,8 @@ history system. New daily rows need:
 - `status` (`processing`, `completed`, or `failed`);
 - `request_snapshot JSONB`;
 - `requested_at` and `generated_at`;
+- existing `locale`, containing the resolved generation locale rather than an
+  unchecked request value;
 - existing summary/statistic fields, with `summary` and `generated_at` nullable
   until the row is completed;
 - `provider`, `model`, and provider request ID when available;
@@ -432,8 +464,8 @@ the exact request that produced its summary rather than the first failed input.
 
 Extend the existing user-inspection/observability output to list these rows for
 an explicitly selected user, including timestamps, request snapshot, result,
-provider/model, and bounded failure metadata. Do not include request bodies or
-meal names in general logs or metrics.
+requested and resolved locale, provider/model, and bounded failure metadata. Do
+not include request bodies or meal names in general logs or metrics.
 
 ## Legacy cleanup and rollout
 
@@ -493,6 +525,8 @@ date. They must not participate in new daily idempotency or local-card reads.
 | Very large local history | Reject above 100 meals; never truncate silently. |
 | Missing profile field | Omit it; meal eligibility is independent of profile completeness. |
 | Weak trend coverage | Return `UNSPECIFIED` and hide the trend chip. |
+| Unsupported requested locale | Resolve to `en`, store both requested and resolved values, and return `Content-Language: en`. |
+| Locale changes after completion | Do not regenerate that day; hide mismatched cached prose and generate in the new locale on the next summary date. |
 | Firebase auth is unavailable | The backend adapter stops; a future Nano adapter remains usable because the coordinator/cache do not require auth. |
 | Auth identity changes | The device-local cache remains aligned with the device-local meal database; backend rows remain UID-scoped. |
 | Local clear-all | Delete the local summary cache in the same transaction; the now-empty completed-day window prevents re-fetch. |
@@ -513,10 +547,12 @@ one explicit OpenRouter summary model that supports strict structured output.
 
 - [ ] Add the completed-day `getMealsBetween` query to the database interface
   and Drift implementation.
-- [ ] Add `AiSummarySnapshot`, its narrow mapper, and validation.
+- [ ] Add `AiSummarySnapshot`, its narrow mapper, canonical active-app-locale
+  serialization, and validation.
 - [ ] Add the date-scoped local summary cache migration and include it in
   `clearAllData()`.
-- [ ] Add `AiSummaryGenerator` and `BackendAiSummaryGenerator`.
+- [ ] Add `AiSummaryGenerator`, `AiSummaryGenerationResult`, and
+  `BackendAiSummaryGenerator`, including required `Content-Language` handling.
 - [ ] Add the app-scoped foreground startup/resume coordinator, single-flight
   guard, 15-minute in-memory failure cooldown, and one-time date-change rebuild.
 - [ ] Keep the existing card commented out.
@@ -533,6 +569,8 @@ one explicit OpenRouter summary model that supports strict structured output.
 - [ ] Add the deterministic stats implementation and sparse-data validation.
 - [ ] Add the OpenRouter-only structured-output client and required model
   configuration.
+- [ ] Resolve the requested locale, instruct OpenRouter to generate prose in
+  it, store it, and return it through `Content-Language`.
 - [ ] Extend user-scoped diagnostics with request/result history.
 - [ ] Add redacted outcome/duration metrics without payloads or user IDs.
 
@@ -566,6 +604,11 @@ one explicit OpenRouter summary model that supports strict structured output.
   rehydrate it from the retained backend row.
 - [ ] A fake local generator can complete and cache a summary without Firebase
   authentication, demonstrating the Nano boundary.
+- [ ] Every supported app locale is accepted; unsupported tags fall back to
+  `en`; representative Latin, Indic, CJK, and RTL fixtures produce prose in the
+  resolved locale.
+- [ ] A locale change before generation rebuilds once, while a change after
+  completion hides the mismatched cached prose until the next summary date.
 - [ ] Invalid OpenRouter JSON, timeouts, and provider errors remain retryable
   without corrupting local or backend state.
 - [ ] Stored diagnostics reproduce the exact validated request and typed result.
@@ -583,6 +626,8 @@ one explicit OpenRouter summary model that supports strict structured output.
 - Ineligible snapshots do not call OpenRouter.
 - Remote generation goes through OpenRouter only and returns the unchanged
   `AiMealSummaryResponse`.
+- Summary prose is generated in the resolved active app locale, with explicit
+  English fallback and `Content-Language` reporting.
 - The app stores the result locally, and the backend stores the validated
   request and generated result with timestamps.
 - A future Gemini Nano adapter can replace the backend adapter without changing
