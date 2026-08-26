@@ -11,6 +11,21 @@ Fastify and TypeScript API for authenticated nutrition analysis, USDA-grounded m
 - Model output is schema-validated before USDA matching and deterministic macro calculation.
 - Prometheus metrics, structured logs, Loki, and Grafana provide observability.
 
+Backend services are grouped by ownership under `src/services/`:
+
+- `meal-analysis/` owns the analysis pipeline, durable state, history, prompts,
+  provider coordination, and presentation enrichment.
+- `nutrition/` owns deterministic quantities, portions, dish templates, and
+  local-nutrition pack resolution.
+- `usda/` owns reference-data import, bootstrap, lookup, and ranking helpers.
+- `summaries/` owns daily AI-summary generation and deterministic statistics.
+- `infrastructure/` owns databases, migrations, external clients, storage,
+  validation, and metrics.
+
+Unit tests stay beside their implementation with the same basename. Tests
+covering a specialized contract add a suffix, such as `store.postgres.test.ts`
+or `import.snapshot.test.ts`.
+
 ## Setup
 
 ```bash

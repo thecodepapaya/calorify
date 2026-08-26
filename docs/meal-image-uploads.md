@@ -22,9 +22,9 @@ The phone upload call is implemented in
 [`food_repository.dart`](../app/lib/core/repositories/food_repository.dart).
 The route is in
 [`food.ts`](../backend/src/routes/v2/food.ts), WebP validation is in
-[`webpValidation.ts`](../backend/src/services/webpValidation.ts), and Oracle
+[`webpValidation.ts`](../backend/src/services/infrastructure/webpValidation.ts), and Oracle
 URL/key handling is isolated in
-[`oracleObjectStorage.ts`](../backend/src/services/oracleObjectStorage.ts).
+[`objectStorage.ts`](../backend/src/services/infrastructure/objectStorage.ts).
 
 ## Upload contract
 

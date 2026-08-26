@@ -9,11 +9,11 @@ import Fastify from 'fastify';
 
 const mockQuery = mock.fn(async (_sql: string, _params?: unknown[]) => ({ rows: [] }));
 
-await mock.module('../../services/database.js', {
+await mock.module('../../services/infrastructure/database.js', {
   namedExports: { query: mockQuery },
 });
 
-await mock.module('../../services/firebase.js', {
+await mock.module('../../services/infrastructure/firebase.js', {
   namedExports: {
     verifyFirebaseToken: mock.fn(async (token: string) => {
       if (token === 'valid-token') return { uid: 'user-v1-food' };
@@ -60,7 +60,7 @@ const mockGenerateAiSummary = mock.fn(async () => ({
   },
 }));
 
-await mock.module('../../services/aiSummaryService.js', {
+await mock.module('../../services/summaries/service.js', {
   namedExports: {
     AiSummaryRequestError: MockAiSummaryRequestError,
     generateAiSummary: mockGenerateAiSummary,

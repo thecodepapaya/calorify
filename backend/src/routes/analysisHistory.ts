@@ -5,9 +5,9 @@ import {
   listAnalysisHistory,
   type AnalysisHistoryEntry,
   type AnalysisHistoryPage,
-} from '../services/analysisHistoryStore.js';
-import type { MealAnalysisSource } from '../services/mealAnalysisStore.js';
-import { buildOracleDownloadUrl } from '../services/oracleObjectStorage.js';
+} from '../services/meal-analysis/historyStore.js';
+import type { MealAnalysisSource } from '../services/meal-analysis/store.js';
+import { buildOracleDownloadUrl } from '../services/infrastructure/objectStorage.js';
 
 const ANALYSIS_HISTORY_USERNAME = 'calorify';
 

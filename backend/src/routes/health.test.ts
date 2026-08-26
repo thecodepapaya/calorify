@@ -19,7 +19,7 @@ const mockReadinessCheck = mock.fn(async () => ({
   usdaDataset: true,
 }));
 
-await mock.module('../services/database.js', {
+await mock.module('../services/infrastructure/database.js', {
   namedExports: { readinessCheck: mockReadinessCheck },
 });
 

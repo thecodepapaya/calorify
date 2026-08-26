@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mock } from 'node:test';
 
 // Mock firebase before importing auth
-await mock.module('../services/firebase.js', {
+await mock.module('../services/infrastructure/firebase.js', {
   namedExports: {
     verifyFirebaseToken: mock.fn(async (token: string) => {
       if (token === 'valid-token') return { uid: 'user-123' };

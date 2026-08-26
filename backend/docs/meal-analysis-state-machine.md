@@ -117,7 +117,7 @@ checkpoint so the same analysis can be resumed safely.
 | `COMPLETED` | Terminal | `result_data` and all data needed to replay the `RESULT` event are durable. |
 
 The validation rules live in
-[`mealAnalysisStage.ts`](../src/services/mealAnalysisStage.ts). A row with an
+[`stage.ts`](../src/services/meal-analysis/stage.ts). A row with an
 impossible combination of stage and payload is rejected as an invalid snapshot
 instead of being guessed forward.
 
@@ -149,7 +149,7 @@ later write is then rejected. Failure of best-effort lease cleanup is logged,
 but cannot replace an already persisted result with a trailing error.
 
 The lease SQL and transition guards live in
-[`mealAnalysisStore.ts`](../src/services/mealAnalysisStore.ts).
+[`store.ts`](../src/services/meal-analysis/store.ts).
 
 ## Durable states versus stream steps
 
@@ -197,7 +197,7 @@ the session. Save, edit, and delete confirmation is retried by the phone's
 durable outbox through the same `/confirm-log` route.
 
 Pipeline orchestration is in
-[`nutritionEngineV2.ts`](../src/services/nutritionEngineV2.ts), and the HTTP
+[`engine.ts`](../src/services/meal-analysis/engine.ts), and the HTTP
 contract is in [`food.ts`](../src/routes/v2/food.ts).
 
 ## Retry and recovery rules
@@ -228,10 +228,10 @@ The implementation must preserve these invariants:
 7. Audit-row failure never invalidates the canonical session snapshot.
 
 Unit coverage is in
-[`mealAnalysisStage.test.ts`](../src/services/mealAnalysisStage.test.ts),
-[`mealAnalysisStore.test.ts`](../src/services/mealAnalysisStore.test.ts), and
-[`nutritionEngineV2.test.ts`](../src/services/nutritionEngineV2.test.ts). The
-`mealAnalysisStore.postgres.test.ts` PostgreSQL contract test runs the real
+[`stage.test.ts`](../src/services/meal-analysis/stage.test.ts),
+[`store.test.ts`](../src/services/meal-analysis/store.test.ts), and
+[`engine.test.ts`](../src/services/meal-analysis/engine.test.ts). The
+`store.postgres.test.ts` PostgreSQL contract test runs the real
 null-stage migration, placeholder types, automatic and interactive lease
 transitions, stale-worker fencing, and completed-only log confirmation against
 PostgreSQL when `CALORIFY_POSTGRES_CONTRACT_TEST=true`.

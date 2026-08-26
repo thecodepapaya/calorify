@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import config from '../config.js';
-import { readinessCheck } from '../services/database.js';
+import { readinessCheck } from '../services/infrastructure/database.js';
 
 export async function healthRoutes(fastify: FastifyInstance): Promise<void> {
   // Root: welcome message (for browsers/docs)

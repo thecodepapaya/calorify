@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mock } from 'node:test';
 import Fastify from 'fastify';
+import { errorHandler } from '../../utils/errors.js';
 
 // ---------------------------------------------------------------------------
 // Mock pipeline functions and store before importing routes
@@ -76,7 +77,7 @@ const mockConfig = {
   },
 };
 
-await mock.module('../../services/nutritionEngineV2.js', {
+await mock.module('../../services/meal-analysis/engine.js', {
   namedExports: {
     createAnalysisTrace: mock.fn(() => ({
       startedAt: Date.now(), steps: [], artifacts: [], llmAttempts: [],
@@ -94,7 +95,7 @@ await mock.module('../../services/nutritionEngineV2.js', {
   },
 });
 
-await mock.module('../../services/mealAnalysisStore.js', {
+await mock.module('../../services/meal-analysis/store.js', {
   namedExports: {
     clearMealAnalysisLogged: mockClearMealAnalysisLogged,
     confirmMealAnalysisLogged: mockConfirmMealAnalysisLogged,
@@ -103,7 +104,7 @@ await mock.module('../../services/mealAnalysisStore.js', {
   },
 });
 
-await mock.module('../../services/analysisHistoryStore.js', {
+await mock.module('../../services/meal-analysis/historyStore.js', {
   namedExports: {
     recordAnalysisLastResponse: mockRecordAnalysisLastResponse,
     recordAnalysisObservation: mockRecordAnalysisObservation,
@@ -124,13 +125,13 @@ await mock.module('../../config.js', {
   defaultExport: mockConfig,
 });
 
-await mock.module('../../services/localNutritionResolver.js', {
+await mock.module('../../services/nutrition/localResolver.js', {
   namedExports: {
     resolveLocalNutritionLookups: mockResolveLocalNutritionLookups,
   },
 });
 
-await mock.module('../../services/localNutritionPackDownload.js', {
+await mock.module('../../services/nutrition/localPackDownload.js', {
   namedExports: { downloadLocalNutritionPack: mockDownloadLocalNutritionPack },
 });
 
@@ -150,6 +151,7 @@ const { foodRoutesV2 } = await import('./food.js');
 
 async function buildTestApp() {
   const fastify = Fastify({ logger: false });
+  fastify.setErrorHandler(errorHandler);
   await fastify.register(foodRoutesV2, { prefix: '/api/v2/food' });
   await fastify.ready();
   return fastify;
@@ -290,7 +292,7 @@ test('POST /image-upload rejects a body over 1 MiB', async () => {
     payload: image,
   });
 
-  assert.equal(response.statusCode, 413);
+  assert.equal(response.statusCode, 413, response.body);
   await app.close();
 });
 
@@ -327,7 +329,7 @@ test('POST /image-upload rate-limits a UID before parsing the eleventh body', as
       headers: { 'content-type': 'application/octet-stream' },
       payload: Buffer.from('invalid-content-type'),
     });
-    assert.equal(response.statusCode, 415);
+    assert.equal(response.statusCode, 415, response.body);
   }
 
   const limited = await app.inject({

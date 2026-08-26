@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { createErrorResponse } from '../../utils/errors.js';
-import { query } from '../../services/database.js';
+import { query } from '../../services/infrastructure/database.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { parseBody, z } from '../../utils/validation.js';
 import type { ApiResult } from '../../protos/calorify/http_api.js';

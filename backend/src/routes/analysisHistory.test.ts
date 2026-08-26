@@ -13,7 +13,7 @@ await mock.module('../config.js', {
   },
 });
 
-await mock.module('../services/analysisHistoryStore.js', {
+await mock.module('../services/meal-analysis/historyStore.js', {
   namedExports: {
     listAnalysisHistory: mock.fn(async (page: number, source?: string) => {
       requestedPage = page;
@@ -33,7 +33,7 @@ await mock.module('../services/analysisHistoryStore.js', {
   },
 });
 
-await mock.module('../services/oracleObjectStorage.js', {
+await mock.module('../services/infrastructure/objectStorage.js', {
   namedExports: {
     buildOracleDownloadUrl: mock.fn((key: string) => `https://images.example.test/${key}`),
   },

@@ -1,6 +1,6 @@
 import config from '../config.js';
-import { closeDatabase, healthCheck, initializeDatabase } from '../services/database.js';
-import { inspectUser, type UserObservabilityReport } from '../services/userObservability.js';
+import { closeDatabase, healthCheck, initializeDatabase } from '../services/infrastructure/database.js';
+import { inspectUser, type UserObservabilityReport } from '../services/meal-analysis/observability.js';
 import { parseUserInspectArgs, printUserInspectHelp } from './userInspectCliArgs.js';
 
 function pretty(value: unknown): string {

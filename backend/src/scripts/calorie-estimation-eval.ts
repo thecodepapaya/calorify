@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import type { PipelineEvent } from '../services/nutritionEngineV2.js';
+import type { PipelineEvent } from '../services/meal-analysis/engine.js';
 import {
   evaluateCalorieCase,
   summarizeCalorieEval,

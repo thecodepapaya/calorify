@@ -2,8 +2,8 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 
 import type { CacheableNutritionRecord } from '../protos/calorify/http_api.js';
-import { closeDatabase, initializeDatabase } from '../services/database.js';
-import { resolveLocalNutritionLookups } from '../services/localNutritionResolver.js';
+import { closeDatabase, initializeDatabase } from '../services/infrastructure/database.js';
+import { resolveLocalNutritionLookups } from '../services/nutrition/localResolver.js';
 
 const PACK_SCHEMA_VERSION = 1;
 const CALCULATION_VERSION = 'local-macro-v1';

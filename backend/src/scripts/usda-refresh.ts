@@ -4,9 +4,9 @@ import {
   closeDatabase,
   getUsdaClient,
   initializeDatabase,
-} from '../services/database.js';
-import { runMigrations } from '../services/migrate.js';
-import { runUsdaImport } from '../services/usdaImport.js';
+} from '../services/infrastructure/database.js';
+import { runMigrations } from '../services/infrastructure/migrate.js';
+import { runUsdaImport } from '../services/usda/import.js';
 
 async function main(): Promise<void> {
   if (!config.USDA_DATABASE_URL && !config.DATABASE_URL) {

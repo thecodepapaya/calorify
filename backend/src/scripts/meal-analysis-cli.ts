@@ -2,15 +2,15 @@ import { randomUUID } from 'node:crypto';
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
 import config from '../config.js';
-import { closeDatabase, initializeDatabase } from '../services/database.js';
-import { runMigrations } from '../services/migrate.js';
+import { closeDatabase, initializeDatabase } from '../services/infrastructure/database.js';
+import { runMigrations } from '../services/infrastructure/migrate.js';
 import {
   analyzeTextMeal,
   continueMealAnalysis,
   continueMealAnalysisWithMealType,
   resumeMealAnalysis,
   type PipelineEvent,
-} from '../services/nutritionEngineV2.js';
+} from '../services/meal-analysis/engine.js';
 
 const VALUE_ARGUMENTS = new Set([
   '--analysis-id',

@@ -77,12 +77,12 @@ amplification chain:
 ## Prompt and schema boundary
 
 The decomposition prompt is
-[`mealAnalysisPrompts.ts`](../../backend/src/services/mealAnalysisPrompts.ts).
+[`prompts.ts`](../../backend/src/services/meal-analysis/prompts.ts).
 The generated-output Zod contract and field descriptions are in
-[`mealDecompositionSchema.ts`](../../backend/src/services/mealDecompositionSchema.ts).
+[`decompositionSchema.ts`](../../backend/src/services/meal-analysis/decompositionSchema.ts).
 `DECOMPOSITION_SCHEMA` is generated from that Zod schema and passed to the
 provider as strict JSON Schema by
-[`nutritionEngineV2.ts`](../../backend/src/services/nutritionEngineV2.ts).
+[`engine.ts`](../../backend/src/services/meal-analysis/engine.ts).
 
 The prompt already says to emit a COUNT count when supplied and allow null when
 count needs clarification. This instruction is useful but not enforceable:

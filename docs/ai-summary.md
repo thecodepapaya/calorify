@@ -69,7 +69,7 @@ the supplied timezone. The server repeats all date, size, nutrient, locale, and
 sparse-data checks.
 
 The authoritative backend schema is in
-[`aiSummaryService.ts`](../backend/src/services/aiSummaryService.ts). The app
+[`service.ts`](../backend/src/services/summaries/service.ts). The app
 request types are in
 [`ai_summary_models.dart`](../app/lib/core/ai_summary/ai_summary_models.dart).
 

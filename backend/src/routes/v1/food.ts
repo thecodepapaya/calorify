@@ -4,14 +4,14 @@ import { createErrorResponse } from '../../utils/errors.js';
 import { getLocaleFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
-import { query } from '../../services/database.js';
+import { query } from '../../services/infrastructure/database.js';
 import {
   getMealAnalysisTipsForLocale,
   MEAL_ANALYSIS_TIPS_QUERY_COUNT_MAX,
   pickRandomTips,
-} from '../../services/mealAnalysisTips.js';
+} from '../../services/meal-analysis/tips.js';
 import type { MealAnalysisTipsResponse } from '../../protos/calorify/http_api.js';
-import { AiSummaryRequestError, generateAiSummary } from '../../services/aiSummaryService.js';
+import { AiSummaryRequestError, generateAiSummary } from '../../services/summaries/service.js';
 import { safeErrorMetadata } from '../../utils/safeError.js';
 // Manually maintained OpenAPI helpers for the legacy proto-shaped HTTP API.
 // Route and integration tests enforce the runtime contract.

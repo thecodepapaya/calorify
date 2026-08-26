@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { verifyFirebaseToken, getUserIdFromToken } from '../services/firebase.js';
+import { verifyFirebaseToken, getUserIdFromToken } from '../services/infrastructure/firebase.js';
 import { createErrorResponse } from '../utils/errors.js';
 import { safeErrorMetadata } from '../utils/safeError.js';
 

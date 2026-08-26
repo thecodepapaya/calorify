@@ -18,10 +18,10 @@ import {
   closeDatabase,
   getUsdaClient,
   initializeDatabase,
-} from './services/database.js';
-import { initializeFirebase } from './services/firebase.js';
-import { runMigrations } from './services/migrate.js';
-import { bootstrapUsdaIfNeeded } from './services/usdaBootstrap.js';
+} from './services/infrastructure/database.js';
+import { initializeFirebase } from './services/infrastructure/firebase.js';
+import { runMigrations } from './services/infrastructure/migrate.js';
+import { bootstrapUsdaIfNeeded } from './services/usda/bootstrap.js';
 import {
   createShutdownCoordinator,
   registerShutdownSignals,
@@ -32,7 +32,7 @@ import {
   registry as metricsRegistry,
   httpRequestsTotal,
   httpRequestDurationSeconds,
-} from './services/metrics.js';
+} from './services/infrastructure/metrics.js';
 
 export interface BuildAppOptions {
   logger?: FastifyServerOptions['logger'];

@@ -34,7 +34,7 @@ await mock.module('../config.js', {
   },
 });
 
-await mock.module('../services/firebase.js', {
+await mock.module('../services/infrastructure/firebase.js', {
   namedExports: {
     verifyFirebaseToken: mock.fn(async (token: string) => {
       if (token === 'valid-token') return { uid: 'user-123' };
@@ -48,7 +48,7 @@ await mock.module('../services/firebase.js', {
   },
 });
 
-await mock.module('../services/database.js', {
+await mock.module('../services/infrastructure/database.js', {
   namedExports: {
     query: mock.fn(async () => ({ rows: [] })),
     usdaQuery: mock.fn(async () => ({ rows: [] })),
@@ -66,7 +66,7 @@ await mock.module('../services/database.js', {
   },
 });
 
-await mock.module('../services/nutritionEngineV2.js', {
+await mock.module('../services/meal-analysis/engine.js', {
   namedExports: {
     createAnalysisTrace: mock.fn(() => ({
       startedAt: Date.now(), steps: [], artifacts: [], llmAttempts: [],
@@ -115,7 +115,7 @@ await mock.module('../services/nutritionEngineV2.js', {
   },
 });
 
-await mock.module('../services/mealAnalysisStore.js', {
+await mock.module('../services/meal-analysis/store.js', {
   namedExports: {
     upsertMealAnalysisSession: mock.fn(async () => {}),
     getMealAnalysisSession: mock.fn(async () => null),

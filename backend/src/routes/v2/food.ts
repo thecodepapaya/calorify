@@ -13,7 +13,7 @@ import {
   isMealAnalysisSessionOwnedByUser,
   recordMealAnalysisFeedback,
   type MealLogConfirmationRecord,
-} from '../../services/mealAnalysisStore.js';
+} from '../../services/meal-analysis/store.js';
 import { safeErrorMetadata } from '../../utils/safeError.js';
 import {
   analyzeImageMeal,
@@ -29,7 +29,7 @@ import {
   type IngredientProposal,
   type AnalysisTrace,
   type PipelineEvent,
-} from '../../services/nutritionEngineV2.js';
+} from '../../services/meal-analysis/engine.js';
 import { createErrorResponse } from '../../utils/errors.js';
 import {
   getCountryFromRequest,
@@ -59,18 +59,18 @@ import {
 import {
   uploadMealImageToOracle,
   resolveOwnedImageObject,
-} from '../../services/oracleObjectStorage.js';
-import { resolveLocalNutritionLookups } from '../../services/localNutritionResolver.js';
-import { downloadLocalNutritionPack } from '../../services/localNutritionPackDownload.js';
+} from '../../services/infrastructure/objectStorage.js';
+import { resolveLocalNutritionLookups } from '../../services/nutrition/localResolver.js';
+import { downloadLocalNutritionPack } from '../../services/nutrition/localPackDownload.js';
 import {
   recordAnalysisLastResponse,
   recordAnalysisObservation,
-} from '../../services/analysisHistoryStore.js';
+} from '../../services/meal-analysis/historyStore.js';
 import {
   InvalidWebpError,
   MAX_MEAL_IMAGE_BYTES,
   validateStaticWebp,
-} from '../../services/webpValidation.js';
+} from '../../services/infrastructure/webpValidation.js';
 
 const MEAL_TYPE_VALUES = [...MEAL_TYPES, 'UNKNOWN'] as const;
 
