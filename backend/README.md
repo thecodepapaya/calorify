@@ -22,11 +22,6 @@ Backend services are grouped by ownership under `src/services/`:
 - `infrastructure/` owns databases, migrations, external clients, storage,
   validation, and metrics.
 
-Tests live under `tests/` and mirror the complete `src/` path, so
-`src/services/usda/lookup.ts` maps directly to
-`tests/services/usda/lookup.test.ts`. Tests covering a specialized contract
-add a suffix, such as `store.postgres.test.ts` or `import.snapshot.test.ts`.
-
 ## Setup
 
 ```bash
@@ -78,6 +73,7 @@ npm run dev          # hot reload
 npm run type-check
 npm run lint
 npm test
+npm run test:coverage
 npm run build
 npm start
 
@@ -87,6 +83,29 @@ npm run user:inspect -- --user-id FIREBASE_UID
 npm run usda:bootstrap
 npm run usda:refresh
 ```
+
+## Testing
+
+All backend tests live under `tests/`; production source directories must not
+contain test files. The test tree mirrors the complete `src/` path, so
+`src/services/usda/lookup.ts` maps directly to
+`tests/services/usda/lookup.test.ts`. Keep the same basename when a test owns
+one source module.
+
+Tests for specialized contracts add a descriptive suffix while remaining in
+the mirrored directory. For example, `store.postgres.test.ts` exercises the
+real PostgreSQL store contract and `import.snapshot.test.ts` verifies USDA
+snapshot behavior. Cross-module suites use a scope name such as
+`routes/integration.test.ts`.
+
+- `npm test` runs every `tests/**/*.test.ts` file serially with Node's native
+  test runner and TypeScript support from `tsx`.
+- `npm run test:coverage` enforces 80% line, function, and statement coverage
+  plus 70% branch coverage over production source.
+- `npm run lint` checks both `src/` and `tests/`.
+- The PostgreSQL contract test skips unless
+  `CALORIFY_POSTGRES_CONTRACT_TEST=true` and `DATABASE_URL` identifies a safe
+  test database; the remaining suite is self-contained.
 
 `meal-analysis` runs the text pipeline through the same application functions as the API, including durable resume, clarification, meal-type selection, and no-food outcomes. Pass `--json` for non-interactive defaults, or omit `--text` for a prompt. See the [local meal-analysis CLI guide](docs/meal-analysis-cli.md) for database and provider setup, arguments, test cases, and replay behavior.
 
