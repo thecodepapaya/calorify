@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { z } from 'zod';
 import { createErrorResponse } from '../../utils/errors.js';
-import { getLocaleFromRequest } from '../../utils/locale.js';
+import { getLocaleTagFromRequest } from '../../utils/locale.js';
 import config from '../../config.js';
 import { authenticateUser, getCurrentUserId } from '../../middleware/auth.js';
 import { query } from '../../services/infrastructure/database.js';
@@ -191,7 +191,7 @@ export async function foodRoutes(
           reply.status(400).send(createErrorResponse(parsed.message));
           return;
         }
-        const locale = getLocaleFromRequest(request);
+        const locale = getLocaleTagFromRequest(request);
         const { version, tips } = getMealAnalysisTipsForLocale(locale);
         const outTips =
           parsed.limit !== undefined ? pickRandomTips(tips, parsed.limit) : tips;

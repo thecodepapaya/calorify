@@ -18,8 +18,18 @@ export function getLocaleFromRequest(
     request: FastifyRequest,
     defaultLocale: string = 'en'
 ): string {
-    const normalizedDefault = defaultLocale.trim().toLowerCase();
-    const fallback = /^[a-z]{2,3}$/.test(normalizedDefault) ? normalizedDefault : 'en';
+    return getLocaleTagFromRequest(request, defaultLocale).split('-')[0]!;
+}
+
+/** Extract the primary locale while preserving a two-letter region when present. */
+export function getLocaleTagFromRequest(
+    request: FastifyRequest,
+    defaultLocale: string = 'en'
+): string {
+    const normalizedDefault = defaultLocale.trim().toLowerCase().replace(/_/g, '-');
+    const fallback = /^[a-z]{2,3}(?:-[a-z]{2})?$/.test(normalizedDefault)
+        ? normalizedDefault
+        : 'en';
     // Fastify normalizes headers to lowercase, but check both to be safe
     const rawAcceptLanguage = request.headers['accept-language'] ||
         request.headers['Accept-Language'];
@@ -37,8 +47,8 @@ export function getLocaleFromRequest(
         ?.split(';')[0]
         ?.trim()
         .toLowerCase()
-        .split(/[-_]/)[0];
-    return primary && /^[a-z]{2,3}$/.test(primary) ? primary : fallback;
+        .replace(/_/g, '-');
+    return primary && /^[a-z]{2,3}(?:-[a-z]{2})?$/.test(primary) ? primary : fallback;
 }
 
 /**

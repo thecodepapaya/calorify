@@ -14,14 +14,7 @@ const EMPTY_PAYLOAD: MealAnalysisTipsPayload = {
   locales: {},
 };
 
-type TipsCache = {
-  filePath: string;
-  mtimeMs: number | null;
-  checkedAtMs: number;
-  payload: MealAnalysisTipsPayload;
-};
-let cache: TipsCache | null = null;
-const TIPS_FILE_CHECK_INTERVAL_MS = 30_000;
+let cache: MealAnalysisTipsPayload | null = null;
 
 function normalizeTipsLocaleKey(key: string): string {
   return key.trim().toLowerCase().replace(/_/g, '-');
@@ -98,44 +91,19 @@ export function pickRandomTips<T>(items: readonly T[], count: number): T[] {
 }
 
 export function loadMealAnalysisTipsPayload(): MealAnalysisTipsPayload {
-  const filePath = resolveTipsFilePath();
-  const now = Date.now();
-  if (
-    cache &&
-    cache.filePath === filePath &&
-    now - cache.checkedAtMs < TIPS_FILE_CHECK_INTERVAL_MS
-  ) {
-    return cache.payload;
-  }
+  if (cache) return cache;
 
   try {
-    if (!fs.existsSync(filePath)) {
-      const payload = { ...EMPTY_PAYLOAD };
-      cache = { filePath, mtimeMs: null, checkedAtMs: now, payload };
-      return payload;
-    }
-    const stat = fs.statSync(filePath);
-    if (
-      cache &&
-      cache.filePath === filePath &&
-      cache.mtimeMs === stat.mtimeMs
-    ) {
-      cache.checkedAtMs = now;
-      return cache.payload;
-    }
-    const raw = fs.readFileSync(filePath, 'utf8');
-    const payload = normalizePayload(JSON.parse(raw));
-    cache = { filePath, mtimeMs: stat.mtimeMs, checkedAtMs: now, payload };
-    return payload;
+    const raw = fs.readFileSync(resolveTipsFilePath(), 'utf8');
+    cache = normalizePayload(JSON.parse(raw));
   } catch (err) {
     console.error(
       '[mealAnalysisTips] Failed to load tips file; meal-analysis-tips will return empty tips:',
       safeErrorMetadata(err, 'meal_analysis_tips_load_failed')
     );
-    const payload = { ...EMPTY_PAYLOAD };
-    cache = { filePath, mtimeMs: null, checkedAtMs: now, payload };
-    return payload;
+    cache = EMPTY_PAYLOAD;
   }
+  return cache;
 }
 
 /** Tips for API responses (trimmed non-empty strings, locale fallback chain). */

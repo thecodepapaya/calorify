@@ -76,7 +76,8 @@ class NetworkClient {
             }
           }
 
-          final locale = LocaleSettings.currentLocale.languageCode;
+          final locale =
+              LocaleSettings.currentLocale.flutterLocale.toLanguageTag();
           options.headers['Accept-Language'] = locale;
 
           handler.next(options);

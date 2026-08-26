@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const { getLocaleFromRequest, getCountryFromRequest, getTimeZoneFromRequest } =
+const { getLocaleFromRequest, getLocaleTagFromRequest, getCountryFromRequest, getTimeZoneFromRequest } =
   await import('../../src/utils/locale.js');
 import type { FastifyRequest } from 'fastify';
 
@@ -78,6 +78,15 @@ test('getLocaleFromRequest bounds defaults and array-valued headers', () => {
     getLocaleFromRequest(makeRequest({ 'accept-language': ['PT-BR', 'en-US'] })),
     'pt'
   );
+});
+
+test('getLocaleTagFromRequest preserves Chinese regions', () => {
+  assert.equal(getLocaleTagFromRequest(makeRequest({ 'accept-language': 'zh-CN' })), 'zh-cn');
+  assert.equal(getLocaleTagFromRequest(makeRequest({ 'accept-language': 'zh-TW' })), 'zh-tw');
+});
+
+test('getLocaleTagFromRequest keeps regional fallback to the base locale possible', () => {
+  assert.equal(getLocaleTagFromRequest(makeRequest({ 'accept-language': 'pt-BR' })), 'pt-br');
 });
 
 // ---------------------------------------------------------------------------

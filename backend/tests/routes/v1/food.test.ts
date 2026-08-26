@@ -159,6 +159,23 @@ test('GET /meal-analysis-tips returns version and non-empty tips when authentica
   await app.close();
 });
 
+test('GET /meal-analysis-tips preserves the Chinese locale region', async () => {
+  const app = await buildTestApp();
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api/v1/food/meal-analysis-tips',
+    headers: {
+      authorization: 'Bearer valid-token',
+      'accept-language': 'zh-TW',
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  const body = response.json() as { tips: string[] };
+  assert.ok(body.tips.length > 0);
+  assert.ok(body.tips.every((tip) => tip.startsWith('小提示：')));
+  await app.close();
+});
+
 test('GET /meal-analysis-tips?count=1 returns a single tip when authenticated', async () => {
   const app = await buildTestApp();
   const response = await app.inject({

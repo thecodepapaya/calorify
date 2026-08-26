@@ -131,6 +131,7 @@ await mock.module('../../src/services/meal-analysis/store.js', {
 await mock.module('../../src/utils/locale.js', {
   namedExports: {
     getLocaleFromRequest: mock.fn(() => 'en'),
+    getLocaleTagFromRequest: mock.fn(() => 'en'),
     getCountryFromRequest: mock.fn(() => 'US'),
     getTimeZoneFromRequest: mock.fn(() => 'America/New_York'),
   },
