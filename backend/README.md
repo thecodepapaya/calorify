@@ -22,9 +22,10 @@ Backend services are grouped by ownership under `src/services/`:
 - `infrastructure/` owns databases, migrations, external clients, storage,
   validation, and metrics.
 
-Unit tests stay beside their implementation with the same basename. Tests
-covering a specialized contract add a suffix, such as `store.postgres.test.ts`
-or `import.snapshot.test.ts`.
+Tests live under `tests/` and mirror the complete `src/` path, so
+`src/services/usda/lookup.ts` maps directly to
+`tests/services/usda/lookup.test.ts`. Tests covering a specialized contract
+add a suffix, such as `store.postgres.test.ts` or `import.snapshot.test.ts`.
 
 ## Setup
 

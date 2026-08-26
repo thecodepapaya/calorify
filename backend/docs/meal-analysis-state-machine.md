@@ -228,9 +228,9 @@ The implementation must preserve these invariants:
 7. Audit-row failure never invalidates the canonical session snapshot.
 
 Unit coverage is in
-[`stage.test.ts`](../src/services/meal-analysis/stage.test.ts),
-[`store.test.ts`](../src/services/meal-analysis/store.test.ts), and
-[`engine.test.ts`](../src/services/meal-analysis/engine.test.ts). The
+[`stage.test.ts`](../tests/services/meal-analysis/stage.test.ts),
+[`store.test.ts`](../tests/services/meal-analysis/store.test.ts), and
+[`engine.test.ts`](../tests/services/meal-analysis/engine.test.ts). The
 `store.postgres.test.ts` PostgreSQL contract test runs the real
 null-stage migration, placeholder types, automatic and interactive lease
 transitions, stale-worker fencing, and completed-only log confirmation against
