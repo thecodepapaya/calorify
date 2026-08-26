@@ -36,6 +36,8 @@ interface Config {
     readonly OPENROUTER_API_KEY: string | null;
     readonly OPENROUTER_BASE_URL: string;
     readonly OPENROUTER_MEAL_MODEL: string;
+    /** Dedicated model override used by the scenario-heavy V3 interpreter. */
+    readonly OPENROUTER_MEAL_V3_MODEL: string;
     readonly OPENROUTER_AI_SUMMARY_MODEL: string;
     readonly OPENROUTER_FREE_MODEL: string;
     readonly OPENROUTER_HTTP_REFERER: string | null;
@@ -183,7 +185,11 @@ const config: Config = {
     ),
     OPENROUTER_MEAL_MODEL: getEnvVar(
         'OPENROUTER_MEAL_MODEL',
-        'openai/gpt-4.1-nano'
+        'openai/gpt-5-nano'
+    ),
+    OPENROUTER_MEAL_V3_MODEL: getEnvVar(
+        'OPENROUTER_MEAL_V3_MODEL',
+        'openai/gpt-5-nano'
     ),
     OPENROUTER_AI_SUMMARY_MODEL: getEnvVar(
         'OPENROUTER_AI_SUMMARY_MODEL',

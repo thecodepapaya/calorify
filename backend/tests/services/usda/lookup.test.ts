@@ -77,6 +77,15 @@ test('findUsdaExact queries by normalized_name', async () => {
   assert.ok(sql.includes('AND normalized_name = $1'));
   assert.ok(sql.includes('is_active = TRUE'));
   assert.ok(sql.includes('is_materialized = TRUE'));
+  for (const column of [
+    'kcal_present',
+    'protein_present',
+    'carbs_present',
+    'fat_present',
+    'fiber_present',
+  ]) {
+    assert.ok(sql.includes(column));
+  }
   assert.equal(params[0], 'rice white cooked');
 });
 
@@ -135,6 +144,15 @@ test('findUsdaCandidates uses indexed trigram similarity for normalized names an
   assert.ok(sql.includes('normalized_name % $1 OR description % $1'));
   assert.ok(sql.includes('is_active = TRUE'));
   assert.ok(sql.includes('is_materialized = TRUE'));
+  for (const column of [
+    'kcal_present',
+    'protein_present',
+    'carbs_present',
+    'fat_present',
+    'fiber_present',
+  ]) {
+    assert.ok(sql.includes(column));
+  }
   assert.equal(params[0], 'brown rice');
 });
 

@@ -1,566 +1,1493 @@
-# Meal-analysis reliability and truthful presentation
+# Meal-analysis backend rewrite
 
-Status: confirmed staging defects; implementation not started
+Status: CLI hypothesis implemented; durable backend and client cutover pending
 
-Last reviewed: 2026-08-25
+Last reviewed: 2026-08-26
 
 ## Objective
 
-Make text and image meal analysis fail safely and present only values that can
-be derived from verified ingredient, portion, and nutrition state. A model may
-propose an interpretation, but it must not silently create authoritative
-counts, discard explicit foods, choose a different food, convert unresolved
-nutrition to zero, or rewrite calculated quantities during presentation.
-
-This is the canonical cross-component plan for decomposition reliability,
-clarification, nutrition grounding, result confidence, and presentation. It
-supersedes the older backend calorie-estimation reliability plan and the
-post-implementation follow-up items from the completed meal-analysis robustness
-work. The implemented durable workflow remains documented in the
-[meal-analysis state machine](../../backend/docs/meal-analysis-state-machine.md).
-
-## Confirmed staging baseline
-
-The investigation exercised 29 controlled sessions through the deployed
-staging engine, live model provider, staging application database, USDA
-database, clarification continuation, and presentation generation. HTTP
-authentication and transport serialization were not part of this particular
-matrix.
-
-- 24 sessions completed.
-- One non-food control correctly reached `NO_FOOD_DETECTED`.
-- Four food sessions remained in `PENDING_DECOMPOSITION`; `samosa` and
-  `egg curry` still failed after additional retries.
-- The backend suite passed 412 tests with one skipped test.
-- The focused Flutter controller and clarification suites passed 21 tests.
-- Those passing suites did not detect the live semantic, grounding, state, or
-  presentation failures below.
-
-### Representative input/output evidence
-
-| Input | Observed staging behavior |
-| --- | --- |
-| `dahi puri` | Bare-input runs alternated between BULK 75 g / 98 kcal, COUNT 4 / 50 g / 110 kcal, terminal decomposition failures, and the reported COUNT 2 / 340 g / 510 kcal result titled `Snacks`. |
-| `pani puri` | Invented count 5, 50 g total, 42 kcal, no quantity clarification, and a `1 serving` presentation. |
-| `2 dahi puri` | Eventually produced count 2, 50 g, and 75 kcal, but only after repeated attempts. |
-| `idli` | Classified as BULK, then changed from 100 g to 50 g through an idli COUNT template without asking quantity. |
-| `rotis` | A plural countable food became BULK, changed from 150 g to a single-roti 35 g serving, and was presented as one serving. |
-| `some samosas` | Received the generic title `snack`; BULK 150 g became 75 g and plural quantity was never resolved. |
-| `paneer tikka` | A paneer-curry template changed 150 g / 398 kcal to 220 g / 584 kcal. |
-| `2 medium rotis with 1 cup dal` | Dal was omitted, `medium` was ignored, rotis changed from 200 g to 70 g, per-unit state became inconsistent, and the meal title was used as quantity. |
-| `rice and dal` | Resolved ingredients totalled 300 g / 376 kcal; presentation claimed 380 g. |
-| `100 g dry oats cooked with water` | Nutrition remained based on 100 g dry oats / 389 kcal; presentation changed the basis to about one cup of cooked oatmeal. |
-| `banana shake` | Nutrition resolution failed, but the analysis completed at zero calories and generated health advice. |
-| Hindi `एक कटोरी पोहा` | Display identity became English and 150 g prepared poha received dry rice-flake nutrition: 549 kcal. |
-| Hindi `दो समोसे` | The final total was 150 g for two, while persisted per-unit grams remained 50 instead of 75. |
-| `eggs` | Invented count 1; 50 g returned 257 kcal and 28.8 g carbohydrate, then received a healthy assessment. |
-| `100 g egg` | Returned 513 kcal, 57.7 g carbohydrate, and 28.9 g fat with high confidence. |
-| `100 g paneer` | Returned 101 kcal because bare paneer resolved to `Palak Paneer`. |
-| `1 cup cooked rice` | Reasonable control: 185 g / 239 kcal. |
-| `100 g milk` | Reasonable control: 61 kcal. |
-| `laptop and mouse` | Correctly rejected as no food. |
-
-The original `dahi puri` failure is a complete example of the current error
-amplification chain:
-
-1. Decomposition replaced the specific text title with `Snacks`.
-2. The model supplied an unproven count of two.
-3. The backend accepted that count as resolved state, so it did not ask how
-   many pieces were eaten.
-4. First-word template lookup mapped `dahi puri` to `dahi`, then to the BULK
-   yogurt template despite the item being COUNT.
-5. The regular yogurt option, 170 g, was multiplied by the invented count to
-   produce 340 g and 510 kcal.
-6. Presentation exposed only `340 grams`, hiding the count and the template
-   assumption.
-
-## Prompt and schema boundary
-
-The decomposition prompt is
-[`prompts.ts`](../../backend/src/services/meal-analysis/prompts.ts).
-The generated-output Zod contract and field descriptions are in
-[`decompositionSchema.ts`](../../backend/src/services/meal-analysis/decompositionSchema.ts).
-`DECOMPOSITION_SCHEMA` is generated from that Zod schema and passed to the
-provider as strict JSON Schema by
-[`engine.ts`](../../backend/src/services/meal-analysis/engine.ts).
-
-The prompt already says to emit a COUNT count when supplied and allow null when
-count needs clarification. This instruction is useful but not enforceable:
-
-- JSON Schema validates structure, not whether a number appeared in the input.
-- Zod `superRefine` relations are not emitted by `zod-to-json-schema`.
-- Standard JSON Schema cannot express arithmetic such as
-  `total = count * per-unit` across sibling properties.
-- Source completeness, food identity, title specificity, and preparation
-  correctness are semantic properties rather than shape constraints.
-
-The generated provider schema was inspected during this investigation. It
-contained the field descriptions but none of the Zod cross-field messages for
-COUNT arithmetic, ordered gram bounds, or FOOD/NO_FOOD consistency.
-
-## Root causes and required changes
-
-### 1. Full validation occurs outside provider failover
-
-#### Cause
-
-`MealAnalysisLlmClient` parses JSON and performs a small structural walk before
-recording a provider attempt as successful. That walker checks selected types,
-required properties, enums, arrays, and `anyOf`, but not all JSON Schema
-keywords. The complete Zod parse happens only after the client has returned.
-
-Consequences:
-
-- a provider can be logged as successful even though the decomposition is not
-  valid application input;
-- a Zod failure does not advance to the next provider;
-- resume repeats decomposition from scratch rather than using the next valid
-  provider response; and
-- current logs cannot identify the safe field path that caused rejection.
-
-#### Fix
-
-Introduce one typed structured-completion operation:
-
-```ts
-runStructuredCompletion<T>({
-  operation,
-  messages,
-  responseSchema,
-  parse: (value) => zodSchema.parse(value),
-})
-```
-
-For every provider attempt:
-
-1. call the provider;
-2. parse JSON;
-3. run the complete domain parser, including refinements;
-4. record success only after parsing succeeds; and
-5. continue failover on parsing failure.
-
-Record only bounded error categories and schema paths, never raw prompts or
-meal values. Use deterministic model settings where supported and pin the
-configured provider model. Determinism reduces variance but never replaces
-validation.
-
-### 2. Model estimates do not carry provenance
-
-#### Cause
-
-The model returns one `count` and one `size_specified_by_user` boolean. The
-contract cannot distinguish a value explicitly written by the user, observed
-in an image, or guessed by the model. Normalization accepts both fields
-directly. Deterministic text-size detection is itself gated by the model's
-`size_specified_by_user` value.
-
-#### Fix
-
-Make observation source explicit:
-
-```ts
-type PortionEvidenceSource =
-  | 'USER_EXPLICIT'
-  | 'IMAGE_OBSERVED'
-  | 'MODEL_ESTIMATE'
-  | 'UNKNOWN';
-
-type ProposedPortion = {
-  count: number | null;
-  countSource: PortionEvidenceSource;
-  countEvidence: string | null;
-  sizeSource: PortionEvidenceSource;
-  sizeEvidence: string | null;
-  estimatedCount: number | null;
-};
-```
-
-For text input, accept a user-explicit count or size only when its evidence is
-an exact source substring and a deterministic parser confirms it. A model
-estimate may seed a default but must not occupy resolved count. For images,
-retain observed versus estimated provenance and clarify uncertain or occluded
-counts.
-
-### 3. Explicit source content is not required to survive decomposition
-
-#### Cause
-
-The schema requires only one food item for a FOOD outcome. It does not require
-coverage of every explicit food or quantity phrase. The explicit quantity
-parser runs after decomposition, can update only existing ingredient rows, and
-silently ignores an anchor such as `1 cup dal` when no dal row exists. Its
-grammar is primarily English mass and volume syntax.
-
-#### Fix
-
-- Add exact `evidence_text` for every text-derived item.
-- Validate that evidence is a real, non-overlapping source span.
-- Require every deterministic quantity anchor to resolve to an ingredient.
-- Treat an unmatched explicit anchor as invalid decomposition and retry or
-  repair it before USDA resolution.
-- Parse counts, pieces, slices, size adjectives, bowls/katoris, and localized
-  numeric forms for supported locales.
-- Add multilingual fixtures for Indic scripts, CJK, RTL, and Latin locales.
-- For a single explicit text food, derive the display title from verified item
-  terminology. Reject generic titles such as `Meal`, `Breakfast`, `Snack`, or
-  `Snacks` when a specific food is available.
-
-### 4. Missing information is filtered through calorie uncertainty
-
-#### Cause
-
-Clarification first requires meal-level variance above 15%, then requires each
-ingredient to exceed an absolute spread of at least 50 kcal or 5% of the meal.
-The ingredient calorie gate executes before missing count is checked. A highly
-uncertain low-calorie countable food therefore completes without a quantity
-question.
-
-#### Fix
-
-Separate clarification reasons:
-
-- Mandatory: missing count, unresolved explicit anchor, conflicting portion
-  kind, or ambiguous preparation state.
-- Optional: portion variation that materially affects final calories.
-
-Mandatory clarification bypasses calorie thresholds. Optional questions use a
-bounded clarification budget and meal-level impact ordering.
-
-### 5. Portion templates are not identity- or kind-safe
-
-#### Cause
-
-`lookupTemplate` permits unrestricted first-word fallback and does not compare
-the template's stored `kind` with the resolved ingredient kind. A simple gram
-sanity check cannot detect that yogurt is the wrong semantic template for dahi
-puri or paneer curry is wrong for paneer tikka.
-
-#### Fix
-
-- Change lookup to require an expected portion kind.
-- Match exact curated dish identities or reviewed aliases only.
-- Remove unrestricted first-word fallback.
-- Remove the bare `paneer -> paneer_curry` alias.
-- On kind conflict, ask or repair the kind rather than applying the template.
-- Use the existing per-unit/total band as the fallback when no exact template
-  exists.
-- Add dedicated dish templates only after their serving assumptions are
-  reviewed and covered by calculated references. Version every template and
-  test its defining components and proportions against a calculated recipe.
-
-### 6. Clarification mutates only part of portion state
-
-#### Cause
-
-A size answer recalculates total grams and macros but leaves count and per-unit
-fields unchanged. The stored row can therefore violate
-`grams = count * perUnitGrams`. Clarification also collapses the calorie band,
-which can incorrectly upgrade overall confidence even though food identity or
-nutrition grounding remains weak.
-
-#### Fix
-
-- Centralize portion construction and mutation in one validated domain helper.
-- For every mutation, derive total, count, per-unit, bounds, and macros from one
-  authoritative representation.
-- Assert arithmetic invariants before persistence and before result emission.
-- Track confidence dimensions independently: decomposition, quantity,
-  nutrition match, fallback quality, and portion range.
-- A clarification may improve only the dimension it answered.
-
-### 7. USDA ranking allows food-identity loss
-
-#### Cause
-
-Identity and data-source quality are combined in one additive score. A fuzzy
-candidate containing all requested tokens plus extra defining food tokens can
-beat an exact identity. This made `Palak Paneer` outrank bare `paneer`.
-
-Exact normalized names are also selected with `LIMIT 1` using source type,
-non-zero energy, and FDC ID. Duplicate branded `egg` rows with radically
-different nutrition are not compared. Internally self-consistent macros are
-treated as adequate quality even when they are wrong for the requested food.
-
-Finally, a high fuzzy score can be accepted with a zero confidence margin;
-ambiguity rejection currently applies only below a score threshold.
-
-#### Fix
-
-Rank in hard tiers:
-
-1. exact token identity;
-2. reviewed food-concept alias;
-3. fuzzy identity with no conflicting or additional defining tokens.
-
-Preparation and data-source quality break ties only inside an identity tier.
-Fetch multiple exact rows, group nutritionally equivalent candidates, and
-reject a group when duplicate rows have material nutrient dispersion. Require
-a confidence margin for fuzzy matches regardless of the absolute score.
-Prefer reviewed reference-food concepts for common staples. Return an explicit
-`AMBIGUOUS` result instead of choosing an arbitrary branded row.
-
-At import time, calculate food-name-independent quality flags for zero energy,
-impossible macro mass, kcal/Atwater disagreement, missing nutrients, and
-generic branded descriptions. Keep indexed identity tokens, preparation state,
-source type, and branded/reference classification so retrieval remains bounded.
-A small reviewed `food_concepts` mapping may represent genuine semantic or
-regional equivalence; it must not become another spelling-alias list.
-
-### 8. Preparation state and dish identity are lossy
-
-#### Cause
-
-The model can reduce a prepared named dish to a raw constituent, for example
-poha to rice flakes, and omit its preparation state. Current refinement is a
-small set of English regular expressions and food-specific exceptions.
-ASCII-only normalization also loses localized display tokens.
-
-#### Fix
-
-- Preserve named prepared dishes as food identities when nutrition is for the
-  consumed dish.
-- Require preparation-state compatibility during matching.
-- Treat missing material preparation state as ambiguity, not as raw/dry.
-- Use Unicode-aware normalization for display/evidence matching.
-- Keep localized display identity separate from English retrieval identity.
-- Expand reviewed dish concepts from measured failures rather than adding
-  spelling aliases indefinitely.
-
-### 9. Unresolved nutrition is explicitly converted to zero
-
-#### Cause
-
-Unmatched ingredients start with zero macros. If the nutrition fallback fails
-or produces no accepted entry, the code deliberately keeps those zero values
-and continues. Zero therefore means both verified water and unknown food.
-
-#### Fix
-
-- Reserve zero nutrition for verified zero-calorie identities.
-- Add an explicit `UNRESOLVED` nutrition state.
-- Do not complete a meal containing an unresolved calorie-contributing item.
-- Offer an editable unresolved-food response or a retryable resolution error.
-- Suppress health classification and advice while any food is unresolved or
-  ambiguously matched.
-- Keep LLM nutrition estimation as a bounded last resort and validate its food
-  identity, preparation state, Atwater consistency, and category limits.
-- Cache only reviewed fallback nutrition by normalized food concept, preparation
-  state, dataset/model version, and validation version. An unreviewed model
-  estimate must not become an authoritative cache row.
-
-### 10. Presentation generates authoritative fields
-
-#### Cause
-
-The presentation model returns a free-form `quantity` string. Its input summary
-contains grams and macros but omits count, per-unit values, preparation basis,
-and confidence provenance. The response is shape-checked but not reconciled
-with the resolved ingredients. The result copies the string directly.
-
-#### Fix
-
-Remove quantity from the presentation model. Format it deterministically from
-resolved state, for example:
-
-- `6 dahi puris · 150 g total`;
-- `Rice 200 g + dal 100 g`;
-- `100 g dry oats`.
-
-The presentation model may generate optional prose only. Parse that prose with
-the same typed structured-completion boundary. Health text must be deterministic
-or suppressed when identity, preparation, quantity, or nutrition confidence is
-insufficient.
-
-### 11. Flutter discards clarification context and misrepresents skipping
-
-#### Cause
-
-The wire contract includes `ingredientName`, but the question sheet builds a
-generic question solely from `portionKind`. “Skip” removes the selection, then
-answer construction replaces it with the default. Count and size arrive in
-separate backend rounds, while the widget test constructs both in one sheet.
-Stable option IDs such as `medium` and local `estimated` are not exhaustively
-localized. `6plus` is silently interpreted as seven.
-
-#### Fix
-
-- Render ingredient-specific localized questions.
-- Replace “Skip” with an honest `Use estimate` action, or introduce an explicit
-  `ACCEPT_ESTIMATE` answer; never silently submit a default.
-- Keep one visual sheet open across dependent server rounds, or introduce one
-  compound count-and-size clarification contract.
-- Make option IDs an exhaustive shared contract with parity fixtures.
-- For six or more pieces, request a numeric value instead of assuming seven.
-- Align the local and backend clarification engines on the same semantics and
-  presentation contract.
-
-### 12. Result confidence measures only a subset of correctness
-
-#### Cause
-
-Calorie confidence is driven mainly by the post-clarification portion band and
-whether an LLM fallback remained at zero. It does not fully include
-decomposition completeness, title specificity, quantity provenance, USDA
-identity margin, preparation agreement, or fallback quality. A wrong template
-answer can collapse the band and produce high confidence.
-
-#### Fix
-
-Calculate a structured confidence report:
-
-```ts
-type AnalysisConfidence = {
-  decomposition: 'HIGH' | 'MEDIUM' | 'LOW';
-  quantity: 'HIGH' | 'MEDIUM' | 'LOW';
-  nutritionIdentity: 'HIGH' | 'MEDIUM' | 'LOW' | 'UNRESOLVED';
-  preparation: 'HIGH' | 'MEDIUM' | 'LOW' | 'UNRESOLVED';
-  portion: 'HIGH' | 'MEDIUM' | 'LOW';
-  reasons: string[];
-};
-```
-
-The public aggregate is the weakest material dimension, not merely the final
-calorie-band width.
-
-## Target flow
+Replace the current meal-analysis core and developer CLI with a small,
+explicit, and resumable workflow that turns either text or an image into a
+quantified ingredient recipe, resolves every nutrition-bearing ingredient
+against trusted nutrition data, calculates point macros and plausible ranges,
+asks only meaningful questions, and produces a localized presentation.
+
+The rewrite prioritizes truthful uncertainty over false precision. A result is
+complete only when every active nutrition-bearing ingredient has trusted
+calorie, protein, carbohydrate, and fat data; fiber is sourced when available
+and otherwise normalized to zero; and the final integrity checks pass.
+
+This is the single canonical cross-component plan for the rewrite. It replaces
+the earlier incremental meal-analysis reliability plan. The currently deployed
+workflow remains described by the
+[meal-analysis state machine](../../backend/docs/meal-analysis-state-machine.md)
+until the cutover is complete.
+
+## Confirmed decisions
+
+- Input is exactly one of text or image. Combined image-plus-caption input is
+  out of scope.
+- Text may be in any language. Language handling is model-assisted best effort;
+  the rewrite will not add hand-maintained locale-specific parsers.
+- The client supplies locale, ISO country code, IANA time zone, capture
+  timestamp, and image origin when applicable. Locale controls presentation
+  language, country is a weak regional prior, and fresh immediate-camera time
+  plus time zone may inform meal type.
+- Image analysis assumes that the entire visible serving was consumed.
+- Every food component is represented by a quantified ingredient recipe.
+  Prepared-dish calorie records are not an authoritative calculation path.
+- Models may propose identities, recipes, portions, scenarios, and presentation
+  copy. They may not provide authoritative calories or macros.
+- Every nutrition-bearing ingredient must resolve against trusted data. No
+  unreviewed model-generated nutrition fallback is allowed.
+- Packaged, branded, restaurant, and proprietary foods still receive a
+  best-effort ingredient decomposition. Their uncertainty must remain broad
+  when the recipe is not observable.
+- The final API carries point estimates and plausible ranges for calories,
+  protein, carbohydrates, fat, and fiber. The app initially displays only the
+  calorie point and calorie range.
+- A verified nutrient value of zero is valid. By explicit product policy,
+  missing fiber is also treated as zero. Missing calories, protein,
+  carbohydrates, or fat remain unresolved when source presence is available.
+- One bounded question bundle contains one to three nutrition questions when
+  nutrition clarification is warranted, otherwise none. Only questions with
+  material expected impact are included.
+- Meal type may add one separate question and does not count against the
+  one-to-three nutrition-question budget.
+- Residual low-impact uncertainty remains in the final range. After the one
+  question round, a versioned deterministic safety predicate decides whether
+  the remaining range may complete or must become `UNRESOLVED`.
+- The final presentation separates `mealName`, `servingSizeText`, and `tip`.
+  The name never contains serving size or weight. Serving size uses concise
+  natural measures and never contains calories, grams, or other weight text.
+  The tip may contain any meal-related copy, including trivia.
+- On-device meal analysis will be forcibly disabled in backend capability
+  policy and clients at cutover and is out of scope for this rewrite.
+- The rewrite does not preserve V2 payload compatibility, old-client support,
+  or replay of old in-flight sessions. Backend and app cut over together.
+- LangGraph will not be introduced. The workflow is a fixed typed pipeline with
+  one bounded human-input boundary; a small explicit runner is sufficient.
+
+### Accepted temporary fiber limitation
+
+The hypothesis CLI reuses any active materialized USDA snapshot and does not
+force a second source download merely to populate nutrient-presence flags.
+Missing fiber is normalized to `0` in every V3 result. On legacy snapshots,
+all numeric nutrient columns are accepted as previously imported because their
+original presence metadata cannot be reconstructed.
+
+This is an explicit accuracy tradeoff for the current hypothesis: omitted
+fiber can be indistinguishable from true zero and may understate fiber or make
+its range too narrow. Values still come from stored USDA numeric columns, not
+the model, but a legacy zero in any nutrient cannot be audited as
+source-present. Revisit this after the CLI hypothesis is evaluated; possible
+later work is a resumable cached source refresh or another trusted way to
+materialize presence without repeated downloads.
+
+## Scope boundaries
+
+### Retain
+
+- authenticated API access and image ownership checks;
+- storage of image object keys rather than bearer URLs;
+- client-stable analysis IDs and request idempotency;
+- durable checkpoints, terminal replay, worker leases, and stale-worker
+  fencing;
+- trusted nutrition storage and lookup infrastructure;
+- logging, metrics, history inspection, feedback, reanalysis, CSV export, and
+  meal-log confirmation, updated for the new state;
+- one application core shared by CLI and HTTP.
+
+### Replace
+
+- the current flat ingredient decomposition;
+- the existing portion-template and dish-template correction chain;
+- model-provided free-form preparation states and the current calorie-only
+  clarification heuristic;
+- LLM-generated nutrition fallback;
+- LLM-generated authoritative quantity text;
+- the current meal-analysis CLI behavior and its automatic answer defaults;
+- snapshot codecs, stages, prompts, schemas, and tests tied to the old internal
+  state.
+
+### Defer
+
+- on-device interpretation and local nutrition settlement;
+- image plus user caption input;
+- barcode, label OCR, and exact packaged-product nutrition;
+- restaurant-chain or brand-specific recipe integrations;
+- user-calibrated bowl, cup, plate, or utensil sizes;
+- micronutrient calculation;
+- more than one nutrition clarification round;
+- automatic learning from user corrections;
+- compatibility adapters for old clients or sessions.
+
+These deferred capabilities can improve accuracy, especially for packaged
+foods and images, but are not required for the first reliable backend flow.
+
+## Domain model
+
+### Meal and component hierarchy
 
 ```text
-input
-  -> deterministic text anchors and locale context
-  -> model proposal with evidence and provenance
-  -> full semantic parser inside provider failover
-  -> source coverage and portion-invariant validation
-  -> identity-tiered, preparation-aware nutrition resolution
-  -> mandatory clarification, then optional impact-based clarification
-  -> final integrity gate
-  -> deterministic meal title/quantity and optional safe prose
-  -> durable result
+Meal
+  -> Component[]
+       -> Portion
+       -> Preparation[]
+       -> RecipeScenario[]
+            -> IngredientLeaf[]
+                 -> TrustedNutritionReference
 ```
 
-The final integrity gate must prove:
+A component is the food-level unit a user recognizes, such as `kaddu sabzi`,
+`roti`, `banana shake`, or `fried egg`. Ingredients are nutrition-bearing
+leaves such as pumpkin, flour, retained oil, milk, or sugar.
 
-1. every explicit food and quantity anchor is represented;
-2. count, per-unit grams, total grams, and bounds agree;
-3. every calorie-contributing item has resolved nutrition;
-4. matched nutrition preserves food identity and preparation state;
-5. displayed quantity is derived from the persisted portion state;
-6. confidence reasons reflect every degraded boundary; and
-7. health/tip output is absent when its grounded inputs are unsafe.
+Only ingredient leaves contribute macros. Components and the meal aggregate
+their children and never add a second dish-level calorie value.
+
+Atomic foods use the same model with a one-leaf recipe. A banana, for example,
+has one banana leaf rather than an invented list of sub-ingredients.
+
+### Names and identity
+
+Keep these concepts separate:
+
+- `sourceName`: the original user-visible term or image interpretation;
+- `displayName`: localized presentation wording;
+- `canonicalIdentity`: the stable English identity used for nutrition lookup;
+- `lookupAliases`: bounded alternatives used only during resolution.
+
+Country and locale may change `displayName`, such as presenting `roti` as
+`Indian flatbread` for an English-speaking US context. They may not silently
+change the canonical food identity or override explicit preparation details.
+Country may also inform model-proposed regional recipe scenarios when a
+variation is nutritionally material, but it remains a weak prior and never a
+hand-coded locale rule or a substitute for source evidence.
+
+### Evidence and provenance
+
+Every material inferred or selected field carries one origin:
+
+```text
+USER_TEXT
+USER_CLARIFICATION
+IMAGE_OBSERVED
+CONTEXT_DEFAULT
+MODEL_INFERRED
+REFERENCE_DEFAULT
+DERIVED
+```
+
+Origin and uncertainty are separate. A user-provided cup is explicit, but its
+gram conversion still has density and vessel uncertainty. An image-observed
+count may still have a range when items are occluded.
+
+Text claims marked `USER_TEXT` retain the exact source text and a UTF-16
+`[start, end)` span, matching JavaScript and Dart indexing. The backend checks
+that each asserted span reproduces the exact text and stays in bounds. A
+single source phrase may support closely related facts, such as component
+identity and portion provenance. It also inventories locale-neutral
+numeric and unit-symbol anchors and requires each to be attached exactly once.
+
+Without hand-maintained language parsers, runtime code cannot prove that the
+model found every language-specific food, number word, or regional measure.
+Completeness for those anchors is an evaluated model property: reviewed
+multilingual holdouts measure omissions, while runtime strictly validates the
+claims and locale-neutral anchors it can verify. Cross-runtime fixtures cover
+emoji, combining marks, Indic and RTL scripts, repeated names, and substring
+collisions.
+
+### Portion representation
+
+Portion is a representation of how an amount was expressed, not an intrinsic
+food category:
+
+```text
+COUNT
+AMOUNT
+UNKNOWN  // transient only
+```
+
+`COUNT` contains a count estimate or exact value and a per-unit finished-size
+constraint. Count and unit size remain independent. `4 medium rotis` fixes
+count at four while retaining plausible per-roti sizes across scenarios.
+
+`AMOUNT` contains a natural measure when available and a finished-food amount
+constraint. Supported measure concepts include grams, millilitres, cup, bowl,
+plate, tablespoon, teaspoon, handful, pinch, and serving. `pinch` is a measure,
+not a portion kind. `slice` and `piece` use `COUNT`; a fractional slice or piece
+is a fractional count, not an `AMOUNT`.
+
+The component stores explicit or observed portion constraints. Every recipe
+scenario then supplies one complete point `effectivePortion` compatible with
+those constraints. This makes even an atomic food with an image-derived size
+range calculable: its small, typical, and large scenarios each have a concrete
+point portion rather than one recipe combined with an independent interval.
+
+Rules:
+
+- never default an unspecified food count to authoritative `1`;
+- direct user-specified mass clamps only that mass dimension;
+- an explicit count clamps count, not per-unit size;
+- `small`, `medium`, and `large` select calibrated size bands rather than exact
+  gram values;
+- cup, bowl, spoon, plate, and volume measures retain conversion uncertainty;
+- fractional counts and portions are valid;
+- total grams, count, per-unit grams, and natural measures agree within each
+  scenario rather than being mutated independently.
+
+### Measurement and nutrition basis
+
+The calculation must distinguish:
+
+- raw ingredient input;
+- dry ingredient input;
+- edible or retained nutrition-bearing quantity;
+- finished cooked yield;
+- consumed finished portion;
+- countable finished units.
+
+Examples:
+
+- `100 g dry oats cooked with water` binds 100 g to the dry oat ingredient.
+  Water changes finished yield but not oat calories.
+- `100 g cooked oats` binds 100 g to the finished component.
+- `1 cup cooked rice` binds the cup to finished cooked rice, not dry rice.
+- frying oil in the pan is not the consumed oil quantity; retained oil is the
+  nutrition-bearing ingredient quantity.
+
+The user's explicit measurement basis is immutable. A trusted nutrition record
+must match that basis or the recipe must contain one explicit yield conversion.
+
+### Preparation
+
+Preparation uses a small versioned umbrella taxonomy:
+
+```text
+RAW
+MOIST_HEAT
+DRY_HEAT
+FAT_HEAT
+PROCESSED
+COOKED_UNKNOWN
+UNKNOWN
+OTHER
+```
+
+Detail is also a closed, versioned code list rather than arbitrary model text.
+Initial codes include boiled, simmered, poached, steamed, pressure-cooked,
+baked, roasted, grilled, toasted, sauteed, stir-fried, shallow-fried,
+deep-fried, fermented, pickled, dried, smoked, blended, and juiced. Raw evidence
+text and localized display labels remain separate from these calculation codes.
+
+A component stores observed preparation constraints. Each scenario contains
+the authoritative compatible `effectivePreparationCodes` used for trusted
+record matching and calculation. Added or retained fat is an active ingredient
+fact because it affects nutrition more directly than the preparation label.
+Preparation labels never add calories by themselves.
+
+### Ingredient roles
+
+Each scenario contains only ingredients that are active in that scenario. A
+leaf has one calculation role:
+
+```text
+ACTIVE_NUTRITION
+YIELD_ONLY
+IGNORED_TRACE
+```
+
+- `ACTIVE_NUTRITION` resolves calories, protein, carbohydrates, and fat,
+  sources fiber when available, otherwise uses zero fiber, and contributes once.
+  Retained oil or other cooking fat is an active leaf with a retained-fat
+  attribute, not a special summation path.
+- `YIELD_ONLY` affects mass or concentration and requires a verified zero
+  nutrition basis, such as water.
+- `IGNORED_TRACE` contributes nothing only under a versioned, tested
+  bounded-impact rule. Small quantity alone does not make oil, sugar, butter,
+  sauce, or dressing trace.
+
+Presence and variant choices live in scenario-level assumptions. For example,
+whole-milk and skim-milk scenarios each contain one active milk leaf; no
+`OPTIONAL` or `ALTERNATIVE` leaves coexist inside a scenario.
+
+## Quantified recipe scenarios
+
+### Why scenarios are required
+
+Independent minimum and maximum values for every ingredient are unsafe. Adding
+all minima or all maxima can create a physically impossible recipe, such as
+maximum flour, oil, and filling combined with minimum finished yield.
+
+Each component therefore contains a small bounded set of internally coherent,
+fully calculable recipe scenarios. An inferred composite normally has lean,
+typical, and rich scenarios. An atomic food may still need several portion
+scenarios when its size is uncertain. Each scenario contains:
+
+- structured assumptions;
+- ingredient leaves with point nutrition-basis grams;
+- `finishedYieldGrams` and, for countable recipes, `finishedYieldUnits`;
+- one point `effectivePortion`;
+- exactly one scale basis: `WHOLE_RECIPE`, `FINISHED_MASS`, or `UNIT_COUNT`;
+- authoritative effective preparation and retained-fat state;
+- one calculated point `MacroVector`.
+
+Scenarios are plausible engineering hypotheses, not probability distributions.
+One compatible scenario is explicitly selected as the point scenario. The
+extrema across compatible scenarios supply the component macro ranges.
+
+### Calculation
+
+For each scenario:
+
+```text
+reference macros = sum(
+  ACTIVE_NUTRITION leaf nutrition-basis grams
+  * trusted ingredient macros per 100 g
+  / 100
+)
+
+WHOLE_RECIPE scale = 1
+FINISHED_MASS scale = effective portion grams / finished yield grams
+UNIT_COUNT scale = effective portion count / finished yield units
+
+component macros = reference macros * exactly one applicable scale
+meal macros      = sum(component macros)
+```
+
+`WHOLE_RECIPE` covers an ingredient-basis anchor consumed as a whole, such as
+`100 g dry oats cooked with water`, without incorrectly scaling it by finished
+porridge mass. A `UNIT_COUNT` scenario always carries both yield units and
+yield grams. Its derived per-unit grams must agree with the point portion and
+its count constraints. Count and finished-mass scaling must never both be
+applied to one scenario.
+
+Ingredient proportions, yield, and portion assumptions remain correlated
+inside each scenario. Clarification answers filter or update compatible
+scenarios and select exactly one resulting point scenario, after which the
+backend recalculates from leaves. The implementation never patches a stored
+calorie delta.
+
+Leaves and scenarios carry point vectors only. A component exposes an estimate
+from its selected point scenario and per-macro minima/maxima across its valid
+scenarios. The meal point is the sum of component points; meal minima and
+maxima are sums of the component marginal minima and maxima. Do not construct a
+meal-wide Cartesian product. Any genuine dependency between foods must be
+modeled inside one component scenario set.
+
+### Uncertainty floors
+
+Model confidence alone cannot determine range width. A model may confidently
+propose an unrealistically narrow oil or portion range. Apply a small set of
+versioned deterministic floors based on evidence class, not an expanding list
+of food-specific exceptions:
+
+- direct mass and count supplied by the user;
+- household measure conversion;
+- model-inferred text portion;
+- image-observed or image-inferred portion;
+- restaurant or proprietary recipe;
+- sauce, curry, dressing, mixed beverage, or retained-fat uncertainty;
+- fried or bone-in food.
+
+Exact floor values are calibrated from evaluation evidence before release.
+A floor may add or replace complete coherent scenarios and then revalidate the
+set; the post-floor macro envelope must contain the pre-floor envelope. It may
+not widen an ingredient, portion, or macro field independently and may not
+alter any explicitly supplied user dimension at all. If no coherent floored
+scenario can be constructed, the result is unresolved.
+
+When multiple compatible trusted nutrition records exist, their reviewed
+dispersion may widen nutrient-density scenarios. A single trusted row remains
+a point nutrient reference; the final range is still widened by applicable
+recipe, portion, preparation, and evidence floors.
+
+## Trusted nutrition resolution
+
+The model outputs no calories or macros. For every nutrition-bearing leaf, the
+resolver must establish:
+
+- hard food-identity compatibility;
+- preparation and raw/dry/cooked/drained compatibility;
+- a trusted source and dataset version;
+- finite, plausible values for calories, protein, carbohydrates, fat, and
+  fiber;
+- an explicit distinction between a verified zero and a missing non-fiber
+  value when the snapshot retains source presence.
+
+`0` is accepted when the trusted record states zero. Missing fiber is also
+normalized to `0`. A missing or unparseable calorie, protein, carbohydrate, or
+fat value remains unresolved in presence-aware snapshots.
+
+The previous USDA storage/import path could not preserve this distinction
+because absent nutrient fields became database zeroes. V3 adds additive
+presence flags for future imports, but reuses an existing active materialized
+snapshot without forcing another download. Legacy numeric values are accepted
+as stored. Consequently, legacy zeroes cannot be audited as source-present and
+missing fiber may understate the true fiber amount.
+
+Resolution uses hard identity tiers. Preparation and data-source quality may
+break ties only among compatible identities. Ambiguous matches are rejected
+rather than selected through an additive score. Duplicate-name nutrient
+dispersion, impossible macro mass, missing energy, and raw/cooked inversions
+are quality failures.
+
+Calories, protein, carbohydrates, and fat must resolve for every active
+nutrition-bearing leaf in every materially plausible scenario before question
+planning; fiber is sourced or set to zero. A materially
+plausible alternative that cannot resolve is not silently deleted; unless it
+qualifies for the bounded trace rule, it makes the analysis `UNRESOLVED`. The
+resolver may consult additional trusted datasets in the future, but adding a
+dataset does not change the recipe or calculation contracts.
+
+Packaged and proprietary foods do not bypass the recipe rule. The model
+produces best-effort ingredient scenarios, the leaves resolve through trusted
+data, and conservative floors preserve the resulting uncertainty.
+
+## End-to-end workflow
+
+```mermaid
+flowchart TD
+    A[Persist normalized text or image input] --> B[Structured interpretation]
+    B --> C[Semantic and verifiable-anchor validation]
+    C -->|no food| N[NO_FOOD]
+    C -->|unusable| U[UNUSABLE_INPUT]
+    C --> D[Resolve trusted ingredient nutrition]
+    D -->|cannot ground active leaf| R[UNRESOLVED]
+    D --> E[Calculate coherent scenario macros]
+    E --> F[Plan nutrition questions and meal type]
+    F --> G{Input needed?}
+    G -->|yes| H[Persist exact bundle and pause]
+    H --> I[Persist answers as ANSWERS_RECEIVED]
+    I --> J[Apply answers, recalculate, and run integrity gate]
+    G -->|no| J
+    J -->|unsafe residual uncertainty| R
+    J --> L[Generate presentation copy]
+    L --> M[Persist and emit COMPLETE]
+```
+
+### Sanity walkthrough
+
+For text `kaddu sabzi and 4 roti`:
+
+1. The interpreter creates `kaddu sabzi` and `roti` components and preserves
+   the exact count anchor `4` on the roti component.
+2. Sabzi scenarios quantify pumpkin, any materially plausible supporting
+   ingredients, and retained oil. Roti scenarios quantify flour and
+   yield-only water; any plausible added fat is an active ingredient in the
+   scenarios where it is present.
+3. Every scenario has a concrete portion. The roti count stays four while
+   plausible per-roti size varies; the unspecified sabzi amount varies only
+   through coherent point scenarios.
+4. All active leaves in all retained scenarios resolve against trusted data
+   before questions are ranked. No dish-level calorie guess is used.
+5. Likely high-impact nutrition questions concern roti size and sabzi oil or
+   amount. The explicit count is not asked again. An uncertain meal type may be
+   included in the same pause outside that one-to-three question budget.
+6. Answers filter to resolved scenarios and select one point scenario. If the
+   resulting calorie point were `440` with extrema `410` and `470`, the API
+   would also carry point/range protein, carbohydrate, fat, and fiber, while
+   the app would render only `440 kcal` and `410-470`.
+7. The localized meal name contains no quantity. A concise serving label may
+   say `4 flatbreads + vegetable portion`; it does not invent a bowl or expose
+   weight. Presentation generation cannot change the nutrition.
+
+This walkthrough becomes a deterministic regression fixture; its reviewed
+ingredient quantities and macro targets, rather than the illustrative values
+above, determine whether implementation is accurate.
+
+### Structured interpretation
+
+Use one primary structured model operation for either text or image. Its output
+contains food/no-food classification, components, portions, recipe scenarios,
+preparation, uncertainties, evidence, and meal-type inference. It does not
+contain nutrition values.
+
+The complete decoder and validator, including cross-field and semantic checks,
+runs inside each provider attempt through the provider-adapter validation
+callback. An invalid response advances provider failover; it is never logged
+as a successful decomposition and repaired through an unbounded patch chain
+afterward.
+
+Before that validator, one bounded mechanical canonicalizer may recompute an
+exact UTF-16 span from an exact quoted substring, remove duplicate aliases, or
+align a scenario's scale discriminant with its already-declared component
+portion. It cannot add foods, quantities, ingredients, or recipe assumptions.
+Every such change is exposed in the CLI trace; anything still inconsistent
+fails the provider attempt.
+
+Validation requires:
+
+- every model-asserted source food and quantity is represented exactly once,
+  and every locale-neutral numeric/unit anchor is covered;
+- scenario ingredient roles and assumptions are consistent;
+- count, portion, yield, and scale bases are valid;
+- component and ingredient identities are not generic replacements for more
+  specific explicit terms;
+- no nutrient values appear in generated output;
+- model output stays within bounded component, ingredient, alias, and scenario
+  counts;
+- `NO_FOOD` and unusable input satisfy their terminal invariants.
+
+### Clarification planning
+
+Question candidates may target:
+
+```text
+COUNT
+UNIT_SIZE
+TOTAL_AMOUNT
+INGREDIENT_VARIANT
+INGREDIENT_PRESENCE
+PREPARATION
+ADDED_OR_RETAINED_FAT
+```
+
+The planner simulates each candidate answer against the fully resolved scenario
+set and measures reduction in normalized meal-macro width. For macro `m`:
+
+```text
+normalizedWidth(m) = (max(m) - min(m)) / max(estimate(m), denominatorFloor(m))
+expectedWidth(bundle, m) = mean(
+  normalizedWidth(m after applying tuple)
+  for tuple in validAnswerTuples(bundle)
+)
+marginalScore(q | bundle) = sum(
+  weight(m) * (expectedWidth(bundle, m) - expectedWidth(bundle + q, m))
+)
+```
+
+Finite options use their option cases. A numeric question persists a unit code,
+minimum, maximum, step, and integer-only flag; its bounded permitted values are
+the scoring cases. The empty bundle's expected width is the current width.
+Valid complete answer tuples use equal weights, so model confidence is not
+treated as a probability. `USE_ESTIMATE` is excluded from scoring because it
+intentionally reduces no uncertainty. Calories receive the largest product
+weight, but protein, carbohydrates, fat, and fiber also contribute, so
+similar-calorie alternatives with materially different macros are not ignored.
+Denominator floors, macro weights, numeric-domain limits, and score thresholds
+are versioned and calibrated.
+
+A candidate must also be answerable. Ask `Was the curry lightly or heavily
+oiled?`, not `How many grams of oil were absorbed?`.
+
+Rules:
+
+- emit only one to three nutrition questions;
+- select candidates greedily by deterministic marginal bundle impact, not as
+  independent top scores;
+- keep count and per-unit size for one component in the same atomic bundle;
+- support numeric count input rather than mapping `6+` to an invented number;
+- persist the exact bundle, option IDs or numeric specifications, impact scores,
+  and revision, with no implicitly submitted default;
+- require every permitted complete answer tuple to produce a non-empty coherent
+  scenario set; cap the bounded tuple space and drop the lowest-impact candidate
+  if joint validation would exceed it;
+- apply option filters and total numeric scenario transforms jointly, then
+  select exactly one point scenario by a stable rank after all answers;
+- never regenerate a different bundle on resume;
+- apply one answer transaction with compare-and-set revision semantics;
+- make `USE_ESTIMATE` impose no new constraint only on that question's
+  dimension; other answers in the bundle still apply, and inferred provenance
+  remains on the unanswered dimension;
+- do not run a second nutrition-question round;
+- after answers, keep low-impact residual uncertainty in the result;
+- rank exact score ties by component source order, question-kind code, and
+  stable question ID;
+- return `UNRESOLVED` only when the residual scenario set fails the versioned
+  completion-safety predicate.
+
+Absolute and relative impact thresholds are configuration constants calibrated
+against the reviewed evaluation set. They are not learned online and are not
+hard-coded throughout the implementation.
+
+### Meal type
+
+Meal type is independent of nutrition calculations and may add one question
+outside the nutrition-question budget.
+
+Precedence is:
+
+1. user clarification;
+2. explicit text such as `breakfast` or `dinner`;
+3. reliable capture-time context for an immediate camera image;
+4. confident model inference from the meal and supplied context;
+5. meal-type question.
+
+The client supplies the capture timestamp, time zone, and image origin:
+`CAMERA_NOW` or `GALLERY`. Capture-time defaulting is allowed only for
+`CAMERA_NOW` when the timestamp is within a versioned freshness/skew window of
+request receipt. Gallery metadata is not evidence of an immediate meal.
+Country may inform regional meal conventions but must not determine meal type
+by itself. The selected value and its origin are persisted. Meal-type selection
+never changes the calculated macros or their ranges.
+
+The pending-input payload may contain up to three nutrition questions plus the
+optional meal-type question. Meal type is counted separately even if the app
+renders it in the same interaction. Meal-type uncertainty is determined before
+the workflow enters `AWAITING_INPUT`, so nutrition and meal type share the only
+human-input pause.
+
+### Completion-safety predicate
+
+After planning, or after the single answer bundle, the runner evaluates one
+versioned `safeToComplete` predicate. In addition to all identity, nutrient,
+scenario, and arithmetic invariants, each macro must satisfy its calibrated
+absolute-width cap or its relative-width cap using the same denominator floor
+as question ranking. The values are fixed from reviewed development data
+before release and recorded with the calculation version. This makes
+"high-impact residual uncertainty" deterministic rather than a model judgment.
+
+### Final integrity gate
+
+Before `COMPLETE`, prove all of the following:
+
+1. every asserted food and amount and every runtime-verifiable numeric/unit
+   anchor is represented exactly once;
+2. every active nutrition leaf has trusted, basis-compatible nutrition;
+3. every yield-only leaf has a verified-zero nutrition basis and every ignored
+   trace leaf satisfies the versioned bounded-impact exclusion rule;
+4. verified zero and missing non-fiber data remain distinct when source
+   presence is available; missing fiber follows the explicit zero policy;
+5. only active nutrition leaves contribute macros and each contributes once;
+6. exactly one whole-recipe, count, or finished-mass scale is applied per
+   scenario;
+7. every scenario has a coherent yield and ingredient set;
+8. clarification answers changed only the dimensions they answered;
+9. for every macro, `min <= estimate <= max`;
+10. meal point macros equal the sum of component point macros;
+11. meal ranges are the marginal extrema across valid component scenarios;
+12. the versioned completion-safety predicate passes for every macro;
+13. serving-size structured values agree with the portion state;
+14. presentation text has not modified calculation state.
+
+Any failure produces a typed terminal or retryable failure rather than a
+partial successful result.
+
+## Macro and range contract
+
+Resolved leaves and recipe scenarios carry point values only:
+
+```ts
+type MacroVector = {
+  caloriesKcal: number;
+  proteinGrams: number;
+  carbsGrams: number;
+  fatGrams: number;
+  fiberGrams: number;
+};
+```
+
+Components and the meal additionally expose ranges across their coherent
+scenario sets:
+
+```ts
+type MacroEstimate = {
+  estimate: number;
+  min: number;
+  max: number;
+};
+
+type MacroEstimates = {
+  calories: MacroEstimate;
+  protein: MacroEstimate;
+  carbs: MacroEstimate;
+  fat: MacroEstimate;
+  fiber: MacroEstimate;
+};
+```
+
+The ranges are marginal plausible estimated ranges, not statistical confidence
+intervals and not guarantees that every possible real preparation is covered.
+Different macro extrema may come from different coherent scenarios.
+
+The explicitly selected point scenario supplies `estimate`. Do not calculate
+the point as the midpoint of the final range. Aggregate finite, non-negative
+values at full precision and round only at the public boundary. Public calories
+are kilocalories rounded to whole numbers; protein, carbohydrate, fat, and
+fiber are grams rounded to 0.1 g. Bounds round outward and points use ordinary
+nearest rounding.
+
+The public result keeps convenient point values and adds ranges for every
+macro:
+
+```json
+{
+  "macros": {
+    "calories": 440,
+    "protein": 17.2,
+    "carbs": 68.4,
+    "fat": 12.8,
+    "fiber": 9.1
+  },
+  "macroRanges": {
+    "calories": { "min": 410, "max": 470 },
+    "protein": { "min": 15.8, "max": 19.4 },
+    "carbs": { "min": 63.1, "max": 73.0 },
+    "fat": { "min": 10.4, "max": 15.2 },
+    "fiber": { "min": 8.2, "max": 10.1 }
+  }
+}
+```
+
+The app initially renders `440 kcal` with `410-470` and retains the other
+ranges in the API and saved analysis snapshot.
+
+## Presentation contract
+
+Presentation runs only after calculation, clarification, and meal-type
+resolution. It cannot change components, ingredients, portions, scenarios,
+macros, ranges, or provenance.
+
+### Meal name
+
+`mealName` is concise, localized, and based on the final components. It contains
+no serving amount, weight, calories, health classification, or advice. Country
+and locale may adapt terminology for comprehension while the internal identity
+remains unchanged.
+
+### Serving size
+
+`servingSizeText` is a compact projection of validated natural-measure state,
+for example `4 rotis + 1 bowl` or `1 mixed plate`.
+
+The backend owns all numeric values and component references. The model may
+provide localized component and unit labels, but not replacement counts. The
+renderer joins validated segments and enforces:
+
+- no grams, other weight text, or calories, including when the source supplied
+  an exact weight;
+- no meal name or tip text;
+- no number absent from structured portion state;
+- no invented bowl, cup, plate, or count;
+- a short output-length bound;
+- no use as calculation input.
+
+When no permitted concrete natural measure exists, use a concise localized
+qualitative label such as `measured portion` rather than exposing weight or
+inventing a vessel or count.
+
+### Tip
+
+`tip` is optional localized meal-related copy. It may contain practical advice,
+an observation, or trivia. It is presentation-only, is not a nutrition source,
+does not affect confidence or calculation, and does not block a valid result if
+generation fails.
+
+Presentation-provider failure never discards valid nutrition. Return
+`COMPLETE` with a deterministic name assembled from validated component names,
+a serving label assembled from validated measure codes or the qualitative
+fallback, and an empty tip. This fallback cannot rerun or alter calculation.
+
+## Result and failure outcomes
+
+The core returns one algebraic outcome:
+
+```text
+COMPLETE
+NEEDS_INPUT
+NO_FOOD
+UNUSABLE_INPUT
+UNRESOLVED
+RETRYABLE_FAILURE
+```
+
+- `COMPLETE` contains calculation and presentation state that passed the final
+  integrity gate.
+- `NEEDS_INPUT` contains the persisted bounded question bundle.
+- `NO_FOOD` means the input was valid but did not contain a meal or food.
+- `UNUSABLE_INPUT` covers unreadable images or insufficient source content;
+  it is not represented as `NO_FOOD`.
+- `UNRESOLVED` covers nutrition identity, missing required non-fiber nutrient
+  data, or
+  residual uncertainty that fails the versioned completion-safety predicate.
+- `RETRYABLE_FAILURE` covers transient provider, database, or infrastructure
+  failures and resumes from the last durable checkpoint.
+
+Use a small stable error-code set rather than free-form workflow branching.
+Public copy remains localized separately from machine behavior.
+
+## Architecture
+
+### Pure core
+
+Keep domain calculation and transition logic independent of Fastify, CLI,
+PostgreSQL, and model SDKs. The core consists of small typed operations:
+
+```text
+normalizeInput
+interpretInput
+validateProposal
+resolveIngredients
+calculateScenarios
+resolveMealType
+planQuestions
+applyAnswers
+buildPresentation
+validateFinalResult
+```
+
+External calls sit behind narrow interfaces for interpretation, trusted
+nutrition resolution, presentation, storage, clock, and ID generation. Pure
+portion, scenario, question-ranking, calculation, and integrity functions use
+fixture data in tests.
+
+### Explicit runner instead of LangGraph
+
+Use a switch-based runner that advances one typed durable state. The workflow
+has predetermined paths and one bounded input pause. LangGraph would duplicate
+checkpoint and interrupt semantics without replacing authorization,
+idempotency, compare-and-set answers, or stale-worker fencing.
+
+Reconsider a graph framework only if the product later adds multiple dynamic
+tool loops or independently retryable agent branches and it can replace, not
+layer over, the persistence model.
+
+### Complexity budget
+
+Keep V3 to one bounded interpretation attempt per provider, a small scenario
+set per component, one workflow-state table, one human pause, and one optional
+presentation operation. Supporting feature tables may be added only where a
+real foreign key is required. Do not add a probabilistic inference engine,
+food-specific correction chain, payload-compatibility layer, dynamic agent
+loop, or second clarification round unless evaluation evidence shows the simple
+design cannot meet a recorded release gate.
+
+### Durable state
+
+Use a reduced set of durable stages:
+
+```text
+RECEIVED
+INTERPRETING
+INTERPRETED
+CALCULATING
+AWAITING_INPUT
+ANSWERS_RECEIVED
+FINALIZING
+COMPLETE
+NO_FOOD
+UNUSABLE_INPUT
+UNRESOLVED
+```
+
+The active work stages are leased and fenced. A successful write must match
+analysis ID, expected stage, and lease token. Failure returns to the preceding
+checkpoint. Terminal outcomes replay without rerunning providers.
+
+Persist:
+
+- immutable normalized input and context;
+- workflow, schema, prompt, model, resolver, calculation, and dataset versions;
+- validated interpretation and coherent scenarios;
+- trusted nutrition references and calculated snapshots;
+- the exact question bundle, revision, and answers;
+- meal type and provenance;
+- final presentation and result;
+- a terminal semantic failure when applicable.
+
+Answer submission atomically transitions
+`AWAITING_INPUT@bundleRevision -> ANSWERS_RECEIVED` and persists the complete
+answer set. An identical retry is idempotent; a conflicting retry is rejected.
+A worker then leases `ANSWERS_RECEIVED`, advances to `CALCULATING`, and applies
+the answers. Failure releases back to `ANSWERS_RECEIVED` with the answers
+intact, so resume never asks again. A stale worker cannot overwrite answered or
+terminal state.
+
+Create a separate `meal_analysis_v3_session` table rather than adding a version
+flag to the constrained V2 state table. It stores one current typed snapshot,
+lease/fence fields, immutable request identity, and timestamps. After V3
+activation, V2 analysis rows are read-only and are never migrated or replayed
+by the V3 runner.
+
+The globally unambiguous identity is
+`{ workflowVersion, analysisId }`, not a bare UUID. V3 routes imply version 3,
+V2 records retain version 2, and combined read models always carry both fields;
+the same UUID in two versioned stores is therefore not ambiguous. V3 feedback,
+observations, confirmation, and reanalysis-lineage rows use direct foreign keys
+to the V3 session rather than polymorphic foreign keys. Version-neutral history
+and export adapters union V2 and V3 into the versioned locator. A legacy V2
+result may be reanalyzed into a new V3 analysis only after ownership validation;
+the V3 session stores its V2 parent locator. Retaining old rows for users does
+not imply V2 runtime compatibility.
+
+## CLI-first delivery
+
+The CLI is the first adapter, not a separate implementation. It calls the same
+application service and pure core later used by HTTP.
+
+Required CLI capabilities:
+
+- text input and local image input;
+- locale, country, time zone, capture timestamp, and image-origin flags;
+- deterministic fixed-clock and fixture modes;
+- interactive display of the one bounded question bundle;
+- `--answers` JSON tied to an analysis ID and bundle revision;
+- machine-readable state and terminal JSON;
+- ephemeral in-memory execution by default, which cannot resume after process
+  exit;
+- `--persist` and an explicit analysis ID to use the same configured PostgreSQL
+  state adapter as HTTP, including cross-process resume;
+- no silent default selection in JSON mode;
+- `NEEDS_INPUT` output when answers are required;
+- injected trusted-nutrition fixtures for fast tests and the real resolver for
+  integration runs.
+
+In `--json` mode, stdout contains machine NDJSON only; prompts and diagnostics
+go to stderr. Exit codes are stable: `0` for `COMPLETE` or `NO_FOOD`, `2` for
+`NEEDS_INPUT`, `3` for `UNUSABLE_INPUT` or `UNRESOLVED`, `4` for a retryable
+failure, and `64` for CLI usage errors. The interactive mode may render concise
+human output but still uses the same core.
+
+An in-memory state adapter is sufficient for ephemeral CLI development.
+PostgreSQL contract and process-level CLI tests must still prove that the same
+core preserves production checkpoint, answer, lease, exit-code, stdout/stderr,
+and replay behavior before HTTP cutover.
+
+Add semantic parity tests that send the same fixture through the CLI adapter
+and HTTP adapter and compare normalized state, questions, and results.
+
+## API and app cutover
+
+Expose the workflow through these authenticated V3 routes and update backend
+and Flutter together:
+
+| Route | Purpose |
+| --- | --- |
+| `POST /api/v3/food/image-upload` | Validate/upload one image and return an opaque owned `imageId`. |
+| `POST /api/v3/food/analyze-text` | Start or idempotently replay text input. |
+| `POST /api/v3/food/analyze-image` | Start or idempotently replay an owned image. |
+| `POST /api/v3/food/answer` | Atomically submit the one persisted answer bundle. |
+| `POST /api/v3/food/resume` | Replay pending input, a terminal result, or resume safe work. |
+| `POST /api/v3/food/feedback` | Record feedback against a completed V3 result. |
+| `POST /api/v3/food/reanalyze` | Create a new V3 analysis with a versioned parent locator. |
+| `POST /api/v3/food/confirm-log` | Idempotently attach the V3 result to a saved meal. |
+
+Creation requests carry a client-generated UUID `analysisId` and a context
+object containing a BCP 47 `locale`, ISO 3166-1 alpha-2 `countryCode`, IANA
+`timeZone`, and UTC RFC 3339 `capturedAt`. Image requests additionally carry
+`imageOrigin: CAMERA_NOW | GALLERY` and an opaque authenticated image ID owned
+by the caller, never a bearer URL. Text requests contain one non-empty text
+value. Invalid context is rejected rather than silently normalized. The
+canonical request digest covers the input identity and the entire context.
+
+Answers use the following closed union; the optional meal-type question uses
+the same `OPTION` form:
+
+```json
+{
+  "analysisId": "uuid",
+  "bundleRevision": 1,
+  "answers": [
+    { "questionId": "q1", "kind": "OPTION", "optionId": "light" },
+    { "questionId": "q2", "kind": "NUMBER", "value": 4 },
+    { "questionId": "q3", "kind": "USE_ESTIMATE" }
+  ]
+}
+```
+
+`NEEDS_INPUT.data` has one explicit UI contract:
+
+```ts
+type PendingQuestion = {
+  questionId: string;
+  scope: 'NUTRITION' | 'MEAL_TYPE';
+  target: { componentId?: string; dimension: string };
+  prompt: string; // localized
+  response:
+    | { kind: 'OPTION'; options: Array<{ optionId: string; label: string }> }
+    | {
+        kind: 'NUMBER';
+        unitCode: string;
+        min: number;
+        max: number;
+        step: number;
+        integerOnly: boolean;
+      };
+  allowUseEstimate: boolean;
+};
+
+type NeedsInputData = {
+  bundleRevision: number;
+  nutritionQuestions: PendingQuestion[]; // zero to three
+  mealTypeQuestion?: PendingQuestion;
+};
+```
+
+Question dimensions and unit codes are closed, versioned enums. Numeric
+answers must be finite, on-step, within bounds, and integer-valued when
+required.
+
+There is no auto-submitted default. Every question must receive one valid
+answer in the atomic submission; `USE_ESTIMATE` is accepted only when that
+question advertises it. Dismissing the UI submits nothing, leaves the analysis
+in `AWAITING_INPUT`, and a later resume returns the identical bundle.
+
+`COMPLETE.data` contains the following stable top-level fields:
+
+```ts
+type CompleteData = {
+  mealName: string;
+  servingSizeText: string;
+  tip: string;
+  mealType: {
+    value: 'BREAKFAST' | 'LUNCH' | 'DINNER' | 'SNACK';
+    origin: ProvenanceOrigin;
+  };
+  macros: MacroPoints;
+  macroRanges: MacroRanges;
+  components: ComponentResult[];
+  receipt: CalculationReceipt;
+};
+```
+
+Each `ComponentResult` contains stable component/source/display IDs, the final
+point portion and its field origins, closed preparation codes, point macros and
+ranges, and the selected point recipe's quantified ingredient summaries. Each
+ingredient summary carries its identity, nutrition-basis quantity and unit,
+origin, and trusted-reference locator. Alternative scenarios remain in the
+durable snapshot and are not sent as presentation data. The Flutter UI consumes
+only calorie point/range initially but decodes and preserves all five macros.
+`MacroPoints` uses calories in kilocalories and the other four fields in grams;
+`MacroRanges` contains `{ min, max }` for the same five closed fields.
+
+`NO_FOOD`, `UNUSABLE_INPUT`, `UNRESOLVED`, and `ERROR` data carry a stable code,
+`retryable`, and one recovery action from `RETRY`, `RESUME`, `EDIT_INPUT`,
+`UPGRADE_APP`, or `NONE`. Localized UI copy is selected from those codes; server
+free text never controls recovery behavior.
+
+Analyze, reanalyze, answer, and resume responses use
+`application/x-ndjson`; upload, feedback, and confirmation use ordinary JSON.
+After HTTP validation, each streaming request emits `STARTED` followed by
+exactly one request-closing event:
+`NEEDS_INPUT`, `COMPLETE`, `NO_FOOD`, `UNUSABLE_INPUT`, `UNRESOLVED`, or
+`ERROR`. Every line has `{ event, analysisId, data }`. Resume replays the exact
+pending bundle or terminal event. If a retryable failure occurs after
+`STARTED`, it emits `ERROR` with a stable code and `retryable: true`; a failure
+before streaming uses HTTP `503`.
+
+Authentication, ownership, and malformed-input failures use ordinary HTTP
+status codes. A stale answer revision or same-ID/different-request collision is
+HTTP `409`. Request insertion/replay checks and the answer compare-and-set must
+finish before response headers or `STARTED`; a conflict never partially opens a
+stream. Repeating the same analysis ID with the same canonical request digest
+replays safely. Existing V2 creation and continuation routes return HTTP `426`
+with `{ "code": "UPGRADE_REQUIRED" }` after activation and never dispatch V3.
+
+Keep the public error vocabulary small and versioned:
+
+```text
+UPGRADE_REQUIRED
+UNUSABLE_INPUT
+UNRESOLVED_NUTRITION
+UNCERTAINTY_TOO_HIGH
+INVALID_MODEL_OUTPUT
+PROVIDER_UNAVAILABLE
+INTEGRITY_FAILED
+ANALYSIS_BUSY
+REVISION_CONFLICT
+```
+
+The V3 feedback and confirmation routes accept only completed V3 locators and
+write V3 foreign-keyed rows. The V3 reanalysis route accepts an owned terminal
+parent locator union `{ workflowVersion: 2 | 3, analysisId }`, plus a new V3
+analysis ID and immutable V3 request context. It reads the parent's source
+input, creates a separate V3 session, and follows the same NDJSON lifecycle as
+analyze. A legacy image can be reanalyzed only if its owned object is still
+available and passes V3 validation; otherwise the new analysis returns a typed
+unusable result. The protected `/analysis-history` page is a version-neutral
+V2/V3 read adapter. The existing meal-history CSV export also remains
+version-neutral because V3 confirmation writes the same canonical saved-meal
+model; its analysis locator retains the source version.
+
+Cutover requirements:
+
+- old clients fail fast with an explicit non-retryable upgrade response rather
+  than repeatedly invoking the new engine with incompatible payloads;
+- old in-flight sessions are unsupported and are not migrated;
+- backend capability configuration, local proposal/settlement routes, and app
+  entry points forcibly disable on-device proposal and local nutrition;
+- text and image requests capture the analysis ID and complete request context
+  once and persist them unchanged for every retry or resume;
+- the app handles the new question bundle and terminal outcomes;
+- the app displays calorie point and range while retaining all API macro ranges;
+- saved meals continue to use the final point macros;
+- feedback, reanalysis, combined V2/V3 history, CSV export, and log-confirmation
+  paths adopt the new analysis ID/result contract at cutover;
+- the phone owns V3 clarification UI. For watch-originated input that returns
+  `NEEDS_INPUT`, the phone preserves the analysis, posts a notification/deep
+  link to its exact bundle, and returns `REQUIRES_PHONE` plus `analysisId` on
+  the versioned phone-watch protocol. Wear OS never renders questions; it
+  receives final/no-food/failure normally after phone completion. Older watch
+  protocols fail fast with upgrade-required behavior rather than translation.
+
+### Deployment and rollback boundary
+
+Deployment is staged even though the product cutover is not backward
+compatible:
+
+1. Deploy the V3 schema and dark V3 routes while V2
+   continues serving existing builds.
+2. Publish the V3 phone and watch builds only after V3 readiness, migrations,
+   and replay tests pass. Installed V3 builds use only V3; there is no V2
+   payload fallback.
+3. After the new build is available and V3 gates pass, raise the minimum
+   supported build and switch V2 analysis/continuation routes to `426`.
+4. Remove V2 execution code only after the forced-update window and rollback
+   window close; retain its rows for history.
+
+Before or after step 3, rollback means restoring the last known-good V3 service
+or pausing new V3 creation while keeping V3 resume and terminal replay online.
+It never means sending a distributed V3 app to a V2-only backend or asking the
+old engine to interpret V3 state. This is the accepted cost of no compatibility
+layer.
+
+## Evaluation strategy
+
+The existing
+[calorie-estimation cases](../../backend/evals/calorie-estimation.cases.json)
+remain useful seed inputs but are insufficient. The new versioned evaluation
+set must cover text, image, interaction, and safe-failure behavior.
+
+### Fixture assertions
+
+For each reviewed case, store applicable expectations for:
+
+- component and active-ingredient coverage;
+- evidence-span coverage and quantity attachment;
+- portion type, count, measure, and measurement basis;
+- coherent scenario assumptions and defining ingredient roles;
+- preparation and retained-fat state;
+- expected trusted identity or allowed identity set;
+- pre-question point macros and ranges;
+- expected question targets, order, options, and answers;
+- post-answer point macros and ranges;
+- meal-type value and provenance;
+- concise serving-size structured equivalence;
+- expected terminal failure where completion would be unsafe.
+
+Include at least:
+
+- atomic and countable foods;
+- explicit grams, volume, household measures, and fractional portions;
+- raw, dry, cooked, drained, fried, and bone-in foods;
+- multi-component meals and composite recipes;
+- curries, sauces, dressings, hidden oils, and mixed drinks;
+- packaged and proprietary foods;
+- multilingual and code-switched text;
+- regional household measures;
+- clear, occluded, scale-poor, multi-component, and unusable images;
+- non-food controls.
+
+### Metrics
+
+Measure:
+
+- component and active-ingredient precision and recall;
+- explicit-anchor coverage;
+- identity and preparation compatibility;
+- point error for every macro;
+- interval coverage and interval sharpness for every macro;
+- question precision, expected band reduction, answerability, burden, and
+  one-round completion;
+- appropriate `UNRESOLVED` and `UNUSABLE_INPUT` rates;
+- unsafe-confident success rate;
+- repeated-run stability;
+- CLI/HTTP semantic parity;
+- checkpoint, retry, answer replay, and stale-worker behavior;
+- stage latency, provider calls, lookup calls, and cost.
+
+Interval coverage prevents ranges that miss reviewed truth. Sharpness prevents
+the trivial but useless strategy of returning an extremely wide range.
+
+### Non-negotiable release gates
+
+- zero unresolved non-fiber nutrients represented as zero; missing fiber uses
+  the documented zero policy;
+- zero omitted language-specific foods or quantity anchors in the reviewed
+  holdout, and zero uncovered runtime-verifiable numeric/unit anchors;
+- zero raw/dry/cooked basis inversions in the reviewed holdout;
+- zero count, unit-size, yield, or double-scaling invariant failures;
+- zero presentation/calculation contradictions;
+- zero second nutrition-question rounds;
+- every completed result has all five point macros and ranges;
+- every terminal result and question bundle replays idempotently;
+- calorie and macro interval coverage and sharpness meet thresholds fixed from
+  the reviewed baseline before rollout;
+- valid-input completion, unresolved rate, question burden, latency, and cost
+  meet explicitly recorded go/no-go thresholds.
+
+Run live model cases at least three times with pinned model, prompt, schema,
+resolver, and dataset versions. Keep a separate holdout set and record aggregate
+metrics without placing raw meal or health data in general logs.
 
 ## Implementation sequence
 
-### Phase 0 — Containment
+### Phase 1 - Contracts, pure domain, and CLI skeleton
 
-- Fail closed on unresolved non-water nutrition.
-- Suppress health and tip generation for unresolved or ambiguous results.
-- Derive quantity deterministically.
-- Require template kind compatibility and remove first-word fallback.
-- Make missing count mandatory before calorie thresholds.
+Implementation status: complete for the ephemeral hypothesis runner. Durable
+answer revision, persistence, and HTTP parity remain in Phase 6.
 
-These changes prevent the worst confident outputs while the contracts are
-being redesigned.
+- Define the new input, provenance, portion, preparation, recipe scenario,
+  nutrition reference, macro range, question bundle, presentation, and outcome
+  schemas.
+- Implement pure portion/scenario calculation and final invariants.
+- Create the new CLI around the shared application interface.
+- Add a guided local launcher that starts USDA, reuses an active snapshot, and
+  prompts for text or image input and context.
+- Add deterministic fixture and property tests for arithmetic and scaling.
+- Implement ephemeral JSON stdout, explicit answer input, and exit-code
+  behavior; define persisted revision/resume behind the later state interface
+  and remove automatic defaults.
 
-### Phase 1 — Provider and provenance contract
+Exit: atomic, counted, bulk, dry/cooked, and multi-component fixtures run
+through the CLI without provider or database dependencies.
 
-- Move full Zod parsing inside provider attempts.
-- Add source evidence and count/size provenance.
-- Add safe schema-path diagnostics.
-- Add deterministic text validation for explicit quantities and sizes.
+### Phase 2 - Structured text interpretation
 
-### Phase 2 — Portion and clarification domain
+Implementation status: initial CLI adapter complete. Repeated multilingual
+evaluation and locale-neutral anchor completeness remain before release.
 
-- Centralize portion mutation and invariants.
-- Add compound/dependent clarification handling.
-- Repair ingredient-specific UI copy and estimate semantics.
-- Align local and cloud option contracts.
+- Implement the text prompt and strict schema.
+- Run full parsing inside provider failover.
+- Validate UTF-16 evidence spans and locale-neutral anchor coverage.
+- Generate coherent recipe scenarios and uncertainty drivers.
+- Add best-effort multilingual and regional cases.
 
-### Phase 3 — Nutrition identity and preparation
+Exit: reviewed text fixtures produce complete valid proposals or typed safe
+failures without corrective regex/template chains.
 
-- Introduce hard identity tiers and extra-token rejection.
-- Detect duplicate-name nutrient dispersion.
-- Require ambiguity margins and preparation compatibility.
-- Add reviewed food concepts and prepared-dish mappings from measured failures.
+### Phase 3 - Trusted resolution and calculation
 
-### Phase 4 — Completeness, confidence, and presentation
+Implementation status: initial local-USDA resolver, legacy-snapshot reuse,
+missing-fiber-as-zero handling, optional presence-aware import, coherent
+scenario arithmetic, and five-macro ranges complete for the CLI. Calibration
+and uncertainty floors remain before release.
 
-- Enforce explicit source coverage.
-- Add multidimensional confidence.
-- Move title and quantity to deterministic formatting.
-- Restrict presentation to optional safe prose.
+- Implement identity-tiered, preparation-aware leaf resolution.
+- Enforce four-macro source completeness and the missing-fiber-as-zero policy.
+- Keep versioned presence-aware nutrient storage for future imports while
+  accepting the existing active materialized snapshot as stored.
+- Add resolver quality checks and dataset versioning.
+- Apply evidence-class uncertainty floors.
+- Produce point and range values for every macro.
 
-### Phase 5 — Evaluation and rollout
+Exit: no active leaf can complete without a trusted compatible reference;
+missing non-fiber nutrients remain distinguishable when source presence exists,
+and missing fiber deterministically becomes zero.
 
-- Run repeated staging evaluations behind a rollout switch.
-- Compare identity, preparation, quantity, completion, presentation integrity,
-  and latency against the current baseline.
-- Shadow new resolver decisions before enabling them for users.
-- Retain a rollback path for each independently shipped phase.
-- Preserve parallel USDA lookup and request-local deduplication. If a bounded
-  process cache is added, key it by normalized food concept and preparation and
-  invalidate it whenever the active USDA dataset version changes.
-- Measure decomposition, retrieval, matching, fallback, persistence,
-  clarification, and presentation separately and assign a latency budget to
-  each stage.
+### Phase 4 - Questions and meal type
+
+Implementation status: initial material-impact question policy, one in-memory
+answer boundary, recalculation, and meal-type precedence complete for the CLI.
+Durable revision and idempotency remain in Phase 6.
+
+- Attribute scenario uncertainty to answerable fields.
+- Implement deterministic multi-macro impact ranking.
+- Emit and persist one bounded question bundle.
+- Apply answers atomically and recalculate from leaves.
+- Add optional meal-type question and capture-time defaults.
+
+Exit: every fixture asks no more than three nutrition questions, never asks a
+low-impact question, never starts a second round, and preserves residual range.
+
+### Phase 5 - Image interpretation and presentation
+
+Implementation status: local image input, shared image/text interpretation,
+deterministic serving text, optional localized name/tip generation, and
+presentation fallback complete for the CLI. Image evaluation remains pending.
+
+- Add image interpretation to the same proposal schema.
+- Enforce visible-serving-consumed semantics and image uncertainty floors.
+- Add localized meal naming and label generation.
+- Build serving-size text from validated natural-measure segments.
+- Add optional meal-related tip/trivia generation.
+
+Exit: image and text use the same calculation, question, integrity, and result
+contracts.
+
+### Phase 6 - Durable backend and API
+
+Implementation status: not started for V3. The current runner is intentionally
+ephemeral and does not persist, resume across processes, or expose HTTP routes.
+
+- Implement the reduced durable stages, leases, fencing, terminal replay, and
+  answer revision checks.
+- Create the isolated V3 session table and crash-safe `ANSWERS_RECEIVED`
+  checkpoint.
+- Wire CLI `--persist` and cross-process resume to the PostgreSQL adapter.
+- Adapt Fastify routes and streaming to the shared application core, including
+  opaque owned-image upload and pre-stream conflict checks.
+- Add V3 foreign-keyed ancillary rows and versioned analysis locators.
+- Update history, metrics, feedback, reanalysis, CSV export, and log
+  confirmation.
+- Add real PostgreSQL, provider-failover, and CLI/HTTP parity tests.
+
+Exit: failure or reconnect at every external boundary resumes without
+duplicating completed work or changing persisted questions/results.
+
+### Phase 7 - Client cutover and release validation
+
+Implementation status: not started. V2 remains active and on-device analysis
+remains unchanged until the coordinated cutover.
+
+- Follow the staged V3 activation/rollback boundary and force-disable on-device
+  capability policy, proposal/settlement routes, and client execution.
+- Capture and persist country, time zone, locale, capture timestamp, image
+  origin, image ID, and analysis ID once; reuse them unchanged on retry.
+- Render the new question bundle and optional meal-type question.
+- Display point calories and calorie range; retain all API macro ranges.
+- Handle typed terminal failures and upgrade-required old-client responses.
+- Keep clarification on the phone and synchronize only final/no-food/failure
+  outcomes to Wear OS, with `REQUIRES_PHONE` handoff for pending questions.
+- Run repeated text/image staging evaluations and record the go/no-go decision.
+
+Exit: backend and app cut over together, all release gates pass, and rollback
+does not require interpreting new sessions with the old engine.
 
 ## Required verification
 
-### Deterministic tests
+### Pure and contract tests
 
-- Full provider failover on relational Zod failures.
-- Exact source-evidence validation and explicit component preservation.
-- Text counts, sizes, mass, volume, and localized bowl/count expressions.
-- Template identity and kind compatibility.
-- `grams = count * perUnitGrams` after every clarification path.
-- No unresolved non-water ingredient can produce `COMPLETED`.
-- USDA duplicate-name dispersion and high-score low-margin rejection.
-- `paneer` cannot match `palak paneer`; common egg cannot select an arbitrary
-  branded product.
-- Prepared poha cannot use dry rice-flake nutrition.
-- Quantity formatting exactly reflects persisted ingredients.
-- Health/tip suppression on unsafe grounding.
-- Flutter renders `ingredientName`, true estimate behavior, every option ID,
-  and real multi-round flow.
-- Backend and local engines pass shared clarification fixtures.
+- atomic food has one nutrition-bearing leaf;
+- every scenario has one concrete effective point portion;
+- count scenarios contain consistent finished yield units and grams;
+- `UNIT_COUNT`, `FINISHED_MASS`, or `WHOLE_RECIPE` scaling is applied once;
+- independent ingredient maxima cannot create a scenario;
+- explicit dry versus finished weights retain their basis;
+- water changes yield without adding macros;
+- yield-only water requires a verified-zero record and cannot hide missing data;
+- retained fat, not cooking-vessel oil, drives macros;
+- ingredient variants and presence choices occupy separate scenarios;
+- trace exclusion obeys the negligible rule;
+- user grams/counts constrain only their own dimension;
+- every macro obeys `min <= estimate <= max`;
+- verified zero is accepted and missing fiber becomes zero;
+- rounding happens only after aggregation and bounds round outward;
+- serving-size output contains only validated permitted natural measures and
+  never grams or other weight text;
+- presentation cannot modify calculation state.
 
-### Live evaluation set
+### Interaction and persistence tests
 
-Expand the staging matrix into a reviewed, versioned set covering:
+- only materially impactful answerable questions are ranked;
+- scores are normalized across macro units and ties are deterministic;
+- no more than three nutrition questions are emitted;
+- count and size for one component apply atomically;
+- every permitted answer tuple leaves a coherent scenario set and selects one
+  joint point scenario;
+- numeric answers enforce persisted unit/bounds/step/integer rules;
+- `USE_ESTIMATE` leaves only its own dimension inferred while other bundle
+  answers still apply;
+- residual low-impact uncertainty completes with a range;
+- a failed versioned completion-safety predicate returns `UNRESOLVED`;
+- exact question bundles replay unchanged;
+- repeated identical answers are idempotent;
+- conflicting answer revisions are rejected;
+- a crash after answer receipt resumes from `ANSWERS_RECEIVED` without asking
+  again;
+- stale workers cannot overwrite answered or terminal sessions;
+- terminal success and terminal semantic failures replay without provider calls.
 
-- explicit grams, counts, cups, spoons, pieces, bowls, and ambiguous portions;
-- raw, cooked, dry, fried, and mixed preparation states;
-- single foods, multi-item meals, and named composite dishes;
-- Indian, East/Southeast Asian, Middle Eastern, African, European, and American
-  foods;
-- multilingual and colloquial inputs;
-- high-calorie fats and low-calorie countable foods; and
-- non-food controls.
+### Adapter and cutover tests
 
-Run every live case at least three times and retain aggregate metrics, not raw
-health-data payloads in general logs.
+- provider failover treats semantic validation failure as a failed attempt;
+- UTF-16 spans agree across backend and Flutter for emoji, combining marks,
+  Indic, RTL, repeated-name, and substring fixtures;
+- CLI process tests cover JSON stdout, stderr prompts, exit codes, ephemeral
+  limits, persisted answer/revision, and cross-process resume;
+- CLI and HTTP produce semantically identical state for the same fixtures;
+- authentication, analysis ownership, and image ownership are enforced;
+- same-ID/same-request replay succeeds and same-ID/different-context conflicts;
+- no HTTP conflict emits `STARTED` before its `409` response;
+- invalid locale, country, time zone, timestamp, and image origin fail cleanly;
+- the client reuses immutable captured context after disconnect-before-event;
+- V2 routes return `426 UPGRADE_REQUIRED` and disabled local proposal routes
+  cannot settle nutrition;
+- question widget/controller tests cover options, numeric count,
+  `USE_ESTIMATE`, dismissal/resume, combined meal-type/nutrition input, and
+  every terminal recovery action;
+- watch-originated `REQUIRES_PHONE`, deep-linked resume, final/no-food,
+  retryable, and terminal failure synchronization are verified;
+- feedback ownership, V2-to-V3 reanalysis lineage, confirmation/outbox
+  idempotency, and combined history/export locators are verified;
+- presentation-provider failure completes with deterministic fallback copy.
+- fresh-schema PostgreSQL import fixtures preserve absent versus genuine-zero
+  nutrients, accept active legacy numeric rows, keep V2 on its unchanged
+  table during dark overlap, and cover dataset activation and rollback.
 
-### Release criteria
+### Representative regression cases
 
-- At least 98% completion for valid food inputs.
-- At least 90% reviewed calorie-range pass rate on the expanded holdout set.
-- Zero severe food-identity, preparation inversion, explicit-quantity, omitted
-  component, unresolved-as-zero, or presentation-contradiction failures.
-- Repeated-run output remains within the reviewed portion/calorie range.
-- No more than 10% regression in p50 or p95 end-to-end latency.
-- The ordinary successful path uses one decomposition call; extra model work is
-  reserved for invalid or unresolved proposals.
+- `kaddu sabzi and 4 rotis` preserves exact count, ranges unit size and sabzi,
+  and does not invent a bowl;
+- `100 g dry oats cooked with water` uses dry-oat nutrition;
+- `1 cup cooked rice` attaches the cup to finished rice;
+- `2 medium rotis with 1 cup dal` preserves every explicit anchor;
+- `2 dahi puri` uses coherent per-unit recipes;
+- `banana shake` models milk, sugar, ingredient presence, variants, and portion
+  as separate coherent scenarios rather than one narrow fictional recipe;
+- fried wings account for count, edible fraction, skin, and retained oil;
+- an image of a thali keeps broad uncertainty and never claims hidden food is
+  absent;
+- a proprietary protein bar receives best-effort ingredient scenarios and a
+  conservative range;
+- `ek katori poha` and equivalent scripts preserve source terminology and bowl
+  evidence;
+- `coffee` does not use country alone to choose black versus milk and sugar;
+- unusable images terminate as `UNUSABLE_INPUT`, not `NO_FOOD`.
 
-## Documentation updates required during implementation
+## Accuracy tradeoffs
 
-- Update the
+The following limitations are deliberate and must remain visible in evaluation
+and product behavior:
+
+- trusted nutrient density can still be applied to an incorrect model-generated
+  recipe; scenario evidence and calibration therefore drive confidence;
+- trusted reference rows are population averages and still vary by cultivar,
+  ripeness, brand, fortification, and laboratory method;
+- household-vessel conversion, cooked yield, edible fraction, drainage, and
+  retained-fat assumptions remain meaningful sources of error even when food
+  identity is correct;
+- recipe-only estimation is weaker than exact label data for packaged foods;
+- restaurant foods, sauces, curries, mixed drinks, fried foods, and bone-in
+  portions may retain wide ranges after clarification;
+- image-only input cannot reliably reveal scale, hidden ingredients, or food
+  outside the frame;
+- the visible-serving-consumed assumption may overestimate food not actually
+  eaten;
+- model-assisted language handling can miss low-resource number words,
+  code-switching, or regional measures;
+- stale or incorrect client context can mislead presentation and meal type;
+  origin and freshness checks reduce but do not eliminate this risk;
+- one question round deliberately leaves residual uncertainty;
+- country is an imperfect culinary prior and must never override explicit
+  evidence;
+- open-ended tip or trivia copy may be imperfect but has no calculation
+  authority;
+- treating absent fiber as zero may understate fiber and narrow its range when
+  trusted source data is incomplete;
+- forbidding weight in `servingSizeText` intentionally hides even an explicit
+  gram amount from that display field; the structured portion still retains it
+  for calculation and audit;
+- no compatibility path means old clients and in-flight V2 analyses stop at
+  cutover.
+
+## Documentation updates during implementation
+
+- Replace the current
   [meal-analysis state machine](../../backend/docs/meal-analysis-state-machine.md)
-  when provider parsing, unresolved states, clarification transitions, or
-  result integrity rules change.
-- Update the
-  [meal-analysis CLI guide](../../backend/docs/meal-analysis-cli.md) with new
-  failure and clarification behavior.
+  when the new durable stages land.
+- Rewrite the
+  [meal-analysis CLI guide](../../backend/docs/meal-analysis-cli.md) when the
+  new CLI is usable.
 - Update the
   [Prometheus reference](../../backend/docs/meal-analysis-prometheus.md) with
-  semantic validation, ambiguity, unresolved-nutrition, and integrity-gate
-  metrics.
-- Update this plan's status as phases land; remove it after all release gates
-  are met and the permanent references describe the final workflow.
+  interpretation validation, interval, question-impact, unresolved, integrity,
+  and replay metrics.
+- Version the [evaluation guide](../../backend/evals/README.md) for interval,
+  interaction, image, and failure scoring.
+- Update backend and app API references with the new request, question, result,
+  and terminal contracts.
+- Update this plan's status as phases complete, then condense it after permanent
+  workflow references describe the released implementation.

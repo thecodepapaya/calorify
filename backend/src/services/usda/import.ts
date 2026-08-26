@@ -18,7 +18,34 @@ interface NutrientRow {
   unit_name: string;
 }
 
-type MacroColumn = keyof MacroBundle;
+interface MacroValues {
+  kcal_per_100g: number;
+  protein_per_100g: number;
+  carbs_per_100g: number;
+  fat_per_100g: number;
+  fiber_per_100g: number;
+}
+
+interface MacroPresence {
+  kcal_present: boolean;
+  protein_present: boolean;
+  carbs_present: boolean;
+  fat_present: boolean;
+  fiber_present: boolean;
+}
+
+interface MacroBundle extends MacroValues, MacroPresence {}
+
+type MacroColumn = keyof MacroValues;
+type PresenceColumn = keyof MacroPresence;
+
+const PRESENCE_COLUMN_BY_MACRO: Record<MacroColumn, PresenceColumn> = {
+  kcal_per_100g: 'kcal_present',
+  protein_per_100g: 'protein_present',
+  carbs_per_100g: 'carbs_present',
+  fat_per_100g: 'fat_present',
+  fiber_per_100g: 'fiber_present',
+};
 
 interface FoodNutrientRow {
   fdc_id: string;
@@ -26,12 +53,19 @@ interface FoodNutrientRow {
   amount: string;
 }
 
-interface MacroBundle {
-  kcal_per_100g: number;
-  protein_per_100g: number;
-  carbs_per_100g: number;
-  fat_per_100g: number;
-  fiber_per_100g: number;
+function emptyMacroBundle(): MacroBundle {
+  return {
+    kcal_per_100g: 0,
+    protein_per_100g: 0,
+    carbs_per_100g: 0,
+    fat_per_100g: 0,
+    fiber_per_100g: 0,
+    kcal_present: false,
+    protein_present: false,
+    carbs_present: false,
+    fat_present: false,
+    fiber_present: false,
+  };
 }
 
 export interface UsdaImportOptions {
@@ -78,9 +112,9 @@ export function macroColumnForNutrient(row: NutrientRow): MacroColumn | undefine
   return undefined;
 }
 
-async function loadNutrientIds(nutrientCsv: string): Promise<Record<string, string>> {
+async function loadNutrientIds(nutrientCsv: string): Promise<Record<string, MacroColumn>> {
   const rows = await parseCsv<NutrientRow>(nutrientCsv);
-  const map: Record<string, string> = {};
+  const map: Record<string, MacroColumn> = {};
   for (const row of rows) {
     const key = macroColumnForNutrient(row);
     if (!key) continue;
@@ -101,7 +135,7 @@ async function loadFoods(foodCsv: string): Promise<Map<string, FoodRow>> {
 
 async function loadFoodNutrients(
   foodNutrientCsv: string,
-  nutrientMap: Record<string, string>
+  nutrientMap: Record<string, MacroColumn>
 ): Promise<Map<string, MacroBundle>> {
   const macros = new Map<string, MacroBundle>();
   await new Promise<void>((resolve, reject) => {
@@ -119,14 +153,9 @@ async function loadFoodNutrients(
         if (!target) return;
         const value = Number.parseFloat(row.amount);
         if (Number.isNaN(value)) return;
-        const existing = macros.get(row.fdc_id) ?? {
-          kcal_per_100g: 0,
-          protein_per_100g: 0,
-          carbs_per_100g: 0,
-          fat_per_100g: 0,
-          fiber_per_100g: 0,
-        };
-        existing[target as keyof MacroBundle] = value;
+        const existing = macros.get(row.fdc_id) ?? emptyMacroBundle();
+        existing[target] = value;
+        existing[PRESENCE_COLUMN_BY_MACRO[target]] = true;
         macros.set(row.fdc_id, existing);
       })
       .on('error', (err: Error) => reject(err))
@@ -140,15 +169,9 @@ async function calculateChecksum(foods: Map<string, FoodRow>, macros: Map<string
   const keys = Array.from(foods.keys()).sort();
   for (const key of keys) {
     const food = foods.get(key)!;
-    const macro = macros.get(key) ?? {
-      kcal_per_100g: 0,
-      protein_per_100g: 0,
-      carbs_per_100g: 0,
-      fat_per_100g: 0,
-      fiber_per_100g: 0,
-    };
+    const macro = macros.get(key) ?? emptyMacroBundle();
     hash.update(
-      `${food.fdc_id}|${food.description}|${food.data_type ?? ''}|${macro.kcal_per_100g}|${macro.protein_per_100g}|${macro.carbs_per_100g}|${macro.fat_per_100g}|${macro.fiber_per_100g}\n`
+      `${food.fdc_id}|${food.description}|${food.data_type ?? ''}|${macro.kcal_per_100g}|${Number(macro.kcal_present)}|${macro.protein_per_100g}|${Number(macro.protein_present)}|${macro.carbs_per_100g}|${Number(macro.carbs_present)}|${macro.fat_per_100g}|${Number(macro.fat_present)}|${macro.fiber_per_100g}|${Number(macro.fiber_present)}\n`
     );
   }
   return hash.digest('hex');
@@ -168,17 +191,11 @@ async function upsertFoods(
     const placeholders: string[] = [];
 
     slice.forEach(([fdcId, food], idx) => {
-      const macro = macros.get(fdcId) ?? {
-        kcal_per_100g: 0,
-        protein_per_100g: 0,
-        carbs_per_100g: 0,
-        fat_per_100g: 0,
-        fiber_per_100g: 0,
-      };
+      const macro = macros.get(fdcId) ?? emptyMacroBundle();
       const quality = assessUsdaNutritionQuality(macro);
-      const base = idx * 11;
+      const base = idx * 16;
       placeholders.push(
-        `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${base + 5}, $${base + 6}, $${base + 7}, $${base + 8}, $${base + 9}, $${base + 10}, $${base + 11})`
+        `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${base + 5}, $${base + 6}, $${base + 7}, $${base + 8}, $${base + 9}, $${base + 10}, $${base + 11}, $${base + 12}, $${base + 13}, $${base + 14}, $${base + 15}, $${base + 16})`
       );
       values.push(
         fdcId,
@@ -190,6 +207,11 @@ async function upsertFoods(
         macro.carbs_per_100g,
         macro.fat_per_100g,
         macro.fiber_per_100g,
+        macro.kcal_present,
+        macro.protein_present,
+        macro.carbs_present,
+        macro.fat_present,
+        macro.fiber_present,
         quality.score,
         quality.flags
       );
@@ -206,6 +228,11 @@ async function upsertFoods(
         carbs_per_100g,
         fat_per_100g,
         fiber_per_100g,
+        kcal_present,
+        protein_present,
+        carbs_present,
+        fat_present,
+        fiber_present,
         quality_score,
         quality_flags
       ) VALUES ${placeholders.join(',')}
@@ -218,6 +245,11 @@ async function upsertFoods(
         carbs_per_100g = EXCLUDED.carbs_per_100g,
         fat_per_100g = EXCLUDED.fat_per_100g,
         fiber_per_100g = EXCLUDED.fiber_per_100g,
+        kcal_present = EXCLUDED.kcal_present,
+        protein_present = EXCLUDED.protein_present,
+        carbs_present = EXCLUDED.carbs_present,
+        fat_present = EXCLUDED.fat_present,
+        fiber_present = EXCLUDED.fiber_present,
         quality_score = EXCLUDED.quality_score,
         quality_flags = EXCLUDED.quality_flags,
         updated_at = CURRENT_TIMESTAMP`,
@@ -261,8 +293,10 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
       checksum: string;
       is_active: boolean;
       is_materialized: boolean;
+      v3_nutrient_presence_materialized: boolean;
     }>(
-      `SELECT checksum, is_active, is_materialized
+      `SELECT checksum, is_active, is_materialized,
+              v3_nutrient_presence_materialized
          FROM usda_dataset_version
         WHERE dataset_version = $1
         LIMIT 1`,
@@ -272,7 +306,8 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
     if (
       existing.rows[0]?.checksum === checksum &&
       existing.rows[0].is_active &&
-      existing.rows[0].is_materialized
+      existing.rows[0].is_materialized &&
+      existing.rows[0].v3_nutrient_presence_materialized
     ) {
       await client.query('COMMIT');
       return {
@@ -294,8 +329,11 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
     await client.query(
       `UPDATE usda_dataset_version
           SET is_active = FALSE,
-              is_materialized = FALSE
-        WHERE is_active = TRUE OR is_materialized = TRUE`
+              is_materialized = FALSE,
+              v3_nutrient_presence_materialized = FALSE
+        WHERE is_active = TRUE
+           OR is_materialized = TRUE
+           OR v3_nutrient_presence_materialized = TRUE`
     );
     await client.query(
       `INSERT INTO usda_dataset_version (
@@ -306,8 +344,9 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
         import_source,
         imported_at,
         is_active,
-        is_materialized
-      ) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, TRUE, TRUE)
+        is_materialized,
+        v3_nutrient_presence_materialized
+      ) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, TRUE, TRUE, TRUE)
       ON CONFLICT (dataset_version) DO UPDATE SET
         source_release_date = EXCLUDED.source_release_date,
         checksum = EXCLUDED.checksum,
@@ -315,7 +354,8 @@ export async function runUsdaImport(options: UsdaImportOptions): Promise<{
         import_source = EXCLUDED.import_source,
         imported_at = CURRENT_TIMESTAMP,
         is_active = TRUE,
-        is_materialized = TRUE`,
+        is_materialized = TRUE,
+        v3_nutrient_presence_materialized = TRUE`,
       [
         options.datasetVersion,
         options.sourceReleaseDate ?? null,

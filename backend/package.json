@@ -14,6 +14,7 @@
         "type-check": "tsc --noEmit",
         "calories:eval": "tsx src/scripts/calorie-estimation-eval.ts",
         "meal-analysis": "tsx src/scripts/meal-analysis-cli.ts",
+        "meal-analysis:local": "bash scripts/meal-analysis-local.sh",
         "push-banner": "tsx src/scripts/push-banner.ts",
         "user:inspect": "tsx src/scripts/user-inspect.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",

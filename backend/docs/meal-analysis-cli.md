@@ -1,157 +1,196 @@
-# Local meal-analysis CLI
+# Meal-analysis V3 hypothesis CLI
 
-The local meal-analysis CLI exercises the real backend text-analysis flow from
-a separate terminal while the local HTTP server is running. It uses the same
-application operations, PostgreSQL session state, AI-provider routing, USDA
-lookup, clarification, meal-type selection, resume behavior, and terminal
-results as the V2 API.
+The local CLI exercises the new backend meal-analysis core before it is wired
+to HTTP or persistence. It accepts text in any language or one local image,
+runs every calculation stage, asks one bounded clarification bundle when
+needed, and exposes each stage's exact input and output.
 
-It is a development diagnostic, not the Flutter on-device inference flow. It
-supports text input only and does not log the result as a saved meal.
+This is an ephemeral development tool. One interactive process keeps resolved
+model and USDA state in memory while answers are entered, so it does not rerun
+those external stages. It does not write application sessions, save meals, or
+resume after process exit. Durable V3 resume remains a later backend phase.
 
 ## Prerequisites
 
-Run commands from `backend/` so the normal `staging.env` and `.env` loading
-rules apply. Staging configuration is loaded first; the ignored `.env` then
-overrides local-only values. Local runs can therefore use the configured
-staging provider credentials without copying them into `.env`.
+Run commands from `backend/` so `staging.env` and the ignored `.env` load in
+the normal order.
 
-1. Install Node.js 20 or newer and backend dependencies with `npm ci`.
-2. Start the separate application and USDA PostgreSQL services:
+1. Install Node.js 22 or newer and run `npm ci`.
+2. Configure `USDA_DATABASE_URL` for the local read-only USDA database.
+3. Configure `OPENROUTER_API_KEY` or `OPENAI_API_KEY` for live interpretation
+   and presentation.
+   `OPENROUTER_MEAL_V3_MODEL` defaults to `openai/gpt-5-nano`.
+4. Start and populate the local USDA service when no active snapshot exists:
 
    ```bash
    docker compose -f docker-compose.yml -f docker-compose.local.yml \
-     --profile staging up -d --wait db-staging db-usda
+     --profile staging up -d --wait db-usda
+
+   docker build -t calorify-backend-local:latest .
+   docker compose -f docker-compose.yml -f docker-compose.local.yml \
+     --profile maintenance run --rm usda-maintenance
    ```
 
-3. In the ignored `backend/.env`, set a host-reachable `DATABASE_URL`. For the
-   staging Compose database this is typically:
+An existing active materialized snapshot is reused without another download.
+For this workflow, absent fiber is intentionally treated as `0`; on legacy
+snapshots that means a stored fiber zero may represent either a genuine source
+zero or an omitted source value.
 
-   ```dotenv
-   DATABASE_URL=postgresql://calorify:YOUR_PASSWORD@127.0.0.1:5433/calorify_staging
-   ```
+The CLI needs only the USDA database; the Fastify server and application
+PostgreSQL service do not need to be running.
 
-4. Configure at least one meal-analysis provider with
-   `OPENROUTER_API_KEY` or `OPENAI_API_KEY`. If both are present, the normal
-   OpenRouter-first fallback order is used.
-5. Set `USDA_DATABASE_URL` to the local USDA reader on port `5434`. Populate a
-   new USDA database through the owner-only maintenance command documented in
-   the backend README. A terminal non-food case does not reach USDA lookup.
+## Interactive runs
 
-The CLI initializes its database connections, applies pending application
-migrations, and closes its pools when the run finishes. It does not download
-USDA data automatically.
-
-## Interactive flow
-
-Start with a description likely to require portion clarification:
+For the guided path, use one command:
 
 ```bash
-npm run meal-analysis -- --text "two eggs, toast with butter, and coffee"
+npm run meal-analysis:local
 ```
 
-Every pipeline event is printed as one JSON object on its own line. When the
-backend emits `UNCERTAINTY`, enter one of the displayed option IDs or press
-Enter to accept the parenthesized default. When it emits
-`MEAL_TYPE_QUESTION`, enter `BREAKFAST`, `LUNCH`, `DINNER`, or `SNACK` from
-the displayed choices.
+The launcher installs missing backend packages, starts the local USDA
+database, offers an initial USDA import only when no active materialized
+snapshot exists, then asks for text or image input, locale, country, time zone,
+and readable or NDJSON output.
 
-The successful terminal event is either:
+To supply arguments directly instead, use the commands below.
 
-- `RESULT`, containing the meal name, type, macros, calorie range,
-  ingredients, presentation text, and analysis receipt; or
-- `NO_FOOD`, containing the rejection reason and confidence.
-
-An `ERROR` event includes a public message and may include
-`"retryable":true`. The CLI invokes the shared resume operation once for a
-retryable error; another error terminates the command instead of looping.
-
-## Useful test cases
-
-Exercise the normal food path:
-
-```bash
-npm run meal-analysis -- --text "a bowl of dal and rice"
-```
-
-Exercise terminal non-food handling:
-
-```bash
-npm run meal-analysis -- --text "a blue ceramic coffee mug on a desk"
-```
-
-Exercise localized model output and time context:
+Text:
 
 ```bash
 npm run meal-analysis -- \
-  --text "एक कटोरी दाल और चावल" \
-  --locale hi \
+  --text "kaddu sabzi and 4 rotis" \
+  --locale en-IN \
   --time-zone Asia/Kolkata
 ```
 
-Exercise optional user-profile context by supplying an existing local Firebase
-UID. The CLI does not require Firebase authentication, but it uses the UID for
-session ownership and profile lookup:
+Image:
 
 ```bash
 npm run meal-analysis -- \
-  --text "chicken salad" \
-  --user-id LOCAL_FIREBASE_UID
+  --image ./meal.webp \
+  --image-origin CAMERA_NOW \
+  --locale en-US \
+  --time-zone America/New_York
 ```
 
-For non-interactive scripts, `--json` accepts every clarification default and
-selects the first concrete meal type offered by the backend. Output is still
-newline-delimited JSON, so it can be saved or processed one event at a time:
+Each stage is printed as a readable block:
+
+```text
+[01] INPUT_NORMALIZED · 1 ms
+input:
+{ ... }
+output:
+{ ... }
+```
+
+If clarification is material, enter an displayed option ID, a valid number,
+or `estimate` to preserve the current estimate. No response is selected by
+default. There are at most three nutrition questions, at most one per
+component, plus an optional meal-type question.
+
+The final human summary emphasizes calories and their plausible range. It also
+prints protein, carbohydrate, fat, and fiber points for API testing. The app
+will initially display only the calorie point and range.
+
+## Observable stages
+
+The same shared runner emits:
+
+1. `INPUT_NORMALIZED`
+2. `INTERPRETED`
+3. `VALIDATED`
+4. `NUTRITION_RESOLVED`
+5. `CALCULATED`
+6. `QUESTIONS_PLANNED`
+7. `ANSWERS_APPLIED`
+8. `RECALCULATED`
+9. `MEAL_TYPE_RESOLVED`
+10. `PRESENTED`
+11. `INTEGRITY_CHECKED`
+12. `TERMINAL`
+
+Inapplicable stages are emitted as `SKIPPED`, so a food, no-food, unusable, or
+unresolved run remains fully traceable. Local image bytes are represented by
+media type, byte count, and SHA-256 rather than printed as base64.
+
+The interpreter output includes the raw structured proposal, deterministic
+mechanical normalizations, the validated proposal, and bounded provider
+attempt metadata. Nutrition output includes the selected trusted record or
+bounded candidate rejection diagnostics for every scenario leaf.
+
+## NDJSON and repeatable input
+
+`--json` writes exactly one stage observation per stdout line and never
+prompts:
 
 ```bash
 npm run --silent meal-analysis -- \
-  --text "a bowl of dal and rice" \
-  --json > /tmp/meal-analysis.ndjson
+  --text "1 banana for breakfast" \
+  --locale en-US \
+  --json
 ```
 
-`--silent` suppresses npm's command banner; `--json` also suppresses successful
-migration notices, leaving standard output as pipeline-event NDJSON. Provider
-fallback warnings and failures remain on standard error.
-
-## Resume and replay
-
-Supply a UUID to make the analysis identity stable:
+If input is needed, the terminal observation is `NEEDS_INPUT` and the process
+exits with code `2`. For a repeatable known proposal/question contract, pass an
+explicit answer array and meal type:
 
 ```bash
-npm run meal-analysis -- \
-  --analysis-id 11111111-1111-4111-8111-111111111111 \
-  --text "a bowl of dal and rice"
+npm run --silent meal-analysis -- \
+  --text "rotis" \
+  --proposal ./proposal.json \
+  --answers '[{"questionId":"nutrition:roti:count","kind":"NUMBER","value":4}]' \
+  --meal-type LUNCH \
+  --json
 ```
 
-Run the same command again to resume an incomplete session or replay its stored
-`RESULT` or `NO_FOOD` terminal event. Reuse requires the same text, user ID,
-and source. Changing identity-defining input while keeping the UUID produces an
-`Analysis ID is unavailable` error. Keep `--locale` and `--time-zone`
-consistent as well so the replay matches the original test context.
+`--proposal` bypasses only the model interpretation call. It still performs
+strict semantic validation, real local USDA resolution, calculation,
+questions, presentation, and integrity checks. Because ephemeral invocations
+do not share memory, rerunning a live command with answers also reruns live
+interpretation; use interactive mode when testing the one-pause behavior.
 
 ## Arguments
 
 | Argument | Meaning | Default |
 | --- | --- | --- |
-| `--text TEXT` | Meal description; omit it to be prompted. A single positional description is also accepted. | Interactive prompt |
-| `--analysis-id UUID` | Stable persisted analysis identity used for resume and replay. | New random UUID |
-| `--user-id UID` | Optional session owner and profile-context UID. | No user |
-| `--locale LOCALE` | Locale passed to decomposition and presentation. | `en` |
-| `--time-zone ZONE` | IANA time zone used in analysis context. | Host time zone |
-| `--json` | Do not prompt for follow-ups; accept deterministic defaults. | Interactive follow-ups |
+| `--text TEXT` | Meal description in any language. A positional description also works. | None |
+| `--image PATH` | Local JPEG, PNG, or WebP up to 10 MiB. | None |
+| `--locale TAG` | BCP 47 presentation locale. | Host locale |
+| `--country-code CODE` | ISO alpha-2 regional prior. Required if locale has no region. | Locale region |
+| `--time-zone ZONE` | IANA time zone. | Host time zone |
+| `--captured-at TIME` | RFC 3339 capture time. | Current time |
+| `--image-origin VALUE` | `CAMERA_NOW` or `GALLERY`. | `GALLERY` for a local file |
+| `--proposal FILE` | Strict saved interpretation proposal for replay. | Live model |
+| `--answers JSON` | Complete explicit nutrition answer array. | Interactive / needs input |
+| `--meal-type VALUE` | Explicit breakfast, lunch, dinner, or snack answer. | Inferred / asked |
+| `--json` | NDJSON observations, no prompts or defaults. | Human output |
+
+Exactly one of `--text` and `--image` is required.
+
+## Outcomes and exit codes
+
+| Code | Outcome |
+| --- | --- |
+| `0` | `COMPLETE` or `NO_FOOD` |
+| `2` | `NEEDS_INPUT` |
+| `3` | `UNUSABLE_INPUT` or `UNRESOLVED` |
+| `4` | Provider, database, or other runtime failure |
+| `64` | Invalid CLI input or arguments |
+
+`UNRESOLVED` is expected when an active ingredient cannot be matched without
+ambiguity, preparation is incompatible, or calories, protein, carbohydrate,
+or fat are absent from a presence-aware trusted record. Missing fiber is
+reported as zero. The CLI never substitutes model-generated nutrition.
 
 ## Troubleshooting
 
-- `DATABASE_URL is not set`: add a host-reachable URL to `backend/.env`.
-- `connect ECONNREFUSED`: start PostgreSQL and check its host port.
-- `OPENROUTER_API_KEY or OPENAI_API_KEY is not set`: configure at least one
-  provider locally.
-- USDA relation or active-dataset errors: configure `USDA_DATABASE_URL` or
-  bootstrap reference data before rerunning.
-- `Analysis ID is unavailable`: use a new UUID or repeat the exact original
-  identity inputs.
-- `Analysis session not found` with `--user-id`: use the same UID that created
-  the session.
+- `NO_ACTIVE_DATASET`: run USDA maintenance and verify `USDA_DATABASE_URL`.
+- `All meal analysis LLM providers failed`: inspect the provider-attempt
+  metadata on stderr and verify keys, quota, and the configured model.
+- `UNRESOLVED_NUTRITION`: inspect `NUTRITION_RESOLVED` candidate diagnostics;
+  ambiguous or missing data is intentionally not guessed.
+- Exit `2` in JSON mode: submit the exact question IDs shown, or run
+  interactively.
 
-The durable stages and emitted event contract are documented in
-[Meal-analysis state machine](meal-analysis-state-machine.md).
+The approved future durable/API work is tracked in the
+[meal-analysis backend rewrite plan](../../docs/plans/meal-analysis-reliability.md).

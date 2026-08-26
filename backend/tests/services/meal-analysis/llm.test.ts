@@ -4,9 +4,10 @@ import { mock } from 'node:test';
 
 const mockConfig = {
   APP_NAME: 'CalorifyTest',
+  DEBUG: true,
   OPENROUTER_API_KEY: 'openrouter-test-key' as string | null,
   OPENROUTER_BASE_URL: 'https://openrouter.ai/api/v1',
-  OPENROUTER_MEAL_MODEL: 'openai/gpt-4.1-nano',
+  OPENROUTER_MEAL_MODEL: 'openai/gpt-5-nano',
   OPENROUTER_FREE_MODEL: 'openrouter/free',
   OPENROUTER_HTTP_REFERER: 'https://example.test' as string | null,
   OPENAI_API_KEY: 'openai-test-key' as string | null,
@@ -62,23 +63,23 @@ const request = {
 test('uses the configured OpenRouter model first', async () => {
   reset();
   await createMealAnalysisLlmClient().chat.completions.create(request);
-  assert.deepEqual(calls, [{ provider: 'openrouter', model: 'openai/gpt-4.1-nano' }]);
+  assert.deepEqual(calls, [{ provider: 'openrouter', model: 'openai/gpt-5-nano' }]);
 });
 
 test('uses OpenRouter free router when the primary model fails', async () => {
   reset();
   implementation = async (_provider, model) => {
-    if (model === 'openai/gpt-4.1-nano') throw new Error('quota exhausted');
+    if (model === 'openai/gpt-5-nano') throw new Error('quota exhausted');
     return validResponse;
   };
   await createMealAnalysisLlmClient().chat.completions.create(request);
-  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-4.1-nano', 'openrouter/free']);
+  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-5-nano', 'openrouter/free']);
 });
 
 test('reports every provider attempt with its operation and outcome', async () => {
   reset();
   implementation = async (_provider, model) => {
-    if (model === 'openai/gpt-4.1-nano') throw new Error('quota exhausted');
+    if (model === 'openai/gpt-5-nano') throw new Error('quota exhausted');
     return validResponse;
   };
   const attempts: MealAnalysisLlmAttempt[] = [];
@@ -96,7 +97,7 @@ test('reports every provider attempt with its operation and outcome', async () =
       {
         operation: 'decompose_text',
         provider: 'openrouter',
-        model: 'openai/gpt-4.1-nano',
+        model: 'openai/gpt-5-nano',
         outcome: 'error',
         errorKind: 'provider_error',
       },
@@ -120,24 +121,24 @@ test('falls back to direct OpenAI when both OpenRouter attempts fail', async () 
   };
   await createMealAnalysisLlmClient().chat.completions.create(request);
   assert.deepEqual(calls, [
-    { provider: 'openrouter', model: 'openai/gpt-4.1-nano' },
+    { provider: 'openrouter', model: 'openai/gpt-5-nano' },
     { provider: 'openrouter', model: 'openrouter/free' },
-    { provider: 'openai', model: 'gpt-4.1-nano' },
+    { provider: 'openai', model: 'gpt-5-nano' },
   ]);
 });
 
 test('fails over when a provider returns malformed structured output', async () => {
   reset();
-  implementation = async (_provider, model) => model === 'openai/gpt-4.1-nano'
+  implementation = async (_provider, model) => model === 'openai/gpt-5-nano'
     ? { ...validResponse, choices: [{ ...validResponse.choices[0], message: { role: 'assistant', content: 'not json' } }] }
     : validResponse;
   await createMealAnalysisLlmClient().chat.completions.create(request);
-  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-4.1-nano', 'openrouter/free']);
+  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-5-nano', 'openrouter/free']);
 });
 
 test('fails over when JSON does not match the requested schema', async () => {
   reset();
-  implementation = async (_provider, model) => model === 'openai/gpt-4.1-nano'
+  implementation = async (_provider, model) => model === 'openai/gpt-5-nano'
     ? { ...validResponse, choices: [{ ...validResponse.choices[0], message: { role: 'assistant', content: '{}' } }] }
     : validResponse;
   await createMealAnalysisLlmClient().chat.completions.create({
@@ -156,7 +157,28 @@ test('fails over when JSON does not match the requested schema', async () => {
       },
     },
   });
-  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-4.1-nano', 'openrouter/free']);
+  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-5-nano', 'openrouter/free']);
+});
+
+test('runs complete semantic validation inside each provider attempt', async () => {
+  reset();
+  implementation = async (_provider, model) => model === 'openai/gpt-5-nano'
+    ? validResponse
+    : { ...validResponse, choices: [{ ...validResponse.choices[0], message: { role: 'assistant', content: '{"ok":false}' } }] };
+
+  await createMealAnalysisLlmClient().chat.completions.create(
+    request,
+    {
+      operation: 'interpret_v3',
+      validateStructuredContent(value) {
+        if ((value as { ok?: boolean }).ok !== false) {
+          throw new Error('semantic validation failed');
+        }
+      },
+    }
+  );
+
+  assert.deepEqual(calls.map((call) => call.model), ['openai/gpt-5-nano', 'openrouter/free']);
 });
 
 test('provider failures expose only bounded error kinds', async (t) => {
@@ -186,4 +208,40 @@ test('provider failures expose only bounded error kinds', async (t) => {
   assert.equal(attempts.length, 3);
   assert.ok(attempts.every((attempt) => attempt.errorKind === 'provider_error'));
   assert.doesNotMatch(JSON.stringify({ attempts, warnings }), new RegExp(secret));
+});
+
+test('prints native programming error details in debug mode', async (t) => {
+  reset();
+  implementation = async (_provider, model) => {
+    if (model === 'openai/gpt-5-nano') throw new TypeError('invalid local request shape');
+    return validResponse;
+  };
+  const errors: unknown[][] = [];
+  t.mock.method(console, 'error', (...values: unknown[]) => {
+    errors.push(values);
+  });
+
+  await createMealAnalysisLlmClient().chat.completions.create(request);
+
+  assert.match(JSON.stringify(errors), /TypeError/);
+  assert.match(JSON.stringify(errors), /invalid local request shape/);
+});
+
+test('handles a provider response without choices and prints its safe shape', async (t) => {
+  reset();
+  implementation = async (_provider, model) => model === 'openai/gpt-5-nano'
+    ? { error: { message: 'do not log this provider body' }, provider: 'OpenAI' }
+    : validResponse;
+  const errors: unknown[][] = [];
+  t.mock.method(console, 'error', (...values: unknown[]) => {
+    errors.push(values);
+  });
+
+  await createMealAnalysisLlmClient().chat.completions.create(request);
+
+  const output = JSON.stringify(errors);
+  assert.match(output, /invalid_structured_response/);
+  assert.match(output, /responseKeys/);
+  assert.match(output, /hasError/);
+  assert.doesNotMatch(output, /do not log this provider body/);
 });

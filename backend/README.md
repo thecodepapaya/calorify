@@ -15,6 +15,9 @@ Backend services are grouped by ownership under `src/services/`:
 
 - `meal-analysis/` owns the analysis pipeline, durable state, history, prompts,
   provider coordination, and presentation enrichment.
+- `meal-analysis-v3/` owns the isolated recipe-scenario domain, trusted
+  nutrition resolver, pure calculation, bounded questions, presentation, and
+  ephemeral shared runner used by the hypothesis CLI.
 - `nutrition/` owns deterministic quantities, portions, dish templates, and
   local-nutrition pack resolution.
 - `usda/` owns reference-data import, bootstrap, lookup, and ranking helpers.
@@ -63,8 +66,8 @@ local Compose override only exposes that USDA port to the host; the base
 staging and production topology remains unchanged.
 
 In VS Code, start the local dependencies first and then use `Backend: Dev`.
-Run the meal-analysis CLI manually from a separate terminal while the backend
-is running.
+Run the meal-analysis CLI manually from a separate terminal. It needs the
+local USDA service, but not the Fastify server or application database.
 
 ## Commands
 
@@ -107,7 +110,16 @@ snapshot behavior. Cross-module suites use a scope name such as
   `CALORIFY_POSTGRES_CONTRACT_TEST=true` and `DATABASE_URL` identifies a safe
   test database; the remaining suite is self-contained.
 
-`meal-analysis` runs the text pipeline through the same application functions as the API, including durable resume, clarification, meal-type selection, and no-food outcomes. Pass `--json` for non-interactive defaults, or omit `--text` for a prompt. See the [local meal-analysis CLI guide](docs/meal-analysis-cli.md) for database and provider setup, arguments, test cases, and replay behavior.
+`meal-analysis` runs the isolated V3 hypothesis core for either text or a local
+image. It exposes every stage, uses the active local USDA database,
+asks only a bounded material question bundle, and never selects silent
+defaults. Pass `--json` for NDJSON and `NEEDS_INPUT` behavior. See the
+[meal-analysis CLI guide](docs/meal-analysis-cli.md) for setup, arguments,
+stages, exit codes, and fixture replay.
+
+`meal-analysis:local` is the guided launcher. It imports USDA only when no
+active materialized snapshot exists, prompts for text or image input and
+context, and then runs the same observable CLI.
 
 `calories:eval` exercises the deployed HTTP streaming flow, follows controlled clarification choices, and checks calorie ranges, semantic ingredient coverage, completion, stability, and latency. Set `CALORIE_EVAL_AUTH_TOKEN` for authenticated routes. Add `--verbose` for per-case pipeline paths or `--output report.json` to retain a complete artifact. Dataset cases, thresholds, and detailed usage live in `evals/`.
 
@@ -117,7 +129,9 @@ snapshot behavior. Cross-module suites use a scope name such as
 
 Meal analysis attempts:
 
-1. `OPENROUTER_MEAL_MODEL` via OpenRouter (`openai/gpt-4.1-nano` by default).
+1. `OPENROUTER_MEAL_MODEL` via OpenRouter (`openai/gpt-5-nano` by default).
+   The scenario-heavy hypothesis CLI uses `OPENROUTER_MEAL_V3_MODEL`
+   (`openai/gpt-5-nano` by default) for this primary attempt.
 2. `OPENROUTER_FREE_MODEL` via OpenRouter (`openrouter/free` by default).
 3. `OPENAI_MEAL_ANALYSIS_MODEL` via direct OpenAI.
 
@@ -153,7 +167,16 @@ and resume rules are documented in
 
 ## USDA grounding
 
-USDA FoodData Central CSV data is imported into a shared PostgreSQL reference database. Deployed APIs connect with a read-only role; a one-off maintenance container owns migrations and imports. Lookup evaluates the model's ordered canonical identity and aliases with exact normalized names and indexed trigram candidates, then uses separate preparation states when ranking accepted matches. Calories and macros are scaled from the selected per-100-g reference row.
+USDA FoodData Central CSV data is imported into a shared PostgreSQL reference
+database. Deployed APIs connect with a read-only role; a one-off maintenance
+container owns migrations and imports. Lookup evaluates the model's ordered
+canonical identity and aliases with exact normalized names and indexed trigram
+candidates, then uses separate preparation states when ranking accepted
+matches. Calories and macros are scaled from the selected per-100-g reference
+row. New imports also store per-nutrient presence flags. V3 reuses legacy
+materialized snapshots; missing fiber is intentionally treated as zero, while
+a presence-aware snapshot still rejects missing calories, protein,
+carbohydrate, or fat. This can understate fiber when the source omitted it.
 
 The importer accepts only the USDA `Energy` nutrient expressed in kcal. A read-boundary guard repairs legacy reference rows that were previously imported from kilojoules.
 
@@ -188,7 +211,8 @@ the shared USDA database, observability, rollback, and storage maintenance.
   actions, and final responses; disabled unless `ANALYSIS_HISTORY_PASSWORD` is set.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
 - `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
-- `npm run meal-analysis -- --text "dal and rice"` — local text full-flow pipeline diagnostics.
+- `npm run meal-analysis -- --text "dal and rice"` — observable local V3
+  hypothesis flow for text or image input.
 - `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
 - `DEPLOYMENT.md` — Loki/Grafana runtime and troubleshooting commands.
 - [`docs/README.md`](docs/README.md) — backend design notes, release evidence,

@@ -17,6 +17,12 @@ export interface MealAnalysisLlmClient {
 
 export interface MealAnalysisLlmCallContext {
   operation?: string;
+  /**
+   * Runs inside each provider attempt, before the attempt is considered
+   * successful. V3 uses this for complete Zod and semantic validation so a
+   * structurally valid but unusable response advances provider failover.
+   */
+  validateStructuredContent?: (value: unknown) => void;
 }
 
 export interface MealAnalysisLlmAttempt {
@@ -30,6 +36,8 @@ export interface MealAnalysisLlmAttempt {
 
 export interface MealAnalysisLlmClientOptions {
   onAttempt?: (attempt: MealAnalysisLlmAttempt) => void;
+  /** Optional primary OpenRouter model for a workflow with a different complexity budget. */
+  openRouterModel?: string;
 }
 
 type ProviderAttempt = {
@@ -102,17 +110,43 @@ function assertMatchesSchema(value: unknown, schema: JsonSchema, path = '$'): vo
 
 class MealAnalysisLlmResponseError extends Error {
   readonly errorKind: 'empty_response' | 'invalid_structured_response';
+  readonly debugDetail?: Readonly<Record<string, unknown>>;
 
-  constructor(errorKind: 'empty_response' | 'invalid_structured_response') {
+  constructor(
+    errorKind: 'empty_response' | 'invalid_structured_response',
+    debugDetail?: Readonly<Record<string, unknown>>,
+  ) {
     super(errorKind === 'empty_response'
       ? 'LLM returned an empty response'
       : 'LLM returned an invalid structured response');
     this.name = 'MealAnalysisLlmResponseError';
     this.errorKind = errorKind;
+    this.debugDetail = debugDetail;
   }
 }
 
-function validateStructuredContent(response: CompletionResponse, request: CompletionRequest): void {
+function validateStructuredContent(
+  response: CompletionResponse,
+  request: CompletionRequest
+): unknown {
+  const responseValue = response as unknown;
+  if (
+    responseValue === null
+    || typeof responseValue !== 'object'
+    || !Array.isArray((responseValue as { choices?: unknown }).choices)
+  ) {
+    const responseRecord = responseValue !== null && typeof responseValue === 'object'
+      ? responseValue as Record<string, unknown>
+      : undefined;
+    throw new MealAnalysisLlmResponseError('invalid_structured_response', {
+      responseType: responseValue === null ? 'null' : typeof responseValue,
+      responseKeys: responseRecord ? Object.keys(responseRecord).slice(0, 20) : [],
+      object: typeof responseRecord?.object === 'string' ? responseRecord.object : undefined,
+      model: typeof responseRecord?.model === 'string' ? responseRecord.model : undefined,
+      hasError: responseRecord?.error !== undefined,
+    });
+  }
+
   const content = response.choices[0]?.message?.content;
   if (!content) throw new MealAnalysisLlmResponseError('empty_response');
 
@@ -125,15 +159,54 @@ function validateStructuredContent(response: CompletionResponse, request: Comple
           request.response_format.json_schema.schema as JsonSchema,
         );
       }
+      return parsed;
     } catch {
       throw new MealAnalysisLlmResponseError('invalid_structured_response');
     }
   }
+  return content;
 }
 
 function describeErrorKind(error: unknown): string {
   if (error instanceof MealAnalysisLlmResponseError) return error.errorKind;
   return safeErrorKind(error, 'provider_error');
+}
+
+function logDebugError(error: unknown): void {
+  if (!config.DEBUG) return;
+
+  if (error instanceof MealAnalysisLlmResponseError) {
+    console.error('[meal-analysis-llm] response error detail', {
+      name: error.name,
+      message: error.message,
+      errorKind: error.errorKind,
+      ...error.debugDetail,
+    });
+    return;
+  }
+
+  if (typeof OpenAI.APIError === 'function' && error instanceof OpenAI.APIError) {
+    console.error('[meal-analysis-llm] API error detail', {
+      name: error.name,
+      message: error.message,
+      status: error.status,
+      code: error.code,
+      type: error.type,
+      requestId: error.request_id,
+    });
+    return;
+  }
+
+  // Native programming errors are useful during local CLI development and do
+  // not contain provider request/response objects. Avoid logging arbitrary SDK
+  // errors here: they may carry headers, signed URLs, or meal input data.
+  if (error instanceof TypeError || error instanceof SyntaxError || error instanceof RangeError) {
+    console.error('[meal-analysis-llm] error detail', {
+      name: error.name,
+      message: error.message,
+      stack: error.stack,
+    });
+  }
 }
 
 /**
@@ -161,7 +234,11 @@ export function createMealAnalysisLlmClient(
       maxRetries: 0,
     });
     attempts.push(
-      { provider: 'openrouter', model: config.OPENROUTER_MEAL_MODEL, client: openRouter },
+      {
+        provider: 'openrouter',
+        model: options.openRouterModel ?? config.OPENROUTER_MEAL_MODEL,
+        client: openRouter,
+      },
       { provider: 'openrouter', model: config.OPENROUTER_FREE_MODEL, client: openRouter },
     );
   }
@@ -199,7 +276,12 @@ export function createMealAnalysisLlmClient(
                   stream: false,
                 })
               );
-              validateStructuredContent(response, request);
+              const structuredContent = validateStructuredContent(response, request);
+              try {
+                context.validateStructuredContent?.(structuredContent);
+              } catch {
+                throw new MealAnalysisLlmResponseError('invalid_structured_response');
+              }
               options.onAttempt?.({
                 operation: context.operation,
                 provider: attempt.provider,
@@ -224,6 +306,7 @@ export function createMealAnalysisLlmClient(
                 operation: context.operation,
                 errorKind,
               });
+              logDebugError(error);
             }
           }
           throw new Error('All meal analysis LLM providers failed');

@@ -1,9 +1,19 @@
 # Local inference for meal analysis
 
-Status: Phase 4 engineering-complete release candidate; default off and not released  
-Last reviewed: 2026-08-25
+Status: paused; default off; incompatible with the approved backend rewrite
 
-## Decision summary
+Last reviewed: 2026-08-26
+
+## Current decision
+
+The approved
+[meal-analysis backend rewrite](meal-analysis-reliability.md) disables
+on-device meal analysis at cutover. Do not publish, enable, or extend the local
+path until the new backend contracts are stable and a separate follow-up plan
+is approved. The remainder of this document records the V2-era design and
+engineering evidence; it is not an active rollout plan.
+
+## Prior decision summary
 
 Calorify will add optional on-device text meal interpretation on supported
 Android phones. Gemini Nano may identify foods and estimate portions, but it
@@ -53,7 +63,7 @@ phone-assisted backend path. Image analysis is unchanged.
 7. Settled meals store immutable nutrient snapshots and typed provenance, so
    later model or USDA changes do not rewrite history.
 
-## Phase status
+## Historical phase status
 
 | Phase | Scope | Status |
 | --- | --- | --- |
@@ -68,7 +78,7 @@ phone-assisted backend path. Image analysis is unchanged.
 Implementation evidence is recorded in the [phases 1–3 release candidate](../../backend/docs/local-inference-phases-1-3-release-candidate.md)
 and [Phase 4 release candidate](../../backend/docs/local-inference-phase-4-release-candidate.md).
 
-## Current tracking plan
+## Paused V2-era tracking
 
 - [x] Send app version and build headers with API requests.
 - [x] Gate local inference by minimum build number from centralized backend
@@ -104,7 +114,7 @@ raw/cooked/dry state. A missing, stale, or incompatible row is unresolved—not
 zero—and follows the configured recovery path. Historical meal snapshots remain
 immutable across pack updates.
 
-## Release gates
+## Historical release gates
 
 Before a limited beta, complete the following in order:
 

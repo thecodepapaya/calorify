@@ -12,10 +12,11 @@ Use this page to find the document that matches the work you are doing.
 
 ## Plans and decisions
 
-- [Meal-analysis reliability](plans/meal-analysis-reliability.md) — confirmed
-  staging failures, root causes, containment, contract redesign, clarification,
-  USDA grounding, presentation integrity, and release gates.
-- [Local meal analysis](plans/local-inference-meal-analysis.md) — current scope, trust boundaries, rollout phases, and open decisions.
+- [Meal-analysis backend rewrite](plans/meal-analysis-reliability.md) — approved
+  recipe-scenario domain, trusted nutrition resolution, bounded clarification,
+  macro ranges, CLI-first delivery, durable cutover, and release gates.
+- [Local meal analysis](plans/local-inference-meal-analysis.md) — paused V2-era
+  scope, trust boundaries, engineering evidence, and deferred decisions.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
 
 ## Implemented workflows
@@ -29,14 +30,14 @@ Use this page to find the document that matches the work you are doing.
   resume behavior.
 - [Meal-analysis history page](../backend/docs/analysis-history.md) — protected
   inspection of durable layers, structured observations, and final responses.
+- [Meal-analysis V3 hypothesis CLI](../backend/docs/meal-analysis-cli.md) — run
+  the shared ephemeral V3 core with fully observable text or image stages.
 
 ## Backend references
 
-- [Local inference phases 1–3 release candidate](../backend/docs/local-inference-phases-1-3-release-candidate.md)
-- [Local inference Phase 4 release candidate](../backend/docs/local-inference-phase-4-release-candidate.md)
+- [Historical local-inference phases 1–3 release candidate](../backend/docs/local-inference-phases-1-3-release-candidate.md)
+- [Historical local-inference Phase 4 release candidate](../backend/docs/local-inference-phase-4-release-candidate.md)
 - [Meal-analysis Prometheus metrics](../backend/docs/meal-analysis-prometheus.md)
-- [Local meal-analysis CLI](../backend/docs/meal-analysis-cli.md) — run the
-  backend text flow interactively or as newline-delimited JSON.
 - [Calorie-estimation evals](../backend/evals/README.md)
 
 ## Other references

@@ -25,6 +25,34 @@ await mock.module('../../../src/services/infrastructure/database.js', {
 
 const { bootstrapUsdaIfNeeded } = await import('../../../src/services/usda/bootstrap.js');
 
+test('bootstrap skips any active materialized snapshot', async () => {
+  mockQuery.mock.resetCalls();
+  mockQuery.mock.mockImplementationOnce(async (sql: string, params?: unknown[]) => {
+    assert.ok(sql.includes('is_active = TRUE'));
+    assert.ok(sql.includes('is_materialized = TRUE'));
+    assert.ok(!sql.includes('v3_nutrient_presence_materialized'));
+    assert.deepEqual(params, ['presence-ready']);
+    return { rows: [{ count: '1' }] };
+  });
+  let imported = false;
+
+  await bootstrapUsdaIfNeeded(
+    {
+      zipUrl: 'https://example.invalid/usda.zip',
+      datasetVersion: 'presence-ready',
+      dataDir: '/unused',
+    },
+    {
+      importDataset: async () => {
+        imported = true;
+        return { imported: true, rowCount: 1, checksum: 'unexpected' };
+      },
+    }
+  );
+
+  assert.equal(imported, false);
+});
+
 async function writeExtractedCsvs(extractDir: string, marker: string): Promise<void> {
   const nested = join(extractDir, 'FoodData_Central');
   await mkdir(nested, { recursive: true });
