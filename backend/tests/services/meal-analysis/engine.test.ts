@@ -92,7 +92,11 @@ await mock.module('../../../src/services/meal-analysis/systemPrompt.js', {
 });
 
 const mockConfig = {
-  OPENAI_API_KEY: 'test-key' as string | null,
+  APP_NAME: 'CalorifyTest',
+  OPENROUTER_API_KEY: 'test-key' as string | null,
+  OPENROUTER_BASE_URL: 'https://openrouter.example.test/api/v1',
+  OPENROUTER_MEAL_MODEL: 'openai/gpt-5.6-luna',
+  OPENROUTER_HTTP_REFERER: null,
   DATABASE_URL: 'postgres://mock',
   ORACLE_BUCKET_DOWNLOAD_URL:
     'https://objectstorage.example.com/p/download-token/n/ns/b/bucket/o/',
@@ -1257,16 +1261,16 @@ test('analyzeTextMeal uses provided analysisId option', async () => {
   assert.equal(events[0]?.step, 'STARTED');
 });
 
-test('analyzeTextMeal emits error event when OPENAI_API_KEY is missing', async () => {
-  const previous = mockConfig.OPENAI_API_KEY;
-  mockConfig.OPENAI_API_KEY = null;
+test('analyzeTextMeal emits error event when OPENROUTER_API_KEY is missing', async () => {
+  const previous = mockConfig.OPENROUTER_API_KEY;
+  mockConfig.OPENROUTER_API_KEY = null;
   try {
     const events = await collectEvents(analyzeTextMeal('rice'));
     const err = events.find((e) => e.step === 'ERROR');
     assert.ok(err !== undefined);
     assert.equal(err.data.message, 'Meal analysis failed');
   } finally {
-    mockConfig.OPENAI_API_KEY = previous;
+    mockConfig.OPENROUTER_API_KEY = previous;
   }
 });
 

@@ -38,23 +38,30 @@ function validateRange(
   }
 }
 
-const portionSchema = z.object({
-  kind: z.enum(['AMOUNT', 'COUNT']),
-  unit: z.enum(['GRAM', 'COUNT']),
+const portionRangeFields = {
   estimate: z.number().finite().positive().max(10_000),
   min: z.number().finite().positive().max(10_000),
   max: z.number().finite().positive().max(10_000),
   origin: originSchema,
-  perUnitGrams: positiveRangeSchema.nullable(),
+};
+
+const amountPortionSchema = z.object({
+  kind: z.literal('AMOUNT'),
+  ...portionRangeFields,
+  perUnitGrams: z.null(),
 }).strict().superRefine((portion, ctx) => {
   validateRange(portion, ctx);
-  if (portion.kind === 'AMOUNT' && (portion.unit !== 'GRAM' || portion.perUnitGrams !== null)) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'AMOUNT requires GRAM and no perUnitGrams' });
-  }
-  if (portion.kind === 'COUNT' && (portion.unit !== 'COUNT' || portion.perUnitGrams === null)) {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'COUNT requires COUNT and perUnitGrams' });
-  }
 });
+
+const countPortionSchema = z.object({
+  kind: z.literal('COUNT'),
+  ...portionRangeFields,
+  perUnitGrams: positiveRangeSchema,
+}).strict().superRefine((portion, ctx) => {
+  validateRange(portion, ctx);
+});
+
+const portionSchema = z.union([amountPortionSchema, countPortionSchema]);
 
 export const firstPassResponseSchema = z.object({
   food_detected: z.boolean(),
@@ -146,7 +153,7 @@ Return only the requested JSON. Do not list ingredients, variations, calories, o
 Tasks:
 - Set food_detected=false when no usable food can be identified. In that case return no components and a null meal name and meal type.
 - Split a meal into recognizable components using componentName from the input and a short generic English canonicalIdentity.
-- Quantify continuous components as AMOUNT in finished GRAM. Quantify discrete components as COUNT with perUnitGrams.
+- Quantify continuous components as AMOUNT; estimate/min/max are always finished grams. Quantify discrete components as COUNT with perUnitGrams; do not return a unit field.
 - Clamp user-provided quantities so min=estimate=max and origin=user_text.
 - Use origin=model_inferred for every value not explicitly stated by the user, including image observations and context-based guesses.
 - Use only user_text and model_inferred. Do not add evidence objects.

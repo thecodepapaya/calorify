@@ -98,10 +98,11 @@ during snapshot construction.
 
 ## Provider and deterministic fields
 
-Remote prose uses only `OPENROUTER_AI_SUMMARY_MODEL`. The configured model must
-support strict structured output. Requests require parameter support and deny
-provider data collection through the configured OpenRouter controls. There is
-no direct OpenAI or free-router fallback for summaries.
+Remote prose uses only `OPENROUTER_AI_SUMMARY_MODEL`, which defaults to
+`openai/gpt-5.6-luna`. The configured model must support strict structured
+output. Requests require parameter support and deny provider data collection
+through the configured OpenRouter controls. There is no provider fallback for
+summaries.
 
 OpenRouter returns only a bounded non-empty `summary`. The backend owns:
 

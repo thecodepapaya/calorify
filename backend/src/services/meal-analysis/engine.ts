@@ -5,8 +5,8 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import config from '../../config.js';
 import { query } from '../infrastructure/database.js';
-import { OPENAI_MEAL_ANALYSIS_MODEL } from '../../openaiModels.js';
 import { safeErrorKind, safeErrorMetadata } from '../../utils/safeError.js';
 import { getFoodAnalysisSystemPrompt } from './systemPrompt.js';
 import {
@@ -1105,7 +1105,7 @@ function proposalForDecomposition(
     })),
     interpretationOrigin: context.interpretationOrigin,
     modelName: context.interpretationOrigin === InterpretationOrigin.INTERPRETATION_ORIGIN_CLOUD_MODEL
-      ? OPENAI_MEAL_ANALYSIS_MODEL
+      ? config.OPENROUTER_MEAL_MODEL
       : undefined,
     modelVersion: undefined,
   };
@@ -1466,7 +1466,7 @@ async function decomposeFromText(
 ): Promise<LLMDecomposition> {
   const userContent = [inputContext, input, correctionContext].filter(Boolean).join('\n\n');
   const response = await client.chat.completions.create({
-    model: OPENAI_MEAL_ANALYSIS_MODEL,
+    model: config.OPENROUTER_MEAL_MODEL,
     messages: [
       { role: 'system', content: DECOMPOSITION_SYSTEM_PROMPT },
       { role: 'user', content: userContent },
@@ -1489,7 +1489,7 @@ async function decomposeFromImage(
   correctionContext?: string
 ): Promise<LLMDecomposition> {
   const response = await client.chat.completions.create({
-    model: OPENAI_MEAL_ANALYSIS_MODEL,
+    model: config.OPENROUTER_MEAL_MODEL,
     messages: [
       { role: 'system', content: DECOMPOSITION_SYSTEM_PROMPT },
       {
@@ -1534,7 +1534,7 @@ async function estimateMacrosViaLLM(client: MealAnalysisLlmClient, names: string
     .map(({ requestId, name }) => `${requestId}: ${name}`)
     .join('\n');
   const response = await client.chat.completions.create({
-    model: OPENAI_MEAL_ANALYSIS_MODEL,
+    model: config.OPENROUTER_MEAL_MODEL,
     messages: [
       { role: 'system', content: FALLBACK_SYSTEM_PROMPT },
       {
@@ -1729,7 +1729,7 @@ async function resolveIngredients(
         'estimate_macros_fallback',
         {
           analysisId,
-          model: OPENAI_MEAL_ANALYSIS_MODEL,
+          model: config.OPENROUTER_MEAL_MODEL,
           unmatchedCount: unmatched.length,
         },
         () => estimateMacrosViaLLM(client, unmatchedHints)
@@ -1903,7 +1903,7 @@ async function enrichPresentationFromText(
     .join('\n\n');
 
   const response = await client.chat.completions.create({
-    model: OPENAI_MEAL_ANALYSIS_MODEL,
+    model: config.OPENROUTER_MEAL_MODEL,
     messages: [
       {
         role: 'system',
@@ -2269,7 +2269,7 @@ async function* runPresentationStage(
       {
         analysisId: context.analysisId,
         source: context.source,
-        model: OPENAI_MEAL_ANALYSIS_MODEL,
+        model: config.OPENROUTER_MEAL_MODEL,
         ingredientCount: resolved.length,
       },
       () => enrichPresentation(
@@ -2975,7 +2975,7 @@ async function decomposeFromContext(
       'decompose_text',
       {
         analysisId: context.analysisId,
-        model: OPENAI_MEAL_ANALYSIS_MODEL,
+        model: config.OPENROUTER_MEAL_MODEL,
         source: 'text',
       },
       () => decomposeFromText(client, input, decompositionInputContext(context), correctionContext)
@@ -2995,7 +2995,7 @@ async function decomposeFromContext(
     'decompose_image',
     {
       analysisId: context.analysisId,
-      model: OPENAI_MEAL_ANALYSIS_MODEL,
+      model: config.OPENROUTER_MEAL_MODEL,
       source: 'image',
     },
     () => decomposeFromImage(client, context.imageUrl!, decompositionInputContext(context), correctionContext)

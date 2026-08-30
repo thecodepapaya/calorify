@@ -38,7 +38,7 @@ Use `generate_release_notes.sh` after bumping `app/pubspec.yaml` to the version 
    This will:
    - Read the current version code from `app/pubspec.yaml`
    - Find the previous release from `fastlane/metadata/android/en-US/changelogs`
-   - Summarize release-note-worthy git changes with OpenAI `gpt-5-mini`
+   - Summarize release-note-worthy git changes with OpenAI `gpt-5.6-luna`
    - Translate the notes for app-supported locales from `shared_packages/i18n/lib/i18n` that are also supported by Google Play metadata
    - Print the generated notes without writing files
 
@@ -79,7 +79,7 @@ Use the `create_changelog.sh` compatibility command when you already have Englis
    ```
    This will:
    - Create the English changelog
-   - Automatically translate it to every app locale supported by Google Play metadata using OpenAI `gpt-5-mini`
+   - Automatically translate it to every app locale supported by Google Play metadata using OpenAI `gpt-5.6-luna`
    - Save all changelog files in the correct locations
 
 2. **Create changelog from existing file:**

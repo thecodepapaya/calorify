@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
-import { OPENAI_MEAL_ANALYSIS_MODEL } from '../../openaiModels.js';
+import config from '../../config.js';
 import {
   createMealAnalysisLlmClient,
   type MealAnalysisLlmAttempt,
@@ -138,7 +138,7 @@ export function createMealPresenter(suppliedClient?: MealAnalysisLlmClient): Mea
           onAttempt: (attempt) => providerAttempts.push(attempt),
         });
         const response = await client.chat.completions.create({
-          model: OPENAI_MEAL_ANALYSIS_MODEL,
+          model: config.OPENROUTER_MEAL_MODEL,
           messages: [
             {
               role: 'system',

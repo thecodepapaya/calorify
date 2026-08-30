@@ -12,6 +12,8 @@
 - [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable two-pass
   text and image interpretation, derived scenarios, active local USDA grounding,
   bounded questions, five-macro ranges, and terminal outcomes.
+- [Meal-analysis model eval](../evals/README.md) — exact-model evaluation of the
+  two decomposition passes and their semantic bounds.
 - [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
   names and example Grafana queries.
 - [Meal-analysis history page](analysis-history.md) — protected visual

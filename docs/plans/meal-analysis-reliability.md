@@ -543,7 +543,6 @@ The stable response uses this shape:
       "canonicalIdentity": "cooked lentil curry",
       "portion": {
         "kind": "AMOUNT",
-        "unit": "GRAM",
         "estimate": 150,
         "min": 120,
         "max": 180,
@@ -560,7 +559,6 @@ The stable response uses this shape:
       "canonicalIdentity": "whole wheat flatbread",
       "portion": {
         "kind": "COUNT",
-        "unit": "COUNT",
         "estimate": 4,
         "min": 4,
         "max": 4,
@@ -585,8 +583,9 @@ Pass-one rules:
 
 - `food_detected: false` is the single no-food/unusable terminal result. It
   returns an empty component list and null meal-name and meal-type values.
-- `AMOUNT` uses explicit finished `GRAM`; `COUNT` uses `COUNT` and requires
-  `perUnitGrams`.
+- `AMOUNT` values are finished grams by definition, so there is no redundant
+  unit field. `COUNT` values are counts and require `perUnitGrams`; every
+  amount field ending in `Grams` is always grams.
 - Explicit user quantities clamp `min = estimate = max` and use `user_text`.
 - Model-estimated values use `model_inferred`, including image observations.
 - `mealTypeCandidate` uses null value and null origin when unresolved.
@@ -697,9 +696,10 @@ one to three total.
 
 Each pass uses a separate small strict JSON Schema and semantic validator.
 Pass-two validation also checks exact component correspondence and validates
-the deterministically derived calculation proposal. A failure advances the
-same provider failover chain for that pass. Error telemetry distinguishes the
-operation names `interpret_v3_components_*` and `interpret_v3_ingredients_*`.
+the deterministically derived calculation proposal. A validation or provider
+failure ends that pass; meal analysis has one OpenRouter attempt and no
+fallback. Error telemetry distinguishes the operation names
+`interpret_v3_components_*` and `interpret_v3_ingredients_*`.
 
 No model output is silently repaired with food-specific regexes or templates.
 The deterministic adapter may create IDs, map the two origin values into
@@ -1327,10 +1327,22 @@ layer.
 
 ## Evaluation strategy
 
-The existing
-[calorie-estimation cases](../../backend/evals/calorie-estimation.cases.json)
-remain useful seed inputs but are insufficient. The new versioned evaluation
-set must cover text, image, interaction, and safe-failure behavior.
+The initial
+[two-pass meal-analysis eval](../../backend/evals/meal-analysis.cases.json)
+contains only `4 roti daal`. It isolates the model-facing component and
+ingredient passes from deterministic USDA resolution, calories, macros,
+clarification, and presentation. Broader text, image, interaction, and
+safe-failure cases remain future work.
+
+The evaluator runs an exact caller-selected OpenRouter model with no fallback,
+uses five repetitions by default, and reports per-assertion and whole-run pass
+rates without enforcing a threshold. Hard checks cover explicit count
+preservation, portion semantics and plausible gram windows, provenance,
+cross-pass component correspondence, valid variation references, and the core
+flour/lentil ingredients. Optional fat/spice coverage and mass coherence are
+diagnostic. A one-run GPT-5 nano smoke test scored 16 of 24 hard assertions and
+failed the run, confirming that the eval detects the observed count-as-grams
+regression without depending on USDA or calorie results.
 
 ### Fixture assertions
 
@@ -1431,13 +1443,33 @@ through the CLI without provider or database dependencies.
 Implementation status: compact two-pass model adapter and deterministic bridge
 to the existing CLI calculation engine complete. Live repeated multilingual,
 image, structured-output reliability, and range calibration remain before
-release. A live `gpt-5-nano` smoke test on 2026-08-30 did not clear pass one:
-OpenRouter returned empty content for `openai/gpt-5-nano`, the free router
-returned invalid structured content, and direct OpenAI returned quota-exhausted
-`429`. Fixture-backed validation proves the contracts and complete local
-translation path, but is not evidence of live provider reliability. Debug CLI
-logging now includes safe finish reason, refusal presence, content length, and
-schema or semantic validation errors without printing provider payloads.
+release. A live `gpt-5-nano` text smoke test on 2026-08-30 completed both model
+passes through OpenRouter after conditional COUNT/AMOUNT requirements were
+moved into the JSON Schema. OpenRouter reported zero reasoning tokens for both
+calls. The run then stopped at the separately documented ambiguous USDA
+`flatbread` match. This is one successful sample, not evidence of repeated live
+provider reliability or output accuracy; it also exposed incorrect provenance
+and weak ingredient decomposition that need evaluation. Debug CLI logging
+captures finish reason, refusal presence, usage, full model content, and error
+bodies as separate pretty-printed JSON files in a unique temporary CLI artifact
+directory whose path is printed once to stderr. Full stage observations are
+stored there too. Ordered filenames identify the stage or pass, provider,
+model, and event. Each model success stores both the provider envelope and the
+parsed model output; errors use separate files. Raw payloads are not dumped to
+the console. Production requests must keep raw provider logging disabled. Both
+smoke-test passes used `reasoning_effort: minimal`, the lowest setting supported
+by legacy `gpt-5-nano`, which has no true `none` setting. The active meal-model
+defaults are now `gpt-5.6-luna`, and the two V3 interpretation passes use its
+supported `none` effort. OpenRouter calls require an
+endpoint that supports all requested parameters and use its documented strict
+`json_schema` response format.
+
+A subsequent unit-free-contract smoke test correctly omitted `portion.unit`,
+but changed the explicit roti count from four to two and returned an unordered
+`perUnitGrams` range. Post-schema semantic validation rejected that attempt
+before pass two. Cross-field ordering and preservation of explicit anchors
+remain release-gate concerns even when provider-level Structured Outputs
+accepts the JSON shape.
 
 - Keep separate strict schemas for component/portion parsing and quantified
   ingredient/variation decomposition.
@@ -1595,7 +1627,7 @@ does not require interpreting new sessions with the old engine.
 
 ### Adapter and cutover tests
 
-- provider failover treats semantic validation failure as a failed attempt;
+- the sole provider attempt treats semantic validation failure as a failure;
 - UTF-16 spans agree across backend and Flutter for emoji, combining marks,
   Indic, RTL, repeated-name, and substring fixtures;
 - CLI process tests cover JSON stdout, stderr prompts, exit codes, ephemeral

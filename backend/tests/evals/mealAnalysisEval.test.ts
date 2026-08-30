@@ -1,0 +1,164 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import {
+  assertionPassRates,
+  evaluateMealAnalysisRun,
+  type MealAnalysisEvalCase,
+} from '../../src/evals/mealAnalysisEval.js';
+
+const evalCase: MealAnalysisEvalCase = {
+  id: 'four-roti-daal',
+  input: {
+    text: '4 roti daal',
+    locale: 'en-IN',
+    countryCode: 'IN',
+    timeZone: 'Asia/Kolkata',
+    capturedAt: '2026-08-30T07:00:00.000Z',
+  },
+  expectedComponents: [
+    {
+      key: 'roti',
+      aliases: ['roti', 'chapati'],
+      portion: {
+        kind: 'COUNT', exact: 4, origin: 'user_text',
+        perUnitGrams: { estimateMin: 25, estimateMax: 80, origin: 'model_inferred' },
+      },
+      requiredIngredientGroups: [['flour', 'wheat', 'atta']],
+      diagnosticIngredientGroups: [['oil', 'ghee']],
+    },
+    {
+      key: 'daal',
+      aliases: ['daal', 'dal', 'lentil'],
+      portion: { kind: 'AMOUNT', estimateMin: 80, estimateMax: 400, origin: 'model_inferred' },
+      requiredIngredientGroups: [['daal', 'dal', 'lentil']],
+      diagnosticIngredientGroups: [['oil', 'ghee'], ['spice', 'masala']],
+    },
+  ],
+};
+
+const validFirstPass = {
+  food_detected: true,
+  mealNameCandidate: 'Roti with dal',
+  mealTypeCandidate: { value: 'LUNCH', origin: 'model_inferred' },
+  components: [
+    {
+      componentName: 'roti', canonicalIdentity: 'whole wheat flatbread',
+      portion: {
+        kind: 'COUNT', estimate: 4, min: 4, max: 4, origin: 'user_text',
+        perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
+      },
+      preparation: { method: 'TOASTED', origin: 'model_inferred' },
+    },
+    {
+      componentName: 'dal', canonicalIdentity: 'lentil curry',
+      portion: {
+        kind: 'AMOUNT', estimate: 180, min: 120, max: 260,
+        origin: 'model_inferred', perUnitGrams: null,
+      },
+      preparation: { method: 'SIMMERED', origin: 'model_inferred' },
+    },
+  ],
+};
+
+const validSecondPass = {
+  components: [
+    {
+      componentName: 'roti',
+      ingredients: [
+        {
+          ingredientName: 'whole wheat flour', canonicalIdentity: 'whole wheat flour',
+          amountGrams: { estimate: 35, min: 30, max: 40, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'water', canonicalIdentity: 'water',
+          amountGrams: { estimate: 20, min: 15, max: 25, origin: 'model_inferred' },
+        },
+      ],
+      variations: [],
+    },
+    {
+      componentName: 'dal',
+      ingredients: [
+        {
+          ingredientName: 'lentils', canonicalIdentity: 'lentils',
+          amountGrams: { estimate: 55, min: 45, max: 65, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'water', canonicalIdentity: 'water',
+          amountGrams: { estimate: 110, min: 80, max: 150, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'cooking oil', canonicalIdentity: 'vegetable oil',
+          amountGrams: { estimate: 8, min: 4, max: 12, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'spices', canonicalIdentity: 'mixed spices',
+          amountGrams: { estimate: 3, min: 2, max: 5, origin: 'model_inferred' },
+        },
+      ],
+      variations: [
+        { variationType: 'INGREDIENT_AMOUNT', ingredientName: 'cooking oil', alternatives: [] },
+      ],
+    },
+  ],
+};
+
+test('passes hard assertions while leaving optional ingredients diagnostic', () => {
+  const result = evaluateMealAnalysisRun(evalCase, validFirstPass, validSecondPass);
+
+  assert.equal(result.passed, true);
+  assert.equal(result.hardPassed, result.hardTotal);
+  assert.equal(
+    result.assertions.find((assertion) =>
+      assertion.id === 'pass2.roti.diagnostic-ingredient-1')?.passed,
+    false
+  );
+});
+
+test('rejects treating an explicit roti count as grams', () => {
+  const incorrect = structuredClone(validFirstPass);
+  incorrect.components[0]!.portion = {
+    kind: 'AMOUNT', estimate: 4, min: 4, max: 4,
+    origin: 'user_text', perUnitGrams: null,
+  };
+
+  const result = evaluateMealAnalysisRun(evalCase, incorrect, validSecondPass);
+  assert.equal(result.passed, false);
+  assert.equal(
+    result.assertions.find((assertion) => assertion.id === 'pass1.roti.portion-kind')?.passed,
+    false
+  );
+});
+
+test('rejects user provenance on inferred ingredient amounts and dangling variations', () => {
+  const incorrect = structuredClone(validSecondPass);
+  incorrect.components[0]!.ingredients[0]!.amountGrams.origin = 'user_text';
+  incorrect.components[0]!.variations.push({
+    variationType: 'INGREDIENT_VARIANT',
+    ingredientName: 'roti',
+    alternatives: ['chapati'],
+  });
+
+  const result = evaluateMealAnalysisRun(evalCase, validFirstPass, incorrect);
+  assert.equal(result.passed, false);
+  assert.equal(
+    result.assertions.find((assertion) => assertion.id === 'pass2.amount-origins')?.passed,
+    false
+  );
+  assert.equal(
+    result.assertions.find((assertion) => assertion.id === 'pass2.variation-references')?.passed,
+    false
+  );
+});
+
+test('reports assertion pass rates without applying a threshold', () => {
+  const passing = evaluateMealAnalysisRun(evalCase, validFirstPass, validSecondPass);
+  const failingFirstPass = { ...validFirstPass, components: [] };
+  const failing = evaluateMealAnalysisRun(evalCase, failingFirstPass, undefined, 'provider failed');
+  const rates = assertionPassRates([passing, failing]);
+
+  assert.deepEqual(
+    rates.find((rate) => rate.id === 'pass1.component-count'),
+    { id: 'pass1.component-count', kind: 'hard', passed: 1, total: 2, passRate: 0.5 }
+  );
+});

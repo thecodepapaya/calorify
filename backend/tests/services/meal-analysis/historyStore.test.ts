@@ -88,7 +88,7 @@ test('buildSafeTraceSummary retains review artifacts but strips secret and URL f
       name: 'nutrition_match', capturedAtOffsetMs: 12,
       data: { fdcId: '123', description: 'Rice', apiKey: 'secret', imageUrl: 'signed' },
     }],
-    llmAttempts: [{ provider: 'openai', model: 'gpt-test', outcome: 'success', durationMs: 9 }],
+    llmAttempts: [{ provider: 'openrouter', model: 'openai/gpt-test', outcome: 'success', durationMs: 9 }],
     llmCallCount: 1, usdaLookupCount: 1, dbWriteCount: 0,
   }, 1_020);
 

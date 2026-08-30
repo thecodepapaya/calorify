@@ -25,10 +25,10 @@ describe('metrics', () => {
   });
 
   it('instrumentAiCall records success outcome and returns the value', async () => {
-    const out = await instrumentAiCall('openai', async () => 'ok');
+    const out = await instrumentAiCall('openrouter', async () => 'ok');
     assert.equal(out, 'ok');
     const text = await registry.metrics();
-    assert.match(text, /ai_requests_total\{[^}]*provider="openai"[^}]*outcome="success"[^}]*\} 1/);
+    assert.match(text, /ai_requests_total\{[^}]*provider="openrouter"[^}]*outcome="success"[^}]*\} 1/);
   });
 
   it('instrumentAiCall records error outcome and re-throws', async () => {
@@ -43,16 +43,16 @@ describe('metrics', () => {
   });
 
   it('recordCircuitBreakerState writes the numeric state', async () => {
-    recordCircuitBreakerState('openai-food-analysis', 'CLOSED');
-    recordCircuitBreakerState('openrouter-food-analysis', 'OPEN');
+    recordCircuitBreakerState('meal-analysis', 'CLOSED');
+    recordCircuitBreakerState('ai-summary', 'OPEN');
     const text = await registry.metrics();
-    assert.match(text, /circuit_breaker_state\{[^}]*name="openai-food-analysis"[^}]*\} 0/);
-    assert.match(text, /circuit_breaker_state\{[^}]*name="openrouter-food-analysis"[^}]*\} 2/);
+    assert.match(text, /circuit_breaker_state\{[^}]*name="meal-analysis"[^}]*\} 0/);
+    assert.match(text, /circuit_breaker_state\{[^}]*name="ai-summary"[^}]*\} 2/);
   });
 
   it('aiRequestsTotal counter also exposed via registry', async () => {
-    aiRequestsTotal.labels({ provider: 'openai', outcome: 'success' }).inc();
+    aiRequestsTotal.labels({ provider: 'openrouter', outcome: 'success' }).inc();
     const text = await registry.metrics();
-    assert.match(text, /ai_requests_total\{[^}]*provider="openai"[^}]*outcome="success"[^}]*\} 1/);
+    assert.match(text, /ai_requests_total\{[^}]*provider="openrouter"[^}]*outcome="success"[^}]*\} 1/);
   });
 });

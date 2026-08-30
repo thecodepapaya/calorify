@@ -1,34 +1,97 @@
-# Calorie estimation evals
+# Meal-analysis model eval
 
-The evaluator exercises the deployed HTTP streaming flow and resumable pipeline.
+This live model eval tests the two meal-decomposition LLM passes directly. Its
+purpose is to measure whether a selected model reliably preserves explicit user
+information and produces plausible structured estimates.
 
-## Run the regression suite
+The dataset currently contains one fixed case: `4 roti daal`, with `en-IN`,
+country `IN`, timezone `Asia/Kolkata`, and a fixed timestamp. Five repetitions
+run by default so model variability is visible.
 
-The versioned dataset in `calorie-estimation.cases.json` is split into development and holdout cases. Each expected range includes provenance.
+USDA resolution, calories, macros, clarification selection, meal-type
+resolution, presentation, and the HTTP flow are intentionally outside this
+eval. USDA-backed nutrition calculations are deterministic and should be tested
+separately.
+
+## Files
+
+- `meal-analysis.cases.json` contains the inputs and expected semantic bounds.
+- `../src/evals/mealAnalysisEval.ts` runs and scores one repetition.
+- `../src/scripts/meal-analysis-eval.ts` provides the command-line runner and
+  aggregate report.
+- `../tests/evals/mealAnalysisEval.test.ts` tests the evaluator itself without
+  making live model calls.
+
+## Run
 
 ```bash
-# Fast development check
-npm run calories:eval
-
-# Inspect selected failures in detail
-npm run calories:eval -- --case indian-roti-dal-curd,dry-oats-100g --verbose
-
-# Release stability check with a durable artifact
-npm run calories:eval -- --split all --repeats 3 --output calorie-eval-report.json
-
-# Machine-readable stdout for CI
-npm run calories:eval -- --split holdout --repeats 3 --json
+npm run meal-analysis:eval
+npm run meal-analysis:eval -- --model openai/gpt-5.6-luna
+npm run meal-analysis:eval -- --model gpt-5-nano --repeats 3
 ```
 
-The runner calls the configured API origin, records the event path and analysis ID, accepts default portion clarifications, uses each dataset case's declared meal type, and reports confidence, ingredient grounding, stability, completion, accuracy, and latency. Set `CALORIE_EVAL_AUTH_TOKEN` (or pass `--auth-token`) for authenticated routes. `CALORIE_EVAL_BASE_URL`, `CALORIE_EVAL_DATASET`, and `CALORIE_EVAL_REPEATS` change the other defaults.
+`OPENROUTER_API_KEY` is required for a live run. Available options are:
 
-Live-provider evals are intentionally not ordinary pull-request unit tests. Deterministic matching, quantity parsing, and macro arithmetic stay covered by unit tests; run the full suite against a protected local or staging environment before a release.
+- `--model <name>` selects the OpenRouter model. Bare OpenAI model names receive
+  the `openai/` prefix.
+- `--repeats <count>` controls repetitions per case; the default is five.
+- `--case <id>` runs a single dataset case.
+- `--dataset <path>` uses another compatible case file.
+- `--output-directory <path>` chooses the artifact directory instead of making
+  one under the operating system's temporary directory.
+- `--help` prints command usage.
 
-For a single local full-flow text run, including terminal no-food handling and
-durable continuation, use `npm run meal-analysis -- --text "..."`. It calls the
-application pipeline directly; this regression evaluator remains the tool for
-dataset-level deployed HTTP accuracy and stability checks.
+The selected model is used through OpenRouter with no fallback. A run therefore
+cannot silently be credited to another model.
+Legacy GPT-5 nano uses `minimal` reasoning effort; GPT-5.1 and newer use
+`none`.
 
-## Historical grounding lessons
+The command prints a temporary artifact directory. Every provider response,
+parsed model output, provider error, run result, and the aggregate
+`summary.json` is stored there as pretty-printed JSON.
 
-Earlier decomposition-only runs reached roughly 98–100% USDA hint hit rates, but hit rate alone did not prove calorie accuracy. The durable lessons retained in the current engine are: keep lookup hints atomic and English, decompose composite dishes, preserve raw/cooked/dry state, prefer deterministic trustworthy reference rows, and use semantic aliases only where lexical matching cannot express cuisine or preparation equivalence.
+The console output stays compact: it shows the artifact path, selected model,
+reasoning effort, each repetition's result, and aggregate pass rate. Inspect the
+separate JSON files when a response or assertion needs diagnosis.
+
+## Scoring
+
+Hard assertions cover:
+
+- strict pass-one and pass-two schemas;
+- semantic recognition of roti and daal, without requiring exact spelling;
+- preservation of the explicit count of four as `COUNT` with `user_text`
+  provenance;
+- inferred per-roti grams in the accepted 25–80 g estimate window;
+- inferred daal serving grams in the accepted 80–400 g estimate window;
+- ordered ranges and absence of the redundant `unit` field;
+- exact component correspondence between passes;
+- `model_inferred` provenance for every ingredient amount;
+- valid ingredient variation references;
+- flour in the roti recipe and lentils/pulses in the daal recipe.
+
+Optional fat/spice coverage and ingredient-to-serving mass coherence are
+diagnostic. They do not determine a run's pass/fail result yet.
+
+Every hard assertion must pass for a repetition to pass. The command reports
+the repetition pass rate and each assertion's pass rate, but it does not enforce
+a release threshold. Model assertion failures therefore produce a report
+without making the command fail; configuration and runner errors still return
+a non-zero exit status.
+
+## Comparing models
+
+Run each model against the same case and repetition count, then compare the
+generated `summary.json` files. Each summary records the model, reasoning
+effort, repetition totals, overall pass rate, and per-assertion pass rates.
+Because fallback is disabled, every result belongs to the model named in that
+summary.
+
+```bash
+npm run meal-analysis:eval -- --model gpt-5-nano --repeats 5
+npm run meal-analysis:eval -- --model gpt-5.6-luna --repeats 5
+```
+
+Keep the current plausibility windows unchanged during a model comparison.
+Change them only when the product expectation itself changes, and record that
+change alongside the dataset.

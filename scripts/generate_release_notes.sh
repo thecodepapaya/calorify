@@ -16,7 +16,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/common.sh"
 
 CHANGELOG_MAX_LENGTH=500
-OPENAI_MODEL="gpt-5-mini"
+OPENAI_MODEL="gpt-5.6-luna"
 DRY_RUN=false
 OVERWRITE=false
 SINCE_REF=""

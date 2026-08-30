@@ -39,7 +39,7 @@ Use this page to find the document that matches the work you are doing.
 - [Historical local-inference phases 1–3 release candidate](../backend/docs/local-inference-phases-1-3-release-candidate.md)
 - [Historical local-inference Phase 4 release candidate](../backend/docs/local-inference-phase-4-release-candidate.md)
 - [Meal-analysis Prometheus metrics](../backend/docs/meal-analysis-prometheus.md)
-- [Calorie-estimation evals](../backend/evals/README.md)
+- [Meal-analysis model eval](../backend/evals/README.md)
 
 ## Other references
 

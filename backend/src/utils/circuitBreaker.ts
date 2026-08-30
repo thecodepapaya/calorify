@@ -10,7 +10,7 @@
  *               trial resolves. Success closes the breaker; failure re-opens it.
  *
  * Consecutive failures only — any success resets the counter. Dependency-free; use one breaker
- * per upstream (e.g. one for OpenRouter and one for direct OpenAI).
+ * per upstream service.
  */
 
 export type CircuitState = 'CLOSED' | 'OPEN' | 'HALF_OPEN';

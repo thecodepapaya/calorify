@@ -95,7 +95,7 @@ const firstPass = {
     {
       componentName: 'daal', canonicalIdentity: 'cooked lentil curry',
       portion: {
-        kind: 'AMOUNT', unit: 'GRAM', estimate: 150, min: 120, max: 180,
+        kind: 'AMOUNT', estimate: 150, min: 120, max: 180,
         origin: 'model_inferred', perUnitGrams: null,
       },
       preparation: { method: 'SIMMERED', origin: 'model_inferred' },
@@ -103,7 +103,7 @@ const firstPass = {
     {
       componentName: 'roti', canonicalIdentity: 'whole wheat flatbread',
       portion: {
-        kind: 'COUNT', unit: 'COUNT', estimate: 4, min: 4, max: 4,
+        kind: 'COUNT', estimate: 4, min: 4, max: 4,
         origin: 'user_text',
         perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
       },
@@ -152,6 +152,18 @@ const secondPass = {
   ],
 };
 
+test('two-pass fixtures reject the redundant portion unit field', async () => {
+  const withUnit = structuredClone(firstPass) as typeof firstPass & {
+    components: Array<{ portion: Record<string, unknown> }>;
+  };
+  withUnit.components[0]!.portion.unit = 'GRAM';
+
+  await assert.rejects(
+    createTwoPassFixtureMealInterpreter(withUnit, secondPass).interpret(compactInput),
+    /unrecognized|unit/i
+  );
+});
+
 test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {
   const result = await createTwoPassFixtureMealInterpreter(firstPass, secondPass).interpret(compactInput);
   assert.equal(result.proposal.outcome, 'FOOD');
@@ -175,7 +187,7 @@ test('two-pass fixture expands compact daal and roti responses into calculation 
 
 test('model adapter performs two observable compact calls', async () => {
   const values = [firstPass, secondPass];
-  const requests: Array<{ name: string; operation?: string }> = [];
+  const requests: Array<{ name: string; operation?: string; reasoningEffort?: string }> = [];
   const client: MealAnalysisLlmClient = {
     chat: {
       completions: {
@@ -183,7 +195,8 @@ test('model adapter performs two observable compact calls', async () => {
           const value = values[requests.length]!;
           requests.push({ name: request.response_format?.type === 'json_schema'
             ? request.response_format.json_schema.name
-            : '', operation: context?.operation });
+            : '', operation: context?.operation,
+          reasoningEffort: request.reasoning_effort });
           context?.validateStructuredContent?.(value);
           return {
             choices: [{ message: { content: JSON.stringify(value) } }],
@@ -196,8 +209,16 @@ test('model adapter performs two observable compact calls', async () => {
   const result = await createModelMealInterpreter(client).interpret(compactInput);
   assert.equal(result.proposal.outcome, 'FOOD');
   assert.deepEqual(requests, [
-    { name: 'meal_components_v3', operation: 'interpret_v3_components_text' },
-    { name: 'meal_ingredients_v3', operation: 'interpret_v3_ingredients_text' },
+    {
+      name: 'meal_components_v3',
+      operation: 'interpret_v3_components_text',
+      reasoningEffort: 'none',
+    },
+    {
+      name: 'meal_ingredients_v3',
+      operation: 'interpret_v3_ingredients_text',
+      reasoningEffort: 'none',
+    },
   ]);
   assert.deepEqual(result.rawProposal, { firstPass, secondPass });
 });

@@ -135,17 +135,17 @@ function observation(overrides: Partial<StageObservation> = {}): StageObservatio
   };
 }
 
-test('human observer prints a readable stage and pretty input/output blocks', async () => {
+test('human observer prints one concise line and forwards the full observation', async () => {
   let written = '';
-  const observer = createHumanStageObserver({ write: (chunk) => { written += chunk; } });
+  const observations: unknown[] = [];
+  const observer = createHumanStageObserver(
+    { write: (chunk) => { written += chunk; } },
+    (value) => { observations.push(value); }
+  );
   await observer(observation());
 
-  assert.equal(
-    written,
-    '[03] INTERPRETED · 17 ms\n' +
-      'input:\n{\n  "text": "dal and rice"\n}\n' +
-      'output:\n{\n  "components": 2\n}\n'
-  );
+  assert.equal(written, '[03] INTERPRETED · 17 ms\n');
+  assert.deepEqual(observations, [observation()]);
 });
 
 test('NDJSON observer emits exactly one sanitized observation per line', async () => {

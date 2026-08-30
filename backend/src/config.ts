@@ -39,7 +39,6 @@ interface Config {
     /** Dedicated model override used by the scenario-heavy V3 interpreter. */
     readonly OPENROUTER_MEAL_V3_MODEL: string;
     readonly OPENROUTER_AI_SUMMARY_MODEL: string;
-    readonly OPENROUTER_FREE_MODEL: string;
     readonly OPENROUTER_HTTP_REFERER: string | null;
     readonly ORACLE_BUCKET_UPLOAD_URL: string;
     readonly ORACLE_BUCKET_DOWNLOAD_URL: string;
@@ -185,19 +184,16 @@ const config: Config = {
     ),
     OPENROUTER_MEAL_MODEL: getEnvVar(
         'OPENROUTER_MEAL_MODEL',
-        'openai/gpt-5-nano'
+        'openai/gpt-5.6-luna'
     ),
     OPENROUTER_MEAL_V3_MODEL: getEnvVar(
         'OPENROUTER_MEAL_V3_MODEL',
-        'openai/gpt-5-nano'
+        'openai/gpt-5.6-luna'
     ),
     OPENROUTER_AI_SUMMARY_MODEL: getEnvVar(
         'OPENROUTER_AI_SUMMARY_MODEL',
-        ''
+        'openai/gpt-5.6-luna'
     ),
-    // OpenRouter selects a currently available free model that supports the
-    // request's capabilities (vision / structured output where required).
-    OPENROUTER_FREE_MODEL: getEnvVar('OPENROUTER_FREE_MODEL', 'openrouter/free'),
     OPENROUTER_HTTP_REFERER: getEnvVarOptional('OPENROUTER_HTTP_REFERER'),
     // PAR bases come from env. The upload URL is secret; the read URL is returned to clients.
     ORACLE_BUCKET_UPLOAD_URL: getEnvVar('ORACLE_BUCKET_UPLOAD_URL', ''),

@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "description": "Two-pass meal interpretation evals. USDA resolution, calories, macros, clarification, and presentation are intentionally excluded.",
+  "cases": [
+    {
+      "id": "four-roti-daal",
+      "input": {
+        "text": "4 roti daal",
+        "locale": "en-IN",
+        "countryCode": "IN",
+        "timeZone": "Asia/Kolkata",
+        "capturedAt": "2026-08-30T07:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "roti",
+          "aliases": ["roti", "chapati"],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 4,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 25,
+              "estimateMax": 80,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            ["flour", "wheat", "atta"]
+          ],
+          "diagnosticIngredientGroups": [
+            ["oil", "ghee", "butter", "fat"]
+          ]
+        },
+        {
+          "key": "daal",
+          "aliases": ["daal", "dal", "lentil", "pulse", "toor", "moong", "masoor"],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 80,
+            "estimateMax": 400,
+            "origin": "model_inferred"
+          },
+          "requiredIngredientGroups": [
+            ["daal", "dal", "lentil", "pulse", "toor", "moong", "masoor", "chana"]
+          ],
+          "diagnosticIngredientGroups": [
+            ["oil", "ghee", "butter", "fat"],
+            ["spice", "masala", "turmeric", "cumin"]
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -17,9 +17,8 @@ the normal order.
 
 1. Install Node.js 22 or newer and run `npm ci`.
 2. Configure `USDA_DATABASE_URL` for the local read-only USDA database.
-3. Configure `OPENROUTER_API_KEY` or `OPENAI_API_KEY` for live interpretation
-   and presentation.
-   `OPENROUTER_MEAL_V3_MODEL` defaults to `openai/gpt-5-nano`.
+3. Configure `OPENROUTER_API_KEY` for live interpretation and presentation.
+   `OPENROUTER_MEAL_V3_MODEL` defaults to `openai/gpt-5.6-luna`.
 4. Start and populate the local USDA service when no active snapshot exists:
 
    ```bash
@@ -73,15 +72,15 @@ npm run meal-analysis -- \
   --time-zone America/New_York
 ```
 
-Each stage is printed as a readable block:
+Normal interactive mode prints one concise line per stage:
 
 ```text
 [01] INPUT_NORMALIZED · 1 ms
-input:
-{ ... }
-output:
-{ ... }
 ```
+
+The complete input and output for every stage is written as a separate,
+pretty-printed JSON file in the temporary `CLI artifacts` directory printed at
+startup. This applies to live and fixture-backed runs.
 
 If clarification is material, enter an displayed option ID, a valid number,
 or `estimate` to preserve the current estimate. No response is selected by
@@ -119,10 +118,24 @@ provider-attempt metadata. Provider operation names distinguish component and
 ingredient passes. Nutrition output includes the selected trusted record or
 bounded candidate rejection diagnostics for every scenario leaf.
 
+Live CLI interpretation sends `reasoning_effort: none`, which is supported by
+the default `gpt-5.6-luna` model.
+OpenRouter requests follow its structured-output contract with
+`response_format.type: json_schema`, `strict: true`, and
+`provider.require_parameters: true`. For hypothesis debugging only, every raw
+provider response and provider error is written to the temporary CLI artifact
+directory as separate, pretty-printed JSON files. Each successful call has a
+provider-response file and a parsed model-output file, so the structured result
+can be inspected without unescaping a message string. Errors have their own
+files. Ordered filenames include the operation, provider, model, and event. The
+CLI prints that directory path once to stderr instead of dumping payloads on
+the console. The production backend does not enable raw provider logging.
+
 ## NDJSON and repeatable input
 
-`--json` writes exactly one stage observation per stdout line and never
-prompts:
+`--json` is the explicit machine-streaming mode: it writes exactly one stage
+observation per stdout line and never prompts. It also retains the separate
+stage artifact files:
 
 ```bash
 npm run --silent meal-analysis -- \
@@ -209,7 +222,7 @@ reported as zero. The CLI never substitutes model-generated nutrition.
 ## Troubleshooting
 
 - `NO_ACTIVE_DATASET`: run USDA maintenance and verify `USDA_DATABASE_URL`.
-- `All meal analysis LLM providers failed`: inspect the provider-attempt
+- `Meal analysis LLM provider failed`: inspect the provider-attempt
   metadata on stderr and verify keys, quota, and the configured model.
 - `UNRESOLVED_NUTRITION`: inspect `NUTRITION_RESOLVED` candidate diagnostics;
   ambiguous or missing data is intentionally not guessed.

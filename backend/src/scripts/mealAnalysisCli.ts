@@ -1,4 +1,6 @@
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { stdin, stderr, stdout } from 'node:process';
 import { createInterface } from 'node:readline/promises';
 import config from '../config.js';
@@ -12,6 +14,7 @@ import type {
 } from '../services/meal-analysis-v3/calculation.js';
 import {
   createFixtureMealInterpreter,
+  createModelMealInterpreter,
   createTwoPassFixtureMealInterpreter,
 } from '../services/meal-analysis-v3/interpretation.js';
 import type {
@@ -51,6 +54,47 @@ async function readProposal(path: string): Promise<unknown> {
   } catch {
     throw new MealAnalysisCliInputError(`Unable to read proposal JSON: ${path}`);
   }
+}
+
+async function createCliArtifacts(): Promise<{
+  directory: string;
+  write(entry: unknown): Promise<void>;
+}> {
+  const directory = await mkdtemp(join(tmpdir(), 'calorify-meal-analysis-'));
+  let sequence = 0;
+  let writeFailureReported = false;
+  return {
+    directory,
+    async write(entry) {
+      sequence += 1;
+      const record = entry !== null && typeof entry === 'object'
+        ? entry as Record<string, unknown>
+        : {};
+      const safePart = (value: unknown) => String(value ?? 'unknown')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+      const filenameParts = record.event === 'stage'
+        ? [String(sequence).padStart(3, '0'), 'stage', record.sequence, record.stage]
+        : [
+            String(sequence).padStart(3, '0'),
+            record.operation,
+            record.provider,
+            record.model,
+            record.event,
+          ];
+      const filename = filenameParts.map(safePart).join('-') + '.json';
+      const path = join(directory, filename);
+      try {
+        await writeFile(path, `${JSON.stringify(entry, null, 2)}\n`, 'utf8');
+      } catch {
+        if (!writeFailureReported) {
+          writeFailureReported = true;
+          stderr.write(`Unable to write CLI artifact directory: ${directory}\n`);
+        }
+      }
+    },
+  };
 }
 
 function optionLines(question: NutritionQuestion): string {
@@ -224,6 +268,17 @@ export async function runMealAnalysisCli(argv = process.argv): Promise<number> {
     const secondPassFixture = cliOptions.secondPassPath
       ? await readProposal(cliOptions.secondPassPath)
       : undefined;
+    const usesLiveInterpreter = fixtureProposal === undefined
+      && firstPassFixture === undefined
+      && secondPassFixture === undefined;
+    const artifacts = await createCliArtifacts();
+    stderr.write(`CLI artifacts: ${artifacts.directory}\n`);
+    const writeStageArtifact = (observation: unknown) => artifacts.write({
+      event: 'stage',
+      ...(observation !== null && typeof observation === 'object'
+        ? observation as Record<string, unknown>
+        : { observation }),
+    });
     const nutritionAnswers = parseMealAnalysisCliAnswers(cliOptions.answers);
     if (!config.USDA_DATABASE_URL && !config.DATABASE_URL) {
       throw new Error('USDA_DATABASE_URL or DATABASE_URL is not set');
@@ -241,13 +296,15 @@ export async function runMealAnalysisCli(argv = process.argv): Promise<number> {
         ? { interpreter: createFixtureMealInterpreter(fixtureProposal) }
         : firstPassFixture !== undefined && secondPassFixture !== undefined
           ? { interpreter: createTwoPassFixtureMealInterpreter(firstPassFixture, secondPassFixture) }
-        : {}),
+          : { interpreter: createModelMealInterpreter(undefined, undefined, {
+              writeProviderTrace: usesLiveInterpreter ? artifacts.write : undefined,
+            }) }),
       ...(nutritionAnswers !== undefined ? { nutritionAnswers } : {}),
       ...(cliOptions.mealType ? { mealTypeAnswer: cliOptions.mealType } : {}),
       ...(interactive ? { requestInput: interactive.requestInput } : {}),
       observer: cliOptions.json
-        ? createNdjsonStageObserver(stdout)
-        : createHumanStageObserver(stdout),
+        ? createNdjsonStageObserver(stdout, writeStageArtifact)
+        : createHumanStageObserver(stdout, writeStageArtifact),
     });
     if (!cliOptions.json) printSummary(result);
     return exitCode(result);

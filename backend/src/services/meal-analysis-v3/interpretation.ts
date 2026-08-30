@@ -1,5 +1,4 @@
 import config from '../../config.js';
-import { OPENAI_MEAL_ANALYSIS_MODEL } from '../../openaiModels.js';
 import {
   createMealAnalysisLlmClient,
   type MealAnalysisLlmAttempt,
@@ -82,11 +81,12 @@ async function structuredCall(
     schema: Record<string, unknown>;
     maxCompletionTokens: number;
     operation: string;
+    reasoningEffort: 'none' | 'minimal';
     validate(value: unknown): void;
   },
 ): Promise<unknown> {
   const response = await client.chat.completions.create({
-    model: OPENAI_MEAL_ANALYSIS_MODEL,
+    model: config.OPENROUTER_MEAL_V3_MODEL,
     messages: [
       { role: 'system', content: options.systemPrompt },
       { role: 'user', content: options.userContent },
@@ -95,6 +95,8 @@ async function structuredCall(
       type: 'json_schema',
       json_schema: { name: options.schemaName, schema: options.schema, strict: true },
     },
+    // The installed SDK types predate GPT-5.6 Luna's `none` value.
+    reasoning_effort: options.reasoningEffort as 'low',
     max_completion_tokens: options.maxCompletionTokens,
   }, {
     operation: options.operation,
@@ -108,7 +110,11 @@ async function structuredCall(
 /** Runs the compact component pass followed by the quantified ingredient pass. */
 export function createModelMealInterpreter(
   suppliedClient?: MealAnalysisLlmClient,
-  observeCandidate?: (value: unknown) => void
+  observeCandidate?: (value: unknown) => void,
+  options: {
+    writeProviderTrace?: (entry: unknown) => void | Promise<void>;
+    reasoningEffort?: 'none' | 'minimal';
+  } = {}
 ): MealInterpreter {
   return {
     async interpret(input, image) {
@@ -117,6 +123,7 @@ export function createModelMealInterpreter(
       const client = suppliedClient ?? createMealAnalysisLlmClient({
         onAttempt: (attempt) => providerAttempts.push(attempt),
         openRouterModel: config.OPENROUTER_MEAL_V3_MODEL,
+        writeProviderTrace: options.writeProviderTrace,
       });
       const inputDescription = input.kind === 'TEXT'
         ? `${contextText(input)}\n\nMeal text:\n${input.text}`
@@ -126,8 +133,9 @@ export function createModelMealInterpreter(
         userContent: userContent(inputDescription, checkedImage),
         schemaName: 'meal_components_v3',
         schema: FIRST_PASS_RESPONSE_JSON_SCHEMA,
-        maxCompletionTokens: 3_000,
-        operation: input.kind === 'TEXT' ? 'interpret_v3_components_text' : 'interpret_v3_components_image',
+          maxCompletionTokens: 3_000,
+          operation: input.kind === 'TEXT' ? 'interpret_v3_components_text' : 'interpret_v3_components_image',
+          reasoningEffort: options.reasoningEffort ?? 'none',
         validate(value) {
           observeCandidate?.({ pass: 1, value });
           firstPassResponseSchema.parse(value);
@@ -150,8 +158,9 @@ export function createModelMealInterpreter(
         userContent: userContent(secondDescription, checkedImage),
         schemaName: 'meal_ingredients_v3',
         schema: SECOND_PASS_RESPONSE_JSON_SCHEMA,
-        maxCompletionTokens: 6_000,
-        operation: input.kind === 'TEXT' ? 'interpret_v3_ingredients_text' : 'interpret_v3_ingredients_image',
+          maxCompletionTokens: 6_000,
+          operation: input.kind === 'TEXT' ? 'interpret_v3_ingredients_text' : 'interpret_v3_ingredients_image',
+          reasoningEffort: options.reasoningEffort ?? 'none',
         validate(value) {
           observeCandidate?.({ pass: 2, value });
           secondPassResponseSchema.parse(value);

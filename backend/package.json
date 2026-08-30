@@ -12,7 +12,7 @@
         "test:coverage": "c8 --all --include='src/**/*.ts' --exclude='src/protos/**' --exclude='src/scripts/**' --exclude='src/index.ts' --reporter=text --reporter=lcov --check-coverage --lines=80 --branches=70 --functions=80 --statements=80 npm test",
         "lint": "eslint src tests --ext .ts",
         "type-check": "tsc --noEmit",
-        "calories:eval": "tsx src/scripts/calorie-estimation-eval.ts",
+        "meal-analysis:eval": "tsx src/scripts/meal-analysis-eval.ts",
         "meal-analysis": "tsx src/scripts/meal-analysis-cli.ts",
         "meal-analysis:local": "bash scripts/meal-analysis-local.sh",
         "push-banner": "tsx src/scripts/push-banner.ts",

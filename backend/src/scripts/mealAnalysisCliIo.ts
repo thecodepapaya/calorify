@@ -187,32 +187,24 @@ function observableObservation(observation: StageObservation): unknown {
   return safeObservationValue(observation, undefined, new WeakSet<object>());
 }
 
-function pretty(value: unknown): string {
-  const encoded = JSON.stringify(
-    safeObservationValue(value, undefined, new WeakSet<object>()),
-    null,
-    2
-  );
-  return encoded ?? String(value);
-}
-
 export function createHumanStageObserver(
-  output: MealAnalysisCliTextOutput
+  output: MealAnalysisCliTextOutput,
+  writeObservation?: (observation: unknown) => void | Promise<void>
 ): StageObserver {
-  return (observation) => {
+  return async (observation) => {
     const sequence = String(observation.sequence).padStart(2, '0');
-    output.write(
-      `[${sequence}] ${observation.stage} · ${Math.round(observation.durationMs)} ms\n` +
-      `input:\n${pretty(observation.input)}\n` +
-      `output:\n${pretty(observation.output)}\n`
-    );
+    output.write(`[${sequence}] ${observation.stage} · ${Math.round(observation.durationMs)} ms\n`);
+    await writeObservation?.(observableObservation(observation));
   };
 }
 
 export function createNdjsonStageObserver(
-  output: MealAnalysisCliTextOutput
+  output: MealAnalysisCliTextOutput,
+  writeObservation?: (observation: unknown) => void | Promise<void>
 ): StageObserver {
-  return (observation) => {
-    output.write(`${JSON.stringify(observableObservation(observation))}\n`);
+  return async (observation) => {
+    const observable = observableObservation(observation);
+    output.write(`${JSON.stringify(observable)}\n`);
+    await writeObservation?.(observable);
   };
 }

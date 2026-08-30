@@ -11,7 +11,6 @@
       "canonicalIdentity": "cooked lentil curry",
       "portion": {
         "kind": "AMOUNT",
-        "unit": "GRAM",
         "estimate": 150,
         "min": 120,
         "max": 180,
@@ -28,7 +27,6 @@
       "canonicalIdentity": "whole wheat flatbread",
       "portion": {
         "kind": "COUNT",
-        "unit": "COUNT",
         "estimate": 4,
         "min": 4,
         "max": 4,

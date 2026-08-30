@@ -1,6 +1,5 @@
 import OpenAI from 'openai';
 import config from '../../config.js';
-import { OPENAI_MEAL_ANALYSIS_MODEL } from '../../openaiModels.js';
 import { safeErrorKind } from '../../utils/safeError.js';
 import { instrumentAiCall } from '../infrastructure/metrics.js';
 
@@ -20,14 +19,14 @@ export interface MealAnalysisLlmCallContext {
   /**
    * Runs inside each provider attempt, before the attempt is considered
    * successful. V3 uses this for complete Zod and semantic validation so a
-   * structurally valid but unusable response advances provider failover.
+   * structurally valid but unusable response fails the call.
    */
   validateStructuredContent?: (value: unknown) => void;
 }
 
 export interface MealAnalysisLlmAttempt {
   operation?: string;
-  provider: 'openrouter' | 'openai';
+  provider: 'openrouter';
   model: string;
   outcome: 'success' | 'error';
   durationMs: number;
@@ -38,13 +37,9 @@ export interface MealAnalysisLlmClientOptions {
   onAttempt?: (attempt: MealAnalysisLlmAttempt) => void;
   /** Optional primary OpenRouter model for a workflow with a different complexity budget. */
   openRouterModel?: string;
+  /** Local CLI diagnostic sink. Never enable this for production requests. */
+  writeProviderTrace?: (entry: unknown) => void | Promise<void>;
 }
-
-type ProviderAttempt = {
-  provider: 'openrouter' | 'openai';
-  model: string;
-  client: OpenAI;
-};
 
 type JsonSchema = {
   type?: string;
@@ -139,6 +134,16 @@ function completionDebugDetail(response: CompletionResponse): Readonly<Record<st
   };
 }
 
+function modelOutputForTrace(response: CompletionResponse): unknown {
+  const content = response.choices[0]?.message?.content;
+  if (typeof content !== 'string') return content ?? null;
+  try {
+    return JSON.parse(content) as unknown;
+  } catch {
+    return content;
+  }
+}
+
 function validateStructuredContent(
   response: CompletionResponse,
   request: CompletionRequest
@@ -229,55 +234,51 @@ function logDebugError(error: unknown): void {
   }
 }
 
+function observableProviderError(error: unknown): unknown {
+  if (!(error instanceof Error)) return error;
+  const providerError = error as Error & {
+    status?: unknown;
+    code?: unknown;
+    type?: unknown;
+    error?: unknown;
+    request_id?: unknown;
+    debugDetail?: unknown;
+  };
+  return {
+    name: providerError.name,
+    message: providerError.message,
+    status: providerError.status,
+    code: providerError.code,
+    type: providerError.type,
+    requestId: providerError.request_id,
+    providerBody: providerError.error,
+    debugDetail: providerError.debugDetail,
+    stack: providerError.stack,
+  };
+}
+
 /**
- * OpenRouter-first client for meal analysis.
- *
- * Order is intentionally explicit so malformed structured output also fails
- * over, not only transport/rate-limit errors handled by OpenRouter itself:
- * configured OpenRouter model -> OpenRouter free router -> direct OpenAI.
+ * OpenRouter-only client for meal analysis.
  */
 export function createMealAnalysisLlmClient(
   options: MealAnalysisLlmClientOptions = {}
 ): MealAnalysisLlmClient {
-  const attempts: ProviderAttempt[] = [];
-
-  if (config.OPENROUTER_API_KEY) {
-    const headers: Record<string, string> = { 'X-Title': config.APP_NAME };
-    if (config.OPENROUTER_HTTP_REFERER) {
-      headers['HTTP-Referer'] = config.OPENROUTER_HTTP_REFERER;
-    }
-    const openRouter = new OpenAI({
-      apiKey: config.OPENROUTER_API_KEY,
-      baseURL: config.OPENROUTER_BASE_URL,
-      defaultHeaders: headers,
-      timeout: 25_000,
-      maxRetries: 0,
-    });
-    attempts.push(
-      {
-        provider: 'openrouter',
-        model: options.openRouterModel ?? config.OPENROUTER_MEAL_MODEL,
-        client: openRouter,
-      },
-      { provider: 'openrouter', model: config.OPENROUTER_FREE_MODEL, client: openRouter },
-    );
+  if (!config.OPENROUTER_API_KEY) {
+    throw new Error('OPENROUTER_API_KEY is not set');
   }
-
-  if (config.OPENAI_API_KEY) {
-    attempts.push({
-      provider: 'openai',
-      model: OPENAI_MEAL_ANALYSIS_MODEL,
-      client: new OpenAI({
-        apiKey: config.OPENAI_API_KEY,
-        timeout: 30_000,
-        maxRetries: 2,
-      }),
-    });
+  const provider = 'openrouter' as const;
+  const model = options.openRouterModel ?? config.OPENROUTER_MEAL_MODEL;
+  const headers: Record<string, string> = { 'X-Title': config.APP_NAME };
+  if (config.OPENROUTER_HTTP_REFERER) {
+    headers['HTTP-Referer'] = config.OPENROUTER_HTTP_REFERER;
   }
-
-  if (attempts.length === 0) {
-    throw new Error('OPENROUTER_API_KEY or OPENAI_API_KEY is not set');
-  }
+  const client = new OpenAI({
+    apiKey: config.OPENROUTER_API_KEY,
+    baseURL: config.OPENROUTER_BASE_URL,
+    defaultHeaders: headers,
+    timeout: 25_000,
+    maxRetries: 0,
+  });
 
   return {
     chat: {
@@ -286,53 +287,79 @@ export function createMealAnalysisLlmClient(
           request: CompletionRequest,
           context: MealAnalysisLlmCallContext = {}
         ): Promise<CompletionResponse> {
-          for (const attempt of attempts) {
-            const startedAt = Date.now();
+          const startedAt = Date.now();
+          try {
+            const response = await instrumentAiCall(provider, () =>
+              client.chat.completions.create({
+                ...request,
+                provider: { require_parameters: true },
+                model,
+                stream: false,
+              } as CompletionRequest)
+            );
+            if (options.writeProviderTrace) {
+              await options.writeProviderTrace({
+                event: 'provider_response',
+                provider,
+                model,
+                operation: context.operation,
+                response,
+              });
+              await options.writeProviderTrace({
+                event: 'model_output',
+                provider,
+                model,
+                operation: context.operation,
+                output: modelOutputForTrace(response),
+              });
+            }
+            const structuredContent = validateStructuredContent(response, request);
             try {
-              const response = await instrumentAiCall(attempt.provider, () =>
-                attempt.client.chat.completions.create({
-                  ...request,
-                  model: attempt.model,
-                  stream: false,
-                })
-              );
-              const structuredContent = validateStructuredContent(response, request);
-              try {
-                context.validateStructuredContent?.(structuredContent);
-              } catch (error) {
-                throw new MealAnalysisLlmResponseError('invalid_structured_response', {
-                  ...completionDebugDetail(response),
-                  validationError: error instanceof Error ? error.message : 'unknown semantic validation error',
-                });
-              }
-              options.onAttempt?.({
-                operation: context.operation,
-                provider: attempt.provider,
-                model: attempt.model,
-                outcome: 'success',
-                durationMs: Date.now() - startedAt,
-              });
-              return response;
+              context.validateStructuredContent?.(structuredContent);
             } catch (error) {
-              const errorKind = describeErrorKind(error);
-              options.onAttempt?.({
-                operation: context.operation,
-                provider: attempt.provider,
-                model: attempt.model,
-                outcome: 'error',
-                durationMs: Date.now() - startedAt,
-                errorKind,
+              throw new MealAnalysisLlmResponseError('invalid_structured_response', {
+                ...completionDebugDetail(response),
+                validationError: error instanceof Error ? error.message : 'unknown semantic validation error',
               });
+            }
+            options.onAttempt?.({
+              operation: context.operation,
+              provider,
+              model,
+              outcome: 'success',
+              durationMs: Date.now() - startedAt,
+            });
+            return response;
+          } catch (error) {
+            if (options.writeProviderTrace) {
+              await options.writeProviderTrace({
+                event: 'provider_error',
+                provider,
+                model,
+                operation: context.operation,
+                error: observableProviderError(error),
+              });
+            }
+            const errorKind = describeErrorKind(error);
+            options.onAttempt?.({
+              operation: context.operation,
+              provider,
+              model,
+              outcome: 'error',
+              durationMs: Date.now() - startedAt,
+              errorKind,
+            });
+            if (!options.writeProviderTrace) {
               console.warn('[meal-analysis-llm] provider attempt failed', {
-                provider: attempt.provider,
-                model: attempt.model,
+                provider,
+                model,
                 operation: context.operation,
                 errorKind,
               });
               logDebugError(error);
             }
           }
-          throw new Error('All meal analysis LLM providers failed');
+          throw new Error('Meal analysis LLM provider failed');
         },
       },
     },

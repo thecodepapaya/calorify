@@ -14,7 +14,6 @@ await mock.module('../../src/config.js', {
     API_V1_STR: '/api/v1',
     API_V2_STR: '/api/v2',
     DATABASE_URL: 'postgres://mock',
-    OPENAI_API_KEY: 'sk-test',
     DEBUG: false,
     TRUST_PROXY: false,
     LOKI_URL: null,

@@ -6,8 +6,7 @@ Fastify and TypeScript API for authenticated nutrition analysis, USDA-grounded m
 
 - PostgreSQL stores application data, analysis sessions, and feedback. A separate shared PostgreSQL database stores imported USDA reference rows.
 - Firebase Admin verifies client identity.
-- OpenRouter is the primary meal-decomposition provider.
-- OpenRouter's free router is the first fallback; direct OpenAI is the final fallback.
+- OpenRouter is the sole meal-analysis provider.
 - Model output is schema-validated before USDA matching and deterministic macro calculation.
 - Prometheus metrics, structured logs, Loki, and Grafana provide observability.
 
@@ -81,7 +80,7 @@ npm run build
 npm start
 
 npm run meal-analysis -- --text "dal and rice"
-npm run calories:eval -- --base-url http://127.0.0.1:8000
+npm run meal-analysis:eval -- --model openai/gpt-5.6-luna
 npm run user:inspect -- --user-id FIREBASE_UID
 npm run usda:bootstrap
 npm run usda:refresh
@@ -121,7 +120,12 @@ stages, exit codes, and fixture replay.
 active materialized snapshot exists, prompts for text or image input and
 context, and then runs the same observable CLI.
 
-`calories:eval` exercises the deployed HTTP streaming flow, follows controlled clarification choices, and checks calorie ranges, semantic ingredient coverage, completion, stability, and latency. Set `CALORIE_EVAL_AUTH_TOKEN` for authenticated routes. Add `--verbose` for per-case pipeline paths or `--output report.json` to retain a complete artifact. Dataset cases, thresholds, and detailed usage live in `evals/`.
+`meal-analysis:eval` evaluates the two compact LLM passes directly, using one
+exact OpenRouter model without fallbacks. It currently repeats the single
+`4 roti daal` case five times and reports assertion-level pass rates without a
+release threshold. USDA, calories, macros, clarification, and presentation are
+outside this eval. See the [meal-analysis eval guide](evals/README.md) for
+scoring, options, and artifacts.
 
 `user:inspect` is a read-only, user-scoped diagnostic report. It shows the profile and locale, daily summary request/result history, bounded provider failure metadata, recent meal-analysis results, logged values, and feedback. Add `--json` for complete stored snapshots and result objects, or `--limit 25` to expand each history section. The tool deliberately excludes tokens and uploaded-image URLs.
 
@@ -129,13 +133,12 @@ context, and then runs the same observable CLI.
 
 Meal analysis attempts:
 
-1. `OPENROUTER_MEAL_MODEL` via OpenRouter (`openai/gpt-5-nano` by default).
+1. `OPENROUTER_MEAL_MODEL` via OpenRouter (`openai/gpt-5.6-luna` by default).
    The two-pass hypothesis CLI uses `OPENROUTER_MEAL_V3_MODEL`
-   (`openai/gpt-5-nano` by default) for this primary attempt.
-2. `OPENROUTER_FREE_MODEL` via OpenRouter (`openrouter/free` by default).
-3. `OPENAI_MEAL_ANALYSIS_MODEL` via direct OpenAI.
-
-Network errors, rate limits, quota exhaustion, malformed JSON, and schema-invalid responses all advance to the next provider for meal analysis. Daily AI summaries use only the configured `OPENROUTER_AI_SUMMARY_MODEL`, require strict structured output, and do not fall back to direct OpenAI.
+   (`openai/gpt-5.6-luna` by default) for this primary attempt.
+Network errors, rate limits, quota exhaustion, malformed JSON, and
+schema-invalid responses fail the meal-analysis model call. Daily AI summaries
+also use only their configured OpenRouter model.
 
 ## Daily AI summaries
 
@@ -210,7 +213,8 @@ the shared USDA database, observability, rollback, and storage maintenance.
   layers, provider attempts, USDA grounding, presentation enrichment, audit
   actions, and final responses; disabled unless `ANALYSIS_HISTORY_PASSWORD` is set.
 - `docs/meal-analysis-prometheus.md` — meal-analysis metric definitions and queries.
-- `npm run calories:eval -- --verbose` — deployed API regression and stability diagnostics.
+- `npm run meal-analysis:eval -- --model openai/gpt-5.6-luna` — direct two-pass
+  model accuracy and stability diagnostics.
 - `npm run meal-analysis -- --text "dal and rice"` — observable local V3
   hypothesis flow for text or image input.
 - `npm run user:inspect -- --user-id FIREBASE_UID` — user-scoped AI summary, meal-analysis, and feedback diagnostics.
