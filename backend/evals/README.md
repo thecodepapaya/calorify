@@ -70,10 +70,14 @@ Hard assertions cover:
 - plausible inferred serving grams for continuous portions;
 - ordered ranges and absence of the redundant `unit` field;
 - exact component correspondence between passes;
-- `model_inferred` provenance for every ingredient amount;
+- allowed `user_text` or `model_inferred` provenance for every ingredient amount;
 - valid ingredient variation references;
 - expected defining ingredients in each component recipe;
 - absence of explicitly excluded ingredients for cases that specify them.
+
+Fixture `estimateMin`/`estimateMax` values are acceptance bounds for the
+model's point estimate; they do not prescribe the model's returned uncertainty
+range. Fixture `exact` values require a collapsed `min=estimate=max` result.
 
 Optional fat/spice coverage, lookup-alias coverage, and ingredient-to-serving
 mass coherence are diagnostic. They do not determine a run's pass/fail result

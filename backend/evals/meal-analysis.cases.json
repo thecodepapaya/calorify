@@ -174,7 +174,8 @@
           ],
           "portion": {
             "kind": "AMOUNT",
-            "exact": 180,
+            "estimateMin": 170,
+            "estimateMax": 200,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
@@ -199,7 +200,7 @@
     {
       "id": "chinese-chongqing-noodles",
       "input": {
-        "text": "夜宵：重庆小面350克，加1个煎蛋，不要花生 (no peanuts)",
+        "text": "夜宵：重庆小面350克，另配1个煎蛋，不要花生 (no peanuts)",
         "locale": "zh-CN",
         "countryCode": "CN",
         "timeZone": "Asia/Shanghai",
@@ -211,7 +212,7 @@
           "aliases": [
             "chongqing noodles",
             "xiaomian",
-            "spicy noodles"
+            "xiao mian"
           ],
           "portion": {
             "kind": "AMOUNT",
@@ -223,18 +224,23 @@
               "noodle",
               "noodles",
               "wheat"
-            ],
+            ]
+          ],
+          "diagnosticIngredientGroups": [
             [
               "chili",
               "chilli",
               "red pepper"
             ],
             [
+              "sichuan pepper",
+              "szechuan pepper",
+              "peppercorn"
+            ],
+            [
               "sesame",
               "sesame oil"
-            ]
-          ],
-          "diagnosticIngredientGroups": [
+            ],
             [
               "soy sauce",
               "soy"
@@ -276,14 +282,15 @@
           "peanut",
           "peanuts",
           "groundnut",
-          "groundnuts"
+          "groundnuts",
+          "arachis"
         ]
       ]
     },
     {
       "id": "korean-shin-ramyun-set",
       "input": {
-        "text": "점심: 농심 신라면 큰사발 114g을 물 300ml로 조리; 사이드로 계란 1개와 김치 50g",
+        "text": "점심: 농심 신라면 큰사발 114g을 물 300ml로 조리했고 조리 후 총중량은 414g; 사이드로 계란 1개와 김치 50g",
         "locale": "ko-KR",
         "countryCode": "KR",
         "timeZone": "Asia/Seoul",
@@ -295,7 +302,9 @@
           "aliases": [
             "nongshim shin ramyun",
             "shin ramyun",
+            "shin ramyeon",
             "ramyun",
+            "ramyeon",
             "ramen"
           ],
           "portion": {
@@ -418,14 +427,15 @@
       "forbiddenIngredientGroups": [
         [
           "mung bean",
-          "mung beans"
+          "mung beans",
+          "golden bean"
         ]
       ]
     },
     {
       "id": "vietnamese-banh-xeo-lunch",
       "input": {
-        "text": "Bữa trưa: 2 bánh xèo nhân tôm thịt; ăn riêng với 50 g rau sống và 60 g nước mắm chua ngọt",
+        "text": "Bữa trưa: 2 bánh xèo nhân tôm và thịt heo; ăn riêng với 50 g rau sống và 60 g nước mắm chua ngọt",
         "locale": "vi-VN",
         "countryCode": "VN",
         "timeZone": "Asia/Ho_Chi_Minh",
@@ -445,8 +455,8 @@
             "exact": 2,
             "origin": "user_text",
             "perUnitGrams": {
-              "estimateMin": 100,
-              "estimateMax": 300,
+              "estimateMin": 80,
+              "estimateMax": 400,
               "origin": "model_inferred"
             }
           },
@@ -462,7 +472,7 @@
             ],
             [
               "pork",
-              "thịt"
+              "thịt heo"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -641,8 +651,7 @@
             [
               "chili",
               "chilli",
-              "green pepper",
-              "sambal"
+              "green pepper"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -698,14 +707,15 @@
             [
               "potato",
               "fries"
-            ]
-          ],
-          "diagnosticIngredientGroups": [
+            ],
             [
               "pickle",
-              "pickles"
+              "pickles",
+              "pickled vegetable",
+              "pickled vegetables"
             ]
-          ]
+          ],
+          "diagnosticIngredientGroups": []
         },
         {
           "key": "ayran",
@@ -715,14 +725,14 @@
           ],
           "portion": {
             "kind": "AMOUNT",
-            "exact": 200,
+            "estimateMin": 190,
+            "estimateMax": 220,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
             [
               "yogurt",
-              "yoghurt",
-              "ayran"
+              "yoghurt"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -735,7 +745,9 @@
       "forbiddenIngredientGroups": [
         [
           "tahini",
-          "sesame paste"
+          "tahina",
+          "sesame paste",
+          "sesame seed paste"
         ]
       ]
     },
@@ -769,9 +781,9 @@
             ],
             [
               "preserved lemon",
-              "lemon",
               "citron confit",
-              "citron"
+              "pickled lemon",
+              "salted lemon"
             ],
             [
               "olive",
@@ -807,8 +819,7 @@
           "requiredIngredientGroups": [
             [
               "couscous",
-              "semolina",
-              "wheat"
+              "semolina"
             ]
           ],
           "diagnosticIngredientGroups": []
@@ -836,14 +847,20 @@
             "exact": 2,
             "origin": "user_text",
             "perUnitGrams": {
-              "estimateMin": 60,
-              "estimateMax": 180,
+              "estimateMin": 200,
+              "estimateMax": 500,
               "origin": "model_inferred"
             }
           },
           "requiredIngredientGroups": [
             [
-              "teff"
+              "teff",
+              "sorghum",
+              "barley",
+              "wheat",
+              "maize",
+              "corn",
+              "cereal flour"
             ]
           ],
           "diagnosticIngredientGroups": []
@@ -881,8 +898,10 @@
           "key": "shiro",
           "aliases": [
             "shiro",
+            "shiro wat",
+            "shiro wot",
             "chickpea stew",
-            "chickpea puree"
+            "pulse flour stew"
           ],
           "portion": {
             "kind": "AMOUNT",
@@ -893,7 +912,17 @@
             [
               "chickpea",
               "chickpeas",
-              "shiro"
+              "field pea",
+              "field peas",
+              "pea flour",
+              "fava bean",
+              "fava beans",
+              "faba bean",
+              "faba beans",
+              "broad bean",
+              "broad beans",
+              "grass pea",
+              "grass peas"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -951,8 +980,8 @@
           ],
           "portion": {
             "kind": "AMOUNT",
-            "estimateMin": 250,
-            "estimateMax": 500,
+            "estimateMin": 220,
+            "estimateMax": 400,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
@@ -1130,7 +1159,8 @@
           "aliases": [
             "cafe au lait d avoine",
             "oat cafe au lait",
-            "oat milk coffee"
+            "oat milk coffee",
+            "coffee with oat milk"
           ],
           "portion": {
             "kind": "AMOUNT",
@@ -1155,7 +1185,8 @@
       "forbiddenIngredientGroups": [
         [
           "bechamel",
-          "béchamel"
+          "béchamel",
+          "white sauce"
         ]
       ]
     },
@@ -1197,13 +1228,14 @@
               "breadcrumb",
               "breadcrumbs",
               "bread"
+            ],
+            [
+              "milk",
+              "bechamel",
+              "white sauce"
             ]
           ],
           "diagnosticIngredientGroups": [
-            [
-              "milk",
-              "bechamel"
-            ],
             [
               "oil",
               "fat"
@@ -1239,15 +1271,12 @@
             [
               "garlic",
               "ajo"
+            ],
+            [
+              "olive oil"
             ]
           ],
-          "diagnosticIngredientGroups": [
-            [
-              "olive oil",
-              "oil",
-              "fat"
-            ]
-          ]
+          "diagnosticIngredientGroups": []
         },
         {
           "key": "spanish-tortilla",
@@ -1332,8 +1361,7 @@
             ],
             [
               "pecorino",
-              "cheese",
-              "formaggio"
+              "pecorino romano"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -1347,7 +1375,8 @@
       "forbiddenIngredientGroups": [
         [
           "cream",
-          "heavy cream"
+          "heavy cream",
+          "panna"
         ]
       ]
     },
@@ -1391,9 +1420,7 @@
             [
               "pineapple",
               "pina"
-            ]
-          ],
-          "diagnosticIngredientGroups": [
+            ],
             [
               "onion",
               "cebolla"
@@ -1402,15 +1429,18 @@
               "chili",
               "chilli",
               "adobo",
-              "achiote"
+              "achiote",
+              "guajillo"
             ]
-          ]
+          ],
+          "diagnosticIngredientGroups": []
         }
       ],
       "forbiddenIngredientGroups": [
         [
           "cheese",
-          "queso"
+          "queso",
+          "cotija"
         ]
       ]
     },
@@ -1439,9 +1469,8 @@
             [
               "black bean",
               "black beans",
-              "bean",
-              "beans",
-              "feijao"
+              "feijao preto",
+              "feijão preto"
             ],
             [
               "pork",
@@ -1467,7 +1496,7 @@
           "portion": {
             "kind": "AMOUNT",
             "estimateMin": 150,
-            "estimateMax": 300,
+            "estimateMax": 230,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
@@ -1493,8 +1522,7 @@
             [
               "cassava flour",
               "manioc flour",
-              "farinha de mandioca",
-              "cassava"
+              "farinha de mandioca"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -1510,7 +1538,7 @@
           "aliases": [
             "couve",
             "collard greens",
-            "greens"
+            "sauteed collard greens"
           ],
           "portion": {
             "kind": "AMOUNT",
@@ -1520,9 +1548,10 @@
           "requiredIngredientGroups": [
             [
               "collard",
-              "greens",
-              "kale",
-              "couve"
+              "collard green",
+              "collard greens",
+              "couve",
+              "couve manteiga"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -1563,7 +1592,7 @@
     {
       "id": "peruvian-mixed-ceviche",
       "input": {
-        "text": "Almuerzo: 250 g de ceviche mixto con pescado, pulpo, camarón, camote, choclo y leche de tigre",
+        "text": "Almuerzo: un plato de ceviche mixto de 250 g en total, incluyendo pescado, pulpo, camarón, camote, choclo y leche de tigre",
         "locale": "es-PE",
         "countryCode": "PE",
         "timeZone": "America/Lima",
@@ -1655,15 +1684,14 @@
           "requiredIngredientGroups": [
             [
               "chicken"
-            ]
-          ],
-          "diagnosticIngredientGroups": [
+            ],
             [
               "allspice",
               "pimento",
-              "jerk seasoning",
-              "spice"
-            ],
+              "jerk seasoning"
+            ]
+          ],
+          "diagnosticIngredientGroups": [
             [
               "scotch bonnet",
               "chili",
@@ -1681,7 +1709,7 @@
           "portion": {
             "kind": "AMOUNT",
             "estimateMin": 150,
-            "estimateMax": 350,
+            "estimateMax": 260,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
@@ -1691,8 +1719,6 @@
             [
               "kidney bean",
               "kidney beans",
-              "bean",
-              "beans",
               "pigeon pea",
               "pigeon peas"
             ]
@@ -1726,12 +1752,12 @@
               "flour",
               "cornmeal",
               "maize flour"
+            ],
+            [
+              "sugar"
             ]
           ],
           "diagnosticIngredientGroups": [
-            [
-              "sugar"
-            ],
             [
               "oil",
               "fat"
@@ -1748,14 +1774,16 @@
           ],
           "portion": {
             "kind": "AMOUNT",
-            "exact": 330,
+            "estimateMin": 330,
+            "estimateMax": 350,
             "origin": "user_text"
           },
           "requiredIngredientGroups": [
             [
-              "ting",
-              "grapefruit",
-              "soda"
+              "ting"
+            ],
+            [
+              "grapefruit"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -1794,23 +1822,21 @@
               "chicken"
             ],
             [
-              "brown rice",
-              "rice"
+              "brown rice"
             ],
             [
               "black bean",
-              "black beans",
-              "bean",
-              "beans"
+              "black beans"
             ],
             [
-              "fajita vegetable",
-              "fajita vegetables",
+              "bell pepper",
+              "bell peppers",
               "pepper",
-              "peppers",
+              "peppers"
+            ],
+            [
               "onion",
-              "vegetable",
-              "vegetables"
+              "onions"
             ],
             [
               "queso",
@@ -1852,8 +1878,7 @@
           "key": "avocado-toast",
           "aliases": [
             "sourdough avocado toast",
-            "avocado toast",
-            "avo toast"
+            "avocado toast"
           ],
           "portion": {
             "kind": "COUNT",
@@ -1868,12 +1893,11 @@
           "requiredIngredientGroups": [
             [
               "sourdough",
-              "bread",
-              "toast"
+              "sourdough bread",
+              "sourdough toast"
             ],
             [
-              "avocado",
-              "avo"
+              "avocado"
             ],
             [
               "egg",
@@ -1881,10 +1905,7 @@
             ],
             [
               "dukkah",
-              "sesame",
-              "hazelnut",
-              "nut",
-              "nuts"
+              "duqqa"
             ]
           ],
           "diagnosticIngredientGroups": [
@@ -1892,6 +1913,14 @@
               "oil",
               "olive oil",
               "fat"
+            ],
+            [
+              "sesame",
+              "hazelnut",
+              "almond",
+              "pistachio",
+              "coriander",
+              "cumin"
             ]
           ]
         },
