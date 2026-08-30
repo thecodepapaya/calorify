@@ -372,8 +372,9 @@ scenario.
 
 Ingredient proportions, yield, and portion assumptions remain correlated
 inside each derived scenario. The hypothesis adapter currently creates the
-Cartesian product only within one component and rejects more than 100 derived
-scenarios. This is temporary compatibility with the existing calculator, not
+Cartesian product only within one component, then retains at most 12 scenarios:
+the point scenario first, followed by the closest deterministic changes. This
+is temporary compatibility with the existing calculator, not
 an LLM response requirement. Before durable cutover, evaluation must confirm a
 smaller marginal representation or a tighter deterministic bound if normal
 meals approach this cap.

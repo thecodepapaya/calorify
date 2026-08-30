@@ -238,7 +238,7 @@ test('two-pass fixture expands compact daal and roti responses into calculation 
   assert.deepEqual(result.secondPass, secondPass);
   if (result.proposal.outcome === 'FOOD') {
     assert.deepEqual(result.proposal.components.map(({ componentId }) => componentId), ['daal', 'roti']);
-    assert.equal(result.proposal.components[0]!.scenarios.length, 18);
+    assert.equal(result.proposal.components[0]!.scenarios.length, 12);
     assert.equal(result.proposal.components[1]!.scenarios.length, 3);
     const daalIngredients = result.proposal.components[0]!.scenarios[0]!.ingredients;
     assert.deepEqual(

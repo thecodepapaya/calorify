@@ -110,6 +110,8 @@ export const VARIATION_TYPES = [
   'PREPARATION',
 ] as const;
 
+const MAX_GENERATED_SCENARIOS_PER_COMPONENT = 12;
+
 export const variationTypeSchema = z.enum(VARIATION_TYPES);
 
 const ingredientAmountVariationSchema = z.object({
@@ -536,6 +538,27 @@ function scenarioFromState(
   };
 }
 
+function limitScenarioCombinations<T extends { point: boolean; codes: string[] }>(
+  combinations: readonly T[]
+): T[] {
+  if (combinations.length <= MAX_GENERATED_SCENARIOS_PER_COMPONENT) {
+    return [...combinations];
+  }
+  const point = combinations.find((combination) => combination.point);
+  if (!point) throw new Error('Generated scenarios must include a point scenario');
+  const distance = (value: T) => value.codes.reduce(
+    (total, code, index) => total + Number(code !== point.codes[index]),
+    0
+  );
+  return [...combinations]
+    .sort((left, right) =>
+      Number(right.point) - Number(left.point) ||
+      distance(left) - distance(right) ||
+      left.codes.join(':').localeCompare(right.codes.join(':'))
+    )
+    .slice(0, MAX_GENERATED_SCENARIOS_PER_COMPONENT);
+}
+
 function componentProposal(
   component: CompactComponent,
   recipe: CompactIngredientComponent,
@@ -568,7 +591,7 @@ function componentProposal(
       codes: [...combination.codes, option.code],
     })));
   }
-  if (combinations.length > 100) throw new Error(`Too many variations for ${component.componentName}`);
+  combinations = limitScenarioCombinations(combinations);
   const scenarios = combinations.map((combination, index) => scenarioFromState(
     `${componentId}:${combination.codes.join(':') || 'point'}:${index + 1}`,
     combination.state,
