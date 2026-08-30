@@ -19,6 +19,7 @@
         "user:inspect": "tsx src/scripts/user-inspect.ts",
         "usda:refresh": "tsx src/scripts/usda-refresh.ts",
         "usda:bootstrap": "tsx src/scripts/usda-bootstrap.ts",
+        "usda:lookup": "tsx src/scripts/usda-lookup-cli.ts",
         "local-nutrition:build": "tsx src/scripts/build-local-nutrition-pack.ts"
     },
     "keywords": [

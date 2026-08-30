@@ -118,6 +118,50 @@ provider-attempt metadata. Provider operation names distinguish component and
 ingredient passes. Nutrition output includes the selected trusted record or
 bounded candidate rejection diagnostics for every scenario leaf.
 
+## USDA retrieval routing
+
+The second interpretation pass assigns a `retrievalIntent` to each ingredient
+leaf. It is a retrieval boundary, not a nutrition confidence score:
+
+It also supplies zero to three concise `lookupAliases` when a genuine
+alternate food identity can improve USDA retrieval. The resolver keeps the
+existing order—canonical identity first, followed by aliases—and aliases can
+authorize identity matches, so broad or speculative terms are forbidden.
+
+| Intent | When to use it | Resolver behavior |
+| --- | --- | --- |
+| `GENERIC_INGREDIENT` | An ordinary base ingredient without product evidence, such as potato, yogurt, or whole-wheat flour. | Searches the active local USDA snapshot while excluding `branded_food` records. |
+| `BRANDED_PRODUCT` | The input identifies a specific packaged or marketed product. | Requires concise `productQuery` text, searches every data type in the active local USDA snapshot, and prioritizes matching branded records. |
+| `AMBIGUOUS` | The input does not safely establish either a generic ingredient or a particular product. | Does not search or select a record; it returns `AMBIGUOUS_RETRIEVAL_INTENT`. |
+
+This avoids branded-label results crowding out generic ingredients before the
+resolver can apply its identity and preparation checks. It also keeps an
+unclear product reference explicit instead of silently treating it as a
+generic food.
+
+`BRANDED_PRODUCT` uses its model-supplied `productQuery` for product-first
+retrieval and ranking. A whole normalized product-query phrase can also
+authorize a branded candidate when canonical identity and aliases do not
+match; canonical and alias matches rank ahead of it. Fuzzy retrieval alone
+never authorizes a candidate, so `PEPPER` cannot match a `pepsi` query. When
+several product-query candidates remain equally plausible, the resolver
+returns `AMBIGUOUS_MATCH` rather than choosing a product silently. It is not
+yet a complete
+brand-aware matcher: the imported USDA projection does not retain metadata
+such as brand owner/name, barcode, ingredient list, or serving-label text.
+Adding that metadata is still required for package- and market-specific
+selection beyond the product name.
+
+All component amounts represent consumed finished food. A scenario may still
+use raw, dry, cooked, drained, or retained ingredient nutrition bases to
+calculate that finished portion; those are ingredient properties, not a
+separate component measurement mode.
+
+If any active leaf remains unresolved, `NUTRITION_RESOLVED` records its
+diagnostics and the runner emits the downstream calculation, questions,
+presentation, and integrity stages as `SKIPPED`. The terminal outcome is
+`UNRESOLVED`; the CLI never fills those gaps with model-generated nutrition.
+
 Live CLI interpretation sends `reasoning_effort: none`, which is supported by
 the default `gpt-5.6-luna` model.
 OpenRouter requests follow its structured-output contract with

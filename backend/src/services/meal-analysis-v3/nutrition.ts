@@ -16,6 +16,7 @@ export type NutritionRejectionReason =
   | 'DATASET_NOT_MATERIALIZED'
   | 'DATASET_CHANGED_DURING_RESOLUTION'
   | 'NO_CANDIDATES'
+  | 'AMBIGUOUS_RETRIEVAL_INTENT'
   | 'IDENTITY_MISMATCH'
   | 'PREPARATION_MISMATCH'
   | 'MISSING_REQUIRED_NUTRIENT'
@@ -28,7 +29,8 @@ export type IdentityMatchTier =
   | 'CANONICAL_EXACT'
   | 'CANONICAL_TOKEN_SET'
   | 'ALIAS_EXACT'
-  | 'ALIAS_TOKEN_SET';
+  | 'ALIAS_TOKEN_SET'
+  | 'PRODUCT_QUERY_PHRASE';
 
 export type PreparationMatchTier =
   | 'EXACT_CODE'
@@ -40,6 +42,7 @@ export interface NutritionCandidateDiagnostic {
   sourceRecordId: string;
   description: string;
   dataType: string | null;
+  macrosPer100g: MacroVector | null;
   similarity: number | null;
   identityTier: IdentityMatchTier | null;
   preparationTier: PreparationMatchTier | null;
@@ -205,14 +208,35 @@ const CANDIDATE_SQL = `
          MAX(GREATEST(
            similarity(food.normalized_name, terms.term),
            similarity(food.description, terms.term)
-         )) AS identity_similarity
+         )) AS identity_similarity,
+         MAX(CASE
+           WHEN food.data_type = 'branded_food' AND food.normalized_name = $4::text THEN 2
+           WHEN food.data_type = 'branded_food' AND (
+             food.normalized_name % $4::text
+             OR food.description % $4::text
+             OR food.normalized_name ILIKE '%' || $4::text || '%'
+             OR food.description ILIKE '%' || $4::text || '%'
+           ) THEN 1
+           ELSE 0
+         END) AS product_match_rank,
+         MAX(GREATEST(
+           similarity(food.normalized_name, $4::text),
+           similarity(food.description, $4::text)
+         )) AS product_similarity
     FROM usda_foods food
     JOIN lookup_terms terms
       ON food.normalized_name % terms.term
       OR food.description % terms.term
       OR food.normalized_name ILIKE '%' || terms.term || '%'
       OR food.description ILIKE '%' || terms.term || '%'
+      OR (food.data_type = 'branded_food' AND $4::text IS NOT NULL AND (
+        food.normalized_name % $4::text
+        OR food.description % $4::text
+        OR food.normalized_name ILIKE '%' || $4::text || '%'
+        OR food.description ILIKE '%' || $4::text || '%'
+      ))
     CROSS JOIN active_dataset dataset
+   WHERE ($3::boolean OR food.data_type IS DISTINCT FROM 'branded_food')
    GROUP BY food.fdc_id,
             food.description,
             food.data_type,
@@ -228,7 +252,7 @@ const CANDIDATE_SQL = `
             food.fat_present,
             food.fiber_present,
             dataset.dataset_version
-   ORDER BY identity_similarity DESC, food.fdc_id
+   ORDER BY product_match_rank DESC, product_similarity DESC, identity_similarity DESC, food.fdc_id
    LIMIT $2
 `;
 
@@ -350,6 +374,14 @@ async function resolveLookup(
   nutrientPresenceMaterialized: boolean,
   candidateLimit: number
 ): Promise<LookupOutcome> {
+  if (leaf.retrievalIntent === 'AMBIGUOUS') {
+    return {
+      selected: null,
+      per100g: null,
+      rejectionReasons: ['AMBIGUOUS_RETRIEVAL_INTENT'],
+      candidates: [],
+    };
+  }
   const terms = lookupTerms(leaf);
   if (terms.length === 0) {
     return {
@@ -360,7 +392,12 @@ async function resolveLookup(
     };
   }
 
-  const result = await query(CANDIDATE_SQL, [terms, candidateLimit]);
+  const result = await query(CANDIDATE_SQL, [
+    terms,
+    candidateLimit,
+    leaf.retrievalIntent === 'BRANDED_PRODUCT',
+    leaf.productQuery === undefined ? null : normalizeIdentity(leaf.productQuery),
+  ]);
   const evaluated = result.rows
     .map(candidateRow)
     .filter((row): row is CandidateRow => row !== null)
@@ -451,6 +488,7 @@ function evaluateCandidate(
     sourceRecordId: row.fdc_id,
     description: row.description,
     dataType: row.data_type,
+    macrosPer100g: per100g,
     similarity: Number.isFinite(row.identity_similarity) ? row.identity_similarity : null,
     identityTier,
     preparationTier,
@@ -573,12 +611,30 @@ function hardIdentityMatch(leaf: IngredientLeaf, row: CandidateRow): IdentityMat
       return { tier: 'ALIAS_TOKEN_SET', rank: 7 };
     }
   }
+
+  // A branded product query can authorize its candidate set, but only through
+  // a whole normalized phrase. Canonical and alias identity always win when
+  // present, and fuzzy retrieval alone can never make a candidate eligible.
+  if (
+    leaf.retrievalIntent === 'BRANDED_PRODUCT' &&
+    leaf.productQuery !== undefined &&
+    (containsIdentityPhrase(normalizedName, leaf.productQuery) ||
+      containsIdentityPhrase(description, leaf.productQuery))
+  ) {
+    return { tier: 'PRODUCT_QUERY_PHRASE', rank: 8 };
+  }
   return null;
 }
 
 function sameIdentityTokenSet(candidateName: string, requestedName: string): boolean {
   const requested = identityTokenSignature(requestedName);
   return requested !== '' && identityTokenSignature(candidateName) === requested;
+}
+
+function containsIdentityPhrase(candidateName: string, requestedPhrase: string): boolean {
+  const candidate = normalizeIdentity(candidateName);
+  const phrase = normalizeIdentity(requestedPhrase);
+  return phrase !== '' && ` ${candidate} `.includes(` ${phrase} `);
 }
 
 function identityTokenSignature(value: string): string {
@@ -685,6 +741,8 @@ function lookupKey(leaf: IngredientLeaf): string {
   return JSON.stringify({
     canonicalIdentity: normalizeIdentity(leaf.canonicalIdentity),
     aliases: leaf.lookupAliases.map(normalizeIdentity).sort(),
+    retrievalIntent: leaf.retrievalIntent,
+    productQuery: leaf.productQuery === undefined ? null : normalizeIdentity(leaf.productQuery),
     nutritionBasis: leaf.nutritionBasis,
     preparationCodes: [...leaf.preparationCodes].sort(),
   });

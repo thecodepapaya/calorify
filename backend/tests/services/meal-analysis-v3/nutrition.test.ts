@@ -21,6 +21,7 @@ function ingredient(overrides: Partial<IngredientLeaf> = {}): IngredientLeaf {
     displayName: 'Pumpkin',
     canonicalIdentity: 'pumpkin',
     lookupAliases: [],
+    retrievalIntent: 'GENERIC_INGREDIENT',
     role: 'ACTIVE_NUTRITION',
     nutritionBasis: 'COOKED',
     nutritionBasisGrams: 100,
@@ -40,7 +41,7 @@ function scenario(
     ingredients,
     finishedYieldGrams: 100,
     finishedYieldUnits: null,
-    effectivePortion: { kind: 'WHOLE_RECIPE' },
+    effectivePortion: { kind: 'FINISHED_MASS', consumedGrams: 100 },
     effectivePreparationCodes: ['BOILED'],
   };
 }
@@ -253,6 +254,23 @@ test('prefers an exact normalized canonical identity before accepting ambiguity'
   assert.equal(result.leaves[0]?.candidates[0]?.identityTier, 'CANONICAL_EXACT');
 });
 
+test('uses an alias as a sole identity authorizer while querying canonical identity first', async () => {
+  const fixture = queryFixture([readyDataset], [candidate({
+    fdc_id: 'alias-only',
+    description: 'Squash, cooked, boiled',
+    normalized_name: 'squash',
+  })]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('scenario-alias-only', [ingredient({
+    canonicalIdentity: 'pumpkin',
+    lookupAliases: ['squash'],
+  })])]);
+
+  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 16, false, null]);
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'alias-only');
+  assert.equal(result.leaves[0]?.candidates[0]?.identityTier, 'ALIAS_EXACT');
+});
+
 test('rejects equally ranked candidates instead of choosing an ambiguous row', async () => {
   const fixture = queryFixture([readyDataset], [
     candidate({ fdc_id: '100' }),
@@ -287,11 +305,87 @@ test('deduplicates identical lookup keys within one run and preserves leaf locat
   const candidateCall = fixture.calls[1]!;
   assert.ok(!candidateCall.text.includes('v3_nutrient_presence_materialized = TRUE'));
   assert.ok(candidateCall.text.includes('food.fiber_present'));
-  assert.deepEqual(candidateCall.params, [['pumpkin'], 16]);
+  assert.ok(candidateCall.text.includes("food.data_type IS DISTINCT FROM 'branded_food'"));
+  assert.deepEqual(candidateCall.params, [['pumpkin'], 16, false, null]);
   assert.deepEqual(
     result.leaves.map((item) => [item.reference?.scenarioId, item.reference?.leafId]),
     [['scenario-a', 'pumpkin-a'], ['scenario-b', 'pumpkin-b']]
   );
+});
+
+test('branded retrieval searches the full catalog with a product query while ambiguous intent fails closed', async () => {
+  const brandedFixture = queryFixture([readyDataset], [candidate({ data_type: 'branded_food' })]);
+  const brandedResolver = createLocalUsdaNutritionResolver({ query: brandedFixture.query });
+  const branded = await brandedResolver.resolve([scenario('branded', [ingredient({
+    retrievalIntent: 'BRANDED_PRODUCT',
+    productQuery: 'pumpkin',
+  })])]);
+  assert.equal(branded.leaves[0]?.reference?.sourceRecordId, '168448');
+  assert.ok(brandedFixture.calls[1]?.text.includes('product_match_rank'));
+  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 16, true, 'pumpkin']);
+
+  const ambiguousFixture = queryFixture([readyDataset], [candidate()]);
+  const ambiguousResolver = createLocalUsdaNutritionResolver({ query: ambiguousFixture.query });
+  const ambiguous = await ambiguousResolver.resolve([scenario('ambiguous', [ingredient({
+    retrievalIntent: 'AMBIGUOUS',
+  })])]);
+  assert.equal(ambiguousFixture.calls.length, 1);
+  assert.deepEqual(ambiguous.leaves[0]?.rejectionReasons, ['AMBIGUOUS_RETRIEVAL_INTENT']);
+});
+
+test('a branded product query authorizes an exact normalized product phrase after canonical identity checks', async () => {
+  const fixture = queryFixture([readyDataset], [candidate({
+    data_type: 'branded_food',
+    description: 'PEPSI, COLA',
+    normalized_name: 'pepsi cola',
+  })]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('pepsi', [ingredient({
+    canonicalIdentity: 'pepsi cola soft drink',
+    retrievalIntent: 'BRANDED_PRODUCT',
+    productQuery: 'pepsi cola',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '168448');
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+  assert.equal(result.leaves[0]?.candidates[0]?.identityTier, 'PRODUCT_QUERY_PHRASE');
+});
+
+test('branded product phrase authorization rejects fuzzy near-misses and ranks below canonical identity', async () => {
+  const fixture = queryFixture([readyDataset], [
+    candidate({
+      fdc_id: 'pepsi-cola',
+      data_type: 'branded_food',
+      description: 'PEPSI, COLA',
+      normalized_name: 'pepsi cola',
+    }),
+    candidate({
+      fdc_id: 'diet-pepsi',
+      data_type: 'branded_food',
+      description: 'DIET PEPSI',
+      normalized_name: 'diet pepsi',
+    }),
+    candidate({
+      fdc_id: 'pepper',
+      data_type: 'branded_food',
+      description: 'PEPPER',
+      normalized_name: 'pepper',
+    }),
+  ]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('pepsi', [ingredient({
+    canonicalIdentity: 'pepsi cola',
+    retrievalIntent: 'BRANDED_PRODUCT',
+    productQuery: 'pepsi',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'pepsi-cola');
+  assert.equal(result.leaves[0]?.candidates.find((item) => item.sourceRecordId === 'diet-pepsi')?.identityTier, 'PRODUCT_QUERY_PHRASE');
+  assert.equal(result.leaves[0]?.candidates.find((item) => item.sourceRecordId === 'pepper')?.identityTier, null);
 });
 
 test('bounds rejected candidate diagnostics', async () => {

@@ -4,9 +4,10 @@ This live model eval tests the two meal-decomposition LLM passes directly. Its
 purpose is to measure whether a selected model reliably preserves explicit user
 information and produces plausible structured estimates.
 
-The dataset currently contains one fixed case: `4 roti daal`, with `en-IN`,
-country `IN`, timezone `Asia/Kolkata`, and a fixed timestamp. Five repetitions
-run by default so model variability is visible.
+The dataset currently contains four fixed `en-IN` cases: `4 roti daal`,
+Optimum Nutrition whey with milk, Pepsi 250 ml, and a medium veggie pizza.
+All use country `IN`, timezone `Asia/Kolkata`, and fixed timestamps. Five
+repetitions run by default so model variability is visible.
 
 USDA resolution, calories, macros, clarification selection, meal-type
 resolution, presentation, and the HTTP flow are intentionally outside this
@@ -59,19 +60,20 @@ separate JSON files when a response or assertion needs diagnosis.
 Hard assertions cover:
 
 - strict pass-one and pass-two schemas;
-- semantic recognition of roti and daal, without requiring exact spelling;
-- preservation of the explicit count of four as `COUNT` with `user_text`
-  provenance;
-- inferred per-roti grams in the accepted 25–80 g estimate window;
-- inferred daal serving grams in the accepted 80–400 g estimate window;
+- semantic recognition of each expected component, without requiring exact
+  spelling;
+- preservation of explicit counts and amounts with `user_text` provenance;
+- plausible inferred gram estimates for counted food portions;
+- plausible inferred serving grams for continuous portions;
 - ordered ranges and absence of the redundant `unit` field;
 - exact component correspondence between passes;
 - `model_inferred` provenance for every ingredient amount;
 - valid ingredient variation references;
-- flour in the roti recipe and lentils/pulses in the daal recipe.
+- expected defining ingredients in each component recipe.
 
-Optional fat/spice coverage and ingredient-to-serving mass coherence are
-diagnostic. They do not determine a run's pass/fail result yet.
+Optional fat/spice coverage, lookup-alias coverage, and ingredient-to-serving
+mass coherence are diagnostic. They do not determine a run's pass/fail result
+yet. Alias syntax and uniqueness remain hard schema requirements.
 
 Every hard assertion must pass for a repetition to pass. The command reports
 the repetition pass rate and each assertion's pass rate, but it does not enforce

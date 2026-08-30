@@ -6,12 +6,15 @@
   — paused V2 local USDA data, calculation, and release gates.
 - [Local nutrition pack build and curation](../data/local_nutrition/README.md)
   — build, publish, freshness, and pure-USDA item selection.
+- [USDA lookup CLI](usda-lookup-cli.md) — inspect selected and partial local
+  database matches through the production V3 resolver without modifying data.
 - [Meal-analysis state machine](meal-analysis-state-machine.md) — durable
   end-to-end V2 flow, data boundaries, no-food termination, leases, stream
   events, resume behavior, and log confirmation.
 - [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable two-pass
   text and image interpretation, derived scenarios, active local USDA grounding,
-  bounded questions, five-macro ranges, and terminal outcomes.
+  per-ingredient generic/branded/ambiguous retrieval routing, bounded questions,
+  five-macro ranges, and terminal outcomes.
 - [Meal-analysis enum reference](meal-analysis-enums.md) — canonical compact
   model and deterministic enum values, including preparation methods.
 - [Meal-analysis model eval](../evals/README.md) — exact-model evaluation of the

@@ -141,7 +141,6 @@ export const NATURAL_MEASURE_UNITS = [
 ] as const;
 
 export const naturalMeasureUnitSchema = z.enum(NATURAL_MEASURE_UNITS);
-export const MEASUREMENT_BASES = ['FINISHED', 'INGREDIENT'] as const;
 
 export type NaturalMeasureUnit = z.infer<typeof naturalMeasureUnitSchema>;
 
@@ -159,34 +158,8 @@ const countPortionConstraintSchema = z.object({
 
 const amountPortionConstraintSchema = z.object({
   kind: z.literal('AMOUNT'),
-  measurementBasis: z.enum(MEASUREMENT_BASES),
-  finishedGrams: numericConstraintSchema.nullable(),
-  naturalMeasure: naturalMeasureConstraintSchema.nullable(),
-  ingredientAnchorLeafId: identifier.nullable(),
-}).strict().superRefine((portion, ctx) => {
-  if (portion.measurementBasis === 'FINISHED' && portion.ingredientAnchorLeafId !== null) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'a finished-food amount cannot bind an ingredient leaf',
-      path: ['ingredientAnchorLeafId'],
-    });
-  }
-  if (portion.measurementBasis === 'INGREDIENT') {
-    if (portion.finishedGrams !== null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'an ingredient-basis amount cannot also constrain finished grams',
-        path: ['finishedGrams'],
-      });
-    }
-    if (portion.ingredientAnchorLeafId === null || portion.naturalMeasure === null) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'an ingredient-basis amount requires an anchor leaf and natural measure',
-      });
-    }
-  }
-});
+  naturalMeasure: naturalMeasureConstraintSchema,
+}).strict();
 
 export const portionConstraintSchema = z.union([
   countPortionConstraintSchema,
@@ -272,10 +245,7 @@ export function preparationUmbrella(code: PreparationCode): PreparationUmbrella 
 const preparationConstraintSchema = z.object({
   code: preparationCodeSchema,
   origin: provenanceOriginSchema,
-  evidence: evidenceSchema.nullable(),
-}).strict().superRefine((constraint, ctx) => {
-  validateOriginEvidence(constraint.origin, constraint.evidence, ctx, ['evidence']);
-});
+}).strict();
 
 export const QUESTION_KINDS = [
   'COUNT',
@@ -344,6 +314,14 @@ export const INGREDIENT_ROLES = ['ACTIVE_NUTRITION', 'YIELD_ONLY'] as const;
 export const ingredientRoleSchema = z.enum(INGREDIENT_ROLES);
 export type IngredientRole = z.infer<typeof ingredientRoleSchema>;
 
+export const FOOD_RETRIEVAL_INTENTS = [
+  'GENERIC_INGREDIENT',
+  'BRANDED_PRODUCT',
+  'AMBIGUOUS',
+] as const;
+export const foodRetrievalIntentSchema = z.enum(FOOD_RETRIEVAL_INTENTS);
+export type FoodRetrievalIntent = z.infer<typeof foodRetrievalIntentSchema>;
+
 export const NUTRITION_BASES = ['RAW', 'DRY', 'COOKED', 'DRAINED', 'RETAINED', 'AS_SERVED'] as const;
 
 export const ingredientLeafSchema = z.object({
@@ -351,12 +329,20 @@ export const ingredientLeafSchema = z.object({
   displayName: foodLabel,
   canonicalIdentity: foodLabel,
   lookupAliases: z.array(shortText).max(6),
+  retrievalIntent: foodRetrievalIntentSchema,
+  productQuery: foodLabel.optional(),
   role: ingredientRoleSchema,
   nutritionBasis: z.enum(NUTRITION_BASES),
   nutritionBasisGrams: positiveNumber,
   preparationCodes: z.array(preparationCodeSchema).min(1).max(6),
   retainedFat: z.boolean(),
 }).strict().superRefine((leaf, ctx) => {
+  if (leaf.retrievalIntent === 'BRANDED_PRODUCT' && leaf.productQuery === undefined) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'branded products require a product query', path: ['productQuery'] });
+  }
+  if (leaf.retrievalIntent !== 'BRANDED_PRODUCT' && leaf.productQuery !== undefined) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'only branded products may provide a product query', path: ['productQuery'] });
+  }
   if (leaf.role === 'YIELD_ONLY' && leaf.retainedFat) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'yield-only ingredients cannot be retained fat' });
   }
@@ -373,10 +359,6 @@ export const ingredientLeafSchema = z.object({
 
 export type IngredientLeaf = z.infer<typeof ingredientLeafSchema>;
 
-const wholeRecipePortionSchema = z.object({
-  kind: z.literal('WHOLE_RECIPE'),
-}).strict();
-
 const finishedMassPortionSchema = z.object({
   kind: z.literal('FINISHED_MASS'),
   consumedGrams: positiveNumber,
@@ -389,7 +371,6 @@ const unitCountPortionSchema = z.object({
 }).strict();
 
 export const effectivePortionSchema = z.discriminatedUnion('kind', [
-  wholeRecipePortionSchema,
   finishedMassPortionSchema,
   unitCountPortionSchema,
 ]);
@@ -731,36 +712,15 @@ function validateScenarioAgainstPortion(
     return;
   }
 
-  if (constraint.measurementBasis === 'FINISHED') {
-    if (scenario.effectivePortion.kind !== 'FINISHED_MASS') {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'finished AMOUNT components require FINISHED_MASS scenarios', path });
-      return;
-    }
-    const gramsConstraint = constraint.finishedGrams ??
-      (constraint.naturalMeasure?.unitCode === 'GRAM' ? constraint.naturalMeasure.quantity : null);
-    if (gramsConstraint !== null && !constraintContains(gramsConstraint, scenario.effectivePortion.consumedGrams)) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'scenario finished mass violates the component constraint', path });
-    }
+  if (scenario.effectivePortion.kind !== 'FINISHED_MASS') {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'AMOUNT components require FINISHED_MASS scenarios', path });
     return;
   }
-
-  if (scenario.effectivePortion.kind !== 'WHOLE_RECIPE') {
-    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'ingredient-basis AMOUNT requires WHOLE_RECIPE scenarios', path });
-    return;
-  }
-  const anchor = scenario.ingredients.find((ingredient) => ingredient.leafId === constraint.ingredientAnchorLeafId);
-  if (anchor === undefined) {
+  if (constraint.naturalMeasure.unitCode === 'GRAM' &&
+      !constraintContains(constraint.naturalMeasure.quantity, scenario.effectivePortion.consumedGrams)) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
-      message: 'ingredient-basis anchor leaf must exist in every scenario',
-      path: ['scenarios', scenarioIndex, 'ingredients'],
-    });
-  } else if (constraint.naturalMeasure?.unitCode === 'GRAM' &&
-      !constraintContains(constraint.naturalMeasure.quantity, anchor.nutritionBasisGrams)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: 'ingredient anchor grams violate the natural-measure constraint',
-      path: ['scenarios', scenarioIndex, 'ingredients'],
+      message: 'scenario finished mass violates the component constraint', path,
     });
   }
 }
@@ -776,13 +736,6 @@ function visitProposalEvidence(
     visitConstraintEvidence(component.portionConstraint, (evidence, path) =>
       visitor(evidence, ['components', componentIndex, 'portionConstraint', ...path])
     );
-    component.preparationConstraints.forEach((constraint, constraintIndex) => {
-      if (constraint.evidence !== null) {
-        visitor(constraint.evidence, [
-          'components', componentIndex, 'preparationConstraints', constraintIndex, 'evidence',
-        ]);
-      }
-    });
     component.scenarios.forEach((scenario, scenarioIndex) => {
       scenario.assumptions.forEach((assumption, assumptionIndex) => {
         if (assumption.evidence !== null) {
@@ -813,10 +766,7 @@ function visitConstraintEvidence(
     visitNumeric(constraint.perUnitFinishedGrams, ['perUnitFinishedGrams']);
     return;
   }
-  visitNumeric(constraint.finishedGrams, ['finishedGrams']);
-  if (constraint.naturalMeasure !== null) {
-    visitNumeric(constraint.naturalMeasure.quantity, ['naturalMeasure', 'quantity']);
-  }
+  visitNumeric(constraint.naturalMeasure.quantity, ['naturalMeasure', 'quantity']);
 }
 
 function requireUnique(

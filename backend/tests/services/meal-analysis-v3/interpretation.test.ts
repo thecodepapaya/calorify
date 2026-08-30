@@ -123,14 +123,20 @@ const secondPass = {
       ingredients: [
         {
           ingredientName: 'lentils', canonicalIdentity: 'dry pigeon peas',
+          lookupAliases: ['toor dal', 'arhar dal'],
+          retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 45, min: 40, max: 50, origin: 'model_inferred' },
         },
         {
           ingredientName: 'water', canonicalIdentity: 'water',
+          lookupAliases: [],
+          retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 95, min: 80, max: 110, origin: 'model_inferred' },
         },
         {
           ingredientName: 'cooking fat', canonicalIdentity: 'vegetable oil',
+          lookupAliases: ['cooking oil'],
+          retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 8, min: 4, max: 14, origin: 'model_inferred' },
         },
       ],
@@ -144,10 +150,14 @@ const secondPass = {
       ingredients: [
         {
           ingredientName: 'whole wheat flour', canonicalIdentity: 'whole wheat flour',
+          lookupAliases: ['wholemeal flour', 'atta'],
+          retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 37.5, min: 30, max: 45, origin: 'model_inferred' },
         },
         {
           ingredientName: 'water', canonicalIdentity: 'water',
+          lookupAliases: [],
+          retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 12.5, min: 10, max: 15, origin: 'model_inferred' },
         },
       ],
@@ -200,6 +210,16 @@ test('compact schemas enforce canonical preparation and variation enums', () => 
   assert.equal(secondPassResponseSchema.safeParse(invalidIngredientVariation).success, false);
 });
 
+test('compact ingredient aliases are unique and exclude the canonical identity', () => {
+  const duplicate = structuredClone(secondPass);
+  duplicate.components[0]!.ingredients[0]!.lookupAliases = ['toor dal', 'Toor Dal'];
+  assert.equal(secondPassResponseSchema.safeParse(duplicate).success, false);
+
+  const canonical = structuredClone(secondPass);
+  canonical.components[0]!.ingredients[0]!.lookupAliases = ['Dry Pigeon Peas'];
+  assert.equal(secondPassResponseSchema.safeParse(canonical).success, false);
+});
+
 test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {
   const result = await createTwoPassFixtureMealInterpreter(firstPass, secondPass).interpret(compactInput);
   assert.equal(result.proposal.outcome, 'FOOD');
@@ -211,12 +231,22 @@ test('two-pass fixture expands compact daal and roti responses into calculation 
     assert.equal(result.proposal.components[1]!.scenarios.length, 3);
     const daalIngredients = result.proposal.components[0]!.scenarios[0]!.ingredients;
     assert.deepEqual(
+      daalIngredients.find((ingredient) => ingredient.leafId === 'lentils')?.lookupAliases,
+      ['toor dal', 'arhar dal']
+    );
+    assert.deepEqual(
       daalIngredients.find((ingredient) => ingredient.leafId === 'lentils')?.preparationCodes,
       ['UNKNOWN']
     );
     assert.deepEqual(
       daalIngredients.find((ingredient) => ingredient.leafId === 'cooking-fat')?.preparationCodes,
       ['UNKNOWN']
+    );
+    const gheeScenario = result.proposal.components[0]!.scenarios.find((scenario) =>
+      scenario.ingredients.some((ingredient) => ingredient.canonicalIdentity === 'ghee'));
+    assert.deepEqual(
+      gheeScenario?.ingredients.find((ingredient) => ingredient.leafId === 'cooking-fat')?.lookupAliases,
+      []
     );
   }
 });

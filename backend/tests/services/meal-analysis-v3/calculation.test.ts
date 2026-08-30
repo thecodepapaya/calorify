@@ -13,7 +13,7 @@ import {
   nutritionReferences,
 } from './fixtures.js';
 
-test('calculation uses exactly one WHOLE_RECIPE, FINISHED_MASS, or UNIT_COUNT scale', () => {
+test('calculation uses exactly one FINISHED_MASS or UNIT_COUNT scale', () => {
   const proposal = foodProposal();
   const resolved = resolveInterpretation(proposal, nutritionReferences(proposal));
   const calculated = calculateMeal(resolved);
@@ -30,7 +30,7 @@ test('calculation uses exactly one WHOLE_RECIPE, FINISHED_MASS, or UNIT_COUNT sc
   assert.equal(roti.macros.caloriesKcal.max, 612);
 
   const oats = calculated.components.find((component) => component.componentId === 'oats')!;
-  assert.equal(oats.scenarios[0]!.scale, 1, 'finished porridge yield must not rescale a dry ingredient anchor');
+  assert.equal(oats.scenarios[0]!.scale, 1, 'a consumed prepared serving equal to its yield has scale one');
   assert.equal(oats.macros.caloriesKcal.estimate, 389);
 
   assert.equal(calculated.macros.caloriesKcal.estimate, 873.2);

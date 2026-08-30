@@ -213,8 +213,8 @@ UNKNOWN  // transient only
 constraint. Count and unit size remain independent. `4 medium rotis` fixes
 count at four while retaining plausible per-roti sizes across scenarios.
 
-`AMOUNT` contains a natural measure when available and a finished-food amount
-constraint. Supported measure concepts include grams, millilitres, cup, bowl,
+`AMOUNT` contains a natural measure for the consumed finished food. Supported
+measure concepts include grams, millilitres, cup, bowl,
 plate, tablespoon, teaspoon, handful, pinch, and serving. `pinch` is a measure,
 not a portion kind. `slice` and `piece` use `COUNT`; a fractional slice or piece
 is a fractional count, not an `AMOUNT`.
@@ -257,8 +257,9 @@ Examples:
 - frying oil in the pan is not the consumed oil quantity; retained oil is the
   nutrition-bearing ingredient quantity.
 
-The user's explicit measurement basis is immutable. A trusted nutrition record
-must match that basis or the recipe must contain one explicit yield conversion.
+All component portions are consumed finished food. Ingredient nutrition bases
+can still be raw, dry, cooked, drained, or retained, and the scenario's yield
+converts those ingredients into the finished portion.
 
 ### Preparation
 
@@ -336,7 +337,7 @@ Internally, each derived calculation scenario contains:
 - ingredient leaves with point nutrition-basis grams;
 - `finishedYieldGrams` and, for countable recipes, `finishedYieldUnits`;
 - one point `effectivePortion`;
-- exactly one scale basis: `WHOLE_RECIPE`, `FINISHED_MASS`, or `UNIT_COUNT`;
+- exactly one scale basis: `FINISHED_MASS` or `UNIT_COUNT`;
 - authoritative effective preparation and retained-fat state;
 - one calculated point `MacroVector`.
 
@@ -355,7 +356,6 @@ reference macros = sum(
   / 100
 )
 
-WHOLE_RECIPE scale = 1
 FINISHED_MASS scale = effective portion grams / finished yield grams
 UNIT_COUNT scale = effective portion count / finished yield units
 
@@ -363,12 +363,10 @@ component macros = reference macros * exactly one applicable scale
 meal macros      = sum(component macros)
 ```
 
-`WHOLE_RECIPE` covers an ingredient-basis anchor consumed as a whole, such as
-`100 g dry oats cooked with water`, without incorrectly scaling it by finished
-porridge mass. A `UNIT_COUNT` scenario always carries both yield units and
-yield grams. Its derived per-unit grams must agree with the point portion and
-its count constraints. Count and finished-mass scaling must never both be
-applied to one scenario.
+A `UNIT_COUNT` scenario always carries both yield units and yield grams. Its
+derived per-unit grams must agree with the point portion and its count
+constraints. Count and finished-mass scaling must never both be applied to one
+scenario.
 
 Ingredient proportions, yield, and portion assumptions remain correlated
 inside each derived scenario. The hypothesis adapter currently creates the
@@ -615,6 +613,8 @@ calculation scenarios, or repeated portion ranges.
         {
           "ingredientName": "lentils",
           "canonicalIdentity": "lentils dry",
+          "lookupAliases": ["dal", "daal"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 45,
             "min": 40,
@@ -625,6 +625,8 @@ calculation scenarios, or repeated portion ranges.
         {
           "ingredientName": "cooking fat",
           "canonicalIdentity": "vegetable oil",
+          "lookupAliases": ["cooking oil"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 8,
             "min": 4,
@@ -652,6 +654,8 @@ calculation scenarios, or repeated portion ranges.
         {
           "ingredientName": "whole wheat flour",
           "canonicalIdentity": "whole wheat flour",
+          "lookupAliases": ["wholemeal flour", "atta"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 37.5,
             "min": 30,
@@ -676,6 +680,11 @@ PREPARATION
 ```
 
 Pass-one ranges exclusively express count, portion amount, and unit size.
+Every ingredient supplies zero to three unique `lookupAliases` for USDA
+retrieval. These are concise alternate English food identities, never a repeat
+of `canonicalIdentity`; `[]` is valid when no useful synonym exists. The
+deterministic adapter passes them to every baseline ingredient leaf and clears
+them when an `INGREDIENT_VARIANT` changes that leaf's canonical identity.
 Numeric alternatives are not repeated: `amountGrams.min`, `estimate`, and
 `max` are the three calculation values. `INGREDIENT_VARIANT.alternatives`
 contains canonical food identities such as `skim milk` versus a baseline
@@ -1351,7 +1360,7 @@ For each reviewed case, store applicable expectations for:
 
 - component and active-ingredient coverage;
 - evidence-span coverage and quantity attachment;
-- portion type, count, measure, and measurement basis;
+- portion type, count, and measure;
 - coherent scenario assumptions and defining ingredient roles;
 - preparation and retained-fat state;
 - expected trusted identity or allowed identity set;
@@ -1477,6 +1486,9 @@ accepts the JSON shape.
 - Run each pass's full parsing and semantic validation inside provider
   failover.
 - Preserve only `user_text` and `model_inferred` in model-facing contracts.
+- Populate zero to three ingredient-level USDA lookup aliases in pass two,
+  validate normalized uniqueness and canonical exclusion, propagate them to
+  baseline leaves, and clear them for canonical ingredient variants.
 - Expand compact ranges and variations into coherent calculation scenarios
   deterministically.
 - Evaluate the 100-scenario compatibility cap and replace it with a smaller
@@ -1589,9 +1601,9 @@ does not require interpreting new sessions with the old engine.
 - atomic food has one nutrition-bearing leaf;
 - every scenario has one concrete effective point portion;
 - count scenarios contain consistent finished yield units and grams;
-- `UNIT_COUNT`, `FINISHED_MASS`, or `WHOLE_RECIPE` scaling is applied once;
+- `UNIT_COUNT` or `FINISHED_MASS` scaling is applied once;
 - independent ingredient maxima cannot create a scenario;
-- explicit dry versus finished weights retain their basis;
+- ingredient nutrition basis remains independent from the consumed finished portion;
 - water changes yield without adding macros;
 - yield-only water requires a verified-zero record and cannot hide missing data;
 - retained fat, not cooking-vessel oil, drives macros;

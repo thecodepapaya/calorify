@@ -346,12 +346,6 @@ function scenarioScale(scenario: ResolvedRecipeScenario): number {
   assertPositiveFinite(scenario.finishedYieldGrams, `finished yield grams for ${scenario.scenarioId}`);
   let scale: number;
   switch (scenario.effectivePortion.kind) {
-    case 'WHOLE_RECIPE':
-      if (scenario.finishedYieldUnits !== null) {
-        throw new MealCalculationError(`WHOLE_RECIPE ${scenario.scenarioId} cannot have yield units`);
-      }
-      scale = 1;
-      break;
     case 'FINISHED_MASS':
       if (scenario.finishedYieldUnits !== null) {
         throw new MealCalculationError(`FINISHED_MASS ${scenario.scenarioId} cannot have yield units`);
@@ -586,15 +580,17 @@ function updatedPortionConstraint(
     }
     return { ...component.portionConstraint, count: exact };
   }
-  if (question.target.dimension !== 'TOTAL_AMOUNT' || component.portionConstraint.kind !== 'AMOUNT' ||
-      component.portionConstraint.measurementBasis !== 'FINISHED') {
+  if (question.target.dimension !== 'TOTAL_AMOUNT' || component.portionConstraint.kind !== 'AMOUNT') {
     throw new MealCalculationError(`numeric amount question is incompatible with ${component.componentId}`);
   }
   if (question.response.kind !== 'NUMBER') {
     throw new MealCalculationError(`numeric amount question lacks number response`);
   }
   if (question.response.unitCode === 'GRAM') {
-    return { ...component.portionConstraint, finishedGrams: exact };
+    return {
+      ...component.portionConstraint,
+      naturalMeasure: { unitCode: 'GRAM', quantity: exact },
+    };
   }
   return {
     ...component.portionConstraint,
@@ -629,6 +625,8 @@ function stripNutrition(resolved: ResolvedInterpretation): FoodInterpretationPro
           displayName: ingredient.displayName,
           canonicalIdentity: ingredient.canonicalIdentity,
           lookupAliases: ingredient.lookupAliases,
+          retrievalIntent: ingredient.retrievalIntent,
+          ...(ingredient.productQuery === undefined ? {} : { productQuery: ingredient.productQuery }),
           role: ingredient.role,
           nutritionBasis: ingredient.nutritionBasis,
           nutritionBasisGrams: ingredient.nutritionBasisGrams,

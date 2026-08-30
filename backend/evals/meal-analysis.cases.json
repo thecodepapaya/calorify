@@ -50,6 +50,97 @@
           ]
         }
       ]
+    },
+    {
+      "id": "optimum-nutrition-whey-with-milk",
+      "input": {
+        "text": "one serving optimum nutrition whey protein with milk",
+        "locale": "en-IN",
+        "countryCode": "IN",
+        "timeZone": "Asia/Kolkata",
+        "capturedAt": "2026-08-30T07:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "optimum-nutrition-whey",
+          "aliases": ["optimum nutrition", "whey protein", "whey"],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 20,
+              "estimateMax": 60,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            ["whey", "protein"]
+          ],
+          "diagnosticIngredientGroups": [
+            ["milk"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pepsi-250ml",
+      "input": {
+        "text": "pepsi 250ml",
+        "locale": "en-IN",
+        "countryCode": "IN",
+        "timeZone": "Asia/Kolkata",
+        "capturedAt": "2026-08-30T12:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "pepsi",
+          "aliases": ["pepsi"],
+          "portion": {
+            "kind": "AMOUNT",
+            "exact": 250,
+            "origin": "user_text"
+          },
+          "requiredIngredientGroups": [
+            ["pepsi", "cola"]
+          ],
+          "diagnosticIngredientGroups": []
+        }
+      ]
+    },
+    {
+      "id": "medium-veggie-pizza",
+      "input": {
+        "text": "one medium veggie pizza",
+        "locale": "en-IN",
+        "countryCode": "IN",
+        "timeZone": "Asia/Kolkata",
+        "capturedAt": "2026-08-30T18:00:00.000Z"
+      },
+      "expectedComponents": [
+        {
+          "key": "veggie-pizza",
+          "aliases": ["veggie pizza", "vegetable pizza", "pizza"],
+          "portion": {
+            "kind": "COUNT",
+            "exact": 1,
+            "origin": "user_text",
+            "perUnitGrams": {
+              "estimateMin": 200,
+              "estimateMax": 1000,
+              "origin": "model_inferred"
+            }
+          },
+          "requiredIngredientGroups": [
+            ["flour", "wheat", "dough"],
+            ["cheese"],
+            ["vegetable", "pepper", "onion", "mushroom", "corn", "tomato"]
+          ],
+          "diagnosticIngredientGroups": [
+            ["tomato", "sauce"]
+          ]
+        }
+      ]
     }
   ]
 }

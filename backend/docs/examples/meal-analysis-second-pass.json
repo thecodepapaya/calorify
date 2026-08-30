@@ -6,6 +6,8 @@
         {
           "ingredientName": "lentils",
           "canonicalIdentity": "lentils dry",
+          "lookupAliases": ["dal", "daal"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 45,
             "min": 40,
@@ -16,6 +18,8 @@
         {
           "ingredientName": "water",
           "canonicalIdentity": "water",
+          "lookupAliases": [],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 95,
             "min": 80,
@@ -26,6 +30,8 @@
         {
           "ingredientName": "cooking fat",
           "canonicalIdentity": "vegetable oil",
+          "lookupAliases": ["cooking oil"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 8,
             "min": 4,
@@ -36,6 +42,8 @@
         {
           "ingredientName": "spices",
           "canonicalIdentity": "mixed spices",
+          "lookupAliases": ["spice blend"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 2,
             "min": 1,
@@ -63,6 +71,8 @@
         {
           "ingredientName": "whole wheat flour",
           "canonicalIdentity": "whole wheat flour",
+          "lookupAliases": ["wholemeal flour", "atta"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 37.5,
             "min": 30,
@@ -73,6 +83,8 @@
         {
           "ingredientName": "water",
           "canonicalIdentity": "water",
+          "lookupAliases": [],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 12.5,
             "min": 10,
@@ -83,6 +95,8 @@
         {
           "ingredientName": "added fat",
           "canonicalIdentity": "ghee",
+          "lookupAliases": ["clarified butter"],
+          "retrievalIntent": "GENERIC_INGREDIENT",
           "amountGrams": {
             "estimate": 0,
             "min": 0,

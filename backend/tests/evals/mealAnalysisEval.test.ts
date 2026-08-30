@@ -67,10 +67,12 @@ const validSecondPass = {
       ingredients: [
         {
           ingredientName: 'whole wheat flour', canonicalIdentity: 'whole wheat flour',
+          lookupAliases: ['wholemeal flour', 'atta'], retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 35, min: 30, max: 40, origin: 'model_inferred' },
         },
         {
           ingredientName: 'water', canonicalIdentity: 'water',
+          lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 20, min: 15, max: 25, origin: 'model_inferred' },
         },
       ],
@@ -81,18 +83,22 @@ const validSecondPass = {
       ingredients: [
         {
           ingredientName: 'lentils', canonicalIdentity: 'lentils',
+          lookupAliases: ['dal', 'daal'], retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 55, min: 45, max: 65, origin: 'model_inferred' },
         },
         {
           ingredientName: 'water', canonicalIdentity: 'water',
+          lookupAliases: [], retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 110, min: 80, max: 150, origin: 'model_inferred' },
         },
         {
           ingredientName: 'cooking oil', canonicalIdentity: 'vegetable oil',
+          lookupAliases: ['cooking oil'], retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 8, min: 4, max: 12, origin: 'model_inferred' },
         },
         {
           ingredientName: 'spices', canonicalIdentity: 'mixed spices',
+          lookupAliases: ['spice blend'], retrievalIntent: 'GENERIC_INGREDIENT',
           amountGrams: { estimate: 3, min: 2, max: 5, origin: 'model_inferred' },
         },
       ],
@@ -109,8 +115,28 @@ test('passes hard assertions while leaving optional ingredients diagnostic', () 
   assert.equal(result.passed, true);
   assert.equal(result.hardPassed, result.hardTotal);
   assert.equal(
+    result.assertions.find((assertion) => assertion.id === 'pass2.lookup-alias-coverage')?.passed,
+    true
+  );
+  assert.equal(
     result.assertions.find((assertion) =>
       assertion.id === 'pass2.roti.diagnostic-ingredient-1')?.passed,
+    false
+  );
+});
+
+test('reports empty alias coverage diagnostically without failing the run', () => {
+  const withoutAliases = structuredClone(validSecondPass);
+  withoutAliases.components.forEach((component) => {
+    component.ingredients.forEach((ingredient) => {
+      ingredient.lookupAliases = [];
+    });
+  });
+
+  const result = evaluateMealAnalysisRun(evalCase, validFirstPass, withoutAliases);
+  assert.equal(result.passed, true);
+  assert.equal(
+    result.assertions.find((assertion) => assertion.id === 'pass2.lookup-alias-coverage')?.passed,
     false
   );
 });

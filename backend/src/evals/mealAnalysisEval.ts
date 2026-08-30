@@ -110,7 +110,11 @@ function ingredientComponentFor(
 
 function ingredientCorpus(component: SecondPassResponse['components'][number] | undefined): string {
   return normalize((component?.ingredients ?? [])
-    .flatMap((ingredient) => [ingredient.ingredientName, ingredient.canonicalIdentity])
+    .flatMap((ingredient) => [
+      ingredient.ingredientName,
+      ingredient.canonicalIdentity,
+      ...ingredient.lookupAliases,
+    ])
     .join(' '));
 }
 
@@ -236,6 +240,17 @@ export function evaluateMealAnalysisRun(
     'hard',
     amountOrigins.length > 0 && amountOrigins.every((origin) => origin === 'model_inferred'),
     `received: ${amountOrigins.join(', ') || 'none'}`
+  );
+
+  const usefulAliases = secondPass?.components.flatMap((component) =>
+    component.ingredients.filter((ingredient) =>
+      ingredient.lookupAliases.length > 0
+      && normalize(ingredient.canonicalIdentity) !== 'water')) ?? [];
+  add(
+    'pass2.lookup-alias-coverage',
+    'diagnostic',
+    usefulAliases.length > 0,
+    `${usefulAliases.length} non-water ingredients include lookup aliases`
   );
 
   const variationReferencesValid = secondPass !== undefined && secondPass.components.every((component) => {

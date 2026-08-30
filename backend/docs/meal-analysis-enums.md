@@ -17,9 +17,29 @@ two-pass contract.
 | `portion.kind` | `AMOUNT`, `COUNT` |
 | `preparation.method` | A preparation code from the table below |
 | `variationType` | `INGREDIENT_AMOUNT`, `INGREDIENT_VARIANT`, `INGREDIENT_PRESENCE`, `PREPARATION` |
+| `retrievalIntent` | `GENERIC_INGREDIENT`, `BRANDED_PRODUCT`, `AMBIGUOUS` |
 
 Count, total-amount, and unit-size uncertainty is represented by pass-one
 portion ranges. Those concepts are not pass-two `variationType` values.
+
+Every pass-two ingredient declares a `retrievalIntent`. `GENERIC_INGREDIENT`
+searches the active snapshot's non-`branded_food` records. `BRANDED_PRODUCT`
+requires a concise `productQuery` and searches the full catalog, prioritizing
+branded records that match that query. `AMBIGUOUS` fails closed instead of
+treating a generic ingredient as a product. Only branded ingredients may carry
+`productQuery`. For branded records only, an exact whole normalized
+product-query phrase can authorize a candidate after canonical and alias
+matching is attempted; it ranks below those identity matches and preserves
+ambiguity rather than selecting among product variants.
+
+Every pass-two ingredient also declares `lookupAliases`, with zero to three
+short alternate English food identities intended only to improve USDA
+retrieval. Aliases are unique after normalization and cannot repeat
+`canonicalIdentity`; an empty array is correct when no useful synonym exists.
+They must not contain quantities, preparation-only terms, ingredient-role
+labels, or speculative identities. If an `INGREDIENT_VARIANT` scenario changes
+the canonical identity, the baseline aliases are cleared rather than reused
+for a different food.
 
 Pass-two variation fields are type-specific:
 
@@ -62,7 +82,6 @@ adapted. They are not additional values the model may invent.
 | --- | --- |
 | Image origin | `CAMERA_NOW`, `GALLERY` |
 | Provenance origin | `USER_TEXT`, `USER_CLARIFICATION`, `IMAGE_OBSERVED`, `CONTEXT_DEFAULT`, `MODEL_INFERRED`, `REFERENCE_DEFAULT`, `DERIVED` |
-| Measurement basis | `FINISHED`, `INGREDIENT` |
 | Natural measure | `GRAM`, `MILLILITER`, `CUP`, `BOWL`, `PLATE`, `TABLESPOON`, `TEASPOON`, `HANDFUL`, `PINCH`, `SERVING` |
 | Question kind | `COUNT`, `UNIT_SIZE`, `TOTAL_AMOUNT`, `INGREDIENT_VARIANT`, `INGREDIENT_AMOUNT`, `INGREDIENT_PRESENCE`, `PREPARATION`, `ADDED_OR_RETAINED_FAT` |
 | Ingredient role | `ACTIVE_NUTRITION`, `YIELD_ONLY` |

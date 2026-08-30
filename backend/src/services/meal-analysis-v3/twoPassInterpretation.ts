@@ -1,9 +1,11 @@
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 import {
+  FOOD_RETRIEVAL_INTENTS,
   PREPARATION_CODES,
   parseAndValidateInterpretation,
   type Evidence,
+  type FoodRetrievalIntent,
   type FoodInterpretationProposal,
   type InterpretationProposal,
   type NormalizedMealInput,
@@ -18,6 +20,7 @@ export const MODEL_ORIGINS = ['user_text', 'model_inferred'] as const;
 const originSchema = z.enum(MODEL_ORIGINS);
 const mealTypeSchema = z.enum(MEAL_TYPES);
 const preparationSchema = z.enum(PREPARATION_CODES);
+const foodRetrievalIntentSchema = z.enum(FOOD_RETRIEVAL_INTENTS);
 const positiveRangeSchema = z.object({
   estimate: z.number().finite().positive().max(100_000),
   min: z.number().finite().positive().max(100_000),
@@ -137,14 +140,38 @@ const variationSchema = z.discriminatedUnion('variationType', [
   preparationVariationSchema,
 ]);
 
+const compactIngredientSchema = z.object({
+  ingredientName: label,
+  canonicalIdentity: label,
+  lookupAliases: z.array(label).max(3),
+  retrievalIntent: foodRetrievalIntentSchema,
+  productQuery: label.optional(),
+  amountGrams: nonnegativeRangeSchema,
+}).strict().superRefine((ingredient, ctx) => {
+  const normalizedCanonical = normalized(ingredient.canonicalIdentity);
+  const normalizedAliases = ingredient.lookupAliases.map(normalized);
+  if (new Set(normalizedAliases).size !== normalizedAliases.length) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'lookupAliases must be unique', path: ['lookupAliases'] });
+  }
+  if (normalizedAliases.includes(normalizedCanonical)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'lookupAliases must not repeat canonicalIdentity',
+      path: ['lookupAliases'],
+    });
+  }
+  if (ingredient.retrievalIntent === 'BRANDED_PRODUCT' && ingredient.productQuery === undefined) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'branded products require productQuery', path: ['productQuery'] });
+  }
+  if (ingredient.retrievalIntent !== 'BRANDED_PRODUCT' && ingredient.productQuery !== undefined) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'only branded products may provide productQuery', path: ['productQuery'] });
+  }
+});
+
 export const secondPassResponseSchema = z.object({
   components: z.array(z.object({
     componentName: label,
-    ingredients: z.array(z.object({
-      ingredientName: label,
-      canonicalIdentity: label,
-      amountGrams: nonnegativeRangeSchema,
-    }).strict()).min(1).max(24),
+    ingredients: z.array(compactIngredientSchema).min(1).max(24),
     variations: z.array(variationSchema).max(4),
   }).strict()).min(1).max(20),
 }).strict();
@@ -193,7 +220,10 @@ Return only the requested JSON. Do not return calories, macros, question prose, 
 The first-pass JSON is supplied in the user message. For every component:
 - Return a complete quantified recipe decomposed into ingredients.
 - Ingredient amounts correspond to the first-pass point portion. For COUNT foods, amounts are for one unit; for AMOUNT foods, amounts are for the complete point serving.
-- Use short generic English canonicalIdentity values suitable for food database lookup.
+- Set retrievalIntent to GENERIC_INGREDIENT for ordinary ingredients and use a short generic English canonicalIdentity.
+- Set retrievalIntent to BRANDED_PRODUCT only when the input identifies a specific packaged or marketed product. Include productQuery as concise brand and product text for database lookup, such as "Pepsi cola"; use its specific product identity as canonicalIdentity.
+- Set retrievalIntent to AMBIGUOUS when product-versus-generic identity is unclear; do not guess a brand.
+- Populate lookupAliases with up to three short English alternate food identities that could improve USDA lookup. Do not repeat canonicalIdentity, and do not use quantities, preparation-only terms, ingredient roles such as "cooking fat", or speculative identities. Use [] when no useful alternate identity exists.
 - Use origin=user_text only when the original meal input explicitly specifies the ingredient or amount; otherwise use model_inferred.
 - Include material calorie sources such as oil, ghee, sugar, sauces, dressings, and milk. Water may be included.
 - Declare only plausible material uncertainty using the standardized variationType enum.
@@ -208,7 +238,14 @@ interface ScenarioState {
   consumedGrams: number;
   perUnitGrams: number;
   preparation: PreparationCode;
-  ingredients: Array<{ name: string; canonicalIdentity: string; grams: number }>;
+  ingredients: Array<{
+    name: string;
+    canonicalIdentity: string;
+    lookupAliases: string[];
+    retrievalIntent: FoodRetrievalIntent;
+    productQuery?: string;
+    grams: number;
+  }>;
 }
 
 interface DimensionOption {
@@ -394,7 +431,11 @@ function createDimensions(
           code: slug(identity), label: identity, point: index === 0,
           apply: (state) => identity === 'none'
             ? replaceIngredient(state, ingredient.ingredientName, () => null)
-            : replaceIngredient(state, ingredient.ingredientName, (item) => ({ ...item, canonicalIdentity: identity })),
+            : replaceIngredient(state, ingredient.ingredientName, (item) => ({
+              ...item,
+              canonicalIdentity: identity,
+              lookupAliases: identity === ingredient.canonicalIdentity ? item.lookupAliases : [],
+            })),
         })),
       };
     } else if (variation.variationType === 'PREPARATION' && variation.alternatives.length > 0) {
@@ -464,7 +505,9 @@ function scenarioFromState(
       leafId,
       displayName: ingredient.name,
       canonicalIdentity: ingredient.canonicalIdentity,
-      lookupAliases: [],
+      lookupAliases: ingredient.lookupAliases,
+      retrievalIntent: ingredient.retrievalIntent,
+      ...(ingredient.productQuery === undefined ? {} : { productQuery: ingredient.productQuery }),
       role: water ? 'YIELD_ONLY' as const : 'ACTIVE_NUTRITION' as const,
       nutritionBasis: water ? 'AS_SERVED' as const : basis.nutritionBasis,
       nutritionBasisGrams: ingredient.grams,
@@ -504,6 +547,9 @@ function componentProposal(
     ingredients: recipe.ingredients.map((ingredient) => ({
       name: ingredient.ingredientName,
       canonicalIdentity: ingredient.canonicalIdentity,
+      lookupAliases: ingredient.lookupAliases,
+      retrievalIntent: ingredient.retrievalIntent,
+      ...(ingredient.productQuery === undefined ? {} : { productQuery: ingredient.productQuery }),
       grams: ingredient.amountGrams.estimate,
     })),
   };
@@ -549,13 +595,13 @@ function componentProposal(
       }
     : {
         kind: 'AMOUNT' as const,
-        measurementBasis: 'FINISHED' as const,
-        finishedGrams: {
-          estimate: component.portion.estimate, min: component.portion.min, max: component.portion.max,
-          origin: portionOrigin, evidence: evidenceFor(portionOrigin, input),
+        naturalMeasure: {
+          unitCode: 'GRAM' as const,
+          quantity: {
+            estimate: component.portion.estimate, min: component.portion.min, max: component.portion.max,
+            origin: portionOrigin, evidence: evidenceFor(portionOrigin, input),
+          },
         },
-        naturalMeasure: null,
-        ingredientAnchorLeafId: null,
       };
   return {
     componentId,
@@ -569,7 +615,6 @@ function componentProposal(
       : [{
           code: component.preparation.method,
           origin: preparationOrigin,
-          evidence: evidenceFor(preparationOrigin, input),
         }],
     scenarios,
     pointScenarioId,

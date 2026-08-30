@@ -99,8 +99,44 @@ test('semantic validation rejects broken point, scale, yield, and assumption inv
   const wrongScale = proposalValue();
   const wrongScaleComponents = wrongScale.components as Array<Record<string, unknown>>;
   const oatsScenarios = wrongScaleComponents[2]!.scenarios as Array<Record<string, unknown>>;
-  oatsScenarios[0]!.effectivePortion = { kind: 'FINISHED_MASS', consumedGrams: 100 };
-  assert.throws(() => parseAndValidateInterpretation(wrongScale, input), /WHOLE_RECIPE/);
+  oatsScenarios[0]!.effectivePortion = { kind: 'UNIT_COUNT', consumedCount: 1, perUnitFinishedGrams: 300 };
+  assert.throws(() => parseAndValidateInterpretation(wrongScale, input), /FINISHED_MASS/);
+
+  const legacyMeasurementBasis = proposalValue();
+  const legacyMeasurementComponents = legacyMeasurementBasis.components as Array<Record<string, unknown>>;
+  const legacyMeasurementPortion = legacyMeasurementComponents[0]!.portionConstraint as Record<string, unknown>;
+  legacyMeasurementPortion.measurementBasis = 'FINISHED';
+  assert.throws(() => parseAndValidateInterpretation(legacyMeasurementBasis, input));
+
+  const legacyFinishedGrams = proposalValue();
+  const legacyGramsComponents = legacyFinishedGrams.components as Array<Record<string, unknown>>;
+  const legacyGramsPortion = legacyGramsComponents[0]!.portionConstraint as Record<string, unknown>;
+  legacyGramsPortion.finishedGrams = 150;
+  assert.throws(() => parseAndValidateInterpretation(legacyFinishedGrams, input));
+
+  const preparationEvidence = proposalValue();
+  const preparationComponents = preparationEvidence.components as Array<Record<string, unknown>>;
+  const preparationConstraints = preparationComponents[0]!.preparationConstraints as Array<Record<string, unknown>>;
+  preparationConstraints.push({
+    code: 'SAUTEED',
+    origin: 'MODEL_INFERRED',
+    evidence: null,
+  });
+  assert.throws(() => parseAndValidateInterpretation(preparationEvidence, input));
+
+  const missingBrandedProductQuery = proposalValue();
+  const missingBrandedComponents = missingBrandedProductQuery.components as Array<Record<string, unknown>>;
+  const brandedLeaf = ((missingBrandedComponents[0]!.scenarios as Array<Record<string, unknown>>)[0]!
+    .ingredients as Array<Record<string, unknown>>)[0]!;
+  brandedLeaf.retrievalIntent = 'BRANDED_PRODUCT';
+  assert.throws(() => parseAndValidateInterpretation(missingBrandedProductQuery, input), /product query/);
+
+  const genericProductQuery = proposalValue();
+  const genericComponents = genericProductQuery.components as Array<Record<string, unknown>>;
+  const genericLeaf = ((genericComponents[0]!.scenarios as Array<Record<string, unknown>>)[0]!
+    .ingredients as Array<Record<string, unknown>>)[0]!;
+  genericLeaf.productQuery = 'pumpkin';
+  assert.throws(() => parseAndValidateInterpretation(genericProductQuery, input), /only branded products/);
 });
 
 test('ingredient roles and preparation taxonomy stay calculation-safe', () => {
