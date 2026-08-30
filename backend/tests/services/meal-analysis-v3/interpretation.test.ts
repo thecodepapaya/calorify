@@ -9,6 +9,10 @@ import {
   createModelMealInterpreter,
   createTwoPassFixtureMealInterpreter,
 } from '../../../src/services/meal-analysis-v3/interpretation.js';
+import {
+  firstPassResponseSchema,
+  secondPassResponseSchema,
+} from '../../../src/services/meal-analysis-v3/twoPassInterpretation.js';
 import { input, proposalValue } from './fixtures.js';
 
 test('both compact model response schemas are strict and use normalized numeric bounds', () => {
@@ -162,6 +166,38 @@ test('two-pass fixtures reject the redundant portion unit field', async () => {
     createTwoPassFixtureMealInterpreter(withUnit, secondPass).interpret(compactInput),
     /unrecognized|unit/i
   );
+});
+
+test('compact schemas enforce canonical preparation and variation enums', () => {
+  const lowercaseMethod = structuredClone(firstPass);
+  lowercaseMethod.components[0]!.preparation.method = 'simmered';
+  assert.equal(firstPassResponseSchema.safeParse(lowercaseMethod).success, false);
+
+  const validPreparationVariation = structuredClone(secondPass);
+  validPreparationVariation.components[0]!.variations = [{
+    variationType: 'PREPARATION', ingredientName: null, alternatives: ['PRESSURE_COOKED'],
+  }] as typeof validPreparationVariation.components[0]['variations'];
+  assert.equal(secondPassResponseSchema.safeParse(validPreparationVariation).success, true);
+
+  const lowercaseAlternative = structuredClone(validPreparationVariation) as unknown as {
+    components: Array<{ variations: Array<{ alternatives: string[] }> }>;
+  };
+  lowercaseAlternative.components[0]!.variations[0]!.alternatives = ['pressure_cooked'];
+  assert.equal(secondPassResponseSchema.safeParse(lowercaseAlternative).success, false);
+
+  const obsoletePortionVariation = structuredClone(secondPass) as unknown as {
+    components: Array<{ variations: unknown[] }>;
+  };
+  obsoletePortionVariation.components[0]!.variations = [{
+    variationType: 'COUNT', ingredientName: null, alternatives: [],
+  }];
+  assert.equal(secondPassResponseSchema.safeParse(obsoletePortionVariation).success, false);
+
+  const invalidIngredientVariation = structuredClone(secondPass);
+  invalidIngredientVariation.components[0]!.variations = [{
+    variationType: 'INGREDIENT_AMOUNT', ingredientName: 'cooking fat', alternatives: ['10 grams'],
+  }] as typeof invalidIngredientVariation.components[0]['variations'];
+  assert.equal(secondPassResponseSchema.safeParse(invalidIngredientVariation).success, false);
 });
 
 test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {

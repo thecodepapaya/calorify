@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { MEAL_TYPES } from './mealType.js';
 
 const shortText = z.string().trim().min(1).max(160);
 const foodLabel = shortText.refine(
@@ -11,6 +12,8 @@ const countUnitCode = z.string().trim().min(1).max(40).regex(
 );
 const identifier = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._:-]{0,79}$/);
 const positiveNumber = z.number().finite().positive().max(100_000);
+
+export const IMAGE_ORIGINS = ['CAMERA_NOW', 'GALLERY'] as const;
 
 export const mealContextSchema = z.object({
   locale: z.string().trim().min(2).max(35).refine((value) => {
@@ -44,7 +47,7 @@ const textMealInputSchema = z.object({
 const imageMealInputSchema = z.object({
   kind: z.literal('IMAGE'),
   imageId: identifier,
-  imageOrigin: z.enum(['CAMERA_NOW', 'GALLERY']),
+  imageOrigin: z.enum(IMAGE_ORIGINS),
   context: mealContextSchema,
 }).strict();
 
@@ -55,7 +58,7 @@ export const normalizedMealInputSchema = z.discriminatedUnion('kind', [
 
 export type NormalizedMealInput = z.infer<typeof normalizedMealInputSchema>;
 
-export const provenanceOriginSchema = z.enum([
+export const PROVENANCE_ORIGINS = [
   'USER_TEXT',
   'USER_CLARIFICATION',
   'IMAGE_OBSERVED',
@@ -63,7 +66,9 @@ export const provenanceOriginSchema = z.enum([
   'MODEL_INFERRED',
   'REFERENCE_DEFAULT',
   'DERIVED',
-]);
+] as const;
+
+export const provenanceOriginSchema = z.enum(PROVENANCE_ORIGINS);
 
 export type ProvenanceOrigin = z.infer<typeof provenanceOriginSchema>;
 
@@ -122,7 +127,7 @@ export const numericConstraintSchema = numericConstraintObjectSchema.superRefine
 
 export type NumericConstraint = z.infer<typeof numericConstraintSchema>;
 
-export const naturalMeasureUnitSchema = z.enum([
+export const NATURAL_MEASURE_UNITS = [
   'GRAM',
   'MILLILITER',
   'CUP',
@@ -133,7 +138,10 @@ export const naturalMeasureUnitSchema = z.enum([
   'HANDFUL',
   'PINCH',
   'SERVING',
-]);
+] as const;
+
+export const naturalMeasureUnitSchema = z.enum(NATURAL_MEASURE_UNITS);
+export const MEASUREMENT_BASES = ['FINISHED', 'INGREDIENT'] as const;
 
 export type NaturalMeasureUnit = z.infer<typeof naturalMeasureUnitSchema>;
 
@@ -151,7 +159,7 @@ const countPortionConstraintSchema = z.object({
 
 const amountPortionConstraintSchema = z.object({
   kind: z.literal('AMOUNT'),
-  measurementBasis: z.enum(['FINISHED', 'INGREDIENT']),
+  measurementBasis: z.enum(MEASUREMENT_BASES),
   finishedGrams: numericConstraintSchema.nullable(),
   naturalMeasure: naturalMeasureConstraintSchema.nullable(),
   ingredientAnchorLeafId: identifier.nullable(),
@@ -216,7 +224,7 @@ export const PREPARATION_CODES = [
 export const preparationCodeSchema = z.enum(PREPARATION_CODES);
 export type PreparationCode = z.infer<typeof preparationCodeSchema>;
 
-export const preparationUmbrellaSchema = z.enum([
+export const PREPARATION_UMBRELLA_CODES = [
   'RAW',
   'MOIST_HEAT',
   'DRY_HEAT',
@@ -225,7 +233,9 @@ export const preparationUmbrellaSchema = z.enum([
   'COOKED_UNKNOWN',
   'UNKNOWN',
   'OTHER',
-]);
+] as const;
+
+export const preparationUmbrellaSchema = z.enum(PREPARATION_UMBRELLA_CODES);
 
 export type PreparationUmbrella = z.infer<typeof preparationUmbrellaSchema>;
 
@@ -267,7 +277,7 @@ const preparationConstraintSchema = z.object({
   validateOriginEvidence(constraint.origin, constraint.evidence, ctx, ['evidence']);
 });
 
-export const questionKindSchema = z.enum([
+export const QUESTION_KINDS = [
   'COUNT',
   'UNIT_SIZE',
   'TOTAL_AMOUNT',
@@ -276,7 +286,11 @@ export const questionKindSchema = z.enum([
   'INGREDIENT_PRESENCE',
   'PREPARATION',
   'ADDED_OR_RETAINED_FAT',
-]);
+] as const;
+
+export const questionKindSchema = z.enum(QUESTION_KINDS);
+export const NUMBER_QUESTION_KINDS = ['COUNT', 'TOTAL_AMOUNT'] as const;
+export const NUMBER_UNIT_CODES = ['COUNT', ...NATURAL_MEASURE_UNITS] as const;
 
 export type NutritionQuestionKind = z.infer<typeof questionKindSchema>;
 
@@ -293,21 +307,9 @@ const optionAssumptionSchema = z.object({
 const numberAssumptionSchema = z.object({
   answerKind: z.literal('NUMBER'),
   dimensionKey: identifier,
-  questionKind: z.enum(['COUNT', 'TOTAL_AMOUNT']),
+  questionKind: z.enum(NUMBER_QUESTION_KINDS),
   value: positiveNumber,
-  unitCode: z.enum([
-    'COUNT',
-    'GRAM',
-    'MILLILITER',
-    'CUP',
-    'BOWL',
-    'PLATE',
-    'TABLESPOON',
-    'TEASPOON',
-    'HANDFUL',
-    'PINCH',
-    'SERVING',
-  ]),
+  unitCode: z.enum(NUMBER_UNIT_CODES),
   min: positiveNumber,
   max: positiveNumber,
   step: positiveNumber,
@@ -338,8 +340,11 @@ export const scenarioAssumptionSchema = z.discriminatedUnion('answerKind', [
 
 export type ScenarioAssumption = z.infer<typeof scenarioAssumptionSchema>;
 
-export const ingredientRoleSchema = z.enum(['ACTIVE_NUTRITION', 'YIELD_ONLY']);
+export const INGREDIENT_ROLES = ['ACTIVE_NUTRITION', 'YIELD_ONLY'] as const;
+export const ingredientRoleSchema = z.enum(INGREDIENT_ROLES);
 export type IngredientRole = z.infer<typeof ingredientRoleSchema>;
+
+export const NUTRITION_BASES = ['RAW', 'DRY', 'COOKED', 'DRAINED', 'RETAINED', 'AS_SERVED'] as const;
 
 export const ingredientLeafSchema = z.object({
   leafId: identifier,
@@ -347,7 +352,7 @@ export const ingredientLeafSchema = z.object({
   canonicalIdentity: foodLabel,
   lookupAliases: z.array(shortText).max(6),
   role: ingredientRoleSchema,
-  nutritionBasis: z.enum(['RAW', 'DRY', 'COOKED', 'DRAINED', 'RETAINED', 'AS_SERVED']),
+  nutritionBasis: z.enum(NUTRITION_BASES),
   nutritionBasisGrams: positiveNumber,
   preparationCodes: z.array(preparationCodeSchema).min(1).max(6),
   retainedFat: z.boolean(),
@@ -484,7 +489,7 @@ export const componentProposalSchema = componentProposalObjectSchema.superRefine
 export type ComponentProposal = z.infer<typeof componentProposalSchema>;
 
 const mealTypeCandidateSchema = z.object({
-  value: z.enum(['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK']).nullable(),
+  value: z.enum(MEAL_TYPES).nullable(),
   origin: provenanceOriginSchema,
   confidence: z.number().finite().min(0).max(1),
   evidence: evidenceSchema.nullable(),

@@ -33,6 +33,8 @@ Use this page to find the document that matches the work you are doing.
   inspection of durable layers, structured observations, and final responses.
 - [Meal-analysis V3 hypothesis CLI](../backend/docs/meal-analysis-cli.md) — run
   the shared ephemeral V3 core with observable two-pass text or image stages.
+- [Meal-analysis enum reference](../backend/docs/meal-analysis-enums.md) — exact
+  model-facing and deterministic codes, including preparation methods.
 
 ## Backend references
 

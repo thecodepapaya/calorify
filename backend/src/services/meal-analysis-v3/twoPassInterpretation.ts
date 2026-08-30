@@ -11,10 +11,12 @@ import {
   type RecipeScenario,
   type ScenarioAssumption,
 } from './domain.js';
+import { MEAL_TYPES } from './mealType.js';
 
 const label = z.string().trim().min(1).max(160);
-const originSchema = z.enum(['user_text', 'model_inferred']);
-const mealTypeSchema = z.enum(['BREAKFAST', 'LUNCH', 'DINNER', 'SNACK']);
+export const MODEL_ORIGINS = ['user_text', 'model_inferred'] as const;
+const originSchema = z.enum(MODEL_ORIGINS);
+const mealTypeSchema = z.enum(MEAL_TYPES);
 const preparationSchema = z.enum(PREPARATION_CODES);
 const positiveRangeSchema = z.object({
   estimate: z.number().finite().positive().max(100_000),
@@ -96,9 +98,6 @@ export const firstPassResponseSchema = z.object({
 });
 
 export const VARIATION_TYPES = [
-  'COUNT',
-  'PORTION_AMOUNT',
-  'UNIT_SIZE',
   'INGREDIENT_AMOUNT',
   'INGREDIENT_VARIANT',
   'INGREDIENT_PRESENCE',
@@ -106,6 +105,37 @@ export const VARIATION_TYPES = [
 ] as const;
 
 export const variationTypeSchema = z.enum(VARIATION_TYPES);
+
+const ingredientAmountVariationSchema = z.object({
+  variationType: z.literal('INGREDIENT_AMOUNT'),
+  ingredientName: label,
+  alternatives: z.array(label).length(0),
+}).strict();
+
+const ingredientPresenceVariationSchema = z.object({
+  variationType: z.literal('INGREDIENT_PRESENCE'),
+  ingredientName: label,
+  alternatives: z.array(label).length(0),
+}).strict();
+
+const ingredientVariantVariationSchema = z.object({
+  variationType: z.literal('INGREDIENT_VARIANT'),
+  ingredientName: label,
+  alternatives: z.array(label).min(1).max(3),
+}).strict();
+
+const preparationVariationSchema = z.object({
+  variationType: z.literal('PREPARATION'),
+  ingredientName: z.null(),
+  alternatives: z.array(preparationSchema).min(1).max(3),
+}).strict();
+
+const variationSchema = z.discriminatedUnion('variationType', [
+  ingredientAmountVariationSchema,
+  ingredientVariantVariationSchema,
+  ingredientPresenceVariationSchema,
+  preparationVariationSchema,
+]);
 
 export const secondPassResponseSchema = z.object({
   components: z.array(z.object({
@@ -115,11 +145,7 @@ export const secondPassResponseSchema = z.object({
       canonicalIdentity: label,
       amountGrams: nonnegativeRangeSchema,
     }).strict()).min(1).max(24),
-    variations: z.array(z.object({
-      variationType: variationTypeSchema,
-      ingredientName: label.nullable(),
-      alternatives: z.array(label).max(3),
-    }).strict()).max(4),
+    variations: z.array(variationSchema).max(4),
   }).strict()).min(1).max(20),
 }).strict();
 
@@ -173,8 +199,8 @@ The first-pass JSON is supplied in the user message. For every component:
 - Declare only plausible material uncertainty using the standardized variationType enum.
 - Numeric uncertainty lives in amountGrams min/estimate/max; an INGREDIENT_AMOUNT or INGREDIENT_PRESENCE variation references that ingredient without repeating numeric options.
 - INGREDIENT_VARIANT alternatives contain canonical food identities such as skim milk or whole milk, excluding the baseline canonicalIdentity.
-- PREPARATION alternatives contain preparation enum values.
-- Do not repeat portion/count/unit-size variations already represented by first-pass ranges unless needed to correct an omission.
+- PREPARATION uses ingredientName=null and alternatives containing only preparation enum values.
+- Portion, count, and unit-size uncertainty belongs only in the first-pass ranges, not in variations.
 - Keep variations small: normally zero to two per component, never speculative trivia.`;
 
 interface ScenarioState {
@@ -372,8 +398,7 @@ function createDimensions(
         })),
       };
     } else if (variation.variationType === 'PREPARATION' && variation.alternatives.length > 0) {
-      const methods = [component.preparation.method, ...variation.alternatives]
-        .filter((method): method is PreparationCode => PREPARATION_CODES.includes(method as PreparationCode));
+      const methods: PreparationCode[] = [component.preparation.method, ...variation.alternatives];
       dimension = {
         key: 'preparation', questionKind: 'PREPARATION', origin: 'MODEL_INFERRED',
         options: [...new Set(methods)].map((method, index) => ({

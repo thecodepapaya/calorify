@@ -514,11 +514,11 @@ above, determine whether implementation is accurate.
 
 ### Two-pass structured interpretation
 
-Use two compact structured calls for either text or image. Both use GPT-5 Nano
-through the existing provider chain, run their complete decoder inside each
-provider attempt, and expose their exact input, output, timing, provider, model,
-and bounded error category in the CLI. Pass two runs only when pass one returns
-`food_detected: true`.
+Use two compact structured calls for either text or image. Both use the
+configured OpenRouter meal-analysis model, run their complete decoder inside
+the provider attempt, and expose their exact input, output, timing, provider,
+model, and bounded error category in the CLI. Pass two runs only when pass one
+returns `food_detected: true`.
 
 #### Pass one: food and components
 
@@ -669,23 +669,23 @@ calculation scenarios, or repeated portion ranges.
 The closed `variationType` enum is:
 
 ```text
-COUNT
-PORTION_AMOUNT
-UNIT_SIZE
 INGREDIENT_AMOUNT
 INGREDIENT_VARIANT
 INGREDIENT_PRESENCE
 PREPARATION
 ```
 
-Pass two normally emits only ingredient and preparation variations because
-pass-one ranges already express count, portion amount, and unit size. Numeric
-alternatives are not repeated: `amountGrams.min`, `estimate`, and `max` are the
-three calculation values. `INGREDIENT_VARIANT.alternatives` contains canonical
-food identities such as `skim milk` versus a baseline `whole milk`.
-`INGREDIENT_PRESENCE` references an ingredient whose zero/nonzero range
-represents absence and presence. `PREPARATION.alternatives` contains closed
-preparation codes.
+Pass-one ranges exclusively express count, portion amount, and unit size.
+Numeric alternatives are not repeated: `amountGrams.min`, `estimate`, and
+`max` are the three calculation values. `INGREDIENT_VARIANT.alternatives`
+contains canonical food identities such as `skim milk` versus a baseline
+`whole milk`. `INGREDIENT_PRESENCE` references an ingredient whose zero/nonzero
+range represents absence and presence. `PREPARATION.alternatives` contains
+only closed preparation codes and has a null `ingredientName`.
+
+The canonical preparation, variation, origin, portion, and downstream enum
+values are documented in the
+[meal-analysis enum reference](../../backend/docs/meal-analysis-enums.md).
 
 The model proposes no more than four variations per component and normally
 zero to two. Deterministic calculation may evaluate all declared candidates,
@@ -721,10 +721,11 @@ INGREDIENT_PRESENCE
 PREPARATION
 ```
 
-These names are the canonical `variationType` vocabulary. The current
-calculation bridge may map `PORTION_AMOUNT` to its legacy internal
-`TOTAL_AMOUNT` representation and specialized fat amounts to the generic
-`INGREDIENT_AMOUNT`; those internal names are not part of the new contract.
+These are clarification dimensions. They are intentionally broader than the
+four pass-two `variationType` values: count, portion amount, and unit size are
+derived from pass-one ranges. The current calculation bridge maps
+`PORTION_AMOUNT` to its internal `TOTAL_AMOUNT` representation and specialized
+fat amounts to the generic `INGREDIENT_AMOUNT`.
 
 The planner simulates each candidate answer against the fully resolved scenario
 set and measures reduction in normalized meal-macro width. For macro `m`:
