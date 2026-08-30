@@ -161,6 +161,30 @@ test('parses proposal, explicit answers, meal type, and JSON mode', () => {
   });
 });
 
+test('requires a complete two-pass fixture pair and keeps it separate from legacy proposals', () => {
+  const options = parsedOptions([
+    '--text', 'daal and 4 roti',
+    '--first-pass', 'fixtures/first.json',
+    '--second-pass', 'fixtures/second.json',
+  ]);
+  assert.equal(options.firstPassPath, resolve(DEFAULTS.cwd, 'fixtures/first.json'));
+  assert.equal(options.secondPassPath, resolve(DEFAULTS.cwd, 'fixtures/second.json'));
+
+  assert.deepEqual(parse(['--text', 'daal', '--first-pass', 'first.json']), {
+    ok: false,
+    kind: 'error',
+    message: '--first-pass and --second-pass must be supplied together',
+  });
+  assert.deepEqual(parse([
+    '--text', 'daal', '--proposal', 'old.json',
+    '--first-pass', 'first.json', '--second-pass', 'second.json',
+  ]), {
+    ok: false,
+    kind: 'error',
+    message: '--proposal cannot be combined with --first-pass and --second-pass',
+  });
+});
+
 test('rejects unknown arguments and flags with missing values', () => {
   assert.deepEqual(parse(['--text', 'dal', '--verbose']), {
     ok: false,

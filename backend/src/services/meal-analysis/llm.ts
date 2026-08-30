@@ -125,6 +125,20 @@ class MealAnalysisLlmResponseError extends Error {
   }
 }
 
+function completionDebugDetail(response: CompletionResponse): Readonly<Record<string, unknown>> {
+  const choice = response.choices[0];
+  const message = choice?.message as (typeof choice.message & {
+    refusal?: unknown;
+    reasoning?: unknown;
+  }) | undefined;
+  return {
+    choiceCount: response.choices.length,
+    finishReason: choice?.finish_reason,
+    hasRefusal: typeof message?.refusal === 'string' && message.refusal.length > 0,
+    reasoningLength: typeof message?.reasoning === 'string' ? message.reasoning.length : undefined,
+  };
+}
+
 function validateStructuredContent(
   response: CompletionResponse,
   request: CompletionRequest
@@ -148,7 +162,9 @@ function validateStructuredContent(
   }
 
   const content = response.choices[0]?.message?.content;
-  if (!content) throw new MealAnalysisLlmResponseError('empty_response');
+  if (!content) {
+    throw new MealAnalysisLlmResponseError('empty_response', completionDebugDetail(response));
+  }
 
   if (request.response_format?.type === 'json_schema' || request.response_format?.type === 'json_object') {
     try {
@@ -160,8 +176,12 @@ function validateStructuredContent(
         );
       }
       return parsed;
-    } catch {
-      throw new MealAnalysisLlmResponseError('invalid_structured_response');
+    } catch (error) {
+      throw new MealAnalysisLlmResponseError('invalid_structured_response', {
+        ...completionDebugDetail(response),
+        contentLength: content.length,
+        validationError: error instanceof Error ? error.message : 'unknown validation error',
+      });
     }
   }
   return content;
@@ -279,8 +299,11 @@ export function createMealAnalysisLlmClient(
               const structuredContent = validateStructuredContent(response, request);
               try {
                 context.validateStructuredContent?.(structuredContent);
-              } catch {
-                throw new MealAnalysisLlmResponseError('invalid_structured_response');
+              } catch (error) {
+                throw new MealAnalysisLlmResponseError('invalid_structured_response', {
+                  ...completionDebugDetail(response),
+                  validationError: error instanceof Error ? error.message : 'unknown semantic validation error',
+                });
               }
               options.onAttempt?.({
                 operation: context.operation,

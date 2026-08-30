@@ -3,28 +3,26 @@ import test from 'node:test';
 import type OpenAI from 'openai';
 import type { MealAnalysisLlmClient } from '../../../src/services/meal-analysis/llm.js';
 import {
-  MEAL_INTERPRETATION_RESPONSE_SCHEMA,
+  FIRST_PASS_RESPONSE_JSON_SCHEMA,
+  SECOND_PASS_RESPONSE_JSON_SCHEMA,
   createFixtureMealInterpreter,
   createModelMealInterpreter,
+  createTwoPassFixtureMealInterpreter,
 } from '../../../src/services/meal-analysis-v3/interpretation.js';
 import { input, proposalValue } from './fixtures.js';
 
-test('model response schema is a strict proposal envelope with numeric exclusive bounds', () => {
-  assert.equal(MEAL_INTERPRETATION_RESPONSE_SCHEMA.type, 'object');
-  assert.equal(MEAL_INTERPRETATION_RESPONSE_SCHEMA.additionalProperties, false);
-  assert.deepEqual(MEAL_INTERPRETATION_RESPONSE_SCHEMA.required, ['proposal']);
-  assert.ok(
-    typeof MEAL_INTERPRETATION_RESPONSE_SCHEMA.properties === 'object' &&
-    MEAL_INTERPRETATION_RESPONSE_SCHEMA.properties !== null
-  );
-
+test('both compact model response schemas are strict and use normalized numeric bounds', () => {
   const visit = (value: unknown): void => {
     if (value === null || typeof value !== 'object') return;
     const record = value as Record<string, unknown>;
     assert.notEqual(record.exclusiveMinimum, true);
     Object.values(record).forEach(visit);
   };
-  visit(MEAL_INTERPRETATION_RESPONSE_SCHEMA);
+  for (const schema of [FIRST_PASS_RESPONSE_JSON_SCHEMA, SECOND_PASS_RESPONSE_JSON_SCHEMA]) {
+    assert.equal(schema.type, 'object');
+    assert.equal(schema.additionalProperties, false);
+    visit(schema);
+  }
 });
 
 test('fixture interpreter returns a semantically validated proposal without provider calls', async () => {
@@ -83,40 +81,123 @@ test('fixture interpreter enforces text/image input pairing', async () => {
   );
 });
 
-test('model adapter reports bounded mechanical normalizations before semantic validation', async () => {
-  const raw = proposalValue();
-  const components = raw.components as Array<Record<string, unknown>>;
-  const sabziScenarios = components[0]!.scenarios as Array<Record<string, unknown>>;
-  const sabziIngredients = sabziScenarios[0]!.ingredients as Array<Record<string, unknown>>;
-  sabziIngredients[0]!.lookupAliases = ['pumpkin'];
-  const evidence = components[0]!.evidence as Array<Record<string, unknown>>;
-  evidence[0]!.startUtf16 = 0;
-  evidence[0]!.endUtf16 = 1;
+const compactInput = {
+  kind: 'TEXT' as const,
+  text: 'daal and 4 roti',
+  context: input.context,
+};
 
-  const rotiScenarios = components[1]!.scenarios as Array<Record<string, unknown>>;
-  rotiScenarios[0]!.effectivePortion = { kind: 'FINISHED_MASS', consumedGrams: 160 };
-  rotiScenarios[0]!.finishedYieldUnits = null;
+const firstPass = {
+  food_detected: true,
+  mealNameCandidate: 'Daal with roti',
+  mealTypeCandidate: { value: null, origin: null },
+  components: [
+    {
+      componentName: 'daal', canonicalIdentity: 'cooked lentil curry',
+      portion: {
+        kind: 'AMOUNT', unit: 'GRAM', estimate: 150, min: 120, max: 180,
+        origin: 'model_inferred', perUnitGrams: null,
+      },
+      preparation: { method: 'SIMMERED', origin: 'model_inferred' },
+    },
+    {
+      componentName: 'roti', canonicalIdentity: 'whole wheat flatbread',
+      portion: {
+        kind: 'COUNT', unit: 'COUNT', estimate: 4, min: 4, max: 4,
+        origin: 'user_text',
+        perUnitGrams: { estimate: 50, min: 40, max: 60, origin: 'model_inferred' },
+      },
+      preparation: { method: 'TOASTED', origin: 'model_inferred' },
+    },
+  ],
+};
 
-  const envelope = { proposal: raw };
+const secondPass = {
+  components: [
+    {
+      componentName: 'daal',
+      ingredients: [
+        {
+          ingredientName: 'lentils', canonicalIdentity: 'dry pigeon peas',
+          amountGrams: { estimate: 45, min: 40, max: 50, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'water', canonicalIdentity: 'water',
+          amountGrams: { estimate: 95, min: 80, max: 110, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'cooking fat', canonicalIdentity: 'vegetable oil',
+          amountGrams: { estimate: 8, min: 4, max: 14, origin: 'model_inferred' },
+        },
+      ],
+      variations: [
+        { variationType: 'INGREDIENT_AMOUNT', ingredientName: 'cooking fat', alternatives: [] },
+        { variationType: 'INGREDIENT_VARIANT', ingredientName: 'cooking fat', alternatives: ['ghee'] },
+      ],
+    },
+    {
+      componentName: 'roti',
+      ingredients: [
+        {
+          ingredientName: 'whole wheat flour', canonicalIdentity: 'whole wheat flour',
+          amountGrams: { estimate: 37.5, min: 30, max: 45, origin: 'model_inferred' },
+        },
+        {
+          ingredientName: 'water', canonicalIdentity: 'water',
+          amountGrams: { estimate: 12.5, min: 10, max: 15, origin: 'model_inferred' },
+        },
+      ],
+      variations: [],
+    },
+  ],
+};
+
+test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {
+  const result = await createTwoPassFixtureMealInterpreter(firstPass, secondPass).interpret(compactInput);
+  assert.equal(result.proposal.outcome, 'FOOD');
+  assert.deepEqual(result.firstPass, firstPass);
+  assert.deepEqual(result.secondPass, secondPass);
+  if (result.proposal.outcome === 'FOOD') {
+    assert.deepEqual(result.proposal.components.map(({ componentId }) => componentId), ['daal', 'roti']);
+    assert.equal(result.proposal.components[0]!.scenarios.length, 18);
+    assert.equal(result.proposal.components[1]!.scenarios.length, 3);
+    const daalIngredients = result.proposal.components[0]!.scenarios[0]!.ingredients;
+    assert.deepEqual(
+      daalIngredients.find((ingredient) => ingredient.leafId === 'lentils')?.preparationCodes,
+      ['UNKNOWN']
+    );
+    assert.deepEqual(
+      daalIngredients.find((ingredient) => ingredient.leafId === 'cooking-fat')?.preparationCodes,
+      ['UNKNOWN']
+    );
+  }
+});
+
+test('model adapter performs two observable compact calls', async () => {
+  const values = [firstPass, secondPass];
+  const requests: Array<{ name: string; operation?: string }> = [];
   const client: MealAnalysisLlmClient = {
     chat: {
       completions: {
-        async create(_request, context) {
-          context?.validateStructuredContent?.(envelope);
+        async create(request, context) {
+          const value = values[requests.length]!;
+          requests.push({ name: request.response_format?.type === 'json_schema'
+            ? request.response_format.json_schema.name
+            : '', operation: context?.operation });
+          context?.validateStructuredContent?.(value);
           return {
-            choices: [{ message: { content: JSON.stringify(envelope) } }],
+            choices: [{ message: { content: JSON.stringify(value) } }],
           } as unknown as OpenAI.Chat.Completions.ChatCompletion;
         },
       },
     },
   };
 
-  const result = await createModelMealInterpreter(client).interpret(input);
+  const result = await createModelMealInterpreter(client).interpret(compactInput);
   assert.equal(result.proposal.outcome, 'FOOD');
-  assert.deepEqual(result.normalizations, [
-    'recomputed exact USER_TEXT UTF-16 spans',
-    'removed duplicate lookup aliases',
-    'aligned COUNT scenario scaling with the component portion',
+  assert.deepEqual(requests, [
+    { name: 'meal_components_v3', operation: 'interpret_v3_components_text' },
+    { name: 'meal_ingredients_v3', operation: 'interpret_v3_ingredients_text' },
   ]);
-  assert.equal((result.rawProposal as Record<string, unknown>).outcome, 'FOOD');
+  assert.deepEqual(result.rawProposal, { firstPass, secondPass });
 });

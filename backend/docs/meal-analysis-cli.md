@@ -58,7 +58,7 @@ Text:
 
 ```bash
 npm run meal-analysis -- \
-  --text "kaddu sabzi and 4 rotis" \
+  --text "daal and 4 rotis" \
   --locale en-IN \
   --time-zone Asia/Kolkata
 ```
@@ -113,9 +113,10 @@ Inapplicable stages are emitted as `SKIPPED`, so a food, no-food, unusable, or
 unresolved run remains fully traceable. Local image bytes are represented by
 media type, byte count, and SHA-256 rather than printed as base64.
 
-The interpreter output includes the raw structured proposal, deterministic
-mechanical normalizations, the validated proposal, and bounded provider
-attempt metadata. Nutrition output includes the selected trusted record or
+The `INTERPRETED` output includes the exact compact `firstPass` and `secondPass`
+responses, their deterministically derived calculation proposal, and bounded
+provider-attempt metadata. Provider operation names distinguish component and
+ingredient passes. Nutrition output includes the selected trusted record or
 bounded candidate rejection diagnostics for every scenario leaf.
 
 ## NDJSON and repeatable input
@@ -149,6 +150,27 @@ questions, presentation, and integrity checks. Because ephemeral invocations
 do not share memory, rerunning a live command with answers also reruns live
 interpretation; use interactive mode when testing the one-pause behavior.
 
+To replay the agreed compact daal-and-roti responses through every downstream
+stage without calling either interpretation model:
+
+```bash
+npm run meal-analysis -- \
+  --text "daal and 4 roti" \
+  --locale en-IN \
+  --time-zone Asia/Kolkata \
+  --first-pass docs/examples/meal-analysis-first-pass.json \
+  --second-pass docs/examples/meal-analysis-second-pass.json
+```
+
+Both fixture flags are required together. The first-pass fixture is validated,
+the second-pass component names must match it exactly, and deterministic code
+expands the compact ranges and variations before real USDA resolution.
+
+The active USDA snapshot can still return several equally ranked exact rows
+for generic ingredients such as ghee or whole-wheat flour. In that case the
+replay intentionally reaches `UNRESOLVED_NUTRITION`; this iteration does not
+change USDA search terms or candidate ordering.
+
 ## Arguments
 
 | Argument | Meaning | Default |
@@ -161,6 +183,8 @@ interpretation; use interactive mode when testing the one-pause behavior.
 | `--captured-at TIME` | RFC 3339 capture time. | Current time |
 | `--image-origin VALUE` | `CAMERA_NOW` or `GALLERY`. | `GALLERY` for a local file |
 | `--proposal FILE` | Strict saved interpretation proposal for replay. | Live model |
+| `--first-pass FILE` | Compact pass-one response fixture; requires `--second-pass`. | Live model |
+| `--second-pass FILE` | Compact pass-two response fixture; requires `--first-pass`. | Live model |
 | `--answers JSON` | Complete explicit nutrition answer array. | Interactive / needs input |
 | `--meal-type VALUE` | Explicit breakfast, lunch, dinner, or snack answer. | Inferred / asked |
 | `--json` | NDJSON observations, no prompts or defaults. | Human output |
@@ -173,7 +197,7 @@ Exactly one of `--text` and `--image` is required.
 | --- | --- |
 | `0` | `COMPLETE` or `NO_FOOD` |
 | `2` | `NEEDS_INPUT` |
-| `3` | `UNUSABLE_INPUT` or `UNRESOLVED` |
+| `3` | `UNRESOLVED`; the temporary internal bridge can also emit legacy `UNUSABLE_INPUT` |
 | `4` | Provider, database, or other runtime failure |
 | `64` | Invalid CLI input or arguments |
 

@@ -272,6 +272,7 @@ export const questionKindSchema = z.enum([
   'UNIT_SIZE',
   'TOTAL_AMOUNT',
   'INGREDIENT_VARIANT',
+  'INGREDIENT_AMOUNT',
   'INGREDIENT_PRESENCE',
   'PREPARATION',
   'ADDED_OR_RETAINED_FAT',
@@ -472,7 +473,7 @@ const componentProposalObjectSchema = z.object({
   evidence: z.array(evidenceSchema).min(1).max(12),
   portionConstraint: portionConstraintSchema,
   preparationConstraints: z.array(preparationConstraintSchema).max(6),
-  scenarios: z.array(recipeScenarioSchema).min(1).max(12),
+  scenarios: z.array(recipeScenarioSchema).min(1).max(100),
   pointScenarioId: identifier,
 }).strict();
 

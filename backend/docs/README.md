@@ -9,8 +9,8 @@
 - [Meal-analysis state machine](meal-analysis-state-machine.md) — durable
   end-to-end V2 flow, data boundaries, no-food termination, leases, stream
   events, resume behavior, and log confirmation.
-- [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable text
-  and image runs through recipe scenarios, active local USDA grounding,
+- [Meal-analysis V3 hypothesis CLI](meal-analysis-cli.md) — observable two-pass
+  text and image interpretation, derived scenarios, active local USDA grounding,
   bounded questions, five-macro ranges, and terminal outcomes.
 - [Meal-analysis Prometheus metrics](meal-analysis-prometheus.md) — metric
   names and example Grafana queries.

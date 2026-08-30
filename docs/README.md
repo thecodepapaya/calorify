@@ -13,8 +13,9 @@ Use this page to find the document that matches the work you are doing.
 ## Plans and decisions
 
 - [Meal-analysis backend rewrite](plans/meal-analysis-reliability.md) — approved
-  recipe-scenario domain, trusted nutrition resolution, bounded clarification,
-  macro ranges, CLI-first delivery, durable cutover, and release gates.
+  two-pass component and ingredient interpretation, deterministic recipe
+  scenarios, bounded clarification, macro ranges, CLI-first delivery, durable
+  cutover, and release gates.
 - [Local meal analysis](plans/local-inference-meal-analysis.md) — paused V2-era
   scope, trust boundaries, engineering evidence, and deferred decisions.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.
@@ -31,7 +32,7 @@ Use this page to find the document that matches the work you are doing.
 - [Meal-analysis history page](../backend/docs/analysis-history.md) — protected
   inspection of durable layers, structured observations, and final responses.
 - [Meal-analysis V3 hypothesis CLI](../backend/docs/meal-analysis-cli.md) — run
-  the shared ephemeral V3 core with fully observable text or image stages.
+  the shared ephemeral V3 core with observable two-pass text or image stages.
 
 ## Backend references
 

@@ -1,0 +1,49 @@
+{
+  "food_detected": true,
+  "mealNameCandidate": "Daal with roti",
+  "mealTypeCandidate": {
+    "value": null,
+    "origin": null
+  },
+  "components": [
+    {
+      "componentName": "daal",
+      "canonicalIdentity": "cooked lentil curry",
+      "portion": {
+        "kind": "AMOUNT",
+        "unit": "GRAM",
+        "estimate": 150,
+        "min": 120,
+        "max": 180,
+        "origin": "model_inferred",
+        "perUnitGrams": null
+      },
+      "preparation": {
+        "method": "SIMMERED",
+        "origin": "model_inferred"
+      }
+    },
+    {
+      "componentName": "roti",
+      "canonicalIdentity": "whole wheat flatbread",
+      "portion": {
+        "kind": "COUNT",
+        "unit": "COUNT",
+        "estimate": 4,
+        "min": 4,
+        "max": 4,
+        "origin": "user_text",
+        "perUnitGrams": {
+          "estimate": 50,
+          "min": 40,
+          "max": 60,
+          "origin": "model_inferred"
+        }
+      },
+      "preparation": {
+        "method": "TOASTED",
+        "origin": "model_inferred"
+      }
+    }
+  ]
+}

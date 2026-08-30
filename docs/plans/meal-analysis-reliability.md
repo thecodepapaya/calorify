@@ -1,8 +1,8 @@
 # Meal-analysis backend rewrite
 
-Status: CLI hypothesis implemented; durable backend and client cutover pending
+Status: two-pass CLI hypothesis implemented; durable backend and client cutover pending
 
-Last reviewed: 2026-08-26
+Last reviewed: 2026-08-30
 
 ## Objective
 
@@ -36,8 +36,20 @@ until the cutover is complete.
 - Image analysis assumes that the entire visible serving was consumed.
 - Every food component is represented by a quantified ingredient recipe.
   Prepared-dish calorie records are not an authoritative calculation path.
-- Models may propose identities, recipes, portions, scenarios, and presentation
-  copy. They may not provide authoritative calories or macros.
+- Interpretation is split into two compact structured model calls. Pass one
+  detects food and extracts meal components, portions, preparation, and meal
+  type. Pass two decomposes those exact components into quantified ingredients
+  and declares only compact, material variation descriptors. Models never
+  provide authoritative calories or macros.
+- The two model contracts use the agreed names (`food_detected`,
+  `mealNameCandidate`, `mealTypeCandidate`, `componentName`,
+  `canonicalIdentity`, `portion`, `preparation`, `ingredients`, and
+  `variations`). Do not rename these fields while moving the hypothesis into
+  the durable flow.
+- Model-facing origin has only two non-null values: `user_text` for information
+  explicitly supplied by the user, including a clarification answer, and
+  `model_inferred` for everything else, including image observations and
+  context defaults. An unresolved meal type uses `value: null, origin: null`.
 - Every nutrition-bearing ingredient must resolve against trusted data. No
   unreviewed model-generated nutrition fallback is allowed.
 - Packaged, branded, restaurant, and proprietary foods still receive a
@@ -131,16 +143,18 @@ foods and images, but are not required for the first reliable backend flow.
 
 ```text
 Meal
-  -> Component[]
+  -> Component[]                   // pass one
        -> Portion
-       -> Preparation[]
-       -> RecipeScenario[]
-            -> IngredientLeaf[]
-                 -> TrustedNutritionReference
+       -> Preparation
+       -> Ingredient[]             // pass two
+            -> AmountGrams
+            -> TrustedNutritionReference
+       -> Variation[]              // pass two
+       -> CalculationScenario[]    // derived deterministically, never model output
 ```
 
-A component is the food-level unit a user recognizes, such as `kaddu sabzi`,
-`roti`, `banana shake`, or `fried egg`. Ingredients are nutrition-bearing
+A component is the food-level unit a user recognizes, such as `daal`, `roti`,
+`banana shake`, or `fried egg`. Ingredients are nutrition-bearing
 leaves such as pumpkin, flour, retained oil, milk, or sugar.
 
 Only ingredient leaves contribute macros. Components and the meal aggregate
@@ -153,50 +167,36 @@ has one banana leaf rather than an invented list of sub-ingredients.
 
 Keep these concepts separate:
 
-- `sourceName`: the original user-visible term or image interpretation;
-- `displayName`: localized presentation wording;
+- `componentName`: the concise food term returned by pass one;
 - `canonicalIdentity`: the stable English identity used for nutrition lookup;
-- `lookupAliases`: bounded alternatives used only during resolution.
+- presentation wording is generated later and never changes calculation
+  identity.
 
-Country and locale may change `displayName`, such as presenting `roti` as
+Country and locale may change final presentation, such as presenting `roti` as
 `Indian flatbread` for an English-speaking US context. They may not silently
 change the canonical food identity or override explicit preparation details.
-Country may also inform model-proposed regional recipe scenarios when a
+Country may also inform model-proposed regional ingredient recipes when a
 variation is nutritionally material, but it remains a weak prior and never a
 hand-coded locale rule or a substitute for source evidence.
 
-### Evidence and provenance
+### Origin and uncertainty
 
-Every material inferred or selected field carries one origin:
+The model contracts intentionally distinguish only `user_text` from
+`model_inferred`. This answers the only product-relevant question: did the user
+explicitly supply the value, or did the system estimate it? Clarification
+answers become `user_text`; image-derived and context-derived values remain
+`model_inferred`.
 
-```text
-USER_TEXT
-USER_CLARIFICATION
-IMAGE_OBSERVED
-CONTEXT_DEFAULT
-MODEL_INFERRED
-REFERENCE_DEFAULT
-DERIVED
-```
+Origin and uncertainty remain separate. A user-provided count is clamped to
+`min = estimate = max`; a model-inferred unit size or gram conversion may have
+a range. The compact calls do not emit evidence objects, source spans, internal
+IDs, nutrition basis machinery, question prose, or calculation scenarios.
+The normalized original input remains stored beside both responses for audit.
 
-Origin and uncertainty are separate. A user-provided cup is explicit, but its
-gram conversion still has density and vessel uncertainty. An image-observed
-count may still have a range when items are occluded.
-
-Text claims marked `USER_TEXT` retain the exact source text and a UTF-16
-`[start, end)` span, matching JavaScript and Dart indexing. The backend checks
-that each asserted span reproduces the exact text and stays in bounds. A
-single source phrase may support closely related facts, such as component
-identity and portion provenance. It also inventories locale-neutral
-numeric and unit-symbol anchors and requires each to be attached exactly once.
-
-Without hand-maintained language parsers, runtime code cannot prove that the
-model found every language-specific food, number word, or regional measure.
-Completeness for those anchors is an evaluated model property: reviewed
-multilingual holdouts measure omissions, while runtime strictly validates the
-claims and locale-neutral anchors it can verify. Cross-runtime fixtures cover
-emoji, combining marks, Indic and RTL scripts, repeated names, and substring
-collisions.
+The current hypothesis adapter may translate these two values into legacy
+internal provenance while reusing the calculation engine. That translation is
+an implementation bridge, not part of the new model or API contract, and must
+not leak extra origin values back into either LLM response.
 
 ### Portion representation
 
@@ -312,18 +312,25 @@ Presence and variant choices live in scenario-level assumptions. For example,
 whole-milk and skim-milk scenarios each contain one active milk leaf; no
 `OPTIONAL` or `ALTERNATIVE` leaves coexist inside a scenario.
 
-## Quantified recipe scenarios
+## Quantified ingredients and derived scenarios
 
 ### Why scenarios are required
 
-Independent minimum and maximum values for every ingredient are unsafe. Adding
-all minima or all maxima can create a physically impossible recipe, such as
-maximum flour, oil, and filling combined with minimum finished yield.
+Pass two returns one quantified point recipe per component. Every ingredient
+has `ingredientName`, `canonicalIdentity`, and `amountGrams` with
+`min`, `estimate`, `max`, and origin. For a `COUNT` component the ingredient
+amounts describe one unit; for an `AMOUNT` component they describe the pass-one
+point serving. This rule prevents the same response from ambiguously mixing
+per-unit and whole-consumed quantities.
 
-Each component therefore contains a small bounded set of internally coherent,
-fully calculable recipe scenarios. An inferred composite normally has lean,
-typical, and rich scenarios. An atomic food may still need several portion
-scenarios when its size is uncertain. Each scenario contains:
+The model does not duplicate whole recipes into lean, typical, and rich
+objects. Instead it declares compact variations. Deterministic code expands
+the point recipe only as needed for trusted lookup, range calculation, impact
+simulation, and answer application. This removes ID management, duplicated
+ingredients, yield arithmetic, evidence spans, and cross-field scenario
+invariants from the model task.
+
+Internally, each derived calculation scenario contains:
 
 - structured assumptions;
 - ingredient leaves with point nutrition-basis grams;
@@ -333,7 +340,7 @@ scenarios when its size is uncertain. Each scenario contains:
 - authoritative effective preparation and retained-fat state;
 - one calculated point `MacroVector`.
 
-Scenarios are plausible engineering hypotheses, not probability distributions.
+Derived scenarios are plausible engineering hypotheses, not probability distributions.
 One compatible scenario is explicitly selected as the point scenario. The
 extrema across compatible scenarios supply the component macro ranges.
 
@@ -364,10 +371,16 @@ its count constraints. Count and finished-mass scaling must never both be
 applied to one scenario.
 
 Ingredient proportions, yield, and portion assumptions remain correlated
-inside each scenario. Clarification answers filter or update compatible
-scenarios and select exactly one resulting point scenario, after which the
-backend recalculates from leaves. The implementation never patches a stored
-calorie delta.
+inside each derived scenario. The hypothesis adapter currently creates the
+Cartesian product only within one component and rejects more than 100 derived
+scenarios. This is temporary compatibility with the existing calculator, not
+an LLM response requirement. Before durable cutover, evaluation must confirm a
+smaller marginal representation or a tighter deterministic bound if normal
+meals approach this cap.
+
+Clarification answers filter or update compatible scenarios and select exactly
+one resulting point scenario, after which the backend recalculates from
+leaves. The implementation never patches a stored calorie delta.
 
 Leaves and scenarios carry point vectors only. A component exposes an estimate
 from its selected point scenario and per-macro minima/maxima across its valid
@@ -441,23 +454,23 @@ qualifies for the bounded trace rule, it makes the analysis `UNRESOLVED`. The
 resolver may consult additional trusted datasets in the future, but adding a
 dataset does not change the recipe or calculation contracts.
 
-Packaged and proprietary foods do not bypass the recipe rule. The model
-produces best-effort ingredient scenarios, the leaves resolve through trusted
+Packaged and proprietary foods do not bypass the recipe rule. Pass two
+produces a best-effort quantified ingredient recipe, derived scenarios resolve through trusted
 data, and conservative floors preserve the resulting uncertainty.
 
 ## End-to-end workflow
 
 ```mermaid
 flowchart TD
-    A[Persist normalized text or image input] --> B[Structured interpretation]
-    B --> C[Semantic and verifiable-anchor validation]
-    C -->|no food| N[NO_FOOD]
-    C -->|unusable| U[UNUSABLE_INPUT]
-    C --> D[Resolve trusted ingredient nutrition]
-    D -->|cannot ground active leaf| R[UNRESOLVED]
-    D --> E[Calculate coherent scenario macros]
-    E --> F[Plan nutrition questions and meal type]
-    F --> G{Input needed?}
+    A[Persist normalized text or image input] --> B[Pass one: components and portions]
+    B -->|food_detected false| N[NO_FOOD]
+    B --> C[Pass two: ingredients and variations]
+    C --> D[Validate and derive calculation scenarios]
+    D --> E[Resolve trusted ingredient nutrition]
+    E -->|cannot ground active leaf| R[UNRESOLVED]
+    E --> F[Calculate coherent scenario macros]
+    F --> Q[Plan nutrition questions and meal type]
+    Q --> G{Input needed?}
     G -->|yes| H[Persist exact bundle and pause]
     H --> I[Persist answers as ANSWERS_RECEIVED]
     I --> J[Apply answers, recalculate, and run integrity gate]
@@ -469,20 +482,22 @@ flowchart TD
 
 ### Sanity walkthrough
 
-For text `kaddu sabzi and 4 roti`:
+For text `daal and 4 roti`:
 
-1. The interpreter creates `kaddu sabzi` and `roti` components and preserves
-   the exact count anchor `4` on the roti component.
-2. Sabzi scenarios quantify pumpkin, any materially plausible supporting
-   ingredients, and retained oil. Roti scenarios quantify flour and
-   yield-only water; any plausible added fat is an active ingredient in the
-   scenarios where it is present.
-3. Every scenario has a concrete portion. The roti count stays four while
-   plausible per-roti size varies; the unspecified sabzi amount varies only
-   through coherent point scenarios.
+1. Pass one creates `daal` and `roti` components. It preserves count four as
+   `user_text`, estimates the daal finished-gram range and per-roti gram range
+   as `model_inferred`, and returns no ingredients or alternatives.
+2. Pass two returns one quantified daal recipe and one per-unit roti recipe.
+   It includes lentils, water, cooking fat, spices, flour, and any plausible
+   added fat, then declares only material ingredient amount, variant, presence,
+   or preparation uncertainty.
+3. Deterministic code expands those compact values into calculable scenarios.
+   The roti count stays four while plausible per-roti size varies; the daal
+   amount, cooking-fat amount, and cooking-fat identity remain independently
+   testable dimensions.
 4. All active leaves in all retained scenarios resolve against trusted data
    before questions are ranked. No dish-level calorie guess is used.
-5. Likely high-impact nutrition questions concern roti size and sabzi oil or
+5. Likely high-impact nutrition questions concern roti size and daal oil or
    amount. The explicit count is not asked again. An uncertain meal type may be
    included in the same pause outside that one-to-three question budget.
 6. Answers filter to resolved scenarios and select one point scenario. If the
@@ -490,45 +505,207 @@ For text `kaddu sabzi and 4 roti`:
    would also carry point/range protein, carbohydrate, fat, and fiber, while
    the app would render only `440 kcal` and `410-470`.
 7. The localized meal name contains no quantity. A concise serving label may
-   say `4 flatbreads + vegetable portion`; it does not invent a bowl or expose
+   say `4 flatbreads + daal serving`; it does not invent a bowl or expose
    weight. Presentation generation cannot change the nutrition.
 
 This walkthrough becomes a deterministic regression fixture; its reviewed
 ingredient quantities and macro targets, rather than the illustrative values
 above, determine whether implementation is accurate.
 
-### Structured interpretation
+### Two-pass structured interpretation
 
-Use one primary structured model operation for either text or image. Its output
-contains food/no-food classification, components, portions, recipe scenarios,
-preparation, uncertainties, evidence, and meal-type inference. It does not
-contain nutrition values.
+Use two compact structured calls for either text or image. Both use GPT-5 Nano
+through the existing provider chain, run their complete decoder inside each
+provider attempt, and expose their exact input, output, timing, provider, model,
+and bounded error category in the CLI. Pass two runs only when pass one returns
+`food_detected: true`.
 
-The complete decoder and validator, including cross-field and semantic checks,
-runs inside each provider attempt through the provider-adapter validation
-callback. An invalid response advances provider failover; it is never logged
-as a successful decomposition and repaired through an unbounded patch chain
-afterward.
+#### Pass one: food and components
 
-Before that validator, one bounded mechanical canonicalizer may recompute an
-exact UTF-16 span from an exact quoted substring, remove duplicate aliases, or
-align a scenario's scale discriminant with its already-declared component
-portion. It cannot add foods, quantities, ingredients, or recipe assumptions.
-Every such change is exposed in the CLI trace; anything still inconsistent
-fails the provider attempt.
+Pass one performs only food detection, component splitting, point/range
+portion inference, one selected preparation method, meal-name candidacy, and
+meal-type candidacy. It must not emit ingredients, recipe scenarios,
+variations, nutrition, question prose, evidence spans, or internal IDs.
 
-Validation requires:
+The stable response uses this shape:
 
-- every model-asserted source food and quantity is represented exactly once,
-  and every locale-neutral numeric/unit anchor is covered;
-- scenario ingredient roles and assumptions are consistent;
-- count, portion, yield, and scale bases are valid;
-- component and ingredient identities are not generic replacements for more
-  specific explicit terms;
-- no nutrient values appear in generated output;
-- model output stays within bounded component, ingredient, alias, and scenario
-  counts;
-- `NO_FOOD` and unusable input satisfy their terminal invariants.
+```json
+{
+  "food_detected": true,
+  "mealNameCandidate": "Daal with roti",
+  "mealTypeCandidate": {
+    "value": null,
+    "origin": null
+  },
+  "components": [
+    {
+      "componentName": "daal",
+      "canonicalIdentity": "cooked lentil curry",
+      "portion": {
+        "kind": "AMOUNT",
+        "unit": "GRAM",
+        "estimate": 150,
+        "min": 120,
+        "max": 180,
+        "origin": "model_inferred",
+        "perUnitGrams": null
+      },
+      "preparation": {
+        "method": "SIMMERED",
+        "origin": "model_inferred"
+      }
+    },
+    {
+      "componentName": "roti",
+      "canonicalIdentity": "whole wheat flatbread",
+      "portion": {
+        "kind": "COUNT",
+        "unit": "COUNT",
+        "estimate": 4,
+        "min": 4,
+        "max": 4,
+        "origin": "user_text",
+        "perUnitGrams": {
+          "estimate": 50,
+          "min": 40,
+          "max": 60,
+          "origin": "model_inferred"
+        }
+      },
+      "preparation": {
+        "method": "TOASTED",
+        "origin": "model_inferred"
+      }
+    }
+  ]
+}
+```
+
+Pass-one rules:
+
+- `food_detected: false` is the single no-food/unusable terminal result. It
+  returns an empty component list and null meal-name and meal-type values.
+- `AMOUNT` uses explicit finished `GRAM`; `COUNT` uses `COUNT` and requires
+  `perUnitGrams`.
+- Explicit user quantities clamp `min = estimate = max` and use `user_text`.
+- Model-estimated values use `model_inferred`, including image observations.
+- `mealTypeCandidate` uses null value and null origin when unresolved.
+- `mealNameCandidate` never includes count, size, serving text, weight,
+  calories, or advice.
+- Preparation contains only the selected method. Alternatives belong to pass
+  two.
+
+#### Pass two: quantified ingredients and compact variations
+
+Pass two receives the normalized original input and the validated pass-one
+JSON. It returns exactly one component entry matching every pass-one
+`componentName`. It must not add, remove, merge, or rename components.
+
+For each component it returns a complete quantified ingredient recipe and a
+small variation list. Ingredient amounts correspond to the pass-one point
+portion; for `COUNT`, amounts are per unit. The response contains no calories,
+macros, USDA record IDs, question prose, presentation labels, option objects,
+calculation scenarios, or repeated portion ranges.
+
+```json
+{
+  "components": [
+    {
+      "componentName": "daal",
+      "ingredients": [
+        {
+          "ingredientName": "lentils",
+          "canonicalIdentity": "lentils dry",
+          "amountGrams": {
+            "estimate": 45,
+            "min": 40,
+            "max": 50,
+            "origin": "model_inferred"
+          }
+        },
+        {
+          "ingredientName": "cooking fat",
+          "canonicalIdentity": "vegetable oil",
+          "amountGrams": {
+            "estimate": 8,
+            "min": 4,
+            "max": 14,
+            "origin": "model_inferred"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "variationType": "INGREDIENT_AMOUNT",
+          "ingredientName": "cooking fat",
+          "alternatives": []
+        },
+        {
+          "variationType": "INGREDIENT_VARIANT",
+          "ingredientName": "cooking fat",
+          "alternatives": ["ghee"]
+        }
+      ]
+    },
+    {
+      "componentName": "roti",
+      "ingredients": [
+        {
+          "ingredientName": "whole wheat flour",
+          "canonicalIdentity": "whole wheat flour",
+          "amountGrams": {
+            "estimate": 37.5,
+            "min": 30,
+            "max": 45,
+            "origin": "model_inferred"
+          }
+        }
+      ],
+      "variations": []
+    }
+  ]
+}
+```
+
+The closed `variationType` enum is:
+
+```text
+COUNT
+PORTION_AMOUNT
+UNIT_SIZE
+INGREDIENT_AMOUNT
+INGREDIENT_VARIANT
+INGREDIENT_PRESENCE
+PREPARATION
+```
+
+Pass two normally emits only ingredient and preparation variations because
+pass-one ranges already express count, portion amount, and unit size. Numeric
+alternatives are not repeated: `amountGrams.min`, `estimate`, and `max` are the
+three calculation values. `INGREDIENT_VARIANT.alternatives` contains canonical
+food identities such as `skim milk` versus a baseline `whole milk`.
+`INGREDIENT_PRESENCE` references an ingredient whose zero/nonzero range
+represents absence and presence. `PREPARATION.alternatives` contains closed
+preparation codes.
+
+The model proposes no more than four variations per component and normally
+zero to two. Deterministic calculation may evaluate all declared candidates,
+but question planning retains at most one nutrition question per component and
+one to three total.
+
+#### Validation and failure behavior
+
+Each pass uses a separate small strict JSON Schema and semantic validator.
+Pass-two validation also checks exact component correspondence and validates
+the deterministically derived calculation proposal. A failure advances the
+same provider failover chain for that pass. Error telemetry distinguishes the
+operation names `interpret_v3_components_*` and `interpret_v3_ingredients_*`.
+
+No model output is silently repaired with food-specific regexes or templates.
+The deterministic adapter may create IDs, map the two origin values into
+internal calculation provenance, infer mechanical nutrition basis from a
+canonical identity, and expand compact variations into calculation scenarios.
+Those derived fields are observable but are not fed back into either LLM.
 
 ### Clarification planning
 
@@ -536,13 +713,18 @@ Question candidates may target:
 
 ```text
 COUNT
+PORTION_AMOUNT
 UNIT_SIZE
-TOTAL_AMOUNT
+INGREDIENT_AMOUNT
 INGREDIENT_VARIANT
 INGREDIENT_PRESENCE
 PREPARATION
-ADDED_OR_RETAINED_FAT
 ```
+
+These names are the canonical `variationType` vocabulary. The current
+calculation bridge may map `PORTION_AMOUNT` to its legacy internal
+`TOTAL_AMOUNT` representation and specialized fat amounts to the generic
+`INGREDIENT_AMOUNT`; those internal names are not part of the new contract.
 
 The planner simulates each candidate answer against the fully resolved scenario
 set and measures reduction in normalized meal-macro width. For macro `m`:
@@ -788,7 +970,6 @@ The core returns one algebraic outcome:
 COMPLETE
 NEEDS_INPUT
 NO_FOOD
-UNUSABLE_INPUT
 UNRESOLVED
 RETRYABLE_FAILURE
 ```
@@ -796,9 +977,8 @@ RETRYABLE_FAILURE
 - `COMPLETE` contains calculation and presentation state that passed the final
   integrity gate.
 - `NEEDS_INPUT` contains the persisted bounded question bundle.
-- `NO_FOOD` means the input was valid but did not contain a meal or food.
-- `UNUSABLE_INPUT` covers unreadable images or insufficient source content;
-  it is not represented as `NO_FOOD`.
+- `NO_FOOD` means no usable food was detected. It also covers unreadable or
+  otherwise unusable images; there is no separate unusable-input product flow.
 - `UNRESOLVED` covers nutrition identity, missing required non-fiber nutrient
   data, or
   residual uncertainty that fails the versioned completion-safety predicate.
@@ -817,8 +997,10 @@ PostgreSQL, and model SDKs. The core consists of small typed operations:
 
 ```text
 normalizeInput
-interpretInput
+interpretComponents
+interpretIngredients
 validateProposal
+deriveCalculationScenarios
 resolveIngredients
 calculateScenarios
 resolveMealType
@@ -846,9 +1028,11 @@ layer over, the persistence model.
 
 ### Complexity budget
 
-Keep V3 to one bounded interpretation attempt per provider, a small scenario
-set per component, one workflow-state table, one human pause, and one optional
-presentation operation. Supporting feature tables may be added only where a
+Keep V3 to two small bounded interpretation operations, a deterministically
+bounded scenario set per component, one workflow-state table, one human pause,
+and one optional presentation operation. Provider failover is bounded
+separately for each pass; neither pass retries or asks the other pass to repair
+invalid JSON. Supporting feature tables may be added only where a
 real foreign key is required. Do not add a probabilistic inference engine,
 food-specific correction chain, payload-compatibility layer, dynamic agent
 loop, or second clarification round unless evaluation evidence shows the simple
@@ -868,7 +1052,6 @@ ANSWERS_RECEIVED
 FINALIZING
 COMPLETE
 NO_FOOD
-UNUSABLE_INPUT
 UNRESOLVED
 ```
 
@@ -880,7 +1063,7 @@ Persist:
 
 - immutable normalized input and context;
 - workflow, schema, prompt, model, resolver, calculation, and dataset versions;
-- validated interpretation and coherent scenarios;
+- validated pass-one and pass-two responses, plus derived coherent scenarios;
 - trusted nutrition references and calculated snapshots;
 - the exact question bundle, revision, and answers;
 - meal type and provenance;
@@ -936,7 +1119,7 @@ Required CLI capabilities:
 
 In `--json` mode, stdout contains machine NDJSON only; prompts and diagnostics
 go to stderr. Exit codes are stable: `0` for `COMPLETE` or `NO_FOOD`, `2` for
-`NEEDS_INPUT`, `3` for `UNUSABLE_INPUT` or `UNRESOLVED`, `4` for a retryable
+`NEEDS_INPUT`, `3` for `UNRESOLVED`, `4` for a retryable
 failure, and `64` for CLI usage errors. The interactive mode may render concise
 human output but still uses the same core.
 
@@ -1052,7 +1235,7 @@ only calorie point/range initially but decodes and preserves all five macros.
 `MacroPoints` uses calories in kilocalories and the other four fields in grams;
 `MacroRanges` contains `{ min, max }` for the same five closed fields.
 
-`NO_FOOD`, `UNUSABLE_INPUT`, `UNRESOLVED`, and `ERROR` data carry a stable code,
+`NO_FOOD`, `UNRESOLVED`, and `ERROR` data carry a stable code,
 `retryable`, and one recovery action from `RETRY`, `RESUME`, `EDIT_INPUT`,
 `UPGRADE_APP`, or `NONE`. Localized UI copy is selected from those codes; server
 free text never controls recovery behavior.
@@ -1061,7 +1244,7 @@ Analyze, reanalyze, answer, and resume responses use
 `application/x-ndjson`; upload, feedback, and confirmation use ordinary JSON.
 After HTTP validation, each streaming request emits `STARTED` followed by
 exactly one request-closing event:
-`NEEDS_INPUT`, `COMPLETE`, `NO_FOOD`, `UNUSABLE_INPUT`, `UNRESOLVED`, or
+`NEEDS_INPUT`, `COMPLETE`, `NO_FOOD`, `UNRESOLVED`, or
 `ERROR`. Every line has `{ event, analysisId, data }`. Resume replays the exact
 pending bundle or terminal event. If a retryable failure occurs after
 `STARTED`, it emits `ERROR` with a stable code and `retryable: true`; a failure
@@ -1079,7 +1262,6 @@ Keep the public error vocabulary small and versioned:
 
 ```text
 UPGRADE_REQUIRED
-UNUSABLE_INPUT
 UNRESOLVED_NUTRITION
 UNCERTAINTY_TOO_HIGH
 INVALID_MODEL_OUTPUT
@@ -1191,7 +1373,7 @@ Measure:
 - interval coverage and interval sharpness for every macro;
 - question precision, expected band reduction, answerability, burden, and
   one-round completion;
-- appropriate `UNRESOLVED` and `UNUSABLE_INPUT` rates;
+- appropriate `NO_FOOD` and `UNRESOLVED` rates;
 - unsafe-confident success rate;
 - repeated-run stability;
 - CLI/HTTP semantic parity;
@@ -1246,24 +1428,44 @@ through the CLI without provider or database dependencies.
 
 ### Phase 2 - Structured text interpretation
 
-Implementation status: initial CLI adapter complete. Repeated multilingual
-evaluation and locale-neutral anchor completeness remain before release.
+Implementation status: compact two-pass model adapter and deterministic bridge
+to the existing CLI calculation engine complete. Live repeated multilingual,
+image, structured-output reliability, and range calibration remain before
+release. A live `gpt-5-nano` smoke test on 2026-08-30 did not clear pass one:
+OpenRouter returned empty content for `openai/gpt-5-nano`, the free router
+returned invalid structured content, and direct OpenAI returned quota-exhausted
+`429`. Fixture-backed validation proves the contracts and complete local
+translation path, but is not evidence of live provider reliability. Debug CLI
+logging now includes safe finish reason, refusal presence, content length, and
+schema or semantic validation errors without printing provider payloads.
 
-- Implement the text prompt and strict schema.
-- Run full parsing inside provider failover.
-- Validate UTF-16 evidence spans and locale-neutral anchor coverage.
-- Generate coherent recipe scenarios and uncertainty drivers.
+- Keep separate strict schemas for component/portion parsing and quantified
+  ingredient/variation decomposition.
+- Run each pass's full parsing and semantic validation inside provider
+  failover.
+- Preserve only `user_text` and `model_inferred` in model-facing contracts.
+- Expand compact ranges and variations into coherent calculation scenarios
+  deterministically.
+- Evaluate the 100-scenario compatibility cap and replace it with a smaller
+  marginal representation before durable cutover if ordinary inputs approach
+  it.
 - Add best-effort multilingual and regional cases.
 
-Exit: reviewed text fixtures produce complete valid proposals or typed safe
-failures without corrective regex/template chains.
+Exit: reviewed text fixtures produce two compact valid responses and a fully
+calculable proposal, or typed safe failures, without corrective food-specific
+regex/template chains.
 
 ### Phase 3 - Trusted resolution and calculation
 
 Implementation status: initial local-USDA resolver, legacy-snapshot reuse,
 missing-fiber-as-zero handling, optional presence-aware import, coherent
 scenario arithmetic, and five-macro ranges complete for the CLI. Calibration
-and uncertainty floors remain before release.
+and uncertainty floors remain before release. The current strict resolver can
+still terminate an otherwise valid replay as `UNRESOLVED` when the active USDA
+snapshot contains several equally ranked exact rows (observed for generic ghee,
+vegetable oil, whole-wheat flour, and mixed spices). Search-term construction
+and candidate ordering are intentionally unchanged in this iteration; this is
+a visible resolver limitation, not a reason to widen or silently choose a row.
 
 - Implement identity-tiered, preparation-aware leaf resolution.
 - Enforce four-macro source completeness and the missing-fiber-as-zero policy.
@@ -1298,7 +1500,8 @@ Implementation status: local image input, shared image/text interpretation,
 deterministic serving text, optional localized name/tip generation, and
 presentation fallback complete for the CLI. Image evaluation remains pending.
 
-- Add image interpretation to the same proposal schema.
+- Run images through the same two compact pass schemas, supplying the image to
+  both passes when ingredient inference needs visual context.
 - Enforce visible-serving-consumed semantics and image uncertainty floors.
 - Add localized meal naming and label generation.
 - Build serving-size text from validated natural-measure segments.
@@ -1419,7 +1622,7 @@ does not require interpreting new sessions with the old engine.
 
 ### Representative regression cases
 
-- `kaddu sabzi and 4 rotis` preserves exact count, ranges unit size and sabzi,
+- `daal and 4 rotis` preserves exact count, ranges unit size and daal,
   and does not invent a bowl;
 - `100 g dry oats cooked with water` uses dry-oat nutrition;
 - `1 cup cooked rice` attaches the cup to finished rice;
@@ -1435,7 +1638,7 @@ does not require interpreting new sessions with the old engine.
 - `ek katori poha` and equivalent scripts preserve source terminology and bowl
   evidence;
 - `coffee` does not use country alone to choose black versus milk and sugar;
-- unusable images terminate as `UNUSABLE_INPUT`, not `NO_FOOD`.
+- unusable images terminate as `NO_FOOD`.
 
 ## Accuracy tradeoffs
 
@@ -1467,6 +1670,9 @@ and product behavior:
   authority;
 - treating absent fiber as zero may understate fiber and narrow its range when
   trusted source data is incomplete;
+- duplicate equally ranked USDA rows can currently stop the CLI at
+  `UNRESOLVED_NUTRITION`, even after both model passes and scenario derivation
+  succeed; resolver search terms and ordering are explicitly deferred;
 - forbidding weight in `servingSizeText` intentionally hides even an explicit
   gram amount from that display field; the structured portion still retains it
   for calculation and audit;

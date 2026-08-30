@@ -697,6 +697,7 @@ function questionPrompt(componentName: string, kind: NutritionQuestionKind): str
     case 'UNIT_SIZE': return `What size was each ${componentName}?`;
     case 'TOTAL_AMOUNT': return `How much ${componentName} did you have?`;
     case 'INGREDIENT_VARIANT': return `Which kind of ${componentName} was it?`;
+    case 'INGREDIENT_AMOUNT': return `How much of the uncertain ingredient was in the ${componentName}?`;
     case 'INGREDIENT_PRESENCE': return `Which ingredients were in the ${componentName}?`;
     case 'PREPARATION': return `How was the ${componentName} prepared?`;
     case 'ADDED_OR_RETAINED_FAT': return `How much oil or fat was in the ${componentName}?`;

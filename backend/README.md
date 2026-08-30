@@ -111,7 +111,7 @@ snapshot behavior. Cross-module suites use a scope name such as
   test database; the remaining suite is self-contained.
 
 `meal-analysis` runs the isolated V3 hypothesis core for either text or a local
-image. It exposes every stage, uses the active local USDA database,
+image. It exposes both compact LLM passes and every downstream stage, uses the active local USDA database,
 asks only a bounded material question bundle, and never selects silent
 defaults. Pass `--json` for NDJSON and `NEEDS_INPUT` behavior. See the
 [meal-analysis CLI guide](docs/meal-analysis-cli.md) for setup, arguments,
@@ -130,7 +130,7 @@ context, and then runs the same observable CLI.
 Meal analysis attempts:
 
 1. `OPENROUTER_MEAL_MODEL` via OpenRouter (`openai/gpt-5-nano` by default).
-   The scenario-heavy hypothesis CLI uses `OPENROUTER_MEAL_V3_MODEL`
+   The two-pass hypothesis CLI uses `OPENROUTER_MEAL_V3_MODEL`
    (`openai/gpt-5-nano` by default) for this primary attempt.
 2. `OPENROUTER_FREE_MODEL` via OpenRouter (`openrouter/free` by default).
 3. `OPENAI_MEAL_ANALYSIS_MODEL` via direct OpenAI.

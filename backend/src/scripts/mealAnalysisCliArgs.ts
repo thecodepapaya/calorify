@@ -7,6 +7,8 @@ export interface MealAnalysisCliOptions {
   text?: string;
   imagePath?: string;
   proposalPath?: string;
+  firstPassPath?: string;
+  secondPassPath?: string;
   answers?: string;
   locale: string;
   countryCode: string;
@@ -35,9 +37,11 @@ const VALUE_ARGUMENTS = new Set([
   '--country-code',
   '--image',
   '--image-origin',
+  '--first-pass',
   '--locale',
   '--meal-type',
   '--proposal',
+  '--second-pass',
   '--text',
   '--time-zone',
 ]);
@@ -145,14 +149,23 @@ export function parseMealAnalysisCliArgs(
   }
 
   const cwd = defaults.cwd ?? process.cwd();
+  const proposalPath = values.get('--proposal');
+  const firstPassPath = values.get('--first-pass');
+  const secondPassPath = values.get('--second-pass');
+  if ((firstPassPath === undefined) !== (secondPassPath === undefined)) {
+    return { ok: false, kind: 'error', message: '--first-pass and --second-pass must be supplied together' };
+  }
+  if (proposalPath && firstPassPath) {
+    return { ok: false, kind: 'error', message: '--proposal cannot be combined with --first-pass and --second-pass' };
+  }
   return {
     ok: true,
     options: {
       ...(text ? { text } : {}),
       ...(image ? { imagePath: filePath(image, cwd) } : {}),
-      ...(values.get('--proposal')
-        ? { proposalPath: filePath(values.get('--proposal')!, cwd) }
-        : {}),
+      ...(proposalPath ? { proposalPath: filePath(proposalPath, cwd) } : {}),
+      ...(firstPassPath ? { firstPassPath: filePath(firstPassPath, cwd) } : {}),
+      ...(secondPassPath ? { secondPassPath: filePath(secondPassPath, cwd) } : {}),
       ...(values.get('--answers') ? { answers: values.get('--answers') } : {}),
       locale,
       countryCode,
@@ -178,6 +191,8 @@ Context:
 
 Testing:
   --proposal FILE       Use a saved interpretation proposal instead of a model call.
+  --first-pass FILE     Replay a saved compact first-pass model response.
+  --second-pass FILE    Replay its matching compact second-pass response.
   --answers JSON        Submit explicit question answers as a JSON array.
   --meal-type VALUE     Explicit BREAKFAST, LUNCH, DINNER, or SNACK answer.
   --json                Emit one NDJSON observation per line; never prompt.

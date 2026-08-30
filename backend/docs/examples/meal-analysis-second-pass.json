@@ -1,0 +1,103 @@
+{
+  "components": [
+    {
+      "componentName": "daal",
+      "ingredients": [
+        {
+          "ingredientName": "lentils",
+          "canonicalIdentity": "lentils dry",
+          "amountGrams": {
+            "estimate": 45,
+            "min": 40,
+            "max": 50,
+            "origin": "model_inferred"
+          }
+        },
+        {
+          "ingredientName": "water",
+          "canonicalIdentity": "water",
+          "amountGrams": {
+            "estimate": 95,
+            "min": 80,
+            "max": 110,
+            "origin": "model_inferred"
+          }
+        },
+        {
+          "ingredientName": "cooking fat",
+          "canonicalIdentity": "vegetable oil",
+          "amountGrams": {
+            "estimate": 8,
+            "min": 4,
+            "max": 14,
+            "origin": "model_inferred"
+          }
+        },
+        {
+          "ingredientName": "spices",
+          "canonicalIdentity": "mixed spices",
+          "amountGrams": {
+            "estimate": 2,
+            "min": 1,
+            "max": 3,
+            "origin": "model_inferred"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "variationType": "INGREDIENT_AMOUNT",
+          "ingredientName": "cooking fat",
+          "alternatives": []
+        },
+        {
+          "variationType": "INGREDIENT_VARIANT",
+          "ingredientName": "cooking fat",
+          "alternatives": ["ghee"]
+        }
+      ]
+    },
+    {
+      "componentName": "roti",
+      "ingredients": [
+        {
+          "ingredientName": "whole wheat flour",
+          "canonicalIdentity": "whole wheat flour",
+          "amountGrams": {
+            "estimate": 37.5,
+            "min": 30,
+            "max": 45,
+            "origin": "model_inferred"
+          }
+        },
+        {
+          "ingredientName": "water",
+          "canonicalIdentity": "water",
+          "amountGrams": {
+            "estimate": 12.5,
+            "min": 10,
+            "max": 15,
+            "origin": "model_inferred"
+          }
+        },
+        {
+          "ingredientName": "added fat",
+          "canonicalIdentity": "ghee",
+          "amountGrams": {
+            "estimate": 0,
+            "min": 0,
+            "max": 3,
+            "origin": "model_inferred"
+          }
+        }
+      ],
+      "variations": [
+        {
+          "variationType": "INGREDIENT_PRESENCE",
+          "ingredientName": "added fat",
+          "alternatives": []
+        }
+      ]
+    }
+  ]
+}

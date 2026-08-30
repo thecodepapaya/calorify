@@ -10,7 +10,10 @@ import type {
   NutritionQuestion,
   QuestionAnswer,
 } from '../services/meal-analysis-v3/calculation.js';
-import { createFixtureMealInterpreter } from '../services/meal-analysis-v3/interpretation.js';
+import {
+  createFixtureMealInterpreter,
+  createTwoPassFixtureMealInterpreter,
+} from '../services/meal-analysis-v3/interpretation.js';
 import type {
   MealType,
   MealTypeQuestion,
@@ -215,6 +218,12 @@ export async function runMealAnalysisCli(argv = process.argv): Promise<number> {
     const fixtureProposal = cliOptions.proposalPath
       ? await readProposal(cliOptions.proposalPath)
       : undefined;
+    const firstPassFixture = cliOptions.firstPassPath
+      ? await readProposal(cliOptions.firstPassPath)
+      : undefined;
+    const secondPassFixture = cliOptions.secondPassPath
+      ? await readProposal(cliOptions.secondPassPath)
+      : undefined;
     const nutritionAnswers = parseMealAnalysisCliAnswers(cliOptions.answers);
     if (!config.USDA_DATABASE_URL && !config.DATABASE_URL) {
       throw new Error('USDA_DATABASE_URL or DATABASE_URL is not set');
@@ -230,6 +239,8 @@ export async function runMealAnalysisCli(argv = process.argv): Promise<number> {
         : {}),
       ...(fixtureProposal !== undefined
         ? { interpreter: createFixtureMealInterpreter(fixtureProposal) }
+        : firstPassFixture !== undefined && secondPassFixture !== undefined
+          ? { interpreter: createTwoPassFixtureMealInterpreter(firstPassFixture, secondPassFixture) }
         : {}),
       ...(nutritionAnswers !== undefined ? { nutritionAnswers } : {}),
       ...(cliOptions.mealType ? { mealTypeAnswer: cliOptions.mealType } : {}),
