@@ -31,6 +31,10 @@ import {
   type NutritionResolver,
 } from './nutrition.js';
 import {
+  createModelNutritionFallback,
+  type NutritionFallback,
+} from './llmNutritionFallback.js';
+import {
   createStageRecorder,
   type MealAnalysisV3Stage,
   type StageObserver,
@@ -97,6 +101,7 @@ export interface RunMealAnalysisV3Options {
   observer?: StageObserver;
   interpreter?: MealInterpreter;
   nutritionResolver?: NutritionResolver;
+  nutritionFallback?: NutritionFallback;
   presenter?: MealPresenter;
 }
 
@@ -208,9 +213,33 @@ export async function runMealAnalysisV3(
 
   const nutritionResolver = options.nutritionResolver ?? createLocalUsdaNutritionResolver();
   const nutritionStage = await recorder.record('NUTRITION_RESOLVED', proposal, async () => {
-    const run = await nutritionResolver.resolve(
+    let run = await nutritionResolver.resolve(
       proposal.components.flatMap(({ scenarios }) => scenarios)
     );
+    const unresolved = run.leaves.filter(({ reference }) => reference === null);
+    if (unresolved.length > 0) {
+      const leaves = new Map(proposal.components.flatMap(({ scenarios }) => scenarios).flatMap((scenario) =>
+        scenario.ingredients.map((leaf) => [`${scenario.scenarioId}:${leaf.leafId}`, { scenarioId: scenario.scenarioId, leaf }] as const)
+      ));
+      try {
+        const estimates = await (options.nutritionFallback ?? createModelNutritionFallback()).resolve(
+          unresolved.flatMap((item) => {
+            const request = leaves.get(`${item.scenarioId}:${item.leafId}`);
+            return request ? [request] : [];
+          })
+        );
+        const byLeaf = new Map(estimates.map((reference) => [`${reference.scenarioId}:${reference.leafId}`, reference]));
+        run = {
+          ...run,
+          leaves: run.leaves.map((item) => ({
+            ...item,
+            reference: item.reference ?? byLeaf.get(`${item.scenarioId}:${item.leafId}`) ?? null,
+          })),
+        };
+      } catch {
+        // Preserve the unresolved USDA outcome when the estimate provider fails.
+      }
+    }
     if (run.leaves.some(({ reference }) => reference === null)) {
       return { run, resolved: null };
     }

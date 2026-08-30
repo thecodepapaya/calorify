@@ -18,6 +18,7 @@ remains the canonical policy for meal analysis as a whole.
 | Stemmed identity tier | Enabled with FTS | Implemented |
 | USDA `NFS` fallback | Exact generic fallback after no better result | Implemented |
 | Generic `spices` fallback | Migration-seeded local profile | Implemented |
+| Model nutrition fallback | Strict per-100-g estimate after all USDA paths fail | Implemented |
 | Embedding generation, pgvector, and semantic retrieval | Defer | Not built |
 | Embeddings as an acceptance signal | Never allow | Permanent constraint |
 
@@ -153,6 +154,23 @@ generic retrieval and must still pass the normal identity, macro, and ranking
 checks. USDA and NFS queries exclude this table; it is queried only after
 neither has selected a row, so a local profile cannot shadow a future USDA
 record.
+
+## Model nutrition fallback
+
+**Decision:** when a nutrition-bearing leaf remains unresolved after normal
+USDA, NFS, and resolver-owned local fallback paths, request a per-100-g macro
+estimate from the meal-analysis model. A provider error or invalid answer
+leaves the reference unresolved.
+
+**Trust boundary:** this does not change USDA matching or relabel an estimate
+as USDA. USDA records retain `USDA_FOODDATA_CENTRAL`; model estimates use
+`MODEL_INFERRED`, a synthetic record ID, and
+`llm-nutrition-estimate-v1` in the result receipt.
+
+**Acceptance:** the response must echo the exact request ID and canonical
+identity, contain finite non-negative macros, stay within broad per-100-g
+plausibility bounds, and include no duplicate request. It is used only for
+the unresolved leaf; already resolved USDA references are untouched.
 
 ## Phase 1: full-text search and stemmed identity
 

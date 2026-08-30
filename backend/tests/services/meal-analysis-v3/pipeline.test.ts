@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createFixtureMealInterpreter } from '../../../src/services/meal-analysis-v3/interpretation.js';
 import { runMealAnalysisV3 } from '../../../src/services/meal-analysis-v3/pipeline.js';
+import type { NutritionFallback } from '../../../src/services/meal-analysis-v3/llmNutritionFallback.js';
 import type { NutritionResolver } from '../../../src/services/meal-analysis-v3/nutrition.js';
 import type { StageObservation } from '../../../src/services/meal-analysis-v3/observability.js';
 import type { MealPresenter } from '../../../src/services/meal-analysis-v3/presentation.js';
@@ -116,6 +117,87 @@ test('non-interactive pipeline returns the full question bundle without choosing
   if (result.outcome === 'NEEDS_INPUT') {
     assert.equal(result.questions.nutritionQuestions.length, 2);
     assert.equal(result.questions.mealTypeQuestion?.questionId, 'meal-type');
+  }
+});
+
+test('pipeline uses MODEL_INFERRED nutrition only after USDA leaves a reference unresolved', async () => {
+  const resolver = fixtureResolver();
+  let fallbackCalls = 0;
+  const nutritionFallback: NutritionFallback = {
+    async resolve(requests) {
+      fallbackCalls += 1;
+      return requests.map(({ scenarioId, leaf }) => ({
+        scenarioId,
+        leafId: leaf.leafId,
+        source: 'MODEL_INFERRED',
+        sourceRecordId: `llm-v3:${leaf.leafId}`,
+        datasetVersion: 'llm-nutrition-estimate-v1',
+        verifiedZero: false,
+        per100g: { caloriesKcal: 20, proteinGrams: 1, carbsGrams: 3, fatGrams: 0, fiberGrams: 1 },
+      }));
+    },
+  };
+  const result = await runMealAnalysisV3({
+    input,
+    interpreter: createFixtureMealInterpreter(proposalValue()),
+    nutritionResolver: {
+      async resolve(scenarios) {
+        const run = await resolver.resolve(scenarios);
+        return {
+          ...run,
+          leaves: run.leaves.map((item, index) => index === 0
+            ? { ...item, reference: null, rejectionReasons: ['IDENTITY_MISMATCH'] }
+            : item),
+        };
+      },
+    },
+    nutritionFallback,
+    presenter: fixturePresenter,
+    requestInput: async (questions) => ({
+      nutritionAnswers: questions.nutritionQuestions.map((question) => ({
+        questionId: question.questionId,
+        kind: 'USE_ESTIMATE' as const,
+      })),
+      mealTypeAnswer: 'LUNCH',
+    }),
+  });
+
+  assert.equal(result.outcome, 'COMPLETE');
+  assert.equal(fallbackCalls, 1);
+  if (result.outcome === 'COMPLETE') {
+    const sources = result.components.flatMap((component) =>
+      component.ingredients.map((ingredient) => ingredient.reference.source)
+    );
+    assert.equal(sources.includes('MODEL_INFERRED'), true);
+    assert.equal(sources.includes('USDA'), true);
+  }
+});
+
+test('pipeline stays unresolved when the model nutrition fallback fails', async () => {
+  const resolver = fixtureResolver();
+  const result = await runMealAnalysisV3({
+    input,
+    interpreter: createFixtureMealInterpreter(proposalValue()),
+    nutritionResolver: {
+      async resolve(scenarios) {
+        const run = await resolver.resolve(scenarios);
+        return {
+          ...run,
+          leaves: run.leaves.map((item, index) => index === 0
+            ? { ...item, reference: null, rejectionReasons: ['IDENTITY_MISMATCH'] }
+            : item),
+        };
+      },
+    },
+    nutritionFallback: {
+      async resolve() { throw new Error('provider unavailable'); },
+    },
+    presenter: fixturePresenter,
+  });
+
+  assert.equal(result.outcome, 'UNRESOLVED');
+  if (result.outcome === 'UNRESOLVED') {
+    assert.equal(result.nutrition.leaves.filter(({ reference }) => reference === null).length, 1);
   }
 });
 
