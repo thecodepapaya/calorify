@@ -14,8 +14,8 @@ remains the canonical policy for meal analysis as a whole.
 | Capability | Decision | Status |
 | --- | --- | --- |
 | USDA trigram retrieval | Retain | Implemented |
-| PostgreSQL full-text search and English stemming | Add now | Planned |
-| Stemmed identity tier | Add with FTS | Planned |
+| PostgreSQL full-text search and English stemming | Enabled by default; rollback flag remains | Implemented |
+| Stemmed identity tier | Enabled with FTS | Implemented |
 | Embedding generation, pgvector, and semantic retrieval | Defer | Not built |
 | Embeddings as an acceptance signal | Never allow | Permanent constraint |
 
@@ -26,22 +26,47 @@ morphology. A full-text candidate query alone would not fix this: the final
 identity gate would still compare literal tokens. The FTS phase therefore adds
 both stemmed retrieval and a bounded, deterministic stemmed identity tier.
 
-## Current baseline
+## Current resolver behavior
 
-`backend/src/services/meal-analysis-v3/nutrition.ts` currently:
+`backend/src/services/meal-analysis-v3/nutrition.ts` is the canonical
+implementation. For every nutrition-bearing leaf, it runs this exact order:
 
-1. expands every generated scenario into nutrition-bearing leaves;
-2. resolves yield-only water as a physical zero and rejects other yield-only
-   leaves;
-3. verifies an active materialized USDA snapshot;
-4. retrieves at most 30 candidates from trusted generic USDA record types, or
-   branded rows for a branded request;
-5. rejects incompatible dataset, preparation, missing nutrient, and invalid
-   macro candidates;
-6. ranks literal canonical and alias identity tiers before constrained fuzzy
-   fallback;
-7. resolves only an unambiguous, safe candidate; otherwise returns an explicit
-   unresolved reason.
+1. Resolve yield-only water as a physical zero; reject every other yield-only
+   leaf.
+2. Verify that one USDA dataset is active and materialized.
+3. Build lookup terms from canonical identity plus aliases.
+4. Retrieve no more than 30 rows. Generic lookup accepts only
+   `survey_fndds_food`, `sr_legacy_food`, and `foundation_food`; branded lookup
+   accepts only `branded_food` and also ranks its product query.
+5. For generic lookup, PostgreSQL unions trigram/substring retrieval with
+   English FTS when `USDA_FTS_ENABLED` is true. A single query deduplicates by
+   FDC ID and orders rows by product relevance, stemmed identity, FTS rank,
+   trigram similarity, then FDC ID.
+6. Evaluate every row before selection: dataset version, preparation and basis,
+   required nutrients, and macro plausibility are blocking gates. Identity
+   mismatch is retained only to permit the constrained fuzzy fallback.
+7. Apply hard identity tiers, in order:
+   `CANONICAL_EXACT`, `CANONICAL_TOKEN_SET`, `ALIAS_EXACT`,
+   `ALIAS_TOKEN_SET`, `STEMMED_TOKEN_SET`, `PRODUCT_QUERY_PHRASE`.
+8. If no viable hard identity exists, use the fuzzy fallback. It requires a
+   compatible identity, similarity at least `0.75`, and a lead of at least
+   `0.05` over the runner-up.
+9. Select the best hard identity/preparation rank. If multiple rows tie:
+   exact macro equality selects the lowest FDC ID; near-equivalent macros select
+   the lower-calorie row; otherwise a unique highest trigram similarity selects
+   the winner. A trigram tie remains `AMBIGUOUS_MATCH`.
+10. Mark non-selected viable rows `LOWER_MATCH_TIER`; return bounded candidate
+    diagnostics with identity tier, preparation tier, FTS rank, trigram score,
+    nutrients, and rejection reason.
+
+### Onion example
+
+For an `AS_SERVED` onion with `UNKNOWN` preparation, raw and cooked USDA rows
+both pass preparation compatibility and receive `STEMMED_TOKEN_SET`. Their
+macros differ, so the macro collision rule cannot select either. The raw row's
+trigram score (`0.41666666`) is uniquely higher than cooked no-salt
+(`0.12195122`) and cooked salted (`0.13157895`), so raw onion is selected. If
+two tied rows share the top trigram score, the resolver remains unresolved.
 
 The candidate SQL already uses PostgreSQL trigram retrieval (`pg_trgm`) and
 substring predicates to *find* rows. Substring retrieval is not identity
@@ -56,14 +81,17 @@ to `peanut`, and `oil` must not resolve to `boiler`.
   must not make `raw lentils` equivalent to `cooked lentils`.
 - Calories, protein, carbohydrates, and fat remain required; existing
   missing-fiber-as-zero policy remains unchanged.
-- Ambiguity remains unresolved unless the existing exact/near-equivalent macro
-  collision policy selects safely.
+- Ambiguity remains unresolved unless exact/near-equivalent macro collision or
+  a unique highest trigram similarity selects a deterministic winner.
 - Candidate search can improve recall. It cannot weaken final identity,
   preparation, nutrient, or ambiguity checks.
 - The resolver remains functional when FTS is unavailable; current trigram
   retrieval is the rollback path.
 
 ## Phase 1: full-text search and stemmed identity
+
+**Status: implemented and enabled by default. Set `USDA_FTS_ENABLED=false` to
+roll back to trigram-only retrieval while evaluating corpus and latency data.**
 
 ### Scope
 
@@ -93,37 +121,38 @@ Examples:
    runner supports one restart-safe concurrent index per migration; keep this
    index in its own file.
 3. Use `plainto_tsquery`, not interpolated tsquery syntax, for untrusted input.
-4. Preserve the current `pg_trgm` indexes and SQL path. FTS must be feature
-   flagged until validation passes.
-5. Keep the final resolver candidate ceiling at 30. Retrieve bounded FTS and
-   trigram cohorts, deduplicate by FDC ID, apply deterministic rank fusion, and
-   pass no more than 30 rows to existing candidate evaluation.
+4. Preserve the current `pg_trgm` indexes and SQL path. FTS retains a rollback
+   flag and is enabled by default.
+5. Keep the final resolver candidate ceiling at 30. One SQL query combines
+   trigram/substring and FTS predicates, groups by FDC ID, and passes no more
+   than 30 rows to candidate evaluation.
 
 ### Resolver design
 
-1. Normalize canonical identity and aliases as today.
-2. Retrieve current trigram candidates and FTS candidates in parallel.
-3. Deduplicate by FDC ID. Use a versioned reciprocal-rank fusion rule and FDC
-   ID only as the stable final ordering tie-breaker.
-4. Run all current dataset, macro, and preparation gates before identity
-   selection.
-5. Apply identity tiers in this order:
+1. Normalize canonical identity and aliases as today; remove only the defined
+   preparation/generic terms before comparing FTS stemmed lexeme sets.
+2. Build query lexemes and `plainto_tsquery('english', term)` in PostgreSQL.
+   The candidate side uses the same PostgreSQL `english` lexeme pipeline.
+3. Run all dataset, macro, and preparation gates before identity selection.
+4. Apply identity tiers in this order:
    `CANONICAL_EXACT`, `CANONICAL_TOKEN_SET`, `ALIAS_EXACT`,
    `ALIAS_TOKEN_SET`, `STEMMED_TOKEN_SET`, `PRODUCT_QUERY_PHRASE`, then
    constrained fuzzy fallback only when no viable identity tier exists.
-6. Keep fuzzy's controlled-extra-token, minimum-similarity, and winner-margin
+5. Keep fuzzy's controlled-extra-token, minimum-similarity, and winner-margin
    requirements. FTS rank or a stem match never bypasses them for other forms.
-7. Emit candidate diagnostics that name the retrieval source(s), identity tier,
-   FTS rank, trigram similarity, and rejection reason. Do not log raw meal
-   text.
+6. For equal hard identity and preparation ranks: resolve identical or
+   near-equivalent macros first, then choose only a unique highest trigram
+   similarity. Equal trigram scores remain ambiguous.
+7. Emit candidate diagnostics with identity tier, preparation tier, FTS rank,
+   trigram similarity, and rejection reason. Do not log raw meal text.
 
 ### Migration and rollback
 
 1. Test the migration against a copy of the USDA snapshot.
 2. Build the GIN index concurrently and verify it is valid before recording the
    migration.
-3. Release with FTS disabled by default.
-4. Roll back behavior by disabling the FTS flag. The trigram path remains
+3. Release with FTS enabled by default.
+4. Roll back behavior by setting `USDA_FTS_ENABLED=false`. The trigram path remains
    intact; removing the index is not required for behavioral rollback.
 5. If the migration fails or the index is invalid, leave FTS disabled and fix
    the migration. Do not alter an applied migration because migration checksums
@@ -137,8 +166,8 @@ generic categories, branded products, typos, and adversarial negatives.
 
 Required tests:
 
-- `tomato` resolves a safe `tomatoes` candidate and `onion` resolves a safe
-  `onions` candidate;
+- `tomato` resolves a safe `tomatoes` candidate; tied onion forms select the
+  unique highest trigram score and equal trigram scores remain unresolved;
 - `pea` never resolves `peanut`; `oil` never resolves `boiler`;
 - raw, dry, cooked, drained, juice, sauce, powder, and added-fat forms keep
   their existing preparation/form protections;

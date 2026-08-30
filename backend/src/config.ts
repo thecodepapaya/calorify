@@ -49,6 +49,8 @@ interface Config {
     readonly USDA_DATASET_VERSION: string | null;
     readonly USDA_SOURCE_RELEASE_DATE: string | null;
     readonly USDA_ZIP_URL: string;
+    /** Enables PostgreSQL full-text candidate retrieval for the V3 USDA resolver. */
+    readonly USDA_FTS_ENABLED: boolean;
     /** Optional path to meal analysis rotating tips JSON; default backend/data/meal_analysis_tips.json */
     readonly MEAL_ANALYSIS_TIPS_PATH: string | null;
     /** Enables the protected meal-analysis history page when configured. */
@@ -207,6 +209,7 @@ const config: Config = {
         'USDA_ZIP_URL',
         'https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_csv_2025-12-18.zip'
     ),
+    USDA_FTS_ENABLED: getEnvVarBoolean('USDA_FTS_ENABLED', true),
     MEAL_ANALYSIS_TIPS_PATH: getEnvVarOptional('MEAL_ANALYSIS_TIPS_PATH'),
     ANALYSIS_HISTORY_PASSWORD: getEnvVarOptional('ANALYSIS_HISTORY_PASSWORD'),
     LOCAL_INFERENCE: {

@@ -266,9 +266,136 @@ test('uses an alias as a sole identity authorizer while querying canonical ident
     lookupAliases: ['squash'],
   })])]);
 
-  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 30, false, null]);
+  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 30, false, null, true]);
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'alias-only');
   assert.equal(result.leaves[0]?.candidates[0]?.identityTier, 'ALIAS_EXACT');
+});
+
+test('uses FTS stemmed identity only when the feature is enabled', async () => {
+  const tomato = ingredient({
+    canonicalIdentity: 'tomato',
+    displayName: 'Tomato',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  });
+  const tomatoRow = candidate({
+    fdc_id: 'tomatoes-raw',
+    description: 'Tomatoes, raw',
+    normalized_name: 'tomatoes raw',
+    identity_similarity: 0.4,
+    full_text_rank: 0.2,
+    stemmed_identity_match: true,
+  });
+
+  const disabledFixture = queryFixture([readyDataset], [tomatoRow]);
+  const disabled = createLocalUsdaNutritionResolver({
+    query: disabledFixture.query,
+    fullTextEnabled: false,
+  });
+  const disabledResult = await disabled.resolve([scenario('tomato-disabled', [tomato])]);
+  assert.deepEqual(disabledResult.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+  assert.deepEqual(disabledFixture.calls[1]?.params, [['tomato'], 30, false, null, false]);
+
+  const enabledFixture = queryFixture([readyDataset], [tomatoRow]);
+  const enabled = createLocalUsdaNutritionResolver({
+    query: enabledFixture.query,
+    fullTextEnabled: true,
+  });
+  const enabledResult = await enabled.resolve([scenario('tomato-enabled', [tomato])]);
+  assert.equal(enabledResult.leaves[0]?.reference?.sourceRecordId, 'tomatoes-raw');
+  assert.equal(enabledResult.leaves[0]?.candidates[0]?.identityTier, 'STEMMED_TOKEN_SET');
+  assert.equal(enabledResult.leaves[0]?.candidates[0]?.fullTextRank, 0.2);
+  assert.deepEqual(enabledFixture.calls[1]?.params, [['tomato'], 30, false, null, true]);
+  assert.match(enabledFixture.calls[1]?.text, /plainto_tsquery\('english', input\.term\)/);
+  assert.match(enabledFixture.calls[1]?.text, /stemmed_identity_match/);
+});
+
+test('FTS stemmed identity does not authorize a different food', async () => {
+  const fixture = queryFixture([readyDataset], [candidate({
+    description: 'Peanut, raw',
+    normalized_name: 'peanut raw',
+    identity_similarity: 0.99,
+    full_text_rank: 0.8,
+    stemmed_identity_match: false,
+  })]);
+  const resolver = createLocalUsdaNutritionResolver({
+    query: fixture.query,
+    fullTextEnabled: true,
+  });
+  const pea = ingredient({
+    canonicalIdentity: 'pea',
+    displayName: 'Pea',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  });
+
+  const result = await resolver.resolve([scenario('pea', [pea])]);
+
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
+});
+
+test('FTS stemmed identity still requires complete nutrients', async () => {
+  const fixture = queryFixture([readyDataset], [candidate({
+    description: 'Tomatoes, raw',
+    normalized_name: 'tomatoes raw',
+    stemmed_identity_match: true,
+    protein_present: false,
+  })]);
+  const resolver = createLocalUsdaNutritionResolver({
+    query: fixture.query,
+    fullTextEnabled: true,
+  });
+  const tomato = ingredient({
+    canonicalIdentity: 'tomato',
+    displayName: 'Tomato',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  });
+
+  const result = await resolver.resolve([scenario('tomato-missing-protein', [tomato])]);
+
+  assert.equal(result.leaves[0]?.reference, null);
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['MISSING_REQUIRED_NUTRIENT']);
+});
+
+test('FTS stemmed identity breaks a preparation tie with unique trigram similarity', async () => {
+  const fixture = queryFixture([readyDataset], [
+    candidate({
+      fdc_id: 'onion-raw',
+      description: 'Onions, raw',
+      normalized_name: 'onions raw',
+      stemmed_identity_match: true,
+      identity_similarity: 0.41666666,
+    }),
+    candidate({
+      fdc_id: 'onion-cooked',
+      description: 'Onions, cooked, boiled, drained, without salt',
+      normalized_name: 'onions cooked boiled drained without salt',
+      stemmed_identity_match: true,
+      identity_similarity: 0.12195122,
+      kcal_per_100g: 44,
+      protein_per_100g: 1.36,
+      carbs_per_100g: 10.15,
+      fat_per_100g: 0.19,
+      fiber_per_100g: 1.4,
+    }),
+  ]);
+  const resolver = createLocalUsdaNutritionResolver({
+    query: fixture.query,
+    fullTextEnabled: true,
+  });
+  const onion = ingredient({
+    canonicalIdentity: 'onion',
+    displayName: 'Onion',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  });
+
+  const result = await resolver.resolve([scenario('onion', [onion])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'onion-raw');
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, []);
+  assert.equal(result.leaves[0]?.candidates[1]?.rejectionReasons.includes('LOWER_MATCH_TIER'), true);
 });
 
 test('rejects equally ranked candidates instead of choosing an ambiguous row', async () => {
@@ -306,7 +433,7 @@ test('deduplicates identical lookup keys within one run and preserves leaf locat
   assert.ok(!candidateCall.text.includes('v3_nutrient_presence_materialized = TRUE'));
   assert.ok(candidateCall.text.includes('food.fiber_present'));
   assert.ok(candidateCall.text.includes('food.data_type IN'));
-  assert.deepEqual(candidateCall.params, [['pumpkin'], 30, false, null]);
+  assert.deepEqual(candidateCall.params, [['pumpkin'], 30, false, null, true]);
   assert.deepEqual(
     result.leaves.map((item) => [item.reference?.scenarioId, item.reference?.leafId]),
     [['scenario-a', 'pumpkin-a'], ['scenario-b', 'pumpkin-b']]
@@ -322,7 +449,7 @@ test('branded retrieval is cohort-restricted while ambiguous intent uses generic
   })])]);
   assert.equal(branded.leaves[0]?.reference?.sourceRecordId, '168448');
   assert.ok(brandedFixture.calls[1]?.text.includes('product_match_rank'));
-  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 30, true, 'pumpkin']);
+  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 30, true, 'pumpkin', true]);
 
   const ambiguousFixture = queryFixture([readyDataset], [candidate()]);
   const ambiguousResolver = createLocalUsdaNutritionResolver({ query: ambiguousFixture.query });
@@ -331,7 +458,7 @@ test('branded retrieval is cohort-restricted while ambiguous intent uses generic
   })])]);
   assert.equal(ambiguousFixture.calls.length, 2);
   assert.equal(ambiguous.leaves[0]?.reference?.sourceRecordId, '168448');
-  assert.deepEqual(ambiguousFixture.calls[1]?.params, [['pumpkin'], 30, false, null]);
+  assert.deepEqual(ambiguousFixture.calls[1]?.params, [['pumpkin'], 30, false, null, true]);
 });
 
 test('retries an unmatched branded lookup with its generic alias', async () => {
@@ -357,8 +484,8 @@ test('retries an unmatched branded lookup with its generic alias', async () => {
   })])]);
 
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'generic-cola');
-  assert.deepEqual(calls[1]?.params, [['pepsi cola', 'cola'], 30, true, 'pepsi cola']);
-  assert.deepEqual(calls[2]?.params, [['cola'], 30, false, null]);
+  assert.deepEqual(calls[1]?.params, [['pepsi cola', 'cola'], 30, true, 'pepsi cola', true]);
+  assert.deepEqual(calls[2]?.params, [['cola'], 30, false, null, true]);
 });
 
 test('resolves exact collisions by macro equivalence without source-type priority', async (t) => {

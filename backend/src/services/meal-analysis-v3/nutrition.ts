@@ -1,4 +1,5 @@
 import { usdaQuery } from '../infrastructure/database.js';
+import config from '../../config.js';
 import {
   preparationUmbrella,
   type IngredientLeaf,
@@ -31,6 +32,7 @@ export type IdentityMatchTier =
   | 'CANONICAL_TOKEN_SET'
   | 'ALIAS_EXACT'
   | 'ALIAS_TOKEN_SET'
+  | 'STEMMED_TOKEN_SET'
   | 'PRODUCT_QUERY_PHRASE';
 
 export type PreparationMatchTier =
@@ -45,6 +47,7 @@ export interface NutritionCandidateDiagnostic {
   dataType: string | null;
   macrosPer100g: MacroVector | null;
   similarity: number | null;
+  fullTextRank: number | null;
   identityTier: IdentityMatchTier | null;
   preparationTier: PreparationMatchTier | null;
   missingNutrients: string[];
@@ -77,6 +80,7 @@ export type NutritionDatabaseQuery = (
 export interface LocalUsdaNutritionResolverOptions {
   query?: NutritionDatabaseQuery;
   candidateLimit?: number;
+  fullTextEnabled?: boolean;
 }
 
 interface ActiveDataset {
@@ -102,6 +106,8 @@ interface CandidateRow {
   fiber_present: boolean;
   dataset_version: string;
   identity_similarity: number;
+  full_text_rank: number;
+  stemmed_identity_match: boolean;
 }
 
 interface EvaluatedCandidate {
@@ -192,8 +198,20 @@ const ACTIVE_DATASET_SQL = `
 `;
 
 const CANDIDATE_SQL = `
-  WITH lookup_terms(term) AS (
-    SELECT DISTINCT unnest($1::text[])
+  WITH identity_stop_words(pattern) AS (
+    VALUES ('\\m(raw|uncooked|cooked|prepared|boiled|simmered|poached|steamed|pressure|baked|roasted|grilled|toasted|sauteed|stir|shallow|deep|fried|fermented|pickled|dry|dried|dehydrated|smoked|blended|juice|juiced|drained|without|salt|added|food|foods|regular|cooking|salad)\\M')
+  ), lookup_terms(term, identity_lexemes, full_text_query) AS (
+    SELECT DISTINCT input.term,
+           ARRAY(
+             SELECT lexeme
+               FROM unnest(tsvector_to_array(to_tsvector(
+                 'english',
+                 regexp_replace(input.term, (SELECT pattern FROM identity_stop_words), ' ', 'g')
+               ))) AS lexeme
+              ORDER BY lexeme
+           ),
+           plainto_tsquery('english', input.term)
+      FROM unnest($1::text[]) AS input(term)
   ), active_dataset AS (
     SELECT dataset_version
       FROM usda_dataset_version
@@ -222,6 +240,32 @@ const CANDIDATE_SQL = `
            similarity(food.description, terms.term)
          )) AS identity_similarity,
          MAX(CASE
+           WHEN $5::boolean THEN ts_rank_cd(
+             to_tsvector('english', food.normalized_name || ' ' || food.description),
+             terms.full_text_query
+           )
+           ELSE 0
+         END) AS full_text_rank,
+         MAX(CASE
+           WHEN $5::boolean
+             AND cardinality(terms.identity_lexemes) > 0
+             AND ARRAY(
+               SELECT lexeme
+                 FROM unnest(tsvector_to_array(to_tsvector(
+                   'english',
+                   regexp_replace(
+                     food.normalized_name,
+                     (SELECT pattern FROM identity_stop_words),
+                     ' ',
+                     'g'
+                   )
+                 ))) AS lexeme
+                ORDER BY lexeme
+             ) = terms.identity_lexemes
+           THEN 1
+           ELSE 0
+         END) = 1 AS stemmed_identity_match,
+         MAX(CASE
            WHEN food.data_type = 'branded_food' AND food.normalized_name = $4::text THEN 2
            WHEN food.data_type = 'branded_food' AND (
              food.normalized_name % $4::text
@@ -241,6 +285,12 @@ const CANDIDATE_SQL = `
       OR food.description % terms.term
       OR food.normalized_name ILIKE '%' || terms.term || '%'
       OR food.description ILIKE '%' || terms.term || '%'
+      OR (
+        NOT $3::boolean
+        AND $5::boolean
+        AND to_tsvector('english', food.normalized_name || ' ' || food.description)
+          @@ terms.full_text_query
+      )
       OR (food.data_type = 'branded_food' AND $4::text IS NOT NULL AND (
         food.normalized_name % $4::text
         OR food.description % $4::text
@@ -271,7 +321,12 @@ const CANDIDATE_SQL = `
             food.fat_present,
             food.fiber_present,
             dataset.dataset_version
-   ORDER BY product_match_rank DESC, product_similarity DESC, identity_similarity DESC, food.fdc_id
+   ORDER BY product_match_rank DESC,
+            product_similarity DESC,
+            stemmed_identity_match DESC,
+            full_text_rank DESC,
+            identity_similarity DESC,
+            food.fdc_id
    LIMIT $2
 `;
 
@@ -290,6 +345,7 @@ export function createLocalUsdaNutritionResolver(
 ): NutritionResolver {
   const query = options.query ?? defaultQuery;
   const candidateLimit = boundedCandidateLimit(options.candidateLimit);
+  const fullTextEnabled = options.fullTextEnabled ?? config.USDA_FTS_ENABLED;
 
   return {
     async resolve(scenarios) {
@@ -335,7 +391,8 @@ export function createLocalUsdaNutritionResolver(
             leaf,
             dataset.datasetVersion,
             dataset.nutrientPresenceMaterialized,
-            candidateLimit
+            candidateLimit,
+            fullTextEnabled
           );
           lookupCache.set(key, lookup);
         }
@@ -391,7 +448,8 @@ async function resolveLookup(
   leaf: IngredientLeaf,
   datasetVersion: string,
   nutrientPresenceMaterialized: boolean,
-  candidateLimit: number
+  candidateLimit: number,
+  fullTextEnabled: boolean
 ): Promise<LookupOutcome> {
   const terms = lookupTerms(leaf);
   if (terms.length === 0) {
@@ -410,6 +468,7 @@ async function resolveLookup(
     datasetVersion,
     nutrientPresenceMaterialized,
     candidateLimit,
+    fullTextEnabled,
     leaf.retrievalIntent === 'BRANDED_PRODUCT',
     leaf.productQuery === undefined ? null : normalizeIdentity(leaf.productQuery),
   );
@@ -427,6 +486,7 @@ async function resolveLookup(
     datasetVersion,
     nutrientPresenceMaterialized,
     candidateLimit,
+    fullTextEnabled,
     false,
     null,
   );
@@ -440,10 +500,17 @@ async function resolveCandidateCohort(
   datasetVersion: string,
   nutrientPresenceMaterialized: boolean,
   candidateLimit: number,
+  fullTextEnabled: boolean,
   brandedOnly: boolean,
   productQuery: string | null,
 ): Promise<LookupOutcome> {
-  const result = await query(CANDIDATE_SQL, [terms, candidateLimit, brandedOnly, productQuery]);
+  const result = await query(CANDIDATE_SQL, [
+    terms,
+    candidateLimit,
+    brandedOnly,
+    productQuery,
+    fullTextEnabled,
+  ]);
   const evaluated = result.rows
     .map(candidateRow)
     .filter((row): row is CandidateRow => row !== null)
@@ -451,7 +518,8 @@ async function resolveCandidateCohort(
       leaf,
       row,
       datasetVersion,
-      nutrientPresenceMaterialized
+      nutrientPresenceMaterialized,
+      fullTextEnabled
     ));
 
   if (evaluated.length === 0) {
@@ -491,6 +559,19 @@ async function resolveCandidateCohort(
       return {
         selected: collisionWinner.row,
         per100g: collisionWinner.per100g,
+        rejectionReasons: [],
+        candidates: boundedDiagnostics(evaluated),
+      };
+    }
+    const similarityWinner = resolveUniqueSimilarityCollision(top);
+    if (similarityWinner !== null) {
+      similarityWinner.diagnostic.selected = true;
+      for (const candidate of hardMatches) {
+        if (candidate !== similarityWinner) candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
+      }
+      return {
+        selected: similarityWinner.row,
+        per100g: similarityWinner.per100g,
         rejectionReasons: [],
         candidates: boundedDiagnostics(evaluated),
       };
@@ -535,9 +616,10 @@ function evaluateCandidate(
   leaf: IngredientLeaf,
   row: CandidateRow,
   datasetVersion: string,
-  nutrientPresenceMaterialized: boolean
+  nutrientPresenceMaterialized: boolean,
+  fullTextEnabled: boolean
 ): EvaluatedCandidate {
-  const identityMatch = hardIdentityMatch(leaf, row);
+  const identityMatch = hardIdentityMatch(leaf, row, fullTextEnabled);
   const identityTier = identityMatch?.tier ?? null;
   const preparationTier = hardPreparationTier(leaf, row);
   const missingNutrients = missingNutrientsFor(row, nutrientPresenceMaterialized);
@@ -564,6 +646,7 @@ function evaluateCandidate(
     dataType: row.data_type,
     macrosPer100g: per100g,
     similarity: Number.isFinite(row.identity_similarity) ? row.identity_similarity : null,
+    fullTextRank: Number.isFinite(row.full_text_rank) ? row.full_text_rank : null,
     identityTier,
     preparationTier,
     missingNutrients,
@@ -671,6 +754,8 @@ function candidateRow(value: Record<string, unknown>): CandidateRow | null {
     fiber_present: value.fiber_present === true,
     dataset_version: value.dataset_version,
     identity_similarity: numericValue(value.identity_similarity),
+    full_text_rank: numericValue(value.full_text_rank),
+    stemmed_identity_match: value.stemmed_identity_match === true,
   };
 }
 
@@ -716,7 +801,11 @@ function macroVector(
   return vector;
 }
 
-function hardIdentityMatch(leaf: IngredientLeaf, row: CandidateRow): IdentityMatch | null {
+function hardIdentityMatch(
+  leaf: IngredientLeaf,
+  row: CandidateRow,
+  fullTextEnabled: boolean
+): IdentityMatch | null {
   const normalizedName = normalizeIdentity(row.normalized_name);
   const description = normalizeIdentity(row.description);
   const canonical = normalizeIdentity(leaf.canonicalIdentity);
@@ -746,6 +835,10 @@ function hardIdentityMatch(leaf: IngredientLeaf, row: CandidateRow): IdentityMat
     }
   }
 
+  if (fullTextEnabled && row.stemmed_identity_match) {
+    return { tier: 'STEMMED_TOKEN_SET', rank: 8 };
+  }
+
   // A branded product query can authorize its candidate set, but only through
   // a whole normalized phrase. Canonical and alias identity always win when
   // present, and fuzzy retrieval alone can never make a candidate eligible.
@@ -755,7 +848,7 @@ function hardIdentityMatch(leaf: IngredientLeaf, row: CandidateRow): IdentityMat
     (containsIdentityPhrase(normalizedName, leaf.productQuery) ||
       containsIdentityPhrase(description, leaf.productQuery))
   ) {
-    return { tier: 'PRODUCT_QUERY_PHRASE', rank: 8 };
+    return { tier: 'PRODUCT_QUERY_PHRASE', rank: 9 };
   }
   return null;
 }
@@ -882,7 +975,8 @@ function genericFallbackTerms(leaf: IngredientLeaf): string[] {
 
 function isExactIdentityMatch(candidate: EvaluatedCandidate): boolean {
   return candidate.diagnostic.identityTier === 'CANONICAL_EXACT' ||
-    candidate.diagnostic.identityTier === 'ALIAS_EXACT';
+    candidate.diagnostic.identityTier === 'ALIAS_EXACT' ||
+    candidate.diagnostic.identityTier === 'STEMMED_TOKEN_SET';
 }
 
 function sameMacros(left: MacroVector, right: MacroVector): boolean {
@@ -923,6 +1017,23 @@ function resolveExactMacroCollision(
     )[0]!;
   }
   return null;
+}
+
+function resolveUniqueSimilarityCollision(
+  candidates: readonly EvaluatedCandidate[]
+): EvaluatedCandidate | null {
+  const ranked = [...candidates].sort((left, right) =>
+    (right.diagnostic.similarity ?? Number.NEGATIVE_INFINITY) -
+      (left.diagnostic.similarity ?? Number.NEGATIVE_INFINITY) ||
+    left.row.fdc_id.localeCompare(right.row.fdc_id)
+  );
+  const winner = ranked[0];
+  const runnerUp = ranked[1];
+  if (winner === undefined || runnerUp === undefined) return winner ?? null;
+  return winner.diagnostic.similarity !== null &&
+    winner.diagnostic.similarity > (runnerUp.diagnostic.similarity ?? Number.NEGATIVE_INFINITY)
+    ? winner
+    : null;
 }
 
 function passesFuzzyConfidence(

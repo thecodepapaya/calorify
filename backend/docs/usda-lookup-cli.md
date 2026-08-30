@@ -68,3 +68,9 @@ exits with code `0`; database and CLI failures use nonzero codes.
 The command never bootstraps, refreshes, or downloads USDA data. It requires an
 already active, materialized snapshot through `USDA_DATABASE_URL` or
 `DATABASE_URL`.
+
+English full-text candidate retrieval and deterministic stemmed token-set
+identity matching are enabled by default. Set `USDA_FTS_ENABLED=false` to
+temporarily roll back to trigram-only retrieval. FTS expands retrieval only;
+the existing preparation, nutrient, ambiguity, and ranking gates still decide
+whether a food can resolve.
