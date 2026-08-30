@@ -266,7 +266,7 @@ test('uses an alias as a sole identity authorizer while querying canonical ident
     lookupAliases: ['squash'],
   })])]);
 
-  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 16, false, null]);
+  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 30, false, null]);
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'alias-only');
   assert.equal(result.leaves[0]?.candidates[0]?.identityTier, 'ALIAS_EXACT');
 });
@@ -305,15 +305,15 @@ test('deduplicates identical lookup keys within one run and preserves leaf locat
   const candidateCall = fixture.calls[1]!;
   assert.ok(!candidateCall.text.includes('v3_nutrient_presence_materialized = TRUE'));
   assert.ok(candidateCall.text.includes('food.fiber_present'));
-  assert.ok(candidateCall.text.includes("food.data_type IS DISTINCT FROM 'branded_food'"));
-  assert.deepEqual(candidateCall.params, [['pumpkin'], 16, false, null]);
+  assert.ok(candidateCall.text.includes('food.data_type IN'));
+  assert.deepEqual(candidateCall.params, [['pumpkin'], 30, false, null]);
   assert.deepEqual(
     result.leaves.map((item) => [item.reference?.scenarioId, item.reference?.leafId]),
     [['scenario-a', 'pumpkin-a'], ['scenario-b', 'pumpkin-b']]
   );
 });
 
-test('branded retrieval searches the full catalog with a product query while ambiguous intent fails closed', async () => {
+test('branded retrieval is cohort-restricted while ambiguous intent uses generic rows', async () => {
   const brandedFixture = queryFixture([readyDataset], [candidate({ data_type: 'branded_food' })]);
   const brandedResolver = createLocalUsdaNutritionResolver({ query: brandedFixture.query });
   const branded = await brandedResolver.resolve([scenario('branded', [ingredient({
@@ -322,15 +322,159 @@ test('branded retrieval searches the full catalog with a product query while amb
   })])]);
   assert.equal(branded.leaves[0]?.reference?.sourceRecordId, '168448');
   assert.ok(brandedFixture.calls[1]?.text.includes('product_match_rank'));
-  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 16, true, 'pumpkin']);
+  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 30, true, 'pumpkin']);
 
   const ambiguousFixture = queryFixture([readyDataset], [candidate()]);
   const ambiguousResolver = createLocalUsdaNutritionResolver({ query: ambiguousFixture.query });
   const ambiguous = await ambiguousResolver.resolve([scenario('ambiguous', [ingredient({
     retrievalIntent: 'AMBIGUOUS',
   })])]);
-  assert.equal(ambiguousFixture.calls.length, 1);
-  assert.deepEqual(ambiguous.leaves[0]?.rejectionReasons, ['AMBIGUOUS_RETRIEVAL_INTENT']);
+  assert.equal(ambiguousFixture.calls.length, 2);
+  assert.equal(ambiguous.leaves[0]?.reference?.sourceRecordId, '168448');
+  assert.deepEqual(ambiguousFixture.calls[1]?.params, [['pumpkin'], 30, false, null]);
+});
+
+test('retries an unmatched branded lookup with its generic alias', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    return { rows: params?.[2] === true ? [] : [candidate({
+      fdc_id: 'generic-cola',
+      description: 'Carbonated beverage, cola',
+      normalized_name: 'cola',
+      data_type: 'foundation_food',
+    })] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('pepsi-fallback', [ingredient({
+    canonicalIdentity: 'pepsi cola',
+    lookupAliases: ['cola'],
+    retrievalIntent: 'BRANDED_PRODUCT',
+    productQuery: 'pepsi cola',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'generic-cola');
+  assert.deepEqual(calls[1]?.params, [['pepsi cola', 'cola'], 30, true, 'pepsi cola']);
+  assert.deepEqual(calls[2]?.params, [['cola'], 30, false, null]);
+});
+
+test('resolves exact collisions by macro equivalence without source-type priority', async (t) => {
+  await t.test('identical vectors choose the lowest FDC ID', async () => {
+    const fixture = queryFixture([readyDataset], [
+      candidate({ fdc_id: '200', normalized_name: 'pumpkin' }),
+      candidate({ fdc_id: '100', normalized_name: 'pumpkin' }),
+    ]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('exact-equal', [ingredient()])]);
+
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, '100');
+  });
+
+  await t.test('near-equivalent vectors choose the lower-calorie row', async () => {
+    const fixture = queryFixture([readyDataset], [
+      candidate({ fdc_id: 'high', normalized_name: 'pumpkin', kcal_per_100g: 20 }),
+      candidate({ fdc_id: 'low', normalized_name: 'pumpkin', kcal_per_100g: 19.5, protein_per_100g: 0.71 }),
+    ]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('near-equal', [ingredient()])]);
+
+    assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'low');
+  });
+
+  await t.test('materially different vectors remain ambiguous', async () => {
+    const fixture = queryFixture([readyDataset], [
+      candidate({ fdc_id: 'first', kcal_per_100g: 20 }),
+      candidate({ fdc_id: 'second', kcal_per_100g: 80 }),
+    ]);
+    const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+    const result = await resolver.resolve([scenario('different', [ingredient()])]);
+
+    assert.deepEqual(result.leaves[0]?.rejectionReasons, ['AMBIGUOUS_MATCH']);
+  });
+});
+
+test('rejects a fuzzy identity match below the resolver confidence threshold', async () => {
+  const fixture = queryFixture([readyDataset], [candidate({
+    normalized_name: 'pumpkin cooked',
+    description: 'Pumpkin, cooked',
+    identity_similarity: 0.59,
+  })]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('weak-fuzzy', [ingredient({
+    canonicalIdentity: 'pumpkin cooked boiled',
+    nutritionBasis: 'COOKED',
+  })])]);
+
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['LOW_CONFIDENCE_MATCH']);
+});
+
+test('uses a high-confidence fuzzy fallback only when no hard identity matches', async () => {
+  const fixture = queryFixture([readyDataset], [
+    candidate({
+      fdc_id: 'whole-wheat',
+      normalized_name: 'wheat flour whole grain soft wheat',
+      description: 'Wheat flour, whole-grain, soft wheat',
+      identity_similarity: 0.82,
+    }),
+    candidate({
+      fdc_id: 'oat-flour',
+      normalized_name: 'flour oat whole grain',
+      description: 'Flour, oat, whole grain',
+      identity_similarity: 0.76,
+    }),
+  ]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('fuzzy-flour', [ingredient({
+    canonicalIdentity: 'whole wheat flour',
+    lookupAliases: ['whole grain wheat flour'],
+    nutritionBasis: 'DRY',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'whole-wheat');
+  assert.equal(result.leaves[0]?.candidates[0]?.identityTier, null);
+  assert.deepEqual(result.leaves[0]?.candidates[0]?.rejectionReasons, []);
+});
+
+test('keeps an unsafe fuzzy food-category match unresolved', async () => {
+  const fixture = queryFixture([readyDataset], [
+    candidate({
+      fdc_id: 'ginger-tea',
+      normalized_name: 'tea ginger',
+      description: 'Tea, ginger',
+      identity_similarity: 0.64,
+    }),
+    candidate({
+      fdc_id: 'ginger-root',
+      normalized_name: 'ginger root raw',
+      description: 'Ginger root, raw',
+      identity_similarity: 0.47,
+    }),
+  ]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('unsafe-ginger', [ingredient({
+    canonicalIdentity: 'ginger',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference, null);
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['LOW_CONFIDENCE_MATCH']);
+});
+
+test('filters generic candidates to trusted food rows before applying the limit', async () => {
+  const fixture = queryFixture([readyDataset], [candidate()]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  await resolver.resolve([scenario('trusted-cohort', [ingredient()])]);
+
+  const sql = fixture.calls[1]?.text ?? '';
+  assert.match(sql, /food\.data_type IN \(/);
+  assert.match(sql, /'survey_fndds_food'/);
+  assert.match(sql, /'sr_legacy_food'/);
+  assert.match(sql, /'foundation_food'/);
 });
 
 test('a branded product query authorizes an exact normalized product phrase after canonical identity checks', async () => {

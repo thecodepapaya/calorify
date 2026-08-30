@@ -50,8 +50,10 @@ until the cutover is complete.
   explicitly supplied by the user, including a clarification answer, and
   `model_inferred` for everything else, including image observations and
   context defaults. An unresolved meal type uses `value: null, origin: null`.
-- Every nutrition-bearing ingredient must resolve against trusted data. No
-  unreviewed model-generated nutrition fallback is allowed.
+- Every nutrition-bearing ingredient first resolves against USDA data. A weak
+  or unavailable USDA match uses the existing clarification boundary; only
+  when clarification is unavailable or declined may the resolver return
+  explicitly labelled `model_inferred` nutrition.
 - Packaged, branded, restaurant, and proprietary foods still receive a
   best-effort ingredient decomposition. Their uncertainty must remain broad
   when the recipe is not observable.
@@ -416,8 +418,8 @@ recipe, portion, preparation, and evidence floors.
 
 ## Trusted nutrition resolution
 
-The model outputs no calories or macros. For every nutrition-bearing leaf, the
-resolver must establish:
+The normal path uses no model-generated calories or macros. For every
+nutrition-bearing leaf, the resolver must establish:
 
 - hard food-identity compatibility;
 - preparation and raw/dry/cooked/drained compatibility;
@@ -438,23 +440,70 @@ snapshot without forcing another download. Legacy numeric values are accepted
 as stored. Consequently, legacy zeroes cannot be audited as source-present and
 missing fiber may understate the true fiber amount.
 
-Resolution uses hard identity tiers. Preparation and data-source quality may
-break ties only among compatible identities. Ambiguous matches are rejected
-rather than selected through an additive score. Duplicate-name nutrient
-dispersion, impossible macro mass, missing energy, and raw/cooked inversions
-are quality failures.
+The current database remains a passive USDA snapshot: this policy adds no
+food-specific mapping JSON or model-owned nutrition fallback. Normalization,
+candidate selection, and all tie breaks live in a versioned backend resolver.
+The canonical plan for the approved FTS retrieval evolution and deferred
+embeddings is [nutrition resolver retrieval](nutrition-resolver-retrieval.md).
 
-Calories, protein, carbohydrates, and fat must resolve for every active
+### Approved resolver policy
+
+The resolver applies this ordered, deterministic cascade:
+
+1. Normalize comparison text with Unicode NFC, lowercase, punctuation and
+   hyphens converted to spaces, and collapsed whitespace. Do not remove
+   nutritionally material terms such as `raw`, `cooked`, `diet`, or `zero`.
+2. Build the candidate cohort. `GENERIC_INGREDIENT` and `AMBIGUOUS` use only
+   trusted survey, SR legacy, and foundation USDA food records. Component,
+   sample, market-acquisition, and experimental rows are excluded before the
+   30-row candidate limit. `BRANDED_PRODUCT` starts with exact normalized
+   product-name matches among branded records; a product name is sufficient
+   for this first release.
+3. Reject candidates with incompatible preparation/form or missing required
+   calories, protein, carbohydrates, or fat. Fiber follows the existing
+   missing-fiber-as-zero policy.
+4. One eligible exact match wins. With several exact matches, compare the
+   complete per-100 g vector: calories, protein, carbohydrates, fat, and
+   fiber. If all vectors are exactly equal, choose the lowest `fdc_id` only as
+   a stable tie break.
+5. If every complete vector is within 5% for every macro, choose the
+   lower-calorie row and label the result `usda_near_equivalent`. For each
+   macro, the relative difference is
+   `abs(a - b) / max(abs(a), abs(b), macroComparisonFloor)`; the fixed,
+   versioned floor prevents zero-valued nutrients from making the comparison
+   undefined. Do not form transitive chains: all members must satisfy the
+   threshold directly.
+6. Any remaining exact collision returns `needs_clarification`.
+7. With no hard identity match, consider fuzzy candidates only when their
+   identity contains the requested canonical or alias tokens plus controlled
+   USDA qualifier terms. Choose one only when it exceeds a versioned minimum
+   similarity and its lead over the runner-up exceeds a versioned margin.
+   Similarity is a resolver-computed runtime value, not stored matching JSON.
+8. A branded failure retries rule 2 as its generic food category. Its result
+   has `generic_category_fallback` provenance, removes the brand from display
+   and cache keys, and never claims a verified branded match.
+9. A weak or failed generic path uses the existing clarification flow. If that
+   flow is unavailable or declined, return `model_inferred` nutrition with
+   explicit, persisted, user-visible provenance and a resolver reason.
+
+Every outcome records a closed provenance value, selected and rejected FDC
+IDs, candidate scores, macro deltas, applied rule, resolver version, and
+dataset version. Resolver and dataset versions are part of cache keys. FDC ID
+is a deterministic ordering device, never a data-quality signal.
+
+Calories, protein, carbohydrates, and fat normally resolve for every active
 nutrition-bearing leaf in every materially plausible scenario before question
-planning; fiber is sourced or set to zero. A materially
-plausible alternative that cannot resolve is not silently deleted; unless it
-qualifies for the bounded trace rule, it makes the analysis `UNRESOLVED`. The
-resolver may consult additional trusted datasets in the future, but adding a
-dataset does not change the recipe or calculation contracts.
+planning; fiber is sourced or set to zero. A materially plausible alternative
+that cannot resolve is not silently deleted. It enters the resolver's
+clarification and, only when unavailable or declined, explicit
+`model_inferred` fallback path; otherwise it makes the analysis `UNRESOLVED`.
+The resolver may consult additional trusted datasets in the future, but adding
+a dataset does not change the recipe or calculation contracts.
 
 Packaged and proprietary foods do not bypass the recipe rule. Pass two
-produces a best-effort quantified ingredient recipe, derived scenarios resolve through trusted
-data, and conservative floors preserve the resulting uncertainty.
+produces a best-effort quantified ingredient recipe; the resolver applies the
+same USDA, clarification, and explicit fallback policy to its derived
+scenarios. Conservative floors preserve the resulting uncertainty.
 
 ## End-to-end workflow
 
@@ -464,9 +513,10 @@ flowchart TD
     B -->|food_detected false| N[NO_FOOD]
     B --> C[Pass two: ingredients and variations]
     C --> D[Validate and derive calculation scenarios]
-    D --> E[Resolve trusted ingredient nutrition]
-    E -->|cannot ground active leaf| R[UNRESOLVED]
-    E --> F[Calculate coherent scenario macros]
+    D --> E[Resolve ingredient nutrition]
+    E -->|trusted USDA or model-inferred fallback| F[Calculate coherent scenario macros]
+    E -->|needs clarification| Q[Plan nutrition questions and meal type]
+    E -->|no eligible fallback| R[UNRESOLVED]
     F --> Q[Plan nutrition questions and meal type]
     Q --> G{Input needed?}
     G -->|yes| H[Persist exact bundle and pause]
@@ -493,8 +543,9 @@ For text `daal and 4 roti`:
    The roti count stays four while plausible per-roti size varies; the daal
    amount, cooking-fat amount, and cooking-fat identity remain independently
    testable dimensions.
-4. All active leaves in all retained scenarios resolve against trusted data
-   before questions are ranked. No dish-level calorie guess is used.
+4. All active leaves in all retained scenarios first resolve against USDA data
+   before questions are ranked. A failed USDA resolution enters the approved
+   clarification and fallback path; no dish-level calorie guess is used.
 5. Likely high-impact nutrition questions concern roti size and daal oil or
    amount. The explicit count is not asked again. An uncertain meal type may be
    included in the same pause outside that one-to-three question budget.
@@ -1505,18 +1556,20 @@ regex/template chains.
 Implementation status: initial local-USDA resolver, legacy-snapshot reuse,
 missing-fiber-as-zero handling, optional presence-aware import, coherent
 scenario arithmetic, and five-macro ranges complete for the CLI. Calibration
-and uncertainty floors remain before release. The current strict resolver can
-still terminate an otherwise valid replay as `UNRESOLVED` when the active USDA
-snapshot contains several equally ranked exact rows (observed for generic ghee,
-vegetable oil, whole-wheat flour, and mixed spices). Search-term construction
-and candidate ordering are intentionally unchanged in this iteration; this is
-a visible resolver limitation, not a reason to widen or silently choose a row.
+and uncertainty floors remain before release. The resolver now implements
+generic handling for `AMBIGUOUS`, branded-to-generic retry, exact-match macro
+ties, and weak fuzzy-match rejection. Clarification handoff, model-inferred
+nutrition fallback, and persisted resolver traces remain pending; unresolved
+rows still stop the current CLI.
 
 - Implement identity-tiered, preparation-aware leaf resolution.
 - Enforce four-macro source completeness and the missing-fiber-as-zero policy.
 - Keep versioned presence-aware nutrient storage for future imports while
   accepting the existing active materialized snapshot as stored.
 - Add resolver quality checks and dataset versioning.
+- Implement the approved resolver cascade, including exact-match macro
+  equivalence, generic-category fallback, clarification handoff,
+  model-inferred nutrition provenance, and versioned trace/cache keys.
 - Apply evidence-class uncertainty floors.
 - Produce point and range values for every macro.
 
@@ -1612,6 +1665,13 @@ does not require interpreting new sessions with the old engine.
 - user grams/counts constrain only their own dimension;
 - every macro obeys `min <= estimate <= max`;
 - verified zero is accepted and missing fiber becomes zero;
+- resolver normalization preserves material form/product terms;
+- exact singleton, exact-equal, within-5%, non-transitive, and divergent
+  collision paths follow the approved resolver policy without food-specific
+  matching data;
+- branded, generic, ambiguous, generic-category-fallback, clarification, and
+  model-inferred provenance paths are deterministic and user-visible;
+- fuzzy resolution enforces both its minimum score and winner margin;
 - rounding happens only after aggregation and bounds round outward;
 - serving-size output contains only validated permitted natural measures and
   never grams or other weight text;
@@ -1715,9 +1775,8 @@ and product behavior:
   authority;
 - treating absent fiber as zero may understate fiber and narrow its range when
   trusted source data is incomplete;
-- duplicate equally ranked USDA rows can currently stop the CLI at
-  `UNRESOLVED_NUTRITION`, even after both model passes and scenario derivation
-  succeed; resolver search terms and ordering are explicitly deferred;
+- unresolved USDA rows still stop the current CLI at `UNRESOLVED_NUTRITION`;
+  clarification handoff and model-inferred fallback are not implemented yet;
 - forbidding weight in `servingSizeText` intentionally hides even an explicit
   gram amount from that display field; the structured portion still retains it
   for calculation and audit;

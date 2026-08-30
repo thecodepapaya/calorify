@@ -14,8 +14,11 @@ Use this page to find the document that matches the work you are doing.
 
 - [Meal-analysis backend rewrite](plans/meal-analysis-reliability.md) — approved
   two-pass component and ingredient interpretation, deterministic recipe
-  scenarios, bounded clarification, macro ranges, CLI-first delivery, durable
-  cutover, and release gates.
+  scenarios, resolver-owned USDA matching and fallbacks, bounded clarification,
+  macro ranges, CLI-first delivery, durable cutover, and release gates.
+- [Nutrition resolver retrieval](plans/nutrition-resolver-retrieval.md) —
+  canonical FTS-now implementation plan, resolver invariants, and deferred
+  embedding design and rollout criteria.
 - [Local meal analysis](plans/local-inference-meal-analysis.md) — paused V2-era
   scope, trust boundaries, engineering evidence, and deferred decisions.
 - [Suggested nutrition targets](plans/suggested-nutrition-targets.md) — backend-owned target policy and implementation contract.

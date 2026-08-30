@@ -8,7 +8,7 @@ import {
   type ResolvedNutritionReference,
 } from './domain.js';
 
-const QUERY_CANDIDATE_LIMIT = 16;
+const QUERY_CANDIDATE_LIMIT = 30;
 const DIAGNOSTIC_CANDIDATE_LIMIT = 5;
 
 export type NutritionRejectionReason =
@@ -22,6 +22,7 @@ export type NutritionRejectionReason =
   | 'MISSING_REQUIRED_NUTRIENT'
   | 'INVALID_NUTRIENT_VALUES'
   | 'AMBIGUOUS_MATCH'
+  | 'LOW_CONFIDENCE_MATCH'
   | 'LOWER_MATCH_TIER'
   | 'UNSUPPORTED_YIELD_ONLY';
 
@@ -108,7 +109,6 @@ interface EvaluatedCandidate {
   diagnostic: NutritionCandidateDiagnostic;
   identityRank: number;
   preparationRank: number;
-  sourceRank: number;
   per100g: MacroVector | null;
   eligible: boolean;
 }
@@ -131,6 +131,11 @@ const PREPARATION_RANK: Record<PreparationMatchTier, number> = {
   BASIS_ONLY: 2,
   UNSPECIFIED_COMPATIBLE: 3,
 };
+
+const FUZZY_MATCH_THRESHOLD = 0.75;
+const FUZZY_MATCH_MARGIN = 0.05;
+const MACRO_EQUIVALENCE_TOLERANCE = 0.05;
+const MACRO_COMPARISON_FLOOR = 0.1;
 
 const PREPARATION_TERMS: Partial<Record<PreparationCode, readonly string[]>> = {
   RAW: ['raw', 'uncooked'],
@@ -162,6 +167,13 @@ const IDENTITY_STOP_WORDS = new Set([
   'stir', 'shallow', 'deep', 'fried', 'fermented', 'pickled', 'dry', 'dried',
   'dehydrated', 'smoked', 'blended', 'juice', 'juiced', 'drained', 'without',
   'salt', 'added', 'food', 'foods', 'regular', 'prepared', 'cooking', 'salad',
+]);
+
+// Fuzzy fallback may bridge a generic identity to a more-qualified USDA name,
+// but it must not cross into another food or dish (for example paneer -> palak
+// paneer or ginger -> ginger tea).
+const FUZZY_QUALIFIER_TERMS = new Set([
+  'gram', 'mature', 'nfs', 'red', 'ripe', 'roma', 'root', 'seeds', 'soft',
 ]);
 
 const BUILTIN_WATER_IDENTITIES = new Set([
@@ -236,7 +248,14 @@ const CANDIDATE_SQL = `
         OR food.description ILIKE '%' || $4::text || '%'
       ))
     CROSS JOIN active_dataset dataset
-   WHERE ($3::boolean OR food.data_type IS DISTINCT FROM 'branded_food')
+   WHERE (
+     ($3::boolean AND food.data_type = 'branded_food')
+     OR (NOT $3::boolean AND food.data_type IN (
+       'survey_fndds_food',
+       'sr_legacy_food',
+       'foundation_food'
+     ))
+   )
    GROUP BY food.fdc_id,
             food.description,
             food.data_type,
@@ -374,14 +393,6 @@ async function resolveLookup(
   nutrientPresenceMaterialized: boolean,
   candidateLimit: number
 ): Promise<LookupOutcome> {
-  if (leaf.retrievalIntent === 'AMBIGUOUS') {
-    return {
-      selected: null,
-      per100g: null,
-      rejectionReasons: ['AMBIGUOUS_RETRIEVAL_INTENT'],
-      candidates: [],
-    };
-  }
   const terms = lookupTerms(leaf);
   if (terms.length === 0) {
     return {
@@ -392,12 +403,47 @@ async function resolveLookup(
     };
   }
 
-  const result = await query(CANDIDATE_SQL, [
+  const primary = await resolveCandidateCohort(
+    query,
+    leaf,
     terms,
+    datasetVersion,
+    nutrientPresenceMaterialized,
     candidateLimit,
     leaf.retrievalIntent === 'BRANDED_PRODUCT',
     leaf.productQuery === undefined ? null : normalizeIdentity(leaf.productQuery),
-  ]);
+  );
+  if (primary.selected !== null || leaf.retrievalIntent !== 'BRANDED_PRODUCT') return primary;
+
+  // The second pass is deliberately generic. Pass two supplies generic aliases
+  // for branded products; without one, reuse the canonical identity rather than
+  // guessing a product category from a brand name.
+  const genericTerms = genericFallbackTerms(leaf);
+  if (genericTerms.length === 0) return primary;
+  const fallback = await resolveCandidateCohort(
+    query,
+    leaf,
+    genericTerms,
+    datasetVersion,
+    nutrientPresenceMaterialized,
+    candidateLimit,
+    false,
+    null,
+  );
+  return fallback.selected === null ? primary : fallback;
+}
+
+async function resolveCandidateCohort(
+  query: NutritionDatabaseQuery,
+  leaf: IngredientLeaf,
+  terms: string[],
+  datasetVersion: string,
+  nutrientPresenceMaterialized: boolean,
+  candidateLimit: number,
+  brandedOnly: boolean,
+  productQuery: string | null,
+): Promise<LookupOutcome> {
+  const result = await query(CANDIDATE_SQL, [terms, candidateLimit, brandedOnly, productQuery]);
   const evaluated = result.rows
     .map(candidateRow)
     .filter((row): row is CandidateRow => row !== null)
@@ -417,8 +463,8 @@ async function resolveLookup(
     };
   }
 
-  const eligible = evaluated.filter((candidate) => candidate.eligible);
-  if (eligible.length === 0) {
+  const viable = evaluated.filter((candidate) => candidate.eligible);
+  if (viable.length === 0) {
     return {
       selected: null,
       per100g: null,
@@ -427,14 +473,32 @@ async function resolveLookup(
     };
   }
 
-  eligible.sort(compareCandidateRank);
-  const best = eligible[0]!;
-  const top = eligible.filter((candidate) => sameRank(candidate, best));
+  const hardMatches = viable.filter((candidate) => candidate.diagnostic.identityTier !== null);
+  if (hardMatches.length === 0) {
+    return resolveFuzzyCandidate(evaluated, viable, leaf);
+  }
+
+  hardMatches.sort(compareCandidateRank);
+  const best = hardMatches[0]!;
+  const top = hardMatches.filter((candidate) => sameRank(candidate, best));
   if (top.length > 1) {
+    const collisionWinner = resolveExactMacroCollision(top);
+    if (collisionWinner !== null) {
+      collisionWinner.diagnostic.selected = true;
+      for (const candidate of hardMatches) {
+        if (candidate !== collisionWinner) candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
+      }
+      return {
+        selected: collisionWinner.row,
+        per100g: collisionWinner.per100g,
+        rejectionReasons: [],
+        candidates: boundedDiagnostics(evaluated),
+      };
+    }
     for (const candidate of top) {
       candidate.diagnostic.rejectionReasons.push('AMBIGUOUS_MATCH');
     }
-    for (const candidate of eligible.filter((candidate) => !top.includes(candidate))) {
+    for (const candidate of hardMatches.filter((candidate) => !top.includes(candidate))) {
       candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
     }
     return {
@@ -445,8 +509,18 @@ async function resolveLookup(
     };
   }
 
+  if (!isExactIdentityMatch(best) && !passesFuzzyConfidence(best, hardMatches)) {
+    best.diagnostic.rejectionReasons.push('LOW_CONFIDENCE_MATCH');
+    return {
+      selected: null,
+      per100g: null,
+      rejectionReasons: ['LOW_CONFIDENCE_MATCH'],
+      candidates: boundedDiagnostics(evaluated),
+    };
+  }
+
   best.diagnostic.selected = true;
-  for (const candidate of eligible) {
+  for (const candidate of hardMatches) {
     if (candidate !== best) candidate.diagnostic.rejectionReasons.push('LOWER_MATCH_TIER');
   }
   return {
@@ -465,7 +539,7 @@ function evaluateCandidate(
 ): EvaluatedCandidate {
   const identityMatch = hardIdentityMatch(leaf, row);
   const identityTier = identityMatch?.tier ?? null;
-  const preparationTier = identityTier === null ? null : hardPreparationTier(leaf, row);
+  const preparationTier = hardPreparationTier(leaf, row);
   const missingNutrients = missingNutrientsFor(row, nutrientPresenceMaterialized);
   const per100g = missingNutrients.length === 0
     ? macroVector(row, nutrientPresenceMaterialized)
@@ -476,7 +550,7 @@ function evaluateCandidate(
     rejectionReasons.push('DATASET_CHANGED_DURING_RESOLUTION');
   }
   if (identityTier === null) rejectionReasons.push('IDENTITY_MISMATCH');
-  if (identityTier !== null && preparationTier === null) {
+  if (preparationTier === null) {
     rejectionReasons.push('PREPARATION_MISMATCH');
   }
   if (missingNutrients.length > 0) rejectionReasons.push('MISSING_REQUIRED_NUTRIENT');
@@ -503,10 +577,70 @@ function evaluateCandidate(
     preparationRank: preparationTier === null
       ? Number.MAX_SAFE_INTEGER
       : PREPARATION_RANK[preparationTier],
-    sourceRank: trustedSourceRank(row.data_type),
     per100g,
-    eligible: rejectionReasons.length === 0 && per100g !== null,
+    // Identity mismatch is intentionally non-blocking here. Hard identity
+    // matches are resolved first; only their absence unlocks the bounded fuzzy
+    // fallback below. All other safety checks remain blocking.
+    eligible: rejectionReasons.every((reason) => reason === 'IDENTITY_MISMATCH') && per100g !== null,
   };
+}
+
+function resolveFuzzyCandidate(
+  evaluated: EvaluatedCandidate[],
+  viable: EvaluatedCandidate[],
+  leaf: IngredientLeaf
+): LookupOutcome {
+  const identityCompatible = viable.filter((candidate) =>
+    fuzzyIdentityCompatible(leaf, candidate.row)
+  );
+  if (identityCompatible.length === 0) {
+    return {
+      selected: null,
+      per100g: null,
+      rejectionReasons: ['IDENTITY_MISMATCH'],
+      candidates: boundedDiagnostics(evaluated),
+    };
+  }
+
+  identityCompatible.sort((left, right) =>
+    (right.diagnostic.similarity ?? 0) - (left.diagnostic.similarity ?? 0) ||
+    left.row.fdc_id.localeCompare(right.row.fdc_id)
+  );
+  const best = identityCompatible[0]!;
+  if (!passesFuzzyConfidence(best, identityCompatible)) {
+    best.diagnostic.rejectionReasons.push('LOW_CONFIDENCE_MATCH');
+    return {
+      selected: null,
+      per100g: null,
+      rejectionReasons: ['LOW_CONFIDENCE_MATCH'],
+      candidates: boundedDiagnostics(evaluated),
+    };
+  }
+
+  best.diagnostic.rejectionReasons = best.diagnostic.rejectionReasons.filter(
+    (reason) => reason !== 'IDENTITY_MISMATCH'
+  );
+  best.diagnostic.selected = true;
+  return {
+    selected: best.row,
+    per100g: best.per100g,
+    rejectionReasons: [],
+    candidates: boundedDiagnostics(evaluated),
+  };
+}
+
+function fuzzyIdentityCompatible(leaf: IngredientLeaf, row: CandidateRow): boolean {
+  const candidates = [row.normalized_name, row.description].map(identityTokenSet);
+  return [leaf.canonicalIdentity, ...leaf.lookupAliases].some((term) => {
+    const requested = identityTokenSet(term);
+    if (requested.size === 0) return false;
+    return candidates.some((candidate) =>
+      [...requested].every((token) => candidate.has(token)) &&
+      [...candidate].every((token) =>
+        requested.has(token) || FUZZY_QUALIFIER_TERMS.has(token)
+      )
+    );
+  });
 }
 
 function candidateRow(value: Record<string, unknown>): CandidateRow | null {
@@ -638,11 +772,15 @@ function containsIdentityPhrase(candidateName: string, requestedPhrase: string):
 }
 
 function identityTokenSignature(value: string): string {
-  return [...new Set(
+  return [...identityTokenSet(value)].sort().join('|');
+}
+
+function identityTokenSet(value: string): Set<string> {
+  return new Set(
     normalizeIdentity(value)
       .split(' ')
       .filter((token) => token !== '' && !IDENTITY_STOP_WORDS.has(token))
-  )].sort().join('|');
+  );
 }
 
 function hardPreparationTier(
@@ -737,6 +875,67 @@ function lookupTerms(leaf: IngredientLeaf): string[] {
     .filter((term) => term !== ''))];
 }
 
+function genericFallbackTerms(leaf: IngredientLeaf): string[] {
+  const aliases = leaf.lookupAliases.map(normalizeIdentity).filter(Boolean);
+  return aliases.length > 0 ? aliases : lookupTerms(leaf);
+}
+
+function isExactIdentityMatch(candidate: EvaluatedCandidate): boolean {
+  return candidate.diagnostic.identityTier === 'CANONICAL_EXACT' ||
+    candidate.diagnostic.identityTier === 'ALIAS_EXACT';
+}
+
+function sameMacros(left: MacroVector, right: MacroVector): boolean {
+  return left.caloriesKcal === right.caloriesKcal &&
+    left.proteinGrams === right.proteinGrams &&
+    left.carbsGrams === right.carbsGrams &&
+    left.fatGrams === right.fatGrams &&
+    left.fiberGrams === right.fiberGrams;
+}
+
+function withinMacroTolerance(left: MacroVector, right: MacroVector): boolean {
+  return [
+    [left.caloriesKcal, right.caloriesKcal],
+    [left.proteinGrams, right.proteinGrams],
+    [left.carbsGrams, right.carbsGrams],
+    [left.fatGrams, right.fatGrams],
+    [left.fiberGrams, right.fiberGrams],
+  ].every(([a, b]) =>
+    Math.abs(a - b) / Math.max(Math.abs(a), Math.abs(b), MACRO_COMPARISON_FLOOR)
+      <= MACRO_EQUIVALENCE_TOLERANCE
+  );
+}
+
+function resolveExactMacroCollision(
+  candidates: readonly EvaluatedCandidate[]
+): EvaluatedCandidate | null {
+  if (!candidates.every(isExactIdentityMatch) || candidates.some((candidate) => candidate.per100g === null)) {
+    return null;
+  }
+  const vectors = candidates.map((candidate) => candidate.per100g!);
+  if (vectors.every((vector) => sameMacros(vector, vectors[0]!))) {
+    return [...candidates].sort((left, right) => left.row.fdc_id.localeCompare(right.row.fdc_id))[0]!;
+  }
+  if (vectors.every((vector) => withinMacroTolerance(vector, vectors[0]!))) {
+    return [...candidates].sort((left, right) =>
+      left.per100g!.caloriesKcal - right.per100g!.caloriesKcal ||
+      left.row.fdc_id.localeCompare(right.row.fdc_id)
+    )[0]!;
+  }
+  return null;
+}
+
+function passesFuzzyConfidence(
+  candidate: EvaluatedCandidate,
+  eligible: readonly EvaluatedCandidate[]
+): boolean {
+  const score = candidate.diagnostic.similarity ?? 0;
+  const runnerUp = eligible
+    .filter((other) => other !== candidate)
+    .reduce((best, other) => Math.max(best, other.diagnostic.similarity ?? 0), 0);
+  return score >= FUZZY_MATCH_THRESHOLD && score - runnerUp >= FUZZY_MATCH_MARGIN;
+}
+
 function lookupKey(leaf: IngredientLeaf): string {
   return JSON.stringify({
     canonicalIdentity: normalizeIdentity(leaf.canonicalIdentity),
@@ -758,33 +957,31 @@ function normalizeIdentity(value: string): string {
     .trim();
 }
 
-function trustedSourceRank(dataType: string | null): number {
-  switch (normalizeIdentity(dataType ?? '')) {
-    case 'survey fndds food': return 0;
-    case 'sr legacy food': return 1;
-    case 'foundation food': return 2;
-    case 'branded food': return 3;
-    default: return 4;
-  }
-}
-
 function compareCandidateRank(left: EvaluatedCandidate, right: EvaluatedCandidate): number {
   return left.identityRank - right.identityRank ||
     left.preparationRank - right.preparationRank ||
-    left.sourceRank - right.sourceRank ||
     left.row.fdc_id.localeCompare(right.row.fdc_id);
 }
 
 function sameRank(left: EvaluatedCandidate, right: EvaluatedCandidate): boolean {
   return left.identityRank === right.identityRank &&
-    left.preparationRank === right.preparationRank &&
-    left.sourceRank === right.sourceRank;
+    left.preparationRank === right.preparationRank;
 }
 
 function boundedDiagnostics(candidates: EvaluatedCandidate[]): NutritionCandidateDiagnostic[] {
   return [...candidates]
     .sort((left, right) => {
+      if (left.diagnostic.selected !== right.diagnostic.selected) {
+        return left.diagnostic.selected ? -1 : 1;
+      }
       if (left.eligible !== right.eligible) return left.eligible ? -1 : 1;
+      if (
+        left.diagnostic.identityTier === null &&
+        right.diagnostic.identityTier === null
+      ) {
+        return (right.diagnostic.similarity ?? -1) - (left.diagnostic.similarity ?? -1) ||
+          left.row.fdc_id.localeCompare(right.row.fdc_id);
+      }
       return compareCandidateRank(left, right) ||
         (right.diagnostic.similarity ?? -1) - (left.diagnostic.similarity ?? -1);
     })
