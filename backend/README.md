@@ -17,8 +17,6 @@ Backend services are grouped by ownership under `src/services/`:
 - `meal-analysis-v3/` owns the isolated recipe-scenario domain, trusted
   nutrition resolver, pure calculation, bounded questions, presentation, and
   ephemeral shared runner used by the hypothesis CLI.
-- `nutrition/` owns deterministic quantities, portions, dish templates, and
-  local-nutrition pack resolution.
 - `usda/` owns reference-data import, bootstrap, lookup, and ranking helpers.
 - `summaries/` owns daily AI-summary generation and deterministic statistics.
 - `infrastructure/` owns databases, migrations, external clients, storage,

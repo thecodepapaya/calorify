@@ -1,7 +1,7 @@
 # USDA lookup CLI
 
 Use this read-only CLI to inspect how the active local USDA snapshot resolves a
-single food name. It calls the same V3 local nutrition resolver used by meal
+single food name. It calls the same V3 nutrition resolver used by meal
 analysis; it does not maintain separate search terms, matching rules, or
 ordering.
 
