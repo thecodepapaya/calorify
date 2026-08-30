@@ -266,7 +266,7 @@ test('uses an alias as a sole identity authorizer while querying canonical ident
     lookupAliases: ['squash'],
   })])]);
 
-  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 30, false, null, true]);
+  assert.deepEqual(fixture.calls[1]?.params, [['pumpkin', 'squash'], 30, false, null, true, false]);
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'alias-only');
   assert.equal(result.leaves[0]?.candidates[0]?.identityTier, 'ALIAS_EXACT');
 });
@@ -294,7 +294,7 @@ test('uses FTS stemmed identity only when the feature is enabled', async () => {
   });
   const disabledResult = await disabled.resolve([scenario('tomato-disabled', [tomato])]);
   assert.deepEqual(disabledResult.leaves[0]?.rejectionReasons, ['IDENTITY_MISMATCH']);
-  assert.deepEqual(disabledFixture.calls[1]?.params, [['tomato'], 30, false, null, false]);
+  assert.deepEqual(disabledFixture.calls[1]?.params, [['tomato'], 30, false, null, false, false]);
 
   const enabledFixture = queryFixture([readyDataset], [tomatoRow]);
   const enabled = createLocalUsdaNutritionResolver({
@@ -305,7 +305,7 @@ test('uses FTS stemmed identity only when the feature is enabled', async () => {
   assert.equal(enabledResult.leaves[0]?.reference?.sourceRecordId, 'tomatoes-raw');
   assert.equal(enabledResult.leaves[0]?.candidates[0]?.identityTier, 'STEMMED_TOKEN_SET');
   assert.equal(enabledResult.leaves[0]?.candidates[0]?.fullTextRank, 0.2);
-  assert.deepEqual(enabledFixture.calls[1]?.params, [['tomato'], 30, false, null, true]);
+  assert.deepEqual(enabledFixture.calls[1]?.params, [['tomato'], 30, false, null, true, false]);
   assert.match(enabledFixture.calls[1]?.text, /plainto_tsquery\('english', input\.term\)/);
   assert.match(enabledFixture.calls[1]?.text, /stemmed_identity_match/);
 });
@@ -433,7 +433,7 @@ test('deduplicates identical lookup keys within one run and preserves leaf locat
   assert.ok(!candidateCall.text.includes('v3_nutrient_presence_materialized = TRUE'));
   assert.ok(candidateCall.text.includes('food.fiber_present'));
   assert.ok(candidateCall.text.includes('food.data_type IN'));
-  assert.deepEqual(candidateCall.params, [['pumpkin'], 30, false, null, true]);
+  assert.deepEqual(candidateCall.params, [['pumpkin'], 30, false, null, true, false]);
   assert.deepEqual(
     result.leaves.map((item) => [item.reference?.scenarioId, item.reference?.leafId]),
     [['scenario-a', 'pumpkin-a'], ['scenario-b', 'pumpkin-b']]
@@ -449,7 +449,7 @@ test('branded retrieval is cohort-restricted while ambiguous intent uses generic
   })])]);
   assert.equal(branded.leaves[0]?.reference?.sourceRecordId, '168448');
   assert.ok(brandedFixture.calls[1]?.text.includes('product_match_rank'));
-  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 30, true, 'pumpkin', true]);
+  assert.deepEqual(brandedFixture.calls[1]?.params, [['pumpkin'], 30, true, 'pumpkin', true, false]);
 
   const ambiguousFixture = queryFixture([readyDataset], [candidate()]);
   const ambiguousResolver = createLocalUsdaNutritionResolver({ query: ambiguousFixture.query });
@@ -458,7 +458,7 @@ test('branded retrieval is cohort-restricted while ambiguous intent uses generic
   })])]);
   assert.equal(ambiguousFixture.calls.length, 2);
   assert.equal(ambiguous.leaves[0]?.reference?.sourceRecordId, '168448');
-  assert.deepEqual(ambiguousFixture.calls[1]?.params, [['pumpkin'], 30, false, null, true]);
+  assert.deepEqual(ambiguousFixture.calls[1]?.params, [['pumpkin'], 30, false, null, true, false]);
 });
 
 test('retries an unmatched branded lookup with its generic alias', async () => {
@@ -484,8 +484,152 @@ test('retries an unmatched branded lookup with its generic alias', async () => {
   })])]);
 
   assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'generic-cola');
-  assert.deepEqual(calls[1]?.params, [['pepsi cola', 'cola'], 30, true, 'pepsi cola', true]);
-  assert.deepEqual(calls[2]?.params, [['cola'], 30, false, null, true]);
+  assert.deepEqual(calls[1]?.params, [['pepsi cola', 'cola'], 30, true, 'pepsi cola', true, false]);
+  assert.deepEqual(calls[2]?.params, [['cola'], 30, false, null, true, false]);
+});
+
+test('resolves generic spices from the migration-seeded local fallback', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (params?.[5] !== true) return { rows: [] };
+    return { rows: [candidate({
+      fdc_id: '-1000001',
+      description: 'Spices, unspecified (curry-powder profile)',
+      data_type: 'local_fallback',
+      normalized_name: 'spices',
+      kcal_per_100g: 325,
+      protein_per_100g: 14.29,
+      carbs_per_100g: 55.83,
+      fat_per_100g: 14.01,
+      fiber_per_100g: 53.2,
+      identity_similarity: 1,
+    })] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('spices', [ingredient({
+    canonicalIdentity: 'spices',
+    displayName: 'Spices',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, '-1000001');
+  assert.equal(calls.length, 4);
+  assert.deepEqual(calls[3]?.params, [['spices'], 30, false, null, true, true]);
+  assert.ok(calls[3]?.text.includes('usda_resolver_fallback_foods'));
+  assert.ok(calls[3]?.text.includes("'local_fallback'"));
+});
+
+test('retries an unresolved generic leaf with its USDA NFS form', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (params?.[0] instanceof Array && params[0][0] === 'cooked lentils') {
+      return { rows: [candidate({
+        description: 'Lentils, sprouted, cooked',
+        normalized_name: 'lentils sprouted cooked',
+        identity_similarity: 0.4,
+      })] };
+    }
+    return { rows: [candidate({
+      fdc_id: 'lentils-nfs',
+      description: 'Lentils, NFS',
+      normalized_name: 'lentils nfs',
+      identity_similarity: 1,
+    })] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('lentils-nfs', [ingredient({
+    canonicalIdentity: 'cooked lentils',
+    displayName: 'Cooked lentils',
+    nutritionBasis: 'COOKED',
+    preparationCodes: ['COOKED_UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'lentils-nfs');
+  assert.deepEqual(calls[1]?.params, [['cooked lentils'], 30, false, null, true, false]);
+  assert.deepEqual(calls[2]?.params, [['lentils nfs'], 30, false, null, true, false]);
+});
+
+test('does not use NFS to override an explicit nutrition basis', async () => {
+  const fixture = queryFixture([readyDataset], []);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('raw-lentils', [ingredient({
+    canonicalIdentity: 'raw lentils',
+    nutritionBasis: 'RAW',
+    preparationCodes: ['RAW'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference, null);
+  assert.equal(fixture.calls.length, 2);
+});
+
+test('does not use NFS after a preparation mismatch', async () => {
+  const fixture = queryFixture([readyDataset], [candidate({
+    description: 'Lentils',
+    normalized_name: 'lentils',
+  })]);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  const result = await resolver.resolve([scenario('lentils-preparation', [ingredient({
+    canonicalIdentity: 'lentils',
+    nutritionBasis: 'COOKED',
+    preparationCodes: ['COOKED_UNKNOWN'],
+  })])]);
+
+  assert.deepEqual(result.leaves[0]?.rejectionReasons, ['PREPARATION_MISMATCH']);
+  assert.equal(fixture.calls.length, 2);
+});
+
+test('uses NFS after an ambiguous generic primary match', async () => {
+  const calls: Array<{ text: string; params?: unknown[] }> = [];
+  const query: NutritionDatabaseQuery = async (text, params) => {
+    calls.push({ text, params });
+    if (calls.length === 1) return { rows: [readyDataset] };
+    if (params?.[0] instanceof Array && params[0][0] === 'lentils') {
+      return { rows: [
+        candidate({ fdc_id: 'lentils-a', description: 'Lentils', normalized_name: 'lentils' }),
+        candidate({
+          fdc_id: 'lentils-b',
+          description: 'Lentils',
+          normalized_name: 'lentils',
+          kcal_per_100g: 250,
+        }),
+      ] };
+    }
+    return { rows: [candidate({
+      fdc_id: 'lentils-nfs',
+      description: 'Lentils, NFS',
+      normalized_name: 'lentils nfs',
+      identity_similarity: 1,
+    })] };
+  };
+  const resolver = createLocalUsdaNutritionResolver({ query });
+  const result = await resolver.resolve([scenario('lentils-ambiguous', [ingredient({
+    canonicalIdentity: 'lentils',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(result.leaves[0]?.reference?.sourceRecordId, 'lentils-nfs');
+  assert.deepEqual(calls[2]?.params, [['lentils nfs'], 30, false, null, true, false]);
+});
+
+test('does not use NFS for a branded request', async () => {
+  const fixture = queryFixture([readyDataset], []);
+  const resolver = createLocalUsdaNutritionResolver({ query: fixture.query });
+  await resolver.resolve([scenario('branded-lentils', [ingredient({
+    canonicalIdentity: 'lentils',
+    retrievalIntent: 'BRANDED_PRODUCT',
+    productQuery: 'lentils',
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  })])]);
+
+  assert.equal(fixture.calls.length, 3);
+  assert.deepEqual(fixture.calls[2]?.params, [['lentils'], 30, false, null, true, false]);
 });
 
 test('resolves exact collisions by macro equivalence without source-type priority', async (t) => {

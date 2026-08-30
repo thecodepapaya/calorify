@@ -16,6 +16,8 @@ remains the canonical policy for meal analysis as a whole.
 | USDA trigram retrieval | Retain | Implemented |
 | PostgreSQL full-text search and English stemming | Enabled by default; rollback flag remains | Implemented |
 | Stemmed identity tier | Enabled with FTS | Implemented |
+| USDA `NFS` fallback | Exact generic fallback after no better result | Implemented |
+| Generic `spices` fallback | Migration-seeded local profile | Implemented |
 | Embedding generation, pgvector, and semantic retrieval | Defer | Not built |
 | Embeddings as an acceptance signal | Never allow | Permanent constraint |
 
@@ -88,6 +90,70 @@ to `peanut`, and `oil` must not resolve to `boiler`.
 - The resolver remains functional when FTS is unavailable; current trigram
   retrieval is the rollback path.
 
+## USDA NFS fallback
+
+`NFS` means “not further specified.” It is a USDA generic food descriptor,
+not a fuzzy synonym or a hand-maintained ingredient mapping.
+
+**Decision:** after the normal generic lookup has no selected result, make one
+additional lookup for `<base identity> nfs` when the leaf has no specific
+preparation. Select it only if it passes the existing exact-identity, nutrient,
+and candidate-uniqueness gates.
+
+**Rationale:** meal interpretation can identify a base food and that it was
+served, without establishing its exact USDA form. For example, a `cooked
+lentils` leaf may have no safe plain cooked-lentil row, while `Lentils, NFS`
+provides the USDA generic as-served record. This is safer than accepting a
+nearby but different row such as sprouted lentils.
+
+**Flow:**
+
+1. Run normal canonical, alias, FTS, preparation, nutrient, ambiguity, and
+   constrained-fuzzy resolution.
+2. If it selects a row, keep that row: it is better than NFS.
+3. Otherwise, for a generic leaf with only `UNKNOWN`, `OTHER`, or
+   `COOKED_UNKNOWN` preparation, remove preparation words from its canonical
+   identity and query `<base identity> nfs`.
+4. Evaluate the NFS candidate as `AS_SERVED`. Macros remain per 100 g; this
+   changes compatibility only, not portion scaling. The resolver never uses an
+   NFS household-serving weight: calculation scales the verified per-100-g
+   vector only by the leaf's resolved gram amount.
+5. If no unique exact NFS row passes, preserve the original unresolved result.
+
+**Boundaries:** NFS fallback is unavailable for branded requests, explicit
+`RAW`, `DRY`, or `DRAINED` bases, or any specific preparation code. It is
+allowed after a generic primary ambiguity, but it cannot select an approximate
+NFS result. The local snapshot has `Lentils, NFS`; it does not have `Onion,
+NFS`, so unspecified onion remains unresolved when raw and cooked candidates
+are ambiguous.
+
+## Generic spices fallback
+
+**Decision:** resolve the exact generic identity `spices` through a
+resolver-owned database record when no more-specific interpretation is
+available. The record is `Spices, unspecified (curry-powder profile)` and uses
+the macro profile from USDA FDC `170924`, `Spices, curry powder`.
+
+**Rationale:** `spices` is a category, not a resolvable USDA food identity.
+Choosing cumin, dill, or another individual spice would invent composition;
+using a fixed, explicit profile is deterministic and auditable. Named blends
+and concrete spice components continue through ordinary USDA resolution.
+
+**Lifecycle:** migration
+`backend/migrations/usda/20260831_usda_resolver_fallback_foods.sql` creates
+`usda_resolver_fallback_foods` and idempotently upserts the record. The table
+is intentionally separate from `usda_foods`, because every USDA source refresh
+replaces `usda_foods`. Staging and production receive it through the normal
+`usda-bootstrap` migration runner; profile changes require a new migration,
+never a direct database edit.
+
+**Boundary:** the record uses `data_type = local_fallback` and a negative
+internal ID, so it is visibly not an FDC record. It participates only in
+generic retrieval and must still pass the normal identity, macro, and ranking
+checks. USDA and NFS queries exclude this table; it is queried only after
+neither has selected a row, so a local profile cannot shadow a future USDA
+record.
+
 ## Phase 1: full-text search and stemmed identity
 
 **Status: implemented and enabled by default. Set `USDA_FTS_ENABLED=false` to
@@ -154,9 +220,9 @@ Examples:
 3. Release with FTS enabled by default.
 4. Roll back behavior by setting `USDA_FTS_ENABLED=false`. The trigram path remains
    intact; removing the index is not required for behavioral rollback.
-5. If the migration fails or the index is invalid, leave FTS disabled and fix
-   the migration. Do not alter an applied migration because migration checksums
-   make that fail deterministically.
+5. If the migration fails or the index is invalid, set `USDA_FTS_ENABLED=false`
+   and fix the migration. Do not alter an applied migration because migration
+   checksums make that fail deterministically.
 
 ### Validation and promotion criteria
 

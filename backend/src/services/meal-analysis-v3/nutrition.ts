@@ -219,6 +219,40 @@ const CANDIDATE_SQL = `
        AND is_materialized = TRUE
      ORDER BY imported_at DESC
      LIMIT 1
+  ), candidate_foods AS (
+    SELECT fdc_id,
+           description,
+           data_type,
+           normalized_name,
+           kcal_per_100g,
+           protein_per_100g,
+           carbs_per_100g,
+           fat_per_100g,
+           fiber_per_100g,
+           kcal_present,
+           protein_present,
+           carbs_present,
+           fat_present,
+           fiber_present
+      FROM usda_foods
+     WHERE NOT $6::boolean
+    UNION ALL
+    SELECT fdc_id,
+           description,
+           data_type,
+           normalized_name,
+           kcal_per_100g,
+           protein_per_100g,
+           carbs_per_100g,
+           fat_per_100g,
+           fiber_per_100g,
+           kcal_present,
+           protein_present,
+           carbs_present,
+           fat_present,
+           fiber_present
+      FROM usda_resolver_fallback_foods
+     WHERE $6::boolean
   )
   SELECT food.fdc_id,
          food.description,
@@ -279,7 +313,7 @@ const CANDIDATE_SQL = `
            similarity(food.normalized_name, $4::text),
            similarity(food.description, $4::text)
          )) AS product_similarity
-    FROM usda_foods food
+    FROM candidate_foods food
     JOIN lookup_terms terms
       ON food.normalized_name % terms.term
       OR food.description % terms.term
@@ -303,7 +337,8 @@ const CANDIDATE_SQL = `
      OR (NOT $3::boolean AND food.data_type IN (
        'survey_fndds_food',
        'sr_legacy_food',
-       'foundation_food'
+       'foundation_food',
+       'local_fallback'
      ))
    )
    GROUP BY food.fdc_id,
@@ -472,7 +507,41 @@ async function resolveLookup(
     leaf.retrievalIntent === 'BRANDED_PRODUCT',
     leaf.productQuery === undefined ? null : normalizeIdentity(leaf.productQuery),
   );
-  if (primary.selected !== null || leaf.retrievalIntent !== 'BRANDED_PRODUCT') return primary;
+  if (primary.selected !== null) return primary;
+
+  const nfsFallback = nfsFallbackLeaf(leaf, primary);
+  if (nfsFallback !== null) {
+    const fallback = await resolveCandidateCohort(
+      query,
+      nfsFallback,
+      lookupTerms(nfsFallback),
+      datasetVersion,
+      nutrientPresenceMaterialized,
+      candidateLimit,
+      fullTextEnabled,
+      false,
+      null,
+    );
+    if (fallback.selected !== null) return fallback;
+  }
+
+  if (localFallbackAllowed(leaf, primary)) {
+    const fallback = await resolveCandidateCohort(
+      query,
+      leaf,
+      lookupTerms(leaf),
+      datasetVersion,
+      nutrientPresenceMaterialized,
+      candidateLimit,
+      fullTextEnabled,
+      false,
+      null,
+      true,
+    );
+    if (fallback.selected !== null) return fallback;
+  }
+
+  if (leaf.retrievalIntent !== 'BRANDED_PRODUCT') return primary;
 
   // The second pass is deliberately generic. Pass two supplies generic aliases
   // for branded products; without one, reuse the canonical identity rather than
@@ -493,6 +562,54 @@ async function resolveLookup(
   return fallback.selected === null ? primary : fallback;
 }
 
+function localFallbackAllowed(leaf: IngredientLeaf, primary: LookupOutcome): boolean {
+  return leaf.retrievalIntent === 'GENERIC_INGREDIENT' &&
+    hasUnspecifiedPreparation(leaf) &&
+    primary.rejectionReasons.every((reason) =>
+      reason === 'NO_CANDIDATES' ||
+      reason === 'IDENTITY_MISMATCH' ||
+      reason === 'LOW_CONFIDENCE_MATCH' ||
+      reason === 'AMBIGUOUS_MATCH'
+    );
+}
+
+function nfsFallbackLeaf(
+  leaf: IngredientLeaf,
+  primary: LookupOutcome
+): IngredientLeaf | null {
+  if (
+    leaf.retrievalIntent !== 'GENERIC_INGREDIENT' ||
+    !hasUnspecifiedPreparation(leaf) ||
+    !primary.rejectionReasons.every((reason) =>
+      reason === 'NO_CANDIDATES' ||
+      reason === 'IDENTITY_MISMATCH' ||
+      reason === 'LOW_CONFIDENCE_MATCH' ||
+      reason === 'AMBIGUOUS_MATCH'
+    )
+  ) return null;
+
+  const identity = normalizeIdentity(leaf.canonicalIdentity)
+    .split(' ')
+    .filter((token) => token !== '' && !IDENTITY_STOP_WORDS.has(token))
+    .join(' ');
+  if (identity === '') return null;
+
+  return {
+    ...leaf,
+    canonicalIdentity: `${identity} nfs`,
+    lookupAliases: [],
+    nutritionBasis: 'AS_SERVED',
+    preparationCodes: ['UNKNOWN'],
+  };
+}
+
+function hasUnspecifiedPreparation(leaf: IngredientLeaf): boolean {
+  if (['RAW', 'DRY', 'DRAINED'].includes(leaf.nutritionBasis)) return false;
+  return leaf.preparationCodes.every((code) =>
+    code === 'UNKNOWN' || code === 'OTHER' || code === 'COOKED_UNKNOWN'
+  );
+}
+
 async function resolveCandidateCohort(
   query: NutritionDatabaseQuery,
   leaf: IngredientLeaf,
@@ -503,6 +620,7 @@ async function resolveCandidateCohort(
   fullTextEnabled: boolean,
   brandedOnly: boolean,
   productQuery: string | null,
+  localFallbackOnly = false,
 ): Promise<LookupOutcome> {
   const result = await query(CANDIDATE_SQL, [
     terms,
@@ -510,6 +628,7 @@ async function resolveCandidateCohort(
     brandedOnly,
     productQuery,
     fullTextEnabled,
+    localFallbackOnly,
   ]);
   const evaluated = result.rows
     .map(candidateRow)
