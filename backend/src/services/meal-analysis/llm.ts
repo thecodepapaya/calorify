@@ -135,7 +135,13 @@ function completionDebugDetail(response: CompletionResponse): Readonly<Record<st
 }
 
 function modelOutputForTrace(response: CompletionResponse): unknown {
-  const content = response.choices[0]?.message?.content;
+  const responseValue = response as unknown;
+  const choices = responseValue !== null && typeof responseValue === 'object'
+    ? (responseValue as { choices?: unknown }).choices
+    : undefined;
+  const content = Array.isArray(choices)
+    ? (choices[0] as { message?: { content?: unknown } } | undefined)?.message?.content
+    : undefined;
   if (typeof content !== 'string') return content ?? null;
   try {
     return JSON.parse(content) as unknown;

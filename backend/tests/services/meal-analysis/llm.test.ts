@@ -211,6 +211,23 @@ test('handles a provider response without choices and prints its safe shape', as
   assert.doesNotMatch(output, /do not log this provider body/);
 });
 
+test('traces a provider response without choices without masking its validation error', async () => {
+  reset();
+  implementation = async () => ({ error: { message: 'provider error' } });
+  const entries: unknown[] = [];
+
+  await assert.rejects(
+    createMealAnalysisLlmClient({ writeProviderTrace: (entry) => entries.push(entry) })
+      .chat.completions.create(request),
+    /Meal analysis LLM provider failed/
+  );
+
+  const error = entries.find((entry) => (entry as { event?: string }).event === 'provider_error') as {
+    error?: { name?: string };
+  } | undefined;
+  assert.equal(error?.error?.name, 'MealAnalysisLlmResponseError');
+});
+
 test('CLI diagnostics write complete success and error artifacts', async () => {
   reset();
   const entries: unknown[] = [];

@@ -16,6 +16,9 @@ import {
 import { MEAL_TYPES } from './mealType.js';
 
 const label = z.string().trim().min(1).max(160);
+// Models commonly represent an optional JSON field as null. Normalize that
+// transport form so downstream domain objects retain the omission invariant.
+const optionalLabel = label.nullish().transform((value) => value ?? undefined);
 export const MODEL_ORIGINS = ['user_text', 'model_inferred'] as const;
 const originSchema = z.enum(MODEL_ORIGINS);
 const mealTypeSchema = z.enum(MEAL_TYPES);
@@ -145,7 +148,7 @@ const compactIngredientSchema = z.object({
   canonicalIdentity: label,
   lookupAliases: z.array(label).max(3),
   retrievalIntent: foodRetrievalIntentSchema,
-  productQuery: label.optional(),
+  productQuery: optionalLabel,
   amountGrams: nonnegativeRangeSchema,
 }).strict().superRefine((ingredient, ctx) => {
   const normalizedCanonical = normalized(ingredient.canonicalIdentity);

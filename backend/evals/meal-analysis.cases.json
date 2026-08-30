@@ -80,6 +80,20 @@
           "diagnosticIngredientGroups": [
             ["milk"]
           ]
+        },
+        {
+          "key": "milk",
+          "aliases": ["milk", "cow's milk", "dairy milk"],
+          "portion": {
+            "kind": "AMOUNT",
+            "estimateMin": 100,
+            "estimateMax": 500,
+            "origin": "model_inferred"
+          },
+          "requiredIngredientGroups": [
+            ["milk"]
+          ],
+          "diagnosticIngredientGroups": []
         }
       ]
     },

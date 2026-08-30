@@ -220,6 +220,17 @@ test('compact ingredient aliases are unique and exclude the canonical identity',
   assert.equal(secondPassResponseSchema.safeParse(canonical).success, false);
 });
 
+test('compact schema normalizes null optional product queries to omission', () => {
+  const response = structuredClone(secondPass);
+  const ingredient = response.components[0]!.ingredients[0]! as typeof response.components[0]['ingredients'][number] & {
+    productQuery?: null;
+  };
+  ingredient.productQuery = null;
+
+  const parsed = secondPassResponseSchema.parse(response);
+  assert.equal(parsed.components[0]!.ingredients[0]!.productQuery, undefined);
+});
+
 test('two-pass fixture expands compact daal and roti responses into calculation scenarios', async () => {
   const result = await createTwoPassFixtureMealInterpreter(firstPass, secondPass).interpret(compactInput);
   assert.equal(result.proposal.outcome, 'FOOD');

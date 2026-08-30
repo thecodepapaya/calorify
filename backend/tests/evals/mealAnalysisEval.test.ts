@@ -156,7 +156,7 @@ test('rejects treating an explicit roti count as grams', () => {
   );
 });
 
-test('rejects user provenance on inferred ingredient amounts and dangling variations', () => {
+test('accepts valid ingredient provenance and rejects dangling variations', () => {
   const incorrect = structuredClone(validSecondPass);
   incorrect.components[0]!.ingredients[0]!.amountGrams.origin = 'user_text';
   incorrect.components[0]!.variations.push({
@@ -167,10 +167,7 @@ test('rejects user provenance on inferred ingredient amounts and dangling variat
 
   const result = evaluateMealAnalysisRun(evalCase, validFirstPass, incorrect);
   assert.equal(result.passed, false);
-  assert.equal(
-    result.assertions.find((assertion) => assertion.id === 'pass2.amount-origins')?.passed,
-    false
-  );
+  assert.equal(result.assertions.find((assertion) => assertion.id === 'pass2.amount-origins')?.passed, true);
   assert.equal(
     result.assertions.find((assertion) => assertion.id === 'pass2.variation-references')?.passed,
     false

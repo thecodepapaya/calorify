@@ -152,7 +152,7 @@ async function runOnce(
     error = caught instanceof Error ? caught.message : 'Unknown eval error';
   }
 
-  const runPrefix = `run-${String(runNumber).padStart(2, '0')}`;
+  const runPrefix = `${safePart(evalCase.id)}-run-${String(runNumber).padStart(2, '0')}`;
   for (let index = 0; index < entries.length; index += 1) {
     const entry = entries[index];
     const record = entry !== null && typeof entry === 'object'

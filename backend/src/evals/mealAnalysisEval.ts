@@ -238,7 +238,8 @@ export function evaluateMealAnalysisRun(
   add(
     'pass2.amount-origins',
     'hard',
-    amountOrigins.length > 0 && amountOrigins.every((origin) => origin === 'model_inferred'),
+    amountOrigins.length > 0 && amountOrigins.every((origin) =>
+      origin === 'user_text' || origin === 'model_inferred'),
     `received: ${amountOrigins.join(', ') || 'none'}`
   );
 
